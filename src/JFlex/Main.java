@@ -145,7 +145,7 @@ public class Main implements ErrorMessages {
 
   }
 
-  public static Vector parseOptions(String argv[]) {
+  public static Vector parseOptions(String argv[]) throws SilentExit {
     Vector files = new Vector();
 
     for (int i = 0; i < argv.length; i++) {
@@ -191,7 +191,7 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("--version") || argv[i].equals("-version") ) {
         Out.println("This is JFlex "+version);
-        throw new GeneratorException();
+        throw new SilentExit();
       }
 
       if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) {
@@ -201,12 +201,12 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("--help") || argv[i].equals("-h") || argv[i].equals("/h") ) {
         printUsage();
-        throw new GeneratorException();
+        throw new SilentExit();
       }
 
       if ( argv[i].equals("--info") || argv[i].equals("-info") ) {
         Out.printSystemInfo();
-        throw new GeneratorException();
+        throw new SilentExit();
       }
       
       if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) {
@@ -237,7 +237,7 @@ public class Main implements ErrorMessages {
       if ( argv[i].startsWith("-") ) {
         Out.error("Error: unknown option \""+argv[i]+"\"");
         printUsage();
-        throw new GeneratorException();
+        throw new SilentExit();
       }
 
       // if argv[i] is not an option, try to read it as file 
@@ -283,7 +283,7 @@ public class Main implements ErrorMessages {
   }
 
 
-  public static void generate(String argv[]) {
+  public static void generate(String argv[]) throws SilentExit {
     Vector files = parseOptions(argv);
 
     if (files.size() > 0) {
@@ -309,6 +309,9 @@ public class Main implements ErrorMessages {
     }
     catch (GeneratorException e) {
       Out.statistics();
+      System.exit(1);
+    }
+    catch (SilentExit e) {
       System.exit(1);
     }
   }
