@@ -94,14 +94,14 @@ public final class CharSet {
   }
   
   public String toString() {
-    CharSetEnumerator enum = characters();
+    CharSetEnumerator set = characters();
 
     StringBuffer result = new StringBuffer("{");
 
-    if ( enum.hasMoreElements() ) result.append(""+enum.nextElement());
+    if ( set.hasMoreElements() ) result.append(""+set.nextElement());
 
-    while ( enum.hasMoreElements() ) {
-      int i = enum.nextElement();
+    while ( set.hasMoreElements() ) {
+      int i = set.nextElement();
       result.append( ", "+(int)i);
     }
 
