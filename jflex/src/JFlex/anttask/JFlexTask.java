@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Anttask                                                           *
  * Copyright (C) 2001       Rafal Mantiuk <Rafal.Mantiuk@bellstream.pl>    *
+ * Copyright (C) 2003       changes by Gerwin Klein <lsf@jflex.de>         *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -44,24 +45,133 @@ public class JFlexTask extends Task {
   private boolean displayTime = false; //display generation time statistics
   private File skeletonFile = null;
 
+	// found out by looking into .flex file 
+	private String className = null;
+	private String packageName = null;
+	
+	/** the actual output directory (outputDir = destinationDir + package)) */
+	private File outputDir = null;
+
   public void execute() throws BuildException {
-
-    try {
-
-      if (inputFile == null) {
+   	try {
+      if (inputFile == null) 
         throw new BuildException("You must specify the input file for JFlex!");
+
+			if (!inputFile.canRead()) 
+				throw new BuildException("Cannot read input file "+inputFile);
+
+			try {
+      	findPackageAndClass();        
+        normalizeOutdir();
+        File destFile = new File(outputDir, className + ".java");
+        if (inputFile.lastModified() > destFile.lastModified()) {      
+          configure();      
+          wrapper.generate(inputFile);
+      
+          if (!verbose)
+            System.out.println("Generated: " + destFile.getName());
+        }
+      } catch (IOException e1) {
+        throw new BuildException("IOException: " + e1.toString());
       }
-
-      processFile(inputFile);
-
     } catch (JFlex.GeneratorException e) {
       throw new BuildException("JFlex: generation failed!");
     }
   }
 
+	/**
+	 * Peek into .flex file to get package and class name
+	 * 
+	 * @throws IOException  if there is a problem reading the .flex file 
+	 */
+	public void findPackageAndClass() throws IOException {
+		// find name of the package and class in jflex source file
+		packageName = null;
+		className = null;
+
+		LineNumberReader reader = new LineNumberReader(new FileReader(inputFile));
+
+		while (className == null || packageName == null) {
+			String line = reader.readLine();
+			if (line == null)	break;
+
+			if (packageName == null) {
+				int index = line.indexOf("package");
+				if (index >= 0) {
+					index += 7;
+
+					int end = line.indexOf(';', index);
+					if (end >= index) {
+						packageName = line.substring(index, end);
+						packageName = packageName.trim();
+					}
+				}
+			}
+
+			if (className == null) {
+				int index = line.indexOf("%class");
+				if (index >= 0) {
+					index += 6;
+
+					className = line.substring(index);
+					className = className.trim();
+				}
+			}
+		}
+
+		// package name may be null, but class name not
+		if (className == null) className = "Yylex";
+	}
+
+	/**
+	 * Configures JFlex according to the settings in this class
+	 */
+	public void configure() {
+		wrapper.setTimeStatistics(displayTime);
+		wrapper.setVerbose(verbose);
+		wrapper.setGenerateDot(generateDot);
+		wrapper.setSkipMinimization(skipMin);
+		wrapper.setSkeleton(skeletonFile);
+		wrapper.setDestinationDir(outputDir.toString());
+	}
+
+	/**
+	 * Sets the actual output directory if not already set. 	
+	 *
+	 * Uses javac logic to determine output dir = dest dir + package name
+	 * If not destdir has been set, output dir = parent of input file
+	 * 
+	 * Assumes that package name is already set. 
+	 */
+  public void normalizeOutdir() {
+  	if (outputDir != null) return;
+  	
+    // find out what the destination directory is. Append packageName to dest dir.      
+    File destDir;
+    
+    // this is not the default the jflex logic, but javac-like 
+    if (destinationDir != null) {
+      if (packageName == null) {
+    		destDir = destinationDir;
+      }         
+      else {
+        String path = packageName.replace('.', File.separatorChar);
+        destDir = new File(destinationDir,path);
+      }
+    } else { //save parser to the same dir as .flex
+      destDir = new File(inputFile.getParent());
+    }
+    
+    setOutdir(destDir);     
+  }
+
   public void setDestdir(File destinationDir) {
     this.destinationDir = destinationDir;
   }
+
+	public void setOutdir(File outDir) {
+		this.outputDir = outDir;
+	}
 
   public void setFile(File file) {
     this.inputFile = file;
@@ -82,98 +192,26 @@ public class JFlexTask extends Task {
   public void setSkeleton(File skeleton) {
     this.skeletonFile = skeleton;
   }
-
+ 
   public void setSkipMinimization(boolean skipMin) {
     this.skipMin = skipMin;
   }
 
-  protected void processFile(File file) throws BuildException {
-    try {
-
-      // find name of the package and class in jflex source file
-      String packageName = null;
-      String className = null;
-
-      LineNumberReader reader =
-        new LineNumberReader(new InputStreamReader(new FileInputStream(file)));
-
-      for (;;) {
-        String line = reader.readLine();
-        if (line == null)
-          break;
-
-        if (packageName == null) {
-          int index = line.indexOf("package");
-          if (index != -1) {
-            index += 7;
-
-            int end = line.indexOf(';', index);
-            if (end != -1) {
-              packageName = line.substring(index, end);
-              packageName = packageName.trim();
-            }
-          }
-        }
-
-        if (className == null) {
-          int index = line.indexOf("%class");
-          if (index != -1) {
-            index += 6;
-
-            className = line.substring(index);
-            className = className.trim();
-          }
-        }
-
-        // We have all the necessary information. No further parsing is necessary
-        if (className != null && packageName != null)
-          break;
-     	}
-
-      if (className == null) className = "Yylex";
-      
-      // find out what the destination directory is. Append packageName to dest dir.      
-      File destDir;
-
-	    // this is not the default the jflex logic, but javac like 
-	    // (takes package name into account for output dir)	   
-      if (destinationDir != null) {
-        if (packageName == null) {
-					destDir = destinationDir;
-        }         
-        else {
-          String path = packageName.replace('.', File.separatorChar);
-          destDir = new File(destinationDir,path);
-        }
-      } else { //save parser to the same dir as .flex
-        destDir = new File(file.getParent());
-      }     
-
-      File destFile =
-        new File(destDir.toString() + File.separator + className + ".java");
-
-      if (file.lastModified() > destFile.lastModified()) {
-
-        //configure JFlex
-        configure(destDir);
-
-        wrapper.generate(file);
-
-        if (!verbose)
-          System.out.println("Generated: " + destFile.getName());
-      }
-    } catch (IOException e) {
-      throw new BuildException("IOException: " + e.toString());
-    }
+  /**
+   * @return package name of input file
+   * 
+   * @see JFlexTask.findPackageAndClass
+   */
+  public String getPackage() {
+    return packageName;
   }
 
-  public void configure(File destDir) {
-    wrapper.setTimeStatistics(displayTime);
-    wrapper.setVerbose(verbose);
-    wrapper.setGenerateDot(generateDot);
-    wrapper.setSkipMinimization(skipMin);
-    wrapper.setSkeleton(skeletonFile);
-    wrapper.setDestinationDir(destDir.toString());
+  /**
+   * @return class name of input file
+   * 
+   * @see JFlexTask.findPackageAndClass
+   */
+  public String getClassName() {
+    return className;
   }
-
 }
