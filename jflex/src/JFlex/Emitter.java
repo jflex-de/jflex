@@ -222,7 +222,7 @@ final public class Emitter {
       println("   */");
       println("  private String getTokenName(int token) {");
       println("    try {");
-      println("      java.lang.reflect.Field [] class_fields = sym.class.getFields();");
+      println("      java.lang.reflect.Field [] class_fields = " + scanner.cupSymbol + ".class.getFields();");
       println("      for (int i = 0; i < class_fields.length; i++) {");
       println("        if (class_fields[i].getInt(null) == token) {");
       println("          return class_fields[i].getName();");
