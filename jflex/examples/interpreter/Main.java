@@ -36,7 +36,18 @@ import java.io.*;
 public class Main {
 
   public static void main(String [] args) throws Exception {
-    Reader reader = new InputStreamReader(System.in);
+    Reader reader = null;
+    
+    if (args.length == 1) {
+      File input = new File(args[0]);
+      if (!input.canRead()) {
+        System.out.println("Error: could not read ["+input+"]");
+      }
+      reader = new FileReader(input);
+    }
+    else {  
+     reader = new InputStreamReader(System.in);
+    }
 
     Yylex scanner = new Yylex(reader);   // create scanner
     SymTab symtab = new SymTab();        // set global symbol table    
