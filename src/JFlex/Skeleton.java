@@ -41,6 +41,10 @@ import java.util.Vector;
  * @version JFlex 1.4.1, $Revision$, $Date$
  */
 public class Skeleton {
+  
+  /** location of default skeleton */
+  static final private String DEFAULT_LOC = "JFlex/skeleton.default"; //$NON-NLS-1$
+  
   /** expected number of sections in the skeleton file */
   static final private int size = 21;
 
@@ -189,7 +193,18 @@ public class Skeleton {
    */
   public static void readDefault() {
     ClassLoader l = Skeleton.class.getClassLoader();
-    URL url = l.getResource("JFlex/skeleton.default"); //$NON-NLS-1$
+    URL url;
+    
+    /* Try to load from same class loader as this class.
+     * Should work, but does not on OS/2 JDK 1.1.8 (see bug 1065521).
+     * Use system class loader in this case.
+     */
+    if (l != null) {
+      url = l.getResource(DEFAULT_LOC); 
+    }
+    else {
+      url = ClassLoader.getSystemResource(DEFAULT_LOC); 
+    }
 
     if (url == null) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
