@@ -51,9 +51,9 @@ public class PackEmitterTest extends TestCase {
   public void testInit() {
     p.emitInit();
     assertEquals(
-      "  private static final int [] YY_BLA = yyFlexUnpackBla();" + Out.NL +
+      "  private static final int [] ZZ_BLA = zzUnpackBla();" + Out.NL +
       Out.NL +
-      "  private static final String YY_BLA_PACKED_0 =" + Out.NL +
+      "  private static final String ZZ_BLA_PACKED_0 =" + Out.NL +
       "    \"", 
       p.toString());
   }

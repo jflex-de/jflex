@@ -49,19 +49,19 @@ public class HiLowEmitter extends PackEmitter {
     // close last string chunk:
     println("\";");
     nl();
-    println("  private static int [] yyFlexUnpack"+name+"() {");
+    println("  private static int [] zzUnpack"+name+"() {");
     println("    int [] result = new int["+numEntries+"];");
     println("    int offset = 0;");
 
     for (int i = 0; i < chunks; i++) {
-      println("    offset = yyFlexUnpack"+name+"("+constName()+"_PACKED_"+i+", offset, result);");
+      println("    offset = zzUnpack"+name+"("+constName()+"_PACKED_"+i+", offset, result);");
     }
 
     println("    return result;");
     println("  }");
 
     nl();
-    println("  private static int yyFlexUnpack"+name+"(String packed, int offset, int [] result) {");
+    println("  private static int zzUnpack"+name+"(String packed, int offset, int [] result) {");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = offset;  /* index in unpacked array */");
     println("    int l = packed.length();");
