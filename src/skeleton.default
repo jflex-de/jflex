@@ -10,8 +10,8 @@
 
   /* error codes */
   private static final int YY_UNKNOWN_ERROR = 0;
-  private static final int YY_NO_MATCH = 2;
-  private static final int YY_PUSHBACK_2BIG = 3;
+  private static final int YY_NO_MATCH = 1;
+  private static final int YY_PUSHBACK_2BIG = 2;
 
   /* error messages for the codes above */
   private static final String YY_ERROR_MSG[] = {
