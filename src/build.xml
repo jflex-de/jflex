@@ -29,8 +29,13 @@
     <cup file="JFlex/LexParse.cup" dir="JFlex" interface="true" parser="LexParse" />
   </target>
 
-  <target name="jar" depends="compile">
-    <jar basedir="../lib" includes="JFlex/**,java_cup/**" jarfile="../lib/JFlex.jar" manifest="manifest"/>
+  <target name="copy">
+    <copy file="skeleton.default" todir="../lib/JFlex" />
+    <copy file="JFlex/Messages.properties" todir="../lib/JFlex/" />
+  </target>
+
+  <target name="jar" depends="compile,copy">
+    <jar basedir="../lib" includes="JFlex/**,java_cup/**,skeleton" jarfile="../lib/JFlex.jar" manifest="manifest"/>
   </target>
 
   <target name="libclean">
