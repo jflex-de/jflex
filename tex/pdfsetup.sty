@@ -1,4 +1,11 @@
-
 \@ifundefined{pdfoutput}{\usepackage{url}}
-{\usepackage[pdftex,a4paper,colorlinks=true]{hyperref}
-  \gdef\bold#1{\textbf{\hyperpage{#1}}}}
+{\usepackage{color}
+\definecolor{lcol}{rgb}{0,0,0.5}
+\usepackage[a4paper,bookmarks,
+            colorlinks=true,linkcolor=lcol,citecolor=lcol,
+            filecolor=lcol,pagecolor=lcol,urlcolor=lcol,
+            pdfauthor={Gerwin Klein},
+            pdftitle={JFlex User's Manual},
+            pdfkeywords={Java, scanner, lexer, scanner generator},
+            plainpages=false]{hyperref}
+\gdef\bold#1{\textbf{\hyperpage{#1}}}}

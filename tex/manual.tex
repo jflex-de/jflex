@@ -11,7 +11,7 @@
 
 \newcommand{\trit}{\em}
 
-\newcommand{\ver}{1.3.5}
+\newcommand{\ver}{1.4\_pre4}
 
 \begin{document}
 \latex{{\centerline{\hspace*{0mm}\includegraphics[scale=0.6]{logo}}}}
@@ -59,8 +59,8 @@ The main design goals of JFlex are:
 
 \subsection{About this manual}
 This manual gives a brief but complete description of the tool JFlex. It
-assumes, that you are familiar with the issue of lexical analysis. \cite{Appel},
-\cite{Aho} and \cite{Maurer} provide a good introduction to this topic.
+assumes that you are familiar with the issue of lexical analysis. The references \cite{Aho},
+\cite{Appel}, and \cite{Maurer} provide a good introduction to this topic.
 
 The next section of this manual describes \htmlref{\emph{installation procedures}}{Installing} 
 for JFlex. If you never worked with JLex or
@@ -68,11 +68,11 @@ just want to compare a JLex and a JFlex scanner specification you
 should also read \htmlref{\emph{Working with JFlex - an example}}{Example} 
 (section \ref{Example}).  All options and the complete
 specification syntax are presented in 
-\htmlref{\emph{Lexical specifications}}{Specifications} (section \ref{Specifications}),
-while \htmlref{\emph{Encodings, Platforms, and Unicode}}{sec:encodings} (section \ref{sec:encodings})
+\htmlref{\emph{Lexical specifications}}{Specifications} (section \ref{Specifications});
+\htmlref{\emph{Encodings, Platforms, and Unicode}}{sec:encodings} (section \ref{sec:encodings})
 provides information about scannig text vs.~binary files.
 If you are interested in performance
-considerations and comparing JLex vs.~JFlex speed, 
+considerations and comparing JLex with JFlex speed, 
 \htmlref{\emph{a few words on performance}}{performance} (section \ref{performance})
 might be just right for you. Those who want to
 use their old JLex specifications may want to check out section \ref{Porting}
@@ -93,7 +93,7 @@ The manual concludes with notes about
 \subsection{Installing JFlex}
 
 \subsubsection{Windows\label{install:windows}}
-To install JFlex on Windows 95/98/NT, follow these three steps:
+To install JFlex on Windows 95/98/NT/XP, follow these three steps:
 \begin{enumerate}
 \item
 Unzip the file you downloaded into the directory you want JFlex in (using
@@ -291,6 +291,9 @@ Both specifications adhere to the Java Language Specification \cite{LangSpec}.
 /* JFlex example: part of Java language lexer specification */
 import java_cup.runtime.*;
 
+/**
+ * This class is a simple example lexer.
+ */
 %%
 \end{verbatim}
 \label{CodeOptions}\begin{verbatim}
@@ -402,7 +405,8 @@ Let's take a look at the first section, ``user code'': The text up to the
 first line starting with \texttt{\%\%} is copied verbatim to the top 
 of the generated lexer class (before the actual class declaration). 
 Beside \texttt{package} and \texttt{import} statements there is usually not much 
-to do here.
+to do here. If the code ends with a javadoc class comment, the generated class
+will get this comment, if not, JFlex will generate one automatically.
 
 \subsection{Options and Macros\label{ExampleOptions}}
 The second section ``options and declarations'' is more interesting. It consists
@@ -663,7 +667,7 @@ by the name of the class for the generated scanner (the double quotes are
 section \ref{CodeOptions}).
  
 \subsubsection{Class options and user class code\label{ClassOptions}}
-These options regard the name, the constructor and related parts of the
+These options regard name, constructor, API, and related parts of the
 generated scanner class.
 \begin{itemize}
 \item
@@ -708,13 +712,25 @@ Makes the generated class final.
 Makes the generated class abstract.
  
 \item
-{\bf \verb+%{+}\\
-{\bf \texttt{...}}\\
-{\bf \verb+%}+}
+{\bf \texttt{\%apiprivate}}
+
+Makes all generated methods and fields of the class
+private. Exceptions are the constructor, user code in the
+specification, and, if \verb+%cup+ is present, the method
+\texttt{next\_token}. All occurences of
+\texttt{" public "} (one space character before and after \texttt{public})
+in the skeleton file are replaced by
+\texttt{" private "} (even if a user-specified skeleton is used).
+Access to the genarated class is expected to be mediated by user class
+code (see next switch).
+
+
+\item
+{\bf \verb+%{+}\\ {\bf \texttt{...}}\\ {\bf \verb+%}+}
 
 The code enclosed in \verb+%{+ and \verb+%}+ is copied verbatim
 into the generated class. Here you can define your own member variables
-and functions in the generated scanner. As all options, both \verb+%{+
+and functions in the generated scanner. Like all options, both \verb+%{+
 and \verb+%}+ must start a line in the specification. If more than one
 class code directive \verb+%{...%}+ is present, the code is concatenated
 in order of appearance in the specification.
@@ -763,7 +779,7 @@ Set the initial size of the scan buffer to the specified value
 \item 
 {\bf \texttt{\%include "filename"}}
 
-Replaces the \texttt{\%include} verbatim with the specified file. This
+Replaces the \texttt{\%include} verbatim by the specified file. This
 feature is still experimental. It works, but error reporting can be
 strange if a syntax error occurs on the last token in the included
 file.
@@ -2705,7 +2721,7 @@ JFlex will report these cases as errors at generation time.
 
 As of {\today} the following bugs are known in JFlex:
 \begin{itemize}
-\item The check, if a lookahead expression is legal, fails on some expressions.
+\item The check if a lookahead expression is legal fails on some expressions.
   The lookahead algorithm itself works as advertised, but JFlex will not
   report all lookahead expressions that the algorithm can't handle at generation
   time. Some cases are caught by the check, but not all.
