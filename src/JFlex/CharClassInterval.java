@@ -21,51 +21,51 @@
 package JFlex;
 
 /**
- * Stores an intervall of characters together with the character class
+ * Stores an interval of characters together with the character class
  *
- * A character belongs to an intervall, if its Unicode value is greater than or equal
+ * A character belongs to an interval, if its Unicode value is greater than or equal
  * to the Unicode value of <CODE>start</code> and smaller than or euqal to the Unicode
  * value of <CODE>end</code>.
  *
- * All characters of the intervall must belong to the same character class.
+ * All characters of the interval must belong to the same character class.
  *
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
-public class CharClassIntervall {
+public class CharClassInterval {
 
   /**
-   * The first character of the intervall
+   * The first character of the interval
    */
   int start;
 
   /**
-   * The last character of the intervall
+   * The last character of the interval
    */
   int end;
 
   /**
-   * The code of the class all characters of this intervall belong to.
+   * The code of the class all characters of this interval belong to.
    */
   int charClass;
   
 
   /**
-   * Creates a new CharClassIntervall from <CODE>start</code> to <CODE>end</code>
+   * Creates a new CharClassInterval from <CODE>start</code> to <CODE>end</code>
    * that belongs to character class <CODE>charClass</code>.
    *
-   * @param start         The first character of the intervall
-   * @param end           The last character of the intervall  
-   * @param charClass     The code of the class all characters of this intervall belong to.
+   * @param start         The first character of the interval
+   * @param end           The last character of the interval  
+   * @param charClass     The code of the class all characters of this interval belong to.
    */
-  public CharClassIntervall(int start, int end, int charClass) {
+  public CharClassInterval(int start, int end, int charClass) {
     this.start = start;
     this.end = end;
     this.charClass = charClass;
   }
 
   /**
-   * returns string representation of this class-intervall
+   * returns string representation of this class interval
    */
   public String toString() {
     return "["+start+"-"+end+"="+charClass+"]";

@@ -79,7 +79,7 @@ final public class Emitter {
   
   private int numTableChunks;
 
-  private CharClassIntervall [] intervalls;
+  private CharClassInterval [] intervalls;
   private int currentIntervall;
 
   private String visibility = "public";
