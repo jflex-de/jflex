@@ -148,14 +148,14 @@ public class Skeleton {
     if (section.length() > 0)
       lines.addElement(section.toString());
 
-    line = new String[lines.size()];
-    for (int i = 0; i < lines.size(); i++)
-      line[i] = (String) lines.elementAt(i);
-
-    if (line.length != size) {
+    if (lines.size() != size) {
       Out.error(ErrorMessages.WRONG_SKELETON);
       throw new GeneratorException();
     }
+
+    line = new String[size];
+    for (int i = 0; i < size; i++)
+      line[i] = (String) lines.elementAt(i);
   }
   
   /**
