@@ -1,9 +1,13 @@
-<project name="JFlex" default="compile">
+<project name="interpreter" default="run">
 
   <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
   <taskdef classname="java_cup.AntTask" name="cup" />
 
   <target name="build" depends="realclean,compile" />
+
+  <target name="run" depends="compile">
+    <java classname="Main"> <arg line="example.as"/> </java>
+  </target>
 
   <target name="compile" depends="jflex,cup">
     <javac srcdir="." destdir="." />
@@ -18,6 +22,7 @@
   </target>
 
   <target name="genclean">
+    <delete file="Yylex.java"/>
     <delete file="sym.java" />
     <delete file="parser.java" />
   </target>
