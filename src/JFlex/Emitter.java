@@ -275,7 +275,7 @@ final public class Emitter {
       print("    System.out.println( ");
       if (scanner.lineCount) print("\"line:\" + (yyline+1) + ");
       if (scanner.columnCount) print("\" col:\" + (yycolumn+1) + ");
-      println("\" --\"+ yytext() + \"--\" + getTokenName(s."+scanner.cupSymbol+") + \"--\");");
+      println("\" --\"+ yytext() + \"--\" + getTokenName(s.sym) + \"--\");");
       println("    return s;");
       println("  }");
       println("");
