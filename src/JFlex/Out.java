@@ -75,10 +75,10 @@ public final class Out {
   }
 
   /**
-   * All parts of JFlex, that want to report something about 
-   * time statistic should use this method for their output.
+   * Report time statistic data.
    *
    * @param message  the message to be printed
+   * @param time     elapsed time
    */
   public static void time(ErrorMessages message, Timer time) {
     if (Options.time) {
@@ -87,6 +87,16 @@ public final class Out {
     } 
   }
   
+  /**
+   * Report time statistic data.
+   *
+   * @param message  the message to be printed
+   */
+  public static void time(String message) {
+    if (Options.time) {
+      out.println(message);
+    } 
+  }
 
   /**
    * Report generation progress.

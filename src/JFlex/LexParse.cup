@@ -295,8 +295,8 @@ specification ::=  USERCODE
                      
                      if (scanner.standalone) RESULT.addStandaloneRule();
                      t.stop();
-                     
-                     // TODO: check for NL
+       
+                     Out.time("");              
 	                 Out.time(ErrorMessages.NFA_TOOK, t);
                      
                    :}
