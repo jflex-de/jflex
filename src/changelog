@@ -1,4 +1,4 @@
-* JFlex 1.4.1
+* JFlex 1.4.1 (November 7, 2004)
 - merged in patch by Don Brown (fixes #1049791 Uses Old JUnit method assertFalse)
 - merged in patch by Don Brown (fixes #887821  buffer expansion bug in yy_refill())
   Thanks to Binesh Bannerjee for providing a simpler test case for this problem.
@@ -9,7 +9,7 @@
 - fixed line number count for EOF actions
 - internal: removed unused methods in LexScan.flex and IntCharSet
 
-* JFlex 1.4 
+* JFlex 1.4 (April 12, 2004)
 - new, very fast minimization algorithm (also fixes memory issues)
 - new --jlex option for strict compatibility to JLex. Currently it 
   changes %ignorecase to JLex semantics, that is, character classes 
