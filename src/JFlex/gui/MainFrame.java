@@ -230,8 +230,8 @@ final public class MainFrame extends Frame implements Handles {
      		 generator code */ 
       thread.stop();
       thread = null;
-      generationFinished(false);
     }
+    generationFinished(false);
   }
  
   private void quit() {
