@@ -165,7 +165,7 @@ final public class DFA implements ErrorMessages {
   public void setAction(int state, Action stateAction) {
     action[state]    = stateAction;
     if (stateAction != null) {
-      isLookEnd[state] = stateAction.isLookAction;
+      isLookEnd[state] = stateAction.isLookAction();
       usedActions.put(stateAction,stateAction);
     }
   }

@@ -147,7 +147,7 @@ final public class NFA {
       addEpsilonTransition(nfa.end, look.start);
 
       Action a = regExps.getAction(regExpNum);
-      a.isLookAction        = true;
+      a.setLookAction(true);
 
       isPushback[nfa.end]   = true;      
       action[look.end]      = a;
