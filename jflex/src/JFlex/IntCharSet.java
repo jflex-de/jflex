@@ -193,32 +193,6 @@ public final class IntCharSet {
     return indexOf(singleChar) >= 0;
   }
 
-  /**
-   * prec: intervall != null
-   */
-  public boolean contains(Interval intervall) {
-    int index = indexOf(intervall.start);
-    if (index < 0) return false;    
-    return ((Interval) intervalls.elementAt(index)).contains(intervall);
-  }
-
-  public boolean contains(IntCharSet set) {
-    int i = 0; 
-    int j = 0;
-
-    while (j < set.intervalls.size()) {
-      Interval x = (Interval) intervalls.elementAt(i);
-      Interval y = (Interval) intervalls.elementAt(j);
-
-      if (x.contains(y)) j++;
-      
-      if (x.start > y.end) return false;
-      if (x.end < y.start) i++;
-    }
-
-    return true;
-  }
-
 
   /**
    * o instanceof Interval
