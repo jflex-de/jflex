@@ -46,21 +46,19 @@ final public class Action {
    * True iff the action belongs to an lookahead expresstion 
    * (<code>a/b</code> or <code>r$</code>)
    */
-  boolean isLookAction;
+  private boolean isLookAction;
 
 
   /**
    * Creates a new Action object with specified content and line number.
+   * 
+   * @param content    java code
+   * @param priority   line number
    */
   public Action(String content, int priority) {
     this.content = content;
     this.priority = priority;
   }  
-
-  public Action(String content, int priority, boolean isLookAction) {
-    this(content, priority);
-    this.isLookAction = isLookAction;
-  }
 
 
   /**
@@ -83,6 +81,8 @@ final public class Action {
 
   /**
    * Returns the String representation of this object.
+   * 
+   * @return string representation of the action
    */
   public String toString() {
     return "Action (priority "+priority+", lookahead "+isLookAction+") :"+Out.NL+content;
@@ -93,7 +93,8 @@ final public class Action {
    * Returns <code>true</code> iff the parameter is an
    * Action with the same content as this one.
    *
-   * @param obj   the object to compare this Action with
+   * @param a   the object to compare this Action with
+   * @return    true if the action strings are equal
    */
   public boolean isEquiv(Action a) {
     return this == a || this.content.trim().equals(a.content.trim());
@@ -101,10 +102,31 @@ final public class Action {
 
 
   /**
-   * Returns a hash value for this Action
+   * Calculate hash value.
+   * 
+   * @return a hash value for this Action
    */
   public int hashCode() {
     if (content.length() < 1) return 0;
     return content.charAt(0)+content.charAt(content.length()/2);
   }
+  
+  /**
+   * Return look ahead flag.
+   * 
+   * @return true if this actions belongs to a lookahead rule
+   */
+  public boolean isLookAction() {
+    return isLookAction;
+  }
+
+  /**
+   * Sets the look ahead flag for this action
+   * 
+   * @param b  set to true if this action belongs to a look ahead rule  
+   */
+  public void setLookAction(boolean b) {
+    isLookAction = b;
+  }
+
 }
