@@ -24,12 +24,11 @@ import java.util.Vector;
 
 
 /**
- * This class stores the skeleton of an generated scanner.
+ * This class stores the skeleton of generated scanners.
  *
  * The skeleton consists of several parts that can be emitted to
- * a file. Usually there belongs a portion of generated
- * code (which is produced in class Emitter) to every two 
- * parts of skeleton code.
+ * a file. Usually there is a portion of generated code
+ * (produced in class Emitter) between every two parts of skeleton code.
  *
  * @see JFlex.Emitter
  *
@@ -41,7 +40,7 @@ public class Skeleton {
   static final private String NL = System.getProperty("line.separator");
 
   /**
-   * The skeleton of a scanner
+   * The skeleton 
    */
   public static String line[] = {
     NL+
