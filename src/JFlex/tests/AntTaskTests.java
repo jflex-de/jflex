@@ -21,6 +21,7 @@
 package JFlex.tests;
 
 import java.io.File;
+import java.io.IOException;
 
 import JFlex.Options;
 import JFlex.anttask.JFlexTask;
@@ -54,11 +55,48 @@ public class AntTaskTests extends TestCase {
     task = new JFlexTask();
   }
   
-	public void testDir() {
-		File dir = new File("src");
-    task.setDestdir(dir);
-		// not default jflex logic, but javac (uses package name) 
-    task.configure(new File(dir,"JFlex")); 
-    assertEquals(Options.getDir(),new File(dir,"JFlex"));
+	public void testPackageAndClass() throws IOException {
+		task.setFile(new File("src/JFlex/LexScan.flex"));
+		task.findPackageAndClass();
+		assertEquals(task.getPackage(),"JFlex");
+		assertEquals(task.getClassName(),"LexScan");
   }
+
+	public void testPackageAndClassDefaults() throws IOException {
+		task.setFile(new File("examples/simple/simple.flex"));
+		task.findPackageAndClass();
+		assertEquals(task.getPackage(),null);
+		assertEquals(task.getClassName(),"Yylex");
+	}
+
+	public void testDestdir() throws IOException {  
+		task.setFile(new File("src/JFlex/LexScan.flex"));
+		File dir = new File("src");
+		task.setDestdir(dir);
+		task.findPackageAndClass();
+		task.normalizeOutdir();
+		task.configure(); 
+		// not default jflex logic, but javac (uses package name) 
+		assertEquals(Options.getDir(),new File(dir,"JFlex"));
+	}
+	
+	public void testOutdir() throws IOException {
+		task.setFile(new File("src/JFlex/LexScan.flex"));
+		File dir = new File("src");
+		task.setOutdir(dir);
+		task.findPackageAndClass();
+		task.normalizeOutdir();
+		task.configure(); 
+		// this should be default jflex logic 
+		assertEquals(Options.getDir(),dir);		
+	}
+
+	public void testDefaultDir() throws IOException {
+		task.setFile(new File("src/JFlex/LexScan.flex"));
+		task.findPackageAndClass();
+		task.normalizeOutdir();
+		task.configure(); 
+		// this should be default jflex logic 
+		assertEquals(Options.getDir(),new File("src/JFlex"));		
+	}
 }
