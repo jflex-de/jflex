@@ -189,8 +189,8 @@ public class Skeleton {
    */
   public static void readDefault() {
     ClassLoader l = ClassLoader.getSystemClassLoader();
-    URL url = l.getResource("skeleton");
-    
+    URL url = l.getResource("JFlex/skeleton.default");
+
     if (url == null) {
       Out.error("IO problem reading default skeleton file.");
       throw new GeneratorException();    
