@@ -63,6 +63,16 @@ public final class Out implements ErrorMessages {
   public static void setGUIMode(TextArea text) {
     out.setGUIMode(text);
   }
+  
+  /**
+   * Sets a new output stream and switches to non-gui mode.
+   * 
+   * @param stream  the new output stream
+   */
+  public static void setOutputStream(OutputStream stream) {
+    out = new StdOutWriter(stream);
+    out.setGUIMode(null);
+  }
 
   /**
    * All parts of JFlex, that want to report something about 
@@ -82,7 +92,8 @@ public final class Out implements ErrorMessages {
    * @param message  the message to be printed
    */
   public static void println(String message) {
-    if (Options.verbose) out.println(message);
+    if (Options.verbose) 
+      out.println(message);
   }
 
 
