@@ -132,7 +132,6 @@ public class JFlexTask extends Task {
 		wrapper.setTimeStatistics(displayTime);
 		wrapper.setVerbose(verbose);
 		wrapper.setGenerateDot(generateDot);
-		wrapper.setSkeleton(skeletonFile);
 		Options.setDir( outputDir.toString() );
 	}
 
@@ -209,7 +208,7 @@ public class JFlexTask extends Task {
   }
 
   public void setSkeleton(File skeleton) {
-    this.skeletonFile = skeleton;
+    Options.setSkeleton(skeleton);
   }
  
   public void setSkipMinimization(boolean skipMin) {
