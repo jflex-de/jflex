@@ -136,7 +136,7 @@ public class JFlexTask extends Task {
     if (destinationDir != null) {
       if (packageName == null) {
     		destDir = destinationDir;
-      }         
+      }
       else {
         String path = packageName.replace('.', File.separatorChar);
         destDir = new File(destinationDir,path);
@@ -191,6 +191,7 @@ public class JFlexTask extends Task {
     setTimeStatistics(displayTime);
   }
 
+  // TODO: verbose mode doesn't look good in ant
   public void setVerbose(boolean verbose) {
     Options.verbose = verbose;
   }
@@ -225,5 +226,9 @@ public class JFlexTask extends Task {
 
   public void setDot(boolean b) {
     Options.dot = b;
+  }
+
+  public void setDump(boolean b) {
+    Options.dump = b;
   }
 }

@@ -125,6 +125,7 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testSkel() {
+    task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/skeleton.nested"));
     assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
@@ -150,5 +151,11 @@ public class AntTaskTests extends TestCase {
     assertTrue(Options.dot);
     task.setGenerateDot(false);
     assertFalse(Options.dot);
+  }
+  
+  public void testDump() {
+    assertFalse(Options.dump);
+    task.setDump(true);
+    assertTrue(Options.dump);
   }
 }

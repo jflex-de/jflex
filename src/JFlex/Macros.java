@@ -61,7 +61,7 @@ final public class Macros {
    */
   public boolean insert(String name, RegExp definition) {
     
-    if (Out.DEBUG) 
+    if (Options.DEBUG) 
       Out.debug("inserting macro "+name+" with definition :"+Out.NL+definition);
       
     used.put(name, Boolean.FALSE);

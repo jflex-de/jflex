@@ -59,7 +59,7 @@ public class RegExps {
 
   public int insert(int line, Vector stateList, RegExp regExp, Action action, 
                      Boolean isBOL, RegExp lookAhead) {      
-    if (Out.DEBUG) {
+    if (Options.DEBUG) {
       Out.debug("Inserting regular expression with statelist :"+Out.NL+stateList); 
       Out.debug("and action code :"+Out.NL+action.content+Out.NL);    
       Out.debug("expression :"+Out.NL+regExp); 
@@ -77,7 +77,7 @@ public class RegExps {
 
   public int insert(Vector stateList, Action action) {
 
-    if (Out.DEBUG) {
+    if (Options.DEBUG) {
       Out.debug("Inserting eofrule with statelist :"+Out.NL+stateList);  
       Out.debug("and action code :"+Out.NL+action.content+Out.NL);     
     }

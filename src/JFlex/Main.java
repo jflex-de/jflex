@@ -74,7 +74,7 @@ public class Main implements ErrorMessages {
 
       Out.checkErrors();
 
-      if (Out.DUMP) Out.dump("NFA is"+Out.NL+nfa+Out.NL);
+      if (Options.dump) Out.dump("NFA is"+Out.NL+nfa+Out.NL);
       
       if (Options.dot) 
         nfa.writeDot(Emitter.normalize("nfa.dot", null, null));      
@@ -90,7 +90,7 @@ public class Main implements ErrorMessages {
 
       nfa = null;
 
-      if (Out.DUMP) Out.dump("DFA is"+Out.NL+dfa+Out.NL);      
+      if (Options.dump) Out.dump("DFA is"+Out.NL+dfa+Out.NL);      
 
       if (Options.dot) 
         dfa.writeDot(Emitter.normalize("dfa-big.dot", null, null));
@@ -101,7 +101,7 @@ public class Main implements ErrorMessages {
 
       Out.time("Minimization took "+time);
       
-      if (Out.DUMP) Out.dump("Miniminal DFA is"+Out.NL+dfa);
+      if (Options.dump) Out.dump("Miniminal DFA is"+Out.NL+dfa);
 
       if (Options.dot) 
         dfa.writeDot(Emitter.normalize("dfa-min.dot", null, null));
@@ -180,7 +180,7 @@ public class Main implements ErrorMessages {
       }
 
       if ( argv[i].equals("--dump") || argv[i].equals("-dump") ) {
-        Out.DUMP = true;
+        Options.dump = true;
         continue;
       }
 

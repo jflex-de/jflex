@@ -30,7 +30,11 @@ import java.io.File;
  * @version JFlex 1.4, $Revision$, $Date$
  */
 public class Options {
-	
+
+  /** If true, additional verbose debug information is produced
+   *  This is a compile time option */
+  public final static boolean DEBUG = false;
+
 	/** code generation method: maximum packing */
 	final public static int PACK   = 0;
 	/** code generation method: traditional */
@@ -41,24 +45,20 @@ public class Options {
 
 	/** output directory */
 	private static File directory;
-
   /** don't run minimization algorithm if this is true */
   public static boolean no_minimize; 
-
   /** don't write backup files if this is true */
   public static boolean no_backup; 
-
   /** default code generation method */
   public static int gen_method;
-
   /** If false, no progress output will be generated */
   public static boolean verbose;
-
   /** If true, jflex will print time statistics about the generation process */
   public static boolean time;
-
   /** If true, jflex will write graphviz .dot files for generated automata */
   public static boolean dot;
+  /** If true, you will be flooded with information (e.g. dfa tables).  */
+  public static boolean dump;
 
 	static { setDefaults();	}
 
@@ -110,6 +110,7 @@ public class Options {
     verbose = true;
     time = false;
     dot = false;
+    dump = false;
   }
 
   public static void setSkeleton(File skel) {
