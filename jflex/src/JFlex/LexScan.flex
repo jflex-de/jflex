@@ -87,8 +87,8 @@ import java.util.Stack;
   boolean bolUsed;
   boolean standalone;
   boolean debugOption;
-  boolean useRowMap = Main.gen_method == Main.PACK || Main.gen_method == Main.TABLE;
-  boolean packed = Main.gen_method == Main.PACK;
+  boolean useRowMap = Options.gen_method == Options.PACK || Options.gen_method == Options.TABLE;
+  boolean packed = Options.gen_method == Options.PACK;
   boolean caseless;
   boolean inclusive_states;
     
