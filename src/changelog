@@ -5,14 +5,18 @@
   are interpreted in a caseless way, too.  
   (fixes bus #751757, %ignorecase ignored by char classes).
   Thanks to Edward D. Willink for spotting the incompatibility.
+- support for even larger scanners (up to 64K DFA states).
+  Thanks to Karin Vespoor.
+- removed eclipse compiler warnings for generated classes
+  (feature request #778747)
 - implemented faster character classes (feature request #604589).
   Expressions like [a-z] | [A-Z] are interpreted as one atomic class
   [a-zA-Z], reducing NFA states and generation time significantly
   for some specifications. This affects the generation process only,
   generated scanners remain the same.
 - new %apiprivate switch (feature request #513500/1) that causes all 
-  generated and skeleton methods to be made private. Exceptions are 
-  user defined functions and the constructor. Thanks to Stephen 
+  generated and skeleton methods to be made private. Exceptions to this
+  are user defined functions and the constructor. Thanks to Stephen 
   Ostermiller for the suggestion.
 - allow user defined javadoc class comments (feature request #513500/2)
   If the user code section ends with a javadoc comment, JFlex takes this
