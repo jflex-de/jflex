@@ -151,32 +151,16 @@ action code {:
     return result;
   }
 
-  private void makeCaselessClasses(String s) {
-    for (int i = 0; i < s.length(); i++)
-      makeCaselessClass(s.charAt(i));    
-  }
-
-  private void makeCaselessClass(char c) {
-    char upper = Character.toUpperCase(c);
-    char lower = Character.toLowerCase(c);
-    char title = Character.toTitleCase(c);
-
-    Vector ccl = new Vector();
-    ccl.addElement( new Interval(upper,upper) );
-    ccl.addElement( new Interval(lower,lower) );
-    ccl.addElement( new Interval(title,title) );
-    charClasses.makeClass( ccl );
-  }
-
   private RegExp makeNL() {
     Vector list = new Vector();
     list.addElement(new Interval('\n','\r'));
     list.addElement(new Interval('\u0085','\u0085'));
     list.addElement(new Interval('\u2028','\u2029'));
 
-    charClasses.makeClass(list);
-    charClasses.makeClass('\n');
-    charClasses.makeClass('\r');
+	// assumption: line feeds are caseless
+    charClasses.makeClass(list, false);
+    charClasses.makeClass('\n', false);
+    charClasses.makeClass('\r', false);
 
     RegExp1   c = new RegExp1(sym.CCLASS, list);
     Character n = new Character('\n');
@@ -419,7 +403,8 @@ states        ::=  IDENT:id COMMA states:list
                 ;
                 
 hatOPT        ::=  HAT 
-                   {: charClasses.makeClass('\n');
+                   {: // assumption: there is no upper case for \n
+                      charClasses.makeClass('\n', false); 
                       RESULT = new Boolean(true); :}
                 |  /* empty */ 
                    {: RESULT = new Boolean(false); :}
@@ -473,7 +458,8 @@ regexp        ::=  regexp:r STAR
                 |  preclass:list
                    {:
                      try {
-                       charClasses.makeClass(list);
+                       // assumption [correct?]: preclasses are already closed under case
+                       charClasses.makeClass(list, false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, listleft);
@@ -484,11 +470,11 @@ regexp        ::=  regexp:r STAR
                    {: 
                      try {
                        if ( scanner.caseless ) {
-                         makeCaselessClasses(str);
+                         charClasses.makeClass(str, true);
                          RESULT = new RegExp1(sym.STRING_I, str);
                        }
                        else {
-                         charClasses.makeClass( str );
+                         charClasses.makeClass(str, false);
                          RESULT = new RegExp1(sym.STRING, str); 
                        }
                      }
@@ -501,18 +487,19 @@ regexp        ::=  regexp:r STAR
                    {: 
                       Vector any = new Vector();
                       any.addElement(new Interval('\n','\n'));
-                      charClasses.makeClass( '\n' );
+                      // assumption: there is no upper case for \n
+                      charClasses.makeClass('\n', false);
                       RESULT = new RegExp1(sym.CCLASSNOT, any); 
                    :}
                 |  CHAR:c
                    {: 
                      try {
                        if ( scanner.caseless ) {
-                         makeCaselessClass(c.charValue());
+                         charClasses.makeClass(c.charValue(), true);
                          RESULT = new RegExp1(sym.CHAR_I, c);
                        }
                        else {
-                         charClasses.makeClass( c.charValue() );
+                         charClasses.makeClass(c.charValue(), false);
                          RESULT = new RegExp1(sym.CHAR, c); 
                        }
                      }
@@ -529,7 +516,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       charClasses.makeClass(list);
+                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -541,7 +528,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      Vector list = new Vector();
                      list.addElement(new Interval((char)0,CharClasses.maxChar));
                      try {
-                       charClasses.makeClass(list);
+                       charClasses.makeClass(list, false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -551,7 +538,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       charClasses.makeClassNot(list);
+                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -562,7 +549,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                    {: 
                      try {
                        list.addElement(new Interval('-','-'));
-                       charClasses.makeClass(list);
+                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -573,7 +560,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                    {: 
                      try {
                        list.addElement(new Interval('-','-'));
-                       charClasses.makeClassNot(list);
+                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
