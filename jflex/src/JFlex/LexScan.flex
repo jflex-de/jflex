@@ -38,7 +38,7 @@ import java.util.Stack;
 %final
 %public
 %class LexScan
-%implements sym, ErrorMessages, java_cup.runtime.Scanner
+%implements sym, java_cup.runtime.Scanner
 %function next_token
 
 %type Symbol
@@ -276,7 +276,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
   .*{NL}                        { string.append(yytext()); }
 
-  <<EOF>>                       { throw new ScannerException(file,EOF_IN_MACROS); }
+  <<EOF>>                       { throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS); }
 }
 
 
@@ -286,7 +286,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {Ident}                             { states.insert(yytext(),inclusive_states); }
   ([\ \t]*","[\ \t]*)|([\ \t]+)       { }
   {NL}                                { yybegin(MACROS);  }
-  <<EOF>>                       { throw new ScannerException(file,EOF_IN_MACROS); }
+  <<EOF>>                       { throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS); }
 }
 
 <MACROS> {
@@ -311,8 +311,8 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                 eofThrow = concExc(eofThrow, "java.io.IOException");
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim(); 
-                                if (cupCompatible) Out.warning(CUPSYM_AFTER_CUP, yyline); }
-  "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,QUIL_CUPSYM, yyline); }
+                                if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
+  "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"                 { eofCode = conc(eofCode, "  yyclose();");
                                 eofThrow = concExc(eofThrow, "java.io.IOException");
@@ -341,10 +341,10 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%pack"                     { packed = true; useRowMap = true; }
   "%include" {WSP}+ .*        { File f = new File(yytext().substring(9).trim());
                                 if ( !f.canRead() )
-                                  throw new ScannerException(file,NOT_READABLE, yyline); 
+                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline); 
                                 // check for cycle
                                 if (files.search(f) > 0)
-                                  throw new ScannerException(file,FILE_CYCLE, yyline);
+                                  throw new ScannerException(file,ErrorMessages.FILE_CYCLE, yyline);
                                 try {
                                   yypushStream( new FileReader(f) );
                                   files.push(file);
@@ -352,21 +352,21 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   Out.println("Including \""+file+"\"");
                                 }
                                 catch (FileNotFoundException e) {
-                                  throw new ScannerException(file,NOT_READABLE, yyline); 
+                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline); 
                                 } 
                               }
   "%buffer" {WSP}+ {Number} {WSP}*   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
-  "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,NO_BUFFER_SIZE, yyline); }
+  "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,ErrorMessages.NO_BUFFER_SIZE, yyline); }
   "%initthrow" {WSP}+ {QUIL} {WSP}* { initThrow = concExc(initThrow,yytext().substring(11).trim()); }
-  "%initthrow" {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_INITTHROW, yyline); }
+  "%initthrow" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_INITTHROW, yyline); }
   "%eofthrow"  {WSP}+ {QUIL} {WSP}*  { eofThrow = concExc(eofThrow,yytext().substring(10).trim()); }
-  "%eofthrow"  {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_EOFTHROW, yyline); }
+  "%eofthrow"  {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_EOFTHROW, yyline); }
   "%yylexthrow"{WSP}+ {QUIL} {WSP}*  { lexThrow = concExc(lexThrow,yytext().substring(12).trim()); }
   "%throws"    {WSP}+ {QUIL} {WSP}*  { lexThrow = concExc(lexThrow,yytext().substring(8).trim()); }
-  "%yylexthrow"{WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_YYLEXTHROW, yyline); }
-  "%throws"    {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_THROW, yyline); }
+  "%yylexthrow"{WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_YYLEXTHROW, yyline); }
+  "%throws"    {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_THROW, yyline); }
   "%scanerror" {WSP}+ {QualIdent} {WSP}* { scanErrorException = yytext().substring(11).trim(); }
-  "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_SCANERROR, yyline); }
+  "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
   "="{WSP}*                   { yybegin(REGEXP); return symbol(EQUALS); }
@@ -378,9 +378,9 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   /* no {NL} at the end of this expression, because <REGEXPSTART> 
      needs at least one {WSPNL} to start a regular expression! */   
   ^"%%" {NNL}*                { macroDefinition = false; yybegin(REGEXPSTART); return symbol(DELIMITER); }
-  "%"{Ident}                  { throw new ScannerException(file,UNKNOWN_OPTION, yyline, yycolumn); }
-  "%"                         { throw new ScannerException(file,UNKNOWN_OPTION, yyline, yycolumn); }
-  ^{WSP}+"%"                  { Out.warning(NOT_AT_BOL, yyline); yypushback(1); }
+  "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
+  "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
+  ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
 
   {WSP}+                      { }
   {NL}+                       { }                        
@@ -389,7 +389,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   yypopStream();
                                 }
                                 else
-                                  throw new ScannerException(file,EOF_IN_MACROS); 
+                                  throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS); 
                               }
 }
 
@@ -412,13 +412,13 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   // "{" will be caught in REGEXP  
   ">"{WSPNL}*                 { yybegin(REGEXP); return symbol(MORETHAN); }
 
-  <<EOF>>                     { throw new ScannerException(file,EOF_IN_STATES); }
+  <<EOF>>                     { throw new ScannerException(file,ErrorMessages.EOF_IN_STATES); }
 }
 
 
 <REGEXP> {
   "<<EOF>>" {WSPNL}+ "{"  { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(EOFRULE); }
-  "<<EOF>>"               { throw new ScannerException(file,EOF_WO_ACTION); }
+  "<<EOF>>"               { throw new ScannerException(file,ErrorMessages.EOF_WO_ACTION); }
 
   {WSPNL}*"|"{WSP}*$      { if (macroDefinition) {
                               yybegin(EATWSPNL);
@@ -481,7 +481,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "," {WSP}* {Number}  { return symbol(REPEAT, new Integer(yytext().substring(1).trim())); }
   {WSP}+       { }
 
-  <<EOF>>                 { throw new ScannerException(file,EOF_IN_REGEXP); }
+  <<EOF>>                 { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
 }
 
 <CHARCLASS> {
@@ -499,9 +499,9 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
   .    { return symbol(CHAR, new Character(yytext().charAt(0))); }
 
-  \n   { throw new ScannerException(file,EOL_IN_CHARCLASS,yyline,yycolumn); }
+  \n   { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
 
-  <<EOF>>     { throw new ScannerException(file,EOF_IN_REGEXP); }
+  <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
 }
 
 <STRING_CONTENT> {
@@ -509,7 +509,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   \\\"     { string.append('\"'); }
   [^\"\\\u2028\u2029\u000A\u000B\u000C\u000D\u0085]+ { string.append(yytext()); }
 
-  {NL}     { throw new ScannerException(file,UNTERMINATED_STR, yyline, yycolumn); }
+  {NL}     { throw new ScannerException(file,ErrorMessages.UNTERMINATED_STR, yyline, yycolumn); }
 
   {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
   {Unicode}   { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
@@ -523,7 +523,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
   \\. { string.append(yytext().charAt(1)); }
 
-  <<EOF>>     { throw new ScannerException(file,EOF_IN_STRING); }
+  <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_STRING); }
 }
 
 
@@ -558,7 +558,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
            
   {JavaCode}     { actionText.append(yytext()); } 
 
-  <<EOF>>     { throw new ScannerException(file,EOF_IN_ACTION, action_line-1); }
+  <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_ACTION, action_line-1); }
 }
 
 <COMMENT> {
@@ -572,12 +572,12 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   
   {JFlexComment} { /* ignore */ }
 
-  <<EOF>>     { throw new ScannerException(file,EOF_IN_COMMENT); }
+  <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_COMMENT); }
 }
 
 
-.  { throw new ScannerException(file,UNEXPECTED_CHAR, yyline, yycolumn); }
-\n { throw new ScannerException(file,UNEXPECTED_NL, yyline, yycolumn); }
+.  { throw new ScannerException(file,ErrorMessages.UNEXPECTED_CHAR, yyline, yycolumn); }
+\n { throw new ScannerException(file,ErrorMessages.UNEXPECTED_NL, yyline, yycolumn); }
 
 <<EOF>>  { if ( yymoreStreams() ) {
              file = (File) files.pop();

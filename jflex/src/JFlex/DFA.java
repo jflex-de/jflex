@@ -32,7 +32,7 @@ import java.util.*;
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
-final public class DFA implements ErrorMessages { 
+final public class DFA { 
 
   /**
    * The initial number of states 
@@ -260,7 +260,7 @@ final public class DFA implements ErrorMessages {
     while (l.hasMoreElements()) {
       Object next = l.nextElement();
       if ( usedActions.get(next) != next && !eofActions.isEOFAction(next) ) 
-        Out.warning(scanner.file, NEVER_MATCH, ((Action) next).priority-1, -1);
+        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, ((Action) next).priority-1, -1);
     }
   }
 
@@ -787,7 +787,7 @@ final public class DFA implements ErrorMessages {
     Out.print(numStates+" states before minimization, ");
 
     if (numStates == 0) {
-      Out.error(ZERO_STATES);
+      Out.error(ErrorMessages.ZERO_STATES);
       throw new GeneratorException();
     }
 
