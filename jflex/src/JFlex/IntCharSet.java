@@ -175,7 +175,7 @@ public final class IntCharSet {
       elem.end = c;
 
       // merge with next interval if it contains c
-      if (i >= size) return;
+      if (i+1 >= size) return;
       Interval x = (Interval) intervalls.elementAt(i+1);
       if (x.start <= c+1) {
         elem.end = x.end;
