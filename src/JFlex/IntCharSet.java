@@ -61,6 +61,9 @@ public final class IntCharSet {
       add( (Interval) chars.elementAt(i) );    
   }
 
+  
+  
+
   /**
    * returns the index of the intervall that contains
    * the character c, -1 if there is no such intevall
@@ -328,11 +331,43 @@ public final class IntCharSet {
     return intervalls.size();
   }
 
+  // FIXME: depends on caller protocol
   public Interval getNext() {
     if (pos == intervalls.size()) pos = 0;
     return (Interval) intervalls.elementAt(pos++);
   }
 
+  /**
+   * Create a caseless version of this charset.
+   * <p>
+   * The caseless version contains all characters of this char set,
+   * and additionally all lower/upper/title case variants of the 
+   * characters in this set.
+   * 
+   * @return a caseless copy of this set
+   */
+  public IntCharSet getCaseless() {
+    IntCharSet n = copy();
+        
+    int size = intervalls.size();
+    for (int i=0; i < size; i++) {
+      Interval elem = (Interval) intervalls.elementAt(i);
+      for (char c = elem.start; c <= elem.end; c++) {
+        n.add(Character.toLowerCase(c)); 
+        n.add(Character.toUpperCase(c)); 
+        n.add(Character.toTitleCase(c)); 
+      }
+    }
+    
+    return n;    
+  }
+
+
+  /**
+   * Make a string representation of this char set.
+   * 
+   * @return a string representing this char set.
+   */
   public String toString() {
     StringBuffer result = new StringBuffer("{ ");
 
@@ -342,5 +377,21 @@ public final class IntCharSet {
     result.append(" }");
 
     return result.toString();
+  }
+  
+  
+  /** 
+   * Return a (deep) copy of this char set
+   * 
+   * @return the copy
+   */
+  public IntCharSet copy() {
+    IntCharSet result = new IntCharSet();
+    int size = intervalls.size();
+    for (int i=0; i < size; i++) {
+      Interval iv = ((Interval) intervalls.elementAt(i)).copy();
+      result.intervalls.addElement(iv);
+    }
+    return result;
   }
 }
