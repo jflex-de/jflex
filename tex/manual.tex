@@ -1565,8 +1565,12 @@ end of \texttt{r1}. So for example \verb+"abc" / "a"|"b"+ is ok because
 \texttt{"abc"} has a fixed length, \verb+"a"|"ab" / "x"*+ is ok because
 no prefix of \texttt{"x"*} matches a postfix of \verb+"a"|"ab"+, but
 \verb+"x"|"xy" / "yx"+ is {\trit not} possible, because the postfix \texttt{"y"}
-of \texttt{"x"|"xy"} is also a prefix of \texttt{"yx"}. JFlex attempts
-to report such cases at generation time, but it might be overeager: it
+of \texttt{"x"|"xy"} is also a prefix of \texttt{"yx"}. In this case
+JFlex will still correctly use \verb+r1 r2+ (\verb+r1+ followed by
+\verb+r2+) to determine if the rule should be matched, but it might
+return too many characters in \verb+yytext+ (it will return the
+longest match of \verb+r1+ within \verb+r1 r2+).  JFlex attempts to
+report such cases at generation time, but it might be overeager: it
 also warns in cases where the lookahead is safe.  The algorithm JFlex
 currently uses for matching trailing context expressions is the one
 described in \cite{Aho} (leading to the deficiencies mentioned above).
@@ -2733,10 +2737,14 @@ distribution.
 The trailing context algorithm described in \cite{Aho} and used in
 JFlex is incorrect. It does not work, when a postfix of the regular
 expression matches a prefix of the trailing context and the length of
-the text matched by the expression does not have a fixed size.  JFlex
-attempts to report these cases as errors at generation time, but
-the warnings are overeager. A large number of safe lookaheads are
-reported as unsafe.
+the text matched by the expression does not have a fixed size. In this
+case JFlex will still correctly use \verb+r1 r2+ (\verb+r1+ followed
+by a lookahead \verb+r2+) to determine if the rule should be matched,
+but it might return too many characters in \verb+yytext+ (it will
+return the longest match of \verb+r1+ within \verb+r1 r2+).  JFlex
+attempts to report these cases as errors at generation time, but the
+warnings are overeager. A large number of safe lookaheads are reported
+as unsafe.
 
 \subsection{Bugs}
 %As of {\today}, no bugs have been reported for JFlex version \ver. All 
