@@ -58,13 +58,14 @@ import java_cup.runtime.*;
 
   /* assumes correct representation of a long value for 
      specified radix in String s */
+  // FIXME: use scanner buffer (yycharAt)
   private long parseLong(String s, int radix) {
     int  max = s.length();
     long result = 0;
     long digit;
 
     for (int i = 0; i < max; i++) {
-      digit  = Character.digit(yy_buffer[i],radix);
+      digit  = Character.digit(s.charAt(i),radix);
       result*= radix;
       result+= digit;
     }
