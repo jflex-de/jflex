@@ -375,7 +375,6 @@
     while (true) {
       // cached fields:
       int yy_currentPos_l;
-      int yy_startRead_l;
       int yy_markedPos_l = yy_markedPos;
       int yy_endRead_l = yy_endRead;
       char [] yy_buffer_l = yy_buffer;
@@ -384,8 +383,7 @@
 --- start admin (line, char, col count)
       yy_action = -1;
 
-      yy_startRead_l = yy_currentPos_l = yy_currentPos = 
-                       yy_startRead = yy_markedPos_l;
+      yy_currentPos_l = yy_currentPos = yy_startRead = yy_markedPos_l;
   
 --- start admin (lexstate etc)
 
