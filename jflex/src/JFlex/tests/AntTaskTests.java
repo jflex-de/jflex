@@ -112,4 +112,19 @@ public class AntTaskTests extends TestCase {
 		task.setSkipMinimization(true);
 		assertTrue(Options.no_minimize);	
 	}
+	
+	public void testNobak() {
+		assertFalse(Options.no_backup);
+		task.setNobak(true);
+		assertTrue(Options.no_backup);
+	}
+	
+	public void testCodeGen() {
+		task.setSwitch(true);
+		assertEquals(Options.gen_method, Options.SWITCH);
+		task.setTable(true);
+		assertEquals(Options.gen_method, Options.TABLE);
+		task.setPack(true);
+		assertEquals(Options.gen_method, Options.PACK);
+	}
 }
