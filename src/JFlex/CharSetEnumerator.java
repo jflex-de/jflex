@@ -22,7 +22,10 @@ package JFlex;
 
 
 /**
+ * Enumerator for the elements of a CharSet.
  *
+ * Does not implement java.util.Enumeration, but supports the same protocol.
+ *  
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
@@ -32,9 +35,7 @@ final public class CharSetEnumerator {
   private int offset;
   private long mask = 1;
 
-  private int current = 0;
-
-  CharSet set;
+  private CharSet set;
   
   public CharSetEnumerator(CharSet characters) {
     set = characters;
@@ -51,7 +52,6 @@ final public class CharSetEnumerator {
   }
 
   private void advance() {
-
     do {
       offset++;
       mask<<= 1;
@@ -70,10 +70,8 @@ final public class CharSetEnumerator {
       while (offset <= CharSet.MOD && ((set.bits[index] & mask) == 0)) {
         mask<<= 1;
         offset++;
-      }
- 
+      } 
     }
-
   }
 
   public boolean hasMoreElements() {
@@ -86,10 +84,5 @@ final public class CharSetEnumerator {
     return x;
   }
 
-
 }
-
-
-
-
 
