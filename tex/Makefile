@@ -2,33 +2,41 @@
 
 all: psgz pdf html  
 
-tex:
+build: realclean all
+
+tex: manual.dvi
+
+psgz: manual.ps.gz
+
+pdf: manual.pdf
+
+html: manual.html
+
+
+manual.dvi: manual.tex
 	make texclean
 	latex manual
 	latex manual
 	latex manual
 
-manual.ps: tex
+manual.ps.gz: manual.dvi
 	dvips manual
-
-clean: texclean 
-	rm -f *.ps
-	rm -f *.png
-
-realclean: clean javaclean
-	rm -f *.pdf *.ps.gz 
-
-texclean:
-	rm -f *.dvi *~ *.aux *.log log *.toc *.out
-
-psgz: manual.ps
 	gzip -f manual.ps
 
-pdf: logo.png 
+manual.pdf: logo.png manual.tex
 	make texclean
 	pdflatex manual
 	pdflatex manual
 	pdflatex manual
+
+manual.html: manual.tex
+	make texclean
+	latex manual
+	latex manual
+	latex manual
+	latex2html -split 0 -no_navigation -html_version 3.2,math -t "JFlex User's Manual" -local_icons -address "`date`, <a href=\"http://www.doclsf.de\">Gerwin Klein</a>" -info "" manual 
+	cp manual/manual.html .
+	rm -rf manual 
 
 logo.png: logo.eps
 	epstopng logo.eps
@@ -36,10 +44,12 @@ logo.png: logo.eps
 logo.pdf: logo.eps
 	epstopdf logo.eps
 
-build: realclean all
+clean: texclean 
+	rm -f *.ps
+	rm -f *.png
 
-html: clean
-	make tex
-	latex2html -split 0 -no_navigation -html_version 3.2,math -t "JFlex User's Manual" -local_icons -address "`date`, <a href=\"http://www.doclsf.de\">Gerwin Klein</a>" -info "" manual 
-	cp manual/manual.html .
-	rm -rf manual 
+realclean: clean 
+	rm -f *.pdf *.ps.gz *.html
+
+texclean:
+	rm -f *.dvi *~ *.aux *.log log *.toc *.out
