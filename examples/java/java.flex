@@ -81,12 +81,11 @@ WhiteSpace = {LineTerminator} | [ \t\f]
 
 /* comments */
 Comment = {TraditionalComment} | {EndOfLineComment} | 
-          {DocumentationComment} | {PrpComment}
+          {DocumentationComment}
 
-TraditionalComment = "/*" [^*] ~"*/" 
+TraditionalComment = "/*" [^*] ~"*/" | "/*" "*"+ "/"
 EndOfLineComment = "//" {InputCharacter}* {LineTerminator}?
 DocumentationComment = "/*" "*"+ [^/*] ~"*/"
-PrpComment = "/*" "*"+ "/"
 
 /* identifiers */
 Identifier = [:jletter:][:jletterdigit:]*
