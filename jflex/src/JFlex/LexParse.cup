@@ -21,7 +21,6 @@
 package JFlex;
 
 import java.util.*;
-import java.io.*;
 
 /* customizing code */
 
@@ -538,7 +537,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT CLOSECLASS:close
                    {: 
                      Vector list = new Vector();
-                     list.addElement(new Intervall((char)0,charClasses.maxChar));
+                     list.addElement(new Intervall((char)0,CharClasses.maxChar));
                      try {
                        charClasses.makeClass(list);
                      }
