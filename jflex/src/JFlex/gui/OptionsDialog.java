@@ -115,6 +115,12 @@ public class OptionsDialog extends Dialog {
       }
     } );
 
+    verbose.addItemListener( new ItemListener() {
+      public void itemStateChanged(ItemEvent e) {
+        Options.verbose = verbose.getState();                    
+      }
+    } );
+
     dump.addItemListener( new ItemListener() {
       public void itemStateChanged(ItemEvent e) {
         Options.dump = dump.getState();                    
