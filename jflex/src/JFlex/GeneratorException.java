@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.3.5                                                             *
- * Copyright (C) 1998-2001  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4                                                               *
+ * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -25,7 +25,7 @@ package JFlex;
  * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
- * @version JFlex 1.3.5, $Revision$, $Date$
+ * @version JFlex 1.4, $Revision$, $Date$
  */
 public class GeneratorException extends RuntimeException {
 

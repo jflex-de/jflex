@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.3.5                                                             *
- * Copyright (C) 1998-2001  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4                                                               *
+ * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -29,7 +29,7 @@ import java.io.*;
  * Contains algorithms RegExp -> NFA and NFA -> DFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.3.5, $Revision$, $Date$
+ * @version JFlex 1.4, $Revision$, $Date$
  */
 final public class NFA {
 
