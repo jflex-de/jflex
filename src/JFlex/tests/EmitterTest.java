@@ -41,10 +41,10 @@ public class EmitterTest extends TestCase {
 
   public void testJavadoc() {
     StringBuffer usercode = new StringBuffer("/* some *** comment */");
-    assertFalse(Emitter.endsWithJavadoc(usercode));
+    assertTrue(!Emitter.endsWithJavadoc(usercode));
     usercode.append("import bla;  /** javadoc /* */  ");
     assertTrue(Emitter.endsWithJavadoc(usercode));
     usercode.append("bla");
-    assertFalse(Emitter.endsWithJavadoc(usercode));
+    assertTrue(!Emitter.endsWithJavadoc(usercode));
   }
 }

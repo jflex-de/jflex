@@ -52,7 +52,7 @@ public class RegExpTests extends TestCase implements sym {
     assertTrue(e1.isCharClass(m));
     assertTrue(e2.isCharClass(m));
     assertTrue(b.isCharClass(m));
-    assertFalse(s.isCharClass(m));
+    assertTrue(!s.isCharClass(m));
     assertTrue(u.isCharClass(m));
   }
 }

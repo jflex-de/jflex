@@ -98,19 +98,19 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testNomin() {
-    assertFalse(Options.no_minimize);
+    assertTrue(!Options.no_minimize);
     task.setNomin(true);
     assertTrue(Options.no_minimize);
   }
 
   public void testSkipMinimization() {
-    assertFalse(Options.no_minimize);
+    assertTrue(!Options.no_minimize);
     task.setSkipMinimization(true);
     assertTrue(Options.no_minimize);
   }
 
   public void testNobak() {
-    assertFalse(Options.no_backup);
+    assertTrue(!Options.no_backup);
     task.setNobak(true);
     assertTrue(Options.no_backup);
   }
@@ -132,35 +132,35 @@ public class AntTaskTests extends TestCase {
   
   public void testVerbose() {
     task.setVerbose(false);
-    assertFalse(Options.verbose);
+    assertTrue(!Options.verbose);
     task.setVerbose(true);
     assertTrue(Options.verbose);
   }
 
   public void testTime() {
-    assertFalse(Options.time);
+    assertTrue(!Options.time);
     task.setTimeStatistics(true);
     assertTrue(Options.time);   
     task.setTime(false);
-    assertFalse(Options.time);    
+    assertTrue(!Options.time);    
   }
   
   public void testDot() {
-    assertFalse(Options.dot);
+    assertTrue(!Options.dot);
     task.setDot(true);
     assertTrue(Options.dot);
     task.setGenerateDot(false);
-    assertFalse(Options.dot);
+    assertTrue(!Options.dot);
   }
   
   public void testDump() {
-    assertFalse(Options.dump);
+    assertTrue(!Options.dump);
     task.setDump(true);
     assertTrue(Options.dump);
   }
   
   public void testJlex() {
-    assertFalse(Options.jlex);
+    assertTrue(!Options.jlex);
     task.setJLex(true);
     assertTrue(Options.jlex);
   }
