@@ -88,10 +88,6 @@ public class Main implements ErrorMessages {
       Out.error("Sorry, couldn't find the file \""+inputFile+"\"");
       throw new GeneratorException();
     }
-    catch (IOException e) {
-      Out.error("Sorry, error opening input file \""+inputFile+"\"");
-      throw new GeneratorException();
-    }
       
     try {  
       NFA nfa = (NFA) parser.parse().value;      
