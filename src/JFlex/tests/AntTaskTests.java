@@ -51,8 +51,8 @@ public class AntTaskTests extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    task = new JFlexTask();
     Options.setDefaults();
+    task = new JFlexTask();
   }
 
   public void testPackageAndClass() throws IOException {
