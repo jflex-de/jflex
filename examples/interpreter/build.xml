@@ -1,0 +1,33 @@
+<project name="JFlex" default="compile">
+
+  <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
+  <taskdef classname="java_cup.AntTask" name="cup" />
+
+  <target name="build" depends="realclean,compile" />
+
+  <target name="compile" depends="jflex,cup">
+    <javac srcdir="." destdir="." />
+  </target>
+
+  <target name="jflex">
+    <jflex file="scanner.flex" skeleton="skeleton.yyreset"/>
+  </target>
+
+  <target name="cup">
+    <cup file="parser.cup" interface="yes" dir="."/>
+  </target>
+
+  <target name="genclean">
+    <delete file="sym.java" />
+    <delete file="parser.java" />
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." includes="**/*~"/>
+      <fileset dir="." includes="**/*.class"/>
+    </delete>
+  </target>
+
+  <target name="realclean" depends="clean,genclean" />
+</project>
