@@ -1162,48 +1162,8 @@ final public class Emitter {
         println(" }\");");
       }
       
-      println("          { "+action.content+" }");
-      println("        case "+(i++)+": break;"); 
-    }
-  }
-
-  private void emitActionsOld() {
-    println("        switch (yy_action) {"); 
-
-    Hashtable actionTable = new Hashtable();
-
-    for (int i = 0; i < dfa.numStates; i++) 
-      if ( dfa.isFinal[i] ) {
-        Action action = dfa.action[i];
-        if ( actionTable.get(action) == null ) 
-          actionTable.put(action, new StateSet(dfa.numStates,i));
-        else
-          ((StateSet) actionTable.get(action)).addState(i);
-      }
-
-    int i = dfa.numStates+1;  
-    Enumeration actions = actionTable.keys();
-    while ( actions.hasMoreElements() ) {
-      Action action   = (Action)   actions.nextElement();
-      StateSet states = (StateSet) actionTable.get(action);
-
-      StateSetEnumerator s = states.states();
-      while ( s.hasMoreElements() ) 
-        println("        case "+s.nextElement()+": "); 
-      
-      if ( scanner.debugOption ) {
-        print("          System.out.println(");
-        if ( scanner.lineCount )
-          print("\"line: \"+(yyline+1)+\" \"+");
-        if ( scanner.columnCount )
-          print("\"col: \"+(yycolumn+1)+\" \"+");
-        println("\"match: --\"+yytext()+\"--\");");        
-        print("          System.out.println(\"action ["+action.priority+"] { ");
-        print(escapify(action.content));
-        println(" }\");");
-      }
-      
-      println("          { "+action.content+" }");
+      println("          { "+action.content);
+      println("          }");
       println("        case "+(i++)+": break;"); 
     }
   }
