@@ -166,6 +166,24 @@ public class JFlexTask extends Task {
     setOutdir(destDir);     
   }
 
+	/**
+	 * @return package name of input file
+	 * 
+	 * @see JFlexTask.findPackageAndClass
+	 */
+	public String getPackage() {
+		return packageName;
+	}
+
+	/**
+	 * @return class name of input file
+	 * 
+	 * @see JFlexTask.findPackageAndClass
+	 */
+	public String getClassName() {
+		return className;
+	}
+
   public void setDestdir(File destinationDir) {
     this.destinationDir = destinationDir;
   }
@@ -202,21 +220,19 @@ public class JFlexTask extends Task {
   	Options.no_minimize = b;
   }
 
-  /**
-   * @return package name of input file
-   * 
-   * @see JFlexTask.findPackageAndClass
-   */
-  public String getPackage() {
-    return packageName;
+  public void setNobak(boolean b) {
+    Options.no_backup = b;
   }
 
-  /**
-   * @return class name of input file
-   * 
-   * @see JFlexTask.findPackageAndClass
-   */
-  public String getClassName() {
-    return className;
+  public void setSwitch(boolean b) {
+    Options.gen_method = Options.SWITCH;
+  }
+
+  public void setTable(boolean b) {
+    Options.gen_method = Options.TABLE;
+  }
+
+  public void setPack(boolean b) {
+    Options.gen_method = Options.PACK;
   }
 }
