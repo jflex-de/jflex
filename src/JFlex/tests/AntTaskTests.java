@@ -127,4 +127,9 @@ public class AntTaskTests extends TestCase {
 		task.setPack(true);
 		assertEquals(Options.gen_method, Options.PACK);
 	}
+  
+  public void testSkel() {    
+    task.setSkeleton(new File("src/skeleton.nested"));
+    assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+  }
 }

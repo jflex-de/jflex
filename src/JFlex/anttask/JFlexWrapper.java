@@ -20,8 +20,6 @@
 
 package JFlex.anttask;
 
-import java.io.File;
-
 
 /**
  * Wrapper class for JFlex application. In case of any changes in JFlex
@@ -47,12 +45,6 @@ class JFlexWrapper {
     public void setGenerateDot( boolean set )
     {
          JFlex.Out.DOT = set;
-    }
-
-    public void setSkeleton( File skel )
-    {
-        if( skel != null )
-            JFlex.Skeleton.readSkelFile( skel );
     }
 
 }

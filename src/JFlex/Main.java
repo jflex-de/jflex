@@ -153,7 +153,7 @@ public class Main implements ErrorMessages {
       if ( argv[i].equals("-d") || argv[i].equals("--outdir") ) {
         if ( ++i >= argv.length ) {
           Out.error(NO_DIRECTORY); 
-          throw new IllegalArgumentException();
+          throw new GeneratorException();
         }
         Options.setDir(argv[i]);
         continue;
@@ -162,17 +162,10 @@ public class Main implements ErrorMessages {
       if ( argv[i].equals("--skel") || argv[i].equals("-skel") ) {
         if ( ++i >= argv.length ) {
           Out.error(NO_SKEL_FILE);
-          throw new IllegalArgumentException();
+          throw new GeneratorException();
         }
 
-        File skel = new File(argv[i]);
-        if ( !skel.isFile() || !skel.canRead() ) {
-          Out.error("Error: couldn't open \""+skel+"\".");
-          throw new IllegalArgumentException();
-        }
-        
-        Skeleton.readSkelFile(skel);
-
+        Options.setSkeleton(new File(argv[i]));
         continue;
       }
 
@@ -198,7 +191,7 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("--version") || argv[i].equals("-version") ) {
         Out.println("This is JFlex "+version);
-        throw new IllegalArgumentException();
+        throw new GeneratorException();
       }
 
       if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) {
@@ -208,12 +201,12 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("--help") || argv[i].equals("-h") || argv[i].equals("/h") ) {
         printUsage();
-        throw new IllegalArgumentException();
+        throw new GeneratorException();
       }
 
       if ( argv[i].equals("--info") || argv[i].equals("-info") ) {
         Out.printSystemInfo();
-        throw new IllegalArgumentException();
+        throw new GeneratorException();
       }
       
       if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) {
@@ -244,7 +237,7 @@ public class Main implements ErrorMessages {
       if ( argv[i].startsWith("-") ) {
         Out.error("Error: unknown option \""+argv[i]+"\"");
         printUsage();
-        throw new IllegalArgumentException();
+        throw new GeneratorException();
       }
 
       // if argv[i] is not an option, try to read it as file 
@@ -313,10 +306,6 @@ public class Main implements ErrorMessages {
   public static void main(String argv[]) {
     try {
       generate(argv);
-    }
-    catch (IllegalArgumentException e) {
-      // error message should already have been issued      
-      System.exit(1);
     }
     catch (GeneratorException e) {
       Out.statistics();

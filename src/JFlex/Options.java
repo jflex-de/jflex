@@ -98,5 +98,9 @@ public class Options {
 		no_minimize = false;
 		no_backup = false;
 		gen_method = Options.PACK;    
+  }
+
+  public static void setSkeleton(File skel) {
+    Skeleton.readSkelFile(skel);
   }   
 }
