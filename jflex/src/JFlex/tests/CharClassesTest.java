@@ -20,6 +20,8 @@
 
 package JFlex.tests;
 
+import JFlex.IntCharSet;
+import JFlex.Interval;
 import junit.framework.TestCase;
 
 /**
@@ -59,4 +61,19 @@ public class CharClassesTest extends TestCase {
   public void testMakeClassString() {
   }
 
+  public void testCopy() {
+    IntCharSet set = new IntCharSet(new Interval('a','z'));
+    IntCharSet copy = set.copy();
+    Interval i = set.getNext();
+    i.end = 'h';
+    assertEquals("{ ['a'-'h'] }", set.toString());
+    assertEquals("{ ['a'-'z'] }", copy.toString());
+  }
+
+  public void testCaseless() {
+    IntCharSet set = new IntCharSet(new Interval('a','c'));
+    set.add(new Interval('h','o'));
+    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'] }", 
+                 set.getCaseless().toString());
+  }
 }
