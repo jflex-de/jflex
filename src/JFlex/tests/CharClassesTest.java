@@ -20,39 +20,43 @@
 
 package JFlex.tests;
 
-import JFlex.*;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for JFlex.RegExp 
+ * CharClassesTest
  * 
  * @author Gerwin Klein
  * @version $Revision$, $Date$
  */
-public class RegExpTests extends TestCase implements sym {
-  
+public class CharClassesTest extends TestCase {
+
   /**
-   * Constructor for RegExpTests.
-   * 
-   * @param name the test name
+   * Constructor for CharClassesTest.
+   * @param arg0
    */
-  public RegExpTests(String name) {
-    super(name);
+  public CharClassesTest(String arg0) {
+    super(arg0);
   }
 
-  public void testCharClass() {
-    Macros m = new Macros();    
-    RegExp e1 = new RegExp1(CCLASS, new Interval('a','z'));
-    RegExp e2 = new RegExp1(CHAR, new Character('Z'));
-    RegExp e3 = new RegExp1(CCLASS, new Interval('0','9'));
-    m.insert("macro", e3);
-    RegExp s = new RegExp1(STAR, e1);
-    RegExp u = new RegExp1(MACROUSE, "macro");    
-    RegExp b = new RegExp2(BAR, e2, u);
-    assertTrue(e1.isCharClass(m));
-    assertTrue(e2.isCharClass(m));
-    assertTrue(b.isCharClass(m));
-    assertFalse(s.isCharClass(m));
-    assertTrue(u.isCharClass(m));
+  /*
+   * Test for void makeClass(IntCharSet)
+   */
+  public void testMakeClassIntCharSet() {
   }
+
+  public void testGetClassCode() {
+  }
+
+  /*
+   * Test for void makeClass(char)
+   */
+  public void testMakeClasschar() {
+  }
+
+  /*
+   * Test for void makeClass(String)
+   */
+  public void testMakeClassString() {
+  }
+
 }

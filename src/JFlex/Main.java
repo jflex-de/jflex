@@ -169,6 +169,11 @@ public class Main implements ErrorMessages {
         continue;
       }
 
+      if ( argv[i].equals("-jlex") || argv[i].equals("--jlex") ) {
+        Options.jlex = true;
+        continue;
+      }
+
       if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) {
         Options.verbose = true;
         Options.progress = true;

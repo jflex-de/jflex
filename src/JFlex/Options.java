@@ -45,6 +45,8 @@ public class Options {
 
 	/** output directory */
 	private static File directory;
+  /** strict JLex compatibility */
+  public static boolean jlex;
   /** don't run minimization algorithm if this is true */
   public static boolean no_minimize; 
   /** don't write backup files if this is true */
@@ -106,6 +108,7 @@ public class Options {
    */
   public static void setDefaults() {
   	directory = null;
+    jlex = false;
 		no_minimize = false;
 		no_backup = false;
 		gen_method = Options.PACK;    

@@ -42,6 +42,7 @@ public class AllTests {
     suite.addTest(new TestSuite(EmitterTest.class));
     suite.addTest(new TestSuite(RegExpTests.class));
     suite.addTest(new TestSuite(SkeletonTest.class));
+    suite.addTest(new TestSuite(CharClassesTest.class));
     //$JUnit-END$
     return suite;
   }

@@ -209,7 +209,7 @@ public final class SemCheck {
       return new IntCharSet((Vector) ((RegExp1) re).content);
 
     case sym.CCLASSNOT:
-      IntCharSet all = new IntCharSet(new Intervall( (char) 0,maxChar));
+      IntCharSet all = new IntCharSet(new Interval( (char) 0,maxChar));
       IntCharSet set = new IntCharSet((Vector) ((RegExp1) re).content);
       all.sub(set);
       return all;
@@ -263,7 +263,7 @@ public final class SemCheck {
       return new IntCharSet((Vector) ((RegExp1) re).content);
 
     case sym.CCLASSNOT:
-      IntCharSet all = new IntCharSet(new Intervall( (char) 0,maxChar));
+      IntCharSet all = new IntCharSet(new Interval( (char) 0,maxChar));
       IntCharSet set = new IntCharSet((Vector) ((RegExp1) re).content);
       all.sub(set);
       return all;
