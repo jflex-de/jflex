@@ -43,7 +43,7 @@ public class PackEmitterTest extends TestCase {
   }
 
   public void setUp() {
-    p = new PackEmitter("bla") {
+    p = new PackEmitter("Bla") {
           public void emitUnpack() { }
     };
   }
@@ -51,9 +51,9 @@ public class PackEmitterTest extends TestCase {
   public void testInit() {
     p.emitInit();
     assertEquals(
-      "  private static final int [] bla = yy_unpack_bla();" + Out.NL + 
+      "  private static final int [] YY_BLA = yyFlexUnpackBla();" + Out.NL +
       Out.NL +
-      "  private static final String bla_packed0 =" + Out.NL +
+      "  private static final String YY_BLA_PACKED_0 =" + Out.NL +
       "    \"", 
       p.toString());
   }

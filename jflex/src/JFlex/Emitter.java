@@ -167,7 +167,7 @@ final public class Emitter {
   }
 
   private void emitScanError() {
-    print("  private void yy_ScanError(int errorCode)");
+    print("  private void yyFlexScanError(int errorCode)");
     
     if (scanner.scanErrorException != null) 
       print(" throws "+scanner.scanErrorException);
@@ -301,15 +301,15 @@ final public class Emitter {
     println("          scanner = new "+scanner.className+"( new java.io.FileReader(argv[i]) );");
 
     if ( scanner.standalone ) {      
-      println("          while ( !scanner.yy_atEOF ) scanner."+scanner.functionName+"();");      
+      println("          while ( !scanner.yyFlexAtEOF ) scanner."+scanner.functionName+"();");
     }
     else if (scanner.cupDebug ) {
-      println("          while ( !scanner.yy_atEOF ) scanner.debug_"+scanner.functionName+"();");            
+      println("          while ( !scanner.yyFlexAtEOF ) scanner.debug_"+scanner.functionName+"();");
     }
     else {
       println("          do {");
       println("            System.out.println(scanner."+scanner.functionName+"());");
-      println("          } while (!scanner.yy_atEOF);");
+      println("          } while (!scanner.yyFlexAtEOF);");
       println("");
     }
  
@@ -332,36 +332,36 @@ final public class Emitter {
   }
   
   private void emitNoMatch() {
-    println("            yy_ScanError(YY_NO_MATCH);");
+    println("            yyFlexScanError(YY_NO_MATCH);");
   }
   
   private void emitNextInput() {
-    println("          if (yy_currentPos_l < yy_endRead_l)");
-    println("            yy_input = yy_buffer_l[yy_currentPos_l++];");
-    println("          else if (yy_atEOF) {");
-    println("            yy_input = YYEOF;");
+    println("          if (yyFlexCurrentPosL < yyFlexEndReadL)");
+    println("            yyFlexInput = yyFlexBufferL[yyFlexCurrentPosL++];");
+    println("          else if (yyFlexAtEOF) {");
+    println("            yyFlexInput = YYEOF;");
     println("            break yy_forAction;");
     println("          }");
     println("          else {");
     println("            // store back cached positions");
-    println("            yy_currentPos  = yy_currentPos_l;");
-    println("            yy_markedPos   = yy_markedPos_l;");
+    println("            yyFlexCurrentPos  = yyFlexCurrentPosL;");
+    println("            yyFlexMarkedPos   = yyFlexMarkedPosL;");
     if ( scanner.lookAheadUsed ) 
-      println("            yy_pushbackPos = yy_pushbackPos_l;");
-    println("            boolean eof = yy_refill();");
+      println("            yyFlexPushbackPos = yyFlexPushbackPos_l;");
+    println("            boolean eof = yyFlexRefill();");
     println("            // get translated positions and possibly new buffer");
-    println("            yy_currentPos_l  = yy_currentPos;");
-    println("            yy_markedPos_l   = yy_markedPos;");
-    println("            yy_buffer_l      = yy_buffer;");
-    println("            yy_endRead_l     = yy_endRead;");
+    println("            yyFlexCurrentPosL  = yyFlexCurrentPos;");
+    println("            yyFlexMarkedPosL   = yyFlexMarkedPos;");
+    println("            yyFlexBufferL      = yyFlexBuffer;");
+    println("            yyFlexEndReadL     = yyFlexEndRead;");
     if ( scanner.lookAheadUsed ) 
-      println("            yy_pushbackPos_l = yy_pushbackPos;");
+      println("            yyFlexPushbackPos_l = yyFlexPushbackPos;");
     println("            if (eof) {");
-    println("              yy_input = YYEOF;");
+    println("              yyFlexInput = YYEOF;");
     println("              break yy_forAction;");  
     println("            }");
     println("            else {");
-    println("              yy_input = yy_buffer_l[yy_currentPos_l++];");
+    println("              yyFlexInput = yyFlexBufferL[yyFlexCurrentPosL++];");
     println("            }");
     println("          }"); 
   }
@@ -487,7 +487,7 @@ final public class Emitter {
     println("   * The transition table of the DFA");
     println("   */");
 
-    CountEmitter e = new CountEmitter("yytrans");
+    CountEmitter e = new CountEmitter("Trans");
     e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
     e.emitInit();
     
@@ -529,7 +529,7 @@ final public class Emitter {
     println("   * @param packed   the packed character translation table");
     println("   * @return         the unpacked character translation table");
     println("   */");
-    println("  private static char [] yy_unpack_cmap(String packed) {");
+    println("  private static char [] yyFlexUnpackCMap(String packed) {");
     println("    char [] map = new char[0x10000];");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = 0;  /* index in unpacked array */");
@@ -550,7 +550,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The transition table of the DFA");
     println("   */");
-    println("  private static final int yytrans [] = {");
+    println("  private static final int YYTRANS [] = {"); //XXX
 
     print("    ");
     for (i = 0; i < dfa.numStates; i++) {
@@ -585,7 +585,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  private static final char [] yycmap = {");
+    println("  private static final char [] YY_CMAP = {");
   
     int n = 0;  // numbers of entries in current line    
     print("    ");
@@ -633,7 +633,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  private static final String yycmap_packed = ");
+    println("  private static final String YY_CMAP_PACKED = ");
   
     int n = 0;  // numbers of entries in current line    
     print("    \"");
@@ -664,7 +664,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  private static final char [] yycmap = yy_unpack_cmap(yycmap_packed);");
+    println("  private static final char [] YY_CMAP = yyFlexUnpackCMap(YY_CMAP_PACKED);");
     println();
   }
 
@@ -694,7 +694,7 @@ final public class Emitter {
     println("   * Translates a state to a row index in the transition table");
     println("   */");
     
-    HiLowEmitter e = new HiLowEmitter("yy_rowMap"); 
+    HiLowEmitter e = new HiLowEmitter("RowMap");
     e.emitInit();
     for (int i = 0; i < dfa.numStates; i++) {
       e.emit(rowMap[i]*numCols);
@@ -709,7 +709,7 @@ final public class Emitter {
     println("   * YY_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
     println("   */");
     
-    CountEmitter e = new CountEmitter("YY_ATTRIBUTE");    
+    CountEmitter e = new CountEmitter("Attribute");    
     e.emitInit();
     
     int count = 1;
@@ -746,7 +746,7 @@ final public class Emitter {
   private void emitClassCode() {
     if ( scanner.eofCode != null ) {
       println("  /** denotes if the user-EOF-code has already been executed */");
-      println("  private boolean yy_eof_done;");
+      println("  private boolean yyFlexEOFDone;");
       println("");
     }
     
@@ -776,7 +776,7 @@ final public class Emitter {
       print( scanner.initCode );
     }
 
-    println("    this.yy_reader = in;");
+    println("    this.yyFlexReader = in;");
 
     println("  }");
     println();
@@ -813,7 +813,7 @@ final public class Emitter {
     println("   * when the end of file is reached");
     println("   */");
     
-    print("  private void yy_do_eof()");
+    print("  private void yyFlexDoEOF()");
     
     if ( scanner.eofThrow != null ) {
       print(" throws ");
@@ -822,8 +822,8 @@ final public class Emitter {
     
     println(" {");
     
-    println("    if (!yy_eof_done) {");
-    println("      yy_eof_done = true;");
+    println("    if (!yyFlexEOFDone) {");
+    println("      yyFlexEOFDone = true;");
     println("    "+scanner.eofCode );
     println("    }");
     println("  }");
@@ -874,29 +874,29 @@ final public class Emitter {
     skel.emitNext();
 
     if ( scanner.useRowMap ) {
-      println("    int [] yytrans_l = yytrans;");
-      println("    int [] yy_rowMap_l = yy_rowMap;");
-      println("    int [] yy_attr_l = YY_ATTRIBUTE;");
+      println("    int [] yyFlexTransL = YY_TRANS;");
+      println("    int [] yyFlexRowMapL = YY_ROWMAP;");
+      println("    int [] yyFlexAttrL = YY_ATTRIBUTE;");
 
     }
 
     if ( scanner.lookAheadUsed ) {
-      println("    int yy_pushbackPos_l = yy_pushbackPos = -1;");
+      println("    int yyFlexPushbackPos_l = yyFlexPushbackPos = -1;");
       println("    boolean yy_was_pushback;");
     }
 
     skel.emitNext();    
         
     if ( scanner.charCount ) {
-      println("      yychar+= yy_markedPos_l-yy_startRead;");
+      println("      yychar+= yyFlexMarkedPosL-yyFlexStartRead;");
       println("");
     }
     
     if ( scanner.lineCount || scanner.columnCount ) {
-      println("      boolean yy_r = false;");
-      println("      for (yy_currentPos_l = yy_startRead; yy_currentPos_l < yy_markedPos_l;");
-      println("                                                             yy_currentPos_l++) {");
-      println("        switch (yy_buffer_l[yy_currentPos_l]) {");      
+      println("      boolean yyFlexR = false;");
+      println("      for (yyFlexCurrentPosL = yyFlexStartRead; yyFlexCurrentPosL < yyFlexMarkedPosL;");
+      println("                                                             yyFlexCurrentPosL++) {");
+      println("        switch (yyFlexBufferL[yyFlexCurrentPosL]) {");
       println("        case '\\u000B':"); 
       println("        case '\\u000C':"); 
       println("        case '\\u0085':");
@@ -906,18 +906,18 @@ final public class Emitter {
         println("          yyline++;");
       if ( scanner.columnCount )
         println("          yycolumn = 0;");
-      println("          yy_r = false;");
+      println("          yyFlexR = false;");
       println("          break;");      
       println("        case '\\r':");
       if ( scanner.lineCount )
         println("          yyline++;");
       if ( scanner.columnCount )
         println("          yycolumn = 0;");
-      println("          yy_r = true;");
+      println("          yyFlexR = true;");
       println("          break;");
       println("        case '\\n':");
-      println("          if (yy_r)");
-      println("            yy_r = false;");
+      println("          if (yyFlexR)");
+      println("            yyFlexR = false;");
       println("          else {");
       if ( scanner.lineCount )
         println("            yyline++;");
@@ -926,7 +926,7 @@ final public class Emitter {
       println("          }");
       println("          break;");
       println("        default:");
-      println("          yy_r = false;");
+      println("          yyFlexR = false;");
       if ( scanner.columnCount ) 
         println("          yycolumn++;");
       println("        }");
@@ -934,58 +934,58 @@ final public class Emitter {
       println();
 
       if ( scanner.lineCount ) {
-        println("      if (yy_r) {");
+        println("      if (yyFlexR) {");
         println("        // peek one character ahead if it is \\n (if we have counted one line too much)");
-        println("        boolean yy_peek;");
-        println("        if (yy_markedPos_l < yy_endRead_l)");
-        println("          yy_peek = yy_buffer_l[yy_markedPos_l] == '\\n';");
-        println("        else if (yy_atEOF)");
-        println("          yy_peek = false;");
+        println("        boolean yyFlexPeek;");
+        println("        if (yyFlexMarkedPosL < yyFlexEndReadL)");
+        println("          yyFlexPeek = yyFlexBufferL[yyFlexMarkedPosL] == '\\n';");
+        println("        else if (yyFlexAtEOF)");
+        println("          yyFlexPeek = false;");
         println("        else {");
-        println("          boolean eof = yy_refill();");
-        println("          yy_markedPos_l = yy_markedPos;");
-        println("          yy_buffer_l = yy_buffer;");
+        println("          boolean eof = yyFlexRefill();");
+        println("          yyFlexMarkedPosL = yyFlexMarkedPos;");
+        println("          yyFlexBufferL = yyFlexBuffer;");
         println("          if (eof) ");
-        println("            yy_peek = false;");
+        println("            yyFlexPeek = false;");
         println("          else ");
-        println("            yy_peek = yy_buffer_l[yy_markedPos_l] == '\\n';");
+        println("            yyFlexPeek = yyFlexBufferL[yyFlexMarkedPosL] == '\\n';");
         println("        }");
-        println("        if (yy_peek) yyline--;");
+        println("        if (yyFlexPeek) yyline--;");
         println("      }");
       }
     }
 
     if ( scanner.bolUsed ) {
-      // yy_markedPos > yy_startRead <=> last match was not empty
-      // if match was empty, last value of yy_atBOL can be used
-      // yy_startRead is always >= 0
-      println("      if (yy_markedPos_l > yy_startRead) {");
-      println("        switch (yy_buffer_l[yy_markedPos_l-1]) {");
+      // yyFlexMarkedPos > yyFlexStartRead <=> last match was not empty
+      // if match was empty, last value of yyFlexAtBOL can be used
+      // yyFlexStartRead is always >= 0
+      println("      if (yyFlexMarkedPosL > yyFlexStartRead) {");
+      println("        switch (yyFlexBufferL[yyFlexMarkedPosL-1]) {");
       println("        case '\\n':");
       println("        case '\\u000B':"); 
       println("        case '\\u000C':"); 
       println("        case '\\u0085':");
       println("        case '\\u2028':"); 
       println("        case '\\u2029':"); 
-      println("          yy_atBOL = true;"); 
+      println("          yyFlexAtBOL = true;");
       println("          break;"); 
       println("        case '\\r': "); 
-      println("          if (yy_markedPos_l < yy_endRead_l)");
-      println("            yy_atBOL = yy_buffer_l[yy_markedPos_l] != '\\n';");
-      println("          else if (yy_atEOF)");
-      println("            yy_atBOL = false;");
+      println("          if (yyFlexMarkedPosL < yyFlexEndReadL)");
+      println("            yyFlexAtBOL = yyFlexBufferL[yyFlexMarkedPosL] != '\\n';");
+      println("          else if (yyFlexAtEOF)");
+      println("            yyFlexAtBOL = false;");
       println("          else {");
-      println("            boolean eof = yy_refill();");
-      println("            yy_markedPos_l = yy_markedPos;");
-      println("            yy_buffer_l = yy_buffer;");
+      println("            boolean eof = yyFlexRefill();");
+      println("            yyFlexMarkedPosL = yyFlexMarkedPos;");
+      println("            yyFlexBufferL = yyFlexBuffer;");
       println("            if (eof) ");
-      println("              yy_atBOL = false;");
+      println("              yyFlexAtBOL = false;");
       println("            else ");
-      println("              yy_atBOL = yy_buffer_l[yy_markedPos_l] != '\\n';");
+      println("              yyFlexAtBOL = yyFlexBufferL[yyFlexMarkedPosL] != '\\n';");
       println("          }");      
       println("          break;"); 
       println("        default:"); 
-      println("          yy_atBOL = false;"); 
+      println("          yyFlexAtBOL = false;");
       println("        }"); 
       println("      }"); 
     }
@@ -993,14 +993,14 @@ final public class Emitter {
     skel.emitNext();
     
     if (scanner.bolUsed) {
-      println("      if (yy_atBOL)");
-      println("        yy_state = YY_LEXSTATE[yy_lexical_state+1];");
+      println("      if (yyFlexAtBOL)");
+      println("        yyFlexState = YY_LEXSTATE[yyFlexLexicalState+1];");
       println("      else");    
-      println("        yy_state = YY_LEXSTATE[yy_lexical_state];");
+      println("        yyFlexState = YY_LEXSTATE[yyFlexLexicalState];");
       println();
     }
     else {
-      println("      yy_state = yy_lexical_state;");
+      println("      yyFlexState = yyFlexLexicalState;");
       println();
     }
 
@@ -1012,26 +1012,26 @@ final public class Emitter {
 
   
   private void emitGetRowMapNext() {
-    println("          int yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
-    println("          if (yy_next == "+DFA.NO_TARGET+") break yy_forAction;");
-    println("          yy_state = yy_next;");
+    println("          int yyFlexNext = yyFlexTransL[ yyFlexRowMapL[yyFlexState] + yyCMapL[yyFlexInput] ];");
+    println("          if (yyFlexNext == "+DFA.NO_TARGET+") break yy_forAction;");
+    println("          yyFlexState = yyFlexNext;");
     println();
 
-    println("          int yy_attributes = yy_attr_l[yy_state];");
+    println("          int yyFlexAttributes = yyFlexAttrL[yyFlexState];");
 
     if ( scanner.lookAheadUsed ) {
-      println("          if ( (yy_attributes & "+PUSHBACK+") == "+PUSHBACK+" )");
-      println("            yy_pushbackPos_l = yy_currentPos_l;");
+      println("          if ( (yyFlexAttributes & "+PUSHBACK+") == "+PUSHBACK+" )");
+      println("            yyFlexPushbackPos_l = yyFlexCurrentPosL;");
       println();
     }
 
-    println("          if ( (yy_attributes & "+FINAL+") == "+FINAL+" ) {");
+    println("          if ( (yyFlexAttributes & "+FINAL+") == "+FINAL+" ) {");
     if ( scanner.lookAheadUsed ) 
-      println("            yy_was_pushback = (yy_attributes & "+LOOKEND+") == "+LOOKEND+";");
+      println("            yy_was_pushback = (yyFlexAttributes & "+LOOKEND+") == "+LOOKEND+";");
 
     skel.emitNext();
     
-    println("            if ( (yy_attributes & "+NOLOOK+") == "+NOLOOK+" ) break yy_forAction;");
+    println("            if ( (yyFlexAttributes & "+NOLOOK+") == "+NOLOOK+" ) break yy_forAction;");
 
     skel.emitNext();    
   }  
@@ -1039,7 +1039,7 @@ final public class Emitter {
   private void emitTransitionTable() {
     transformTransitionTable();
     
-    println("          yy_input = yycmap_l[yy_input];");
+    println("          yyFlexInput = yyCMapL[yyFlexInput];");
     println();
 
     if ( scanner.lookAheadUsed ) 
@@ -1049,14 +1049,14 @@ final public class Emitter {
     println("          boolean yy_noLookAhead = false;");
     println();
     
-    println("          yy_forNext: { switch (yy_state) {");
+    println("          yy_forNext: { switch (yyFlexState) {");
 
     for (int state = 0; state < dfa.numStates; state++)
       if (isTransition[state]) emitState(state);
 
     println("            default:");
     println("              // if this is ever reached, there is a serious bug in JFlex");
-    println("              yy_ScanError(YY_UNKNOWN_ERROR);");
+    println("              yyFlexScanError(YY_UNKNOWN_ERROR);");
     println("              break;");
     println("          } }");
     println();
@@ -1105,7 +1105,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates DFA states to action switch labels.");
     println("   */");
-    CountEmitter e = new CountEmitter("YY_ACTION");    
+    CountEmitter e = new CountEmitter("Action");    
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates; i++) {
@@ -1140,7 +1140,7 @@ final public class Emitter {
   }
 
   private void emitActions() {
-    println("      switch (yy_action < 0 ? yy_action : YY_ACTION[yy_action]) {"); 
+    println("      switch (yyFlexAction < 0 ? yyFlexAction : YY_ACTION[yyFlexAction]) {");
 
     int i = actionTable.size()+1;  
     Enumeration actions = actionTable.keys();
@@ -1172,10 +1172,10 @@ final public class Emitter {
     EOFActions eofActions = parser.getEOFActions();
 
     if ( scanner.eofCode != null ) 
-      println("            yy_do_eof();");
+      println("            yyFlexDoEOF();");
       
     if ( eofActions.numActions() > 0 ) {
-      println("            switch (yy_lexical_state) {");
+      println("            switch (yyFlexLexicalState) {");
       
       Enumeration stateNames = scanner.states.names();
 
@@ -1234,7 +1234,7 @@ final public class Emitter {
   private void emitState(int state) {
     
     println("            case "+state+":");
-    println("              switch (yy_input) {");
+    println("              switch (yyFlexInput) {");
    
     int defaultTransition = getDefaultTransition(state);
     
@@ -1280,7 +1280,7 @@ final public class Emitter {
         print("yy_isFinal = true; ");
         
       if ( dfa.isPushback[nextState] ) 
-        print("yy_pushbackPos_l = yy_currentPos_l; ");
+        print("yyFlexPushbackPos_l = yyFlexCurrentPosL; ");
       
       if ( dfa.isLookEnd[nextState] )
         print("yy_pushback = true; ");
@@ -1289,9 +1289,9 @@ final public class Emitter {
         print("yy_noLookAhead = true; ");
         
       if ( nextState == state ) 
-        println("yy_state = "+nextState+"; break yy_forNext;");
+        println("yyFlexState = "+nextState+"; break yy_forNext;");
       else
-        println("yy_state = "+nextState+"; break yy_forNext;");
+        println("yyFlexState = "+nextState+"; break yy_forNext;");
     }
     else
       println("break yy_forAction;");
@@ -1305,7 +1305,7 @@ final public class Emitter {
         print("yy_isFinal = true; ");
         
       if ( dfa.isPushback[nextState] ) 
-        print("yy_pushbackPos_l = yy_currentPos_l; ");
+        print("yyFlexPushbackPos_l = yyFlexCurrentPosL; ");
 
       if ( dfa.isLookEnd[nextState] )
         print("yy_pushback = true; ");
@@ -1314,9 +1314,9 @@ final public class Emitter {
         print("yy_noLookAhead = true; ");
         
       if ( nextState == state ) 
-        println("yy_state = "+nextState+"; break yy_forNext;");
+        println("yyFlexState = "+nextState+"; break yy_forNext;");
       else
-        println("yy_state = "+nextState+"; break yy_forNext;");
+        println("yyFlexState = "+nextState+"; break yy_forNext;");
     }
     else
       println( "break yy_forAction;" );
@@ -1324,7 +1324,7 @@ final public class Emitter {
   
   private void emitPushback() {
     println("      if (yy_was_pushback)");
-    println("        yy_markedPos = yy_pushbackPos_l;");
+    println("        yyFlexMarkedPos = yyFlexPushbackPos_l;");
   }
   
   private int getDefaultTransition(int state) {
