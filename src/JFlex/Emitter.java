@@ -1209,8 +1209,20 @@ final public class Emitter {
         }
 
         if (action != null && unused) {
-          println("            case "+name+":");
-          println("              { "+action.content+" }");
+          println("            case "+name+": {");
+          if ( scanner.debugOption ) {
+            print("              System.out.println(");
+            if ( scanner.lineCount )
+              print("\"line: \"+(yyline+1)+\" \"+");
+            if ( scanner.columnCount )
+              print("\"col: \"+(yycolumn+1)+\" \"+");
+            println("\"match: <<EOF>>\");");        
+            print("              System.out.println(\"action ["+action.priority+"] { ");
+            print(escapify(action.content));
+            println(" }\");");
+          }
+          println("              "+action.content);
+          println("            }");
           println("            case "+(++last)+": break;");
         }
       }
@@ -1218,8 +1230,24 @@ final public class Emitter {
       println("            default:");
     }
 
-    if (eofActions.getDefault() != null) 
-      println("              { " + eofActions.getDefault().content + " }");
+    Action defaultAction = eofActions.getDefault();
+
+    if (defaultAction != null) {
+      println("              {");
+      if ( scanner.debugOption ) {
+        print("                System.out.println(");
+        if ( scanner.lineCount )
+          print("\"line: \"+(yyline+1)+\" \"+");
+        if ( scanner.columnCount )
+          print("\"col: \"+(yycolumn+1)+\" \"+");
+        println("\"match: <<EOF>>\");");        
+        print("                System.out.println(\"action ["+defaultAction.priority+"] { ");
+        print(escapify(defaultAction.content));
+        println(" }\");");
+      }
+      println("                " + defaultAction.content);
+      println("              }");
+    }
     else if ( scanner.eofVal != null ) 
       println("              { " + scanner.eofVal + " }");
     else if ( scanner.isInteger ) 
