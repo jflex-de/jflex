@@ -56,7 +56,7 @@ final public class Action {
    * @param priority   line number
    */
   public Action(String content, int priority) {
-    this.content = content;
+    this.content = content.trim();
     this.priority = priority;
   }  
 
@@ -97,7 +97,7 @@ final public class Action {
    * @return    true if the action strings are equal
    */
   public boolean isEquiv(Action a) {
-    return this == a || this.content.trim().equals(a.content.trim());
+    return this == a || this.content.equals(a.content);
   }
 
 
@@ -108,6 +108,24 @@ final public class Action {
    */
   public int hashCode() {
     return content.hashCode();
+  }
+
+
+  /**
+   * Test for equality to another object.
+   * 
+   * This action equals another object if the other 
+   * object is an equivalent action. 
+   * 
+   * @param o  the other object.
+   * 
+   * @see Action#isEquiv(Action)
+   */
+  public boolean equals(Object o) {
+    if (o instanceof Action) 
+      return isEquiv((Action) o);
+    else
+      return false;    
   }
   
   /**
@@ -127,5 +145,5 @@ final public class Action {
   public void setLookAction(boolean b) {
     isLookAction = b;
   }
-
+  
 }
