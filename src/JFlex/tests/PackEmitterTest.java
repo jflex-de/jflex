@@ -52,7 +52,7 @@ public class PackEmitterTest extends TestCase {
     p.emitInit();
     assertEquals(
       Out.NL +
-      "private static final String bla = yy_unpack_bla();" + Out.NL + 
+      "private static final int [] bla = yy_unpack_bla();" + Out.NL + 
       Out.NL +
       "private static final String bla_packed1 =" + Out.NL +
       "    \"", 

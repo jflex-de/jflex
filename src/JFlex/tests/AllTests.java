@@ -39,10 +39,11 @@ public class AllTests {
     TestSuite suite = new TestSuite("JFlex tests");
     //$JUnit-BEGIN$
     suite.addTest(new TestSuite(AntTaskTests.class));
+    suite.addTest(new TestSuite(CharClassesTest.class));
     suite.addTest(new TestSuite(EmitterTest.class));
     suite.addTest(new TestSuite(RegExpTests.class));
     suite.addTest(new TestSuite(SkeletonTest.class));
-    suite.addTest(new TestSuite(CharClassesTest.class));
+    suite.addTest(new TestSuite(PackEmitterTest.class));
     //$JUnit-END$
     return suite;
   }

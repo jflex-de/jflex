@@ -38,7 +38,7 @@ package JFlex;
 public abstract class PackEmitter {
 
   /** name of the generated array */
-  private String name;
+  protected String name;
     
   /** current UTF8 length of generated string in current chunk */
   private int UTF8Length;
@@ -85,7 +85,7 @@ public abstract class PackEmitter {
    */  
   public void emitInit() {
     nl();
-    out.append("private static final String ");
+    out.append("private static final int [] ");
     out.append(name);
     out.append(" = yy_unpack_");
     out.append(name);
@@ -102,7 +102,7 @@ public abstract class PackEmitter {
    * @param i  the character to emit.
    * @prec  0 <= i <= 0xFFFF 
    */   
-  public void emitUC(int i) {
+  public void emitUC(int i) {     
     if (i < 0 || i > 0xFFFF) 
       throw new IllegalArgumentException("character value expected");
   
@@ -205,5 +205,11 @@ public abstract class PackEmitter {
     // correct would be:
     // if (value <= 0x7FF) return 2;
     return 3;
+  }
+
+  // convenience
+  protected void println(String s) {
+    out.append(s);
+    nl();
   }
 }
