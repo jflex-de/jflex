@@ -346,10 +346,10 @@ public class CharClasses {
    * The array is ordered by char code, i.e.
    * <code>result[i+1].start = result[i].end+1</code>
    *
-   * Each CharClassIntervall contains the number of the
+   * Each CharClassInterval contains the number of the
    * char class it belongs to.
    */
-  public CharClassIntervall [] getIntervalls() {
+  public CharClassInterval [] getIntervalls() {
     int i, c;
     int size = classes.size();
     int numIntervalls = 0;   
@@ -357,7 +357,7 @@ public class CharClasses {
     for (i = 0; i < size; i++) 
       numIntervalls+= ((IntCharSet) classes.elementAt(i)).numIntervalls();    
 
-    CharClassIntervall [] result = new CharClassIntervall[numIntervalls];
+    CharClassInterval [] result = new CharClassInterval[numIntervalls];
     
     i = 0; 
     c = 0;
@@ -366,7 +366,7 @@ public class CharClasses {
       IntCharSet set = (IntCharSet) classes.elementAt(code);
       Interval  iv  = set.getNext();
       
-      result[i++]    = new CharClassIntervall(iv.start, iv.end, code);
+      result[i++]    = new CharClassInterval(iv.start, iv.end, code);
       c              = iv.end+1;
     }
 
