@@ -35,7 +35,7 @@ public final class IntCharSet {
 
   private final static boolean DEBUG = false;
 
-  /* invariant: all intervalls are disjoint, ordered */
+  /* invariant: all intervals are disjoint, ordered */
   private Vector intervalls;  
   private int pos; 
 
@@ -68,8 +68,12 @@ public final class IntCharSet {
    * returns the index of the intervall that contains
    * the character c, -1 if there is no such intevall
    *
-   * prec: true
-   * post: -1 <= return < intervalls.size()
+   * @prec: true
+   * @post: -1 <= return < intervalls.size() && 
+   *        (return > -1 --> intervalls[return].contains(c))
+   * 
+   * @param c  the character
+   * @return the index of the enclosing interval, -1 if no such interval  
    */
   private int indexOf(char c) {
     int start = 0;
@@ -144,8 +148,45 @@ public final class IntCharSet {
     intervalls.addElement(new Interval(intervall));
   }
 
-  public void add(char singleChar) {
-    add( new Interval(singleChar, singleChar) );
+  public void add(char c) {
+    int size = intervalls.size();
+
+    for (int i = 0; i < size; i++) {
+      Interval elem = (Interval) intervalls.elementAt(i);
+      if (elem.end+1 < c) continue;
+
+      if (elem.contains(c)) return; // already there, nothing to do
+
+      assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
+      
+      if (elem.start > c+1) {
+        intervalls.insertElementAt(new Interval(c,c), i);
+        return;                 
+      }
+
+      assert(elem.end+1 >= c && elem.start <= c+1 && 
+            (elem.start > c || elem.end < c));
+ 
+      if (c+1 == elem.start) {
+        elem.start = c;
+        return;
+      }
+      
+      assert(elem.end+1 == c);
+      elem.end = c;
+
+      // merge with next interval if it contains c
+      if (i >= size) return;
+      Interval x = (Interval) intervalls.elementAt(i+1);
+      if (x.start <= c+1) {
+        elem.end = x.end;
+        intervalls.removeElementAt(i+1);
+      }
+      return;
+    }
+    
+    // end reached but nothing found -> append at end
+    intervalls.addElement(new Interval(c,c));
   } 
 
  
