@@ -1,12 +1,39 @@
 * JFlex 1.4 
-
-- fixed bug #491095 (Definitions not checked in complement)
-- fixed bug #495422 (yypushStream/yypopStream)
-- fixed bug #611118 (Macro error on regexp negation)
-- fixed bug #655528 (%cupsym doesn't affect all code)
-- removed jikes modifier order warnings
-- new minimization algorithm (also fixes memory issues)
-- ant task now also works with ant 1.4
+- new, very fast minimization algorithm (also fixes memory issues)
+- new --jlex option for strict compatibility to JLex. Currently it 
+  changes %ignorecase to JLex semantics, that is, character classes 
+  are interpreted in a caseless way, too.  
+  (fixes bus #751757, %ignorecase ignored by char classes).
+  Thanks to Edward D. Willink for spotting the incompatibility.
+- implemented faster character classes (feature request #604589).
+  Expressions like [a-z] | [A-Z] are interpreted as one atomic class
+  [a-zA-Z], reducing NFA states and generation time significantly
+  for some specifications. This affects the generation process only,
+  generated scanners remain the same.
+- new %apiprivate switch (feature request #513500/1) that causes all 
+  generated and skeleton methods to be made private. Exceptions are 
+  user defined functions and the constructor. Thanks to Stephen 
+  Ostermiller for the suggestion.
+- allow user defined javadoc class comments (feature request #513500/2)
+  If the user code section ends with a javadoc comment, JFlex takes this
+  instead of the generated comment. Thanks to Stephen Ostermiller for 
+  the suggestion.  
+- fixed bug #491095 (undefined macros in complement expressions do 
+  not throw exception in generator). Thanks to Stephen Ostermiller
+  for the bug report.
+- fixed bug #495422 (yypushStream/yypopStream in skeleton.nested 
+  work as advertised)
+- fixed bug #611118 (no wrong macro warnings on regexp negation)
+- fixed bug #655528 (%cupsym now also affects %cupdebug)
+  Thanks to Eric Schweitz for the fix.
+- fixed bug #510010 (single-line %initthrow works now 
+  in case of extra whitespace before newline)
+- yyreset() does no longer close the associated reader (use yyclose() 
+  explicitly for that). Makes some reader objects reusable (feature
+  request #513492). Thanks to Stephen Ostermiller for the suggestion.  
+- fixed modifier order in generated code, removes jikes compiler warnings
+  Thanks to Michael Wildpaner for the fix.
+- ant task now also works with ant >= 1.4 (fixes bug #526905)
 
 
 * JFlex 1.3.5 (October 8, 2001)
