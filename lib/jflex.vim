@@ -63,6 +63,7 @@ syn match jflexOption "^%ignorecase" contained
 syn match jflexOption "^%implements" contained
 syn match jflexOption "^%extends" contained
 syn match jflexOption "^%public" contained
+syn match jflexOption "^%apiprivate" contained
 syn match jflexOption "^%final" contained
 syn match jflexOption "^%abstract" contained
 syn match jflexOption "^%debug" contained
