@@ -275,6 +275,7 @@ public class Main {
     Out.println("--switch");
     Out.println("--table");
     Out.println("--pack           set default code generation method");
+    Out.println("--jlex           strict JLex compatibility");
     Out.println("--nomin          skip minimization step");
     Out.println("--nobak          don't create backup files");
     Out.println("--dump           display transition tables"); 
