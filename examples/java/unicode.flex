@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 1998-2001 Gerwin Klein <lsf@jflex.de>                     *
+ * Copyright (C) 1998-2004 Gerwin Klein <lsf@jflex.de>                     *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -79,8 +79,8 @@ HexDigit        = [0-9a-fA-F]
   private int value() {
     int r = 0;
 
-    for (int k = yy_markedPos-4; k < yy_markedPos; k++) {
-      int c = yy_buffer[k];
+    for (int k = zzMarkedPos-4; k < zzMarkedPos; k++) {
+      int c = zzBuffer[k];
 
       if (c >= 'a') 
         c-= 'a'-10;
@@ -118,7 +118,7 @@ HexDigit        = [0-9a-fA-F]
   }
 
   public boolean ready() throws IOException {
-    return !yy_atEOF && (yy_currentPos < yy_endRead || yy_reader.ready());
+    return !zzAtEOF && (zzCurrentPos < zzEndRead || zzReader.ready());
   }
 
 %}
@@ -136,7 +136,7 @@ HexDigit        = [0-9a-fA-F]
                      else
                        yybegin(DIGITS);
                    } 
-  .|\n             { return yy_buffer[yy_startRead]; }
+  .|\n             { return zzBuffer[zzStartRead]; }
 
   <<EOF>>          { return -1; }
 }
