@@ -562,11 +562,7 @@ final public class NFA {
   //-----------------------------------------------------------------------
   // Functions for constructing NFAs out of regular expressions.
 
-
-  public IntPair insertLetterNFA(boolean caseless, char letter) {
-    int start = numStates;
-    int end   = numStates+1;
-
+  private void insertLetterNFA(boolean caseless, char letter, int start, int end) {
     if (caseless) {
       int lower = classes.getClassCode(Character.toLowerCase(letter));
       int upper = classes.getClassCode(Character.toUpperCase(letter));
@@ -576,13 +572,9 @@ final public class NFA {
     else {
       addTransition(start, classes.getClassCode(letter), end);
     }
-
-    return new IntPair(start,end);
   }
-
   
-  public IntPair insertStringNFA(boolean caseless, String letters) {
-
+  private IntPair insertStringNFA(boolean caseless, String letters) {
     int start = numStates;
     int i;
 
@@ -603,36 +595,20 @@ final public class NFA {
   }
   
 
-  public IntPair insertClassNFA(Vector intervalls) {
-    int start = numStates;
-    int end   = numStates+1;
+  private void insertClassNFA(Vector intervalls, int start, int end) {
+    // empty char class is ok:
+    if (intervalls == null) return;
 
-    if (intervalls == null) {
-      ensureCapacity(end+1);
-      if (end+1 > numStates) numStates = end+1;
-      return new IntPair(start, end);
-    }
-    
-    int [] cl = classes.getClassCodes(intervalls);
-    
+    int [] cl = classes.getClassCodes(intervalls);    
     for (int i = 0; i < cl.length; i++) 
       addTransition(start, cl[i], end);
-  
-    return new IntPair(start, end);
   }
 
-
-  public IntPair insertNotClassNFA(Vector intervalls) {
+  private void insertNotClassNFA(Vector intervalls, int start, int end) {
     int [] cl = classes.getNotClassCodes(intervalls);
 
-    int start = numStates;
-    int end   = numStates+1;
-    
     for (int i = 0; i < cl.length; i++) 
       addTransition(start, cl[i], end);
-  
-
-    return new IntPair(start, end);
   }
   
 
@@ -648,7 +624,7 @@ final public class NFA {
    * @return a pair of integers denoting the index of start
    *         and end state of the complement NFA.
    */
-  public IntPair complement(IntPair nfa) {
+  private IntPair complement(IntPair nfa) {
 
     if (Options.DEBUG) {
       Out.debug("complement for "+nfa);
@@ -818,6 +794,62 @@ final public class NFA {
 
 
   /**
+   * Constructs a two state NFA for char class regexps, 
+   * such that the NFA has
+   *
+   *   exactly one start state,
+   *   exactly one end state,
+   *   no transitions leading out of the end state
+   *   no transitions leading into the start state
+   *
+   * Assumes that regExp.isCharClass(macros) == true
+   *   
+   * @param regExp the regular expression to construct the 
+   *        NFA for 
+   * 
+   * @return a pair of integers denoting the index of start
+   *         and end state of the NFA.
+   */
+  private void insertNFA(RegExp regExp, int start, int end) {    
+    switch (regExp.type) {
+      
+    case sym.BAR:
+      RegExp2 r = (RegExp2) regExp;      
+      insertNFA(r.r1, start, end);
+      insertNFA(r.r2, start, end);
+      return;
+            
+    case sym.CCLASS:
+      insertClassNFA( (Vector) ((RegExp1) regExp).content, start, end);
+      return;
+      
+    case sym.CCLASSNOT:
+      insertNotClassNFA( (Vector) ((RegExp1) regExp).content, start, end);
+      return;
+      
+    case sym.CHAR:
+      insertLetterNFA(
+        false, ((Character) ((RegExp1) regExp).content).charValue(),
+        start, end);
+      return;
+      
+    case sym.CHAR_I:
+      insertLetterNFA(
+       true, ((Character) ((RegExp1) regExp).content).charValue(),
+       start, end);
+      return;
+      
+    case sym.MACROUSE:
+      insertNFA(macros.getDefinition((String) ((RegExp1) regExp).content), 
+                start, end);
+      return;
+    }
+    
+    throw new Error("Unknown expression type "+regExp.type+" in NFA construction");
+  }
+
+
+  /**
    * Constructs an NFA for regExp such that the NFA has
    *
    *   exactly one start state,
@@ -839,6 +871,18 @@ final public class NFA {
     
     if (Options.DEBUG)
       Out.debug("Inserting RegExp : "+regExp);
+    
+    if (regExp.isCharClass(macros)) {
+      start = numStates;
+      end   = numStates+1;
+
+      ensureCapacity(end+1);
+      if (end+1 > numStates) numStates = end+1;
+      
+      insertNFA(regExp, start, end);
+
+      return new IntPair(start, end);
+    }
     
     switch (regExp.type) {
       
@@ -931,18 +975,6 @@ final public class NFA {
       addEpsilonTransition(nfa1.end, nfa2.start);
 
       return new IntPair(nfa1.start, nfa2.end);
-      
-    case sym.CCLASS:
-      return insertClassNFA( (Vector) ((RegExp1) regExp).content );
-      
-    case sym.CCLASSNOT:
-      return insertNotClassNFA( (Vector) ((RegExp1) regExp).content );
-      
-    case sym.CHAR:
-      return insertLetterNFA(false, ((Character) ((RegExp1) regExp).content).charValue() );
-      
-    case sym.CHAR_I:
-      return insertLetterNFA(true, ((Character) ((RegExp1) regExp).content).charValue() );
       
     case sym.STRING:
       return insertStringNFA(false, (String) ((RegExp1) regExp).content );
