@@ -1,0 +1,2796 @@
+\documentclass[11pt]{scrartcl}
+\usepackage{a4wide,verbatim,graphicx}
+\usepackage{pdfsetup}
+\usepackage{html}
+
+\newcommand{\bl}{\latex{\symbol{123}}\html{\{}}
+\newcommand{\br}{\latex{\symbol{125}}\html{\}}}
+
+\newcommand{\xsmall}{}
+\newcommand{\xtiny}{\small}
+
+\newcommand{\trit}{\em}
+
+\newcommand{\ver}{1.3.5}
+
+\begin{document}
+\latex{{\centerline{\hspace*{0mm}\includegraphics[scale=0.6]{logo}}}}
+
+\html{
+\begin{rawhtml}
+<CENTER>
+<A NAME="TOP"></a>
+<A HREF="http://www.jflex.de"><IMG SRC="logo.gif" BORDER=0 HEIGHT=223 WIDTH=577></a>
+</CENTER>
+\end{rawhtml}
+}
+
+\begin{center}
+{\Huge \sffamily \bfseries JFlex User's Manual}\\
+\bigskip
+Version \ver, {\today} \\
+\bigskip
+\htmladdnormallink{Gerwin Klein}{http://www.doclsf.de}\\
+\end{center}
+
+\tableofcontents
+\vfill
+\newpage
+\parindent0pt\parskip1ex
+\pagestyle{headings}
+\section{Introduction\label{Intro}}
+JFlex is a lexical analyzer generator for Java\footnote{Java is a trademark of 
+Sun Microsystems, Inc., and refers to Sun's Java programming language. 
+JFlex is not sponsored by or affiliated with Sun Microsystems, Inc.}
+written in Java. It is also a rewrite of the very useful tool JLex \cite{JLex} which
+was developed by Elliot Berk at Princeton University. As Vern Paxon states
+for his C/C++ tool flex \cite{flex}: They do not share any code though.
+
+\subsection{Design goals}
+The main design goals of JFlex are:
+\begin{itemize}
+\item {\bf Full unicode support}
+\item {\bf Fast generated scanners }
+\item {\bf Fast scanner generation}
+\item {\bf Convenient specification syntax}
+\item {\bf Platform independence}
+\item {\bf JLex compatibility}
+\end{itemize}
+
+\subsection{About this manual}
+This manual gives a brief but complete description of the tool JFlex. It
+assumes, that you are familiar with the issue of lexical analysis. \cite{Appel},
+\cite{Aho} and \cite{Maurer} provide a good introduction to this topic.
+
+The next section of this manual describes \htmlref{\emph{installation procedures}}{Installing} 
+for JFlex. If you never worked with JLex or
+just want to compare a JLex and a JFlex scanner specification you
+should also read \htmlref{\emph{Working with JFlex - an example}}{Example} 
+(section \ref{Example}).  All options and the complete
+specification syntax are presented in 
+\htmlref{\emph{Lexical specifications}}{Specifications} (section \ref{Specifications}),
+while \htmlref{\emph{Encodings, Platforms, and Unicode}}{sec:encodings} (section \ref{sec:encodings})
+provides information about scannig text vs.~binary files.
+If you are interested in performance
+considerations and comparing JLex vs.~JFlex speed, 
+\htmlref{\emph{a few words on performance}}{performance} (section \ref{performance})
+might be just right for you. Those who want to
+use their old JLex specifications may want to check out section \ref{Porting}
+\htmlref{\emph{Porting from JLex}}{Porting} to avoid possible problems
+with not portable or non standard JLex behavior that has been fixed in
+JFlex. Section \ref{lexport} talks about porting scanners from the
+Unix tools lex and flex.  Interfacing JFlex scanners with the LALR
+parser generators CUP and BYacc/J is explained in \htmlref{\emph{working
+  together}}{WorkingTog} (section \ref{WorkingTog}).  Section \ref{Bugs}
+\htmlref{\emph{Bugs}}{Bugs} gives a list of currently known active bugs. 
+The manual concludes with notes about 
+\htmlref{\emph{Copying and License}}{Copyright} (section \ref{Copyright}) and
+\htmlref{references}{References}.
+
+
+\section{Installing and Running JFlex\label{Installing}}
+
+\subsection{Installing JFlex}
+
+\subsubsection{Windows\label{install:windows}}
+To install JFlex on Windows 95/98/NT, follow these three steps:
+\begin{enumerate}
+\item
+Unzip the file you downloaded into the directory you want JFlex in (using
+something like 
+\htmladdnormallinkfoot{WinZip}{http://www.winzip.com}).
+If you unzipped it to say \verb+C:\+, the following directory structure
+should be generated:
+{\xsmall
+\begin{verbatim}
+C:\JFlex\                          
+      +--bin\                   (start scripts) 
+      +--doc\                   (FAQ and manual)
+      +--examples\ 
+               +--binary\       (scanning binary files)
+               +--byaccj\       (calculator example for BYacc/J)
+               +--cup\          (calculator example for cup)
+               +--interpreter\  (interpreter example for cup)
+               +--java\         (Java lexer specification) 
+               +--simple\       (example scanner)
+               +--standalone\   (a simple standalone scanner) 
+      +--lib\                   (the precompiled classes) 
+      +--src\ 
+          +--JFlex\             (source code of JFlex) 
+          +--JFlex\gui          (source code of JFlex UI classes)
+          +--java_cup\runtime\  (source code of cup runtime classes) 
+\end{verbatim}
+}
+
+\item
+Edit the file {\bf \verb+bin\jflex.bat+}
+(in the example it's \verb+C:\JFlex\bin\jflex.bat+)
+such that
+
+\begin{itemize}
+\item
+  {\bf \texttt{JAVA\_HOME}} contains the directory where your Java JDK is installed
+  (for instance \verb+C:\java+) and
+\item
+  {\bf \texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
+  \verb+C:\JFlex+) 
+\end{itemize}
+ 
+\item
+Include the \verb+bin\+ directory of JFlex in your path.
+(the one that contains the start script, in the example: \verb+C:\JFlex\bin+).
+\end{enumerate}
+
+\subsubsection{Unix with tar archive}
+
+To install JFlex on a Unix system, follow these two steps:
+\begin{itemize}
+\item
+  Uncompress the archive into a directory of your choice
+  with GNU tar, for instance to \texttt{/usr/share}:
+
+  \texttt{tar -C /usr/share -xvzf jflex-\ver.tar.gz}
+  
+  (The example is for site wide installation. You need to
+  be root for that. User installation works exactly the
+  same way---just choose a directory where you have write
+  permission)
+
+\item
+  Make a symbolic link from somewhere in your binary 
+  path to \texttt{bin/jflex}, for instance:
+
+  \texttt{ln -s /usr/share/JFlex/bin/jflex /usr/bin/jflex}
+
+  If the java interpreter is not in your binary path, you
+  need to supply its location in the script \texttt{bin/jflex}.
+\end{itemize}
+
+You can verify the integrity of the downloaded file with
+the MD5 checksum available on the \htmladdnormallink{JFlex download page}{http://www.jflex.de/download.html}. 
+If you put the checksum file in the same directory
+as the archive, you run:
+
+\verb+md5sum --check +\texttt{jflex-\ver.tar.gz.md5}
+
+It should tell you
+
+\texttt{jflex-\ver.tar.gz: OK}
+
+\subsubsection{Linux with RPM}
+
+\begin{itemize}
+\item
+  become root
+\item issue\\
+  \texttt{rpm -U jflex-\ver-0.rpm}
+\end{itemize}
+
+You can verify the integrity of the downloaded \texttt{rpm} file with
+
+\verb+rpm --checksig +\texttt{jflex-\ver-0.rpm}
+
+This requires my pgp public key. If you don't have it, you can use
+
+\verb+rpm --checksig --nopgp +\texttt{jflex-\ver-0.rpm}
+
+or you can get it from \htmladdnormallink{\texttt{http://www.jflex.de/public-key.asc}}{http://www.jflex.de/public-key.asc}.
+
+\subsection{Running JFlex}
+You run JFlex with:
+
+\texttt{jflex <options> <inputfiles>}
+
+It is also possible to skip the start script in \verb+bin\+
+and include the file \verb+lib\JFlex.jar+
+in your \texttt{CLASSPATH} environment variable instead.
+
+Then you run JFlex with:
+
+\texttt{java JFlex.Main <options> <inputfiles>}
+
+The input files and options are in both cases optional. If you don't provide a file name on
+the command line, JFlex will pop up a window to ask you for one.
+
+JFlex knows about the following options:
+
+\begin{description}
+\item \verb+-d <directory>+\\
+  writes the generated file to the directory \verb+<directory>+
+  
+
+\item \verb+--skel <file>+\\
+  uses external skeleton \verb+<file>+. This is mainly for JFlex
+  maintenance and special low level customizations. Use only when you
+  know what you are doing! JFlex comes with a skeleton file in the
+  \texttt{src} directory that reflects exactly the internal, precompiled
+  skeleton and can be used with the \texttt{-skel} option.
+
+\item \verb+--nomin+\\
+  skip the DFA minimization step during scanner generation.
+
+\item \verb+--dot+\\
+  generate graphviz dot files for the NFA, DFA and minimized 
+  DFA. This feature is still in alpha status, and not
+  fully implemented yet. 
+
+\item \verb+--dump+\\
+  display transition tables of NFA, initial DFA, and minimized DFA 
+
+\item \verb+--verbose+ or \texttt{-v}\\
+  display generation progress messages (enabled by default)
+
+\item \verb+--quiet+ or \texttt{-q}\\
+  display error messages only (no chatter about what JFlex is
+  currently doing)
+
+\item \verb+--time+\\
+  display time statistics about the code generation process
+  (not very accurate)
+
+\item \verb+--version+\\
+  print version number 
+
+\item \verb+--info+\\
+  print system and JDK information (useful if you'd like
+  to report a problem)
+
+\item \verb+--pack+\\
+  use the \%pack code generation method by default
+
+\item \verb+--table+\\
+  use the \%table code generation method by default
+
+\item \verb+--switch+\\
+  use the \%switch code generation method by default
+
+\item \verb+--help+ or \texttt{-h}\\
+  print a help message explaining options and usage of JFlex.
+\end{description}
+
+\section{A simple Example: How to work with JFlex\label{Example}}
+To demonstrate what a lexical specification with JFlex looks like, this
+section presents a part of the specification for the Java language.
+The example does not describe the whole lexical structure of Java programs,
+but only a small and simplified part of it (some keywords, some operators,
+comments and only two kinds of literals). It also shows how to interface
+with the LALR parser generator CUP \cite{CUP} and therefore
+uses a class \texttt{sym} (generated by CUP), where integer constants for
+the terminal tokens of the CUP grammar are declared. JFlex comes with a
+directory \texttt{examples}, where you can find a small standalone scanner
+that doesn't need other tools like CUP to give you a running example.
+The "\texttt{examples}" directory also contains a {\trit complete} JFlex 
+specification of the lexical structure of Java programs together with the 
+CUP parser specification for Java by 
+\htmladdnormallink{C. Scott Ananian}{mailto:cananian@alumni.princeton.edu}, obtained
+from the CUP \cite{CUP} website (it was modified to interface with the JFlex scanner). 
+Both specifications adhere to the Java Language Specification \cite{LangSpec}.
+
+{\xtiny
+\label{CodeTop}\begin{verbatim}
+/* JFlex example: part of Java language lexer specification */
+import java_cup.runtime.*;
+
+%%
+\end{verbatim}
+\label{CodeOptions}\begin{verbatim}
+%class Lexer
+%unicode
+%cup
+%line
+%column
+\end{verbatim}
+\label{CodeScannerCode}\begin{verbatim}
+%{
+  StringBuffer string = new StringBuffer();
+
+  private Symbol symbol(int type) {
+    return new Symbol(type, yyline, yycolumn);
+  }
+  private Symbol symbol(int type, Object value) {
+    return new Symbol(type, yyline, yycolumn, value);
+  }
+%}
+\end{verbatim}
+\label{CodeMacros}\begin{verbatim}
+LineTerminator = \r|\n|\r\n
+InputCharacter = [^\r\n]
+WhiteSpace     = {LineTerminator} | [ \t\f]
+
+/* comments */
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+
+TraditionalComment   = "/*" [^*] ~"*/"
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
+DocumentationComment = "/**" {CommentContent} "*"+ "/"
+CommentContent       = ( [^*] | \*+ [^/*] )*
+
+Identifier = [:jletter:] [:jletterdigit:]*
+
+DecIntegerLiteral = 0 | [1-9][0-9]*
+\end{verbatim}
+\label{CodeStateDecl}\begin{verbatim}
+%state STRING
+
+%%
+\end{verbatim}
+\label{CodeRulesYYINITIAL}\begin{verbatim}
+/* keywords */
+<YYINITIAL> "abstract"           { return symbol(sym.ABSTRACT); }
+<YYINITIAL> "boolean"            { return symbol(sym.BOOLEAN); }
+<YYINITIAL> "break"              { return symbol(sym.BREAK); }
+\end{verbatim}
+\label{CodeRulesBunch}\begin{verbatim}
+<YYINITIAL> {
+  /* identifiers */ 
+  {Identifier}                   { return symbol(sym.IDENTIFIER); }
+ 
+  /* literals */
+  {DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL); }
+  \"                             { string.setLength(0); yybegin(STRING); }
+
+  /* operators */
+  "="                            { return symbol(sym.EQ); }
+  "=="                           { return symbol(sym.EQEQ); }
+  "+"                            { return symbol(sym.PLUS); }
+
+  /* comments */
+  {Comment}                      { /* ignore */ }
+ 
+  /* whitespace */
+  {WhiteSpace}                   { /* ignore */ }
+}
+\end{verbatim}
+\label{CodeRulesYYtext}\begin{verbatim}
+<STRING> {
+  \"                             { yybegin(YYINITIAL); 
+                                   return symbol(sym.STRING_LITERAL, 
+                                   string.toString()); }
+  [^\n\r\"\\]+                   { string.append( yytext() ); }
+  \\t                            { string.append('\t'); }
+  \\n                            { string.append('\n'); }
+
+  \\r                            { string.append('\r'); }
+  \\\"                           { string.append('\"'); }
+  \\                             { string.append('\\'); }
+}
+\end{verbatim}
+\label{CodeRulesAllStates}\begin{verbatim}
+/* error fallback */
+.|\n                             { throw new Error("Illegal character <"+
+                                                    yytext()+">"); }
+\end{verbatim}
+}
+
+From this specification JFlex generates a \texttt{.java} file with one
+class that contains code for the scanner. The class will have a
+constructor taking a \texttt{java.io.Reader} from which the input is
+read. The class will also have a function \texttt{yylex()} that runs the
+scanner and that can be used to get the next token from the input (in this
+example the function actually has the name \texttt{next\_token()} because
+the specification uses the \texttt{\%cup} switch).
+
+As with JLex, the specification consists of three parts, divided by \texttt{\%\%}:
+\begin{itemize}
+\item \htmlref{usercode}{ExampleUserCode},
+\item \htmlref{options and declarations}{ExampleOptions} and 
+\item \htmlref{lexical rules}{ExampleLexRules}.
+\end{itemize}
+
+\subsection{Code to include\label{ExampleUserCode}}
+Let's take a look at the first section, ``user code'': The text up to the
+first line starting with \texttt{\%\%} is copied verbatim to the top 
+of the generated lexer class (before the actual class declaration). 
+Beside \texttt{package} and \texttt{import} statements there is usually not much 
+to do here.
+
+\subsection{Options and Macros\label{ExampleOptions}}
+The second section ``options and declarations'' is more interesting. It consists
+of a set of options, code that is included inside the generated scanner
+class, lexical states and macro declarations. Each JFlex option must begin
+a line of the specification and starts with a \texttt{\%}. In our example
+the following options are used:
+
+\begin{itemize}
+\item
+  \texttt{\htmlref{\%class Lexer}{CodeOptions}} tells JFlex to give the
+  generated class the name ``Lexer'' and to write the code to a file ``\texttt{Lexer.java}''.
+
+\item
+  \texttt{\htmlref{\%unicode}{CodeOptions}} defines the set of characters the scanner will 
+  work on. For scanning text files, \texttt{\%unicode} should always be used. See also
+  section \ref{sec:encodings} for more information on character sets, encodings, and
+  scanning text vs. binary files.
+
+\item
+  \texttt{\htmlref{\%cup}{CodeOptions}} switches to CUP compatibility
+  mode to interface with a CUP generated parser.
+
+\item
+  \texttt{\htmlref{\%line}{CodeOptions}} switches line counting on (the
+  current line number can be accessed via the variable \texttt{yyline})
+
+\item
+  \texttt{\htmlref{\%column}{CodeOptions}} switches column counting on
+  (current column is accessed via \texttt{yycolumn})
+
+\end{itemize}
+\label{ExampleScannerCode}
+
+The code included in \texttt{\htmlref{\%\bl  ...\%\br}{CodeScannerCode}}
+is copied verbatim into the generated lexer class source.
+Here you can declare member variables and functions that are used
+inside scanner actions. In our example we declare a \texttt{StringBuffer} ``\texttt{string}''
+in which we will store parts of string literals and two helper functions
+``\texttt{symbol}'' that create \texttt{java\_cup.runtime.Symbol} objects
+with position information of the current token (see section \ref{CUPWork}
+\htmlref{\emph{JFlex and CUP}}{CUPWork} 
+for how to interface with the parser generator CUP). As JFlex options, both 
+\verb+%{+ and \verb+\%}+ must begin a line. 
+\label{ExampleMacros}
+
+The specification continues with macro declarations. Macros are
+abbreviations for regular expressions, used to make lexical specifications
+easier to read and understand. A macro declaration
+consists of a macro identifier followed by \texttt{=}, then followed by
+the regular expression it represents.  This regular expression may
+itself contain macro usages. Although this allows a grammar like specification
+style, macros are still just abbreviations and not non terminals -- they
+cannot be recursive or mutually recursive. Cycles in macro definitions
+are detected and reported at generation time by JFlex.
+
+Here some of the example macros in more detail:
+\begin{itemize}
+\item
+  \texttt{\htmlref{LineTerminator}{CodeMacros}} stands for the regular
+  expression that matches an ASCII CR, an ASCII LF or an CR followed by LF.
+
+\item
+  \texttt{\htmlref{InputCharacter}{CodeMacros}} stands for all characters
+  that are not a CR or LF.
+
+\item
+  \texttt{\htmlref{TraditionalComment}{CodeMacros}} is the expression
+  that matches the string \texttt{"/*"} followed by a character that is not
+  a \texttt{*} followed by anything that matches the macro 
+  \texttt{\htmlref{CommentContent}{CodeMacros}}
+  followed by any number of \texttt{*} followed by \texttt{/}.
+
+\item
+  \texttt{\htmlref{CommentContent}{CodeMacros}} matches zero or more
+  occurrences of any character except a \texttt{*} or any number of 
+  \texttt{*} followed by a character that is not a \texttt{/}
+
+\item
+  \texttt{\htmlref{Identifier}{CodeMacros}} matches each string that
+  starts with a character of class \texttt{jletter} followed by zero or more characters
+  of class \texttt{jletterdigit}. \texttt{jletter} and \texttt{jletterdigit}
+  are predefined character classes.  \texttt{jletter} includes all characters for which
+  the Java function \texttt{Character.isJavaIdentifierStart} returns \texttt{true} and 
+  \texttt{jletterdigit} all characters for that \texttt{Character.isJavaIdentifierPart}
+  returns \texttt{true}. 
+\end{itemize}
+\label{ExampleStateDecl}
+
+The last part of the second section in our
+lexical specification is a lexical state declaration: 
+\texttt{\htmlref{\%state STRING}{CodeStateDecl}}
+declares a lexical state \texttt{STRING} that can be
+used in the ``lexical rules'' part of the specification. A state declaration
+is a line starting with \texttt{\%state} followed by a space or comma
+separated list of state identifiers. There can be more than one line starting
+with \texttt{\%state}.
+
+\subsection{Rules and Actions\label{ExampleLexRules}}
+The "lexical rules" section of a JFlex specification contains regular expressions
+and actions (Java code) that are executed when the scanner matches the
+associated regular expression. As the scanner reads its input, it keeps
+track of all regular expressions and activates the action of the expression
+that has the longest match. Our specification above for instance would with input
+"\texttt{breaker}" match the regular expression for \texttt{\htmlref{Identifier}{CodeMacros}}
+and not the keyword "\texttt{\htmlref{break}{CodeRulesYYINITIAL}}"
+followed by the Identifier "\texttt{er}", because rule \verb+{Identifier}+
+matches more of this input at once (i.e. it matches all of it)
+than any other rule in the specification. If two regular expressions both 
+have the longest match for a certain input, the scanner chooses the action 
+of the expression that appears first in the specification. In that way, we 
+get for input "\texttt{break}" the keyword "\texttt{break}" and not an 
+Identifier "\texttt{break}". 
+
+Additional to regular expression matches, one can use lexical states to
+refine a specification. A lexical state acts like a start condition.
+If the scanner is in lexical state \texttt{STRING}, only expressions that
+are preceded by the start condition \texttt{<STRING>} can be matched.
+A start condition of a regular expression can contain more than one lexical
+state. It is then matched when the lexer is in any of these lexical states.
+The lexical state \texttt{YYINITIAL} is predefined and is also the state
+in which the lexer begins scanning. If a regular expression has no start
+conditions it is matched in {\trit all} lexical states.
+\label{ExampleRulesStateBunch}
+
+Since you often have a bunch of expressions with the same start conditions, 
+JFlex allows the same abbreviation as the Unix tool \texttt{flex}:
+\begin{verbatim}
+<STRING> {
+  expr1   { action1 }
+  expr2   { action2 }
+}
+\end{verbatim}
+means that both \texttt{expr1} and \texttt{expr2} have start condition \texttt{<STRING>}.
+\label{ExampleRulesYYINITIAL}
+
+The first three rules in our example demonstrate the syntax of a regular 
+expression preceded by the start condition \texttt{<YYINITIAL>}.
+
+{\tt\htmlref{<YYINITIAL> "abstract"}{CodeRulesYYINITIAL}\verb+  {+ return symbol(sym.ABSTRACT); \verb+}+}
+
+matches the input "\texttt{abstract}" only if the scanner is in its
+start state "\texttt{YYINITIAL}". When the string "\texttt{abstract}" is
+matched, the scanner function returns the CUP symbol \texttt{sym.ABSTRACT}.
+If an action does not return a value, the scanning process is resumed immediately 
+after executing the action.
+\label{ExampleRulesBunch}
+
+The rules enclosed in
+
+\texttt{\htmlref{<YYINITIAL> \bl \\
+\ \ ...\\
+\br}{CodeRulesBunch}}
+
+demonstrate the abbreviated syntax and are also only matched in state \texttt{YYINITIAL}.
+\label{ExampleRulesYYbegin}
+
+Of these rules, one may be of special interest:
+
+\verb+\"  { + \texttt{\htmlref{string.setLength(0); yybegin(STRING);}{CodeRulesBunch}}\verb+ }+
+
+If the scanner matches a double quote in state \texttt{YYINITIAL} we
+have recognized the start of a string literal. Therefore we clear our \texttt{StringBuffer}
+that will hold the content of this string literal and tell the scanner
+with \texttt{yybegin(STRING)} to switch into the lexical state \texttt{STRING}.
+Because we do not yet return a value to the parser, our scanner proceeds
+immediately.
+\label{ExampleRulesYYtext}
+
+In lexical state \texttt{STRING} another
+rule demonstrates how to refer to the input that has been matched:
+
+\verb-[^\n\r\"]+  { - \texttt{\htmlref{string.append( yytext() );}{CodeRulesYYtext}}\verb+ }+
+
+The expression \verb-[^\n\r\"]+- matches
+all characters in the input up to the next backslash (indicating an
+escape sequence such as \verb+\n+), double quote (indicating the end
+of the string), or line terminator (which must not occur in a string literal).
+The matched region of the input is referred to with \texttt{\htmlref{yytext()}{CodeRulesYYtext}}
+and appended to the content of the string literal parsed so far.
+\label{ExampleRuleLast}
+
+The last lexical rule in the example specification
+is used as an error fallback. It matches any character in any state that
+has not been matched by another rule. It doesn't conflict with any other
+rule because it has the least priority (because it's the last rule) and
+because it matches only one character (so it can't have longest match
+precedence over any other rule).
+ 
+\subsection{How to get it going}
+\begin{itemize}
+\item
+Install JFlex (see section \ref{Installing} \htmlref{\emph{Installing JFlex}}{Installing})
+
+\item
+If you have written your specification file (or chosen one from the \texttt{examples}
+directory), save it (say under the name \texttt{java-lang.flex}).
+
+\item
+Run JFlex with
+
+\texttt{jflex java-lang.flex}
+
+\item
+JFlex should then report some progress messages about generating the scanner
+and write the generated code to the directory of your specification file.
+
+\item
+Compile the generated \texttt{.java} file and your own classes. (If you
+use CUP, generate your parser classes first)
+
+\item
+That's it.
+\end{itemize}
+
+
+\section{Lexical Specifications\label{Specifications}}
+As shown above, a lexical specification file for JFlex consists of three
+parts divided by a single line starting with \texttt{\%\%}:
+
+\texttt{\htmlref{UserCode}{SpecUsercode}}\\
+\texttt{\%\%}\\
+\texttt{\htmlref{Options and declarations}{SpecOptions}}\\
+\texttt{\%\%}\\
+\texttt{\htmlref{Lexical rules}{LexRules}}
+
+In all parts of the specification comments of the form
+\texttt{/* comment text */} and the Java style end of line comments starting with \texttt{//}
+are permitted. JFlex comments do nest - so the number of \texttt{/*} and \texttt{*/} 
+should be balanced.
+
+\subsection{User code\label{SpecUsercode}}
+The first part contains user code that is copied verbatim into the beginning
+of the source file of the generated lexer before the scanner class is declared. 
+As shown in the example above, this is the place to put \texttt{package} 
+declarations and \texttt{import}
+statements. It is possible, but not considered as good Java programming
+style to put own helper class (such as token classes) in this section.
+They should get their own \texttt{.java} file instead.
+
+\subsection{Options and declarations\label{SpecOptions}}
+The second part of the lexical specification contains \htmlref{options}{SpecOptDirectives}
+to customize your generated lexer (JFlex directives and Java code to include in
+different parts of the lexer), declarations of \htmlref{lexical states}{StateDecl} and 
+\htmlref{macro definitions}{MacroDefs} for use in the third section 
+\htmlref{``Lexical rules''}{LexRules} of the lexical specification file.
+\label{SpecOptDirectives}
+
+Each JFlex directive must be situated at the beginning of  a line
+and starts with the \texttt{\%} character. Directives that have one or
+more parameters are described as follows:
+
+\texttt{\%class "classname"}
+
+means that you start a line with \texttt{\%class} followed by a space followed
+by the name of the class for the generated scanner (the double quotes are
+\emph{not} to be entered, see the \htmlref{example specification}{CodeOptions} in
+section \ref{CodeOptions}).
+ 
+\subsubsection{Class options and user class code\label{ClassOptions}}
+These options regard the name, the constructor and related parts of the
+generated scanner class.
+\begin{itemize}
+\item
+{\bf \texttt{\%class "classname"}}
+
+Tells JFlex to give the generated class the name "\texttt{classname}" and to
+write the generated code to a file "\texttt{classname.java}". If the 
+\texttt{-d <directory>} command line option is not used, the code
+will be written to the directory where the specification file resides. If
+no \texttt{\%class} directive is present in the specification, the generated
+class will get the name "\texttt{Yylex}" and will be written to a file
+"\texttt{Yylex.java}". There should be only one \texttt{\%class} directive
+in a specification.
+ 
+\item
+{\bf \texttt{\%implements "interface 1"[, "interface 2", ..]}}
+
+Makes the generated class implement the specified interfaces. If more than
+one \texttt{\%imple\-ments} directive is present, all the specified interfaces 
+will be implemented.
+ 
+\item
+{\bf \texttt{\%extends "classname"}}
+
+Makes the generated class a subclass of the class ``\texttt{classname}''.
+There should be only one \texttt{\%extends} directive in a specification.
+
+\item
+{\bf \texttt{\%public}}
+
+Makes the generated class public (the class is only accessible in its
+own package by default).
+
+\item
+{\bf \texttt{\%final}}
+
+Makes the generated class final.
+
+\item
+{\bf \texttt{\%abstract}}
+
+Makes the generated class abstract.
+ 
+\item
+{\bf \verb+%{+}\\
+{\bf \texttt{...}}\\
+{\bf \verb+%}+}
+
+The code enclosed in \verb+%{+ and \verb+%}+ is copied verbatim
+into the generated class. Here you can define your own member variables
+and functions in the generated scanner. As all options, both \verb+%{+
+and \verb+%}+ must start a line in the specification. If more than one
+class code directive \verb+%{...%}+ is present, the code is concatenated
+in order of appearance in the specification.
+ 
+\item
+{\bf \verb+%init{+}\\
+{\bf \texttt{...}}\\
+{\bf \verb+%init}+}
+
+The code enclosed in \verb+%init{+ and \verb+%init}+ is copied
+verbatim into the constructor of the generated class. Here, member
+variables declared in the \verb+%{...%}+ directive can be initialized.
+If more than one initializer option is present, the code is concatenated
+in order of appearance in the specification.
+ 
+\item
+{\bf \verb+%initthrow{+}\\
+{\bf \texttt{"exception1"[, "exception2", ...]}}\\
+{\bf \verb+%initthrow}+}
+
+or (on a single line) just
+
+{\bf \texttt{\%initthrow "exception1" [,  "exception2", ...]}}
+
+Causes the specified exceptions to be declared in the \texttt{throws}
+clause of the constructor. If more than one \verb+%initthrow{+ \texttt{...} \verb+%initthrow}+
+directive is present in the specification, all specified exceptions will
+be declared.
+
+\item 
+{\bf \texttt{\%scanerror "exception"}}
+
+Causes the generated scanner to throw an instance of the specified
+exception in case of an internal error (default is
+\texttt{java.lang.Error}).  Note that this exception is only for
+internal scanner errors. With usual specifications it should never
+occur (i.e.~if there is an error fallback rule in the specification
+and only the documented scanner API is used).
+
+\item
+{\bf \texttt{\%buffer "size"}}
+
+Set the initial size of the scan buffer to the specified value 
+(decimal, in bytes). The default value is 16384.
+
+\item 
+{\bf \texttt{\%include "filename"}}
+
+Replaces the \texttt{\%include} verbatim with the specified file. This
+feature is still experimental. It works, but error reporting can be
+strange if a syntax error occurs on the last token in the included
+file.
+
+\end{itemize}
+
+\subsubsection{Scanning method\label{ScanningMethod}}
+This section shows how the scanning method can be customized. You can redefine
+the name and return type of the method and it is possible to declare
+exceptions that may be thrown in one of the actions of the specification.
+If no return type is specified, the scanning method will be declared as
+returning values of class \texttt{Yytoken}.
+\begin{itemize}
+\item
+{\bf \texttt{\%function "name"}}
+
+Causes the scanning method to get the specified name. If no \texttt{\%function}
+directive is present in the specification, the scanning method gets the
+name ``\texttt{yylex}''. This directive overrides settings of the 
+\texttt{\htmlref{\%cup}{CupMode}} switch. Please note that the default name
+of the scanning method with the \texttt{\htmlref{\%cup}{CupMode}} switch is
+\texttt{next\_token}. Overriding this name might lead to the generated scanner
+being implicitly declared as \texttt{abstract}, because it does not provide
+the method \texttt{next\_token} of the interface \texttt{java\_cup.runtime.Scanner}.
+It is of course possible to provide a dummy implemention of that method
+in the class code section, if you still want to override the function name.
+ 
+\item
+{\bf \texttt{\%integer}}\\
+{\bf \texttt{\%int}}
+
+Both cause the scanning method to be declared as of Java type \texttt{int}.
+Actions in the specification can then return \texttt{int} values as tokens.
+The default end of file value under this setting is \texttt{YYEOF}, which is a \texttt{public
+static final int} member of the generated class.
+ 
+\item
+{\bf \texttt{\%intwrap}}
+
+Causes the scanning method to be declared as of the Java wrapper type
+\texttt{Integer}. Actions in the specification can then return \texttt{Integer}
+values as tokens. The default end of file value under this setting is \texttt{null}.
+ 
+\item
+{\bf \texttt{\%type "typename"}}
+
+Causes the scanning method to be declared as returning values of the specified type.
+Actions in the specification can then return values of \texttt{typename}
+as tokens. The default end of file value under this setting is \texttt{null}.
+If \texttt{typename} is not a subclass of \texttt{java.lang.Object},
+you should specify another end of file value using the
+\htmlref{\texttt{\%eofval\bl} \texttt{...} \texttt{\%eofval\br}}{eofval}
+directive or the \htmlref{\texttt{<<EOF>>} rule}{EOFRule}. 
+The \texttt{\%type} directive overrides settings of the 
+\texttt{\htmlref{\%cup}{CupMode}} switch.
+ 
+\item
+{\bf \verb+%yylexthrow{+}\\
+{\bf \texttt{"exception1"[, "exception2", ... ]}}\\
+{\bf \verb+%yylexthrow}+}
+
+or (on a single line) just
+
+{\bf \texttt{\%yylexthrow "exception1" [,  "exception2", ...]}}
+
+The exceptions listed inside \verb+%yylexthrow{+ \texttt{...} \verb+%yylexthrow}+ 
+will be declared in the throws clause of the scanning method. If there is
+more than one \verb+%yylexthrow{+ \texttt{...} \verb+%yylexthrow}+ clause in
+the specification, all specified exceptions will be declared.
+\end{itemize}
+
+\subsubsection{The end of file\label{EOF}}
+There is always a default value that the scanning method will return when
+the end of file has been reached. You may however define a specific value
+to return and a specific piece of code that should be executed when the
+end of file is reached.
+
+The default end of file values depends on the return type of the scanning method:
+\begin{itemize}
+\item
+For {\bf \texttt{\%integer}}, the scanning method will return the value
+{\bf \texttt{YYEOF}}, which is a \texttt{public static final int} member
+of the generated class.
+
+\item
+For {\bf \texttt{\%intwrap}}, 
+\item
+no specified type at all, or a 
+\item
+user defined type, declared using {\bf \texttt{\%type}}, the value is {\bf \texttt{null}}.
+
+\item
+In CUP compatibility mode, using {\bf \texttt{\%cup}}, the value is 
+
+{\bf \texttt{new java\_cup.runtime.Symbol(sym.EOF)}}
+\end{itemize}
+
+User values and code to be executed at the end of file can be defined using these directives:
+\begin{itemize}
+\label{eofval}
+\item
+{\bf \verb+%eofval{+}\\
+{\bf \texttt{...}}\\
+{\bf \verb+%eofval}+}
+
+The code included in \verb+%eofval{+ \texttt{...} \verb+%eofval}+ will
+be copied verbatim into the scanning method and will be executed {\trit each time} 
+when the end of file is reached (this is possible when
+the scanning method is called again after the end of file has been
+reached). The code should return the value that indicates the end of
+file to the parser.  There should be only one \verb+%eofval{+ 
+\texttt{...} \verb+%eofval}+ clause in the specification.  
+The \verb+%eofval{ ... %eofval}+ directive overrides settings of the 
+\texttt{\htmlref{\%cup}{CupMode}} switch and \texttt{\htmlref{\%byaccj}{YaccMode}} switch. 
+As of version 1.2 JFlex provides
+a more readable way to specify the end of file value using the
+\htmlref{\texttt{<<EOF>>} rule}{EOFRule} (see also section \ref{EOFRule}).
+
+\item\label{eof}
+  {\bf \verb+%eof{+}\\
+  {\bf \texttt{...}}\\
+  {\bf \verb+%eof}+} 
+  
+  The code included in \verb+%{eof ... %eof}+ will be executed
+  exactly once, when the end of file is reached. The code is included
+  inside a method \texttt{void yy\_do\_eof()} and should not return any
+  value (use \verb+%eofval{...%eofval}+ or 
+  \htmlref{\texttt{<<EOF>>}}{EOFRule} for this purpose). If more than one 
+  end of file code directive is present, the code will be concatenated
+  in order of appearance in the specification.
+ 
+
+\item
+  {\bf \verb+%eofthrow{+}\\
+  {\bf \texttt{"exception1"[,"exception2", ... ]}}\\
+  {\bf \verb+%eofthrow}+}
+
+  or (on a single line) just
+
+  {\bf \texttt{\%eofthrow "exception1" [,  "exception2", ...]}}
+  
+  The exceptions listed inside \verb+%eofthrow{...%eofthrow}+ will
+  be declared in the throws clause of the method \texttt{yy\_do\_eof()}
+  (see \htmlref{\texttt{\%eof}}{eof} for more on that method).
+  If there is more than one \verb+%eofthrow{...%eofthrow}+ clause
+  in the specification, all specified exceptions will be declared.
+ 
+
+\label{eofclose}
+\item{\bf \texttt{\%eofclose}}
+  
+  Causes JFlex to close the input stream at the end of file. The code
+  \texttt{yyclose()} is appended to the method \texttt{yy\_do\_eof()}
+  (together with the code specified in \verb+%eof{...%eof}+) and
+  the exception \texttt{java.io.IOException} is declared in the throws
+  clause of this method (together with those of 
+  \verb+%eofthrow{...%eofthrow}+)
+
+\end{itemize}
+
+\subsubsection{Standalone scanners\label{Standalone}}
+\begin{itemize}
+\item
+{\bf \texttt{\%debug}}
+
+Creates a main function in the generated class that expects the name
+of an input file on the command line and then runs the scanner on this
+input file by printing information about each returned token to the Java 
+console until the end of file is reached. The information includes:
+line number (if line counting is enabled), column (if column counting is enabled),
+the matched text, and the executed action (with line number in the specification).
+ 
+\item
+{\bf \texttt{\%standalone}}
+
+Creates a main function in the generated class that expects the name
+of an input file on the command line and then runs the scanner on this
+input file. The values returned by the scanner are ignored, but any unmatched
+text is printed to the Java console instead (as the C/C++ tool flex does, if
+run as standalone program). To avoid having to use an extra token class, the
+scanning method will be declared as having default type \texttt{int}, not \texttt{YYtoken}
+(if there isn't any other type explicitly specified).
+This is in most cases irrelevant, but could be useful to know when making
+another scanner standalone for some purpose. You should also consider using
+the \texttt{\%debug} directive, if you just want to be able to run the scanner
+without a parser attached for testing etc.
+
+\end{itemize}
+
+
+\subsubsection{CUP compatibility\label{CupMode}}
+You may also want to read section \ref{CUPWork} \htmlref{\emph{JFlex and CUP}}{CUPWork}
+if you are interested in how to interface your generated
+scanner with CUP.
+\begin{itemize}
+\item
+{\bf \texttt{\%cup}}
+
+The \texttt{\%cup} directive enables the CUP compatibility mode and is equivalent
+to the following set of directives:
+
+\begin{verbatim}
+%implements java_cup.runtime.Scanner
+%function next_token
+%type java_cup.runtime.Symbol
+%eofval{
+  return new java_cup.runtime.Symbol(<CUPSYM>.EOF);
+%eofval}
+%eofclose
+\end{verbatim}
+
+The value of \texttt{<CUPSYM>} defaults to \texttt{sym} and can be
+changed with the \texttt{\%cupsym} directive.
+
+\item
+{\bf \texttt{\%cupsym "classname"}}
+
+Customizes the name of the CUP generated class/interface 
+containing the names of terminal tokens. Default is \texttt{sym}.
+The directive should not be used after \texttt{\%cup}, but before.
+
+\item
+{\bf \texttt{\%cupdebug}}
+
+Creates a main function in the generated class that expects the name
+of an input file on the command line and then runs the scanner on this
+input file. Prints line, column, matched text, and CUP symbol name for
+each returned token to standard out.
+
+\end{itemize}
+
+\subsubsection{BYacc/J compatibility\label{YaccMode}}
+You may also want to read section \ref{YaccWork} \htmlref{\emph{JFlex and BYacc/J}}{YaccWork}
+if you are interested in how to interface your generated
+scanner with Byacc/J.
+\begin{itemize}
+\item
+{\bf \texttt{\%byacc}}
+
+The \texttt{\%byacc} directive enables the BYacc/J compatibility mode and is equivalent
+to the following set of directives:
+
+\begin{verbatim}
+%integer
+%eofval{
+  return 0;
+%eofval}
+%eofclose
+\end{verbatim}
+
+\end{itemize}
+
+\subsubsection{Code generation\label{CodeGeneration}}
+The following options define what kind of lexical analyzer code JFlex
+will produce. \texttt{\%pack} is the default setting and will be used,
+when no code generation method is specified.
+ 
+\begin{itemize}
+\item 
+  {\bf \tt \%switch}
+
+  With \texttt{\%switch} JFlex will generate a scanner that has
+  the DFA hard coded into a nested switch statement. This method gives
+  a good deal of compression in terms of the size of the compiled 
+  \texttt{.class} file while still providing very good performance. If your
+  scanner gets to big though (say more than about 200 states)
+  performance may vastly degenerate and you should consider using one
+  of the \texttt{\%table} or \texttt{\%pack} directives. If your scanner
+  gets even bigger (about 300 states), the Java compiler \texttt{javac}
+  could produce corrupted code, that will crash when executed or will
+  give you an \texttt{java.lang.VerifyError} when checked by the virtual
+  machine. This is due to the size limitation of 64 KB of Java
+  methods as described in the Java Virtual Machine Specification
+  \cite{MachineSpec}. In this case you will be forced to use the 
+  \texttt{\%pack} directive, since \texttt{\%switch}
+  usually provides more compression of the DFA table than the 
+  \texttt{\%table} directive.
+
+ 
+\item
+  {\bf \texttt{\%table}}
+  
+  The \texttt{\%table} direction causes JFlex to produce a classical
+  table driven scanner that encodes its DFA table in an array.  In
+  this mode, JFlex only does a small amount of table compression (see
+  \cite{ParseTable}, \cite{SparseTable}, \cite{Aho} and \cite{Maurer}
+  for more details on the matter of table compression) and uses the
+  same method that JLex did up to version 1.2.1. See section \ref{performance}
+  \htmlref{performance}{performance} of this manual to compare
+  these methods. The same reason as above (64 KB size limitation of
+  methods) causes the same problem, when the scanner gets too big.
+  This is, because the virtual machine treats static initializers of
+  arrays as normal methods. You will in this case again be forced to
+  use the \texttt{\%pack} directive to avoid the problem.
+ 
+\item
+  {\bf \texttt{\%pack}}
+  
+  \texttt{\%pack} causes JFlex to compress the generated DFA table and to
+  store it in one or more string literals. JFlex takes care that the
+  strings are not longer than permitted by the class file format.
+  The strings have to be unpacked when
+  the first scanner object is created and initialized.
+  After unpacking the internal access to the DFA table is exactly the
+  same as with option \texttt{\%table} --- the only extra work to be done
+  at runtime is the unpacking process which is quite fast (not noticeable
+  in normal cases). It is in time complexity proportional to the
+  size of the expanded DFA table, and it is static,
+  i.e. it is done only once for a certain scanner class --- no matter
+  how often it is instantiated.  Again, see section
+  \ref{performance} \htmlref{performance}{performance}
+  on the performance of these scanners
+  With \texttt{\%pack}, there should be practically no
+  limitation to the size of the scanner. \texttt{\%pack} is the default
+  setting and will be used when no code generation method is specified.
+\end{itemize}
+
+\subsubsection{Character sets\label{CharacterSets}}
+\begin{itemize}
+\item
+{\bf \texttt{\%7bit}}
+
+Causes the generated scanner to use an 7 bit input character set (character
+codes 0-127). Because this is the default value in JLex, JFlex also defaults
+to 7 bit scanners. If an input character with a code greater than 127 is
+encountered in an input at runtime, the scanner will throw an \texttt{ArrayIndexOutofBoundsException}.
+Not only because of this, you should consider using the \texttt{\%unicode} directive. 
+See also section \ref{sec:encodings} for information about character encodings.
+ 
+\item
+{\bf \texttt{\%full}}\\
+{\bf \texttt{\%8bit}}
+
+Both options cause the generated scanner to use an 8 bit input character
+set (character codes 0-255). If an input character with a code greater
+than 255 is encountered in an input at runtime, the scanner will throw
+an \texttt{ArrayIndexOutofBoundsException}. Note that even if your platform
+uses only one byte per character, the Unicode value of a character may
+still be greater than 255. If you are scanning text files, you should
+consider using the \texttt{\%unicode} directive. See also section \ref{sec:encodings}
+for more information about character encodings.
+ 
+\item
+{\bf \texttt{\%unicode}}\\
+{\bf \texttt{\%16bit}}
+
+Both options cause the generated scanner to use the full 16 bit Unicode input
+character set (character codes 0-65535). There will be no runtime overflow when
+using this set of input characters. \texttt{\%unicode} does not mean that the
+scanner will read two bytes at a time. What is read and what constitutes a
+character depends on the runtime platform. See also section \ref{sec:encodings}
+for more information about character encodings.
+ 
+\label{caseless}
+\item
+{\bf \texttt{\%caseless}}\\
+{\bf \texttt{\%ignorecase}}
+
+This option causes JFlex to handle all characters and strings in the
+specification as if they were specified in both uppercase and lowercase form.
+This enables an easy way to specify a scanner for a language with
+case insensitive keywords. The string "\texttt{break}" in a specification is for instance 
+handled like the expression \texttt{([bB][rR][eE][aA][kK])}. The \texttt{\%caseless}
+option does not change the matched text and does not effect character classes. So
+\texttt{[a]} still only matches the character \texttt{a} and not \texttt{A}, too.
+Which letters are uppercase and which lowercase letters, is defined by the Unicode standard
+and determined by JFlex with the Java methods \texttt{Character.toUpperCase} and 
+\texttt{Character.toLowerCase}.
+
+ \end{itemize}
+\subsubsection{Line, character and column counting\label{Counting}}
+\begin{itemize}
+\item
+{\bf \texttt{\%char}}
+
+Turns character counting on. The \texttt{int} member variable \texttt{yychar}
+contains the number of characters (starting with 0) from the beginning
+of input to the beginning of the current token.
+ 
+\item
+{\bf \texttt{\%line}}
+
+Turns line counting on. The \texttt{int} member variable \texttt{yyline}
+contains the number of lines (starting with 0) from the beginning of input
+to the beginning of the current token.
+ 
+\item
+{\bf \texttt{\%column}}
+
+Turns column counting on. The \texttt{int} member variable \texttt{yycolumn}
+contains the number of characters (starting with 0) from the beginning
+of the current line to the beginning of the current token.
+
+ \end{itemize}
+
+\subsubsection{Obsolete JLex options\label{Obsolete}}
+\begin{itemize}
+\item
+{\bf \texttt{\%notunix}}
+
+This JLex option is obsolete in JFlex but still recognized as valid directive.
+It used to switch between Windows and Unix kind of line terminators (\verb+\r\n+
+and \verb+\n+) for the \texttt{\$} operator in regular expressions. JFlex
+always recognizes both styles of platform dependent line terminators.
+ 
+\item
+{\bf \texttt{\%yyeof}}
+
+This JLex option is obsolete in JFlex but still recognized as valid directive.
+In JLex it declares a public member constant \texttt{YYEOF}. JFlex declares it in any case.
+\end{itemize}
+
+\subsubsection{State declarations\label{StateDecl}}
+State declarations have the following from:
+
+\texttt{\%s[tate] "state identifier" [, "state identifier", ... ]} for inclusive or\\
+\texttt{\%x[state] "state identifier" [, "state identifier", ... ]} for exlusive states
+
+There may be more than one line of state declarations, each starting with
+\texttt{\%state} or \texttt{\%xstate} (the first character is sufficient,
+\texttt{\%s} and \texttt{\%x} works, too). State identifiers are letters followed 
+by a sequence of letters, digits or underscores. State identifiers can be separated 
+by whitespace or comma.
+
+The sequence
+
+\texttt{\%state STATE1}\\
+\texttt{\%xstate STATE3, XYZ, STATE\_10}\\
+\texttt{\%state ABC STATE5}
+
+declares the set of identifiers \texttt{{STATE1, STATE3, XYZ,
+    STATE\_10, ABC, STATE5}} as lexical states, \texttt{STATE1}, \texttt{ABC}, \texttt{STATE5}
+as inclusive, and \texttt{STATE3}, \texttt{XYZ}, \texttt{STATE\_10} as exclusive. 
+See also section
+\ref{HowMatched} on the way lexical states influence how the input is
+matched.
+ 
+\subsubsection{Macro definitions\label{MacroDefs}}
+A macro definition has the form
+
+\texttt{macroidentifier = regular expression}
+
+That means, a macro definition is a macro identifier (letter followed
+by a sequence of letters, digits or underscores), that can later be
+used to reference the macro, followed by optional whitespace, followed
+by an "\texttt{=}", followed by optional whitespace, followed by a
+regular expression (see section \ref{LexRules} \htmlref{\emph{lexical
+    rules}}{LexRules} for more information about regular expressions).
+
+The regular expression on the right hand side must be well formed and
+must not contain the \verb+^+, \texttt{/} or \texttt{\$} operators. {\bf Differently
+to JLex, macros are not just pieces of text that are expanded by copying}
+- they are parsed and must be well formed.
+
+{\bf This is a feature.} It eliminates some very hard to find bugs in
+lexical specifications (such like not having parentheses around more
+complicated macros - which is not necessary with JFlex).  See section
+\ref{Porting} \htmlref{\emph{Porting from JLex}}{Porting} for more
+details on the problems of JLex style macros.
+
+Since it is allowed to have macro usages in macro definitions, it is
+possible to use a grammar like notation to specify the desired lexical
+structure. Macros however remain just abbreviations of the regular expressions
+they represent. They are not non terminals of a grammar and cannot be used
+recursively in any way. JFlex detects cycles in macro definitions and reports
+them at generation time. JFlex also warns you about macros that have been
+defined but never used in the ``lexical rules'' section of the specification.
+  
+\subsection{Lexical rules\label{LexRules}}
+The ``lexical rules'' section of an JFlex specification contains a set of
+regular expressions and actions (Java code) that are executed when the
+scanner matches the associated regular expression.
+ 
+\subsubsection{Syntax\label{Grammar}}
+The syntax of the "lexical rules" section is described by the following
+BNF grammar (terminal symbols are enclosed in 'quotes'):
+
+\begin{verbatim}
+LexicalRules ::= Rule+ 
+Rule         ::= [StateList] ['^'] RegExp [LookAhead] Action 
+               | [StateList] '<<EOF>>' Action
+               | StateGroup 
+StateGroup   ::= StateList '{' Rule+ '}' 
+StateList    ::= '<' Identifier (',' Identifier)* '>' 
+LookAhead    ::= '$' | '/' RegExp
+Action       ::= '{' JavaCode '}' | '|'
+
+RegExp       ::= RegExp '|' RegExp 
+               | RegExp RegExp 
+               | '(' RegExp ')'
+               | ('!'|'~') RegExp
+               | RegExp ('*'|'+'|'?')
+               | RegExp "{" Number ["," Number] "}" 
+               | '[' ['^'] (Character|Character'-'Character)* ']' 
+               | PredefinedClass 
+               | '{' Identifier '}' 
+               | '"' StringCharacter+ '"' 
+               | Character 
+
+PredefinedClass ::= '[:jletter:]' 
+                  | '[:jletterdigit:]' 
+                  | '[:letter:]' 
+                  | '[:digit:]' 
+                  | '[:uppercase:]' 
+                  | '[:lowercase:]' 
+                  | '.' 
+\end{verbatim}
+%$
+
+\label{Terminals}
+The grammar uses the following terminal symbols:   
+\begin{itemize}
+\item \texttt{JavaCode}\\
+  a sequence of {\trit \texttt{BlockStatements}} as described in the Java
+  Language Specification \cite{LangSpec}, section 14.2.
+
+\item \texttt{Number}\\
+  a non negative decimal integer.
+  
+\item \texttt{Identifier}\\
+  a letter \verb+[a-zA-Z]+ followed by a sequence of zero or more
+  letters, digits or underscores \verb+[a-zA-Z0-9_]+
+
+\item \texttt{Character}\\
+  an escape sequence or any unicode character that is not one of these
+  meta characters:
+  \verb:  |  (  )  {  }  [  ]  < >  \  .  *  +  ?  ^  $  / . " ~ !:
+%$
+
+\item \texttt{StringCharacter}\\   
+  an escape sequence or any unicode character that is not one of these
+  meta characters:
+  \verb:  \  ":
+
+\item
+  An escape sequence
+
+  \begin{itemize}
+  \item
+    \verb+\n+  \verb+\r+  \verb+\t+  \verb+\f+  \verb+\b+
+  \item
+    a \verb+\x+ followed by two hexadecimal digits \texttt{[a-fA-F0-9]} (denoting
+    a standard ASCII escape sequence),
+    
+  \item
+    a \verb+\u+ followed by four hexadecimal digits \texttt{[a-fA-F0-9]}
+    (denoting an unicode escape sequence),
+
+  \item
+    a backslash followed by a three digit octal number from 000 to 377 (denoting
+    a standard ASCII escape sequence), or
+
+  \item
+    a backslash followed by any other unicode character that stands for this
+    character.
+
+  \end{itemize}
+  
+\end{itemize}
+
+Please note that the \verb+\n+ escape sequence stands for the ASCII
+LF character - not for the end of line. If you would like to match the
+line terminator, you should use the expression \verb+\r|\n|\r\n+ if you want
+the Java conventions, or \verb+\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+
+if you want to be fully Unicode compliant (see also \cite{unicode_rep}).
+
+As of version 1.1 of JFlex the whitespace characters \texttt{" "}
+(space) and \verb+"\t"+ (tab) can be used to improve the readability of
+regular expressions. They will be ignored by JFlex. In character
+classes and strings however, whitespace characters keep standing for
+themselves (so the string \texttt{" "} still matches exactly one space
+character and \verb+[ \n]+ still matches an ASCII LF or a space
+character).
+
+JFlex applies the following standard operator precedences in regular
+expression (from highest to lowest):
+
+\begin{itemize}
+\item
+unary postfix operators (\verb-'*', '+', '?', {n}, {n,m}-)
+
+\item
+unary prefix operators (\verb-'!', '~'-)
+
+\item
+concatenation (\texttt{RegExp::= RegExp Regexp})
+
+\item
+union (\verb-RegExp::= RegExp '|' RegExp-)
+\end{itemize}
+
+So the expression \verb+a | abc | !cd*+ for instance is parsed as 
+\verb+(a|(abc)) | ((!c)(d*))+.
+
+\subsubsection{Semantics\label{Semantics}}
+This section gives an informal description of which text is matched by
+a regular expression (i.e. an expression described by the \texttt{RegExp}
+production of the grammar presented \htmlref{above}{Grammar}).
+
+A regular expression that consists solely of
+\begin{itemize}
+\item
+  a \texttt{Character} matches this character.
+
+\item
+  a character class \verb:'[' (Character|Character'-'Character)* ']': matches
+  any character in that class. A \texttt{Character} is to be considered an
+  element of a class, if it is listed in the class or if its code lies within
+  a listed character range \texttt{Character'-'Character}. So \verb+[a0-3\n]+
+  for instance matches the characters
+
+  \verb+a 0 1 2 3 \n+
+
+  If the list of characters is empty (i.e.~just \verb+[]+), the expression
+  matches nothing at all (the empty set), not even the empty string. This
+  may be useful in combination with the negation operator \verb+'!'+.
+
+\item 
+  a negated character class \verb:'[^' (Character|Character'-'Character)* ']':
+  matches all characters not listed in the class. If the list of characters
+  is empty (i.e. \verb+[^]+), the expression matches any character of the
+  input character set.
+
+\item
+  a string \texttt{'"' StringCharacter+ '"} \texttt{'} matches the exact
+  text enclosed in double quotes. All meta characters but \verb+\+ and
+  \texttt{"}  loose their special meaning inside a string. See also the
+  \htmlref{\texttt{\%ignorecase}}{caseless} switch.
+    
+\item
+  a macro usage \verb+'{' Identifier '}'+ matches the input that is matched
+  by the right hand side of the macro with name "\texttt{Identifier}".
+
+\label{predefCharCl}
+\item 
+  a predefined character class matches any of
+  the characters in that class. There are the following predefined character
+  classes:
+
+  \texttt{.}  contains all characters but \verb+\n+.
+  
+  All other predefined character classes are defined in the Unicode
+  specification or the Java Language Specification and determined by
+  Java functions of class
+  \texttt{java}.\texttt{lang}.\texttt{Cha\-rac\-ter}.
+
+\begin{verbatim}
+[:jletter:]      isJavaIdentifierStart()
+[:jletterdigit:] isJavaIdentifierPart()
+[:letter:]       isLetter()
+[:digit:]        isDigit()
+[:uppercase:]    isUpperCase()
+[:lowercase:]    isLowerCase()
+\end{verbatim}
+
+    They are especially useful when working with the unicode character set.
+
+
+  \end{itemize}
+
+    If \texttt{a} and \texttt{b} are regular expressions, then
+
+    \begin{itemize}
+     
+          \item[\texttt{a | b}] (union) 
+
+            is the regular expression, that matches
+            all input that is matched by \texttt{a} or by \texttt{b}.
+          
+          
+          \item[\texttt{a b}] (concatenation) 
+            
+            is the regular expression,
+            that matches the input matched by \texttt{a} followed by the 
+            input matched by \texttt{b}.
+          
+          
+          \item[\texttt{a*}] (kleene closure) 
+
+            matches zero or more repetitions
+            of the input matched by \texttt{a}
+          
+          
+          \item[\texttt{a+}] (iteration)
+
+          is equivalent to \texttt{aa*}
+          
+          
+          \item[\texttt{a?}] (option)
+
+          matches the empty input or the input matched
+            by \texttt{a}
+
+          \item[\texttt{!a}] (negation)
+
+          matches everything but the strings matched by \texttt{a}. 
+          Use with care: the construction of \verb+!a+ involves
+          an additional, possibly exponential NFA to DFA transformation 
+          on the NFA for \texttt{a}. Note that
+          with negation and union you also have (by applying DeMorgan)
+          intersection and set difference: the intersection of 
+          \texttt{a} and \texttt{b} is \verb+!(!a|!b)+, the expression 
+          that matches everything of \texttt{a} not matched by \texttt{b} is 
+          \verb+!(!a|b)+
+
+          \item[\texttt{\symbol{126}a}] (upto)
+
+          matches everything up to (and including) the first occurrence of a text
+          matched by \texttt{a}. The expression \verb-~a- is equivalent
+          to \verb-!([^]* a [^]* | "") a-. A traditional C-style comment
+          is matched by \verb-"/*" ~"*/"-
+          
+          \item[\texttt{a\bl n\br}] (repeat)          
+
+            is equivalent to \texttt{n} times the concatenation of \texttt{a}.
+            So \verb+a{4}+ for instance is equivalent to the expression \texttt{a a a a}.
+            The decimal integer \texttt{n} must be positive.          
+          
+          \item[\texttt{a\bl n,m\br}]          
+            is equivalent to at least \texttt{n} times and at most \texttt{m} times the 
+            concatenation of \texttt{a}. So \verb+a{2,4}+ for instance is equivalent 
+            to the expression \verb+a a a? a?+. Both \texttt{n} and \texttt{m} are non
+            negative decimal integers and \texttt{m} must not be smaller than \texttt{n}.
+          
+          \item[\texttt{( a )}]
+            matches the same input as \texttt{a}.
+            
+        
+\end{itemize}
+    
+In a lexical rule, a regular expression \texttt{r} may be preceded by a
+'\verb+^+' (the beginning of line operator). \texttt{r} is then
+only matched at the beginning of a line in the input. A line begins
+after each occurrence of \verb+\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+ 
+(see also \cite{unicode_rep}) and at the beginning of input.  
+The preceding line terminator in the input is not consumed and can 
+be matched by another rule.
+
+In a lexical rule, a regular expression \texttt{r} may be followed by a
+lookahead expression. A lookahead expression is either a '\texttt{\$}'
+(the end of line operator) or a \verb+'/'+ followed by an arbitrary
+regular expression. In both cases the lookahead is not consumed and
+not included in the matched text region, but it {\trit is} considered
+while determining which rule has the longest match (see also 
+\ref{HowMatched} \htmlref{\emph{How the input is matched}}{HowMatched}).
+
+In the '\texttt{\$}' case \texttt{r} is only matched at the end of a line in
+the input. The end of a line is denoted by the regular expression
+\verb+\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+. 
+So \verb+a$+ is equivalent to \verb+a / \r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+.%$
+This is a bit different to the situation described in \cite{unicode_rep}:
+since in JFlex \verb+$+ is a true trailing context, the end of file
+%$
+does {\bf not} count as end of line.
+
+\label{trailingContext}
+
+For arbitrary lookahead (also called {\trit trailing context}) the 
+expression is matched only when followed by input that matches the
+trailing context. Unfortunately the lookahead expression is not
+really arbitrary: In a rule \texttt{r1 / r2}, either the text matched
+by \texttt{r1} must have a fixed length (e.g. if \texttt{r1} is a string)
+or the beginning of the trailing context \texttt{r2} must not match the 
+end of \texttt{r1}. So for example \verb+"abc" / "a"|"b"+ is ok because
+\texttt{"abc"} has a fixed length, \verb+"a"|"ab" / "x"*+ is ok because
+no prefix of \texttt{"x"*} matches a postfix of \verb+"a"|"ab"+, but
+\verb+"x"|"xy" / "yx"+ is {\trit not} possible, because the postfix \texttt{"y"}
+of \texttt{"x"|"xy"} is also a prefix of \texttt{"yx"}. JFlex will report
+such cases at generation time. The algorithm JFlex currently uses for matching
+trailing context expressions is the one described in \cite{Aho} (leading
+to the deficiencies mentioned above).
+
+\label{EOFRule}
+As of version 1.2, JFlex allows lex/flex style \texttt{<<EOF>>} rules in
+lexical specifications. A rule
+\begin{verbatim}
+[StateList]  <<EOF>>    { some action code }
+\end{verbatim}
+is very similar to the \htmlref{\texttt{\%eofval} directive}{eofval} (section \ref{eofval}). 
+The difference lies in the optional \texttt{StateList} that may precede the \texttt{<<EOF>>} rule. The
+action code will only be executed when the end of file is read and the
+scanner is currently in one of the lexical states listed in \texttt{StateList}. 
+The same \texttt{StateGroup} (see section \ref{HowMatched} 
+\htmlref{\emph{How the input is matched}}{HowMatched}) and precedence 
+rules as in the ``normal'' rule case apply 
+(i.e. if there is more than one \texttt{<<EOF>>} 
+rule for a certain lexical state, the action of the one appearing 
+earlier in the specification will be executed). \texttt{<<EOF>>} rules 
+override settings of the \texttt{\%cup} and \texttt{\%byaccj} options and 
+should not be mixed with the \texttt{\%eofval} directive.
+
+An \texttt{Action} consists either of a piece of Java code enclosed in
+curly braces or is the special \verb+|+ action. The \verb+|+ action is
+an abbreviation for the action of the following expression.
+
+Example:
+\begin{verbatim}
+expression1   |
+expression2   |
+expression3   { some action }
+\end{verbatim}
+is equivalent to the expanded form
+\begin{verbatim}
+expression1   { some action }
+expression2   { some action }
+expression3   { some action }
+\end{verbatim}
+
+They are useful when you work with trailing context expressions. The 
+expression \texttt{a | (c / d) | b} is not syntactically legal, but can 
+easily be expressed using the \verb+|+ action:
+\begin{verbatim}
+a       |
+c / d   |
+b       { some action }
+\end{verbatim}
+
+\subsubsection{How the input is matched\label{HowMatched}}
+When consuming its input, the scanner determines the regular expression
+that matches the longest portion of the input (longest match rule). If
+there is more than one regular expression that matches the longest portion
+of input (i.e. they all match the same input), the generated scanner chooses
+the expression that appears first in the specification. After determining
+the active regular expression, the associated action is executed. If there
+is no matching regular expression, the scanner terminates the program with
+an error message (if the \texttt{\%standalone} directive has been used, the
+scanner prints the unmatched input to \texttt{java.lang.System.out} instead
+and resumes scanning). 
+
+Lexical states can be used to further restrict the set of regular expressions
+that match the current input. 
+ 
+\begin{itemize}
+\item
+A regular expression can only be matched when its associated set of lexical
+states includes the currently active lexical state of the scanner or if
+the set of associated lexical states is empty and the currently active lexical
+state is inclusive. Exclusive and inclusive states only differ at this point: 
+rules with an empty set of associated states.
+ 
+\item
+The currently active lexical state of the scanner can be changed from within
+an action of a regular expression using the method \texttt{yybegin()}.
+ 
+
+\item
+The scanner starts in the inclusive lexical state 
+\texttt{YYINITIAL}, which is always declared by default.
+ 
+
+\item
+The set of lexical states associated with a regular expression is 
+the \texttt{StateList} that precedes the expression. If a rule is
+contained in one or more \texttt{StateGroups}, then the states of
+these are also associated with the rule, i.e.~they accumulate over
+\texttt{StateGroups}.
+  
+Example:
+\begin{verbatim}
+%states A, B
+%xstates C
+%%
+expr1                   { yybegin(A); action }
+<YYINITIAL, A> expr2    { action }
+<A> {
+  expr3                 { action }
+  <B,C> expr4           { action }
+}
+\end{verbatim}
+The first line declares two (inclusive) lexical states \texttt{A} and \texttt{B},
+the second line an exclusive lexical state \texttt{C}.
+The default (inclusive) state \texttt{YYINITIAL} is always implicitly there and
+doesn't need to be declared. The rule with \texttt{expr1} has no
+states listed, and is thus matched in all states but the exclusive
+ones, i.e.~\texttt{A}, \texttt{B}, and \texttt{YYINITIAL}. In its
+action, the scanner is switched to state \texttt{A}. The second rule
+\texttt{expr2} can only match when the scanner is in state
+\texttt{YYINITIAL} or \texttt{A}. The rule \texttt{expr3} can only be
+matched in state \texttt{A} and \texttt{expr4} in states \texttt{A}, \texttt{B},
+and \texttt{C}.
+
+\item
+Lexical states are declared and used as Java \texttt{int} constants in
+the generated class under the same name as they are used in the specification.
+There is no guarantee that the values of these integer constants are
+distinct. They are pointers into the generated DFA table, and if JFlex
+recognizes two states as lexically equivalent (if they are used with the
+exact same set of regular expressions), then the two constants will get
+the same value.
+ 
+\end{itemize}
+
+\subsubsection{The generated class}
+JFlex generates exactly one file containing one class from the specification
+(unless you have declared another class in the first specification section).
+
+The generated class contains (among other things) the DFA tables, an input buffer, 
+the lexical states of the specification, a constructor, and the scanning method
+with the user supplied actions.
+
+The name of the class is by default \texttt{Yylex}, it is customizable
+with the \texttt{\%class} directive (see also section
+\ref{ClassOptions}). The input buffer of the lexer is connected with an
+input stream over the \texttt{java.io.Reader} object which is passed
+to the lexer in the generated constructor. If you want to provide your
+own constructor for the lexer, you should always call the generated
+one in it to initialize the input buffer. The input buffer should not
+be accessed directly, but only over the advertised API (see also
+section \ref{ScannerMethods}). Its internal implementation may change
+between releases or skeleton files without notice.
+
+The main interface to the outside world is the generated scanning
+method (default name \texttt{yylex}, default return type
+\texttt{Yytoken}). Most of its aspects are customizable (name, return
+type, declared exceptions etc., see also section
+\ref{ScanningMethod}).  If it is called, it will consume input until
+one of the expressions in the specification is matched or an error
+occurs. If an expression is matched, the corresponding action is
+executed. It may return a value of the specified return type (in which
+case the scanning method return with this value), or if it doesn't
+return a value, the scanner resumes consuming input until the next
+expression is matched. If the end of file is reached, the scanner
+executes the EOF action, and (also upon each further call to the scanning
+method) returns the specified EOF value (see also section \ref{EOF}).
+
+
+\subsubsection{Scanner methods and fields accessible in actions (API)\label{ScannerMethods}}
+Generated methods and member fields in JFlex scanners are prefixed
+with \texttt{yy} to indicate that they are generated and to avoid name
+conflicts with user code copied into the class. Since user code is
+part of the same class, JFlex has no language means like the \texttt{private}
+modifier to indicate which members and methods are internal and
+which ones belong to the API. Instead, JFlex follows a naming convention:
+everything with an underscore after the \texttt{yy} prefix like \texttt{yy\_startRead} 
+is to be considered internal and subject to change without notice between
+JFlex releases. Methods and members of the generated class that
+do not contain an underscore belong to the API that the scanner class
+provides to users in action code of the specification. They will be
+remain stable and supported between JFlex releases as long as possible.
+
+Currently, the API consists of the following methods and member fields:
+\begin{itemize}
+\item \texttt{String yytext()}\\
+  returns the matched input text region
+
+\item \texttt{int yylength()}\\
+  returns the length of the matched input text region (does not require
+  a \texttt{String} object to be created)
+  
+\item \texttt{char yycharat(int pos)}\\
+  returns the character at position \texttt{pos} from the matched text.
+  It is equivalent to \texttt{yytext().charAt(pos)}, but faster.  {\tt
+  pos} must be a value from \texttt{0} to \texttt{yylength()-1}.
+
+\item \texttt{void yyclose()}\\
+  closes the input stream. All subsequent calls to the scanning method will 
+  return the end of file value    
+
+\item \texttt{void yyreset(java.io.Reader reader)}\\
+  closes the current input stream, and resets the scanner to read from
+  a new input stream.  All internal variables are reset, the old input
+  stream {\em cannot} be reused (content of the internal buffer is
+  discarded and lost).  The lexical state is set to \texttt{YY\_INITIAL}.
+
+\item \texttt{void yypushStream(java.io.Reader reader)}\\
+ Stores the current input stream on a stack, and
+ reads from a new stream. Lexical state, line,
+ char, and column counting remain untouched.
+ The current input stream can be restored with
+ \texttt{yypopstream} (usually in an \texttt{<<EOF>>} action).
+ 
+ A typical example for this are include files in
+ style of the C preprocessor. The corresponding 
+ JFlex specification could look somewhat like this:
+\begin{verbatim}
+"#include" {FILE}  { yypushStream(new FileReader(getFile(yytext()))); }
+..
+<<EOF>>        { if (yymoreStreams()) yypopStream(); else return EOF; }
+\end{verbatim}
+
+ This method is only available in the skeleton file
+ \texttt{skeleton.nested}. You can find it in the 
+ \texttt{src} directory of the JFlex distribution.
+
+\item \texttt{void yypopStream()}\\
+  Closes the current input stream and continues to
+  read from the one on top of the stream stack.
+
+  This method is only available in the skeleton file
+  \texttt{skeleton.nested}. You can find it in the 
+  \texttt{src} directory of the JFlex distribution.
+
+\item \texttt{boolean yymoreStreams()}\\
+  Returns true iff there are still streams for \texttt{yypopStream} 
+  left to read from on the stream stack.
+
+  This method is only available in the skeleton file
+  \texttt{skeleton.nested}. You can find it in the 
+  \texttt{src} directory of the JFlex distribution. 
+
+\item \texttt{int yystate()}\\
+  returns the current lexical state of the scanner.
+
+\item \texttt{void yybegin(int lexicalState)}\\
+  enters the lexical state \texttt{lexicalState}
+
+\item \texttt{void yypushback(int number)}\\
+  pushes \texttt{number} characters of the matched text back into the inputstream. 
+  They will be read again in the next call of the scanning method. 
+  The number of characters to be read again must not be greater than the length
+  of the matched text. The pushed back characters will after the call of 
+  \texttt{yypushback} not be included in \texttt{yylength} and \texttt{yytext()}.
+  Please note that in Java strings are unchangeable, i.e. an action code like
+  \begin{verbatim}
+    String matched = yytext();
+    yypushback(1);
+    return matched;
+  \end{verbatim}
+  will return the whole matched text, while    
+  \begin{verbatim}
+    yypushback(1);
+    return yytext();
+  \end{verbatim}
+  will return the matched text minus the last character.
+
+\item\texttt{int yyline}\\
+  contains the current line of input (starting with 0, only active with
+  the \texttt{\htmlref{\%line}{Counting}} directive)
+
+\item \texttt{int yychar}\\
+  contains the current character count in the input (starting with 0,
+  only active with the \texttt{\htmlref{\%char}{Counting}} directive)
+
+\item \texttt{int yycolumn}\\
+  contains the current column of the current line (starting with 0, only
+  active with the \texttt{\htmlref{\%column}{Counting}} directive)
+
+\end{itemize}
+
+\section{Encodings, Platforms, and Unicode\label{sec:encodings}}
+
+This section tries to shed some light on the issues of Unicode and
+encodings, cross platform scanning, and how to deal with binary data.
+My thanks go to Stephen Ostermiller for his input on this topic.
+
+\subsection{The Problem\label{sec:howtoencoding}}
+
+Before we dive straight into details, let's take a look at what the
+problem is. The problem is Java's platform independence when you want
+to use it. For scanners the interesting part about platform
+independence is character encodings and how they are handled.
+
+If a program reads a file from disk, it gets a stream of bytes.  In
+earlier times, when the grass was green, and the world was much
+simpler, everybody knew that the byte value 65 is, of course, an A.
+It was no problem to see which bytes meant which characters (actually
+these times never existed, but anyway).  The normal Latin alphabet
+only has 26 characters, so 7 bits or 128 distinct values should surely
+be enough to map them, even if you allow yourself the luxury of upper
+and lower case.  Nowadays, things are different. The world suddenly
+grew much larger, and all kinds of people wanted all kinds of special
+characters, just because they use them in their language and writing.
+This is were the mess starts. Since the 128 distinct values were
+already filled up with other stuff, people began to use all 8 bits of
+the byte, and extended the byte/character mappings to fit their need,
+and of course everybody did it differently. Some people for instance
+may have said ``let's use the value 213 for the German character {\"a}''.  Others
+may have found that 213 should much rather mean {\'e}, because they didn't need
+German and wrote French instead. As long as you use your program and
+data files only on one platform, this is no problem, as all know what
+means what, and everything gets used consistently.
+
+Now Java comes into play, and wants to run everywhere (once written,
+that is) and now there suddenly is a problem: how do I get the same
+program to say {\"a} to a certain byte when it runs in Germany and maybe {\'e}
+when it runs in France? And also the other way around: when I want to
+say {\'e} on the screen, which byte value should I send to the operating
+system?
+
+Java's solution to this is to use Unicode internally.  Unicode aims to
+be a superset of all known character sets and is therefore a perfect base
+for encoding things that might get used all over the world. To make
+things work correctly, you still have to know where you are and how to
+map byte values to Unicode characters and vice versa, but the
+important thing is, that this mapping is at least possible (you can
+map Kanji characters to Unicode, but you cannot map them to ASCII or
+iso-latin-1).
+
+\subsection{Scanning text files\label{sec:howtotext}}
+
+Scanning text files is the standard application for scanners like
+JFlex. Therefore it should also be the most convenient one. Most times 
+it is.
+
+The following scenario works like a breeze:
+You work on a platform X, write your lexer specification there, can
+use any obscure Unicode character in it as you like, and compile the
+program. Your users work on any platform Y (possibly but not 
+necessarily something different from X), they write their input files
+on Y and they run your program on Y. No problems.
+
+Java does this as follows:
+If you want to read anything in Java that is supposed to contain text, 
+you use a \texttt{FileReader} or some \texttt{InputStream} together with
+an \texttt{InputStreamReader}. \texttt{InputStreams} return the raw bytes, the 
+\texttt{InputStreamReader} converts the bytes into Unicode characters with
+the platform's default encoding. If a text file is produced on the
+same platform, the platform's default encoding should do the mapping
+correctly. Since JFlex also uses readers and Unicode internally, this
+mechanism also works for the scanner specifications. If you write an
+\texttt{A} in your text editor and the editor uses the platform's encoding (say \texttt{A} is 65), 
+then Java translates this into the logical Unicode \texttt{A} internally. 
+If a user writes an \texttt{A} on a completely different platform (say \texttt{A} is 237 there),
+then Java also translates this into the logical Unicode \texttt{A} internally. Scanning
+is performed after that translation and both match.
+
+Note that because of this mapping from bytes to characters, you should always 
+use the \texttt{\%unicode} switch in you lexer specification if you want to scan
+text files. \texttt{\%8bit} may not be enough, even if
+you know that your platform only uses one byte per character. The encoding
+Cp1252 used on many Windows machines for instance knows 256 characters, but
+the character {\'{}} with Cp1252 code \verb+\x92+ has the Unicode value \verb+\u2019+, which
+is larger than 255 and which would make your scanner throw an 
+\texttt{ArrayIndexOutOfBoundsException} if it is encountered.
+
+So for the usual case you don't have to do anything but use the
+\texttt{\%unicode} switch in your lexer specification.
+
+Things may break when you produce a text file on platform X and
+consume it on a different platform Y. Let's say you have a file
+written on a Windows PC using the encoding Cp1252. Then you move
+this file to a Linux PC with encoding ISO 8859-1 and there you want
+to run your scanner on it. Java now thinks the file is encoded
+in ISO 8859-1 (the platform's default encoding) while it really is 
+encoded in Cp1252. For most characters
+Cp1252 and ISO 8859-1 are the same, but for the byte values \verb+\x80+
+to \verb+\x9f+ they disagree: ISO 8859-1 is undefined there. You can fix
+the problem by telling Java explicitly which encoding to use. When
+constructing the \texttt{InputStreamReader}, you can give the encoding
+as argument. The line
+\begin{center}
+\texttt{Reader r = new InputStreamReader(input, "Cp1252"); }
+\end{center}
+will do the trick.
+
+Of course the encoding to use can also come from the data itself:
+for instance, when you scan a HTML page, it may have embedded 
+information about its character encoding in the headers.
+
+More information about encodings, which ones are supported, how
+they are called, and how to set them may be found in the
+official Java documentation in the chapter about 
+internationalization. 
+The link 
+\htmladdnormallink{\texttt{http://java.sun.com/j2se/1.3/docs/guide/intl/}}{http://java.sun.com/j2se/1.3/docs/guide/intl/}
+leads to an online version of this for Sun's JDK 1.3.
+
+\subsection{Scanning binaries\label{sec:howtobinary}}
+
+Scanning binaries is both easier and more difficult
+than scanning text files. It's easier because you want
+the raw bytes and not their meaning, i.e.~you don't want 
+any translation.
+It's more difficult because it's not so easy to get
+``no translation'' when you use Java readers. 
+
+The problem (for binaries) is that JFlex scanners are
+designed to work on text. Therefore the interface is
+the \texttt{Reader} class (there is a constructor
+for \texttt{InputStream} instances, but it's just there
+for convenience and wraps an \texttt{InputStreamReader}
+around it to get characters, not bytes). 
+You can still get a binary scanner when you write 
+your own custom \texttt{InputStreamReader} class that
+does explicitly no translation, but just copies
+byte values to character codes instead. It sounds
+quite easy, and actually it is no big deal, but there 
+are a few little pitfalls on the way. In the scanner
+specification you can only enter positive character
+codes (for bytes that is \verb+\x00+
+to \verb+\xFF+). Java's \texttt{byte} type on the other hand
+is a signed 8 bit integer (-128 to 127), so you have to convert 
+them properly in your custom \texttt{Reader}. Also, you should
+take care when you write your lexer spec: if you
+use text in there, it gets interpreted by an encoding
+first, and what scanner you get as result might depend
+on which platform you run JFlex on when you generate
+the scanner (this is what you want for text, but for binaries it
+gets in the way). If you are not sure, or if the development
+platform might change, it's probably best to use character 
+code escapes in all places, since they don't change their
+meaning.
+
+To illustrate these points, the example in \texttt{examples/binary} 
+contains a very small binary scanner that tries to
+detect if a file is a Java \texttt{class} file. For that
+purpose it looks if the file begins with the magic number \verb+\xCAFEBABE+.
+
+\section{A few words on performance\label{performance}}
+This section gives some empirical results about the speed of JFlex generated
+scanners in comparison to those generated by JLex,
+compares a JFlex scanner with a \htmlref{handwritten}{PerformanceHandwritten} 
+one, and presents some \htmlref{tips}{PerformanceTips} on how to make
+your specification produce a faster scanner.
+
+\subsection{Comparison of JLex and JFlex\label{PerformanceJLex}}
+Scanners generated by the tool JLex are quite fast. It was however
+possible to further improve the performance of generated scanners
+using JFlex. The following table shows the results that were produced
+by the scanner specification of a small toy programming language (in
+fact the example from the JLex website). The scanner was generated
+using JLex and all three different JFlex code generation methods. Then
+it was run on a W98 system using Sun's JDK 1.3 with different sample inputs
+of that toy programming language. All test runs were made under the
+same conditions on an otherwise idle machine. 
+
+The values presented in the table denote the time from the first call
+to the scanning method to returning the EOF value and the speedup in
+percent. The tests were run both int the mixed (HotSpot) JVM mode and
+the pure interpreted mode.  The mixed mode JVM brings
+about a factor of 10 performance improvement, the difference between
+JLex and JFlex only decreases slightly.
+
+\begin{tabular*}{\textwidth}[t]{@{\extracolsep\fill}|r|c||r||r|r||r|r||r|r|}
+\hline
+KB & JVM & JLex & {\small \tt \%switch} & speedup & {\small \tt \%table} & speedup & {\small \tt \%pack} & speedup \\
+\hline
+496& hotspot & 325 ms & 261 ms & 24.5 \% & 261 ms & 24.5 \% & 261 ms & 24.5 \% \\
+\hline
+187& hotspot & 127 ms & 98 ms & 29.6 \% & 94 ms & 35.1 \% & 96 ms & 32.3 \% \\
+\hline
+93& hotspot & 66 ms & 50 ms & 32.0 \% & 50 ms & 32.0 \% & 48 ms & 37.5 \% \\
+\hline
+496& interpr. & 4009 ms & 3025 ms & 32.5 \% & 3258 ms & 23.1 \% & 3231 ms & 24.1 \% \\
+\hline
+187& interpr. & 1641 ms & 1155 ms & 42.1 \% & 1245 ms & 31.8 \% & 1234 ms & 33.0 \% \\
+\hline
+93& interpr. & 817 ms & 573 ms & 42.6 \% & 617 ms & 32.4 \% & 613 ms & 33.3 \% \\
+\hline
+\end{tabular*}
+\medskip
+
+Since the scanning time of the lexical analyzer examined in the table
+above includes lexical actions that often need to create new object instances,
+another table shows the execution time for the same specification with empty
+lexical actions to compare the pure scanning engines.
+ 
+\begin{tabular*}{\textwidth}[t]{@{\extracolsep\fill}|r|c||r||r|r||r|r||r|r|}
+\hline
+KB & JVM & JLex & {\small \tt \%switch} & speedup & {\small \tt \%table} & speedup & {\small \tt \%pack} & speedup \\
+\hline
+496& hotspot & 204 ms & 140 ms & 45.7 \% & 138 ms & 47.8 \% & 140 ms & 45.7 \% \\
+\hline
+187& hotspot & 83 ms & 55 ms & 50.9 \% & 52 ms & 59.6 \% & 52 ms & 59.6 \% \\
+\hline
+93& hotspot & 41 ms & 28 ms & 46.4 \% & 26 ms & 57.7 \% & 26 ms & 57.7 \% \\
+\hline
+496& interpr. & 2983 ms & 2036 ms & 46.5 \% & 2230 ms & 33.8 \% & 2232 ms & 33.6 \% \\
+\hline
+187& interpr. & 1260 ms & 793 ms & 58.9 \% & 865 ms & 45.7 \% & 867 ms & 45.3 \% \\
+\hline
+93& interpr. & 628 ms & 395 ms & 59.0 \% & 432 ms & 45.4 \% & 432 ms & 45.4 \% \\
+\hline
+\end{tabular*}
+\medskip
+
+Execution time of single instructions depends on the platform and
+the implementation of the Java Virtual Machine the program is executed
+on. Therefore the tables above cannot be used as a reference to which
+code generation method of JFlex is the right one to choose in general.
+The following table was produced by the same lexical specification and
+the same input on a Linux system also using Sun's JDK 1.3.
+
+With actions:
+
+\begin{tabular*}{\textwidth}[t]{@{\extracolsep\fill}|r|c||r||r|r||r|r||r|r|}
+\hline
+KB & JVM & JLex & {\small \tt \%switch} & speedup & {\small \tt \%table} & speedup & {\small \tt \%pack} & speedup \\
+\hline
+496& hotspot & 246 ms & 203 ms & 21.2 \% & 193 ms & 27.5 \% & 190 ms & 29.5 \% \\
+\hline
+187& hotspot & 99 ms & 76 ms & 30.3 \% & 69 ms & 43.5 \% & 70 ms & 41.4 \% \\
+\hline
+93& hotspot & 48 ms & 36 ms & 33.3 \% & 34 ms & 41.2 \% & 35 ms & 37.1 \% \\
+\hline
+496& interpr. & 3251 ms & 2247 ms & 44.7 \% & 2430 ms & 33.8 \% & 2444 ms & 33.0 \% \\
+\hline
+187& interpr. & 1320 ms & 848 ms & 55.7 \% & 958 ms & 37.8 \% & 920 ms & 43.5 \% \\
+\hline
+93& interpr. & 658 ms & 423 ms & 55.6 \% & 456 ms & 44.3 \% & 452 ms & 45.6 \% \\
+\hline
+\end{tabular*}
+\medskip
+
+ 
+Without actions:
+
+\begin{tabular*}{\textwidth}[t]{@{\extracolsep\fill}|r|c||r||r|r||r|r||r|r|}
+\hline
+KB & JVM & JLex & {\small \tt \%switch} & speedup & {\small \tt \%table} & speedup & {\small \tt \%pack} & speedup \\
+\hline
+496& hotspot & 136 ms & 78 ms & 74.4 \% & 76 ms & 78.9 \% & 77 ms & 76.6 \% \\
+\hline
+187& hotspot & 59 ms & 31 ms & 90.3 \% & 48 ms & 22.9 \% & 32 ms & 84.4 \% \\
+\hline
+93& hotspot & 28 ms & 15 ms & 86.7 \% & 15 ms & 86.7 \% & 15 ms & 86.7 \% \\
+\hline
+496& interpr. & 1992 ms & 1047 ms & 90.3 \% & 1246 ms & 59.9 \% & 1215 ms & 64.0 \% \\
+\hline
+187& interpr. & 859 ms & 408 ms & 110.5 \% & 479 ms & 79.3 \% & 487 ms & 76.4 \% \\
+\hline
+93& interpr. & 435 ms & 200 ms & 117.5 \% & 237 ms & 83.5 \% & 242 ms & 79.8 \% \\
+\hline
+\end{tabular*}
+\medskip
+
+
+Although all JFlex scanners were faster than those generated by JLex, 
+slight differences between JFlex code generation methods show up when compared
+to the run on the W98 system.
+\label{PerformanceHandwritten}
+ 
+The following table compares a handwritten scanner for the Java language
+obtained from the website of CUP with the JFlex generated scanner for Java
+that comes with JFlex in the \texttt{examples} directory. They were tested
+on different \texttt{.java} files on a Linux machine with Sun's JDK 1.3.
+
+\begin{tabular*}{\textwidth}[t]{@{\extracolsep\fill}|r|r|c||r||r|r|}
+\hline lines & KB & JVM
+& handwritten scanner & 
+\multicolumn{2}{c|}{JFlex generated scanner} \\
+\hline
+19050  & 496  & hotspot & 824 ms & 248 ms & 235 \% faster \\
+\hline
+ 6350  & 165  & hotspot & 272 ms & 84 ms & 232 \% faster \\
+\hline
+ 1270  & 33  & hotspot & 53 ms & 18 ms & 194 \% faster \\
+\hline
+19050  & 496  & interpreted & 5.83 s & 3.85 s & 51 \% faster \\
+\hline
+ 6350  & 165  & interpreted & 1.95 s & 1.29 s & 51 \% faster \\
+\hline
+ 1270  & 33  & interpreted & 0.38 s & 0.25 s & 52 \% faster \\
+\hline
+\end{tabular*}
+\medskip
+
+Although JDK 1.3 seems to speed up the handwritten scanner if compared
+to JDK 1.1 or 1.2 more than the generated one, the generated scanner is
+still up to 3.3 times as fast as the handwritten one. One example of 
+a handwritten scanner that is
+considerably slower than the equivalent generated one is surely no
+proof for all generated scanners being faster than handwritten. It is
+clearly impossible to prove something like that, since you could
+always write the generated scanner by hand. From a software
+engineering point of view however, there is no excuse for writing a
+scanner by hand since this task takes more time, is more difficult and
+therefore more error prone than writing a compact, readable and easy
+to change lexical specification. (I'd like to add, that I do {\em not}
+think, that the handwritten scanner from the CUP website used here in
+the test is stupid or badly written or anything like that. I actually
+think, Scott did a great job with it, and that for learning about
+lexers it is quite valuable to study it or even to write a similar one
+for oneself.)
+ 
+\subsection{How to write a faster specification\label{PerformanceTips}}
+Although JFlex generated scanners show good performance without
+special optimizations, there are some heuristics that can make a
+lexical specification produce an even faster scanner. Those are
+(roughly in order of performance gain):
+ 
+\begin{itemize}
+\item
+Avoid rules that require backtracking
+
+From the C/C++ flex \cite{flex} manpage: {\trit ``Getting rid
+of backtracking is messy and often may be an enormous amount of work for
+a complicated scanner.''} Backtracking is introduced by the longest match
+rule and occurs for instance on this set of expressions:
+ 
+\texttt{  "averylongkeyword"}\\
+\texttt{  .}
+ 
+With input \texttt{"averylongjoke"} the scanner has to read all charcters
+up to \texttt{'j' }to decide that rule \texttt{.} should be matched. All
+characters of \texttt{"verylong"} have to be read again for the next
+matching process. Backtracking can be avoided in general by adding
+error rules that match those error conditions 
+
+\verb+ "av"|"ave"|"avery"|"averyl"|..+
+
+While this is impractical in most scanners, there is still the
+possibility to add a ``catch all'' rule for a lengthy list of keywords
+\begin{verbatim}
+"keyword1"  { return symbol(KEYWORD1); } 
+.. 
+"keywordn"  { return symbol(KEYWORDn); }
+[a-z]+      { error("not a keyword"); }
+\end{verbatim}
+Most programming language scanners already have a rule like this for
+some kind of variable length identifiers.
+
+\item
+  Avoid line and column counting
+  
+  It costs multiple additional comparisons per input character and the
+  matched text has to be rescanned for counting. In most scanners it
+  is possible to do the line counting in the specification by
+  incrementing \texttt{yyline} each time a line terminator has been
+  matched.  Column counting could also be included in actions. This
+  will be faster, but can in some cases become quite messy.
+ 
+\item
+  Avoid lookahead expressions and the end of line operator '\$'
+
+  The trailing context will first have to be read and then (because
+  it is not to be consumed) read again. 
+
+\item
+  Avoid the beginning of line operator '\verb+^+'
+  
+  It costs multiple additional comparisons per match. In some
+  cases one extra lookahead character is needed (when the last character read is
+  \verb+\r+ the scanner has to read one character ahead to check if
+  the next one is an \verb+\n+ or not).
+
+\item
+  Match as much text as possible in a rule.
+  
+  One rule is matched in the innermost loop of the scanner.  After
+  each action some overhead for setting up the internal state of the
+   scanner is necessary.
+\end{itemize}
+
+Note that writing more rules in a specification does not make the generated
+scanner slower (except when you have to switch to another code generation
+method because of the larger size).
+
+The two main rules of optimization apply also for lexical specifications:
+\begin{enumerate}
+\item {\bf don't do it}
+\item {\bf (for experts only) don't do it yet}
+\end{enumerate}
+
+Some of the performance tips above contradict a readable and compact
+specification style. When in doubt or when requirements are not or not
+yet fixed: don't use them - the specification can always be optimized
+in a later state of the development process.
+
+
+\section{Porting Issues}
+
+\subsection{Porting from JLex\label{Porting}}
+JFlex was designed to read old JLex specifications unchanged and to
+generate a scanner which behaves exactly the same as the one generated
+by JLex with the only difference of being faster.
+
+This works as expected on all well formed JLex specifications.
+
+Since the statement above is somewhat absolute, let's take a look at
+what ``well formed'' means here. A JLex specification is well formed, when
+it
+\begin{itemize}
+\item
+  generates a working scanner with JLex
+
+\item 
+  doesn't contain the unescaped characters \texttt{!} and \texttt{\symbol{126}}
+
+  They are operators in JFlex while JLex treats them as normal
+  input characters. You can easily port such a JLex specification
+  to JFlex by replacing every \texttt{!} with \verb+\!+ and every
+  \verb+~+ with \verb+\~+ in all regular expressions.
+
+\item
+  has only complete regular expressions surrounded by parentheses in
+  macro definitions
+  
+  This may sound a bit harsh, but could otherwise be a major problem
+  -- it can also help you find some disgusting bugs in your
+  specification that didn't show up in the first place. In JLex, a
+  right hand side of a macro is just a piece of text, that is copied
+  to the point where the macro is used. With this, some weird kind of
+  stuff like
+  \begin{verbatim}
+  macro1 = ("hello"
+  macro2 = {macro1})*
+  \end{verbatim}  
+  was possible (with \texttt{macro2} expanding to \verb+("hello")*+).  This
+  is not allowed in JFlex and you will have to transform such
+  definitions. There are however some more subtle kinds of errors that
+  can be introduced by JLex macros. Let's consider a definition like
+  \verb+macro = a|b+  and a usage like \verb+{macro}*+.
+  This expands in JLex to \verb+a|b*+ and not to the probably intended
+  \verb+(a|b)*+.
+
+  JFlex uses always the second form of expansion, since this is the natural
+  form of thinking about abbreviations for regular expressions.
+
+  Most specifications shouldn't suffer from this problem, because
+  macros often only contain (harmless) character classes like
+  \texttt{alpha = [a-zA-Z]} and more dangerous definitions like
+
+  \verb+ ident = {alpha}({alpha}|{digit})*+
+
+  are only used to write rules like
+
+  \verb+ {ident}       { .. action .. }+
+
+  and not more complex expressions like
+
+  \verb+ {ident}*      { .. action .. }+
+
+  where the kind of error presented above would show up.
+\end{itemize}
+
+\subsection{Porting from lex/flex\label{lexport}}
+This section tries to give an overview of activities and possible
+problems when porting a lexical specification from the C/C++ tools lex
+and flex \cite{flex} available on most Unix systems to JFlex.
+
+Most of the C/C++ specific features are naturally not present in JFlex,
+but most ``clean'' lex/flex lexical specifications can be ported to 
+JFlex without very much work.
+
+This section is by far not complete and is based mainly on a survey of
+the flex man page and very little personal experience.  If you do
+engage in any porting activity from lex/flex to JFlex and encounter
+problems, have better solutions for points presented here or have just
+some tips you would like to share, please do 
+\latex{contact me via email: \texttt{Gerwin Klein <lsf@jflex.de>}}%
+\html{\htmladdnormallink{contact me}{mailto:lsf@jflex.de}}. I will
+incorporate your experiences in this manual (with all due credit to you,
+of course).
+
+\subsubsection{Basic structure}
+A lexical specification for flex has the following basic structure:
+\begin{verbatim}
+definitions
+%%
+rules
+%%
+user code
+\end{verbatim}
+
+The \texttt{user code} section usually contains some C code that is used
+in actions of the \texttt{rules} part of the specification. For JFlex most
+of this code will have to be included in the class code \verb+%{..%}+
+directive in the \texttt{options} \texttt{and dec\-la\-ra\-ti\-ons} section (after 
+translating the C code to Java, of course). 
+
+\subsubsection{Macros and Regular Expression Syntax}
+The \texttt{definitions} section of a flex specification is quite similar
+to the \texttt{op\-tions and dec\-la\-ra\-tions} part of JFlex specs.
+
+Macro definitions in flex have the form:
+\begin{verbatim}
+<identifier>  <expression>
+\end{verbatim}
+To port them to JFlex macros, just insert a \texttt{=} between \texttt{<identifier>}
+and \texttt{<expression>}.
+
+The syntax and semantics of regular expressions in flex are pretty much the
+same as in JFlex. A little attention is needed for some escape sequences 
+present in flex (such as \verb+\a+) that are not supported in JFlex. These
+escape sequences should be transformed into their octal or hexadecimal 
+equivalent. 
+
+Another point are predefined character classes. Flex offers the ones directly
+supported by C, JFlex offers the ones supported by Java. These classes will
+sometimes have to be listed manually (if there is need for this feature, it
+may be implemented in a future JFlex version).
+
+\subsubsection{Lexical Rules}
+Since flex is mostly Unix based, the '\verb+^+' (beginning of line) and
+'\verb+$+' (end of line) operators, consider the \verb+\n+ character as %$
+only line terminator. This should usually cause not much problems, but you
+should be prepared for occurrences of \verb+\r+ or \verb+\r\n+ or one of
+the characters \verb+\u2028+, \verb+\u2029+, \verb+\u000B+, \verb+\u000C+, 
+or \verb+\u0085+. They are considered to be line terminators in Unicode and 
+therefore may not be consumed when 
+\verb+^+ or \verb+$+ is present in a rule.%$
+
+The trailing context algorithm of flex is better than the one used in
+JFlex. Therefore lookahead expressions could cause major headaches. JFlex
+will issue an error message at generation time, if it cannot generate
+a scanner for a certain lookahead expression. (sorry, I have no more tips here
+on that yet. If anyone knows how the flex lookahead algorithm works (or any better one)
+and can be efficiently implemented, again: please \htmladdnormallink{contact me}{mailto:lsf@jflex.de}).
+
+\section{Working together\label{WorkingTog}}
+
+\subsection{JFlex and CUP\label{CUPWork}}
+One of the main design goals of JFlex was to make interfacing with the free
+Java parser generator CUP \cite{CUP} as easy as possibly. 
+This has been done by giving
+the \texttt{\htmlref{\%cup}{CupMode}} directive a special meaning. An
+interface however always has two sides. This section concentrates on the
+CUP side of the story.
+
+\subsubsection{CUP version 0.10j}
+Since CUP version 0.10j, this has been simplified greatly by the new 
+CUP scanner interface \texttt{java\_cup.runtime.Scanner}. JFlex lexers now implement
+this interface automatically when then \texttt{\htmlref{\%cup}{CupMode}}
+switch is used. There are no special \texttt{parser code}, \texttt{init
+  code} or \texttt{scan with} options any more that you have to provide
+in your CUP parser specification. You can just concentrate on your grammar.
+
+If your generated Lexer has the class name \texttt{Scanner}, the parser
+is started from the a main program like this:
+
+{\xsmall\begin{verbatim}
+...
+  try {
+    parser p = new parser(new Scanner(new FileReader(fileName)));
+    Object result = p.parse().value;
+  }
+  catch (Exception e) {
+...
+\end{verbatim}
+}
+
+\subsubsection{Using existing JFlex/CUP specifications with CUP 0.10j}
+If you already have an existing specification and you would like to upgrade
+both JFlex and CUP to their newest version, you will probably have to adjust
+your specification.
+
+The main difference between the \texttt{\htmlref{\%cup}{CupMode}} switch in
+JFlex 1.2.1 and lower, and the current JFlex version is, that JFlex scanners
+now automatically implement the \texttt{java\_cup.runtime.Scanner} interface.
+This means, that the scanning function now changes its name from \texttt{yylex()}
+to \texttt{next\_token()}. 
+
+The main difference from older CUP versions to 0.10j is, that CUP now
+has a default constructor that accepts a \texttt{java\_cup.runtime.Scanner} 
+as argument and that uses this scanner as
+default (so no \texttt{scan with} code is necessary any more).
+
+If you have an existing CUP specification, it will probably look somewhat like this:
+{\xsmall\begin{verbatim}
+parser code {:
+  Lexer lexer;
+
+  public parser (java.io.Reader input) {
+    lexer = new Lexer(input);
+  }
+:};
+
+scan with {: return lexer.yylex(); :};
+\end{verbatim}
+}
+
+To upgrade to CUP 0.10j, you could change it to look like this:
+{\xsmall\begin{verbatim}
+parser code {:
+  public parser (java.io.Reader input) {
+    super(new Lexer(input));
+  }
+:};
+\end{verbatim}
+}
+
+If you do not mind to change the method that is calling the parser,
+you could remove the constructor entirely (and if there is nothing else
+in it, the whole \texttt{parser code} section as well, of course). The calling
+main procedure would then construct the parser as shown in the section above.
+
+The JFlex specification does not need to be changed.
+
+\subsubsection{Using older versions of CUP}
+For people, who like or have to use older versions of CUP, the following section 
+explains ``the old way''. Please note, that the standard name of the scanning 
+function with the \texttt{\htmlref{\%cup}{CupMode}} switch is not 
+\texttt{yylex()}, but \texttt{next\_token()}.
+
+If you have a scanner specification that begins like this:
+
+{\xsmall\begin{verbatim}
+package PACKAGE;
+import java_cup.runtime.*;   /* this is convenience, but not necessary */
+ 
+%%
+ 
+%class Lexer
+%cup
+..
+\end{verbatim}
+}
+
+then it matches a CUP specification starting  like
+
+{\xsmall\begin{verbatim}
+package PACKAGE;
+
+parser code {:
+  Lexer lexer;
+
+  public parser (java.io.Reader input) {
+    lexer = new Lexer(input);
+  }
+:};
+
+scan with {: return lexer.next_token(); :};
+
+..
+\end{verbatim}
+}
+
+This assumes that the generated parser will get the name \texttt{parser}.
+If it doesn't, you have to adjust the constructor name.
+
+The parser can then be started in a main routine like this:
+
+{\xsmall\begin{verbatim}
+..
+  try {
+    parser p = new parser(new FileReader(fileName));
+    Object result = p.parse().value; 
+  }
+  catch (Exception e) {
+..
+\end{verbatim} 
+}
+
+If you want the parser specification to be independent of the name of the generated
+scanner, you can instead write an interface Lexer
+
+{\xsmall\begin{verbatim}
+public interface Lexer {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException;
+}
+\end{verbatim}
+}
+
+change the parser code to:
+
+{\xsmall\begin{verbatim}
+package PACKAGE;
+
+parser code {:
+  Lexer lexer;
+
+  public parser (Lexer lexer) {
+    this.lexer = lexer;
+  }
+:};
+
+scan with {: return lexer.next_token(); :};
+
+..
+\end{verbatim}
+}
+
+tell JFlex about the Lexer 
+interface using the \texttt{\%implements}
+directive:
+
+{\xsmall\begin{verbatim}
+..
+%class Scanner     /* not Lexer now since that is our interface! */
+%implements Lexer
+%cup
+..
+\end{verbatim}
+}
+
+and finally change the main routine to look like
+
+{\xsmall\begin{verbatim}
+...
+  try {
+    parser p = new parser(new Scanner(new FileReader(fileName)));
+    Object result = p.parse().value;
+  }
+  catch (Exception e) {
+...
+\end{verbatim}
+}
+
+If you want to improve the error messages that CUP generated parsers
+produce, you can also override the methods \texttt{report\_error} and \texttt{report\_fatal\_error}
+in the ``parser code'' section of the CUP specification. The new methods
+could for instance use \texttt{yyline} and \texttt{yycolumn} (stored in
+the \texttt{left} and \texttt{right} members of class \texttt{java\_cup.runtime.Symbol})
+to report error positions more conveniently for the user. The lexer and
+parser for the Java language in the \texttt{examples/java} directory of the
+JFlex distribution use this style of error reporting. These specifications
+also demonstrate the techniques above in action.
+
+\subsection{JFlex and BYacc/J\label{YaccWork}}
+
+JFlex has builtin support for the Java extension 
+\htmladdnormallink{BYacc/J}{http://troi.lincom-asg.com/\symbol{126}rjamison/byacc/} 
+\cite{BYaccJ} by Bob Jamison
+to the classical Berkeley Yacc parser generator.
+This section describes how to interface BYacc/J with JFlex. It
+builds on many helpful suggestions and comments from Larry Bell.
+
+Since Yacc's architecture is a bit different from CUP's, the
+interface setup also works in a slightly different manner.
+BYacc/J expects a function \texttt{int yylex()} in the parser
+class that returns each next token. Semantic values are expected
+in a field \texttt{yylval} of type \texttt{parserval} where ``\texttt{parser}''
+is the name of the generated parser class.
+
+For a small calculator example, one could use a setup like the 
+following on the JFlex side:
+
+{\xsmall\begin{verbatim}
+
+%%
+
+%byaccj
+
+%{
+  /* store a reference to the parser object */
+  private parser yyparser;
+
+  /* constructor taking an additional parser object */
+  public Yylex(java.io.Reader r, parser yyparser) {
+    this(r);
+    this.yyparser = yyparser;
+  }
+%}
+
+NUM = [0-9]+ ("." [0-9]+)?
+NL  = \n | \r | \r\n
+
+%%
+
+/* operators */
+"+" | 
+..
+"(" | 
+")"    { return (int) yycharat(0); }
+
+/* newline */
+{NL}   { return parser.NL; }
+
+/* float */
+{NUM}  { yyparser.yylval = new parserval(Double.parseDouble(yytext()));
+         return parser.NUM; }
+\end{verbatim}
+}
+
+The lexer expects a reference to the parser in its constructor.
+Since Yacc allows direct use of terminal characters like \texttt{'+'}
+in its specifications, we just return the character code for
+single char matches (e.g. the operators in the example). Symbolic
+token names are stored as \texttt{public static int} constants in
+the generated parser class. They are used as in the \texttt{NL} token
+above. Finally, for some tokens, a semantic value may have to be 
+communicated to the parser. The \texttt{NUM} rule demonstrates that
+bit.
+
+A matching BYacc/J parser specification could look like this:
+{\xsmall\begin{verbatim}
+%{
+  import java.io.*;
+%}
+      
+%token NL          /* newline  */
+%token <dval> NUM  /* a number */
+
+%type <dval> exp
+
+%left '-' '+'
+..
+%right '^'         /* exponentiation */
+      
+%%
+
+..
+      
+exp:     NUM          { $$ = $1; }
+       | exp '+' exp  { $$ = $1 + $3; }
+       ..
+       | exp '^' exp  { $$ = Math.pow($1, $3); }
+       | '(' exp ')'  { $$ = $2; }
+       ;
+
+%%
+  /* a reference to the lexer object */
+  private Yylex lexer;
+
+  /* interface to the lexer */
+  private int yylex () {
+    int yyl_return = -1;
+    try {
+      yyl_return = lexer.yylex();
+    }
+    catch (IOException e) {
+      System.err.println("IO error :"+e);
+    }
+    return yyl_return;
+  }
+
+  /* error reporting */
+  public void yyerror (String error) {
+    System.err.println ("Error: " + error);
+  }
+
+  /* lexer is created in the constructor */
+  public parser(Reader r) {
+    lexer = new Yylex(r, this);
+  }
+
+  /* that's how you use the parser */
+  public static void main(String args[]) throws IOException {
+    parser yyparser = new parser(new FileReader(args[0]));
+    yyparser.yyparse();    
+  }
+\end{verbatim}
+}
+
+Here, the customized part is mostly in the user code section:
+We create the lexer in the constructor of the parser and store
+a reference to it for later use in the parser's \texttt{int yylex()}
+method. This \texttt{yylex} in the parser only calls \texttt{int yylex()}
+of the generated lexer and passes the result on. If something goes
+wrong, it returns -1 to indicate an error.
+
+Runnable versions of the specifications above 
+are located in the \texttt{examples/byaccj} directory of the JFlex 
+distribution.
+
+\section{Bugs and Deficiencies\label{Bugs}}
+
+\subsection{Deficiencies}
+The trailing context algorithm described in \cite{Aho} and used in
+JFlex is incorrect. It does not work, when a postfix of the regular
+expression matches a prefix of the trailing context and the length
+of the text matched by the expression does not have a fixed size.
+JFlex will report these cases as errors at generation time.
+
+\subsection{Bugs}
+%As of {\today}, no bugs have been reported for JFlex version \ver. All 
+%bugs reported for earlier versions have been fixed.
+
+As of {\today} the following bugs are known in JFlex:
+\begin{itemize}
+\item The check, if a lookahead expression is legal, fails on some expressions.
+  The lookahead algorithm itself works as advertised, but JFlex will not
+  report all lookahead expressions that the algorithm can't handle at generation
+  time. Some cases are caught by the check, but not all.
+
+  {\bf Workaround:} Check lookahead expressions manually. A lookahead expression 
+  \texttt{r1/r2} is ok, if no postfix of \texttt{r1} can match a prefix of \texttt{r2}.
+\end{itemize}
+
+If you find new ones, please use the bugs section of the
+\htmladdnormallinkfoot{JFlex website}{http://www.jflex.de/}
+to report them.
+ 
+ 
+\section{Copying and License\label{Copyright}}
+JFlex is free software, published under the terms of the 
+\htmladdnormallinkfoot{GNU General Public License}{http://www.fsf.org/copyleft/gpl.html}.
+
+There is absolutely NO WARRANTY for JFlex, its code and its documentation.
+
+The code generated by JFlex inherits the copyright of the specification it
+was produced from. If it was your specification, you may use the generated 
+code without restriction.
+
+See the file \htmladdnormallink{\texttt{COPYRIGHT}}{COPYRIGHT} for more information.  
+
+\newpage  
+\begin{thebibliography}{[00]} 
+\label{References} 
+
+\bibitem{Aho}
+  A.~Aho, R.~Sethi, J.~Ullman, {\trit Compilers: Principles, Techniques, and Tools}, 1986
+
+
+\bibitem{Appel}
+  A.~W.~Appel, {\trit Modern Compiler Implementation in Java: basic techniques}, 1997
+
+\bibitem{JLex}
+ E.~Berk, {\trit JLex: A lexical analyser generator for Java},\\
+ \htmladdnormallink{\texttt{http://www.cs.princeton.edu/\symbol{126}appel/modern/java/JLex/}}
+                   {http://www.cs.princeton.edu/\symbol{126}appel/modern/java/JLex/}
+
+
+\bibitem{fast}
+  K.~Brouwer, W.~Gellerich,E.~Ploedereder, 
+  {\trit Myths and Facts about the Efficient Implementation of Finite Automata and Lexical Analysis}, 
+  in: Proceedings of the 7th International Conference on Compiler Construction (CC '98), 1998
+
+\bibitem{unicode_rep}
+  M.~Davis, {\trit Unicode Regular Expression Guidelines}, Unicode Technical Report \#18, 2000\\ 
+  \htmladdnormallink{\texttt{http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html}}
+                    {http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html}
+
+\bibitem{ParseTable}
+ P.~Dencker, K.~D{\"u}rre, J.~Henft, {\trit Optimization of Parser Tables for portable Compilers}, 
+ in: ACM Transactions on Programming Languages and Systems 6(4), 1984
+
+\bibitem{LangSpec}
+  J.~Gosling, B.~Joy, G.~Steele, {\trit The Java Language Specifcation}, 1996,\\
+  \htmladdnormallink{\texttt{http://www.javasoft.com/docs/books/jls/}}
+                    {http://www.javasoft.com/docs/books/jls/}
+
+\bibitem{CUP}
+  S.~E.~Hudson, {\trit CUP LALR Parser Generator for Java},\\  
+  \htmladdnormallink{\texttt{http://www.cs.princeton.edu/\symbol{126}appel/modern/java/CUP/}}
+  {http://www.cs.princeton.edu/\symbol{126}appel/modern/java/CUP/}
+
+\bibitem{BYaccJ}
+  B.~Jamison, {\trit BYacc/J},\\
+  \htmladdnormallink{\texttt{http://troi.lincom-asg.com/\symbol{126}rjamison/byacc/}}
+  {http://troi.lincom-asg.com/\symbol{126}rjamison/byacc/}
+  
+\bibitem{MachineSpec}
+ T.~Lindholm, F.~Yellin, {\trit The Java Virtual Machine Specification}, 1996,\\
+ \htmladdnormallink{\texttt{http://www.javasoft.com/docs/books/vmspec/}}
+                   {http://www.javasoft.com/docs/books/vmspec/}
+ 
+\bibitem{flex}
+ V.~Paxon, {\trit flex - The fast lexical analyzer generator}, 1995
+
+\bibitem{SparseTable}
+  R.~E. Tarjan, A.~Yao, {\trit Storing a Sparse Table}, in: Communications of the ACM 22(11), 1979 
+
+\bibitem{Maurer}
+  R.~Wilhelm, D.~Maurer, {\trit {\"U}bersetzerbau}, Berlin $1997^2$
+
+\end{thebibliography}
+
+\end{document}
