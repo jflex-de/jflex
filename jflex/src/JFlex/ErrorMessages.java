@@ -36,16 +36,21 @@ import java.util.ResourceBundle;
 public class ErrorMessages {  
   private String key;
 
-  private static final ResourceBundle RESOURCE_BUNDLE =
-    ResourceBundle.getBundle("JFlex.Messages");
+  /* not final static, because initializing here seems too early
+   * for OS/2 JDK 1.1.8. See bug 1065521.
+   */ 
+  private static ResourceBundle resourceBundle = null;
 
   private ErrorMessages(String key) {
     this.key = key;
   }
 
   public static String get(ErrorMessages msg) {
+    if (resourceBundle == null) {
+      resourceBundle = ResourceBundle.getBundle("JFlex.Messages"); 
+    }    
     try {
-      return RESOURCE_BUNDLE.getString(msg.key);
+      return resourceBundle.getString(msg.key);
     } catch (MissingResourceException e) {
       return '!' + msg.key + '!';
     }
