@@ -258,7 +258,7 @@ final public class DFA {
 
     while (l.hasMoreElements()) {
       Object next = l.nextElement();
-      if ( usedActions.get(next) != next && !eofActions.isEOFAction(next) ) 
+      if ( !next.equals(usedActions.get(next)) && !eofActions.isEOFAction(next) ) 
         Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, ((Action) next).priority-1, -1);
     }
   }
