@@ -19,7 +19,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package JFlex;
 
-import java.util.*;
 import java.io.File;
 
 /**
@@ -52,19 +51,15 @@ public final class SemCheck {
     macros = m;
     maxChar = max;
     
-    boolean errors = false;
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
       RegExp l = rs.getLookAhead(i);
      
       if (!checkLookAhead(r,l)) {
-        errors = true;
-        Out.error(f, ErrorMessages.LOOKAHEAD_ERROR, rs.getLine(i), -1);
+        Out.warning(f, ErrorMessages.LOOKAHEAD_ERROR, rs.getLine(i), -1);
       }
     }
-    
-    if (errors) throw new GeneratorException();
   }
 
 
@@ -75,18 +70,23 @@ public final class SemCheck {
    * length or when the intersection of the last set of the first expression
    * and the first set of the second expression is empty.
    *
+   * FIXME: this check is much too weak
+   *
+   *
    * @param r1   first regexp
    * @param r2   second regexp (the lookahead)
    *
    * @return true iff JFlex can generate code for the lookahead expression
    */
   private static boolean checkLookAhead(RegExp r1, RegExp r2) {
-    return r2 == null || length(r1) > 0 || !(last(r1).and(first(r2)).containsElements());
+    return r2 == null || length(r1) > 0;
   }
 
 
   /**
-   * Returns length if expression has fixed length, -1 otherwise.   
+   * Returns length if expression has fixed length, -1 otherwise.
+   * 
+   * Negation operators are treated as always variable length.   
    */
   private static int length(RegExp re) {
     RegExp2 r;
@@ -122,166 +122,24 @@ public final class SemCheck {
     case sym.CCLASS:
     case sym.CCLASSNOT:
     case sym.CHAR:
+    case sym.CHAR_I:
       return 1;
 
-    case sym.STRING: {
+    case sym.STRING: 
+    case sym.STRING_I: {
       String content = (String) ((RegExp1) re).content;
       return content.length();
     }
+
+    case sym.TILDE:
+    case sym.BANG: 
+       // too hard to caculate at this level, use safe approx       
+      return -1;
 
     case sym.MACROUSE:      
       return length(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
     throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
-  }
-  
-
-  /**
-   * Returns true iff the matched language contains epsilon
-   */
-  private static boolean containsEpsilon(RegExp re) {
-    RegExp2 r;
-
-    switch (re.type) {      
-
-    case sym.BAR:
-      r = (RegExp2) re;
-      return containsEpsilon(r.r1) || containsEpsilon(r.r2);
-
-    case sym.CONCAT:
-      r = (RegExp2) re;
-      if (containsEpsilon(r.r1))
-        return containsEpsilon(r.r2);
-      else
-        return false;         
-
-    case sym.STAR:
-    case sym.QUESTION:
-      return true;
-
-    case sym.PLUS:
-      return containsEpsilon( (RegExp) ((RegExp1)re).content );
-
-    case sym.CCLASS:     
-    case sym.CCLASSNOT:
-    case sym.CHAR:
-      return false;
-
-    case sym.STRING:
-      return ((String) ((RegExp1) re).content).length() <= 0;
-
-    case sym.MACROUSE:
-      return containsEpsilon(macros.getDefinition((String) ((RegExp1) re).content));
-    }
-
-    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
-  }
-
-
-  /**
-   * Returns the first set of an expression. 
-   *
-   * (the first-character-projection of the language)
-   */
-  private static IntCharSet first(RegExp re) {
-    RegExp2 r;
-
-    switch (re.type) {      
-
-    case sym.BAR:
-      r = (RegExp2) re;
-      return first(r.r1).add(first(r.r2));
-
-    case sym.CONCAT:
-      r = (RegExp2) re;
-      if ( containsEpsilon(r.r1) ) 
-        return first(r.r1).add(first(r.r2));      
-      else
-        return first(r.r1);
-
-    case sym.STAR:
-    case sym.PLUS:
-    case sym.QUESTION:
-      return first((RegExp) ((RegExp1)re).content);
-
-    case sym.CCLASS:
-      return new IntCharSet((Vector) ((RegExp1) re).content);
-
-    case sym.CCLASSNOT:
-      IntCharSet all = new IntCharSet(new Interval( (char) 0,maxChar));
-      IntCharSet set = new IntCharSet((Vector) ((RegExp1) re).content);
-      all.sub(set);
-      return all;
-
-    case sym.CHAR:
-      return new IntCharSet(((Character) ((RegExp1) re).content).charValue());
-
-    case sym.STRING:
-      String content = (String) ((RegExp1) re).content;
-      if (content.length() > 0)
-        return new IntCharSet(content.charAt(0));
-      else
-        return new IntCharSet();
-
-    case sym.MACROUSE:      
-      return first(macros.getDefinition((String) ((RegExp1) re).content));
-    }
-
-    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
-  }
-
-
-  /**
-   * Returns the last set of the expression
-   *
-   * (the last-charater-projection of the language)
-   */
-  private static IntCharSet last(RegExp re) {
-
-    RegExp2 r;
-
-    switch (re.type) {      
-
-    case sym.BAR:
-      r = (RegExp2) re;
-      return last(r.r1).add(last(r.r2));
-
-    case sym.CONCAT:
-      r = (RegExp2) re;
-      if ( containsEpsilon(r.r2) )
-        return last(r.r1).add(last(r.r2));
-      else
-        return last(r.r2);
-
-    case sym.STAR:
-    case sym.PLUS:
-    case sym.QUESTION:
-      return last((RegExp) ((RegExp1)re).content);
-
-    case sym.CCLASS:
-      return new IntCharSet((Vector) ((RegExp1) re).content);
-
-    case sym.CCLASSNOT:
-      IntCharSet all = new IntCharSet(new Interval( (char) 0,maxChar));
-      IntCharSet set = new IntCharSet((Vector) ((RegExp1) re).content);
-      all.sub(set);
-      return all;
-
-    case sym.CHAR:
-      return new IntCharSet(((Character) ((RegExp1) re).content).charValue());
-
-    case sym.STRING:
-      String content = (String) ((RegExp1) re).content;
-      if (content.length() > 0)
-        return new IntCharSet(content.charAt(content.length()-1));
-      else
-        return new IntCharSet();
-
-    case sym.MACROUSE:      
-      return last(macros.getDefinition((String) ((RegExp1) re).content));
-    }
-
-    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
   }
 }
