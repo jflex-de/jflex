@@ -1,47 +1,51 @@
 This directory contains the source code for JFlex.
 
-For convenience,the following generated lexer and parser files
-have been included in the distribution:
+For your convenience, the following generated lexer and parser files
+are included in the distribution:
 
 JFlex/LexScan.java  (lexer, generated from src/LexScan.flex)
-
 JFlex/LexParse.java (parser, generated from src/LexParse.cup)
-JFlex/sym.java
+JFlex/sym.java      (parser symbols, generated from src/LexParse.cup)
 
-Compilation issues:
 
-- if you have the tya jit compiler for linux, javac might crash on LexParse.java
-  (turn off the jit or use shujit as a workaround)
+Dependencies:
+If you just want to compile the sources, no further tools are necessary.
 
-- if you have JDK 1.1.7 and CUP v0.10i, javac -O might complain about a final 
-  variable in LexParse.java (javac bug). As a workaround: don't use -O or edit
-  LexParse.java and make the variable non final (it is not used in JFlex code
-  anyway)  
+If you want to build jflex from scratch and/or want to run the unit tests, 
+you need the following:
+junit >= 3.8.1     [http://www.junit.org/]
+cup   >= 0.10l     [http://www.cs.princeton.edu/~appel/modern/java/CUP/]
+jflex >= 1.4pre1   [http://www.jflex.de/]
+ant   >= 1.4       [optional, http://ant.apache.org/]
 
 
 Dir contents:
+build.xml:
+  for use with the ant build tool [http://ant.apache.org/]
+  
+  Instructions: put junit.jar into you class path,
+  put JFlex.jar and java_cup.jar (with java_cup ant task) 
+  into the ant lib directory. Now you can run Ant.
+  Useful targets are:
 
-Makefile:
-  for use with gnu make (tested on linux only, should work with
-  most unix and make flavors).
-  useful targets:
-
-  all:   recompiles all JFlex classes, generates lexer+parser 
+  jar:   recompiles all JFlex classes, generates lexer+parser 
          only if necessary, zips up all compiled classes in
          ../lib/JFlex.jar
 
   build: cleans up everything and does a completely new build
 
-  clean: deletes generated, temporary and *.class files
+  realclean: deletes generated, temporary and *.class files
  
+manifest:
+  jar manifest file for JFlex.jar
 
 skeleton:
   a skeleton file matching exactly the precompiled scanner skeleton.
-  Can be used together with the -skel option 
+  Can be used together with the --skel option 
 
 skeleton.nested:
   a skeleton file that supports nested input streams (see the manual 
-  for the API). Can be used together with the -skel option
+  for the API). Can be used together with the --skel option
 
 JFlex:
   source files of package JFlex
@@ -51,6 +55,9 @@ JFlex/gui:
 
 JFlex/anttask
   source files of the JFlex Ant task (contributed by Rafal Mantiuk)
+  
+JFlex/test
+  unit tests for JFlex
 
 java_cup/runtime:
-  CUP v0.10j runtime classes, used by JFlex   
+  CUP v0.10k runtime classes, used by JFlex   
