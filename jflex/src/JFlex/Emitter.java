@@ -1012,7 +1012,13 @@ final public class Emitter {
 
   private void emitLexFunctHeader() {
     
-    print("  "+visibility+" ");
+    if (scanner.cupCompatible)  {
+      // force public, because we have to implement java_cup.runtime.Symbol
+      print("  public ");
+    }
+    else {
+      print("  "+visibility+" ");
+    }
     
     if ( scanner.tokenType == null ) {
       if ( scanner.isInteger )
