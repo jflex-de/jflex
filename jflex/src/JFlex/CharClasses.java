@@ -329,7 +329,7 @@ public class CharClasses {
    * all classes must be disjoint, checks if all characters
    * have a class assigned.
    */
-  private void check() {
+  public void check() {
     for (int i = 0; i < classes.size(); i++)
       for (int j = i+1; j < classes.size(); j++) {
         IntCharSet x = (IntCharSet) classes.elementAt(i);
