@@ -9,25 +9,25 @@ JFlex/sym.java      (parser symbols, generated from src/LexParse.cup)
 
 
 Dependencies:
-If you just want to compile the sources, no further tools are necessary.
+If you just want to compile the JFlex sources, no further tools are
+necessary.  If you want to compile the ant task, you need the ant
+classes in you class path, if you want to compile the unit tests, you
+need the junit classes in yor class path.
 
-If you want to build jflex from scratch and/or want to run the unit tests, 
-you need the following:
-junit >= 3.8.1     [http://www.junit.org/]
-cup   >= 0.10l     [http://www.cs.princeton.edu/~appel/modern/java/CUP/]
-jflex >= 1.4pre1   [http://www.jflex.de/]
-ant   >= 1.4       [optional, http://ant.apache.org/]
+To build everything from scratch:
+In class path:
+junit.jar    >= 3.8.1     [http://www.junit.org/]
+ant.jar      >= 1.4       [optional, http://ant.apache.org/]
+In ant lib dir:
+java_cup.jar >= 0.10l     [http://www.cs.princeton.edu/~appel/modern/java/CUP/]
+JFlex.jar    >= 1.4pre1   [http://www.jflex.de/]
 
 
 Dir contents:
 build.xml:
   for use with the ant build tool [http://ant.apache.org/]
   
-  Instructions: put junit.jar into you class path,
-  put JFlex.jar and java_cup.jar (with java_cup ant task) 
-  into the ant lib directory. Now you can run Ant.
   Useful targets are:
-
   jar:   recompiles all JFlex classes, generates lexer+parser 
          only if necessary, zips up all compiled classes in
          ../lib/JFlex.jar
