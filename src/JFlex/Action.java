@@ -107,8 +107,7 @@ final public class Action {
    * @return a hash value for this Action
    */
   public int hashCode() {
-    if (content.length() < 1) return 0;
-    return content.charAt(0)+content.charAt(content.length()/2);
+    return content.hashCode();
   }
   
   /**
