@@ -398,6 +398,11 @@ public class Skeleton {
     out.print( line[pos++] );
   }
 
+  public static void makePrivate() {
+    for (int i=0; i < line.length; i++) {
+      line[i] = replace(" public ", " private ", line[i]);  
+    }
+  } 
 
   /**
    * Reads an external skeleton file for later use with this class.
@@ -452,5 +457,30 @@ public class Skeleton {
       Out.error(ErrorMessages.WRONG_SKELETON);
       throw new GeneratorException();
     }
+  }
+  
+  /**
+   * Replaces a with b in c.
+   * 
+   * @param a  the String to be replaced
+   * @param b  the replacement
+   * @param c  the String in which to replace a by b
+   * @return a String object with a replaced by b in c 
+   */
+  public static String replace(String a, String b, String c) {
+    StringBuffer result = new StringBuffer(c.length());
+    int i = 0;
+    int j = c.indexOf(a);
+    
+    while (j >= i) {
+      result.append(c.substring(i,j));
+      result.append(b);
+      i = j+a.length();
+      j = c.indexOf(a,i);
+    }
+
+    result.append(c.substring(i,c.length()));
+    
+    return result.toString();
   }
 }
