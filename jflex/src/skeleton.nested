@@ -1,21 +1,21 @@
 
   /** This character denotes the end of file */
-  final public static int YYEOF = -1;
+  public static final int YYEOF = -1;
 
   /** initial size of the lookahead buffer */
---- final private static int YY_BUFFERSIZE = ...;
+--- private static final int YY_BUFFERSIZE = ...;
 
   /** lexical states */
 ---  lexical states, charmap
 
   /* error codes */
-  final private static int YY_UNKNOWN_ERROR = 0;
-  final private static int YY_ILLEGAL_STATE = 1;
-  final private static int YY_NO_MATCH = 2;
-  final private static int YY_PUSHBACK_2BIG = 3;
+  private static final int YY_UNKNOWN_ERROR = 0;
+  private static final int YY_ILLEGAL_STATE = 1;
+  private static final int YY_NO_MATCH = 2;
+  private static final int YY_PUSHBACK_2BIG = 3;
 
   /* error messages for the codes above */
-  final private static String YY_ERROR_MSG[] = {
+  private static final String YY_ERROR_MSG[] = {
     "Unkown internal scanner error",
     "Internal error: unknown state",
     "Error: could not match input",
@@ -80,7 +80,7 @@
    * inner class used to store info for nested
    * input streams
    */
-  final private static class YY_StreamInfo {
+  private static final class YY_StreamInfo {
     java.io.Reader yy_reader;
     int yy_endRead;
     int yy_startRead;
@@ -168,7 +168,7 @@
   /**
    * Closes the input stream.
    */
-  final public void yyclose() throws java.io.IOException {
+  public final void yyclose() throws java.io.IOException {
     yy_atEOF = true;            /* indicate end of file */
     yy_endRead = yy_startRead;  /* invalidate buffer    */
 
@@ -189,7 +189,7 @@
    *
    * @see #yypopStream()
    */
-  final public void yypushStream(java.io.Reader reader) {
+  public final void yypushStream(java.io.Reader reader) {
     yy_streams.push(
       new YY_StreamInfo(yy_reader, yy_endRead, yy_startRead, yy_currentPos,
                         yy_markedPos, yy_pushbackPos, yy_buffer, yy_atEOF,
@@ -216,7 +216,7 @@
    *
    * @see #yypushStream(java.io.Reader)
    */
-  final public void yypopStream() throws java.io.IOException {
+  public final void yypopStream() throws java.io.IOException {
     yy_reader.close();
     YY_StreamInfo s = (YY_StreamInfo) yy_streams.pop();
     yy_buffer      = s.yy_buffer;
@@ -236,7 +236,7 @@
    * Returns true iff there are still streams left 
    * to read from on the stream stack.
    */
-  final public boolean yymoreStreams() {
+  public final boolean yymoreStreams() {
     return !yy_streams.isEmpty();
   }
 
@@ -254,7 +254,7 @@
    * @see #yypushStream(java.io.Reader)
    * @see #yypopStream()
    */
-  final public void yyreset(java.io.Reader reader) throws java.io.IOException {
+  public final void yyreset(java.io.Reader reader) throws java.io.IOException {
     yyclose();
     yy_reader = reader;
     yy_atBOL  = true;
@@ -269,7 +269,7 @@
   /**
    * Returns the current lexical state.
    */
-  final public int yystate() {
+  public final int yystate() {
     return yy_lexical_state;
   }
 
@@ -279,7 +279,7 @@
    *
    * @param newState the new lexical state
    */
-  final public void yybegin(int newState) {
+  public final void yybegin(int newState) {
     yy_lexical_state = newState;
   }
 
@@ -287,7 +287,7 @@
   /**
    * Returns the text matched by the current regular expression.
    */
-  final public String yytext() {
+  public final String yytext() {
     return new String( yy_buffer, yy_startRead, yy_markedPos-yy_startRead );
   }
 
@@ -303,7 +303,7 @@
    *
    * @return the character at position pos
    */
-  final public char yycharat(int pos) {
+  public final char yycharat(int pos) {
     return yy_buffer[yy_startRead+pos];
   }
 
@@ -311,7 +311,7 @@
   /**
    * Returns the length of the matched text region.
    */
-  final public int yylength() {
+  public final int yylength() {
     return yy_markedPos-yy_startRead;
   }
 
