@@ -65,7 +65,7 @@ public class Timer {
 
   
   /**
-   * Return the number of milli seconds the timer has been running.
+   * Return the number of milliseconds the timer has been running.
    *
    * (up till now, if it still runs, up to the stop time if it has been stopped)
    */
