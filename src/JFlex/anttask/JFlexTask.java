@@ -222,15 +222,30 @@ public class JFlexTask extends Task {
   }
 
   public void setSwitch(boolean b) {
-    Options.gen_method = Options.SWITCH;
+    if (b) {
+      Options.gen_method = Options.SWITCH;
+    }
+    else {
+      Options.gen_method = Options.PACK;
+    }
   }
 
   public void setTable(boolean b) {
-    Options.gen_method = Options.TABLE;
+    if (b) {
+      Options.gen_method = Options.TABLE;
+    }
+    else {
+      Options.gen_method = Options.PACK;
+    }
   }
 
   public void setPack(boolean b) {
-    Options.gen_method = Options.PACK;
+    if (b) {
+      Options.gen_method = Options.PACK;
+    }
+    else {
+      Options.gen_method = Options.SWITCH;
+    }    
   }
 
   public void setDot(boolean b) {
@@ -241,7 +256,7 @@ public class JFlexTask extends Task {
     Options.dump = b;
   }
   
-  public void setJLex(boolean b) {
-    Options.jlex = true;
+  public void setJLex(boolean b) {    
+    Options.jlex = b;
   }
 }
