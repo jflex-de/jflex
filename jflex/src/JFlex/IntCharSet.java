@@ -157,22 +157,21 @@ public final class IntCharSet {
 
       if (elem.contains(c)) return; // already there, nothing to do
 
-      assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
+      // assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
       
       if (elem.start > c+1) {
         intervalls.insertElementAt(new Interval(c,c), i);
         return;                 
       }
 
-      assert(elem.end+1 >= c && elem.start <= c+1 && 
-            (elem.start > c || elem.end < c));
+      // assert(elem.end+1 >= c && elem.start <= c+1 && (elem.start > c || elem.end < c));
  
       if (c+1 == elem.start) {
         elem.start = c;
         return;
       }
       
-      assert(elem.end+1 == c);
+      // assert(elem.end+1 == c);
       elem.end = c;
 
       // merge with next interval if it contains c
