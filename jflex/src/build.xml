@@ -1,12 +1,7 @@
 <project name="JFlex" default="jar">
 
   <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
-
-  <target name="init">
-    <uptodate property="parser.uptodate" targetfile="JFlex/LexParse.java">
-      <srcfiles dir="JFlex" includes="LexParse.cup"/>
-    </uptodate>
-  </target>
+  <taskdef classname="java_cup.AntTask" name="cup" />
 
   <target name="cbuild" depends="libclean,compile,jar" /> 
 
@@ -17,11 +12,10 @@
 
   <target name="build" depends="realclean,jar" />
 
-  <target name="compile" depends="init,cup,jflex">
+  <target name="compile" depends="jflex,cup">
     <javac srcdir="." 
            destdir="../lib" 
            target="1.1"
-           bootclasspath="/usr/lib/jdk1.1/lib/classes.zip"
            classpath="."
            debug="on"
     />
@@ -31,13 +25,8 @@
     <jflex file="JFlex/LexScan.flex" skeleton="skeleton.nested"/>
   </target>
 
-  <target name="cup" depends="init" unless="parser.uptodate">
-    <java classname="java_cup.Main">
-      <arg line="-interface -parser LexParse"/>
-      <arg file="JFlex/LexParse.cup"/>
-    </java>
-    <move file="LexParse.java" todir="JFlex"/>
-    <move file="sym.java" todir="JFlex"/>
+  <target name="cup">
+    <cup file="JFlex/LexParse.cup" dir="JFlex" interface="true" parser="LexParse" />
   </target>
 
   <target name="jar" depends="compile">
