@@ -63,6 +63,13 @@ public class CharClassesTest extends TestCase {
     set.add(new Interval('a','n'));
     assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
   }
+  
+  public void testMergeLast() {
+    IntCharSet set = new IntCharSet(new Interval('a','k'));
+    assertEquals("{ ['a'-'k'] }", set.toString());
+    set.add('l');
+    assertEquals("{ ['a'-'l'] }", set.toString());
+  }
 
   public void testAddChar() {
     IntCharSet set = new IntCharSet(new Interval('a','h'));
