@@ -46,22 +46,22 @@ public class Skeleton {
   public static String line[] = {
     NL+
     "  /** This character denotes the end of file */"+NL+
-    "  final public static int YYEOF = -1;"+NL+
+    "  public static final int YYEOF = -1;"+NL+
     NL+
     "  /** initial size of the lookahead buffer */"+NL
-    ,  // final private static int YY_BUFFERSIZE = ...;
+    ,  // private static final int YY_BUFFERSIZE = ...;
     NL+
     "  /** lexical states */"+NL
     ,  // lexical states, charmap
     NL+
     "  /* error codes */"+NL+
-    "  final private static int YY_UNKNOWN_ERROR = 0;"+NL+
-    "  final private static int YY_ILLEGAL_STATE = 1;"+NL+
-    "  final private static int YY_NO_MATCH = 2;"+NL+
-    "  final private static int YY_PUSHBACK_2BIG = 3;"+NL+
+    "  private static final int YY_UNKNOWN_ERROR = 0;"+NL+
+    "  private static final int YY_ILLEGAL_STATE = 1;"+NL+
+    "  private static final int YY_NO_MATCH = 2;"+NL+
+    "  private static final int YY_PUSHBACK_2BIG = 3;"+NL+
     NL+
     "  /* error messages for the codes above */"+NL+
-    "  final private static String YY_ERROR_MSG[] = {"+NL+
+    "  private static final String YY_ERROR_MSG[] = {"+NL+
     "    \"Unkown internal scanner error\","+NL+
     "    \"Internal error: unknown state\","+NL+
     "    \"Error: could not match input\","+NL+
@@ -177,7 +177,7 @@ public class Skeleton {
     "  /**"+NL+
     "   * Closes the input stream."+NL+
     "   */"+NL+
-    "  final public void yyclose() throws java.io.IOException {"+NL+
+    "  public final void yyclose() throws java.io.IOException {"+NL+
     "    yy_atEOF = true;            /* indicate end of file */"+NL+
     "    yy_endRead = yy_startRead;  /* invalidate buffer    */"+NL+
     NL+
@@ -196,7 +196,7 @@ public class Skeleton {
     "   *"+NL+
     "   * @param reader   the new input stream "+NL+
     "   */"+NL+
-    "  final public void yyreset(java.io.Reader reader) throws java.io.IOException {"+NL+
+    "  public final void yyreset(java.io.Reader reader) throws java.io.IOException {"+NL+
     "    yyclose();"+NL+
     "    yy_reader = reader;"+NL+
     "    yy_atBOL  = true;"+NL+
@@ -211,7 +211,7 @@ public class Skeleton {
     "  /**"+NL+
     "   * Returns the current lexical state."+NL+
     "   */"+NL+
-    "  final public int yystate() {"+NL+
+    "  public final int yystate() {"+NL+
     "    return yy_lexical_state;"+NL+
     "  }"+NL+
     NL+
@@ -221,7 +221,7 @@ public class Skeleton {
     "   *"+NL+
     "   * @param newState the new lexical state"+NL+
     "   */"+NL+
-    "  final public void yybegin(int newState) {"+NL+
+    "  public final void yybegin(int newState) {"+NL+
     "    yy_lexical_state = newState;"+NL+
     "  }"+NL+
     NL+
@@ -229,7 +229,7 @@ public class Skeleton {
     "  /**"+NL+
     "   * Returns the text matched by the current regular expression."+NL+
     "   */"+NL+
-    "  final public String yytext() {"+NL+
+    "  public final String yytext() {"+NL+
     "    return new String( yy_buffer, yy_startRead, yy_markedPos-yy_startRead );"+NL+
     "  }"+NL+
     NL+
@@ -245,7 +245,7 @@ public class Skeleton {
     "   *"+NL+
     "   * @return the character at position pos"+NL+
     "   */"+NL+
-    "  final public char yycharat(int pos) {"+NL+
+    "  public final char yycharat(int pos) {"+NL+
     "    return yy_buffer[yy_startRead+pos];"+NL+
     "  }"+NL+
     NL+
@@ -253,7 +253,7 @@ public class Skeleton {
     "  /**"+NL+
     "   * Returns the length of the matched text region."+NL+
     "   */"+NL+
-    "  final public int yylength() {"+NL+
+    "  public final int yylength() {"+NL+
     "    return yy_markedPos-yy_startRead;"+NL+
     "  }"+NL+
     NL+

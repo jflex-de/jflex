@@ -439,9 +439,9 @@ final public class Emitter {
       int num = scanner.states.getNumber(name).intValue();
 
       if (scanner.bolUsed)      
-        println("  final public static int "+name+" = "+2*num+";");
+        println("  public static final int "+name+" = "+2*num+";");
       else
-        println("  final public static int "+name+" = "+dfa.lexState[2*num]+";");
+        println("  public static final int "+name+" = "+dfa.lexState[2*num]+";");
     }
     
     if (scanner.bolUsed) {
@@ -452,7 +452,7 @@ final public class Emitter {
       println("   *                  at the beginning of a line");
       println("   * l is of the form l = 2*k, k a non negative integer");
       println("   */");
-      println("  private final static int YY_LEXSTATE[] = { ");
+      println("  private static final int YY_LEXSTATE[] = { ");
   
       int i, j = 0;
       print("    ");
@@ -479,7 +479,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The packed transition table of the DFA (part "+chunk+")");
     println("   */");
-    println("  final private static String yy_packed"+chunk+" = ");    
+    println("  private static final String yy_packed"+chunk+" = ");    
   }
 
   /**
@@ -571,7 +571,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The transition table of the DFA");
     println("   */");
-    println("  final private static int yytrans [] = yy_unpack();");
+    println("  private static final int yytrans [] = yy_unpack();");
     println();
   }
 
@@ -648,7 +648,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The transition table of the DFA");
     println("   */");
-    println("  final private static int yytrans [] = {");
+    println("  private static final int yytrans [] = {");
 
     boolean isFirstRow = true;
     
@@ -680,7 +680,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates a state to a row index in the transition table");    
     println("   */");
-    println("  final private static int yy_rowMap [] = { ");
+    println("  private static final int yy_rowMap [] = { ");
 
     int i;
     int n = 0;
@@ -712,7 +712,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  final private static char [] yycmap = {");
+    println("  private static final char [] yycmap = {");
   
     int n = 0;  // numbers of entries in current line    
     print("    ");
@@ -760,7 +760,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  final private static String yycmap_packed = ");
+    println("  private static final String yycmap_packed = ");
   
     int n = 0;  // numbers of entries in current line    
     print("    \"");
@@ -791,7 +791,7 @@ final public class Emitter {
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  final private static char [] yycmap = yy_unpack_cmap(yycmap_packed);");
+    println("  private static final char [] yycmap = yy_unpack_cmap(yycmap_packed);");
     println();
   }
 
@@ -860,7 +860,7 @@ final public class Emitter {
     println("  /**");
     println("   * YY_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
     println("   */");
-    println("  private final static byte YY_ATTRIBUTE[] = {");
+    println("  private static final byte YY_ATTRIBUTE[] = {");
 
     int i,j, attribute;
     print("    ");
@@ -1589,10 +1589,10 @@ final public class Emitter {
     
     skel.emitNext();
     
-    println("  final private static int YY_BUFFERSIZE = "+scanner.bufferSize+";");
+    println("  private static final int YY_BUFFERSIZE = "+scanner.bufferSize+";");
 
     if (scanner.debugOption) {
-      println("  final private static String yy_NL = System.getProperty(\"line.separator\");");
+      println("  private static final String yy_NL = System.getProperty(\"line.separator\");");
     }
 
     skel.emitNext();
