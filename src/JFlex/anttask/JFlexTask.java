@@ -33,7 +33,7 @@ import java.io.*;
  * JFlex task class
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.3.5, $Revision$, $Date$
+ * @version JFlex 1.4, $Revision$, $Date$
  */
 public class JFlexTask extends Task {
   private File inputFile;
