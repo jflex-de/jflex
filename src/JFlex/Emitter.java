@@ -1287,7 +1287,7 @@ final public class Emitter {
         print("zzNoLookAhead = true; ");
         
       if ( nextState == state ) 
-        println("zzState = "+nextState+"; break zzForNext;");
+        println("break zzForNext;");
       else
         println("zzState = "+nextState+"; break zzForNext;");
     }
@@ -1312,7 +1312,7 @@ final public class Emitter {
         print("zzNoLookAhead = true; ");
         
       if ( nextState == state ) 
-        println("zzState = "+nextState+"; break zzForNext;");
+        println("break zzForNext;");
       else
         println("zzState = "+nextState+"; break zzForNext;");
     }
