@@ -205,6 +205,10 @@ public class JFlexTask extends Task {
     Options.setSkeleton(skeleton);
   }
  
+  public void setSkel(File skeleton) {
+    setSkeleton(skeleton);
+  }
+
   public void setSkipMinimization(boolean skipMin) {
     setNomin(skipMin);
   }
