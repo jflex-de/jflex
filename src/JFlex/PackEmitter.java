@@ -81,7 +81,7 @@ public abstract class PackEmitter {
    * @see PackEmitter#name
    */
   protected String constName() {
-    return "YY_" + name.toUpperCase();
+    return "ZZ_" + name.toUpperCase();
   }
   
   /**
@@ -97,7 +97,7 @@ public abstract class PackEmitter {
   public void emitInit() {
     out.append("  private static final int [] ");
     out.append(constName());
-    out.append(" = yyFlexUnpack");
+    out.append(" = zzUnpack");
     out.append(name);
     out.append("();");
     nl();
