@@ -941,6 +941,7 @@ final public class Emitter {
         println("          zzPeek = false;");
         println("        else {");
         println("          boolean eof = zzRefill();");
+        println("          zzEndReadL = zzEndRead;");
         println("          zzMarkedPosL = zzMarkedPos;");
         println("          zzBufferL = zzBuffer;");
         println("          if (eof) ");
@@ -975,6 +976,7 @@ final public class Emitter {
       println("          else {");
       println("            boolean eof = zzRefill();");
       println("            zzMarkedPosL = zzMarkedPos;");
+      println("            zzEndReadL = zzEndRead;");
       println("            zzBufferL = zzBuffer;");
       println("            if (eof) ");
       println("              zzAtBOL = false;");
