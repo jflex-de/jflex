@@ -24,6 +24,9 @@ package JFlex.anttask;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
 
+import JFlex.Main;
+import JFlex.Options;
+
 import java.io.*;
 
 /**
@@ -40,8 +43,6 @@ public class JFlexTask extends Task {
   private boolean verbose = false;
   private boolean generateDot = false;
   //write graphviz .dot files for the generated automata (alpha)
-  private boolean skipMin = false;
-  //skip minimization step (alpha status, use with care
   private boolean displayTime = false; //display generation time statistics
   private File skeletonFile = null;
 
@@ -64,9 +65,10 @@ public class JFlexTask extends Task {
       	findPackageAndClass();        
         normalizeOutdir();
         File destFile = new File(outputDir, className + ".java");
+        
         if (inputFile.lastModified() > destFile.lastModified()) {      
           configure();      
-          wrapper.generate(inputFile);
+          Main.generate(inputFile);
       
           if (!verbose)
             System.out.println("Generated: " + destFile.getName());
@@ -130,9 +132,8 @@ public class JFlexTask extends Task {
 		wrapper.setTimeStatistics(displayTime);
 		wrapper.setVerbose(verbose);
 		wrapper.setGenerateDot(generateDot);
-		wrapper.setSkipMinimization(skipMin);
 		wrapper.setSkeleton(skeletonFile);
-		wrapper.setDestinationDir(outputDir.toString());
+		Options.setDir( outputDir.toString() );
 	}
 
 	/**
@@ -194,7 +195,11 @@ public class JFlexTask extends Task {
   }
  
   public void setSkipMinimization(boolean skipMin) {
-    this.skipMin = skipMin;
+    setNomin(skipMin);
+  }
+  
+  public void setNomin(boolean b) {
+  	Options.no_minimize = b;
   }
 
   /**

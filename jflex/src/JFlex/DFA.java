@@ -791,7 +791,7 @@ final public class DFA implements ErrorMessages {
       throw new GeneratorException();
     }
 
-    if (Main.no_minimize) {
+    if (Options.no_minimize) {
       Out.println("minimization skipped.");
       return null;
     }

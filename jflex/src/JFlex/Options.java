@@ -30,10 +30,31 @@ import java.io.File;
  */
 public class Options {
 	
-	static private File directory;
+	/** code generation method: maximum packing */
+	final public static int PACK   = 0;
+	/** code generation method: traditional */
+	final public static int TABLE  = 1;
+	/** code generation method: switch statement */
+	final public static int SWITCH = 2;
+
+
+	/** output directory */
+	private static File directory;
+
+  /** don't run minimization algorithm if this is true */
+  public static boolean no_minimize; 
+
+  /** don't write backup files if this is true */
+  public static boolean no_backup; 
+
+  /** default code generation method */
+  public static int gen_method;
+
+	static { setDefaults();	}
+
 
   /**
-   * @return the outpur directory
+   * @return the output directory
    */
   public static File getDir() {    
     return directory;
@@ -66,5 +87,15 @@ public class Options {
     }
   
     directory = d;
+  }
+
+  /**
+   * Sets all options back to default values. 
+   */
+  public static void setDefaults() {
+  	directory = null;
+		no_minimize = false;
+		no_backup = false;
+		gen_method = Options.PACK;    
   }   
 }
