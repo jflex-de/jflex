@@ -1085,9 +1085,9 @@ final public class Emitter {
       case '\"': result.append("\\\""); break;
       case '\\': result.append("\\\\"); break;
       case '\t': result.append("\\t"); break;
-      case '\r': if (i+1 == s.length() || s.charAt(i+1) != '\n') result.append("\"+zzNL+\""); 
+      case '\r': if (i+1 == s.length() || s.charAt(i+1) != '\n') result.append("\"+ZZ_NL+\""); 
                  break;
-      case '\n': result.append("\"+zzNL+\""); break;
+      case '\n': result.append("\"+ZZ_NL+\""); break;
       default: result.append(c);
       }
     }
@@ -1491,7 +1491,7 @@ final public class Emitter {
     println("  private static final int ZZ_BUFFERSIZE = "+scanner.bufferSize+";");
 
     if (scanner.debugOption) {
-      println("  private static final String zzNL = System.getProperty(\"line.separator\");");
+      println("  private static final String ZZ_NL = System.getProperty(\"line.separator\");");
     }
 
     skel.emitNext();
