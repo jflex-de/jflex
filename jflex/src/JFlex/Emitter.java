@@ -71,6 +71,9 @@ final public class Emitter {
   private boolean [] colKilled;
   
 
+  /** maps actions to their switch label */
+  private Hashtable actionTable = new Hashtable();
+
   private CharClassInterval [] intervalls;
 
   private String visibility = "public";
@@ -267,7 +270,7 @@ final public class Emitter {
       println("  /**");
       println("   * Runs the scanner on input files.");
       println("   *");
-      println("   * This is a standalone scanner, i.e. it will print any unmatched");
+      println("   * This is a standalone scanner, it will print any unmatched");
       println("   * text to System.out unchanged.");      
       println("   *");
       println("   * @param argv   the command line, contains the filenames to run");
@@ -1003,14 +1006,7 @@ final public class Emitter {
 
   
   private void emitGetRowMapNext() {
-    println("          int yy_next;");
-    println("          try {");
-    println("            yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
-    println("          }");
-    println("          catch (ArrayIndexOutOfBoundsException e) {");
-    println("            yy_ScanError(YY_ILLEGAL_STATE);");
-    println("            throw new Error();  // redundant, for compiler only");
-    println("          }");
+    println("          int yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
     println("          if (yy_next == "+DFA.NO_TARGET+") break yy_forAction;");
     println("          yy_state = yy_next;");
     println();
@@ -1053,7 +1049,8 @@ final public class Emitter {
       if (isTransition[state]) emitState(state);
 
     println("            default:");
-    println("              yy_ScanError(YY_ILLEGAL_STATE);");
+    println("              // if this is ever reached, there is a serious bug in JFlex");
+    println("              yy_ScanError(YY_UNKNOWN_ERROR);");
     println("              break;");
     println("          } }");
     println();
@@ -1094,7 +1091,79 @@ final public class Emitter {
     return result.toString();
   }
 
+  public void emitActionTable() {
+    int lastAction = 1;    
+    int count = 0;
+    int value = 0;
+
+    println("  /** ");
+    println("   * Translates DFA states to action switch labels.");
+    println("   */");
+    CountEmitter e = new CountEmitter("YY_ACTION");    
+    e.emitInit();
+
+    for (int i = 0; i < dfa.numStates; i++) {
+      int newVal; 
+      if ( dfa.isFinal[i] ) {
+        Action action = dfa.action[i];
+        Integer stored = (Integer) actionTable.get(action);
+        if ( stored == null ) { 
+          stored = new Integer(lastAction++);
+          actionTable.put(action, stored);
+        }
+        newVal = stored.intValue();
+      }
+      else {
+        newVal = 0;
+      }
+      
+      if (value == newVal) {
+        count++;
+      }
+      else {
+        if (count > 0) e.emit(count,value);
+        count = 1;
+        value = newVal;        
+      }
+    }
+    
+    if (count > 0) e.emit(count,value);
+
+    e.emitUnpack();    
+    println(e.toString());
+  }
+
   private void emitActions() {
+    println("      switch (yy_action < 0 ? yy_action : YY_ACTION[yy_action]) {"); 
+
+    int i = actionTable.size()+1;  
+    Enumeration actions = actionTable.keys();
+    while ( actions.hasMoreElements() ) {
+      Action action = (Action) actions.nextElement();
+      int label = ((Integer) actionTable.get(action)).intValue();
+
+      println("        case "+label+": "); 
+      
+      if ( scanner.debugOption ) {
+        print("          System.out.println(");
+        if ( scanner.lineCount )
+          print("\"line: \"+(yyline+1)+\" \"+");
+        if ( scanner.columnCount )
+          print("\"col: \"+(yycolumn+1)+\" \"+");
+        println("\"match: --\"+yytext()+\"--\");");        
+        print("          System.out.println(\"action ["+action.priority+"] { ");
+        print(escapify(action.content));
+        println(" }\");");
+      }
+      
+      println("          { "+action.content+" }");
+      println("        case "+(i++)+": break;"); 
+    }
+  }
+
+  private void emitActionsOld() {
+    println("        switch (yy_action) {"); 
+
     Hashtable actionTable = new Hashtable();
 
     for (int i = 0; i < dfa.numStates; i++) 
@@ -1450,6 +1519,8 @@ final public class Emitter {
    
     emitCharMapArray();
     
+    emitActionTable();
+    
     if (scanner.useRowMap) {
      reduceRows();
     
@@ -1464,8 +1535,8 @@ final public class Emitter {
     skel.emitNext();
     
     if (scanner.useRowMap) 
-      emitAttributes();
-    
+      emitAttributes();    
+
     skel.emitNext();
     
     emitClassCode();
@@ -1497,13 +1568,13 @@ final public class Emitter {
         
     if (scanner.lookAheadUsed) 
       emitPushback();
-    
+        
     skel.emitNext();
-    
+
     emitActions();
-    
+        
     skel.emitNext();
-    
+
     emitEOFVal();
     
     skel.emitNext();
