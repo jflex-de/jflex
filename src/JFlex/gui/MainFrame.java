@@ -35,7 +35,7 @@ import java.awt.event.*;
  */
 final public class MainFrame extends Frame implements Handles {
 
-  private boolean choosing;
+  private volatile boolean choosing;
 
   private String fileName = "";
   private String dirName = "";
