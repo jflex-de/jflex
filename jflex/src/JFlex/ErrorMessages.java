@@ -25,6 +25,8 @@ package JFlex;
  * Central class for all kinds of JFlex messages.
  * 
  * [Is not yet used exclusively, but should]
+ * 
+ * FIXME: this is silly, use resources instead
  *
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
@@ -79,7 +81,8 @@ public interface ErrorMessages {
     "%throws needs a list of (qualified) identifiers",
     "Unexpected newline in character class (closing \"]\" is missing)",
     "%cupsym needs a (qualified) identifier",
-    "%cupsym should be used before %cup"
+    "%cupsym should be used before %cup",
+    "The generator is already running"
   };
 
 
@@ -131,4 +134,5 @@ public interface ErrorMessages {
   int EOL_IN_CHARCLASS = 45;
   int QUIL_CUPSYM      = 46;
   int CUPSYM_AFTER_CUP = 47;
+  int ALREADY_RUNNING  = 48;
 }

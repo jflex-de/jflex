@@ -206,6 +206,9 @@ final public class MainFrame extends Frame implements Handles {
 
   private void stop() {
     if (thread != null) {
+    	/* stop ok here despite deprecation (?)
+    	   I don't know any good way to abort generation without changing the
+     		 generator code */ 
       thread.stop();
       thread = null;
       generationFinished(false);

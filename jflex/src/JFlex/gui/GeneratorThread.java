@@ -27,6 +27,18 @@ import java.io.File;
 
 
 /**
+ * GeneratorThread
+ * 
+ * @author Gerwin Klein
+ * @version $Revision$, $Date$
+ */
+/**
+ * GeneratorThread
+ * 
+ * @author Gerwin Klein
+ * @version $Revision$, $Date$
+ */
+/**
  * Low priority thread for code generation (low priority 
  * that gui has time for screen updates)
  *
@@ -35,11 +47,31 @@ import java.io.File;
  */
 public class GeneratorThread extends Thread {
 
+	/** there must be at most one instance of this Thread running */
+	private static boolean running = false;
+
+	/** where generator output messages appear */
   TextArea  messages;
+  
+  /** output directory setting from GUI
+   * FIXME: use JFlex.Options */
   String    outputDir;
+
+	/** input file setting from GUI
+	 *  FIXME: use JFlex.Options */
   String    inputFile;
+  
+  /** main UI component, likes to be notified when generator finishes */
   MainFrame parent;
 
+	/**
+	 * Create a new GeneratorThread, but do not run it yet.
+	 * 
+	 * @param parent      the frame, main UI component
+	 * @param inputFile   input file from UI settings
+	 * @param messages    where generator messages should appear
+	 * @param outputDir   output directory from UI settings
+	 */
   public GeneratorThread(MainFrame parent, String inputFile, 
                          TextArea messages, String outputDir) {
     this.parent    = parent;
@@ -48,19 +80,30 @@ public class GeneratorThread extends Thread {
     this.outputDir = outputDir;
   }
 
+
+	/**
+	 * Run the generator thread. Only one instance of it can run at any time.
+	 */
   public void run() {
-    setPriority(MIN_PRIORITY);    
-    Out.setGUIMode(messages);
-    try {
-      Main.setDir(outputDir);
-      Main.generate(new File(inputFile));
-      Out.statistics();
-      parent.generationFinished(true);
-    }
-    catch (GeneratorException e) {
-      Out.statistics();
-      parent.generationFinished(false);
-    }
+  	if (running) {
+  		Out.error(ErrorMessages.ALREADY_RUNNING);
+			parent.generationFinished(false);
+  	}
+  	else {
+  		running = true;
+			setPriority(MIN_PRIORITY);    
+			Out.setGUIMode(messages);
+			try {
+				Options.setDir(outputDir);
+				Main.generate(new File(inputFile));
+				Out.statistics();
+				parent.generationFinished(true);
+			}
+			catch (GeneratorException e) {
+				Out.statistics();
+				parent.generationFinished(false);
+			}
+  	}
   }
 
 }
