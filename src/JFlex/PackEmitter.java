@@ -37,7 +37,7 @@ package JFlex;
  */
 public abstract class PackEmitter {
 
-  /** name of the generated array */
+  /** name of the generated array (mixed case, no yy prefix) */
   protected String name;
     
   /** current UTF8 length of generated string in current chunk */
@@ -74,6 +74,17 @@ public abstract class PackEmitter {
   }
   
   /**
+   * Convert array name into all uppercase internal scanner 
+   * constant name.
+   * 
+   * @return <code>name</code> as a internal constant name.
+   * @see PackEmitter#name
+   */
+  protected String constName() {
+    return "YY_" + name.toUpperCase();
+  }
+  
+  /**
    * Return current output buffer.
    */
   public String toString() {
@@ -85,8 +96,8 @@ public abstract class PackEmitter {
    */  
   public void emitInit() {
     out.append("  private static final int [] ");
-    out.append(name);
-    out.append(" = yy_unpack_");
+    out.append(constName());
+    out.append(" = yyFlexUnpack");
     out.append(name);
     out.append("();");
     nl();
@@ -148,8 +159,8 @@ public abstract class PackEmitter {
   private void nextChunk() {
     nl();
     out.append("  private static final String ");
-    out.append(name);
-    out.append("_packed");
+    out.append(constName());
+    out.append("_PACKED_");
     out.append(chunks);
     out.append(" =");
     nl();
