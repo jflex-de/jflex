@@ -12,6 +12,7 @@
 %state COMMENT
 %full
 
+%debug
 
 ALPHA=[A-Za-z]
 DIGIT=[0-9]

@@ -17,3 +17,13 @@ Utility.java:
 
 simple.flex:
   the example specification
+
+test.txt:
+  sample input
+
+output.good:
+  output matching the sample input from test.txt
+
+Makefile: (for Unix only)
+  make          to generate scanner and run test
+  make clean    to remove generated files
