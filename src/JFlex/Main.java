@@ -33,7 +33,7 @@ import JFlex.gui.MainFrame;
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
-public class Main implements ErrorMessages {
+public class Main {
   
   /** JFlex version */
   final public static String version = "1.4_pre4";
@@ -132,7 +132,7 @@ public class Main implements ErrorMessages {
       throw new GeneratorException();
     }
     catch (OutOfMemoryError e) {
-      Out.error(OUT_OF_MEMORY);
+      Out.error(ErrorMessages.OUT_OF_MEMORY);
       throw new GeneratorException();
     }
     catch (GeneratorException e) {
@@ -152,7 +152,7 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("-d") || argv[i].equals("--outdir") ) {
         if ( ++i >= argv.length ) {
-          Out.error(NO_DIRECTORY); 
+          Out.error(ErrorMessages.NO_DIRECTORY); 
           throw new GeneratorException();
         }
         Options.setDir(argv[i]);
@@ -161,7 +161,7 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("--skel") || argv[i].equals("-skel") ) {
         if ( ++i >= argv.length ) {
-          Out.error(NO_SKEL_FILE);
+          Out.error(ErrorMessages.NO_SKEL_FILE);
           throw new GeneratorException();
         }
 

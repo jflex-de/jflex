@@ -34,25 +34,25 @@ action code {:
   Timer       t           = new Timer();
   EOFActions  eofActions  = new EOFActions();
 
-  void fatalError(int message, int line, int col) {
+  void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
     throw new GeneratorException();
   }
 
-  void fatalError(int message) {
+  void fatalError(ErrorMessages message) {
     fatalError(message, scanner.currentLine(), -1);
     throw new GeneratorException();
   }
 
-  void syntaxError(int message) {
+  void syntaxError(ErrorMessages message) {
     Out.error(scanner.file, message, scanner.currentLine(), -1);
   }
   
-  void syntaxError(int message, int line) {
+  void syntaxError(ErrorMessages message, int line) {
     Out.error(scanner.file, message, line, -1);
   }
 
-  void syntaxError(int message, int line, int col) {
+  void syntaxError(ErrorMessages message, int line, int col) {
     Out.error(scanner.file, message, line, col);
   }
 

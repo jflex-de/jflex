@@ -40,7 +40,7 @@ import java.awt.TextArea;
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
-public final class Out implements ErrorMessages {
+public final class Out {
 
   /** platform dependent newline sequence */
   public static final String NL = System.getProperty("line.separator");
@@ -196,13 +196,13 @@ public final class Out implements ErrorMessages {
    *
    * @see ErrorMessages
    */
-  public static void warning(int message, int line) {
+  public static void warning(ErrorMessages message, int line) {
     warnings++;
 
     String msg = NL+"Warning";
     if (line > 0) msg = msg+" in line "+(line+1);
 
-    err(msg+": "+messages[message]);
+    err(msg+": "+ErrorMessages.get(message));
   }
 
 
@@ -214,14 +214,14 @@ public final class Out implements ErrorMessages {
    * @param line     the line number of the position
    * @param column   the column of the position
    */
-  public static void warning(File file, int message, int line, int column) {
+  public static void warning(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL+"Warning";
     if (file != null) msg += " in file \""+file+"\"";
     if (line >= 0) msg = msg+" (line "+(line+1)+")";
 
     try {
-      err(msg+": "+NL+messages[message]);
+      err(msg+": "+NL+ErrorMessages.get(message));
     }
     catch (ArrayIndexOutOfBoundsException e) {
       err(msg);
@@ -256,9 +256,9 @@ public final class Out implements ErrorMessages {
    *
    * @see ErrorMessages   
    */ 
-  public static void error(int message) {
+  public static void error(ErrorMessages message) {
     errors++;
-    err(NL+"Error: "+messages[message] );
+    err(NL+"Error: "+ErrorMessages.get(message) );
   }
 
 
@@ -269,9 +269,9 @@ public final class Out implements ErrorMessages {
    * @param message  the code of the error message
    * @param file     the file it occurred for
    */
-  public static void error(int message, File file) {
+  public static void error(ErrorMessages message, File file) {
     errors++;
-    err(NL+"Error: "+messages[message]+" ("+file+")");
+    err(NL+"Error: "+ErrorMessages.get(message)+" ("+file+")");
   }
 
 
@@ -283,14 +283,14 @@ public final class Out implements ErrorMessages {
    * @param line     the line number of error position
    * @param column   the column of error position
    */
-  public static void error(File file, int message, int line, int column) {
+  public static void error(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL+"Error";
     if (file != null) msg += " in file \""+file+"\"";
     if (line >= 0) msg = msg+" (line "+(line+1)+")";
 
     try {
-      err(msg+": "+NL+messages[message]);
+      err(msg+": "+NL+ErrorMessages.get(message));
     }
     catch (ArrayIndexOutOfBoundsException e) {
       err(msg);
