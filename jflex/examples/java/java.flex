@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 1998-2001  Gerwin Klein <lsf@jflex.de>                    *
+ * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -44,6 +44,7 @@ import java_cup.runtime.*;
 %column
 
 %cup
+%cupdebug
 
 %{
   StringBuffer string = new StringBuffer();
@@ -56,16 +57,17 @@ import java_cup.runtime.*;
     return new JavaSymbol(type, yyline+1, yycolumn+1, value);
   }
 
-  /* assumes correct representation of a long value for 
-     specified radix in String s */
-  // FIXME: use scanner buffer (yycharAt)
-  private long parseLong(String s, int radix) {
-    int  max = s.length();
+  /** 
+   * assumes correct representation of a long value for 
+   * specified radix in scanner buffer from <code>start</code> 
+   * to <code>end</code> 
+   */
+  private long parseLong(int start, int end, int radix) {
     long result = 0;
     long digit;
 
-    for (int i = 0; i < max; i++) {
-      digit  = Character.digit(s.charAt(i),radix);
+    for (int i = start; i < end; i++) {
+      digit  = Character.digit(yycharat(i),radix);
       result*= radix;
       result+= digit;
     }
@@ -241,11 +243,11 @@ SingleCharacter = [^\r\n\'\\]
   {DecIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer(yytext())); }
   {DecLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(yytext().substring(0,yylength()-1))); }
   
-  {HexIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(yytext().substring(2),16))); }
-  {HexLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(yytext().substring(2,yylength()-1),16))); }
+  {HexIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(2, yylength(), 16))); }
+  {HexLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(2, yylength()-1, 16))); }
  
-  {OctIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(yytext(),8))); }  
-  {OctLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(yytext().substring(0,yylength()-1),8))); }
+  {OctIntegerLiteral}            { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(0, yylength(), 8))); }  
+  {OctLongLiteral}               { return symbol(INTEGER_LITERAL, new Long(parseLong(0, yylength()-1, 8))); }
   
   {FloatLiteral}                 { return symbol(FLOATING_POINT_LITERAL, new Float(yytext().substring(0,yylength()-1))); }
   {DoubleLiteral}                { return symbol(FLOATING_POINT_LITERAL, new Double(yytext())); }

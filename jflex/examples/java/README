@@ -6,17 +6,14 @@ Use the Makefile to generate the lexer and parser, or type:
 jflex unicode.flex
 jflex java.flex
 java java_cup.Main -interface < java12.cup
-javac JavaParser.java
+javac JavaParser.java TestLexer.java
 
 
 The parser can be tested with:
-
 java JavaParser <inputfiles>
 
-
 The scanner (without parser attached) can be test with:
-
-java Scanner <inputfiles>
+java TestLexer <inputfiles>
 
 
 files:
@@ -37,3 +34,8 @@ java12.cup
 JavaParser.java
   a simple main class to run the parser (no other useful output though)
 
+TestLexer.java
+  a simple test driver for the scanner, produces debug output
+
+lexer-output.good
+  lexer output for input file TestLexer.java for testing

@@ -25,7 +25,7 @@ public class JavaSymbol extends java_cup.runtime.Symbol {
     return column;
   }
 
-  public String toString() {
-    return "line "+line+", column "+column;
+  public String toString() {   
+    return "line "+line+", column "+column+", sym: "+sym+(value == null ? "" : (", value: '"+value+"'"));
   }
 }

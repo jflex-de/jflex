@@ -4,16 +4,24 @@
 
 CUP        = java java_cup.Main -interface <
 JFLEX      = jflex
+JAVA       = java
 JAVAC      = javac
 #JAVAC      = jikes 
 JAVACFLAGS = 
 
 # --------------------------------------------------
 
-all: compile
+all: test
+
+test: lexer-output.txt
+	@(diff lexer-output.txt lexer-output.good && echo "Test OK!") || echo "Test failed!"
+
+lexer-output.txt: compile
+	$(JAVA) TestLexer TestLexer.java > lexer-output.txt
+
 
 compile: scanner parser unicode
-	$(JAVAC) $(JAVACFLAGS) JavaParser.java
+	$(JAVAC) $(JAVACFLAGS) JavaParser.java TestLexer.java
 
 parser: parser.java 
 
@@ -37,3 +45,4 @@ clean:
 	rm -f parser.java
 	rm -f sym.java
 	rm -f UnicodeEscapes.java
+	rm -f lexer-output.txt
