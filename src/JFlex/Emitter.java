@@ -180,7 +180,7 @@ final public class Emitter {
 
     skel.emitNext();
 
-    print("  private void yypushback(int number) ");     
+    print("  "+visibility+" void yypushback(int number) ");     
     
     if (scanner.scanErrorException == null)
       println(" {");
@@ -1003,8 +1003,14 @@ final public class Emitter {
 
   
   private void emitGetRowMapNext() {
-    println("          int yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
-
+    println("          int yy_next;");
+    println("          try {");
+    println("            yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
+    println("          }");
+    println("          catch (ArrayIndexOutOfBoundsException e) {");
+    println("            yy_ScanError(YY_ILLEGAL_STATE);");
+    println("            throw new Error();  // redundant, for compiler only");
+    println("          }");
     println("          if (yy_next == "+DFA.NO_TARGET+") break yy_forAction;");
     println("          yy_state = yy_next;");
     println();
