@@ -18,6 +18,10 @@
   	        value="http://jflex.sourceforge.net/jar/devel/JFlex.jar" />
   <property name="cup.jar.url" 
   	        value="http://jflex.sourceforge.net/jar/devel/java_cup.jar" />
+
+  <!-- override these if you want to use a proxy for gettools -->
+  <property name="proxyhost" value="" />
+  <property name="proxyport" value="" />
   	        
   <!-- ==================== targets ================================= -->
 
@@ -30,7 +34,7 @@
   	<echo message=""/> 
   	<echo message="Use the gettool target or override the *.jar properties"/>
   	<echo message="before you do the first build."/> 
-  </target>
+  </target> 
 
   <target name="declare" description="define tasks for jflex and cup">
     <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" classpath="${jflex.jar}"/>
@@ -39,6 +43,7 @@
 
   <target name="gettools" description="download development tools">
     <mkdir dir="${tools.dir}"/>
+    <setproxy proxyhost="${proxyhost}" proxyport="${proxyport}"/>
     <get src="${jflex.jar.url}" dest="${jflex.jar}"/>
     <get src="${cup.jar.url}" dest="${cup.jar}"/>
   </target>
