@@ -301,16 +301,16 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                 eofCode = conc(eofCode, "  yyclose();");
                                 eofThrow = concExc(eofThrow, "java.io.IOException");
                               }
-  "%cupsym"{WSP}+{QualIdent}  { cupSymbol = yytext().substring(8).trim(); 
+  "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim(); 
                                 if (cupCompatible) Out.warning(CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"                 { eofCode = conc(eofCode, "  yyclose();");
                                 eofThrow = concExc(eofThrow, "java.io.IOException");
                               }
-  "%class"{WSP}+{Ident}       { className = yytext().substring(7).trim();  }
-  "%function"{WSP}+{Ident}    { functionName = yytext().substring(10).trim(); }
-  "%type"{WSP}+{ArrType}      { tokenType = yytext().substring(6).trim(); }
+  "%class"{WSP}+{Ident} {WSP}*      { className = yytext().substring(7).trim();  }
+  "%function"{WSP}+{Ident} {WSP}*   { functionName = yytext().substring(10).trim(); }
+  "%type"{WSP}+{ArrType} {WSP}*     { tokenType = yytext().substring(6).trim(); }
   "%integer"|"%int"           { isInteger = true;  }
   "%intwrap"                  { isIntWrap = true;  }
   "%yyeof"                    { isYYEOF = true;  }
@@ -320,7 +320,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%unicode"|"%16bit"         { return symbol(UNICODE);  }
   "%caseless"|"%ignorecase"   { caseless = true; }
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
-  "%extends"{WSP}+{QualIdent} { isExtending = yytext().substring(9).trim(); }
+  "%extends"{WSP}+{QualIdent}{WSP}* { isExtending = yytext().substring(9).trim(); }
   "%public"                   { isPublic = true; }
   "%final"                    { isFinal = true; }
   "%abstract"                 { isAbstract = true; }
@@ -345,17 +345,17 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   throw new ScannerException(file,NOT_READABLE, yyline); 
                                 } 
                               }
-  "%buffer" {WSP}+ {Number}   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
+  "%buffer" {WSP}+ {Number} {WSP}*   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
   "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,NO_BUFFER_SIZE, yyline); }
-  "%initthrow" {WSP}+ {QUIL}  { initThrow = concExc(initThrow,yytext().substring(11).trim()); }
+  "%initthrow" {WSP}+ {QUIL} {WSP}* { initThrow = concExc(initThrow,yytext().substring(11).trim()); }
   "%initthrow" {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_INITTHROW, yyline); }
-  "%eofthrow"  {WSP}+ {QUIL}  { eofThrow = concExc(eofThrow,yytext().substring(10).trim()); }
+  "%eofthrow"  {WSP}+ {QUIL} {WSP}*  { eofThrow = concExc(eofThrow,yytext().substring(10).trim()); }
   "%eofthrow"  {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_EOFTHROW, yyline); }
-  "%yylexthrow"{WSP}+ {QUIL}  { lexThrow = concExc(lexThrow,yytext().substring(12).trim()); }
-  "%throws"    {WSP}+ {QUIL}  { lexThrow = concExc(lexThrow,yytext().substring(8).trim()); }
+  "%yylexthrow"{WSP}+ {QUIL} {WSP}*  { lexThrow = concExc(lexThrow,yytext().substring(12).trim()); }
+  "%throws"    {WSP}+ {QUIL} {WSP}*  { lexThrow = concExc(lexThrow,yytext().substring(8).trim()); }
   "%yylexthrow"{WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_YYLEXTHROW, yyline); }
   "%throws"    {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_THROW, yyline); }
-  "%scanerror" {WSP}+ {QualIdent} { scanErrorException = yytext().substring(11).trim(); }
+  "%scanerror" {WSP}+ {QualIdent} {WSP}* { scanErrorException = yytext().substring(11).trim(); }
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,QUIL_SCANERROR, yyline); }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
