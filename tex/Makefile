@@ -39,7 +39,7 @@ manual.html: manual.tex
 	rm -rf manual 
 
 logo.png: logo.eps
-	epstopng logo.eps
+	./epstopng logo.eps
 
 logo.pdf: logo.eps
 	epstopdf logo.eps
