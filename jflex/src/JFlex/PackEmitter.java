@@ -58,7 +58,7 @@ public abstract class PackEmitter {
   /** maximum size of chunks */
   // String constants are stored as UTF8 with 2 bytes length
   // field in class files. One Unicode char can be up to 3 
-  // UTF8 bytes. 64K max and some safety 
+  // UTF8 bytes. 64K max and two chars safety. 
   private static final int maxSize = 0xFFFF-6;
   
   /** indent for string lines */
@@ -74,9 +74,9 @@ public abstract class PackEmitter {
   }
   
   /**
-   * Return result.
+   * Return current output buffer.
    */
-  public String getString() {
+  public String toString() {
     return out.toString();
   }
 
@@ -84,8 +84,7 @@ public abstract class PackEmitter {
    * Emit declaration of decoded member and open first chunk.
    */  
   public void emitInit() {
-    nl();
-    out.append("private static final int [] ");
+    out.append("  private static final int [] ");
     out.append(name);
     out.append(" = yy_unpack_");
     out.append(name);
@@ -106,6 +105,19 @@ public abstract class PackEmitter {
     if (i < 0 || i > 0xFFFF) 
       throw new IllegalArgumentException("character value expected");
   
+    // cast ok because of prec  
+    char c = (char) i;    
+     
+    printUC(c);
+    UTF8Length += UTF8Length(c);
+    linepos++;   
+  }
+
+  /**
+   * Execute line/chunk break if necessary. 
+   * Leave space for at least two chars.
+   */  
+  public void breaks() {
     if (UTF8Length >= maxSize) {
       // close current chunk
       out.append("\";");
@@ -114,7 +126,6 @@ public abstract class PackEmitter {
       nextChunk();
     }
     else {
-      // only possible if UTF8Length < maxSize
       if (linepos >= maxEntries) {
         // line break
         out.append("\"+");
@@ -124,13 +135,6 @@ public abstract class PackEmitter {
         linepos = 0;      
       }
     }
-
-    // cast ok because of prec  
-    char c = (char) i;    
-     
-    printUC(c);
-    UTF8Length += UTF8Length(c);
-    linepos++;   
   }
   
   /**
@@ -142,12 +146,8 @@ public abstract class PackEmitter {
    *  emit next chunk 
    */
   private void nextChunk() {
-    UTF8Length = 0;
-    linepos = 0;
-    chunks++;
-    
     nl();
-    out.append("private static final String ");
+    out.append("  private static final String ");
     out.append(name);
     out.append("_packed");
     out.append(chunks);
@@ -155,6 +155,10 @@ public abstract class PackEmitter {
     nl();
     out.append(indent);
     out.append("\"");
+
+    UTF8Length = 0;
+    linepos = 0;
+    chunks++;
   }
   
   /**

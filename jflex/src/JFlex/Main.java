@@ -78,7 +78,7 @@ public class Main {
                                  Out.NL+nfa+Out.NL); 
       
       if (Options.dot) 
-        nfa.writeDot(Emitter.normalize("nfa.dot", null, null));       //$NON-NLS-1$
+        nfa.writeDot(Emitter.normalize("nfa.dot", null));       //$NON-NLS-1$
 
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
       
@@ -95,7 +95,7 @@ public class Main {
                                  Out.NL+dfa+Out.NL);       
 
       if (Options.dot) 
-        dfa.writeDot(Emitter.normalize("dfa-big.dot", null, null)); //$NON-NLS-1$
+        dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); //$NON-NLS-1$
 
       time.start();
       dfa.minimize();
@@ -108,7 +108,7 @@ public class Main {
                                    Out.NL+dfa); 
 
       if (Options.dot) 
-        dfa.writeDot(Emitter.normalize("dfa-min.dot", null, null)); //$NON-NLS-1$
+        dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); //$NON-NLS-1$
 
       time.start();
       

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.3.5                                                             *
+ * JFlex 1.4                                                               *
  * Copyright (C) 1998-2001  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -41,13 +41,6 @@ final public class Emitter {
   static final private int LOOKEND = 4;
   static final private int NOLOOK = 8;
 
-  // maximum size of the compressed transition table
-  // String constants are stored as UTF8 with 2 bytes length
-  // field in class files. One Unicode char can be up to 3 
-  // UTF8 bytes.
-  // 64K max and some safety 
-  static final int maxSize = 0xFFFF-6;
-
   static final private String date = (new SimpleDateFormat()).format(new Date());
 
   private File inputFile;
@@ -77,10 +70,8 @@ final public class Emitter {
   private int [] colMap;
   private boolean [] colKilled;
   
-  private int numTableChunks;
 
   private CharClassInterval [] intervalls;
-  private int currentIntervall;
 
   private String visibility = "public";
 
@@ -88,7 +79,7 @@ final public class Emitter {
 
     String name = parser.scanner.className+".java";
 
-    File outputFile = normalize(name, Options.getDir(), inputFile);
+    File outputFile = normalize(name, inputFile);
 
     Out.println("Writing code to \""+outputFile+"\"");
     
@@ -103,7 +94,7 @@ final public class Emitter {
 
 
   /**
-   * Constructs a file in a path or in the same directory as
+   * Constructs a file in Options.getDir() or in the same directory as
    * another file. Makes a backup if the file already exists.
    *
    * @param name  the name (without path) of the file
@@ -111,7 +102,7 @@ final public class Emitter {
    * @param input fallback location if path = <tt>null</tt>
    *              (expected to be a file in the directory to write to)   
    */
-  public static File normalize(String name, File path, File input) {
+  public static File normalize(String name, File input) {
     File outputFile;
 
     if ( Options.getDir() == null ) 
@@ -171,18 +162,6 @@ final public class Emitter {
 
     print(i);
   }
-
-  private void printUC(int i) {
-    if (i > 255) {
-      print("\\u");
-      if (i < 0x1000) print("0");
-      print(Integer.toHexString(i));
-    }
-    else {
-      print("\\");
-      print(Integer.toOctalString(i));
-    }
-  } 
 
   private void emitScanError() {
     print("  private void yy_ScanError(int errorCode)");
@@ -434,7 +413,6 @@ final public class Emitter {
    */
   public static boolean endsWithJavadoc(StringBuffer usercode) {
     String s = usercode.toString().trim();
-    int len = s.length();
         
     if (!s.endsWith("*/")) return false;
     
@@ -492,144 +470,42 @@ final public class Emitter {
     }
   }
 
-  private void emitDynInitHead(int chunk) {
-    println("  /** ");
-    println("   * The packed transition table of the DFA (part "+chunk+")");
-    println("   */");
-    println("  private static final String yy_packed"+chunk+" = ");    
-  }
-
-  /**
-   * Calculates the number of bytes a Unicode character
-   * would have in UTF8 representation in a class file.
-   *
-   * @param value  the char code of the Unicode character
-   *               (expected to satisfy 0 <= value <= 0xFFFF)
-   *
-   * @return length of UTF8 representation.
-   */
-  private int UTF8Length(int value) {
-    if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
-
-    // see JVM spec §4.4.7, p 111
-    if (value == 0) return 2;
-    if (value <= 0x7F) return 1;
-
-    // workaround for javac bug (up to jdk 1.3):
-    if (value <  0x0400) return 2;
-    if (value <= 0x07FF) return 3;
-
-    // correct would be:
-    // if (value <= 0x7FF) return 2;
-    return 3;
-  }
-
   private void emitDynamicInit() {    
-    emitDynInitHead(numTableChunks++);
-
-    int i,c;
-    int n = 0;
-    print("    \"");
-    
     int count = 0;
     int value = dfa.table[0][0];
 
-    // the current length of the resulting UTF8 String constant
-    // in the class file. Must be smaller than 64K
-    int UTF8Length = 0;    
+    println("  /** ");
+    println("   * The transition table of the DFA");
+    println("   */");
+
+    CountEmitter e = new CountEmitter("yytrans");
+    e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
+    e.emitInit();
     
-    for (i = 0; i < dfa.numStates; i++) {
+    for (int i = 0; i < dfa.numStates; i++) {
       if ( !rowKilled[i] ) {
-        for (c = 0; c < dfa.numInput; c++) {
+        for (int c = 0; c < dfa.numInput; c++) {
           if ( !colKilled[c] ) {
-            if (dfa.table[i][c] == value) count++;
+            if (dfa.table[i][c] == value) {
+              count++;
+            } 
             else {
-              printUC( count );
-              printUC( value+1 );
+              e.emit(count, value);
 
-              // calculate resulting UTF8 size
-              UTF8Length += UTF8Length(count)+UTF8Length(value+1);
-
-              n+= 2;
-              if (n >= 16) {
-                print("\"+");
-                println();
-                print("    \"");
-                n = 0;
-              }
               count = 1;
-              value = dfa.table[i][c];
-              
-              if (UTF8Length >= maxSize) {
-                // System.out.println("UTF8 size chunk "+(numTableChunks-1)+": "+Integer.toHexString(UTF8Length));
-                UTF8Length = 0;
-                println("\";");
-                println();
-                emitDynInitHead(numTableChunks++);
-                print("    \"");
-                n = 0;
-              }
+              value = dfa.table[i][c];              
             }
           }
         }
       }
     }
 
-    printUC( count );
-    printUC( value+1 );
-
-    UTF8Length += UTF8Length(count)+UTF8Length(value+1);
-
-    // System.out.println("UTF8 size chunk "+(numTableChunks-1)+": "+Integer.toHexString(UTF8Length));
-
-    println("\";");
-
-    println();
-    println("  /** ");
-    println("   * The transition table of the DFA");
-    println("   */");
-    println("  private static final int yytrans [] = yy_unpack();");
-    println();
+    e.emit(count, value);
+    e.emitUnpack();
+    
+    println(e.toString());
   }
 
-  private void emitDynamicInitFunction() {
-    println();
-    println("  /** ");
-    println("   * Unpacks the split, compressed DFA transition table.");
-    println("   *");
-    println("   * @return the unpacked transition table");
-    println("   */");
-    println("  private static int [] yy_unpack() {");
-    println("    int [] trans = new int["+(numRows*numCols)+"];");
-    println("    int offset = 0;");
-
-    for (int i = 0; i < numTableChunks; i++) {
-      println("    offset = yy_unpack(yy_packed"+i+", offset, trans);");
-    }
-
-    println("    return trans;");
-    println("  }");
-
-    println();
-    println("  /** ");
-    println("   * Unpacks the compressed DFA transition table.");
-    println("   *");
-    println("   * @param packed   the packed transition table");
-    println("   * @return         the index of the last entry");
-    println("   */");
-    println("  private static int yy_unpack(String packed, int offset, int [] trans) {");
-    println("    int i = 0;       /* index in packed string  */");
-    println("    int j = offset;  /* index in unpacked array */");
-    println("    int l = packed.length();");
-    println("    while (i < l) {");
-    println("      int count = packed.charAt(i++);");
-    println("      int value = packed.charAt(i++);");
-    println("      value--;");
-    println("      do trans[j++] = value; while (--count > 0);");
-    println("    }");
-    println("    return j;");
-    println("  }");
-  }
 
   private void emitCharMapInitFunction() {
 
@@ -667,8 +543,6 @@ final public class Emitter {
     println("   */");
     println("  private static final int yytrans [] = {");
 
-    boolean isFirstRow = true;
-    
     print("    ");
     for (i = 0; i < dfa.numStates; i++) {
       
@@ -693,33 +567,6 @@ final public class Emitter {
     println("  };");
   }
   
-  private void emitRowMap() {
-    println("  /** ");
-    println("   * Translates a state to a row index in the transition table");    
-    println("   */");
-    println("  private static final int yy_rowMap [] = { ");
-
-    int i;
-    int n = 0;
-    print("    ");
-    
-    for (i = 0; i < dfa.numStates-1; i++) {      
-      print( rowMap[i]*numCols, 5 );
-      print( ", " );
-      
-      if (++n >= 10) {
-        println();
-        print("    ");
-        n = 0;
-      }
-    }
-    
-    print( rowMap[i]*numCols, 5 );
-    println();
-    println("  };");
-    println();  
-  }
-
   private void emitCharMapArrayUnPacked() {
    
     CharClasses cl = parser.getCharClasses();
@@ -812,104 +659,78 @@ final public class Emitter {
     println();
   }
 
-  private void emitRowMapArray() {
-    println("");
-    println("  /** ");
-    println("   * Translates a state to a row index in the transition table (packed version)");
-    println("   */");
-    println("  final private static String yy_rowMap_packed = ");
-  
-    int i, value;
-    int n = 0;
-    print("    \"");
-    
-    for (i = 0; i < dfa.numStates-1; i++) {
-      value = rowMap[i]*numCols;
-      printUC(value >> 16);      
-      printUC(value & 0xFFFF);
 
-      if (++n >= 10) {
-        println("\"+");
-        print("    \"");
-        n = 0;
-      }
+  /**
+   * Print number as octal/unicode escaped string character.
+   * 
+   * @param c   the value to print
+   * @prec  0 <= c <= 0xFFFF 
+   */
+  private void printUC(int c) {
+    if (c > 255) {
+      out.print("\\u");
+      if (c < 0x1000) out.print("0");
+      out.print(Integer.toHexString(c));
     }
-    
-    value = rowMap[i]*numCols;
-    printUC(value >> 16);      
-    printUC(value & 0xFFFF);
-    println("\";");
-    println();
-    
-    println("  /** ");
-    println("   * Translates a state to a row index in the transition table");
-    println("   */");
-    println("  final private static int [] yy_rowMap = yy_unpack_rowMap(yy_rowMap_packed);");
-    println();
+    else {
+      out.print("\\");
+      out.print(Integer.toOctalString(c));
+    }    
   }
 
 
-  private void emitRowMapInitFunction() {
+  private void emitRowMapArray() {
     println("");
     println("  /** ");
-    println("   * Unpacks the compressed row translation table.");
-    println("   *");
-    println("   * @param packed   the packed row translation table");
-    println("   * @return         the unpacked row translation table");
+    println("   * Translates a state to a row index in the transition table");
     println("   */");
-    println("  private static int [] yy_unpack_rowMap(String packed) {");
-    println("    int [] map = new int["+dfa.numStates*2+"];");
-    println("    int i = 0;  /* index in packed string  */");
-    println("    int j = 0;  /* index in unpacked array */");
-    println("    while (i < "+2*dfa.numStates+") {");
-    println("      int high = ((int) packed.charAt(i++)) << 16;");
-    println("      map[j++] = high | packed.charAt(i++);");
-    println("    }");
-    println("    return map;");
-    println("  }");
+    
+    HiLowEmitter e = new HiLowEmitter("yy_rowMap"); 
+    e.emitInit();
+    for (int i = 0; i < dfa.numStates; i++) {
+      e.emit(rowMap[i]*numCols);
+    }    
+    e.emitUnpack();
+    println(e.toString());
   }
 
 
   private void emitAttributes() {
-    
-    if (dfa.numStates <= 0) return;
-    
     println("  /**");
     println("   * YY_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
     println("   */");
-    println("  private static final byte YY_ATTRIBUTE[] = {");
-
-    int i,j, attribute;
-    print("    ");
     
-    for (i = 0, j = 0;  i < dfa.numStates-1; i++, j++) {
-      
-      if (j >= 16) {
-        j = 0;
-        println();
-        print("    ");
-      }
-      
-      attribute = 0;      
+    CountEmitter e = new CountEmitter("YY_ATTRIBUTE");    
+    e.emitInit();
+    
+    int count = 1;
+    int value = 0; 
+    if ( dfa.isFinal[0]    ) value = FINAL;
+    if ( dfa.isPushback[0] ) value|= PUSHBACK;
+    if ( dfa.isLookEnd[0]  ) value|= LOOKEND;
+    if ( !isTransition[0]  ) value|= NOLOOK;
+       
+    for (int i = 1;  i < dfa.numStates; i++) {      
+      int attribute = 0;      
       if ( dfa.isFinal[i]    ) attribute = FINAL;
       if ( dfa.isPushback[i] ) attribute|= PUSHBACK;
       if ( dfa.isLookEnd[i]  ) attribute|= LOOKEND;
       if ( !isTransition[i]  ) attribute|= NOLOOK;
 
-      print( attribute, 2 );
-      print( ", " );      
+      if (value == attribute) {
+        count++;
+      }
+      else {        
+        e.emit(count, value);
+        count = 1;
+        value = attribute;
+      }
     }
     
-    attribute = 0;      
-    if ( dfa.isFinal[dfa.numStates-1]    ) attribute = FINAL;
-    if ( dfa.isPushback[dfa.numStates-1] ) attribute|= PUSHBACK;
-    if ( dfa.isLookEnd[dfa.numStates-1]  ) attribute|= LOOKEND;
-    if ( !isTransition[dfa.numStates-1]  ) attribute|= NOLOOK;
+    e.emit(count, value);    
+    e.emitUnpack();
     
-    print( attribute, 2 );
-    println();
-    println("  };");
-    println();
+    println(e.toString());
   }
 
 
@@ -1046,7 +867,7 @@ final public class Emitter {
     if ( scanner.useRowMap ) {
       println("    int [] yytrans_l = yytrans;");
       println("    int [] yy_rowMap_l = yy_rowMap;");
-      println("    byte [] yy_attr_l = YY_ATTRIBUTE;");
+      println("    int [] yy_attr_l = YY_ATTRIBUTE;");
 
     }
 
@@ -1296,9 +1117,9 @@ final public class Emitter {
         if ( scanner.columnCount )
           print("\"col: \"+(yycolumn+1)+\" \"+");
         println("\"match: --\"+yytext()+\"--\");");        
-        print("          System.out.println(\"action ["+action.priority+"] {");
+        print("          System.out.println(\"action ["+action.priority+"] { ");
         print(escapify(action.content));
-        println("}\");");
+        println(" }\");");
       }
       
       println("          { "+action.content+" }");
@@ -1396,7 +1217,6 @@ final public class Emitter {
   private void emitTransition(int state, int nextState) {
 
     CharSetEnumerator chars;
-    int num;
     
     if (nextState != DFA.NO_TARGET) 
       chars = table[state][nextState].characters();
@@ -1627,9 +1447,7 @@ final public class Emitter {
     if (scanner.useRowMap) {
      reduceRows();
     
-     // emitRowMap();
       emitRowMapArray();
-      emitRowMapInitFunction();
 
       if (scanner.packed)
         emitDynamicInit();
@@ -1649,10 +1467,7 @@ final public class Emitter {
     skel.emitNext();
     
     emitConstructorDecl();
-    
-    if (scanner.packed)
-      emitDynamicInitFunction();
-    
+        
     emitCharMapInitFunction();
 
     skel.emitNext();

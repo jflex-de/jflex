@@ -46,6 +46,8 @@ public class HiLowEmitter extends PackEmitter {
    * @see JFlex.PackEmitter#emitUnPack()
    */
   public void emitUnpack() {
+    // close last string chunk:
+    println("\";");
     nl();
     println("  private static int [] yy_unpack_"+name+"() {");
     println("    int [] result = new int["+numEntries+"];");
@@ -79,6 +81,7 @@ public class HiLowEmitter extends PackEmitter {
    */
   public void emit(int val) {
     numEntries+= 1;
+    breaks();
     emitUC(val >> 16);
     emitUC(val & 0xFFFF);        
   }
