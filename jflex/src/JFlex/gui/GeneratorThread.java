@@ -22,7 +22,6 @@ package JFlex.gui;
 
 import JFlex.*;
 
-import java.awt.TextArea;
 import java.io.File;
 
 
@@ -38,9 +37,6 @@ public class GeneratorThread extends Thread {
   /** there must be at most one instance of this Thread running */
 	private static volatile boolean running = false;
 
-	/** where generator output messages appear */
-  TextArea  messages;
-  
 	/** input file setting from GUI */
 	String  inputFile;
 
@@ -59,10 +55,9 @@ public class GeneratorThread extends Thread {
 	 * @param outputDir   output directory from UI settings
 	 */
   public GeneratorThread(MainFrame parent, String inputFile, 
-                         TextArea messages, String outputDir) {
+                         String outputDir) {
     this.parent    = parent;
     this.inputFile = inputFile;
-    this.messages  = messages;
     this.outputDir = outputDir;
   }
 
@@ -78,7 +73,6 @@ public class GeneratorThread extends Thread {
   	else {
   		running = true;
 			setPriority(MIN_PRIORITY);    
-			Out.setGUIMode(messages);
 			try {
         if (!outputDir.equals("")) {
           Options.setDir(outputDir);
