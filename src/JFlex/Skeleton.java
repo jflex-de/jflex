@@ -196,7 +196,6 @@ public class Skeleton {
     "   * @param reader   the new input stream "+NL+
     "   */"+NL+
     "  public final void yyreset(java.io.Reader reader) throws java.io.IOException {"+NL+
-    "    yyclose();"+NL+
     "    yy_reader = reader;"+NL+
     "    yy_atBOL  = true;"+NL+
     "    yy_atEOF  = false;"+NL+
