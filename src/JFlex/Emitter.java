@@ -1161,7 +1161,7 @@ final public class Emitter {
   private void emitGetRowMapNext() {
     println("          int yy_next = yytrans_l[ yy_rowMap_l[yy_state] + yycmap_l[yy_input] ];");
 
-    println("          if (yy_next == "+dfa.NO_TARGET+") break yy_forAction;");
+    println("          if (yy_next == "+DFA.NO_TARGET+") break yy_forAction;");
     println("          yy_state = yy_next;");
     println();
 
@@ -1360,8 +1360,8 @@ final public class Emitter {
       }
     }
     
-    if ( defaultTransition != dfa.NO_TARGET && noTarget[state] != null ) {
-      emitTransition(state, dfa.NO_TARGET);
+    if ( defaultTransition != DFA.NO_TARGET && noTarget[state] != null ) {
+      emitTransition(state, DFA.NO_TARGET);
     }
     
     emitDefaultTransition(state, defaultTransition);
@@ -1375,7 +1375,7 @@ final public class Emitter {
     CharSetEnumerator chars;
     int num;
     
-    if (nextState != dfa.NO_TARGET) 
+    if (nextState != DFA.NO_TARGET) 
       chars = table[state][nextState].characters();
     else 
       chars = noTarget[state].characters();
@@ -1391,7 +1391,7 @@ final public class Emitter {
       print(": ");
     } 
     
-    if ( nextState != dfa.NO_TARGET ) {
+    if ( nextState != DFA.NO_TARGET ) {
       if ( dfa.isFinal[nextState] )
         print("yy_isFinal = true; ");
         
@@ -1416,7 +1416,7 @@ final public class Emitter {
   private void emitDefaultTransition(int state, int nextState) {
     print("                default: ");
     
-    if ( nextState != dfa.NO_TARGET ) {
+    if ( nextState != DFA.NO_TARGET ) {
       if ( dfa.isFinal[nextState] )
         print("yy_isFinal = true; ");
         
@@ -1454,11 +1454,11 @@ final public class Emitter {
         max = i;
     }
     
-    if ( table[state][max] == null ) return dfa.NO_TARGET;
+    if ( table[state][max] == null ) return DFA.NO_TARGET;
     if ( noTarget[state] == null ) return max;
     
     if ( table[state][max].size() < noTarget[state].size() ) 
-      max = dfa.NO_TARGET;
+      max = DFA.NO_TARGET;
     
     return max;
   }
@@ -1479,7 +1479,7 @@ final public class Emitter {
 
         int nextState = dfa.table[i][j];
         
-        if ( nextState == dfa.NO_TARGET ) {
+        if ( nextState == DFA.NO_TARGET ) {
           if ( noTarget[i] == null ) 
             noTarget[i] = new CharSet(numInput, colMap[j]);
           else
@@ -1500,7 +1500,7 @@ final public class Emitter {
     for (int i = 0; i < dfa.numStates;  i++) {
       char j = 0;
       while ( !isTransition[i] && j < dfa.numInput )
-        isTransition[i] = dfa.table[i][j++] != dfa.NO_TARGET;
+        isTransition[i] = dfa.table[i][j++] != DFA.NO_TARGET;
     }
   }
 
