@@ -22,6 +22,7 @@ package JFlex;
 
 
 import java.io.*;
+import java.text.MessageFormat;
 import java.awt.TextArea;
 
 
@@ -86,8 +87,7 @@ public final class Out {
   
 
   /**
-   * All parts of JFlex, that want to report generation progress
-   * should use this method for their output.
+   * Report generation progress.
    *
    * @param message  the message to be printed
    */
@@ -96,10 +96,21 @@ public final class Out {
       out.println(message);
   }
 
+  /**
+   * Report generation progress.
+   *
+   * @param message  the message to be printed
+   */
+  public static void println(String data, ErrorMessages message) {
+    if (Options.verbose) {
+      Object [] args = { data };
+      String msg = MessageFormat.format(ErrorMessages.get(message), args);
+      out.println(msg);
+    }
+  }
 
   /**
-   * All parts of JFlex, that want to report generation progress
-   * should use this method for their output.
+   * Report generation progress.
    *
    * @param message  the message to be printed
    */
@@ -259,6 +270,22 @@ public final class Out {
   public static void error(ErrorMessages message) {
     errors++;
     err(NL+"Error: "+ErrorMessages.get(message) );
+  }
+
+
+  /**
+   * print error message with data 
+   *  
+   * @param data     data to insert into the message
+   * @param message  the code of the error message
+   *
+   * @see ErrorMessages   
+   */ 
+  public static void error(String data, ErrorMessages message) {
+    errors++;
+    Object [] args = { data };
+    String msg = MessageFormat.format(ErrorMessages.get(message), args);
+    err(NL+"Error: "+ msg);
   }
 
 
