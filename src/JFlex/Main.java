@@ -38,26 +38,6 @@ public class Main implements ErrorMessages {
   /** JFlex version */
   final public static String version = "1.4_pre4";
 
-  /** code generation method: maximum packing */
-  final public static int PACK   = 0;
-  /** code generation method: traditional */
-  final public static int TABLE  = 1;
-  /** code generation method: switch statement */
-  final public static int SWITCH = 2;
-
-
-  /* global switches: */
-    
-  /** don't run minimization algorithm if this is true */
-  public static boolean no_minimize = false;
-  
-  /** don't write backup files if this is true */
-  public static boolean no_backup = false;
-     
-  /** default code generation method */
-  public static int gen_method = PACK;
-
-
   /**
    * Generates a scanner for the specified input file.
    *
@@ -237,27 +217,27 @@ public class Main implements ErrorMessages {
       }
       
       if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) {
-        no_minimize = true;
+        Options.no_minimize = true;
         continue;
       }
 
       if ( argv[i].equals("--pack") || argv[i].equals("-pack") ) {
-        gen_method = PACK;
+        Options.gen_method = Options.PACK;
         continue;
       }
 
       if ( argv[i].equals("--table") || argv[i].equals("-table") ) {
-        gen_method = TABLE;
+        Options.gen_method = Options.TABLE;
         continue;
       }
 
       if ( argv[i].equals("--switch") || argv[i].equals("-switch") ) {
-        gen_method = SWITCH;
+        Options.gen_method = Options.SWITCH;
         continue;
       }
       
       if ( argv[i].equals("--nobak") || argv[i].equals("-nobak") ) {
-        no_backup = true;
+        Options.no_backup = true;
         continue;
       }
       

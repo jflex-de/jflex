@@ -27,18 +27,6 @@ import java.io.File;
 
 
 /**
- * GeneratorThread
- * 
- * @author Gerwin Klein
- * @version $Revision$, $Date$
- */
-/**
- * GeneratorThread
- * 
- * @author Gerwin Klein
- * @version $Revision$, $Date$
- */
-/**
  * Low priority thread for code generation (low priority 
  * that gui has time for screen updates)
  *
@@ -53,13 +41,8 @@ public class GeneratorThread extends Thread {
 	/** where generator output messages appear */
   TextArea  messages;
   
-  /** output directory setting from GUI
-   * FIXME: use JFlex.Options */
-  String    outputDir;
-
-	/** input file setting from GUI
-	 *  FIXME: use JFlex.Options */
-  String    inputFile;
+	/** input file setting from GUI */
+	String  inputFile;
   
   /** main UI component, likes to be notified when generator finishes */
   MainFrame parent;
@@ -77,7 +60,7 @@ public class GeneratorThread extends Thread {
     this.parent    = parent;
     this.inputFile = inputFile;
     this.messages  = messages;
-    this.outputDir = outputDir;
+    Options.setDir(outputDir);
   }
 
 
@@ -94,7 +77,6 @@ public class GeneratorThread extends Thread {
 			setPriority(MIN_PRIORITY);    
 			Out.setGUIMode(messages);
 			try {
-				Options.setDir(outputDir);
 				Main.generate(new File(inputFile));
 				Out.statistics();
 				parent.generationFinished(true);

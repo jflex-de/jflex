@@ -53,6 +53,7 @@ public class AntTaskTests extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     task = new JFlexTask();
+    Options.setDefaults();
   }
   
 	public void testPackageAndClass() throws IOException {
@@ -98,5 +99,17 @@ public class AntTaskTests extends TestCase {
 		task.configure(); 
 		// this should be default jflex logic 
 		assertEquals(Options.getDir(),new File("src/JFlex"));		
+	}
+	
+	public void testNomin() {
+		assertFalse(Options.no_minimize);
+		task.setNomin(true);
+		assertTrue(Options.no_minimize);
+	}
+	
+	public void testSkipMinimization() {
+		assertFalse(Options.no_minimize);
+		task.setSkipMinimization(true);
+		assertTrue(Options.no_minimize);	
 	}
 }

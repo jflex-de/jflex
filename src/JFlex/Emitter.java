@@ -120,7 +120,7 @@ final public class Emitter {
     else 
       outputFile = new File(Options.getDir(), name);
         
-    if ( outputFile.exists() && !Main.no_backup ) {      
+    if ( outputFile.exists() && !Options.no_backup ) {      
       File backup = new File( outputFile.toString()+"~" );
       
       if ( backup.exists() ) backup.delete();

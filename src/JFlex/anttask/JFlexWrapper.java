@@ -22,8 +22,6 @@ package JFlex.anttask;
 
 import java.io.File;
 
-import JFlex.Options;
-
 
 /**
  * Wrapper class for JFlex application. In case of any changes in JFlex
@@ -35,21 +33,6 @@ import JFlex.Options;
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
 class JFlexWrapper {
-
-    public void generate( File file ) throws JFlex.GeneratorException
-    {
-        JFlex.Main.generate( file );
-    }
-
-    public void setDestinationDir( String dir )
-    {
-        Options.setDir( dir );
-    }
-
-    public void setSkipMinimization( boolean set )
-    {
-        JFlex.Main.no_minimize = set;
-    }
 
     public void setTimeStatistics( boolean set )
     {
