@@ -126,7 +126,6 @@ final public class DFA {
   }
 
   private void ensureStateCapacity(int newNumStates) {
-
     int oldLength = isFinal.length;
     
     if ( newNumStates < oldLength ) return;
@@ -273,6 +272,18 @@ final public class DFA {
    * Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
    */
   public void minimize() {
+    Out.print(numStates+" states before minimization, ");
+
+    if (numStates == 0) {
+      Out.error(ErrorMessages.ZERO_STATES);
+      throw new GeneratorException();
+    }
+
+    if (Options.no_minimize) {
+      Out.println("minimization skipped.");
+      return;
+    }
+
     // the algorithm needs the DFA to be total, so we add an error state 0,
     // and translate the rest of the states by +1
     final int n = numStates+1;
@@ -318,7 +329,6 @@ final public class DFA {
     int [] D = new int[n];
     int numD;    
 
-    Out.print(numStates+" states before minimization, ");
     
     // initialize inverse of transition table
     int lastDelta = 0;
