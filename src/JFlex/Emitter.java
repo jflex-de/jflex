@@ -1459,7 +1459,24 @@ final public class Emitter {
     
   } 
 
+
+  /**
+   * Set up EOF code sectioin according to scanner.eofcode 
+   */
+  private void setupEOFCode() {
+    if (scanner.eofclose) {
+      scanner.eofCode = LexScan.conc(scanner.eofCode, "  yyclose();");
+      scanner.eofThrow = LexScan.concExc(scanner.eofThrow, "java.io.IOException");
+    }    
+  } 
+
+
+  /**
+   * Main Emitter method.  
+   */
   public void emit() {    
+
+    setupEOFCode();
 
     if (scanner.functionName == null) 
       scanner.functionName = "yylex";
@@ -1554,5 +1571,6 @@ final public class Emitter {
     skel.emitNext();
 
     out.close();
-  } 
+  }
+
 }
