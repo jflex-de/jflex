@@ -101,8 +101,13 @@ public class CharClasses {
    *
    * Characters that are elements of <code>set</code> are not in the same
    * equivalence class with characters that are not elements of <code>set</code>.
+   *
+   * @param set       the set of characters to distinguish from the rest    
+   * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(IntCharSet set) {
+  public void makeClass(IntCharSet set, boolean caseless) {
+    if (caseless) set = set.getCaseless();
+    
     if ( DEBUG ) {
       Out.dump("makeClass("+set+")");
       dump();
@@ -193,17 +198,21 @@ public class CharClasses {
   
   /**
    * Creates a new character class for the single character <code>singleChar</code>.
+   *    
+   * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(char singleChar) {
-    makeClass(new IntCharSet(singleChar));
+  public void makeClass(char singleChar, boolean caseless) {
+    makeClass(new IntCharSet(singleChar), caseless);
   }
 
 
   /**
    * Creates a new character class for each character of the specified String.
+   *    
+   * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(String str) {
-    for (int i = 0; i < str.length(); i++) makeClass(str.charAt(i));
+  public void makeClass(String str, boolean caseless) {
+    for (int i = 0; i < str.length(); i++) makeClass(str.charAt(i), caseless);
   }  
 
 
@@ -217,9 +226,11 @@ public class CharClasses {
    * @param v   a Vector of Interval objects. 
    *            This Vector represents a set of characters. The set of characters is
    *            the union of all intervalls in the Vector.
+   *    
+   * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(Vector /* Interval */ v) {
-    makeClass( new IntCharSet(v) );
+  public void makeClass(Vector /* Interval */ v, boolean caseless) {
+    makeClass(new IntCharSet(v), caseless);
   }
   
 
@@ -235,9 +246,11 @@ public class CharClasses {
    * @param v   a Vector of Interval objects. 
    *            This Vector represents a set of characters. The set of characters is
    *            the union of all intervalls in the Vector.
+   * 
+   * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClassNot(Vector v) {
-    makeClass( new IntCharSet(v) );
+  public void makeClassNot(Vector v, boolean caseless) {
+    makeClass(new IntCharSet(v), caseless);
   }
 
 
