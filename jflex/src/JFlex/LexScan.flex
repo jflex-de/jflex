@@ -99,6 +99,7 @@ import java.util.Stack;
   boolean packed = Options.gen_method == Options.PACK;
   boolean caseless;
   boolean inclusive_states;
+  boolean eofclose;
     
   String isImplementing;
   String isExtending;
@@ -182,7 +183,7 @@ import java.util.Stack;
     return matched.substring(1, matched.length()-1).trim();
   }
 
-  private String conc(Object a, Object b) {
+  public static String conc(Object a, Object b) {
     if (a == null && b == null) return null;
     if (a == null) return b.toString();
     if (b == null) return a.toString();
@@ -190,7 +191,7 @@ import java.util.Stack;
     return a.toString()+b.toString();
   }
 
-  private String concExc(Object a, Object b) {
+  public static String concExc(Object a, Object b) {
     if (a == null && b == null) return null;
     if (a == null) return b.toString();
     if (b == null) return a.toString();
@@ -296,8 +297,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%byaccj"                   { isInteger = true;
                                 if (eofVal == null)
                                   eofVal = "return 0;";
-                                eofCode = conc(eofCode, "  yyclose();");
-                                eofThrow = concExc(eofThrow, "java.io.IOException");
+                                eofclose = true;
                               }
   "%cup"                      { cupCompatible = true;  
                                 isImplementing = concExc(isImplementing, "java_cup.runtime.Scanner");
@@ -307,16 +307,14 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   tokenType = "java_cup.runtime.Symbol";
                                 if (eofVal == null)
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
-                                eofCode = conc(eofCode, "  yyclose();");
-                                eofThrow = concExc(eofThrow, "java.io.IOException");
+                                if (!Options.jlex) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim(); 
                                 if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
-  "%eofclose"                 { eofCode = conc(eofCode, "  yyclose();");
-                                eofThrow = concExc(eofThrow, "java.io.IOException");
-                              }
+  "%eofclose"({WSP}+"true")?  { eofclose = true; }
+  "%eofclose"({WSP}+"false")  { eofclose = false; }
   "%class"{WSP}+{Ident} {WSP}*      { className = yytext().substring(7).trim();  }
   "%function"{WSP}+{Ident} {WSP}*   { functionName = yytext().substring(10).trim(); }
   "%type"{WSP}+{ArrType} {WSP}*     { tokenType = yytext().substring(6).trim(); }
