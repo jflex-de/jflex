@@ -50,6 +50,11 @@ public final class StdOutWriter extends PrintWriter {
   public StdOutWriter() {
     super(System.out,true);
   }
+  
+  /** A StdOutWrite, attached to the specified output stream, no gui mode */
+  public StdOutWriter(OutputStream out) {
+    super(out,true);    
+  }
 
   /**
    * Set the TextArea to write text to. Will continue
