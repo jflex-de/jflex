@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex Anttask                                                           *
- * Copyright (C) 2001       Rafal Mantiuk <Rafal.Mantiuk@bellstream.pl>    *
+ * JFlex 1.4                                                               *
+ * Copyright (C) 1998-2003  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -18,58 +18,53 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.anttask;
+package JFlex;
 
 import java.io.File;
 
-import JFlex.Options;
-
-
 /**
- * Wrapper class for JFlex application. In case of any changes in JFlex
- * it should reduce impact of those changes on jflex ant task.
- *
- * FIXME: eventually eliminate in favour of central options handling class 
- *
- * @author Rafal Mantiuk
- * @version JFlex 1.3.5, $Revision$, $Date$
+ * Global JFlex options.
+ * 
+ * @author Gerwin Klein
+ * @version JFlex 1.4, $Revision$, $Date$
  */
-class JFlexWrapper {
+public class Options {
+	
+	static private File directory;
 
-    public void generate( File file ) throws JFlex.GeneratorException
-    {
-        JFlex.Main.generate( file );
+  /**
+   * @return the outpur directory
+   */
+  public static File getDir() {    
+    return directory;
+  }
+
+  /**
+   * Set output directory
+   * 
+   * @param dirName the name of the directory to write output files to
+   */
+  public static void setDir(String dirName) {
+  	setDir(new File(dirName)); 
+  }
+  
+
+	/**
+	 * Set output directory
+	 * 
+	 * @param d  the directory to write output files to
+	 */
+  public static void setDir(File d) {
+    if ( d.isFile() ) {
+      Out.error("Error: \""+d+"\" is not a directory.");
+      throw new GeneratorException();
     }
-
-    public void setDestinationDir( String dir )
-    {
-        Options.setDir( dir );
+    
+    if ( !d.isDirectory() && !d.mkdirs() ) {
+      Out.error("Error: couldn't create directory \""+d+"\"");
+      throw new GeneratorException();
     }
-
-    public void setSkipMinimization( boolean set )
-    {
-        JFlex.Main.no_minimize = set;
-    }
-
-    public void setTimeStatistics( boolean set )
-    {
-        JFlex.Out.TIME = set;
-    }
-
-    public void setVerbose( boolean set )
-    {
-        JFlex.Out.VERBOSE = set;
-    }
-
-    public void setGenerateDot( boolean set )
-    {
-         JFlex.Out.DOT = set;
-    }
-
-    public void setSkeleton( File skel )
-    {
-        if( skel != null )
-            JFlex.Skeleton.readSkelFile( skel );
-    }
-
+  
+    directory = d;
+  }   
 }

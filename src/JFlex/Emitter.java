@@ -51,8 +51,6 @@ final public class Emitter {
 
   static final private String date = (new SimpleDateFormat()).format(new Date());
 
-  static public File directory;
-
   private File inputFile;
 
   private PrintWriter out;
@@ -89,7 +87,7 @@ final public class Emitter {
 
     String name = parser.scanner.className+".java";
 
-    File outputFile = normalize(name, directory, inputFile);
+    File outputFile = normalize(name, Options.getDir(), inputFile);
 
     Out.println("Writing code to \""+outputFile+"\"");
     
@@ -114,13 +112,13 @@ final public class Emitter {
   public static File normalize(String name, File path, File input) {
     File outputFile;
 
-    if ( directory == null ) 
+    if ( Options.getDir() == null ) 
       if ( input == null || input.getParent() == null )
         outputFile = new File(name);
       else
         outputFile = new File(input.getParent(), name);
     else 
-      outputFile = new File(directory, name);
+      outputFile = new File(Options.getDir(), name);
         
     if ( outputFile.exists() && !Main.no_backup ) {      
       File backup = new File( outputFile.toString()+"~" );
