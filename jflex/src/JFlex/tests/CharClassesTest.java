@@ -40,25 +40,42 @@ public class CharClassesTest extends TestCase {
     super(arg0);
   }
 
-  /*
-   * Test for void makeClass(IntCharSet)
-   */
-  public void testMakeClassIntCharSet() {
+  public void testAdd1() {
+    IntCharSet set = new IntCharSet(new Interval('a','h'));
+    set.add(new Interval('o','z'));
+    set.add(new Interval('A','Z'));
+    set.add(new Interval('h','o'));
+    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
   }
 
-  public void testGetClassCode() {
+  public void testAdd2() {
+    IntCharSet set = new IntCharSet(new Interval('a','h'));
+    set.add(new Interval('o','z'));
+    set.add(new Interval('A','Z'));
+    set.add(new Interval('i','n'));
+    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
   }
 
-  /*
-   * Test for void makeClass(char)
-   */
-  public void testMakeClasschar() {
+  public void testAdd3() {
+    IntCharSet set = new IntCharSet(new Interval('a','h'));
+    set.add(new Interval('o','z'));
+    set.add(new Interval('A','Z'));
+    set.add(new Interval('a','n'));
+    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
   }
 
-  /*
-   * Test for void makeClass(String)
-   */
-  public void testMakeClassString() {
+  public void testAddChar() {
+    IntCharSet set = new IntCharSet(new Interval('a','h'));
+    set.add(new Interval('o','z'));
+    set.add('n');
+    set.add('k');
+    assertEquals("{ ['a'-'h']['k']['n'-'z'] }", set.toString());
+    set.add('i');
+    assertEquals("{ ['a'-'i']['k']['n'-'z'] }", set.toString());    
+    set.add('j');
+    assertEquals("{ ['a'-'k']['n'-'z'] }", set.toString());    
+    set.add(new Interval('l','m'));
+    assertEquals("{ ['a'-'z'] }", set.toString());    
   }
 
   public void testCopy() {
