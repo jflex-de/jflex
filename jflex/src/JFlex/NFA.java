@@ -408,8 +408,8 @@ final public class NFA {
      
     currentDFAState = 0;
       
-    StateSet tempStateSet  = this.tempStateSet;    
-    StateSetEnumerator states = this.states;
+    StateSet tempStateSet  = NFA.tempStateSet;    
+    StateSetEnumerator states = NFA.states;
 
     // will be reused
     newState = new StateSet(numStates);
