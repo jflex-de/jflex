@@ -41,6 +41,7 @@ final public class MainFrame extends Frame implements Handles {
   private String dirName = "";
   
   private Button quit; 
+  private Button options;
   private Button generate;
   private Button stop;
   private Button specChoose; 
@@ -52,6 +53,8 @@ final public class MainFrame extends Frame implements Handles {
   private TextArea messages;
 
   private GeneratorThread thread;
+
+  private OptionsDialog dialog;
 
   
   public MainFrame() {
@@ -74,6 +77,7 @@ final public class MainFrame extends Frame implements Handles {
 
     generate   = new Button("Generate");
     quit       = new Button("Quit");
+    options    = new Button("Options");
     stop       = new Button("Stop");
     dirChoose  = new Button("Choose");
     dir        = new TextField(10);
@@ -91,6 +95,12 @@ final public class MainFrame extends Frame implements Handles {
     generate.addActionListener( new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         generate();
+      }
+    } );
+
+    options.addActionListener( new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        showOptions();
       }
     } );
 
@@ -149,7 +159,8 @@ final public class MainFrame extends Frame implements Handles {
 
     north.add( 4,0, quit);
     north.add( 4,1, generate);
-    north.add( 4,2, stop);
+    north.add( 4,2, options);
+    north.add( 4,3, stop);
 
     north.add( 0,0, BOTTOM, new Label("Lexical specification:"));
     north.add( 0,1, 2,1, spec);
@@ -168,6 +179,14 @@ final public class MainFrame extends Frame implements Handles {
 
     setEnabledAll(false);
   }
+
+  protected void showOptions() {
+    if (dialog == null) {
+      dialog = new OptionsDialog(this);
+    }
+    dialog.show();
+  }
+
 
   public Dimension getPreferredSize() {
     Dimension d = super.getPreferredSize();
