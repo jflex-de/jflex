@@ -401,8 +401,17 @@ public class Skeleton {
 
   /**
    * Reads an external skeleton file for later use with this class.
+   * 
+   * @param skeletonFile  the file to read (must be != null and readable)
    */
   public static void readSkelFile(File skeletonFile) {
+    if (skeletonFile == null)
+      throw new IllegalArgumentException("Skeleton file must not be null");
+
+    if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
+      Out.error("Error: cannot read skeleton file \"" + skeletonFile + "\".");
+      throw new GeneratorException();
+    }
 
     int size = line.length;
 
@@ -434,8 +443,9 @@ public class Skeleton {
         line[i] = (String) lines.elementAt(i);
       
     }
-    catch (Exception e) {
-      e.printStackTrace();
+    catch (IOException e) {
+      Out.error("IO problem reading skeleton file.");
+      throw new GeneratorException();
     }
     
     if ( line.length != size ) {
