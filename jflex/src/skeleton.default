@@ -10,14 +10,12 @@
 
   /* error codes */
   private static final int YY_UNKNOWN_ERROR = 0;
-  private static final int YY_ILLEGAL_STATE = 1;
   private static final int YY_NO_MATCH = 2;
   private static final int YY_PUSHBACK_2BIG = 3;
 
   /* error messages for the codes above */
   private static final String YY_ERROR_MSG[] = {
     "Unkown internal scanner error",
-    "Internal error: unknown state",
     "Error: could not match input",
     "Error: pushback value was too large"
   };
@@ -300,8 +298,6 @@
       // store back cached position
       yy_markedPos = yy_markedPos_l;
 --- char count update
-
-      switch (yy_action) {
 
 --- actions
         default: 
