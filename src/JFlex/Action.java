@@ -85,7 +85,7 @@ final public class Action {
    * @return string representation of the action
    */
   public String toString() {
-    return "Action (priority "+priority+", lookahead "+isLookAction+") :"+Out.NL+content;
+    return "Action (priority "+priority+", lookahead "+isLookAction+") :"+Out.NL+content; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 
 

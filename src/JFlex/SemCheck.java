@@ -133,7 +133,7 @@ public final class SemCheck {
       return length(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);  
+    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
   }
   
 
@@ -175,7 +175,7 @@ public final class SemCheck {
       return containsEpsilon(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);
+    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
   }
 
 
@@ -228,7 +228,7 @@ public final class SemCheck {
       return first(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);
+    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
   }
 
 
@@ -282,6 +282,6 @@ public final class SemCheck {
       return last(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);
+    throw new Error("Unkown expression type "+re.type+" in "+re); //$NON-NLS-1$ //$NON-NLS-2$
   }
 }

@@ -22,7 +22,6 @@ package JFlex;
 
 
 import java.io.*;
-import java.text.MessageFormat;
 import java.awt.TextArea;
 
 
@@ -81,8 +80,11 @@ public final class Out {
    *
    * @param message  the message to be printed
    */
-  public static void time(String message) {
-    if (Options.time) out.println(message);
+  public static void time(ErrorMessages message, Timer time) {
+    if (Options.time) {
+      String msg = ErrorMessages.get(message, time.toString());
+      out.println(msg);
+    } 
   }
   
 
@@ -100,12 +102,23 @@ public final class Out {
    * Report generation progress.
    *
    * @param message  the message to be printed
+   * @param data     data to be inserted into the message
    */
-  public static void println(String data, ErrorMessages message) {
-    if (Options.verbose) {
-      Object [] args = { data };
-      String msg = MessageFormat.format(ErrorMessages.get(message), args);
-      out.println(msg);
+  public static void println(ErrorMessages message, String data) {
+    if (Options.verbose) {      
+      out.println(ErrorMessages.get(message,data));
+    }
+  }
+
+  /**
+   * Report generation progress.
+   *
+   * @param message  the message to be printed
+   * @param data     data to be inserted into the message
+   */
+  public static void println(ErrorMessages message, int data) {
+    if (Options.verbose) {      
+      out.println(ErrorMessages.get(message,data));
     }
   }
 
@@ -281,11 +294,9 @@ public final class Out {
    *
    * @see ErrorMessages   
    */ 
-  public static void error(String data, ErrorMessages message) {
-    errors++;
-    Object [] args = { data };
-    String msg = MessageFormat.format(ErrorMessages.get(message), args);
-    err(NL+"Error: "+ msg);
+  public static void error(ErrorMessages message, String data) {
+    errors++;    
+    err(NL+"Error: "+ ErrorMessages.get(message,data));
   }
 
 

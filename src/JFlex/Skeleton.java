@@ -106,11 +106,11 @@ public class Skeleton {
       throw new IllegalArgumentException("Skeleton file must not be null"); //$NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error(skeletonFile.toString(), ErrorMessages.CANNOT_READ_SKEL); 
+      Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString()); 
       throw new GeneratorException();
     }
 
-    Out.println(skeletonFile.toString(), ErrorMessages.READING_SKEL);
+    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));

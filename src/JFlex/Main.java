@@ -36,7 +36,7 @@ import JFlex.gui.MainFrame;
 public class Main {
   
   /** JFlex version */
-  final public static String version = "1.4_pre4";
+  final public static String version = "1.4_pre4"; //$NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
@@ -58,14 +58,14 @@ public class Main {
     totalTime.start();      
 
     try {  
-      Out.println("Reading \""+inputFile+"\"");
+      Out.println(ErrorMessages.READING, inputFile.toString());
       inputReader = new FileReader(inputFile);
       scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
       parser = new LexParse(scanner);
     }
     catch (FileNotFoundException e) {
-      Out.error("Sorry, couldn't find the file \""+inputFile+"\"");
+      Out.error(ErrorMessages.CANNOT_OPEN, inputFile.toString());
       throw new GeneratorException();
     }
       
@@ -74,37 +74,41 @@ public class Main {
 
       Out.checkErrors();
 
-      if (Options.dump) Out.dump("NFA is"+Out.NL+nfa+Out.NL);
+      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS)+
+                                 Out.NL+nfa+Out.NL); 
       
       if (Options.dot) 
-        nfa.writeDot(Emitter.normalize("nfa.dot", null, null));      
+        nfa.writeDot(Emitter.normalize("nfa.dot", null, null));       //$NON-NLS-1$
 
-      Out.println(nfa.numStates+" states in NFA");
+      Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
       
       time.start();
       DFA dfa = nfa.getDFA();
       time.stop();
-      Out.time("DFA construction took "+time);
+      Out.time(ErrorMessages.DFA_TOOK, time); 
 
       dfa.checkActions(scanner, parser);
 
       nfa = null;
 
-      if (Options.dump) Out.dump("DFA is"+Out.NL+dfa+Out.NL);      
+      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS)+
+                                 Out.NL+dfa+Out.NL);       
 
       if (Options.dot) 
-        dfa.writeDot(Emitter.normalize("dfa-big.dot", null, null));
+        dfa.writeDot(Emitter.normalize("dfa-big.dot", null, null)); //$NON-NLS-1$
 
       time.start();
       dfa.minimize();
       time.stop();
 
-      Out.time("Minimization took "+time);
-      
-      if (Options.dump) Out.dump("Miniminal DFA is"+Out.NL+dfa);
+      Out.time(ErrorMessages.MIN_TOOK, time); 
+            
+      if (Options.dump) 
+        Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS)+
+                                   Out.NL+dfa); 
 
       if (Options.dot) 
-        dfa.writeDot(Emitter.normalize("dfa-min.dot", null, null));
+        dfa.writeDot(Emitter.normalize("dfa-min.dot", null, null)); //$NON-NLS-1$
 
       time.start();
       
@@ -113,11 +117,11 @@ public class Main {
 
       time.stop();
 
-      Out.time("Writing took "+time);
+      Out.time(ErrorMessages.WRITE_TOOK, time); 
       
       totalTime.stop();
       
-      Out.time("Overall scanner generation time : "+totalTime);
+      Out.time(ErrorMessages.TOTAL_TIME, totalTime); 
     }
     catch (ScannerException e) {
       Out.error(e.file, e.message, e.line, e.column);
@@ -128,7 +132,7 @@ public class Main {
       throw new GeneratorException();
     }
     catch (IOException e) {
-      Out.error("An I/O-Error occured : "+e);
+      Out.error(ErrorMessages.IO_ERROR, e.toString()); 
       throw new GeneratorException();
     }
     catch (OutOfMemoryError e) {
@@ -150,7 +154,7 @@ public class Main {
 
     for (int i = 0; i < argv.length; i++) {
 
-      if ( argv[i].equals("-d") || argv[i].equals("--outdir") ) {
+      if ( argv[i].equals("-d") || argv[i].equals("--outdir") ) { //$NON-NLS-1$ //$NON-NLS-2$
         if ( ++i >= argv.length ) {
           Out.error(ErrorMessages.NO_DIRECTORY); 
           throw new GeneratorException();
@@ -159,7 +163,7 @@ public class Main {
         continue;
       }
 
-      if ( argv[i].equals("--skel") || argv[i].equals("-skel") ) {
+      if ( argv[i].equals("--skel") || argv[i].equals("-skel") ) { //$NON-NLS-1$ //$NON-NLS-2$
         if ( ++i >= argv.length ) {
           Out.error(ErrorMessages.NO_SKEL_FILE);
           throw new GeneratorException();
@@ -169,80 +173,80 @@ public class Main {
         continue;
       }
 
-      if ( argv[i].equals("-jlex") || argv[i].equals("--jlex") ) {
+      if ( argv[i].equals("-jlex") || argv[i].equals("--jlex") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.jlex = true;
         continue;
       }
 
-      if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) {
+      if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
         continue;
       }
 
-      if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) {
+      if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
         continue;
       }
 
-      if ( argv[i].equals("--dump") || argv[i].equals("-dump") ) {
+      if ( argv[i].equals("--dump") || argv[i].equals("-dump") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.dump = true;
         continue;
       }
 
-      if ( argv[i].equals("--time") || argv[i].equals("-time") ) {
+      if ( argv[i].equals("--time") || argv[i].equals("-time") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.time = true;
         continue;
       }
 
-      if ( argv[i].equals("--version") || argv[i].equals("-version") ) {
-        Out.println("This is JFlex "+version);
+      if ( argv[i].equals("--version") || argv[i].equals("-version") ) { //$NON-NLS-1$ //$NON-NLS-2$
+        Out.println(ErrorMessages.THIS_IS_JFLEX, version); 
         throw new SilentExit();
       }
 
-      if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) {
+      if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.dot = true;
         continue;
       }
 
-      if ( argv[i].equals("--help") || argv[i].equals("-h") || argv[i].equals("/h") ) {
+      if ( argv[i].equals("--help") || argv[i].equals("-h") || argv[i].equals("/h") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         printUsage();
         throw new SilentExit();
       }
 
-      if ( argv[i].equals("--info") || argv[i].equals("-info") ) {
+      if ( argv[i].equals("--info") || argv[i].equals("-info") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Out.printSystemInfo();
         throw new SilentExit();
       }
       
-      if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) {
+      if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.no_minimize = true;
         continue;
       }
 
-      if ( argv[i].equals("--pack") || argv[i].equals("-pack") ) {
+      if ( argv[i].equals("--pack") || argv[i].equals("-pack") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.gen_method = Options.PACK;
         continue;
       }
 
-      if ( argv[i].equals("--table") || argv[i].equals("-table") ) {
+      if ( argv[i].equals("--table") || argv[i].equals("-table") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.gen_method = Options.TABLE;
         continue;
       }
 
-      if ( argv[i].equals("--switch") || argv[i].equals("-switch") ) {
+      if ( argv[i].equals("--switch") || argv[i].equals("-switch") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.gen_method = Options.SWITCH;
         continue;
       }
       
-      if ( argv[i].equals("--nobak") || argv[i].equals("-nobak") ) {
+      if ( argv[i].equals("--nobak") || argv[i].equals("-nobak") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.no_backup = true;
         continue;
       }
       
-      if ( argv[i].startsWith("-") ) {
-        Out.error("Error: unknown option \""+argv[i]+"\"");
+      if ( argv[i].startsWith("-") ) { //$NON-NLS-1$
+        Out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
         printUsage();
         throw new SilentExit();
       }
@@ -252,7 +256,7 @@ public class Main {
       if ( f.isFile() && f.canRead() ) 
         files.addElement(f);      
       else {
-        Out.error("Sorry, couldn't open \""+f+"\"");
+        Out.error("Sorry, couldn't open \""+f+"\""); //$NON-NLS-2$
         throw new GeneratorException();
       }
     }
@@ -262,7 +266,7 @@ public class Main {
 
 
   public static void printUsage() {
-    Out.println("");
+    Out.println(""); //$NON-NLS-1$
     Out.println("Usage: jflex <options> <input-files>");
     Out.println("");
     Out.println("Where <options> can be one or more of");
@@ -285,7 +289,7 @@ public class Main {
     Out.println("--help");
     Out.println("-h               print this message");
     Out.println("");
-    Out.println("This is JFlex "+version);
+    Out.println(ErrorMessages.THIS_IS_JFLEX, version); 
     Out.println("Have a nice day!");
   }
 
