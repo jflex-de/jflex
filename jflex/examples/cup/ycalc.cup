@@ -122,8 +122,8 @@ non terminal Integer    expr, factor, term;
    expr_list ::=   expr_list expr_part
                  | expr_part
    expr_part ::=   expr SEMI
-   expr      ::=   factor PLUS expr
-                 | factor MINUS expr
+   expr      ::=   expr PLUS factor
+                 | expr MINUS factor
                  | factor
    factor    ::=   factor TIMES term
                  | factor DIVIDE term
@@ -167,7 +167,7 @@ non terminal Integer    expr, factor, term;
                  SEMI
                  ;
    
-/* 'expr' can lead to 'factor PLUS expr', 'factor MINUS expr', or
+/* 'expr' can lead to 'expr PLUS factor', 'expr MINUS factor', or
    'factor'.  The 'TIMES' and 'DIVIDE' productions are not at this
    level.  They are at a lower level in the grammar which in affect
    makes them have higher precedence.  Actions for the rhs of the non
@@ -183,11 +183,11 @@ non terminal Integer    expr, factor, term;
    'intValue'.  The values will be added or subtracted and then the
    new integer will be stored in 'RESULT'.*/
    
-   expr      ::= factor:f PLUS expr:e
-                 {: RESULT = new Integer(f.intValue() + e.intValue()); :}
+   expr      ::= expr:e PLUS factor:f
+                 {: RESULT = new Integer(e.intValue() + f.intValue()); :}
                  |
-                 factor:f MINUS expr:e
-                 {: RESULT = new Integer(f.intValue() - e.intValue()); :}
+                 expr:e MINUS factor:f
+                 {: RESULT = new Integer(e.intValue() - f.intValue()); :}
                  |
                  factor:f
                  {: RESULT = new Integer(f.intValue()); :}
