@@ -49,6 +49,9 @@ public class CountEmitter extends PackEmitter {
    * @see JFlex.PackEmitter#emitUnPack()
    */
   public void emitUnpack() {
+    // close last string chunk:
+    println("\";");
+    
     nl();
     println("  private static int [] yy_unpack_"+name+"() {");
     println("    int [] result = new int["+numEntries+"];");
@@ -105,6 +108,7 @@ public class CountEmitter extends PackEmitter {
    */
   public void emit(int count, int value) {
     numEntries+= count;
+    breaks();
     emitUC(count);
     emitUC(value+translate);        
   }
