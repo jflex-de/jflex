@@ -188,7 +188,7 @@ public class Skeleton {
    * (Re)load the default skeleton. Looks in the current system class path.   
    */
   public static void readDefault() {
-    ClassLoader l = ClassLoader.getSystemClassLoader();
+    ClassLoader l = Skeleton.class.getClassLoader();
     URL url = l.getResource("JFlex/skeleton.default"); //$NON-NLS-1$
 
     if (url == null) {
