@@ -11,7 +11,7 @@
 
 \newcommand{\trit}{\em}
 
-\newcommand{\ver}{1.4\_pre4}
+\newcommand{\ver}{1.4}
 
 \begin{document}
 \latex{{\centerline{\hspace*{0mm}\includegraphics[scale=0.6]{logo}}}}
@@ -1713,15 +1713,16 @@ method) returns the specified EOF value (see also section \ref{EOF}).
 Generated methods and member fields in JFlex scanners are prefixed
 with \texttt{yy} to indicate that they are generated and to avoid name
 conflicts with user code copied into the class. Since user code is
-part of the same class, JFlex has no language means like the \texttt{private}
-modifier to indicate which members and methods are internal and
-which ones belong to the API. Instead, JFlex follows a naming convention:
-everything with an underscore after the \texttt{yy} prefix like \texttt{yy\_startRead} 
-is to be considered internal and subject to change without notice between
-JFlex releases. Methods and members of the generated class that
-do not contain an underscore belong to the API that the scanner class
-provides to users in action code of the specification. They will be
-remain stable and supported between JFlex releases as long as possible.
+part of the same class, JFlex has no language means like the
+\texttt{private} modifier to indicate which members and methods are
+internal and which ones belong to the API. Instead, JFlex follows a
+naming convention: everything starting with a \texttt{zz} prefix like
+\texttt{zzStartRead} is to be considered internal and subject to
+change without notice between JFlex releases. Methods and members of
+the generated class that do not have a \texttt{zz} prefix like
+\texttt{yycharat} belong to the API that the scanner class provides to
+users in action code of the specification. They will be remain stable
+and supported between JFlex releases as long as possible.
 
 Currently, the API consists of the following methods and member fields:
 \begin{itemize}
