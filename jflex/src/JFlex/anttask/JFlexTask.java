@@ -51,6 +51,7 @@ public class JFlexTask extends Task {
   public JFlexTask() {
     // ant default is different from the rest of JFlex
     setVerbose(false);
+    Options.progress = false;
   }
 
   public void execute() throws BuildException {
@@ -196,7 +197,6 @@ public class JFlexTask extends Task {
     setTimeStatistics(displayTime);
   }
 
-  // TODO: verbose mode doesn't look good in ant
   public void setVerbose(boolean verbose) {
     Options.verbose = verbose;
   }

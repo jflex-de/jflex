@@ -171,11 +171,13 @@ public class Main implements ErrorMessages {
 
       if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) {
         Options.verbose = true;
+        Options.progress = true;
         continue;
       }
 
       if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) {
         Options.verbose = false;
+        Options.progress = false;
         continue;
       }
 
