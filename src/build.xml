@@ -1,0 +1,69 @@
+<project name="JFlex" default="jar">
+
+  <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
+
+  <target name="init">
+    <uptodate property="parser.uptodate" targetfile="JFlex/LexParse.java">
+      <srcfiles dir="JFlex" includes="LexParse.cup"/>
+    </uptodate>
+  </target>
+
+  <target name="cbuild" depends="libclean,compile,jar" /> 
+
+  <target name="dist">
+    <antcall target="build" />
+    <antcall target="libclean" />
+  </target>
+
+  <target name="build" depends="realclean,jar" />
+
+  <target name="compile" depends="init,cup,jflex">
+    <javac srcdir="." 
+           destdir="../lib" 
+           target="1.1"
+           bootclasspath="/usr/lib/jdk1.1/lib/classes.zip"
+           classpath="."
+           debug="on"
+    />
+  </target>
+
+  <target name="jflex">
+    <jflex file="JFlex/LexScan.flex" skeleton="skeleton.nested"/>
+  </target>
+
+  <target name="cup" depends="init" unless="parser.uptodate">
+    <java classname="java_cup.Main">
+      <arg line="-interface -parser LexParse"/>
+      <arg file="JFlex/LexParse.cup"/>
+    </java>
+    <move file="LexParse.java" todir="JFlex"/>
+    <move file="sym.java" todir="JFlex"/>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar basedir="../lib" includes="JFlex/**,java_cup/**" jarfile="../lib/JFlex.jar" manifest="manifest"/>
+  </target>
+
+  <target name="libclean">
+    <delete dir="../lib/JFlex" />
+    <delete dir="../lib/java_cup" />
+  </target>
+
+  <target name="jarclean">
+    <delete file="../lib/JFlex.jar" />
+  </target>
+
+  <target name="genclean">
+    <delete file="JFlex/LexScan.java" />
+    <delete file="JFlex/LexParse.java" />
+    <delete file="JFlex/sym.java" />
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." includes="**/*~"/>
+    </delete>
+  </target>
+
+  <target name="realclean" depends="clean,genclean,libclean,jarclean" />
+</project>

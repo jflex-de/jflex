@@ -1,0 +1,115 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<title>JFlex Ant Task</title>
+</head>
+
+<body>
+
+<h2><a name="JFlex">JFlex Ant Task</a></h2>
+<p>
+ JFlex can be easily integrated with <a HREF="http://jakarta.apache.org/ant/index.html" 
+ target="_top">Ant</a> build tool. 
+ To use JFlex with Ant, simply copy JFlex.jar to <i>$ANT_HOME/lib/</i> directory.
+</p>
+<h3>Description</h3>
+<p>
+  JFlex Ant Task invokes the <a HREF="http://jflex.de/" target="_top">JFlex</a> lexical 
+  analyzer generator on a grammar file.
+</p>
+<p>
+ To use jflex task, the following line must be placed in the Ant build file:
+</p>
+<pre>&lt;taskdef classname=&quot;JFlex.anttask.JFlexTask&quot; name=&quot;jflex&quot; /&gt;</pre>
+
+<p>
+  JFlex task requires <i>file</i> attribute to be set to the source grammar file (*.flex).
+  Generated class can be saved to the same directory where grammar file resides or to
+  the directory specified with <i>destdir</i> option. JFlex task creates subdirectories in
+  <i>destdir</i> according to the generated class package.
+</p>
+<p>
+  This task only invokes JFlex if the grammar file is newer than the generated
+  files.
+</p>
+
+<h3>Parameters</h3>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">file</td>
+    <td valign="top">The grammar file to process.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">destdir</td>
+    <td valign="top">
+      The directory to write the generated files to.  If not set, the files
+      are written to the directory containing the grammar file. Note that unlike 
+      JFlex's "-d" command line option, <i>destdir</i> causes to write generated file to 
+      {destdir}/<b>{package name}</b>. This behaviour is similar to <i>javac -d dir</i>.
+    </td>
+    <td valign="top" align="center">No</td>
+  </tr>
+  <tr>
+    <td valign="top">verbose</td>
+    <td valign="top">Display generation process messages.</td>
+    <td align="center" valign="top">No, default is &quot;off&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">timeStatistics</td>
+    <td valign="top">Display generation time statistics.</td>
+    <td align="center" valign="top">No, default is &quot;off&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">skipMinimization</td>
+    <td valign="top">Skip minimization step (alpha status, use with care).</td>
+    <td align="center" valign="top">No, default is &quot;off&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">skeleton</td>
+    <td valign="top">Use external skeleton file.</td>
+    <td align="center" valign="top">No</td>
+  </tr>
+  <tr>
+    <td valign="top">generateDot</td>
+    <td valign="top">Write graphviz .dot files for the generated automata (alpha).</td>
+    <td align="center" valign="top">No, default is &quot;off&quot;</td>
+  </tr>
+
+</table>
+<h3>Example</h3>
+<blockquote><pre>
+&lt;jflex
+    file=&quot;src/parser/Parser.flex&quot;
+    destdir=&quot;build/generated/&quot;
+/&gt;
+</pre></blockquote>
+<p>
+  JFlex generates lexical analyzer for <i>src/parser/Parser.flex</i> and saves a result 
+  to <i>build/generated/parser/</i>.
+</p>
+
+<blockquote><pre>
+&lt;jflex
+    file=&quot;src/parser/Parser.flex&quot;
+    destdir=&quot;build/generated/&quot;
+/&gt;
+&lt;javac
+    srcdir=&quot;build/generated/&quot;
+    destdir=&quot;build/classes/&quot;
+/&gt;
+</pre></blockquote>
+<p>
+ The same as above plus compile generated classes to <i>build/classes</i>
+</p>
+<hr>
+
+</body>
+</html>
+
