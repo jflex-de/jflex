@@ -35,14 +35,17 @@ import java.io.File;
  */
 public class GeneratorThread extends Thread {
 
-	/** there must be at most one instance of this Thread running */
-	private static boolean running = false;
+  /** there must be at most one instance of this Thread running */
+	private static volatile boolean running = false;
 
 	/** where generator output messages appear */
   TextArea  messages;
   
 	/** input file setting from GUI */
 	String  inputFile;
+
+  /** output directory */
+  String outputDir;
   
   /** main UI component, likes to be notified when generator finishes */
   MainFrame parent;
@@ -60,7 +63,7 @@ public class GeneratorThread extends Thread {
     this.parent    = parent;
     this.inputFile = inputFile;
     this.messages  = messages;
-    Options.setDir(outputDir);
+    this.outputDir = outputDir;
   }
 
 
@@ -77,6 +80,9 @@ public class GeneratorThread extends Thread {
 			setPriority(MIN_PRIORITY);    
 			Out.setGUIMode(messages);
 			try {
+        if (!outputDir.equals("")) {
+          Options.setDir(outputDir);
+        }
 				Main.generate(new File(inputFile));
 				Out.statistics();
 				parent.generationFinished(true);
@@ -85,7 +91,9 @@ public class GeneratorThread extends Thread {
 				Out.statistics();
 				parent.generationFinished(false);
 			}
+      finally {
+        running = false;
+      }
   	}
   }
-
 }
