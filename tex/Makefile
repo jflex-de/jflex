@@ -1,6 +1,6 @@
-# Makefile for jflex documentation (ps + pdf)
+# Makefile for jflex documentation (ps + pdf + html)
 
-all: psgz pdf  
+all: psgz pdf html  
 
 tex:
 	make texclean
@@ -22,7 +22,7 @@ texclean:
 	rm -f *.dvi *~ *.aux *.log log *.toc *.out
 
 psgz: manual.ps
-	gzip manual.ps
+	gzip -f manual.ps
 
 pdf: logo.png 
 	make texclean
@@ -37,3 +37,9 @@ logo.pdf: logo.eps
 	epstopdf logo.eps
 
 build: realclean all
+
+html: clean
+	make tex
+	latex2html -split 0 -no_navigation -html_version 3.2,math -t "JFlex User's Manual" -local_icons -address "`date`, <a href=\"http://www.doclsf.de\">Gerwin Klein</a>" -info "" manual 
+	cp manual/manual.html .
+	rm -rf manual 
