@@ -29,7 +29,7 @@
 \sffamily
 {\Large The Fast Lexical Analyser Generator}\\
 \smallskip\smallskip
-Copyright \copyright 1998--2003 by \htmladdnormallink{Gerwin Klein}{http://www.doclsf.de}\\
+Copyright \copyright 1998--2004 by \htmladdnormallink{Gerwin Klein}{http://www.doclsf.de}\\
 \bigskip
 {\Huge \sffamily \bfseries JFlex User's Manual}\\
 \bigskip
@@ -231,6 +231,9 @@ JFlex knows about the following options:
 
 \item \verb+--nomin+\\
   skip the DFA minimization step during scanner generation.
+
+\item \verb+--jlex+\\
+  tries even harder to comply to JLex interpretation of specs.
 
 \item \verb+--dot+\\
   generate graphviz dot files for the NFA, DFA and minimized 
@@ -941,6 +944,12 @@ a more readable way to specify the end of file value using the
   clause of this method (together with those of 
   \verb+%eofthrow{...%eofthrow}+)
 
+
+\item{\bf \texttt{\%eofclose false}}
+  
+  Turns the effect of \texttt{\%eofclose} off again (e.g. in case closing of
+  input stream is not wanted after \texttt{\%cup}).
+
 \end{itemize}
 
 \subsubsection{Standalone scanners\label{Standalone}}
@@ -995,7 +1004,9 @@ to the following set of directives:
 \end{verbatim}
 
 The value of \texttt{<CUPSYM>} defaults to \texttt{sym} and can be
-changed with the \texttt{\%cupsym} directive.
+changed with the \texttt{\%cupsym} directive. In JLex compatibility
+mode (\texttt{--jlex} switch on the command line), \texttt{\%eofclose}
+will not be turned on.
 
 \item
 {\bf \texttt{\%cupsym "classname"}}
@@ -1150,7 +1161,9 @@ option does not change the matched text and does not effect character classes. S
 \texttt{[a]} still only matches the character \texttt{a} and not \texttt{A}, too.
 Which letters are uppercase and which lowercase letters, is defined by the Unicode standard
 and determined by JFlex with the Java methods \texttt{Character.toUpperCase} and 
-\texttt{Character.toLowerCase}.
+\texttt{Character.toLowerCase}. In JLex compatibility
+mode (\texttt{--jlex} switch on the command line), \texttt{\%caseless}
+and \texttt{\%ignorecase} also affect character classes.
 
  \end{itemize}
 \subsubsection{Line, character and column counting\label{Counting}}
