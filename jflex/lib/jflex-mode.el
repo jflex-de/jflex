@@ -87,6 +87,7 @@
      "^%implements"
      "^%extends"
      "^%public"
+     "^%apiprivate"
      "^%final"    
      "^%abstract"    
      "^%debug"          
