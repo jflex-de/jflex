@@ -262,7 +262,7 @@ specification ::=  USERCODE
 
                      Out.checkErrors();
                      
-                     Out.time("Parsing took "+t);
+                     Out.time(ErrorMessages.PARSING_TOOK, t);
                      
                      macros.expand();
                      Enumeration unused = macros.unused();                     
@@ -296,7 +296,8 @@ specification ::=  USERCODE
                      if (scanner.standalone) RESULT.addStandaloneRule();
                      t.stop();
                      
-                     Out.time(Out.NL+"NFA construction took "+t);
+                     // TODO: check for NL
+	                 Out.time(ErrorMessages.NFA_TOOK, t);
                      
                    :}
                  | /* emtpy spec. error */

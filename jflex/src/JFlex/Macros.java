@@ -62,7 +62,7 @@ final public class Macros {
   public boolean insert(String name, RegExp definition) {
     
     if (Options.DEBUG) 
-      Out.debug("inserting macro "+name+" with definition :"+Out.NL+definition);
+      Out.debug("inserting macro "+name+" with definition :"+Out.NL+definition); //$NON-NLS-1$ //$NON-NLS-2$
       
     used.put(name, Boolean.FALSE);
     return macros.put(name,definition) == null;    
@@ -191,12 +191,12 @@ final public class Macros {
       String usename = (String) ((RegExp1) definition).content;
       
       if ( name.equals(usename) )
-        throw new MacroException("Macro "+name+" contains a cycle");
+        throw new MacroException(ErrorMessages.get(ErrorMessages.MACRO_CYCLE, name)); 
           
       RegExp usedef = getDefinition(usename);
       
       if ( usedef == null ) 
-        throw new MacroException("Found no definition for {"+usename+"} while expanding {"+name+"}");
+        throw new MacroException(ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
       
       markUsed(usename);
       
@@ -211,7 +211,7 @@ final public class Macros {
       return definition;
 
     default:
-      throw new MacroException("unknown expression type "+definition.type+" in macro expansion");
+      throw new MacroException("unknown expression type "+definition.type+" in macro expansion"); //$NON-NLS-1$ //$NON-NLS-2$
     }
   }
 }

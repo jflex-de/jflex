@@ -38,13 +38,13 @@ public class RegExp2 extends RegExp {
   }
   
   public String print(String tab) {
-    return tab+"type = "+type+Out.NL+tab+"child 1 :"+Out.NL+
-           r1.print(tab+"  ")+Out.NL+tab+"child 2 :"+Out.NL+
-           r2.print(tab+"  ");
+    return tab+"type = "+type+Out.NL+tab+"child 1 :"+Out.NL+ //$NON-NLS-1$ //$NON-NLS-2$
+           r1.print(tab+"  ")+Out.NL+tab+"child 2 :"+Out.NL+ //$NON-NLS-1$ //$NON-NLS-2$
+           r2.print(tab+"  "); //$NON-NLS-1$
   }
   
   public String toString() {
-    return print("");
+    return print(""); //$NON-NLS-1$
   }
 }
   
