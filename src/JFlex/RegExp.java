@@ -71,6 +71,34 @@ public class RegExp {
     return "type = "+type;
   }
 
+  /**
+   * Find out if this regexp is a char class (or equivalent to one).
+   * @param  macros  for macro expansion
+   * @return true if the regexp is equivalent to a char class.
+   */
+  public boolean isCharClass(Macros macros) {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch (type) {
+    case sym.CHAR:
+    case sym.CHAR_I:
+    case sym.CCLASS:
+    case sym.CCLASSNOT:
+      return true;
+      
+    case sym.BAR: 
+      binary = (RegExp2) this;
+      return binary.r1.isCharClass(macros) && binary.r2.isCharClass(macros);
+ 
+    case sym.MACROUSE:
+      unary = (RegExp1) this;
+      return macros.getDefinition((String) unary.content).isCharClass(macros);
+     
+    default: return false; 
+    }     
+  }
   
   /**
    * The number of NFA states this expression will need (only 
