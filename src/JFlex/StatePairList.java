@@ -20,8 +20,6 @@
 
 package JFlex;
 
-import java.util.*;
-
 /**
  * A list of pairs of states. Used in DFA minimization.
  *
