@@ -36,19 +36,14 @@ import java.io.*;
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
 public class JFlexTask extends Task {
-  private File destinationDir;
   private File inputFile;
-  private JFlexWrapper wrapper = new JFlexWrapper();
-
-  private boolean verbose = false;
-  private boolean generateDot = false;
-  //write graphviz .dot files for the generated automata (alpha)
-  private boolean displayTime = false; //display generation time statistics
-  private File skeletonFile = null;
 
 	// found out by looking into .flex file 
 	private String className = null;
 	private String packageName = null;
+
+  /** for javac-like dest dir behaviour */
+  private File destinationDir;
 	
 	/** the actual output directory (outputDir = destinationDir + package)) */
 	private File outputDir = null;
@@ -56,7 +51,7 @@ public class JFlexTask extends Task {
   public void execute() throws BuildException {
    	try {
       if (inputFile == null) 
-        throw new BuildException("You must specify the input file for JFlex!");
+        throw new BuildException("Input file needed. Use <jflex file=\"your_scanner.flex\"/>");
 
 			if (!inputFile.canRead()) 
 				throw new BuildException("Cannot read input file "+inputFile);
@@ -67,10 +62,8 @@ public class JFlexTask extends Task {
         File destFile = new File(outputDir, className + ".java");
         
         if (inputFile.lastModified() > destFile.lastModified()) {      
-          configure();      
-          Main.generate(inputFile);
-      
-          if (!verbose)
+          Main.generate(inputFile);      
+          if (!Options.verbose)
             System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
@@ -126,16 +119,6 @@ public class JFlexTask extends Task {
 	}
 
 	/**
-	 * Configures JFlex according to the settings in this class
-	 */
-	public void configure() {
-		wrapper.setTimeStatistics(displayTime);
-		wrapper.setVerbose(verbose);
-		wrapper.setGenerateDot(generateDot);
-		Options.setDir( outputDir.toString() );
-	}
-
-	/**
 	 * Sets the actual output directory if not already set. 	
 	 *
 	 * Uses javac logic to determine output dir = dest dir + package name
@@ -162,7 +145,7 @@ public class JFlexTask extends Task {
       destDir = new File(inputFile.getParent());
     }
     
-    setOutdir(destDir);     
+    setOutdir(destDir);
   }
 
 	/**
@@ -189,6 +172,7 @@ public class JFlexTask extends Task {
 
 	public void setOutdir(File outDir) {
 		this.outputDir = outDir;
+    Options.setDir(outputDir);
 	}
 
   public void setFile(File file) {
@@ -196,15 +180,19 @@ public class JFlexTask extends Task {
   }
 
   public void setGenerateDot(boolean genDot) {
-    this.generateDot = genDot;
+    setDot(genDot);
   }
 
   public void setTimeStatistics(boolean displayTime) {
-    this.displayTime = displayTime;
+    Options.time = displayTime;
+  }
+  
+  public void setTime(boolean displayTime) {
+    setTimeStatistics(displayTime);
   }
 
   public void setVerbose(boolean verbose) {
-    this.verbose = verbose;
+    Options.verbose = verbose;
   }
 
   public void setSkeleton(File skeleton) {
@@ -233,5 +221,9 @@ public class JFlexTask extends Task {
 
   public void setPack(boolean b) {
     Options.gen_method = Options.PACK;
+  }
+
+  public void setDot(boolean b) {
+    Options.dot = b;
   }
 }
