@@ -76,7 +76,7 @@ public class Main implements ErrorMessages {
 
       if (Out.DUMP) Out.dump("NFA is"+Out.NL+nfa+Out.NL);
       
-      if (Out.DOT) 
+      if (Options.dot) 
         nfa.writeDot(Emitter.normalize("nfa.dot", null, null));      
 
       Out.println(nfa.numStates+" states in NFA");
@@ -92,7 +92,7 @@ public class Main implements ErrorMessages {
 
       if (Out.DUMP) Out.dump("DFA is"+Out.NL+dfa+Out.NL);      
 
-      if (Out.DOT) 
+      if (Options.dot) 
         dfa.writeDot(Emitter.normalize("dfa-big.dot", null, null));
 
       time.start();
@@ -103,7 +103,7 @@ public class Main implements ErrorMessages {
       
       if (Out.DUMP) Out.dump("Miniminal DFA is"+Out.NL+dfa);
 
-      if (Out.DOT) 
+      if (Options.dot) 
         dfa.writeDot(Emitter.normalize("dfa-min.dot", null, null));
 
       time.start();
@@ -170,12 +170,12 @@ public class Main implements ErrorMessages {
       }
 
       if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) {
-        Out.VERBOSE = true;
+        Options.verbose = true;
         continue;
       }
 
       if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) {
-        Out.VERBOSE = false;
+        Options.verbose = false;
         continue;
       }
 
@@ -185,7 +185,7 @@ public class Main implements ErrorMessages {
       }
 
       if ( argv[i].equals("--time") || argv[i].equals("-time") ) {
-        Out.TIME = true;
+        Options.time = true;
         continue;
       }
 
@@ -195,7 +195,7 @@ public class Main implements ErrorMessages {
       }
 
       if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) {
-        Out.DOT = true;
+        Options.dot = true;
         continue;
       }
 

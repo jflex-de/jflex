@@ -452,7 +452,7 @@ final public class NFA {
 	          dfa.addTransition(currentDFAState, input, nextDFAState.intValue());
 	        }
 	        else {
-            if (Out.VERBOSE) Out.print(".");
+            if (Options.verbose) Out.print(".");
 	          // Out.debug("NOT FOUND!");
 	          // Out.debug("Table was "+dfaStates);
             numDFAStates++;
@@ -474,7 +474,7 @@ final public class NFA {
       currentDFAState++;     
     }
     
-    if (Out.VERBOSE) Out.println("");
+    if (Options.verbose) Out.println("");
 
     return dfa;
   }

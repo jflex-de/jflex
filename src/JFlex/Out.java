@@ -28,32 +28,14 @@ import java.awt.TextArea;
 /**
  * In this class all output to the java console is filtered.
  *
- * Use the switches VERBOSE, TIME and DUMP at compile time to determine
+ * Use the switches verbose, time and DUMP at compile time to determine
  * the verbosity of JFlex output. There is no switch for
- * suppressing error messages. VERBOSE and TIME can be overridden 
+ * suppressing error messages. verbose and time can be overridden 
  * by command line paramters.
  *
  * Redirects output to a TextArea in GUI mode.
  *
  * Counts error and warning messages.
- *
- * <UL>
- * <LI>
- * VERBOSE should be switched on in all normal cases. 
- *         It is used for standard progress messages to the user.
- * </LI><LI>
- * TIME    can be set to true for performance measurements if 
- *         time statistics for the different stages of generation
- *         are to be printed.
- * </LI><LI>       
- * DUMP    this one gives you all the information you want (or not).
- *         BUT: prepare to wait.
- *         If only dump-information from specific classes is
- *         needed, compile all classes with DUMP=false first,
- *         then recompile this class and all the classes that
- *         are to dump their information with DUMP=true.
- * </LI>
- * </UL>
  *
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
@@ -64,25 +46,10 @@ public final class Out implements ErrorMessages {
   public static final String NL = System.getProperty("line.separator");
   
   /**
-   * If VERBOSE is false, no progress output will be generated
-   */
-  public static boolean VERBOSE     = true;
-
-  /**
-   * If TIME is true, jflex will print time statistics about the generation process
-   */
-  public static boolean TIME        = false;
-
-  /**
    * If DUMP is true, you will be flooded with information (e.g. dfa tables).
    */
   public static boolean DUMP        = false;
 
-  /**
-   * If DOT is true, jflex will write graphviz .dot files for generated automata
-   */
-  public static boolean DOT         = false;
-    
   /**
    * If DEBUG is true, additional verbose debug information is produced
    */
@@ -114,7 +81,7 @@ public final class Out implements ErrorMessages {
    * @param message  the message to be printed
    */
   public static void time(String message) {
-    if (TIME) out.println(message);
+    if (Options.time) out.println(message);
   }
   
 
@@ -125,7 +92,7 @@ public final class Out implements ErrorMessages {
    * @param message  the message to be printed
    */
   public static void println(String message) {
-    if (VERBOSE) out.println(message);
+    if (Options.verbose) out.println(message);
   }
 
 
@@ -136,7 +103,7 @@ public final class Out implements ErrorMessages {
    * @param message  the message to be printed
    */
   public static void print(String message) {
-    if (VERBOSE) out.print(message);
+    if (Options.verbose) out.print(message);
   }
 
   /**

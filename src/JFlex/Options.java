@@ -51,6 +51,15 @@ public class Options {
   /** default code generation method */
   public static int gen_method;
 
+  /** If false, no progress output will be generated */
+  public static boolean verbose;
+
+  /** If true, jflex will print time statistics about the generation process */
+  public static boolean time;
+
+  /** If true, jflex will write graphviz .dot files for generated automata */
+  public static boolean dot;
+
 	static { setDefaults();	}
 
 
@@ -98,6 +107,9 @@ public class Options {
 		no_minimize = false;
 		no_backup = false;
 		gen_method = Options.PACK;    
+    verbose = true;
+    time = false;
+    dot = false;
   }
 
   public static void setSkeleton(File skel) {

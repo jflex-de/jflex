@@ -17,7 +17,6 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 package JFlex.tests;
 
 import java.io.File;
@@ -36,7 +35,7 @@ import junit.framework.TestCase;
  */
 public class AntTaskTests extends TestCase {
 
-	private JFlexTask task;
+  private JFlexTask task;
 
   /**
    * Constructor for AntTaskTests.
@@ -55,81 +54,101 @@ public class AntTaskTests extends TestCase {
     task = new JFlexTask();
     Options.setDefaults();
   }
-  
-	public void testPackageAndClass() throws IOException {
-		task.setFile(new File("src/JFlex/LexScan.flex"));
-		task.findPackageAndClass();
-		assertEquals(task.getPackage(),"JFlex");
-		assertEquals(task.getClassName(),"LexScan");
+
+  public void testPackageAndClass() throws IOException {
+    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.findPackageAndClass();
+    assertEquals(task.getPackage(), "JFlex");
+    assertEquals(task.getClassName(), "LexScan");
   }
 
-	public void testPackageAndClassDefaults() throws IOException {
-		task.setFile(new File("examples/simple/simple.flex"));
-		task.findPackageAndClass();
-		assertEquals(task.getPackage(),null);
-		assertEquals(task.getClassName(),"Yylex");
-	}
+  public void testPackageAndClassDefaults() throws IOException {
+    task.setFile(new File("examples/simple/simple.flex"));
+    task.findPackageAndClass();
+    assertEquals(task.getPackage(), null);
+    assertEquals(task.getClassName(), "Yylex");
+  }
 
-	public void testDestdir() throws IOException {  
-		task.setFile(new File("src/JFlex/LexScan.flex"));
-		File dir = new File("src");
-		task.setDestdir(dir);
-		task.findPackageAndClass();
-		task.normalizeOutdir();
-		task.configure(); 
-		// not default jflex logic, but javac (uses package name) 
-		assertEquals(Options.getDir(),new File(dir,"JFlex"));
-	}
-	
-	public void testOutdir() throws IOException {
-		task.setFile(new File("src/JFlex/LexScan.flex"));
-		File dir = new File("src");
-		task.setOutdir(dir);
-		task.findPackageAndClass();
-		task.normalizeOutdir();
-		task.configure(); 
-		// this should be default jflex logic 
-		assertEquals(Options.getDir(),dir);		
-	}
+  public void testDestdir() throws IOException {
+    task.setFile(new File("src/JFlex/LexScan.flex"));
+    File dir = new File("src");
+    task.setDestdir(dir);
+    task.findPackageAndClass();
+    task.normalizeOutdir();
+    // not default jflex logic, but javac (uses package name) 
+    assertEquals(Options.getDir(), new File(dir, "JFlex"));
+  }
 
-	public void testDefaultDir() throws IOException {
-		task.setFile(new File("src/JFlex/LexScan.flex"));
-		task.findPackageAndClass();
-		task.normalizeOutdir();
-		task.configure(); 
-		// this should be default jflex logic 
-		assertEquals(Options.getDir(),new File("src/JFlex"));		
-	}
-	
-	public void testNomin() {
-		assertFalse(Options.no_minimize);
-		task.setNomin(true);
-		assertTrue(Options.no_minimize);
-	}
-	
-	public void testSkipMinimization() {
-		assertFalse(Options.no_minimize);
-		task.setSkipMinimization(true);
-		assertTrue(Options.no_minimize);	
-	}
-	
-	public void testNobak() {
-		assertFalse(Options.no_backup);
-		task.setNobak(true);
-		assertTrue(Options.no_backup);
-	}
-	
-	public void testCodeGen() {
-		task.setSwitch(true);
-		assertEquals(Options.gen_method, Options.SWITCH);
-		task.setTable(true);
-		assertEquals(Options.gen_method, Options.TABLE);
-		task.setPack(true);
-		assertEquals(Options.gen_method, Options.PACK);
-	}
-  
-  public void testSkel() {    
+  public void testOutdir() throws IOException {
+    task.setFile(new File("src/JFlex/LexScan.flex"));
+    File dir = new File("src");
+    task.setOutdir(dir);
+    task.findPackageAndClass();
+    task.normalizeOutdir();
+    // this should be default jflex logic 
+    assertEquals(Options.getDir(), dir);
+  }
+
+  public void testDefaultDir() throws IOException {
+    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.findPackageAndClass();
+    task.normalizeOutdir();
+    // this should be default jflex logic 
+    assertEquals(Options.getDir(), new File("src/JFlex"));
+  }
+
+  public void testNomin() {
+    assertFalse(Options.no_minimize);
+    task.setNomin(true);
+    assertTrue(Options.no_minimize);
+  }
+
+  public void testSkipMinimization() {
+    assertFalse(Options.no_minimize);
+    task.setSkipMinimization(true);
+    assertTrue(Options.no_minimize);
+  }
+
+  public void testNobak() {
+    assertFalse(Options.no_backup);
+    task.setNobak(true);
+    assertTrue(Options.no_backup);
+  }
+
+  public void testCodeGen() {
+    task.setSwitch(true);
+    assertEquals(Options.gen_method, Options.SWITCH);
+    task.setTable(true);
+    assertEquals(Options.gen_method, Options.TABLE);
+    task.setPack(true);
+    assertEquals(Options.gen_method, Options.PACK);
+  }
+
+  public void testSkel() {
     task.setSkeleton(new File("src/skeleton.nested"));
     assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+  }
+  
+  public void testVerbose() {
+    task.setVerbose(false);
+    assertFalse(Options.verbose);
+    task.setVerbose(true);
+    assertTrue(Options.verbose);
+  }
+
+  public void testTime() {
+    assertFalse(Options.time);
+    task.setTimeStatistics(true);
+    assertTrue(Options.time);   
+    task.setTime(false);
+    assertFalse(Options.time);    
+  }
+  
+  public void testDot() {
+    assertFalse(Options.dot);
+    task.setDot(true);
+    assertTrue(Options.dot);
+    task.setGenerateDot(false);
+    assertFalse(Options.dot);
   }
 }
