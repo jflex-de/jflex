@@ -22,33 +22,33 @@
 
 --- isFinal list
   /** the input device */
-  private java.io.Reader yy_reader;
+  private java.io.Reader yyFlexReader;
 
   /** the current state of the DFA */
-  private int yy_state;
+  private int yyFlexState;
 
   /** the current lexical state */
-  private int yy_lexical_state = YYINITIAL;
+  private int yyFlexLexicalState = YYINITIAL;
 
   /** this buffer contains the current text to be matched and is
       the source of the yytext() string */
-  private char yy_buffer[] = new char[YY_BUFFERSIZE];
+  private char yyFlexBuffer[] = new char[YY_BUFFERSIZE];
 
   /** the textposition at the last accepting state */
-  private int yy_markedPos;
+  private int yyFlexMarkedPos;
 
   /** the textposition at the last state to be included in yytext */
-  private int yy_pushbackPos;
+  private int yyFlexPushbackPos;
 
   /** the current text position in the buffer */
-  private int yy_currentPos;
+  private int yyFlexCurrentPos;
 
   /** startRead marks the beginning of the yytext() string in the buffer */
-  private int yy_startRead;
+  private int yyFlexStartRead;
 
   /** endRead marks the last character in the buffer, that has been read
       from input */
-  private int yy_endRead;
+  private int yyFlexEndRead;
 
   /** number of newlines encountered up to the start of the matched text */
   private int yyline;
@@ -60,48 +60,48 @@
    * the number of characters from the last newline up to the start of the 
    * matched text
    */
-  private int yycolumn; 
+  private int yycolumn;
 
   /** 
-   * yy_atBOL == true <=> the scanner is currently at the beginning of a line
+   * yyFlexAtBOL == true <=> the scanner is currently at the beginning of a line
    */
-  private boolean yy_atBOL = true;
+  private boolean yyFlexAtBOL = true;
 
-  /** yy_atEOF == true <=> the scanner is at the EOF */
-  private boolean yy_atEOF;
+  /** yyFlexAtEOF == true <=> the scanner is at the EOF */
+  private boolean yyFlexAtEOF;
 
 
   /** the stack of open (nested) input streams to read from */
-  private java.util.Stack yy_streams = new java.util.Stack();
+  private java.util.Stack yyFlexStreams = new java.util.Stack();
 
   /**
    * inner class used to store info for nested
    * input streams
    */
-  private static final class YY_StreamInfo {
-    java.io.Reader yy_reader;
-    int yy_endRead;
-    int yy_startRead;
-    int yy_currentPos;
-    int yy_markedPos;
-    int yy_pushbackPos;
+  private static final class YyFlexStreamInfo {
+    java.io.Reader yyFlexReader;
+    int yyFlexEndRead;
+    int yyFlexStartRead;
+    int yyFlexCurrentPos;
+    int yyFlexMarkedPos;
+    int yyFlexPushbackPos;
     int yyline;
     int yycolumn;
-    char [] yy_buffer;
-    boolean yy_atEOF;
+    char [] yyFlexBuffer;
+    boolean yyFlexAtEOF;
 
     /** sets all values stored in this class */
-    YY_StreamInfo(java.io.Reader yy_reader, int yy_endRead, int yy_startRead,
-                  int yy_currentPos, int yy_markedPos, int yy_pushbackPos,
-                  char [] yy_buffer, boolean yy_atEOF, int yyline, int yycolumn) {
-      this.yy_reader      = yy_reader;
-      this.yy_endRead     = yy_endRead;
-      this.yy_startRead   = yy_startRead;
-      this.yy_currentPos  = yy_currentPos;
-      this.yy_markedPos   = yy_markedPos;
-      this.yy_pushbackPos = yy_pushbackPos;
-      this.yy_buffer      = yy_buffer;
-      this.yy_atEOF       = yy_atEOF;
+    YyFlexStreamInfo(java.io.Reader yyFlexReader, int yyFlexEndRead, int yyFlexStartRead,
+                  int yyFlexCurrentPos, int yyFlexMarkedPos, int yyFlexPushbackPos,
+                  char [] yyFlexBuffer, boolean yyFlexAtEOF, int yyline, int yycolumn) {
+      this.yyFlexReader      = yyFlexReader;
+      this.yyFlexEndRead     = yyFlexEndRead;
+      this.yyFlexStartRead   = yyFlexStartRead;
+      this.yyFlexCurrentPos  = yyFlexCurrentPos;
+      this.yyFlexMarkedPos   = yyFlexMarkedPos;
+      this.yyFlexPushbackPos = yyFlexPushbackPos;
+      this.yyFlexBuffer      = yyFlexBuffer;
+      this.yyFlexAtEOF       = yyFlexAtEOF;
       this.yyline         = yyline;
       this.yycolumn       = yycolumn;
     }
@@ -123,41 +123,41 @@
    *
    * @return      <code>false</code>, iff there was new input.
    * 
-   * @exception   IOException  if any I/O-Error occurs
+   * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  private boolean yy_refill() throws java.io.IOException {
+  private boolean yyFlexRefill() throws java.io.IOException {
 
     /* first: make room (if you can) */
-    if (yy_startRead > 0) {
-      System.arraycopy(yy_buffer, yy_startRead, 
-                       yy_buffer, 0, 
-                       yy_endRead-yy_startRead);
+    if (yyFlexStartRead > 0) {
+      System.arraycopy(yyFlexBuffer, yyFlexStartRead,
+                       yyFlexBuffer, 0,
+                       yyFlexEndRead-yyFlexStartRead);
 
       /* translate stored positions */
-      yy_endRead-= yy_startRead;
-      yy_currentPos-= yy_startRead;
-      yy_markedPos-= yy_startRead;
-      yy_pushbackPos-= yy_startRead;
-      yy_startRead = 0;
+      yyFlexEndRead-= yyFlexStartRead;
+      yyFlexCurrentPos-= yyFlexStartRead;
+      yyFlexMarkedPos-= yyFlexStartRead;
+      yyFlexPushbackPos-= yyFlexStartRead;
+      yyFlexStartRead = 0;
     }
 
     /* is the buffer big enough? */
-    if (yy_currentPos >= yy_buffer.length) {
+    if (yyFlexCurrentPos >= yyFlexBuffer.length) {
       /* if not: blow it up */
-      char newBuffer[] = new char[yy_currentPos*2];
-      System.arraycopy(yy_buffer, 0, newBuffer, 0, yy_buffer.length);
-      yy_buffer = newBuffer;
+      char newBuffer[] = new char[yyFlexCurrentPos*2];
+      System.arraycopy(yyFlexBuffer, 0, newBuffer, 0, yyFlexBuffer.length);
+      yyFlexBuffer = newBuffer;
     }
 
     /* finally: fill the buffer with new input */
-    int numRead = yy_reader.read(yy_buffer, yy_endRead, 
-                                            yy_buffer.length-yy_endRead);
+    int numRead = yyFlexReader.read(yyFlexBuffer, yyFlexEndRead,
+                                            yyFlexBuffer.length-yyFlexEndRead);
 
     if (numRead < 0) {
       return true;
     }
     else {
-      yy_endRead+= numRead;  
+      yyFlexEndRead+= numRead;
       return false;
     }
   }
@@ -167,11 +167,11 @@
    * Closes the input stream.
    */
   public final void yyclose() throws java.io.IOException {
-    yy_atEOF = true;            /* indicate end of file */
-    yy_endRead = yy_startRead;  /* invalidate buffer    */
+    yyFlexAtEOF = true;            /* indicate end of file */
+    yyFlexEndRead = yyFlexStartRead;  /* invalidate buffer    */
 
-    if (yy_reader != null)
-      yy_reader.close();
+    if (yyFlexReader != null)
+      yyFlexReader.close();
   }
 
 
@@ -188,16 +188,16 @@
    * @see #yypopStream()
    */
   public final void yypushStream(java.io.Reader reader) {
-    yy_streams.push(
-      new YY_StreamInfo(yy_reader, yy_endRead, yy_startRead, yy_currentPos,
-                        yy_markedPos, yy_pushbackPos, yy_buffer, yy_atEOF,
+    yyFlexStreams.push(
+      new YyFlexStreamInfo(yyFlexReader, yyFlexEndRead, yyFlexStartRead, yyFlexCurrentPos,
+                        yyFlexMarkedPos, yyFlexPushbackPos, yyFlexBuffer, yyFlexAtEOF,
                         yyline, yycolumn)
     );
-    yy_atEOF  = false;  
-    yy_buffer = new char[YY_BUFFERSIZE]; 
-    yy_reader = reader;
-    yy_endRead = yy_startRead = 0;
-    yy_currentPos = yy_markedPos = yy_pushbackPos = 0;
+    yyFlexAtEOF  = false;
+    yyFlexBuffer = new char[YY_BUFFERSIZE];
+    yyFlexReader = reader;
+    yyFlexEndRead = yyFlexStartRead = 0;
+    yyFlexCurrentPos = yyFlexMarkedPos = yyFlexPushbackPos = 0;
     yyline = yycolumn = 0;
   }
     
@@ -215,16 +215,16 @@
    * @see #yypushStream(java.io.Reader)
    */
   public final void yypopStream() throws java.io.IOException {
-    yy_reader.close();
-    YY_StreamInfo s = (YY_StreamInfo) yy_streams.pop();
-    yy_buffer      = s.yy_buffer;
-    yy_reader      = s.yy_reader;
-    yy_endRead     = s.yy_endRead;
-    yy_startRead   = s.yy_startRead;
-    yy_currentPos  = s.yy_currentPos;
-    yy_markedPos   = s.yy_markedPos ;
-    yy_pushbackPos = s.yy_pushbackPos;
-    yy_atEOF       = s.yy_atEOF;
+    yyFlexReader.close();
+    YyFlexStreamInfo s = (YyFlexStreamInfo) yyFlexStreams.pop();
+    yyFlexBuffer      = s.yyFlexBuffer;
+    yyFlexReader      = s.yyFlexReader;
+    yyFlexEndRead     = s.yyFlexEndRead;
+    yyFlexStartRead   = s.yyFlexStartRead;
+    yyFlexCurrentPos  = s.yyFlexCurrentPos;
+    yyFlexMarkedPos   = s.yyFlexMarkedPos ;
+    yyFlexPushbackPos = s.yyFlexPushbackPos;
+    yyFlexAtEOF       = s.yyFlexAtEOF;
     yyline         = s.yyline;
     yycolumn       = s.yycolumn;
   }
@@ -235,7 +235,7 @@
    * to read from on the stream stack.
    */
   public final boolean yymoreStreams() {
-    return !yy_streams.isEmpty();
+    return !yyFlexStreams.isEmpty();
   }
 
 
@@ -252,14 +252,14 @@
    * @see #yypushStream(java.io.Reader)
    * @see #yypopStream()
    */
-  public final void yyreset(java.io.Reader reader) throws java.io.IOException {
-    yy_reader = reader;
-    yy_atBOL  = true;
-    yy_atEOF  = false;
-    yy_endRead = yy_startRead = 0;
-    yy_currentPos = yy_markedPos = yy_pushbackPos = 0;
+  public final void yyreset(java.io.Reader reader) {
+    yyFlexReader = reader;
+    yyFlexAtBOL  = true;
+    yyFlexAtEOF  = false;
+    yyFlexEndRead = yyFlexStartRead = 0;
+    yyFlexCurrentPos = yyFlexMarkedPos = yyFlexPushbackPos = 0;
     yyline = yychar = yycolumn = 0;
-    yy_lexical_state = YYINITIAL;
+    yyFlexLexicalState = YYINITIAL;
   }
 
 
@@ -267,7 +267,7 @@
    * Returns the current lexical state.
    */
   public final int yystate() {
-    return yy_lexical_state;
+    return yyFlexLexicalState;
   }
 
 
@@ -277,7 +277,7 @@
    * @param newState the new lexical state
    */
   public final void yybegin(int newState) {
-    yy_lexical_state = newState;
+    yyFlexLexicalState = newState;
   }
 
 
@@ -285,7 +285,7 @@
    * Returns the text matched by the current regular expression.
    */
   public final String yytext() {
-    return new String( yy_buffer, yy_startRead, yy_markedPos-yy_startRead );
+    return new String( yyFlexBuffer, yyFlexStartRead, yyFlexMarkedPos-yyFlexStartRead );
   }
 
 
@@ -301,7 +301,7 @@
    * @return the character at position pos
    */
   public final char yycharat(int pos) {
-    return yy_buffer[yy_startRead+pos];
+    return yyFlexBuffer[yyFlexStartRead+pos];
   }
 
 
@@ -309,7 +309,7 @@
    * Returns the length of the matched text region.
    */
   public final int yylength() {
-    return yy_markedPos-yy_startRead;
+    return yyFlexMarkedPos-yyFlexStartRead;
   }
 
 
@@ -327,7 +327,7 @@
    *
    * @param   errorCode  the code of the errormessage to display
    */
---- yy_ScanError declaration  
+--- yyFlexScanError declaration
     String message;
     try {
       message = YY_ERROR_MSG[errorCode];
@@ -348,40 +348,40 @@
    * @param number  the number of characters to be read again.
    *                This number must not be greater than yylength()!
    */
---- yypushback decl (contains yy_ScanError exception)
+--- yypushback decl (contains yyFlexScanError exception)
     if ( number > yylength() )
-      yy_ScanError(YY_PUSHBACK_2BIG);
+      yyFlexScanError(YY_PUSHBACK_2BIG);
 
-    yy_markedPos -= number;
+    yyFlexMarkedPos -= number;
   }
 
 
---- yy_doEof
+--- yyFlexDoEOF
   /**
    * Resumes scanning until the next regular expression is matched,
    * the end of input is encountered or an I/O-Error occurs.
    *
    * @return      the next token
-   * @exception   IOException  if any I/O-Error occurs
+   * @exception   java.io.IOException  if any I/O-Error occurs
    */
 --- yylex declaration
-    int yy_input;
-    int yy_action;
+    int yyFlexInput;
+    int yyFlexAction;
 
 --- local declarations
 
     while (true) {
       // cached fields:
-      int yy_currentPos_l;
-      int yy_markedPos_l = yy_markedPos;
-      int yy_endRead_l = yy_endRead;
-      char [] yy_buffer_l = yy_buffer;
-      char [] yycmap_l = yycmap;
+      int yyFlexCurrentPosL;
+      int yyFlexMarkedPosL = yyFlexMarkedPos;
+      int yyFlexEndReadL = yyFlexEndRead;
+      char [] yyFlexBufferL = yyFlexBuffer;
+      char [] yyCMapL = YY_CMAP;
 
 --- start admin (line, char, col count)
-      yy_action = -1;
+      yyFlexAction = -1;
 
-      yy_currentPos_l = yy_currentPos = yy_startRead = yy_markedPos_l;
+      yyFlexCurrentPosL = yyFlexCurrentPos = yyFlexStartRead = yyFlexMarkedPosL;
   
 --- start admin (lexstate etc)
 
@@ -389,8 +389,8 @@
         while (true) {
     
 --- next input, line, col, char count, next transition, isFinal action
-            yy_action = yy_state; 
-            yy_markedPos_l = yy_currentPos_l; 
+            yyFlexAction = yyFlexState;
+            yyFlexMarkedPosL = yyFlexCurrentPosL;
 --- line count update
           }
 
@@ -398,13 +398,13 @@
       }
 
       // store back cached position
-      yy_markedPos = yy_markedPos_l;
+      yyFlexMarkedPos = yyFlexMarkedPosL;
 --- char count update
 
 --- actions
         default: 
-          if (yy_input == YYEOF && yy_startRead == yy_currentPos) {
-            yy_atEOF = true;
+          if (yyFlexInput == YYEOF && yyFlexStartRead == yyFlexCurrentPos) {
+            yyFlexAtEOF = true;
 --- eofvalue
           } 
           else {
