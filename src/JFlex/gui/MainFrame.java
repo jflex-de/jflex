@@ -79,9 +79,9 @@ final public class MainFrame extends Frame implements Handles {
     quit       = new Button("Quit");
     options    = new Button("Options");
     stop       = new Button("Stop");
-    dirChoose  = new Button("Choose");
+    dirChoose  = new Button("Browse");
     dir        = new TextField(10);
-    specChoose = new Button("Choose");
+    specChoose = new Button("Browse");
     spec       = new TextField(10);            
     messages   = new TextArea(10,80);
 
@@ -91,6 +91,8 @@ final public class MainFrame extends Frame implements Handles {
       messages.setFont(new Font("Monospaced", font.getStyle(), font.getSize()));
     else
       messages.setFont(new Font("Monospaced", Font.PLAIN, 12));
+
+    Out.setGUIMode(messages);
 
     generate.addActionListener( new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -210,7 +212,7 @@ final public class MainFrame extends Frame implements Handles {
    
     setEnabledAll(true);
 
-    thread = new GeneratorThread(this, fileName, messages, dirName);
+    thread = new GeneratorThread(this, fileName, dirName);
     thread.start();
   } 
 
