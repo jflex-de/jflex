@@ -82,6 +82,8 @@ final public class Emitter {
   private CharClassIntervall [] intervalls;
   private int currentIntervall;
 
+  private String visibility = "public";
+
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
     String name = parser.scanner.className+".java";
@@ -93,6 +95,7 @@ final public class Emitter {
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     this.parser = parser;
     this.scanner = parser.scanner;
+    this.visibility = scanner.visibility;
     this.inputFile = inputFile;
     this.dfa = dfa;
     this.skel = new Skeleton(out);
@@ -179,7 +182,7 @@ final public class Emitter {
       print("\\");
       print(Integer.toOctalString(i));
     }
-  }
+  } 
 
   private void emitScanError() {
     print("  private void yy_ScanError(int errorCode)");
@@ -240,7 +243,7 @@ final public class Emitter {
       println("   * <a href=\"http://meissner.v0.net/msd.htm\">meissner.v0.net/msd.htm</a>");
       println("   */");
 
-      print("  public ");
+      print("  "+visibility+" ");
       if ( scanner.tokenType == null ) {
         if ( scanner.isInteger )
           print( "int" );
@@ -462,9 +465,9 @@ final public class Emitter {
       int num = scanner.states.getNumber(name).intValue();
 
       if (scanner.bolUsed)      
-        println("  public static final int "+name+" = "+2*num+";");
+        println("  "+visibility+" static final int "+name+" = "+2*num+";");
       else
-        println("  public static final int "+name+" = "+dfa.lexState[2*num]+";");
+        println("  "+visibility+" static final int "+name+" = "+dfa.lexState[2*num]+";");
     }
     
     if (scanner.bolUsed) {
@@ -1009,7 +1012,7 @@ final public class Emitter {
 
   private void emitLexFunctHeader() {
     
-    print("  public ");
+    print("  "+visibility+" ");
     
     if ( scanner.tokenType == null ) {
       if ( scanner.isInteger )
