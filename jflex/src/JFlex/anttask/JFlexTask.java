@@ -48,6 +48,11 @@ public class JFlexTask extends Task {
 	/** the actual output directory (outputDir = destinationDir + package)) */
 	private File outputDir = null;
 
+  public JFlexTask() {
+    // ant default is different from the rest of JFlex
+    setVerbose(false);
+  }
+
   public void execute() throws BuildException {
    	try {
       if (inputFile == null) 
