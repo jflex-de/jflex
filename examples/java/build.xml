@@ -1,0 +1,46 @@
+<project name="java scanner" default="run">
+
+  <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
+  <taskdef classname="java_cup.AntTask" name="cup" />
+
+  <target name="build" depends="realclean,compile" />
+
+  <target name="run" depends="compile">
+    <java classname="JavaParser"> 
+      <arg line="JavaParser.java"/> 
+      <arg line="JavaSymbol.java"/> 
+      <arg line="UnicodeEscapes.java"/> 
+      <arg line="parser.java"/> 
+      <arg line="sym.java"/> 
+      <arg line="Scanner.java"/> 
+    </java>
+  </target>
+
+  <target name="compile" depends="scanner,unicode,cup">
+    <javac srcdir="." destdir="." />
+  </target>
+
+  <target name="scanner"> <jflex file="java.flex"/> </target>
+
+  <target name="unicode"> <jflex file="unicode.flex"/> </target>
+
+  <target name="cup">
+    <cup file="java12.cup" interface="yes" dir="."/>
+  </target>
+
+  <target name="genclean">
+    <delete file="Scanner.java"/>
+    <delete file="UnicodeEscapes.java"/>
+    <delete file="sym.java" />
+    <delete file="parser.java" />
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="." includes="**/*~"/>
+      <fileset dir="." includes="**/*.class"/>
+    </delete>
+  </target>
+
+  <target name="realclean" depends="clean,genclean" />
+</project>
