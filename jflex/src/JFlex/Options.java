@@ -23,7 +23,8 @@ package JFlex;
 import java.io.File;
 
 /**
- * Global JFlex options.
+ * Collects all global JFlex options. Can be set from command line parser,
+ * ant taks, gui, etc.
  * 
  * @author Gerwin Klein
  * @version JFlex 1.4, $Revision$, $Date$
