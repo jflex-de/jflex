@@ -371,7 +371,7 @@ public final class IntCharSet {
     return intervalls.size();
   }
 
-  // FIXME: depends on caller protocol
+  // beware: depends on caller protocol, single user only 
   public Interval getNext() {
     if (pos == intervalls.size()) pos = 0;
     return (Interval) intervalls.elementAt(pos++);
