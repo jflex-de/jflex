@@ -1,0 +1,56 @@
+This directory contains the source code for JFlex.
+
+For convenience,the following generated lexer and parser files
+have been included in the distribution:
+
+JFlex/LexScan.java  (lexer, generated from src/LexScan.flex)
+
+JFlex/LexParse.java (parser, generated from src/LexParse.cup)
+JFlex/sym.java
+
+Compilation issues:
+
+- if you have the tya jit compiler for linux, javac might crash on LexParse.java
+  (turn off the jit or use shujit as a workaround)
+
+- if you have JDK 1.1.7 and CUP v0.10i, javac -O might complain about a final 
+  variable in LexParse.java (javac bug). As a workaround: don't use -O or edit
+  LexParse.java and make the variable non final (it is not used in JFlex code
+  anyway)  
+
+
+Dir contents:
+
+Makefile:
+  for use with gnu make (tested on linux only, should work with
+  most unix and make flavors).
+  useful targets:
+
+  all:   recompiles all JFlex classes, generates lexer+parser 
+         only if necessary, zips up all compiled classes in
+         ../lib/JFlex.jar
+
+  build: cleans up everything and does a completely new build
+
+  clean: deletes generated, temporary and *.class files
+ 
+
+skeleton:
+  a skeleton file matching exactly the precompiled scanner skeleton.
+  Can be used together with the -skel option 
+
+skeleton.nested:
+  a skeleton file that supports nested input streams (see the manual 
+  for the API). Can be used together with the -skel option
+
+JFlex:
+  source files of package JFlex
+
+JFlex/gui:
+  source files of package JFlex.gui
+
+JFlex/anttask
+  source files of the JFlex Ant task (contributed by Rafal Mantiuk)
+
+java_cup/runtime:
+  CUP v0.10j runtime classes, used by JFlex   
