@@ -49,7 +49,7 @@ Sun Microsystems, Inc., and refers to Sun's Java programming language.
 JFlex is not sponsored by or affiliated with Sun Microsystems, Inc.}
 written in Java. It is also a rewrite of the very useful tool JLex \cite{JLex} which
 was developed by Elliot Berk at Princeton University. As Vern Paxson states
-for his C/C++ tool flex \cite{flex}: They do not share any code though.
+for his C/C++ tool flex \cite{flex}: they do not share any code though.
 
 \subsection{Design goals}
 The main design goals of JFlex are:
@@ -478,10 +478,18 @@ Here some of the example macros in more detail:
 
 \item
   \texttt{\htmlref{TraditionalComment}{CodeMacros}} is the expression
-  that matches the string \texttt{"/*"} followed by a character that is not
-  a \texttt{*} followed by anything that matches the macro 
-  \texttt{\htmlref{CommentContent}{CodeMacros}}
-  followed by any number of \texttt{*} followed by \texttt{/}.
+  that matches the string \texttt{"/*"} followed by a character that
+  is not a \texttt{*}, followed by anything that does not contain, but
+  ends in \texttt{"/*"}.  As this would not match comments like
+  \texttt{/****/}, we add \texttt{"/*"} followed by an arbitratry
+  number (at least one) of \texttt{"*"} followed by the closing
+  \texttt{"/"}. This is not the only, but one of the simpler
+  expressions matching non-nesting Java comments. It is tempting to
+  just write something like the expression \texttt{"/*" .* "*/"}, but
+  this would match more than we want. It would for instance match the
+  whole of \texttt{/* */ x = 0; /* */}, instead of two comments and
+  four real tokens. See DocumentationComment and CommentContent for an
+  alternative.
 
 \item
   \texttt{\htmlref{CommentContent}{CodeMacros}} matches zero or more
