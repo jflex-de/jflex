@@ -159,25 +159,6 @@ import java.util.Stack;
     return new Symbol(type, yyline, yycolumn, value);
   }
 
-  // updates yyline and yycolumn count to the beginning of the first
-  // non whitespace character in yytext
-  private void updateLineCount(String text) {
-
-    for (int i=0; i < text.length(); i++) {
-      char c = text.charAt(i);
-
-      if (c != '\n' && c != '\r' && c != ' ' && c != '\t' ) return;
-
-      if (c == '\n') {
-        yyline++;
-        yycolumn = 0;
-      }
-      else
-        yycolumn++;
-    }
-
-  }
-
   private String makeMacroIdent() {
     String matched = yytext().trim();
     return matched.substring(1, matched.length()-1).trim();
@@ -398,8 +379,11 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {WSPNL}* "}"                { return symbol_countUpdate(RBRACE, null); }
   {WSPNL}* "//" {NNL}*        { }  
   {WSPNL}* "<<EOF>>" {WSPNL}* "{" 
-                              { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1;
-                                return symbol_countUpdate(EOFRULE, null); }
+                              { actionText.setLength(0); yybegin(JAVA_CODE); 
+                                Symbol s = symbol_countUpdate(EOFRULE, null);
+                                action_line = s.left+1; 
+                                return s;
+                              }
 }
 
 <STATES> {
