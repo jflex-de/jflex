@@ -15,9 +15,9 @@
 
   <!-- where to get jflex.jar and cup.jar from -->
   <property name="jflex.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/devel/JFlex.jar" />
+  	        value="http://jflex.sourceforge.net/jar/stable/JFlex.jar" />
   <property name="cup.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/devel/java_cup.jar" />
+  	        value="http://jflex.sourceforge.net/jar/stable/java_cup.jar" />
 
   	        
   <!-- ==================== targets ================================= -->
