@@ -71,15 +71,16 @@ public class RegExp {
     return "type = "+type;
   }
 
+
   /**
-   * Find out if this regexp is a char class (or equivalent to one).
+   * Find out if this regexp is a char class or equivalent to one.
+   * 
    * @param  macros  for macro expansion
    * @return true if the regexp is equivalent to a char class.
    */
   public boolean isCharClass(Macros macros) {
     RegExp1 unary;
     RegExp2 binary;
-    RegExp content;
 
     switch (type) {
     case sym.CHAR:
@@ -101,8 +102,10 @@ public class RegExp {
   }
   
   /**
-   * The number of NFA states this expression will need (only 
-   * works correctly after macro expansion)   
+   * The approximate number of NFA states this expression will need (only 
+   * works correctly after macro expansion and without negation)
+   * 
+   * @param macros  macro table for expansion   
    */
   public int size(Macros macros) {
     RegExp1 unary;

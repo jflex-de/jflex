@@ -70,7 +70,7 @@ public final class StdOutWriter extends PrintWriter {
   public void write(int c) {
     if (text != null) {
       text.append(String.valueOf((char) c));
-      if (++col > 78) println();
+      if (++col > wrap) println();
     }
     else
       super.write(c);
@@ -80,7 +80,7 @@ public final class StdOutWriter extends PrintWriter {
   public void write(char buf[], int off, int len) {
     if (text != null) {
       text.append(new String(buf,off,len));
-      if ((col+=len) > 78) println();
+      if ((col+=len) > wrap) println();
     }
     else
       super.write(buf, off, len);
@@ -90,7 +90,7 @@ public final class StdOutWriter extends PrintWriter {
   public void write(String s, int off, int len) {
     if (text != null) {
       text.append(s.substring(off,off+len));
-      if ((col+=len) > 78) println();
+      if ((col+=len) > wrap) println();
     }
     else {
       super.write(s,off,len); 
