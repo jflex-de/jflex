@@ -51,8 +51,10 @@ public class Options {
   public static boolean no_backup; 
   /** default code generation method */
   public static int gen_method;
-  /** If false, no progress output will be generated */
+  /** If false, only error/warning output will be generated */
   public static boolean verbose;
+  /** If true, progress dots will be printed */
+  public static boolean progress;
   /** If true, jflex will print time statistics about the generation process */
   public static boolean time;
   /** If true, jflex will write graphviz .dot files for generated automata */
@@ -108,6 +110,7 @@ public class Options {
 		no_backup = false;
 		gen_method = Options.PACK;    
     verbose = true;
+    progress = true;
     time = false;
     dot = false;
     dump = false;
