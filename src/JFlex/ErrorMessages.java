@@ -26,7 +26,7 @@ package JFlex;
  * 
  * [Is not yet used exclusively, but should]
  * 
- * FIXME: this is silly, use resources instead
+ * TODO: this is silly, use resources instead
  *
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
