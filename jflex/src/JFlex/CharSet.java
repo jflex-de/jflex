@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4                                                               *
+ * JFlex 1.4.1                                                             *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -24,7 +24,7 @@ package JFlex;
 /**
  * 
  * @author Gerwin Klein 
- * @version JFlex 1.4, $Revision$, $Date$ 
+ * @version JFlex 1.4.1, $Revision$, $Date$ 
  */
 public final class CharSet {
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4                                                               *
+ * JFlex 1.4.1                                                             *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -30,7 +30,7 @@ package JFlex;
  * All characters of the interval must belong to the same character class.
  *
  * @author Gerwin Klein
- * @version JFlex 1.4, $Revision$, $Date$
+ * @version JFlex 1.4.1, $Revision$, $Date$
  */
 public class CharClassInterval {
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4                                                               *
+ * JFlex 1.4.1                                                             *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -25,7 +25,7 @@ import java.awt.Component;
  * Constraints for layout elements of GridLayout
  *
  * @author Gerwin Klein
- * @version JFlex 1.4, $Revision$, $Date$
+ * @version JFlex 1.4.1, $Revision$, $Date$
  */
 public class GridPanelConstraint {
 
