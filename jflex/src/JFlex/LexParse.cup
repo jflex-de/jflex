@@ -159,10 +159,12 @@ action code {:
   private void makeCaselessClass(char c) {
     char upper = Character.toUpperCase(c);
     char lower = Character.toLowerCase(c);
+    char title = Character.toTitleCase(c);
 
     Vector ccl = new Vector();
     ccl.addElement( new Interval(upper,upper) );
     ccl.addElement( new Interval(lower,lower) );
+    ccl.addElement( new Interval(title,title) );
     charClasses.makeClass( ccl );
   }
 
