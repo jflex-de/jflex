@@ -60,7 +60,7 @@ public class CharClasses {
     maxCharUsed = (char) maxCharCode;
 
     classes = new Vector();
-    classes.addElement(new IntCharSet(new Intervall((char) 0, maxChar)));
+    classes.addElement(new IntCharSet(new Interval((char) 0, maxChar)));
   }
 
 
@@ -214,11 +214,11 @@ public class CharClasses {
    * Characters that are elements of the set <code>v</code> are not in the same
    * equivalence class with characters that are not elements of the set <code>v</code>.
    *
-   * @param v   a Vector of Intervall objects. 
+   * @param v   a Vector of Interval objects. 
    *            This Vector represents a set of characters. The set of characters is
    *            the union of all intervalls in the Vector.
    */
-  public void makeClass(Vector /* Intervall */ v) {
+  public void makeClass(Vector /* Interval */ v) {
     makeClass( new IntCharSet(v) );
   }
   
@@ -232,7 +232,7 @@ public class CharClasses {
    *
    * This method is equivalent to <code>makeClass(v)</code>
    * 
-   * @param v   a Vector of Intervall objects. 
+   * @param v   a Vector of Interval objects. 
    *            This Vector represents a set of characters. The set of characters is
    *            the union of all intervalls in the Vector.
    */
@@ -291,7 +291,7 @@ public class CharClasses {
    *
    * @return an array with the class codes for intervallVec
    */
-  public int [] getClassCodes(Vector /* Intervall */ intervallVec) {
+  public int [] getClassCodes(Vector /* Interval */ intervallVec) {
     return getClassCodes(new IntCharSet(intervallVec), false);
   }
 
@@ -305,7 +305,7 @@ public class CharClasses {
    *
    * @return an array with the class codes for the complement of intervallVec
    */
-  public int [] getNotClassCodes(Vector /* Intervall */ intervallVec) {
+  public int [] getNotClassCodes(Vector /* Interval */ intervallVec) {
     return getClassCodes(new IntCharSet(intervallVec), true);
   }
 
@@ -364,7 +364,7 @@ public class CharClasses {
     while (i < numIntervalls) {
       int       code = getClassCode((char) c);
       IntCharSet set = (IntCharSet) classes.elementAt(code);
-      Intervall  iv  = set.getNext();
+      Interval  iv  = set.getNext();
       
       result[i++]    = new CharClassIntervall(iv.start, iv.end, code);
       c              = iv.end+1;

@@ -158,4 +158,10 @@ public class AntTaskTests extends TestCase {
     task.setDump(true);
     assertTrue(Options.dump);
   }
+  
+  public void testJlex() {
+    assertFalse(Options.jlex);
+    task.setJLex(true);
+    assertTrue(Options.jlex);
+  }
 }

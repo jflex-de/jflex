@@ -27,7 +27,7 @@ package JFlex;
  * @author Gerwin Klein
  * @version JFlex 1.3.5, $Revision$, $Date$
  */
-public final class Intervall {
+public final class Interval {
 
   /* start and end of the intervall */
   public char start, end;
@@ -39,7 +39,7 @@ public final class Intervall {
    * @param start  first character the intervall should contain
    * @param end    last  character the intervall should contain
    */
-  public Intervall(char start, char end) {
+  public Interval(char start, char end) {
     this.start = start;
     this.end = end;
   }
@@ -48,7 +48,7 @@ public final class Intervall {
   /**
    * Copy constructor
    */
-  public Intervall(Intervall other) {
+  public Interval(Interval other) {
     this.start = other.start;
     this.end   = other.end;
   }
@@ -70,7 +70,7 @@ public final class Intervall {
    *
    * @param other    the other intervall 
    */
-  public boolean contains(Intervall other) {
+  public boolean contains(Interval other) {
     return this.start <= other.start && this.end >= other.end;
   }
   
@@ -83,9 +83,9 @@ public final class Intervall {
    */
   public boolean equals(Object o) {
     if ( o == this ) return true;
-    if ( !(o instanceof Intervall) ) return false;
+    if ( !(o instanceof Interval) ) return false;
 
-    Intervall other = (Intervall) o;
+    Interval other = (Interval) o;
     return other.start == this.start && other.end == this.end;
   }
   

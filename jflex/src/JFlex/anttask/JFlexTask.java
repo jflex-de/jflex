@@ -240,4 +240,8 @@ public class JFlexTask extends Task {
   public void setDump(boolean b) {
     Options.dump = b;
   }
+  
+  public void setJLex(boolean b) {
+    Options.jlex = true;
+  }
 }

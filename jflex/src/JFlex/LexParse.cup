@@ -99,7 +99,7 @@ action code {:
       
       if (!prev && current) start = c;
       if (prev && !current) {
-        result.addElement(new Intervall(start, (char)(c-1)));
+        result.addElement(new Interval(start, (char)(c-1)));
       }
       
       prev = current;
@@ -110,9 +110,9 @@ action code {:
     // last+1 == 0
     current = check(type,c);
     
-    if (!prev && current) result.addElement(new Intervall(c,c));
-    if (prev && current)  result.addElement(new Intervall(start, c));    
-    if (prev && !current) result.addElement(new Intervall(start, (char)(c-1)));
+    if (!prev && current) result.addElement(new Interval(c,c));
+    if (prev && current)  result.addElement(new Interval(start, c));    
+    if (prev && !current) result.addElement(new Interval(start, (char)(c-1)));
 
     return result;
   }
@@ -161,16 +161,16 @@ action code {:
     char lower = Character.toLowerCase(c);
 
     Vector ccl = new Vector();
-    ccl.addElement( new Intervall(upper,upper) );
-    ccl.addElement( new Intervall(lower,lower) );
+    ccl.addElement( new Interval(upper,upper) );
+    ccl.addElement( new Interval(lower,lower) );
     charClasses.makeClass( ccl );
   }
 
   private RegExp makeNL() {
     Vector list = new Vector();
-    list.addElement(new Intervall('\n','\r'));
-    list.addElement(new Intervall('\u0085','\u0085'));
-    list.addElement(new Intervall('\u2028','\u2029'));
+    list.addElement(new Interval('\n','\r'));
+    list.addElement(new Interval('\u0085','\u0085'));
+    list.addElement(new Interval('\u2028','\u2029'));
 
     charClasses.makeClass(list);
     charClasses.makeClass('\n');
@@ -257,7 +257,7 @@ non terminal           macros, macro;
 non terminal Integer   rule;
 non terminal NFA       specification;
 non terminal RegExp    series, concs, nregexp, regexp, charclass, lookaheadOPT;
-non terminal Intervall classcontentelem;
+non terminal Interval classcontentelem;
 non terminal Vector    states, statesOPT, classcontent, preclass, rules;
 non terminal Boolean   hatOPT;
 non terminal Action    actions;
@@ -498,7 +498,7 @@ regexp        ::=  regexp:r STAR
                 |  POINT
                    {: 
                       Vector any = new Vector();
-                      any.addElement(new Intervall('\n','\n'));
+                      any.addElement(new Interval('\n','\n'));
                       charClasses.makeClass( '\n' );
                       RESULT = new RegExp1(sym.CCLASSNOT, any); 
                    :}
@@ -537,7 +537,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT CLOSECLASS:close
                    {: 
                      Vector list = new Vector();
-                     list.addElement(new Intervall((char)0,CharClasses.maxChar));
+                     list.addElement(new Interval((char)0,CharClasses.maxChar));
                      try {
                        charClasses.makeClass(list);
                      }
@@ -559,7 +559,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 | OPENCLASS DASH classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       list.addElement(new Intervall('-','-'));
+                       list.addElement(new Interval('-','-'));
                        charClasses.makeClass(list);
                      }
                      catch (CharClassException e) {
@@ -570,7 +570,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT DASH classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       list.addElement(new Intervall('-','-'));
+                       list.addElement(new Interval('-','-'));
                        charClasses.makeClassNot(list);
                      }
                      catch (CharClassException e) {
@@ -602,14 +602,14 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 |  classcontent:list STRING:s
                    {: 
                       for (int i = 0; i < s.length(); i++)
-                        list.addElement(new Intervall(s.charAt(i),s.charAt(i)));
+                        list.addElement(new Interval(s.charAt(i),s.charAt(i)));
                       RESULT = list;
                    :}
                 |  STRING:s
                    {: 
                       RESULT = new Vector();
                       for (int i = 0; i < s.length(); i++)
-                        RESULT.addElement(new Intervall(s.charAt(i),s.charAt(i)));
+                        RESULT.addElement(new Interval(s.charAt(i),s.charAt(i)));
                    :}
                 |  classcontent:list MACROUSE:ident
                    {: 
@@ -622,9 +622,9 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 ;
 
 classcontentelem ::= CHAR:c1 DASH CHAR:c2
-                     {: RESULT = new Intervall(c1.charValue(), c2.charValue()); :}
+                     {: RESULT = new Interval(c1.charValue(), c2.charValue()); :}
                    | CHAR:c
-                     {: RESULT = new Intervall(c.charValue(), c.charValue()); :}
+                     {: RESULT = new Interval(c.charValue(), c.charValue()); :}
                    ;
                    
 preclass ::= JLETTERCLASS
