@@ -51,9 +51,9 @@ public class PackEmitterTest extends TestCase {
   public void testInit() {
     p.emitInit();
     assertEquals(
-      "private static final int [] bla = yy_unpack_bla();" + Out.NL + 
+      "  private static final int [] bla = yy_unpack_bla();" + Out.NL + 
       Out.NL +
-      "private static final String bla_packed1 =" + Out.NL +
+      "  private static final String bla_packed0 =" + Out.NL +
       "    \"", 
       p.toString());
   }
@@ -67,9 +67,10 @@ public class PackEmitterTest extends TestCase {
   
   public void testLineBreak() {
     for (int i = 0; i < 36; i++) {
+      p.breaks();
       p.emitUC(i);
     }
-
+    System.out.println(p);
     assertEquals(
             "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"+Out.NL+
       "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"+Out.NL+
