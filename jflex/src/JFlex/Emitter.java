@@ -435,24 +435,15 @@ final public class Emitter {
   public static boolean endsWithJavadoc(StringBuffer usercode) {
     String s = usercode.toString().trim();
     int len = s.length();
-    
-    if (!s.endsWith("*/")) return false;
-       
-    // look for "/**" backwards, but do not allow "/*" 
-    for (int i = len-2; i >= 0; i--) {
-       if (s.charAt(i) == '*') {
-         i--;
-         if (i < 0) return false;
-         if (s.charAt(i) == '/') return false;
-         if (s.charAt(i) != '*') continue;         
-         do i--; while (i >= 0 && s.charAt(i) == '*');
-         if (i < 0) return false;         
-         if (s.charAt(i) == '/') return true;
-         // otherwise continue         
-       }
-    }
         
-    return false;
+    if (!s.endsWith("*/")) return false;
+    
+    // find beginning of javadoc comment   
+    int i = s.lastIndexOf("/**");    
+    if (i < 0) return false; 
+       
+    // javadoc comment shouldn't contain a comment end
+    return s.substring(i,s.length()-2).indexOf("*/") < 0;
   }
 
 
