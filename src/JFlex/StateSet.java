@@ -311,14 +311,14 @@ final public class StateSet {
 
   
   public String toString() {
-    StateSetEnumerator enum = states();
+    StateSetEnumerator set = states();
 
     StringBuffer result = new StringBuffer("{"); //$NON-NLS-1$
 
-    if ( enum.hasMoreElements() ) result.append(""+enum.nextElement()); //$NON-NLS-1$
+    if ( set.hasMoreElements() ) result.append(""+set.nextElement()); //$NON-NLS-1$
 
-    while ( enum.hasMoreElements() ) {
-      int i = enum.nextElement();
+    while ( set.hasMoreElements() ) {
+      int i = set.nextElement();
       result.append( ", "+i); //$NON-NLS-1$
     }
 
