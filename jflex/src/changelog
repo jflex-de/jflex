@@ -5,6 +5,9 @@
 - fixed bug #1035407 (ArrayIndexOutOfBounds in IntCharSet)
 - fixed bug #1003569 (Cannot use lookahead with ignorecase)
 - converted dangerous lookahead error to warning
+- print info for EOF actions as well in %debug mode
+- fixed line number count for EOF actions
+- internal: removed unused methods in LexScan.flex and IntCharSet
 
 * JFlex 1.4 
 - new, very fast minimization algorithm (also fixes memory issues)
