@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex Anttask                                                           *
- * Copyright (C) 2001       Rafal Mantiuk <Rafal.Mantiuk@bellstream.pl>    *
+ * JFlex 1.4                                                               *
+ * Copyright (C) 1998-2003  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -18,58 +18,47 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.anttask;
+package JFlex.tests;
 
 import java.io.File;
 
 import JFlex.Options;
+import JFlex.anttask.JFlexTask;
 
+import junit.framework.TestCase;
 
 /**
- * Wrapper class for JFlex application. In case of any changes in JFlex
- * it should reduce impact of those changes on jflex ant task.
- *
- * FIXME: eventually eliminate in favour of central options handling class 
- *
- * @author Rafal Mantiuk
- * @version JFlex 1.3.5, $Revision$, $Date$
+ * Unit tests for the jflex ant task.
+ * 
+ * @author Gerwin Klein
+ * @version $Revision$, $Date$
  */
-class JFlexWrapper {
+public class AntTaskTests extends TestCase {
 
-    public void generate( File file ) throws JFlex.GeneratorException
-    {
-        JFlex.Main.generate( file );
-    }
+	private JFlexTask task;
 
-    public void setDestinationDir( String dir )
-    {
-        Options.setDir( dir );
-    }
+  /**
+   * Constructor for AntTaskTests.
+   * 
+   * @param name  test case name
+   */
+  public AntTaskTests(String name) {
+    super(name);
+  }
 
-    public void setSkipMinimization( boolean set )
-    {
-        JFlex.Main.no_minimize = set;
-    }
-
-    public void setTimeStatistics( boolean set )
-    {
-        JFlex.Out.TIME = set;
-    }
-
-    public void setVerbose( boolean set )
-    {
-        JFlex.Out.VERBOSE = set;
-    }
-
-    public void setGenerateDot( boolean set )
-    {
-         JFlex.Out.DOT = set;
-    }
-
-    public void setSkeleton( File skel )
-    {
-        if( skel != null )
-            JFlex.Skeleton.readSkelFile( skel );
-    }
-
+  /*
+   * @see TestCase#setUp()
+   */
+  protected void setUp() throws Exception {
+    super.setUp();
+    task = new JFlexTask();
+  }
+  
+	public void testDir() {
+		File dir = new File("src");
+    task.setDestdir(dir);
+		// not default jflex logic, but javac (uses package name) 
+    task.configure(new File(dir,"JFlex")); 
+    assertEquals(Options.getDir(),new File(dir,"JFlex"));
+  }
 }

@@ -36,7 +36,7 @@ import JFlex.gui.MainFrame;
 public class Main implements ErrorMessages {
   
   /** JFlex version */
-  final public static String version = "1.4_pre3";
+  final public static String version = "1.4_pre4";
 
   /** code generation method: maximum packing */
   final public static int PACK   = 0;
@@ -165,22 +165,6 @@ public class Main implements ErrorMessages {
 
   }
 
-  public static void setDir(String dirName) {
-    File d = new File(dirName);
-
-    if ( d.isFile() ) {
-      Out.error("Error: \""+d+"\" is not a directory.");
-      throw new GeneratorException();
-    }
-    
-    if ( !d.isDirectory() && !d.mkdirs() ) {
-      Out.error("Error: couldn't create directory \""+d+"\"");
-      throw new GeneratorException();
-    }
-
-    Emitter.directory = d;
-  }
-
   public static Vector parseOptions(String argv[]) {
     Vector files = new Vector();
 
@@ -191,7 +175,7 @@ public class Main implements ErrorMessages {
           Out.error(NO_DIRECTORY); 
           System.exit(1);
         }
-        setDir(argv[i]);
+        Options.setDir(argv[i]);
         continue;
       }
 
