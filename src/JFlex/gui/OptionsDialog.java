@@ -158,22 +158,25 @@ public class OptionsDialog extends Dialog {
     panel.add(3,0,ok);
     panel.add(3,1,defaults);
      
-    panel.add(0,0,1,1,new Label(" use skeleton file"));
+    panel.add(0,0,2,1,Handles.BOTTOM,new Label("skeleton file:"));
     panel.add(0,1,2,1,skelDir);
     panel.add(2,1,1,1,Handles.TOP, skelBrowse);
      
-    panel.add(0,2,1,1,dump);
-    panel.add(0,3,1,1,verbose);
-    
-    panel.add(0,4,1,1,tableG);
-    panel.add(0,5,1,1,switchG);
-    panel.add(0,6,1,1,packG);
+    panel.add(0,2,1,1,Handles.BOTTOM,new Label("code:"));
+    panel.add(0,3,1,1,tableG);
+    panel.add(0,4,1,1,switchG);
+    panel.add(0,5,1,1,packG);
 
-    panel.add(1,2,1,1,jlex);
-    panel.add(1,3,1,1,no_minimize);
-    panel.add(1,4,1,1,no_backup);
+    panel.add(1,3,1,1,dump);
+    panel.add(1,4,1,1,verbose);
     panel.add(1,5,1,1,time);
-    panel.add(1,6,1,1,dot);
+    
+
+    panel.add(2,3,1,1,no_minimize);
+    panel.add(2,4,1,1,no_backup);
+
+    panel.add(3,3,1,1,jlex);
+    panel.add(3,4,1,1,dot);
          
     add("Center",panel);
     
