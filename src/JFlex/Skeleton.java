@@ -45,7 +45,7 @@ public class Skeleton {
   static final private int size = 21;
 
   /** platform specific newline */
-  static final private String NL = System.getProperty("line.separator"); 
+  static final private String NL = System.getProperty("line.separator");  //$NON-NLS-1$
 
   /** The skeleton */  
   public static String line[];
@@ -91,7 +91,7 @@ public class Skeleton {
    */
   public static void makePrivate() {
     for (int i=0; i < line.length; i++) {
-      line[i] = replace(" public ", " private ", line[i]);  
+      line[i] = replace(" public ", " private ", line[i]);   //$NON-NLS-1$ //$NON-NLS-2$
     }
   } 
 
@@ -103,21 +103,21 @@ public class Skeleton {
    */
   public static void readSkelFile(File skeletonFile) {
     if (skeletonFile == null)
-      throw new IllegalArgumentException("Skeleton file must not be null");
+      throw new IllegalArgumentException("Skeleton file must not be null"); //$NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error("Error: cannot read skeleton file \"" + skeletonFile + "\".");
+      Out.error(skeletonFile.toString(), ErrorMessages.CANNOT_READ_SKEL); 
       throw new GeneratorException();
     }
 
-    Out.println("Reading skeleton file \""+skeletonFile+"\"");
+    Out.println(skeletonFile.toString(), ErrorMessages.READING_SKEL);
 
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
       readSkel(reader);
     }
     catch (IOException e) {
-      Out.error("IO problem reading skeleton file.");
+      Out.error(ErrorMessages.SKEL_IO_ERROR); 
       throw new GeneratorException();
     }
   }
@@ -136,7 +136,7 @@ public class Skeleton {
 
     String ln;
     while ((ln = reader.readLine()) != null) {
-      if (ln.startsWith("---")) {
+      if (ln.startsWith("---")) { //$NON-NLS-1$
         lines.addElement(section.toString());
         section.setLength(0);
       } else {
@@ -189,10 +189,10 @@ public class Skeleton {
    */
   public static void readDefault() {
     ClassLoader l = ClassLoader.getSystemClassLoader();
-    URL url = l.getResource("JFlex/skeleton.default");
+    URL url = l.getResource("JFlex/skeleton.default"); //$NON-NLS-1$
 
     if (url == null) {
-      Out.error("IO problem reading default skeleton file.");
+      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException();    
     }
     
@@ -200,7 +200,7 @@ public class Skeleton {
       InputStreamReader reader = new InputStreamReader(url.openStream());
       readSkel(new BufferedReader(reader)); 
     } catch (IOException e) {
-      Out.error("IO problem reading default skeleton file.");
+      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT); 
       throw new GeneratorException();
     }
   }
