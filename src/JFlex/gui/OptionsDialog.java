@@ -21,14 +21,13 @@
 package JFlex.gui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
+import java.io.File;
+
+import JFlex.GeneratorException;
 import JFlex.Options;
+import JFlex.Skeleton;
 
 /**
  * A dialog for setting JFlex options
@@ -38,8 +37,10 @@ import JFlex.Options;
  */
 public class OptionsDialog extends Dialog {
 
+  private Frame owner;
+
   private Button skelBrowse;
-  private TextField skelDir;
+  private TextField skelFile;
 
   private Button ok;
   private Button defaults;
@@ -65,14 +66,16 @@ public class OptionsDialog extends Dialog {
   public OptionsDialog(Frame owner) {
     super(owner, "Options");
 
+    this.owner = owner;
+    
+    setup();
+    pack();
+    
     addWindowListener( new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         close();
       }
     });
-    
-    setup();
-    pack();
   }
 
   public void setup() {
@@ -80,8 +83,8 @@ public class OptionsDialog extends Dialog {
     ok = new Button("Ok");
     defaults = new Button("Defaults");    
     skelBrowse = new Button(" Browse");
-    skelDir = new TextField();
-    skelDir.setEditable(false);
+    skelFile = new TextField();
+    skelFile.setEditable(false);
     dump = new Checkbox(" dump");
     verbose = new Checkbox(" verbose");
 
@@ -106,6 +109,12 @@ public class OptionsDialog extends Dialog {
     defaults.addActionListener( new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         setDefaults();
+      }
+    } );
+
+    skelBrowse.addActionListener( new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        skelBrowse();
       }
     } );
 
@@ -165,7 +174,7 @@ public class OptionsDialog extends Dialog {
     panel.add(3,1,defaults);
      
     panel.add(0,0,2,1,Handles.BOTTOM,new Label("skeleton file:"));
-    panel.add(0,1,2,1,skelDir);
+    panel.add(0,1,2,1,skelFile);
     panel.add(2,1,1,1,Handles.TOP, skelBrowse);
      
     panel.add(0,2,1,1,Handles.BOTTOM,new Label("code:"));
@@ -189,6 +198,22 @@ public class OptionsDialog extends Dialog {
     updateState();
   }
   
+  private void skelBrowse() {
+    FileDialog d = new FileDialog(owner , "Choose file", FileDialog.LOAD);
+    d.show();
+    
+    if (d.getFile() != null) {
+      File skel = new File(d.getDirectory()+d.getFile());
+      try {
+        Skeleton.readSkelFile(skel);
+        skelFile.setText(skel.toString());
+      }
+      catch (GeneratorException e) {
+        // do nothing
+      }
+    }
+  }
+
   private void setGenMethod() {
     if ( tableG.getState() ) {
       Options.gen_method = Options.TABLE;
@@ -222,6 +247,8 @@ public class OptionsDialog extends Dialog {
 
   private void setDefaults() {
     Options.setDefaults();
+    Skeleton.readDefault();
+    skelFile.setText("");
     updateState();
   }
 
