@@ -121,7 +121,7 @@ final public class NFA {
   
   public void addRegExp(int regExpNum) {
 
-    if (Out.DEBUG)
+    if (Options.DEBUG)
       Out.debug("Adding nfa for regexp "+regExpNum+" :"+Out.NL+regExps.getRegExp(regExpNum));
     
     IntPair nfa = insertNFA( regExps.getRegExp(regExpNum) );
@@ -403,7 +403,7 @@ final public class NFA {
      
     numDFAStates--;
 
-    if (Out.DEBUG)
+    if (Options.DEBUG)
       Out.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
@@ -650,7 +650,7 @@ final public class NFA {
    */
   public IntPair complement(IntPair nfa) {
 
-    if (Out.DEBUG) {
+    if (Options.DEBUG) {
       Out.debug("complement for "+nfa);
       Out.debug("NFA is :"+Out.NL+this);
     }
@@ -672,7 +672,7 @@ final public class NFA {
     dfaStates.put(newState, new Integer(numDFAStates));
     dfaVector.addElement(newState);
 
-    if (Out.DEBUG)
+    if (Options.DEBUG)
       Out.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
@@ -696,7 +696,7 @@ final public class NFA {
             addTransition(dfaStart+currentDFAState, input, dfaStart+nextDFAState.intValue());
 	        }
 	        else {
-            if (Out.DUMP) Out.print("+");
+            if (Options.dump) Out.print("+");
 	          // Out.debug("NOT FOUND!");
 	          // Out.debug("Table was "+dfaStates);
             numDFAStates++;
@@ -715,7 +715,7 @@ final public class NFA {
     // We have a dfa accepting the positive regexp. 
 
     // Now the complement:    
-    if (Out.DEBUG) 
+    if (Options.DEBUG) 
       Out.debug("dfa finished, nfa is now :"+Out.NL+this);
 
     int start = dfaStart+numDFAStates+1;
@@ -756,7 +756,7 @@ final public class NFA {
     _dfaStart = dfaStart;    
     removeDead(dfaStart);
 
-    if (Out.DEBUG)
+    if (Options.DEBUG)
       Out.debug("complement finished, nfa ("+start+","+end+") is now :"+this);
 
     return new IntPair(start, end);
@@ -837,7 +837,7 @@ final public class NFA {
     int start, end;
     RegExp2 r;
     
-    if (Out.DEBUG)
+    if (Options.DEBUG)
       Out.debug("Inserting RegExp : "+regExp);
     
     switch (regExp.type) {

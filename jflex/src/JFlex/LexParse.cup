@@ -288,7 +288,7 @@ specification ::=  USERCODE
   
                      regExps.checkActions();
 
-                     if (Out.DUMP) charClasses.dump();
+                     if (Options.dump) charClasses.dump();
 
                      Out.print("Constructing NFA : ");
 

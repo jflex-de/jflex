@@ -45,21 +45,11 @@ public final class Out implements ErrorMessages {
   /** platform dependent newline sequence */
   public static final String NL = System.getProperty("line.separator");
   
-  /**
-   * If DUMP is true, you will be flooded with information (e.g. dfa tables).
-   */
-  public static boolean DUMP        = false;
-
-  /**
-   * If DEBUG is true, additional verbose debug information is produced
-   */
-  public final static boolean DEBUG = false;
-
   /** count total warnings */
-  public static int warnings;
+  private static int warnings;
 
   /** count total errors */
-  public static int errors;
+  private static int errors;
 
   /** output device */
   private static StdOutWriter out = new StdOutWriter();
@@ -117,7 +107,7 @@ public final class Out implements ErrorMessages {
    * is turned off).
    */
   public static void debug(String message) {
-    if (DEBUG) System.out.println(message); 
+    if (Options.DEBUG) System.out.println(message); 
   }
 
 
@@ -128,7 +118,7 @@ public final class Out implements ErrorMessages {
    * @message the message to be printed 
    */
   public static void dump(String message) {
-    if (DUMP) out.println(message);
+    if (Options.dump) out.println(message);
   }
 
   
@@ -403,7 +393,7 @@ public final class Out implements ErrorMessages {
     e.printStackTrace(out);
     err("");
     err("Please also include a specification (as small as possible)");
-    err("that triggered this error. You may also want to check at");
+    err("that triggers this error. You may also want to check at");
     err("http://www.jflex.de if there is a newer version available");
     err("that doesn't have this problem");
     err("");
