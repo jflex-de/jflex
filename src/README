@@ -19,7 +19,9 @@ In class path:
 junit.jar    >= 3.8.1     [http://www.junit.org/]
 ant.jar      >= 1.4       [optional, http://ant.apache.org/]
 In ant lib dir:
-java_cup.jar >= 0.10l     [http://www.cs.princeton.edu/~appel/modern/java/CUP/]
+java_cup.jar >= 0.10k     [http://www.cs.princeton.edu/~appel/modern/java/CUP/]
+                          with ant-task patch
+                          [http://www.jflex.de/cup_patch.html]
 JFlex.jar    >= 1.4pre1   [http://www.jflex.de/]
 
 
