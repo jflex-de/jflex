@@ -142,4 +142,5 @@ public class ErrorMessages {
   public static ErrorMessages MACRO_DEF_MISSING = new ErrorMessages("MACRO_DEF_MISSING");
   public static ErrorMessages PARSING_TOOK = new ErrorMessages("PARSING_TOOK");
   public static ErrorMessages NFA_TOOK = new ErrorMessages("NFA_TOOK");
+  public static ErrorMessages LOOKAHEAD_NEEDS_ACTION = new ErrorMessages("LOOKAHEAD_NEEDS_ACTION");
 }
