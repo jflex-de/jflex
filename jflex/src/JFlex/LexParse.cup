@@ -242,8 +242,8 @@ terminal STRING_I, CHAR_I;  /* case insensitive strings/chars */
 non terminal           macros, macro;
 non terminal Integer   rule;
 non terminal NFA       specification;
-non terminal RegExp    series, concs, nregexp, regexp, charclass, lookaheadOPT;
-non terminal Interval classcontentelem;
+non terminal RegExp    series, concs, nregexp, regexp, charclass, lookahead;
+non terminal Interval  classcontentelem;
 non terminal Vector    states, statesOPT, classcontent, preclass, rules;
 non terminal Boolean   hatOPT;
 non terminal Action    actions;
@@ -346,19 +346,21 @@ rules         ::=  rules:rlist rule:r
                    {: RESULT = new Vector(); RESULT.addElement(r); :}
                 ;  
 
-rule          ::=  statesOPT:s hatOPT:bol series:r lookaheadOPT:l actions:a
+rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
+                   {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, null)); :}
+                |  statesOPT:s hatOPT:bol series:r lookahead:l ACTION:a
                    {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, l)); :}
+                |  statesOPT:s hatOPT:bol series:r lookahead:l NOACTION:a
+                   {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
                 |  statesOPT:s EOFRULE ACTION:a
                    {: RESULT = new Integer(regExps.insert(s, a)); :}
                 |  error
                 ;
 
-lookaheadOPT  ::=  DOLLAR
+lookahead     ::=  DOLLAR
                    {: RESULT = makeNL(); :}
                 |  LOOKAHEAD series:r
                    {: RESULT = r; :}
-                |  /* empty */
-                   {: RESULT = null; :}
                 |  LOOKAHEAD series:s DOLLAR
                    {: RESULT = new RegExp2(sym.CONCAT, s, makeNL()); :}
                 ;
