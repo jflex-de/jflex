@@ -153,13 +153,23 @@
     int numRead = zzReader.read(zzBuffer, zzEndRead,
                                             zzBuffer.length-zzEndRead);
 
-    if (numRead < 0) {
-      return true;
-    }
-    else {
+    if (numRead > 0) {
       zzEndRead+= numRead;
       return false;
     }
+    // unlikely but not impossible: read 0 characters, but not at end of stream
+    if (numRead == 0) {
+      int c = zzReader.read();
+      if (c == -1) {
+        return true;
+      } else {
+        zzBuffer[zzEndRead++] = (char) c;
+        return false;
+      }     
+    }
+    
+    // numRead < 0) 
+    return true;
   }
 
     
