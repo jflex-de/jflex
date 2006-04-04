@@ -1,3 +1,6 @@
+* JFlex 1.4.2
+- fixed bug #1464525 (Reader.read might return 0)
+
 * JFlex 1.4.1 (November 7, 2004)
 - merged in patch by Don Brown (fixes #1049791 Uses Old JUnit method assertFalse)
 - merged in patch by Don Brown (fixes #887821  buffer expansion bug in yy_refill())
