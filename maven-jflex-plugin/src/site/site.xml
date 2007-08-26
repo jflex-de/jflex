@@ -1,0 +1,16 @@
+<project>
+	<body>
+		<menu name="Overview" href="index.html" >
+			<item name="Summary" href="project-summary.html" />
+			<item name="Usage" href="usage.html" />
+			<item name="Goals" href="plugin-info.html" />
+		</menu>
+		<menu name="Project information" href="project-info.html">
+			<item name="Dependencies" href="dependencies.html" />
+			<item name="License" href="license.html" />
+			<item name="Developers" href="team-list.html" />
+			<item name="Source code" href="source-repository.html" />
+			<item name="Javadoc" href="apidocs/index.html" />
+		</menu>
+	</body>
+</project>
