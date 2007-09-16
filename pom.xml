@@ -77,18 +77,14 @@
 				<artifactId>maven-plugin-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</reporting>
 	<scm>
 		<connection>
-			scm:svn:http://jamwiki.svn.sourceforge.net/svnroot/jamwiki/wiki/branches/maven-jflex-plugin/
+			scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/trunk/maven-jflex-plugin/
 		</connection>
 		<developerConnection>
-			scm:svn:https://jamwiki.svn.sourceforge.net/svnroot/jamwiki/wiki/branches/maven-jflex-plugin/
+			scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/trunk/maven-jflex-plugin/
 		</developerConnection>
 	</scm>
 </project>
