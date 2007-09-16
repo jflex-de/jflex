@@ -1,11 +1,13 @@
-package de.flex.maven.plugin;
+package org.codehaus.mojo.jflex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import de.flex.maven.plugin.ClassInfo;
+
+import org.codehaus.mojo.jflex.ClassInfo;
+
 public class LexSimpleAnalyzer {
 	public static final String DEFAULT_NAME = "Yylex";
 
@@ -28,7 +30,7 @@ public class LexSimpleAnalyzer {
 			throws FileNotFoundException, IOException {
 		LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));
 
-		ClassInfo classInfo=new ClassInfo();
+		ClassInfo classInfo = new ClassInfo();
 		// TODO Reuse code from parser if it exists.
 		while (classInfo.className == null || classInfo.packageName == null) {
 			String line = reader.readLine();

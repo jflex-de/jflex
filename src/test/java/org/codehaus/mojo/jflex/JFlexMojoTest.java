@@ -17,7 +17,7 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package de.flex.maven.plugin;
+package org.codehaus.mojo.jflex;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +26,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.jflex.JFlexMojo;
 import org.codehaus.plexus.PlexusTestCase;
 
 import junit.framework.TestCase;

@@ -1,4 +1,4 @@
-package de.flex.maven.plugin;
+package org.codehaus.mojo.jflex;
 
 import java.io.File;
 
