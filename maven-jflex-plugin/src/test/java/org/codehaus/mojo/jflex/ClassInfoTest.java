@@ -1,4 +1,6 @@
-package de.flex.maven.plugin;
+package org.codehaus.mojo.jflex;
+
+import org.codehaus.mojo.jflex.ClassInfo;
 
 import junit.framework.TestCase;
 

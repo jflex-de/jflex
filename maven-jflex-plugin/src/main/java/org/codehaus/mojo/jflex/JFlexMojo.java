@@ -17,7 +17,7 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package de.flex.maven.plugin;
+package org.codehaus.mojo.jflex;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,11 +34,10 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.mojo.jflex.ClassInfo;
 
 import JFlex.Main;
 import JFlex.Options;
-
-import de.flex.maven.plugin.ClassInfo;
 
 /**
  * @goal generate
@@ -66,6 +65,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * List of grammar definitions to run the JFlex parser generator on. By
 	 * default, all files in <code>src/main/java/flex</code> will be
 	 * processed.
+	 * 
 	 * @see #SRC_MAIN_JFLEX
 	 * @parameter
 	 */
@@ -135,7 +135,7 @@ public class JFlexMojo extends AbstractMojo {
 				filesIt.add(defaultDir);
 			}
 		}
-		//process all lexDefinitions
+		// process all lexDefinitions
 		Iterator<File> fileIterator = filesIt.iterator();
 		while (fileIterator.hasNext()) {
 			File lexDefinition = fileIterator.next();
@@ -157,28 +157,28 @@ public class JFlexMojo extends AbstractMojo {
 	 * @throws MojoExecutionException
 	 */
 	@SuppressWarnings("unchecked")
-	private void parseLexDefinition(File lexDefinition) throws MojoFailureException,
-			MojoExecutionException {
-		
+	private void parseLexDefinition(File lexDefinition)
+			throws MojoFailureException, MojoExecutionException {
 
 		if (lexDefinition.isDirectory()) {
 			// recursively process files contained within
 			String[] extensions = { "jflex", "jlex", "lex", "flex" };
-			log.debug("Processing lexer files found in " + lexDefinition.getAbsolutePath());
+			log.debug("Processing lexer files found in "
+					+ lexDefinition.getAbsolutePath());
 			Iterator<File> fileIterator = FileUtils.iterateFiles(lexDefinition,
 					extensions, true);
 			while (fileIterator.hasNext()) {
 				File lexFile = fileIterator.next();
 				parseLexFile(lexFile);
 			}
-		} 
-		else {
+		} else {
 			parseLexFile(lexDefinition);
 		}
 	}
 
-	private void parseLexFile(File lexFile) throws MojoFailureException, MojoExecutionException {
-		log.debug("Generationg Java code from "+lexFile.getName());
+	private void parseLexFile(File lexFile) throws MojoFailureException,
+			MojoExecutionException {
+		log.debug("Generationg Java code from " + lexFile.getName());
 		ClassInfo classInfo = null;
 		try {
 			classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
@@ -198,7 +198,7 @@ public class JFlexMojo extends AbstractMojo {
 
 		/* Generate only if needs to */
 		if (lexFile.lastModified() < generatedFile.lastModified()) {
-			log.info("  "+generatedFile.getName() + " is up to date.");
+			log.info("  " + generatedFile.getName() + " is up to date.");
 			return;
 		}
 
@@ -222,7 +222,7 @@ public class JFlexMojo extends AbstractMojo {
 					+ classInfo.getOutputFilename());
 		} catch (Exception e) {
 			throw new MojoExecutionException(e.getMessage());
-		}		
+		}
 	}
 
 	/**
