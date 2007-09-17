@@ -68,7 +68,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * List of grammar definitions to run the JFlex parser generator on.
 	 * 
 	 * Each path may either specify a single grammar file or a directory.
-	 * Directories will be recursively scanned for files with one of the 
+	 * Directories will be recursively scanned for files with one of the
 	 * following extensions: ".jflex", ".flex", ".jlex" or ".lex".
 	 * 
 	 * By default, all files in <code>src/main/java/flex</code> will be
@@ -115,7 +115,7 @@ public class JFlexMojo extends AbstractMojo {
 	 */
 	private boolean jlex;
 
- 	/**
+	/**
 	 * The generation method to use for the scanner. Valid values are
 	 * <code>switch</code>, <code>table</code> and <code>pack</code>.
 	 * Please see the JFlex manual for more details about the various methods.
@@ -123,7 +123,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * @parameter default-value="pack"
 	 */
 	private String generationMethod = "pack";
-	
+
 	/**
 	 * A flag whether to perform the DFA minimization step during scanner
 	 * generation.
@@ -131,7 +131,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * @parameter default-value="true"
 	 */
 	private boolean minimize = true;
-	
+
 	/**
 	 * A flag whether to enable the generation of a backup copy if the generated
 	 * source file already exists.
@@ -139,7 +139,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * @parameter default-value="true"
 	 */
 	private boolean backup = true;
-	
+
 	/**
 	 * Generate java parsers from lexer definition files.
 	 * 
@@ -239,8 +239,7 @@ public class JFlexMojo extends AbstractMojo {
 		 * set options. Very strange that JFlex expects this in a static way.
 		 */
 		Options.setDefaults();
-		Options.setDir(FilenameUtils.getFullPath(generatedFile
-				.getAbsoluteFile().getPath()));
+		Options.setDir(generatedFile.getParentFile());
 		Options.dump = verbose;
 		Options.verbose = verbose;
 		Options.dot = dot;
@@ -261,11 +260,10 @@ public class JFlexMojo extends AbstractMojo {
 			throw new MojoExecutionException("Illegal generation method: "
 					+ generationMethod);
 		}
-		
+
 		try {
 			Main.generate(lexFile);
-			log.info("  generated " + outputDirectory + File.separator
-					+ classInfo.getOutputFilename());
+			log.info("  generated " + generatedFile);
 		} catch (Exception e) {
 			throw new MojoExecutionException(e.getMessage());
 		}
