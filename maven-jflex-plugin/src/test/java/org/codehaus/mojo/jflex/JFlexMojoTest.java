@@ -51,7 +51,7 @@ public class JFlexMojoTest extends PlexusTestCase {
 	}
 
 	public void testInit() {
-		assertEquals(OUTPUT_DIRECTORY, mojo.getOutputDirectory().getPath());
+		assertEquals(new File(OUTPUT_DIRECTORY), mojo.getOutputDirectory());
 	}
 
 	@Override
@@ -78,7 +78,12 @@ public class JFlexMojoTest extends PlexusTestCase {
 		assertTrue("produced file is a file: " + produced.getAbsolutePath(),
 				produced.isFile());
 		long size = produced.length();
-		boolean correctSize = (size > 26000) && (size < 28000);
+		/*
+		 * NOTE: The final file size also depends on the employed line
+		 * terminator. For this reason, the generated output will be longer on a
+		 * Windows plattform ("\r\n") than on a Unix plattform ("\n").
+		 */
+		boolean correctSize = (size > 26624) && (size < 28672);
 		assertTrue("size of produced file between 26k and 28k. Actual is "
 				+ size, correctSize);
 		produced.delete();
