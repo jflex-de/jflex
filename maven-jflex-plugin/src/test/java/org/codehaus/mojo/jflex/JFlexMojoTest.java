@@ -20,7 +20,6 @@
 package org.codehaus.mojo.jflex;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -28,8 +27,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.jflex.JFlexMojo;
 import org.codehaus.plexus.PlexusTestCase;
-
-import junit.framework.TestCase;
 
 public class JFlexMojoTest extends PlexusTestCase {
 	protected static final String SRC_TEST_RESOURCES_FLEX = "src/test/resources/preprocessor.jflex";

@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -66,12 +65,12 @@ public class JFlexMojo extends AbstractMojo {
 	// is kept raw.
 	/**
 	 * List of grammar definitions to run the JFlex parser generator on.
-	 * 
+	 * <p> 
 	 * Each path may either specify a single grammar file or a directory.
 	 * Directories will be recursively scanned for files with one of the
 	 * following extensions: ".jflex", ".flex", ".jlex" or ".lex".
-	 * 
-	 * By default, all files in <code>src/main/java/flex</code> will be
+	 * <p>
+	 * By default, all files in <code>src/main/jflex</code> will be
 	 * processed.
 	 * 
 	 * @see #SRC_MAIN_JFLEX
@@ -226,8 +225,8 @@ public class JFlexMojo extends AbstractMojo {
 		checkParameters(lexFile);
 
 		/* set destination directory */
-		File generatedFile = new File(outputDirectory
-				+ classInfo.getOutputFilename());
+		File generatedFile = new File(outputDirectory,
+				classInfo.getOutputFilename());
 
 		/* Generate only if needs to */
 		if (lexFile.lastModified() < generatedFile.lastModified()) {
@@ -270,25 +269,6 @@ public class JFlexMojo extends AbstractMojo {
 	}
 
 	/**
-	 * Get the output directory from a package name.
-	 * 
-	 * @param packageName
-	 * @return The concatanation of the base output with the directory following
-	 *         the Java convention for packages.
-	 */
-	public File findDestDirectory(String packageName) {
-		File destDirectory;
-		if (packageName == null) {
-			destDirectory = outputDirectory;
-		} else {
-			destDirectory = new File(outputDirectory.getAbsolutePath()
-					+ File.separatorChar
-					+ packageName.replace('.', File.separatorChar));
-		}
-		return destDirectory;
-	}
-
-	/**
 	 * Check parameter lexFile.
 	 * 
 	 * Must not be null and file must exist.
@@ -301,7 +281,7 @@ public class JFlexMojo extends AbstractMojo {
 	private void checkParameters(File lexFile) throws MojoExecutionException {
 		if (lexFile == null) {
 			throw new MojoExecutionException(
-					"<lexFile> is empty. Please define input file with <lexFile>input.jflex</lexFile>");
+					"<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
 		}
 		if (!lexFile.exists()) {
 			throw new MojoExecutionException("Input file does not exist: "
