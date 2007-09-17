@@ -40,6 +40,8 @@ import JFlex.Main;
 import JFlex.Options;
 
 /**
+ * Generates lexical scanners from one or more JFlex grammer files.
+ * 
  * @goal generate
  * @phase generate-sources
  * @author Régis Décamps (decamps@users.sf.net)
@@ -56,14 +58,20 @@ public class JFlexMojo extends AbstractMojo {
 	/**
 	 * @parameter expression="${project}"
 	 * @required
+	 * @readonly
 	 */
 	private MavenProject project;
 
 	// cannot use {@value SRC_MAIN_JFLEX} because Maven site goals.html
 	// is kept raw.
 	/**
-	 * List of grammar definitions to run the JFlex parser generator on. By
-	 * default, all files in <code>src/main/java/flex</code> will be
+	 * List of grammar definitions to run the JFlex parser generator on.
+	 * 
+	 * Each path may either specify a single grammar file or a directory.
+	 * Directories will be recursively scanned for files with one of the 
+	 * following extensions: ".jflex", ".flex", ".jlex" or ".lex".
+	 * 
+	 * By default, all files in <code>src/main/java/flex</code> will be
 	 * processed.
 	 * 
 	 * @see #SRC_MAIN_JFLEX
@@ -107,6 +115,31 @@ public class JFlexMojo extends AbstractMojo {
 	 */
 	private boolean jlex;
 
+ 	/**
+	 * The generation method to use for the scanner. Valid values are
+	 * <code>switch</code>, <code>table</code> and <code>pack</code>.
+	 * Please see the JFlex manual for more details about the various methods.
+	 * 
+	 * @parameter default-value="pack"
+	 */
+	private String generationMethod = "pack";
+	
+	/**
+	 * A flag whether to perform the DFA minimization step during scanner
+	 * generation.
+	 * 
+	 * @parameter default-value="true"
+	 */
+	private boolean minimize = true;
+	
+	/**
+	 * A flag whether to enable the generation of a backup copy if the generated
+	 * source file already exists.
+	 * 
+	 * @parameter default-value="true"
+	 */
+	private boolean backup = true;
+	
 	/**
 	 * Generate java parsers from lexer definition files.
 	 * 
@@ -216,6 +249,19 @@ public class JFlexMojo extends AbstractMojo {
 		}
 		Options.jlex = jlex;
 
+		Options.no_minimize = !minimize;
+		Options.no_backup = !backup;
+		if ("switch".equals(generationMethod)) {
+			Options.gen_method = Options.SWITCH;
+		} else if ("table".equals(generationMethod)) {
+			Options.gen_method = Options.TABLE;
+		} else if ("pack".equals(generationMethod)) {
+			Options.gen_method = Options.PACK;
+		} else {
+			throw new MojoExecutionException("Illegal generation method: "
+					+ generationMethod);
+		}
+		
 		try {
 			Main.generate(lexFile);
 			log.info("  generated " + outputDirectory + File.separator
