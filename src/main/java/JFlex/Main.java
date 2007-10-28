@@ -149,8 +149,8 @@ public class Main {
 
   }
 
-  public static Vector parseOptions(String argv[]) throws SilentExit {
-    Vector files = new Vector();
+  public static Vector<File> parseOptions(String argv[]) throws SilentExit {
+    Vector<File> files = new Vector<File>();
 
     for (int i = 0; i < argv.length; i++) {
 
@@ -296,7 +296,7 @@ public class Main {
 
 
   public static void generate(String argv[]) throws SilentExit {
-    Vector files = parseOptions(argv);
+    Vector<File> files = parseOptions(argv);
 
     if (files.size() > 0) {
       for (int i = 0; i < files.size(); i++) 

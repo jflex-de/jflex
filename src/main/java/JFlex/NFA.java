@@ -595,7 +595,7 @@ final public class NFA {
   }
   
 
-  private void insertClassNFA(Vector intervalls, int start, int end) {
+  private void insertClassNFA(Vector<Interval> intervalls, int start, int end) {
     // empty char class is ok:
     if (intervalls == null) return;
 
@@ -604,7 +604,7 @@ final public class NFA {
       addTransition(start, cl[i], end);
   }
 
-  private void insertNotClassNFA(Vector intervalls, int start, int end) {
+  private void insertNotClassNFA(Vector<Interval> intervalls, int start, int end) {
     int [] cl = classes.getNotClassCodes(intervalls);
 
     for (int i = 0; i < cl.length; i++) 

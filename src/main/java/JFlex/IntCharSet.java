@@ -36,11 +36,11 @@ public final class IntCharSet {
   private final static boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
-  private Vector intervalls;  
+  private Vector<Interval> intervalls;  
   private int pos; 
 
   public IntCharSet() {
-    this.intervalls = new Vector();
+    this.intervalls = new Vector<Interval>();
   }
 
   public IntCharSet(char c) {
@@ -52,10 +52,10 @@ public final class IntCharSet {
     intervalls.addElement(intervall);
   }
 
-  public IntCharSet(Vector /* Interval */ chars) {
+  public IntCharSet(Vector<Interval> chars) {
     int size = chars.size();
 
-    this.intervalls = new Vector(size);
+    this.intervalls = new Vector<Interval>(size);
     
     for (int i = 0; i < size; i++) 
       add( (Interval) chars.elementAt(i) );    

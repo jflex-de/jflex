@@ -37,7 +37,7 @@ public class CharClasses {
   public static final char maxChar = '\uFFFF';
 
   /** the char classes */
-  private Vector /* of IntCharSet */ classes;
+  private Vector /* of IntCharSet */<IntCharSet> classes;
 
   /** the largest character actually used in a specification */
   private char maxCharUsed;
@@ -59,7 +59,7 @@ public class CharClasses {
 
     maxCharUsed = (char) maxCharCode;
 
-    classes = new Vector();
+    classes = new Vector<IntCharSet>();
     classes.addElement(new IntCharSet(new Interval((char) 0, maxChar)));
   }
 
@@ -229,7 +229,7 @@ public class CharClasses {
    *    
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(Vector /* Interval */ v, boolean caseless) {
+  public void makeClass(Vector<Interval> v, boolean caseless) {
     makeClass(new IntCharSet(v), caseless);
   }
   
@@ -249,7 +249,7 @@ public class CharClasses {
    * 
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClassNot(Vector v, boolean caseless) {
+  public void makeClassNot(Vector<Interval> v, boolean caseless) {
     makeClass(new IntCharSet(v), caseless);
   }
 
@@ -304,7 +304,7 @@ public class CharClasses {
    *
    * @return an array with the class codes for intervallVec
    */
-  public int [] getClassCodes(Vector /* Interval */ intervallVec) {
+  public int [] getClassCodes(Vector<Interval> intervallVec) {
     return getClassCodes(new IntCharSet(intervallVec), false);
   }
 
@@ -318,7 +318,7 @@ public class CharClasses {
    *
    * @return an array with the class codes for the complement of intervallVec
    */
-  public int [] getNotClassCodes(Vector /* Interval */ intervallVec) {
+  public int [] getNotClassCodes(Vector<Interval> intervallVec) {
     return getClassCodes(new IntCharSet(intervallVec), true);
   }
 

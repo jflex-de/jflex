@@ -31,33 +31,33 @@ import java.util.*;
 public class RegExps {
   
   /** the spec line in which a regexp is used */
-  Vector /* of Integer */ lines;
+  Vector<Integer> lines;
 
   /** the lexical states in wich the regexp is used */
-  Vector /* of Vector of Integer */ states;
+  Vector<Vector<Integer>> states;
 
   /** the regexp */
-  Vector /* of RegExp */ regExps;
+  Vector<RegExp> regExps;
 
   /** the action of a regexp */
-  Vector /* of Action */ actions;
+  Vector<Action> actions;
   
   /** flag if it is a BOL regexp */
-  Vector /* of Boolean */ BOL;
+  Vector<Boolean> BOL;
 
   /** the lookahead expression */
-  Vector /* of RegExp */ look;
+  Vector<RegExp> look;
 
   public RegExps() {
-    states = new Vector();
-    regExps = new Vector();
-    actions = new Vector();
-    BOL = new Vector();
-    look = new Vector();
-    lines = new Vector();
+    states = new Vector<Vector<Integer>>();
+    regExps = new Vector<RegExp>();
+    actions = new Vector<Action>();
+    BOL = new Vector<Boolean>();
+    look = new Vector<RegExp>();
+    lines = new Vector<Integer>();
   }
 
-  public int insert(int line, Vector stateList, RegExp regExp, Action action, 
+  public int insert(int line, Vector<Integer> stateList, RegExp regExp, Action action, 
                      Boolean isBOL, RegExp lookAhead) {      
     if (Options.DEBUG) {
       Out.debug("Inserting regular expression with statelist :"+Out.NL+stateList);  //$NON-NLS-1$
@@ -75,7 +75,7 @@ public class RegExps {
     return states.size()-1;
   }
 
-  public int insert(Vector stateList, Action action) {
+  public int insert(Vector<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
       Out.debug("Inserting eofrule with statelist :"+Out.NL+stateList);   //$NON-NLS-1$
@@ -92,11 +92,11 @@ public class RegExps {
     return states.size()-1;
   }
 
-  public void addStates(int regNum, Vector newStates) {
-    Enumeration s = newStates.elements();
+  public void addStates(int regNum, Vector<Integer> newStates) {
+    Enumeration<Integer> s = newStates.elements();
     
     while (s.hasMoreElements()) 
-      ((Vector)states.elementAt(regNum)).addElement(s.nextElement());      
+      (getStates(regNum)).addElement(s.nextElement());      
   }
 
   public int getNum() {
@@ -115,8 +115,8 @@ public class RegExps {
     return BOL.elementAt(num) == null;
   }
 
-  public Vector getStates(int num) {
-    return (Vector) states.elementAt(num);
+  public Vector<Integer> getStates(int num) {
+    return (Vector<Integer>) states.elementAt(num);
   }
 
   public RegExp getRegExp(int num) {
@@ -143,7 +143,7 @@ public class RegExps {
 
   public int NFASize(Macros macros) {
     int size = 0;
-    Enumeration e = regExps.elements();
+    Enumeration<RegExp> e = regExps.elements();
     while (e.hasMoreElements()) {
       RegExp r = (RegExp) e.nextElement();
       if (r != null) size += r.size(macros);
