@@ -99,7 +99,7 @@ final public class DFA {
   /**
    * all actions that are used in this DFA
    */
-  Hashtable usedActions = new Hashtable();
+  Hashtable<Action, Action> usedActions = new Hashtable<Action, Action>();
 
   public DFA(int numLexStates, int numInp) {
     numInput = numInp; 
@@ -257,6 +257,7 @@ final public class DFA {
     Enumeration l = scanner.actions.elements();
 
     while (l.hasMoreElements()) {
+    	//TODO is next an Action?
       Object next = l.nextElement();
       if ( !next.equals(usedActions.get(next)) && !eofActions.isEOFAction(next) ) 
         Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, ((Action) next).priority-1, -1);

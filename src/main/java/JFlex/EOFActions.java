@@ -32,7 +32,7 @@ import java.util.*;
 public class EOFActions {
 
   /** maps lexical states to actions */
-  private Hashtable /* Integer -> Action */ actions = new Hashtable();
+  private Hashtable<Integer, Action> actions = new Hashtable<Integer, Action>();
   private Action defaultAction;
   private int numLexStates;
 
@@ -40,10 +40,10 @@ public class EOFActions {
     numLexStates = num;
   }
 
-  public void add(Vector stateList, Action action) {
+  public void add(Vector<Integer> stateList, Action action) {
 
     if (stateList != null && stateList.size() > 0) {
-      Enumeration states = stateList.elements();
+      Enumeration<Integer> states = stateList.elements();
       
       while (states.hasMoreElements()) 
         add( (Integer) states.nextElement(), action );   
@@ -73,7 +73,7 @@ public class EOFActions {
   public boolean isEOFAction(Object a) {
     if (a == defaultAction) return true;
 
-    Enumeration e = actions.elements();
+    Enumeration<Action> e = actions.elements();
     while ( e.hasMoreElements() ) 
       if (a == e.nextElement()) return true;
 

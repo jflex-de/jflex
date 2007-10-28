@@ -35,18 +35,18 @@ import java.util.*;
 final public class Macros {
 
   /** Maps names of macros to their definition */
-  private Hashtable macros;
+  private Hashtable<String, RegExp> macros;
 
   /** Maps names of macros to their "used" flag */
-  private Hashtable used;
+  private Hashtable<String, Boolean> used;
 
 
   /**
    * Creates a new macro expander.
    */
   public Macros() {
-    macros = new Hashtable();
-    used = new Hashtable();
+    macros = new Hashtable<String, RegExp>();
+    used = new Hashtable<String, Boolean>();
   }
 
 
@@ -96,11 +96,11 @@ final public class Macros {
    *
    * @return the enumeration of macro names that have not been used.
    */
-  public Enumeration unused() {
+  public Enumeration<String> unused() {
     
-    Vector unUsed = new Vector();
+    Vector<String> unUsed = new Vector<String>();
 
-    Enumeration names = used.keys();
+    Enumeration<String> names = used.keys();
     while ( names.hasMoreElements() ) {
       String name = (String) names.nextElement();
       Boolean isUsed = (Boolean) used.get( name );
@@ -138,7 +138,7 @@ final public class Macros {
    */
    public void expand() throws MacroException {
     
-    Enumeration names;
+    Enumeration<String> names;
 
     names = macros.keys();
     

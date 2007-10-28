@@ -72,7 +72,7 @@ final public class Emitter {
   
 
   /** maps actions to their switch label */
-  private Hashtable actionTable = new Hashtable();
+  private Hashtable<Action, Integer> actionTable = new Hashtable<Action, Integer>();
 
   private CharClassInterval [] intervalls;
 
@@ -433,10 +433,10 @@ final public class Emitter {
 
 
   private void emitLexicalStates() {
-    Enumeration stateNames = scanner.states.names();
+    Enumeration<String> stateNames = scanner.states.names();
     
     while ( stateNames.hasMoreElements() ) {
-      String name = (String) stateNames.nextElement();
+      String name = stateNames.nextElement();
       
       int num = scanner.states.getNumber(name).intValue();
 
@@ -1112,7 +1112,7 @@ final public class Emitter {
       int newVal; 
       if ( dfa.isFinal[i] ) {
         Action action = dfa.action[i];
-        Integer stored = (Integer) actionTable.get(action);
+        Integer stored = actionTable.get(action);
         if ( stored == null ) { 
           stored = new Integer(lastAction++);
           actionTable.put(action, stored);
@@ -1143,10 +1143,10 @@ final public class Emitter {
     println("      switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
 
     int i = actionTable.size()+1;  
-    Enumeration actions = actionTable.keys();
+    Enumeration<Action> actions = actionTable.keys();
     while ( actions.hasMoreElements() ) {
-      Action action = (Action) actions.nextElement();
-      int label = ((Integer) actionTable.get(action)).intValue();
+      Action action = actions.nextElement();
+      int label = actionTable.get(action).intValue();
 
       println("        case "+label+": "); 
       
@@ -1177,17 +1177,17 @@ final public class Emitter {
     if ( eofActions.numActions() > 0 ) {
       println("            switch (zzLexicalState) {");
       
-      Enumeration stateNames = scanner.states.names();
+      Enumeration<String> stateNames = scanner.states.names();
 
       // record lex states already emitted:
-      Hashtable used = new Hashtable();
+      Hashtable<Integer, String> used = new Hashtable<Integer, String>();
 
       // pick a start value for break case labels. 
       // must be larger than any value of a lex state:
       int last = dfa.numStates;
       
       while ( stateNames.hasMoreElements() ) {
-        String name = (String) stateNames.nextElement();
+        String name = stateNames.nextElement();
         int num = scanner.states.getNumber(name).intValue();
         Action action = eofActions.getAction(num);
 

@@ -519,9 +519,9 @@ class CUP$LexParse$actions {
     }
   }
   
-  private Vector makePreClass(int type) {
+  private Vector<Interval> makePreClass(int type) {
     
-    Vector result = new Vector();
+    Vector<Interval> result = new Vector<Interval>();
     
     char c = 0;
     char start = 0;
@@ -590,7 +590,7 @@ class CUP$LexParse$actions {
   }
 
   private RegExp makeNL() {
-    Vector list = new Vector();
+    Vector<Interval> list = new Vector<Interval>();
     list.addElement(new Interval('\n','\r'));
     list.addElement(new Interval('\u0085','\u0085'));
     list.addElement(new Interval('\u2028','\u2029'));
@@ -748,12 +748,12 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 62: // classcontent ::= STRING 
             {
-              Vector RESULT = null;
+              Vector<Interval> RESULT = null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		String s = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		 
-                      RESULT = new Vector();
+                      RESULT = new Vector<Interval>();
                       for (int i = 0; i < s.length(); i++)
                         RESULT.addElement(new Interval(s.charAt(i),s.charAt(i)));
                    
@@ -764,10 +764,10 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 61: // classcontent ::= classcontent STRING 
             {
-              Vector RESULT = null;
+              Vector<Interval> RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int sleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		String s = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -814,12 +814,12 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 58: // classcontent ::= classcontentelem 
             {
-              Vector RESULT = null;
+              Vector<Interval> RESULT = null;
 		int elemleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int elemright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Interval elem = (Interval)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		
-                     Vector list = new Vector();
+                     Vector<Interval> list = new Vector<Interval>();
                      list.addElement(elem);
                      RESULT = list;
                    
@@ -830,10 +830,10 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 57: // classcontent ::= classcontent classcontentelem 
             {
-              Vector RESULT = null;
+              Vector<Interval> RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int elemleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int elemright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Interval elem = (Interval)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -851,7 +851,7 @@ class CUP$LexParse$actions {
               RegExp RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int closeleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int closeright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Object close = (Object)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -875,7 +875,7 @@ class CUP$LexParse$actions {
               RegExp RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int closeleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int closeright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Object close = (Object)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -899,7 +899,7 @@ class CUP$LexParse$actions {
               RegExp RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int closeleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int closeright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Object close = (Object)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -924,7 +924,7 @@ class CUP$LexParse$actions {
 		int closeright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Object close = (Object)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		 
-                     Vector list = new Vector();
+                     Vector<Interval> list = new Vector<Interval>();
                      list.addElement(new Interval((char)0,CharClasses.maxChar));
                      try {
                        charClasses.makeClass(list, false);
@@ -944,7 +944,7 @@ class CUP$LexParse$actions {
               RegExp RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int closeleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int closeright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Object close = (Object)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -1003,7 +1003,7 @@ class CUP$LexParse$actions {
             {
               RegExp RESULT = null;
 		 
-                      Vector any = new Vector();
+                      Vector<Interval> any = new Vector<Interval>();
                       any.addElement(new Interval('\n','\n'));
                       // assumption: there is no upper case for \n
                       charClasses.makeClass('\n', false);
@@ -1046,7 +1046,7 @@ class CUP$LexParse$actions {
               RegExp RESULT = null;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
+		Vector<Interval> list = (Vector<Interval>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		
                      try {
                        // assumption [correct?]: preclasses are already closed under case
@@ -1313,12 +1313,12 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // states ::= IDENT 
             {
-              Vector RESULT = null;
+              Vector<Integer> RESULT = null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		
-                     Vector list = new Vector();
+                     Vector<Integer> list = new Vector<Integer>();
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
                        list.addElement( stateNumber ); 
@@ -1335,13 +1335,13 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // states ::= IDENT COMMA states 
             {
-              Vector RESULT = null;
+              Vector<Integer> RESULT = null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).value;
 		int listleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int listright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
-		Vector list = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
+		Vector<Integer> list = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
 		
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
@@ -1527,11 +1527,11 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // rules ::= rule 
             {
-              Vector RESULT = null;
+              Vector<Integer> RESULT = null;
 		int rleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Integer r = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
-		 RESULT = new Vector(); RESULT.addElement(r); 
+		 RESULT = new Vector<Integer>(); RESULT.addElement(r); 
               CUP$LexParse$result = new java_cup.runtime.Symbol(16/*rules*/, ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left, ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right, RESULT);
             }
           return CUP$LexParse$result;
@@ -1561,10 +1561,10 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // rules ::= rules LESSTHAN states MORETHAN LBRACE rules RBRACE 
             {
-              Vector RESULT = null;
+              Vector<Integer> RESULT = null;
 		int rlist1left = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-6)).left;
 		int rlist1right = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-6)).right;
-		Vector rlist1 = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-6)).value;
+		Vector<Integer> rlist1 = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-6)).value;
 		int statesleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).left;
 		int statesright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).right;
 		Vector states = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
@@ -1587,10 +1587,10 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // rules ::= rules rule 
             {
-              Vector RESULT = null;
+              Vector<Integer> RESULT = null;
 		int rlistleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int rlistright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
-		Vector rlist = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
+		Vector<Integer> rlist = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
 		int rleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int rright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Integer r = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;

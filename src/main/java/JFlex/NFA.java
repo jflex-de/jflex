@@ -372,8 +372,8 @@ final public class NFA {
    */
   public DFA getDFA() {
 
-    Hashtable dfaStates = new Hashtable(numStates);
-    Vector dfaVector    = new Vector(numStates);
+    Hashtable<StateSet, Integer> dfaStates = new Hashtable<StateSet, Integer>(numStates);
+    Vector<StateSet> dfaVector    = new Vector<StateSet>(numStates);
 
     DFA dfa = new DFA(2*numLexStates, numInput);
 
@@ -636,8 +636,8 @@ final public class NFA {
     // fixme: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
     
-    Hashtable dfaStates = new Hashtable(numStates);
-    Vector dfaVector    = new Vector(numStates);
+    Hashtable<StateSet, Integer> dfaStates = new Hashtable<StateSet, Integer>(numStates);
+    Vector<StateSet> dfaVector    = new Vector<StateSet>(numStates);
 
     int numDFAStates = 0;
     int currentDFAState = 0;
