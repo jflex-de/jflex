@@ -29,7 +29,12 @@ package JFlex;
  */
 public class GeneratorException extends RuntimeException {
 
-  public GeneratorException() {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6110990027632612862L;
+
+public GeneratorException() {
     super("Generation aborted");
   }
 

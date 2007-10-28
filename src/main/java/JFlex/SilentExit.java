@@ -28,4 +28,9 @@ package JFlex;
  */
 public class SilentExit extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4028726181154179621L;
+
 }
