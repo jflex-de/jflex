@@ -55,7 +55,7 @@ public class SkeletonTest extends TestCase {
   }
 
   public void testDefault() {
-    Skeleton.readSkelFile(new File("src/skeleton.nested"));
+    Skeleton.readSkelFile(new File("src/test/resources/skeleton.nested"));
     assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
     Skeleton.readDefault();
     assertEquals(JFlex.Skeleton.line[3].indexOf("java.util.Stack"), -1);

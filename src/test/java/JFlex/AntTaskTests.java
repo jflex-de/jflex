@@ -36,6 +36,8 @@ import junit.framework.TestCase;
 public class AntTaskTests extends TestCase {
 
   private JFlexTask task;
+  private final String DIR_RESOURCES="src/test/resources";
+  private final String FILE_LEXSCAN="/JFlex/LexScan.flex";
 
   /**
    * Constructor for AntTaskTests.
@@ -56,7 +58,7 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testPackageAndClass() throws IOException {
-    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     task.findPackageAndClass();
     assertEquals(task.getPackage(), "JFlex");
     assertEquals(task.getClassName(), "LexScan");
@@ -70,7 +72,7 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testDestdir() throws IOException {
-    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     File dir = new File("src");
     task.setDestdir(dir);
     task.findPackageAndClass();
@@ -80,7 +82,7 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testOutdir() throws IOException {
-    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     File dir = new File("src");
     task.setOutdir(dir);
     task.findPackageAndClass();
@@ -90,11 +92,11 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testDefaultDir() throws IOException {
-    task.setFile(new File("src/JFlex/LexScan.flex"));
+    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic 
-    assertEquals(Options.getDir(), new File("src/JFlex"));
+    assertEquals(Options.getDir(), new File(DIR_RESOURCES+"/JFlex"));
   }
 
   public void testNomin() {
@@ -126,7 +128,7 @@ public class AntTaskTests extends TestCase {
 
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
-    task.setSkeleton(new File("src/skeleton.nested"));
+    task.setSkeleton(new File(DIR_RESOURCES+"/skeleton.nested"));
     assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
   
