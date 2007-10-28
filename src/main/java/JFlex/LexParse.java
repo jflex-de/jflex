@@ -620,7 +620,10 @@ class CUP$LexParse$actions {
   }
 
   /** Method with the actual generated action code. */
-  public final java_cup.runtime.Symbol CUP$LexParse$do_action(
+  //TODO The local variables is never read?!?
+  //TODO Parametrize type of generic Vector.
+  @SuppressWarnings("unchecked")
+public final java_cup.runtime.Symbol CUP$LexParse$do_action(
     int                        CUP$LexParse$act_num,
     java_cup.runtime.lr_parser CUP$LexParse$parser,
     java.util.Stack            CUP$LexParse$stack,
@@ -1446,7 +1449,7 @@ class CUP$LexParse$actions {
               Integer RESULT = null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).right;
-		Vector s = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).value;
+		Vector<Integer> s = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).right;
 		Action a = (Action)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-0)).value;
@@ -1485,7 +1488,7 @@ class CUP$LexParse$actions {
               Integer RESULT = null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).right;
-		Vector s = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
+		Vector<Integer> s = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
 		int bolleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).left;
 		int bolright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).right;
 		Boolean bol = (Boolean)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).value;
@@ -1509,7 +1512,7 @@ class CUP$LexParse$actions {
               Integer RESULT = null;
 		int sleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).right;
-		Vector s = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).value;
+		Vector<Integer> s = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)).value;
 		int bolleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).left;
 		int bolright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).right;
 		Boolean bol = (Boolean)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-2)).value;
@@ -1542,7 +1545,7 @@ class CUP$LexParse$actions {
               Vector RESULT = null;
 		int statesleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).left;
 		int statesright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).right;
-		Vector states = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
+		Vector<Integer> states = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
 		int rlistleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int rlistright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
 		Vector rlist = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;
@@ -1567,7 +1570,7 @@ class CUP$LexParse$actions {
 		Vector<Integer> rlist1 = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-6)).value;
 		int statesleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).left;
 		int statesright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).right;
-		Vector states = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
+		Vector<Integer> states = (Vector<Integer>)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-4)).value;
 		int rlist2left = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).left;
 		int rlist2right = ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).right;
 		Vector rlist2 = (Vector)((java_cup.runtime.Symbol) CUP$LexParse$stack.elementAt(CUP$LexParse$top-1)).value;

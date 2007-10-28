@@ -1470,7 +1470,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
 
 
   /** the stack of open (nested) input streams to read from */
-  private java.util.Stack zzStreams = new java.util.Stack();
+  private java.util.Stack<ZzFlexStreamInfo> zzStreams = new java.util.Stack<ZzFlexStreamInfo>();
 
   /**
    * inner class used to store info for nested
@@ -1515,7 +1515,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
   int bufferSize = 16384;
 
   File file;
-  Stack files = new Stack();
+  Stack<File> files = new Stack<File>();
 
   StringBuffer userCode   = new StringBuffer();
   
@@ -1563,7 +1563,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
     
   LexicalStates states = new LexicalStates();
 
-  Vector actions = new Vector();
+  Vector<Action> actions = new Vector<Action>();
   
   private int nextState;
 

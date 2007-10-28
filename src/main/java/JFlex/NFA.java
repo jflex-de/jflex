@@ -820,7 +820,7 @@ final public class NFA {
       return;
             
     case sym.CCLASS:
-      insertClassNFA( (Vector) ((RegExp1) regExp).content, start, end);
+      insertClassNFA( (Vector<Interval>) ((RegExp1) regExp).content, start, end);
       return;
       
     case sym.CCLASSNOT:

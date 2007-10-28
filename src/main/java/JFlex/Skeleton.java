@@ -135,7 +135,7 @@ public class Skeleton {
    * @throws GeneratorException if the number of skeleton sections does not match 
    */
   public static void readSkel(BufferedReader reader) throws IOException {
-    Vector lines = new Vector();
+    Vector<String> lines = new Vector<String>();
     StringBuffer section = new StringBuffer();
 
     String ln;

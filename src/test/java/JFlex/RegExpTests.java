@@ -20,7 +20,6 @@
 
 package JFlex;
 
-import JFlex.*;
 import junit.framework.TestCase;
 
 /**
