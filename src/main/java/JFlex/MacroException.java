@@ -31,6 +31,12 @@ package JFlex;
 public class MacroException extends RuntimeException {
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8883564496579458046L;
+
+
+/**
    * Creates a new MacroException without message
    */
   public MacroException() {
