@@ -123,7 +123,7 @@
 		<site>
 			<id>sourceforge_jflex</id>
 			<name>JFlex sourceforge site</name>
-			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htocs/maven-jflex-plugin</url>
+			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin</url>
 		</site>
 	</distributionManagement>
 	<profiles>
