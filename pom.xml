@@ -12,6 +12,7 @@
 		This is a Maven 2 plugin to generate a parser in Java code from
 		a Lexer definition, using Jflex.de.
 	</description>
+	<url>http://jflex.de/maven-jflex-plugin/</url>
 	<prerequisites />
 	<inceptionYear>2007</inceptionYear>
 	<developers>
@@ -116,13 +117,13 @@
 			<id>sourceforge_jflex</id>
 			<name>JFlex sourceforge repository</name>			
 			<url>
-				scp://shell.sf.net/home/groups/j/jf/jflex/repo
+				scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
 			</url>
 		</repository>
 		<site>
 			<id>sourceforge_jflex</id>
 			<name>JFlex sourceforge site</name>
-			<url>scp://shell.sf.net/home/groups/j/jf/jflex/maven-jflex-plugin</url>
+			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htocs/maven-jflex-plugin</url>
 		</site>
 	</distributionManagement>
 	<profiles>
