@@ -18,46 +18,41 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.tests;
+package JFlex;
 
-
-import java.io.File;
-
-import JFlex.Skeleton;
+import JFlex.*;
 import junit.framework.TestCase;
 
 /**
- * SkeletonTest
+ * Unit tests for JFlex.RegExp 
  * 
  * @author Gerwin Klein
  * @version $Revision$, $Date$
  */
-public class SkeletonTest extends TestCase {
-
+public class RegExpTests extends TestCase implements sym {
+  
   /**
-   * Constructor for SkeletonTest.
-   * @param arg0 test name
+   * Constructor for RegExpTests.
+   * 
+   * @param name the test name
    */
-  public SkeletonTest(String arg0) {
-    super(arg0);
+  public RegExpTests(String name) {
+    super(name);
   }
 
-  public void testReplace() {
-    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), 
-                 "blubblub blub");
-  }
-
-  public void testMakePrivate() {
-    Skeleton.makePrivate(); 
-    for (int i=0; i < Skeleton.line.length; i++) {
-      assertEquals(Skeleton.line[i].indexOf("public"), -1);
-    }
-  }
-
-  public void testDefault() {
-    Skeleton.readSkelFile(new File("src/skeleton.nested"));
-    assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
-    Skeleton.readDefault();
-    assertEquals(JFlex.Skeleton.line[3].indexOf("java.util.Stack"), -1);
+  public void testCharClass() {
+    Macros m = new Macros();    
+    RegExp e1 = new RegExp1(CCLASS, new Interval('a','z'));
+    RegExp e2 = new RegExp1(CHAR, new Character('Z'));
+    RegExp e3 = new RegExp1(CCLASS, new Interval('0','9'));
+    m.insert("macro", e3);
+    RegExp s = new RegExp1(STAR, e1);
+    RegExp u = new RegExp1(MACROUSE, "macro");    
+    RegExp b = new RegExp2(BAR, e2, u);
+    assertTrue(e1.isCharClass(m));
+    assertTrue(e2.isCharClass(m));
+    assertTrue(b.isCharClass(m));
+    assertTrue(!s.isCharClass(m));
+    assertTrue(u.isCharClass(m));
   }
 }

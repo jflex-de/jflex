@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
+ * jflex                                                         *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,41 +18,63 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.tests;
+package JFlex;
 
-import JFlex.*;
 import junit.framework.TestCase;
+import JFlex.Out;
+import JFlex.PackEmitter;
 
 /**
- * Unit tests for JFlex.RegExp 
+ * PackEmitterTest
  * 
  * @author Gerwin Klein
  * @version $Revision$, $Date$
  */
-public class RegExpTests extends TestCase implements sym {
-  
+public class PackEmitterTest extends TestCase {
+
+  private PackEmitter p;
+
+
   /**
-   * Constructor for RegExpTests.
-   * 
-   * @param name the test name
+   * Constructor for PackEmitterTest.
    */
-  public RegExpTests(String name) {
-    super(name);
+  public PackEmitterTest() {
+    super("PackEmitter test");
   }
 
-  public void testCharClass() {
-    Macros m = new Macros();    
-    RegExp e1 = new RegExp1(CCLASS, new Interval('a','z'));
-    RegExp e2 = new RegExp1(CHAR, new Character('Z'));
-    RegExp e3 = new RegExp1(CCLASS, new Interval('0','9'));
-    m.insert("macro", e3);
-    RegExp s = new RegExp1(STAR, e1);
-    RegExp u = new RegExp1(MACROUSE, "macro");    
-    RegExp b = new RegExp2(BAR, e2, u);
-    assertTrue(e1.isCharClass(m));
-    assertTrue(e2.isCharClass(m));
-    assertTrue(b.isCharClass(m));
-    assertTrue(!s.isCharClass(m));
-    assertTrue(u.isCharClass(m));
+  public void setUp() {
+    p = new PackEmitter("Bla") {
+          public void emitUnpack() { }
+    };
+  }
+
+  public void testInit() {
+    p.emitInit();
+    assertEquals(
+      "  private static final int [] ZZ_BLA = zzUnpackBla();" + Out.NL +
+      Out.NL +
+      "  private static final String ZZ_BLA_PACKED_0 =" + Out.NL +
+      "    \"", 
+      p.toString());
+  }
+
+  public void testEmitUCplain() {    
+    p.emitUC(8);
+    p.emitUC(0xFF00);
+    
+    assertEquals("\\10\\uff00", p.toString());
+  }
+  
+  public void testLineBreak() {
+    for (int i = 0; i < 36; i++) {
+      p.breaks();
+      p.emitUC(i);
+    }
+    System.out.println(p);
+    assertEquals(
+            "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"+Out.NL+
+      "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"+Out.NL+
+      "    \"\\40\\41\\42\\43",
+      p.toString());
   }
 }

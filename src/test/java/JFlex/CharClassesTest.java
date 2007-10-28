@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.tests;
+package JFlex;
 
 import JFlex.IntCharSet;
 import JFlex.Interval;
