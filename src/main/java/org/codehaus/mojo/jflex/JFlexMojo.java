@@ -39,7 +39,8 @@ import JFlex.Main;
 import JFlex.Options;
 
 /**
- * Generates lexical scanners from one or more JFlex grammer files.
+ * Generates lexical scanners from one or more <a href="http://jflex.de/">JFlex</a>
+ * grammer files.
  * 
  * @goal generate
  * @phase generate-sources
@@ -65,11 +66,9 @@ public class JFlexMojo extends AbstractMojo {
 	// is kept raw.
 	/**
 	 * List of grammar definitions to run the JFlex parser generator on.
-	 * <p> 
 	 * Each path may either specify a single grammar file or a directory.
 	 * Directories will be recursively scanned for files with one of the
 	 * following extensions: ".jflex", ".flex", ".jlex" or ".lex".
-	 * <p>
 	 * By default, all files in <code>src/main/jflex</code> will be
 	 * processed.
 	 * 
@@ -117,7 +116,8 @@ public class JFlexMojo extends AbstractMojo {
 	/**
 	 * The generation method to use for the scanner. Valid values are
 	 * <code>switch</code>, <code>table</code> and <code>pack</code>.
-	 * Please see the JFlex manual for more details about the various methods.
+	 * Please see the <a href="http://jflex.de/manual.html#CodeGeneration">JFlex
+	 * manual</a> for more details about the various methods.
 	 * 
 	 * @parameter default-value="pack"
 	 */
