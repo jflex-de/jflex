@@ -32,13 +32,17 @@ import java.util.*;
  */
 public class GridPanel extends Panel implements Handles {
 
-  private int cols;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4621489169411507065L;
+private int cols;
   private int rows;
 
   private int hgap;
   private int vgap;
  
-  private Vector constraints = new Vector();
+  private Vector<GridPanelConstraint> constraints = new Vector<GridPanelConstraint>();
   private Insets insets = new Insets(0,0,0,0);
 
   public GridPanel(int cols, int rows) {

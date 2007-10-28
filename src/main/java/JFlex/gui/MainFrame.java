@@ -35,7 +35,12 @@ import java.awt.event.*;
  */
 final public class MainFrame extends Frame implements Handles {
 
-  private volatile boolean choosing;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+private volatile boolean choosing;
 
   private String fileName = "";
   private String dirName = "";
