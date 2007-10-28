@@ -200,7 +200,7 @@ public class OptionsDialog extends Dialog {
   
   private void skelBrowse() {
     FileDialog d = new FileDialog(owner , "Choose file", FileDialog.LOAD);
-    d.show();
+    d.setVisible(true);
     
     if (d.getFile() != null) {
       File skel = new File(d.getDirectory()+d.getFile());
@@ -253,7 +253,7 @@ public class OptionsDialog extends Dialog {
   }
 
   public void close() {
-    hide();
+    setVisible(false);
   }
 
 }

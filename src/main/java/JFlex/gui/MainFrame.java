@@ -68,7 +68,7 @@ final public class MainFrame extends Frame implements Handles {
     });
     
     pack();
-    show();
+    setVisible(true);
   }
 
 
@@ -186,7 +186,7 @@ final public class MainFrame extends Frame implements Handles {
     if (dialog == null) {
       dialog = new OptionsDialog(this);
     }
-    dialog.show();
+    dialog.setVisible(true);
   }
 
 
@@ -227,7 +227,7 @@ final public class MainFrame extends Frame implements Handles {
 
   private void stop() {
     if (thread != null) {
-    	/* stop ok here despite deprecation (?)
+    	/* FIXME stop is deprecated
     	   I don't know any good way to abort generation without changing the
      		 generator code */ 
       thread.stop();
@@ -246,7 +246,7 @@ final public class MainFrame extends Frame implements Handles {
     
     FileDialog d = new FileDialog(this, "Choose directory", FileDialog.LOAD);
     
-    d.show();
+    d.setVisible(true);
     
     if (d.getDirectory() != null) {
       dir.setText( (new File(d.getDirectory())).getAbsolutePath() );
@@ -261,7 +261,7 @@ final public class MainFrame extends Frame implements Handles {
     FileDialog d = new FileDialog(this, "Choose file", FileDialog.LOAD);
     
     d.setFile("*.flex");
-    d.show();
+    d.setVisible(true);
     
     if (d.getFile() != null) {
       fileName = d.getDirectory()+d.getFile();
