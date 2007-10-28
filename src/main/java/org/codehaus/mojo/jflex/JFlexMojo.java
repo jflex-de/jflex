@@ -147,9 +147,11 @@ public class JFlexMojo extends AbstractMojo {
 	 */
 	@SuppressWarnings("unchecked")
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		this.outputDirectory = getAbsolutePath(this.outputDirectory);
+
 		// compiling the generated source in target/generated-sources/ is
 		// the whole point of this plugin compared to running the ant plugin
-		project.addCompileSourceRoot(outputDirectory.getAbsolutePath());
+		project.addCompileSourceRoot(outputDirectory.getPath());
 
 		List<File> filesIt;
 		if (lexDefinitions != null) {
@@ -162,8 +164,8 @@ public class JFlexMojo extends AbstractMojo {
 			// use default lexfiles if none provided
 			log.debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
 			filesIt = new ArrayList<File>();
-			File defaultDir = new File(SRC_MAIN_JFLEX);
-			if (defaultDir.exists() && defaultDir.isDirectory()) {
+			File defaultDir = getAbsolutePath(new File(SRC_MAIN_JFLEX));
+			if (defaultDir.isDirectory()) {
 				filesIt.add(defaultDir);
 			}
 		}
@@ -171,6 +173,7 @@ public class JFlexMojo extends AbstractMojo {
 		Iterator<File> fileIterator = filesIt.iterator();
 		while (fileIterator.hasNext()) {
 			File lexDefinition = fileIterator.next();
+			lexDefinition = getAbsolutePath(lexDefinition);
 
 			parseLexDefinition(lexDefinition);
 		}
@@ -191,12 +194,13 @@ public class JFlexMojo extends AbstractMojo {
 	@SuppressWarnings("unchecked")
 	private void parseLexDefinition(File lexDefinition)
 			throws MojoFailureException, MojoExecutionException {
+		assert lexDefinition.isAbsolute() : lexDefinition;
 
 		if (lexDefinition.isDirectory()) {
 			// recursively process files contained within
 			String[] extensions = { "jflex", "jlex", "lex", "flex" };
 			log.debug("Processing lexer files found in "
-					+ lexDefinition.getAbsolutePath());
+					+ lexDefinition);
 			Iterator<File> fileIterator = FileUtils.iterateFiles(lexDefinition,
 					extensions, true);
 			while (fileIterator.hasNext()) {
@@ -210,6 +214,8 @@ public class JFlexMojo extends AbstractMojo {
 
 	private void parseLexFile(File lexFile) throws MojoFailureException,
 			MojoExecutionException {
+		assert lexFile.isAbsolute() : lexFile;
+
 		log.debug("Generationg Java code from " + lexFile.getName());
 		ClassInfo classInfo = null;
 		try {
@@ -283,27 +289,29 @@ public class JFlexMojo extends AbstractMojo {
 			throw new MojoExecutionException(
 					"<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
 		}
-		if (!lexFile.exists()) {
+		assert lexFile.isAbsolute() : lexFile;
+		if (!lexFile.isFile()) {
 			throw new MojoExecutionException("Input file does not exist: "
-					+ lexFile.getAbsolutePath());
+					+ lexFile);
 		}
 	}
 
-	public File getOutputDirectory() {
-		return outputDirectory;
-	}
-
-	public void setOutputDirectory(File outputDirectory) {
-		this.outputDirectory = outputDirectory;
-	}
-
-	public void setLexFiles(File[] lexFiles) {
-		this.lexDefinitions = lexFiles;
-
-	}
-
-	protected void setProject(MavenProject project) {
-		this.project = project;
+	/**
+	 * Converts the specified path argument into an absolute path. If the path
+	 * is relative like "src/main/jflex", it is resolved against the base
+	 * directory of the project (in constrast, File.getAbsoluteFile() would
+	 * resolve against the current directory which may be different, especially
+	 * during a reactor build).
+	 * 
+	 * @param path
+	 *            The path argument to convert, may be {@code null}.
+	 * @return The absolute path corresponding to the input argument.
+	 */
+	protected File getAbsolutePath(File path) {
+		if (path == null || path.isAbsolute()) {
+			return path;
+		}
+		return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
 	}
 
 }
