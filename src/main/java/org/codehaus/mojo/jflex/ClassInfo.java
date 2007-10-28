@@ -7,20 +7,22 @@ public class ClassInfo {
 	public String packageName = null;
 
 	/**
-	 * Return the name of the java source code file that corresponds to the
+	 * Return the (relative) path name of the java source code file that corresponds to the
 	 * class.
 	 * 
-	 * For instance, "org.foo.Bar" returns "/org/foo/Bar.java"
+	 * For instance, "org.foo.Bar" returns "org/foo/Bar.java"
 	 * 
 	 * @return Name of the java file.
 	 */
 	public String getOutputFilename() {
-		String pacakgenameDir = File.separator;
+		String packageDir = "";
 		if (packageName != null) {
-			pacakgenameDir += packageName.replace('.', File.separatorChar)
-					+ File.separator;
+			packageDir += packageName.replace('.', File.separatorChar);
 		}
-		return pacakgenameDir + className + ".java";
+		if (packageDir.length() > 0) {
+			packageDir += File.separatorChar;
+		}
+		return packageDir + className + ".java";
 	}
 
 }

@@ -28,6 +28,8 @@ public class LexSimpleAnalyzer {
 	 */
 	protected static ClassInfo guessPackageAndClass(File lexFile)
 			throws FileNotFoundException, IOException {
+		assert lexFile.isAbsolute() : lexFile;
+
 		LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));
 
 		ClassInfo classInfo = new ClassInfo();
