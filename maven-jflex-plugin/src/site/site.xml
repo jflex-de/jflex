@@ -1,24 +1,10 @@
-<project name="JFlex Maven Plugin">
-  <bannerLeft>
-    <name>Mojo</name>
-    <src>http://mojo.codehaus.org/images/mojo_logo.png</src>
-    <href>http://mojo.codehaus.org</href>
-  </bannerLeft>
-  <bannerRight>
-    <name>Codehaus</name>
-    <src>http://mojo.codehaus.org/images/codehaus-small.png</src>
-    <href>http://www.codehaus.org</href>
-  </bannerRight>
-  <body>
-    <links>
-      <item name="Mojo" href="http://mojo.codehaus.org"/>
-      <item name="Maven" href="http://maven.apache.org/"/>
-    </links>
-    <menu name="Overview">
-      <item name="Introduction" href="index.html"/>
-      <item name="Goals" href="plugin-info.html"/>
-      <item name="Usage" href="usage.html"/>
-    </menu>
-    <menu ref="reports" />
-  </body>
+<project>
+	<body>
+		<menu name="Overview" href="index.html" >
+			<item name="Summary" href="project-summary.html" />
+			<item name="Usage" href="usage.html" />
+			<item name="Goals" href="plugin-info.html" />
+		</menu>
+		<menu ref="reports" />
+	</body>
 </project>
