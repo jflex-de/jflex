@@ -124,10 +124,12 @@ Usage
 * Even more complex configuration, using several executions
 
 	This generates the source for 
+	
 	* all files found in 
 	<<<src/main/lex/>>>, using strict JLex compatibility.
+	
 	* and all files found in 
-	 <<</src/main/jflx>>>) in verbose mode.
+	 <<</src/main/jflx>>>, in verbose mode.
 
   in <<pom.xml>>
 
