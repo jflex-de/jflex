@@ -3,8 +3,9 @@
  ------
  Régis Décamps <decamps@users.sf.net>
  ------
- July 28, 2007
+ October 28, 2007
  ------
+ 
 
 About this document
 	
@@ -16,6 +17,23 @@ About this document
 	This document isn't intended to be a tutorial on the use of JFlex,
 	you should consult the {{{http://www.jflex.de/manual.html}JFlex user manual}}	
 
+Repository declaration
+
+    The maven-jflex-plugin is not published on repo1.maven.org.
+    
+    You need to define the JFlex repository,
+    either in {{{http://maven.apache.org/pom.html#Repositories}your POM}}
+    or in {{{http://maven.apache.org/settings.html#Repositories}your settings.xml}}
+    
++-------------
+   <repositories>
+    <repository>
+      <id>jflex</id>
+      <name>JFlex repository</name>
+      <url>http://jflex.sourceforge.net/repo/</url>
+    </repository>
+  </repositories>
++-------------
 
 Usage
 	
@@ -26,7 +44,7 @@ Usage
 	generates a corresponding Java parser 
 	(in <<<target/generated-source/jflex>>> by default).
 
-	
+
 * Minimal configuration		
 
 
@@ -49,7 +67,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.1</version>
+        <version>0.2</version>
         <executions>
           <execution>
             <goals>
@@ -80,7 +98,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.1</version>
+        <version>0.2</version>
         <executions>
           <execution>
             <goals>
@@ -117,7 +135,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.1</version>
+        <version>0.2</version>
         <executions>
           <execution>
             <id>strict jlex</id>
