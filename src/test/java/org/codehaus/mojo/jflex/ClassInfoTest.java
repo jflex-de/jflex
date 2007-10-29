@@ -12,7 +12,7 @@ public class ClassInfoTest extends TestCase {
 		ClassInfo classe=new ClassInfo();
 		classe.className="Bar";
 		classe.packageName="org.foo";
-		assertEquals(new File("/org/foo/Bar.java"), new File(classe.getOutputFilename()));
+		assertEquals(new File("org/foo/Bar.java"), new File(classe.getOutputFilename()));
 	}
 
 }
