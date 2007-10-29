@@ -13,6 +13,22 @@
 		a Lexer definition, using Jflex.de.
 	</description>
 	<url>http://jflex.sourceforge.net/maven-jflex-plugin/</url>
+	<mailingLists>
+		<mailingList>
+			<name>JFlex User List</name>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</unsubscribe>
+			<post>jflex-users@lists.sourceforge.net</post>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-users</archive>
+		</mailingList>
+		<mailingList>
+			<name>JFlex Announcement List</name>
+			<subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</unsubscribe>
+			<post>jflex-announce@lists.sourceforge.net</post>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-announce</archive>
+		</mailingList>
+	</mailingLists>
 	<prerequisites />
 	<inceptionYear>2007</inceptionYear>
 	<developers>
