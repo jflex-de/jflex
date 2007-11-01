@@ -143,7 +143,7 @@
 				<configuration>
 					<targetjdk>1.4</targetjdk>
 					<rulesets>
-						<ruleset>${basedir}/pmd.xml</ruleset>
+						<ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
 					</rulesets>
 					<format>xml</format>
 					<linkXref>true</linkXref>
