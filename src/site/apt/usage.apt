@@ -26,13 +26,13 @@ Repository declaration
     or in {{{http://maven.apache.org/settings.html#Repositories}your settings.xml}}
     
 +-------------
-   <repositories>
-    <repository>
+   <pluginRepositories>
+    <pluginRepository>
       <id>jflex</id>
       <name>JFlex repository</name>
       <url>http://jflex.sourceforge.net/repo/</url>
-    </repository>
-  </repositories>
+    </pluginRepository>
+  </pluginRepositories>
 +-------------
 
 Usage
