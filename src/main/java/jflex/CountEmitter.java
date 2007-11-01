@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
 /**
  * An emitter for an array encoded as count/value pairs in a string.
@@ -46,7 +46,7 @@ public class CountEmitter extends PackEmitter {
   /**
    * Emits count/value unpacking code for the generated array. 
    * 
-   * @see JFlex.PackEmitter#emitUnPack()
+   * @see jflex.PackEmitter#emitUnPack()
    */
   public void emitUnpack() {
     // close last string chunk:

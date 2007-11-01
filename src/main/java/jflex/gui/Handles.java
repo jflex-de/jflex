@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.gui;
+package jflex.gui;
 
 /**
  * Constants used for GridLayout

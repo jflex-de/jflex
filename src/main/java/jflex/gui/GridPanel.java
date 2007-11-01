@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.gui;
+package jflex.gui;
 
 import java.awt.*;
 import java.util.*;

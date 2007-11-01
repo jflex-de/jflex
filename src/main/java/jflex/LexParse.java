@@ -4,7 +4,7 @@
 // Tue Sep 06 20:15:12 GMT+10:00 2005
 //----------------------------------------------------
 
-package JFlex;
+package jflex;
 
 import java.util.*;
 

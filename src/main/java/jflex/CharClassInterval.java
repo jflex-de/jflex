@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
 /**
  * Stores an interval of characters together with the character class

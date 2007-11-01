@@ -18,11 +18,12 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.gui;
+package jflex.gui;
 
-import JFlex.*;
 
 import java.io.File;
+
+import jflex.*;
 
 
 /**

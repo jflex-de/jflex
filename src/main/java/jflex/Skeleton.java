@@ -17,7 +17,7 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package JFlex;
+package jflex;
 
 import java.io.*;
 import java.net.URL;
@@ -35,7 +35,7 @@ import java.util.Vector;
  * part to this class. The iterator part is used to emit consecutive skeleton
  * sections to some <code>PrintWriter</code>. 
  *
- * @see JFlex.Emitter
+ * @see jflex.Emitter
  *
  * @author Gerwin Klein
  * @version JFlex 1.4.1, $Revision$, $Date$

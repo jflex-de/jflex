@@ -19,15 +19,16 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex.anttask;
+package jflex.anttask;
 
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
 
-import JFlex.Main;
-import JFlex.Options;
 
 import java.io.*;
+
+import jflex.Main;
+import jflex.Options;
 
 /**
  * JFlex task class
@@ -75,7 +76,7 @@ public class JFlexTask extends Task {
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
       }
-    } catch (JFlex.GeneratorException e) {
+    } catch (jflex.GeneratorException e) {
       throw new BuildException("JFlex: generation failed!");
     }
   }
@@ -157,7 +158,7 @@ public class JFlexTask extends Task {
 	/**
 	 * @return package name of input file
 	 * 
-	 * @see JFlexTask.findPackageAndClass
+	 * @see jflex.findPackageAndClass
 	 */
 	public String getPackage() {
 		return packageName;
@@ -166,7 +167,7 @@ public class JFlexTask extends Task {
 	/**
 	 * @return class name of input file
 	 * 
-	 * @see JFlexTask.findPackageAndClass
+	 * @see jflex.findPackageAndClass
 	 */
 	public String getClassName() {
 		return className;

@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
 
 /**
@@ -43,7 +43,7 @@ public class RegExp {
    *
    * @param type   a value from the cup generated class sym.
    *
-   * @see JFlex.sym
+   * @see jflex.sym
    */
   public RegExp(int type) {
     this.type = type;    

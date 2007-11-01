@@ -18,46 +18,33 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
-
-import java.io.File;
-
-import JFlex.Skeleton;
+import jflex.Emitter;
 import junit.framework.TestCase;
 
 /**
- * SkeletonTest
+ * Some unit tests for the jflex Emitter class
  * 
  * @author Gerwin Klein
  * @version $Revision$, $Date$
  */
-public class SkeletonTest extends TestCase {
+public class EmitterTest extends TestCase {
 
   /**
-   * Constructor for SkeletonTest.
-   * @param arg0 test name
+   * Constructor for EmitterTest.
+   * @param name  the test name
    */
-  public SkeletonTest(String arg0) {
-    super(arg0);
+  public EmitterTest(String name) {
+    super(name);
   }
 
-  public void testReplace() {
-    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), 
-                 "blubblub blub");
-  }
-
-  public void testMakePrivate() {
-    Skeleton.makePrivate(); 
-    for (int i=0; i < Skeleton.line.length; i++) {
-      assertEquals(Skeleton.line[i].indexOf("public"), -1);
-    }
-  }
-
-  public void testDefault() {
-    Skeleton.readSkelFile(new File("src/test/resources/skeleton.nested"));
-    assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
-    Skeleton.readDefault();
-    assertEquals(JFlex.Skeleton.line[3].indexOf("java.util.Stack"), -1);
+  public void testJavadoc() {
+    StringBuffer usercode = new StringBuffer("/* some *** comment */");
+    assertTrue(!Emitter.endsWithJavadoc(usercode));
+    usercode.append("import bla;  /** javadoc /* */  ");
+    assertTrue(Emitter.endsWithJavadoc(usercode));
+    usercode.append("bla");
+    assertTrue(!Emitter.endsWithJavadoc(usercode));
   }
 }

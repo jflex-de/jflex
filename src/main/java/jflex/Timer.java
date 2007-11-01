@@ -17,7 +17,7 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package JFlex;
+package jflex;
 
 /**
  * Very simple timer for code generation time statistics.

@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
 import java.util.*;
 
@@ -123,7 +123,7 @@ final public class Macros {
    * @return the definition of the macro, <code>null</code> if 
    *         no macro with the specified name has been stored.
    *
-   * @see JFlex.Macros#expand
+   * @see jflex.Macros#expand
    */
   public RegExp getDefinition(String name) {
     return (RegExp) macros.get(name);

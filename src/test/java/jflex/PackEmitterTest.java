@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
+ * jflex                                                         *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,33 +18,63 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
-import JFlex.Emitter;
+import jflex.Out;
+import jflex.PackEmitter;
 import junit.framework.TestCase;
 
 /**
- * Some unit tests for the jflex Emitter class
+ * PackEmitterTest
  * 
  * @author Gerwin Klein
  * @version $Revision$, $Date$
  */
-public class EmitterTest extends TestCase {
+public class PackEmitterTest extends TestCase {
+
+  private PackEmitter p;
+
 
   /**
-   * Constructor for EmitterTest.
-   * @param name  the test name
+   * Constructor for PackEmitterTest.
    */
-  public EmitterTest(String name) {
-    super(name);
+  public PackEmitterTest() {
+    super("PackEmitter test");
   }
 
-  public void testJavadoc() {
-    StringBuffer usercode = new StringBuffer("/* some *** comment */");
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
-    usercode.append("import bla;  /** javadoc /* */  ");
-    assertTrue(Emitter.endsWithJavadoc(usercode));
-    usercode.append("bla");
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
+  public void setUp() {
+    p = new PackEmitter("Bla") {
+          public void emitUnpack() { }
+    };
+  }
+
+  public void testInit() {
+    p.emitInit();
+    assertEquals(
+      "  private static final int [] ZZ_BLA = zzUnpackBla();" + Out.NL +
+      Out.NL +
+      "  private static final String ZZ_BLA_PACKED_0 =" + Out.NL +
+      "    \"", 
+      p.toString());
+  }
+
+  public void testEmitUCplain() {    
+    p.emitUC(8);
+    p.emitUC(0xFF00);
+    
+    assertEquals("\\10\\uff00", p.toString());
+  }
+  
+  public void testLineBreak() {
+    for (int i = 0; i < 36; i++) {
+      p.breaks();
+      p.emitUC(i);
+    }
+    System.out.println(p);
+    assertEquals(
+            "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"+Out.NL+
+      "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"+Out.NL+
+      "    \"\\40\\41\\42\\43",
+      p.toString());
   }
 }

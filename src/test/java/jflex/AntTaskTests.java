@@ -17,13 +17,14 @@
  * 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA                 *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package JFlex;
+package jflex;
 
 import java.io.File;
 import java.io.IOException;
 
-import JFlex.Options;
-import JFlex.anttask.JFlexTask;
+import jflex.Options;
+import jflex.anttask.JFlexTask;
+
 
 import junit.framework.TestCase;
 
@@ -129,7 +130,7 @@ public class AntTaskTests extends TestCase {
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File(DIR_RESOURCES+"/skeleton.nested"));
-    assertTrue(JFlex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
   
   public void testVerbose() {

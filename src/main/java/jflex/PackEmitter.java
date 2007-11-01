@@ -18,7 +18,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
 
 /**
@@ -209,7 +209,7 @@ public abstract class PackEmitter {
   private int UTF8Length(char value) {
     // if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
 
-    // see JVM spec §4.4.7, p 111
+    // see JVM spec ï¿½4.4.7, p 111
     if (value == 0) return 2;
     if (value <= 0x7F) return 1;
 

@@ -18,10 +18,10 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package JFlex;
+package jflex;
 
-import JFlex.IntCharSet;
-import JFlex.Interval;
+import jflex.IntCharSet;
+import jflex.Interval;
 import junit.framework.TestCase;
 
 /**
