@@ -85,6 +85,14 @@ public class JFlexMojo extends AbstractMojo {
 	private File outputDirectory;
 
 	/**
+	 * The granularity in milliseconds of the last modification date for
+	 * testing whether a source needs regeneration.
+	 * 
+	 * @parameter expression="${lastModGranularityMs}" default-value="0"
+	 */
+	private int staleMillis;
+
+	/**
 	 * Whether source code generation should be verbose.
 	 * 
 	 * @parameter default-value="false"
@@ -235,8 +243,9 @@ public class JFlexMojo extends AbstractMojo {
 				classInfo.getOutputFilename());
 
 		/* Generate only if needs to */
-		if (lexFile.lastModified() < generatedFile.lastModified()) {
+		if (lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
 			log.info("  " + generatedFile.getName() + " is up to date.");
+			log.debug("StaleMillis = "+staleMillis+"ms");
 			return;
 		}
 
