@@ -43,7 +43,7 @@ import java.util.Vector;
 public class Skeleton {
   
   /** location of default skeleton */
-  static final private String DEFAULT_LOC = "JFlex/skeleton.default"; //$NON-NLS-1$
+  static final private String DEFAULT_LOC = "skeleton.default"; //$NON-NLS-1$
   
   /** expected number of sections in the skeleton file */
   static final private int size = 21;

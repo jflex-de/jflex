@@ -38,7 +38,7 @@ public class AntTaskTests extends TestCase {
 
   private JFlexTask task;
   private final String DIR_RESOURCES="src/test/resources";
-  private final String FILE_LEXSCAN="/JFlex/LexScan.flex";
+  private final String FILE_LEXSCAN="/jflex/LexScan.flex";
 
   /**
    * Constructor for AntTaskTests.
@@ -61,8 +61,8 @@ public class AntTaskTests extends TestCase {
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     task.findPackageAndClass();
-    assertEquals(task.getPackage(), "JFlex");
-    assertEquals(task.getClassName(), "LexScan");
+    assertEquals("JFlex", task.getPackage());
+    assertEquals("LexScan",task.getClassName());
   }
 
   public void testPackageAndClassDefaults() throws IOException {
@@ -97,7 +97,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic 
-    assertEquals(Options.getDir(), new File(DIR_RESOURCES+"/JFlex"));
+    assertEquals(new File(DIR_RESOURCES+"/jflex"),Options.getDir());
   }
 
   public void testNomin() {

@@ -47,7 +47,7 @@ public class ErrorMessages {
 
   public static String get(ErrorMessages msg) {
     if (resourceBundle == null) {
-      resourceBundle = ResourceBundle.getBundle("JFlex.Messages"); 
+      resourceBundle = ResourceBundle.getBundle("jflex.Messages"); 
     }    
     try {
       return resourceBundle.getString(msg.key);
