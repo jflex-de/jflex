@@ -760,7 +760,9 @@ final public class Emitter {
 
     if ( scanner.isPublic ) print("public ");   
     print( scanner.className );      
-    print("(java.io.Reader in)");
+    print("(java.io.Reader in");
+    emitCtorArgs();
+    print(")");
     
     if ( scanner.initThrow != null ) {
       print(" throws ");
@@ -790,7 +792,9 @@ final public class Emitter {
     print("  ");
     if ( scanner.isPublic ) print("public ");    
     print( scanner.className );      
-    print("(java.io.InputStream in)");
+    print("(java.io.InputStream in");
+    emitCtorArgs();
+    print(")");
     
     if ( scanner.initThrow != null ) {
       print(" throws ");
@@ -798,10 +802,34 @@ final public class Emitter {
     }
     
     println(" {");    
-    println("    this(new java.io.InputStreamReader(in));");
+
+    print("    this(new java.io.InputStreamReader(in)");
+
+    if (!scanner.ctorArgs.isEmpty()) {
+      Iterator iter = scanner.ctorArgs.values().iterator();
+      while (iter.hasNext()) {
+        print(",");
+        print((String) iter.next());
+      }
+    }
+
+    println(");");
+
     println("  }");
   }
 
+  private void emitCtorArgs() {
+    if (scanner.ctorArgs.isEmpty()) return;
+
+    Iterator iter = scanner.ctorArgs.entrySet().iterator();
+    while (iter.hasNext()) {
+      Map.Entry entry = (Map.Entry) iter.next();
+      print(",");
+      print((String) entry.getKey());
+      print(" ");
+      print((String) entry.getValue());
+    }
+  }
 
   private void emitDoEOF() {
     if ( scanner.eofCode == null ) return;
