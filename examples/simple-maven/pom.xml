@@ -4,13 +4,12 @@
   <groupId>de.jflex.examples</groupId>
   <artifactId>simple-maven</artifactId>
   <version>0.1</version>
-  <description>A scanner for a toy programming language.
-
-		It is the example from the JLex website with some small
+  <name>A scanner for a toy programming language.</name>
+  <description>It is the example from the JLex website with some small
 		modifications, to make it a bit more readable.
 
 		It does nothing really useful, because there is no parser for
-		the toy programming language. It's just a demonstatration how a
+		the toy programming language. It's just a demonstration how a
 		small simple scanner looks like.</description>
   <build>
     <plugins>

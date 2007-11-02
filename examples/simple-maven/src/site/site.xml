@@ -1,0 +1,9 @@
+<project>
+	<body>
+		<menu name="Overview" href="index.html" >
+			<item name="Summary" href="project-summary.html" />
+			<item name="Usage" href="usage.html" />
+		</menu>
+		<menu ref="reports" />
+	</body>
+</project>
