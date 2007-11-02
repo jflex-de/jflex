@@ -1,3 +1,7 @@
+/**
+ * The tokens returned by the scanner.
+ * 
+ */
 class Yytoken {
   public int m_index;
   public String m_text;

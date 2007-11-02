@@ -1,3 +1,7 @@
+/**
+ * A small utility class.
+ * TODO: use reosurce bundle
+ */
 class Utility {
   
   private static final String errorMsg[] = {
