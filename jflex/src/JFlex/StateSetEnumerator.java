@@ -33,7 +33,6 @@ final public class StateSetEnumerator {
   private int offset;
   private long mask;
 
-  private int current;
   private long [] bits;
   
   /**
@@ -53,8 +52,6 @@ final public class StateSetEnumerator {
     index   = 0;
     offset  = 0;
     mask    = 1;
-    current = 0;
-
     while (index < bits.length && bits[index] == 0) 
       index++;
 
