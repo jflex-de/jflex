@@ -633,7 +633,7 @@ final public class NFA {
 
     int dfaStart = nfa.end+1; 
     
-    // fixme: only need epsilon closure of states reachable from nfa.start
+    // FIXME: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
     
     Hashtable dfaStates = new Hashtable(numStates);
@@ -727,10 +727,7 @@ final public class NFA {
       visited = new boolean [2*numStates];
     }
 
-    _end = end;
-    _dfaStates = dfaVector;
-    _dfaStart = dfaStart;    
-    removeDead(dfaStart);
+    removeDead(dfaStart, end);
 
     if (Options.DEBUG)
       Out.debug("complement finished, nfa ("+start+","+end+") is now :"+this);
@@ -742,11 +739,8 @@ final public class NFA {
   // live[s] == false <=> no final state can be reached from s
   private boolean [] live;    // = new boolean [estSize];
   private boolean [] visited; // = new boolean [estSize];
-  private int _end; // final state of original nfa for dfa (nfa coordinates)
-  private Vector _dfaStates; 
-  private int _dfaStart; // in nfa coordinates
 
-  private void removeDead(int start) {
+  private void removeDead(int start, int end) {
     // Out.debug("removeDead ("+start+")");
 
     if ( visited[start] || live[start] ) return;
@@ -754,7 +748,7 @@ final public class NFA {
 
     // Out.debug("not yet visited");
 
-    if (closure(start).isElement(_end))
+    if (closure(start).isElement(end))
       live[start] = true;
 
     // Out.debug("is final :"+live[start]);
@@ -766,7 +760,7 @@ final public class NFA {
         int next = states.nextElement();
         
         if (next != start) {
-          removeDead(next);
+          removeDead(next,end);
           
           if (live[next]) 
             live[start] = true;
@@ -782,7 +776,7 @@ final public class NFA {
       int next = states.nextElement();
       
       if (next != start) {
-        removeDead(next);
+        removeDead(next,end);
         
         if (live[next]) 
           live[start] = true;
