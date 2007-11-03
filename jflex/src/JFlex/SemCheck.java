@@ -33,9 +33,6 @@ public final class SemCheck {
 
   // stored globally since they are used as constants in all checks
   private static Macros macros;
-  private static char maxChar;
-
-
   /**
    * Performs semantic analysis for all expressions.
    *
@@ -49,8 +46,6 @@ public final class SemCheck {
    */
   public static void check(RegExps rs, Macros m, char max, File f) {
     macros = m;
-    maxChar = max;
-    
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
