@@ -66,7 +66,8 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testPackageAndClassDefaults() throws IOException {
-    task.setFile(new File("examples/simple/simple.flex"));
+	  //FIXME
+    task.setFile(new File(DIR_RESOURCES+"/jflex/simple.flex"));
     task.findPackageAndClass();
     assertEquals(task.getPackage(), null);
     assertEquals(task.getClassName(), "Yylex");
