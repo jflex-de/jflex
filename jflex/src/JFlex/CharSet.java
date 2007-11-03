@@ -102,7 +102,7 @@ public final class CharSet {
 
     while ( set.hasMoreElements() ) {
       int i = set.nextElement();
-      result.append( ", "+(int)i);
+      result.append( ", "+i);
     }
 
     result.append("}");
