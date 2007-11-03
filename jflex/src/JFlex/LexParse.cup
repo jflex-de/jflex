@@ -246,7 +246,7 @@ non terminal RegExp    series, concs, nregexp, regexp, charclass, lookahead;
 non terminal Interval  classcontentelem;
 non terminal Vector    states, statesOPT, classcontent, preclass, rules;
 non terminal Boolean   hatOPT;
-non terminal Action    actions;
+non terminal Action    act, actions;
 
 
 /* grammar specification */
@@ -348,7 +348,7 @@ rules         ::=  rules:rlist rule:r
 
 rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, null)); :}
-                |  statesOPT:s hatOPT:bol series:r lookahead:l ACTION:a
+                |  statesOPT:s hatOPT:bol series:r lookahead:l act:a
                    {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, l)); :}
                 |  statesOPT:s hatOPT:bol series:r lookahead:l NOACTION:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
@@ -365,7 +365,11 @@ lookahead     ::=  DOLLAR
                    {: RESULT = new RegExp2(sym.CONCAT, s, makeNL()); :}
                 ;
 
-actions       ::=  REGEXPEND ACTION:a
+act           ::=  REGEXPEND ACTION:a
+                   {: RESULT = a; :}
+				;
+
+actions       ::=  act:a
                    {: RESULT = a; :}
                 |  NOACTION
                    {: RESULT = null; :}
