@@ -440,41 +440,38 @@ final public class Emitter {
       
       int num = scanner.states.getNumber(name).intValue();
 
-      if (scanner.bolUsed)      
-        println("  "+visibility+" static final int "+name+" = "+2*num+";");
-      else
-        println("  "+visibility+" static final int "+name+" = "+dfa.lexState[2*num]+";");
+      println("  "+visibility+" static final int "+name+" = "+2*num+";");
     }
-    
-    if (scanner.bolUsed) {
-      println("");
-      println("  /**");
-      println("   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l");
-      println("   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l");
-      println("   *                  at the beginning of a line");
-      println("   * l is of the form l = 2*k, k a non negative integer");
-      println("   */");
-      println("  private static final int ZZ_LEXSTATE[] = { ");
+
+    // can't quite get rid of the indirection, even for non-bol lex states: 
+    // their DFA states might be the same, but their EOF actions might be different
+    // (see bug #1540228)
+    println("");
+    println("  /**");
+    println("   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l");
+    println("   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l");
+    println("   *                  at the beginning of a line");
+    println("   * l is of the form l = 2*k, k a non negative integer");
+    println("   */");
+    println("  private static final int ZZ_LEXSTATE[] = { ");
   
-      int i, j = 0;
-      print("    ");
+    int i, j = 0;
+    print("    ");
 
-      for (i = 0; i < dfa.lexState.length-1; i++) {
-        print( dfa.lexState[i], 2 );
+    for (i = 0; i < dfa.lexState.length-1; i++) {
+      print( dfa.lexState[i], 2 );
 
-        print(", ");
+      print(", ");
 
-        if (++j >= 16) {
-          println();
-          print("    ");
-          j = 0;
-        }
+      if (++j >= 16) {
+        println();
+        print("    ");
+        j = 0;
       }
-            
-      println( dfa.lexState[i] );
-      println("  };");
-
     }
+            
+    println( dfa.lexState[i] );
+    println("  };");
   }
 
   private void emitDynamicInit() {    
@@ -993,7 +990,7 @@ final public class Emitter {
       println();
     }
     else {
-      println("      zzState = zzLexicalState;");
+      println("      zzState = ZZ_LEXSTATE[zzLexicalState];");
       println();
     }
 
@@ -1184,24 +1181,7 @@ final public class Emitter {
         int num = scanner.states.getNumber(name).intValue();
         Action action = eofActions.getAction(num);
 
-        // only emit code if the lex state is not redundant, so
-        // that case labels don't overlap
-        // (redundant = points to the same dfa state as another one).
-        // applies only to scanners that don't use BOL, because
-        // in BOL scanners lex states get mapped at runtime, so
-        // case labels will always be unique.
-        boolean unused = true;                
-        if (!scanner.bolUsed) {
-          Integer key = new Integer(dfa.lexState[2*num]);
-          unused = used.get(key) == null;
-          
-          if (!unused) 
-            Out.warning("Lexical states <"+name+"> and <"+used.get(key)+"> are equivalent.");
-          else
-            used.put(key,name);
-        }
-
-        if (action != null && unused) {
+        if (action != null) {
           println("            case "+name+": {");
           if ( scanner.debugOption ) {
             print("              System.out.println(");
