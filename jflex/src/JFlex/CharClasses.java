@@ -362,7 +362,7 @@ public class CharClasses {
    * Each CharClassInterval contains the number of the
    * char class it belongs to.
    */
-  public CharClassInterval [] getIntervalls() {
+  public CharClassInterval [] getIntervals() {
     int i, c;
     int size = classes.size();
     int numIntervalls = 0;   

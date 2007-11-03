@@ -74,7 +74,7 @@ final public class Emitter {
   /** maps actions to their switch label */
   private Hashtable actionTable = new Hashtable();
 
-  private CharClassInterval [] intervalls;
+  private CharClassInterval [] intervals;
 
   private String visibility = "public";
 
@@ -531,7 +531,7 @@ final public class Emitter {
     println("    char [] map = new char[0x10000];");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = 0;  /* index in unpacked array */");
-    println("    while (i < "+2*intervalls.length+") {");
+    println("    while (i < "+2*intervals.length+") {");
     println("      int  count = packed.charAt(i++);");
     println("      char value = packed.charAt(i++);");
     println("      do map[j++] = value; while (--count > 0);");
@@ -575,9 +575,8 @@ final public class Emitter {
   }
   
   private void emitCharMapArrayUnPacked() {
-   
+  
     CharClasses cl = parser.getCharClasses();
-    intervalls = cl.getIntervalls();
     
     println("");
     println("  /** ");
@@ -589,27 +588,21 @@ final public class Emitter {
     print("    ");
     
     int max =  cl.getMaxCharCode();
-    int i = 0;     
-    while ( i < intervalls.length && intervalls[i].start <= max ) {
-
-      int end = Math.min(intervalls[i].end, max);
-      for (int c = intervalls[i].start; c <= end; c++) {
-
-        print(colMap[intervalls[i].charClass], 2);
-
-        if (c < max) {
-          print(", ");        
-          if ( ++n >= 16 ) { 
-            println();
-            print("    ");
-            n = 0; 
-          }
+	
+    // not very efficient, but good enough for <= 255 characters
+    for (char c = 0; c <= max; c++) {
+      print(colMap[cl.getClassCode(c)],2);
+      
+      if (c < max) {
+        print(", ");        
+        if ( ++n >= 16 ) { 
+          println();
+          print("    ");
+          n = 0; 
         }
       }
-
-      i++;
     }
-
+    
     println();
     println("  };");
     println();
@@ -623,9 +616,9 @@ final public class Emitter {
       return;
     }
 
-    // ignores cl.getMaxCharCode(), emits all intervalls instead
+    // ignores cl.getMaxCharCode(), emits all intervals instead
 
-    intervalls = cl.getIntervalls();
+    intervals = cl.getIntervals();
     
     println("");
     println("  /** ");
@@ -637,9 +630,9 @@ final public class Emitter {
     print("    \"");
     
     int i = 0; 
-    while ( i < intervalls.length-1 ) {
-      int count = intervalls[i].end-intervalls[i].start+1;
-      int value = colMap[intervalls[i].charClass];
+    while ( i < intervals.length-1 ) {
+      int count = intervals[i].end-intervals[i].start+1;
+      int value = colMap[intervals[i].charClass];
       
       printUC(count);
       printUC(value);
@@ -653,8 +646,8 @@ final public class Emitter {
       i++;
     }
 
-    printUC(intervalls[i].end-intervalls[i].start+1);
-    printUC(colMap[intervalls[i].charClass]);
+    printUC(intervals[i].end-intervals[i].start+1);
+    printUC(colMap[intervals[i].charClass]);
 
     println("\";");
     println();
