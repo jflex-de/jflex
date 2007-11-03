@@ -1293,13 +1293,13 @@ final public class Emitter {
       chars = noTarget[state].characters();
   
     print("                case ");
-    print((int)chars.nextElement());
+    print(chars.nextElement());
     print(": ");
     
     while ( chars.hasMoreElements() ) {
       println();
       print("                case ");
-      print((int)chars.nextElement());
+      print(chars.nextElement());
       print(": ");
     } 
     
