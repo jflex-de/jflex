@@ -25,6 +25,8 @@
    "sample.inp" provided in this directory 
 */
 
+package de.jflex.example.standalone;
+
 %%
 
 %public
@@ -41,4 +43,3 @@
 
 "name " [a-zA-Z]+  { name = yytext().substring(5); }
 [Hh] "ello"        { System.out.print(yytext()+" "+name+"!"); }
-

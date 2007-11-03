@@ -4,5 +4,40 @@
   <groupId>de.flex.examples</groupId>
   <artifactId>standalone-maven</artifactId>
   <version>0.1</version>
+  <description>This is a small example of a standalone text substitution scanner.
+
+It reads a name after the keyword name and replaces all occurences
+of "hello" by "hello &lt;name&gt; !".&lt;/name&gt;</description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jflex</id>
+      <name>JFlex repository</name>
+      <url>http://jflex.sourceforge.net/repo/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
 
