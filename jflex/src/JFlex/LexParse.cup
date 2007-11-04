@@ -27,7 +27,7 @@ import java.util.*;
 action code {:
 
   LexScan     scanner;
-  CharClasses charClasses = new CharClasses(127);
+  CharClasses charClasses = new CharClasses(0xFFFF);
   RegExps     regExps     = new RegExps();
   Macros      macros      = new Macros();
   Integer     stateNumber;
@@ -219,7 +219,7 @@ init with {:
 
 terminal OPENBRACKET, CLOSEBRACKET, HAT, DOLLAR, OPENCLASS,
          CLOSECLASS, DASH, DELIMITER, EQUALS, COMMA, LESSTHAN,
-         MORETHAN, LBRACE, RBRACE, FULL, UNICODE, REGEXPEND;
+         MORETHAN, LBRACE, RBRACE, ASCII, FULL, UNICODE, REGEXPEND;
 
 terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS, 
          UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD;
@@ -310,7 +310,9 @@ macros        ::=  /* empty, most switches & state declarations are parsed in le
                 | macros macro
                 | error;
 
-macro         ::=  FULL
+macro         ::=  ASCII
+                   {: charClasses.setMaxCharCode(127); :}
+                |  FULL
                    {: charClasses.setMaxCharCode(255); :}
                 |  UNICODE
                    {: charClasses.setMaxCharCode(0xFFFF); :} 

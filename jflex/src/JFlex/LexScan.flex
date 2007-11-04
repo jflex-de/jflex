@@ -303,7 +303,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%intwrap"                  { isIntWrap = true;  }
   "%yyeof"                    { isYYEOF = true;  }
   "%notunix"                  { notUnix = true;  }
-  "%7bit"                     {  }
+  "%7bit"                     { return symbol(ASCII); }
   "%full"|"%8bit"             { return symbol(FULL); }
   "%unicode"|"%16bit"         { return symbol(UNICODE);  }
   "%caseless"|"%ignorecase"   { caseless = true; }

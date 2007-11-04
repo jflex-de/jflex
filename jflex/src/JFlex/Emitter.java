@@ -626,26 +626,34 @@ final public class Emitter {
     int n = 0;  // numbers of entries in current line    
     print("    \"");
     
-    int i = 0; 
-    while ( i < intervals.length-1 ) {
-      int count = intervals[i].end-intervals[i].start+1;
-      int value = colMap[intervals[i].charClass];
-      
+    int i = 0;
+    int count, value;
+    while ( i < intervals.length ) {
+      count = intervals[i].end-intervals[i].start+1;
+      value = colMap[intervals[i].charClass];
+
+      // count could be >= 0x10000
+      while (count > 0xFFFF) {
+        printUC(0xFFFF);
+        printUC(value);
+        count -= 0xFFFF;
+        n++;       
+      }
+        
       printUC(count);
       printUC(value);
 
-      if ( ++n >= 10 ) { 
-        println("\"+");
-        print("    \"");
-        n = 0; 
+      if (i < intervals.length-1) {
+        if ( ++n >= 10 ) { 
+          println("\"+");
+          print("    \"");
+          n = 0;
+        }
       }
 
       i++;
     }
-
-    printUC(intervals[i].end-intervals[i].start+1);
-    printUC(colMap[intervals[i].charClass]);
-
+      
     println("\";");
     println();
 
