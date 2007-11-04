@@ -38,7 +38,7 @@ final public class NFA {
   StateSet [][] table;
 
   // epsilon[current_state] is the set of states that can be reached
-  // from current_state via epsilon-edges
+  // from current_state via epsilon edges
   StateSet [] epsilon;
 
   // isFinal[state] == true <=> state is a final state of the NFA
@@ -142,16 +142,38 @@ final public class NFA {
         
         
     if ( regExps.getLookAhead(regExpNum) != null ) {
-      IntPair look = insertNFA( regExps.getLookAhead(regExpNum) );
+      RegExp r1 = regExps.getRegExp(regExpNum);
+      RegExp r2 = regExps.getLookAhead(regExpNum);
+
+      IntPair look = insertNFA(r2);
       
       addEpsilonTransition(nfa.end, look.start);
 
       Action a = regExps.getAction(regExpNum);
-      a.setLookAction(true);
-
-      isPushback[nfa.end]   = true;      
-      action[look.end]      = a;
-      isFinal[look.end]     = true;
+            
+      int len1 = SemCheck.length(r1);
+      int len2 = SemCheck.length(r2);
+      
+      if (len1 >= 0) {
+        a.setLookAction(Action.FIXED_BASE,len1);
+        
+        action[look.end]      = a;
+        isFinal[look.end]     = true;        
+      }
+      else if (len2 >= 0) {
+        a.setLookAction(Action.FIXED_LOOK,len2);
+        
+        isPushback[nfa.end]   = true;      
+        action[look.end]      = a;
+        isFinal[look.end]     = true;
+      }
+      else {
+        a.setLookAction(Action.GENERAL_LOOK,0);
+  
+        isPushback[nfa.end]   = true;      
+        action[look.end]      = a;
+        isFinal[look.end]     = true;
+      }
     }
     else {
       action[nfa.end] = regExps.getAction(regExpNum);
