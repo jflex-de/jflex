@@ -83,7 +83,7 @@ public final class SemCheck {
    * 
    * Negation operators are treated as always variable length.   
    */
-  private static int length(RegExp re) {
+  public static int length(RegExp re) {
     RegExp2 r;
 
     switch (re.type) {      
@@ -128,7 +128,7 @@ public final class SemCheck {
 
     case sym.TILDE:
     case sym.BANG: 
-       // too hard to caculate at this level, use safe approx       
+       // too hard to calculate at this level, use safe approx       
       return -1;
 
     case sym.MACROUSE:      

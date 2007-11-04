@@ -31,7 +31,16 @@ package JFlex;
  */
 final public class Action {
 
-
+  /** A normal action */
+  public final static int NORMAL = 0;
+  /** Action of a lookahead expression r1/r2 with fixed length r1 */
+  public final static int FIXED_BASE = 1;
+  /** Action of a lookahead expression r1/r2 with fixed length r2 */
+  public final static int FIXED_LOOK = 2;
+  /** Action of a general lookahead expression */
+  public final static int GENERAL_LOOK = 3;
+  
+  
   /**
    * The Java code this Action represents
    */
@@ -43,11 +52,13 @@ final public class Action {
   int priority;
 
   /**
-   * True iff the action belongs to an lookahead expresstion 
-   * (<code>a/b</code> or <code>r$</code>)
+   * Which kind of lookahead expression this action belongs to.
+   * (none, <code>a/b</code> with fixed length a, fixed length b, or general)
    */
-  private boolean isLookAction;
+  private int lookahead = NORMAL;
 
+  /** The length of the lookahead (if fixed) */ 
+  private int len;
 
   /**
    * Creates a new Action object with specified content and line number.
@@ -85,7 +96,8 @@ final public class Action {
    * @return string representation of the action
    */
   public String toString() {
-    return "Action (priority "+priority+", lookahead "+isLookAction+") :"+Out.NL+content; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    return "Action (priority "+priority+", lookahead "+lookahead+") :" +
+      Out.NL+content; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 
 
@@ -129,12 +141,19 @@ final public class Action {
   }
   
   /**
-   * Return look ahead flag.
+   * Return true iff this is action belongs to a lookahead rule.
    * 
    * @return true if this actions belongs to a lookahead rule
    */
   public boolean isLookAction() {
-    return isLookAction;
+    return lookahead != NORMAL;
+  }
+  
+  /**
+   * Return kind of lookahead.
+   */
+  public int lookAhead() {
+    return lookahead;
   }
 
   /**
@@ -142,8 +161,16 @@ final public class Action {
    * 
    * @param b  set to true if this action belongs to a look ahead rule  
    */
-  public void setLookAction(boolean b) {
-    isLookAction = b;
+  public void setLookAction(int kind, int length) {
+    this.lookahead = kind;
+    this.len = length;
   }
   
+  /**
+   * The length of the lookahead or base if this is a fixed length
+   * lookahead action. 
+   */
+  public int getLookLength() {
+    return len;
+  }
 }
