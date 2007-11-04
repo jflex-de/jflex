@@ -164,7 +164,7 @@ final public class DFA {
   public void setAction(int state, Action stateAction) {
     action[state]    = stateAction;
     if (stateAction != null) {
-      isLookEnd[state] = stateAction.isLookAction();
+      isLookEnd[state] = stateAction.lookAhead() == Action.GENERAL_LOOK;
       usedActions.put(stateAction,stateAction);
     }
   }

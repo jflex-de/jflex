@@ -163,7 +163,6 @@ final public class NFA {
       else if (len2 >= 0) {
         a.setLookAction(Action.FIXED_LOOK,len2);
         
-        isPushback[nfa.end]   = true;      
         action[look.end]      = a;
         isFinal[look.end]     = true;
       }
