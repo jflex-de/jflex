@@ -31,7 +31,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.jflex.ClassInfo;
 
@@ -52,8 +51,6 @@ public class JFlexMojo extends AbstractMojo {
 	 * Name of the directory where to look for jflex files by default.
 	 */
 	public static final String SRC_MAIN_JFLEX = "src/main/jflex";
-
-	private Log log = getLog();
 
 	/**
 	 * @parameter expression="${project}"
@@ -166,11 +163,11 @@ public class JFlexMojo extends AbstractMojo {
 			// use arguments provided in the plugin configuration
 			filesIt = Arrays.asList(lexDefinitions);
 
-			log.debug("Parsing " + lexDefinitions.length
+			getLog().debug("Parsing " + lexDefinitions.length
 					+ " jflex files or directories given in configuration");
 		} else {
 			// use default lexfiles if none provided
-			log.debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
+			getLog().debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
 			filesIt = new ArrayList<File>();
 			File defaultDir = getAbsolutePath(new File(SRC_MAIN_JFLEX));
 			if (defaultDir.isDirectory()) {
@@ -207,7 +204,7 @@ public class JFlexMojo extends AbstractMojo {
 		if (lexDefinition.isDirectory()) {
 			// recursively process files contained within
 			String[] extensions = { "jflex", "jlex", "lex", "flex" };
-			log.debug("Processing lexer files found in "
+			getLog().debug("Processing lexer files found in "
 					+ lexDefinition);
 			Iterator<File> fileIterator = FileUtils.iterateFiles(lexDefinition,
 					extensions, true);
@@ -224,7 +221,7 @@ public class JFlexMojo extends AbstractMojo {
 			MojoExecutionException {
 		assert lexFile.isAbsolute() : lexFile;
 
-		log.debug("Generationg Java code from " + lexFile.getName());
+		getLog().debug("Generationg Java code from " + lexFile.getName());
 		ClassInfo classInfo = null;
 		try {
 			classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
@@ -244,8 +241,8 @@ public class JFlexMojo extends AbstractMojo {
 
 		/* Generate only if needs to */
 		if (lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
-			log.info("  " + generatedFile.getName() + " is up to date.");
-			log.debug("StaleMillis = "+staleMillis+"ms");
+			getLog().info("  " + generatedFile.getName() + " is up to date.");
+			getLog().debug("StaleMillis = "+staleMillis+"ms");
 			return;
 		}
 
@@ -277,7 +274,7 @@ public class JFlexMojo extends AbstractMojo {
 
 		try {
 			Main.generate(lexFile);
-			log.info("  generated " + generatedFile);
+			getLog().info("  generated " + generatedFile);
 		} catch (Exception e) {
 			throw new MojoExecutionException(e.getMessage());
 		}
