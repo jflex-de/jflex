@@ -4,6 +4,7 @@
 			<item name="Summary" href="project-summary.html" />
 			<item name="Usage" href="usage.html" />
 			<item name="Goals" href="plugin-info.html" />
+			<item name="Changelog" href="changelog.html"/>
 		</menu>
 		<menu ref="reports" />
 	</body>
