@@ -150,7 +150,6 @@ public class JFlexMojo extends AbstractMojo {
 	 * This methods is checks parameters, sets options and calls
 	 * JFlex.Main.generate()
 	 */
-	@SuppressWarnings("unchecked")
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		this.outputDirectory = getAbsolutePath(this.outputDirectory);
 
@@ -158,7 +157,7 @@ public class JFlexMojo extends AbstractMojo {
 		// the whole point of this plugin compared to running the ant plugin
 		project.addCompileSourceRoot(outputDirectory.getPath());
 
-		List<File> filesIt;
+		List/*<File>*/ filesIt;
 		if (lexDefinitions != null) {
 			// use arguments provided in the plugin configuration
 			filesIt = Arrays.asList(lexDefinitions);
@@ -168,16 +167,16 @@ public class JFlexMojo extends AbstractMojo {
 		} else {
 			// use default lexfiles if none provided
 			getLog().debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
-			filesIt = new ArrayList<File>();
+			filesIt = new ArrayList/*<File>*/();
 			File defaultDir = getAbsolutePath(new File(SRC_MAIN_JFLEX));
 			if (defaultDir.isDirectory()) {
 				filesIt.add(defaultDir);
 			}
 		}
 		// process all lexDefinitions
-		Iterator<File> fileIterator = filesIt.iterator();
+		Iterator/*<File>*/ fileIterator = filesIt.iterator();
 		while (fileIterator.hasNext()) {
-			File lexDefinition = fileIterator.next();
+			File lexDefinition = (File) fileIterator.next();
 			lexDefinition = getAbsolutePath(lexDefinition);
 
 			parseLexDefinition(lexDefinition);
@@ -196,20 +195,18 @@ public class JFlexMojo extends AbstractMojo {
 	 *             if the file is not found.
 	 * @throws MojoExecutionException
 	 */
-	@SuppressWarnings("unchecked")
 	private void parseLexDefinition(File lexDefinition)
 			throws MojoFailureException, MojoExecutionException {
-		assert lexDefinition.isAbsolute() : lexDefinition;
 
 		if (lexDefinition.isDirectory()) {
 			// recursively process files contained within
 			String[] extensions = { "jflex", "jlex", "lex", "flex" };
 			getLog().debug("Processing lexer files found in "
 					+ lexDefinition);
-			Iterator<File> fileIterator = FileUtils.iterateFiles(lexDefinition,
+			Iterator/*<File>*/ fileIterator = FileUtils.iterateFiles(lexDefinition,
 					extensions, true);
 			while (fileIterator.hasNext()) {
-				File lexFile = fileIterator.next();
+				File lexFile = (File) fileIterator.next();
 				parseLexFile(lexFile);
 			}
 		} else {
@@ -219,7 +216,6 @@ public class JFlexMojo extends AbstractMojo {
 
 	private void parseLexFile(File lexFile) throws MojoFailureException,
 			MojoExecutionException {
-		assert lexFile.isAbsolute() : lexFile;
 
 		getLog().debug("Generationg Java code from " + lexFile.getName());
 		ClassInfo classInfo = null;
@@ -295,7 +291,6 @@ public class JFlexMojo extends AbstractMojo {
 			throw new MojoExecutionException(
 					"<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
 		}
-		assert lexFile.isAbsolute() : lexFile;
 		if (!lexFile.isFile()) {
 			throw new MojoExecutionException("Input file does not exist: "
 					+ lexFile);
