@@ -7,7 +7,7 @@
 	<artifactId>maven-jflex-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Maven JFlex Plugin</name>
-	<version>0.2.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<description>
 		This is a Maven 2 plugin to generate a parser in Java code from
 		a Lexer definition, using Jflex.de.
@@ -218,21 +218,31 @@
 			scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/trunk/maven-jflex-plugin/
 		</developerConnection>
 	</scm>
-	<distributionManagement>
-		<repository>
-			<id>sourceforge_jflex</id>
-			<name>JFlex sourceforge repository</name>			
-			<url>
-				scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
-			</url>
-		</repository>
-		<site>
-			<id>sourceforge_jflex</id>
-			<name>JFlex sourceforge site</name>
-			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin</url>
-		</site>
-	</distributionManagement>
+
 	<profiles>
+		<profile>
+			<id>release</id>
+			<distributionManagement>
+				<repository>
+					<id>sourceforge_jflex</id>
+					<name>JFlex sourceforge repository</name>
+					<url>
+						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
+					</url>
+				</repository>
+				<site>
+					<id>sourceforge_jflex</id>
+					<name>JFlex sourceforge site</name>
+					<url>
+						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
+					</url>
+				</site>
+			</distributionManagement>
+			<properties>
+				<!-- activates 'release-profile' from the super POM -->
+				<performRelease>true</performRelease>
+			</properties>
+		</profile>
 		<profile>
 			<id>localhost</id>
 			<distributionManagement>
