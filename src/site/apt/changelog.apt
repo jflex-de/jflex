@@ -4,6 +4,9 @@
 
 Version 1.0
 
+  * Java 5 bytecode
+  
+
 Version 0.3
 
   * Java 1.4 bytecode
@@ -13,6 +16,7 @@ Version 0.3
   * more reports on site
   
   * code improvements
+  
   
 Version 0.2
 
