@@ -43,5 +43,9 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<modules>
+		<module>simple-maven</module>
+		<module>standalone-maven</module>
+	</modules>
 </project>
 
