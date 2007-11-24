@@ -1,0 +1,10 @@
+This is a small Maven project that demeonstrates the use of maven-jflex-plugin.
+
+main/flex/simple.flex:
+  the example specification
+
+test/resources/test.txt:
+  sample input
+
+test/resources/output.good:
+  expected output matching the sample input from test.txt
