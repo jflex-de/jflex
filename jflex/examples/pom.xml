@@ -6,6 +6,7 @@
 	<groupId>de.flex.examples</groupId>
 	<artifactId>parent</artifactId>
 	<version>1</version>
+	<name>examples</name>
 	<description>
 		Examples on how to use JFlex and maven-jflex-plugin
 	</description>
@@ -15,7 +16,7 @@
 			<plugin>
 				<groupId>de.jflex.maven.plugin</groupId>
 				<artifactId>maven-jflex-plugin</artifactId>
-				<version>0.2</version>
+				<version>0.3</version>
 				<executions>
 					<execution>
 						<goals>
