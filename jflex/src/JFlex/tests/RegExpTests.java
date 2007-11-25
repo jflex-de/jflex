@@ -40,6 +40,10 @@ public class RegExpTests extends TestCase implements sym {
     super(name);
   }
 
+  public void testrevString() {
+    assertTrue(RegExp.revString("blah").equals("halb"));
+  }
+
   public void testCharClass() {
     Macros m = new Macros();    
     RegExp e1 = new RegExp1(CCLASS, new Interval('a','z'));

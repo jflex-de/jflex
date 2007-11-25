@@ -273,6 +273,7 @@ specification ::=  USERCODE
                      SemCheck.check(regExps, macros, charClasses.getMaxCharCode(), scanner.file);
   
                      regExps.checkActions();
+                     regExps.checkLookAheads();
 
                      if (Options.dump) charClasses.dump();
 

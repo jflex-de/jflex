@@ -39,7 +39,10 @@ final public class Action {
   public final static int FIXED_LOOK = 2;
   /** Action of a general lookahead expression */
   public final static int GENERAL_LOOK = 3;
-  
+  /** Action of the 2nd forward pass for lookahead */  
+  public final static int FORWARD_ACTION = 4;
+  /** Action of the backward pass for lookahead */  
+  public final static int BACKWARD_ACTION = 5;
   
   /**
    * The Java code this Action represents
@@ -52,13 +55,16 @@ final public class Action {
   int priority;
 
   /**
-   * Which kind of lookahead expression this action belongs to.
-   * (none, <code>a/b</code> with fixed length a, fixed length b, or general)
+   * Which kind of action this is.
+   * (normal, <code>a/b</code> with fixed length a, fixed length b, etc)
    */
-  private int lookahead = NORMAL;
+  private int kind = NORMAL;
 
   /** The length of the lookahead (if fixed) */ 
   private int len;
+  
+  /** The entry state of the corresponding forward DFA (if general lookahead) */
+  private int entryState;
 
   /**
    * Creates a new Action object with specified content and line number.
@@ -71,6 +77,22 @@ final public class Action {
     this.priority = priority;
   }  
 
+  /**
+   * Creates a new Action object of the specified kind. Only
+   * accepts FORWARD_ACTION or BACKWARD_ACTION.
+   * 
+   * @param kind   the kind of action
+   * 
+   * @see #FORWARD_ACTION
+   * @see #BACKWARD_ACTION
+   */
+  public Action(int kind) {
+    if (kind != FORWARD_ACTION && kind != BACKWARD_ACTION)
+      throw new GeneratorException();
+    this.content = "";
+    this.priority = Integer.MAX_VALUE;
+    this.kind = kind;
+  }  
 
   /**
    * Compares the priority value of this Action with the specified action.
@@ -96,7 +118,7 @@ final public class Action {
    * @return string representation of the action
    */
   public String toString() {
-    return "Action (priority "+priority+", lookahead "+lookahead+") :" +
+    return "Action (priority "+priority+", lookahead "+kind+") :" +
       Out.NL+content; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 
@@ -109,7 +131,9 @@ final public class Action {
    * @return    true if the action strings are equal
    */
   public boolean isEquiv(Action a) {
-    return this == a || this.content.equals(a.content);
+    return this == a || 
+           (this.content.equals(a.content) &&
+            this.kind == a.kind);
   }
 
 
@@ -146,24 +170,36 @@ final public class Action {
    * @return true if this actions belongs to a lookahead rule
    */
   public boolean isLookAction() {
-    return lookahead != NORMAL;
+    return kind != NORMAL;
+  }
+  
+  /**
+   * Return true if code for this is action should be emitted, false
+   * if it is a BACK/FORWARD lookahead action.
+   * 
+   * @return true if this actions belongs to a lookahead rule
+   */
+  public boolean isEmittable() {
+    return kind != BACKWARD_ACTION && kind != FORWARD_ACTION;
   }
   
   /**
    * Return kind of lookahead.
    */
   public int lookAhead() {
-    return lookahead;
+    return kind;
   }
 
   /**
-   * Sets the look ahead flag for this action
+   * Sets the lookahead kind and data for this action
    * 
-   * @param b  set to true if this action belongs to a look ahead rule  
+   * @param kind   which kind of lookahead it is
+   * @param data   the length for fixed length look aheads.
+   *   
    */
-  public void setLookAction(int kind, int length) {
-    this.lookahead = kind;
-    this.len = length;
+  public void setLookAction(int kind, int data) {
+    this.kind = kind;
+    this.len = data;
   }
   
   /**
@@ -172,5 +208,41 @@ final public class Action {
    */
   public int getLookLength() {
     return len;
+  }
+  
+  /**
+   * Return the corresponding entry state for the forward DFA (if this
+   * is a general lookahead expression) 
+   * 
+   * @return the forward DFA entry state (+1 is the backward DFA) 
+   */
+  public int getEntryState() {
+    return entryState;
+  }
+
+  /**
+   * Set the corresponding entry state for the forward DFA of this action
+   * (if this is a general lookahead expression) 
+   * 
+   * @param the entry state for the forward DFA of this action
+   */
+  public void setEntryState(int entryState) {
+    this.entryState = entryState;
+  }
+  
+  /**
+   * String representation of the lookahead kind of this action.
+   * 
+   * @return the string representation
+   */
+  public String lookString() {
+    switch (kind) {
+    case BACKWARD_ACTION: return "LOOK_BACK";
+    case FIXED_BASE: return "FIXED_BASE";
+    case FIXED_LOOK: return "FIXED_LOOK";
+    case FORWARD_ACTION: return "LOOK_FORWARD";
+    case GENERAL_LOOK: return "LOOK_ACTION";
+    default: return "";
+    }
   }
 }

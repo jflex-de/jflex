@@ -48,6 +48,13 @@ public class RegExps {
   /** the lookahead expression */
   Vector /* of RegExp */ look;
 
+  /** the forward DFA entry point of the lookahead expression */
+  Vector /* of Integer */ look_entry;
+
+  /** Count of many general lookahead expressions there are. 
+   *  Need 2*gen_look_count additional DFA entry points. */
+  int gen_look_count;
+
   public RegExps() {
     states = new Vector();
     regExps = new Vector();
@@ -55,6 +62,7 @@ public class RegExps {
     BOL = new Vector();
     look = new Vector();
     lines = new Vector();
+    look_entry = new Vector();
   }
 
   public int insert(int line, Vector stateList, RegExp regExp, Action action, 
@@ -71,6 +79,7 @@ public class RegExps {
     BOL.addElement(isBOL);
     look.addElement(lookAhead);
     lines.addElement(new Integer(line));
+    look_entry.addElement(null);
     
     return states.size()-1;
   }
@@ -88,6 +97,7 @@ public class RegExps {
     BOL.addElement(null);
     look.addElement(null);
     lines.addElement(null);
+    look_entry.addElement(null);
     
     return states.size()-1;
   }
@@ -126,6 +136,10 @@ public class RegExps {
   public int getLine(int num) {
     return ((Integer) lines.elementAt(num)).intValue();
   }
+  
+  public int getLookEntry(int num) {
+    return ((Integer) look_entry.elementAt(num)).intValue();
+  }
 
   public void checkActions() {
     if ( actions.elementAt(actions.size()-1) == null ) {
@@ -155,4 +169,46 @@ public class RegExps {
     }
     return size;
   }
+
+  public void checkLookAheads() {
+    for (int i=0; i < regExps.size(); i++) 
+      lookAheadCase(i);
+  }
+  
+  /**
+   * Determine which case of lookahead expression regExpNum points to (if any).
+   * Set case data in corresponding action.
+   * Increment count of general lookahead expressions for entry points
+   * of the two additional DFAS.
+   * Register DFA entry point in RegExps
+   *
+   * Needs to be run before adding any regexps/rules to be able to reserve
+   * the correct amount of space of lookahead DFA entry points.
+   * 
+   * @param regExpNum   the number of the regexp in RegExps. 
+   */
+  private void lookAheadCase(int regExpNum) {
+    if ( getLookAhead(regExpNum) != null ) {
+      RegExp r1 = getRegExp(regExpNum);
+      RegExp r2 = getLookAhead(regExpNum);
+
+      Action a = getAction(regExpNum);
+            
+      int len1 = SemCheck.length(r1);
+      int len2 = SemCheck.length(r2);
+      
+      if (len1 >= 0) {
+        a.setLookAction(Action.FIXED_BASE,len1);
+      }
+      else if (len2 >= 0) {
+        a.setLookAction(Action.FIXED_LOOK,len2);
+      }
+      else {
+        a.setLookAction(Action.GENERAL_LOOK,0);
+        look_entry.setElementAt(new Integer(gen_look_count), regExpNum);
+        gen_look_count++;
+      }
+    }
+  }
+
 }

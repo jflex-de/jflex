@@ -37,8 +37,6 @@ final public class Emitter {
     
   // bit masks for state attributes
   static final private int FINAL = 1;
-  static final private int PUSHBACK = 2;
-  static final private int LOOKEND = 4;
   static final private int NOLOOK = 8;
 
   static final private String date = (new SimpleDateFormat()).format(new Date());
@@ -457,9 +455,9 @@ final public class Emitter {
   
     int i, j = 0;
     print("    ");
-
-    for (i = 0; i < dfa.lexState.length-1; i++) {
-      print( dfa.lexState[i], 2 );
+    
+    for (i = 0; i < 2*dfa.numLexStates-1; i++) {
+      print( dfa.entryState[i], 2 );
 
       print(", ");
 
@@ -470,7 +468,7 @@ final public class Emitter {
       }
     }
             
-    println( dfa.lexState[i] );
+    println( dfa.entryState[i] );
     println("  };");
   }
 
@@ -711,15 +709,11 @@ final public class Emitter {
     int count = 1;
     int value = 0; 
     if ( dfa.isFinal[0]    ) value = FINAL;
-    if ( dfa.isPushback[0] ) value|= PUSHBACK;
-    if ( dfa.isLookEnd[0]  ) value|= LOOKEND;
     if ( !isTransition[0]  ) value|= NOLOOK;
        
     for (int i = 1;  i < dfa.numStates; i++) {      
       int attribute = 0;      
       if ( dfa.isFinal[i]    ) attribute = FINAL;
-      if ( dfa.isPushback[i] ) attribute|= PUSHBACK;
-      if ( dfa.isLookEnd[i]  ) attribute|= LOOKEND;
       if ( !isTransition[i]  ) attribute|= NOLOOK;
 
       if (value == attribute) {
@@ -1017,15 +1011,7 @@ final public class Emitter {
 
     println("          int zzAttributes = zzAttrL[zzState];");
 
-    if ( scanner.lookAheadUsed ) {
-      println("          if ( (zzAttributes & "+PUSHBACK+") == "+PUSHBACK+" )");
-      println("            zzPushbackPosL = zzCurrentPosL;");
-      println();
-    }
-
     println("          if ( (zzAttributes & "+FINAL+") == "+FINAL+" ) {");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzWasPushback = (zzAttributes & "+LOOKEND+") == "+LOOKEND+";");
 
     skel.emitNext();
     
@@ -1040,9 +1026,6 @@ final public class Emitter {
     println("          zzInput = zzCMapL[zzInput];");
     println();
 
-    if ( scanner.lookAheadUsed ) 
-      println("          boolean zzPushback = false;");
-      
     println("          boolean zzIsFinal = false;");
     println("          boolean zzNoLookAhead = false;");
     println();
@@ -1060,9 +1043,6 @@ final public class Emitter {
     println();
     
     println("          if ( zzIsFinal ) {");
-    
-    if ( scanner.lookAheadUsed ) 
-      println("            zzWasPushback = zzPushback;");
     
     skel.emitNext();
     
@@ -1107,18 +1087,17 @@ final public class Emitter {
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates; i++) {
-      int newVal; 
+      int newVal = 0; 
       if ( dfa.isFinal[i] ) {
         Action action = dfa.action[i];
-        Integer stored = (Integer) actionTable.get(action);
-        if ( stored == null ) { 
-          stored = new Integer(lastAction++);
-          actionTable.put(action, stored);
+        if (action.isEmittable()) {
+          Integer stored = (Integer) actionTable.get(action);
+          if ( stored == null ) { 
+            stored = new Integer(lastAction++);
+            actionTable.put(action, stored);
+          }
+          newVal = stored.intValue();
         }
-        newVal = stored.intValue();
-      }
-      else {
-        newVal = 0;
       }
       
       if (value == newVal) {
@@ -1156,6 +1135,28 @@ final public class Emitter {
       if (action.lookAhead() == Action.FIXED_LOOK) {
         println("          // lookahead expression with fixed lookahead length");
         println("          yypushback("+action.getLookLength()+");");        
+      }
+      
+      if (action.lookAhead() == Action.GENERAL_LOOK) {
+        println("          // general lookahead, find correct zzMarkedPos");
+        println("          { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
+        println("            int zzFPos = zzStartRead;");
+        println("            boolean zzFin[] = new boolean[zzBuffer.length+1];");
+        println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
+        println("              if ((zzAttrL[zzFState] & 1) == 1) { zzFin[zzFPos] = true; } ");
+        println("              zzInput = zzBuffer[zzFPos++];");
+        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("            }");
+        println("            if (zzFState != -1 && (zzAttrL[zzFState] & 1) == 1) { zzFin[zzFPos] = true; } ");
+        println();                
+        println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
+        println("            zzFPos = zzMarkedPos;");
+        println("            while (!zzFin[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
+        println("              zzInput = zzBuffer[--zzFPos];");
+        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("            };");
+        println("            zzMarkedPos = zzFPos;");
+        println("          }");
       }
       
       if ( scanner.debugOption ) {
@@ -1298,12 +1299,6 @@ final public class Emitter {
       if ( dfa.isFinal[nextState] )
         print("zzIsFinal = true; ");
         
-      if ( dfa.isPushback[nextState] ) 
-        print("zzPushbackPosL = zzCurrentPosL; ");
-      
-      if ( dfa.isLookEnd[nextState] )
-        print("zzPushback = true; ");
-
       if ( !isTransition[nextState] )
         print("zzNoLookAhead = true; ");
         
@@ -1323,12 +1318,6 @@ final public class Emitter {
       if ( dfa.isFinal[nextState] )
         print("zzIsFinal = true; ");
         
-      if ( dfa.isPushback[nextState] ) 
-        print("zzPushbackPosL = zzCurrentPosL; ");
-
-      if ( dfa.isLookEnd[nextState] )
-        print("zzPushback = true; ");
-          
       if ( !isTransition[nextState] )
         print("zzNoLookAhead = true; ");
         

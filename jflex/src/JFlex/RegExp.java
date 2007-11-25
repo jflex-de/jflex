@@ -169,4 +169,78 @@ public class RegExp {
 
     throw new Error("unknown regexp type "+type);
   }
+  
+  /**
+   * @return the reverse of the specified string.
+   */
+  public final static String revString(String s) {
+    StringBuffer b = new StringBuffer(s.length());
+    for (int i=s.length()-1; i >= 0; i--) {
+      b.append(s.charAt(i));
+    }
+    return b.toString();
+  }
+  
+  /**
+   * Create a new regexp that matches the reverse text of this one.
+   * 
+   * @return the reverse regexp
+   */
+  public final RegExp rev(Macros macros) {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch ( type ) {
+    case sym.BAR: 
+      binary = (RegExp2) this;
+      return new RegExp2(sym.BAR, binary.r1.rev(macros), binary.r2.rev(macros));
+
+    case sym.CONCAT:   
+      binary = (RegExp2) this;
+      return new RegExp2(sym.CONCAT, binary.r2.rev(macros), binary.r2.rev(macros));
+      
+    case sym.STAR:
+      unary = (RegExp1) this;
+      content = (RegExp) unary.content;      
+      return new RegExp1(sym.STAR, content.rev(macros));
+
+    case sym.PLUS:
+      unary = (RegExp1) this;
+      content = (RegExp) unary.content;      
+      return new RegExp1(sym.PLUS, content.rev(macros));
+      
+    case sym.QUESTION: 
+      unary = (RegExp1) this;
+      content = (RegExp) unary.content;      
+      return new RegExp1(sym.QUESTION, content.rev(macros));
+
+    case sym.BANG:
+      unary = (RegExp1) this;
+      content = (RegExp) unary.content;      
+      return new RegExp1(sym.BANG, content.rev(macros));
+      
+    case sym.TILDE:
+      throw new Error("unknown regexp type "+type);
+      // TODO: not sure about this one yet, at least report proper error
+      
+    case sym.STRING:
+    case sym.STRING_I:    
+      unary = (RegExp1) this;
+      return new RegExp1(unary.type, revString((String) unary.content));
+      
+    case sym.CHAR:
+    case sym.CHAR_I:
+    case sym.CCLASS:
+    case sym.CCLASSNOT: 
+      unary = (RegExp1) this;
+      return new RegExp1(unary.type, unary.content);
+
+    case sym.MACROUSE:
+      unary = (RegExp1) this;      
+      return macros.getDefinition((String) unary.content).rev(macros);
+    }
+
+    throw new Error("unknown regexp type "+type);
+  }
 }

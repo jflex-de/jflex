@@ -284,6 +284,11 @@ final public class StateSet {
   }
 
 
+  /**
+   * Copy specified StateSet into this.
+   * 
+   * @param set  the state set to copy.
+   */ 
   public void copy(StateSet set) {
     
     if (DEBUG) 
