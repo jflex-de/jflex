@@ -331,6 +331,10 @@ rules         ::=  rules:rlist rule:r
                      Enumeration rs = rlist2.elements();
                      while ( rs.hasMoreElements() ) {
                        Integer elem = (Integer) rs.nextElement();
+                       // might be null for error case of "rule"
+                       if (elem != null) { 
+                         regExps.addStates( elem.intValue(), states );
+                       }
                        regExps.addStates( elem.intValue(), states );
                        rlist1.addElement( elem );
                      }                       
@@ -341,7 +345,10 @@ rules         ::=  rules:rlist rule:r
                      Enumeration rs = rlist.elements();
                      while ( rs.hasMoreElements() ) {
                        Integer elem = (Integer) rs.nextElement();
-                       regExps.addStates( elem.intValue(), states );
+                       // might be null for error case of "rule"
+                       if (elem != null) { 
+                         regExps.addStates( elem.intValue(), states );
+                       }
                      }                       
                      RESULT = rlist;
                    :}
@@ -357,7 +364,7 @@ rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
                 |  statesOPT:s EOFRULE ACTION:a
                    {: RESULT = new Integer(regExps.insert(s, a)); :}
-                |  error
+                |  error                
                 ;
 
 lookahead     ::=  DOLLAR
