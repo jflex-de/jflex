@@ -60,6 +60,7 @@
     <javac srcdir="." 
            destdir="../lib" 
            target="1.1"
+    	     source="1.2"
            classpath="."
            debug="on" />
   </target>
