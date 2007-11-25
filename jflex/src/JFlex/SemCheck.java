@@ -24,8 +24,6 @@ import java.io.File;
 /**
  * Performs simple semantic analysis on regular expressions.
  *
- * (used for checking if trailing contexts are legal)
- *
  * @author Gerwin Klein
  * @version JFlex 1.4.1, $Revision$, $Date$
  */
@@ -33,11 +31,11 @@ public final class SemCheck {
 
   // stored globally since they are used as constants in all checks
   private static Macros macros;
+  
   /**
    * Performs semantic analysis for all expressions.
    *
-   * Currently: illegal lookahead check only
-   * [fixme: more checks possible]
+   * FIXME: currently no checks done
    *
    * @param rs   the reg exps to be checked
    * @param m    the macro table (in expanded form)
@@ -45,36 +43,15 @@ public final class SemCheck {
    * @param f    the spec file containing the rules [fixme]
    */
   public static void check(RegExps rs, Macros m, char max, File f) {
+    /*
     macros = m;
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
       RegExp l = rs.getLookAhead(i);
-     
-      if (!checkLookAhead(r,l)) {
-        Out.warning(f, ErrorMessages.LOOKAHEAD_ERROR, rs.getLine(i), -1);
-      }
     }
-  }
-
-
-  /**
-   * Checks for illegal lookahead expressions. 
-   * 
-   * Lookahead in JFlex only works when the first expression has fixed
-   * length or when the intersection of the last set of the first expression
-   * and the first set of the second expression is empty.
-   *
-   * FIXME: this check is much too weak
-   *
-   *
-   * @param r1   first regexp
-   * @param r2   second regexp (the lookahead)
-   *
-   * @return true iff JFlex can generate code for the lookahead expression
-   */
-  private static boolean checkLookAhead(RegExp r1, RegExp r2) {
-    return r2 == null || length(r1) > 0;
+    */
+    return;
   }
 
 

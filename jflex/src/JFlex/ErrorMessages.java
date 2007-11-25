@@ -101,7 +101,6 @@ public class ErrorMessages {
   public static ErrorMessages UNEXPECTED_EOF = new ErrorMessages("UNEXPECTED_EOF");
   public static ErrorMessages NO_LEX_SPEC = new ErrorMessages("NO_LEX_SPEC");
   public static ErrorMessages NO_LAST_ACTION = new ErrorMessages("NO_LAST_ACTION");
-  public static ErrorMessages LOOKAHEAD_ERROR = new ErrorMessages("LOOKAHEAD_ERROR");
   public static ErrorMessages NO_DIRECTORY = new ErrorMessages("NO_DIRECTORY");
   public static ErrorMessages NO_SKEL_FILE = new ErrorMessages("NO_SKEL_FILE");
   public static ErrorMessages WRONG_SKELETON = new ErrorMessages("WRONG_SKELETON");
