@@ -165,19 +165,19 @@ final public class Action {
   }
   
   /**
-   * Return true iff this is action belongs to a lookahead rule.
+   * Return true iff this is action belongs to a general lookahead rule.
    * 
-   * @return true if this actions belongs to a lookahead rule
+   * @return true if this actions belongs to a general lookahead rule.
    */
-  public boolean isLookAction() {
-    return kind != NORMAL;
+  public boolean isGenLookAction() {
+    return kind == GENERAL_LOOK;
   }
   
   /**
    * Return true if code for this is action should be emitted, false
    * if it is a BACK/FORWARD lookahead action.
    * 
-   * @return true if this actions belongs to a lookahead rule
+   * @return true if code should be emitted for this action.
    */
   public boolean isEmittable() {
     return kind != BACKWARD_ACTION && kind != FORWARD_ACTION;

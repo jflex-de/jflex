@@ -335,7 +335,6 @@ rules         ::=  rules:rlist rule:r
                        if (elem != null) { 
                          regExps.addStates( elem.intValue(), states );
                        }
-                       regExps.addStates( elem.intValue(), states );
                        rlist1.addElement( elem );
                      }                       
                      RESULT = rlist1;
@@ -382,7 +381,6 @@ act           ::=  REGEXPEND ACTION:a
 actions       ::=  act:a
                    {: RESULT = a; :}
                 |  NOACTION
-                   {: RESULT = null; :}
                 ;
 
                 

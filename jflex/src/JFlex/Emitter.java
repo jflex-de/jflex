@@ -100,7 +100,7 @@ final public class Emitter {
    *
    * @param name  the name (without path) of the file
    * @param path  the path where to construct the file
-   * @param input fallback location if path = <tt>null</tt>
+   * @param input fall back location if path = <tt>null</tt>
    *              (expected to be a file in the directory to write to)   
    */
   public static File normalize(String name, File input) {
@@ -165,7 +165,7 @@ final public class Emitter {
   }
 
   private boolean hasGenLookAhead() {
-    return scanner.lookAheadUsed;
+    return dfa.lookaheadUsed;
   }
   
   private void emitLookBuffer() {
@@ -354,16 +354,12 @@ final public class Emitter {
     println("            // store back cached positions");
     println("            zzCurrentPos  = zzCurrentPosL;");
     println("            zzMarkedPos   = zzMarkedPosL;");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzPushbackPos = zzPushbackPosL;");
     println("            boolean eof = zzRefill();");
     println("            // get translated positions and possibly new buffer");
     println("            zzCurrentPosL  = zzCurrentPos;");
     println("            zzMarkedPosL   = zzMarkedPos;");
     println("            zzBufferL      = zzBuffer;");
     println("            zzEndReadL     = zzEndRead;");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzPushbackPosL = zzPushbackPos;");
     println("            if (eof) {");
     println("              zzInput = YYEOF;");
     println("              break zzForAction;");  
@@ -882,11 +878,6 @@ final public class Emitter {
 
     }
 
-    if ( scanner.lookAheadUsed ) {
-      println("    int zzPushbackPosL = zzPushbackPos = -1;");
-      println("    boolean zzWasPushback;");
-    }
-
     skel.emitNext();    
         
     if ( scanner.charCount ) {
@@ -1007,9 +998,6 @@ final public class Emitter {
       println("      zzState = ZZ_LEXSTATE[zzLexicalState];");
       println();
     }
-
-    if (scanner.lookAheadUsed)
-      println("      zzWasPushback = false;");
 
     skel.emitNext();
   }
@@ -1343,11 +1331,6 @@ final public class Emitter {
       println( "break zzForAction;" );
   }
   
-  private void emitPushback() {
-    println("      if (zzWasPushback)");
-    println("        zzMarkedPos = zzPushbackPosL;");
-  }
-  
   private int getDefaultTransition(int state) {
     int max = 0;
     
@@ -1571,9 +1554,6 @@ final public class Emitter {
       emitGetRowMapNext();
     else
       emitTransitionTable();
-        
-    if (scanner.lookAheadUsed) 
-      emitPushback();
         
     skel.emitNext();
 

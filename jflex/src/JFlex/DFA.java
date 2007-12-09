@@ -60,13 +60,6 @@ final public class DFA {
 
   
   /**
-   * <code>isLookEnd[state] == true</code> <=> the state <code>state</code> is 
-   * a final state of a lookahead expression.
-   */
-  boolean [] isLookEnd;
-
-
-  /**
    * <code>action[state]</code> is the action that is to be carried out in
    * state <code>state</code>, <code>null</code> if there is no action.
    */
@@ -98,6 +91,9 @@ final public class DFA {
    */
   Hashtable usedActions = new Hashtable();
 
+  /** True iff this DFA contains general lookahead */
+  boolean lookaheadUsed;
+  
   public DFA(int numEntryStates, int numInp, int numLexStates) {
     numInput = numInp; 
     
@@ -106,7 +102,6 @@ final public class DFA {
     table       = new int [statesNeeded] [numInput];
     action      = new Action [statesNeeded];
     isFinal     = new boolean [statesNeeded];
-    isLookEnd   = new boolean [statesNeeded];
     entryState  = new int [numEntryStates];
     numStates   = 0;
 
@@ -133,12 +128,10 @@ final public class DFA {
 
     boolean [] newFinal    = new boolean [newLength];
     boolean [] newPushback = new boolean [newLength];
-    boolean [] newLookEnd  = new boolean [newLength];
     Action  [] newAction   = new Action  [newLength];
     int [] []  newTable    = new int [newLength] [numInput];
     
     System.arraycopy(isFinal,0,newFinal,0,numStates);
-    System.arraycopy(isLookEnd,0,newLookEnd,0,numStates);
     System.arraycopy(action,0,newAction,0,numStates);
     System.arraycopy(table,0,newTable,0,oldLength);
   
@@ -151,7 +144,6 @@ final public class DFA {
     }
 
     isFinal    = newFinal;
-    isLookEnd  = newLookEnd;
     action     = newAction;
     table      = newTable;
   }
@@ -160,8 +152,8 @@ final public class DFA {
   public void setAction(int state, Action stateAction) {
     action[state]    = stateAction;
     if (stateAction != null) {
-      isLookEnd[state] = stateAction.lookAhead() == Action.GENERAL_LOOK;
       usedActions.put(stateAction,stateAction);
+      lookaheadUsed |= stateAction.isGenLookAction();
     }
   }
   
@@ -396,28 +388,25 @@ final public class DFA {
         // System.out.println("  picking state ["+(t-1)+"]");
 
         // check, if s could be equivalent with t
-        found = (isLookEnd[s-1] == isLookEnd[t-1]);
-        if (found) {
-          if (isFinal[s-1]) {
-            found = isFinal[t-1] && action[s-1].isEquiv(action[t-1]);
-          }
-          else {
-            found = !isFinal[t-1];
-          }
-        
-          if (found) { // found -> add state s to block b
-            // System.out.println("Found! Adding to block "+(b-b0));
-            // update block information
-            block[s] = b;
-            block[b]++;
-            
-            // chain in the new element
-            int last = b_backward[b];
-            b_forward[last] = s;
-            b_forward[s] = b;
-            b_backward[b] = s;
-            b_backward[s] = last;
-          }
+        if (isFinal[s-1]) {
+          found = isFinal[t-1] && action[s-1].isEquiv(action[t-1]);
+        }
+        else {
+          found = !isFinal[t-1];
+        }
+      
+        if (found) { // found -> add state s to block b
+          // System.out.println("Found! Adding to block "+(b-b0));
+          // update block information
+          block[s] = b;
+          block[b]++;
+          
+          // chain in the new element
+          int last = b_backward[b];
+          b_forward[last] = s;
+          b_forward[s] = b;
+          b_backward[b] = s;
+          b_backward[s] = last;
         }
 
         b++;
@@ -721,7 +710,6 @@ final public class DFA {
         }
 
         isFinal[j] = isFinal[i];
-        isLookEnd[j] = isLookEnd[i];
         action[j] = action[i];
         
         j++;
@@ -825,10 +813,10 @@ final public class DFA {
         // i and j are both final and their actions are equivalent and have same pushback behaviour or
         // i and j are both not final
 
-        if ( isFinal[i] && isFinal[j] && (isLookEnd[i] == isLookEnd[j]) ) 
+        if ( isFinal[i] && isFinal[j] ) 
           equiv[i][j] = action[i].isEquiv(action[j]);        
         else
-          equiv[i][j] = !isFinal[j] && !isFinal[i] && (isLookEnd[i] == isLookEnd[j]);
+          equiv[i][j] = !isFinal[j] && !isFinal[i];
       }
     }
 

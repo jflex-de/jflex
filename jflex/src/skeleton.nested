@@ -36,10 +36,7 @@
 
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
-
-  /** the textposition at the last state to be included in yytext */
-  private int zzPushbackPos;
-
+  
   /** the current text position in the buffer */
   private int zzCurrentPos;
 
@@ -84,7 +81,6 @@
     int zzStartRead;
     int zzCurrentPos;
     int zzMarkedPos;
-    int zzPushbackPos;
     int yyline;
     int yycolumn;
     char [] zzBuffer;
@@ -92,14 +88,13 @@
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
-                  int zzCurrentPos, int zzMarkedPos, int zzPushbackPos,
+                  int zzCurrentPos, int zzMarkedPos, 
                   char [] zzBuffer, boolean zzAtEOF, int yyline, int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
       this.zzStartRead   = zzStartRead;
       this.zzCurrentPos  = zzCurrentPos;
       this.zzMarkedPos   = zzMarkedPos;
-      this.zzPushbackPos = zzPushbackPos;
       this.zzBuffer      = zzBuffer;
       this.zzAtEOF       = zzAtEOF;
       this.yyline         = yyline;
@@ -137,7 +132,6 @@
       zzEndRead-= zzStartRead;
       zzCurrentPos-= zzStartRead;
       zzMarkedPos-= zzStartRead;
-      zzPushbackPos-= zzStartRead;
       zzStartRead = 0;
     }
 
@@ -200,14 +194,14 @@
   public final void yypushStream(java.io.Reader reader) {
     zzStreams.push(
       new ZzFlexStreamInfo(zzReader, zzEndRead, zzStartRead, zzCurrentPos,
-                        zzMarkedPos, zzPushbackPos, zzBuffer, zzAtEOF,
+                        zzMarkedPos, zzBuffer, zzAtEOF,
                         yyline, yycolumn)
     );
     zzAtEOF  = false;
     zzBuffer = new char[ZZ_BUFFERSIZE];
     zzReader = reader;
     zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = zzPushbackPos = 0;
+    zzCurrentPos = zzMarkedPos = 0;
     yyline = yycolumn = 0;
   }
     
@@ -233,7 +227,6 @@
     zzStartRead   = s.zzStartRead;
     zzCurrentPos  = s.zzCurrentPos;
     zzMarkedPos   = s.zzMarkedPos ;
-    zzPushbackPos = s.zzPushbackPos;
     zzAtEOF       = s.zzAtEOF;
     yyline         = s.yyline;
     yycolumn       = s.yycolumn;
@@ -267,7 +260,7 @@
     zzAtBOL  = true;
     zzAtEOF  = false;
     zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = zzPushbackPos = 0;
+    zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
   }

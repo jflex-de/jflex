@@ -37,9 +37,6 @@
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
 
-  /** the textposition at the last state to be included in yytext */
-  private int zzPushbackPos;
-
   /** the current text position in the buffer */
   private int zzCurrentPos;
 
@@ -100,7 +97,6 @@
       zzEndRead-= zzStartRead;
       zzCurrentPos-= zzStartRead;
       zzMarkedPos-= zzStartRead;
-      zzPushbackPos-= zzStartRead;
       zzStartRead = 0;
     }
 
@@ -163,7 +159,7 @@
     zzAtBOL  = true;
     zzAtEOF  = false;
     zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = zzPushbackPos = 0;
+    zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
   }

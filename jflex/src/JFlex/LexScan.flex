@@ -91,7 +91,6 @@ import java.util.Stack;
   boolean isPublic;
   boolean isFinal;
   boolean isAbstract;
-  boolean lookAheadUsed;
   boolean bolUsed;
   boolean standalone;
   boolean debugOption;
@@ -425,11 +424,11 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {WSPNL}*"*"  { return symbol(STAR); }
   {WSPNL}*"+"  { return symbol(PLUS); }
   {WSPNL}*"?"  { return symbol(QUESTION); }
-  {WSPNL}*"$"  { lookAheadUsed = true; return symbol(DOLLAR); }
+  {WSPNL}*"$"  { return symbol(DOLLAR); }
   {WSPNL}*"^"  { bolUsed = true; return symbol(HAT); }
   {WSPNL}*"."  { return symbol(POINT); }
   {WSPNL}*"["  { yybegin(CHARCLASS); return symbol(OPENCLASS); }
-  {WSPNL}*"/"  { lookAheadUsed = true; return symbol(LOOKAHEAD); }
+  {WSPNL}*"/"  { return symbol(LOOKAHEAD); }
   
   {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
   {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP); return symbol(REPEAT, new Integer(yytext().trim().substring(1).trim())); }
