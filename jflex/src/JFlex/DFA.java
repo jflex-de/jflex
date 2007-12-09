@@ -241,15 +241,18 @@ final public class DFA {
   }
 
 
-  // check if all actions can actually be matched in this DFA
+  /**
+   * Check that all actions can actually be matched in this DFA.
+   */ 
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
     Enumeration l = scanner.actions.elements();
 
     while (l.hasMoreElements()) {
-      Object next = l.nextElement();
-      if ( !next.equals(usedActions.get(next)) && !eofActions.isEOFAction(next) ) 
-        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, ((Action) next).priority-1, -1);
+      Action a = (Action) l.nextElement();
+      if ( !a.equals(usedActions.get(a)) && !eofActions.isEOFAction(a) ) {
+        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority-1, -1);
+      }
     }
   }
 

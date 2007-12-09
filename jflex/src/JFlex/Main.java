@@ -88,7 +88,7 @@ public class Main {
       Out.time(ErrorMessages.DFA_TOOK, time); 
 
       dfa.checkActions(scanner, parser);
-
+      
       nfa = null;
 
       if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS)+
@@ -96,6 +96,8 @@ public class Main {
 
       if (Options.dot) 
         dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); //$NON-NLS-1$
+
+      Out.checkErrors();
 
       time.start();
       dfa.minimize();

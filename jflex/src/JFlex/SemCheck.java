@@ -35,25 +35,84 @@ public final class SemCheck {
   /**
    * Performs semantic analysis for all expressions.
    *
-   * FIXME: currently no checks done
+   * Currently checks for empty expressions only.
    *
    * @param rs   the reg exps to be checked
    * @param m    the macro table (in expanded form)
-   * @param max  max character of the used charset (for negation)
-   * @param f    the spec file containing the rules [fixme]
+   * @param f    the spec file containing the rules 
    */
-  public static void check(RegExps rs, Macros m, char max, File f) {
-    /*
+  public static void check(RegExps rs, Macros m, File f) {
     macros = m;
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
       RegExp l = rs.getLookAhead(i);
+      Action a = rs.getAction(i);
+      
+      if (r != null && l != null && maybeEmtpy(r)) {
+        if (a == null) 
+          Out.error(ErrorMessages.EMPTY_MATCH, "");
+        else 
+          Out.error(f, ErrorMessages.EMPTY_MATCH, a.priority-1, -1);
+      }
     }
-    */
-    return;
   }
 
+
+  /**
+   * Checks if the expression potentially matches the empty string.
+   *    
+   */
+  public static boolean maybeEmtpy(RegExp re) {
+    RegExp2 r; 
+
+    switch (re.type) {      
+
+    case sym.BAR: {
+      r = (RegExp2) re;
+      return maybeEmtpy(r.r1) || maybeEmtpy(r.r2);
+    }
+
+    case sym.CONCAT: {
+      r = (RegExp2) re;
+      return maybeEmtpy(r.r1) && maybeEmtpy(r.r2);
+    }
+
+    case sym.STAR:
+    case sym.QUESTION:
+      return true;
+      
+    case sym.PLUS: {
+      RegExp1 r1 = (RegExp1) re;
+      return maybeEmtpy((RegExp) r1.content);
+    }
+
+    case sym.CCLASS:
+    case sym.CCLASSNOT:
+    case sym.CHAR:
+    case sym.CHAR_I:
+      return false;
+
+    case sym.STRING: 
+    case sym.STRING_I: {
+      String content = (String) ((RegExp1) re).content;
+      return content.length() == 0;
+    }
+
+    case sym.TILDE:
+      return false;
+
+    case sym.BANG: {
+      RegExp1 r1 = (RegExp1) re;
+      return !maybeEmtpy((RegExp) r1.content);
+    }
+
+    case sym.MACROUSE:      
+      return maybeEmtpy(macros.getDefinition((String) ((RegExp1) re).content));
+    }
+
+    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
+  }
 
   /**
    * Returns length if expression has fixed length, -1 otherwise.

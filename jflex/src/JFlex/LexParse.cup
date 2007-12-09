@@ -270,10 +270,12 @@ specification ::=  USERCODE
                        Out.warning("Macro \""+unused.nextElement()+"\" has been declared but never used.");
                      }
 
-                     SemCheck.check(regExps, macros, charClasses.getMaxCharCode(), scanner.file);
+                     SemCheck.check(regExps, macros, scanner.file);
   
                      regExps.checkActions();
                      regExps.checkLookAheads();
+
+                     Out.checkErrors();
 
                      if (Options.dump) charClasses.dump();
 

@@ -142,4 +142,5 @@ public class ErrorMessages {
   public static ErrorMessages PARSING_TOOK = new ErrorMessages("PARSING_TOOK");
   public static ErrorMessages NFA_TOOK = new ErrorMessages("NFA_TOOK");
   public static ErrorMessages LOOKAHEAD_NEEDS_ACTION = new ErrorMessages("LOOKAHEAD_NEEDS_ACTION");
+  public static ErrorMessages EMPTY_MATCH = new ErrorMessages("EMPTY_MATCH");
 }
