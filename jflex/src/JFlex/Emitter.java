@@ -164,6 +164,18 @@ final public class Emitter {
     print(i);
   }
 
+  private boolean hasGenLookAhead() {
+    return scanner.lookAheadUsed;
+  }
+  
+  private void emitLookBuffer() {
+    if (!hasGenLookAhead()) return;
+    
+    println("  /** For the backwards DFA of general lookahead statements */");
+    println("  private boolean [] zzFin = new boolean [ZZ_BUFFERSIZE+1];");
+    println();
+  }
+  
   private void emitScanError() {
     print("  private void zzScanError(int errorCode)");
     
@@ -1141,18 +1153,19 @@ final public class Emitter {
         println("          // general lookahead, find correct zzMarkedPos");
         println("          { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
         println("            int zzFPos = zzStartRead;");
-        println("            boolean zzFin[] = new boolean[zzBuffer.length+1];");
+        println("            if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+        println("            boolean zzFinL[] = zzFin;");
         println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
-        println("              if ((zzAttrL[zzFState] & 1) == 1) { zzFin[zzFPos] = true; } ");
-        println("              zzInput = zzBuffer[zzFPos++];");
+        println("              if ((zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
+        println("              zzInput = zzBufferL[zzFPos++];");
         println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("            }");
-        println("            if (zzFState != -1 && (zzAttrL[zzFState] & 1) == 1) { zzFin[zzFPos] = true; } ");
+        println("            if (zzFState != -1 && (zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
         println();                
         println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
         println("            zzFPos = zzMarkedPos;");
-        println("            while (!zzFin[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
-        println("              zzInput = zzBuffer[--zzFPos];");
+        println("            while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
+        println("              zzInput = zzBufferL[--zzFPos];");
         println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("            };");
         println("            zzMarkedPos = zzFPos;");
@@ -1527,8 +1540,10 @@ final public class Emitter {
     
     if (scanner.useRowMap) 
       emitAttributes();    
-
+    
     skel.emitNext();
+    
+    emitLookBuffer();
     
     emitClassCode();
     
