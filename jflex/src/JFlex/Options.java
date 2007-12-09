@@ -117,6 +117,7 @@ public class Options {
     time = false;
     dot = false;
     dump = false;
+    Skeleton.readDefault();
   }
 
   public static void setSkeleton(File skel) {
