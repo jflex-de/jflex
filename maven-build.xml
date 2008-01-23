@@ -1,16 +1,16 @@
 <project name="JFlex" default="cup">
 	<!-- override these if you want to use your own versions -->
 	<property name="tools.dir" location="target/jar" />
-	<property name="cup.jar" value="${tools.dir}/java_cup.jar" />
+	<property name="cup.jar" value="${tools.dir}/java-cup-11a.jar" />
 	<available property="cup.jar.exists" file="${cup.jar}"/>
 	
 	<!-- where to get jflex.jar and cup.jar from -->
-	<property name="cup.jar.url" value="http://jflex.sourceforge.net/jar/stable/java_cup.jar" />
+	<property name="cup.jar.url" value="http://www2.cs.tum.edu/projects/cup/java-cup-11a.jar" />
 
 
 	<!-- ==================== targets ================================= -->
 	<target name="declare" depends="gettools" description="define tasks for jflex and cup">
-		<taskdef classname="java_cup.AntTask" name="cup" classpath="${cup.jar}" />
+		<taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}" />
 	</target>
 
 	<target name="gettools" description="download development tools" unless="${cup.jar.exists}">
@@ -24,6 +24,6 @@
 		<mkdir dir="${cup.output.dir}"/>
 		<property name="cup.file" location="src/main/cup/LexParse.cup"/>
 		<echo message="Generating LexParse.java from ${cup.file}"/> 
-		<cup file="${cup.file}" dir="${cup.output.dir}" interface="true" parser="LexParse" />
+    <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" parser="LexParse" />
 	</target>
 </project>
