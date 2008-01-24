@@ -48,7 +48,7 @@ public class RegExpTests extends TestCase implements sym {
   public void testCharClass() {
     Macros m = new Macros();    
     RegExp e1 = new RegExp1(CCLASS, new Interval('a','z'));
-    RegExp e2 = new RegExp1(CHAR, new Character('Z'));
+    RegExp e2 = new RegExp1(CHAR, 'Z');
     RegExp e3 = new RegExp1(CCLASS, new Interval('0','9'));
     m.insert("macro", e3);
     RegExp s = new RegExp1(STAR, e1);

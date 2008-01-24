@@ -35,18 +35,18 @@ import java.util.*;
 final public class Macros {
 
   /** Maps names of macros to their definition */
-  private Hashtable<String, RegExp> macros;
+  private Map<String, RegExp> macros;
 
   /** Maps names of macros to their "used" flag */
-  private Hashtable<String, Boolean> used;
+  private Map<String, Boolean> used;
 
 
   /**
    * Creates a new macro expander.
    */
   public Macros() {
-    macros = new Hashtable<String, RegExp>();
-    used = new Hashtable<String, Boolean>();
+    macros = new HashMap<String, RegExp>();
+    used = new HashMap<String, Boolean>();
   }
 
 
@@ -87,27 +87,25 @@ final public class Macros {
    *         a regular expression.
    */
   public boolean isUsed(String name) {
-    return ((Boolean)used.get(name)).booleanValue();
+    return used.get(name);
   }
 
 
   /**
    * Returns all unused macros.
    *
-   * @return the enumeration of macro names that have not been used.
+   * @return the macro names that have not been used.
    */
-  public Enumeration<String> unused() {
+  public List<String> unused() {
     
-    Vector<String> unUsed = new Vector<String>();
+    List<String> unUsed = new ArrayList<String>();
 
-    Enumeration<String> names = used.keys();
-    while ( names.hasMoreElements() ) {
-      String name = (String) names.nextElement();
-      Boolean isUsed = (Boolean) used.get( name );
-      if ( !isUsed.booleanValue() ) unUsed.addElement(name);
+    for (String name : used.keySet()) {
+      Boolean isUsed = used.get( name );
+      if ( !isUsed) unUsed.add(name);
     }
     
-    return unUsed.elements();
+    return unUsed;
   }
 
 
@@ -126,7 +124,7 @@ final public class Macros {
    * @see jflex.Macros#expand
    */
   public RegExp getDefinition(String name) {
-    return (RegExp) macros.get(name);
+    return macros.get(name);
   }
 
 
@@ -137,18 +135,11 @@ final public class Macros {
    * @throws MacroException   if there is a cycle in the macro usage graph.
    */
    public void expand() throws MacroException {
-    
-    Enumeration<String> names;
-
-    names = macros.keys();
-    
-    while ( names.hasMoreElements() ) {
-      String name = (String) names.nextElement();
+    for (String name : macros.keySet()) {
       if ( isUsed(name) )
         macros.put(name, expandMacro(name, getDefinition(name))); 
       // this put doesn't get a new key, so only a new value
-      // is set for the key "name" (without changing the enumeration 
-      // "names"!)
+      // is set for the key "name"
     }
   }
 

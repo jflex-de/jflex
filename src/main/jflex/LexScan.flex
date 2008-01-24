@@ -21,10 +21,12 @@
 package jflex;
 
 import java_cup.runtime.Symbol;
-import java.util.Vector;
 import java.io.*;
 import java.util.Stack;
 import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 
 /**
@@ -57,7 +59,7 @@ import java.util.HashMap;
 
 %cupdebug
 
-%{  
+%{
   int balance = 0;
   int commentbalance = 0;
   int action_line = 0;
@@ -66,10 +68,10 @@ import java.util.HashMap;
   File file;
   Stack files = new Stack();
 
-  StringBuffer userCode   = new StringBuffer();
-  
+  StringBuilder userCode   = new StringBuilder();
+
   String classCode;
-  String initCode;   
+  String initCode;
   String initThrow;
   String eofCode;
   String eofThrow;
@@ -78,13 +80,13 @@ import java.util.HashMap;
   String scanErrorException;
   String cupSymbol = "sym";
 
-  StringBuffer actionText = new StringBuffer();
-  StringBuffer string     = new StringBuffer();
-  
+  StringBuilder actionText = new StringBuilder();
+  StringBuilder string     = new StringBuilder();
+
   boolean charCount;
   boolean lineCount;
   boolean columnCount;
-  boolean cupCompatible;  
+  boolean cupCompatible;
   boolean cupDebug;
   boolean isInteger;
   boolean isIntWrap;
@@ -102,19 +104,19 @@ import java.util.HashMap;
   boolean caseless;
   boolean inclusive_states;
   boolean eofclose;
-    
+
   String isImplementing;
   String isExtending;
   String className = "Yylex";
-  HashMap ctorArgs = new HashMap();
+  Map<String,String> ctorArgs = new HashMap<String,String>();
   String functionName;
   String tokenType;
   String visibility = "public";
-    
+
   LexicalStates states = new LexicalStates();
 
-  Vector actions = new Vector();
-  
+  List<Action> actions = new ArrayList<Action>();
+
   private int nextState;
 
   boolean macroDefinition;
@@ -123,7 +125,7 @@ import java.util.HashMap;
 
   public int currentLine() {
     return yyline;
-  }    
+  }
 
   public void setFile(File file) {
     this.file = file;
@@ -136,9 +138,9 @@ import java.util.HashMap;
   private Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
-   
+
   // updates line and column count to the beginning of the first
-  // non whitespace character in yytext, but leaves yyline+yycolumn 
+  // non whitespace character in yytext, but leaves yyline+yycolumn
   // untouched
   private Symbol symbol_countUpdate(int type, Object value) {
      int lc = yyline;
@@ -148,7 +150,7 @@ import java.util.HashMap;
      for (int i=0; i < text.length(); i++) {
       char c = text.charAt(i);
 
-      if (c != '\n' && c != '\r' && c != ' ' && c != '\t' ) 
+      if (c != '\n' && c != '\r' && c != ' ' && c != '\t' )
         return new Symbol(type, lc, cc, value);
 
       if (c == '\n') {
@@ -158,7 +160,7 @@ import java.util.HashMap;
       else
         cc++;
     }
-   
+
     return new Symbol(type, yyline, yycolumn, value);
   }
 
@@ -171,7 +173,7 @@ import java.util.HashMap;
     if (a == null && b == null) return null;
     if (a == null) return b.toString();
     if (b == null) return a.toString();
-    
+
     return a.toString()+b.toString();
   }
 
@@ -179,7 +181,7 @@ import java.util.HashMap;
     if (a == null && b == null) return null;
     if (a == null) return b.toString();
     if (b == null) return a.toString();
-    
+
     return a.toString()+", "+b.toString();
   }
 %}
@@ -196,7 +198,7 @@ OctDigit   = [0-7]
 Number     = {Digit}+
 HexNumber  = \\ x {HexDigit} {2}
 Unicode    = \\ u {HexDigit} {1, 4}
-OctNumber  = \\ [0-3]? {OctDigit} {1, 2}  
+OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
 
 // see http://www.unicode.org/unicode/reports/tr18/
 WSP        = [ \t\b]
@@ -232,19 +234,19 @@ EscapeSequence = \\[^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]|\\+u{HexDigit}{
 
 /* \\(b|t|n|f|r|\"|\'|\\|[0-3]?{OctDigit}{1,2}|u{HexDigit}{4}) */
 
-JavaRest = [^\{\}\"\'/]|"/"[^*/]      
+JavaRest = [^\{\}\"\'/]|"/"[^*/]
 JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
 %%
 
 <YYINITIAL> {
-  "%%".*{NL}?              { 
-                             t.start(); 
-                             yybegin(MACROS); 
-                             macroDefinition = true; 
-                             return symbol(USERCODE,userCode); 
+  "%%".*{NL}?              {
+                             t.start();
+                             yybegin(MACROS);
+                             macroDefinition = true;
+                             return symbol(USERCODE,userCode);
                            }
-  .*{NL}                   { userCode.append(yytext()); }            
+  .*{NL}                   { userCode.append(yytext()); }
   .*                       { return symbol(EOF); }
 }
 
@@ -283,7 +285,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   eofVal = "return 0;";
                                 eofclose = true;
                               }
-  "%cup"                      { cupCompatible = true;  
+  "%cup"                      { cupCompatible = true;
                                 isImplementing = concExc(isImplementing, "java_cup.runtime.Scanner");
                                 if (functionName == null)
                                   functionName = "next_token";
@@ -293,7 +295,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
                                 if (!Options.jlex) eofclose = true;
                               }
-  "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim(); 
+  "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
                                 if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
@@ -330,7 +332,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%pack"                     { packed = true; useRowMap = true; }
   "%include" {WSP}+ .*        { File f = new File(yytext().substring(9).trim());
                                 if ( !f.canRead() )
-                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline); 
+                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
                                 // check for cycle
                                 if (files.search(f) > 0)
                                   throw new ScannerException(file,ErrorMessages.FILE_CYCLE, yyline);
@@ -341,8 +343,8 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   Out.println("Including \""+file+"\"");
                                 }
                                 catch (FileNotFoundException e) {
-                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline); 
-                                } 
+                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
+                                }
                               }
   "%buffer" {WSP}+ {Number} {WSP}*   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
   "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,ErrorMessages.NO_BUFFER_SIZE, yyline); }
@@ -361,24 +363,24 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "="{WSP}*                   { yybegin(REGEXP); return symbol(EQUALS); }
 
   "/*"                        { nextState = MACROS; yybegin(COMMENT); }
-  
+
   {EndOfLineComment}          { }
 
-  /* no {NL} at the end of this expression, because <REGEXPSTART> 
-     needs at least one {WSPNL} to start a regular expression! */   
+  /* no {NL} at the end of this expression, because <REGEXPSTART>
+     needs at least one {WSPNL} to start a regular expression! */
   ^"%%" {NNL}*                { macroDefinition = false; yybegin(REGEXPSTART); return symbol(DELIMITER); }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
 
   {WSP}+                      { }
-  {NL}+                       { }                        
+  {NL}+                       { }
   <<EOF>>                     { if ( yymoreStreams() ) {
                                   file = (File) files.pop();
                                   yypopStream();
                                 }
                                 else
-                                  throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS); 
+                                  throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS);
                               }
 }
 
@@ -387,11 +389,11 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {WSPNL}+                    { yybegin(REGEXP); }
   {WSPNL}* "<"                { yybegin(STATES); return symbol_countUpdate(LESSTHAN, null); }
   {WSPNL}* "}"                { return symbol_countUpdate(RBRACE, null); }
-  {WSPNL}* "//" {NNL}*        { }  
-  {WSPNL}* "<<EOF>>" {WSPNL}* "{" 
-                              { actionText.setLength(0); yybegin(JAVA_CODE); 
+  {WSPNL}* "//" {NNL}*        { }
+  {WSPNL}* "<<EOF>>" {WSPNL}* "{"
+                              { actionText.setLength(0); yybegin(JAVA_CODE);
                                 Symbol s = symbol_countUpdate(EOFRULE, null);
-                                action_line = s.left+1; 
+                                action_line = s.left+1;
                                 return s;
                               }
 }
@@ -401,7 +403,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   ","                         { return symbol(COMMA); }
   {WSPNL}+                    { }
 
-  // "{" will be caught in REGEXP  
+  // "{" will be caught in REGEXP
   ">"{WSPNL}*                 { yybegin(REGEXP); return symbol(MORETHAN); }
 
   <<EOF>>                     { throw new ScannerException(file,ErrorMessages.EOF_IN_STATES); }
@@ -414,11 +416,11 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
   {WSPNL}*"|"{WSP}*$      { if (macroDefinition) {
                               yybegin(EATWSPNL);
-                              return symbol(BAR); 
+                              return symbol(BAR);
                             }
-                            else { 
-                              yybegin(REGEXPSTART); 
-                              return symbol(NOACTION); 
+                            else {
+                              yybegin(REGEXPSTART);
+                              return symbol(NOACTION);
                             }
                           }
 
@@ -440,9 +442,9 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {WSPNL}*"."  { return symbol(POINT); }
   {WSPNL}*"["  { yybegin(CHARCLASS); return symbol(OPENCLASS); }
   {WSPNL}*"/"  { lookAheadUsed = true; return symbol(LOOKAHEAD); }
-  
+
   {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
-  {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP); return symbol(REPEAT, new Integer(yytext().trim().substring(1).trim())); }
+  {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP); return symbol(REPEAT, yytext().trim().substring(1).trim()); }
 
   {WSPNL}+ "{"    { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(REGEXPEND); }
   {NL}            { if (macroDefinition) { yybegin(MACROS); } return symbol(REGEXPEND); }
@@ -462,7 +464,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
     {WSPNL}*"[:lowercase:]"  { return symbol(LOWERCLASS); }
   }
 
-  . { return symbol(CHAR, new Character(yytext().charAt(0))); }
+  . { return symbol(CHAR, yytext().charAt(0)); }
 }
 
 <EATWSPNL> {WSPNL}+  { yybegin(REGEXP); }
@@ -470,7 +472,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
 <REPEATEXP> {
   "}"          { yybegin(REGEXP); return symbol(RBRACE); }
-  "," {WSP}* {Number}  { return symbol(REPEAT, new Integer(yytext().substring(1).trim())); }
+  "," {WSP}* {Number}  { return symbol(REPEAT, yytext().substring(1).trim()); }
   {WSP}+       { }
 
   <<EOF>>                 { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
@@ -483,13 +485,13 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "^"  { return symbol(HAT); }
   "-"  { return symbol(DASH); }
 
-  // this is a hack to keep JLex compatibilty with char class 
+  // this is a hack to keep JLex compatibilty with char class
   // expressions like [+-]
-  "-]" { yypushback(1); yycolumn--; return symbol(CHAR, new Character(yytext().charAt(0))); }  
+  "-]" { yypushback(1); yycolumn--; return symbol(CHAR, yytext().charAt(0)); }
 
   \"   { string.setLength(0); nextState = CHARCLASS; yybegin(STRING_CONTENT); }
 
-  .    { return symbol(CHAR, new Character(yytext().charAt(0))); }
+  .    { return symbol(CHAR, yytext().charAt(0)); }
 
   \n   { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
 
@@ -520,48 +522,48 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
 
 <REGEXP, CHARCLASS> {
-  {HexNumber} { return symbol(CHAR, new Character( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16))); }
-  {Unicode} { return symbol(CHAR, new Character( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16))); }
-  {OctNumber} { return symbol(CHAR, new Character( (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8))); }
+  {HexNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {OctNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
 
-  \\b { return symbol(CHAR,new Character('\b')); }
-  \\n { return symbol(CHAR,new Character('\n')); }
-  \\t { return symbol(CHAR,new Character('\t')); }
-  \\f { return symbol(CHAR,new Character('\f')); }
-  \\r { return symbol(CHAR,new Character('\r')); }
+  \\b { return symbol(CHAR,'\b'); }
+  \\n { return symbol(CHAR,'\n'); }
+  \\t { return symbol(CHAR,'\t'); }
+  \\f { return symbol(CHAR,'\f'); }
+  \\r { return symbol(CHAR,'\r'); }
 
-  \\. { return symbol(CHAR, new Character(yytext().charAt(1))); }
+  \\. { return symbol(CHAR, yytext().charAt(1)); }
 }
 
 
 <JAVA_CODE> {
   "{"        { balance++; actionText.append('{'); }
   "}"        { if (balance > 0) {
-                 balance--;     
-                 actionText.append('}'); 
+                 balance--;
+                 actionText.append('}');
                }
                else {
-                 yybegin(REGEXPSTART); 
+                 yybegin(REGEXPSTART);
                  Action a = new Action(actionText.toString(), action_line);
-                 actions.addElement(a);
+                 actions.add(a);
                  return symbol(ACTION, a);
                }
-             } 
-           
-  {JavaCode}     { actionText.append(yytext()); } 
+             }
+
+  {JavaCode}     { actionText.append(yytext()); }
 
   <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_ACTION, action_line-1); }
 }
 
 <COMMENT> {
-   
+
   "/"+ "*"  { commentbalance++; }
-  "*"+ "/"  { if (commentbalance > 0) 
-                commentbalance--; 
+  "*"+ "/"  { if (commentbalance > 0)
+                commentbalance--;
               else
-                yybegin(nextState); 
+                yybegin(nextState);
             }
-  
+
   {JFlexComment} { /* ignore */ }
 
   <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_COMMENT); }
@@ -575,5 +577,5 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
              file = (File) files.pop();
              yypopStream();
            }
-           else 
+           else
              return symbol(EOF); }

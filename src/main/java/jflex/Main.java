@@ -150,8 +150,8 @@ public class Main {
 
   }
 
-  public static Vector parseOptions(String argv[]) throws SilentExit {
-    Vector files = new Vector();
+  public static List<File> parseOptions(String argv[]) throws SilentExit {
+    List<File> files = new ArrayList<File>();
 
     for (int i = 0; i < argv.length; i++) {
 
@@ -255,7 +255,7 @@ public class Main {
       // if argv[i] is not an option, try to read it as file 
       File f = new File(argv[i]);
       if ( f.isFile() && f.canRead() ) 
-        files.addElement(f);      
+        files.add(f);      
       else {
         Out.error("Sorry, couldn't open \""+f+"\""); //$NON-NLS-2$
         throw new GeneratorException();
@@ -297,11 +297,11 @@ public class Main {
 
 
   public static void generate(String argv[]) throws SilentExit {
-    Vector files = parseOptions(argv);
+    List<File> files = parseOptions(argv);
 
     if (files.size() > 0) {
-      for (int i = 0; i < files.size(); i++) 
-        generate((File) files.elementAt(i));          
+      for (File file : files) 
+        generate(file);
     }
     else {
       new MainFrame();

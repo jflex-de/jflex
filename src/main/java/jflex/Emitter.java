@@ -72,7 +72,7 @@ final public class Emitter {
   
 
   /** maps actions to their switch label */
-  private Hashtable<Action, Integer> actionTable = new Hashtable<Action, Integer>();
+  private Map<Action, Integer> actionTable = new HashMap<Action, Integer>();
 
   private CharClassInterval [] intervalls;
 
@@ -101,7 +101,6 @@ final public class Emitter {
    * another file. Makes a backup if the file already exists.
    *
    * @param name  the name (without path) of the file
-   * @param path  the path where to construct the file
    * @param input fallback location if path = <tt>null</tt>
    *              (expected to be a file in the directory to write to)   
    */
@@ -415,10 +414,10 @@ final public class Emitter {
   /**
    * Try to find out if user code ends with a javadoc comment 
    * 
-   * @param buffer   the user code
-   * @return true    if it ends with a javadoc comment
+   * @param usercode  the user code
+   * @return true     if it ends with a javadoc comment
    */
-  public static boolean endsWithJavadoc(StringBuffer usercode) {
+  public static boolean endsWithJavadoc(StringBuilder usercode) {
     String s = usercode.toString().trim();
         
     if (!s.endsWith("*/")) return false;
@@ -433,12 +432,8 @@ final public class Emitter {
 
 
   private void emitLexicalStates() {
-    Enumeration<String> stateNames = scanner.states.names();
-    
-    while ( stateNames.hasMoreElements() ) {
-      String name = stateNames.nextElement();
-      
-      int num = scanner.states.getNumber(name).intValue();
+    for (String name : scanner.states.names()) {
+      int num = scanner.states.getNumber(name);
 
       if (scanner.bolUsed)      
         println("  "+visibility+" static final int "+name+" = "+2*num+";");
@@ -805,13 +800,9 @@ final public class Emitter {
 
     print("    this(new java.io.InputStreamReader(in)");
 
-    if (!scanner.ctorArgs.isEmpty()) {
-      Iterator iter = scanner.ctorArgs.values().iterator();
-      while (iter.hasNext()) {
-        print(",");
-        print((String) iter.next());
-      }
-    }
+    if (!scanner.ctorArgs.isEmpty())
+      for (String val : scanner.ctorArgs.values())
+        print("," + val);
 
     println(");");
 
@@ -821,9 +812,7 @@ final public class Emitter {
   private void emitCtorArgs() {
     if (scanner.ctorArgs.isEmpty()) return;
 
-    Iterator iter = scanner.ctorArgs.entrySet().iterator();
-    while (iter.hasNext()) {
-      Map.Entry entry = (Map.Entry) iter.next();
+    for (Map.Entry entry : scanner.ctorArgs.entrySet()) {
       print(",");
       print((String) entry.getKey());
       print(" ");
@@ -1106,7 +1095,7 @@ final public class Emitter {
    * Escapes all " ' \ tabs and newlines
    */
   private String escapify(String s) {
-    StringBuffer result = new StringBuffer(s.length()*2);
+    StringBuilder result = new StringBuilder(s.length()*2);
     
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
@@ -1142,10 +1131,10 @@ final public class Emitter {
         Action action = dfa.action[i];
         Integer stored = actionTable.get(action);
         if ( stored == null ) { 
-          stored = new Integer(lastAction++);
+          stored = lastAction++;
           actionTable.put(action, stored);
         }
-        newVal = stored.intValue();
+        newVal = stored;
       }
       else {
         newVal = 0;
@@ -1170,11 +1159,11 @@ final public class Emitter {
   private void emitActions() {
     println("      switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
 
-    int i = actionTable.size()+1;  
-    Enumeration<Action> actions = actionTable.keys();
-    while ( actions.hasMoreElements() ) {
-      Action action = actions.nextElement();
-      int label = actionTable.get(action).intValue();
+    int i = actionTable.size()+1;
+    
+    for (Map.Entry<Action,Integer> entry : actionTable.entrySet()) {
+      Action action = entry.getKey();
+      int label = entry.getValue();
 
       println("        case "+label+": "); 
       
@@ -1205,18 +1194,15 @@ final public class Emitter {
     if ( eofActions.numActions() > 0 ) {
       println("            switch (zzLexicalState) {");
       
-      Enumeration<String> stateNames = scanner.states.names();
-
       // record lex states already emitted:
-      Hashtable<Integer, String> used = new Hashtable<Integer, String>();
+      Map<Integer, String> used = new HashMap<Integer, String>();
 
       // pick a start value for break case labels. 
       // must be larger than any value of a lex state:
       int last = dfa.numStates;
       
-      while ( stateNames.hasMoreElements() ) {
-        String name = stateNames.nextElement();
-        int num = scanner.states.getNumber(name).intValue();
+      for (String name : scanner.states.names()) {
+        int num = scanner.states.getNumber(name);
         Action action = eofActions.getAction(num);
 
         // only emit code if the lex state is not redundant, so
@@ -1227,7 +1213,7 @@ final public class Emitter {
         // case labels will always be unique.
         boolean unused = true;                
         if (!scanner.bolUsed) {
-          Integer key = new Integer(dfa.lexState[2*num]);
+          Integer key = dfa.lexState[2 * num];
           unused = used.get(key) == null;
           
           if (!unused) 
@@ -1321,13 +1307,13 @@ final public class Emitter {
       chars = noTarget[state].characters();
   
     print("                case ");
-    print((int)chars.nextElement());
+    print(chars.nextElement());
     print(": ");
     
     while ( chars.hasMoreElements() ) {
       println();
       print("                case ");
-      print((int)chars.nextElement());
+      print(chars.nextElement());
       print(": ");
     } 
     

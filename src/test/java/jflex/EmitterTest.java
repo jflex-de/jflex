@@ -20,7 +20,6 @@
 
 package jflex;
 
-import jflex.Emitter;
 import junit.framework.TestCase;
 
 /**
@@ -40,7 +39,7 @@ public class EmitterTest extends TestCase {
   }
 
   public void testJavadoc() {
-    StringBuffer usercode = new StringBuffer("/* some *** comment */");
+    StringBuilder usercode = new StringBuilder("/* some *** comment */");
     assertTrue(!Emitter.endsWithJavadoc(usercode));
     usercode.append("import bla;  /** javadoc /* */  ");
     assertTrue(Emitter.endsWithJavadoc(usercode));

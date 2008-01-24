@@ -38,7 +38,7 @@ public class GridPanel extends Panel implements Handles {
   private int hgap;
   private int vgap;
  
-  private Vector constraints = new Vector();
+  private Vector<GridPanelConstraint> constraints = new Vector<GridPanelConstraint>();
   private Insets insets = new Insets(0,0,0,0);
 
   public GridPanel(int cols, int rows) {
@@ -61,7 +61,7 @@ public class GridPanel extends Panel implements Handles {
     float cellHeight = size.height/rows;
 
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = (GridPanelConstraint) constraints.elementAt(i);
+      GridPanelConstraint c = constraints.elementAt(i);
 
       float x = cellWidth * c.x + insets.left + hgap/2;
       float y = cellHeight * c.y + insets.right + vgap/2;
@@ -118,7 +118,7 @@ public class GridPanel extends Panel implements Handles {
     float dx = 0;
    
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = (GridPanelConstraint) constraints.elementAt(i);
+      GridPanelConstraint c = constraints.elementAt(i);
 
       Dimension d = c.component.getPreferredSize();
 

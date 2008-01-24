@@ -21,7 +21,8 @@ package jflex;
 
 import java.io.*;
 import java.net.URL;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -43,7 +44,7 @@ import java.util.Vector;
 public class Skeleton {
   
   /** location of default skeleton */
-  static final private String DEFAULT_LOC = "skeleton.default"; //$NON-NLS-1$
+  static final private String DEFAULT_LOC = "jflex/skeleton.default"; //$NON-NLS-1$
   
   /** expected number of sections in the skeleton file */
   static final private int size = 21;
@@ -135,13 +136,13 @@ public class Skeleton {
    * @throws GeneratorException if the number of skeleton sections does not match 
    */
   public static void readSkel(BufferedReader reader) throws IOException {
-    Vector lines = new Vector();
-    StringBuffer section = new StringBuffer();
+    List<String> lines = new ArrayList<String>();
+    StringBuilder section = new StringBuilder();
 
     String ln;
     while ((ln = reader.readLine()) != null) {
       if (ln.startsWith("---")) { //$NON-NLS-1$
-        lines.addElement(section.toString());
+        lines.add(section.toString());
         section.setLength(0);
       } else {
         section.append(ln);
@@ -150,7 +151,7 @@ public class Skeleton {
     }
 
     if (section.length() > 0)
-      lines.addElement(section.toString());
+      lines.add(section.toString());
 
     if (lines.size() != size) {
       Out.error(ErrorMessages.WRONG_SKELETON);
@@ -159,7 +160,7 @@ public class Skeleton {
 
     line = new String[size];
     for (int i = 0; i < size; i++)
-      line[i] = (String) lines.elementAt(i);
+      line[i] = lines.get(i);
   }
   
   /**
@@ -171,7 +172,7 @@ public class Skeleton {
    * @return a String object with a replaced by b in c 
    */
   public static String replace(String a, String b, String c) {
-    StringBuffer result = new StringBuffer(c.length());
+    StringBuilder result = new StringBuilder(c.length());
     int i = 0;
     int j = c.indexOf(a);
     

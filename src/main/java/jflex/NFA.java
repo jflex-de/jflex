@@ -126,14 +126,12 @@ final public class NFA {
     
     IntPair nfa = insertNFA( regExps.getRegExp(regExpNum) );
     
-    Enumeration lexStates = regExps.getStates(regExpNum).elements();
+    List<Integer> lexStates = regExps.getStates(regExpNum);
     
-    if ( !lexStates.hasMoreElements() )
+    if ( lexStates.isEmpty() )
       lexStates = scanner.states.getInclusiveStates();
 
-    while ( lexStates.hasMoreElements() ) {
-      int stateNum = ((Integer)lexStates.nextElement()).intValue();
-        
+    for (Integer stateNum : lexStates) {
       if ( !regExps.isBOL(regExpNum) )
         addEpsilonTransition(2*stateNum, nfa.start);
       
@@ -282,7 +280,8 @@ final public class NFA {
    * The epsilon closure for set a is the set of states that can be reached 
    * by epsilon edges from a.
    *
-   * @param set the set of states to calculate the epsilon closure for
+   * @param startState the start state for the set of states 
+   *  to calculate the epsilon closure for
    *
    * @return the epsilon closure of the specified set of states 
    *         in this NFA
@@ -372,8 +371,8 @@ final public class NFA {
    */
   public DFA getDFA() {
 
-    Hashtable<StateSet, Integer> dfaStates = new Hashtable<StateSet, Integer>(numStates);
-    Vector<StateSet> dfaVector    = new Vector<StateSet>(numStates);
+    Map<StateSet, Integer> dfaStates = new HashMap<StateSet, Integer>(numStates);
+    List<StateSet> dfaList = new ArrayList<StateSet>(numStates);
 
     DFA dfa = new DFA(2*numLexStates, numInput);
 
@@ -389,8 +388,8 @@ final public class NFA {
     for ( int i = 0;  i < 2*numLexStates;  i++ ) {
       newState = epsilon[i];
   
-      dfaStates.put(newState, new Integer(numDFAStates));
-      dfaVector.addElement(newState);
+      dfaStates.put(newState, numDFAStates);
+      dfaList.add(newState);
   
       dfa.setLexState( i, numDFAStates );
         
@@ -404,7 +403,7 @@ final public class NFA {
     numDFAStates--;
 
     if (Options.DEBUG)
-      Out.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
+      Out.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaList);
      
     currentDFAState = 0;
       
@@ -416,7 +415,7 @@ final public class NFA {
 
     while ( currentDFAState <= numDFAStates ) {
 
-      currentState = (StateSet) dfaVector.elementAt(currentDFAState);
+      currentState = dfaList.get(currentDFAState);
 
       for (char input = 0; input < numInput; input++) {
 
@@ -445,11 +444,11 @@ final public class NFA {
           // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
        
 	        // Out.debug("Looking for state set "+newState);
-	        Integer nextDFAState = (Integer) dfaStates.get(newState);
+	        Integer nextDFAState = dfaStates.get(newState);
 
 	        if ( nextDFAState != null ) {
 	          // Out.debug("FOUND!");
-	          dfa.addTransition(currentDFAState, input, nextDFAState.intValue());
+	          dfa.addTransition(currentDFAState, input, nextDFAState);
 	        }
 	        else {
             if (Options.progress) Out.print(".");
@@ -460,8 +459,8 @@ final public class NFA {
             // make a new copy of newState to store in dfaStates
             StateSet storeState = new StateSet(newState);
 
-	          dfaStates.put(storeState, new Integer(numDFAStates));
-	          dfaVector.addElement(storeState);
+	          dfaStates.put(storeState, numDFAStates);
+	          dfaList.add(storeState);
 	    
 	          dfa.addTransition(currentDFAState, input, numDFAStates);
 	          dfa.setFinal( numDFAStates, containsFinal(storeState) );
@@ -485,23 +484,24 @@ final public class NFA {
   }
 
   public String toString() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
 
     for (int i=0; i < numStates; i++) {
       result.append("State");
       if ( isFinal[i] ) result.append("[FINAL]");
       if ( isPushback[i] ) result.append(" [PUSHBACK]");
-      result.append(" "+i+Out.NL);
+      result.append(" ").append(i).append(Out.NL);
       
       for (char input = 0; input < numInput; input++) {
-	      if ( table[i][input] != null && table[i][input].containsElements() ) 
-	        result.append("  with "+((int) input)+" in "+table[i][input]+Out.NL);	
+	      if ( table[i][input] != null && table[i][input].containsElements() )
+          result.append("  with ").append((int) input).append(" in ")
+                .append(table[i][input]).append(Out.NL);	
           
           
         }
 
-      if ( epsilon[i] != null && epsilon[i].containsElements() ) 
-	      result.append("  with epsilon in "+epsilon[i]+Out.NL);
+      if ( epsilon[i] != null && epsilon[i].containsElements() )
+        result.append("  with epsilon in ").append(epsilon[i]).append(Out.NL);
     }    
     
     return result.toString();
@@ -520,10 +520,10 @@ final public class NFA {
   }
 
   public String dotFormat() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
 
-    result.append("digraph NFA {"+Out.NL);
-    result.append("rankdir = LR"+Out.NL);
+    result.append("digraph NFA {").append(Out.NL);
+    result.append("rankdir = LR").append(Out.NL);
 
     for (int i=0; i < numStates; i++) {
       if ( isFinal[i] || isPushback[i] ) result.append(i);
@@ -539,8 +539,8 @@ final public class NFA {
         
           while (states.hasMoreElements()) {
             int s = states.nextElement();
-            result.append(i+" -> "+s);
-            result.append(" [label=\""+classes.toString(input)+"\"]"+Out.NL);
+            result.append(i).append(" -> ").append(s);
+            result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Out.NL);
           }
         }
       }
@@ -548,12 +548,12 @@ final public class NFA {
         StateSetEnumerator states = epsilon[i].states();
         while (states.hasMoreElements()) {
           int s = states.nextElement();
-          result.append(i+" -> "+s+" [style=dotted]"+Out.NL);
+          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
         }
       }
     }
 
-    result.append("}"+Out.NL);
+    result.append("}").append(Out.NL);
 
     return result.toString();
   }
@@ -595,20 +595,18 @@ final public class NFA {
   }
   
 
-  private void insertClassNFA(Vector intervalls, int start, int end) {
+  private void insertClassNFA(List<Interval> intervalls, int start, int end) {
     // empty char class is ok:
     if (intervalls == null) return;
 
-    int [] cl = classes.getClassCodes(intervalls);    
-    for (int i = 0; i < cl.length; i++) 
-      addTransition(start, cl[i], end);
+    for (int aCl : classes.getClassCodes(intervalls)) 
+      addTransition(start, aCl, end);
   }
 
-  private void insertNotClassNFA(Vector intervalls, int start, int end) {
-    int [] cl = classes.getNotClassCodes(intervalls);
+  private void insertNotClassNFA(List<Interval> intervalls, int start, int end) {
 
-    for (int i = 0; i < cl.length; i++) 
-      addTransition(start, cl[i], end);
+    for (int input : classes.getNotClassCodes(intervalls)) 
+      addTransition(start, input, end);
   }
   
 
@@ -619,7 +617,7 @@ final public class NFA {
    * Converts the NFA into a DFA, then negates that DFA.
    * Exponential state blowup possible and common.
    *
-   * @param the NFA to construct the complement for.
+   * @param nfa the NFA to construct the complement for.
    *
    * @return a pair of integers denoting the index of start
    *         and end state of the complement NFA.
@@ -636,8 +634,8 @@ final public class NFA {
     // fixme: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
     
-    Hashtable<StateSet, Integer> dfaStates = new Hashtable<StateSet, Integer>(numStates);
-    Vector<StateSet> dfaVector    = new Vector<StateSet>(numStates);
+    Map<StateSet, Integer> dfaStates = new HashMap<StateSet, Integer>(numStates);
+    List<StateSet> dfaList = new ArrayList<StateSet>(numStates);
 
     int numDFAStates = 0;
     int currentDFAState = 0;
@@ -645,17 +643,17 @@ final public class NFA {
     StateSet currentState, newState;
     
     newState = epsilon[nfa.start];
-    dfaStates.put(newState, new Integer(numDFAStates));
-    dfaVector.addElement(newState);
+    dfaStates.put(newState, numDFAStates);
+    dfaList.add(newState);
 
     if (Options.DEBUG)
-      Out.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
+      Out.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaList);
      
     currentDFAState = 0;
       
     while ( currentDFAState <= numDFAStates ) {
 
-      currentState = (StateSet) dfaVector.elementAt(currentDFAState);
+      currentState = dfaList.get(currentDFAState);
 
       for (char input = 0; input < numInput; input++) {
 	      newState = DFAEdge(currentState, input);
@@ -665,11 +663,11 @@ final public class NFA {
           // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
        
 	        // Out.debug("Looking for state set "+newState);
-	        Integer nextDFAState = (Integer) dfaStates.get(newState);
+	        Integer nextDFAState = dfaStates.get(newState);
 
 	        if ( nextDFAState != null ) {
 	          // Out.debug("FOUND!");
-            addTransition(dfaStart+currentDFAState, input, dfaStart+nextDFAState.intValue());
+            addTransition(dfaStart+currentDFAState, input, dfaStart+nextDFAState);
 	        }
 	        else {
             if (Options.dump) Out.print("+");
@@ -677,8 +675,8 @@ final public class NFA {
 	          // Out.debug("Table was "+dfaStates);
             numDFAStates++;
 
-	          dfaStates.put(newState, new Integer(numDFAStates));
-	          dfaVector.addElement(newState);
+	          dfaStates.put(newState, numDFAStates);
+	          dfaList.add(newState);
 
             addTransition(dfaStart+currentDFAState, input, dfaStart+numDFAStates);
 	        }
@@ -706,7 +704,7 @@ final public class NFA {
     addEpsilonTransition(error, end);
 
     for (int s = 0; s <= numDFAStates; s++) {
-      currentState = (StateSet) dfaVector.elementAt(s);
+      currentState = dfaList.get(s);
       
       currentDFAState = dfaStart+s;
 
@@ -728,7 +726,7 @@ final public class NFA {
     }
 
     _end = end;
-    _dfaStates = dfaVector;
+    _dfaStates = dfaList;
     _dfaStart = dfaStart;    
     removeDead(dfaStart);
 
@@ -743,7 +741,7 @@ final public class NFA {
   private boolean [] live;    // = new boolean [estSize];
   private boolean [] visited; // = new boolean [estSize];
   private int _end; // final state of original nfa for dfa (nfa coordinates)
-  private Vector _dfaStates; 
+  private List<StateSet> _dfaStates; 
   private int _dfaStart; // in nfa coordinates
 
   private void removeDead(int start) {
@@ -820,22 +818,22 @@ final public class NFA {
       return;
             
     case sym.CCLASS:
-      insertClassNFA( (Vector) ((RegExp1) regExp).content, start, end);
+      insertClassNFA( (List<Interval>) ((RegExp1) regExp).content, start, end);
       return;
       
     case sym.CCLASSNOT:
-      insertNotClassNFA( (Vector) ((RegExp1) regExp).content, start, end);
+      insertNotClassNFA( (List<Interval>) ((RegExp1) regExp).content, start, end);
       return;
       
     case sym.CHAR:
       insertLetterNFA(
-        false, ((Character) ((RegExp1) regExp).content).charValue(),
+        false, (Character) ((RegExp1) regExp).content,
         start, end);
       return;
       
     case sym.CHAR_I:
       insertLetterNFA(
-       true, ((Character) ((RegExp1) regExp).content).charValue(),
+       true, (Character) ((RegExp1) regExp).content,
        start, end);
       return;
       

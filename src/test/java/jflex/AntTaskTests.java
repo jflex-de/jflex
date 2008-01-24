@@ -22,7 +22,6 @@ package jflex;
 import java.io.File;
 import java.io.IOException;
 
-import jflex.Options;
 import jflex.anttask.JFlexTask;
 
 
@@ -38,7 +37,7 @@ public class AntTaskTests extends TestCase {
 
   private JFlexTask task;
   private final String DIR_RESOURCES="src/test/resources";
-  private final String FILE_LEXSCAN="/jflex/LexScan.flex";
+  private final String FILE_LEXSCAN="/jflex/LexScan-test.flex";
 
   /**
    * Constructor for AntTaskTests.
@@ -61,7 +60,7 @@ public class AntTaskTests extends TestCase {
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
     task.findPackageAndClass();
-    assertEquals("JFlex", task.getPackage());
+    assertEquals("jflex", task.getPackage());
     assertEquals("LexScan",task.getClassName());
   }
 
@@ -130,7 +129,7 @@ public class AntTaskTests extends TestCase {
 
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
-    task.setSkeleton(new File("src/main/java/skeleton.nested"));
+    task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
     assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
   

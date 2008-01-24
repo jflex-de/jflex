@@ -190,10 +190,10 @@ public final class Out {
    * print error and warning statistics
    */
   public static void statistics() {    
-    StringBuffer line = new StringBuffer(errors+" error");
+    StringBuilder line = new StringBuilder(errors+" error");
     if (errors != 1) line.append("s");
 
-    line.append(", "+warnings+" warning");
+    line.append(", ").append(warnings).append(" warning");
     if (warnings != 1) line.append("s");
 
     line.append(".");

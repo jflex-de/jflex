@@ -67,7 +67,7 @@ public class ErrorMessages {
   }
 
   public static String get(ErrorMessages msg, int data) {
-    Object [] args = { new Integer(data) };
+    Object [] args = { data };
     return MessageFormat.format(get(msg),args);
   }
 

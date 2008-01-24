@@ -32,10 +32,10 @@ import java.util.*;
 public class LexicalStates {
   
   /** maps state name to state number */
-  Hashtable<String, Integer> states; 
+  Map<String, Integer> states;
 
   /** codes of inclusive states (subset of states) */
-  Vector<Integer> inclusive;
+  List<Integer> inclusive;
 
   /** number of declared states */
   int numStates;
@@ -45,8 +45,8 @@ public class LexicalStates {
    * constructs a new lexical state symbol table
    */
   public LexicalStates() {
-    states = new Hashtable<String, Integer>();
-    inclusive = new Vector<Integer>();
+    states = new HashMap<String, Integer>();
+    inclusive = new ArrayList<Integer>();
   }
 
   
@@ -56,11 +56,11 @@ public class LexicalStates {
   public void insert(String name, boolean is_inclusive) {
     if ( states.containsKey(name) ) return;
 
-    Integer code = new Integer(numStates++);
+    Integer code = numStates++;
     states.put(name, code);
 
     if (is_inclusive) 
-      inclusive.addElement(code);
+      inclusive.add(code);
   }
 
 
@@ -69,7 +69,7 @@ public class LexicalStates {
    * <code>null</code> if no such state has been declared.
    */
   public Integer getNumber(String name) {
-    return (Integer) states.get(name);
+    return states.get(name);
   }
 
   
@@ -84,14 +84,14 @@ public class LexicalStates {
   /**
    * returns the names of all states
    */
-  public Enumeration<String> names() {
-    return states.keys();
+  public Set<String> names() {
+    return states.keySet();
   }
 
   /**
    * returns the code of all inclusive states
    */
-  public Enumeration<Integer> getInclusiveStates() {
-    return inclusive.elements();
+  public List<Integer> getInclusiveStates() {
+    return inclusive;
   }
 }

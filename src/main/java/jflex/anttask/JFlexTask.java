@@ -158,7 +158,7 @@ public class JFlexTask extends Task {
 	/**
 	 * @return package name of input file
 	 * 
-	 * @see jflex.findPackageAndClass
+	 * @see #findPackageAndClass()
 	 */
 	public String getPackage() {
 		return packageName;
@@ -167,7 +167,7 @@ public class JFlexTask extends Task {
 	/**
 	 * @return class name of input file
 	 * 
-	 * @see jflex.findPackageAndClass
+	 * @see #findPackageAndClass()
 	 */
 	public String getClassName() {
 		return className;

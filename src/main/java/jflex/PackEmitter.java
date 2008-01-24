@@ -50,7 +50,7 @@ public abstract class PackEmitter {
   private static final int maxEntries = 16;
   
   /** output buffer */
-  protected StringBuffer out = new StringBuffer();
+  protected StringBuilder out = new StringBuilder();
 
   /** number of existing string chunks */ 
   protected int chunks;

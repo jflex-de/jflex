@@ -20,8 +20,6 @@
 
 package jflex;
 
-import jflex.IntCharSet;
-import jflex.Interval;
 import junit.framework.TestCase;
 
 /**

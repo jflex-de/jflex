@@ -96,13 +96,13 @@ public final class CharSet {
   public String toString() {
     CharSetEnumerator set = characters();
 
-    StringBuffer result = new StringBuffer("{");
+    StringBuilder result = new StringBuilder("{");
 
-    if ( set.hasMoreElements() ) result.append(""+set.nextElement());
+    if ( set.hasMoreElements() ) result.append("").append(set.nextElement());
 
     while ( set.hasMoreElements() ) {
       int i = set.nextElement();
-      result.append( ", "+(int)i);
+      result.append(", ").append(i);
     }
 
     result.append("}");

@@ -52,7 +52,6 @@ public class GeneratorThread extends Thread {
 	 * 
 	 * @param parent      the frame, main UI component
 	 * @param inputFile   input file from UI settings
-	 * @param messages    where generator messages should appear
 	 * @param outputDir   output directory from UI settings
 	 */
   public GeneratorThread(MainFrame parent, String inputFile, 

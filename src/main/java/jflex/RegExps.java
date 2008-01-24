@@ -31,33 +31,33 @@ import java.util.*;
 public class RegExps {
   
   /** the spec line in which a regexp is used */
-  Vector /* of Integer */ lines;
+  List<Integer> lines;
 
   /** the lexical states in wich the regexp is used */
-  Vector /* of Vector of Integer */ states;
+  List<List<Integer>> states;
 
   /** the regexp */
-  Vector /* of RegExp */ regExps;
+  List<RegExp> regExps;
 
   /** the action of a regexp */
-  Vector /* of Action */ actions;
+  List<Action> actions;
   
   /** flag if it is a BOL regexp */
-  Vector /* of Boolean */ BOL;
+  List<Boolean> BOL;
 
   /** the lookahead expression */
-  Vector /* of RegExp */ look;
+  List<RegExp> look;
 
   public RegExps() {
-    states = new Vector();
-    regExps = new Vector();
-    actions = new Vector();
-    BOL = new Vector();
-    look = new Vector();
-    lines = new Vector();
+    states = new ArrayList<List<Integer>>();
+    regExps = new ArrayList<RegExp>();
+    actions = new ArrayList<Action>();
+    BOL = new ArrayList<Boolean>();
+    look = new ArrayList<RegExp>();
+    lines = new ArrayList<Integer>();
   }
 
-  public int insert(int line, Vector stateList, RegExp regExp, Action action, 
+  public int insert(int line, List<Integer> stateList, RegExp regExp, Action action, 
                      Boolean isBOL, RegExp lookAhead) {      
     if (Options.DEBUG) {
       Out.debug("Inserting regular expression with statelist :"+Out.NL+stateList);  //$NON-NLS-1$
@@ -65,38 +65,35 @@ public class RegExps {
       Out.debug("expression :"+Out.NL+regExp);  //$NON-NLS-1$
     }
 
-    states.addElement(stateList);
-    regExps.addElement(regExp);
-    actions.addElement(action);
-    BOL.addElement(isBOL);
-    look.addElement(lookAhead);
-    lines.addElement(new Integer(line));
+    states.add(stateList);
+    regExps.add(regExp);
+    actions.add(action);
+    BOL.add(isBOL);
+    look.add(lookAhead);
+    lines.add(line);
     
     return states.size()-1;
   }
 
-  public int insert(Vector stateList, Action action) {
+  public int insert(List<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
       Out.debug("Inserting eofrule with statelist :"+Out.NL+stateList);   //$NON-NLS-1$
       Out.debug("and action code :"+Out.NL+action.content+Out.NL);      //$NON-NLS-1$
     }
 
-    states.addElement(stateList);
-    regExps.addElement(null);
-    actions.addElement(action);
-    BOL.addElement(null);
-    look.addElement(null);
-    lines.addElement(null);
+    states.add(stateList);
+    regExps.add(null);
+    actions.add(action);
+    BOL.add(null);
+    look.add(null);
+    lines.add(null);
     
     return states.size()-1;
   }
 
-  public void addStates(int regNum, Vector newStates) {
-    Enumeration s = newStates.elements();
-    
-    while (s.hasMoreElements()) 
-      ((Vector)states.elementAt(regNum)).addElement(s.nextElement());      
+  public void addStates(int regNum, List<Integer> newStates) {
+    states.get(regNum).addAll(newStates);      
   }
 
   public int getNum() {
@@ -104,55 +101,51 @@ public class RegExps {
   }
 
   public boolean isBOL(int num) {
-    return ((Boolean) BOL.elementAt(num)).booleanValue();
+    return BOL.get(num);
   }
   
   public RegExp getLookAhead(int num) {
-    return (RegExp) look.elementAt(num);
+    return look.get(num);
   }
 
   public boolean isEOF(int num) {
-    return BOL.elementAt(num) == null;
+    return BOL.get(num) == null;
   }
 
-  public Vector getStates(int num) {
-    return (Vector) states.elementAt(num);
+  public List<Integer> getStates(int num) {
+    return states.get(num);
   }
 
   public RegExp getRegExp(int num) {
-    return (RegExp) regExps.elementAt(num);
+    return regExps.get(num);
   }
 
   public int getLine(int num) {
-    return ((Integer) lines.elementAt(num)).intValue();
+    return lines.get(num);
   }
 
   public void checkActions() {
-    if ( actions.elementAt(actions.size()-1) == null ) {
+    if ( actions.get(actions.size()-1) == null ) {
       Out.error(ErrorMessages.NO_LAST_ACTION);
       throw new GeneratorException();
     }
   }
 
   public Action getAction(int num) {
-    while ( num < actions.size() && actions.elementAt(num) == null )
+    while ( num < actions.size() && actions.get(num) == null )
       num++;
 
-    return (Action) actions.elementAt(num);
+    return actions.get(num);
   }
 
   public int NFASize(Macros macros) {
     int size = 0;
-    Enumeration e = regExps.elements();
-    while (e.hasMoreElements()) {
-      RegExp r = (RegExp) e.nextElement();
+    for (RegExp r : regExps)
       if (r != null) size += r.size(macros);
-    }
-    e = look.elements();
-    while (e.hasMoreElements()) {
-      RegExp r = (RegExp) e.nextElement();
+    
+    for (RegExp r : look)
       if (r != null) size += r.size(macros);
-    }
+
     return size;
   }
 }

@@ -131,10 +131,10 @@ public final class Interval {
    *         or something of the from <code>'a'</code>.  
    */
   public String toString() {
-    StringBuffer result = new StringBuffer("[");
+    StringBuilder result = new StringBuilder("[");
 
     if ( isPrintable(start) )
-      result.append("'"+start+"'");
+      result.append("'").append(start).append("'");
     else
       result.append( (int) start );
 
@@ -142,7 +142,7 @@ public final class Interval {
       result.append("-");
 
       if ( isPrintable(end) )
-        result.append("'"+end+"'");
+        result.append("'").append(end).append("'");
       else
         result.append( (int) end );
     }

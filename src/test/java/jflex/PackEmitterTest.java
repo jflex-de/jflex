@@ -20,8 +20,6 @@
 
 package jflex;
 
-import jflex.Out;
-import jflex.PackEmitter;
 import junit.framework.TestCase;
 
 /**

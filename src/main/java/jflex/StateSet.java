@@ -269,9 +269,9 @@ final public class StateSet {
 
 
   public boolean containsElements() {
-    for (int i = 0; i < bits.length; i++)
-      if (bits[i] != 0) return true;
-      
+    for (long bit : bits) 
+      if (bit != 0) return true;
+
     return false;
   }
 
@@ -313,13 +313,13 @@ final public class StateSet {
   public String toString() {
     StateSetEnumerator set = states();
 
-    StringBuffer result = new StringBuffer("{"); //$NON-NLS-1$
+    StringBuilder result = new StringBuilder("{"); //$NON-NLS-1$
 
-    if ( set.hasMoreElements() ) result.append(""+set.nextElement()); //$NON-NLS-1$
+    if ( set.hasMoreElements() ) result.append(set.nextElement()); //$NON-NLS-1$
 
     while ( set.hasMoreElements() ) {
       int i = set.nextElement();
-      result.append( ", "+i); //$NON-NLS-1$
+      result.append(", ").append(i); //$NON-NLS-1$
     }
 
     result.append("}"); //$NON-NLS-1$

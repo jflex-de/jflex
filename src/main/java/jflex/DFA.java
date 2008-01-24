@@ -99,7 +99,7 @@ final public class DFA {
   /**
    * all actions that are used in this DFA
    */
-  Hashtable<Action, Action> usedActions = new Hashtable<Action, Action>();
+  Map<Action, Action> usedActions = new HashMap<Action, Action>();
 
   public DFA(int numLexStates, int numInp) {
     numInput = numInp; 
@@ -191,17 +191,17 @@ final public class DFA {
 
 
   public String toString() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
 
     for (int i=0; i < numStates; i++) {
       result.append("State ");
       if ( isFinal[i] ) result.append("[FINAL] "); // (action "+action[i].priority+")] ");
       if ( isPushback[i] ) result.append("[PUSH] ");
-      result.append(i+":"+Out.NL);
+      result.append(i).append(":").append(Out.NL);
      
       for (char j=0; j < numInput; j++) {
-	      if ( table[i][j] >= 0 ) 
-	        result.append("  with "+(int)j+" in "+table[i][j]+Out.NL);	
+	      if ( table[i][j] >= 0 )
+          result.append("  with ").append((int) j).append(" in ").append(table[i][j]).append(Out.NL);	
       }
     }
     
@@ -223,10 +223,10 @@ final public class DFA {
 
 
   public String dotFormat() {
-    StringBuffer result = new StringBuffer();
+    StringBuilder result = new StringBuilder();
 
-    result.append("digraph DFA {"+Out.NL);
-    result.append("rankdir = LR"+Out.NL);
+    result.append("digraph DFA {").append(Out.NL);
+    result.append("rankdir = LR").append(Out.NL);
 
     for (int i=0; i < numStates; i++) {
       if ( isFinal[i] || isPushback[i] ) result.append(i);
@@ -238,14 +238,14 @@ final public class DFA {
     for (int i=0; i < numStates; i++) {
       for (int input = 0; input < numInput; input++) {
 	      if ( table[i][input] >= 0 ) {
-          result.append(i+" -> "+table[i][input]);
-          result.append(" [label=\"["+input+"]\"]"+Out.NL);
-          //          result.append(" [label=\"["+classes.toString(input)+"]\"]\n");
+          result.append(i).append(" -> ").append(table[i][input]);
+          result.append(" [label=\"[").append(input).append("]\"]").append(Out.NL);
+          // result.append(" [label=\"[").append(classes.toString(input)).append("]\"]\n");
         }
       }
     }
 
-    result.append("}"+Out.NL);
+    result.append("}").append(Out.NL);
 
     return result.toString();
   }
@@ -254,14 +254,11 @@ final public class DFA {
   // check if all actions can actually be matched in this DFA
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
-    Enumeration l = scanner.actions.elements();
-
-    while (l.hasMoreElements()) {
+    
+    for (Action next : scanner.actions)
     	//TODO is next an Action?
-      Object next = l.nextElement();
       if ( !next.equals(usedActions.get(next)) && !eofActions.isEOFAction(next) ) 
-        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, ((Action) next).priority-1, -1);
-    }
+        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, next.priority-1, -1);
   }
 
 

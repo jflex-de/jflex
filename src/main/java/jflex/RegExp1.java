@@ -27,7 +27,7 @@ package jflex;
  * This class provides storage for one Object of content.
  * It is used for all regular expressions that are constructed from one object.
  * 
- * For instance:  a*  is new RegExp1(sym.STAR, new Character ('a'));
+ * For instance:  a*  is new RegExp1(sym.STAR, 'a');
  *
  * @author Gerwin Klein
  * @version JFlex 1.4.1, $Revision$, $Date$

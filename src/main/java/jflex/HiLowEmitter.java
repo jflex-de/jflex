@@ -43,7 +43,7 @@ public class HiLowEmitter extends PackEmitter {
   /**
    * Emits hi/low pair unpacking code for the generated array. 
    * 
-   * @see jflex.PackEmitter#emitUnPack()
+   * @see jflex.PackEmitter#emitUnpack()
    */
   public void emitUnpack() {
     // close last string chunk:
