@@ -81,9 +81,9 @@ action code {:
     }
   }
   
-  private Vector makePreClass(int type) {
+  private List<Interval> makePreClass(int type) {
     
-    Vector result = new Vector();
+    List<Interval> result = new ArrayList<Interval>();
     
     char c = 0;
     char start = 0;
@@ -99,7 +99,7 @@ action code {:
       
       if (!prev && current) start = c;
       if (prev && !current) {
-        result.addElement(new Interval(start, (char)(c-1)));
+        result.add(new Interval(start, (char)(c-1)));
       }
       
       prev = current;
@@ -110,9 +110,9 @@ action code {:
     // last+1 == 0
     current = check(type,c);
     
-    if (!prev && current) result.addElement(new Interval(c,c));
-    if (prev && current)  result.addElement(new Interval(start, c));    
-    if (prev && !current) result.addElement(new Interval(start, (char)(c-1)));
+    if (!prev && current) result.add(new Interval(c,c));
+    if (prev && current)  result.add(new Interval(start, c));    
+    if (prev && !current) result.add(new Interval(start, (char)(c-1)));
 
     return result;
   }
@@ -152,10 +152,10 @@ action code {:
   }
 
   private RegExp makeNL() {
-    Vector list = new Vector();
-    list.addElement(new Interval('\n','\r'));
-    list.addElement(new Interval('\u0085','\u0085'));
-    list.addElement(new Interval('\u2028','\u2029'));
+    List<Interval> list = new ArrayList<Interval>();
+    list.add(new Interval('\n','\r'));
+    list.add(new Interval('\u0085','\u0085'));
+    list.add(new Interval('\u2028','\u2029'));
 
 	// assumption: line feeds are caseless
     charClasses.makeClass(list, false);
@@ -163,14 +163,12 @@ action code {:
     charClasses.makeClass('\r', false);
 
     RegExp1   c = new RegExp1(sym.CCLASS, list);
-    Character n = new Character('\n');
-    Character r = new Character('\r');
 
     return new RegExp2(sym.BAR, 
                        c, 
                        new RegExp2(sym.CONCAT, 
-                                   new RegExp1(sym.CHAR, r), 
-                                   new RegExp1(sym.CHAR, n)));
+                                   new RegExp1(sym.CHAR, '\r'), 
+                                   new RegExp1(sym.CHAR, '\n')));
   }
   
 :};
@@ -244,7 +242,8 @@ non terminal Integer   rule;
 non terminal NFA       specification;
 non terminal RegExp    series, concs, nregexp, regexp, charclass, lookahead;
 non terminal Interval  classcontentelem;
-non terminal Vector    states, statesOPT, classcontent, preclass, rules;
+non terminal List<Interval> classcontent, preclass;
+non terminal List<Integer> states, statesOPT, rules;
 non terminal Boolean   hatOPT;
 non terminal Action    actions;
 
@@ -265,9 +264,8 @@ specification ::=  USERCODE
                      Out.time(ErrorMessages.PARSING_TOOK, t);
                      
                      macros.expand();
-                     Enumeration unused = macros.unused();                     
-                     while ( unused.hasMoreElements() ) {
-                       Out.warning("Macro \""+unused.nextElement()+"\" has been declared but never used.");
+                     for (String unused : macros.unused()) {
+                       Out.warning("Macro \""+unused+"\" has been declared but never used.");
                      }
 
                      SemCheck.check(regExps, macros, charClasses.getMaxCharCode(), scanner.file);
@@ -322,38 +320,34 @@ macro         ::=  FULL
                 
 
 rules         ::=  rules:rlist rule:r
-                   {: rlist.addElement(r); RESULT = rlist; :}
+                   {: rlist.add(r); RESULT = rlist; :}
                 |  rules:rlist1 LESSTHAN states:states MORETHAN LBRACE rules:rlist2 RBRACE
-                   {: 
-                     Enumeration rs = rlist2.elements();
-                     while ( rs.hasMoreElements() ) {
-                       Integer elem = (Integer) rs.nextElement();
-                       regExps.addStates( elem.intValue(), states );
-                       rlist1.addElement( elem );
+                   {:
+                     for (Integer elem : rlist2) {
+                       regExps.addStates( elem, states );
+                       rlist1.add( elem );
                      }                       
                      RESULT = rlist1;
                    :}
                 |  LESSTHAN states:states MORETHAN LBRACE rules:rlist RBRACE
                    {: 
-                     Enumeration rs = rlist.elements();
-                     while ( rs.hasMoreElements() ) {
-                       Integer elem = (Integer) rs.nextElement();
-                       regExps.addStates( elem.intValue(), states );
-                     }                       
+                     for (Integer elem : rlist)
+                       regExps.addStates( elem, states );
+
                      RESULT = rlist;
                    :}
                 |  rule:r
-                   {: RESULT = new Vector(); RESULT.addElement(r); :}
+                   {: RESULT = new ArrayList<Integer>(); RESULT.add(r); :}
                 ;  
 
 rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
-                   {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, null)); :}
+                   {: RESULT = regExps.insert(rleft, s, r, a, bol, null); :}
                 |  statesOPT:s hatOPT:bol series:r lookahead:l ACTION:a
-                   {: RESULT = new Integer(regExps.insert(rleft, s, r, a, bol, l)); :}
+                   {: RESULT = regExps.insert(rleft, s, r, a, bol, l); :}
                 |  statesOPT:s hatOPT:bol series:r lookahead:l NOACTION:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
                 |  statesOPT:s EOFRULE ACTION:a
-                   {: RESULT = new Integer(regExps.insert(s, a)); :}
+                   {: RESULT = regExps.insert(s, a); :}
                 |  error
                 ;
 
@@ -375,14 +369,14 @@ actions       ::=  REGEXPEND ACTION:a
 statesOPT     ::=  LESSTHAN states:list MORETHAN          
                    {: RESULT = list; :}
                 |  /* empty */
-                   {: RESULT = new Vector(); :}                   
+                   {: RESULT = new ArrayList<Integer>(); :}                   
                 ;
                 
 states        ::=  IDENT:id COMMA states:list
                    {:
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
-                       list.addElement( stateNumber ); 
+                       list.add( stateNumber ); 
                      else {
                        throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL, 
                                                   idleft, idright);
@@ -391,10 +385,10 @@ states        ::=  IDENT:id COMMA states:list
                    :}                
                 |  IDENT:id
                    {:
-                     Vector list = new Vector();
+                     List<Integer> list = new ArrayList<Integer>();
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
-                       list.addElement( stateNumber ); 
+                       list.add( stateNumber ); 
                      else {
                        throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL, 
                                                   idleft, idright);
@@ -408,9 +402,9 @@ states        ::=  IDENT:id COMMA states:list
 hatOPT        ::=  HAT 
                    {: // assumption: there is no upper case for \n
                       charClasses.makeClass('\n', false); 
-                      RESULT = new Boolean(true); :}
+                      RESULT = true; :}
                 |  /* empty */ 
-                   {: RESULT = new Boolean(false); :}
+                   {: RESULT = false; :}
                 ;
                 
 series        ::= series:r1 BAR concs:r2
@@ -442,9 +436,9 @@ regexp        ::=  regexp:r STAR
                 |  regexp:r QUESTION
                    {: RESULT = new RegExp1(sym.QUESTION, r); :}
                 |  regexp:r REPEAT:n RBRACE:b
-                   {: RESULT = makeRepeat(r, n.intValue(), n.intValue(), bleft, bright); :}
+                   {: RESULT = makeRepeat(r, n, n, bleft, bright); :}
                 |  regexp:r REPEAT:n1 REPEAT:n2 RBRACE
-                   {: RESULT = makeRepeat(r, n1.intValue(), n2.intValue(), n1left, n2right); :}
+                   {: RESULT = makeRepeat(r, n1, n2, n1left, n2right); :}
                 |  OPENBRACKET series:r CLOSEBRACKET
                    {: RESULT = r; :}
                 |  MACROUSE:ident
@@ -488,8 +482,8 @@ regexp        ::=  regexp:r STAR
                    :}
                 |  POINT
                    {: 
-                      Vector any = new Vector();
-                      any.addElement(new Interval('\n','\n'));
+                      List<Interval> any = new ArrayList<Interval>();
+                      any.add(new Interval('\n','\n'));
                       // assumption: there is no upper case for \n
                       charClasses.makeClass('\n', false);
                       RESULT = new RegExp1(sym.CCLASSNOT, any); 
@@ -498,11 +492,11 @@ regexp        ::=  regexp:r STAR
                    {: 
                      try {
                        if ( scanner.caseless ) {
-                         charClasses.makeClass(c.charValue(), true);
+                         charClasses.makeClass(c, true);
                          RESULT = new RegExp1(sym.CHAR_I, c);
                        }
                        else {
-                         charClasses.makeClass(c.charValue(), false);
+                         charClasses.makeClass(c, false);
                          RESULT = new RegExp1(sym.CHAR, c); 
                        }
                      }
@@ -528,8 +522,8 @@ charclass     ::=  OPENCLASS CLOSECLASS
                    :}
                 |  OPENCLASS HAT CLOSECLASS:close
                    {: 
-                     Vector list = new Vector();
-                     list.addElement(new Interval((char)0,CharClasses.maxChar));
+                     List<Interval> list = new ArrayList<Interval>();
+                     list.add(new Interval((char)0,CharClasses.maxChar));
                      try {
                        charClasses.makeClass(list, false);
                      }
@@ -551,7 +545,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 | OPENCLASS DASH classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       list.addElement(new Interval('-','-'));
+                       list.add(new Interval('-','-'));
                        charClasses.makeClass(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
@@ -562,7 +556,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT DASH classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       list.addElement(new Interval('-','-'));
+                       list.add(new Interval('-','-'));
                        charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
                      }
                      catch (CharClassException e) {
@@ -574,19 +568,18 @@ charclass     ::=  OPENCLASS CLOSECLASS
 
 classcontent  ::=  classcontent:list classcontentelem:elem
                    {:
-                     list.addElement(elem);
+                     list.add(elem);
                      RESULT = list;
                    :}
                 |  classcontentelem:elem
                    {:
-                     Vector list = new Vector();
-                     list.addElement(elem);
+                     List<Interval> list = new ArrayList<Interval>();
+                     list.add(elem);
                      RESULT = list;
                    :}
                 |  classcontent:list preclass:plist
                    {:
-                     for (Enumeration e = plist.elements(); e.hasMoreElements();)
-                       list.addElement(e.nextElement());
+                     list.addAll(plist);
                      RESULT = list;
                    :}
                 |  preclass:list 
@@ -594,14 +587,14 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 |  classcontent:list STRING:s
                    {: 
                       for (int i = 0; i < s.length(); i++)
-                        list.addElement(new Interval(s.charAt(i),s.charAt(i)));
+                        list.add(new Interval(s.charAt(i),s.charAt(i)));
                       RESULT = list;
                    :}
                 |  STRING:s
                    {: 
-                      RESULT = new Vector();
+                      RESULT = new ArrayList<Interval>();
                       for (int i = 0; i < s.length(); i++)
-                        RESULT.addElement(new Interval(s.charAt(i),s.charAt(i)));
+                        RESULT.add(new Interval(s.charAt(i),s.charAt(i)));
                    :}
                 |  classcontent:list MACROUSE:ident
                    {: 
@@ -614,9 +607,9 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 ;
 
 classcontentelem ::= CHAR:c1 DASH CHAR:c2
-                     {: RESULT = new Interval(c1.charValue(), c2.charValue()); :}
+                     {: RESULT = new Interval(c1, c2); :}
                    | CHAR:c
-                     {: RESULT = new Interval(c.charValue(), c.charValue()); :}
+                     {: RESULT = new Interval(c, c); :}
                    ;
                    
 preclass ::= JLETTERCLASS
