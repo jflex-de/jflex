@@ -35,7 +35,17 @@
   				<target>1.5</target>
   			</configuration>
   		</plugin>
-  		<plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
   			<groupId>de.jflex.maven.plugin</groupId>
   			<artifactId>maven-jflex-plugin</artifactId>
   			<version>0.2</version>
