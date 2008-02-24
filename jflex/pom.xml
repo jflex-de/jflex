@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.jflex</groupId>
   <artifactId>jflex</artifactId>
   <version>1.5</version>
-  <description>JFlex is a lexical analyzer generator (also known as scanner generator) for Java(tm), written in Java(tm).</description>
+  <name>JFlex</name>
+  <description>
+    JFlex is a lexical analyzer generator (also known as scanner generator)
+    for Java(tm), written in Java(tm).
+  </description>
   <dependencies>
-  	<dependency>
-  		<groupId>org.apache.ant</groupId>
-  		<artifactId>ant</artifactId>
-  		<version>1.7.0</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>junit</groupId>
-  		<artifactId>junit</artifactId>
-  		<version>3.8.2</version>
-  		<scope>test</scope>
-  	</dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+       <artifactId>ant</artifactId>
+       <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex.maven.plugin</groupId>
+      <artifactId>jflex-unicode-maven-plugin</artifactId>
+      <version>0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <pluginRepositories>
-  	<pluginRepository>
-  		<id>jflex</id>
-  		<name>JFlex repository</name>
-  		<url>http://jflex.sourceforge.net/repo/</url>
-  	</pluginRepository>
+    <pluginRepository>
+      <id>jflex</id>
+      <name>JFlex repository</name>
+      <url>http://jflex.sourceforge.net/repo/</url>
+    </pluginRepository>
   </pluginRepositories>
   <build>
-  	<plugins>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-compiler-plugin</artifactId>
-  			<configuration>
-  				<source>1.5</source>
-  				<target>1.5</target>
-  			</configuration>
-  		</plugin>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -46,124 +58,137 @@
         </configuration>
       </plugin>
       <plugin>
-  			<groupId>de.jflex.maven.plugin</groupId>
-  			<artifactId>maven-jflex-plugin</artifactId>
-  			<version>0.2</version>
-  			<executions>
-  				<execution>
-  					<goals>
-  						<goal>generate</goal>
-  					</goals>
-  					<configuration>
-  						<skeleton>src/main/jflex/skeleton.nested</skeleton>
-  					</configuration>
-  				</execution>
-  			</executions>
-  		</plugin>
-  		<plugin>
-  			<artifactId>maven-antrun-plugin</artifactId>
-  			<executions>
-  				<execution>
-  					<phase>generate-sources</phase>
-  					<goals>
-  						<goal>run</goal>
-  					</goals>
-  					<configuration>
-  						<tasks>
-  						<ant antfile="${basedir}/maven-build.xml"
-inheritRefs="true"/>
-  						</tasks>
-  					</configuration>
-  				</execution>
-  			</executions>
-  		</plugin>
-  	</plugins>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <skeleton>src/main/jflex/skeleton.nested</skeleton>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>jflex-unicode-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <id>generate</id>
+            <goals>
+              <goal>generate-unicode-properties</goal>
+            </goals>
+            <configuration>
+              <force>true</force>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+              <ant antfile="${basedir}/maven-build.xml" inheritRefs="true"/>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <reporting>
-  	<plugins>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-project-info-reports-plugin</artifactId>
-  			<reportSets>
-  				<reportSet>
-  					<reports>
-  						<report>index</report>
-  						<report>dependencies</report>
-  						<report>project-team</report>
-  						<report>issue-tracking</report>
-  						<report>license</report>
-  						<report>scm</report>
-  						<report>summary</report>
-  						<report>jdepend</report>
-  					</reports>
-  				</reportSet>
-  			</reportSets>
-  		</plugin>
-  		<plugin>
-  			<artifactId>maven-pmd-plugin</artifactId>
-  			<configuration>
-  				<targetjdk>1.4</targetjdk>
-  				<rulesets>
-  					<ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
-  				</rulesets>
-  				<format>xml</format>
-  				<linkXref>true</linkXref>
-  				<!--  Is is different than utf-8 ??? -->
-  				<sourceEncoding>utf-8</sourceEncoding>
-  				<minimumTokens>100</minimumTokens>
-  			</configuration>
-  		</plugin>
-
-  		<plugin>
-  			<groupId>org.codehaus.mojo</groupId>
-  			<artifactId>taglist-maven-plugin</artifactId>
-  			<configuration>
-  				<tags>
-  					<tag>TODO</tag>
-  					<tag>FIXME</tag>
-  					<tag>@todo</tag>
-  					<tag>@deprecated</tag>
-  				</tags>
-  			</configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-surefire-report-plugin</artifactId>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-jxr-plugin</artifactId>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-javadoc-plugin</artifactId>
-  			<configuration>
-  				<encoding>ISO-8859-1</encoding>
-  			</configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.codehaus.mojo</groupId>
-  			<artifactId>findbugs-maven-plugin</artifactId>
-  			<version>1.1.1</version>
-  			<configuration>
-  				<xmlOutput>true</xmlOutput>
-  				<threshold>Normal</threshold>
-  				<effort>Default</effort>
-  				<outputDirectory>target/findbugs</outputDirectory>
-  				<excludeFilterFile>
-  					findbugs-exclude.xml
-  				</excludeFilterFile>
-  				<visitors>FindDeadLocalStores,UnreadFields</visitors>
-  				<onlyAnalyze>de.jflex.*</onlyAnalyze>
-  				<debug>true</debug>
-  				<relaxed>true</relaxed>
-  			</configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.codehaus.mojo</groupId>
-  			<artifactId>jdepend-maven-plugin</artifactId>
-  		</plugin>
-  	</plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>dependencies</report>
+              <report>project-team</report>
+              <report>issue-tracking</report>
+              <report>license</report>
+              <report>scm</report>
+              <report>summary</report>
+              <report>jdepend</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetjdk>1.4</targetjdk>
+          <rulesets>
+            <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
+          </rulesets>
+          <format>xml</format>
+          <linkXref>true</linkXref>
+          <!--  Is is different than utf-8 ??? -->
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+        </configuration>
+      </plugin>
+       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <configuration>
+          <tags>
+            <tag>TODO</tag>
+            <tag>FIXME</tag>
+            <tag>@todo</tag>
+            <tag>@deprecated</tag>
+          </tags>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <encoding>ISO-8859-1</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>1.1.1</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <threshold>Normal</threshold>
+          <effort>Default</effort>
+          <outputDirectory>target/findbugs</outputDirectory>
+          <excludeFilterFile>
+            findbugs-exclude.xml
+          </excludeFilterFile>
+          <visitors>FindDeadLocalStores,UnreadFields</visitors>
+          <onlyAnalyze>de.jflex.*</onlyAnalyze>
+          <debug>true</debug>
+          <relaxed>true</relaxed>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </reporting>
 </project>
-
