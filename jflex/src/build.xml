@@ -14,8 +14,9 @@
   <property name="cup.jar" value="${tools.dir}/java_cup.jar" />
 
   <!-- where to get jflex.jar and cup.jar from -->
+  <!-- FIXME: use stable version for bootstrap -->
   <property name="jflex.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/stable/JFlex.jar" />
+  	        value="http://jflex.sourceforge.net/jar/devel/JFlex.jar" />
   <property name="cup.jar.url" 
   	        value="http://jflex.sourceforge.net/jar/stable/java_cup.jar" />
 
