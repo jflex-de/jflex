@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -113,6 +114,17 @@ class UnicodeProperties {
    */
   public List<Interval> getIntervals(String propertyValue) {
     return propertyValueIntervals.get(normalize(propertyValue));
+  }
+
+  /**
+   * Returns the set of all properties, property values, and their aliases
+   * supported by the specified Unicode version.
+   *
+   * @return The set of all properties supported by the specified Unicode
+   *  version
+   */
+  public Set<String> getPropertyValues() {
+    return propertyValueIntervals.keySet();
   }
 
   /**
