@@ -61,7 +61,7 @@ class UnicodeProperties {
   // Both Java5 and Java6 JREs are based on Unicode 4.0
   private static final String DEFAULT_UNICODE_VERSION = "4.0";
 
-  private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s]");
+  private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
 --- Versioned Unicode data
 
@@ -266,7 +266,7 @@ class UnicodeProperties {
 
   /**
    * Normalizes the given identifier, by: downcasing; removing whitespace,
-   * underscores, and hyphens; and substituting '=' for every ':'.
+   * underscores, hyphens, and parentheses; and substituting '=' for every ':'.
    *
    * @param identifier The identifier to normalize
    * @return The normalized identifier
