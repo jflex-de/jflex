@@ -111,11 +111,11 @@ class UnicodeVersion {
   // v2.0: 0009..000D  (5 chars)
   private static final Pattern PROP_LIST_LINE_PATTERN = Pattern.compile
     ("^(?:([\\da-fA-F]{4,6})(?:..([\\da-fA-F]{4,6}))?(?:\\s*;\\s*(\\S+))?"
-     + "|Property dump for: 0x[\\dA-Fa-f]+\\s*\\(([^)]+)\\))");
+     + "|Property dump for: 0x[\\dA-Fa-f]+\\s*\\((.+)\\))");
 
 
   /** Pattern used to normalize property value identifiers */
-  private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s]");
+  private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   /**
    * Pattern used to find property name prefixes, e.g. "Script" in 
@@ -275,7 +275,9 @@ class UnicodeVersion {
         lastEndCodePoint = endCodePoint;
       }
     }
-    addInterval("Block=No_Block", lastEndCodePoint+1, maximumCodePoint);
+    if (lastEndCodePoint + 1 <= maximumCodePoint) {
+      addInterval("Block=No_Block", lastEndCodePoint + 1, maximumCodePoint);
+    }
   }
 
   /**
@@ -696,32 +698,40 @@ class UnicodeVersion {
    */
   private void addInterval(String propValue,
                            int startCodePoint, int endCodePoint) {
-    String origPropValue = propValue;
     propValue = normalize(propValue);
-    if (propValue.length() == 0) {
-      System.err.println("UnicodeVersion.addInterval(): origPropValue: '"
-                         + origPropValue + "'  start: " + startCodePoint
-                         + "  end: " + endCodePoint);
-      throw new RuntimeException();
+    // Skip \p{Cs}, the surrogate property [U+D800-U+DFFF] - can't be
+    // represented in valid UTF-16 encoded strings
+    if (! propValue.equals("cs")) {
+      if (startCodePoint == 0xD800) {
+        if (endCodePoint == 0xDFFF) {
+          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
+          // Do nothing here
+          return;
+        } else if (endCodePoint > 0xDFFF) {
+          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode
+          // 3.0, but include the code points after this range.
+          startCodePoint = 0xE000;
+        }
+      }
+      List<Interval> intervals = propertyValueIntervals.get(propValue);
+      if (null == intervals) {
+        intervals = new ArrayList<Interval>();
+        propertyValueIntervals.put(propValue, intervals);
+      }
+      // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+      // range (starting point is listed as U+4E00).  This is U+9FFF according
+      // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+      //
+      //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+      //
+      // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+      // value, as are the previous code points, so to include
+      // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+      if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
+        endCodePoint = 0x9FFF;
+      }
+      intervals.add(new Interval(startCodePoint, endCodePoint));
     }
-    List<Interval> intervals = propertyValueIntervals.get(propValue);
-    if (null == intervals) {
-      intervals = new ArrayList<Interval>();
-      propertyValueIntervals.put(propValue, intervals);
-    }
-    // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-    // range (starting point is listed as U+4E00).  This is U+9FFF according
-    // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-    //
-    //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-    //
-    // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
-    // value, as are the previous code points, so to include
-    // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-    if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
-      endCodePoint = 0x9FFF;
-    }
-    intervals.add(new Interval(startCodePoint, endCodePoint));
   }
 
   /**
@@ -951,6 +961,8 @@ class UnicodeVersion {
       builder.append("\\f");
     } else if (codePoint == 0xD) {
       builder.append("\\r");
+    } else if (codePoint == 0x5c) {  // reverse solidus = backslash
+      builder.append("\\\\");
     } else {
       builder.append("\\u");
       String hexCodePoint = Integer.toString(codePoint, 16);
@@ -975,7 +987,8 @@ class UnicodeVersion {
 
   /**
    * Transforms mixed case identifiers containing spaces, hyphens, and/or
-   * underscores by downcasing and removing all spaces, hyphens and underscores.
+   * underscores by downcasing and removing all spaces, hyphens, underscores,
+   * and parentheses.
    *
    * @param identifier The identifier to transform
    * @return The transformed identifier
