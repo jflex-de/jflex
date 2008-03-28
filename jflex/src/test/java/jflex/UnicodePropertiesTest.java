@@ -22,8 +22,6 @@ package jflex;
 
 import junit.framework.TestCase;
 
-import java.util.List;
-
 public class UnicodePropertiesTest extends TestCase {
 
   /**
@@ -42,12 +40,12 @@ public class UnicodePropertiesTest extends TestCase {
     for (String version : versions) {
       try {
         UnicodeProperties properties = new UnicodeProperties(version);
-        List<Interval> intervals = properties.getIntervals("Lu");
+        IntCharSet intervals = properties.getIntervals("Lu");
         assertNotNull("intervals for 'Lu' property value for version " + version
                       + " should not be null\n" + "Supported properties: "
                       + properties.getPropertyValues(), intervals);
         assertTrue("intervals for 'Lu' property value should have an interval",
-                   intervals.size() > 0);
+                   intervals.numIntervalls() > 0);
       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
         assertTrue("Unsupported version '" + version
                    + "' should be supported: " + e, false);
@@ -68,12 +66,12 @@ public class UnicodePropertiesTest extends TestCase {
   public void testDefaultVersion() {
     try {
       UnicodeProperties properties = new UnicodeProperties();
-      List<Interval> intervals = properties.getIntervals("Lu");
+      IntCharSet intervals = properties.getIntervals("Lu");
       assertNotNull("intervals for 'Lu' property value for default Unicode "
                     + "version should not be null\n" + "Supported properties: "
                     + properties.getPropertyValues(), intervals);
       assertTrue("intervals for 'Lu' property value should have an interval",
-                 intervals.size() > 0);
+                 intervals.numIntervalls() > 0);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       assertTrue("Default version is unsupported: " + e, false);
     }
@@ -195,24 +193,69 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
-  public void testAliases() {
+  public void testDefaultVersionAliases() {
     try {
       UnicodeProperties properties = new UnicodeProperties();
-      List<Interval> intervals_1
+      IntCharSet set_1
         = properties.getIntervals("General Category : Other Letter");
       assertNotNull("Null interval list returned for "
-                    +"\\p{General Category : Other Letter}", intervals_1);
-      assertFalse("Empty interval list returned for "
+                    +"\\p{General Category : Other Letter}", set_1);
+      assertTrue("Empty interval set returned for "
                   + "\\p{General Category : Other Letter}",
-                  intervals_1.isEmpty());
-      List<Interval> intervals_2 = properties.getIntervals("Lo");
-      assertNotNull("Null interval list returned for \\p{Lo}", intervals_2);
-      assertFalse("Empty interval list returned for \\p{Lo}",
-                  intervals_1.isEmpty());
+                  set_1.containsElements());
+      IntCharSet set_2 = properties.getIntervals("Lo");
+      assertNotNull("Null interval list returned for \\p{Lo}", set_2);
+      assertTrue("Empty interval list returned for \\p{Lo}",
+                 set_1.containsElements());
       assertTrue("\\p{General Category : Other Letter} and \\p{Lo} should"
-                 +" return the same thing.", intervals_1.equals(intervals_2));
+                 +" return the same thing.", set_1.equals(set_2));
+
+      set_1 = properties.getIntervals(" Script:Tibetan ");
+      assertNotNull("Null interval list returned for \\p{ Script:Tibetan }",
+                    set_1);
+      assertTrue("Empty interval set returned for \\p{ Script:Tibetan }",
+                  set_1.containsElements());
+      set_2 = properties.getIntervals("-_T i b t_-");
+      assertNotNull("Null interval list returned for \\p{-_T i b t_-}", set_2);
+      assertTrue("Empty interval list returned for \\p{-_T i b t_-}",
+                 set_1.containsElements());
+      assertTrue("\\p{ Script:Tibetan } and \\p{-_T i b t_-} should"
+                 +" return the same thing.", set_1.equals(set_2));
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       assertTrue("Default version is unsupported: " + e, false);
+    }
+  }
+
+  public void testSingleLetterProperties_5_0() {
+    try {
+      UnicodeProperties properties = new UnicodeProperties("5.0");
+      IntCharSet set_1 = properties.getIntervals("S");
+      assertNotNull("Null interval set for \\p{S}", set_1);
+      assertTrue("Empty interval set for \\p{S}", set_1.containsElements());
+      IntCharSet set_2 = properties.getIntervals("Symbol");
+      assertNotNull("Null interval set for \\p{Symbol}", set_2);
+      assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
+
+      assertTrue("\\p{S} is not the same as \\p{Symbol}", set_1.equals(set_2));
+
+      // 0024;DOLLAR SIGN;Sc;0;ET;;;;;N;;;;;
+      assertTrue("\\p{S} does not contain \\u0024 '\u0024' (\\p{Sc})",
+                 set_1.contains('\u0024'));
+      // 002B;PLUS SIGN;Sm;0;ES;;;;;N;;;;;
+      assertTrue("\\p{S} does not contain \\u002B '\u002B' (\\p{Sm})",
+                 set_1.contains('\u002B'));
+      // 005E;CIRCUMFLEX ACCENT;Sk;0;ON;;;;;N;SPACING CIRCUMFLEX;;;;
+      assertTrue("\\p{S} does not contain \\u005E '\u005E' (\\p{Sk})",
+                 set_1.contains('\u005E'));
+      // 2196;NORTH WEST ARROW;So;0;ON;;;;;N;UPPER LEFT ARROW;;;;
+      assertTrue("\\p{S} does not contain \\u2196 (\\p{So})",
+                 set_1.contains('\u2196'));
+      // FF04;FULLWIDTH DOLLAR SIGN;Sc;0;ET;<wide> 0024;;;;N;;;;;
+      assertTrue("\\p{S} does not contain \\uFF04 (\\p{Sc}",
+                 set_1.contains('\uFF04'));
+      
+    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+      assertTrue("Version '5.0' not supported: " + e, false);
     }
   }
 }
