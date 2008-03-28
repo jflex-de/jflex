@@ -20,9 +20,7 @@
 
 package jflex;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -19464,8 +19462,8 @@ class UnicodeProperties {
       + "\ud801\udc27\ud801\udc4f\000\000";
 
   private int maximumCodePoint;
-  private Map<String,List<Interval>> propertyValueIntervals
-    = new HashMap<String,List<Interval>>();
+  private Map<String,IntCharSet> propertyValueIntervals
+    = new HashMap<String,IntCharSet>();
   private String caselessMatchPartitions;
   private int caselessMatchPartitionSize;
   private IntCharSet caselessMatches[];
@@ -19503,14 +19501,14 @@ class UnicodeProperties {
   }
 
   /**
-   * Returns the character intervals associated with the given property value
+   * Returns the character interval set associated with the given property value
    * for the selected Unicode version.
    *
    * @param propertyValue The Unicode property or property value (or alias for
    *  one of these) for which to return the corresponding character intervals.
-   * @return The character intervals corresponding to the given property value.
+   * @return The character interval set corresponding to the given property value.
    */
-  public List<Interval> getIntervals(String propertyValue) {
+  public IntCharSet getIntervals(String propertyValue) {
     return propertyValueIntervals.get(normalize(propertyValue));
   }
 
@@ -19643,7 +19641,7 @@ class UnicodeProperties {
       String propertyIntervals = intervals[n];
       int numCodePoints
         = propertyIntervals.codePointCount(0, propertyIntervals.length());
-      List<Interval> intervalsList = new ArrayList<Interval>(numCodePoints / 2);
+      IntCharSet set = new IntCharSet();
       for (int index = 0 ; index < propertyIntervals.length() ; ) {
         int start = propertyIntervals.codePointAt(index);
         index += (start <= 0xFFFF ? 1 : 2);
@@ -19652,25 +19650,27 @@ class UnicodeProperties {
         //TODO: Remove BMP boundary condition
         if (start <= 0xFFFF && end <= 0xFFFF) {
           //TODO: Change the character type from char to int
-          intervalsList.add(new Interval((char)start, (char)end));
+          set.add(new Interval((char)start, (char)end));
         }
       }
-      propertyValueIntervals.put(propertyValue, intervalsList);
+      propertyValueIntervals.put(propertyValue, set);
       if (2 == propertyValue.length()) {
-        List<Interval> singleLetterPropValueList
-          = propertyValueIntervals.get(propertyValue.substring(0, 1));
-        if (null == singleLetterPropValueList) {
-          singleLetterPropValueList = new ArrayList<Interval>();
+        String singleLetter = propertyValue.substring(0, 1);
+        IntCharSet singleLetterPropValueSet
+          = propertyValueIntervals.get(singleLetter);
+        if (null == singleLetterPropValueSet) {
+          singleLetterPropValueSet = new IntCharSet();
+          propertyValueIntervals.put(singleLetter, singleLetterPropValueSet);
         }
-        singleLetterPropValueList.addAll(intervalsList);
+        singleLetterPropValueSet.add(set);
       }
     }
     for (int n = 0 ; n < propertyValueAliases.length ; n += 2) {
       String alias = propertyValueAliases[n];
       String propertyValue = propertyValueAliases[n + 1];
-      List<Interval> targetIntervals = propertyValueIntervals.get(propertyValue);
-      if (null != targetIntervals) {
-        propertyValueIntervals.put(alias, targetIntervals);
+      IntCharSet targetSet = propertyValueIntervals.get(propertyValue);
+      if (null != targetSet) {
+        propertyValueIntervals.put(alias, targetSet);
       }
     }
     bindInvariantIntervals();
@@ -19680,15 +19680,14 @@ class UnicodeProperties {
    * Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}.
    */
   private void bindInvariantIntervals() {
-    List<Interval> asciiIntervals = new ArrayList<Interval>();
     //TODO: Change the character type from char to int
-    asciiIntervals.add(new Interval('\000', '\u00FF'));
-    propertyValueIntervals.put(normalize("ASCII"), asciiIntervals);
-    List<Interval> anyIntervals = new ArrayList<Interval>();
+    IntCharSet asciiSet = new IntCharSet(new Interval('\000', '\u00FF'));
+    propertyValueIntervals.put(normalize("ASCII"), asciiSet);
+
     //TODO: Change the character type from char to int
     //TODO: End of interval should be maximumCodePoint instead of '\uFFFF'
-    anyIntervals.add(new Interval('\000', '\uFFFF'));
-    propertyValueIntervals.put(normalize("Any"), anyIntervals);
+    IntCharSet anySet = new IntCharSet(new Interval('\000', '\uFFFF'));
+    propertyValueIntervals.put(normalize("Any"), anySet);
   }
 
   /**
@@ -19701,9 +19700,8 @@ class UnicodeProperties {
   private String normalize(String identifier) {
     if (null == identifier)
       return identifier;
-    String normalized
-      = WORD_SEP_PATTERN.matcher(identifier.toLowerCase()).replaceAll("");
-    return normalized.replace(':', '=');
+    Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase());
+    return matcher.replaceAll("").replace(':', '=');
   }
 
   class UnsupportedUnicodeVersionException extends Exception {
