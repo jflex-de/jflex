@@ -37,12 +37,15 @@ final public class Action {
   public final static int FIXED_BASE = 1;
   /** Action of a lookahead expression r1/r2 with fixed length r2 */
   public final static int FIXED_LOOK = 2;
+  /** Action of a lookahead expression r1/r2 with a finite choice of 
+   *  fixed lengths in r2 */
+  public final static int FINITE_CHOICE = 3;
   /** Action of a general lookahead expression */
-  public final static int GENERAL_LOOK = 3;
+  public final static int GENERAL_LOOK = 4;
   /** Action of the 2nd forward pass for lookahead */  
-  public final static int FORWARD_ACTION = 4;
+  public final static int FORWARD_ACTION = 5;
   /** Action of the backward pass for lookahead */  
-  public final static int BACKWARD_ACTION = 5;
+  public final static int BACKWARD_ACTION = 6;
   
   /**
    * The Java code this Action represents
@@ -133,7 +136,9 @@ final public class Action {
   public boolean isEquiv(Action a) {
     return this == a || 
            (this.content.equals(a.content) &&
-            this.kind == a.kind);
+           this.kind == a.kind && 
+           this.len == a.len && 
+           this.entryState == a.entryState);
   }
 
 
@@ -229,6 +234,12 @@ final public class Action {
   public void setEntryState(int entryState) {
     this.entryState = entryState;
   }
+ 
+  public Action copyChoice(int length) {
+    Action a = new Action(this.content, this.priority);
+    a.setLookAction(FINITE_CHOICE, length);
+    return a;
+  }
   
   /**
    * String representation of the lookahead kind of this action.
@@ -237,12 +248,14 @@ final public class Action {
    */
   public String lookString() {
     switch (kind) {
+    case NORMAL: return "";
     case BACKWARD_ACTION: return "LOOK_BACK";
     case FIXED_BASE: return "FIXED_BASE";
     case FIXED_LOOK: return "FIXED_LOOK";
+    case FINITE_CHOICE: return "FINITE_CHOICE";
     case FORWARD_ACTION: return "LOOK_FORWARD";
     case GENERAL_LOOK: return "LOOK_ACTION";
-    default: return "";
+    default: return "unknown lookahead type";
     }
   }
 }

@@ -173,4 +173,55 @@ public final class SemCheck {
 
     throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
   }
+
+  /**
+   * Returns true iff the expression is a finite choice of fixed length
+   * expressions. 
+   * 
+   * Negation operators are treated as always variable length.   
+   */
+  public static boolean isFiniteChoice(RegExp re) {
+    RegExp2 r;
+
+    switch (re.type) {      
+
+    case sym.BAR: {
+      r = (RegExp2) re;
+      return isFiniteChoice(r.r1) && isFiniteChoice(r.r2);
+    }
+
+    case sym.CONCAT: {
+      r = (RegExp2) re;
+      int l1 = length(r.r1);
+      if (l1 < 0) return false;
+      int l2 = length(r.r2);
+      return l2 >= 0;
+    }
+
+    case sym.STAR:
+    case sym.PLUS:
+    case sym.QUESTION:
+      return false;
+
+    case sym.CCLASS:
+    case sym.CCLASSNOT:
+    case sym.CHAR:
+    case sym.CHAR_I:
+      return true;
+
+    case sym.STRING: 
+    case sym.STRING_I: {
+      return true;
+    }
+
+    case sym.TILDE:
+    case sym.BANG: 
+      return false;
+
+    case sym.MACROUSE:      
+      return isFiniteChoice(macros.getDefinition((String) ((RegExp1) re).content));
+    }
+
+    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
+  }
 }

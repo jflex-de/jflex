@@ -179,7 +179,7 @@ public class RegExps {
    * Determine which case of lookahead expression regExpNum points to (if any).
    * Set case data in corresponding action.
    * Increment count of general lookahead expressions for entry points
-   * of the two additional DFAS.
+   * of the two additional DFAs.
    * Register DFA entry point in RegExps
    *
    * Needs to be run before adding any regexps/rules to be able to reserve
@@ -202,6 +202,9 @@ public class RegExps {
       }
       else if (len2 >= 0) {
         a.setLookAction(Action.FIXED_LOOK,len2);
+      }
+      else if (SemCheck.isFiniteChoice(r2)) {
+        a.setLookAction(Action.FINITE_CHOICE,0);
       }
       else {
         a.setLookAction(Action.GENERAL_LOOK,0);

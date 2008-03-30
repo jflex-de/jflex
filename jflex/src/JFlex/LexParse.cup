@@ -300,7 +300,7 @@ specification ::=  USERCODE
                      t.stop();
        
                      Out.time("");              
-	                 Out.time(ErrorMessages.NFA_TOOK, t);
+	                   Out.time(ErrorMessages.NFA_TOOK, t);
                      
                    :}
                  | /* emtpy spec. error */

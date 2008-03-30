@@ -154,40 +154,87 @@ final public class NFA {
         
         
     if ( regExps.getLookAhead(regExpNum) != null ) {
-      RegExp r1 = regExps.getRegExp(regExpNum);
-      RegExp r2 = regExps.getLookAhead(regExpNum);
-
-      IntPair look = insertNFA(r2);
-      
-      addEpsilonTransition(nfa.end, look.start);
-
       Action a = regExps.getAction(regExpNum);
-            
-      action[look.end]  = a;
-      isFinal[look.end] = true;
 
-      if (a.lookAhead() == Action.GENERAL_LOOK) {
-        // base forward pass
-        IntPair forward = insertNFA(r1);
-        // lookahead backward pass
-        IntPair backward = insertNFA(r2.rev(macros));
+      if (a.lookAhead() == Action.FINITE_CHOICE) {
+        insertLookAheadChoices(nfa.end, a, regExps.getLookAhead(regExpNum));
+        // remove the original action from the collection: it will never
+        // be matched directly, only its copies will.
+        scanner.actions.remove(a);
+      }
+      else {
+        RegExp r1 = regExps.getRegExp(regExpNum);
+        RegExp r2 = regExps.getLookAhead(regExpNum);
+  
+        IntPair look = insertNFA(r2);
         
-        isFinal[forward.end] = true;
-        action[forward.end] = new Action(Action.FORWARD_ACTION);
-        
-        isFinal[backward.end] = true;
-        action[backward.end] = new Action(Action.BACKWARD_ACTION);
-        
-        int entry = 2*(regExps.getLookEntry(regExpNum) + numLexStates);
-        addEpsilonTransition(entry, forward.start);
-        addEpsilonTransition(entry+1, backward.start);
-        
-        a.setEntryState(entry);
+        addEpsilonTransition(nfa.end, look.start);
+  
+        action[look.end]  = a;
+        isFinal[look.end] = true;
+  
+        if (a.lookAhead() == Action.GENERAL_LOOK) {
+          // base forward pass
+          IntPair forward = insertNFA(r1);
+          // lookahead backward pass
+          IntPair backward = insertNFA(r2.rev(macros));
+          
+          isFinal[forward.end] = true;
+          action[forward.end] = new Action(Action.FORWARD_ACTION);
+          
+          isFinal[backward.end] = true;
+          action[backward.end] = new Action(Action.BACKWARD_ACTION);
+          
+          int entry = 2*(regExps.getLookEntry(regExpNum) + numLexStates);
+          addEpsilonTransition(entry, forward.start);
+          addEpsilonTransition(entry+1, backward.start);
+          
+          a.setEntryState(entry);
+        }
       }
     }
     else {
       action[nfa.end] = regExps.getAction(regExpNum);
       isFinal[nfa.end] = true;
+    }
+  }
+
+  /**
+   * Insert NFAs for the (finitely many) fixed length lookahead choices.
+   * 
+   * @param lookAhead   a lookahead of which isFiniteChoice is true
+   * @param baseEnd     the end state of the base expression NFA
+   * @param a           the action of the expression
+   *  
+   * @see SemCheck#isFiniteChoice(RegExp) 
+   */
+  private void insertLookAheadChoices(int baseEnd, Action a, RegExp lookAhead) {
+    if (lookAhead.type == sym.BAR) {
+      RegExp2 r = (RegExp2) lookAhead;
+      insertLookAheadChoices(baseEnd, a, r.r1);
+      insertLookAheadChoices(baseEnd, a, r.r2);
+    }
+    else {
+      int len = SemCheck.length(lookAhead);
+      
+      if (len >= 0) {
+        // termination case
+        IntPair look = insertNFA(lookAhead);
+        
+        addEpsilonTransition(baseEnd, look.start);
+  
+        Action x = a.copyChoice(len);
+        action[look.end]  = x;
+        isFinal[look.end] = true;
+        
+        // add new copy to the collection of known actions such that
+        // it can be checked for the NEVER_MATCH warning.
+        scanner.actions.add(x);
+      }
+      else {
+        // should never happen
+        throw new Error("When inserting lookahead expression: unkown expression type "+lookAhead.type+" in "+lookAhead); //$NON-NLS-1$ //$NON-NLS-2$
+      }
     }
   }
 

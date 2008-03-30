@@ -1132,7 +1132,8 @@ final public class Emitter {
         println("          zzMarkedPos = zzStartRead + "+action.getLookLength()+";");        
       }
       
-      if (action.lookAhead() == Action.FIXED_LOOK) {
+      if (action.lookAhead() == Action.FIXED_LOOK || 
+          action.lookAhead() == Action.FINITE_CHOICE) {
         println("          // lookahead expression with fixed lookahead length");
         println("          yypushback("+action.getLookLength()+");");        
       }
