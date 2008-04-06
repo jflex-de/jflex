@@ -73,22 +73,6 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>de.jflex.maven.plugin</groupId>
-        <artifactId>jflex-unicode-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <id>generate</id>
-            <goals>
-              <goal>generate-unicode-properties</goal>
-            </goals>
-            <configuration>
-              <force>true</force>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
@@ -191,4 +175,26 @@
       </plugin>
     </plugins>
   </reporting>
+  <profiles>
+    <profile>
+      <id>generate-unicode-properties</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>de.jflex.maven.plugin</groupId>
+            <artifactId>jflex-unicode-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>generate-unicode-properties</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

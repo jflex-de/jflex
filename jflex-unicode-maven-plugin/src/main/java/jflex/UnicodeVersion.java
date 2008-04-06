@@ -34,6 +34,8 @@ import java.util.regex.Pattern;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.File;
+import java.io.PrintWriter;
 
 
 /**
@@ -148,6 +150,9 @@ class UnicodeVersion {
    */
   private static final int CASELESS_MATCH_PARTITIONS_PER_LINE = 3;
 
+  /** The property values that represent surrogates [U+D800-U+DFFF] */
+  private static final Pattern SURROGATE_PATTERN
+    = Pattern.compile("(?:^|=)cs$|surrogate");
 
   /** Unicode version X.X.X */
   String majorMinorUpdateVersion;
@@ -245,6 +250,21 @@ class UnicodeVersion {
         majorMinorUpdateVersion = matcher.group(1);
       }
     }
+  }
+
+  public void emitToDir(File outputDir) throws IOException {
+    PrintWriter writer = new PrintWriter
+      (new File(outputDir, "Unicode" + getVersionSuffix() + ".java"), "UTF-8");
+    writer.append("package jflex.unicode.data;\n\n");
+    writer.append("public class Unicode").append(getVersionSuffix()).append(" {\n");
+    emitMaximumCodePoint(writer);
+    emitPropertyValuesArray(writer);
+    emitIntervalsArray(writer);
+    emitPropertyValueAliasesArray(writer);
+    emitCaselessMatchPartitions(writer);
+    writer.append("}\n");
+    writer.flush();
+    writer.close();
   }
 
   /**
@@ -699,9 +719,9 @@ class UnicodeVersion {
   private void addInterval(String propValue,
                            int startCodePoint, int endCodePoint) {
     propValue = normalize(propValue);
-    // Skip \p{Cs}, the surrogate property [U+D800-U+DFFF] - can't be
+    // Skip surrogate properties [U+D800-U+DFFF], e.g. \p{Cs} - can't be
     // represented in valid UTF-16 encoded strings
-    if (! propValue.equals("cs")) {
+    if (! SURROGATE_PATTERN.matcher(propValue).find()) {
       if (startCodePoint == 0xD800) {
         if (endCodePoint == 0xDFFF) {
           // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
@@ -741,7 +761,10 @@ class UnicodeVersion {
    * @param propertyValue The target property value
    */
   private void addPropertyValueAlias(String alias, String propertyValue) {
-    propertyValueAliases.put(normalize(alias), normalize(propertyValue));
+    String normalizedAlias = normalize(alias);
+    // Don't include surrogate aliases
+    if ( ! SURROGATE_PATTERN.matcher(normalizedAlias).find())
+      propertyValueAliases.put(normalizedAlias, normalize(propertyValue));
   }
 
 
@@ -749,52 +772,51 @@ class UnicodeVersion {
    * Emits an int declaration and definition for the maximum code point listed
    * for this version in UnicodeData(-X.X.X).txt.
    *
-   * @param builder Where to emit the maximum code point.
+   * @param writer Where to emit the maximum code point.
    */
-  void emitMaximumCodePoint(StringBuilder builder) {
-    builder.append("  private static final int maximumCodePoint")
-      .append(getVersionSuffix()).append(" = 0x")
-      .append(Integer.toString(maximumCodePoint, 16)).append(";\n");
+  void emitMaximumCodePoint(PrintWriter writer) {
+    writer.append("  public static final int maximumCodePoint")
+      .append(" = 0x").append(Integer.toString(maximumCodePoint, 16))
+      .append(";\n");
   }
 
   /**
    * Emits an array declaration and definition for the set of property values
    * supported by this version of Unicode.
    *
-   * @param builder Where to emit the property values array.
+   * @param writer Where to emit the property values array.
    */
-  void emitPropertyValuesArray(StringBuilder builder) {
-    builder.append("  private static final String[] propertyValues")
-      .append(getVersionSuffix()).append("\n    = { ");
+  void emitPropertyValuesArray(PrintWriter writer) {
+    writer.append("  public static final String[] propertyValues")
+      .append("\n    = { ");
     int item = 0;
     for (String genCatPropValue : propertyValueIntervals.keySet()) {
       if (++item == PROPERTY_VALUES_PER_LINE) {
-        builder.append(",\n        ");
+        writer.append(",\n        ");
         item = 1;
       } else if (item > 1) {
-        builder.append(", ");
+        writer.append(", ");
       }
-      builder.append("\"").append(genCatPropValue).append("\"");
+      writer.append("\"").append(genCatPropValue).append("\"");
     }
-    builder.append(" };\n");
+    writer.append(" };\n");
   }
 
   /**
    * Emits an array declaration and definition for the set of code point ranges
    * in this version of Unicode, corresponding to and in the same order as the
    * array of property values emitted in
-   * {@link #emitPropertyValuesArray(StringBuilder)}.
+   * {@link #emitPropertyValuesArray(java.io.PrintWriter)}.
    * <p/>
    * Note that String form is required for the amount of data associated with
    * the existing Unicode versions - when coded as static two-dimensional arrays
    * of int, the Java byte compiler complains that "code too large".  This is
    * apparently due to size limits in the specification for Java .class format.
    *
-   * @param builder Where to emit the intervals array
+   * @param writer Where to emit the intervals array
    */
-  void emitIntervalsArray(StringBuilder builder) {
-    builder.append("  private static final String[] intervals")
-      .append(getVersionSuffix()).append(" = {\n");
+  void emitIntervalsArray(PrintWriter writer) {
+    writer.append("  public static final String[] intervals").append(" = {\n");
 
     boolean isFirst = true;
     for (SortedMap.Entry<String,List<Interval>> entry
@@ -804,59 +826,59 @@ class UnicodeVersion {
       if (isFirst) {
         isFirst = false;
       } else {
-        builder.append(",\n");
+        writer.append(",\n");
       }
-      builder.append("    // Unicode ").append(majorMinorVersion)
+      writer.append("    // Unicode ").append(majorMinorVersion)
         .append(" property value: {").append(propertyValue)
         .append("}\n");
       int count = 0;
       boolean isFirstIntervalLine = true;
       for (Interval interval : intervals) {
         if (++count > INTERVALS_PER_LINE) {
-          builder.append("\n");
+          writer.append("\n");
           count = 1;
         }
         if (count == 1) {
-          builder.append(isFirstIntervalLine ? "        \"" : "      + \"");
+          writer.append(isFirstIntervalLine ? "        \"" : "      + \"");
         } else {
-          builder.append("+\"");
+          writer.append("+\"");
         }
         isFirstIntervalLine = false;
-        emitEscapedUTF16Char(builder, interval.start);
-        emitEscapedUTF16Char(builder, interval.end);
-        builder.append("\"");
+        emitEscapedUTF16Char(writer, interval.start);
+        emitEscapedUTF16Char(writer, interval.end);
+        writer.append("\"");
       }
     }
-    builder.append("  };\n");
+    writer.append("  };\n");
   }
 
   /**
    * Emits an array declaration and definition of alternating key/value mappings
    * from property value aliases to target property values.
    *
-   * @param builder Where to emit the intervals array
+   * @param writer Where to emit the intervals array
    */
-  void emitPropertyValueAliasesArray(StringBuilder builder) {
-    builder.append("  private static final String[] propertyValueAliases")
-      .append(getVersionSuffix()).append(" = {\n        ");
+  void emitPropertyValueAliasesArray(PrintWriter writer) {
+    writer.append("  public static final String[] propertyValueAliases")
+      .append(" = {\n        ");
 
     int count = 0;
     boolean isFirstLine = true;
     for (SortedMap.Entry<String,String> entry : propertyValueAliases.entrySet()) {
       if (++count > PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE) {
-        builder.append(",\n        ");
+        writer.append(",\n        ");
         count = 1;
       } else if ( ! isFirstLine) {
-        builder.append(",   ");
+        writer.append(",   ");
       } else {
         isFirstLine = false;
       }
       String alias = entry.getKey();
       String propertyValue = entry.getValue();
-      builder.append("\"").append(alias).append("\", \"").append(propertyValue)
+      writer.append("\"").append(alias).append("\", \"").append(propertyValue)
         .append("\"");
     }
-    builder.append("\n  };\n");
+    writer.append("\n  };\n");
   }
 
   /**
@@ -865,14 +887,14 @@ class UnicodeVersion {
    * partition records.  For partitions smaller than the maximum size, the
    * unused fields are populated with \u0000.
    *
-   * @param builder Where to emit the caseless match partitions
+   * @param writer Where to emit the caseless match partitions
    */
-  void emitCaselessMatchPartitions(StringBuilder builder) {
-    builder.append("  private static final int caselessMatchPartitionSize")
-      .append(getVersionSuffix()).append(" = ")
-      .append(caselessMatchPartitionSize).append(";\n");
-    builder.append("  private static final String caselessMatchPartitions")
-      .append(getVersionSuffix()).append(" =\n");
+  void emitCaselessMatchPartitions(PrintWriter writer) {
+    writer.append("  public static final int caselessMatchPartitionSize")
+      .append(" = ").append(Integer.toString(caselessMatchPartitionSize))
+      .append(";\n");
+    writer.append("  public static final String caselessMatchPartitions")
+      .append(" =\n");
 
     // Putting all of the partitions into a set ensures there are no duplicates
     SortedMap<Integer,SortedSet<Integer>> partitions
@@ -885,27 +907,27 @@ class UnicodeVersion {
     boolean isFirstPartitionLine = true;
     for (SortedSet<Integer> partition : partitions.values()) {
       if (++count > CASELESS_MATCH_PARTITIONS_PER_LINE) {
-        builder.append("\n");
+        writer.append("\n");
         count = 1;
       }
 
       if (count == 1)
-        builder.append(isFirstPartitionLine ? "        \"" : "      + \"");
+        writer.append(isFirstPartitionLine ? "        \"" : "      + \"");
       else
-        builder.append("+\"");
+        writer.append("+\"");
 
       isFirstPartitionLine = false;
 
       for (Integer c : partition)
-        emitEscapedUTF16Char(builder, c);
+        emitEscapedUTF16Char(writer, c);
 
       // Add \u0000 placeholders to fill out the fixed record size
       for (int i = 0 ; i < caselessMatchPartitionSize - partition.size() ; ++i)
-        emitEscapedUTF16Char(builder, 0);
+        emitEscapedUTF16Char(writer, 0);
 
-      builder.append("\"");
+      writer.append("\"");
     }
-    builder.append(";\n");
+    writer.append(";\n");
   }
 
   /**
@@ -919,18 +941,18 @@ class UnicodeVersion {
    *       form, if the given code point is above the BMP.</li>
    * </ul>
    *
-   * @param builder Where to emit the escaped character.
+   * @param writer Where to emit the escaped character.
    * @param codePoint The code point for which to emit an escaped character.
    */
-  private void emitEscapedUTF16Char(StringBuilder builder, int codePoint) {
+  private void emitEscapedUTF16Char(PrintWriter writer, int codePoint) {
     if (codePoint <= 0xFFFF) {
-      emitEscapedBMPChar(builder, codePoint);
+      emitEscapedBMPChar(writer, codePoint);
     } else { // codePoint > 0xFFFF - above the BMP
       if (codePoint < 0x110000) {
         for (char surrogate : Character.toChars(codePoint))
-          emitEscapedBMPChar(builder, (int)surrogate);
+          emitEscapedBMPChar(writer, (int)surrogate);
       } else {
-        builder.append("<").append(Integer.toString(codePoint, 16)).append(">");
+        writer.append("<").append(Integer.toString(codePoint, 16)).append(">");
       }
     }
   }
@@ -939,37 +961,37 @@ class UnicodeVersion {
    * Emits an escaped character in the form "\\uXXXX", where XXXX is the
    * hexadecimal form of the given code point, which must be in the Basic
    * Multilingual Plane (BMP).  Called from 
-   * {@link #emitEscapedUTF16Char(StringBuilder,int)}
+   * {@link #emitEscapedUTF16Char(PrintWriter,int)}
    *
-   * @param builder Where to emit the escaped character.
+   * @param writer Where to emit the escaped character.
    * @param codePoint The code point for which to emit an escaped character.
    */
-  private void emitEscapedBMPChar(StringBuilder builder, int codePoint) {
+  private void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
     if (codePoint == 0x22) {
       // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
       // a syntax error when it is included in a literal string, because it is 
       // interpreted as "[...]"[...]" (literally), and leads the compiler to
       // think that the enclosing quotation marks are unbalanced.
-      builder.append("\\\"");
+      writer.append("\\\"");
     } else if (codePoint == 0x0) { // similarly, these others avoid syntax errs
-      builder.append("\\000");
+      writer.append("\\000");
     } else if (codePoint == 0x9) {
-      builder.append("\\t");
+      writer.append("\\t");
     } else if (codePoint == 0xA) {
-      builder.append("\\n");
+      writer.append("\\n");
     } else if (codePoint == 0xC) {
-      builder.append("\\f");
+      writer.append("\\f");
     } else if (codePoint == 0xD) {
-      builder.append("\\r");
+      writer.append("\\r");
     } else if (codePoint == 0x5c) {  // reverse solidus = backslash
-      builder.append("\\\\");
+      writer.append("\\\\");
     } else {
-      builder.append("\\u");
+      writer.append("\\u");
       String hexCodePoint = Integer.toString(codePoint, 16);
       for (int i = 0 ; i < 4 - hexCodePoint.length() ; ++i) {
-        builder.append('0');
+        writer.append('0');
       }
-      builder.append(hexCodePoint);
+      writer.append(hexCodePoint);
     }
   }
 

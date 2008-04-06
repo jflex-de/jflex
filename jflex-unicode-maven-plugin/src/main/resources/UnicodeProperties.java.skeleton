@@ -18,17 +18,21 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.unicode;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.IntCharSet;
+import jflex.Interval;
+import jflex.unicode.data.*;
+
 
 --- Class comment
 
-class UnicodeProperties {
+public class UnicodeProperties {
 
   //////////////////////////////////////////////////////////////////////////////
   // From <http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4313773>:       //
@@ -60,8 +64,6 @@ class UnicodeProperties {
   private static final String DEFAULT_UNICODE_VERSION = "4.0";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
-
---- Versioned Unicode data
 
   private int maximumCodePoint;
   private Map<String,IntCharSet> propertyValueIntervals
@@ -277,10 +279,9 @@ class UnicodeProperties {
     return matcher.replaceAll("").replace(':', '=');
   }
 
-  class UnsupportedUnicodeVersionException extends Exception {
-    public UnsupportedUnicodeVersionException(String version) {
-      super("Unsupported Unicode version '" + version
-            + "'.\nSupported versions: " +
+  public class UnsupportedUnicodeVersionException extends Exception {
+    public UnsupportedUnicodeVersionException() {
+      super("Supported versions: " +
 
 --- List of Unicode versions
 

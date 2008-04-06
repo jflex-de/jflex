@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class UnicodePropertiesSkeleton {
 
   /** expected number of sections in the skeleton file */
-  static final private int size = 5;
+  static final private int size = 4;
 
   /** platform specific newline */
   static final private String NL = System.getProperty("line.separator");

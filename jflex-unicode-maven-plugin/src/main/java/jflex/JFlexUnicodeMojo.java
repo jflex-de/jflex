@@ -95,20 +95,11 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
 
   /**
-   * Name of the directory into which JFlex should generate the parser.
+   * Name of the directory into which the code will be generated.
    *
-   * @parameter expression="${basedir}/src/main/java/jflex"
+   * @parameter expression="${basedir}/src/main/java/jflex/unicode"
    */
   private File outputDirectory = null;
-
-  /**
-   * If true, UnicodeProperties.java will be generated whether or not it
-   * already exists; if false, it will be generated only if it does not already
-   * exist.
-   *
-   * @parameter expression="${force}" default-value="false"
-   */
-  private boolean force = false;
 
   /**
    * Maps validated major.minor unicode versions to information about the
@@ -174,20 +165,13 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    * </ol>
    */
   public void execute() throws MojoExecutionException, MojoFailureException {
-    if ( ! getOutputFile().exists() || force) {
-      try {
-        getLog().info
-          ("Downloading Unicode data from " + UNICODE_DOT_ORG_URL + "\n");
-        collectUnicodeVersions();
-        emitUnicodeProperties();
-      } catch (Exception e) {
-        throw new MojoExecutionException("Exception", e);
-      }
-    } else {
-      getLog().info("Skipping generation of " + getOutputFile()
-                    + " because it already exists.");
-      getLog().info("To override, in jflex-unicode-maven-plugin's POM config,"
-                    + " set force=\"true\"");
+    try {
+      getLog().info("Downloading Unicode data from " + UNICODE_DOT_ORG_URL + "\n");
+      collectUnicodeVersions();
+      emitUnicodeProperties();
+      emitVersionedUnicodeData();
+    } catch (Exception e) {
+      throw new MojoExecutionException("Exception", e);
     }
   }
 
@@ -338,8 +322,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         (version, unicodeDataURL, propertyAliasesURL, propertyValueAliasesURL,
          derivedCorePropertiesURL, scriptsURL, blocksURL, propListURL);
       unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
-      getLog().info("Completed processing Unicode "
-                    + unicodeVersion.majorMinorVersion + "\n");
+      getLog().info("Completed downloading and parsing Unicode "
+                    + unicodeVersion.majorMinorVersion + " data.\n");
     }
   }
 
@@ -372,9 +356,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       = new UnicodePropertiesSkeleton(SKELETON_FILENAME);
     skeleton.emitNext(builder); // Header
     emitClassComment(builder);
-    skeleton.emitNext(builder); // Class declaration and static vars
-    emitVersionedUnicodeData(builder);
-    skeleton.emitNext(builder); // Fixed method definitions, part 1
+    // Class declaration, static vars and fixed method definitions, part 1
+    skeleton.emitNext(builder);
     emitInitBody(builder);
     skeleton.emitNext(builder); // Fixed method definitions, part 2; etc.
     emitUnicodeVersionsString(builder);
@@ -402,13 +385,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     builder.append("\"");
   }
 
-  private void emitVersionedUnicodeData(StringBuilder builder) {
+  private void emitVersionedUnicodeData() throws IOException {
     for (UnicodeVersion unicodeVersion : unicodeVersions.values()) {
-      unicodeVersion.emitMaximumCodePoint(builder);
-      unicodeVersion.emitPropertyValuesArray(builder);
-      unicodeVersion.emitIntervalsArray(builder);
-      unicodeVersion.emitPropertyValueAliasesArray(builder);
-      unicodeVersion.emitCaselessMatchPartitions(builder);
+      unicodeVersion.emitToDir(new File(outputDirectory, "data"));
     }
   }
 
@@ -440,16 +419,16 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       builder.append("version.equals(\"").append(majorMinorVersion)
         .append("\") || version.equals(\"")
         .append(unicodeVersion.majorMinorUpdateVersion).append("\")) {\n")
-        .append("      bind(propertyValues").append(versionSuffix)
-        .append(", intervals").append(versionSuffix)
-        .append(", propertyValueAliases").append(versionSuffix)
-        .append(",\n         maximumCodePoint").append(versionSuffix)
-        .append(", caselessMatchPartitions").append(versionSuffix)
-        .append(", caselessMatchPartitionSize").append(versionSuffix)
+        .append("      bind(Unicode").append(versionSuffix).append(".propertyValues")
+        .append(", Unicode").append(versionSuffix).append(".intervals")
+        .append(", Unicode").append(versionSuffix).append(".propertyValueAliases")
+        .append(",\n         Unicode").append(versionSuffix).append(".maximumCodePoint")
+        .append(", Unicode").append(versionSuffix).append(".caselessMatchPartitions")
+        .append(", Unicode").append(versionSuffix).append(".caselessMatchPartitionSize")
         .append(");\n");
     }
     builder.append("    } else {\n")
-      .append("      throw new UnsupportedUnicodeVersionException(version);\n")
+      .append("      throw new UnsupportedUnicodeVersionException();\n")
       .append("    }\n");
   }
 
