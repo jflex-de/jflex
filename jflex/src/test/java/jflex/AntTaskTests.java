@@ -74,7 +74,7 @@ public class AntTaskTests extends TestCase {
 
   public void testDestdir() throws IOException {
     task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
-    File dir = new File("src");
+    File dir = new File("target/test/src");
     task.setDestdir(dir);
     task.findPackageAndClass();
     task.normalizeOutdir();
