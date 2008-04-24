@@ -55,7 +55,9 @@ public final class IntCharSet {
   public IntCharSet(List<Interval> chars) {
     int size = chars.size();
     intervalls = new ArrayList<Interval>(size);
-    intervalls.addAll(chars);
+
+    for (Interval intervall : chars)
+      add(intervall);
   }
   
   
