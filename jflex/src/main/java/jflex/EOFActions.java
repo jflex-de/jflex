@@ -77,7 +77,7 @@ public class EOFActions {
   }
 
   public Action getAction(int state) {
-    return actions.get(new Integer(state));
+    return actions.get(state);
   }
 
   public Action getDefault() {
