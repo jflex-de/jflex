@@ -812,11 +812,11 @@ final public class Emitter {
   private void emitCtorArgs() {
     if (scanner.ctorArgs.isEmpty()) return;
 
-    for (Map.Entry entry : scanner.ctorArgs.entrySet()) {
+    for (Map.Entry<String,String> entry : scanner.ctorArgs.entrySet()) {
       print(",");
-      print((String) entry.getKey());
+      print(entry.getKey());
       print(" ");
-      print((String) entry.getValue());
+      print(entry.getValue());
     }
   }
 
