@@ -102,12 +102,14 @@ public class CharClasses {
    * Characters that are elements of <code>set</code> are not in the same
    * equivalence class with characters that are not elements of <code>set</code>.
    *
+   * NOTE: <code>set</code> may be modified by this method.
+   *
    * @param set       the set of characters to distinguish from the rest    
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
   public void makeClass(IntCharSet set, boolean caseless) {
     if (caseless) set = set.getCaseless();
-    
+
     if ( DEBUG ) {
       Out.dump("makeClass("+set+")");
       dump();
@@ -220,8 +222,8 @@ public class CharClasses {
    * Updates the current partition, so that the specified set of characters
    * gets a new character class.
    *
-   * Characters that are elements of the set <code>v</code> are not in the same
-   * equivalence class with characters that are not elements of the set <code>v</code>.
+   * Characters that are elements of the set <code>l</code> are not in the same
+   * equivalence class with characters that are not elements of the set <code>l</code>.
    *
    * @param l   a List of Interval objects. 
    *            This List represents a set of characters. The set of characters is
