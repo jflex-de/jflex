@@ -41,7 +41,7 @@ public class UnicodePropertiesTest extends TestCase {
     for (String version : versions) {
       try {
         UnicodeProperties properties = new UnicodeProperties(version);
-        IntCharSet intervals = properties.getIntervals("Lu");
+        IntCharSet intervals = properties.getIntCharSet("Lu");
         assertNotNull("intervals for 'Lu' property value for version " + version
                       + " should not be null\n" + "Supported properties: "
                       + properties.getPropertyValues(), intervals);
@@ -67,7 +67,7 @@ public class UnicodePropertiesTest extends TestCase {
   public void testDefaultVersion() {
     try {
       UnicodeProperties properties = new UnicodeProperties();
-      IntCharSet intervals = properties.getIntervals("Lu");
+      IntCharSet intervals = properties.getIntCharSet("Lu");
       assertNotNull("intervals for 'Lu' property value for default Unicode "
                     + "version should not be null\n" + "Supported properties: "
                     + properties.getPropertyValues(), intervals);
@@ -82,25 +82,25 @@ public class UnicodePropertiesTest extends TestCase {
     try {
       UnicodeProperties properties = new UnicodeProperties();
       IntCharSet set_1
-        = properties.getIntervals("General Category : Other Letter");
+        = properties.getIntCharSet("General Category : Other Letter");
       assertNotNull("Null interval set returned for "
                     +"\\p{General Category : Other Letter}", set_1);
       assertTrue("Empty interval set returned for "
                   + "\\p{General Category : Other Letter}",
                   set_1.containsElements());
-      IntCharSet set_2 = properties.getIntervals("Lo");
+      IntCharSet set_2 = properties.getIntCharSet("Lo");
       assertNotNull("Null interval set returned for \\p{Lo}", set_2);
       assertTrue("Empty interval set returned for \\p{Lo}",
                  set_1.containsElements());
       assertTrue("\\p{General Category : Other Letter} and \\p{Lo} should"
                  +" return the same thing.", set_1.equals(set_2));
 
-      set_1 = properties.getIntervals(" Script:Tibetan ");
+      set_1 = properties.getIntCharSet(" Script:Tibetan ");
       assertNotNull("Null interval set returned for \\p{ Script:Tibetan }",
                     set_1);
       assertTrue("Empty interval set returned for \\p{ Script:Tibetan }",
                   set_1.containsElements());
-      set_2 = properties.getIntervals("-_T i b t_-");
+      set_2 = properties.getIntCharSet("-_T i b t_-");
       assertNotNull("Null interval set returned for \\p{-_T i b t_-}", set_2);
       assertTrue("Empty interval set returned for \\p{-_T i b t_-}",
                  set_1.containsElements());
@@ -230,10 +230,10 @@ public class UnicodePropertiesTest extends TestCase {
   public void testSingleLetterProperties_5_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.0");
-      IntCharSet set_1 = properties.getIntervals("S");
+      IntCharSet set_1 = properties.getIntCharSet("S");
       assertNotNull("Null interval set for \\p{S}", set_1);
       assertTrue("Empty interval set for \\p{S}", set_1.containsElements());
-      IntCharSet set_2 = properties.getIntervals("Symbol");
+      IntCharSet set_2 = properties.getIntCharSet("Symbol");
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 
@@ -271,10 +271,10 @@ public class UnicodePropertiesTest extends TestCase {
   public void testSingleLetterProperties_5_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.1");
-      IntCharSet set_1 = properties.getIntervals("S");
+      IntCharSet set_1 = properties.getIntCharSet("S");
       assertNotNull("Null interval set for \\p{S}", set_1);
       assertTrue("Empty interval set for \\p{S}", set_1.containsElements());
-      IntCharSet set_2 = properties.getIntervals("Symbol");
+      IntCharSet set_2 = properties.getIntCharSet("Symbol");
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 

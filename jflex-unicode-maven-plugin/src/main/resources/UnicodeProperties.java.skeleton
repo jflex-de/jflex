@@ -110,9 +110,10 @@ public class UnicodeProperties {
    *
    * @param propertyValue The Unicode property or property value (or alias for
    *  one of these) for which to return the corresponding character intervals.
-   * @return The character interval set corresponding to the given property value.
+   * @return The character interval set corresponding to the given property
+   *  value, if a match exists, and null otherwise.
    */
-  public IntCharSet getIntervals(String propertyValue) {
+  public IntCharSet getIntCharSet(String propertyValue) {
     return propertyValueIntervals.get(normalize(propertyValue));
   }
 
