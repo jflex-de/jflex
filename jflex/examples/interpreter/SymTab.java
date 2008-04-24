@@ -49,10 +49,10 @@ public class SymTab {
   }
 
   public SymtabEntry lookup(String s) {
-    Object value = m.get(s);
+    SymtabEntry value = m.get(s);
     if (value==null && pred!=null)
       value = pred.lookup(s);
-    return ((SymtabEntry)value);
+    return value;
   }
 
   public String toString() {    // for output with print
