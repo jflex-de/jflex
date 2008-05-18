@@ -21,6 +21,7 @@
 package jflex;
 
 import java.util.*;
+import jflex.unicode.UnicodeProperties;
 
 /* customizing code */
 
@@ -33,6 +34,7 @@ action code {:
   Integer     stateNumber;
   Timer       t           = new Timer();
   EOFActions  eofActions  = new EOFActions();
+  Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
 
   void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
@@ -64,56 +66,178 @@ action code {:
         
       case sym.JLETTERDIGITCLASS:
         return Character.isJavaIdentifierPart(c);
-        
-      case sym.LETTERCLASS:
-        return Character.isLetter(c);
-        
-      case sym.DIGITCLASS:
-        return Character.isDigit(c);
-        
-      case sym.UPPERCLASS: 
-        return Character.isUpperCase(c);
-        
-      case sym.LOWERCLASS: 
-        return Character.isLowerCase(c);
-        
+
       default: return false;
     }
   }
   
   private List<Interval> makePreClass(int type) {
-    
-    List<Interval> result = new ArrayList<Interval>();
-    
-    char c = 0;
-    char start = 0;
-    char last = charClasses.getMaxCharCode();
-    
-    boolean prev, current;
-    
-    prev = check(type,'\u0000');
-    
-    for (c = 1; c < last; c++) {
-      
-      current = check(type,c);
-      
-      if (!prev && current) start = c;
-      if (prev && !current) {
-        result.add(new Interval(start, (char)(c-1)));
-      }
-      
-      prev = current;
-    }
-    
-    // the last iteration is moved out of the loop to
-    // avoid an endless loop if last == maxCharCode and
-    // last+1 == 0
-    current = check(type,c);
-    
-    if (!prev && current) result.add(new Interval(c,c));
-    if (prev && current)  result.add(new Interval(start, c));    
-    if (prev && !current) result.add(new Interval(start, (char)(c-1)));
 
+    List<Interval> result;
+    IntCharSet intCharSet = preclassCache.get(type);
+    if (null != intCharSet) {
+      result = intCharSet.copy().getIntervalls();
+    }
+    else {
+      switch (type) {
+        case sym.LETTERCLASS: {
+          intCharSet = LexParse.unicodeProperties.getIntCharSet("L");
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.DIGITCLASS: {
+          intCharSet = LexParse.unicodeProperties.getIntCharSet("Nd");
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.DIGITCLASSNOT: {
+          //TODO: Is there a better way to get the absolute complement?
+          IntCharSet digits = LexParse.unicodeProperties.getIntCharSet("Nd");
+          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet.sub(digits);
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.UPPERCLASS: {
+          // "Uppercase" is more than Uppercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Uppercase",
+          // then fall back to Uppercase_Letter (Lu) if it does not exist.
+          intCharSet = LexParse.unicodeProperties.getIntCharSet("Uppercase");
+          if (null == intCharSet) {
+            intCharSet = LexParse.unicodeProperties.getIntCharSet("Lu");
+          }
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.LOWERCLASS: {
+          // "Lowercase" is more than Lowercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Lowercase",
+          // then fall back to Lowercase_Letter (Ll) if it does not exist.
+          intCharSet = LexParse.unicodeProperties.getIntCharSet("Lowercase");
+          if (null == intCharSet) {
+            intCharSet = LexParse.unicodeProperties.getIntCharSet("Ll");
+          }
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.WHITESPACECLASS: {
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          intCharSet = LexParse.unicodeProperties.getIntCharSet("Whitespace");
+          if (null == intCharSet) {
+            intCharSet = LexParse.unicodeProperties.getIntCharSet("Zs");
+          }
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.WHITESPACECLASSNOT: {
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          IntCharSet whitespaceClass = LexParse.unicodeProperties.getIntCharSet("Whitespace");
+          if (null == whitespaceClass) {
+            whitespaceClass = LexParse.unicodeProperties.getIntCharSet("Zs");
+          }
+          //TODO: Is there a better way to get the absolute complement?
+          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet.sub(whitespaceClass);
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.WORDCLASS: {
+          // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+          IntCharSet alphaClass = LexParse.unicodeProperties.getIntCharSet("Alphabetic");
+          if (null == alphaClass) {
+            // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+            alphaClass = LexParse.unicodeProperties.getIntCharSet("L");
+          }
+          IntCharSet markClass = LexParse.unicodeProperties.getIntCharSet("M");
+          IntCharSet digitClass = LexParse.unicodeProperties.getIntCharSet("Nd");
+          IntCharSet connectorPunctClass = LexParse.unicodeProperties.getIntCharSet("Pc");
+          if (null == connectorPunctClass) {
+            // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+            connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+          }
+          intCharSet = alphaClass.copy();
+          intCharSet.add(markClass);
+          intCharSet.add(digitClass);
+          intCharSet.add(connectorPunctClass);
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.WORDCLASSNOT: {
+          // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+          IntCharSet alphaClass = LexParse.unicodeProperties.getIntCharSet("Alphabetic");
+          if (null == alphaClass) {
+            // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+            alphaClass = LexParse.unicodeProperties.getIntCharSet("L");
+          }
+          IntCharSet markClass = LexParse.unicodeProperties.getIntCharSet("M");
+          IntCharSet digitClass = LexParse.unicodeProperties.getIntCharSet("Nd");
+          IntCharSet connectorPunctClass = LexParse.unicodeProperties.getIntCharSet("Pc");
+          if (null == connectorPunctClass) {
+            // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+            connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+          }
+          IntCharSet wordClass = alphaClass.copy();
+          wordClass.add(markClass);
+          wordClass.add(digitClass);
+          wordClass.add(connectorPunctClass);
+          //TODO: Is there a better way to get the absolute complement?
+          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet.sub(wordClass);
+          preclassCache.put(type, intCharSet);
+          result = intCharSet.copy().getIntervalls();
+          break;
+        }
+        case sym.JLETTERCLASS:
+        case sym.JLETTERDIGITCLASS:
+        default: {
+          result = new ArrayList<Interval>();
+
+          char c = 0;
+          char start = 0;
+          char last = charClasses.getMaxCharCode();
+
+          boolean prev, current;
+
+          prev = check(type,'\u0000');
+
+          for (c = 1; c < last; c++) {
+
+            current = check(type,c);
+
+            if (!prev && current) start = c;
+            if (prev && !current) {
+              result.add(new Interval(start, (char)(c-1)));
+            }
+
+            prev = current;
+          }
+
+          // the last iteration is moved out of the loop to
+          // avoid an endless loop if last == maxCharCode and
+          // last+1 == 0
+          current = check(type,c);
+
+          if (!prev && current) result.add(new Interval(c,c));
+          if (prev && current)  result.add(new Interval(start, c));
+          if (prev && !current) result.add(new Interval(start, (char)(c-1)));
+
+          preclassCache.put(type, new IntCharSet(result));
+          break;
+        }
+      }
+    }
     return result;
   }
   
@@ -174,6 +298,8 @@ action code {:
 :};
 
 parser code {:
+   static UnicodeProperties unicodeProperties;
+
    public LexScan scanner;
 
    public LexParse(LexScan scanner) {
@@ -207,6 +333,10 @@ parser code {:
      throw new GeneratorException();
    }
 
+   static void setUnicodeProperties(UnicodeProperties unicodeProperties) {
+     LexParse.unicodeProperties = unicodeProperties;
+   }
+
 :};
 
 init with {:
@@ -219,8 +349,9 @@ terminal OPENBRACKET, CLOSEBRACKET, HAT, DOLLAR, OPENCLASS,
          CLOSECLASS, DASH, DELIMITER, EQUALS, COMMA, LESSTHAN,
          MORETHAN, LBRACE, RBRACE, FULL, UNICODE, REGEXPEND;
 
-terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS, 
-         UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD;
+terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS,
+         DIGITCLASSNOT, UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD,
+         WHITESPACECLASS, WHITESPACECLASSNOT, WORDCLASS, WORDCLASSNOT;
          
 terminal Action ACTION;
 terminal String IDENT, USERCODE;
@@ -231,6 +362,7 @@ terminal STAR, PLUS, BAR, QUESTION, POINT, BANG, TILDE;
 
 terminal Character CHAR;
 terminal String STRING, MACROUSE;
+terminal IntCharSet UNIPROPCCLASS, UNIPROPCCLASSNOT;
 
 /* symbols *only* used in the parse tree (not in the grammar) */
 terminal CCLASS, CCLASSNOT, CONCAT;
@@ -463,6 +595,30 @@ regexp        ::=  regexp:r STAR
                      }
                      RESULT = new RegExp1(sym.CCLASS, list);
                    :}
+                |  UNIPROPCCLASS:intcharset
+                   {:
+                     IntCharSet set
+                       = scanner.caseless ? intcharset.getCaseless() : intcharset.copy();
+                     try {
+                       charClasses.makeClass(set.getIntervalls(), false);
+                     }
+                     catch (CharClassException e) {
+                       syntaxError(ErrorMessages.CHARSET_2_SMALL, intcharsetleft, intcharsetright);
+                     }
+                     RESULT = new RegExp1(sym.CCLASS, set.getIntervalls());
+                   :}
+                |  UNIPROPCCLASSNOT:notintcharset
+                   {:
+                     IntCharSet set
+                       = scanner.caseless ? notintcharset.getCaseless() : notintcharset.copy();
+                     try {
+                       charClasses.makeClassNot(set.getIntervalls(), false);
+                     }
+                     catch (CharClassException e) {
+                       syntaxError(ErrorMessages.CHARSET_2_SMALL, notintcharsetleft, notintcharsetright);
+                     }
+                     RESULT = new RegExp1(sym.CCLASSNOT, set.getIntervalls());
+                   :}
                 |  STRING:str
                    {: 
                      try {
@@ -511,7 +667,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      RESULT = new RegExp1(sym.CCLASS,null);
                    :}
                 |  OPENCLASS classcontent:list CLOSECLASS:close
-                   {: 
+                   {:
                      try {
                        charClasses.makeClass(list, Options.jlex && scanner.caseless);
                      }
@@ -584,6 +740,30 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    :}
                 |  preclass:list 
                    {: RESULT = list; :}
+                |  classcontent:list UNIPROPCCLASS:intcharset
+                   {:
+                     //TODO: Is IntCharSet.copy() required here?
+                     list.addAll(intcharset.copy().getIntervalls());
+                     RESULT = list;
+                   :}
+                |  UNIPROPCCLASS:intcharset
+                   //TODO: Is IntCharSet.copy() required here?
+                   {: RESULT = intcharset.copy().getIntervalls(); :}
+                |  classcontent:list UNIPROPCCLASSNOT:notintcharset
+                   {:
+                     //TODO: Is there a better way to get the absolute complement?
+                     IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                     absComp.sub(notintcharset);
+                     list.addAll(absComp.getIntervalls());
+                     RESULT = list;
+                   :}
+                |  UNIPROPCCLASSNOT:notintcharset
+                   {:
+                      //TODO: Is there a better way to get the absolute complement?
+                      IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                      absComp.sub(notintcharset);
+                      RESULT = absComp.getIntervalls();
+                   :}
                 |  classcontent:list STRING:s
                    {: 
                       for (int i = 0; i < s.length(); i++)
@@ -620,8 +800,18 @@ preclass ::= JLETTERCLASS
              {: RESULT = makePreClass(sym.LETTERCLASS); :}
            | DIGITCLASS
              {: RESULT = makePreClass(sym.DIGITCLASS); :}
+           | DIGITCLASSNOT
+             {: RESULT = makePreClass(sym.DIGITCLASSNOT); :}
            | UPPERCLASS
              {: RESULT = makePreClass(sym.UPPERCLASS); :}
            | LOWERCLASS
              {: RESULT = makePreClass(sym.LOWERCLASS); :}
+           | WHITESPACECLASS
+             {: RESULT = makePreClass(sym.WHITESPACECLASS); :}
+           | WHITESPACECLASSNOT
+             {: RESULT = makePreClass(sym.WHITESPACECLASSNOT); :}
+           | WORDCLASS
+             {: RESULT = makePreClass(sym.WORDCLASS); :}
+           | WORDCLASSNOT
+             {: RESULT = makePreClass(sym.WORDCLASSNOT); :}
            ;

@@ -21,6 +21,7 @@
 package jflex;
 
 import java.util.*;
+import jflex.unicode.UnicodeProperties;
 
 
 /** 
@@ -35,9 +36,11 @@ public final class IntCharSet {
 
   private final static boolean DEBUG = false;
 
+  private static UnicodeProperties unicodeProperties;
+
   /* invariant: all intervals are disjoint, ordered */
-  private List<Interval> intervalls;  
-  private int pos; 
+  private List<Interval> intervalls;
+  private int pos;
 
   public IntCharSet() {
     this.intervalls = new ArrayList<Interval>();
@@ -337,6 +340,10 @@ public final class IntCharSet {
     return intervalls.size();
   }
 
+  public List<Interval> getIntervalls() {
+    return intervalls;
+  }
+
   // beware: depends on caller protocol, single user only 
   public Interval getNext() {
     if (pos == intervalls.size()) pos = 0;
@@ -359,13 +366,12 @@ public final class IntCharSet {
     for (int i=0; i < size; i++) {
       Interval elem = intervalls.get(i);
       for (char c = elem.start; c <= elem.end; c++) {
-        n.add(Character.toLowerCase(c)); 
-        n.add(Character.toUpperCase(c)); 
-        n.add(Character.toTitleCase(c)); 
+        IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
+        if (null != equivalenceClass)
+          n.add(equivalenceClass);
       }
     }
-    
-    return n;    
+    return n;
   }
 
 
@@ -396,5 +402,9 @@ public final class IntCharSet {
     for (Interval intervall : intervalls)
       result.intervalls.add(intervall.copy());
     return result;
+  }
+
+  static void setUnicodeProperties(UnicodeProperties unicodeProperties) {
+    IntCharSet.unicodeProperties = unicodeProperties;
   }
 }

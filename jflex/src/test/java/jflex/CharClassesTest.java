@@ -21,6 +21,7 @@
 package jflex;
 
 import junit.framework.TestCase;
+import jflex.unicode.UnicodeProperties;
 
 /**
  * CharClassesTest
@@ -93,9 +94,25 @@ public class CharClassesTest extends TestCase {
   }
 
   public void testCaseless() {
+    try {
+      IntCharSet.setUnicodeProperties(new UnicodeProperties("4.0"));
+    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+      assertTrue("Unsupported default Unicode version: " + e, false);
+    }
+
     IntCharSet set = new IntCharSet(new Interval('a','c'));
     set.add(new Interval('h','o'));
-    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'] }", 
+
+    // From <http://unicode.org/Public/4.0-Update1/UnicodeData-4.0.1.txt>:
+    //
+    // 0049;LATIN CAPITAL LETTER I;Lu;0;L;;;;;N;;;;0069;
+    // 0069;LATIN SMALL LETTER I;Ll;0;L;;;;;N;;;0049;;0049
+    // 0130;LATIN CAPITAL LETTER I WITH DOT ABOVE;Lu;0;L;0049 0307;;;;N;LATIN CAPITAL LETTER I DOT;;;0069;
+    // 0131;LATIN SMALL LETTER DOTLESS I;Ll;0;L;;;;;N;;;0049;;0049
+    //
+    // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B
+    // 212A;KELVIN SIGN;Lu;0;L;004B;;;;N;DEGREES KELVIN;;;006B;
+    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o']['\\u0130'-'\\u0131']['\\u212A'] }",
                  set.getCaseless().toString());
   }
 }

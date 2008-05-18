@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import jflex.unicode.UnicodeProperties;
 
 /**
  * The lexer of JFlex.
@@ -82,6 +83,8 @@ import java.util.HashMap;
 
   StringBuilder actionText = new StringBuilder();
   StringBuilder string     = new StringBuilder();
+
+  UnicodeProperties unicodeProperties;
 
   boolean charCount;
   boolean lineCount;
@@ -197,8 +200,16 @@ OctDigit   = [0-7]
 
 Number     = {Digit}+
 HexNumber  = \\ x {HexDigit} {2}
-Unicode    = \\ u {HexDigit} {1, 4}
 OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
+
+// Unicode4 can encode chars only in the BMP with the 16 bits provided by its
+// (at most) 4 hex digits.
+Unicode4  = \\ u {HexDigit} {1, 4}
+
+// Unicode6 can encode all Unicode chars, both in the BMP and in the
+// supplementary planes -- only 21 bits are required as of Unicode 5.0,
+// but its six hex digits provide 24 bits.
+Unicode6  = \\ U {HexDigit} {1, 6}
 
 // see http://www.unicode.org/unicode/reports/tr18/
 WSP        = [ \t\b]
@@ -236,6 +247,8 @@ EscapeSequence = \\[^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]|\\+u{HexDigit}{
 
 JavaRest = [^\{\}\"\'/]|"/"[^*/]
 JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
+
+DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
 
 %%
 
@@ -317,7 +330,30 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%notunix"                  { notUnix = true;  }
   "%7bit"                     {  }
   "%full"|"%8bit"             { return symbol(FULL); }
-  "%unicode"|"%16bit"         { return symbol(UNICODE);  }
+  "%16bit"                    { try {
+                                  unicodeProperties = new UnicodeProperties();
+                                  IntCharSet.setUnicodeProperties(unicodeProperties);
+                                  LexParse.setUnicodeProperties(unicodeProperties);
+                                } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+                                  throw new ScannerException
+                                    (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+                                }
+                                return symbol(UNICODE);
+                              }
+  "%unicode"({WSP}+{DottedVersion})? { String v = yytext().substring(8).trim();
+                                       try {
+                                         unicodeProperties = v.length() > 0
+                                                           ? new UnicodeProperties(v)
+                                                           : new UnicodeProperties();
+                                         IntCharSet.setUnicodeProperties(unicodeProperties);
+                                         LexParse.setUnicodeProperties(unicodeProperties);
+                                       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+                                         throw new ScannerException
+                                           (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+                                       }
+                                       return symbol(UNICODE);
+                                     }
+
   "%caseless"|"%ignorecase"   { caseless = true; }
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
   "%extends"{WSP}+{QualIdent}{WSP}* { isExtending = yytext().substring(9).trim(); }
@@ -456,12 +492,34 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {WSP}+          { }
 
   <CHARCLASS> {
-    {WSPNL}*"[:jletter:]"  { return symbol(JLETTERCLASS); }
+    {WSPNL}*"[:jletter:]"      { return symbol(JLETTERCLASS); }
     {WSPNL}*"[:jletterdigit:]" { return symbol(JLETTERDIGITCLASS); }
-    {WSPNL}*"[:letter:]"     { return symbol(LETTERCLASS); }
-    {WSPNL}*"[:digit:]"      { return symbol(DIGITCLASS); }
-    {WSPNL}*"[:uppercase:]"  { return symbol(UPPERCLASS); }
-    {WSPNL}*"[:lowercase:]"  { return symbol(LOWERCLASS); }
+    {WSPNL}*"[:letter:]"       { return symbol(LETTERCLASS); }
+    {WSPNL}*"[:uppercase:]"    { return symbol(UPPERCLASS); }
+    {WSPNL}*"[:lowercase:]"    { return symbol(LOWERCLASS); }
+    {WSPNL}*"[:digit:]"        { return symbol(DIGITCLASS); }
+    {WSPNL}*"\\d"              { return symbol(DIGITCLASS); }
+    {WSPNL}*"\\D"              { return symbol(DIGITCLASSNOT); }
+    {WSPNL}*"\\s"              { return symbol(WHITESPACECLASS); }
+    {WSPNL}*"\\S"              { return symbol(WHITESPACECLASSNOT); }
+    {WSPNL}*"\\w"              { return symbol(WORDCLASS); }
+    {WSPNL}*"\\W"              { return symbol(WORDCLASSNOT); }
+    {WSPNL}*"\\p{"[^}]*"}"     { String trimmedText = yytext().trim();
+                                 String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
+                                 IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
+                                 if (null == set) {
+                                   throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
+                                 }
+                                 return symbol(UNIPROPCCLASS, set);
+                               }
+    {WSPNL}*"\\P{"[^}]*"}"     { String trimmedText = yytext().trim();
+                                 String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
+                                 IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
+                                 if (null == set) {
+                                   throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
+                                 }
+                                 return symbol(UNIPROPCCLASSNOT, set);
+                               }
   }
 
   . { return symbol(CHAR, yytext().charAt(0)); }
@@ -506,7 +564,8 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   {NL}     { throw new ScannerException(file,ErrorMessages.UNTERMINATED_STR, yyline, yycolumn); }
 
   {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode}   { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode4}  { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode6}  { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
   {OctNumber} { string.append( (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
 
   \\b { string.append('\b'); }
@@ -523,7 +582,8 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
 <REGEXP, CHARCLASS> {
   {HexNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode4}  { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode6}  { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
   {OctNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
 
   \\b { return symbol(CHAR,'\b'); }
