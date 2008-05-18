@@ -1,0 +1,9 @@
+name: ccl
+
+description:
+test for follwoing bug. 
+If %16bit is used with this spec, the scanner fails on the input 
+with an ArrayOutOfBoundsException.
+turned out to be an overflow in ZZ_PACKED_CMAP (using \u10000)
+
+jflex: -q

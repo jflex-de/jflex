@@ -1,0 +1,11 @@
+Reading "testcases/eol-look/eol.flex"
+Constructing NFA : 47 states in NFA
+Converting NFA to DFA : 
+..................
+
+Warning in file "testcases/eol-look/eol.flex" (line 20): 
+Rule can never be matched:
+"bb"$        { /* should produce nevermatch warning *}
+20 states before minimization, 15 states in minimized DFA
+Old file "testcases/eol-look/Eol.java" saved as "testcases/eol-look/Eol.java~"
+Writing code to "testcases/eol-look/Eol.java"

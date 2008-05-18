@@ -1,0 +1,20 @@
+name: macro
+
+description:
+test bug #491095 [Definitions not checked in complement]
+
+When referring to an undeclared definition in a 
+complement expression no error is reported
+
+%% 
+r = !{s} 
+%% 
+{r} { .. }
+
+will be accepted, but a NullPointerException is thrown 
+when the dfa is constructed as `s' is not defined. 
+
+jflex: -q
+
+jflex-fail: true
+

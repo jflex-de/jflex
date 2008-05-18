@@ -1,0 +1,24 @@
+line: 1 col: 1 match: --a--
+action [22] {  }
+line: 1 col: 2 match: --b--
+action [22] {  }
+line: 1 col: 3 match: --abcd--
+action [17] { System.out.println(yytext()); return 7; }
+abcd
+7
+line: 1 col: 7 match: --f--
+action [22] {  }
+line: 1 col: 8 match: --ab--
+action [16] { System.out.println(yytext()); return 2; }
+ab
+2
+line: 1 col: 10 match: --c--
+action [22] {  }
+line: 1 col: 11 match: --d--
+action [22] {  }
+line: 1 col: 12 match: --e--
+action [22] {  }
+line: 1 col: 13 match: --
+--
+action [22] {  }
+-1

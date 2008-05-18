@@ -1,0 +1,8 @@
+
+Warning in file "testcases/nevermatch/never.flex" (line 13): 
+Rule can never be matched:
+<A> .    { /* action */ }
+
+Warning in file "testcases/nevermatch/never.flex" (line 19): 
+Rule can never be matched:
+<A> <<EOF>>  { /* action 4 */ }

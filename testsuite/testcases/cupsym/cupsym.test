@@ -1,0 +1,11 @@
+name: cupsym
+
+description:
+bug #655528 [%cupsym doesn't affect all code]
+
+If %cupdebug is used, the code generated for 
+getTokenName uses "sym" as the cup symbol name even if 
+%cupsym is specified. The comment correctly uses the 
+cupSymbol variable, but the generated code does not. 
+
+jflex: -q

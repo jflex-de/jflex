@@ -1,0 +1,7 @@
+name: ccl-bug
+
+description:
+#1498726  char [] ZZ_CMAP is incorrect
+Generated Yylex.java does not compile, because of missing ","
+
+jflex: 

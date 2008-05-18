@@ -1,0 +1,18 @@
+name: look 
+
+description:
+test for bug #1164852 (yytext() return longer than expected with lookahead)
+
+(this tests fixed lookahead/base only)
+
+the pattern
+ab / cde { System.out.println(yytext()); return 2; }
+abcd / f { System.out.println(yytext()); return 7; }
+
+with string
+abcde
+
+prints out "abcd", but returns 2.
+
+
+

@@ -1,0 +1,68 @@
+match: --s--
+action [14] { /* do nothing */ }
+match: --o--
+action [14] { /* do nothing */ }
+match: --m--
+action [14] { /* do nothing */ }
+match: --e--
+action [14] { /* do nothing */ }
+match: -- --
+action [14] { /* do nothing */ }
+match: --f--
+action [14] { /* do nothing */ }
+match: --i--
+action [14] { /* do nothing */ }
+match: --l--
+action [14] { /* do nothing */ }
+match: --e--
+action [14] { /* do nothing */ }
+match: --
+--
+action [14] { /* do nothing */ }
+match: --c--
+action [14] { /* do nothing */ }
+match: --o--
+action [14] { /* do nothing */ }
+match: --n--
+action [14] { /* do nothing */ }
+match: --t--
+action [14] { /* do nothing */ }
+match: --e--
+action [14] { /* do nothing */ }
+match: --n--
+action [14] { /* do nothing */ }
+match: --t--
+action [14] { /* do nothing */ }
+match: -- --
+action [14] { /* do nothing */ }
+match: --i--
+action [14] { /* do nothing */ }
+match: --g--
+action [14] { /* do nothing */ }
+match: --n--
+action [14] { /* do nothing */ }
+match: --o--
+action [14] { /* do nothing */ }
+match: --r--
+action [14] { /* do nothing */ }
+match: --e--
+action [14] { /* do nothing */ }
+match: --d--
+action [14] { /* do nothing */ }
+match: -- --
+action [14] { /* do nothing */ }
+match: --a--
+action [14] { /* do nothing */ }
+match: --n--
+action [14] { /* do nothing */ }
+match: --y--
+action [14] { /* do nothing */ }
+match: --w--
+action [14] { /* do nothing */ }
+match: --a--
+action [14] { /* do nothing */ }
+match: --y--
+action [14] { /* do nothing */ }
+match: --
+--
+action [14] { /* do nothing */ }

@@ -1,0 +1,9 @@
+name: eolcomment
+
+description:
+bug #840580 [comment in jflex file]
+
+end of line comments (//) at end of action does not compile.
+(Generated closing bracket is on same line)
+
+jflex: -q

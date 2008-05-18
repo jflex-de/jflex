@@ -1,0 +1,7 @@
+Reading "testcases/arr-return/arr.flex"
+Constructing NFA : 7 states in NFA
+Converting NFA to DFA : 
+....
+6 states before minimization, 5 states in minimized DFA
+Old file "testcases/arr-return/Arr.java" saved as "testcases/arr-return/Arr.java~"
+Writing code to "testcases/arr-return/Arr.java"

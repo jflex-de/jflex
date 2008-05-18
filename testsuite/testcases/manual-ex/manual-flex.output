@@ -1,0 +1,7 @@
+Reading "testcases/manual-ex/manual.flex"
+Constructing NFA : 155 states in NFA
+Converting NFA to DFA : 
+.........................................................
+61 states before minimization, 43 states in minimized DFA
+Old file "testcases/manual-ex/Lexer.java" saved as "testcases/manual-ex/Lexer.java~"
+Writing code to "testcases/manual-ex/Lexer.java"
