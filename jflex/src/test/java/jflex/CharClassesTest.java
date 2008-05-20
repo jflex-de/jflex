@@ -112,7 +112,7 @@ public class CharClassesTest extends TestCase {
     //
     // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B
     // 212A;KELVIN SIGN;Lu;0;L;004B;;;;N;DEGREES KELVIN;;;006B;
-    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o']['\\u0130'-'\\u0131']['\\u212A'] }",
+    assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }",
                  set.getCaseless().toString());
   }
 }
