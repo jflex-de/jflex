@@ -1,0 +1,9 @@
+name: private
+
+description:
+test feature request #513500 [Generate cleaner interfaces], %apiprivate option
+
+
+jflex:  -q
+
+javac-fail: true
