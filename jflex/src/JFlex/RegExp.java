@@ -198,7 +198,7 @@ public class RegExp {
 
     case sym.CONCAT:   
       binary = (RegExp2) this;
-      return new RegExp2(sym.CONCAT, binary.r2.rev(macros), binary.r2.rev(macros));
+      return new RegExp2(sym.CONCAT, binary.r2.rev(macros), binary.r1.rev(macros));
       
     case sym.STAR:
       unary = (RegExp1) this;
