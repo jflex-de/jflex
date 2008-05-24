@@ -5,6 +5,7 @@ import java.util.*;
 %%
 
 %unicode
+%public
 %class Testloader
 
 %function load

@@ -1,0 +1,44 @@
+match: --name: private--
+action [30] { /* test.setTestName(yytext().substring(6).trim()); */ }
+match: --
+--
+action [45] { /* ignore newline and whitespace */ }
+match: --
+--
+action [45] { /* ignore newline and whitespace */ }
+match: --description:--
+action [32] { yybegin(DESCR); }
+match: --
+--
+action [51] { buffer.append(yytext()); }
+match: --test feature request #513500 [Generate cleaner interfaces], %apiprivate option--
+action [51] { buffer.append(yytext()); }
+match: --
+--
+action [51] { buffer.append(yytext()); }
+match: --
+--
+action [51] { buffer.append(yytext()); }
+match: --
+--
+action [53] { /* test.setDescription(buffer.toString()); */ yybegin(YYINITIAL); }
+match: --jflex: --
+action [34] { cmdLine = new Vector(); yybegin(JFLEXCMD); }
+match: -- --
+action [61] { /* ignore whitespace */ }
+match: ---q--
+action [58] { cmdLine.addElement(yytext()); }
+match: --
+--
+action [66] { /* test.setJflexCmdln(cmdLine); */ yybegin(YYINITIAL); }
+match: --
+--
+action [45] { /* ignore newline and whitespace */ }
+match: --javac-fail: true--
+action [42] { /* test.setExpectJavacFail(true); */ }
+match: --
+--
+action [45] { /* ignore newline and whitespace */ }
+match: <<EOF>>
+action [77] { return 1; }
+1
