@@ -1,0 +1,11 @@
+name: macro2
+
+description:
+bug [ 1968897 ] Ambiguous Error Message
+
+message "Found no definition for {{0}} while expanding {{1}}"
+(does not substitute macro names)
+
+jflex: -q
+jflex-fail: true
+
