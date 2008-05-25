@@ -551,7 +551,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The transition table of the DFA");
     println("   */");
-    println("  private static final int ZZ_TRANS [] = {"); //XXX
+    println("  private static final int ZZ_TRANS [] = {"); 
 
     print("    ");
     for (i = 0; i < dfa.numStates; i++) {
@@ -1466,7 +1466,7 @@ final public class Emitter {
 
 
   /**
-   * Set up EOF code sectioin according to scanner.eofcode 
+   * Set up EOF code section according to scanner.eofcode 
    */
   private void setupEOFCode() {
     if (scanner.eofclose) {
