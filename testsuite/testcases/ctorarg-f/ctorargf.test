@@ -1,0 +1,9 @@
+name: ctorargf
+
+description:
+test feature request #1762500 (provide option to add arguments to 
+constructor and yylex). Negative test case. Should fail on parsing
+2nd identifier.
+
+jflex: -q
+jflex-fail: true
