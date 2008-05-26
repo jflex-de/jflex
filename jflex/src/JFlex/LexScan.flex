@@ -52,6 +52,7 @@ import java.util.Stack;
 %state COMMENT, STATELIST, MACROS, REGEXPSTART
 %state REGEXP, JAVA_CODE, STATES, STRING_CONTENT
 %state CHARCLASS, COPY, REPEATEXP, EATWSPNL
+%state CTOR_ARG
 
 %cupdebug
 
@@ -106,6 +107,9 @@ import java.util.Stack;
   String functionName;
   String tokenType;
   String visibility = "public";
+    
+  Vector /* String */ ctorArgs = new Vector();
+  Vector /* String */ ctorTypes = new Vector();
     
   LexicalStates states = new LexicalStates();
 
@@ -296,6 +300,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%eofclose"({WSP}+"true")?  { eofclose = true; }
   "%eofclose"({WSP}+"false")  { eofclose = false; }
   "%class"{WSP}+{Ident} {WSP}*      { className = yytext().substring(7).trim();  }
+  "%ctorarg"{WSP}+{ArrType}{WSP}+   { yybegin(CTOR_ARG); ctorTypes.add(yytext().substring(8).trim()); }
   "%function"{WSP}+{Ident} {WSP}*   { functionName = yytext().substring(10).trim(); }
   "%type"{WSP}+{ArrType} {WSP}*     { tokenType = yytext().substring(6).trim(); }
   "%integer"|"%int"           { isInteger = true;  }
@@ -369,6 +374,11 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                 else
                                   throw new ScannerException(file,ErrorMessages.EOF_IN_MACROS); 
                               }
+}
+
+<CTOR_ARG> {
+  {Ident} {WSP}*   { yybegin(MACROS); ctorArgs.add(yytext().trim()); }
+  [^]              { throw new ScannerException(file,ErrorMessages.CTOR_ARG,yyline,yycolumn); }
 }
 
 <REGEXPSTART> {

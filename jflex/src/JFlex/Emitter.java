@@ -755,21 +755,40 @@ final public class Emitter {
   }
 
   private void emitConstructorDecl() {
+    emitConstructorDecl(true);
+    
+    if ((scanner.standalone || scanner.debugOption) && 
+        scanner.ctorArgs.size() > 0) {
+      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      println();
+      emitConstructorDecl(false);
+    }
+  }
+  
+  private void emitConstructorDecl(boolean printCtorArgs) {
+ 
+    String warn = 
+        "// WARNING: this is a default constructor for " +
+        "debug/standalone only. Has no custom parameters or init code.";
+    
+    if (!printCtorArgs) println(warn); 
     
     print("  ");
 
     if ( scanner.isPublic ) print("public ");   
     print( scanner.className );      
-    print("(java.io.Reader in)");
+    print("(java.io.Reader in");
+    if (printCtorArgs) emitCtorArgs();
+    print(")");
     
-    if ( scanner.initThrow != null ) {
+    if ( scanner.initThrow != null && printCtorArgs) {
       print(" throws ");
       print( scanner.initThrow );
     }
     
     println(" {");
 
-    if ( scanner.initCode != null ) {
+    if ( scanner.initCode != null && printCtorArgs) {
       print("  ");
       print( scanner.initCode );
     }
@@ -786,22 +805,39 @@ final public class Emitter {
     println("   *");
     println("   * @param   in  the java.io.Inputstream to read input from.");
     println("   */");
-
+    if (!printCtorArgs) println(warn);
+    
     print("  ");
     if ( scanner.isPublic ) print("public ");    
     print( scanner.className );      
-    print("(java.io.InputStream in)");
+    print("(java.io.InputStream in");
+    if (printCtorArgs) emitCtorArgs();
+    print(")");
     
-    if ( scanner.initThrow != null ) {
+    if ( scanner.initThrow != null && printCtorArgs ) {
       print(" throws ");
       print( scanner.initThrow );
     }
     
     println(" {");    
-    println("    this(new java.io.InputStreamReader(in));");
+
+    print("    this(new java.io.InputStreamReader(in)");
+    if (printCtorArgs) {
+      for (int i=0; i < scanner.ctorArgs.size(); i++) {
+        print(", "+scanner.ctorArgs.elementAt(i));
+      }      
+    }
+    println(");");
+    
     println("  }");
   }
 
+  private void emitCtorArgs() {
+    for (int i = 0; i < scanner.ctorArgs.size(); i++) {
+      print(", "+scanner.ctorTypes.elementAt(i));
+      print(" "+scanner.ctorArgs.elementAt(i));
+    }    
+  }
 
   private void emitDoEOF() {
     if ( scanner.eofCode == null ) return;
