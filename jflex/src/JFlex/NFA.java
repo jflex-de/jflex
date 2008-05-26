@@ -1031,29 +1031,7 @@ final public class NFA {
       return complement(insertNFA((RegExp) ((RegExp1) regExp).content));
 
     case sym.TILDE:
-      nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
-                 
-      start  = nfa1.end+1;
-      int s1 = start+1;
-      int s2 = s1+1;
-      end    = s2+1;
-
-      for (int i = 0; i < numInput; i++) {
-        addTransition(s1,i,s1);
-        addTransition(s2,i,s2);
-      }
-
-      addEpsilonTransition(start, s1);
-      addEpsilonTransition(s1, nfa1.start);
-      addEpsilonTransition(nfa1.end, s2);
-      addEpsilonTransition(s2, end);
-
-      nfa1 = complement(new IntPair(start,end));
-      nfa2 = insertNFA((RegExp) ((RegExp1) regExp).content);
-      
-      addEpsilonTransition(nfa1.end, nfa2.start);
-
-      return new IntPair(nfa1.start, nfa2.end);
+      return insertNFA(regExp.resolveTilde(macros));
       
     case sym.STRING:
       return insertStringNFA(false, (String) ((RegExp1) regExp).content );
