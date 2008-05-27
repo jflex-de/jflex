@@ -20,7 +20,7 @@ manual.dvi: manual.tex
 	latex manual
 
 manual.ps.gz: manual.dvi
-	dvips manual
+	dvips manual -o manual.ps
 	gzip -f manual.ps
 
 manual.pdf: logo.png manual.tex
