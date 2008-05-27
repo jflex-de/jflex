@@ -1,5 +1,5 @@
 Reading "testcases/manual-ex/manual.flex"
-Constructing NFA : 155 states in NFA
+Constructing NFA : 160 states in NFA
 Converting NFA to DFA : 
 .........................................................
 61 states before minimization, 43 states in minimized DFA
