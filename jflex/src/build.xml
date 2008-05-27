@@ -49,6 +49,7 @@
   </target>
 
   <target name="dist" description="build distribution">
+    <antcall target="gettools" />
     <antcall target="build" />
     <antcall target="libclean" />
   </target>
