@@ -208,7 +208,11 @@ Ident      = {IdentStart} {IdentPart}*
 QualIdent  = {Ident} ( {WSP}* "." {WSP}* {Ident} )*
 QUIL       = {QualIdent} ( {WSP}* "," {WSP}* {QualIdent} )*
 Array      = "[" {WSP}* "]"
-ArrType    = {QualIdent} ({WSP}* {Array})*
+ParamPart  = {IdentStart}|{IdentPart}|"<"|">"|","|{WSP}|"&"|"?"|"."
+GenParam   = "<" {ParamPart}+ ">"
+ClassT     = {Ident} ({WSP}* {GenParam})?
+QClassT    = {QualIdent} ({WSP}* {GenParam})?
+ArrType    = ({GenParam} {WSP}*)? {QClassT} ({WSP}* {Array})*
 
 IdentStart = [:jletter:]
 IdentPart  = [:jletterdigit:]
@@ -299,7 +303,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"({WSP}+"true")?  { eofclose = true; }
   "%eofclose"({WSP}+"false")  { eofclose = false; }
-  "%class"{WSP}+{Ident} {WSP}*      { className = yytext().substring(7).trim();  }
+  "%class"{WSP}+{ClassT} {WSP}*     { className = yytext().substring(7).trim();  }
   "%ctorarg"{WSP}+{ArrType}{WSP}+   { yybegin(CTOR_ARG); ctorTypes.add(yytext().substring(8).trim()); }
   "%function"{WSP}+{Ident} {WSP}*   { functionName = yytext().substring(10).trim(); }
   "%type"{WSP}+{ArrType} {WSP}*     { tokenType = yytext().substring(6).trim(); }
@@ -312,7 +316,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%unicode"|"%16bit"         { return symbol(UNICODE);  }
   "%caseless"|"%ignorecase"   { caseless = true; }
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
-  "%extends"{WSP}+{QualIdent}{WSP}* { isExtending = yytext().substring(9).trim(); }
+  "%extends"{WSP}+{QClassT}{WSP}* { isExtending = yytext().substring(9).trim(); }
   "%public"                   { isPublic = true; }
   "%apiprivate"               { visibility = "private"; Skeleton.makePrivate(); }
   "%final"                    { isFinal = true; }

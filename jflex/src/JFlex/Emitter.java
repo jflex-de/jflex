@@ -78,7 +78,7 @@ final public class Emitter {
 
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
-    String name = parser.scanner.className+".java";
+    String name = getBaseName(parser.scanner.className) + ".java";
 
     File outputFile = normalize(name, inputFile);
 
@@ -93,6 +93,22 @@ final public class Emitter {
     this.skel = new Skeleton(out);
   }
 
+  /**
+   * Computes base name of the class name. Needs to take into account generics.
+   *
+   * @see LexScan#className
+   * @return the
+   */
+  public static String getBaseName(String className) {
+    int gen = className.indexOf('<');
+    if (gen < 0) {
+      return className;
+    }
+    else {
+      return className.substring(0, gen);
+    }
+  }
+  
 
   /**
    * Constructs a file in Options.getDir() or in the same directory as
@@ -298,15 +314,17 @@ final public class Emitter {
       println("   */"); 
     }      
     
+    String className = getBaseName(scanner.className);
+    
     println("  public static void main(String argv[]) {");
     println("    if (argv.length == 0) {");
-    println("      System.out.println(\"Usage : java "+scanner.className+" <inputfile>\");");
+    println("      System.out.println(\"Usage : java "+className+" <inputfile>\");");
     println("    }");
     println("    else {");
     println("      for (int i = 0; i < argv.length; i++) {");
-    println("        "+scanner.className+" scanner = null;");
+    println("        "+className+" scanner = null;");
     println("        try {");
-    println("          scanner = new "+scanner.className+"( new java.io.FileReader(argv[i]) );");
+    println("          scanner = new "+className+"( new java.io.FileReader(argv[i]) );");
 
     if ( scanner.standalone ) {      
       println("          while ( !scanner.zzAtEOF ) scanner."+scanner.functionName+"();");
@@ -776,7 +794,7 @@ final public class Emitter {
     print("  ");
 
     if ( scanner.isPublic ) print("public ");   
-    print( scanner.className );      
+    print( getBaseName(scanner.className) );      
     print("(java.io.Reader in");
     if (printCtorArgs) emitCtorArgs();
     print(")");
@@ -809,7 +827,7 @@ final public class Emitter {
     
     print("  ");
     if ( scanner.isPublic ) print("public ");    
-    print( scanner.className );      
+    print( getBaseName(scanner.className) );      
     print("(java.io.InputStream in");
     if (printCtorArgs) emitCtorArgs();
     print(")");
