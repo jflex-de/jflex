@@ -1,0 +1,6 @@
+name: generics4
+
+description:
+Test for feature request [ 1212181 ] Support generics for %type and %extends
+
+jflex: -q
