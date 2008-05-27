@@ -12,13 +12,15 @@
   <!-- override these if you want to use your own versions -->
   <property name="jflex.jar" value="${tools.dir}/JFlex.jar" />
   <property name="cup.jar" value="${tools.dir}/java_cup.jar" />
+  <property name="junit.jar" value="${tools.dir}/junit.jar" />
 
-  <!-- where to get jflex.jar and cup.jar from -->
-  <!-- FIXME: use stable version for bootstrap -->
+  <!-- where to get tool jars from -->
   <property name="jflex.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/devel/JFlex.jar" />
+  	        value="http://jflex.sourceforge.net/jar/stable/JFlex.jar" />
   <property name="cup.jar.url" 
   	        value="http://jflex.sourceforge.net/jar/stable/java_cup.jar" />
+  <property name="junit.jar.url"
+                value="http://jflex.sourceforge.net/jar/stable/junit.jar" />
 
   	        
   <!-- ==================== targets ================================= -->
@@ -43,6 +45,7 @@
     <mkdir dir="${tools.dir}"/>
     <get src="${jflex.jar.url}" dest="${jflex.jar}"/>
     <get src="${cup.jar.url}" dest="${cup.jar}"/>
+    <get src="${junit.jar.url}" dest="${junit.jar}"/>
   </target>
 
   <target name="dist" description="build distribution">
@@ -62,7 +65,7 @@
            destdir="../lib" 
            target="1.1"
     	     source="1.2"
-           classpath="."
+           classpath=".:${junit.jar}"
            debug="on" />
   </target>
 
