@@ -27,7 +27,7 @@ import java.util.*;
 action code {:
 
   LexScan     scanner;
-  CharClasses charClasses = new CharClasses(0xFFFF);
+  CharClasses charClasses = new CharClasses(Options.jlex ? 127 : 0xFFFF);
   RegExps     regExps     = new RegExps();
   Macros      macros      = new Macros();
   Integer     stateNumber;
