@@ -70,7 +70,7 @@ public class TestCase {
     String[] files = testDir.list();
     String name;
     for (int i=0; i<files.length;i++){
-      if (files[i].endsWith(".input")) {
+      if (files[i].endsWith(".input") && files[i].startsWith(testName+"-")) {
         name = files[i].substring(0,files[i].length()-6);
         temp.addElement( new InputOutput( (new File(testDir,name)).toString(), new File(testDir,name+".output").exists() ) );
       }
