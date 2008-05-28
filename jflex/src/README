@@ -43,4 +43,4 @@ JFlex/test
   unit tests for JFlex
 
 java_cup/runtime:
-  CUP v0.10k runtime classes, used by JFlex   
+  CUP 11a beta 20060608 runtime classes, used by JFlex   
