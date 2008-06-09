@@ -2408,7 +2408,7 @@ the \texttt{\htmlref{\%cup}{CupMode}} directive a special meaning. An
 interface however always has two sides. This section concentrates on the
 CUP side of the story.
 
-\subsubsection{CUP version 0.10j}
+\subsubsection{CUP version 0.10j and above}
 Since CUP version 0.10j, this has been simplified greatly by the new 
 CUP scanner interface \texttt{java\_cup.runtime.Scanner}. JFlex lexers now implement
 this interface automatically when then \texttt{\htmlref{\%cup}{CupMode}}
@@ -2429,6 +2429,34 @@ is started from the a main program like this:
 ...
 \end{verbatim}
 }
+
+\subsubsection{Custom symbol interface}
+If you have used the \texttt{-symbol} command line switch of CUP to change
+the name of the generated symbol interface, you have to tell JFlex about
+this change of interface so that correct end-of-file code is generated. 
+You can do so either by using an \verb+%eofval{+ directive or by using
+and \texttt{<<EOF>>} rule. 
+
+If your new symbol interface is called \texttt{mysym} for example, the
+corresponding code in the jflex specification would be either
+
+{\xsmall
+\begin{verbatim}
+%eofval{
+  return mysym.EOF;
+%eofval}
+\end{verbatim}
+}
+
+in the macro/directives section of the spec, or it would be
+
+{\xsmall
+\begin{verbatim}
+  <<EOF>>  { return mysym.EOF; }
+\end{verbatim}
+}
+
+in the rules section of your spec.
 
 \subsubsection{Using existing JFlex/CUP specifications with CUP 0.10j}
 If you already have an existing specification and you would like to upgrade
