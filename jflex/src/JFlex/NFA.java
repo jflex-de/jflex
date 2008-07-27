@@ -214,6 +214,10 @@ final public class NFA {
       insertLookAheadChoices(baseEnd, a, r.r1);
       insertLookAheadChoices(baseEnd, a, r.r2);
     }
+    else if (lookAhead.type == sym.MACROUSE) {
+      RegExp1 r = (RegExp1) lookAhead;
+      insertLookAheadChoices(baseEnd, a, macros.getDefinition((String) r.content));
+    }
     else {
       int len = SemCheck.length(lookAhead);
       
