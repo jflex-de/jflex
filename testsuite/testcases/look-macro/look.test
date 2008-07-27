@@ -1,0 +1,6 @@
+name: lookmacro
+
+description:
+test for bug #2018299 (macro use in length choice lookahead)
+
+

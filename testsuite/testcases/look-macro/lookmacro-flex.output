@@ -1,0 +1,7 @@
+Reading "testcases/look-macro/lookmacro.flex"
+Constructing NFA : 16 states in NFA
+Converting NFA to DFA : 
+.........
+11 states before minimization, 10 states in minimized DFA
+Old file "testcases/look-macro/Lookmacro.java" saved as "testcases/look-macro/Lookmacro.java~"
+Writing code to "testcases/look-macro/Lookmacro.java"
