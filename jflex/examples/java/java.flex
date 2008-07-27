@@ -94,14 +94,14 @@ DocumentationComment = "/*" "*"+ [^/*] ~"*/"
 Identifier = [:jletter:][:jletterdigit:]*
 
 /* integer literals */
-DecIntegerLiteral = 0 | [1-9][0-9]*
+DecIntegerLiteral = "-"? (0 | [1-9][0-9]*)
 DecLongLiteral    = {DecIntegerLiteral} [lL]
 
-HexIntegerLiteral = 0 [xX] 0* {HexDigit} {1,8}
+HexIntegerLiteral = "-"? 0 [xX] 0* {HexDigit} {1,8}
 HexLongLiteral    = 0 [xX] 0* {HexDigit} {1,16} [lL]
 HexDigit          = [0-9a-fA-F]
 
-OctIntegerLiteral = 0+ [1-3]? {OctDigit} {1,15}
+OctIntegerLiteral = "-"? 0+ [1-3]? {OctDigit} {1,15}
 OctLongLiteral    = 0+ 1? {OctDigit} {1,21} [lL]
 OctDigit          = [0-7]
     
