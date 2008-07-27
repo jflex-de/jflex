@@ -760,12 +760,6 @@ final public class Emitter {
 
 
   private void emitClassCode() {
-    if ( scanner.eofCode != null ) {
-      println("  /** denotes if the user-EOF-code has already been executed */");
-      println("  private boolean zzEOFDone;");
-      println("");
-    }
-    
     if ( scanner.classCode != null ) {
       println("  /* user code: */");
       println(scanner.classCode);

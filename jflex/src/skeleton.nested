@@ -67,6 +67,8 @@
   /** zzAtEOF == true <=> the scanner is at the EOF */
   private boolean zzAtEOF;
 
+  /** denotes if the user-EOF-code has already been executed */
+  private boolean zzEOFDone;
 
   /** the stack of open (nested) input streams to read from */
   private java.util.Stack zzStreams = new java.util.Stack();
@@ -85,6 +87,7 @@
     int yycolumn;
     char [] zzBuffer;
     boolean zzAtEOF;
+    boolean zzEOFDone;
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
@@ -97,6 +100,7 @@
       this.zzMarkedPos   = zzMarkedPos;
       this.zzBuffer      = zzBuffer;
       this.zzAtEOF       = zzAtEOF;
+      this.zzEOFDone     = zzEOFDone;
       this.yyline         = yyline;
       this.yycolumn       = yycolumn;
     }
@@ -228,6 +232,7 @@
     zzCurrentPos  = s.zzCurrentPos;
     zzMarkedPos   = s.zzMarkedPos ;
     zzAtEOF       = s.zzAtEOF;
+    zzEOFDone     = s.zzEOFDone;
     yyline         = s.yyline;
     yycolumn       = s.yycolumn;
   }
@@ -259,6 +264,7 @@
     zzReader = reader;
     zzAtBOL  = true;
     zzAtEOF  = false;
+    zzEOFDone = false;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;

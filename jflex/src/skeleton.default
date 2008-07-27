@@ -67,6 +67,9 @@
   /** zzAtEOF == true <=> the scanner is at the EOF */
   private boolean zzAtEOF;
 
+  /** denotes if the user-EOF-code has already been executed */
+  private boolean zzEOFDone;
+
 --- user class code
 
   /**
@@ -158,6 +161,7 @@
     zzReader = reader;
     zzAtBOL  = true;
     zzAtEOF  = false;
+    zzEOFDone = false;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;
