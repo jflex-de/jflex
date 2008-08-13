@@ -67,7 +67,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.2</version>
+        <version>1.0</version>
         <executions>
           <execution>
             <goals>
@@ -98,7 +98,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.2</version>
+        <version>1.0</version>
         <executions>
           <execution>
             <goals>
@@ -137,7 +137,7 @@ Usage
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>0.2</version>
+        <version>1.0</version>
         <executions>
           <execution>
             <id>strict jlex</id>
