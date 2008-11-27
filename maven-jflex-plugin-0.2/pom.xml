@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.jflex.maven.plugin</groupId>
+	<artifactId>maven-jflex-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<name>Maven JFlex Plugin</name>
+	<version>0.2</version>
+	<description>
+		This is a Maven 2 plugin to generate a parser in Java code from
+		a Lexer definition, using Jflex.de.
+	</description>
+	<url>http://jflex.sourceforge.net/maven-jflex-plugin/</url>
+	<prerequisites />
+	<inceptionYear>2007</inceptionYear>
+	<developers>
+		<developer>
+			<id>decamps</id>
+			<name>Régis Décamps</name>
+			<email>decamps@users.sf.net</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<email>benjamin.bentmann@udo.edu</email>
+			<name>Benjamin Bentmann</name>
+			<roles>
+				<role>reviewer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<email>support_0384@newplanetsoftware.com</email>
+			<name>John Lindal</name>
+			<roles>
+				<role>reviewer</role>
+			</roles>
+		</contributor>
+		<contributor>
+			<email>gerwin.klein@nicta.com.au</email>
+			<name>Gerwin Klein</name>
+			<roles>
+				<role>ant-task developer</role>
+			</roles>
+		</contributor>
+	</contributors>
+	<licenses>
+		<license>
+			<name>GPL</name>
+			<url>http://www.gnu.org/licenses/gpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.shared</groupId>
+			<artifactId>maven-plugin-testing-harness</artifactId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.jflex</groupId>
+			<artifactId>jflex</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+		</plugins>
+	</reporting>
+	<scm>
+		<connection>
+			scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/trunk/maven-jflex-plugin/
+		</connection>
+		<developerConnection>
+			scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/trunk/maven-jflex-plugin/
+		</developerConnection>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>sourceforge_jflex</id>
+			<name>JFlex sourceforge repository</name>			
+			<url>
+				scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
+			</url>
+		</repository>
+		<site>
+			<id>sourceforge_jflex</id>
+			<name>JFlex sourceforge site</name>
+			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin</url>
+		</site>
+	</distributionManagement>
+	<profiles>
+		<profile>
+			<id>localhost</id>
+			<distributionManagement>
+				<repository>
+					<id>repo_jflex_sf</id>
+					<name>JFlex sourceforge repository</name>
+					<url>scp://localhost/tmp/jflex/repo</url>
+				</repository>
+				<site>
+					<id>site_jflex_sf</id>
+					<name>JFlex sourceforge site</name>
+					<url>
+						scp://localhost/tmp/jflex/maven-jflex-plugin
+					</url>
+				</site>
+			</distributionManagement>
+		</profile>
+	</profiles>
+</project>
+
