@@ -10,14 +10,17 @@
   <property name="tools.dir" value="../tools"/>
   
   <!-- override these if you want to use your own versions -->
-  <property name="jflex.jar" value="${tools.dir}/JFlex.jar" />
-  <property name="cup.jar" value="${tools.dir}/java_cup.jar" />
+  <property name="jflex" value="JFlex-1.4.1"/>
+  <property name="cup" value="java_cup_10k-lsf"/>
+
+  <property name="jflex.jar" value="${tools.dir}/${jflex}.jar" />
+  <property name="cup.jar" value="${tools.dir}/${cup}.jar" />
 
   <!-- where to get jflex.jar and cup.jar from -->
   <property name="jflex.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/stable/JFlex.jar" />
+	  value="http://jflex.sourceforge.net/jar/stable/${jflex}.jar" />
   <property name="cup.jar.url" 
-  	        value="http://jflex.sourceforge.net/jar/stable/java_cup.jar" />
+	  value="http://jflex.sourceforge.net/jar/stable/${cup}.jar" />
 
   	        
   <!-- ==================== targets ================================= -->
