@@ -114,14 +114,14 @@
 	</scm>
 	<distributionManagement>
 		<repository>
-			<id>sourceforge_jflex</id>
+			<id>sourceforge</id>
 			<name>JFlex sourceforge repository</name>			
 			<url>
 				scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
 			</url>
 		</repository>
 		<site>
-			<id>sourceforge_jflex</id>
+			<id>sourceforge</id>
 			<name>JFlex sourceforge site</name>
 			<url>scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin</url>
 		</site>
@@ -131,12 +131,12 @@
 			<id>localhost</id>
 			<distributionManagement>
 				<repository>
-					<id>repo_jflex_sf</id>
+					<id>sourceforge</id>
 					<name>JFlex sourceforge repository</name>
-					<url>scp://localhost/tmp/jflex/repo</url>
+					<url>scp://localhost/tmp/jflex/m2repo</url>
 				</repository>
 				<site>
-					<id>site_jflex_sf</id>
+					<id>sourceforge</id>
 					<name>JFlex sourceforge site</name>
 					<url>
 						scp://localhost/tmp/jflex/maven-jflex-plugin
