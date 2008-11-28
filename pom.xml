@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.jflex.maven.plugin</groupId>
+	<groupId>de.jflex</groupId>
 	<artifactId>maven-jflex-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>Maven JFlex Plugin</name>
@@ -224,14 +224,14 @@
 			<id>release</id>
 			<distributionManagement>
 				<repository>
-					<id>sourceforge_jflex</id>
+					<id>sourceforge</id>
 					<name>JFlex sourceforge repository</name>
 					<url>
 						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
 					</url>
 				</repository>
 				<site>
-					<id>sourceforge_jflex</id>
+					<id>sourceforge</id>
 					<name>JFlex sourceforge site</name>
 					<url>
 						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
@@ -247,12 +247,12 @@
 			<id>localhost</id>
 			<distributionManagement>
 				<repository>
-					<id>repo_jflex_sf</id>
+					<id>localhost</id>
 					<name>JFlex sourceforge repository</name>
 					<url>scp://localhost/tmp/jflex/repo</url>
 				</repository>
 				<site>
-					<id>site_jflex_sf</id>
+					<id>localhost</id>
 					<name>JFlex sourceforge site</name>
 					<url>
 						scp://localhost/tmp/jflex/maven-jflex-plugin
