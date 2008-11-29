@@ -32,7 +32,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.mojo.jflex.ClassInfo;
 
 import JFlex.Main;
 import JFlex.Options;
@@ -126,7 +125,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * 
 	 * @parameter default-value="pack"
 	 */
-	private String generationMethod = "pack";
+	private String generationMethod = "pack"; // NOPMD
 
 	/**
 	 * A flag whether to perform the DFA minimization step during scanner
@@ -134,7 +133,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * 
 	 * @parameter default-value="true"
 	 */
-	private boolean minimize = true;
+	private boolean minimize = true; // NOPMD
 
 	/**
 	 * A flag whether to enable the generation of a backup copy if the generated
@@ -142,7 +141,7 @@ public class JFlexMojo extends AbstractMojo {
 	 * 
 	 * @parameter default-value="true"
 	 */
-	private boolean backup = true;
+	private boolean backup = true; // NOPMD
 
 	/**
 	 * Generate java parsers from lexer definition files.
@@ -230,7 +229,7 @@ public class JFlexMojo extends AbstractMojo {
 		} catch (IOException e3) {
 			classInfo = new ClassInfo();
 			classInfo.className = LexSimpleAnalyzer.DEFAULT_NAME;
-			classInfo.packageName = null;
+			classInfo.packageName = null; // NOPMD
 		}
 
 		checkParameters(lexFile);
@@ -259,8 +258,8 @@ public class JFlexMojo extends AbstractMojo {
 		}
 		Options.jlex = jlex;
 
-		Options.no_minimize = !minimize;
-		Options.no_backup = !backup;
+		Options.no_minimize = !minimize; // NOPMD
+		Options.no_backup = !backup;     // NOPMD
 		if ("switch".equals(generationMethod)) {
 			Options.gen_method = Options.SWITCH;
 		} else if ("table".equals(generationMethod)) {
