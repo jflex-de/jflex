@@ -3,7 +3,7 @@
  ------
  Régis Décamps <decamps@users.sf.net>
  ------
- October 28, 2007
+ 28 November 2008
  ------
  
 
@@ -19,7 +19,10 @@ About this document
 
 Repository declaration
 
-    The maven-jflex-plugin is not published on repo1.maven.org.
+    At the time of writing, the maven-jflex-plugin is not published
+    on repo1.maven.org yet.
+    However, this might be the case now 
+    (see {{{http://jira.codehaus.org/browse/MAVENUPLOAD-2285}MAVENUPLOAD-2285}}
     
     You need to define the JFlex repository,
     either in {{{http://maven.apache.org/pom.html#Repositories}your POM}}
@@ -36,7 +39,6 @@ Repository declaration
 +-------------
 
 Usage
-	
  
 * Overview
 
@@ -44,9 +46,7 @@ Usage
 	generates a corresponding Java parser 
 	(in <<<target/generated-source/jflex>>> by default).
 
-
 * Minimal configuration		
-
 
 	This configuration generates java code of a parser
 	for all grammar files (<<<*.jflex>>>, <<<*.jlex>>>, <<<*.lex>>>, <<<*.flex>>>) 
@@ -65,9 +65,9 @@ Usage
   <build>
     <plugins>
       <plugin>
-        <groupId>de.jflex.maven.plugin</groupId>
+        <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>1.0</version>
+        <version>RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -96,9 +96,9 @@ Usage
 
 +-------------------  
       <plugin>
-        <groupId>de.jflex.maven.plugin</groupId>
+        <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.4.2</version>
         <executions>
           <execution>
             <goals>
@@ -135,9 +135,9 @@ Usage
 
 +-------------------  
       <plugin>
-        <groupId>de.jflex.maven.plugin</groupId>
+        <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.4.2</version>
         <executions>
           <execution>
             <id>strict jlex</id>
@@ -169,3 +169,15 @@ Usage
   
   More information in
   the {{{http://maven.apache.org/pom.html#Plugins}POM reference guide on plugins}}.
+
+
+* Which version of the plugin is best for you?
+
+  * maven-jflex-plugin-0.3 depends on JFlex 1.4.1 
+    and requires Java 1.4 during when you <<<mvn jflex:generate>>>
+    
+  * maven-jflex-plugin-1.0 depends on JFlex 1.4.1
+    and requires Java 5 during when you <<<mvn jflex:generate>>>
+    
+  * maven-jflex-plugin-1.4.2 depends on JFlex 1.4.2
+    and requires Java 5 during when you <<<mvn jflex:generate>>>

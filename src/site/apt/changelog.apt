@@ -2,12 +2,14 @@
  Changelog
  ---------
 
-Version 1.0
+Latest versions
+
+* Version 1.0
 
   * Java 5 bytecode
   
 
-Version 0.3
+* Version 0.3
 
   * Java 1.4 bytecode
   
@@ -17,8 +19,10 @@ Version 0.3
   
   * code improvements
   
-  
-Version 0.2
+
+Alpha versions
+
+* Version 0.2
 
   * Java 5 bytecode
   
@@ -36,8 +40,9 @@ Version 0.2
      
   ** improve unit test with AbstractMojoTestCase
   
+  * changed package from de.jflex.maven.plugin to org.codehaus.maven.plugin
   
-Version 0.1
+* Version 0.1
 
   * Java 5 bytecode
   
