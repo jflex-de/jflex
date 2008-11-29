@@ -80,7 +80,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name) 
-    assertEquals(new File(dir, "JFlex"), Options.getDir());
+    assertEquals(new File(dir, "jflex"), Options.getDir());
   }
 
   public void testOutdir() throws IOException {
