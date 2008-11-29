@@ -145,7 +145,7 @@
 			<plugin>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<configuration>
-					<targetjdk>1.4</targetjdk>
+					<targetJdk>1.5</targetJdk>
 					<rulesets>
 						<ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
 					</rulesets>
