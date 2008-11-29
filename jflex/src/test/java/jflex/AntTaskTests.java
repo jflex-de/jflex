@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex                                                                   *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>,                   *
+ *                          Regis Decamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -68,8 +69,8 @@ public class AntTaskTests extends TestCase {
 	  //FIXME
     task.setFile(new File(DIR_RESOURCES+"/jflex/simple.flex"));
     task.findPackageAndClass();
-    assertEquals(task.getPackage(), null);
-    assertEquals(task.getClassName(), "Yylex");
+    assertEquals(null, task.getPackage());
+    assertEquals("Yylex",task.getClassName());
   }
 
   public void testDestdir() throws IOException {
@@ -79,7 +80,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name) 
-    assertEquals(Options.getDir(), new File(dir, "JFlex"));
+    assertEquals(new File(dir, "JFlex"), Options.getDir());
   }
 
   public void testOutdir() throws IOException {
@@ -89,7 +90,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic 
-    assertEquals(Options.getDir(), dir);
+    assertEquals(dir, Options.getDir());
   }
 
   public void testDefaultDir() throws IOException {
@@ -120,11 +121,11 @@ public class AntTaskTests extends TestCase {
 
   public void testCodeGen() {
     task.setSwitch(true);
-    assertEquals(Options.gen_method, Options.SWITCH);
+    assertEquals(Options.SWITCH, Options.gen_method);
     task.setTable(true);
-    assertEquals(Options.gen_method, Options.TABLE);
+    assertEquals(Options.TABLE, Options.gen_method);
     task.setPack(true);
-    assertEquals(Options.gen_method, Options.PACK);
+    assertEquals(Options.PACK, Options.gen_method);
   }
 
   public void testSkel() {
