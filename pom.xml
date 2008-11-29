@@ -4,14 +4,93 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.flex</groupId>
+  <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
-  <name>JFlex parent POM</name>
-  <version>1</version>
+  <name>JFlex parent and aggregator POM</name>
+  <version>2</version>
   <packaging>pom</packaging>
   <modules>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
+    <!--
+      Cannot be included because of (errorneous) circular dependency
+      de.jflex:jflex-1.5 (uses plugin)-> de.jflex:maven-jflex-plugin-1.0
+      (depends on)-> de.jflex:jflex-1.4.2 See MNG-3814
+      (http://jira.codehaus.org/browse/MNG-3814)
+    -->
+    <module>maven-jflex-plugin</module>
   </modules>
-</project>
+  <mailingLists>
+    <mailingList>
+      <name>JFlex User List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</unsubscribe>
+      <post>jflex-users@lists.sourceforge.net</post>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-users</archive>
+    </mailingList>
+    <mailingList>
+      <name>JFlex Announcement List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</unsubscribe>
+      <post>jflex-announce@lists.sourceforge.net</post>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-announce</archive>
+    </mailingList>
+  </mailingLists>
 
+  <issueManagement>
+    <system>Sourceforge</system>
+    <url>http://sourceforge.net/tracker/?group_id=14929</url>
+  </issueManagement>
+
+  <scm>
+    <connection>
+			scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/
+		</connection>
+    <developerConnection>
+			scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/
+		</developerConnection>
+  </scm>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <distributionManagement>
+        <repository>
+          <id>sourceforge</id>
+          <name>JFlex sourceforge repository</name>
+          <url>
+						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
+					</url>
+        </repository>
+        <site>
+          <id>sourceforge</id>
+          <name>JFlex sourceforge site</name>
+          <url>
+						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
+					</url>
+        </site>
+      </distributionManagement>
+      <properties>
+        <!-- activates 'release-profile' from the super POM -->
+        <performRelease>true</performRelease>
+      </properties>
+    </profile>
+    <profile>
+      <id>localhost</id>
+      <distributionManagement>
+        <repository>
+          <id>localhost</id>
+          <name>JFlex sourceforge repository</name>
+          <url>scp://localhost/tmp/jflex/repo</url>
+        </repository>
+        <site>
+          <id>localhost</id>
+          <name>JFlex sourceforge site</name>
+          <url>
+						scp://localhost/tmp/jflex/maven-jflex-plugin
+					</url>
+        </site>
+      </distributionManagement>
+    </profile>
+  </profiles>
+</project>

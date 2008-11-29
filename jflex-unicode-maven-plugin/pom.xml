@@ -3,11 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.jflex.maven.plugin</groupId>
   <artifactId>jflex-unicode-maven-plugin</artifactId>
+  <parent>
+	  <groupId>de.jflex</groupId>
+	  <artifactId>jflex-parent</artifactId>
+	  <version>2</version>
+  </parent>
   <packaging>maven-plugin</packaging>
   <name>JFlex Unicode Maven Plugin</name>
-  <version>0.1</version>
+  <version>0.1-SNAPSHOT</version>
   <description>
     Internal-use plugin to enable Unicode data download and preparation for use
     in building JFlex.
@@ -63,10 +67,10 @@
   </dependencies>
   <scm>
     <connection>
-      scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-unicode-maven-plugin/
+      scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/jflex-unicode-maven-plugin/
     </connection>
     <developerConnection>
-      scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-unicode-maven-plugin/
+      scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/jflex-unicode-maven-plugin/
     </developerConnection>
   </scm>
 </project>

@@ -1,0 +1,49 @@
+ ---------
+ Changelog
+ ---------
+
+Latest versions
+
+* Version 1.0
+
+  * Java 5 bytecode
+  
+
+* Version 0.3
+
+  * Java 1.4 bytecode
+  
+  * new option staleMillis
+  
+  * more reports on site
+  
+  * code improvements
+  
+
+Alpha versions
+
+* Version 0.2
+
+  * Java 5 bytecode
+  
+  * new options added: generationMethod, minimize, backup
+  
+  * enhanced documentation
+  
+  * many code improvements
+  
+  ** use file comparison, prefer available functionality from File 
+     class to avoid manual string twiddling
+     
+  ** fix testInit(): the generated file size depends on the platform 
+     (because of how new lines are encoded)
+     
+  ** improve unit test with AbstractMojoTestCase
+  
+  * changed package from de.jflex.maven.plugin to org.codehaus.maven.plugin
+  
+* Version 0.1
+
+  * Java 5 bytecode
+  
+  * Generates Java code from lex files

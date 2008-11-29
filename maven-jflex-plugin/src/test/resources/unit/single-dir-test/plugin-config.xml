@@ -1,0 +1,16 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <configuration>
+          <project implementation="org.apache.maven.plugin.testing.stubs.MavenProjectStub"/>
+          <outputDirectory>target/test/unit/single-dir-test/target/generated-sources/jflex</outputDirectory>
+          <lexDefinitions>
+            <lexDefinition>src/test/resources/unit/single-dir-test/src/main/jflex</lexDefinition>
+          </lexDefinitions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
