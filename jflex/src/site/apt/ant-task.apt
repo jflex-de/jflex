@@ -1,0 +1,102 @@
+ -----------
+ JFlex Ant Task
+ -----------
+ Rafal Mantiuk
+ -----------
+
+
+  JFlex can be easily integrated with Ant build tool. 
+  To use JFlex with Ant, simply copy <<< JFlex.jar >>> to 
+  <<< $ANT_HOME/lib/ >>> directory.
+  
+Description
+
+  The JFlex Ant Task invokes the JFlex lexical analyzer generator 
+  on a grammar file.
+
+  To use the JFlex task, the following line must be placed in the Ant build 
+  file:
+
++---------
+<taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
++---------
+
+  The JFlex task requires the file attribute to be set to the source 
+  grammar file (<<<*.flex>>>). 
+  Unless the target directory is specified with the destdir option, 
+  the generated class will be saved to the same directory where grammar 
+  file resides. Like javac, the JFlex task creates subdirectories in destdir 
+  according to the generated class package.
+
+  This task only invokes JFlex if the grammar file is newer than the 
+  generated files.
+  
+Parameters
+
+*---------------+----------------------------------------------------------------+----------+--------+
+|  Attribute    | Description 	                                                 | Required |Default |
+*---------------+----------------------------------------------------------------+----------+--------+
+| file="file"   | The grammar file to process. 	                                 | Yes      |        |
+*---------------+----------------------------------------------------------------+----------+--------+
+| destdir="dir" | The directory to write the generated files to. If not set,     | No       |        |
+|               | the files are written to the directory containing the grammar  |          |        |
+|               | file. Note that unlike JFlex's "-d" command line option,       |          |        |
+|               | destdir causes the generated file to be written to             |          |        |
+|               | <<<{destdir}/{package name}>>>. This behavior is similar to    |          |        |
+|               | javac -d dir.                                                  |          |        |
+*---------------+----------------------------------------------------------------+----------+--------+
+| outdir="dir"  | The directory to write the generated files to. If not set, the | No       |        |
+|               | files are written to the directory containing the grammar file.|          |        |
+|               | This options works exactly like JFlex's "-d" command line      |          |        |
+|               | option, it causes the output file to be written to directory   |          |        |
+|               | regardless of the package name.                                |          |        |
+*---------------+----------------------------------------------------------------+----------+--------+ 	
+| verbose       | Display generation process messages. 	                         | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| dump          |  Dump character classes, NFA and DFA tables.                   | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| time or       | Display generation time statistics.                            | No       | "off"  |
+| timeStatistics|                                                                |          |        |
+*---------------+----------------------------------------------------------------+----------+--------+
+| nomin or      | Skip minimization step.                                        | No       | "off"  |
+|skipMinimization|                                                               |          |        |
+*---------------+----------------------------------------------------------------+----------+--------+	
+| skel="file" or|                                                                |          |        |
+|skeleton="file"| Use external skeleton file.                                    | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+|dot or generateDot| Write graphviz dot files for the generated automata (alpha).| No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| nobak         | Do not make a backup if the generated file exists.             | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| switch        | Use code generation method switch.                             | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| table         | Use code generation method table.                              | No       | "off"  |
+*---------------+----------------------------------------------------------------+----------+--------+
+| pack          | Use code generation method pack.                               | No       | "on"   |
+*---------------+----------------------------------------------------------------+----------+--------+
+Parameters of the ant task
+
+
+Example
+
++--------------
+    <jflex
+        file="src/parser/Parser.flex"
+        destdir="build/generated/"
+    />
++---------
+
+  JFlex generates the lexical analyzer for src/parser/Parser.flex and saves the result to build/generated/parser/, providing Parser.flex declares to be in package parser.
+
++---------
+    <jflex
+        file="src/parser/Parser.flex"
+        destdir="build/generated/"
+    />
+    <javac
+        srcdir="build/generated/"
+        destdir="build/classes/"
+    />
++---------
+
+  The same as above plus compile generated classes to <<< build/classes >>>

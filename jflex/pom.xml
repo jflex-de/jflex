@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/maven-v4_0_0.xsd">
+                      http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jflex</artifactId>
   <parent>
@@ -11,11 +11,48 @@
   </parent>
   <version>1.5.0-SNAPSHOT</version>
   <name>JFlex</name>
+  <url>http://jflex.de/</url>
+  <inceptionYear>1998</inceptionYear>
   <description>
     JFlex is a lexical analyzer generator (also known as
     scanner generator)
     for Java(tm), written in Java(tm).
   </description>
+  <licenses>
+    <license>
+      <name>GPL</name>
+      <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+      <distribution>repo</distribution>
+      <comments>The GNU General Public License is intended to guarantee 
+      your freedom to share and change all versions of a program--to make 
+      sure it remains free software for all its users. 
+      
+      The code generate by JFlex remains is your property and is not subject
+      to this license.</comments>
+    </license>
+  </licenses>
+  <mailingLists>
+    <mailingList>
+      <name>announcements (to be notified of new releases - extremely low trafic)</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-announce</archive>
+    </mailingList>
+    <mailingList>
+      <name>users (general discussion)</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-users</archive>
+      <post>jflex-users@lists.sourceforge.net</post>
+    </mailingList>
+    <mailingList>
+      <name>devel (for JFlex developepment team members)</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-devel</archive>
+      <post>jflex-devel@lists.sourceforge.net</post>
+    </mailingList>
+  </mailingLists>
   <dependencies>
     <dependency>
       <groupId>org.apache.ant</groupId>
@@ -111,7 +148,7 @@
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
-          <targetjdk>1.4</targetjdk>
+          <targetjdk>1.5</targetjdk>
           <rulesets>
             <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
           </rulesets>
