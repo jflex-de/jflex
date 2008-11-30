@@ -36,7 +36,12 @@ import jflex.Out;
  */
 final public class MainFrame extends Frame implements Handles {
 
-  private volatile boolean choosing;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3296137982410640865L;
+
+private volatile boolean choosing;
 
   private String fileName = "";
   private String dirName = "";

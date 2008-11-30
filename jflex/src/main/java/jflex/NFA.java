@@ -726,8 +726,6 @@ final public class NFA {
     }
 
     _end = end;
-    _dfaStates = dfaList;
-    _dfaStart = dfaStart;    
     removeDead(dfaStart);
 
     if (Options.DEBUG)
@@ -741,9 +739,6 @@ final public class NFA {
   private boolean [] live;    // = new boolean [estSize];
   private boolean [] visited; // = new boolean [estSize];
   private int _end; // final state of original nfa for dfa (nfa coordinates)
-  private List<StateSet> _dfaStates; 
-  private int _dfaStart; // in nfa coordinates
-
   private void removeDead(int start) {
     // Out.debug("removeDead ("+start+")");
 

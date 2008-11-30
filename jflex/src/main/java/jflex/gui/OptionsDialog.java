@@ -38,7 +38,12 @@ import jflex.Skeleton;
  */
 public class OptionsDialog extends Dialog {
 
-  private Frame owner;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6807759416163314769L;
+
+private Frame owner;
 
   private Button skelBrowse;
   private TextField skelFile;

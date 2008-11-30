@@ -32,7 +32,11 @@ import java.util.*;
  */
 public class GridPanel extends Panel implements Handles {
 
-  private int cols;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2846472856883709721L;
+private int cols;
   private int rows;
 
   private int hgap;

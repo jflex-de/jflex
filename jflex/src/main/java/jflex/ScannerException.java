@@ -31,7 +31,11 @@ import java.io.File;
  */
 public class ScannerException extends RuntimeException {
   
-  public int line;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6119623765759220207L;
+public int line;
   public int column;
   public ErrorMessages message;
   public File file;

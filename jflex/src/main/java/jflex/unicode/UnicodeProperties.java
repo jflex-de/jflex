@@ -250,8 +250,7 @@ public class UnicodeProperties {
     for (int n = 0 ; n < propertyValues.length ; ++n) {
       String propertyValue = propertyValues[n];
       String propertyIntervals = intervals[n];
-      int numCodePoints
-        = propertyIntervals.codePointCount(0, propertyIntervals.length());
+      propertyIntervals.codePointCount(0, propertyIntervals.length());
       IntCharSet set = new IntCharSet();
       for (int index = 0 ; index < propertyIntervals.length() ; ) {
         int start = propertyIntervals.codePointAt(index);
@@ -316,7 +315,12 @@ public class UnicodeProperties {
   }
 
   public class UnsupportedUnicodeVersionException extends Exception {
-    public UnsupportedUnicodeVersionException() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1718158223161422981L;
+
+	public UnsupportedUnicodeVersionException() {
       super("Supported versions: " +
 
               "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0"
