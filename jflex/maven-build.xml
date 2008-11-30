@@ -1,26 +1,15 @@
 <project name="JFlex" default="cup">
 	<!-- override these if you want to use your own versions -->
-	<property name="tools.dir" location="target/jar" />
-	<property name="cup.jar" value="${tools.dir}/java-cup-11a.jar" />
-	<available property="cup.jar.exists" file="${cup.jar}"/>
-	
-	<!-- where to get jflex.jar and cup.jar from -->
-	<property name="cup.jar.url" value="http://www2.cs.tum.edu/projects/cup/java-cup-11a.jar" />
-
+	<property name="cup.version" value="11a" />
+	<property name="cup.jar" value="lib/java-cup-${cup.version}.jar" />
 
 	<!-- ==================== targets ================================= -->
-	<target name="declare" depends="gettools" description="define tasks for jflex and cup">
+	<target name="declare" description="define tasks for jflex and cup">
 		<taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}" />
 	</target>
 
-	<target name="gettools" description="download development tools" unless="${cup.jar.exists}">
-		<mkdir dir="${tools.dir}" />
-		<property name="" location="${cup.jar}"/>
-		<get src="${cup.jar.url}" dest="${cup.jar}" />
-	</target>
-
 	<target name="cup" depends="declare" description="generate parser">
-		<property name="cup.output.dir" location="target/generated-sources/jflex/jflex"/>
+		<property name="cup.output.dir" location="target/generated-sources/jflex/"/>
 		<mkdir dir="${cup.output.dir}"/>
 		<property name="cup.file" location="src/main/cup/LexParse.cup"/>
 		<echo message="Generating LexParse.java from ${cup.file}"/> 
