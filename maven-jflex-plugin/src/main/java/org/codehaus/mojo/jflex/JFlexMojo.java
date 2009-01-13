@@ -33,8 +33,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 
-import JFlex.Main;
-import JFlex.Options;
+import jflex.Main;
+import jflex.Options;
 
 /**
  * Generates lexical scanners from one or more <a href="http://jflex.de/">JFlex</a>
