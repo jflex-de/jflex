@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -26,7 +26,7 @@ import java.util.*;
 /**
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 public class CharClasses {
 
@@ -73,7 +73,7 @@ public class CharClasses {
   
 
   /**
-   * Sets the larges Unicode value of the current input character set.
+   * Sets the largest Unicode value of the current input character set.
    *
    * @param charCode   the largest character code, used for the scanner 
    *                   (i.e. %7bit, %8bit, %16bit etc.)
@@ -101,8 +101,6 @@ public class CharClasses {
    *
    * Characters that are elements of <code>set</code> are not in the same
    * equivalence class with characters that are not elements of <code>set</code>.
-   *
-   * NOTE: <code>set</code> may be modified by this method.
    *
    * @param set       the set of characters to distinguish from the rest    
    * @param caseless  if true upper/lower/title case are considered equivalent  
@@ -227,7 +225,7 @@ public class CharClasses {
    *
    * @param l   a List of Interval objects. 
    *            This List represents a set of characters. The set of characters is
-   *            the union of all intervalls in the List.
+   *            the union of all intervals in the List.
    *    
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
@@ -247,7 +245,7 @@ public class CharClasses {
    * 
    * @param l   a List of Interval objects. 
    *            This List represents a set of characters. The set of characters is
-   *            the union of all intervalls in the List.
+   *            the union of all intervals in the List.
    * 
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
@@ -301,13 +299,13 @@ public class CharClasses {
    * Returns an array that contains the character class codes of all characters
    * in the specified set of input characters.
    * 
-   * @param intervallList  a List of Intervalls, the set of characters to get
+   * @param intervalList  a List of Intervals, the set of characters to get
    *                       the class codes for
    *
-   * @return an array with the class codes for intervallVec
+   * @return an array with the class codes for intervalList
    */
-  public int [] getClassCodes(List<Interval> intervallList) {
-    return getClassCodes(new IntCharSet(intervallList), false);
+  public int [] getClassCodes(List<Interval> intervalList) {
+    return getClassCodes(new IntCharSet(intervalList), false);
   }
 
 
@@ -315,13 +313,13 @@ public class CharClasses {
    * Returns an array that contains the character class codes of all characters
    * that are <strong>not</strong> in the specified set of input characters.
    * 
-   * @param intervallList  a List of Intervalls, the complement of the
+   * @param intervalList  a List of Intervals, the complement of the
    *                       set of characters to get the class codes for
    *
-   * @return an array with the class codes for the complement of intervallList
+   * @return an array with the class codes for the complement of intervalList
    */
-  public int [] getNotClassCodes(List<Interval> intervallList) {
-    return getClassCodes(new IntCharSet(intervallList), true);
+  public int [] getNotClassCodes(List<Interval> intervalList) {
+    return getClassCodes(new IntCharSet(intervalList), true);
   }
 
 
@@ -355,7 +353,7 @@ public class CharClasses {
 
 
   /**
-   * Returns an array of all CharClassIntervalls in this
+   * Returns an array of all CharClassIntervals in this
    * char class collection. 
    *
    * The array is ordered by char code, i.e.
@@ -364,19 +362,19 @@ public class CharClasses {
    * Each CharClassInterval contains the number of the
    * char class it belongs to.
    */
-  public CharClassInterval [] getIntervalls() {
+  public CharClassInterval [] getIntervals() {
     int i, c;
     int size = classes.size();
-    int numIntervalls = 0;   
+    int numIntervals = 0;   
 
     for (i = 0; i < size; i++) 
-      numIntervalls+= (classes.get(i)).numIntervalls();    
+      numIntervals+= (classes.get(i)).numIntervals();    
 
-    CharClassInterval [] result = new CharClassInterval[numIntervalls];
+    CharClassInterval [] result = new CharClassInterval[numIntervals];
     
     i = 0; 
     c = 0;
-    while (i < numIntervalls) {
+    while (i < numIntervals) {
       int       code = getClassCode((char) c);
       IntCharSet set = classes.get(code);
       Interval  iv  = set.getNext();

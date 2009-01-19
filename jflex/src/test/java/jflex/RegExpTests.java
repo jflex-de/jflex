@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -43,6 +43,10 @@ public class RegExpTests extends TestCase implements sym {
    */
   public RegExpTests(String name) {
     super(name);
+  }
+
+  public void testrevString() {
+    assertTrue(RegExp.revString("blah").equals("halb"));
   }
 
   public void testCharClass() {

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex                                                                   *
+ * JFlex 1.4.2                                                             *
  * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Regis Decamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *

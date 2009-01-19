@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -20,19 +20,18 @@
 
 package jflex.gui;
 
+import jflex.Main;
+import jflex.Out;
 
 import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
 
-import jflex.Main;
-import jflex.Out;
-
 /**
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 final public class MainFrame extends Frame implements Handles {
 
@@ -41,7 +40,7 @@ final public class MainFrame extends Frame implements Handles {
 	 */
 	private static final long serialVersionUID = 3296137982410640865L;
 
-private volatile boolean choosing;
+  private volatile boolean choosing;
 
   private String fileName = "";
   private String dirName = "";
@@ -233,7 +232,7 @@ private volatile boolean choosing;
 
   private void stop() {
     if (thread != null) {
-    	/* FIXME stop is deprecated
+    	/* stop ok here despite deprecation (?)
     	   I don't know any good way to abort generation without changing the
      		 generator code */ 
       thread.stop();

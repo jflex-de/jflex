@@ -37,9 +37,6 @@
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
 
-  /** the textposition at the last state to be included in yytext */
-  private int zzPushbackPos;
-
   /** the current text position in the buffer */
   private int zzCurrentPos;
 
@@ -69,6 +66,9 @@
 
   /** zzAtEOF == true <=> the scanner is at the EOF */
   private boolean zzAtEOF;
+
+  /** denotes if the user-EOF-code has already been executed */
+  private boolean zzEOFDone;
 
 --- user class code
 
@@ -100,7 +100,6 @@
       zzEndRead-= zzStartRead;
       zzCurrentPos-= zzStartRead;
       zzMarkedPos-= zzStartRead;
-      zzPushbackPos-= zzStartRead;
       zzStartRead = 0;
     }
 
@@ -162,8 +161,9 @@
     zzReader = reader;
     zzAtBOL  = true;
     zzAtEOF  = false;
+    zzEOFDone = false;
     zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = zzPushbackPos = 0;
+    zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
   }

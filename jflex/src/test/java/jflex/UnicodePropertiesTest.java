@@ -46,7 +46,7 @@ public class UnicodePropertiesTest extends TestCase {
                       + " should not be null\n" + "Supported properties: "
                       + properties.getPropertyValues(), intervals);
         assertTrue("intervals for 'Lu' property value should have an interval",
-                   intervals.numIntervalls() > 0);
+                   intervals.numIntervals() > 0);
       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
         assertTrue("Unsupported version '" + version
                    + "' should be supported: " + e, false);
@@ -72,7 +72,7 @@ public class UnicodePropertiesTest extends TestCase {
                     + "version should not be null\n" + "Supported properties: "
                     + properties.getPropertyValues(), intervals);
       assertTrue("intervals for 'Lu' property value should have an interval",
-                 intervals.numIntervalls() > 0);
+                 intervals.numIntervals() > 0);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       assertTrue("Default version is unsupported: " + e, false);
     }
@@ -122,8 +122,8 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("Caseless match set for 'i' should contain 'I', but it doesn't.",
                  caselessMatches.contains('I'));
       assertTrue("Caseless match set for 'i' should contain 2 members, but"
-                 +" instead contains " + caselessMatches.numIntervalls(),
-                 caselessMatches.numIntervalls() == 2);
+                 +" instead contains " + caselessMatches.numIntervals(),
+                 caselessMatches.numIntervals() == 2);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       assertTrue("Unsupported version '1.1' should be supported: " + e, false);
     }
@@ -155,7 +155,7 @@ public class UnicodePropertiesTest extends TestCase {
               caselessMatches.contains('\u0131'));
     Interval interval;
     int charCount = 0;
-    for (int i = 0 ; i < caselessMatches.numIntervalls() ; ++i) {
+    for (int i = 0 ; i < caselessMatches.numIntervals() ; ++i) {
       interval = caselessMatches.getNext();
       charCount += interval.end - interval.start + 1;
     }

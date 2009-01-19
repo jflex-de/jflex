@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -31,14 +31,12 @@ import java.text.*;
  * Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 final public class Emitter {
     
   // bit masks for state attributes
   static final private int FINAL = 1;
-  static final private int PUSHBACK = 2;
-  static final private int LOOKEND = 4;
   static final private int NOLOOK = 8;
 
   static final private String date = (new SimpleDateFormat()).format(new Date());
@@ -74,13 +72,13 @@ final public class Emitter {
   /** maps actions to their switch label */
   private Map<Action, Integer> actionTable = new HashMap<Action, Integer>();
 
-  private CharClassInterval [] intervalls;
+  private CharClassInterval [] intervals;
 
   private String visibility = "public";
 
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
-    String name = parser.scanner.className+".java";
+    String name = getBaseName(parser.scanner.className) + ".java";
 
     File outputFile = normalize(name, inputFile);
 
@@ -95,14 +93,32 @@ final public class Emitter {
     this.skel = new Skeleton(out);
   }
 
+  /**
+   * Computes base name of the class name. Needs to take into account generics.
+   *
+   * @param className Class name for which to construct the base name
+   * @see LexScan#className
+   * @return the
+   */
+  public static String getBaseName(String className) {
+    int gen = className.indexOf('<');
+    if (gen < 0) {
+      return className;
+    }
+    else {
+      return className.substring(0, gen);
+    }
+  }
+  
 
   /**
    * Constructs a file in Options.getDir() or in the same directory as
    * another file. Makes a backup if the file already exists.
    *
    * @param name  the name (without path) of the file
-   * @param input fallback location if path = <tt>null</tt>
+   * @param input fall back location if path = <tt>null</tt>
    *              (expected to be a file in the directory to write to)   
+   * @return The constructed File
    */
   public static File normalize(String name, File input) {
     File outputFile;
@@ -165,6 +181,18 @@ final public class Emitter {
     print(i);
   }
 
+  private boolean hasGenLookAhead() {
+    return dfa.lookaheadUsed;
+  }
+  
+  private void emitLookBuffer() {
+    if (!hasGenLookAhead()) return;
+    
+    println("  /** For the backwards DFA of general lookahead statements */");
+    println("  private boolean [] zzFin = new boolean [ZZ_BUFFERSIZE+1];");
+    println();
+  }
+  
   private void emitScanError() {
     print("  private void zzScanError(int errorCode)");
     
@@ -253,7 +281,7 @@ final public class Emitter {
       
       println(" {");
 
-      println("    java_cup.runtime.Symbol s = "+scanner.functionName+"();");
+      println("    "+scanner.tokenType+" s = "+scanner.functionName+"();");
       print("    System.out.println( ");
       if (scanner.lineCount) print("\"line:\" + (yyline+1) + ");
       if (scanner.columnCount) print("\" col:\" + (yycolumn+1) + ");
@@ -287,15 +315,17 @@ final public class Emitter {
       println("   */"); 
     }      
     
+    String className = getBaseName(scanner.className);
+    
     println("  public static void main(String argv[]) {");
     println("    if (argv.length == 0) {");
-    println("      System.out.println(\"Usage : java "+scanner.className+" <inputfile>\");");
+    println("      System.out.println(\"Usage : java "+className+" <inputfile>\");");
     println("    }");
     println("    else {");
     println("      for (int i = 0; i < argv.length; i++) {");
-    println("        "+scanner.className+" scanner = null;");
+    println("        "+className+" scanner = null;");
     println("        try {");
-    println("          scanner = new "+scanner.className+"( new java.io.FileReader(argv[i]) );");
+    println("          scanner = new "+className+"( new java.io.FileReader(argv[i]) );");
 
     if ( scanner.standalone ) {      
       println("          while ( !scanner.zzAtEOF ) scanner."+scanner.functionName+"();");
@@ -343,16 +373,12 @@ final public class Emitter {
     println("            // store back cached positions");
     println("            zzCurrentPos  = zzCurrentPosL;");
     println("            zzMarkedPos   = zzMarkedPosL;");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzPushbackPos = zzPushbackPosL;");
     println("            boolean eof = zzRefill();");
     println("            // get translated positions and possibly new buffer");
     println("            zzCurrentPosL  = zzCurrentPos;");
     println("            zzMarkedPosL   = zzMarkedPos;");
     println("            zzBufferL      = zzBuffer;");
     println("            zzEndReadL     = zzEndRead;");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzPushbackPosL = zzPushbackPos;");
     println("            if (eof) {");
     println("              zzInput = YYEOF;");
     println("              break zzForAction;");  
@@ -435,41 +461,38 @@ final public class Emitter {
     for (String name : scanner.states.names()) {
       int num = scanner.states.getNumber(name);
 
-      if (scanner.bolUsed)      
-        println("  "+visibility+" static final int "+name+" = "+2*num+";");
-      else
-        println("  "+visibility+" static final int "+name+" = "+dfa.lexState[2*num]+";");
+      println("  "+visibility+" static final int "+name+" = "+2*num+";");
     }
-    
-    if (scanner.bolUsed) {
-      println("");
-      println("  /**");
-      println("   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l");
-      println("   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l");
-      println("   *                  at the beginning of a line");
-      println("   * l is of the form l = 2*k, k a non negative integer");
-      println("   */");
-      println("  private static final int ZZ_LEXSTATE[] = { ");
+
+    // can't quite get rid of the indirection, even for non-bol lex states: 
+    // their DFA states might be the same, but their EOF actions might be different
+    // (see bug #1540228)
+    println("");
+    println("  /**");
+    println("   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l");
+    println("   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l");
+    println("   *                  at the beginning of a line");
+    println("   * l is of the form l = 2*k, k a non negative integer");
+    println("   */");
+    println("  private static final int ZZ_LEXSTATE[] = { ");
   
-      int i, j = 0;
-      print("    ");
+    int i, j = 0;
+    print("    ");
+    
+    for (i = 0; i < 2*dfa.numLexStates-1; i++) {
+      print( dfa.entryState[i], 2 );
 
-      for (i = 0; i < dfa.lexState.length-1; i++) {
-        print( dfa.lexState[i], 2 );
+      print(", ");
 
-        print(", ");
-
-        if (++j >= 16) {
-          println();
-          print("    ");
-          j = 0;
-        }
+      if (++j >= 16) {
+        println();
+        print("    ");
+        j = 0;
       }
-            
-      println( dfa.lexState[i] );
-      println("  };");
-
     }
+            
+    println( dfa.entryState[i] );
+    println("  };");
   }
 
   private void emitDynamicInit() {    
@@ -526,7 +549,7 @@ final public class Emitter {
     println("    char [] map = new char[0x10000];");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = 0;  /* index in unpacked array */");
-    println("    while (i < "+2*intervalls.length+") {");
+    println("    while (i < "+2*intervals.length+") {");
     println("      int  count = packed.charAt(i++);");
     println("      char value = packed.charAt(i++);");
     println("      do map[j++] = value; while (--count > 0);");
@@ -543,7 +566,7 @@ final public class Emitter {
     println("  /** ");
     println("   * The transition table of the DFA");
     println("   */");
-    println("  private static final int ZZ_TRANS [] = {"); //XXX
+    println("  private static final int ZZ_TRANS [] = {"); 
 
     print("    ");
     for (i = 0; i < dfa.numStates; i++) {
@@ -572,7 +595,6 @@ final public class Emitter {
   private void emitCharMapArrayUnPacked() {
    
     CharClasses cl = parser.getCharClasses();
-    intervalls = cl.getIntervalls();
     
     println("");
     println("  /** ");
@@ -584,25 +606,19 @@ final public class Emitter {
     print("    ");
     
     int max =  cl.getMaxCharCode();
-    int i = 0;     
-    while ( i < intervalls.length && intervalls[i].start <= max ) {
-
-      int end = Math.min(intervalls[i].end, max);
-      for (int c = intervalls[i].start; c <= end; c++) {
-
-        print(colMap[intervalls[i].charClass], 2);
-
-        if (c < max) {
-          print(", ");        
-          if ( ++n >= 16 ) { 
-            println();
-            print("    ");
-            n = 0; 
-          }
+	
+    // not very efficient, but good enough for <= 255 characters
+    for (char c = 0; c <= max; c++) {
+      print(colMap[cl.getClassCode(c)],2);
+      
+      if (c < max) {
+        print(", ");        
+        if ( ++n >= 16 ) { 
+          println();
+          print("    ");
+          n = 0; 
         }
       }
-
-      i++;
     }
 
     println();
@@ -618,9 +634,9 @@ final public class Emitter {
       return;
     }
 
-    // ignores cl.getMaxCharCode(), emits all intervalls instead
+    // ignores cl.getMaxCharCode(), emits all intervals instead
 
-    intervalls = cl.getIntervalls();
+    intervals = cl.getIntervals();
     
     println("");
     println("  /** ");
@@ -631,26 +647,34 @@ final public class Emitter {
     int n = 0;  // numbers of entries in current line    
     print("    \"");
     
-    int i = 0; 
-    while ( i < intervalls.length-1 ) {
-      int count = intervalls[i].end-intervalls[i].start+1;
-      int value = colMap[intervalls[i].charClass];
-      
+    int i = 0;
+    int count, value;
+    while ( i < intervals.length ) {
+      count = intervals[i].end-intervals[i].start+1;
+      value = colMap[intervals[i].charClass];
+
+      // count could be >= 0x10000
+      while (count > 0xFFFF) {
+        printUC(0xFFFF);
+        printUC(value);
+        count -= 0xFFFF;
+        n++;       
+      }
+        
       printUC(count);
       printUC(value);
 
-      if ( ++n >= 10 ) { 
-        println("\"+");
-        print("    \"");
-        n = 0; 
+      if (i < intervals.length-1) {
+        if ( ++n >= 10 ) { 
+          println("\"+");
+          print("    \"");
+          n = 0;
+        }
       }
 
       i++;
     }
-
-    printUC(intervalls[i].end-intervalls[i].start+1);
-    printUC(colMap[intervalls[i].charClass]);
-
+      
     println("\";");
     println();
 
@@ -708,15 +732,11 @@ final public class Emitter {
     int count = 1;
     int value = 0; 
     if ( dfa.isFinal[0]    ) value = FINAL;
-    if ( dfa.isPushback[0] ) value|= PUSHBACK;
-    if ( dfa.isLookEnd[0]  ) value|= LOOKEND;
     if ( !isTransition[0]  ) value|= NOLOOK;
        
     for (int i = 1;  i < dfa.numStates; i++) {      
       int attribute = 0;      
       if ( dfa.isFinal[i]    ) attribute = FINAL;
-      if ( dfa.isPushback[i] ) attribute|= PUSHBACK;
-      if ( dfa.isLookEnd[i]  ) attribute|= LOOKEND;
       if ( !isTransition[i]  ) attribute|= NOLOOK;
 
       if (value == attribute) {
@@ -737,12 +757,6 @@ final public class Emitter {
 
 
   private void emitClassCode() {
-    if ( scanner.eofCode != null ) {
-      println("  /** denotes if the user-EOF-code has already been executed */");
-      println("  private boolean zzEOFDone;");
-      println("");
-    }
-    
     if ( scanner.classCode != null ) {
       println("  /* user code: */");
       println(scanner.classCode);
@@ -750,23 +764,40 @@ final public class Emitter {
   }
 
   private void emitConstructorDecl() {
+    emitConstructorDecl(true);
+    
+    if ((scanner.standalone || scanner.debugOption) && 
+        scanner.ctorArgs.size() > 0) {
+      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      println();
+      emitConstructorDecl(false);
+    }
+  }
+  
+  private void emitConstructorDecl(boolean printCtorArgs) {
+ 
+    String warn = 
+        "// WARNING: this is a default constructor for " +
+        "debug/standalone only. Has no custom parameters or init code.";
+    
+    if (!printCtorArgs) println(warn); 
     
     print("  ");
 
     if ( scanner.isPublic ) print("public ");   
-    print( scanner.className );      
+    print( getBaseName(scanner.className) );      
     print("(java.io.Reader in");
-    emitCtorArgs();
+    if (printCtorArgs) emitCtorArgs();
     print(")");
     
-    if ( scanner.initThrow != null ) {
+    if ( scanner.initThrow != null && printCtorArgs) {
       print(" throws ");
       print( scanner.initThrow );
     }
     
     println(" {");
 
-    if ( scanner.initCode != null ) {
+    if ( scanner.initCode != null && printCtorArgs) {
       print("  ");
       print( scanner.initCode );
     }
@@ -783,15 +814,16 @@ final public class Emitter {
     println("   *");
     println("   * @param   in  the java.io.Inputstream to read input from.");
     println("   */");
-
+    if (!printCtorArgs) println(warn);
+    
     print("  ");
     if ( scanner.isPublic ) print("public ");    
-    print( scanner.className );      
+    print( getBaseName(scanner.className) );      
     print("(java.io.InputStream in");
-    emitCtorArgs();
+    if (printCtorArgs) emitCtorArgs();
     print(")");
     
-    if ( scanner.initThrow != null ) {
+    if ( scanner.initThrow != null && printCtorArgs ) {
       print(" throws ");
       print( scanner.initThrow );
     }
@@ -799,25 +831,21 @@ final public class Emitter {
     println(" {");    
 
     print("    this(new java.io.InputStreamReader(in)");
-
-    if (!scanner.ctorArgs.isEmpty())
-      for (String val : scanner.ctorArgs.values())
-        print("," + val);
-
+    if (printCtorArgs) {
+      for (int i=0; i < scanner.ctorArgs.size(); i++) {
+        print(", "+scanner.ctorArgs.get(i));
+      }      
+    }
     println(");");
-
+    
     println("  }");
   }
 
   private void emitCtorArgs() {
-    if (scanner.ctorArgs.isEmpty()) return;
-
-    for (Map.Entry<String,String> entry : scanner.ctorArgs.entrySet()) {
-      print(",");
-      print(entry.getKey());
-      print(" ");
-      print(entry.getValue());
-    }
+    for (int i = 0; i < scanner.ctorArgs.size(); i++) {
+      print(", "+scanner.ctorTypes.get(i));
+      print(" "+scanner.ctorArgs.get(i));
+    }    
   }
 
   private void emitDoEOF() {
@@ -893,11 +921,6 @@ final public class Emitter {
       println("    int [] zzRowMapL = ZZ_ROWMAP;");
       println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
 
-    }
-
-    if ( scanner.lookAheadUsed ) {
-      println("    int zzPushbackPosL = zzPushbackPos = -1;");
-      println("    boolean zzWasPushback;");
     }
 
     skel.emitNext();    
@@ -1017,12 +1040,9 @@ final public class Emitter {
       println();
     }
     else {
-      println("      zzState = zzLexicalState;");
+      println("      zzState = ZZ_LEXSTATE[zzLexicalState];");
       println();
     }
-
-    if (scanner.lookAheadUsed)
-      println("      zzWasPushback = false;");
 
     skel.emitNext();
   }
@@ -1036,15 +1056,7 @@ final public class Emitter {
 
     println("          int zzAttributes = zzAttrL[zzState];");
 
-    if ( scanner.lookAheadUsed ) {
-      println("          if ( (zzAttributes & "+PUSHBACK+") == "+PUSHBACK+" )");
-      println("            zzPushbackPosL = zzCurrentPosL;");
-      println();
-    }
-
     println("          if ( (zzAttributes & "+FINAL+") == "+FINAL+" ) {");
-    if ( scanner.lookAheadUsed ) 
-      println("            zzWasPushback = (zzAttributes & "+LOOKEND+") == "+LOOKEND+";");
 
     skel.emitNext();
     
@@ -1059,9 +1071,6 @@ final public class Emitter {
     println("          zzInput = zzCMapL[zzInput];");
     println();
 
-    if ( scanner.lookAheadUsed ) 
-      println("          boolean zzPushback = false;");
-      
     println("          boolean zzIsFinal = false;");
     println("          boolean zzNoLookAhead = false;");
     println();
@@ -1080,9 +1089,6 @@ final public class Emitter {
     
     println("          if ( zzIsFinal ) {");
     
-    if ( scanner.lookAheadUsed ) 
-      println("            zzWasPushback = zzPushback;");
-    
     skel.emitNext();
     
     println("            if ( zzNoLookAhead ) break zzForAction;");
@@ -1093,6 +1099,9 @@ final public class Emitter {
 
   /**
    * Escapes all " ' \ tabs and newlines
+   * 
+   * @param s The string to escape
+   * @return The escaped string
    */
   private String escapify(String s) {
     StringBuilder result = new StringBuilder(s.length()*2);
@@ -1126,7 +1135,7 @@ final public class Emitter {
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates; i++) {
-      int newVal; 
+      int newVal = 0; 
       if ( dfa.isFinal[i] ) {
         Action action = dfa.action[i];
         Integer stored = actionTable.get(action);
@@ -1135,9 +1144,6 @@ final public class Emitter {
           actionTable.put(action, stored);
         }
         newVal = stored;
-      }
-      else {
-        newVal = 0;
       }
       
       if (value == newVal) {
@@ -1167,6 +1173,40 @@ final public class Emitter {
 
       println("        case "+label+": "); 
       
+      if (action.lookAhead() == Action.FIXED_BASE) {
+        println("          // lookahead expression with fixed base length");
+        println("          zzMarkedPos = zzStartRead + "+action.getLookLength()+";");        
+      }
+      
+      if (action.lookAhead() == Action.FIXED_LOOK || 
+          action.lookAhead() == Action.FINITE_CHOICE) {
+        println("          // lookahead expression with fixed lookahead length");
+        println("          yypushback("+action.getLookLength()+");");        
+      }
+      
+      if (action.lookAhead() == Action.GENERAL_LOOK) {
+        println("          // general lookahead, find correct zzMarkedPos");
+        println("          { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
+        println("            int zzFPos = zzStartRead;");
+        println("            if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+        println("            boolean zzFinL[] = zzFin;");
+        println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
+        println("              if ((zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
+        println("              zzInput = zzBufferL[zzFPos++];");
+        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("            }");
+        println("            if (zzFState != -1 && (zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
+        println();                
+        println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
+        println("            zzFPos = zzMarkedPos;");
+        println("            while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
+        println("              zzInput = zzBufferL[--zzFPos];");
+        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("            };");
+        println("            zzMarkedPos = zzFPos;");
+        println("          }");
+      }
+      
       if ( scanner.debugOption ) {
         print("          System.out.println(");
         if ( scanner.lineCount )
@@ -1194,9 +1234,6 @@ final public class Emitter {
     if ( eofActions.numActions() > 0 ) {
       println("            switch (zzLexicalState) {");
       
-      // record lex states already emitted:
-      Map<Integer, String> used = new HashMap<Integer, String>();
-
       // pick a start value for break case labels. 
       // must be larger than any value of a lex state:
       int last = dfa.numStates;
@@ -1205,24 +1242,7 @@ final public class Emitter {
         int num = scanner.states.getNumber(name);
         Action action = eofActions.getAction(num);
 
-        // only emit code if the lex state is not redundant, so
-        // that case labels don't overlap
-        // (redundant = points to the same dfa state as another one).
-        // applies only to scanners that don't use BOL, because
-        // in BOL scanners lex states get mapped at runtime, so
-        // case labels will always be unique.
-        boolean unused = true;                
-        if (!scanner.bolUsed) {
-          Integer key = dfa.lexState[2 * num];
-          unused = used.get(key) == null;
-          
-          if (!unused) 
-            Out.warning("Lexical states <"+name+"> and <"+used.get(key)+"> are equivalent.");
-          else
-            used.put(key,name);
-        }
-
-        if (action != null && unused) {
+        if (action != null) {
           println("            case "+name+": {");
           if ( scanner.debugOption ) {
             print("              System.out.println(");
@@ -1321,12 +1341,6 @@ final public class Emitter {
       if ( dfa.isFinal[nextState] )
         print("zzIsFinal = true; ");
         
-      if ( dfa.isPushback[nextState] ) 
-        print("zzPushbackPosL = zzCurrentPosL; ");
-      
-      if ( dfa.isLookEnd[nextState] )
-        print("zzPushback = true; ");
-
       if ( !isTransition[nextState] )
         print("zzNoLookAhead = true; ");
         
@@ -1346,12 +1360,6 @@ final public class Emitter {
       if ( dfa.isFinal[nextState] )
         print("zzIsFinal = true; ");
         
-      if ( dfa.isPushback[nextState] ) 
-        print("zzPushbackPosL = zzCurrentPosL; ");
-
-      if ( dfa.isLookEnd[nextState] )
-        print("zzPushback = true; ");
-          
       if ( !isTransition[nextState] )
         print("zzNoLookAhead = true; ");
         
@@ -1362,11 +1370,6 @@ final public class Emitter {
     }
     else
       println( "break zzForAction;" );
-  }
-  
-  private void emitPushback() {
-    println("      if (zzWasPushback)");
-    println("        zzMarkedPos = zzPushbackPosL;");
   }
   
   private int getDefaultTransition(int state) {
@@ -1503,7 +1506,7 @@ final public class Emitter {
 
 
   /**
-   * Set up EOF code sectioin according to scanner.eofcode 
+   * Set up EOF code section according to scanner.eofcode 
    */
   private void setupEOFCode() {
     if (scanner.eofclose) {
@@ -1564,6 +1567,8 @@ final public class Emitter {
 
     skel.emitNext();
     
+    emitLookBuffer();
+    
     emitClassCode();
     
     skel.emitNext();
@@ -1590,9 +1595,6 @@ final public class Emitter {
       emitGetRowMapNext();
     else
       emitTransitionTable();
-        
-    if (scanner.lookAheadUsed) 
-      emitPushback();
         
     skel.emitNext();
 

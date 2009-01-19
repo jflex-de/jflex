@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -43,7 +43,7 @@ public class OptionsDialog extends Dialog {
 	 */
 	private static final long serialVersionUID = 6807759416163314769L;
 
-private Frame owner;
+  private Frame owner;
 
   private Button skelBrowse;
   private TextField skelFile;

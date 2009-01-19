@@ -24,17 +24,16 @@ package jflex.anttask;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
 
-
-import java.io.*;
-
 import jflex.Main;
 import jflex.Options;
+
+import java.io.*;
 
 /**
  * JFlex task class
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 public class JFlexTask extends Task {
   private File inputFile;

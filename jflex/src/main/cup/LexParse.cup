@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -28,7 +28,7 @@ import jflex.unicode.UnicodeProperties;
 action code {:
 
   LexScan     scanner;
-  CharClasses charClasses = new CharClasses(127);
+  CharClasses charClasses = new CharClasses(Options.jlex ? 127 : 0xFFFF);
   RegExps     regExps     = new RegExps();
   Macros      macros      = new Macros();
   Integer     stateNumber;
@@ -76,20 +76,20 @@ action code {:
     List<Interval> result;
     IntCharSet intCharSet = preclassCache.get(type);
     if (null != intCharSet) {
-      result = intCharSet.copy().getIntervalls();
+      result = intCharSet.copy().getIntervals();
     }
     else {
       switch (type) {
         case sym.LETTERCLASS: {
           intCharSet = LexParse.unicodeProperties.getIntCharSet("L");
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.DIGITCLASS: {
           intCharSet = LexParse.unicodeProperties.getIntCharSet("Nd");
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.DIGITCLASSNOT: {
@@ -98,7 +98,7 @@ action code {:
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(digits);
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.UPPERCLASS: {
@@ -110,7 +110,7 @@ action code {:
             intCharSet = LexParse.unicodeProperties.getIntCharSet("Lu");
           }
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.LOWERCLASS: {
@@ -122,7 +122,7 @@ action code {:
             intCharSet = LexParse.unicodeProperties.getIntCharSet("Ll");
           }
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.WHITESPACECLASS: {
@@ -134,7 +134,7 @@ action code {:
             intCharSet = LexParse.unicodeProperties.getIntCharSet("Zs");
           }
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.WHITESPACECLASSNOT: {
@@ -149,7 +149,7 @@ action code {:
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(whitespaceClass);
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.WORDCLASS: {
@@ -171,7 +171,7 @@ action code {:
           intCharSet.add(digitClass);
           intCharSet.add(connectorPunctClass);
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.WORDCLASSNOT: {
@@ -196,7 +196,7 @@ action code {:
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(wordClass);
           preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervalls();
+          result = intCharSet.copy().getIntervals();
           break;
         }
         case sym.JLETTERCLASS:
@@ -287,12 +287,14 @@ action code {:
     charClasses.makeClass('\r', false);
 
     RegExp1   c = new RegExp1(sym.CCLASS, list);
+    Character n = new Character('\n');
+    Character r = new Character('\r');
 
     return new RegExp2(sym.BAR, 
                        c, 
                        new RegExp2(sym.CONCAT, 
-                                   new RegExp1(sym.CHAR, '\r'), 
-                                   new RegExp1(sym.CHAR, '\n')));
+                                   new RegExp1(sym.CHAR, r), 
+                                   new RegExp1(sym.CHAR, n)));
   }
   
 :};
@@ -347,7 +349,7 @@ init with {:
 
 terminal OPENBRACKET, CLOSEBRACKET, HAT, DOLLAR, OPENCLASS,
          CLOSECLASS, DASH, DELIMITER, EQUALS, COMMA, LESSTHAN,
-         MORETHAN, LBRACE, RBRACE, FULL, UNICODE, REGEXPEND;
+         MORETHAN, LBRACE, RBRACE, ASCII, FULL, UNICODE, REGEXPEND;
 
 terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS,
          DIGITCLASSNOT, UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD,
@@ -377,7 +379,7 @@ non terminal Interval  classcontentelem;
 non terminal List<Interval> classcontent, preclass;
 non terminal List<Integer> states, statesOPT, rules;
 non terminal Boolean   hatOPT;
-non terminal Action    actions;
+non terminal Action    act, actions;
 
 
 /* grammar specification */
@@ -400,9 +402,12 @@ specification ::=  USERCODE
                        Out.warning("Macro \""+unused+"\" has been declared but never used.");
                      }
 
-                     SemCheck.check(regExps, macros, charClasses.getMaxCharCode(), scanner.file);
+                     SemCheck.check(regExps, macros, scanner.file);
   
                      regExps.checkActions();
+                     regExps.checkLookAheads();
+
+                     Out.checkErrors();
 
                      if (Options.dump) charClasses.dump();
 
@@ -440,7 +445,9 @@ macros        ::=  /* empty, most switches & state declarations are parsed in le
                 | macros macro
                 | error;
 
-macro         ::=  FULL
+macro         ::=  ASCII
+                   {: charClasses.setMaxCharCode(127); :}
+                |  FULL
                    {: charClasses.setMaxCharCode(255); :}
                 |  UNICODE
                    {: charClasses.setMaxCharCode(0xFFFF); :} 
@@ -456,16 +463,22 @@ rules         ::=  rules:rlist rule:r
                 |  rules:rlist1 LESSTHAN states:states MORETHAN LBRACE rules:rlist2 RBRACE
                    {:
                      for (Integer elem : rlist2) {
-                       regExps.addStates( elem, states );
+                       // might be null for error case of "rule"
+                       if (elem != null) { 
+                         regExps.addStates( elem, states );
+                       }
                        rlist1.add( elem );
                      }                       
                      RESULT = rlist1;
                    :}
                 |  LESSTHAN states:states MORETHAN LBRACE rules:rlist RBRACE
                    {: 
-                     for (Integer elem : rlist)
-                       regExps.addStates( elem, states );
-
+                     for (Integer elem : rlist) {
+                       // might be null for error case of "rule"
+                       if (elem != null) { 
+                         regExps.addStates( elem, states );
+                       }
+                     }
                      RESULT = rlist;
                    :}
                 |  rule:r
@@ -474,7 +487,7 @@ rules         ::=  rules:rlist rule:r
 
 rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: RESULT = regExps.insert(rleft, s, r, a, bol, null); :}
-                |  statesOPT:s hatOPT:bol series:r lookahead:l ACTION:a
+                |  statesOPT:s hatOPT:bol series:r lookahead:l act:a
                    {: RESULT = regExps.insert(rleft, s, r, a, bol, l); :}
                 |  statesOPT:s hatOPT:bol series:r lookahead:l NOACTION:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
@@ -491,10 +504,13 @@ lookahead     ::=  DOLLAR
                    {: RESULT = new RegExp2(sym.CONCAT, s, makeNL()); :}
                 ;
 
-actions       ::=  REGEXPEND ACTION:a
+act           ::=  REGEXPEND ACTION:a
+                   {: RESULT = a; :}
+				;
+
+actions       ::=  act:a
                    {: RESULT = a; :}
                 |  NOACTION
-                   {: RESULT = null; :}
                 ;
 
                 
@@ -600,24 +616,24 @@ regexp        ::=  regexp:r STAR
                      IntCharSet set
                        = scanner.caseless ? intcharset.getCaseless() : intcharset.copy();
                      try {
-                       charClasses.makeClass(set.getIntervalls(), false);
+                       charClasses.makeClass(set.getIntervals(), false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, intcharsetleft, intcharsetright);
                      }
-                     RESULT = new RegExp1(sym.CCLASS, set.getIntervalls());
+                     RESULT = new RegExp1(sym.CCLASS, set.getIntervals());
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
                    {:
                      IntCharSet set
                        = scanner.caseless ? notintcharset.getCaseless() : notintcharset.copy();
                      try {
-                       charClasses.makeClassNot(set.getIntervalls(), false);
+                       charClasses.makeClassNot(set.getIntervals(), false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, notintcharsetleft, notintcharsetright);
                      }
-                     RESULT = new RegExp1(sym.CCLASSNOT, set.getIntervalls());
+                     RESULT = new RegExp1(sym.CCLASSNOT, set.getIntervals());
                    :}
                 |  STRING:str
                    {: 
@@ -743,18 +759,18 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 |  classcontent:list UNIPROPCCLASS:intcharset
                    {:
                      //TODO: Is IntCharSet.copy() required here?
-                     list.addAll(intcharset.copy().getIntervalls());
+                     list.addAll(intcharset.copy().getIntervals());
                      RESULT = list;
                    :}
                 |  UNIPROPCCLASS:intcharset
                    //TODO: Is IntCharSet.copy() required here?
-                   {: RESULT = intcharset.copy().getIntervalls(); :}
+                   {: RESULT = intcharset.copy().getIntervals(); :}
                 |  classcontent:list UNIPROPCCLASSNOT:notintcharset
                    {:
                      //TODO: Is there a better way to get the absolute complement?
                      IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
                      absComp.sub(notintcharset);
-                     list.addAll(absComp.getIntervalls());
+                     list.addAll(absComp.getIntervals());
                      RESULT = list;
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
@@ -762,7 +778,7 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                       //TODO: Is there a better way to get the absolute complement?
                       IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
                       absComp.sub(notintcharset);
-                      RESULT = absComp.getIntervalls();
+                      RESULT = absComp.getIntervals();
                    :}
                 |  classcontent:list STRING:s
                    {: 

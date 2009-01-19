@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -26,7 +26,7 @@ import java.util.*;
  * Stores all rules of the specification for later access in RegExp -> NFA
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 public class RegExps {
   
@@ -48,6 +48,13 @@ public class RegExps {
   /** the lookahead expression */
   List<RegExp> look;
 
+  /** the forward DFA entry point of the lookahead expression */
+  List<Integer> look_entry;
+
+  /** Count of many general lookahead expressions there are. 
+   *  Need 2*gen_look_count additional DFA entry points. */
+  int gen_look_count;
+
   public RegExps() {
     states = new ArrayList<List<Integer>>();
     regExps = new ArrayList<RegExp>();
@@ -55,6 +62,7 @@ public class RegExps {
     BOL = new ArrayList<Boolean>();
     look = new ArrayList<RegExp>();
     lines = new ArrayList<Integer>();
+    look_entry = new ArrayList<Integer>();
   }
 
   public int insert(int line, List<Integer> stateList, RegExp regExp, Action action, 
@@ -71,6 +79,7 @@ public class RegExps {
     BOL.add(isBOL);
     look.add(lookAhead);
     lines.add(line);
+    look_entry.add(null);
     
     return states.size()-1;
   }
@@ -88,6 +97,7 @@ public class RegExps {
     BOL.add(null);
     look.add(null);
     lines.add(null);
+    look_entry.add(null);
     
     return states.size()-1;
   }
@@ -123,6 +133,10 @@ public class RegExps {
   public int getLine(int num) {
     return lines.get(num);
   }
+  
+  public int getLookEntry(int num) {
+    return look_entry.get(num);
+  }
 
   public void checkActions() {
     if ( actions.get(actions.size()-1) == null ) {
@@ -148,4 +162,49 @@ public class RegExps {
 
     return size;
   }
+
+  public void checkLookAheads() {
+    for (int i=0; i < regExps.size(); i++) 
+      lookAheadCase(i);
+  }
+  
+  /**
+   * Determine which case of lookahead expression regExpNum points to (if any).
+   * Set case data in corresponding action.
+   * Increment count of general lookahead expressions for entry points
+   * of the two additional DFAs.
+   * Register DFA entry point in RegExps
+   *
+   * Needs to be run before adding any regexps/rules to be able to reserve
+   * the correct amount of space of lookahead DFA entry points.
+   * 
+   * @param regExpNum   the number of the regexp in RegExps. 
+   */
+  private void lookAheadCase(int regExpNum) {
+    if ( getLookAhead(regExpNum) != null ) {
+      RegExp r1 = getRegExp(regExpNum);
+      RegExp r2 = getLookAhead(regExpNum);
+
+      Action a = getAction(regExpNum);
+            
+      int len1 = SemCheck.length(r1);
+      int len2 = SemCheck.length(r2);
+      
+      if (len1 >= 0) {
+        a.setLookAction(Action.FIXED_BASE,len1);
+      }
+      else if (len2 >= 0) {
+        a.setLookAction(Action.FIXED_LOOK,len2);
+      }
+      else if (SemCheck.isFiniteChoice(r2)) {
+        a.setLookAction(Action.FINITE_CHOICE,0);
+      }
+      else {
+        a.setLookAction(Action.GENERAL_LOOK,0);
+        look_entry.set(regExpNum, gen_look_count);
+        gen_look_count++;
+      }
+    }
+  }
+
 }

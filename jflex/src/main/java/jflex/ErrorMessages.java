@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.1                                                             *
- * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.2                                                             *
+ * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software); you can redistribute it and/or modify    *
@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  * [Is not yet used exclusively, but should]
  * 
  * @author Gerwin Klein
- * @version JFlex 1.4.1, $Revision$, $Date$
+ * @version JFlex 1.4.2, $Revision$, $Date$
  */
 public class ErrorMessages {  
   private String key;
@@ -101,7 +101,6 @@ public class ErrorMessages {
   public static ErrorMessages UNEXPECTED_EOF = new ErrorMessages("UNEXPECTED_EOF");
   public static ErrorMessages NO_LEX_SPEC = new ErrorMessages("NO_LEX_SPEC");
   public static ErrorMessages NO_LAST_ACTION = new ErrorMessages("NO_LAST_ACTION");
-  public static ErrorMessages LOOKAHEAD_ERROR = new ErrorMessages("LOOKAHEAD_ERROR");
   public static ErrorMessages NO_DIRECTORY = new ErrorMessages("NO_DIRECTORY");
   public static ErrorMessages NO_SKEL_FILE = new ErrorMessages("NO_SKEL_FILE");
   public static ErrorMessages WRONG_SKELETON = new ErrorMessages("WRONG_SKELETON");
@@ -143,6 +142,9 @@ public class ErrorMessages {
   public static ErrorMessages PARSING_TOOK = new ErrorMessages("PARSING_TOOK");
   public static ErrorMessages NFA_TOOK = new ErrorMessages("NFA_TOOK");
   public static ErrorMessages LOOKAHEAD_NEEDS_ACTION = new ErrorMessages("LOOKAHEAD_NEEDS_ACTION");
+  public static ErrorMessages EMPTY_MATCH = new ErrorMessages("EMPTY_MATCH");
+  public static ErrorMessages CTOR_ARG = new ErrorMessages("CTOR_ARG");
+  public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
   public static ErrorMessages UNSUPPORTED_UNICODE_VERSION = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION");
   public static ErrorMessages INVALID_UNICODE_PROPERTY = new ErrorMessages("INVALID_UNICODE_PROPERTY");
 }
