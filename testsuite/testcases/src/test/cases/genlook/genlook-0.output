@@ -1,0 +1,30 @@
+line: 1 col: 1 match: --x--
+action [24] {  }
+line: 1 col: 2 match: --z--
+action [24] {  }
+line: 1 col: 3 match: --y--
+action [24] {  }
+line: 1 col: 4 match: --aa--
+action [17] { /* normal */ }
+line: 1 col: 6 match: --a--
+action [17] { /* normal */ }
+line: 1 col: 7 match: --a--
+action [24] {  }
+line: 1 col: 8 match: --d--
+action [24] {  }
+line: 1 col: 9 match: --f--
+action [24] {  }
+line: 1 col: 10 match: --a--
+action [24] {  }
+line: 1 col: 11 match: --b--
+action [20] { /* empty-look */ }
+line: 1 col: 12 match: --c--
+action [22] { /* blah */ }
+line: 1 col: 13 match: --d--
+action [24] {  }
+line: 1 col: 14 match: --e--
+action [24] {  }
+line: 1 col: 15 match: --
+--
+action [24] {  }
+-1

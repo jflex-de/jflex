@@ -1,0 +1,8 @@
+name: eofmin
+
+description:
+#1540228 "State minimizer ignores EOF actions"
+Should not get a warning for equivalent lex states
+Should end up in different states for the two inputs
+
+jflex: 

@@ -1,0 +1,96 @@
+line: 1 col: 1 match: --hello--
+action [19] { System.out.println("hello at BOL and EOL"); }
+hello at BOL and EOL
+line: 1 col: 6 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 2 col: 1 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 2 col: 2 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 2 col: 3 match: --hello--
+action [21] { System.out.println("hello at EOL"); }
+hello at EOL
+line: 2 col: 8 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 3 col: 1 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 3 col: 2 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 3 col: 3 match: --hello--
+action [22] { System.out.println("just hello"); }
+just hello
+line: 3 col: 8 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 3 col: 9 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 3 col: 10 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 4 col: 1 match: --hello--
+action [20] { System.out.println("hello at BOL"); }
+hello at BOL
+line: 4 col: 6 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 4 col: 7 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 5 col: 1 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 5 col: 2 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 5 col: 3 match: --hello--
+action [21] { System.out.println("hello at EOL"); }
+hello at EOL
+line: 5 col: 8 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 6 col: 1 match: --hello--
+action [20] { System.out.println("hello at BOL"); }
+hello at BOL
+line: 6 col: 6 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 6 col: 7 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 7 col: 1 match: -- --
+action [27] { System.out.println( "\" \"" ); }
+" "
+line: 7 col: 2 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+line: 8 col: 1 match: --s--
+action [28] { System.out.println( yytext() ); }
+s
+line: 8 col: 2 match: --d--
+action [28] { System.out.println( yytext() ); }
+d
+line: 8 col: 3 match: --f--
+action [28] { System.out.println( yytext() ); }
+f
+line: 8 col: 4 match: --a--
+action [28] { System.out.println( yytext() ); }
+a
+line: 8 col: 5 match: --
+--
+action [25] { System.out.println("\\n"); }
+\n
+-1

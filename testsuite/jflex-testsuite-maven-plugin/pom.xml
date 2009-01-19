@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.jflex</groupId>
+  <artifactId>jflex-testsuite-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>JFlex Test Suite Maven Plugin</name>
+  <version>0.1-SNAPSHOT</version>
+  <description>
+    Internal-use plugin to run test cases from the JFlex test suite.
+  </description>
+  <inceptionYear>2009</inceptionYear>
+  <developers>
+    <developer>
+      <id>lsf37</id>
+      <name>Gerwin Klein</name>
+      <email>gerwin.klein@nicta.com.au</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>steve_rowe</id>
+      <name>Steve Rowe</name>
+      <email>steve_rowe@users.sf.net</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>de.jflex</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>1.5.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex</artifactId>
+      <version>1.5.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <!-- If this dependency is not included, the Ant Javac task can't find -->
+      <!-- the javac executable, because Maven automatically changes the     -->
+      <!-- JAVA_HOME environment variable/system property to point to the    -->
+      <!-- JRE rather than the JDK.  An alternative to including this dep.   -->
+      <!-- is setting the Ant Javac object to use forking,                   -->
+      <!-- i.e. "javac.setFork(true);").                                     -->
+      <groupId>sun.jdk</groupId>
+      <artifactId>tools</artifactId>
+      <version>1.5.0</version>
+      <scope>system</scope>
+      <systemPath>${java.home}/../lib/tools.jar</systemPath>
+    </dependency>
+  </dependencies>
+  <scm>
+    <connection>
+      scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/testsuite/jflex-testsuite-maven-plugin/
+    </connection>
+    <developerConnection>
+      scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/testsuite/jflex-testsuite-maven-plugin/
+    </developerConnection>
+  </scm>
+</project>

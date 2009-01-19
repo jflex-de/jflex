@@ -1,0 +1,6 @@
+name: ccl
+
+description:
+bug-test for [".."] style character escapes (#467469)
+
+jflex: --dump

@@ -1,0 +1,7 @@
+name: never
+description:
+test nevermatch warning
+
+jflex: -q
+
+javac-fail: true

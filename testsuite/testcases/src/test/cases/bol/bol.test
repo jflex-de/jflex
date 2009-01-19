@@ -1,0 +1,10 @@
+name: bol
+
+description:
+tests BOL and EOL operators 
+
+jflex: --dump
+
+javac: -O
+javac-fail: false
+

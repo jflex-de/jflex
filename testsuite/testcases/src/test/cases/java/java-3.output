@@ -1,0 +1,42 @@
+line: 1 col: 1 match: ---2147483648--
+action [239] { return symbol(INTEGER_LITERAL, new Integer(yytext())); }
+token: INTEGER_LITERAL at line 1, column 1
+value: [-2147483648]
+93
+line: 1 col: 12 match: --
+--
+action [256] { /* ignore */ }
+line: 2 col: 1 match: -----
+action [209] { return symbol(MINUS); }
+token: MINUS at line 2, column 1
+61
+line: 2 col: 2 match: -- --
+action [256] { /* ignore */ }
+line: 2 col: 3 match: --2147483647--
+action [239] { return symbol(INTEGER_LITERAL, new Integer(yytext())); }
+token: INTEGER_LITERAL at line 2, column 3
+value: [2147483647]
+93
+line: 2 col: 13 match: --
+--
+action [256] { /* ignore */ }
+line: 3 col: 1 match: ---0xFFF--
+action [242] { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(2, yylength(), 16))); }
+token: INTEGER_LITERAL at line 3, column 1
+value: [-1]
+93
+line: 3 col: 7 match: --
+--
+action [256] { /* ignore */ }
+line: 4 col: 1 match: ---0372--
+action [245] { return symbol(INTEGER_LITERAL, new Integer((int) parseLong(0, yylength(), 8))); }
+token: INTEGER_LITERAL at line 4, column 1
+value: [-3846]
+93
+line: 4 col: 6 match: --
+--
+action [256] { /* ignore */ }
+line: 5 col: 1 match: <<EOF>>
+action [310] { return symbol(EOF); }
+token: EOF at line 5, column 1
+0

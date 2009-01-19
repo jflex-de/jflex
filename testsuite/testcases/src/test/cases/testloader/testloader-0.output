@@ -1,0 +1,34 @@
+match: --name: testloader--
+action [30] { /* test.setTestName(yytext().substring(6).trim()); */ }
+match: --
+--
+action [48] { /* ignore newline and whitespace */ }
+match: --
+--
+action [48] { /* ignore newline and whitespace */ }
+match: --description:--
+action [32] { yybegin(DESCR); }
+match: --
+--
+action [54] { buffer.append(yytext()); }
+match: --The parser that loads jflex regression tests. Has some lookahead, lex states etc in it.--
+action [54] { buffer.append(yytext()); }
+match: --
+--
+action [54] { buffer.append(yytext()); }
+match: --
+--
+action [56] { /* test.setDescription(buffer.toString()); */ yybegin(YYINITIAL); }
+match: --jflex: --
+action [34] { cmdLine = new ArrayList<String>(); yybegin(JFLEXCMD); }
+match: ---q--
+action [61] { cmdLine.add(yytext()); }
+match: --
+--
+action [69] { /* test.setJflexCmdln(cmdLine); */ yybegin(YYINITIAL); }
+match: --
+--
+action [48] { /* ignore newline and whitespace */ }
+match: <<EOF>>
+action [80] { return 1; }
+1

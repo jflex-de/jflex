@@ -1,0 +1,3 @@
+token 1
+%include src/test/cases/include/inp3
+token 2

@@ -1,0 +1,4 @@
+
+Error in file "src/test/cases/semcheck/semcheck.test" (line 9): 
+This seems not to be a lexical specification (first %% is missing)
+1 error, 0 warnings.

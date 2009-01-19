@@ -1,0 +1,69 @@
+line: 1 col: 1 match: --x--
+action [24] {  }
+line: 1 col: 2 match: --z--
+action [24] {  }
+line: 1 col: 3 match: --y--
+action [24] {  }
+line: 1 col: 4 match: --aa--
+action [17] { /* normal */ }
+line: 1 col: 6 match: --x--
+action [24] {  }
+line: 1 col: 7 match: --a--
+action [17] { /* normal */ }
+line: 1 col: 8 match: --x--
+action [24] {  }
+line: 1 col: 9 match: --y--
+action [24] {  }
+line: 1 col: 10 match: --a--
+action [24] {  }
+line: 1 col: 11 match: --d--
+action [24] {  }
+line: 1 col: 12 match: --f--
+action [24] {  }
+line: 1 col: 13 match: --a--
+action [17] { /* normal */ }
+line: 1 col: 14 match: --z--
+action [24] {  }
+line: 1 col: 15 match: --z--
+action [24] {  }
+line: 1 col: 16 match: --z--
+action [24] {  }
+line: 1 col: 17 match: --b--
+action [24] {  }
+line: 1 col: 18 match: --c--
+action [24] {  }
+line: 1 col: 19 match: --d--
+action [24] {  }
+line: 1 col: 20 match: --e--
+action [24] {  }
+line: 1 col: 21 match: --bb--
+action [19] { /* eol */ }
+line: 1 col: 23 match: --
+--
+action [24] {  }
+line: 2 col: 1 match: --bb--
+action [19] { /* eol */ }
+line: 2 col: 3 match: --
+--
+action [24] {  }
+line: 3 col: 1 match: --b--
+action [24] {  }
+line: 3 col: 2 match: --l--
+action [24] {  }
+line: 3 col: 3 match: --aa--
+action [17] { /* normal */ }
+line: 3 col: 5 match: --z--
+action [24] {  }
+line: 3 col: 6 match: --y--
+action [24] {  }
+line: 3 col: 7 match: --a--
+action [24] {  }
+line: 3 col: 8 match: --z--
+action [19] { /* eol */ }
+line: 3 col: 9 match: --
+--
+action [24] {  }
+line: 4 col: 1 match: --
+--
+action [24] {  }
+-1

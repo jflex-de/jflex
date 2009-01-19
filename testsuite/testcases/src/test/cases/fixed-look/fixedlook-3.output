@@ -1,0 +1,50 @@
+line: 1 col: 1 match: --a--
+action [22] {  }
+line: 1 col: 2 match: --bb--
+action [19] { System.out.println(yytext()); return 3; }
+bb
+3
+line: 1 col: 4 match: --b--
+action [22] {  }
+line: 1 col: 5 match: --abcd--
+action [17] { System.out.println(yytext()); return 7; }
+abcd
+7
+line: 1 col: 9 match: --f--
+action [22] {  }
+line: 1 col: 10 match: --aa--
+action [18] { System.out.println(yytext()); return 1; }
+aa
+1
+line: 1 col: 12 match: --a--
+action [22] {  }
+line: 1 col: 13 match: --ab--
+action [20] { System.out.println(yytext()); return 4; }
+ab
+4
+line: 1 col: 15 match: --c--
+action [22] {  }
+line: 1 col: 16 match: --d--
+action [22] {  }
+line: 1 col: 17 match: --e--
+action [22] {  }
+line: 1 col: 18 match: --c--
+action [22] {  }
+line: 1 col: 19 match: --d--
+action [22] {  }
+line: 1 col: 20 match: --e--
+action [22] {  }
+line: 1 col: 21 match: --ab--
+action [16] { System.out.println(yytext()); return 2; }
+ab
+2
+line: 1 col: 23 match: --c--
+action [22] {  }
+line: 1 col: 24 match: --d--
+action [22] {  }
+line: 1 col: 25 match: --e--
+action [22] {  }
+line: 1 col: 26 match: --
+--
+action [22] {  }
+-1

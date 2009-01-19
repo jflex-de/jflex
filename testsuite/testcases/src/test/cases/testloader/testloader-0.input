@@ -1,0 +1,7 @@
+name: testloader
+
+description:
+The parser that loads jflex regression tests. Has some lookahead, lex states etc in it.
+
+jflex: -q
+

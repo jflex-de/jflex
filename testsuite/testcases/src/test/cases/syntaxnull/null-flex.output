@@ -1,0 +1,7 @@
+Reading "src/test/cases/syntaxnull/null.flex"
+
+Error in file "src/test/cases/syntaxnull/null.flex" (line 9): 
+Syntax error.
+}
+^
+1 error, 0 warnings.

@@ -19,6 +19,7 @@
       (http://jira.codehaus.org/browse/MNG-3814)
     -->
     <module>maven-jflex-plugin</module>
+    <module>testsuite</module>
   </modules>
   <mailingLists>
     <mailingList>
