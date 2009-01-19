@@ -66,7 +66,7 @@ import java.util.HashMap;
   int bufferSize = 16384;
 
   File file;
-  Stack files = new Stack();
+  Stack<File> files = new Stack<File>f();
 
   StringBuilder userCode   = new StringBuilder();
 
