@@ -4,7 +4,14 @@
 			<item name="Summary" href="project-summary.html" />
 			<item name="Usage" href="usage.html" />
 			<item name="Goals" href="plugin-info.html" />
+			<item name="Changelog" href="changelog.html"/>
 		</menu>
 		<menu ref="reports" />
 	</body>
+	<poweredBy>  
+       <logo name="Hosted on SourceForge.net" href="http://sourceforge.net/projects/jflex/"  
+             img="http://sflogo.sourceforge.net/sflogo.php?group_id=14929&amp;type=1" />  
+       <logo name="Build with Maven 2" href="http://maven.apache.org/" 
+             img="images/logos/maven-feather.png" />  
+     </poweredBy>  
 </project>
