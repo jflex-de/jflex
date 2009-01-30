@@ -1,0 +1,171 @@
+ ------
+ Usage 
+ ------
+ Régis Décamps <decamps@users.sf.net>
+ ------
+ October 28, 2007
+ ------
+ 
+
+About this document
+	
+	This document describes how to use maven-jflex-plugin, 
+	a Maven 2 plugin to call JFlex.
+	
+	JFlex is a parser generator. Given a grammar,  JFlex generate
+	Java (TM) code to parse documents that follow this grammar.
+	This document isn't intended to be a tutorial on the use of JFlex,
+	you should consult the {{{http://www.jflex.de/manual.html}JFlex user manual}}	
+
+Repository declaration
+
+    The maven-jflex-plugin is not published on repo1.maven.org.
+    
+    You need to define the JFlex repository,
+    either in {{{http://maven.apache.org/pom.html#Repositories}your POM}}
+    or in {{{http://maven.apache.org/settings.html#Repositories}your settings.xml}}
+    
++-------------
+   <pluginRepositories>
+    <pluginRepository>
+      <id>jflex</id>
+      <name>JFlex repository</name>
+      <url>http://jflex.sourceforge.net/repo/</url>
+    </pluginRepository>
+  </pluginRepositories>
++-------------
+
+Usage
+	
+ 
+* Overview
+
+	This plugin reads JFlex grammar definition files (<<<.jflex>>>) and
+	generates a corresponding Java parser 
+	(in <<<target/generated-source/jflex>>> by default).
+
+
+* Minimal configuration		
+
+
+	This configuration generates java code of a parser
+	for all grammar files (<<<*.jflex>>>, <<<*.jlex>>>, <<<*.lex>>>, <<<*.flex>>>) 
+	found in  <<<src/main/jflex/>>>
+	and its sub-directories.
+	The name and package of the generated Java source code are the ones defined in the grammar.
+	The generated Java source code is placed in <<<target/generated-source/jflex>>>,
+	in sub-directories following the Java convention on package names.
+	
+	
+	<<pom.xml>>
+	
++-------------------
+<project>
+  <!-- ... -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <!-- ... -->
+  </build>
+  <!-- ... -->
+</project>
++-------------------
+
+* More complex configuration
+
+	This generates the source for two grammars 
+	(<<<src/main/lex/preprocessor.jflex>>> and 
+	 <<</pub/postrocessor.jflex>>>) as well as all grammar files found in 
+	 <<<src/main/jflex>>> (and it sub-directories).
+	 The generated Java code is placed into <<<src/main/java>>> instead of
+	 <<</target/generated-sources/jflex>>>.
+
+  in <<pom.xml>>
+
++-------------------  
+      <plugin>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>src/main/java</outputDirectory>
+              <lexDefintions>
+                <lexDefinition>src/main/jflex</lexDefintion>
+                <lexDefinition>src/main/lex/preprocessor.jflex</lexFile>
+                <lexDefinition>/pub/postrocessor.jflex</lexFile>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
++-------------------
+	
+	More documentation on the configuration options can be found 
+	in the description for the
+	{{{generate-mojo.html}generate goal}}.
+	
+* Even more complex configuration, using several executions
+
+	This generates the source for 
+	
+	* all files found in 
+	<<<src/main/lex/>>>, using strict JLex compatibility.
+	
+	* and all files found in 
+	 <<</src/main/jflx>>>, in verbose mode.
+
+  in <<pom.xml>>
+
++-------------------  
+      <plugin>
+        <groupId>de.jflex.maven.plugin</groupId>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>0.2</version>
+        <executions>
+          <execution>
+            <id>strict jlex</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <lexDefintions>
+                <lexDefinition>src/main/lex</lexDefintion>
+              </lexDefinitions>
+              <jlex>true</jlex>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jflex</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <lexDefintions>
+                <lexDefinition>src/main/jflex</lexDefintion>
+              </lexDefinitions>
+              <verbose>true</verbose>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
++-------------------
+  
+  More information in
+  the {{{http://maven.apache.org/pom.html#Plugins}POM reference guide on plugins}}.
