@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 
+import org.codehaus.mojo.jflex.ClassInfo;
+
 public class LexSimpleAnalyzer {
 	public static final String DEFAULT_NAME = "Yylex";
 
@@ -26,7 +28,6 @@ public class LexSimpleAnalyzer {
 	 */
 	protected static ClassInfo guessPackageAndClass(File lexFile)
 			throws FileNotFoundException, IOException {
-		assert lexFile.isAbsolute() : lexFile;
 
 		LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));
 

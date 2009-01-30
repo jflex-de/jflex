@@ -32,7 +32,6 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
 	/**
 	 * @see org.apache.maven.plugin.testing.AbstractMojoTestCase#setUp()
 	 */
-	@Override
 	protected void setUp() throws Exception {
 		// required for mojo lookups to work
 		super.setUp();
@@ -41,7 +40,6 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
 	/**
 	 * @see org.codehaus.plexus.PlexusTestCase#tearDown()
 	 */
-	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
