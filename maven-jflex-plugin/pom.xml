@@ -226,14 +226,14 @@
 					<id>sourceforge</id>
 					<name>JFlex sourceforge repository</name>
 					<url>
-						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/m2repo
+						scp://web.sourceforge.net/home/groups/j/jf/jflex/htdocs/m2repo
 					</url>
 				</repository>
 				<site>
 					<id>sourceforge</id>
 					<name>JFlex sourceforge site</name>
 					<url>
-						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
+						scp://web.sourceforge.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
 					</url>
 				</site>
 			</distributionManagement>
