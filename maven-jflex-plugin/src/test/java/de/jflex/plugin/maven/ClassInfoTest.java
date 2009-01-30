@@ -1,8 +1,6 @@
-package org.codehaus.mojo.jflex;
+package de.jflex.plugin.maven;
 
 import java.io.File;
-
-import org.codehaus.mojo.jflex.ClassInfo;
 
 import junit.framework.TestCase;
 

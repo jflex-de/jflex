@@ -4,6 +4,10 @@
 
 Latest versions
 
+* Version 1.5
+
+  * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven
+  
 * Version 1.0
 
   * Java 5 bytecode
