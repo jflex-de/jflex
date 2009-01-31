@@ -35,7 +35,7 @@ public class TestLexer {
   long longHex = 0xFFFFl;
   int intOct = 0377;
   long longOc = 007l;
-   
+  int smallest = -2147483648;   
 
   public static void main(String argv[]) {
 
