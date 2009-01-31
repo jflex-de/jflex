@@ -147,7 +147,7 @@ non terminal type_declaration;
 // 19.7) Productions used only in the LALR(1) grammar
 non terminal modifiers_opt, modifiers, modifier;
 // 19.8.1) Class Declaration
-non terminal class_declaration, super, super_opt;
+non terminal class_declaration, super_cl, super_opt;
 non terminal interfaces, interfaces_opt, interface_type_list;
 non terminal class_body;
 non terminal class_body_declarations, class_body_declarations_opt;
@@ -346,10 +346,10 @@ modifier ::=	PUBLIC | PROTECTED | PRIVATE
 class_declaration ::= 
 	modifiers_opt CLASS IDENTIFIER super_opt interfaces_opt class_body
 	;
-super ::=	EXTENDS class_type
+super_cl ::=	EXTENDS class_type
 	;
 super_opt ::=	
-	|	super
+	|	super_cl
 	;
 interfaces ::=	IMPLEMENTS interface_type_list
 	;
