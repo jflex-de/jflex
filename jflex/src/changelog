@@ -1,3 +1,9 @@
+* JFlex 1.4.3 (Jan 31, 2009)
+- fixed bug #2018299 (lookahead syntax error)
+- fixed bug #2010261 (min_int in Java example scanner)
+- fixed bug #2007221 (zzEOFDone not reset in yyreset(Reader))
+- fixed bug #1999301 (%type and %int at the same time should produce error msg)
+
 * JFlex 1.4.2 (May 27, 2008)
 - implemented feature request #1212181:
   Now supports generics syntax for %type, %extends, etc
