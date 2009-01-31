@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.2                                                             *
- * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.3                                                             *
+ * Copyright (C) 1998-2009  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -31,12 +31,12 @@ import JFlex.gui.MainFrame;
  * starting up the GUI if necessary, etc. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.2, $Revision$, $Date$
+ * @version JFlex 1.4.3, $Revision$, $Date$
  */
 public class Main {
   
   /** JFlex version */
-  final public static String version = "1.4.2"; //$NON-NLS-1$
+  final public static String version = "1.4.3"; //$NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
