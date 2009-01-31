@@ -145,4 +145,5 @@ public class ErrorMessages {
   public static ErrorMessages EMPTY_MATCH = new ErrorMessages("EMPTY_MATCH");
   public static ErrorMessages CTOR_ARG = new ErrorMessages("CTOR_ARG");
   public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
+  public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");
 }

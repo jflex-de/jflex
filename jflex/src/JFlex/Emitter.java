@@ -1292,8 +1292,13 @@ final public class Emitter {
     }
     else if ( scanner.eofVal != null ) 
       println("              { " + scanner.eofVal + " }");
-    else if ( scanner.isInteger ) 
+    else if ( scanner.isInteger ) {
+      if ( scanner.tokenType != null ) {
+        Out.error(ErrorMessages.INT_AND_TYPE);
+        throw new GeneratorException();
+      }
       println("            return YYEOF;");
+    }
     else
       println("            return null;");
 
