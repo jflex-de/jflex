@@ -9,6 +9,8 @@
   This document describes how the release manager of the JFlex team can release 
   the project on the central repository of Maven.
 
+  (also see script mvn-deply in trunk)
+
   The central repository is synchronized with the repository at 
   http://jflex.sf.net/m2repo/
 
