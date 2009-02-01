@@ -94,7 +94,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>1.5.0-SNAPSHOT</version>
+        <version>1.4.3                           </version>
         <executions>
           <execution>
             <goals>
