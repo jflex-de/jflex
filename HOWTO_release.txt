@@ -1,0 +1,68 @@
+ ------
+ How to deploy JFlex into the central repository
+ ------
+ Régis Décamps
+ ------
+ 27th nov 2008
+ ------
+
+  This document describes how the release manager of the JFlex team can release 
+  the project on the central repository of Maven.
+
+  The central repository is synchronized with the repository at 
+  http://jflex.sf.net/m2repo/
+
+  In your ~/.m2/settings.xml, create a 'server' on this model 
+  (take care, the name of the server has changed from "sourceforge_jflex" 
+  or "repo_jflex_sf" to "sourceforge"):
+
++-----------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/POM/4.0.0">
+<!-- ... -->
+    <servers>
+        <server>
+            <id>sourceforge</id>
+            <username>decamps</username>
+            <!-- full qualified path must be provided -->
+            <privateKey>/home/regis/.ssh/id_rsa</privateKey>
+            <filePermissions>774</filePermissions>
+            <directoryPermissions>775</directoryPermissions>
+        </server>
+    </servers>
+<!-- ... -->
+</settings>
+
++-----------------------------------------------------------
+
+How to release Jflex 1.4.2 (or 1.4.1 similarly)
+
+  # check out source code
+
+  svn co http://jflex.svn.sourceforge.net/viewvc/jflex/tags/release_1_4_2/
+
+  # compile Jflex (or grab an archive and dropit in lib/JFlex.jar)
+
+  cd release_1_4_2/jflex/src
+
+  ant gettools jar
+
+  cd ..
+
+  # deploy JFlex on Maven repository (and install locally in order to compile plugin)
+
+  mvn deploy:deploy-file -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-1.4.2.pom -Durl=scp://web.sourceforge.net/home/groups/j/jf/jflex/htdocs/m2repo  -DgroupId=de.jflex -DartifactId=jflex -Dversion=1.4.2 -Dpackaging=jar -DperformRelease=true
+
+  mvn install:install-file  -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-1.4.2.pom -DgroupId=de.jflex -DartifactId=jflex -Dversion=1.4.2 -Dpackaging=jar -DperformRelease=true
+
+
+  # Deploy maven-jflex-plugin
+
+  cd ../maven-jflex-plugin-1.0  
+
+  mvn -Prelease install deploy site
+
+How to release JFlex 1.4 or earlier
+
+  This is not possible at the moment (and won't probably be ever implemented)
+
