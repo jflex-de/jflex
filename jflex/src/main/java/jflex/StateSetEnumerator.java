@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.2                                                             *
- * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.3                                                             *
+ * Copyright (C) 1998-2009  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -23,7 +23,7 @@ package jflex;
  * Enumerates the states of a StateSet.
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.2, $Revision$, $Date$
+ * @version JFlex 1.4.3, $Revision$, $Date$
  */
 final public class StateSetEnumerator {
 

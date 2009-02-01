@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 2004       Gerwin Klein <lsf@jflex.de>                    *
+ * Copyright (C) 2004-2009  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -35,7 +35,7 @@ public class TestLexer {
   long longHex = 0xFFFFl;
   int intOct = 0377;
   long longOc = 007l;
-   
+  int smallest = -2147483648;   
 
   public static void main(String argv[]) {
 

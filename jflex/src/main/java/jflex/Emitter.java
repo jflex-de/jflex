@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.2                                                             *
- * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.4.3                                                             *
+ * Copyright (C) 1998-2009  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * This program is free software; you can redistribute it and/or modify    *
@@ -31,7 +31,7 @@ import java.text.*;
  * Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.2, $Revision$, $Date$
+ * @version JFlex 1.4.3, $Revision$, $Date$
  */
 final public class Emitter {
     
@@ -1138,12 +1138,14 @@ final public class Emitter {
       int newVal = 0; 
       if ( dfa.isFinal[i] ) {
         Action action = dfa.action[i];
-        Integer stored = actionTable.get(action);
-        if ( stored == null ) { 
-          stored = lastAction++;
-          actionTable.put(action, stored);
+        if (action.isEmittable()) {
+          Integer stored = actionTable.get(action);
+          if ( stored == null ) { 
+            stored = lastAction++;
+            actionTable.put(action, stored);
+          }
+          newVal = stored;
         }
-        newVal = stored;
       }
       
       if (value == newVal) {
@@ -1284,8 +1286,13 @@ final public class Emitter {
     }
     else if ( scanner.eofVal != null ) 
       println("              { " + scanner.eofVal + " }");
-    else if ( scanner.isInteger ) 
+    else if ( scanner.isInteger ) {
+      if ( scanner.tokenType != null ) {
+        Out.error(ErrorMessages.INT_AND_TYPE);
+        throw new GeneratorException();
+      }
       println("            return YYEOF;");
+    }
     else
       println("            return null;");
 

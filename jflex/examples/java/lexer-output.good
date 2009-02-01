@@ -95,6 +95,16 @@ line:37 col:17 --007l--INTEGER_LITERAL--
 token: line 37, column 17, sym: 93, value: '7'
 line:37 col:21 --;--SEMICOLON--
 token: line 37, column 21, sym: 13
+line:38 col:3 --int--INT--
+token: line 38, column 3, sym: 5
+line:38 col:7 --smallest--IDENTIFIER--
+token: line 38, column 7, sym: 98, value: 'smallest'
+line:38 col:16 --=--EQ--
+token: line 38, column 16, sym: 18
+line:38 col:18 ---2147483648--INTEGER_LITERAL--
+token: line 38, column 18, sym: 93, value: '-2147483648'
+line:38 col:29 --;--SEMICOLON--
+token: line 38, column 29, sym: 13
 line:40 col:3 --public--PUBLIC--
 token: line 40, column 3, sym: 24
 line:40 col:10 --static--STATIC--
