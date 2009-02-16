@@ -108,7 +108,7 @@ Usage
 	<<<src/main/lex/>>>, using strict JLex compatibility.
 	
 	* and all files found in 
-	 <<</src/main/jflx>>>, in verbose mode.
+	 <<</src/main/jflex>>>, in verbose mode.
 
   in <<pom.xml>>
 
