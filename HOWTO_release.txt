@@ -3,7 +3,7 @@
  ------
  Régis Décamps
  ------
- 27th nov 2008
+ 16th feb 2009
  ------
 
   This document describes how the release manager of the JFlex team can release 
@@ -37,6 +37,10 @@
 
 +-----------------------------------------------------------
 
+  Optionnaly, you can create a SSH key and set sourceforge to use it
+  on https://sourceforge.net/account/editsshkeys.php
+
+
 How to release Jflex 1.4.2 (or 1.4.1 similarly)
 
   # check out source code
@@ -50,6 +54,10 @@ How to release Jflex 1.4.2 (or 1.4.1 similarly)
   ant gettools jar
 
   cd ..
+
+  # create a shell on sourceforge
+
+  ssh -t decamps,jflex@shell.sf.net create
 
   # deploy JFlex on Maven repository (and install locally in order to compile plugin)
 
