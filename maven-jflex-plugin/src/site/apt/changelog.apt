@@ -2,20 +2,37 @@
  Changelog
  ---------
 
-Latest versions
+Latest version
 
-* Version 1.5
+* Version 1.5.0
+
+  * Relies on JFlex 1.5.0
+ 
+  * Requires Java 5
 
   * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven
-  
-* Version 1.0
 
-  * Java 5 bytecode
+  
+Recent versions
+
+* Version 1.4.3-r1
+
+  * Java 1.3 bytecode
+
+  * Relies no JFlex 1.4.3
+
+* Version 1.4.2-r1
+
+  * Java 1.3 bytecode
+
+  * Relies no JFlex 1.4.2
   
 
 * Version 0.3
 
   * Java 1.4 bytecode
+
+  * relies on JFlex 1.4.1
   
   * new option staleMillis
   
@@ -50,4 +67,4 @@ Alpha versions
 
   * Java 5 bytecode
   
-  * Generates Java code from lex files
+  * Generates Java code from lex files, using JFlex 1.4.1
