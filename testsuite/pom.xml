@@ -11,46 +11,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>jflex-testsuite-maven-plugin</module>
-<!--
-    <module>testcases/testloader</module>
-    <module>testcases/apiprivate</module>
-    <module>testcases/arr-return</module>
-    <module>testcases/bol</module>
-    <module>testcases/buffer</module>
-    <module>testcases/caseless-jflex</module>
-    <module>testcases/caseless-jlex</module>
-    <module>testcases/ccl-16</module>
-    <module>testcases/ccl-bug</module>
-    <module>testcases/ccl-esc</module>
-    <module>testcases/ccl-pre</module>
-    <module>testcases/count</module>
-    <module>testcases/ctorarg</module>
-    <module>testcases/ctorarg-f</module>
-    <module>testcases/cupsym</module>
-    <module>testcases/eof-min</module>
-    <module>testcases/eofclose</module>
-    <module>testcases/eofclose2</module>
-    <module>testcases/eol-comment</module>
-    <module>testcases/eol-look</module>
-    <module>testcases/fixed-look</module>
-    <module>testcases/generics</module>
-    <module>testcases/genlook</module>
-    <module>testcases/include</module>
-    <module>testcases/initthrow-eol</module>
-    <module>testcases/java</module>
-    <module>testcases/line-cont</module>
-    <module>testcases/look</module>
-    <module>testcases/look-macro</module>
-    <module>testcases/macro-complement</module>
-    <module>testcases/macro-exp</module>
-    <module>testcases/macro-exp2</module>
-    <module>testcases/manual-ex</module>
-    <module>testcases/nevermatch</module>
-    <module>testcases/semcheck</module>
-    <module>testcases/simple</module>
-    <module>testcases/switch</module>
-    <module>testcases/syntaxnull</module>
-    <module>testcases/table</module>
--->
+    <module>testcases</module>
   </modules>
 </project>
