@@ -20,6 +20,12 @@ public class TestCase {
   /** lines with expected differences in jflex output */
   private List<Integer> jflexDiff;
   
+  /** Test input file encoding -- defaults to UTF-8 */
+  private String inputFileEncoding = "UTF-8";
+  
+  /** Test output file encoding -- defaults to UTF-8 */
+  private String outputFileEncoding = "UTF-8";
+
   /** misc. */
   private String className;
   private String testName;
@@ -51,6 +57,8 @@ public class TestCase {
   public void setJflexCmdln(List<String> v) { jflexCmdln = v; }
   public void setJavacCmdln(List<String> v) { javacCmdln = v; }
   public void setInputOutput(List<InputOutput> v) { inputOutput = v; }
+  public void setInputFileEncoding(String e) { inputFileEncoding = e; }
+  public void setOutputFileEncoding(String e) { outputFileEncoding = e; }
   
   public TestCase() {
     setDefaults();
@@ -151,7 +159,7 @@ public class TestCase {
     return !(inputOutput.isEmpty());
   }
   
-  public void runNext() throws TestFailException {
+  public void runNext() throws TestFailException, UnsupportedEncodingException {
     // Get first file and remove it from vector
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in	 
@@ -161,7 +169,7 @@ public class TestCase {
     // Excute Main on that input
     classExecResult = Exec.execClass
       (className, testPath.toString(), new ArrayList<String>(), param, 
-       Main.jflexTestVersion);
+       Main.jflexTestVersion, outputFileEncoding);
     if (Main.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }
@@ -174,10 +182,14 @@ public class TestCase {
       String diff;
       try {
         diff = check.diff(jflexDiff, new StringReader(classExecResult.getOutput()), 
-                          new FileReader(expected));
+                          new InputStreamReader(new FileInputStream(expected), 
+                                                outputFileEncoding));
       }
       catch (FileNotFoundException e) {
         System.out.println("Error opening file " + expected);
+        throw new TestFailException();
+      } catch (UnsupportedEncodingException e) {
+        System.out.println("Unsupported encoding '" + outputFileEncoding + "'");
         throw new TestFailException();
       }
       if (diff != null) {

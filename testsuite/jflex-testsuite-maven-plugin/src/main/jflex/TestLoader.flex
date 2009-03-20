@@ -46,7 +46,10 @@ NL = \r | \n | \r\n
                       }
 
   "javac-fail:" " "+ "true"  { test.setExpectJavacFail(true); }
-  "javac-fail:" " "+ "false" { test.setExpectJavacFail(false); }  
+  "javac-fail:" " "+ "false" { test.setExpectJavacFail(false); }
+    
+  "input-file-encoding:" [^\r\n]* { test.setInputFileEncoding(yytext().substring(20).trim()); }
+  "output-file-encoding:" [^\r\n]* { test.setOutputFileEncoding(yytext().substring(21).trim()); }
 
   {NL} | [ \t]+       { /* ignore newline and whitespace */ }
   "#" [^\r\n]*        { /* ignore comments */ }

@@ -108,7 +108,9 @@ public class Exec {
    * @param path  the directory in which to search for the class
    */
   public static TestResult execClass
-    (String theClass, String path, List<String> cmdline, List<String> files, String jflexTestVersion) {
+    (String theClass, String path, List<String> cmdline, List<String> files, 
+     String jflexTestVersion, String outputFileEncoding)
+    throws UnsupportedEncodingException {
     
     String [] cmd = toArray(cmdline, files);
     Class c;    
@@ -166,7 +168,7 @@ public class Exec {
 
     // System.out.println("finished exec class "+theClass);
 
-    return new TestResult(out.toString(), success);
+    return new TestResult(out.toString(outputFileEncoding), success);
   }
 
 
@@ -179,9 +181,14 @@ public class Exec {
 
     System.out.println("jflex:\n" + execJFlex(new ArrayList<String>(), files));
 
-    System.out.println
+    try {
+      System.out.println
       ("class:\n" 
-       + execClass("jflextest.Main", ".", new ArrayList<String>(), files, 
-                   "1.5.0-SNAPSHOT"));
+         + execClass("jflextest.Main", ".", new ArrayList<String>(), files, 
+                     "1.5.0-SNAPSHOT", "UTF-8"));
+    } catch (UnsupportedEncodingException e) {
+      System.out.println("UTF-8 is not a supported encoding.");
+      System.exit(1);
+    }
   }
 }
