@@ -34,7 +34,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
   private boolean verbose;
 
 	/**
-	 * Comma-separated list of names of test cases to run.
+	 * (Comma-separated list of) name(s) of test case(s) to run.
    * 
 	 * By default, all test cases in src/test/cases/ will be run.
 	 * 
@@ -56,10 +56,12 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     boolean success = true;
     try {
       System.setOut(new PrintStream(System.out,true));
+      List<File> files = new ArrayList<File>();
       getLog().info("JFlexTest Version: " + Main.version);
       getLog().info("Testing version: " + Exec.getJFlexVersion());    
-
-      List<File> files = new ArrayList<File>();
+      getLog().info("Test directory: " + testDirectory);
+      getLog().info("Test case(s): " 
+                    + (null == testcases ? "All" : testcases));
 
       if (testcases != null && testcases.length() > 0) {
         for (String testCase : testcases.split("\\s*,\\s*")) {
