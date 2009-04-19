@@ -11,6 +11,9 @@
   <packaging>pom</packaging>
   <modules>
     <module>jflex-testsuite-maven-plugin</module>
-    <module>testcases</module>
+    <!-- The testcases module can only be successfully run from its own   -->
+    <!-- directory; otherwise, relative path specifications don't resolve -->
+    <!-- properly.                                                        -->
+    <!-- <module>testcases</module> -->
   </modules>
 </project>
