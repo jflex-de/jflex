@@ -1,0 +1,7 @@
+name: unicode-blocks-f
+
+description: 
+Tests that a nonexistent Unicode block property character class
+triggers an error.
+
+jflex-fail: true
