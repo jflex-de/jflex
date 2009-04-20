@@ -150,6 +150,26 @@ public class TestCase {
         System.out.println("Scanner generation failed!");
         System.out.println("JFlex output was:\n"+jflexResult.getOutput());
         throw new TestFailException();
+      } else {
+        // check JFlex output conformance
+        File expected = new File(testPath, testName+"-flex.output");
+
+        if (expected.exists()) {
+          DiffStream check = new DiffStream();        
+          String diff;
+          try {
+            diff = check.diff(jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
+          }
+          catch (FileNotFoundException e) {
+            System.out.println("Error opening file "+expected);
+            throw new TestFailException();
+          }
+          if (diff != null) {
+            System.out.println("Test failed, unexpected jflex output: "+diff);
+            System.out.println("JFlex output: "+jflexResult.getOutput());
+            throw new TestFailException();
+          }
+        }
       }
     }
   }

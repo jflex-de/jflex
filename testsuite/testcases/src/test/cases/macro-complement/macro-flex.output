@@ -1,3 +1,2 @@
 
-Found no definition for {r} while expanding {s}
-1 error, 0 warnings.
+Found no definition for macro "r" while expanding "s"
