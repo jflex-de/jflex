@@ -1,0 +1,7 @@
+name: UnicodeBlocks_5_0
+
+description:
+Tests the Unicode block property character class syntax
+for all blocks supported in Unicode 5.0
+
+jflex: -q

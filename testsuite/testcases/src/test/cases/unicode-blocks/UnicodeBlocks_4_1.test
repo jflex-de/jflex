@@ -1,0 +1,7 @@
+name: UnicodeBlocks_4_1
+
+description: 
+Tests the Unicode block property character class syntax
+for all blocks supported in Unicode 4.1
+
+jflex: -q
