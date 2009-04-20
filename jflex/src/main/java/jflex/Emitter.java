@@ -325,8 +325,9 @@ final public class Emitter {
     println("      for (int i = 0; i < argv.length; i++) {");
     println("        "+className+" scanner = null;");
     println("        try {");
-    println("          scanner = new "+className+"( new java.io.FileReader(argv[i]) );");
-
+    println("          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);");
+    println("          java.io.Reader reader = new java.io.InputStreamReader(stream, \"UTF-8\");");
+    println("          scanner = new "+className+"(reader);");
     if ( scanner.standalone ) {      
       println("          while ( !scanner.zzAtEOF ) scanner."+scanner.functionName+"();");
     }
