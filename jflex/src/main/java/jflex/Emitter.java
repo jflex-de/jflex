@@ -319,14 +319,26 @@ final public class Emitter {
     
     println("  public static void main(String argv[]) {");
     println("    if (argv.length == 0) {");
-    println("      System.out.println(\"Usage : java "+className+" <inputfile>\");");
+    println("      System.out.println(\"Usage : java "+className+" [ --encoding <name> ] <inputfile(s)>\");");
     println("    }");
     println("    else {");
-    println("      for (int i = 0; i < argv.length; i++) {");
+    println("      int firstFilePos = 0;");
+    println("      String encodingName = \"UTF-8\";");
+    println("      if (argv[0].equals(\"--encoding\")) {");
+    println("        firstFilePos = 2;");
+    println("        encodingName = argv[1];");
+    println("        try {");
+    println("          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? ");
+    println("        } catch (Exception e) {");
+    println("          System.out.println(\"Invalid encoding '\" + encodingName + \"'\");");
+    println("          return;");
+    println("        }");
+    println("      }");
+    println("      for (int i = firstFilePos; i < argv.length; i++) {");
     println("        "+className+" scanner = null;");
     println("        try {");
     println("          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);");
-    println("          java.io.Reader reader = new java.io.InputStreamReader(stream, \"UTF-8\");");
+    println("          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);");
     println("          scanner = new "+className+"(reader);");
     if ( scanner.standalone ) {      
       println("          while ( !scanner.zzAtEOF ) scanner."+scanner.functionName+"();");
