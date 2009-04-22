@@ -1,0 +1,7 @@
+name: UnicodeBlockAliases_5_1
+
+description: 
+Tests the Unicode block property character class syntax
+for all block aliases supported in Unicode 5.1
+
+jflex: -q
