@@ -5,3 +5,5 @@ Tests the inverse of the Unicode block property character class syntax
 for one block.
 
 jflex: -q
+
+input-file-encoding: UTF-8

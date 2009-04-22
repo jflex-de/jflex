@@ -183,12 +183,15 @@ public class TestCase {
     // Get first file and remove it from vector
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in	 
-    List<String> param = new ArrayList<String>();
-    param.add(current.getName() + ".input");
+    List<String> inputFiles = new ArrayList<String>();
+    inputFiles.add(current.getName() + ".input");
 
     // Excute Main on that input
+    List<String> cmdLine = new ArrayList<String>();
+    cmdLine.add("--encoding");
+    cmdLine.add(inputFileEncoding);
     classExecResult = Exec.execClass
-      (className, testPath.toString(), new ArrayList<String>(), param, 
+      (className, testPath.toString(), cmdLine, inputFiles, 
        Main.jflexTestVersion, outputFileEncoding);
     if (Main.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
