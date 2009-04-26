@@ -364,7 +364,8 @@ final public class NFA {
    * The epsilon closure for set a is the set of states that can be reached 
    * by epsilon edges from a.
    *
-   * @param set the set of states to calculate the epsilon closure for
+   * @param startState the start state for the set of states to calculate
+   *  the epsilon closure for
    *
    * @return the epsilon closure of the specified set of states 
    *         in this NFA
