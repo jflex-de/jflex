@@ -106,6 +106,7 @@ import jflex.unicode.UnicodeProperties;
   boolean caseless;
   boolean inclusive_states;
   boolean eofclose;
+  boolean isASCII;
 
   String isImplementing;
   String isExtending;
@@ -187,6 +188,17 @@ import jflex.unicode.UnicodeProperties;
     if (b == null) return a.toString();
 
     return a.toString()+", "+b.toString();
+  }
+  
+  private void populateDefaultVersionUnicodeProperties() {
+    try {
+      unicodeProperties = new UnicodeProperties();
+      IntCharSet.setUnicodeProperties(unicodeProperties);
+      LexParse.setUnicodeProperties(unicodeProperties);
+    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+      throw new ScannerException
+        (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+    }
   }
 %}
 
@@ -327,28 +339,23 @@ DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
   "%intwrap"                  { isIntWrap = true;  }
   "%yyeof"                    { isYYEOF = true;  }
   "%notunix"                  { notUnix = true;  }
-  "%7bit"                     { return symbol(ASCII); }
+  "%7bit"                     { isASCII = true; return symbol(ASCII); }
   "%full"|"%8bit"             { return symbol(FULL); }
-  "%16bit"                    { try {
-                                  unicodeProperties = new UnicodeProperties();
-                                  IntCharSet.setUnicodeProperties(unicodeProperties);
-                                  LexParse.setUnicodeProperties(unicodeProperties);
-                                } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-                                  throw new ScannerException
-                                    (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
-                                }
+  "%16bit"                    { populateDefaultVersionUnicodeProperties();
                                 return symbol(UNICODE);
                               }
   "%unicode"({WSP}+{DottedVersion})? { String v = yytext().substring(8).trim();
-                                       try {
-                                         unicodeProperties = v.length() > 0
-                                                           ? new UnicodeProperties(v)
-                                                           : new UnicodeProperties();
-                                         IntCharSet.setUnicodeProperties(unicodeProperties);
-                                         LexParse.setUnicodeProperties(unicodeProperties);
-                                       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-                                         throw new ScannerException
-                                           (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+                                       if (v.length() == 0) {
+                                         populateDefaultVersionUnicodeProperties();
+                                       } else {
+                                         try {
+                                           unicodeProperties = new UnicodeProperties(v);
+                                           IntCharSet.setUnicodeProperties(unicodeProperties);
+                                           LexParse.setUnicodeProperties(unicodeProperties);
+                                         } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+                                           throw new ScannerException
+                                             (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+                                         }
                                        }
                                        return symbol(UNICODE);
                                      }
@@ -395,7 +402,12 @@ DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
-  "="{WSP}*                   { yybegin(REGEXP); return symbol(EQUALS); }
+  "="{WSP}*                   { if (null == unicodeProperties && ! isASCII) {
+                                  populateDefaultVersionUnicodeProperties();
+                                }
+                                yybegin(REGEXP); 
+                                return symbol(EQUALS); 
+                              }
 
   "/*"                        { nextState = MACROS; yybegin(COMMENT); }
 
@@ -403,7 +415,13 @@ DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
 
   /* no {NL} at the end of this expression, because <REGEXPSTART>
      needs at least one {WSPNL} to start a regular expression! */
-  ^"%%" {NNL}*                { macroDefinition = false; yybegin(REGEXPSTART); return symbol(DELIMITER); }
+  ^"%%" {NNL}*                { if (null == unicodeProperties && ! isASCII) {
+                                  populateDefaultVersionUnicodeProperties();
+                                }
+                                macroDefinition = false; 
+                                yybegin(REGEXPSTART);
+                                return symbol(DELIMITER); 
+                              }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
