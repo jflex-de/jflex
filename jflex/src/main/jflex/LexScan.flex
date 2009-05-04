@@ -84,7 +84,7 @@ import jflex.unicode.UnicodeProperties;
   StringBuilder actionText = new StringBuilder();
   StringBuilder string     = new StringBuilder();
 
-  UnicodeProperties unicodeProperties;
+  private UnicodeProperties unicodeProperties;
 
   boolean charCount;
   boolean lineCount;
@@ -190,11 +190,13 @@ import jflex.unicode.UnicodeProperties;
     return a.toString()+", "+b.toString();
   }
   
+  public UnicodeProperties getUnicodeProperties() {
+    return unicodeProperties;
+  }
+  
   private void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
-      IntCharSet.setUnicodeProperties(unicodeProperties);
-      LexParse.setUnicodeProperties(unicodeProperties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       throw new ScannerException
         (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
@@ -350,8 +352,6 @@ DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
                                        } else {
                                          try {
                                            unicodeProperties = new UnicodeProperties(v);
-                                           IntCharSet.setUnicodeProperties(unicodeProperties);
-                                           LexParse.setUnicodeProperties(unicodeProperties);
                                          } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
                                            throw new ScannerException
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);

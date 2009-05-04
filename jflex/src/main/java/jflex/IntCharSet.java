@@ -36,8 +36,6 @@ public final class IntCharSet {
 
   private final static boolean DEBUG = false;
 
-  private static UnicodeProperties unicodeProperties;
-
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals;
   private int pos;
@@ -357,9 +355,11 @@ public final class IntCharSet {
    * and additionally all lower/upper/title case variants of the 
    * characters in this set.
    * 
+   * @param unicodeProperties The Unicode Properties to use when generating
+   *  caseless equivalence classes.
    * @return a caseless copy of this set
    */
-  public IntCharSet getCaseless() {
+  public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copy();
         
     int size = intervals.size();
@@ -402,9 +402,5 @@ public final class IntCharSet {
     for (Interval interval : intervals)
       result.intervals.add(interval.copy());
     return result;
-  }
-
-  static void setUnicodeProperties(UnicodeProperties unicodeProperties) {
-    IntCharSet.unicodeProperties = unicodeProperties;
   }
 }

@@ -20,8 +20,8 @@
 
 package jflex;
 
-import java.util.*;
-
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,6 +41,8 @@ public class CharClasses {
 
   /** the largest character actually used in a specification */
   private char maxCharUsed;
+  
+  private LexScan scanner;
 
   /**
    * Constructs a new CharClass object that provides space for 
@@ -52,13 +54,15 @@ public class CharClasses {
    *                    considered. (127 for 7bit Lexers, 
    *                    255 for 8bit Lexers and 0xFFFF
    *                    for Unicode Lexers).
+   * @param scanner     the scanner containing the UnicodeProperties instance to
+   *                    from which caseless partitions are obtained. 
    */
-  public CharClasses(int maxCharCode) {
+  public CharClasses(int maxCharCode, LexScan scanner) {
     if (maxCharCode < 0 || maxCharCode > 0xFFFF) 
       throw new IllegalArgumentException();
 
     maxCharUsed = (char) maxCharCode;
-
+    this.scanner = scanner;
     classes = new ArrayList<IntCharSet>();
     classes.add(new IntCharSet(new Interval((char) 0, maxChar)));
   }
@@ -106,7 +110,7 @@ public class CharClasses {
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
   public void makeClass(IntCharSet set, boolean caseless) {
-    if (caseless) set = set.getCaseless();
+    if (caseless) set = set.getCaseless(scanner.getUnicodeProperties());
 
     if ( DEBUG ) {
       Out.dump("makeClass("+set+")");

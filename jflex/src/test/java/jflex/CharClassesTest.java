@@ -94,10 +94,12 @@ public class CharClassesTest extends TestCase {
   }
 
   public void testCaseless() {
+    UnicodeProperties unicodeProperties;
     try {
-      IntCharSet.setUnicodeProperties(new UnicodeProperties("4.0"));
+      unicodeProperties = new UnicodeProperties("4.0");
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       assertTrue("Unsupported default Unicode version: " + e, false);
+      return;
     }
 
     IntCharSet set = new IntCharSet(new Interval('a','c'));
@@ -113,6 +115,6 @@ public class CharClassesTest extends TestCase {
     // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B
     // 212A;KELVIN SIGN;Lu;0;L;004B;;;;N;DEGREES KELVIN;;;006B;
     assertEquals("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }",
-                 set.getCaseless().toString());
+                 set.getCaseless(unicodeProperties).toString());
   }
 }
