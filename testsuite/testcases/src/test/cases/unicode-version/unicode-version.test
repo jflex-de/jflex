@@ -1,6 +1,0 @@
-name: unicode-version
-
-description:
-Simple scanner; specifies unicode version with %unicode directive
-
-jflex: -q
