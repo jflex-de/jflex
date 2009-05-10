@@ -54,8 +54,8 @@ public class CharClasses {
    *                    considered. (127 for 7bit Lexers, 
    *                    255 for 8bit Lexers and 0xFFFF
    *                    for Unicode Lexers).
-   * @param scanner     the scanner containing the UnicodeProperties instance to
-   *                    from which caseless partitions are obtained. 
+   * @param scanner     the scanner containing the UnicodeProperties instance
+   *                    from which caseless partitions are obtained.
    */
   public CharClasses(int maxCharCode, LexScan scanner) {
     if (maxCharCode < 0 || maxCharCode > 0xFFFF) 
