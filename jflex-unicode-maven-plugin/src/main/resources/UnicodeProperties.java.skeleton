@@ -222,9 +222,9 @@ public class UnicodeProperties {
         int end = propertyIntervals.codePointAt(index);
         index += (end <= 0xFFFF ? 1 : 2);
         //TODO: Remove BMP boundary condition
-        if (start <= 0xFFFF && end <= 0xFFFF) {
-          //TODO: Change the character type from char to int
-          set.add(new Interval((char)start, (char)end));
+        if (start <= 0xFFFF) {
+          //TODO: Change the character type from char to int and remove boundary condition
+          set.add(new Interval((char)start, (char)Math.min(end, 0xFFFF)));
         }
       }
       propertyValueIntervals.put(propertyValue, set);
