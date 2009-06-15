@@ -1,0 +1,9 @@
+name: UnicodeScripts_3_2
+
+description: 
+Tests the Unicode script property character class syntax
+for all scripts supported in Unicode 3.2
+
+jflex: -q
+
+input-file-encoding: UTF-8

@@ -1,0 +1,12 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_3_1.flex" (line 21): 
+Rule can never be matched:
+\p{Deseret} { setCurCharBlock("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_3_1.flex" (line 25): 
+Rule can never be matched:
+\p{Gothic} { setCurCharBlock("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_3_1.flex" (line 43): 
+Rule can never be matched:
+\p{Old Italic} { setCurCharBlock("Old Italic"); }

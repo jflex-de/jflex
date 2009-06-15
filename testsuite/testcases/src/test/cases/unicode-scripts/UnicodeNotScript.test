@@ -1,0 +1,9 @@
+name: UnicodeNotScript
+
+description: 
+Tests the inverse of the Unicode script property character class syntax
+for one script.
+
+jflex: -q
+
+input-file-encoding: UTF-8

@@ -1,0 +1,9 @@
+name: UnicodeScriptAliases3_5_1
+
+description: 
+Part 3 -- Tests the Unicode script property character class syntax
+for all script aliases supported in Unicode 5.1
+
+jflex: -q
+
+input-file-encoding: UTF-8

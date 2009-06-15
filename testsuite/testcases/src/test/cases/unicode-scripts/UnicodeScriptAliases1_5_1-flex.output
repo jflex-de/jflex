@@ -1,0 +1,60 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 23): 
+Rule can never be matched:
+\p{cari} { setCurCharBlock("Carian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 27): 
+Rule can never be matched:
+\p{cprt} { setCurCharBlock("Cypriot"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 30): 
+Rule can never be matched:
+\p{dsrt} { setCurCharBlock("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 34): 
+Rule can never be matched:
+\p{goth} { setCurCharBlock("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 44): 
+Rule can never be matched:
+\p{ital} { setCurCharBlock("Old Italic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 47): 
+Rule can never be matched:
+\p{khar} { setCurCharBlock("Kharoshthi"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 54): 
+Rule can never be matched:
+\p{linb} { setCurCharBlock("Linearb"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 55): 
+Rule can never be matched:
+\p{lyci} { setCurCharBlock("Lycian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 56): 
+Rule can never be matched:
+\p{lydi} { setCurCharBlock("Lydian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 64): 
+Rule can never be matched:
+\p{osma} { setCurCharBlock("Osmanya"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 66): 
+Rule can never be matched:
+\p{phnx} { setCurCharBlock("Phoenician"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 71): 
+Rule can never be matched:
+\p{shaw} { setCurCharBlock("Shavian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 86): 
+Rule can never be matched:
+\p{ugar} { setCurCharBlock("Ugaritic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 88): 
+Rule can never be matched:
+\p{xpeo} { setCurCharBlock("Old Persian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 89): 
+Rule can never be matched:
+\p{xsux} { setCurCharBlock("Cuneiform"); }

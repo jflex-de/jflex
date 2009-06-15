@@ -1,0 +1,60 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 23): 
+Rule can never be matched:
+\p{sc=Carian} { setCurCharBlock("Carian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 28): 
+Rule can never be matched:
+\p{sc=Cuneiform} { setCurCharBlock("Cuneiform"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 29): 
+Rule can never be matched:
+\p{sc=Cypriot} { setCurCharBlock("Cypriot"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 31): 
+Rule can never be matched:
+\p{sc=Deseret} { setCurCharBlock("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 36): 
+Rule can never be matched:
+\p{sc=Gothic} { setCurCharBlock("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 49): 
+Rule can never be matched:
+\p{sc=Kharoshthi} { setCurCharBlock("Kharoshthi"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 55): 
+Rule can never be matched:
+\p{sc=Linear B} { setCurCharBlock("Linear B"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 56): 
+Rule can never be matched:
+\p{sc=Lycian} { setCurCharBlock("Lycian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 57): 
+Rule can never be matched:
+\p{sc=Lydian} { setCurCharBlock("Lydian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 65): 
+Rule can never be matched:
+\p{sc=Old Italic} { setCurCharBlock("Old Italic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 66): 
+Rule can never be matched:
+\p{sc=Old Persian} { setCurCharBlock("Old Persian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 68): 
+Rule can never be matched:
+\p{sc=Osmanya} { setCurCharBlock("Osmanya"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 70): 
+Rule can never be matched:
+\p{sc=Phoenician} { setCurCharBlock("Phoenician"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 74): 
+Rule can never be matched:
+\p{sc=Shavian} { setCurCharBlock("Shavian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases3_5_1.flex" (line 88): 
+Rule can never be matched:
+\p{sc=Ugaritic} { setCurCharBlock("Ugaritic"); }

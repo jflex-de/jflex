@@ -1,0 +1,32 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 23): 
+Rule can never be matched:
+\p{Cypriot} { setCurCharBlock("Cypriot"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 25): 
+Rule can never be matched:
+\p{Deseret} { setCurCharBlock("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 29): 
+Rule can never be matched:
+\p{Gothic} { setCurCharBlock("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 46): 
+Rule can never be matched:
+\p{Linear B} { setCurCharBlock("Linear B"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 51): 
+Rule can never be matched:
+\p{Old Italic} { setCurCharBlock("Old Italic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 53): 
+Rule can never be matched:
+\p{Osmanya} { setCurCharBlock("Osmanya"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 55): 
+Rule can never be matched:
+\p{Shavian} { setCurCharBlock("Shavian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_0.flex" (line 66): 
+Rule can never be matched:
+\p{Ugaritic} { setCurCharBlock("Ugaritic"); }
