@@ -1,6 +1,6 @@
 %%
 
-%unicode
+%unicode 5.1
 %public
 %class UnicodeNotBlock
 
