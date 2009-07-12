@@ -15,7 +15,7 @@ Dir contents:
 pom.xml:
   Maven Project object model
   Useful target:
-    mvn package: genreate jflex.jar
+    mvn package: generate jflex.jar
   
   
 skeleton:
@@ -39,4 +39,4 @@ test/java/JFlex
   unit tests for JFlex
 
 main/java/java_cup/runtime:
-  CUP v0.10k runtime classes, used by JFlex   
+  CUP v0.11a runtime classes, used by JFlex
