@@ -60,11 +60,6 @@
       <version>1.7.0</version>
     </dependency>
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>jflex-unicode-maven-plugin</artifactId>
-      <version>0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.2</version>
@@ -73,6 +68,12 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -94,7 +95,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
-        <version>1.4.3                           </version>
+        <version>1.4.3</version>
         <executions>
           <execution>
             <goals>

@@ -1094,32 +1094,7 @@ public class Unicode_2_0 {
     // Unicode 2.0 property value: {zs}
         "\u0020\u0020"+"\u00a0\u00a0"+"\u2000\u200b"+"\u3000\u3000"  };
   public static final String[] propertyValueAliases = {
-        "gc=cc", "cc",   "gc=cf", "cf",
-        "gc=co", "co",   "gc=ll", "ll",
-        "gc=lm", "lm",   "gc=lo", "lo",
-        "gc=lt", "lt",   "gc=lu", "lu",
-        "gc=mc", "mc",   "gc=me", "me",
-        "gc=mn", "mn",   "gc=nd", "nd",
-        "gc=nl", "nl",   "gc=no", "no",
-        "gc=pc", "pc",   "gc=pd", "pd",
-        "gc=pe", "pe",   "gc=po", "po",
-        "gc=ps", "ps",   "gc=sc", "sc",
-        "gc=sk", "sk",   "gc=sm", "sm",
-        "gc=so", "so",   "gc=zl", "zl",
-        "gc=zp", "zp",   "gc=zs", "zs",
-        "generalcategory=cc", "cc",   "generalcategory=cf", "cf",
-        "generalcategory=co", "co",   "generalcategory=ll", "ll",
-        "generalcategory=lm", "lm",   "generalcategory=lo", "lo",
-        "generalcategory=lt", "lt",   "generalcategory=lu", "lu",
-        "generalcategory=mc", "mc",   "generalcategory=me", "me",
-        "generalcategory=mn", "mn",   "generalcategory=nd", "nd",
-        "generalcategory=nl", "nl",   "generalcategory=no", "no",
-        "generalcategory=pc", "pc",   "generalcategory=pd", "pd",
-        "generalcategory=pe", "pe",   "generalcategory=po", "po",
-        "generalcategory=ps", "ps",   "generalcategory=sc", "sc",
-        "generalcategory=sk", "sk",   "generalcategory=sm", "sm",
-        "generalcategory=so", "so",   "generalcategory=zl", "zl",
-        "generalcategory=zp", "zp",   "generalcategory=zs", "zs"
+        
   };
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

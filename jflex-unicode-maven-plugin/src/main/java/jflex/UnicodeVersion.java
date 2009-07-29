@@ -20,22 +20,25 @@
 
 package jflex;
 
-import java.net.URL;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.ArrayList;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -66,66 +69,16 @@ class UnicodeVersion {
   private final Pattern FULL_VERSION_PATTERN_IN_URL
     = Pattern.compile("UnicodeData-(\\d+\\.\\d+\\.\\d+)\\.txt$");
 
-  // v1.1: 00F8;LATIN SMALL LETTER O WITH STROKE;Ll;0;L;006F 0338;;;;N;LATIN SMALL LETTER O SLASH;;00D8;;00D8
-  // v5.0: 00F8;LATIN SMALL LETTER O WITH STROKE;Ll;0;L;;;;;N;LATIN SMALL LETTER O SLASH;;00D8;;00D8
-  // v5.0: 4DB5;<CJK Ideograph Extension A, Last>;Lo;0;L;;;;;N;;;;;
-  //
-  // Field  0: Code point
-  // Field  1: Name
-  // Field  2: General Category property value
-  // Field 12: Simple uppercase mapping
-  // Field 13: Simple lowercase mapping
-  // Field 14: Simple titlecase mapping
-  /** Pattern to capture data from UnicodeData(-X.X.X).txt */
-  private static final Pattern UNICODE_DATA_LINE_PATTERN = Pattern.compile
-    ("^([^;]*);(?:([^;]*,\\s*Last>)|[^;]*);([^;]*)(?:;[^;]*){9};([^;]*);([^;]*);([^;]*)");
-
-  // v2.0: 0080; 00FF; Latin-1 Supplement
-  // v3.1: 0080..00FF; Latin-1 Supplement
-  /** Pattern to capture data from Blocks(-X.X.X).txt. */
-  private static final Pattern BLOCKS_LINE_PATTERN = Pattern.compile
-    ("^([0-9A-Fa-f]{4,6})(?:\\.\\.|;\\s*)([0-9A-Fa-f]{4,6});\\s*(.+)");
-
-  // Scripts-3.1.0.txt: 0041..005A    ; LATIN # L&  [26] LATIN CAPITAL LETTER A..LATIN CAPITAL LETTER Z
-  /**
-   * Pattern to capture data from Scripts(-X.X.X).txt and
-   * DerivedCoreProperties(-X.X.X).txt.
-   */
-  private static final Pattern NAMED_INTERVAL_LINE_PATTERN = Pattern.compile
-    ("^([0-9A-Fa-f]{4,6})(?:\\.\\.([0-9A-Fa-f]{4,6}))?\\s*;\\s*([^#]+)");
-
-  // v3.2: gc ; L         ; Letter                           # Ll | Lm | Lo | Lt | Lu
-  // v3.2: sc ; Arab      ; Arabic
-  /** Pattern to capture data from PropertyValueAliases(-X.X.X).txt. */
-  private static final Pattern PROPERTY_VALUE_ALIAS_LINE_PATTERN
-    = Pattern.compile("^(?:gc\\s*;\\s*(\\S+)\\s*;\\s*(\\S+)"
-                      +  "|sc\\s*;\\s*(\\S+)\\s*;\\s*(\\S+))");
-
-  // v3.2: Alpha     ; Alphabetic
-  /** Pattern to capture data from PropertyAliases(-X.X.X).txt. */
-  private static final Pattern PROPERTY_ALIAS_LINE_PATTERN
-    = Pattern.compile("^(\\S+)\\s*;\\s*(\\S+)");
-
-  // v3.2: 0009..000D    ; White_space # Cc   [5] <control>..<control>
-  // v3.2: 0020          ; White_Space # Zs       SPACE
-  // v2.0: Property dump for: 0x10000004 (White space)
-  // v2.0: 0000
-  // v2.0: 0009..000D  (5 chars)
-  private static final Pattern PROP_LIST_LINE_PATTERN = Pattern.compile
-    ("^(?:([\\da-fA-F]{4,6})(?:..([\\da-fA-F]{4,6}))?(?:\\s*;\\s*(\\S+))?"
-     + "|Property dump for: 0x[\\dA-Fa-f]+\\s*\\((.+)\\))");
-
-
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
-  /**
-   * Pattern used to find property name prefixes, e.g. "Script" in 
-   * "Script=Latin".
-   */
-  private static final Pattern PROPERTY_PREFIX_PATTERN
-    = Pattern.compile("^([^=]+)=(.*)");
+  /** Normalized General_Category property name */
+  private static final String NORMALIZED_GENERAL_CATEGORY 
+    = normalize("General_Category"); 
 
+  /** Normalized Script property name */
+  private static final String NORMALIZED_SCRIPT = normalize("Script"); 
+  
   /**
    * The number of code point ranges to output per line in
    * UnicodeProperties.java.
@@ -141,8 +94,7 @@ class UnicodeVersion {
   /**
    * The number of property values to output per line in UnicodeProperties.java.
    */
-  int PROPERTY_VALUES_PER_LINE = 6;
-
+  private static final int PROPERTY_VALUES_PER_LINE = 6;
 
   /**
    * The number of caseless match partitions to output per line in
@@ -152,8 +104,8 @@ class UnicodeVersion {
 
   /** The property values that represent surrogates [U+D800-U+DFFF] */
   private static final Pattern SURROGATE_PATTERN
-    = Pattern.compile("(?:^|=)cs$|surrogate");
-
+    = Pattern.compile("^cs$|surrogate", Pattern.CASE_INSENSITIVE);
+  
   /** Unicode version X.X.X */
   String majorMinorUpdateVersion;
 
@@ -167,11 +119,29 @@ class UnicodeVersion {
    * Maps Unicode property values to the associated set of
    * code point ranges.
    */
-  SortedMap<String,List<Interval>> propertyValueIntervals
-    = new TreeMap<String,List<Interval>>();
+  SortedMap<String,List<NamedRange>> propertyValueIntervals
+    = new TreeMap<String,List<NamedRange>>();
 
-  /** Stores property value aliases. */
-  SortedMap<String,String> propertyValueAliases = new TreeMap<String,String>();
+  /** Stores encountered enumerated property names and values */
+  Map<String,Set<String>> usedEnumeratedProperties 
+    = new HashMap<String,Set<String>>();
+
+  /** Stores encountered binary property names */
+  Set<String> usedBinaryProperties = new HashSet<String>();
+  
+  /** Stores all defined property name aliases */
+  Map<String,Set<String>> allPropertyAliases = new HashMap<String,Set<String>>();
+  
+  /** Stores all defined property value aliases */
+  Map<String,Map<String,Set<String>>> allPropertyValueAliases 
+    = new HashMap<String,Map<String,Set<String>>>();
+  
+  /** Maps property aliases to their corresponding canonical property names */
+  Map<String,String> propertyAlias2CanonicalName = new HashMap<String,String>();
+  
+  /** Maps property value aliases to their corresponding canonical property values */
+  Map<String,Map<String,String>> propertyValueAlias2CanonicalValue 
+    = new HashMap<String,Map<String,String>>();
 
   /**
    * A set of code point space partitions, each containing at least two
@@ -182,6 +152,22 @@ class UnicodeVersion {
 
   /** The maximum size of the partitions in {@link #caselessMatchPartitions}. */
   int caselessMatchPartitionSize = 0;
+
+  /**
+   * Filled in by {@link #setVersions(String,URL)} based on majorMinorVersion.
+   * PropList(-X.X.X).txt has had two different formats: before Unicode 3.1,
+   * this file had a format all its own; since Unicode 3.1, this file has used
+   * the common boolean property file format.
+   */
+  private boolean isArchaicPropListFormat;
+  
+  /**
+   * Filled in by {@link #setVersions(String,URL)} based on majorMinorVersion.
+   * From Unicode 3.1 to Unicode 5.0, the default Script property value is
+   * "Common".  From Unicode 5.0 onward, the default Script property value is
+   * "Unknown".  Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
+   */
+  private String defaultScriptPropertyValue;
 
   /**
    * Instantiates a container for versioned Unicode data.
@@ -208,32 +194,64 @@ class UnicodeVersion {
     throws IOException {
 
     setVersions(version, unicodeDataURL);
+    Reader reader;
+
+    if (null != propertyAliasesURL) {      // Must be first
+      reader = new InputStreamReader(propertyAliasesURL.openStream(), "UTF-8");
+      PropertyAliasesScanner scanner = new PropertyAliasesScanner(reader, this);
+      scanner.scan();
+    }
     
-    parseUnicodeData(unicodeDataURL);  // Should be first - sets max code point
+    if (null != propertyValueAliasesURL) { // Must be second
+      reader
+        = new InputStreamReader(propertyValueAliasesURL.openStream(), "UTF-8");
+      PropertyValueAliasesScanner scanner 
+        = new PropertyValueAliasesScanner(reader, this);
+      scanner.scan();
+    }
+    // UnicodeData.txt must be third
+    reader = new InputStreamReader(unicodeDataURL.openStream(), "UTF-8");
+    UnicodeDataScanner unicodeDataScanner = new UnicodeDataScanner(reader, this);
+    unicodeDataScanner.scan();
 
     if (null != propListURL) {
-      parsePropList(propListURL);
+      reader = new InputStreamReader(propListURL.openStream(), "UTF-8");
+      if (isArchaicPropListFormat) {
+        // Before Unicode 3.1, PropList-X.X.X.txt had a different format.
+        ArchaicPropListScanner scanner = new ArchaicPropListScanner(reader, this);
+        scanner.scan();
+      } else {
+        BinaryPropertiesFileScanner scanner 
+          = new BinaryPropertiesFileScanner(reader, this);
+        scanner.scan();
+      }
     }
     if (null != derivedCorePropertiesURL) {
-      parseDerivedCoreProperties(derivedCorePropertiesURL);
+      reader = new InputStreamReader
+        (derivedCorePropertiesURL.openStream(), "UTF-8");
+      BinaryPropertiesFileScanner scanner
+        = new BinaryPropertiesFileScanner(reader, this);
+      scanner.scan();
     }
     if (null != scriptsURL) {
-      parseScripts(scriptsURL);
+      reader = new InputStreamReader(scriptsURL.openStream(), "UTF-8");
+      
+      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+        (reader, this, "Script", defaultScriptPropertyValue);
+      scanner.scan();
     }
     if (null != blocksURL) {
-      parseBlocks(blocksURL);
-    }
-    if (null != propertyValueAliasesURL) { // Must be second-to-last
-      parsePropertyValueAliases(propertyValueAliasesURL);
-    }
-    if (null != propertyAliasesURL) {      // Must be last
-      parsePropertyAliases(propertyAliasesURL);
+      reader = new InputStreamReader(blocksURL.openStream(), "UTF-8");
+      EnumeratedPropertyFileScanner scanner 
+        = new EnumeratedPropertyFileScanner(reader, this, "Block", "No_Block");
+      scanner.scan();
     }
   }
 
   /**
    * Fills in majorMinorVersion and majorMinorUpdateVersion based on the passed
-   * in version string.
+   * in version string.  Also fills in isArchaicPropListFormat, based on the
+   * majorMinorVersion.
    *
    * @param version The Unicode version, in form "X.X.X" or "X.X".
    * @param unicodeDataURL The URL at which UnicodeData(-X.X.X).txt is located.
@@ -249,6 +267,20 @@ class UnicodeVersion {
       if (matcher.find()) {
         majorMinorUpdateVersion = matcher.group(1);
       }
+    }
+    // Before Unicode 3.1, PropList-X.X.X.txt used a different format.
+    // Before Unicode 2.0, PropList-X.X.X.txt did not exist.
+    isArchaicPropListFormat = majorMinorVersion.equals("2.0")
+                              || majorMinorVersion.equals("2.1") 
+                              || majorMinorVersion.equals("3.0");
+    
+    // Prior to Unicode 5.0, the default Script property value is "Common".
+    // From Unicode 5.0 onward, the default Script property value is "Unknown".
+    // Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
+    defaultScriptPropertyValue = "Unknown";
+    if (majorMinorVersion.equals("3.1") || majorMinorVersion.equals("3.2")
+        || majorMinorVersion.equals("4.0") || majorMinorVersion.equals("4.1")) {
+      defaultScriptPropertyValue = "Common";
     }
   }
 
@@ -268,375 +300,6 @@ class UnicodeVersion {
   }
 
   /**
-   * Fetches Blocks(-X.X.X).txt from the URL supplied in the constructor,
-   * storing the code point ranges in {@link #propertyValueIntervals}.
-   *
-   * @param url The URL at which Blocks(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  Blocks(-X.X.X).txt.
-   */
-  private void parseBlocks(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    int lastEndCodePoint = -1;
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = BLOCKS_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        int startCodePoint = Integer.parseInt(matcher.group(1), 16);
-        int endCodePoint = Integer.parseInt(matcher.group(2), 16);
-        String blockName = matcher.group(3);
-        if (startCodePoint > lastEndCodePoint + 1) {
-          // Blocks not explicitly mentioned get the "No_Block" designation
-          addInterval
-            ("Block=No_Block", lastEndCodePoint + 1, startCodePoint - 1);
-        }
-        addInterval("Block=" + blockName, startCodePoint, endCodePoint);
-        lastEndCodePoint = endCodePoint;
-      }
-    }
-    if (lastEndCodePoint + 1 <= maximumCodePoint) {
-      addInterval("Block=No_Block", lastEndCodePoint + 1, maximumCodePoint);
-    }
-  }
-
-  /**
-   * Fetches Scripts(-X.X.X).txt from the URL supplied in the constructor,
-   * storing the code point ranges in {@link #propertyValueIntervals}.
-   *
-   * @param url The URL at which Scripts(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  Scripts(-X.X.X).txt.
-   */
-  private void parseScripts(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    SortedSet<Interval> intervals = new TreeSet<Interval>();
-
-    // Scripts(-X.X.X).txt groups together intervals that belong to the same
-    // script.  In order to discover unassigned intervals, the intervals are
-    // first sorted according to their starting code point, and then intervals
-    // are added, with gaps assigned to "Unknown".
-
-    // First, sort the assigned intervals, so that gaps are apparent
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = NAMED_INTERVAL_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        int start = Integer.parseInt(matcher.group(1), 16);
-        int end = null == matcher.group(2)
-                  ? start : Integer.parseInt(matcher.group(2), 16);
-        String name = matcher.group(3);
-        intervals.add(new Interval(start, end, name));
-      }
-    }
-    reader.close();
-
-    // Second, add intervals, assigning "Unknown" to the gaps.
-    int prevEnd = -1;
-    int prevStart = -1;
-    String prevName = "";
-    for (Interval interval : intervals) {
-      if (interval.start > prevEnd + 1) {
-        // Unassigned code points get the "Unknown" designation.
-        addInterval("Unknown", prevEnd + 1, interval.start - 1);
-      }
-      if (prevEnd == -1) {
-        prevStart = interval.start;
-        prevName = interval.name;
-      } else {
-        if (interval.start > prevEnd + 1
-            || ! interval.name.equals(prevName)) {
-          addInterval(prevName, prevStart, prevEnd);
-          addPropertyValueAlias("Script=" + prevName, prevName);
-          addPropertyValueAlias("sc=" + prevName, prevName);
-          prevStart = interval.start;
-          prevName = interval.name;
-        }
-      }
-      prevEnd = interval.end;
-    }
-    // Add final Unkown interval
-    addInterval("Unknown", prevEnd + 1, maximumCodePoint);
-    addPropertyValueAlias("Script=Unknown", "Unknown");
-
-    // Add final named interval
-    addInterval(prevName, prevStart, prevEnd);
-    addPropertyValueAlias("Script=" + prevName, prevName);
-    addPropertyValueAlias("sc=" + prevName, prevName);
-  }
-
-  /**
-   * Fetches DerivedCoreProperties(-X.X.X).txt from the URL supplied in the
-   * constructor, storing the code point ranges in
-   * {@link #propertyValueIntervals}.
-   *
-   * @param url The URL at which DerivedCoreProperties(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  DerivedCoreProperties(-X.X.X).txt.
-   */
-  private void parseDerivedCoreProperties(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    int prevStart = -1;
-    int prevEnd = -1;
-    String prevName = "";
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = NAMED_INTERVAL_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        int start = Integer.parseInt(matcher.group(1), 16);
-        int end = null == matcher.group(2)
-                  ? start : Integer.parseInt(matcher.group(2), 16);
-        String name = matcher.group(3);
-
-        if (prevEnd == -1) {
-          prevStart = start;
-          prevName = name;
-        } else if (start > prevEnd + 1 || ! name.equals(prevName)) {
-          addInterval(prevName, prevStart, prevEnd);
-          prevStart = start;
-          prevName = name;
-        }
-        prevEnd = end;
-      }
-    }
-    reader.close();
-
-    // Handle the final interval
-    addInterval(prevName, prevStart, prevEnd);
-  }
-
-  /**
-   * Fetches PropertyValueAliases(-X.X.X).txt from the URL supplied in the
-   * constructor, storing aliases in {@link #propertyValueAliases}.
-   *
-   * @param url The URL at which PropertyValueAliases(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  PropertyValueAliases(-X.X.X).txt.
-   */
-  private void parsePropertyValueAliases(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    while (null != (line = reader.readLine())) {
-      // At this point, we only recognize general category and script property
-      // value aliases.
-      Matcher matcher = PROPERTY_VALUE_ALIAS_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        String genCatPropValueShortName = matcher.group(1);
-        if (null != genCatPropValueShortName) {
-          String genCatPropValueLongName = matcher.group(2);
-          // The short name appears in UnicodeData(-X.X.X).txt, so it serves as
-          // the target property value.
-          addPropertyValueAlias(genCatPropValueLongName,
-                                genCatPropValueShortName);
-          addPropertyValueAlias("General_Category=" + genCatPropValueLongName,
-                                genCatPropValueShortName);
-          addPropertyValueAlias("gc=" + genCatPropValueLongName,
-                                genCatPropValueShortName);
-          addPropertyValueAlias("gc=" + genCatPropValueShortName,
-                                genCatPropValueShortName);
-        } else {
-          String scriptPropValueShortName = matcher.group(3);
-          String scriptPropValueLongName = matcher.group(4);
-          // The long name appears in Scripts.txt, so it serves as the target.
-          addPropertyValueAlias(scriptPropValueShortName,
-                                scriptPropValueLongName);
-          addPropertyValueAlias("Script=" + scriptPropValueShortName,
-                                scriptPropValueLongName);
-          addPropertyValueAlias("sc=" + scriptPropValueShortName,
-                                scriptPropValueLongName);
-          addPropertyValueAlias("sc=" + scriptPropValueLongName,
-                                scriptPropValueLongName);
-        }
-      }
-    }
-  }
-
-  /**
-   * Fetches PropertyAliases(-X.X.X).txt from the URL supplied in the constructor,
-   * storing aliases in {@link #propertyValueAliases}.
-   *
-   * @param url The URL at which PropertyAliases(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  PropertyAliases(-X.X.X).txt.
-   */
-  private void parsePropertyAliases(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    Map<String,String> long2shortNameMap = new HashMap<String,String>();
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = PROPERTY_ALIAS_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        String shortPropName = normalize(matcher.group(1));
-        String longPropName = normalize(matcher.group(2));
-        long2shortNameMap.put(normalize(longPropName), normalize(shortPropName));
-      }
-    }
-    reader.close();
-
-    for (String propertyValue : propertyValueIntervals.keySet()) {
-      String shortPropName = long2shortNameMap.get(propertyValue);
-      if (null != shortPropName) {
-        addPropertyValueAlias(shortPropName, propertyValue);
-      } else {
-        Matcher matcher = PROPERTY_PREFIX_PATTERN.matcher(propertyValue);
-        if (matcher.matches()) {
-          String propertyPrefix = matcher.group(1);
-          String propertyValueSuffix = matcher.group(2);
-          shortPropName = long2shortNameMap.get(propertyPrefix);
-          if (null != shortPropName) {
-            addPropertyValueAlias(shortPropName + "=" + propertyValueSuffix,
-                                  propertyValue);
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Fetches PropList(-X.X.X).txt from the URL supplied in the constructor,
-   * storing the code point ranges in {@link #propertyValueIntervals}.
-   *
-   * @param url The URL at which PropList(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  PropList(-X.X.X).txt.
-   */
-  private void parsePropList(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    String propName = "";
-    String prevPropName = "";
-    int prevStart = -1;
-    int prevEnd = -1;
-    boolean archaicFormat = false; // Unicode 2.0, 2.1 & 3.0 have archaic format
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = PROP_LIST_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        String archaicFormatPropName = matcher.group(4);
-        if (null != archaicFormatPropName && archaicFormatPropName.length() > 0) {
-          propName = archaicFormatPropName;
-          archaicFormat = true;
-          if (prevEnd != -1) {
-            addInterval(prevPropName, prevStart, prevEnd);
-          }
-          prevPropName = propName;
-          prevStart = -1;
-          prevEnd = -1;
-        } else {
-          int start = -1;
-          if (null != matcher.group(1) && matcher.group(1).length() > 0)
-            start = Integer.parseInt(matcher.group(1), 16);
-          int end = null != matcher.group(2) && matcher.group(2).length() > 0
-                    ? Integer.parseInt(matcher.group(2), 16) : start;
-          if (archaicFormat) {
-            if (prevEnd == -1) {
-              prevStart = start;
-            } else if (start > prevEnd + 1) {
-              addInterval(propName, prevStart, prevEnd);
-              prevStart = start;
-            }
-            prevEnd = end;
-          } else {
-            if (null != matcher.group(3) && matcher.group(3).length() > 0)
-              propName = matcher.group(3);
-
-            if (prevEnd == -1) {
-              prevStart = start;
-              prevPropName = propName;
-            } else if (start > prevEnd + 1 || ! propName.equals(prevPropName)) {
-              addInterval(prevPropName, prevStart, prevEnd);
-              prevStart = start;
-              prevPropName = propName;
-            }
-            prevEnd = end;
-          }
-        }
-      }
-    }
-    reader.close();
-
-    // Handle the final interval
-    addInterval(prevPropName, prevStart, prevEnd);
-  }
-  /**
-   * Fetches UnicodeData(-X.X.X).txt from the URL supplied in the constructor,
-   * storing the code point ranges in {@link #propertyValueIntervals}, and
-   * storing caseless equivalence classes in {@link #caselessMatchPartitions}.
-   *
-   * @param url The URL at which UnicodeData(-X.X.X).txt is located.
-   * @throws IOException If there is a problem fetching or parsing
-   *  UnicodeData(-X.X.X).txt.
-   */
-  private void parseUnicodeData(URL url) throws IOException {
-    BufferedReader reader = new BufferedReader
-      (new InputStreamReader(url.openStream(), "UTF-8"));
-    String line;
-    int startCodePoint = -1;
-    int prevCodePoint = 0;
-    int assignedStartCodePoint = -1;
-    int assignedEndCodePoint = -1;
-    String prevGenCatPropValue = "";
-    while (null != (line = reader.readLine())) {
-      Matcher matcher = UNICODE_DATA_LINE_PATTERN.matcher(line);
-      if (matcher.find()) {
-        int codePoint = Integer.parseInt(matcher.group(1), 16);
-        boolean isLastInRange = (null != matcher.group(2));
-        String genCatPropValue = matcher.group(3);
-        String uppercaseMapping = matcher.group(4);
-        String lowercaseMapping = matcher.group(5);
-        String titlecaseMapping = matcher.group(6);
-        addCaselessMatches
-          (codePoint, uppercaseMapping, lowercaseMapping, titlecaseMapping);
-
-        if (assignedStartCodePoint == -1) {
-          assignedStartCodePoint = startCodePoint;
-        } else if (codePoint > assignedEndCodePoint + 1 && ! isLastInRange) {
-          addInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
-          addInterval("Cn", assignedEndCodePoint + 1, codePoint - 1);
-          assignedStartCodePoint = codePoint;
-        }
-        assignedEndCodePoint = codePoint;
-
-        if (startCodePoint != -1
-            && prevGenCatPropValue.length() > 0
-            && (((codePoint > prevCodePoint + 1) && ! isLastInRange)
-                || ! genCatPropValue.equals(prevGenCatPropValue))) {
-          addInterval(prevGenCatPropValue, startCodePoint, prevCodePoint);
-          addPropertyValueAlias("General_Category=" + prevGenCatPropValue,
-                                prevGenCatPropValue);
-          addPropertyValueAlias("gc=" + prevGenCatPropValue,
-                                prevGenCatPropValue);
-          startCodePoint = -1;
-        }
-        if (genCatPropValue.length() > 0 && startCodePoint == -1) {
-          startCodePoint = codePoint;
-        }
-        prevCodePoint = codePoint;
-        prevGenCatPropValue = genCatPropValue;
-      }
-    }
-    // Handle the final interval, if there is one
-    if (startCodePoint != -1 && prevGenCatPropValue.length() > 0) {
-      addInterval(prevGenCatPropValue, startCodePoint, prevCodePoint);
-    }
-
-    // Handle the final Assigned interval
-    addInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
-
-    // Round max code point up to end-of-plane.
-    maximumCodePoint = ((prevCodePoint + 0x800) & 0xFFF000) - 1;
-
-    // Handle the final Unassigned (Cn) interval, if any
-    if (assignedEndCodePoint < maximumCodePoint) {
-      addInterval("Cn", assignedEndCodePoint + 1, maximumCodePoint);
-    }
-  }
-
-  /**
    * Grows the partition containing the given codePoint and its caseless
    * equivalents, if any, to include all of them.
    *
@@ -649,7 +312,7 @@ class UnicodeVersion {
    * @param titlecaseMapping A hex String representation of the titlecase
    *  mapping of codePoint, or null if there isn't one
    */
-  private void addCaselessMatches(int codePoint, String uppercaseMapping,
+  void addCaselessMatches(int codePoint, String uppercaseMapping,
                                   String lowercaseMapping,
                                   String titlecaseMapping) {
     if ((null != uppercaseMapping && uppercaseMapping.length() > 0)
@@ -709,19 +372,16 @@ class UnicodeVersion {
   }
 
   /**
-   * Given a property value, and starting and ending code points, adds the
-   * interval to the {@link #propertyValueIntervals} map.
+   * Given a binary property name, and starting and ending code points, 
+   * adds the interval to the {@link #propertyValueIntervals} map.
    *
-   * @param propValue The property value, e.g. "Lu".
+   * @param propName The property name, e.g. "Assigned".
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
    */
-  private void addInterval(String propValue,
-                           int startCodePoint, int endCodePoint) {
-    propValue = normalize(propValue);
-    // Skip surrogate properties [U+D800-U+DFFF], e.g. \p{Cs} - can't be
-    // represented in valid UTF-16 encoded strings
-    if (! SURROGATE_PATTERN.matcher(propValue).find()) {
+  void addInterval(String propName, int startCodePoint, int endCodePoint) {
+    propName = getCanonicalPropertyName(normalize(propName));
+    if ( ! SURROGATE_PATTERN.matcher(propName).find()) {
       if (startCodePoint == 0xD800) {
         if (endCodePoint == 0xDFFF) {
           // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
@@ -733,10 +393,10 @@ class UnicodeVersion {
           startCodePoint = 0xE000;
         }
       }
-      List<Interval> intervals = propertyValueIntervals.get(propValue);
+      List<NamedRange> intervals = propertyValueIntervals.get(propName);
       if (null == intervals) {
-        intervals = new ArrayList<Interval>();
-        propertyValueIntervals.put(propValue, intervals);
+        intervals = new ArrayList<NamedRange>();
+        propertyValueIntervals.put(propName, intervals);
       }
       // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
       // range (starting point is listed as U+4E00).  This is U+9FFF according
@@ -750,21 +410,79 @@ class UnicodeVersion {
       if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
         endCodePoint = 0x9FFF;
       }
-      intervals.add(new Interval(startCodePoint, endCodePoint));
+      intervals.add(new NamedRange(startCodePoint, endCodePoint));
+      
+      usedBinaryProperties.add(propName);
     }
   }
 
   /**
-   * Adds the given mapping to {@link #propertyValueAliases}.
+   * Given an enumerated property name and value, and starting and ending code 
+   * points, adds the interval to the {@link #propertyValueIntervals} map.
    *
-   * @param alias The property value alias
-   * @param propertyValue The target property value
+   * @param propName The property name, e.g. "General_Category".
+   * @param propValue The property value, e.g. "Lu"
+   * @param startCodePoint The first code point in the interval.
+   * @param endCodePoint The last code point in the interval.
    */
-  private void addPropertyValueAlias(String alias, String propertyValue) {
-    String normalizedAlias = normalize(alias);
-    // Don't include surrogate aliases
-    if ( ! SURROGATE_PATTERN.matcher(normalizedAlias).find())
-      propertyValueAliases.put(normalizedAlias, normalize(propertyValue));
+  void addInterval(String propName, String propValue, 
+                   int startCodePoint, int endCodePoint) {
+    propName = getCanonicalPropertyName(normalize(propName));
+    propValue = getCanonicalPropertyValue(propName, normalize(propValue));
+    
+    // Skip surrogate properties [U+D800-U+DFFF], e.g. \p{Cs} - can't be
+    // represented in valid UTF-16 encoded strings
+    if ( ! SURROGATE_PATTERN.matcher(propValue).find()) {
+      if (startCodePoint == 0xD800) {
+        if (endCodePoint == 0xDFFF) {
+          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
+          // Do nothing here
+          return;
+        } else if (endCodePoint > 0xDFFF) {
+          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode
+          // 3.0, but include the code points after this range.
+          startCodePoint = 0xE000;
+        }
+      }
+      String canonicalValue = propName + '=' + propValue;
+      if (propName.equals(NORMALIZED_GENERAL_CATEGORY)
+          || propName.equals(NORMALIZED_SCRIPT)) { 
+        canonicalValue = propValue;
+      }
+      List<NamedRange> intervals = propertyValueIntervals.get(canonicalValue);
+      if (null == intervals) {
+        intervals = new ArrayList<NamedRange>();
+        propertyValueIntervals.put(canonicalValue, intervals);
+      }
+      // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+      // range (starting point is listed as U+4E00).  This is U+9FFF according
+      // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+      //
+      //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+      //
+      // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+      // value, as are the previous code points, so to include
+      // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+      if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
+        endCodePoint = 0x9FFF;
+      }
+      intervals.add(new NamedRange(startCodePoint, endCodePoint));
+      
+      Set<String> usedValues = usedEnumeratedProperties.get(propName);
+      if (null == usedValues) {
+        usedValues = new HashSet<String>();
+        usedEnumeratedProperties.put(propName, usedValues);
+      }
+      usedValues.add(propValue);
+      
+      // Initial letters of two-letter General Category property values
+      // should be put on the used property values list
+      if (propName.equals(NORMALIZED_GENERAL_CATEGORY) 
+          && propValue.length() == 2) {
+        String firstLetter = propValue.substring(0, 1);
+        usedValues.add(firstLetter);
+      }
+    }
   }
 
 
@@ -790,14 +508,14 @@ class UnicodeVersion {
     writer.append("  public static final String[] propertyValues")
       .append("\n    = { ");
     int item = 0;
-    for (String genCatPropValue : propertyValueIntervals.keySet()) {
+    for (String propValue : propertyValueIntervals.keySet()) {
       if (++item == PROPERTY_VALUES_PER_LINE) {
         writer.append(",\n        ");
         item = 1;
       } else if (item > 1) {
         writer.append(", ");
       }
-      writer.append("\"").append(genCatPropValue).append("\"");
+      writer.append("\"").append(propValue).append("\"");
     }
     writer.append(" };\n");
   }
@@ -819,10 +537,10 @@ class UnicodeVersion {
     writer.append("  public static final String[] intervals").append(" = {\n");
 
     boolean isFirst = true;
-    for (SortedMap.Entry<String,List<Interval>> entry
+    for (SortedMap.Entry<String,List<NamedRange>> entry
         : propertyValueIntervals.entrySet()) {
       String propertyValue = entry.getKey();
-      List<Interval> intervals = entry.getValue();
+      List<NamedRange> intervals = entry.getValue();
       if (isFirst) {
         isFirst = false;
       } else {
@@ -833,7 +551,7 @@ class UnicodeVersion {
         .append("}\n");
       int count = 0;
       boolean isFirstIntervalLine = true;
-      for (Interval interval : intervals) {
+      for (NamedRange interval : intervals) {
         if (++count > INTERVALS_PER_LINE) {
           writer.append("\n");
           count = 1;
@@ -853,6 +571,62 @@ class UnicodeVersion {
   }
 
   /**
+   * Called by emitPropertyValueAliasesArray() to populate a map of
+   * all possible aliases for the encountered properties and their values. 
+   * 
+   * @return a sorted map of all possible aliases for used properties & values
+   */
+  private SortedMap<String,String> getUsedPropertyValueAliases() {
+    SortedMap<String,String> usedPropertyValueAliases
+      = new TreeMap<String,String>();
+    for (String binaryProperty : usedBinaryProperties) {
+      for (String nameAlias : getPropertyAliases(binaryProperty)) {
+        if ( ! nameAlias.equals(binaryProperty)) {
+          usedPropertyValueAliases.put(nameAlias, binaryProperty);
+        }
+      }
+    }
+    Set<String> genCatProps 
+      = usedEnumeratedProperties.get(NORMALIZED_GENERAL_CATEGORY); 
+    if (null != genCatProps) {
+      genCatProps.add("lc");
+    }
+    for (Map.Entry<String,Set<String>> entry : usedEnumeratedProperties.entrySet()) {
+      String propName = entry.getKey();
+      Set<String> propValues = entry.getValue();
+      for (String propValue : propValues) {
+        String canonicalValue = propName + '=' + propValue;
+        
+        // Add value-only aliases for General Category and Script properties.
+        if (propName.equals(NORMALIZED_SCRIPT)
+            || propName.equals(NORMALIZED_GENERAL_CATEGORY)) {
+          canonicalValue = propValue;
+          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+            if ( ! valueAlias.equals(propValue)) {
+              usedPropertyValueAliases.put(valueAlias, propValue);
+            }
+          }
+        }
+        for (String nameAlias : getPropertyAliases(propName)) {
+          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+            // Both property names and values have self-aliases; when generating
+            // all possible alias combinations, exclude the one that is the same
+            // as the full property name + full property value, unless the
+            // property is General Category or Script.
+            if (propName.equals(NORMALIZED_SCRIPT)
+                || propName.equals(NORMALIZED_GENERAL_CATEGORY)
+                || ! (nameAlias.equals(propName) && valueAlias.equals(propValue))) {
+              String alias = nameAlias + '=' + valueAlias;
+              usedPropertyValueAliases.put(alias, canonicalValue);
+            }
+          }
+        }
+      }
+    }
+    return usedPropertyValueAliases;
+  }
+
+  /**
    * Emits an array declaration and definition of alternating key/value mappings
    * from property value aliases to target property values.
    *
@@ -864,7 +638,8 @@ class UnicodeVersion {
 
     int count = 0;
     boolean isFirstLine = true;
-    for (SortedMap.Entry<String,String> entry : propertyValueAliases.entrySet()) {
+    for (SortedMap.Entry<String,String> entry 
+         : getUsedPropertyValueAliases().entrySet()) {
       if (++count > PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE) {
         writer.append(",\n        ");
         count = 1;
@@ -967,31 +742,19 @@ class UnicodeVersion {
    * @param codePoint The code point for which to emit an escaped character.
    */
   private void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
-    if (codePoint == 0x22) {
+    switch(codePoint) {
       // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
       // a syntax error when it is included in a literal string, because it is 
       // interpreted as "[...]"[...]" (literally), and leads the compiler to
       // think that the enclosing quotation marks are unbalanced.
-      writer.append("\\\"");
-    } else if (codePoint == 0x0) { // similarly, these others avoid syntax errs
-      writer.append("\\000");
-    } else if (codePoint == 0x9) {
-      writer.append("\\t");
-    } else if (codePoint == 0xA) {
-      writer.append("\\n");
-    } else if (codePoint == 0xC) {
-      writer.append("\\f");
-    } else if (codePoint == 0xD) {
-      writer.append("\\r");
-    } else if (codePoint == 0x5c) {  // reverse solidus = backslash
-      writer.append("\\\\");
-    } else {
-      writer.append("\\u");
-      String hexCodePoint = Integer.toString(codePoint, 16);
-      for (int i = 0 ; i < 4 - hexCodePoint.length() ; ++i) {
-        writer.append('0');
-      }
-      writer.append(hexCodePoint);
+      case 0x22: writer.append("\\\"");  break;
+      case  0x0: writer.append("\\000"); break;
+      case  0x9: writer.append("\\t");   break;
+      case  0xA: writer.append("\\n");   break;
+      case  0xC: writer.append("\\f");   break;
+      case  0xD: writer.append("\\r");   break;
+      case 0x5C: writer.append("\\\\");  break;
+        default: writer.append(String.format("\\u%04x", codePoint));
     }
   }
 
@@ -1010,12 +773,12 @@ class UnicodeVersion {
   /**
    * Transforms mixed case identifiers containing spaces, hyphens, and/or
    * underscores by downcasing and removing all spaces, hyphens, underscores,
-   * and parentheses.
+   * and parentheses; also, converts property name/value separator ':' to '='.
    *
    * @param identifier The identifier to transform
    * @return The transformed identifier
    */
-  String normalize(String identifier) {
+  static String normalize(String identifier) {
     if (null == identifier)
       return identifier;
     String normalized
@@ -1024,45 +787,134 @@ class UnicodeVersion {
   }
 
   /**
-   * Internal-use class to represent code point intervals.
+   * Called from {@link #getUsedPropertyValueAliases()} to get a set of aliases
+   * for the given property name.  If none exists, an empty set is returned.
+   * 
+   * @param propertyName The property name for which to lookup aliases.
+   * @return the aliases for the given property name; if none exists, an empty
+   *  set is returned.
    */
-  private class Interval implements Comparable<Interval> {
-    int start;
-    int end;
-    String name;
-
-    Interval(int start, int end) {
-      this.start = start;
-      this.end = end;
+  Set<String> getPropertyAliases(String propertyName) {
+    Set<String> aliases = allPropertyAliases.get(propertyName);
+    if (null == aliases) {
+      aliases = Collections.emptySet();
     }
+    return aliases;
+  }
 
-    Interval(int start, int end, String name) {
-      this.start = start;
-      this.end = end;
-      this.name = name;
+
+  /**
+   * Called from {@link #getUsedPropertyValueAliases()} to get a set of aliases
+   * for the given property name and value.  If none exists, an empty set is
+   * returned.
+   * 
+   * @param propertyName The property name to use when looking up aliases for
+   *  the given property value
+   * @param propertyValue The property value for which to lookup aliases.
+   * @return the aliases for the given property name and value; if none exists,
+   *  an empty set is returned.
+   */
+  Set<String> getPropertyValueAliases(String propertyName, String propertyValue) {
+    Set<String> aliases = null;
+    Map<String,Set<String>> values = allPropertyValueAliases.get(propertyName);
+    if (null != values) {
+      aliases = values.get(propertyValue); 
     }
+    if (null == aliases) {
+      aliases = Collections.emptySet();
+    }
+    return aliases;
+  }
 
-    public boolean equals(Interval other) {
-      boolean isEqual = false;
-      if (null != other) {
-        isEqual = this == other
-                  || (start == other.start && end == other.end
-                      && ((null == name && null == other.name)
-                          || (null != name && null != other.name
-                              && name.equals(other.name))));
+  /**
+   * For the given property name or alias, returns the canonical property name.
+   * If none has been encountered, then the given propertyAlias is returned.
+   * 
+   * @param propertyAlias The property name or alias for which to lookup the
+   *  canonical property name.
+   * @return the canonical property name for the given property name or alias.
+   *  If none has been encountered, then the given propertyAlias is returned.
+   */
+  String getCanonicalPropertyName(String propertyAlias) {
+    String canonicalName = null;
+    if (null != propertyAlias2CanonicalName) {
+      canonicalName = propertyAlias2CanonicalName.get(propertyAlias);
+    }
+    return null == canonicalName ? propertyAlias : canonicalName;
+  }
+
+  /**
+   * For the given property name and property value (or property value alias),
+   * returns the canonical property value.  If none has been encountered, then
+   * the given propertyValueAlias is returned.
+   * 
+   * @param propertyName The property name to use when looking up a property value
+   * @param propertyValueAlias The property value (alias) for which to look up
+   *  the canonical property value.
+   * @return the canonical property value for the given property name and 
+   *  property value (alias); if none is found, the given propertyValueAlias is 
+   *  returned.
+   */
+  String getCanonicalPropertyValue(String propertyName, 
+                                   String propertyValueAlias) {
+    String canonicalValue = null;
+    if (null != propertyValueAlias2CanonicalValue) {
+      Map<String,String> valueAliases 
+        = propertyValueAlias2CanonicalValue.get(propertyName);
+      if (null != valueAliases) {
+        canonicalValue = valueAliases.get(propertyValueAlias);
       }
-      return isEqual;
     }
+    return null == canonicalValue ? propertyValueAlias : canonicalValue;
+  }
 
-    public int compareTo(Interval other) {
-      int comparison = 0;
-      if (null != other && this != other && ! this.equals(other)) {
-        comparison = (new Integer(start)).compareTo(other.start);
-        if (0 == comparison) {
-          comparison = (new Integer(end)).compareTo(other.end);
-        }
-      }
-      return comparison;
+  /**
+   * Called from PropertyValueAliasesScanner to populate the property values
+   * and property value aliases for a property.
+   * 
+   * @param propertyAlias The alias for a property name (or the property itself)
+   * @param propertyValue The property value for which to set the aliases 
+   * @param propertyValueAliases The aliases to set for the given propertyValue
+   */
+  void addPropertyValueAliases
+    (String propertyAlias, String propertyValue, Set<String> propertyValueAliases) {
+    String propertyName = getCanonicalPropertyName(propertyAlias);
+    propertyValue = normalize(propertyValue);
+    
+    propertyValueAliases.add(propertyValue);
+    Map<String,Set<String>> propertyValue2Aliases 
+      = allPropertyValueAliases.get(propertyName);
+    if (null == propertyValue2Aliases) {
+      propertyValue2Aliases = new HashMap<String,Set<String>>();
+      allPropertyValueAliases.put(propertyName, propertyValue2Aliases);
     }
+    propertyValue2Aliases.put(propertyValue, propertyValueAliases);
+    
+    Map<String,String> aliasMap 
+      = propertyValueAlias2CanonicalValue.get(propertyName);
+    if (null == aliasMap) {
+      aliasMap = new HashMap<String,String>();
+      propertyValueAlias2CanonicalValue.put(propertyName, aliasMap);
+    }
+    for (String propertyValueAlias : propertyValueAliases) {
+      propertyValueAlias = normalize(propertyValueAlias);
+      aliasMap.put(propertyValueAlias, propertyValue);
+    }
+  }
+  
+  /**
+   * Sets the maximum code point for this Unicode version.
+   * @param maximumCodePoint The new maximum code point for this Unicode version
+   */
+  void setMaximumCodePoint(int maximumCodePoint) {
+    this.maximumCodePoint = maximumCodePoint;
+  }
+
+  /**
+   * Returns the maximum code point for this Unicode version.
+   * @return the maximum code point for this Unicode version.
+   */
+  public int getMaximumCodePoint() {
+    return maximumCodePoint;
   }
 }

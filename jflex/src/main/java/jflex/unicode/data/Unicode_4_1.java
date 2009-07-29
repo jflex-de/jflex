@@ -56,9 +56,9 @@ public class Unicode_4_1 {
         "sk", "sm", "so", "softdotted", "sterm",
         "sylotinagri", "syriac", "tagalog", "tagbanwa", "taile",
         "tamil", "telugu", "terminalpunctuation", "thaana", "thai",
-        "tibetan", "tifinagh", "ugaritic", "unifiedideograph", "unknown",
-        "uppercase", "variationselector", "whitespace", "xidcontinue", "xidstart",
-        "yi", "zl", "zp", "zs" };
+        "tibetan", "tifinagh", "ugaritic", "unifiedideograph", "uppercase",
+        "variationselector", "whitespace", "xidcontinue", "xidstart", "yi",
+        "zl", "zp", "zs" };
   public static final String[] intervals = {
     // Unicode 4.1 property value: {alphabetic}
         "\u0041\u005a"+"\u0061\u007a"+"\u00aa\u00aa"+"\u00b5\u00b5"
@@ -707,37 +707,142 @@ public class Unicode_4_1 {
         "\ue000\uf8ff"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
     // Unicode 4.1 property value: {common}
         "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b9"
-      + "\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"+"\u02b9\u02df"
-      + "\u02e5\u02ff"+"\u037e\u037e"+"\u0387\u0387"+"\u0589\u0589"
-      + "\u0600\u0603"+"\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"
-      + "\u0640\u0640"+"\u0660\u0669"+"\u06dd\u06dd"+"\u0964\u0965"
-      + "\u0970\u0970"+"\u0e3f\u0e3f"+"\u10fb\u10fb"+"\u16eb\u16ed"
-      + "\u1735\u1736"+"\u2000\u200b"+"\u200e\u2063"+"\u206a\u2070"
-      + "\u2074\u207e"+"\u2080\u208e"+"\u20a0\u20b5"+"\u2100\u2125"
-      + "\u2127\u2129"+"\u212c\u214c"+"\u2153\u2183"+"\u2190\u23db"
-      + "\u2400\u2426"+"\u2440\u244a"+"\u2460\u269c"+"\u26a0\u26b1"
-      + "\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"
-      + "\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"
-      + "\u2761\u2794"+"\u2798\u27af"+"\u27b1\u27be"+"\u27c0\u27c6"
-      + "\u27d0\u27eb"+"\u27f0\u27ff"+"\u2900\u2b13"+"\u2e00\u2e17"
-      + "\u2e1c\u2e1d"+"\u2ff0\u2ffb"+"\u3000\u3004"+"\u3006\u3006"
-      + "\u3008\u3020"+"\u3030\u3037"+"\u303c\u303f"+"\u309b\u309c"
-      + "\u30a0\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31cf"
-      + "\u3220\u3243"+"\u3250\u325f"+"\u327e\u32fe"+"\u3300\u33ff"
-      + "\u4dc0\u4dff"+"\ua700\ua716"+"\ue000\uf8ff"+"\ufd3e\ufd3f"
-      + "\ufdfd\ufdfd"+"\ufe10\ufe19"+"\ufe30\ufe52"+"\ufe54\ufe66"
-      + "\ufe68\ufe6b"+"\ufeff\ufeff"+"\uff01\uff20"+"\uff3b\uff40"
-      + "\uff5b\uff65"+"\uff70\uff70"+"\uff9e\uff9f"+"\uffe0\uffe6"
-      + "\uffe8\uffee"+"\ufff9\ufffd"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"
-      + "\ud800\udd37\ud800\udd3f"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd2a\ud834\udd66"
-      + "\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"+"\ud834\uddae\ud834\udddd"
-      + "\ud834\udf00\ud834\udf56"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"
-      + "\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"
-      + "\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"
-      + "\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"
-      + "\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"
-      + "\ud835\udea8\ud835\udfc9"+"\ud835\udfce\ud835\udfff"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"
-      + "\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
+      + "\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"+"\u0242\u024f"
+      + "\u02b9\u02df"+"\u02e5\u02ff"+"\u0370\u0373"+"\u0376\u0379"
+      + "\u037b\u037d"+"\u037f\u0383"+"\u037e\u037e"+"\u0387\u0387"
+      + "\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"+"\u03cf\u03cf"
+      + "\u0487\u0487"+"\u04cf\u04cf"+"\u04fa\u04ff"+"\u0510\u0530"
+      + "\u0557\u0558"+"\u0560\u0560"+"\u0588\u0588"+"\u0589\u0589"
+      + "\u058b\u0590"+"\u05ba\u05ba"+"\u05c8\u05cf"+"\u05eb\u05ef"
+      + "\u05f5\u05ff"+"\u0604\u060a"+"\u0600\u0603"+"\u060c\u060c"
+      + "\u0616\u061a"+"\u061c\u061d"+"\u061b\u061b"+"\u0620\u0620"
+      + "\u061f\u061f"+"\u063b\u063f"+"\u0640\u0640"+"\u065f\u065f"
+      + "\u0660\u0669"+"\u06dd\u06dd"+"\u070e\u070e"+"\u074b\u074c"
+      + "\u076e\u077f"+"\u07b2\u0900"+"\u093a\u093b"+"\u094e\u094f"
+      + "\u0955\u0957"+"\u0964\u0965"+"\u0971\u097c"+"\u0970\u0970"
+      + "\u097e\u0980"+"\u0984\u0984"+"\u098d\u098e"+"\u0991\u0992"
+      + "\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"
+      + "\u09c5\u09c6"+"\u09c9\u09ca"+"\u09cf\u09d6"+"\u09d8\u09db"
+      + "\u09de\u09de"+"\u09e4\u09e5"+"\u09fb\u0a00"+"\u0a04\u0a04"
+      + "\u0a0b\u0a0e"+"\u0a11\u0a12"+"\u0a29\u0a29"+"\u0a31\u0a31"
+      + "\u0a34\u0a34"+"\u0a37\u0a37"+"\u0a3a\u0a3b"+"\u0a3d\u0a3d"
+      + "\u0a43\u0a46"+"\u0a49\u0a4a"+"\u0a4e\u0a58"+"\u0a5d\u0a5d"
+      + "\u0a5f\u0a65"+"\u0a75\u0a80"+"\u0a84\u0a84"+"\u0a8e\u0a8e"
+      + "\u0a92\u0a92"+"\u0aa9\u0aa9"+"\u0ab1\u0ab1"+"\u0ab4\u0ab4"
+      + "\u0aba\u0abb"+"\u0ac6\u0ac6"+"\u0aca\u0aca"+"\u0ace\u0acf"
+      + "\u0ad1\u0adf"+"\u0ae4\u0ae5"+"\u0af0\u0af0"+"\u0af2\u0b00"
+      + "\u0b04\u0b04"+"\u0b0d\u0b0e"+"\u0b11\u0b12"+"\u0b29\u0b29"
+      + "\u0b31\u0b31"+"\u0b34\u0b34"+"\u0b3a\u0b3b"+"\u0b44\u0b46"
+      + "\u0b49\u0b4a"+"\u0b4e\u0b55"+"\u0b58\u0b5b"+"\u0b5e\u0b5e"
+      + "\u0b62\u0b65"+"\u0b72\u0b81"+"\u0b84\u0b84"+"\u0b8b\u0b8d"
+      + "\u0b91\u0b91"+"\u0b96\u0b98"+"\u0b9b\u0b9b"+"\u0b9d\u0b9d"
+      + "\u0ba0\u0ba2"+"\u0ba5\u0ba7"+"\u0bab\u0bad"+"\u0bba\u0bbd"
+      + "\u0bc3\u0bc5"+"\u0bc9\u0bc9"+"\u0bce\u0bd6"+"\u0bd8\u0be5"
+      + "\u0bfb\u0c00"+"\u0c04\u0c04"+"\u0c0d\u0c0d"+"\u0c11\u0c11"
+      + "\u0c29\u0c29"+"\u0c34\u0c34"+"\u0c3a\u0c3d"+"\u0c45\u0c45"
+      + "\u0c49\u0c49"+"\u0c4e\u0c54"+"\u0c57\u0c5f"+"\u0c62\u0c65"
+      + "\u0c70\u0c81"+"\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"
+      + "\u0ca9\u0ca9"+"\u0cb4\u0cb4"+"\u0cba\u0cbb"+"\u0cc5\u0cc5"
+      + "\u0cc9\u0cc9"+"\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"
+      + "\u0ce2\u0ce5"+"\u0cf0\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"
+      + "\u0d11\u0d11"+"\u0d29\u0d29"+"\u0d3a\u0d3d"+"\u0d44\u0d45"
+      + "\u0d49\u0d49"+"\u0d4e\u0d56"+"\u0d58\u0d5f"+"\u0d62\u0d65"
+      + "\u0d70\u0d81"+"\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"
+      + "\u0dbc\u0dbc"+"\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"
+      + "\u0dd5\u0dd5"+"\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df5\u0e00"
+      + "\u0e3b\u0e3e"+"\u0e3f\u0e3f"+"\u0e5c\u0e80"+"\u0e83\u0e83"
+      + "\u0e85\u0e86"+"\u0e89\u0e89"+"\u0e8b\u0e8c"+"\u0e8e\u0e93"
+      + "\u0e98\u0e98"+"\u0ea0\u0ea0"+"\u0ea4\u0ea4"+"\u0ea6\u0ea6"
+      + "\u0ea8\u0ea9"+"\u0eac\u0eac"+"\u0eba\u0eba"+"\u0ebe\u0ebf"
+      + "\u0ec5\u0ec5"+"\u0ec7\u0ec7"+"\u0ece\u0ecf"+"\u0eda\u0edb"
+      + "\u0ede\u0eff"+"\u0f48\u0f48"+"\u0f6b\u0f70"+"\u0f8c\u0f8f"
+      + "\u0f98\u0f98"+"\u0fbd\u0fbd"+"\u0fcd\u0fce"+"\u0fd2\u0fff"
+      + "\u1022\u1022"+"\u1028\u1028"+"\u102b\u102b"+"\u1033\u1035"
+      + "\u103a\u103f"+"\u105a\u109f"+"\u10c6\u10cf"+"\u10fb\u10fb"
+      + "\u10fd\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"+"\u11fa\u11ff"
+      + "\u1249\u1249"+"\u124e\u124f"+"\u1257\u1257"+"\u1259\u1259"
+      + "\u125e\u125f"+"\u1289\u1289"+"\u128e\u128f"+"\u12b1\u12b1"
+      + "\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"+"\u12c6\u12c7"
+      + "\u12d7\u12d7"+"\u1311\u1311"+"\u1316\u1317"+"\u135b\u135e"
+      + "\u137d\u137f"+"\u139a\u139f"+"\u13f5\u1400"+"\u1677\u167f"
+      + "\u169d\u169f"+"\u16eb\u16ed"+"\u16f1\u16ff"+"\u170d\u170d"
+      + "\u1715\u171f"+"\u1737\u173f"+"\u1735\u1736"+"\u1754\u175f"
+      + "\u176d\u176d"+"\u1771\u1771"+"\u1774\u177f"+"\u17de\u17df"
+      + "\u17ea\u17ef"+"\u17fa\u17ff"+"\u180f\u180f"+"\u181a\u181f"
+      + "\u1878\u187f"+"\u18aa\u18ff"+"\u191d\u191f"+"\u192c\u192f"
+      + "\u193c\u193f"+"\u1941\u1943"+"\u196e\u196f"+"\u1975\u197f"
+      + "\u19aa\u19af"+"\u19ca\u19cf"+"\u19da\u19dd"+"\u1a1c\u1a1d"
+      + "\u1a20\u1cff"+"\u1dc4\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"
+      + "\u1f16\u1f17"+"\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"
+      + "\u1f58\u1f58"+"\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"
+      + "\u1f7e\u1f7f"+"\u1fb5\u1fb5"+"\u1fc5\u1fc5"+"\u1fd4\u1fd5"
+      + "\u1fdc\u1fdc"+"\u1ff0\u1ff1"+"\u1ff5\u1ff5"+"\u1fff\u1fff"
+      + "\u2000\u200b"+"\u2064\u2069"+"\u200e\u2063"+"\u206a\u2070"
+      + "\u2072\u2073"+"\u2074\u207e"+"\u208f\u208f"+"\u2080\u208e"
+      + "\u2095\u209f"+"\u20b6\u20cf"+"\u20a0\u20b5"+"\u20ec\u20ff"
+      + "\u2100\u2125"+"\u2127\u2129"+"\u214d\u2152"+"\u212c\u214c"
+      + "\u2184\u218f"+"\u2153\u2183"+"\u23dc\u23ff"+"\u2190\u23db"
+      + "\u2427\u243f"+"\u2400\u2426"+"\u244b\u245f"+"\u2440\u244a"
+      + "\u269d\u269f"+"\u2460\u269c"+"\u26b2\u2700"+"\u26a0\u26b1"
+      + "\u2705\u2705"+"\u2701\u2704"+"\u270a\u270b"+"\u2706\u2709"
+      + "\u2728\u2728"+"\u270c\u2727"+"\u274c\u274c"+"\u2729\u274b"
+      + "\u274e\u274e"+"\u274d\u274d"+"\u2753\u2755"+"\u274f\u2752"
+      + "\u2757\u2757"+"\u2756\u2756"+"\u275f\u2760"+"\u2758\u275e"
+      + "\u2795\u2797"+"\u2761\u2794"+"\u27b0\u27b0"+"\u2798\u27af"
+      + "\u27bf\u27bf"+"\u27b1\u27be"+"\u27c7\u27cf"+"\u27c0\u27c6"
+      + "\u27ec\u27ef"+"\u27d0\u27eb"+"\u27f0\u27ff"+"\u2b14\u2bff"
+      + "\u2900\u2b13"+"\u2c2f\u2c2f"+"\u2c5f\u2c7f"+"\u2ceb\u2cf8"
+      + "\u2d26\u2d2f"+"\u2d66\u2d6e"+"\u2d70\u2d7f"+"\u2d97\u2d9f"
+      + "\u2da7\u2da7"+"\u2daf\u2daf"+"\u2db7\u2db7"+"\u2dbf\u2dbf"
+      + "\u2dc7\u2dc7"+"\u2dcf\u2dcf"+"\u2dd7\u2dd7"+"\u2ddf\u2dff"
+      + "\u2e18\u2e1b"+"\u2e00\u2e17"+"\u2e1e\u2e7f"+"\u2e1c\u2e1d"
+      + "\u2e9a\u2e9a"+"\u2ef4\u2eff"+"\u2fd6\u2fef"+"\u2ffc\u2fff"
+      + "\u2ff0\u2ffb"+"\u3000\u3004"+"\u3006\u3006"+"\u3008\u3020"
+      + "\u3030\u3037"+"\u3040\u3040"+"\u303c\u303f"+"\u3097\u3098"
+      + "\u309b\u309c"+"\u30a0\u30a0"+"\u30fb\u30fc"+"\u3100\u3104"
+      + "\u312d\u3130"+"\u318f\u318f"+"\u3190\u319f"+"\u31b8\u31bf"
+      + "\u31d0\u31ef"+"\u31c0\u31cf"+"\u321f\u321f"+"\u3244\u324f"
+      + "\u3220\u3243"+"\u3250\u325f"+"\u32ff\u32ff"+"\u327e\u32fe"
+      + "\u3300\u33ff"+"\u4db6\u4dbf"+"\u4dc0\u4dff"+"\u9fbc\u9fff"
+      + "\ua48d\ua48f"+"\ua4c7\ua6ff"+"\ua717\ua7ff"+"\ua700\ua716"
+      + "\ua82c\uabff"+"\ud7a4\udfff"+"\ue000\uf8ff"+"\ufa2e\ufa2f"
+      + "\ufa6b\ufa6f"+"\ufada\ufaff"+"\ufb07\ufb12"+"\ufb18\ufb1c"
+      + "\ufb37\ufb37"+"\ufb3d\ufb3d"+"\ufb3f\ufb3f"+"\ufb42\ufb42"
+      + "\ufb45\ufb45"+"\ufbb2\ufbd2"+"\ufd40\ufd4f"+"\ufd3e\ufd3f"
+      + "\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfe\ufdff"+"\ufdfd\ufdfd"
+      + "\ufe1a\ufe1f"+"\ufe10\ufe19"+"\ufe24\ufe2f"+"\ufe53\ufe53"
+      + "\ufe30\ufe52"+"\ufe67\ufe67"+"\ufe54\ufe66"+"\ufe6c\ufe6f"
+      + "\ufe68\ufe6b"+"\ufe75\ufe75"+"\ufefd\ufefe"+"\uff00\uff00"
+      + "\ufeff\ufeff"+"\uff01\uff20"+"\uff3b\uff40"+"\uff5b\uff65"
+      + "\uff70\uff70"+"\uff9e\uff9f"+"\uffbf\uffc1"+"\uffc8\uffc9"
+      + "\uffd0\uffd1"+"\uffd8\uffd9"+"\uffdd\uffdf"+"\uffe7\uffe7"
+      + "\uffe0\uffe6"+"\uffef\ufff8"+"\uffe8\uffee"+"\ufffe\uffff"
+      + "\ufff9\ufffd"+"\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"
+      + "\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"
+      + "\ud800\udd03\ud800\udd06"+"\ud800\udd00\ud800\udd02"+"\ud800\udd34\ud800\udd36"+"\ud800\udd07\ud800\udd33"
+      + "\ud800\udd37\ud800\udd3f"+"\ud800\udd8b\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"+"\ud800\udf24\ud800\udf2f"
+      + "\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd6\ud800\udfff"
+      + "\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"
+      + "\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc40\ud802\uddff"
+      + "\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"
+      + "\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"+"\ud802\ude48\ud802\ude4f"+"\ud802\ude59\ud833\udfff"
+      + "\ud834\udcf6\ud834\udcff"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd27\ud834\udd29"+"\ud834\udd00\ud834\udd26"
+      + "\ud834\udd2a\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
+      + "\ud834\uddde\ud834\uddff"+"\ud834\uddae\ud834\udddd"+"\ud834\ude46\ud834\udeff"+"\ud834\udf57\ud834\udfff"
+      + "\ud834\udf00\ud834\udf56"+"\ud835\udc55\ud835\udc55"+"\ud835\udc00\ud835\udc54"+"\ud835\udc9d\ud835\udc9d"
+      + "\ud835\udc56\ud835\udc9c"+"\ud835\udca0\ud835\udca1"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca3\ud835\udca4"
+      + "\ud835\udca2\ud835\udca2"+"\ud835\udca7\ud835\udca8"+"\ud835\udca5\ud835\udca6"+"\ud835\udcad\ud835\udcad"
+      + "\ud835\udca9\ud835\udcac"+"\ud835\udcba\ud835\udcba"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbc\ud835\udcbc"
+      + "\ud835\udcbb\ud835\udcbb"+"\ud835\udcc4\ud835\udcc4"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udd06\ud835\udd06"
+      + "\ud835\udcc5\ud835\udd05"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd15\ud835\udd15"
+      + "\ud835\udd0d\ud835\udd14"+"\ud835\udd1d\ud835\udd1d"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd3a\ud835\udd3a"
+      + "\ud835\udd1e\ud835\udd39"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd45\ud835\udd45"
+      + "\ud835\udd40\ud835\udd44"+"\ud835\udd47\ud835\udd49"+"\ud835\udd46\ud835\udd46"+"\ud835\udd51\ud835\udd51"
+      + "\ud835\udd4a\ud835\udd50"+"\ud835\udea6\ud835\udea7"+"\ud835\udd52\ud835\udea5"+"\ud835\udfca\ud835\udfcd"
+      + "\ud835\udea8\ud835\udfc9"+"\ud836\udc00\ud83f\udfff"+"\ud835\udfce\ud835\udfff"+"\ud869\uded7\ud87d\udfff"
+      + "\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc01\udb40\udc01"+"\udb40\udc80\udb40\udcff"
+      + "\udb40\udc20\udb40\udc7f"+"\udb40\uddf0\udb7f\udfff"+"\udbbf\udffe\udbbf\udfff"+"\udb80\udc00\udbbf\udffd"
+      + "\udbff\udffe\udbff\udfff"+"\udbc0\udc00\udbff\udffd",
     // Unicode 4.1 property value: {coptic}
         "\u03e2\u03ef"+"\u2c80\u2cea"+"\u2cf9\u2cff",
     // Unicode 4.1 property value: {cypriot}
@@ -2100,112 +2205,6 @@ public class Unicode_4_1 {
         "\u3400\u4db5"+"\u4e00\u9fbb"+"\ufa0e\ufa0f"+"\ufa11\ufa11"
       + "\ufa13\ufa14"+"\ufa1f\ufa1f"+"\ufa21\ufa21"+"\ufa23\ufa24"
       + "\ufa27\ufa29"+"\ud840\udc00\ud869\uded6",
-    // Unicode 4.1 property value: {unknown}
-        "\u0242\u024f"+"\u0370\u0373"+"\u0376\u0379"+"\u037b\u037d"
-      + "\u037f\u0383"+"\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"
-      + "\u03cf\u03cf"+"\u0487\u0487"+"\u04cf\u04cf"+"\u04fa\u04ff"
-      + "\u0510\u0530"+"\u0557\u0558"+"\u0560\u0560"+"\u0588\u0588"
-      + "\u058b\u0590"+"\u05ba\u05ba"+"\u05c8\u05cf"+"\u05eb\u05ef"
-      + "\u05f5\u05ff"+"\u0604\u060a"+"\u0616\u061a"+"\u061c\u061d"
-      + "\u0620\u0620"+"\u063b\u063f"+"\u065f\u065f"+"\u070e\u070e"
-      + "\u074b\u074c"+"\u076e\u077f"+"\u07b2\u0900"+"\u093a\u093b"
-      + "\u094e\u094f"+"\u0955\u0957"+"\u0971\u097c"+"\u097e\u0980"
-      + "\u0984\u0984"+"\u098d\u098e"+"\u0991\u0992"+"\u09a9\u09a9"
-      + "\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"+"\u09c5\u09c6"
-      + "\u09c9\u09ca"+"\u09cf\u09d6"+"\u09d8\u09db"+"\u09de\u09de"
-      + "\u09e4\u09e5"+"\u09fb\u0a00"+"\u0a04\u0a04"+"\u0a0b\u0a0e"
-      + "\u0a11\u0a12"+"\u0a29\u0a29"+"\u0a31\u0a31"+"\u0a34\u0a34"
-      + "\u0a37\u0a37"+"\u0a3a\u0a3b"+"\u0a3d\u0a3d"+"\u0a43\u0a46"
-      + "\u0a49\u0a4a"+"\u0a4e\u0a58"+"\u0a5d\u0a5d"+"\u0a5f\u0a65"
-      + "\u0a75\u0a80"+"\u0a84\u0a84"+"\u0a8e\u0a8e"+"\u0a92\u0a92"
-      + "\u0aa9\u0aa9"+"\u0ab1\u0ab1"+"\u0ab4\u0ab4"+"\u0aba\u0abb"
-      + "\u0ac6\u0ac6"+"\u0aca\u0aca"+"\u0ace\u0acf"+"\u0ad1\u0adf"
-      + "\u0ae4\u0ae5"+"\u0af0\u0af0"+"\u0af2\u0b00"+"\u0b04\u0b04"
-      + "\u0b0d\u0b0e"+"\u0b11\u0b12"+"\u0b29\u0b29"+"\u0b31\u0b31"
-      + "\u0b34\u0b34"+"\u0b3a\u0b3b"+"\u0b44\u0b46"+"\u0b49\u0b4a"
-      + "\u0b4e\u0b55"+"\u0b58\u0b5b"+"\u0b5e\u0b5e"+"\u0b62\u0b65"
-      + "\u0b72\u0b81"+"\u0b84\u0b84"+"\u0b8b\u0b8d"+"\u0b91\u0b91"
-      + "\u0b96\u0b98"+"\u0b9b\u0b9b"+"\u0b9d\u0b9d"+"\u0ba0\u0ba2"
-      + "\u0ba5\u0ba7"+"\u0bab\u0bad"+"\u0bba\u0bbd"+"\u0bc3\u0bc5"
-      + "\u0bc9\u0bc9"+"\u0bce\u0bd6"+"\u0bd8\u0be5"+"\u0bfb\u0c00"
-      + "\u0c04\u0c04"+"\u0c0d\u0c0d"+"\u0c11\u0c11"+"\u0c29\u0c29"
-      + "\u0c34\u0c34"+"\u0c3a\u0c3d"+"\u0c45\u0c45"+"\u0c49\u0c49"
-      + "\u0c4e\u0c54"+"\u0c57\u0c5f"+"\u0c62\u0c65"+"\u0c70\u0c81"
-      + "\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"
-      + "\u0cb4\u0cb4"+"\u0cba\u0cbb"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"
-      + "\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce2\u0ce5"
-      + "\u0cf0\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"+"\u0d11\u0d11"
-      + "\u0d29\u0d29"+"\u0d3a\u0d3d"+"\u0d44\u0d45"+"\u0d49\u0d49"
-      + "\u0d4e\u0d56"+"\u0d58\u0d5f"+"\u0d62\u0d65"+"\u0d70\u0d81"
-      + "\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"+"\u0dbc\u0dbc"
-      + "\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"+"\u0dd5\u0dd5"
-      + "\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df5\u0e00"+"\u0e3b\u0e3e"
-      + "\u0e5c\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"+"\u0e89\u0e89"
-      + "\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"+"\u0ea0\u0ea0"
-      + "\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"+"\u0eac\u0eac"
-      + "\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"+"\u0ec7\u0ec7"
-      + "\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ede\u0eff"+"\u0f48\u0f48"
-      + "\u0f6b\u0f70"+"\u0f8c\u0f8f"+"\u0f98\u0f98"+"\u0fbd\u0fbd"
-      + "\u0fcd\u0fce"+"\u0fd2\u0fff"+"\u1022\u1022"+"\u1028\u1028"
-      + "\u102b\u102b"+"\u1033\u1035"+"\u103a\u103f"+"\u105a\u109f"
-      + "\u10c6\u10cf"+"\u10fd\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"
-      + "\u11fa\u11ff"+"\u1249\u1249"+"\u124e\u124f"+"\u1257\u1257"
-      + "\u1259\u1259"+"\u125e\u125f"+"\u1289\u1289"+"\u128e\u128f"
-      + "\u12b1\u12b1"+"\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"
-      + "\u12c6\u12c7"+"\u12d7\u12d7"+"\u1311\u1311"+"\u1316\u1317"
-      + "\u135b\u135e"+"\u137d\u137f"+"\u139a\u139f"+"\u13f5\u1400"
-      + "\u1677\u167f"+"\u169d\u169f"+"\u16f1\u16ff"+"\u170d\u170d"
-      + "\u1715\u171f"+"\u1737\u173f"+"\u1754\u175f"+"\u176d\u176d"
-      + "\u1771\u1771"+"\u1774\u177f"+"\u17de\u17df"+"\u17ea\u17ef"
-      + "\u17fa\u17ff"+"\u180f\u180f"+"\u181a\u181f"+"\u1878\u187f"
-      + "\u18aa\u18ff"+"\u191d\u191f"+"\u192c\u192f"+"\u193c\u193f"
-      + "\u1941\u1943"+"\u196e\u196f"+"\u1975\u197f"+"\u19aa\u19af"
-      + "\u19ca\u19cf"+"\u19da\u19dd"+"\u1a1c\u1a1d"+"\u1a20\u1cff"
-      + "\u1dc4\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"+"\u1f16\u1f17"
-      + "\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"+"\u1f58\u1f58"
-      + "\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"+"\u1f7e\u1f7f"
-      + "\u1fb5\u1fb5"+"\u1fc5\u1fc5"+"\u1fd4\u1fd5"+"\u1fdc\u1fdc"
-      + "\u1ff0\u1ff1"+"\u1ff5\u1ff5"+"\u1fff\u1fff"+"\u2064\u2069"
-      + "\u2072\u2073"+"\u208f\u208f"+"\u2095\u209f"+"\u20b6\u20cf"
-      + "\u20ec\u20ff"+"\u214d\u2152"+"\u2184\u218f"+"\u23dc\u23ff"
-      + "\u2427\u243f"+"\u244b\u245f"+"\u269d\u269f"+"\u26b2\u2700"
-      + "\u2705\u2705"+"\u270a\u270b"+"\u2728\u2728"+"\u274c\u274c"
-      + "\u274e\u274e"+"\u2753\u2755"+"\u2757\u2757"+"\u275f\u2760"
-      + "\u2795\u2797"+"\u27b0\u27b0"+"\u27bf\u27bf"+"\u27c7\u27cf"
-      + "\u27ec\u27ef"+"\u2b14\u2bff"+"\u2c2f\u2c2f"+"\u2c5f\u2c7f"
-      + "\u2ceb\u2cf8"+"\u2d26\u2d2f"+"\u2d66\u2d6e"+"\u2d70\u2d7f"
-      + "\u2d97\u2d9f"+"\u2da7\u2da7"+"\u2daf\u2daf"+"\u2db7\u2db7"
-      + "\u2dbf\u2dbf"+"\u2dc7\u2dc7"+"\u2dcf\u2dcf"+"\u2dd7\u2dd7"
-      + "\u2ddf\u2dff"+"\u2e18\u2e1b"+"\u2e1e\u2e7f"+"\u2e9a\u2e9a"
-      + "\u2ef4\u2eff"+"\u2fd6\u2fef"+"\u2ffc\u2fff"+"\u3040\u3040"
-      + "\u3097\u3098"+"\u3100\u3104"+"\u312d\u3130"+"\u318f\u318f"
-      + "\u31b8\u31bf"+"\u31d0\u31ef"+"\u321f\u321f"+"\u3244\u324f"
-      + "\u32ff\u32ff"+"\u4db6\u4dbf"+"\u9fbc\u9fff"+"\ua48d\ua48f"
-      + "\ua4c7\ua6ff"+"\ua717\ua7ff"+"\ua82c\uabff"+"\ud7a4\udfff"
-      + "\ufa2e\ufa2f"+"\ufa6b\ufa6f"+"\ufada\ufaff"+"\ufb07\ufb12"
-      + "\ufb18\ufb1c"+"\ufb37\ufb37"+"\ufb3d\ufb3d"+"\ufb3f\ufb3f"
-      + "\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"+"\ufd40\ufd4f"
-      + "\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfe\ufdff"+"\ufe1a\ufe1f"
-      + "\ufe24\ufe2f"+"\ufe53\ufe53"+"\ufe67\ufe67"+"\ufe6c\ufe6f"
-      + "\ufe75\ufe75"+"\ufefd\ufefe"+"\uff00\uff00"+"\uffbf\uffc1"
-      + "\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"+"\uffdd\uffdf"
-      + "\uffe7\uffe7"+"\uffef\ufff8"+"\ufffe\uffff"+"\ud800\udc0c\ud800\udc0c"
-      + "\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"
-      + "\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"+"\ud800\udd03\ud800\udd06"+"\ud800\udd34\ud800\udd36"
-      + "\ud800\udd8b\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"+"\ud800\udf24\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"
-      + "\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"
-      + "\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"
-      + "\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc40\ud802\uddff"+"\ud802\ude04\ud802\ude04"
-      + "\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"
-      + "\ud802\ude3b\ud802\ude3e"+"\ud802\ude48\ud802\ude4f"+"\ud802\ude59\ud833\udfff"+"\ud834\udcf6\ud834\udcff"
-      + "\ud834\udd27\ud834\udd29"+"\ud834\uddde\ud834\uddff"+"\ud834\ude46\ud834\udeff"+"\ud834\udf57\ud834\udfff"
-      + "\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"
-      + "\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"
-      + "\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"
-      + "\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"
-      + "\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udfca\ud835\udfcd"
-      + "\ud836\udc00\ud83f\udfff"+"\ud869\uded7\ud87d\udfff"+"\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"
-      + "\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udb7f\udfff"+"\udbbf\udffe\udbbf\udfff"+"\udbff\udffe\udbff\udfff",
     // Unicode 4.1 property value: {uppercase}
         "\u0041\u005a"+"\u00c0\u00d6"+"\u00d8\u00de"+"\u0100\u0100"
       + "\u0102\u0102"+"\u0104\u0104"+"\u0106\u0106"+"\u0108\u0108"
@@ -2572,100 +2571,103 @@ public class Unicode_4_1 {
         "blk=combininghalfmarks", "block=combininghalfmarks",   "blk=controlpictures", "block=controlpictures",
         "blk=coptic", "block=coptic",   "blk=currencysymbols", "block=currencysymbols",
         "blk=cypriotsyllabary", "block=cypriotsyllabary",   "blk=cyrillic", "block=cyrillic",
-        "blk=cyrillicsupplement", "block=cyrillicsupplement",   "blk=deseret", "block=deseret",
-        "blk=devanagari", "block=devanagari",   "blk=dingbats", "block=dingbats",
-        "blk=enclosedalphanumerics", "block=enclosedalphanumerics",   "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",
-        "blk=ethiopic", "block=ethiopic",   "blk=ethiopicextended", "block=ethiopicextended",
-        "blk=ethiopicsupplement", "block=ethiopicsupplement",   "blk=generalpunctuation", "block=generalpunctuation",
-        "blk=geometricshapes", "block=geometricshapes",   "blk=georgian", "block=georgian",
-        "blk=georgiansupplement", "block=georgiansupplement",   "blk=glagolitic", "block=glagolitic",
-        "blk=gothic", "block=gothic",   "blk=greekandcoptic", "block=greekandcoptic",
-        "blk=greekextended", "block=greekextended",   "blk=gujarati", "block=gujarati",
-        "blk=gurmukhi", "block=gurmukhi",   "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",
-        "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",   "blk=hanguljamo", "block=hanguljamo",
-        "blk=hangulsyllables", "block=hangulsyllables",   "blk=hanunoo", "block=hanunoo",
-        "blk=hebrew", "block=hebrew",   "blk=hiragana", "block=hiragana",
-        "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",   "blk=ipaextensions", "block=ipaextensions",
-        "blk=kanbun", "block=kanbun",   "blk=kangxiradicals", "block=kangxiradicals",
-        "blk=kannada", "block=kannada",   "blk=katakana", "block=katakana",
-        "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions",   "blk=kharoshthi", "block=kharoshthi",
-        "blk=khmer", "block=khmer",   "blk=khmersymbols", "block=khmersymbols",
-        "blk=lao", "block=lao",   "blk=latin1supplement", "block=latin1supplement",
-        "blk=latinextendeda", "block=latinextendeda",   "blk=latinextendedadditional", "block=latinextendedadditional",
-        "blk=latinextendedb", "block=latinextendedb",   "blk=letterlikesymbols", "block=letterlikesymbols",
-        "blk=limbu", "block=limbu",   "blk=linearbideograms", "block=linearbideograms",
-        "blk=linearbsyllabary", "block=linearbsyllabary",   "blk=malayalam", "block=malayalam",
-        "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",   "blk=mathematicaloperators", "block=mathematicaloperators",
-        "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",   "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",
-        "blk=miscellaneoussymbols", "block=miscellaneoussymbols",   "blk=miscellaneoussymbolsandarrows", "block=miscellaneoussymbolsandarrows",
-        "blk=miscellaneoustechnical", "block=miscellaneoustechnical",   "blk=modifiertoneletters", "block=modifiertoneletters",
-        "blk=mongolian", "block=mongolian",   "blk=musicalsymbols", "block=musicalsymbols",
-        "blk=myanmar", "block=myanmar",   "blk=newtailue", "block=newtailue",
-        "blk=noblock", "block=noblock",   "blk=numberforms", "block=numberforms",
-        "blk=ogham", "block=ogham",   "blk=olditalic", "block=olditalic",
-        "blk=oldpersian", "block=oldpersian",   "blk=opticalcharacterrecognition", "block=opticalcharacterrecognition",
-        "blk=oriya", "block=oriya",   "blk=osmanya", "block=osmanya",
-        "blk=phoneticextensions", "block=phoneticextensions",   "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement",
-        "blk=privateusearea", "block=privateusearea",   "blk=runic", "block=runic",
-        "blk=shavian", "block=shavian",   "blk=sinhala", "block=sinhala",
-        "blk=smallformvariants", "block=smallformvariants",   "blk=spacingmodifierletters", "block=spacingmodifierletters",
-        "blk=specials", "block=specials",   "blk=superscriptsandsubscripts", "block=superscriptsandsubscripts",
-        "blk=supplementalarrowsa", "block=supplementalarrowsa",   "blk=supplementalarrowsb", "block=supplementalarrowsb",
-        "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",   "blk=supplementalpunctuation", "block=supplementalpunctuation",
-        "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",   "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",
-        "blk=sylotinagri", "block=sylotinagri",   "blk=syriac", "block=syriac",
-        "blk=tagalog", "block=tagalog",   "blk=tagbanwa", "block=tagbanwa",
-        "blk=tags", "block=tags",   "blk=taile", "block=taile",
-        "blk=taixuanjingsymbols", "block=taixuanjingsymbols",   "blk=tamil", "block=tamil",
-        "blk=telugu", "block=telugu",   "blk=thaana", "block=thaana",
-        "blk=thai", "block=thai",   "blk=tibetan", "block=tibetan",
-        "blk=tifinagh", "block=tifinagh",   "blk=ugaritic", "block=ugaritic",
-        "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",   "blk=variationselectors", "block=variationselectors",
-        "blk=variationselectorssupplement", "block=variationselectorssupplement",   "blk=verticalforms", "block=verticalforms",
-        "blk=yijinghexagramsymbols", "block=yijinghexagramsymbols",   "blk=yiradicals", "block=yiradicals",
-        "blk=yisyllables", "block=yisyllables",   "bopo", "bopomofo",
+        "blk=cyrillicsupplement", "block=cyrillicsupplement",   "blk=cyrillicsupplementary", "block=cyrillicsupplement",
+        "blk=deseret", "block=deseret",   "blk=devanagari", "block=devanagari",
+        "blk=dingbats", "block=dingbats",   "blk=enclosedalphanumerics", "block=enclosedalphanumerics",
+        "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",   "blk=ethiopic", "block=ethiopic",
+        "blk=ethiopicextended", "block=ethiopicextended",   "blk=ethiopicsupplement", "block=ethiopicsupplement",
+        "blk=generalpunctuation", "block=generalpunctuation",   "blk=geometricshapes", "block=geometricshapes",
+        "blk=georgian", "block=georgian",   "blk=georgiansupplement", "block=georgiansupplement",
+        "blk=glagolitic", "block=glagolitic",   "blk=gothic", "block=gothic",
+        "blk=greekandcoptic", "block=greekandcoptic",   "blk=greekextended", "block=greekextended",
+        "blk=gujarati", "block=gujarati",   "blk=gurmukhi", "block=gurmukhi",
+        "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",   "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",
+        "blk=hanguljamo", "block=hanguljamo",   "blk=hangulsyllables", "block=hangulsyllables",
+        "blk=hanunoo", "block=hanunoo",   "blk=hebrew", "block=hebrew",
+        "blk=hiragana", "block=hiragana",   "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",
+        "blk=ipaextensions", "block=ipaextensions",   "blk=kanbun", "block=kanbun",
+        "blk=kangxiradicals", "block=kangxiradicals",   "blk=kannada", "block=kannada",
+        "blk=katakana", "block=katakana",   "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions",
+        "blk=kharoshthi", "block=kharoshthi",   "blk=khmer", "block=khmer",
+        "blk=khmersymbols", "block=khmersymbols",   "blk=lao", "block=lao",
+        "blk=latin1supplement", "block=latin1supplement",   "blk=latinextendeda", "block=latinextendeda",
+        "blk=latinextendedadditional", "block=latinextendedadditional",   "blk=latinextendedb", "block=latinextendedb",
+        "blk=letterlikesymbols", "block=letterlikesymbols",   "blk=limbu", "block=limbu",
+        "blk=linearbideograms", "block=linearbideograms",   "blk=linearbsyllabary", "block=linearbsyllabary",
+        "blk=malayalam", "block=malayalam",   "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",
+        "blk=mathematicaloperators", "block=mathematicaloperators",   "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",
+        "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",   "blk=miscellaneoussymbols", "block=miscellaneoussymbols",
+        "blk=miscellaneoussymbolsandarrows", "block=miscellaneoussymbolsandarrows",   "blk=miscellaneoustechnical", "block=miscellaneoustechnical",
+        "blk=modifiertoneletters", "block=modifiertoneletters",   "blk=mongolian", "block=mongolian",
+        "blk=musicalsymbols", "block=musicalsymbols",   "blk=myanmar", "block=myanmar",
+        "blk=newtailue", "block=newtailue",   "blk=noblock", "block=noblock",
+        "blk=numberforms", "block=numberforms",   "blk=ogham", "block=ogham",
+        "blk=olditalic", "block=olditalic",   "blk=oldpersian", "block=oldpersian",
+        "blk=opticalcharacterrecognition", "block=opticalcharacterrecognition",   "blk=oriya", "block=oriya",
+        "blk=osmanya", "block=osmanya",   "blk=phoneticextensions", "block=phoneticextensions",
+        "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement",   "blk=privateusearea", "block=privateusearea",
+        "blk=runic", "block=runic",   "blk=shavian", "block=shavian",
+        "blk=sinhala", "block=sinhala",   "blk=smallformvariants", "block=smallformvariants",
+        "blk=spacingmodifierletters", "block=spacingmodifierletters",   "blk=specials", "block=specials",
+        "blk=superscriptsandsubscripts", "block=superscriptsandsubscripts",   "blk=supplementalarrowsa", "block=supplementalarrowsa",
+        "blk=supplementalarrowsb", "block=supplementalarrowsb",   "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",
+        "blk=supplementalpunctuation", "block=supplementalpunctuation",   "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",
+        "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",   "blk=sylotinagri", "block=sylotinagri",
+        "blk=syriac", "block=syriac",   "blk=tagalog", "block=tagalog",
+        "blk=tagbanwa", "block=tagbanwa",   "blk=tags", "block=tags",
+        "blk=taile", "block=taile",   "blk=taixuanjingsymbols", "block=taixuanjingsymbols",
+        "blk=tamil", "block=tamil",   "blk=telugu", "block=telugu",
+        "blk=thaana", "block=thaana",   "blk=thai", "block=thai",
+        "blk=tibetan", "block=tibetan",   "blk=tifinagh", "block=tifinagh",
+        "blk=ugaritic", "block=ugaritic",   "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",
+        "blk=variationselectors", "block=variationselectors",   "blk=variationselectorssupplement", "block=variationselectorssupplement",
+        "blk=verticalforms", "block=verticalforms",   "blk=yijinghexagramsymbols", "block=yijinghexagramsymbols",
+        "blk=yiradicals", "block=yiradicals",   "blk=yisyllables", "block=yisyllables",
+        "block=cyrillicsupplementary", "block=cyrillicsupplement",   "bopo", "bopomofo",
         "brai", "braille",   "bugi", "buginese",
         "buhd", "buhid",   "cans", "canadianaboriginal",
         "casedletter", "lc",   "cher", "cherokee",
-        "closepunctuation", "pe",   "connectorpunctuation", "pc",
-        "control", "cc",   "copt", "coptic",
-        "cprt", "cypriot",   "currencysymbol", "sc",
-        "cyrl", "cyrillic",   "dash", "dash",
+        "closepunctuation", "pe",   "cntrl", "cc",
+        "connectorpunctuation", "pc",   "control", "cc",
+        "copt", "coptic",   "cprt", "cypriot",
+        "currencysymbol", "sc",   "cyrl", "cyrillic",
         "dashpunctuation", "pd",   "decimalnumber", "nd",
         "dep", "deprecated",   "deva", "devanagari",
         "di", "defaultignorablecodepoint",   "dia", "diacritic",
-        "dsrt", "deseret",   "enclosingmark", "me",
-        "ethi", "ethiopic",   "ext", "extender",
-        "finalpunctuation", "pf",   "format", "cf",
-        "gc=c", "c",   "gc=casedletter", "lc",
-        "gc=cc", "cc",   "gc=cf", "cf",
-        "gc=closepunctuation", "pe",   "gc=cn", "cn",
+        "digit", "nd",   "dsrt", "deseret",
+        "enclosingmark", "me",   "ethi", "ethiopic",
+        "ext", "extender",   "finalpunctuation", "pf",
+        "format", "cf",   "gc=c", "c",
+        "gc=casedletter", "lc",   "gc=cc", "cc",
+        "gc=cf", "cf",   "gc=closepunctuation", "pe",
+        "gc=cn", "cn",   "gc=cntrl", "cc",
         "gc=co", "co",   "gc=connectorpunctuation", "pc",
         "gc=control", "cc",   "gc=currencysymbol", "sc",
         "gc=dashpunctuation", "pd",   "gc=decimalnumber", "nd",
-        "gc=enclosingmark", "me",   "gc=finalpunctuation", "pf",
-        "gc=format", "cf",   "gc=initialpunctuation", "pi",
-        "gc=l", "l",   "gc=lc", "lc",
-        "gc=letter", "l",   "gc=letternumber", "nl",
-        "gc=lineseparator", "zl",   "gc=ll", "ll",
-        "gc=lm", "lm",   "gc=lo", "lo",
-        "gc=lowercaseletter", "ll",   "gc=lt", "lt",
-        "gc=lu", "lu",   "gc=m", "m",
-        "gc=mark", "m",   "gc=mathsymbol", "sm",
-        "gc=mc", "mc",   "gc=me", "me",
-        "gc=mn", "mn",   "gc=modifierletter", "lm",
-        "gc=modifiersymbol", "sk",   "gc=n", "n",
-        "gc=nd", "nd",   "gc=nl", "nl",
-        "gc=no", "no",   "gc=nonspacingmark", "mn",
-        "gc=number", "n",   "gc=openpunctuation", "ps",
-        "gc=other", "c",   "gc=otherletter", "lo",
-        "gc=othernumber", "no",   "gc=otherpunctuation", "po",
-        "gc=othersymbol", "so",   "gc=p", "p",
-        "gc=paragraphseparator", "zp",   "gc=pc", "pc",
-        "gc=pd", "pd",   "gc=pe", "pe",
-        "gc=pf", "pf",   "gc=pi", "pi",
-        "gc=po", "po",   "gc=privateuse", "co",
-        "gc=ps", "ps",   "gc=punctuation", "p",
+        "gc=digit", "nd",   "gc=enclosingmark", "me",
+        "gc=finalpunctuation", "pf",   "gc=format", "cf",
+        "gc=initialpunctuation", "pi",   "gc=l", "l",
+        "gc=lc", "lc",   "gc=letter", "l",
+        "gc=letternumber", "nl",   "gc=lineseparator", "zl",
+        "gc=ll", "ll",   "gc=lm", "lm",
+        "gc=lo", "lo",   "gc=lowercaseletter", "ll",
+        "gc=lt", "lt",   "gc=lu", "lu",
+        "gc=m", "m",   "gc=mark", "m",
+        "gc=mathsymbol", "sm",   "gc=mc", "mc",
+        "gc=me", "me",   "gc=mn", "mn",
+        "gc=modifierletter", "lm",   "gc=modifiersymbol", "sk",
+        "gc=n", "n",   "gc=nd", "nd",
+        "gc=nl", "nl",   "gc=no", "no",
+        "gc=nonspacingmark", "mn",   "gc=number", "n",
+        "gc=openpunctuation", "ps",   "gc=other", "c",
+        "gc=otherletter", "lo",   "gc=othernumber", "no",
+        "gc=otherpunctuation", "po",   "gc=othersymbol", "so",
+        "gc=p", "p",   "gc=paragraphseparator", "zp",
+        "gc=pc", "pc",   "gc=pd", "pd",
+        "gc=pe", "pe",   "gc=pf", "pf",
+        "gc=pi", "pi",   "gc=po", "po",
+        "gc=privateuse", "co",   "gc=ps", "ps",
+        "gc=punct", "p",   "gc=punctuation", "p",
         "gc=s", "s",   "gc=sc", "sc",
         "gc=separator", "z",   "gc=sk", "sk",
         "gc=sm", "sm",   "gc=so", "so",
@@ -2674,37 +2676,43 @@ public class Unicode_4_1 {
         "gc=unassigned", "cn",   "gc=uppercaseletter", "lu",
         "gc=z", "z",   "gc=zl", "zl",
         "gc=zp", "zp",   "gc=zs", "zs",
-        "generalcategory=casedletter", "lc",   "generalcategory=cc", "cc",
-        "generalcategory=cf", "cf",   "generalcategory=closepunctuation", "pe",
-        "generalcategory=co", "co",   "generalcategory=connectorpunctuation", "pc",
-        "generalcategory=control", "cc",   "generalcategory=currencysymbol", "sc",
-        "generalcategory=dashpunctuation", "pd",   "generalcategory=decimalnumber", "nd",
+        "generalcategory=c", "c",   "generalcategory=casedletter", "lc",
+        "generalcategory=cc", "cc",   "generalcategory=cf", "cf",
+        "generalcategory=closepunctuation", "pe",   "generalcategory=cn", "cn",
+        "generalcategory=cntrl", "cc",   "generalcategory=co", "co",
+        "generalcategory=connectorpunctuation", "pc",   "generalcategory=control", "cc",
+        "generalcategory=currencysymbol", "sc",   "generalcategory=dashpunctuation", "pd",
+        "generalcategory=decimalnumber", "nd",   "generalcategory=digit", "nd",
         "generalcategory=enclosingmark", "me",   "generalcategory=finalpunctuation", "pf",
         "generalcategory=format", "cf",   "generalcategory=initialpunctuation", "pi",
+        "generalcategory=l", "l",   "generalcategory=lc", "lc",
         "generalcategory=letter", "l",   "generalcategory=letternumber", "nl",
         "generalcategory=lineseparator", "zl",   "generalcategory=ll", "ll",
         "generalcategory=lm", "lm",   "generalcategory=lo", "lo",
         "generalcategory=lowercaseletter", "ll",   "generalcategory=lt", "lt",
-        "generalcategory=lu", "lu",   "generalcategory=mark", "m",
-        "generalcategory=mathsymbol", "sm",   "generalcategory=mc", "mc",
-        "generalcategory=me", "me",   "generalcategory=mn", "mn",
-        "generalcategory=modifierletter", "lm",   "generalcategory=modifiersymbol", "sk",
+        "generalcategory=lu", "lu",   "generalcategory=m", "m",
+        "generalcategory=mark", "m",   "generalcategory=mathsymbol", "sm",
+        "generalcategory=mc", "mc",   "generalcategory=me", "me",
+        "generalcategory=mn", "mn",   "generalcategory=modifierletter", "lm",
+        "generalcategory=modifiersymbol", "sk",   "generalcategory=n", "n",
         "generalcategory=nd", "nd",   "generalcategory=nl", "nl",
         "generalcategory=no", "no",   "generalcategory=nonspacingmark", "mn",
         "generalcategory=number", "n",   "generalcategory=openpunctuation", "ps",
         "generalcategory=other", "c",   "generalcategory=otherletter", "lo",
         "generalcategory=othernumber", "no",   "generalcategory=otherpunctuation", "po",
-        "generalcategory=othersymbol", "so",   "generalcategory=paragraphseparator", "zp",
-        "generalcategory=pc", "pc",   "generalcategory=pd", "pd",
-        "generalcategory=pe", "pe",   "generalcategory=pf", "pf",
-        "generalcategory=pi", "pi",   "generalcategory=po", "po",
-        "generalcategory=privateuse", "co",   "generalcategory=ps", "ps",
-        "generalcategory=punctuation", "p",   "generalcategory=sc", "sc",
-        "generalcategory=separator", "z",   "generalcategory=sk", "sk",
-        "generalcategory=sm", "sm",   "generalcategory=so", "so",
-        "generalcategory=spaceseparator", "zs",   "generalcategory=spacingmark", "mc",
-        "generalcategory=symbol", "s",   "generalcategory=titlecaseletter", "lt",
-        "generalcategory=unassigned", "cn",   "generalcategory=uppercaseletter", "lu",
+        "generalcategory=othersymbol", "so",   "generalcategory=p", "p",
+        "generalcategory=paragraphseparator", "zp",   "generalcategory=pc", "pc",
+        "generalcategory=pd", "pd",   "generalcategory=pe", "pe",
+        "generalcategory=pf", "pf",   "generalcategory=pi", "pi",
+        "generalcategory=po", "po",   "generalcategory=privateuse", "co",
+        "generalcategory=ps", "ps",   "generalcategory=punct", "p",
+        "generalcategory=punctuation", "p",   "generalcategory=s", "s",
+        "generalcategory=sc", "sc",   "generalcategory=separator", "z",
+        "generalcategory=sk", "sk",   "generalcategory=sm", "sm",
+        "generalcategory=so", "so",   "generalcategory=spaceseparator", "zs",
+        "generalcategory=spacingmark", "mc",   "generalcategory=symbol", "s",
+        "generalcategory=titlecaseletter", "lt",   "generalcategory=unassigned", "cn",
+        "generalcategory=uppercaseletter", "lu",   "generalcategory=z", "z",
         "generalcategory=zl", "zl",   "generalcategory=zp", "zp",
         "generalcategory=zs", "zs",   "geor", "georgian",
         "glag", "glagolitic",   "goth", "gothic",
@@ -2714,7 +2722,6 @@ public class Unicode_4_1 {
         "hang", "hangul",   "hani", "han",
         "hano", "hanunoo",   "hebr", "hebrew",
         "hex", "hexdigit",   "hira", "hiragana",
-        "hrkt", "katakanaorhiragana",   "hyphen", "hyphen",
         "idc", "idcontinue",   "ideo", "ideographic",
         "ids", "idstart",   "idsb", "idsbinaryoperator",
         "idst", "idstrinaryoperator",   "initialpunctuation", "pi",
@@ -2726,24 +2733,24 @@ public class Unicode_4_1 {
         "limb", "limbu",   "linb", "linearb",
         "lineseparator", "zl",   "loe", "logicalorderexception",
         "lower", "lowercase",   "lowercaseletter", "ll",
-        "mark", "m",   "math", "math",
-        "mathsymbol", "sm",   "mlym", "malayalam",
-        "modifierletter", "lm",   "modifiersymbol", "sk",
-        "mong", "mongolian",   "mymr", "myanmar",
-        "nchar", "noncharactercodepoint",   "nonspacingmark", "mn",
-        "number", "n",   "oalpha", "otheralphabetic",
-        "odi", "otherdefaultignorablecodepoint",   "ogam", "ogham",
-        "ogrext", "othergraphemeextend",   "oidc", "otheridcontinue",
-        "oids", "otheridstart",   "olower", "otherlowercase",
-        "omath", "othermath",   "openpunctuation", "ps",
-        "orya", "oriya",   "osma", "osmanya",
-        "other", "c",   "otherletter", "lo",
-        "othernumber", "no",   "otherpunctuation", "po",
-        "othersymbol", "so",   "oupper", "otheruppercase",
-        "paragraphseparator", "zp",   "patsyn", "patternsyntax",
-        "patws", "patternwhitespace",   "privateuse", "co",
-        "punctuation", "p",   "qaai", "inherited",
-        "qmark", "quotationmark",   "radical", "radical",
+        "mark", "m",   "mathsymbol", "sm",
+        "mlym", "malayalam",   "modifierletter", "lm",
+        "modifiersymbol", "sk",   "mong", "mongolian",
+        "mymr", "myanmar",   "nchar", "noncharactercodepoint",
+        "nonspacingmark", "mn",   "number", "n",
+        "oalpha", "otheralphabetic",   "odi", "otherdefaultignorablecodepoint",
+        "ogam", "ogham",   "ogrext", "othergraphemeextend",
+        "oidc", "otheridcontinue",   "oids", "otheridstart",
+        "olower", "otherlowercase",   "omath", "othermath",
+        "openpunctuation", "ps",   "orya", "oriya",
+        "osma", "osmanya",   "other", "c",
+        "otherletter", "lo",   "othernumber", "no",
+        "otherpunctuation", "po",   "othersymbol", "so",
+        "oupper", "otheruppercase",   "paragraphseparator", "zp",
+        "patsyn", "patternsyntax",   "patws", "patternwhitespace",
+        "privateuse", "co",   "punct", "p",
+        "punctuation", "p",   "qaac", "coptic",
+        "qaai", "inherited",   "qmark", "quotationmark",
         "runr", "runic",   "sc=arab", "arabic",
         "sc=arabic", "arabic",   "sc=armenian", "armenian",
         "sc=armn", "armenian",   "sc=beng", "bengali",
@@ -2771,10 +2778,9 @@ public class Unicode_4_1 {
         "sc=hano", "hanunoo",   "sc=hanunoo", "hanunoo",
         "sc=hebr", "hebrew",   "sc=hebrew", "hebrew",
         "sc=hira", "hiragana",   "sc=hiragana", "hiragana",
-        "sc=hrkt", "katakanaorhiragana",   "sc=inherited", "inherited",
-        "sc=ital", "olditalic",   "sc=kana", "katakana",
-        "sc=kannada", "kannada",   "sc=katakana", "katakana",
-        "sc=katakanaorhiragana", "katakanaorhiragana",   "sc=khar", "kharoshthi",
+        "sc=inherited", "inherited",   "sc=ital", "olditalic",
+        "sc=kana", "katakana",   "sc=kannada", "kannada",
+        "sc=katakana", "katakana",   "sc=khar", "kharoshthi",
         "sc=kharoshthi", "kharoshthi",   "sc=khmer", "khmer",
         "sc=khmr", "khmer",   "sc=knda", "kannada",
         "sc=lao", "lao",   "sc=laoo", "lao",
@@ -2788,51 +2794,51 @@ public class Unicode_4_1 {
         "sc=ogham", "ogham",   "sc=olditalic", "olditalic",
         "sc=oldpersian", "oldpersian",   "sc=oriya", "oriya",
         "sc=orya", "oriya",   "sc=osma", "osmanya",
-        "sc=osmanya", "osmanya",   "sc=qaai", "inherited",
-        "sc=runic", "runic",   "sc=runr", "runic",
-        "sc=shavian", "shavian",   "sc=shaw", "shavian",
-        "sc=sinh", "sinhala",   "sc=sinhala", "sinhala",
-        "sc=sylo", "sylotinagri",   "sc=sylotinagri", "sylotinagri",
-        "sc=syrc", "syriac",   "sc=syriac", "syriac",
-        "sc=tagalog", "tagalog",   "sc=tagb", "tagbanwa",
-        "sc=tagbanwa", "tagbanwa",   "sc=taile", "taile",
-        "sc=tale", "taile",   "sc=talu", "newtailue",
-        "sc=tamil", "tamil",   "sc=taml", "tamil",
-        "sc=telu", "telugu",   "sc=telugu", "telugu",
-        "sc=tfng", "tifinagh",   "sc=tglg", "tagalog",
-        "sc=thaa", "thaana",   "sc=thaana", "thaana",
-        "sc=thai", "thai",   "sc=tibetan", "tibetan",
-        "sc=tibt", "tibetan",   "sc=tifinagh", "tifinagh",
-        "sc=ugar", "ugaritic",   "sc=ugaritic", "ugaritic",
-        "sc=xpeo", "oldpersian",   "sc=yi", "yi",
-        "sc=yiii", "yi",   "sc=zyyy", "common",
-        "script=arab", "arabic",   "script=arabic", "arabic",
-        "script=armenian", "armenian",   "script=armn", "armenian",
-        "script=beng", "bengali",   "script=bengali", "bengali",
-        "script=bopo", "bopomofo",   "script=bopomofo", "bopomofo",
-        "script=brai", "braille",   "script=braille", "braille",
-        "script=bugi", "buginese",   "script=buginese", "buginese",
-        "script=buhd", "buhid",   "script=buhid", "buhid",
-        "script=canadianaboriginal", "canadianaboriginal",   "script=cans", "canadianaboriginal",
-        "script=cher", "cherokee",   "script=cherokee", "cherokee",
-        "script=common", "common",   "script=copt", "coptic",
-        "script=coptic", "coptic",   "script=cprt", "cypriot",
-        "script=cypriot", "cypriot",   "script=cyrillic", "cyrillic",
-        "script=cyrl", "cyrillic",   "script=deseret", "deseret",
-        "script=deva", "devanagari",   "script=devanagari", "devanagari",
-        "script=dsrt", "deseret",   "script=ethi", "ethiopic",
-        "script=ethiopic", "ethiopic",   "script=geor", "georgian",
-        "script=georgian", "georgian",   "script=glag", "glagolitic",
-        "script=glagolitic", "glagolitic",   "script=goth", "gothic",
-        "script=gothic", "gothic",   "script=greek", "greek",
-        "script=grek", "greek",   "script=gujarati", "gujarati",
-        "script=gujr", "gujarati",   "script=gurmukhi", "gurmukhi",
-        "script=guru", "gurmukhi",   "script=han", "han",
-        "script=hang", "hangul",   "script=hangul", "hangul",
-        "script=hani", "han",   "script=hano", "hanunoo",
-        "script=hanunoo", "hanunoo",   "script=hebr", "hebrew",
-        "script=hebrew", "hebrew",   "script=hira", "hiragana",
-        "script=hiragana", "hiragana",   "script=hrkt", "katakanaorhiragana",
+        "sc=osmanya", "osmanya",   "sc=qaac", "coptic",
+        "sc=qaai", "inherited",   "sc=runic", "runic",
+        "sc=runr", "runic",   "sc=shavian", "shavian",
+        "sc=shaw", "shavian",   "sc=sinh", "sinhala",
+        "sc=sinhala", "sinhala",   "sc=sylo", "sylotinagri",
+        "sc=sylotinagri", "sylotinagri",   "sc=syrc", "syriac",
+        "sc=syriac", "syriac",   "sc=tagalog", "tagalog",
+        "sc=tagb", "tagbanwa",   "sc=tagbanwa", "tagbanwa",
+        "sc=taile", "taile",   "sc=tale", "taile",
+        "sc=talu", "newtailue",   "sc=tamil", "tamil",
+        "sc=taml", "tamil",   "sc=telu", "telugu",
+        "sc=telugu", "telugu",   "sc=tfng", "tifinagh",
+        "sc=tglg", "tagalog",   "sc=thaa", "thaana",
+        "sc=thaana", "thaana",   "sc=thai", "thai",
+        "sc=tibetan", "tibetan",   "sc=tibt", "tibetan",
+        "sc=tifinagh", "tifinagh",   "sc=ugar", "ugaritic",
+        "sc=ugaritic", "ugaritic",   "sc=xpeo", "oldpersian",
+        "sc=yi", "yi",   "sc=yiii", "yi",
+        "sc=zyyy", "common",   "script=arab", "arabic",
+        "script=arabic", "arabic",   "script=armenian", "armenian",
+        "script=armn", "armenian",   "script=beng", "bengali",
+        "script=bengali", "bengali",   "script=bopo", "bopomofo",
+        "script=bopomofo", "bopomofo",   "script=brai", "braille",
+        "script=braille", "braille",   "script=bugi", "buginese",
+        "script=buginese", "buginese",   "script=buhd", "buhid",
+        "script=buhid", "buhid",   "script=canadianaboriginal", "canadianaboriginal",
+        "script=cans", "canadianaboriginal",   "script=cher", "cherokee",
+        "script=cherokee", "cherokee",   "script=common", "common",
+        "script=copt", "coptic",   "script=coptic", "coptic",
+        "script=cprt", "cypriot",   "script=cypriot", "cypriot",
+        "script=cyrillic", "cyrillic",   "script=cyrl", "cyrillic",
+        "script=deseret", "deseret",   "script=deva", "devanagari",
+        "script=devanagari", "devanagari",   "script=dsrt", "deseret",
+        "script=ethi", "ethiopic",   "script=ethiopic", "ethiopic",
+        "script=geor", "georgian",   "script=georgian", "georgian",
+        "script=glag", "glagolitic",   "script=glagolitic", "glagolitic",
+        "script=goth", "gothic",   "script=gothic", "gothic",
+        "script=greek", "greek",   "script=grek", "greek",
+        "script=gujarati", "gujarati",   "script=gujr", "gujarati",
+        "script=gurmukhi", "gurmukhi",   "script=guru", "gurmukhi",
+        "script=han", "han",   "script=hang", "hangul",
+        "script=hangul", "hangul",   "script=hani", "han",
+        "script=hano", "hanunoo",   "script=hanunoo", "hanunoo",
+        "script=hebr", "hebrew",   "script=hebrew", "hebrew",
+        "script=hira", "hiragana",   "script=hiragana", "hiragana",
         "script=inherited", "inherited",   "script=ital", "olditalic",
         "script=kana", "katakana",   "script=kannada", "kannada",
         "script=katakana", "katakana",   "script=khar", "kharoshthi",
@@ -2849,42 +2855,41 @@ public class Unicode_4_1 {
         "script=ogham", "ogham",   "script=olditalic", "olditalic",
         "script=oldpersian", "oldpersian",   "script=oriya", "oriya",
         "script=orya", "oriya",   "script=osma", "osmanya",
-        "script=osmanya", "osmanya",   "script=qaai", "inherited",
-        "script=runic", "runic",   "script=runr", "runic",
-        "script=shavian", "shavian",   "script=shaw", "shavian",
-        "script=sinh", "sinhala",   "script=sinhala", "sinhala",
-        "script=sylo", "sylotinagri",   "script=sylotinagri", "sylotinagri",
-        "script=syrc", "syriac",   "script=syriac", "syriac",
-        "script=tagalog", "tagalog",   "script=tagb", "tagbanwa",
-        "script=tagbanwa", "tagbanwa",   "script=taile", "taile",
-        "script=tale", "taile",   "script=talu", "newtailue",
-        "script=tamil", "tamil",   "script=taml", "tamil",
-        "script=telu", "telugu",   "script=telugu", "telugu",
-        "script=tfng", "tifinagh",   "script=tglg", "tagalog",
-        "script=thaa", "thaana",   "script=thaana", "thaana",
-        "script=thai", "thai",   "script=tibetan", "tibetan",
-        "script=tibt", "tibetan",   "script=tifinagh", "tifinagh",
-        "script=ugar", "ugaritic",   "script=ugaritic", "ugaritic",
-        "script=unknown", "unknown",   "script=xpeo", "oldpersian",
+        "script=osmanya", "osmanya",   "script=qaac", "coptic",
+        "script=qaai", "inherited",   "script=runic", "runic",
+        "script=runr", "runic",   "script=shavian", "shavian",
+        "script=shaw", "shavian",   "script=sinh", "sinhala",
+        "script=sinhala", "sinhala",   "script=sylo", "sylotinagri",
+        "script=sylotinagri", "sylotinagri",   "script=syrc", "syriac",
+        "script=syriac", "syriac",   "script=tagalog", "tagalog",
+        "script=tagb", "tagbanwa",   "script=tagbanwa", "tagbanwa",
+        "script=taile", "taile",   "script=tale", "taile",
+        "script=talu", "newtailue",   "script=tamil", "tamil",
+        "script=taml", "tamil",   "script=telu", "telugu",
+        "script=telugu", "telugu",   "script=tfng", "tifinagh",
+        "script=tglg", "tagalog",   "script=thaa", "thaana",
+        "script=thaana", "thaana",   "script=thai", "thai",
+        "script=tibetan", "tibetan",   "script=tibt", "tibetan",
+        "script=tifinagh", "tifinagh",   "script=ugar", "ugaritic",
+        "script=ugaritic", "ugaritic",   "script=xpeo", "oldpersian",
         "script=yi", "yi",   "script=yiii", "yi",
         "script=zyyy", "common",   "sd", "softdotted",
         "separator", "z",   "shaw", "shavian",
-        "sinh", "sinhala",   "spaceseparator", "zs",
-        "spacingmark", "mc",   "sterm", "sterm",
+        "sinh", "sinhala",   "space", "whitespace",
+        "spaceseparator", "zs",   "spacingmark", "mc",
         "sylo", "sylotinagri",   "symbol", "s",
         "syrc", "syriac",   "tagb", "tagbanwa",
         "tale", "taile",   "talu", "newtailue",
         "taml", "tamil",   "telu", "telugu",
         "term", "terminalpunctuation",   "tfng", "tifinagh",
         "tglg", "tagalog",   "thaa", "thaana",
-        "thai", "thai",   "tibt", "tibetan",
-        "titlecaseletter", "lt",   "ugar", "ugaritic",
-        "uideo", "unifiedideograph",   "unassigned", "cn",
-        "upper", "uppercase",   "uppercaseletter", "lu",
-        "vs", "variationselector",   "wspace", "whitespace",
-        "xidc", "xidcontinue",   "xids", "xidstart",
-        "xpeo", "oldpersian",   "yiii", "yi",
-        "zyyy", "common"
+        "tibt", "tibetan",   "titlecaseletter", "lt",
+        "ugar", "ugaritic",   "uideo", "unifiedideograph",
+        "unassigned", "cn",   "upper", "uppercase",
+        "uppercaseletter", "lu",   "vs", "variationselector",
+        "wspace", "whitespace",   "xidc", "xidcontinue",
+        "xids", "xidstart",   "xpeo", "oldpersian",
+        "yiii", "yi",   "zyyy", "common"
   };
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

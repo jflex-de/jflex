@@ -5,22 +5,22 @@ public class Unicode_3_1 {
   public static final String[] propertyValues
     = { "alphabetic", "arabic", "armenian", "asciihexdigit", "assigned",
         "bengali", "bidicontrol", "bopomofo", "canadianaboriginal", "cc",
-        "cf", "cherokee", "cn", "co", "cyrillic",
-        "dash", "deseret", "devanagari", "diacritic", "ethiopic",
-        "extender", "georgian", "gothic", "greek", "gujarati",
-        "gurmukhi", "han", "hangul", "hebrew", "hexdigit",
-        "hiragana", "hyphen", "idcontinue", "ideographic", "idstart",
-        "inherited", "joincontrol", "kannada", "katakana", "khmer",
-        "lao", "latin", "ll", "lm", "lo",
-        "lowercase", "lt", "lu", "malayalam", "math",
-        "mc", "me", "mn", "mongolian", "myanmar",
-        "nd", "nl", "no", "noncharactercodepoint", "ogham",
-        "olditalic", "oriya", "otheralphabetic", "otherlowercase", "othermath",
-        "otheruppercase", "pc", "pd", "pe", "pf",
-        "pi", "po", "ps", "quotationmark", "runic",
-        "sc", "sinhala", "sk", "sm", "so",
-        "syriac", "tamil", "telugu", "terminalpunctuation", "thaana",
-        "thai", "tibetan", "unknown", "uppercase", "whitespace",
+        "cf", "cherokee", "cn", "co", "common",
+        "cyrillic", "dash", "deseret", "devanagari", "diacritic",
+        "ethiopic", "extender", "georgian", "gothic", "greek",
+        "gujarati", "gurmukhi", "han", "hangul", "hebrew",
+        "hexdigit", "hiragana", "hyphen", "idcontinue", "ideographic",
+        "idstart", "inherited", "joincontrol", "kannada", "katakana",
+        "khmer", "lao", "latin", "ll", "lm",
+        "lo", "lowercase", "lt", "lu", "malayalam",
+        "math", "mc", "me", "mn", "mongolian",
+        "myanmar", "nd", "nl", "no", "noncharactercodepoint",
+        "ogham", "olditalic", "oriya", "otheralphabetic", "otherlowercase",
+        "othermath", "otheruppercase", "pc", "pd", "pe",
+        "pf", "pi", "po", "ps", "quotationmark",
+        "runic", "sc", "sinhala", "sk", "sm",
+        "so", "syriac", "tamil", "telugu", "terminalpunctuation",
+        "thaana", "thai", "tibetan", "uppercase", "whitespace",
         "xidcontinue", "xidstart", "yi", "zl", "zp",
         "zs" };
   public static final String[] intervals = {
@@ -341,6 +341,94 @@ public class Unicode_3_1 {
       + "\udb40\udc80\udb7f\udfff"+"\udbbf\udffe\udbbf\udfff"+"\udbff\udffe\udbff\udfff",
     // Unicode 3.1 property value: {co}
         "\ue000\uf8ff"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
+    // Unicode 3.1 property value: {common}
+        "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b4"
+      + "\u00b6\u00b9"+"\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"
+      + "\u0220\u0221"+"\u0234\u024f"+"\u02ae\u02af"+"\u02b9\u02df"
+      + "\u02e5\u02ff"+"\u034f\u035f"+"\u0363\u0379"+"\u037b\u0385"
+      + "\u0387\u0387"+"\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"
+      + "\u03cf\u03cf"+"\u03d8\u03d9"+"\u03f6\u03ff"+"\u0482\u0482"
+      + "\u0487\u0487"+"\u048a\u048b"+"\u04c5\u04c6"+"\u04c9\u04ca"
+      + "\u04cd\u04cf"+"\u04f6\u04f7"+"\u04fa\u0530"+"\u0557\u0558"
+      + "\u055a\u0560"+"\u0588\u0590"+"\u05a2\u05a2"+"\u05ba\u05ba"
+      + "\u05be\u05be"+"\u05c0\u05c0"+"\u05c3\u05c3"+"\u05c5\u05cf"
+      + "\u05eb\u05ef"+"\u05f3\u0620"+"\u063b\u0640"+"\u0656\u066f"
+      + "\u06d4\u06d4"+"\u06e9\u06e9"+"\u06ee\u06f9"+"\u06fd\u070f"
+      + "\u072d\u072f"+"\u074b\u077f"+"\u07b1\u0900"+"\u0904\u0904"
+      + "\u093a\u093b"+"\u094e\u094f"+"\u0955\u0957"+"\u0964\u0965"
+      + "\u0970\u0980"+"\u0982\u0984"+"\u098d\u098e"+"\u0991\u0992"
+      + "\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"
+      + "\u09bd\u09bd"+"\u09c5\u09c6"+"\u09c9\u09ca"+"\u09ce\u09d6"
+      + "\u09d8\u09db"+"\u09de\u09de"+"\u09e4\u09e5"+"\u09f2\u0a01"
+      + "\u0a03\u0a04"+"\u0a0b\u0a0e"+"\u0a11\u0a12"+"\u0a29\u0a29"
+      + "\u0a31\u0a31"+"\u0a34\u0a34"+"\u0a37\u0a37"+"\u0a3a\u0a3b"
+      + "\u0a3d\u0a3d"+"\u0a43\u0a46"+"\u0a49\u0a4a"+"\u0a4e\u0a58"
+      + "\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a75\u0a80"+"\u0a84\u0a84"
+      + "\u0a8c\u0a8c"+"\u0a8e\u0a8e"+"\u0a92\u0a92"+"\u0aa9\u0aa9"
+      + "\u0ab1\u0ab1"+"\u0ab4\u0ab4"+"\u0aba\u0abb"+"\u0ac6\u0ac6"
+      + "\u0aca\u0aca"+"\u0ace\u0acf"+"\u0ad1\u0adf"+"\u0ae1\u0ae5"
+      + "\u0af0\u0b00"+"\u0b04\u0b04"+"\u0b0d\u0b0e"+"\u0b11\u0b12"
+      + "\u0b29\u0b29"+"\u0b31\u0b31"+"\u0b34\u0b35"+"\u0b3a\u0b3b"
+      + "\u0b44\u0b46"+"\u0b49\u0b4a"+"\u0b4e\u0b55"+"\u0b58\u0b5b"
+      + "\u0b5e\u0b5e"+"\u0b62\u0b65"+"\u0b70\u0b81"+"\u0b84\u0b84"
+      + "\u0b8b\u0b8d"+"\u0b91\u0b91"+"\u0b96\u0b98"+"\u0b9b\u0b9b"
+      + "\u0b9d\u0b9d"+"\u0ba0\u0ba2"+"\u0ba5\u0ba7"+"\u0bab\u0bad"
+      + "\u0bb6\u0bb6"+"\u0bba\u0bbd"+"\u0bc3\u0bc5"+"\u0bc9\u0bc9"
+      + "\u0bce\u0bd6"+"\u0bd8\u0be6"+"\u0bf3\u0c00"+"\u0c04\u0c04"
+      + "\u0c0d\u0c0d"+"\u0c11\u0c11"+"\u0c29\u0c29"+"\u0c34\u0c34"
+      + "\u0c3a\u0c3d"+"\u0c45\u0c45"+"\u0c49\u0c49"+"\u0c4e\u0c54"
+      + "\u0c57\u0c5f"+"\u0c62\u0c65"+"\u0c70\u0c81"+"\u0c84\u0c84"
+      + "\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"+"\u0cb4\u0cb4"
+      + "\u0cba\u0cbd"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"+"\u0cce\u0cd4"
+      + "\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce2\u0ce5"+"\u0cf0\u0d01"
+      + "\u0d04\u0d04"+"\u0d0d\u0d0d"+"\u0d11\u0d11"+"\u0d29\u0d29"
+      + "\u0d3a\u0d3d"+"\u0d44\u0d45"+"\u0d49\u0d49"+"\u0d4e\u0d56"
+      + "\u0d58\u0d5f"+"\u0d62\u0d65"+"\u0d70\u0d81"+"\u0d84\u0d84"
+      + "\u0d97\u0d99"+"\u0db2\u0db2"+"\u0dbc\u0dbc"+"\u0dbe\u0dbf"
+      + "\u0dc7\u0dc9"+"\u0dcb\u0dce"+"\u0dd5\u0dd5"+"\u0dd7\u0dd7"
+      + "\u0de0\u0df1"+"\u0df4\u0e00"+"\u0e3b\u0e3f"+"\u0e4f\u0e4f"
+      + "\u0e5a\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"+"\u0e89\u0e89"
+      + "\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"+"\u0ea0\u0ea0"
+      + "\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"+"\u0eac\u0eac"
+      + "\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"+"\u0ec7\u0ec7"
+      + "\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ede\u0eff"+"\u0f01\u0f17"
+      + "\u0f1a\u0f1f"+"\u0f34\u0f34"+"\u0f36\u0f36"+"\u0f38\u0f38"
+      + "\u0f3a\u0f3f"+"\u0f48\u0f48"+"\u0f6b\u0f70"+"\u0f85\u0f85"
+      + "\u0f8c\u0f8f"+"\u0f98\u0f98"+"\u0fbd\u0fc5"+"\u0fc7\u0fff"
+      + "\u1022\u1022"+"\u1028\u1028"+"\u102b\u102b"+"\u1033\u1035"
+      + "\u103a\u103f"+"\u104a\u104f"+"\u105a\u109f"+"\u10c6\u10cf"
+      + "\u10f7\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"+"\u11fa\u11ff"
+      + "\u1207\u1207"+"\u1247\u1247"+"\u1249\u1249"+"\u124e\u124f"
+      + "\u1257\u1257"+"\u1259\u1259"+"\u125e\u125f"+"\u1287\u1287"
+      + "\u1289\u1289"+"\u128e\u128f"+"\u12af\u12af"+"\u12b1\u12b1"
+      + "\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"+"\u12c6\u12c7"
+      + "\u12cf\u12cf"+"\u12d7\u12d7"+"\u12ef\u12ef"+"\u130f\u130f"
+      + "\u1311\u1311"+"\u1316\u1317"+"\u131f\u131f"+"\u1347\u1347"
+      + "\u135b\u1368"+"\u137d\u139f"+"\u13f5\u1400"+"\u166d\u166e"
+      + "\u1677\u1680"+"\u169b\u169f"+"\u16eb\u16ed"+"\u16f1\u177f"
+      + "\u17d4\u17df"+"\u17ea\u180f"+"\u181a\u181f"+"\u1878\u187f"
+      + "\u18aa\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"+"\u1f16\u1f17"
+      + "\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"+"\u1f58\u1f58"
+      + "\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"+"\u1f7e\u1f7f"
+      + "\u1fb5\u1fb5"+"\u1fbd\u1fbd"+"\u1fbf\u1fc1"+"\u1fc5\u1fc5"
+      + "\u1fcd\u1fcf"+"\u1fd4\u1fd5"+"\u1fdc\u1fdf"+"\u1fed\u1ff1"
+      + "\u1ff5\u1ff5"+"\u1ffd\u207e"+"\u2080\u20cf"+"\u20e4\u2125"
+      + "\u2127\u2129"+"\u212c\u2e7f"+"\u2e9a\u2e9a"+"\u2ef4\u2eff"
+      + "\u2fd6\u3004"+"\u3006\u3006"+"\u3008\u3020"+"\u3030\u3037"
+      + "\u303b\u3040"+"\u3095\u3098"+"\u309b\u309c"+"\u309f\u30a0"
+      + "\u30fb\u30fc"+"\u30ff\u3104"+"\u312d\u3130"+"\u318f\u319f"
+      + "\u31b8\u33ff"+"\u4db6\u4dff"+"\u9fa6\u9fff"+"\ua48d\ua48f"
+      + "\ua4a2\ua4a3"+"\ua4b4\ua4b4"+"\ua4c1\ua4c1"+"\ua4c5\ua4c5"
+      + "\ua4c7\uabff"+"\ud7a4\uf8ff"+"\ufa2e\ufaff"+"\ufb07\ufb12"
+      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
+      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
+      + "\ufd3e\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufe1f"
+      + "\ufe24\ufe6f"+"\ufe73\ufe73"+"\ufe75\ufe75"+"\ufefd\uff20"
+      + "\uff3b\uff40"+"\uff5b\uff65"+"\uff70\uff70"+"\uff9e\uff9f"
+      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
+      + "\uffdd\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udfff"+"\ud801\udc26\ud801\udc27"
+      + "\ud801\udc4e\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
+      + "\ud834\uddae\ud83f\udfff"+"\ud869\uded7\ud87d\udfff"+"\ud87e\ude1e\udbff\udfff",
     // Unicode 3.1 property value: {cyrillic}
         "\u0400\u0481"+"\u0483\u0486"+"\u048c\u04c4"+"\u04c7\u04c8"
       + "\u04cb\u04cc"+"\u04d0\u04f5"+"\u04f8\u04f9",
@@ -1297,94 +1385,6 @@ public class Unicode_3_1 {
       + "\u0f37\u0f37"+"\u0f39\u0f39"+"\u0f40\u0f47"+"\u0f49\u0f6a"
       + "\u0f71\u0f84"+"\u0f86\u0f8b"+"\u0f90\u0f97"+"\u0f99\u0fbc"
       + "\u0fc6\u0fc6",
-    // Unicode 3.1 property value: {unknown}
-        "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b4"
-      + "\u00b6\u00b9"+"\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"
-      + "\u0220\u0221"+"\u0234\u024f"+"\u02ae\u02af"+"\u02b9\u02df"
-      + "\u02e5\u02ff"+"\u034f\u035f"+"\u0363\u0379"+"\u037b\u0385"
-      + "\u0387\u0387"+"\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"
-      + "\u03cf\u03cf"+"\u03d8\u03d9"+"\u03f6\u03ff"+"\u0482\u0482"
-      + "\u0487\u0487"+"\u048a\u048b"+"\u04c5\u04c6"+"\u04c9\u04ca"
-      + "\u04cd\u04cf"+"\u04f6\u04f7"+"\u04fa\u0530"+"\u0557\u0558"
-      + "\u055a\u0560"+"\u0588\u0590"+"\u05a2\u05a2"+"\u05ba\u05ba"
-      + "\u05be\u05be"+"\u05c0\u05c0"+"\u05c3\u05c3"+"\u05c5\u05cf"
-      + "\u05eb\u05ef"+"\u05f3\u0620"+"\u063b\u0640"+"\u0656\u066f"
-      + "\u06d4\u06d4"+"\u06e9\u06e9"+"\u06ee\u06f9"+"\u06fd\u070f"
-      + "\u072d\u072f"+"\u074b\u077f"+"\u07b1\u0900"+"\u0904\u0904"
-      + "\u093a\u093b"+"\u094e\u094f"+"\u0955\u0957"+"\u0964\u0965"
-      + "\u0970\u0980"+"\u0982\u0984"+"\u098d\u098e"+"\u0991\u0992"
-      + "\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"
-      + "\u09bd\u09bd"+"\u09c5\u09c6"+"\u09c9\u09ca"+"\u09ce\u09d6"
-      + "\u09d8\u09db"+"\u09de\u09de"+"\u09e4\u09e5"+"\u09f2\u0a01"
-      + "\u0a03\u0a04"+"\u0a0b\u0a0e"+"\u0a11\u0a12"+"\u0a29\u0a29"
-      + "\u0a31\u0a31"+"\u0a34\u0a34"+"\u0a37\u0a37"+"\u0a3a\u0a3b"
-      + "\u0a3d\u0a3d"+"\u0a43\u0a46"+"\u0a49\u0a4a"+"\u0a4e\u0a58"
-      + "\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a75\u0a80"+"\u0a84\u0a84"
-      + "\u0a8c\u0a8c"+"\u0a8e\u0a8e"+"\u0a92\u0a92"+"\u0aa9\u0aa9"
-      + "\u0ab1\u0ab1"+"\u0ab4\u0ab4"+"\u0aba\u0abb"+"\u0ac6\u0ac6"
-      + "\u0aca\u0aca"+"\u0ace\u0acf"+"\u0ad1\u0adf"+"\u0ae1\u0ae5"
-      + "\u0af0\u0b00"+"\u0b04\u0b04"+"\u0b0d\u0b0e"+"\u0b11\u0b12"
-      + "\u0b29\u0b29"+"\u0b31\u0b31"+"\u0b34\u0b35"+"\u0b3a\u0b3b"
-      + "\u0b44\u0b46"+"\u0b49\u0b4a"+"\u0b4e\u0b55"+"\u0b58\u0b5b"
-      + "\u0b5e\u0b5e"+"\u0b62\u0b65"+"\u0b70\u0b81"+"\u0b84\u0b84"
-      + "\u0b8b\u0b8d"+"\u0b91\u0b91"+"\u0b96\u0b98"+"\u0b9b\u0b9b"
-      + "\u0b9d\u0b9d"+"\u0ba0\u0ba2"+"\u0ba5\u0ba7"+"\u0bab\u0bad"
-      + "\u0bb6\u0bb6"+"\u0bba\u0bbd"+"\u0bc3\u0bc5"+"\u0bc9\u0bc9"
-      + "\u0bce\u0bd6"+"\u0bd8\u0be6"+"\u0bf3\u0c00"+"\u0c04\u0c04"
-      + "\u0c0d\u0c0d"+"\u0c11\u0c11"+"\u0c29\u0c29"+"\u0c34\u0c34"
-      + "\u0c3a\u0c3d"+"\u0c45\u0c45"+"\u0c49\u0c49"+"\u0c4e\u0c54"
-      + "\u0c57\u0c5f"+"\u0c62\u0c65"+"\u0c70\u0c81"+"\u0c84\u0c84"
-      + "\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"+"\u0cb4\u0cb4"
-      + "\u0cba\u0cbd"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"+"\u0cce\u0cd4"
-      + "\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce2\u0ce5"+"\u0cf0\u0d01"
-      + "\u0d04\u0d04"+"\u0d0d\u0d0d"+"\u0d11\u0d11"+"\u0d29\u0d29"
-      + "\u0d3a\u0d3d"+"\u0d44\u0d45"+"\u0d49\u0d49"+"\u0d4e\u0d56"
-      + "\u0d58\u0d5f"+"\u0d62\u0d65"+"\u0d70\u0d81"+"\u0d84\u0d84"
-      + "\u0d97\u0d99"+"\u0db2\u0db2"+"\u0dbc\u0dbc"+"\u0dbe\u0dbf"
-      + "\u0dc7\u0dc9"+"\u0dcb\u0dce"+"\u0dd5\u0dd5"+"\u0dd7\u0dd7"
-      + "\u0de0\u0df1"+"\u0df4\u0e00"+"\u0e3b\u0e3f"+"\u0e4f\u0e4f"
-      + "\u0e5a\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"+"\u0e89\u0e89"
-      + "\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"+"\u0ea0\u0ea0"
-      + "\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"+"\u0eac\u0eac"
-      + "\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"+"\u0ec7\u0ec7"
-      + "\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ede\u0eff"+"\u0f01\u0f17"
-      + "\u0f1a\u0f1f"+"\u0f34\u0f34"+"\u0f36\u0f36"+"\u0f38\u0f38"
-      + "\u0f3a\u0f3f"+"\u0f48\u0f48"+"\u0f6b\u0f70"+"\u0f85\u0f85"
-      + "\u0f8c\u0f8f"+"\u0f98\u0f98"+"\u0fbd\u0fc5"+"\u0fc7\u0fff"
-      + "\u1022\u1022"+"\u1028\u1028"+"\u102b\u102b"+"\u1033\u1035"
-      + "\u103a\u103f"+"\u104a\u104f"+"\u105a\u109f"+"\u10c6\u10cf"
-      + "\u10f7\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"+"\u11fa\u11ff"
-      + "\u1207\u1207"+"\u1247\u1247"+"\u1249\u1249"+"\u124e\u124f"
-      + "\u1257\u1257"+"\u1259\u1259"+"\u125e\u125f"+"\u1287\u1287"
-      + "\u1289\u1289"+"\u128e\u128f"+"\u12af\u12af"+"\u12b1\u12b1"
-      + "\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"+"\u12c6\u12c7"
-      + "\u12cf\u12cf"+"\u12d7\u12d7"+"\u12ef\u12ef"+"\u130f\u130f"
-      + "\u1311\u1311"+"\u1316\u1317"+"\u131f\u131f"+"\u1347\u1347"
-      + "\u135b\u1368"+"\u137d\u139f"+"\u13f5\u1400"+"\u166d\u166e"
-      + "\u1677\u1680"+"\u169b\u169f"+"\u16eb\u16ed"+"\u16f1\u177f"
-      + "\u17d4\u17df"+"\u17ea\u180f"+"\u181a\u181f"+"\u1878\u187f"
-      + "\u18aa\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"+"\u1f16\u1f17"
-      + "\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"+"\u1f58\u1f58"
-      + "\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"+"\u1f7e\u1f7f"
-      + "\u1fb5\u1fb5"+"\u1fbd\u1fbd"+"\u1fbf\u1fc1"+"\u1fc5\u1fc5"
-      + "\u1fcd\u1fcf"+"\u1fd4\u1fd5"+"\u1fdc\u1fdf"+"\u1fed\u1ff1"
-      + "\u1ff5\u1ff5"+"\u1ffd\u207e"+"\u2080\u20cf"+"\u20e4\u2125"
-      + "\u2127\u2129"+"\u212c\u2e7f"+"\u2e9a\u2e9a"+"\u2ef4\u2eff"
-      + "\u2fd6\u3004"+"\u3006\u3006"+"\u3008\u3020"+"\u3030\u3037"
-      + "\u303b\u3040"+"\u3095\u3098"+"\u309b\u309c"+"\u309f\u30a0"
-      + "\u30fb\u30fc"+"\u30ff\u3104"+"\u312d\u3130"+"\u318f\u319f"
-      + "\u31b8\u33ff"+"\u4db6\u4dff"+"\u9fa6\u9fff"+"\ua48d\ua48f"
-      + "\ua4a2\ua4a3"+"\ua4b4\ua4b4"+"\ua4c1\ua4c1"+"\ua4c5\ua4c5"
-      + "\ua4c7\uabff"+"\ud7a4\uf8ff"+"\ufa2e\ufaff"+"\ufb07\ufb12"
-      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
-      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
-      + "\ufd3e\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufe1f"
-      + "\ufe24\ufe6f"+"\ufe73\ufe73"+"\ufe75\ufe75"+"\ufefd\uff20"
-      + "\uff3b\uff40"+"\uff5b\uff65"+"\uff70\uff70"+"\uff9e\uff9f"
-      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
-      + "\uffdd\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udfff"+"\ud801\udc26\ud801\udc27"
-      + "\ud801\udc4e\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
-      + "\ud834\uddae\ud83f\udfff"+"\ud869\uded7\ud87d\udfff"+"\ud87e\ude1e\udbff\udfff",
     // Unicode 3.1 property value: {uppercase}
         "\u0041\u005a"+"\u00c0\u00d6"+"\u00d8\u00de"+"\u0100\u0100"
       + "\u0102\u0102"+"\u0104\u0104"+"\u0106\u0106"+"\u0108\u0108"
@@ -1679,75 +1679,7 @@ public class Unicode_3_1 {
         "\u0020\u0020"+"\u00a0\u00a0"+"\u1680\u1680"+"\u2000\u200b"
       + "\u202f\u202f"+"\u3000\u3000"  };
   public static final String[] propertyValueAliases = {
-        "gc=cc", "cc",   "gc=cf", "cf",
-        "gc=co", "co",   "gc=ll", "ll",
-        "gc=lm", "lm",   "gc=lo", "lo",
-        "gc=lt", "lt",   "gc=lu", "lu",
-        "gc=mc", "mc",   "gc=me", "me",
-        "gc=mn", "mn",   "gc=nd", "nd",
-        "gc=nl", "nl",   "gc=no", "no",
-        "gc=pc", "pc",   "gc=pd", "pd",
-        "gc=pe", "pe",   "gc=pf", "pf",
-        "gc=pi", "pi",   "gc=po", "po",
-        "gc=ps", "ps",   "gc=sc", "sc",
-        "gc=sk", "sk",   "gc=sm", "sm",
-        "gc=so", "so",   "gc=zl", "zl",
-        "gc=zp", "zp",   "gc=zs", "zs",
-        "generalcategory=cc", "cc",   "generalcategory=cf", "cf",
-        "generalcategory=co", "co",   "generalcategory=ll", "ll",
-        "generalcategory=lm", "lm",   "generalcategory=lo", "lo",
-        "generalcategory=lt", "lt",   "generalcategory=lu", "lu",
-        "generalcategory=mc", "mc",   "generalcategory=me", "me",
-        "generalcategory=mn", "mn",   "generalcategory=nd", "nd",
-        "generalcategory=nl", "nl",   "generalcategory=no", "no",
-        "generalcategory=pc", "pc",   "generalcategory=pd", "pd",
-        "generalcategory=pe", "pe",   "generalcategory=pf", "pf",
-        "generalcategory=pi", "pi",   "generalcategory=po", "po",
-        "generalcategory=ps", "ps",   "generalcategory=sc", "sc",
-        "generalcategory=sk", "sk",   "generalcategory=sm", "sm",
-        "generalcategory=so", "so",   "generalcategory=zl", "zl",
-        "generalcategory=zp", "zp",   "generalcategory=zs", "zs",
-        "sc=arabic", "arabic",   "sc=armenian", "armenian",
-        "sc=bengali", "bengali",   "sc=bopomofo", "bopomofo",
-        "sc=canadianaboriginal", "canadianaboriginal",   "sc=cherokee", "cherokee",
-        "sc=cyrillic", "cyrillic",   "sc=deseret", "deseret",
-        "sc=devanagari", "devanagari",   "sc=ethiopic", "ethiopic",
-        "sc=georgian", "georgian",   "sc=gothic", "gothic",
-        "sc=greek", "greek",   "sc=gujarati", "gujarati",
-        "sc=gurmukhi", "gurmukhi",   "sc=han", "han",
-        "sc=hangul", "hangul",   "sc=hebrew", "hebrew",
-        "sc=hiragana", "hiragana",   "sc=inherited", "inherited",
-        "sc=kannada", "kannada",   "sc=katakana", "katakana",
-        "sc=khmer", "khmer",   "sc=lao", "lao",
-        "sc=latin", "latin",   "sc=malayalam", "malayalam",
-        "sc=mongolian", "mongolian",   "sc=myanmar", "myanmar",
-        "sc=ogham", "ogham",   "sc=olditalic", "olditalic",
-        "sc=oriya", "oriya",   "sc=runic", "runic",
-        "sc=sinhala", "sinhala",   "sc=syriac", "syriac",
-        "sc=tamil", "tamil",   "sc=telugu", "telugu",
-        "sc=thaana", "thaana",   "sc=thai", "thai",
-        "sc=tibetan", "tibetan",   "sc=yi", "yi",
-        "script=arabic", "arabic",   "script=armenian", "armenian",
-        "script=bengali", "bengali",   "script=bopomofo", "bopomofo",
-        "script=canadianaboriginal", "canadianaboriginal",   "script=cherokee", "cherokee",
-        "script=cyrillic", "cyrillic",   "script=deseret", "deseret",
-        "script=devanagari", "devanagari",   "script=ethiopic", "ethiopic",
-        "script=georgian", "georgian",   "script=gothic", "gothic",
-        "script=greek", "greek",   "script=gujarati", "gujarati",
-        "script=gurmukhi", "gurmukhi",   "script=han", "han",
-        "script=hangul", "hangul",   "script=hebrew", "hebrew",
-        "script=hiragana", "hiragana",   "script=inherited", "inherited",
-        "script=kannada", "kannada",   "script=katakana", "katakana",
-        "script=khmer", "khmer",   "script=lao", "lao",
-        "script=latin", "latin",   "script=malayalam", "malayalam",
-        "script=mongolian", "mongolian",   "script=myanmar", "myanmar",
-        "script=ogham", "ogham",   "script=olditalic", "olditalic",
-        "script=oriya", "oriya",   "script=runic", "runic",
-        "script=sinhala", "sinhala",   "script=syriac", "syriac",
-        "script=tamil", "tamil",   "script=telugu", "telugu",
-        "script=thaana", "thaana",   "script=thai", "thai",
-        "script=tibetan", "tibetan",   "script=unknown", "unknown",
-        "script=yi", "yi"
+        
   };
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

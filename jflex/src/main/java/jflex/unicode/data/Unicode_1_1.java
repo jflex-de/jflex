@@ -482,25 +482,7 @@ public class Unicode_1_1 {
         "\u0020\u0020"+"\u00a0\u00a0"+"\u2000\u200b"+"\u3000\u3000"
       + "\ufeff\ufeff"  };
   public static final String[] propertyValueAliases = {
-        "gc=cc", "cc",   "gc=ll", "ll",
-        "gc=lm", "lm",   "gc=lo", "lo",
-        "gc=lu", "lu",   "gc=mc", "mc",
-        "gc=mn", "mn",   "gc=nd", "nd",
-        "gc=no", "no",   "gc=pd", "pd",
-        "gc=pe", "pe",   "gc=po", "po",
-        "gc=ps", "ps",   "gc=sc", "sc",
-        "gc=sm", "sm",   "gc=so", "so",
-        "gc=zl", "zl",   "gc=zp", "zp",
-        "gc=zs", "zs",   "generalcategory=cc", "cc",
-        "generalcategory=ll", "ll",   "generalcategory=lm", "lm",
-        "generalcategory=lo", "lo",   "generalcategory=lu", "lu",
-        "generalcategory=mc", "mc",   "generalcategory=mn", "mn",
-        "generalcategory=nd", "nd",   "generalcategory=no", "no",
-        "generalcategory=pd", "pd",   "generalcategory=pe", "pe",
-        "generalcategory=po", "po",   "generalcategory=ps", "ps",
-        "generalcategory=sc", "sc",   "generalcategory=sm", "sm",
-        "generalcategory=so", "so",   "generalcategory=zl", "zl",
-        "generalcategory=zp", "zp",   "generalcategory=zs", "zs"
+        
   };
   public static final int caselessMatchPartitionSize = 3;
   public static final String caselessMatchPartitions =

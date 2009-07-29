@@ -27,25 +27,25 @@ public class Unicode_3_2 {
         "block=tags", "block=tamil", "block=telugu", "block=thaana", "block=thai",
         "block=tibetan", "block=unifiedcanadianaboriginalsyllabics", "block=variationselectors", "block=yiradicals", "block=yisyllables",
         "bopomofo", "buhid", "canadianaboriginal", "cc", "cf",
-        "cherokee", "cn", "co", "cyrillic", "dash",
-        "defaultignorablecodepoint", "deprecated", "deseret", "devanagari", "diacritic",
-        "ethiopic", "extender", "georgian", "gothic", "graphemebase",
-        "graphemeextend", "graphemelink", "greek", "gujarati", "gurmukhi",
-        "han", "hangul", "hanunoo", "hebrew", "hexdigit",
-        "hiragana", "hyphen", "idcontinue", "ideographic", "idsbinaryoperator",
-        "idstart", "idstrinaryoperator", "inherited", "joincontrol", "kannada",
-        "katakana", "khmer", "lao", "latin", "ll",
-        "lm", "lo", "logicalorderexception", "lowercase", "lt",
-        "lu", "malayalam", "math", "mc", "me",
-        "mn", "mongolian", "myanmar", "nd", "nl",
-        "no", "noncharactercodepoint", "ogham", "olditalic", "oriya",
-        "otheralphabetic", "otherdefaultignorablecodepoint", "othergraphemeextend", "otherlowercase", "othermath",
-        "otheruppercase", "pc", "pd", "pe", "pf",
-        "pi", "po", "ps", "quotationmark", "radical",
-        "runic", "sc", "sinhala", "sk", "sm",
-        "so", "softdotted", "syriac", "tagalog", "tagbanwa",
-        "tamil", "telugu", "terminalpunctuation", "thaana", "thai",
-        "tibetan", "unifiedideograph", "unknown", "uppercase", "whitespace",
+        "cherokee", "cn", "co", "common", "cyrillic",
+        "dash", "defaultignorablecodepoint", "deprecated", "deseret", "devanagari",
+        "diacritic", "ethiopic", "extender", "georgian", "gothic",
+        "graphemebase", "graphemeextend", "graphemelink", "greek", "gujarati",
+        "gurmukhi", "han", "hangul", "hanunoo", "hebrew",
+        "hexdigit", "hiragana", "hyphen", "idcontinue", "ideographic",
+        "idsbinaryoperator", "idstart", "idstrinaryoperator", "inherited", "joincontrol",
+        "kannada", "katakana", "khmer", "lao", "latin",
+        "ll", "lm", "lo", "logicalorderexception", "lowercase",
+        "lt", "lu", "malayalam", "math", "mc",
+        "me", "mn", "mongolian", "myanmar", "nd",
+        "nl", "no", "noncharactercodepoint", "ogham", "olditalic",
+        "oriya", "otheralphabetic", "otherdefaultignorablecodepoint", "othergraphemeextend", "otherlowercase",
+        "othermath", "otheruppercase", "pc", "pd", "pe",
+        "pf", "pi", "po", "ps", "quotationmark",
+        "radical", "runic", "sc", "sinhala", "sk",
+        "sm", "so", "softdotted", "syriac", "tagalog",
+        "tagbanwa", "tamil", "telugu", "terminalpunctuation", "thaana",
+        "thai", "tibetan", "unifiedideograph", "uppercase", "whitespace",
         "xidcontinue", "xidstart", "yi", "zl", "zp",
         "zs" };
   public static final String[] intervals = {
@@ -589,6 +589,96 @@ public class Unicode_3_2 {
       + "\udbbf\udffe\udbbf\udfff"+"\udbff\udffe\udbff\udfff",
     // Unicode 3.2 property value: {co}
         "\ue000\uf8ff"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
+    // Unicode 3.2 property value: {common}
+        "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b4"
+      + "\u00b6\u00b9"+"\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"
+      + "\u0221\u0221"+"\u0234\u024f"+"\u02ae\u02af"+"\u02b9\u02df"
+      + "\u02e5\u02ff"+"\u0350\u035f"+"\u0370\u0379"+"\u037b\u0385"
+      + "\u0387\u0387"+"\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"
+      + "\u03cf\u03cf"+"\u03f6\u03ff"+"\u0482\u0482"+"\u0487\u0487"
+      + "\u04cf\u04cf"+"\u04f6\u04f7"+"\u04fa\u04ff"+"\u0510\u0530"
+      + "\u0557\u0558"+"\u055a\u0560"+"\u0588\u0590"+"\u05a2\u05a2"
+      + "\u05ba\u05ba"+"\u05be\u05be"+"\u05c0\u05c0"+"\u05c3\u05c3"
+      + "\u05c5\u05cf"+"\u05eb\u05ef"+"\u05f3\u0620"+"\u063b\u0640"
+      + "\u0656\u066d"+"\u06d4\u06d4"+"\u06e9\u06e9"+"\u06ee\u06f9"
+      + "\u06fd\u070f"+"\u072d\u072f"+"\u074b\u077f"+"\u07b2\u0900"
+      + "\u0904\u0904"+"\u093a\u093b"+"\u094e\u094f"+"\u0955\u0957"
+      + "\u0964\u0965"+"\u0970\u0980"+"\u0984\u0984"+"\u098d\u098e"
+      + "\u0991\u0992"+"\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"
+      + "\u09ba\u09bb"+"\u09bd\u09bd"+"\u09c5\u09c6"+"\u09c9\u09ca"
+      + "\u09ce\u09d6"+"\u09d8\u09db"+"\u09de\u09de"+"\u09e4\u09e5"
+      + "\u09f2\u0a01"+"\u0a03\u0a04"+"\u0a0b\u0a0e"+"\u0a11\u0a12"
+      + "\u0a29\u0a29"+"\u0a31\u0a31"+"\u0a34\u0a34"+"\u0a37\u0a37"
+      + "\u0a3a\u0a3b"+"\u0a3d\u0a3d"+"\u0a43\u0a46"+"\u0a49\u0a4a"
+      + "\u0a4e\u0a58"+"\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a75\u0a80"
+      + "\u0a84\u0a84"+"\u0a8c\u0a8c"+"\u0a8e\u0a8e"+"\u0a92\u0a92"
+      + "\u0aa9\u0aa9"+"\u0ab1\u0ab1"+"\u0ab4\u0ab4"+"\u0aba\u0abb"
+      + "\u0ac6\u0ac6"+"\u0aca\u0aca"+"\u0ace\u0acf"+"\u0ad1\u0adf"
+      + "\u0ae1\u0ae5"+"\u0af0\u0b00"+"\u0b04\u0b04"+"\u0b0d\u0b0e"
+      + "\u0b11\u0b12"+"\u0b29\u0b29"+"\u0b31\u0b31"+"\u0b34\u0b35"
+      + "\u0b3a\u0b3b"+"\u0b44\u0b46"+"\u0b49\u0b4a"+"\u0b4e\u0b55"
+      + "\u0b58\u0b5b"+"\u0b5e\u0b5e"+"\u0b62\u0b65"+"\u0b70\u0b81"
+      + "\u0b84\u0b84"+"\u0b8b\u0b8d"+"\u0b91\u0b91"+"\u0b96\u0b98"
+      + "\u0b9b\u0b9b"+"\u0b9d\u0b9d"+"\u0ba0\u0ba2"+"\u0ba5\u0ba7"
+      + "\u0bab\u0bad"+"\u0bb6\u0bb6"+"\u0bba\u0bbd"+"\u0bc3\u0bc5"
+      + "\u0bc9\u0bc9"+"\u0bce\u0bd6"+"\u0bd8\u0be6"+"\u0bf3\u0c00"
+      + "\u0c04\u0c04"+"\u0c0d\u0c0d"+"\u0c11\u0c11"+"\u0c29\u0c29"
+      + "\u0c34\u0c34"+"\u0c3a\u0c3d"+"\u0c45\u0c45"+"\u0c49\u0c49"
+      + "\u0c4e\u0c54"+"\u0c57\u0c5f"+"\u0c62\u0c65"+"\u0c70\u0c81"
+      + "\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"
+      + "\u0cb4\u0cb4"+"\u0cba\u0cbd"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"
+      + "\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce2\u0ce5"
+      + "\u0cf0\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"+"\u0d11\u0d11"
+      + "\u0d29\u0d29"+"\u0d3a\u0d3d"+"\u0d44\u0d45"+"\u0d49\u0d49"
+      + "\u0d4e\u0d56"+"\u0d58\u0d5f"+"\u0d62\u0d65"+"\u0d70\u0d81"
+      + "\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"+"\u0dbc\u0dbc"
+      + "\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"+"\u0dd5\u0dd5"
+      + "\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df4\u0e00"+"\u0e3b\u0e3f"
+      + "\u0e4f\u0e4f"+"\u0e5a\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"
+      + "\u0e89\u0e89"+"\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"
+      + "\u0ea0\u0ea0"+"\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"
+      + "\u0eac\u0eac"+"\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"
+      + "\u0ec7\u0ec7"+"\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ede\u0eff"
+      + "\u0f01\u0f17"+"\u0f1a\u0f1f"+"\u0f34\u0f34"+"\u0f36\u0f36"
+      + "\u0f38\u0f38"+"\u0f3a\u0f3f"+"\u0f48\u0f48"+"\u0f6b\u0f70"
+      + "\u0f85\u0f85"+"\u0f8c\u0f8f"+"\u0f98\u0f98"+"\u0fbd\u0fc5"
+      + "\u0fc7\u0fff"+"\u1022\u1022"+"\u1028\u1028"+"\u102b\u102b"
+      + "\u1033\u1035"+"\u103a\u103f"+"\u104a\u104f"+"\u105a\u109f"
+      + "\u10c6\u10cf"+"\u10f9\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"
+      + "\u11fa\u11ff"+"\u1207\u1207"+"\u1247\u1247"+"\u1249\u1249"
+      + "\u124e\u124f"+"\u1257\u1257"+"\u1259\u1259"+"\u125e\u125f"
+      + "\u1287\u1287"+"\u1289\u1289"+"\u128e\u128f"+"\u12af\u12af"
+      + "\u12b1\u12b1"+"\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"
+      + "\u12c6\u12c7"+"\u12cf\u12cf"+"\u12d7\u12d7"+"\u12ef\u12ef"
+      + "\u130f\u130f"+"\u1311\u1311"+"\u1316\u1317"+"\u131f\u131f"
+      + "\u1347\u1347"+"\u135b\u1368"+"\u137d\u139f"+"\u13f5\u1400"
+      + "\u166d\u166e"+"\u1677\u1680"+"\u169b\u169f"+"\u16eb\u16ed"
+      + "\u16f1\u16ff"+"\u170d\u170d"+"\u1715\u171f"+"\u1735\u173f"
+      + "\u1754\u175f"+"\u176d\u176d"+"\u1771\u1771"+"\u1774\u177f"
+      + "\u17d4\u17df"+"\u17ea\u180a"+"\u180e\u180f"+"\u181a\u181f"
+      + "\u1878\u187f"+"\u18aa\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"
+      + "\u1f16\u1f17"+"\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"
+      + "\u1f58\u1f58"+"\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"
+      + "\u1f7e\u1f7f"+"\u1fb5\u1fb5"+"\u1fbd\u1fbd"+"\u1fbf\u1fc1"
+      + "\u1fc5\u1fc5"+"\u1fcd\u1fcf"+"\u1fd4\u1fd5"+"\u1fdc\u1fdf"
+      + "\u1fed\u1ff1"+"\u1ff5\u1ff5"+"\u1ffd\u2070"+"\u2072\u207e"
+      + "\u2080\u20cf"+"\u20eb\u2125"+"\u2127\u2129"+"\u212c\u2e7f"
+      + "\u2e9a\u2e9a"+"\u2ef4\u2eff"+"\u2fd6\u3004"+"\u3006\u3006"
+      + "\u3008\u3020"+"\u3030\u3037"+"\u303c\u3040"+"\u3097\u3098"
+      + "\u309b\u309c"+"\u30a0\u30a0"+"\u30fb\u30fc"+"\u3100\u3104"
+      + "\u312d\u3130"+"\u318f\u319f"+"\u31b8\u31ef"+"\u3200\u33ff"
+      + "\u4db6\u4dff"+"\u9fa6\u9fff"+"\ua48d\ua48f"+"\ua4a2\ua4a3"
+      + "\ua4b4\ua4b4"+"\ua4c1\ua4c1"+"\ua4c5\ua4c5"+"\ua4c7\uabff"
+      + "\ud7a4\uf8ff"+"\ufa2e\ufa2f"+"\ufa6b\ufaff"+"\ufb07\ufb12"
+      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
+      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
+      + "\ufd3e\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"
+      + "\ufe10\ufe1f"+"\ufe24\ufe6f"+"\ufe75\ufe75"+"\ufefd\uff20"
+      + "\uff3b\uff40"+"\uff5b\uff65"+"\uff70\uff70"+"\uff9e\uff9f"
+      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
+      + "\uffdd\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udfff"+"\ud801\udc26\ud801\udc27"
+      + "\ud801\udc4e\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
+      + "\ud834\uddae\ud83f\udfff"+"\ud869\uded7\ud87d\udfff"+"\ud87e\ude1e\udbff\udfff",
     // Unicode 3.2 property value: {cyrillic}
         "\u0400\u0481"+"\u0483\u0486"+"\u048a\u04ce"+"\u04d0\u04f5"
       + "\u04f8\u04f9"+"\u0500\u050f",
@@ -1746,96 +1836,6 @@ public class Unicode_3_2 {
         "\u3400\u4db5"+"\u4e00\u9fa5"+"\ufa0e\ufa0f"+"\ufa11\ufa11"
       + "\ufa13\ufa14"+"\ufa1f\ufa1f"+"\ufa21\ufa21"+"\ufa23\ufa24"
       + "\ufa27\ufa29"+"\ud840\udc00\ud869\uded6",
-    // Unicode 3.2 property value: {unknown}
-        "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b4"
-      + "\u00b6\u00b9"+"\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"
-      + "\u0221\u0221"+"\u0234\u024f"+"\u02ae\u02af"+"\u02b9\u02df"
-      + "\u02e5\u02ff"+"\u0350\u035f"+"\u0370\u0379"+"\u037b\u0385"
-      + "\u0387\u0387"+"\u038b\u038b"+"\u038d\u038d"+"\u03a2\u03a2"
-      + "\u03cf\u03cf"+"\u03f6\u03ff"+"\u0482\u0482"+"\u0487\u0487"
-      + "\u04cf\u04cf"+"\u04f6\u04f7"+"\u04fa\u04ff"+"\u0510\u0530"
-      + "\u0557\u0558"+"\u055a\u0560"+"\u0588\u0590"+"\u05a2\u05a2"
-      + "\u05ba\u05ba"+"\u05be\u05be"+"\u05c0\u05c0"+"\u05c3\u05c3"
-      + "\u05c5\u05cf"+"\u05eb\u05ef"+"\u05f3\u0620"+"\u063b\u0640"
-      + "\u0656\u066d"+"\u06d4\u06d4"+"\u06e9\u06e9"+"\u06ee\u06f9"
-      + "\u06fd\u070f"+"\u072d\u072f"+"\u074b\u077f"+"\u07b2\u0900"
-      + "\u0904\u0904"+"\u093a\u093b"+"\u094e\u094f"+"\u0955\u0957"
-      + "\u0964\u0965"+"\u0970\u0980"+"\u0984\u0984"+"\u098d\u098e"
-      + "\u0991\u0992"+"\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"
-      + "\u09ba\u09bb"+"\u09bd\u09bd"+"\u09c5\u09c6"+"\u09c9\u09ca"
-      + "\u09ce\u09d6"+"\u09d8\u09db"+"\u09de\u09de"+"\u09e4\u09e5"
-      + "\u09f2\u0a01"+"\u0a03\u0a04"+"\u0a0b\u0a0e"+"\u0a11\u0a12"
-      + "\u0a29\u0a29"+"\u0a31\u0a31"+"\u0a34\u0a34"+"\u0a37\u0a37"
-      + "\u0a3a\u0a3b"+"\u0a3d\u0a3d"+"\u0a43\u0a46"+"\u0a49\u0a4a"
-      + "\u0a4e\u0a58"+"\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a75\u0a80"
-      + "\u0a84\u0a84"+"\u0a8c\u0a8c"+"\u0a8e\u0a8e"+"\u0a92\u0a92"
-      + "\u0aa9\u0aa9"+"\u0ab1\u0ab1"+"\u0ab4\u0ab4"+"\u0aba\u0abb"
-      + "\u0ac6\u0ac6"+"\u0aca\u0aca"+"\u0ace\u0acf"+"\u0ad1\u0adf"
-      + "\u0ae1\u0ae5"+"\u0af0\u0b00"+"\u0b04\u0b04"+"\u0b0d\u0b0e"
-      + "\u0b11\u0b12"+"\u0b29\u0b29"+"\u0b31\u0b31"+"\u0b34\u0b35"
-      + "\u0b3a\u0b3b"+"\u0b44\u0b46"+"\u0b49\u0b4a"+"\u0b4e\u0b55"
-      + "\u0b58\u0b5b"+"\u0b5e\u0b5e"+"\u0b62\u0b65"+"\u0b70\u0b81"
-      + "\u0b84\u0b84"+"\u0b8b\u0b8d"+"\u0b91\u0b91"+"\u0b96\u0b98"
-      + "\u0b9b\u0b9b"+"\u0b9d\u0b9d"+"\u0ba0\u0ba2"+"\u0ba5\u0ba7"
-      + "\u0bab\u0bad"+"\u0bb6\u0bb6"+"\u0bba\u0bbd"+"\u0bc3\u0bc5"
-      + "\u0bc9\u0bc9"+"\u0bce\u0bd6"+"\u0bd8\u0be6"+"\u0bf3\u0c00"
-      + "\u0c04\u0c04"+"\u0c0d\u0c0d"+"\u0c11\u0c11"+"\u0c29\u0c29"
-      + "\u0c34\u0c34"+"\u0c3a\u0c3d"+"\u0c45\u0c45"+"\u0c49\u0c49"
-      + "\u0c4e\u0c54"+"\u0c57\u0c5f"+"\u0c62\u0c65"+"\u0c70\u0c81"
-      + "\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"
-      + "\u0cb4\u0cb4"+"\u0cba\u0cbd"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"
-      + "\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce2\u0ce5"
-      + "\u0cf0\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"+"\u0d11\u0d11"
-      + "\u0d29\u0d29"+"\u0d3a\u0d3d"+"\u0d44\u0d45"+"\u0d49\u0d49"
-      + "\u0d4e\u0d56"+"\u0d58\u0d5f"+"\u0d62\u0d65"+"\u0d70\u0d81"
-      + "\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"+"\u0dbc\u0dbc"
-      + "\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"+"\u0dd5\u0dd5"
-      + "\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df4\u0e00"+"\u0e3b\u0e3f"
-      + "\u0e4f\u0e4f"+"\u0e5a\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"
-      + "\u0e89\u0e89"+"\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"
-      + "\u0ea0\u0ea0"+"\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"
-      + "\u0eac\u0eac"+"\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"
-      + "\u0ec7\u0ec7"+"\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ede\u0eff"
-      + "\u0f01\u0f17"+"\u0f1a\u0f1f"+"\u0f34\u0f34"+"\u0f36\u0f36"
-      + "\u0f38\u0f38"+"\u0f3a\u0f3f"+"\u0f48\u0f48"+"\u0f6b\u0f70"
-      + "\u0f85\u0f85"+"\u0f8c\u0f8f"+"\u0f98\u0f98"+"\u0fbd\u0fc5"
-      + "\u0fc7\u0fff"+"\u1022\u1022"+"\u1028\u1028"+"\u102b\u102b"
-      + "\u1033\u1035"+"\u103a\u103f"+"\u104a\u104f"+"\u105a\u109f"
-      + "\u10c6\u10cf"+"\u10f9\u10ff"+"\u115a\u115e"+"\u11a3\u11a7"
-      + "\u11fa\u11ff"+"\u1207\u1207"+"\u1247\u1247"+"\u1249\u1249"
-      + "\u124e\u124f"+"\u1257\u1257"+"\u1259\u1259"+"\u125e\u125f"
-      + "\u1287\u1287"+"\u1289\u1289"+"\u128e\u128f"+"\u12af\u12af"
-      + "\u12b1\u12b1"+"\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"
-      + "\u12c6\u12c7"+"\u12cf\u12cf"+"\u12d7\u12d7"+"\u12ef\u12ef"
-      + "\u130f\u130f"+"\u1311\u1311"+"\u1316\u1317"+"\u131f\u131f"
-      + "\u1347\u1347"+"\u135b\u1368"+"\u137d\u139f"+"\u13f5\u1400"
-      + "\u166d\u166e"+"\u1677\u1680"+"\u169b\u169f"+"\u16eb\u16ed"
-      + "\u16f1\u16ff"+"\u170d\u170d"+"\u1715\u171f"+"\u1735\u173f"
-      + "\u1754\u175f"+"\u176d\u176d"+"\u1771\u1771"+"\u1774\u177f"
-      + "\u17d4\u17df"+"\u17ea\u180a"+"\u180e\u180f"+"\u181a\u181f"
-      + "\u1878\u187f"+"\u18aa\u1dff"+"\u1e9c\u1e9f"+"\u1efa\u1eff"
-      + "\u1f16\u1f17"+"\u1f1e\u1f1f"+"\u1f46\u1f47"+"\u1f4e\u1f4f"
-      + "\u1f58\u1f58"+"\u1f5a\u1f5a"+"\u1f5c\u1f5c"+"\u1f5e\u1f5e"
-      + "\u1f7e\u1f7f"+"\u1fb5\u1fb5"+"\u1fbd\u1fbd"+"\u1fbf\u1fc1"
-      + "\u1fc5\u1fc5"+"\u1fcd\u1fcf"+"\u1fd4\u1fd5"+"\u1fdc\u1fdf"
-      + "\u1fed\u1ff1"+"\u1ff5\u1ff5"+"\u1ffd\u2070"+"\u2072\u207e"
-      + "\u2080\u20cf"+"\u20eb\u2125"+"\u2127\u2129"+"\u212c\u2e7f"
-      + "\u2e9a\u2e9a"+"\u2ef4\u2eff"+"\u2fd6\u3004"+"\u3006\u3006"
-      + "\u3008\u3020"+"\u3030\u3037"+"\u303c\u3040"+"\u3097\u3098"
-      + "\u309b\u309c"+"\u30a0\u30a0"+"\u30fb\u30fc"+"\u3100\u3104"
-      + "\u312d\u3130"+"\u318f\u319f"+"\u31b8\u31ef"+"\u3200\u33ff"
-      + "\u4db6\u4dff"+"\u9fa6\u9fff"+"\ua48d\ua48f"+"\ua4a2\ua4a3"
-      + "\ua4b4\ua4b4"+"\ua4c1\ua4c1"+"\ua4c5\ua4c5"+"\ua4c7\uabff"
-      + "\ud7a4\uf8ff"+"\ufa2e\ufa2f"+"\ufa6b\ufaff"+"\ufb07\ufb12"
-      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
-      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
-      + "\ufd3e\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"
-      + "\ufe10\ufe1f"+"\ufe24\ufe6f"+"\ufe75\ufe75"+"\ufefd\uff20"
-      + "\uff3b\uff40"+"\uff5b\uff65"+"\uff70\uff70"+"\uff9e\uff9f"
-      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
-      + "\uffdd\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udfff"+"\ud801\udc26\ud801\udc27"
-      + "\ud801\udc4e\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
-      + "\ud834\uddae\ud83f\udfff"+"\ud869\uded7\ud87d\udfff"+"\ud87e\ude1e\udbff\udfff",
     // Unicode 3.2 property value: {uppercase}
         "\u0041\u005a"+"\u00c0\u00d6"+"\u00d8\u00de"+"\u0100\u0100"
       + "\u0102\u0102"+"\u0104\u0104"+"\u0106\u0106"+"\u0108\u0108"
@@ -2145,140 +2145,90 @@ public class Unicode_3_2 {
         "ahex", "asciihexdigit",   "alpha", "alphabetic",
         "arab", "arabic",   "armn", "armenian",
         "beng", "bengali",   "bidic", "bidicontrol",
-        "blk=alphabeticpresentationforms", "block=alphabeticpresentationforms",   "blk=arabic", "block=arabic",
-        "blk=arabicpresentationformsa", "block=arabicpresentationformsa",   "blk=arabicpresentationformsb", "block=arabicpresentationformsb",
-        "blk=armenian", "block=armenian",   "blk=arrows", "block=arrows",
-        "blk=basiclatin", "block=basiclatin",   "blk=bengali", "block=bengali",
-        "blk=blockelements", "block=blockelements",   "blk=bopomofo", "block=bopomofo",
-        "blk=bopomofoextended", "block=bopomofoextended",   "blk=boxdrawing", "block=boxdrawing",
-        "blk=braillepatterns", "block=braillepatterns",   "blk=buhid", "block=buhid",
-        "blk=byzantinemusicalsymbols", "block=byzantinemusicalsymbols",   "blk=cherokee", "block=cherokee",
-        "blk=cjkcompatibility", "block=cjkcompatibility",   "blk=cjkcompatibilityforms", "block=cjkcompatibilityforms",
-        "blk=cjkcompatibilityideographs", "block=cjkcompatibilityideographs",   "blk=cjkcompatibilityideographssupplement", "block=cjkcompatibilityideographssupplement",
-        "blk=cjkradicalssupplement", "block=cjkradicalssupplement",   "blk=cjksymbolsandpunctuation", "block=cjksymbolsandpunctuation",
-        "blk=cjkunifiedideographs", "block=cjkunifiedideographs",   "blk=cjkunifiedideographsextensiona", "block=cjkunifiedideographsextensiona",
-        "blk=cjkunifiedideographsextensionb", "block=cjkunifiedideographsextensionb",   "blk=combiningdiacriticalmarks", "block=combiningdiacriticalmarks",
-        "blk=combiningdiacriticalmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",   "blk=combininghalfmarks", "block=combininghalfmarks",
-        "blk=controlpictures", "block=controlpictures",   "blk=currencysymbols", "block=currencysymbols",
-        "blk=cyrillic", "block=cyrillic",   "blk=cyrillicsupplementary", "block=cyrillicsupplementary",
-        "blk=deseret", "block=deseret",   "blk=devanagari", "block=devanagari",
-        "blk=dingbats", "block=dingbats",   "blk=enclosedalphanumerics", "block=enclosedalphanumerics",
-        "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",   "blk=ethiopic", "block=ethiopic",
-        "blk=generalpunctuation", "block=generalpunctuation",   "blk=geometricshapes", "block=geometricshapes",
-        "blk=georgian", "block=georgian",   "blk=gothic", "block=gothic",
-        "blk=greekandcoptic", "block=greekandcoptic",   "blk=greekextended", "block=greekextended",
-        "blk=gujarati", "block=gujarati",   "blk=gurmukhi", "block=gurmukhi",
-        "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",   "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",
-        "blk=hanguljamo", "block=hanguljamo",   "blk=hangulsyllables", "block=hangulsyllables",
-        "blk=hanunoo", "block=hanunoo",   "blk=hebrew", "block=hebrew",
-        "blk=hiragana", "block=hiragana",   "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",
-        "blk=ipaextensions", "block=ipaextensions",   "blk=kanbun", "block=kanbun",
-        "blk=kangxiradicals", "block=kangxiradicals",   "blk=kannada", "block=kannada",
-        "blk=katakana", "block=katakana",   "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions",
-        "blk=khmer", "block=khmer",   "blk=lao", "block=lao",
-        "blk=latin1supplement", "block=latin1supplement",   "blk=latinextendeda", "block=latinextendeda",
-        "blk=latinextendedadditional", "block=latinextendedadditional",   "blk=latinextendedb", "block=latinextendedb",
-        "blk=letterlikesymbols", "block=letterlikesymbols",   "blk=malayalam", "block=malayalam",
-        "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",   "blk=mathematicaloperators", "block=mathematicaloperators",
-        "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",   "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",
-        "blk=miscellaneoussymbols", "block=miscellaneoussymbols",   "blk=miscellaneoustechnical", "block=miscellaneoustechnical",
-        "blk=mongolian", "block=mongolian",   "blk=musicalsymbols", "block=musicalsymbols",
-        "blk=myanmar", "block=myanmar",   "blk=noblock", "block=noblock",
-        "blk=numberforms", "block=numberforms",   "blk=ogham", "block=ogham",
-        "blk=olditalic", "block=olditalic",   "blk=opticalcharacterrecognition", "block=opticalcharacterrecognition",
-        "blk=oriya", "block=oriya",   "blk=privateusearea", "block=privateusearea",
-        "blk=runic", "block=runic",   "blk=sinhala", "block=sinhala",
-        "blk=smallformvariants", "block=smallformvariants",   "blk=spacingmodifierletters", "block=spacingmodifierletters",
-        "blk=specials", "block=specials",   "blk=superscriptsandsubscripts", "block=superscriptsandsubscripts",
-        "blk=supplementalarrowsa", "block=supplementalarrowsa",   "blk=supplementalarrowsb", "block=supplementalarrowsb",
-        "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",   "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",
-        "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",   "blk=syriac", "block=syriac",
-        "blk=tagalog", "block=tagalog",   "blk=tagbanwa", "block=tagbanwa",
-        "blk=tags", "block=tags",   "blk=tamil", "block=tamil",
-        "blk=telugu", "block=telugu",   "blk=thaana", "block=thaana",
-        "blk=thai", "block=thai",   "blk=tibetan", "block=tibetan",
-        "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",   "blk=variationselectors", "block=variationselectors",
-        "blk=yiradicals", "block=yiradicals",   "blk=yisyllables", "block=yisyllables",
         "bopo", "bopomofo",   "buhd", "buhid",
         "cans", "canadianaboriginal",   "casedletter", "lc",
         "cher", "cherokee",   "closepunctuation", "pe",
         "connectorpunctuation", "pc",   "control", "cc",
         "currencysymbol", "sc",   "cyrl", "cyrillic",
-        "dash", "dash",   "dashpunctuation", "pd",
-        "decimalnumber", "nd",   "dep", "deprecated",
-        "deva", "devanagari",   "di", "defaultignorablecodepoint",
-        "dia", "diacritic",   "dsrt", "deseret",
-        "enclosingmark", "me",   "ethi", "ethiopic",
-        "ext", "extender",   "finalpunctuation", "pf",
-        "format", "cf",   "gc=c", "c",
-        "gc=casedletter", "lc",   "gc=cc", "cc",
-        "gc=cf", "cf",   "gc=closepunctuation", "pe",
-        "gc=cn", "cn",   "gc=co", "co",
-        "gc=connectorpunctuation", "pc",   "gc=control", "cc",
-        "gc=currencysymbol", "sc",   "gc=dashpunctuation", "pd",
-        "gc=decimalnumber", "nd",   "gc=enclosingmark", "me",
-        "gc=finalpunctuation", "pf",   "gc=format", "cf",
-        "gc=initialpunctuation", "pi",   "gc=l", "l",
-        "gc=lc", "lc",   "gc=letter", "l",
-        "gc=letternumber", "nl",   "gc=lineseparator", "zl",
-        "gc=ll", "ll",   "gc=lm", "lm",
-        "gc=lo", "lo",   "gc=lowercaseletter", "ll",
-        "gc=lt", "lt",   "gc=lu", "lu",
-        "gc=m", "m",   "gc=mark", "m",
-        "gc=mathsymbol", "sm",   "gc=mc", "mc",
-        "gc=me", "me",   "gc=mn", "mn",
-        "gc=modifierletter", "lm",   "gc=modifiersymbol", "sk",
-        "gc=n", "n",   "gc=nd", "nd",
-        "gc=nl", "nl",   "gc=no", "no",
-        "gc=nonspacingmark", "mn",   "gc=number", "n",
-        "gc=openpunctuation", "ps",   "gc=other", "c",
-        "gc=otherletter", "lo",   "gc=othernumber", "no",
-        "gc=otherpunctuation", "po",   "gc=othersymbol", "so",
-        "gc=p", "p",   "gc=paragraphseparator", "zp",
-        "gc=pc", "pc",   "gc=pd", "pd",
-        "gc=pe", "pe",   "gc=pf", "pf",
-        "gc=pi", "pi",   "gc=po", "po",
-        "gc=privateuse", "co",   "gc=ps", "ps",
-        "gc=punctuation", "p",   "gc=s", "s",
-        "gc=sc", "sc",   "gc=separator", "z",
-        "gc=sk", "sk",   "gc=sm", "sm",
-        "gc=so", "so",   "gc=spaceseparator", "zs",
-        "gc=spacingmark", "mc",   "gc=symbol", "s",
-        "gc=titlecaseletter", "lt",   "gc=unassigned", "cn",
-        "gc=uppercaseletter", "lu",   "gc=z", "z",
-        "gc=zl", "zl",   "gc=zp", "zp",
-        "gc=zs", "zs",   "generalcategory=casedletter", "lc",
+        "dashpunctuation", "pd",   "decimalnumber", "nd",
+        "dep", "deprecated",   "deva", "devanagari",
+        "di", "defaultignorablecodepoint",   "dia", "diacritic",
+        "dsrt", "deseret",   "enclosingmark", "me",
+        "ethi", "ethiopic",   "ext", "extender",
+        "finalpunctuation", "pf",   "format", "cf",
+        "gc=c", "c",   "gc=casedletter", "lc",
+        "gc=cc", "cc",   "gc=cf", "cf",
+        "gc=closepunctuation", "pe",   "gc=cn", "cn",
+        "gc=co", "co",   "gc=connectorpunctuation", "pc",
+        "gc=control", "cc",   "gc=currencysymbol", "sc",
+        "gc=dashpunctuation", "pd",   "gc=decimalnumber", "nd",
+        "gc=enclosingmark", "me",   "gc=finalpunctuation", "pf",
+        "gc=format", "cf",   "gc=initialpunctuation", "pi",
+        "gc=l", "l",   "gc=lc", "lc",
+        "gc=letter", "l",   "gc=letternumber", "nl",
+        "gc=lineseparator", "zl",   "gc=ll", "ll",
+        "gc=lm", "lm",   "gc=lo", "lo",
+        "gc=lowercaseletter", "ll",   "gc=lt", "lt",
+        "gc=lu", "lu",   "gc=m", "m",
+        "gc=mark", "m",   "gc=mathsymbol", "sm",
+        "gc=mc", "mc",   "gc=me", "me",
+        "gc=mn", "mn",   "gc=modifierletter", "lm",
+        "gc=modifiersymbol", "sk",   "gc=n", "n",
+        "gc=nd", "nd",   "gc=nl", "nl",
+        "gc=no", "no",   "gc=nonspacingmark", "mn",
+        "gc=number", "n",   "gc=openpunctuation", "ps",
+        "gc=other", "c",   "gc=otherletter", "lo",
+        "gc=othernumber", "no",   "gc=otherpunctuation", "po",
+        "gc=othersymbol", "so",   "gc=p", "p",
+        "gc=paragraphseparator", "zp",   "gc=pc", "pc",
+        "gc=pd", "pd",   "gc=pe", "pe",
+        "gc=pf", "pf",   "gc=pi", "pi",
+        "gc=po", "po",   "gc=privateuse", "co",
+        "gc=ps", "ps",   "gc=punctuation", "p",
+        "gc=s", "s",   "gc=sc", "sc",
+        "gc=separator", "z",   "gc=sk", "sk",
+        "gc=sm", "sm",   "gc=so", "so",
+        "gc=spaceseparator", "zs",   "gc=spacingmark", "mc",
+        "gc=symbol", "s",   "gc=titlecaseletter", "lt",
+        "gc=unassigned", "cn",   "gc=uppercaseletter", "lu",
+        "gc=z", "z",   "gc=zl", "zl",
+        "gc=zp", "zp",   "gc=zs", "zs",
+        "generalcategory=c", "c",   "generalcategory=casedletter", "lc",
         "generalcategory=cc", "cc",   "generalcategory=cf", "cf",
-        "generalcategory=closepunctuation", "pe",   "generalcategory=co", "co",
-        "generalcategory=connectorpunctuation", "pc",   "generalcategory=control", "cc",
-        "generalcategory=currencysymbol", "sc",   "generalcategory=dashpunctuation", "pd",
-        "generalcategory=decimalnumber", "nd",   "generalcategory=enclosingmark", "me",
-        "generalcategory=finalpunctuation", "pf",   "generalcategory=format", "cf",
-        "generalcategory=initialpunctuation", "pi",   "generalcategory=letter", "l",
-        "generalcategory=letternumber", "nl",   "generalcategory=lineseparator", "zl",
-        "generalcategory=ll", "ll",   "generalcategory=lm", "lm",
-        "generalcategory=lo", "lo",   "generalcategory=lowercaseletter", "ll",
-        "generalcategory=lt", "lt",   "generalcategory=lu", "lu",
+        "generalcategory=closepunctuation", "pe",   "generalcategory=cn", "cn",
+        "generalcategory=co", "co",   "generalcategory=connectorpunctuation", "pc",
+        "generalcategory=control", "cc",   "generalcategory=currencysymbol", "sc",
+        "generalcategory=dashpunctuation", "pd",   "generalcategory=decimalnumber", "nd",
+        "generalcategory=enclosingmark", "me",   "generalcategory=finalpunctuation", "pf",
+        "generalcategory=format", "cf",   "generalcategory=initialpunctuation", "pi",
+        "generalcategory=l", "l",   "generalcategory=lc", "lc",
+        "generalcategory=letter", "l",   "generalcategory=letternumber", "nl",
+        "generalcategory=lineseparator", "zl",   "generalcategory=ll", "ll",
+        "generalcategory=lm", "lm",   "generalcategory=lo", "lo",
+        "generalcategory=lowercaseletter", "ll",   "generalcategory=lt", "lt",
+        "generalcategory=lu", "lu",   "generalcategory=m", "m",
         "generalcategory=mark", "m",   "generalcategory=mathsymbol", "sm",
         "generalcategory=mc", "mc",   "generalcategory=me", "me",
         "generalcategory=mn", "mn",   "generalcategory=modifierletter", "lm",
-        "generalcategory=modifiersymbol", "sk",   "generalcategory=nd", "nd",
-        "generalcategory=nl", "nl",   "generalcategory=no", "no",
-        "generalcategory=nonspacingmark", "mn",   "generalcategory=number", "n",
-        "generalcategory=openpunctuation", "ps",   "generalcategory=other", "c",
-        "generalcategory=otherletter", "lo",   "generalcategory=othernumber", "no",
-        "generalcategory=otherpunctuation", "po",   "generalcategory=othersymbol", "so",
+        "generalcategory=modifiersymbol", "sk",   "generalcategory=n", "n",
+        "generalcategory=nd", "nd",   "generalcategory=nl", "nl",
+        "generalcategory=no", "no",   "generalcategory=nonspacingmark", "mn",
+        "generalcategory=number", "n",   "generalcategory=openpunctuation", "ps",
+        "generalcategory=other", "c",   "generalcategory=otherletter", "lo",
+        "generalcategory=othernumber", "no",   "generalcategory=otherpunctuation", "po",
+        "generalcategory=othersymbol", "so",   "generalcategory=p", "p",
         "generalcategory=paragraphseparator", "zp",   "generalcategory=pc", "pc",
         "generalcategory=pd", "pd",   "generalcategory=pe", "pe",
         "generalcategory=pf", "pf",   "generalcategory=pi", "pi",
         "generalcategory=po", "po",   "generalcategory=privateuse", "co",
         "generalcategory=ps", "ps",   "generalcategory=punctuation", "p",
-        "generalcategory=sc", "sc",   "generalcategory=separator", "z",
-        "generalcategory=sk", "sk",   "generalcategory=sm", "sm",
-        "generalcategory=so", "so",   "generalcategory=spaceseparator", "zs",
-        "generalcategory=spacingmark", "mc",   "generalcategory=symbol", "s",
-        "generalcategory=titlecaseletter", "lt",   "generalcategory=unassigned", "cn",
-        "generalcategory=uppercaseletter", "lu",   "generalcategory=zl", "zl",
+        "generalcategory=s", "s",   "generalcategory=sc", "sc",
+        "generalcategory=separator", "z",   "generalcategory=sk", "sk",
+        "generalcategory=sm", "sm",   "generalcategory=so", "so",
+        "generalcategory=spaceseparator", "zs",   "generalcategory=spacingmark", "mc",
+        "generalcategory=symbol", "s",   "generalcategory=titlecaseletter", "lt",
+        "generalcategory=unassigned", "cn",   "generalcategory=uppercaseletter", "lu",
+        "generalcategory=z", "z",   "generalcategory=zl", "zl",
         "generalcategory=zp", "zp",   "generalcategory=zs", "zs",
         "geor", "georgian",   "goth", "gothic",
         "grbase", "graphemebase",   "grek", "greek",
@@ -2287,17 +2237,16 @@ public class Unicode_3_2 {
         "hang", "hangul",   "hani", "han",
         "hano", "hanunoo",   "hebr", "hebrew",
         "hex", "hexdigit",   "hira", "hiragana",
-        "hyphen", "hyphen",   "idc", "idcontinue",
-        "ideo", "ideographic",   "ids", "idstart",
-        "idsb", "idsbinaryoperator",   "idst", "idstrinaryoperator",
-        "initialpunctuation", "pi",   "ital", "olditalic",
-        "joinc", "joincontrol",   "kana", "katakana",
-        "khmr", "khmer",   "knda", "kannada",
-        "laoo", "lao",   "latn", "latin",
-        "letter", "l",   "letternumber", "nl",
-        "lineseparator", "zl",   "loe", "logicalorderexception",
-        "lower", "lowercase",   "lowercaseletter", "ll",
-        "mark", "m",   "math", "math",
+        "idc", "idcontinue",   "ideo", "ideographic",
+        "ids", "idstart",   "idsb", "idsbinaryoperator",
+        "idst", "idstrinaryoperator",   "initialpunctuation", "pi",
+        "ital", "olditalic",   "joinc", "joincontrol",
+        "kana", "katakana",   "khmr", "khmer",
+        "knda", "kannada",   "laoo", "lao",
+        "latn", "latin",   "letter", "l",
+        "letternumber", "nl",   "lineseparator", "zl",
+        "loe", "logicalorderexception",   "lower", "lowercase",
+        "lowercaseletter", "ll",   "mark", "m",
         "mathsymbol", "sm",   "mlym", "malayalam",
         "modifierletter", "lm",   "modifiersymbol", "sk",
         "mong", "mongolian",   "mymr", "myanmar",
@@ -2312,59 +2261,59 @@ public class Unicode_3_2 {
         "oupper", "otheruppercase",   "paragraphseparator", "zp",
         "privateuse", "co",   "punctuation", "p",
         "qaai", "inherited",   "qmark", "quotationmark",
-        "radical", "radical",   "runr", "runic",
-        "sc=arab", "arabic",   "sc=arabic", "arabic",
-        "sc=armenian", "armenian",   "sc=armn", "armenian",
-        "sc=beng", "bengali",   "sc=bengali", "bengali",
-        "sc=bopo", "bopomofo",   "sc=bopomofo", "bopomofo",
-        "sc=buhd", "buhid",   "sc=buhid", "buhid",
-        "sc=canadianaboriginal", "canadianaboriginal",   "sc=cans", "canadianaboriginal",
-        "sc=cher", "cherokee",   "sc=cherokee", "cherokee",
-        "sc=common", "common",   "sc=cyrillic", "cyrillic",
-        "sc=cyrl", "cyrillic",   "sc=deseret", "deseret",
-        "sc=deva", "devanagari",   "sc=devanagari", "devanagari",
-        "sc=dsrt", "deseret",   "sc=ethi", "ethiopic",
-        "sc=ethiopic", "ethiopic",   "sc=geor", "georgian",
-        "sc=georgian", "georgian",   "sc=goth", "gothic",
-        "sc=gothic", "gothic",   "sc=greek", "greek",
-        "sc=grek", "greek",   "sc=gujarati", "gujarati",
-        "sc=gujr", "gujarati",   "sc=gurmukhi", "gurmukhi",
-        "sc=guru", "gurmukhi",   "sc=han", "han",
-        "sc=hang", "hangul",   "sc=hangul", "hangul",
-        "sc=hani", "han",   "sc=hano", "hanunoo",
-        "sc=hanunoo", "hanunoo",   "sc=hebr", "hebrew",
-        "sc=hebrew", "hebrew",   "sc=hira", "hiragana",
-        "sc=hiragana", "hiragana",   "sc=inherited", "inherited",
-        "sc=ital", "olditalic",   "sc=kana", "katakana",
-        "sc=kannada", "kannada",   "sc=katakana", "katakana",
-        "sc=khmer", "khmer",   "sc=khmr", "khmer",
-        "sc=knda", "kannada",   "sc=lao", "lao",
-        "sc=laoo", "lao",   "sc=latin", "latin",
-        "sc=latn", "latin",   "sc=malayalam", "malayalam",
-        "sc=mlym", "malayalam",   "sc=mong", "mongolian",
-        "sc=mongolian", "mongolian",   "sc=myanmar", "myanmar",
-        "sc=mymr", "myanmar",   "sc=ogam", "ogham",
-        "sc=ogham", "ogham",   "sc=olditalic", "olditalic",
-        "sc=oriya", "oriya",   "sc=orya", "oriya",
-        "sc=qaai", "inherited",   "sc=runic", "runic",
-        "sc=runr", "runic",   "sc=sinh", "sinhala",
-        "sc=sinhala", "sinhala",   "sc=syrc", "syriac",
-        "sc=syriac", "syriac",   "sc=tagalog", "tagalog",
-        "sc=tagb", "tagbanwa",   "sc=tagbanwa", "tagbanwa",
-        "sc=tamil", "tamil",   "sc=taml", "tamil",
-        "sc=telu", "telugu",   "sc=telugu", "telugu",
-        "sc=tglg", "tagalog",   "sc=thaa", "thaana",
-        "sc=thaana", "thaana",   "sc=thai", "thai",
-        "sc=tibetan", "tibetan",   "sc=tibt", "tibetan",
-        "sc=yi", "yi",   "sc=yiii", "yi",
-        "sc=zyyy", "common",   "script=arab", "arabic",
-        "script=arabic", "arabic",   "script=armenian", "armenian",
-        "script=armn", "armenian",   "script=beng", "bengali",
-        "script=bengali", "bengali",   "script=bopo", "bopomofo",
-        "script=bopomofo", "bopomofo",   "script=buhd", "buhid",
-        "script=buhid", "buhid",   "script=canadianaboriginal", "canadianaboriginal",
-        "script=cans", "canadianaboriginal",   "script=cher", "cherokee",
-        "script=cherokee", "cherokee",   "script=cyrillic", "cyrillic",
+        "runr", "runic",   "sc=arab", "arabic",
+        "sc=arabic", "arabic",   "sc=armenian", "armenian",
+        "sc=armn", "armenian",   "sc=beng", "bengali",
+        "sc=bengali", "bengali",   "sc=bopo", "bopomofo",
+        "sc=bopomofo", "bopomofo",   "sc=buhd", "buhid",
+        "sc=buhid", "buhid",   "sc=canadianaboriginal", "canadianaboriginal",
+        "sc=cans", "canadianaboriginal",   "sc=cher", "cherokee",
+        "sc=cherokee", "cherokee",   "sc=common", "common",
+        "sc=cyrillic", "cyrillic",   "sc=cyrl", "cyrillic",
+        "sc=deseret", "deseret",   "sc=deva", "devanagari",
+        "sc=devanagari", "devanagari",   "sc=dsrt", "deseret",
+        "sc=ethi", "ethiopic",   "sc=ethiopic", "ethiopic",
+        "sc=geor", "georgian",   "sc=georgian", "georgian",
+        "sc=goth", "gothic",   "sc=gothic", "gothic",
+        "sc=greek", "greek",   "sc=grek", "greek",
+        "sc=gujarati", "gujarati",   "sc=gujr", "gujarati",
+        "sc=gurmukhi", "gurmukhi",   "sc=guru", "gurmukhi",
+        "sc=han", "han",   "sc=hang", "hangul",
+        "sc=hangul", "hangul",   "sc=hani", "han",
+        "sc=hano", "hanunoo",   "sc=hanunoo", "hanunoo",
+        "sc=hebr", "hebrew",   "sc=hebrew", "hebrew",
+        "sc=hira", "hiragana",   "sc=hiragana", "hiragana",
+        "sc=inherited", "inherited",   "sc=ital", "olditalic",
+        "sc=kana", "katakana",   "sc=kannada", "kannada",
+        "sc=katakana", "katakana",   "sc=khmer", "khmer",
+        "sc=khmr", "khmer",   "sc=knda", "kannada",
+        "sc=lao", "lao",   "sc=laoo", "lao",
+        "sc=latin", "latin",   "sc=latn", "latin",
+        "sc=malayalam", "malayalam",   "sc=mlym", "malayalam",
+        "sc=mong", "mongolian",   "sc=mongolian", "mongolian",
+        "sc=myanmar", "myanmar",   "sc=mymr", "myanmar",
+        "sc=ogam", "ogham",   "sc=ogham", "ogham",
+        "sc=olditalic", "olditalic",   "sc=oriya", "oriya",
+        "sc=orya", "oriya",   "sc=qaai", "inherited",
+        "sc=runic", "runic",   "sc=runr", "runic",
+        "sc=sinh", "sinhala",   "sc=sinhala", "sinhala",
+        "sc=syrc", "syriac",   "sc=syriac", "syriac",
+        "sc=tagalog", "tagalog",   "sc=tagb", "tagbanwa",
+        "sc=tagbanwa", "tagbanwa",   "sc=tamil", "tamil",
+        "sc=taml", "tamil",   "sc=telu", "telugu",
+        "sc=telugu", "telugu",   "sc=tglg", "tagalog",
+        "sc=thaa", "thaana",   "sc=thaana", "thaana",
+        "sc=thai", "thai",   "sc=tibetan", "tibetan",
+        "sc=tibt", "tibetan",   "sc=yi", "yi",
+        "sc=yiii", "yi",   "sc=zyyy", "common",
+        "script=arab", "arabic",   "script=arabic", "arabic",
+        "script=armenian", "armenian",   "script=armn", "armenian",
+        "script=beng", "bengali",   "script=bengali", "bengali",
+        "script=bopo", "bopomofo",   "script=bopomofo", "bopomofo",
+        "script=buhd", "buhid",   "script=buhid", "buhid",
+        "script=canadianaboriginal", "canadianaboriginal",   "script=cans", "canadianaboriginal",
+        "script=cher", "cherokee",   "script=cherokee", "cherokee",
+        "script=common", "common",   "script=cyrillic", "cyrillic",
         "script=cyrl", "cyrillic",   "script=deseret", "deseret",
         "script=deva", "devanagari",   "script=devanagari", "devanagari",
         "script=dsrt", "deseret",   "script=ethi", "ethiopic",
@@ -2400,15 +2349,14 @@ public class Unicode_3_2 {
         "script=tglg", "tagalog",   "script=thaa", "thaana",
         "script=thaana", "thaana",   "script=thai", "thai",
         "script=tibetan", "tibetan",   "script=tibt", "tibetan",
-        "script=unknown", "unknown",   "script=yi", "yi",
-        "script=yiii", "yi",   "script=zyyy", "common",
-        "sd", "softdotted",   "separator", "z",
-        "sinh", "sinhala",   "spaceseparator", "zs",
-        "spacingmark", "mc",   "symbol", "s",
-        "syrc", "syriac",   "tagb", "tagbanwa",
-        "taml", "tamil",   "telu", "telugu",
-        "term", "terminalpunctuation",   "tglg", "tagalog",
-        "thaa", "thaana",   "thai", "thai",
+        "script=yi", "yi",   "script=yiii", "yi",
+        "script=zyyy", "common",   "sd", "softdotted",
+        "separator", "z",   "sinh", "sinhala",
+        "spaceseparator", "zs",   "spacingmark", "mc",
+        "symbol", "s",   "syrc", "syriac",
+        "tagb", "tagbanwa",   "taml", "tamil",
+        "telu", "telugu",   "term", "terminalpunctuation",
+        "tglg", "tagalog",   "thaa", "thaana",
         "tibt", "tibetan",   "titlecaseletter", "lt",
         "uideo", "unifiedideograph",   "unassigned", "cn",
         "upper", "uppercase",   "uppercaseletter", "lu",
