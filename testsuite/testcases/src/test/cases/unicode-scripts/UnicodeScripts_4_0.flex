@@ -64,6 +64,5 @@
 \p{Thai} { setCurCharBlock("Thai"); }
 \p{Tibetan} { setCurCharBlock("Tibetan"); }
 \p{Ugaritic} { setCurCharBlock("Ugaritic"); }
-\p{Unknown} { setCurCharBlock("Unknown"); }
 \p{Yi} { setCurCharBlock("Yi"); }
 <<EOF>> { printOutput(); return 1; }

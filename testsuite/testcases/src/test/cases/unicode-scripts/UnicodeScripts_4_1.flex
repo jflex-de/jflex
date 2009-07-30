@@ -71,6 +71,5 @@
 \p{Tibetan} { setCurCharBlock("Tibetan"); }
 \p{Tifinagh} { setCurCharBlock("Tifinagh"); }
 \p{Ugaritic} { setCurCharBlock("Ugaritic"); }
-\p{Unknown} { setCurCharBlock("Unknown"); }
 \p{Yi} { setCurCharBlock("Yi"); }
 <<EOF>> { printOutput(); return 1; }

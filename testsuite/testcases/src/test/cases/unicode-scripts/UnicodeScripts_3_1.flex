@@ -17,6 +17,7 @@
 \p{Bopomofo} { setCurCharBlock("Bopomofo"); }
 \p{Canadian Aboriginal} { setCurCharBlock("Canadian Aboriginal"); }
 \p{Cherokee} { setCurCharBlock("Cherokee"); }
+\p{Common} { setCurCharBlock("Common"); }
 \p{Cyrillic} { setCurCharBlock("Cyrillic"); }
 \p{Deseret} { setCurCharBlock("Deseret"); }
 \p{Devanagari} { setCurCharBlock("Devanagari"); }
@@ -50,6 +51,5 @@
 \p{Thaana} { setCurCharBlock("Thaana"); }
 \p{Thai} { setCurCharBlock("Thai"); }
 \p{Tibetan} { setCurCharBlock("Tibetan"); }
-\p{Unknown} { setCurCharBlock("Unknown"); }
 \p{Yi} { setCurCharBlock("Yi"); }
 <<EOF>> { printOutput(); return 1; }
