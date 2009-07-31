@@ -20,11 +20,11 @@
 
 package jflex;
 
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.File;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +37,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.HashSet;
+import java.util.EnumMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -152,99 +153,35 @@ class UnicodeVersion {
 
   /** The maximum size of the partitions in {@link #caselessMatchPartitions}. */
   int caselessMatchPartitionSize = 0;
-
-  /**
-   * Filled in by {@link #setVersions(String,URL)} based on majorMinorVersion.
-   * PropList(-X.X.X).txt has had two different formats: before Unicode 3.1,
-   * this file had a format all its own; since Unicode 3.1, this file has used
-   * the common boolean property file format.
-   */
-  private boolean isArchaicPropListFormat;
   
-  /**
-   * Filled in by {@link #setVersions(String,URL)} based on majorMinorVersion.
-   * From Unicode 3.1 to Unicode 5.0, the default Script property value is
-   * "Common".  From Unicode 5.0 onward, the default Script property value is
-   * "Unknown".  Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
-   */
-  private String defaultScriptPropertyValue;
+  private EnumMap<DataFileType,URL> dataFiles;
 
   /**
    * Instantiates a container for versioned Unicode data.
    *
    * @param version The Unicode version, either in form "X.X.X" or "X.X".
-   * @param unicodeDataURL The URL to the UnicodeData(-X.X.X).txt file for this
-   *  version.
-   * @param propertyAliasesURL The URL to the PropertyAliases(-X.X.X).txt file
-   *  for this version.
-   * @param propertyValueAliasesURL The URL to the
-   *  PropertyValueAliases(-X.X.X).txt file for this version.
-   * @param derivedCorePropertiesURL The URL to the
-   *  DerivedCoreProperties(-X.X.X).txt file for this version.
-   * @param scriptsURL The URL to the Scripts(-X.X.X).txt file for this version.
-   * @param blocksURL The URL to the Blocks(-X.X.X).txt file for this version.
-   * @param propListURL The URL to the PropList(-X.X.X).txt file for this
-   *  version.
-   * @throws IOException If there is a problem fetching or parsing
-   *  UnicodeData(-X.X.X).txt
+   * @param dataFiles Set of unicode data file types and corresponding URLs
+   *  to be fetched and parsed.
    */
-  UnicodeVersion(String version, URL unicodeDataURL, URL propertyAliasesURL,
-                 URL propertyValueAliasesURL, URL derivedCorePropertiesURL,
-                 URL scriptsURL, URL blocksURL, URL propListURL)
-    throws IOException {
+  UnicodeVersion(String version, EnumMap<DataFileType,URL> dataFiles) {
+    this.dataFiles = dataFiles;
+    setVersions(version, dataFiles.get(DataFileType.UNICODE_DATA));
+  }
 
-    setVersions(version, unicodeDataURL);
-    Reader reader;
-
-    if (null != propertyAliasesURL) {      // Must be first
-      reader = new InputStreamReader(propertyAliasesURL.openStream(), "UTF-8");
-      PropertyAliasesScanner scanner = new PropertyAliasesScanner(reader, this);
-      scanner.scan();
-    }
-    
-    if (null != propertyValueAliasesURL) { // Must be second
-      reader
-        = new InputStreamReader(propertyValueAliasesURL.openStream(), "UTF-8");
-      PropertyValueAliasesScanner scanner 
-        = new PropertyValueAliasesScanner(reader, this);
-      scanner.scan();
-    }
-    // UnicodeData.txt must be third
-    reader = new InputStreamReader(unicodeDataURL.openStream(), "UTF-8");
-    UnicodeDataScanner unicodeDataScanner = new UnicodeDataScanner(reader, this);
-    unicodeDataScanner.scan();
-
-    if (null != propListURL) {
-      reader = new InputStreamReader(propListURL.openStream(), "UTF-8");
-      if (isArchaicPropListFormat) {
-        // Before Unicode 3.1, PropList-X.X.X.txt had a different format.
-        ArchaicPropListScanner scanner = new ArchaicPropListScanner(reader, this);
-        scanner.scan();
-      } else {
-        BinaryPropertiesFileScanner scanner 
-          = new BinaryPropertiesFileScanner(reader, this);
-        scanner.scan();
-      }
-    }
-    if (null != derivedCorePropertiesURL) {
-      reader = new InputStreamReader
-        (derivedCorePropertiesURL.openStream(), "UTF-8");
-      BinaryPropertiesFileScanner scanner
-        = new BinaryPropertiesFileScanner(reader, this);
-      scanner.scan();
-    }
-    if (null != scriptsURL) {
-      reader = new InputStreamReader(scriptsURL.openStream(), "UTF-8");
-      
-      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
-        (reader, this, "Script", defaultScriptPropertyValue);
-      scanner.scan();
-    }
-    if (null != blocksURL) {
-      reader = new InputStreamReader(blocksURL.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner 
-        = new EnumeratedPropertyFileScanner(reader, this, "Block", "No_Block");
-      scanner.scan();
+  /**
+   * Fetches and parses the data files defined for this Unicode version.
+   * 
+   * @param log Where to put info about which files have been fetched and parsed
+   * @throws IOException If there is a problem fetching or parsing
+   *  any of this version's data files.
+   */
+  public void fetchAndParseDataFiles(Log log) throws IOException {
+    // Use the enum ordering to process in the correct order 
+    for (EnumMap.Entry<DataFileType,URL> entry : dataFiles.entrySet()) {
+      DataFileType fileType = entry.getKey();
+      URL url = entry.getValue();
+      fileType.scan(url, this);
+      log.info("\t\t" + url.getPath());
     }
   }
 
@@ -267,20 +204,6 @@ class UnicodeVersion {
       if (matcher.find()) {
         majorMinorUpdateVersion = matcher.group(1);
       }
-    }
-    // Before Unicode 3.1, PropList-X.X.X.txt used a different format.
-    // Before Unicode 2.0, PropList-X.X.X.txt did not exist.
-    isArchaicPropListFormat = majorMinorVersion.equals("2.0")
-                              || majorMinorVersion.equals("2.1") 
-                              || majorMinorVersion.equals("3.0");
-    
-    // Prior to Unicode 5.0, the default Script property value is "Common".
-    // From Unicode 5.0 onward, the default Script property value is "Unknown".
-    // Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
-    defaultScriptPropertyValue = "Unknown";
-    if (majorMinorVersion.equals("3.1") || majorMinorVersion.equals("3.2")
-        || majorMinorVersion.equals("4.0") || majorMinorVersion.equals("4.1")) {
-      defaultScriptPropertyValue = "Common";
     }
   }
 

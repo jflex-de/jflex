@@ -31,6 +31,7 @@ import java.util.SortedMap;
 import java.util.Collections;
 import java.util.TreeMap;
 import java.util.Date;
+import java.util.EnumMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,35 +58,6 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    */
   private static final Pattern UNICODE_VERSION_LINK_PATTERN = Pattern.compile
     ("<a href=\"((\\d+(?:\\.\\d+){1,2})(?i:-(Update(\\d*)))?/)\">");
-
-  /** Pattern for non-beta UnicodeData(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_UNICODE_DATA_LINK_PATTERN
-    = Pattern.compile("<a href=\"(UnicodeData(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta PropertyAliases(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_PROPERTY_ALIASES_LINK_PATTERN
-    = Pattern.compile("<a href=\"(PropertyAliases(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta PropertyValueAliases(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_PROPERTY_VALUE_ALIASES_LINK_PATTERN
-    = Pattern.compile("<a href=\"(PropertyValueAliases(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta DerivedCoreProperties(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_DERIVED_CORE_PROPERTIES_LINK_PATTERN
-    = Pattern.compile("<a href=\"(DerivedCoreProperties(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta Scripts(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_SCRIPTS_LINK_PATTERN
-    = Pattern.compile("<a href=\"(Scripts(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta Blocks(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_BLOCKS_LINK_PATTERN
-    = Pattern.compile("<a href=\"(Blocks(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
-  /** Pattern for non-beta PropList(-X.X.X).txt files. */
-  private static final Pattern NON_BETA_PROP_LIST_LINK_PATTERN
-    = Pattern.compile("<a href=\"(PropList(?:|-\\d+(?:\\.\\d+){2}).txt)\">");
-
 
   /** Buffer size to use when reading web page content */
   private static final int BUF_SIZE = 4096;
@@ -226,14 +198,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private void populateUnicodeVersion(String version,
                                       SortedMap<Integer,String> relativeURLs)
     throws IOException {
-
-    URL unicodeDataURL = null;
-    URL propertyAliasesURL = null;
-    URL propertyValueAliasesURL = null;
-    URL derivedCorePropertiesURL = null;
-    URL blocksURL = null;
-    URL scriptsURL = null;
-    URL propListURL = null;
+    
+    EnumMap<DataFileType,URL> dataFiles 
+      = new EnumMap<DataFileType,URL>(DataFileType.class);
 
     // The relative URLs are sorted in reverse order of update number; as a
     // result, the most recent update is first, the next most recent is next,
@@ -250,77 +217,18 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         versionedDirectoryListing = getPageContent(baseURL);
       }
 
-      // Archaic link: <a href="UnicodeData-1.1.5.txt">
-      // Modern link: <a href="UnicodeData.txt">
-      // Beta link: <a href="UnicodeData-5.1.0d12.txt">
-      if (null == unicodeDataURL) {
-        Matcher matcher = NON_BETA_UNICODE_DATA_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          unicodeDataURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == propertyAliasesURL) {
-        Matcher matcher = NON_BETA_PROPERTY_ALIASES_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          propertyAliasesURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == propertyValueAliasesURL) {
-        Matcher matcher = NON_BETA_PROPERTY_VALUE_ALIASES_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          propertyValueAliasesURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == derivedCorePropertiesURL) {
-        Matcher matcher = NON_BETA_DERIVED_CORE_PROPERTIES_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          derivedCorePropertiesURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == scriptsURL) {
-        Matcher matcher = NON_BETA_SCRIPTS_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          scriptsURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == blocksURL) {
-        Matcher matcher = NON_BETA_BLOCKS_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          blocksURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
-        }
-      }
-      if (null == propListURL) {
-        Matcher matcher = NON_BETA_PROP_LIST_LINK_PATTERN.matcher
-          (versionedDirectoryListing);
-        if (matcher.find()) {
-          String filename = matcher.group(1);
-          propListURL = new URL(baseURL, filename);
-          getLog().info("\t\t" + relativeURL + filename);
+      for (DataFileType fileType : DataFileType.values()) {
+        if (null == dataFiles.get(fileType)) {
+          String fileName = fileType.getFileName(versionedDirectoryListing);
+          if (null != fileName) {
+            dataFiles.put(fileType, new URL(baseURL, fileName));
+          }
         }
       }
     }
-    if (null != unicodeDataURL) { // Non-beta version found
-      UnicodeVersion unicodeVersion = new UnicodeVersion
-        (version, unicodeDataURL, propertyAliasesURL, propertyValueAliasesURL,
-         derivedCorePropertiesURL, scriptsURL, blocksURL, propListURL);
+    if (null != dataFiles.get(DataFileType.UNICODE_DATA)) { // Non-beta version found
+      UnicodeVersion unicodeVersion = new UnicodeVersion(version, dataFiles);
+      unicodeVersion.fetchAndParseDataFiles(getLog());
       unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
       getLog().info("Completed downloading and parsing Unicode "
                     + unicodeVersion.majorMinorVersion + " data.\n");
