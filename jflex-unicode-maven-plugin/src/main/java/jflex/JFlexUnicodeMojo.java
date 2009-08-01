@@ -87,6 +87,13 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private static final String SKELETON_FILENAME
     = OUTPUT_CLASS_NAME + ".java.skeleton";
 
+  /** 
+   * Pattern for links that lead to sub-directories on Unicode.org directory
+   * listing web pages.
+   */
+  private static final Pattern DIRECTORY_LINK_PATTERN = Pattern.compile
+    ("<a\\s+href\\s*=\\s*\"([^/\"]+/)\"\\s*>", Pattern.CASE_INSENSITIVE);
+
 
   /**
    * <ol>
@@ -106,6 +113,10 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    *           <li>Scripts(-X.X.X).txt</li>
    *           <li>Blocks(-X.X.X).txt</li>
    *           <li>PropList(-X.X.X).txt</li>
+   *           <li>LineBreak(-X.X.X).txt</li>
+   *           <li>GraphemeBreakProperty.txt</li>
+   *           <li>SentenceBreakProperty.txt</li>
+   *           <li>WordBreakProperty.txt</li>
    *         </ul>
    *       <li>Parses the data files, extracting ranges of code points
    *           and property values associated with them (see
@@ -213,7 +224,6 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       // As of version 4.1.0, UnicodeData.txt lives in the ucd/ subdir.
       if (-1 != versionedDirectoryListing.indexOf("<a href=\"ucd/\">")) {
         baseURL = new URL(baseURL, "ucd/");
-        relativeURL = relativeURL + "ucd/";
         versionedDirectoryListing = getPageContent(baseURL);
       }
 
@@ -225,8 +235,27 @@ public class JFlexUnicodeMojo extends AbstractMojo {
           }
         }
       }
+      
+      // Visit nested directories, e.g. <a href="auxiliary/">
+      Matcher matcher
+        = DIRECTORY_LINK_PATTERN.matcher(versionedDirectoryListing);
+      while (matcher.find()) {
+        URL nestedBaseURL = new URL(baseURL, matcher.group(1));
+        String nestedVersionedDirectoryListing = getPageContent(nestedBaseURL);
+        for (DataFileType fileType : DataFileType.values()) {
+          if (null == dataFiles.get(fileType)) {
+            String fileName 
+              = fileType.getFileName(nestedVersionedDirectoryListing);
+            if (null != fileName) {
+              dataFiles.put(fileType, new URL(nestedBaseURL, fileName));
+            }
+          }
+        }
+      }
     }
-    if (null != dataFiles.get(DataFileType.UNICODE_DATA)) { // Non-beta version found
+    if (null != dataFiles.get(DataFileType.UNICODE_DATA)) {
+      // If UnicodeData(-X.X.X).txt was found, then this version of Unicode
+      // is not a beta version, so we can proceed to fetch, parse, and emit.
       UnicodeVersion unicodeVersion = new UnicodeVersion(version, dataFiles);
       unicodeVersion.fetchAndParseDataFiles(getLog());
       unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
