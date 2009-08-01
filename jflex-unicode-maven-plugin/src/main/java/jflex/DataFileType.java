@@ -86,6 +86,42 @@ public enum DataFileType {
         (reader, version, "Block", "No_Block");
       scanner.scan(); 
     }
+  },
+  
+  LINE_BREAK("LineBreak") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+        (reader, version, "Line_Break", "XX");
+      scanner.scan(); 
+    }
+  },
+  
+  GRAPHEME_BREAK_PROPERTY("GraphemeBreakProperty") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+        (reader, version, "Grapheme_Cluster_Break", "Other");
+      scanner.scan(); 
+    }
+  },
+  
+  SENTENCE_BREAK_PROPERTY("SentenceBreakProperty") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+        (reader, version, "Sentence_Break", "Other");
+      scanner.scan(); 
+    }
+  },
+  
+  WORD_BREAK_PROPERTY("WordBreakProperty") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+        (reader, version, "Word_Break", "Other");
+      scanner.scan(); 
+    }
   };
   
   DataFileType(String fileNamePrefix) {
