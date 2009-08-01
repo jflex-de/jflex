@@ -760,6 +760,7 @@ class UnicodeVersion {
    */
   String getCanonicalPropertyName(String propertyAlias) {
     String canonicalName = null;
+    propertyAlias = normalize(propertyAlias);
     if (null != propertyAlias2CanonicalName) {
       canonicalName = propertyAlias2CanonicalName.get(propertyAlias);
     }
