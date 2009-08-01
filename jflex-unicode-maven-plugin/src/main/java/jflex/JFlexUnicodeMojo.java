@@ -57,7 +57,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    * {@value #UNICODE_DOT_ORG_URL}
    */
   private static final Pattern UNICODE_VERSION_LINK_PATTERN = Pattern.compile
-    ("<a href=\"((\\d+(?:\\.\\d+){1,2})(?i:-(Update(\\d*)))?/)\">");
+    ("<a\\s+href\\s*=\\s*\"((\\d+(?:\\.\\d+){1,2})(?i:-(Update(\\d*)))?/)\"\\s*>",
+     Pattern.CASE_INSENSITIVE);
 
   /** Buffer size to use when reading web page content */
   private static final int BUF_SIZE = 4096;
