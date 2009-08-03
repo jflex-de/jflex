@@ -5,19 +5,32 @@ public class Unicode_2_1 {
   public static final String[] propertyValues
     = { "alphabetic", "assigned", "bidi=arabicdigit", "bidi=blockseparator", "bidi=commonseparator",
         "bidi=eurnumseparator", "bidi=eurnumterminator", "bidi=europeandigit", "bidi=lefttoright", "bidi=otherneutral",
-        "bidi=righttoleft", "bidi=segmentseparator", "bidi=whitespace", "bidicontrol", "cc",
-        "cf", "cn", "co", "combining", "composite",
-        "currencysymbol", "dash", "decimaldigit", "delimiter", "diacritic",
-        "extender", "formatcontrol", "hexdigit", "hyphen", "identifierpart",
-        "ideographic", "ignorablecontrol", "isocontrol", "joincontrol", "leftofpair",
-        "lineseparator", "ll", "lm", "lo", "lt",
-        "lu", "math", "mc", "me", "mn",
-        "nd", "nl", "no", "nonbreak", "nonspacing",
-        "numeric", "pairedpunctuation", "paragraphseparator", "pc", "pd",
-        "pe", "pf", "pi", "po", "ps",
-        "punctuation", "quotationmark", "sc", "sk", "sm",
-        "so", "space", "terminalpunctuation", "unassignedcodevalue", "whitespace",
-        "zerowidth", "zl", "zp", "zs" };
+        "bidi=righttoleft", "bidi=segmentseparator", "bidi=whitespace", "bidicontrol", "block=alphabeticpresentationforms",
+        "block=arabic", "block=arabicpresentationformsa", "block=arabicpresentationformsb", "block=armenian", "block=arrows",
+        "block=basiclatin", "block=bengali", "block=blockelements", "block=bopomofo", "block=boxdrawing",
+        "block=cjkcompatibility", "block=cjkcompatibilityforms", "block=cjkcompatibilityideographs", "block=cjksymbolsandpunctuation", "block=cjkunifiedideographs",
+        "block=combiningdiacriticalmarks", "block=combininghalfmarks", "block=combiningmarksforsymbols", "block=controlpictures", "block=currencysymbols",
+        "block=cyrillic", "block=devanagari", "block=dingbats", "block=enclosedalphanumerics", "block=enclosedcjklettersandmonths",
+        "block=generalpunctuation", "block=geometricshapes", "block=georgian", "block=greek", "block=greekextended",
+        "block=gujarati", "block=gurmukhi", "block=halfwidthandfullwidthforms", "block=hangulcompatibilityjamo", "block=hanguljamo",
+        "block=hangulsyllables", "block=hebrew", "block=hiragana", "block=ipaextensions", "block=kanbun",
+        "block=kannada", "block=katakana", "block=lao", "block=latin1supplement", "block=latinextendeda",
+        "block=latinextendedadditional", "block=latinextendedb", "block=letterlikesymbols", "block=malayalam", "block=mathematicaloperators",
+        "block=miscellaneoussymbols", "block=miscellaneoustechnical", "block=noblock", "block=numberforms", "block=opticalcharacterrecognition",
+        "block=oriya", "block=privateuse", "block=smallformvariants", "block=spacingmodifierletters", "block=specials",
+        "block=superscriptsandsubscripts", "block=tamil", "block=telugu", "block=thai", "block=tibetan",
+        "cc", "cf", "cn", "co", "combining",
+        "composite", "currencysymbol", "dash", "decimaldigit", "delimiter",
+        "diacritic", "extender", "formatcontrol", "hexdigit", "hyphen",
+        "identifierpart", "ideographic", "ignorablecontrol", "isocontrol", "joincontrol",
+        "leftofpair", "lineseparator", "ll", "lm", "lo",
+        "lt", "lu", "math", "mc", "me",
+        "mn", "nd", "nl", "no", "nonbreak",
+        "nonspacing", "numeric", "pairedpunctuation", "paragraphseparator", "pc",
+        "pd", "pe", "pf", "pi", "po",
+        "ps", "punctuation", "quotationmark", "sc", "sk",
+        "sm", "so", "space", "terminalpunctuation", "unassignedcodevalue",
+        "whitespace", "zerowidth", "zl", "zp", "zs" };
   public static final String[] intervals = {
     // Unicode 2.1 property value: {alphabetic}
         "\u0041\u005a"+"\u0061\u007a"+"\u00aa\u00aa"+"\u00b5\u00b5"
@@ -306,6 +319,140 @@ public class Unicode_2_1 {
         "\u0020\u0020"+"\u2000\u200b"+"\u2028\u2028"+"\u3000\u3000",
     // Unicode 2.1 property value: {bidicontrol}
         "\u200e\u200f"+"\u202a\u202e",
+    // Unicode 2.1 property value: {block=alphabeticpresentationforms}
+        "\ufb00\ufb4f",
+    // Unicode 2.1 property value: {block=arabic}
+        "\u0600\u06ff",
+    // Unicode 2.1 property value: {block=arabicpresentationformsa}
+        "\ufb50\ufdff",
+    // Unicode 2.1 property value: {block=arabicpresentationformsb}
+        "\ufe70\ufefe",
+    // Unicode 2.1 property value: {block=armenian}
+        "\u0530\u058f",
+    // Unicode 2.1 property value: {block=arrows}
+        "\u2190\u21ff",
+    // Unicode 2.1 property value: {block=basiclatin}
+        "\000\u007f",
+    // Unicode 2.1 property value: {block=bengali}
+        "\u0980\u09ff",
+    // Unicode 2.1 property value: {block=blockelements}
+        "\u2580\u259f",
+    // Unicode 2.1 property value: {block=bopomofo}
+        "\u3100\u312f",
+    // Unicode 2.1 property value: {block=boxdrawing}
+        "\u2500\u257f",
+    // Unicode 2.1 property value: {block=cjkcompatibility}
+        "\u3300\u33ff",
+    // Unicode 2.1 property value: {block=cjkcompatibilityforms}
+        "\ufe30\ufe4f",
+    // Unicode 2.1 property value: {block=cjkcompatibilityideographs}
+        "\uf900\ufaff",
+    // Unicode 2.1 property value: {block=cjksymbolsandpunctuation}
+        "\u3000\u303f",
+    // Unicode 2.1 property value: {block=cjkunifiedideographs}
+        "\u4e00\u9fff",
+    // Unicode 2.1 property value: {block=combiningdiacriticalmarks}
+        "\u0300\u036f",
+    // Unicode 2.1 property value: {block=combininghalfmarks}
+        "\ufe20\ufe2f",
+    // Unicode 2.1 property value: {block=combiningmarksforsymbols}
+        "\u20d0\u20ff",
+    // Unicode 2.1 property value: {block=controlpictures}
+        "\u2400\u243f",
+    // Unicode 2.1 property value: {block=currencysymbols}
+        "\u20a0\u20cf",
+    // Unicode 2.1 property value: {block=cyrillic}
+        "\u0400\u04ff",
+    // Unicode 2.1 property value: {block=devanagari}
+        "\u0900\u097f",
+    // Unicode 2.1 property value: {block=dingbats}
+        "\u2700\u27bf",
+    // Unicode 2.1 property value: {block=enclosedalphanumerics}
+        "\u2460\u24ff",
+    // Unicode 2.1 property value: {block=enclosedcjklettersandmonths}
+        "\u3200\u32ff",
+    // Unicode 2.1 property value: {block=generalpunctuation}
+        "\u2000\u206f",
+    // Unicode 2.1 property value: {block=geometricshapes}
+        "\u25a0\u25ff",
+    // Unicode 2.1 property value: {block=georgian}
+        "\u10a0\u10ff",
+    // Unicode 2.1 property value: {block=greek}
+        "\u0370\u03ff",
+    // Unicode 2.1 property value: {block=greekextended}
+        "\u1f00\u1fff",
+    // Unicode 2.1 property value: {block=gujarati}
+        "\u0a80\u0aff",
+    // Unicode 2.1 property value: {block=gurmukhi}
+        "\u0a00\u0a7f",
+    // Unicode 2.1 property value: {block=halfwidthandfullwidthforms}
+        "\uff00\uffef",
+    // Unicode 2.1 property value: {block=hangulcompatibilityjamo}
+        "\u3130\u318f",
+    // Unicode 2.1 property value: {block=hanguljamo}
+        "\u1100\u11ff",
+    // Unicode 2.1 property value: {block=hangulsyllables}
+        "\uac00\ud7a3",
+    // Unicode 2.1 property value: {block=hebrew}
+        "\u0590\u05ff",
+    // Unicode 2.1 property value: {block=hiragana}
+        "\u3040\u309f",
+    // Unicode 2.1 property value: {block=ipaextensions}
+        "\u0250\u02af",
+    // Unicode 2.1 property value: {block=kanbun}
+        "\u3190\u319f",
+    // Unicode 2.1 property value: {block=kannada}
+        "\u0c80\u0cff",
+    // Unicode 2.1 property value: {block=katakana}
+        "\u30a0\u30ff",
+    // Unicode 2.1 property value: {block=lao}
+        "\u0e80\u0eff",
+    // Unicode 2.1 property value: {block=latin1supplement}
+        "\u0080\u00ff",
+    // Unicode 2.1 property value: {block=latinextendeda}
+        "\u0100\u017f",
+    // Unicode 2.1 property value: {block=latinextendedadditional}
+        "\u1e00\u1eff",
+    // Unicode 2.1 property value: {block=latinextendedb}
+        "\u0180\u024f",
+    // Unicode 2.1 property value: {block=letterlikesymbols}
+        "\u2100\u214f",
+    // Unicode 2.1 property value: {block=malayalam}
+        "\u0d00\u0d7f",
+    // Unicode 2.1 property value: {block=mathematicaloperators}
+        "\u2200\u22ff",
+    // Unicode 2.1 property value: {block=miscellaneoussymbols}
+        "\u2600\u26ff",
+    // Unicode 2.1 property value: {block=miscellaneoustechnical}
+        "\u2300\u23ff",
+    // Unicode 2.1 property value: {block=noblock}
+        "\u0500\u052f"+"\u0700\u08ff"+"\u0d80\u0dff"+"\u0fc0\u109f"
+      + "\u1200\u1dff"+"\u27c0\u2fff"+"\u31a0\u31ff"+"\u3400\u4dff"
+      + "\ua000\uabff"+"\ud7a4\ud7ff"+"\ufe00\ufe1f"+"\ufffe\uffff",
+    // Unicode 2.1 property value: {block=numberforms}
+        "\u2150\u218f",
+    // Unicode 2.1 property value: {block=opticalcharacterrecognition}
+        "\u2440\u245f",
+    // Unicode 2.1 property value: {block=oriya}
+        "\u0b00\u0b7f",
+    // Unicode 2.1 property value: {block=privateuse}
+        "\ue000\uf8ff",
+    // Unicode 2.1 property value: {block=smallformvariants}
+        "\ufe50\ufe6f",
+    // Unicode 2.1 property value: {block=spacingmodifierletters}
+        "\u02b0\u02ff",
+    // Unicode 2.1 property value: {block=specials}
+        "\ufeff\ufeff"+"\ufff0\ufffd",
+    // Unicode 2.1 property value: {block=superscriptsandsubscripts}
+        "\u2070\u209f",
+    // Unicode 2.1 property value: {block=tamil}
+        "\u0b80\u0bff",
+    // Unicode 2.1 property value: {block=telugu}
+        "\u0c00\u0c7f",
+    // Unicode 2.1 property value: {block=thai}
+        "\u0e00\u0e7f",
+    // Unicode 2.1 property value: {block=tibetan}
+        "\u0f00\u0fbf",
     // Unicode 2.1 property value: {cc}
         "\000\u001f"+"\u007f\u009f",
     // Unicode 2.1 property value: {cf}

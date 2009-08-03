@@ -1,0 +1,9 @@
+name: UnicodeBlocks_3_1
+
+description: 
+Tests the Unicode block property character class syntax
+for all blocks supported in Unicode 3.1
+
+jflex: -q
+
+input-file-encoding: UTF-8

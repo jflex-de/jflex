@@ -1,0 +1,9 @@
+name: UnicodeBlocks_2_0
+
+description: 
+Tests the Unicode block property character class syntax
+for all blocks supported in Unicode 2.0
+
+jflex: -q
+
+input-file-encoding: UTF-8

@@ -24,6 +24,7 @@ public enum DataFileType {
       scanner.scan();
     }
   },
+
   UNICODE_DATA("UnicodeData") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
       Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
@@ -82,18 +83,35 @@ public enum DataFileType {
   BLOCKS("Blocks") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
       Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
-        (reader, version, "Block", "No_Block");
-      scanner.scan(); 
+      // Before Unicode 3.1, Blocks-X.txt used a different format.
+      // Before Unicode 2.0, Blocks-X.txt did not exist.
+      if (version.majorMinorVersion.equals("2.0")
+          || version.majorMinorVersion.equals("2.1") 
+          || version.majorMinorVersion.equals("3.0")) {
+        ArchaicBlocksScanner scanner = new ArchaicBlocksScanner(reader, version);
+        scanner.scan(); 
+      } else {
+        EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+          (reader, version, "Block", "No_Block");
+        scanner.scan(); 
+      }
     }
   },
   
   LINE_BREAK("LineBreak") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
       Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
-        (reader, version, "Line_Break", "XX");
-      scanner.scan(); 
+      // In Unicode 3.0, LineBreak-X.txt used a different format.
+      // Before Unicode 3.0, LineBreak-X.txt did not exist.
+      if (version.majorMinorVersion.equals("3.0")) {
+        ArchaicLineBreakScanner scanner 
+          = new ArchaicLineBreakScanner(reader, version);
+        scanner.scan(); 
+      } else {
+        EnumeratedPropertyFileScanner scanner = new EnumeratedPropertyFileScanner
+          (reader, version, "Line_Break", "XX");
+        scanner.scan();
+      }
     }
   },
   
@@ -130,7 +148,7 @@ public enum DataFileType {
     // Beta link: <a href="UnicodeData-5.1.0d12.txt">
     nonBetaHTMLLinkPattern 
       = Pattern.compile("<a\\s+href\\s*=\\s*\"(" + fileNamePrefix 
-                        + "(?:|-\\d+(?:\\.\\d+){2})\\.txt)\"\\s*>",
+                        + "(?:|-\\d+(?:\\.\\d+){0,2})\\.txt)\"\\s*>",
                         Pattern.CASE_INSENSITIVE);
   }
   

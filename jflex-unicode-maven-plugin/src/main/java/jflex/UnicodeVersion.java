@@ -180,8 +180,9 @@ class UnicodeVersion {
     for (EnumMap.Entry<DataFileType,URL> entry : dataFiles.entrySet()) {
       DataFileType fileType = entry.getKey();
       URL url = entry.getValue();
+      log.info("\t\tFetching/parsing: " + url.getPath());
       fileType.scan(url, this);
-      log.info("\t\t" + url.getPath());
+      log.info("\t\tCompleted: " + url.getPath());
     }
   }
 
@@ -366,6 +367,21 @@ class UnicodeVersion {
           // 3.0, but include the code points after this range.
           startCodePoint = 0xE000;
         }
+      }
+
+      // Unicode 2.0 has an error in Blocks-1.txt: two ranges overlap.
+      // Since the single char in the second range (U+FEFF) is not an
+      // Arabic character, but rather the zero-width no-break space char,
+      // the FE70..FEFF block should be shortened to exclude this char;
+      // this error is corrected in all following Unicode versions of
+      // Blocks(-X|-X.X.X.).txt.
+      //
+      //   FE70; FEFF; Arabic Presentation Forms-B
+      //   ...
+      //   FEFF; FEFF; Specials
+      if (startCodePoint == 0xFE70 && endCodePoint == 0xFEFF
+          && majorMinorVersion.equals("2.0")) {
+        endCodePoint = 0xFEFE;
       }
       String canonicalValue = propName + '=' + propValue;
       if (propName.equals(NORMALIZED_GENERAL_CATEGORY)
