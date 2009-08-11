@@ -131,6 +131,9 @@ import java.util.regex.Pattern;
 // GB1. 	sot 	÷ 	
 // GB2. 		÷ 	eot
 //
+<<EOF>> { return nextSegment(); }
+
+
 // Do not break between a CR and LF. Otherwise, break before and after controls.
 //
 // GB3. 	CR 	×  LF

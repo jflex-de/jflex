@@ -129,7 +129,9 @@ import java.util.regex.Pattern;
 // Break at the start and end of text.
 // WB1. 	sot 	÷ 	
 // WB2. 		÷ 	eot
-//
+<<EOF>> { return nextSegment(); }
+
+
 // Do not break within CRLF.
 //
 // WB3. 	CR 	×  LF
