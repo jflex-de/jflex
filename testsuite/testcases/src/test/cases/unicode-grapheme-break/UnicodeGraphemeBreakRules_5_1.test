@@ -1,0 +1,9 @@
+name: UnicodeGraphemeBreakRules_5_1
+
+description: 
+Implements the Unicode Line Break algorithm, specified in UAX #14
+<http://www.unicode.org/reports/tr14/>.
+
+jflex: -q
+
+input-file-encoding: UTF-8
