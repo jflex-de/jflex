@@ -1,4 +1,4 @@
-name: LineBreak_5_1
+name: UnicodeLineBreakAlgorithm_5_1
 
 description: 
 Implements the Unicode Line Break algorithm, specified in UAX #14

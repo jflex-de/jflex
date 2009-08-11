@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 %unicode 5.1
 %public
-%class LineBreak_5_1
+%class UnicodeLineBreakAlgorithm_5_1
 %type String
 
 %{
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
   public static void main(String argv[]) {
     if (argv.length == 0) {
-      System.out.println("Usage : java LineBreak_5_1 [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java UnicodeLineBreakAlgorithm_5_1 [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
         }
       }
       
-      LineBreak_5_1 scanner = null;
+      UnicodeLineBreakAlgorithm_5_1 scanner = null;
       for (int i = firstFilePos; i < argv.length; i++) {
         try {
           FileInputStream stream = new FileInputStream(argv[i]);
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
-              scanner = new LineBreak_5_1(testReader);
+              scanner = new UnicodeLineBreakAlgorithm_5_1(testReader);
             } else {
               scanner.yyreset(testReader);
             }
