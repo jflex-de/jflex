@@ -1,0 +1,9 @@
+name: UnicodeGeneralCategory_2_0
+
+description: 
+Tests the Unicode general category property character class syntax
+for all general category properties supported in Unicode 2.0
+
+jflex: -q
+
+input-file-encoding: UTF-8

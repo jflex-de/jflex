@@ -1,0 +1,7 @@
+name: unicode-general-category-f
+
+description: 
+Tests that a nonexistent Unicode general category property character class
+triggers an error.
+
+jflex-fail: true

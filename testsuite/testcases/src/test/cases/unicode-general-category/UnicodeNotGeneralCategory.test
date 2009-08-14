@@ -1,0 +1,9 @@
+name: UnicodeNotGeneralCategory
+
+description: 
+Tests the inverse of the Unicode general category property character class
+syntax for one general category.
+
+jflex: -q
+
+input-file-encoding: UTF-8
