@@ -18,8 +18,6 @@ import java.util.TreeSet;
 %class ArchaicLineBreakScanner
 %ctorarg UnicodeVersion unicodeVersion
 
-%debug
-
 %unicode
 %eofclose
 
