@@ -393,18 +393,6 @@ class UnicodeVersion {
         intervals = new ArrayList<NamedRange>();
         propertyValueIntervals.put(canonicalValue, intervals);
       }
-      // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-      // range (starting point is listed as U+4E00).  This is U+9FFF according
-      // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-      //
-      //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-      //
-      // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
-      // value, as are the previous code points, so to include
-      // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-      if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
-        endCodePoint = 0x9FFF;
-      }
       intervals.add(new NamedRange(startCodePoint, endCodePoint));
       
       Set<String> usedValues = usedEnumeratedProperties.get(propName);

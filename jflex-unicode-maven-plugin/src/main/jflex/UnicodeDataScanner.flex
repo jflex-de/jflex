@@ -44,6 +44,20 @@ package jflex;
       unicodeVersion.addCaselessMatches
         (codePoint, uppercaseMapping, lowercaseMapping, titlecaseMapping);
 
+        // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+        // range (starting point is listed as U+4E00).  This is U+9FFF according
+        // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        //
+        //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+        //
+        // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+        // value, as are the previous code points, so to include
+        // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+        if (assignedEndCodePoint  == 0x4E00
+            && unicodeVersion.majorMinorVersion.equals("1.1")) {
+          assignedEndCodePoint = 0x9FFF;
+        }
+
       if (assignedStartCodePoint == -1) {
         assignedStartCodePoint = startCodePoint;
       } else if (codePoint > assignedEndCodePoint + 1 && ! isLastInRange) {
@@ -59,6 +73,19 @@ package jflex;
           && prevGenCatPropValue.length() > 0
           && (((codePoint > prevCodePoint + 1) && ! isLastInRange)
               || ! genCatPropValue.equals(prevGenCatPropValue))) {
+        // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+        // range (starting point is listed as U+4E00).  This is U+9FFF according
+        // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        //
+        //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+        //
+        // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+        // value, as are the previous code points, so to include
+        // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+        if (prevCodePoint == 0x4E00
+            && unicodeVersion.majorMinorVersion.equals("1.1")) {
+          prevCodePoint = 0x9FFF;
+        }
         unicodeVersion.addInterval
           (GENERAL_CATEGORY, prevGenCatPropValue, startCodePoint, prevCodePoint);
         startCodePoint = -1;
