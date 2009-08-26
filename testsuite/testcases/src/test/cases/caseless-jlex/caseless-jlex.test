@@ -1,7 +1,8 @@
 name: caseless
 
 description:
-tests %ignorecase with jflex semantics (only strings and chars are caseless)
+tests %ignorecase with JLex semantics (char classes are caseless, 
+in addition to strings and chars.)
 
 jflex: -q --jlex
 
