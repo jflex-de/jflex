@@ -655,10 +655,13 @@ final public class NFA {
 
   private void insertLetterNFA(boolean caseless, char letter, int start, int end) {
     if (caseless) {
-      int lower = classes.getClassCode(Character.toLowerCase(letter));
-      int upper = classes.getClassCode(Character.toUpperCase(letter));
-      addTransition(start, lower, end);
-      if (upper != lower) addTransition(start, upper, end);
+      IntCharSet set = new IntCharSet(letter);
+      IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
+      for (Interval interval : caselessSet.getIntervals()) {
+        for (char ch = interval.start ; ch <= interval.end ; ++ch) {
+          addTransition(start, classes.getClassCode(ch), end);
+        }
+      }
     }
     else {
       addTransition(start, classes.getClassCode(letter), end);
