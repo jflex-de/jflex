@@ -671,11 +671,13 @@ final public class NFA {
 
     for (i = 0; i < letters.length(); i++) {
       if (caseless) {
-        char c = letters.charAt(i);
-        int lower = classes.getClassCode(Character.toLowerCase(c));
-        int upper = classes.getClassCode(Character.toUpperCase(c));
-        addTransition(i+start, lower, i+start+1);
-        if (upper != lower) addTransition(i+start, upper, i+start+1);
+        IntCharSet set = new IntCharSet(letters.charAt(i));
+        IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
+        for (Interval interval : caselessSet.getIntervals()) {
+          for (char ch = interval.start ; ch <= interval.end ; ++ch) {
+            addTransition(i + start, classes.getClassCode(ch), i + start + 1);
+          }
+        }
       }
       else {
         addTransition(i+start, classes.getClassCode(letters.charAt(i)), i+start+1);
