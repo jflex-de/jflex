@@ -6,3 +6,5 @@ Tests the %caseless directive for Unicode 5.0
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeCaseless.common.input

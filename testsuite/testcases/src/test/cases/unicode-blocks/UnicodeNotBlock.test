@@ -7,3 +7,5 @@ for one block.
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeBlocks.common.input

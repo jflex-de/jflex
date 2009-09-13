@@ -7,3 +7,5 @@ for all blocks supported in Unicode 4.0
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeBlocks.common.input

@@ -32,7 +32,7 @@ my $underscore_version = $version;
 $underscore_version =~ s/\./_/g;
 
 my $spec_file = "UnicodeCaseless_$underscore_version.flex";
-my $output_file = "UnicodeCaseless_$underscore_version-0.output";
+my $output_file = "UnicodeCaseless_$underscore_version.output";
 
 open IN, "<$data" || die "ERROR opening '$data' for reading: $!";
 
