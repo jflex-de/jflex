@@ -7,3 +7,5 @@ for all general category properties supported in Unicode 5.0
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeGeneralCategory.common.input

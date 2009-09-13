@@ -7,3 +7,5 @@ syntax for one general category.
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeGeneralCategory.common.input
