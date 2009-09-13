@@ -7,3 +7,5 @@ for all scripts supported in Unicode 5.1
 jflex: -q
 
 input-file-encoding: UTF-8
+
+common-input-file: UnicodeScripts.common.input
