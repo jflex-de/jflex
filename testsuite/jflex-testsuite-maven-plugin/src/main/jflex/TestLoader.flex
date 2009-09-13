@@ -50,6 +50,8 @@ NL = \r | \n | \r\n
     
   "input-file-encoding:" [^\r\n]* { test.setInputFileEncoding(yytext().substring(20).trim()); }
   "output-file-encoding:" [^\r\n]* { test.setOutputFileEncoding(yytext().substring(21).trim()); }
+  
+  "common-input-file:"  [^\r\n]* { test.setCommonInputFile(yytext().substring(18).trim()); }
 
   {NL} | [ \t]+       { /* ignore newline and whitespace */ }
   "#" [^\r\n]*        { /* ignore comments */ }

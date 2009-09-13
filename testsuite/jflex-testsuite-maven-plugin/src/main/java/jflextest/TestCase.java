@@ -25,6 +25,9 @@ public class TestCase {
   
   /** Test output file encoding -- defaults to UTF-8 */
   private String outputFileEncoding = "UTF-8";
+  
+  /** Single common input file for all outputs */
+  private String commonInputFile = null;
 
   /** misc. */
   private String className;
@@ -59,6 +62,7 @@ public class TestCase {
   public void setInputOutput(List<InputOutput> v) { inputOutput = v; }
   public void setInputFileEncoding(String e) { inputFileEncoding = e; }
   public void setOutputFileEncoding(String e) { outputFileEncoding = e; }
+  public void setCommonInputFile(String f) { commonInputFile = f; }
   
   public TestCase() {
     setDefaults();
@@ -77,11 +81,23 @@ public class TestCase {
     List<InputOutput> temp = new ArrayList<InputOutput>();
     String name;
     for (String file : testDir.list()) {
-      if (file.endsWith(".input") && file.startsWith(testName + "-")) {
-        name = file.substring(0, file.length() - 6);
-        temp.add(new InputOutput((new File(testDir, name)).toString(),
-                                 new File(testDir, name + ".output").exists()));
+      if (null != commonInputFile) {
+        if (file.equals(testName + ".output")) {
+          temp.add(new InputOutput((new File(testDir, testName)).toString(), true));
+          commonInputFile = (new File(testDir, commonInputFile)).toString();
+        }
+      } else {
+        if (file.endsWith(".input") && file.startsWith(testName + "-")) {
+          name = file.substring(0, file.length() - 6);
+          temp.add(new InputOutput((new File(testDir, name)).toString(),
+                                   new File(testDir, name + ".output").exists()));
+        }
       }
+    }
+    // When a common input file is specified, but no output file exists, add
+    // a single InputOutput for the common input file.
+    if (null != commonInputFile && 0 == temp.size()) {
+      temp.add(new InputOutput(null, false));
     }
     setInputOutput(temp);
     testPath = testDir;
@@ -180,12 +196,12 @@ public class TestCase {
   }
   
   public void runNext() throws TestFailException, UnsupportedEncodingException {
-    // Get first file and remove it from vector
+    // Get first file and remove it from list
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in	 
     List<String> inputFiles = new ArrayList<String>();
-    inputFiles.add(current.getName() + ".input");
-
+    inputFiles.add
+      (null != commonInputFile ? commonInputFile : current.getName() + ".input");
     // Excute Main on that input
     List<String> cmdLine = new ArrayList<String>();
     cmdLine.add("--encoding");
@@ -231,7 +247,8 @@ public class TestCase {
   public String toString(){
     return "Testname: "+testName+"\nDescription: " + description 
 			+ "JFlexFail: " + expectJFlexFail + " JavacFail: " + expectJavacFail + "\n" 
-			+ "JFlex Command line: " + jflexCmdln + "Javac Command Line" +  javacCmdln + "\n"
-			+ "Files to run Main on" + inputOutput;
+			+ "JFlex Command line: " + jflexCmdln + " Javac Command Line" +  javacCmdln + "\n"
+			+ "Files to run Main on " + inputOutput 
+      + (null != commonInputFile ? " Common input file: " + commonInputFile : "");
   }
 }
