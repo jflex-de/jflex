@@ -1451,4 +1451,4 @@
 "\uFF58" { print(0xFF58); }
 "\uFF59" { print(0xFF59); }
 "\uFF5A" { print(0xFF5A); }
-. { }
+[^] { }

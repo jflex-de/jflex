@@ -129,7 +129,7 @@ for my $code_point (sort { hex($a) <=> hex($b) } keys %mapped)
     print OUTPUT "input char $code_point matches $target case-insensitively\n";
 }
 
-print SPEC ". { }\n";
+print SPEC "[^] { }\n";
 
 close SPEC;
 close OUTPUT;
