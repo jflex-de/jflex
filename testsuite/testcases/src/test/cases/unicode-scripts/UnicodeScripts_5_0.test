@@ -8,4 +8,4 @@ jflex: -q
 
 input-file-encoding: UTF-8
 
-common-input-file: UnicodeScripts.common.input
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
