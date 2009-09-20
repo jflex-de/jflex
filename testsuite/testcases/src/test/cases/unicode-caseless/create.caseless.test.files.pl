@@ -37,7 +37,6 @@ my $output_file = "UnicodeCaseless_$underscore_version.output";
 open IN, "<$data" || die "ERROR opening '$data' for reading: $!";
 
 open OUTPUT, ">$output_file" || die "ERROR opening '$output_file': $!";
-print OUTPUT "\n";
 
 open SPEC, ">$spec_file" || die "ERROR opening '$spec_file': $!";
 print SPEC <<"SPEC_HEADER";
