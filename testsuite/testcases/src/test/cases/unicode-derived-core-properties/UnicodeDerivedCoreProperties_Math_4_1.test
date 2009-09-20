@@ -1,0 +1,12 @@
+name: UnicodeDerivedCoreProperties_Math_4_1
+
+description: 
+Tests character class syntax of the Unicode 4.1 'Math' property,
+defined in DerivedCoreProperties(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+
