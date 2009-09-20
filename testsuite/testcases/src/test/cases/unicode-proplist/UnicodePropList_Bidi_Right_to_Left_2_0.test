@@ -1,0 +1,12 @@
+name: UnicodePropList_Bidi_Right_to_Left_2_0
+
+description: 
+Tests character class syntax of the Unicode 2.0 'Bidi: Right-to-Left' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+
