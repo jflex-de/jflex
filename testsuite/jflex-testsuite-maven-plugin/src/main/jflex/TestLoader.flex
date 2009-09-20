@@ -61,7 +61,7 @@ NL = \r | \n | \r\n
 <DESCR> {
   [^\r\n]+ | {NL}     { buffer.append(yytext()); }
 
-  {NL}/[^\r\n]*": "   { test.setDescription(buffer.toString()); yybegin(YYINITIAL); }
+  {NL}/[^\r\n ]*": "  { test.setDescription(buffer.toString()); yybegin(YYINITIAL); }
 }
 
 
