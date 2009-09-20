@@ -255,7 +255,7 @@ public class UnicodeProperties {
    */
   private void bindInvariantIntervals() {
     //TODO: Change the character type from char to int
-    IntCharSet asciiSet = new IntCharSet(new Interval('\000', '\u00FF'));
+    IntCharSet asciiSet = new IntCharSet(new Interval('\000', '\u007F'));
     propertyValueIntervals.put(normalize("ASCII"), asciiSet);
 
     //TODO: Change the character type from char to int
