@@ -7,10 +7,10 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-scripts/common-unicode-scripts-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %% 
 
-\p{Script:This will never be a script name} { setCurCharBlock("Never a script name"); }
+\p{Script:This will never be a script name} { setCurCharPropertyValue("Never a script name"); }
 
 <<EOF>> { printOutput(); return 1; }

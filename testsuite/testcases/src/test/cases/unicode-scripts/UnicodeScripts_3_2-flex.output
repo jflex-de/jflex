@@ -1,12 +1,12 @@
 
 Warning in file "src\test\cases\unicode-scripts\UnicodeScripts_3_2.flex" (line 23): 
 Rule can never be matched:
-\p{Deseret} { setCurCharBlock("Deseret"); }
+\p{Deseret} { setCurCharPropertyValue("Deseret"); }
 
 Warning in file "src\test\cases\unicode-scripts\UnicodeScripts_3_2.flex" (line 27): 
 Rule can never be matched:
-\p{Gothic} { setCurCharBlock("Gothic"); }
+\p{Gothic} { setCurCharPropertyValue("Gothic"); }
 
 Warning in file "src\test\cases\unicode-scripts\UnicodeScripts_3_2.flex" (line 46): 
 Rule can never be matched:
-\p{Old Italic} { setCurCharBlock("Old Italic"); }
+\p{Old Italic} { setCurCharPropertyValue("Old Italic"); }

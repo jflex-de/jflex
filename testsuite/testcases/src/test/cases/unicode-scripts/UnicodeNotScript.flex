@@ -7,11 +7,11 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-scripts/common-unicode-scripts-java 
+%include src/test/resources/common-unicode-enumerated-property-java 
 
 %% 
 
-\P{Canadian Aboriginal} { setCurCharBlock("Not Canadian Aboriginal"); }
-\p{Canadian Aboriginal} { setCurCharBlock("Canadian Aboriginal"); }
+\P{Canadian Aboriginal} { setCurCharPropertyValue("Not Canadian Aboriginal"); }
+\p{Canadian Aboriginal} { setCurCharPropertyValue("Canadian Aboriginal"); }
 
 <<EOF>> { printOutput(); return 1; }

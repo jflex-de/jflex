@@ -7,86 +7,86 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-scripts/common-unicode-scripts-java  
+%include src/test/resources/common-unicode-enumerated-property-java  
 
 %%
 
-\p{Arabic} { setCurCharBlock("Arabic"); }
-\p{Armenian} { setCurCharBlock("Armenian"); }
-\p{Balinese} { setCurCharBlock("Balinese"); }
-\p{Bengali} { setCurCharBlock("Bengali"); }
-\p{Bopomofo} { setCurCharBlock("Bopomofo"); }
-\p{Braille} { setCurCharBlock("Braille"); }
-\p{Buginese} { setCurCharBlock("Buginese"); }
-\p{Buhid} { setCurCharBlock("Buhid"); }
-\p{Canadian Aboriginal} { setCurCharBlock("Canadian Aboriginal"); }
-\p{Carian} { setCurCharBlock("Carian"); }
-\p{Cham} { setCurCharBlock("Cham"); }
-\p{Cherokee} { setCurCharBlock("Cherokee"); }
-\p{Common} { setCurCharBlock("Common"); }
-\p{Coptic} { setCurCharBlock("Coptic"); }
-\p{Cuneiform} { setCurCharBlock("Cuneiform"); }
-\p{Cypriot} { setCurCharBlock("Cypriot"); }
-\p{Cyrillic} { setCurCharBlock("Cyrillic"); }
-\p{Deseret} { setCurCharBlock("Deseret"); }
-\p{Devanagari} { setCurCharBlock("Devanagari"); }
-\p{Ethiopic} { setCurCharBlock("Ethiopic"); }
-\p{Georgian} { setCurCharBlock("Georgian"); }
-\p{Glagolitic} { setCurCharBlock("Glagolitic"); }
-\p{Gothic} { setCurCharBlock("Gothic"); }
-\p{Greek} { setCurCharBlock("Greek"); }
-\p{Gujarati} { setCurCharBlock("Gujarati"); }
-\p{Gurmukhi} { setCurCharBlock("Gurmukhi"); }
-\p{Han} { setCurCharBlock("Han"); }
-\p{Hangul} { setCurCharBlock("Hangul"); }
-\p{Hanunoo} { setCurCharBlock("Hanunoo"); }
-\p{Hebrew} { setCurCharBlock("Hebrew"); }
-\p{Hiragana} { setCurCharBlock("Hiragana"); }
-\p{Inherited} { setCurCharBlock("Inherited"); }
-\p{Kannada} { setCurCharBlock("Kannada"); }
-\p{Katakana} { setCurCharBlock("Katakana"); }
-\p{Kayah Li} { setCurCharBlock("Kayah Li"); }
-\p{Kharoshthi} { setCurCharBlock("Kharoshthi"); }
-\p{Khmer} { setCurCharBlock("Khmer"); }
-\p{Lao} { setCurCharBlock("Lao"); }
-\p{Latin} { setCurCharBlock("Latin"); }
-\p{Lepcha} { setCurCharBlock("Lepcha"); }
-\p{Limbu} { setCurCharBlock("Limbu"); }
-\p{Linear B} { setCurCharBlock("Linear B"); }
-\p{Lycian} { setCurCharBlock("Lycian"); }
-\p{Lydian} { setCurCharBlock("Lydian"); }
-\p{Malayalam} { setCurCharBlock("Malayalam"); }
-\p{Mongolian} { setCurCharBlock("Mongolian"); }
-\p{Myanmar} { setCurCharBlock("Myanmar"); }
-\p{New Tai Lue} { setCurCharBlock("New Tai Lue"); }
-\p{Nko} { setCurCharBlock("Nko"); }
-\p{Ogham} { setCurCharBlock("Ogham"); }
-\p{Ol Chiki} { setCurCharBlock("Ol Chiki"); }
-\p{Old Italic} { setCurCharBlock("Old Italic"); }
-\p{Old Persian} { setCurCharBlock("Old Persian"); }
-\p{Oriya} { setCurCharBlock("Oriya"); }
-\p{Osmanya} { setCurCharBlock("Osmanya"); }
-\p{Phags Pa} { setCurCharBlock("Phags Pa"); }
-\p{Phoenician} { setCurCharBlock("Phoenician"); }
-\p{Rejang} { setCurCharBlock("Rejang"); }
-\p{Runic} { setCurCharBlock("Runic"); }
-\p{Saurashtra} { setCurCharBlock("Saurashtra"); }
-\p{Shavian} { setCurCharBlock("Shavian"); }
-\p{Sinhala} { setCurCharBlock("Sinhala"); }
-\p{Sundanese} { setCurCharBlock("Sundanese"); }
-\p{Syloti Nagri} { setCurCharBlock("Syloti Nagri"); }
-\p{Syriac} { setCurCharBlock("Syriac"); }
-\p{Tagalog} { setCurCharBlock("Tagalog"); }
-\p{Tagbanwa} { setCurCharBlock("Tagbanwa"); }
-\p{Tai Le} { setCurCharBlock("Tai Le"); }
-\p{Tamil} { setCurCharBlock("Tamil"); }
-\p{Telugu} { setCurCharBlock("Telugu"); }
-\p{Thaana} { setCurCharBlock("Thaana"); }
-\p{Thai} { setCurCharBlock("Thai"); }
-\p{Tibetan} { setCurCharBlock("Tibetan"); }
-\p{Tifinagh} { setCurCharBlock("Tifinagh"); }
-\p{Ugaritic} { setCurCharBlock("Ugaritic"); }
-\p{Unknown} { setCurCharBlock("Unknown"); }
-\p{Vai} { setCurCharBlock("Vai"); }
-\p{Yi} { setCurCharBlock("Yi"); }
+\p{Arabic} { setCurCharPropertyValue("Arabic"); }
+\p{Armenian} { setCurCharPropertyValue("Armenian"); }
+\p{Balinese} { setCurCharPropertyValue("Balinese"); }
+\p{Bengali} { setCurCharPropertyValue("Bengali"); }
+\p{Bopomofo} { setCurCharPropertyValue("Bopomofo"); }
+\p{Braille} { setCurCharPropertyValue("Braille"); }
+\p{Buginese} { setCurCharPropertyValue("Buginese"); }
+\p{Buhid} { setCurCharPropertyValue("Buhid"); }
+\p{Canadian Aboriginal} { setCurCharPropertyValue("Canadian Aboriginal"); }
+\p{Carian} { setCurCharPropertyValue("Carian"); }
+\p{Cham} { setCurCharPropertyValue("Cham"); }
+\p{Cherokee} { setCurCharPropertyValue("Cherokee"); }
+\p{Common} { setCurCharPropertyValue("Common"); }
+\p{Coptic} { setCurCharPropertyValue("Coptic"); }
+\p{Cuneiform} { setCurCharPropertyValue("Cuneiform"); }
+\p{Cypriot} { setCurCharPropertyValue("Cypriot"); }
+\p{Cyrillic} { setCurCharPropertyValue("Cyrillic"); }
+\p{Deseret} { setCurCharPropertyValue("Deseret"); }
+\p{Devanagari} { setCurCharPropertyValue("Devanagari"); }
+\p{Ethiopic} { setCurCharPropertyValue("Ethiopic"); }
+\p{Georgian} { setCurCharPropertyValue("Georgian"); }
+\p{Glagolitic} { setCurCharPropertyValue("Glagolitic"); }
+\p{Gothic} { setCurCharPropertyValue("Gothic"); }
+\p{Greek} { setCurCharPropertyValue("Greek"); }
+\p{Gujarati} { setCurCharPropertyValue("Gujarati"); }
+\p{Gurmukhi} { setCurCharPropertyValue("Gurmukhi"); }
+\p{Han} { setCurCharPropertyValue("Han"); }
+\p{Hangul} { setCurCharPropertyValue("Hangul"); }
+\p{Hanunoo} { setCurCharPropertyValue("Hanunoo"); }
+\p{Hebrew} { setCurCharPropertyValue("Hebrew"); }
+\p{Hiragana} { setCurCharPropertyValue("Hiragana"); }
+\p{Inherited} { setCurCharPropertyValue("Inherited"); }
+\p{Kannada} { setCurCharPropertyValue("Kannada"); }
+\p{Katakana} { setCurCharPropertyValue("Katakana"); }
+\p{Kayah Li} { setCurCharPropertyValue("Kayah Li"); }
+\p{Kharoshthi} { setCurCharPropertyValue("Kharoshthi"); }
+\p{Khmer} { setCurCharPropertyValue("Khmer"); }
+\p{Lao} { setCurCharPropertyValue("Lao"); }
+\p{Latin} { setCurCharPropertyValue("Latin"); }
+\p{Lepcha} { setCurCharPropertyValue("Lepcha"); }
+\p{Limbu} { setCurCharPropertyValue("Limbu"); }
+\p{Linear B} { setCurCharPropertyValue("Linear B"); }
+\p{Lycian} { setCurCharPropertyValue("Lycian"); }
+\p{Lydian} { setCurCharPropertyValue("Lydian"); }
+\p{Malayalam} { setCurCharPropertyValue("Malayalam"); }
+\p{Mongolian} { setCurCharPropertyValue("Mongolian"); }
+\p{Myanmar} { setCurCharPropertyValue("Myanmar"); }
+\p{New Tai Lue} { setCurCharPropertyValue("New Tai Lue"); }
+\p{Nko} { setCurCharPropertyValue("Nko"); }
+\p{Ogham} { setCurCharPropertyValue("Ogham"); }
+\p{Ol Chiki} { setCurCharPropertyValue("Ol Chiki"); }
+\p{Old Italic} { setCurCharPropertyValue("Old Italic"); }
+\p{Old Persian} { setCurCharPropertyValue("Old Persian"); }
+\p{Oriya} { setCurCharPropertyValue("Oriya"); }
+\p{Osmanya} { setCurCharPropertyValue("Osmanya"); }
+\p{Phags Pa} { setCurCharPropertyValue("Phags Pa"); }
+\p{Phoenician} { setCurCharPropertyValue("Phoenician"); }
+\p{Rejang} { setCurCharPropertyValue("Rejang"); }
+\p{Runic} { setCurCharPropertyValue("Runic"); }
+\p{Saurashtra} { setCurCharPropertyValue("Saurashtra"); }
+\p{Shavian} { setCurCharPropertyValue("Shavian"); }
+\p{Sinhala} { setCurCharPropertyValue("Sinhala"); }
+\p{Sundanese} { setCurCharPropertyValue("Sundanese"); }
+\p{Syloti Nagri} { setCurCharPropertyValue("Syloti Nagri"); }
+\p{Syriac} { setCurCharPropertyValue("Syriac"); }
+\p{Tagalog} { setCurCharPropertyValue("Tagalog"); }
+\p{Tagbanwa} { setCurCharPropertyValue("Tagbanwa"); }
+\p{Tai Le} { setCurCharPropertyValue("Tai Le"); }
+\p{Tamil} { setCurCharPropertyValue("Tamil"); }
+\p{Telugu} { setCurCharPropertyValue("Telugu"); }
+\p{Thaana} { setCurCharPropertyValue("Thaana"); }
+\p{Thai} { setCurCharPropertyValue("Thai"); }
+\p{Tibetan} { setCurCharPropertyValue("Tibetan"); }
+\p{Tifinagh} { setCurCharPropertyValue("Tifinagh"); }
+\p{Ugaritic} { setCurCharPropertyValue("Ugaritic"); }
+\p{Unknown} { setCurCharPropertyValue("Unknown"); }
+\p{Vai} { setCurCharPropertyValue("Vai"); }
+\p{Yi} { setCurCharPropertyValue("Yi"); }
 <<EOF>> { printOutput(); return 1; }

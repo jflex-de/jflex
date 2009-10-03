@@ -7,53 +7,53 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-scripts/common-unicode-scripts-java  
+%include src/test/resources/common-unicode-enumerated-property-java  
 
 %%
 
-\p{Arabic} { setCurCharBlock("Arabic"); }
-\p{Armenian} { setCurCharBlock("Armenian"); }
-\p{Bengali} { setCurCharBlock("Bengali"); }
-\p{Bopomofo} { setCurCharBlock("Bopomofo"); }
-\p{Buhid} { setCurCharBlock("Buhid"); }
-\p{Canadian Aboriginal} { setCurCharBlock("Canadian Aboriginal"); }
-\p{Cherokee} { setCurCharBlock("Cherokee"); }
-\p{Common} { setCurCharBlock("Common"); }
-\p{Cyrillic} { setCurCharBlock("Cyrillic"); }
-\p{Deseret} { setCurCharBlock("Deseret"); }
-\p{Devanagari} { setCurCharBlock("Devanagari"); }
-\p{Ethiopic} { setCurCharBlock("Ethiopic"); }
-\p{Georgian} { setCurCharBlock("Georgian"); }
-\p{Gothic} { setCurCharBlock("Gothic"); }
-\p{Greek} { setCurCharBlock("Greek"); }
-\p{Gujarati} { setCurCharBlock("Gujarati"); }
-\p{Gurmukhi} { setCurCharBlock("Gurmukhi"); }
-\p{Han} { setCurCharBlock("Han"); }
-\p{Hangul} { setCurCharBlock("Hangul"); }
-\p{Hanunoo} { setCurCharBlock("Hanunoo"); }
-\p{Hebrew} { setCurCharBlock("Hebrew"); }
-\p{Hiragana} { setCurCharBlock("Hiragana"); }
-\p{Inherited} { setCurCharBlock("Inherited"); }
-\p{Kannada} { setCurCharBlock("Kannada"); }
-\p{Katakana} { setCurCharBlock("Katakana"); }
-\p{Khmer} { setCurCharBlock("Khmer"); }
-\p{Lao} { setCurCharBlock("Lao"); }
-\p{Latin} { setCurCharBlock("Latin"); }
-\p{Malayalam} { setCurCharBlock("Malayalam"); }
-\p{Mongolian} { setCurCharBlock("Mongolian"); }
-\p{Myanmar} { setCurCharBlock("Myanmar"); }
-\p{Ogham} { setCurCharBlock("Ogham"); }
-\p{Old Italic} { setCurCharBlock("Old Italic"); }
-\p{Oriya} { setCurCharBlock("Oriya"); }
-\p{Runic} { setCurCharBlock("Runic"); }
-\p{Sinhala} { setCurCharBlock("Sinhala"); }
-\p{Syriac} { setCurCharBlock("Syriac"); }
-\p{Tagalog} { setCurCharBlock("Tagalog"); }
-\p{Tagbanwa} { setCurCharBlock("Tagbanwa"); }
-\p{Tamil} { setCurCharBlock("Tamil"); }
-\p{Telugu} { setCurCharBlock("Telugu"); }
-\p{Thaana} { setCurCharBlock("Thaana"); }
-\p{Thai} { setCurCharBlock("Thai"); }
-\p{Tibetan} { setCurCharBlock("Tibetan"); }
-\p{Yi} { setCurCharBlock("Yi"); }
+\p{Arabic} { setCurCharPropertyValue("Arabic"); }
+\p{Armenian} { setCurCharPropertyValue("Armenian"); }
+\p{Bengali} { setCurCharPropertyValue("Bengali"); }
+\p{Bopomofo} { setCurCharPropertyValue("Bopomofo"); }
+\p{Buhid} { setCurCharPropertyValue("Buhid"); }
+\p{Canadian Aboriginal} { setCurCharPropertyValue("Canadian Aboriginal"); }
+\p{Cherokee} { setCurCharPropertyValue("Cherokee"); }
+\p{Common} { setCurCharPropertyValue("Common"); }
+\p{Cyrillic} { setCurCharPropertyValue("Cyrillic"); }
+\p{Deseret} { setCurCharPropertyValue("Deseret"); }
+\p{Devanagari} { setCurCharPropertyValue("Devanagari"); }
+\p{Ethiopic} { setCurCharPropertyValue("Ethiopic"); }
+\p{Georgian} { setCurCharPropertyValue("Georgian"); }
+\p{Gothic} { setCurCharPropertyValue("Gothic"); }
+\p{Greek} { setCurCharPropertyValue("Greek"); }
+\p{Gujarati} { setCurCharPropertyValue("Gujarati"); }
+\p{Gurmukhi} { setCurCharPropertyValue("Gurmukhi"); }
+\p{Han} { setCurCharPropertyValue("Han"); }
+\p{Hangul} { setCurCharPropertyValue("Hangul"); }
+\p{Hanunoo} { setCurCharPropertyValue("Hanunoo"); }
+\p{Hebrew} { setCurCharPropertyValue("Hebrew"); }
+\p{Hiragana} { setCurCharPropertyValue("Hiragana"); }
+\p{Inherited} { setCurCharPropertyValue("Inherited"); }
+\p{Kannada} { setCurCharPropertyValue("Kannada"); }
+\p{Katakana} { setCurCharPropertyValue("Katakana"); }
+\p{Khmer} { setCurCharPropertyValue("Khmer"); }
+\p{Lao} { setCurCharPropertyValue("Lao"); }
+\p{Latin} { setCurCharPropertyValue("Latin"); }
+\p{Malayalam} { setCurCharPropertyValue("Malayalam"); }
+\p{Mongolian} { setCurCharPropertyValue("Mongolian"); }
+\p{Myanmar} { setCurCharPropertyValue("Myanmar"); }
+\p{Ogham} { setCurCharPropertyValue("Ogham"); }
+\p{Old Italic} { setCurCharPropertyValue("Old Italic"); }
+\p{Oriya} { setCurCharPropertyValue("Oriya"); }
+\p{Runic} { setCurCharPropertyValue("Runic"); }
+\p{Sinhala} { setCurCharPropertyValue("Sinhala"); }
+\p{Syriac} { setCurCharPropertyValue("Syriac"); }
+\p{Tagalog} { setCurCharPropertyValue("Tagalog"); }
+\p{Tagbanwa} { setCurCharPropertyValue("Tagbanwa"); }
+\p{Tamil} { setCurCharPropertyValue("Tamil"); }
+\p{Telugu} { setCurCharPropertyValue("Telugu"); }
+\p{Thaana} { setCurCharPropertyValue("Thaana"); }
+\p{Thai} { setCurCharPropertyValue("Thai"); }
+\p{Tibetan} { setCurCharPropertyValue("Tibetan"); }
+\p{Yi} { setCurCharPropertyValue("Yi"); }
 <<EOF>> { printOutput(); return 1; }

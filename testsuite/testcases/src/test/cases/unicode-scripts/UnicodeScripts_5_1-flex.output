@@ -1,60 +1,60 @@
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 23): 
 Rule can never be matched:
-\p{Carian} { setCurCharBlock("Carian"); }
+\p{Carian} { setCurCharPropertyValue("Carian"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 28): 
 Rule can never be matched:
-\p{Cuneiform} { setCurCharBlock("Cuneiform"); }
+\p{Cuneiform} { setCurCharPropertyValue("Cuneiform"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 29): 
 Rule can never be matched:
-\p{Cypriot} { setCurCharBlock("Cypriot"); }
+\p{Cypriot} { setCurCharPropertyValue("Cypriot"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 31): 
 Rule can never be matched:
-\p{Deseret} { setCurCharBlock("Deseret"); }
+\p{Deseret} { setCurCharPropertyValue("Deseret"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 36): 
 Rule can never be matched:
-\p{Gothic} { setCurCharBlock("Gothic"); }
+\p{Gothic} { setCurCharPropertyValue("Gothic"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 49): 
 Rule can never be matched:
-\p{Kharoshthi} { setCurCharBlock("Kharoshthi"); }
+\p{Kharoshthi} { setCurCharPropertyValue("Kharoshthi"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 55): 
 Rule can never be matched:
-\p{Linear B} { setCurCharBlock("Linear B"); }
+\p{Linear B} { setCurCharPropertyValue("Linear B"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 56): 
 Rule can never be matched:
-\p{Lycian} { setCurCharBlock("Lycian"); }
+\p{Lycian} { setCurCharPropertyValue("Lycian"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 57): 
 Rule can never be matched:
-\p{Lydian} { setCurCharBlock("Lydian"); }
+\p{Lydian} { setCurCharPropertyValue("Lydian"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 65): 
 Rule can never be matched:
-\p{Old Italic} { setCurCharBlock("Old Italic"); }
+\p{Old Italic} { setCurCharPropertyValue("Old Italic"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 66): 
 Rule can never be matched:
-\p{Old Persian} { setCurCharBlock("Old Persian"); }
+\p{Old Persian} { setCurCharPropertyValue("Old Persian"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 68): 
 Rule can never be matched:
-\p{Osmanya} { setCurCharBlock("Osmanya"); }
+\p{Osmanya} { setCurCharPropertyValue("Osmanya"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 70): 
 Rule can never be matched:
-\p{Phoenician} { setCurCharBlock("Phoenician"); }
+\p{Phoenician} { setCurCharPropertyValue("Phoenician"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 74): 
 Rule can never be matched:
-\p{Shavian} { setCurCharBlock("Shavian"); }
+\p{Shavian} { setCurCharPropertyValue("Shavian"); }
 
 Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_5_1.flex" (line 88): 
 Rule can never be matched:
-\p{Ugaritic} { setCurCharBlock("Ugaritic"); }
+\p{Ugaritic} { setCurCharPropertyValue("Ugaritic"); }
