@@ -11,7 +11,7 @@
 
 %%
 
-\p{ID_Continue} { setCurCharBlock(); }
+\p{ID_Continue} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

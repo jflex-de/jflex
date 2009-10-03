@@ -11,7 +11,7 @@
 
 %%
 
-\p{XID_Start} { setCurCharBlock(); }
+\p{XID_Start} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

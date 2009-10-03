@@ -11,7 +11,7 @@
 
 %%
 
-\p{Grapheme_Link} { setCurCharBlock(); }
+\p{Grapheme_Link} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }
