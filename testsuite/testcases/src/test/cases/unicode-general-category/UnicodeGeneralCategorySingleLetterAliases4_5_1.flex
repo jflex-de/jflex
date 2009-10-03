@@ -7,15 +7,15 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-general-category/common-unicode-general-category-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %%
 
 <<EOF>> { printOutput(); return 1; }
-\p{gc:Other} { setCurCharBlock("C"); }
-\p{gc:Letter} { setCurCharBlock("L"); }
-\p{gc:Mark} { setCurCharBlock("M"); }
-\p{gc:Number} { setCurCharBlock("N"); }
-\p{gc:Punctuation} { setCurCharBlock("P"); }
-\p{gc:Symbol} { setCurCharBlock("S"); }
-\p{gc:Separator} { setCurCharBlock("Z"); }
+\p{gc:Other} { setCurCharPropertyValue("C"); }
+\p{gc:Letter} { setCurCharPropertyValue("L"); }
+\p{gc:Mark} { setCurCharPropertyValue("M"); }
+\p{gc:Number} { setCurCharPropertyValue("N"); }
+\p{gc:Punctuation} { setCurCharPropertyValue("P"); }
+\p{gc:Symbol} { setCurCharPropertyValue("S"); }
+\p{gc:Separator} { setCurCharPropertyValue("Z"); }

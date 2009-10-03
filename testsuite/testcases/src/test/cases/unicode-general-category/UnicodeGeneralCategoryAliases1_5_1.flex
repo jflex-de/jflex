@@ -7,37 +7,37 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-general-category/common-unicode-general-category-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %%
 
 <<EOF>> { printOutput(); return 1; }
-\p{General_Category:Cc} { setCurCharBlock("Cc"); }
-\p{General_Category:Cf} { setCurCharBlock("Cf"); }
-\p{General_Category:Cn} { setCurCharBlock("Cn"); }
-\p{General_Category:Co} { setCurCharBlock("Co"); }
-\p{General_Category:Ll} { setCurCharBlock("Ll"); }
-\p{General_Category:Lm} { setCurCharBlock("Lm"); }
-\p{General_Category:Lo} { setCurCharBlock("Lo"); }
-\p{General_Category:Lt} { setCurCharBlock("Lt"); }
-\p{General_Category:Lu} { setCurCharBlock("Lu"); }
-\p{General_Category:Mc} { setCurCharBlock("Mc"); }
-\p{General_Category:Me} { setCurCharBlock("Me"); }
-\p{General_Category:Mn} { setCurCharBlock("Mn"); }
-\p{General_Category:Nd} { setCurCharBlock("Nd"); }
-\p{General_Category:Nl} { setCurCharBlock("Nl"); }
-\p{General_Category:No} { setCurCharBlock("No"); }
-\p{General_Category:Pc} { setCurCharBlock("Pc"); }
-\p{General_Category:Pd} { setCurCharBlock("Pd"); }
-\p{General_Category:Pe} { setCurCharBlock("Pe"); }
-\p{General_Category:Pf} { setCurCharBlock("Pf"); }
-\p{General_Category:Pi} { setCurCharBlock("Pi"); }
-\p{General_Category:Po} { setCurCharBlock("Po"); }
-\p{General_Category:Ps} { setCurCharBlock("Ps"); }
-\p{General_Category:Sc} { setCurCharBlock("Sc"); }
-\p{General_Category:Sk} { setCurCharBlock("Sk"); }
-\p{General_Category:Sm} { setCurCharBlock("Sm"); }
-\p{General_Category:So} { setCurCharBlock("So"); }
-\p{General_Category:Zl} { setCurCharBlock("Zl"); }
-\p{General_Category:Zp} { setCurCharBlock("Zp"); }
-\p{General_Category:Zs} { setCurCharBlock("Zs"); }
+\p{General_Category:Cc} { setCurCharPropertyValue("Cc"); }
+\p{General_Category:Cf} { setCurCharPropertyValue("Cf"); }
+\p{General_Category:Cn} { setCurCharPropertyValue("Cn"); }
+\p{General_Category:Co} { setCurCharPropertyValue("Co"); }
+\p{General_Category:Ll} { setCurCharPropertyValue("Ll"); }
+\p{General_Category:Lm} { setCurCharPropertyValue("Lm"); }
+\p{General_Category:Lo} { setCurCharPropertyValue("Lo"); }
+\p{General_Category:Lt} { setCurCharPropertyValue("Lt"); }
+\p{General_Category:Lu} { setCurCharPropertyValue("Lu"); }
+\p{General_Category:Mc} { setCurCharPropertyValue("Mc"); }
+\p{General_Category:Me} { setCurCharPropertyValue("Me"); }
+\p{General_Category:Mn} { setCurCharPropertyValue("Mn"); }
+\p{General_Category:Nd} { setCurCharPropertyValue("Nd"); }
+\p{General_Category:Nl} { setCurCharPropertyValue("Nl"); }
+\p{General_Category:No} { setCurCharPropertyValue("No"); }
+\p{General_Category:Pc} { setCurCharPropertyValue("Pc"); }
+\p{General_Category:Pd} { setCurCharPropertyValue("Pd"); }
+\p{General_Category:Pe} { setCurCharPropertyValue("Pe"); }
+\p{General_Category:Pf} { setCurCharPropertyValue("Pf"); }
+\p{General_Category:Pi} { setCurCharPropertyValue("Pi"); }
+\p{General_Category:Po} { setCurCharPropertyValue("Po"); }
+\p{General_Category:Ps} { setCurCharPropertyValue("Ps"); }
+\p{General_Category:Sc} { setCurCharPropertyValue("Sc"); }
+\p{General_Category:Sk} { setCurCharPropertyValue("Sk"); }
+\p{General_Category:Sm} { setCurCharPropertyValue("Sm"); }
+\p{General_Category:So} { setCurCharPropertyValue("So"); }
+\p{General_Category:Zl} { setCurCharPropertyValue("Zl"); }
+\p{General_Category:Zp} { setCurCharPropertyValue("Zp"); }
+\p{General_Category:Zs} { setCurCharPropertyValue("Zs"); }

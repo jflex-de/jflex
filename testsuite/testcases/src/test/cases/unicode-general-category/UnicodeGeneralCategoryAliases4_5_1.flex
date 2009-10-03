@@ -7,37 +7,37 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-general-category/common-unicode-general-category-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %%
 
 <<EOF>> { printOutput(); return 1; }
-\p{gc:Control} { setCurCharBlock("Cc"); }
-\p{gc:Format} { setCurCharBlock("Cf"); }
-\p{gc:Unassigned} { setCurCharBlock("Cn"); }
-\p{gc:Private_Use} { setCurCharBlock("Co"); }
-\p{gc:Lowercase_Letter} { setCurCharBlock("Ll"); }
-\p{gc:Modifier_Letter} { setCurCharBlock("Lm"); }
-\p{gc:Other_Letter} { setCurCharBlock("Lo"); }
-\p{gc:Titlecase_Letter} { setCurCharBlock("Lt"); }
-\p{gc:Uppercase_Letter} { setCurCharBlock("Lu"); }
-\p{gc:Spacing_Mark} { setCurCharBlock("Mc"); }
-\p{gc:Enclosing_Mark} { setCurCharBlock("Me"); }
-\p{gc:Nonspacing_Mark} { setCurCharBlock("Mn"); }
-\p{gc:Decimal_Number} { setCurCharBlock("Nd"); }
-\p{gc:Letter_Number} { setCurCharBlock("Nl"); }
-\p{gc:Other_Number} { setCurCharBlock("No"); }
-\p{gc:Connector_Punctuation} { setCurCharBlock("Pc"); }
-\p{gc:Dash_Punctuation} { setCurCharBlock("Pd"); }
-\p{gc:Close_Punctuation} { setCurCharBlock("Pe"); }
-\p{gc:Final_Punctuation} { setCurCharBlock("Pf"); }
-\p{gc:Initial_Punctuation} { setCurCharBlock("Pi"); }
-\p{gc:Other_Punctuation} { setCurCharBlock("Po"); }
-\p{gc:Open_Punctuation} { setCurCharBlock("Ps"); }
-\p{gc:Currency_Symbol} { setCurCharBlock("Sc"); }
-\p{gc:Modifier_Symbol} { setCurCharBlock("Sk"); }
-\p{gc:Math_Symbol} { setCurCharBlock("Sm"); }
-\p{gc:Other_Symbol} { setCurCharBlock("So"); }
-\p{gc:Line_Separator} { setCurCharBlock("Zl"); }
-\p{gc:Paragraph_Separator} { setCurCharBlock("Zp"); }
-\p{gc:Space_Separator} { setCurCharBlock("Zs"); }
+\p{gc:Control} { setCurCharPropertyValue("Cc"); }
+\p{gc:Format} { setCurCharPropertyValue("Cf"); }
+\p{gc:Unassigned} { setCurCharPropertyValue("Cn"); }
+\p{gc:Private_Use} { setCurCharPropertyValue("Co"); }
+\p{gc:Lowercase_Letter} { setCurCharPropertyValue("Ll"); }
+\p{gc:Modifier_Letter} { setCurCharPropertyValue("Lm"); }
+\p{gc:Other_Letter} { setCurCharPropertyValue("Lo"); }
+\p{gc:Titlecase_Letter} { setCurCharPropertyValue("Lt"); }
+\p{gc:Uppercase_Letter} { setCurCharPropertyValue("Lu"); }
+\p{gc:Spacing_Mark} { setCurCharPropertyValue("Mc"); }
+\p{gc:Enclosing_Mark} { setCurCharPropertyValue("Me"); }
+\p{gc:Nonspacing_Mark} { setCurCharPropertyValue("Mn"); }
+\p{gc:Decimal_Number} { setCurCharPropertyValue("Nd"); }
+\p{gc:Letter_Number} { setCurCharPropertyValue("Nl"); }
+\p{gc:Other_Number} { setCurCharPropertyValue("No"); }
+\p{gc:Connector_Punctuation} { setCurCharPropertyValue("Pc"); }
+\p{gc:Dash_Punctuation} { setCurCharPropertyValue("Pd"); }
+\p{gc:Close_Punctuation} { setCurCharPropertyValue("Pe"); }
+\p{gc:Final_Punctuation} { setCurCharPropertyValue("Pf"); }
+\p{gc:Initial_Punctuation} { setCurCharPropertyValue("Pi"); }
+\p{gc:Other_Punctuation} { setCurCharPropertyValue("Po"); }
+\p{gc:Open_Punctuation} { setCurCharPropertyValue("Ps"); }
+\p{gc:Currency_Symbol} { setCurCharPropertyValue("Sc"); }
+\p{gc:Modifier_Symbol} { setCurCharPropertyValue("Sk"); }
+\p{gc:Math_Symbol} { setCurCharPropertyValue("Sm"); }
+\p{gc:Other_Symbol} { setCurCharPropertyValue("So"); }
+\p{gc:Line_Separator} { setCurCharPropertyValue("Zl"); }
+\p{gc:Paragraph_Separator} { setCurCharPropertyValue("Zp"); }
+\p{gc:Space_Separator} { setCurCharPropertyValue("Zs"); }

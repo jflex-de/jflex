@@ -7,10 +7,10 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-blocks/common-unicode-blocks-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %% 
 
-\p{General Category:This will never be a general category property name} { setCurCharBlock("Not a general category property name"); }
+\p{General Category:This will never be a general category property name} { setCurCharPropertyValue("Not a general category property name"); }
 
 <<EOF>> { printOutput(); return 1; }
