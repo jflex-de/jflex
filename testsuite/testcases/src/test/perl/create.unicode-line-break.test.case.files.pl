@@ -151,7 +151,7 @@ for my $property_value (sort keys %property_values)
 {
     next if (defined($property_values_to_skip{$property_value}));
     print SPEC qq/\\p{$propname:$property_value} { /
-	     . qq/setCurCharBlock("$propname:$property_value"); }\n/;
+	     . qq/setCurCharPropertyValue("$propname:$property_value"); }\n/;
 }
 
 close SPEC;

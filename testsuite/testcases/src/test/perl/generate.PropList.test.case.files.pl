@@ -203,7 +203,7 @@ __TEST__
 
 %%
 
-\\p{$property} { setCurCharBlock(); }
+\\p{$property} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

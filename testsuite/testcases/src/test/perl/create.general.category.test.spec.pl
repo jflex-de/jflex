@@ -47,8 +47,8 @@ while (<>)
     }
 }
 
-# \p{Yi} { setCurCharBlock("Yi"); }
+# \p{Yi} { setCurCharPropertyValue("Yi"); }
 for my $gen_cat (sort keys %general_categories)
 {
-    print qq/\\p{$gen_cat} { setCurCharBlock("$gen_cat"); }\n/;
+    print qq/\\p{$gen_cat} { setCurCharPropertyValue("$gen_cat"); }\n/;
 }
