@@ -7,11 +7,11 @@
 %type int
 %standalone
 
-%include src/test/cases/unicode-blocks/common-unicode-blocks-java 
+%include src/test/resources/common-unicode-enumerated-property-java 
 
 %% 
 
-\P{Block:Latin Extended Additional} { setCurCharBlock("Not Latin Extended Additional"); }
-\p{Block:Latin Extended Additional} { setCurCharBlock("Latin Extended Additional"); }
+\P{Block:Latin Extended Additional} { setCurCharPropertyValue("Not Latin Extended Additional"); }
+\p{Block:Latin Extended Additional} { setCurCharPropertyValue("Latin Extended Additional"); }
 
 <<EOF>> { printOutput(); return 1; }
