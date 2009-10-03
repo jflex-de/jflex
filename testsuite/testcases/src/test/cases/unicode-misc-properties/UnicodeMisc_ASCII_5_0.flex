@@ -11,7 +11,7 @@
 
 %%
 
-\p{ASCII} { setCurCharBlock(); }
+\p{ASCII} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

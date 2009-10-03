@@ -11,7 +11,7 @@
 
 %%
 
-\p{Any} { setCurCharBlock(); }
+\p{Any} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }
