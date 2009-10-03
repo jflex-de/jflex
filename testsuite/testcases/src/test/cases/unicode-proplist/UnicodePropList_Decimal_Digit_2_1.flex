@@ -11,7 +11,7 @@
 
 %%
 
-\p{Decimal Digit} { setCurCharBlock(); }
+\p{Decimal Digit} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

@@ -11,7 +11,7 @@
 
 %%
 
-\p{White space} { setCurCharBlock(); }
+\p{White space} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

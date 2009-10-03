@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Other Neutral} { setCurCharBlock(); }
+\p{Bidi: Other Neutral} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

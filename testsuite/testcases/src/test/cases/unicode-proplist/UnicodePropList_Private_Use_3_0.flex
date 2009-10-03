@@ -11,7 +11,7 @@
 
 %%
 
-\p{Private Use} { setCurCharBlock(); }
+\p{Private Use} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

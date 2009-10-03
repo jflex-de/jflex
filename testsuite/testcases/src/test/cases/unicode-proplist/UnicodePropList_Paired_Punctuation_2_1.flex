@@ -11,7 +11,7 @@
 
 %%
 
-\p{Paired Punctuation} { setCurCharBlock(); }
+\p{Paired Punctuation} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

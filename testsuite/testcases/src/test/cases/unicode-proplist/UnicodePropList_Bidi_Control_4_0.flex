@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi_Control} { setCurCharBlock(); }
+\p{Bidi_Control} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

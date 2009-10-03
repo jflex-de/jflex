@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: European Digit} { setCurCharBlock(); }
+\p{Bidi: European Digit} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

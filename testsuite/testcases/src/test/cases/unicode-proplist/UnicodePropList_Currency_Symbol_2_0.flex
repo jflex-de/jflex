@@ -11,7 +11,7 @@
 
 %%
 
-\p{Currency Symbol} { setCurCharBlock(); }
+\p{Currency Symbol} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

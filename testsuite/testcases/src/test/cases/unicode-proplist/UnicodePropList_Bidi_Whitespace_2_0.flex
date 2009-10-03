@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Whitespace} { setCurCharBlock(); }
+\p{Bidi: Whitespace} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

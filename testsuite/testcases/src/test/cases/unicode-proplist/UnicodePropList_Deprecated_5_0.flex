@@ -11,7 +11,7 @@
 
 %%
 
-\p{Deprecated} { setCurCharBlock(); }
+\p{Deprecated} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

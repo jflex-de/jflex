@@ -11,7 +11,7 @@
 
 %%
 
-\p{Other_Grapheme_Extend} { setCurCharBlock(); }
+\p{Other_Grapheme_Extend} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

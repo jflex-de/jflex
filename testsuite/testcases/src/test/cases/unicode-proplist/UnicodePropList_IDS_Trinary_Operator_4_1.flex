@@ -11,7 +11,7 @@
 
 %%
 
-\p{IDS_Trinary_Operator} { setCurCharBlock(); }
+\p{IDS_Trinary_Operator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

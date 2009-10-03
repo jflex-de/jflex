@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Non-spacing Mark} { setCurCharBlock(); }
+\p{Bidi: Non-spacing Mark} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

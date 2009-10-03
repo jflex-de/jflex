@@ -11,7 +11,7 @@
 
 %%
 
-\p{Extender} { setCurCharBlock(); }
+\p{Extender} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

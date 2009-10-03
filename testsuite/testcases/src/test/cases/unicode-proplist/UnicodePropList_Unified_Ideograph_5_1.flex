@@ -11,7 +11,7 @@
 
 %%
 
-\p{Unified_Ideograph} { setCurCharBlock(); }
+\p{Unified_Ideograph} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

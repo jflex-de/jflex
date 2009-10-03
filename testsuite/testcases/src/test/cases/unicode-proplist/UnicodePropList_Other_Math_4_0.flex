@@ -11,7 +11,7 @@
 
 %%
 
-\p{Other_Math} { setCurCharBlock(); }
+\p{Other_Math} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

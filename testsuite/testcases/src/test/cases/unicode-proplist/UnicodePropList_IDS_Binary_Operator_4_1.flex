@@ -11,7 +11,7 @@
 
 %%
 
-\p{IDS_Binary_Operator} { setCurCharBlock(); }
+\p{IDS_Binary_Operator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

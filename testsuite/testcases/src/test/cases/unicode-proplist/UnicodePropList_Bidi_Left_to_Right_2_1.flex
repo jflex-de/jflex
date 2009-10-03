@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Left-to-Right} { setCurCharBlock(); }
+\p{Bidi: Left-to-Right} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

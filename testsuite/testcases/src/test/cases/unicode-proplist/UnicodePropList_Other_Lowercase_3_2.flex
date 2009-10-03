@@ -11,7 +11,7 @@
 
 %%
 
-\p{Other_Lowercase} { setCurCharBlock(); }
+\p{Other_Lowercase} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

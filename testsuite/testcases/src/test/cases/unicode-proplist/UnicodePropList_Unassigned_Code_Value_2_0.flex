@@ -11,7 +11,7 @@
 
 %%
 
-\p{Unassigned Code Value} { setCurCharBlock(); }
+\p{Unassigned Code Value} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

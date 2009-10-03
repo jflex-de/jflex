@@ -11,7 +11,7 @@
 
 %%
 
-\p{Other_Default_Ignorable_Code_Point} { setCurCharBlock(); }
+\p{Other_Default_Ignorable_Code_Point} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

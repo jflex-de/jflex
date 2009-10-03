@@ -11,7 +11,7 @@
 
 %%
 
-\p{Logical_Order_Exception} { setCurCharBlock(); }
+\p{Logical_Order_Exception} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

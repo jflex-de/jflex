@@ -11,7 +11,7 @@
 
 %%
 
-\p{Paragraph Separator} { setCurCharBlock(); }
+\p{Paragraph Separator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

@@ -11,7 +11,7 @@
 
 %%
 
-\p{Line Separator} { setCurCharBlock(); }
+\p{Line Separator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

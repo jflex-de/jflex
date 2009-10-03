@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: (Hebrew) Right-to-Left} { setCurCharBlock(); }
+\p{Bidi: (Hebrew) Right-to-Left} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

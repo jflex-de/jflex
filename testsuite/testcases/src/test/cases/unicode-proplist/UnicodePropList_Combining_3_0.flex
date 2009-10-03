@@ -11,7 +11,7 @@
 
 %%
 
-\p{Combining} { setCurCharBlock(); }
+\p{Combining} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

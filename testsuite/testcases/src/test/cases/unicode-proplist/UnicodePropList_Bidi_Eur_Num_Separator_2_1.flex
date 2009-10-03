@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Eur Num Separator} { setCurCharBlock(); }
+\p{Bidi: Eur Num Separator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

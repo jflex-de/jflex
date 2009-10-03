@@ -11,7 +11,7 @@
 
 %%
 
-\p{Variation_Selector} { setCurCharBlock(); }
+\p{Variation_Selector} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

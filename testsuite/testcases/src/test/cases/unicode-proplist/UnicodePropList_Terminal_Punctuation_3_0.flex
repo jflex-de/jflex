@@ -11,7 +11,7 @@
 
 %%
 
-\p{Terminal Punctuation} { setCurCharBlock(); }
+\p{Terminal Punctuation} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

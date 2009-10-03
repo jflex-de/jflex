@@ -11,7 +11,7 @@
 
 %%
 
-\p{Quotation Mark} { setCurCharBlock(); }
+\p{Quotation Mark} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

@@ -11,7 +11,7 @@
 
 %%
 
-\p{Composite} { setCurCharBlock(); }
+\p{Composite} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

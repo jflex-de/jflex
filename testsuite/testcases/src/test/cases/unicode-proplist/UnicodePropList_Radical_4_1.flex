@@ -11,7 +11,7 @@
 
 %%
 
-\p{Radical} { setCurCharBlock(); }
+\p{Radical} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

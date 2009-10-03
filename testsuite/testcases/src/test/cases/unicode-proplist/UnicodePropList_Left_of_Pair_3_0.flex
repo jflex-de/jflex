@@ -11,7 +11,7 @@
 
 %%
 
-\p{Left of Pair} { setCurCharBlock(); }
+\p{Left of Pair} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

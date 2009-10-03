@@ -11,7 +11,7 @@
 
 %%
 
-\p{Pattern_Syntax} { setCurCharBlock(); }
+\p{Pattern_Syntax} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

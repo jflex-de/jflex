@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Arabic Digit} { setCurCharBlock(); }
+\p{Bidi: Arabic Digit} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

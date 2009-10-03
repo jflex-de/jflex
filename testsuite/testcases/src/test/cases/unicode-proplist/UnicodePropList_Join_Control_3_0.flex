@@ -11,7 +11,7 @@
 
 %%
 
-\p{Join Control} { setCurCharBlock(); }
+\p{Join Control} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

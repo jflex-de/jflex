@@ -11,7 +11,7 @@
 
 %%
 
-\p{Hyphen} { setCurCharBlock(); }
+\p{Hyphen} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

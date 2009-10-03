@@ -11,7 +11,7 @@
 
 %%
 
-\p{Diacritic} { setCurCharBlock(); }
+\p{Diacritic} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

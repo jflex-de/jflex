@@ -11,7 +11,7 @@
 
 %%
 
-\p{Identifier Part} { setCurCharBlock(); }
+\p{Identifier Part} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

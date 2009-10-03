@@ -11,7 +11,7 @@
 
 %%
 
-\p{Zero-width} { setCurCharBlock(); }
+\p{Zero-width} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

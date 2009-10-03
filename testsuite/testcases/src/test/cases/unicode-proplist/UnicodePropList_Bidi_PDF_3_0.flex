@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: PDF} { setCurCharBlock(); }
+\p{Bidi: PDF} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

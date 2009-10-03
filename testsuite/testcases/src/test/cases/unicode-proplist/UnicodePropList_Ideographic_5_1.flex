@@ -11,7 +11,7 @@
 
 %%
 
-\p{Ideographic} { setCurCharBlock(); }
+\p{Ideographic} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

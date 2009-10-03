@@ -11,7 +11,7 @@
 
 %%
 
-\p{Non-break} { setCurCharBlock(); }
+\p{Non-break} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

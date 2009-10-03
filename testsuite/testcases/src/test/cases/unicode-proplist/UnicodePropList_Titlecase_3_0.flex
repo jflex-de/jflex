@@ -11,7 +11,7 @@
 
 %%
 
-\p{Titlecase} { setCurCharBlock(); }
+\p{Titlecase} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

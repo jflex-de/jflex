@@ -11,7 +11,7 @@
 
 %%
 
-\p{Delimiter} { setCurCharBlock(); }
+\p{Delimiter} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

@@ -11,7 +11,7 @@
 
 %%
 
-\p{Other_Alphabetic} { setCurCharBlock(); }
+\p{Other_Alphabetic} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

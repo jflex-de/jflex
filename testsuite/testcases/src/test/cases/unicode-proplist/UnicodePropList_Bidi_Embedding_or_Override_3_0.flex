@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Embedding or Override} { setCurCharBlock(); }
+\p{Bidi: Embedding or Override} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

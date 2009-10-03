@@ -11,7 +11,7 @@
 
 %%
 
-\p{Numeric} { setCurCharBlock(); }
+\p{Numeric} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

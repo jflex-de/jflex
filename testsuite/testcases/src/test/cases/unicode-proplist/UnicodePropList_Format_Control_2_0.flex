@@ -11,7 +11,7 @@
 
 %%
 
-\p{Format Control} { setCurCharBlock(); }
+\p{Format Control} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

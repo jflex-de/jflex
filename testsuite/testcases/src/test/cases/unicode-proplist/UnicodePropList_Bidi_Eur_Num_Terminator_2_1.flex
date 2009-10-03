@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Eur Num Terminator} { setCurCharBlock(); }
+\p{Bidi: Eur Num Terminator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

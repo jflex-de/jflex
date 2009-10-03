@@ -11,7 +11,7 @@
 
 %%
 
-\p{Dash} { setCurCharBlock(); }
+\p{Dash} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

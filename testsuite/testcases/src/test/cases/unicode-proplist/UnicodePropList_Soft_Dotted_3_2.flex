@@ -11,7 +11,7 @@
 
 %%
 
-\p{Soft_Dotted} { setCurCharBlock(); }
+\p{Soft_Dotted} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

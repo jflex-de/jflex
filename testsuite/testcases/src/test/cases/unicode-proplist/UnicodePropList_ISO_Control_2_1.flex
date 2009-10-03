@@ -11,7 +11,7 @@
 
 %%
 
-\p{ISO Control} { setCurCharBlock(); }
+\p{ISO Control} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

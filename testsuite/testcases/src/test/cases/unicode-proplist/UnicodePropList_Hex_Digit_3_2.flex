@@ -11,7 +11,7 @@
 
 %%
 
-\p{Hex_Digit} { setCurCharBlock(); }
+\p{Hex_Digit} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

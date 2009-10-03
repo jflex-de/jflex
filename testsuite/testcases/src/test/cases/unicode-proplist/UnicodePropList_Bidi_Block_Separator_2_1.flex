@@ -11,7 +11,7 @@
 
 %%
 
-\p{Bidi: Block Separator} { setCurCharBlock(); }
+\p{Bidi: Block Separator} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

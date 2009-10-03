@@ -11,7 +11,7 @@
 
 %%
 
-\p{Noncharacter_Code_Point} { setCurCharBlock(); }
+\p{Noncharacter_Code_Point} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }

@@ -11,7 +11,7 @@
 
 %%
 
-\p{Ignorable Control} { setCurCharBlock(); }
+\p{Ignorable Control} { setCurCharPropertyValue(); }
 [^] { }
 
 <<EOF>> { printOutput(); return 1; }
