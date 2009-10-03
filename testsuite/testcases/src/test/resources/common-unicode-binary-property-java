@@ -1,12 +1,12 @@
 %{
   private static final int maxCodePoint = 0xFFFD;
-  private final boolean[] charBlock = new boolean[maxCodePoint + 1];
+  private final boolean[] propertyValues = new boolean[maxCodePoint + 1];
   
   private void printOutput() {
     int codePoint = 0;
     while (codePoint <= maxCodePoint) {
-      // Find start point
-      while (codePoint <= maxCodePoint && ! charBlock[codePoint]) {
+      // First, find start point
+      while (codePoint <= maxCodePoint && ! propertyValues[codePoint]) {
         ++codePoint;
       }
       if (codePoint > maxCodePoint) {
@@ -14,7 +14,7 @@
       }
       int begin = codePoint;
       // Second, find next undefined point (one char beyond the end point)
-      while (codePoint <= maxCodePoint && charBlock[codePoint]) {
+      while (codePoint <= maxCodePoint && propertyValues[codePoint]) {
         ++codePoint;
       }
       int end = codePoint - 1;
@@ -22,7 +22,7 @@
     }
   }
 
-  private void setCurCharBlock() {
-    charBlock[ (int)yytext().charAt(0) ] = true;
+  private void setCurCharPropertyValue() {
+    propertyValues[ (int)yytext().charAt(0) ] = true;
   }
 %} 
