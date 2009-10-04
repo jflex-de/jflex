@@ -3,7 +3,7 @@
 # create.unicode-line-break.test.output.pl
 #
 # This script is designed to take as input LineBreak(-X|-X.X.X).txt, and output
-# hex char ranges and corresponding general categories, for the BMP, excluding
+# hex char ranges and corresponding property values, for the BMP, excluding
 # surrogates and U+FFFE and U+FFFF, in the format expected as output by the
 # tests defined for the unicode-line-break test case in the JFlex test suite;
 # an example line follows:
@@ -140,7 +140,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include src/test/cases/unicode-line-break/common-unicode-line-break-java
+%include src/test/resources/unicode-common-enumerated-property-java
 
 %%
 
