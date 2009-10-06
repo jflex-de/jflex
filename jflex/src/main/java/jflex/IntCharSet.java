@@ -137,7 +137,9 @@ public final class IntCharSet {
         Interval x = intervals.get(i);
         if (x.start > elem.end+1) return;
         
-        elem.end = x.end;
+        if (x.end > elem.end) {
+          elem.end = x.end;
+        }
         intervals.remove(i);
         size--;
       }
