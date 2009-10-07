@@ -1,0 +1,11 @@
+name: SixDigitUnicodeEscape
+
+description: 
+Tests \UXXXXXX six-digit hexadecimal character escape syntax.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

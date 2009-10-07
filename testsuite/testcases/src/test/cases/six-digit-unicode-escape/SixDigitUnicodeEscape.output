@@ -1,0 +1,5 @@
+0000..0000; inverse matched
+0001..0001; matched
+0002..0002; inverse matched
+0003..D7FF; matched
+E000..FFFD; matched
