@@ -12,11 +12,9 @@
 #
 # A teststuite .test file is also output for each syntax to be tested:
 #
-#    [:space:]
+#    \s
 #
-#    \d
-#
-#    \D  (negative)
+#    \S  (negative)
 #
 
 use strict;
