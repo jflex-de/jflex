@@ -31,8 +31,9 @@ unless ($version && $data && -f $data && -r $data)
 my $underscore_version = $version;
 $underscore_version =~ s/\./_/g;
 
-my $spec_file = "UnicodeCaseless_$underscore_version.flex";
-my $output_file = "UnicodeCaseless_$underscore_version.output";
+my $base_name = "UnicodeCaseless_$underscore_version";
+my $spec_file = "${base_name}.flex";
+my $output_file = "${base_name}.output";
 
 open IN, "<$data" || die "ERROR opening '$data' for reading: $!";
 
@@ -116,7 +117,6 @@ while (<IN>)
 	{
 	    $mapped{$entry} = $lowest;
 	}
-	print "$lowest: \[ ", (join ", ", @sorted), " \]\n";
     }
 }
 close IN;
@@ -133,4 +133,28 @@ print SPEC "[^] { }\n";
 close SPEC;
 close OUTPUT;
 
-print "Wrote $spec_file and $output_file.\n";
+
+my $test_file = "${base_name}.test";
+open TEST, ">$test_file" || die "ERROR opening '$test_file': $!";
+print TEST <<"__TEST__";
+name: $base_name
+
+description: 
+Tests the \%caseless directive for Unicode $version
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+
+__TEST__
+
+close TEST;
+
+my $jflex_output_file = "${base_name}-flex.output";
+open JFLEX_OUTPUT, ">$jflex_output_file"
+    || die "ERROR opening '$jflex_output_file': $!";
+close JFLEX_OUTPUT;
+
+
