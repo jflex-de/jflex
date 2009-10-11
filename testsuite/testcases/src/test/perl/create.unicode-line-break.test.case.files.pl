@@ -140,7 +140,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include src/test/resources/unicode-common-enumerated-property-java
+%include src/test/resources/common-unicode-enumerated-property-java
 
 %%
 
