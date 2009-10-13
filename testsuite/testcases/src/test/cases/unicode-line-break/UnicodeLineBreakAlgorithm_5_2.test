@@ -1,8 +1,8 @@
-name: UnicodeLineBreakAlgorithm_5_1
+name: UnicodeLineBreakAlgorithm_5_2
 
 description: 
 Implements the Unicode Line Break algorithm, specified in UAX #14
-<http://www.unicode.org/reports/tr14/tr14-22.html>.
+<http://www.unicode.org/reports/tr14/tr14-24.html>.
 
 jflex: -q
 
