@@ -1,0 +1,9 @@
+name: UnicodeWordBreakRules_5_2
+
+description: 
+Implements the Unicode Word Boundary rules, specified in UAX #29 
+<http://www.unicode.org/reports/tr29/tr29-15.html>.
+
+jflex: -q
+
+input-file-encoding: UTF-8
