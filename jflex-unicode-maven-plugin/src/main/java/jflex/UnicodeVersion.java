@@ -845,4 +845,82 @@ class UnicodeVersion {
   public int getMaximumCodePoint() {
     return maximumCodePoint;
   }
+
+  public void addCompatibilityProperties() {
+    List<NamedRange> whitespaceRanges = propertyValueIntervals.get("whitespace");
+    if (null == whitespaceRanges) {
+      // For Unicode 1.1, subsitute "Space_separator" (Zs) for "Whitespace"
+      whitespaceRanges = propertyValueIntervals.get("zs");
+    }
+    
+    // UTR#18: \p{xdigit} = [\p{gc=Decimal_Number}\p{Hex_Digit}]
+    // \p{gc=Decimal_Number} = \p{Nd} (available in all versions)
+    NamedRangeSet xdigitSet = new NamedRangeSet(propertyValueIntervals.get("nd"));
+    List<NamedRange> hexDigitRanges = propertyValueIntervals.get("hexdigit");
+    if (null == hexDigitRanges) {
+      // Hex_Digit was introduced in Unicode 2.0; handle for Unicode 1.1
+      // Hex_Digit contains 0-9 A-F, fullwidth and halfwidth, upper and lowercase.
+      // \p{Nd} contains all required digit forms, so no need to add them here
+      // Unicode 1.1 doesn't define HALFWIDTH latin letters (or digits)
+      hexDigitRanges = new ArrayList<NamedRange>();
+      hexDigitRanges.add(new NamedRange((int)'A', (int)'F'));
+      hexDigitRanges.add(new NamedRange((int)'a', (int)'f'));
+      // FF21..FF26;FULLWIDTH LATIN CAPITAL LETTER A..F
+      hexDigitRanges.add(new NamedRange(0xFF21, 0xFF26));
+      // FF41..FF46;FULLWIDTH LATIN SMALL LETTER A..F
+      hexDigitRanges.add(new NamedRange(0xFF41, 0xFF46));
+    }
+    xdigitSet.add(new NamedRangeSet(hexDigitRanges));
+    propertyValueIntervals.put("xdigit", xdigitSet.getRanges());
+    usedBinaryProperties.add("xdigit");
+
+    // UTR#18: \p{alnum} = [\p{alpha}\p{digit}]
+    // \p{alpha} = \p{Alphabetic} (available in all versions except 1.1)
+    NamedRangeSet alnumSet;
+    List<NamedRange> alphaRanges = propertyValueIntervals.get("alphabetic");
+    if (null == alphaRanges) {
+      // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+      // \p{L} = [\p{Ll}\p{Lu}\p{Lt}\p{Lm}\p{Lo}]
+      alnumSet = new NamedRangeSet(propertyValueIntervals.get("ll"));
+      alnumSet.add(new NamedRangeSet(propertyValueIntervals.get("lm")));
+      alnumSet.add(new NamedRangeSet(propertyValueIntervals.get("lo")));
+      alnumSet.add(new NamedRangeSet(propertyValueIntervals.get("lu")));
+      // Unicode 1.1 has no characters with the 'Lt' (titlecase letter) property.
+    } else {
+      alnumSet = new NamedRangeSet(alphaRanges);
+    }
+    // \p{digit} = \p{gc=Decimal_Digit} = \p{Nd} (available in all versions)
+    alnumSet.add(new NamedRangeSet(propertyValueIntervals.get("nd")));
+    propertyValueIntervals.put("alnum", alnumSet.getRanges());
+
+    // UTR#18: \p{blank} = [\p{Whitespace}
+    //                      -- [\N{LF} \N{VT} \N{FF} \N{CR} \N{NEL}
+    //                          \p{gc=Line_Separator} \p{gc=Paragraph_Separator}]]
+    NamedRangeSet blankSet = new NamedRangeSet(whitespaceRanges);
+    // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
+    blankSet.sub(new NamedRangeSet(new NamedRange(0xA, 0xD)));
+    // Subtract: \N{NEL}
+    blankSet.sub(new NamedRangeSet(new NamedRange(0x85, 0x85)));
+    blankSet.sub(new NamedRangeSet(propertyValueIntervals.get("zl"))); // \p{gc=Line_Separator}
+    blankSet.sub(new NamedRangeSet(propertyValueIntervals.get("zp"))); // \p{gc=Paragraph_Separator}
+    propertyValueIntervals.put("blank", blankSet.getRanges());
+    usedBinaryProperties.add("blank");
+
+    // UTR#18: \p{graph} = [^\p{space}\p{gc=Control}\p{gc=Surrogate}\p{gc=Unassigned}]
+    // TODO: switch 0xFFFF to getMaximumCodePoint()
+    NamedRangeSet graphSet = new NamedRangeSet(new NamedRange(0x0, 0xFFFF));
+    graphSet.sub(new NamedRangeSet(whitespaceRanges));
+    graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cc"))); // \p{gc=Control}
+    graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cn"))); // \p{gc=Unassigned} 
+    propertyValueIntervals.put("graph", graphSet.getRanges());
+    usedBinaryProperties.add("graph");
+
+    // UTR#18: \p{print} = [\p{graph}\p{blank} -- \p{cntrl}]
+    // \p{cntrl} = \p{gc=Control} = \p{gc=Cc} = \p{Cc}
+    NamedRangeSet printSet = graphSet.copy();
+    printSet.add(blankSet);
+    printSet.sub(new NamedRangeSet(propertyValueIntervals.get("cc")));
+    propertyValueIntervals.put("print", printSet.getRanges());
+    usedBinaryProperties.add("print");
+  }
 }

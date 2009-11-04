@@ -3,35 +3,104 @@ package jflex.unicode.data;
 public class Unicode_2_0 {
   public static final int maximumCodePoint = 0xffff;
   public static final String[] propertyValues
-    = { "alphabetic", "assigned", "bidi=arabicdigit", "bidi=blockseparator", "bidi=commonseparator",
-        "bidi=eurnumseparator", "bidi=eurnumterminator", "bidi=europeandigit", "bidi=lefttoright", "bidi=righttoleft",
-        "bidi=segmentseparator", "bidi=whitespace", "bidicontrol", "block=alphabeticpresentationforms", "block=arabic",
-        "block=arabicpresentationformsa", "block=arabicpresentationformsb", "block=armenian", "block=arrows", "block=basiclatin",
-        "block=bengali", "block=blockelements", "block=bopomofo", "block=boxdrawing", "block=cjkcompatibility",
-        "block=cjkcompatibilityforms", "block=cjkcompatibilityideographs", "block=cjksymbolsandpunctuation", "block=cjkunifiedideographs", "block=combiningdiacriticalmarks",
-        "block=combininghalfmarks", "block=combiningmarksforsymbols", "block=controlpictures", "block=currencysymbols", "block=cyrillic",
-        "block=devanagari", "block=dingbats", "block=enclosedalphanumerics", "block=enclosedcjklettersandmonths", "block=generalpunctuation",
-        "block=geometricshapes", "block=georgian", "block=greek", "block=greekextended", "block=gujarati",
-        "block=gurmukhi", "block=halfwidthandfullwidthforms", "block=hangulcompatibilityjamo", "block=hanguljamo", "block=hangulsyllables",
-        "block=hebrew", "block=hiragana", "block=ipaextensions", "block=kanbun", "block=kannada",
-        "block=katakana", "block=lao", "block=latin1supplement", "block=latinextendeda", "block=latinextendedadditional",
-        "block=latinextendedb", "block=letterlikesymbols", "block=malayalam", "block=mathematicaloperators", "block=miscellaneoussymbols",
-        "block=miscellaneoustechnical", "block=noblock", "block=numberforms", "block=opticalcharacterrecognition", "block=oriya",
-        "block=privateuse", "block=smallformvariants", "block=spacingmodifierletters", "block=specials", "block=superscriptsandsubscripts",
-        "block=tamil", "block=telugu", "block=thai", "block=tibetan", "cc",
-        "cf", "cn", "co", "combining", "composite",
-        "currencysymbol", "dash", "decimaldigit", "delimiter", "diacritic",
-        "extender", "formatcontrol", "hexdigit", "hyphen", "identifierpart",
-        "ideographic", "ignorablecontrol", "isocontrol", "joincontrol", "leftofpair",
-        "lineseparator", "ll", "lm", "lo", "lt",
-        "lu", "math", "mc", "me", "mn",
-        "nd", "nl", "no", "nonbreak", "nonspacing",
-        "numeric", "pairedpunctuation", "paragraphseparator", "pc", "pd",
-        "pe", "po", "privateuse", "ps", "punctuation",
-        "quotationmark", "sc", "sk", "sm", "so",
-        "space", "terminalpunctuation", "unassignedcodevalue", "whitespace", "zerowidth",
+    = { "alnum", "alphabetic", "assigned", "bidi=arabicdigit", "bidi=blockseparator",
+        "bidi=commonseparator", "bidi=eurnumseparator", "bidi=eurnumterminator", "bidi=europeandigit", "bidi=lefttoright",
+        "bidi=righttoleft", "bidi=segmentseparator", "bidi=whitespace", "bidicontrol", "blank",
+        "block=alphabeticpresentationforms", "block=arabic", "block=arabicpresentationformsa", "block=arabicpresentationformsb", "block=armenian",
+        "block=arrows", "block=basiclatin", "block=bengali", "block=blockelements", "block=bopomofo",
+        "block=boxdrawing", "block=cjkcompatibility", "block=cjkcompatibilityforms", "block=cjkcompatibilityideographs", "block=cjksymbolsandpunctuation",
+        "block=cjkunifiedideographs", "block=combiningdiacriticalmarks", "block=combininghalfmarks", "block=combiningmarksforsymbols", "block=controlpictures",
+        "block=currencysymbols", "block=cyrillic", "block=devanagari", "block=dingbats", "block=enclosedalphanumerics",
+        "block=enclosedcjklettersandmonths", "block=generalpunctuation", "block=geometricshapes", "block=georgian", "block=greek",
+        "block=greekextended", "block=gujarati", "block=gurmukhi", "block=halfwidthandfullwidthforms", "block=hangulcompatibilityjamo",
+        "block=hanguljamo", "block=hangulsyllables", "block=hebrew", "block=hiragana", "block=ipaextensions",
+        "block=kanbun", "block=kannada", "block=katakana", "block=lao", "block=latin1supplement",
+        "block=latinextendeda", "block=latinextendedadditional", "block=latinextendedb", "block=letterlikesymbols", "block=malayalam",
+        "block=mathematicaloperators", "block=miscellaneoussymbols", "block=miscellaneoustechnical", "block=noblock", "block=numberforms",
+        "block=opticalcharacterrecognition", "block=oriya", "block=privateuse", "block=smallformvariants", "block=spacingmodifierletters",
+        "block=specials", "block=superscriptsandsubscripts", "block=tamil", "block=telugu", "block=thai",
+        "block=tibetan", "cc", "cf", "cn", "co",
+        "combining", "composite", "currencysymbol", "dash", "decimaldigit",
+        "delimiter", "diacritic", "extender", "formatcontrol", "graph",
+        "hexdigit", "hyphen", "identifierpart", "ideographic", "ignorablecontrol",
+        "isocontrol", "joincontrol", "leftofpair", "lineseparator", "ll",
+        "lm", "lo", "lt", "lu", "math",
+        "mc", "me", "mn", "nd", "nl",
+        "no", "nonbreak", "nonspacing", "numeric", "pairedpunctuation",
+        "paragraphseparator", "pc", "pd", "pe", "po",
+        "print", "privateuse", "ps", "punctuation", "quotationmark",
+        "sc", "sk", "sm", "so", "space",
+        "terminalpunctuation", "unassignedcodevalue", "whitespace", "xdigit", "zerowidth",
         "zl", "zp", "zs" };
   public static final String[] intervals = {
+    // Unicode 2.0 property value: {alnum}
+        "\u0030\u0039"+"\u0041\u005a"+"\u0061\u007a"+"\u00aa\u00aa"
+      + "\u00b5\u00b5"+"\u00ba\u00ba"+"\u00c0\u00d6"+"\u00d8\u00f6"
+      + "\u00f8\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"+"\u02b0\u02b8"
+      + "\u02bb\u02c1"+"\u02e0\u02e4"+"\u037a\u037a"+"\u0386\u0386"
+      + "\u0388\u038a"+"\u038c\u038c"+"\u038e\u03a1"+"\u03a3\u03ce"
+      + "\u03d0\u03d6"+"\u03da\u03da"+"\u03dc\u03dc"+"\u03de\u03de"
+      + "\u03e0\u03e0"+"\u03e2\u03f3"+"\u0401\u040c"+"\u040e\u044f"
+      + "\u0451\u045c"+"\u045e\u0481"+"\u0490\u04c4"+"\u04c7\u04c8"
+      + "\u04cb\u04cc"+"\u04d0\u04eb"+"\u04ee\u04f5"+"\u04f8\u04f9"
+      + "\u0531\u0556"+"\u0559\u0559"+"\u0561\u0587"+"\u05d0\u05ea"
+      + "\u05f0\u05f2"+"\u0621\u063a"+"\u0641\u0652"+"\u0660\u0669"
+      + "\u0670\u06b7"+"\u06ba\u06be"+"\u06c0\u06ce"+"\u06d0\u06d3"
+      + "\u06d5\u06dc"+"\u06e1\u06e8"+"\u06ed\u06ed"+"\u06f0\u06f9"
+      + "\u0901\u0903"+"\u0905\u0939"+"\u093d\u094c"+"\u0958\u0963"
+      + "\u0966\u096f"+"\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"
+      + "\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cc"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09f1"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4c"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"+"\u0a8d\u0a8d"
+      + "\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"
+      + "\u0ab5\u0ab9"+"\u0abd\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acc"
+      + "\u0ae0\u0ae0"+"\u0ae6\u0aef"+"\u0b01\u0b03"+"\u0b05\u0b0c"
+      + "\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"
+      + "\u0b36\u0b39"+"\u0b3d\u0b43"+"\u0b47\u0b48"+"\u0b4b\u0b4c"
+      + "\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"+"\u0b66\u0b6f"
+      + "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
+      + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
+      + "\u0ba8\u0baa"+"\u0bae\u0bb5"+"\u0bb7\u0bb9"+"\u0bbe\u0bc2"
+      + "\u0bc6\u0bc8"+"\u0bca\u0bcc"+"\u0bd7\u0bd7"+"\u0be7\u0bef"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4c"+"\u0c55\u0c56"+"\u0c60\u0c61"+"\u0c66\u0c6f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbe\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccc"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce1"
+      + "\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"
+      + "\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4c"+"\u0d57\u0d57"+"\u0d60\u0d61"+"\u0d66\u0d6f"
+      + "\u0e01\u0e2e"+"\u0e30\u0e3a"+"\u0e40\u0e45"+"\u0e47\u0e47"
+      + "\u0e4d\u0e4d"+"\u0e50\u0e59"+"\u0e81\u0e82"+"\u0e84\u0e84"
+      + "\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"
+      + "\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"
+      + "\u0eaa\u0eab"+"\u0ead\u0eae"+"\u0eb0\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ecd\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"
+      + "\u0f20\u0f29"+"\u0f40\u0f47"+"\u0f49\u0f69"+"\u0f71\u0f81"
+      + "\u0f90\u0f95"+"\u0f97\u0f97"+"\u0f99\u0fad"+"\u0fb1\u0fb7"
+      + "\u0fb9\u0fb9"+"\u10a0\u10c5"+"\u10d0\u10f6"+"\u1100\u1159"
+      + "\u115f\u11a2"+"\u11a8\u11f9"+"\u1e00\u1e9b"+"\u1ea0\u1ef9"
+      + "\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"+"\u1f48\u1f4d"
+      + "\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"+"\u1f5d\u1f5d"
+      + "\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fbc"+"\u1fbe\u1fbe"
+      + "\u1fc2\u1fc4"+"\u1fc6\u1fcc"+"\u1fd0\u1fd3"+"\u1fd6\u1fdb"
+      + "\u1fe0\u1fec"+"\u1ff2\u1ff4"+"\u1ff6\u1ffc"+"\u207f\u207f"
+      + "\u2102\u2102"+"\u2107\u2107"+"\u210a\u2113"+"\u2115\u2115"
+      + "\u2118\u211d"+"\u2124\u2124"+"\u2126\u2126"+"\u2128\u2128"
+      + "\u212a\u2131"+"\u2133\u2138"+"\u2160\u2182"+"\u3041\u3094"
+      + "\u30a1\u30fa"+"\u3105\u312c"+"\u3131\u318e"+"\uac00\ud7a3"
+      + "\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1f\ufb28"+"\ufb2a\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufbb1"+"\ufbd3\ufd3d"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
+      + "\ufdf0\ufdfb"+"\ufe70\ufe72"+"\ufe74\ufe74"+"\ufe76\ufefc"
+      + "\uff10\uff19"+"\uff21\uff3a"+"\uff41\uff5a"+"\uff66\uff6f"
+      + "\uff71\uff9d"+"\uffa0\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"
+      + "\uffd2\uffd7"+"\uffda\uffdc",
     // Unicode 2.0 property value: {alphabetic}
         "\u0041\u005a"+"\u0061\u007a"+"\u00aa\u00aa"+"\u00b5\u00b5"
       + "\u00ba\u00ba"+"\u00c0\u00d6"+"\u00d8\u00f6"+"\u00f8\u01f5"
@@ -267,6 +336,10 @@ public class Unicode_2_0 {
       + "\u3000\u3000"+"\ufeff\ufeff",
     // Unicode 2.0 property value: {bidicontrol}
         "\u200e\u200f"+"\u202a\u202e",
+    // Unicode 2.0 property value: {blank}
+        "\000\000"+"\t\t"+"\u0020\u0020"+"\u00a0\u00a0"
+      + "\u2000\u200f"+"\u202a\u202e"+"\u206a\u206f"+"\u3000\u3000"
+      + "\ufeff\ufeff",
     // Unicode 2.0 property value: {block=alphabeticpresentationforms}
         "\ufb00\ufb4f",
     // Unicode 2.0 property value: {block=arabic}
@@ -607,6 +680,82 @@ public class Unicode_2_0 {
       + "\u30fc\u30fe"+"\uff70\uff70"+"\uff9e\uff9f",
     // Unicode 2.0 property value: {formatcontrol}
         "\u206a\u206f",
+    // Unicode 2.0 property value: {graph}
+        "\u0021\u007e"+"\u00a1\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"
+      + "\u02b0\u02de"+"\u02e0\u02e9"+"\u0300\u0345"+"\u0360\u0361"
+      + "\u0374\u0375"+"\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"
+      + "\u038c\u038c"+"\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03d6"
+      + "\u03da\u03da"+"\u03dc\u03dc"+"\u03de\u03de"+"\u03e0\u03e0"
+      + "\u03e2\u03f3"+"\u0401\u040c"+"\u040e\u044f"+"\u0451\u045c"
+      + "\u045e\u0486"+"\u0490\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"
+      + "\u04d0\u04eb"+"\u04ee\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"
+      + "\u0559\u055f"+"\u0561\u0587"+"\u0589\u0589"+"\u0591\u05a1"
+      + "\u05a3\u05b9"+"\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"
+      + "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"
+      + "\u0640\u0652"+"\u0660\u066d"+"\u0670\u06b7"+"\u06ba\u06be"
+      + "\u06c0\u06ce"+"\u06d0\u06ed"+"\u06f0\u06f9"+"\u0901\u0903"
+      + "\u0905\u0939"+"\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"
+      + "\u0a8d\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b61"+"\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"
+      + "\u0bb7\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd7\u0bd7"+"\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3e\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c60\u0c61"+"\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbe\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"
+      + "\u0d3e\u0d43"+"\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"
+      + "\u0d60\u0d61"+"\u0d66\u0d6f"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"
+      + "\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"
+      + "\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"
+      + "\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"
+      + "\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"
+      + "\u0ed0\u0ed9"+"\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f69"
+      + "\u0f71\u0f8b"+"\u0f90\u0f95"+"\u0f97\u0f97"+"\u0f99\u0fad"
+      + "\u0fb1\u0fb7"+"\u0fb9\u0fb9"+"\u10a0\u10c5"+"\u10d0\u10f6"
+      + "\u10fb\u10fb"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1e00\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2010\u2027"+"\u2030\u2046"
+      + "\u2070\u2070"+"\u2074\u208e"+"\u20a0\u20ab"+"\u20d0\u20e1"
+      + "\u2100\u2138"+"\u2153\u2182"+"\u2190\u21ea"+"\u2200\u22f1"
+      + "\u2300\u2300"+"\u2302\u237a"+"\u2400\u2424"+"\u2440\u244a"
+      + "\u2460\u24ea"+"\u2500\u2595"+"\u25a0\u25ef"+"\u2600\u2613"
+      + "\u261a\u266f"+"\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"
+      + "\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"
+      + "\u2758\u275e"+"\u2761\u2767"+"\u2776\u2794"+"\u2798\u27af"
+      + "\u27b1\u27be"+"\u3001\u3037"+"\u303f\u303f"+"\u3041\u3094"
+      + "\u3099\u309e"+"\u30a1\u30fe"+"\u3105\u312c"+"\u3131\u318e"
+      + "\u3190\u319f"+"\u3200\u321c"+"\u3220\u3243"+"\u3260\u327b"
+      + "\u327f\u32b0"+"\u32c0\u32cb"+"\u32d0\u32fe"+"\u3300\u3376"
+      + "\u337b\u33dd"+"\u33e0\u33fe"+"\u4e00\u9fa5"+"\uac00\ud7a3"
+      + "\ud800\ufa2d"+"\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1e\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
+      + "\ufdf0\ufdfb"+"\ufe20\ufe23"+"\ufe30\ufe44"+"\ufe49\ufe52"
+      + "\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"
+      + "\ufe76\ufefc"+"\uff01\uff5e"+"\uff61\uffbe"+"\uffc2\uffc7"
+      + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
+      + "\uffe8\uffee"+"\ufffd\ufffd",
     // Unicode 2.0 property value: {hexdigit}
         "\u0030\u0039"+"\u0041\u0046"+"\u0061\u0066"+"\uff10\uff19"
       + "\uff21\uff26"+"\uff41\uff46",
@@ -1068,6 +1217,82 @@ public class Unicode_2_0 {
       + "\uff01\uff03"+"\uff05\uff07"+"\uff0a\uff0a"+"\uff0c\uff0c"
       + "\uff0e\uff0f"+"\uff1a\uff1b"+"\uff1f\uff20"+"\uff3c\uff3c"
       + "\uff61\uff61"+"\uff64\uff65",
+    // Unicode 2.0 property value: {print}
+        "\u0020\u007e"+"\u00a0\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"
+      + "\u02b0\u02de"+"\u02e0\u02e9"+"\u0300\u0345"+"\u0360\u0361"
+      + "\u0374\u0375"+"\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"
+      + "\u038c\u038c"+"\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03d6"
+      + "\u03da\u03da"+"\u03dc\u03dc"+"\u03de\u03de"+"\u03e0\u03e0"
+      + "\u03e2\u03f3"+"\u0401\u040c"+"\u040e\u044f"+"\u0451\u045c"
+      + "\u045e\u0486"+"\u0490\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"
+      + "\u04d0\u04eb"+"\u04ee\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"
+      + "\u0559\u055f"+"\u0561\u0587"+"\u0589\u0589"+"\u0591\u05a1"
+      + "\u05a3\u05b9"+"\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"
+      + "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"
+      + "\u0640\u0652"+"\u0660\u066d"+"\u0670\u06b7"+"\u06ba\u06be"
+      + "\u06c0\u06ce"+"\u06d0\u06ed"+"\u06f0\u06f9"+"\u0901\u0903"
+      + "\u0905\u0939"+"\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"
+      + "\u0a8d\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b61"+"\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"
+      + "\u0bb7\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd7\u0bd7"+"\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3e\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c60\u0c61"+"\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbe\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"
+      + "\u0d3e\u0d43"+"\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"
+      + "\u0d60\u0d61"+"\u0d66\u0d6f"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"
+      + "\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"
+      + "\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"
+      + "\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"
+      + "\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"
+      + "\u0ed0\u0ed9"+"\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f69"
+      + "\u0f71\u0f8b"+"\u0f90\u0f95"+"\u0f97\u0f97"+"\u0f99\u0fad"
+      + "\u0fb1\u0fb7"+"\u0fb9\u0fb9"+"\u10a0\u10c5"+"\u10d0\u10f6"
+      + "\u10fb\u10fb"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1e00\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2027"+"\u202a\u202e"
+      + "\u2030\u2046"+"\u206a\u2070"+"\u2074\u208e"+"\u20a0\u20ab"
+      + "\u20d0\u20e1"+"\u2100\u2138"+"\u2153\u2182"+"\u2190\u21ea"
+      + "\u2200\u22f1"+"\u2300\u2300"+"\u2302\u237a"+"\u2400\u2424"
+      + "\u2440\u244a"+"\u2460\u24ea"+"\u2500\u2595"+"\u25a0\u25ef"
+      + "\u2600\u2613"+"\u261a\u266f"+"\u2701\u2704"+"\u2706\u2709"
+      + "\u270c\u2727"+"\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"
+      + "\u2756\u2756"+"\u2758\u275e"+"\u2761\u2767"+"\u2776\u2794"
+      + "\u2798\u27af"+"\u27b1\u27be"+"\u3000\u3037"+"\u303f\u303f"
+      + "\u3041\u3094"+"\u3099\u309e"+"\u30a1\u30fe"+"\u3105\u312c"
+      + "\u3131\u318e"+"\u3190\u319f"+"\u3200\u321c"+"\u3220\u3243"
+      + "\u3260\u327b"+"\u327f\u32b0"+"\u32c0\u32cb"+"\u32d0\u32fe"
+      + "\u3300\u3376"+"\u337b\u33dd"+"\u33e0\u33fe"+"\u4e00\u9fa5"
+      + "\uac00\ud7a3"+"\ud800\ufa2d"+"\ufb00\ufb06"+"\ufb13\ufb17"
+      + "\ufb1e\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"
+      + "\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"
+      + "\ufd92\ufdc7"+"\ufdf0\ufdfb"+"\ufe20\ufe23"+"\ufe30\ufe44"
+      + "\ufe49\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe72"
+      + "\ufe74\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uff5e"
+      + "\uff61\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"
+      + "\uffda\uffdc"+"\uffe0\uffe6"+"\uffe8\uffee"+"\ufffd\ufffd",
     // Unicode 2.0 property value: {privateuse}
         "\ue000\uf8ff",
     // Unicode 2.0 property value: {ps}
@@ -1232,6 +1457,12 @@ public class Unicode_2_0 {
         "\000\000"+"\t\r"+"\u0020\u0020"+"\u00a0\u00a0"
       + "\u2000\u200f"+"\u2028\u202e"+"\u206a\u206f"+"\u3000\u3000"
       + "\ufeff\ufeff",
+    // Unicode 2.0 property value: {xdigit}
+        "\u0030\u0039"+"\u0041\u0046"+"\u0061\u0066"+"\u0660\u0669"
+      + "\u06f0\u06f9"+"\u0966\u096f"+"\u09e6\u09ef"+"\u0a66\u0a6f"
+      + "\u0ae6\u0aef"+"\u0b66\u0b6f"+"\u0be7\u0bef"+"\u0c66\u0c6f"
+      + "\u0ce6\u0cef"+"\u0d66\u0d6f"+"\u0e50\u0e59"+"\u0ed0\u0ed9"
+      + "\u0f20\u0f29"+"\uff10\uff19"+"\uff21\uff26"+"\uff41\uff46",
     // Unicode 2.0 property value: {zerowidth}
         "\u200b\u200f"+"\u202a\u202e"+"\u206a\u206f"+"\ufeff\ufeff",
     // Unicode 2.0 property value: {zl}

@@ -259,6 +259,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       // is not a beta version, so we can proceed to fetch, parse, and emit.
       UnicodeVersion unicodeVersion = new UnicodeVersion(version, dataFiles);
       unicodeVersion.fetchAndParseDataFiles(getLog());
+      unicodeVersion.addCompatibilityProperties();
       unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
       getLog().info("Completed downloading and parsing Unicode "
                     + unicodeVersion.majorMinorVersion + " data.\n");
