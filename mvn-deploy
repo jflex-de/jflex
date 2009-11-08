@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# 
+# This script deploys the current working copy into the jflex maven 
+# repository as the version given below.
+#
+
+VERSION=1.4.3
+
+
+echo "--- building from current working copy, delpoying as $VERSION"
+
+cd jflex/src
+ant gettools
+ant build || exit 1
+cd ..
+
+
+echo "--- deploying jflex jar"
+
+mvn deploy:deploy-file -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-$VERSION.pom -Durl=scp://web.sourceforge.net/home/groups/j/jf/jflex/htdocs/m2repo -DgroupId=de.jflex -DartifactId=jflex -Dversion=$VERSION -Dpackaging=jar -DperformRelease=true || exit 1
+
+mvn install:install-file  -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-$VERSION.pom -DgroupId=de.jflex -DartifactId=jflex -Dversion=$VERSION -Dpackaging=jar -DperformRelease=true || exit 1
+
+
+echo "--- deploing maven plugin"
+
+cd ../maven-jflex-plugin
+mvn -Prelease install deploy site
+
