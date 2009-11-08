@@ -1,7 +1,0 @@
-name: caseless
-
-description:
-tests %ignorecase with jflex semantics (only strings and chars are caseless)
-
-jflex: -q --jlex
-

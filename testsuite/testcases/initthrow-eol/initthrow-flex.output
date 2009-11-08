@@ -1,7 +1,0 @@
-Reading "testcases/initthrow-eol/initthrow.flex"
-Constructing NFA : 12 states in NFA
-Converting NFA to DFA : 
-.....
-7 states before minimization, 6 states in minimized DFA
-Old file "testcases/initthrow-eol/Initthrow.java" saved as "testcases/initthrow-eol/Initthrow.java~"
-Writing code to "testcases/initthrow-eol/Initthrow.java"

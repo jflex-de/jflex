@@ -1,0 +1,11 @@
+name: UnicodeGeneralCategorySingleLetter_1_1
+
+description: 
+Tests the Unicode single letter general category property character class syntax
+for all single letter general category properties supported in Unicode 1.1
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input

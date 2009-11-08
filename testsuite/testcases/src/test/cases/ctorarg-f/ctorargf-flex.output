@@ -1,0 +1,5 @@
+
+Error in file "src/test/cases/ctorarg-f/ctorargf.flex" (line 10): 
+Expected an identifier for constructor argument name.
+%ctorarg Object 2y
+                ^

@@ -1,0 +1,35 @@
+ -----------
+ JFlex
+ -----------
+ 
+About
+
+  JFlex is a lexical analyzer generator (also known as scanner generator) 
+  for {{{http://java.sun.com}Java(tm)}}, written in Java(tm). 
+  It is also a rewrite of the very useful
+  tool {{{http://www.cs.princeton.edu/~appel/modern/java/JLex/}JLex}} which
+  was developed by Elliot Berk at Princeton University. 
+  As Vern Paxson states for his C/C++ tool flex: They do not share any 
+  code though.
+
+  JFlex is designed to work together with the 
+  {{{http://www2.cs.tum.edu/projects/cup/}LALR parser generator CUP}} 
+  by Scott Hudson, and the Java modification of Berkeley 
+  {{{http://byaccj.sourceforge.net/}Yacc BYacc/J}} by Bob Jamison. 
+  It can also be used together with other parser generators 
+  like {{{http://www.antlr.org/}ANTLR}} or as a standalone tool.
+
+Frequently asked questions
+
+* Why should I use JFlex and not JLex? 
+
+  Well, you might want to take a look at the 
+  {{{features.html}features of JFlex}}.
+
+* Is it free?
+
+  Yes. 
+  It is released under the {{{license.html}GPL}} and available for 
+  free download. 
+  
+  Code you generate with JFlex is not covered by the GPL, it is yours. 

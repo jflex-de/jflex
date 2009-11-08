@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.jflex</groupId>
+  <artifactId>jflex-testsuite-parent</artifactId>
+  <version>1</version>
+  <name>JFlex test suite parent POM</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>jflex-testsuite-maven-plugin</module>
+    <!-- The testcases module can only be successfully run from its own   -->
+    <!-- directory; otherwise, relative path specifications don't resolve -->
+    <!-- properly.                                                        -->
+    <!-- <module>testcases</module> -->
+  </modules>
+</project>

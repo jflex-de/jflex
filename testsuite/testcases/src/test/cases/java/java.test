@@ -1,0 +1,10 @@
+name: java
+
+description:
+cut-down version of the java lexer example with some java input files.
+does not do unicode espaces or return java_cup symbols.
+
+jflex: 
+
+input-file-encoding: iso-8859-1
+output-file-encoding: iso-8859-1

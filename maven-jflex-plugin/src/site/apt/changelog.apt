@@ -1,0 +1,70 @@
+ ---------
+ Changelog
+ ---------
+
+Latest version
+
+* Version 1.5.0
+
+  * Relies on JFlex 1.5.0
+ 
+  * Requires Java 5
+
+  * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven
+
+  
+Recent versions
+
+* Version 1.4.3-r1
+
+  * Java 1.3 bytecode
+
+  * Relies no JFlex 1.4.3
+
+* Version 1.4.2-r1
+
+  * Java 1.3 bytecode
+
+  * Relies no JFlex 1.4.2
+  
+
+* Version 0.3
+
+  * Java 1.4 bytecode
+
+  * relies on JFlex 1.4.1
+  
+  * new option staleMillis
+  
+  * more reports on site
+  
+  * code improvements
+  
+
+Alpha versions
+
+* Version 0.2
+
+  * Java 5 bytecode
+  
+  * new options added: generationMethod, minimize, backup
+  
+  * enhanced documentation
+  
+  * many code improvements
+  
+  ** use file comparison, prefer available functionality from File 
+     class to avoid manual string twiddling
+     
+  ** fix testInit(): the generated file size depends on the platform 
+     (because of how new lines are encoded)
+     
+  ** improve unit test with AbstractMojoTestCase
+  
+  * changed package from de.jflex.maven.plugin to org.codehaus.maven.plugin
+  
+* Version 0.1
+
+  * Java 5 bytecode
+  
+  * Generates Java code from lex files, using JFlex 1.4.1

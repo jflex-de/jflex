@@ -30,9 +30,7 @@ import java.util.*;
  * the predecessor. Lookup takes predecessors into account.
  */ 
 public class SymTab {
-  Hashtable h;        // contains the liste of words
-                      // key: String, value: SymtabEntry
-  
+  Map<String,SymtabEntry> m;   // contains the list of words
   SymTab pred;  // predecessor symbol table (if exists)
 
   public SymTab() {
@@ -40,39 +38,36 @@ public class SymTab {
   }
 
   public SymTab(SymTab p) {
-    h    = new Hashtable();
+    m = new HashMap<String,SymtabEntry>();
     pred = p;
   }
 
   public boolean enter(String s, SymtabEntry e) {
     Object value = lookup(s);
-    h.put(s, e);
+    m.put(s, e);
     return(value==null);
   }
 
   public SymtabEntry lookup(String s) {
-    Object value = h.get(s);
+    SymtabEntry value = m.get(s);
     if (value==null && pred!=null)
       value = pred.lookup(s);
-    return ((SymtabEntry)value);
+    return value;
   }
 
   public String toString() {    // for output with print
-    String res    = "symbol table\n=============\n";
-    Enumeration e = h.keys();
-    String key;
+    StringBuilder res = new StringBuilder("symbol table\n=============\n");
     
-    while(e.hasMoreElements()) {
-      key = (String)e.nextElement();
-      res += key+"   \t"+h.get(key)+"\n";
-    }
+    for (Map.Entry<String,SymtabEntry> entry : m.entrySet())
+      res.append(entry.getKey()).append("   \t").append(entry.getValue()).append("\n");
 
-    if (pred!=null) res+="++ predecessor!\n";
-    return(res);
+    if (pred != null)
+      res.append("++ predecessor!\n");
+
+    return res.toString();
   }
 
   public int size() {
-    return(h.size()); 
+    return(m.size()); 
   }
 }
-

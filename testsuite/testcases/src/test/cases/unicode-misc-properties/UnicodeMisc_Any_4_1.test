@@ -1,0 +1,11 @@
+name: UnicodeMisc_Any_4_1
+
+description: 
+Tests character class syntax of the Unicode 4.1 'Any' property.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

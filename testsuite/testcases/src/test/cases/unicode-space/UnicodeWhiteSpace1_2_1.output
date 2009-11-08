@@ -1,0 +1,14 @@
+0000..0008; Not-Whitespace
+0009..000D; Whitespace
+000E..001F; Not-Whitespace
+0020..0020; Whitespace
+0021..009F; Not-Whitespace
+00A0..00A0; Whitespace
+00A1..1FFF; Not-Whitespace
+2000..200B; Whitespace
+200C..2027; Not-Whitespace
+2028..2029; Whitespace
+202A..2FFF; Not-Whitespace
+3000..3000; Whitespace
+3001..D7FF; Not-Whitespace
+E000..FFFD; Not-Whitespace

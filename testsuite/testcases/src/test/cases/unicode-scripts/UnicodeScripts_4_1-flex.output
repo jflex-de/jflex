@@ -1,0 +1,40 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 25): 
+Rule can never be matched:
+\p{Cypriot} { setCurCharPropertyValue("Cypriot"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 27): 
+Rule can never be matched:
+\p{Deseret} { setCurCharPropertyValue("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 32): 
+Rule can never be matched:
+\p{Gothic} { setCurCharPropertyValue("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 44): 
+Rule can never be matched:
+\p{Kharoshthi} { setCurCharPropertyValue("Kharoshthi"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 49): 
+Rule can never be matched:
+\p{Linear B} { setCurCharPropertyValue("Linear B"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 55): 
+Rule can never be matched:
+\p{Old Italic} { setCurCharPropertyValue("Old Italic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 56): 
+Rule can never be matched:
+\p{Old Persian} { setCurCharPropertyValue("Old Persian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 58): 
+Rule can never be matched:
+\p{Osmanya} { setCurCharPropertyValue("Osmanya"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 60): 
+Rule can never be matched:
+\p{Shavian} { setCurCharPropertyValue("Shavian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScripts_4_1.flex" (line 73): 
+Rule can never be matched:
+\p{Ugaritic} { setCurCharPropertyValue("Ugaritic"); }

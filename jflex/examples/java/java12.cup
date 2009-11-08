@@ -45,7 +45,7 @@ JDK 1.2 Features added:
 
 parser code  {: 
   public void report_error(String message, Object info) {
-    StringBuffer m = new StringBuffer("Error ");
+    StringBuilder m = new StringBuilder("Error ");
 
     if (info instanceof java_cup.runtime.Symbol) 
       m.append( "("+info.toString()+")" );

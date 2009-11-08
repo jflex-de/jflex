@@ -1,0 +1,12 @@
+name: UnicodePropList_Other_Default_Ignorable_Code_Point_4_1
+
+description: 
+Tests character class syntax of the Unicode 4.1 'Other_Default_Ignorable_Code_Point' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

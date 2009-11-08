@@ -1,7 +1,0 @@
-Reading "testcases/eof-min/eofmin.flex"
-Constructing NFA : 10 states in NFA
-Converting NFA to DFA : 
-...
-7 states before minimization, 4 states in minimized DFA
-Old file "testcases/eof-min/Eofmin.java" saved as "testcases/eof-min/Eofmin.java~"
-Writing code to "testcases/eof-min/Eofmin.java"

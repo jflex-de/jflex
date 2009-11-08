@@ -1,0 +1,12 @@
+name: UnicodeWord2_2_0
+
+description: 
+Tests character class syntax of the Unicode 2.0 Word property
+using the '\w' syntax.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

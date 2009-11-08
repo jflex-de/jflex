@@ -1,0 +1,6 @@
+0000..1400; Not Canadian Aboriginal
+1401..166C; Canadian Aboriginal
+166D..166E; Not Canadian Aboriginal
+166F..1676; Canadian Aboriginal
+1677..D7FF; Not Canadian Aboriginal
+E000..FFFD; Not Canadian Aboriginal

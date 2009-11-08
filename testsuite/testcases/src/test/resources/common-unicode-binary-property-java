@@ -1,0 +1,28 @@
+%{
+  private static final int maxCodePoint = 0xFFFD;
+  private final boolean[] propertyValues = new boolean[maxCodePoint + 1];
+  
+  private void printOutput() {
+    int codePoint = 0;
+    while (codePoint <= maxCodePoint) {
+      // First, find start point
+      while (codePoint <= maxCodePoint && ! propertyValues[codePoint]) {
+        ++codePoint;
+      }
+      if (codePoint > maxCodePoint) {
+        break; // No start point available
+      }
+      int begin = codePoint;
+      // Second, find next undefined point (one char beyond the end point)
+      while (codePoint <= maxCodePoint && propertyValues[codePoint]) {
+        ++codePoint;
+      }
+      int end = codePoint - 1;
+      System.out.format("%04X..%04X%n", begin, end);    
+    }
+  }
+
+  private void setCurCharPropertyValue() {
+    propertyValues[ (int)yytext().charAt(0) ] = true;
+  }
+%} 

@@ -1,0 +1,12 @@
+name: UnicodePropList_Ideographic_3_1
+
+description: 
+Tests character class syntax of the Unicode 3.1 'Ideographic' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

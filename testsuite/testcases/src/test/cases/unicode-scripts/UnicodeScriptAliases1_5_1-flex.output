@@ -1,0 +1,60 @@
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 23): 
+Rule can never be matched:
+\p{cari} { setCurCharPropertyValue("Carian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 27): 
+Rule can never be matched:
+\p{cprt} { setCurCharPropertyValue("Cypriot"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 30): 
+Rule can never be matched:
+\p{dsrt} { setCurCharPropertyValue("Deseret"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 34): 
+Rule can never be matched:
+\p{goth} { setCurCharPropertyValue("Gothic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 44): 
+Rule can never be matched:
+\p{ital} { setCurCharPropertyValue("Old Italic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 47): 
+Rule can never be matched:
+\p{khar} { setCurCharPropertyValue("Kharoshthi"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 54): 
+Rule can never be matched:
+\p{linb} { setCurCharPropertyValue("Linearb"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 55): 
+Rule can never be matched:
+\p{lyci} { setCurCharPropertyValue("Lycian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 56): 
+Rule can never be matched:
+\p{lydi} { setCurCharPropertyValue("Lydian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 64): 
+Rule can never be matched:
+\p{osma} { setCurCharPropertyValue("Osmanya"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 66): 
+Rule can never be matched:
+\p{phnx} { setCurCharPropertyValue("Phoenician"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 71): 
+Rule can never be matched:
+\p{shaw} { setCurCharPropertyValue("Shavian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 86): 
+Rule can never be matched:
+\p{ugar} { setCurCharPropertyValue("Ugaritic"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 88): 
+Rule can never be matched:
+\p{xpeo} { setCurCharPropertyValue("Old Persian"); }
+
+Warning in file "src/test/cases/unicode-scripts/UnicodeScriptAliases1_5_1.flex" (line 89): 
+Rule can never be matched:
+\p{xsux} { setCurCharPropertyValue("Cuneiform"); }

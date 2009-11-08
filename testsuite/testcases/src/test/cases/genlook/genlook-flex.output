@@ -1,0 +1,7 @@
+Reading "src/test/cases/genlook/genlook.flex"
+Constructing NFA : 54 states in NFA
+Converting NFA to DFA : 
+..............
+20 states before minimization, 14 states in minimized DFA
+Old file "src/test/cases/genlook/Genlook.java" saved as "src/test/cases/genlook/Genlook.java~"
+Writing code to "src/test/cases/genlook/Genlook.java"

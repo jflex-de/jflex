@@ -1,0 +1,11 @@
+name: UnicodeBlocks_3_2
+
+description: 
+Tests the Unicode block property character class syntax
+for all blocks supported in Unicode 3.2
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input

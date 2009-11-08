@@ -1,7 +1,0 @@
-name: java
-
-description:
-cut-down version of the java lexer example with some java input files.
-does not do unicode espaces or return java_cup symbols.
-
-jflex: 

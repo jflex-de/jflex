@@ -8,7 +8,6 @@
   </parent>
   <artifactId>standalone-maven</artifactId>
   <version>0.1</version>
-  <name>A standalone test substitution scanner</name>
   <description>This is a small example of a standalone text substitution scanner.
 
 It reads a name after the keyword name and replaces all occurences

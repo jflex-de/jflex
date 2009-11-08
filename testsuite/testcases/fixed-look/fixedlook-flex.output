@@ -1,7 +1,0 @@
-Reading "testcases/fixed-look/fixedlook.flex"
-Constructing NFA : 45 states in NFA
-Converting NFA to DFA : 
-........................
-26 states before minimization, 25 states in minimized DFA
-Old file "testcases/fixed-look/Fixedlook.java" saved as "testcases/fixed-look/Fixedlook.java~"
-Writing code to "testcases/fixed-look/Fixedlook.java"

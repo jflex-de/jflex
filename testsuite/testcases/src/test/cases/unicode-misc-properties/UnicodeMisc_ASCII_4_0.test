@@ -1,0 +1,11 @@
+name: UnicodeMisc_ASCII_4_0
+
+description: 
+Tests character class syntax of the Unicode 4.0 'ASCII' property.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

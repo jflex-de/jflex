@@ -1,0 +1,12 @@
+name: UnicodePropList_Non_break_3_0
+
+description: 
+Tests character class syntax of the Unicode 3.0 'Non-break' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

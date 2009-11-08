@@ -1,0 +1,12 @@
+name: UnicodeLetter_5_1
+
+description: 
+Tests character class syntax of the Unicode 5.1 Letter property
+using the '[:letter:]' syntax.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+
