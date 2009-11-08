@@ -117,6 +117,7 @@ Usage
         <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
         <version>1.5.0</version>
+        <version>1.4.3</version>
         <executions>
           <execution>
             <id>strict jlex</id>
@@ -166,3 +167,4 @@ Usage
 
   * maven-jflex-plugin-1.5.0 depends on JFlex 1.5.0
     and requires Java 5
+
