@@ -12,10 +12,10 @@ About this document
 	This document describes how to use maven-jflex-plugin, 
 	a Maven 2 plugin to call JFlex.
 	
-	JFlex is a parser generator. Given a grammar,  JFlex generate
+	JFlex is a parser generator. Given a grammar, JFlex generates
 	Java (TM) code to parse documents that follow this grammar.
-	This document isn't intended to be a tutorial on the use of JFlex,
-	you should consult the {{{http://www.jflex.de/manual.html}JFlex user manual}}	
+	This document is not intended to be a tutorial on the use of JFlex; for
+	more information, consult the {{{http://www.jflex.de/manual.html}JFlex user manual}}	
 
 Usage
  
@@ -69,7 +69,7 @@ Usage
 	 <<</pub/postrocessor.jflex>>>) as well as all grammar files found in 
 	 <<<src/main/jflex>>> (and it sub-directories).
 	 The generated Java code is placed into <<<src/main/java>>> instead of
-	 <<</target/generated-sources/jflex>>>.
+	 <<<target/generated-sources/jflex>>>.
 
   in <<pom.xml>>
 
@@ -108,7 +108,7 @@ Usage
 	<<<src/main/lex/>>>, using strict JLex compatibility.
 	
 	* and all files found in 
-	 <<</src/main/jflex>>>, in verbose mode.
+	 <<<src/main/jflex>>>, in verbose mode.
 
   in <<pom.xml>>
 
