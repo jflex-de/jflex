@@ -267,7 +267,7 @@ EscapeSequence = \\[^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]|\\+u{HexDigit}{
 JavaRest = [^\{\}\"\'/]|"/"[^*/]
 JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
 
-DottedVersion =  [1-9][0-9]*(\.([1-9][0-9]*|[0-9]+)){0,2}
+DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 %%
 
