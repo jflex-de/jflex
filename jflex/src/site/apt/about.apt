@@ -29,7 +29,6 @@ Frequently asked questions
 * Is it free?
 
   Yes. 
-  It is released under the {{{license.html}GPL}} and available for 
+  As of version 1.5, JFlex is released under a BSD license. It is available for
   free download. 
   
-  Code you generate with JFlex is not covered by the GPL, it is yours. 
