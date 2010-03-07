@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.4.3                                                             *
+ * JFlex 1.5                                                               *
  * Copyright (C) 1998-2009  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -14,7 +14,7 @@ package jflex;
  * Very similar to java.util.BitSet, but is faster and doesn't crash
  *
  * @author Gerwin Klein
- * @version JFlex 1.4.3, $Revision$, $Date$
+ * @version JFlex 1.5, $Revision$, $Date$
  */
 final public class StateSet {
 
