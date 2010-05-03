@@ -13,7 +13,7 @@
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <!--
-      Cannot be included because of (errorneous) circular dependency
+      Cannot be included because of (erroneous) circular dependency
       de.jflex:jflex-1.5 (uses plugin)-> de.jflex:maven-jflex-plugin-1.0
       (depends on)-> de.jflex:jflex-1.4.2 See MNG-3814
       (http://jira.codehaus.org/browse/MNG-3814)
