@@ -13,9 +13,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>de.jflex.maven.plugin</groupId>
+				<groupId>de.jflex</groupId>
 				<artifactId>maven-jflex-plugin</artifactId>
-				<version>0.2</version>
+				<version>1.4.3</version>
 				<executions>
 					<execution>
 						<goals>
