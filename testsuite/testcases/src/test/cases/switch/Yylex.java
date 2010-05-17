@@ -333,6 +333,8 @@ public class Yylex {
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
    * Lexical state is set to <tt>ZZ_INITIAL</tt>.
    *
+   * Internal scan buffer is resized down to its initial length, if it has grown.
+   *
    * @param reader   the new input stream 
    */
   private final void yyreset(java.io.Reader reader) {
@@ -343,6 +345,8 @@ public class Yylex {
     zzCurrentPos = zzMarkedPos = zzPushbackPos = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
+    if (zzBuffer.length > ZZ_BUFFERSIZE)
+      zzBuffer = new char[ZZ_BUFFERSIZE];
   }
 
 

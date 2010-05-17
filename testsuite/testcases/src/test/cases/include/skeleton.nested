@@ -250,6 +250,8 @@
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
    * Lexical state is set to <tt>ZZ_INITIAL</tt>.
    *
+   * Internal scan buffer is resized down to its initial length, if it has grown.
+   *
    * @param reader   the new input stream 
    *
    * @see #yypushStream(java.io.Reader)
@@ -263,6 +265,8 @@
     zzCurrentPos = zzMarkedPos = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
+    if (zzBuffer.length > ZZ_BUFFERSIZE)
+      zzBuffer = new char[ZZ_BUFFERSIZE];
   }
 
 
