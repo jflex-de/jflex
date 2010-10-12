@@ -31,7 +31,7 @@ GetOptions("version=s"=>\$version, "s=s"=>\$input_filename);
 unless ($version && $input_filename
 	&& -f $input_filename && -r $input_filename)
 {
-    print STDERR "Usage: $0 -v <version> -b <Scripts-file>\n";
+    print STDERR "Usage: $0 -v <version> -s <Scripts-file>\n";
     exit(1);
 }
 

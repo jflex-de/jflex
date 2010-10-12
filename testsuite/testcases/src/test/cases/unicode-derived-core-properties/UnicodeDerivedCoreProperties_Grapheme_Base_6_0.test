@@ -1,0 +1,12 @@
+name: UnicodeDerivedCoreProperties_Grapheme_Base_6_0
+
+description: 
+Tests character class syntax of the Unicode 6.0 'Grapheme_Base' property,
+defined in DerivedCoreProperties(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

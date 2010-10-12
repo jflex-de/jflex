@@ -30,7 +30,7 @@ GetOptions("version=s"=>\$version, "d=s"=>\$input_filename);
 unless ($version && $input_filename
 	&& -f $input_filename && -r $input_filename)
 {
-    print STDERR "Usage: $0 -v <version> -d <UnicodeData-file>\n",
+    print STDERR "Usage: $0 -v <version> -d <UnicodeData-file>\n";
     exit(1);
 }
 
