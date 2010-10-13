@@ -1,0 +1,9 @@
+name: UnicodeGraphemeBreakRules_6_0
+
+description: 
+Implements the Unicode Grapheme Break rules, specified in UAX #29 
+<http://www.unicode.org/reports/tr29/tr29-17.html>.
+
+jflex: -q
+
+input-file-encoding: UTF-8
