@@ -109,23 +109,23 @@ Se voc\^e descompactou em, digamos, \verb+C:\+, a seguinte \'arvore de diret\'or
 {\xsmall
 \begin{verbatim}
 C:\JFlex\                          
-      +--bin\                   (scripts de inicializa\c{c}\~ao) 
+      +--bin\                   (scripts de inicializacao) 
       +--doc\                   (FAQ e manual)
       +--examples\ 
-               +--binary\       (arquivos bin\'arios de leitura)
+               +--binary\       (arquivos binarios de leitura)
                +--byaccj\       (exemplo de calculadora para o BYacc/J)
                +--cup\          (exemplo de calculadora para o cup)
                +--interpreter\  (exemplo de interpretador para o cup)
-               +--java\         (especifica\c{c}\~ao do esc\^aner Java) 
-               +--simple\       (examplo de esc\^aner)
+               +--java\         (especifica\c{c}\~ao do escaner Java) 
+               +--simple\       (examplo de escaner)
                +--simple-maven\ (examplo com o Maven)
-               +--standalone\   (um esc\^aner independente simples)
-               +--standalone-maven\  (o mesmo de cima, com Mavem)
+               +--standalone\   (um escaner independente simples)
+               +--standalone-maven\  (o mesmo de cima, com Maven)
       +--lib\                   (classes precompiladas) 
       +--src\ 
-          +--JFlex\             (c\'odigo-fonte do JFlex) 
-          +--JFlex\gui          (c\'odigo-fonte das classes de interface gr\'afica do JFlex)
-          +--java_cup\runtime\  (c\'odigo-fonte das classes de execu\c{c}\~ao do cup) 
+          +--JFlex\             (codigo-fonte do JFlex) 
+          +--JFlex\gui          (codigo-fonte das classes de interface grafica do JFlex)
+          +--java_cup\runtime\  (codigo-fonte das classes de execucao do cup) 
 \end{verbatim}
 }
 
@@ -136,168 +136,159 @@ de modo que
 
 \begin{itemize}
 \item
-  {\bf \texttt{JAVA\_HOME}} contains the directory where your Java JDK is installed
-  (for instance \verb+C:\java+) and
+  {\bf \texttt{JAVA\_HOME}} contenha o diretório onde sua JDK Java est\'a instalada
+  (por exemplo \verb+C:\java+) e
 \item
-  {\bf \texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
+  {\bf \texttt{JFLEX\_HOME}} seja o diretório que cont\'em o JFlex (no exemplo:
   \verb+C:\JFlex+) 
 \end{itemize}
  
 \item
-Include the \verb+bin\+ directory of JFlex in your path.
-(the one that contains the start script, in the example: \verb+C:\JFlex\bin+).
+Inclua o diret\'orio \verb+bin\+ do JFlex no seu path.
+(aquele que cont\'em o script de inicializa\c{c}\~ao; no exemplo: \verb+C:\JFlex\bin+).
 \end{enumerate}
 
-\subsubsection{Unix with tar archive}
+\subsubsection{Unix com arquivo tar}
 
-To install JFlex on a Unix system, follow these two steps:
+Para instalar o JFlex em um sistema Unix, basta seguir esses dois passos:
 \begin{itemize}
 \item
-  Decompress the archive into a directory of your choice
-  with GNU tar, for instance to \texttt{/usr/share}:
+  Descompacte o arquivo em um diret\'orio \`a sua escolha com o GNU tar. Por exemplo, se quiser descompactar para o diret\'orio \texttt{/usr/share}:
 
   \texttt{tar -C /usr/share -xvzf jflex-\ver.tar.gz}
   
-  (The example is for site wide installation. You need to
-  be root for that. User installation works exactly the
-  same way---just choose a directory where you have write
-  permission)
+  (Esse exemplo \'e para instala\c{c}\~ao acess\'ivel a todos os usu\'arios da m\'aquina. Para isso voc\^e precisa ser
+  root. Uma instala\c{c}\~ao para um \'unico usu\'ario funciona exatamente da mesma maneira --- basta selecionar
+  um diret\'orio no qual voc\^e tem permiss\~ao de escrita)
 
 \item
-  Make a symbolic link from somewhere in your binary 
-  path to \texttt{bin/jflex}, for instance:
+  Crie um link simb\'olico de algum lugar do seu path de bin\'arios para \texttt{bin/jflex}. Por exemplo:
 
   \texttt{ln -s /usr/share/JFlex/bin/jflex /usr/bin/jflex}
 
-  If the Java interpreter is not in your binary path, you
-  need to supply its location in the script \texttt{bin/jflex}.
+  Se o interpretador Java n\~ao estiver no seu path de bin\'arios, voc\^e precisa fornecer sua localiza\c{c}\~ao no script \texttt{bin/jflex}.
 \end{itemize}
 
-You can verify the integrity of the downloaded file with
-the MD5 checksum available on the \htmladdnormallink{JFlex download page}{http://www.jflex.de/download.html}. 
-If you put the checksum file in the same directory
-as the archive, you run:
+Voc\^e pode verificar a integridade do arquivo baixado com o checksum MD5,
+dispon\'ivel em \htmladdnormallink{JFlex download page}{http://www.jflex.de/download.html}. 
+Se voc\^e puser o arquivo de checksum no mesmo diret\'orio do arquivo baixado, \'e s\'o executar:
 
 \verb+md5sum --check +\texttt{jflex-\ver.tar.gz.md5}
 
-It should tell you
+E ele deve lhe dizer
 
 \texttt{jflex-\ver.tar.gz: OK}
 
-\subsubsection{Linux with RPM}
+\subsubsection{Linux com RPM}
 
 \begin{itemize}
 \item
-  become root
-\item issue\\
+  Se torne root
+\item execute\\
   \texttt{rpm -U jflex-\ver-0.rpm}
 \end{itemize}
 
-You can verify the integrity of the downloaded \texttt{rpm} file with
+Voc\^e pode verificar a integridade do arquivo \texttt{rpm} baixado com
 
 \verb+rpm --checksig +\texttt{jflex-\ver-0.rpm}
 
 
-\subsection{Running JFlex}
-You run JFlex with:
+\subsection{Executando o JFlex}
+Voc\^e pode executar o JFlex com:
 
-\texttt{jflex <options> <inputfiles>}
+\texttt{jflex <op\c{c}\~oes> <arquivos_de_entrada>}
 
-It is also possible to skip the start script in \verb+bin\+
-and include the file \verb+lib\JFlex.jar+
-in your \texttt{CLASSPATH} environment variable instead.
+Voc\^e tamb\'em pode pular a execu\c{c}\~ao do script de inicializa\c{c}\~ao \verb+bin\+
+e, ao inv\'es disso, incluir diretamente o arquivo \verb+lib\JFlex.jar+
+na sua vari\'avel de ambiente \texttt{CLASSPATH}.
 
-Then you run JFlex with:
+Ent\~ao voc\^e pode executar o JFlex assim:
 
-\texttt{java JFlex.Main <options> <inputfiles>}
+\texttt{java JFlex.Main <op\c{c}\~oes> <arquivos_de_entrada>}
 
-The input files and options are in both cases optional. If you don't provide a file name on
-the command line, JFlex will pop up a window to ask you for one.
+Os arquivos de entrada e as op\c{c}\~oes s\~ao ambos opcionais. Se voc\^e n\~ao fornecer um nome de arquivo na linha de comando, o JFlex vai
+abrir uma janela para pedir por um.
 
-JFlex knows about the following options:
+O JFlex reconhece as seguintes op\c{c}\~oes:
 
 \begin{description}
-\item \verb+-d <directory>+\\
-  writes the generated file to the directory \verb+<directory>+
+\item \verb+-d <diretorio>+\\
+  escreve o arquivo gerado no diret\'orio \verb+<diretorio>+
   
 
-\item \verb+--skel <file>+\\
-  uses external skeleton \verb+<file>+. This is mainly for JFlex
-  maintenance and special low level customisations. Use only when you
-  know what you are doing! JFlex comes with a skeleton file in the
-  \texttt{src} directory that reflects exactly the internal, pre-compiled
-  skeleton and can be used with the \texttt{-skel} option.
+\item \verb+--skel <arquivo>+\\
+  usa o esqueleto externo \verb+<arquivo>+. Essa op\c{c}\~ao serve principalmente para
+  manuten\c{c}\~ao do JFlex e customiza\c{c}\~oes especiais de baixo n\'ivel. Use somente se
+  souber o que est\'a fazendo! O JFlex vem com um arquivo de esqueleto no diret\'orio
+  \texttt{src} que reflete exatamente o esqueleto interno pr\'e-compilado e que pode ser
+  usado com a op\c{c}\~ao \texttt{-skel}.
 
 \item \verb+--nomin+\\
-  skip the DFA minimisation step during scanner generation.
+  pula o passo de minimiza\c{c}\~ao do AFD durante a gera\c{c}\~ao do esc\^aner.
 
 \item \verb+--jlex+\\
-  tries even harder to comply to JLex interpretation of specs.
+  tenta fortemente se adequar \`a interpreta\c{c}\~ao das especifica\c{c}\~oes do JLex.
 
 \item \verb+--dot+\\
-  generate graphviz dot files for the NFA, DFA and minimised 
-  DFA. This feature is still in alpha status, and not
-  fully implemented yet. 
+  gera arquivos graphviz dot para o AFND, o AFD e o AFD minimizado. Esse recurso ainda est\'a em fase de testes
+  e n\~ao est\'a totalmente implementado ainda.
 
 \item \verb+--dump+\\
-  display transition tables of NFA, initial DFA, and minimised DFA 
+  mostra as tabelas de transi\c{c}\~a do AFND, do AFD inicial e do AFD minimizado.
 
 \item \verb+--verbose+ or \texttt{-v}\\
-  display generation progress messages (enabled by default)
+  mostra mensagens de progresso durante a gera\{c}\~ao (habilitado por padr\~ao)
 
 \item \verb+--quiet+ or \texttt{-q}\\
-  display error messages only (no chatter about what JFlex is
-  currently doing)
+  mostra somente mensagens de erro (n\~ao mostra o que o JFlex est\'a fazendo no momento)
 
 \item \verb+--time+\\
-  display time statistics about the code generation process
-  (not very accurate)
+  mostra estat\'isticas de tempo sobre o processo de gera\c{c}\~ao de c\'odigo
+  (n\~ao \'e muito exato)
 
 \item \verb+--version+\\
-  print version number 
+  mostra o n\'umero de vers\~ao
 
 \item \verb+--info+\\
-  print system and JDK information (useful if you'd like
-  to report a problem)
+  mostra informa\c{c}\~oes de sistema e da JDK (\'util para quando for reportar um problema)
 
 \item \verb+--pack+\\
-  use the \%pack code generation method by default
+  usa o m\'etodo de gera\c{c}\~ao de c\'odigo \%pack por padr\~ao
 
 \item \verb+--table+\\
-  use the \%table code generation method by default
+  usa o m\'etodo de gera\c{c}\~ao de c\'odigo \%table por padr\~ao
 
 \item \verb+--switch+\\
-  use the \%switch code generation method by default
+  usa o m\'etodo de gera\c{c}\~ao de c\'odigo \%switch por padr\~ao
 
 \item \verb+--help+ or \texttt{-h}\\
-  print a help message explaining options and usage of JFlex.
+  mostra uma mensagem de ajuda, explicando as op\c{c}\~oes e o formato de uso do JFlex.
 \end{description}
 
-\section{A simple Example: How to work with JFlex\label{Example}}
-To demonstrate what a lexical specification with JFlex looks like, this
-section presents a part of the specification for the Java language.
-The example does not describe the whole lexical structure of Java programs,
-but only a small and simplified part of it (some keywords, some operators,
-comments and only two kinds of literals). It also shows how to interface
-with the LALR parser generator CUP \cite{CUP} and therefore
-uses a class \texttt{sym} (generated by CUP), where integer constants for
-the terminal tokens of the CUP grammar are declared. JFlex comes with a
-directory \texttt{examples}, where you can find a small standalone scanner
-that doesn't need other tools like CUP to give you a running example.
-The "\texttt{examples}" directory also contains a {\trit complete} JFlex 
-specification of the lexical structure of Java programs together with the 
-CUP parser specification for Java by 
-\htmladdnormallink{C. Scott Ananian}{mailto:cananian@alumni.princeton.edu}, obtained
-from the CUP \cite{CUP} web site (it was modified to interface with the JFlex scanner). 
-Both specifications adhere to the Java Language Specification \cite{LangSpec}.
+\section{Um pequeno Exemplo: Como trabalhar com o JFlex\label{Exemplo}}
+Para mostrar a cara de uma especifica\c{c}\~ao l\'exica com o JFlex, essa se\c{c}\~ao
+apresenta uma parte da especifica\c{c}\~ao da linguagem Java.
+O exemplo n\~ao descreve a estrutura l\'exica completa de programas Java,
+mas somente uma por\c{c}\~ao pequena e simplificada (algumas palavras-chave, alguns operadores,
+coment\'arios e dois tipos de literais). Ele tamb\'em mostra como interfacear
+com o gerador de analisador sint\'atico LALR CUP \cite{CUP} e portanto
+usa a classe \texttt{sym} (gerada pelo CUP), onde as constantes inteiras dos
+tokens terminais da gram\'atica CUP s\~ao declaradas. O JFlex vem com o diret\'orio
+\texttt{examples}, onde voc\^e pode encontrar um pequeno esc\^aner que n\~ao requer outras ferramentas
+como o CUP para lhe dar um exemplo execut\'avel.
+O diret\'orio "\texttt{examples}" tamb\'em cont\'em uma especifica\c{c}\~ao JFlex {\trit completa}
+da estrutura l\'exica do programas Java, juntamente com a especifica\c{c}\~ao sint\'atica CUP para
+Java, escrita por \htmladdnormallink{C. Scott Ananian}{mailto:cananian@alumni.princeton.edu}, retirada
+diretamente da p\'agina web do CUP \cite{CUP} (a especifica\c{c}\~ao foi modificada para interfacear com o esc\^aner do JFlex). 
+Ambas as especifica\c{c}\~oes est\~ao de acordo com a Especifica\c{c}\~ao da Linguagem Java \cite{LangSpec}.
 
 {\xtiny
 \label{CodeTop}\begin{verbatim}
-/* JFlex example: part of Java language lexer specification */
+/* Exemplo do JFlex: parte da especificacao lexica da linguagem Java */
 import java_cup.runtime.*;
 
 /**
- * This class is a simple example lexer.
+ * Essa classe eh um simples exemplo de escaner.
  */
 %%
 \end{verbatim}
@@ -385,27 +376,25 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 \end{verbatim}
 \label{CodeRulesAllStates}\begin{verbatim}
 /* error fallback */
-.|\n                             { throw new Error("Illegal character <"+
+.|\n                             { throw new Error("Caractere ilegal <"+
                                                     yytext()+">"); }
 \end{verbatim}
 }
 
-From this specification JFlex generates a \texttt{.java} file with one
-class that contains code for the scanner. The class will have a
-constructor taking a \texttt{java.io.Reader} from which the input is
-read. The class will also have a function \texttt{yylex()} that runs the
-scanner and that can be used to get the next token from the input (in this
-example the function actually has the name \texttt{next\_token()} because
-the specification uses the \texttt{\%cup} switch).
+Dessa especifica\c{c}\~ao o JFlex gera um arquivo \texttt{.java} com uma classe que cont\'em o
+c\'odigo do esc\^aner. Essa classe ter\'a um construtor que recebe um \texttt{java.io.Reader}
+do qual a entrada \'e lida. Essa mesma classe tamb\'em ter\'a uma fun\c{c}\~ao \texttt{yylex()}
+que executa o esc\^aner e que pode ser usada para pegar o pr\'oximo token da entrada (nesse exemplo
+a fun\c{c}\~ao tem o nome \texttt{next\_token()} por causa da op\c{c}\~ao \texttt{\%cup} na especifica\c{c}\~ao).
 
-As with JLex, the specification consists of three parts, divided by \texttt{\%\%}:
+Como no JLex, a especifica\c{c}\~ao consiste de tr\^es partes, dividas por \texttt{\%\%}:
 \begin{itemize}
-\item \htmlref{usercode}{ExampleUserCode},
-\item \htmlref{options and declarations}{ExampleOptions} and 
-\item \htmlref{lexical rules}{ExampleLexRules}.
+\item \htmlref{c\'odigo de usu\'ario}{ExampleUserCode},
+\item \htmlref{op\c{c}\~oes e declara\c{c}\~oes}{ExampleOptions} e
+\item \htmlref{regras l\'exicas}{ExampleLexRules}.
 \end{itemize}
 
-\subsection{Code to include\label{ExampleUserCode}}
+\subsection{C\'odigo a incluir\label{ExampleUserCode}}
 Let's take a look at the first section, ``user code'': The text up to the
 first line starting with \texttt{\%\%} is copied verbatim to the top 
 of the generated lexer class (before the actual class declaration). 
