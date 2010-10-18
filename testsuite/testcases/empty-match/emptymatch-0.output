@@ -1,0 +1,40 @@
+match: --blah[--
+action [14] { yybegin(A); return 1; }
+1
+match: ----
+action [19] { yybegin(B); return 3; }
+3
+match: --]--
+action [23] { yybegin(YYINITIAL); return 4; }
+4
+match: --
+--
+action [15] { return 2; }
+2
+match: --foo[--
+action [14] { yybegin(A); return 1; }
+1
+match: ----
+action [19] { yybegin(B); return 3; }
+3
+match: --b--
+action [24] { return 5; }
+5
+match: --a--
+action [24] { return 5; }
+5
+match: --r--
+action [24] { return 5; }
+5
+match: --]--
+action [23] { yybegin(YYINITIAL); return 4; }
+4
+match: --
+--
+action [15] { return 2; }
+2
+match: --
+--
+action [15] { return 2; }
+2
+-1

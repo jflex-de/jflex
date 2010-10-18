@@ -1,0 +1,7 @@
+Reading "testcases/empty-match/emptymatch.flex"
+Constructing NFA : 19 states in NFA
+Converting NFA to DFA : 
+......
+12 states before minimization, 9 states in minimized DFA
+Old file "testcases/empty-match/Emptymatch.java" saved as "testcases/empty-match/Emptymatch.java~"
+Writing code to "testcases/empty-match/Emptymatch.java"
