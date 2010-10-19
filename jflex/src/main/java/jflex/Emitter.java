@@ -1046,6 +1046,15 @@ final public class Emitter {
       println();
     }
 
+    if (scanner.useRowMap) {
+      println("      // set up zzAction for empty match case:");
+      println("      int zzAttributes = zzAttrL[zzState];");
+      println("      if ( (zzAttributes & 1) == 1 ) {");
+      println("        zzAction = zzState;");
+      println("      }");
+      println();
+    }
+  
     skel.emitNext();
   }
 
@@ -1056,7 +1065,7 @@ final public class Emitter {
     println("          zzState = zzNext;");
     println();
 
-    println("          int zzAttributes = zzAttrL[zzState];");
+    println("          zzAttributes = zzAttrL[zzState];");
 
     println("          if ( (zzAttributes & "+FINAL+") == "+FINAL+" ) {");
 
