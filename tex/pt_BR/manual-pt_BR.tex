@@ -395,42 +395,41 @@ Como no JLex, a especifica\c{c}\~ao consiste de tr\^es partes, dividas por \text
 \end{itemize}
 
 \subsection{C\'odigo a incluir\label{ExampleUserCode}}
-Let's take a look at the first section, ``user code'': The text up to the
-first line starting with \texttt{\%\%} is copied verbatim to the top 
-of the generated lexer class (before the actual class declaration). 
-Beside \texttt{package} and \texttt{import} statements there is usually not much 
-to do here. If the code ends with a javadoc class comment, the generated class
-will get this comment, if not, JFlex will generate one automatically.
+Vamos dar uma olhada na primeira se\c{c}\~ao, de ``c\'odigo de usu\'ario'': o trecho de texto
+at\'e a primeira linha que come\c{c}a com \texttt{\%\%} \'e copiado na \'integra para o in\'icio
+da classe do analisador l\'exico gerada (para antes da declara\c{c}\~ao da pr\'opria classe). 
+Al\'em das declara\c{c}\~oes de pacote (\texttt{package}) e das depend\^encias (\texttt{import}), n\~ao h\'a muito mais o que colocar aqui.
+Se o c\'odigo terminar com um coment\'ario javadoc para a classe, a classe gerada vai
+aproveitar esse mesmo coment\'ario; caso contr\'ario, o JFlex vai gerar um coment\'ario javadoc para a classe automaticamente.
 
-\subsection{Options and Macros\label{ExampleOptions}}
-The second section ``options and declarations'' is more interesting. It consists
-of a set of options, code that is included inside the generated scanner
-class, lexical states and macro declarations. Each JFlex option must begin
-a line of the specification and starts with a \texttt{\%}. In our example
-the following options are used:
+\subsection{Op\c{c}\~oes e Macros\label{ExampleOptions}}
+A segunda se\c{c}\~ao, ``op\c{c}\~oes e declara\c{c}\~oes'', \'e bem mais interessante. Ela \'e formada
+por um conjunto de op\c{c}\~oes, al\'em de c\'odigo que \'e incluso na classe de analisador l\'exico gerada, estados l\'exicos
+e declara\c{c}\~oes de macros. Cada op\c{c}\~ao do JFlex deve estar em uma linha separada e come\c{c}ar com um s\'imbolo de porcentagem (\texttt{\%}).
+No nosso exemplo, usamos as seguintes op\c{c}\~oes:
 
 \begin{itemize}
 \item
-  \texttt{\htmlref{\%class Lexer}{CodeOptions}} tells JFlex to give the
-  generated class the name ``Lexer'' and to write the code to a file ``\texttt{Lexer.java}''.
+  \texttt{\htmlref{\%class Lexer}{CodeOptions}} diz ao JFlex para dar \`a classe gerada o nome de 
+  ``Lexer'' e para escrever o c\'odigo gerado no arquivo ``\texttt{Lexer.java}''.
 
 \item
-  \texttt{\htmlref{\%unicode}{CodeOptions}} defines the set of characters the scanner will 
-  work on. For scanning text files, \texttt{\%unicode} should always be used. See also
-  section \ref{sec:encodings} for more information on character sets, encodings, and
-  scanning text vs. binary files.
+  \texttt{\htmlref{\%unicode}{CodeOptions}} define o conjunto de caracteres sobre o qual o esc\^aner vai trabalhar. 
+  Se a entrada do analisador forem arquivos de texto, deve-se usar sempre o \texttt{\%unicode}. Confira tamb\'em
+  a se\c{c}\~ao \ref{sec:encodings} para maiores informa\c{c}\~oes sobre conjunto de caracteres, codifica\c{c}\~oes,
+  e leitura de textos vs. arquivos bin\'arios.
 
 \item
-  \texttt{\htmlref{\%cup}{CodeOptions}} switches to CUP compatibility
-  mode to interface with a CUP generated parser.
+  \texttt{\htmlref{\%cup}{CodeOptions}} ativa o modo de compatibilidade com o CUP
+  para permitir que o esc\^aner gerado se comunique com analisadores sint\'aticos gerados pelo CUP.
 
 \item
-  \texttt{\htmlref{\%line}{CodeOptions}} switches line counting on (the
-  current line number can be accessed via the variable \texttt{yyline})
+  \texttt{\htmlref{\%line}{CodeOptions}} ativa a contagem de linhas (o n\'umero da linha
+  atual pode ser acessado atrav\'es da vari\'avel \texttt{yyline})
 
 \item
-  \texttt{\htmlref{\%column}{CodeOptions}} switches column counting on
-  (current column is accessed via \texttt{yycolumn})
+  \texttt{\htmlref{\%column}{CodeOptions}} ativa a contagem de colunas
+  (o n\'umero da coluna atual pode ser obtido atrav\'es da vari\'avel \texttt{yycolumn})
 
 \end{itemize}
 \label{ExampleScannerCode}
