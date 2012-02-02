@@ -1,0 +1,12 @@
+name: UnicodeDecimalDigit3_6_1
+
+description: 
+Tests character class syntax of the Unicode 6.1 DecimalDigit property
+using the '\d' syntax.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

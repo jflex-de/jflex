@@ -30,7 +30,7 @@
 # escapes).
 #
 
-if [ -z "$1" || -z "$2" ]; then
+if [[ -z "$1" || -z "$2" ]]; then
     echo "Usage: $0 <Unicode-version> <Unicode-ucd-dir>"
     exit 1;
 fi
