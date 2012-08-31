@@ -34,7 +34,7 @@ public class LexicalStates {
    * constructs a new lexical state symbol table
    */
   public LexicalStates() {
-    states = new HashMap<String, Integer>();
+    states = new LinkedHashMap<String,Integer>();
     inclusive = new ArrayList<Integer>();
   }
 

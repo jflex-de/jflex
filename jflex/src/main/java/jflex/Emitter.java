@@ -59,7 +59,7 @@ final public class Emitter {
   
 
   /** maps actions to their switch label */
-  private Map<Action, Integer> actionTable = new HashMap<Action, Integer>();
+  private Map<Action,Integer> actionTable = new LinkedHashMap<Action,Integer>();
 
   private CharClassInterval [] intervals;
 
