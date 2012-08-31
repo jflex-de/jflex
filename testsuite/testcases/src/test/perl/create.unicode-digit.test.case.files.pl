@@ -172,7 +172,7 @@ for my $syntax_num (0 .. $#property_value_syntaxes)
 %type int
 %standalone
 
-%include src/test/resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-enumerated-property-java
 
 %%
 

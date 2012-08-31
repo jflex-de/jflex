@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include src/test/resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-enumerated-property-java
 
 %% 
 

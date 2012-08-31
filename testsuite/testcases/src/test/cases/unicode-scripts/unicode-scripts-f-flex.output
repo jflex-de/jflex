@@ -1,5 +1,5 @@
 Reading "src/test/cases/unicode-scripts/unicode-scripts-f.flex"
-Including "src/test/resources/common-unicode-enumerated-property-java"
+Including "src/test/cases/unicode-scripts/../../resources/common-unicode-enumerated-property-java"
 
 Error in file "src/test/cases/unicode-scripts/unicode-scripts-f.flex" (line 14): 
 Invalid Unicode property

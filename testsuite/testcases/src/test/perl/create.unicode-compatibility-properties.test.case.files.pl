@@ -505,7 +505,7 @@ __TEST__
 %type int
 %standalone
 
-%include src/test/resources/common-unicode-binary-property-java
+%include ../../resources/common-unicode-binary-property-java
 
 %%
 
