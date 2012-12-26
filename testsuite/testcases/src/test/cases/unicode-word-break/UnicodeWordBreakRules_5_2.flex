@@ -127,14 +127,14 @@ import java.util.regex.Pattern;
 %%
 
 // Break at the start and end of text.
-// WB1. 	sot 	÷ 	
-// WB2. 		÷ 	eot
+// WB1.     sot     ÷
+// WB2.             ÷     eot
 <<EOF>> { return nextSegment(); }
 
 
 // Do not break within CRLF.
 //
-// WB3. 	CR 	×  LF
+// WB3.     CR     ×  LF
 //
 \p{WB:CR} \p{WB:LF} / [^] { addMatch(); return nextSegment(); }
 \p{WB:CR} \p{WB:LF} { addMatch(); return nextSegment(); }
@@ -142,13 +142,13 @@ import java.util.regex.Pattern;
 
 // Otherwise break before and after Newlines (including CR and LF)
 //
-// WB3a. 	(Newline | CR | LF) 	÷
+// WB3a.     (Newline | CR | LF)     ÷
 //
 [\p{WB:Newline}\p{WB:CR}\p{WB:LF}] / [^]{2} { addMatch(); return nextSegment(); }
 [\p{WB:Newline}\p{WB:CR}\p{WB:LF}] / [^] { addMatch(); return nextSegment(); }
 
 
-// WB3b. 	  	÷ 	(Newline | CR | LF)
+// WB3b.           ÷     (Newline | CR | LF)
 //
 [^] / [\p{WB:Newline}\p{WB:CR}\p{WB:LF}] [^] { addMatch(); return nextSegment(); }
 [^] / [\p{WB:Newline}\p{WB:CR}\p{WB:LF}] { addMatch(); return nextSegment(); }
@@ -159,7 +159,7 @@ import java.util.regex.Pattern;
 //
 // (See Section 6.2, Replacing Ignore Rules.)
 //
-// WB4. 	X (Extend | Format)* 	→ 	X
+// WB4.     X (Extend | Format)*     →     X
 //
 //      --> [^ Newline CR LF ] × [Format Extend]
 //
@@ -168,9 +168,9 @@ import java.util.regex.Pattern;
 
 // Do not break between most letters.
 //
-// WB5. 	ALetter 	× 	ALetter
+// WB5.     ALetter     ×     ALetter
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4.     X (Extend | Format)*     →     X]
 //
 \p{WB:ALetter} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:ALetter} [^] { addMatch(); }
 \p{WB:ALetter} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:ALetter} { addMatch(); }
@@ -178,10 +178,10 @@ import java.util.regex.Pattern;
 
 // Do not break letters across certain punctuation.
 //
-// WB6. 	ALetter × (MidLetter | MidNumLet) ALetter
-// WB7. 	ALetter (MidLetter | MidNumLet) × ALetter
+// WB6.     ALetter × (MidLetter | MidNumLet) ALetter
+// WB7.     ALetter (MidLetter | MidNumLet) × ALetter
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4.     X (Extend | Format)*     →     X]
 //
 \p{WB:ALetter} [\p{WB:Format}\p{WB:Extend}]* [\p{WB:MidLetter}\p{WB:MidNumLet}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:ALetter} { addMatch(); }
 
@@ -189,23 +189,23 @@ import java.util.regex.Pattern;
 // Do not break within sequences of digits, or digits adjacent to letters 
 // (“3a”, or “A3”).
 //
-// WB8. 	Numeric 	× 	Numeric
+// WB8.     Numeric     ×     Numeric
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4.     X (Extend | Format)*     →     X]
 //
 \p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} [^] { addMatch(); }
 \p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} { addMatch(); }
 
 
-// WB9. 	ALetter 	× 	Numeric
+// WB9.     ALetter     ×     Numeric
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4.     X (Extend | Format)*     →     X]
 //
 \p{WB:ALetter} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} [^] { addMatch(); }
 \p{WB:ALetter} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} { addMatch(); }
 
 
-// WB10. 	Numeric 	× 	ALetter
+// WB10.     Numeric     ×     ALetter
 //
 // [included WB4. 	X (Extend | Format)* 	→ 	X]
 //
