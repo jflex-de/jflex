@@ -1,0 +1,12 @@
+name: UnicodeDerivedCoreProperties_Uppercase_6_2
+
+description: 
+Tests character class syntax of the Unicode 6.2 'Uppercase' property,
+defined in DerivedCoreProperties(-X.X.X).txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+
