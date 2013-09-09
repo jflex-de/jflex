@@ -464,23 +464,24 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                           }
 
   // stategroup
-  "{"          { yybegin(REGEXPSTART); return symbol(LBRACE); }
+  "{"           { yybegin(REGEXPSTART); return symbol(LBRACE); }
 
-  {WSPNL}*"|"  { return symbol(BAR); }
+  {WSPNL}*"|"   { return symbol(BAR); }
 
-  {WSPNL}*\"   { string.setLength(0); nextState = REGEXP; yybegin(STRING_CONTENT); }
-  {WSPNL}*"!"  { return symbol(BANG); }
-  {WSPNL}*"~"  { return symbol(TILDE); }
-  {WSPNL}*"("  { return symbol(OPENBRACKET); }
-  {WSPNL}*")"  { return symbol(CLOSEBRACKET); }
-  {WSPNL}*"*"  { return symbol(STAR); }
-  {WSPNL}*"+"  { return symbol(PLUS); }
-  {WSPNL}*"?"  { return symbol(QUESTION); }
-  {WSPNL}*"$"  { return symbol(DOLLAR); }
-  {WSPNL}*"^"  { bolUsed = true; return symbol(HAT); }
-  {WSPNL}*"."  { return symbol(POINT); }
-  {WSPNL}*"["  { yybegin(CHARCLASS); return symbol(OPENCLASS); }
-  {WSPNL}*"/"  { return symbol(LOOKAHEAD); }
+  {WSPNL}*\"    { string.setLength(0); nextState = REGEXP; yybegin(STRING_CONTENT); }
+  {WSPNL}*"!"   { return symbol(BANG); }
+  {WSPNL}*"~"   { return symbol(TILDE); }
+  {WSPNL}*"("   { return symbol(OPENBRACKET); }
+  {WSPNL}*")"   { return symbol(CLOSEBRACKET); }
+  {WSPNL}*"*"   { return symbol(STAR); }
+  {WSPNL}*"+"   { return symbol(PLUS); }
+  {WSPNL}*"?"   { return symbol(QUESTION); }
+  {WSPNL}*"$"   { return symbol(DOLLAR); }
+  {WSPNL}*"^"   { bolUsed = true; return symbol(HAT); }
+  {WSPNL}*"."   { return symbol(POINT); }
+  {WSPNL}*"\\R" { return symbol(NEWLINE); }
+  {WSPNL}*"["   { yybegin(CHARCLASS); return symbol(OPENCLASS); }
+  {WSPNL}*"/"   { return symbol(LOOKAHEAD); }
   
   {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
   {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP); 

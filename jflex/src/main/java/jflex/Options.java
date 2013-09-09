@@ -52,6 +52,8 @@ public class Options {
   public static boolean dot;
   /** If true, you will be flooded with information (e.g. dfa tables).  */
   public static boolean dump;
+  /** If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n" */
+  public static boolean legacy_dot;
 
 	static { setDefaults();	}
 
@@ -69,7 +71,7 @@ public class Options {
    * @param dirName the name of the directory to write output files to
    */
   public static void setDir(String dirName) {
-  	setDir(new File(dirName)); 
+  	setDir(new File(dirName));
   }
   
 
@@ -106,6 +108,7 @@ public class Options {
     time = false;
     dot = false;
     dump = false;
+    legacy_dot = false;
     Skeleton.readDefault();
   }
 

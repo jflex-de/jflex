@@ -117,11 +117,11 @@ public class AntTaskTests extends TestCase {
     assertEquals(Options.PACK, Options.gen_method);
   }
 
-  public void testSkel() {
-    task.setVerbose(false); // avoid to java console pop up
-    task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
-  }
+    public void testSkel() {
+        task.setVerbose(false); // avoid to java console pop up
+        task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
+        assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    }
   
   public void testVerbose() {
     task.setVerbose(false);
@@ -156,5 +156,11 @@ public class AntTaskTests extends TestCase {
     assertTrue(!Options.jlex);
     task.setJLex(true);
     assertTrue(Options.jlex);
+  }
+
+  public void testLegacyDot() {
+    assertFalse(Options.legacy_dot);
+    task.setLegacyDot(true);
+    assertTrue(Options.legacy_dot);
   }
 }

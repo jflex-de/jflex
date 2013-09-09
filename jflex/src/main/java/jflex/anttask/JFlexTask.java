@@ -248,4 +248,8 @@ public class JFlexTask extends Task {
   public void setJLex(boolean b) {    
     Options.jlex = b;
   }
+
+  public void setLegacyDot(boolean b) {
+    Options.legacy_dot = b;
+  }
 }

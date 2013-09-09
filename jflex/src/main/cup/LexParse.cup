@@ -47,6 +47,38 @@ action code {:
     Out.error(scanner.file, message, line, col);
   }
 
+  void warning(ErrorMessages message, int line, int col) {
+    Out.warning(scanner.file, message, line, col);
+  }
+
+  private boolean isDotOrNewlinePattern(RegExp r1, RegExp r2) {
+    return ( r1 instanceof RegExp1 && ((RegExp1)r1).isPoint && isNewline(r2) )
+        || ( r2 instanceof RegExp1 && ((RegExp1)r2).isPoint && isNewline(r1) );
+  }
+
+  private boolean isNewline(RegExp r) {
+    if ( ! (r instanceof RegExp1) || null == ((RegExp1)r).content ) {
+      return false;
+    }
+    RegExp1 r1 = (RegExp1)r;
+    switch ( r1.type ) {
+      case sym.STRING:
+      case sym.STRING_I:
+        return "\n".equals(r1.content);
+      case sym.CHAR:
+      case sym.CHAR_I:
+        return '\n' == ((Character)r1.content).charValue();
+      case sym.CCLASS:
+        List<Interval> intervals = (List<Interval>)r1.content;
+        if ( 1 == intervals.size() ) {
+          Interval i = intervals.get(0);
+          return '\n' == i.start && '\n' == i.end;
+        }
+        return false;
+      default:
+        return false;
+    }
+  }
 
   private boolean check(int type, char c) {
     switch (type) {
@@ -345,7 +377,7 @@ terminal String IDENT, USERCODE;
 terminal Integer REPEAT;
 
 /* tokens used in RegExp parse tree */
-terminal STAR, PLUS, BAR, QUESTION, POINT, BANG, TILDE;
+terminal STAR, PLUS, BAR, QUESTION, POINT, NEWLINE, BANG, TILDE;
 
 terminal Character CHAR;
 terminal String STRING, MACROUSE;
@@ -533,15 +565,22 @@ states        ::=  IDENT:id COMMA states:list
                 ;
                 
 hatOPT        ::=  HAT 
-                   {: // assumption: there is no upper case for \n
-                      charClasses.makeClass('\n', false); 
-                      RESULT = true; :}
+                   {:
+                      // assumption: newline chars have no uppercase variant
+                      charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
+                      RESULT = true;
+                   :}
                 |  /* empty */ 
                    {: RESULT = false; :}
                 ;
-                
+
 series        ::= series:r1 BAR concs:r2
-                  {: RESULT = new RegExp2(sym.BAR, r1, r2); :}                 
+                  {:
+                     if ( ! Options.jlex && ! Options.legacy_dot && isDotOrNewlinePattern(r1, r2) ) {
+                       warning(ErrorMessages.DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS, r1left, r1right);
+                     }
+                     RESULT = new RegExp2(sym.BAR, r1, r2);
+                  :}
                 | concs:r
                   {: RESULT = r; :} 
                 | BAR:b
@@ -644,11 +683,24 @@ regexp        ::=  regexp:r STAR
                 |  POINT
                    {: 
                       List<Interval> any = new ArrayList<Interval>();
-                      any.add(new Interval('\n','\n'));
-                      // assumption: there is no upper case for \n
-                      charClasses.makeClass('\n', false);
-                      RESULT = new RegExp1(sym.CCLASSNOT, any); 
+                      if ( Options.jlex || Options.legacy_dot ) {
+                        any.add(new Interval('\n','\n'));
+                        // assumption: newline chars have no uppercase variant
+                        charClasses.makeClass('\n', false);
+                      }
+                      else {
+                        any.add(new Interval('\n','\r'));
+                        any.add(new Interval('\u0085','\u0085'));
+                        any.add(new Interval('\u2028','\u2029'));
+                        // assumption: newline chars have no uppercase variant
+                        charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
+                      }
+                      RegExp1 r = new RegExp1(sym.CCLASSNOT, any);
+                      r.isPoint = true;
+                      RESULT = r;
                    :}
+                |  NEWLINE
+                   {: RESULT = makeNL(); :}
                 |  CHAR:c
                    {: 
                      try {

@@ -28,6 +28,8 @@ public class RegExp1 extends RegExp {
    */
   Object content;
 
+  /** true if this regexp was created from a dot/point (.) metachar */
+  boolean isPoint;
   
   /**
    * Constructs a new regular expression with one child object.

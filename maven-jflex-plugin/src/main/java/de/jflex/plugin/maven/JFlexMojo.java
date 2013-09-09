@@ -143,7 +143,15 @@ public class JFlexMojo extends AbstractMojo {
 	 */
 	private boolean backup = true; // NOPMD
 
-	/**
+    /**
+     * If true, the dot (.) metachar matches [^\n]
+     * instead of [^\n\r\u000B\u000C\u0085\u2028\u2029].
+     *
+     * @parameter default-value="false"
+     */
+    private boolean legacyDot = false; // NOPMD
+
+    /**
 	 * Generate java parsers from lexer definition files.
 	 * 
 	 * This methods is checks parameters, sets options and calls
@@ -253,6 +261,7 @@ public class JFlexMojo extends AbstractMojo {
 		Options.dump = verbose;
 		Options.verbose = verbose;
 		Options.dot = dot;
+        Options.legacy_dot = legacyDot;
 		if (skeleton != null) {
 			Options.setSkeleton(skeleton);
 		}

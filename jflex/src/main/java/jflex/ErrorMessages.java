@@ -137,4 +137,5 @@ public class ErrorMessages {
   public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");
   public static ErrorMessages UNSUPPORTED_UNICODE_VERSION = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION");
   public static ErrorMessages INVALID_UNICODE_PROPERTY = new ErrorMessages("INVALID_UNICODE_PROPERTY");
+  public static ErrorMessages DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS = new ErrorMessages("DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS");
 }

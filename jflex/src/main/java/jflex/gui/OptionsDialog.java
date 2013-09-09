@@ -48,6 +48,8 @@ public class OptionsDialog extends Dialog {
   private Checkbox time;
   private Checkbox dot;
 
+  private Checkbox legacy_dot;
+
   private Checkbox tableG;
   private Checkbox switchG;
   private Checkbox packG; 
@@ -88,6 +90,8 @@ public class OptionsDialog extends Dialog {
     no_backup = new Checkbox(" no backup file");
     time = new Checkbox(" time statistics");
     dot = new Checkbox(" dot graph files");
+    legacy_dot = new Checkbox
+        (" dot (.) matches [^\\n] instead of [^\\n\\r\\000B\\u000C\\u0085\\u2028\\u2029]");
 
     CheckboxGroup codeG = new CheckboxGroup();
     tableG = new Checkbox(" table",Options.gen_method == Options.TABLE, codeG);
@@ -133,7 +137,10 @@ public class OptionsDialog extends Dialog {
 
     jlex.addItemListener( new ItemListener() {
       public void itemStateChanged(ItemEvent e) {
-        Options.jlex = jlex.getState();                    
+        Options.jlex = jlex.getState();
+        // JLex compatibility implies that dot (.) metachar matches [^\n]
+        legacy_dot.setState(false);
+        legacy_dot.setEnabled( ! jlex.getState());
       }
     } );
 
@@ -155,7 +162,13 @@ public class OptionsDialog extends Dialog {
       }
     } );
 
-    time.addItemListener( new ItemListener() {
+    legacy_dot.addItemListener( new ItemListener() {
+        public void itemStateChanged(ItemEvent e) {
+            Options.legacy_dot = legacy_dot.getState();
+        }
+    } );
+
+      time.addItemListener( new ItemListener() {
       public void itemStateChanged(ItemEvent e) {
         Options.time = time.getState();                    
       }
@@ -177,6 +190,8 @@ public class OptionsDialog extends Dialog {
     panel.add(0,4,1,1,switchG);
     panel.add(0,5,1,1,packG);
 
+    panel.add(0,6,4,1,legacy_dot);
+
     panel.add(1,3,1,1,dump);
     panel.add(1,4,1,1,verbose);
     panel.add(1,5,1,1,time);
@@ -187,7 +202,7 @@ public class OptionsDialog extends Dialog {
 
     panel.add(3,3,1,1,jlex);
     panel.add(3,4,1,1,dot);
-         
+
     add("Center",panel);
     
     updateState();
