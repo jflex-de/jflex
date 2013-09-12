@@ -1,7 +1,7 @@
 Reading "src/test/cases/manual-ex/manual.flex"
 
 Warning in file "src/test/cases/manual-ex/manual.flex" (line 90): 
-!DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS!
+".|\n" does not match all characters, because "." excludes all Unicode newline chars - use "[^]" instead
 .|\n                             { throw new Error("Illegal character <"+
 ^
 Constructing NFA : 160 states in NFA
