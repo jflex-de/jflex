@@ -249,6 +249,7 @@ public class OptionsDialog extends Dialog {
     no_backup.setState(Options.no_backup);
     time.setState(Options.time);
     dot.setState(Options.dot);
+    legacy_dot.setState(Options.legacy_dot);
 
     tableG.setState(Options.gen_method == Options.TABLE);
     switchG.setState(Options.gen_method == Options.SWITCH);
