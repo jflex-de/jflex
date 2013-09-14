@@ -549,6 +549,10 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "]"  { if (balance > 0) balance--; else yybegin(REGEXP); return symbol(CLOSECLASS); }
   "^"  { return symbol(HAT); }
   "-"  { return symbol(DASH); }
+  "--" { return symbol(DIFFERENCE); }
+  "&&" { return symbol(INTERSECTION); }
+  "||" { /* union is the default operation - '||' can be ignored */ }
+  "~~" { return symbol(SYMMETRICDIFFERENCE); }
 
   // this is a hack to keep JLex compatibilty with char class
   // expressions like [+-]

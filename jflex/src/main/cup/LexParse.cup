@@ -115,7 +115,6 @@ action code {:
           break;
         }
         case sym.DIGITCLASSNOT: {
-          //TODO: Is there a better way to get the absolute complement?
           IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(digits);
@@ -167,7 +166,6 @@ action code {:
           if (null == whitespaceClass) {
             whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
-          //TODO: Is there a better way to get the absolute complement?
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(whitespaceClass);
           preclassCache.put(type, intCharSet);
@@ -214,7 +212,6 @@ action code {:
           wordClass.add(markClass);
           wordClass.add(digitClass);
           wordClass.add(connectorPunctClass);
-          //TODO: Is there a better way to get the absolute complement?
           intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
           intCharSet.sub(wordClass);
           preclassCache.put(type, intCharSet);
@@ -370,7 +367,8 @@ terminal OPENBRACKET, CLOSEBRACKET, HAT, DOLLAR, OPENCLASS,
 
 terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS,
          DIGITCLASSNOT, UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD,
-         WHITESPACECLASS, WHITESPACECLASSNOT, WORDCLASS, WORDCLASSNOT;
+         WHITESPACECLASS, WHITESPACECLASSNOT, WORDCLASS, WORDCLASSNOT,
+         UNION, INTERSECTION, DIFFERENCE, SYMMETRICDIFFERENCE;
          
 terminal Action ACTION;
 terminal String IDENT, USERCODE;
@@ -777,7 +775,283 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      }
                      RESULT = new RegExp1(sym.CCLASSNOT,list);
                    :}
-                ;
+                |  OPENCLASS classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     List<Interval> intervals = intersection.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     List<Interval> intervals = intersection.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     List<Interval> intervals = intersection.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     List<Interval> intervals = intersection.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     intcharset1.sub(intersection);
+                     List<Interval> intervals = intcharset1.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+                |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
+                   {:
+                     list1.add(new Interval('-', '-'));
+                     IntCharSet intcharset1 = new IntCharSet(list1);
+                     list2.add(new Interval('-', '-'));
+                     IntCharSet intcharset2 = new IntCharSet(list2);
+                     IntCharSet union = intcharset1.copy();
+                     union.add(intcharset2);
+                     IntCharSet intersection = intcharset1.and(intcharset2);
+                     union.sub(intersection);
+                     List<Interval> intervals = union.getIntervals();
+                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
+                   :}
+               ;
 
 classcontent  ::=  classcontent:list classcontentelem:elem
                    {:
@@ -808,7 +1082,6 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    {: RESULT = intcharset.copy().getIntervals(); :}
                 |  classcontent:list UNIPROPCCLASSNOT:notintcharset
                    {:
-                     //TODO: Is there a better way to get the absolute complement?
                      IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
                      absComp.sub(notintcharset);
                      list.addAll(absComp.getIntervals());
@@ -816,7 +1089,6 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
                    {:
-                      //TODO: Is there a better way to get the absolute complement?
                       IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
                       absComp.sub(notintcharset);
                       RESULT = absComp.getIntervals();
@@ -840,6 +1112,38 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 |  MACROUSE:ident
                    {: 
                      syntaxError(ErrorMessages.CHARCLASS_MACRO, identleft, identright);
+                   :}
+                |  classcontent:list charclass:regex
+                   {:
+                     List<Interval> intervals = (List<Interval>)((RegExp1)regex).content;
+                     if (null != intervals) {
+                       if (sym.CCLASS == regex.type) {
+                         list.addAll(intervals);
+                       }
+                       else { //  sym.CCLASSNOT == regex.type
+                         IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                         absComp.sub(new IntCharSet(intervals));
+                         list.addAll(absComp.getIntervals());
+                       }
+                     }
+                     RESULT = list;
+                   :}
+                |  charclass:regex
+                   {:
+                     List<Interval> list = (List<Interval>)((RegExp1)regex).content;
+                     if (null == list) {
+                       RESULT = new ArrayList<Interval>();
+                     }
+                     else {
+                       if (sym.CCLASS == regex.type) {
+                         RESULT = list;
+                       }
+                       else {
+                         IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                         absComp.sub(new IntCharSet(list));
+                         RESULT = absComp.getIntervals();
+                       }
+                     }
                    :}
                 ;
 

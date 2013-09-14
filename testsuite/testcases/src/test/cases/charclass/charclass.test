@@ -1,0 +1,6 @@
+name: charclass
+
+description:
+test character class syntax
+
+jflex: -q
