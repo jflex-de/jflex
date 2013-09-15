@@ -295,17 +295,25 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       = new UnicodePropertiesSkeleton(SKELETON_FILENAME);
     skeleton.emitNext(builder); // Header
     emitClassComment(builder);
-    // Class declaration, static vars and fixed method definitions, part 1
+    // Class declaration and unicode versions static field declaration
+    skeleton.emitNext(builder);
+    emitUnicodeVersionsString(builder);
+    // default unicode version static field declaration
+    skeleton.emitNext(builder);
+    emitDefaultUnicodeVersion(builder);
+    // static vars and fixed method definitions, part 1
     skeleton.emitNext(builder);
     emitInitBody(builder);
     skeleton.emitNext(builder); // Fixed method definitions, part 2; etc.
-    emitUnicodeVersionsString(builder);
-    skeleton.emitNext(builder); // Closing braces
     writeOutputFile(builder);
   }
 
+  private void emitDefaultUnicodeVersion(StringBuilder builder) {
+    builder.append("    \"").append(unicodeVersions.lastKey()).append("\";");
+  }
+
   private void emitUnicodeVersionsString(StringBuilder builder) {
-    builder.append("              \"");
+    builder.append("    \"");
     boolean isFirst = true;
     for (String majorMinorVersion : unicodeVersions.keySet()) {
       if (isFirst) {
@@ -321,7 +329,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       builder.append(majorMinorVersion).append(", ")
         .append(unicodeVersions.get(majorMinorVersion).majorMinorUpdateVersion);
     }
-    builder.append("\"");
+    builder.append("\";");
   }
 
   private void emitVersionedUnicodeData() throws IOException {

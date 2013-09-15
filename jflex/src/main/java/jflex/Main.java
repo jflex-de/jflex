@@ -10,9 +10,13 @@
 package jflex;
  
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jflex.gui.MainFrame;
+import jflex.unicode.UnicodeProperties;
 
 
 /**
@@ -242,6 +246,23 @@ public class Main {
         continue;
       }
 
+      if ( argv[i].equals("--uniprops") || argv[i].equals("-uniprops") ) { //$NON-NLS-1$ //$NON-NLS-2$
+        if ( ++i >= argv.length ) {
+          Out.error(ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, 
+                    UnicodeProperties.UNICODE_VERSIONS);
+          throw new GeneratorException();
+        }
+        String unicodeVersion = argv[i];
+        try {
+          printUnicodePropertyValuesAndAliases(unicodeVersion);
+        } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+          Out.error(ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE,
+                    UnicodeProperties.UNICODE_VERSIONS);
+          throw new GeneratorException();
+        }
+        throw new SilentExit();
+      }
+
       if ( argv[i].startsWith("-") ) { //$NON-NLS-1$
         Out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
         printUsage();
@@ -261,6 +282,62 @@ public class Main {
     return files;
   }
 
+  /**
+   * Prints one Unicode property value per line, along with its aliases, if any, for
+   * the given unicodeVersion.
+   *
+   * @param unicodeVersion The Unicode version to print property values and aliases for
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion
+   *  is not supported
+   */
+  private static void printUnicodePropertyValuesAndAliases(String unicodeVersion) 
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
+    Pattern versionPattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.\\d+)?");
+    Matcher matcher = versionPattern.matcher(unicodeVersion);
+    if (!matcher.matches()) {
+      throw new UnicodeProperties.UnsupportedUnicodeVersionException();
+    }
+    String underscoreVersion
+        = matcher.group(1) + (null == matcher.group(2) ? "_0" : "_" + matcher.group(2));
+    
+    String[] propertyValues;
+    String[] propertyValueAliases;
+    try {
+      Class<?> clazz = Class.forName("jflex.unicode.data.Unicode_" + underscoreVersion);
+      Field field = clazz.getField("propertyValues");
+      propertyValues = (String[])field.get(null);
+      field = clazz.getField("propertyValueAliases");
+      propertyValueAliases = (String[])field.get(null);
+    } catch (Exception e) {
+      throw new UnicodeProperties.UnsupportedUnicodeVersionException();
+    }
+    SortedMap<String,SortedSet<String>> propertyValuesToAliases 
+        = new TreeMap<String, SortedSet<String>>();
+    for (String value : propertyValues) {
+      propertyValuesToAliases.put(value, new TreeSet<String>());
+    }
+    for (int i = 0 ; i < propertyValueAliases.length ; i += 2) {
+      String alias = propertyValueAliases[i];
+      String value = propertyValueAliases[i + 1];
+      SortedSet<String> aliases = propertyValuesToAliases.get(value);
+      if (null == aliases) {
+        aliases = new TreeSet<String>();
+        propertyValuesToAliases.put(value, aliases);
+      }
+      aliases.add(alias);
+    }
+    for (Map.Entry<String,SortedSet<String>> entry : propertyValuesToAliases.entrySet()) {
+      String value = entry.getKey();
+      SortedSet<String> aliases = entry.getValue();
+      Out.print(value);
+      if (aliases.size() > 0) {
+        for (String alias : aliases) {
+          Out.print(", " + alias);
+        }
+      }
+      Out.println("");
+    }
+  }
 
   public static void printUsage() {
     Out.println(""); //$NON-NLS-1$
@@ -284,6 +361,7 @@ public class Main {
     Out.println("--quiet");
     Out.println("-q               display errors only");
     Out.println("--time           display generation time statistics");
+    Out.println("--uniprops <ver> print all supported properties for Unicode version <ver>");
     Out.println("--version        print the version number of this copy of jflex");
     Out.println("--info           print system + JDK information");
     Out.println("--help");

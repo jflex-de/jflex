@@ -136,6 +136,8 @@ public class ErrorMessages {
   public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
   public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");
   public static ErrorMessages UNSUPPORTED_UNICODE_VERSION = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION");
+  public static ErrorMessages UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE");
   public static ErrorMessages INVALID_UNICODE_PROPERTY = new ErrorMessages("INVALID_UNICODE_PROPERTY");
   public static ErrorMessages DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS = new ErrorMessages("DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS");
+  public static ErrorMessages PROPS_ARG_REQUIRES_UNICODE_VERSION = new ErrorMessages("PROPS_ARG_REQUIRES_UNICODE_VERSION");
 }

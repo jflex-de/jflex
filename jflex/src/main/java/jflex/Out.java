@@ -10,6 +10,8 @@
 package jflex;
 
 
+import jflex.unicode.UnicodeProperties;
+
 import java.io.*;
 import java.awt.TextArea;
 
@@ -414,18 +416,19 @@ public final class Out {
    * Print system information (e.g. in case of unexpected exceptions)
    */
   public static void printSystemInfo() {
-    err("Java version:  "+System.getProperty("java.version"));
-    err("Runtime name:  "+System.getProperty("java.runtime.name"));
-    err("Vendor:        "+System.getProperty("java.vendor")); 
-    err("VM version:    "+System.getProperty("java.vm.version")); 
-    err("VM vendor:     "+System.getProperty("java.vm.vendor"));
-    err("VM name:       "+System.getProperty("java.vm.name"));
-    err("VM info:       "+System.getProperty("java.vm.info"));
-    err("OS name:       "+System.getProperty("os.name"));
-    err("OS arch:       "+System.getProperty("os.arch"));
-    err("OS version:    "+System.getProperty("os.version"));
-    err("Encoding:      "+System.getProperty("file.encoding"));
-    err("JFlex version: "+Main.version);
+    err("Java version:     "+System.getProperty("java.version"));
+    err("Runtime name:     "+System.getProperty("java.runtime.name"));
+    err("Vendor:           "+System.getProperty("java.vendor")); 
+    err("VM version:       "+System.getProperty("java.vm.version")); 
+    err("VM vendor:        "+System.getProperty("java.vm.vendor"));
+    err("VM name:          "+System.getProperty("java.vm.name"));
+    err("VM info:          "+System.getProperty("java.vm.info"));
+    err("OS name:          "+System.getProperty("os.name"));
+    err("OS arch:          "+System.getProperty("os.arch"));
+    err("OS version:       "+System.getProperty("os.version"));
+    err("Encoding:         "+System.getProperty("file.encoding"));
+    err("Unicode versions: "+UnicodeProperties.UNICODE_VERSIONS);
+    err("JFlex version:    "+Main.version);
   }
 
 
