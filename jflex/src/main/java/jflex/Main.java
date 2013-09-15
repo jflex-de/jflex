@@ -351,7 +351,7 @@ public class Main {
     Out.println("--pack           set default code generation method");
     Out.println("--jlex           strict JLex compatibility");
     Out.println("--legacydot      dot (.) metachar matches [^\\n]");
-    Out.println("                 instead of [^\\n\\r\\u000B\\\u000C\\u0085\\u2028\\u2029]");
+    Out.println("                 instead of [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
     Out.println("--nomin          skip minimization step");
     Out.println("--nobak          don't create backup files");
     Out.println("--dump           display transition tables"); 
