@@ -55,7 +55,7 @@ my $title = "\U$program\E $fileversion, $filedate - $copyright\n";
 ### ghostscript command name
 my $GS = "gs";
 $GS = "gswin32c" if $^O eq 'MSWin32';
-$GS = "gswin32c" if $^O =~ /cygwin/;
+#$GS = "gswin32c" if $^O =~ /cygwin/;
 
 ### options
 $::opt_help=0;
