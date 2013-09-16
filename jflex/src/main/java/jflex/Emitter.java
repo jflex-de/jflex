@@ -397,6 +397,7 @@ final public class Emitter {
       print(" on " + date);
     }   
     println(" */"); 
+    println("");
   } 
 
   private void emitUserCode() {
