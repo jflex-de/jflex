@@ -252,4 +252,8 @@ public class JFlexTask extends Task {
   public void setLegacyDot(boolean b) {
     Options.legacy_dot = b;
   }
+    
+  public void setNoDate(boolean b) {
+    Options.no_date = b;
+  }
 }

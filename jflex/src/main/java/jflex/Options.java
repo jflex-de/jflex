@@ -39,7 +39,9 @@ public class Options {
   /** don't run minimization algorithm if this is true */
   public static boolean no_minimize; 
   /** don't write backup files if this is true */
-  public static boolean no_backup; 
+  public static boolean no_backup;
+  /** don't write a date/time stamp in the generated scanner's header comment. */
+  public static boolean no_date;
   /** default code generation method */
   public static int gen_method;
   /** If false, only error/warning output will be generated */
@@ -100,9 +102,10 @@ public class Options {
   public static void setDefaults() {
   	directory = null;
     jlex = false;
-		no_minimize = false;
-		no_backup = false;
-		gen_method = Options.PACK;    
+	no_minimize = false;
+	no_backup = false;
+    no_date = false;
+	gen_method = Options.PACK;    
     verbose = true;
     progress = true;
     time = false;

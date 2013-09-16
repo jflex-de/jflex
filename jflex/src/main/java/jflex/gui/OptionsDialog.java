@@ -45,6 +45,7 @@ public class OptionsDialog extends Dialog {
   private Checkbox jlex;
   private Checkbox no_minimize; 
   private Checkbox no_backup; 
+  private Checkbox no_date;
   private Checkbox time;
   private Checkbox dot;
 
@@ -88,6 +89,7 @@ public class OptionsDialog extends Dialog {
     jlex = new Checkbox(" JLex compatibility");
     no_minimize = new Checkbox(" skip minimization");
     no_backup = new Checkbox(" no backup file");
+    no_date = new Checkbox(" no date/time stamp");
     time = new Checkbox(" time statistics");
     dot = new Checkbox(" dot graph files");
     legacy_dot = new Checkbox
@@ -156,7 +158,13 @@ public class OptionsDialog extends Dialog {
       }
     } );
 
-    dot.addItemListener( new ItemListener() {
+    no_date.addItemListener( new ItemListener() {
+          public void itemStateChanged(ItemEvent e) {
+              Options.no_date = no_date.getState();
+          }
+      } );
+
+      dot.addItemListener( new ItemListener() {
       public void itemStateChanged(ItemEvent e) {
         Options.dot = dot.getState();                    
       }
@@ -199,6 +207,7 @@ public class OptionsDialog extends Dialog {
 
     panel.add(2,3,1,1,no_minimize);
     panel.add(2,4,1,1,no_backup);
+    panel.add(2,5,2,1,no_date);
 
     panel.add(3,3,1,1,jlex);
     panel.add(3,4,1,1,dot);
@@ -247,6 +256,7 @@ public class OptionsDialog extends Dialog {
     jlex.setState(Options.jlex);
     no_minimize.setState(Options.no_minimize); 
     no_backup.setState(Options.no_backup);
+    no_date.setState(Options.no_date);
     time.setState(Options.time);
     dot.setState(Options.dot);
     legacy_dot.setState(Options.legacy_dot);

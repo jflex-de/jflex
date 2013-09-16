@@ -245,6 +245,11 @@ public class Main {
         Options.legacy_dot = true;
         continue;
       }
+        
+      if ( argv[i].equals("--nodate") || argv[i].equals("-nodate") ) { //$NON-NLS-1$ //$NON-NLS-2$
+          Options.no_date = true;
+          continue;
+      }
 
       if ( argv[i].equals("--uniprops") || argv[i].equals("-uniprops") ) { //$NON-NLS-1$ //$NON-NLS-2$
         if ( ++i >= argv.length ) {
@@ -354,6 +359,7 @@ public class Main {
     Out.println("                 instead of [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
     Out.println("--nomin          skip minimization step");
     Out.println("--nobak          don't create backup files");
+    Out.println("--nodate         don't include a date/time stamp in the generated scanner");
     Out.println("--dump           display transition tables"); 
     Out.println("--dot            write graphviz .dot files for the generated automata (alpha)");
     Out.println("--verbose");
