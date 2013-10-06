@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007       Rï¿½gis Dï¿½camps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -31,7 +31,7 @@ import jflex.Options;
  * 
  * @goal generate
  * @phase generate-sources
- * @author Régis Décamps (decamps@users.sf.net)
+ * @author Rï¿½gis Dï¿½camps (decamps@users.sf.net)
  * 
  */
 public class JFlexMojo extends AbstractMojo {
@@ -139,6 +139,13 @@ public class JFlexMojo extends AbstractMojo {
      * @parameter default-value="false"
      */
     private boolean legacyDot = false; // NOPMD
+
+    /**
+     * If false, the generated scanner will not include a date/time stamp.
+     *
+     * @parameter default-value="true"
+     */
+    private boolean date = true; // NOPMD
 
     /**
 	 * Generate java parsers from lexer definition files.
@@ -258,6 +265,7 @@ public class JFlexMojo extends AbstractMojo {
 
 		Options.no_minimize = !minimize; // NOPMD
 		Options.no_backup = !backup;     // NOPMD
+        Options.no_date = !date;         // NOPMD
 		if ("switch".equals(generationMethod)) {
 			Options.gen_method = Options.SWITCH;
 		} else if ("table".equals(generationMethod)) {
