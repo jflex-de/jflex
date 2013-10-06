@@ -2,7 +2,7 @@
 	<publishDate position="navigation-bottom" format="dd/MM/yyyy"/>
 	
 	<body>
-		<menu name="Overview" href="about.html" >
+		<menu name="Overview">
 			<item name="About" href="about.html" />
 			<item name="Features" href="features.html" />
 			<item name="Changelog" href="changelog.html"/>
