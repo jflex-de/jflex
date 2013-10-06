@@ -4,11 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.jflex</groupId>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.5.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
   <artifactId>jflex-testsuite-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>JFlex Test Suite Maven Plugin</name>
-  <version>0.1-SNAPSHOT</version>
+  <licenses>
+    <license>
+      <name>BSD</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <description>
     Internal-use plugin to run test cases from the JFlex test suite.
   </description>
@@ -35,14 +46,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>maven-jflex-plugin</artifactId>
         <version>1.5.0-SNAPSHOT</version>
@@ -54,23 +57,27 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
-      <version>1.7.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-project</artifactId>
-      <version>2.0.4</version>
     </dependency>
     <dependency>
       <groupId>de.jflex</groupId>
@@ -92,11 +99,10 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>
-      scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/testsuite/jflex-testsuite-maven-plugin/
-    </connection>
-    <developerConnection>
-      scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/branches/jflex-java5/testsuite/jflex-testsuite-maven-plugin/
-    </developerConnection>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk/testsuite/jflex-testsuite-maven-plugin</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk/testsuite/jflex-testsuite-maven-plugin</developerConnection>
   </scm>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

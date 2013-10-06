@@ -7,20 +7,24 @@
   <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
   <name>JFlex parent and aggregator POM</name>
-  <version>2</version>
+  <version>1.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+
+  <licenses>
+    <license>
+      <name>BSD</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <modules>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
-    <!--
-      Cannot be included because of (erroneous) circular dependency
-      de.jflex:jflex-1.5 (uses plugin)-> de.jflex:maven-jflex-plugin-1.0
-      (depends on)-> de.jflex:jflex-1.4.2 See MNG-3814
-      (http://jira.codehaus.org/browse/MNG-3814)
-    -->
     <module>maven-jflex-plugin</module>
     <module>testsuite</module>
   </modules>
+
   <mailingLists>
     <mailingList>
       <name>JFlex User List</name>
@@ -38,19 +42,119 @@
     </mailingList>
   </mailingLists>
 
+  <prerequisites>
+    <maven>2.2.1</maven>
+  </prerequisites>
+
   <issueManagement>
     <system>Sourceforge</system>
     <url>http://sourceforge.net/tracker/?group_id=14929</url>
   </issueManagement>
 
   <scm>
-    <connection>
-			scm:svn:http://jflex.svn.sourceforge.net/svnroot/jflex/
-		</connection>
-    <developerConnection>
-			scm:svn:https://jflex.svn.sourceforge.net/svnroot/jflex/
-		</developerConnection>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
   </scm>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>1.2</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ant</groupId>
+        <artifactId>ant</artifactId>
+        <version>1.7.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugin-testing</groupId>
+        <artifactId>maven-plugin-testing-harness</artifactId>
+        <version>2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-project</artifactId>
+        <version>2.0.11</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+    
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>3.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.6</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.16</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <profiles>
     <profile>

@@ -7,9 +7,9 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>2</version>
+    <version>1.5.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
-  <version>1.5.0-SNAPSHOT</version>
   <name>JFlex</name>
   <url>http://jflex.de/</url>
   <inceptionYear>1998</inceptionYear>
@@ -25,6 +25,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
+    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
+  </scm>
   <mailingLists>
     <mailingList>
       <name>announcements (to be notified of new releases - extremely low trafic)</name>
@@ -51,31 +55,15 @@
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
-      <version>1.7.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
     <plugins>
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -102,23 +90,32 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
           <execution>
+            <id>cup-generate-parser</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>run</goal>
             </goals>
             <configuration>
-              <tasks>
-                <ant antfile="${basedir}/maven-build.xml"
-                  inheritRefs="true" />
-              </tasks>
+              <target name="cup">
+                <property name="cup.version" value="11a" />
+                <property name="cup.jar" value="lib/java-cup-${cup.version}.jar" />
+                <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
+                <property name="cup.file" location="src/main/cup/LexParse.cup"/>
+                <mkdir dir="${cup.output.dir}"/>
+                <echo message="Generating LexParse.java from ${cup.file}"/>
+                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}" />
+                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" parser="LexParse" />
+              </target>
             </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
           <archive>
@@ -136,6 +133,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.7</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -146,20 +144,21 @@
               <report>license</report>
               <report>scm</report>
               <report>summary</report>
-              <report>jdepend</report>
             </reports>
           </reportSet>
         </reportSets>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.0.1</version>
         <configuration>
-          <targetjdk>1.5</targetjdk>
+          <targetJdk>1.5</targetJdk>
           <rulesets>
             <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
           </rulesets>
           <format>xml</format>
-          <linkXref>true</linkXref>
+          <linkXRef>true</linkXRef>
           <!--  Is is different than utf-8 ??? -->
           <sourceEncoding>utf-8</sourceEncoding>
           <minimumTokens>100</minimumTokens>
@@ -168,6 +167,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.4</version>
         <configuration>
           <tags>
             <tag>TODO</tag>
@@ -180,14 +180,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.16</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.3</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
         <configuration>
           <encoding>ISO-8859-1</encoding>
         </configuration>
@@ -195,7 +198,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>2.5.2</version>
         <configuration>
           <xmlOutput>true</xmlOutput>
           <threshold>Normal</threshold>
@@ -213,6 +216,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0-beta-2</version>
       </plugin>
     </plugins>
   </reporting>
@@ -238,4 +242,7 @@
       </build>
     </profile>
   </profiles>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

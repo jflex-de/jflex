@@ -4,22 +4,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.jflex</groupId>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.5.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
   <artifactId>jflex-testsuite-testcases</artifactId>
-  <version>1</version>
   <name>JFlex test suite test cases</name>
   <packaging>pom</packaging>
+  <licenses>
+    <license>
+      <name>BSD</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <dependencies>
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex-testsuite-maven-plugin</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex</artifactId>
-      <version>${jflex.test.version}</version>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -36,10 +47,17 @@
             <configuration>
               <verbose>${verbose}</verbose>
               <testcases>${testcases}</testcases>
-              <jflexTestVersion>${jflex.test.version}</jflexTestVersion>
+              <jflexTestVersion>${project.version}</jflexTestVersion>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -67,7 +85,4 @@
       </build>
     </profile>
   </profiles>
-  <properties>
-    <jflex.test.version>1.5.0-SNAPSHOT</jflex.test.version>
-  </properties>
 </project>
