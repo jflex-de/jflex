@@ -1,16 +1,19 @@
 #!/bin/bash
 #
-# First, download the UCD directory from the public Unicode.org site, 
-# using something like:
+# First, download the zipped UCD (excluding the Unihan database)
+# directory from the public Unicode.org site, using something like:
 #
-#    PROMPT$ wget -r http://www.unicode.org/Public/<version>/ucd
+#    PROMPT$ mkdir ~/temp/Unicode-<version> && cd !$
+#    PROMPT$ wget ftp://www.unicode.org/Public/zipped/<version>/UCD.zip
 #
-# It will try to download more than is necessary, and it's safe to
-# kill the process after it starts downloading PDF charts.
+# Then unzip the file.
 #
-# Next, run this script, which will populate the directories under
-# src/test/cases/unicode-*/ with test files for the given Unicode
-# version.
+# Next, run this script (using the X.Y version string), e.g.:
+# 
+#    PROMPT$ src/test/sh/create.all.unicode.test.case.files.sh  6.3  /home/s/temp/Unicode-6.3
+#
+# which will populate the directories under src/test/cases/unicode-*/ 
+# with test files for the given Unicode version.
 #
 # Next, svn add the newly created test files, using something like:
 #

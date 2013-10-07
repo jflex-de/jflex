@@ -338,7 +338,7 @@ description:
 Tests character class syntax of the Unicode $version $property_value_friendly_name property
 using the '$property_value_syntax' syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

@@ -132,7 +132,7 @@ description:
 Tests character class syntax of the Unicode $version '$property' property,
 defined in DerivedCoreProperties(-X.X.X).txt.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

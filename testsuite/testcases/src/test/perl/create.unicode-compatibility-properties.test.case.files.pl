@@ -484,7 +484,7 @@ Tests character class syntax of the Unicode $version '$property' compatibility
 property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt and/or
 DerivedCoreProperties(-X.X.X).txt.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

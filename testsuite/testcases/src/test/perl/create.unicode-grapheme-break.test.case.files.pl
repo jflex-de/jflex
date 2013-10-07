@@ -183,7 +183,7 @@ name: $base_name
 description: 
 Tests character class syntax of the Unicode $version $property_name property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
