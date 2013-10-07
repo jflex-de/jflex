@@ -49,7 +49,6 @@ open IN, "<$input_filename"
 
 if ($version < 3.1)
 {
-    print "got here #1\n";
     while (<IN>)
     {
 	chomp;
