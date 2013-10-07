@@ -1,0 +1,11 @@
+name: UnicodeCaseless_6_3
+
+description: 
+Tests the %caseless directive for Unicode 6.3
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

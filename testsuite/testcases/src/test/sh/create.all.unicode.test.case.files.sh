@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # First, download the zipped UCD (excluding the Unihan database)
-# directory from the public Unicode.org site, using something like:
+# from the public Unicode.org site, using something like:
 #
-#    PROMPT$ mkdir ~/temp/Unicode-<version> && cd !$
+#    PROMPT$ mkdir ~/temp/Unicode-<version> && cd ~/temp/Unicode-<version>
 #    PROMPT$ wget ftp://www.unicode.org/Public/zipped/<version>/UCD.zip
 #
 # Then unzip the file.
@@ -23,7 +23,7 @@
 #
 #   PROMPT$ mvn test
 #
-# One should fail: the new caseless test.  You can make it succeed
+# One test should fail: the new caseless test.  You can make it succeed
 # by capturing the stderr output from the failing test, editing
 # it to remove everything except the jflex output from the failing
 # test, then saving the result to src/test/cases/unicode-caseless/

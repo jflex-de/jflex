@@ -1,0 +1,12 @@
+name: UnicodeWhiteSpace1_6_3
+
+description: 
+Tests character class syntax of the Unicode 6.3 WhiteSpace property
+using the '\S' syntax.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

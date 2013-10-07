@@ -135,9 +135,17 @@ for my $range (@merged_ranges)
 {
     my ($start_char_num, $end_char_num, $property_value) = @$range;
     next if (defined($property_values_to_skip{$property_value}));
-    printf OUTPUT "%04X..%04X; $property_name:$property_value\n",
-	$start_char_num, $end_char_num;
-
+    if ($start_char_num <= 0xD800 and $end_char_num >= 0xDFFF) 
+    {   # Don't output surrogates
+        printf OUTPUT "%04X..%04X; $property_name:$property_value\n", $start_char_num, 0xD7FF
+            if ($start_char_num < 0xD800);     
+        printf OUTPUT "%04X..%04X; $property_name:$property_value\n", 0xE000, $end_char_num
+            if ($end_char_num > 0xDFFF);     
+    }
+    else
+    {
+        printf OUTPUT "%04X..%04X; $property_name:$property_value\n", $start_char_num, $end_char_num;
+    }
 }
 close OUTPUT;
 
