@@ -3,7 +3,7 @@ name: UnicodeLineBreak_5_0
 description: 
 Tests character class syntax of the Unicode 5.0 LineBreak property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

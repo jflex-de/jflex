@@ -2,5 +2,5 @@ name: eofclose
 description:
 test eofclose directive
 
-jflex: -q
+jflex: -q --noinputstreamctor
 

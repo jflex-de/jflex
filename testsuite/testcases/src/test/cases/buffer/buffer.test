@@ -7,4 +7,4 @@ Test case by Binesh Bannerjee. Input 0 should work ok, input 1
 fails on JFlex 1.4. Problem was missing update of local variable 
 cache for buffer refill.
 
-jflex: -q
+jflex: -q --noinputstreamctor

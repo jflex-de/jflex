@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 3.0 DecimalDigit property
 using the '\D' syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

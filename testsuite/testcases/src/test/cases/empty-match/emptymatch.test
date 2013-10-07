@@ -6,3 +6,5 @@ Matching the empty string. May lead to non-termination if not used carefully.
 This is still broken (in trunk rev 598 and 1.4.3-branch) for %switch codegen method. Probably want
 to deprecate %switch instead of fixing.
 
+jflex: --noinputstreamctor
+

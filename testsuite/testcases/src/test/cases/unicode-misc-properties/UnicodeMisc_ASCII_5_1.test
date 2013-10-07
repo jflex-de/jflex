@@ -3,7 +3,7 @@ name: UnicodeMisc_ASCII_5_1
 description: 
 Tests character class syntax of the Unicode 5.1 'ASCII' property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

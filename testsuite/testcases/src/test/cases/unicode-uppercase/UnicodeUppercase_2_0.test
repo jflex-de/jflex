@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 2.0 Uppercase property
 using the '[:uppercase:]' syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

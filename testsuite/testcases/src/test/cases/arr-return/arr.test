@@ -1,2 +1,2 @@
 name: arr
-
+jflex: --noinputstreamctor

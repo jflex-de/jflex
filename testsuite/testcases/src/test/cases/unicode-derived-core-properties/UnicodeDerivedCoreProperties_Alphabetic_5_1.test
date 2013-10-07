@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 5.1 'Alphabetic' property,
 defined in DerivedCoreProperties(-X.X.X).txt.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

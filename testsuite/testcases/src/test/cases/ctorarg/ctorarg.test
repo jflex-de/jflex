@@ -4,4 +4,4 @@ description:
 test feature request #1762500 (provide option to add arguments to 
 constructor and yylex). Positive test case. 
 
-jflex: -q
+jflex: -q --noinputstreamctor

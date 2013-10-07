@@ -781,7 +781,15 @@ final public class Emitter {
   }
   
   private void emitConstructorDecl(boolean printCtorArgs) {
- 
+    println("  /**");
+    println("   * Creates a new scanner");
+    if (scanner.emitInputStreamCtor) {
+      println("   * There is also a java.io.InputStream version of this constructor.");
+    }
+    println("   *");
+    println("   * @param   in  the java.io.Reader to read input from.");
+    println("   */");
+
     String warn = 
         "// WARNING: this is a default constructor for " +
         "debug/standalone only. Has no custom parameters or init code.";
@@ -814,37 +822,40 @@ final public class Emitter {
     println();
 
     
-    println("  /**");
-    println("   * Creates a new scanner.");
-    println("   * There is also java.io.Reader version of this constructor.");
-    println("   *");
-    println("   * @param   in  the java.io.Inputstream to read input from.");
-    println("   */");
-    if (!printCtorArgs) println(warn);
+    if (scanner.emitInputStreamCtor) {
+      Out.warning(ErrorMessages.EMITTING_INPUTSTREAM_CTOR, -1);
+      println("  /**");
+      println("   * Creates a new scanner.");
+      println("   * There is also java.io.Reader version of this constructor.");
+      println("   *");
+      println("   * @param   in  the java.io.Inputstream to read input from.");
+      println("   */");
+      if (!printCtorArgs) println(warn);
     
-    print("  ");
-    if ( scanner.isPublic ) print("public ");    
-    print( getBaseName(scanner.className) );      
-    print("(java.io.InputStream in");
-    if (printCtorArgs) emitCtorArgs();
-    print(")");
-    
-    if ( scanner.initThrow != null && printCtorArgs ) {
-      print(" throws ");
-      print( scanner.initThrow );
-    }
-    
-    println(" {");    
+      print("  ");
+      if ( scanner.isPublic ) print("public ");    
+      print( getBaseName(scanner.className) );      
+      print("(java.io.InputStream in");
+      if (printCtorArgs) emitCtorArgs();
+      print(")");
 
-    print("    this(new java.io.InputStreamReader(in)");
-    if (printCtorArgs) {
-      for (int i=0; i < scanner.ctorArgs.size(); i++) {
-        print(", "+scanner.ctorArgs.get(i));
-      }      
+      if ( scanner.initThrow != null && printCtorArgs ) {
+        print(" throws ");
+        print( scanner.initThrow );
+      }
+
+      println(" {");    
+
+      println("    this(new java.io.InputStreamReader");
+      print("             (in, java.nio.charset.Charset.forName(\"UTF-8\"))");
+      if (printCtorArgs) {
+        for (int i=0; i < scanner.ctorArgs.size(); i++) {
+          print(", "+scanner.ctorArgs.get(i));
+        }      
+      }
+      println(");");
+      println("  }");
     }
-    println(");");
-    
-    println("  }");
   }
 
   private void emitCtorArgs() {

@@ -3,7 +3,7 @@ name: UnicodeCaseless_3_0
 description: 
 Tests the %caseless directive for Unicode 3.0
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

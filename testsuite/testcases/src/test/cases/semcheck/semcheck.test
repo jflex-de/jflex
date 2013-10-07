@@ -3,7 +3,7 @@ description:
 test class semcheck for %ignorecase and negation operators
 (bug #1003569 Cannot use lookahead with ignorecase)
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 jflex-fail: true
 javac-fail: true

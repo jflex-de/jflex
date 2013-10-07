@@ -3,7 +3,7 @@ name: UnicodeCaseless_2_0
 description: 
 Tests the %caseless directive for Unicode 2.0
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

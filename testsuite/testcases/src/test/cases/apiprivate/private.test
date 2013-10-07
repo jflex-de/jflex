@@ -4,6 +4,6 @@ description:
 test feature request #513500 [Generate cleaner interfaces], %apiprivate option
 
 
-jflex:  -q
+jflex:  -q --noinputstreamctor
 
 javac-fail: true

@@ -3,7 +3,7 @@ name: SixDigitUnicodeEscape
 description: 
 Tests \UXXXXXX six-digit hexadecimal character escape syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

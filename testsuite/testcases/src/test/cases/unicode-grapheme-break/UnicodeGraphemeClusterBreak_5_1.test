@@ -3,7 +3,7 @@ name: UnicodeGraphemeClusterBreak_5_1
 description: 
 Tests character class syntax of the Unicode 5.1 GraphemeClusterBreak property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

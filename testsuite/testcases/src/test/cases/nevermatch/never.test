@@ -2,6 +2,6 @@ name: never
 description:
 test nevermatch warning
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 javac-fail: true

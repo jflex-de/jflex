@@ -3,4 +3,5 @@ name: genlook
 description:
 testing general lookahead expression case (e.g. a+a/a+)
 
+jflex: --noinputstreamctor
 

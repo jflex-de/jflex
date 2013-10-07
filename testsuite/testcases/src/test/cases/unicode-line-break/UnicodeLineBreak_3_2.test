@@ -3,7 +3,7 @@ name: UnicodeLineBreak_3_2
 description: 
 Tests character class syntax of the Unicode 3.2 LineBreak property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

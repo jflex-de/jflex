@@ -3,7 +3,7 @@ name: UnicodeCaseless_4_0
 description: 
 Tests the %caseless directive for Unicode 4.0
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

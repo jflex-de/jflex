@@ -3,7 +3,7 @@ name: UnicodeMisc_Assigned_6_1
 description: 
 Tests character class syntax of the Unicode 6.1 'Assigned' property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

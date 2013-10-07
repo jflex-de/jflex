@@ -3,7 +3,7 @@ name: UnicodeMisc_Assigned_4_0
 description: 
 Tests character class syntax of the Unicode 4.0 'Assigned' property.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

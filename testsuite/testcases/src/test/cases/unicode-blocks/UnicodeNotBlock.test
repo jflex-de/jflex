@@ -4,7 +4,7 @@ description:
 Tests the inverse of the Unicode block property character class syntax
 for one block.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

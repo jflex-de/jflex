@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 3.2 'Extender' property,
 defined in PropList(-X.X.X).txt.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

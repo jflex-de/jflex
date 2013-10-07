@@ -4,7 +4,7 @@ description:
 tests include files, i.e. yyPushStream and yyPopStream 
 bug #495422
 
-jflex: -q --skel src/test/cases/include/skeleton.nested
+jflex: -q --noinputstreamctor --skel src/test/cases/include/skeleton.nested
 
 javac: -O
 javac-fail: false

@@ -8,4 +8,4 @@ getTokenName uses "sym" as the cup symbol name even if
 %cupsym is specified. The comment correctly uses the 
 cupSymbol variable, but the generated code does not. 
 
-jflex: -q
+jflex: -q --noinputstreamctor

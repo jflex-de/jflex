@@ -4,5 +4,7 @@ description:
 testing that dot (.) matches [^\n\r\u000B\u000C\u0085\u2028\u2029]
 and that \R matches "\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029] 
 
+jflex: --noinputstreamctor
+
 input-file-encoding: UTF-8
 output-file-encoding: UTF-8

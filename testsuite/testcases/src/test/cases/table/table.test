@@ -3,4 +3,4 @@ name: table
 description:
 the example 'simple' from the JFlex distribution with table code generator
 
-jflex: -q
+jflex: -q --noinputstreamctor

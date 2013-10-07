@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 5.2 WhiteSpace property
 using the '\s' syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

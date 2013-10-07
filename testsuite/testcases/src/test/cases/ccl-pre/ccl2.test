@@ -3,5 +3,5 @@ name: ccl2
 description:
 bug-test for [:jletter:] style predefiend character classes (#467827)
 
-jflex: --dump
+jflex: --dump --noinputstreamctor
 

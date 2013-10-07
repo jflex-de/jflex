@@ -4,7 +4,7 @@ description:
 Tests the Unicode script property character class syntax
 for all scripts supported in Unicode 4.0
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 

@@ -4,4 +4,4 @@ description:
 Test for feature request [ 1212181 ] Support generics for %type and %extends
 Tests %class
 
-jflex: -q
+jflex: -q --noinputstreamctor

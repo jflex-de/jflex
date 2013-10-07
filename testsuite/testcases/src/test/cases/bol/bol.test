@@ -3,7 +3,7 @@ name: bol
 description:
 tests BOL and EOL operators 
 
-jflex: --dump
+jflex: --dump --noinputstreamctor
 
 javac: -O
 javac-fail: false

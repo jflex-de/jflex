@@ -31,7 +31,7 @@ import jflex.Options;
  * 
  * @goal generate
  * @phase generate-sources
- * @author R�gis D�camps (decamps@users.sf.net)
+ * @author Régis Décamps (decamps@users.sf.net)
  * 
  */
 public class JFlexMojo extends AbstractMojo {
@@ -147,6 +147,16 @@ public class JFlexMojo extends AbstractMojo {
      */
     private boolean date = true; // NOPMD
 
+    // TODO: In JFlex 1.6, the default value will be false.
+    // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
+    /**
+     * If true, the generated scanner will include a constructor taking
+     * an InputStream.
+     * 
+     * @parameter default-value="true"
+     */
+    private boolean inputStreamCtor = true; // NOPMD
+
     /**
 	 * Generate java parsers from lexer definition files.
 	 * 
@@ -258,6 +268,7 @@ public class JFlexMojo extends AbstractMojo {
 		Options.verbose = verbose;
 		Options.dot = dot;
         Options.legacy_dot = legacyDot;
+        Options.emitInputStreamCtor = inputStreamCtor;
 		if (skeleton != null) {
 			Options.setSkeleton(skeleton);
 		}

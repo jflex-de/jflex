@@ -4,4 +4,7 @@ description:
 Tests that a nonexistent Unicode block property character class
 triggers an error.
 
+jflex: --noinputstreamctor
+
 jflex-fail: true
+

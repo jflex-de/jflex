@@ -5,6 +5,6 @@ bug #611118 [Macro error on regexp negation (!)]
 
 wrong warnings for negated macros
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 

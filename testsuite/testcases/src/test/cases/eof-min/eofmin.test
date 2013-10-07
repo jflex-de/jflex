@@ -5,4 +5,4 @@ description:
 Should not get a warning for equivalent lex states
 Should end up in different states for the two inputs
 
-jflex: 
+jflex: --noinputstreamctor

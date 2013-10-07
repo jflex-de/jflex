@@ -3,4 +3,6 @@ name: null
 description:
 Syntax error in input causes NullPointerException (bug #1832973)
 
+jflex: --noinputstreamctor
+
 jflex-fail: true

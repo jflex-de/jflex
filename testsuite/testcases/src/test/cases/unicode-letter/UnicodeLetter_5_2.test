@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 5.2 Letter property
 using the '[:letter:]' syntax.
 
-jflex: -q
+jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
