@@ -1,0 +1,9 @@
+name: UnicodeLineBreakAlgorithm_6_3
+
+description: 
+Implements the Unicode 6.3 Line Break algorithm, specified in UAX #14
+<http://www.unicode.org/reports/tr14/tr14-32.html>.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
