@@ -5,6 +5,5 @@ tests BOL and EOL operators
 
 jflex: --dump --noinputstreamctor
 
-javac: -O
 javac-fail: false
 

@@ -6,4 +6,6 @@ test feature request #513500 [Generate cleaner interfaces], %apiprivate option
 
 jflex:  -q --noinputstreamctor
 
+javac-extra-files: Test.java
+
 javac-fail: true

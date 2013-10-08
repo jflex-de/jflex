@@ -14,7 +14,7 @@ import jflex.sym;
 
 // %debug 
 
-%state DESCR JFLEXCMD JAVACCMD LINELIST
+%state DESCR JFLEXCMD JAVAC_EXTRA_FILES LINELIST
 
 %{
   private StringBuilder buffer = new StringBuilder();
@@ -35,7 +35,7 @@ NL = \r | \n | \r\n
   "description:"      { yybegin(DESCR); }
 
   "jflex: "           { cmdLine = new ArrayList<String>(); yybegin(JFLEXCMD); }
-  "javac: "           { cmdLine = new ArrayList<String>(); yybegin(JAVACCMD); }
+  "javac-extra-files: " { cmdLine = new ArrayList<String>(); yybegin(JAVAC_EXTRA_FILES); }
 
   "jflex-fail:" " "+ "true"  { test.setExpectJFlexFail(true); }
   "jflex-fail:" " "+ "false" { test.setExpectJFlexFail(false); }
@@ -65,7 +65,7 @@ NL = \r | \n | \r\n
 }
 
 
-<JFLEXCMD, JAVACCMD> {
+<JFLEXCMD, JAVAC_EXTRA_FILES> {
   [^ \t\r\n]+         { cmdLine.add(yytext()); }
   \" ~\"              { cmdLine.add(yytext().substring(1,yylength()-1)); 
                         /* quoted cmdline options */ } 
@@ -76,8 +76,8 @@ NL = \r | \n | \r\n
 <JFLEXCMD>
   {NL}                { test.setJflexCmdln(cmdLine); yybegin(YYINITIAL); }
 
-<JAVACCMD>
-  {NL}                { test.setJavacCmdln(cmdLine); yybegin(YYINITIAL); }
+<JAVAC_EXTRA_FILES>
+  {NL}                { test.setJavacExtraFiles(cmdLine); yybegin(YYINITIAL); }
 
 <LINELIST> {
   [0-9]+              { lineList.add(new Integer(yytext())); }

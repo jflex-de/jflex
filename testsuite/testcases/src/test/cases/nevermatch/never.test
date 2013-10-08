@@ -4,4 +4,6 @@ test nevermatch warning
 
 jflex: -q --noinputstreamctor
 
+javac-extra-files: Never.java
+
 javac-fail: true

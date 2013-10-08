@@ -16,7 +16,9 @@ import jflex.SilentExit;
 
 public class Exec {
 
-  /**
+    private static String javaVersion = "1.5";
+
+    /**
    * Convert two Lists with String elements into one
    * array containing all elements.
    *
@@ -39,16 +41,20 @@ public class Exec {
   }
 
   /**
-   * Call javac with input dir. Compile all *.java files below dir.
+   * Call javac on toCompile in input dir. If toCompile is null, 
+   * all *.java files below dir will be compiled.
    */
-  public static TestResult execJavac(File dir, String jflexTestVersion) {
+  public static TestResult execJavac(String toCompile, File dir, String jflexTestVersion) {
     Project p = new Project();
     Javac javac = new Javac();
     Path path = new Path(p, dir.toString());
     javac.setProject(p);
     javac.setSrcdir(path);
     javac.setDestdir(dir);
-    javac.setTarget("1.5");
+    javac.setTarget(javaVersion);
+    javac.setSource(javaVersion);
+    javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
+    javac.setIncludes(toCompile);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
     classPath.setPath(System.getProperty("user.home")

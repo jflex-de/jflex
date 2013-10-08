@@ -12,11 +12,8 @@ public class TestCase {
   private List<String> jflexFiles;
   
   /** command line switches for javac invocation */
-  private List<String> javacCmdln;
+  private List<String> javacExtraFiles;
   
-  /** files on which to invoke javac */
-  private List<String> javacFiles;
-
   /** lines with expected differences in jflex output */
   private List<Integer> jflexDiff;
   
@@ -58,7 +55,7 @@ public class TestCase {
   public void setExpectJavacFail(boolean b){ expectJavacFail = b; }
   public void setExpectJFlexFail(boolean b){ expectJFlexFail = b; }
   public void setJflexCmdln(List<String> v) { jflexCmdln = v; }
-  public void setJavacCmdln(List<String> v) { javacCmdln = v; }
+  public void setJavacExtraFiles(List<String> v) { javacExtraFiles = v; }
   public void setInputOutput(List<InputOutput> v) { inputOutput = v; }
   public void setInputFileEncoding(String e) { inputFileEncoding = e; }
   public void setOutputFileEncoding(String e) { outputFileEncoding = e; }
@@ -71,8 +68,7 @@ public class TestCase {
   private void setDefaults() {
     //jflexCmdln = new ArrayList<String>();
     jflexFiles = new ArrayList<String>();
-    //javacCmdln = new ArrayList<String>();
-    javacFiles = new ArrayList<String>();
+    //javacExtraFiles = new ArrayList<String>();
     //jflexCmdln.add("--dump");
   }
 
@@ -144,12 +140,18 @@ public class TestCase {
       }
 
       // Compile Scanner
-      String toCompile = new File(testPath, className+".java").getPath();
-      if (Main.verbose) { 
-        System.out.println("File to Compile: "+toCompile);
+      StringBuilder builder = new StringBuilder();
+      builder.append(new File(testPath, className+".java").getPath());
+      if (null != javacExtraFiles) {
+        for (String extraFile : javacExtraFiles) {
+          builder.append(',').append(extraFile);
+        }
       }
-      javacFiles.add(toCompile);      
-      javacResult = Exec.execJavac(testPath, Main.jflexTestVersion);
+      String toCompile = builder.toString();
+      if (Main.verbose) { 
+        System.out.println("File(s) to Compile: " + toCompile);
+      }
+      javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
 
       // System.out.println(javacResult);
       if (Main.verbose) {
@@ -247,7 +249,7 @@ public class TestCase {
   public String toString(){
     return "Testname: "+testName+"\nDescription: " + description 
 			+ "JFlexFail: " + expectJFlexFail + " JavacFail: " + expectJavacFail + "\n" 
-			+ "JFlex Command line: " + jflexCmdln + " Javac Command Line" +  javacCmdln + "\n"
+			+ "JFlex Command line: " + jflexCmdln + " Javac Command Line" + javacExtraFiles + "\n"
 			+ "Files to run Main on " + inputOutput 
       + (null != commonInputFile ? " Common input file: " + commonInputFile : "");
   }

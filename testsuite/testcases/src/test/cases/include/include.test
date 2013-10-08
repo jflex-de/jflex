@@ -6,6 +6,5 @@ bug #495422
 
 jflex: -q --noinputstreamctor --skel src/test/cases/include/skeleton.nested
 
-javac: -O
 javac-fail: false
 
