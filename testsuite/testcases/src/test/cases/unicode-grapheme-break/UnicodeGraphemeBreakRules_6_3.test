@@ -1,0 +1,9 @@
+name: UnicodeGraphemeBreakRules_6_3
+
+description: 
+Implements the Unicode 6.3 Grapheme Break rules, specified in UAX #29 
+<http://www.unicode.org/reports/tr29/tr29-23.html>.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
