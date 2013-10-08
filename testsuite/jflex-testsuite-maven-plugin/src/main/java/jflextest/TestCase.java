@@ -141,7 +141,7 @@ public class TestCase {
 
       // Compile Scanner
       StringBuilder builder = new StringBuilder();
-      builder.append(new File(testPath, className+".java").getPath());
+      builder.append(new File(testPath, className+".java").getName());
       if (null != javacExtraFiles) {
         for (String extraFile : javacExtraFiles) {
           builder.append(',').append(extraFile);
@@ -248,9 +248,12 @@ public class TestCase {
   
   public String toString(){
     return "Testname: "+testName+"\nDescription: " + description 
-			+ "JFlexFail: " + expectJFlexFail + " JavacFail: " + expectJavacFail + "\n" 
-			+ "JFlex Command line: " + jflexCmdln + " Javac Command Line" + javacExtraFiles + "\n"
-			+ "Files to run Main on " + inputOutput 
-      + (null != commonInputFile ? " Common input file: " + commonInputFile : "");
+        + "JFlexFail: " + expectJFlexFail + " JavacFail: " + expectJavacFail + "\n" 
+        + "JFlex Command line: " + jflexCmdln
+        + (null != javacExtraFiles 
+            ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
+            : "") + "\n"
+        + "Files to run Main on " + inputOutput 
+        + (null != commonInputFile ? " Common input file: " + commonInputFile : "");
   }
 }
