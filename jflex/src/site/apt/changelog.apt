@@ -4,13 +4,112 @@
 
 Roadmap
 
-  JFlex 1.5 will require and support Java 5 genericity and performance 
-  features.
+  JFlex 1.6 will support Unicode code points above the Basic Multilingual
+  Plane.
+
+  In JFlex 1.6, InputStream constructors will no longer be included by
+  default in generated scanners.  In the following version, including
+  these constructors will no longer be possible.
+
+  In JFlex 1.6, deprecated "switch" and "table" code generation options
+  will be removed.
 
 
 Changelog
 
-* Version 1.4.2 
+* JFlex 1.5
+
+  adds features and fixes all known bugs of 1.4.3
+  
+     * The "switch" and "table" code generation options are deprecated
+       and will be removed in JFlex 1.6
+  
+     * The JFlex license has been changed from GPL to BSD.
+
+     * Updated JFlex to CUP version 0.11a. 
+     
+     * Changed the build from Ant to Maven.
+      
+     * Added an option (<<<--nodate>>>) to not include a date/time stamp
+       in generated scanners.
+                     
+     * JFlex now mostly conforms with 
+       {{{http://www.unicode.org/reports/tr18/#Basic_Unicode_Support}
+       Unicode Regular Expressions UTS #18 Basic Unicode Support - Level 1}}
+       
+       * The changes to move JFlex closer to conformance include:
+       
+         * Support for a basic set of Unicode properties from all minor
+           Unicode releases from Unicode 1.0 through Unicode 6.3, using
+           \p{property} and \P{property}, matching chars assigned
+           and not assigned the given property, respectively.  From the
+           cmdline, give the <<<--uniprops (version)>>> option to see
+           the list of supported property values and aliases for the
+           given Unicode version.
+          
+           You can use the "%unicode 5.0" directive to specify Unicode 5.0 - 
+           the default when you use "%unicode" without specifying a version
+           is the most recent supported Unicode release, which is Unicode
+           6.3 as of JFlex 1.5.
+           
+         * Support for the following new metacharacters:
+         
+           * \s (any whitespace character)
+           * \S (any non-whitespace character)
+           * \d (any digit character)
+           * \D (any non-digit character)
+           * \w (any word character)
+           * \W (any non-word character)
+           
+         * Caseless matching now implements simple, default Unicode case
+           folding, and is closed under case for all Unicode property and
+           explicit character classes.
+         
+         * Support for nested character sets (<<<[[[ABC]D]E[FG]]>>>) and
+           character set operations: union (<<<[A||B]>>>, equivalent to
+           <<<[AB]>>>), intersection (<<<[A&&B]>>>), set-difference
+           (<<<[A--B]>>>), and symmetric difference (<<<[A~~B]>>>).
+             
+         * The meaning of the dot (".") metacharacter has been changed from
+           <<<[^\n]>>> to <<<[^\n\r\u000B\u000C\u0085\u2028\u2029]>>>. 
+           Use the <<<--legacydot>>> option to get back the old behavior.
+           
+         * A new "\R" metacharacter has been added to match any newline:
+           <<<"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029].>>>
+       
+         See the JFlex User's Manual for full details.
+       
+       * There are three exceptions from full UTS #18 Level 1 conformance:
+      
+         * Supplementary code points are not yet supported - this is 
+           {{{http://www.unicode.org/reports/tr18/#RL1.7}Requirement RL1.7}.
+       
+         * Simple word boundaries, via the "\b" metacharacter, are not yet
+           supported - this is 
+           {{{http://www.unicode.org/reports/tr18/#RL1.4}Requirement RL1.4}.
+           
+         * Extended Grapheme Clusters, via the "\X" metacharacter, are not yet
+           supported - this is one of the required Compatibility Properties
+           listed in 
+           {{{http://www.unicode.org/reports/tr18/#RL1.2a}Requirement RL1.2a}}.
+     
+     * Fixed bug #107 (unexpected Error: could not match input for empty
+       string matches. The fix works for %pack and %table codegen methods. 
+       It does fix or not change anything for the %switch codegen method.)
+
+* JFlex 1.4.3 (Jan 31, 2009) 
+
+  fixes all known bugs of 1.4.2
+ 
+    * Fixed bug #2018299 (lookahead syntax error).
+  
+    * Fixed bug #2010261 (min_int in Java example scanner).
+    
+    * Fixed bug #2007221 (zzEOFDone not reset in yyreset(Reader)).
+     
+    * Fixed bug #1999301 (%type and %int at the same time should produce error message). 
+
+* JFlex 1.4.2 (May 27, 2008) 
 
   Version 1.4.2 is a maintenance release fixing all known bugs of 
   version 1.4.1, including the long-standing look-ahead expression problems. 
@@ -45,7 +144,7 @@ Changelog
 
 * JFlex 1.4.1 (November 7, 2004)
 
-  fixes all known bugf of version 1.4.1
+  fixes all known bugs of version 1.4.1
   
   * Fixed bug #1049791 (uses Old JUnit method assertFalse). 
   Thanks to Don Brown for providing a patch. 
