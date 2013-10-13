@@ -163,10 +163,4 @@ public class AntTaskTests extends TestCase {
     task.setLegacyDot(true);
     assertTrue(Options.legacy_dot);
   }
-    
-  public void testNoDate() {
-    assertFalse(Options.no_date);
-    task.setNoDate(true);
-    assertTrue(Options.no_date);
-  }
 }

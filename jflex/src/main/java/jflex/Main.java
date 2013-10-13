@@ -246,11 +246,6 @@ public class Main {
         continue;
       }
         
-      if ( argv[i].equals("--nodate") || argv[i].equals("-nodate") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.no_date = true;
-        continue;
-      }
-
       // TODO: In the JFlex version after 1.6, --inputstreamctor will be removed.
       if ( argv[i].equals("--inputstreamctor") || argv[i].equals("-inputstreamctor") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.emitInputStreamCtor = true;
@@ -373,7 +368,6 @@ public class Main {
     Out.println("--noinputstreamctor  don't include a scanner constructor taking InputStream");
     Out.println("--nomin           skip minimization step");
     Out.println("--nobak           don't create backup files");
-    Out.println("--nodate          don't include a date/time stamp in the generated scanner");
     Out.println("--dump            display transition tables"); 
     Out.println("--dot             write graphviz .dot files for the generated automata (alpha)");
     Out.println("--verbose");

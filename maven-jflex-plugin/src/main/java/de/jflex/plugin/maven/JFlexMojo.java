@@ -140,13 +140,6 @@ public class JFlexMojo extends AbstractMojo {
      */
     private boolean legacyDot = false; // NOPMD
 
-    /**
-     * If false, the generated scanner will not include a date/time stamp.
-     *
-     * @parameter default-value="true"
-     */
-    private boolean date = true; // NOPMD
-
     // TODO: In JFlex 1.6, the default value will be false.
     // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
     /**
@@ -276,7 +269,6 @@ public class JFlexMojo extends AbstractMojo {
 
 		Options.no_minimize = !minimize; // NOPMD
 		Options.no_backup = !backup;     // NOPMD
-        Options.no_date = !date;         // NOPMD
 		if ("switch".equals(generationMethod)) {
 			Options.gen_method = Options.SWITCH;
 		} else if ("table".equals(generationMethod)) {

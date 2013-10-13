@@ -45,12 +45,11 @@ public class OptionsDialog extends Dialog {
   private Checkbox time;
 
   private Checkbox no_minimize; 
-  private Checkbox no_backup; 
-  private Checkbox no_date;
+  private Checkbox no_backup;
+  private Checkbox input_stream_ctor;
 
   private Checkbox jlex;
   private Checkbox dot;
-  private Checkbox input_stream_ctor;
 
   private Checkbox tableG;
   private Checkbox switchG;
@@ -99,11 +98,10 @@ public class OptionsDialog extends Dialog {
 
     no_minimize = new Checkbox(" skip minimization");
     no_backup = new Checkbox(" no backup file");
-    no_date = new Checkbox(" no date/time stamp");
+    input_stream_ctor = new Checkbox(" InputStream ctor");
 
     jlex = new Checkbox(" JLex compatibility");
     dot = new Checkbox(" dot graph files");
-    input_stream_ctor = new Checkbox(" InputStream ctor");
     
     // setup interaction
     ok.addActionListener( new ActionListener() {
@@ -163,12 +161,6 @@ public class OptionsDialog extends Dialog {
       }
     } );
 
-    no_date.addItemListener( new ItemListener() {
-          public void itemStateChanged(ItemEvent e) {
-              Options.no_date = no_date.getState();
-          }
-      } );
-
     dot.addItemListener( new ItemListener() {
       public void itemStateChanged(ItemEvent e) {
         Options.dot = dot.getState();                    
@@ -218,11 +210,10 @@ public class OptionsDialog extends Dialog {
 
     panel.add(2,3,1,1,no_minimize);
     panel.add(2,4,1,1,no_backup);
-    panel.add(2,5,1,1,no_date);
+    panel.add(2,5,1,1,input_stream_ctor);
 
     panel.add(3,3,1,1,jlex);
     panel.add(3,4,1,1,dot);
-    panel.add(3,5,1,1,input_stream_ctor);
 
     add("Center", panel);
     
@@ -275,11 +266,10 @@ public class OptionsDialog extends Dialog {
 
     no_minimize.setState(Options.no_minimize);
     no_backup.setState(Options.no_backup);
-    no_date.setState(Options.no_date);
+    input_stream_ctor.setState(Options.emitInputStreamCtor);
   
     jlex.setState(Options.jlex);
     dot.setState(Options.dot);
-    input_stream_ctor.setState(Options.emitInputStreamCtor);
   }
 
   private void setDefaults() {

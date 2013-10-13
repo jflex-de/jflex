@@ -253,10 +253,6 @@ public class JFlexTask extends Task {
     Options.legacy_dot = b;
   }
     
-  public void setNoDate(boolean b) {
-    Options.no_date = b;
-  }
-    
   // TODO: In the JFlex version after 1.6, this option will cease to exist
   public void setInputStreamCtor(boolean b) {
     Options.emitInputStreamCtor = b; 
