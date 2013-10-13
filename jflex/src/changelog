@@ -1,3 +1,16 @@
+* JFlex 1.5
+- The "switch" and "table" code generation options are deprecated
+  and will be removed in JFlex 1.6
+- The JFlex license has been changed from GPL to BSD.
+- Updated JFlex to CUP version 0.11a. 
+- Changed the build from Ant to Maven.
+- JFlex now mostly conforms with Unicode Regular Expressions UTS#18
+  Basic Unicode Support - Level 1.  Supplementary code points (above
+  the Basic Multilingual Plane) are not yet supported.
+- New option --noinputstreamctor to not include an InputStream
+  constructor in the generated scanner.
+- Fixed bug #107 (could not match input for empty string matches.)
+
 * JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)
 - fixed bug #2010261 (min_int in Java example scanner)
