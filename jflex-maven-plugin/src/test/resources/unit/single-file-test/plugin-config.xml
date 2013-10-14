@@ -2,12 +2,12 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-jflex-plugin</artifactId>
+        <artifactId>jflex-maven-plugin</artifactId>
         <configuration>
           <project implementation="org.apache.maven.plugin.testing.stubs.MavenProjectStub"/>
-          <outputDirectory>target/test/unit/recursion-test/target/generated-sources/jflex</outputDirectory>
+          <outputDirectory>target/test/unit/single-file-test/target/generated-sources/jflex</outputDirectory>
           <lexDefinitions>
-            <lexDefinition>src/test/resources/unit/recursion-test/src/main/jflex</lexDefinition>
+            <lexDefinition>src/test/resources/unit/single-file-test/src/main/jflex/preprocessor.jflex</lexDefinition>
           </lexDefinitions>
         </configuration>
       </plugin>

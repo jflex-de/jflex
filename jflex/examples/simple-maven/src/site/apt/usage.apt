@@ -43,7 +43,7 @@ Usage
 	 
 * mvn generate-sources
 
-	The maven-jflex-plugin will read the grammar 
+	The jflex-maven-plugin will read the grammar 
 	<<<src/main/jflex/simple.jflex>>>
 	and generate a Java scanner <<<Yylex.java>>>
 	in <<<target/generated-sources/flex>>>
@@ -55,7 +55,7 @@ Usage
     <plugins>
       <plugin>
         <groupId>de.jflex.maven.plugin</groupId>
-        <artifactId>maven-jflex-plugin</artifactId>
+        <artifactId>jflex-maven-plugin</artifactId>
         <version>0.2</version>
         <executions>
           <execution>
@@ -69,7 +69,7 @@ Usage
   </build>
 +------------
 
-	By default, the maven-jflex-plugin generates a scanner/parser for every file
+	By default, the jflex-maven-plugin generates a scanner/parser for every file
 	in <<<src/main/jflex/>>>.
 
 

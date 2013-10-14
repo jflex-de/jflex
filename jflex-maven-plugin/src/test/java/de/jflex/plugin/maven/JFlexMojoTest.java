@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007       Rï¿½gis Dï¿½camps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -14,7 +14,7 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 
 /**
- * @author Régis Décamps (decamps@users.sf.net)
+ * @author Rï¿½gis Dï¿½camps (decamps@users.sf.net)
  */
 public class JFlexMojoTest extends AbstractMojoTestCase {
 
@@ -47,7 +47,7 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
 		File unitBasedir = new File(getBasedir(), "src/test/resources/unit");
 		File testPom = new File(unitBasedir, testCase + "/plugin-config.xml");
 		JFlexMojo mojo = new JFlexMojo();
-		configureMojo(mojo, "maven-jflex-plugin", testPom);
+		configureMojo(mojo, "jflex-maven-plugin", testPom);
 		if (getVariableValueFromObject(mojo, "project") == null) {
 			setVariableValueToObject(mojo, "project", new MavenProjectStub());
 		}

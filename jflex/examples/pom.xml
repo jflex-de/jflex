@@ -7,15 +7,15 @@
 	<artifactId>parent</artifactId>
 	<version>1</version>
 	<description>
-		Examples on how to use JFlex and maven-jflex-plugin
+		Examples on how to use JFlex and jflex-maven-plugin
 	</description>
 	<packaging>pom</packaging>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>de.jflex</groupId>
-				<artifactId>maven-jflex-plugin</artifactId>
-				<version>1.4.3</version>
+				<artifactId>jflex-maven-plugin</artifactId>
+				<version>1.5.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -26,13 +26,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>jflex</id>
-			<name>JFlex repository</name>
-			<url>http://jflex.sourceforge.net/repo/</url>
-		</pluginRepository>
-	</pluginRepositories>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

@@ -21,7 +21,7 @@
   <modules>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
-    <module>maven-jflex-plugin</module>
+    <module>jflex-maven-plugin</module>
     <module>testsuite</module>
   </modules>
 
@@ -171,7 +171,7 @@
           <id>sourceforge</id>
           <name>JFlex sourceforge site</name>
           <url>
-						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
+						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/jflex-maven-plugin
 					</url>
         </site>
       </distributionManagement>
@@ -192,7 +192,7 @@
           <id>localhost</id>
           <name>JFlex sourceforge site</name>
           <url>
-						scp://localhost/tmp/jflex/maven-jflex-plugin
+						scp://localhost/tmp/jflex/jflex-maven-plugin
 					</url>
         </site>
       </distributionManagement>

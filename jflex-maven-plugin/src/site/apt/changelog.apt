@@ -10,7 +10,9 @@ Latest version
  
   * Requires Java 5
 
-  * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven
+  * Changed package from org.codehaus.mojo.jlex to de.jflex.
+  
+  * Changed name from maven-jflex-plugin to jflex-maven-plugin
 
   
 Recent versions

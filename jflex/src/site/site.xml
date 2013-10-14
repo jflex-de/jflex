@@ -9,7 +9,7 @@
 		</menu>
 		<menu name="Documentation">
 			<item name="ant task" href="ant-task.html"/>
-			<item name="Maven plugin" href="/maven-jflex-plugin/" />
+			<item name="Maven plugin" href="/jflex-maven-plugin/" />
 		</menu>
 		<menu ref="reports" />
 	</body>

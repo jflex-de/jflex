@@ -5,7 +5,7 @@
 # repository as the version given below.
 #
 
-VERSION=1.5
+VERSION=1.5.0
 
 
 echo "--- building from current working copy, delpoying as $VERSION"
@@ -25,6 +25,6 @@ mvn install:install-file  -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomF
 
 echo "--- deploing maven plugin"
 
-cd ../maven-jflex-plugin
+cd ../jflex-maven-plugin
 mvn -Prelease install deploy site
 

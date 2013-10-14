@@ -4,15 +4,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jflex</groupId>
-	<artifactId>maven-jflex-plugin</artifactId>
+	<artifactId>jflex-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<name>Maven JFlex Plugin</name>
+	<name>JFlex Maven Plugin</name>
 	<version>1.5.0-SNAPSHOT</version>
 	<description>
 		This is a Maven 2 plugin to generate a parser in Java code from
-		a Lexer definition, using Jflex.de.
+		a Lexer definition, using JFlex.
 	</description>
-	<url>http://jflex.sourceforge.net/maven-jflex-plugin/</url>
+	<url>http://jflex.sourceforge.net/jflex-maven-plugin/</url>
 	<mailingLists>
 		<mailingList>
 			<name>JFlex User List</name>
@@ -263,10 +263,10 @@
 	</reporting>
 	<scm>
 		<connection>
-			scm:svn:http://svn.code.sf.net/p/jflex/code/trunk/maven-jflex-plugin/
+			scm:svn:http://svn.code.sf.net/p/jflex/code/trunk/jflex-maven-plugin/
 		</connection>
 		<developerConnection>
-			scm:svn:https://svn.code.sf.net/p/jflex/code/trunk/maven-jflex-plugin/
+			scm:svn:https://svn.code.sf.net/p/jflex/code/trunk/jflex-maven-plugin/
 		</developerConnection>
 	</scm>
 
@@ -285,7 +285,7 @@
 					<id>sourceforge</id>
 					<name>JFlex sourceforge site</name>
 					<url>
-						scp://shell.sourceforge.net/home/groups/j/jf/jflex/htdocs/maven-jflex-plugin
+						scp://shell.sourceforge.net/home/groups/j/jf/jflex/htdocs/jflex-maven-plugin
 					</url>
 				</site>
 			</distributionManagement>
@@ -306,7 +306,7 @@
 					<id>localhost</id>
 					<name>JFlex sourceforge site</name>
 					<url>
-						scp://localhost/tmp/jflex/maven-jflex-plugin
+						scp://localhost/tmp/jflex/jflex-maven-plugin
 					</url>
 				</site>
 			</distributionManagement>
