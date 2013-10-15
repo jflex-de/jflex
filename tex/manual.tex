@@ -124,8 +124,8 @@ C:\JFlex\
                +--standalone-maven\  (above with maven)
       +--lib\                   (the precompiled classes) 
       +--src\ 
-          +--JFlex\             (source code of JFlex) 
-          +--JFlex\gui          (source code of JFlex UI classes)
+          +--jflex\             (source code of JFlex) 
+          +--jflex\gui          (source code of JFlex UI classes)
           +--java_cup\runtime\  (source code of cup runtime classes) 
 \end{verbatim}
 }
@@ -204,23 +204,27 @@ You run JFlex with:
 
 \texttt{jflex <options> <inputfiles>}
 
-It is also possible to skip the start script in \verb+bin\+
-and include the file \verb+lib\JFlex.jar+
+It is also possible to skip the start script in \verb+bin/+
+and include the file \verb+lib/JFlex.jar+
 in your \texttt{CLASSPATH} environment variable instead.
 
 Then you run JFlex with:
 
-\texttt{java JFlex.Main <options> <inputfiles>}
+\texttt{java jflex.Main <options> <inputfiles>}
 
-The input files and options are in both cases optional. If you don't provide a file name on
-the command line, JFlex will pop up a window to ask you for one.
+or with:
+
+\texttt{java -jar \texttt{JFlex.jar} <options> <inputfiles>}
+
+The input files and options are in both cases optional. If you don't
+provide a file name on the command line, JFlex will pop up a window
+to ask you for one.
 
 JFlex knows about the following options:
 
 \begin{description}
 \item \verb+-d <directory>+\\
   writes the generated file to the directory \verb+<directory>+
-  
 
 \item \verb+--skel <file>+\\
   uses external skeleton \verb+<file>+. This is mainly for JFlex
@@ -242,6 +246,13 @@ JFlex knows about the following options:
 
 \item \verb+--dump+\\
   display transition tables of NFA, initial DFA, and minimised DFA 
+
+\item \verb+--legacydot+\\
+  dot (\texttt{.}) metacharacter matches \verb+[^\n]+ instead of
+  \verb+[^\n\r\u000B\u000C\u0085\u2028\u2029]+.
+  
+\item \verb+--noinputstreamctor+\\
+  don't include an InputStream constructor in the generated scanner.
 
 \item \verb+--verbose+ or \texttt{-v}\\
   display generation progress messages (enabled by default)
@@ -265,10 +276,12 @@ JFlex knows about the following options:
   use the \%pack code generation method by default
 
 \item \verb+--table+\\
-  use the \%table code generation method by default
+  use the \%table code generation method by default\\
+  {\bf Deprecated - will be removed in JFlex 1.6}
 
 \item \verb+--switch+\\
-  use the \%switch code generation method by default
+  use the \%switch code generation method by default\\
+  {\bf Deprecated - will be removed in JFlex 1.6}
 
 \item \verb+--help+ or \texttt{-h}\\
   print a help message explaining options and usage of JFlex.
@@ -1074,39 +1087,42 @@ when no code generation method is specified.
 \item 
   {\bf \tt \%switch}
 
-  With \texttt{\%switch} JFlex will generate a scanner that has
-  the DFA hard coded into a nested switch statement. This method gives
-  a good deal of compression in terms of the size of the compiled 
-  \texttt{.class} file while still providing very good performance. If your
-  scanner gets to big though (say more than about 200 states)
-  performance may vastly degenerate and you should consider using one
-  of the \texttt{\%table} or \texttt{\%pack} directives. If your scanner
-  gets even bigger (about 300 states), the Java compiler \texttt{javac}
-  could produce corrupted code, that will crash when executed or will
-  give you an \texttt{java.lang.VerifyError} when checked by the virtual
-  machine. This is due to the size limitation of 64 KB of Java
-  methods as described in the Java Virtual Machine Specification
-  \cite{MachineSpec}. In this case you will be forced to use the 
-  \texttt{\%pack} directive, since \texttt{\%switch}
-  usually provides more compression of the DFA table than the 
+  {\bf The \texttt{\%switch} code generation method is deprecated and 
+  will be removed in JFlex 1.6.} With \texttt{\%switch} JFlex will
+  generate a scanner that has the DFA hard coded into a nested switch
+  statement. This method gives a good deal of compression in terms of
+  the size of the compiled \texttt{.class} file while still providing
+  very good performance. If your scanner gets to big though (say more
+  than about 200 states) performance may vastly degenerate and you
+  should consider using one of the \texttt{\%table} or \texttt{\%pack}
+  directives. If your scanner gets even bigger (about 300 states),
+  the Java compiler \texttt{javac} could produce corrupted code, that
+  will crash when executed or will give you an \texttt{java.lang.VerifyError}
+  when checked by the virtual machine. This is due to the size
+  limitation of 64 KB of Java methods as described in the Java Virtual
+  Machine Specification \cite{MachineSpec}. In this case you will be
+  forced to use the \texttt{\%pack} directive, since \texttt{\%switch}
+  usually provides more compression of the DFA table than the
   \texttt{\%table} directive.
 
  
 \item
   {\bf \texttt{\%table}}
   
-  The \texttt{\%table} direction causes JFlex to produce a classical
-  table driven scanner that encodes its DFA table in an array.  In
-  this mode, JFlex only does a small amount of table compression (see
-  \cite{ParseTable}, \cite{SparseTable}, \cite{Aho} and \cite{Maurer}
-  for more details on the matter of table compression) and uses the
-  same method that JLex did up to version 1.2.1. See section \ref{performance}
-  \htmlref{performance}{performance} of this manual to compare
-  these methods. The same reason as above (64 KB size limitation of
-  methods) causes the same problem, when the scanner gets too big.
-  This is, because the virtual machine treats static initialisers of
-  arrays as normal methods. You will in this case again be forced to
-  use the \texttt{\%pack} directive to avoid the problem.
+  {\bf The \texttt{\%table} code generation method is deprecated and 
+  will be removed in JFlex 1.6.} The \texttt{\%table} direction causes
+  JFlex to produce a classical table driven scanner that encodes its
+  DFA table in an array.  In this mode, JFlex only does a small amount
+  of table compression (see \cite{ParseTable}, \cite{SparseTable}, 
+  \cite{Aho} and \cite{Maurer} for more details on the matter of table
+  compression) and uses the same method that JLex did up to version
+  1.2.1. See section \ref{performance} \htmlref{performance}{performance}
+  of this manual to compare these methods. The same reason as above
+  (64 KB size limitation of methods) causes the same problem, when the
+  scanner gets too big. This is, because the virtual machine treats
+  static initialisers of arrays as normal methods. You will in this
+  case again be forced to use the \texttt{\%pack} directive to avoid
+  the problem.
  
 \item
   {\bf \texttt{\%pack}}
