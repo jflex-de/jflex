@@ -353,8 +353,14 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
   "%standalone"               { standalone = true; isInteger = true; }
-  "%switch"                   { packed = false; useRowMap = false; }
-  "%table"                    { packed = false; useRowMap = true; }
+  "%switch"                   { packed = false; 
+                                useRowMap = false;
+                                Out.warning(ErrorMessages.SWITCH_METHOD_DEPRECATED, yyline);   
+                              }
+  "%table"                    { packed = false; 
+                                useRowMap = true;
+                                Out.warning(ErrorMessages.TABLE_METHOD_DEPRECATED, yyline);  
+                              }
   "%pack"                     { packed = true; useRowMap = true; }
   "%include" {WSP}+ .*        { File f = new File(file.getParentFile(), yytext().substring(9).trim());
                                 if ( !f.canRead() )

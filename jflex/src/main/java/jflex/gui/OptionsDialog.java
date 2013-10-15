@@ -85,8 +85,8 @@ public class OptionsDialog extends Dialog {
     skelFile.setEditable(false);
 
     CheckboxGroup codeG = new CheckboxGroup();
-    tableG = new Checkbox(" table",Options.gen_method == Options.TABLE, codeG);
-    switchG = new Checkbox(" switch",Options.gen_method == Options.SWITCH, codeG);
+    tableG = new Checkbox(" table (DEPRECATED)",Options.gen_method == Options.TABLE, codeG);
+    switchG = new Checkbox(" switch (DEPRECATED)",Options.gen_method == Options.SWITCH, codeG);
     packG = new Checkbox(" pack",Options.gen_method == Options.PACK, codeG);
 
     legacy_dot = new Checkbox( " dot (.) matches [^\\n] instead of "
