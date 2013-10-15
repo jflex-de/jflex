@@ -6,13 +6,15 @@ Latest version
 
 * Version 1.5.0
 
+  * Changed name from maven-jflex-plugin to jflex-maven-plugin
+ 
+  * Switched license from GPL to BSD
+
   * Relies on JFlex 1.5.0
  
   * Requires Java 5
 
-  * Changed package from org.codehaus.mojo.jlex to de.jflex.
-  
-  * Changed name from maven-jflex-plugin to jflex-maven-plugin
+  * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven.
 
   
 Recent versions

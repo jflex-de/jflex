@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       R�gis D�camps <decamps@users.sf.net>           *
+ * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *

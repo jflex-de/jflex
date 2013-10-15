@@ -76,6 +76,7 @@
   <scm>
     <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
     <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
+    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

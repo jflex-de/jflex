@@ -66,7 +66,7 @@ Usage
 
 	This generates the source for two grammars 
 	(<<<src/main/lex/preprocessor.jflex>>> and 
-	 <<</pub/postrocessor.jflex>>>) as well as all grammar files found in 
+	 <<</pub/postprocessor.jflex>>>) as well as all grammar files found in 
 	 <<<src/main/jflex>>> (and it sub-directories).
 	 The generated Java code is placed into <<<src/main/java>>> instead of
 	 <<<target/generated-sources/jflex>>>.
@@ -85,10 +85,10 @@ Usage
             </goals>
             <configuration>
               <outputDirectory>src/main/java</outputDirectory>
-              <lexDefintions>
-                <lexDefinition>src/main/jflex</lexDefintion>
-                <lexDefinition>src/main/lex/preprocessor.jflex</lexFile>
-                <lexDefinition>/pub/postrocessor.jflex</lexFile>
+              <lexDefinitions>
+                <lexDefinition>src/main/jflex</lexDefinition>
+                <lexDefinition>src/main/lex/preprocessor.jflex</lexDefinition>
+                <lexDefinition>/pub/postprocessor.jflex</lexDefinition>
               </lexDefinitions>
             </configuration>
           </execution>
@@ -125,8 +125,8 @@ Usage
               <goal>generate</goal>
             </goals>
             <configuration>
-              <lexDefintions>
-                <lexDefinition>src/main/lex</lexDefintion>
+              <lexDefinitions>
+                <lexDefinition>src/main/lex</lexDefinition>
               </lexDefinitions>
               <jlex>true</jlex>
             </configuration>
@@ -137,8 +137,8 @@ Usage
               <goal>generate</goal>
             </goals>
             <configuration>
-              <lexDefintions>
-                <lexDefinition>src/main/jflex</lexDefintion>
+              <lexDefinitions>
+                <lexDefinition>src/main/jflex</lexDefinition>
               </lexDefinitions>
               <verbose>true</verbose>
             </configuration>
@@ -153,18 +153,18 @@ Usage
 
 * Which version of the plugin is best for you?
 
-  * maven-jflex-plugin-0.3 depends on JFlex 1.4.1 
-    and requires Java 1.4 during when you <<<mvn jflex:generate>>>
-    
-  * maven-jflex-plugin-1.0 depends on JFlex 1.4.1
-    and requires Java 5 during when you <<<mvn jflex:generate>>>
-    
-  * maven-jflex-plugin-1.4.2-r1 depends on JFlex 1.4.2
-    and requires Java 1.3 during when you <<<mvn jflex:generate>>>
+  * jflex-maven-plugin-1.5.0 depends on JFlex 1.5.0
+    and requires Java 5 when you <<<mvn jflex:generate>>>
 
   * maven-jflex-plugin-1.4.3-r1 depends on JFlex 1.4.3
-    and requires Java 1.3 during when you <<<mvn jflex:generate>>>
+    and requires Java 1.3 when you <<<mvn jflex:generate>>>
 
-  * jflex-maven-plugin-1.5.0 depends on JFlex 1.5.0
-    and requires Java 5
+  * maven-jflex-plugin-1.4.2-r1 depends on JFlex 1.4.2
+    and requires Java 1.3 when you <<<mvn jflex:generate>>>
 
+  * maven-jflex-plugin-1.0 depends on JFlex 1.4.1
+    and requires Java 5 when you <<<mvn jflex:generate>>>
+
+  * maven-jflex-plugin-0.3 depends on JFlex 1.4.1 
+    and requires Java 1.4 when you <<<mvn jflex:generate>>>
+    

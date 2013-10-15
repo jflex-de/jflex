@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       R�gis D�camps <decamps@users.sf.net>           *
+ * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -27,7 +27,7 @@ import jflex.Options;
 
 /**
  * Generates lexical scanners from one or more <a href="http://jflex.de/">JFlex</a>
- * grammer files.
+ * grammar files.
  * 
  * @goal generate
  * @phase generate-sources
@@ -109,6 +109,8 @@ public class JFlexMojo extends AbstractMojo {
 	/**
 	 * The generation method to use for the scanner. Valid values are
 	 * <code>switch</code>, <code>table</code> and <code>pack</code>.
+     * <b>The <code>switch</code> and <code>table</code> methods are deprecated
+     * and will be removed in JFlex 1.6.</b>
 	 * Please see the <a href="http://jflex.de/manual.html#CodeGeneration">JFlex
 	 * manual</a> for more details about the various methods.
 	 * 

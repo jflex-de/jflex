@@ -31,7 +31,7 @@
 	</mailingLists>
 	<issueManagement>
 		<system>Sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=14929</url>
+		<url>http://sourceforge.net/p/jflex/_list/tickets</url>
 	</issueManagement>
 	<prerequisites>
         <maven>2.2.1</maven>
@@ -73,11 +73,14 @@
 	</contributors>
 	<licenses>
 		<license>
-			<name>GPL</name>
-			<url>http://www.gnu.org/licenses/gpl.html</url>
-			<distribution>repo</distribution>
+			<name>BSD</name>
+            <url>http://www.opensource.org/licenses/bsd-license.php</url>
+            <distribution>repo</distribution>
 		</license>
 	</licenses>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 	<build>
 		<plugins>
             <plugin>
@@ -92,7 +95,6 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
-					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
             <plugin>
@@ -202,7 +204,6 @@
 					</rulesets>
 					<format>xml</format>
 					<linkXRef>true</linkXRef>
-					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
 				</configuration>
 			</plugin>
@@ -233,9 +234,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9.1</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -268,6 +266,9 @@
 		<developerConnection>
 			scm:svn:https://svn.code.sf.net/p/jflex/code/trunk/jflex-maven-plugin/
 		</developerConnection>
+        <url>
+            http://sourceforge.net/p/jflex/code/HEAD/tree/trunk/jflex-maven-plugin/
+        </url>
 	</scm>
 
 	<profiles>

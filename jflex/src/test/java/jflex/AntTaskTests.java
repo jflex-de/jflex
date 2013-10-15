@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex 1.5                                                               *
  * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>,                   *
- *                          Regis Decamps <decamps@users.sf.net>           *
+ *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
