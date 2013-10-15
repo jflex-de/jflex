@@ -21,12 +21,12 @@
 <p>
  To use the JFlex task, the following line must be placed in the Ant build file:
 </p>
-<pre>&lt;taskdef classname=&quot;JFlex.anttask.JFlexTask&quot; name=&quot;jflex&quot; /&gt;</pre>
+<pre>&lt;taskdef classname=&quot;jflex.anttask.JFlexTask&quot; name=&quot;jflex&quot; /&gt;</pre>
 
 <p>
   The JFlex task requires the <i>file</i> attribute to be set to the source grammar file (*.flex).
   Unless the target directory is specified with the <i>destdir</i> option, 
-  the generated class will be saved to the same directory where grammar file resides. 
+  the generated class will be saved to the same directory where the grammar file resides. 
   Like javac, the JFlex task creates subdirectories in <i>destdir</i> according to the 
   generated class package.
 </p>
@@ -115,23 +115,37 @@
   </tr>
   <tr>
     <td valign="top">switch</td>
-    <td valign="top">Use code generation method <i>switch</t>.</td>
+    <td valign="top">Use code generation method <i>switch</i>.
+        <p><b>Deprecated - will be removed in JFlex 1.6.</b></td>
     <td align="center" valign="top">No</td>
     <td align="center" valign="top">&quot;off&quot;</td>
   </tr>
   <tr>
     <td valign="top">table</td>
-    <td valign="top">Use code generation method <i>table</t>.</td>
+    <td valign="top">Use code generation method <i>table</i>.
+        <p><b>Deprecated - will be removed in JFlex 1.6.</b></td>
     <td align="center" valign="top">No</td>
     <td align="center" valign="top">&quot;off&quot;</td>
   </tr>
   <tr>
     <td valign="top">pack</td>
-    <td valign="top">Use code generation method <i>pack</t>.</td>
+    <td valign="top">Use code generation method <i>pack</i>.</td>
     <td align="center" valign="top">No</td>
     <td align="center" valign="top">&quot;on&quot;</td>
   </tr>
-
+  <tr>
+    <td valign="top">legacydot</td>
+    <td valign="top">Dot (.) metacharacter matches <tt>[^\n]</tt> 
+        instead of <tt>[^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]</tt></td>
+    <td align="center" valign="top">No</td>
+    <td align="center" valign="top">&quot;off&quot;</td>
+  </tr>
+  <tr>
+    <td valign="top">noinputstreamctor</td>
+    <td valign="top">Don't include an InputStream constructor in the generated scanner</td>
+    <td align="center" valign="top">No</td>
+    <td align="center" valign="top">&quot;off&quot;</td>
+  </tr>
 </table>
 <h3>Example</h3>
 <blockquote><pre>
@@ -142,7 +156,7 @@
 </pre></blockquote>
 <p>
   JFlex generates the lexical analyzer for <tt>src/parser/Parser.flex</tt> and saves the result 
-  to <tt>build/generated/parser/</tt>, providing <tt>Parser.flex</tt> declares to be in package <tt>parser</tt>.
+  to <tt>build/generated/parser/</tt>, providing <tt>Parser.flex</tt> is declared to be in package <tt>parser</tt>.
 </p>
 
 <blockquote><pre>
