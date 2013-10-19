@@ -15,6 +15,8 @@
 \newcommand{\trit}{\em}
 
 \newcommand{\ver}{1.5}
+\newcommand{\nextver}{1.6}
+\newcommand{\latestunicodever}{6.3}
 
 \begin{document}
 \latex{{\centerline{\hspace*{0mm}\includegraphics[scale=0.6]{logo}}}}
@@ -248,11 +250,11 @@ JFlex knows about the following options:
   display transition tables of NFA, initial DFA, and minimised DFA 
 
 \item \verb+--legacydot+\\
-  dot (\texttt{.}) metacharacter matches \verb+[^\n]+ instead of
-  \verb+[^\n\r\u000B\u000C\u0085\u2028\u2029]+.
+  dot (\texttt{.}) meta character matches \verb+[^\n]+ instead of
+  \verb+[^\n\r\u000B\u000C\u0085\u2028\u2029]+
   
 \item \verb+--noinputstreamctor+\\
-  don't include an InputStream constructor in the generated scanner.
+  don't include an InputStream constructor in the generated scanner
 
 \item \verb+--verbose+ or \texttt{-v}\\
   display generation progress messages (enabled by default)
@@ -271,17 +273,20 @@ JFlex knows about the following options:
 \item \verb+--info+\\
   print system and JDK information (useful if you'd like
   to report a problem)
+  
+\item \verb+--unicodever <ver>+\\
+  print all supported properties for Unicode version \verb+<ver>+
 
 \item \verb+--pack+\\
   use the \%pack code generation method by default
 
 \item \verb+--table+\\
   use the \%table code generation method by default\\
-  {\bf Deprecated - will be removed in JFlex 1.6}
+  {\bf Deprecated - will be removed in JFlex \nextver}
 
 \item \verb+--switch+\\
   use the \%switch code generation method by default\\
-  {\bf Deprecated - will be removed in JFlex 1.6}
+  {\bf Deprecated - will be removed in JFlex \nextver}
 
 \item \verb+--help+ or \texttt{-h}\\
   print a help message explaining options and usage of JFlex.
@@ -399,7 +404,7 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 \end{verbatim}
 \label{CodeRulesAllStates}\begin{verbatim}
 /* error fallback */
-.|\n                             { throw new Error("Illegal character <"+
+[^]                              { throw new Error("Illegal character <"+
                                                     yytext()+">"); }
 \end{verbatim}
 }
@@ -441,9 +446,11 @@ the following options are used:
 
 \item
   \texttt{\htmlref{\%unicode}{CodeOptions}} defines the set of characters the scanner will 
-  work on. For scanning text files, \texttt{\%unicode} should always be used. See also
-  section \ref{sec:encodings} for more information on character sets, encodings, and
-  scanning text vs. binary files.
+  work on. For scanning text files, \texttt{\%unicode} should always be used.  The Unicode
+  version may be specified, e.g. \texttt{\%unicode 4.1}.  If no version is specified, the
+  most recent supported Unicode version will be used - in JFlex \ver, this is
+  Unicode \latestunicodever. See also section \ref{sec:encodings} for more information
+  on character sets, encodings, and scanning text vs. binary files.
 
 \item
   \texttt{\htmlref{\%cup}{CodeOptions}} switches to CUP compatibility
@@ -1088,7 +1095,7 @@ when no code generation method is specified.
   {\bf \tt \%switch}
 
   {\bf The \texttt{\%switch} code generation method is deprecated and 
-  will be removed in JFlex 1.6.} With \texttt{\%switch} JFlex will
+  will be removed in JFlex \nextver.} With \texttt{\%switch} JFlex will
   generate a scanner that has the DFA hard coded into a nested switch
   statement. This method gives a good deal of compression in terms of
   the size of the compiled \texttt{.class} file while still providing
@@ -1110,7 +1117,7 @@ when no code generation method is specified.
   {\bf \texttt{\%table}}
   
   {\bf The \texttt{\%table} code generation method is deprecated and 
-  will be removed in JFlex 1.6.} The \texttt{\%table} direction causes
+  will be removed in JFlex \nextver.} The \texttt{\%table} direction causes
   JFlex to produce a classical table driven scanner that encodes its
   DFA table in an array.  In this mode, JFlex only does a small amount
   of table compression (see \cite{ParseTable}, \cite{SparseTable}, 
@@ -1174,14 +1181,16 @@ for more information about character encodings.
 {\bf \texttt{\%unicode}}\\
 {\bf \texttt{\%16bit}}
 
-Both options cause the generated scanner to use the full 16 bit Unicode input
-character set that Java supports natively (character code points 0-65535).
-There will be no runtime overflow when using this set of input characters.
+Both options cause the generated scanner to use the BMP (Basic Multilingual
+Plane) of the Unicode input character set that Java supports natively
+(character code points 0-65535). JFlex \ver does not yet support supplementary
+characters above the BMP; support is planned for JFlex \nextver. There will be
+no runtime overflow when using this set of input characters.
 \texttt{\%unicode} does not mean that the scanner will read two bytes at a
 time. What is read and what constitutes a character depends on the runtime
 platform. See also section \ref{sec:encodings} for more information about
-character encodings. This is the default unless the JLex compatibility mode is
-used (command line option \texttt{--jlex}).
+character encodings. This is the default unless the JLex compatibility mode
+is used (command line option \texttt{--jlex}).
 
 \label{caseless} \item {\bf \texttt{\%caseless}}\\ {\bf \texttt{\%ignorecase}}
 
@@ -1191,13 +1200,11 @@ This enables an easy way to specify a scanner for a language with case
 insensitive keywords. The string "\texttt{break}" in a specification is for
 instance handled like the expression \texttt{([bB][rR][eE][aA][kK])}. The
 \texttt{\%caseless} option does not change the matched text and does not
-effect character classes. So \texttt{[a]} still only matches the character
+affect character classes. So \texttt{[a]} still only matches the character
 \texttt{a} and not \texttt{A}, too. Which letters are uppercase and which
-lowercase letters, is defined by the Unicode standard and determined by JFlex
-with the Java methods \texttt{Character.toUpperCase} and
-\texttt{Character.toLowerCase}. In JLex compatibility mode (\texttt{--jlex}
-switch on the command line), \texttt{\%caseless} and \texttt{\%ignorecase}
-also affect character classes.
+lowercase letters, is defined by the Unicode standard. In JLex compatibility
+mode (\texttt{--jlex} switch on the command line), \texttt{\%caseless}
+and \texttt{\%ignorecase} also affect character classes.
 
  \end{itemize}
 \subsubsection{Line, character and column counting\label{Counting}}
@@ -1323,19 +1330,42 @@ RegExp       ::= RegExp '|' RegExp
                | ('!'|'~') RegExp
                | RegExp ('*'|'+'|'?')
                | RegExp "{" Number ["," Number] "}" 
-               | '[' ['^'] (Character|Character'-'Character)* ']' 
+               | CharClass
                | PredefinedClass 
-               | '{' Identifier '}' 
+               | MacroUsage 
                | '"' StringCharacter+ '"' 
                | Character 
 
-PredefinedClass ::= '[:jletter:]' 
-                  | '[:jletterdigit:]' 
-                  | '[:letter:]' 
-                  | '[:digit:]' 
-                  | '[:uppercase:]' 
-                  | '[:lowercase:]' 
-                  | '.' 
+CharClass    ::= '[' ['^'] CharClassContent* ']'
+               | '[' ['^'] CharClassContent+ CharClassOperator CharClassContent+ ']'
+                 
+CharClassContent    ::= CharClass | (Character|Character'-'Character|MacroUsage|PredefinedClass)
+
+CharClassOperator   ::= '||' | '&&' | '--' | '~~'
+
+MacroUsage          ::= '{' Identifier '}'
+
+PredefinedClass     ::= '[:jletter:]' 
+                      | '[:jletterdigit:]' 
+                      | '[:letter:]' 
+                      | '[:digit:]'
+                      | '[:uppercase:]' 
+                      | '[:lowercase:]'
+                      | '\d' | '\D'
+                      | '\s' | '\S'
+                      | '\w' | '\W'
+                      | '\p{' UnicodePropertySpec '}'
+                      | '\P{' UnicodePropertySpec '}'
+                      | '\R'
+                      | '.'          
+                            
+UnicodePropertySpec ::= BinaryProperty | EnumeratedProperty (':' | '=') PropertyValue
+
+BinaryProperty      ::= Identifier
+
+EnumeratedProperty  ::= Identifier
+
+PropertyValue       ::= Identifier
 \end{verbatim}
 %$
 
@@ -1393,8 +1423,9 @@ The grammar uses the following terminal symbols:
 Please note that the \verb+\n+ escape sequence stands for the ASCII
 LF character - not for the end of line. If you would like to match the
 line terminator, you should use the expression \verb+\r|\n|\r\n+ if you want
-the Java conventions, or \verb+\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+
-if you want to be fully Unicode compliant (see also \cite{unicode_rep}).
+the Java conventions, or \verb+\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]+
+(provided as predefined class \verb+\R+) if you want to be fully Unicode
+compliant (see also \cite{unicode_rep}).
 
 As of version 1.1 of JFlex the white-space characters \texttt{" "}
 (space) and \verb+"\t"+ (tab) can be used to improve the readability of
@@ -1435,28 +1466,56 @@ A regular expression that consists solely of
   a \texttt{Character} matches this character.
 
 \item
-  a character class \verb:'[' (Character|Character'-'Character)* ']': matches
-  any character in that class. A \texttt{Character} is to be considered an
-  element of a class, if it is listed in the class or if its code lies within
-  a listed character range \texttt{Character'-'Character}. So \verb+[a0-3\n]+
-  for instance matches the characters
+  a character class \verb:'[...]': matches any character in that class.
+  A \texttt{Character} is to be considered an element of a class, if it
+  is listed in the class or if its code lies within a listed character
+  range \texttt{Character'-'Character} or Macro or predefined character
+  class. So \verb+[a0-3\n]+ for instance matches the characters
 
   \verb+a 0 1 2 3 \n+
 
   If the list of characters is empty (i.e.~just \verb+[]+), the expression
   matches nothing at all (the empty set), not even the empty string. This
   may be useful in combination with the negation operator \verb+'!'+.
+  
+  Character sets may be nested, e.g. \verb+[[[abc]d[e]]fg]+ is equivalent
+  to \verb+[abcdefg]+.
+
+  Supported character set operations:
+    
+  \begin{itemize}
+  \item
+    Union (\verb+||+), e.g. \verb+[[a-c]||[d-f]]+, equivalent to 
+    \verb+[a-cd-f]+: this is the default character set operation when
+    no operator is specified. 
+
+  \item
+    Intersection (\verb+&&+), e.g. \verb+[[a-f]&&[f-m]]+, equivalent to
+    \verb+[f]+.
+    
+  \item
+    Set difference (\verb+--+), e.g. \verb+[[a-z]--m]+, equivalent to
+    \verb+[a-ln-z]+.
+    
+  \item
+    Symmetric difference (\verb+~~+): the union minus the intersection,
+    e.g. \verb+[\p{Letter}~~\p{ASCII}]+, equivalent to
+    \verb+[[\p{Letter}||\p{ASCII}]--[\p{Letter}&&\p{ASCII}]]+: the
+    set of characters that are present in either \verb+\p{Letter}+ or
+    in \verb+\p{ASCII}+, but not in both.
+
+  \end{itemize}
 
 \item 
-  a negated character class \verb:'[^' (Character|Character'-'Character)* ']':
-  matches all characters not listed in the class. If the list of characters
-  is empty (i.e. \verb+[^]+), the expression matches any character of the
-  input character set.
-
+  a negated character class \verb:'[^...]':  matches all characters not
+  listed in the class. If the list of characters is empty (i.e. 
+  \verb+[^]+), the expression matches any character of the input
+  character set.
+  
 \item
   a string \texttt{'"' StringCharacter+ '"} \texttt{'} matches the exact
   text enclosed in double quotes. All meta characters but \verb+\+ and
-  \texttt{"}  loose their special meaning inside a string. See also the
+  \texttt{"} lose their special meaning inside a string. See also the
   \htmlref{\texttt{\%ignorecase}}{caseless} switch.
     
 \item
@@ -1469,26 +1528,73 @@ A regular expression that consists solely of
   the characters in that class. There are the following predefined character
   classes:
 
-  \texttt{.}  contains all characters but \verb+\n+.
+  \begin{itemize}
+  \item
+    These two predefined character classes are determined by Java functions of
+    class \texttt{java}.\texttt{lang}.\texttt{Cha\-rac\-ter}:
+
+    \begin{verbatim}
+    [:jletter:]       isJavaIdentifierStart()
+    [:jletterdigit:]  isJavaIdentifierPart()
+    \end{verbatim}
+
+  \item
+    These four predefined character classes are equivalent to the following
+    Unicode properties (described \htmlref{below}{unipropsyntax}):
+
+    \begin{verbatim}
+    [:letter:]     \p{Letter}
+    [:digit:]      \p{Digit}
+    [:uppercase:]  \p{Uppercase}
+    [:lowercase:]  \p{Lowercase}
+    \end{verbatim}
+
+  \item
+    These meta characters are equivalent to the following (sets of) Unicode
+    Properties (described \htmlref{below}{unipropsyntax}):
+    
+    \begin{verbatim}
+    \d  \p{Digit}
+    \D  \P{Digit}
+    \s  \p{Whitespace}
+    \S  \P{Whitespace}
+    \w  [\p{Alpha}\p{Digit}\p{Mark}\p{Connector Punctuation}\p{Join Control}]
+    \W  [^\p{Alpha}\p{Digit}\p{Mark}\p{Connector Punctuation}\p{Join Control}]
+    \end{verbatim}
+    
+  \label{unipropsyntax}
+  \item
+    Unicode Properties are character classes specified by each version of the
+    Unicode Standard. JFlex supports a subset of all defined Properties for
+    each supported Unicode version. To see the full list of supported
+    Properties, give the \texttt{--uniprops <ver>} option on the JFlex
+    command line, where \texttt{<ver>} is the Unicode version. Some
+    Properties have aliases; JFlex recognizes all aliases for all supported
+    properties. JFlex supports loose matching of Properties: case
+    distinctions, whitespace, hyphens, and underscores are ignored.
+
+    To refer to a Unicode Property, use the \verb+\p{...}+ syntax, e.g. the
+    Greek Block can be referred to as \verb+\p{Block:Greek}+. To match the
+    all characters not included in a property, use the \verb+\P{...}+ syntax
+    (note that the '\verb+P+' is uppercase), e.g. to match all characters
+    that are {\bf not} letters: \verb+\P{Letter}+.
+     
+    See UTS\#18 \cite{unicode_rep} for a description of and links to
+    definitions of some supported Properties. UnicodeSet \cite{UnicodeSet}
+    is an online utility to show the character sets corresponding to
+    Unicode Properties and set operations on them, but only for the most
+    recent Unicode version.
+
+  \item
+    Dot (\texttt{.}) matches \verb+[^\r\n\u2028\u2029\u000B\u000C\u0085]+.\\
+    Use the \texttt{--legacydot} option to instead match \verb+[^\n]+.
+    
+  \item
+    \verb+\R+ matches any newline: \verb+\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]+.
   
-  All other predefined character classes are defined in the Unicode
-  specification or the Java Language Specification and determined by
-  Java functions of class
-  \texttt{java}.\texttt{lang}.\texttt{Cha\-rac\-ter}.
-
-\begin{verbatim}
-[:jletter:]      isJavaIdentifierStart()
-[:jletterdigit:] isJavaIdentifierPart()
-[:letter:]       isLetter()
-[:digit:]        isDigit()
-[:uppercase:]    isUpperCase()
-[:lowercase:]    isLowerCase()
-\end{verbatim}
-
-    They are especially useful when working with the unicode character set.
-
-
   \end{itemize}
+
+\end{itemize}
 
     If \texttt{a} and \texttt{b} are regular expressions, then
 
@@ -1973,8 +2079,8 @@ they are called, and how to set them may be found in the
 official Java documentation in the chapter about 
 internationalisation. 
 The link 
-\htmladdnormallink{\texttt{http://java.sun.com/j2se/1.3/docs/guide/intl/}}{http://java.sun.com/j2se/1.3/docs/guide/intl/}
-leads to an online version of this for Sun's JDK 1.3.
+\htmladdnormallink{\texttt{http://docs.oracle.com/javase/1.5.0/docs/guide/intl/}}{http://docs.oracle.com/javase/1.5.0/docs/guide/intl/}
+leads to an online version of this for Oracle's JDK 1.5.
 
 \subsection{Scanning binaries\label{sec:howtobinary}}
 
@@ -2012,10 +2118,134 @@ platform might change, it's probably best to use character
 code escapes in all places, since they don't change their
 meaning.
 
-To illustrate these points, the example in \texttt{examples/binary} 
-contains a very small binary scanner that tries to
-detect if a file is a Java \texttt{class} file. For that
-purpose it looks if the file begins with the magic number \verb+\xCAFEBABE+.
+\section{Conformance with Unicode Regular Expressions UTS\#18\label{unicoderegexconformance}}
+
+This section gives details about JFlex \ver's conformance with the
+requirements for Basic Unicode Support Level 1 given in UTS\#18
+\cite{unicode_rep}.
+
+\subsection{RL1.1 Hex Notation}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall supply a mechanism
+for specifying any Unicode code point (from U+0000 to U+10FFFF), using
+the hexadecimal code point representation.}
+\end{quote}
+
+JFlex does not fully conform: although syntax is provided to express
+values across the whole range, via \verb+\uXXXX+, where \verb+XXXX+ is
+a 4-digit hex value, and \verb+\Uyyyyyy+, where \verb+yyyyyy+ is a 
+6-digit hex value, JFlex only supports characters within the 16-bit
+Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
+
+\subsection{RL1.2 Properties}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall provide at least a
+minimal list of properties, consisting of the following: General\_Category,
+Script, Alphabetic, Uppercase, Lowercase, White\_Space,
+Noncharacter\_Code\_Point, Default\_Ignorable\_Code\_Point, ANY, ASCII,
+ASSIGNED.}
+
+\emph{The values for these properties must follow the Unicode definitions, 
+and include the property and property value aliases from the UCD. Matching
+of Binary, Enumerated, Catalog, and Name values, must follow the
+Matching Rules from [UAX44].}
+\end{quote}
+
+JFlex conforms.  The minimal set of properties is supported, as well as
+a few others. To see the full list of supported properties, use the JFlex
+command line option \verb+--uniprops <ver>+, where \verb+<ver>+ is the
+Unicode version.  Loose matching is performed: case distinctions, 
+whitespace, underscores and hyphens in property names and values are
+ignored.
+
+\subsection{RL1.2a Compatibility Properties}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall provide the properties
+listed in Annex C: Compatibility Properties, with the property values as
+listed there. Such an implementation shall document whether it is using
+the Standard Recommendation or POSIX-compatible properties.}
+\end{quote}
+
+JFlex does not fully conform. The Standard Recommendation version of the
+Annex C Compatibility Properties are provided, with two exceptions:
+\verb+\X+ Extended Grapheme Clusters; and \verb+\b+ Default Word
+Boundaries.
+
+\subsection{RL1.3 Subtraction and Intersection}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall supply mechanisms for
+union, intersection and set-difference of Unicode sets.}
+\end{quote}
+
+JFlex conforms by providing these mechanisms, as well as symmetric
+difference.
+
+\subsection{RL1.4 Simple Word Boundaries}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall extend the word
+boundary mechanism so that:}
+
+  \begin{enumerate}
+  \item
+    \emph{The class of <word\_character> includes all the Alphabetic values
+    from the Unicode character database, from UnicodeData.txt [UData],
+    plus the decimals (General\_Category=Decimal\_Number, or equivalently
+    Numeric\_Type=Decimal), and the U+200C ZERO WIDTH NON-JOINER and
+    U+200D ZERO WIDTH JOINER (Join\_Control=True). See also Annex C:
+    Compatibility Properties.}
+
+  \item
+    \emph{Nonspacing marks are never divided from their base characters, and
+    otherwise ignored in locating boundaries.}
+  \end{enumerate}
+\end{quote}
+
+JFlex does not conform: \verb+\b+ does not match simple word boundaries.
+
+\subsection{RL1.5 Simple Loose Matches}
+
+\begin{quote}
+\emph{To meet this requirement, if an implementation provides for 
+case-insensitive matching, then it shall provide at least the simple,
+default Unicode case-insensitive matching, and specify which properties
+are closed and which are not.}
+            
+\emph{To meet this requirement, if an implementation provides for case
+conversions, then it shall provide at least the simple, default Unicode
+case folding.}
+\end{quote}
+
+JFlex conforms. All supported Unicode Properties are closed.
+
+\subsection{RL1.6 Line Boundaries}
+
+\begin{quote}
+\emph{To meet this requirement, if an implementation provides for
+line-boundary testing, it shall recognize not only CRLF, LF, CR, but
+also NEL (U+0085), PS (U+2029) and LS (U+2028).}
+\end{quote}
+
+JFlex conforms.
+
+\subsection{RL1.7 Supplementary Code Points}
+
+\begin{quote}
+\emph{To meet this requirement, an implementation shall handle the full
+range of Unicode code points, including values from U+FFFF to U+10FFFF.
+In particular, where UTF-16 is used, a sequence consisting of a leading
+surrogate followed by a trailing surrogate shall be handled as a single
+code point in matching.}
+\end{quote}
+
+JFlex does not conform.  Only code points in the Basic Multilingual
+Plane (BMP) are supported.  Conformance to RL1.7 is planned for JFlex
+\nextver.
+
 
 \section{A few words on performance\label{performance}}
 This section gives some empirical results about the speed of JFlex generated
@@ -2781,7 +3011,10 @@ distribution.
 \section{Bugs and Deficiencies\label{Bugs}}
 
 \subsection{Deficiencies}
-Unicode matching is not fully conforming to the relevant current Unicode report. Instead, the Unicode support in JFlex is the one native to Java. That means, only 16 bit code points are supported and most Unicode character classes are not directly supported (although they can be custom-defined in macros). The Java 5 development version of JFlex contains better support for Unicode, as will the next major release.
+JFlex \ver conforms with Unicode Regular Expressions
+UTS\#18 \cite{unicode_rep} Basic Unicode Support Level 1, with
+a few exceptions - for details see 
+\htmlref{UTS\#18 Conformance}{unicoderegexconformance}.
 
 \subsection{Bugs}
 As of {\today}, no bugs have been reported for JFlex version \ver. All 
@@ -2823,9 +3056,9 @@ information.
   in: Proceedings of the 7th International Conference on Compiler Construction (CC '98), 1998
 
 \bibitem{unicode_rep}
-  M.~Davis, {\trit Unicode Regular Expression Guidelines}, Unicode Technical Report \#18, 2000\\ 
-  \htmladdnormallink{\texttt{http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html}}
-                    {http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html}
+  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18\\ 
+  \htmladdnormallink{\texttt{http://www.unicode.org/unicode/reports/tr18}}
+                    {http://www.unicode.org/unicode/reports/tr18}
 
 \bibitem{ParseTable}
  P.~Dencker, K.~D{\"u}rre, J.~Henft, {\trit Optimization of Parser Tables for portable Compilers}, 
@@ -2859,6 +3092,12 @@ information.
 
 \bibitem{Maurer}
   R.~Wilhelm, D.~Maurer, {\trit {\"U}bersetzerbau}, Berlin $1997^2$
+
+\bibitem{UnicodeSet}
+  {\trit Unicode Utilities: UnicodeSet}\\ 
+   \htmladdnormallink{\texttt{http://unicode.org/cldr/utility/list-unicodeset.jsp}}
+                     {http://unicode.org/cldr/utility/list-unicodeset.jsp}
+
 
 \end{thebibliography}
 

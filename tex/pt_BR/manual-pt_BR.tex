@@ -136,10 +136,10 @@ de modo que
 
 \begin{itemize}
 \item
-  {\bf \texttt{JAVA\_HOME}} contenha o diretório onde sua JDK Java est\'a instalada
+  {\bf \texttt{JAVA\_HOME}} contenha o diretï¿½rio onde sua JDK Java est\'a instalada
   (por exemplo \verb+C:\java+) e
 \item
-  {\bf \texttt{JFLEX\_HOME}} seja o diretório que cont\'em o JFlex (no exemplo:
+  {\bf \texttt{JFLEX\_HOME}} seja o diretï¿½rio que cont\'em o JFlex (no exemplo:
   \verb+C:\JFlex+) 
 \end{itemize}
  
@@ -376,7 +376,7 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 \end{verbatim}
 \label{CodeRulesAllStates}\begin{verbatim}
 /* error fallback */
-.|\n                             { throw new Error("Caractere ilegal <"+
+[^]                             { throw new Error("Caractere ilegal <"+
                                                     yytext()+">"); }
 \end{verbatim}
 }

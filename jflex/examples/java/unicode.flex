@@ -7,7 +7,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-/* §3.3 of the Java Language Specification :
+/* ï¿½3.3 of the Java Language Specification :
 
 UnicodeInputCharacter:
 
@@ -125,14 +125,14 @@ HexDigit        = [0-9a-fA-F]
                      else
                        yybegin(DIGITS);
                    } 
-  .|\n             { return zzBuffer[zzStartRead]; }
+  [^]              { return zzBuffer[zzStartRead]; }
 
   <<EOF>>          { return -1; }
 }
 
 <DIGITS> {
   {UnicodeEscape}  { yybegin(YYINITIAL); return value();  }
-  .|\n             { throw new Error("incorrect Unicode escape"); }
+  [^]              { throw new Error("incorrect Unicode escape"); }
 
   <<EOF>>          { throw new Error("EOF in Unicode escape"); }
 }

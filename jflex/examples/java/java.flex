@@ -300,6 +300,6 @@ SingleCharacter = [^\r\n\'\\]
 }
 
 /* error fallback */
-.|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
+[^]                              { throw new RuntimeException("Illegal character \""+yytext()+
                                                               "\" at line "+yyline+", column "+yycolumn); }
 <<EOF>>                          { return symbol(EOF); }

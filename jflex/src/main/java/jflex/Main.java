@@ -375,9 +375,9 @@ public class Main {
     Out.println("--quiet");
     Out.println("-q                display errors only");
     Out.println("--time            display generation time statistics");
-    Out.println("--uniprops <ver>  print all supported properties for Unicode version <ver>");
     Out.println("--version         print the version number of this copy of jflex");
     Out.println("--info            print system + JDK information");
+    Out.println("--uniprops <ver>  print all supported properties for Unicode version <ver>");
     Out.println("--help");
     Out.println("-h                print this message");
     Out.println("");
