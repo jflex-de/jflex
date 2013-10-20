@@ -9,13 +9,13 @@ pdf: manual.pdf
 html: manual.html
 
 manual.pdf: logo.png manual.tex
-	make texclean
+	make clean
 	pdflatex manual
 	pdflatex manual
 	pdflatex manual
 
 manual.html: manual.tex
-	make texclean
+	make clean
 	pdflatex manual
 	pdflatex manual
 	pdflatex manual
@@ -23,18 +23,8 @@ manual.html: manual.tex
 	cp manual/manual.html .
 	rm -rf manual 
 
-logo.png: logo.eps
-	./epstopng logo.eps
-
-logo.pdf: logo.eps
-	epstopdf logo.eps
-
-clean: texclean 
-	rm -f *.ps
-	rm -f *.png
+clean:
+	rm -f *~ *.aux *.log log *.toc *.out
 
 realclean: clean 
-	rm -f *.pdf *.ps.gz *.html
-
-texclean:
-	rm -f *.dvi *~ *.aux *.log log *.toc *.out
+	rm -f *.pdf *.html
