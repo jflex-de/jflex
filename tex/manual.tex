@@ -250,7 +250,7 @@ JFlex knows about the following options:
   display transition tables of NFA, initial DFA, and minimised DFA 
 
 \item \verb+--legacydot+\\
-  dot (\texttt{.}) meta character matches \verb+[^\n]+ instead of
+  dot (\texttt{.}) meta character matches \verb+[^\n]+ instead of\\
   \verb+[^\n\r\u000B\u000C\u0085\u2028\u2029]+
   
 \item \verb+--noinputstreamctor+\\
@@ -1337,9 +1337,12 @@ RegExp       ::= RegExp '|' RegExp
                | Character 
 
 CharClass    ::= '[' ['^'] CharClassContent* ']'
-               | '[' ['^'] CharClassContent+ CharClassOperator CharClassContent+ ']'
+               | '[' ['^'] CharClassContent+ 
+                     CharClassOperator CharClassContent+ ']'
                  
-CharClassContent    ::= CharClass | (Character|Character'-'Character|MacroUsage|PredefinedClass)
+CharClassContent    ::= CharClass | Character |
+                        Character'-'Character | 
+                        MacroUsage | PredefinedClass
 
 CharClassOperator   ::= '||' | '&&' | '--' | '~~'
 
@@ -1359,7 +1362,8 @@ PredefinedClass     ::= '[:jletter:]'
                       | '\R'
                       | '.'          
                             
-UnicodePropertySpec ::= BinaryProperty | EnumeratedProperty (':' | '=') PropertyValue
+UnicodePropertySpec ::= BinaryProperty | 
+                        EnumeratedProperty (':' | '=') PropertyValue
 
 BinaryProperty      ::= Identifier
 
@@ -1498,9 +1502,11 @@ A regular expression that consists solely of
     \verb+[a-ln-z]+.
     
   \item
-    Symmetric difference (\verb+~~+): the union minus the intersection,
-    e.g. \verb+[\p{Letter}~~\p{ASCII}]+, equivalent to
-    \verb+[[\p{Letter}||\p{ASCII}]--[\p{Letter}&&\p{ASCII}]]+: the
+    Symmetric difference (\verb+~~+): the union of two classes minus their
+    intersection. For instance \verb+[\p{Letter}~~\p{ASCII}]+ is equivalent
+    to
+    \verb+[[\p{Letter}||\p{ASCII}]--+
+    \verb+[\p{Letter}&&\p{ASCII}]]+: the
     set of characters that are present in either \verb+\p{Letter}+ or
     in \verb+\p{ASCII}+, but not in both.
 
@@ -1558,8 +1564,10 @@ A regular expression that consists solely of
     \D  \P{Digit}
     \s  \p{Whitespace}
     \S  \P{Whitespace}
-    \w  [\p{Alpha}\p{Digit}\p{Mark}\p{Connector Punctuation}\p{Join Control}]
-    \W  [^\p{Alpha}\p{Digit}\p{Mark}\p{Connector Punctuation}\p{Join Control}]
+    \w  [\p{Alpha}\p{Digit}\p{Mark}
+         \p{Connector Punctuation}\p{Join Control}]
+    \W  [^\p{Alpha}\p{Digit}\p{Mark}
+          \p{Connector Punctuation}\p{Join Control}]
     \end{verbatim}
     
   \label{unipropsyntax}
@@ -2142,7 +2150,7 @@ Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
 \emph{To meet this requirement, an implementation shall provide at least a
 minimal list of properties, consisting of the following: General\_Category,
 Script, Alphabetic, Uppercase, Lowercase, White\_Space,
-Noncharacter\_Code\_Point, Default\_Ignorable\_Code\_Point, ANY, ASCII,
+Noncharacter\_Code\_Point, Default\_Ignor\-able\_Code\_Point, ANY, ASCII,
 ASSIGNED.}
 
 \emph{The values for these properties must follow the Unicode definitions, 
@@ -2193,7 +2201,7 @@ boundary mechanism so that:}
     \emph{The class of <word\_character> includes all the Alphabetic values
     from the Unicode character database, from UnicodeData.txt [UData],
     plus the decimals (General\_Category=Decimal\_Number, or equivalently
-    Numeric\_Type=Decimal), and the U+200C ZERO WIDTH NON-JOINER and
+    Numeric\_Type=Deci\-mal), and the U+200C ZERO WIDTH NON-JOINER and
     U+200D ZERO WIDTH JOINER (Join\_Control=True). See also Annex C:
     Compatibility Properties.}
 
@@ -2550,7 +2558,7 @@ your specification.
 The main difference between the \texttt{\htmlref{\%cup}{CupMode}} switch in
 JFlex 1.2.1 and lower, and the current JFlex version is, that JFlex scanners
 now automatically implement the \texttt{java\_cup.runtime.Scanner} interface.
-This means the scanning function now changes its name from \texttt{yylex()}
+This means the scanning function changes its name from \texttt{yylex()}
 to \texttt{next\_token()}. 
 
 The main difference from older CUP versions to 0.10j is, that CUP now
