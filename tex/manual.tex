@@ -2132,7 +2132,7 @@ This section gives details about JFlex \ver's conformance with the
 requirements for Basic Unicode Support Level 1 given in UTS\#18
 \cite{unicode_rep}.
 
-\subsection{RL1.1 Hex Notation}
+\subsubsection{RL1.1 Hex Notation}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall supply a mechanism
@@ -2146,7 +2146,7 @@ a 4-digit hex value, and \verb+\Uyyyyyy+, where \verb+yyyyyy+ is a
 6-digit hex value, JFlex only supports characters within the 16-bit
 Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
 
-\subsection{RL1.2 Properties}
+\subsubsection{RL1.2 Properties}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall provide at least a
@@ -2168,7 +2168,7 @@ Unicode version.  Loose matching is performed: case distinctions,
 whitespace, underscores and hyphens in property names and values are
 ignored.
 
-\subsection{RL1.2a Compatibility Properties}
+\subsubsection{RL1.2a Compatibility Properties}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall provide the properties
@@ -2182,7 +2182,7 @@ Annex C Compatibility Properties are provided, with two exceptions:
 \verb+\X+ Extended Grapheme Clusters; and \verb+\b+ Default Word
 Boundaries.
 
-\subsection{RL1.3 Subtraction and Intersection}
+\subsubsection{RL1.3 Subtraction and Intersection}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall supply mechanisms for
@@ -2192,7 +2192,7 @@ union, intersection and set-difference of Unicode sets.}
 JFlex conforms by providing these mechanisms, as well as symmetric
 difference.
 
-\subsection{RL1.4 Simple Word Boundaries}
+\subsubsection{RL1.4 Simple Word Boundaries}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall extend the word
@@ -2215,7 +2215,7 @@ boundary mechanism so that:}
 
 JFlex does not conform: \verb+\b+ does not match simple word boundaries.
 
-\subsection{RL1.5 Simple Loose Matches}
+\subsubsection{RL1.5 Simple Loose Matches}
 
 \begin{quote}
 \emph{To meet this requirement, if an implementation provides for 
@@ -2230,7 +2230,7 @@ case folding.}
 
 JFlex conforms. All supported Unicode Properties are closed.
 
-\subsection{RL1.6 Line Boundaries}
+\subsubsection{RL1.6 Line Boundaries}
 
 \begin{quote}
 \emph{To meet this requirement, if an implementation provides for
@@ -2240,7 +2240,7 @@ also NEL (U+0085), PS (U+2029) and LS (U+2028).}
 
 JFlex conforms.
 
-\subsection{RL1.7 Supplementary Code Points}
+\subsubsection{RL1.7 Supplementary Code Points}
 
 \begin{quote}
 \emph{To meet this requirement, an implementation shall handle the full
