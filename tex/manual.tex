@@ -503,7 +503,7 @@ Here some of the example macros in more detail:
   \texttt{\htmlref{TraditionalComment}{CodeMacros}} is the expression
   that matches the string \texttt{"/*"} followed by a character that
   is not a \texttt{*}, followed by anything that does not contain, but
-  ends in \texttt{"/*"}.  As this would not match comments like
+  ends in \texttt{"*/"}.  As this would not match comments like
   \texttt{/****/}, we add \texttt{"/*"} followed by an arbitrary
   number (at least one) of \texttt{"*"} followed by the closing
   \texttt{"/"}. This is not the only, but one of the simpler
@@ -677,8 +677,8 @@ The first part contains user code that is copied verbatim into the beginning
 of the source file of the generated lexer before the scanner class is declared. 
 As shown in the example above, this is the place to put \texttt{package} 
 declarations and \texttt{import}
-statements. It is possible, but not considered as good Java programming
-style to put own helper class (such as token classes) in this section.
+statements. It is possible, but not considered good Java programming
+style to put own helper classes (such as token classes) in this section.
 They should get their own \texttt{.java} file instead.
 
 \subsection{Options and declarations\label{SpecOptions}}
@@ -902,7 +902,7 @@ the end of file has been reached. You may however define a specific value
 to return and a specific piece of code that should be executed when the
 end of file is reached.
 
-The default end of file values depends on the return type of the scanning method:
+The default end of file value depends on the return type of the scanning method:
 \begin{itemize}
 \item
 For {\bf \texttt{\%integer}}, the scanning method will return the value
@@ -1139,12 +1139,12 @@ when no code generation method is specified.
   strings are not longer than permitted by the class file format.
   The strings have to be unpacked when
   the first scanner object is created and initialised.
-  After unpacking the internal access to the DFA table is exactly the
+  After unpacking, the DFA table is exactly the
   same as with option \texttt{\%table} --- the only extra work to be done
-  at runtime is the unpacking process which is quite fast (not noticeable
+  at runtime is the unpacking process which is fast (not noticeable
   in normal cases). It is in time complexity proportional to the
   size of the expanded DFA table, and it is static,
-  i.e. it is done only once for a certain scanner class --- no matter
+  i.e.\ it is done only once per scanner class --- no matter
   how often it is instantiated.  Again, see section
   \ref{performance} \htmlref{performance}{performance}
   on the performance of these scanners
@@ -1250,7 +1250,7 @@ In JLex it declares a public member constant \texttt{YYEOF}. JFlex declares it i
 \end{itemize}
 
 \subsubsection{State declarations\label{StateDecl}}
-State declarations have the following from:
+State declarations have the following form:
 
 \texttt{\%s[tate] "state identifier" [, "state identifier", ... ]} for inclusive or\\
 \texttt{\%x[state] "state identifier" [, "state identifier", ... ]} for exclusive states
@@ -1306,13 +1306,13 @@ them at generation time. JFlex also warns you about macros that have been
 defined but never used in the ``lexical rules'' section of the specification.
   
 \subsection{Lexical rules\label{LexRules}}
-The ``lexical rules'' section of an JFlex specification contains a set of
+The ``lexical rules'' section of a JFlex specification contains a set of
 regular expressions and actions (Java code) that are executed when the
 scanner matches the associated regular expression.
  
 \subsubsection{Syntax\label{Grammar}}
 The syntax of the "lexical rules" section is described by the following
-BNF grammar (terminal symbols are enclosed in 'quotes'):
+EBNF grammar (terminal symbols are enclosed in 'quotes'):
 
 \begin{verbatim}
 LexicalRules ::= Rule+ 
@@ -1602,13 +1602,13 @@ A regular expression that consists solely of
      
           \item[\texttt{a | b}] (union) 
 
-            is the regular expression, that matches
-            all input that is matched by \texttt{a} or by \texttt{b}.
+            is the regular expression that matches
+            all input matched by \texttt{a} or by \texttt{b}.
           
           
           \item[\texttt{a b}] (concatenation) 
             
-            is the regular expression,
+            is the regular expression
             that matches the input matched by \texttt{a} followed by the 
             input matched by \texttt{b}.
           
@@ -1685,10 +1685,9 @@ while determining which rule has the longest match (see also
 In the '\texttt{\$}' case \texttt{r} is only matched at the end of a line in
 the input. The end of a line is denoted by the regular expression
 \verb+\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+. 
-So \verb+a$+ is equivalent to \verb+a / \r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+.%$
-This is a bit different to the situation described in \cite{unicode_rep}:
+So \verb+a$+ is equivalent to \verb+a / \r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+.
+This is different to the situation described in \cite{unicode_rep}:
 since in JFlex \verb+$+ is a true trailing context, the end of file
-%$
 does {\bf not} count as end of line.
 
 \label{trailingContext}
@@ -1843,7 +1842,7 @@ type, declared exceptions etc., see also section
 one of the expressions in the specification is matched or an error
 occurs. If an expression is matched, the corresponding action is
 executed. It may return a value of the specified return type (in which
-case the scanning method return with this value), or if it doesn't
+case the scanning method returns with this value), or if it doesn't
 return a value, the scanner resumes consuming input until the next
 expression is matched. If the end of file is reached, the scanner
 executes the EOF action, and (also upon each further call to the scanning
@@ -1862,7 +1861,7 @@ naming convention: everything starting with a \texttt{zz} prefix like
 change without notice between JFlex releases. Methods and members of
 the generated class that do not have a \texttt{zz} prefix like
 \texttt{yycharat} belong to the API that the scanner class provides to
-users in action code of the specification. They will be remain stable
+users in action code of the specification. They will remain stable
 and supported between JFlex releases as long as possible.
 
 Currently, the API consists of the following methods and member fields:
@@ -1935,9 +1934,8 @@ Currently, the API consists of the following methods and member fields:
   pushes \texttt{number} characters of the matched text back into the input stream. 
   They will be read again in the next call of the scanning method. 
   The number of characters to be read again must not be greater than the length
-  of the matched text. The pushed back characters will after the call of 
-  \texttt{yypushback} not be included in \texttt{yylength} and \texttt{yytext()}.
-  Please note that in Java strings are unchangeable, i.e. an action code like
+  of the matched text. The pushed back characters will not be included in \texttt{yylength()} and \texttt{yytext()}.
+  Note that in Java strings are unchangeable, i.e.\ an action code like
   \begin{verbatim}
     String matched = yytext();
     yypushback(1);
@@ -2071,7 +2069,7 @@ as argument. The line
 will do the trick.
 
 Of course the encoding to use can also come from the data itself:
-for instance, when you scan a HTML page, it may have embedded 
+for instance, when you scan an HTML page, it may have embedded 
 information about its character encoding in the headers.
 
 More information about encodings, which ones are supported, how
@@ -2428,11 +2426,12 @@ of backtracking is messy and often may be an enormous amount of work for
 a complicated scanner.''} Backtracking is introduced by the longest match
 rule and occurs for instance on this set of expressions:
  
-\texttt{  "averylongkeyword"}\\
-\texttt{  .}
+\noindent
+\texttt{\ \ "averylongkeyword"}\\
+\texttt{\ \ .}
  
 With input \texttt{"averylongjoke"} the scanner has to read all characters
-up to \texttt{'j' }to decide that rule \texttt{.} should be matched. All
+up to \texttt{'j'} to decide that rule \texttt{.} should be matched. All
 characters of \texttt{"verylong"} have to be read again for the next
 matching process. Backtracking can be avoided in general by adding
 error rules that match those error conditions 
@@ -2484,7 +2483,7 @@ some kind of variable length identifiers.
   
   It costs multiple additional comparisons per match. In some
   cases one extra look-ahead character is needed (when the last character read is
-  \verb+\r+ the scanner has to read one character ahead to check if
+  \verb+\r+, the scanner has to read one character ahead to check if
   the next one is an \verb+\n+ or not).
 
 \item
@@ -2637,7 +2636,7 @@ may be implemented in a future JFlex version).
 \subsubsection{Lexical Rules}
 Since flex is mostly Unix based, the '\verb+^+' (beginning of line) and
 '\verb+$+' (end of line) operators, consider the \verb+\n+ character as %$
-only line terminator. This should usually cause not much problems, but you
+only line terminator. This should usually not cause much problems, but you
 should be prepared for occurrences of \verb+\r+ or \verb+\r\n+ or one of
 the characters \verb+\u2028+, \verb+\u2029+, \verb+\u000B+, \verb+\u000C+, 
 or \verb+\u0085+. They are considered to be line terminators in Unicode and 
@@ -2647,23 +2646,23 @@ therefore may not be consumed when
 \section{Working together\label{WorkingTog}}
 
 \subsection{JFlex and CUP\label{CUPWork}}
-One of the main design goals of JFlex was to make interfacing with the free
-Java parser generator CUP \cite{CUP} as easy as possibly. 
+One of the main design goals of JFlex was to make interfacing with the
+parser generator CUP \cite{CUP} as easy as possible. 
 This has been done by giving
-the \texttt{\htmlref{\%cup}{CupMode}} directive a special meaning. An
-interface however always has two sides. This section concentrates on the
+the \texttt{\htmlref{\%cup}{CupMode}} directive a special meaning. However, an
+interface always has two sides. This section concentrates on the
 CUP side of the story.
 
 \subsubsection{CUP version 0.10j and above}
 Since CUP version 0.10j, this has been simplified greatly by the new 
 CUP scanner interface \texttt{java\_cup.runtime.Scanner}. JFlex lexers now implement
-this interface automatically when then \texttt{\htmlref{\%cup}{CupMode}}
+this interface automatically when the \texttt{\htmlref{\%cup}{CupMode}}
 switch is used. There are no special \texttt{parser code}, \texttt{init
   code} or \texttt{scan with} options any more that you have to provide
 in your CUP parser specification. You can just concentrate on your grammar.
 
 If your generated lexer has the class name \texttt{Scanner}, the parser
-is started from the a main program like this:
+is started from the main program like this:
 
 {\xsmall\begin{verbatim}
 ...
@@ -2681,7 +2680,7 @@ If you have used the \texttt{-symbol} command line switch of CUP to change
 the name of the generated symbol interface, you have to tell JFlex about
 this change of interface so that correct end-of-file code is generated. 
 You can do so either by using an \verb+%eofval{+ directive or by using
-and \texttt{<<EOF>>} rule. 
+an \texttt{<<EOF>>} rule. 
 
 If your new symbol interface is called \texttt{mysym} for example, the
 corresponding code in the jflex specification would be either
@@ -2712,7 +2711,7 @@ your specification.
 The main difference between the \texttt{\htmlref{\%cup}{CupMode}} switch in
 JFlex 1.2.1 and lower, and the current JFlex version is, that JFlex scanners
 now automatically implement the \texttt{java\_cup.runtime.Scanner} interface.
-This means, that the scanning function now changes its name from \texttt{yylex()}
+This means the scanning function now changes its name from \texttt{yylex()}
 to \texttt{next\_token()}. 
 
 The main difference from older CUP versions to 0.10j is, that CUP now
@@ -2751,125 +2750,6 @@ main procedure would then construct the parser as shown in the section above.
 
 The JFlex specification does not need to be changed.
 
-\subsubsection{Using older versions of CUP}
-For people, who like or have to use older versions of CUP, the following section 
-explains ``the old way''. Please note, that the standard name of the scanning 
-function with the \texttt{\htmlref{\%cup}{CupMode}} switch is not 
-\texttt{yylex()}, but \texttt{next\_token()}.
-
-If you have a scanner specification that begins like this:
-
-{\xsmall\begin{verbatim}
-package PACKAGE;
-import java_cup.runtime.*;   /* this is convenience, but not necessary */
- 
-%%
- 
-%class Lexer
-%cup
-..
-\end{verbatim}
-}
-
-then it matches a CUP specification starting  like
-
-{\xsmall\begin{verbatim}
-package PACKAGE;
-
-parser code {:
-  Lexer lexer;
-
-  public parser (java.io.Reader input) {
-    lexer = new Lexer(input);
-  }
-:};
-
-scan with {: return lexer.next_token(); :};
-
-..
-\end{verbatim}
-}
-
-This assumes that the generated parser will get the name \texttt{parser}.
-If it doesn't, you have to adjust the constructor name.
-
-The parser can then be started in a main routine like this:
-
-{\xsmall\begin{verbatim}
-..
-  try {
-    parser p = new parser(new FileReader(fileName));
-    Object result = p.parse().value; 
-  }
-  catch (Exception e) {
-..
-\end{verbatim} 
-}
-
-If you want the parser specification to be independent of the name of the generated
-scanner, you can instead write an interface \texttt{Lexer}
-
-{\xsmall\begin{verbatim}
-public interface Lexer {
-  public java_cup.runtime.Symbol next_token() throws java.io.IOException;
-}
-\end{verbatim}
-}
-
-change the parser code to:
-
-{\xsmall\begin{verbatim}
-package PACKAGE;
-
-parser code {:
-  Lexer lexer;
-
-  public parser (Lexer lexer) {
-    this.lexer = lexer;
-  }
-:};
-
-scan with {: return lexer.next_token(); :};
-
-..
-\end{verbatim}
-}
-
-tell JFlex about the lexer 
-interface using the \texttt{\%implements}
-directive:
-
-{\xsmall\begin{verbatim}
-..
-%class Scanner     /* not Lexer now since that is our interface! */
-%implements Lexer
-%cup
-..
-\end{verbatim}
-}
-
-and finally change the main routine to look like
-
-{\xsmall\begin{verbatim}
-...
-  try {
-    parser p = new parser(new Scanner(new FileReader(fileName)));
-    Object result = p.parse().value;
-  }
-  catch (Exception e) {
-...
-\end{verbatim}
-}
-
-If you want to improve the error messages that CUP generated parsers
-produce, you can also override the methods \texttt{report\_error} and \texttt{report\_fatal\_error}
-in the ``parser code'' section of the CUP specification. The new methods
-could for instance use \texttt{yyline} and \texttt{yycolumn} (stored in
-the \texttt{left} and \texttt{right} members of class \texttt{java\_cup.runtime.Symbol})
-to report error positions more conveniently for the user. The lexer and
-parser for the Java language in the \texttt{examples/java} directory of the
-JFlex distribution use this style of error reporting. These specifications
-also demonstrate the techniques above in action.
 
 \subsection{JFlex and BYacc/J\label{YaccWork}}
 
@@ -2887,7 +2767,7 @@ class that returns each next token. Semantic values are expected
 in a field \texttt{yylval} of type \texttt{parserval} where ``\texttt{parser}''
 is the name of the generated parser class.
 
-For a small calculator example, one could use a set up like the 
+For a small calculator example, one could use a setup like the 
 following on the JFlex side:
 
 {\xsmall\begin{verbatim}
@@ -3071,8 +2951,8 @@ information.
 
 \bibitem{CUP}
   S.~E.~Hudson, {\trit CUP LALR Parser Generator for Java},\\  
-  \htmladdnormallink{\texttt{http://www.cs.princeton.edu/\symbol{126}appel/modern/java/CUP/}}
-  {http://www.cs.princeton.edu/\symbol{126}appel/modern/java/CUP/}
+  \htmladdnormallink{\texttt{http://www2.cs.tum.edu/projects/cup/}}
+  {http://www2.cs.tum.edu/projects/cup/}
 
 \bibitem{BYaccJ}
   B.~Jamison, {\trit BYacc/J},\\
