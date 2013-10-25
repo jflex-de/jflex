@@ -1,78 +1,67 @@
- ------
- How to deploy JFlex into the central repository
- ------
- Régis Décamps
- ------
- 16th feb 2009
- ------
+How to deploy JFlex and the JFlex Maven Plugin to the Sonatype OSS Maven repository
+-----------------------------------------------------------------------------------
 
-  This document describes how the release manager of the JFlex team can release 
-  the project on the central repository of Maven.
+This document describes how the release manager of the JFlex team can release 
+JFlex and the JFlex Maven Plugin on the Maven Central repository.  The Central
+repository is synchronized with the repository at http://oss.sonatype.org.
+  
+For more information, see 
+https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
 
-  (also see script mvn-deploy in trunk)
+In your ~/.m2/settings.xml, create <server>-s for snapshots and releases on the
+Sonatype OSS Maven repository.  Fill in the username and password for your Sonatype
+JIRA account, which is also the account for the Sonatype Nexus instance that serves
+the OSS Maven repository: 
 
-  The central repository is synchronized with the repository at 
-  http://jflex.sf.net/m2repo/
-
-  In your ~/.m2/settings.xml, create a 'server' on this model 
-  (take care, the name of the server has changed from "sourceforge_jflex" 
-  or "repo_jflex_sf" to "sourceforge"):
-
-+-----------------------------------------------------------
+-----
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/POM/4.0.0">
-<!-- ... -->
-    <servers>
-        <server>
-            <id>sourceforge</id>
-            <username>decamps</username>
-            <!-- full qualified path must be provided -->
-            <privateKey>/home/regis/.ssh/id_rsa</privateKey>
-            <filePermissions>774</filePermissions>
-            <directoryPermissions>775</directoryPermissions>
-        </server>
-    </servers>
-<!-- ... -->
+  <!-- ... -->
+  <servers>
+    <!-- ... -->
+    <server>
+      <id>sonatype-nexus-snapshots</id>
+      <username> ... </username>
+      <password> ... </password>
+    </server>
+    <server>
+      <id>sonatype-nexus-staging</id>
+      <username> ... </username>
+      <password> ... </password>
+    </server>
+    <!-- ... -->
+  </servers>
+  <!-- ... -->
 </settings>
-
-+-----------------------------------------------------------
-
-  Optionnaly, you can create a SSH key and set sourceforge to use it
-  on https://sourceforge.net/account/editsshkeys.php
+-----
 
 
-How to release Jflex 1.4.2 (or 1.4.1 similarly)
+Releasing JFlex and the JFlex Maven Plugin
+------------------------------------------
 
-  # check out source code
+# Get the source - put your username in place of the ...'s
+svn co --username=... https://svn.code.sf.net/p/jflex/code/trunk  jflex/trunk 
 
-  svn co http://jflex.svn.sourceforge.net/viewvc/jflex/tags/release_1_4_2/
+# Make sure all changes are committed
+cd jflex/trunk
+svn stat
 
-  # compile Jflex (or grab an archive and dropit in lib/JFlex.jar)
+# Stage the release to the Sonatype OSS Maven repository
 
-  cd release_1_4_2/jflex/src
+## Prepare the release - this will remove -SNAPSHOT from all POM versions,
+## commit them, then commit a release tag.
+## Fill in your *SourceForge* username and password in place of the ...'s
+mvn release:prepare -Dusername=... -Dpassword=...
 
-  ant gettools jar
+## Perform (i.e. stage) the release
+# TODO: fill this in
 
-  cd ..
+# TODO: fix instructions to build and deploy the JFlex Maven Plugin site to SourceForge
+# TODO: Maybe this can be automatically done as part of the above?
 
-  # create a shell on sourceforge
+# create a shell on sourceforge
+ssh -t decamps,jflex@shell.sf.net create
 
-  ssh -t decamps,jflex@shell.sf.net create
-
-  # deploy JFlex on Maven repository (and install locally in order to compile plugin)
-
-  mvn deploy:deploy-file -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-1.4.2.pom -Durl=scp://web.sourceforge.net/home/groups/j/jf/jflex/htdocs/m2repo  -DgroupId=de.jflex -DartifactId=jflex -Dversion=1.4.2 -Dpackaging=jar -DperformRelease=true
-
-  mvn install:install-file  -Dfile=lib/JFlex.jar -DrepositoryId=sourceforge -DpomFile=src/jflex-1.4.2.pom -DgroupId=de.jflex -DartifactId=jflex -Dversion=1.4.2 -Dpackaging=jar -DperformRelease=true
-
-
-  # Deploy jflex-maven-plugin
-
-  cd ../jflex-maven-plugin-1.0  
-
-  mvn -Prelease install deploy site
-
-How to release JFlex 1.4 or earlier
-
-  This is not possible at the moment (and won't probably be ever implemented)
+# Build the site for the JFlex Maven Plugin
+cd jflex-maven-plugin && mvn -Prelease site
 
