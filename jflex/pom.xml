@@ -25,9 +25,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
-    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code</connection>
+    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code</developerConnection>
+    <url>http://sourceforge.net/p/jflex/code/HEAD/tree</url>
   </scm>
   <developers>
     <developer>

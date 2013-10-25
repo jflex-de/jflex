@@ -99,9 +99,9 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk/testsuite/jflex-testsuite-maven-plugin</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk/testsuite/jflex-testsuite-maven-plugin</developerConnection>
-    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk/testsuite/jflex-testsuite-maven-plugin</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code</connection>
+    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code</developerConnection>
+    <url>http://sourceforge.net/p/jflex/code/HEAD/tree</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
