@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -9,6 +9,14 @@
   <name>JFlex parent and aggregator POM</name>
   <version>1.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <url>http://jflex.de</url>
+  <description>JFlex parent and aggregator POM</description>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <licenses>
     <license>
@@ -17,6 +25,37 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <developers>
+    <developer>
+      <id>lsf37</id>
+      <name>Gerwin Klein</name>
+      <email>gerwin.klein@nicta.com.au</email>
+      <roles>
+        <role>founder</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+10</timezone>
+    </developer>
+    <developer>
+      <id>steve_rowe</id>
+      <name>Steve Rowe</name>
+      <email>steve_rowe@users.sf.net</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+     <developer>
+      <id>decamps</id>
+      <name>Régis Décamps</name>
+      <email>decamps@users.sf.net</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
 
   <modules>
     <module>jflex-unicode-maven-plugin</module>
@@ -131,6 +170,11 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.9.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
           <version>3.2</version>
         </plugin>
@@ -146,53 +190,15 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.2.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.16</version>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
-
-  <profiles>
-    <profile>
-      <id>release</id>
-      <distributionManagement>
-        <repository>
-          <id>sourceforge</id>
-          <name>JFlex sourceforge repository</name>
-          <url>
-						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/repo
-					</url>
-        </repository>
-        <site>
-          <id>sourceforge</id>
-          <name>JFlex sourceforge site</name>
-          <url>
-						scp://shell.sf.net/home/groups/j/jf/jflex/htdocs/jflex-maven-plugin
-					</url>
-        </site>
-      </distributionManagement>
-      <properties>
-        <!-- activates 'release-profile' from the super POM -->
-        <performRelease>true</performRelease>
-      </properties>
-    </profile>
-    <profile>
-      <id>localhost</id>
-      <distributionManagement>
-        <repository>
-          <id>localhost</id>
-          <name>JFlex sourceforge repository</name>
-          <url>scp://localhost/tmp/jflex/repo</url>
-        </repository>
-        <site>
-          <id>localhost</id>
-          <name>JFlex sourceforge site</name>
-          <url>
-						scp://localhost/tmp/jflex/jflex-maven-plugin
-					</url>
-        </site>
-      </distributionManagement>
-    </profile>
-  </profiles>
 </project>

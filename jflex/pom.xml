@@ -15,8 +15,7 @@
   <inceptionYear>1998</inceptionYear>
   <description>
     JFlex is a lexical analyzer generator (also known as
-    scanner generator)
-    for Java(tm), written in Java(tm).
+    scanner generator) for Java™, written in Java.
   </description>
   <licenses>
     <license>
@@ -30,6 +29,36 @@
     <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
     <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
   </scm>
+  <developers>
+    <developer>
+      <id>lsf37</id>
+      <name>Gerwin Klein</name>
+      <email>gerwin.klein@nicta.com.au</email>
+      <roles>
+        <role>founder</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+10</timezone>
+    </developer>
+    <developer>
+      <id>steve_rowe</id>
+      <name>Steve Rowe</name>
+      <email>steve_rowe@users.sf.net</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+    <developer>
+      <id>decamps</id>
+      <name>Régis Décamps</name>
+      <email>decamps@users.sf.net</email>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
   <mailingLists>
     <mailingList>
       <name>announcements (to be notified of new releases - extremely low trafic)</name>
@@ -126,6 +155,14 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
