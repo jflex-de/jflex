@@ -2,6 +2,22 @@
     eval 'exec /usr/bin/perl -S $0 ${1+"$@"}'
         if 0; #$running_under_some_shell
 
+#
+# post-release.pl
+#
+# Performs the following:
+#
+#   - svn switch's your working copy back to trunk
+#   - Changes the JFlex version in all POMs to the supplied
+#     snapshot version (X.Y.Z-SNAPSHOT)
+#   - Switches all <scm> URLs from /tags/release_X_Y_Z to /trunk
+#   - Changes the bootstrap JFlex version in the de.jflex:jflex
+#     POM to the latest release version.
+#   - Commits the changed POMs
+#
+# For more information, see HOWTO_release.txt.
+#
+
 use strict;
 use warnings;
 use File::Find ();
