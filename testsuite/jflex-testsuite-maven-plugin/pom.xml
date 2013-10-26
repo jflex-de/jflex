@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version/>
+    <version>1.5.0</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-testsuite-maven-plugin</artifactId>
@@ -45,7 +45,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version/>
+        <version>1.5.0</version>
         <executions>
           <execution>
             <goals>
@@ -79,7 +79,7 @@
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex</artifactId>
-      <version/>
+      <version>1.5.0</version>
     </dependency>
     <dependency>
       <!-- If this dependency is not included, the Ant Javac task can't find -->
@@ -96,9 +96,9 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
-    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
-    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</connection>
+    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</developerConnection>
+    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/tags/release_1_5_0</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

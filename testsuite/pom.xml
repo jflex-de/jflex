@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version/>
+    <version>1.5.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-testsuite-parent</artifactId>
