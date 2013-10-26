@@ -81,7 +81,7 @@ print "done.\n";
 
 print "Committing the changed POMs ... ";
 my $ret_val = system
-   (qq/svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"/);
+   (qq!svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
@@ -90,7 +90,7 @@ print "done.\n";
 
 $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
 print "Tagging the release as $tag_url ... ";
-$ret_val = system(qq/svn copy . "$tag_url"/); 
+$ret_val = system(qq!svn copy . "$tag_url"!); 
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
@@ -98,7 +98,7 @@ if ($ret_val) {
 print "done.\n";
 
 print "svn switch'ing to ${tag_url} ... "
-$ret_val = system(qq/svn switch "${tag_url}"/);
+$ret_val = system(qq!svn switch "${tag_url}"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
