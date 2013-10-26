@@ -39,12 +39,15 @@ my $sheet =<<'__STYLESHEET__';
     <url><xsl:value-of select="$scm-url"/></url>
   </xsl:template>
 
-  <!-- Replace all JFlex versions with the new JFlex release version -->
+  <!-- Replace all JFlex versions with the new JFlex release version, --> 
+  <!-- except for the bootstrap version in the de.jflex:jflex POM.    -->
   <xsl:template 
       match=" /pom:project[pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
              |/pom:project/pom:dependencies/pom:dependency[pom:groupId='de.jflex' and pom:artifactId='jflex']/pom:version
-             |/pom:project/pom:build/pom:plugins/pom:plugin[pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin']/pom:version">
+             |/pom:project/pom:build/pom:plugins/pom:plugin
+              [   (pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin')
+              and not(/pom:project/pom:parent/pom:groupId='de.jflex' and /pom:project/pom:artifactId='jflex')]/pom:version">
     <version><xsl:value-of select="$release"/></version>
   </xsl:template>
   
