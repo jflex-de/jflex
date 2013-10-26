@@ -284,9 +284,9 @@
             <distributionManagement>
                 <site>
                     <id>sourceforge</id>
-                    <name>JFlex sourceforge site</name>
+                    <name>SourceForge JFlex Maven Plugin site</name>
                     <url>
-                        scp://shell.sourceforge.net/home/groups/j/jf/jflex/htdocs/jflex-maven-plugin
+                        scp://shell.sourceforge.net/home/project-web/jflex/htdocs/jflex-maven-plugin
                     </url>
                 </site>
             </distributionManagement>
