@@ -1,10 +1,22 @@
 #!/bin/bash
-
-# 
-# This script deploys the current working copy 
-# to the Sonatype OSS Maven staging repository
 #
+# mvn-deploy
+# 
+# This script deploys the current working copy to the Sonatype OSS Maven
+# staging repository.
+#  
+# The prepare-release.pl script should be run before this script.
+# See HOWTO_release.txt for more information.
+#
+# This script is more than just "mvn -Psonatype-oss-release deploy"
+# because of inter-dependencies: the maven plugin depends on the release
+# version of the jflex jar, and since that can't be satisfied until the
+# jflex jar has been installed, that has to be done first.  Similarly,
+# the jflex module depends on the parent POM, so that has to be installed
+# before building the jflex module.
+# 
 
+# Fail if any command fails
 set -e
 
 # Abort if the checkout is not clean

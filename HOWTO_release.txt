@@ -17,9 +17,10 @@ Preparing to release
    the above-linked usage guide for more information.
 
 2. In your ~/.m2/settings.xml, create <server>-s for snapshots and releases on
-   the Sonatype OSS Maven repository.  Fill in the username and password for
-   your Sonatype JIRA account, which is also the account for the Sonatype
-   Nexus instance that serves the OSS Maven repository: 
+   the Sonatype OSS Maven repository, as well as for uploading the JFlex Maven
+   Plugin to SourceForge.  In the sonatype entries, fill in the username and
+   password for your Sonatype JIRA account, which is also the account for the
+   Sonatype Nexus instance that serves the OSS Maven repository: 
 
    -----
    <?xml version="1.0" encoding="UTF-8"?>
@@ -37,17 +38,31 @@ Preparing to release
          <username> ... </username>
          <password> ... </password>
        </server>
+       <server>
+         <id>sourceforge</id>
+         <username>decamps</username>
+         <!-- full qualified path must be provided -->
+         <privateKey>/home/regis/.ssh/id_rsa</privateKey>
+         <filePermissions>774</filePermissions>
+         <directoryPermissions>775</directoryPermissions>
+       </server>
        <!-- ... -->
      </servers>
      <!-- ... -->
    </settings>
    -----
 
-3. Get the source - put your SourceForge username in place of the ...'s:
+3. (Optional) Create an SSH key and set SourceForge to use it on
+   <https://sourceforge.net/apps/trac/sourceforge/wiki/SSH%20keys>.
+   
+4. Make sure you have installed Perl and the XML::LibXSLT module (required
+   by the prepare-release.pl and post-release.pl scripts).
+
+5. Get the source - put your SourceForge username in place of the ...'s:
 
    PROMPT$ svn co --username=... https://svn.code.sf.net/p/jflex/code/trunk  jflex/trunk 
 
-4. Make sure all changes are committed
+6. Make sure all changes are committed
 
    PROMPT$ cd jflex/trunk
    PROMPT$ svn stat
@@ -57,18 +72,45 @@ Perform the release
 -------------------
 
 1. Run the prepare-release.pl script, which does the following:
-   - Changes the version in all POMs by removing all -SNAPSHOT
-     suffixes
+   - Changes the version in all POMs by removing all -SNAPSHOT suffixes
    - Switches all <scm> URLs from /trunk to /tags/release_X_Y_Z
    - Commits the changed POMs
    - Tags the release by copying /trunk to /tags/release_X_Y_Z
    - svn switch's your working copy to the new tag.
    
-   PROMPT$ ./prepare-release.pl
+     PROMPT$ ./prepare-release.pl
+   
+   If something goes wrong with one of the steps performed by
+   the script, it will halt.  You can return to the state before
+   it ran by reverse merging and then committing:
+   
+   PROMPT$ svn merge -r after-rev:before-rev .
+   PROMPT$ svn commit -m "Revert prepare-release steps"
+   
+   If the script created the tag in Subversion, you should also remove it,
+   e.g. for the 1.5.0 release:
+   
+   PROMPT$ svn rm -m "drop release tag" https://svn.code.sf.net/p/jflex/code/tags/release_1_5_0 
    
 2. Stage the release to the Sonatype OSS Maven repository:
 
    PROMPT$ ./mvn-deploy
+   
+3. After staging the release, you have to perform several manual steps
+   on the Sonatype OSS Maven repository website <http://oss.sonatype.org>
+   after logging into the site:
+   - Click the "Staging Repositories" link in the left-hand navigation bar.
+   - Select "de.jflex" from the Filter combobox on the top right
+   - Click the "Refresh" button on top just to the right of the left navbar.
+   - Click on the repository you created when you ran "mvn-deploy".
+   - Click the "Close" button just to the right of the "Refresh" button.
+     This process may take a while - once the artifacts have been uploaded,
+     automated quality checks are performed to insure everything meets
+     the advertized standards.
+   - Click the "Refresh" button again...
+   - Click the "Promote" button, to the right of the "Refresh" button -
+     this is the final step to release the artifacts.  Maven Central
+     will then sync within less than one day.
 
 3. Build the user manual
  
@@ -85,16 +127,21 @@ Perform the release
    <http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html>
    <https://sourceforge.net/apps/trac/sourceforge/wiki/Shell%20and%20File%20Management%20service%20authentication>
 
-   - Create a shell on sourceforge
+   - Create a shell on SourceForge
    
      PROMPT$ ssh -t decamps,jflex@shell.sf.net create
 
-   - Build and deploy the site for the JFlex Maven Plugin
+   - Build, check, then upload the JFlex Maven Plugin site to SourceForge 
    
-     PROMPT$ cd jflex-maven-plugin && mvn -Prelease site
-
-     TODO: test the above step
-     TODO: Maybe the above step can be automatically done as part of the mvn-deploy script?
+     PROMPT$ cd jflex-maven-plugin && mvn site
+     
+     - The site is built under jflex-maven-plugin/target/site/ - visit the
+       index.html page there with a browser to sanity check that links work,
+       etc.
+       
+     - Then upload the built site to SourceForge:
+     
+       PROMPT$ mvn -Prelease site:deploy
      
 
 Post-release steps

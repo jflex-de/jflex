@@ -1,6 +1,19 @@
 #! /usr/bin/perl -w
     eval 'exec /usr/bin/perl -S $0 ${1+"$@"}'
         if 0; #$running_under_some_shell
+#        
+# prepare-release.pl
+# 
+# Performs the following:
+#
+#   - Changes the version in all POMs by removing all -SNAPSHOT suffixes
+#   - Switches all <scm> URLs from /trunk to /tags/release_X_Y_Z
+#   - Commits the changed POMs
+#   - Tags the release by copying /trunk to /tags/release_X_Y_Z
+#   - svn switch's your working copy to the new tag.
+#
+# For more information, see HOWTO_release.txt
+#
 
 use strict;
 use warnings;
