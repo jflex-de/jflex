@@ -1,11 +1,13 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jflex</groupId>
 	<artifactId>jflex-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>JFlex Maven Plugin</name>
-	<version>1.6.0-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<description>
 		This is a Maven 2 plugin to generate a parser in Java code from
 		a Lexer definition, using JFlex.
@@ -166,7 +168,7 @@
 		<dependency>
 			<groupId>de.jflex</groupId>
 			<artifactId>jflex</artifactId>
-			<version>1.6.0-SNAPSHOT</version>
+			<version>1.5.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>

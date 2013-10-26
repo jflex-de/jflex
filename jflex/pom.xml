@@ -1,11 +1,13 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jflex</artifactId>
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.6.0-SNAPSHOT</version>
+    <version>1.5.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>JFlex</name>
@@ -104,8 +106,8 @@
       </plugin>
       <plugin>
         <groupId>de.jflex</groupId>
-        <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.5.0</version>
+        <artifactId>maven-jflex-plugin</artifactId>
+        <version>1.4.3</version>
         <executions>
           <execution>
             <goals>
@@ -129,14 +131,14 @@
             </goals>
             <configuration>
               <target name="cup">
-                <property name="cup.version" value="11a"/>
-                <property name="cup.jar" value="lib/java-cup-${cup.version}.jar"/>
+                <property name="cup.version" value="11a" />
+                <property name="cup.jar" value="lib/java-cup-${cup.version}.jar" />
                 <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
                 <property name="cup.file" location="src/main/cup/LexParse.cup"/>
                 <mkdir dir="${cup.output.dir}"/>
                 <echo message="Generating LexParse.java from ${cup.file}"/>
-                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}"/>
-                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" parser="LexParse"/>
+                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}" />
+                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" parser="LexParse" />
               </target>
             </configuration>
           </execution>
