@@ -90,7 +90,7 @@ print "done.\n";
 
 my $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
 print "Tagging the release as $tag_url ... ";
-$ret_val = system(qq!svn copy . "$tag_url"!); 
+$ret_val = system(qq!svn copy "$trunk_url" "$tag_url"!); 
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
