@@ -73,37 +73,38 @@ if ($stat_results) {
   print "NO!\n\n$stat_results\nAborting.\n";
   exit 1;
 }
+print "Yes.\n\n";
 
 print "Switching JFlex version -> $release\n";
-print " and SCM URLs from /trunk -> /tags/$tag in all POMs ... ";
+print " and SCM URLs from /trunk -> /tags/$tag in all POMs ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
-print "done.\n";
+print "\ndone.\n\n";
 
-print "Committing the changed POMs ... ";
+print "Committing the changed POMs ...\n";
 my $ret_val = system
    (qq!svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
 }
-print "done.\n";
+print "\ndone.\n\n";
 
 my $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
-print "Tagging the release as $tag_url ... ";
-$ret_val = system(qq!svn copy "$trunk_url" "$tag_url"!); 
+print "Tagging the release as $tag_url ...\n";
+$ret_val = system(qq!svn copy -m "tag release $release" "$trunk_url" "$tag_url"!); 
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
 }
-print "done.\n";
+print "\ndone.\n\n";
 
-print "svn switch'ing to ${tag_url} ... ";
+print "svn switch'ing to ${tag_url} ...\n";
 $ret_val = system(qq!svn switch "$tag_url"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
 }
-print "done.\n";
+print "\ndone.\n\n";
 
 exit;
 
