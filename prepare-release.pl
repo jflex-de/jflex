@@ -28,13 +28,7 @@ my $sheet =<<'__STYLESHEET__';
   <xsl:variable name="scm-url" 
                 select="concat(substring-before(/pom:project/pom:scm/pom:url,$url-trunk-suffix),$url-tag-suffix)"/>
 
-  <xsl:template 
-      match=" /pom:project[pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex')]/pom:version
-             |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
-             |/pom:project/pom:dependencies/pom:dependency[pom:groupId='de.jflex' and pom:artifactId='jflex']/pom:version
-             |/pom:project/pom:build/pom:plugins/pom:plugin[pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin']/pom:version">
-    <version><xsl:value-of select="$release"/></version>
-  </xsl:template>
+  <!-- Convert SCM /trunk URLs -> /tags/release_X_Y_Z --> 
   <xsl:template match="/pom:project/pom:scm/pom:connection">
     <connection><xsl:value-of select="$scm-connection"/></connection>
   </xsl:template>
@@ -44,6 +38,16 @@ my $sheet =<<'__STYLESHEET__';
   <xsl:template match="/pom:project/pom:scm/pom:url">
     <url><xsl:value-of select="$scm-url"/></url>
   </xsl:template>
+
+  <!-- Replace all JFlex versions with the new JFlex release version -->
+  <xsl:template 
+      match=" /pom:project[pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex')]/pom:version
+             |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
+             |/pom:project/pom:dependencies/pom:dependency[pom:groupId='de.jflex' and pom:artifactId='jflex']/pom:version
+             |/pom:project/pom:build/pom:plugins/pom:plugin[pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin']/pom:version">
+    <version><xsl:value-of select="$release"/></version>
+  </xsl:template>
+  
   <xsl:template match="@*|*|processing-instruction()|comment()">
     <xsl:copy>
       <xsl:apply-templates select="@*|*|text()|processing-instruction()|comment()"/>
@@ -81,5 +85,5 @@ sub transform {
   my $stylesheet = $xslt->parse_stylesheet($style_doc);
   my $results = $stylesheet->transform_file
       ($pom, release => "'$release'", tag => "'$tag'");
-  $stylesheet->output_file($results, "$pom.new");
+  $stylesheet->output_file($results, $pom); # replace existing file
 }
