@@ -97,8 +97,8 @@ if ($ret_val) {
 }
 print "done.\n";
 
-print "svn switch'ing to ${tag_url} ... "
-$ret_val = system(qq!svn switch "${tag_url}"!);
+print "svn switch'ing to ${tag_url} ... ";
+$ret_val = system(qq!svn switch "$tag_url"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
   exit $ret_val >> 8; # Exit with svn's return value
