@@ -89,6 +89,7 @@ if ($ret_val) {
 }
 print "\ndone.\n\n";
 
+my $trunk_url = "https://svn.code.sf.net/p/jflex/code/trunk";
 my $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
 print "Tagging the release as $tag_url ...\n";
 $ret_val = system(qq!svn copy -m "tag release $release" "$trunk_url" "$tag_url"!); 
