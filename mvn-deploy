@@ -5,6 +5,31 @@
 # to the Sonatype OSS Maven staging repository
 #
 
+set -e
+
+# Abort if the checkout is not clean
+printf "Clean checkout?  "
+stat_results=`svn stat`
+if [ ! -z "$stat_results" ] ; then
+  printf "NO!\n\n${stat_results}\nAborting.\n"
+  exit 1
+fi
+echo "Yes."
+
+# Install the jflex-parent POM
+mvn -N install
+
+# Install JFlex
+cd jflex
 mvn clean
+mvn install
+
+# Install the JFlex Maven Plugin
+cd ../jflex-maven-plugin
+mvn clean
+mvn install
+
+# Deploy the deployable stuff to the Sonatype OSS Maven repository
+cd ..
 mvn -Psonatype-oss-release deploy
 
