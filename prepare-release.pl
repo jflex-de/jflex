@@ -3,6 +3,7 @@
         if 0; #$running_under_some_shell
 
 use strict;
+use warnings;
 use File::Find ();
 use XML::LibXML;
 use XML::LibXSLT;
@@ -62,10 +63,48 @@ __STYLESHEET__
 my $snapshot = get_snapshot_version();
 (my $release = $snapshot) =~ s/-SNAPSHOT//;
 (my $tag = "release_$release") =~ s/\./_/g;
-print STDERR "tag: $tag\n";
 
-sub wanted;
+select STDOUT;
+$| = 1; # Turn on auto-flush
+
+print "Clean checkout?  ";
+my $stat_results=`svn stat`;
+if ($stat_results) {
+  print "NO!\n\n$stat_results\nAborting.\n";
+  exit 1;
+}
+
+print "Switching JFlex version -> $release\n";
+print " and SCM URLs from /trunk -> /tags/$tag in all POMs ... ";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
+print "done.\n";
+
+print "Committing the changed POMs ... ";
+my $ret_val = system
+   (qq/svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"/);
+if ($ret_val) {
+  print STDERR "ERROR - Aborting.\n";
+  exit $ret_val >> 8; # Exit with svn's return value
+}
+print "done.\n";
+
+$tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
+print "Tagging the release as $tag_url ... ";
+$ret_val = system(qq/svn copy . "$tag_url"/); 
+if ($ret_val) {
+  print STDERR "ERROR - Aborting.\n";
+  exit $ret_val >> 8; # Exit with svn's return value
+}
+print "done.\n";
+
+print "svn switch'ing to ${tag_url} ... "
+$ret_val = system(qq/svn switch "${tag_url}"/);
+if ($ret_val) {
+  print STDERR "ERROR - Aborting.\n";
+  exit $ret_val >> 8; # Exit with svn's return value
+}
+print "done.\n";
+
 exit;
 
 sub get_snapshot_version {
