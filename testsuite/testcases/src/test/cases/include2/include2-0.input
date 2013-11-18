@@ -1,6 +1,7 @@
-%include src/test/cases/include2/nested2
+%include "src/test/cases/include2/nested2"token a
 
 token b blublw
 sd
 asf sad adsdfa
-token  s%include src/test/cases/include2/nested3-sdfs a
+token  s%include "src/test/cases/include2/nested3"token c sdfs a
+token d

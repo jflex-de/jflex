@@ -16,9 +16,10 @@ FILENAME = {NAMEPART} ("/" {NAMEPART})*
 
 %%
 
-"%include" {WSP}+ {FILENAME} {
-  System.out.println("including \""+yytext().substring(9).trim()+"\"");
-  yypushStream( new FileReader(yytext().substring(9).trim()) );
+"%include" {WSP}+ \" {FILENAME} \" {
+  String quotedFilename = yytext().substring(9).trim();
+  System.out.println("including " + quotedFilename);
+  yypushStream(new FileReader(quotedFilename.substring(1, quotedFilename.length() - 1)));
 }
 
 ^ "token" {WSP}+ .    { System.out.println("Token \""+yytext().substring(6).trim()+"\" at char #"+yychar); }

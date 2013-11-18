@@ -6,19 +6,21 @@ Token "3" at char #0
 newline
 <<EOF>>
 newline
-Token "2" at char #64
+Token "2" at char #66
 newline
 <<EOF>>
+token anewline
 newline
-newline
-Token "b" at char #42
+Token "b" at char #51
  blublwnewline
 sdnewline
 asf sad adsdfanewline
-Token "s" at char #75
+Token "s" at char #84
 including "src/test/cases/include2/nested3"
 Token "3" at char #0
 newline
 <<EOF>>
--sdfs anewline
+token c sdfs anewline
+Token "d" at char #149
+newline
 <<EOF>>
