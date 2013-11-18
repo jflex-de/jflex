@@ -1,0 +1,24 @@
+including "src/test/cases/include2/nested2"
+Token "1" at char #0
+newline
+something else including "src/test/cases/include2/nested3"
+Token "3" at char #0
+newline
+<<EOF>>
+newline
+Token "2" at char #64
+newline
+<<EOF>>
+newline
+newline
+Token "b" at char #42
+ blublwnewline
+sdnewline
+asf sad adsdfanewline
+Token "s" at char #75
+including "src/test/cases/include2/nested3"
+Token "3" at char #0
+newline
+<<EOF>>
+-sdfs anewline
+<<EOF>>

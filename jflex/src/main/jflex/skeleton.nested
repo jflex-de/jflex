@@ -85,25 +85,30 @@
     int zzCurrentPos;
     int zzMarkedPos;
     int yyline;
+    int yychar;
     int yycolumn;
     char [] zzBuffer;
+    boolean zzAtBOL;
     boolean zzAtEOF;
     boolean zzEOFDone;
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
-                  int zzCurrentPos, int zzMarkedPos, 
-                  char [] zzBuffer, boolean zzAtEOF, int yyline, int yycolumn) {
+                  int zzCurrentPos, int zzMarkedPos,
+                  char [] zzBuffer, boolean zzAtBOL, boolean zzAtEOF,
+                  int yyline, int yychar, int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
       this.zzStartRead   = zzStartRead;
       this.zzCurrentPos  = zzCurrentPos;
       this.zzMarkedPos   = zzMarkedPos;
       this.zzBuffer      = zzBuffer;
+      this.zzAtBOL       = zzAtBOL;
       this.zzAtEOF       = zzAtEOF;
       this.zzEOFDone     = zzEOFDone;
-      this.yyline         = yyline;
-      this.yycolumn       = yycolumn;
+      this.yyline        = yyline;
+      this.yychar        = yychar;
+      this.yycolumn      = yycolumn;
     }
   }
 
@@ -193,15 +198,16 @@
   public final void yypushStream(java.io.Reader reader) {
     zzStreams.push(
       new ZzFlexStreamInfo(zzReader, zzEndRead, zzStartRead, zzCurrentPos,
-                        zzMarkedPos, zzBuffer, zzAtEOF,
-                        yyline, yycolumn)
+                        zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF,
+                        yyline, yychar, yycolumn)
     );
+    zzAtBOL  = true;
     zzAtEOF  = false;
     zzBuffer = new char[ZZ_BUFFERSIZE];
     zzReader = reader;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
-    yyline = yycolumn = 0;
+    yyline = yychar = yycolumn = 0;
   }
     
 
@@ -226,9 +232,11 @@
     zzStartRead   = s.zzStartRead;
     zzCurrentPos  = s.zzCurrentPos;
     zzMarkedPos   = s.zzMarkedPos ;
+    zzAtBOL       = s.zzAtBOL;
     zzAtEOF       = s.zzAtEOF;
     zzEOFDone     = s.zzEOFDone;
     yyline         = s.yyline;
+    yychar         = s.yychar;
     yycolumn       = s.yycolumn;
   }
 
