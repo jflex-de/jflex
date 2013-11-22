@@ -16,8 +16,7 @@
   <licenses>
     <license>
       <name>BSD</name>
-      <url>http://www.opensource.org/licenses/bsd-license.php</url>
-      <distribution>repo</distribution>
+      <url>http://opensource.org/licenses/BSD-3-Clause</url>
     </license>
   </licenses>
   <description>
