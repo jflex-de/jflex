@@ -1,0 +1,9 @@
+name: genlook2
+
+description:
+test that zzFin is properly updated when reallocating zzBuffer:
+bugs <http://sourceforge.net/p/jflex/bugs/118>
+and <http://sourceforge.net/p/jflex/bugs/110>
+
+jflex: --noinputstreamctor
+
