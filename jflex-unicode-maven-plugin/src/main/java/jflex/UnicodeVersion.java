@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
@@ -699,7 +700,7 @@ class UnicodeVersion {
     if (null == identifier)
       return identifier;
     String normalized
-      = WORD_SEP_PATTERN.matcher(identifier.toLowerCase()).replaceAll("");
+      = WORD_SEP_PATTERN.matcher(identifier.toLowerCase(Locale.ENGLISH)).replaceAll("");
     return normalized.replace(':', '=');
   }
 

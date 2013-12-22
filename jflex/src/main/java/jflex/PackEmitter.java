@@ -10,6 +10,8 @@
 package jflex;
 
 
+import java.util.Locale;
+
 /**
  * Encodes <code>int</code> arrays as strings.
  * 
@@ -70,7 +72,7 @@ public abstract class PackEmitter {
    * @see PackEmitter#name
    */
   protected String constName() {
-    return "ZZ_" + name.toUpperCase();
+    return "ZZ_" + name.toUpperCase(Locale.ENGLISH);
   }
   
   /**
