@@ -20,6 +20,8 @@
   constructor in the generated scanner.
 - fixed bug #105 & #106 (yychar and zzAtBOL should be reset for nested input streams)
 - fixed bug #107 (could not match input for empty string matches.)
+- fixed bug #110 & #118 (properly update zzFin when reallocating zzBuffer)
+- fixed bug #114 (noncompileable scanner generation when default locale is Turkish)
 
 * JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)
