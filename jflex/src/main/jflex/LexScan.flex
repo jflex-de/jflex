@@ -186,6 +186,24 @@ import jflex.unicode.UnicodeProperties;
         (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
     }
   }
+  
+  private void includeFile(String filePath) {
+    File f = new File(file.getParentFile(), filePath);
+    if ( !f.canRead() )
+      throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
+    // check for cycle
+    if (files.search(f) > 0)
+      throw new ScannerException(file,ErrorMessages.FILE_CYCLE, yyline);
+    try {
+      yypushStream( new FileReader(f) );
+      files.push(file);
+      file = f;
+      Out.println("Including \""+file+"\"");
+    }
+    catch (FileNotFoundException e) {
+      throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
+    }
+  }
 %}
 
 %init{
@@ -213,6 +231,7 @@ Unicode6  = \\ U {HexDigit} {1, 6}
 // see http://www.unicode.org/unicode/reports/tr18/
 WSP        = [ \t\b]
 WSPNL      = [\u2028\u2029\u000A\u000B\u000C\u000D\u0085\t\b\ ]
+NWSPNL     = [^\u2028\u2029\u000A\u000B\u000C\u000D\u0085\t\b\ ]
 NL         = [\u2028\u2029\u000A\u000B\u000C\u000D\u0085] | \u000D\u000A
 NNL        = [^\u2028\u2029\u000A\u000B\u000C\u000D\u0085]
 
@@ -362,22 +381,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                 Out.warning(ErrorMessages.TABLE_METHOD_DEPRECATED, yyline);  
                               }
   "%pack"                     { packed = true; useRowMap = true; }
-  "%include" {WSP}+ .*        { File f = new File(file.getParentFile(), yytext().substring(9).trim());
-                                if ( !f.canRead() )
-                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
-                                // check for cycle
-                                if (files.search(f) > 0)
-                                  throw new ScannerException(file,ErrorMessages.FILE_CYCLE, yyline);
-                                try {
-                                  yypushStream( new FileReader(f) );
-                                  files.push(file);
-                                  file = f;
-                                  Out.println("Including \""+file+"\"");
-                                }
-                                catch (FileNotFoundException e) {
-                                  throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
-                                }
-                              }
+  "%include" {WSP}+ .*        { includeFile(yytext().substring(9).trim()); }
   "%buffer" {WSP}+ {Number} {WSP}*   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
   "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,ErrorMessages.NO_BUFFER_SIZE, yyline); }
   "%initthrow" {WSP}+ {QUIL} {WSP}* { initThrow = concExc(initThrow,yytext().substring(11).trim()); }
@@ -406,8 +410,6 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   {EndOfLineComment}          { }
 
-  /* no {NL} at the end of this expression, because <REGEXPSTART>
-     needs at least one {WSPNL} to start a regular expression! */
   ^"%%" {NNL}*                { if (null == unicodeProperties && ! isASCII) {
                                   populateDefaultVersionUnicodeProperties();
                                 }
@@ -436,17 +438,18 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 }
 
 <REGEXPSTART> {
-  {WSPNL}* "/*"               { nextState = REGEXPSTART; yybegin(COMMENT); }
-  {WSPNL}+                    { yybegin(REGEXP); }
-  {WSPNL}* "<"                { yybegin(STATES); return symbol_countUpdate(LESSTHAN, null); }
-  {WSPNL}* "}"                { return symbol_countUpdate(RBRACE, null); }
-  {WSPNL}* "//" {NNL}*        { }
-  {WSPNL}* "<<EOF>>" {WSPNL}* "{"
-                              { actionText.setLength(0); yybegin(JAVA_CODE);
-                                Symbol s = symbol_countUpdate(EOFRULE, null);
-                                action_line = s.left+1;
-                                return s;
-                              }
+  ^ {WSP}* "%include" {WSP}+ .*  { includeFile(yytext().trim().substring(9).trim()); }
+  {WSP}* "/*"                    { nextState = REGEXPSTART; yybegin(COMMENT); }
+  {WSP}* "<"                     { yybegin(STATES); return symbol_countUpdate(LESSTHAN, null); }
+  {WSP}* "}"                     { return symbol_countUpdate(RBRACE, null); }
+  {WSP}* "//" {NNL}*             { }
+  {WSP}* "<<EOF>>" {WSPNL}* "{"  { actionText.setLength(0); yybegin(JAVA_CODE);
+                                   Symbol s = symbol_countUpdate(EOFRULE, null);
+                                   action_line = s.left+1;
+                                   return s;
+                                 }
+  ^ {WSP}* {NWSPNL}              { yypushback(yylength()); yybegin(REGEXP); }
+  {WSP} | {NL}                   { }
 }
 
 <STATES> {

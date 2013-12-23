@@ -1311,13 +1311,18 @@ defined but never used in the ``lexical rules'' section of the specification.
 The ``lexical rules'' section of a JFlex specification contains a set of
 regular expressions and actions (Java code) that are executed when the
 scanner matches the associated regular expression.
+
+The \texttt{\%include} directive may be used in this section to include
+lexical rules from a separate file.  The directive will be replaced verbatim
+by the contents of the specified file.
  
 \subsubsection{Syntax\label{Grammar}}
 The syntax of the "lexical rules" section is described by the following
 EBNF grammar (terminal symbols are enclosed in 'quotes'):
 
 \begin{verbatim}
-LexicalRules ::= Rule+ 
+LexicalRules ::= (Include|Rule)+
+Include      ::= '%include' (' '|'\t'|'\b')+ File
 Rule         ::= [StateList] ['^'] RegExp [LookAhead] Action 
                | [StateList] '<<EOF>>' Action
                | StateGroup 
@@ -1378,6 +1383,10 @@ PropertyValue       ::= Identifier
 \label{Terminals}
 The grammar uses the following terminal symbols:   
 \begin{itemize}
+\item \texttt{File}\\
+  a file name, either absolute or relative to the directory containing 
+  the lexical specification.
+
 \item \texttt{JavaCode}\\
   a sequence of {\trit \texttt{BlockStatements}} as described in the Java
   Language Specification \cite{LangSpec}, section 14.2.
