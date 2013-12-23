@@ -94,8 +94,8 @@
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
-                  int zzCurrentPos, int zzMarkedPos, 
-                  char [] zzBuffer, boolean zzAtBOL, boolean zzAtEOF,
+                  int zzCurrentPos, int zzMarkedPos, char [] zzBuffer,
+                  boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
                   int yyline, int yychar, int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
@@ -198,7 +198,7 @@
   public final void yypushStream(java.io.Reader reader) {
     zzStreams.push(
       new ZzFlexStreamInfo(zzReader, zzEndRead, zzStartRead, zzCurrentPos,
-                        zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF,
+                        zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF, zzEOFDone,
                         yyline, yychar, yycolumn)
     );
     zzAtBOL  = true;
