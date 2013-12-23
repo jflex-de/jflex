@@ -25,6 +25,7 @@
 - fixed bug #114 (noncompileable scanner generation when default locale is Turkish)
 - fixed bug #113 (zzEOFDone not included with pushed nested stream state)
 - fixed bug #103 (can't build examples/java/)
+- fixed bug #104 (impossible char class range should trigger syntax error)
 
 * JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)

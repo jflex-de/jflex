@@ -1,0 +1,9 @@
+
+%%
+
+BadRange = [b-a]
+
+%%
+
+{BadRange}	 		{ }
+[^] { }
