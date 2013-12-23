@@ -1,7 +1,8 @@
 This directory contains a scanner and parser for the Java programming language.
 
-You need the parser generator CUP v0.10j (or newer) for the parser to work.
-Use the Makefile to generate the lexer and parser, or type:
+You need the parser generator CUP v0.11a for the parser to work.
+Use the Makefile or Ant (via 'ant run') to generate the lexer and
+parser, or type:
 
 jflex unicode.flex
 jflex java.flex

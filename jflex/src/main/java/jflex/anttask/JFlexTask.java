@@ -17,6 +17,8 @@ import jflex.Main;
 import jflex.Options;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * JFlex task class
@@ -25,7 +27,10 @@ import java.io.*;
  * @version JFlex 1.5, $Revision$, $Date$
  */
 public class JFlexTask extends Task {
-  private File inputFile;
+    private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");
+    private static final Pattern CLASS_PATTERN = Pattern.compile("%class\\s+(\\S+)");
+    
+    private File inputFile;
 
 	// found out by looking into .flex file 
 	private String className = null;
@@ -86,26 +91,17 @@ public class JFlexTask extends Task {
 			if (line == null)	break;
 
 			if (packageName == null) {
-				int index = line.indexOf("package");
-				if (index >= 0) {
-					index += 7;
-
-					int end = line.indexOf(';', index);
-					if (end >= index) {
-						packageName = line.substring(index, end);
-						packageName = packageName.trim();
-					}
+                Matcher matcher = PACKAGE_PATTERN.matcher(line);
+                if (matcher.find()) {
+                    packageName = matcher.group(1);
 				}
 			}
 
 			if (className == null) {
-				int index = line.indexOf("%class");
-				if (index >= 0) {
-					index += 6;
-
-					className = line.substring(index);
-					className = className.trim();
-				}
+                Matcher matcher = CLASS_PATTERN.matcher(line);
+                if (matcher.find()) {
+                    className = matcher.group(1);
+                }
 			}
 		}
 

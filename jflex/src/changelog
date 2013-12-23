@@ -24,6 +24,7 @@
 - fixed bug #110 & #118 (properly update zzFin when reallocating zzBuffer)
 - fixed bug #114 (noncompileable scanner generation when default locale is Turkish)
 - fixed bug #113 (zzEOFDone not included with pushed nested stream state)
+- fixed bug #103 (can't build examples/java/)
 
 * JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)
