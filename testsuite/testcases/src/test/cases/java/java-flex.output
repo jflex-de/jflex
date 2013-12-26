@@ -1,6 +1,6 @@
 Reading "src/test/cases/java/java.flex"
 
-Warning in file "src/test/cases/java/java.flex" (line 309): 
+Warning in file "src/test/cases/java/java.flex" (line 318): 
 ".|\n" does not match all characters, because "." excludes all Unicode newline chars - use "[^]" instead
 .|\n                             { throw new RuntimeException("Illegal character \""+yytext()+
 ^
