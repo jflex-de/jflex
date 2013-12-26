@@ -94,7 +94,7 @@ public class NamedRangeSet {
 
   /**
    * Deep copy 
-   * @return deeo copy of this set of named ranges 
+   * @return deep copy of this set of named ranges 
    */
   public NamedRangeSet copy() {
     NamedRangeSet copy = new NamedRangeSet();
