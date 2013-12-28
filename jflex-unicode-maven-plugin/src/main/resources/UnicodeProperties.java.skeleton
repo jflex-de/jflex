@@ -12,6 +12,7 @@ package jflex.unicode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.IntCharSet;
@@ -240,7 +241,7 @@ public class UnicodeProperties {
   private String normalize(String identifier) {
     if (null == identifier)
       return identifier;
-    Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase());
+    Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase(Locale.ENGLISH));
     return matcher.replaceAll("").replace(':', '=');
   }
 
