@@ -10,7 +10,6 @@ import java.util.TreeSet;
  */
 %%
 
-%final
 %public
 %class EnumeratedPropertyFileScanner
 %ctorarg UnicodeVersion unicodeVersion
@@ -63,6 +62,10 @@ import java.util.TreeSet;
     
     // Add final named interval
     unicodeVersion.addInterval(propertyName, prevValue, prevStart, prevEnd);
+  }
+  
+  protected boolean accept(String propertyValue) {
+    return true;
   }
 %}
 
@@ -127,7 +130,11 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_VALUE> {
-  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { intervals.add(new NamedRange(start, end, yytext())); }
+  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { String val = yytext();
+                                       if (accept(val)) {
+                                         intervals.add(new NamedRange(start, end, val));
+                                       }
+                                     }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }

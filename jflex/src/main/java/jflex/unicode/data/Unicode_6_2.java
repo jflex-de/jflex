@@ -3,7 +3,10 @@ package jflex.unicode.data;
 public class Unicode_6_2 {
   public static final int maximumCodePoint = 0x10ffff;
   public static final String[] propertyValues
-    = { "alnum", "alphabetic", "arabic", "armenian", "asciihexdigit",
+    = { "age=unassigned", "age=v11", "age=v20", "age=v21", "age=v30",
+        "age=v31", "age=v32", "age=v40", "age=v41", "age=v50",
+        "age=v51", "age=v52", "age=v60", "age=v61", "age=v62",
+        "alnum", "alphabetic", "arabic", "armenian", "asciihexdigit",
         "assigned", "avestan", "balinese", "bamum", "batak",
         "bengali", "bidicontrol", "blank", "block=aegeannumbers", "block=alchemicalsymbols",
         "block=alphabeticpresentationforms", "block=ancientgreekmusicalnotation", "block=ancientgreeknumbers", "block=ancientsymbols", "block=arabic",
@@ -102,6 +105,1643 @@ public class Unicode_6_2 {
         "xdigit", "xidcontinue", "xidstart", "yi", "zl",
         "zp", "zs" };
   public static final String[] intervals = {
+    // Unicode 6.2 property value: {age=unassigned}
+        "\u0378\u0379"+"\u037f\u0383"+"\u038b\u038b"+"\u038d\u038d"
+      + "\u03a2\u03a2"+"\u0528\u0530"+"\u0557\u0558"+"\u0560\u0560"
+      + "\u0588\u0588"+"\u058b\u058e"+"\u0590\u0590"+"\u05c8\u05cf"
+      + "\u05eb\u05ef"+"\u05f5\u05ff"+"\u0605\u0605"+"\u061c\u061d"
+      + "\u070e\u070e"+"\u074b\u074c"+"\u07b2\u07bf"+"\u07fb\u07ff"
+      + "\u082e\u082f"+"\u083f\u083f"+"\u085c\u085d"+"\u085f\u089f"
+      + "\u08a1\u08a1"+"\u08ad\u08e3"+"\u08ff\u08ff"+"\u0978\u0978"
+      + "\u0980\u0980"+"\u0984\u0984"+"\u098d\u098e"+"\u0991\u0992"
+      + "\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"
+      + "\u09c5\u09c6"+"\u09c9\u09ca"+"\u09cf\u09d6"+"\u09d8\u09db"
+      + "\u09de\u09de"+"\u09e4\u09e5"+"\u09fc\u0a00"+"\u0a04\u0a04"
+      + "\u0a0b\u0a0e"+"\u0a11\u0a12"+"\u0a29\u0a29"+"\u0a31\u0a31"
+      + "\u0a34\u0a34"+"\u0a37\u0a37"+"\u0a3a\u0a3b"+"\u0a3d\u0a3d"
+      + "\u0a43\u0a46"+"\u0a49\u0a4a"+"\u0a4e\u0a50"+"\u0a52\u0a58"
+      + "\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a76\u0a80"+"\u0a84\u0a84"
+      + "\u0a8e\u0a8e"+"\u0a92\u0a92"+"\u0aa9\u0aa9"+"\u0ab1\u0ab1"
+      + "\u0ab4\u0ab4"+"\u0aba\u0abb"+"\u0ac6\u0ac6"+"\u0aca\u0aca"
+      + "\u0ace\u0acf"+"\u0ad1\u0adf"+"\u0ae4\u0ae5"+"\u0af2\u0b00"
+      + "\u0b04\u0b04"+"\u0b0d\u0b0e"+"\u0b11\u0b12"+"\u0b29\u0b29"
+      + "\u0b31\u0b31"+"\u0b34\u0b34"+"\u0b3a\u0b3b"+"\u0b45\u0b46"
+      + "\u0b49\u0b4a"+"\u0b4e\u0b55"+"\u0b58\u0b5b"+"\u0b5e\u0b5e"
+      + "\u0b64\u0b65"+"\u0b78\u0b81"+"\u0b84\u0b84"+"\u0b8b\u0b8d"
+      + "\u0b91\u0b91"+"\u0b96\u0b98"+"\u0b9b\u0b9b"+"\u0b9d\u0b9d"
+      + "\u0ba0\u0ba2"+"\u0ba5\u0ba7"+"\u0bab\u0bad"+"\u0bba\u0bbd"
+      + "\u0bc3\u0bc5"+"\u0bc9\u0bc9"+"\u0bce\u0bcf"+"\u0bd1\u0bd6"
+      + "\u0bd8\u0be5"+"\u0bfb\u0c00"+"\u0c04\u0c04"+"\u0c0d\u0c0d"
+      + "\u0c11\u0c11"+"\u0c29\u0c29"+"\u0c34\u0c34"+"\u0c3a\u0c3c"
+      + "\u0c45\u0c45"+"\u0c49\u0c49"+"\u0c4e\u0c54"+"\u0c57\u0c57"
+      + "\u0c5a\u0c5f"+"\u0c64\u0c65"+"\u0c70\u0c77"+"\u0c80\u0c81"
+      + "\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"
+      + "\u0cb4\u0cb4"+"\u0cba\u0cbb"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"
+      + "\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce4\u0ce5"
+      + "\u0cf0\u0cf0"+"\u0cf3\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"
+      + "\u0d11\u0d11"+"\u0d3b\u0d3c"+"\u0d45\u0d45"+"\u0d49\u0d49"
+      + "\u0d4f\u0d56"+"\u0d58\u0d5f"+"\u0d64\u0d65"+"\u0d76\u0d78"
+      + "\u0d80\u0d81"+"\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"
+      + "\u0dbc\u0dbc"+"\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"
+      + "\u0dd5\u0dd5"+"\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df5\u0e00"
+      + "\u0e3b\u0e3e"+"\u0e5c\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"
+      + "\u0e89\u0e89"+"\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"
+      + "\u0ea0\u0ea0"+"\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"
+      + "\u0eac\u0eac"+"\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"
+      + "\u0ec7\u0ec7"+"\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ee0\u0eff"
+      + "\u0f48\u0f48"+"\u0f6d\u0f70"+"\u0f98\u0f98"+"\u0fbd\u0fbd"
+      + "\u0fcd\u0fcd"+"\u0fdb\u0fff"+"\u10c6\u10c6"+"\u10c8\u10cc"
+      + "\u10ce\u10cf"+"\u1249\u1249"+"\u124e\u124f"+"\u1257\u1257"
+      + "\u1259\u1259"+"\u125e\u125f"+"\u1289\u1289"+"\u128e\u128f"
+      + "\u12b1\u12b1"+"\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"
+      + "\u12c6\u12c7"+"\u12d7\u12d7"+"\u1311\u1311"+"\u1316\u1317"
+      + "\u135b\u135c"+"\u137d\u137f"+"\u139a\u139f"+"\u13f5\u13ff"
+      + "\u169d\u169f"+"\u16f1\u16ff"+"\u170d\u170d"+"\u1715\u171f"
+      + "\u1737\u173f"+"\u1754\u175f"+"\u176d\u176d"+"\u1771\u1771"
+      + "\u1774\u177f"+"\u17de\u17df"+"\u17ea\u17ef"+"\u17fa\u17ff"
+      + "\u180f\u180f"+"\u181a\u181f"+"\u1878\u187f"+"\u18ab\u18af"
+      + "\u18f6\u18ff"+"\u191d\u191f"+"\u192c\u192f"+"\u193c\u193f"
+      + "\u1941\u1943"+"\u196e\u196f"+"\u1975\u197f"+"\u19ac\u19af"
+      + "\u19ca\u19cf"+"\u19db\u19dd"+"\u1a1c\u1a1d"+"\u1a5f\u1a5f"
+      + "\u1a7d\u1a7e"+"\u1a8a\u1a8f"+"\u1a9a\u1a9f"+"\u1aae\u1aff"
+      + "\u1b4c\u1b4f"+"\u1b7d\u1b7f"+"\u1bf4\u1bfb"+"\u1c38\u1c3a"
+      + "\u1c4a\u1c4c"+"\u1c80\u1cbf"+"\u1cc8\u1ccf"+"\u1cf7\u1cff"
+      + "\u1de7\u1dfb"+"\u1f16\u1f17"+"\u1f1e\u1f1f"+"\u1f46\u1f47"
+      + "\u1f4e\u1f4f"+"\u1f58\u1f58"+"\u1f5a\u1f5a"+"\u1f5c\u1f5c"
+      + "\u1f5e\u1f5e"+"\u1f7e\u1f7f"+"\u1fb5\u1fb5"+"\u1fc5\u1fc5"
+      + "\u1fd4\u1fd5"+"\u1fdc\u1fdc"+"\u1ff0\u1ff1"+"\u1ff5\u1ff5"
+      + "\u1fff\u1fff"+"\u2065\u2069"+"\u2072\u2073"+"\u208f\u208f"
+      + "\u209d\u209f"+"\u20bb\u20cf"+"\u20f1\u20ff"+"\u218a\u218f"
+      + "\u23f4\u23ff"+"\u2427\u243f"+"\u244b\u245f"+"\u2700\u2700"
+      + "\u2b4d\u2b4f"+"\u2b5a\u2bff"+"\u2c2f\u2c2f"+"\u2c5f\u2c5f"
+      + "\u2cf4\u2cf8"+"\u2d26\u2d26"+"\u2d28\u2d2c"+"\u2d2e\u2d2f"
+      + "\u2d68\u2d6e"+"\u2d71\u2d7e"+"\u2d97\u2d9f"+"\u2da7\u2da7"
+      + "\u2daf\u2daf"+"\u2db7\u2db7"+"\u2dbf\u2dbf"+"\u2dc7\u2dc7"
+      + "\u2dcf\u2dcf"+"\u2dd7\u2dd7"+"\u2ddf\u2ddf"+"\u2e3c\u2e7f"
+      + "\u2e9a\u2e9a"+"\u2ef4\u2eff"+"\u2fd6\u2fef"+"\u2ffc\u2fff"
+      + "\u3040\u3040"+"\u3097\u3098"+"\u3100\u3104"+"\u312e\u3130"
+      + "\u318f\u318f"+"\u31bb\u31bf"+"\u31e4\u31ef"+"\u321f\u321f"
+      + "\u32ff\u32ff"+"\u4db6\u4dbf"+"\u9fcd\u9fff"+"\ua48d\ua48f"
+      + "\ua4c7\ua4cf"+"\ua62c\ua63f"+"\ua698\ua69e"+"\ua6f8\ua6ff"
+      + "\ua78f\ua78f"+"\ua794\ua79f"+"\ua7ab\ua7f7"+"\ua82c\ua82f"
+      + "\ua83a\ua83f"+"\ua878\ua87f"+"\ua8c5\ua8cd"+"\ua8da\ua8df"
+      + "\ua8fc\ua8ff"+"\ua954\ua95e"+"\ua97d\ua97f"+"\ua9ce\ua9ce"
+      + "\ua9da\ua9dd"+"\ua9e0\ua9ff"+"\uaa37\uaa3f"+"\uaa4e\uaa4f"
+      + "\uaa5a\uaa5b"+"\uaa7c\uaa7f"+"\uaac3\uaada"+"\uaaf7\uab00"
+      + "\uab07\uab08"+"\uab0f\uab10"+"\uab17\uab1f"+"\uab27\uab27"
+      + "\uab2f\uabbf"+"\uabee\uabef"+"\uabfa\uabff"+"\ud7a4\ud7af"
+      + "\ud7c7\ud7ca"+"\ud7fc\ud7ff"+"\ufa6e\ufa6f"+"\ufada\ufaff"
+      + "\ufb07\ufb12"+"\ufb18\ufb1c"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
+      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbc2\ufbd2"
+      + "\ufd40\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdcf"+"\ufdfe\ufdff"
+      + "\ufe1a\ufe1f"+"\ufe27\ufe2f"+"\ufe53\ufe53"+"\ufe67\ufe67"
+      + "\ufe6c\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"+"\uff00\uff00"
+      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
+      + "\uffdd\uffdf"+"\uffe7\uffe7"+"\uffef\ufff8"+"\ud800\udc0c\ud800\udc0c"
+      + "\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"
+      + "\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"+"\ud800\udd03\ud800\udd06"+"\ud800\udd34\ud800\udd36"
+      + "\ud800\udd8b\ud800\udd8f"+"\ud800\udd9c\ud800\uddcf"+"\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"
+      + "\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"+"\ud800\udf24\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"
+      + "\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"
+      + "\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"
+      + "\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc56\ud802\udc56"+"\ud802\udc60\ud802\udcff"
+      + "\ud802\udd1c\ud802\udd1e"+"\ud802\udd3a\ud802\udd3e"+"\ud802\udd40\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"
+      + "\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"
+      + "\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"+"\ud802\ude48\ud802\ude4f"
+      + "\ud802\ude59\ud802\ude5f"+"\ud802\ude80\ud802\udeff"+"\ud802\udf36\ud802\udf38"+"\ud802\udf56\ud802\udf57"
+      + "\ud802\udf73\ud802\udf77"+"\ud802\udf80\ud802\udfff"+"\ud803\udc49\ud803\ude5f"+"\ud803\ude7f\ud803\udfff"
+      + "\ud804\udc4e\ud804\udc51"+"\ud804\udc70\ud804\udc7f"+"\ud804\udcc2\ud804\udccf"+"\ud804\udce9\ud804\udcef"
+      + "\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"+"\ud804\udd44\ud804\udd7f"+"\ud804\uddc9\ud804\uddcf"
+      + "\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"+"\ud808\udf6f\ud808\udfff"
+      + "\ud809\udc63\ud809\udc6f"+"\ud809\udc74\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"
+      + "\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc02\ud833\udfff"
+      + "\ud834\udcf6\ud834\udcff"+"\ud834\udd27\ud834\udd28"+"\ud834\uddde\ud834\uddff"+"\ud834\ude46\ud834\udeff"
+      + "\ud834\udf57\ud834\udf5f"+"\ud834\udf72\ud834\udfff"+"\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"
+      + "\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"+"\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"
+      + "\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"+"\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"
+      + "\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"+"\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"
+      + "\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"+"\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"
+      + "\ud835\udea6\ud835\udea7"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"+"\ud83b\ude04\ud83b\ude04"
+      + "\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"+"\ud83b\ude28\ud83b\ude28"
+      + "\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"+"\ud83b\ude3c\ud83b\ude41"
+      + "\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"+"\ud83b\ude4c\ud83b\ude4c"
+      + "\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"+"\ud83b\ude58\ud83b\ude58"
+      + "\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"+"\ud83b\ude60\ud83b\ude60"
+      + "\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"+"\ud83b\ude73\ud83b\ude73"
+      + "\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"+"\ud83b\ude8a\ud83b\ude8a"
+      + "\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"+"\ud83b\udebc\ud83b\udeef"
+      + "\ud83b\udef2\ud83b\udfff"+"\ud83c\udc2c\ud83c\udc2f"+"\ud83c\udc94\ud83c\udc9f"+"\ud83c\udcaf\ud83c\udcb0"
+      + "\ud83c\udcbf\ud83c\udcc0"+"\ud83c\udcd0\ud83c\udcd0"+"\ud83c\udce0\ud83c\udcff"+"\ud83c\udd0b\ud83c\udd0f"
+      + "\ud83c\udd2f\ud83c\udd2f"+"\ud83c\udd6c\ud83c\udd6f"+"\ud83c\udd9b\ud83c\udde5"+"\ud83c\ude03\ud83c\ude0f"
+      + "\ud83c\ude3b\ud83c\ude3f"+"\ud83c\ude49\ud83c\ude4f"+"\ud83c\ude52\ud83c\udeff"+"\ud83c\udf21\ud83c\udf2f"
+      + "\ud83c\udf36\ud83c\udf36"+"\ud83c\udf7d\ud83c\udf7f"+"\ud83c\udf94\ud83c\udf9f"+"\ud83c\udfc5\ud83c\udfc5"
+      + "\ud83c\udfcb\ud83c\udfdf"+"\ud83c\udff1\ud83c\udfff"+"\ud83d\udc3f\ud83d\udc3f"+"\ud83d\udc41\ud83d\udc41"
+      + "\ud83d\udcf8\ud83d\udcf8"+"\ud83d\udcfd\ud83d\udcff"+"\ud83d\udd3e\ud83d\udd3f"+"\ud83d\udd44\ud83d\udd4f"
+      + "\ud83d\udd68\ud83d\uddfa"+"\ud83d\ude41\ud83d\ude44"+"\ud83d\ude50\ud83d\ude7f"+"\ud83d\udec6\ud83d\udeff"
+      + "\ud83d\udf74\ud83f\udffd"+"\ud869\uded7\ud869\udeff"+"\ud86d\udf35\ud86d\udf3f"+"\ud86e\udc1e\ud87d\udfff"
+      + "\ud87e\ude1e\ud87f\udffd"+"\ud880\udc00\ud8bf\udffd"+"\ud8c0\udc00\ud8ff\udffd"+"\ud900\udc00\ud93f\udffd"
+      + "\ud940\udc00\ud97f\udffd"+"\ud980\udc00\ud9bf\udffd"+"\ud9c0\udc00\ud9ff\udffd"+"\uda00\udc00\uda3f\udffd"
+      + "\uda40\udc00\uda7f\udffd"+"\uda80\udc00\udabf\udffd"+"\udac0\udc00\udaff\udffd"+"\udb00\udc00\udb3f\udffd"
+      + "\udb40\udc00\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udb7f\udffd",
+    // Unicode 6.2 property value: {age=v11}
+        "\000\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"+"\u02b0\u02de"
+      + "\u02e0\u02e9"+"\u0300\u0345"+"\u0360\u0361"+"\u0374\u0375"
+      + "\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03d6"+"\u03da\u03da"
+      + "\u03dc\u03dc"+"\u03de\u03de"+"\u03e0\u03e0"+"\u03e2\u03f3"
+      + "\u0401\u040c"+"\u040e\u044f"+"\u0451\u045c"+"\u045e\u0486"
+      + "\u0490\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"+"\u04d0\u04eb"
+      + "\u04ee\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u0589"+"\u05b0\u05b9"+"\u05bb\u05c3"
+      + "\u05d0\u05ea"+"\u05f0\u05f4"+"\u060c\u060c"+"\u061b\u061b"
+      + "\u061f\u061f"+"\u0621\u063a"+"\u0640\u0652"+"\u0660\u066d"
+      + "\u0670\u06b7"+"\u06ba\u06be"+"\u06c0\u06ce"+"\u06d0\u06ed"
+      + "\u06f0\u06f9"+"\u0901\u0903"+"\u0905\u0939"+"\u093c\u094d"
+      + "\u0950\u0954"+"\u0958\u0970"+"\u0981\u0983"+"\u0985\u098c"
+      + "\u098f\u0990"+"\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"
+      + "\u09b6\u09b9"+"\u09bc\u09bc"+"\u09be\u09c4"+"\u09c7\u09c8"
+      + "\u09cb\u09cd"+"\u09d7\u09d7"+"\u09dc\u09dd"+"\u09df\u09e3"
+      + "\u09e6\u09fa"+"\u0a02\u0a02"+"\u0a05\u0a0a"+"\u0a0f\u0a10"
+      + "\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"
+      + "\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"
+      + "\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a74"
+      + "\u0a81\u0a83"+"\u0a85\u0a8b"+"\u0a8d\u0a8d"+"\u0a8f\u0a91"
+      + "\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"
+      + "\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"
+      + "\u0ae0\u0ae0"+"\u0ae6\u0aef"+"\u0b01\u0b03"+"\u0b05\u0b0c"
+      + "\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"
+      + "\u0b36\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"+"\u0b4b\u0b4d"
+      + "\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"+"\u0b66\u0b70"
+      + "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
+      + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
+      + "\u0ba8\u0baa"+"\u0bae\u0bb5"+"\u0bb7\u0bb9"+"\u0bbe\u0bc2"
+      + "\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"+"\u0be7\u0bf2"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"+"\u0c66\u0c6f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbe\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce1"
+      + "\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"
+      + "\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"+"\u0d66\u0d6f"
+      + "\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"
+      + "\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"
+      + "\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"
+      + "\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"
+      + "\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"
+      + "\u10a0\u10c5"+"\u10d0\u10f6"+"\u10fb\u10fb"+"\u1100\u1159"
+      + "\u115f\u11a2"+"\u11a8\u11f9"+"\u1e00\u1e9a"+"\u1ea0\u1ef9"
+      + "\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"+"\u1f48\u1f4d"
+      + "\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"+"\u1f5d\u1f5d"
+      + "\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"+"\u1fc6\u1fd3"
+      + "\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"+"\u1ff6\u1ffe"
+      + "\u2000\u202e"+"\u2030\u2046"+"\u206a\u2070"+"\u2074\u208e"
+      + "\u20a0\u20aa"+"\u20d0\u20e1"+"\u2100\u2138"+"\u2153\u2182"
+      + "\u2190\u21ea"+"\u2200\u22f1"+"\u2300\u2300"+"\u2302\u237a"
+      + "\u2400\u2424"+"\u2440\u244a"+"\u2460\u24ea"+"\u2500\u2595"
+      + "\u25a0\u25ef"+"\u2600\u2613"+"\u261a\u266f"+"\u2701\u2704"
+      + "\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"+"\u274d\u274d"
+      + "\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"+"\u2761\u2767"
+      + "\u2776\u2794"+"\u2798\u27af"+"\u27b1\u27be"+"\u3000\u3037"
+      + "\u303f\u303f"+"\u3041\u3094"+"\u3099\u309e"+"\u30a1\u30fe"
+      + "\u3105\u312c"+"\u3131\u318e"+"\u3190\u319f"+"\u3200\u321c"
+      + "\u3220\u3243"+"\u3260\u327b"+"\u327f\u32b0"+"\u32c0\u32cb"
+      + "\u32d0\u32fe"+"\u3300\u3376"+"\u337b\u33dd"+"\u33e0\u33fe"
+      + "\u4e00\u9fa5"+"\ue000\ufa2d"+"\ufb00\ufb06"+"\ufb13\ufb17"
+      + "\ufb1e\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"
+      + "\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"
+      + "\ufd92\ufdc7"+"\ufdf0\ufdfb"+"\ufe20\ufe23"+"\ufe30\ufe44"
+      + "\ufe49\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe72"
+      + "\ufe74\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uff5e"
+      + "\uff61\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"
+      + "\uffda\uffdc"+"\uffe0\uffe6"+"\uffe8\uffee"+"\ufffd\uffff",
+    // Unicode 6.2 property value: {age=v20}
+        "\000\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"+"\u02b0\u02de"
+      + "\u02e0\u02e9"+"\u0300\u0345"+"\u0360\u0361"+"\u0374\u0375"
+      + "\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03d6"+"\u03da\u03da"
+      + "\u03dc\u03dc"+"\u03de\u03de"+"\u03e0\u03e0"+"\u03e2\u03f3"
+      + "\u0401\u040c"+"\u040e\u044f"+"\u0451\u045c"+"\u045e\u0486"
+      + "\u0490\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"+"\u04d0\u04eb"
+      + "\u04ee\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u0589"+"\u0591\u05a1"+"\u05a3\u05b9"
+      + "\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\u060c\u060c"
+      + "\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"+"\u0640\u0652"
+      + "\u0660\u066d"+"\u0670\u06b7"+"\u06ba\u06be"+"\u06c0\u06ce"
+      + "\u06d0\u06ed"+"\u06f0\u06f9"+"\u0901\u0903"+"\u0905\u0939"
+      + "\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"+"\u0981\u0983"
+      + "\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"+"\u09aa\u09b0"
+      + "\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"+"\u09be\u09c4"
+      + "\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"+"\u09dc\u09dd"
+      + "\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"+"\u0a05\u0a0a"
+      + "\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"
+      + "\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"+"\u0a8d\u0a8d"
+      + "\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"
+      + "\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"
+      + "\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"+"\u0b01\u0b03"
+      + "\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"
+      + "\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"
+      + "\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"
+      + "\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"
+      + "\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"
+      + "\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"+"\u0bb7\u0bb9"
+      + "\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"
+      + "\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"
+      + "\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"
+      + "\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"
+      + "\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"
+      + "\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbe\u0cc4"
+      + "\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"
+      + "\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"
+      + "\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"
+      + "\u0d66\u0d6f"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f69"+"\u0f71\u0f8b"
+      + "\u0f90\u0f95"+"\u0f97\u0f97"+"\u0f99\u0fad"+"\u0fb1\u0fb7"
+      + "\u0fb9\u0fb9"+"\u10a0\u10c5"+"\u10d0\u10f6"+"\u10fb\u10fb"
+      + "\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"+"\u1e00\u1e9b"
+      + "\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"
+      + "\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"
+      + "\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"
+      + "\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"
+      + "\u1ff6\u1ffe"+"\u2000\u202e"+"\u2030\u2046"+"\u206a\u2070"
+      + "\u2074\u208e"+"\u20a0\u20ab"+"\u20d0\u20e1"+"\u2100\u2138"
+      + "\u2153\u2182"+"\u2190\u21ea"+"\u2200\u22f1"+"\u2300\u2300"
+      + "\u2302\u237a"+"\u2400\u2424"+"\u2440\u244a"+"\u2460\u24ea"
+      + "\u2500\u2595"+"\u25a0\u25ef"+"\u2600\u2613"+"\u261a\u266f"
+      + "\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"
+      + "\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"
+      + "\u2761\u2767"+"\u2776\u2794"+"\u2798\u27af"+"\u27b1\u27be"
+      + "\u3000\u3037"+"\u303f\u303f"+"\u3041\u3094"+"\u3099\u309e"
+      + "\u30a1\u30fe"+"\u3105\u312c"+"\u3131\u318e"+"\u3190\u319f"
+      + "\u3200\u321c"+"\u3220\u3243"+"\u3260\u327b"+"\u327f\u32b0"
+      + "\u32c0\u32cb"+"\u32d0\u32fe"+"\u3300\u3376"+"\u337b\u33dd"
+      + "\u33e0\u33fe"+"\u4e00\u9fa5"+"\uac00\ud7a3"+"\ue000\ufa2d"
+      + "\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1e\ufb36"+"\ufb38\ufb3c"
+      + "\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"
+      + "\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdf0\ufdfb"
+      + "\ufe20\ufe23"+"\ufe30\ufe44"+"\ufe49\ufe52"+"\ufe54\ufe66"
+      + "\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"+"\ufe76\ufefc"
+      + "\ufeff\ufeff"+"\uff01\uff5e"+"\uff61\uffbe"+"\uffc2\uffc7"
+      + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
+      + "\uffe8\uffee"+"\ufffd\uffff"+"\ud83f\udffe\ud83f\udfff"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v21}
+        "\000\u01f5"+"\u01fa\u0217"+"\u0250\u02a8"+"\u02b0\u02de"
+      + "\u02e0\u02e9"+"\u0300\u0345"+"\u0360\u0361"+"\u0374\u0375"
+      + "\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03d6"+"\u03da\u03da"
+      + "\u03dc\u03dc"+"\u03de\u03de"+"\u03e0\u03e0"+"\u03e2\u03f3"
+      + "\u0401\u040c"+"\u040e\u044f"+"\u0451\u045c"+"\u045e\u0486"
+      + "\u0490\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"+"\u04d0\u04eb"
+      + "\u04ee\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u0589"+"\u0591\u05a1"+"\u05a3\u05b9"
+      + "\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\u060c\u060c"
+      + "\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"+"\u0640\u0652"
+      + "\u0660\u066d"+"\u0670\u06b7"+"\u06ba\u06be"+"\u06c0\u06ce"
+      + "\u06d0\u06ed"+"\u06f0\u06f9"+"\u0901\u0903"+"\u0905\u0939"
+      + "\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"+"\u0981\u0983"
+      + "\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"+"\u09aa\u09b0"
+      + "\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"+"\u09be\u09c4"
+      + "\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"+"\u09dc\u09dd"
+      + "\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"+"\u0a05\u0a0a"
+      + "\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"
+      + "\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"+"\u0a8d\u0a8d"
+      + "\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"
+      + "\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"
+      + "\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"+"\u0b01\u0b03"
+      + "\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"
+      + "\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"
+      + "\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"
+      + "\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"
+      + "\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"
+      + "\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"+"\u0bb7\u0bb9"
+      + "\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"
+      + "\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"
+      + "\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"
+      + "\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"
+      + "\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"
+      + "\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbe\u0cc4"
+      + "\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"
+      + "\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"
+      + "\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"
+      + "\u0d66\u0d6f"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f69"+"\u0f71\u0f8b"
+      + "\u0f90\u0f95"+"\u0f97\u0f97"+"\u0f99\u0fad"+"\u0fb1\u0fb7"
+      + "\u0fb9\u0fb9"+"\u10a0\u10c5"+"\u10d0\u10f6"+"\u10fb\u10fb"
+      + "\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"+"\u1e00\u1e9b"
+      + "\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"
+      + "\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"
+      + "\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"
+      + "\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"
+      + "\u1ff6\u1ffe"+"\u2000\u202e"+"\u2030\u2046"+"\u206a\u2070"
+      + "\u2074\u208e"+"\u20a0\u20ac"+"\u20d0\u20e1"+"\u2100\u2138"
+      + "\u2153\u2182"+"\u2190\u21ea"+"\u2200\u22f1"+"\u2300\u2300"
+      + "\u2302\u237a"+"\u2400\u2424"+"\u2440\u244a"+"\u2460\u24ea"
+      + "\u2500\u2595"+"\u25a0\u25ef"+"\u2600\u2613"+"\u261a\u266f"
+      + "\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"
+      + "\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"
+      + "\u2761\u2767"+"\u2776\u2794"+"\u2798\u27af"+"\u27b1\u27be"
+      + "\u3000\u3037"+"\u303f\u303f"+"\u3041\u3094"+"\u3099\u309e"
+      + "\u30a1\u30fe"+"\u3105\u312c"+"\u3131\u318e"+"\u3190\u319f"
+      + "\u3200\u321c"+"\u3220\u3243"+"\u3260\u327b"+"\u327f\u32b0"
+      + "\u32c0\u32cb"+"\u32d0\u32fe"+"\u3300\u3376"+"\u337b\u33dd"
+      + "\u33e0\u33fe"+"\u4e00\u9fa5"+"\uac00\ud7a3"+"\ue000\ufa2d"
+      + "\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1e\ufb36"+"\ufb38\ufb3c"
+      + "\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"
+      + "\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdf0\ufdfb"
+      + "\ufe20\ufe23"+"\ufe30\ufe44"+"\ufe49\ufe52"+"\ufe54\ufe66"
+      + "\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"+"\ufe76\ufefc"
+      + "\ufeff\ufeff"+"\uff01\uff5e"+"\uff61\uffbe"+"\uffc2\uffc7"
+      + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
+      + "\uffe8\uffee"+"\ufffc\uffff"+"\ud83f\udffe\ud83f\udfff"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v30}
+        "\000\u021f"+"\u0222\u0233"+"\u0250\u02ad"+"\u02b0\u02ee"
+      + "\u0300\u034e"+"\u0360\u0362"+"\u0374\u0375"+"\u037a\u037a"
+      + "\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"+"\u038e\u03a1"
+      + "\u03a3\u03ce"+"\u03d0\u03d7"+"\u03da\u03f3"+"\u0400\u0486"
+      + "\u0488\u0489"+"\u048c\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"
+      + "\u04d0\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u0591\u05a1"+"\u05a3\u05b9"
+      + "\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\u060c\u060c"
+      + "\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"+"\u0640\u0655"
+      + "\u0660\u066d"+"\u0670\u06ed"+"\u06f0\u06fe"+"\u0700\u070d"
+      + "\u070f\u072c"+"\u0730\u074a"+"\u0780\u07b0"+"\u0901\u0903"
+      + "\u0905\u0939"+"\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"
+      + "\u0a8d\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b61"+"\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"
+      + "\u0bb7\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd7\u0bd7"+"\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3e\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c60\u0c61"+"\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbe\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"
+      + "\u0d3e\u0d43"+"\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"
+      + "\u0d60\u0d61"+"\u0d66\u0d6f"+"\u0d82\u0d83"+"\u0d85\u0d96"
+      + "\u0d9a\u0db1"+"\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"
+      + "\u0dca\u0dca"+"\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"
+      + "\u0df2\u0df4"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f6a"+"\u0f71\u0f8b"
+      + "\u0f90\u0f97"+"\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fcf\u0fcf"
+      + "\u1000\u1021"+"\u1023\u1027"+"\u1029\u102a"+"\u102c\u1032"
+      + "\u1036\u1039"+"\u1040\u1059"+"\u10a0\u10c5"+"\u10d0\u10f6"
+      + "\u10fb\u10fb"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1200\u1206"+"\u1208\u1246"+"\u1248\u1248"+"\u124a\u124d"
+      + "\u1250\u1256"+"\u1258\u1258"+"\u125a\u125d"+"\u1260\u1286"
+      + "\u1288\u1288"+"\u128a\u128d"+"\u1290\u12ae"+"\u12b0\u12b0"
+      + "\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"+"\u12c2\u12c5"
+      + "\u12c8\u12ce"+"\u12d0\u12d6"+"\u12d8\u12ee"+"\u12f0\u130e"
+      + "\u1310\u1310"+"\u1312\u1315"+"\u1318\u131e"+"\u1320\u1346"
+      + "\u1348\u135a"+"\u1361\u137c"+"\u13a0\u13f4"+"\u1401\u1676"
+      + "\u1680\u169c"+"\u16a0\u16f0"+"\u1780\u17dc"+"\u17e0\u17e9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18a9"
+      + "\u1e00\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2046"+"\u2048\u204d"
+      + "\u206a\u2070"+"\u2074\u208e"+"\u20a0\u20af"+"\u20d0\u20e3"
+      + "\u2100\u213a"+"\u2153\u2183"+"\u2190\u21f3"+"\u2200\u22f1"
+      + "\u2300\u237b"+"\u237d\u239a"+"\u2400\u2426"+"\u2440\u244a"
+      + "\u2460\u24ea"+"\u2500\u2595"+"\u25a0\u25f7"+"\u2600\u2613"
+      + "\u2619\u2671"+"\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"
+      + "\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"
+      + "\u2758\u275e"+"\u2761\u2767"+"\u2776\u2794"+"\u2798\u27af"
+      + "\u27b1\u27be"+"\u2800\u28ff"+"\u2e80\u2e99"+"\u2e9b\u2ef3"
+      + "\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303a"+"\u303e\u303f"
+      + "\u3041\u3094"+"\u3099\u309e"+"\u30a1\u30fe"+"\u3105\u312c"
+      + "\u3131\u318e"+"\u3190\u31b7"+"\u3200\u321c"+"\u3220\u3243"
+      + "\u3260\u327b"+"\u327f\u32b0"+"\u32c0\u32cb"+"\u32d0\u32fe"
+      + "\u3300\u3376"+"\u337b\u33dd"+"\u33e0\u33fe"+"\u3400\u4db5"
+      + "\u4e00\u9fa5"+"\ua000\ua48c"+"\ua490\ua4a1"+"\ua4a4\ua4b3"
+      + "\ua4b5\ua4c0"+"\ua4c2\ua4c4"+"\ua4c6\ua4c6"+"\uac00\ud7a3"
+      + "\ue000\ufa2d"+"\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
+      + "\ufdf0\ufdfb"+"\ufe20\ufe23"+"\ufe30\ufe44"+"\ufe49\ufe52"
+      + "\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"
+      + "\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uff5e"+"\uff61\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\uffff"+"\ud83f\udffe\ud83f\udfff"
+      + "\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"
+      + "\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"
+      + "\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"
+      + "\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v31}
+        "\000\u021f"+"\u0222\u0233"+"\u0250\u02ad"+"\u02b0\u02ee"
+      + "\u0300\u034e"+"\u0360\u0362"+"\u0374\u0375"+"\u037a\u037a"
+      + "\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"+"\u038e\u03a1"
+      + "\u03a3\u03ce"+"\u03d0\u03d7"+"\u03da\u03f5"+"\u0400\u0486"
+      + "\u0488\u0489"+"\u048c\u04c4"+"\u04c7\u04c8"+"\u04cb\u04cc"
+      + "\u04d0\u04f5"+"\u04f8\u04f9"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u0591\u05a1"+"\u05a3\u05b9"
+      + "\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\u060c\u060c"
+      + "\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"+"\u0640\u0655"
+      + "\u0660\u066d"+"\u0670\u06ed"+"\u06f0\u06fe"+"\u0700\u070d"
+      + "\u070f\u072c"+"\u0730\u074a"+"\u0780\u07b0"+"\u0901\u0903"
+      + "\u0905\u0939"+"\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"
+      + "\u0a8d\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b61"+"\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"
+      + "\u0bb7\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd7\u0bd7"+"\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3e\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c60\u0c61"+"\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbe\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"
+      + "\u0d3e\u0d43"+"\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"
+      + "\u0d60\u0d61"+"\u0d66\u0d6f"+"\u0d82\u0d83"+"\u0d85\u0d96"
+      + "\u0d9a\u0db1"+"\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"
+      + "\u0dca\u0dca"+"\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"
+      + "\u0df2\u0df4"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f6a"+"\u0f71\u0f8b"
+      + "\u0f90\u0f97"+"\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fcf\u0fcf"
+      + "\u1000\u1021"+"\u1023\u1027"+"\u1029\u102a"+"\u102c\u1032"
+      + "\u1036\u1039"+"\u1040\u1059"+"\u10a0\u10c5"+"\u10d0\u10f6"
+      + "\u10fb\u10fb"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1200\u1206"+"\u1208\u1246"+"\u1248\u1248"+"\u124a\u124d"
+      + "\u1250\u1256"+"\u1258\u1258"+"\u125a\u125d"+"\u1260\u1286"
+      + "\u1288\u1288"+"\u128a\u128d"+"\u1290\u12ae"+"\u12b0\u12b0"
+      + "\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"+"\u12c2\u12c5"
+      + "\u12c8\u12ce"+"\u12d0\u12d6"+"\u12d8\u12ee"+"\u12f0\u130e"
+      + "\u1310\u1310"+"\u1312\u1315"+"\u1318\u131e"+"\u1320\u1346"
+      + "\u1348\u135a"+"\u1361\u137c"+"\u13a0\u13f4"+"\u1401\u1676"
+      + "\u1680\u169c"+"\u16a0\u16f0"+"\u1780\u17dc"+"\u17e0\u17e9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18a9"
+      + "\u1e00\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2046"+"\u2048\u204d"
+      + "\u206a\u2070"+"\u2074\u208e"+"\u20a0\u20af"+"\u20d0\u20e3"
+      + "\u2100\u213a"+"\u2153\u2183"+"\u2190\u21f3"+"\u2200\u22f1"
+      + "\u2300\u237b"+"\u237d\u239a"+"\u2400\u2426"+"\u2440\u244a"
+      + "\u2460\u24ea"+"\u2500\u2595"+"\u25a0\u25f7"+"\u2600\u2613"
+      + "\u2619\u2671"+"\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"
+      + "\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"
+      + "\u2758\u275e"+"\u2761\u2767"+"\u2776\u2794"+"\u2798\u27af"
+      + "\u27b1\u27be"+"\u2800\u28ff"+"\u2e80\u2e99"+"\u2e9b\u2ef3"
+      + "\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303a"+"\u303e\u303f"
+      + "\u3041\u3094"+"\u3099\u309e"+"\u30a1\u30fe"+"\u3105\u312c"
+      + "\u3131\u318e"+"\u3190\u31b7"+"\u3200\u321c"+"\u3220\u3243"
+      + "\u3260\u327b"+"\u327f\u32b0"+"\u32c0\u32cb"+"\u32d0\u32fe"
+      + "\u3300\u3376"+"\u337b\u33dd"+"\u33e0\u33fe"+"\u3400\u4db5"
+      + "\u4e00\u9fa5"+"\ua000\ua48c"+"\ua490\ua4a1"+"\ua4a4\ua4b3"
+      + "\ua4b5\ua4c0"+"\ua4c2\ua4c4"+"\ua4c6\ua4c6"+"\uac00\ud7a3"
+      + "\ue000\ufa2d"+"\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
+      + "\ufdd0\ufdfb"+"\ufe20\ufe23"+"\ufe30\ufe44"+"\ufe49\ufe52"
+      + "\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"
+      + "\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uff5e"+"\uff61\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\uffff"+"\ud800\udf00\ud800\udf1e"
+      + "\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud801\udc00\ud801\udc25"+"\ud801\udc28\ud801\udc4d"
+      + "\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd2a\ud834\udddd"+"\ud835\udc00\ud835\udc54"
+      + "\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"
+      + "\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc0"
+      + "\ud835\udcc2\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"
+      + "\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"
+      + "\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea3"+"\ud835\udea8\ud835\udfc9"
+      + "\ud835\udfce\ud835\udfff"+"\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"
+      + "\udb40\udc20\udb40\udc7f"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v32}
+        "\000\u0220"+"\u0222\u0233"+"\u0250\u02ad"+"\u02b0\u02ee"
+      + "\u0300\u034f"+"\u0360\u036f"+"\u0374\u0375"+"\u037a\u037a"
+      + "\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"+"\u038e\u03a1"
+      + "\u03a3\u03ce"+"\u03d0\u03f6"+"\u0400\u0486"+"\u0488\u04ce"
+      + "\u04d0\u04f5"+"\u04f8\u04f9"+"\u0500\u050f"+"\u0531\u0556"
+      + "\u0559\u055f"+"\u0561\u0587"+"\u0589\u058a"+"\u0591\u05a1"
+      + "\u05a3\u05b9"+"\u05bb\u05c4"+"\u05d0\u05ea"+"\u05f0\u05f4"
+      + "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0621\u063a"
+      + "\u0640\u0655"+"\u0660\u06ed"+"\u06f0\u06fe"+"\u0700\u070d"
+      + "\u070f\u072c"+"\u0730\u074a"+"\u0780\u07b1"+"\u0901\u0903"
+      + "\u0905\u0939"+"\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09bc"
+      + "\u09be\u09c4"+"\u09c7\u09c8"+"\u09cb\u09cd"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"+"\u0a02\u0a02"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8b"
+      + "\u0a8d\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae0"+"\u0ae6\u0aef"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b36\u0b39"+"\u0b3c\u0b43"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b61"+"\u0b66\u0b70"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb5"
+      + "\u0bb7\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd7\u0bd7"+"\u0be7\u0bf2"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3e\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c60\u0c61"+"\u0c66\u0c6f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbe\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce1"+"\u0ce6\u0cef"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"
+      + "\u0d3e\u0d43"+"\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"
+      + "\u0d60\u0d61"+"\u0d66\u0d6f"+"\u0d82\u0d83"+"\u0d85\u0d96"
+      + "\u0d9a\u0db1"+"\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"
+      + "\u0dca\u0dca"+"\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"
+      + "\u0df2\u0df4"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f6a"+"\u0f71\u0f8b"
+      + "\u0f90\u0f97"+"\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fcf\u0fcf"
+      + "\u1000\u1021"+"\u1023\u1027"+"\u1029\u102a"+"\u102c\u1032"
+      + "\u1036\u1039"+"\u1040\u1059"+"\u10a0\u10c5"+"\u10d0\u10f8"
+      + "\u10fb\u10fb"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1200\u1206"+"\u1208\u1246"+"\u1248\u1248"+"\u124a\u124d"
+      + "\u1250\u1256"+"\u1258\u1258"+"\u125a\u125d"+"\u1260\u1286"
+      + "\u1288\u1288"+"\u128a\u128d"+"\u1290\u12ae"+"\u12b0\u12b0"
+      + "\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"+"\u12c2\u12c5"
+      + "\u12c8\u12ce"+"\u12d0\u12d6"+"\u12d8\u12ee"+"\u12f0\u130e"
+      + "\u1310\u1310"+"\u1312\u1315"+"\u1318\u131e"+"\u1320\u1346"
+      + "\u1348\u135a"+"\u1361\u137c"+"\u13a0\u13f4"+"\u1401\u1676"
+      + "\u1680\u169c"+"\u16a0\u16f0"+"\u1700\u170c"+"\u170e\u1714"
+      + "\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"+"\u176e\u1770"
+      + "\u1772\u1773"+"\u1780\u17dc"+"\u17e0\u17e9"+"\u1800\u180e"
+      + "\u1810\u1819"+"\u1820\u1877"+"\u1880\u18a9"+"\u1e00\u1e9b"
+      + "\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"
+      + "\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"
+      + "\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"
+      + "\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"
+      + "\u1ff6\u1ffe"+"\u2000\u2052"+"\u2057\u2057"+"\u205f\u2063"
+      + "\u206a\u2071"+"\u2074\u208e"+"\u20a0\u20b1"+"\u20d0\u20ea"
+      + "\u2100\u213a"+"\u213d\u214b"+"\u2153\u2183"+"\u2190\u23ce"
+      + "\u2400\u2426"+"\u2440\u244a"+"\u2460\u24fe"+"\u2500\u2613"
+      + "\u2616\u2617"+"\u2619\u267d"+"\u2680\u2689"+"\u2701\u2704"
+      + "\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"+"\u274d\u274d"
+      + "\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"+"\u2761\u2794"
+      + "\u2798\u27af"+"\u27b1\u27be"+"\u27d0\u27eb"+"\u27f0\u2aff"
+      + "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u2ff0\u2ffb"
+      + "\u3000\u303f"+"\u3041\u3096"+"\u3099\u30ff"+"\u3105\u312c"
+      + "\u3131\u318e"+"\u3190\u31b7"+"\u31f0\u321c"+"\u3220\u3243"
+      + "\u3251\u327b"+"\u327f\u32cb"+"\u32d0\u32fe"+"\u3300\u3376"
+      + "\u337b\u33dd"+"\u33e0\u33fe"+"\u3400\u4db5"+"\u4e00\u9fa5"
+      + "\ua000\ua48c"+"\ua490\ua4c6"+"\uac00\ud7a3"+"\ue000\ufa2d"
+      + "\ufa30\ufa6a"+"\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
+      + "\ufdd0\ufdfc"+"\ufe00\ufe0f"+"\ufe20\ufe23"+"\ufe30\ufe46"
+      + "\ufe49\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe74"
+      + "\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"+"\uffc2\uffc7"
+      + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
+      + "\uffe8\uffee"+"\ufff9\uffff"+"\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"
+      + "\ud800\udf30\ud800\udf4a"+"\ud801\udc00\ud801\udc25"+"\ud801\udc28\ud801\udc4d"+"\ud834\udc00\ud834\udcf5"
+      + "\ud834\udd00\ud834\udd26"+"\ud834\udd2a\ud834\udddd"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"
+      + "\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"
+      + "\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc0"+"\ud835\udcc2\ud835\udcc3"
+      + "\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"
+      + "\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"
+      + "\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea3"+"\ud835\udea8\ud835\udfc9"+"\ud835\udfce\ud835\udfff"
+      + "\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"
+      + "\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"
+      + "\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"
+      + "\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"
+      + "\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v40}
+        "\000\u0236"+"\u0250\u0357"+"\u035d\u036f"+"\u0374\u0375"
+      + "\u037a\u037a"+"\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u03fb"+"\u0400\u0486"
+      + "\u0488\u04ce"+"\u04d0\u04f5"+"\u04f8\u04f9"+"\u0500\u050f"
+      + "\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"+"\u0589\u058a"
+      + "\u0591\u05a1"+"\u05a3\u05b9"+"\u05bb\u05c4"+"\u05d0\u05ea"
+      + "\u05f0\u05f4"+"\u0600\u0603"+"\u060c\u0615"+"\u061b\u061b"
+      + "\u061f\u061f"+"\u0621\u063a"+"\u0640\u0658"+"\u0660\u070d"
+      + "\u070f\u074a"+"\u074d\u074f"+"\u0780\u07b1"+"\u0901\u0939"
+      + "\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"+"\u0981\u0983"
+      + "\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"+"\u09aa\u09b0"
+      + "\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09c4"+"\u09c7\u09c8"
+      + "\u09cb\u09cd"+"\u09d7\u09d7"+"\u09dc\u09dd"+"\u09df\u09e3"
+      + "\u09e6\u09fa"+"\u0a01\u0a03"+"\u0a05\u0a0a"+"\u0a0f\u0a10"
+      + "\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"
+      + "\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"
+      + "\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a74"
+      + "\u0a81\u0a83"+"\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"
+      + "\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"
+      + "\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"
+      + "\u0ae6\u0aef"+"\u0af1\u0af1"+"\u0b01\u0b03"+"\u0b05\u0b0c"
+      + "\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"
+      + "\u0b35\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"+"\u0b4b\u0b4d"
+      + "\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"+"\u0b66\u0b71"
+      + "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
+      + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
+      + "\u0ba8\u0baa"+"\u0bae\u0bb5"+"\u0bb7\u0bb9"+"\u0bbe\u0bc2"
+      + "\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"+"\u0be7\u0bfa"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"+"\u0c66\u0c6f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce1"
+      + "\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"
+      + "\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"+"\u0d66\u0d6f"
+      + "\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"+"\u0db3\u0dbb"
+      + "\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"+"\u0dcf\u0dd4"
+      + "\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"+"\u0e01\u0e3a"
+      + "\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"
+      + "\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"
+      + "\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"
+      + "\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"
+      + "\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"+"\u0f00\u0f47"
+      + "\u0f49\u0f6a"+"\u0f71\u0f8b"+"\u0f90\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fcf\u0fcf"+"\u1000\u1021"+"\u1023\u1027"
+      + "\u1029\u102a"+"\u102c\u1032"+"\u1036\u1039"+"\u1040\u1059"
+      + "\u10a0\u10c5"+"\u10d0\u10f8"+"\u10fb\u10fb"+"\u1100\u1159"
+      + "\u115f\u11a2"+"\u11a8\u11f9"+"\u1200\u1206"+"\u1208\u1246"
+      + "\u1248\u1248"+"\u124a\u124d"+"\u1250\u1256"+"\u1258\u1258"
+      + "\u125a\u125d"+"\u1260\u1286"+"\u1288\u1288"+"\u128a\u128d"
+      + "\u1290\u12ae"+"\u12b0\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"
+      + "\u12c0\u12c0"+"\u12c2\u12c5"+"\u12c8\u12ce"+"\u12d0\u12d6"
+      + "\u12d8\u12ee"+"\u12f0\u130e"+"\u1310\u1310"+"\u1312\u1315"
+      + "\u1318\u131e"+"\u1320\u1346"+"\u1348\u135a"+"\u1361\u137c"
+      + "\u13a0\u13f4"+"\u1401\u1676"+"\u1680\u169c"+"\u16a0\u16f0"
+      + "\u1700\u170c"+"\u170e\u1714"+"\u1720\u1736"+"\u1740\u1753"
+      + "\u1760\u176c"+"\u176e\u1770"+"\u1772\u1773"+"\u1780\u17dd"
+      + "\u17e0\u17e9"+"\u17f0\u17f9"+"\u1800\u180e"+"\u1810\u1819"
+      + "\u1820\u1877"+"\u1880\u18a9"+"\u1900\u191c"+"\u1920\u192b"
+      + "\u1930\u193b"+"\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"
+      + "\u19e0\u19ff"+"\u1d00\u1d6b"+"\u1e00\u1e9b"+"\u1ea0\u1ef9"
+      + "\u1f00\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"+"\u1f48\u1f4d"
+      + "\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"+"\u1f5d\u1f5d"
+      + "\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"+"\u1fc6\u1fd3"
+      + "\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"+"\u1ff6\u1ffe"
+      + "\u2000\u2054"+"\u2057\u2057"+"\u205f\u2063"+"\u206a\u2071"
+      + "\u2074\u208e"+"\u20a0\u20b1"+"\u20d0\u20ea"+"\u2100\u213b"
+      + "\u213d\u214b"+"\u2153\u2183"+"\u2190\u23d0"+"\u2400\u2426"
+      + "\u2440\u244a"+"\u2460\u2617"+"\u2619\u267d"+"\u2680\u2691"
+      + "\u26a0\u26a1"+"\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"
+      + "\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"
+      + "\u2758\u275e"+"\u2761\u2794"+"\u2798\u27af"+"\u27b1\u27be"
+      + "\u27d0\u27eb"+"\u27f0\u2b0d"+"\u2e80\u2e99"+"\u2e9b\u2ef3"
+      + "\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303f"+"\u3041\u3096"
+      + "\u3099\u30ff"+"\u3105\u312c"+"\u3131\u318e"+"\u3190\u31b7"
+      + "\u31f0\u321e"+"\u3220\u3243"+"\u3250\u327d"+"\u327f\u32fe"
+      + "\u3300\u4db5"+"\u4dc0\u9fa5"+"\ua000\ua48c"+"\ua490\ua4c6"
+      + "\uac00\ud7a3"+"\ue000\ufa2d"+"\ufa30\ufa6a"+"\ufb00\ufb06"
+      + "\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"
+      + "\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"
+      + "\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe0f"
+      + "\ufe20\ufe23"+"\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"
+      + "\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"
+      + "\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"
+      + "\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd3f"
+      + "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"
+      + "\ud800\udf9f\ud800\udf9f"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"+"\ud802\udc00\ud802\udc05"
+      + "\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"+"\ud802\udc3c\ud802\udc3c"
+      + "\ud802\udc3f\ud802\udc3f"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd2a\ud834\udddd"
+      + "\ud834\udf00\ud834\udf56"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"
+      + "\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"
+      + "\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"
+      + "\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"
+      + "\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea3"
+      + "\ud835\udea8\ud835\udfc9"+"\ud835\udfce\ud835\udfff"+"\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"
+      + "\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"
+      + "\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"
+      + "\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"
+      + "\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v41}
+        "\000\u0241"+"\u0250\u036f"+"\u0374\u0375"+"\u037a\u037a"
+      + "\u037e\u037e"+"\u0384\u038a"+"\u038c\u038c"+"\u038e\u03a1"
+      + "\u03a3\u03ce"+"\u03d0\u0486"+"\u0488\u04ce"+"\u04d0\u04f9"
+      + "\u0500\u050f"+"\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"
+      + "\u0589\u058a"+"\u0591\u05b9"+"\u05bb\u05c7"+"\u05d0\u05ea"
+      + "\u05f0\u05f4"+"\u0600\u0603"+"\u060b\u0615"+"\u061b\u061b"
+      + "\u061e\u061f"+"\u0621\u063a"+"\u0640\u065e"+"\u0660\u070d"
+      + "\u070f\u074a"+"\u074d\u076d"+"\u0780\u07b1"+"\u0901\u0939"
+      + "\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"+"\u097d\u097d"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09c4"
+      + "\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"+"\u09dc\u09dd"
+      + "\u09df\u09e3"+"\u09e6\u09fa"+"\u0a01\u0a03"+"\u0a05\u0a0a"
+      + "\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"
+      + "\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8d"+"\u0a8f\u0a91"
+      + "\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"
+      + "\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"
+      + "\u0ae0\u0ae3"+"\u0ae6\u0aef"+"\u0af1\u0af1"+"\u0b01\u0b03"
+      + "\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"
+      + "\u0b32\u0b33"+"\u0b35\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"
+      + "\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"
+      + "\u0b66\u0b71"+"\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"
+      + "\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"
+      + "\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb9"+"\u0bbe\u0bc2"
+      + "\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"+"\u0be6\u0bfa"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"+"\u0c66\u0c6f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce1"
+      + "\u0ce6\u0cef"+"\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"
+      + "\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"+"\u0d66\u0d6f"
+      + "\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"+"\u0db3\u0dbb"
+      + "\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"+"\u0dcf\u0dd4"
+      + "\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"+"\u0e01\u0e3a"
+      + "\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"
+      + "\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"
+      + "\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"
+      + "\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"
+      + "\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"+"\u0f00\u0f47"
+      + "\u0f49\u0f6a"+"\u0f71\u0f8b"+"\u0f90\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fcf\u0fd1"+"\u1000\u1021"+"\u1023\u1027"
+      + "\u1029\u102a"+"\u102c\u1032"+"\u1036\u1039"+"\u1040\u1059"
+      + "\u10a0\u10c5"+"\u10d0\u10fc"+"\u1100\u1159"+"\u115f\u11a2"
+      + "\u11a8\u11f9"+"\u1200\u1248"+"\u124a\u124d"+"\u1250\u1256"
+      + "\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"
+      + "\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"
+      + "\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"
+      + "\u1318\u135a"+"\u135f\u137c"+"\u1380\u1399"+"\u13a0\u13f4"
+      + "\u1401\u1676"+"\u1680\u169c"+"\u16a0\u16f0"+"\u1700\u170c"
+      + "\u170e\u1714"+"\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"
+      + "\u176e\u1770"+"\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"
+      + "\u17f0\u17f9"+"\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"
+      + "\u1880\u18a9"+"\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"
+      + "\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"+"\u1980\u19a9"
+      + "\u19b0\u19c9"+"\u19d0\u19d9"+"\u19de\u1a1b"+"\u1a1e\u1a1f"
+      + "\u1d00\u1dc3"+"\u1e00\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"
+      + "\u1f18\u1f1d"+"\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"
+      + "\u1f59\u1f59"+"\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"
+      + "\u1f80\u1fb4"+"\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"
+      + "\u1fdd\u1fef"+"\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2063"
+      + "\u206a\u2071"+"\u2074\u208e"+"\u2090\u2094"+"\u20a0\u20b5"
+      + "\u20d0\u20eb"+"\u2100\u214c"+"\u2153\u2183"+"\u2190\u23db"
+      + "\u2400\u2426"+"\u2440\u244a"+"\u2460\u269c"+"\u26a0\u26b1"
+      + "\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"
+      + "\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"
+      + "\u2761\u2794"+"\u2798\u27af"+"\u27b1\u27be"+"\u27c0\u27c6"
+      + "\u27d0\u27eb"+"\u27f0\u2b13"+"\u2c00\u2c2e"+"\u2c30\u2c5e"
+      + "\u2c80\u2cea"+"\u2cf9\u2d25"+"\u2d30\u2d65"+"\u2d6f\u2d6f"
+      + "\u2d80\u2d96"+"\u2da0\u2da6"+"\u2da8\u2dae"+"\u2db0\u2db6"
+      + "\u2db8\u2dbe"+"\u2dc0\u2dc6"+"\u2dc8\u2dce"+"\u2dd0\u2dd6"
+      + "\u2dd8\u2dde"+"\u2e00\u2e17"+"\u2e1c\u2e1d"+"\u2e80\u2e99"
+      + "\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303f"
+      + "\u3041\u3096"+"\u3099\u30ff"+"\u3105\u312c"+"\u3131\u318e"
+      + "\u3190\u31b7"+"\u31c0\u31cf"+"\u31f0\u321e"+"\u3220\u3243"
+      + "\u3250\u32fe"+"\u3300\u4db5"+"\u4dc0\u9fbb"+"\ua000\ua48c"
+      + "\ua490\ua4c6"+"\ua700\ua716"+"\ua800\ua82b"+"\uac00\ud7a3"
+      + "\ue000\ufa2d"+"\ufa30\ufa6a"+"\ufa70\ufad9"+"\ufb00\ufb06"
+      + "\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"
+      + "\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"
+      + "\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe19"
+      + "\ufe20\ufe23"+"\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"
+      + "\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"
+      + "\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"
+      + "\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd8a"
+      + "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"
+      + "\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"
+      + "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
+      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc3f"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"
+      + "\ud802\ude0c\ud802\ude13"+"\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"
+      + "\ud802\ude3f\ud802\ude47"+"\ud802\ude50\ud802\ude58"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"
+      + "\ud834\udd2a\ud834\udddd"+"\ud834\ude00\ud834\ude45"+"\ud834\udf00\ud834\udf56"+"\ud835\udc00\ud835\udc54"
+      + "\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"
+      + "\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"
+      + "\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"
+      + "\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"
+      + "\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfc9"+"\ud835\udfce\ud835\udfff"
+      + "\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"
+      + "\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"
+      + "\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"
+      + "\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"
+      + "\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v50}
+        "\000\u036f"+"\u0374\u0375"+"\u037a\u037e"+"\u0384\u038a"
+      + "\u038c\u038c"+"\u038e\u03a1"+"\u03a3\u03ce"+"\u03d0\u0486"
+      + "\u0488\u0513"+"\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"
+      + "\u0589\u058a"+"\u0591\u05c7"+"\u05d0\u05ea"+"\u05f0\u05f4"
+      + "\u0600\u0603"+"\u060b\u0615"+"\u061b\u061b"+"\u061e\u061f"
+      + "\u0621\u063a"+"\u0640\u065e"+"\u0660\u070d"+"\u070f\u074a"
+      + "\u074d\u076d"+"\u0780\u07b1"+"\u07c0\u07fa"+"\u0901\u0939"
+      + "\u093c\u094d"+"\u0950\u0954"+"\u0958\u0970"+"\u097b\u097f"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09c4"
+      + "\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"+"\u09dc\u09dd"
+      + "\u09df\u09e3"+"\u09e6\u09fa"+"\u0a01\u0a03"+"\u0a05\u0a0a"
+      + "\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"
+      + "\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a74"+"\u0a81\u0a83"+"\u0a85\u0a8d"+"\u0a8f\u0a91"
+      + "\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"
+      + "\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"
+      + "\u0ae0\u0ae3"+"\u0ae6\u0aef"+"\u0af1\u0af1"+"\u0b01\u0b03"
+      + "\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"
+      + "\u0b32\u0b33"+"\u0b35\u0b39"+"\u0b3c\u0b43"+"\u0b47\u0b48"
+      + "\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b61"
+      + "\u0b66\u0b71"+"\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"
+      + "\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"
+      + "\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb9"+"\u0bbe\u0bc2"
+      + "\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd7\u0bd7"+"\u0be6\u0bfa"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3e\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c60\u0c61"+"\u0c66\u0c6f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
+      + "\u0ce6\u0cef"+"\u0cf1\u0cf2"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3e\u0d43"
+      + "\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d61"
+      + "\u0d66\u0d6f"+"\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"
+      + "\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"
+      + "\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"
+      + "\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"
+      + "\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"
+      + "\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"
+      + "\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"
+      + "\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"
+      + "\u0f00\u0f47"+"\u0f49\u0f6a"+"\u0f71\u0f8b"+"\u0f90\u0f97"
+      + "\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fcf\u0fd1"+"\u1000\u1021"
+      + "\u1023\u1027"+"\u1029\u102a"+"\u102c\u1032"+"\u1036\u1039"
+      + "\u1040\u1059"+"\u10a0\u10c5"+"\u10d0\u10fc"+"\u1100\u1159"
+      + "\u115f\u11a2"+"\u11a8\u11f9"+"\u1200\u1248"+"\u124a\u124d"
+      + "\u1250\u1256"+"\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"
+      + "\u128a\u128d"+"\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"
+      + "\u12c0\u12c0"+"\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"
+      + "\u1312\u1315"+"\u1318\u135a"+"\u135f\u137c"+"\u1380\u1399"
+      + "\u13a0\u13f4"+"\u1401\u1676"+"\u1680\u169c"+"\u16a0\u16f0"
+      + "\u1700\u170c"+"\u170e\u1714"+"\u1720\u1736"+"\u1740\u1753"
+      + "\u1760\u176c"+"\u176e\u1770"+"\u1772\u1773"+"\u1780\u17dd"
+      + "\u17e0\u17e9"+"\u17f0\u17f9"+"\u1800\u180e"+"\u1810\u1819"
+      + "\u1820\u1877"+"\u1880\u18a9"+"\u1900\u191c"+"\u1920\u192b"
+      + "\u1930\u193b"+"\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"
+      + "\u1980\u19a9"+"\u19b0\u19c9"+"\u19d0\u19d9"+"\u19de\u1a1b"
+      + "\u1a1e\u1a1f"+"\u1b00\u1b4b"+"\u1b50\u1b7c"+"\u1d00\u1dca"
+      + "\u1dfe\u1e9b"+"\u1ea0\u1ef9"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2063"+"\u206a\u2071"
+      + "\u2074\u208e"+"\u2090\u2094"+"\u20a0\u20b5"+"\u20d0\u20ef"
+      + "\u2100\u214e"+"\u2153\u2184"+"\u2190\u23e7"+"\u2400\u2426"
+      + "\u2440\u244a"+"\u2460\u269c"+"\u26a0\u26b2"+"\u2701\u2704"
+      + "\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"+"\u274d\u274d"
+      + "\u274f\u2752"+"\u2756\u2756"+"\u2758\u275e"+"\u2761\u2794"
+      + "\u2798\u27af"+"\u27b1\u27be"+"\u27c0\u27ca"+"\u27d0\u27eb"
+      + "\u27f0\u2b1a"+"\u2b20\u2b23"+"\u2c00\u2c2e"+"\u2c30\u2c5e"
+      + "\u2c60\u2c6c"+"\u2c74\u2c77"+"\u2c80\u2cea"+"\u2cf9\u2d25"
+      + "\u2d30\u2d65"+"\u2d6f\u2d6f"+"\u2d80\u2d96"+"\u2da0\u2da6"
+      + "\u2da8\u2dae"+"\u2db0\u2db6"+"\u2db8\u2dbe"+"\u2dc0\u2dc6"
+      + "\u2dc8\u2dce"+"\u2dd0\u2dd6"+"\u2dd8\u2dde"+"\u2e00\u2e17"
+      + "\u2e1c\u2e1d"+"\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"
+      + "\u2ff0\u2ffb"+"\u3000\u303f"+"\u3041\u3096"+"\u3099\u30ff"
+      + "\u3105\u312c"+"\u3131\u318e"+"\u3190\u31b7"+"\u31c0\u31cf"
+      + "\u31f0\u321e"+"\u3220\u3243"+"\u3250\u32fe"+"\u3300\u4db5"
+      + "\u4dc0\u9fbb"+"\ua000\ua48c"+"\ua490\ua4c6"+"\ua700\ua71a"
+      + "\ua720\ua721"+"\ua800\ua82b"+"\ua840\ua877"+"\uac00\ud7a3"
+      + "\ue000\ufa2d"+"\ufa30\ufa6a"+"\ufa70\ufad9"+"\ufb00\ufb06"
+      + "\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"
+      + "\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"
+      + "\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe19"
+      + "\ufe20\ufe23"+"\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"
+      + "\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"
+      + "\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"
+      + "\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd8a"
+      + "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"
+      + "\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"
+      + "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
+      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc3f"+"\ud802\udd00\ud802\udd19"+"\ud802\udd1f\ud802\udd1f"
+      + "\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"+"\ud802\ude15\ud802\ude17"
+      + "\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"+"\ud802\ude50\ud802\ude58"
+      + "\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"+"\ud834\udc00\ud834\udcf5"
+      + "\ud834\udd00\ud834\udd26"+"\ud834\udd2a\ud834\udddd"+"\ud834\ude00\ud834\ude45"+"\ud834\udf00\ud834\udf56"
+      + "\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"
+      + "\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"
+      + "\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"
+      + "\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"
+      + "\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"
+      + "\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"+"\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"
+      + "\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"
+      + "\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"
+      + "\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"
+      + "\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v51}
+        "\000\u0377"+"\u037a\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u0523"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u0591\u05c7"+"\u05d0\u05ea"
+      + "\u05f0\u05f4"+"\u0600\u0603"+"\u0606\u061b"+"\u061e\u061f"
+      + "\u0621\u065e"+"\u0660\u070d"+"\u070f\u074a"+"\u074d\u07b1"
+      + "\u07c0\u07fa"+"\u0901\u0939"+"\u093c\u094d"+"\u0950\u0954"
+      + "\u0958\u0972"+"\u097b\u097f"+"\u0981\u0983"+"\u0985\u098c"
+      + "\u098f\u0990"+"\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"
+      + "\u09b6\u09b9"+"\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"
+      + "\u09d7\u09d7"+"\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fa"
+      + "\u0a01\u0a03"+"\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"
+      + "\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"
+      + "\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"
+      + "\u0a51\u0a51"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"
+      + "\u0a81\u0a83"+"\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"
+      + "\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"
+      + "\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"
+      + "\u0ae6\u0aef"+"\u0af1\u0af1"+"\u0b01\u0b03"+"\u0b05\u0b0c"
+      + "\u0b0f\u0b10"+"\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"
+      + "\u0b35\u0b39"+"\u0b3c\u0b44"+"\u0b47\u0b48"+"\u0b4b\u0b4d"
+      + "\u0b56\u0b57"+"\u0b5c\u0b5d"+"\u0b5f\u0b63"+"\u0b66\u0b71"
+      + "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
+      + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
+      + "\u0ba8\u0baa"+"\u0bae\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"
+      + "\u0bca\u0bcd"+"\u0bd0\u0bd0"+"\u0bd7\u0bd7"+"\u0be6\u0bfa"
+      + "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3d\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c58\u0c59"+"\u0c60\u0c63"
+      + "\u0c66\u0c6f"+"\u0c78\u0c7f"+"\u0c82\u0c83"+"\u0c85\u0c8c"
+      + "\u0c8e\u0c90"+"\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"
+      + "\u0cbc\u0cc4"+"\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"
+      + "\u0cde\u0cde"+"\u0ce0\u0ce3"+"\u0ce6\u0cef"+"\u0cf1\u0cf2"
+      + "\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d28"
+      + "\u0d2a\u0d39"+"\u0d3d\u0d44"+"\u0d46\u0d48"+"\u0d4a\u0d4d"
+      + "\u0d57\u0d57"+"\u0d60\u0d63"+"\u0d66\u0d75"+"\u0d79\u0d7f"
+      + "\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"+"\u0db3\u0dbb"
+      + "\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"+"\u0dcf\u0dd4"
+      + "\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"+"\u0e01\u0e3a"
+      + "\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"
+      + "\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"
+      + "\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"
+      + "\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"
+      + "\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edd"+"\u0f00\u0f47"
+      + "\u0f49\u0f6c"+"\u0f71\u0f8b"+"\u0f90\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fce\u0fd4"+"\u1000\u1099"+"\u109e\u10c5"
+      + "\u10d0\u10fc"+"\u1100\u1159"+"\u115f\u11a2"+"\u11a8\u11f9"
+      + "\u1200\u1248"+"\u124a\u124d"+"\u1250\u1256"+"\u1258\u1258"
+      + "\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"+"\u1290\u12b0"
+      + "\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"+"\u12c2\u12c5"
+      + "\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"+"\u1318\u135a"
+      + "\u135f\u137c"+"\u1380\u1399"+"\u13a0\u13f4"+"\u1401\u1676"
+      + "\u1680\u169c"+"\u16a0\u16f0"+"\u1700\u170c"+"\u170e\u1714"
+      + "\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"+"\u176e\u1770"
+      + "\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"+"\u17f0\u17f9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa"
+      + "\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"+"\u1940\u1940"
+      + "\u1944\u196d"+"\u1970\u1974"+"\u1980\u19a9"+"\u19b0\u19c9"
+      + "\u19d0\u19d9"+"\u19de\u1a1b"+"\u1a1e\u1a1f"+"\u1b00\u1b4b"
+      + "\u1b50\u1b7c"+"\u1b80\u1baa"+"\u1bae\u1bb9"+"\u1c00\u1c37"
+      + "\u1c3b\u1c49"+"\u1c4d\u1c7f"+"\u1d00\u1de6"+"\u1dfe\u1f15"
+      + "\u1f18\u1f1d"+"\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"
+      + "\u1f59\u1f59"+"\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"
+      + "\u1f80\u1fb4"+"\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"
+      + "\u1fdd\u1fef"+"\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2064"
+      + "\u206a\u2071"+"\u2074\u208e"+"\u2090\u2094"+"\u20a0\u20b5"
+      + "\u20d0\u20f0"+"\u2100\u214f"+"\u2153\u2188"+"\u2190\u23e7"
+      + "\u2400\u2426"+"\u2440\u244a"+"\u2460\u269d"+"\u26a0\u26bc"
+      + "\u26c0\u26c3"+"\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"
+      + "\u2729\u274b"+"\u274d\u274d"+"\u274f\u2752"+"\u2756\u2756"
+      + "\u2758\u275e"+"\u2761\u2794"+"\u2798\u27af"+"\u27b1\u27be"
+      + "\u27c0\u27ca"+"\u27cc\u27cc"+"\u27d0\u2b4c"+"\u2b50\u2b54"
+      + "\u2c00\u2c2e"+"\u2c30\u2c5e"+"\u2c60\u2c6f"+"\u2c71\u2c7d"
+      + "\u2c80\u2cea"+"\u2cf9\u2d25"+"\u2d30\u2d65"+"\u2d6f\u2d6f"
+      + "\u2d80\u2d96"+"\u2da0\u2da6"+"\u2da8\u2dae"+"\u2db0\u2db6"
+      + "\u2db8\u2dbe"+"\u2dc0\u2dc6"+"\u2dc8\u2dce"+"\u2dd0\u2dd6"
+      + "\u2dd8\u2dde"+"\u2de0\u2e30"+"\u2e80\u2e99"+"\u2e9b\u2ef3"
+      + "\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303f"+"\u3041\u3096"
+      + "\u3099\u30ff"+"\u3105\u312d"+"\u3131\u318e"+"\u3190\u31b7"
+      + "\u31c0\u31e3"+"\u31f0\u321e"+"\u3220\u3243"+"\u3250\u32fe"
+      + "\u3300\u4db5"+"\u4dc0\u9fc3"+"\ua000\ua48c"+"\ua490\ua4c6"
+      + "\ua500\ua62b"+"\ua640\ua65f"+"\ua662\ua673"+"\ua67c\ua697"
+      + "\ua700\ua78c"+"\ua7fb\ua82b"+"\ua840\ua877"+"\ua880\ua8c4"
+      + "\ua8ce\ua8d9"+"\ua900\ua953"+"\ua95f\ua95f"+"\uaa00\uaa36"
+      + "\uaa40\uaa4d"+"\uaa50\uaa59"+"\uaa5c\uaa5f"+"\uac00\ud7a3"
+      + "\ue000\ufa2d"+"\ufa30\ufa6a"+"\ufa70\ufad9"+"\ufb00\ufb06"
+      + "\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"
+      + "\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"
+      + "\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe19"
+      + "\ufe20\ufe26"+"\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"
+      + "\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"
+      + "\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"
+      + "\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd8a"
+      + "\ud800\udd90\ud800\udd9b"+"\ud800\uddd0\ud800\uddfd"+"\ud800\ude80\ud800\ude9c"+"\ud800\udea0\ud800\uded0"
+      + "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"
+      + "\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"
+      + "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
+      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc3f"+"\ud802\udd00\ud802\udd19"+"\ud802\udd1f\ud802\udd39"
+      + "\ud802\udd3f\ud802\udd3f"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"
+      + "\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"
+      + "\ud802\ude50\ud802\ude58"+"\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"
+      + "\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd29\ud834\udddd"+"\ud834\ude00\ud834\ude45"
+      + "\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"
+      + "\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"
+      + "\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"
+      + "\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"
+      + "\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"
+      + "\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"+"\ud83c\udc00\ud83c\udc2b"
+      + "\ud83c\udc30\ud83c\udc93"+"\ud83f\udffe\ud869\uded6"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"
+      + "\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v52}
+        "\000\u0377"+"\u037a\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u0525"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u0591\u05c7"+"\u05d0\u05ea"
+      + "\u05f0\u05f4"+"\u0600\u0603"+"\u0606\u061b"+"\u061e\u061f"
+      + "\u0621\u065e"+"\u0660\u070d"+"\u070f\u074a"+"\u074d\u07b1"
+      + "\u07c0\u07fa"+"\u0800\u082d"+"\u0830\u083e"+"\u0900\u0939"
+      + "\u093c\u094e"+"\u0950\u0955"+"\u0958\u0972"+"\u0979\u097f"
+      + "\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"+"\u0993\u09a8"
+      + "\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"+"\u09bc\u09c4"
+      + "\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"+"\u09dc\u09dd"
+      + "\u09df\u09e3"+"\u09e6\u09fb"+"\u0a01\u0a03"+"\u0a05\u0a0a"
+      + "\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"
+      + "\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"
+      + "\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a51\u0a51"+"\u0a59\u0a5c"
+      + "\u0a5e\u0a5e"+"\u0a66\u0a75"+"\u0a81\u0a83"+"\u0a85\u0a8d"
+      + "\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"+"\u0ab2\u0ab3"
+      + "\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"+"\u0acb\u0acd"
+      + "\u0ad0\u0ad0"+"\u0ae0\u0ae3"+"\u0ae6\u0aef"+"\u0af1\u0af1"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b35\u0b39"+"\u0b3c\u0b44"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b63"+"\u0b66\u0b71"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb9"
+      + "\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd0\u0bd0"
+      + "\u0bd7\u0bd7"+"\u0be6\u0bfa"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3d\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c58\u0c59"+"\u0c60\u0c63"+"\u0c66\u0c6f"+"\u0c78\u0c7f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
+      + "\u0ce6\u0cef"+"\u0cf1\u0cf2"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d28"+"\u0d2a\u0d39"+"\u0d3d\u0d44"
+      + "\u0d46\u0d48"+"\u0d4a\u0d4d"+"\u0d57\u0d57"+"\u0d60\u0d63"
+      + "\u0d66\u0d75"+"\u0d79\u0d7f"+"\u0d82\u0d83"+"\u0d85\u0d96"
+      + "\u0d9a\u0db1"+"\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"
+      + "\u0dca\u0dca"+"\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"
+      + "\u0df2\u0df4"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f6c"+"\u0f71\u0f8b"
+      + "\u0f90\u0f97"+"\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fce\u0fd8"
+      + "\u1000\u10c5"+"\u10d0\u10fc"+"\u1100\u1248"+"\u124a\u124d"
+      + "\u1250\u1256"+"\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"
+      + "\u128a\u128d"+"\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"
+      + "\u12c0\u12c0"+"\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"
+      + "\u1312\u1315"+"\u1318\u135a"+"\u135f\u137c"+"\u1380\u1399"
+      + "\u13a0\u13f4"+"\u1400\u169c"+"\u16a0\u16f0"+"\u1700\u170c"
+      + "\u170e\u1714"+"\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"
+      + "\u176e\u1770"+"\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"
+      + "\u17f0\u17f9"+"\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"
+      + "\u1880\u18aa"+"\u18b0\u18f5"+"\u1900\u191c"+"\u1920\u192b"
+      + "\u1930\u193b"+"\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"
+      + "\u1980\u19ab"+"\u19b0\u19c9"+"\u19d0\u19da"+"\u19de\u1a1b"
+      + "\u1a1e\u1a5e"+"\u1a60\u1a7c"+"\u1a7f\u1a89"+"\u1a90\u1a99"
+      + "\u1aa0\u1aad"+"\u1b00\u1b4b"+"\u1b50\u1b7c"+"\u1b80\u1baa"
+      + "\u1bae\u1bb9"+"\u1c00\u1c37"+"\u1c3b\u1c49"+"\u1c4d\u1c7f"
+      + "\u1cd0\u1cf2"+"\u1d00\u1de6"+"\u1dfd\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2064"+"\u206a\u2071"
+      + "\u2074\u208e"+"\u2090\u2094"+"\u20a0\u20b8"+"\u20d0\u20f0"
+      + "\u2100\u2189"+"\u2190\u23e8"+"\u2400\u2426"+"\u2440\u244a"
+      + "\u2460\u26cd"+"\u26cf\u26e1"+"\u26e3\u26e3"+"\u26e8\u26ff"
+      + "\u2701\u2704"+"\u2706\u2709"+"\u270c\u2727"+"\u2729\u274b"
+      + "\u274d\u274d"+"\u274f\u2752"+"\u2756\u275e"+"\u2761\u2794"
+      + "\u2798\u27af"+"\u27b1\u27be"+"\u27c0\u27ca"+"\u27cc\u27cc"
+      + "\u27d0\u2b4c"+"\u2b50\u2b59"+"\u2c00\u2c2e"+"\u2c30\u2c5e"
+      + "\u2c60\u2cf1"+"\u2cf9\u2d25"+"\u2d30\u2d65"+"\u2d6f\u2d6f"
+      + "\u2d80\u2d96"+"\u2da0\u2da6"+"\u2da8\u2dae"+"\u2db0\u2db6"
+      + "\u2db8\u2dbe"+"\u2dc0\u2dc6"+"\u2dc8\u2dce"+"\u2dd0\u2dd6"
+      + "\u2dd8\u2dde"+"\u2de0\u2e31"+"\u2e80\u2e99"+"\u2e9b\u2ef3"
+      + "\u2f00\u2fd5"+"\u2ff0\u2ffb"+"\u3000\u303f"+"\u3041\u3096"
+      + "\u3099\u30ff"+"\u3105\u312d"+"\u3131\u318e"+"\u3190\u31b7"
+      + "\u31c0\u31e3"+"\u31f0\u321e"+"\u3220\u32fe"+"\u3300\u4db5"
+      + "\u4dc0\u9fcb"+"\ua000\ua48c"+"\ua490\ua4c6"+"\ua4d0\ua62b"
+      + "\ua640\ua65f"+"\ua662\ua673"+"\ua67c\ua697"+"\ua6a0\ua6f7"
+      + "\ua700\ua78c"+"\ua7fb\ua82b"+"\ua830\ua839"+"\ua840\ua877"
+      + "\ua880\ua8c4"+"\ua8ce\ua8d9"+"\ua8e0\ua8fb"+"\ua900\ua953"
+      + "\ua95f\ua97c"+"\ua980\ua9cd"+"\ua9cf\ua9d9"+"\ua9de\ua9df"
+      + "\uaa00\uaa36"+"\uaa40\uaa4d"+"\uaa50\uaa59"+"\uaa5c\uaa7b"
+      + "\uaa80\uaac2"+"\uaadb\uaadf"+"\uabc0\uabed"+"\uabf0\uabf9"
+      + "\uac00\ud7a3"+"\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ue000\ufa2d"
+      + "\ufa30\ufa6d"+"\ufa70\ufad9"+"\ufb00\ufb06"+"\ufb13\ufb17"
+      + "\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"
+      + "\ufb43\ufb44"+"\ufb46\ufbb1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"
+      + "\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe19"+"\ufe20\ufe26"
+      + "\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"+"\ufe70\ufe74"
+      + "\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"+"\uffc2\uffc7"
+      + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
+      + "\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"
+      + "\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa"
+      + "\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd8a"+"\ud800\udd90\ud800\udd9b"
+      + "\ud800\uddd0\ud800\uddfd"+"\ud800\ude80\ud800\ude9c"+"\ud800\udea0\ud800\uded0"+"\ud800\udf00\ud800\udf1e"
+      + "\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"+"\ud800\udf9f\ud800\udfc3"
+      + "\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"+"\ud802\udc00\ud802\udc05"
+      + "\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"+"\ud802\udc3c\ud802\udc3c"
+      + "\ud802\udc3f\ud802\udc55"+"\ud802\udc57\ud802\udc5f"+"\ud802\udd00\ud802\udd1b"+"\ud802\udd1f\ud802\udd39"
+      + "\ud802\udd3f\ud802\udd3f"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"
+      + "\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"
+      + "\ud802\ude50\ud802\ude58"+"\ud802\ude60\ud802\ude7f"+"\ud802\udf00\ud802\udf35"+"\ud802\udf39\ud802\udf55"
+      + "\ud802\udf58\ud802\udf72"+"\ud802\udf78\ud802\udf7f"+"\ud803\udc00\ud803\udc48"+"\ud803\ude60\ud803\ude7e"
+      + "\ud804\udc80\ud804\udcc1"+"\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"
+      + "\ud80c\udc00\ud80d\udc2e"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd29\ud834\udddd"
+      + "\ud834\ude00\ud834\ude45"+"\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"
+      + "\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"
+      + "\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"
+      + "\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"
+      + "\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"
+      + "\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"
+      + "\ud83c\udc00\ud83c\udc2b"+"\ud83c\udc30\ud83c\udc93"+"\ud83c\udd00\ud83c\udd0a"+"\ud83c\udd10\ud83c\udd2e"
+      + "\ud83c\udd31\ud83c\udd31"+"\ud83c\udd3d\ud83c\udd3d"+"\ud83c\udd3f\ud83c\udd3f"+"\ud83c\udd42\ud83c\udd42"
+      + "\ud83c\udd46\ud83c\udd46"+"\ud83c\udd4a\ud83c\udd4e"+"\ud83c\udd57\ud83c\udd57"+"\ud83c\udd5f\ud83c\udd5f"
+      + "\ud83c\udd79\ud83c\udd79"+"\ud83c\udd7b\ud83c\udd7c"+"\ud83c\udd7f\ud83c\udd7f"+"\ud83c\udd8a\ud83c\udd8d"
+      + "\ud83c\udd90\ud83c\udd90"+"\ud83c\ude00\ud83c\ude00"+"\ud83c\ude10\ud83c\ude31"+"\ud83c\ude40\ud83c\ude48"
+      + "\ud83f\udffe\ud869\uded6"+"\ud869\udf00\ud86d\udf34"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"
+      + "\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v60}
+        "\000\u0377"+"\u037a\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u0527"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u0591\u05c7"+"\u05d0\u05ea"
+      + "\u05f0\u05f4"+"\u0600\u0603"+"\u0606\u061b"+"\u061e\u070d"
+      + "\u070f\u074a"+"\u074d\u07b1"+"\u07c0\u07fa"+"\u0800\u082d"
+      + "\u0830\u083e"+"\u0840\u085b"+"\u085e\u085e"+"\u0900\u0977"
+      + "\u0979\u097f"+"\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"
+      + "\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"
+      + "\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fb"+"\u0a01\u0a03"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a51\u0a51"
+      + "\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"+"\u0a81\u0a83"
+      + "\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"+"\u0ae6\u0aef"
+      + "\u0af1\u0af1"+"\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"
+      + "\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b35\u0b39"
+      + "\u0b3c\u0b44"+"\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"
+      + "\u0b5c\u0b5d"+"\u0b5f\u0b63"+"\u0b66\u0b77"+"\u0b82\u0b83"
+      + "\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"
+      + "\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"
+      + "\u0bae\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"
+      + "\u0bd0\u0bd0"+"\u0bd7\u0bd7"+"\u0be6\u0bfa"+"\u0c01\u0c03"
+      + "\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"
+      + "\u0c35\u0c39"+"\u0c3d\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"
+      + "\u0c55\u0c56"+"\u0c58\u0c59"+"\u0c60\u0c63"+"\u0c66\u0c6f"
+      + "\u0c78\u0c7f"+"\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"
+      + "\u0c92\u0ca8"+"\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"
+      + "\u0cc6\u0cc8"+"\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"
+      + "\u0ce0\u0ce3"+"\u0ce6\u0cef"+"\u0cf1\u0cf2"+"\u0d02\u0d03"
+      + "\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d3a"+"\u0d3d\u0d44"
+      + "\u0d46\u0d48"+"\u0d4a\u0d4e"+"\u0d57\u0d57"+"\u0d60\u0d63"
+      + "\u0d66\u0d75"+"\u0d79\u0d7f"+"\u0d82\u0d83"+"\u0d85\u0d96"
+      + "\u0d9a\u0db1"+"\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"
+      + "\u0dca\u0dca"+"\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"
+      + "\u0df2\u0df4"+"\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"
+      + "\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"
+      + "\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"
+      + "\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"
+      + "\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"
+      + "\u0edc\u0edd"+"\u0f00\u0f47"+"\u0f49\u0f6c"+"\u0f71\u0f97"
+      + "\u0f99\u0fbc"+"\u0fbe\u0fcc"+"\u0fce\u0fda"+"\u1000\u10c5"
+      + "\u10d0\u10fc"+"\u1100\u1248"+"\u124a\u124d"+"\u1250\u1256"
+      + "\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"
+      + "\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"
+      + "\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"
+      + "\u1318\u135a"+"\u135d\u137c"+"\u1380\u1399"+"\u13a0\u13f4"
+      + "\u1400\u169c"+"\u16a0\u16f0"+"\u1700\u170c"+"\u170e\u1714"
+      + "\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"+"\u176e\u1770"
+      + "\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"+"\u17f0\u17f9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa"
+      + "\u18b0\u18f5"+"\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"
+      + "\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"+"\u1980\u19ab"
+      + "\u19b0\u19c9"+"\u19d0\u19da"+"\u19de\u1a1b"+"\u1a1e\u1a5e"
+      + "\u1a60\u1a7c"+"\u1a7f\u1a89"+"\u1a90\u1a99"+"\u1aa0\u1aad"
+      + "\u1b00\u1b4b"+"\u1b50\u1b7c"+"\u1b80\u1baa"+"\u1bae\u1bb9"
+      + "\u1bc0\u1bf3"+"\u1bfc\u1c37"+"\u1c3b\u1c49"+"\u1c4d\u1c7f"
+      + "\u1cd0\u1cf2"+"\u1d00\u1de6"+"\u1dfc\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2000\u2064"+"\u206a\u2071"
+      + "\u2074\u208e"+"\u2090\u209c"+"\u20a0\u20b9"+"\u20d0\u20f0"
+      + "\u2100\u2189"+"\u2190\u23f3"+"\u2400\u2426"+"\u2440\u244a"
+      + "\u2460\u26ff"+"\u2701\u27ca"+"\u27cc\u27cc"+"\u27ce\u2b4c"
+      + "\u2b50\u2b59"+"\u2c00\u2c2e"+"\u2c30\u2c5e"+"\u2c60\u2cf1"
+      + "\u2cf9\u2d25"+"\u2d30\u2d65"+"\u2d6f\u2d70"+"\u2d7f\u2d96"
+      + "\u2da0\u2da6"+"\u2da8\u2dae"+"\u2db0\u2db6"+"\u2db8\u2dbe"
+      + "\u2dc0\u2dc6"+"\u2dc8\u2dce"+"\u2dd0\u2dd6"+"\u2dd8\u2dde"
+      + "\u2de0\u2e31"+"\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"
+      + "\u2ff0\u2ffb"+"\u3000\u303f"+"\u3041\u3096"+"\u3099\u30ff"
+      + "\u3105\u312d"+"\u3131\u318e"+"\u3190\u31ba"+"\u31c0\u31e3"
+      + "\u31f0\u321e"+"\u3220\u32fe"+"\u3300\u4db5"+"\u4dc0\u9fcb"
+      + "\ua000\ua48c"+"\ua490\ua4c6"+"\ua4d0\ua62b"+"\ua640\ua673"
+      + "\ua67c\ua697"+"\ua6a0\ua6f7"+"\ua700\ua78e"+"\ua790\ua791"
+      + "\ua7a0\ua7a9"+"\ua7fa\ua82b"+"\ua830\ua839"+"\ua840\ua877"
+      + "\ua880\ua8c4"+"\ua8ce\ua8d9"+"\ua8e0\ua8fb"+"\ua900\ua953"
+      + "\ua95f\ua97c"+"\ua980\ua9cd"+"\ua9cf\ua9d9"+"\ua9de\ua9df"
+      + "\uaa00\uaa36"+"\uaa40\uaa4d"+"\uaa50\uaa59"+"\uaa5c\uaa7b"
+      + "\uaa80\uaac2"+"\uaadb\uaadf"+"\uab01\uab06"+"\uab09\uab0e"
+      + "\uab11\uab16"+"\uab20\uab26"+"\uab28\uab2e"+"\uabc0\uabed"
+      + "\uabf0\uabf9"+"\uac00\ud7a3"+"\ud7b0\ud7c6"+"\ud7cb\ud7fb"
+      + "\ue000\ufa2d"+"\ufa30\ufa6d"+"\ufa70\ufad9"+"\ufb00\ufb06"
+      + "\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"
+      + "\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbc1"+"\ufbd3\ufd3f"
+      + "\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"+"\ufe00\ufe19"
+      + "\ufe20\ufe26"+"\ufe30\ufe52"+"\ufe54\ufe66"+"\ufe68\ufe6b"
+      + "\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"+"\uff01\uffbe"
+      + "\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"
+      + "\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"
+      + "\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"
+      + "\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd8a"
+      + "\ud800\udd90\ud800\udd9b"+"\ud800\uddd0\ud800\uddfd"+"\ud800\ude80\ud800\ude9c"+"\ud800\udea0\ud800\uded0"
+      + "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"+"\ud800\udf80\ud800\udf9d"
+      + "\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"+"\ud801\udca0\ud801\udca9"
+      + "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
+      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc55"+"\ud802\udc57\ud802\udc5f"+"\ud802\udd00\ud802\udd1b"
+      + "\ud802\udd1f\ud802\udd39"+"\ud802\udd3f\ud802\udd3f"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"
+      + "\ud802\ude0c\ud802\ude13"+"\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"
+      + "\ud802\ude3f\ud802\ude47"+"\ud802\ude50\ud802\ude58"+"\ud802\ude60\ud802\ude7f"+"\ud802\udf00\ud802\udf35"
+      + "\ud802\udf39\ud802\udf55"+"\ud802\udf58\ud802\udf72"+"\ud802\udf78\ud802\udf7f"+"\ud803\udc00\ud803\udc48"
+      + "\ud803\ude60\ud803\ude7e"+"\ud804\udc00\ud804\udc4d"+"\ud804\udc52\ud804\udc6f"+"\ud804\udc80\ud804\udcc1"
+      + "\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"+"\ud80c\udc00\ud80d\udc2e"
+      + "\ud81a\udc00\ud81a\ude38"+"\ud82c\udc00\ud82c\udc01"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"
+      + "\ud834\udd29\ud834\udddd"+"\ud834\ude00\ud834\ude45"+"\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"
+      + "\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"
+      + "\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"
+      + "\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"
+      + "\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"
+      + "\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"
+      + "\ud835\udfce\ud835\udfff"+"\ud83c\udc00\ud83c\udc2b"+"\ud83c\udc30\ud83c\udc93"+"\ud83c\udca0\ud83c\udcae"
+      + "\ud83c\udcb1\ud83c\udcbe"+"\ud83c\udcc1\ud83c\udccf"+"\ud83c\udcd1\ud83c\udcdf"+"\ud83c\udd00\ud83c\udd0a"
+      + "\ud83c\udd10\ud83c\udd2e"+"\ud83c\udd30\ud83c\udd69"+"\ud83c\udd70\ud83c\udd9a"+"\ud83c\udde6\ud83c\ude02"
+      + "\ud83c\ude10\ud83c\ude3a"+"\ud83c\ude40\ud83c\ude48"+"\ud83c\ude50\ud83c\ude51"+"\ud83c\udf00\ud83c\udf20"
+      + "\ud83c\udf30\ud83c\udf35"+"\ud83c\udf37\ud83c\udf7c"+"\ud83c\udf80\ud83c\udf93"+"\ud83c\udfa0\ud83c\udfc4"
+      + "\ud83c\udfc6\ud83c\udfca"+"\ud83c\udfe0\ud83c\udff0"+"\ud83d\udc00\ud83d\udc3e"+"\ud83d\udc40\ud83d\udc40"
+      + "\ud83d\udc42\ud83d\udcf7"+"\ud83d\udcf9\ud83d\udcfc"+"\ud83d\udd00\ud83d\udd3d"+"\ud83d\udd50\ud83d\udd67"
+      + "\ud83d\uddfb\ud83d\uddff"+"\ud83d\ude01\ud83d\ude10"+"\ud83d\ude12\ud83d\ude14"+"\ud83d\ude16\ud83d\ude16"
+      + "\ud83d\ude18\ud83d\ude18"+"\ud83d\ude1a\ud83d\ude1a"+"\ud83d\ude1c\ud83d\ude1e"+"\ud83d\ude20\ud83d\ude25"
+      + "\ud83d\ude28\ud83d\ude2b"+"\ud83d\ude2d\ud83d\ude2d"+"\ud83d\ude30\ud83d\ude33"+"\ud83d\ude35\ud83d\ude40"
+      + "\ud83d\ude45\ud83d\ude4f"+"\ud83d\ude80\ud83d\udec5"+"\ud83d\udf00\ud83d\udf73"+"\ud83f\udffe\ud869\uded6"
+      + "\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"+"\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"
+      + "\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"+"\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"
+      + "\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"+"\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"
+      + "\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"+"\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"
+      + "\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"+"\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v61}
+        "\000\u0377"+"\u037a\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u0527"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u058f\u058f"+"\u0591\u05c7"
+      + "\u05d0\u05ea"+"\u05f0\u05f4"+"\u0600\u0604"+"\u0606\u061b"
+      + "\u061e\u070d"+"\u070f\u074a"+"\u074d\u07b1"+"\u07c0\u07fa"
+      + "\u0800\u082d"+"\u0830\u083e"+"\u0840\u085b"+"\u085e\u085e"
+      + "\u08a0\u08a0"+"\u08a2\u08ac"+"\u08e4\u08fe"+"\u0900\u0977"
+      + "\u0979\u097f"+"\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"
+      + "\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"
+      + "\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fb"+"\u0a01\u0a03"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a51\u0a51"
+      + "\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"+"\u0a81\u0a83"
+      + "\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"+"\u0ae6\u0af1"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b35\u0b39"+"\u0b3c\u0b44"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b63"+"\u0b66\u0b77"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb9"
+      + "\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd0\u0bd0"
+      + "\u0bd7\u0bd7"+"\u0be6\u0bfa"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3d\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c58\u0c59"+"\u0c60\u0c63"+"\u0c66\u0c6f"+"\u0c78\u0c7f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
+      + "\u0ce6\u0cef"+"\u0cf1\u0cf2"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d3a"+"\u0d3d\u0d44"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4e"+"\u0d57\u0d57"+"\u0d60\u0d63"+"\u0d66\u0d75"
+      + "\u0d79\u0d7f"+"\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"
+      + "\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"
+      + "\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"
+      + "\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"
+      + "\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"
+      + "\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"
+      + "\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"
+      + "\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edf"
+      + "\u0f00\u0f47"+"\u0f49\u0f6c"+"\u0f71\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fce\u0fda"+"\u1000\u10c5"+"\u10c7\u10c7"
+      + "\u10cd\u10cd"+"\u10d0\u1248"+"\u124a\u124d"+"\u1250\u1256"
+      + "\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"
+      + "\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"
+      + "\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"
+      + "\u1318\u135a"+"\u135d\u137c"+"\u1380\u1399"+"\u13a0\u13f4"
+      + "\u1400\u169c"+"\u16a0\u16f0"+"\u1700\u170c"+"\u170e\u1714"
+      + "\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"+"\u176e\u1770"
+      + "\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"+"\u17f0\u17f9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa"
+      + "\u18b0\u18f5"+"\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"
+      + "\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"+"\u1980\u19ab"
+      + "\u19b0\u19c9"+"\u19d0\u19da"+"\u19de\u1a1b"+"\u1a1e\u1a5e"
+      + "\u1a60\u1a7c"+"\u1a7f\u1a89"+"\u1a90\u1a99"+"\u1aa0\u1aad"
+      + "\u1b00\u1b4b"+"\u1b50\u1b7c"+"\u1b80\u1bf3"+"\u1bfc\u1c37"
+      + "\u1c3b\u1c49"+"\u1c4d\u1c7f"+"\u1cc0\u1cc7"+"\u1cd0\u1cf6"
+      + "\u1d00\u1de6"+"\u1dfc\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"
+      + "\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"
+      + "\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"
+      + "\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"
+      + "\u1ff6\u1ffe"+"\u2000\u2064"+"\u206a\u2071"+"\u2074\u208e"
+      + "\u2090\u209c"+"\u20a0\u20b9"+"\u20d0\u20f0"+"\u2100\u2189"
+      + "\u2190\u23f3"+"\u2400\u2426"+"\u2440\u244a"+"\u2460\u26ff"
+      + "\u2701\u2b4c"+"\u2b50\u2b59"+"\u2c00\u2c2e"+"\u2c30\u2c5e"
+      + "\u2c60\u2cf3"+"\u2cf9\u2d25"+"\u2d27\u2d27"+"\u2d2d\u2d2d"
+      + "\u2d30\u2d67"+"\u2d6f\u2d70"+"\u2d7f\u2d96"+"\u2da0\u2da6"
+      + "\u2da8\u2dae"+"\u2db0\u2db6"+"\u2db8\u2dbe"+"\u2dc0\u2dc6"
+      + "\u2dc8\u2dce"+"\u2dd0\u2dd6"+"\u2dd8\u2dde"+"\u2de0\u2e3b"
+      + "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u2ff0\u2ffb"
+      + "\u3000\u303f"+"\u3041\u3096"+"\u3099\u30ff"+"\u3105\u312d"
+      + "\u3131\u318e"+"\u3190\u31ba"+"\u31c0\u31e3"+"\u31f0\u321e"
+      + "\u3220\u32fe"+"\u3300\u4db5"+"\u4dc0\u9fcc"+"\ua000\ua48c"
+      + "\ua490\ua4c6"+"\ua4d0\ua62b"+"\ua640\ua697"+"\ua69f\ua6f7"
+      + "\ua700\ua78e"+"\ua790\ua793"+"\ua7a0\ua7aa"+"\ua7f8\ua82b"
+      + "\ua830\ua839"+"\ua840\ua877"+"\ua880\ua8c4"+"\ua8ce\ua8d9"
+      + "\ua8e0\ua8fb"+"\ua900\ua953"+"\ua95f\ua97c"+"\ua980\ua9cd"
+      + "\ua9cf\ua9d9"+"\ua9de\ua9df"+"\uaa00\uaa36"+"\uaa40\uaa4d"
+      + "\uaa50\uaa59"+"\uaa5c\uaa7b"+"\uaa80\uaac2"+"\uaadb\uaaf6"
+      + "\uab01\uab06"+"\uab09\uab0e"+"\uab11\uab16"+"\uab20\uab26"
+      + "\uab28\uab2e"+"\uabc0\uabed"+"\uabf0\uabf9"+"\uac00\ud7a3"
+      + "\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ue000\ufa6d"+"\ufa70\ufad9"
+      + "\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"
+      + "\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbc1"
+      + "\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"
+      + "\ufe00\ufe19"+"\ufe20\ufe26"+"\ufe30\ufe52"+"\ufe54\ufe66"
+      + "\ufe68\ufe6b"+"\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"
+      + "\uff01\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"
+      + "\uffda\uffdc"+"\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"
+      + "\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"
+      + "\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"
+      + "\ud800\udd37\ud800\udd8a"+"\ud800\udd90\ud800\udd9b"+"\ud800\uddd0\ud800\uddfd"+"\ud800\ude80\ud800\ude9c"
+      + "\ud800\udea0\ud800\uded0"+"\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"
+      + "\ud800\udf80\ud800\udf9d"+"\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"
+      + "\ud801\udca0\ud801\udca9"+"\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"
+      + "\ud802\udc37\ud802\udc38"+"\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc55"+"\ud802\udc57\ud802\udc5f"
+      + "\ud802\udd00\ud802\udd1b"+"\ud802\udd1f\ud802\udd39"+"\ud802\udd3f\ud802\udd3f"+"\ud802\udd80\ud802\uddb7"
+      + "\ud802\uddbe\ud802\uddbf"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"
+      + "\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"
+      + "\ud802\ude50\ud802\ude58"+"\ud802\ude60\ud802\ude7f"+"\ud802\udf00\ud802\udf35"+"\ud802\udf39\ud802\udf55"
+      + "\ud802\udf58\ud802\udf72"+"\ud802\udf78\ud802\udf7f"+"\ud803\udc00\ud803\udc48"+"\ud803\ude60\ud803\ude7e"
+      + "\ud804\udc00\ud804\udc4d"+"\ud804\udc52\ud804\udc6f"+"\ud804\udc80\ud804\udcc1"+"\ud804\udcd0\ud804\udce8"
+      + "\ud804\udcf0\ud804\udcf9"+"\ud804\udd00\ud804\udd34"+"\ud804\udd36\ud804\udd43"+"\ud804\udd80\ud804\uddc8"
+      + "\ud804\uddd0\ud804\uddd9"+"\ud805\ude80\ud805\udeb7"+"\ud805\udec0\ud805\udec9"+"\ud808\udc00\ud808\udf6e"
+      + "\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"+"\ud80c\udc00\ud80d\udc2e"+"\ud81a\udc00\ud81a\ude38"
+      + "\ud81b\udf00\ud81b\udf44"+"\ud81b\udf50\ud81b\udf7e"+"\ud81b\udf8f\ud81b\udf9f"+"\ud82c\udc00\ud82c\udc01"
+      + "\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd29\ud834\udddd"+"\ud834\ude00\ud834\ude45"
+      + "\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"
+      + "\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"
+      + "\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"
+      + "\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"
+      + "\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"
+      + "\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"+"\ud83b\ude00\ud83b\ude03"
+      + "\ud83b\ude05\ud83b\ude1f"+"\ud83b\ude21\ud83b\ude22"+"\ud83b\ude24\ud83b\ude24"+"\ud83b\ude27\ud83b\ude27"
+      + "\ud83b\ude29\ud83b\ude32"+"\ud83b\ude34\ud83b\ude37"+"\ud83b\ude39\ud83b\ude39"+"\ud83b\ude3b\ud83b\ude3b"
+      + "\ud83b\ude42\ud83b\ude42"+"\ud83b\ude47\ud83b\ude47"+"\ud83b\ude49\ud83b\ude49"+"\ud83b\ude4b\ud83b\ude4b"
+      + "\ud83b\ude4d\ud83b\ude4f"+"\ud83b\ude51\ud83b\ude52"+"\ud83b\ude54\ud83b\ude54"+"\ud83b\ude57\ud83b\ude57"
+      + "\ud83b\ude59\ud83b\ude59"+"\ud83b\ude5b\ud83b\ude5b"+"\ud83b\ude5d\ud83b\ude5d"+"\ud83b\ude5f\ud83b\ude5f"
+      + "\ud83b\ude61\ud83b\ude62"+"\ud83b\ude64\ud83b\ude64"+"\ud83b\ude67\ud83b\ude6a"+"\ud83b\ude6c\ud83b\ude72"
+      + "\ud83b\ude74\ud83b\ude77"+"\ud83b\ude79\ud83b\ude7c"+"\ud83b\ude7e\ud83b\ude7e"+"\ud83b\ude80\ud83b\ude89"
+      + "\ud83b\ude8b\ud83b\ude9b"+"\ud83b\udea1\ud83b\udea3"+"\ud83b\udea5\ud83b\udea9"+"\ud83b\udeab\ud83b\udebb"
+      + "\ud83b\udef0\ud83b\udef1"+"\ud83c\udc00\ud83c\udc2b"+"\ud83c\udc30\ud83c\udc93"+"\ud83c\udca0\ud83c\udcae"
+      + "\ud83c\udcb1\ud83c\udcbe"+"\ud83c\udcc1\ud83c\udccf"+"\ud83c\udcd1\ud83c\udcdf"+"\ud83c\udd00\ud83c\udd0a"
+      + "\ud83c\udd10\ud83c\udd2e"+"\ud83c\udd30\ud83c\udd6b"+"\ud83c\udd70\ud83c\udd9a"+"\ud83c\udde6\ud83c\ude02"
+      + "\ud83c\ude10\ud83c\ude3a"+"\ud83c\ude40\ud83c\ude48"+"\ud83c\ude50\ud83c\ude51"+"\ud83c\udf00\ud83c\udf20"
+      + "\ud83c\udf30\ud83c\udf35"+"\ud83c\udf37\ud83c\udf7c"+"\ud83c\udf80\ud83c\udf93"+"\ud83c\udfa0\ud83c\udfc4"
+      + "\ud83c\udfc6\ud83c\udfca"+"\ud83c\udfe0\ud83c\udff0"+"\ud83d\udc00\ud83d\udc3e"+"\ud83d\udc40\ud83d\udc40"
+      + "\ud83d\udc42\ud83d\udcf7"+"\ud83d\udcf9\ud83d\udcfc"+"\ud83d\udd00\ud83d\udd3d"+"\ud83d\udd40\ud83d\udd43"
+      + "\ud83d\udd50\ud83d\udd67"+"\ud83d\uddfb\ud83d\ude40"+"\ud83d\ude45\ud83d\ude4f"+"\ud83d\ude80\ud83d\udec5"
+      + "\ud83d\udf00\ud83d\udf73"+"\ud83f\udffe\ud869\uded6"+"\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"
+      + "\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"
+      + "\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"
+      + "\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"
+      + "\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"
+      + "\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v62}
+        "\000\u0377"+"\u037a\u037e"+"\u0384\u038a"+"\u038c\u038c"
+      + "\u038e\u03a1"+"\u03a3\u0527"+"\u0531\u0556"+"\u0559\u055f"
+      + "\u0561\u0587"+"\u0589\u058a"+"\u058f\u058f"+"\u0591\u05c7"
+      + "\u05d0\u05ea"+"\u05f0\u05f4"+"\u0600\u0604"+"\u0606\u061b"
+      + "\u061e\u070d"+"\u070f\u074a"+"\u074d\u07b1"+"\u07c0\u07fa"
+      + "\u0800\u082d"+"\u0830\u083e"+"\u0840\u085b"+"\u085e\u085e"
+      + "\u08a0\u08a0"+"\u08a2\u08ac"+"\u08e4\u08fe"+"\u0900\u0977"
+      + "\u0979\u097f"+"\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"
+      + "\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"
+      + "\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fb"+"\u0a01\u0a03"
+      + "\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"+"\u0a2a\u0a30"
+      + "\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"+"\u0a3c\u0a3c"
+      + "\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"+"\u0a51\u0a51"
+      + "\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"+"\u0a81\u0a83"
+      + "\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"+"\u0aaa\u0ab0"
+      + "\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"+"\u0ac7\u0ac9"
+      + "\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"+"\u0ae6\u0af1"
+      + "\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"+"\u0b13\u0b28"
+      + "\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b35\u0b39"+"\u0b3c\u0b44"
+      + "\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"+"\u0b5c\u0b5d"
+      + "\u0b5f\u0b63"+"\u0b66\u0b77"+"\u0b82\u0b83"+"\u0b85\u0b8a"
+      + "\u0b8e\u0b90"+"\u0b92\u0b95"+"\u0b99\u0b9a"+"\u0b9c\u0b9c"
+      + "\u0b9e\u0b9f"+"\u0ba3\u0ba4"+"\u0ba8\u0baa"+"\u0bae\u0bb9"
+      + "\u0bbe\u0bc2"+"\u0bc6\u0bc8"+"\u0bca\u0bcd"+"\u0bd0\u0bd0"
+      + "\u0bd7\u0bd7"+"\u0be6\u0bfa"+"\u0c01\u0c03"+"\u0c05\u0c0c"
+      + "\u0c0e\u0c10"+"\u0c12\u0c28"+"\u0c2a\u0c33"+"\u0c35\u0c39"
+      + "\u0c3d\u0c44"+"\u0c46\u0c48"+"\u0c4a\u0c4d"+"\u0c55\u0c56"
+      + "\u0c58\u0c59"+"\u0c60\u0c63"+"\u0c66\u0c6f"+"\u0c78\u0c7f"
+      + "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
+      + "\u0ce6\u0cef"+"\u0cf1\u0cf2"+"\u0d02\u0d03"+"\u0d05\u0d0c"
+      + "\u0d0e\u0d10"+"\u0d12\u0d3a"+"\u0d3d\u0d44"+"\u0d46\u0d48"
+      + "\u0d4a\u0d4e"+"\u0d57\u0d57"+"\u0d60\u0d63"+"\u0d66\u0d75"
+      + "\u0d79\u0d7f"+"\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"
+      + "\u0db3\u0dbb"+"\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"
+      + "\u0dcf\u0dd4"+"\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4"
+      + "\u0e01\u0e3a"+"\u0e3f\u0e5b"+"\u0e81\u0e82"+"\u0e84\u0e84"
+      + "\u0e87\u0e88"+"\u0e8a\u0e8a"+"\u0e8d\u0e8d"+"\u0e94\u0e97"
+      + "\u0e99\u0e9f"+"\u0ea1\u0ea3"+"\u0ea5\u0ea5"+"\u0ea7\u0ea7"
+      + "\u0eaa\u0eab"+"\u0ead\u0eb9"+"\u0ebb\u0ebd"+"\u0ec0\u0ec4"
+      + "\u0ec6\u0ec6"+"\u0ec8\u0ecd"+"\u0ed0\u0ed9"+"\u0edc\u0edf"
+      + "\u0f00\u0f47"+"\u0f49\u0f6c"+"\u0f71\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fce\u0fda"+"\u1000\u10c5"+"\u10c7\u10c7"
+      + "\u10cd\u10cd"+"\u10d0\u1248"+"\u124a\u124d"+"\u1250\u1256"
+      + "\u1258\u1258"+"\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"
+      + "\u1290\u12b0"+"\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"
+      + "\u12c2\u12c5"+"\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"
+      + "\u1318\u135a"+"\u135d\u137c"+"\u1380\u1399"+"\u13a0\u13f4"
+      + "\u1400\u169c"+"\u16a0\u16f0"+"\u1700\u170c"+"\u170e\u1714"
+      + "\u1720\u1736"+"\u1740\u1753"+"\u1760\u176c"+"\u176e\u1770"
+      + "\u1772\u1773"+"\u1780\u17dd"+"\u17e0\u17e9"+"\u17f0\u17f9"
+      + "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa"
+      + "\u18b0\u18f5"+"\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"
+      + "\u1940\u1940"+"\u1944\u196d"+"\u1970\u1974"+"\u1980\u19ab"
+      + "\u19b0\u19c9"+"\u19d0\u19da"+"\u19de\u1a1b"+"\u1a1e\u1a5e"
+      + "\u1a60\u1a7c"+"\u1a7f\u1a89"+"\u1a90\u1a99"+"\u1aa0\u1aad"
+      + "\u1b00\u1b4b"+"\u1b50\u1b7c"+"\u1b80\u1bf3"+"\u1bfc\u1c37"
+      + "\u1c3b\u1c49"+"\u1c4d\u1c7f"+"\u1cc0\u1cc7"+"\u1cd0\u1cf6"
+      + "\u1d00\u1de6"+"\u1dfc\u1f15"+"\u1f18\u1f1d"+"\u1f20\u1f45"
+      + "\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"+"\u1f5b\u1f5b"
+      + "\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"+"\u1fb6\u1fc4"
+      + "\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"+"\u1ff2\u1ff4"
+      + "\u1ff6\u1ffe"+"\u2000\u2064"+"\u206a\u2071"+"\u2074\u208e"
+      + "\u2090\u209c"+"\u20a0\u20ba"+"\u20d0\u20f0"+"\u2100\u2189"
+      + "\u2190\u23f3"+"\u2400\u2426"+"\u2440\u244a"+"\u2460\u26ff"
+      + "\u2701\u2b4c"+"\u2b50\u2b59"+"\u2c00\u2c2e"+"\u2c30\u2c5e"
+      + "\u2c60\u2cf3"+"\u2cf9\u2d25"+"\u2d27\u2d27"+"\u2d2d\u2d2d"
+      + "\u2d30\u2d67"+"\u2d6f\u2d70"+"\u2d7f\u2d96"+"\u2da0\u2da6"
+      + "\u2da8\u2dae"+"\u2db0\u2db6"+"\u2db8\u2dbe"+"\u2dc0\u2dc6"
+      + "\u2dc8\u2dce"+"\u2dd0\u2dd6"+"\u2dd8\u2dde"+"\u2de0\u2e3b"
+      + "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u2ff0\u2ffb"
+      + "\u3000\u303f"+"\u3041\u3096"+"\u3099\u30ff"+"\u3105\u312d"
+      + "\u3131\u318e"+"\u3190\u31ba"+"\u31c0\u31e3"+"\u31f0\u321e"
+      + "\u3220\u32fe"+"\u3300\u4db5"+"\u4dc0\u9fcc"+"\ua000\ua48c"
+      + "\ua490\ua4c6"+"\ua4d0\ua62b"+"\ua640\ua697"+"\ua69f\ua6f7"
+      + "\ua700\ua78e"+"\ua790\ua793"+"\ua7a0\ua7aa"+"\ua7f8\ua82b"
+      + "\ua830\ua839"+"\ua840\ua877"+"\ua880\ua8c4"+"\ua8ce\ua8d9"
+      + "\ua8e0\ua8fb"+"\ua900\ua953"+"\ua95f\ua97c"+"\ua980\ua9cd"
+      + "\ua9cf\ua9d9"+"\ua9de\ua9df"+"\uaa00\uaa36"+"\uaa40\uaa4d"
+      + "\uaa50\uaa59"+"\uaa5c\uaa7b"+"\uaa80\uaac2"+"\uaadb\uaaf6"
+      + "\uab01\uab06"+"\uab09\uab0e"+"\uab11\uab16"+"\uab20\uab26"
+      + "\uab28\uab2e"+"\uabc0\uabed"+"\uabf0\uabf9"+"\uac00\ud7a3"
+      + "\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ue000\ufa6d"+"\ufa70\ufad9"
+      + "\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"+"\ufb38\ufb3c"
+      + "\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"+"\ufb46\ufbc1"
+      + "\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdd0\ufdfd"
+      + "\ufe00\ufe19"+"\ufe20\ufe26"+"\ufe30\ufe52"+"\ufe54\ufe66"
+      + "\ufe68\ufe6b"+"\ufe70\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"
+      + "\uff01\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"
+      + "\uffda\uffdc"+"\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ud800\udc0b"
+      + "\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"
+      + "\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"
+      + "\ud800\udd37\ud800\udd8a"+"\ud800\udd90\ud800\udd9b"+"\ud800\uddd0\ud800\uddfd"+"\ud800\ude80\ud800\ude9c"
+      + "\ud800\udea0\ud800\uded0"+"\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23"+"\ud800\udf30\ud800\udf4a"
+      + "\ud800\udf80\ud800\udf9d"+"\ud800\udf9f\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5"+"\ud801\udc00\ud801\udc9d"
+      + "\ud801\udca0\ud801\udca9"+"\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"
+      + "\ud802\udc37\ud802\udc38"+"\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc55"+"\ud802\udc57\ud802\udc5f"
+      + "\ud802\udd00\ud802\udd1b"+"\ud802\udd1f\ud802\udd39"+"\ud802\udd3f\ud802\udd3f"+"\ud802\udd80\ud802\uddb7"
+      + "\ud802\uddbe\ud802\uddbf"+"\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"
+      + "\ud802\ude15\ud802\ude17"+"\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"
+      + "\ud802\ude50\ud802\ude58"+"\ud802\ude60\ud802\ude7f"+"\ud802\udf00\ud802\udf35"+"\ud802\udf39\ud802\udf55"
+      + "\ud802\udf58\ud802\udf72"+"\ud802\udf78\ud802\udf7f"+"\ud803\udc00\ud803\udc48"+"\ud803\ude60\ud803\ude7e"
+      + "\ud804\udc00\ud804\udc4d"+"\ud804\udc52\ud804\udc6f"+"\ud804\udc80\ud804\udcc1"+"\ud804\udcd0\ud804\udce8"
+      + "\ud804\udcf0\ud804\udcf9"+"\ud804\udd00\ud804\udd34"+"\ud804\udd36\ud804\udd43"+"\ud804\udd80\ud804\uddc8"
+      + "\ud804\uddd0\ud804\uddd9"+"\ud805\ude80\ud805\udeb7"+"\ud805\udec0\ud805\udec9"+"\ud808\udc00\ud808\udf6e"
+      + "\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73"+"\ud80c\udc00\ud80d\udc2e"+"\ud81a\udc00\ud81a\ude38"
+      + "\ud81b\udf00\ud81b\udf44"+"\ud81b\udf50\ud81b\udf7e"+"\ud81b\udf8f\ud81b\udf9f"+"\ud82c\udc00\ud82c\udc01"
+      + "\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"+"\ud834\udd29\ud834\udddd"+"\ud834\ude00\ud834\ude45"
+      + "\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"+"\ud835\udc56\ud835\udc9c"
+      + "\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"+"\ud835\udca9\ud835\udcac"
+      + "\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"+"\ud835\udcc5\ud835\udd05"
+      + "\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"+"\ud835\udd1e\ud835\udd39"
+      + "\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"+"\ud835\udd4a\ud835\udd50"
+      + "\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"+"\ud83b\ude00\ud83b\ude03"
+      + "\ud83b\ude05\ud83b\ude1f"+"\ud83b\ude21\ud83b\ude22"+"\ud83b\ude24\ud83b\ude24"+"\ud83b\ude27\ud83b\ude27"
+      + "\ud83b\ude29\ud83b\ude32"+"\ud83b\ude34\ud83b\ude37"+"\ud83b\ude39\ud83b\ude39"+"\ud83b\ude3b\ud83b\ude3b"
+      + "\ud83b\ude42\ud83b\ude42"+"\ud83b\ude47\ud83b\ude47"+"\ud83b\ude49\ud83b\ude49"+"\ud83b\ude4b\ud83b\ude4b"
+      + "\ud83b\ude4d\ud83b\ude4f"+"\ud83b\ude51\ud83b\ude52"+"\ud83b\ude54\ud83b\ude54"+"\ud83b\ude57\ud83b\ude57"
+      + "\ud83b\ude59\ud83b\ude59"+"\ud83b\ude5b\ud83b\ude5b"+"\ud83b\ude5d\ud83b\ude5d"+"\ud83b\ude5f\ud83b\ude5f"
+      + "\ud83b\ude61\ud83b\ude62"+"\ud83b\ude64\ud83b\ude64"+"\ud83b\ude67\ud83b\ude6a"+"\ud83b\ude6c\ud83b\ude72"
+      + "\ud83b\ude74\ud83b\ude77"+"\ud83b\ude79\ud83b\ude7c"+"\ud83b\ude7e\ud83b\ude7e"+"\ud83b\ude80\ud83b\ude89"
+      + "\ud83b\ude8b\ud83b\ude9b"+"\ud83b\udea1\ud83b\udea3"+"\ud83b\udea5\ud83b\udea9"+"\ud83b\udeab\ud83b\udebb"
+      + "\ud83b\udef0\ud83b\udef1"+"\ud83c\udc00\ud83c\udc2b"+"\ud83c\udc30\ud83c\udc93"+"\ud83c\udca0\ud83c\udcae"
+      + "\ud83c\udcb1\ud83c\udcbe"+"\ud83c\udcc1\ud83c\udccf"+"\ud83c\udcd1\ud83c\udcdf"+"\ud83c\udd00\ud83c\udd0a"
+      + "\ud83c\udd10\ud83c\udd2e"+"\ud83c\udd30\ud83c\udd6b"+"\ud83c\udd70\ud83c\udd9a"+"\ud83c\udde6\ud83c\ude02"
+      + "\ud83c\ude10\ud83c\ude3a"+"\ud83c\ude40\ud83c\ude48"+"\ud83c\ude50\ud83c\ude51"+"\ud83c\udf00\ud83c\udf20"
+      + "\ud83c\udf30\ud83c\udf35"+"\ud83c\udf37\ud83c\udf7c"+"\ud83c\udf80\ud83c\udf93"+"\ud83c\udfa0\ud83c\udfc4"
+      + "\ud83c\udfc6\ud83c\udfca"+"\ud83c\udfe0\ud83c\udff0"+"\ud83d\udc00\ud83d\udc3e"+"\ud83d\udc40\ud83d\udc40"
+      + "\ud83d\udc42\ud83d\udcf7"+"\ud83d\udcf9\ud83d\udcfc"+"\ud83d\udd00\ud83d\udd3d"+"\ud83d\udd40\ud83d\udd43"
+      + "\ud83d\udd50\ud83d\udd67"+"\ud83d\uddfb\ud83d\ude40"+"\ud83d\ude45\ud83d\ude4f"+"\ud83d\ude80\ud83d\udec5"
+      + "\ud83d\udf00\ud83d\udf73"+"\ud83f\udffe\ud869\uded6"+"\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"
+      + "\ud87e\udc00\ud87e\ude1d"+"\ud87f\udffe\ud87f\udfff"+"\ud8bf\udffe\ud8bf\udfff"+"\ud8ff\udffe\ud8ff\udfff"
+      + "\ud93f\udffe\ud93f\udfff"+"\ud97f\udffe\ud97f\udfff"+"\ud9bf\udffe\ud9bf\udfff"+"\ud9ff\udffe\ud9ff\udfff"
+      + "\uda3f\udffe\uda3f\udfff"+"\uda7f\udffe\uda7f\udfff"+"\udabf\udffe\udabf\udfff"+"\udaff\udffe\udaff\udfff"
+      + "\udb3f\udffe\udb3f\udfff"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f"+"\udb40\udd00\udb40\uddef"
+      + "\udb7f\udffe\udbff\udfff",
     // Unicode 6.2 property value: {alnum}
         "\u0030\u0039"+"\u0041\u005a"+"\u0061\u007a"+"\u00aa\u00aa"
       + "\u00b5\u00b5"+"\u00ba\u00ba"+"\u00c0\u00d6"+"\u00d8\u00f6"
@@ -6732,702 +8372,709 @@ public class Unicode_6_2 {
         "\u0020\u0020"+"\u00a0\u00a0"+"\u1680\u1680"+"\u180e\u180e"
       + "\u2000\u200a"+"\u202f\u202f"+"\u205f\u205f"+"\u3000\u3000"  };
   public static final String[] propertyValueAliases = {
-        "ahex", "asciihexdigit",   "alpha", "alphabetic",
-        "arab", "arabic",   "armi", "imperialaramaic",
-        "armn", "armenian",   "avst", "avestan",
-        "bali", "balinese",   "bamu", "bamum",
-        "batk", "batak",   "beng", "bengali",
-        "bidic", "bidicontrol",   "blk=aegeannumbers", "block=aegeannumbers",
-        "blk=alchemical", "block=alchemicalsymbols",   "blk=alchemicalsymbols", "block=alchemicalsymbols",
-        "blk=alphabeticpf", "block=alphabeticpresentationforms",   "blk=alphabeticpresentationforms", "block=alphabeticpresentationforms",
-        "blk=ancientgreekmusic", "block=ancientgreekmusicalnotation",   "blk=ancientgreekmusicalnotation", "block=ancientgreekmusicalnotation",
-        "blk=ancientgreeknumbers", "block=ancientgreeknumbers",   "blk=ancientsymbols", "block=ancientsymbols",
-        "blk=arabic", "block=arabic",   "blk=arabicexta", "block=arabicextendeda",
-        "blk=arabicextendeda", "block=arabicextendeda",   "blk=arabicmath", "block=arabicmathematicalalphabeticsymbols",
-        "blk=arabicmathematicalalphabeticsymbols", "block=arabicmathematicalalphabeticsymbols",   "blk=arabicpfa", "block=arabicpresentationformsa",
-        "blk=arabicpfb", "block=arabicpresentationformsb",   "blk=arabicpresentationformsa", "block=arabicpresentationformsa",
-        "blk=arabicpresentationformsb", "block=arabicpresentationformsb",   "blk=arabicsup", "block=arabicsupplement",
-        "blk=arabicsupplement", "block=arabicsupplement",   "blk=armenian", "block=armenian",
-        "blk=arrows", "block=arrows",   "blk=ascii", "block=basiclatin",
-        "blk=avestan", "block=avestan",   "blk=balinese", "block=balinese",
-        "blk=bamum", "block=bamum",   "blk=bamumsup", "block=bamumsupplement",
-        "blk=bamumsupplement", "block=bamumsupplement",   "blk=basiclatin", "block=basiclatin",
-        "blk=batak", "block=batak",   "blk=bengali", "block=bengali",
-        "blk=blockelements", "block=blockelements",   "blk=bopomofo", "block=bopomofo",
-        "blk=bopomofoext", "block=bopomofoextended",   "blk=bopomofoextended", "block=bopomofoextended",
-        "blk=boxdrawing", "block=boxdrawing",   "blk=brahmi", "block=brahmi",
-        "blk=braille", "block=braillepatterns",   "blk=braillepatterns", "block=braillepatterns",
-        "blk=buginese", "block=buginese",   "blk=buhid", "block=buhid",
-        "blk=byzantinemusic", "block=byzantinemusicalsymbols",   "blk=byzantinemusicalsymbols", "block=byzantinemusicalsymbols",
-        "blk=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics",   "blk=carian", "block=carian",
-        "blk=chakma", "block=chakma",   "blk=cham", "block=cham",
-        "blk=cherokee", "block=cherokee",   "blk=cjk", "block=cjkunifiedideographs",
-        "blk=cjkcompat", "block=cjkcompatibility",   "blk=cjkcompatforms", "block=cjkcompatibilityforms",
-        "blk=cjkcompatibility", "block=cjkcompatibility",   "blk=cjkcompatibilityforms", "block=cjkcompatibilityforms",
-        "blk=cjkcompatibilityideographs", "block=cjkcompatibilityideographs",   "blk=cjkcompatibilityideographssupplement", "block=cjkcompatibilityideographssupplement",
-        "blk=cjkcompatideographs", "block=cjkcompatibilityideographs",   "blk=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement",
-        "blk=cjkexta", "block=cjkunifiedideographsextensiona",   "blk=cjkextb", "block=cjkunifiedideographsextensionb",
-        "blk=cjkextc", "block=cjkunifiedideographsextensionc",   "blk=cjkextd", "block=cjkunifiedideographsextensiond",
-        "blk=cjkradicalssup", "block=cjkradicalssupplement",   "blk=cjkradicalssupplement", "block=cjkradicalssupplement",
-        "blk=cjkstrokes", "block=cjkstrokes",   "blk=cjksymbols", "block=cjksymbolsandpunctuation",
-        "blk=cjksymbolsandpunctuation", "block=cjksymbolsandpunctuation",   "blk=cjkunifiedideographs", "block=cjkunifiedideographs",
-        "blk=cjkunifiedideographsextensiona", "block=cjkunifiedideographsextensiona",   "blk=cjkunifiedideographsextensionb", "block=cjkunifiedideographsextensionb",
-        "blk=cjkunifiedideographsextensionc", "block=cjkunifiedideographsextensionc",   "blk=cjkunifiedideographsextensiond", "block=cjkunifiedideographsextensiond",
-        "blk=combiningdiacriticalmarks", "block=combiningdiacriticalmarks",   "blk=combiningdiacriticalmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
-        "blk=combiningdiacriticalmarkssupplement", "block=combiningdiacriticalmarkssupplement",   "blk=combininghalfmarks", "block=combininghalfmarks",
-        "blk=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",   "blk=commonindicnumberforms", "block=commonindicnumberforms",
-        "blk=compatjamo", "block=hangulcompatibilityjamo",   "blk=controlpictures", "block=controlpictures",
-        "blk=coptic", "block=coptic",   "blk=countingrod", "block=countingrodnumerals",
-        "blk=countingrodnumerals", "block=countingrodnumerals",   "blk=cuneiform", "block=cuneiform",
-        "blk=cuneiformnumbers", "block=cuneiformnumbersandpunctuation",   "blk=cuneiformnumbersandpunctuation", "block=cuneiformnumbersandpunctuation",
-        "blk=currencysymbols", "block=currencysymbols",   "blk=cypriotsyllabary", "block=cypriotsyllabary",
-        "blk=cyrillic", "block=cyrillic",   "blk=cyrillicexta", "block=cyrillicextendeda",
-        "blk=cyrillicextb", "block=cyrillicextendedb",   "blk=cyrillicextendeda", "block=cyrillicextendeda",
-        "blk=cyrillicextendedb", "block=cyrillicextendedb",   "blk=cyrillicsup", "block=cyrillicsupplement",
-        "blk=cyrillicsupplement", "block=cyrillicsupplement",   "blk=cyrillicsupplementary", "block=cyrillicsupplement",
-        "blk=deseret", "block=deseret",   "blk=devanagari", "block=devanagari",
-        "blk=devanagariext", "block=devanagariextended",   "blk=devanagariextended", "block=devanagariextended",
-        "blk=diacriticals", "block=combiningdiacriticalmarks",   "blk=diacriticalsforsymbols", "block=combiningdiacriticalmarksforsymbols",
-        "blk=diacriticalssup", "block=combiningdiacriticalmarkssupplement",   "blk=dingbats", "block=dingbats",
-        "blk=domino", "block=dominotiles",   "blk=dominotiles", "block=dominotiles",
-        "blk=egyptianhieroglyphs", "block=egyptianhieroglyphs",   "blk=emoticons", "block=emoticons",
-        "blk=enclosedalphanum", "block=enclosedalphanumerics",   "blk=enclosedalphanumerics", "block=enclosedalphanumerics",
-        "blk=enclosedalphanumericsupplement", "block=enclosedalphanumericsupplement",   "blk=enclosedalphanumsup", "block=enclosedalphanumericsupplement",
-        "blk=enclosedcjk", "block=enclosedcjklettersandmonths",   "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",
-        "blk=enclosedideographicsup", "block=enclosedideographicsupplement",   "blk=enclosedideographicsupplement", "block=enclosedideographicsupplement",
-        "blk=ethiopic", "block=ethiopic",   "blk=ethiopicext", "block=ethiopicextended",
-        "blk=ethiopicexta", "block=ethiopicextendeda",   "blk=ethiopicextended", "block=ethiopicextended",
-        "blk=ethiopicextendeda", "block=ethiopicextendeda",   "blk=ethiopicsup", "block=ethiopicsupplement",
-        "blk=ethiopicsupplement", "block=ethiopicsupplement",   "blk=generalpunctuation", "block=generalpunctuation",
-        "blk=geometricshapes", "block=geometricshapes",   "blk=georgian", "block=georgian",
-        "blk=georgiansup", "block=georgiansupplement",   "blk=georgiansupplement", "block=georgiansupplement",
-        "blk=glagolitic", "block=glagolitic",   "blk=gothic", "block=gothic",
-        "blk=greek", "block=greekandcoptic",   "blk=greekandcoptic", "block=greekandcoptic",
-        "blk=greekext", "block=greekextended",   "blk=greekextended", "block=greekextended",
-        "blk=gujarati", "block=gujarati",   "blk=gurmukhi", "block=gurmukhi",
-        "blk=halfandfullforms", "block=halfwidthandfullwidthforms",   "blk=halfmarks", "block=combininghalfmarks",
-        "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",   "blk=hangul", "block=hangulsyllables",
-        "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",   "blk=hanguljamo", "block=hanguljamo",
-        "blk=hanguljamoextendeda", "block=hanguljamoextendeda",   "blk=hanguljamoextendedb", "block=hanguljamoextendedb",
-        "blk=hangulsyllables", "block=hangulsyllables",   "blk=hanunoo", "block=hanunoo",
-        "blk=hebrew", "block=hebrew",   "blk=hiragana", "block=hiragana",
-        "blk=idc", "block=ideographicdescriptioncharacters",   "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",
-        "blk=imperialaramaic", "block=imperialaramaic",   "blk=indicnumberforms", "block=commonindicnumberforms",
-        "blk=inscriptionalpahlavi", "block=inscriptionalpahlavi",   "blk=inscriptionalparthian", "block=inscriptionalparthian",
-        "blk=ipaext", "block=ipaextensions",   "blk=ipaextensions", "block=ipaextensions",
-        "blk=jamo", "block=hanguljamo",   "blk=jamoexta", "block=hanguljamoextendeda",
-        "blk=jamoextb", "block=hanguljamoextendedb",   "blk=javanese", "block=javanese",
-        "blk=kaithi", "block=kaithi",   "blk=kanasup", "block=kanasupplement",
-        "blk=kanasupplement", "block=kanasupplement",   "blk=kanbun", "block=kanbun",
-        "blk=kangxi", "block=kangxiradicals",   "blk=kangxiradicals", "block=kangxiradicals",
-        "blk=kannada", "block=kannada",   "blk=katakana", "block=katakana",
-        "blk=katakanaext", "block=katakanaphoneticextensions",   "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions",
-        "blk=kayahli", "block=kayahli",   "blk=kharoshthi", "block=kharoshthi",
-        "blk=khmer", "block=khmer",   "blk=khmersymbols", "block=khmersymbols",
-        "blk=lao", "block=lao",   "blk=latin1", "block=latin1supplement",
-        "blk=latin1sup", "block=latin1supplement",   "blk=latin1supplement", "block=latin1supplement",
-        "blk=latinexta", "block=latinextendeda",   "blk=latinextadditional", "block=latinextendedadditional",
-        "blk=latinextb", "block=latinextendedb",   "blk=latinextc", "block=latinextendedc",
-        "blk=latinextd", "block=latinextendedd",   "blk=latinextendeda", "block=latinextendeda",
-        "blk=latinextendedadditional", "block=latinextendedadditional",   "blk=latinextendedb", "block=latinextendedb",
-        "blk=latinextendedc", "block=latinextendedc",   "blk=latinextendedd", "block=latinextendedd",
-        "blk=lepcha", "block=lepcha",   "blk=letterlikesymbols", "block=letterlikesymbols",
-        "blk=limbu", "block=limbu",   "blk=linearbideograms", "block=linearbideograms",
-        "blk=linearbsyllabary", "block=linearbsyllabary",   "blk=lisu", "block=lisu",
-        "blk=lycian", "block=lycian",   "blk=lydian", "block=lydian",
-        "blk=mahjong", "block=mahjongtiles",   "blk=mahjongtiles", "block=mahjongtiles",
-        "blk=malayalam", "block=malayalam",   "blk=mandaic", "block=mandaic",
-        "blk=mathalphanum", "block=mathematicalalphanumericsymbols",   "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",
-        "blk=mathematicaloperators", "block=mathematicaloperators",   "blk=mathoperators", "block=mathematicaloperators",
-        "blk=meeteimayek", "block=meeteimayek",   "blk=meeteimayekext", "block=meeteimayekextensions",
-        "blk=meeteimayekextensions", "block=meeteimayekextensions",   "blk=meroiticcursive", "block=meroiticcursive",
-        "blk=meroitichieroglyphs", "block=meroitichieroglyphs",   "blk=miao", "block=miao",
-        "blk=miscarrows", "block=miscellaneoussymbolsandarrows",   "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",
-        "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",   "blk=miscellaneoussymbols", "block=miscellaneoussymbols",
-        "blk=miscellaneoussymbolsandarrows", "block=miscellaneoussymbolsandarrows",   "blk=miscellaneoussymbolsandpictographs", "block=miscellaneoussymbolsandpictographs",
-        "blk=miscellaneoustechnical", "block=miscellaneoustechnical",   "blk=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa",
-        "blk=miscmathsymbolsb", "block=miscellaneousmathematicalsymbolsb",   "blk=miscpictographs", "block=miscellaneoussymbolsandpictographs",
-        "blk=miscsymbols", "block=miscellaneoussymbols",   "blk=misctechnical", "block=miscellaneoustechnical",
-        "blk=modifierletters", "block=spacingmodifierletters",   "blk=modifiertoneletters", "block=modifiertoneletters",
-        "blk=mongolian", "block=mongolian",   "blk=music", "block=musicalsymbols",
-        "blk=musicalsymbols", "block=musicalsymbols",   "blk=myanmar", "block=myanmar",
-        "blk=myanmarexta", "block=myanmarextendeda",   "blk=myanmarextendeda", "block=myanmarextendeda",
-        "blk=nb", "block=noblock",   "blk=newtailue", "block=newtailue",
-        "blk=nko", "block=nko",   "blk=noblock", "block=noblock",
-        "blk=numberforms", "block=numberforms",   "blk=ocr", "block=opticalcharacterrecognition",
-        "blk=ogham", "block=ogham",   "blk=olchiki", "block=olchiki",
-        "blk=olditalic", "block=olditalic",   "blk=oldpersian", "block=oldpersian",
-        "blk=oldsoutharabian", "block=oldsoutharabian",   "blk=oldturkic", "block=oldturkic",
-        "blk=opticalcharacterrecognition", "block=opticalcharacterrecognition",   "blk=oriya", "block=oriya",
-        "blk=osmanya", "block=osmanya",   "blk=phagspa", "block=phagspa",
-        "blk=phaistos", "block=phaistosdisc",   "blk=phaistosdisc", "block=phaistosdisc",
-        "blk=phoenician", "block=phoenician",   "blk=phoneticext", "block=phoneticextensions",
-        "blk=phoneticextensions", "block=phoneticextensions",   "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement",
-        "blk=phoneticextsup", "block=phoneticextensionssupplement",   "blk=playingcards", "block=playingcards",
-        "blk=privateuse", "block=privateusearea",   "blk=privateusearea", "block=privateusearea",
-        "blk=pua", "block=privateusearea",   "blk=punctuation", "block=generalpunctuation",
-        "blk=rejang", "block=rejang",   "blk=rumi", "block=ruminumeralsymbols",
-        "blk=ruminumeralsymbols", "block=ruminumeralsymbols",   "blk=runic", "block=runic",
-        "blk=samaritan", "block=samaritan",   "blk=saurashtra", "block=saurashtra",
-        "blk=sharada", "block=sharada",   "blk=shavian", "block=shavian",
-        "blk=sinhala", "block=sinhala",   "blk=smallforms", "block=smallformvariants",
-        "blk=smallformvariants", "block=smallformvariants",   "blk=sorasompeng", "block=sorasompeng",
-        "blk=spacingmodifierletters", "block=spacingmodifierletters",   "blk=specials", "block=specials",
-        "blk=sundanese", "block=sundanese",   "blk=sundanesesup", "block=sundanesesupplement",
-        "blk=sundanesesupplement", "block=sundanesesupplement",   "blk=suparrowsa", "block=supplementalarrowsa",
-        "blk=suparrowsb", "block=supplementalarrowsb",   "blk=superandsub", "block=superscriptsandsubscripts",
-        "blk=superscriptsandsubscripts", "block=superscriptsandsubscripts",   "blk=supmathoperators", "block=supplementalmathematicaloperators",
-        "blk=supplementalarrowsa", "block=supplementalarrowsa",   "blk=supplementalarrowsb", "block=supplementalarrowsb",
-        "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",   "blk=supplementalpunctuation", "block=supplementalpunctuation",
-        "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",   "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",
-        "blk=suppuaa", "block=supplementaryprivateuseareaa",   "blk=suppuab", "block=supplementaryprivateuseareab",
-        "blk=suppunctuation", "block=supplementalpunctuation",   "blk=sylotinagri", "block=sylotinagri",
-        "blk=syriac", "block=syriac",   "blk=tagalog", "block=tagalog",
-        "blk=tagbanwa", "block=tagbanwa",   "blk=tags", "block=tags",
-        "blk=taile", "block=taile",   "blk=taitham", "block=taitham",
-        "blk=taiviet", "block=taiviet",   "blk=taixuanjing", "block=taixuanjingsymbols",
-        "blk=taixuanjingsymbols", "block=taixuanjingsymbols",   "blk=takri", "block=takri",
-        "blk=tamil", "block=tamil",   "blk=telugu", "block=telugu",
-        "blk=thaana", "block=thaana",   "blk=thai", "block=thai",
-        "blk=tibetan", "block=tibetan",   "blk=tifinagh", "block=tifinagh",
-        "blk=transportandmap", "block=transportandmapsymbols",   "blk=transportandmapsymbols", "block=transportandmapsymbols",
-        "blk=ucas", "block=unifiedcanadianaboriginalsyllabics",   "blk=ucasext", "block=unifiedcanadianaboriginalsyllabicsextended",
-        "blk=ugaritic", "block=ugaritic",   "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",
-        "blk=unifiedcanadianaboriginalsyllabicsextended", "block=unifiedcanadianaboriginalsyllabicsextended",   "blk=vai", "block=vai",
-        "blk=variationselectors", "block=variationselectors",   "blk=variationselectorssupplement", "block=variationselectorssupplement",
-        "blk=vedicext", "block=vedicextensions",   "blk=vedicextensions", "block=vedicextensions",
-        "blk=verticalforms", "block=verticalforms",   "blk=vs", "block=variationselectors",
-        "blk=vssup", "block=variationselectorssupplement",   "blk=yijing", "block=yijinghexagramsymbols",
-        "blk=yijinghexagramsymbols", "block=yijinghexagramsymbols",   "blk=yiradicals", "block=yiradicals",
-        "blk=yisyllables", "block=yisyllables",   "block=alchemical", "block=alchemicalsymbols",
-        "block=alphabeticpf", "block=alphabeticpresentationforms",   "block=ancientgreekmusic", "block=ancientgreekmusicalnotation",
-        "block=arabicexta", "block=arabicextendeda",   "block=arabicmath", "block=arabicmathematicalalphabeticsymbols",
-        "block=arabicpfa", "block=arabicpresentationformsa",   "block=arabicpfb", "block=arabicpresentationformsb",
-        "block=arabicsup", "block=arabicsupplement",   "block=ascii", "block=basiclatin",
-        "block=bamumsup", "block=bamumsupplement",   "block=bopomofoext", "block=bopomofoextended",
-        "block=braille", "block=braillepatterns",   "block=byzantinemusic", "block=byzantinemusicalsymbols",
-        "block=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics",   "block=cjk", "block=cjkunifiedideographs",
-        "block=cjkcompat", "block=cjkcompatibility",   "block=cjkcompatforms", "block=cjkcompatibilityforms",
-        "block=cjkcompatideographs", "block=cjkcompatibilityideographs",   "block=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement",
-        "block=cjkexta", "block=cjkunifiedideographsextensiona",   "block=cjkextb", "block=cjkunifiedideographsextensionb",
-        "block=cjkextc", "block=cjkunifiedideographsextensionc",   "block=cjkextd", "block=cjkunifiedideographsextensiond",
-        "block=cjkradicalssup", "block=cjkradicalssupplement",   "block=cjksymbols", "block=cjksymbolsandpunctuation",
-        "block=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",   "block=compatjamo", "block=hangulcompatibilityjamo",
-        "block=countingrod", "block=countingrodnumerals",   "block=cuneiformnumbers", "block=cuneiformnumbersandpunctuation",
-        "block=cyrillicexta", "block=cyrillicextendeda",   "block=cyrillicextb", "block=cyrillicextendedb",
-        "block=cyrillicsup", "block=cyrillicsupplement",   "block=cyrillicsupplementary", "block=cyrillicsupplement",
-        "block=devanagariext", "block=devanagariextended",   "block=diacriticals", "block=combiningdiacriticalmarks",
-        "block=diacriticalsforsymbols", "block=combiningdiacriticalmarksforsymbols",   "block=diacriticalssup", "block=combiningdiacriticalmarkssupplement",
-        "block=domino", "block=dominotiles",   "block=enclosedalphanum", "block=enclosedalphanumerics",
-        "block=enclosedalphanumsup", "block=enclosedalphanumericsupplement",   "block=enclosedcjk", "block=enclosedcjklettersandmonths",
-        "block=enclosedideographicsup", "block=enclosedideographicsupplement",   "block=ethiopicext", "block=ethiopicextended",
-        "block=ethiopicexta", "block=ethiopicextendeda",   "block=ethiopicsup", "block=ethiopicsupplement",
-        "block=georgiansup", "block=georgiansupplement",   "block=greek", "block=greekandcoptic",
-        "block=greekext", "block=greekextended",   "block=halfandfullforms", "block=halfwidthandfullwidthforms",
-        "block=halfmarks", "block=combininghalfmarks",   "block=hangul", "block=hangulsyllables",
-        "block=idc", "block=ideographicdescriptioncharacters",   "block=indicnumberforms", "block=commonindicnumberforms",
-        "block=ipaext", "block=ipaextensions",   "block=jamo", "block=hanguljamo",
-        "block=jamoexta", "block=hanguljamoextendeda",   "block=jamoextb", "block=hanguljamoextendedb",
-        "block=kanasup", "block=kanasupplement",   "block=kangxi", "block=kangxiradicals",
-        "block=katakanaext", "block=katakanaphoneticextensions",   "block=latin1", "block=latin1supplement",
-        "block=latin1sup", "block=latin1supplement",   "block=latinexta", "block=latinextendeda",
-        "block=latinextadditional", "block=latinextendedadditional",   "block=latinextb", "block=latinextendedb",
-        "block=latinextc", "block=latinextendedc",   "block=latinextd", "block=latinextendedd",
-        "block=mahjong", "block=mahjongtiles",   "block=mathalphanum", "block=mathematicalalphanumericsymbols",
-        "block=mathoperators", "block=mathematicaloperators",   "block=meeteimayekext", "block=meeteimayekextensions",
-        "block=miscarrows", "block=miscellaneoussymbolsandarrows",   "block=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa",
-        "block=miscmathsymbolsb", "block=miscellaneousmathematicalsymbolsb",   "block=miscpictographs", "block=miscellaneoussymbolsandpictographs",
-        "block=miscsymbols", "block=miscellaneoussymbols",   "block=misctechnical", "block=miscellaneoustechnical",
-        "block=modifierletters", "block=spacingmodifierletters",   "block=music", "block=musicalsymbols",
-        "block=myanmarexta", "block=myanmarextendeda",   "block=nb", "block=noblock",
-        "block=ocr", "block=opticalcharacterrecognition",   "block=phaistos", "block=phaistosdisc",
-        "block=phoneticext", "block=phoneticextensions",   "block=phoneticextsup", "block=phoneticextensionssupplement",
-        "block=privateuse", "block=privateusearea",   "block=pua", "block=privateusearea",
-        "block=punctuation", "block=generalpunctuation",   "block=rumi", "block=ruminumeralsymbols",
-        "block=smallforms", "block=smallformvariants",   "block=sundanesesup", "block=sundanesesupplement",
-        "block=suparrowsa", "block=supplementalarrowsa",   "block=suparrowsb", "block=supplementalarrowsb",
-        "block=superandsub", "block=superscriptsandsubscripts",   "block=supmathoperators", "block=supplementalmathematicaloperators",
-        "block=suppuaa", "block=supplementaryprivateuseareaa",   "block=suppuab", "block=supplementaryprivateuseareab",
-        "block=suppunctuation", "block=supplementalpunctuation",   "block=taixuanjing", "block=taixuanjingsymbols",
-        "block=transportandmap", "block=transportandmapsymbols",   "block=ucas", "block=unifiedcanadianaboriginalsyllabics",
-        "block=ucasext", "block=unifiedcanadianaboriginalsyllabicsextended",   "block=vedicext", "block=vedicextensions",
-        "block=vs", "block=variationselectors",   "block=vssup", "block=variationselectorssupplement",
-        "block=yijing", "block=yijinghexagramsymbols",   "bopo", "bopomofo",
-        "brah", "brahmi",   "brai", "braille",
-        "bugi", "buginese",   "buhd", "buhid",
-        "cakm", "chakma",   "cans", "canadianaboriginal",
-        "cari", "carian",   "casedletter", "lc",
-        "cher", "cherokee",   "ci", "caseignorable",
-        "closepunctuation", "pe",   "cntrl", "cc",
-        "combiningmark", "m",   "connectorpunctuation", "pc",
-        "control", "cc",   "copt", "coptic",
-        "cprt", "cypriot",   "currencysymbol", "sc",
-        "cwcf", "changeswhencasefolded",   "cwcm", "changeswhencasemapped",
-        "cwl", "changeswhenlowercased",   "cwt", "changeswhentitlecased",
-        "cwu", "changeswhenuppercased",   "cyrl", "cyrillic",
-        "dashpunctuation", "pd",   "decimalnumber", "nd",
-        "dep", "deprecated",   "deva", "devanagari",
-        "di", "defaultignorablecodepoint",   "dia", "diacritic",
-        "digit", "nd",   "dsrt", "deseret",
-        "egyp", "egyptianhieroglyphs",   "enclosingmark", "me",
-        "ethi", "ethiopic",   "ext", "extender",
-        "finalpunctuation", "pf",   "format", "cf",
-        "gc=c", "c",   "gc=casedletter", "lc",
-        "gc=cc", "cc",   "gc=cf", "cf",
-        "gc=closepunctuation", "pe",   "gc=cn", "cn",
-        "gc=cntrl", "cc",   "gc=co", "co",
-        "gc=combiningmark", "m",   "gc=connectorpunctuation", "pc",
-        "gc=control", "cc",   "gc=currencysymbol", "sc",
-        "gc=dashpunctuation", "pd",   "gc=decimalnumber", "nd",
-        "gc=digit", "nd",   "gc=enclosingmark", "me",
-        "gc=finalpunctuation", "pf",   "gc=format", "cf",
-        "gc=initialpunctuation", "pi",   "gc=l", "l",
-        "gc=lc", "lc",   "gc=letter", "l",
-        "gc=letternumber", "nl",   "gc=lineseparator", "zl",
-        "gc=ll", "ll",   "gc=lm", "lm",
-        "gc=lo", "lo",   "gc=lowercaseletter", "ll",
-        "gc=lt", "lt",   "gc=lu", "lu",
-        "gc=m", "m",   "gc=mark", "m",
-        "gc=mathsymbol", "sm",   "gc=mc", "mc",
-        "gc=me", "me",   "gc=mn", "mn",
-        "gc=modifierletter", "lm",   "gc=modifiersymbol", "sk",
-        "gc=n", "n",   "gc=nd", "nd",
-        "gc=nl", "nl",   "gc=no", "no",
-        "gc=nonspacingmark", "mn",   "gc=number", "n",
-        "gc=openpunctuation", "ps",   "gc=other", "c",
-        "gc=otherletter", "lo",   "gc=othernumber", "no",
-        "gc=otherpunctuation", "po",   "gc=othersymbol", "so",
-        "gc=p", "p",   "gc=paragraphseparator", "zp",
-        "gc=pc", "pc",   "gc=pd", "pd",
-        "gc=pe", "pe",   "gc=pf", "pf",
-        "gc=pi", "pi",   "gc=po", "po",
-        "gc=privateuse", "co",   "gc=ps", "ps",
-        "gc=punct", "p",   "gc=punctuation", "p",
-        "gc=s", "s",   "gc=sc", "sc",
-        "gc=separator", "z",   "gc=sk", "sk",
-        "gc=sm", "sm",   "gc=so", "so",
-        "gc=spaceseparator", "zs",   "gc=spacingmark", "mc",
-        "gc=symbol", "s",   "gc=titlecaseletter", "lt",
-        "gc=unassigned", "cn",   "gc=uppercaseletter", "lu",
-        "gc=z", "z",   "gc=zl", "zl",
-        "gc=zp", "zp",   "gc=zs", "zs",
-        "gcb=cn", "graphemeclusterbreak=control",   "gcb=control", "graphemeclusterbreak=control",
-        "gcb=cr", "graphemeclusterbreak=cr",   "gcb=ex", "graphemeclusterbreak=extend",
-        "gcb=extend", "graphemeclusterbreak=extend",   "gcb=l", "graphemeclusterbreak=l",
-        "gcb=lf", "graphemeclusterbreak=lf",   "gcb=lv", "graphemeclusterbreak=lv",
-        "gcb=lvt", "graphemeclusterbreak=lvt",   "gcb=other", "graphemeclusterbreak=other",
-        "gcb=regionalindicator", "graphemeclusterbreak=regionalindicator",   "gcb=ri", "graphemeclusterbreak=regionalindicator",
-        "gcb=sm", "graphemeclusterbreak=spacingmark",   "gcb=spacingmark", "graphemeclusterbreak=spacingmark",
-        "gcb=t", "graphemeclusterbreak=t",   "gcb=v", "graphemeclusterbreak=v",
-        "gcb=xx", "graphemeclusterbreak=other",   "generalcategory=c", "c",
-        "generalcategory=casedletter", "lc",   "generalcategory=cc", "cc",
-        "generalcategory=cf", "cf",   "generalcategory=closepunctuation", "pe",
-        "generalcategory=cn", "cn",   "generalcategory=cntrl", "cc",
-        "generalcategory=co", "co",   "generalcategory=combiningmark", "m",
-        "generalcategory=connectorpunctuation", "pc",   "generalcategory=control", "cc",
-        "generalcategory=currencysymbol", "sc",   "generalcategory=dashpunctuation", "pd",
-        "generalcategory=decimalnumber", "nd",   "generalcategory=digit", "nd",
-        "generalcategory=enclosingmark", "me",   "generalcategory=finalpunctuation", "pf",
-        "generalcategory=format", "cf",   "generalcategory=initialpunctuation", "pi",
-        "generalcategory=l", "l",   "generalcategory=lc", "lc",
-        "generalcategory=letter", "l",   "generalcategory=letternumber", "nl",
-        "generalcategory=lineseparator", "zl",   "generalcategory=ll", "ll",
-        "generalcategory=lm", "lm",   "generalcategory=lo", "lo",
-        "generalcategory=lowercaseletter", "ll",   "generalcategory=lt", "lt",
-        "generalcategory=lu", "lu",   "generalcategory=m", "m",
-        "generalcategory=mark", "m",   "generalcategory=mathsymbol", "sm",
-        "generalcategory=mc", "mc",   "generalcategory=me", "me",
-        "generalcategory=mn", "mn",   "generalcategory=modifierletter", "lm",
-        "generalcategory=modifiersymbol", "sk",   "generalcategory=n", "n",
-        "generalcategory=nd", "nd",   "generalcategory=nl", "nl",
-        "generalcategory=no", "no",   "generalcategory=nonspacingmark", "mn",
-        "generalcategory=number", "n",   "generalcategory=openpunctuation", "ps",
-        "generalcategory=other", "c",   "generalcategory=otherletter", "lo",
-        "generalcategory=othernumber", "no",   "generalcategory=otherpunctuation", "po",
-        "generalcategory=othersymbol", "so",   "generalcategory=p", "p",
-        "generalcategory=paragraphseparator", "zp",   "generalcategory=pc", "pc",
-        "generalcategory=pd", "pd",   "generalcategory=pe", "pe",
-        "generalcategory=pf", "pf",   "generalcategory=pi", "pi",
-        "generalcategory=po", "po",   "generalcategory=privateuse", "co",
-        "generalcategory=ps", "ps",   "generalcategory=punct", "p",
-        "generalcategory=punctuation", "p",   "generalcategory=s", "s",
-        "generalcategory=sc", "sc",   "generalcategory=separator", "z",
-        "generalcategory=sk", "sk",   "generalcategory=sm", "sm",
-        "generalcategory=so", "so",   "generalcategory=spaceseparator", "zs",
-        "generalcategory=spacingmark", "mc",   "generalcategory=symbol", "s",
-        "generalcategory=titlecaseletter", "lt",   "generalcategory=unassigned", "cn",
-        "generalcategory=uppercaseletter", "lu",   "generalcategory=z", "z",
-        "generalcategory=zl", "zl",   "generalcategory=zp", "zp",
-        "generalcategory=zs", "zs",   "geor", "georgian",
-        "glag", "glagolitic",   "goth", "gothic",
-        "graphemeclusterbreak=cn", "graphemeclusterbreak=control",   "graphemeclusterbreak=ex", "graphemeclusterbreak=extend",
-        "graphemeclusterbreak=ri", "graphemeclusterbreak=regionalindicator",   "graphemeclusterbreak=sm", "graphemeclusterbreak=spacingmark",
-        "graphemeclusterbreak=xx", "graphemeclusterbreak=other",   "grbase", "graphemebase",
-        "grek", "greek",   "grext", "graphemeextend",
-        "grlink", "graphemelink",   "gujr", "gujarati",
-        "guru", "gurmukhi",   "hang", "hangul",
-        "hani", "han",   "hano", "hanunoo",
-        "hebr", "hebrew",   "hex", "hexdigit",
-        "hira", "hiragana",   "idc", "idcontinue",
-        "ideo", "ideographic",   "ids", "idstart",
-        "idsb", "idsbinaryoperator",   "idst", "idstrinaryoperator",
-        "initialpunctuation", "pi",   "ital", "olditalic",
-        "java", "javanese",   "joinc", "joincontrol",
-        "kali", "kayahli",   "kana", "katakana",
-        "khar", "kharoshthi",   "khmr", "khmer",
-        "knda", "kannada",   "kthi", "kaithi",
-        "lana", "taitham",   "laoo", "lao",
-        "latn", "latin",   "lb=ai", "linebreak=ambiguous",
-        "lb=al", "linebreak=alphabetic",   "lb=alphabetic", "linebreak=alphabetic",
-        "lb=ambiguous", "linebreak=ambiguous",   "lb=b2", "linebreak=breakboth",
-        "lb=ba", "linebreak=breakafter",   "lb=bb", "linebreak=breakbefore",
-        "lb=bk", "linebreak=mandatorybreak",   "lb=breakafter", "linebreak=breakafter",
-        "lb=breakbefore", "linebreak=breakbefore",   "lb=breakboth", "linebreak=breakboth",
-        "lb=breaksymbols", "linebreak=breaksymbols",   "lb=carriagereturn", "linebreak=carriagereturn",
-        "lb=cb", "linebreak=contingentbreak",   "lb=cj", "linebreak=conditionaljapanesestarter",
-        "lb=cl", "linebreak=closepunctuation",   "lb=closeparenthesis", "linebreak=closeparenthesis",
-        "lb=closepunctuation", "linebreak=closepunctuation",   "lb=cm", "linebreak=combiningmark",
-        "lb=combiningmark", "linebreak=combiningmark",   "lb=complexcontext", "linebreak=complexcontext",
-        "lb=conditionaljapanesestarter", "linebreak=conditionaljapanesestarter",   "lb=contingentbreak", "linebreak=contingentbreak",
-        "lb=cp", "linebreak=closeparenthesis",   "lb=cr", "linebreak=carriagereturn",
-        "lb=ex", "linebreak=exclamation",   "lb=exclamation", "linebreak=exclamation",
-        "lb=gl", "linebreak=glue",   "lb=glue", "linebreak=glue",
-        "lb=h2", "linebreak=h2",   "lb=h3", "linebreak=h3",
-        "lb=hebrewletter", "linebreak=hebrewletter",   "lb=hl", "linebreak=hebrewletter",
-        "lb=hy", "linebreak=hyphen",   "lb=hyphen", "linebreak=hyphen",
-        "lb=id", "linebreak=ideographic",   "lb=ideographic", "linebreak=ideographic",
-        "lb=in", "linebreak=inseparable",   "lb=infixnumeric", "linebreak=infixnumeric",
-        "lb=inseparable", "linebreak=inseparable",   "lb=inseperable", "linebreak=inseparable",
-        "lb=is", "linebreak=infixnumeric",   "lb=jl", "linebreak=jl",
-        "lb=jt", "linebreak=jt",   "lb=jv", "linebreak=jv",
-        "lb=lf", "linebreak=linefeed",   "lb=linefeed", "linebreak=linefeed",
-        "lb=mandatorybreak", "linebreak=mandatorybreak",   "lb=nextline", "linebreak=nextline",
-        "lb=nl", "linebreak=nextline",   "lb=nonstarter", "linebreak=nonstarter",
-        "lb=ns", "linebreak=nonstarter",   "lb=nu", "linebreak=numeric",
-        "lb=numeric", "linebreak=numeric",   "lb=op", "linebreak=openpunctuation",
-        "lb=openpunctuation", "linebreak=openpunctuation",   "lb=po", "linebreak=postfixnumeric",
-        "lb=postfixnumeric", "linebreak=postfixnumeric",   "lb=pr", "linebreak=prefixnumeric",
-        "lb=prefixnumeric", "linebreak=prefixnumeric",   "lb=qu", "linebreak=quotation",
-        "lb=quotation", "linebreak=quotation",   "lb=regionalindicator", "linebreak=regionalindicator",
-        "lb=ri", "linebreak=regionalindicator",   "lb=sa", "linebreak=complexcontext",
-        "lb=sp", "linebreak=space",   "lb=space", "linebreak=space",
-        "lb=sy", "linebreak=breaksymbols",   "lb=unknown", "linebreak=unknown",
-        "lb=wj", "linebreak=wordjoiner",   "lb=wordjoiner", "linebreak=wordjoiner",
-        "lb=xx", "linebreak=unknown",   "lb=zw", "linebreak=zwspace",
-        "lb=zwspace", "linebreak=zwspace",   "lepc", "lepcha",
-        "letter", "l",   "letternumber", "nl",
-        "limb", "limbu",   "linb", "linearb",
-        "linebreak=ai", "linebreak=ambiguous",   "linebreak=al", "linebreak=alphabetic",
-        "linebreak=b2", "linebreak=breakboth",   "linebreak=ba", "linebreak=breakafter",
-        "linebreak=bb", "linebreak=breakbefore",   "linebreak=bk", "linebreak=mandatorybreak",
-        "linebreak=cb", "linebreak=contingentbreak",   "linebreak=cj", "linebreak=conditionaljapanesestarter",
-        "linebreak=cl", "linebreak=closepunctuation",   "linebreak=cm", "linebreak=combiningmark",
-        "linebreak=cp", "linebreak=closeparenthesis",   "linebreak=cr", "linebreak=carriagereturn",
-        "linebreak=ex", "linebreak=exclamation",   "linebreak=gl", "linebreak=glue",
-        "linebreak=hl", "linebreak=hebrewletter",   "linebreak=hy", "linebreak=hyphen",
-        "linebreak=id", "linebreak=ideographic",   "linebreak=in", "linebreak=inseparable",
-        "linebreak=inseperable", "linebreak=inseparable",   "linebreak=is", "linebreak=infixnumeric",
-        "linebreak=lf", "linebreak=linefeed",   "linebreak=nl", "linebreak=nextline",
-        "linebreak=ns", "linebreak=nonstarter",   "linebreak=nu", "linebreak=numeric",
-        "linebreak=op", "linebreak=openpunctuation",   "linebreak=po", "linebreak=postfixnumeric",
-        "linebreak=pr", "linebreak=prefixnumeric",   "linebreak=qu", "linebreak=quotation",
-        "linebreak=ri", "linebreak=regionalindicator",   "linebreak=sa", "linebreak=complexcontext",
-        "linebreak=sp", "linebreak=space",   "linebreak=sy", "linebreak=breaksymbols",
-        "linebreak=wj", "linebreak=wordjoiner",   "linebreak=xx", "linebreak=unknown",
-        "linebreak=zw", "linebreak=zwspace",   "lineseparator", "zl",
-        "loe", "logicalorderexception",   "lower", "lowercase",
-        "lowercaseletter", "ll",   "lyci", "lycian",
-        "lydi", "lydian",   "mand", "mandaic",
-        "mark", "m",   "mathsymbol", "sm",
-        "merc", "meroiticcursive",   "mero", "meroitichieroglyphs",
-        "mlym", "malayalam",   "modifierletter", "lm",
-        "modifiersymbol", "sk",   "mong", "mongolian",
-        "mtei", "meeteimayek",   "mymr", "myanmar",
-        "nchar", "noncharactercodepoint",   "nkoo", "nko",
-        "nonspacingmark", "mn",   "number", "n",
-        "oalpha", "otheralphabetic",   "odi", "otherdefaultignorablecodepoint",
-        "ogam", "ogham",   "ogrext", "othergraphemeextend",
-        "oidc", "otheridcontinue",   "oids", "otheridstart",
-        "olck", "olchiki",   "olower", "otherlowercase",
-        "omath", "othermath",   "openpunctuation", "ps",
-        "orkh", "oldturkic",   "orya", "oriya",
-        "osma", "osmanya",   "other", "c",
-        "otherletter", "lo",   "othernumber", "no",
-        "otherpunctuation", "po",   "othersymbol", "so",
-        "oupper", "otheruppercase",   "paragraphseparator", "zp",
-        "patsyn", "patternsyntax",   "patws", "patternwhitespace",
-        "phag", "phagspa",   "phli", "inscriptionalpahlavi",
-        "phnx", "phoenician",   "plrd", "miao",
-        "privateuse", "co",   "prti", "inscriptionalparthian",
-        "punct", "p",   "punctuation", "p",
-        "qaac", "coptic",   "qaai", "inherited",
-        "qmark", "quotationmark",   "rjng", "rejang",
-        "runr", "runic",   "samr", "samaritan",
-        "sarb", "oldsoutharabian",   "saur", "saurashtra",
-        "sb=at", "sentencebreak=aterm",   "sb=aterm", "sentencebreak=aterm",
-        "sb=cl", "sentencebreak=close",   "sb=close", "sentencebreak=close",
-        "sb=cr", "sentencebreak=cr",   "sb=ex", "sentencebreak=extend",
-        "sb=extend", "sentencebreak=extend",   "sb=fo", "sentencebreak=format",
-        "sb=format", "sentencebreak=format",   "sb=le", "sentencebreak=oletter",
-        "sb=lf", "sentencebreak=lf",   "sb=lo", "sentencebreak=lower",
-        "sb=lower", "sentencebreak=lower",   "sb=nu", "sentencebreak=numeric",
-        "sb=numeric", "sentencebreak=numeric",   "sb=oletter", "sentencebreak=oletter",
-        "sb=other", "sentencebreak=other",   "sb=sc", "sentencebreak=scontinue",
-        "sb=scontinue", "sentencebreak=scontinue",   "sb=se", "sentencebreak=sep",
-        "sb=sep", "sentencebreak=sep",   "sb=sp", "sentencebreak=sp",
-        "sb=st", "sentencebreak=sterm",   "sb=sterm", "sentencebreak=sterm",
-        "sb=up", "sentencebreak=upper",   "sb=upper", "sentencebreak=upper",
-        "sb=xx", "sentencebreak=other",   "sc=arab", "arabic",
-        "sc=arabic", "arabic",   "sc=armenian", "armenian",
-        "sc=armi", "imperialaramaic",   "sc=armn", "armenian",
-        "sc=avestan", "avestan",   "sc=avst", "avestan",
-        "sc=bali", "balinese",   "sc=balinese", "balinese",
-        "sc=bamu", "bamum",   "sc=bamum", "bamum",
-        "sc=batak", "batak",   "sc=batk", "batak",
-        "sc=beng", "bengali",   "sc=bengali", "bengali",
-        "sc=bopo", "bopomofo",   "sc=bopomofo", "bopomofo",
-        "sc=brah", "brahmi",   "sc=brahmi", "brahmi",
-        "sc=brai", "braille",   "sc=braille", "braille",
-        "sc=bugi", "buginese",   "sc=buginese", "buginese",
-        "sc=buhd", "buhid",   "sc=buhid", "buhid",
-        "sc=cakm", "chakma",   "sc=canadianaboriginal", "canadianaboriginal",
-        "sc=cans", "canadianaboriginal",   "sc=cari", "carian",
-        "sc=carian", "carian",   "sc=chakma", "chakma",
-        "sc=cham", "cham",   "sc=cher", "cherokee",
-        "sc=cherokee", "cherokee",   "sc=common", "common",
-        "sc=copt", "coptic",   "sc=coptic", "coptic",
-        "sc=cprt", "cypriot",   "sc=cuneiform", "cuneiform",
-        "sc=cypriot", "cypriot",   "sc=cyrillic", "cyrillic",
-        "sc=cyrl", "cyrillic",   "sc=deseret", "deseret",
-        "sc=deva", "devanagari",   "sc=devanagari", "devanagari",
-        "sc=dsrt", "deseret",   "sc=egyp", "egyptianhieroglyphs",
-        "sc=egyptianhieroglyphs", "egyptianhieroglyphs",   "sc=ethi", "ethiopic",
-        "sc=ethiopic", "ethiopic",   "sc=geor", "georgian",
-        "sc=georgian", "georgian",   "sc=glag", "glagolitic",
-        "sc=glagolitic", "glagolitic",   "sc=goth", "gothic",
-        "sc=gothic", "gothic",   "sc=greek", "greek",
-        "sc=grek", "greek",   "sc=gujarati", "gujarati",
-        "sc=gujr", "gujarati",   "sc=gurmukhi", "gurmukhi",
-        "sc=guru", "gurmukhi",   "sc=han", "han",
-        "sc=hang", "hangul",   "sc=hangul", "hangul",
-        "sc=hani", "han",   "sc=hano", "hanunoo",
-        "sc=hanunoo", "hanunoo",   "sc=hebr", "hebrew",
-        "sc=hebrew", "hebrew",   "sc=hira", "hiragana",
-        "sc=hiragana", "hiragana",   "sc=imperialaramaic", "imperialaramaic",
-        "sc=inherited", "inherited",   "sc=inscriptionalpahlavi", "inscriptionalpahlavi",
-        "sc=inscriptionalparthian", "inscriptionalparthian",   "sc=ital", "olditalic",
-        "sc=java", "javanese",   "sc=javanese", "javanese",
-        "sc=kaithi", "kaithi",   "sc=kali", "kayahli",
-        "sc=kana", "katakana",   "sc=kannada", "kannada",
-        "sc=katakana", "katakana",   "sc=kayahli", "kayahli",
-        "sc=khar", "kharoshthi",   "sc=kharoshthi", "kharoshthi",
-        "sc=khmer", "khmer",   "sc=khmr", "khmer",
-        "sc=knda", "kannada",   "sc=kthi", "kaithi",
-        "sc=lana", "taitham",   "sc=lao", "lao",
-        "sc=laoo", "lao",   "sc=latin", "latin",
-        "sc=latn", "latin",   "sc=lepc", "lepcha",
-        "sc=lepcha", "lepcha",   "sc=limb", "limbu",
-        "sc=limbu", "limbu",   "sc=linb", "linearb",
-        "sc=linearb", "linearb",   "sc=lisu", "lisu",
-        "sc=lyci", "lycian",   "sc=lycian", "lycian",
-        "sc=lydi", "lydian",   "sc=lydian", "lydian",
-        "sc=malayalam", "malayalam",   "sc=mand", "mandaic",
-        "sc=mandaic", "mandaic",   "sc=meeteimayek", "meeteimayek",
-        "sc=merc", "meroiticcursive",   "sc=mero", "meroitichieroglyphs",
-        "sc=meroiticcursive", "meroiticcursive",   "sc=meroitichieroglyphs", "meroitichieroglyphs",
-        "sc=miao", "miao",   "sc=mlym", "malayalam",
-        "sc=mong", "mongolian",   "sc=mongolian", "mongolian",
-        "sc=mtei", "meeteimayek",   "sc=myanmar", "myanmar",
-        "sc=mymr", "myanmar",   "sc=newtailue", "newtailue",
-        "sc=nko", "nko",   "sc=nkoo", "nko",
-        "sc=ogam", "ogham",   "sc=ogham", "ogham",
-        "sc=olchiki", "olchiki",   "sc=olck", "olchiki",
-        "sc=olditalic", "olditalic",   "sc=oldpersian", "oldpersian",
-        "sc=oldsoutharabian", "oldsoutharabian",   "sc=oldturkic", "oldturkic",
-        "sc=oriya", "oriya",   "sc=orkh", "oldturkic",
-        "sc=orya", "oriya",   "sc=osma", "osmanya",
-        "sc=osmanya", "osmanya",   "sc=phag", "phagspa",
-        "sc=phagspa", "phagspa",   "sc=phli", "inscriptionalpahlavi",
-        "sc=phnx", "phoenician",   "sc=phoenician", "phoenician",
-        "sc=plrd", "miao",   "sc=prti", "inscriptionalparthian",
-        "sc=qaac", "coptic",   "sc=qaai", "inherited",
-        "sc=rejang", "rejang",   "sc=rjng", "rejang",
-        "sc=runic", "runic",   "sc=runr", "runic",
-        "sc=samaritan", "samaritan",   "sc=samr", "samaritan",
-        "sc=sarb", "oldsoutharabian",   "sc=saur", "saurashtra",
-        "sc=saurashtra", "saurashtra",   "sc=sharada", "sharada",
-        "sc=shavian", "shavian",   "sc=shaw", "shavian",
-        "sc=shrd", "sharada",   "sc=sinh", "sinhala",
-        "sc=sinhala", "sinhala",   "sc=sora", "sorasompeng",
-        "sc=sorasompeng", "sorasompeng",   "sc=sund", "sundanese",
-        "sc=sundanese", "sundanese",   "sc=sylo", "sylotinagri",
-        "sc=sylotinagri", "sylotinagri",   "sc=syrc", "syriac",
-        "sc=syriac", "syriac",   "sc=tagalog", "tagalog",
-        "sc=tagb", "tagbanwa",   "sc=tagbanwa", "tagbanwa",
-        "sc=taile", "taile",   "sc=taitham", "taitham",
-        "sc=taiviet", "taiviet",   "sc=takr", "takri",
-        "sc=takri", "takri",   "sc=tale", "taile",
-        "sc=talu", "newtailue",   "sc=tamil", "tamil",
-        "sc=taml", "tamil",   "sc=tavt", "taiviet",
-        "sc=telu", "telugu",   "sc=telugu", "telugu",
-        "sc=tfng", "tifinagh",   "sc=tglg", "tagalog",
-        "sc=thaa", "thaana",   "sc=thaana", "thaana",
-        "sc=thai", "thai",   "sc=tibetan", "tibetan",
-        "sc=tibt", "tibetan",   "sc=tifinagh", "tifinagh",
-        "sc=ugar", "ugaritic",   "sc=ugaritic", "ugaritic",
-        "sc=unknown", "unknown",   "sc=vai", "vai",
-        "sc=vaii", "vai",   "sc=xpeo", "oldpersian",
-        "sc=xsux", "cuneiform",   "sc=yi", "yi",
-        "sc=yiii", "yi",   "sc=zinh", "inherited",
-        "sc=zyyy", "common",   "sc=zzzz", "unknown",
-        "script=arab", "arabic",   "script=arabic", "arabic",
-        "script=armenian", "armenian",   "script=armi", "imperialaramaic",
-        "script=armn", "armenian",   "script=avestan", "avestan",
-        "script=avst", "avestan",   "script=bali", "balinese",
-        "script=balinese", "balinese",   "script=bamu", "bamum",
-        "script=bamum", "bamum",   "script=batak", "batak",
-        "script=batk", "batak",   "script=beng", "bengali",
-        "script=bengali", "bengali",   "script=bopo", "bopomofo",
-        "script=bopomofo", "bopomofo",   "script=brah", "brahmi",
-        "script=brahmi", "brahmi",   "script=brai", "braille",
-        "script=braille", "braille",   "script=bugi", "buginese",
-        "script=buginese", "buginese",   "script=buhd", "buhid",
-        "script=buhid", "buhid",   "script=cakm", "chakma",
-        "script=canadianaboriginal", "canadianaboriginal",   "script=cans", "canadianaboriginal",
-        "script=cari", "carian",   "script=carian", "carian",
-        "script=chakma", "chakma",   "script=cham", "cham",
-        "script=cher", "cherokee",   "script=cherokee", "cherokee",
-        "script=common", "common",   "script=copt", "coptic",
-        "script=coptic", "coptic",   "script=cprt", "cypriot",
-        "script=cuneiform", "cuneiform",   "script=cypriot", "cypriot",
-        "script=cyrillic", "cyrillic",   "script=cyrl", "cyrillic",
-        "script=deseret", "deseret",   "script=deva", "devanagari",
-        "script=devanagari", "devanagari",   "script=dsrt", "deseret",
-        "script=egyp", "egyptianhieroglyphs",   "script=egyptianhieroglyphs", "egyptianhieroglyphs",
-        "script=ethi", "ethiopic",   "script=ethiopic", "ethiopic",
-        "script=geor", "georgian",   "script=georgian", "georgian",
-        "script=glag", "glagolitic",   "script=glagolitic", "glagolitic",
-        "script=goth", "gothic",   "script=gothic", "gothic",
-        "script=greek", "greek",   "script=grek", "greek",
-        "script=gujarati", "gujarati",   "script=gujr", "gujarati",
-        "script=gurmukhi", "gurmukhi",   "script=guru", "gurmukhi",
-        "script=han", "han",   "script=hang", "hangul",
-        "script=hangul", "hangul",   "script=hani", "han",
-        "script=hano", "hanunoo",   "script=hanunoo", "hanunoo",
-        "script=hebr", "hebrew",   "script=hebrew", "hebrew",
-        "script=hira", "hiragana",   "script=hiragana", "hiragana",
-        "script=imperialaramaic", "imperialaramaic",   "script=inherited", "inherited",
-        "script=inscriptionalpahlavi", "inscriptionalpahlavi",   "script=inscriptionalparthian", "inscriptionalparthian",
-        "script=ital", "olditalic",   "script=java", "javanese",
-        "script=javanese", "javanese",   "script=kaithi", "kaithi",
-        "script=kali", "kayahli",   "script=kana", "katakana",
-        "script=kannada", "kannada",   "script=katakana", "katakana",
-        "script=kayahli", "kayahli",   "script=khar", "kharoshthi",
-        "script=kharoshthi", "kharoshthi",   "script=khmer", "khmer",
-        "script=khmr", "khmer",   "script=knda", "kannada",
-        "script=kthi", "kaithi",   "script=lana", "taitham",
-        "script=lao", "lao",   "script=laoo", "lao",
-        "script=latin", "latin",   "script=latn", "latin",
-        "script=lepc", "lepcha",   "script=lepcha", "lepcha",
-        "script=limb", "limbu",   "script=limbu", "limbu",
-        "script=linb", "linearb",   "script=linearb", "linearb",
-        "script=lisu", "lisu",   "script=lyci", "lycian",
-        "script=lycian", "lycian",   "script=lydi", "lydian",
-        "script=lydian", "lydian",   "script=malayalam", "malayalam",
-        "script=mand", "mandaic",   "script=mandaic", "mandaic",
-        "script=meeteimayek", "meeteimayek",   "script=merc", "meroiticcursive",
-        "script=mero", "meroitichieroglyphs",   "script=meroiticcursive", "meroiticcursive",
-        "script=meroitichieroglyphs", "meroitichieroglyphs",   "script=miao", "miao",
-        "script=mlym", "malayalam",   "script=mong", "mongolian",
-        "script=mongolian", "mongolian",   "script=mtei", "meeteimayek",
-        "script=myanmar", "myanmar",   "script=mymr", "myanmar",
-        "script=newtailue", "newtailue",   "script=nko", "nko",
-        "script=nkoo", "nko",   "script=ogam", "ogham",
-        "script=ogham", "ogham",   "script=olchiki", "olchiki",
-        "script=olck", "olchiki",   "script=olditalic", "olditalic",
-        "script=oldpersian", "oldpersian",   "script=oldsoutharabian", "oldsoutharabian",
-        "script=oldturkic", "oldturkic",   "script=oriya", "oriya",
-        "script=orkh", "oldturkic",   "script=orya", "oriya",
-        "script=osma", "osmanya",   "script=osmanya", "osmanya",
-        "script=phag", "phagspa",   "script=phagspa", "phagspa",
-        "script=phli", "inscriptionalpahlavi",   "script=phnx", "phoenician",
-        "script=phoenician", "phoenician",   "script=plrd", "miao",
-        "script=prti", "inscriptionalparthian",   "script=qaac", "coptic",
-        "script=qaai", "inherited",   "script=rejang", "rejang",
-        "script=rjng", "rejang",   "script=runic", "runic",
-        "script=runr", "runic",   "script=samaritan", "samaritan",
-        "script=samr", "samaritan",   "script=sarb", "oldsoutharabian",
-        "script=saur", "saurashtra",   "script=saurashtra", "saurashtra",
-        "script=sharada", "sharada",   "script=shavian", "shavian",
-        "script=shaw", "shavian",   "script=shrd", "sharada",
-        "script=sinh", "sinhala",   "script=sinhala", "sinhala",
-        "script=sora", "sorasompeng",   "script=sorasompeng", "sorasompeng",
-        "script=sund", "sundanese",   "script=sundanese", "sundanese",
-        "script=sylo", "sylotinagri",   "script=sylotinagri", "sylotinagri",
-        "script=syrc", "syriac",   "script=syriac", "syriac",
-        "script=tagalog", "tagalog",   "script=tagb", "tagbanwa",
-        "script=tagbanwa", "tagbanwa",   "script=taile", "taile",
-        "script=taitham", "taitham",   "script=taiviet", "taiviet",
-        "script=takr", "takri",   "script=takri", "takri",
-        "script=tale", "taile",   "script=talu", "newtailue",
-        "script=tamil", "tamil",   "script=taml", "tamil",
-        "script=tavt", "taiviet",   "script=telu", "telugu",
-        "script=telugu", "telugu",   "script=tfng", "tifinagh",
-        "script=tglg", "tagalog",   "script=thaa", "thaana",
-        "script=thaana", "thaana",   "script=thai", "thai",
-        "script=tibetan", "tibetan",   "script=tibt", "tibetan",
-        "script=tifinagh", "tifinagh",   "script=ugar", "ugaritic",
-        "script=ugaritic", "ugaritic",   "script=unknown", "unknown",
-        "script=vai", "vai",   "script=vaii", "vai",
-        "script=xpeo", "oldpersian",   "script=xsux", "cuneiform",
-        "script=yi", "yi",   "script=yiii", "yi",
-        "script=zinh", "inherited",   "script=zyyy", "common",
-        "script=zzzz", "unknown",   "sd", "softdotted",
-        "sentencebreak=at", "sentencebreak=aterm",   "sentencebreak=cl", "sentencebreak=close",
-        "sentencebreak=ex", "sentencebreak=extend",   "sentencebreak=fo", "sentencebreak=format",
-        "sentencebreak=le", "sentencebreak=oletter",   "sentencebreak=lo", "sentencebreak=lower",
-        "sentencebreak=nu", "sentencebreak=numeric",   "sentencebreak=sc", "sentencebreak=scontinue",
-        "sentencebreak=se", "sentencebreak=sep",   "sentencebreak=st", "sentencebreak=sterm",
-        "sentencebreak=up", "sentencebreak=upper",   "sentencebreak=xx", "sentencebreak=other",
-        "separator", "z",   "shaw", "shavian",
-        "shrd", "sharada",   "sinh", "sinhala",
-        "sora", "sorasompeng",   "space", "whitespace",
-        "spaceseparator", "zs",   "spacingmark", "mc",
-        "sund", "sundanese",   "sylo", "sylotinagri",
-        "symbol", "s",   "syrc", "syriac",
-        "tagb", "tagbanwa",   "takr", "takri",
-        "tale", "taile",   "talu", "newtailue",
-        "taml", "tamil",   "tavt", "taiviet",
-        "telu", "telugu",   "term", "terminalpunctuation",
-        "tfng", "tifinagh",   "tglg", "tagalog",
-        "thaa", "thaana",   "tibt", "tibetan",
-        "titlecaseletter", "lt",   "ugar", "ugaritic",
-        "uideo", "unifiedideograph",   "unassigned", "cn",
-        "upper", "uppercase",   "uppercaseletter", "lu",
-        "vaii", "vai",   "vs", "variationselector",
-        "wb=aletter", "wordbreak=aletter",   "wb=cr", "wordbreak=cr",
-        "wb=ex", "wordbreak=extendnumlet",   "wb=extend", "wordbreak=extend",
-        "wb=extendnumlet", "wordbreak=extendnumlet",   "wb=fo", "wordbreak=format",
-        "wb=format", "wordbreak=format",   "wb=ka", "wordbreak=katakana",
-        "wb=katakana", "wordbreak=katakana",   "wb=le", "wordbreak=aletter",
-        "wb=lf", "wordbreak=lf",   "wb=mb", "wordbreak=midnumlet",
-        "wb=midletter", "wordbreak=midletter",   "wb=midnum", "wordbreak=midnum",
-        "wb=midnumlet", "wordbreak=midnumlet",   "wb=ml", "wordbreak=midletter",
-        "wb=mn", "wordbreak=midnum",   "wb=newline", "wordbreak=newline",
-        "wb=nl", "wordbreak=newline",   "wb=nu", "wordbreak=numeric",
-        "wb=numeric", "wordbreak=numeric",   "wb=other", "wordbreak=other",
-        "wb=regionalindicator", "wordbreak=regionalindicator",   "wb=ri", "wordbreak=regionalindicator",
-        "wb=xx", "wordbreak=other",   "wordbreak=ex", "wordbreak=extendnumlet",
-        "wordbreak=fo", "wordbreak=format",   "wordbreak=ka", "wordbreak=katakana",
-        "wordbreak=le", "wordbreak=aletter",   "wordbreak=mb", "wordbreak=midnumlet",
-        "wordbreak=ml", "wordbreak=midletter",   "wordbreak=mn", "wordbreak=midnum",
-        "wordbreak=nl", "wordbreak=newline",   "wordbreak=nu", "wordbreak=numeric",
-        "wordbreak=ri", "wordbreak=regionalindicator",   "wordbreak=xx", "wordbreak=other",
-        "wspace", "whitespace",   "xidc", "xidcontinue",
-        "xids", "xidstart",   "xpeo", "oldpersian",
-        "xsux", "cuneiform",   "yiii", "yi",
-        "zinh", "inherited",   "zyyy", "common",
-        "zzzz", "unknown"
+        "age=1.1", "age=v11",   "age=2.0", "age=v20",
+        "age=2.1", "age=v21",   "age=3.0", "age=v30",
+        "age=3.1", "age=v31",   "age=3.2", "age=v32",
+        "age=4.0", "age=v40",   "age=4.1", "age=v41",
+        "age=5.0", "age=v50",   "age=5.1", "age=v51",
+        "age=5.2", "age=v52",   "age=6.0", "age=v60",
+        "age=6.1", "age=v61",   "age=6.2", "age=v62",
+        "age=na", "age=unassigned",   "ahex", "asciihexdigit",
+        "alpha", "alphabetic",   "arab", "arabic",
+        "armi", "imperialaramaic",   "armn", "armenian",
+        "avst", "avestan",   "bali", "balinese",
+        "bamu", "bamum",   "batk", "batak",
+        "beng", "bengali",   "bidic", "bidicontrol",
+        "blk=aegeannumbers", "block=aegeannumbers",   "blk=alchemical", "block=alchemicalsymbols",
+        "blk=alchemicalsymbols", "block=alchemicalsymbols",   "blk=alphabeticpf", "block=alphabeticpresentationforms",
+        "blk=alphabeticpresentationforms", "block=alphabeticpresentationforms",   "blk=ancientgreekmusic", "block=ancientgreekmusicalnotation",
+        "blk=ancientgreekmusicalnotation", "block=ancientgreekmusicalnotation",   "blk=ancientgreeknumbers", "block=ancientgreeknumbers",
+        "blk=ancientsymbols", "block=ancientsymbols",   "blk=arabic", "block=arabic",
+        "blk=arabicexta", "block=arabicextendeda",   "blk=arabicextendeda", "block=arabicextendeda",
+        "blk=arabicmath", "block=arabicmathematicalalphabeticsymbols",   "blk=arabicmathematicalalphabeticsymbols", "block=arabicmathematicalalphabeticsymbols",
+        "blk=arabicpfa", "block=arabicpresentationformsa",   "blk=arabicpfb", "block=arabicpresentationformsb",
+        "blk=arabicpresentationformsa", "block=arabicpresentationformsa",   "blk=arabicpresentationformsb", "block=arabicpresentationformsb",
+        "blk=arabicsup", "block=arabicsupplement",   "blk=arabicsupplement", "block=arabicsupplement",
+        "blk=armenian", "block=armenian",   "blk=arrows", "block=arrows",
+        "blk=ascii", "block=basiclatin",   "blk=avestan", "block=avestan",
+        "blk=balinese", "block=balinese",   "blk=bamum", "block=bamum",
+        "blk=bamumsup", "block=bamumsupplement",   "blk=bamumsupplement", "block=bamumsupplement",
+        "blk=basiclatin", "block=basiclatin",   "blk=batak", "block=batak",
+        "blk=bengali", "block=bengali",   "blk=blockelements", "block=blockelements",
+        "blk=bopomofo", "block=bopomofo",   "blk=bopomofoext", "block=bopomofoextended",
+        "blk=bopomofoextended", "block=bopomofoextended",   "blk=boxdrawing", "block=boxdrawing",
+        "blk=brahmi", "block=brahmi",   "blk=braille", "block=braillepatterns",
+        "blk=braillepatterns", "block=braillepatterns",   "blk=buginese", "block=buginese",
+        "blk=buhid", "block=buhid",   "blk=byzantinemusic", "block=byzantinemusicalsymbols",
+        "blk=byzantinemusicalsymbols", "block=byzantinemusicalsymbols",   "blk=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics",
+        "blk=carian", "block=carian",   "blk=chakma", "block=chakma",
+        "blk=cham", "block=cham",   "blk=cherokee", "block=cherokee",
+        "blk=cjk", "block=cjkunifiedideographs",   "blk=cjkcompat", "block=cjkcompatibility",
+        "blk=cjkcompatforms", "block=cjkcompatibilityforms",   "blk=cjkcompatibility", "block=cjkcompatibility",
+        "blk=cjkcompatibilityforms", "block=cjkcompatibilityforms",   "blk=cjkcompatibilityideographs", "block=cjkcompatibilityideographs",
+        "blk=cjkcompatibilityideographssupplement", "block=cjkcompatibilityideographssupplement",   "blk=cjkcompatideographs", "block=cjkcompatibilityideographs",
+        "blk=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement",   "blk=cjkexta", "block=cjkunifiedideographsextensiona",
+        "blk=cjkextb", "block=cjkunifiedideographsextensionb",   "blk=cjkextc", "block=cjkunifiedideographsextensionc",
+        "blk=cjkextd", "block=cjkunifiedideographsextensiond",   "blk=cjkradicalssup", "block=cjkradicalssupplement",
+        "blk=cjkradicalssupplement", "block=cjkradicalssupplement",   "blk=cjkstrokes", "block=cjkstrokes",
+        "blk=cjksymbols", "block=cjksymbolsandpunctuation",   "blk=cjksymbolsandpunctuation", "block=cjksymbolsandpunctuation",
+        "blk=cjkunifiedideographs", "block=cjkunifiedideographs",   "blk=cjkunifiedideographsextensiona", "block=cjkunifiedideographsextensiona",
+        "blk=cjkunifiedideographsextensionb", "block=cjkunifiedideographsextensionb",   "blk=cjkunifiedideographsextensionc", "block=cjkunifiedideographsextensionc",
+        "blk=cjkunifiedideographsextensiond", "block=cjkunifiedideographsextensiond",   "blk=combiningdiacriticalmarks", "block=combiningdiacriticalmarks",
+        "blk=combiningdiacriticalmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",   "blk=combiningdiacriticalmarkssupplement", "block=combiningdiacriticalmarkssupplement",
+        "blk=combininghalfmarks", "block=combininghalfmarks",   "blk=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
+        "blk=commonindicnumberforms", "block=commonindicnumberforms",   "blk=compatjamo", "block=hangulcompatibilityjamo",
+        "blk=controlpictures", "block=controlpictures",   "blk=coptic", "block=coptic",
+        "blk=countingrod", "block=countingrodnumerals",   "blk=countingrodnumerals", "block=countingrodnumerals",
+        "blk=cuneiform", "block=cuneiform",   "blk=cuneiformnumbers", "block=cuneiformnumbersandpunctuation",
+        "blk=cuneiformnumbersandpunctuation", "block=cuneiformnumbersandpunctuation",   "blk=currencysymbols", "block=currencysymbols",
+        "blk=cypriotsyllabary", "block=cypriotsyllabary",   "blk=cyrillic", "block=cyrillic",
+        "blk=cyrillicexta", "block=cyrillicextendeda",   "blk=cyrillicextb", "block=cyrillicextendedb",
+        "blk=cyrillicextendeda", "block=cyrillicextendeda",   "blk=cyrillicextendedb", "block=cyrillicextendedb",
+        "blk=cyrillicsup", "block=cyrillicsupplement",   "blk=cyrillicsupplement", "block=cyrillicsupplement",
+        "blk=cyrillicsupplementary", "block=cyrillicsupplement",   "blk=deseret", "block=deseret",
+        "blk=devanagari", "block=devanagari",   "blk=devanagariext", "block=devanagariextended",
+        "blk=devanagariextended", "block=devanagariextended",   "blk=diacriticals", "block=combiningdiacriticalmarks",
+        "blk=diacriticalsforsymbols", "block=combiningdiacriticalmarksforsymbols",   "blk=diacriticalssup", "block=combiningdiacriticalmarkssupplement",
+        "blk=dingbats", "block=dingbats",   "blk=domino", "block=dominotiles",
+        "blk=dominotiles", "block=dominotiles",   "blk=egyptianhieroglyphs", "block=egyptianhieroglyphs",
+        "blk=emoticons", "block=emoticons",   "blk=enclosedalphanum", "block=enclosedalphanumerics",
+        "blk=enclosedalphanumerics", "block=enclosedalphanumerics",   "blk=enclosedalphanumericsupplement", "block=enclosedalphanumericsupplement",
+        "blk=enclosedalphanumsup", "block=enclosedalphanumericsupplement",   "blk=enclosedcjk", "block=enclosedcjklettersandmonths",
+        "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",   "blk=enclosedideographicsup", "block=enclosedideographicsupplement",
+        "blk=enclosedideographicsupplement", "block=enclosedideographicsupplement",   "blk=ethiopic", "block=ethiopic",
+        "blk=ethiopicext", "block=ethiopicextended",   "blk=ethiopicexta", "block=ethiopicextendeda",
+        "blk=ethiopicextended", "block=ethiopicextended",   "blk=ethiopicextendeda", "block=ethiopicextendeda",
+        "blk=ethiopicsup", "block=ethiopicsupplement",   "blk=ethiopicsupplement", "block=ethiopicsupplement",
+        "blk=generalpunctuation", "block=generalpunctuation",   "blk=geometricshapes", "block=geometricshapes",
+        "blk=georgian", "block=georgian",   "blk=georgiansup", "block=georgiansupplement",
+        "blk=georgiansupplement", "block=georgiansupplement",   "blk=glagolitic", "block=glagolitic",
+        "blk=gothic", "block=gothic",   "blk=greek", "block=greekandcoptic",
+        "blk=greekandcoptic", "block=greekandcoptic",   "blk=greekext", "block=greekextended",
+        "blk=greekextended", "block=greekextended",   "blk=gujarati", "block=gujarati",
+        "blk=gurmukhi", "block=gurmukhi",   "blk=halfandfullforms", "block=halfwidthandfullwidthforms",
+        "blk=halfmarks", "block=combininghalfmarks",   "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",
+        "blk=hangul", "block=hangulsyllables",   "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",
+        "blk=hanguljamo", "block=hanguljamo",   "blk=hanguljamoextendeda", "block=hanguljamoextendeda",
+        "blk=hanguljamoextendedb", "block=hanguljamoextendedb",   "blk=hangulsyllables", "block=hangulsyllables",
+        "blk=hanunoo", "block=hanunoo",   "blk=hebrew", "block=hebrew",
+        "blk=hiragana", "block=hiragana",   "blk=idc", "block=ideographicdescriptioncharacters",
+        "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",   "blk=imperialaramaic", "block=imperialaramaic",
+        "blk=indicnumberforms", "block=commonindicnumberforms",   "blk=inscriptionalpahlavi", "block=inscriptionalpahlavi",
+        "blk=inscriptionalparthian", "block=inscriptionalparthian",   "blk=ipaext", "block=ipaextensions",
+        "blk=ipaextensions", "block=ipaextensions",   "blk=jamo", "block=hanguljamo",
+        "blk=jamoexta", "block=hanguljamoextendeda",   "blk=jamoextb", "block=hanguljamoextendedb",
+        "blk=javanese", "block=javanese",   "blk=kaithi", "block=kaithi",
+        "blk=kanasup", "block=kanasupplement",   "blk=kanasupplement", "block=kanasupplement",
+        "blk=kanbun", "block=kanbun",   "blk=kangxi", "block=kangxiradicals",
+        "blk=kangxiradicals", "block=kangxiradicals",   "blk=kannada", "block=kannada",
+        "blk=katakana", "block=katakana",   "blk=katakanaext", "block=katakanaphoneticextensions",
+        "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions",   "blk=kayahli", "block=kayahli",
+        "blk=kharoshthi", "block=kharoshthi",   "blk=khmer", "block=khmer",
+        "blk=khmersymbols", "block=khmersymbols",   "blk=lao", "block=lao",
+        "blk=latin1", "block=latin1supplement",   "blk=latin1sup", "block=latin1supplement",
+        "blk=latin1supplement", "block=latin1supplement",   "blk=latinexta", "block=latinextendeda",
+        "blk=latinextadditional", "block=latinextendedadditional",   "blk=latinextb", "block=latinextendedb",
+        "blk=latinextc", "block=latinextendedc",   "blk=latinextd", "block=latinextendedd",
+        "blk=latinextendeda", "block=latinextendeda",   "blk=latinextendedadditional", "block=latinextendedadditional",
+        "blk=latinextendedb", "block=latinextendedb",   "blk=latinextendedc", "block=latinextendedc",
+        "blk=latinextendedd", "block=latinextendedd",   "blk=lepcha", "block=lepcha",
+        "blk=letterlikesymbols", "block=letterlikesymbols",   "blk=limbu", "block=limbu",
+        "blk=linearbideograms", "block=linearbideograms",   "blk=linearbsyllabary", "block=linearbsyllabary",
+        "blk=lisu", "block=lisu",   "blk=lycian", "block=lycian",
+        "blk=lydian", "block=lydian",   "blk=mahjong", "block=mahjongtiles",
+        "blk=mahjongtiles", "block=mahjongtiles",   "blk=malayalam", "block=malayalam",
+        "blk=mandaic", "block=mandaic",   "blk=mathalphanum", "block=mathematicalalphanumericsymbols",
+        "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",   "blk=mathematicaloperators", "block=mathematicaloperators",
+        "blk=mathoperators", "block=mathematicaloperators",   "blk=meeteimayek", "block=meeteimayek",
+        "blk=meeteimayekext", "block=meeteimayekextensions",   "blk=meeteimayekextensions", "block=meeteimayekextensions",
+        "blk=meroiticcursive", "block=meroiticcursive",   "blk=meroitichieroglyphs", "block=meroitichieroglyphs",
+        "blk=miao", "block=miao",   "blk=miscarrows", "block=miscellaneoussymbolsandarrows",
+        "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",   "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",
+        "blk=miscellaneoussymbols", "block=miscellaneoussymbols",   "blk=miscellaneoussymbolsandarrows", "block=miscellaneoussymbolsandarrows",
+        "blk=miscellaneoussymbolsandpictographs", "block=miscellaneoussymbolsandpictographs",   "blk=miscellaneoustechnical", "block=miscellaneoustechnical",
+        "blk=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa",   "blk=miscmathsymbolsb", "block=miscellaneousmathematicalsymbolsb",
+        "blk=miscpictographs", "block=miscellaneoussymbolsandpictographs",   "blk=miscsymbols", "block=miscellaneoussymbols",
+        "blk=misctechnical", "block=miscellaneoustechnical",   "blk=modifierletters", "block=spacingmodifierletters",
+        "blk=modifiertoneletters", "block=modifiertoneletters",   "blk=mongolian", "block=mongolian",
+        "blk=music", "block=musicalsymbols",   "blk=musicalsymbols", "block=musicalsymbols",
+        "blk=myanmar", "block=myanmar",   "blk=myanmarexta", "block=myanmarextendeda",
+        "blk=myanmarextendeda", "block=myanmarextendeda",   "blk=nb", "block=noblock",
+        "blk=newtailue", "block=newtailue",   "blk=nko", "block=nko",
+        "blk=noblock", "block=noblock",   "blk=numberforms", "block=numberforms",
+        "blk=ocr", "block=opticalcharacterrecognition",   "blk=ogham", "block=ogham",
+        "blk=olchiki", "block=olchiki",   "blk=olditalic", "block=olditalic",
+        "blk=oldpersian", "block=oldpersian",   "blk=oldsoutharabian", "block=oldsoutharabian",
+        "blk=oldturkic", "block=oldturkic",   "blk=opticalcharacterrecognition", "block=opticalcharacterrecognition",
+        "blk=oriya", "block=oriya",   "blk=osmanya", "block=osmanya",
+        "blk=phagspa", "block=phagspa",   "blk=phaistos", "block=phaistosdisc",
+        "blk=phaistosdisc", "block=phaistosdisc",   "blk=phoenician", "block=phoenician",
+        "blk=phoneticext", "block=phoneticextensions",   "blk=phoneticextensions", "block=phoneticextensions",
+        "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement",   "blk=phoneticextsup", "block=phoneticextensionssupplement",
+        "blk=playingcards", "block=playingcards",   "blk=privateuse", "block=privateusearea",
+        "blk=privateusearea", "block=privateusearea",   "blk=pua", "block=privateusearea",
+        "blk=punctuation", "block=generalpunctuation",   "blk=rejang", "block=rejang",
+        "blk=rumi", "block=ruminumeralsymbols",   "blk=ruminumeralsymbols", "block=ruminumeralsymbols",
+        "blk=runic", "block=runic",   "blk=samaritan", "block=samaritan",
+        "blk=saurashtra", "block=saurashtra",   "blk=sharada", "block=sharada",
+        "blk=shavian", "block=shavian",   "blk=sinhala", "block=sinhala",
+        "blk=smallforms", "block=smallformvariants",   "blk=smallformvariants", "block=smallformvariants",
+        "blk=sorasompeng", "block=sorasompeng",   "blk=spacingmodifierletters", "block=spacingmodifierletters",
+        "blk=specials", "block=specials",   "blk=sundanese", "block=sundanese",
+        "blk=sundanesesup", "block=sundanesesupplement",   "blk=sundanesesupplement", "block=sundanesesupplement",
+        "blk=suparrowsa", "block=supplementalarrowsa",   "blk=suparrowsb", "block=supplementalarrowsb",
+        "blk=superandsub", "block=superscriptsandsubscripts",   "blk=superscriptsandsubscripts", "block=superscriptsandsubscripts",
+        "blk=supmathoperators", "block=supplementalmathematicaloperators",   "blk=supplementalarrowsa", "block=supplementalarrowsa",
+        "blk=supplementalarrowsb", "block=supplementalarrowsb",   "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",
+        "blk=supplementalpunctuation", "block=supplementalpunctuation",   "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",
+        "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",   "blk=suppuaa", "block=supplementaryprivateuseareaa",
+        "blk=suppuab", "block=supplementaryprivateuseareab",   "blk=suppunctuation", "block=supplementalpunctuation",
+        "blk=sylotinagri", "block=sylotinagri",   "blk=syriac", "block=syriac",
+        "blk=tagalog", "block=tagalog",   "blk=tagbanwa", "block=tagbanwa",
+        "blk=tags", "block=tags",   "blk=taile", "block=taile",
+        "blk=taitham", "block=taitham",   "blk=taiviet", "block=taiviet",
+        "blk=taixuanjing", "block=taixuanjingsymbols",   "blk=taixuanjingsymbols", "block=taixuanjingsymbols",
+        "blk=takri", "block=takri",   "blk=tamil", "block=tamil",
+        "blk=telugu", "block=telugu",   "blk=thaana", "block=thaana",
+        "blk=thai", "block=thai",   "blk=tibetan", "block=tibetan",
+        "blk=tifinagh", "block=tifinagh",   "blk=transportandmap", "block=transportandmapsymbols",
+        "blk=transportandmapsymbols", "block=transportandmapsymbols",   "blk=ucas", "block=unifiedcanadianaboriginalsyllabics",
+        "blk=ucasext", "block=unifiedcanadianaboriginalsyllabicsextended",   "blk=ugaritic", "block=ugaritic",
+        "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",   "blk=unifiedcanadianaboriginalsyllabicsextended", "block=unifiedcanadianaboriginalsyllabicsextended",
+        "blk=vai", "block=vai",   "blk=variationselectors", "block=variationselectors",
+        "blk=variationselectorssupplement", "block=variationselectorssupplement",   "blk=vedicext", "block=vedicextensions",
+        "blk=vedicextensions", "block=vedicextensions",   "blk=verticalforms", "block=verticalforms",
+        "blk=vs", "block=variationselectors",   "blk=vssup", "block=variationselectorssupplement",
+        "blk=yijing", "block=yijinghexagramsymbols",   "blk=yijinghexagramsymbols", "block=yijinghexagramsymbols",
+        "blk=yiradicals", "block=yiradicals",   "blk=yisyllables", "block=yisyllables",
+        "block=alchemical", "block=alchemicalsymbols",   "block=alphabeticpf", "block=alphabeticpresentationforms",
+        "block=ancientgreekmusic", "block=ancientgreekmusicalnotation",   "block=arabicexta", "block=arabicextendeda",
+        "block=arabicmath", "block=arabicmathematicalalphabeticsymbols",   "block=arabicpfa", "block=arabicpresentationformsa",
+        "block=arabicpfb", "block=arabicpresentationformsb",   "block=arabicsup", "block=arabicsupplement",
+        "block=ascii", "block=basiclatin",   "block=bamumsup", "block=bamumsupplement",
+        "block=bopomofoext", "block=bopomofoextended",   "block=braille", "block=braillepatterns",
+        "block=byzantinemusic", "block=byzantinemusicalsymbols",   "block=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics",
+        "block=cjk", "block=cjkunifiedideographs",   "block=cjkcompat", "block=cjkcompatibility",
+        "block=cjkcompatforms", "block=cjkcompatibilityforms",   "block=cjkcompatideographs", "block=cjkcompatibilityideographs",
+        "block=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement",   "block=cjkexta", "block=cjkunifiedideographsextensiona",
+        "block=cjkextb", "block=cjkunifiedideographsextensionb",   "block=cjkextc", "block=cjkunifiedideographsextensionc",
+        "block=cjkextd", "block=cjkunifiedideographsextensiond",   "block=cjkradicalssup", "block=cjkradicalssupplement",
+        "block=cjksymbols", "block=cjksymbolsandpunctuation",   "block=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
+        "block=compatjamo", "block=hangulcompatibilityjamo",   "block=countingrod", "block=countingrodnumerals",
+        "block=cuneiformnumbers", "block=cuneiformnumbersandpunctuation",   "block=cyrillicexta", "block=cyrillicextendeda",
+        "block=cyrillicextb", "block=cyrillicextendedb",   "block=cyrillicsup", "block=cyrillicsupplement",
+        "block=cyrillicsupplementary", "block=cyrillicsupplement",   "block=devanagariext", "block=devanagariextended",
+        "block=diacriticals", "block=combiningdiacriticalmarks",   "block=diacriticalsforsymbols", "block=combiningdiacriticalmarksforsymbols",
+        "block=diacriticalssup", "block=combiningdiacriticalmarkssupplement",   "block=domino", "block=dominotiles",
+        "block=enclosedalphanum", "block=enclosedalphanumerics",   "block=enclosedalphanumsup", "block=enclosedalphanumericsupplement",
+        "block=enclosedcjk", "block=enclosedcjklettersandmonths",   "block=enclosedideographicsup", "block=enclosedideographicsupplement",
+        "block=ethiopicext", "block=ethiopicextended",   "block=ethiopicexta", "block=ethiopicextendeda",
+        "block=ethiopicsup", "block=ethiopicsupplement",   "block=georgiansup", "block=georgiansupplement",
+        "block=greek", "block=greekandcoptic",   "block=greekext", "block=greekextended",
+        "block=halfandfullforms", "block=halfwidthandfullwidthforms",   "block=halfmarks", "block=combininghalfmarks",
+        "block=hangul", "block=hangulsyllables",   "block=idc", "block=ideographicdescriptioncharacters",
+        "block=indicnumberforms", "block=commonindicnumberforms",   "block=ipaext", "block=ipaextensions",
+        "block=jamo", "block=hanguljamo",   "block=jamoexta", "block=hanguljamoextendeda",
+        "block=jamoextb", "block=hanguljamoextendedb",   "block=kanasup", "block=kanasupplement",
+        "block=kangxi", "block=kangxiradicals",   "block=katakanaext", "block=katakanaphoneticextensions",
+        "block=latin1", "block=latin1supplement",   "block=latin1sup", "block=latin1supplement",
+        "block=latinexta", "block=latinextendeda",   "block=latinextadditional", "block=latinextendedadditional",
+        "block=latinextb", "block=latinextendedb",   "block=latinextc", "block=latinextendedc",
+        "block=latinextd", "block=latinextendedd",   "block=mahjong", "block=mahjongtiles",
+        "block=mathalphanum", "block=mathematicalalphanumericsymbols",   "block=mathoperators", "block=mathematicaloperators",
+        "block=meeteimayekext", "block=meeteimayekextensions",   "block=miscarrows", "block=miscellaneoussymbolsandarrows",
+        "block=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa",   "block=miscmathsymbolsb", "block=miscellaneousmathematicalsymbolsb",
+        "block=miscpictographs", "block=miscellaneoussymbolsandpictographs",   "block=miscsymbols", "block=miscellaneoussymbols",
+        "block=misctechnical", "block=miscellaneoustechnical",   "block=modifierletters", "block=spacingmodifierletters",
+        "block=music", "block=musicalsymbols",   "block=myanmarexta", "block=myanmarextendeda",
+        "block=nb", "block=noblock",   "block=ocr", "block=opticalcharacterrecognition",
+        "block=phaistos", "block=phaistosdisc",   "block=phoneticext", "block=phoneticextensions",
+        "block=phoneticextsup", "block=phoneticextensionssupplement",   "block=privateuse", "block=privateusearea",
+        "block=pua", "block=privateusearea",   "block=punctuation", "block=generalpunctuation",
+        "block=rumi", "block=ruminumeralsymbols",   "block=smallforms", "block=smallformvariants",
+        "block=sundanesesup", "block=sundanesesupplement",   "block=suparrowsa", "block=supplementalarrowsa",
+        "block=suparrowsb", "block=supplementalarrowsb",   "block=superandsub", "block=superscriptsandsubscripts",
+        "block=supmathoperators", "block=supplementalmathematicaloperators",   "block=suppuaa", "block=supplementaryprivateuseareaa",
+        "block=suppuab", "block=supplementaryprivateuseareab",   "block=suppunctuation", "block=supplementalpunctuation",
+        "block=taixuanjing", "block=taixuanjingsymbols",   "block=transportandmap", "block=transportandmapsymbols",
+        "block=ucas", "block=unifiedcanadianaboriginalsyllabics",   "block=ucasext", "block=unifiedcanadianaboriginalsyllabicsextended",
+        "block=vedicext", "block=vedicextensions",   "block=vs", "block=variationselectors",
+        "block=vssup", "block=variationselectorssupplement",   "block=yijing", "block=yijinghexagramsymbols",
+        "bopo", "bopomofo",   "brah", "brahmi",
+        "brai", "braille",   "bugi", "buginese",
+        "buhd", "buhid",   "cakm", "chakma",
+        "cans", "canadianaboriginal",   "cari", "carian",
+        "casedletter", "lc",   "cher", "cherokee",
+        "ci", "caseignorable",   "closepunctuation", "pe",
+        "cntrl", "cc",   "combiningmark", "m",
+        "connectorpunctuation", "pc",   "control", "cc",
+        "copt", "coptic",   "cprt", "cypriot",
+        "currencysymbol", "sc",   "cwcf", "changeswhencasefolded",
+        "cwcm", "changeswhencasemapped",   "cwl", "changeswhenlowercased",
+        "cwt", "changeswhentitlecased",   "cwu", "changeswhenuppercased",
+        "cyrl", "cyrillic",   "dashpunctuation", "pd",
+        "decimalnumber", "nd",   "dep", "deprecated",
+        "deva", "devanagari",   "di", "defaultignorablecodepoint",
+        "dia", "diacritic",   "digit", "nd",
+        "dsrt", "deseret",   "egyp", "egyptianhieroglyphs",
+        "enclosingmark", "me",   "ethi", "ethiopic",
+        "ext", "extender",   "finalpunctuation", "pf",
+        "format", "cf",   "gc=c", "c",
+        "gc=casedletter", "lc",   "gc=cc", "cc",
+        "gc=cf", "cf",   "gc=closepunctuation", "pe",
+        "gc=cn", "cn",   "gc=cntrl", "cc",
+        "gc=co", "co",   "gc=combiningmark", "m",
+        "gc=connectorpunctuation", "pc",   "gc=control", "cc",
+        "gc=currencysymbol", "sc",   "gc=dashpunctuation", "pd",
+        "gc=decimalnumber", "nd",   "gc=digit", "nd",
+        "gc=enclosingmark", "me",   "gc=finalpunctuation", "pf",
+        "gc=format", "cf",   "gc=initialpunctuation", "pi",
+        "gc=l", "l",   "gc=lc", "lc",
+        "gc=letter", "l",   "gc=letternumber", "nl",
+        "gc=lineseparator", "zl",   "gc=ll", "ll",
+        "gc=lm", "lm",   "gc=lo", "lo",
+        "gc=lowercaseletter", "ll",   "gc=lt", "lt",
+        "gc=lu", "lu",   "gc=m", "m",
+        "gc=mark", "m",   "gc=mathsymbol", "sm",
+        "gc=mc", "mc",   "gc=me", "me",
+        "gc=mn", "mn",   "gc=modifierletter", "lm",
+        "gc=modifiersymbol", "sk",   "gc=n", "n",
+        "gc=nd", "nd",   "gc=nl", "nl",
+        "gc=no", "no",   "gc=nonspacingmark", "mn",
+        "gc=number", "n",   "gc=openpunctuation", "ps",
+        "gc=other", "c",   "gc=otherletter", "lo",
+        "gc=othernumber", "no",   "gc=otherpunctuation", "po",
+        "gc=othersymbol", "so",   "gc=p", "p",
+        "gc=paragraphseparator", "zp",   "gc=pc", "pc",
+        "gc=pd", "pd",   "gc=pe", "pe",
+        "gc=pf", "pf",   "gc=pi", "pi",
+        "gc=po", "po",   "gc=privateuse", "co",
+        "gc=ps", "ps",   "gc=punct", "p",
+        "gc=punctuation", "p",   "gc=s", "s",
+        "gc=sc", "sc",   "gc=separator", "z",
+        "gc=sk", "sk",   "gc=sm", "sm",
+        "gc=so", "so",   "gc=spaceseparator", "zs",
+        "gc=spacingmark", "mc",   "gc=symbol", "s",
+        "gc=titlecaseletter", "lt",   "gc=unassigned", "cn",
+        "gc=uppercaseletter", "lu",   "gc=z", "z",
+        "gc=zl", "zl",   "gc=zp", "zp",
+        "gc=zs", "zs",   "gcb=cn", "graphemeclusterbreak=control",
+        "gcb=control", "graphemeclusterbreak=control",   "gcb=cr", "graphemeclusterbreak=cr",
+        "gcb=ex", "graphemeclusterbreak=extend",   "gcb=extend", "graphemeclusterbreak=extend",
+        "gcb=l", "graphemeclusterbreak=l",   "gcb=lf", "graphemeclusterbreak=lf",
+        "gcb=lv", "graphemeclusterbreak=lv",   "gcb=lvt", "graphemeclusterbreak=lvt",
+        "gcb=other", "graphemeclusterbreak=other",   "gcb=regionalindicator", "graphemeclusterbreak=regionalindicator",
+        "gcb=ri", "graphemeclusterbreak=regionalindicator",   "gcb=sm", "graphemeclusterbreak=spacingmark",
+        "gcb=spacingmark", "graphemeclusterbreak=spacingmark",   "gcb=t", "graphemeclusterbreak=t",
+        "gcb=v", "graphemeclusterbreak=v",   "gcb=xx", "graphemeclusterbreak=other",
+        "generalcategory=c", "c",   "generalcategory=casedletter", "lc",
+        "generalcategory=cc", "cc",   "generalcategory=cf", "cf",
+        "generalcategory=closepunctuation", "pe",   "generalcategory=cn", "cn",
+        "generalcategory=cntrl", "cc",   "generalcategory=co", "co",
+        "generalcategory=combiningmark", "m",   "generalcategory=connectorpunctuation", "pc",
+        "generalcategory=control", "cc",   "generalcategory=currencysymbol", "sc",
+        "generalcategory=dashpunctuation", "pd",   "generalcategory=decimalnumber", "nd",
+        "generalcategory=digit", "nd",   "generalcategory=enclosingmark", "me",
+        "generalcategory=finalpunctuation", "pf",   "generalcategory=format", "cf",
+        "generalcategory=initialpunctuation", "pi",   "generalcategory=l", "l",
+        "generalcategory=lc", "lc",   "generalcategory=letter", "l",
+        "generalcategory=letternumber", "nl",   "generalcategory=lineseparator", "zl",
+        "generalcategory=ll", "ll",   "generalcategory=lm", "lm",
+        "generalcategory=lo", "lo",   "generalcategory=lowercaseletter", "ll",
+        "generalcategory=lt", "lt",   "generalcategory=lu", "lu",
+        "generalcategory=m", "m",   "generalcategory=mark", "m",
+        "generalcategory=mathsymbol", "sm",   "generalcategory=mc", "mc",
+        "generalcategory=me", "me",   "generalcategory=mn", "mn",
+        "generalcategory=modifierletter", "lm",   "generalcategory=modifiersymbol", "sk",
+        "generalcategory=n", "n",   "generalcategory=nd", "nd",
+        "generalcategory=nl", "nl",   "generalcategory=no", "no",
+        "generalcategory=nonspacingmark", "mn",   "generalcategory=number", "n",
+        "generalcategory=openpunctuation", "ps",   "generalcategory=other", "c",
+        "generalcategory=otherletter", "lo",   "generalcategory=othernumber", "no",
+        "generalcategory=otherpunctuation", "po",   "generalcategory=othersymbol", "so",
+        "generalcategory=p", "p",   "generalcategory=paragraphseparator", "zp",
+        "generalcategory=pc", "pc",   "generalcategory=pd", "pd",
+        "generalcategory=pe", "pe",   "generalcategory=pf", "pf",
+        "generalcategory=pi", "pi",   "generalcategory=po", "po",
+        "generalcategory=privateuse", "co",   "generalcategory=ps", "ps",
+        "generalcategory=punct", "p",   "generalcategory=punctuation", "p",
+        "generalcategory=s", "s",   "generalcategory=sc", "sc",
+        "generalcategory=separator", "z",   "generalcategory=sk", "sk",
+        "generalcategory=sm", "sm",   "generalcategory=so", "so",
+        "generalcategory=spaceseparator", "zs",   "generalcategory=spacingmark", "mc",
+        "generalcategory=symbol", "s",   "generalcategory=titlecaseletter", "lt",
+        "generalcategory=unassigned", "cn",   "generalcategory=uppercaseletter", "lu",
+        "generalcategory=z", "z",   "generalcategory=zl", "zl",
+        "generalcategory=zp", "zp",   "generalcategory=zs", "zs",
+        "geor", "georgian",   "glag", "glagolitic",
+        "goth", "gothic",   "graphemeclusterbreak=cn", "graphemeclusterbreak=control",
+        "graphemeclusterbreak=ex", "graphemeclusterbreak=extend",   "graphemeclusterbreak=ri", "graphemeclusterbreak=regionalindicator",
+        "graphemeclusterbreak=sm", "graphemeclusterbreak=spacingmark",   "graphemeclusterbreak=xx", "graphemeclusterbreak=other",
+        "grbase", "graphemebase",   "grek", "greek",
+        "grext", "graphemeextend",   "grlink", "graphemelink",
+        "gujr", "gujarati",   "guru", "gurmukhi",
+        "hang", "hangul",   "hani", "han",
+        "hano", "hanunoo",   "hebr", "hebrew",
+        "hex", "hexdigit",   "hira", "hiragana",
+        "idc", "idcontinue",   "ideo", "ideographic",
+        "ids", "idstart",   "idsb", "idsbinaryoperator",
+        "idst", "idstrinaryoperator",   "initialpunctuation", "pi",
+        "ital", "olditalic",   "java", "javanese",
+        "joinc", "joincontrol",   "kali", "kayahli",
+        "kana", "katakana",   "khar", "kharoshthi",
+        "khmr", "khmer",   "knda", "kannada",
+        "kthi", "kaithi",   "lana", "taitham",
+        "laoo", "lao",   "latn", "latin",
+        "lb=ai", "linebreak=ambiguous",   "lb=al", "linebreak=alphabetic",
+        "lb=alphabetic", "linebreak=alphabetic",   "lb=ambiguous", "linebreak=ambiguous",
+        "lb=b2", "linebreak=breakboth",   "lb=ba", "linebreak=breakafter",
+        "lb=bb", "linebreak=breakbefore",   "lb=bk", "linebreak=mandatorybreak",
+        "lb=breakafter", "linebreak=breakafter",   "lb=breakbefore", "linebreak=breakbefore",
+        "lb=breakboth", "linebreak=breakboth",   "lb=breaksymbols", "linebreak=breaksymbols",
+        "lb=carriagereturn", "linebreak=carriagereturn",   "lb=cb", "linebreak=contingentbreak",
+        "lb=cj", "linebreak=conditionaljapanesestarter",   "lb=cl", "linebreak=closepunctuation",
+        "lb=closeparenthesis", "linebreak=closeparenthesis",   "lb=closepunctuation", "linebreak=closepunctuation",
+        "lb=cm", "linebreak=combiningmark",   "lb=combiningmark", "linebreak=combiningmark",
+        "lb=complexcontext", "linebreak=complexcontext",   "lb=conditionaljapanesestarter", "linebreak=conditionaljapanesestarter",
+        "lb=contingentbreak", "linebreak=contingentbreak",   "lb=cp", "linebreak=closeparenthesis",
+        "lb=cr", "linebreak=carriagereturn",   "lb=ex", "linebreak=exclamation",
+        "lb=exclamation", "linebreak=exclamation",   "lb=gl", "linebreak=glue",
+        "lb=glue", "linebreak=glue",   "lb=h2", "linebreak=h2",
+        "lb=h3", "linebreak=h3",   "lb=hebrewletter", "linebreak=hebrewletter",
+        "lb=hl", "linebreak=hebrewletter",   "lb=hy", "linebreak=hyphen",
+        "lb=hyphen", "linebreak=hyphen",   "lb=id", "linebreak=ideographic",
+        "lb=ideographic", "linebreak=ideographic",   "lb=in", "linebreak=inseparable",
+        "lb=infixnumeric", "linebreak=infixnumeric",   "lb=inseparable", "linebreak=inseparable",
+        "lb=inseperable", "linebreak=inseparable",   "lb=is", "linebreak=infixnumeric",
+        "lb=jl", "linebreak=jl",   "lb=jt", "linebreak=jt",
+        "lb=jv", "linebreak=jv",   "lb=lf", "linebreak=linefeed",
+        "lb=linefeed", "linebreak=linefeed",   "lb=mandatorybreak", "linebreak=mandatorybreak",
+        "lb=nextline", "linebreak=nextline",   "lb=nl", "linebreak=nextline",
+        "lb=nonstarter", "linebreak=nonstarter",   "lb=ns", "linebreak=nonstarter",
+        "lb=nu", "linebreak=numeric",   "lb=numeric", "linebreak=numeric",
+        "lb=op", "linebreak=openpunctuation",   "lb=openpunctuation", "linebreak=openpunctuation",
+        "lb=po", "linebreak=postfixnumeric",   "lb=postfixnumeric", "linebreak=postfixnumeric",
+        "lb=pr", "linebreak=prefixnumeric",   "lb=prefixnumeric", "linebreak=prefixnumeric",
+        "lb=qu", "linebreak=quotation",   "lb=quotation", "linebreak=quotation",
+        "lb=regionalindicator", "linebreak=regionalindicator",   "lb=ri", "linebreak=regionalindicator",
+        "lb=sa", "linebreak=complexcontext",   "lb=sp", "linebreak=space",
+        "lb=space", "linebreak=space",   "lb=sy", "linebreak=breaksymbols",
+        "lb=unknown", "linebreak=unknown",   "lb=wj", "linebreak=wordjoiner",
+        "lb=wordjoiner", "linebreak=wordjoiner",   "lb=xx", "linebreak=unknown",
+        "lb=zw", "linebreak=zwspace",   "lb=zwspace", "linebreak=zwspace",
+        "lepc", "lepcha",   "letter", "l",
+        "letternumber", "nl",   "limb", "limbu",
+        "linb", "linearb",   "linebreak=ai", "linebreak=ambiguous",
+        "linebreak=al", "linebreak=alphabetic",   "linebreak=b2", "linebreak=breakboth",
+        "linebreak=ba", "linebreak=breakafter",   "linebreak=bb", "linebreak=breakbefore",
+        "linebreak=bk", "linebreak=mandatorybreak",   "linebreak=cb", "linebreak=contingentbreak",
+        "linebreak=cj", "linebreak=conditionaljapanesestarter",   "linebreak=cl", "linebreak=closepunctuation",
+        "linebreak=cm", "linebreak=combiningmark",   "linebreak=cp", "linebreak=closeparenthesis",
+        "linebreak=cr", "linebreak=carriagereturn",   "linebreak=ex", "linebreak=exclamation",
+        "linebreak=gl", "linebreak=glue",   "linebreak=hl", "linebreak=hebrewletter",
+        "linebreak=hy", "linebreak=hyphen",   "linebreak=id", "linebreak=ideographic",
+        "linebreak=in", "linebreak=inseparable",   "linebreak=inseperable", "linebreak=inseparable",
+        "linebreak=is", "linebreak=infixnumeric",   "linebreak=lf", "linebreak=linefeed",
+        "linebreak=nl", "linebreak=nextline",   "linebreak=ns", "linebreak=nonstarter",
+        "linebreak=nu", "linebreak=numeric",   "linebreak=op", "linebreak=openpunctuation",
+        "linebreak=po", "linebreak=postfixnumeric",   "linebreak=pr", "linebreak=prefixnumeric",
+        "linebreak=qu", "linebreak=quotation",   "linebreak=ri", "linebreak=regionalindicator",
+        "linebreak=sa", "linebreak=complexcontext",   "linebreak=sp", "linebreak=space",
+        "linebreak=sy", "linebreak=breaksymbols",   "linebreak=wj", "linebreak=wordjoiner",
+        "linebreak=xx", "linebreak=unknown",   "linebreak=zw", "linebreak=zwspace",
+        "lineseparator", "zl",   "loe", "logicalorderexception",
+        "lower", "lowercase",   "lowercaseletter", "ll",
+        "lyci", "lycian",   "lydi", "lydian",
+        "mand", "mandaic",   "mark", "m",
+        "mathsymbol", "sm",   "merc", "meroiticcursive",
+        "mero", "meroitichieroglyphs",   "mlym", "malayalam",
+        "modifierletter", "lm",   "modifiersymbol", "sk",
+        "mong", "mongolian",   "mtei", "meeteimayek",
+        "mymr", "myanmar",   "nchar", "noncharactercodepoint",
+        "nkoo", "nko",   "nonspacingmark", "mn",
+        "number", "n",   "oalpha", "otheralphabetic",
+        "odi", "otherdefaultignorablecodepoint",   "ogam", "ogham",
+        "ogrext", "othergraphemeextend",   "oidc", "otheridcontinue",
+        "oids", "otheridstart",   "olck", "olchiki",
+        "olower", "otherlowercase",   "omath", "othermath",
+        "openpunctuation", "ps",   "orkh", "oldturkic",
+        "orya", "oriya",   "osma", "osmanya",
+        "other", "c",   "otherletter", "lo",
+        "othernumber", "no",   "otherpunctuation", "po",
+        "othersymbol", "so",   "oupper", "otheruppercase",
+        "paragraphseparator", "zp",   "patsyn", "patternsyntax",
+        "patws", "patternwhitespace",   "phag", "phagspa",
+        "phli", "inscriptionalpahlavi",   "phnx", "phoenician",
+        "plrd", "miao",   "privateuse", "co",
+        "prti", "inscriptionalparthian",   "punct", "p",
+        "punctuation", "p",   "qaac", "coptic",
+        "qaai", "inherited",   "qmark", "quotationmark",
+        "rjng", "rejang",   "runr", "runic",
+        "samr", "samaritan",   "sarb", "oldsoutharabian",
+        "saur", "saurashtra",   "sb=at", "sentencebreak=aterm",
+        "sb=aterm", "sentencebreak=aterm",   "sb=cl", "sentencebreak=close",
+        "sb=close", "sentencebreak=close",   "sb=cr", "sentencebreak=cr",
+        "sb=ex", "sentencebreak=extend",   "sb=extend", "sentencebreak=extend",
+        "sb=fo", "sentencebreak=format",   "sb=format", "sentencebreak=format",
+        "sb=le", "sentencebreak=oletter",   "sb=lf", "sentencebreak=lf",
+        "sb=lo", "sentencebreak=lower",   "sb=lower", "sentencebreak=lower",
+        "sb=nu", "sentencebreak=numeric",   "sb=numeric", "sentencebreak=numeric",
+        "sb=oletter", "sentencebreak=oletter",   "sb=other", "sentencebreak=other",
+        "sb=sc", "sentencebreak=scontinue",   "sb=scontinue", "sentencebreak=scontinue",
+        "sb=se", "sentencebreak=sep",   "sb=sep", "sentencebreak=sep",
+        "sb=sp", "sentencebreak=sp",   "sb=st", "sentencebreak=sterm",
+        "sb=sterm", "sentencebreak=sterm",   "sb=up", "sentencebreak=upper",
+        "sb=upper", "sentencebreak=upper",   "sb=xx", "sentencebreak=other",
+        "sc=arab", "arabic",   "sc=arabic", "arabic",
+        "sc=armenian", "armenian",   "sc=armi", "imperialaramaic",
+        "sc=armn", "armenian",   "sc=avestan", "avestan",
+        "sc=avst", "avestan",   "sc=bali", "balinese",
+        "sc=balinese", "balinese",   "sc=bamu", "bamum",
+        "sc=bamum", "bamum",   "sc=batak", "batak",
+        "sc=batk", "batak",   "sc=beng", "bengali",
+        "sc=bengali", "bengali",   "sc=bopo", "bopomofo",
+        "sc=bopomofo", "bopomofo",   "sc=brah", "brahmi",
+        "sc=brahmi", "brahmi",   "sc=brai", "braille",
+        "sc=braille", "braille",   "sc=bugi", "buginese",
+        "sc=buginese", "buginese",   "sc=buhd", "buhid",
+        "sc=buhid", "buhid",   "sc=cakm", "chakma",
+        "sc=canadianaboriginal", "canadianaboriginal",   "sc=cans", "canadianaboriginal",
+        "sc=cari", "carian",   "sc=carian", "carian",
+        "sc=chakma", "chakma",   "sc=cham", "cham",
+        "sc=cher", "cherokee",   "sc=cherokee", "cherokee",
+        "sc=common", "common",   "sc=copt", "coptic",
+        "sc=coptic", "coptic",   "sc=cprt", "cypriot",
+        "sc=cuneiform", "cuneiform",   "sc=cypriot", "cypriot",
+        "sc=cyrillic", "cyrillic",   "sc=cyrl", "cyrillic",
+        "sc=deseret", "deseret",   "sc=deva", "devanagari",
+        "sc=devanagari", "devanagari",   "sc=dsrt", "deseret",
+        "sc=egyp", "egyptianhieroglyphs",   "sc=egyptianhieroglyphs", "egyptianhieroglyphs",
+        "sc=ethi", "ethiopic",   "sc=ethiopic", "ethiopic",
+        "sc=geor", "georgian",   "sc=georgian", "georgian",
+        "sc=glag", "glagolitic",   "sc=glagolitic", "glagolitic",
+        "sc=goth", "gothic",   "sc=gothic", "gothic",
+        "sc=greek", "greek",   "sc=grek", "greek",
+        "sc=gujarati", "gujarati",   "sc=gujr", "gujarati",
+        "sc=gurmukhi", "gurmukhi",   "sc=guru", "gurmukhi",
+        "sc=han", "han",   "sc=hang", "hangul",
+        "sc=hangul", "hangul",   "sc=hani", "han",
+        "sc=hano", "hanunoo",   "sc=hanunoo", "hanunoo",
+        "sc=hebr", "hebrew",   "sc=hebrew", "hebrew",
+        "sc=hira", "hiragana",   "sc=hiragana", "hiragana",
+        "sc=imperialaramaic", "imperialaramaic",   "sc=inherited", "inherited",
+        "sc=inscriptionalpahlavi", "inscriptionalpahlavi",   "sc=inscriptionalparthian", "inscriptionalparthian",
+        "sc=ital", "olditalic",   "sc=java", "javanese",
+        "sc=javanese", "javanese",   "sc=kaithi", "kaithi",
+        "sc=kali", "kayahli",   "sc=kana", "katakana",
+        "sc=kannada", "kannada",   "sc=katakana", "katakana",
+        "sc=kayahli", "kayahli",   "sc=khar", "kharoshthi",
+        "sc=kharoshthi", "kharoshthi",   "sc=khmer", "khmer",
+        "sc=khmr", "khmer",   "sc=knda", "kannada",
+        "sc=kthi", "kaithi",   "sc=lana", "taitham",
+        "sc=lao", "lao",   "sc=laoo", "lao",
+        "sc=latin", "latin",   "sc=latn", "latin",
+        "sc=lepc", "lepcha",   "sc=lepcha", "lepcha",
+        "sc=limb", "limbu",   "sc=limbu", "limbu",
+        "sc=linb", "linearb",   "sc=linearb", "linearb",
+        "sc=lisu", "lisu",   "sc=lyci", "lycian",
+        "sc=lycian", "lycian",   "sc=lydi", "lydian",
+        "sc=lydian", "lydian",   "sc=malayalam", "malayalam",
+        "sc=mand", "mandaic",   "sc=mandaic", "mandaic",
+        "sc=meeteimayek", "meeteimayek",   "sc=merc", "meroiticcursive",
+        "sc=mero", "meroitichieroglyphs",   "sc=meroiticcursive", "meroiticcursive",
+        "sc=meroitichieroglyphs", "meroitichieroglyphs",   "sc=miao", "miao",
+        "sc=mlym", "malayalam",   "sc=mong", "mongolian",
+        "sc=mongolian", "mongolian",   "sc=mtei", "meeteimayek",
+        "sc=myanmar", "myanmar",   "sc=mymr", "myanmar",
+        "sc=newtailue", "newtailue",   "sc=nko", "nko",
+        "sc=nkoo", "nko",   "sc=ogam", "ogham",
+        "sc=ogham", "ogham",   "sc=olchiki", "olchiki",
+        "sc=olck", "olchiki",   "sc=olditalic", "olditalic",
+        "sc=oldpersian", "oldpersian",   "sc=oldsoutharabian", "oldsoutharabian",
+        "sc=oldturkic", "oldturkic",   "sc=oriya", "oriya",
+        "sc=orkh", "oldturkic",   "sc=orya", "oriya",
+        "sc=osma", "osmanya",   "sc=osmanya", "osmanya",
+        "sc=phag", "phagspa",   "sc=phagspa", "phagspa",
+        "sc=phli", "inscriptionalpahlavi",   "sc=phnx", "phoenician",
+        "sc=phoenician", "phoenician",   "sc=plrd", "miao",
+        "sc=prti", "inscriptionalparthian",   "sc=qaac", "coptic",
+        "sc=qaai", "inherited",   "sc=rejang", "rejang",
+        "sc=rjng", "rejang",   "sc=runic", "runic",
+        "sc=runr", "runic",   "sc=samaritan", "samaritan",
+        "sc=samr", "samaritan",   "sc=sarb", "oldsoutharabian",
+        "sc=saur", "saurashtra",   "sc=saurashtra", "saurashtra",
+        "sc=sharada", "sharada",   "sc=shavian", "shavian",
+        "sc=shaw", "shavian",   "sc=shrd", "sharada",
+        "sc=sinh", "sinhala",   "sc=sinhala", "sinhala",
+        "sc=sora", "sorasompeng",   "sc=sorasompeng", "sorasompeng",
+        "sc=sund", "sundanese",   "sc=sundanese", "sundanese",
+        "sc=sylo", "sylotinagri",   "sc=sylotinagri", "sylotinagri",
+        "sc=syrc", "syriac",   "sc=syriac", "syriac",
+        "sc=tagalog", "tagalog",   "sc=tagb", "tagbanwa",
+        "sc=tagbanwa", "tagbanwa",   "sc=taile", "taile",
+        "sc=taitham", "taitham",   "sc=taiviet", "taiviet",
+        "sc=takr", "takri",   "sc=takri", "takri",
+        "sc=tale", "taile",   "sc=talu", "newtailue",
+        "sc=tamil", "tamil",   "sc=taml", "tamil",
+        "sc=tavt", "taiviet",   "sc=telu", "telugu",
+        "sc=telugu", "telugu",   "sc=tfng", "tifinagh",
+        "sc=tglg", "tagalog",   "sc=thaa", "thaana",
+        "sc=thaana", "thaana",   "sc=thai", "thai",
+        "sc=tibetan", "tibetan",   "sc=tibt", "tibetan",
+        "sc=tifinagh", "tifinagh",   "sc=ugar", "ugaritic",
+        "sc=ugaritic", "ugaritic",   "sc=unknown", "unknown",
+        "sc=vai", "vai",   "sc=vaii", "vai",
+        "sc=xpeo", "oldpersian",   "sc=xsux", "cuneiform",
+        "sc=yi", "yi",   "sc=yiii", "yi",
+        "sc=zinh", "inherited",   "sc=zyyy", "common",
+        "sc=zzzz", "unknown",   "script=arab", "arabic",
+        "script=arabic", "arabic",   "script=armenian", "armenian",
+        "script=armi", "imperialaramaic",   "script=armn", "armenian",
+        "script=avestan", "avestan",   "script=avst", "avestan",
+        "script=bali", "balinese",   "script=balinese", "balinese",
+        "script=bamu", "bamum",   "script=bamum", "bamum",
+        "script=batak", "batak",   "script=batk", "batak",
+        "script=beng", "bengali",   "script=bengali", "bengali",
+        "script=bopo", "bopomofo",   "script=bopomofo", "bopomofo",
+        "script=brah", "brahmi",   "script=brahmi", "brahmi",
+        "script=brai", "braille",   "script=braille", "braille",
+        "script=bugi", "buginese",   "script=buginese", "buginese",
+        "script=buhd", "buhid",   "script=buhid", "buhid",
+        "script=cakm", "chakma",   "script=canadianaboriginal", "canadianaboriginal",
+        "script=cans", "canadianaboriginal",   "script=cari", "carian",
+        "script=carian", "carian",   "script=chakma", "chakma",
+        "script=cham", "cham",   "script=cher", "cherokee",
+        "script=cherokee", "cherokee",   "script=common", "common",
+        "script=copt", "coptic",   "script=coptic", "coptic",
+        "script=cprt", "cypriot",   "script=cuneiform", "cuneiform",
+        "script=cypriot", "cypriot",   "script=cyrillic", "cyrillic",
+        "script=cyrl", "cyrillic",   "script=deseret", "deseret",
+        "script=deva", "devanagari",   "script=devanagari", "devanagari",
+        "script=dsrt", "deseret",   "script=egyp", "egyptianhieroglyphs",
+        "script=egyptianhieroglyphs", "egyptianhieroglyphs",   "script=ethi", "ethiopic",
+        "script=ethiopic", "ethiopic",   "script=geor", "georgian",
+        "script=georgian", "georgian",   "script=glag", "glagolitic",
+        "script=glagolitic", "glagolitic",   "script=goth", "gothic",
+        "script=gothic", "gothic",   "script=greek", "greek",
+        "script=grek", "greek",   "script=gujarati", "gujarati",
+        "script=gujr", "gujarati",   "script=gurmukhi", "gurmukhi",
+        "script=guru", "gurmukhi",   "script=han", "han",
+        "script=hang", "hangul",   "script=hangul", "hangul",
+        "script=hani", "han",   "script=hano", "hanunoo",
+        "script=hanunoo", "hanunoo",   "script=hebr", "hebrew",
+        "script=hebrew", "hebrew",   "script=hira", "hiragana",
+        "script=hiragana", "hiragana",   "script=imperialaramaic", "imperialaramaic",
+        "script=inherited", "inherited",   "script=inscriptionalpahlavi", "inscriptionalpahlavi",
+        "script=inscriptionalparthian", "inscriptionalparthian",   "script=ital", "olditalic",
+        "script=java", "javanese",   "script=javanese", "javanese",
+        "script=kaithi", "kaithi",   "script=kali", "kayahli",
+        "script=kana", "katakana",   "script=kannada", "kannada",
+        "script=katakana", "katakana",   "script=kayahli", "kayahli",
+        "script=khar", "kharoshthi",   "script=kharoshthi", "kharoshthi",
+        "script=khmer", "khmer",   "script=khmr", "khmer",
+        "script=knda", "kannada",   "script=kthi", "kaithi",
+        "script=lana", "taitham",   "script=lao", "lao",
+        "script=laoo", "lao",   "script=latin", "latin",
+        "script=latn", "latin",   "script=lepc", "lepcha",
+        "script=lepcha", "lepcha",   "script=limb", "limbu",
+        "script=limbu", "limbu",   "script=linb", "linearb",
+        "script=linearb", "linearb",   "script=lisu", "lisu",
+        "script=lyci", "lycian",   "script=lycian", "lycian",
+        "script=lydi", "lydian",   "script=lydian", "lydian",
+        "script=malayalam", "malayalam",   "script=mand", "mandaic",
+        "script=mandaic", "mandaic",   "script=meeteimayek", "meeteimayek",
+        "script=merc", "meroiticcursive",   "script=mero", "meroitichieroglyphs",
+        "script=meroiticcursive", "meroiticcursive",   "script=meroitichieroglyphs", "meroitichieroglyphs",
+        "script=miao", "miao",   "script=mlym", "malayalam",
+        "script=mong", "mongolian",   "script=mongolian", "mongolian",
+        "script=mtei", "meeteimayek",   "script=myanmar", "myanmar",
+        "script=mymr", "myanmar",   "script=newtailue", "newtailue",
+        "script=nko", "nko",   "script=nkoo", "nko",
+        "script=ogam", "ogham",   "script=ogham", "ogham",
+        "script=olchiki", "olchiki",   "script=olck", "olchiki",
+        "script=olditalic", "olditalic",   "script=oldpersian", "oldpersian",
+        "script=oldsoutharabian", "oldsoutharabian",   "script=oldturkic", "oldturkic",
+        "script=oriya", "oriya",   "script=orkh", "oldturkic",
+        "script=orya", "oriya",   "script=osma", "osmanya",
+        "script=osmanya", "osmanya",   "script=phag", "phagspa",
+        "script=phagspa", "phagspa",   "script=phli", "inscriptionalpahlavi",
+        "script=phnx", "phoenician",   "script=phoenician", "phoenician",
+        "script=plrd", "miao",   "script=prti", "inscriptionalparthian",
+        "script=qaac", "coptic",   "script=qaai", "inherited",
+        "script=rejang", "rejang",   "script=rjng", "rejang",
+        "script=runic", "runic",   "script=runr", "runic",
+        "script=samaritan", "samaritan",   "script=samr", "samaritan",
+        "script=sarb", "oldsoutharabian",   "script=saur", "saurashtra",
+        "script=saurashtra", "saurashtra",   "script=sharada", "sharada",
+        "script=shavian", "shavian",   "script=shaw", "shavian",
+        "script=shrd", "sharada",   "script=sinh", "sinhala",
+        "script=sinhala", "sinhala",   "script=sora", "sorasompeng",
+        "script=sorasompeng", "sorasompeng",   "script=sund", "sundanese",
+        "script=sundanese", "sundanese",   "script=sylo", "sylotinagri",
+        "script=sylotinagri", "sylotinagri",   "script=syrc", "syriac",
+        "script=syriac", "syriac",   "script=tagalog", "tagalog",
+        "script=tagb", "tagbanwa",   "script=tagbanwa", "tagbanwa",
+        "script=taile", "taile",   "script=taitham", "taitham",
+        "script=taiviet", "taiviet",   "script=takr", "takri",
+        "script=takri", "takri",   "script=tale", "taile",
+        "script=talu", "newtailue",   "script=tamil", "tamil",
+        "script=taml", "tamil",   "script=tavt", "taiviet",
+        "script=telu", "telugu",   "script=telugu", "telugu",
+        "script=tfng", "tifinagh",   "script=tglg", "tagalog",
+        "script=thaa", "thaana",   "script=thaana", "thaana",
+        "script=thai", "thai",   "script=tibetan", "tibetan",
+        "script=tibt", "tibetan",   "script=tifinagh", "tifinagh",
+        "script=ugar", "ugaritic",   "script=ugaritic", "ugaritic",
+        "script=unknown", "unknown",   "script=vai", "vai",
+        "script=vaii", "vai",   "script=xpeo", "oldpersian",
+        "script=xsux", "cuneiform",   "script=yi", "yi",
+        "script=yiii", "yi",   "script=zinh", "inherited",
+        "script=zyyy", "common",   "script=zzzz", "unknown",
+        "sd", "softdotted",   "sentencebreak=at", "sentencebreak=aterm",
+        "sentencebreak=cl", "sentencebreak=close",   "sentencebreak=ex", "sentencebreak=extend",
+        "sentencebreak=fo", "sentencebreak=format",   "sentencebreak=le", "sentencebreak=oletter",
+        "sentencebreak=lo", "sentencebreak=lower",   "sentencebreak=nu", "sentencebreak=numeric",
+        "sentencebreak=sc", "sentencebreak=scontinue",   "sentencebreak=se", "sentencebreak=sep",
+        "sentencebreak=st", "sentencebreak=sterm",   "sentencebreak=up", "sentencebreak=upper",
+        "sentencebreak=xx", "sentencebreak=other",   "separator", "z",
+        "shaw", "shavian",   "shrd", "sharada",
+        "sinh", "sinhala",   "sora", "sorasompeng",
+        "space", "whitespace",   "spaceseparator", "zs",
+        "spacingmark", "mc",   "sund", "sundanese",
+        "sylo", "sylotinagri",   "symbol", "s",
+        "syrc", "syriac",   "tagb", "tagbanwa",
+        "takr", "takri",   "tale", "taile",
+        "talu", "newtailue",   "taml", "tamil",
+        "tavt", "taiviet",   "telu", "telugu",
+        "term", "terminalpunctuation",   "tfng", "tifinagh",
+        "tglg", "tagalog",   "thaa", "thaana",
+        "tibt", "tibetan",   "titlecaseletter", "lt",
+        "ugar", "ugaritic",   "uideo", "unifiedideograph",
+        "unassigned", "cn",   "upper", "uppercase",
+        "uppercaseletter", "lu",   "vaii", "vai",
+        "vs", "variationselector",   "wb=aletter", "wordbreak=aletter",
+        "wb=cr", "wordbreak=cr",   "wb=ex", "wordbreak=extendnumlet",
+        "wb=extend", "wordbreak=extend",   "wb=extendnumlet", "wordbreak=extendnumlet",
+        "wb=fo", "wordbreak=format",   "wb=format", "wordbreak=format",
+        "wb=ka", "wordbreak=katakana",   "wb=katakana", "wordbreak=katakana",
+        "wb=le", "wordbreak=aletter",   "wb=lf", "wordbreak=lf",
+        "wb=mb", "wordbreak=midnumlet",   "wb=midletter", "wordbreak=midletter",
+        "wb=midnum", "wordbreak=midnum",   "wb=midnumlet", "wordbreak=midnumlet",
+        "wb=ml", "wordbreak=midletter",   "wb=mn", "wordbreak=midnum",
+        "wb=newline", "wordbreak=newline",   "wb=nl", "wordbreak=newline",
+        "wb=nu", "wordbreak=numeric",   "wb=numeric", "wordbreak=numeric",
+        "wb=other", "wordbreak=other",   "wb=regionalindicator", "wordbreak=regionalindicator",
+        "wb=ri", "wordbreak=regionalindicator",   "wb=xx", "wordbreak=other",
+        "wordbreak=ex", "wordbreak=extendnumlet",   "wordbreak=fo", "wordbreak=format",
+        "wordbreak=ka", "wordbreak=katakana",   "wordbreak=le", "wordbreak=aletter",
+        "wordbreak=mb", "wordbreak=midnumlet",   "wordbreak=ml", "wordbreak=midletter",
+        "wordbreak=mn", "wordbreak=midnum",   "wordbreak=nl", "wordbreak=newline",
+        "wordbreak=nu", "wordbreak=numeric",   "wordbreak=ri", "wordbreak=regionalindicator",
+        "wordbreak=xx", "wordbreak=other",   "wspace", "whitespace",
+        "xidc", "xidcontinue",   "xids", "xidstart",
+        "xpeo", "oldpersian",   "xsux", "cuneiform",
+        "yiii", "yi",   "zinh", "inherited",
+        "zyyy", "common",   "zzzz", "unknown"
   };
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

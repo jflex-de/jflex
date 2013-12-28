@@ -45,10 +45,10 @@ cd ..
 version="$1"
 ucd="$2"
 
-cd cases/unicode-blocks
+cd cases/unicode-blocks/
 ../../perl/create.unicode-blocks.test.case.files.pl -v $version -b $ucd/Blocks.txt
 
-cd ../unicode-caseless
+cd ../unicode-caseless/
 ../../perl/create.unicode-caseless.test.files.pl -v $version -d $ucd/UnicodeData.txt 
 
 cd ../unicode-compatibility-properties/
@@ -93,8 +93,11 @@ cd ../unicode-space/
 cd ../unicode-uppercase/
 ../../perl/create.unicode-uppercase.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt 
 
-cd ../unicode-word
+cd ../unicode-word/
 ../../perl/create.unicode-word.test.case.files.pl -v $version -u $ucd/UnicodeData.txt -d $ucd/DerivedCoreProperties.txt 
 
 cd ../unicode-word-break/
-../../perl/create.unicode-word-break.test.case.files.pl -v $version -d $ucd/auxiliary/WordBreakProperty.txt 
+../../perl/create.unicode-word-break.test.case.files.pl -v $version -d $ucd/auxiliary/WordBreakProperty.txt
+ 
+cd ../unicode-age/
+../../perl/create.unicode-age.test.case.files.pl -v $version -d $ucd/DerivedAge.txt

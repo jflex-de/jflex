@@ -54,12 +54,12 @@ import java.util.regex.Pattern;
 class UnicodeVersion {
 
   /** Pattern for the full Unicode version */
-  private final Pattern FULL_VERSION_PATTERN
-    = Pattern.compile("(\\d+\\.\\d+)\\.\\d+");
+  private static final Pattern FULL_VERSION_PATTERN
+    = Pattern.compile("((\\d+)\\.(\\d+))\\.\\d+");
 
   /** Pattern for the full Unicode version from the unicode data URL */
-  private final Pattern FULL_VERSION_PATTERN_IN_URL
-    = Pattern.compile("UnicodeData-(\\d+\\.\\d+\\.\\d+)\\.txt$");
+  private static final Pattern FULL_VERSION_PATTERN_IN_URL
+    = Pattern.compile("UnicodeData-((\\d+)\\.(\\d+)\\.\\d+)\\.txt$");
 
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
@@ -104,6 +104,12 @@ class UnicodeVersion {
   /** Unicode version X.X */
   String majorMinorVersion;
 
+  /** Unicode major version */
+  int majorVersion;
+    
+  /** Unicode minor version */
+  int minorVersion;
+    
   /** The greatest code point listed in UnicodeData(-X.X.X).txt */
   int maximumCodePoint;
 
@@ -147,7 +153,7 @@ class UnicodeVersion {
   
   private EnumMap<DataFileType,URL> dataFiles;
 
-  /**
+    /**
    * Instantiates a container for versioned Unicode data.
    *
    * @param version The Unicode version, either in form "X.X.X" or "X.X".
@@ -190,11 +196,15 @@ class UnicodeVersion {
     if (matcher.matches()) {
       majorMinorUpdateVersion = matcher.group(0);
       majorMinorVersion = matcher.group(1);
+      majorVersion = Integer.parseInt(matcher.group(2));
+      minorVersion = Integer.parseInt(matcher.group(3));
     } else {
       majorMinorVersion = version;
       matcher = FULL_VERSION_PATTERN_IN_URL.matcher(unicodeDataURL.toString());
       if (matcher.find()) {
         majorMinorUpdateVersion = matcher.group(1);
+        majorVersion = Integer.parseInt(matcher.group(2));
+        minorVersion = Integer.parseInt(matcher.group(3));
       }
     }
   }

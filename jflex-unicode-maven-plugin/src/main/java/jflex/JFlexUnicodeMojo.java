@@ -101,6 +101,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    *           <li>GraphemeBreakProperty.txt</li>
    *           <li>SentenceBreakProperty.txt</li>
    *           <li>WordBreakProperty.txt</li>
+   *           <li>DerivedAge.txt (the latest version's only)</li>
    *         </ul>
    *       <li>Parses the data files, extracting ranges of code points
    *           and property values associated with them (see
@@ -213,9 +214,10 @@ public class JFlexUnicodeMojo extends AbstractMojo {
 
       for (DataFileType fileType : DataFileType.values()) {
         if (null == dataFiles.get(fileType)) {
-          String fileName = fileType.getFileName(versionedDirectoryListing);
-          if (null != fileName) {
-            dataFiles.put(fileType, new URL(baseURL, fileName));
+          URL url = fileType.getURL
+              (version, baseURL, versionedDirectoryListing);
+          if (null != url) {
+            dataFiles.put(fileType, url);
           }
         }
       }
@@ -228,10 +230,10 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         String nestedVersionedDirectoryListing = getPageContent(nestedBaseURL);
         for (DataFileType fileType : DataFileType.values()) {
           if (null == dataFiles.get(fileType)) {
-            String fileName 
-              = fileType.getFileName(nestedVersionedDirectoryListing);
-            if (null != fileName) {
-              dataFiles.put(fileType, new URL(nestedBaseURL, fileName));
+            URL url = fileType.getURL
+                (version, nestedBaseURL, nestedVersionedDirectoryListing);
+            if (null != url) {
+              dataFiles.put(fileType, url);
             }
           }
         }

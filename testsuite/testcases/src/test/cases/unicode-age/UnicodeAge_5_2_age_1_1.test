@@ -1,0 +1,11 @@
+name: UnicodeAge_5_2_age_1_1
+
+description: 
+Tests character class syntax of the Unicode 5.2 Age=1.1 property.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

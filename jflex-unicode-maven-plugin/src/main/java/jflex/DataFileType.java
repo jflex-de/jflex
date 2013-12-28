@@ -3,6 +3,7 @@ package jflex;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -140,6 +141,27 @@ public enum DataFileType {
         (reader, version, "Word_Break", "Other");
       scanner.scan(); 
     }
+  },
+
+  DERIVED_AGE("DerivedAge") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      DerivedAgeScanner scanner = new DerivedAgeScanner(reader, version);
+      scanner.scan();
+    }
+    /** 
+     * Always return the URL for the latest Unicode version's DerivedAge.txt,
+     * except for Unicode 1.1, which will not get the Age property, because
+     * Unicode 2.0 actually removed some assigned code points (old Korean
+     * syllables), so the Age property is excluded for those code points
+     * in following Unicode versions. 
+     */
+    public URL getURL(String version, URL baseURL, String versionedDirectoryListing)
+        throws MalformedURLException {
+      return version.startsWith("1.1") 
+           ? null
+           : new URL("http://www.unicode.org/Public/UNIDATA/DerivedAge.txt");
+    }
   };
   
   DataFileType(String fileNamePrefix) {
@@ -167,4 +189,10 @@ public enum DataFileType {
   }
   
   public abstract void scan(URL url, UnicodeVersion version) throws IOException;
+
+  public URL getURL(String version, URL baseURL, String versionedDirectoryListing)
+       throws MalformedURLException {
+    String fileName = getFileName(versionedDirectoryListing);
+    return (null == fileName ? null : new URL(baseURL, fileName));
+  }
 }
