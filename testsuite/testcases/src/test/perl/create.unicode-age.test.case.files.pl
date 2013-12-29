@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# create.unicode-word-break.test.output.pl
+# create.unicode-age.test.case.files.pl
 #
 # This script is designed to take as input DerivedAge.txt, and output
 # hex char ranges and corresponding properties, for the BMP, excluding
