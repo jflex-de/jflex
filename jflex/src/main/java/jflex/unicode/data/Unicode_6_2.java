@@ -89,21 +89,41 @@ public class Unicode_6_2 {
         "patternsyntax", "patternwhitespace", "pc", "pd", "pe",
         "pf", "phagspa", "phoenician", "pi", "po",
         "print", "ps", "quotationmark", "radical", "rejang",
-        "runic", "samaritan", "saurashtra", "sc", "sentencebreak=aterm",
-        "sentencebreak=close", "sentencebreak=cr", "sentencebreak=extend", "sentencebreak=format", "sentencebreak=lf",
-        "sentencebreak=lower", "sentencebreak=numeric", "sentencebreak=oletter", "sentencebreak=other", "sentencebreak=scontinue",
-        "sentencebreak=sep", "sentencebreak=sp", "sentencebreak=sterm", "sentencebreak=upper", "sharada",
-        "shavian", "sinhala", "sk", "sm", "so",
-        "softdotted", "sorasompeng", "sterm", "sundanese", "sylotinagri",
-        "syriac", "tagalog", "tagbanwa", "taile", "taitham",
-        "taiviet", "takri", "tamil", "telugu", "terminalpunctuation",
-        "thaana", "thai", "tibetan", "tifinagh", "ugaritic",
-        "unifiedideograph", "unknown", "uppercase", "vai", "variationselector",
-        "whitespace", "wordbreak=aletter", "wordbreak=cr", "wordbreak=extend", "wordbreak=extendnumlet",
-        "wordbreak=format", "wordbreak=katakana", "wordbreak=lf", "wordbreak=midletter", "wordbreak=midnum",
-        "wordbreak=midnumlet", "wordbreak=newline", "wordbreak=numeric", "wordbreak=other", "wordbreak=regionalindicator",
-        "xdigit", "xidcontinue", "xidstart", "yi", "zl",
-        "zp", "zs" };
+        "runic", "samaritan", "saurashtra", "sc", "scriptextensions=arabic",
+        "scriptextensions=armenian", "scriptextensions=avestan", "scriptextensions=balinese", "scriptextensions=bamum", "scriptextensions=batak",
+        "scriptextensions=bengali", "scriptextensions=bopomofo", "scriptextensions=brahmi", "scriptextensions=braille", "scriptextensions=buginese",
+        "scriptextensions=buhid", "scriptextensions=canadianaboriginal", "scriptextensions=carian", "scriptextensions=chakma", "scriptextensions=cham",
+        "scriptextensions=cherokee", "scriptextensions=common", "scriptextensions=coptic", "scriptextensions=cuneiform", "scriptextensions=cypriot",
+        "scriptextensions=cyrillic", "scriptextensions=deseret", "scriptextensions=devanagari", "scriptextensions=egyptianhieroglyphs", "scriptextensions=ethiopic",
+        "scriptextensions=georgian", "scriptextensions=glagolitic", "scriptextensions=gothic", "scriptextensions=greek", "scriptextensions=gujarati",
+        "scriptextensions=gurmukhi", "scriptextensions=han", "scriptextensions=hangul", "scriptextensions=hanunoo", "scriptextensions=hebrew",
+        "scriptextensions=hiragana", "scriptextensions=imperialaramaic", "scriptextensions=inherited", "scriptextensions=inscriptionalpahlavi", "scriptextensions=inscriptionalparthian",
+        "scriptextensions=javanese", "scriptextensions=kaithi", "scriptextensions=kannada", "scriptextensions=katakana", "scriptextensions=kayahli",
+        "scriptextensions=kharoshthi", "scriptextensions=khmer", "scriptextensions=lao", "scriptextensions=latin", "scriptextensions=lepcha",
+        "scriptextensions=limbu", "scriptextensions=linearb", "scriptextensions=lisu", "scriptextensions=lycian", "scriptextensions=lydian",
+        "scriptextensions=malayalam", "scriptextensions=mandaic", "scriptextensions=meeteimayek", "scriptextensions=meroiticcursive", "scriptextensions=meroitichieroglyphs",
+        "scriptextensions=miao", "scriptextensions=mongolian", "scriptextensions=myanmar", "scriptextensions=newtailue", "scriptextensions=nko",
+        "scriptextensions=ogham", "scriptextensions=olchiki", "scriptextensions=olditalic", "scriptextensions=oldpersian", "scriptextensions=oldsoutharabian",
+        "scriptextensions=oldturkic", "scriptextensions=oriya", "scriptextensions=osmanya", "scriptextensions=phagspa", "scriptextensions=phoenician",
+        "scriptextensions=rejang", "scriptextensions=runic", "scriptextensions=samaritan", "scriptextensions=saurashtra", "scriptextensions=sharada",
+        "scriptextensions=shavian", "scriptextensions=sinhala", "scriptextensions=sorasompeng", "scriptextensions=sundanese", "scriptextensions=sylotinagri",
+        "scriptextensions=syriac", "scriptextensions=tagalog", "scriptextensions=tagbanwa", "scriptextensions=taile", "scriptextensions=taitham",
+        "scriptextensions=taiviet", "scriptextensions=takri", "scriptextensions=tamil", "scriptextensions=telugu", "scriptextensions=thaana",
+        "scriptextensions=thai", "scriptextensions=tibetan", "scriptextensions=tifinagh", "scriptextensions=ugaritic", "scriptextensions=unknown",
+        "scriptextensions=vai", "scriptextensions=yi", "sentencebreak=aterm", "sentencebreak=close", "sentencebreak=cr",
+        "sentencebreak=extend", "sentencebreak=format", "sentencebreak=lf", "sentencebreak=lower", "sentencebreak=numeric",
+        "sentencebreak=oletter", "sentencebreak=other", "sentencebreak=scontinue", "sentencebreak=sep", "sentencebreak=sp",
+        "sentencebreak=sterm", "sentencebreak=upper", "sharada", "shavian", "sinhala",
+        "sk", "sm", "so", "softdotted", "sorasompeng",
+        "sterm", "sundanese", "sylotinagri", "syriac", "tagalog",
+        "tagbanwa", "taile", "taitham", "taiviet", "takri",
+        "tamil", "telugu", "terminalpunctuation", "thaana", "thai",
+        "tibetan", "tifinagh", "ugaritic", "unifiedideograph", "unknown",
+        "uppercase", "vai", "variationselector", "whitespace", "wordbreak=aletter",
+        "wordbreak=cr", "wordbreak=extend", "wordbreak=extendnumlet", "wordbreak=format", "wordbreak=katakana",
+        "wordbreak=lf", "wordbreak=midletter", "wordbreak=midnum", "wordbreak=midnumlet", "wordbreak=newline",
+        "wordbreak=numeric", "wordbreak=other", "wordbreak=regionalindicator", "xdigit", "xidcontinue",
+        "xidstart", "yi", "zl", "zp", "zs" };
   public static final String[] intervals = {
     // Unicode 6.2 property value: {age=unassigned}
         "\u0378\u0379"+"\u037f\u0383"+"\u038b\u038b"+"\u038d\u038d"
@@ -3740,7 +3760,7 @@ public class Unicode_6_2 {
       + "\uaa40\uaa4d"+"\uaa50\uaa59"+"\uaa5c\uaa7b"+"\uaa80\uaac2"
       + "\uaadb\uaaf6"+"\uab01\uab06"+"\uab09\uab0e"+"\uab11\uab16"
       + "\uab20\uab26"+"\uab28\uab2e"+"\uabc0\uabed"+"\uabf0\uabf9"
-      + "\uac00\ud7a3"+"\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ud800\ufa6d"
+      + "\uac00\ud7a3"+"\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ue000\ufa6d"
       + "\ufa70\ufad9"+"\ufb00\ufb06"+"\ufb13\ufb17"+"\ufb1d\ufb36"
       + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
       + "\ufb46\ufbc1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"+"\ufd92\ufdc7"
@@ -6542,7 +6562,7 @@ public class Unicode_6_2 {
       + "\uaa80\uaac2"+"\uaadb\uaaf6"+"\uab01\uab06"+"\uab09\uab0e"
       + "\uab11\uab16"+"\uab20\uab26"+"\uab28\uab2e"+"\uabc0\uabed"
       + "\uabf0\uabf9"+"\uac00\ud7a3"+"\ud7b0\ud7c6"+"\ud7cb\ud7fb"
-      + "\ud800\ufa6d"+"\ufa70\ufad9"+"\ufb00\ufb06"+"\ufb13\ufb17"
+      + "\ue000\ufa6d"+"\ufa70\ufad9"+"\ufb00\ufb06"+"\ufb13\ufb17"
       + "\ufb1d\ufb36"+"\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"
       + "\ufb43\ufb44"+"\ufb46\ufbc1"+"\ufbd3\ufd3f"+"\ufd50\ufd8f"
       + "\ufd92\ufdc7"+"\ufdf0\ufdfd"+"\ufe00\ufe19"+"\ufe20\ufe26"
@@ -6589,6 +6609,505 @@ public class Unicode_6_2 {
       + "\u0e3f\u0e3f"+"\u17db\u17db"+"\u20a0\u20ba"+"\ua838\ua838"
       + "\ufdfc\ufdfc"+"\ufe69\ufe69"+"\uff04\uff04"+"\uffe0\uffe1"
       + "\uffe5\uffe6",
+    // Unicode 6.2 property value: {scriptextensions=arabic}
+        "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0640\u0640"
+      + "\u064b\u0655"+"\u0660\u0669"+"\u0670\u0670"+"\ufdf2\ufdf2"
+      + "\ufdfd\ufdfd"+"\u0600\u0604"+"\u0606\u060b"+"\u060d\u061a"
+      + "\u061e\u061e"+"\u0620\u063f"+"\u0641\u064a"+"\u0656\u065f"
+      + "\u066a\u066f"+"\u0671\u06dc"+"\u06de\u06ff"+"\u0750\u077f"
+      + "\u08a0\u08a0"+"\u08a2\u08ac"+"\u08e4\u08fe"+"\ufb50\ufbc1"
+      + "\ufbd3\ufd3d"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdf0\ufdf1"
+      + "\ufdf3\ufdfc"+"\ufe70\ufe74"+"\ufe76\ufefc"+"\ud803\ude60\ud803\ude7e"
+      + "\ud83b\ude00\ud83b\ude03"+"\ud83b\ude05\ud83b\ude1f"+"\ud83b\ude21\ud83b\ude22"+"\ud83b\ude24\ud83b\ude24"
+      + "\ud83b\ude27\ud83b\ude27"+"\ud83b\ude29\ud83b\ude32"+"\ud83b\ude34\ud83b\ude37"+"\ud83b\ude39\ud83b\ude39"
+      + "\ud83b\ude3b\ud83b\ude3b"+"\ud83b\ude42\ud83b\ude42"+"\ud83b\ude47\ud83b\ude47"+"\ud83b\ude49\ud83b\ude49"
+      + "\ud83b\ude4b\ud83b\ude4b"+"\ud83b\ude4d\ud83b\ude4f"+"\ud83b\ude51\ud83b\ude52"+"\ud83b\ude54\ud83b\ude54"
+      + "\ud83b\ude57\ud83b\ude57"+"\ud83b\ude59\ud83b\ude59"+"\ud83b\ude5b\ud83b\ude5b"+"\ud83b\ude5d\ud83b\ude5d"
+      + "\ud83b\ude5f\ud83b\ude5f"+"\ud83b\ude61\ud83b\ude62"+"\ud83b\ude64\ud83b\ude64"+"\ud83b\ude67\ud83b\ude6a"
+      + "\ud83b\ude6c\ud83b\ude72"+"\ud83b\ude74\ud83b\ude77"+"\ud83b\ude79\ud83b\ude7c"+"\ud83b\ude7e\ud83b\ude7e"
+      + "\ud83b\ude80\ud83b\ude89"+"\ud83b\ude8b\ud83b\ude9b"+"\ud83b\udea1\ud83b\udea3"+"\ud83b\udea5\ud83b\udea9"
+      + "\ud83b\udeab\ud83b\udebb"+"\ud83b\udef0\ud83b\udef1",
+    // Unicode 6.2 property value: {scriptextensions=armenian}
+        "\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"+"\u058a\u058a"
+      + "\u058f\u058f"+"\ufb13\ufb17"+"\u0589\u0589",
+    // Unicode 6.2 property value: {scriptextensions=avestan}
+        "\ud802\udf00\ud802\udf35"+"\ud802\udf39\ud802\udf3f",
+    // Unicode 6.2 property value: {scriptextensions=balinese}
+        "\u1b00\u1b4b"+"\u1b50\u1b7c",
+    // Unicode 6.2 property value: {scriptextensions=bamum}
+        "\ua6a0\ua6f7"+"\ud81a\udc00\ud81a\ude38",
+    // Unicode 6.2 property value: {scriptextensions=batak}
+        "\u1bc0\u1bf3"+"\u1bfc\u1bff",
+    // Unicode 6.2 property value: {scriptextensions=bengali}
+        "\u0964\u0965"+"\u0981\u0983"+"\u0985\u098c"+"\u098f\u0990"
+      + "\u0993\u09a8"+"\u09aa\u09b0"+"\u09b2\u09b2"+"\u09b6\u09b9"
+      + "\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"
+      + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fb",
+    // Unicode 6.2 property value: {scriptextensions=bopomofo}
+        "\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"+"\u302a\u302d"
+      + "\u3030\u3030"+"\u3037\u3037"+"\u303e\u303f"+"\u30fb\u30fb"
+      + "\u31c0\u31e3"+"\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"
+      + "\u3358\u3370"+"\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"
+      + "\uff61\uff65"+"\u02ea\u02eb"+"\u3105\u312d"+"\u31a0\u31ba",
+    // Unicode 6.2 property value: {scriptextensions=brahmi}
+        "\ud804\udc00\ud804\udc4d"+"\ud804\udc52\ud804\udc6f",
+    // Unicode 6.2 property value: {scriptextensions=braille}
+        "\u2800\u28ff",
+    // Unicode 6.2 property value: {scriptextensions=buginese}
+        "\u1a00\u1a1b"+"\u1a1e\u1a1f",
+    // Unicode 6.2 property value: {scriptextensions=buhid}
+        "\u1740\u1753"+"\u1735\u1736",
+    // Unicode 6.2 property value: {scriptextensions=canadianaboriginal}
+        "\u1400\u167f"+"\u18b0\u18f5",
+    // Unicode 6.2 property value: {scriptextensions=carian}
+        "\ud800\udea0\ud800\uded0",
+    // Unicode 6.2 property value: {scriptextensions=chakma}
+        "\ud804\udd00\ud804\udd34"+"\ud804\udd36\ud804\udd43",
+    // Unicode 6.2 property value: {scriptextensions=cham}
+        "\uaa00\uaa36"+"\uaa40\uaa4d"+"\uaa50\uaa59"+"\uaa5c\uaa5f",
+    // Unicode 6.2 property value: {scriptextensions=cherokee}
+        "\u13a0\u13f4",
+    // Unicode 6.2 property value: {scriptextensions=common}
+        "\000\u0040"+"\u005b\u0060"+"\u007b\u00a9"+"\u00ab\u00b9"
+      + "\u00bb\u00bf"+"\u00d7\u00d7"+"\u00f7\u00f7"+"\u02b9\u02df"
+      + "\u02e5\u02e9"+"\u02ec\u02ff"+"\u0374\u0374"+"\u037e\u037e"
+      + "\u0385\u0385"+"\u0387\u0387"+"\u06dd\u06dd"+"\u0e3f\u0e3f"
+      + "\u0fd5\u0fd8"+"\u10fb\u10fb"+"\u16eb\u16ed"+"\u1cd3\u1cd3"
+      + "\u1ce9\u1cec"+"\u1cee\u1cf1"+"\u1cf5\u1cf6"+"\u2000\u200b"
+      + "\u200e\u2064"+"\u206a\u2070"+"\u2074\u207e"+"\u2080\u208e"
+      + "\u20a0\u20ba"+"\u2100\u2125"+"\u2127\u2129"+"\u212c\u2131"
+      + "\u2133\u214d"+"\u214f\u215f"+"\u2189\u2189"+"\u2190\u23f3"
+      + "\u2400\u2426"+"\u2440\u244a"+"\u2460\u26ff"+"\u2701\u27ff"
+      + "\u2900\u2b4c"+"\u2b50\u2b59"+"\u2e00\u2e3b"+"\u2ff0\u2ffb"
+      + "\u3000\u3000"+"\u3004\u3004"+"\u3012\u3012"+"\u3020\u3020"
+      + "\u3036\u3036"+"\u3244\u325f"+"\u327f\u327f"+"\u32b1\u32bf"
+      + "\u32cc\u32cf"+"\u3371\u337a"+"\u3380\u33df"+"\u33ff\u33ff"
+      + "\u4dc0\u4dff"+"\ua700\ua721"+"\ua788\ua78a"+"\ufd3e\ufd3f"
+      + "\ufe10\ufe19"+"\ufe30\ufe44"+"\ufe47\ufe52"+"\ufe54\ufe66"
+      + "\ufe68\ufe6b"+"\ufeff\ufeff"+"\uff01\uff20"+"\uff3b\uff40"
+      + "\uff5b\uff60"+"\uffe0\uffe6"+"\uffe8\uffee"+"\ufff9\ufffd"
+      + "\ud800\udd90\ud800\udd9b"+"\ud800\uddd0\ud800\uddfc"+"\ud834\udc00\ud834\udcf5"+"\ud834\udd00\ud834\udd26"
+      + "\ud834\udd29\ud834\udd66"+"\ud834\udd6a\ud834\udd7a"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"
+      + "\ud834\uddae\ud834\udddd"+"\ud834\udf00\ud834\udf56"+"\ud834\udf60\ud834\udf71"+"\ud835\udc00\ud835\udc54"
+      + "\ud835\udc56\ud835\udc9c"+"\ud835\udc9e\ud835\udc9f"+"\ud835\udca2\ud835\udca2"+"\ud835\udca5\ud835\udca6"
+      + "\ud835\udca9\ud835\udcac"+"\ud835\udcae\ud835\udcb9"+"\ud835\udcbb\ud835\udcbb"+"\ud835\udcbd\ud835\udcc3"
+      + "\ud835\udcc5\ud835\udd05"+"\ud835\udd07\ud835\udd0a"+"\ud835\udd0d\ud835\udd14"+"\ud835\udd16\ud835\udd1c"
+      + "\ud835\udd1e\ud835\udd39"+"\ud835\udd3b\ud835\udd3e"+"\ud835\udd40\ud835\udd44"+"\ud835\udd46\ud835\udd46"
+      + "\ud835\udd4a\ud835\udd50"+"\ud835\udd52\ud835\udea5"+"\ud835\udea8\ud835\udfcb"+"\ud835\udfce\ud835\udfff"
+      + "\ud83c\udc00\ud83c\udc2b"+"\ud83c\udc30\ud83c\udc93"+"\ud83c\udca0\ud83c\udcae"+"\ud83c\udcb1\ud83c\udcbe"
+      + "\ud83c\udcc1\ud83c\udccf"+"\ud83c\udcd1\ud83c\udcdf"+"\ud83c\udd00\ud83c\udd0a"+"\ud83c\udd10\ud83c\udd2e"
+      + "\ud83c\udd30\ud83c\udd6b"+"\ud83c\udd70\ud83c\udd9a"+"\ud83c\udde6\ud83c\uddff"+"\ud83c\ude01\ud83c\ude02"
+      + "\ud83c\ude10\ud83c\ude3a"+"\ud83c\ude40\ud83c\ude48"+"\ud83c\ude50\ud83c\ude51"+"\ud83c\udf00\ud83c\udf20"
+      + "\ud83c\udf30\ud83c\udf35"+"\ud83c\udf37\ud83c\udf7c"+"\ud83c\udf80\ud83c\udf93"+"\ud83c\udfa0\ud83c\udfc4"
+      + "\ud83c\udfc6\ud83c\udfca"+"\ud83c\udfe0\ud83c\udff0"+"\ud83d\udc00\ud83d\udc3e"+"\ud83d\udc40\ud83d\udc40"
+      + "\ud83d\udc42\ud83d\udcf7"+"\ud83d\udcf9\ud83d\udcfc"+"\ud83d\udd00\ud83d\udd3d"+"\ud83d\udd40\ud83d\udd43"
+      + "\ud83d\udd50\ud83d\udd67"+"\ud83d\uddfb\ud83d\ude40"+"\ud83d\ude45\ud83d\ude4f"+"\ud83d\ude80\ud83d\udec5"
+      + "\ud83d\udf00\ud83d\udf73"+"\udb40\udc01\udb40\udc01"+"\udb40\udc20\udb40\udc7f",
+    // Unicode 6.2 property value: {scriptextensions=coptic}
+        "\u03e2\u03ef"+"\u2c80\u2cf3"+"\u2cf9\u2cff",
+    // Unicode 6.2 property value: {scriptextensions=cuneiform}
+        "\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73",
+    // Unicode 6.2 property value: {scriptextensions=cypriot}
+        "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
+      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc3f"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"
+      + "\ud800\udd37\ud800\udd3f",
+    // Unicode 6.2 property value: {scriptextensions=cyrillic}
+        "\u0485\u0486"+"\u0400\u0484"+"\u0487\u0527"+"\u1d2b\u1d2b"
+      + "\u1d78\u1d78"+"\u2de0\u2dff"+"\ua640\ua697"+"\ua69f\ua69f",
+    // Unicode 6.2 property value: {scriptextensions=deseret}
+        "\ud801\udc00\ud801\udc4f",
+    // Unicode 6.2 property value: {scriptextensions=devanagari}
+        "\u0900\u0950"+"\u0953\u0963"+"\u0966\u0977"+"\u0979\u097f"
+      + "\ua8e0\ua8fb"+"\u0951\u0952"+"\u0964\u0965"+"\u1cd0\u1cd2"
+      + "\u1cd4\u1ce8"+"\u1ced\u1ced"+"\u1cf2\u1cf4"+"\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=egyptianhieroglyphs}
+        "\ud80c\udc00\ud80d\udc2e",
+    // Unicode 6.2 property value: {scriptextensions=ethiopic}
+        "\u1200\u1248"+"\u124a\u124d"+"\u1250\u1256"+"\u1258\u1258"
+      + "\u125a\u125d"+"\u1260\u1288"+"\u128a\u128d"+"\u1290\u12b0"
+      + "\u12b2\u12b5"+"\u12b8\u12be"+"\u12c0\u12c0"+"\u12c2\u12c5"
+      + "\u12c8\u12d6"+"\u12d8\u1310"+"\u1312\u1315"+"\u1318\u135a"
+      + "\u135d\u137c"+"\u1380\u1399"+"\u2d80\u2d96"+"\u2da0\u2da6"
+      + "\u2da8\u2dae"+"\u2db0\u2db6"+"\u2db8\u2dbe"+"\u2dc0\u2dc6"
+      + "\u2dc8\u2dce"+"\u2dd0\u2dd6"+"\u2dd8\u2dde"+"\uab01\uab06"
+      + "\uab09\uab0e"+"\uab11\uab16"+"\uab20\uab26"+"\uab28\uab2e",
+    // Unicode 6.2 property value: {scriptextensions=georgian}
+        "\u0589\u0589"+"\u10a0\u10c5"+"\u10c7\u10c7"+"\u10cd\u10cd"
+      + "\u10d0\u10fa"+"\u10fc\u10ff"+"\u2d00\u2d25"+"\u2d27\u2d27"
+      + "\u2d2d\u2d2d",
+    // Unicode 6.2 property value: {scriptextensions=glagolitic}
+        "\u2c00\u2c2e"+"\u2c30\u2c5e",
+    // Unicode 6.2 property value: {scriptextensions=gothic}
+        "\ud800\udf30\ud800\udf4a",
+    // Unicode 6.2 property value: {scriptextensions=greek}
+        "\u0370\u0373"+"\u0375\u0377"+"\u037a\u037d"+"\u0384\u0384"
+      + "\u0386\u0386"+"\u0388\u038a"+"\u038c\u038c"+"\u038e\u03a1"
+      + "\u03a3\u03e1"+"\u03f0\u03ff"+"\u1d26\u1d2a"+"\u1d5d\u1d61"
+      + "\u1d66\u1d6a"+"\u1dbf\u1dbf"+"\u1f00\u1f15"+"\u1f18\u1f1d"
+      + "\u1f20\u1f45"+"\u1f48\u1f4d"+"\u1f50\u1f57"+"\u1f59\u1f59"
+      + "\u1f5b\u1f5b"+"\u1f5d\u1f5d"+"\u1f5f\u1f7d"+"\u1f80\u1fb4"
+      + "\u1fb6\u1fc4"+"\u1fc6\u1fd3"+"\u1fd6\u1fdb"+"\u1fdd\u1fef"
+      + "\u1ff2\u1ff4"+"\u1ff6\u1ffe"+"\u2126\u2126"+"\ud800\udd40\ud800\udd8a"
+      + "\ud834\ude00\ud834\ude45"+"\u0342\u0342"+"\u0345\u0345"+"\u1dc0\u1dc1",
+    // Unicode 6.2 property value: {scriptextensions=gujarati}
+        "\u0a81\u0a83"+"\u0a85\u0a8d"+"\u0a8f\u0a91"+"\u0a93\u0aa8"
+      + "\u0aaa\u0ab0"+"\u0ab2\u0ab3"+"\u0ab5\u0ab9"+"\u0abc\u0ac5"
+      + "\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"
+      + "\u0ae6\u0af1"+"\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=gurmukhi}
+        "\u0a01\u0a03"+"\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"
+      + "\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"
+      + "\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"
+      + "\u0a51\u0a51"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"
+      + "\u0964\u0965"+"\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=han}
+        "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u3005\u3005"
+      + "\u3007\u3007"+"\u3021\u3029"+"\u3038\u303b"+"\u3400\u4db5"
+      + "\u4e00\u9fcc"+"\uf900\ufa6d"+"\ufa70\ufad9"+"\ud840\udc00\ud869\uded6"
+      + "\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"+"\ud87e\udc00\ud87e\ude1d"+"\u3001\u3003"
+      + "\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"+"\u302a\u302d"
+      + "\u3030\u3030"+"\u3037\u3037"+"\u303c\u303f"+"\u30fb\u30fb"
+      + "\u3190\u319f"+"\u31c0\u31e3"+"\u3220\u3243"+"\u3280\u32b0"
+      + "\u32c0\u32cb"+"\u3358\u3370"+"\u337b\u337f"+"\u33e0\u33fe"
+      + "\ufe45\ufe46"+"\uff61\uff65",
+    // Unicode 6.2 property value: {scriptextensions=hangul}
+        "\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"+"\u3030\u3030"
+      + "\u3037\u3037"+"\u303e\u303f"+"\u30fb\u30fb"+"\u31c0\u31e3"
+      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
+      + "\u1100\u11ff"+"\u302e\u302f"+"\u3131\u318e"+"\u3200\u321e"
+      + "\u3260\u327e"+"\ua960\ua97c"+"\uac00\ud7a3"+"\ud7b0\ud7c6"
+      + "\ud7cb\ud7fb"+"\uffa0\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"
+      + "\uffd2\uffd7"+"\uffda\uffdc",
+    // Unicode 6.2 property value: {scriptextensions=hanunoo}
+        "\u1720\u1734"+"\u1735\u1736",
+    // Unicode 6.2 property value: {scriptextensions=hebrew}
+        "\u0591\u05c7"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\ufb1d\ufb36"
+      + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
+      + "\ufb46\ufb4f",
+    // Unicode 6.2 property value: {scriptextensions=hiragana}
+        "\u3041\u3096"+"\u309d\u309f"+"\ud82c\udc01\ud82c\udc01"+"\ud83c\ude00\ud83c\ude00"
+      + "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
+      + "\u3030\u3035"+"\u3037\u3037"+"\u303c\u303f"+"\u3099\u309c"
+      + "\u30a0\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31e3"
+      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
+      + "\uff70\uff70"+"\uff9e\uff9f",
+    // Unicode 6.2 property value: {scriptextensions=imperialaramaic}
+        "\ud802\udc40\ud802\udc55"+"\ud802\udc57\ud802\udc5f",
+    // Unicode 6.2 property value: {scriptextensions=inherited}
+        "\u0300\u0341"+"\u0343\u0344"+"\u0346\u0362"+"\u1dc2\u1de6"
+      + "\u1dfc\u1dff"+"\u200c\u200d"+"\u20d0\u20f0"+"\ufe00\ufe0f"
+      + "\ufe20\ufe26"+"\ud800\uddfd\ud800\uddfd"+"\ud834\udd67\ud834\udd69"+"\ud834\udd7b\ud834\udd82"
+      + "\ud834\udd85\ud834\udd8b"+"\ud834\uddaa\ud834\uddad"+"\udb40\udd00\udb40\uddef",
+    // Unicode 6.2 property value: {scriptextensions=inscriptionalpahlavi}
+        "\ud802\udf60\ud802\udf72"+"\ud802\udf78\ud802\udf7f",
+    // Unicode 6.2 property value: {scriptextensions=inscriptionalparthian}
+        "\ud802\udf40\ud802\udf55"+"\ud802\udf58\ud802\udf5f",
+    // Unicode 6.2 property value: {scriptextensions=javanese}
+        "\ua980\ua9cd"+"\ua9cf\ua9d9"+"\ua9de\ua9df",
+    // Unicode 6.2 property value: {scriptextensions=kaithi}
+        "\ua830\ua839"+"\ud804\udc80\ud804\udcc1",
+    // Unicode 6.2 property value: {scriptextensions=kannada}
+        "\u0c82\u0c83"+"\u0c85\u0c8c"+"\u0c8e\u0c90"+"\u0c92\u0ca8"
+      + "\u0caa\u0cb3"+"\u0cb5\u0cb9"+"\u0cbc\u0cc4"+"\u0cc6\u0cc8"
+      + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
+      + "\u0ce6\u0cef"+"\u0cf1\u0cf2",
+    // Unicode 6.2 property value: {scriptextensions=katakana}
+        "\u30a1\u30fa"+"\u30fd\u30ff"+"\u31f0\u31ff"+"\u32d0\u32fe"
+      + "\u3300\u3357"+"\uff66\uff6f"+"\uff71\uff9d"+"\ud82c\udc00\ud82c\udc00"
+      + "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
+      + "\u3030\u3035"+"\u3037\u3037"+"\u303c\u303f"+"\u3099\u309c"
+      + "\u30a0\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31e3"
+      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
+      + "\uff70\uff70"+"\uff9e\uff9f",
+    // Unicode 6.2 property value: {scriptextensions=kayahli}
+        "\ua900\ua92f",
+    // Unicode 6.2 property value: {scriptextensions=kharoshthi}
+        "\ud802\ude00\ud802\ude03"+"\ud802\ude05\ud802\ude06"+"\ud802\ude0c\ud802\ude13"+"\ud802\ude15\ud802\ude17"
+      + "\ud802\ude19\ud802\ude33"+"\ud802\ude38\ud802\ude3a"+"\ud802\ude3f\ud802\ude47"+"\ud802\ude50\ud802\ude58",
+    // Unicode 6.2 property value: {scriptextensions=khmer}
+        "\u1780\u17dd"+"\u17e0\u17e9"+"\u17f0\u17f9"+"\u19e0\u19ff",
+    // Unicode 6.2 property value: {scriptextensions=lao}
+        "\u0e81\u0e82"+"\u0e84\u0e84"+"\u0e87\u0e88"+"\u0e8a\u0e8a"
+      + "\u0e8d\u0e8d"+"\u0e94\u0e97"+"\u0e99\u0e9f"+"\u0ea1\u0ea3"
+      + "\u0ea5\u0ea5"+"\u0ea7\u0ea7"+"\u0eaa\u0eab"+"\u0ead\u0eb9"
+      + "\u0ebb\u0ebd"+"\u0ec0\u0ec4"+"\u0ec6\u0ec6"+"\u0ec8\u0ecd"
+      + "\u0ed0\u0ed9"+"\u0edc\u0edf",
+    // Unicode 6.2 property value: {scriptextensions=latin}
+        "\u0363\u036f"+"\u0485\u0486"+"\u0951\u0952"+"\u0041\u005a"
+      + "\u0061\u007a"+"\u00aa\u00aa"+"\u00ba\u00ba"+"\u00c0\u00d6"
+      + "\u00d8\u00f6"+"\u00f8\u02b8"+"\u02e0\u02e4"+"\u1d00\u1d25"
+      + "\u1d2c\u1d5c"+"\u1d62\u1d65"+"\u1d6b\u1d77"+"\u1d79\u1dbe"
+      + "\u1e00\u1eff"+"\u2071\u2071"+"\u207f\u207f"+"\u2090\u209c"
+      + "\u212a\u212b"+"\u2132\u2132"+"\u214e\u214e"+"\u2160\u2188"
+      + "\u2c60\u2c7f"+"\ua722\ua787"+"\ua78b\ua78e"+"\ua790\ua793"
+      + "\ua7a0\ua7aa"+"\ua7f8\ua7ff"+"\ufb00\ufb06"+"\uff21\uff3a"
+      + "\uff41\uff5a",
+    // Unicode 6.2 property value: {scriptextensions=lepcha}
+        "\u1c00\u1c37"+"\u1c3b\u1c49"+"\u1c4d\u1c4f",
+    // Unicode 6.2 property value: {scriptextensions=limbu}
+        "\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"+"\u1940\u1940"
+      + "\u1944\u194f",
+    // Unicode 6.2 property value: {scriptextensions=linearb}
+        "\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd3f"+"\ud800\udc00\ud800\udc0b"
+      + "\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"
+      + "\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa",
+    // Unicode 6.2 property value: {scriptextensions=lisu}
+        "\ua4d0\ua4ff",
+    // Unicode 6.2 property value: {scriptextensions=lycian}
+        "\ud800\ude80\ud800\ude9c",
+    // Unicode 6.2 property value: {scriptextensions=lydian}
+        "\ud802\udd20\ud802\udd39"+"\ud802\udd3f\ud802\udd3f",
+    // Unicode 6.2 property value: {scriptextensions=malayalam}
+        "\u0d02\u0d03"+"\u0d05\u0d0c"+"\u0d0e\u0d10"+"\u0d12\u0d3a"
+      + "\u0d3d\u0d44"+"\u0d46\u0d48"+"\u0d4a\u0d4e"+"\u0d57\u0d57"
+      + "\u0d60\u0d63"+"\u0d66\u0d75"+"\u0d79\u0d7f",
+    // Unicode 6.2 property value: {scriptextensions=mandaic}
+        "\u0840\u085b"+"\u085e\u085e"+"\u0640\u0640",
+    // Unicode 6.2 property value: {scriptextensions=meeteimayek}
+        "\uaae0\uaaf6"+"\uabc0\uabed"+"\uabf0\uabf9",
+    // Unicode 6.2 property value: {scriptextensions=meroiticcursive}
+        "\ud802\udda0\ud802\uddb7"+"\ud802\uddbe\ud802\uddbf",
+    // Unicode 6.2 property value: {scriptextensions=meroitichieroglyphs}
+        "\ud802\udd80\ud802\udd9f",
+    // Unicode 6.2 property value: {scriptextensions=miao}
+        "\ud81b\udf00\ud81b\udf44"+"\ud81b\udf50\ud81b\udf7e"+"\ud81b\udf8f\ud81b\udf9f",
+    // Unicode 6.2 property value: {scriptextensions=mongolian}
+        "\u1802\u1803"+"\u1805\u1805"+"\u1800\u1801"+"\u1804\u1804"
+      + "\u1806\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa",
+    // Unicode 6.2 property value: {scriptextensions=myanmar}
+        "\u1000\u109f"+"\uaa60\uaa7b",
+    // Unicode 6.2 property value: {scriptextensions=newtailue}
+        "\u1980\u19ab"+"\u19b0\u19c9"+"\u19d0\u19da"+"\u19de\u19df",
+    // Unicode 6.2 property value: {scriptextensions=nko}
+        "\u07c0\u07fa",
+    // Unicode 6.2 property value: {scriptextensions=ogham}
+        "\u1680\u169c",
+    // Unicode 6.2 property value: {scriptextensions=olchiki}
+        "\u1c50\u1c7f",
+    // Unicode 6.2 property value: {scriptextensions=olditalic}
+        "\ud800\udf00\ud800\udf1e"+"\ud800\udf20\ud800\udf23",
+    // Unicode 6.2 property value: {scriptextensions=oldpersian}
+        "\ud800\udfa0\ud800\udfc3"+"\ud800\udfc8\ud800\udfd5",
+    // Unicode 6.2 property value: {scriptextensions=oldsoutharabian}
+        "\ud802\ude60\ud802\ude7f",
+    // Unicode 6.2 property value: {scriptextensions=oldturkic}
+        "\ud803\udc00\ud803\udc48",
+    // Unicode 6.2 property value: {scriptextensions=oriya}
+        "\u0964\u0965"+"\u0b01\u0b03"+"\u0b05\u0b0c"+"\u0b0f\u0b10"
+      + "\u0b13\u0b28"+"\u0b2a\u0b30"+"\u0b32\u0b33"+"\u0b35\u0b39"
+      + "\u0b3c\u0b44"+"\u0b47\u0b48"+"\u0b4b\u0b4d"+"\u0b56\u0b57"
+      + "\u0b5c\u0b5d"+"\u0b5f\u0b63"+"\u0b66\u0b77",
+    // Unicode 6.2 property value: {scriptextensions=osmanya}
+        "\ud801\udc80\ud801\udc9d"+"\ud801\udca0\ud801\udca9",
+    // Unicode 6.2 property value: {scriptextensions=phagspa}
+        "\ua840\ua877"+"\u1802\u1803"+"\u1805\u1805",
+    // Unicode 6.2 property value: {scriptextensions=phoenician}
+        "\ud802\udd00\ud802\udd1b"+"\ud802\udd1f\ud802\udd1f",
+    // Unicode 6.2 property value: {scriptextensions=rejang}
+        "\ua930\ua953"+"\ua95f\ua95f",
+    // Unicode 6.2 property value: {scriptextensions=runic}
+        "\u16a0\u16ea"+"\u16ee\u16f0",
+    // Unicode 6.2 property value: {scriptextensions=samaritan}
+        "\u0800\u082d"+"\u0830\u083e",
+    // Unicode 6.2 property value: {scriptextensions=saurashtra}
+        "\ua880\ua8c4"+"\ua8ce\ua8d9",
+    // Unicode 6.2 property value: {scriptextensions=sharada}
+        "\ud804\udd80\ud804\uddc8"+"\ud804\uddd0\ud804\uddd9",
+    // Unicode 6.2 property value: {scriptextensions=shavian}
+        "\ud801\udc50\ud801\udc7f",
+    // Unicode 6.2 property value: {scriptextensions=sinhala}
+        "\u0d82\u0d83"+"\u0d85\u0d96"+"\u0d9a\u0db1"+"\u0db3\u0dbb"
+      + "\u0dbd\u0dbd"+"\u0dc0\u0dc6"+"\u0dca\u0dca"+"\u0dcf\u0dd4"
+      + "\u0dd6\u0dd6"+"\u0dd8\u0ddf"+"\u0df2\u0df4",
+    // Unicode 6.2 property value: {scriptextensions=sorasompeng}
+        "\ud804\udcd0\ud804\udce8"+"\ud804\udcf0\ud804\udcf9",
+    // Unicode 6.2 property value: {scriptextensions=sundanese}
+        "\u1b80\u1bbf"+"\u1cc0\u1cc7",
+    // Unicode 6.2 property value: {scriptextensions=sylotinagri}
+        "\ua800\ua82b",
+    // Unicode 6.2 property value: {scriptextensions=syriac}
+        "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0640\u0640"
+      + "\u064b\u0655"+"\u0670\u0670"+"\u0700\u070d"+"\u070f\u074a"
+      + "\u074d\u074f",
+    // Unicode 6.2 property value: {scriptextensions=tagalog}
+        "\u1700\u170c"+"\u170e\u1714"+"\u1735\u1736",
+    // Unicode 6.2 property value: {scriptextensions=tagbanwa}
+        "\u1760\u176c"+"\u176e\u1770"+"\u1772\u1773"+"\u1735\u1736",
+    // Unicode 6.2 property value: {scriptextensions=taile}
+        "\u1950\u196d"+"\u1970\u1974",
+    // Unicode 6.2 property value: {scriptextensions=taitham}
+        "\u1a20\u1a5e"+"\u1a60\u1a7c"+"\u1a7f\u1a89"+"\u1a90\u1a99"
+      + "\u1aa0\u1aad",
+    // Unicode 6.2 property value: {scriptextensions=taiviet}
+        "\uaa80\uaac2"+"\uaadb\uaadf",
+    // Unicode 6.2 property value: {scriptextensions=takri}
+        "\ud805\ude80\ud805\udeb7"+"\ud805\udec0\ud805\udec9"+"\u0964\u0965"+"\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=tamil}
+        "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
+      + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
+      + "\u0ba8\u0baa"+"\u0bae\u0bb9"+"\u0bbe\u0bc2"+"\u0bc6\u0bc8"
+      + "\u0bca\u0bcd"+"\u0bd0\u0bd0"+"\u0bd7\u0bd7"+"\u0be6\u0bfa",
+    // Unicode 6.2 property value: {scriptextensions=telugu}
+        "\u0c01\u0c03"+"\u0c05\u0c0c"+"\u0c0e\u0c10"+"\u0c12\u0c28"
+      + "\u0c2a\u0c33"+"\u0c35\u0c39"+"\u0c3d\u0c44"+"\u0c46\u0c48"
+      + "\u0c4a\u0c4d"+"\u0c55\u0c56"+"\u0c58\u0c59"+"\u0c60\u0c63"
+      + "\u0c66\u0c6f"+"\u0c78\u0c7f",
+    // Unicode 6.2 property value: {scriptextensions=thaana}
+        "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0660\u0669"
+      + "\ufdf2\ufdf2"+"\ufdfd\ufdfd"+"\u0780\u07b1",
+    // Unicode 6.2 property value: {scriptextensions=thai}
+        "\u0e01\u0e3a"+"\u0e40\u0e5b",
+    // Unicode 6.2 property value: {scriptextensions=tibetan}
+        "\u0f00\u0f47"+"\u0f49\u0f6c"+"\u0f71\u0f97"+"\u0f99\u0fbc"
+      + "\u0fbe\u0fcc"+"\u0fce\u0fd4"+"\u0fd9\u0fda",
+    // Unicode 6.2 property value: {scriptextensions=tifinagh}
+        "\u2d30\u2d67"+"\u2d6f\u2d70"+"\u2d7f\u2d7f",
+    // Unicode 6.2 property value: {scriptextensions=ugaritic}
+        "\ud800\udf80\ud800\udf9d"+"\ud800\udf9f\ud800\udf9f",
+    // Unicode 6.2 property value: {scriptextensions=unknown}
+        "\u0378\u0379"+"\u037f\u0383"+"\u038b\u038b"+"\u038d\u038d"
+      + "\u03a2\u03a2"+"\u0528\u0530"+"\u0557\u0558"+"\u0560\u0560"
+      + "\u0588\u0588"+"\u058b\u058e"+"\u0590\u0590"+"\u05c8\u05cf"
+      + "\u05eb\u05ef"+"\u05f5\u05ff"+"\u0605\u0605"+"\u061c\u061d"
+      + "\u070e\u070e"+"\u074b\u074c"+"\u07b2\u07bf"+"\u07fb\u07ff"
+      + "\u082e\u082f"+"\u083f\u083f"+"\u085c\u085d"+"\u085f\u089f"
+      + "\u08a1\u08a1"+"\u08ad\u08e3"+"\u08ff\u08ff"+"\u0978\u0978"
+      + "\u0980\u0980"+"\u0984\u0984"+"\u098d\u098e"+"\u0991\u0992"
+      + "\u09a9\u09a9"+"\u09b1\u09b1"+"\u09b3\u09b5"+"\u09ba\u09bb"
+      + "\u09c5\u09c6"+"\u09c9\u09ca"+"\u09cf\u09d6"+"\u09d8\u09db"
+      + "\u09de\u09de"+"\u09e4\u09e5"+"\u09fc\u0a00"+"\u0a04\u0a04"
+      + "\u0a0b\u0a0e"+"\u0a11\u0a12"+"\u0a29\u0a29"+"\u0a31\u0a31"
+      + "\u0a34\u0a34"+"\u0a37\u0a37"+"\u0a3a\u0a3b"+"\u0a3d\u0a3d"
+      + "\u0a43\u0a46"+"\u0a49\u0a4a"+"\u0a4e\u0a50"+"\u0a52\u0a58"
+      + "\u0a5d\u0a5d"+"\u0a5f\u0a65"+"\u0a76\u0a80"+"\u0a84\u0a84"
+      + "\u0a8e\u0a8e"+"\u0a92\u0a92"+"\u0aa9\u0aa9"+"\u0ab1\u0ab1"
+      + "\u0ab4\u0ab4"+"\u0aba\u0abb"+"\u0ac6\u0ac6"+"\u0aca\u0aca"
+      + "\u0ace\u0acf"+"\u0ad1\u0adf"+"\u0ae4\u0ae5"+"\u0af2\u0b00"
+      + "\u0b04\u0b04"+"\u0b0d\u0b0e"+"\u0b11\u0b12"+"\u0b29\u0b29"
+      + "\u0b31\u0b31"+"\u0b34\u0b34"+"\u0b3a\u0b3b"+"\u0b45\u0b46"
+      + "\u0b49\u0b4a"+"\u0b4e\u0b55"+"\u0b58\u0b5b"+"\u0b5e\u0b5e"
+      + "\u0b64\u0b65"+"\u0b78\u0b81"+"\u0b84\u0b84"+"\u0b8b\u0b8d"
+      + "\u0b91\u0b91"+"\u0b96\u0b98"+"\u0b9b\u0b9b"+"\u0b9d\u0b9d"
+      + "\u0ba0\u0ba2"+"\u0ba5\u0ba7"+"\u0bab\u0bad"+"\u0bba\u0bbd"
+      + "\u0bc3\u0bc5"+"\u0bc9\u0bc9"+"\u0bce\u0bcf"+"\u0bd1\u0bd6"
+      + "\u0bd8\u0be5"+"\u0bfb\u0c00"+"\u0c04\u0c04"+"\u0c0d\u0c0d"
+      + "\u0c11\u0c11"+"\u0c29\u0c29"+"\u0c34\u0c34"+"\u0c3a\u0c3c"
+      + "\u0c45\u0c45"+"\u0c49\u0c49"+"\u0c4e\u0c54"+"\u0c57\u0c57"
+      + "\u0c5a\u0c5f"+"\u0c64\u0c65"+"\u0c70\u0c77"+"\u0c80\u0c81"
+      + "\u0c84\u0c84"+"\u0c8d\u0c8d"+"\u0c91\u0c91"+"\u0ca9\u0ca9"
+      + "\u0cb4\u0cb4"+"\u0cba\u0cbb"+"\u0cc5\u0cc5"+"\u0cc9\u0cc9"
+      + "\u0cce\u0cd4"+"\u0cd7\u0cdd"+"\u0cdf\u0cdf"+"\u0ce4\u0ce5"
+      + "\u0cf0\u0cf0"+"\u0cf3\u0d01"+"\u0d04\u0d04"+"\u0d0d\u0d0d"
+      + "\u0d11\u0d11"+"\u0d3b\u0d3c"+"\u0d45\u0d45"+"\u0d49\u0d49"
+      + "\u0d4f\u0d56"+"\u0d58\u0d5f"+"\u0d64\u0d65"+"\u0d76\u0d78"
+      + "\u0d80\u0d81"+"\u0d84\u0d84"+"\u0d97\u0d99"+"\u0db2\u0db2"
+      + "\u0dbc\u0dbc"+"\u0dbe\u0dbf"+"\u0dc7\u0dc9"+"\u0dcb\u0dce"
+      + "\u0dd5\u0dd5"+"\u0dd7\u0dd7"+"\u0de0\u0df1"+"\u0df5\u0e00"
+      + "\u0e3b\u0e3e"+"\u0e5c\u0e80"+"\u0e83\u0e83"+"\u0e85\u0e86"
+      + "\u0e89\u0e89"+"\u0e8b\u0e8c"+"\u0e8e\u0e93"+"\u0e98\u0e98"
+      + "\u0ea0\u0ea0"+"\u0ea4\u0ea4"+"\u0ea6\u0ea6"+"\u0ea8\u0ea9"
+      + "\u0eac\u0eac"+"\u0eba\u0eba"+"\u0ebe\u0ebf"+"\u0ec5\u0ec5"
+      + "\u0ec7\u0ec7"+"\u0ece\u0ecf"+"\u0eda\u0edb"+"\u0ee0\u0eff"
+      + "\u0f48\u0f48"+"\u0f6d\u0f70"+"\u0f98\u0f98"+"\u0fbd\u0fbd"
+      + "\u0fcd\u0fcd"+"\u0fdb\u0fff"+"\u10c6\u10c6"+"\u10c8\u10cc"
+      + "\u10ce\u10cf"+"\u1249\u1249"+"\u124e\u124f"+"\u1257\u1257"
+      + "\u1259\u1259"+"\u125e\u125f"+"\u1289\u1289"+"\u128e\u128f"
+      + "\u12b1\u12b1"+"\u12b6\u12b7"+"\u12bf\u12bf"+"\u12c1\u12c1"
+      + "\u12c6\u12c7"+"\u12d7\u12d7"+"\u1311\u1311"+"\u1316\u1317"
+      + "\u135b\u135c"+"\u137d\u137f"+"\u139a\u139f"+"\u13f5\u13ff"
+      + "\u169d\u169f"+"\u16f1\u16ff"+"\u170d\u170d"+"\u1715\u171f"
+      + "\u1737\u173f"+"\u1754\u175f"+"\u176d\u176d"+"\u1771\u1771"
+      + "\u1774\u177f"+"\u17de\u17df"+"\u17ea\u17ef"+"\u17fa\u17ff"
+      + "\u180f\u180f"+"\u181a\u181f"+"\u1878\u187f"+"\u18ab\u18af"
+      + "\u18f6\u18ff"+"\u191d\u191f"+"\u192c\u192f"+"\u193c\u193f"
+      + "\u1941\u1943"+"\u196e\u196f"+"\u1975\u197f"+"\u19ac\u19af"
+      + "\u19ca\u19cf"+"\u19db\u19dd"+"\u1a1c\u1a1d"+"\u1a5f\u1a5f"
+      + "\u1a7d\u1a7e"+"\u1a8a\u1a8f"+"\u1a9a\u1a9f"+"\u1aae\u1aff"
+      + "\u1b4c\u1b4f"+"\u1b7d\u1b7f"+"\u1bf4\u1bfb"+"\u1c38\u1c3a"
+      + "\u1c4a\u1c4c"+"\u1c80\u1cbf"+"\u1cc8\u1ccf"+"\u1cf7\u1cff"
+      + "\u1de7\u1dfb"+"\u1f16\u1f17"+"\u1f1e\u1f1f"+"\u1f46\u1f47"
+      + "\u1f4e\u1f4f"+"\u1f58\u1f58"+"\u1f5a\u1f5a"+"\u1f5c\u1f5c"
+      + "\u1f5e\u1f5e"+"\u1f7e\u1f7f"+"\u1fb5\u1fb5"+"\u1fc5\u1fc5"
+      + "\u1fd4\u1fd5"+"\u1fdc\u1fdc"+"\u1ff0\u1ff1"+"\u1ff5\u1ff5"
+      + "\u1fff\u1fff"+"\u2065\u2069"+"\u2072\u2073"+"\u208f\u208f"
+      + "\u209d\u209f"+"\u20bb\u20cf"+"\u20f1\u20ff"+"\u218a\u218f"
+      + "\u23f4\u23ff"+"\u2427\u243f"+"\u244b\u245f"+"\u2700\u2700"
+      + "\u2b4d\u2b4f"+"\u2b5a\u2bff"+"\u2c2f\u2c2f"+"\u2c5f\u2c5f"
+      + "\u2cf4\u2cf8"+"\u2d26\u2d26"+"\u2d28\u2d2c"+"\u2d2e\u2d2f"
+      + "\u2d68\u2d6e"+"\u2d71\u2d7e"+"\u2d97\u2d9f"+"\u2da7\u2da7"
+      + "\u2daf\u2daf"+"\u2db7\u2db7"+"\u2dbf\u2dbf"+"\u2dc7\u2dc7"
+      + "\u2dcf\u2dcf"+"\u2dd7\u2dd7"+"\u2ddf\u2ddf"+"\u2e3c\u2e7f"
+      + "\u2e9a\u2e9a"+"\u2ef4\u2eff"+"\u2fd6\u2fef"+"\u2ffc\u2fff"
+      + "\u3040\u3040"+"\u3097\u3098"+"\u3100\u3104"+"\u312e\u3130"
+      + "\u318f\u318f"+"\u31bb\u31bf"+"\u31e4\u31ef"+"\u321f\u321f"
+      + "\u32ff\u32ff"+"\u4db6\u4dbf"+"\u9fcd\u9fff"+"\ua48d\ua48f"
+      + "\ua4c7\ua4cf"+"\ua62c\ua63f"+"\ua698\ua69e"+"\ua6f8\ua6ff"
+      + "\ua78f\ua78f"+"\ua794\ua79f"+"\ua7ab\ua7f7"+"\ua82c\ua82f"
+      + "\ua83a\ua83f"+"\ua878\ua87f"+"\ua8c5\ua8cd"+"\ua8da\ua8df"
+      + "\ua8fc\ua8ff"+"\ua954\ua95e"+"\ua97d\ua97f"+"\ua9ce\ua9ce"
+      + "\ua9da\ua9dd"+"\ua9e0\ua9ff"+"\uaa37\uaa3f"+"\uaa4e\uaa4f"
+      + "\uaa5a\uaa5b"+"\uaa7c\uaa7f"+"\uaac3\uaada"+"\uaaf7\uab00"
+      + "\uab07\uab08"+"\uab0f\uab10"+"\uab17\uab1f"+"\uab27\uab27"
+      + "\uab2f\uabbf"+"\uabee\uabef"+"\uabfa\uabff"+"\ud7a4\ud7af"
+      + "\ud7c7\ud7ca"+"\ud7fc\ud7ff"+"\ue000\uf8ff"+"\ufa6e\ufa6f"
+      + "\ufada\ufaff"+"\ufb07\ufb12"+"\ufb18\ufb1c"+"\ufb37\ufb37"
+      + "\ufb3d\ufb3d"+"\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"
+      + "\ufbc2\ufbd2"+"\ufd40\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"
+      + "\ufdfe\ufdff"+"\ufe1a\ufe1f"+"\ufe27\ufe2f"+"\ufe53\ufe53"
+      + "\ufe67\ufe67"+"\ufe6c\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"
+      + "\uff00\uff00"+"\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"
+      + "\uffd8\uffd9"+"\uffdd\uffdf"+"\uffe7\uffe7"+"\uffef\ufff8"
+      + "\ufffe\uffff"+"\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"
+      + "\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"
+      + "\ud800\udd03\ud800\udd06"+"\ud800\udd34\ud800\udd36"+"\ud800\udd8b\ud800\udd8f"+"\ud800\udd9c\ud800\uddcf"
+      + "\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"
+      + "\ud800\udf24\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"
+      + "\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"
+      + "\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"
+      + "\ud802\udc56\ud802\udc56"+"\ud802\udc60\ud802\udcff"+"\ud802\udd1c\ud802\udd1e"+"\ud802\udd3a\ud802\udd3e"
+      + "\ud802\udd40\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"
+      + "\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"
+      + "\ud802\ude3b\ud802\ude3e"+"\ud802\ude48\ud802\ude4f"+"\ud802\ude59\ud802\ude5f"+"\ud802\ude80\ud802\udeff"
+      + "\ud802\udf36\ud802\udf38"+"\ud802\udf56\ud802\udf57"+"\ud802\udf73\ud802\udf77"+"\ud802\udf80\ud802\udfff"
+      + "\ud803\udc49\ud803\ude5f"+"\ud803\ude7f\ud803\udfff"+"\ud804\udc4e\ud804\udc51"+"\ud804\udc70\ud804\udc7f"
+      + "\ud804\udcc2\ud804\udccf"+"\ud804\udce9\ud804\udcef"+"\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"
+      + "\ud804\udd44\ud804\udd7f"+"\ud804\uddc9\ud804\uddcf"+"\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"
+      + "\ud805\udeca\ud807\udfff"+"\ud808\udf6f\ud808\udfff"+"\ud809\udc63\ud809\udc6f"+"\ud809\udc74\ud80b\udfff"
+      + "\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"+"\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"
+      + "\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc02\ud833\udfff"+"\ud834\udcf6\ud834\udcff"+"\ud834\udd27\ud834\udd28"
+      + "\ud834\uddde\ud834\uddff"+"\ud834\ude46\ud834\udeff"+"\ud834\udf57\ud834\udf5f"+"\ud834\udf72\ud834\udfff"
+      + "\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"
+      + "\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"
+      + "\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"
+      + "\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"
+      + "\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udfcc\ud835\udfcd"
+      + "\ud836\udc00\ud83b\uddff"+"\ud83b\ude04\ud83b\ude04"+"\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"
+      + "\ud83b\ude25\ud83b\ude26"+"\ud83b\ude28\ud83b\ude28"+"\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"
+      + "\ud83b\ude3a\ud83b\ude3a"+"\ud83b\ude3c\ud83b\ude41"+"\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"
+      + "\ud83b\ude4a\ud83b\ude4a"+"\ud83b\ude4c\ud83b\ude4c"+"\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"
+      + "\ud83b\ude55\ud83b\ude56"+"\ud83b\ude58\ud83b\ude58"+"\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"
+      + "\ud83b\ude5e\ud83b\ude5e"+"\ud83b\ude60\ud83b\ude60"+"\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"
+      + "\ud83b\ude6b\ud83b\ude6b"+"\ud83b\ude73\ud83b\ude73"+"\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"
+      + "\ud83b\ude7f\ud83b\ude7f"+"\ud83b\ude8a\ud83b\ude8a"+"\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"
+      + "\ud83b\udeaa\ud83b\udeaa"+"\ud83b\udebc\ud83b\udeef"+"\ud83b\udef2\ud83b\udfff"+"\ud83c\udc2c\ud83c\udc2f"
+      + "\ud83c\udc94\ud83c\udc9f"+"\ud83c\udcaf\ud83c\udcb0"+"\ud83c\udcbf\ud83c\udcc0"+"\ud83c\udcd0\ud83c\udcd0"
+      + "\ud83c\udce0\ud83c\udcff"+"\ud83c\udd0b\ud83c\udd0f"+"\ud83c\udd2f\ud83c\udd2f"+"\ud83c\udd6c\ud83c\udd6f"
+      + "\ud83c\udd9b\ud83c\udde5"+"\ud83c\ude03\ud83c\ude0f"+"\ud83c\ude3b\ud83c\ude3f"+"\ud83c\ude49\ud83c\ude4f"
+      + "\ud83c\ude52\ud83c\udeff"+"\ud83c\udf21\ud83c\udf2f"+"\ud83c\udf36\ud83c\udf36"+"\ud83c\udf7d\ud83c\udf7f"
+      + "\ud83c\udf94\ud83c\udf9f"+"\ud83c\udfc5\ud83c\udfc5"+"\ud83c\udfcb\ud83c\udfdf"+"\ud83c\udff1\ud83c\udfff"
+      + "\ud83d\udc3f\ud83d\udc3f"+"\ud83d\udc41\ud83d\udc41"+"\ud83d\udcf8\ud83d\udcf8"+"\ud83d\udcfd\ud83d\udcff"
+      + "\ud83d\udd3e\ud83d\udd3f"+"\ud83d\udd44\ud83d\udd4f"+"\ud83d\udd68\ud83d\uddfa"+"\ud83d\ude41\ud83d\ude44"
+      + "\ud83d\ude50\ud83d\ude7f"+"\ud83d\udec6\ud83d\udeff"+"\ud83d\udf74\ud83f\udfff"+"\ud869\uded7\ud869\udeff"
+      + "\ud86d\udf35\ud86d\udf3f"+"\ud86e\udc1e\ud87d\udfff"+"\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"
+      + "\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
+    // Unicode 6.2 property value: {scriptextensions=vai}
+        "\ua500\ua62b",
+    // Unicode 6.2 property value: {scriptextensions=yi}
+        "\u3001\u3002"+"\u3008\u3011"+"\u3014\u301b"+"\u30fb\u30fb"
+      + "\uff61\uff65"+"\ua000\ua48c"+"\ua490\ua4c6",
     // Unicode 6.2 property value: {sentencebreak=aterm}
         "\u002e\u002e"+"\u2024\u2024"+"\ufe52\ufe52"+"\uff0e\uff0e",
     // Unicode 6.2 property value: {sentencebreak=close}
@@ -7043,53 +7562,53 @@ public class Unicode_6_2 {
       + "\uaa5a\uaa5c"+"\uaa77\uaa79"+"\uaa7c\uaa7f"+"\uaac3\uaada"
       + "\uaade\uaadf"+"\uaaf7\uab00"+"\uab07\uab08"+"\uab0f\uab10"
       + "\uab17\uab1f"+"\uab27\uab27"+"\uab2f\uabbf"+"\uabee\uabef"
-      + "\uabfa\uabff"+"\ud7a4\ud7af"+"\ud7c7\ud7ca"+"\ud7fc\uf8ff"
-      + "\ufa6e\ufa6f"+"\ufada\ufaff"+"\ufb07\ufb12"+"\ufb18\ufb1c"
-      + "\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"+"\ufb3f\ufb3f"
-      + "\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"+"\ufd40\ufd4f"
-      + "\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"+"\ufe12\ufe12"
-      + "\ufe14\ufe16"+"\ufe19\ufe1f"+"\ufe27\ufe30"+"\ufe33\ufe34"
-      + "\ufe45\ufe46"+"\ufe49\ufe4f"+"\ufe53\ufe54"+"\ufe5f\ufe62"
-      + "\ufe64\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"+"\uff00\uff00"
-      + "\uff02\uff07"+"\uff0a\uff0b"+"\uff0f\uff19"+"\uff1b\uff1e"
-      + "\uff20\uff20"+"\uff3c\uff3c"+"\uff3e\uff40"+"\uff5c\uff5c"
-      + "\uff5e\uff5e"+"\uff65\uff65"+"\uffbf\uffc1"+"\uffc8\uffc9"
-      + "\uffd0\uffd1"+"\uffd8\uffd9"+"\uffdd\ufff8"+"\ufffc\uffff"
-      + "\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"
-      + "\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udd3f"+"\ud800\udd75\ud800\uddfc"
-      + "\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"
-      + "\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9f"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd0\ud800\udfd0"
-      + "\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"
-      + "\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"
-      + "\ud802\udc56\ud802\udcff"+"\ud802\udd16\ud802\udd1f"+"\ud802\udd3a\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"
-      + "\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"
-      + "\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"+"\ud802\ude40\ud802\ude55"
-      + "\ud802\ude58\ud802\ude5f"+"\ud802\ude7d\ud802\udeff"+"\ud802\udf36\ud802\udf3f"+"\ud802\udf56\ud802\udf5f"
-      + "\ud802\udf73\ud802\udfff"+"\ud803\udc49\ud803\udfff"+"\ud804\udc49\ud804\udc65"+"\ud804\udc70\ud804\udc7f"
-      + "\ud804\udcbb\ud804\udcbc"+"\ud804\udcc2\ud804\udccf"+"\ud804\udce9\ud804\udcef"+"\ud804\udcfa\ud804\udcff"
-      + "\ud804\udd35\ud804\udd35"+"\ud804\udd40\ud804\udd40"+"\ud804\udd44\ud804\udd7f"+"\ud804\uddc7\ud804\uddcf"
-      + "\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"+"\ud808\udf6f\ud808\udfff"
-      + "\ud809\udc63\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"+"\ud81b\udf45\ud81b\udf4f"
-      + "\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc02\ud834\udd64"+"\ud834\udd6a\ud834\udd6c"
-      + "\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"+"\ud834\uddae\ud834\ude41"+"\ud834\ude45\ud834\udfff"
-      + "\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"
-      + "\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"
-      + "\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"
-      + "\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"
-      + "\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udec1\ud835\udec1"
-      + "\ud835\udedb\ud835\udedb"+"\ud835\udefb\ud835\udefb"+"\ud835\udf15\ud835\udf15"+"\ud835\udf35\ud835\udf35"
-      + "\ud835\udf4f\ud835\udf4f"+"\ud835\udf6f\ud835\udf6f"+"\ud835\udf89\ud835\udf89"+"\ud835\udfa9\ud835\udfa9"
-      + "\ud835\udfc3\ud835\udfc3"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"+"\ud83b\ude04\ud83b\ude04"
-      + "\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"+"\ud83b\ude28\ud83b\ude28"
-      + "\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"+"\ud83b\ude3c\ud83b\ude41"
-      + "\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"+"\ud83b\ude4c\ud83b\ude4c"
-      + "\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"+"\ud83b\ude58\ud83b\ude58"
-      + "\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"+"\ud83b\ude60\ud83b\ude60"
-      + "\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"+"\ud83b\ude73\ud83b\ude73"
-      + "\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"+"\ud83b\ude8a\ud83b\ude8a"
-      + "\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"+"\ud83b\udebc\ud83f\udfff"
-      + "\ud869\uded7\ud869\udeff"+"\ud86d\udf35\ud86d\udf3f"+"\ud86e\udc1e\ud87d\udfff"+"\ud87e\ude1e\udb40\udc00"
-      + "\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
+      + "\uabfa\uabff"+"\ud7a4\ud7af"+"\ud7c7\ud7ca"+"\ud7fc\ud7ff"
+      + "\ue000\uf8ff"+"\ufa6e\ufa6f"+"\ufada\ufaff"+"\ufb07\ufb12"
+      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
+      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
+      + "\ufd40\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"
+      + "\ufe12\ufe12"+"\ufe14\ufe16"+"\ufe19\ufe1f"+"\ufe27\ufe30"
+      + "\ufe33\ufe34"+"\ufe45\ufe46"+"\ufe49\ufe4f"+"\ufe53\ufe54"
+      + "\ufe5f\ufe62"+"\ufe64\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"
+      + "\uff00\uff00"+"\uff02\uff07"+"\uff0a\uff0b"+"\uff0f\uff19"
+      + "\uff1b\uff1e"+"\uff20\uff20"+"\uff3c\uff3c"+"\uff3e\uff40"
+      + "\uff5c\uff5c"+"\uff5e\uff5e"+"\uff65\uff65"+"\uffbf\uffc1"
+      + "\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"+"\uffdd\ufff8"
+      + "\ufffc\uffff"+"\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"
+      + "\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udd3f"
+      + "\ud800\udd75\ud800\uddfc"+"\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"
+      + "\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9f"+"\ud800\udfc4\ud800\udfc7"
+      + "\ud800\udfd0\ud800\udfd0"+"\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"
+      + "\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"
+      + "\ud802\udc3d\ud802\udc3e"+"\ud802\udc56\ud802\udcff"+"\ud802\udd16\ud802\udd1f"+"\ud802\udd3a\ud802\udd7f"
+      + "\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"
+      + "\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"
+      + "\ud802\ude40\ud802\ude55"+"\ud802\ude58\ud802\ude5f"+"\ud802\ude7d\ud802\udeff"+"\ud802\udf36\ud802\udf3f"
+      + "\ud802\udf56\ud802\udf5f"+"\ud802\udf73\ud802\udfff"+"\ud803\udc49\ud803\udfff"+"\ud804\udc49\ud804\udc65"
+      + "\ud804\udc70\ud804\udc7f"+"\ud804\udcbb\ud804\udcbc"+"\ud804\udcc2\ud804\udccf"+"\ud804\udce9\ud804\udcef"
+      + "\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"+"\ud804\udd40\ud804\udd40"+"\ud804\udd44\ud804\udd7f"
+      + "\ud804\uddc7\ud804\uddcf"+"\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"
+      + "\ud808\udf6f\ud808\udfff"+"\ud809\udc63\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"
+      + "\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc02\ud834\udd64"
+      + "\ud834\udd6a\ud834\udd6c"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"+"\ud834\uddae\ud834\ude41"
+      + "\ud834\ude45\ud834\udfff"+"\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"
+      + "\ud835\udca3\ud835\udca4"+"\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"
+      + "\ud835\udcbc\ud835\udcbc"+"\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"
+      + "\ud835\udd15\ud835\udd15"+"\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"
+      + "\ud835\udd45\ud835\udd45"+"\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"
+      + "\ud835\udec1\ud835\udec1"+"\ud835\udedb\ud835\udedb"+"\ud835\udefb\ud835\udefb"+"\ud835\udf15\ud835\udf15"
+      + "\ud835\udf35\ud835\udf35"+"\ud835\udf4f\ud835\udf4f"+"\ud835\udf6f\ud835\udf6f"+"\ud835\udf89\ud835\udf89"
+      + "\ud835\udfa9\ud835\udfa9"+"\ud835\udfc3\ud835\udfc3"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"
+      + "\ud83b\ude04\ud83b\ude04"+"\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"
+      + "\ud83b\ude28\ud83b\ude28"+"\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"
+      + "\ud83b\ude3c\ud83b\ude41"+"\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"
+      + "\ud83b\ude4c\ud83b\ude4c"+"\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"
+      + "\ud83b\ude58\ud83b\ude58"+"\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"
+      + "\ud83b\ude60\ud83b\ude60"+"\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"
+      + "\ud83b\ude73\ud83b\ude73"+"\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"
+      + "\ud83b\ude8a\ud83b\ude8a"+"\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"
+      + "\ud83b\udebc\ud83f\udfff"+"\ud869\uded7\ud869\udeff"+"\ud86d\udf35\ud86d\udf3f"+"\ud86e\udc1e\ud87d\udfff"
+      + "\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
     // Unicode 6.2 property value: {sentencebreak=scontinue}
         "\u002c\u002d"+"\u003a\u003a"+"\u055d\u055d"+"\u060c\u060d"
       + "\u07f8\u07f8"+"\u1802\u1802"+"\u1808\u1808"+"\u2013\u2014"
@@ -7517,57 +8036,57 @@ public class Unicode_6_2 {
       + "\uaa5a\uaa5b"+"\uaa7c\uaa7f"+"\uaac3\uaada"+"\uaaf7\uab00"
       + "\uab07\uab08"+"\uab0f\uab10"+"\uab17\uab1f"+"\uab27\uab27"
       + "\uab2f\uabbf"+"\uabee\uabef"+"\uabfa\uabff"+"\ud7a4\ud7af"
-      + "\ud7c7\ud7ca"+"\ud7fc\uf8ff"+"\ufa6e\ufa6f"+"\ufada\ufaff"
-      + "\ufb07\ufb12"+"\ufb18\ufb1c"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
-      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbc2\ufbd2"
-      + "\ufd40\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfe\ufdff"
-      + "\ufe1a\ufe1f"+"\ufe27\ufe2f"+"\ufe53\ufe53"+"\ufe67\ufe67"
-      + "\ufe6c\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"+"\uff00\uff00"
-      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
-      + "\uffdd\uffdf"+"\uffe7\uffe7"+"\uffef\ufff8"+"\ufffe\uffff"
-      + "\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"
-      + "\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"+"\ud800\udd03\ud800\udd06"
-      + "\ud800\udd34\ud800\udd36"+"\ud800\udd8b\ud800\udd8f"+"\ud800\udd9c\ud800\uddcf"+"\ud800\uddfe\ud800\ude7f"
-      + "\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"+"\ud800\udf24\ud800\udf2f"
-      + "\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd6\ud800\udfff"
-      + "\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"
-      + "\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc56\ud802\udc56"
-      + "\ud802\udc60\ud802\udcff"+"\ud802\udd1c\ud802\udd1e"+"\ud802\udd3a\ud802\udd3e"+"\ud802\udd40\ud802\udd7f"
-      + "\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"
-      + "\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"
-      + "\ud802\ude48\ud802\ude4f"+"\ud802\ude59\ud802\ude5f"+"\ud802\ude80\ud802\udeff"+"\ud802\udf36\ud802\udf38"
-      + "\ud802\udf56\ud802\udf57"+"\ud802\udf73\ud802\udf77"+"\ud802\udf80\ud802\udfff"+"\ud803\udc49\ud803\ude5f"
-      + "\ud803\ude7f\ud803\udfff"+"\ud804\udc4e\ud804\udc51"+"\ud804\udc70\ud804\udc7f"+"\ud804\udcc2\ud804\udccf"
-      + "\ud804\udce9\ud804\udcef"+"\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"+"\ud804\udd44\ud804\udd7f"
-      + "\ud804\uddc9\ud804\uddcf"+"\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"
-      + "\ud808\udf6f\ud808\udfff"+"\ud809\udc63\ud809\udc6f"+"\ud809\udc74\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"
-      + "\ud81a\ude39\ud81b\udeff"+"\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"
-      + "\ud82c\udc02\ud833\udfff"+"\ud834\udcf6\ud834\udcff"+"\ud834\udd27\ud834\udd28"+"\ud834\uddde\ud834\uddff"
-      + "\ud834\ude46\ud834\udeff"+"\ud834\udf57\ud834\udf5f"+"\ud834\udf72\ud834\udfff"+"\ud835\udc55\ud835\udc55"
-      + "\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"+"\ud835\udca7\ud835\udca8"
-      + "\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"+"\ud835\udcc4\ud835\udcc4"
-      + "\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"+"\ud835\udd1d\ud835\udd1d"
-      + "\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"+"\ud835\udd47\ud835\udd49"
-      + "\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"
-      + "\ud83b\ude04\ud83b\ude04"+"\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"
-      + "\ud83b\ude28\ud83b\ude28"+"\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"
-      + "\ud83b\ude3c\ud83b\ude41"+"\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"
-      + "\ud83b\ude4c\ud83b\ude4c"+"\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"
-      + "\ud83b\ude58\ud83b\ude58"+"\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"
-      + "\ud83b\ude60\ud83b\ude60"+"\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"
-      + "\ud83b\ude73\ud83b\ude73"+"\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"
-      + "\ud83b\ude8a\ud83b\ude8a"+"\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"
-      + "\ud83b\udebc\ud83b\udeef"+"\ud83b\udef2\ud83b\udfff"+"\ud83c\udc2c\ud83c\udc2f"+"\ud83c\udc94\ud83c\udc9f"
-      + "\ud83c\udcaf\ud83c\udcb0"+"\ud83c\udcbf\ud83c\udcc0"+"\ud83c\udcd0\ud83c\udcd0"+"\ud83c\udce0\ud83c\udcff"
-      + "\ud83c\udd0b\ud83c\udd0f"+"\ud83c\udd2f\ud83c\udd2f"+"\ud83c\udd6c\ud83c\udd6f"+"\ud83c\udd9b\ud83c\udde5"
-      + "\ud83c\ude03\ud83c\ude0f"+"\ud83c\ude3b\ud83c\ude3f"+"\ud83c\ude49\ud83c\ude4f"+"\ud83c\ude52\ud83c\udeff"
-      + "\ud83c\udf21\ud83c\udf2f"+"\ud83c\udf36\ud83c\udf36"+"\ud83c\udf7d\ud83c\udf7f"+"\ud83c\udf94\ud83c\udf9f"
-      + "\ud83c\udfc5\ud83c\udfc5"+"\ud83c\udfcb\ud83c\udfdf"+"\ud83c\udff1\ud83c\udfff"+"\ud83d\udc3f\ud83d\udc3f"
-      + "\ud83d\udc41\ud83d\udc41"+"\ud83d\udcf8\ud83d\udcf8"+"\ud83d\udcfd\ud83d\udcff"+"\ud83d\udd3e\ud83d\udd3f"
-      + "\ud83d\udd44\ud83d\udd4f"+"\ud83d\udd68\ud83d\uddfa"+"\ud83d\ude41\ud83d\ude44"+"\ud83d\ude50\ud83d\ude7f"
-      + "\ud83d\udec6\ud83d\udeff"+"\ud83d\udf74\ud83f\udfff"+"\ud869\uded7\ud869\udeff"+"\ud86d\udf35\ud86d\udf3f"
-      + "\ud86e\udc1e\ud87d\udfff"+"\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"
-      + "\udb40\uddf0\udbff\udfff",
+      + "\ud7c7\ud7ca"+"\ud7fc\ud7ff"+"\ue000\uf8ff"+"\ufa6e\ufa6f"
+      + "\ufada\ufaff"+"\ufb07\ufb12"+"\ufb18\ufb1c"+"\ufb37\ufb37"
+      + "\ufb3d\ufb3d"+"\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"
+      + "\ufbc2\ufbd2"+"\ufd40\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"
+      + "\ufdfe\ufdff"+"\ufe1a\ufe1f"+"\ufe27\ufe2f"+"\ufe53\ufe53"
+      + "\ufe67\ufe67"+"\ufe6c\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"
+      + "\uff00\uff00"+"\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"
+      + "\uffd8\uffd9"+"\uffdd\uffdf"+"\uffe7\uffe7"+"\uffef\ufff8"
+      + "\ufffe\uffff"+"\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"
+      + "\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udcff"
+      + "\ud800\udd03\ud800\udd06"+"\ud800\udd34\ud800\udd36"+"\ud800\udd8b\ud800\udd8f"+"\ud800\udd9c\ud800\uddcf"
+      + "\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf1f"
+      + "\ud800\udf24\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9e"+"\ud800\udfc4\ud800\udfc7"
+      + "\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"
+      + "\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"
+      + "\ud802\udc56\ud802\udc56"+"\ud802\udc60\ud802\udcff"+"\ud802\udd1c\ud802\udd1e"+"\ud802\udd3a\ud802\udd3e"
+      + "\ud802\udd40\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"
+      + "\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"
+      + "\ud802\ude3b\ud802\ude3e"+"\ud802\ude48\ud802\ude4f"+"\ud802\ude59\ud802\ude5f"+"\ud802\ude80\ud802\udeff"
+      + "\ud802\udf36\ud802\udf38"+"\ud802\udf56\ud802\udf57"+"\ud802\udf73\ud802\udf77"+"\ud802\udf80\ud802\udfff"
+      + "\ud803\udc49\ud803\ude5f"+"\ud803\ude7f\ud803\udfff"+"\ud804\udc4e\ud804\udc51"+"\ud804\udc70\ud804\udc7f"
+      + "\ud804\udcc2\ud804\udccf"+"\ud804\udce9\ud804\udcef"+"\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"
+      + "\ud804\udd44\ud804\udd7f"+"\ud804\uddc9\ud804\uddcf"+"\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"
+      + "\ud805\udeca\ud807\udfff"+"\ud808\udf6f\ud808\udfff"+"\ud809\udc63\ud809\udc6f"+"\ud809\udc74\ud80b\udfff"
+      + "\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"+"\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"
+      + "\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc02\ud833\udfff"+"\ud834\udcf6\ud834\udcff"+"\ud834\udd27\ud834\udd28"
+      + "\ud834\uddde\ud834\uddff"+"\ud834\ude46\ud834\udeff"+"\ud834\udf57\ud834\udf5f"+"\ud834\udf72\ud834\udfff"
+      + "\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"
+      + "\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"
+      + "\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"
+      + "\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"
+      + "\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udfcc\ud835\udfcd"
+      + "\ud836\udc00\ud83b\uddff"+"\ud83b\ude04\ud83b\ude04"+"\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"
+      + "\ud83b\ude25\ud83b\ude26"+"\ud83b\ude28\ud83b\ude28"+"\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"
+      + "\ud83b\ude3a\ud83b\ude3a"+"\ud83b\ude3c\ud83b\ude41"+"\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"
+      + "\ud83b\ude4a\ud83b\ude4a"+"\ud83b\ude4c\ud83b\ude4c"+"\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"
+      + "\ud83b\ude55\ud83b\ude56"+"\ud83b\ude58\ud83b\ude58"+"\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"
+      + "\ud83b\ude5e\ud83b\ude5e"+"\ud83b\ude60\ud83b\ude60"+"\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"
+      + "\ud83b\ude6b\ud83b\ude6b"+"\ud83b\ude73\ud83b\ude73"+"\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"
+      + "\ud83b\ude7f\ud83b\ude7f"+"\ud83b\ude8a\ud83b\ude8a"+"\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"
+      + "\ud83b\udeaa\ud83b\udeaa"+"\ud83b\udebc\ud83b\udeef"+"\ud83b\udef2\ud83b\udfff"+"\ud83c\udc2c\ud83c\udc2f"
+      + "\ud83c\udc94\ud83c\udc9f"+"\ud83c\udcaf\ud83c\udcb0"+"\ud83c\udcbf\ud83c\udcc0"+"\ud83c\udcd0\ud83c\udcd0"
+      + "\ud83c\udce0\ud83c\udcff"+"\ud83c\udd0b\ud83c\udd0f"+"\ud83c\udd2f\ud83c\udd2f"+"\ud83c\udd6c\ud83c\udd6f"
+      + "\ud83c\udd9b\ud83c\udde5"+"\ud83c\ude03\ud83c\ude0f"+"\ud83c\ude3b\ud83c\ude3f"+"\ud83c\ude49\ud83c\ude4f"
+      + "\ud83c\ude52\ud83c\udeff"+"\ud83c\udf21\ud83c\udf2f"+"\ud83c\udf36\ud83c\udf36"+"\ud83c\udf7d\ud83c\udf7f"
+      + "\ud83c\udf94\ud83c\udf9f"+"\ud83c\udfc5\ud83c\udfc5"+"\ud83c\udfcb\ud83c\udfdf"+"\ud83c\udff1\ud83c\udfff"
+      + "\ud83d\udc3f\ud83d\udc3f"+"\ud83d\udc41\ud83d\udc41"+"\ud83d\udcf8\ud83d\udcf8"+"\ud83d\udcfd\ud83d\udcff"
+      + "\ud83d\udd3e\ud83d\udd3f"+"\ud83d\udd44\ud83d\udd4f"+"\ud83d\udd68\ud83d\uddfa"+"\ud83d\ude41\ud83d\ude44"
+      + "\ud83d\ude50\ud83d\ude7f"+"\ud83d\udec6\ud83d\udeff"+"\ud83d\udf74\ud83f\udfff"+"\ud869\uded7\ud869\udeff"
+      + "\ud86d\udf35\ud86d\udf3f"+"\ud86e\udc1e\ud87d\udfff"+"\ud87e\ude1e\udb40\udc00"+"\udb40\udc02\udb40\udc1f"
+      + "\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
     // Unicode 6.2 property value: {uppercase}
         "\u0041\u005a"+"\u00c0\u00d6"+"\u00d8\u00de"+"\u0100\u0100"
       + "\u0102\u0102"+"\u0104\u0104"+"\u0106\u0106"+"\u0108\u0108"
@@ -8035,49 +8554,50 @@ public class Unicode_6_2 {
       + "\uaac2\uaadf"+"\uaaf0\uaaf1"+"\uaaf7\uab00"+"\uab07\uab08"
       + "\uab0f\uab10"+"\uab17\uab1f"+"\uab27\uab27"+"\uab2f\uabbf"
       + "\uabeb\uabeb"+"\uabee\uabef"+"\uabfa\uabff"+"\ud7a4\ud7af"
-      + "\ud7c7\ud7ca"+"\ud7fc\ufaff"+"\ufb07\ufb12"+"\ufb18\ufb1c"
-      + "\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"+"\ufb3f\ufb3f"
-      + "\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"+"\ufd3e\ufd4f"
-      + "\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"+"\ufe11\ufe12"
-      + "\ufe15\ufe1f"+"\ufe27\ufe32"+"\ufe35\ufe4c"+"\ufe51\ufe51"
-      + "\ufe53\ufe53"+"\ufe56\ufe6f"+"\ufe75\ufe75"+"\ufefd\ufefe"
-      + "\uff00\uff06"+"\uff08\uff0b"+"\uff0d\uff0d"+"\uff0f\uff19"
-      + "\uff1c\uff20"+"\uff3b\uff3e"+"\uff40\uff40"+"\uff5b\uff65"
-      + "\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"+"\uffd8\uffd9"
-      + "\uffdd\ufff8"+"\ufffc\uffff"+"\ud800\udc0c\ud800\udc0c"+"\ud800\udc27\ud800\udc27"
-      + "\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"+"\ud800\udc5e\ud800\udc7f"
-      + "\ud800\udcfb\ud800\udd3f"+"\ud800\udd75\ud800\uddfc"+"\ud800\uddfe\ud800\ude7f"+"\ud800\ude9d\ud800\ude9f"
-      + "\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"+"\ud800\udf9e\ud800\udf9f"
-      + "\ud800\udfc4\ud800\udfc7"+"\ud800\udfd0\ud800\udfd0"+"\ud800\udfd6\ud800\udfff"+"\ud801\udc9e\ud801\udc9f"
-      + "\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"+"\ud802\udc36\ud802\udc36"
-      + "\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc56\ud802\udcff"+"\ud802\udd16\ud802\udd1f"
-      + "\ud802\udd3a\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"+"\ud802\ude04\ud802\ude04"
-      + "\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"+"\ud802\ude34\ud802\ude37"
-      + "\ud802\ude3b\ud802\ude3e"+"\ud802\ude40\ud802\ude5f"+"\ud802\ude7d\ud802\udeff"+"\ud802\udf36\ud802\udf3f"
-      + "\ud802\udf56\ud802\udf5f"+"\ud802\udf73\ud802\udfff"+"\ud803\udc49\ud803\udfff"+"\ud804\udc47\ud804\udc65"
-      + "\ud804\udc70\ud804\udc7f"+"\ud804\udcbb\ud804\udcbc"+"\ud804\udcbe\ud804\udccf"+"\ud804\udce9\ud804\udcef"
-      + "\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"+"\ud804\udd40\ud804\udd7f"+"\ud804\uddc5\ud804\uddcf"
-      + "\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"+"\ud808\udf6f\ud808\udfff"
-      + "\ud809\udc63\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"+"\ud81b\udf45\ud81b\udf4f"
-      + "\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc01\ud834\udd64"+"\ud834\udd6a\ud834\udd6c"
-      + "\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"+"\ud834\uddae\ud834\ude41"+"\ud834\ude45\ud834\udfff"
-      + "\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"+"\ud835\udca3\ud835\udca4"
-      + "\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"+"\ud835\udcbc\ud835\udcbc"
-      + "\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"+"\ud835\udd15\ud835\udd15"
-      + "\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"+"\ud835\udd45\ud835\udd45"
-      + "\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"+"\ud835\udec1\ud835\udec1"
-      + "\ud835\udedb\ud835\udedb"+"\ud835\udefb\ud835\udefb"+"\ud835\udf15\ud835\udf15"+"\ud835\udf35\ud835\udf35"
-      + "\ud835\udf4f\ud835\udf4f"+"\ud835\udf6f\ud835\udf6f"+"\ud835\udf89\ud835\udf89"+"\ud835\udfa9\ud835\udfa9"
-      + "\ud835\udfc3\ud835\udfc3"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"+"\ud83b\ude04\ud83b\ude04"
-      + "\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"+"\ud83b\ude28\ud83b\ude28"
-      + "\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"+"\ud83b\ude3c\ud83b\ude41"
-      + "\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"+"\ud83b\ude4c\ud83b\ude4c"
-      + "\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"+"\ud83b\ude58\ud83b\ude58"
-      + "\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"+"\ud83b\ude60\ud83b\ude60"
-      + "\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"+"\ud83b\ude73\ud83b\ude73"
-      + "\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"+"\ud83b\ude8a\ud83b\ude8a"
-      + "\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"+"\ud83b\udebc\ud83c\udde5"
-      + "\ud83c\ude00\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
+      + "\ud7c7\ud7ca"+"\ud7fc\ud7ff"+"\ue000\ufaff"+"\ufb07\ufb12"
+      + "\ufb18\ufb1c"+"\ufb29\ufb29"+"\ufb37\ufb37"+"\ufb3d\ufb3d"
+      + "\ufb3f\ufb3f"+"\ufb42\ufb42"+"\ufb45\ufb45"+"\ufbb2\ufbd2"
+      + "\ufd3e\ufd4f"+"\ufd90\ufd91"+"\ufdc8\ufdef"+"\ufdfc\ufdff"
+      + "\ufe11\ufe12"+"\ufe15\ufe1f"+"\ufe27\ufe32"+"\ufe35\ufe4c"
+      + "\ufe51\ufe51"+"\ufe53\ufe53"+"\ufe56\ufe6f"+"\ufe75\ufe75"
+      + "\ufefd\ufefe"+"\uff00\uff06"+"\uff08\uff0b"+"\uff0d\uff0d"
+      + "\uff0f\uff19"+"\uff1c\uff20"+"\uff3b\uff3e"+"\uff40\uff40"
+      + "\uff5b\uff65"+"\uffbf\uffc1"+"\uffc8\uffc9"+"\uffd0\uffd1"
+      + "\uffd8\uffd9"+"\uffdd\ufff8"+"\ufffc\uffff"+"\ud800\udc0c\ud800\udc0c"
+      + "\ud800\udc27\ud800\udc27"+"\ud800\udc3b\ud800\udc3b"+"\ud800\udc3e\ud800\udc3e"+"\ud800\udc4e\ud800\udc4f"
+      + "\ud800\udc5e\ud800\udc7f"+"\ud800\udcfb\ud800\udd3f"+"\ud800\udd75\ud800\uddfc"+"\ud800\uddfe\ud800\ude7f"
+      + "\ud800\ude9d\ud800\ude9f"+"\ud800\uded1\ud800\udeff"+"\ud800\udf1f\ud800\udf2f"+"\ud800\udf4b\ud800\udf7f"
+      + "\ud800\udf9e\ud800\udf9f"+"\ud800\udfc4\ud800\udfc7"+"\ud800\udfd0\ud800\udfd0"+"\ud800\udfd6\ud800\udfff"
+      + "\ud801\udc9e\ud801\udc9f"+"\ud801\udcaa\ud801\udfff"+"\ud802\udc06\ud802\udc07"+"\ud802\udc09\ud802\udc09"
+      + "\ud802\udc36\ud802\udc36"+"\ud802\udc39\ud802\udc3b"+"\ud802\udc3d\ud802\udc3e"+"\ud802\udc56\ud802\udcff"
+      + "\ud802\udd16\ud802\udd1f"+"\ud802\udd3a\ud802\udd7f"+"\ud802\uddb8\ud802\uddbd"+"\ud802\uddc0\ud802\uddff"
+      + "\ud802\ude04\ud802\ude04"+"\ud802\ude07\ud802\ude0b"+"\ud802\ude14\ud802\ude14"+"\ud802\ude18\ud802\ude18"
+      + "\ud802\ude34\ud802\ude37"+"\ud802\ude3b\ud802\ude3e"+"\ud802\ude40\ud802\ude5f"+"\ud802\ude7d\ud802\udeff"
+      + "\ud802\udf36\ud802\udf3f"+"\ud802\udf56\ud802\udf5f"+"\ud802\udf73\ud802\udfff"+"\ud803\udc49\ud803\udfff"
+      + "\ud804\udc47\ud804\udc65"+"\ud804\udc70\ud804\udc7f"+"\ud804\udcbb\ud804\udcbc"+"\ud804\udcbe\ud804\udccf"
+      + "\ud804\udce9\ud804\udcef"+"\ud804\udcfa\ud804\udcff"+"\ud804\udd35\ud804\udd35"+"\ud804\udd40\ud804\udd7f"
+      + "\ud804\uddc5\ud804\uddcf"+"\ud804\uddda\ud805\ude7f"+"\ud805\udeb8\ud805\udebf"+"\ud805\udeca\ud807\udfff"
+      + "\ud808\udf6f\ud808\udfff"+"\ud809\udc63\ud80b\udfff"+"\ud80d\udc2f\ud819\udfff"+"\ud81a\ude39\ud81b\udeff"
+      + "\ud81b\udf45\ud81b\udf4f"+"\ud81b\udf7f\ud81b\udf8e"+"\ud81b\udfa0\ud82b\udfff"+"\ud82c\udc01\ud834\udd64"
+      + "\ud834\udd6a\ud834\udd6c"+"\ud834\udd83\ud834\udd84"+"\ud834\udd8c\ud834\udda9"+"\ud834\uddae\ud834\ude41"
+      + "\ud834\ude45\ud834\udfff"+"\ud835\udc55\ud835\udc55"+"\ud835\udc9d\ud835\udc9d"+"\ud835\udca0\ud835\udca1"
+      + "\ud835\udca3\ud835\udca4"+"\ud835\udca7\ud835\udca8"+"\ud835\udcad\ud835\udcad"+"\ud835\udcba\ud835\udcba"
+      + "\ud835\udcbc\ud835\udcbc"+"\ud835\udcc4\ud835\udcc4"+"\ud835\udd06\ud835\udd06"+"\ud835\udd0b\ud835\udd0c"
+      + "\ud835\udd15\ud835\udd15"+"\ud835\udd1d\ud835\udd1d"+"\ud835\udd3a\ud835\udd3a"+"\ud835\udd3f\ud835\udd3f"
+      + "\ud835\udd45\ud835\udd45"+"\ud835\udd47\ud835\udd49"+"\ud835\udd51\ud835\udd51"+"\ud835\udea6\ud835\udea7"
+      + "\ud835\udec1\ud835\udec1"+"\ud835\udedb\ud835\udedb"+"\ud835\udefb\ud835\udefb"+"\ud835\udf15\ud835\udf15"
+      + "\ud835\udf35\ud835\udf35"+"\ud835\udf4f\ud835\udf4f"+"\ud835\udf6f\ud835\udf6f"+"\ud835\udf89\ud835\udf89"
+      + "\ud835\udfa9\ud835\udfa9"+"\ud835\udfc3\ud835\udfc3"+"\ud835\udfcc\ud835\udfcd"+"\ud836\udc00\ud83b\uddff"
+      + "\ud83b\ude04\ud83b\ude04"+"\ud83b\ude20\ud83b\ude20"+"\ud83b\ude23\ud83b\ude23"+"\ud83b\ude25\ud83b\ude26"
+      + "\ud83b\ude28\ud83b\ude28"+"\ud83b\ude33\ud83b\ude33"+"\ud83b\ude38\ud83b\ude38"+"\ud83b\ude3a\ud83b\ude3a"
+      + "\ud83b\ude3c\ud83b\ude41"+"\ud83b\ude43\ud83b\ude46"+"\ud83b\ude48\ud83b\ude48"+"\ud83b\ude4a\ud83b\ude4a"
+      + "\ud83b\ude4c\ud83b\ude4c"+"\ud83b\ude50\ud83b\ude50"+"\ud83b\ude53\ud83b\ude53"+"\ud83b\ude55\ud83b\ude56"
+      + "\ud83b\ude58\ud83b\ude58"+"\ud83b\ude5a\ud83b\ude5a"+"\ud83b\ude5c\ud83b\ude5c"+"\ud83b\ude5e\ud83b\ude5e"
+      + "\ud83b\ude60\ud83b\ude60"+"\ud83b\ude63\ud83b\ude63"+"\ud83b\ude65\ud83b\ude66"+"\ud83b\ude6b\ud83b\ude6b"
+      + "\ud83b\ude73\ud83b\ude73"+"\ud83b\ude78\ud83b\ude78"+"\ud83b\ude7d\ud83b\ude7d"+"\ud83b\ude7f\ud83b\ude7f"
+      + "\ud83b\ude8a\ud83b\ude8a"+"\ud83b\ude9c\ud83b\udea0"+"\ud83b\udea4\ud83b\udea4"+"\ud83b\udeaa\ud83b\udeaa"
+      + "\ud83b\udebc\ud83c\udde5"+"\ud83c\ude00\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"
+      + "\udb40\uddf0\udbff\udfff",
     // Unicode 6.2 property value: {wordbreak=regionalindicator}
         "\ud83c\udde6\ud83c\uddff",
     // Unicode 6.2 property value: {xdigit}
@@ -9030,51 +9550,205 @@ public class Unicode_6_2 {
         "script=xsux", "cuneiform",   "script=yi", "yi",
         "script=yiii", "yi",   "script=zinh", "inherited",
         "script=zyyy", "common",   "script=zzzz", "unknown",
-        "sd", "softdotted",   "sentencebreak=at", "sentencebreak=aterm",
-        "sentencebreak=cl", "sentencebreak=close",   "sentencebreak=ex", "sentencebreak=extend",
-        "sentencebreak=fo", "sentencebreak=format",   "sentencebreak=le", "sentencebreak=oletter",
-        "sentencebreak=lo", "sentencebreak=lower",   "sentencebreak=nu", "sentencebreak=numeric",
-        "sentencebreak=sc", "sentencebreak=scontinue",   "sentencebreak=se", "sentencebreak=sep",
-        "sentencebreak=st", "sentencebreak=sterm",   "sentencebreak=up", "sentencebreak=upper",
-        "sentencebreak=xx", "sentencebreak=other",   "separator", "z",
-        "shaw", "shavian",   "shrd", "sharada",
-        "sinh", "sinhala",   "sora", "sorasompeng",
-        "space", "whitespace",   "spaceseparator", "zs",
-        "spacingmark", "mc",   "sund", "sundanese",
-        "sylo", "sylotinagri",   "symbol", "s",
-        "syrc", "syriac",   "tagb", "tagbanwa",
-        "takr", "takri",   "tale", "taile",
-        "talu", "newtailue",   "taml", "tamil",
-        "tavt", "taiviet",   "telu", "telugu",
-        "term", "terminalpunctuation",   "tfng", "tifinagh",
-        "tglg", "tagalog",   "thaa", "thaana",
-        "tibt", "tibetan",   "titlecaseletter", "lt",
-        "ugar", "ugaritic",   "uideo", "unifiedideograph",
-        "unassigned", "cn",   "upper", "uppercase",
-        "uppercaseletter", "lu",   "vaii", "vai",
-        "vs", "variationselector",   "wb=aletter", "wordbreak=aletter",
-        "wb=cr", "wordbreak=cr",   "wb=ex", "wordbreak=extendnumlet",
-        "wb=extend", "wordbreak=extend",   "wb=extendnumlet", "wordbreak=extendnumlet",
-        "wb=fo", "wordbreak=format",   "wb=format", "wordbreak=format",
-        "wb=ka", "wordbreak=katakana",   "wb=katakana", "wordbreak=katakana",
-        "wb=le", "wordbreak=aletter",   "wb=lf", "wordbreak=lf",
-        "wb=mb", "wordbreak=midnumlet",   "wb=midletter", "wordbreak=midletter",
-        "wb=midnum", "wordbreak=midnum",   "wb=midnumlet", "wordbreak=midnumlet",
-        "wb=ml", "wordbreak=midletter",   "wb=mn", "wordbreak=midnum",
-        "wb=newline", "wordbreak=newline",   "wb=nl", "wordbreak=newline",
-        "wb=nu", "wordbreak=numeric",   "wb=numeric", "wordbreak=numeric",
-        "wb=other", "wordbreak=other",   "wb=regionalindicator", "wordbreak=regionalindicator",
-        "wb=ri", "wordbreak=regionalindicator",   "wb=xx", "wordbreak=other",
-        "wordbreak=ex", "wordbreak=extendnumlet",   "wordbreak=fo", "wordbreak=format",
-        "wordbreak=ka", "wordbreak=katakana",   "wordbreak=le", "wordbreak=aletter",
-        "wordbreak=mb", "wordbreak=midnumlet",   "wordbreak=ml", "wordbreak=midletter",
-        "wordbreak=mn", "wordbreak=midnum",   "wordbreak=nl", "wordbreak=newline",
-        "wordbreak=nu", "wordbreak=numeric",   "wordbreak=ri", "wordbreak=regionalindicator",
-        "wordbreak=xx", "wordbreak=other",   "wspace", "whitespace",
-        "xidc", "xidcontinue",   "xids", "xidstart",
-        "xpeo", "oldpersian",   "xsux", "cuneiform",
-        "yiii", "yi",   "zinh", "inherited",
-        "zyyy", "common",   "zzzz", "unknown"
+        "scriptextensions=arab", "scriptextensions=arabic",   "scriptextensions=armi", "scriptextensions=imperialaramaic",
+        "scriptextensions=armn", "scriptextensions=armenian",   "scriptextensions=avst", "scriptextensions=avestan",
+        "scriptextensions=bali", "scriptextensions=balinese",   "scriptextensions=bamu", "scriptextensions=bamum",
+        "scriptextensions=batk", "scriptextensions=batak",   "scriptextensions=beng", "scriptextensions=bengali",
+        "scriptextensions=bopo", "scriptextensions=bopomofo",   "scriptextensions=brah", "scriptextensions=brahmi",
+        "scriptextensions=brai", "scriptextensions=braille",   "scriptextensions=bugi", "scriptextensions=buginese",
+        "scriptextensions=buhd", "scriptextensions=buhid",   "scriptextensions=cakm", "scriptextensions=chakma",
+        "scriptextensions=cans", "scriptextensions=canadianaboriginal",   "scriptextensions=cari", "scriptextensions=carian",
+        "scriptextensions=cher", "scriptextensions=cherokee",   "scriptextensions=copt", "scriptextensions=coptic",
+        "scriptextensions=cprt", "scriptextensions=cypriot",   "scriptextensions=cyrl", "scriptextensions=cyrillic",
+        "scriptextensions=deva", "scriptextensions=devanagari",   "scriptextensions=dsrt", "scriptextensions=deseret",
+        "scriptextensions=egyp", "scriptextensions=egyptianhieroglyphs",   "scriptextensions=ethi", "scriptextensions=ethiopic",
+        "scriptextensions=geor", "scriptextensions=georgian",   "scriptextensions=glag", "scriptextensions=glagolitic",
+        "scriptextensions=goth", "scriptextensions=gothic",   "scriptextensions=grek", "scriptextensions=greek",
+        "scriptextensions=gujr", "scriptextensions=gujarati",   "scriptextensions=guru", "scriptextensions=gurmukhi",
+        "scriptextensions=hang", "scriptextensions=hangul",   "scriptextensions=hani", "scriptextensions=han",
+        "scriptextensions=hano", "scriptextensions=hanunoo",   "scriptextensions=hebr", "scriptextensions=hebrew",
+        "scriptextensions=hira", "scriptextensions=hiragana",   "scriptextensions=ital", "scriptextensions=olditalic",
+        "scriptextensions=java", "scriptextensions=javanese",   "scriptextensions=kali", "scriptextensions=kayahli",
+        "scriptextensions=kana", "scriptextensions=katakana",   "scriptextensions=khar", "scriptextensions=kharoshthi",
+        "scriptextensions=khmr", "scriptextensions=khmer",   "scriptextensions=knda", "scriptextensions=kannada",
+        "scriptextensions=kthi", "scriptextensions=kaithi",   "scriptextensions=lana", "scriptextensions=taitham",
+        "scriptextensions=laoo", "scriptextensions=lao",   "scriptextensions=latn", "scriptextensions=latin",
+        "scriptextensions=lepc", "scriptextensions=lepcha",   "scriptextensions=limb", "scriptextensions=limbu",
+        "scriptextensions=linb", "scriptextensions=linearb",   "scriptextensions=lyci", "scriptextensions=lycian",
+        "scriptextensions=lydi", "scriptextensions=lydian",   "scriptextensions=mand", "scriptextensions=mandaic",
+        "scriptextensions=merc", "scriptextensions=meroiticcursive",   "scriptextensions=mero", "scriptextensions=meroitichieroglyphs",
+        "scriptextensions=mlym", "scriptextensions=malayalam",   "scriptextensions=mong", "scriptextensions=mongolian",
+        "scriptextensions=mtei", "scriptextensions=meeteimayek",   "scriptextensions=mymr", "scriptextensions=myanmar",
+        "scriptextensions=nkoo", "scriptextensions=nko",   "scriptextensions=ogam", "scriptextensions=ogham",
+        "scriptextensions=olck", "scriptextensions=olchiki",   "scriptextensions=orkh", "scriptextensions=oldturkic",
+        "scriptextensions=orya", "scriptextensions=oriya",   "scriptextensions=osma", "scriptextensions=osmanya",
+        "scriptextensions=phag", "scriptextensions=phagspa",   "scriptextensions=phli", "scriptextensions=inscriptionalpahlavi",
+        "scriptextensions=phnx", "scriptextensions=phoenician",   "scriptextensions=plrd", "scriptextensions=miao",
+        "scriptextensions=prti", "scriptextensions=inscriptionalparthian",   "scriptextensions=qaac", "scriptextensions=coptic",
+        "scriptextensions=qaai", "scriptextensions=inherited",   "scriptextensions=rjng", "scriptextensions=rejang",
+        "scriptextensions=runr", "scriptextensions=runic",   "scriptextensions=samr", "scriptextensions=samaritan",
+        "scriptextensions=sarb", "scriptextensions=oldsoutharabian",   "scriptextensions=saur", "scriptextensions=saurashtra",
+        "scriptextensions=shaw", "scriptextensions=shavian",   "scriptextensions=shrd", "scriptextensions=sharada",
+        "scriptextensions=sinh", "scriptextensions=sinhala",   "scriptextensions=sora", "scriptextensions=sorasompeng",
+        "scriptextensions=sund", "scriptextensions=sundanese",   "scriptextensions=sylo", "scriptextensions=sylotinagri",
+        "scriptextensions=syrc", "scriptextensions=syriac",   "scriptextensions=tagb", "scriptextensions=tagbanwa",
+        "scriptextensions=takr", "scriptextensions=takri",   "scriptextensions=tale", "scriptextensions=taile",
+        "scriptextensions=talu", "scriptextensions=newtailue",   "scriptextensions=taml", "scriptextensions=tamil",
+        "scriptextensions=tavt", "scriptextensions=taiviet",   "scriptextensions=telu", "scriptextensions=telugu",
+        "scriptextensions=tfng", "scriptextensions=tifinagh",   "scriptextensions=tglg", "scriptextensions=tagalog",
+        "scriptextensions=thaa", "scriptextensions=thaana",   "scriptextensions=tibt", "scriptextensions=tibetan",
+        "scriptextensions=ugar", "scriptextensions=ugaritic",   "scriptextensions=vaii", "scriptextensions=vai",
+        "scriptextensions=xpeo", "scriptextensions=oldpersian",   "scriptextensions=xsux", "scriptextensions=cuneiform",
+        "scriptextensions=yiii", "scriptextensions=yi",   "scriptextensions=zinh", "scriptextensions=inherited",
+        "scriptextensions=zyyy", "scriptextensions=common",   "scriptextensions=zzzz", "scriptextensions=unknown",
+        "scx=arab", "scriptextensions=arabic",   "scx=arabic", "scriptextensions=arabic",
+        "scx=armenian", "scriptextensions=armenian",   "scx=armi", "scriptextensions=imperialaramaic",
+        "scx=armn", "scriptextensions=armenian",   "scx=avestan", "scriptextensions=avestan",
+        "scx=avst", "scriptextensions=avestan",   "scx=bali", "scriptextensions=balinese",
+        "scx=balinese", "scriptextensions=balinese",   "scx=bamu", "scriptextensions=bamum",
+        "scx=bamum", "scriptextensions=bamum",   "scx=batak", "scriptextensions=batak",
+        "scx=batk", "scriptextensions=batak",   "scx=beng", "scriptextensions=bengali",
+        "scx=bengali", "scriptextensions=bengali",   "scx=bopo", "scriptextensions=bopomofo",
+        "scx=bopomofo", "scriptextensions=bopomofo",   "scx=brah", "scriptextensions=brahmi",
+        "scx=brahmi", "scriptextensions=brahmi",   "scx=brai", "scriptextensions=braille",
+        "scx=braille", "scriptextensions=braille",   "scx=bugi", "scriptextensions=buginese",
+        "scx=buginese", "scriptextensions=buginese",   "scx=buhd", "scriptextensions=buhid",
+        "scx=buhid", "scriptextensions=buhid",   "scx=cakm", "scriptextensions=chakma",
+        "scx=canadianaboriginal", "scriptextensions=canadianaboriginal",   "scx=cans", "scriptextensions=canadianaboriginal",
+        "scx=cari", "scriptextensions=carian",   "scx=carian", "scriptextensions=carian",
+        "scx=chakma", "scriptextensions=chakma",   "scx=cham", "scriptextensions=cham",
+        "scx=cher", "scriptextensions=cherokee",   "scx=cherokee", "scriptextensions=cherokee",
+        "scx=common", "scriptextensions=common",   "scx=copt", "scriptextensions=coptic",
+        "scx=coptic", "scriptextensions=coptic",   "scx=cprt", "scriptextensions=cypriot",
+        "scx=cuneiform", "scriptextensions=cuneiform",   "scx=cypriot", "scriptextensions=cypriot",
+        "scx=cyrillic", "scriptextensions=cyrillic",   "scx=cyrl", "scriptextensions=cyrillic",
+        "scx=deseret", "scriptextensions=deseret",   "scx=deva", "scriptextensions=devanagari",
+        "scx=devanagari", "scriptextensions=devanagari",   "scx=dsrt", "scriptextensions=deseret",
+        "scx=egyp", "scriptextensions=egyptianhieroglyphs",   "scx=egyptianhieroglyphs", "scriptextensions=egyptianhieroglyphs",
+        "scx=ethi", "scriptextensions=ethiopic",   "scx=ethiopic", "scriptextensions=ethiopic",
+        "scx=geor", "scriptextensions=georgian",   "scx=georgian", "scriptextensions=georgian",
+        "scx=glag", "scriptextensions=glagolitic",   "scx=glagolitic", "scriptextensions=glagolitic",
+        "scx=goth", "scriptextensions=gothic",   "scx=gothic", "scriptextensions=gothic",
+        "scx=greek", "scriptextensions=greek",   "scx=grek", "scriptextensions=greek",
+        "scx=gujarati", "scriptextensions=gujarati",   "scx=gujr", "scriptextensions=gujarati",
+        "scx=gurmukhi", "scriptextensions=gurmukhi",   "scx=guru", "scriptextensions=gurmukhi",
+        "scx=han", "scriptextensions=han",   "scx=hang", "scriptextensions=hangul",
+        "scx=hangul", "scriptextensions=hangul",   "scx=hani", "scriptextensions=han",
+        "scx=hano", "scriptextensions=hanunoo",   "scx=hanunoo", "scriptextensions=hanunoo",
+        "scx=hebr", "scriptextensions=hebrew",   "scx=hebrew", "scriptextensions=hebrew",
+        "scx=hira", "scriptextensions=hiragana",   "scx=hiragana", "scriptextensions=hiragana",
+        "scx=imperialaramaic", "scriptextensions=imperialaramaic",   "scx=inherited", "scriptextensions=inherited",
+        "scx=inscriptionalpahlavi", "scriptextensions=inscriptionalpahlavi",   "scx=inscriptionalparthian", "scriptextensions=inscriptionalparthian",
+        "scx=ital", "scriptextensions=olditalic",   "scx=java", "scriptextensions=javanese",
+        "scx=javanese", "scriptextensions=javanese",   "scx=kaithi", "scriptextensions=kaithi",
+        "scx=kali", "scriptextensions=kayahli",   "scx=kana", "scriptextensions=katakana",
+        "scx=kannada", "scriptextensions=kannada",   "scx=katakana", "scriptextensions=katakana",
+        "scx=kayahli", "scriptextensions=kayahli",   "scx=khar", "scriptextensions=kharoshthi",
+        "scx=kharoshthi", "scriptextensions=kharoshthi",   "scx=khmer", "scriptextensions=khmer",
+        "scx=khmr", "scriptextensions=khmer",   "scx=knda", "scriptextensions=kannada",
+        "scx=kthi", "scriptextensions=kaithi",   "scx=lana", "scriptextensions=taitham",
+        "scx=lao", "scriptextensions=lao",   "scx=laoo", "scriptextensions=lao",
+        "scx=latin", "scriptextensions=latin",   "scx=latn", "scriptextensions=latin",
+        "scx=lepc", "scriptextensions=lepcha",   "scx=lepcha", "scriptextensions=lepcha",
+        "scx=limb", "scriptextensions=limbu",   "scx=limbu", "scriptextensions=limbu",
+        "scx=linb", "scriptextensions=linearb",   "scx=linearb", "scriptextensions=linearb",
+        "scx=lisu", "scriptextensions=lisu",   "scx=lyci", "scriptextensions=lycian",
+        "scx=lycian", "scriptextensions=lycian",   "scx=lydi", "scriptextensions=lydian",
+        "scx=lydian", "scriptextensions=lydian",   "scx=malayalam", "scriptextensions=malayalam",
+        "scx=mand", "scriptextensions=mandaic",   "scx=mandaic", "scriptextensions=mandaic",
+        "scx=meeteimayek", "scriptextensions=meeteimayek",   "scx=merc", "scriptextensions=meroiticcursive",
+        "scx=mero", "scriptextensions=meroitichieroglyphs",   "scx=meroiticcursive", "scriptextensions=meroiticcursive",
+        "scx=meroitichieroglyphs", "scriptextensions=meroitichieroglyphs",   "scx=miao", "scriptextensions=miao",
+        "scx=mlym", "scriptextensions=malayalam",   "scx=mong", "scriptextensions=mongolian",
+        "scx=mongolian", "scriptextensions=mongolian",   "scx=mtei", "scriptextensions=meeteimayek",
+        "scx=myanmar", "scriptextensions=myanmar",   "scx=mymr", "scriptextensions=myanmar",
+        "scx=newtailue", "scriptextensions=newtailue",   "scx=nko", "scriptextensions=nko",
+        "scx=nkoo", "scriptextensions=nko",   "scx=ogam", "scriptextensions=ogham",
+        "scx=ogham", "scriptextensions=ogham",   "scx=olchiki", "scriptextensions=olchiki",
+        "scx=olck", "scriptextensions=olchiki",   "scx=olditalic", "scriptextensions=olditalic",
+        "scx=oldpersian", "scriptextensions=oldpersian",   "scx=oldsoutharabian", "scriptextensions=oldsoutharabian",
+        "scx=oldturkic", "scriptextensions=oldturkic",   "scx=oriya", "scriptextensions=oriya",
+        "scx=orkh", "scriptextensions=oldturkic",   "scx=orya", "scriptextensions=oriya",
+        "scx=osma", "scriptextensions=osmanya",   "scx=osmanya", "scriptextensions=osmanya",
+        "scx=phag", "scriptextensions=phagspa",   "scx=phagspa", "scriptextensions=phagspa",
+        "scx=phli", "scriptextensions=inscriptionalpahlavi",   "scx=phnx", "scriptextensions=phoenician",
+        "scx=phoenician", "scriptextensions=phoenician",   "scx=plrd", "scriptextensions=miao",
+        "scx=prti", "scriptextensions=inscriptionalparthian",   "scx=qaac", "scriptextensions=coptic",
+        "scx=qaai", "scriptextensions=inherited",   "scx=rejang", "scriptextensions=rejang",
+        "scx=rjng", "scriptextensions=rejang",   "scx=runic", "scriptextensions=runic",
+        "scx=runr", "scriptextensions=runic",   "scx=samaritan", "scriptextensions=samaritan",
+        "scx=samr", "scriptextensions=samaritan",   "scx=sarb", "scriptextensions=oldsoutharabian",
+        "scx=saur", "scriptextensions=saurashtra",   "scx=saurashtra", "scriptextensions=saurashtra",
+        "scx=sharada", "scriptextensions=sharada",   "scx=shavian", "scriptextensions=shavian",
+        "scx=shaw", "scriptextensions=shavian",   "scx=shrd", "scriptextensions=sharada",
+        "scx=sinh", "scriptextensions=sinhala",   "scx=sinhala", "scriptextensions=sinhala",
+        "scx=sora", "scriptextensions=sorasompeng",   "scx=sorasompeng", "scriptextensions=sorasompeng",
+        "scx=sund", "scriptextensions=sundanese",   "scx=sundanese", "scriptextensions=sundanese",
+        "scx=sylo", "scriptextensions=sylotinagri",   "scx=sylotinagri", "scriptextensions=sylotinagri",
+        "scx=syrc", "scriptextensions=syriac",   "scx=syriac", "scriptextensions=syriac",
+        "scx=tagalog", "scriptextensions=tagalog",   "scx=tagb", "scriptextensions=tagbanwa",
+        "scx=tagbanwa", "scriptextensions=tagbanwa",   "scx=taile", "scriptextensions=taile",
+        "scx=taitham", "scriptextensions=taitham",   "scx=taiviet", "scriptextensions=taiviet",
+        "scx=takr", "scriptextensions=takri",   "scx=takri", "scriptextensions=takri",
+        "scx=tale", "scriptextensions=taile",   "scx=talu", "scriptextensions=newtailue",
+        "scx=tamil", "scriptextensions=tamil",   "scx=taml", "scriptextensions=tamil",
+        "scx=tavt", "scriptextensions=taiviet",   "scx=telu", "scriptextensions=telugu",
+        "scx=telugu", "scriptextensions=telugu",   "scx=tfng", "scriptextensions=tifinagh",
+        "scx=tglg", "scriptextensions=tagalog",   "scx=thaa", "scriptextensions=thaana",
+        "scx=thaana", "scriptextensions=thaana",   "scx=thai", "scriptextensions=thai",
+        "scx=tibetan", "scriptextensions=tibetan",   "scx=tibt", "scriptextensions=tibetan",
+        "scx=tifinagh", "scriptextensions=tifinagh",   "scx=ugar", "scriptextensions=ugaritic",
+        "scx=ugaritic", "scriptextensions=ugaritic",   "scx=unknown", "scriptextensions=unknown",
+        "scx=vai", "scriptextensions=vai",   "scx=vaii", "scriptextensions=vai",
+        "scx=xpeo", "scriptextensions=oldpersian",   "scx=xsux", "scriptextensions=cuneiform",
+        "scx=yi", "scriptextensions=yi",   "scx=yiii", "scriptextensions=yi",
+        "scx=zinh", "scriptextensions=inherited",   "scx=zyyy", "scriptextensions=common",
+        "scx=zzzz", "scriptextensions=unknown",   "sd", "softdotted",
+        "sentencebreak=at", "sentencebreak=aterm",   "sentencebreak=cl", "sentencebreak=close",
+        "sentencebreak=ex", "sentencebreak=extend",   "sentencebreak=fo", "sentencebreak=format",
+        "sentencebreak=le", "sentencebreak=oletter",   "sentencebreak=lo", "sentencebreak=lower",
+        "sentencebreak=nu", "sentencebreak=numeric",   "sentencebreak=sc", "sentencebreak=scontinue",
+        "sentencebreak=se", "sentencebreak=sep",   "sentencebreak=st", "sentencebreak=sterm",
+        "sentencebreak=up", "sentencebreak=upper",   "sentencebreak=xx", "sentencebreak=other",
+        "separator", "z",   "shaw", "shavian",
+        "shrd", "sharada",   "sinh", "sinhala",
+        "sora", "sorasompeng",   "space", "whitespace",
+        "spaceseparator", "zs",   "spacingmark", "mc",
+        "sund", "sundanese",   "sylo", "sylotinagri",
+        "symbol", "s",   "syrc", "syriac",
+        "tagb", "tagbanwa",   "takr", "takri",
+        "tale", "taile",   "talu", "newtailue",
+        "taml", "tamil",   "tavt", "taiviet",
+        "telu", "telugu",   "term", "terminalpunctuation",
+        "tfng", "tifinagh",   "tglg", "tagalog",
+        "thaa", "thaana",   "tibt", "tibetan",
+        "titlecaseletter", "lt",   "ugar", "ugaritic",
+        "uideo", "unifiedideograph",   "unassigned", "cn",
+        "upper", "uppercase",   "uppercaseletter", "lu",
+        "vaii", "vai",   "vs", "variationselector",
+        "wb=aletter", "wordbreak=aletter",   "wb=cr", "wordbreak=cr",
+        "wb=ex", "wordbreak=extendnumlet",   "wb=extend", "wordbreak=extend",
+        "wb=extendnumlet", "wordbreak=extendnumlet",   "wb=fo", "wordbreak=format",
+        "wb=format", "wordbreak=format",   "wb=ka", "wordbreak=katakana",
+        "wb=katakana", "wordbreak=katakana",   "wb=le", "wordbreak=aletter",
+        "wb=lf", "wordbreak=lf",   "wb=mb", "wordbreak=midnumlet",
+        "wb=midletter", "wordbreak=midletter",   "wb=midnum", "wordbreak=midnum",
+        "wb=midnumlet", "wordbreak=midnumlet",   "wb=ml", "wordbreak=midletter",
+        "wb=mn", "wordbreak=midnum",   "wb=newline", "wordbreak=newline",
+        "wb=nl", "wordbreak=newline",   "wb=nu", "wordbreak=numeric",
+        "wb=numeric", "wordbreak=numeric",   "wb=other", "wordbreak=other",
+        "wb=regionalindicator", "wordbreak=regionalindicator",   "wb=ri", "wordbreak=regionalindicator",
+        "wb=xx", "wordbreak=other",   "wordbreak=ex", "wordbreak=extendnumlet",
+        "wordbreak=fo", "wordbreak=format",   "wordbreak=ka", "wordbreak=katakana",
+        "wordbreak=le", "wordbreak=aletter",   "wordbreak=mb", "wordbreak=midnumlet",
+        "wordbreak=ml", "wordbreak=midletter",   "wordbreak=mn", "wordbreak=midnum",
+        "wordbreak=nl", "wordbreak=newline",   "wordbreak=nu", "wordbreak=numeric",
+        "wordbreak=ri", "wordbreak=regionalindicator",   "wordbreak=xx", "wordbreak=other",
+        "wspace", "whitespace",   "xidc", "xidcontinue",
+        "xids", "xidstart",   "xpeo", "oldpersian",
+        "xsux", "cuneiform",   "yiii", "yi",
+        "zinh", "inherited",   "zyyy", "common",
+        "zzzz", "unknown"
   };
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

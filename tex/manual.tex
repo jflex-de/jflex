@@ -2160,8 +2160,8 @@ Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
 \begin{quote}
 \emph{To meet this requirement, an implementation shall provide at least a
 minimal list of properties, consisting of the following: General\_Category,
-Script, Alphabetic, Uppercase, Lowercase, White\_Space,
-Noncharacter\_Code\_Point, Default\_Ignor\-able\_Code\_Point, ANY, ASCII,
+Script and Script_Extensions, Alphabetic, Uppercase, Lowercase, White\_Space,
+Noncharacter\_Code\_Point, Default\_Ignorable\_Code\_Point, ANY, ASCII,
 ASSIGNED.}
 
 \emph{The values for these properties must follow the Unicode definitions, 
@@ -2244,7 +2244,8 @@ JFlex conforms. All supported Unicode Properties are closed.
 \begin{quote}
 \emph{To meet this requirement, if an implementation provides for
 line-boundary testing, it shall recognize not only CRLF, LF, CR, but
-also NEL (U+0085), PS (U+2029) and LS (U+2028).}
+also NEL (U+0085), PARAGRAPH SEPARATOR (U+2029) and LINE SEPARATOR
+(U+2028).}
 \end{quote}
 
 JFlex conforms.
@@ -2794,9 +2795,9 @@ information.
   in: Proceedings of the 7th International Conference on Compiler Construction (CC '98), 1998
 
 \bibitem{unicode_rep}
-  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18\\ 
-  \htmladdnormallink{\texttt{http://www.unicode.org/unicode/reports/tr18}}
-                    {http://www.unicode.org/unicode/reports/tr18}
+  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18, version 17\\ 
+  \htmladdnormallink{\texttt{http://www.unicode.org/reports/tr18/tr18-17.html}}
+                    {http://www.unicode.org/reports/tr18/tr18-17.html}
 
 \bibitem{ParseTable}
  P.~Dencker, K.~D{\"u}rre, J.~Henft, {\trit Optimization of Parser Tables for portable Compilers}, 

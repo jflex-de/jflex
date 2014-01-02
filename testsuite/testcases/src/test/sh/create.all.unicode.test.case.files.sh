@@ -82,7 +82,11 @@ cd ../unicode-proplist/
 ../../perl/create.unicode-proplist.test.case.files.pl -v $version -p $ucd/PropList.txt 
 
 cd ../unicode-scripts/
-../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt 
+if [[ $version =~ ^[1-5]\. ]]; then  # Major version <= 5
+    ../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt 
+else
+    ../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt -e $ucd/ScriptExtensions.txt -a $ucd/PropertyValueAliases.txt
+fi
 
 cd ../unicode-sentence-break/
 ../../perl/create.unicode-sentence-break.test.case.files.pl -v $version -d $ucd/auxiliary/SentenceBreakProperty.txt 

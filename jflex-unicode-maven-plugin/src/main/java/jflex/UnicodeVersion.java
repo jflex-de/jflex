@@ -16,19 +16,7 @@ import java.io.IOException;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.HashSet;
-import java.util.EnumMap;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -307,38 +295,56 @@ class UnicodeVersion {
   void addInterval(String propName, int startCodePoint, int endCodePoint) {
     propName = getCanonicalPropertyName(normalize(propName));
     if ( ! SURROGATE_PATTERN.matcher(propName).find()) {
-      if (startCodePoint == 0xD800) {
-        if (endCodePoint == 0xDFFF) {
-          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
-          // Do nothing here
-          return;
-        } else if (endCodePoint > 0xDFFF) {
-          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode
-          // 3.0, but include the code points after this range.
-          startCodePoint = 0xE000;
+      List<NamedRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
+      if ( ! ranges.isEmpty()) {
+        List<NamedRange> intervals = propertyValueIntervals.get(propName);
+        if (null == intervals) {
+          intervals = new ArrayList<NamedRange>();
+          propertyValueIntervals.put(propName, intervals);
         }
+        for (NamedRange range : ranges) {
+          // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+          // range (starting point is listed as U+4E00).  This is U+9FFF according
+          // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+          //
+          //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+          //
+          // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+          // value, as are the previous code points, so to include
+          // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+          if (range.end == 0x4E00 && majorMinorVersion.equals("1.1")) {
+            range.end = 0x9FFF;
+          }
+          intervals.add(range);
+        }
+        usedBinaryProperties.add(propName);
       }
-      List<NamedRange> intervals = propertyValueIntervals.get(propName);
-      if (null == intervals) {
-        intervals = new ArrayList<NamedRange>();
-        propertyValueIntervals.put(propName, intervals);
-      }
-      // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-      // range (starting point is listed as U+4E00).  This is U+9FFF according
-      // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-      //
-      //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-      //
-      // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
-      // value, as are the previous code points, so to include
-      // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-      if (endCodePoint == 0x4E00 && majorMinorVersion.equals("1.1")) {
-        endCodePoint = 0x9FFF;
-      }
-      intervals.add(new NamedRange(startCodePoint, endCodePoint));
-      
-      usedBinaryProperties.add(propName);
     }
+  }
+
+  /**
+   * Returns 0, 1, or 2 ranges for the given interval, depending on
+   * whether it is contained within; is entirely outside of or starts
+   * or ends within; or straddles the surrogate range 0xD800-0xDFFF,
+   * respectively. 
+   */
+  List<NamedRange> removeSurrogates(int startCodePoint, int endCodePoint) {
+    assert startCodePoint <= endCodePoint;
+    if (startCodePoint >= 0xD800 && endCodePoint <= 0xDFFF) {
+      return Collections.emptyList();
+    }
+    List<NamedRange> ranges = new ArrayList<NamedRange>();
+    if (endCodePoint < 0xD800 || startCodePoint > 0xDFFF) {
+      ranges.add(new NamedRange(startCodePoint, endCodePoint));
+      return ranges;
+    }
+    if (startCodePoint < 0xD800) {
+      ranges.add(new NamedRange(startCodePoint, 0xD7FF));
+    }
+    if (endCodePoint > 0xDFFF) {
+      ranges.add(new NamedRange(0xE000, endCodePoint));
+    }
+    return ranges;
   }
 
   /**
@@ -358,57 +364,49 @@ class UnicodeVersion {
     // Skip surrogate properties [U+D800-U+DFFF], e.g. \p{Cs} - can't be
     // represented in valid UTF-16 encoded strings
     if ( ! SURROGATE_PATTERN.matcher(propValue).find()) {
-      if (startCodePoint == 0xD800) {
-        if (endCodePoint == 0xDFFF) {
-          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode 2.1
-          // Do nothing here
-          return;
-        } else if (endCodePoint > 0xDFFF) {
-          // Skip [U+D800-U+DFFF] for Bidi:Left-to-Right property for Unicode
-          // 3.0, but include the code points after this range.
-          startCodePoint = 0xE000;
+      List<NamedRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
+      if ( ! ranges.isEmpty()) {
+        String canonicalValue = propName + '=' + propValue;
+        if (  propName.equals(NORMALIZED_GENERAL_CATEGORY)
+           || propName.equals(NORMALIZED_SCRIPT)) {
+          canonicalValue = propValue;
         }
-      }
-
-      // Unicode 2.0 has an error in Blocks-1.txt: two ranges overlap.
-      // Since the single char in the second range (U+FEFF) is not an
-      // Arabic character, but rather the zero-width no-break space char,
-      // the FE70..FEFF block should be shortened to exclude this char;
-      // this error is corrected in all following Unicode versions of
-      // Blocks(-X|-X.X.X.).txt.
-      //
-      //   FE70; FEFF; Arabic Presentation Forms-B
-      //   ...
-      //   FEFF; FEFF; Specials
-      if (startCodePoint == 0xFE70 && endCodePoint == 0xFEFF
-          && majorMinorVersion.equals("2.0")) {
-        endCodePoint = 0xFEFE;
-      }
-      String canonicalValue = propName + '=' + propValue;
-      if (propName.equals(NORMALIZED_GENERAL_CATEGORY)
-          || propName.equals(NORMALIZED_SCRIPT)) { 
-        canonicalValue = propValue;
-      }
-      List<NamedRange> intervals = propertyValueIntervals.get(canonicalValue);
-      if (null == intervals) {
-        intervals = new ArrayList<NamedRange>();
-        propertyValueIntervals.put(canonicalValue, intervals);
-      }
-      intervals.add(new NamedRange(startCodePoint, endCodePoint));
+        List<NamedRange> intervals = propertyValueIntervals.get(canonicalValue);
+        if (null == intervals) {
+          intervals = new ArrayList<NamedRange>();
+          propertyValueIntervals.put(canonicalValue, intervals);
+        }
+        for (NamedRange range : ranges) {
+          // Unicode 2.0 has an error in Blocks-1.txt: two ranges overlap.
+          // Since the single char in the second range (U+FEFF) is not an
+          // Arabic character, but rather the zero-width no-break space char,
+          // the FE70..FEFF block should be shortened to exclude this char;
+          // this error is corrected in all following Unicode versions of
+          // Blocks(-X|-X.X.X.).txt.
+          //
+          //   FE70; FEFF; Arabic Presentation Forms-B
+          //   ...
+          //   FEFF; FEFF; Specials
+          if (  range.start == 0xFE70 && range.end == 0xFEFF
+             && majorMinorVersion.equals("2.0")) {
+            range.end = 0xFEFE;
+          }
+          intervals.add(range);
+        }
+        Set<String> usedValues = usedEnumeratedProperties.get(propName);
+        if (null == usedValues) {
+          usedValues = new HashSet<String>();
+          usedEnumeratedProperties.put(propName, usedValues);
+        }
+        usedValues.add(propValue);
       
-      Set<String> usedValues = usedEnumeratedProperties.get(propName);
-      if (null == usedValues) {
-        usedValues = new HashSet<String>();
-        usedEnumeratedProperties.put(propName, usedValues);
-      }
-      usedValues.add(propValue);
-      
-      // Initial letters of two-letter General Category property values
-      // should be put on the used property values list
-      if (propName.equals(NORMALIZED_GENERAL_CATEGORY) 
-          && propValue.length() == 2) {
-        String firstLetter = propValue.substring(0, 1);
-        usedValues.add(firstLetter);
+        // Initial letters of two-letter General Category property values
+        // should be put on the used property values list
+        if (  propName.equals(NORMALIZED_GENERAL_CATEGORY) 
+           && propValue.length() == 2) {
+          String firstLetter = propValue.substring(0, 1);
+          usedValues.add(firstLetter);
+        }
       }
     }
   }
@@ -499,12 +497,12 @@ class UnicodeVersion {
   }
 
   /**
-   * Called by emitPropertyValueAliasesArray() to populate a map of
-   * all possible aliases for the encountered properties and their values. 
-   * 
+   * Populates a map of all possible aliases for the encountered properties
+   * and their values. 
+   *                                        `
    * @return a sorted map of all possible aliases for used properties & values
    */
-  private SortedMap<String,String> getUsedPropertyValueAliases() {
+  SortedMap<String,String> getUsedPropertyValueAliases() {
     SortedMap<String,String> usedPropertyValueAliases
       = new TreeMap<String,String>();
     for (String binaryProperty : usedBinaryProperties) {
@@ -719,13 +717,13 @@ class UnicodeVersion {
    * for the given property name.  If none exists, an empty set is returned.
    * 
    * @param propertyName The property name for which to lookup aliases.
-   * @return the aliases for the given property name; if none exists, an empty
-   *  set is returned.
+   * @return the aliases for the given property name; if none exists,
+   * a set containing the given property name is returned.
    */
   Set<String> getPropertyAliases(String propertyName) {
     Set<String> aliases = allPropertyAliases.get(propertyName);
     if (null == aliases) {
-      aliases = Collections.emptySet();
+      aliases = new HashSet<String>(Arrays.asList(propertyName));
     }
     return aliases;
   }
@@ -912,7 +910,8 @@ class UnicodeVersion {
     NamedRangeSet graphSet = new NamedRangeSet(new NamedRange(0x0, 0xFFFF));
     graphSet.sub(new NamedRangeSet(whitespaceRanges));
     graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cc"))); // \p{gc=Control}
-    graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cn"))); // \p{gc=Unassigned} 
+    graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cn"))); // \p{gc=Unassigned}
+    graphSet.sub(new NamedRangeSet(new NamedRange(0xD800, 0xDFFF)));
     propertyValueIntervals.put("graph", graphSet.getRanges());
     usedBinaryProperties.add("graph");
 
