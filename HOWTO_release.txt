@@ -12,7 +12,7 @@ synchronized with this repository.  For more information, see
 Preparing to release
 --------------------
 
-1. First, create a JIRA account on jira.sonatype.org, then make sure that your
+1. First, create a JIRA account on issues.sonatype.org, then make sure that your
    account is authorized to deploy to the Sonatype OSS Maven repository - see
    the above-linked usage guide for more information.
 
