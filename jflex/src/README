@@ -14,7 +14,7 @@ To build everything from scratch:
 Dir contents:
 pom.xml:
   Maven Project object model
-  Useful targets:
+  Useful target:
     mvn package: generate jflex.jar
   
   
