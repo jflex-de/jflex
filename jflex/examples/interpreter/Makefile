@@ -36,7 +36,7 @@ clean:
 	rm -f *.class *~ *.bak Yylex.java parser.java sym.java
 
 Yylex.java: scanner.flex
-	jflex scanner.flex
+	../../bin/jflex scanner.flex
 
 parser.java: parser.cup
 	java java_cup.Main -interface < parser.cup

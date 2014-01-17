@@ -3,10 +3,9 @@
 # CUP classes should be included in CLASSPATH 
 
 CUP        = java java_cup.Main -interface <
-JFLEX      = jflex
+JFLEX      = ../../bin/jflex
 JAVA       = java
 JAVAC      = javac
-#JAVAC      = jikes 
 JAVACFLAGS = 
 
 # --------------------------------------------------
