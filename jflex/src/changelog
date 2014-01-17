@@ -1,4 +1,4 @@
-* JFlex 1.5
+## JFlex 1.5
 - the "switch" and "table" code generation options are deprecated
   and will be removed in JFlex 1.6
 - the JFlex license has been changed from GPL to BSD.
@@ -27,13 +27,13 @@
 - fixed bug #103 (can't build examples/java/)
 - fixed bug #104 (impossible char class range should trigger syntax error)
 
-* JFlex 1.4.3 (Jan 31, 2009)
+## JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)
 - fixed bug #2010261 (min_int in Java example scanner)
 - fixed bug #2007221 (zzEOFDone not reset in yyreset(Reader))
 - fixed bug #1999301 (%type and %int at the same time should produce error msg)
 
-* JFlex 1.4.2 (May 27, 2008)
+## JFlex 1.4.2 (May 27, 2008)
 - implemented feature request #1212181:
   Now supports generics syntax for %type, %extends, etc
 - implemented feature request #1762500:
@@ -49,7 +49,7 @@
 - fixed bug #1065521 (OS/2 Java 1.1.8 Issues)
 - fixed bug #421495 (dangerous lookahead check may fail)   
 
-* JFlex 1.4.1 (November 7, 2004)
+## JFlex 1.4.1 (November 7, 2004)
 - merged in patch by Don Brown (fixes #1049791 Uses Old JUnit method assertFalse)
 - merged in patch by Don Brown (fixes #887821  buffer expansion bug in yy_refill())
   Thanks to Binesh Bannerjee for providing a simpler test case for this problem.
@@ -60,7 +60,7 @@
 - fixed line number count for EOF actions
 - internal: removed unused methods in LexScan.flex and IntCharSet
 
-* JFlex 1.4 (April 12, 2004)
+## JFlex 1.4 (April 12, 2004)
 - new, very fast minimization algorithm (also fixes memory issues)
 - new --jlex option for strict compatibility to JLex. Currently it 
   changes %ignorecase to JLex semantics, that is, character classes 
@@ -112,7 +112,7 @@
   for the patch.
 
 
-* JFlex 1.3.5 (October 8, 2001)
+## JFlex 1.3.5 (October 8, 2001)
 - fixed all bugs reported for version 1.3.4. Thanks to
   Amin Ahmad and Fred Wehrhahn for their excellent bug reports.
 - implemented feature request #459014: vim syntax file.  
@@ -120,7 +120,7 @@
 - JFlex should run with JDK 1.1 out-of-the-box again.
 
 
-* JFlex 1.3.4 (October 1, 2001)
+## JFlex 1.3.4 (October 1, 2001)
 - fixed all bugs reported for version 1.3.3. Thanks to Mike Akerman
   for his excellent bug reports and his help.
 - implemented feature request #459355: exclusive start states.
@@ -128,15 +128,13 @@
 - introduced %s and %x shorthands for state declarations
 
 
-* JFlex 1.3.3 (September 21, 2001)
+## JFlex 1.3.3 (September 21, 2001)
 - fixed all reported bugs except #39 (lookahead check at generation
   time may fail).  Thanks to Axel Schwolow, Karl Meissner, Angelo
   Borsotti, and Paolo Di Francesco for their excellent bug reports.
 - enhanced %debug output. JFlex scanners in debug mode now print line,
   column, matched text, and executed action (with line number in spec)
-  for each processed token.  Thanks to 
-  <a href="http://meissner.v0.net/msd.htm">Karl Meissner</a> for the 
-  suggestion.  
+  for each processed token.  Thanks to Karl Meissner for the suggestion.  
 - introduced %cupdebug directive for readable CUP debugging. Generated
   scanners print line, column, matched text, and CUP symbol name for
   each returned token. Again thanks to Karl Meissner for tips and
@@ -171,7 +169,7 @@
   the code.
   
   
-* JFlex 1.3.2 (February 24, 2001)
+## JFlex 1.3.2 (February 24, 2001)
 - fixed bug #32 (this time for real). Thanks to Thilo Goetz for 
   his quick report.
 - updated the binary scanning example with the more comprehensive and 
@@ -191,7 +189,7 @@
   be generated, too.
   
   
-* JFlex 1.3.1 (February 20, 2001) 
+## JFlex 1.3.1 (February 20, 2001) 
 - fixed all JFlex bugs reported for 1.3 (bugs #32-#36)
   Thanks to Hans Kratz, Vasily Karyaev, Alexey Yakovets, and Tom Moog for
   their excellent reports.
@@ -218,7 +216,7 @@
 - moved part of the project to http://sourceforge.net/projects/jflex/
 
 
-* JFlex 1.3 (October 21, 2000) 
+## JFlex 1.3 (October 21, 2000) 
 
 - Fixed all bugs reported for 1.2.2 (bugs #23-#27). 
 - Better start script for Linux. 
@@ -238,7 +236,7 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - New --dump switch for a dump of the generated charclasses, NFA, DFA, and minimized DFA tables. 
   
   
-* JFlex 1.2.2 (August 23, 1999)
+## JFlex 1.2.2 (August 23, 1999)
 - Updated JFlex to the new CUP version 0.10j. 
 - Eliminated some remaining platform dependent newlines in the generated source code 
   (affecting the readabilty of the generated code only, no functional changes). 
@@ -247,13 +245,13 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - Updated the Java 1.2 lexer/parser example to CUP 0.10j. 
 
   
-* JFlex 1.2.1 (June 25, 1999)
+## JFlex 1.2.1 (June 25, 1999)
 - Fixed all bugs reported for version 1.2 (#19-#22). 
 - Webpage redesigned and moved to http://www.jflex.de. 
 - Example java lexer/parser switched to Java 1.2. 
 
   
-* JFlex 1.2 (March 21, 1999)
+## JFlex 1.2 (March 21, 1999)
 - Fixed all bugs for 1.1.2. 
 - JFlex now works again with Solaris JIT. 
 - Significant Unicode optimizations in scanning and generation performance, 
@@ -277,16 +275,16 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - manual now written in latex, available as html and in printable .ps.gz and pdf file formats. 
 
   
-* JFlex 1.1.2
+## JFlex 1.1.2
 - All bugs reported for version 1.1.1 (#8-#10) have been fixed. 
   
   
-* JFlex 1.1.1
+## JFlex 1.1.1
 - All bugs reported for version 1.1 (i.e. bug #7 and feature request #6) have been fixed. 
 - Scanning speed was optimized further. 
   
   
-* JFlex 1.1 adds new features and fixes all known bugs of 1.0
+## JFlex 1.1 adds new features and fixes all known bugs of 1.0
 - Revised directory structure. 
 - Fixed all reported bugs (#1-#5 and some unreported ones). 
 - Fixed thousands of typos in the manual. 
@@ -302,5 +300,5 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - graphical UI when no filename is provided on the commandline 
   
   
-* JFlex 1.0 (May 1998) was the first public release of JFlex. 
+## JFlex 1.0 (May 1998) was the first public release of JFlex. 
  It was developed using Sun's JDK 1.1, JFlex (bootstrapped) and the parser generator CUP 
