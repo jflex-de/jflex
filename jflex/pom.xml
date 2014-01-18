@@ -61,7 +61,7 @@
   </developers>
   <mailingLists>
     <mailingList>
-      <name>announcements (to be notified of new releases - extremely low trafic)</name>
+      <name>announcements (to be notified of new releases - low traffic)</name>
       <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</subscribe>
       <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</unsubscribe>
       <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-announce</archive>
