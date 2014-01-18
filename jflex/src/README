@@ -1,20 +1,12 @@
 This directory contains the source code for JFlex.
 
-For your convenience, the following generated lexer and parser files
-are included in the distribution:
+Directory contents:
 
-JFlex/LexScan.java  (lexer, generated from src/LexScan.flex)
-JFlex/LexParse.java (parser, generated from src/LexParse.cup)
-JFlex/sym.java      (parser symbols, generated from src/LexParse.cup)
-
-
-To build everything from scratch:
-
-
-Dir contents:
-pom.xml:
+../pom.xml:
   Maven Project object model
-  Useful target:
+  Useful targets:
+	  mvn compile: build and compile JFlex
+	  mvn test: run unit tests
     mvn package: generate jflex.jar
   
   
@@ -26,17 +18,18 @@ skeleton.nested:
   a skeleton file that supports nested input streams (see the manual 
   for the API). Can be used together with the --skel option
 
-main/java/JFlex:
+main/java/jflex:
   source files of package JFlex
 
-main/java/JFlex/gui:
+main/java/jflex/gui:
   source files of package JFlex.gui
 
-main/java/JFlex/anttask
+main/java/jflex/anttask
   source files of the JFlex Ant task (contributed by Rafal Mantiuk)
   
-test/java/JFlex
+test/java/jflex
   unit tests for JFlex
 
 main/java/java_cup/runtime:
   CUP v0.11a runtime classes, used by JFlex
+
