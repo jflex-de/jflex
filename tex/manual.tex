@@ -1,20 +1,30 @@
 % $Id$
 
 \documentclass[11pt]{scrartcl}
-\usepackage{a4wide,verbatim,graphicx}
-\usepackage{pdfsetup}
+\usepackage{a4wide,verbatim,graphicx,microtype}
+
+\usepackage{color}
+\definecolor{lcol}{rgb}{0,0,0.5}
+\usepackage[bookmarks,
+            colorlinks=true,linkcolor=lcol,citecolor=lcol,
+            filecolor=lcol,urlcolor=lcol,
+            pdfauthor={Gerwin Klein, Steve Rowe, Regis Decamps},
+            pdftitle={JFlex User's Manual},
+            pdfkeywords={Java, scanner, lexer, scanner generator},
+            plainpages=false]{hyperref}
+
 \usepackage{html}
-\usepackage{microtype}
+
 
 \newcommand{\bl}{\latex{\symbol{123}}\html{\{}}
 \newcommand{\br}{\latex{\symbol{125}}\html{\}}}
 
-\newcommand{\xsmall}{}
+\newcommand{\xsmall}{\small}
 \newcommand{\xtiny}{\small}
 
 \newcommand{\trit}{\em}
 
-\newcommand{\ver}{1.5}
+\newcommand{\ver}{1.5.0}
 \newcommand{\nextver}{1.6}
 \newcommand{\latestunicodever}{6.3}
 
@@ -113,24 +123,27 @@ If you unzipped it to say \verb+C:\+, the following directory structure
 should be generated:
 {\xsmall
 \begin{verbatim}
-C:\JFlex\                          
-      +--bin\                   (start scripts) 
-      +--doc\                   (FAQ and manual)
+C:\jflex-\ver\                          
+      +--bin\                        (start scripts) 
+      +--doc\                        (FAQ and manual)
       +--examples\ 
-               +--binary\       (scanning binary files)
-               +--byaccj\       (calculator example for BYacc/J)
-               +--cup\          (calculator example for cup)
-               +--interpreter\  (interpreter example for cup)
-               +--java\         (Java lexer specification) 
-               +--simple\       (example scanner)
-               +--simple-maven\ (example with maven)
-               +--standalone\   (a simple standalone scanner)
-               +--standalone-maven\  (above with maven)
-      +--lib\                   (the precompiled classes) 
+               +--byaccj\            (calculator example for BYacc/J)
+               +--cup\               (calculator example for cup)
+               +--interpreter\       (interpreter example for cup)
+               +--java\              (Java lexer specification) 
+               +--simple-maven\      (example scanner built with maven)
+               +--standalone-maven\  (a simple standalone scanner, 
+                                      built with maven)
+      +--lib\                        (precompiled classes, skeleton files) 
       +--src\ 
-          +--jflex\             (source code of JFlex) 
-          +--jflex\gui          (source code of JFlex UI classes)
-          +--java_cup\runtime\  (source code of cup runtime classes) 
+          +--main\java\
+              +--jflex\              (source code of JFlex) 
+              +--jflex\gui           (source code of JFlex UI classes)
+              +--java_cup\runtime\   (source code of cup runtime classes) 
+          +--main\jflex\             (JFlex scanner spec)
+          +--main\cup\               (JFlex parser spec)
+          +--main\resources\         (messages and default skeleton file)
+          +--test\                   (unit tests)
 \end{verbatim}
 }
 
@@ -2147,7 +2160,7 @@ Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
 \begin{quote}
 \emph{To meet this requirement, an implementation shall provide at least a
 minimal list of properties, consisting of the following: General\_Category,
-Script and Script\_Extensions, Alphabetic, Uppercase, Lowercase, White\_Space,
+Script and Script\_Exten\-sions, Alphabetic, Uppercase, Lowercase, White\_Space,
 Noncharacter\_Code\_Point, Default\_Ignorable\_Code\_Point, ANY, ASCII, ASSIGNED.}
 
 \emph{The values for these properties must follow the Unicode definitions, 
@@ -2742,14 +2755,13 @@ a few exceptions - for details see
 \htmlref{UTS\#18 Conformance}{unicoderegexconformance}.
 
 \subsection{Bugs}
-As of {\today}, no bugs have been reported for JFlex version \ver. All 
-bugs reported for earlier versions have been fixed.
+As of {\today}, no major open problems are known for JFlex version \ver. 
 
-If you find new problems, please use the bugs section of the
+Please use the bugs section of the
 \htmladdnormallinkfoot{JFlex web site}{http://www.jflex.de/}
-to report them.
+to check for open issues.
  
- 
+
 \section{Copying and License\label{Copyright}}
 JFlex is free software, published under a BSD-style license.
 
