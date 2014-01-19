@@ -1,35 +1,38 @@
-This directory contains the source code for JFlex.
+# JFlex 1.5.0
 
-Directory contents:
+This directory contains JFlex, a fast scanner generator for Java.
 
-../pom.xml:
-  Maven Project object model
-  Useful targets:
-	  mvn compile: build and compile JFlex
-	  mvn test: run unit tests
-    mvn package: generate jflex.jar
-  
-  
-skeleton:
-  a skeleton file matching exactly the precompiled scanner skeleton.
-  Can be used together with the --skel option 
+To run JFlex, run `bin/jflex` from the command line or double click on
+`lib/JFlex.jar`. You need JDK 1.5 installed and set up.
 
-skeleton.nested:
-  a skeleton file that supports nested input streams (see the manual 
-  for the API). Can be used together with the --skel option
+See the manual in `doc/` or the website at <http://jflex.de> for more
+information and for how to get started.
 
-main/java/jflex:
-  source files of package JFlex
 
-main/java/jflex/gui:
-  source files of package JFlex.gui
+## Contents ##
 
-main/java/jflex/anttask
-  source files of the JFlex Ant task (contributed by Rafal Mantiuk)
-  
-test/java/jflex
-  unit tests for JFlex
+      bin/                    command line start scripts
+      doc/                    manual
+      examples/               some example scanners
+      lib/                    JFlex.jar, syntax highlighting, skeleton files
+      
+      src/                    
+      src/main/java/          JFLex sources
+      src/main/jflex/         scanner spec
+      src/main/cup/           parser spec
+      src/main/resources/     strings and default skeleton file
+      src/test/               unit tests
+     
+      parent.xml +                         
+      pom.xml                 maven project object model, useful targets:
+                                 mvn compile   build and compile JFlex
+                                 mvn test      run unit tests
+                                 mvn package   generate jflex.jar
 
-main/java/java_cup/runtime:
-  CUP v0.11a runtime classes, used by JFlex
 
+## Dependencies ##
+
+* To run JFlex, you need at least JDK 1.5.
+* To build JFlex, you need JDK 1.5 and maven 2.2.1. 
+  Maven will take care of the remaining dependencies, such as JFlex, 
+  CUP, JUnit, etc.
