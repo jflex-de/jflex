@@ -1,4 +1,4 @@
-## JFlex 1.5
+## JFlex 1.5.0 (Jan 21, 2014)
 - the "switch" and "table" code generation options are deprecated
   and will be removed in JFlex 1.6
 - the JFlex license has been changed from GPL to BSD.
