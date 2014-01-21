@@ -102,8 +102,13 @@ if ($ret_val) {
 }
 print "\ndone.\n\n";
 
-my $trunk_url = "https://svn.code.sf.net/p/jflex/code/trunk";
-my $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
+my $repo_prefix = "https://";
+if ( $ENV{'SF_USER'} ) {
+  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
+}
+
+my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
+my $tag_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/tags/$tag";
 print "Tagging the release as $tag_url ...\n";
 $ret_val = system(qq!svn copy -m "tag release $release" "$trunk_url" "$tag_url"!); 
 if ($ret_val) {

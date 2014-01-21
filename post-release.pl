@@ -118,7 +118,12 @@ if ($stat_results) {
 }
 print "Yes.\n\n";
 
-my $trunk_url = "https://svn.code.sf.net/p/jflex/code/trunk";
+my $repo_prefix = "https://";
+if ( $ENV{'SF_USER'} ) {
+  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
+}
+
+my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
 print "svn switch'ing to ${trunk_url} ...\n";
 my $ret_val = system(qq!svn switch "$trunk_url"!);
 if ($ret_val) {
