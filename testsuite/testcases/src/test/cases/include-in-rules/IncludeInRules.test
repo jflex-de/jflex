@@ -1,0 +1,6 @@
+name: IncludeInRules
+
+description:
+bug #116 [enable %include in rules section]
+
+jflex: -q --noinputstreamctor

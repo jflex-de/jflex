@@ -42,7 +42,7 @@ public class TestCase {
   /** get- set- methods */
   public void setTestName(String s) { 
     testName = s; 
-    className = testName.substring(0,1).toUpperCase() + testName.substring(1); 
+    className = testName.substring(0,1).toUpperCase(Locale.ENGLISH) + testName.substring(1); 
   }
 
   public void setJFlexDiff(List<Integer> d) {

@@ -295,7 +295,8 @@ compilation_unit ::=
 		import_declarations_opt
 		type_declarations_opt
 		;
-package_declaration_opt ::= package_declaration | ;
+package_declaration_opt ::= package_declaration 
+                          | ;
 import_declarations_opt ::= import_declarations | ;
 type_declarations_opt   ::= type_declarations   | ;
 

@@ -1212,11 +1212,14 @@ final public class Emitter {
         println("            if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
         println("            boolean zzFinL[] = zzFin;");
         println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
-        println("              if ((zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
+        println("              zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
         println("              zzInput = zzBufferL[zzFPos++];");
         println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("            }");
-        println("            if (zzFState != -1 && (zzAttrL[zzFState] & 1) == 1) { zzFinL[zzFPos] = true; } ");
+        println("            if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
+        println("            while (zzFPos <= zzMarkedPos) {");
+        println("              zzFinL[zzFPos++] = false;");
+        println("            }");
         println();                
         println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
         println("            zzFPos = zzMarkedPos;");

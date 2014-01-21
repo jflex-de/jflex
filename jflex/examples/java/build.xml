@@ -1,7 +1,7 @@
 <project name="java scanner" default="run">
 
-  <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
-  <taskdef classname="java_cup.AntTask" name="cup" />
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" />
+  <taskdef classname="java_cup.anttask.CUPTask" name="cup" />
 
   <target name="build" depends="realclean,compile" />
 
@@ -25,7 +25,7 @@
   <target name="unicode"> <jflex file="unicode.flex"/> </target>
 
   <target name="cup">
-    <cup file="java12.cup" interface="yes" dir="."/>
+    <cup srcfile="java12.cup" interface="yes" destdir="."/>
   </target>
 
   <target name="genclean">

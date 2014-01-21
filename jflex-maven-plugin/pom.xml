@@ -77,7 +77,7 @@
 	<licenses>
 		<license>
 			<name>BSD</name>
-            <url>http://www.opensource.org/licenses/bsd-license.php</url>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
             <distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -272,9 +272,9 @@
 		</plugins>
 	</reporting>
 	<scm>
-        <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</connection>
-        <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</developerConnection>
-        <url>http://sourceforge.net/p/jflex/code/HEAD/tree/tags/release_1_5_0</url>
+        <connection>/jflex/code/tags/release_1_5_0</connection>
+        <developerConnection>/jflex/code/tags/release_1_5_0</developerConnection>
+        <url>/jflex/code/HEAD/tree/tags/release_1_5_0</url>
 	</scm>
     <profiles>
         <profile>
@@ -282,9 +282,9 @@
             <distributionManagement>
                 <site>
                     <id>sourceforge</id>
-                    <name>JFlex sourceforge site</name>
+                    <name>SourceForge JFlex Maven Plugin site</name>
                     <url>
-                        scp://shell.sourceforge.net/home/groups/j/jf/jflex/htdocs/jflex-maven-plugin
+                        scp://shell.sourceforge.net/home/project-web/jflex/htdocs/jflex-maven-plugin
                     </url>
                 </site>
             </distributionManagement>

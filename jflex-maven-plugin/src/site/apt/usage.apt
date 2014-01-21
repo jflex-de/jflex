@@ -117,7 +117,6 @@ Usage
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
         <version>1.5.0</version>
-        <version>1.4.3</version>
         <executions>
           <execution>
             <id>strict jlex</id>

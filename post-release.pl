@@ -2,6 +2,22 @@
     eval 'exec /usr/bin/perl -S $0 ${1+"$@"}'
         if 0; #$running_under_some_shell
 
+#
+# post-release.pl
+#
+# Performs the following:
+#
+#   - svn switch's your working copy back to trunk
+#   - Changes the JFlex version in all POMs to the supplied
+#     snapshot version (X.Y.Z-SNAPSHOT)
+#   - Switches all <scm> URLs from /tags/release_X_Y_Z to /trunk
+#   - Changes the bootstrap JFlex version in the de.jflex:jflex
+#     POM to the latest release version.
+#   - Commits the changed POMs
+#
+# For more information, see HOWTO_release.txt.
+#
+
 use strict;
 use warnings;
 use File::Find ();
@@ -102,7 +118,12 @@ if ($stat_results) {
 }
 print "Yes.\n\n";
 
-my $trunk_url = "https://svn.code.sf.net/p/jflex/code/trunk";
+my $repo_prefix = "https://";
+if ( $ENV{'SF_USER'} ) {
+  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
+}
+
+my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
 print "svn switch'ing to ${trunk_url} ...\n";
 my $ret_val = system(qq!svn switch "$trunk_url"!);
 if ($ret_val) {

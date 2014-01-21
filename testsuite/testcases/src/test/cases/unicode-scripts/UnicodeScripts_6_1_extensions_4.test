@@ -1,0 +1,11 @@
+name: UnicodeScripts_6_1_extensions_4
+
+description: 
+Tests character class syntax of the Unicode 6.1 Script_Extensions property.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.BMP.characters.input
+

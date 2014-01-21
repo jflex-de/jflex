@@ -1,6 +1,19 @@
 #! /usr/bin/perl -w
     eval 'exec /usr/bin/perl -S $0 ${1+"$@"}'
         if 0; #$running_under_some_shell
+#        
+# prepare-release.pl
+# 
+# Performs the following:
+#
+#   - Changes the version in all POMs by removing all -SNAPSHOT suffixes
+#   - Switches all <scm> URLs from /trunk to /tags/release_X_Y_Z
+#   - Commits the changed POMs
+#   - Tags the release by copying /trunk to /tags/release_X_Y_Z
+#   - svn switch's your working copy to the new tag.
+#
+# For more information, see HOWTO_release.txt
+#
 
 use strict;
 use warnings;
@@ -89,8 +102,13 @@ if ($ret_val) {
 }
 print "\ndone.\n\n";
 
-my $trunk_url = "https://svn.code.sf.net/p/jflex/code/trunk";
-my $tag_url = "https://svn.code.sf.net/p/jflex/code/tags/$tag";
+my $repo_prefix = "https://";
+if ( $ENV{'SF_USER'} ) {
+  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
+}
+
+my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
+my $tag_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/tags/$tag";
 print "Tagging the release as $tag_url ...\n";
 $ret_val = system(qq!svn copy -m "tag release $release" "$trunk_url" "$tag_url"!); 
 if ($ret_val) {

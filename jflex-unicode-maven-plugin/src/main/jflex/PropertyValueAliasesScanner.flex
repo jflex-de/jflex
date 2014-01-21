@@ -28,16 +28,25 @@ import java.util.Set;
   String propertyAlias;
   Set<String> aliases = new HashSet<String>();
   String propertyValue;
+  String scxPropName;
   
   void addPropertyValueAliases() {
     unicodeVersion.addPropertyValueAliases
-      (propertyAlias, propertyValue, new HashSet<String>(aliases));
+        (propertyAlias, propertyValue, new HashSet<String>(aliases));
+    String canonicalPropertyName 
+        = unicodeVersion.getCanonicalPropertyName(propertyAlias);
+    if ("script".equals(canonicalPropertyName)) {
+      // Clone Script/sc property value aliases => Script_Extensions/scx
+      unicodeVersion.addPropertyValueAliases
+          (scxPropName, propertyValue, new HashSet<String>(aliases));
+    }
     aliases.clear();
   }
 %}
 
 %init{
   this.unicodeVersion = unicodeVersion;
+  scxPropName = unicodeVersion.getCanonicalPropertyName("Script_Extensions");
 %init}
 
 Spaces = [ \t]*

@@ -1148,7 +1148,12 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                 ;
 
 classcontentelem ::= CHAR:c1 DASH CHAR:c2
-                     {: RESULT = new Interval(c1, c2); :}
+                     {:
+                       if (c2 < c1) {
+                         syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
+                       }
+                       RESULT = new Interval(c1, c2); 
+                     :}
                    | CHAR:c
                      {: RESULT = new Interval(c, c); :}
                    ;

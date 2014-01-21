@@ -3,7 +3,8 @@
 
 /* doesn't really do anything, version from examples dir cut down to run standalone */
 
-
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 %%
 
 %public
@@ -20,7 +21,15 @@
 
 %{
   StringBuffer string = new StringBuffer();
-  
+  static {
+    try {
+      System.setOut(new PrintStream(System.out, false, "UTF-8"));
+    }
+    catch (UnsupportedEncodingException e) {
+      // utf-8 is unsupported - ignore
+    }
+  }
+
   /**
    * Converts an int token code into the name of the
    * token by reflection on the cup symbol class/interface sym

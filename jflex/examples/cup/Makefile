@@ -1,6 +1,6 @@
 JAVA=java
 JAVAC=javac
-JFLEX=jflex
+JFLEX=../../bin/jflex
 CUP=$(JAVA) java_cup.Main <
 
 all: test

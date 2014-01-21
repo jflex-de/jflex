@@ -1,31 +1,41 @@
 % $Id$
 
 \documentclass[11pt]{scrartcl}
-\usepackage{a4wide,verbatim,graphicx}
-\usepackage{pdfsetup}
+\usepackage{a4wide,verbatim,graphicx,microtype}
+
+\usepackage{color}
+\definecolor{lcol}{rgb}{0,0,0.5}
+\usepackage[bookmarks,
+            colorlinks=true,linkcolor=lcol,citecolor=lcol,
+            filecolor=lcol,urlcolor=lcol,
+            pdfauthor={Gerwin Klein, Steve Rowe, Regis Decamps},
+            pdftitle={JFlex User's Manual},
+            pdfkeywords={Java, scanner, lexer, scanner generator},
+            plainpages=false]{hyperref}
+
 \usepackage{html}
-\usepackage{microtype}
+
 
 \newcommand{\bl}{\latex{\symbol{123}}\html{\{}}
 \newcommand{\br}{\latex{\symbol{125}}\html{\}}}
 
-\newcommand{\xsmall}{}
+\newcommand{\xsmall}{\small}
 \newcommand{\xtiny}{\small}
 
 \newcommand{\trit}{\em}
 
-\newcommand{\ver}{1.5}
+\newcommand{\ver}{1.5.0}
 \newcommand{\nextver}{1.6}
 \newcommand{\latestunicodever}{6.3}
 
 \begin{document}
-\latex{{\centerline{\hspace*{0mm}\includegraphics[scale=0.6]{logo}}}}
+\latex{{\centerline{\hspace*{0mm}\includegraphics[width=0.6\textwidth]{jflex-black}}}}
 
 \html{
 \begin{rawhtml}
 <CENTER>
 <A NAME="TOP"></a>
-<A HREF="http://www.jflex.de"><IMG SRC="logo.png" BORDER=0 HEIGHT=160 WIDTH=577></a>
+<A HREF="http://www.jflex.de"><IMG SRC="jflex-black.png" BORDER=0 HEIGHT=360 WIDTH=442></a>
 </CENTER>
 \end{rawhtml}
 }
@@ -34,7 +44,7 @@
 \sffamily
 {\Large The Fast Lexical Analyser Generator}\\
 \smallskip\smallskip
-Copyright \copyright 1998--2013 by \htmladdnormallink{Gerwin Klein}{http://www.doclsf.de},
+Copyright \copyright 1998--2014 by \htmladdnormallink{Gerwin Klein}{http://www.doclsf.de},
 Steve Rowe, and R\'egis D\'ecamps.
 \\
 \bigskip
@@ -113,24 +123,27 @@ If you unzipped it to say \verb+C:\+, the following directory structure
 should be generated:
 {\xsmall
 \begin{verbatim}
-C:\JFlex\                          
-      +--bin\                   (start scripts) 
-      +--doc\                   (FAQ and manual)
+C:\jflex-\ver\                          
+      +--bin\                        (start scripts) 
+      +--doc\                        (FAQ and manual)
       +--examples\ 
-               +--binary\       (scanning binary files)
-               +--byaccj\       (calculator example for BYacc/J)
-               +--cup\          (calculator example for cup)
-               +--interpreter\  (interpreter example for cup)
-               +--java\         (Java lexer specification) 
-               +--simple\       (example scanner)
-               +--simple-maven\ (example with maven)
-               +--standalone\   (a simple standalone scanner)
-               +--standalone-maven\  (above with maven)
-      +--lib\                   (the precompiled classes) 
+               +--byaccj\            (calculator example for BYacc/J)
+               +--cup\               (calculator example for cup)
+               +--interpreter\       (interpreter example for cup)
+               +--java\              (Java lexer specification) 
+               +--simple-maven\      (example scanner built with maven)
+               +--standalone-maven\  (a simple standalone scanner, 
+                                      built with maven)
+      +--lib\                        (precompiled classes, skeleton files) 
       +--src\ 
-          +--jflex\             (source code of JFlex) 
-          +--jflex\gui          (source code of JFlex UI classes)
-          +--java_cup\runtime\  (source code of cup runtime classes) 
+          +--main\java\
+              +--jflex\              (source code of JFlex) 
+              +--jflex\gui           (source code of JFlex UI classes)
+              +--java_cup\runtime\   (source code of cup runtime classes) 
+          +--main\jflex\             (JFlex scanner spec)
+          +--main\cup\               (JFlex parser spec)
+          +--main\resources\         (messages and default skeleton file)
+          +--test\                   (unit tests)
 \end{verbatim}
 }
 
@@ -188,19 +201,6 @@ as the archive, you run:
 It should tell you
 
 \texttt{jflex-\ver.tar.gz: OK}
-
-\subsubsection{Linux with RPM}
-
-\begin{itemize}
-\item
-  become root
-\item issue\\
-  \texttt{rpm -U jflex-\ver-0.rpm}
-\end{itemize}
-
-You can verify the integrity of the downloaded \texttt{rpm} file with
-
-\verb+rpm --checksig +\texttt{jflex-\ver-0.rpm}
 
 
 \subsection{Running JFlex}
@@ -1311,13 +1311,18 @@ defined but never used in the ``lexical rules'' section of the specification.
 The ``lexical rules'' section of a JFlex specification contains a set of
 regular expressions and actions (Java code) that are executed when the
 scanner matches the associated regular expression.
+
+The \texttt{\%include} directive may be used in this section to include
+lexical rules from a separate file.  The directive will be replaced verbatim
+by the contents of the specified file.
  
 \subsubsection{Syntax\label{Grammar}}
 The syntax of the "lexical rules" section is described by the following
 EBNF grammar (terminal symbols are enclosed in 'quotes'):
 
 \begin{verbatim}
-LexicalRules ::= Rule+ 
+LexicalRules ::= (Include|Rule)+
+Include      ::= '%include' (' '|'\t'|'\b')+ File
 Rule         ::= [StateList] ['^'] RegExp [LookAhead] Action 
                | [StateList] '<<EOF>>' Action
                | StateGroup 
@@ -1378,6 +1383,10 @@ PropertyValue       ::= Identifier
 \label{Terminals}
 The grammar uses the following terminal symbols:   
 \begin{itemize}
+\item \texttt{File}\\
+  a file name, either absolute or relative to the directory containing 
+  the lexical specification.
+
 \item \texttt{JavaCode}\\
   a sequence of {\trit \texttt{BlockStatements}} as described in the Java
   Language Specification \cite{LangSpec}, section 14.2.
@@ -1412,7 +1421,7 @@ The grammar uses the following terminal symbols:
     
   \item
     a \verb+\u+ followed by four hexadecimal digits \texttt{[a-fA-F0-9]}
-    (denoting an unicode escape sequence),
+    (denoting a unicode escape sequence),
 
   \item
     a backslash followed by a three digit octal number from 000 to 377 (denoting
@@ -2151,9 +2160,8 @@ Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
 \begin{quote}
 \emph{To meet this requirement, an implementation shall provide at least a
 minimal list of properties, consisting of the following: General\_Category,
-Script, Alphabetic, Uppercase, Lowercase, White\_Space,
-Noncharacter\_Code\_Point, Default\_Ignor\-able\_Code\_Point, ANY, ASCII,
-ASSIGNED.}
+Script and Script\_Exten\-sions, Alphabetic, Uppercase, Lowercase, White\_Space,
+Noncharacter\_Code\_Point, Default\_Ignorable\_Code\_Point, ANY, ASCII, ASSIGNED.}
 
 \emph{The values for these properties must follow the Unicode definitions, 
 and include the property and property value aliases from the UCD. Matching
@@ -2235,7 +2243,8 @@ JFlex conforms. All supported Unicode Properties are closed.
 \begin{quote}
 \emph{To meet this requirement, if an implementation provides for
 line-boundary testing, it shall recognize not only CRLF, LF, CR, but
-also NEL (U+0085), PS (U+2029) and LS (U+2028).}
+also NEL (U+0085), PARAGRAPH SEPARATOR (U+2029) and LINE SEPARATOR
+(U+2028).}
 \end{quote}
 
 JFlex conforms.
@@ -2746,14 +2755,13 @@ a few exceptions - for details see
 \htmlref{UTS\#18 Conformance}{unicoderegexconformance}.
 
 \subsection{Bugs}
-As of {\today}, no bugs have been reported for JFlex version \ver. All 
-bugs reported for earlier versions have been fixed.
+As of {\today}, no major open problems are known for JFlex version \ver. 
 
-If you find new problems, please use the bugs section of the
+Please use the bugs section of the
 \htmladdnormallinkfoot{JFlex web site}{http://www.jflex.de/}
-to report them.
+to check for open issues.
  
- 
+
 \section{Copying and License\label{Copyright}}
 JFlex is free software, published under a BSD-style license.
 
@@ -2785,9 +2793,9 @@ information.
   in: Proceedings of the 7th International Conference on Compiler Construction (CC '98), 1998
 
 \bibitem{unicode_rep}
-  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18\\ 
-  \htmladdnormallink{\texttt{http://www.unicode.org/unicode/reports/tr18}}
-                    {http://www.unicode.org/unicode/reports/tr18}
+  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18, version 17\\ 
+  \htmladdnormallink{\texttt{http://www.unicode.org/reports/tr18/tr18-17.html}}
+                    {http://www.unicode.org/reports/tr18/tr18-17.html}
 
 \bibitem{ParseTable}
  P.~Dencker, K.~D{\"u}rre, J.~Henft, {\trit Optimization of Parser Tables for portable Compilers}, 

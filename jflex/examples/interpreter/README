@@ -5,8 +5,9 @@ Directory contents:
 
 - Main.java is the main program. It reads an AS program from
   std in and interprets it.
-
-- Makefile runs jflex, cup, javac and the compiled interpreter
+  
+- 'ant run' or the Makefile runs jflex, cup, javac and the
+  compiled interpreter
 
 - Classes beginning with "T" implement the abstract syntax tree.
   They also contain context condition checking and the interpreter.

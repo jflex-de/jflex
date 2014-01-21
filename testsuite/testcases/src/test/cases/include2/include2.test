@@ -1,0 +1,11 @@
+name: include2
+
+description:
+tests yychar and zzAtBOL in included files using yyPushStream and yyPopStream 
+bugs <http://sourceforge.net/p/jflex/bugs/105> 
+     and <http://sourceforge.net/p/jflex/bugs/106>
+
+jflex: -q --noinputstreamctor --skel src/test/cases/include2/skeleton.nested
+
+javac-fail: false
+

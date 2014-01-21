@@ -6,5 +6,5 @@ does not do unicode espaces or return java_cup symbols.
 
 jflex: --noinputstreamctor
 
-input-file-encoding: iso-8859-1
-output-file-encoding: iso-8859-1
+input-file-encoding: utf-8
+output-file-encoding: utf-8
