@@ -272,9 +272,9 @@
 		</plugins>
 	</reporting>
 	<scm>
-        <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</connection>
-        <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/tags/release_1_5_0</developerConnection>
-        <url>http://sourceforge.net/p/jflex/code/HEAD/tree/tags/release_1_5_0</url>
+        <connection>/jflex/code/tags/release_1_5_0</connection>
+        <developerConnection>/jflex/code/tags/release_1_5_0</developerConnection>
+        <url>/jflex/code/HEAD/tree/tags/release_1_5_0</url>
 	</scm>
     <profiles>
         <profile>
