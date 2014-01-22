@@ -100,7 +100,7 @@ use their old JLex specifications may want to check out section \ref{Porting}
 with not portable or non standard JLex behaviour that has been fixed in
 JFlex. Section \ref{lexport} talks about porting scanners from the
 Unix tools lex and flex.  Interfacing JFlex scanners with the LALR
-parser generators CUP and BYacc/J is explained in \htmlref{\emph{working
+parser generators CUP, CUP2 and BYacc/J is explained in \htmlref{\emph{working
   together}}{WorkingTog} (section \ref{WorkingTog}).  Section \ref{Bugs}
 \htmlref{\emph{Bugs}}{Bugs} gives a list of currently known active bugs. 
 The manual concludes with notes about 
@@ -1048,6 +1048,21 @@ The value of \texttt{<CUPSYM>} defaults to \texttt{sym} and can be
 changed with the \texttt{\%cupsym} directive. In JLex compatibility
 mode (\texttt{--jlex} switch on the command line), \texttt{\%eofclose}
 will not be turned on.
+
+\item
+{\bf \texttt{\%cup2}}
+
+The \texttt{\%cup2} directive is similar to CUP mode, just for the CUP2 generator
+from TU Munich at \url{http://www2.in.tum.de/cup2}. It does the following:
+\begin{itemize}
+    \item adds CUP2 package import declarations
+    \item implements the CUP2 scanner interface
+    \item switches on line and column count
+    \item sets the scanner function to \verb+readNextTerminal+
+    \item sets the token type to \verb+ScannerToken<? extends Object>+
+    \item returns the special CUP2 EOF token at end of file
+    \item switches on unicode    
+\end{itemize}
 
 \item
 {\bf \texttt{\%cupsym "classname"}}
@@ -2504,12 +2519,18 @@ therefore may not be consumed when
 \section{Working together\label{WorkingTog}}
 
 \subsection{JFlex and CUP\label{CUPWork}}
-One of the main design goals of JFlex was to make interfacing with the
-parser generator CUP \cite{CUP} as easy as possible. 
-This has been done by giving
-the \texttt{\htmlref{\%cup}{CupMode}} directive a special meaning. However, an
-interface always has two sides. This section concentrates on the
-CUP side of the story.
+
+One of the main design goals of JFlex was to make interfacing with the parser generators
+CUP \cite{CUP} and CUP2 \cite{CUP2} as easy as possible. This has been done by providing
+the \texttt{\htmlref{\%cup}{CupMode}} and \texttt{\htmlref{\%cup2}{CupMode}} directives
+in JFlex. However, each interface has two sides. This section concentrates on the CUP
+side of the story.
+
+\subsubsection{CUP2}
+Please refer to the CUP2 \cite{CUP2} documentation, which provides
+instructions on how to interface with JFlex. The CUP2 JFlex patch
+provided there is not necessary any more for JFlex versions greater
+than 1.5.0.
 
 \subsubsection{CUP version 0.10j and above}
 Since CUP version 0.10j, this has been simplified greatly by the new 
@@ -2810,6 +2831,10 @@ information.
   S.~E.~Hudson, {\trit CUP LALR Parser Generator for Java},\\  
   \htmladdnormallink{\texttt{http://www2.cs.tum.edu/projects/cup/}}
   {http://www2.cs.tum.edu/projects/cup/}
+
+\bibitem{CUP2}
+  TU Munich, {\trit CUP2 LALR Parser Generator for Java},\\
+  \url{http://www2.in.tum.de/cup2}
 
 \bibitem{BYaccJ}
   B.~Jamison, {\trit BYacc/J},\\
