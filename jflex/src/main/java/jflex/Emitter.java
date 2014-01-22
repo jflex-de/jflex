@@ -397,6 +397,14 @@ final public class Emitter {
   private void emitUserCode() {
     if ( scanner.userCode.length() > 0 )
       println(scanner.userCode.toString());
+
+    if (scanner.cup2Compatible) {
+      println();
+      println("/* CUP2 imports */");
+      println("import edu.tum.cup2.scanner.*;");
+      println("import edu.tum.cup2.grammar.*;");
+      println();
+    }
   }
 
   private void emitClassName() {    
@@ -760,7 +768,22 @@ final public class Emitter {
       println("  /* user code: */");
       println(scanner.classCode);
     }
+
+    if (scanner.cup2Compatible) {
+      // convenience methods for CUP2
+      println();
+      println("  /* CUP2 code: */");
+      println("  private <T> ScannerToken<T> token(Terminal terminal, T value) {");
+      println("    return new ScannerToken<T>(terminal, value, yyline, yycolumn);");
+      println("  }");
+      println();
+      println("  private ScannerToken<Object> token(Terminal terminal) {");
+      println("    return new ScannerToken<Object>(terminal, yyline, yycolumn);");
+      println("  }");
+      println();
+    }
   }
+
 
   private void emitConstructorDecl() {
     emitConstructorDecl(true);
