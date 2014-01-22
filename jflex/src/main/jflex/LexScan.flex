@@ -39,6 +39,8 @@ import jflex.unicode.UnicodeProperties;
 %state CHARCLASS, COPY, REPEATEXP, EATWSPNL
 %state CTOR_ARG
 
+%inputstreamctor false
+
 %cupdebug
 
 %{
