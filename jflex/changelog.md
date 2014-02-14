@@ -7,15 +7,15 @@
 - JFlex now mostly conforms with Unicode Regular Expressions UTS#18
   Basic Unicode Support - Level 1.  Supplementary code points (above
   the Basic Multilingual Plane) are not yet supported.
-- new metacharacters supported: \s, \S, \d, \D, \w, \W.
+- new metacharacters supported: `\s, \S, \d, \D, \w, \W`.
 - nested character sets now supported, e.g. [[[ABC]D]E[FG]]
 - new character set operations supported: union (e.g. [A||B]), intersection (e.g.
   [A&&B]), set-difference (e.g. [A--B]), and symmetric difference (e.g. [A~~B]).
-- the meaning of the dot (".") metacharacter has been changed from [^\n] to 
-  [^\n\r\u000B\u000C\u0085\u2028\u2029]. Use the new --legacydot option to
-  cause "." to be interpreted as [^\n].
-- new "\R" metacharacter matches any newline:
-  "\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029].
+- the meaning of the dot (".") metacharacter has been changed from `[^\n]` to 
+  `[^\n\r\u000B\u000C\u0085\u2028\u2029]`. Use the new `--legacydot` option to
+  cause "." to be interpreted as `[^\n]`.
+- new `\R` metacharacter matches any newline:
+  `"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029]`.
 - new option --noinputstreamctor to not include an InputStream
   constructor in the generated scanner.
 - %include <file> can now be used in the rules section (bug #116)
