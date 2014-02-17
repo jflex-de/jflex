@@ -136,9 +136,16 @@ print "Switching JFlex version -> $snapshot\n";
 print " and SCM URLs from /tags/... -> /trunk in all POMs\n";
 print " and boostrap JFlex version -> $latest_release in the de.jflex:jflex POM ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
+
+print " updating version in Main.java";
+system ('perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/src/main/java/jflex/Main.java ');
+
++print " updating version in the testsuite's Exec.java";
++system ('perl -pi -e "s/\Q$latest_release\E/$snapshot/" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
+
 print "\ndone.\n\n";
 
-print "Committing the changed POMs ...\n";
+print "Committing the changed files ...\n";
 $ret_val = system
    (qq!svn ci -m "JFlex <version>s -> $snapshot; SCM URLs -> /trunk; and bootstrap JFlex version -> $latest_release"!);
 if ($ret_val) {

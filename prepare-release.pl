@@ -92,8 +92,13 @@ print "Switching JFlex version -> $release\n";
 print " and SCM URLs from /trunk -> /tags/$tag in all POMs ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
 print "\ndone.\n\n";
+
 print " updating version in Main.java";
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/src/main/java/jflex/Main.java ');
+print "\ndone.\n\n";
+
+print " updating version in the testsuite's Exec.java";
+system ('perl -pi -e "s/-SNAPSHOT//" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
 print "\ndone.\n\n";
 
 print "Committing the changed POMs ...\n";
