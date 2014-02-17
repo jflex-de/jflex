@@ -7,8 +7,14 @@
 	<name>JFlex Maven Plugin</name>
 	<version>1.5.1-SNAPSHOT</version>
 	<description>
-		This is a Maven 2 plugin to generate a parser in Java code from
-		a Lexer definition, using JFlex.
+      This is a Maven 2 plugin to generate a parser in Java code from
+      a Lexer definition, using JFlex.
+  
+      This plugin was previously called maven-jflex-plugin.
+        
+      For JFlex 1.4.3 and earlier, see the maven-jflex-plugin 
+      documentation here: 
+      http://jflex.sourceforge.net/maven-jflex-plugin/
 	</description>
 	<url>http://jflex.sourceforge.net/jflex-maven-plugin/</url>
     <parent>
