@@ -18,6 +18,8 @@
 
 \newcommand{\bl}{\latex{\symbol{123}}\html{\{}}
 \newcommand{\br}{\latex{\symbol{125}}\html{\}}}
+\newcommand{\bs}{\textbackslash}
+\newcommand{\dd}{\char`-\char`-}
 
 \newcommand{\xsmall}{\small}
 \newcommand{\xtiny}{\small}
@@ -121,35 +123,38 @@ something like
 \htmladdnormallinkfoot{WinZip}{http://www.winzip.com}).
 If you unzipped it to say \verb+C:\+, the following directory structure
 should be generated:
-{\xsmall
-\begin{verbatim}
-C:\jflex-\ver\                          
-      +--bin\                        (start scripts) 
-      +--doc\                        (FAQ and manual)
-      +--examples\ 
-               +--byaccj\            (calculator example for BYacc/J)
-               +--cup\               (calculator example for cup)
-               +--interpreter\       (interpreter example for cup)
-               +--java\              (Java lexer specification) 
-               +--simple-maven\      (example scanner built with maven)
-               +--standalone-maven\  (a simple standalone scanner, 
-                                      built with maven)
-      +--lib\                        (precompiled classes, skeleton files) 
-      +--src\ 
-          +--main\java\
-              +--jflex\              (source code of JFlex) 
-              +--jflex\gui           (source code of JFlex UI classes)
-              +--java_cup\runtime\   (source code of cup runtime classes) 
-          +--main\jflex\             (JFlex scanner spec)
-          +--main\cup\               (JFlex parser spec)
-          +--main\resources\         (messages and default skeleton file)
-          +--test\                   (unit tests)
-\end{verbatim}
+\\
+\\
+{\xsmall\texttt{
+C:\bs jflex-\ver\bs\\ 
+\phantom{}~~~~+\dd bin\bs~~~~~~~~~~~~~~~~~~~~~~~~(start scripts)\\
+\phantom{}~~~~+\dd doc\bs~~~~~~~~~~~~~~~~~~~~~~~~(FAQ and manual)\\
+\phantom{}~~~~+\dd examples\bs\\ 
+\phantom{}~~~~~~~~+\dd byaccj\bs~~~~~~~~~~~~~~~~~(calculator example for BYacc/J)\\
+\phantom{}~~~~~~~~+\dd cup\bs~~~~~~~~~~~~~~~~~~~~(calculator example for cup)\\
+\phantom{}~~~~~~~~+\dd interpreter\bs~~~~~~~~~~~~(interpreter example for cup)\\
+\phantom{}~~~~~~~~+\dd java\bs~~~~~~~~~~~~~~~~~~~(Java lexer specification)\\ 
+\phantom{}~~~~~~~~+\dd simple-maven\bs~~~~~~~~~~~(example scanner built with maven)\\
+\phantom{}~~~~~~~~+\dd standalone-maven\bs~~~~~~~(a simple standalone scanner,\\ 
+\phantom{}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~built with maven)\\
+\phantom{}~~~~+\dd lib\bs~~~~~~~~~~~~~~~~~~~~~~~~(precompiled classes, skeleton files)\\ 
+\phantom{}~~~~+\dd src\bs\\
+\phantom{}~~~~~~~~+\dd main\bs\\ 
+\phantom{}~~~~~~~~~~~~+\dd cup\bs~~~~~~~~~~~~~~~~(JFlex parser spec)\\
+\phantom{}~~~~~~~~~~~~+\dd java\bs\\ 
+\phantom{}~~~~~~~~~~~~~~~~+\dd java\_cup\bs\\ 
+\phantom{}~~~~~~~~~~~~~~~~~~~~+\dd runtime\bs~~~~(source code of cup runtime classes)\\ 
+\phantom{}~~~~~~~~~~~~~~~~+\dd jflex\bs~~~~~~~~~~(source code of JFlex)\\ 
+\phantom{}~~~~~~~~~~~~~~~~~~~~+\dd gui\bs~~~~~~~~(source code of JFlex UI classes)\\
+\phantom{}~~~~~~~~~~~~+\dd jflex\bs~~~~~~~~~~~~~~(JFlex scanner spec)\\
+\phantom{}~~~~~~~~~~~~+\dd resources\bs~~~~~~~~~~(messages and default skeleton file)\\
+\phantom{}~~~~~~~~+\dd test\bs~~~~~~~~~~~~~~~~~~~(unit tests)\\
+}
 }
 
 \item
 Edit the file {\bf \verb+bin\jflex.bat+}
-(in the example it's \verb+C:\JFlex\bin\jflex.bat+)
+(in the example it's \texttt{C:\bs jflex-\ver\bs bin\bs jflex.bat})
 such that
 
 \begin{itemize}
@@ -158,12 +163,12 @@ such that
   (for instance \verb+C:\java+) and
 \item
   {\bf \texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
-  \verb+C:\JFlex+) 
+  \texttt{C:\bs jflex-\ver})
 \end{itemize}
  
 \item
 Include the \verb+bin\+ directory of JFlex in your path.
-(the one that contains the start script, in the example: \verb+C:\JFlex\bin+).
+(the one that contains the start script, in the example: \texttt{C:\bs jflex-\ver\bs bin}).
 \end{enumerate}
 
 \subsubsection{Unix with tar archive}
@@ -185,7 +190,7 @@ To install JFlex on a Unix system, follow these two steps:
   Make a symbolic link from somewhere in your binary 
   path to \texttt{bin/jflex}, for instance:
 
-  \texttt{ln -s /usr/share/JFlex/bin/jflex /usr/bin/jflex}
+  \texttt{ln -s /usr/share/jflex-\ver/bin/jflex /usr/bin/jflex}
 
   If the Java interpreter is not in your binary path, you
   need to supply its location in the script \texttt{bin/jflex}.
