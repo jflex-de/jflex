@@ -23,16 +23,23 @@ information and for how to get started.
       src/main/resources/     strings and default skeleton file
       src/test/               unit tests
      
-      parent.xml +                         
-      pom.xml                 maven project object model, useful targets:
+      pom.xml                 Maven project object model, useful targets:
                                  mvn compile   build and compile JFlex
                                  mvn test      run unit tests
-                                 mvn package   generate jflex.jar
+                                 mvn package   generate the JFlex jar
+                                 
+      build.xml               Ant build file, useful tasks:
+                                 ant gettools  get tools to run Ant build
+                                 ant compile   build and compile JFlex
+                                 ant test      run unit tests
+                                 ant jar       generate the JFlex jar
 
 
 ## Dependencies ##
 
 * To run JFlex, you need at least JDK 1.5.
-* To build JFlex, you need JDK 1.5 and maven 2.2.1. 
+* To build JFlex, you need JDK 1.5+ and Maven 2.2.1+. 
   Maven will take care of the remaining dependencies, such as JFlex, 
   CUP, JUnit, etc.
+* You can also build JFlex with Ant 1.8+.  To run unit tests you need
+  ant-junit.jar installed in $ANT_HOME/lib/.
