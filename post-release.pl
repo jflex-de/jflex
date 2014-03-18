@@ -137,11 +137,21 @@ print " and SCM URLs from /tags/... -> /trunk in all POMs\n";
 print " and boostrap JFlex version -> $latest_release in the de.jflex:jflex POM ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
 
-print " updating version in Main.java";
-system ('perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/src/main/java/jflex/Main.java ');
+print "Updating version in Main.java\n";
+system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/src/main/java/jflex/Main.java !);
 
-+print " updating version in the testsuite's Exec.java";
-+system ('perl -pi -e "s/\Q$latest_release\E/$snapshot/" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
+print "Updating version in the testsuite's Exec.java\n";
+system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/"!
+       . q! testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java !);
+
+#  <property name="bootstrap.version" value="1.5.0" />
+#  <property name="version" value="1.5.1-SNAPSHOT" />
+print "Updating version -> $snapshot and",
+      " bootstrap JFlex version -> $latest_release\n",
+      " in jflex/build.xml\n";
+system(qq!perl -pi -e "s/(property\\s+name\\s*=\\s*[\\"']version[\\"']\\s+value\\s*=\\s*[\\"'])[^\\"]+/\\\${1}$snapshot/;!
+      .qq!  s/(property\\s+name\\s*=\\s*[\\"']bootstrap\\.version[\\"']\\s+value\\s*=\\s*[\\"'])[^\\"']+/\\\${1}$latest_release/;"!
+      . q! jflex/build.xml !);
 
 print "\ndone.\n\n";
 
