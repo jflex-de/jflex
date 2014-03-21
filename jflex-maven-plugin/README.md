@@ -19,4 +19,4 @@ management and build tool. This plugin makes JFlex available in maven.
 
 * JDK 1.5
 * maven 2.2.1
-* JFlex 1.5.0
+* JFlex >= 1.5.0

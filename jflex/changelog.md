@@ -1,3 +1,10 @@
+## JFlex 1.5.1 (Mar 2014)
+- fixed bug #126, problem calling ./jflex start scripts
+- fixed bug #125, minor documentation flaws
+- further documentation and website updates
+- JFlex now reports the correct version string 
+- added support for CUP2 with %cup2 switch, based on patch by Andreas Wenger
+
 ## JFlex 1.5.0 (Jan 21, 2014)
 - the "switch" and "table" code generation options are deprecated
   and will be removed in JFlex 1.6
@@ -7,14 +14,14 @@
 - JFlex now mostly conforms with Unicode Regular Expressions UTS#18
   Basic Unicode Support - Level 1.  Supplementary code points (above
   the Basic Multilingual Plane) are not yet supported.
-- new metacharacters supported: `\s, \S, \d, \D, \w, \W`.
+- new meta characters supported: `\s, \S, \d, \D, \w, \W`.
 - nested character sets now supported, e.g. [[[ABC]D]E[FG]]
 - new character set operations supported: union (e.g. [A||B]), intersection (e.g.
   [A&&B]), set-difference (e.g. [A--B]), and symmetric difference (e.g. [A~~B]).
-- the meaning of the dot (".") metacharacter has been changed from `[^\n]` to 
+- the meaning of the dot (".") meta character has been changed from `[^\n]` to 
   `[^\n\r\u000B\u000C\u0085\u2028\u2029]`. Use the new `--legacydot` option to
   cause "." to be interpreted as `[^\n]`.
-- new `\R` metacharacter matches any newline:
+- new `\R` meta character matches any newline:
   `"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029]`.
 - new option --noinputstreamctor to not include an InputStream
   constructor in the generated scanner.
