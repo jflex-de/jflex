@@ -144,6 +144,13 @@
                     <skip>false</skip>
                     <skipDeploy>false</skipDeploy>
                 </configuration>
+				<dependencies>
+					<dependency><!-- add support for ssh/scp -->
+              			<groupId>org.apache.maven.wagon</groupId>
+              			<artifactId>wagon-ssh</artifactId>
+              			<version>1.0</version>
+            		</dependency>
+          		</dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
