@@ -144,6 +144,12 @@ print "Updating version in the testsuite's Exec.java\n";
 system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/"!
        . q! testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java !);
 
+
+print " updating version in bin/jflex*";
+system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/bin/jflex !);
+system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/bin/jflex.bat !);
+print "\ndone.\n\n";
+
 #  <property name="bootstrap.version" value="1.5.0" />
 #  <property name="version" value="1.5.1-SNAPSHOT" />
 print "Updating version -> $snapshot and",

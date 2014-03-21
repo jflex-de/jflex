@@ -101,6 +101,11 @@ print " updating version in the testsuite's Exec.java";
 system ('perl -pi -e "s/-SNAPSHOT//" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
 print "\ndone.\n\n";
 
+print " updating version in bin/jflex*";
+system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex');
+system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex.bat');
+print "\ndone.\n\n";
+
 print "Committing the changed POMs ...\n";
 my $ret_val = system
    (qq!svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"!);
