@@ -1,4 +1,7 @@
-## JFlex 1.5.1 (Mar 2014)
+## JFlex 1.5.2-SNAPSHOT
+
+
+## JFlex 1.5.1 (Mar 21, 2014)
 - fixed bug #126, problem calling ./jflex start scripts
 - fixed bug #125, minor documentation flaws
 - further documentation and website updates
