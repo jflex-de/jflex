@@ -4,7 +4,7 @@
   <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
   <name>JFlex parent and aggregator POM</name>
-  <version>1.5.1</version>
+  <version>1.5.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>http://jflex.de</url>
   <description>JFlex parent and aggregator POM</description>
@@ -88,9 +88,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/tags/release_1_5_1</connection>
-    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/tags/release_1_5_1</developerConnection>
-    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/tags/release_1_5_1</url>
+    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
+    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
+    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
   </scm>
 
   <dependencyManagement>
