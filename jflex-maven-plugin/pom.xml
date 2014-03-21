@@ -5,7 +5,7 @@
 	<artifactId>jflex-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>JFlex Maven Plugin</name>
-	<version>1.5.1</version>
+	<version>1.5.2-SNAPSHOT</version>
 	<description>
       This is a Maven 2 plugin to generate a parser in Java code from
       a Lexer definition, using JFlex.
@@ -172,7 +172,7 @@
 		<dependency>
 			<groupId>de.jflex</groupId>
 			<artifactId>jflex</artifactId>
-			<version>1.5.1</version>
+			<version>1.5.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -278,9 +278,9 @@
 		</plugins>
 	</reporting>
 	<scm>
-        <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/tags/release_1_5_1</connection>
-        <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/tags/release_1_5_1</developerConnection>
-        <url>http://sourceforge.net/p/jflex/code/HEAD/tree/tags/release_1_5_1</url>
+        <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
+        <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
+        <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
 	</scm>
     <profiles>
         <profile>

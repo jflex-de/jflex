@@ -42,4 +42,4 @@ JFLEX_HOME=${PRG}/..
 
 # --------------------------------------------------------------------
 
-$JAVA -Xmx128m -jar $JFLEX_HOME/lib/jflex-1.5.1.jar $@
+$JAVA -Xmx128m -jar $JFLEX_HOME/lib/jflex-1.5.2-SNAPSHOT.jar $@
