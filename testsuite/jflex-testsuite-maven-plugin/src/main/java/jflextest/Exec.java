@@ -191,7 +191,7 @@ public class Exec {
       System.out.println
       ("class:\n" 
          + execClass("jflextest.Main", ".", new ArrayList<String>(), files, 
-                     "1.5.1-SNAPSHOT", "UTF-8"));
+                     "1.5.1", "UTF-8"));
     } catch (UnsupportedEncodingException e) {
       System.out.println("UTF-8 is not a supported encoding.");
       System.exit(1);
