@@ -59,7 +59,7 @@
           description="complete build from scratch (clean jar)"/>
 
   <target name="clean" description="remove all generated and compiled files">
-    <delete includeemptydirs="true">
+    <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${build.dir}" includes="**/*"/>
     </delete>
   </target>
