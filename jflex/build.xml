@@ -116,9 +116,9 @@
   <target name="-generate-scanner">
     <taskdef classname="jflex.anttask.JFlexTask" 
              name="jflex" classpath="${bootstrap.jflex.jar}"/>
-    <mkdir dir="${generated.sources.dir}/jflex"/>
+    <mkdir dir="${generated.sources.dir}"/>
     <jflex file="src/main/jflex/LexScan.flex"
-           outdir="${generated.sources.dir}/jflex"
+           destdir="${generated.sources.dir}"
            skeleton="src/main/jflex/skeleton.nested"
            nobak="on"/>
   </target>
