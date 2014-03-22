@@ -23,12 +23,12 @@ information and for how to get started.
       src/main/resources/     strings and default skeleton file
       src/test/               unit tests
      
-      pom.xml                 Maven project object model, useful targets:
+      pom.xml                 Maven project object model, useful commands:
                                  mvn compile   build and compile JFlex
                                  mvn test      run unit tests
                                  mvn package   generate the JFlex jar
                                  
-      build.xml               Ant build file, useful tasks:
+      build.xml               Ant build file, useful commands:
                                  ant gettools  get tools to run Ant build
                                  ant compile   build and compile JFlex
                                  ant test      run unit tests
