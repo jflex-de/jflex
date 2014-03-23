@@ -1,5 +1,5 @@
 ## JFlex 1.5.2-SNAPSHOT
-
+- fixed bug #127, detect javadoc class comment when followed by annotation(s)
 
 ## JFlex 1.5.1 (Mar 21, 2014)
 - fixed bug #126, problem calling ./jflex start scripts
