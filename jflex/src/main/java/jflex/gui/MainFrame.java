@@ -238,6 +238,9 @@ final public class MainFrame extends Frame implements Handles {
   private void dirChoose() {
     choosing = true;
     
+    /* Hacky way to let the user select directories on MacOS. We're counting
+       on this setting being ignored on other platforms */ 
+    System.setProperty("apple.awt.fileDialogForDirectories", "true");
     FileDialog d = new FileDialog(this, "Choose directory", FileDialog.LOAD);
     
     d.setVisible(true);
@@ -245,6 +248,7 @@ final public class MainFrame extends Frame implements Handles {
     if (d.getDirectory() != null) {
       dir.setText( (new File(d.getDirectory())).getAbsolutePath() );
     }
+    System.setProperty("apple.awt.fileDialogForDirectories", "false");
     
     choosing = false;    
   }
