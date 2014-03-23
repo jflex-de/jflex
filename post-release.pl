@@ -137,6 +137,9 @@ print " and SCM URLs from /tags/... -> /trunk in all POMs\n";
 print " and boostrap JFlex version -> $latest_release in the de.jflex:jflex POM ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
 
+print "Updating version in build.xml\n";
+system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/build.xml !);
+
 print "Updating version in Main.java\n";
 system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/src/main/java/jflex/Main.java !);
 
