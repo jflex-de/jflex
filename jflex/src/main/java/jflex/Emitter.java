@@ -11,7 +11,8 @@ package jflex;
 
 import java.io.*;
 import java.util.*;
-import java.text.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class manages the actual code generation, putting
@@ -23,7 +24,16 @@ import java.text.*;
  * @version JFlex 1.5, $Revision$, $Date$
  */
 final public class Emitter {
-    
+  private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN
+      = Pattern.compile
+          (".*/\\*\\*(.*)\\*/"               // javadoc comment, embedded '*/' disallowed
+          +"(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*"        // @[p.ack.age.]AnnotationClass
+          +"   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\""               // ignore close parens in double quotes
+          +"                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in single quotes
+          +"                   |[^)])+\\))?"                       // optional annotation params
+          +")*\\s*",                         // zero or more annotations, followed by optional whitespace
+           Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);
+
   // bit masks for state attributes
   static final private int FINAL = 1;
   static final private int NOLOOK = 8;
@@ -445,22 +455,15 @@ final public class Emitter {
   }  
 
   /**
-   * Try to find out if user code ends with a javadoc comment 
+   * Try to find out if user code ends with a javadoc comment,
+   * maybe followed by one or more annotations
    * 
    * @param usercode  the user code
-   * @return true     if it ends with a javadoc comment
+   * @return true     if it ends with a javadoc comment and zero or more annotations
    */
   public static boolean endsWithJavadoc(StringBuilder usercode) {
-    String s = usercode.toString().trim();
-        
-    if (!s.endsWith("*/")) return false;
-    
-    // find beginning of javadoc comment   
-    int i = s.lastIndexOf("/**");    
-    if (i < 0) return false; 
-       
-    // javadoc comment shouldn't contain a comment end
-    return s.substring(i,s.length()-2).indexOf("*/") < 0;
+    Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
+    return matcher.matches() && ! matcher.group(1).contains("*/");
   }
 
 
