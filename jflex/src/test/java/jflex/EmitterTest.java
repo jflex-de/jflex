@@ -66,7 +66,8 @@ public class EmitterTest extends TestCase {
           "@org.example.Custom_76\n"
         + "   ( a_333= 5L , b___ = \n"
         + "     189,f=SOMETHING_ELSE, c=')', d=\"(parenthesized)\"\n"
-        + ", e=.378e-8f, f=0x88_87,g=0b1111_0011 )"
+        + ", e=.378e-8f, f=0x88_87,g=0b1111_0011, h=\"/** javadoc comment */\" )",
+        "@A(\"/* non-javadoc comment */\")"
     );
     Collections.shuffle(annotations);
     for (String annotation : annotations) {
