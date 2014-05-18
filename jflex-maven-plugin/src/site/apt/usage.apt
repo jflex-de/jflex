@@ -152,6 +152,9 @@ Usage
 
 * Which version of the plugin is best for you?
 
+  * jflex-maven-plugin-1.6.0 depends on JFlex 1.6.0
+    and requires Java 5 when you <<<mvn jflex:generate>>>
+
   * jflex-maven-plugin-1.5.0 depends on JFlex 1.5.0
     and requires Java 5 when you <<<mvn jflex:generate>>>
 

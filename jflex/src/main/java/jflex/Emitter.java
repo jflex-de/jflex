@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
+ * JFlex 1.6                                                               *
  * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6, $Revision$, $Date$
  */
 final public class Emitter {
   private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN

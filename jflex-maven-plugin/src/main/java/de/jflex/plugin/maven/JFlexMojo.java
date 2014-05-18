@@ -142,7 +142,6 @@ public class JFlexMojo extends AbstractMojo {
      */
     private boolean legacyDot = false; // NOPMD
 
-    // TODO: In JFlex 1.6, the default value will be false.
     // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
     /**
      * If true, the generated scanner will include a constructor taking
@@ -150,7 +149,7 @@ public class JFlexMojo extends AbstractMojo {
      * 
      * @parameter default-value="true"
      */
-    private boolean inputStreamCtor = true; // NOPMD
+    private boolean inputStreamCtor = false; // NOPMD
 
     /**
 	 * Generate java parsers from lexer definition files.

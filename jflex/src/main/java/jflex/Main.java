@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
+ * JFlex 1.6                                                               *
  * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -25,12 +25,12 @@ import jflex.unicode.UnicodeProperties;
  * starting up the GUI if necessary, etc. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6, $Revision$, $Date$
  */
 public class Main {
   
   /** JFlex version */
-  final public static String version = "1.5.2-SNAPSHOT"; //$NON-NLS-1$
+  final public static String version = "1.6.0-SNAPSHOT"; //$NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
+ * JFlex 1.6                                                               *
  * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -14,7 +14,7 @@ package jflex;
  * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6, $Revision$, $Date$
  */
 public class GeneratorException extends RuntimeException {
 

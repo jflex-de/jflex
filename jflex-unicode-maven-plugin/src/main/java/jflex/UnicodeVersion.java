@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5 Unicode plugin                                                 *
+ * JFlex 1.6 Unicode plugin                                                 *
  * Copyright (c) 2008 Steve Rowe <steve_rowe@users.sf.net>                 *
  *                                                                         *
  * All rights reserved.                                                    *

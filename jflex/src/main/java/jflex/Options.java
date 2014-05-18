@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
+ * JFlex 1.6                                                               *
  * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ import java.io.File;
  * ant taks, gui, etc.
  * 
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6, $Revision$, $Date$
  */
 public class Options {
 
@@ -111,9 +111,8 @@ public class Options {
     dot = false;
     dump = false;
     legacy_dot = false;
-    // TODO: in JFlex 1.6, the default for emitInputStreamCtor will be false.
     // TODO: in the JFlex version after 1.6, the emitInputStreamCtor option will cease to exist.
-    emitInputStreamCtor = true;
+    emitInputStreamCtor = false;
     Skeleton.readDefault();
   }
 
