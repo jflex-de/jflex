@@ -76,25 +76,13 @@ my $sheet =<<'__STYLESHEET__';
 
   <!-- Replace the bootstrap version with the latest release version -->
   <!-- in the de.jflex:jflex POM.                                    -->
-  <!-- TODO: remove maven-jflex-plugin check after releasing JFlex 1.5.0 --> 
   <xsl:template 
       match="/pom:project/pom:build/pom:plugins/pom:plugin
              [   /pom:project/pom:parent/pom:groupId='de.jflex' 
              and /pom:project/pom:artifactId='jflex'
-             and (  pom:artifactId='jflex-maven-plugin' 
-                 or pom:artifactId='maven-jflex-plugin')]
+             and pom:artifactId='jflex-maven-plugin']
              /pom:version">
     <version><xsl:value-of select="$latest-release"/></version>
-  </xsl:template>
-  <!-- bootstrap maven-jflex-plugin -> jflex-maven-plugin -->
-  <!-- TODO: remove this after releasing JFlex 1.5.0      -->
-  <xsl:template 
-      match="/pom:project/pom:build/pom:plugins/pom:plugin
-             [   /pom:project/pom:parent/pom:groupId='de.jflex' 
-             and /pom:project/pom:artifactId='jflex'
-             and pom:artifactId='maven-jflex-plugin']
-             /pom:artifactId">
-    <artifactId><xsl:text>jflex-maven-plugin</xsl:text></artifactId>
   </xsl:template>
 
   <xsl:template match="@*|*|processing-instruction()|comment()">
