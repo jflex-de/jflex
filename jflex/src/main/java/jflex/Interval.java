@@ -19,7 +19,7 @@ package jflex;
 public final class Interval {
 
   /* start and end of the interval */
-  public char start, end;
+  public int start, end;
   
 
   /**
@@ -28,7 +28,7 @@ public final class Interval {
    * @param start  first character the interval should contain
    * @param end    last  character the interval should contain
    */
-  public Interval(char start, char end) {
+  public Interval(int start, int end) {
     this.start = start;
     this.end = end;
   }
@@ -48,7 +48,7 @@ public final class Interval {
    *
    * @param point  the character to check
    */
-  public boolean contains(char point) {
+  public boolean contains(int point) {
     return start <= point && end >= point;
   }
 
@@ -84,7 +84,7 @@ public final class Interval {
    *
    * @param end  the new last character of this interval
    */
-  public void setEnd(char end) {
+  public void setEnd(int end) {
     this.end = end;
   }
 
@@ -94,17 +94,17 @@ public final class Interval {
    *
    * @param start the new first character of this interval
    */ 
-  public void setStart(char start) {
+  public void setStart(int start) {
     this.start = start;
   } 
   
   
   /**
-   * Check wether a character is printable.
+   * Check whether a character is printable.
    *
    * @param c the character to check
    */
-  private static boolean isPrintable(char c) {
+  private static boolean isPrintable(int c) {
     // fixme: should make unicode test here
     return c > 31 && c < 127; 
   }
@@ -123,17 +123,17 @@ public final class Interval {
     StringBuilder result = new StringBuilder("[");
 
     if ( isPrintable(start) )
-      result.append("'").append(start).append("'");
+      result.append("'").append((char)start).append("'");
     else
-      result.append( (int) start );
+      result.append(start);
 
     if (start != end) {
       result.append("-");
 
       if ( isPrintable(end) )
-        result.append("'").append(end).append("'");
+        result.append("'").append((char)end).append("'");
       else
-        result.append( (int) end );
+        result.append(end);
     }
 
     result.append("]");

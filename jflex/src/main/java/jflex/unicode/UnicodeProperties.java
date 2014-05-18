@@ -107,7 +107,7 @@ public class UnicodeProperties {
    * @return All case-insensitively equivalent characters, or null
    *  if the given character is case-insensitively equivalent only to itself.
    */
-  public IntCharSet getCaselessMatches(char c) {
+  public IntCharSet getCaselessMatches(int c) {
     if (null == caselessMatches)
       initCaselessMatches();
     return caselessMatches[c];
@@ -115,7 +115,7 @@ public class UnicodeProperties {
 
   /**
    * Unpacks the caseless match data. Called from
-   * {@link #getCaselessMatches(char)} to lazily initialize.
+   * {@link #getCaselessMatches(int)} to lazily initialize.
    */
   private void initCaselessMatches() {
     caselessMatches = new IntCharSet[maximumCodePoint + 1];

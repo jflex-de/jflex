@@ -145,7 +145,7 @@ public class CharClasses {
   /**
    * Returns the code of the character class the specified character belongs to.
    */
-  public int getClassCode(char letter) {
+  public int getClassCode(int letter) {
     int i = -1;
     while (true) {
       IntCharSet x = classes.get(++i);
