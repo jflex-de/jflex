@@ -460,7 +460,7 @@ class UnicodeVersion {
    * @param writer Where to emit the intervals array
    */
   void emitIntervalsArray(PrintWriter writer) {
-    writer.append("  public static final String[] intervals").append(" = {\n");
+    writer.append("  public static final String[] intervals = {\n");
 
     boolean isFirst = true;
     for (SortedMap.Entry<String,List<NamedRange>> entry
@@ -478,19 +478,21 @@ class UnicodeVersion {
       int count = 0;
       boolean isFirstIntervalLine = true;
       for (NamedRange interval : intervals) {
-        if (++count > INTERVALS_PER_LINE) {
-          writer.append("\n");
-          count = 1;
+        if (interval.start <= getMaximumCodePoint()) {
+          if (++count > INTERVALS_PER_LINE) {
+            writer.append("\n");
+            count = 1;
+          }
+          if (count == 1) {
+            writer.append(isFirstIntervalLine ? "        \"" : "      + \"");
+          } else {
+            writer.append("+\"");
+          }
+          isFirstIntervalLine = false;
+          emitEscapedUTF16Char(writer, interval.start);
+          emitEscapedUTF16Char(writer, Math.min(interval.end, getMaximumCodePoint()));
+          writer.append("\"");
         }
-        if (count == 1) {
-          writer.append(isFirstIntervalLine ? "        \"" : "      + \"");
-        } else {
-          writer.append("+\"");
-        }
-        isFirstIntervalLine = false;
-        emitEscapedUTF16Char(writer, interval.start);
-        emitEscapedUTF16Char(writer, interval.end);
-        writer.append("\"");
       }
     }
     writer.append("  };\n");
@@ -649,11 +651,11 @@ class UnicodeVersion {
     if (codePoint <= 0xFFFF) {
       emitEscapedBMPChar(writer, codePoint);
     } else { // codePoint > 0xFFFF - above the BMP
-      if (codePoint < 0x110000) {
+      if (codePoint <= 0x10FFFF) {
         for (char surrogate : Character.toChars(codePoint))
           emitEscapedBMPChar(writer, (int)surrogate);
       } else {
-        writer.append("<").append(Integer.toString(codePoint, 16)).append(">");
+        writer.append("<").append(Integer.toHexString(codePoint)).append(">");
       }
     }
   }
@@ -906,8 +908,7 @@ class UnicodeVersion {
     usedBinaryProperties.add("blank");
 
     // UTR#18: \p{graph} = [^\p{space}\p{gc=Control}\p{gc=Surrogate}\p{gc=Unassigned}]
-    // TODO: switch 0xFFFF to getMaximumCodePoint()
-    NamedRangeSet graphSet = new NamedRangeSet(new NamedRange(0x0, 0xFFFF));
+    NamedRangeSet graphSet = new NamedRangeSet(new NamedRange(0x0, getMaximumCodePoint()));
     graphSet.sub(new NamedRangeSet(whitespaceRanges));
     graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cc"))); // \p{gc=Control}
     graphSet.sub(new NamedRangeSet(propertyValueIntervals.get("cn"))); // \p{gc=Unassigned}

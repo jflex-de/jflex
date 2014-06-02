@@ -3,3 +3,4 @@
 0002..0002; inverse matched
 0003..D7FF; matched
 E000..FFFD; matched
+FFFE..10FFFF; inverse matched

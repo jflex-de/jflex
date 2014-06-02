@@ -115,6 +115,14 @@ import jflex.unicode.UnicodeProperties;
 
   Timer t = new Timer();
 
+  // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
+  // since the max char code won't be known until then.
+  private CharClasses charClasses = new CharClasses();
+  
+  public CharClasses getCharClasses() {
+    return charClasses;
+  }
+
   public int currentLine() {
     return yyline;
   }
@@ -188,6 +196,8 @@ import jflex.unicode.UnicodeProperties;
       throw new ScannerException
         (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
     }
+    charClasses.init
+      (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
   
   private void includeFile(String filePath) {
@@ -223,13 +233,13 @@ HexNumber  = \\ x {HexDigit} {2}
 OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
 
 // Unicode4 can encode chars only in the BMP with the 16 bits provided by its
-// (at most) 4 hex digits.
-Unicode4  = \\ u {HexDigit} {1, 4}
+// 4 hex digits.
+Unicode4  = \\ u {HexDigit} {4}
 
 // Unicode6 can encode all Unicode chars, both in the BMP and in the
 // supplementary planes -- only 21 bits are required as of Unicode 5.0,
 // but its six hex digits provide 24 bits.
-Unicode6  = \\ U {HexDigit} {1, 6}
+Unicode6  = \\ U {HexDigit} {6}
 
 // see http://www.unicode.org/unicode/reports/tr18/
 WSP        = [ \t\b]
@@ -375,6 +385,8 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                            throw new ScannerException
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
+                                         charClasses.init
+                                           (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
                                        }
                                        return symbol(UNICODE);
                                      }

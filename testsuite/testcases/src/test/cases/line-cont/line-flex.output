@@ -1,7 +1,7 @@
 Reading "src/test/cases/line-cont/line.flex"
 CharClasses:
 class 0:
-{ [0-'`']['d'-'w']['y'-65535] }
+{ [0-'`']['d'-'w']['y'-1114111] }
 class 1:
 { ['a'] }
 class 2:

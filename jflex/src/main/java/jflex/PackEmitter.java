@@ -193,11 +193,11 @@ public abstract class PackEmitter {
    * would have in UTF8 representation in a class file.
    *
    * @param value  the char code of the Unicode character
-   * @prec  0 <= value <= 0xFFFF
+   * @prec  0 <= value <= 0x10FFFF
    *
    * @return length of UTF8 representation.
    */
-  private int UTF8Length(char value) {
+  private int UTF8Length(int value) {
     // if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
 
     // see JVM spec section 4.4.7, p 111

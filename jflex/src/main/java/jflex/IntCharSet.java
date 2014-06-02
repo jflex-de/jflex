@@ -33,7 +33,7 @@ public final class IntCharSet {
     this.intervals = new ArrayList<Interval>();
   }
 
-  public IntCharSet(char c) {
+  public IntCharSet(int c) {
     this(new Interval(c,c));
   }
 
@@ -138,7 +138,7 @@ public final class IntCharSet {
     intervals.add(new Interval(interval));
   }
 
-  public void add(char c) {
+  public void add(int c) {
     int size = intervals.size();
 
     for (int i = 0; i < size; i++) {

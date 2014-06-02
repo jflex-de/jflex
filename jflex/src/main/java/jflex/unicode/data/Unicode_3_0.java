@@ -1379,7 +1379,7 @@ public class Unicode_3_0 {
       + "\ufe68\ufe6b"+"\ufe70\ufe72"+"\ufe74\ufe74"+"\ufe76\ufefc"
       + "\ufeff\ufeff"+"\uff01\uff5e"+"\uff61\uffbe"+"\uffc2\uffc7"
       + "\uffca\uffcf"+"\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"
-      + "\uffe8\uffee"+"\ufff9\ufffd",
+      + "\uffe8\uffee"+"\ufff9\ufffd"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
     // Unicode 3.0 property value: {hexdigit}
         "\u0030\u0039"+"\u0041\u0046"+"\u0061\u0066"+"\uff10\uff19"
       + "\uff21\uff26"+"\uff41\uff46",
@@ -2460,7 +2460,7 @@ public class Unicode_3_0 {
       + "\ufe70\ufe72"+"\ufe74\ufe74"+"\ufe76\ufefc"+"\ufeff\ufeff"
       + "\uff01\uff5e"+"\uff61\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"
       + "\uffd2\uffd7"+"\uffda\uffdc"+"\uffe0\uffe6"+"\uffe8\uffee"
-      + "\ufff9\ufffd",
+      + "\ufff9\ufffd"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
     // Unicode 3.0 property value: {privateuse}
         "\ue000\uf8ff"+"\udb80\udc00\udbbf\udffd"+"\udbc0\udc00\udbff\udffd",
     // Unicode 3.0 property value: {ps}

@@ -252,7 +252,7 @@ public class RegExp {
   public RegExp anyChar() {
     // FIXME: there is some code duplication here with the parser
     List<Interval> list = new ArrayList<Interval>();
-    list.add(new Interval((char)0,CharClasses.maxChar));    
+    list.add(new Interval(0, CharClasses.maxChar));    
     return new RegExp1(sym.CCLASS,list);
   }
 

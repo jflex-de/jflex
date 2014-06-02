@@ -69,6 +69,14 @@
 
   /** denotes if the user-EOF-code has already been executed */
   private boolean zzEOFDone;
+  
+  /** 
+   * The number of occupied positions in zzBuffer beyond zzEndRead.
+   * When a lead/high surrogate has been read from the input stream
+   * into the final zzBuffer position, this will have a value of 1;
+   * otherwise, it will have a value of 0.
+   */
+  private int zzFinalHighSurrogate = 0;
 
   /** the stack of open (nested) input streams to read from */
   private java.util.Stack<ZzFlexStreamInfo> zzStreams
@@ -91,12 +99,13 @@
     boolean zzAtBOL;
     boolean zzAtEOF;
     boolean zzEOFDone;
+    int zzFinalHighSurrogate;
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
                   int zzCurrentPos, int zzMarkedPos, char [] zzBuffer, 
                   boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
-                  int yyline, int yychar, int yycolumn) {
+                  int zzFinalHighSurrogate, int yyline, int yychar, int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
       this.zzStartRead   = zzStartRead;
@@ -106,6 +115,7 @@
       this.zzAtBOL       = zzAtBOL;
       this.zzAtEOF       = zzAtEOF;
       this.zzEOFDone     = zzEOFDone;
+      this.zzFinalHighSurrogate = zzFinalHighSurrogate;
       this.yyline        = yyline;
       this.yychar        = yychar;
       this.yycolumn      = yycolumn;
@@ -128,6 +138,8 @@
 
     /* first: make room (if you can) */
     if (zzStartRead > 0) {
+      zzEndRead += zzFinalHighSurrogate;
+      zzFinalHighSurrogate = 0;
       System.arraycopy(zzBuffer, zzStartRead,
                        zzBuffer, 0,
                        zzEndRead-zzStartRead);
@@ -140,33 +152,38 @@
     }
 
     /* is the buffer big enough? */
-    if (zzCurrentPos >= zzBuffer.length) {
+    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
       /* if not: blow it up */
-      char newBuffer[] = new char[zzCurrentPos*2];
+      char newBuffer[] = new char[zzBuffer.length * 2];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
+      zzEndRead += zzFinalHighSurrogate;
+      zzFinalHighSurrogate = 0;
     }
 
-    /* finally: fill the buffer with new input */
-    int numRead = zzReader.read(zzBuffer, zzEndRead,
-                                            zzBuffer.length-zzEndRead);
+    /* fill the buffer with new input */
+    int requested = zzBuffer.length - zzEndRead;           
+    int totalRead = 0;
+    while (totalRead < requested) {
+      int numRead = zzReader.read(zzBuffer, zzEndRead + totalRead, requested - totalRead);
+      if (numRead == -1) {
+        break;
+      }
+      totalRead += numRead;
+    }
 
-    if (numRead > 0) {
-      zzEndRead+= numRead;
+    if (totalRead > 0) {
+      zzEndRead += totalRead;
+      if (totalRead == requested) { /* possibly more input available */
+        if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
+          --zzEndRead;
+          zzFinalHighSurrogate = 1;
+        }
+      }
       return false;
     }
-    // unlikely but not impossible: read 0 characters, but not at end of stream
-    if (numRead == 0) {
-      int c = zzReader.read();
-      if (c == -1) {
-        return true;
-      } else {
-        zzBuffer[zzEndRead++] = (char) c;
-        return false;
-      }     
-    }
-    
-    // numRead < 0) 
+
+    // totalRead = 0: End of stream
     return true;
   }
 
@@ -199,7 +216,7 @@
     zzStreams.push(
       new ZzFlexStreamInfo(zzReader, zzEndRead, zzStartRead, zzCurrentPos,
                         zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF, zzEOFDone,
-                        yyline, yychar, yycolumn)
+                        zzFinalHighSurrogate, yyline, yychar, yycolumn)
     );
     zzAtBOL  = true;
     zzAtEOF  = false;
@@ -207,6 +224,7 @@
     zzReader = reader;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
+    zzFinalHighSurrogate = 0;
     yyline = yychar = yycolumn = 0;
   }
     
@@ -231,13 +249,14 @@
     zzEndRead     = s.zzEndRead;
     zzStartRead   = s.zzStartRead;
     zzCurrentPos  = s.zzCurrentPos;
-    zzMarkedPos   = s.zzMarkedPos ;
+    zzMarkedPos   = s.zzMarkedPos;
     zzAtBOL       = s.zzAtBOL;
     zzAtEOF       = s.zzAtEOF;
     zzEOFDone     = s.zzEOFDone;
-    yyline         = s.yyline;
-    yychar         = s.yychar;
-    yycolumn       = s.yycolumn;
+    zzFinalHighSurrogate = s.zzFinalHighSurrogate;
+    yyline        = s.yyline;
+    yychar        = s.yychar;
+    yycolumn      = s.yycolumn;
   }
 
 
@@ -272,6 +291,7 @@
     zzEOFDone = false;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
+    zzFinalHighSurrogate = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE)

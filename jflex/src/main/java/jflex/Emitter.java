@@ -373,8 +373,10 @@ final public class Emitter {
   }
   
   private void emitNextInput() {
-    println("          if (zzCurrentPosL < zzEndReadL)");
-    println("            zzInput = zzBufferL[zzCurrentPosL++];");
+    println("          if (zzCurrentPosL < zzEndReadL) {");
+    println("            zzInput = Character.codePointAt(zzBufferL, zzCurrentPosL, zzEndReadL);");
+    println("            zzCurrentPosL += Character.charCount(zzInput);");
+    println("          }");
     println("          else if (zzAtEOF) {");
     println("            zzInput = YYEOF;");
     println("            break zzForAction;");
@@ -394,7 +396,8 @@ final public class Emitter {
     println("              break zzForAction;");  
     println("            }");
     println("            else {");
-    println("              zzInput = zzBufferL[zzCurrentPosL++];");
+    println("              zzInput = Character.codePointAt(zzBufferL, zzCurrentPosL, zzEndReadL);");
+    println("              zzCurrentPosL += Character.charCount(zzInput);");
     println("            }");
     println("          }"); 
   }
@@ -556,7 +559,7 @@ final public class Emitter {
     println("   * @return         the unpacked character translation table");
     println("   */");
     println("  private static char [] zzUnpackCMap(String packed) {");
-    println("    char [] map = new char[0x10000];");
+    println("    char [] map = new char[0x" + Integer.toHexString(cl.getMaxCharCode() + 1) + "];");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = 0;  /* index in unpacked array */");
     println("    while (i < "+2*intervals.length+") {");
@@ -968,9 +971,14 @@ final public class Emitter {
     
     if ( scanner.lineCount || scanner.columnCount ) {
       println("      boolean zzR = false;");
-      println("      for (zzCurrentPosL = zzStartRead; zzCurrentPosL < zzMarkedPosL;");
-      println("                                                             zzCurrentPosL++) {");
-      println("        switch (zzBufferL[zzCurrentPosL]) {");
+      println("      int zzCh;");
+      println("      int zzCharCount;");
+      println("      for (zzCurrentPosL = zzStartRead  ;");
+      println("           zzCurrentPosL < zzMarkedPosL ;");
+      println("           zzCurrentPosL += zzCharCount ) {");
+      println("        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);");
+      println("        zzCharCount = Character.charCount(zzCh);");
+      println("        switch (zzCh) {");
       println("        case '\\u000B':"); 
       println("        case '\\u000C':"); 
       println("        case '\\u0085':");
@@ -1002,7 +1010,7 @@ final public class Emitter {
       println("        default:");
       println("          zzR = false;");
       if ( scanner.columnCount ) 
-        println("          yycolumn++;");
+        println("          yycolumn += zzCharCount;");
       println("        }");
       println("      }");
       println();
@@ -1239,7 +1247,8 @@ final public class Emitter {
         println("            boolean zzFinL[] = zzFin;");
         println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
         println("              zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
-        println("              zzInput = zzBufferL[zzFPos++];");
+        println("              zzInput = Character.codePointAt(zzBufferL, zzFPos, zzMarkedPos);");
+        println("              zzFPos += Character.charCount(zzInput);");
         println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("            }");
         println("            if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
@@ -1250,7 +1259,8 @@ final public class Emitter {
         println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
         println("            zzFPos = zzMarkedPos;");
         println("            while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
-        println("              zzInput = zzBufferL[--zzFPos];");
+        println("              zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
+        println("              zzFPos -= Character.charCount(zzInput);");
         println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("            };");
         println("            zzMarkedPos = zzFPos;");

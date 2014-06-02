@@ -80,7 +80,7 @@ action code {:
     }
   }
 
-  private boolean check(int type, char c) {
+  private boolean check(int type, int c) {
     switch (type) {
       case sym.JLETTERCLASS:
         return Character.isJavaIdentifierStart(c);
@@ -116,7 +116,7 @@ action code {:
         }
         case sym.DIGITCLASSNOT: {
           IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
           intCharSet.sub(digits);
           preclassCache.put(type, intCharSet);
           result = intCharSet.copy().getIntervals();
@@ -166,7 +166,7 @@ action code {:
           if (null == whitespaceClass) {
             whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
-          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
           intCharSet.sub(whitespaceClass);
           preclassCache.put(type, intCharSet);
           result = intCharSet.copy().getIntervals();
@@ -212,7 +212,7 @@ action code {:
           wordClass.add(markClass);
           wordClass.add(digitClass);
           wordClass.add(connectorPunctClass);
-          intCharSet = new IntCharSet(new Interval((char)0,'\uFFFF'));
+          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
           intCharSet.sub(wordClass);
           preclassCache.put(type, intCharSet);
           result = intCharSet.copy().getIntervals();
@@ -223,21 +223,21 @@ action code {:
         default: {
           result = new ArrayList<Interval>();
 
-          char c = 0;
-          char start = 0;
-          char last = charClasses.getMaxCharCode();
+          int c = 0;
+          int start = 0;
+          int last = charClasses.getMaxCharCode();
 
           boolean prev, current;
 
-          prev = check(type,'\u0000');
+          prev = check(type, 0);
 
           for (c = 1; c < last; c++) {
 
-            current = check(type,c);
+            current = check(type, c);
 
             if (!prev && current) start = c;
             if (prev && !current) {
-              result.add(new Interval(start, (char)(c-1)));
+              result.add(new Interval(start, c - 1));
             }
 
             prev = current;
@@ -246,11 +246,11 @@ action code {:
           // the last iteration is moved out of the loop to
           // avoid an endless loop if last == maxCharCode and
           // last+1 == 0
-          current = check(type,c);
+          current = check(type, c);
 
-          if (!prev && current) result.add(new Interval(c,c));
+          if (!prev && current) result.add(new Interval(c, c));
           if (prev && current)  result.add(new Interval(start, c));
-          if (prev && !current) result.add(new Interval(start, (char)(c-1)));
+          if (prev && !current) result.add(new Interval(start, c - 1));
 
           preclassCache.put(type, new IntCharSet(result));
           break;
@@ -354,9 +354,10 @@ parser code {:
 :};
 
 init with {:
-  action_obj.scanner = this.scanner;
-  action_obj.charClasses
-    = new CharClasses(Options.jlex ? 127 : 0xFFFF, this.scanner);
+  action_obj.scanner = scanner;
+  // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
+  // since the max char code won't be known until then.
+  action_obj.charClasses = scanner.getCharClasses();
 :};
 
 /* token declarations */
@@ -465,7 +466,7 @@ macro         ::=  ASCII
                 |  FULL
                    {: charClasses.setMaxCharCode(255); :}
                 |  UNICODE
-                   {: charClasses.setMaxCharCode(0xFFFF); :} 
+                   {: /* max char code is set via CharClasses.init() */ :} 
                 |  IDENT:name EQUALS series:definition REGEXPEND
                    {: macros.insert(name, definition); :} 
                 | IDENT EQUALS:e
@@ -1082,14 +1083,14 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    {: RESULT = intcharset.copy().getIntervals(); :}
                 |  classcontent:list UNIPROPCCLASSNOT:notintcharset
                    {:
-                     IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                     IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
                      absComp.sub(notintcharset);
                      list.addAll(absComp.getIntervals());
                      RESULT = list;
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
                    {:
-                      IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                      IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
                       absComp.sub(notintcharset);
                       RESULT = absComp.getIntervals();
                    :}
@@ -1121,7 +1122,7 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                          list.addAll(intervals);
                        }
                        else { //  sym.CCLASSNOT == regex.type
-                         IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                         IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
                          absComp.sub(new IntCharSet(intervals));
                          list.addAll(absComp.getIntervals());
                        }
@@ -1139,7 +1140,7 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                          RESULT = list;
                        }
                        else {
-                         IntCharSet absComp = new IntCharSet(new Interval((char)0,'\uFFFF'));
+                         IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
                          absComp.sub(new IntCharSet(list));
                          RESULT = absComp.getIntervals();
                        }
