@@ -545,7 +545,7 @@ final public class Emitter {
   }
 
 
-  private void emitCharMapInitFunction() {
+  private void emitCharMapInitFunction(int packedCharMapPairs) {
 
     CharClasses cl = parser.getCharClasses();
     
@@ -562,7 +562,7 @@ final public class Emitter {
     println("    char [] map = new char[0x" + Integer.toHexString(cl.getMaxCharCode() + 1) + "];");
     println("    int i = 0;  /* index in packed string  */");
     println("    int j = 0;  /* index in unpacked array */");
-    println("    while (i < "+2*intervals.length+") {");
+    println("    while (i < " + 2 * packedCharMapPairs + ") {");
     println("      int  count = packed.charAt(i++);");
     println("      char value = packed.charAt(i++);");
     println("      do map[j++] = value; while (--count > 0);");
@@ -639,12 +639,21 @@ final public class Emitter {
     println();
   }
 
-  private void emitCharMapArray() {       
+  /**
+   * Returns the number of elements in the packed char map
+   * array, or zero if the char map array will be not be packed.
+   * 
+   * This will be more than intervals.length if the count
+   * for any of the values is more than 0xFFFF, since
+   * the number of char map array entries per value is
+   * ceil(count / 0xFFFF)
+   */
+  private int emitCharMapArray() {       
     CharClasses cl = parser.getCharClasses();
 
     if ( cl.getMaxCharCode() < 256 ) {
       emitCharMapArrayUnPacked();
-      return;
+      return 0; // the char map array will not be packed
     }
 
     // ignores cl.getMaxCharCode(), emits all intervals instead
@@ -660,7 +669,7 @@ final public class Emitter {
     int n = 0;  // numbers of entries in current line    
     print("    \"");
     
-    int i = 0;
+    int i = 0, numPairs = 0;
     int count, value;
     while ( i < intervals.length ) {
       count = intervals[i].end-intervals[i].start+1;
@@ -671,9 +680,10 @@ final public class Emitter {
         printUC(0xFFFF);
         printUC(value);
         count -= 0xFFFF;
+        numPairs++;
         n++;       
       }
-        
+      numPairs++;
       printUC(count);
       printUC(value);
 
@@ -696,6 +706,7 @@ final public class Emitter {
     println("   */");
     println("  private static final char [] ZZ_CMAP = zzUnpackCMap(ZZ_CMAP_PACKED);");
     println();
+    return numPairs;
   }
 
 
@@ -1610,7 +1621,7 @@ final public class Emitter {
 
     emitLexicalStates();
    
-    emitCharMapArray();
+    int packedCharMapPairs = emitCharMapArray();
     
     emitActionTable();
     
@@ -1640,7 +1651,7 @@ final public class Emitter {
     
     emitConstructorDecl();
         
-    emitCharMapInitFunction();
+    emitCharMapInitFunction(packedCharMapPairs);
 
     skel.emitNext();
     
