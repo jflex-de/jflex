@@ -417,8 +417,8 @@ final public class NFA {
    * @return the set of states that are reached from <code>start</code> 
    *         via <code>input</code>
    */
-  private StateSet DFAEdge(StateSet start, char input) {    
-    // Out.debug("Calculating DFAEdge for state set "+start+" and input '"+input+"'");
+  private StateSet DFAEdge(StateSet start, int input) {    
+    // Out.debug(String.format("Calculating DFAEdge for state set "+start+" and input U+04X"), input);
 
     tempStateSet.clear();
 
@@ -490,7 +490,7 @@ final public class NFA {
 
       currentState = dfaList.get(currentDFAState);
 
-      for (char input = 0; input < numInput; input++) {
+      for (int input = 0; input < numInput; input++) {
 
 	      // newState = DFAEdge(currentState, input);
 
@@ -571,7 +571,7 @@ final public class NFA {
       }
       result.append(" "+i+Out.NL);
       
-      for (char input = 0; input < numInput; input++) {
+      for (int input = 0; input < numInput; input++) {
 	      if ( table[i][input] != null && table[i][input].containsElements() )
           result.append("  with ").append((int) input).append(" in ")
                 .append(table[i][input]).append(Out.NL);	
@@ -642,38 +642,39 @@ final public class NFA {
   //-----------------------------------------------------------------------
   // Functions for constructing NFAs out of regular expressions.
 
-  private void insertLetterNFA(boolean caseless, char letter, int start, int end) {
+  private void insertLetterNFA(boolean caseless, int ch, int start, int end) {
     if (caseless) {
-      IntCharSet set = new IntCharSet(letter);
+      IntCharSet set = new IntCharSet(ch);
       IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
       for (Interval interval : caselessSet.getIntervals()) {
-        for (int ch = interval.start ; ch <= interval.end ; ++ch) {
+        for (int elem = interval.start ; elem <= interval.end ; ++elem) {
           addTransition(start, classes.getClassCode(ch), end);
         }
       }
     }
     else {
-      addTransition(start, classes.getClassCode(letter), end);
+      addTransition(start, classes.getClassCode(ch), end);
     }
   }
   
-  private IntPair insertStringNFA(boolean caseless, String letters) {
+  private IntPair insertStringNFA(boolean caseless, String str) {
     int start = numStates;
-    int i;
-
-    for (i = 0; i < letters.length(); i++) {
+    int i = 0;
+    for (int pos = 0 ; pos < str.length() ; ++i) {
+      int ch = str.codePointAt(pos);
       if (caseless) {
-        IntCharSet set = new IntCharSet(letters.charAt(i));
+        IntCharSet set = new IntCharSet(ch);
         IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
         for (Interval interval : caselessSet.getIntervals()) {
-          for (int ch = interval.start ; ch <= interval.end ; ++ch) {
-            addTransition(i + start, classes.getClassCode(ch), i + start + 1);
+          for (int elem = interval.start ; elem <= interval.end ; ++elem) {
+            addTransition(i + start, classes.getClassCode(elem), i + start + 1);
           }
         }
       }
       else {
-        addTransition(i+start, classes.getClassCode(letters.charAt(i)), i+start+1);
+        addTransition(i+start, classes.getClassCode(ch), i+start+1);
       }
+      pos += Character.charCount(ch);
     }
 
     return new IntPair(start, i+start);
@@ -740,7 +741,7 @@ final public class NFA {
 
       currentState = dfaList.get(currentDFAState);
 
-      for (char input = 0; input < numInput; input++) {
+      for (int input = 0; input < numInput; input++) {
 	      newState = DFAEdge(currentState, input);
 
 	      if ( newState.containsElements() ) {
@@ -905,11 +906,11 @@ final public class NFA {
       return;
       
     case sym.CHAR:
-      insertLetterNFA(false, (Character)((RegExp1)regExp).content, start, end);
+      insertLetterNFA(false, (Integer)((RegExp1)regExp).content, start, end);
       return;
       
     case sym.CHAR_I:
-      insertLetterNFA(true, (Character)((RegExp1)regExp).content, start, end);
+      insertLetterNFA(true, (Integer)((RegExp1)regExp).content, start, end);
       return;
       
     case sym.MACROUSE:

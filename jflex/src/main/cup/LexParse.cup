@@ -67,7 +67,7 @@ action code {:
         return "\n".equals(r1.content);
       case sym.CHAR:
       case sym.CHAR_I:
-        return '\n' == ((Character)r1.content).charValue();
+        return '\n' == (char)((Integer)r1.content).intValue();
       case sym.CCLASS:
         List<Interval> intervals = (List<Interval>)r1.content;
         if ( 1 == intervals.size() ) {
@@ -306,8 +306,8 @@ action code {:
     charClasses.makeClass('\r', false);
 
     RegExp1   c = new RegExp1(sym.CCLASS, list);
-    Character n = new Character('\n');
-    Character r = new Character('\r');
+    Integer n = new Integer((int)'\n');
+    Integer r = new Integer((int)'\r');
 
     return new RegExp2(sym.BAR, 
                        c, 
@@ -378,7 +378,7 @@ terminal Integer REPEAT;
 /* tokens used in RegExp parse tree */
 terminal STAR, PLUS, BAR, QUESTION, POINT, NEWLINE, BANG, TILDE;
 
-terminal Character CHAR;
+terminal Integer CHAR;
 terminal String STRING, MACROUSE;
 terminal IntCharSet UNIPROPCCLASS, UNIPROPCCLASSNOT;
 
@@ -735,7 +735,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT CLOSECLASS:close
                    {: 
                      List<Interval> list = new ArrayList<Interval>();
-                     list.add(new Interval((char)0,CharClasses.maxChar));
+                     list.add(new Interval(0, charClasses.getMaxCharCode()));
                      try {
                        charClasses.makeClass(list, false);
                      }
@@ -1096,15 +1096,21 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    :}
                 |  classcontent:list STRING:s
                    {: 
-                      for (int i = 0; i < s.length(); i++)
-                        list.add(new Interval(s.charAt(i),s.charAt(i)));
+                      for (int i = 0; i < s.length(); ) {
+                        int ch = s.codePointAt(i);
+                        i += Character.charCount(ch);
+                        list.add(new Interval(ch, ch));
+                      }
                       RESULT = list;
                    :}
                 |  STRING:s
                    {: 
                       RESULT = new ArrayList<Interval>();
-                      for (int i = 0; i < s.length(); i++)
-                        RESULT.add(new Interval(s.charAt(i),s.charAt(i)));
+                      for (int i = 0; i < s.length(); ) {
+                        int ch = s.codePointAt(i);
+                        i += Character.charCount(ch);
+                        RESULT.add(new Interval(ch, ch));
+                      }
                    :}
                 |  classcontent:list MACROUSE:ident
                    {: 

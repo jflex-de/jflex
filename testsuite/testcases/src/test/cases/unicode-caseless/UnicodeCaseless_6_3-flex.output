@@ -4066,3 +4066,163 @@ Rule can never be matched:
 Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2031): 
 Rule can never be matched:
 "\uFF5A" { print(0xFF5A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2072): 
+Rule can never be matched:
+"\U010428" { print(0x10428); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2073): 
+Rule can never be matched:
+"\U010429" { print(0x10429); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2074): 
+Rule can never be matched:
+"\U01042A" { print(0x1042A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2075): 
+Rule can never be matched:
+"\U01042B" { print(0x1042B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2076): 
+Rule can never be matched:
+"\U01042C" { print(0x1042C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2077): 
+Rule can never be matched:
+"\U01042D" { print(0x1042D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2078): 
+Rule can never be matched:
+"\U01042E" { print(0x1042E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2079): 
+Rule can never be matched:
+"\U01042F" { print(0x1042F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2080): 
+Rule can never be matched:
+"\U010430" { print(0x10430); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2081): 
+Rule can never be matched:
+"\U010431" { print(0x10431); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2082): 
+Rule can never be matched:
+"\U010432" { print(0x10432); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2083): 
+Rule can never be matched:
+"\U010433" { print(0x10433); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2084): 
+Rule can never be matched:
+"\U010434" { print(0x10434); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2085): 
+Rule can never be matched:
+"\U010435" { print(0x10435); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2086): 
+Rule can never be matched:
+"\U010436" { print(0x10436); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2087): 
+Rule can never be matched:
+"\U010437" { print(0x10437); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2088): 
+Rule can never be matched:
+"\U010438" { print(0x10438); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2089): 
+Rule can never be matched:
+"\U010439" { print(0x10439); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2090): 
+Rule can never be matched:
+"\U01043A" { print(0x1043A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2091): 
+Rule can never be matched:
+"\U01043B" { print(0x1043B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2092): 
+Rule can never be matched:
+"\U01043C" { print(0x1043C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2093): 
+Rule can never be matched:
+"\U01043D" { print(0x1043D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2094): 
+Rule can never be matched:
+"\U01043E" { print(0x1043E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2095): 
+Rule can never be matched:
+"\U01043F" { print(0x1043F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2096): 
+Rule can never be matched:
+"\U010440" { print(0x10440); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2097): 
+Rule can never be matched:
+"\U010441" { print(0x10441); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2098): 
+Rule can never be matched:
+"\U010442" { print(0x10442); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2099): 
+Rule can never be matched:
+"\U010443" { print(0x10443); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2100): 
+Rule can never be matched:
+"\U010444" { print(0x10444); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2101): 
+Rule can never be matched:
+"\U010445" { print(0x10445); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2102): 
+Rule can never be matched:
+"\U010446" { print(0x10446); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2103): 
+Rule can never be matched:
+"\U010447" { print(0x10447); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2104): 
+Rule can never be matched:
+"\U010448" { print(0x10448); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2105): 
+Rule can never be matched:
+"\U010449" { print(0x10449); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2106): 
+Rule can never be matched:
+"\U01044A" { print(0x1044A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2107): 
+Rule can never be matched:
+"\U01044B" { print(0x1044B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2108): 
+Rule can never be matched:
+"\U01044C" { print(0x1044C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2109): 
+Rule can never be matched:
+"\U01044D" { print(0x1044D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2110): 
+Rule can never be matched:
+"\U01044E" { print(0x1044E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_6_3.flex" (line 2111): 
+Rule can never be matched:
+"\U01044F" { print(0x1044F); }

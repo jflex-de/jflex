@@ -166,8 +166,11 @@ public class RegExp {
    */
   public final static String revString(String s) {
     StringBuffer b = new StringBuffer(s.length());
-    for (int i=s.length()-1; i >= 0; i--) {
-      b.append(s.charAt(i));
+    for (int i = s.length() ; i > 0; ) {
+      int ch = s.codePointBefore(i);
+      char[] chars = Character.toChars(ch);
+      b.append(chars);
+      i -= chars.length;
     }
     return b.toString();
   }

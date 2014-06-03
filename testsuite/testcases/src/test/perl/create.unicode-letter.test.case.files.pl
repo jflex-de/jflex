@@ -2,11 +2,11 @@
 #
 # create.unicode-letter.test.case.files.pl
 #
-# This script is designed to take as input UnicodeData(-X.X.X).txt, and output
-# hex char ranges and the Letter property value, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
-# tests defined for the unicode-letter test case in the JFlex test suite;
-# an example line follows:
+# This script is designed to take as input UnicodeData(-X.X.X).txt and
+# output hex char ranges and the Letter property value, for all Unicode code
+# points (which excludes the surrogate code units), in the format expected
+# as output by the tests defined for the unicode-letter test case in the
+# JFlex test suite; an example line follows:
 #
 #   0041..005A; Letter
 #
@@ -18,7 +18,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $prev_char_num = -2;
 my $range_begin = -1;
@@ -36,7 +36,7 @@ my @complement_ranges = ();
 GetOptions("version=s"=>\$version, "datafile=s"=>\$input_filename);
 
 unless ($version && $input_filename
-	&& -f $input_filename && -r $input_filename)
+        && -f $input_filename && -r $input_filename)
 {
     print STDERR "Usage: $0 -v <version> -d <UnicodeData-file>\n";
     exit(1);
@@ -55,60 +55,60 @@ while (<IN>)
 
     if ($version eq '1.1' and /^4E00;<CJK IDEOGRAPH REPRESENTATIVE>;/)
     {   # UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-	# range (starting point is listed as U+4E00).  This is U+9FFF according
-	# to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-	#
-	#    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-	#
-	$prev_char_num = 0x9FFF;
+        # range (starting point is listed as U+4E00).  This is U+9FFF according
+        # to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        #
+        #    U+4E00 ^ U+9FFF                20,992        I-ZONE Ideographs
+        #
+        $prev_char_num = 0x9FFF;
     }
     # AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});<[^,]+, First>;([^;]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});<[^,]+, First>;([^;]+)/)
     {
-	my $hex_char = $1;
-	my $general_category = $2;
-	my $char_num = hex($hex_char);
-	if ($prev_char_num + 1 == $char_num
-	    && substr($range_category,0,1) eq substr($general_category,0,1))
-	{
-	    $prev_char_num = $char_num;
-	}
-	else
-	{
-	    push @ranges, [ $range_begin, $prev_char_num, $property_value ]
-		if ($range_category =~ $property_value_regex);
-	    $range_begin = $char_num;
-	    $range_category = $general_category;
-	    $prev_char_num = $char_num;
-	}
+        my $hex_char = $1;
+        my $general_category = $2;
+        my $char_num = hex($hex_char);
+        if ($prev_char_num + 1 == $char_num
+            && substr($range_category,0,1) eq substr($general_category,0,1))
+        {
+            $prev_char_num = $char_num;
+        }
+        else
+        {
+            push @ranges, [ $range_begin, $prev_char_num, $property_value ]
+                if ($range_category =~ $property_value_regex);
+            $range_begin = $char_num;
+            $range_category = $general_category;
+            $prev_char_num = $char_num;
+        }
     }
     # D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});<[^,]+, Last>;([^;]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});<[^,]+, Last>;([^;]+)/)
     {
-	my $hex_char = $1;
-	my $general_category = $2;
-	my $char_num = hex($hex_char);
-	$prev_char_num = $char_num;
+        my $hex_char = $1;
+        my $general_category = $2;
+        my $char_num = hex($hex_char);
+        $prev_char_num = $char_num;
     }
     # 0000;<control>;Cc;0;ON;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});[^;]*;([^;]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});[^;]*;([^;]+)/)
     {
-	my $hex_char = $1;
-	my $general_category = $2;
-	my $char_num = hex($hex_char);
-	if ($prev_char_num + 1 == $char_num
-	    && substr($range_category,0,1) eq substr($general_category,0,1))
-	{
-	    $prev_char_num = $char_num;
-	}
-	else
-	{
-	    push @ranges, [ $range_begin, $prev_char_num, $property_value ]
-		if ($range_category =~ $property_value_regex);
-	    $range_begin = $char_num;
-	    $range_category = $general_category;
-	    $prev_char_num = $char_num;
-	}
+        my $hex_char = $1;
+        my $general_category = $2;
+        my $char_num = hex($hex_char);
+        if ($prev_char_num + 1 == $char_num
+            && substr($range_category,0,1) eq substr($general_category,0,1))
+        {
+            $prev_char_num = $char_num;
+        }
+        else
+        {
+            push @ranges, [ $range_begin, $prev_char_num, $property_value ]
+                if ($range_category =~ $property_value_regex);
+            $range_begin = $char_num;
+            $range_category = $general_category;
+            $prev_char_num = $char_num;
+        }
     }
 }
 push @ranges, [ $range_begin, $prev_char_num, $property_value ]
@@ -119,30 +119,30 @@ for my $range_num (0 .. $#ranges)
     my $range = $ranges[$range_num];
     if ($range_num == 0 and $range->[0] > 0)
     {
-	push @complement_ranges, [ 0, $range->[0] - 1, "Not-$property_value" ];
+        push @complement_ranges, [ 0, $range->[0] - 1, "Not-$property_value" ];
     }
     else
     {
-	my $previous_range = $ranges[$range_num - 1];
-	if ($previous_range->[1] < 0xD800 and $range->[0] > 0xDFFF)
-	{   # Skip surrogate range
-	    push @complement_ranges,
-		[ $previous_range->[1] + 1, 0xD7FF, "Not-$property_value" ];
-	    push @complement_ranges,
-		[ 0xE000, $range->[0] - 1, "Not-$property_value" ];
-	}
-	else
-	{
-	    push @complement_ranges, [ $previous_range->[1] + 1,
-				       $range->[0] - 1,
-				       "Not-$property_value" ];
-	}
+        my $previous_range = $ranges[$range_num - 1];
+        if ($previous_range->[1] < 0xD800 and $range->[0] > 0xDFFF)
+        {   # Skip surrogate range
+            push @complement_ranges,
+                [ $previous_range->[1] + 1, 0xD7FF, "Not-$property_value" ];
+            push @complement_ranges,
+                [ 0xE000, $range->[0] - 1, "Not-$property_value" ];
+        }
+        else
+        {
+            push @complement_ranges, [ $previous_range->[1] + 1,
+                                       $range->[0] - 1,
+                                       "Not-$property_value" ];
+        }
     }
 }
 if ($ranges[-1]->[1] < $max_code_point)
 {
     push @complement_ranges,
-	[ $ranges[-1]->[1] + 1, $max_code_point, "Not-$property_value" ];
+        [ $ranges[-1]->[1] + 1, $max_code_point, "Not-$property_value" ];
 }
 
 close IN;
@@ -169,7 +169,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -200,7 +200,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 

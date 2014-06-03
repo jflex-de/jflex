@@ -4,8 +4,8 @@
 #
 # This script is designed to take as input UnicodeData(-X.X.X).txt, and output
 # a JFlex test spec to produce output of the following form, when taking as
-# input a file with each code point in the BMP, except the surrogates and
-# U+FFFE and U+FFFF:
+# input a file with all Unicode code points (which excludes the surrogate code
+# units):
 #
 #   input char 0060 matches 0040 case-insensitively
 #
@@ -54,7 +54,7 @@ print SPEC <<"SPEC_HEADER";
 %{
   void print(int codePoint) {
     System.out.format("input char %04X matches %04X case-insensitively\%n",
-                      (int)yycharat(0), codePoint);
+                      yytext().codePointAt(0), codePoint);
   }
 %}
 
@@ -73,50 +73,50 @@ while (<IN>)
 
     # 0000;<control>;Cc;0;ON;;;;;N;;;;;
     # AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;
-    if (/^([A-F0-9a-f]{4});(?:[^;]*;){11}([^;]*);([^;]*);([^;]*)/)
+    if (/^([A-F0-9a-f]{4,6});(?:[^;]*;){11}([^;]*);([^;]*);([^;]*)/)
     {
-	my $code_point = $1;
-	my $uppercase_mapping = $2;
-	my $lowercase_mapping = $3;
-	my $titlecase_mapping = $4;
-	next unless
-	    ($uppercase_mapping or $lowercase_mapping or $titlecase_mapping);
+        my $code_point = $1;
+        my $uppercase_mapping = $2;
+        my $lowercase_mapping = $3;
+        my $titlecase_mapping = $4;
+        next unless
+            ($uppercase_mapping or $lowercase_mapping or $titlecase_mapping);
 
-	my %equiv = ($code_point => 1);
-	if ($mapped{$code_point})
-	{
-	    $equiv{$mapped{$code_point}} = 1;
-	}
-	if ($uppercase_mapping)
-	{
-	    $equiv{$uppercase_mapping} = 1;
-	    if ($mapped{$uppercase_mapping})
-	    {
-		$equiv{$mapped{$uppercase_mapping}} = 1;
-	    }
-	}
-	if ($lowercase_mapping)
-	{
-	    $equiv{$lowercase_mapping} = 1;
-	    if ($mapped{$lowercase_mapping})
-	    {
-		$equiv{$mapped{$lowercase_mapping}} = 1;
-	    }
-	}
-	if ($titlecase_mapping)
-	{
-	    $equiv{$titlecase_mapping} = 1;
-	    if ($mapped{$titlecase_mapping})
-	    {
-		$equiv{$mapped{$titlecase_mapping}} = 1;
-	    }
-	}
-	my @sorted = sort { hex($a) <=> hex($b) } keys %equiv;
-	my $lowest = $sorted[0];
-	for my $entry (@sorted)
-	{
-	    $mapped{$entry} = $lowest;
-	}
+        my %equiv = ($code_point => 1);
+        if ($mapped{$code_point})
+        {
+            $equiv{$mapped{$code_point}} = 1;
+        }
+        if ($uppercase_mapping)
+        {
+            $equiv{$uppercase_mapping} = 1;
+            if ($mapped{$uppercase_mapping})
+            {
+                $equiv{$mapped{$uppercase_mapping}} = 1;
+            }
+        }
+        if ($lowercase_mapping)
+        {
+            $equiv{$lowercase_mapping} = 1;
+            if ($mapped{$lowercase_mapping})
+            {
+                $equiv{$mapped{$lowercase_mapping}} = 1;
+            }
+        }
+        if ($titlecase_mapping)
+        {
+            $equiv{$titlecase_mapping} = 1;
+            if ($mapped{$titlecase_mapping})
+            {
+                $equiv{$mapped{$titlecase_mapping}} = 1;
+            }
+        }
+        my @sorted = sort { hex($a) <=> hex($b) } keys %equiv;
+        my $lowest = $sorted[0];
+        for my $entry (@sorted)
+        {
+            $mapped{$entry} = $lowest;
+        }
     }
 }
 close IN;
@@ -124,7 +124,14 @@ close IN;
 for my $code_point (sort { hex($a) <=> hex($b) } keys %mapped)
 {
     my $target = $mapped{$code_point};
-    print SPEC qq/"\\u$code_point" { print(0x$code_point); }\n/;
+    if (hex($code_point) <= 0xFFFF)
+    {
+        print SPEC qq/"\\u$code_point" { print(0x$code_point); }\n/;
+    }
+    else
+    {
+        printf SPEC qq/"\\U%06X" { print(0x$code_point); }\n/, hex($code_point);
+    }
     print OUTPUT "input char $code_point matches $target case-insensitively\n";
 }
 
@@ -146,7 +153,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 

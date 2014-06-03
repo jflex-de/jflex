@@ -2,11 +2,11 @@
 #
 # create.unicode-blocks.test.case.files.pl
 #
-# This script is designed to take as input Blocks(-X|-X.X.X).txt, and output
-# hex char ranges and corresponding property values, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
-# tests defined for the unicode-blocks test case in the JFlex test suite;
-# an example line follows:
+# This script is designed to take as input Blocks(-X|-X.X.X).txt and output
+# hex char ranges and corresponding property values, for all Unicode code
+# points (which excludes the surrogate code units), in the format expected
+# as output by the tests defined for the unicode-blocks test case in the
+# JFlex test suite; an example line follows:
 #
 #    0000..007F; Basic Latin
 #
@@ -17,7 +17,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $input_filename = '';
@@ -29,7 +29,7 @@ my @ranges = ();
 GetOptions("version=s"=>\$version, "b=s"=>\$input_filename);
 
 unless ($version && $input_filename
-	&& -f $input_filename && -r $input_filename)
+        && -f $input_filename && -r $input_filename)
 {
     print STDERR "Usage: $0 -v <version> -b <Blocks-file>\n";
     exit(1);
@@ -51,43 +51,43 @@ if ($version < 3.1)
 {
     while (<IN>)
     {
-	chomp;
-	s/^\s*#.*//;
-	s/\s+$//; # Strip trailing space
-	next unless (/\S/);
-	
-	# 0000; 007F; Basic Latin
-	if (/^([A-F0-9a-f]{4})\s*;\s*([A-F0-9a-f]{4})\s*;\s*(.+)/)
-	{
-	    my $start = hex($1);
-	    my $end = hex($2);
-	    my $property_value = $3;
-	    next if ($start > $max_code_point);
-	    $end = $max_code_point if ($end > $max_code_point);
-	    ++$property_values{$property_value};
-	    push @ranges, [ $start, $end, $property_value ];
-	}
+        chomp;
+        s/^\s*#.*//;
+        s/\s+$//; # Strip trailing space
+        next unless (/\S/);
+        
+        # 0000; 007F; Basic Latin
+        if (/^([A-F0-9a-f]{4,6})\s*;\s*([A-F0-9a-f]{4,6})\s*;\s*(.+)/)
+        {
+            my $start = hex($1);
+            my $end = hex($2);
+            my $property_value = $3;
+            next if ($start > $max_code_point);
+            $end = $max_code_point if ($end > $max_code_point);
+            ++$property_values{$property_value};
+            push @ranges, [ $start, $end, $property_value ];
+        }
     }
 }
 else # $version is 3.1 or greater
 {
     while (<IN>)
     {
-	chomp;
-	s/^\s*#.*//;
-	s/\s+$//; # Strip trailing space
-	next unless (/\S/);
-	
-	if (/^([A-F0-9a-f]{4})..([A-F0-9a-f]{4,5});\s*(.+)/)
-	{
-	    my $start = hex($1);
-	    my $end = hex($2);
-	    my $property_value = $3;
-	    next if ($start > $max_code_point);
-	    $end = $max_code_point if ($end > $max_code_point);
-	    ++$property_values{$property_value};
-	    push @ranges, [ $start, $end, $property_value ];
-	}
+        chomp;
+        s/^\s*#.*//;
+        s/\s+$//; # Strip trailing space
+        next unless (/\S/);
+        
+        if (/^([A-F0-9a-f]{4,6})..([A-F0-9a-f]{4,6});\s*(.+)/)
+        {
+            my $start = hex($1);
+            my $end = hex($2);
+            my $property_value = $3;
+            next if ($start > $max_code_point);
+            $end = $max_code_point if ($end > $max_code_point);
+            ++$property_values{$property_value};
+            push @ranges, [ $start, $end, $property_value ];
+        }
     }
 }
 close IN;
@@ -98,25 +98,25 @@ for my $range (@ranges)
 {
     if (0 == scalar(@merged_ranges))
     {
-	push @merged_ranges, $range;
+        push @merged_ranges, $range;
     }
     else
     {
-	if ($range->[0] == $merged_ranges[-1]->[1] + 1
-	   and $range->[2] eq $merged_ranges[-1]->[2])
-	{
-	    $merged_ranges[-1]->[1] = $range->[1];
-	}
-	else
-	{
-	    if ($range->[0] > $merged_ranges[-1]->[1] + 1)
-	    {
-		push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-				       $range->[0] - 1,
-				       $default_property_value ];
-	    }
-	    push @merged_ranges, $range;
-	}
+        if ($range->[0] == $merged_ranges[-1]->[1] + 1
+           and $range->[2] eq $merged_ranges[-1]->[2])
+        {
+            $merged_ranges[-1]->[1] = $range->[1];
+        }
+        else
+        {
+            if ($range->[0] > $merged_ranges[-1]->[1] + 1)
+            {
+                push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                       $range->[0] - 1,
+                                       $default_property_value ];
+            }
+            push @merged_ranges, $range;
+        }
     }
 }
 
@@ -142,7 +142,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -153,7 +153,7 @@ for my $property_value (sort keys %property_values)
 {
     next if ($property_value =~ $property_values_to_skip_regex);
     print SPEC qq/\\p{$propname:$property_value} { /
-	     . qq/setCurCharPropertyValue("$property_value"); }\n/;
+             . qq/setCurCharPropertyValue("$property_value"); }\n/;
 }
 
 close SPEC;
@@ -175,7 +175,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 

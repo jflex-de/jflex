@@ -98,7 +98,7 @@ final public class DFA {
     this.numLexStates = numLexStates;
     
     for (int i = 0; i < statesNeeded; i++) {
-      for (char j = 0; j < numInput; j++)
+      for (int j = 0; j < numInput; j++)
 	      table [i][j] = NO_TARGET;    
     }
   }
@@ -151,7 +151,7 @@ final public class DFA {
     isFinal[state] = isFinalState;
   }
 
-  public void addTransition(int start, char input, int dest) {
+  public void addTransition(int start, int input, int dest) {
     int max = Math.max(start,dest)+1;
     ensureStateCapacity(max);
     if (max > numStates) numStates = max;
@@ -179,7 +179,7 @@ final public class DFA {
       }
       result.append(i+":"+Out.NL);
      
-      for (char j=0; j < numInput; j++) {
+      for (int j=0; j < numInput; j++) {
 	      if ( table[i][j] >= 0 )
           result.append("  with ").append((int) j).append(" in ").append(table[i][j]).append(Out.NL);	
       }
@@ -772,7 +772,7 @@ final public class DFA {
   public boolean [] [] old_minimize() {
 
     int i,j;
-    char c;
+    int c;
     
     Out.print(numStates+" states before minimization, ");
 

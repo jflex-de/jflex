@@ -87,8 +87,8 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
 		 * terminator. For this reason, the generated output will be longer on a
 		 * Windows platform ("\r\n") than on a Unix platform ("\n").
 		 */
-		boolean correctSize = (size > 26624) && (size < 30696);
-		assertTrue("size of produced file between 26k and 30k. Actual is "
+		boolean correctSize = (size > 26624) && (size < 36696);
+		assertTrue("size of produced file between 26k and 36k. Actual is "
 				+ size, correctSize);
 	}
 

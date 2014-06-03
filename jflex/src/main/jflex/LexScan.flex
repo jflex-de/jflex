@@ -572,7 +572,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                }
   }
 
-  . { return symbol(CHAR, yytext().charAt(0)); }
+  . { return symbol(CHAR, yytext().codePointAt(0)); }
 }
 
 <EATWSPNL> {WSPNL}+  { yybegin(REGEXP); }
@@ -599,11 +599,11 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   // this is a hack to keep JLex compatibilty with char class
   // expressions like [+-]
-  "-]" { yypushback(1); yycolumn--; return symbol(CHAR, yytext().charAt(0)); }
+  "-]" { yypushback(1); yycolumn--; return symbol(CHAR, (int)'-'); }
 
   \"   { string.setLength(0); nextState = CHARCLASS; yybegin(STRING_CONTENT); }
 
-  .    { return symbol(CHAR, yytext().charAt(0)); }
+  .    { return symbol(CHAR, yytext().codePointAt(0)); }
 
   \n   { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
 
@@ -619,7 +619,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
   {Unicode4}  { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode6}  { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode6}  { string.append( Character.toChars(Integer.parseInt(yytext().substring(2,yytext().length()), 16))); }
   {OctNumber} { string.append( (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
 
   \\b { string.append('\b'); }
@@ -628,25 +628,25 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   \\f { string.append('\f'); }
   \\r { string.append('\r'); }
 
-  \\. { string.append(yytext().charAt(1)); }
+  \\. { string.append('.'); }
 
   <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_STRING); }
 }
 
 
 <REGEXP, CHARCLASS> {
-  {HexNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode4}  { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode6}  { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {OctNumber} { return symbol(CHAR, (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
+  {HexNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode4}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {Unicode6}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
+  {OctNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
 
-  \\b { return symbol(CHAR,'\b'); }
-  \\n { return symbol(CHAR,'\n'); }
-  \\t { return symbol(CHAR,'\t'); }
-  \\f { return symbol(CHAR,'\f'); }
-  \\r { return symbol(CHAR,'\r'); }
+  \\b { return symbol(CHAR, (int)'\b'); }
+  \\n { return symbol(CHAR, (int)'\n'); }
+  \\t { return symbol(CHAR, (int)'\t'); }
+  \\f { return symbol(CHAR, (int)'\f'); }
+  \\r { return symbol(CHAR, (int)'\r'); }
 
-  \\. { return symbol(CHAR, yytext().charAt(1)); }
+  \\. { return symbol(CHAR, (int)'.'); }
 }
 
 

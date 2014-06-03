@@ -27,6 +27,6 @@
   }
 
   private void setCurCharPropertyValue(String propertyValue) {
-    propertyValues[ Character.codePointAt(yytext(), 0) ] = propertyValue;
+    propertyValues[ yytext().codePointAt(0) ] = propertyValue;
   }
 %} 

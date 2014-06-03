@@ -213,7 +213,7 @@ public class CharClasses {
    *    
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(char singleChar, boolean caseless) {
+  public void makeClass(int singleChar, boolean caseless) {
     makeClass(new IntCharSet(singleChar), caseless);
   }
 
@@ -224,7 +224,11 @@ public class CharClasses {
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
   public void makeClass(String str, boolean caseless) {
-    for (int i = 0; i < str.length(); i++) makeClass(str.charAt(i), caseless);
+    for (int i = 0; i < str.length(); ) {
+      int ch = str.codePointAt(i);
+      makeClass(ch, caseless);
+      i += Character.charCount(ch);
+    }
   }  
 
 
@@ -355,7 +359,7 @@ public class CharClasses {
 
     // check if each character has a classcode 
     // (= if getClassCode terminates)
-    for (char c = 0; c < maxChar; c++) {
+    for (int c = 0; c < maxChar; c++) {
       getClassCode(c);
       if (c % 100 == 0) System.out.print(".");
     }
