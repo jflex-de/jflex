@@ -8,7 +8,7 @@
 #
 # to output a JFlex test spec to produce output of the following form (one
 # spec file and one output file per property), when taking as input a file
-# with each code point in the BMP, except the surrogates and U+FFFE and U+FFFF:
+# with each Unicode code point (which excludes the surrogates):
 #
 #   0020..0020
 #
@@ -26,7 +26,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $unicode_data_filename = '';
@@ -35,7 +35,7 @@ my %properties = ();
 GetOptions("version=s"=>\$version, "d=s"=>\$unicode_data_filename);
 
 unless ($version && $unicode_data_filename && -f $unicode_data_filename
-	&& -r $unicode_data_filename)
+        && -r $unicode_data_filename)
 {
     print STDERR "Usage: $0 -v <version> -d <UnicodeData-file>\n";
     exit(1);
@@ -56,35 +56,35 @@ while (<IN>)
     next unless (/\S/);
 
     # AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;
-    if (/^([A-F0-9a-f]{4});<[^,]+, First>;/)
+    if (/^([A-F0-9a-f]{4,6});<[^,]+, First>;/)
     {
-	$range_begin = hex($1);
+        $range_begin = hex($1);
     }
     # D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});<[^,]+, Last>;/)
+    elsif (/^([A-F0-9a-f]{4,6});<[^,]+, Last>;/)
     {
-	my $range_end = hex($1);
-	push @{$properties{'Assigned'}}, [ $range_begin, $range_end ]
-	    unless ($range_begin >= 0xD800 && $range_begin <= 0xDFFF
-		    && $range_end >= 0xD800 && $range_end <= 0xDFFF);
-	$range_begin = undef;
+        my $range_end = hex($1);
+        push @{$properties{'Assigned'}}, [ $range_begin, $range_end ]
+            unless ($range_begin >= 0xD800 && $range_begin <= 0xDFFF
+                    && $range_end >= 0xD800 && $range_end <= 0xDFFF);
+        $range_begin = undef;
     }
     # 4E00;<CJK IDEOGRAPH REPRESENTATIVE>;Lo;0;L;;;;;N;;;;;
     elsif ($version eq '1.1'
-	   and /^4E00;<CJK IDEOGRAPH REPRESENTATIVE>;/)
+           and /^4E00;<CJK IDEOGRAPH REPRESENTATIVE>;/)
     {   # UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-	# range (starting point is listed as U+4E00).  This is U+9FFF according
-	# to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-	#
-	#    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-	#
-	push @{$properties{'Assigned'}}, [ 0x4E00, 0x9FFF ];
+        # range (starting point is listed as U+4E00).  This is U+9FFF according
+        # to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        #
+        #    U+4E00 ^ U+9FFF                20,992        I-ZONE Ideographs
+        #
+        push @{$properties{'Assigned'}}, [ 0x4E00, 0x9FFF ];
     }
     # 0000;<control>;Cc;0;ON;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});/)
+    elsif (/^([A-F0-9a-f]{4,6});/)
     {
-	my $char_num = hex($1);
-	push @{$properties{'Assigned'}}, [ $char_num, $char_num ];
+        my $char_num = hex($1);
+        push @{$properties{'Assigned'}}, [ $char_num, $char_num ];
     }
 }
 close IN;
@@ -95,21 +95,21 @@ for my $property (keys %properties)
     my $merged_property_ranges = [];
     for my $range (@{$properties{$property}})
     {
-	if (0 == scalar(@$merged_property_ranges))
-	{
-	    push @$merged_property_ranges, $range;
-	}
-	else
-	{
-	    if ($range->[0] == $merged_property_ranges->[-1]->[1] + 1)
-	    {
-		$merged_property_ranges->[-1]->[1] = $range->[1];
-	    }
-	    else
-	    {
-		push @$merged_property_ranges, $range;
-	    }
-	}
+        if (0 == scalar(@$merged_property_ranges))
+        {
+            push @$merged_property_ranges, $range;
+        }
+        else
+        {
+            if ($range->[0] == $merged_property_ranges->[-1]->[1] + 1)
+            {
+                $merged_property_ranges->[-1]->[1] = $range->[1];
+            }
+            else
+            {
+                push @$merged_property_ranges, $range;
+            }
+        }
     }
     $properties{$property} = $merged_property_ranges;
 }
@@ -126,7 +126,7 @@ for my $property (sort keys %properties)
     open OUTPUT, ">$output_file" || die "ERROR opening '$output_file': $!";
     for my $range (@{$properties{$property}})
     {
-	printf OUTPUT "%04X..%04X\n", $range->[0], $range->[1];
+        printf OUTPUT "%04X..%04X\n", $range->[0], $range->[1];
     }
     close OUTPUT;
 
@@ -142,7 +142,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
     close TEST;
@@ -159,7 +159,7 @@ __TEST__
 %type int
 %standalone
 
-%include ../../resources/common-unicode-binary-property-java
+%include ../../resources/common-unicode-all-binary-property-java
 
 %%
 
@@ -172,10 +172,10 @@ __SPEC__
 
     my $jflex_output_file = "${base_name}-flex.output";
     open JFLEX_OUTPUT, ">$jflex_output_file"
-	|| die "ERROR opening '$jflex_output_file': $!";
+        || die "ERROR opening '$jflex_output_file': $!";
     if ($property eq 'Any')
     {
-	print JFLEX_OUTPUT << "__JFLEX_OUTPUT__";
+        print JFLEX_OUTPUT << "__JFLEX_OUTPUT__";
 
 Warning in file "src\\test\\cases\\unicode-misc-properties\\UnicodeMisc_Any_${underscore_version}.flex" (line 15): 
 Rule can never be matched:
@@ -184,7 +184,7 @@ __JFLEX_OUTPUT__
     }
     else
     {
-	# empty file - no expected JFlex output
+        # empty file - no expected JFlex output
     }
     close JFLEX_OUTPUT;
 

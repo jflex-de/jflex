@@ -5,7 +5,7 @@
 # This script is designed to take as input PropList(-X.X.X).txt, and output
 # a JFlex test spec to produce output of the following form (one spec file and
 # one output file per defined property), when taking as input a file with each
-# code point in the BMP, except the surrogates and U+FFFE and U+FFFF:
+# Unicode code point (which excludes surrogates).
 #
 #   0020..0020
 #
@@ -19,7 +19,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $proplist_filename = '';
@@ -28,7 +28,7 @@ my %properties = ();
 GetOptions("version=s"=>\$version, "p=s"=>\$proplist_filename);
 
 unless ($version && $proplist_filename && -f $proplist_filename
-	&& -r $proplist_filename)
+        && -r $proplist_filename)
 {
     print STDERR "Usage: $0 -v <version> -p <unicode-PropList-data-file>\n";
     exit(1);
@@ -44,84 +44,84 @@ if ($version < 3.1)
     my $property;
     while (<IN>)
     {
-	if (/Property\s+dump\s+for:\s+0x[0-9A-Fa-f]+\s+\((.+)\)/)
-	{
-	    $property = $1;
-	}
-        elsif (/^([A-Fa-f0-9]{4})\.\.([A-Fa-f0-9]{4})/)
-	{
-	    my $start = hex($1);
-	    my $end = hex($2) > $max_code_point ? $max_code_point : hex($2);
+        if (/Property\s+dump\s+for:\s+0x[0-9A-Fa-f]+\s+\((.+)\)/)
+        {
+            $property = $1;
+        }
+        elsif (/^([A-Fa-f0-9]{4,6})\.\.([A-Fa-f0-9]{4,6})/)
+        {
+            my $start = hex($1);
+            my $end = hex($2) > $max_code_point ? $max_code_point : hex($2);
 
-	    next if ($start > $max_code_point);
+            next if ($start > $max_code_point);
 
 
-	    if (($start < 0xD800 && $end < 0xD800)
-		|| ($start > 0xDFFF && $end > 0xDFFF))
-	    {   # No surrogates involved
-		push @{$properties{$property}}, [ $start, $end ];
-	    }
-	    else
-	    {
-		if ($start < 0xD800)
-		{   # Add a range for below the surrogate blocks
-		    push @{$properties{$property}}, [ $start, 0xD7FF ];
-		}
-		if ($end > 0xDFFF)
-		{   # Add a range for above the surrogate blocks
-		    push @{$properties{$property}}, [ 0xE000, $end ];
-		}
-	    }
-	}
-	elsif (/^([A-Fa-f0-9]{4})[^A-Fa-f0-9]/)
-	{
-	    my $start_and_end = hex($1);
-	    if ($start_and_end < 0xD800 || $start_and_end > 0xDFFF)
-	    {   # Skip surrogate block definitions
-		push @{$properties{$property}}, [$start_and_end, $start_and_end];
-	    }
-	}
+            if (($start < 0xD800 && $end < 0xD800)
+                || ($start > 0xDFFF && $end > 0xDFFF))
+            {   # No surrogates involved
+                push @{$properties{$property}}, [ $start, $end ];
+            }
+            else
+            {
+                if ($start < 0xD800)
+                {   # Add a range for below the surrogate blocks
+                    push @{$properties{$property}}, [ $start, 0xD7FF ];
+                }
+                if ($end > 0xDFFF)
+                {   # Add a range for above the surrogate blocks
+                    push @{$properties{$property}}, [ 0xE000, $end ];
+                }
+            }
+        }
+        elsif (/^([A-Fa-f0-9]{4,6})[^A-Fa-f0-9]/)
+        {
+            my $start_and_end = hex($1);
+            if ($start_and_end < 0xD800 || $start_and_end > 0xDFFF)
+            {   # Skip surrogate block definitions
+                push @{$properties{$property}}, [$start_and_end, $start_and_end];
+            }
+        }
     }
 }
 else
 {
     while (<IN>)
     {
-	s/\s*\#.*//;
-	next unless (/\S/);
-        if (/^([A-Fa-f0-9]{4})\.\.([A-Fa-f0-9]{4,6})\s*;\s*(.*)/)
-	{   # 0009..000D    ; White_space # Cc   [5] <control>..<control>
-	    my $start = hex($1);
-	    next if ($start > $max_code_point);
+        s/\s*\#.*//;
+        next unless (/\S/);
+        if (/^([A-Fa-f0-9]{4,6})\.\.([A-Fa-f0-9]{4,6})\s*;\s*(.*)/)
+        {   # 0009..000D    ; White_space # Cc   [5] <control>..<control>
+            my $start = hex($1);
+            next if ($start > $max_code_point);
 
-	    my $end = hex($2) > $max_code_point ? $max_code_point : hex($2);
-	    my $property = $3;
-	    if (($start < 0xD800 && $end < 0xD800)
-		|| ($start > 0xDFFF && $end > 0xDFFF))
-	    {   # No surrogates involved
-		push @{$properties{$property}}, [ $start, $end ];
-	    }
-	    else
-	    {
-		if ($start < 0xD800)
-		{   # Add a range for below the surrogate blocks
-		    push @{$properties{$property}}, [ $start, 0xD7FF ];
-		}
-		if ($end > 0xDFFF)
-		{   # Add a range for above the surrogate blocks
-		    push @{$properties{$property}}, [ 0xE000, $end ];
-		}
-	    }
-	}
-	elsif (/^([A-Fa-f0-9]{4})\s*;\s*(.*)/)
-	{   # 0020          ; White_space # Zs       SPACE
-	    my $start_and_end = hex($1);
-	    my $property = $2;
-	    if ($start_and_end < 0xD800 || $start_and_end > 0xDFFF)
-	    {   # Skip surrogate block definitions
-		push @{$properties{$property}}, [$start_and_end, $start_and_end];
-	    }
-	}
+            my $end = hex($2) > $max_code_point ? $max_code_point : hex($2);
+            my $property = $3;
+            if (($start < 0xD800 && $end < 0xD800)
+                || ($start > 0xDFFF && $end > 0xDFFF))
+            {   # No surrogates involved
+                push @{$properties{$property}}, [ $start, $end ];
+            }
+            else
+            {
+                if ($start < 0xD800)
+                {   # Add a range for below the surrogate blocks
+                    push @{$properties{$property}}, [ $start, 0xD7FF ];
+                }
+                if ($end > 0xDFFF)
+                {   # Add a range for above the surrogate blocks
+                    push @{$properties{$property}}, [ 0xE000, $end ];
+                }
+            }
+        }
+        elsif (/^([A-Fa-f0-9]{4,6})\s*;\s*(.*)/)
+        {   # 0020          ; White_space # Zs       SPACE
+            my $start_and_end = hex($1);
+            my $property = $2;
+            if ($start_and_end < 0xD800 || $start_and_end > 0xDFFF)
+            {   # Skip surrogate block definitions
+                push @{$properties{$property}}, [$start_and_end, $start_and_end];
+            }
+        }
     }
 }
 close IN;
@@ -132,21 +132,21 @@ for my $property (keys %properties)
     my $merged_property_ranges = [];
     for my $range (@{$properties{$property}})
     {
-	if (0 == scalar(@$merged_property_ranges))
-	{
-	    push @$merged_property_ranges, $range;
-	}
-	else
-	{
-	    if ($range->[0] == $merged_property_ranges->[-1]->[1] + 1)
-	    {
-		$merged_property_ranges->[-1]->[1] = $range->[1];
-	    }
-	    else
-	    {
-		push @$merged_property_ranges, $range;
-	    }
-	}
+        if (0 == scalar(@$merged_property_ranges))
+        {
+            push @$merged_property_ranges, $range;
+        }
+        else
+        {
+            if ($range->[0] == $merged_property_ranges->[-1]->[1] + 1)
+            {
+                $merged_property_ranges->[-1]->[1] = $range->[1];
+            }
+            else
+            {
+                push @$merged_property_ranges, $range;
+            }
+        }
     }
     $properties{$property} = $merged_property_ranges;
 }
@@ -159,13 +159,13 @@ for my $property (sort keys %properties)
     my $underscore_property = $property;
     $underscore_property =~ s/[^0-9A-Za-z]+/_/g;
     my $base_name
-	= "UnicodePropList_${underscore_property}_${underscore_version}";
+        = "UnicodePropList_${underscore_property}_${underscore_version}";
 
     my $output_file = "${base_name}.output";
     open OUTPUT, ">$output_file" || die "ERROR opening '$output_file': $!";
     for my $range (@{$properties{$property}})
     {
-	printf OUTPUT "%04X..%04X\n", $range->[0], $range->[1];
+        printf OUTPUT "%04X..%04X\n", $range->[0], $range->[1];
     }
     close OUTPUT;
 
@@ -182,7 +182,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
     close TEST;
@@ -199,7 +199,7 @@ __TEST__
 %type int
 %standalone
 
-%include ../../resources/common-unicode-binary-property-java
+%include ../../resources/common-unicode-all-binary-property-java
 
 %%
 
@@ -212,7 +212,7 @@ __SPEC__
 
     my $jflex_output_file = "${base_name}-flex.output";
     open JFLEX_OUTPUT, ">$jflex_output_file"
-	|| die "ERROR opening '$jflex_output_file': $!";
+        || die "ERROR opening '$jflex_output_file': $!";
     # empty file - no expected JFlex output
     close JFLEX_OUTPUT;
 

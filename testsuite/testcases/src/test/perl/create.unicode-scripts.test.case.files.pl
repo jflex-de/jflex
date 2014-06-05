@@ -3,8 +3,8 @@
 # create.unicode-scripts.test.case.files.pl
 #
 # This script is designed to take as input Scripts(-X|-X.X.X).txt, and output
-# hex char ranges and corresponding property values, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
+# hex char ranges and corresponding property values, for all Unicode code points
+# (which excludes the surrogates), in the format expected as output by the
 # tests defined for the unicode-scripts test case in the JFlex test suite;
 # an example line follows:
 #
@@ -20,7 +20,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $scripts_filename = '';
@@ -67,7 +67,7 @@ while (<IN>)
     next unless (/\S/);
 
     # 00AA       ; LATIN # L&       FEMININE ORDINAL INDICATOR
-    if (/^([A-F0-9a-f]{4})\s*;\s*(.+)/)
+    if (/^([A-F0-9a-f]{4,6})\s*;\s*(.+)/)
     {
         my $start = hex($1);
         my $end = $start;
@@ -77,7 +77,7 @@ while (<IN>)
         push @ranges, [ $start, $end, $property_value ];
     }
     # 0AE6..0AEF ; Gujarati # Nd  [10] GUJARATI DIGIT ZERO..GUJARATI DIGIT NINE
-    elsif (/^([A-F0-9a-f]{4})..([A-F0-9a-f]{4,5})\s*;\s*(.+)/)
+    elsif (/^([A-F0-9a-f]{4,6})..([A-F0-9a-f]{4,6})\s*;\s*(.+)/)
     {
         my $start = hex($1);
         my $end = hex($2);
@@ -131,6 +131,21 @@ for my $range (sort { $a->[0] <=> $b->[0] } @ranges)
     }
 }
 
+if ($merged_ranges[-1]->[1] < $max_code_point)
+{   # If the last property range ends before the maximum code point,
+    # add default property value for the unspecified tail range.
+    if ($merged_ranges[-1]->[2] eq $default_property_value)
+    {
+        $merged_ranges[-1]->[1] = $max_code_point;
+    }
+    else
+    {
+        push @merged_ranges,
+             [ $merged_ranges[-1]->[1] + 1, $max_code_point, $default_property_value ];
+    }
+}
+
+
 my $output_file = "${base_name}.output";
 open OUTPUT, ">$output_file" || die "ERROR opening '$output_file': $!";
 for my $range (@merged_ranges)
@@ -153,7 +168,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -186,7 +201,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 
@@ -239,7 +254,7 @@ while (<IN>)
     next unless (/\S/);
 
     # 3037 ; Bopo Hang Hani Hira Kana # So  IDEOGRAPHIC TELEGRAPH LINE FEED SEPARATOR SYMBOL
-    if (/^([A-F0-9a-f]{4})\s*;\s*([^#]+)/)
+    if (/^([A-F0-9a-f]{4,6})\s*;\s*([^#]+)/)
     {
         my $start = hex($1);
         my $end = $start;
@@ -262,7 +277,7 @@ while (<IN>)
         }
     }
     # 1802..1803    ; Mong Phag # Po   [2] MONGOLIAN COMMA..MONGOLIAN FULL STOP
-    elsif (/^([A-F0-9a-f]{4})..([A-F0-9a-f]{4,5})\s*;\s*([^#]+)/)
+    elsif (/^([A-F0-9a-f]{4,6})..([A-F0-9a-f]{4,6})\s*;\s*([^#]+)/)
     {
         my $start = hex($1);
         my $end = hex($2);
@@ -357,7 +372,7 @@ print SPEC <<"__MISSING_HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -393,7 +408,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST_MISSING__
 
@@ -446,7 +461,7 @@ for (my $test_num = 1                          ;
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -478,7 +493,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST_DISJOINT_GROUP__
 

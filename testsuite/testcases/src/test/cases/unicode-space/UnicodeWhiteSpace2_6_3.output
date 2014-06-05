@@ -19,4 +19,4 @@
 2060..2FFF; Not-Whitespace
 3000..3000; Whitespace
 3001..D7FF; Not-Whitespace
-E000..FFFD; Not-Whitespace
+E000..10FFFF; Not-Whitespace

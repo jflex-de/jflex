@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -44,6 +44,7 @@
 \p{LineBreak:PO} { setCurCharPropertyValue("LineBreak:PO"); }
 \p{LineBreak:PR} { setCurCharPropertyValue("LineBreak:PR"); }
 \p{LineBreak:QU} { setCurCharPropertyValue("LineBreak:QU"); }
+\p{LineBreak:RI} { setCurCharPropertyValue("LineBreak:RI"); }
 \p{LineBreak:SA} { setCurCharPropertyValue("LineBreak:SA"); }
 \p{LineBreak:SP} { setCurCharPropertyValue("LineBreak:SP"); }
 \p{LineBreak:SY} { setCurCharPropertyValue("LineBreak:SY"); }

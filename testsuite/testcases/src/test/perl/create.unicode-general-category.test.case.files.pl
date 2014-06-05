@@ -3,10 +3,10 @@
 # create.unicode-general-category.test.case.files.pl
 #
 # This script is designed to take as input UnicodeData(-X.X.X).txt, and output
-# hex char ranges and corresponding general categories, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
-# tests defined for the unicode-general-category test case in the JFlex test
-# suite; an example line follows:
+# hex char ranges and corresponding general categories, for all Unicode code
+# points (which excludes the surrogates), in the format expected as output by
+# the tests defined for the unicode-general-category test case in the JFlex
+# test suite; an example line follows:
 #
 #   0000..001F; Cc
 #
@@ -18,7 +18,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $input_filename = '';
@@ -28,7 +28,7 @@ my @ranges = ();
 GetOptions("version=s"=>\$version, "d=s"=>\$input_filename);
 
 unless ($version && $input_filename
-	&& -f $input_filename && -r $input_filename)
+        && -f $input_filename && -r $input_filename)
 {
     print STDERR "Usage: $0 -v <version> -d <UnicodeData-file>\n";
     exit(1);
@@ -52,35 +52,35 @@ while (<IN>)
 
     if ($version eq '1.1' and /^4E00;<CJK IDEOGRAPH REPRESENTATIVE>;([^;]+)/)
     {   # UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-	# range (starting point is listed as U+4E00).  This is U+9FFF according
-	# to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-	#
-	#    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-	#
-	my $general_category = $1;
-	push @ranges, [ 0x4E00, 0x9FFF, $general_category ];
+        # range (starting point is listed as U+4E00).  This is U+9FFF according
+        # to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        #
+        #    U+4E00 ^ U+9FFF                20,992        I-ZONE Ideographs
+        #
+        my $general_category = $1;
+        push @ranges, [ 0x4E00, 0x9FFF, $general_category ];
     }
     # AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});<[^,]+, First>;([^;]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});<[^,]+, First>;([^;]+)/)
     {
-	my $start = hex($1);
-	my $general_category = $2;
-	++$general_categories{$general_category} unless ($general_category eq 'Cs');
-	$_ = <IN>;
-	# D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
-	if (/^([A-F0-9a-f]{4});<[^,]+, Last>;/)
-	{
-	    my $end = hex($1);
-	    push @ranges, [ $start, $end, $general_category ];
-	}
+        my $start = hex($1);
+        my $general_category = $2;
+        ++$general_categories{$general_category} unless ($general_category eq 'Cs');
+        $_ = <IN>;
+        # D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
+        if (/^([A-F0-9a-f]{4,6});<[^,]+, Last>;/)
+        {
+            my $end = hex($1);
+            push @ranges, [ $start, $end, $general_category ];
+        }
     }
     # 0000;<control>;Cc;0;ON;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});[^;]*;([^;]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});[^;]*;([^;]+)/)
     {
-	my $char_num = hex($1);
-	my $general_category = $2;
-	++$general_categories{$general_category} unless ($general_category eq 'Cs');
-	push @ranges, [ $char_num, $char_num, $general_category ];
+        my $char_num = hex($1);
+        my $general_category = $2;
+        ++$general_categories{$general_category} unless ($general_category eq 'Cs');
+        push @ranges, [ $char_num, $char_num, $general_category ];
     }
 }
 close IN;
@@ -93,51 +93,51 @@ for my $range (@ranges)
     $end_point = $range->[1];
     if (0 == scalar(@merged_ranges))
     {
-	if ($range->[0] > 0)
-	{   # If the first property range starts after code point 0,
-	    # add default property value for the unspecified head range.
-	    push @merged_ranges,
-		[ 0, $range->[0] - 1, $default_property_value ];
-	}
-	push @merged_ranges, $range;
+        if ($range->[0] > 0)
+        {   # If the first property range starts after code point 0,
+            # add default property value for the unspecified head range.
+            push @merged_ranges,
+                [ 0, $range->[0] - 1, $default_property_value ];
+        }
+        push @merged_ranges, $range;
     }
     else
     {
-	if ($range->[0] == $merged_ranges[-1]->[1] + 1
-	   and $range->[2] eq $merged_ranges[-1]->[2])
-	{
-	    $merged_ranges[-1]->[1] = $range->[1];
-	}
-	else
-	{
-	    if ($range->[0] > $merged_ranges[-1]->[1] + 1)
-	    {   # Add default property value for unspecified range
-		if ($merged_ranges[-1]->[1] < 0xD800
-		    and $range->[0] > 0xDFFF)
-		{   # Handle unspecified surrogate range
-		    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-					   0xD7FF,
-					   $default_property_value ];
-		    push @merged_ranges, [ 0xE000,
-					   $range->[0] - 1,
-					   $default_property_value ];
-		}
-		else
-		{
-		    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-					   $range->[0] - 1,
-					   $default_property_value ];
-		}
-	    }
-	    push @merged_ranges, $range;
-	}
+        if ($range->[0] == $merged_ranges[-1]->[1] + 1
+           and $range->[2] eq $merged_ranges[-1]->[2])
+        {
+            $merged_ranges[-1]->[1] = $range->[1];
+        }
+        else
+        {
+            if ($range->[0] > $merged_ranges[-1]->[1] + 1)
+            {   # Add default property value for unspecified range
+                if ($merged_ranges[-1]->[1] < 0xD800
+                    and $range->[0] > 0xDFFF)
+                {   # Handle unspecified surrogate range
+                    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                           0xD7FF,
+                                           $default_property_value ];
+                    push @merged_ranges, [ 0xE000,
+                                           $range->[0] - 1,
+                                           $default_property_value ];
+                }
+                else
+                {
+                    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                           $range->[0] - 1,
+                                           $default_property_value ];
+                }
+            }
+            push @merged_ranges, $range;
+        }
     }
 }
 if ($end_point < $max_code_point)
 {   # If the last property range ends before the maximum code point,
     # add default property value for the unspecified tail range.
     push @merged_ranges,
-	[ $end_point + 1, $max_code_point, $default_property_value ];
+        [ $end_point + 1, $max_code_point, $default_property_value ];
 }
 
 open OUTPUT, ">${base_name}.output"
@@ -148,7 +148,7 @@ for my $range (@merged_ranges)
     my ($start, $end, $property_value) = @$range;
     $end = $max_code_point if ($end > $max_code_point);
     printf OUTPUT "%04X..%04X; $property_value\n", $start, $end
-	unless ($property_value eq 'Cs'); # Skip surrogate ranges
+        unless ($property_value eq 'Cs'); # Skip surrogate ranges
 }
 close OUTPUT;
 
@@ -165,7 +165,7 @@ print SPEC << "__SPEC_HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -195,7 +195,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 
@@ -217,35 +217,35 @@ while (<IN>)
 
     if ($version eq '1.1' and /^4E00;<CJK IDEOGRAPH REPRESENTATIVE>;([^;])/)
     {   # UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-	# range (starting point is listed as U+4E00).  This is U+9FFF according
-	# to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-	#
-	#    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-	#
-	my $general_category = $1;
-	push @ranges, [ 0x4E00, 0x9FFF, $general_category ];
+        # range (starting point is listed as U+4E00).  This is U+9FFF according
+        # to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        #
+        #    U+4E00 ^ U+9FFF                20,992        I-ZONE Ideographs
+        #
+        my $general_category = $1;
+        push @ranges, [ 0x4E00, 0x9FFF, $general_category ];
     }
     # AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});<[^,]+, First>;([^;])/)
+    elsif (/^([A-F0-9a-f]{4,6});<[^,]+, First>;([^;])/)
     {
-	my $start = hex($1);
-	my $general_category = $2;
-	++$single_letter_general_categories{$general_category};
-	$_ = <IN>;
-	# D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
-	if (/^([A-F0-9a-f]{4});<[^,]+, Last>;/)
-	{
-	    my $end = hex($1);
-	    push @ranges, [ $start, $end, $general_category ];
-	}
+        my $start = hex($1);
+        my $general_category = $2;
+        ++$single_letter_general_categories{$general_category};
+        $_ = <IN>;
+        # D7A3;<Hangul Syllable, Last>;Lo;0;L;;;;;N;;;;;
+        if (/^([A-F0-9a-f]{4,6});<[^,]+, Last>;/)
+        {
+            my $end = hex($1);
+            push @ranges, [ $start, $end, $general_category ];
+        }
     }
     # 0000;<control>;Cc;0;ON;;;;;N;;;;;
-    elsif (/^([A-F0-9a-f]{4});[^;]*;([^;])/)
+    elsif (/^([A-F0-9a-f]{4,6});[^;]*;([^;])/)
     {
-	my $char_num = hex($1);
-	my $general_category = $2;
-	++$single_letter_general_categories{$general_category};
-	push @ranges, [ $char_num, $char_num, $general_category ];
+        my $char_num = hex($1);
+        my $general_category = $2;
+        ++$single_letter_general_categories{$general_category};
+        push @ranges, [ $char_num, $char_num, $general_category ];
     }
 }
 close IN;
@@ -257,67 +257,75 @@ $end_point = 0;
 for my $range (@ranges)
 {
     $end_point = $range->[1];
-    if (0 == scalar(@merged_ranges))
+    if (0 == scalar(@merged_ranges)) # This is the first range
     {
-	if ($range->[0] > 0)
-	{   # If the first property range starts after code point 0,
-	    # add default property value for the unspecified head range.
-	    push @merged_ranges,
-		[ 0, $range->[0] - 1, $default_property_value ];
-	}
-	push @merged_ranges, $range;
+        # FIXME: extend first range to 0 if the first range property value is the default
+        if ($range->[0] > 0)
+        {   # If the first property range starts after code point 0,
+            # add default property value for the unspecified head range.
+            push @merged_ranges,
+                [ 0, $range->[0] - 1, $default_property_value ];
+        }
+        push @merged_ranges, $range;
     }
     else
     {
-	if ($range->[0] == $merged_ranges[-1]->[1] + 1
-	   and $range->[2] eq $merged_ranges[-1]->[2])
-	{
-	    $merged_ranges[-1]->[1] = $range->[1];
-	}
-	else
-	{
-	    if ($range->[0] > $merged_ranges[-1]->[1] + 1)
-	    {   # Add default property value for unspecified range
-		if ($range->[2] eq $default_property_value)
-		{
-		    if ($merged_ranges[-1]->[2] eq $default_property_value)
-		    {
-			$merged_ranges[-1]->[1] = $range->[0] - 1;
-		    }
-		    else
-		    {
-			push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-					       $range->[1],
-					       $range->[2] ];
-		    }
-		}
-		else
-		{
-		    if ($merged_ranges[-1]->[2] eq $default_property_value)
-		    {
-			$merged_ranges[-1]->[1] = $range->[0] - 1;
-		    }
-		    else
-		    {
-			push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-					       $range->[0] - 1,
-					       $default_property_value ];
-		    }
-		    push @merged_ranges, $range;
-		}
-	    }
-	    else
-	    {
-		push @merged_ranges, $range;
-	    }
-	}
+        if ($range->[0] == $merged_ranges[-1]->[1] + 1
+           and $range->[2] eq $merged_ranges[-1]->[2])
+        {
+            $merged_ranges[-1]->[1] = $range->[1];
+        }
+        else
+        {
+            if ($range->[0] > $merged_ranges[-1]->[1] + 1)
+            {   # Add default property value for unspecified range
+                if ($range->[2] eq $default_property_value)
+                {
+                    if ($merged_ranges[-1]->[2] eq $default_property_value)
+                    {
+                        $merged_ranges[-1]->[1] = $range->[1];
+                    }
+                    else
+                    {
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               $range->[1],
+                                               $range->[2] ];
+                    }
+                }
+                else
+                {
+                    if ($merged_ranges[-1]->[2] eq $default_property_value)
+                    {
+                        $merged_ranges[-1]->[1] = $range->[0] - 1;
+                    }
+                    else
+                    {
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               $range->[0] - 1,
+                                               $default_property_value ];
+                    }
+                    push @merged_ranges, $range;
+                }
+            }
+            else
+            {
+                push @merged_ranges, $range;
+            }
+        }
     }
-}
+}                                                                                        
 if ($end_point < $max_code_point)
 {   # If the last property range ends before the maximum code point,
     # add default property value for the unspecified tail range.
-    push @merged_ranges,
-	[ $end_point + 1, $max_code_point, $default_property_value ];
+    if ($merged_ranges[-1]->[2] eq $default_property_value)
+    {
+        $merged_ranges[-1]->[1] = $max_code_point;
+    }
+    else
+    {
+        push @merged_ranges,
+             [ $end_point + 1, $max_code_point, $default_property_value ];
+    }
 }
 
 
@@ -330,14 +338,14 @@ for my $range (@merged_ranges)
     $end = $max_code_point if ($end > $max_code_point);
     if ($start <= 0xD800 and $end >= 0xDFFF)
     {   # Don't output surrogates
-	printf OUTPUT "%04X..%04X; $property_value\n", $start, 0xD7FF
-	    if ($start < 0xD800);
-	printf OUTPUT "%04X..%04X; $property_value\n", 0xE000, $end
-	    if ($end > 0xDFFF);
+        printf OUTPUT "%04X..%04X; $property_value\n", $start, 0xD7FF
+            if ($start < 0xD800);
+        printf OUTPUT "%04X..%04X; $property_value\n", 0xE000, $end
+            if ($end > 0xDFFF);
     }
     else
     {
-	printf OUTPUT "%04X..%04X; $property_value\n", $start, $end;
+        printf OUTPUT "%04X..%04X; $property_value\n", $start, $end;
     }
 }
 close OUTPUT;
@@ -355,7 +363,7 @@ print SPEC << "__SPEC_HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -386,7 +394,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 

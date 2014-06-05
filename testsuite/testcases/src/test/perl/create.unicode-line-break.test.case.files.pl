@@ -3,8 +3,8 @@
 # create.unicode-line-break.test.output.pl
 #
 # This script is designed to take as input LineBreak(-X|-X.X.X).txt, and output
-# hex char ranges and corresponding property values, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
+# hex char ranges and corresponding property values, for all Unicode code points
+# (which excludes the surrogates), in the format expected as output by the
 # tests defined for the unicode-line-break test case in the JFlex test suite;
 # an example line follows:
 #
@@ -17,7 +17,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $line_break_filename = '';
@@ -29,7 +29,7 @@ my @ranges = ();
 GetOptions("version=s"=>\$version, "l=s"=>\$line_break_filename);
 
 unless ($version && $line_break_filename && -f $line_break_filename
-	&& -r $line_break_filename)
+        && -r $line_break_filename)
 {
     print STDERR "Usage: $0 -v <version> -l <LineBreak-file>\n";
     exit(1);
@@ -54,36 +54,36 @@ while (<IN>)
     next unless (/\S/);
 
     # 4E00;ID;<CJK Ideograph, First>
-    if (/^([A-F0-9a-f]{4});([^;#\s]+);<[^,]+, First>/)
+    if (/^([A-F0-9a-f]{4,6});([^;#\s]+);<[^,]+, First>/)
     {
-	my $start_char_num = hex($1);
-	my $property_value = $2;
-	++$property_values{$property_value};
-	$_ = <IN>;
-	# 4DB5;ID;<CJK Ideograph Extension A, Last>
-	if (/^([A-F0-9a-f]{4});[^;#\s]+;<[^,]+, Last>/)
-	{
-	    my $end_char_num = hex($1);
-	    push @ranges, [ $start_char_num, $end_char_num, $property_value ];
-	}
+        my $start_char_num = hex($1);
+        my $property_value = $2;
+        ++$property_values{$property_value};
+        $_ = <IN>;
+        # 4DB5;ID;<CJK Ideograph Extension A, Last>
+        if (/^([A-F0-9a-f]{4,6});[^;#\s]+;<[^,]+, Last>/)
+        {
+            my $end_char_num = hex($1);
+            push @ranges, [ $start_char_num, $end_char_num, $property_value ];
+        }
     }
     # 0000;CM;<control>
-    elsif (/^([A-F0-9a-f]{4});([^;#\s]+)/)
+    elsif (/^([A-F0-9a-f]{4,6});([^;#\s]+)/)
     {
-	my $char_num = hex($1);
-	my $property_value = $2;
-	++$property_values{$property_value};
-	push @ranges, [ $char_num, $char_num, $property_value ];
+        my $char_num = hex($1);
+        my $property_value = $2;
+        ++$property_values{$property_value};
+        push @ranges, [ $char_num, $char_num, $property_value ];
     }
     # AC01..AC1B;H3 # HANGUL SYLLABLE GAG..HANGUL SYLLABLE GAH
-    elsif (/^([A-F0-9a-f]{4})..([A-F0-9a-f]{4,5});([^;#\s]+)/)
+    elsif (/^([A-F0-9a-f]{4,6})..([A-F0-9a-f]{4,6});([^;#\s]+)/)
     {
-	my $start_char_num = hex($1);
-	my $end_char_num = hex($2);
-	$end_char_num = $max_code_point if ($end_char_num > $max_code_point);
-	my $property_value = $3;
-	++$property_values{$property_value};
-	push @ranges, [ $start_char_num, $end_char_num, $property_value ];
+        my $start_char_num = hex($1);
+        my $end_char_num = hex($2);
+        $end_char_num = $max_code_point if ($end_char_num > $max_code_point);
+        my $property_value = $3;
+        ++$property_values{$property_value};
+        push @ranges, [ $start_char_num, $end_char_num, $property_value ];
     }
 }
 close IN;
@@ -94,27 +94,68 @@ for my $range (@ranges)
 {
     if (0 == scalar(@merged_ranges))
     {
-	push @merged_ranges, $range;
+        push @merged_ranges, $range;
     }
     else
     {
-	if ($range->[0] == $merged_ranges[-1]->[1] + 1
-	   and $range->[2] eq $merged_ranges[-1]->[2])
-	{
-	    $merged_ranges[-1]->[1] = $range->[1];
-	}
-	else
-	{
-	    if ($range->[0] > $merged_ranges[-1]->[1] + 1)
-	    {
-		push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-				       $range->[0] - 1,
-				       $default_property_value ];
-	    }
-	    push @merged_ranges, $range;
-	}
+        if ($range->[0] == $merged_ranges[-1]->[1] + 1
+           and $range->[2] eq $merged_ranges[-1]->[2])
+        {
+            $merged_ranges[-1]->[1] = $range->[1];
+        }
+        else
+        {
+            if ($range->[0] > $merged_ranges[-1]->[1] + 1)
+            {   # Add default property value for unspecified range
+                if ($range->[2] eq $default_property_value)
+                {
+                    if ($merged_ranges[-1]->[2] eq $default_property_value)
+                    {
+                        $merged_ranges[-1]->[1] = $range->[1];
+                    }
+                    else
+                    {
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               $range->[1],
+                                               $range->[2] ];
+                    }
+                }
+                else
+                {
+                    if ($merged_ranges[-1]->[2] eq $default_property_value)
+                    {
+                        $merged_ranges[-1]->[1] = $range->[0] - 1;
+                    }
+                    else
+                    {
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               $range->[0] - 1,
+                                               $default_property_value ];
+                    }
+                    push @merged_ranges, $range;
+                }
+            }
+            else
+            {
+                push @merged_ranges, $range;
+            }
+        }
     }
 }
+if ($merged_ranges[-1]->[1] < $max_code_point)
+{   # If the last property range ends before the maximum code point,
+    # add default property value for the unspecified tail range.
+    if ($merged_ranges[-1]->[2] eq $default_property_value)
+    {
+        $merged_ranges[-1]->[1] = $max_code_point;
+    }
+    else
+    {
+        push @merged_ranges,
+             [ $merged_ranges[-1]->[1] + 1, $max_code_point, $default_property_value ];
+    }
+}
+
 
 my $output_file = "${base_name}.output";
 open OUTPUT, ">$output_file" || die "ERROR opening '$output_file': $!";
@@ -123,7 +164,7 @@ for my $range (@merged_ranges)
     my ($start_char_num, $end_char_num, $property_value) = @$range;
     next if (defined($property_values_to_skip{$property_value}));
     printf OUTPUT "%04X..%04X; $propname:$property_value\n",
-	$start_char_num, $end_char_num;
+        $start_char_num, $end_char_num;
 
 }
 close OUTPUT;
@@ -140,7 +181,7 @@ print SPEC <<"__HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -151,7 +192,7 @@ for my $property_value (sort keys %property_values)
 {
     next if (defined($property_values_to_skip{$property_value}));
     print SPEC qq/\\p{$propname:$property_value} { /
-	     . qq/setCurCharPropertyValue("$propname:$property_value"); }\n/;
+             . qq/setCurCharPropertyValue("$propname:$property_value"); }\n/;
 }
 
 close SPEC;
@@ -173,7 +214,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 

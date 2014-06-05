@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -18,6 +18,7 @@
 \p{Script_Extensions:Bopomofo} { setCurCharPropertyValue("Script_Extensions:Bopomofo"); }
 \p{Script_Extensions:Buginese} { setCurCharPropertyValue("Script_Extensions:Buginese"); }
 \p{Script_Extensions:Buhid} { setCurCharPropertyValue("Script_Extensions:Buhid"); }
+\p{Script_Extensions:Cypriot} { setCurCharPropertyValue("Script_Extensions:Cypriot"); }
 \p{Script_Extensions:Cyrillic} { setCurCharPropertyValue("Script_Extensions:Cyrillic"); }
 \p{Script_Extensions:Greek} { setCurCharPropertyValue("Script_Extensions:Greek"); }
 \p{Script_Extensions:Gujarati} { setCurCharPropertyValue("Script_Extensions:Gujarati"); }
