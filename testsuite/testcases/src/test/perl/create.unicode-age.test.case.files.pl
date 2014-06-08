@@ -3,10 +3,10 @@
 # create.unicode-age.test.case.files.pl
 #
 # This script is designed to take as input DerivedAge.txt, and output
-# hex char ranges and corresponding properties, for the BMP, excluding
-# surrogates and U+FFFE and U+FFFF, in the format expected as output by the
-# tests defined for the unicode-age test case in the JFlex test suite;
-# an example line follows:
+# hex char ranges and corresponding properties, for all Unicode code
+# points (which excludes the surrogates), in the format expected as 
+# output by the tests defined for the unicode-age test case in the
+# JFlex test suite; an example line follows:
 #
 #   0000..0008; 1.1
 #   0009..1000; unassigned
@@ -18,7 +18,7 @@ use strict;
 use warnings;
 use Getopt::Long;
 
-my $max_code_point = 0xFFFD;
+my $max_code_point = 0x10FFFF;
 
 my $version = '';
 my $input_filename = '';
@@ -55,7 +55,7 @@ while (<IN>)
     next unless (/\S/);
 
     # 05C4          ; 2.0 #       HEBREW MARK UPPER DOT
-    if (/^([A-F0-9a-f]{4})\s*;\s*([^;#\s]+)/)
+    if (/^([A-F0-9a-f]{4,6})\s*;\s*([^;#\s]+)/)
     {
         my $char_num = hex($1);
         my $property_value = $2;
@@ -66,7 +66,7 @@ while (<IN>)
         }
     }
     # 0000..001F    ; 1.1 #  [32] <control-0000>..<control-001F>
-    elsif (/^([A-F0-9a-f]{4})..([A-F0-9a-f]{4,5})\s*;\s*([^;#\s]+)/)
+    elsif (/^([A-F0-9a-f]{4,6})..([A-F0-9a-f]{4,6})\s*;\s*([^;#\s]+)/)
     {
         my $start_char_num = hex($1);
         my $end_char_num = hex($2);
@@ -191,7 +191,7 @@ for my $age (sort versioncmp keys %property_values)
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -221,7 +221,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __TEST__
 
@@ -274,7 +274,7 @@ print UNASSIGNED_SPEC <<"__UNASSIGNED_HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -305,7 +305,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __UNASSIGNED_TEST__
 
@@ -347,7 +347,7 @@ print SUBTRACTION_SPEC <<"__SUBTRACTION_HEADER__";
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 
@@ -387,7 +387,7 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 
 __SUBTRACTION_TEST__
 

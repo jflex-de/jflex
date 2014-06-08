@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
   private static final String NO_LINE_BREAK_OPPORTUNITY = "×";
   private static final String LINE_SEP = System.getProperty("line.separator");
   private static final Pattern COMMENT = Pattern.compile("\\s*#.*");
-  private static final Pattern HEX_CHAR = Pattern.compile("[0-9A-Fa-f]{4}");
+  private static final Pattern HEX_CHAR = Pattern.compile("[0-9A-Fa-f]{4,6}");
 
   private StringBuilder builder = new StringBuilder();
 
@@ -58,7 +58,7 @@ import java.util.regex.Pattern;
             Matcher hexCharMatcher = HEX_CHAR.matcher(testLine);
             while(hexCharMatcher.find()) {
               testStringBuilder.append
-                ((char)Integer.parseInt(hexCharMatcher.group(0), 16));
+                (Character.toChars(Integer.parseInt(hexCharMatcher.group(0), 16)));
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
@@ -71,10 +71,11 @@ import java.util.regex.Pattern;
             while ( ! scanner.zzAtEOF ) {
               String segment = scanner.yylex();
               if (null != segment) {
-                for (int chnum = 0 ; chnum < segment.length() ; ++chnum) {
-                  char ch = segment.charAt(chnum);
-                  line.add(String.format("%04X", (int)ch));
-                  if (chnum < segment.length() - 1) {
+                for (int chnum = 0 ; chnum < segment.length() ; ) {
+                  int ch = segment.codePointAt(chnum);
+                  line.add(String.format("%04X", ch));
+                  chnum += Character.charCount(ch);
+                  if (chnum != segment.length()) {
                     line.add(NO_LINE_BREAK_OPPORTUNITY);
                   } else {
                     line.add(LINE_BREAK_OPPORTUNITY);
@@ -160,7 +161,7 @@ import java.util.regex.Pattern;
 // (Surrogates are not resolved to AL here - \p{LB:SG} is not defined in JFlex.)
 //
 AL = [\p{LB:AL}\p{LB:AI}\p{LB:XX}] | [^\P{LB:SA}\p{gc:Mn}\p{gc:Mc}]
-CM = \p{LB:CM} | !(!\p{LB:SA}|[^\p{gc:Mn}\p{gc:Mc}])
+CM = [\p{LB:CM}[\p{LB:SA}--[^\p{gc:Mn}\p{gc:Mc}]]]
 NS = [\p{LB:NS}\p{LB:CJ}]
 
 %%

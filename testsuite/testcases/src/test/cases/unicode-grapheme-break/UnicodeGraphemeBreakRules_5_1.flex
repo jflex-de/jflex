@@ -58,7 +58,7 @@ import java.util.regex.Pattern;
             Matcher hexCharMatcher = HEX_CHAR.matcher(testLine);
             while(hexCharMatcher.find()) {
               testStringBuilder.append
-                ((char)Integer.parseInt(hexCharMatcher.group(0), 16));
+                (Character.toChars(Integer.parseInt(hexCharMatcher.group(0), 16)));
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
@@ -71,10 +71,11 @@ import java.util.regex.Pattern;
             while ( ! scanner.zzAtEOF ) {
               String segment = scanner.yylex();
               if (null != segment) {
-                for (int chnum = 0 ; chnum < segment.length() ; ++chnum) {
-                  char ch = segment.charAt(chnum);
-                  line.add(String.format("%04X", (int)ch));
-                  if (chnum < segment.length() - 1) {
+                for (int chnum = 0 ; chnum < segment.length() ; ) {
+                  int ch = segment.codePointAt(chnum);
+                  line.add(String.format("%04X", ch));
+                  chnum += Character.charCount(ch);
+                  if (chnum != segment.length()) {
                     line.add(NO_BREAK_OPPORTUNITY);
                   } else {
                     line.add(BREAK_OPPORTUNITY);
