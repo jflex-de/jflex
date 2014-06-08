@@ -1241,13 +1241,20 @@ final public class Emitter {
       
       if (action.lookAhead() == Action.FIXED_BASE) {
         println("          // lookahead expression with fixed base length");
-        println("          zzMarkedPos = zzStartRead + "+action.getLookLength()+";");        
+        println("          zzMarkedPos = zzStartRead;");
+        println("          for (int zzCodePoints = " + action.getLookLength() + " ; zzCodePoints > 0 ; --zzCodePoints) { ");
+        println("            zzMarkedPos += Character.charCount");
+        println("                (Character.codePointAt(zzBufferL, zzMarkedPos, zzEndRead));");
+        println("          }");
       }
       
       if (action.lookAhead() == Action.FIXED_LOOK || 
           action.lookAhead() == Action.FINITE_CHOICE) {
         println("          // lookahead expression with fixed lookahead length");
-        println("          yypushback("+action.getLookLength()+");");        
+        println("          for (int zzCodePoints = " + action.getLookLength() + " ; zzCodePoints > 0 ; --zzCodePoints) { ");
+        println("            zzMarkedPos -= Character.charCount");
+        println("                (Character.codePointBefore(zzBufferL, zzMarkedPos, zzStartRead));");
+        println("          }");
       }
       
       if (action.lookAhead() == Action.GENERAL_LOOK) {
@@ -1284,7 +1291,7 @@ final public class Emitter {
           print("\"line: \"+(yyline+1)+\" \"+");
         if ( scanner.columnCount )
           print("\"col: \"+(yycolumn+1)+\" \"+");
-        println("\"match: --\"+yytext()+\"--\");");        
+        println("\"match: --\"+zzToPrintable(yytext())+\"--\");");        
         print("          System.out.println(\"action ["+action.priority+"] { ");
         print(escapify(action.content));
         println(" }\");");
@@ -1652,6 +1659,26 @@ final public class Emitter {
     emitConstructorDecl();
         
     emitCharMapInitFunction(packedCharMapPairs);
+
+    if (scanner.debugOption) {
+      println("");
+      println("  private static String zzToPrintable(String str) {");
+      println("    StringBuilder builder = new StringBuilder();");
+      println("    for (int n = 0 ; n < str.length() ; ) {");
+      println("      int ch = str.codePointAt(n);");
+      println("      int charCount = Character.charCount(ch);");
+      println("      n += charCount;");
+      println("      if (ch > 31 && ch < 127) {");
+      println("        builder.append((char)ch);");
+      println("      } else if (charCount == 1) {");
+      println("        builder.append(String.format(\"\\\\u%04X\", ch));");
+      println("      } else {");
+      println("        builder.append(String.format(\"\\\\U%06X\", ch));");
+      println("      }");
+      println("    }");
+      println("    return builder.toString();");
+      println("  }");
+    }
 
     skel.emitNext();
     
