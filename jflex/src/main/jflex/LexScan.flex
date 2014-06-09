@@ -628,7 +628,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   \\f { string.append('\f'); }
   \\r { string.append('\r'); }
 
-  \\. { string.append('.'); }
+  \\. { string.append(yytext().substring(1, yytext().offsetByCodePoints(1, 1))); }
 
   <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_STRING); }
 }
@@ -646,7 +646,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   \\f { return symbol(CHAR, (int)'\f'); }
   \\r { return symbol(CHAR, (int)'\r'); }
 
-  \\. { return symbol(CHAR, (int)'.'); }
+  \\. { return symbol(CHAR, yytext().codePointAt(1)); }
 }
 
 
@@ -685,7 +685,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 
 .  { throw new ScannerException(file,ErrorMessages.UNEXPECTED_CHAR, yyline, yycolumn); }
-\n { throw new ScannerException(file,ErrorMessages.UNEXPECTED_NL, yyline, yycolumn); }
+\R { throw new ScannerException(file,ErrorMessages.UNEXPECTED_NL, yyline, yycolumn); }
 
 <<EOF>>  { if ( yymoreStreams() ) {
              file = (File) files.pop();
