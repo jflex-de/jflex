@@ -1241,20 +1241,15 @@ final public class Emitter {
       
       if (action.lookAhead() == Action.FIXED_BASE) {
         println("          // lookahead expression with fixed base length");
-        println("          zzMarkedPos = zzStartRead;");
-        println("          for (int zzCodePoints = " + action.getLookLength() + " ; zzCodePoints > 0 ; --zzCodePoints) { ");
-        println("            zzMarkedPos += Character.charCount");
-        println("                (Character.codePointAt(zzBufferL, zzMarkedPos, zzEndRead));");
-        println("          }");
+        println("          zzMarkedPos = Character.offsetByCodePoints");
+        println("              (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzStartRead, " + action.getLookLength() + ");");
       }
       
       if (action.lookAhead() == Action.FIXED_LOOK || 
           action.lookAhead() == Action.FINITE_CHOICE) {
         println("          // lookahead expression with fixed lookahead length");
-        println("          for (int zzCodePoints = " + action.getLookLength() + " ; zzCodePoints > 0 ; --zzCodePoints) { ");
-        println("            zzMarkedPos -= Character.charCount");
-        println("                (Character.codePointBefore(zzBufferL, zzMarkedPos, zzStartRead));");
-        println("          }");
+        println("          zzMarkedPos = Character.offsetByCodePoints");
+        println("              (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzMarkedPos, -" + action.getLookLength() + ");");
       }
       
       if (action.lookAhead() == Action.GENERAL_LOOK) {
