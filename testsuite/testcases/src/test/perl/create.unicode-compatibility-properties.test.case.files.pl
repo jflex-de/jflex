@@ -46,8 +46,8 @@ unless ($version && $UnicodeData_filename && -f $UnicodeData_filename
     print STDERR
         "Usage: $0 -v <version> -u <UnicodeData-file> -p <PropList-file>\n",
         "\t\t-d <DerivedCoreProperties-file>\n\n",
-        "\t\tPropList-file and DerivedCoreProperties-file are not required",
-        " for Unicode 1.1\n";
+        "\t\tDerivedCoreProperties-file is not required for Unicode 3.0 and under\n",
+        "\t\tPropList-file is not required for Unicode 1.1\n";
     exit(1);
 }
 

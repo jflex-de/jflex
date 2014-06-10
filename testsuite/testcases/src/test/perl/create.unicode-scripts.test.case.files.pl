@@ -26,8 +26,6 @@ my $version = '';
 my $scripts_filename = '';
 my $extensions_filename = '';
 my $property_value_aliases_filename = '';
-my $default_property_value = 'Unknown';
-my %property_values = ( $default_property_value => 1 );
 my $property_values_to_skip_regex = qr/surrogate/i;
 my @ranges = ();
 
@@ -47,6 +45,8 @@ unless (  $version && $scripts_filename
     exit(1);
 }
 
+my $default_property_value = ($version > 4.1 ? 'Unknown' : 'Common');
+my %property_values = ( $default_property_value => 1 );
 my $underscore_version = $version;
 $underscore_version =~ s/\./_/g;
 my $base_name = "UnicodeScripts_${underscore_version}";
@@ -112,20 +112,20 @@ for my $range (sort { $a->[0] <=> $b->[0] } @ranges)
                 if ($merged_ranges[-1]->[1] + 1 < 0xD800
                     && $range->[0] >= 0xD800)
                 {
-                    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-                                           0xD7FF,
-                                           $default_property_value ];
-                    push @merged_ranges, [ 0xE000,
-                                           $range->[0] - 1,
-                                           $default_property_value ];
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               0xD7FF,
+                                               $default_property_value ];
+                              push @merged_ranges, [ 0xE000,
+                                                    $range->[0] - 1,
+                                                    $default_property_value ];
+                         }
+                    else
+                    {
+                        push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
+                                               $range->[0] - 1,
+                                               $default_property_value ];
+                    }
                 }
-                else
-                {
-                    push @merged_ranges, [ $merged_ranges[-1]->[1] + 1,
-                                           $range->[0] - 1,
-                                           $default_property_value ];
-                }
-            }
             push @merged_ranges, $range;
         }
     }

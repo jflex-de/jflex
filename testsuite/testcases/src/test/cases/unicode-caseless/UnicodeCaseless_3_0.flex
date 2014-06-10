@@ -11,7 +11,7 @@
 %{
   void print(int codePoint) {
     System.out.format("input char %04X matches %04X case-insensitively%n",
-                      (int)yycharat(0), codePoint);
+                      yytext().codePointAt(0), codePoint);
   }
 %}
 

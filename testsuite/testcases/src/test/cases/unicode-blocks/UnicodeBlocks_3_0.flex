@@ -7,10 +7,11 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
-%% 
+%%
 
+<<EOF>> { printOutput(); return 1; }
 \p{Block:Alphabetic Presentation Forms} { setCurCharPropertyValue("Alphabetic Presentation Forms"); }
 \p{Block:Arabic} { setCurCharPropertyValue("Arabic"); }
 \p{Block:Arabic Presentation Forms-A} { setCurCharPropertyValue("Arabic Presentation Forms-A"); }
@@ -74,8 +75,8 @@
 \p{Block:Miscellaneous Symbols} { setCurCharPropertyValue("Miscellaneous Symbols"); }
 \p{Block:Miscellaneous Technical} { setCurCharPropertyValue("Miscellaneous Technical"); }
 \p{Block:Mongolian} { setCurCharPropertyValue("Mongolian"); }
-\p{Block:Myanmar } { setCurCharPropertyValue("Myanmar "); }
-\p{Block:No Block} { setCurCharPropertyValue("No Block"); }
+\p{Block:Myanmar} { setCurCharPropertyValue("Myanmar"); }
+\p{Block:No_Block} { setCurCharPropertyValue("No_Block"); }
 \p{Block:Number Forms} { setCurCharPropertyValue("Number Forms"); }
 \p{Block:Ogham} { setCurCharPropertyValue("Ogham"); }
 \p{Block:Optical Character Recognition} { setCurCharPropertyValue("Optical Character Recognition"); }
@@ -87,7 +88,7 @@
 \p{Block:Spacing Modifier Letters} { setCurCharPropertyValue("Spacing Modifier Letters"); }
 \p{Block:Specials} { setCurCharPropertyValue("Specials"); }
 \p{Block:Superscripts and Subscripts} { setCurCharPropertyValue("Superscripts and Subscripts"); }
-\p{Block:Syriac  } { setCurCharPropertyValue("Syriac  "); }
+\p{Block:Syriac} { setCurCharPropertyValue("Syriac"); }
 \p{Block:Tamil} { setCurCharPropertyValue("Tamil"); }
 \p{Block:Telugu} { setCurCharPropertyValue("Telugu"); }
 \p{Block:Thaana} { setCurCharPropertyValue("Thaana"); }
@@ -96,5 +97,3 @@
 \p{Block:Unified Canadian Aboriginal Syllabics} { setCurCharPropertyValue("Unified Canadian Aboriginal Syllabics"); }
 \p{Block:Yi Radicals} { setCurCharPropertyValue("Yi Radicals"); }
 \p{Block:Yi Syllables} { setCurCharPropertyValue("Yi Syllables"); }
-
-<<EOF>> { printOutput(); return 1; }

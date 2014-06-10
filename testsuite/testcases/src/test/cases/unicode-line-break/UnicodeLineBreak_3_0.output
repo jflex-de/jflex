@@ -1294,3 +1294,4 @@ FFEF..FFF8; LineBreak:XX
 FFF9..FFFB; LineBreak:CM
 FFFC..FFFC; LineBreak:CB
 FFFD..FFFD; LineBreak:AI
+FFFE..10FFFF; LineBreak:XX

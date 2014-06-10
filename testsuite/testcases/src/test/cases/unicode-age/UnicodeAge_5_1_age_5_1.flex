@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-defined-values-only-java
+%include ../../resources/common-unicode-all-enumerated-property-defined-values-only-java
 
 %%
 

@@ -679,4 +679,4 @@ FFD0..FFD1; Not-Word
 FFD2..FFD7; Word
 FFD8..FFD9; Not-Word
 FFDA..FFDC; Word
-FFDD..FFFD; Not-Word
+FFDD..10FFFF; Not-Word

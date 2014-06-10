@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-binary-property-java
+%include ../../resources/common-unicode-all-binary-property-java
 
 %%
 

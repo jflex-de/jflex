@@ -757,4 +757,4 @@ FB07..FB12; Not-Lowercase
 FB13..FB17; Lowercase
 FB18..FF40; Not-Lowercase
 FF41..FF5A; Lowercase
-FF5B..FFFD; Not-Lowercase
+FF5B..10FFFF; Not-Lowercase

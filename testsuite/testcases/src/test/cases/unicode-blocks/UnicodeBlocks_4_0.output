@@ -12,9 +12,9 @@
 0590..05FF; Hebrew
 0600..06FF; Arabic
 0700..074F; Syriac
-0750..077F; No Block
+0750..077F; No_Block
 0780..07BF; Thaana
-07C0..08FF; No Block
+07C0..08FF; No_Block
 0900..097F; Devanagari
 0980..09FF; Bengali
 0A00..0A7F; Gurmukhi
@@ -32,7 +32,7 @@
 10A0..10FF; Georgian
 1100..11FF; Hangul Jamo
 1200..137F; Ethiopic
-1380..139F; No Block
+1380..139F; No_Block
 13A0..13FF; Cherokee
 1400..167F; Unified Canadian Aboriginal Syllabics
 1680..169F; Ogham
@@ -43,14 +43,14 @@
 1760..177F; Tagbanwa
 1780..17FF; Khmer
 1800..18AF; Mongolian
-18B0..18FF; No Block
+18B0..18FF; No_Block
 1900..194F; Limbu
 1950..197F; Tai Le
-1980..19DF; No Block
+1980..19DF; No_Block
 19E0..19FF; Khmer Symbols
-1A00..1CFF; No Block
+1A00..1CFF; No_Block
 1D00..1D7F; Phonetic Extensions
-1D80..1DFF; No Block
+1D80..1DFF; No_Block
 1E00..1EFF; Latin Extended Additional
 1F00..1FFF; Greek Extended
 2000..206F; General Punctuation
@@ -77,10 +77,10 @@
 2980..29FF; Miscellaneous Mathematical Symbols-B
 2A00..2AFF; Supplemental Mathematical Operators
 2B00..2BFF; Miscellaneous Symbols and Arrows
-2C00..2E7F; No Block
+2C00..2E7F; No_Block
 2E80..2EFF; CJK Radicals Supplement
 2F00..2FDF; Kangxi Radicals
-2FE0..2FEF; No Block
+2FE0..2FEF; No_Block
 2FF0..2FFF; Ideographic Description Characters
 3000..303F; CJK Symbols and Punctuation
 3040..309F; Hiragana
@@ -89,7 +89,7 @@
 3130..318F; Hangul Compatibility Jamo
 3190..319F; Kanbun
 31A0..31BF; Bopomofo Extended
-31C0..31EF; No Block
+31C0..31EF; No_Block
 31F0..31FF; Katakana Phonetic Extensions
 3200..32FF; Enclosed CJK Letters and Months
 3300..33FF; CJK Compatibility
@@ -98,18 +98,50 @@
 4E00..9FFF; CJK Unified Ideographs
 A000..A48F; Yi Syllables
 A490..A4CF; Yi Radicals
-A4D0..ABFF; No Block
+A4D0..ABFF; No_Block
 AC00..D7AF; Hangul Syllables
-D7B0..D7FF; No Block
+D7B0..D7FF; No_Block
 E000..F8FF; Private Use Area
 F900..FAFF; CJK Compatibility Ideographs
 FB00..FB4F; Alphabetic Presentation Forms
 FB50..FDFF; Arabic Presentation Forms-A
 FE00..FE0F; Variation Selectors
-FE10..FE1F; No Block
+FE10..FE1F; No_Block
 FE20..FE2F; Combining Half Marks
 FE30..FE4F; CJK Compatibility Forms
 FE50..FE6F; Small Form Variants
 FE70..FEFF; Arabic Presentation Forms-B
 FF00..FFEF; Halfwidth and Fullwidth Forms
-FFF0..FFFD; Specials
+FFF0..FFFF; Specials
+10000..1007F; Linear B Syllabary
+10080..100FF; Linear B Ideograms
+10100..1013F; Aegean Numbers
+10140..102FF; No_Block
+10300..1032F; Old Italic
+10330..1034F; Gothic
+10350..1037F; No_Block
+10380..1039F; Ugaritic
+103A0..103FF; No_Block
+10400..1044F; Deseret
+10450..1047F; Shavian
+10480..104AF; Osmanya
+104B0..107FF; No_Block
+10800..1083F; Cypriot Syllabary
+10840..1CFFF; No_Block
+1D000..1D0FF; Byzantine Musical Symbols
+1D100..1D1FF; Musical Symbols
+1D200..1D2FF; No_Block
+1D300..1D35F; Tai Xuan Jing Symbols
+1D360..1D3FF; No_Block
+1D400..1D7FF; Mathematical Alphanumeric Symbols
+1D800..1FFFF; No_Block
+20000..2A6DF; CJK Unified Ideographs Extension B
+2A6E0..2F7FF; No_Block
+2F800..2FA1F; CJK Compatibility Ideographs Supplement
+2FA20..DFFFF; No_Block
+E0000..E007F; Tags
+E0080..E00FF; No_Block
+E0100..E01EF; Variation Selectors Supplement
+E01F0..EFFFF; No_Block
+F0000..FFFFF; Supplementary Private Use Area-A
+100000..10FFFF; Supplementary Private Use Area-B

@@ -7,10 +7,11 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
+<<EOF>> { printOutput(); return 1; }
 \p{Arabic} { setCurCharPropertyValue("Arabic"); }
 \p{Armenian} { setCurCharPropertyValue("Armenian"); }
 \p{Bengali} { setCurCharPropertyValue("Bengali"); }
@@ -72,4 +73,3 @@
 \p{Tifinagh} { setCurCharPropertyValue("Tifinagh"); }
 \p{Ugaritic} { setCurCharPropertyValue("Ugaritic"); }
 \p{Yi} { setCurCharPropertyValue("Yi"); }
-<<EOF>> { printOutput(); return 1; }

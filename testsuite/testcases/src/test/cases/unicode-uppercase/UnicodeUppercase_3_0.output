@@ -745,4 +745,4 @@
 24D0..D7FF; Not-Uppercase
 E000..FF20; Not-Uppercase
 FF21..FF3A; Uppercase
-FF3B..FFFD; Not-Uppercase
+FF3B..10FFFF; Not-Uppercase

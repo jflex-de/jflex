@@ -8,5 +8,5 @@ jflex: -q --noinputstreamctor
 
 input-file-encoding: UTF-8
 
-common-input-file: ../../resources/All.Unicode.BMP.characters.input
+common-input-file: ../../resources/All.Unicode.characters.input
 

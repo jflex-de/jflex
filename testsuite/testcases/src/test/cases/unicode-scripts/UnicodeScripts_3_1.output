@@ -680,4 +680,24 @@ FFD0..FFD1; Common
 FFD2..FFD7; Hangul
 FFD8..FFD9; Common
 FFDA..FFDC; Hangul
-FFDD..FFFD; Common
+FFDD..102FF; Common
+10300..1031E; Old Italic
+1031F..1032F; Common
+10330..1034A; Gothic
+1034B..103FF; Common
+10400..10425; Deseret
+10426..10427; Common
+10428..1044D; Deseret
+1044E..1D166; Common
+1D167..1D169; Inherited
+1D16A..1D17A; Common
+1D17B..1D182; Inherited
+1D183..1D184; Common
+1D185..1D18B; Inherited
+1D18C..1D1A9; Common
+1D1AA..1D1AD; Inherited
+1D1AE..1FFFF; Common
+20000..2A6D6; Han
+2A6D7..2F7FF; Common
+2F800..2FA1D; Han
+2FA1E..10FFFF; Common
