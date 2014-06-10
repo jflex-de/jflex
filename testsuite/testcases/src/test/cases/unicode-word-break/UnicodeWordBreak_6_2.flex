@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %%
 
@@ -25,3 +25,4 @@
 \p{WordBreak:Newline} { setCurCharPropertyValue("WordBreak:Newline"); }
 \p{WordBreak:Numeric} { setCurCharPropertyValue("WordBreak:Numeric"); }
 \p{WordBreak:Other} { setCurCharPropertyValue("WordBreak:Other"); }
+\p{WordBreak:Regional_Indicator} { setCurCharPropertyValue("WordBreak:Regional_Indicator"); }

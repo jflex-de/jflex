@@ -38,13 +38,11 @@ line: 1 col: 20 match: --e--
 action [24] {  }
 line: 1 col: 21 match: --bb--
 action [19] { /* eol */ }
-line: 1 col: 23 match: --
---
+line: 1 col: 23 match: --\u000A--
 action [24] {  }
 line: 2 col: 1 match: --bb--
 action [19] { /* eol */ }
-line: 2 col: 3 match: --
---
+line: 2 col: 3 match: --\u000A--
 action [24] {  }
 line: 3 col: 1 match: --b--
 action [24] {  }
@@ -60,10 +58,8 @@ line: 3 col: 7 match: --a--
 action [24] {  }
 line: 3 col: 8 match: --z--
 action [19] { /* eol */ }
-line: 3 col: 9 match: --
---
+line: 3 col: 9 match: --\u000A--
 action [24] {  }
-line: 4 col: 1 match: --
---
+line: 4 col: 1 match: --\u000A--
 action [24] {  }
 -1

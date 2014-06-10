@@ -24,8 +24,7 @@ line: 1 col: 13 match: --d--
 action [29] {  }
 line: 1 col: 14 match: --e--
 action [29] {  }
-line: 1 col: 15 match: --
---
+line: 1 col: 15 match: --\u000A--
 action [29] {  }
 line: 2 col: 1 match: ----
 action [27] { yybegin(END); }

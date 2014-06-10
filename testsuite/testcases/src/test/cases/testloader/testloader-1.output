@@ -1,26 +1,20 @@
 match: --name: private--
 action [30] { /* test.setTestName(yytext().substring(6).trim()); */ }
-match: --
---
+match: --\u000A--
 action [48] { /* ignore newline and whitespace */ }
-match: --
---
+match: --\u000A--
 action [48] { /* ignore newline and whitespace */ }
 match: --description:--
 action [32] { yybegin(DESCR); }
-match: --
---
+match: --\u000A--
 action [54] { buffer.append(yytext()); }
 match: --test feature request #513500 [Generate cleaner interfaces], %apiprivate option--
 action [54] { buffer.append(yytext()); }
-match: --
---
+match: --\u000A--
 action [54] { buffer.append(yytext()); }
-match: --
---
+match: --\u000A--
 action [54] { buffer.append(yytext()); }
-match: --
---
+match: --\u000A--
 action [56] { /* test.setDescription(buffer.toString()); */ yybegin(YYINITIAL); }
 match: --jflex: --
 action [34] { cmdLine = new ArrayList<String>(); yybegin(JFLEXCMD); }
@@ -28,16 +22,13 @@ match: -- --
 action [64] { /* ignore whitespace */ }
 match: ---q--
 action [61] { cmdLine.add(yytext()); }
-match: --
---
+match: --\u000A--
 action [69] { /* test.setJflexCmdln(cmdLine); */ yybegin(YYINITIAL); }
-match: --
---
+match: --\u000A--
 action [48] { /* ignore newline and whitespace */ }
 match: --javac-fail: true--
 action [45] { /* test.setExpectJavacFail(true); */ }
-match: --
---
+match: --\u000A--
 action [48] { /* ignore newline and whitespace */ }
 match: <<EOF>>
 action [80] { return 1; }

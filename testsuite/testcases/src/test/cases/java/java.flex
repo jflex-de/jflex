@@ -55,10 +55,32 @@ import java.io.UnsupportedEncodingException;
 	System.out.println("token: "+getTokenName(type)+" at line "+(yyline+1)+", column "+(yycolumn+1));
 	return type;
   }
+  
+  private String toPrintable(String value) {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0 ; i < value.length() ; ) {
+      int ch = value.codePointAt(i);
+      i += Character.charCount(ch);
+      if (ch >= 32 && ch < 127) {
+        builder.append((char)ch);      
+      } else if (ch < 256) {
+        builder.append(String.format("\\%o", ch));
+      } else if (ch <= 0xFFFF) {
+        builder.append(String.format("\\u%04X", ch));
+      } else {
+        builder.append(String.format("\\U%06X", ch));
+      }
+    }
+    return builder.toString();
+  }
 
   private int symbol(int type, Object value) {
 	System.out.println("token: "+getTokenName(type)+" at line "+(yyline+1)+", column "+(yycolumn+1));
-	System.out.println("value: ["+value+"]");
+	if (value instanceof String) {
+	  System.out.println("value: ["+toPrintable((String)value)+"]");
+	} else {
+	  System.out.println("value: ["+value+"]");
+	}
 	return type;
   }
 

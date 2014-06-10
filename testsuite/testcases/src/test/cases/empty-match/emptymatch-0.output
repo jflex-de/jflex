@@ -7,8 +7,7 @@ action [19] { yybegin(B); return 3; }
 match: --]--
 action [23] { yybegin(YYINITIAL); return 4; }
 4
-match: --
---
+match: --\u000A--
 action [15] { return 2; }
 2
 match: --foo[--
@@ -29,12 +28,10 @@ action [24] { return 5; }
 match: --]--
 action [23] { yybegin(YYINITIAL); return 4; }
 4
-match: --
---
+match: --\u000A--
 action [15] { return 2; }
 2
-match: --
---
+match: --\u000A--
 action [15] { return 2; }
 2
 -1

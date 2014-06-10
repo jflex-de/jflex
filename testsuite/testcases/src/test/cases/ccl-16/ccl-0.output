@@ -16,8 +16,7 @@ match: --l--
 action [14] { /* do nothing */ }
 match: --e--
 action [14] { /* do nothing */ }
-match: --
---
+match: --\u000A--
 action [14] { /* do nothing */ }
 match: --c--
 action [14] { /* do nothing */ }
@@ -63,6 +62,5 @@ match: --a--
 action [14] { /* do nothing */ }
 match: --y--
 action [14] { /* do nothing */ }
-match: --
---
+match: --\u000A--
 action [14] { /* do nothing */ }

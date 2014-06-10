@@ -18,7 +18,6 @@ line: 1 col: 11 match: --d--
 action [19] {  }
 line: 1 col: 12 match: --e--
 action [19] {  }
-line: 1 col: 13 match: --
---
+line: 1 col: 13 match: --\u000A--
 action [19] {  }
 -1

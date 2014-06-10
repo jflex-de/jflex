@@ -44,7 +44,6 @@ line: 1 col: 24 match: --d--
 action [22] {  }
 line: 1 col: 25 match: --e--
 action [22] {  }
-line: 1 col: 26 match: --
---
+line: 1 col: 26 match: --\u000A--
 action [22] {  }
 -1

@@ -32,7 +32,6 @@ line: 1 col: 21 match: --a--
 action [22] {  }
 line: 1 col: 22 match: --a--
 action [22] {  }
-line: 1 col: 23 match: --
---
+line: 1 col: 23 match: --\u000A--
 action [22] {  }
 -1

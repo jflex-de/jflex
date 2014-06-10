@@ -156,4 +156,98 @@ FE30..FE4F; CJK Compatibility Forms
 FE50..FE6F; Small Form Variants
 FE70..FEFF; Arabic Presentation Forms-B
 FF00..FFEF; Halfwidth and Fullwidth Forms
-FFF0..FFFD; Specials
+FFF0..FFFF; Specials
+10000..1007F; Linear B Syllabary
+10080..100FF; Linear B Ideograms
+10100..1013F; Aegean Numbers
+10140..1018F; Ancient Greek Numbers
+10190..101CF; Ancient Symbols
+101D0..101FF; Phaistos Disc
+10200..1027F; No_Block
+10280..1029F; Lycian
+102A0..102DF; Carian
+102E0..102FF; No_Block
+10300..1032F; Old Italic
+10330..1034F; Gothic
+10350..1037F; No_Block
+10380..1039F; Ugaritic
+103A0..103DF; Old Persian
+103E0..103FF; No_Block
+10400..1044F; Deseret
+10450..1047F; Shavian
+10480..104AF; Osmanya
+104B0..107FF; No_Block
+10800..1083F; Cypriot Syllabary
+10840..1085F; Imperial Aramaic
+10860..108FF; No_Block
+10900..1091F; Phoenician
+10920..1093F; Lydian
+10940..1097F; No_Block
+10980..1099F; Meroitic Hieroglyphs
+109A0..109FF; Meroitic Cursive
+10A00..10A5F; Kharoshthi
+10A60..10A7F; Old South Arabian
+10A80..10AFF; No_Block
+10B00..10B3F; Avestan
+10B40..10B5F; Inscriptional Parthian
+10B60..10B7F; Inscriptional Pahlavi
+10B80..10BFF; No_Block
+10C00..10C4F; Old Turkic
+10C50..10E5F; No_Block
+10E60..10E7F; Rumi Numeral Symbols
+10E80..10FFF; No_Block
+11000..1107F; Brahmi
+11080..110CF; Kaithi
+110D0..110FF; Sora Sompeng
+11100..1114F; Chakma
+11150..1117F; No_Block
+11180..111DF; Sharada
+111E0..1167F; No_Block
+11680..116CF; Takri
+116D0..11FFF; No_Block
+12000..123FF; Cuneiform
+12400..1247F; Cuneiform Numbers and Punctuation
+12480..12FFF; No_Block
+13000..1342F; Egyptian Hieroglyphs
+13430..167FF; No_Block
+16800..16A3F; Bamum Supplement
+16A40..16EFF; No_Block
+16F00..16F9F; Miao
+16FA0..1AFFF; No_Block
+1B000..1B0FF; Kana Supplement
+1B100..1CFFF; No_Block
+1D000..1D0FF; Byzantine Musical Symbols
+1D100..1D1FF; Musical Symbols
+1D200..1D24F; Ancient Greek Musical Notation
+1D250..1D2FF; No_Block
+1D300..1D35F; Tai Xuan Jing Symbols
+1D360..1D37F; Counting Rod Numerals
+1D380..1D3FF; No_Block
+1D400..1D7FF; Mathematical Alphanumeric Symbols
+1D800..1EDFF; No_Block
+1EE00..1EEFF; Arabic Mathematical Alphabetic Symbols
+1EF00..1EFFF; No_Block
+1F000..1F02F; Mahjong Tiles
+1F030..1F09F; Domino Tiles
+1F0A0..1F0FF; Playing Cards
+1F100..1F1FF; Enclosed Alphanumeric Supplement
+1F200..1F2FF; Enclosed Ideographic Supplement
+1F300..1F5FF; Miscellaneous Symbols And Pictographs
+1F600..1F64F; Emoticons
+1F650..1F67F; No_Block
+1F680..1F6FF; Transport And Map Symbols
+1F700..1F77F; Alchemical Symbols
+1F780..1FFFF; No_Block
+20000..2A6DF; CJK Unified Ideographs Extension B
+2A6E0..2A6FF; No_Block
+2A700..2B73F; CJK Unified Ideographs Extension C
+2B740..2B81F; CJK Unified Ideographs Extension D
+2B820..2F7FF; No_Block
+2F800..2FA1F; CJK Compatibility Ideographs Supplement
+2FA20..DFFFF; No_Block
+E0000..E007F; Tags
+E0080..E00FF; No_Block
+E0100..E01EF; Variation Selectors Supplement
+E01F0..EFFFF; No_Block
+F0000..FFFFF; Supplementary Private Use Area-A
+100000..10FFFF; Supplementary Private Use Area-B
