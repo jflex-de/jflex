@@ -7,7 +7,7 @@
 %type int
 %standalone
 
-%include ../../resources/common-unicode-enumerated-property-java
+%include ../../resources/common-unicode-all-enumerated-property-java
 
 %% 
 
@@ -19,7 +19,7 @@
 \p{brai} { setCurCharPropertyValue("Braille"); }
 \p{bugi} { setCurCharPropertyValue("Buginese"); }
 \p{buhd} { setCurCharPropertyValue("Buhid"); }
-\p{cans} { setCurCharPropertyValue("Canadian Aboriginal"); }
+\p{cans} { setCurCharPropertyValue("Canadian_Aboriginal"); }
 \p{cari} { setCurCharPropertyValue("Carian"); }
 \p{cham} { setCurCharPropertyValue("Cham"); }
 \p{cher} { setCurCharPropertyValue("Cherokee"); }
@@ -40,9 +40,9 @@
 \p{hano} { setCurCharPropertyValue("Hanunoo"); }
 \p{hebr} { setCurCharPropertyValue("Hebrew"); }
 \p{hira} { setCurCharPropertyValue("Hiragana"); }
-//\p{hrkt} { setCurCharPropertyValue("Katakana Or Hiragana"); }
-\p{ital} { setCurCharPropertyValue("Old Italic"); }
-\p{kali} { setCurCharPropertyValue("Kayah Li"); }
+//\p{hrkt} { setCurCharPropertyValue("Katakana_Or_Hiragana"); }
+\p{ital} { setCurCharPropertyValue("Old_Italic"); }
+\p{kali} { setCurCharPropertyValue("Kayah_Li"); }
 \p{kana} { setCurCharPropertyValue("Katakana"); }
 \p{khar} { setCurCharPropertyValue("Kharoshthi"); }
 \p{khmr} { setCurCharPropertyValue("Khmer"); }
@@ -51,7 +51,7 @@
 \p{latn} { setCurCharPropertyValue("Latin"); }
 \p{lepc} { setCurCharPropertyValue("Lepcha"); }
 \p{limb} { setCurCharPropertyValue("Limbu"); }
-\p{linb} { setCurCharPropertyValue("Linearb"); }
+\p{linb} { setCurCharPropertyValue("Linear_B"); }
 \p{lyci} { setCurCharPropertyValue("Lycian"); }
 \p{lydi} { setCurCharPropertyValue("Lydian"); }
 \p{mlym} { setCurCharPropertyValue("Malayalam"); }
@@ -59,10 +59,10 @@
 \p{mymr} { setCurCharPropertyValue("Myanmar"); }
 \p{nkoo} { setCurCharPropertyValue("Nko"); }
 \p{ogam} { setCurCharPropertyValue("Ogham"); }
-\p{olck} { setCurCharPropertyValue("Ol Chiki"); }
+\p{olck} { setCurCharPropertyValue("Ol_Chiki"); }
 \p{orya} { setCurCharPropertyValue("Oriya"); }
 \p{osma} { setCurCharPropertyValue("Osmanya"); }
-\p{phag} { setCurCharPropertyValue("Phags Pa"); }
+\p{phag} { setCurCharPropertyValue("Phags_Pa"); }
 \p{phnx} { setCurCharPropertyValue("Phoenician"); }
 \p{qaai} { setCurCharPropertyValue("Inherited"); }
 \p{rjng} { setCurCharPropertyValue("Rejang"); }
@@ -71,11 +71,11 @@
 \p{shaw} { setCurCharPropertyValue("Shavian"); }
 \p{sinh} { setCurCharPropertyValue("Sinhala"); }
 \p{sund} { setCurCharPropertyValue("Sundanese"); }
-\p{sylo} { setCurCharPropertyValue("Syloti Nagri"); }
+\p{sylo} { setCurCharPropertyValue("Syloti_Nagri"); }
 \p{syrc} { setCurCharPropertyValue("Syriac"); }
 \p{tagb} { setCurCharPropertyValue("Tagbanwa"); }
-\p{tale} { setCurCharPropertyValue("Tai Le"); }
-\p{talu} { setCurCharPropertyValue("New Tai Lue"); }
+\p{tale} { setCurCharPropertyValue("Tai_Le"); }
+\p{talu} { setCurCharPropertyValue("New_Tai_Lue"); }
 \p{taml} { setCurCharPropertyValue("Tamil"); }
 \p{telu} { setCurCharPropertyValue("Telugu"); }
 \p{tfng} { setCurCharPropertyValue("Tifinagh"); }
@@ -85,7 +85,7 @@
 \p{tibt} { setCurCharPropertyValue("Tibetan"); }
 \p{ugar} { setCurCharPropertyValue("Ugaritic"); }
 \p{vaii} { setCurCharPropertyValue("Vai"); }
-\p{xpeo} { setCurCharPropertyValue("Old Persian"); }
+\p{xpeo} { setCurCharPropertyValue("Old_Persian"); }
 \p{xsux} { setCurCharPropertyValue("Cuneiform"); }
 \p{yiii} { setCurCharPropertyValue("Yi"); }
 \p{zyyy} { setCurCharPropertyValue("Common"); }
