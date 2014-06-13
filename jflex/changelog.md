@@ -1,4 +1,15 @@
-## JFlex 1.5.2-SNAPSHOT
+## JFlex 1.6.0
+- In %unicode mode, supplementary code points are now handled properly.
+  . Regular expressions are now code-point based, rather than code-unit/
+    char based.
+  . Input streams are read as code point sequences - properly paired
+    surrogate code units are read as a single character.
+  . All supported Unicode properties now match supplementary characters
+    when Unicode 3.0 or above is specified, or when no version is
+    specified, causing the default Unicode version, Unicode 6.3 in this
+    release, to be used.
+- Characters in matches printed in %debug mode are now Unicode escaped
+  (\uXXXX) when they are outside the range 32..127.
 - fixed bug #127, detect javadoc class comment when followed by annotation(s)
 
 ## JFlex 1.5.1 (Mar 21, 2014)

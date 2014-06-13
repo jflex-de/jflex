@@ -1204,16 +1204,13 @@ for more information about character encodings.
 {\bf \texttt{\%unicode}}\\
 {\bf \texttt{\%16bit}}
 
-Both options cause the generated scanner to use the BMP (Basic Multilingual
-Plane) of the Unicode input character set that Java supports natively
-(character code points 0-65535). JFlex \ver does not yet support supplementary
-characters above the BMP; support is planned for JFlex \nextver. There will be
-no runtime overflow when using this set of input characters.
-\texttt{\%unicode} does not mean that the scanner will read two bytes at a
-time. What is read and what constitutes a character depends on the runtime
-platform. See also section \ref{sec:encodings} for more information about
-character encodings. This is the default unless the JLex compatibility mode
-is used (command line option \texttt{--jlex}).
+Both options cause the generated scanner to use the full Unicode input
+character set, including supplementary code points: 0-0x10FFFF. \texttt{\%unicode}
+does not mean that the scanner will read two bytes at a time. What is read
+and what constitutes a character depends on the runtime platform. See also
+section \ref{sec:encodings} for more information about character encodings.
+This is the default unless the JLex compatibility mode is used (command line
+option \texttt{--jlex}).
 
 \label{caseless} \item {\bf \texttt{\%caseless}}\\ {\bf \texttt{\%ignorecase}}
 
@@ -1436,6 +1433,7 @@ The grammar uses the following terminal symbols:
   \begin{itemize}
   \item
     \verb+\n+  \verb+\r+  \verb+\t+  \verb+\f+  \verb+\b+
+
   \item
     a \verb+\x+ followed by two hexadecimal digits \texttt{[a-fA-F0-9]} (denoting
     a standard ASCII escape sequence),
@@ -1443,6 +1441,10 @@ The grammar uses the following terminal symbols:
   \item
     a \verb+\u+ followed by four hexadecimal digits \texttt{[a-fA-F0-9]}
     (denoting a unicode escape sequence),
+
+  \item
+    a \verb+\U+ (note the the 'U' is uppercase) followed by six hexadecimal
+    digits \texttt{[a-fA-F0-9]} (denoting a unicode escape sequence),
 
   \item
     a backslash followed by a three digit octal number from 000 to 377 (denoting
@@ -1551,8 +1553,8 @@ A regular expression that consists solely of
   character set.
   
 \item
-  a string \texttt{'"' StringCharacter+ '"} \texttt{'} matches the exact
-  text enclosed in double quotes. All meta characters but \verb+\+ and
+  a string \texttt{'"' StringCharacter+ '"'} matches the exact text
+  enclosed in double quotes. All meta characters but \verb+\+ and
   \texttt{"} lose their special meaning inside a string. See also the
   \htmlref{\texttt{\%ignorecase}}{caseless} switch.
     
@@ -1782,15 +1784,16 @@ b       { some action }
 
 \subsubsection{How the input is matched\label{HowMatched}}
 When consuming its input, the scanner determines the regular expression
-that matches the longest portion of the input (longest match rule). If
-there is more than one regular expression that matches the longest portion
-of input (i.e. they all match the same input), the generated scanner chooses
-the expression that appears first in the specification. After determining
-the active regular expression, the associated action is executed. If there
-is no matching regular expression, the scanner terminates the program with
-an error message (if the \texttt{\%standalone} directive has been used, the
-scanner prints the unmatched input to \texttt{java.lang.System.out} instead
-and resumes scanning). 
+that matches the longest portion of the input (longest match rule). Note
+that input length is measured in code points, not in code units (char) or
+in bytes. If there is more than one regular expression that matches the
+longest portion of input (i.e. they all match the same input), the generated
+scanner chooses the expression that appears first in the specification.
+After determining the active regular expression, the associated action is
+executed. If there is no matching regular expression, the scanner terminates
+the program with an error message (if the \texttt{\%standalone} directive has
+been used, the scanner prints the unmatched input to
+\texttt{java.lang.System.out} instead and resumes scanning). 
 
 Lexical states can be used to further restrict the set of regular expressions
 that match the current input. 
@@ -2170,11 +2173,9 @@ for specifying any Unicode code point (from U+0000 to U+10FFFF), using
 the hexadecimal code point representation.}
 \end{quote}
 
-JFlex does not fully conform: although syntax is provided to express
-values across the whole range, via \verb+\uXXXX+, where \verb+XXXX+ is
-a 4-digit hex value, and \verb+\Uyyyyyy+, where \verb+yyyyyy+ is a 
-6-digit hex value, JFlex only supports characters within the 16-bit
-Basic Multilingual Plane, so the \verb+\Uyyyyyy+ syntax is not usable.
+JFlex conforms. Syntax is provided to express values across the whole range,
+via \verb+\uXXXX+, where \verb+XXXX+ is a 4-digit hex value, and
+\verb+\Uyyyyyy+, where \verb+yyyyyy+ is a 6-digit hex value.
 
 \subsubsection*{RL1.2 Properties}
 
@@ -2280,9 +2281,7 @@ surrogate followed by a trailing surrogate shall be handled as a single
 code point in matching.}
 \end{quote}
 
-JFlex does not conform.  Only code points in the Basic Multilingual
-Plane (BMP) are supported.  Conformance to RL1.7 is planned for JFlex
-\nextver.
+JFlex conforms.
 
 
 \section{A few words on performance}
