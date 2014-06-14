@@ -1784,16 +1784,15 @@ b       { some action }
 
 \subsubsection{How the input is matched\label{HowMatched}}
 When consuming its input, the scanner determines the regular expression
-that matches the longest portion of the input (longest match rule). Note
-that input length is measured in code points, not in code units (char) or
-in bytes. If there is more than one regular expression that matches the
-longest portion of input (i.e. they all match the same input), the generated
-scanner chooses the expression that appears first in the specification.
-After determining the active regular expression, the associated action is
-executed. If there is no matching regular expression, the scanner terminates
-the program with an error message (if the \texttt{\%standalone} directive has
-been used, the scanner prints the unmatched input to
-\texttt{java.lang.System.out} instead and resumes scanning). 
+that matches the longest portion of the input (longest match rule). If
+there is more than one regular expression that matches the longest portion
+of input (i.e. they all match the same input), the generated scanner chooses
+the expression that appears first in the specification. After determining
+the active regular expression, the associated action is executed. If there
+is no matching regular expression, the scanner terminates the program with
+an error message (if the \texttt{\%standalone} directive has been used, the
+scanner prints the unmatched input to \texttt{java.lang.System.out} instead
+and resumes scanning). 
 
 Lexical states can be used to further restrict the set of regular expressions
 that match the current input. 
