@@ -1,0 +1,5 @@
+
+Error in file "src/test/cases/six-digit-unicode-escape/SixDigitUnicodeEscape-f-2.flex" (line 7): 
+Hexadecimal code point is greater than the maximum allowed code point
+"one two three\UFFFFFFabc" { }
+                ^

@@ -1436,19 +1436,24 @@ The grammar uses the following terminal symbols:
 
   \item
     a \verb+\x+ followed by two hexadecimal digits \texttt{[a-fA-F0-9]} (denoting
-    a standard ASCII escape sequence),
+    a standard ASCII escape sequence);
     
   \item
     a \verb+\u+ followed by four hexadecimal digits \texttt{[a-fA-F0-9]}
-    (denoting a unicode escape sequence),
+    (denoting a unicode escape sequence);
 
   \item
-    a \verb+\U+ (note the the 'U' is uppercase) followed by six hexadecimal
-    digits \texttt{[a-fA-F0-9]} (denoting a unicode escape sequence),
+    a \verb+\U+ (note that the 'U' is uppercase) followed by six hexadecimal
+    digits \texttt{[a-fA-F0-9]} (denoting a unicode code point escape sequence);
+    
+  \item
+   \verb=\u{H+( H+)*}=, where \verb=H+= is one or more hexadecimal digits
+   \texttt{[a-fA-F0-9]}, each \verb=H+= denotes a code point - note that in
+   character classes, only one code point is allowed;
 
   \item
     a backslash followed by a three digit octal number from 000 to 377 (denoting
-    a standard ASCII escape sequence), or
+    a standard ASCII escape sequence); or
 
   \item
     a backslash followed by any other unicode character that stands for this
@@ -2173,8 +2178,9 @@ the hexadecimal code point representation.}
 \end{quote}
 
 JFlex conforms. Syntax is provided to express values across the whole range,
-via \verb+\uXXXX+, where \verb+XXXX+ is a 4-digit hex value, and
-\verb+\Uyyyyyy+, where \verb+yyyyyy+ is a 6-digit hex value.
+via \verb+\uXXXX+, where \verb+XXXX+ is a 4-digit hex value; \verb+\Uyyyyyy+,
+where \verb+yyyyyy+ is a 6-digit hex value; and \verb=\u{X+( X+)*}=, where
+\verb=X+= is a 1-6 digit hex value.
 
 \subsubsection*{RL1.2 Properties}
 

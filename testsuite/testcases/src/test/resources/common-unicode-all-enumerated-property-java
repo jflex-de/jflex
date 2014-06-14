@@ -27,6 +27,11 @@
   }
 
   private void setCurCharPropertyValue(String propertyValue) {
-    propertyValues[ yytext().codePointAt(0) ] = propertyValue;
+    int index = 0;
+    while (index < yylength()) {
+      int codePoint = yytext().codePointAt(index);
+      propertyValues[codePoint] = propertyValue;
+      index += Character.charCount(codePoint);
+    }
   }
 %} 

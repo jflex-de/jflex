@@ -1,0 +1,13 @@
+0000..0000; inverse matched
+0001..0003; matched
+0004..000F; inverse matched
+0010..0011; matched
+0012..0CFE; inverse matched
+0CFF..0D00; matched
+0D01..0FFE; inverse matched
+0FFF..1001; matched
+1002..D7FF; inverse matched
+E000..FFFE; inverse matched
+FFFF..10001; matched
+10002..10FFFE; inverse matched
+10FFFF..10FFFF; matched

@@ -144,4 +144,5 @@ public class ErrorMessages {
   public static ErrorMessages SWITCH_METHOD_DEPRECATED = new ErrorMessages("SWITCH_METHOD_DEPRECATED");
   public static ErrorMessages TABLE_METHOD_DEPRECATED = new ErrorMessages("TABLE_METHOD_DEPRECATED");
   public static ErrorMessages IMPOSSIBLE_CHARCLASS_RANGE = new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
+  public static ErrorMessages CODEPOINT_OUT_OF_RANGE = new ErrorMessages("CODEPOINT_OUT_OF_RANGE");
 }

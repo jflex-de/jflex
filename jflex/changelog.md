@@ -8,6 +8,8 @@
     when Unicode 3.0 or above is specified, or when no version is
     specified, causing the default Unicode version, Unicode 6.3 in this
     release, to be used.
+- New \u{...} escape sequence allows code points (and whitespace-separated
+  sequences of code points) to be specified as 1-6 hexadecimal digit values.
 - Characters in matches printed in %debug mode are now Unicode escaped
   (\uXXXX) when they are outside the range 32..127.
 - fixed bug #127, detect javadoc class comment when followed by annotation(s)

@@ -37,7 +37,8 @@ import jflex.unicode.UnicodeProperties;
 %state COMMENT, STATELIST, MACROS, REGEXPSTART
 %state REGEXP, JAVA_CODE, STATES, STRING_CONTENT
 %state CHARCLASS, COPY, REPEATEXP, EATWSPNL
-%state CTOR_ARG
+%state CTOR_ARG, REGEXP_CODEPOINT_SEQUENCE
+%state STRING_CODEPOINT_SEQUENCE, CHARCLASS_CODEPOINT
 
 %inputstreamctor false
 
@@ -507,24 +508,25 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                           }
 
   // stategroup
-  "{"           { yybegin(REGEXPSTART); return symbol(LBRACE); }
+  "{"            { yybegin(REGEXPSTART); return symbol(LBRACE); }
 
-  {WSPNL}*"|"   { return symbol(BAR); }
+  {WSPNL}*"|"    { return symbol(BAR); }
 
-  {WSPNL}*\"    { string.setLength(0); nextState = REGEXP; yybegin(STRING_CONTENT); }
-  {WSPNL}*"!"   { return symbol(BANG); }
-  {WSPNL}*"~"   { return symbol(TILDE); }
-  {WSPNL}*"("   { return symbol(OPENBRACKET); }
-  {WSPNL}*")"   { return symbol(CLOSEBRACKET); }
-  {WSPNL}*"*"   { return symbol(STAR); }
-  {WSPNL}*"+"   { return symbol(PLUS); }
-  {WSPNL}*"?"   { return symbol(QUESTION); }
-  {WSPNL}*"$"   { return symbol(DOLLAR); }
-  {WSPNL}*"^"   { bolUsed = true; return symbol(HAT); }
-  {WSPNL}*"."   { return symbol(POINT); }
-  {WSPNL}*"\\R" { return symbol(NEWLINE); }
-  {WSPNL}*"["   { yybegin(CHARCLASS); return symbol(OPENCLASS); }
-  {WSPNL}*"/"   { return symbol(LOOKAHEAD); }
+  {WSPNL}*\"     { string.setLength(0); nextState = REGEXP; yybegin(STRING_CONTENT); }
+  {WSPNL}*"\\u{" { string.setLength(0); yybegin(REGEXP_CODEPOINT_SEQUENCE); }
+  {WSPNL}*"!"    { return symbol(BANG); }
+  {WSPNL}*"~"    { return symbol(TILDE); }
+  {WSPNL}*"("    { return symbol(OPENBRACKET); }
+  {WSPNL}*")"    { return symbol(CLOSEBRACKET); }
+  {WSPNL}*"*"    { return symbol(STAR); }
+  {WSPNL}*"+"    { return symbol(PLUS); }
+  {WSPNL}*"?"    { return symbol(QUESTION); }
+  {WSPNL}*"$"    { return symbol(DOLLAR); }
+  {WSPNL}*"^"    { bolUsed = true; return symbol(HAT); }
+  {WSPNL}*"."    { return symbol(POINT); }
+  {WSPNL}*"\\R"  { return symbol(NEWLINE); }
+  {WSPNL}*"["    { yybegin(CHARCLASS); return symbol(OPENCLASS); }
+  {WSPNL}*"/"    { return symbol(LOOKAHEAD); }
   
   {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
   {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP); 
@@ -587,27 +589,28 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 }
 
 <CHARCLASS> {
-  "{"{Ident}"}" { return symbol(MACROUSE, yytext().substring(1,yytext().length()-1)); }
-  "["  { balance++; return symbol(OPENCLASS); }
-  "]"  { if (balance > 0) balance--; else yybegin(REGEXP); return symbol(CLOSECLASS); }
-  "^"  { return symbol(HAT); }
-  "-"  { return symbol(DASH); }
-  "--" { return symbol(DIFFERENCE); }
-  "&&" { return symbol(INTERSECTION); }
-  "||" { /* union is the default operation - '||' can be ignored */ }
-  "~~" { return symbol(SYMMETRICDIFFERENCE); }
+  "{"{Ident}"}" { return symbol(MACROUSE, yytext().substring(1,yylength()-1)); }
+  "["     { balance++; return symbol(OPENCLASS); }
+  "]"     { if (balance > 0) balance--; else yybegin(REGEXP); return symbol(CLOSECLASS); }
+  "^"     { return symbol(HAT); }
+  "-"     { return symbol(DASH); }
+  "--"    { return symbol(DIFFERENCE); }
+  "&&"    { return symbol(INTERSECTION); }
+  "||"    { /* union is the default operation - '||' can be ignored */ }
+  "~~"    { return symbol(SYMMETRICDIFFERENCE); }
+  "\\u{"  { yybegin(CHARCLASS_CODEPOINT); }
 
   // this is a hack to keep JLex compatibilty with char class
   // expressions like [+-]
-  "-]" { yypushback(1); yycolumn--; return symbol(CHAR, (int)'-'); }
+  "-]"    { yypushback(1); yycolumn--; return symbol(CHAR, (int)'-'); }
 
-  \"   { string.setLength(0); nextState = CHARCLASS; yybegin(STRING_CONTENT); }
+  \"      { string.setLength(0); nextState = CHARCLASS; yybegin(STRING_CONTENT); }
 
-  .    { return symbol(CHAR, yytext().codePointAt(0)); }
+  .       { return symbol(CHAR, yytext().codePointAt(0)); }
 
-  \n   { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
+  \n      { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
 
-  <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
+  <<EOF>> { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
 }
 
 <STRING_CONTENT> {
@@ -617,10 +620,18 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   {NL}     { throw new ScannerException(file,ErrorMessages.UNTERMINATED_STR, yyline, yycolumn); }
 
-  {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode4}  { string.append( (char) Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode6}  { string.append( Character.toChars(Integer.parseInt(yytext().substring(2,yytext().length()), 16))); }
-  {OctNumber} { string.append( (char) Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
+  {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {OctNumber} { string.append( (char) Integer.parseInt(yytext().substring(1,yylength()), 8)); }
+  {Unicode4}  { string.append( (char) Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {Unicode6}  { int codePoint = Integer.parseInt(yytext().substring(2,yylength()), 16);
+                if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                  string.append(Character.toChars(codePoint));
+                } else {
+                  throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn+2);
+                }
+              }
+  
+  "\\u{"      { yybegin(STRING_CODEPOINT_SEQUENCE); }
 
   \\b { string.append('\b'); }
   \\n { string.append('\n'); }
@@ -635,10 +646,16 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 
 <REGEXP, CHARCLASS> {
-  {HexNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode4}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {Unicode6}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yytext().length()), 16)); }
-  {OctNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(1,yytext().length()), 8)); }
+  {HexNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {OctNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(1,yylength()), 8)); }
+  {Unicode4}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {Unicode6}  { int codePoint = Integer.parseInt(yytext().substring(2,yylength()), 16);
+                if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                  return symbol(CHAR, codePoint);
+                } else {
+                  throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn+2);
+                }
+              }
 
   \\b { return symbol(CHAR, (int)'\b'); }
   \\n { return symbol(CHAR, (int)'\n'); }
@@ -683,6 +700,44 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   <<EOF>>     { throw new ScannerException(file,ErrorMessages.EOF_IN_COMMENT); }
 }
 
+<REGEXP_CODEPOINT_SEQUENCE> {
+  "}"             { yybegin(REGEXP); return symbol(STRING, string.toString()); }
+  {HexDigit}{1,6} { int codePoint = Integer.parseInt(yytext(), 16);
+                    if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                      string.append(Character.toChars(codePoint));
+                    } else {
+                      throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
+                    }
+                  }
+  {WSPNL}+        { }
+  <<EOF>>         { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
+}
+
+<STRING_CODEPOINT_SEQUENCE> { // Specialized form: newlines disallowed, and doesn't return a symbol
+  "}"             { yybegin(STRING_CONTENT); }
+  {HexDigit}{1,6} { int codePoint = Integer.parseInt(yytext(), 16);
+                    if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                      string.append(Character.toChars(codePoint));
+                    } else {
+                      throw new ScannerException(file, ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
+                    }
+                  }
+  {NL}            { throw new ScannerException(file,ErrorMessages.UNTERMINATED_STR, yyline, yycolumn); }
+  {WSP}+          { }
+  <<EOF>>         { throw new ScannerException(file,ErrorMessages.EOF_IN_STRING); }
+}
+
+<CHARCLASS_CODEPOINT> { // Specialized form: only one codepoint allowed, no whitespace allowed
+  {HexDigit}{1,6} "}" { int codePoint = Integer.parseInt(yytext().substring(0, yylength() - 1), 16);
+                        if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                          yybegin(CHARCLASS);
+                          return symbol(CHAR, codePoint);
+                        } else {
+                          throw new ScannerException(file, ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
+                        }
+                      }
+  <<EOF>>             { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
+}
 
 .  { throw new ScannerException(file,ErrorMessages.UNEXPECTED_CHAR, yyline, yycolumn); }
 \R { throw new ScannerException(file,ErrorMessages.UNEXPECTED_NL, yyline, yycolumn); }

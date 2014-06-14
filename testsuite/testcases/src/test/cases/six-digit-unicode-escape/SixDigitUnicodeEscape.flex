@@ -1,6 +1,6 @@
 %%
 
-%unicode 5.1
+%unicode
 %public
 %class SixDigitUnicodeEscape
 
@@ -15,5 +15,6 @@
 <<EOF>> { printOutput(); return 1; }
 \U000001 { setCurCharPropertyValue("matched"); }
 [\U000003] { setCurCharPropertyValue("matched"); }
-[\U000004-\U10FFFD] { setCurCharPropertyValue("matched"); }
+"\U000004" { setCurCharPropertyValue("matched"); }
+[\U000005-\U10FFFD] { setCurCharPropertyValue("matched"); }
 [^\U000001\U000003-\U10FFFD] { setCurCharPropertyValue("inverse matched"); }

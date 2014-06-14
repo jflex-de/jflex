@@ -1,0 +1,8 @@
+name: UnicodeCodePointEscapes-f-4
+
+description:
+Check that generation fails when a codepoint specified in \u{H+} format
+is greater than the maximum codepoint for the Unicode version
+
+jflex: -q --noinputstreamctor
+jflex-fail: true
