@@ -284,17 +284,6 @@ JFlex knows about the following options:
 \item \verb+--unicodever <ver>+\\
   print all supported properties for Unicode version \verb+<ver>+
 
-\item \verb+--pack+\\
-  use the \%pack code generation method by default
-
-\item \verb+--table+\\
-  use the \%table code generation method by default\\
-  {\bf Deprecated - will be removed in JFlex \nextver}
-
-\item \verb+--switch+\\
-  use the \%switch code generation method by default\\
-  {\bf Deprecated - will be removed in JFlex \nextver}
-
 \item \verb+--help+ or \texttt{-h}\\
   print a help message explaining options and usage of JFlex.
 \end{description}
@@ -1106,74 +1095,6 @@ to the following set of directives:
 %eofclose
 \end{verbatim}
 
-\end{itemize}
-
-\subsubsection{Code generation\label{CodeGeneration}}
-The following options define what kind of lexical analyser code JFlex
-will produce. \texttt{\%pack} is the default setting and will be used,
-when no code generation method is specified.
- 
-\begin{itemize}
-\item 
-  {\bf \tt \%switch}
-
-  {\bf The \texttt{\%switch} code generation method is deprecated and 
-  will be removed in JFlex \nextver.} With \texttt{\%switch} JFlex will
-  generate a scanner that has the DFA hard coded into a nested switch
-  statement. This method gives a good deal of compression in terms of
-  the size of the compiled \texttt{.class} file while still providing
-  very good performance. If your scanner gets to big though (say more
-  than about 200 states) performance may vastly degenerate and you
-  should consider using one of the \texttt{\%table} or \texttt{\%pack}
-  directives. If your scanner gets even bigger (about 300 states),
-  the Java compiler \texttt{javac} could produce corrupted code, that
-  will crash when executed or will give you an \texttt{java.lang.VerifyError}
-  when checked by the virtual machine. This is due to the size
-  limitation of 64 KB of Java methods as described in the Java Virtual
-  Machine Specification \cite{MachineSpec}. In this case you will be
-  forced to use the \texttt{\%pack} directive, since \texttt{\%switch}
-  usually provides more compression of the DFA table than the
-  \texttt{\%table} directive.
-
- 
-\item
-  {\bf \texttt{\%table}}
-  
-  {\bf The \texttt{\%table} code generation method is deprecated and 
-  will be removed in JFlex \nextver.} The \texttt{\%table} direction causes
-  JFlex to produce a classical table driven scanner that encodes its
-  DFA table in an array.  In this mode, JFlex only does a small amount
-  of table compression (see \cite{ParseTable}, \cite{SparseTable}, 
-  \cite{Aho} and \cite{Maurer} for more details on the matter of table
-  compression) and uses the same method that JLex did up to version
-  1.2.1. See section \ref{performance} \htmlref{performance}{performance}
-  of this manual to compare these methods. The same reason as above
-  (64 KB size limitation of methods) causes the same problem, when the
-  scanner gets too big. This is, because the virtual machine treats
-  static initialisers of arrays as normal methods. You will in this
-  case again be forced to use the \texttt{\%pack} directive to avoid
-  the problem.
- 
-\item
-  {\bf \texttt{\%pack}}
-  
-  \texttt{\%pack} causes JFlex to compress the generated DFA table and to
-  store it in one or more string literals. JFlex takes care that the
-  strings are not longer than permitted by the class file format.
-  The strings have to be unpacked when
-  the first scanner object is created and initialised.
-  After unpacking, the DFA table is exactly the
-  same as with option \texttt{\%table} --- the only extra work to be done
-  at runtime is the unpacking process which is fast (not noticeable
-  in normal cases). It is in time complexity proportional to the
-  size of the expanded DFA table, and it is static,
-  i.e.\ it is done only once per scanner class --- no matter
-  how often it is instantiated.  Again, see section
-  \ref{performance} \htmlref{performance}{performance}
-  on the performance of these scanners
-  With \texttt{\%pack}, there should be practically no
-  limitation to the size of the scanner. \texttt{\%pack} is the default
-  setting and will be used when no code generation method is specified.
 \end{itemize}
 
 \subsubsection{Character sets\label{CharacterSets}}
@@ -2378,8 +2299,7 @@ some kind of variable length identifiers.
 \end{itemize}
 
 Note that writing more rules in a specification does not make the generated
-scanner slower (except when you have to switch to another code generation
-method because of the larger size).
+scanner slower.
 
 The two main rules of optimisation apply also for lexical specifications:
 \begin{enumerate}

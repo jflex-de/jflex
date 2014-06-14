@@ -1,6 +1,0 @@
-name: switch
-
-description:
-the example 'simple' from the JFlex distribution with switch code generator
-
-jflex: -q --noinputstreamctor

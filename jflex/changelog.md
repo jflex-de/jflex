@@ -13,7 +13,8 @@
 - Characters in matches printed in %debug mode are now Unicode escaped
   (\uXXXX) when they are outside the range 32..127.
 - fixed bug #127, detect javadoc class comment when followed by annotation(s)
-
+- removed the "switch" and "table" code generation options
+  
 ## JFlex 1.5.1 (Mar 21, 2014)
 - fixed bug #126, problem calling ./jflex start scripts
 - fixed bug #125, minor documentation flaws

@@ -46,15 +46,8 @@ final public class Emitter {
   private LexParse parser;
   private DFA dfa;
 
-  // for switch statement:
-  // table[i][j] is the set of input characters that leads from state i to state j
-  private CharSet table[][];
-
   private boolean isTransition[];
   
-  // noTarget[i] is the set of input characters that have no target state in state i
-  private CharSet noTarget[];
-      
   // for row killing:
   private int numRows;
   private int [] rowMap;
@@ -571,40 +564,6 @@ final public class Emitter {
     println("  }");
   }
 
-  private void emitZZTrans() {    
-
-    int i,c;
-    int n = 0;
-    
-    println("  /** ");
-    println("   * The transition table of the DFA");
-    println("   */");
-    println("  private static final int ZZ_TRANS [] = {"); 
-
-    print("    ");
-    for (i = 0; i < dfa.numStates; i++) {
-      
-      if ( !rowKilled[i] ) {        
-        for (c = 0; c < dfa.numInput; c++) {          
-          if ( !colKilled[c] ) {            
-            if (n >= 10) {
-              println();
-              print("    ");
-              n = 0;
-            }
-            print( dfa.table[i][c] );
-            if (i != dfa.numStates-1 || c != dfa.numInput-1)
-              print( ", ");
-            n++;
-          }
-        }
-      }
-    }
-
-    println();
-    println("  };");
-  }
-  
   private void emitCharMapArrayUnPacked() {
    
     CharClasses cl = parser.getCharClasses();
@@ -966,12 +925,9 @@ final public class Emitter {
     
     skel.emitNext();
 
-    if ( scanner.useRowMap ) {
-      println("    int [] zzTransL = ZZ_TRANS;");
-      println("    int [] zzRowMapL = ZZ_ROWMAP;");
-      println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
-
-    }
+    println("    int [] zzTransL = ZZ_TRANS;");
+    println("    int [] zzRowMapL = ZZ_ROWMAP;");
+    println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
 
     skel.emitNext();    
         
@@ -1099,14 +1055,12 @@ final public class Emitter {
       println();
     }
 
-    if (scanner.useRowMap) {
-      println("      // set up zzAction for empty match case:");
-      println("      int zzAttributes = zzAttrL[zzState];");
-      println("      if ( (zzAttributes & 1) == 1 ) {");
-      println("        zzAction = zzState;");
-      println("      }");
-      println();
-    }
+    println("      // set up zzAction for empty match case:");
+    println("      int zzAttributes = zzAttrL[zzState];");
+    println("      if ( (zzAttributes & 1) == 1 ) {");
+    println("        zzAction = zzState;");
+    println("      }");
+    println();
   
     skel.emitNext();
   }
@@ -1128,38 +1082,6 @@ final public class Emitter {
 
     skel.emitNext();    
   }  
-
-  private void emitTransitionTable() {
-    transformTransitionTable();
-    
-    println("          zzInput = zzCMapL[zzInput];");
-    println();
-
-    println("          boolean zzIsFinal = false;");
-    println("          boolean zzNoLookAhead = false;");
-    println();
-    
-    println("          zzForNext: { switch (zzState) {");
-
-    for (int state = 0; state < dfa.numStates; state++)
-      if (isTransition[state]) emitState(state);
-
-    println("            default:");
-    println("              // if this is ever reached, there is a serious bug in JFlex");
-    println("              zzScanError(ZZ_UNKNOWN_ERROR);");
-    println("              break;");
-    println("          } }");
-    println();
-    
-    println("          if ( zzIsFinal ) {");
-    
-    skel.emitNext();
-    
-    println("            if ( zzNoLookAhead ) break zzForAction;");
-
-    skel.emitNext();    
-  }
-
 
   /**
    * Escapes all " ' \ tabs and newlines
@@ -1371,136 +1293,6 @@ final public class Emitter {
       println("            }");
   }
   
-  private void emitState(int state) {
-    
-    println("            case "+state+":");
-    println("              switch (zzInput) {");
-   
-    int defaultTransition = getDefaultTransition(state);
-    
-    for (int next = 0; next < dfa.numStates; next++) {
-            
-      if ( next != defaultTransition && table[state][next] != null ) {
-        emitTransition(state, next);
-      }
-    }
-    
-    if ( defaultTransition != DFA.NO_TARGET && noTarget[state] != null ) {
-      emitTransition(state, DFA.NO_TARGET);
-    }
-    
-    emitDefaultTransition(state, defaultTransition);
-    
-    println("              }");
-    println("");
-  }
-  
-  private void emitTransition(int state, int nextState) {
-
-    CharSetEnumerator chars;
-    
-    if (nextState != DFA.NO_TARGET) 
-      chars = table[state][nextState].characters();
-    else 
-      chars = noTarget[state].characters();
-  
-    print("                case ");
-    print(chars.nextElement());
-    print(": ");
-    
-    while ( chars.hasMoreElements() ) {
-      println();
-      print("                case ");
-      print(chars.nextElement());
-      print(": ");
-    } 
-    
-    if ( nextState != DFA.NO_TARGET ) {
-      if ( dfa.isFinal[nextState] )
-        print("zzIsFinal = true; ");
-        
-      if ( !isTransition[nextState] )
-        print("zzNoLookAhead = true; ");
-        
-      if ( nextState == state ) 
-        println("break zzForNext;");
-      else
-        println("zzState = "+nextState+"; break zzForNext;");
-    }
-    else
-      println("break zzForAction;");
-  }
-  
-  private void emitDefaultTransition(int state, int nextState) {
-    print("                default: ");
-    
-    if ( nextState != DFA.NO_TARGET ) {
-      if ( dfa.isFinal[nextState] )
-        print("zzIsFinal = true; ");
-        
-      if ( !isTransition[nextState] )
-        print("zzNoLookAhead = true; ");
-        
-      if ( nextState == state ) 
-        println("break zzForNext;");
-      else
-        println("zzState = "+nextState+"; break zzForNext;");
-    }
-    else
-      println( "break zzForAction;" );
-  }
-  
-  private int getDefaultTransition(int state) {
-    int max = 0;
-    
-    for (int i = 0; i < dfa.numStates; i++) {
-      if ( table[state][max] == null )
-        max = i;
-      else
-      if ( table[state][i] != null && table[state][max].size() < table[state][i].size() )
-        max = i;
-    }
-    
-    if ( table[state][max] == null ) return DFA.NO_TARGET;
-    if ( noTarget[state] == null ) return max;
-    
-    if ( table[state][max].size() < noTarget[state].size() ) 
-      max = DFA.NO_TARGET;
-    
-    return max;
-  }
-
-  // for switch statement:
-  private void transformTransitionTable() {
-    
-    int numInput = parser.getCharClasses().getNumClasses()+1;
-
-    int i;    
-    char j;
-    
-    table = new CharSet[dfa.numStates][dfa.numStates];
-    noTarget = new CharSet[dfa.numStates];
-    
-    for (i = 0; i < dfa.numStates;  i++) 
-      for (j = 0; j < dfa.numInput; j++) {
-
-        int nextState = dfa.table[i][j];
-        
-        if ( nextState == DFA.NO_TARGET ) {
-          if ( noTarget[i] == null ) 
-            noTarget[i] = new CharSet(numInput, colMap[j]);
-          else
-            noTarget[i].add(colMap[j]);
-        }
-        else {
-          if ( table[i][nextState] == null ) 
-            table[i][nextState] = new CharSet(numInput, colMap[j]);
-          else
-            table[i][nextState].add(colMap[j]);
-        }
-      }
-  }
-
   private void findActionStates() {
     isTransition = new boolean [dfa.numStates];
     
@@ -1510,7 +1302,6 @@ final public class Emitter {
         isTransition[i] = dfa.table[i][j++] != DFA.NO_TARGET;
     }
   }
-
   
   private void reduceColumns() {
     colMap = new int [dfa.numInput];
@@ -1627,21 +1418,15 @@ final public class Emitter {
     
     emitActionTable();
     
-    if (scanner.useRowMap) {
-     reduceRows();
+    reduceRows();
     
-      emitRowMapArray();
+    emitRowMapArray();
 
-      if (scanner.packed)
-        emitDynamicInit();
-      else
-        emitZZTrans();
-    }
+    emitDynamicInit();
     
     skel.emitNext();
     
-    if (scanner.useRowMap) 
-      emitAttributes();    
+    emitAttributes();    
 
     skel.emitNext();
     
@@ -1689,10 +1474,7 @@ final public class Emitter {
     
     emitNextInput();
 
-    if (scanner.useRowMap)
-      emitGetRowMapNext();
-    else
-      emitTransitionTable();
+    emitGetRowMapNext();
         
     skel.emitNext();
 

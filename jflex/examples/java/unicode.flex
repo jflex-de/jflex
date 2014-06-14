@@ -49,7 +49,6 @@ import java.io.*;
 %int
 %function read
 
-%switch
 %16bit
 
 UnicodeEscape   = {UnicodeMarker} {HexDigit} {4}

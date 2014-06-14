@@ -107,12 +107,8 @@ public class JFlexMojo extends AbstractMojo {
 	private boolean jlex;
 
 	/**
-	 * The generation method to use for the scanner. Valid values are
-	 * <code>switch</code>, <code>table</code> and <code>pack</code>.
-     * <b>The <code>switch</code> and <code>table</code> methods are deprecated
-     * and will be removed in JFlex 1.6.</b>
-	 * Please see the <a href="http://jflex.de/manual.html#CodeGeneration">JFlex
-	 * manual</a> for more details about the various methods.
+	 * The generation method to use for the scanner. The only valid value is
+	 * <code>pack</code>.
 	 * 
 	 * @parameter default-value="pack"
 	 */
@@ -270,12 +266,8 @@ public class JFlexMojo extends AbstractMojo {
 
 		Options.no_minimize = !minimize; // NOPMD
 		Options.no_backup = !backup;     // NOPMD
-		if ("switch".equals(generationMethod)) {
-			Options.gen_method = Options.SWITCH;
-		} else if ("table".equals(generationMethod)) {
-			Options.gen_method = Options.TABLE;
-		} else if ("pack".equals(generationMethod)) {
-			Options.gen_method = Options.PACK;
+		if ("pack".equals(generationMethod)) {
+			/* no-op - there is only one generation method */
 		} else {
 			throw new MojoExecutionException("Illegal generation method: "
 					+ generationMethod);

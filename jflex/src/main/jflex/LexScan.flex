@@ -86,8 +86,6 @@ import jflex.unicode.UnicodeProperties;
   boolean bolUsed;
   boolean standalone;
   boolean debugOption;
-  boolean useRowMap = Options.gen_method == Options.PACK || Options.gen_method == Options.TABLE;
-  boolean packed = Options.gen_method == Options.PACK;
   boolean caseless;
   boolean inclusive_states;
   boolean eofclose;
@@ -401,15 +399,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
   "%standalone"               { standalone = true; isInteger = true; }
-  "%switch"                   { packed = false; 
-                                useRowMap = false;
-                                Out.warning(ErrorMessages.SWITCH_METHOD_DEPRECATED, yyline);   
-                              }
-  "%table"                    { packed = false; 
-                                useRowMap = true;
-                                Out.warning(ErrorMessages.TABLE_METHOD_DEPRECATED, yyline);  
-                              }
-  "%pack"                     { packed = true; useRowMap = true; }
+  "%pack"                     { /* no-op - this is the only generation method */ }
   "%include" {WSP}+ .*        { includeFile(yytext().substring(9).trim()); }
   "%buffer" {WSP}+ {Number} {WSP}*   { bufferSize = Integer.parseInt(yytext().substring(8).trim()); }
   "%buffer" {WSP}+ {NNL}*     { throw new ScannerException(file,ErrorMessages.NO_BUFFER_SIZE, yyline); }

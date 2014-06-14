@@ -51,9 +51,6 @@ public class OptionsDialog extends Dialog {
   private Checkbox jlex;
   private Checkbox dot;
 
-  private Checkbox tableG;
-  private Checkbox switchG;
-  private Checkbox packG;
   private Checkbox legacy_dot;
 
   /**
@@ -83,11 +80,6 @@ public class OptionsDialog extends Dialog {
     skelBrowse = new Button(" Browse");
     skelFile = new TextField();
     skelFile.setEditable(false);
-
-    CheckboxGroup codeG = new CheckboxGroup();
-    tableG = new Checkbox(" table (DEPRECATED)",Options.gen_method == Options.TABLE, codeG);
-    switchG = new Checkbox(" switch (DEPRECATED)",Options.gen_method == Options.SWITCH, codeG);
-    packG = new Checkbox(" pack",Options.gen_method == Options.PACK, codeG);
 
     legacy_dot = new Checkbox( " dot (.) matches [^\\n] instead of "
                              + "[^\\n\\r\\000B\\u000C\\u0085\\u2028\\u2029]");
@@ -119,12 +111,6 @@ public class OptionsDialog extends Dialog {
     skelBrowse.addActionListener( new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         skelBrowse();
-      }
-    } );
-
-    tableG.addItemListener( new ItemListener() {
-      public void itemStateChanged(ItemEvent e) {
-        setGenMethod();
       }
     } );
 
@@ -186,7 +172,7 @@ public class OptionsDialog extends Dialog {
     });
 
     // setup layout
-    GridPanel panel = new GridPanel(4,7,10,10);
+    GridPanel panel = new GridPanel(4,5,10,10);
     panel.setInsets( new Insets(10,5,5,10) );
     
     panel.add(3,0,ok);
@@ -196,24 +182,19 @@ public class OptionsDialog extends Dialog {
     panel.add(0,1,2,1,skelFile);
     panel.add(2,1,1,1,Handles.TOP, skelBrowse);
      
-    panel.add(0,2,1,1,Handles.BOTTOM,new Label("code:"));
-    panel.add(0,3,1,1,tableG);
-    panel.add(0,4,1,1,switchG);
-    panel.add(0,5,1,1,packG);
+    panel.add(0,4,4,1,legacy_dot);
 
-    panel.add(0,6,4,1,legacy_dot);
+    panel.add(0,2,1,1,dump);
+    panel.add(0,3,1,1,verbose);
 
-    panel.add(1,3,1,1,dump);
-    panel.add(1,4,1,1,verbose);
-    panel.add(1,5,1,1,time);
-    
+    panel.add(1,2,1,1,time);
+    panel.add(1,3,1,1,no_minimize);
 
-    panel.add(2,3,1,1,no_minimize);
-    panel.add(2,4,1,1,no_backup);
-    panel.add(2,5,1,1,input_stream_ctor);
+    panel.add(2,2,1,1,no_backup);
+    panel.add(2,3,1,1,input_stream_ctor);
 
-    panel.add(3,3,1,1,jlex);
-    panel.add(3,4,1,1,dot);
+    panel.add(3,2,1,1,jlex);
+    panel.add(3,3,1,1,dot);
 
     add("Center", panel);
     
@@ -236,28 +217,7 @@ public class OptionsDialog extends Dialog {
     }
   }
 
-  private void setGenMethod() {
-    if ( tableG.getState() ) {
-      Options.gen_method = Options.TABLE;
-      return;
-    }
-    
-    if ( switchG.getState() ) {
-      Options.gen_method = Options.SWITCH;
-      return;
-    }
-    
-    if ( packG.getState() ) {
-      Options.gen_method = Options.PACK;
-      return;
-    }
-  }
-
   private void updateState() {
-    tableG.setState(Options.gen_method == Options.TABLE);
-    switchG.setState(Options.gen_method == Options.SWITCH);
-    packG.setState(Options.gen_method == Options.PACK);
-
     legacy_dot.setState(Options.legacy_dot);
   
     dump.setState(Options.dump);

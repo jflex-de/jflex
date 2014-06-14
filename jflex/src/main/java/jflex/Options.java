@@ -24,14 +24,6 @@ public class Options {
    *  This is a compile time option */
   public final static boolean DEBUG = false;
 
-	/** code generation method: maximum packing */
-	final public static int PACK   = 0;
-	/** code generation method: traditional */
-	final public static int TABLE  = 1;
-	/** code generation method: switch statement */
-	final public static int SWITCH = 2;
-
-
 	/** output directory */
 	private static File directory;
   /** strict JLex compatibility */
@@ -40,8 +32,6 @@ public class Options {
   public static boolean no_minimize; 
   /** don't write backup files if this is true */
   public static boolean no_backup;
-  /** default code generation method */
-  public static int gen_method;
   /** If false, only error/warning output will be generated */
   public static boolean verbose;
   /** If true, progress dots will be printed */
@@ -104,7 +94,6 @@ public class Options {
     jlex = false;
 	no_minimize = false;
 	no_backup = false;
-	gen_method = Options.PACK;    
     verbose = true;
     progress = true;
     time = false;

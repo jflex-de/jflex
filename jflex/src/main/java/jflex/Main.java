@@ -222,20 +222,10 @@ public class Main {
       }
 
       if ( argv[i].equals("--pack") || argv[i].equals("-pack") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.PACK;
+        /* no-op - pack is the only generation method */
         continue;
       }
 
-      if ( argv[i].equals("--table") || argv[i].equals("-table") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.TABLE;
-        continue;
-      }
-
-      if ( argv[i].equals("--switch") || argv[i].equals("-switch") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.SWITCH;
-        continue;
-      }
-      
       if ( argv[i].equals("--nobak") || argv[i].equals("-nobak") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.no_backup = true;
         continue;
@@ -358,8 +348,6 @@ public class Main {
     Out.println("Where <options> can be one or more of");
     Out.println("-d <directory>    write generated file to <directory>");
     Out.println("--skel <file>     use external skeleton <file>");
-    Out.println("--switch             (DEPRECATED - will be removed in JFlex 1.6)");
-    Out.println("--table              (DEPRECATED - will be removed in JFlex 1.6)");
     Out.println("--pack            set default code generation method (default)");
     Out.println("--jlex            strict JLex compatibility");
     Out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");

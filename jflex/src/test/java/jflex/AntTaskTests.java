@@ -108,15 +108,6 @@ public class AntTaskTests extends TestCase {
     assertTrue(Options.no_backup);
   }
 
-  public void testCodeGen() {
-    task.setSwitch(true);
-    assertEquals(Options.SWITCH, Options.gen_method);
-    task.setTable(true);
-    assertEquals(Options.TABLE, Options.gen_method);
-    task.setPack(true);
-    assertEquals(Options.PACK, Options.gen_method);
-  }
-
     public void testSkel() {
         task.setVerbose(false); // avoid to java console pop up
         task.setSkeleton(new File("src/main/jflex/skeleton.nested"));

@@ -88,8 +88,6 @@ import java.util.HashMap;
   boolean bolUsed;
   boolean standalone;
   boolean debugOption;
-  boolean useRowMap = Options.gen_method == Options.PACK || Options.gen_method == Options.TABLE;
-  boolean packed = Options.gen_method == Options.PACK;
   boolean caseless;
   boolean inclusive_states;
   boolean eofclose;
@@ -316,9 +314,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
   "%standalone"               { standalone = true; isInteger = true; }
-  "%switch"                   { packed = false; useRowMap = false; }
-  "%table"                    { packed = false; useRowMap = true; }
-  "%pack"                     { packed = true; useRowMap = true; }
+  "%pack"                     { /* no-op - this is the only generation method */ }
   "%include" {WSP}+ .*        { File f = new File(yytext().substring(9).trim());
                                 if ( !f.canRead() )
                                   throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);

@@ -206,31 +206,8 @@ public class JFlexTask extends Task {
     Options.no_backup = b;
   }
 
-  public void setSwitch(boolean b) {
-    if (b) {
-      Options.gen_method = Options.SWITCH;
-    }
-    else {
-      Options.gen_method = Options.PACK;
-    }
-  }
-
-  public void setTable(boolean b) {
-    if (b) {
-      Options.gen_method = Options.TABLE;
-    }
-    else {
-      Options.gen_method = Options.PACK;
-    }
-  }
-
   public void setPack(boolean b) {
-    if (b) {
-      Options.gen_method = Options.PACK;
-    }
-    else {
-      Options.gen_method = Options.SWITCH;
-    }    
+    /* no-op - this is the only available generation method */
   }
 
   public void setDot(boolean b) {

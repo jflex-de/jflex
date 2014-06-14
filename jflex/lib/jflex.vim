@@ -68,8 +68,6 @@ syn match jflexOption "^%final" contained
 syn match jflexOption "^%abstract" contained
 syn match jflexOption "^%debug" contained
 syn match jflexOption "^%standalone" contained
-syn match jflexOption "^%switch" contained
-syn match jflexOption "^%table" contained
 syn match jflexOption "^%pack" contained
 syn match jflexOption "^%include" contained
 syn match jflexOption "^%buffer" contained

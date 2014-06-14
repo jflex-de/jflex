@@ -54,7 +54,6 @@
      "^%eofval}"
      "^%standalone"        
      "^%scanerror"
-     "^%switch"
      "^%states" ; fixme: state identifiers
      "^%state"
      "^%s"
@@ -91,7 +90,6 @@
      "^%final"    
      "^%abstract"    
      "^%debug"          
-     "^%table"
      "^%pack"
      "^%include"
      "^%buffer"
