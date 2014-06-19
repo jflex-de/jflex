@@ -1,4 +1,5 @@
 ## JFlex 1.6.0
+- Unicode 7.0 is supported.
 - In %unicode mode, supplementary code points are now handled properly.
   . Regular expressions are now code-point based, rather than code-unit/
     char based.
@@ -6,7 +7,7 @@
     surrogate code units are read as a single character.
   . All supported Unicode properties now match supplementary characters
     when Unicode 3.0 or above is specified, or when no version is
-    specified, causing the default Unicode version, Unicode 6.3 in this
+    specified, causing the default Unicode version, Unicode 7.0 in this
     release, to be used.
 - New \u{...} escape sequence allows code points (and whitespace-separated
   sequences of code points) to be specified as 1-6 hexadecimal digit values.
@@ -14,6 +15,9 @@
   (\uXXXX) when they are outside the range 32..127.
 - fixed bug #127, detect javadoc class comment when followed by annotation(s)
 - removed the "switch" and "table" code generation options
+- By default no InputStream constructor is included in the generated
+  scanner.  The capability to include one is deprecated and will be
+  removed in JFlex 1.7.
   
 ## JFlex 1.5.1 (Mar 21, 2014)
 - fixed bug #126, problem calling ./jflex start scripts
