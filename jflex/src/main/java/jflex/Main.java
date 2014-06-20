@@ -30,7 +30,7 @@ import jflex.unicode.UnicodeProperties;
 public class Main {
   
   /** JFlex version */
-  final public static String version = "1.6.0"; //$NON-NLS-1$
+  final public static String version = "1.7.0-SNAPSHOT"; //$NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
