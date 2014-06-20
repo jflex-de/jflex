@@ -143,7 +143,7 @@ public class JFlexMojo extends AbstractMojo {
      * If true, the generated scanner will include a constructor taking
      * an InputStream.
      * 
-     * @parameter default-value="true"
+     * @parameter default-value="false"
      */
     private boolean inputStreamCtor = false; // NOPMD
 
