@@ -4,13 +4,20 @@
 
 Latest version
 
+* Version 1.6.0
+
+   * Relies on JFlex 1.6.0
+
+   * changed inputStreamCtor default to false
+ 
+
 * Version 1.5.0
 
   * Changed name from maven-jflex-plugin to jflex-maven-plugin
  
   * Switched license from GPL to BSD
 
-  * Relies on JFlex 1.6.0
+  * Relies on JFlex 1.5.0
  
   * Requires Java 5
 
