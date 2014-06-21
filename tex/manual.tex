@@ -27,6 +27,7 @@
 \newcommand{\trit}{\em}
 
 \newcommand{\ver}{1.6}
+\newcommand{\longver}{1.6.0}
 \newcommand{\nextver}{1.7}
 \newcommand{\latestunicodever}{7.0}
 
@@ -126,7 +127,7 @@ should be generated:
 \\
 \\
 {\xsmall\texttt{
-C:\bs jflex-\ver\bs\\ 
+C:\bs jflex-\longver\bs\\ 
 \phantom{}~~~~+\dd bin\bs~~~~~~~~~~~~~~~~~~~~~~~~(start scripts)\\
 \phantom{}~~~~+\dd doc\bs~~~~~~~~~~~~~~~~~~~~~~~~(FAQ and manual)\\
 \phantom{}~~~~+\dd examples\bs\\ 
@@ -154,7 +155,7 @@ C:\bs jflex-\ver\bs\\
 
 \item
 Edit the file {\bf \verb+bin\jflex.bat+}
-(in the example it's \texttt{C:\bs jflex-\ver\bs bin\bs jflex.bat})
+(in the example it's \texttt{C:\bs jflex-\longver\bs bin\bs jflex.bat})
 such that
 
 \begin{itemize}
@@ -163,12 +164,12 @@ such that
   (for instance \verb+C:\java+) and
 \item
   {\bf \texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
-  \texttt{C:\bs jflex-\ver})
+  \texttt{C:\bs jflex-\longver})
 \end{itemize}
  
 \item
 Include the \verb+bin\+ directory of JFlex in your path.
-(the one that contains the start script, in the example: \texttt{C:\bs jflex-\ver\bs bin}).
+(the one that contains the start script, in the example: \texttt{C:\bs jflex-\longver\bs bin}).
 \end{enumerate}
 
 \subsubsection{Unix with tar archive}
@@ -179,7 +180,7 @@ To install JFlex on a Unix system, follow these two steps:
   Decompress the archive into a directory of your choice
   with GNU tar, for instance to \texttt{/usr/share}:
 
-  \texttt{tar -C /usr/share -xvzf jflex-\ver.tar.gz}
+  \texttt{tar -C /usr/share -xvzf jflex-\longver.tar.gz}
   
   (The example is for site wide installation. You need to
   be root for that. User installation works exactly the
@@ -190,7 +191,7 @@ To install JFlex on a Unix system, follow these two steps:
   Make a symbolic link from somewhere in your binary 
   path to \texttt{bin/jflex}, for instance:
 
-  \texttt{ln -s /usr/share/jflex-\ver/bin/jflex /usr/bin/jflex}
+  \texttt{ln -s /usr/share/jflex-\longver/bin/jflex /usr/bin/jflex}
 
   If the Java interpreter is not in your binary path, you
   need to supply its location in the script \texttt{bin/jflex}.
@@ -201,11 +202,11 @@ the MD5 checksum available on the \htmladdnormallink{JFlex download page}{http:/
 If you put the checksum file in the same directory
 as the archive, you run:
 
-\verb+md5sum --check +\texttt{jflex-\ver.tar.gz.md5}
+\verb+md5sum --check +\texttt{jflex-\longver.tar.gz.md5}
 
 It should tell you
 
-\texttt{jflex-\ver.tar.gz: OK}
+\texttt{jflex-\longver.tar.gz: OK}
 
 
 \subsection{Running JFlex}
@@ -214,7 +215,7 @@ You run JFlex with:
 \texttt{jflex <options> <inputfiles>}
 
 It is also possible to skip the start script in \verb+bin/+
-and include the file \texttt{lib/jflex-\ver.jar}
+and include the file \texttt{lib/jflex-\longver.jar}
 in your \texttt{CLASSPATH} environment variable instead.
 
 Then you run JFlex with:
@@ -223,7 +224,7 @@ Then you run JFlex with:
 
 or with:
 
-\texttt{java -jar jflex-\ver.jar <options> <inputfiles>}
+\texttt{java -jar jflex-\longver.jar <options> <inputfiles>}
 
 The input files and options are in both cases optional. If you don't
 provide a file name on the command line, JFlex will pop up a window
@@ -1861,7 +1862,7 @@ Currently, the API consists of the following methods and member fields:
  reads from a new stream. Lexical state, line,
  char, and column counting remain untouched.
  The current input stream can be restored with
- \texttt{yypopstream} (usually in an \texttt{<<EOF>>} action).
+ \texttt{yypopStream} (usually in an \texttt{<<EOF>>} action).
  
  A typical example for this are include files in
  style of the C pre-processor. The corresponding 
