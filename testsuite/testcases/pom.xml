@@ -35,6 +35,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-testsuite-maven-plugin</artifactId>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <goals>
