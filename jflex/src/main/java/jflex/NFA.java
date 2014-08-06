@@ -648,7 +648,7 @@ final public class NFA {
       IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
       for (Interval interval : caselessSet.getIntervals()) {
         for (int elem = interval.start ; elem <= interval.end ; ++elem) {
-          addTransition(start, classes.getClassCode(ch), end);
+          addTransition(start, classes.getClassCode(elem), end);
         }
       }
     }

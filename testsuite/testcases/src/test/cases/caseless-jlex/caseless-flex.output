@@ -1,4 +1,4 @@
 
-Warning in file "src/test/cases/caseless-jlex/caseless.flex" (line 18): 
+Warning in file "src/test/cases/caseless-jlex/caseless.flex" (line 19): 
 Rule can never be matched:
 "hello"    { System.out.println("--"+yytext()+"--");   }

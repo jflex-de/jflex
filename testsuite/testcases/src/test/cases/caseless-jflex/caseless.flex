@@ -14,6 +14,7 @@ NL = \r|\n|\r\n
 
 %%
 
+a          { System.out.println("--a--"+yytext()+"--"); }
 [a-z]+     { System.out.println("--[a-z]+--"+yytext()+"--");  }
 "hello"    { System.out.println("--"+yytext()+"--");   }
 

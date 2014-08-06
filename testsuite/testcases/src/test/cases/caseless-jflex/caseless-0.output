@@ -1,3 +1,7 @@
+--a--a--
+--newline--
+--a--A--
+--newline--
 --[a-z]+--hello--
 --newline--
 --HelLo--
