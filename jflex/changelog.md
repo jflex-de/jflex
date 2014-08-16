@@ -1,4 +1,7 @@
-## JFlex 1.6.0
+## JFlex 1.6.1
+- fixed bug #129, in caseless mode, chars in regexps not accepted caselessly
+
+## JFlex 1.6.0 (Jun 21, 2014)
 - Unicode 7.0 is supported.
 - In %unicode mode, supplementary code points are now handled properly.
   . Regular expressions are now code-point based, rather than code-unit/
