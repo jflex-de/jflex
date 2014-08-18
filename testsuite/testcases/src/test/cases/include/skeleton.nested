@@ -162,19 +162,16 @@
     }
 
     /* fill the buffer with new input */
-    int requested = zzBuffer.length - zzEndRead;           
-    int totalRead = 0;
-    while (totalRead < requested) {
-      int numRead = zzReader.read(zzBuffer, zzEndRead + totalRead, requested - totalRead);
-      if (numRead == -1) {
-        break;
-      }
-      totalRead += numRead;
-    }
+    int requested = zzBuffer.length - zzEndRead;
+    int numRead = zzReader.read(zzBuffer, zzEndRead, requested);
 
-    if (totalRead > 0) {
-      zzEndRead += totalRead;
-      if (totalRead == requested) { /* possibly more input available */
+    // unlikely but not impossible: read 0 characters, but not at end of stream
+    if (numRead == 0) {
+      numRead = zzReader.read(zzBuffer, zzEndRead, requested);
+    }
+    if (numRead > 0) {
+      zzEndRead += numRead;
+      if (numRead == requested) { /* possibly more input available */
         if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
           --zzEndRead;
           zzFinalHighSurrogate = 1;
@@ -183,7 +180,6 @@
       return false;
     }
 
-    // totalRead = 0: End of stream
     return true;
   }
 

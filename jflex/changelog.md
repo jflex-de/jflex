@@ -1,5 +1,6 @@
 ## JFlex 1.6.1
 - fixed bug #129, in caseless mode, chars in regexps not accepted caselessly
+- fixed bug #130, re-enable scanning interactively or from a network byte stream
 
 ## JFlex 1.6.0 (Jun 21, 2014)
 - Unicode 7.0 is supported.
