@@ -73,12 +73,12 @@ for his C/C++ tool flex \cite{flex}: they do not share any code though.
 \subsection{Design goals}
 The main design goals of JFlex are:
 \begin{itemize}
-\item {\bf Full unicode support}
-\item {\bf Fast generated scanners }
-\item {\bf Fast scanner generation}
-\item {\bf Convenient specification syntax}
-\item {\bf Platform independence}
-\item {\bf JLex compatibility}
+\item \textbf{Full unicode support}
+\item \textbf{Fast generated scanners}
+\item \textbf{Fast scanner generation}
+\item \textbf{Convenient specification syntax}
+\item \textbf{Platform independence}
+\item \textbf{JLex compatibility}
 \end{itemize}
 
 \subsection{About this manual}
@@ -155,16 +155,16 @@ C:\bs jflex-\longver\bs\\
 }
 
 \item
-Edit the file {\bf \verb+bin\jflex.bat+}
+Edit the file \textbf{\texttt{bin\bs jflex.bat}}
 (in the example it's \texttt{C:\bs jflex-\longver\bs bin\bs jflex.bat})
 such that
 
 \begin{itemize}
 \item
-  {\bf \texttt{JAVA\_HOME}} contains the directory where your Java JDK is installed
+  \textbf{\texttt{JAVA\_HOME}} contains the directory where your Java JDK is installed
   (for instance \verb+C:\java+) and
 \item
-  {\bf \texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
+  \textbf{\texttt{JFLEX\_HOME}} the directory that contains JFlex (in the example:
   \texttt{C:\bs jflex-\longver})
 \end{itemize}
  
@@ -579,7 +579,7 @@ means that both \texttt{expr1} and \texttt{expr2} have start condition \texttt{<
 The first three rules in our example demonstrate the syntax of a regular 
 expression preceded by the start condition \texttt{<YYINITIAL>}.
 
-{\tt\htmlref{<YYINITIAL> "abstract"}{CodeRulesYYINITIAL}\verb+  {+ return symbol(sym.ABSTRACT); \verb+}+}
+{\ttfamily\htmlref{<YYINITIAL> "abstract"}{CodeRulesYYINITIAL}\verb+  {+ return symbol(sym.ABSTRACT); \verb+}+}
 
 matches the input "\texttt{abstract}" only if the scanner is in its
 start state "\texttt{YYINITIAL}". When the string "\texttt{abstract}" is
@@ -704,7 +704,7 @@ These options regard name, constructor, API, and related parts of the
 generated scanner class.
 \begin{itemize}
 \item
-{\bf \texttt{\%class "classname"}}
+\textbf{\texttt{\%class "classname"}}
 
 Tells JFlex to give the generated class the name "\texttt{classname}" and to
 write the generated code to a file "\texttt{classname.java}". If the 
@@ -716,36 +716,36 @@ class will get the name "\texttt{Yylex}" and will be written to a file
 in a specification.
  
 \item
-{\bf \texttt{\%implements "interface 1"[, "interface 2", ..]}}
+\textbf{\texttt{\%implements "interface 1"[, "interface 2", ..]}}
 
 Makes the generated class implement the specified interfaces. If more than
 one \texttt{\%imple\-ments} directive is present, all the specified interfaces 
 will be implemented.
  
 \item
-{\bf \texttt{\%extends "classname"}}
+\textbf{\texttt{\%extends "classname"}}
 
 Makes the generated class a subclass of the class ``\texttt{classname}''.
 There should be only one \texttt{\%extends} directive in a specification.
 
 \item
-{\bf \texttt{\%public}}
+\textbf{\texttt{\%public}}
 
 Makes the generated class public (the class is only accessible in its
 own package by default).
 
 \item
-{\bf \texttt{\%final}}
+\textbf{\texttt{\%final}}
 
 Makes the generated class final.
 
 \item
-{\bf \texttt{\%abstract}}
+\textbf{\texttt{\%abstract}}
 
 Makes the generated class abstract.
  
 \item
-{\bf \texttt{\%apiprivate}}
+\textbf{\texttt{\%apiprivate}}
 
 Makes all generated methods and fields of the class
 private. Exceptions are the constructor, user code in the
@@ -759,7 +759,7 @@ code (see next switch).
 
 
 \item
-{\bf \verb+%{+}\\ {\bf \texttt{...}}\\ {\bf \verb+%}+}
+{\bfseries \verb+%{+}\\ \textbf{\texttt{...}}\\ {\bfseries \verb+%}+}
 
 The code enclosed in \verb+%{+ and \verb+%}+ is copied verbatim
 into the generated class. Here you can define your own member variables
@@ -769,9 +769,9 @@ class code directive \verb+%{...%}+ is present, the code is concatenated
 in order of appearance in the specification.
  
 \item
-{\bf \verb+%init{+}\\
-{\bf \texttt{...}}\\
-{\bf \verb+%init}+}
+{\bfseries \verb+%init{+}\\
+\textbf{\texttt{...}}\\
+{\bfseries \verb+%init}+}
 
 The code enclosed in \verb+%init{+ and \verb+%init}+ is copied
 verbatim into the constructor of the generated class. Here, member
@@ -780,13 +780,13 @@ If more than one initialiser option is present, the code is concatenated
 in order of appearance in the specification.
  
 \item
-{\bf \verb+%initthrow{+}\\
-{\bf \texttt{"exception1"[, "exception2", ...]}}\\
-{\bf \verb+%initthrow}+}
+{\bfseries \verb+%initthrow{+}\\
+{\bfseries \texttt{"exception1"[, "exception2", ...]}}\\
+{\bfseries \verb+%initthrow}+}
 
 or (on a single line) just
 
-{\bf \texttt{\%initthrow "exception1" [,  "exception2", ...]}}
+{\bfseries \texttt{\%initthrow "exception1" [,  "exception2", ...]}}
 
 Causes the specified exceptions to be declared in the \texttt{throws}
 clause of the constructor. If more than one \verb+%initthrow{+ \texttt{...} \verb+%initthrow}+
@@ -794,7 +794,7 @@ directive is present in the specification, all specified exceptions will
 be declared.
 
 \item
-{\bf \texttt{\%ctorarg "type" "ident"}}
+{\bfseries \texttt{\%ctorarg "type" "ident"}}
 
 Adds the specified argument to the constructors of the generated scanner. 
 If more than one such directive is present, the arguments are added in order
@@ -805,7 +805,7 @@ in the generated \texttt{main} methods. JFlex will warn in this case and
 generate an additional default constructor without these parameters and without user init code (which might potentially refer to the parameters).
 
 \item 
-{\bf \texttt{\%scanerror "exception"}}
+{\bfseries \texttt{\%scanerror "exception"}}
 
 Causes the generated scanner to throw an instance of the specified
 exception in case of an internal error (default is
@@ -815,13 +815,13 @@ occur (i.e.~if there is an error fallback rule in the specification
 and only the documented scanner API is used).
 
 \item
-{\bf \texttt{\%buffer "size"}}
+{\bfseries \texttt{\%buffer "size"}}
 
 Set the initial size of the scan buffer to the specified value 
 (decimal, in bytes). The default value is 16384.
 
 \item 
-{\bf \texttt{\%include "filename"}}
+{\bfseries \texttt{\%include "filename"}}
 
 Replaces the \texttt{\%include} verbatim by the specified file. This
 feature is still experimental. It works, but error reporting can be
@@ -838,7 +838,7 @@ If no return type is specified, the scanning method will be declared as
 returning values of class \texttt{Yytoken}.
 \begin{itemize}
 \item
-{\bf \texttt{\%function "name"}}
+{\bfseries \texttt{\%function "name"}}
 
 Causes the scanning method to get the specified name. If no \texttt{\%function}
 directive is present in the specification, the scanning method gets the
@@ -852,8 +852,8 @@ It is of course possible to provide a dummy implementation of that method
 in the class code section if you still want to override the function name.
  
 \item
-{\bf \texttt{\%integer}}\\
-{\bf \texttt{\%int}}
+{\bfseries \texttt{\%integer}}\\
+{\bfseries \texttt{\%int}}
 
 Both cause the scanning method to be declared as of Java type \texttt{int}.
 Actions in the specification can then return \texttt{int} values as tokens.
@@ -861,14 +861,14 @@ The default end of file value under this setting is \texttt{YYEOF}, which is a \
 static final int} member of the generated class.
  
 \item
-{\bf \texttt{\%intwrap}}
+{\bfseries \texttt{\%intwrap}}
 
 Causes the scanning method to be declared as of the Java wrapper type
 \texttt{Integer}. Actions in the specification can then return \texttt{Integer}
 values as tokens. The default end of file value under this setting is \texttt{null}.
  
 \item
-{\bf \texttt{\%type "typename"}}
+{\bfseries \texttt{\%type "typename"}}
 
 Causes the scanning method to be declared as returning values of the specified type.
 Actions in the specification can then return values of \texttt{typename}
@@ -881,13 +881,13 @@ The \texttt{\%type} directive overrides settings of the
 \texttt{\htmlref{\%cup}{CupMode}} switch.
  
 \item
-{\bf \verb+%yylexthrow{+}\\
-{\bf \texttt{"exception1"[, "exception2", ... ]}}\\
-{\bf \verb+%yylexthrow}+}
+{\bfseries \verb+%yylexthrow{+}\\
+{\bfseries \texttt{"exception1"[, "exception2", ... ]}}\\
+{\bfseries \verb+%yylexthrow}+}
 
 or (on a single line) just
 
-{\bf \texttt{\%yylexthrow "exception1" [,  "exception2", ...]}}
+{\bfseries \texttt{\%yylexthrow "exception1" [,  "exception2", ...]}}
 
 The exceptions listed inside \verb+%yylexthrow{+ \texttt{...} \verb+%yylexthrow}+ 
 will be declared in the throws clause of the scanning method. If there is
@@ -904,30 +904,30 @@ end of file is reached.
 The default end of file value depends on the return type of the scanning method:
 \begin{itemize}
 \item
-For {\bf \texttt{\%integer}}, the scanning method will return the value
-{\bf \texttt{YYEOF}}, which is a \texttt{public static final int} member
+For {\bfseries \texttt{\%integer}}, the scanning method will return the value
+{\bfseries \texttt{YYEOF}}, which is a \texttt{public static final int} member
 of the generated class.
 
 \item
-For {\bf \texttt{\%intwrap}}, 
+For {\bfseries \texttt{\%intwrap}}, 
 \item
 no specified type at all, or a 
 \item
-user defined type, declared using {\bf \texttt{\%type}}, the value is {\bf \texttt{null}}.
+user defined type, declared using {\bfseries \texttt{\%type}}, the value is {\bfseries \texttt{null}}.
 
 \item
-In CUP compatibility mode, using {\bf \texttt{\%cup}}, the value is 
+In CUP compatibility mode, using {\bfseries \texttt{\%cup}}, the value is 
 
-{\bf \texttt{new java\_cup.runtime.Symbol(sym.EOF)}}
+{\bfseries \texttt{new java\_cup.runtime.Symbol(sym.EOF)}}
 \end{itemize}
 
 User values and code to be executed at the end of file can be defined using these directives:
 \begin{itemize}
 \label{eofval}
 \item
-{\bf \verb+%eofval{+}\\
-{\bf \texttt{...}}\\
-{\bf \verb+%eofval}+}
+{\bfseries \verb+%eofval{+}\\
+{\bfseries \texttt{...}}\\
+{\bfseries \verb+%eofval}+}
 
 The code included in \verb+%eofval{+ \texttt{...} \verb+%eofval}+ will
 be copied verbatim into the scanning method and will be executed {\trit each time} 
@@ -943,9 +943,9 @@ a more readable way to specify the end of file value using the
 \htmlref{\texttt{<<EOF>>} rule}{EOFRule} (see also section \ref{EOFRule}).
 
 \item\label{eof}
-  {\bf \verb+%eof{+}\\
-  {\bf \texttt{...}}\\
-  {\bf \verb+%eof}+} 
+  {\bfseries \verb+%eof{+}\\
+  {\bfseries \texttt{...}}\\
+  {\bfseries \verb+%eof}+} 
   
   The code included in \verb+%{eof ... %eof}+ will be executed
   exactly once, when the end of file is reached. The code is included
@@ -957,13 +957,13 @@ a more readable way to specify the end of file value using the
  
 
 \item
-  {\bf \verb+%eofthrow{+}\\
-  {\bf \texttt{"exception1"[,"exception2", ... ]}}\\
-  {\bf \verb+%eofthrow}+}
+  {\bfseries \verb+%eofthrow{+}\\
+  {\bfseries \texttt{"exception1"[,"exception2", ... ]}}\\
+  {\bfseries \verb+%eofthrow}+}
 
   or (on a single line) just
 
-  {\bf \texttt{\%eofthrow "exception1" [,  "exception2", ...]}}
+  {\bfseries \texttt{\%eofthrow "exception1" [,  "exception2", ...]}}
   
   The exceptions listed inside \verb+%eofthrow{...%eofthrow}+ will
   be declared in the throws clause of the method \texttt{yy\_do\_eof()}
@@ -973,7 +973,7 @@ a more readable way to specify the end of file value using the
  
 
 \label{eofclose}
-\item{\bf \texttt{\%eofclose}}
+\item{\bfseries \texttt{\%eofclose}}
   
   Causes JFlex to close the input stream at the end of file. The code
   \texttt{yyclose()} is appended to the method \texttt{yy\_do\_eof()}
@@ -983,7 +983,7 @@ a more readable way to specify the end of file value using the
   \verb+%eofthrow{...%eofthrow}+)
 
 
-\item{\bf \texttt{\%eofclose false}}
+\item{\bfseries \texttt{\%eofclose false}}
   
   Turns the effect of \texttt{\%eofclose} off again (e.g. in case closing of
   input stream is not wanted after \texttt{\%cup}).
@@ -993,7 +993,7 @@ a more readable way to specify the end of file value using the
 \subsubsection{Standalone scanners}\label{Standalone}
 \begin{itemize}
 \item
-{\bf \texttt{\%debug}}
+{\bfseries \texttt{\%debug}}
 
 Creates a main function in the generated class that expects the name
 of an input file on the command line and then runs the scanner on this
@@ -1003,7 +1003,7 @@ line number (if line counting is enabled), column (if column counting is enabled
 the matched text, and the executed action (with line number in the specification).
  
 \item
-{\bf \texttt{\%standalone}}
+{\bfseries \texttt{\%standalone}}
 
 Creates a main function in the generated class that expects the name
 of an input file on the command line and then runs the scanner on this
@@ -1026,7 +1026,7 @@ if you are interested in how to interface your generated
 scanner with CUP.
 \begin{itemize}
 \item
-{\bf \texttt{\%cup}}
+{\bfseries \texttt{\%cup}}
 
 The \texttt{\%cup} directive enables the CUP compatibility mode and is equivalent
 to the following set of directives:
@@ -1047,7 +1047,7 @@ mode (\texttt{--jlex} switch on the command line), \texttt{\%eofclose}
 will not be turned on.
 
 \item
-{\bf \texttt{\%cup2}}
+{\bfseries \texttt{\%cup2}}
 
 The \texttt{\%cup2} directive is similar to CUP mode, just for the CUP2 generator
 from TU Munich at \url{http://www2.in.tum.de/cup2}. It does the following:
@@ -1062,14 +1062,14 @@ from TU Munich at \url{http://www2.in.tum.de/cup2}. It does the following:
 \end{itemize}
 
 \item
-{\bf \texttt{\%cupsym "classname"}}
+{\bfseries \texttt{\%cupsym "classname"}}
 
 Customises the name of the CUP generated class/interface 
 containing the names of terminal tokens. Default is \texttt{sym}.
 The directive should not be used after \texttt{\%cup}, but before.
 
 \item
-{\bf \texttt{\%cupdebug}}
+{\bfseries \texttt{\%cupdebug}}
 
 Creates a main function in the generated class that expects the name
 of an input file on the command line and then runs the scanner on this
@@ -1084,7 +1084,7 @@ if you are interested in how to interface your generated
 scanner with Byacc/J.
 \begin{itemize}
 \item
-{\bf \texttt{\%byacc}}
+{\bfseries \texttt{\%byacc}}
 
 The \texttt{\%byacc} directive enables the BYacc/J compatibility mode and is equivalent
 to the following set of directives:
@@ -1102,7 +1102,7 @@ to the following set of directives:
 \subsubsection{Character sets}\label{CharacterSets}
 \begin{itemize}
 \item
-{\bf \texttt{\%7bit}}
+{\bfseries \texttt{\%7bit}}
 
 Causes the generated scanner to use an 7 bit input character set (character
 codes 0-127). If an input character with a code greater than 127 is
@@ -1111,8 +1111,8 @@ Not only because of this, you should consider using the \texttt{\%unicode} direc
 See also section \ref{sec:encodings} for information about character encodings. This is the default in JLex compatibility mode.
  
 \item
-{\bf \texttt{\%full}}\\
-{\bf \texttt{\%8bit}}
+{\bfseries \texttt{\%full}}\\
+{\bfseries \texttt{\%8bit}}
 
 Both options cause the generated scanner to use an 8 bit input character
 set (character codes 0-255). If an input character with a code greater
@@ -1124,8 +1124,8 @@ consider using the \texttt{\%unicode} directive. See also section \ref{sec:encod
 for more information about character encodings.
  
 \item
-{\bf \texttt{\%unicode}}\\
-{\bf \texttt{\%16bit}}
+{\bfseries \texttt{\%unicode}}\\
+{\bfseries \texttt{\%16bit}}
 
 Both options cause the generated scanner to use the full Unicode input
 character set, including supplementary code points: 0-0x10FFFF. \texttt{\%unicode}
@@ -1135,7 +1135,7 @@ section \ref{sec:encodings} for more information about character encodings.
 This is the default unless the JLex compatibility mode is used (command line
 option \texttt{--jlex}).
 
-\label{caseless} \item {\bf \texttt{\%caseless}}\\ {\bf \texttt{\%ignorecase}}
+\label{caseless} \item {\bfseries \texttt{\%caseless}}\\ {\bfseries \texttt{\%ignorecase}}
 
 This option causes JFlex to handle all characters and strings in the
 specification as if they were specified in both uppercase and lowercase form.
@@ -1153,21 +1153,21 @@ and \texttt{\%ignorecase} also affect character classes.
 \subsubsection{Line, character and column counting}\label{Counting}
 \begin{itemize}
 \item
-{\bf \texttt{\%char}}
+{\bfseries \texttt{\%char}}
 
 Turns character counting on. The \texttt{int} member variable \texttt{yychar}
 contains the number of characters (starting with 0) from the beginning
 of input to the beginning of the current token.
  
 \item
-{\bf \texttt{\%line}}
+{\bfseries \texttt{\%line}}
 
 Turns line counting on. The \texttt{int} member variable \texttt{yyline}
 contains the number of lines (starting with 0) from the beginning of input
 to the beginning of the current token.
  
 \item
-{\bf \texttt{\%column}}
+{\bfseries \texttt{\%column}}
 
 Turns column counting on. The \texttt{int} member variable \texttt{yycolumn}
 contains the number of characters (starting with 0) from the beginning
@@ -1178,7 +1178,7 @@ of the current line to the beginning of the current token.
 \subsubsection{Obsolete JLex options}\label{Obsolete}
 \begin{itemize}
 \item
-{\bf \texttt{\%notunix}}
+{\bfseries \texttt{\%notunix}}
 
 This JLex option is obsolete in JFlex but still recognised as valid directive.
 It used to switch between Windows and Unix kind of line terminators (\verb+\r\n+
@@ -1186,7 +1186,7 @@ and \verb+\n+) for the \texttt{\$} operator in regular expressions. JFlex
 always recognises both styles of platform dependent line terminators.
  
 \item
-{\bf \texttt{\%yyeof}}
+{\bfseries \texttt{\%yyeof}}
 
 This JLex option is obsolete in JFlex but still recognised as valid directive.
 In JLex it declares a public member constant \texttt{YYEOF}. JFlex declares it in any case.
@@ -1230,11 +1230,11 @@ regular expression (see section \ref{LexRules} \htmlref{\emph{lexical
     rules}}{LexRules} for more information about regular expressions).
 
 The regular expression on the right hand side must be well formed and
-must not contain the \verb+^+, \texttt{/} or \texttt{\$} operators. {\bf Differently
+must not contain the \verb+^+, \texttt{/} or \texttt{\$} operators. \textbf{Differently
 to JLex, macros are not just pieces of text that are expanded by copying}
 - they are parsed and must be well formed.
 
-{\bf This is a feature.} It eliminates some very hard to find bugs in
+\textbf{This is a feature.} It eliminates some very hard to find bugs in
 lexical specifications (such like not having parentheses around more
 complicated macros - which is not necessary with JFlex).  See section
 \ref{Porting} \htmlref{\emph{Porting from JLex}}{Porting} for more
@@ -1547,7 +1547,7 @@ A regular expression that consists solely of
     Greek Block can be referred to as \verb+\p{Block:Greek}+. To match the
     all characters not included in a property, use the \verb+\P{...}+ syntax
     (note that the '\verb+P+' is uppercase), e.g. to match all characters
-    that are {\bf not} letters: \verb+\P{Letter}+.
+    that are \textbf{not} letters: \verb+\P{Letter}+.
      
     See UTS\#18 \cite{unicode_rep} for a description of and links to
     definitions of some supported Properties. UnicodeSet \cite{UnicodeSet}
@@ -1658,7 +1658,7 @@ the input. The end of a line is denoted by the regular expression
 So \verb+a$+ is equivalent to \verb+a / \r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085+.
 This is different to the situation described in \cite{unicode_rep}:
 since in JFlex \verb+$+ is a true trailing context, the end of file
-does {\bf not} count as end of line.
+does \textbf{not} count as end of line.
 
 \label{trailingContext}
 For arbitrary look-ahead (also called {\trit trailing context}) the 
@@ -1845,8 +1845,8 @@ Currently, the API consists of the following methods and member fields:
   
 \item \texttt{char yycharat(int pos)}\\
   returns the character at position \texttt{pos} from the matched text.
-  It is equivalent to \texttt{yytext().charAt(pos)}, but faster.  {\tt
-  pos} must be a value from \texttt{0} to \texttt{yylength()-1}.
+  It is equivalent to \texttt{yytext().charAt(pos)}, but faster. 
+  \texttt{pos} must be a value from \texttt{0} to \texttt{yylength()-1}.
 
 \item \texttt{void yyclose()}\\
   closes the input stream. All subsequent calls to the scanning method will 
@@ -2305,8 +2305,8 @@ scanner slower.
 
 The two main rules of optimisation apply also for lexical specifications:
 \begin{enumerate}
-\item {\bf don't do it}
-\item {\bf (for experts only) don't do it yet}
+\item \textbf{don't do it}
+\item \textbf{(for experts only) don't do it yet}
 \end{enumerate}
 
 Some of the performance tips above contradict a readable and compact
