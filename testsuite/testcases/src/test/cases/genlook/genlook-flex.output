@@ -1,4 +1,8 @@
 Reading "src/test/cases/genlook/genlook.flex"
+
+Warning in file "src/test/cases/genlook/genlook.flex" (line 27): 
+Expression matches the empty string, which may lead to non-termination.
+  "c"?             { yybegin(END); }
 Constructing NFA : 60 states in NFA
 Converting NFA to DFA : 
 ...............

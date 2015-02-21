@@ -1,4 +1,8 @@
 Reading "src/test/cases/empty-match/emptymatch.flex"
+
+Warning in file "src/test/cases/empty-match/emptymatch.flex" (line 19): 
+Expression matches the empty string, which may lead to non-termination.
+    ""               { yybegin(B); return 3; }
 Constructing NFA : 19 states in NFA
 Converting NFA to DFA : 
 ......

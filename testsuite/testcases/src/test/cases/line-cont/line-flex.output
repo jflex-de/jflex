@@ -1,4 +1,16 @@
 Reading "src/test/cases/line-cont/line.flex"
+
+Warning in file "src/test/cases/line-cont/line.flex" (line 18): 
+Expression matches the empty string, which may lead to non-termination.
+| {macro2}  { ; }
+
+Warning in file "src/test/cases/line-cont/line.flex" (line 18): 
+Expression matches the empty string, which may lead to non-termination.
+| {macro2}  { ; }
+
+Warning in file "src/test/cases/line-cont/line.flex" (line 21): 
+Expression matches the empty string, which may lead to non-termination.
+*  { ;; }
 CharClasses:
 class 0:
 { [0-'`']['d'-'w']['y'-1114111] }
