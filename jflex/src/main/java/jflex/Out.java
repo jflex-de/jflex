@@ -214,6 +214,18 @@ public final class Out {
 
 
   /**
+   * print a warning message without line information
+   *
+   * @param message  code of the warning message
+   *
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message) {
+    warning(message, 0);
+  }
+
+
+  /**
    * print a warning with line information
    *
    * @param message  code of the warning message

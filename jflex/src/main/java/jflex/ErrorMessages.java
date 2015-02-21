@@ -132,6 +132,7 @@ public class ErrorMessages {
   public static ErrorMessages NFA_TOOK = new ErrorMessages("NFA_TOOK");
   public static ErrorMessages LOOKAHEAD_NEEDS_ACTION = new ErrorMessages("LOOKAHEAD_NEEDS_ACTION");
   public static ErrorMessages EMPTY_MATCH = new ErrorMessages("EMPTY_MATCH");
+  public static ErrorMessages EMPTY_MATCH_LOOK = new ErrorMessages("EMPTY_MATCH_LOOK");
   public static ErrorMessages CTOR_ARG = new ErrorMessages("CTOR_ARG");
   public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
   public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");

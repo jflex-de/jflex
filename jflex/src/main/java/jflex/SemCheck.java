@@ -38,11 +38,18 @@ public final class SemCheck {
       RegExp l = rs.getLookAhead(i);
       Action a = rs.getAction(i);
       
-      if (r != null && l != null && maybeEmtpy(r)) {
-        if (a == null) 
-          Out.error(ErrorMessages.EMPTY_MATCH, "");
-        else 
-          Out.error(f, ErrorMessages.EMPTY_MATCH, a.priority-1, -1);
+      if (r != null && maybeEmtpy(r)) {
+        if (l != null) {
+          if (a == null)
+            Out.error(ErrorMessages.EMPTY_MATCH_LOOK);
+          else
+            Out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority-1, -1);
+        } else {
+          if (a == null)
+            Out.warning(ErrorMessages.EMPTY_MATCH);
+          else
+            Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority-1, -1);
+        }
       }
     }
   }
