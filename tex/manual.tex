@@ -1,5 +1,3 @@
-% $Id$
-
 \documentclass[11pt]{scrartcl}
 \usepackage{a4wide,verbatim,graphicx,microtype}
 
@@ -32,6 +30,7 @@
 \newcommand{\latestunicodever}{7.0}
 
 \begin{document}
+
 \latex{{\centerline{\hspace*{0mm}\includegraphics[width=0.6\textwidth]{jflex-black}}}}
 
 \html{
@@ -60,8 +59,10 @@ Version \ver, {\today}
 \vfill
 \newpage
 \parindent0pt\parskip1ex
-\pagestyle{headings}
-\section{Introduction\label{Intro}}
+
+
+\section{Introduction}\label{Intro}
+
 JFlex is a lexical analyser generator for Java\footnote{Java is a trademark of 
 Sun Microsystems, Inc., and refers to Sun's Java programming language. 
 JFlex is not sponsored by or affiliated with Sun Microsystems, Inc.}
@@ -111,7 +112,7 @@ The manual concludes with notes about
 \htmlref{references}{References}.
 
 
-\section{Installing and Running JFlex\label{Installing}}
+\section{Installing and Running JFlex}\label{Installing}
 
 \subsection{Installing JFlex}
 
@@ -289,7 +290,7 @@ JFlex knows about the following options:
   print a help message explaining options and usage of JFlex.
 \end{description}
 
-\section{A simple Example: How to work with JFlex\label{Example}}
+\section{A simple Example: How to work with JFlex}\label{Example}
 To demonstrate what a lexical specification with JFlex looks like, this
 section presents a part of the specification for the Java language.
 The example does not describe the whole lexical structure of Java programs,
@@ -655,7 +656,7 @@ That's it.
 \end{itemize}
 
 
-\section{Lexical Specifications\label{Specifications}}
+\section{Lexical Specifications}\label{Specifications}
 As shown above, a lexical specification file for JFlex consists of three
 parts divided by a single line starting with \texttt{\%\%}:
 
@@ -670,7 +671,7 @@ In all parts of the specification comments of the form
 are permitted. JFlex comments do nest - so the number of \texttt{/*} and \texttt{*/} 
 should be balanced.
 
-\subsection{User code\label{SpecUsercode}}
+\subsection{User code}\label{SpecUsercode}
 The first part contains user code that is copied verbatim into the beginning
 of the source file of the generated lexer before the scanner class is declared. 
 As shown in the example above, this is the place to put \texttt{package} 
@@ -679,7 +680,7 @@ statements. It is possible, but not considered good Java programming
 style to put own helper classes (such as token classes) in this section.
 They should get their own \texttt{.java} file instead.
 
-\subsection{Options and declarations\label{SpecOptions}}
+\subsection{Options and declarations}\label{SpecOptions}
 The second part of the lexical specification contains \htmlref{options}{SpecOptDirectives}
 to customise your generated lexer (JFlex directives and Java code to include in
 different parts of the lexer), declarations of \htmlref{lexical states}{StateDecl} and 
@@ -698,7 +699,7 @@ by the name of the class for the generated scanner (the double quotes are
 \emph{not} to be entered, see the \htmlref{example specification}{CodeOptions} in
 section \ref{CodeOptions}).
  
-\subsubsection{Class options and user class code\label{ClassOptions}}
+\subsubsection{Class options and user class code}\label{ClassOptions}
 These options regard name, constructor, API, and related parts of the
 generated scanner class.
 \begin{itemize}
@@ -829,7 +830,7 @@ file.
 
 \end{itemize}
 
-\subsubsection{Scanning method\label{ScanningMethod}}
+\subsubsection{Scanning method}\label{ScanningMethod}
 This section shows how the scanning method can be customised. You can redefine
 the name and return type of the method and it is possible to declare
 exceptions that may be thrown in one of the actions of the specification.
@@ -894,7 +895,7 @@ more than one \verb+%yylexthrow{+ \texttt{...} \verb+%yylexthrow}+ clause in
 the specification, all specified exceptions will be declared.
 \end{itemize}
 
-\subsubsection{The end of file\label{EOF}}
+\subsubsection{The end of file}\label{EOF}
 There is always a default value that the scanning method will return when
 the end of file has been reached. You may however define a specific value
 to return and a specific piece of code that should be executed when the
@@ -989,7 +990,7 @@ a more readable way to specify the end of file value using the
 
 \end{itemize}
 
-\subsubsection{Standalone scanners\label{Standalone}}
+\subsubsection{Standalone scanners}\label{Standalone}
 \begin{itemize}
 \item
 {\bf \texttt{\%debug}}
@@ -1019,7 +1020,7 @@ without a parser attached for testing etc.
 \end{itemize}
 
 
-\subsubsection{CUP compatibility\label{CupMode}}
+\subsubsection{CUP compatibility}\label{CupMode}
 You may also want to read section \ref{CUPWork} \htmlref{\emph{JFlex and CUP}}{CUPWork}
 if you are interested in how to interface your generated
 scanner with CUP.
@@ -1077,7 +1078,7 @@ each returned token to standard out.
 
 \end{itemize}
 
-\subsubsection{BYacc/J compatibility\label{YaccMode}}
+\subsubsection{BYacc/J compatibility}\label{YaccMode}
 You may also want to read section \ref{YaccWork} \htmlref{\emph{JFlex and BYacc/J}}{YaccWork}
 if you are interested in how to interface your generated
 scanner with Byacc/J.
@@ -1098,7 +1099,7 @@ to the following set of directives:
 
 \end{itemize}
 
-\subsubsection{Character sets\label{CharacterSets}}
+\subsubsection{Character sets}\label{CharacterSets}
 \begin{itemize}
 \item
 {\bf \texttt{\%7bit}}
@@ -1149,7 +1150,7 @@ mode (\texttt{--jlex} switch on the command line), \texttt{\%caseless}
 and \texttt{\%ignorecase} also affect character classes.
 
  \end{itemize}
-\subsubsection{Line, character and column counting\label{Counting}}
+\subsubsection{Line, character and column counting}\label{Counting}
 \begin{itemize}
 \item
 {\bf \texttt{\%char}}
@@ -1174,7 +1175,7 @@ of the current line to the beginning of the current token.
 
  \end{itemize}
 
-\subsubsection{Obsolete JLex options\label{Obsolete}}
+\subsubsection{Obsolete JLex options}\label{Obsolete}
 \begin{itemize}
 \item
 {\bf \texttt{\%notunix}}
@@ -1191,7 +1192,7 @@ This JLex option is obsolete in JFlex but still recognised as valid directive.
 In JLex it declares a public member constant \texttt{YYEOF}. JFlex declares it in any case.
 \end{itemize}
 
-\subsubsection{State declarations\label{StateDecl}}
+\subsubsection{State declarations}\label{StateDecl}
 State declarations have the following form:
 
 \texttt{\%s[tate] "state identifier" [, "state identifier", ... ]} for inclusive or\\
@@ -1216,7 +1217,7 @@ See also section
 \ref{HowMatched} on the way lexical states influence how the input is
 matched.
  
-\subsubsection{Macro definitions\label{MacroDefs}}
+\subsubsection{Macro definitions}\label{MacroDefs}
 A macro definition has the form
 
 \texttt{macroidentifier = regular expression}
@@ -1247,7 +1248,7 @@ recursively in any way. JFlex detects cycles in macro definitions and reports
 them at generation time. JFlex also warns you about macros that have been
 defined but never used in the ``lexical rules'' section of the specification.
   
-\subsection{Lexical rules\label{LexRules}}
+\subsection{Lexical rules}\label{LexRules}
 The ``lexical rules'' section of a JFlex specification contains a set of
 regular expressions and actions (Java code) that are executed when the
 scanner matches the associated regular expression.
@@ -1256,7 +1257,7 @@ The \texttt{\%include} directive may be used in this section to include
 lexical rules from a separate file.  The directive will be replaced verbatim
 by the contents of the specified file.
  
-\subsubsection{Syntax\label{Grammar}}
+\subsubsection{Syntax}\label{Grammar}
 The syntax of the "lexical rules" section is described by the following
 EBNF grammar (terminal symbols are enclosed in 'quotes'):
 
@@ -1420,7 +1421,7 @@ union (\verb-RegExp::= RegExp '|' RegExp-)
 So the expression \verb+a | abc | !cd*+ for instance is parsed as 
 \verb+(a|(abc)) | ((!c)(d*))+.
 
-\subsubsection{Semantics\label{Semantics}}
+\subsubsection{Semantics}\label{Semantics}
 This section gives an informal description of which text is matched by
 a regular expression (i.e. an expression described by the \texttt{RegExp}
 production of the grammar presented \htmlref{above}{Grammar}).
@@ -1709,7 +1710,7 @@ c / d   |
 b       { some action }
 \end{verbatim}
 
-\subsubsection{How the input is matched\label{HowMatched}}
+\subsubsection{How the input is matched}\label{HowMatched}
 When consuming its input, the scanner determines the regular expression
 that matches the longest portion of the input (longest match rule). If
 there is more than one regular expression that matches the longest portion
@@ -1818,7 +1819,7 @@ executes the EOF action, and (also upon each further call to the scanning
 method) returns the specified EOF value (see also section \ref{EOF}).
 
 
-\subsubsection{Scanner methods and fields accessible in actions (API)\label{ScannerMethods}}
+\subsubsection{Scanner methods and fields accessible in actions (API)}\label{ScannerMethods}
 Generated methods and member fields in JFlex scanners are prefixed
 with \texttt{yy} to indicate that they are generated and to avoid name
 conflicts with user code copied into the class. Since user code is
@@ -1931,13 +1932,13 @@ Currently, the API consists of the following methods and member fields:
 
 \end{itemize}
 
-\section{Encodings, Platforms, and Unicode\label{sec:encodings}}
+\section{Encodings, Platforms, and Unicode}\label{sec:encodings}
 
 This section tries to shed some light on the issues of Unicode and
 encodings, cross platform scanning, and how to deal with binary data.
 My thanks go to Stephen Ostermiller for his input on this topic.
 
-\subsection{The Problem\label{sec:howtoencoding}}
+\subsection{The Problem}\label{sec:howtoencoding}
 
 Before we dive straight into details, let's take a look at what the
 problem is. The problem is Java's platform independence when you want
@@ -1980,7 +1981,7 @@ important thing is, that this mapping is at least possible (you can
 map Kanji characters to Unicode, but you cannot map them to ASCII or
 iso-latin-1).
 
-\subsection{Scanning text files\label{sec:howtotext}}
+\subsection{Scanning text files}\label{sec:howtotext}
 
 Scanning text files is the standard application for scanners like
 JFlex. Therefore it should also be the most convenient one. Most times 
@@ -2049,7 +2050,7 @@ The link
 \htmladdnormallink{\texttt{http://docs.oracle.com/javase/1.5.0/docs/guide/intl/}}{http://docs.oracle.com/javase/1.5.0/docs/guide/intl/}
 leads to an online version of this for Oracle's JDK 1.5.
 
-\subsection{Scanning binaries\label{sec:howtobinary}}
+\subsection{Scanning binaries}\label{sec:howtobinary}
 
 Scanning binaries is both easier and more difficult
 than scanning text files. It's easier because you want
@@ -2085,7 +2086,7 @@ platform might change, it's probably best to use character
 code escapes in all places, since they don't change their
 meaning.
 
-\section{Conformance with Unicode Regular Expressions UTS\#18\label{unicoderegexconformance}}
+\section{Conformance with Unicode Regular Expressions UTS\#18}\label{unicoderegexconformance}
 
 This section gives details about JFlex \ver's conformance with the
 requirements for Basic Unicode Support Level 1 given in UTS\#18
@@ -2316,7 +2317,7 @@ in a later state of the development process.
 
 \section{Porting Issues}
 
-\subsection{Porting from JLex\label{Porting}}
+\subsection{Porting from JLex}\label{Porting}
 JFlex was designed to read old JLex specifications unchanged and to
 generate a scanner which behaves exactly the same as the one generated
 by JLex with the only difference of being faster.
@@ -2380,7 +2381,7 @@ it
   where the kind of error presented above would show up.
 \end{itemize}
 
-\subsection{Porting from lex/flex\label{lexport}}
+\subsection{Porting from lex/flex}\label{lexport}
 This section tries to give an overview of activities and possible
 problems when porting a lexical specification from the C/C++ tools lex
 and flex \cite{flex} available on most Unix systems to JFlex.
@@ -2447,9 +2448,9 @@ or \verb+\u0085+. They are considered to be line terminators in Unicode and
 therefore may not be consumed when 
 \verb+^+ or \verb+$+ is present in a rule.%$
 
-\section{Working together\label{WorkingTog}}
+\section{Working together}\label{WorkingTog}
 
-\subsection{JFlex and CUP\label{CUPWork}}
+\subsection{JFlex and CUP}\label{CUPWork}
 
 One of the main design goals of JFlex was to make interfacing with the parser generators
 CUP \cite{CUP} and CUP2 \cite{CUP2} as easy as possible. This has been done by providing
@@ -2698,7 +2699,7 @@ Runnable versions of the specifications above
 are located in the \texttt{examples/byaccj} directory of the JFlex 
 distribution.
 
-\section{Bugs and Deficiencies\label{Bugs}}
+\section{Bugs and Deficiencies}\label{Bugs}
 
 \subsection{Deficiencies}
 JFlex \ver\ conforms with Unicode Regular Expressions
@@ -2714,7 +2715,7 @@ Please use the bugs section of the
 to check for open issues.
  
 
-\section{Copying and License\label{Copyright}}
+\section{Copying and License}\label{Copyright}
 JFlex is free software, published under a BSD-style license.
 
 There is absolutely NO WARRANTY for JFlex, its code and its documentation.
