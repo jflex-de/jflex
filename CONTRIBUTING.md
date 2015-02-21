@@ -26,4 +26,4 @@ good idea to get in touch with the developers first and discuss if your idea
 fits with the rest of the JFlex design. You can get in contact either on the
 github issue tracking system or the [JFlex users mailing list][1].
 
-[1] http://jflex.de/mailing.html
+[1]: http://jflex.de/mailing.html
