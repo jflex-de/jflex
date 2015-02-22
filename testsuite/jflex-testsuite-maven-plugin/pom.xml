@@ -93,7 +93,7 @@
         </os>
       </activation>
       <properties>
-        <toolsjar>${java.home}/../Classes/classes.jar</toolsjar>
+        <toolsjar>${java.home}/../lib/tools.jar</toolsjar>
       </properties>
     </profile>
   </profiles>
