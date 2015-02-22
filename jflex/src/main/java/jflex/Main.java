@@ -25,7 +25,7 @@ import jflex.unicode.UnicodeProperties;
  * starting up the GUI if necessary, etc. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class Main {
   

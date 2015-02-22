@@ -14,7 +14,7 @@ package jflex;
  * An interval of characters with basic operations.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public final class Interval {
 

@@ -14,7 +14,7 @@ import java.io.File;
  * Performs simple semantic analysis on regular expressions.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public final class SemCheck {
 

@@ -14,7 +14,7 @@ import java.awt.Component;
  * Constraints for layout elements of GridLayout
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class GridPanelConstraint {
 

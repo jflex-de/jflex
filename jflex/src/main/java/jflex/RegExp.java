@@ -18,7 +18,7 @@ import java.util.List;
  * This base class has no content other than its type. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class RegExp {
   

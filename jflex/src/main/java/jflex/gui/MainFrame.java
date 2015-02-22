@@ -20,7 +20,7 @@ import java.awt.event.*;
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class MainFrame extends Frame implements Handles {
 

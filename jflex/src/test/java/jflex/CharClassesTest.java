@@ -16,7 +16,7 @@ import jflex.unicode.UnicodeProperties;
  * CharClassesTest
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class CharClassesTest extends TestCase {
 

@@ -16,7 +16,7 @@ import java.util.*;
  * A simple table to store EOF actions for each lexical state.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class EOFActions {
 

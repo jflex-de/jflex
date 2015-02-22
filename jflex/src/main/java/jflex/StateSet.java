@@ -14,7 +14,7 @@ package jflex;
  * Very similar to java.util.BitSet, but is faster and doesn't crash
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class StateSet {
 

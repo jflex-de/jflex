@@ -13,7 +13,7 @@ package jflex;
  * HiLowEmitter
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class HiLowEmitter extends PackEmitter {
 

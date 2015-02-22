@@ -16,7 +16,7 @@ package jflex;
  * Used in NFA to represent a partial NFA by its start and end state.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final class IntPair {
 

@@ -16,7 +16,7 @@ package jflex;
  * Does not implement java.util.Enumeration, but supports the same protocol.
  *  
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class CharSetEnumerator {
 

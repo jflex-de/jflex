@@ -19,7 +19,7 @@ import java.util.*;
  * Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class DFA { 
 

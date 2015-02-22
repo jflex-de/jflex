@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * [Is not yet used exclusively, but should]
  * 
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class ErrorMessages {  
   private String key;

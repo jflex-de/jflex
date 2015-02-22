@@ -13,7 +13,7 @@ package jflex;
  * A list of pairs of states. Used in DFA minimization.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class StatePairList {
 

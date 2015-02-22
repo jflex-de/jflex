@@ -23,7 +23,7 @@ import jflex.Skeleton;
  * A dialog for setting JFlex options
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class OptionsDialog extends Dialog {
 

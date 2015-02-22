@@ -13,7 +13,7 @@ package jflex;
  * Signals a silent exit (no statistics printout).
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class SilentExit extends Exception {
 

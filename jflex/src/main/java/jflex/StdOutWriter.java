@@ -19,7 +19,7 @@ import java.awt.TextArea;
  * if in GUI mode.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public final class StdOutWriter extends PrintWriter {
   

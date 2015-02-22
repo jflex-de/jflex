@@ -16,7 +16,7 @@ import java.io.File;
  * (e.g. unmatched input)
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class ScannerException extends RuntimeException {
   

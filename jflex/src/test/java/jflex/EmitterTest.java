@@ -19,7 +19,7 @@ import java.util.List;
  * Some unit tests for the jflex Emitter class
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class EmitterTest extends TestCase {
 

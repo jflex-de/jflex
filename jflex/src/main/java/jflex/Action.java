@@ -16,7 +16,7 @@ package jflex;
  * It stores the Java code as String together with a priority (line number in the specification).
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class Action {
 

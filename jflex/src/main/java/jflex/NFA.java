@@ -18,7 +18,7 @@ import java.io.*;
  * Contains algorithms RegExp -> NFA and NFA -> DFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 final public class NFA {
 

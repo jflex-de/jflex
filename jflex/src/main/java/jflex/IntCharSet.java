@@ -19,7 +19,7 @@ import jflex.unicode.UnicodeProperties;
  * [fixme: optimizations possible]
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public final class IntCharSet {
 

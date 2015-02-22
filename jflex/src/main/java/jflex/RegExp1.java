@@ -19,7 +19,7 @@ package jflex;
  * For instance:  a*  is new RegExp1(sym.STAR, 'a');
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class RegExp1 extends RegExp {
 

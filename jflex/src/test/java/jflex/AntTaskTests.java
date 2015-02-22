@@ -21,7 +21,7 @@ import junit.framework.TestCase;
  * Unit tests for the jflex ant task.
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class AntTaskTests extends TestCase {
 

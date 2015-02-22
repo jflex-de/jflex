@@ -13,7 +13,7 @@ package jflex;
  * An emitter for an array encoded as count/value pairs in a string.
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class CountEmitter extends PackEmitter {
   /** number of entries in expanded array */

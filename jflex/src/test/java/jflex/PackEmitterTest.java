@@ -15,7 +15,7 @@ import junit.framework.TestCase;
  * PackEmitterTest
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class PackEmitterTest extends TestCase {
 

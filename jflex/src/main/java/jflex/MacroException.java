@@ -15,7 +15,7 @@ package jflex;
  * undefined macro usages.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class MacroException extends RuntimeException {
 

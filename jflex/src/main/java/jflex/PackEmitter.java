@@ -24,7 +24,7 @@ import java.util.Locale;
  * <code>p.emitUnpack();</code> 
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public abstract class PackEmitter {
 

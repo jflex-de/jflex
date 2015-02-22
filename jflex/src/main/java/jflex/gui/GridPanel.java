@@ -17,7 +17,7 @@ import java.util.*;
  * grid size.
  *
  * @author Gerwin Klein
- * @version JFlex 1.6, $Revision$, $Date$
+ * @version JFlex 1.6
  */
 public class GridPanel extends Panel implements Handles {
 
