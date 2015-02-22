@@ -24,7 +24,7 @@
 
   "c"              { /* blah */ }
 
-  "c"?             { yybegin(END); }
+  "c"?             { yybegin(END); /* should not fire, "c" or EOF should always precede */ }
 
   [^]              { }
 }

@@ -433,15 +433,15 @@
       zzMarkedPos = zzMarkedPosL;
 --- char count update
 
---- actions
-        default: 
-          if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
-            zzAtEOF = true;
+      if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
+        zzAtEOF = true;
 --- eofvalue
-          } 
-          else {
+      }
+      else {
+--- actions
+          default:
 --- no match
-          }
+        }
       }
     }
   }

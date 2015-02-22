@@ -202,7 +202,7 @@
    * char, and column counting remain untouched.
    *
    * The current input stream can be restored with
-   * yypopstream (usually in an <<EOF>> action).
+   * yypopStream (usually in an <<EOF>> action).
    *
    * @param reader the new input stream to read from
    *
@@ -433,15 +433,15 @@
       zzMarkedPos = zzMarkedPosL;
 --- char count update
 
---- actions
-        default: 
-          if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
-            zzAtEOF = true;
+      if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
+        zzAtEOF = true;
 --- eofvalue
-          } 
-          else {
+      }
+      else {
+--- actions
+          default:
 --- no match
-          }
+        }
       }
     }
   }

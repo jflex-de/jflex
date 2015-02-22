@@ -1151,7 +1151,7 @@ final public class Emitter {
   }
 
   private void emitActions() {
-    println("      switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
+    println("        switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
 
     int i = actionTable.size()+1;
     
@@ -1159,64 +1159,64 @@ final public class Emitter {
       Action action = entry.getKey();
       int label = entry.getValue();
 
-      println("        case "+label+": "); 
+      println("          case "+label+": ");
       
       if (action.lookAhead() == Action.FIXED_BASE) {
-        println("          // lookahead expression with fixed base length");
-        println("          zzMarkedPos = Character.offsetByCodePoints");
-        println("              (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzStartRead, " + action.getLookLength() + ");");
+        println("            // lookahead expression with fixed base length");
+        println("            zzMarkedPos = Character.offsetByCodePoints");
+        println("                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzStartRead, " + action.getLookLength() + ");");
       }
       
       if (action.lookAhead() == Action.FIXED_LOOK || 
           action.lookAhead() == Action.FINITE_CHOICE) {
-        println("          // lookahead expression with fixed lookahead length");
-        println("          zzMarkedPos = Character.offsetByCodePoints");
-        println("              (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzMarkedPos, -" + action.getLookLength() + ");");
+        println("            // lookahead expression with fixed lookahead length");
+        println("            zzMarkedPos = Character.offsetByCodePoints");
+        println("                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzMarkedPos, -" + action.getLookLength() + ");");
       }
       
       if (action.lookAhead() == Action.GENERAL_LOOK) {
-        println("          // general lookahead, find correct zzMarkedPos");
-        println("          { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
-        println("            int zzFPos = zzStartRead;");
-        println("            if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
-        println("            boolean zzFinL[] = zzFin;");
-        println("            while (zzFState != -1 && zzFPos < zzMarkedPos) {");
-        println("              zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
-        println("              zzInput = Character.codePointAt(zzBufferL, zzFPos, zzMarkedPos);");
-        println("              zzFPos += Character.charCount(zzInput);");
-        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("            // general lookahead, find correct zzMarkedPos");
+        println("            { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
+        println("              int zzFPos = zzStartRead;");
+        println("              if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+        println("              boolean zzFinL[] = zzFin;");
+        println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
+        println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
+        println("                zzInput = Character.codePointAt(zzBufferL, zzFPos, zzMarkedPos);");
+        println("                zzFPos += Character.charCount(zzInput);");
+        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("              }");
+        println("              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
+        println("              while (zzFPos <= zzMarkedPos) {");
+        println("                zzFinL[zzFPos++] = false;");
+        println("              }");
+        println();
+        println("              zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
+        println("              zzFPos = zzMarkedPos;");
+        println("              while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
+        println("                zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
+        println("                zzFPos -= Character.charCount(zzInput);");
+        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("              };");
+        println("              zzMarkedPos = zzFPos;");
         println("            }");
-        println("            if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
-        println("            while (zzFPos <= zzMarkedPos) {");
-        println("              zzFinL[zzFPos++] = false;");
-        println("            }");
-        println();                
-        println("            zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
-        println("            zzFPos = zzMarkedPos;");
-        println("            while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
-        println("              zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
-        println("              zzFPos -= Character.charCount(zzInput);");
-        println("              zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
-        println("            };");
-        println("            zzMarkedPos = zzFPos;");
-        println("          }");
       }
       
       if ( scanner.debugOption ) {
-        print("          System.out.println(");
+        print("            System.out.println(");
         if ( scanner.lineCount )
           print("\"line: \"+(yyline+1)+\" \"+");
         if ( scanner.columnCount )
           print("\"col: \"+(yycolumn+1)+\" \"+");
         println("\"match: --\"+zzToPrintable(yytext())+\"--\");");        
-        print("          System.out.println(\"action ["+action.priority+"] { ");
+        print("            System.out.println(\"action ["+action.priority+"] { ");
         print(escapify(action.content));
         println(" }\");");
       }
       
-      println("          { "+action.content);
-      println("          }");
-      println("        case "+(i++)+": break;"); 
+      println("            { "+action.content);
+      println("            }");
+      println("          case "+(i++)+": break;");
     }
   }
 
@@ -1278,19 +1278,19 @@ final public class Emitter {
       println("              }");
     }
     else if ( scanner.eofVal != null ) 
-      println("              { " + scanner.eofVal + " }");
+      println("          { " + scanner.eofVal + " }");
     else if ( scanner.isInteger ) {
       if ( scanner.tokenType != null ) {
         Out.error(ErrorMessages.INT_AND_TYPE);
         throw new GeneratorException();
       }
-      println("            return YYEOF;");
+      println("        return YYEOF;");
     }
     else
-      println("            return null;");
+      println("        return null;");
 
     if (eofActions.numActions() > 0)
-      println("            }");
+      println("        }");
   }
   
   private void findActionStates() {
@@ -1478,12 +1478,12 @@ final public class Emitter {
         
     skel.emitNext();
 
-    emitActions();
-        
-    skel.emitNext();
-
     emitEOFVal();
     
+    skel.emitNext();
+
+    emitActions();
+
     skel.emitNext();
     
     emitNoMatch();
