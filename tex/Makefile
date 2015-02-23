@@ -8,7 +8,7 @@ pdf: manual.pdf
 
 html: manual.html
 
-manual.pdf: logo.png manual.tex
+manual.pdf: logo.png manual.tex jay.tex
 	make clean
 	pdflatex manual
 	pdflatex manual
