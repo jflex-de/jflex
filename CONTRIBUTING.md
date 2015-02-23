@@ -9,7 +9,7 @@ regression test suite pass.
 
 ### Running the test suites
 
-Unit tests are run automatically if you build the jflex package for instace via
+Unit tests are run automatically if you build the jflex package for instance via
 
     mvn3 package
 
