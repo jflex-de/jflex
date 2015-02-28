@@ -85,6 +85,13 @@ public class JFlexMojo extends AbstractMojo {
 	private boolean verbose;
 
 	/**
+	 * Whether to dump full debug information.
+	 *
+	 * @parameter default-value="false"
+	 */
+	private boolean dump;
+
+	/**
 	 * Whether to produce graphviz .dot files for the generated automata. This
 	 * feature is EXPERIMENTAL.
 	 * 
@@ -147,7 +154,7 @@ public class JFlexMojo extends AbstractMojo {
      */
     private boolean inputStreamCtor = false; // NOPMD
 
-    /**
+  /**
 	 * Generate java parsers from lexer definition files.
 	 * 
 	 * This methods is checks parameters, sets options and calls
@@ -224,7 +231,7 @@ public class JFlexMojo extends AbstractMojo {
 			MojoExecutionException {
 		assert lexFile.isAbsolute() : lexFile;
 
-		getLog().debug("Generationg Java code from " + lexFile.getName());
+		getLog().debug("Generating Java code from " + lexFile.getName());
 		ClassInfo classInfo = null;
 		try {
 			classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
@@ -254,11 +261,11 @@ public class JFlexMojo extends AbstractMojo {
 		 */
 		Options.setDefaults();
 		Options.setDir(generatedFile.getParentFile());
-		Options.dump = verbose;
+		Options.dump = dump;
 		Options.verbose = verbose;
 		Options.dot = dot;
-        Options.legacy_dot = legacyDot;
-        Options.emitInputStreamCtor = inputStreamCtor;
+    Options.legacy_dot = legacyDot;
+    Options.emitInputStreamCtor = inputStreamCtor;
 		if (skeleton != null) {
 			Options.setSkeleton(skeleton);
 		}

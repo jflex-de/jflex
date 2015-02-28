@@ -31,7 +31,6 @@ public class LexSimpleAnalyzer {
 		LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));
 
 		ClassInfo classInfo = new ClassInfo();
-		// TODO Reuse code from parser if it exists.
 		while (classInfo.className == null || classInfo.packageName == null) {
 			String line = reader.readLine();
 			if (line == null)
@@ -61,11 +60,7 @@ public class LexSimpleAnalyzer {
 			}
 		}
 
-		// package name may be null, but class name not
 		if (classInfo.className == null) {
-			// log.warn("Could not guess class name from " +
-			// lexFile.getName()
-			// + ". Class name set to " + DEFAULT_NAME);
 			classInfo.className = DEFAULT_NAME;
 		}
 		return classInfo;
