@@ -321,3 +321,9 @@
 /tex/manual.html
 /tex/manual.pdf
 /tex/.project
+
+# Eclipse project
+.project
+.classpath
+.metadata/
+.settings/
