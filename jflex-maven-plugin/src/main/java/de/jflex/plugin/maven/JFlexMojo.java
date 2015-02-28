@@ -137,26 +137,26 @@ public class JFlexMojo extends AbstractMojo {
 	 */
 	private boolean backup = true; // NOPMD
 
-    /**
-     * If true, the dot (.) metachar matches [^\n]
-     * instead of [^\n\r\u000B\u000C\u0085\u2028\u2029].
-     *
-     * @parameter default-value="false"
-     */
-    private boolean legacyDot = false; // NOPMD
+  /**
+   * If true, the dot (.) metachar matches [^\n]
+   * instead of [^\n\r\u000B\u000C\u0085\u2028\u2029].
+   *
+   * @parameter default-value="false"
+   */
+  private boolean legacyDot = false; // NOPMD
 
-    // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
-    /**
-     * If true, the generated scanner will include a constructor taking
-     * an InputStream.
-     * 
-     * @parameter default-value="false"
-     */
-    private boolean inputStreamCtor = false; // NOPMD
+  // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
+  /**
+   * If true, the generated scanner will include a constructor taking
+   * an InputStream.
+   *
+   * @parameter default-value="false"
+   */
+  private boolean inputStreamCtor = false; // NOPMD
 
   /**
 	 * Generate java parsers from lexer definition files.
-	 * 
+	 *
 	 * This methods is checks parameters, sets options and calls
 	 * JFlex.Main.generate()
 	 */
