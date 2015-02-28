@@ -160,7 +160,6 @@ public class JFlexMojo extends AbstractMojo {
 	 * This methods is checks parameters, sets options and calls
 	 * JFlex.Main.generate()
 	 */
-	@SuppressWarnings("unchecked")
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		this.outputDirectory = getAbsolutePath(this.outputDirectory);
 
