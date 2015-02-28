@@ -17,11 +17,12 @@
       http://jflex.sourceforge.net/maven-jflex-plugin/
   </description>
   <url>http://jflex.sourceforge.net/jflex-maven-plugin/</url>
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+    <relativePath></relativePath>
+  </parent>
   <mailingLists>
     <mailingList>
       <name>JFlex User List</name>
