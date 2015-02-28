@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007       RÃ©gis DÃ©camps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -31,7 +31,7 @@ import jflex.Options;
  * 
  * @goal generate
  * @phase generate-sources
- * @author Régis Décamps (decamps@users.sf.net)
+ * @author RÃ©gis DÃ©camps (decamps@users.sf.net)
  * 
  */
 public class JFlexMojo extends AbstractMojo {
