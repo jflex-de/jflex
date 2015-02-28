@@ -261,7 +261,7 @@ IdentStart = [:jletter:]
 IdentPart  = [:jletterdigit:]
 
 JFlexCommentChar = [^*/]|"/"+[^*/]|"*"+[^*/]
-JFlexComment = {JFlexCommentChar}*
+JFlexComment = {JFlexCommentChar}+
 
 /* Java comments */
 JavaComment = {TraditionalComment}|{EndOfLineComment}
@@ -293,8 +293,8 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                              macroDefinition = true;
                              return symbol(USERCODE,userCode);
                            }
-  .*{NL}                   { userCode.append(yytext()); }
-  .*                       { return symbol(EOF); }
+  .*{NL} | .+              { userCode.append(yytext()); }
+  <<EOF>>                  { return symbol(EOF); }
 }
 
 <MACROS>   ("%{"|"%init{"|"%initthrow{"|"%eof{"|"%eofthrow{"|"%yylexthrow{"|"%eofval{").*{NL}
@@ -736,5 +736,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
              file = (File) files.pop();
              yypopStream();
            }
-           else
-             return symbol(EOF); }
+           else {
+             return symbol(EOF);
+           }
+         }
