@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6                                                               *
+ * JFlex 1.6.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * [Is not yet used exclusively, but should]
  * 
  * @author Gerwin Klein
- * @version JFlex 1.6
+ * @version JFlex 1.6.1-SNAPSHOT
  */
 public class ErrorMessages {  
   private String key;

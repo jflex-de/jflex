@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6                                                               *
+ * JFlex 1.6.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2004  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,7 +19,7 @@ import java.util.List;
  * Some unit tests for the jflex Emitter class
  * 
  * @author Gerwin Klein
- * @version JFlex 1.6
+ * @version JFlex 1.6.1-SNAPSHOT
  */
 public class EmitterTest extends TestCase {
 

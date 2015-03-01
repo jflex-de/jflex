@@ -5,7 +5,7 @@
   <artifactId>jflex-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>JFlex Maven Plugin</name>
-  <version>1.7.0-SNAPSHOT</version>
+  <version>1.6.1-SNAPSHOT</version>
   <description>
       This is a Maven 2/3 plugin to generate Lexer code in Java from
       a Lexer specification, using JFlex.
@@ -209,7 +209,7 @@
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex</artifactId>
-      <version>1.7.0-SNAPSHOT</version>
+      <version>1.6.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>

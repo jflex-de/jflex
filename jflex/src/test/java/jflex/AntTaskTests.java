@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6                                                               *
+ * JFlex 1.6.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
@@ -21,7 +21,7 @@ import junit.framework.TestCase;
  * Unit tests for the jflex ant task.
  * 
  * @author Gerwin Klein
- * @version JFlex 1.6
+ * @version JFlex 1.6.1-SNAPSHOT
  */
 public class AntTaskTests extends TestCase {
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6                                                               *
+ * JFlex 1.6.1-SNAPSHOT                                                    *
  * Copyright (c) 2008  Steve Rowe                                          *
  * All rights reserved.                                                    *
  *                                                                         *
