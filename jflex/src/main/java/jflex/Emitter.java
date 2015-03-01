@@ -240,7 +240,13 @@ final public class Emitter {
       println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>"); 
       println("   */");
 
-      print("  "+visibility+" ");
+      if ( scanner.cupCompatible || scanner.cup2Compatible ) {
+        // cup interface forces public method
+        print("  public ");
+      }
+      else {
+        print("  "+visibility+" ");
+      }
       if ( scanner.tokenType == null ) {
         if ( scanner.isInteger )
           print( "int" );
@@ -885,8 +891,8 @@ final public class Emitter {
 
   private void emitLexFunctHeader() {
     
-    if (scanner.cupCompatible)  {
-      // force public, because we have to implement java_cup.runtime.Symbol
+    if (scanner.cupCompatible || scanner.cup2Compatible)  {
+      // force public, because we have to implement cup/cup2 interface
       print("  public ");
     }
     else {

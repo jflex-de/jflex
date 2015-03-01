@@ -1,0 +1,35 @@
+This is a note for future authors of CUP2
+
+The logical approach to me seems, that there are certain
+parser generators how do support full LR1 parsing. Some of them
+also support LALR1 parsing table construction, which are of
+particular interrest.
+
+http://en.wikipedia.org/wiki/Comparison_of_parser_generators
+
+so.. particularly (most likely not a complete List):
+
+Visual BNF (proprietary)
+Yacc++     (proprietary)
+SmaCC
+LISA
+Hyacc
+Dragon
+
+
+The Idea is to find sample specifications for those parsers (either
+in the source distribution itself or in referencing projects)
+and try to run the 2 different parsing algorithms on such a
+specification.
+When a specification turns out to be LR(1) but not LALR(1)
+it is suited for a manual translation to the old cup format,
+followed by a non-semantic (but automatic - by the cup2cup2
+tool) translation to the new cup specification format.
+As these tests shall serve for gaining knowledge about the
+algorithms of David Pager, the number of shift/reduce
+conflicts by an LALR1 approach should correlate to the size
+of the WeakCompatGenerator Table.
+What i want to say is, that careful consideration is appropriate,
+since translating big grammars manually involves a considerable
+amount of time.
+ 
