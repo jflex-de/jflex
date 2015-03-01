@@ -270,5 +270,4 @@ State [FINAL, FIXED_BASE] 18:
 State [FINAL, FIXED_BASE] 19:
   with 1 in 18
 
-Old file "src/test/cases/bol/Bol.java" saved as "src/test/cases/bol/Bol.java~"
 Writing code to "src/test/cases/bol/Bol.java"

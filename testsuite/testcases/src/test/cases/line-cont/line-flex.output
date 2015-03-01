@@ -147,5 +147,4 @@ State [FINAL] 3:
 State [FINAL] 4:
   with 4 in 4
 
-Old file "src/test/cases/line-cont/Yylex.java" saved as "src/test/cases/line-cont/Yylex.java~"
 Writing code to "src/test/cases/line-cont/Yylex.java"
