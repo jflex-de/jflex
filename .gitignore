@@ -1,4 +1,5 @@
 *~
+*.class
 
 # /
 /target
@@ -16,13 +17,11 @@
 /jflex/*.iml
 
 # /jflex/examples/interpreter/
-/jflex/examples/interpreter/*.class
 /jflex/examples/interpreter/Yylex.java
 /jflex/examples/interpreter/parser.java
 /jflex/examples/interpreter/sym.java
 
 # /jflex/examples/java/
-/jflex/examples/java/*.class
 /jflex/examples/java/Scanner.java
 /jflex/examples/java/UnicodeEscapes.java
 /jflex/examples/java/parser.java
@@ -62,256 +61,186 @@
 /testsuite/testcases/target
 
 # /testsuite/testcases/src/test/cases/apiprivate/
-/testsuite/testcases/src/test/cases/apiprivate/*.class
 /testsuite/testcases/src/test/cases/apiprivate/Private.java
 
 # /testsuite/testcases/src/test/cases/arr-return/
-/testsuite/testcases/src/test/cases/arr-return/*.class
 /testsuite/testcases/src/test/cases/arr-return/Arr.java
 
 # /testsuite/testcases/src/test/cases/bol/
-/testsuite/testcases/src/test/cases/bol/*.class
 /testsuite/testcases/src/test/cases/bol/Bol.java
 
 # /testsuite/testcases/src/test/cases/buffer/
-/testsuite/testcases/src/test/cases/buffer/*.class
 /testsuite/testcases/src/test/cases/buffer/Buffer.java
 
 # /testsuite/testcases/src/test/cases/caseless-jflex/
-/testsuite/testcases/src/test/cases/caseless-jflex/*.class
 /testsuite/testcases/src/test/cases/caseless-jflex/Caseless.java
 
 # /testsuite/testcases/src/test/cases/caseless-jlex/
-/testsuite/testcases/src/test/cases/caseless-jlex/*.class
 /testsuite/testcases/src/test/cases/caseless-jlex/Caseless.java
 
 # /testsuite/testcases/src/test/cases/ccl-16/
-/testsuite/testcases/src/test/cases/ccl-16/*.class
 /testsuite/testcases/src/test/cases/ccl-16/Ccl.java
 
 # /testsuite/testcases/src/test/cases/ccl-bug/
-/testsuite/testcases/src/test/cases/ccl-bug/*.class
 /testsuite/testcases/src/test/cases/ccl-bug/Yylex.java
 
 # /testsuite/testcases/src/test/cases/ccl-esc/
-/testsuite/testcases/src/test/cases/ccl-esc/*.class
 /testsuite/testcases/src/test/cases/ccl-esc/Yylex.java
 
 # /testsuite/testcases/src/test/cases/ccl-pre/
-/testsuite/testcases/src/test/cases/ccl-pre/*.class
 /testsuite/testcases/src/test/cases/ccl-pre/Ccl2.java
 
 # /testsuite/testcases/src/test/cases/charclass/
-/testsuite/testcases/src/test/cases/charclass/*.class
 /testsuite/testcases/src/test/cases/charclass/Charclass.java
 
 # /testsuite/testcases/src/test/cases/count/
-/testsuite/testcases/src/test/cases/count/*.class
 /testsuite/testcases/src/test/cases/count/Count.java
 
 # /testsuite/testcases/src/test/cases/ctorarg/
-/testsuite/testcases/src/test/cases/ctorarg/*.class
 /testsuite/testcases/src/test/cases/ctorarg/Ctorarg.java
 
-# /testsuite/testcases/src/test/cases/ctorarg-f/
-/testsuite/testcases/src/test/cases/ctorarg-f/*.class
-
 # /testsuite/testcases/src/test/cases/cupsym/
-/testsuite/testcases/src/test/cases/cupsym/*.class
 /testsuite/testcases/src/test/cases/cupsym/Cupsym.java
 
 # /testsuite/testcases/src/test/cases/dot-newline/
-/testsuite/testcases/src/test/cases/dot-newline/*.class
 /testsuite/testcases/src/test/cases/dot-newline/Dotnewline.java
 
 # /testsuite/testcases/src/test/cases/empty-match/
 /testsuite/testcases/src/test/cases/empty-match/*.java
-/testsuite/testcases/src/test/cases/empty-match/*.class
 
 # /testsuite/testcases/src/test/cases/eof-min/
-/testsuite/testcases/src/test/cases/eof-min/*.class
 /testsuite/testcases/src/test/cases/eof-min/Eofmin.java
 
 # /testsuite/testcases/src/test/cases/eofclose/
-/testsuite/testcases/src/test/cases/eofclose/*.class
 /testsuite/testcases/src/test/cases/eofclose/Eofclose.java
 
 # /testsuite/testcases/src/test/cases/eofclose2/
-/testsuite/testcases/src/test/cases/eofclose2/*.class
 /testsuite/testcases/src/test/cases/eofclose2/Eofclose2.java
 
 # /testsuite/testcases/src/test/cases/eol-comment/
-/testsuite/testcases/src/test/cases/eol-comment/*.class
 /testsuite/testcases/src/test/cases/eol-comment/Eolcomment.java
 
 # /testsuite/testcases/src/test/cases/eol-look/
-/testsuite/testcases/src/test/cases/eol-look/*.class
 /testsuite/testcases/src/test/cases/eol-look/Eol.java
 
 # /testsuite/testcases/src/test/cases/fixed-look/
-/testsuite/testcases/src/test/cases/fixed-look/*.class
 /testsuite/testcases/src/test/cases/fixed-look/Fixedlook.java
 
 # /testsuite/testcases/src/test/cases/generics/
-/testsuite/testcases/src/test/cases/generics/*.class
 /testsuite/testcases/src/test/cases/generics/Generics*.java
 
 # /testsuite/testcases/src/test/cases/genlook/
-/testsuite/testcases/src/test/cases/genlook/*.class
 /testsuite/testcases/src/test/cases/genlook/Genlook.java
 
 # /testsuite/testcases/src/test/cases/genlook2/
-/testsuite/testcases/src/test/cases/genlook2/*.class
 /testsuite/testcases/src/test/cases/genlook2/Genlook2.java
 
 # /testsuite/testcases/src/test/cases/include/
-/testsuite/testcases/src/test/cases/include/*.class
 /testsuite/testcases/src/test/cases/include/Include.java
 
 # /testsuite/testcases/src/test/cases/include-in-rules/
-/testsuite/testcases/src/test/cases/include-in-rules/*.class
 /testsuite/testcases/src/test/cases/include-in-rules/IncludeInRules.java
 
 # /testsuite/testcases/src/test/cases/include2/
-/testsuite/testcases/src/test/cases/include2/*.class
 /testsuite/testcases/src/test/cases/include2/Include2.java
 
 # /testsuite/testcases/src/test/cases/initthrow-eol/
-/testsuite/testcases/src/test/cases/initthrow-eol/*.class
 /testsuite/testcases/src/test/cases/initthrow-eol/Initthrow.java
 
 # /testsuite/testcases/src/test/cases/java/
-/testsuite/testcases/src/test/cases/java/*.class
 /testsuite/testcases/src/test/cases/java/Java.java
 
 # /testsuite/testcases/src/test/cases/line-cont/
-/testsuite/testcases/src/test/cases/line-cont/*.class
 /testsuite/testcases/src/test/cases/line-cont/Yylex.java
 
 # /testsuite/testcases/src/test/cases/look/
-/testsuite/testcases/src/test/cases/look/*.class
 /testsuite/testcases/src/test/cases/look/Look.java
 
 # /testsuite/testcases/src/test/cases/look-macro/
-/testsuite/testcases/src/test/cases/look-macro/*.class
 /testsuite/testcases/src/test/cases/look-macro/Lookmacro.java
 
-# /testsuite/testcases/src/test/cases/macro-complement/
-/testsuite/testcases/src/test/cases/macro-complement/*.class
-
 # /testsuite/testcases/src/test/cases/macro-exp/
-/testsuite/testcases/src/test/cases/macro-exp/*.class
 /testsuite/testcases/src/test/cases/macro-exp/Macro.java
 
 # /testsuite/testcases/src/test/cases/macro-exp2/
-/testsuite/testcases/src/test/cases/macro-exp2/*.class
 
 # /testsuite/testcases/src/test/cases/manual-ex/
-/testsuite/testcases/src/test/cases/manual-ex/*.class
 /testsuite/testcases/src/test/cases/manual-ex/Lexer.java
 
 # /testsuite/testcases/src/test/cases/nevermatch/
-/testsuite/testcases/src/test/cases/nevermatch/*.class
 /testsuite/testcases/src/test/cases/nevermatch/Never.java
 
-# /testsuite/testcases/src/test/cases/semcheck/
-/testsuite/testcases/src/test/cases/semcheck/*.class
-
 # /testsuite/testcases/src/test/cases/simple/
-/testsuite/testcases/src/test/cases/simple/*.class
 /testsuite/testcases/src/test/cases/simple/Simple.java
 
 # /testsuite/testcases/src/test/cases/six-digit-unicode-escape/
 /testsuite/testcases/src/test/cases/six-digit-unicode-escape/SixDigitUnicodeEscape*.java
-/testsuite/testcases/src/test/cases/six-digit-unicode-escape/*.class
-
-# /testsuite/testcases/src/test/cases/syntaxnull/
-/testsuite/testcases/src/test/cases/syntaxnull/*.class
 
 # /testsuite/testcases/src/test/cases/testloader/
-/testsuite/testcases/src/test/cases/testloader/*.class
 /testsuite/testcases/src/test/cases/testloader/Testloader.java
 
 # /testsuite/testcases/src/test/cases/unicode-age/
-/testsuite/testcases/src/test/cases/unicode-age/*.class
 /testsuite/testcases/src/test/cases/unicode-age/UnicodeAge_*.java
 
 # /testsuite/testcases/src/test/cases/unicode-blocks/
 /testsuite/testcases/src/test/cases/unicode-blocks/Unicode*.java
-/testsuite/testcases/src/test/cases/unicode-blocks/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-caseless/
 /testsuite/testcases/src/test/cases/unicode-caseless/UnicodeCaseless*.java
-/testsuite/testcases/src/test/cases/unicode-caseless/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-codepoint-escapes/
 /testsuite/testcases/src/test/cases/unicode-codepoint-escapes/UnicodeCodePointEscapes*.java
-/testsuite/testcases/src/test/cases/unicode-codepoint-escapes/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-compatibility-properties/
 /testsuite/testcases/src/test/cases/unicode-compatibility-properties/UnicodeCompatibilityProperties*.java
-/testsuite/testcases/src/test/cases/unicode-compatibility-properties/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-derived-core-properties/
 /testsuite/testcases/src/test/cases/unicode-derived-core-properties/UnicodeDerivedCoreProperties*.java
-/testsuite/testcases/src/test/cases/unicode-derived-core-properties/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-digit/
 /testsuite/testcases/src/test/cases/unicode-digit/UnicodeDecimalDigit*.java
-/testsuite/testcases/src/test/cases/unicode-digit/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-general-category/
 /testsuite/testcases/src/test/cases/unicode-general-category/UnicodeGeneralCategory*.java
 /testsuite/testcases/src/test/cases/unicode-general-category/UnicodeNotGeneralCategory*.java
-/testsuite/testcases/src/test/cases/unicode-general-category/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-grapheme-break/
 /testsuite/testcases/src/test/cases/unicode-grapheme-break/UnicodeGrapheme*Break*.java
-/testsuite/testcases/src/test/cases/unicode-grapheme-break/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-letter/
 /testsuite/testcases/src/test/cases/unicode-letter/UnicodeLetter*.java
-/testsuite/testcases/src/test/cases/unicode-letter/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-line-break/
 /testsuite/testcases/src/test/cases/unicode-line-break/UnicodeLineBreak*.java
-/testsuite/testcases/src/test/cases/unicode-line-break/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-lowercase/
 /testsuite/testcases/src/test/cases/unicode-lowercase/UnicodeLowercase*.java
-/testsuite/testcases/src/test/cases/unicode-lowercase/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-misc-properties/
 /testsuite/testcases/src/test/cases/unicode-misc-properties/UnicodeMisc*.java
-/testsuite/testcases/src/test/cases/unicode-misc-properties/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-proplist/
 /testsuite/testcases/src/test/cases/unicode-proplist/UnicodePropList*.java
-/testsuite/testcases/src/test/cases/unicode-proplist/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-scripts/
 /testsuite/testcases/src/test/cases/unicode-scripts/Unicode*.java
-/testsuite/testcases/src/test/cases/unicode-scripts/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-sentence-break/
 /testsuite/testcases/src/test/cases/unicode-sentence-break/UnicodeSentenceBreak*.java
-/testsuite/testcases/src/test/cases/unicode-sentence-break/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-space/
 /testsuite/testcases/src/test/cases/unicode-space/UnicodeWhiteSpace*.java
-/testsuite/testcases/src/test/cases/unicode-space/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-uppercase/
 /testsuite/testcases/src/test/cases/unicode-uppercase/UnicodeUppercase*.java
-/testsuite/testcases/src/test/cases/unicode-uppercase/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-word/
 /testsuite/testcases/src/test/cases/unicode-word/UnicodeWord*.java
-/testsuite/testcases/src/test/cases/unicode-word/*.class
 
 # /testsuite/testcases/src/test/cases/unicode-word-break/
 /testsuite/testcases/src/test/cases/unicode-word-break/UnicodeWordBreak*.java
-/testsuite/testcases/src/test/cases/unicode-word-break/*.class
+
+testsuite/testcases/src/test/cases/cup2private/Cup2private.java
 
 # /tex/
 /tex/manual.aux
