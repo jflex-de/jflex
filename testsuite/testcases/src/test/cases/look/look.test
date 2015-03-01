@@ -15,5 +15,4 @@ abcde
 prints out "abcd", but returns 2.
 
 
-jflex: --noinputstreamctor
-
+jflex: --nobak --noinputstreamctor

@@ -1009,5 +1009,4 @@ State 31:
   with 6 in 32
 State [FINAL] 32:
 
-Old file "src/test/cases/ccl-esc/Yylex.java" saved as "src/test/cases/ccl-esc/Yylex.java~"
 Writing code to "src/test/cases/ccl-esc/Yylex.java"

@@ -7,5 +7,4 @@ Constructing NFA : 19 states in NFA
 Converting NFA to DFA : 
 ......
 12 states before minimization, 9 states in minimized DFA
-Old file "src/test/cases/empty-match/Emptymatch.java" saved as "src/test/cases/empty-match/Emptymatch.java~"
 Writing code to "src/test/cases/empty-match/Emptymatch.java"

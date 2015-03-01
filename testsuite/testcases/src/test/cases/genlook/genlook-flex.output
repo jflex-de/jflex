@@ -7,5 +7,4 @@ Constructing NFA : 60 states in NFA
 Converting NFA to DFA : 
 ...............
 23 states before minimization, 16 states in minimized DFA
-Old file "src/test/cases/genlook/Genlook.java" saved as "src/test/cases/genlook/Genlook.java~"
 Writing code to "src/test/cases/genlook/Genlook.java"
