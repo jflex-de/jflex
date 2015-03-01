@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# build all projects and run tests
+
+# fail on error
+set -e
+
+# builds and tests main projects
+mvn test
+
+# regression test suite must run from its own directory
+cd testsuite/testcases && mvn test
