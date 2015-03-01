@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="JFlex" default="help">
 
-  <property name="version" value="1.7.0-SNAPSHOT" />
+  <property name="version" value="1.6.1-SNAPSHOT" />
   <property name="bootstrap.version" value="1.6.0" />
   <property name="junit.version" value="4.11" />
   <property name="cup.version" value="11a" />
@@ -119,7 +119,7 @@
     <mkdir dir="${generated.sources.dir}"/>
     <jflex file="src/main/jflex/LexScan.flex"
            destdir="${generated.sources.dir}"
-           skeleton="src/main/jflex/skeleton.nested"
+           skeleton="src/main/jflex/skeleton.nested-1.6.0"
            nobak="on"/>
   </target>
 
