@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jflex-de/jflex.svg?branch=master)](https://travis-ci.org/jflex-de/jflex)
+
 This is the JFlex git repository. The toplevel contains
 
  * JFlex, the scanner/lexer generator for Java
