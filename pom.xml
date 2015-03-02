@@ -7,7 +7,7 @@
   <version>1.6.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>http://jflex.de</url>
-  <description>JFlex parent and aggregator POM</description>
+  <description>JFlex parent and agregator POM</description>
 
   <parent>
     <groupId>org.sonatype.oss</groupId>
@@ -88,9 +88,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jflex/code/trunk</connection>
-    <developerConnection>scm:svn:https://svn.code.sf.net/p/jflex/code/trunk</developerConnection>
-    <url>http://sourceforge.net/p/jflex/code/HEAD/tree/trunk</url>
+    <connection>scm:git:git@github.com:jflex-de/jflex.git</connection>
+    <developerConnection>scm:git:git@github.com:jflex-de/jflex.git</developerConnection>
+    <url>scm:git:git@github.com:jflex-de/jflex.git</url>
   </scm>
 
   <dependencyManagement>
