@@ -1,0 +1,6 @@
+Reading "src/test/cases/no-unused/no-unused.flex"
+Constructing NFA : 4 states in NFA
+Converting NFA to DFA : 
+.
+3 states before minimization, 2 states in minimized DFA
+Writing code to "src/test/cases/no-unused/NoUnused.java"

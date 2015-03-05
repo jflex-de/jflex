@@ -100,6 +100,7 @@ public class Options {
 	  no_backup = false;
     verbose = true;
     progress = true;
+    unused_warning = true;
     time = false;
     dot = false;
     dump = false;

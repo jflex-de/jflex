@@ -241,6 +241,8 @@
 /testsuite/testcases/src/test/cases/unicode-word-break/UnicodeWordBreak*.java
 
 testsuite/testcases/src/test/cases/cup2private/Cup2private.java
+testsuite/testcases/src/test/cases/no-unused/NoUnused.java
+testsuite/testcases/src/test/cases/unused/Unused.java
 
 # /tex/
 /tex/manual.aux

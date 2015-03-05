@@ -177,17 +177,24 @@ public class Main {
       if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
+        Options.unused_warning = true;
         continue;
       }
 
       if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
+        Options.unused_warning = false;
         continue;
       }
 
-      if ( Options.verbose || argv[i].equals("--warn-unused")) { //$NON-NLS-1$
+      if ( argv[i].equals("--warn-unused") ) { //$NON-NLS-1$
         Options.unused_warning = true;
+        continue;
+      }
+
+      if ( argv[i].equals("--no-warn-unused") ) { //$NON-NLS-1$
+        Options.unused_warning = false;
         continue;
       }
 
