@@ -12,4 +12,6 @@ mvn test
 cd testsuite/testcases && mvn test
 
 # also check ant build
-cd ../../jflex && ant build
+# FIXME: need to install jflex ant task in Travis before this can work there,
+# see issue #177
+#cd ../../jflex && ant build
