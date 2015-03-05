@@ -45,6 +45,7 @@ public class JFlexTask extends Task {
   public JFlexTask() {
     // ant default is different from the rest of JFlex
     setVerbose(false);
+    setUnusedWarning(true);
     Options.progress = false;
   }
 
@@ -184,6 +185,11 @@ public class JFlexTask extends Task {
 
   public void setVerbose(boolean verbose) {
     Options.verbose = verbose;
+    Options.unused_warning = verbose;
+  }
+  
+  public void setUnusedWarning(boolean warn) {
+    Options.unused_warning = warn;
   }
 
   public void setSkeleton(File skeleton) {

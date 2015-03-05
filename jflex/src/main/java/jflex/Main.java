@@ -186,6 +186,11 @@ public class Main {
         continue;
       }
 
+      if ( Options.verbose || argv[i].equals("--warn-unused")) { //$NON-NLS-1$
+        Options.unused_warning = true;
+        continue;
+      }
+
       if ( argv[i].equals("--dump") || argv[i].equals("-dump") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.dump = true;
         continue;

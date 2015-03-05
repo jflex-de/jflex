@@ -20,8 +20,10 @@ import java.io.File;
  */
 public class Options {
 
-  /** If true, additional verbose debug information is produced
-   *  This is a compile time option */
+  /** 
+   * If true, additional verbose debug information is produced.
+   * This is a compile time option.
+   */
   public final static boolean DEBUG = false;
 
 	/** output directory */
@@ -34,6 +36,8 @@ public class Options {
   public static boolean no_backup;
   /** If false, only error/warning output will be generated */
   public static boolean verbose;
+  /** Whether to warn about unused macros. */
+  public static boolean unused_warning;
   /** If true, progress dots will be printed */
   public static boolean progress;
   /** If true, jflex will print time statistics about the generation process */
@@ -92,8 +96,8 @@ public class Options {
   public static void setDefaults() {
   	directory = null;
     jlex = false;
-	no_minimize = false;
-	no_backup = false;
+	  no_minimize = false;
+	  no_backup = false;
     verbose = true;
     progress = true;
     time = false;

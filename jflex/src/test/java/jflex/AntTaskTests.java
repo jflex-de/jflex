@@ -120,6 +120,18 @@ public class AntTaskTests extends TestCase {
     task.setVerbose(true);
     assertTrue(Options.verbose);
   }
+  
+  public void testUnusedWarning() {
+    // Defaults to true, for backward compatibility.
+    assertTrue("Defaults to true", Options.unused_warning);
+    task.setUnusedWarning(false);
+    assertFalse(Options.unused_warning);
+  }
+
+  public void testUnusedWarning_Verbose() {
+    task.setVerbose(false);
+    assertFalse("Disabled in quiet mode", Options.unused_warning);
+  }
 
   public void testTime() {
     assertTrue(!Options.time);

@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven2 plugin                                                     *
- * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007-2015  Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -83,6 +83,13 @@ public class JFlexMojo extends AbstractMojo {
 	 * @parameter default-value="false"
 	 */
 	private boolean verbose;
+	
+	/**
+	 * Whether a warning will be logged when there are unused macros.
+	 * 
+	 * @parameter default-value="true"
+	 */
+	private boolean unusedWarning;
 
 	/**
 	 * Whether to dump full debug information.
@@ -262,6 +269,7 @@ public class JFlexMojo extends AbstractMojo {
 		Options.setDir(generatedFile.getParentFile());
 		Options.dump = dump;
 		Options.verbose = verbose;
+		Options.unused_warning = unusedWarning;
 		Options.dot = dot;
     Options.legacy_dot = legacyDot;
     Options.emitInputStreamCtor = inputStreamCtor;
@@ -326,5 +334,4 @@ public class JFlexMojo extends AbstractMojo {
 		}
 		return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
 	}
-
 }

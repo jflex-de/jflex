@@ -414,8 +414,11 @@ specification ::=  USERCODE
                      Out.time(ErrorMessages.PARSING_TOOK, t);
                      
                      macros.expand();
-                     for (String unused : macros.unused()) {
-                       Out.warning("Macro \""+unused+"\" has been declared but never used.");
+                     if (Options.unused_warning) {
+	                     for (String unusedMacro : macros.unused()) {
+	                       Out.warning(String.format(
+	                    		   "Macro \"%s\" has been declared but never used.", unusedMacro));
+	                     }
                      }
 
                      SemCheck.check(regExps, macros, scanner.file);
