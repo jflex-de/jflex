@@ -13,3 +13,13 @@ cd testsuite/testcases && mvn test
 
 # also check ant build
 cd ../../jflex && ant gettools build
+
+## run jflex examples:
+
+# don't assume byacc/j is installed, just run lexer
+cd examples/byaccj && make Yylex.java
+cd ../cup && make
+cd ../interpreter && make
+cd ../java && make
+cd ../simple-maven && mvn test
+cd ../standalone-maven && mvn test
