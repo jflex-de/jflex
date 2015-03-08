@@ -4,9 +4,14 @@
 
 CUP        = java java_cup.Main -interface <
 JFLEX      = ../../bin/jflex
+CUPJAR     = ../../lib/java-cup-11a.jar
+CP         = .:$(CUPJAR)
 JAVA       = java
 JAVAC      = javac
-JAVACFLAGS = 
+JAVACFLAGS = -cp $(CP)
+CUP        = $(JAVA) -jar $(CUPJAR)
+
+
 
 # --------------------------------------------------
 
@@ -16,7 +21,7 @@ test: lexer-output.txt
 	@(diff lexer-output.txt lexer-output.good && echo "Test OK!") || echo "Test failed!"
 
 lexer-output.txt: compile
-	$(JAVA) TestLexer TestLexer.java > lexer-output.txt
+	$(JAVA) -cp $(CP) TestLexer TestLexer.java > lexer-output.txt
 
 
 compile: scanner parser unicode
@@ -25,7 +30,7 @@ compile: scanner parser unicode
 parser: parser.java 
 
 parser.java: java12.cup
-	$(CUP) java12.cup
+	$(CUP) -interface java12.cup
 
 scanner: Scanner.java
 
