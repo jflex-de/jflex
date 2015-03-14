@@ -1859,10 +1859,14 @@ Currently, the API consists of the following methods and member fields:
   return the end of file value    
 
 \item \texttt{void yyreset(java.io.Reader reader)}\\
-  closes the current input stream, and resets the scanner to read from
-  a new input stream.  All internal variables are reset, the old input
-  stream {\em cannot} be reused (content of the internal buffer is
-  discarded and lost).  The lexical state is set to \texttt{YY\_INITIAL}.
+  closes the current input stream, and resets the scanner to read from a new
+  Reader. All internal variables are reset, the old Reader \emph{cannot} be
+  reused (content of the internal buffer is discarded and lost). The lexical
+  state is set to \texttt{YY\_INITIAL}. The \verb+%{init+ code is \emph{not}
+  included in \texttt{yyreset}, because it is assumed to run in the context
+  of a constructor, not a normal method. If \verb+%{init+ does need to be
+  repeated, consider constructing a new lexer object instead or additionally
+  calling a custom function that performs any additional user-level state reset.
 
 \item \texttt{void yypushStream(java.io.Reader reader)}\\
  Stores the current input stream on a stack, and
