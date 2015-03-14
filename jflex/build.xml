@@ -5,7 +5,6 @@
   <property name="bootstrap.version" value="1.6.0" />
   <property name="junit.version" value="4.11" />
   <property name="cup.version" value="11a" />
-  <property name="java.source.version" value="1.5" />
     
   <!-- use any of these files to override properties -->
   <property file="build.properties" />
@@ -79,8 +78,6 @@
           description="generate sources and compile all non-test classes">
     <mkdir dir="${compile.output.dir}" />
     <javac destdir="${compile.output.dir}"
-           target="${java.source.version}"
-           source="${java.source.version}"
            debug="on"
            includeantruntime="true">
       <src path="src/main/java"/>
@@ -139,8 +136,6 @@
     <mkdir dir="${test.compile.output.dir}"/>
     <javac srcdir="src/test/java"
            destdir="${test.compile.output.dir}"
-           target="${java.source.version}"
-           source="${java.source.version}"
            classpath="${compile.output.dir}:${junit.jar}"
            includeantruntime="true"/>
   </target>
