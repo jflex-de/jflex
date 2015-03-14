@@ -121,21 +121,26 @@
     int requested = zzBuffer.length - zzEndRead;
     int numRead = zzReader.read(zzBuffer, zzEndRead, requested);
 
-    // unlikely but not impossible: read 0 characters, but not at end of stream
+    /* not supposed to occur according to specification of java.io.Reader */
     if (numRead == 0) {
-      numRead = zzReader.read(zzBuffer, zzEndRead, requested);
+      throw new java.io.IOException("Reader returned 0 characters. See JFlex examples for workaround.");
     }
     if (numRead > 0) {
       zzEndRead += numRead;
-      if (numRead == requested) { /* possibly more input available */
+      /* If numRead == requested, we might have requested to few chars to
+         encode a full Unicode character. We assume that a Reader would
+         otherwise never return half characters. */
+      if (numRead == requested) {
         if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
           --zzEndRead;
           zzFinalHighSurrogate = 1;
         }
       }
+      /* potentially more input available */
       return false;
     }
 
+    /* numRead < 0 ==> end of stream */
     return true;
   }
 
