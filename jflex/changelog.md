@@ -1,6 +1,17 @@
 ## JFlex 1.6.1
-- fixed bug #129, in caseless mode, chars in regexps not accepted caselessly
-- fixed bug #130, re-enable scanning interactively or from a network byte stream
+- JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
+- Fixed issue #130, "in caseless mode, chars in regexps not accepted caselessly":
+  Caseless option works again as intended.
+- Fixed issue #131, "re-enable scanning interactively or from a network byte stream":
+  JFlex now throws an IOException when a Reader returns 0 characters.
+- New example, shows how to deal with Readers that return 0 characters.
+- Command line scripts work again in repository version (contributed by Emma Strubell)
+- New options `--warn-unused` and `--no-warn-unused` that control warnings about unused macros.
+- Fixed issue #125: `%apiprivate` and `%cup2` switches now no longer incompatible
+- Fix issue #133, "Error in skeleton.nested":
+  Empty-string matches were taking precedence over `EOF` and caused non-termination.
+  Now `EOF` is counted as the highest-priority empty match.
+- New warning when an expression matches the empty string (can lead to non-termination).
 
 ## JFlex 1.6.0 (Jun 21, 2014)
 - Unicode 7.0 is supported.
