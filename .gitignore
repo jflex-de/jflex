@@ -21,6 +21,7 @@
 /jflex/examples/java/lexer-output.txt
 /jflex/examples/cup/Lexer.java
 /jflex/examples/byaccj/YYLex.java
+/jflex/examples/zero-reader/ZeroLexer.java
 /jflex/examples/*/parser.java
 /jflex/examples/*/sym.java
 
