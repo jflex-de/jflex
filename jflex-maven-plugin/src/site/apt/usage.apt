@@ -4,7 +4,7 @@
  Régis Décamps <decamps@users.sf.net>,
  minor updates by Gerwin Klein <lsf@jflex.de>
  ------
- 21 June 2014
+ 14 March 2015
  ------
  
 
@@ -47,7 +47,7 @@ Usage
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>1.6.1</version>
         <executions>
           <execution>
             <goals>
@@ -152,6 +152,9 @@ Usage
 
 
 * Which version of the plugin is best for you?
+
+  * jflex-maven-plugin-1.6.1 depends on JFlex 1.6.1
+    and requires Java 5 when you <<<mvn jflex:generate>>>
 
   * jflex-maven-plugin-1.6.0 depends on JFlex 1.6.0
     and requires Java 5 when you <<<mvn jflex:generate>>>

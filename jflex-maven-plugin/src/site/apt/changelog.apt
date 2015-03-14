@@ -4,6 +4,24 @@
 
 Latest version
 
+* Version 1.6.1
+
+   * Relies on JFlex 1.6.1
+
+   * New option `unusedWarning` that controls whether to warn about unused
+     macros or not.
+
+   * New option `dump` that is more verbose than `verbose`
+
+   * Option `verbose` set to same verbosity level as command line
+
+   * Added m2e plugin configuration for Eclipse
+
+   * Development moved to github
+
+
+Recent versions
+
 * Version 1.6.0
 
    * Relies on JFlex 1.6.0
@@ -24,8 +42,6 @@ Latest version
   * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven.
 
   
-Recent versions
-
 * Version 1.4.3-r1
 
   * Java 1.3 bytecode
