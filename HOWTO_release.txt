@@ -60,38 +60,39 @@ Preparing to release
 
 5. Get the source - put your SourceForge username in place of the ...'s:
 
-   PROMPT$ svn co --username=... https://svn.code.sf.net/p/jflex/code/trunk  jflex/trunk 
+   PROMPT$ git clone git@github.com:jflex-de/jflex.git 
 
 6. Make sure all changes are committed
 
-   PROMPT$ cd jflex/trunk
-   PROMPT$ svn stat
+   PROMPT$ cd jflex
+   PROMPT$ git status
 
 
 Perform the release
 -------------------
 
 1. Run the prepare-release.pl script, which does the following:
+   - Creates a release branch
    - Changes the version in all POMs by removing all -SNAPSHOT suffixes
-   - Switches all <scm> URLs from /trunk to /tags/release_X_Y_Z
-   - Commits the changed POMs
-   - Tags the release by copying /trunk to /tags/release_X_Y_Z
-   - svn switch's your working copy to the new tag.
+   - Changes the versions in java comments and @version tags
+   - Commits the changes
    
      PROMPT$ ./prepare-release.pl
    
+   If you are happy with the changes, you can tag and push:
+
+     PROMPT$ git tag X.Y.Z
+     PROMPT$ git push --tags
+   
    If something goes wrong with one of the steps performed by
    the script, it will halt.  You can return to the state before
-   it ran by reverse merging and then committing:
+   it ran by checking out the master branch and deleting the
+   release branch:
    
-   PROMPT$ svn merge -r after-rev:before-rev .
-   PROMPT$ svn commit -m "Revert prepare-release steps"
-   
-   If the script created the tag in Subversion, you should also remove it,
-   e.g. for the 1.5.0 release:
-   
-   PROMPT$ svn rm -m "drop release tag" https://svn.code.sf.net/p/jflex/code/tags/release_1_5_0 
-   
+   PROMPT$ git checkout master
+   PROMPT$ git reset --hard
+   PROMPT$ git branch -D branch-X.Y.Z
+
 2. Stage the release to the Sonatype OSS Maven repository:
 
    PROMPT$ ./mvn-deploy
@@ -148,12 +149,13 @@ Post-release steps
 ------------------
 
 1. Run the post-release.pl script, which does the following:
-   - svn switch's your working copy back to trunk
+   - switches back to the master branch
    - Changes the JFlex version in all POMs to the supplied
      snapshot version (X.Y.Z-SNAPSHOT)
-   - Switches all <scm> URLs from /tags/release_X_Y_Z to /trunk
    - Changes the bootstrap JFlex version in the de.jflex:jflex
      POM to the latest release version.
-   - Commits the changed POMs
+   - Commits the changes
 
    PROMPT$ ./post-release.pl
+   PROMPT$ git push
+

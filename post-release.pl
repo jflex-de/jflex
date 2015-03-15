@@ -7,13 +7,13 @@
 #
 # Performs the following:
 #
-#   - svn switch's your working copy back to trunk
+#   - switches working copy to git master branch
 #   - Changes the JFlex version in all POMs to the supplied
 #     snapshot version (X.Y.Z-SNAPSHOT)
-#   - Switches all <scm> URLs from /tags/release_X_Y_Z to /trunk
 #   - Changes the bootstrap JFlex version in the de.jflex:jflex
 #     POM to the latest release version.
-#   - Commits the changed POMs
+#   - Updates the JFlex version comments and @version tags
+#   - Commits the changes to master
 #
 # For more information, see HOWTO_release.txt.
 #
@@ -38,29 +38,6 @@ my $sheet =<<'__STYLESHEET__';
                 exclude-result-prefixes="pom">
   <xsl:param name="snapshot"/>
   <xsl:param name="latest-release"/>
-
-  <xsl:variable name="tag-suffix" select="'/jflex/code/tags/'"/>
-  <xsl:variable name="trunk-suffix" select="'/jflex/code/trunk'"/>
-  <xsl:variable name="scm-connection" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:connection,$tag-suffix),$trunk-suffix)"/>
-  <xsl:variable name="scm-developerConnection" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:developerConnection,$tag-suffix),$trunk-suffix)"/>
-
-  <xsl:variable name="url-tag-suffix" select="'/jflex/code/HEAD/tree/tags/'"/>
-  <xsl:variable name="url-trunk-suffix" select="'/jflex/code/HEAD/tree/trunk'"/>
-  <xsl:variable name="scm-url" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:url,$url-tag-suffix),$url-trunk-suffix)"/>
-
-  <!-- Convert SCM /tags/release_X_Y_Z URLs -> /trunk --> 
-  <xsl:template match="/pom:project/pom:scm/pom:connection">
-    <connection><xsl:value-of select="$scm-connection"/></connection>
-  </xsl:template>
-  <xsl:template match="/pom:project/pom:scm/pom:developerConnection">
-    <developerConnection><xsl:value-of select="$scm-developerConnection"/></developerConnection>
-  </xsl:template>
-  <xsl:template match="/pom:project/pom:scm/pom:url">
-    <url><xsl:value-of select="$scm-url"/></url>
-  </xsl:template>
 
   <!-- Replace all JFlex versions with the new JFlex snapshot version, --> 
   <!-- except for the bootstrap version in the de.jflex:jflex POM.     -->
@@ -93,52 +70,46 @@ my $sheet =<<'__STYLESHEET__';
 </xsl:stylesheet>
 __STYLESHEET__
 
-my $latest_release = get_latest_release_version();
+my $previous_snapshot = get_latest_version();
+(my $latest_release = $previous_snapshot) =~ s/-SNAPSHOT//;
 
 select STDOUT;
 $| = 1; # Turn on auto-flush
 
 print "Clean checkout?  ";
-my $stat_results=`svn stat`;
+my $stat_results=`git status -s`;
 if ($stat_results) {
   print "NO!\n\n$stat_results\nAborting.\n";
   exit 1;
 }
 print "Yes.\n\n";
 
-my $repo_prefix = "https://";
-if ( $ENV{'SF_USER'} ) {
-  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
+print "Switching to master branch..\n";
+system ("git checkout master");
+if ($?) {
+  print "FAILED.\n";
+  exit 1;
 }
-
-my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
-print "svn switch'ing to ${trunk_url} ...\n";
-my $ret_val = system(qq!svn switch "$trunk_url"!);
-if ($ret_val) {
-  print STDERR "ERROR - Aborting.\n";
-  exit $ret_val >> 8; # Exit with svn's return value
-}
-print "\ndone.\n\n";
+print "OK.\n\n";
 
 print "Switching JFlex version -> $snapshot\n";
-print " and SCM URLs from /tags/... -> /trunk in all POMs\n";
-print " and boostrap JFlex version -> $latest_release in the de.jflex:jflex POM ...\n";
+print " and boostrap JFlex version -> $previous_snapshot in the de.jflex:jflex POM ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
 
 print "Updating version in build.xml\n";
-system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/build.xml !);
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/build.xml !);
 
 print "Updating version in Main.java\n";
-system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/src/main/java/jflex/Main.java !);
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/src/main/java/jflex/Main.java !);
 
 print "Updating version in the testsuite's Exec.java\n";
-system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/"!
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!
        . q! testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java !);
 
 
 print " updating version in bin/jflex*";
-system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/bin/jflex !);
-system (qq!perl -pi -e "s/\Q$latest_release\E/$snapshot/" jflex/bin/jflex.bat !);
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex !);
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex.bat !);
 print "\ndone.\n\n";
 
 #  <property name="bootstrap.version" value="1.5.0" />
@@ -152,19 +123,32 @@ system(qq!perl -pi -e "s/(property\\s+name\\s*=\\s*[\\"']version[\\"']\\s+value\
 
 print "\ndone.\n\n";
 
-print "Committing the changed files ...\n";
-$ret_val = system
-   (qq!svn ci -m "JFlex <version>s -> $snapshot; SCM URLs -> /trunk; and bootstrap JFlex version -> $latest_release"!);
+print " updating version in tex/manual.tex";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" tex/manual.tex!);
+print "\ndone.\n\n";
+
+print " updating version in comments and version tags in jflex/**.java";
+system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
+system (qq!find jflex -name "LexScan.flex" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
+print "\ndone.\n\n";
+
+print "Committing version update ...\n";
+my $ret_val = system
+   (qq!git commit -a -m "bump version: JFlex $previous_snapshot -> $snapshot"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
-  exit $ret_val >> 8; # Exit with svn's return value
+  exit $ret_val >> 8; # Exit with git's return value
 }
 print "\ndone.\n\n";
 
+print "Now on branch master. 'git push' to publish.\n\n";
+
+
 exit;
 
-sub get_latest_release_version {
-  # Get the latest release version from the parent POM
+sub get_latest_version {
+  # Get the previous snapshot version from the parent POM
+  # (assumes master is on previous snapshot)
   my $parent_pom = XML::LibXML->load_xml(location => 'pom.xml'); 
   my $xpath_context = XML::LibXML::XPathContext->new($parent_pom);
   $xpath_context->registerNs('pom', 'http://maven.apache.org/POM/4.0.0');

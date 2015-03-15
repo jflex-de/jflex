@@ -6,11 +6,10 @@
 # 
 # Performs the following:
 #
+#   - Creates a git release branch
 #   - Changes the version in all POMs by removing all -SNAPSHOT suffixes
-#   - Switches all <scm> URLs from /trunk to /tags/release_X_Y_Z
-#   - Commits the changed POMs
-#   - Tags the release by copying /trunk to /tags/release_X_Y_Z
-#   - svn switch's your working copy to the new tag.
+#   - Changes version in java comments and version tags
+#   - Commits the changes to the release branch
 #
 # For more information, see HOWTO_release.txt
 #
@@ -28,30 +27,6 @@ my $sheet =<<'__STYLESHEET__';
                 xmlns="http://maven.apache.org/POM/4.0.0"
                 exclude-result-prefixes="pom">
   <xsl:param name="release"/>
-  <xsl:param name="tag"/>
-
-  <xsl:variable name="trunk-suffix" select="'/jflex/code/trunk'"/>
-  <xsl:variable name="tag-suffix" select="concat('/jflex/code/tags/', $tag)"/>
-  <xsl:variable name="scm-connection" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:connection,$trunk-suffix),$tag-suffix)"/>
-  <xsl:variable name="scm-developerConnection" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:developerConnection,$trunk-suffix),$tag-suffix)"/>
-
-  <xsl:variable name="url-trunk-suffix" select="'/jflex/code/HEAD/tree/trunk'"/>
-  <xsl:variable name="url-tag-suffix" select="concat('/jflex/code/HEAD/tree/tags/', $tag)"/>
-  <xsl:variable name="scm-url" 
-                select="concat(substring-before(/pom:project/pom:scm/pom:url,$url-trunk-suffix),$url-tag-suffix)"/>
-
-  <!-- Convert SCM /trunk URLs -> /tags/release_X_Y_Z --> 
-  <xsl:template match="/pom:project/pom:scm/pom:connection">
-    <connection><xsl:value-of select="$scm-connection"/></connection>
-  </xsl:template>
-  <xsl:template match="/pom:project/pom:scm/pom:developerConnection">
-    <developerConnection><xsl:value-of select="$scm-developerConnection"/></developerConnection>
-  </xsl:template>
-  <xsl:template match="/pom:project/pom:scm/pom:url">
-    <url><xsl:value-of select="$scm-url"/></url>
-  </xsl:template>
 
   <!-- Replace all JFlex versions with the new JFlex release version, --> 
   <!-- except for the bootstrap version in the de.jflex:jflex POM.    -->
@@ -75,21 +50,28 @@ __STYLESHEET__
 
 my $snapshot = get_snapshot_version();
 (my $release = $snapshot) =~ s/-SNAPSHOT//;
-(my $tag = "release_$release") =~ s/\./_/g;
+my $branch = "branch-$release";
 
 select STDOUT;
 $| = 1; # Turn on auto-flush
 
 print "Clean checkout?  ";
-my $stat_results=`svn stat`;
+my $stat_results=`git status -s`;
 if ($stat_results) {
   print "NO!\n\n$stat_results\nAborting.\n";
   exit 1;
 }
 print "Yes.\n\n";
 
+print "Creating release branch..\n";
+system ("git checkout -b $branch");
+if ($?) {
+  print "FAILED.\n";
+  exit 1;
+}
+print "OK.\n\n";
+
 print "Switching JFlex version -> $release\n";
-print " and SCM URLs from /trunk -> /tags/$tag in all POMs ...\n";
 File::Find::find({wanted => \&wanted, follow => 1}, '.');
 print "\ndone.\n\n";
 
@@ -98,49 +80,38 @@ system ('perl -pi -e "s/-SNAPSHOT//" jflex/build.xml');
 print "\ndone.\n\n";
 
 print " updating version in Main.java";
-system ('perl -pi -e "s/-SNAPSHOT//" jflex/src/main/java/jflex/Main.java ');
+system ('perl -pi -e "s/version = \"(.*)-SNAPSHOT/version = \"\\1/" jflex/src/main/java/jflex/Main.java ');
 print "\ndone.\n\n";
 
 print " updating version in the testsuite's Exec.java";
 system ('perl -pi -e "s/-SNAPSHOT//" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
 print "\ndone.\n\n";
 
-print " updating version in bin/jflex*";
+print " updating version in jflex/bin/jflex*";
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex');
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex.bat');
 print "\ndone.\n\n";
 
-print "Committing the changed POMs ...\n";
+print " updating version in tex/manual.tex";
+system ('perl -pi -e "s/-SNAPSHOT//" tex/manual.tex');
+print "\ndone.\n\n";
+
+print " updating version in comments and version tags in jflex/**.java";
+system ('find jflex -name "*.java" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
+system ('find jflex -name "LexScan.flex" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
+system ('find jflex -name "*.java" | xargs perl -pi -e "s/@version (.*)-SNAPSHOT/@version \\1/"');
+print "\ndone.\n\n";
+
+print "Committing version update ...\n";
 my $ret_val = system
-   (qq!svn ci -m "JFlex <version>s -> $release and SCM URLs -> /tags/$tag"!);
+   (qq!git commit -a -m "bump version: JFlex $release-SNAPSHOT -> $release"!);
 if ($ret_val) {
   print STDERR "ERROR - Aborting.\n";
-  exit $ret_val >> 8; # Exit with svn's return value
+  exit $ret_val >> 8; # Exit with git's return value
 }
 print "\ndone.\n\n";
 
-my $repo_prefix = "https://";
-if ( $ENV{'SF_USER'} ) {
-  $repo_prefix = "svn+ssh://$ENV{'SF_USER'}\@";
-}
-
-my $trunk_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/trunk";
-my $tag_url = "${repo_prefix}svn.code.sf.net/p/jflex/code/tags/$tag";
-print "Tagging the release as $tag_url ...\n";
-$ret_val = system(qq!svn copy -m "tag release $release" "$trunk_url" "$tag_url"!); 
-if ($ret_val) {
-  print STDERR "ERROR - Aborting.\n";
-  exit $ret_val >> 8; # Exit with svn's return value
-}
-print "\ndone.\n\n";
-
-print "svn switch'ing to ${tag_url} ...\n";
-$ret_val = system(qq!svn switch "$tag_url"!);
-if ($ret_val) {
-  print STDERR "ERROR - Aborting.\n";
-  exit $ret_val >> 8; # Exit with svn's return value
-}
-print "\ndone.\n\n";
+print "Now on branch $branch. 'git push' to publish.\n\n";
 
 exit;
 
@@ -163,6 +134,6 @@ sub transform {
   my $style_doc = XML::LibXML->load_xml('string' => $sheet);
   my $stylesheet = $xslt->parse_stylesheet($style_doc);
   my $results = $stylesheet->transform_file
-      ($pom, release => "'$release'", tag => "'$tag'");
+      ($pom, release => "'$release'");
   $stylesheet->output_file($results, $pom); # replace existing file
 }
