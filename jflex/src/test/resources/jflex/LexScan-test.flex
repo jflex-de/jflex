@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex 1.6                                                               *
- * Copyright (C) 1998-2010  Gerwin Klein <lsf@jflex.de>                    *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *

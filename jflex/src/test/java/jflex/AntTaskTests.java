@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex 1.6.1-SNAPSHOT                                                    *
- * Copyright (C) 1998-2008  Gerwin Klein <lsf@jflex.de>,                   *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
