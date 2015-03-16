@@ -118,7 +118,7 @@
     <mkdir dir="${generated.sources.dir}"/>
     <jflex file="src/main/jflex/LexScan.flex"
            destdir="${generated.sources.dir}"
-           skeleton="src/main/jflex/skeleton.nested-1.6.0"
+           skeleton="src/main/jflex/skeleton.nested"
            nobak="on"/>
   </target>
 

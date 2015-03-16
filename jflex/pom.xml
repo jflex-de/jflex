@@ -107,7 +107,7 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <skeleton>src/main/jflex/skeleton.nested-1.6.0</skeleton>
+              <skeleton>src/main/jflex/skeleton.nested</skeleton>
             </configuration>
           </execution>
         </executions>
