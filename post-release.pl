@@ -127,6 +127,10 @@ print " updating version in tex/manual.tex";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" tex/manual.tex!);
 print "\ndone.\n\n";
 
+print " updating version in jflex/README.md";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/README.md!);
+print "\ndone.\n\n";
+
 print " updating version in comments and version tags in jflex/**.java";
 system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
 system (qq!find jflex -name "LexScan.flex" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);

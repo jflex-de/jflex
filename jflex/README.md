@@ -1,4 +1,4 @@
-# JFlex 1.6
+# JFlex 1.6.1-SNAPSHOT
 
 This directory contains JFlex, a fast scanner generator for Java.
 
