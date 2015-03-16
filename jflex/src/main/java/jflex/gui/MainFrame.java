@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6.1-SNAPSHOT                                                    *
+ * JFlex 1.7.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -20,7 +20,7 @@ import java.awt.event.*;
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.6.1-SNAPSHOT
+ * @version JFlex 1.7.0-SNAPSHOT
  */
 final public class MainFrame extends Frame implements Handles {
 

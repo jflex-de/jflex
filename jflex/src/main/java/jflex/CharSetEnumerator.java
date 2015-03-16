@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6.1-SNAPSHOT                                                    *
+ * JFlex 1.7.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ package jflex;
  * Does not implement java.util.Enumeration, but supports the same protocol.
  *  
  * @author Gerwin Klein
- * @version JFlex 1.6.1-SNAPSHOT
+ * @version JFlex 1.7.0-SNAPSHOT
  */
 final public class CharSetEnumerator {
 

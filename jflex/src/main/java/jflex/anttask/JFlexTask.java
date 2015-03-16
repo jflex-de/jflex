@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * JFlex task class
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.6.1-SNAPSHOT
+ * @version JFlex 1.7.0-SNAPSHOT
  */
 public class JFlexTask extends Task {
     private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");

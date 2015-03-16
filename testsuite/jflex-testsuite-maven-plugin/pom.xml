@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.7.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-testsuite-maven-plugin</artifactId>
@@ -44,7 +44,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.6.1-SNAPSHOT</version>
+        <version>1.7.0-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -113,7 +113,7 @@
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>jflex</artifactId>
-      <version>1.6.1-SNAPSHOT</version>
+      <version>1.7.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <!-- If this dependency is not included, the Ant Javac task can't find -->
