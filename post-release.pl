@@ -70,9 +70,6 @@ my $sheet =<<'__STYLESHEET__';
 </xsl:stylesheet>
 __STYLESHEET__
 
-my $previous_snapshot = get_latest_version();
-(my $latest_release = $previous_snapshot) =~ s/-SNAPSHOT//;
-
 select STDOUT;
 $| = 1; # Turn on auto-flush
 
@@ -91,6 +88,10 @@ if ($?) {
   exit 1;
 }
 print "OK.\n\n";
+
+# read versions after branch switch!
+my $previous_snapshot = get_latest_version();
+(my $latest_release = $previous_snapshot) =~ s/-SNAPSHOT//;
 
 print "Switching JFlex version -> $snapshot\n";
 print " and boostrap JFlex version -> $previous_snapshot in the de.jflex:jflex POM ...\n";
