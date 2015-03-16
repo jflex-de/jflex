@@ -9,14 +9,27 @@ regression test suite pass.
 
 ### Running the test suites
 
-Unit tests are run automatically if you build the jflex package for instance via
+**Short version:**
 
-    mvn3 package
+    ./run-tests
 
-The regression test suite must be run from the directory `testsuite/testcases`,
-for instance with
+This runs the entire test suites, including unit and regression tests, as
+well as examples.
+
+**Longer version:**
+
+Unit tests are run automatically if you locally install the jflex package for
+instance via
+
+    mvn3 install
+
+The regression test suite must be run from the directory
+`testsuite/testcases`, for instance with
 
     mvn3 test
+
+The jflex/examples can be run individually either by calling `make` or `mvn
+test`.
 
 
 ### Get in contact
