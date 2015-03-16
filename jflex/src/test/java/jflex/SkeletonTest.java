@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6.1-SNAPSHOT                                                    *
+ * JFlex 1.6.1                                                             *
  * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,7 +18,7 @@ import junit.framework.TestCase;
  * SkeletonTest
  * 
  * @author Gerwin Klein
- * @version JFlex 1.6.1-SNAPSHOT
+ * @version JFlex 1.6.1
  */
 public class SkeletonTest extends TestCase {
 

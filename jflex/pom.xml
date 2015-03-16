@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.6.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>JFlex</name>
@@ -143,7 +143,7 @@
             </goals>
             <configuration>
               <target name="copy">
-                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar" todir="lib" />
+                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar" todir="lib"/>
               </target>
             </configuration>
           </execution>
@@ -205,7 +205,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore></ignore>
+                    <ignore/>
                   </action>
                 </pluginExecution>
                 <pluginExecution>
@@ -218,7 +218,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <execute></execute>
+                    <execute/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
