@@ -1,4 +1,4 @@
-## JFlex 1.6.1 (March 21, 2015)
+## JFlex 1.6.1 (March 16, 2015)
 - JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
 - Fixed issue #130, "in caseless mode, chars in regexps not accepted caselessly":
   Caseless option works again as intended.
