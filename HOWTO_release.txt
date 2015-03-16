@@ -109,7 +109,7 @@ Perform the release
      automated quality checks are performed to insure everything meets
      the advertized standards.
    - Click the "Refresh" button again...
-   - Click the "Promote" button, to the right of the "Refresh" button -
+   - Click the "Release" button, to the right of the "Refresh" button -
      this is the final step to release the artifacts.  Maven Central
      will then sync within less than one day.
 
