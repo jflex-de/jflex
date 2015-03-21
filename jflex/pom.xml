@@ -124,14 +124,14 @@
             </goals>
             <configuration>
               <target name="cup">
-                <property name="cup.version" value="11a"/>
+                <property name="cup.version" value="11b"/>
                 <property name="cup.jar" value="lib/java-cup-${cup.version}.jar"/>
                 <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
                 <property name="cup.file" location="src/main/cup/LexParse.cup"/>
                 <mkdir dir="${cup.output.dir}"/>
                 <echo message="Generating LexParse.java from ${cup.file}"/>
                 <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}"/>
-                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" parser="LexParse"/>
+                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" locations="false" parser="LexParse"/>
               </target>
             </configuration>
           </execution>

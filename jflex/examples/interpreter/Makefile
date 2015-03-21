@@ -12,7 +12,7 @@
 JAVA=java
 JAVAC=javac
 JFLEX=../../bin/jflex
-CUPJAR=../../lib/java-cup-11a.jar
+CUPJAR=../../lib/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 CP=.:$(CUPJAR)
 

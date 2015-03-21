@@ -4,7 +4,7 @@
   <property name="version" value="1.7.0-SNAPSHOT" />
   <property name="bootstrap.version" value="1.6.1" />
   <property name="junit.version" value="4.11" />
-  <property name="cup.version" value="11a" />
+  <property name="cup.version" value="11b" />
     
   <!-- use any of these files to override properties -->
   <property file="build.properties" />
@@ -128,7 +128,8 @@
     <mkdir dir="${generated.sources.dir}"/>
     <cup srcfile="src/main/cup/LexParse.cup" 
          destdir="${generated.sources.dir}" 
-         interface="true" 
+         interface="true"
+         locations="false"
          parser="LexParse"/>
   </target>
     

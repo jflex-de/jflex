@@ -4,7 +4,7 @@
 
 CUP        = java java_cup.Main -interface <
 JFLEX      = ../../bin/jflex
-CUPJAR     = ../../lib/java-cup-11a.jar
+CUPJAR     = ../../lib/java-cup-11b.jar
 CP         = .:$(CUPJAR)
 JAVA       = java
 JAVAC      = javac
