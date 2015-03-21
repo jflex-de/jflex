@@ -2393,23 +2393,13 @@ it
 \end{itemize}
 
 \subsection{Porting from lex/flex}\label{lexport}
-This section tries to give an overview of activities and possible
-problems when porting a lexical specification from the C/C++ tools lex
-and flex \cite{flex} available on most Unix systems to JFlex.
+This section gives an incomplete overview of potential pitfalls and steps for
+porting a lexical specification from the C/C++ tools \texttt{lex} and
+\texttt{flex} \cite{flex} available on most Unix systems to JFlex.
 
 Most of the C/C++ specific features are naturally not present in JFlex,
 but most ``clean'' lex/flex lexical specifications can be ported to 
-JFlex without very much work.
-
-This section is by far not complete and is based mainly on a survey of
-the flex man page and very little personal experience.  If you do
-engage in any porting activity from lex/flex to JFlex and encounter
-problems, have better solutions for points presented here or have just
-some tips you would like to share, please do 
-\latex{contact me via email: \texttt{Gerwin Klein <lsf@jflex.de>}}%
-\html{\htmladdnormallink{contact me}{mailto:lsf@jflex.de}}. I will
-incorporate your experiences in this manual (with all due credit to you,
-of course).
+JFlex without too much work.
 
 \subsubsection{Basic structure}
 A lexical specification for flex has the following basic structure:
@@ -2421,11 +2411,11 @@ rules
 user code
 \end{verbatim}
 
-The \texttt{user code} section usually contains some C code that is used
-in actions of the \texttt{rules} part of the specification. For JFlex most
-of this code will have to be included in the class code \verb+%{..%}+
-directive in the \texttt{options} \texttt{and dec\-la\-ra\-ti\-ons} section (after 
-translating the C code to Java, of course). 
+The \texttt{user code} section usually contains C code that is used in actions
+of the \texttt{rules} part of the specification. For JFlex, this code will have
+to be translated to Java, and most of it will then go into the class code
+\verb+%{..%}+ directive in the \texttt{options and dec\-la\-ra\-ti\-ons}
+section.
 
 \subsubsection{Macros and Regular Expression Syntax}
 The \texttt{definitions} section of a flex specification is quite similar
@@ -2439,25 +2429,39 @@ To port them to JFlex macros, just insert a \texttt{=} between \texttt{<identifi
 and \texttt{<expression>}.
 
 The syntax and semantics of regular expressions in flex are pretty much the
-same as in JFlex. A little attention is needed for some escape sequences 
-present in flex (such as \verb+\a+) that are not supported in JFlex. These
-escape sequences should be transformed into their octal or hexadecimal 
-equivalent. 
+same as in JFlex. Some attention is needed for escape sequences present in flex
+(such as \verb+\a+) that are not supported in JFlex. These escape sequences
+should be transformed into their octal or hexadecimal equivalent.
 
-Another point are predefined character classes. Flex offers the ones directly
-supported by C, JFlex offers the ones supported by Java. These classes will
-sometimes have to be listed manually (if there is need for this feature, it
-may be implemented in a future JFlex version).
+\subsubsection{Character Classes}
+Flex offers the character classes directly supported by C, JFlex offers the
+ones supported by Java. These classes will sometimes have to be listed manually.
+
+In flex more special characters lose their meaning in character classes.
+In particular\footnote{Thanks to Dimitri Maziuk for pointing these out.}:
+
+\begin{itemize}
+  \item in flex \verb+[][]+ is the character class containing \verb+]+ and
+  \verb+[+, whereas in JFlex, the expression means ``empty expression''
+  followed by ``empty expression''. To get \verb+]+ and \verb+[+ in JFlex, use
+  for instance \verb+[\]\[]+.
+  
+  \item the classes \verb+[]+ and \verb+[^]+ are illegal in flex, but have
+  meaning in JFlex.
+
+  \item in flex \verb+["]+ is legal, in JFlex you need \verb+[\"]+.
+\end{itemize}
+
 
 \subsubsection{Lexical Rules}
 Since flex is mostly Unix based, the '\verb+^+' (beginning of line) and
-'\verb+$+' (end of line) operators, consider the \verb+\n+ character as %$
+'\verb+$+' (end of line) operators, consider the \verb+\n+ character as
 only line terminator. This should usually not cause much problems, but you
 should be prepared for occurrences of \verb+\r+ or \verb+\r\n+ or one of
 the characters \verb+\u2028+, \verb+\u2029+, \verb+\u000B+, \verb+\u000C+, 
 or \verb+\u0085+. They are considered to be line terminators in Unicode and 
-therefore may not be consumed when 
-\verb+^+ or \verb+$+ is present in a rule.%$
+therefore may not be consumed when \verb+^+ or \verb+$+ is present in a rule.
+
 
 \section{Working together}\label{WorkingTog}
 
