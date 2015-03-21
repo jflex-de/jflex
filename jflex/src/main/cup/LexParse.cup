@@ -11,6 +11,7 @@ package jflex;
 
 import java.util.*;
 import jflex.unicode.UnicodeProperties;
+import java_cup.runtime.Symbol;
 
 /* customizing code */
 
@@ -333,10 +334,24 @@ parser code {:
    public EOFActions getEOFActions() {
      return action_obj.eofActions;
    }
+
+   /**
+    * Override syntax_error to not report expected tokens, just error message.
+    *
+    * TODO: reporting expected tokens using their actual surface syntax would be useful.
+    *       Would need a reverse mapping of terminals or similar.
+    */
+   public void syntax_error(Symbol cur_token) {
+     // JFlex reporting doesn't use the message argument.
+     report_error(null, cur_token);
+   }
        
-   public void report_error(String message, Object info) {     
-     if ( info instanceof java_cup.runtime.Symbol ) {
-       java_cup.runtime.Symbol s = (java_cup.runtime.Symbol) info;
+   /**
+    * Override lr_parser.report_error to use JFlex reporting.
+    */
+   public void report_error(String message, Object info) {
+     if (info instanceof Symbol) {
+       Symbol s = (Symbol) info;
   
        if (s.sym == sym.EOF) 
          Out.error(ErrorMessages.UNEXPECTED_EOF);
@@ -347,8 +362,11 @@ parser code {:
        Out.error(ErrorMessages.UNKNOWN_SYNTAX);
    }
    
+   /**
+    * Override lr_parser.report_fatal_error to use JFlex reporting.
+    */
    public void report_fatal_error(String message, Object info) {
-     // report_error(message, info);
+     // CUP does not produce an informative message here, so we just stop.
      throw new GeneratorException();
    }
 :};
