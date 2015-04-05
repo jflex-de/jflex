@@ -7,7 +7,9 @@ requests. Before you send a pull request, please make sure that unit tests and
 regression test suite pass.
 
 ### Setting up your environment
-We provide help on how to set up your [[development environment]].
+
+We provide help on how to set up your
+[development environment](https://github.com/jflex-de/jflex/wiki/Development-environment).
 
 ### Running the test suites
 
