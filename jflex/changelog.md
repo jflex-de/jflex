@@ -75,33 +75,33 @@
 - fixed bug #106 (impossible char class range should trigger syntax error)
 
 ## JFlex 1.4.3 (Jan 31, 2009)
-- fixed bug #2018299 (lookahead syntax error)
-- fixed bug #2010261 (min_int in Java example scanner)
-- fixed bug #2007221 (zzEOFDone not reset in yyreset(Reader))
-- fixed bug #1999301 (%type and %int at the same time should produce error msg)
+- fixed bug #100 (lookahead syntax error)
+- fixed bug #97 (min_int in Java example scanner)
+- fixed bug #96 (zzEOFDone not reset in yyreset(Reader))
+- fixed bug #95 (%type and %int at the same time should produce error msg)
 
 ## JFlex 1.4.2 (May 27, 2008)
-- implemented feature request #1212181:
+- implemented feature request #75:
   Now supports generics syntax for %type, %extends, etc
-- implemented feature request #1762500:
+- implemented feature request #156:
   Provided %ctorarg option to add arguments to constructor
-- fixed bug #1464525 (Reader.read might return 0)
-- fixed bug #1968897 (Ambiguous error message in macro expansion)
-- fixed bug #1832973 (Syntax error in input may cause NullPointerException)
-- fixed bug #1629920 (Need to defend against path blanks in jflex bash script)
-- fixed bug #1540228 (EOF actions may be ignored for same lex state)
-- fixed bug #1498726 (syntax error in generated ZZ_CMAP)
-- fixed bug #1282840 (lookahead and "|" actions)
-- fixed bug #1164852 (yytext() longer than expected with lookahead)
-- fixed bug #1065521 (OS/2 Java 1.1.8 Issues)
-- fixed bug #421495 (dangerous lookahead check may fail)   
+- fixed bug #80 (Reader.read might return 0)
+- fixed bug #57 (Ambiguous error message in macro expansion)
+- fixed bug #89 (Syntax error in input may cause NullPointerException)
+- fixed bug #85 (Need to defend against path blanks in jflex bash script)
+- fixed bug #82 (EOF actions may be ignored for same lex state)
+- fixed bug #81 (syntax error in generated ZZ_CMAP)
+- fixed bug #77 (lookahead and "|" actions)
+- fixed bug #74 (yytext() longer than expected with lookahead)
+- fixed bug #73 (OS/2 Java 1.1.8 Issues)
+- fixed bug #40 (dangerous lookahead check may fail)   
 
 ## JFlex 1.4.1 (November 7, 2004)
-- merged in patch by Don Brown (fixes #1049791 Uses Old JUnit method assertFalse)
-- merged in patch by Don Brown (fixes #887821  buffer expansion bug in yy_refill())
+- merged in patch by Don Brown (fixes #70 Uses Old JUnit method assertFalse)
+- merged in patch by Don Brown (fixes #62 buffer expansion bug in yy_refill())
   Thanks to Binesh Bannerjee for providing a simpler test case for this problem.
-- fixed bug #1035407 (ArrayIndexOutOfBounds in IntCharSet)
-- fixed bug #1003569 (Cannot use lookahead with ignorecase)
+- fixed bug #69 (ArrayIndexOutOfBounds in IntCharSet)
+- fixed bug #68 (Cannot use lookahead with ignorecase)
 - converted dangerous lookahead error to warning
 - print info for EOF actions as well in %debug mode
 - fixed line number count for EOF actions
@@ -112,45 +112,45 @@
 - new --jlex option for strict compatibility to JLex. Currently it 
   changes %ignorecase to JLex semantics, that is, character classes 
   are interpreted in a caseless way, too.  
-  (fixes bus #751757, %ignorecase ignored by char classes).
+  (fixes bus #59, %ignorecase ignored by char classes).
   Thanks to Edward D. Willink for spotting the incompatibility.
 - support for even larger scanners (up to 64K DFA states).
   Thanks to Karin Vespoor.
 - removed eclipse compiler warnings for generated classes
-  (feature request #778747)
-- implemented faster character classes (feature request #604589).
-  Expressions like [a-z] | [A-Z] are interpreted as one atomic class
-  [a-zA-Z], reducing NFA states and generation time significantly
+  (feature request #144)
+- implemented faster character classes (feature request #143).
+  Expressions like `[a-z] | [A-Z]` are interpreted as one atomic class
+  `[a-zA-Z]`, reducing NFA states and generation time significantly
   for some specifications. This affects the generation process only,
   generated scanners remain the same.
-- new %apiprivate switch (feature request #513500/1) that causes all 
+- new %apiprivate switch (feature request #141/1) that causes all 
   generated and skeleton methods to be made private. Exceptions to this
   are user defined functions and the constructor. Thanks to Stephen 
   Ostermiller for the suggestion.
-- allow user defined javadoc class comments (feature request #513500/2)
+- allow user defined javadoc class comments (feature request #141/2)
   If the user code section ends with a javadoc comment, JFlex takes this
   instead of the generated comment. Thanks to Stephen Ostermiller for 
   the suggestion.  
-- fixed bug #491095 (undefined macros in complement expressions do 
+- fixed bug #50 (undefined macros in complement expressions do 
   not throw exception in generator). Thanks to Stephen Ostermiller
   for the bug report.
-- fixed bug #495422 (yypushStream/yypopStream in skeleton.nested 
+- fixed bug #51 (yypushStream/yypopStream in skeleton.nested 
   work as advertised)
-- fixed bug #611118 (no wrong macro warnings on regexp negation)
-- fixed bug #655528 (%cupsym now also affects %cupdebug)
+- fixed bug #57 (no wrong macro warnings on regexp negation)
+- fixed bug #58 (%cupsym now also affects %cupdebug)
   Thanks to Eric Schweitz for the fix.
-- fixed bug #510010 (single-line %initthrow works now 
+- fixed bug #52 (single-line %initthrow works now 
   in case of extra whitespace before newline)
 - yyreset() does no longer close the associated reader (use yyclose() 
   explicitly for that). Makes some reader objects reusable (feature
-  request #513492). Thanks to Stephen Ostermiller for the suggestion.  
+  request #140). Thanks to Stephen Ostermiller for the suggestion.  
 - fixed modifier order in generated code, removes jikes compiler warnings
   Thanks to Michael Wildpaner for the fix.
-- ant task now also works with ant >= 1.4 (fixes bug #526905)
-- yyreset() does not declare an execption any more (fixes bug #913132)
-- %cup does not include %eofclose in JLex mode (--jlex). (Fixes bug #910562)
+- ant task now also works with ant >= 1.4 (fixes bug #54)
+- yyreset() does not declare an execption any more (fixes bug #65)
+- %cup does not include %eofclose in JLex mode (--jlex). (Fixes bug #63)
 - optional parameter to %eofclose: "%eofclose false" turns off %eofclose if 
-  it was turned on previously (e.g. by %cup). (Fixes bug #910562)
+  it was turned on previously (e.g. by %cup). (Fixes bug #63)
 - jflex build script switched to ant
 - internal: central Options class for better integration with 
   build tools and IDEs
@@ -162,7 +162,7 @@
 ## JFlex 1.3.5 (October 8, 2001)
 - fixed all bugs reported for version 1.3.4. Thanks to
   Amin Ahmad and Fred Wehrhahn for their excellent bug reports.
-- implemented feature request #459014: vim syntax file.  
+- implemented feature request #137: vim syntax file.  
   Thanks to Michael Brailsford for his help and suggestions.
 - JFlex should run with JDK 1.1 out-of-the-box again.
 
@@ -170,7 +170,7 @@
 ## JFlex 1.3.4 (October 1, 2001)
 - fixed all bugs reported for version 1.3.3. Thanks to Mike Akerman
   for his excellent bug reports and his help.
-- implemented feature request #459355: exclusive start states.
+- implemented feature request #138: exclusive start states.
   Thanks to Ed Beroset for the suggestion.
 - introduced %s and %x shorthands for state declarations
 
