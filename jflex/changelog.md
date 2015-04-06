@@ -32,15 +32,15 @@
   sequences of code points) to be specified as 1-6 hexadecimal digit values.
 - Characters in matches printed in %debug mode are now Unicode escaped
   (\uXXXX) when they are outside the range 32..127.
-- fixed bug #127, detect javadoc class comment when followed by annotation(s)
+- fixed bug #128, detect javadoc class comment when followed by annotation(s)
 - removed the "switch" and "table" code generation options
 - By default no InputStream constructor is included in the generated
   scanner.  The capability to include one is deprecated and will be
   removed in JFlex 1.7.
   
 ## JFlex 1.5.1 (Mar 21, 2014)
-- fixed bug #126, problem calling ./jflex start scripts
-- fixed bug #125, minor documentation flaws
+- fixed bug #127, problem calling ./jflex start scripts
+- fixed bug #126, minor documentation flaws
 - further documentation and website updates
 - JFlex now reports the correct version string 
 - added support for CUP2 with %cup2 switch, based on patch by Andreas Wenger
@@ -65,14 +65,14 @@
   `"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029]`.
 - new option --noinputstreamctor to not include an InputStream
   constructor in the generated scanner.
-- %include <file> can now be used in the rules section (bug #116)
-- fixed bug #105 & #106 (yychar and zzAtBOL should be reset for nested input streams)
-- fixed bug #107 (could not match input for empty string matches.)
-- fixed bug #110 & #118 (properly update zzFin when reallocating zzBuffer)
-- fixed bug #114 (noncompileable scanner generation when default locale is Turkish)
-- fixed bug #113 (zzEOFDone not included with pushed nested stream state)
-- fixed bug #103 (can't build examples/java/)
-- fixed bug #104 (impossible char class range should trigger syntax error)
+- %include <file> can now be used in the rules section (bug #117)
+- fixed bug #107 & #108 (yychar and zzAtBOL should be reset for nested input streams)
+- fixed bug #109 (could not match input for empty string matches.)
+- fixed bug #112 & #119 (properly update zzFin when reallocating zzBuffer)
+- fixed bug #115 (noncompileable scanner generation when default locale is Turkish)
+- fixed bug #114 (zzEOFDone not included with pushed nested stream state)
+- fixed bug #105 (can't build examples/java/)
+- fixed bug #106 (impossible char class range should trigger syntax error)
 
 ## JFlex 1.4.3 (Jan 31, 2009)
 - fixed bug #2018299 (lookahead syntax error)
@@ -176,7 +176,7 @@
 
 
 ## JFlex 1.3.3 (September 21, 2001)
-- fixed all reported bugs except #39 (lookahead check at generation
+- fixed all reported bugs except #40 (lookahead check at generation
   time may fail).  Thanks to Axel Schwolow, Karl Meissner, Angelo
   Borsotti, and Paolo Di Francesco for their excellent bug reports.
 - enhanced %debug output. JFlex scanners in debug mode now print line,
@@ -217,7 +217,7 @@
   
   
 ## JFlex 1.3.2 (February 24, 2001)
-- fixed bug #32 (this time for real). Thanks to Thilo Goetz for 
+- fixed bug #31 (this time for real). Thanks to Thilo Goetz for 
   his quick report.
 - updated the binary scanning example with the more comprehensive and 
   usable class StraightStreamReader by Stephen Ostermiller. Thanks go to
@@ -237,7 +237,7 @@
   
   
 ## JFlex 1.3.1 (February 20, 2001) 
-- fixed all JFlex bugs reported for 1.3 (bugs #32-#36)
+- fixed all JFlex bugs reported for 1.3 (bugs #31-#35)
   Thanks to Hans Kratz, Vasily Karyaev, Alexey Yakovets, and Tom Moog for
   their excellent reports.
 - added two new example scanners:
@@ -265,7 +265,7 @@
 
 ## JFlex 1.3 (October 21, 2000) 
 
-- Fixed all bugs reported for 1.2.2 (bugs #23-#27). 
+- Fixed all bugs reported for 1.2.2 (bugs #20-#28). 
 - Better start script for Linux. 
 - Customize for internal error handling in yy_ScanError. 
 - Empty charclass [], and any (=negated empty) charclass [^]. 
@@ -293,7 +293,7 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 
   
 ## JFlex 1.2.1 (June 25, 1999)
-- Fixed all bugs reported for version 1.2 (#19-#22). 
+- Fixed all bugs reported for version 1.2 (#17-#19). 
 - Webpage redesigned and moved to http://www.jflex.de. 
 - Example java lexer/parser switched to Java 1.2. 
 
