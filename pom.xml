@@ -206,7 +206,7 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>3.3</version>
           <configuration>
-            <skip>false</skip>
+            <skip>true</skip>
             <skipDeploy>true</skipDeploy>
           </configuration>
         </plugin>

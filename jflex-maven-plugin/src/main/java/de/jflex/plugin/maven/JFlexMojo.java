@@ -175,13 +175,7 @@ public class JFlexMojo extends AbstractMojo {
 		project.addCompileSourceRoot(outputDirectory.getPath());
 
 		List<File> filesIt;
-		if (lexDefinitions != null) {
-			// use arguments provided in the plugin configuration
-			filesIt = Arrays.asList(lexDefinitions);
-
-			getLog().debug("Parsing " + lexDefinitions.length
-					+ " jflex files or directories given in configuration");
-		} else {
+		if (lexDefinitions == null) {
 			// use default lexfiles if none provided
 			getLog().debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
 			filesIt = new ArrayList<File>();
@@ -190,12 +184,16 @@ public class JFlexMojo extends AbstractMojo {
 				filesIt.add(defaultDir);
 			}
 		}
-		// process all lexDefinitions
-		Iterator<File> fileIterator = filesIt.iterator();
-		while (fileIterator.hasNext()) {
-			File lexDefinition = fileIterator.next();
-			lexDefinition = getAbsolutePath(lexDefinition);
+		else {
+			// use arguments provided in the plugin configuration
+			filesIt = Arrays.asList(lexDefinitions);
 
+			getLog().debug("Parsing " + lexDefinitions.length
+					+ " jflex files or directories given in configuration");
+		}
+		// process all lexDefinitions
+		for (File lexDefinition : filesIt) {
+			lexDefinition = getAbsolutePath(lexDefinition);
 			parseLexDefinition(lexDefinition);
 		}
 	}
@@ -238,12 +236,12 @@ public class JFlexMojo extends AbstractMojo {
 		assert lexFile.isAbsolute() : lexFile;
 
 		getLog().debug("Generating Java code from " + lexFile.getName());
-		ClassInfo classInfo = null;
+		ClassInfo classInfo;
 		try {
 			classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
-		} catch (FileNotFoundException e1) {
-			throw new MojoFailureException(e1.getMessage());
-		} catch (IOException e3) {
+		} catch (FileNotFoundException e) {
+			throw new MojoFailureException(e.getMessage(), e);
+		} catch (IOException e) {
 			classInfo = new ClassInfo();
 			classInfo.className = LexSimpleAnalyzer.DEFAULT_NAME;
 			classInfo.packageName = null; // NOPMD
@@ -291,7 +289,7 @@ public class JFlexMojo extends AbstractMojo {
 			Main.generate(lexFile);
 			getLog().info("  generated " + generatedFile);
 		} catch (Exception e) {
-			throw new MojoExecutionException(e.getMessage());
+			throw new MojoExecutionException(e.getMessage(), e);
 		}
 	}
 

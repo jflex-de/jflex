@@ -9,16 +9,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 
+/**
+ * @author Rafal Mantiuk (Rafal.Mantiuk@bellstream.pl)
+ * @author Gerwin Klein (lsf@jflex.de)
+ */
 public class LexSimpleAnalyzer {
   public static final String DEFAULT_NAME = "Yylex";
 
   /**
    * Guess the package and class name, based on this grammar definition. Does
    * not override the Mojo configuration if it exist.
-   * 
-   * @author Rafal Mantiuk (Rafal.Mantiuk@bellstream.pl)
-   * @author Gerwin Klein (lsf@jflex.de)
-   * 
+   *
    * @return The name of the java code to generate.
    * @throws FileNotFoundException
    *           if the lex file does not exist
@@ -35,31 +36,12 @@ public class LexSimpleAnalyzer {
       ClassInfo classInfo = new ClassInfo();
       while (classInfo.className == null || classInfo.packageName == null) {
         String line = reader.readLine();
-        if (line == null)
+        if (line == null) {
           break;
-
-        if (classInfo.packageName == null) {
-          int index = line.indexOf("package");
-          if (index >= 0) {
-            index += 7;
-
-            int end = line.indexOf(';', index);
-            if (end >= index) {
-              classInfo.packageName = line.substring(index, end);
-              classInfo.packageName = classInfo.packageName.trim();
-            }
-          }
         }
 
-        if (classInfo.className == null) {
-          int index = line.indexOf("%class");
-          if (index >= 0) {
-            index += 6;
-
-            classInfo.className = line.substring(index);
-            classInfo.className = classInfo.className.trim();
-          }
-        }
+        guessPackage(classInfo, line);
+        guessClass(classInfo, line);
       }
 
       if (classInfo.className == null) {
@@ -68,6 +50,33 @@ public class LexSimpleAnalyzer {
       return classInfo;
     } finally {
       reader.close();
+    }
+  }
+
+  private static void guessClass(ClassInfo classInfo, String line) {
+    if (classInfo.className == null) {
+      int index = line.indexOf("%class");
+      if (index >= 0) {
+        index += 6;
+
+        classInfo.className = line.substring(index);
+        classInfo.className = classInfo.className.trim();
+      }
+    }
+  }
+
+  private static void guessPackage(ClassInfo classInfo, String line) {
+    if (classInfo.packageName == null) {
+      int index = line.indexOf("package");
+      if (index >= 0) {
+        index += 7;
+
+        int end = line.indexOf(';', index);
+        if (end >= index) {
+          classInfo.packageName = line.substring(index, end);
+          classInfo.packageName = classInfo.packageName.trim();
+        }
+      }
     }
   }
 }
