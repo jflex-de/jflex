@@ -124,7 +124,7 @@
             </goals>
             <configuration>
               <target name="cup">
-                <property name="cup.version" value="11b"/>
+
                 <property name="cup.jar" value="lib/java-cup-${cup.version}.jar"/>
                 <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
                 <property name="cup.file" location="src/main/cup/LexParse.cup"/>
@@ -253,7 +253,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.0.1</version>
         <configuration>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>${jflex.jdk.version}</targetJdk>
           <rulesets>
             <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
           </rulesets>
@@ -338,6 +338,7 @@
     </profile>
   </profiles>
   <properties>
+    <cup.version>11b</cup.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 </project>
