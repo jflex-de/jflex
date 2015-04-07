@@ -83,8 +83,8 @@
   </prerequisites>
 
   <issueManagement>
-    <system>Sourceforge</system>
-    <url>http://sourceforge.net/p/jflex/_list/tickets</url>
+    <system>Github</system>
+    <url>https://github.com/jflex-de/jflex/issues</url>
   </issueManagement>
 
   <scm>
@@ -206,7 +206,7 @@
           <artifactId>maven-site-plugin</artifactId>
           <version>3.3</version>
           <configuration>
-            <skip>true</skip>
+            <skip>false</skip>
             <skipDeploy>true</skipDeploy>
           </configuration>
         </plugin>
