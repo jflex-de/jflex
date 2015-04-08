@@ -82,6 +82,10 @@
     <maven>3.0.0</maven>
   </prerequisites>
 
+  <properties>
+    <jflex.jdk.version>6</jflex.jdk.version>
+  </properties>
+
   <issueManagement>
     <system>Github</system>
     <url>https://github.com/jflex-de/jflex/issues</url>
@@ -146,8 +150,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.1</version>
           <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>${jflex.jdk.version}</source>
+            <target>${jflex.jdk.version}</target>
           </configuration>
         </plugin>
         <plugin>
