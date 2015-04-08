@@ -183,7 +183,15 @@
             </fileset>
           </filesets>
         </configuration>
-      </plugin>      
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+          <skipDeploy>false</skipDeploy>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -299,9 +307,6 @@
           <threshold>Normal</threshold>
           <effort>Default</effort>
           <outputDirectory>target/findbugs</outputDirectory>
-          <excludeFilterFile>
-            findbugs-exclude.xml
-          </excludeFilterFile>
           <visitors>FindDeadLocalStores,UnreadFields</visitors>
           <onlyAnalyze>de.jflex.*</onlyAnalyze>
           <debug>true</debug>
