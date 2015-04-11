@@ -1,7 +1,7 @@
 package de.jflex.pmd;
 
-import de.jflex.pmd.ast.AstRoot;
-import de.jflex.pmd.ast.AstSymbol;
+import de.jflex.pmd.ast.ASTRoot;
+import de.jflex.pmd.ast.ASTSymbol;
 import de.jflex.pmd.ast.CupNode;
 import java_cup.runtime.Symbol;
 import jflex.LexScan;
@@ -48,12 +48,12 @@ public class JFlexParser extends AbstractParser {
       LexScan scanner = new LexScan(source);
       // TODO ? scanner.setFile(new File(fileName));
       logger.info(String.format("Scanner is %s", scanner));
-      List<AstSymbol> tokens = new ArrayList<AstSymbol>();
+      List<ASTSymbol> tokens = new ArrayList<ASTSymbol>();
       for (Symbol token = scanner.next_token(); token!=null && token.sym != sym.EOF; token = scanner.next_token()) {
-        logger.info(String.format("Tokens: %s %s (%s)", sym.terminalNames[token.sym], token.value, scanner.yytext()));
-        tokens.add(new AstSymbol(scanner, token));
+        ASTSymbol astSymbol = new ASTSymbol(scanner, token);
+        tokens.add(astSymbol);
       }
-      return new AstRoot(tokens);
+      return new ASTRoot(tokens);
     } catch (Exception e) {
       throw new ParseException(e);
     }

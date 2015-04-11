@@ -10,21 +10,26 @@ import java.util.logging.Logger;
 /**
  * A wrapper around a cup {@link Symbol}.
  */
-public class AstSymbol extends AbstractNode implements CupNode {
-  private static Logger logger = Logger.getLogger(AstSymbol.class.getName());
+public class ASTSymbol extends AbstractNode implements CupNode {
+  private static Logger logger = Logger.getLogger(ASTSymbol.class.getName());
 
-  private final LexScan scanner;
+  public final Object value;
+  public final String text;
 
-  public AstSymbol(LexScan scanner, Symbol symbol) {
-    super(symbol.sym);
-    this.scanner = scanner;
+  public ASTSymbol(LexScan scanner, Symbol symbol) {
+    // TODO: Begin line
+    // TODO: Columns
+    // Line + 1 because JFlex starts from line 0.
+    super(symbol.sym, scanner.currentLine() + 1, scanner.currentLine() + 1, 1, 1 + scanner.yylength());
+    this.value = symbol.value;
+    this.text = scanner.yytext();
 
-    logger.fine("New Symbol " + symbol + ":" + symbol.value);
+    logger.finer(this.toString());
   }
 
   @Override
   public String toString() {
-    return String.valueOf(getSymbolName());
+    return "[" + getSymbolName() + "] " + value + " \"" + text + "\"";
   }
 
   private String getSymbolName() {
