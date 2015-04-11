@@ -8,6 +8,13 @@ pdf: manual.pdf
 
 html: manual.html
 
+# while the conversion to markdown is in progress:
+xmanual.md: manual.tex manual.bib jay.tex installing.tex
+	pandoc manual.tex -o xmanual.md
+
+xmanual.html: xmanual.md
+	pandoc -s xmanual.md -o xmanual.html
+
 manual.pdf: logo.png manual.tex manual.bib jay.tex installing.tex
 	make clean
 	pdflatex manual
