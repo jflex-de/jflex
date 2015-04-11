@@ -49,8 +49,9 @@ public class JFlexParser extends AbstractParser {
       // TODO ? scanner.setFile(new File(fileName));
       logger.info(String.format("Scanner is %s", scanner));
       List<ASTSymbol> tokens = new ArrayList<ASTSymbol>();
-      for (Symbol token = scanner.next_token(); token!=null && token.sym != sym.EOF; token = scanner.next_token()) {
-        ASTSymbol astSymbol = new ASTSymbol(scanner, token);
+      for (Symbol token = scanner.next_token(); token!=null && token.sym != sym.EOF;
+           token = scanner.next_token()) {
+        ASTSymbol astSymbol = ASTSymbol.create(scanner, token);
         tokens.add(astSymbol);
       }
       return new ASTRoot(tokens);

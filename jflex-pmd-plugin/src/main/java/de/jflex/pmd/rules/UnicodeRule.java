@@ -40,7 +40,8 @@ public class UnicodeRule extends AbstractRule {
           if (unicodeToken != null && isHexadecimalCharacter(token)) {
             String msg = String.format("'%s' is followed by character '%s'", unicodeToken, token.text);
             logger.warning(msg);
-            JFlexRuleViolationFactory.INSTANCE.addViolation(context, this, token, msg, root.getTokens().toArray());
+            JFlexRuleViolationFactory.INSTANCE.addViolation(context, this, token, msg,
+                root.getTokens().toArray());
           }
           unicodeToken = null;
         }

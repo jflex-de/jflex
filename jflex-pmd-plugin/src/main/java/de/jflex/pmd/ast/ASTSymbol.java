@@ -16,13 +16,11 @@ public class ASTSymbol extends AbstractNode implements CupNode {
   public final Object value;
   public final String text;
 
-  public ASTSymbol(LexScan scanner, Symbol symbol) {
-    // TODO: Begin line
-    // TODO: Columns
-    // Line + 1 because JFlex starts from line 0.
-    super(symbol.sym, scanner.currentLine() + 1, scanner.currentLine() + 1, 1, 1 + scanner.yylength());
-    this.value = symbol.value;
-    this.text = scanner.yytext();
+  public ASTSymbol(int id, Object value, String originText,
+                   int theBeginLine, int theEndLine, int theBeginColumn, int theEndColumn) {
+    super(id, theBeginLine, theEndLine, theBeginColumn, theEndColumn);
+    this.value = value;
+    this.text = originText;
 
     logger.finer(this.toString());
   }
@@ -34,5 +32,18 @@ public class ASTSymbol extends AbstractNode implements CupNode {
 
   private String getSymbolName() {
     return sym.terminalNames[id];
+  }
+
+  public static ASTSymbol create(LexScan scanner, Symbol symbol) {
+    // Line + 1 because JFlex starts from line 0.
+
+    // TODO: Begin line
+    int beginLine = scanner.currentLine();
+    int endLine = scanner.currentLine();
+    // TODO: Columns
+    int beginColumn = 0;
+    int endColumn = 0;
+    return new ASTSymbol(symbol.sym, symbol.value, scanner.yytext(),
+        beginLine, endLine, beginColumn, endColumn);
   }
 }
