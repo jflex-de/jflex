@@ -1,24 +1,33 @@
 package de.jflex.pmd.ast;
 
 import java_cup.runtime.Symbol;
-import jflex.LexParse;
+import jflex.LexScan;
+import jflex.sym;
 import net.sourceforge.pmd.lang.ast.AbstractNode;
+
+import java.util.logging.Logger;
 
 /**
  * A wrapper around a cup {@link Symbol}.
  */
-public class ASTSymbol extends AbstractNode implements CupNode {
+public class AstSymbol extends AbstractNode implements CupNode {
+  private static Logger logger = Logger.getLogger(AstSymbol.class.getName());
 
-  private final LexParse parser;
+  private final LexScan scanner;
 
-  public ASTSymbol(LexParse parser, Symbol symbol) {
+  public AstSymbol(LexScan scanner, Symbol symbol) {
     super(symbol.sym);
-    this.parser = parser;
-  }
+    this.scanner = scanner;
 
+    logger.fine("New Symbol " + symbol + ":" + symbol.value);
+  }
 
   @Override
   public String toString() {
-    return String.valueOf(id);
+    return String.valueOf(getSymbolName());
+  }
+
+  private String getSymbolName() {
+    return sym.terminalNames[id];
   }
 }
