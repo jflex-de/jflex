@@ -1,6 +1,7 @@
 installing.tex
 intro.tex
 head.tex
+example.tex
 
 *.bbl
 *.blg

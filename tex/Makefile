@@ -9,7 +9,7 @@ pdf: ymanual.pdf
 xmanual.html: xmanual.md
 	pandoc -s xmanual.md -o xmanual.html
 
-ymanual.pdf: ymanual.tex intro.tex installing.tex xmanual.tex
+ymanual.pdf: ymanual.tex intro.tex installing.tex example.tex xmanual.tex
 	pdflatex ymanual
 	bibtex ymanual
 	pdflatex ymanual
