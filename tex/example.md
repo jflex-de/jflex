@@ -327,3 +327,4 @@ How to get it building
     CUP, generate your parser classes first)
 
 -   That’s it.
+

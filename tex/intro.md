@@ -37,3 +37,4 @@ to write fast scanners. The section on [porting scanners](#Porting) shows how
 to port scanners from JLex, and from the `lex` and `flex` tools for C. Finally,
 [working together](#WorkingTog) discusses interfacing JFlex scanners with the
 LALR parser generators CUP, CUP2, BYacc/J, Jay.
+

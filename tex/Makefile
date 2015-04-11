@@ -6,8 +6,11 @@ build: realclean all
 
 pdf: ymanual.pdf
 
-xmanual.html: xmanual.md
-	pandoc -s xmanual.md -o xmanual.html
+hmanual.md: head.md intro.md installing.md example.md xmanual.md
+	cat $^ > $@
+
+hmanual.html: hmanual.md
+	pandoc -s $< -o $@
 
 ymanual.pdf: ymanual.tex intro.tex installing.tex example.tex xmanual.tex
 	pdflatex ymanual

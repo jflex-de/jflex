@@ -170,3 +170,4 @@ print all supported properties for Unicode version `<ver>`
 
 `--help` or `-h`\
 print a help message explaining options and usage of JFlex.
+
