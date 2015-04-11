@@ -13,7 +13,7 @@ public class JFlexLanguageModule extends BaseLanguageModule {
   public static final String TERSE_NAME = "jflex";
 
   public JFlexLanguageModule() {
-    super(NAME, null, TERSE_NAME, JFlexRuleChainVisitor.class, "jflex");
+    super(NAME, null, TERSE_NAME, JFlexRuleChainVisitor.class, "jflex", "flex");
     addVersion("", new JFlexHandler(), true);
   }
 }

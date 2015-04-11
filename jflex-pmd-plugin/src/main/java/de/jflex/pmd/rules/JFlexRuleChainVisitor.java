@@ -9,16 +9,19 @@ import net.sourceforge.pmd.lang.rule.RuleChainVisitor;
 import java.util.List;
 
 /**
- * A {@link RuleChainVisitor} for JFlex rules.
+ * A {@link RuleChainVisitor} for JFlex grammar rules.
  */
 public class JFlexRuleChainVisitor extends AbstractRuleChainVisitor {
   @Override
-  protected void visit(Rule rule, Node node, RuleContext ruleContext) {
-
+  protected void indexNodes(List<Node> nodeList, RuleContext ruleContext) {
+    for (Node node : nodeList) {
+      indexNode(node);
+    }
   }
 
   @Override
-  protected void indexNodes(List<Node> list, RuleContext ruleContext) {
-
+  protected void visit(Rule rule, Node node, RuleContext ruleContext) {
+    System.out.println(String.format(
+        "Visiting node %s with rule %s", node, rule));
   }
 }
