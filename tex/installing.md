@@ -73,13 +73,13 @@ To install JFlex on a Mac or Unix system, follow these two steps:
     If the Java interpreter is not in your binary path, you need to
     supply its location in the script `bin/jflex`.
 
-You can verify the integrity of the downloaded file with the SHA1
-checksum available on the . If you put the checksum file in the same
-directory as the archive, you run:
+You can verify the integrity of the downloaded file with the SHA1 checksum
+available on the [JFlex download page](http://jflex.de/download.html). If you
+put the checksum file in the same directory as the archive, and run:
 
 `shasum --check jflex-1.6.1.tar.gz.sha1`
 
-It should tell you
+it should tell you
 
 `jflex-1.6.1.tar.gz: OK`
 
