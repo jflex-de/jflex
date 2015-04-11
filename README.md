@@ -4,6 +4,7 @@ This is the JFlex git repository. The toplevel contains
 
  * JFlex, the scanner/lexer generator for Java
  * the JFlex maven plugin
+ * the PMD plugin that warns you of potential errors in your grammar
  * the JFlex unicode maven plugin
  * the regression test suite for JFlex
  * the LaTeX sources for the user manual
