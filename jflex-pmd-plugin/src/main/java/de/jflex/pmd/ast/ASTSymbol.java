@@ -38,8 +38,9 @@ public class ASTSymbol extends AbstractNode implements CupNode {
     // Line + 1 because JFlex starts from line 0.
 
     // TODO: Begin line
-    int beginLine = scanner.currentLine();
-    int endLine = scanner.currentLine();
+    int beginLine = scanner.currentLine() + 1;
+    // +1 because JFlex counts lines from 0.
+    int endLine = scanner.currentLine() + 1;
     // TODO: Columns
     int beginColumn = 0;
     int endColumn = 0;
