@@ -53,8 +53,8 @@ corresponding JFlex code. First of all the Jay code (in a file
     %%
 
     gamelist: game        { $$ = new Vector<Gameresult>();
-                $<Vector<Gameresult>>$.add($1);
-              }
+                            $<Vector<Gameresult>>$.add($1);
+                          }
       |  gamelist game    { $1.add($2); }
 
     game: NAME DASH NAME NUMBER COLON NUMBER {
@@ -69,7 +69,7 @@ corresponding JFlex code. First of all the Jay code (in a file
         MiniParser parser = new MiniParser();
         try {
           parser.yyparse (scanner);
-          } catch (final IOException ioe) {
+        } catch (final IOException ioe) {
           System.out.println("I/O Exception : " + ioe.toString());
         } catch (final MiniParser.yyException ye) {
           System.out.println ("Oops : " + ye.toString());
@@ -112,31 +112,28 @@ The corresponding JFlex code (MiniScanner.jflex) could be
 
     // the next 3 methods are required to implement the yyInput interface
 
-    public boolean advance() throws java.io.IOException
-    {
+    public boolean advance() throws java.io.IOException {
       value = new String("");
       token = yylex();
       return (token != YYEOF);
     }
 
-    public int token()
-    {
+    public int token() {
       return token;
     }
 
-    public Object value() 
-    {
+    public Object value() {
       return value;
     }
 
     %}
 
-    nl =    [\n\r]+
-    ws =    [ \t\b\015]+
-    number =  [0-9]+
-    name =    [a-zA-Z]+
-    dash =    "-"
-    colon =    ":"
+    nl =     [\n\r]+
+    ws =     [ \t\b\015]+
+    number = [0-9]+
+    name =   [a-zA-Z]+
+    dash =   "-"
+    colon =  ":"
 
     %%
 
