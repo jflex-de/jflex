@@ -43,7 +43,6 @@ public class JFlexParser extends AbstractParser {
   public Node parse(String fileName, Reader source) throws ParseException {
     AbstractTokenManager.setFileName(fileName);
 
-
     try {
       LexScan scanner = new LexScan(source);
       // TODO ? scanner.setFile(new File(fileName));
