@@ -1,25 +1,23 @@
 package de.jflex.pmd;
 
-import jflex.LexScan;
 import net.sourceforge.pmd.lang.TokenManager;
 import net.sourceforge.pmd.lang.ast.AbstractTokenManager;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Reader;
+import java.util.logging.Logger;
 
 /**
  * A {@link TokenManager} for JFlex grammars.
  */
 public class JFlexTokenManager implements TokenManager {
+  public static Logger logger = Logger.getLogger(TokenManager.class.getName());
 
   public JFlexTokenManager(Reader source) {
-
+    logger.info("Create new " + JFlexTokenManager.class);
   }
 
   public Object getNextToken() {
-
-    // TODO
+    logger.fine("Next token");
     return null;
   }
 

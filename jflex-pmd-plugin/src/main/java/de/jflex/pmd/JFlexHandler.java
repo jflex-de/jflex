@@ -1,10 +1,10 @@
 package de.jflex.pmd;
 
-import net.sourceforge.pmd.lang.*;
-import net.sourceforge.pmd.lang.dfa.DFAGraphRule;
+import net.sourceforge.pmd.lang.AbstractLanguageVersionHandler;
+import net.sourceforge.pmd.lang.LanguageVersionHandler;
+import net.sourceforge.pmd.lang.Parser;
+import net.sourceforge.pmd.lang.ParserOptions;
 import net.sourceforge.pmd.lang.rule.RuleViolationFactory;
-
-import java.io.Writer;
 
 /**
  * Implementation of {@link LanguageVersionHandler} for JFlex grammars.

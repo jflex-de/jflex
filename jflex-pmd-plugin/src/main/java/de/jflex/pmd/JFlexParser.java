@@ -13,9 +13,12 @@ import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.ast.ParseException;
 
 import java.io.Reader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
 public class JFlexParser extends AbstractParser {
+  Logger logger = Logger.getLogger(JFlexParser.class.getName());
   private Map<Symbol, CupNode> nodeCache = new HashMap<Symbol, CupNode>();
 
   public JFlexParser(ParserOptions parserOptions) {
@@ -27,8 +30,8 @@ public class JFlexParser extends AbstractParser {
    */
   @Override
   protected TokenManager createTokenManager(Reader source) {
-    // TODO
-    return null;
+    logger.info("Create new " + JFlexTokenManager.class);
+    return new JFlexTokenManager(source);
   }
 
   /**
@@ -41,6 +44,7 @@ public class JFlexParser extends AbstractParser {
     LexParse parser = new LexParse(scanner);
     try {
       Symbol rootSymbol = parser.parse();
+      logger.info(String.format("File %s parsed. AST root: %s", fileName, rootSymbol.toString()));
       return new ASTSymbol(parser, rootSymbol);
     } catch (Exception e) {
       throw new ParseException(e);
