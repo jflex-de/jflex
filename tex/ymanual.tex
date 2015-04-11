@@ -27,7 +27,8 @@
 
 \renewcommand{\textquotesingle}{'}
 
-\renewcommand{\hyperref}[2][]{\hyperlink{#1}{#2} (\autoref{#1})}
+\let\orighyperref\hyperref
+\renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
 
 \renewcommand{\sectionautorefname}{Section}
 \renewcommand{\subsectionautorefname}{Section}
@@ -59,6 +60,8 @@ Version 1.7.0-SNAPSHOT, {\today}
 \tableofcontents
 \newpage
 
+\input{intro}
+\input{installing}
 \input{xmanual}
 
 \newpage  

@@ -1,5 +1,7 @@
 installing.tex
-jay.tex
+intro.tex
+head.tex
+
 *.bbl
 *.blg
 *.log
@@ -7,7 +9,7 @@ jay.tex
 *.aux
 *.bcf
 *.out
-xmanual.md
+
 xmanual.tex
 xmanual.html
 ymanual.pdf

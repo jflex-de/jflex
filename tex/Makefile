@@ -6,17 +6,10 @@ build: realclean all
 
 pdf: ymanual.pdf
 
-# while the conversion to markdown is in progress:
-xmanual.md: manual.tex manual.bib jay.tex installing.tex
-	pandoc manual.tex -o xmanual.md
-
 xmanual.html: xmanual.md
 	pandoc -s xmanual.md -o xmanual.html
 
-xmanual.tex: xmanual.md
-	pandoc --biblatex xmanual.md -o xmanual.tex
-
-ymanual.pdf: ymanual.tex xmanual.tex
+ymanual.pdf: ymanual.tex intro.tex installing.tex xmanual.tex
 	pdflatex ymanual
 	bibtex ymanual
 	pdflatex ymanual
