@@ -31,9 +31,14 @@
 
 \newcommand{\textcite}[1]{\cite{#1}}
 
+\renewcommand{\htmladdnormallink}[2]{\href{#2}{#1}}
+\renewcommand{\htmlref}[2]{\href{##2}{#1}}
+
+\parindent0pt\parskip1ex
+
 \begin{document}
 
-\centerline{\hspace*{0mm}\includegraphics[width=0.6\textwidth]{jflex-black}}
+\centerline{\includegraphics[width=0.6\textwidth]{jflex-black}}
 
 \begin{center}
 \sffamily
@@ -51,8 +56,6 @@ Version \ver, {\today}
 \tableofcontents
 \vfill
 \newpage
-\parindent0pt\parskip1ex
-
 
 \section{Introduction}\label{Intro}
 
@@ -239,7 +242,7 @@ As with JLex, the specification consists of three parts, divided by \texttt{\%\%
 \item \htmlref{lexical rules}{ExampleLexRules}.
 \end{itemize}
 
-\subsection{Code to include\label{ExampleUserCode}}
+\subsection{Code to include}\label{ExampleUserCode}
 Let's take a look at the first section, ``user code'': The text up to the
 first line starting with \texttt{\%\%} is copied verbatim to the top 
 of the generated lexer class (before the actual class declaration). 
@@ -247,7 +250,7 @@ Beside \texttt{package} and \texttt{import} statements there is usually not much
 to do here. If the code ends with a javadoc class comment, the generated class
 will get this comment, if not, JFlex will generate one automatically.
 
-\subsection{Options and Macros\label{ExampleOptions}}
+\subsection{Options and Macros}\label{ExampleOptions}
 The second section ``options and declarations'' is more interesting. It consists
 of a set of options, code that is included inside the generated scanner
 class, lexical states and macro declarations. Each JFlex option must begin
@@ -1209,11 +1212,11 @@ the Java conventions, or \verb+\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]+
 (provided as predefined class \verb+\R+) if you want to be fully Unicode
 compliant (see also \cite{unicode_rep}).
 
-As of version 1.1 of JFlex the white-space characters \texttt{" "}
+As of version 1.1 of JFlex the white-space characters \texttt{\" \"}
 (space) and \verb+"\t"+ (tab) can be used to improve the readability of
 regular expressions. They will be ignored by JFlex. In character
 classes and strings however, white-space characters keep standing for
-themselves (so the string \texttt{" "} still matches exactly one space
+themselves (so the string \texttt{\" \"} still matches exactly one space
 character and \verb+[ \n]+ still matches an ASCII LF or a space
 character).
 
@@ -2033,9 +2036,9 @@ JFlex conforms.
 
 
 \section{A few words on performance}
-\label{PerformanceTips}\label{performance}
+\label{performance}
 
-This section gives some \htmlref{tips}{PerformanceTips} on how to make
+This section gives some tips on how to make
 your specification produce a faster scanner. 
 
 Although JFlex generated scanners show good performance without

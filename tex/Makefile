@@ -4,7 +4,7 @@ all: pdf
 
 build: realclean all
 
-pdf: manual.pdf
+pdf: ymanual.pdf
 
 # while the conversion to markdown is in progress:
 xmanual.md: manual.tex manual.bib jay.tex installing.tex
@@ -12,6 +12,15 @@ xmanual.md: manual.tex manual.bib jay.tex installing.tex
 
 xmanual.html: xmanual.md
 	pandoc -s xmanual.md -o xmanual.html
+
+xmanual.tex: xmanual.md
+	pandoc --biblatex xmanual.md -o xmanual.tex
+
+ymanual.pdf: ymanual.tex xmanual.tex
+	pdflatex ymanual
+	bibtex ymanual
+	pdflatex ymanual
+	pdflatex ymanual	
 
 manual.pdf: logo.png manual.tex manual.bib jay.tex installing.tex
 	make clean
@@ -26,7 +35,7 @@ manual.pdf: logo.png manual.tex manual.bib jay.tex installing.tex
 	pandoc -f markdown -t latex --biblatex $< -o $@
 
 clean:
-	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg
+	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg *.bcf
 
 realclean: clean 
 	rm -f *.pdf *.html

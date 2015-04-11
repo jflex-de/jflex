@@ -1,6 +1,13 @@
 installing.tex
 jay.tex
-manual.bbl
-manual.blg
+*.bbl
+*.blg
+*.log
+*.toc
+*.aux
+*.bcf
+*.out
 xmanual.md
+xmanual.tex
 xmanual.html
+ymanual.pdf
