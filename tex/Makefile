@@ -8,15 +8,17 @@ pdf: manual.pdf
 
 html: manual.html
 
-manual.pdf: logo.png manual.tex jay.tex installing.tex
+manual.pdf: logo.png manual.tex manual.bib jay.tex installing.tex
 	make clean
 	pdflatex manual
+	bibtex manual
 	pdflatex manual
 	pdflatex manual
 
-manual.html: manual.tex installing.tex jay.tex
+manual.html: manual.tex manual.bib installing.tex jay.tex
 	make clean
 	pdflatex manual
+	bibtex manual
 	pdflatex manual
 	pdflatex manual
 	latex2html -split 0 -no_navigation -html_version 3.2,math -t "JFlex User's Manual" -local_icons -address "`date`, <a href=\"http://www.doclsf.de\">Gerwin Klein</a>" -info "" manual 
@@ -27,7 +29,7 @@ manual.html: manual.tex installing.tex jay.tex
 	pandoc -f markdown -t latex $< -o $@
 
 clean:
-	rm -f *~ *.aux *.log log *.toc *.out
+	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg
 
 realclean: clean 
 	rm -f *.pdf *.html

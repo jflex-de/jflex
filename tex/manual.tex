@@ -83,8 +83,8 @@ The main design goals of JFlex are:
 
 \subsection{About this manual}
 This manual gives a brief but complete description of the tool JFlex. It
-assumes that you are familiar with the issue of lexical analysis. The references \cite{Aho},
-\cite{Appel}, and \cite{Maurer} provide a good introduction to this topic.
+assumes that you are familiar with the issue of lexical analysis. The references \cite{Aho_SU_86},
+\cite{Appel_98}, and \cite{Wilhelm_Maurer_97} provide a good introduction to this topic.
 
 The next section of this manual describes \htmlref{\emph{installation procedures}}{Installing} 
 for JFlex. If you never worked with JLex or
@@ -108,8 +108,7 @@ parser generators CUP, CUP2 and BYacc/J is explained in \htmlref{\emph{working
   together}}{WorkingTog} (section \ref{WorkingTog}).  Section \ref{Bugs}
 \htmlref{\emph{Bugs}}{Bugs} gives a list of currently known active bugs. 
 The manual concludes with notes about 
-\htmlref{\emph{Copying and License}}{Copyright} (section \ref{Copyright}) and
-\htmlref{references}{References}.
+\htmlref{\emph{Copying and License}}{Copyright} (section \ref{Copyright}).
 
 
 \input{installing}
@@ -2557,81 +2556,10 @@ There is absolutely NO WARRANTY for JFlex, its code and its documentation.
 See the file \htmladdnormallink{\texttt{COPYRIGHT}}{COPYRIGHT} for more
 information.
 
+
 \newpage  
-\begin{thebibliography}{[00]} 
-\label{References} 
 
-\bibitem{Aho}
-  A.~Aho, R.~Sethi, J.~Ullman, {\trit Compilers: Principles, Techniques, and Tools}, 1986
-
-
-\bibitem{Appel}
-  A.~W.~Appel, {\trit Modern Compiler Implementation in Java: basic techniques}, 1997
-
-\bibitem{JLex}
- E.~Berk, {\trit JLex: A lexical analyser generator for Java},\\
- \htmladdnormallink{\texttt{http://www.cs.princeton.edu/\symbol{126}appel/modern/java/JLex/}}
-                   {http://www.cs.princeton.edu/\symbol{126}appel/modern/java/JLex/}
-
-
-\bibitem{fast}
-  K.~Brouwer, W.~Gellerich,E.~Ploedereder, 
-  {\trit Myths and Facts about the Efficient Implementation of Finite Automata and Lexical Analysis}, 
-  in: Proceedings of the 7th International Conference on Compiler Construction (CC '98), 1998
-
-\bibitem{unicode_rep}
-  M.~Davis, {\trit Unicode Regular Expressions}, Unicode Technical Standard \#18, version 17\\ 
-  \htmladdnormallink{\texttt{http://www.unicode.org/reports/tr18/tr18-17.html}}
-                    {http://www.unicode.org/reports/tr18/tr18-17.html}
-
-\bibitem{ParseTable}
- P.~Dencker, K.~D{\"u}rre, J.~Henft, {\trit Optimization of Parser Tables for portable Compilers}, 
- in: ACM Transactions on Programming Languages and Systems 6(4), 1984
-
-\bibitem{LangSpec}
-  J.~Gosling, B.~Joy, G.~Steele, {\trit The Java Language Specifcation}, 1996,\\
-  \htmladdnormallink{\texttt{http://java.sun.com/docs/books/jls/}}
-                    {http://java.sun.com/docs/books/jls/}
-
-\bibitem{CUP}
-  S.~E.~Hudson, {\trit CUP LALR Parser Generator for Java},\\  
-  \htmladdnormallink{\texttt{http://www2.cs.tum.edu/projects/cup/}}
-  {http://www2.cs.tum.edu/projects/cup/}
-
-\bibitem{CUP2}
-  TU Munich, {\trit CUP2 LALR Parser Generator for Java},\\
-  \url{http://www2.in.tum.de/cup2}
-
-\bibitem{BYaccJ}
-  B.~Jamison, {\trit BYacc/J},\\
-  \htmladdnormallink{\texttt{http://byaccj.sourceforge.net/}}
-  {http://byaccj.sourceforge.net}
-
-\bibitem{Jay}
-  A.T.~Schreiner, {\trit Jay Parser Generator}, \\
-  \htmladdnormallink{\texttt{http://www.cs.rit.edu/~ats/projects/lp/doc/jay/package-summary.html}}
-  {http://www.cs.rit.edu/~ats/projects/lp/doc/jay/package-summary.html}
-  
-\bibitem{MachineSpec}
- T.~Lindholm, F.~Yellin, {\trit The Java Virtual Machine Specification}, 1996,\\
- \htmladdnormallink{\texttt{http://java.sun.com/docs/books/vmspec/}}
-                   {http://java.sun.com/docs/books/vmspec/}
- 
-\bibitem{flex}
- V.~Paxson, {\trit flex - The fast lexical analyzer generator}, 1995
-
-\bibitem{SparseTable}
-  R.~E. Tarjan, A.~Yao, {\trit Storing a Sparse Table}, in: Communications of the ACM 22(11), 1979 
-
-\bibitem{Maurer}
-  R.~Wilhelm, D.~Maurer, {\trit {\"U}bersetzerbau}, Berlin $1997^2$
-
-\bibitem{UnicodeSet}
-  {\trit Unicode Utilities: UnicodeSet}\\ 
-   \htmladdnormallink{\texttt{http://unicode.org/cldr/utility/list-unicodeset.jsp}}
-                     {http://unicode.org/cldr/utility/list-unicodeset.jsp}
-
-
-\end{thebibliography}
+\bibliographystyle{plain}
+\bibliography{manual}
 
 \end{document}
