@@ -1,5 +1,6 @@
 package de.jflex.pmd;
 
+import de.jflex.pmd.rules.JFlexRuleChainVisitor;
 import net.sourceforge.pmd.lang.BaseLanguageModule;
 
 /**
@@ -12,8 +13,7 @@ public class JFlexLanguageModule extends BaseLanguageModule {
   public static final String TERSE_NAME = "jflex";
 
   public JFlexLanguageModule() {
-    // TODO Visitor class
-    super(NAME, null, TERSE_NAME, null, "jflex");
+    super(NAME, null, TERSE_NAME, JFlexRuleChainVisitor.class, "jflex");
     addVersion("", new JFlexHandler(), true);
   }
 }
