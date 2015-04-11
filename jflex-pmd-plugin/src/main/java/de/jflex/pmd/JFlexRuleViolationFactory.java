@@ -26,7 +26,6 @@ public class JFlexRuleViolationFactory extends AbstractRuleViolationFactory {
   @Override
   protected RuleViolation createRuleViolation(Rule rule, RuleContext ruleContext, Node node,
                                               String message, int beginLine, int endLine) {
-    //TODO lines
     logger.finer(String.format("violation %s on %s lines %d-%d", rule, node, beginLine, endLine));
     return new ParametricRuleViolation<CupNode>(rule, ruleContext, (CupNode) node, message);
   }

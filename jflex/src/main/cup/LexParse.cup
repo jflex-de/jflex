@@ -32,12 +32,12 @@ action code {:
   }
 
   void fatalError(ErrorMessages message) {
-    fatalError(message, scanner.currentLine(), -1);
+    fatalError(message, scanner.getCurrentLine(), -1);
     throw new GeneratorException();
   }
 
   void syntaxError(ErrorMessages message) {
-    Out.error(scanner.file, message, scanner.currentLine(), -1);
+    Out.error(scanner.file, message, scanner.getCurrentLine(), -1);
   }
   
   void syntaxError(ErrorMessages message, int line) {

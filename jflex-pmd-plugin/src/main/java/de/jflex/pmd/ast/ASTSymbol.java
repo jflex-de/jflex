@@ -37,13 +37,13 @@ public class ASTSymbol extends AbstractNode implements CupNode {
   public static ASTSymbol create(LexScan scanner, Symbol symbol) {
     // Line + 1 because JFlex starts from line 0.
 
-    // TODO: Begin line
-    int beginLine = scanner.currentLine() + 1;
+    int beginLine = scanner.getCurrentLine() + 1;
     // +1 because JFlex counts lines from 0.
-    int endLine = scanner.currentLine() + 1;
-    // TODO: Columns
-    int beginColumn = 0;
-    int endColumn = 0;
+    // TODO endline
+    int endLine = scanner.getCurrentLine() + 1;
+    int beginColumn = scanner.getCurrentColumn() + 1;
+    // TODO end column, incorrect if multiline text
+    int endColumn = scanner.getCurrentColumn() + 1 + scanner.yylength();
     return new ASTSymbol(symbol.sym, symbol.value, scanner.yytext(),
         beginLine, endLine, beginColumn, endColumn);
   }
