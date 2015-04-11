@@ -1,7 +1,7 @@
 JFlex and Jay
 -------------
 
-Combining JFlex with the [Jay Parser Generator][Jay] <!-- @Jay --> is quite
+Combining JFlex with the [Jay Parser Generator][Jay] @Jay is quite
 simple. The Jay Parser Generator defines an interface called
 `<parsername>.yyInput`. In the JFlex source the directive
 

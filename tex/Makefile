@@ -26,7 +26,7 @@ manual.html: manual.tex manual.bib installing.tex jay.tex
 	rm -rf manual 
 
 %.tex: %.md
-	pandoc -f markdown -t latex $< -o $@
+	pandoc -f markdown -t latex --biblatex $< -o $@
 
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg
