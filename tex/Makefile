@@ -23,8 +23,8 @@ manual.html: manual.tex installing.tex jay.tex
 	cp manual/manual.html .
 	rm -rf manual 
 
-installing.tex: installing.md
-	pandoc installing.md -o installing.tex
+%.tex: %.md
+	pandoc -f markdown -t latex $< -o $@
 
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out
