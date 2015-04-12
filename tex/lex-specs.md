@@ -4,91 +4,84 @@ Lexical Specifications {#Specifications}
 As shown above, a lexical specification file for JFlex consists of three
 parts divided by a single line starting with `%%`:
 
-`UserCode`\
-`%%`\
-`Options and declarations`\
-`%%`\
-`Lexical rules`
+    UserCode
+    %%
+    Options and declarations
+    %%
+    Lexical rules
 
-In all parts of the specification comments of the form
-`/* comment text */` and the Java style end of line comments starting
-with `//` are permitted. JFlex comments do nest - so the number of `/*`
-and `*/` should be balanced.
+In all parts of the specification comments of the form `/* comment text */`
+and Java-style end-of-line comments starting with `//` are permitted. JFlex
+comments do nest - so the number of `/*` and `*/` should be balanced.
 
-User code {#SpecUsercode}
+User code
 ---------
 
-The first part contains user code that is copied verbatim into the
-beginning of the source file of the generated lexer before the scanner
-class is declared. As shown in the example above, this is the place to
-put `package` declarations and `import` statements. It is possible, but
-not considered good Java programming style to put own helper classes
-(such as token classes) in this section. They should get their own
-`.java` file instead.
+The first part contains user code that is copied verbatim to the beginning of
+the generated source file before the scanner class declaration. As shown in
+the example spec, this is the place to put `package` declarations and
+`import` statements. It is possible, but not considered good Java style to
+put helper classes, such as token classes, into this section; they are
+usually better declared in their own `.java` files.
 
-Options and declarations {#SpecOptions}
+Options and declarations
 ------------------------
 
-The second part of the lexical specification contains
-<span>[options](#SpecOptDirectives)</span> to customise your generated
-lexer (JFlex directives and Java code to include in different parts of
-the lexer), declarations of <span>[lexical states](#StateDecl)</span>
-and <span>[macro definitions](#MacroDefs)</span> for use in the third
-section <span>[“Lexical rules”](#LexRules)</span> of the lexical
-specification file. [SpecOptDirectives]
+The second part of the lexical specification contains options and directives
+to customise the generated lexer, declarations of 
+[lexical states](#StateDecl) and [macro definitions](#MacroDefs).
 
-Each JFlex directive must be situated at the beginning of a line and
-starts with the `%` character. Directives that have one or more
-parameters are described as follows:
+Each JFlex directive must sit at the beginning of a line and starts with the
+`%` character. Directives that have one or more parameters are described as
+follows.
 
-`%class classname`
+    %class "classname"
 
-means that you start a line with `%class` followed by a space followed
-by the name of the class for the generated scanner (the double quotes
-are *not* to be entered, see the <span>[example
-specification](#CodeOptions)</span> in section [CodeOptions]).
+means that you start a line with `%class` followed by a space followed by the
+name of the class for the generated scanner (the double quotes are *not* to
+be entered, see also the [example specification](#Example)).
 
 ### Class options and user class code {#ClassOptions}
 
 These options regard name, constructor, API, and related parts of the
 generated scanner class.
 
--   **`%class classname`**
+-   `%class "classname"`
 
-    Tells JFlex to give the generated class the name “`classname`” and
-    to write the generated code to a file “`classname.java`”. If the
+    Tells JFlex to give the generated class the name `classname` and
+    to write the generated code to a file `classname.java`. If the
     `-d <directory>` command line option is not used, the code will be
     written to the directory where the specification file resides. If no
     `%class` directive is present in the specification, the generated
-    class will get the name “`Yylex`” and will be written to a file
-    “`Yylex.java`”. There should be only one `%class` directive in a
+    class will get the name `Yylex` and will be written to a file
+    `Yylex.java`. There should be only one `%class` directive in a
     specification.
 
--   **`%implements interface 1[, interface 2, ..]`**
+-   `%implements "interface 1"[, "interface 2", ..]`
 
     Makes the generated class implement the specified interfaces. If
-    more than one `%implements` directive is present, all the specified
+    more than one `%implements` directive is present, all specified
     interfaces will be implemented.
 
--   **`%extends classname`**
+-   `%extends "classname"`
 
-    Makes the generated class a subclass of the class “`classname`”.
+    Makes the generated class a subclass of the class `classname`.
     There should be only one `%extends` directive in a specification.
 
--   **`%public`**
+-   `%public`
 
     Makes the generated class public (the class is only accessible in
     its own package by default).
 
--   **`%final`**
+-   `%final`
 
     Makes the generated class final.
 
--   **`%abstract`**
+-   `%abstract`
 
     Makes the generated class abstract.
 
--   **`%apiprivate`**
+-   `%apiprivate`
 
     Makes all generated methods and fields of the class private.
     Exceptions are the constructor, user code in the specification, and,
@@ -98,9 +91,9 @@ generated scanner class.
     skeleton is used). Access to the generated class is expected to be
     mediated by user class code (see next switch).
 
--   <span>**`%{`**</span>\
-    **`...`**\
-    <span>**`%}`**</span>
+-   `%{`\
+    `...`\
+    `%}`
 
     The code enclosed in `%{` and `%}` is copied verbatim into the
     generated class. Here you can define your own member variables and
@@ -109,9 +102,9 @@ generated scanner class.
     code directive `%{...%}` is present, the code is concatenated in
     order of appearance in the specification.
 
--   <span>**`%init{`**</span>\
-    **`...`**\
-    <span>**`%init}`**</span>
+-   `%init{`\
+    `...`\
+    `%init}`
 
     The code enclosed in `%init{` and `%init}` is copied verbatim into
     the constructor of the generated class. Here, member variables
@@ -119,20 +112,20 @@ generated scanner class.
     one initialiser option is present, the code is concatenated in order
     of appearance in the specification.
 
--   <span>**`%initthrow{`**</span>\
-    <span>**`exception1[, exception2, ...]`**</span>\
-    <span>**`%initthrow}`**</span>
+-   `%initthrow{`\
+    `"exception1"[, "exception2", ...]`\
+    `%initthrow}`
 
     or (on a single line) just
 
-    <span>**`%initthrow exception1 [, exception2, ...]`**</span>
+    `%initthrow "exception1" [, "exception2", ...]`
 
     Causes the specified exceptions to be declared in the `throws`
     clause of the constructor. If more than one `%initthrow{` `...`
     `%initthrow}` directive is present in the specification, all
     specified exceptions will be declared.
 
--   <span>**`%ctorarg type ident`**</span>
+-   `%ctorarg "type" "ident"`
 
     Adds the specified argument to the constructors of the generated
     scanner. If more than one such directive is present, the arguments
@@ -144,7 +137,7 @@ generated scanner class.
     constructor without these parameters and without user init code
     (which might potentially refer to the parameters).
 
--   <span>**`%scanerror exception`**</span>
+-   `%scanerror "exception"`
 
     Causes the generated scanner to throw an instance of the specified
     exception in case of an internal error (default is
@@ -153,18 +146,17 @@ generated scanner class.
     (i.e. if there is an error fallback rule in the specification and
     only the documented scanner API is used).
 
--   <span>**`%buffer size`**</span>
+-   `%buffer "size"`
 
     Set the initial size of the scan buffer to the specified value
     (decimal, in bytes). The default value is 16384.
 
--   <span>**`%include filename`**</span>
+-   `%include "filename"`
 
-    Replaces the `%include` verbatim by the specified file. This feature
-    is still experimental. It works, but error reporting can be strange
-    if a syntax error occurs on the last token in the included file.
+    Replaces the `%include` verbatim by the specified file.
 
-### Scanning method {#ScanningMethod}
+
+### Scanning method
 
 This section shows how the scanning method can be customised. You can
 redefine the name and return type of the method and it is possible to
@@ -172,61 +164,58 @@ declare exceptions that may be thrown in one of the actions of the
 specification. If no return type is specified, the scanning method will
 be declared as returning values of class `Yytoken`.
 
--   <span>**`%function name`**</span>
+-   `%function "name"`
 
-    Causes the scanning method to get the specified name. If no
-    `%function` directive is present in the specification, the scanning
-    method gets the name “`yylex`”. This directive overrides settings of
-    the `cupCupMode` switch. Please note that the default name of the
-    scanning method with the `cupCupMode` switch is `next_token`.
-    Overriding this name might lead to the generated scanner being
-    implicitly declared as `abstract`, because it does not provide the
-    method `next_token` of the interface `java_cup.runtime.Scanner`. It
-    is of course possible to provide a dummy implementation of that
-    method in the class code section if you still want to override the
-    function name.
+    Causes the scanning method to get the specified name. If no `%function`
+    directive is present in the specification, the scanning method gets the
+    name `yylex`. This directive overrides settings of the `%cup` switch. The
+    default name of the scanning method with the `%cup` switch is
+    `next_token`. Overriding this name might lead to the generated scanner
+    being implicitly declared as `abstract`, because it does not provide the
+    method `next_token` of the interface `java_cup.runtime.Scanner`. It is of
+    course possible to provide a dummy implementation of that method in the
+    class code section if you still want to override the function name.
 
--   <span>**`%integer`**</span>\
-    <span>**`%int`**</span>
+-   `%integer`\
+    `%int`
 
-    Both cause the scanning method to be declared as of Java type `int`.
-    Actions in the specification can then return `int` values as tokens.
-    The default end of file value under this setting is `YYEOF`, which
-    is a `public static final int` member of the generated class.
+    Both cause the scanning method to be declared as returning Java type
+    `int`. Actions in the specification can then return `int` values as
+    tokens. The default end of file value under this setting is `YYEOF`,
+    which is a `public static final int` member of the generated class.
 
--   <span>**`%intwrap`**</span>
+-   `%intwrap`
 
     Causes the scanning method to be declared as of the Java wrapper
     type `Integer`. Actions in the specification can then return
     `Integer` values as tokens. The default end of file value under this
     setting is `null`.
 
--   <span>**`%type typename`**</span>
+-   `%type "typename"`
 
     Causes the scanning method to be declared as returning values of the
-    specified type. Actions in the specification can then return values
-    of `typename` as tokens. The default end of file value under this
-    setting is `null`. If `typename` is not a subclass of
-    `java.lang.Object`, you should specify another end of file value
-    using the <span>[](#\texttt)<span>%eofval</span> `...`
-    `%eofval`</span><span>eofval</span> directive or the
-    <span>[`<<EOF>>` rule](#EOFRule)</span>. The `%type` directive
-    overrides settings of the `cupCupMode` switch.
+    specified type. Actions in the specification can then return values of
+    `typename` as tokens. The default end of file value under this setting is
+    `null`. If `typename` is not a subclass of `java.lang.Object`, you should
+    specify another end of file value using the `%eofval{` `...` `%eofval}`
+    directive or the [`<<EOF>>` rule](#Grammar). The `%type` directive
+    overrides settings of the `%cup` switch.
 
--   <span>**`%yylexthrow{`**</span>\
-    <span>**`exception1[, exception2, ... ]`**</span>\
-    <span>**`%yylexthrow}`**</span>
+-   `%yylexthrow{`\
+    `"exception1" [, "exception2", ... ]`\
+    `%yylexthrow}`
 
-    or (on a single line) just
+    or, on a single line, just
 
-    <span>**`%yylexthrow exception1 [, exception2, ...]`**</span>
+    `%yylexthrow "exception1" [, "exception2", ...]`
 
     The exceptions listed inside `%yylexthrow{` `...` `%yylexthrow}`
     will be declared in the throws clause of the scanning method. If
     there is more than one `%yylexthrow{` `...` `%yylexthrow}` clause in
     the specification, all specified exceptions will be declared.
 
-### The end of file {#EOF}
+
+### The end of file
 
 There is always a default value that the scanning method will return
 when the end of file has been reached. You may however define a specific
@@ -236,87 +225,77 @@ when the end of file is reached.
 The default end of file value depends on the return type of the scanning
 method:
 
--   For <span>**`%integer`**</span>, the scanning method will return the
-    value <span>**`YYEOF`**</span>, which is a `public static final int`
-    member of the generated class.
+-   For `%integer`, the scanning method will return the value `YYEOF`,
+    which is a `public static final int` member of the generated class.
 
--   For <span>**`%intwrap`**</span>,
+-   For `%intwrap`,
 
--   no specified type at all, or a
+-   for no specified type at all, or
 
--   user defined type, declared using <span>**`%type`**</span>, the
-    value is <span>**`null`**</span>.
+-   for a user defined type, declared using `%type`, the value is `null`.
 
--   In CUP compatibility mode, using <span>**`%cup`**</span>, the value
-    is
+-   In CUP compatibility mode, using `%cup`, the value is
 
-    <span>**`new java_cup.runtime.Symbol(sym.EOF)`**</span>
+    `new java_cup.runtime.Symbol(sym.EOF)`
 
-User values and code to be executed at the end of file can be defined
-using these directives:
+User values and code to be executed at the end of file can be defined using
+these directives:
 
--   <span>**`%eofval{`**</span>\
-    <span>**`...`**</span>\
-    <span>**`%eofval}`**</span>
+-   `%eofval{`\
+    `...`\
+    `%eofval}`
 
-    The code included in `%eofval{` `...` `%eofval}` will be copied
-    verbatim into the scanning method and will be executed
-    <span><span>**</span>each time</span> when the end of file is
-    reached (this is possible when the scanning method is called again
-    after the end of file has been reached). The code should return the
-    value that indicates the end of file to the parser. There should be
-    only one `%eofval{` `...` `%eofval}` clause in the specification.
-    The `%eofval{ ... %eofval}` directive overrides settings of the
-    `cupCupMode` switch and `byaccjYaccMode` switch. As of version 1.2
-    JFlex provides a more readable way to specify the end of file value
-    using the <span>[`<<EOF>>` rule](#EOFRule)</span> (see also section
-    [EOFRule]).
+    The code included in `%eofval{` `...` `%eofval}` will be copied verbatim
+    into the scanning method and will be executed _each time_ the end of file
+    is reached (more than once is possible when the scanning method is called
+    again after the end of file has been reached). The code should return the
+    value that indicates the end of file to the parser. There should be only
+    one `%eofval{` `...` `%eofval}` clause in the specification. The
+    `%eofval{ ... %eofval}` directive overrides settings of the `%cup` switch
+    and `%byaccj` switch. There is also an alternative, more readable way to
+    specify the end of file value using the [`<<EOF>>` rule](#Grammar).
 
--   [eof] <span>**`%eof{`**</span>\
-    <span>**`...`**</span>\
-    <span>**`%eof}`**</span>
+-   `%eof{`\
+    `...`\
+    `%eof}`
 
-    The code included in `%{eof ... %eof}` will be executed exactly
-    once, when the end of file is reached. The code is included inside a
-    method `void yy_do_eof()` and should not return any value (use
-    `%eofval{...%eofval}` or <span>[`<<EOF>>`](#EOFRule)</span> for this
-    purpose). If more than one end of file code directive is present,
-    the code will be concatenated in order of appearance in the
-    specification.
+    The code included in `%{eof ... %eof}` will be executed exactly once,
+    when the end of file is reached. The code is included inside a method
+    `void yy_do_eof()` and should not return any value (use
+    `%eofval{...%eofval}` or `<<EOF>>` for this purpose). If more than one
+    end of file code directive is present, the code will be concatenated in
+    order of appearance in the specification.
 
--   <span>**`%eofthrow{`**</span>\
-    <span>**`exception1[,exception2, ... ]`**</span>\
-    <span>**`%eofthrow}`**</span>
+-   `%eofthrow{`\
+    `"exception1" [,"exception2", ... ]`\
+    `%eofthrow}`
 
-    or (on a single line) just
+    or, on a single line:
 
-    <span>**`%eofthrow exception1 [, exception2, ...]`**</span>
+    `%eofthrow "exception1" [, "exception2", ...]`
 
-    The exceptions listed inside `%eofthrow{...%eofthrow}` will be
-    declared in the throws clause of the method `yy_do_eof()` (see
-    <span>[](#\texttt)<span>%eof</span></span><span>eof</span> for more
-    on that method). If there is more than one `%eofthrow{...%eofthrow}`
-    clause in the specification, all specified exceptions will be
-    declared.
+    The exceptions listed inside `%eofthrow{...%eofthrow}` will be declared
+    in the throws clause of the method `yy_do_eof()`. If there is more than
+    one `%eofthrow{...%eofthrow}` clause in the specification, all specified
+    exceptions will be declared.
 
-    [eofclose]
-
--   <span>**`%eofclose`**</span>
+-   `%eofclose`
 
     Causes JFlex to close the input stream at the end of file. The code
-    `yyclose()` is appended to the method `yy_do_eof()` (together with
-    the code specified in `%eof{...%eof}`) and the exception
-    `java.io.IOException` is declared in the throws clause of this
-    method (together with those of `%eofthrow{...%eofthrow}`)
+    `yyclose()` is appended to the method `yy_do_eof()` (together with the
+    code specified in `%eof{...%eof}`) and the exception
+    `java.io.IOException` is declared in the throws clause of this method
+    (together with those of `%eofthrow{...%eofthrow}`)
 
--   <span>**`%eofclose false`**</span>
+-   `%eofclose false`
 
-    Turns the effect of `%eofclose` off again (e.g. in case closing of
-    input stream is not wanted after `%cup`).
+    Turns the effect of `%eofclose` off again (e.g. in case closing of input
+    stream is not wanted after `%cup`).
 
-### Standalone scanners {#Standalone}
 
--   <span>**`%debug`**</span>
+### Standalone scanners
+
+-   `%debug`
 
     Creates a main function in the generated class that expects the name
     of an input file on the command line and then runs the scanner on
@@ -326,31 +305,29 @@ using these directives:
     column counting is enabled), the matched text, and the executed
     action (with line number in the specification).
 
--   <span>**`%standalone`**</span>
+-   `%standalone`
 
-    Creates a main function in the generated class that expects the name
-    of an input file on the command line and then runs the scanner on
-    this input file. The values returned by the scanner are ignored, but
-    any unmatched text is printed to the Java console instead (as the
-    C/C++ tool flex does, if run as standalone program). To avoid having
-    to use an extra token class, the scanning method will be declared as
-    having default type `int`, not `YYtoken` (if there isn’t any other
-    type explicitly specified). This is in most cases irrelevant, but
-    could be useful to know when making another scanner standalone for
-    some purpose. You should also consider using the `%debug` directive,
-    if you just want to be able to run the scanner without a parser
-    attached for testing etc.
+    Creates a main function in the generated class that expects the name of
+    an input file on the command line and then runs the scanner on this input
+    file. The values returned by the scanner are ignored, but any unmatched
+    text is printed to the Java console instead. To avoid having to use an
+    extra token class, the scanning method will be declared as having default
+    type `int`, not `YYtoken` (if there isn’t any other type explicitly
+    specified). This is in most cases irrelevant, but could be useful to know
+    when making another scanner standalone for some purpose. You should
+    consider using the `%debug` directive, if you just want to be able to run
+    the scanner without a parser attached for testing etc.
 
-### CUP compatibility {#CupMode}
 
-You may also want to read section [CUPWork] <span>[*JFlex and
-CUP*](#CUPWork)</span> if you are interested in how to interface your
-generated scanner with CUP.
+### CUP compatibility
 
--   <span>**`%cup`**</span>
+You may also want to read the [CUP section](#CUPWork) if you are interested
+in how to interface your generated scanner with CUP.
 
-    The `%cup` directive enables the CUP compatibility mode and is
-    equivalent to the following set of directives:
+-   `%cup`
+
+    The `%cup` directive enables CUP compatibility mode and is equivalent to
+    the following set of directives:
 
         %implements java_cup.runtime.Scanner
         %function next_token
@@ -364,48 +341,44 @@ generated scanner with CUP.
     the `%cupsym` directive. In JLex compatibility mode (`–jlex` switch
     on the command line), `%eofclose` will not be turned on.
 
--   <span>**`%cup2`**</span>
+-   `%cup2`
 
     The `%cup2` directive is similar to CUP mode, just for the CUP2
     generator from TU Munich at <http://www2.in.tum.de/cup2>. It does
     the following:
 
     -   adds CUP2 package import declarations
-
     -   implements the CUP2 scanner interface
-
     -   switches on line and column count
-
     -   sets the scanner function to `readNextTerminal`
-
     -   sets the token type to `ScannerToken<? extends Object>`
-
     -   returns the special CUP2 EOF token at end of file
-
     -   switches on unicode
 
--   <span>**`%cupsym classname`**</span>
+-   `%cupsym "classname"`
 
     Customises the name of the CUP generated class/interface containing
     the names of terminal tokens. Default is `sym`. The directive should
-    not be used after `%cup`, but before.
+    not be used after `%cup`, only before.
+    <!-- FIXME: check if this can be relaxed -->
 
--   <span>**`%cupdebug`**</span>
+-   `%cupdebug`
 
     Creates a main function in the generated class that expects the name
     of an input file on the command line and then runs the scanner on
     this input file. Prints line, column, matched text, and CUP symbol
     name for each returned token to standard out.
 
-### BYacc/J compatibility {#YaccMode}
 
-You may also want to read section [YaccWork] <span>[*JFlex and
-BYacc/J*](#YaccWork)</span> if you are interested in how to interface
-your generated scanner with Byacc/J.
 
--   <span>**`%byacc`**</span>
+### BYacc/J compatibility
 
-    The `%byacc` directive enables the BYacc/J compatibility mode and is
+You may also want to read [JFlex and BYacc/J](#YaccWork) if you are
+interested in how to interface your generated scanner with Byacc/J.
+
+-   `%byacc`
+
+    The `%byacc` directive enables BYacc/J compatibility mode and is
     equivalent to the following set of directives:
 
         %integer
@@ -414,83 +387,83 @@ your generated scanner with Byacc/J.
         %eofval}
         %eofclose
 
-### Character sets {#CharacterSets}
 
--   <span>**`%7bit`**</span>
+### Input Character sets
+
+-   `%7bit`
 
     Causes the generated scanner to use an 7 bit input character set
-    (character codes 0-127). If an input character with a code greater
-    than 127 is encountered in an input at runtime, the scanner will
-    throw an `ArrayIndexOutofBoundsException`. Not only because of this,
-    you should consider using the `%unicode` directive. See also section
-    [sec:encodings] for information about character encodings. This is
-    the default in JLex compatibility mode.
+    (character codes 0-127). If an input character with a code greater than
+    127 is encountered in an input at runtime, the scanner will throw an
+    `ArrayIndexOutofBoundsException`. Not only because of this, you should
+    consider using the `%unicode` directive. See also
+    [Encodings](#sec:encodings) for information about character encodings.
+    This is the default in JLex compatibility mode.
 
--   <span>**`%full`**</span>\
-    <span>**`%8bit`**</span>
+-   `%full`\
+    `%8bit`
 
-    Both options cause the generated scanner to use an 8 bit input
-    character set (character codes 0-255). If an input character with a
-    code greater than 255 is encountered in an input at runtime, the
-    scanner will throw an `ArrayIndexOutofBoundsException`. Note that
-    even if your platform uses only one byte per character, the Unicode
-    value of a character may still be greater than 255. If you are
-    scanning text files, you should consider using the `%unicode`
-    directive. See also section [sec:encodings] for more information
-    about character encodings.
+    Both options cause the generated scanner to use an 8 bit input character
+    set (character codes 0-255). If an input character with a code greater
+    than 255 is encountered in an input at runtime, the scanner will throw an
+    `ArrayIndexOutofBoundsException`. Note that even if your platform uses
+    only one byte per character, the Unicode value of a character may still
+    be greater than 255. If you are scanning text files, you should consider
+    using the `%unicode` directive. See also section
+    [Econdings](#sec:encodings) for more information about character
+    encodings.
 
--   <span>**`%unicode`**</span>\
-    <span>**`%16bit`**</span>
+-   `%unicode`\
+    `%16bit`
 
-    Both options cause the generated scanner to use the full Unicode
-    input character set, including supplementary code points:
-    0-0x10FFFF. `%unicode` does not mean that the scanner will read two
-    bytes at a time. What is read and what constitutes a character
-    depends on the runtime platform. See also section [sec:encodings]
-    for more information about character encodings. This is the default
-    unless the JLex compatibility mode is used (command line option
-    `–jlex`).
+    Both options cause the generated scanner to use the full Unicode input
+    character set, including supplementary code points: 0-0x10FFFF.
+    `%unicode` does not mean that the scanner will read two bytes at a time.
+    What is read and what constitutes a character depends on the runtime
+    platform. See also section [Encodings](#sec:encodings) for more
+    information about character encodings. This is the default unless the
+    JLex compatibility mode is used (command line option `–jlex`).
 
-    [caseless]
-
--   <span>**`%caseless`**</span>\
-    <span>**`%ignorecase`**</span>
+-   `%caseless`\
+    `%ignorecase`
 
     This option causes JFlex to handle all characters and strings in the
     specification as if they were specified in both uppercase and
     lowercase form. This enables an easy way to specify a scanner for a
-    language with case insensitive keywords. The string “`break`” in a
+    language with case insensitive keywords. The string `break` in a
     specification is for instance handled like the expression
-    `([bB][rR][eE][aA][kK])`. The `%caseless` option does not change the
+    `[bB][rR][eE][aA][kK]`. The `%caseless` option does not change the
     matched text and does not affect character classes. So `[a]` still
-    only matches the character `a` and not `A`, too. Which letters are
+    only matches the character `a` and not `A`. Which letters are
     uppercase and which lowercase letters, is defined by the Unicode
     standard. In JLex compatibility mode (`–jlex` switch on the command
     line), `%caseless` and `%ignorecase` also affect character classes.
 
-### Line, character and column counting {#Counting}
 
--   <span>**`%char`**</span>
+### Line, character and column counting
+
+-   `%char`
 
     Turns character counting on. The `int` member variable `yychar`
     contains the number of characters (starting with 0) from the
     beginning of input to the beginning of the current token.
 
--   <span>**`%line`**</span>
+-   `%line`
 
     Turns line counting on. The `int` member variable `yyline` contains
     the number of lines (starting with 0) from the beginning of input to
     the beginning of the current token.
 
--   <span>**`%column`**</span>
+-   `%column`
 
     Turns column counting on. The `int` member variable `yycolumn`
     contains the number of characters (starting with 0) from the
     beginning of the current line to the beginning of the current token.
 
-### Obsolete JLex options {#Obsolete}
 
--   <span>**`%notunix`**</span>
+### Obsolete JLex options
+
+-   `%notunix`
 
     This JLex option is obsolete in JFlex but still recognised as valid
     directive. It used to switch between Windows and Unix kind of line
@@ -498,76 +471,73 @@ your generated scanner with Byacc/J.
     expressions. JFlex always recognises both styles of platform
     dependent line terminators.
 
--   <span>**`%yyeof`**</span>
+-   `%yyeof`
 
     This JLex option is obsolete in JFlex but still recognised as valid
     directive. In JLex it declares a public member constant `YYEOF`.
     JFlex declares it in any case.
 
+
 ### State declarations {#StateDecl}
 
 State declarations have the following form:
 
-`%s[tate] state identifier [, state identifier, ... ]` for inclusive or\
-`%x[state] state identifier [, state identifier, ... ]` for exclusive
-states
+`%s[tate] "state identifier" [, "state identifier", ... ]` for inclusive or\
+`%x[state] "state identifier" [, "state identifier", ... ]` for exclusive states
 
-There may be more than one line of state declarations, each starting
-with `%state` or `%xstate` (the first character is sufficient, `%s` and
-`%x` works, too). State identifiers are letters followed by a sequence
+There may be more than one line of state declarations, each starting with
+`%state` or `%xstate`. State identifiers are letters followed by a sequence
 of letters, digits or underscores. State identifiers can be separated by
 white-space or comma.
 
 The sequence
 
-`%state STATE1`\
-`%xstate STATE3, XYZ, STATE_10`\
-`%state ABC STATE5`
+    %state STATE1
+    %xstate STATE3, XYZ, STATE_10
+    %state ABC STATE5
 
-declares the set of identifiers
-`STATE1, STATE3, XYZ, STATE_10, ABC, STATE5` as lexical states,
-`STATE1`, `ABC`, `STATE5` as inclusive, and `STATE3`, `XYZ`, `STATE_10`
-as exclusive. See also section [HowMatched] on the way lexical states
-influence how the input is matched.
+declares the set of identifiers `STATE1, STATE3, XYZ, STATE_10, ABC, STATE5`
+as lexical states, `STATE1`, `ABC`, `STATE5` as inclusive, and `STATE3`,
+`XYZ`, `STATE_10` as exclusive. See also [How the Input is
+Matched](#HowMatched) on the way lexical states influence how the input is
+matched.
 
 ### Macro definitions {#MacroDefs}
 
 A macro definition has the form
 
-`macroidentifier = regular expression`
+    macroidentifier = regular expression
 
-That means, a macro definition is a macro identifier (letter followed by
-a sequence of letters, digits or underscores), that can later be used to
-reference the macro, followed by optional white-space, followed by an
-“`=`”, followed by optional white-space, followed by a regular
-expression (see section [LexRules] <span>[*lexical
-rules*](#LexRules)</span> for more information about regular
-expressions).
+That means, a macro definition is a macro identifier (letter followed by a
+sequence of letters, digits or underscores), that can later be used to
+reference the macro, followed by optional white-space, followed by an `=`,
+followed by optional white-space, followed by a regular expression (see
+[Lexical Rules](#LexRules) for more information about the regular expression
+syntax).
 
 The regular expression on the right hand side must be well formed and
-must not contain the `^`, `/` or `$` operators. **Differently to JLex,
-macros are not just pieces of text that are expanded by copying** - they
+must not contain the `^`, `/` or `$` operators. *Differently to JLex,
+macros are not just pieces of text that are expanded by copying* - they
 are parsed and must be well formed.
 
-**This is a feature.** It eliminates some very hard to find bugs in
-lexical specifications (such like not having parentheses around more
-complicated macros - which is not necessary with JFlex). See section
-[Porting] <span>[*Porting from JLex*](#Porting)</span> for more details
-on the problems of JLex style macros.
+**This is a feature.** It eliminates some very hard to find bugs in lexical
+specifications (such like not having parentheses around more complicated
+macros - which is not necessary with JFlex). See [Porting from
+JLex](#Porting) for more details on the problems of JLex style macros.
 
-Since it is allowed to have macro usages in macro definitions, it is
-possible to use a grammar like notation to specify the desired lexical
-structure. Macros however remain just abbreviations of the regular
-expressions they represent. They are not non terminals of a grammar and
-cannot be used recursively in any way. JFlex detects cycles in macro
-definitions and reports them at generation time. JFlex also warns you
-about macros that have been defined but never used in the “lexical
-rules” section of the specification.
+Since it is allowed to have macro usages in macro definitions, it is possible
+to use a grammar-like notation to specify the desired lexical structure.
+However, macros remain just abbreviations of the regular expressions they
+represent. They are not non-terminals of a grammar and cannot be used
+recursively. JFlex detects cycles in macro definitions and reports them at
+generation time. JFlex also warns you about macros that have been defined but
+never used in the _lexical rules_ section of the specification.
+
 
 Lexical rules {#LexRules}
 -------------
 
-The “lexical rules” section of a JFlex specification contains a set of
+The _lexical rules_ section of a JFlex specification contains a set of
 regular expressions and actions (Java code) that are executed when the
 scanner matches the associated regular expression.
 
@@ -575,9 +545,10 @@ The `%include` directive may be used in this section to include lexical
 rules from a separate file. The directive will be replaced verbatim by
 the contents of the specified file.
 
+
 ### Syntax {#Grammar}
 
-The syntax of the “lexical rules” section is described by the following
+The syntax of the _lexical rules_ section is described by the following
 EBNF grammar (terminal symbols are enclosed in ’quotes’):
 
     LexicalRules ::= (Include|Rule)+
@@ -637,16 +608,15 @@ EBNF grammar (terminal symbols are enclosed in ’quotes’):
 
     PropertyValue       ::= Identifier
 
-[Terminals] The grammar uses the following terminal symbols:
+The grammar uses the following terminal symbols:
 
 -   `File`\
     a file name, either absolute or relative to the directory containing
     the lexical specification.
 
 -   `JavaCode`\
-    a sequence of <span><span>**</span>`BlockStatements`</span> as
-    described in the Java Language Specification [@LangSpec], section
-    14.2.
+    a sequence of `BlockStatements` as described in the Java Language
+    Specification [@LangSpec], section 14.2.
 
 -   `Number`\
     a non negative decimal integer.
@@ -669,21 +639,23 @@ EBNF grammar (terminal symbols are enclosed in ’quotes’):
     -   `\n` `\r` `\t` `\f` `\b`
 
     -   a `\x` followed by two hexadecimal digits `[a-fA-F0-9]`
-        (denoting a standard ASCII escape sequence);
+        (denoting an ASCII escape sequence);
 
-    -   a `\u` followed by four hexadecimal digits `[a-fA-F0-9]`
-        (denoting a unicode escape sequence);
+    -   a `\u` followed by four hexadecimal digits `[a-fA-F0-9]`,
+        denoting a unicode escape sequence. Note that these are 
+        precisely four digits, i.e. `\u12345` is the character
+        `\u1234` followed by the character `5`.
 
     -   a `\U` (note that the ’U’ is uppercase) followed by six
-        hexadecimal digits `[a-fA-F0-9]` (denoting a unicode code point
-        escape sequence);
+        hexadecimal digits `[a-fA-F0-9]`, denoting a unicode code point
+        escape sequence;
 
     -   `\u{H+( H+)*}`, where `H+` is one or more hexadecimal digits
         `[a-fA-F0-9]`, each `H+` denotes a code point - note that in
         character classes, only one code point is allowed;
 
     -   a backslash followed by a three digit octal number from 000 to
-        377 (denoting a standard ASCII escape sequence); or
+        377, denoting an ASCII escape sequence; or
 
     -   a backslash followed by any other unicode character that stands
         for this character.
@@ -695,19 +667,18 @@ Java conventions, or `\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]`
 (provided as predefined class `\R`) if you want to be fully Unicode
 compliant (see also [@unicode_rep]).
 
-As of version 1.1 of JFlex the white-space characters `" "` (space) and
-`"\t"` (tab) can be used to improve the readability of regular
-expressions. They will be ignored by JFlex. In character classes and
-strings however, white-space characters keep standing for themselves (so
-the string `" "` still matches exactly one space character and `[ \n]`
-still matches an ASCII LF or a space character).
+The white-space characters `" "` (space) and `\t` (tab) can be used to
+improve the readability of regular expressions. They will be ignored by
+JFlex. In character classes and strings, however, white-space characters keep
+standing for themselves (so the string `" "` still matches exactly one space
+character and `[ \n]` still matches an ASCII LF or a space character).
 
 JFlex applies the following standard operator precedences in regular
 expression (from highest to lowest):
 
--   unary postfix operators (`'*', '+', '?', {n}, {n,m}`)
+-   unary postfix operators (`*`, `+`, `?`, `{n}`, `{n,m}`)
 
--   unary prefix operators (`'!', '~'`)
+-   unary prefix operators (`!`, `~`)
 
 -   concatenation (`RegExp::= RegExp Regexp`)
 
@@ -716,18 +687,19 @@ expression (from highest to lowest):
 So the expression `a | abc | !cd*` for instance is parsed as
 `(a|(abc)) | ((!c)(d*))`.
 
+
 ### Semantics {#Semantics}
 
 This section gives an informal description of which text is matched by a
-regular expression (i.e. an expression described by the `RegExp`
-production of the grammar presented <span>[above](#Grammar)</span>).
+regular expression, i.e. an expression described by the `RegExp` production
+of the grammar [above](#Grammar).
 
 A regular expression that consists solely of
 
 -   a `Character` matches this character.
 
--   a character class `'[...]'` matches any character in that class. A
-    `Character` is to be considered an element of a class, if it is
+-   a character class `[...]` matches any character in that class. A
+    `Character` is considered an element of a class if it is
     listed in the class or if its code lies within a listed character
     range `Character’-’Character` or Macro or predefined character
     class. So `[a0-3\n]` for instance matches the characters
@@ -736,7 +708,7 @@ A regular expression that consists solely of
 
     If the list of characters is empty (i.e. just `[]`), the expression
     matches nothing at all (the empty set), not even the empty string.
-    This may be useful in combination with the negation operator `'!'`.
+    This can be useful in combination with the negation operator `!`.
 
     Character sets may be nested, e.g. `[[[abc]d[e]]fg]` is equivalent
     to `[abcdefg]`.
@@ -827,7 +799,7 @@ A regular expression that consists solely of
         `\P{...}` syntax (note that the ’`P`’ is uppercase), e.g. to
         match all characters that are **not** letters: `\P{Letter}`.
 
-        See UTS\#18 [@unicode_rep] for a description of and links to
+        See UTS\&num;18 [@unicode_rep] for a description of and links to
         definitions of some supported Properties. UnicodeSet [@UnicodeSet]
         is an online utility to show the character sets corresponding to
         Unicode Properties and set operations on them, but only for the
