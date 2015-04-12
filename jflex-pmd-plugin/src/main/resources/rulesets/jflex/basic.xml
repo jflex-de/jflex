@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<ruleset name="Basic XML"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        Basic rules for JFlex grammars.
+    </description>
+
+    <rule name="MistypedUnicodeCharacter"
+          language="jflex"
+          message="Matches a 16 bit unicode character, and not a 24 bit Unicode chacter, as you may think"
+          class="de.jflex.pmd.rules.UnicodeRule">
+        <description>Be aware of Unicode codepoint followed by [09A-F].</description>
+        <example>\u12340 doesn't mean code point 0x12340, but instead 0x1234 followed by the character 0</example>
+
+    </rule>
+
+
+</ruleset>

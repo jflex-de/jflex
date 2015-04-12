@@ -110,7 +110,7 @@ import java.util.HashMap;
 
   Timer t = new Timer();
 
-  public int currentLine() {
+  public int getCurrentLine() {
     return yyline;
   }
 

@@ -122,8 +122,12 @@ import jflex.unicode.UnicodeProperties;
     return charClasses;
   }
 
-  public int currentLine() {
+  public int getCurrentLine() {
     return yyline;
+  }
+
+  public int getCurrentColumn() {
+    return yycolumn;
   }
 
   public void setFile(File file) {
