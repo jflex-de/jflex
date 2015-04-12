@@ -13,15 +13,10 @@
 
 
 % pandoc packages
-
 \usepackage{lmodern}
-%\usepackage{amssymb,amsmath}
 \usepackage{fixltx2e} % provides \textsubscript
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\urlstyle{same}  % don't use monospace font for urls
-
-
 
 \newcommand{\textcite}[1]{\cite{#1}}
 \newcommand{\autocite}[1]{\cite{#1}}
@@ -31,6 +26,9 @@
 \let\orighyperref\hyperref
 \renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
 
+\let\ttf\ttfamily
+\renewcommand{\ttfamily}{\small\ttf}
+
 \renewcommand{\sectionautorefname}{Section}
 \renewcommand{\subsectionautorefname}{Section}
 \renewcommand{\subsubsectionautorefname}{Section}
@@ -39,8 +37,8 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 
-\begin{document}
 
+\begin{document}
 
 \centerline{\includegraphics[width=0.6\textwidth]{jflex-black}}
 
