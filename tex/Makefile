@@ -6,13 +6,15 @@ build: realclean all
 
 pdf: ymanual.pdf
 
-hmanual.md: head.md intro.md installing.md example.md xmanual.md
+hmanual.md: head.md intro.md installing.md example.md lex-specs.md \
+		 				encodings.md performance.md porting-and-parsers.md end.md
 	cat $^ > $@
 
 hmanual.html: hmanual.md
-	pandoc -s $< -o $@
+	pandoc --filter pandoc-citeproc -s $< -o $@
 
-ymanual.pdf: ymanual.tex intro.tex installing.tex example.tex xmanual.tex
+ymanual.pdf: ymanual.tex intro.tex installing.tex example.tex lex-specs.tex \
+						 encodings.tex performance.tex porting-and-parsers.tex end.tex
 	pdflatex ymanual
 	bibtex ymanual
 	pdflatex ymanual

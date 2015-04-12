@@ -1,3 +1,8 @@
+---
+title: JFlex User's Manual $VERSION
+bibliography: manual.bib
+---
+
 <!-- TODO: add HTML/CSS formatting -->
 
 ![](jflex-black.png)

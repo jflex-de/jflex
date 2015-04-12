@@ -2,6 +2,11 @@ installing.tex
 intro.tex
 head.tex
 example.tex
+encodings.tex
+end.tex
+lex-specs.tex
+performance.tex
+porting-and-parsers.tex
 
 *.bbl
 *.blg
