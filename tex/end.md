@@ -4,7 +4,7 @@ Bugs and Deficiencies {#Bugs}
 Deficiencies
 ------------
 
-JFlex $VERSION conforms with Unicode Regular Expressions UTS&num;18
+JFlex $VERSION conforms with Unicode Regular Expressions UTS\#18
 [@unicode_rep] Basic Unicode Support Level 1, with a few exceptions - for
 details see [UTS \# 18 Conformance](#unicoderegexconformance).
 

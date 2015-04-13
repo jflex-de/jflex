@@ -143,12 +143,12 @@ development platform might change, it’s probably best to use character
 code escapes in all places, since they don’t change their meaning.
 
 
-Conformance with Unicode Regular Expressions UTS\&num;18 {#unicoderegexconformance}
+Conformance with Unicode Regular Expressions UTS\#18 {#unicoderegexconformance}
 ====================================================
 
 This section gives details about JFlex $VERSION’s
 conformance with the requirements for Basic Unicode Support Level 1
-given in UTS\&num;18 [@unicode_rep].
+given in UTS\#18 [@unicode_rep].
 
 ### RL1.1 Hex Notation {#rl1.1-hex-notation .unnumbered}
 
