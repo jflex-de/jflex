@@ -737,39 +737,32 @@ A regular expression that consists solely of
     set.
 
 -   a string `’’ StringCharacter+ ’’` matches the exact text enclosed in
-    double quotes. All meta characters but `\` and `"` lose their
-    special meaning inside a string. See also the
-    <span>[](#\texttt)<span>%ignorecase</span></span><span>caseless</span>
+    double quotes. All meta characters apart from `\` and `"` lose their
+    special meaning inside a string. See also the `%ignorecase`
     switch.
 
 -   a macro usage `'{' Identifier '}'` matches the input that is matched
-    by the right hand side of the macro with name “`Identifier`”.
-
-    [predefCharCl]
+    by the right hand side of the macro with name `Identifier`.
 
 -   a predefined character class matches any of the characters in that
     class. There are the following predefined character classes:
 
-    -   These two predefined character classes are determined by Java
-        functions of class `java`.`lang`.`Character`:
+    -   two predefined character classes determined by Java
+        functions of class `java.lang.Character`:
 
                 [:jletter:]       isJavaIdentifierStart()
                 [:jletterdigit:]  isJavaIdentifierPart()
-                
 
-    -   These four predefined character classes are equivalent to the
-        following Unicode properties (described
-        <span>[below](#unipropsyntax)</span>):
+    -   four predefined character classes equivalent to the
+        following Unicode properties (described [below](#unipropsyntax)):
 
                 [:letter:]     \p{Letter}
                 [:digit:]      \p{Digit}
                 [:uppercase:]  \p{Uppercase}
                 [:lowercase:]  \p{Lowercase}
-                
 
-    -   These meta characters are equivalent to the following (sets of)
-        Unicode Properties (described
-        <span>[below](#unipropsyntax)</span>):
+    -   the following meta characters, equivalent to these (sets of)
+        Unicode Properties (described [below](#unipropsyntax)):
 
                 \d  \p{Digit}
                 \D  \P{Digit}
@@ -779,11 +772,11 @@ A regular expression that consists solely of
                      \p{Connector Punctuation}\p{Join Control}]
                 \W  [^\p{Alpha}\p{Digit}\p{Mark}
                       \p{Connector Punctuation}\p{Join Control}]
-                
 
-        [unipropsyntax]
-
-    -   Unicode Properties are character classes specified by each
+    -   \label{unipropsyntax}
+        <!-- FIXME: inline refs don't link properly in pdf -->
+        <a name="unipropsyntax"></a>Unicode Properties 
+        are character classes specified by each
         version of the Unicode Standard. JFlex supports a subset of all
         defined Properties for each supported Unicode version. To see
         the full list of supported Properties, give the
@@ -795,11 +788,11 @@ A regular expression that consists solely of
 
         To refer to a Unicode Property, use the `\p{...}` syntax, e.g.
         the Greek Block can be referred to as `\p{Block:Greek}`. To
-        match the all characters not included in a property, use the
+        match all characters not included in a property, use the
         `\P{...}` syntax (note that the ’`P`’ is uppercase), e.g. to
-        match all characters that are **not** letters: `\P{Letter}`.
+        match all characters that are **not** letters, use `\P{Letter}`.
 
-        See UTS\&num;18 [@unicode_rep] for a description of and links to
+        See UTS\#18 [@unicode_rep] for a description of and links to
         definitions of some supported Properties. UnicodeSet [@UnicodeSet]
         is an online utility to show the character sets corresponding to
         Unicode Properties and set operations on them, but only for the
@@ -813,29 +806,29 @@ A regular expression that consists solely of
 
 If `a` and `b` are regular expressions, then
 
--   (union)
+-   `a | b` (union)
 
     is the regular expression that matches all input matched by `a` or
     by `b`.
 
--   (concatenation)
+-   `a b` (concatenation)
 
     is the regular expression that matches the input matched by `a`
     followed by the input matched by `b`.
 
--   (Kleene closure)
+-   `a*` (Kleene closure)
 
     matches zero or more repetitions of the input matched by `a`
 
--   (iteration)
+-   `a+` (iteration)
 
     is equivalent to `aa*`
 
--   (option)
+-   `a?` (option)
 
     matches the empty input or the input matched by `a`
 
--   (negation)
+-   `!a` (negation)
 
     matches everything but the strings matched by `a`. Use with care:
     the construction of `!a` involves an additional, possibly
@@ -845,43 +838,45 @@ If `a` and `b` are regular expressions, then
     `!(!a|!b)`, the expression that matches everything of `a` not
     matched by `b` is `!(!a|b)`
 
--   (upto)
+-   `~a` (upto)
 
     matches everything up to (and including) the first occurrence of a
     text matched by `a`. The expression `~a` is equivalent to
     `!([^]* a [^]*) a`. A traditional C-style comment is matched by
     `"/*" ~"*/"`
 
--   (repeat)
+-   `a {n}` (repeat)
 
     is equivalent to `n` times the concatenation of `a`. So `a{4}` for
     instance is equivalent to the expression `a a a a`. The decimal
     integer `n` must be positive.
 
--   is equivalent to at least `n` times and at most `m` times the
+-   `a {n,m}`
+
+    is equivalent to at least `n` times and at most `m` times the
     concatenation of `a`. So `a{2,4}` for instance is equivalent to the
-    expression `a a a? a?`. Both `n` and `m` are non negative decimal
+    expression `a a a? a?`. Both `n` and `m` are non-negative decimal
     integers and `m` must not be smaller than `n`.
 
--   matches the same input as `a`.
+-   `(a)`
 
-In a lexical rule, a regular expression `r` may be preceded by a ’`^`’
+    matches the same input as `a`.
+
+In a lexical rule, a regular expression `r` may be preceded by a `^`
 (the beginning of line operator). `r` is then only matched at the
 beginning of a line in the input. A line begins after each occurrence of
 `\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085` (see also [@unicode_rep])
 and at the beginning of input. The preceding line terminator in the
 input is not consumed and can be matched by another rule.
 
-In a lexical rule, a regular expression `r` may be followed by a
-look-ahead expression. A look-ahead expression is either a ’`$`’ (the
-end of line operator) or a `'/'` followed by an arbitrary regular
-expression. In both cases the look-ahead is not consumed and not
-included in the matched text region, but it
-<span><span>**</span>is</span> considered while determining which rule
-has the longest match (see also [HowMatched] <span>[*How the input is
-matched*](#HowMatched)</span>).
+In a lexical rule, a regular expression `r` may be followed by a look-ahead
+expression. A look-ahead expression is either `$` (the end of line operator)
+or `/` followed by an arbitrary regular expression. In both cases the
+look-ahead is not consumed and not included in the matched text region, but
+it **is** considered while determining which rule has the longest match (see
+also [How the input is matched](#HowMatched)).
 
-In the ’`$`’ case `r` is only matched at the end of a line in the input.
+In the `$` case, `r` is only matched at the end of a line in the input.
 The end of a line is denoted by the regular expression
 `\r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085`. So `a$` is equivalent
 to `a / \r|\n|\r\n|\u2028|\u2029|\u000B|\u000C|\u0085`. This is
@@ -889,26 +884,22 @@ different to the situation described in [@unicode_rep]: since in JFlex `$`
 is a true trailing context, the end of file does **not** count as end of
 line.
 
-[trailingContext] For arbitrary look-ahead (also called
-<span><span>**</span>trailing context</span>) the expression is matched
-only when followed by input that matches the trailing context.
+For arbitrary look-ahead (also called _trailing context_) the expression is
+matched only when followed by input that matches the trailing context.
 
-[EOFRule] As of version 1.2, JFlex allows lex/flex style `<<EOF>>` rules
-in lexical specifications. A rule
+JFlex allows lex/flex style `<<EOF>>` rules in lexical specifications. A rule
 
-    [StateList]  <<EOF>>    { some action code }
+    [StateList]  <<EOF>>    { action code }
 
-is very similar to the <span>[](#\texttt)<span>%eofval</span>
-directive</span><span>eofval</span> (section [eofval]). The difference
-lies in the optional `StateList` that may precede the `<<EOF>>` rule.
-The action code will only be executed when the end of file is read and
-the scanner is currently in one of the lexical states listed in
-`StateList`. The same `StateGroup` (see section [HowMatched] <span>[*How
-the input is matched*](#HowMatched)</span>) and precedence rules as in
-the “normal” rule case apply (i.e. if there is more than one `<<EOF>>`
-rule for a certain lexical state, the action of the one appearing
-earlier in the specification will be executed). `<<EOF>>` rules override
-settings of the `%cup` and `%byaccj` options and should not be mixed
+is very similar to the `%eofval` directive. The difference lies in the
+optional `StateList` that may precede the `<<EOF>>` rule. The action code
+will only be executed when the end of file is read and the scanner is
+currently in one of the lexical states listed in `StateList`. The same
+`StateGroup` (see section [How the input is matched](#HowMatched)) and
+precedence rules as in the “normal” rule case apply (i.e. if there is more
+than one `<<EOF>>` rule for a certain lexical state, the action of the one
+appearing earlier in the specification will be executed). `<<EOF>>` rules
+override settings of the `%cup` and `%byaccj` options and should not be mixed
 with the `%eofval` directive.
 
 An `Action` consists either of a piece of Java code enclosed in curly
@@ -927,13 +918,14 @@ is equivalent to the expanded form
     expression2   { some action }
     expression3   { some action }
 
-They are useful when you work with trailing context expressions. The
-expression `a | (c / d) | b` is not syntactically legal, but can easily
-be expressed using the `|` action:
+They are useful when working with trailing context expressions. The
+expression `a | (c / d) | b` is not a syntactically legal regular expression,
+but can be expressed using the `|` action:
 
     a       |
     c / d   |
     b       { some action }
+
 
 ### How the input is matched {#HowMatched}
 
@@ -955,7 +947,7 @@ expressions that match the current input.
     lexical states includes the currently active lexical state of the
     scanner or if the set of associated lexical states is empty and the
     currently active lexical state is inclusive. Exclusive and inclusive
-    states only differ at this point: rules with an empty set of
+    states only differ in this one point: rules with an empty set of
     associated states.
 
 -   The currently active lexical state of the scanner can be changed
@@ -1000,6 +992,7 @@ expressions that match the current input.
     equivalent (if they are used with the exact same set of regular
     expressions), then the two constants will get the same value.
 
+
 ### The generated class
 
 JFlex generates exactly one file containing one class from the
@@ -1010,75 +1003,79 @@ The generated class contains (among other things) the DFA tables, an
 input buffer, the lexical states of the specification, a constructor,
 and the scanning method with the user supplied actions.
 
-The name of the class is by default `Yylex`, it is customisable with the
-`%class` directive (see also section [ClassOptions]). The input buffer
-of the lexer is connected with an input stream over the `java.io.Reader`
-object which is passed to the lexer in the generated constructor. If you
-want to provide your own constructor for the lexer, you should always
-call the generated one in it to initialise the input buffer. The input
-buffer should not be accessed directly, but only over the advertised API
-(see also section [ScannerMethods]). Its internal implementation may
-change between releases or skeleton files without notice.
+The name of the class is by default `Yylex`. The name is customisable with
+the `%class` directive. The input buffer of the lexer is connected with
+external input through the `java.io.Reader` object which is passed to the
+lexer in the generated constructor. If you provide your own constructor for
+the lexer, you should always chain-call the generated one to initialise the
+input buffer. The input buffer should not be accessed directly, but only
+through the advertised API (see also [Scanner Methods](#ScannerMethods)). Its
+internal implementation may change between releases or skeleton files without
+notice.
 
 The main interface to the outside world is the generated scanning method
-(default name `yylex`, default return type `Yytoken`). Most of its
-aspects are customisable (name, return type, declared exceptions etc.,
-see also section [ScanningMethod]). If it is called, it will consume
-input until one of the expressions in the specification is matched or an
-error occurs. If an expression is matched, the corresponding action is
-executed. It may return a value of the specified return type (in which
-case the scanning method returns with this value), or if it doesn’t
-return a value, the scanner resumes consuming input until the next
-expression is matched. If the end of file is reached, the scanner
-executes the EOF action, and (also upon each further call to the
-scanning method) returns the specified EOF value (see also section
-[EOF]).
+(default name `yylex`, default return type `Yytoken`). Most of its aspects
+are customisable (name, return type, declared exceptions etc.). If it is
+called, it will consume input until one of the expressions in the
+specification is matched or an error occurs. If an expression is matched, the
+corresponding action is executed. It may return a value of the specified
+return type (in which case the scanning method returns with this value), or,
+if it does not return a value, the scanner resumes consuming input until the
+next expression is matched. If the end of file is reached, the scanner
+executes the `EOF` action, and (also upon each further call to the scanning
+method) returns the specified `EOF` value.
+
 
 ### Scanner methods and fields accessible in actions (API) {#ScannerMethods}
 
-Generated methods and member fields in JFlex scanners are prefixed with
-`yy` to indicate that they are generated and to avoid name conflicts
-with user code copied into the class. Since user code is part of the
-same class, JFlex has no language means like the `private` modifier to
-indicate which members and methods are internal and which ones belong to
-the API. Instead, JFlex follows a naming convention: everything starting
-with a `zz` prefix like `zzStartRead` is to be considered internal and
-subject to change without notice between JFlex releases. Methods and
-members of the generated class that do not have a `zz` prefix like
-`yycharat` belong to the API that the scanner class provides to users in
-action code of the specification. They will remain stable and supported
-between JFlex releases as long as possible.
+Generated methods and member fields in JFlex scanners are prefixed with `yy`
+to indicate that they are generated and to avoid name conflicts with user
+code copied into the class. Since user code is part of the same class, JFlex
+has no language means like the `private` modifier to indicate which members
+and methods are internal and which ones belong to the API. Instead, JFlex
+follows a naming convention: everything starting with `zz`, such as
+`zzStartRead`, is internal and subject to change without notice between JFlex
+releases. Methods and members of the generated class that do not have a `zz`
+prefix, such as `yycharat`, belong to the API that the scanner class provides
+to users in action code of the specification. They will remain stable and
+supported between JFlex releases as long as possible.
 
 Currently, the API consists of the following methods and member fields:
 
--   `String yytext()`\
+-   `String yytext()`
+
     returns the matched input text region
 
--   `int yylength()`\
+-   `int yylength()`
+
     returns the length of the matched input text region (does not
     require a `String` object to be created)
 
--   `char yycharat(int pos)`\
+-   `char yycharat(int pos)`
+
     returns the character at position `pos` from the matched text. It is
     equivalent to `yytext().charAt(pos)`, but faster. `pos` must be a
     value from `0` to `yylength()-1`.
 
--   `void yyclose()`\
+-   `void yyclose()`
+
     closes the input stream. All subsequent calls to the scanning method
     will return the end of file value
 
--   `void yyreset(java.io.Reader reader)`\
+-   `void yyreset(java.io.Reader reader)`
+
     closes the current input stream, and resets the scanner to read from
     a new Reader. All internal variables are reset, the old Reader
     *cannot* be reused (content of the internal buffer is discarded and
     lost). The lexical state is set to `YY_INITIAL`. The `%{init` code
     is *not* included in `yyreset`, because it is assumed to run in the
     context of a constructor, not a normal method. If `%{init` does need
-    to be repeated, consider constructing a new lexer object instead or
-    additionally calling a custom function that performs any additional
-    user-level state reset.
+    to be repeated, consider constructing a new lexer object instead, or
+    calling a custom function that performs any additional user-level
+    state reset.
 
--   `void yypushStream(java.io.Reader reader)`\
+-   `void yypushStream(java.io.Reader reader)`
+
     Stores the current input stream on a stack, and reads from a new
     stream. Lexical state, line, char, and column counting remain
     untouched. The current input stream can be restored with
@@ -1089,14 +1086,15 @@ Currently, the API consists of the following methods and member fields:
     somewhat like this:
 
         "#include" {FILE}  { yypushStream(new FileReader(getFile(yytext()))); }
-        ..
-        <<EOF>>        { if (yymoreStreams()) yypopStream(); else return EOF; }
+        ...
+        <<EOF>>            { if (yymoreStreams()) yypopStream(); else return EOF; }
 
     This method is only available in the skeleton file
     `skeleton.nested`. You can find it in the `src` directory of the
     JFlex distribution.
 
--   `void yypopStream()`\
+-   `void yypopStream()`
+
     Closes the current input stream and continues to read from the one
     on top of the stream stack.
 
@@ -1104,7 +1102,8 @@ Currently, the API consists of the following methods and member fields:
     `skeleton.nested`. You can find it in the `src` directory of the
     JFlex distribution.
 
--   `boolean yymoreStreams()`\
+-   `boolean yymoreStreams()`
+
     Returns true iff there are still streams for `yypopStream` left to
     read from on the stream stack.
 
@@ -1112,13 +1111,16 @@ Currently, the API consists of the following methods and member fields:
     `skeleton.nested`. You can find it in the `src` directory of the
     JFlex distribution.
 
--   `int yystate()`\
+-   `int yystate()`
+
     returns the current lexical state of the scanner.
 
--   `void yybegin(int lexicalState)`\
+-   `void yybegin(int lexicalState)`
+
     enters the lexical state `lexicalState`
 
--   `void yypushback(int number)`\
+-   `void yypushback(int number)`
+
     pushes `number` characters of the matched text back into the input
     stream. They will be read again in the next call of the scanning
     method. The number of characters to be read again must not be
@@ -1129,25 +1131,26 @@ Currently, the API consists of the following methods and member fields:
             String matched = yytext();
             yypushback(1);
             return matched;
-          
 
     will return the whole matched text, while
 
             yypushback(1);
             return yytext();
-          
 
     will return the matched text minus the last character.
 
--   `int yyline`\
+-   `int yyline`
+
     contains the current line of input (starting with 0, only active
     with the `lineCounting` directive)
 
--   `int yychar`\
+-   `int yychar`
+
     contains the current character count in the input (starting with 0,
     only active with the `charCounting` directive)
 
--   `int yycolumn`\
+-   `int yycolumn`
+
     contains the current column of the current line (starting with 0,
     only active with the `columnCounting` directive)
 
