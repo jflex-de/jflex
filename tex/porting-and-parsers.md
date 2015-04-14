@@ -10,13 +10,13 @@ by JLex with the only difference of being faster.
 
 This works as expected on all well formed JLex specifications.
 
-Since the statement above is somewhat absolute, let’s take a look at
-what “well formed” means here. A JLex specification is well formed, when
-it
+Since the statement above is somewhat absolute, let’s take a look at what
+*well formed* means for this purpose. A JLex specification is well formed,
+when it
 
 -   generates a working scanner with JLex
 
--   doesn’t contain the unescaped characters `!` and ``
+-   doesn’t contain the unescaped characters `!` and `~`
 
     They are operators in JFlex while JLex treats them as normal input
     characters. You can easily port such a JLex specification to JFlex
@@ -26,30 +26,28 @@ it
 -   has only complete regular expressions surrounded by parentheses in
     macro definitions
 
-    This may sound a bit harsh, but could otherwise be a major problem –
+    This may sound a bit harsh, but is usually not a big problem –
     it can also help you find some disgusting bugs in your specification
-    that didn’t show up in the first place. In JLex, a right hand side
-    of a macro is just a piece of text, that is copied to the point
-    where the macro is used. With this, some weird kind of stuff like
+    that went unnoticed so far. In JLex, the right hand side
+    of a macro is just a piece of text that is copied to the point
+    where the macro is used. With this, things like
 
           macro1 = ("hello"
           macro2 = {macro1})*
-          
 
-    was possible (with `macro2` expanding to `("hello")*`). This is not
+    were possible (with `macro2` expanding to `("hello")*`). This is not
     allowed in JFlex and you will have to transform such definitions.
-    There are however some more subtle kinds of errors that can be
-    introduced by JLex macros. Let’s consider a definition like
+    There are more subtle kinds of errors that can be
+    introduced by JLex macros. Consider a definition such as
     `macro = a|b` and a usage like `{macro}*`. This expands in JLex to
     `a|b*` and not to the probably intended `(a|b)*`.
 
-    JFlex uses always the second form of expansion, since this is the
-    natural form of thinking about abbreviations for regular
-    expressions.
+    Basically, JLex uses C-preprocessor style macros, whereas JFlex uses
+    grammar definitions.
 
-    Most specifications shouldn’t suffer from this problem, because
-    macros often only contain (harmless) character classes like
-    `alpha = [a-zA-Z]` and more dangerous definitions like
+    Most specifications shouldn’t suffer from this problem, because macros
+    often only contain (harmless) character classes like `alpha = [a-zA-Z]`
+    and more dangerous definitions like
 
     ` ident = {alpha}({alpha}|{digit})*`
 
@@ -62,6 +60,7 @@ it
     ` {ident}*      { .. action .. }`
 
     where the kind of error presented above would show up.
+
 
 Porting from lex/flex
 ---------------------
@@ -104,8 +103,7 @@ and `<expression>`.
 The syntax and semantics of regular expressions in flex are pretty much
 the same as in JFlex. Some attention is needed for escape sequences
 present in flex (such as `\a`) that are not supported in JFlex. These
-escape sequences should be transformed into their octal or hexadecimal
-equivalent.
+escape sequences should be transformed into their unicode equivalent.
 
 ### Character Classes
 
@@ -143,11 +141,11 @@ Working together {#WorkingTog}
 JFlex and CUP {#CUPWork}
 -------------
 
-One of the main design goals of JFlex was to make interfacing with the
-parser generators CUP [@CUP] and CUP2 [@CUP2] as easy as possible. This has
-been done by providing the `cupCupMode` and `cup2CupMode` directives in
-JFlex. However, each interface has two sides. This section concentrates
-on the CUP side of the story.
+One of the design goals of JFlex was to make interfacing with the parser
+generators CUP [@CUP] and CUP2 [@CUP2] as easy as possible. This has been
+done by providing the `%cup` and `%cup2` directives in JFlex. However, each
+interface has two sides. This section concentrates on the CUP side of the
+story.
 
 ### CUP2
 
@@ -158,12 +156,12 @@ provided there is not necessary any more for JFlex versions greater than
 
 ### CUP version 0.10j and above
 
-Since CUP version 0.10j, this has been simplified greatly by the new CUP
-scanner interface `java_cup.runtime.Scanner`. JFlex lexers now implement
-this interface automatically when the `cupCupMode` switch is used. There
-are no special `parser code`, `init code` or `scan with` options any
-more that you have to provide in your CUP parser specification. You can
-just concentrate on your grammar.
+Since CUP version 0.10j, interfacing with JFlex has been simplified greatly
+by the new CUP scanner interface `java_cup.runtime.Scanner`. JFlex lexers now
+implement this interface automatically when the `%cup` switch is used.
+There are no special `parser code`, `init code` or `scan with` options any
+more that you have to provide in your CUP parser specification. You can just
+concentrate on your grammar.
 
 If your generated lexer has the class name `Scanner`, the parser is
 started from the main program like this:
@@ -197,17 +195,16 @@ in the macro/directives section of the spec, or it would be
 
 in the rules section of your spec.
 
-### Using existing JFlex/CUP specifications with CUP 0.10j
+### Using existing JFlex/CUP specifications with CUP 0.10j and above
 
-If you already have an existing specification and you would like to
-upgrade both JFlex and CUP to their newest version, you will probably
-have to adjust your specification.
+If you already have an existing specification and you would like to upgrade
+both JFlex and CUP to their newest version, you will probably have to adjust
+your specification.
 
-The main difference between the `cupCupMode` switch in JFlex 1.2.1 and
-lower, and the current JFlex version is, that JFlex scanners now
-automatically implement the `java_cup.runtime.Scanner` interface. This
-means the scanning function changes its name from `yylex()` to
-`next_token()`.
+The main difference between the `%cup` switch in JFlex 1.2.1 and lower, and
+more recent versions is that JFlex scanners now automatically implement the
+`java_cup.runtime.Scanner` interface. This means the scanning function
+changes its name from `yylex()` to `next_token()`.
 
 The main difference from older CUP versions to 0.10j is, that CUP now
 has a default constructor that accepts a `java_cup.runtime.Scanner` as
@@ -235,11 +232,10 @@ To upgrade to CUP 0.10j, you could change it to look like this:
       }
     :};
 
-If you do not mind to change the method that is calling the parser, you
-could remove the constructor entirely (and if there is nothing else in
-it, the whole `parser code` section as well, of course). The calling
-main procedure would then construct the parser as shown in the section
-above.
+If you don't mind changing the method that is calling the parser, you could
+remove the constructor entirely (and if there is nothing else in it, the
+whole `parser code` section). The main method calling the parser would then
+construct the parser as shown in the section above.
 
 The JFlex specification does not need to be changed.
 
@@ -247,7 +243,7 @@ JFlex and BYacc/J  {#BYaccJ}
 -----------------
 
 JFlex has built-in support for the Java extension
-<span>[BYacc/J](http://byaccj.sourceforge.net/)</span> [@BYaccJ] by Bob
+[BYacc/J](http://byaccj.sourceforge.net/) [@BYaccJ] by Bob
 Jamison to the classical Berkeley Yacc parser generator. This section
 describes how to interface BYacc/J with JFlex. It builds on many helpful
 suggestions and comments from Larry Bell.
@@ -256,7 +252,7 @@ Since Yacc’s architecture is a bit different from CUP’s, the interface
 setup also works in a slightly different manner. BYacc/J expects a
 function `int yylex()` in the parser class that returns each next token.
 Semantic values are expected in a field `yylval` of type `parserval`
-where “`parser`” is the name of the generated parser class.
+where `parser` is the name of the generated parser class.
 
 For a small calculator example, one could use a setup like the following
 on the JFlex side:
@@ -302,9 +298,9 @@ matches (e.g. the operators in the example). Symbolic token names are
 stored as `public static int` constants in the generated parser class.
 They are used as in the `NL` token above. Finally, for some tokens, a
 semantic value may have to be communicated to the parser. The `NUM` rule
-demonstrates that bit.
+demonstrates how.
 
-A matching BYacc/J parser specification could look like this:
+A matching BYacc/J parser specification would look like this:
 
     %{
       import java.io.*;
@@ -362,7 +358,7 @@ A matching BYacc/J parser specification could look like this:
         yyparser.yyparse();    
       }
 
-Here, the customised part is mostly in the user code section: We create
+Here, the customised part is mostly in the user code section. We create
 the lexer in the constructor of the parser and store a reference to it
 for later use in the parser’s `int yylex()` method. This `yylex` in the
 parser only calls `int yylex()` of the generated lexer and passes the
