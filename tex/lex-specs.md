@@ -373,7 +373,7 @@ in how to interface your generated scanner with CUP.
 
 ### BYacc/J compatibility
 
-You may also want to read [JFlex and BYacc/J](#YaccWork) if you are
+You may also want to read [JFlex and BYacc/J](#BYaccJ) if you are
 interested in how to interface your generated scanner with Byacc/J.
 
 -   `%byacc`

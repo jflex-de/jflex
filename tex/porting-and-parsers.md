@@ -243,8 +243,8 @@ above.
 
 The JFlex specification does not need to be changed.
 
-JFlex and BYacc/J[YaccWork]
----------------------------
+JFlex and BYacc/J  {#BYaccJ}
+-----------------
 
 JFlex has built-in support for the Java extension
 <span>[BYacc/J](http://byaccj.sourceforge.net/)</span> [@BYaccJ] by Bob
