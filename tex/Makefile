@@ -1,39 +1,48 @@
 # Makefile for jflex documentation (ps + pdf + html)
 
-all: pdf
+VERSION=1.7.0-SNAPSHOT
+RELEASE_DATE=16 March 2015
+UNICODE_VER=7.0
+
+all: pdf html
 
 build: realclean all
 
-pdf: ymanual.pdf
+pdf: manual.pdf
+html: manual.html
 
-hmanual.md: head.md intro.md installing.md example.md lex-specs.md \
-		 				encodings.md performance.md porting-and-parsers.md end.md
+manual.md: head.md intro.md installing.md example.md lex-specs.md \
+           encodings.md performance.md porting-and-parsers.md end.md
 	cat $^ > $@
 
-hmanual.html: hmanual.md
-	pandoc --filter pandoc-citeproc -s $< -o $@
+manual.html: manual.mdx
+	pandoc -S --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
 
-ymanual.pdf: ymanual.tex intro.tex installing.tex example.tex lex-specs.tex \
-						 encodings.tex performance.tex porting-and-parsers.tex end.tex
-	pdflatex ymanual
-	bibtex ymanual
-	pdflatex ymanual
-	pdflatex ymanual	
+#dependency manual.tex would fire manual.md -> .tex conversion
+xmanual.pdf: xmanual.tex intro.tex installing.tex example.tex lex-specs.tex \
+            encodings.tex performance.tex porting-and-parsers.tex end.tex
+	pdflatex xmanual
+	bibtex xmanual
+	pdflatex xmanual
+	pdflatex xmanual
 
-manual.pdf: logo.png manual.tex manual.bib jay.tex installing.tex
-	make clean
-	pdflatex manual
-	bibtex manual
-	pdflatex manual
-	pdflatex manual
+manual.pdf: xmanual.pdf
+	cp $< $@
 
-#	latex2html -split 0 -no_navigation -html_version 3.2,math -t "JFlex User's Manual" -local_icons -address "`date`, <a href=\"http://www.doclsf.de\">Gerwin Klein</a>" -info "" manual 
+# variable substitutions:
+%.mdx: %.md
+	perl -pi -e 's/\$$VERSION/$(VERSION)/g' < $< | \
+	perl -pi -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
+	perl -pi -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
 
-%.tex: %.md
+%.tex: %.mdx
 	pandoc -f markdown -t latex --biblatex $< -o $@
 
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg *.bcf
 
 realclean: clean 
-	rm -f *.pdf *.html
+	rm -f *.mdx
+	rm -f manual.html manual.pdf manual.md
+	rm -f intro.tex installing.tex example.tex lex-specs.tex
+	rm -f encodings.tex performance.tex porting-and-parsers.tex end.tex

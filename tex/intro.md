@@ -6,12 +6,21 @@ also a rewrite of the tool JLex [@JLex] which was developed by Elliot Berk at
 Princeton University. As Vern Paxson states for his C/C++ tool flex [@flex]:
 they do not share any code though.
 
+A lexical analyser generator takes as input a specification with a set of
+regular expressions and corresponding actions. It generates a program (a
+*lexer*) that reads input, matches the input against the regular expressions
+in the spec file, and runs the corresponding action if a regular expression
+matched. Lexers usually are the first front-end step in compilers, matching
+keywords, comments, operators, etc, and generating an input token stream for
+parsers. They can also be used for many other purposes.
+
+
 Design goals
 ------------
 
 The main design goals of JFlex are:
 
--   **Full unicode support**
+-   **Unicode support**
 -   **Fast generated scanners**
 -   **Fast scanner generation**
 -   **Convenient specification syntax**

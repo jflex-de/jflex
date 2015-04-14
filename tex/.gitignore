@@ -16,8 +16,10 @@ porting-and-parsers.tex
 *.bcf
 *.out
 
+*.mdx
+
+manual.md
+manual.pdf
 xmanual.tex
 xmanual.html
-ymanual.pdf
-hmanual.html
-hmanual.md
+xmanual.pdf

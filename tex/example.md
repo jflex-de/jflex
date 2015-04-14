@@ -152,7 +152,7 @@ example the following options are used:
     work on. For scanning text files, `%unicode` should always be used.
     The Unicode version may be specified, e.g. `%unicode 4.1`. If no
     version is specified, the most recent supported Unicode version will
-    be used - in JFlex $VERSION, this is Unicode 7.0. See also
+    be used - in JFlex $VERSION, this is Unicode $UNICODE_VER. See also
     [Encodings](#sec:encodings) for more information on character
     sets, encodings, and scanning text vs. binary files.
 
