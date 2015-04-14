@@ -338,7 +338,7 @@ in how to interface your generated scanner with CUP.
         %eofclose
 
     The value of `<CUPSYM>` defaults to `sym` and can be changed with
-    the `%cupsym` directive. In JLex compatibility mode (`–jlex` switch
+    the `%cupsym` directive. In JLex compatibility mode (`--jlex` switch
     on the command line), `%eofclose` will not be turned on.
 
 -   `%cup2`
@@ -422,7 +422,7 @@ interested in how to interface your generated scanner with Byacc/J.
     What is read and what constitutes a character depends on the runtime
     platform. See also section [Encodings](#sec:encodings) for more
     information about character encodings. This is the default unless the
-    JLex compatibility mode is used (command line option `–jlex`).
+    JLex compatibility mode is used (command line option `--jlex`).
 
 -   `%caseless`\
     `%ignorecase`
@@ -436,7 +436,7 @@ interested in how to interface your generated scanner with Byacc/J.
     matched text and does not affect character classes. So `[a]` still
     only matches the character `a` and not `A`. Which letters are
     uppercase and which lowercase letters, is defined by the Unicode
-    standard. In JLex compatibility mode (`–jlex` switch on the command
+    standard. In JLex compatibility mode (`--jlex` switch on the command
     line), `%caseless` and `%ignorecase` also affect character classes.
 
 
@@ -1083,7 +1083,7 @@ Currently, the API consists of the following methods and member fields:
 
     A typical example for this are include files in style of the C
     pre-processor. The corresponding JFlex specification could look
-    somewhat like this:
+    like this:
 
         "#include" {FILE}  { yypushStream(new FileReader(getFile(yytext()))); }
         ...
