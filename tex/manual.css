@@ -1,19 +1,33 @@
-body  { background-color:#FFFFFF; }
+body  { background-color:#FFFFFF; margin-left: 20%; margin-right: 20%;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px; }
 table { background-color:#F0F0F0; }
 h1    { font-size:16pt; font-style:italic; font-weight:bold; font-family:arial,helvetica; 
-        border-top-width:medium; border-top-style:solid; padding-top:5mm; margin-top:1cm; }
+        border-bottom-width:1px; border-bottom-style:solid; padding-top:5mm; margin-top:1cm; 
+        margin-left: -2.5em;}
 h2    { font-size:14pt; font-style:italic; font-weight:bold; font-family:arial,helvetica; 
-        border-top-width:medium; border-top-style:solid; padding-top:5mm; margin-top:1cm; }
+        border-bottom-width:1px; border-bottom-style:solid; padding-top:5mm; margin-top:1cm;
+        margin-left: -1em; }
 h3    { font-size:14pt; font-weight:bold; font-family:arial,helvetica; margin-top:1cm; }  
 h4    { font-size:12pt; font-family:arial,helvetica; }
-
-SMALL.TINY		      { font-size:xx-small }
-SMALL.SCRIPTSIZE	  { font-size:xx-small }
-SMALL.FOOTNOTESIZE	{ font-size:x-small  }
-SMALL.SMALL     		{ font-size:small    }
-BIG.LARGE		        { font-size:large    }
-BIG.XLARGE	       	{ font-size:x-large  }
-BIG.XXLARGE		      { font-size:xx-large }
-BIG.HUGE		        { font-size:xx-large }
-BIG.XHUGE		        { font-size:xx-large }
-
+code  { background:#E0E0E0; 
+        color: #303030;
+        border-radius: 4px;
+        font-size: 10pt;
+        line-height: 14pt;
+        overflow-x: auto;
+        overflow-y: auto;
+        padding-bottom: 1px;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 1px;
+        font-family: Menlo, Monaco, Consolas, 'Courier New', monospace }
+pre   { background:#E0E0E0; 
+        color: #303030;
+        border-radius: 4px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #D0D0D0;
+        margin-bottom: 10px;
+        padding: 9.5px 9.5px 9.5px 9.5px;
+}
