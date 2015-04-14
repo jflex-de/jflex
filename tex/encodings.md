@@ -1,106 +1,86 @@
 Encodings, Platforms, and Unicode {#sec:encodings}
 =================================
 
-This section tries to shed some light on the issues of Unicode and
-encodings, cross platform scanning, and how to deal with binary data. My
-thanks go to Stephen Ostermiller for his input on this topic.
+This section discusses Unicode and encodings, cross platform scanning, and
+how to deal with binary data.
 
-The Problem {#sec:howtoencoding}
+The Problem
 -----------
 
-Before we dive straight into details, let’s take a look at what the
-problem is. The problem is Java’s platform independence when you want to
-use it. For scanners the interesting part about platform independence is
-character encodings and how they are handled.
+Java aims to be implementation platform independent, yet different platforms
+use different ways to encode characters. Moreover, a file written on one
+platform, say Windows, may later be read by a scanner on another platform,
+for instance Linux.
+ 
+If a program reads a file from disk, what it really reads is a stream of
+bytes. These bytes can be mapped to characters in different ways. For
+instance, in standard ASCII, the byte value 65 stands for the character `A`,
+and in the encoding `iso-latin-1`, the byte value 213 stands for the umlaut
+character `ä`, but in the encoding `iso-latin-2` <!-- FIXME: check --> the
+value 213 is `é` instead. As long as one encoding is used consistently, this
+is no problem. Some characters may not be available in the encoding you are
+using, but at least the interpretation of the mapping between bytes and
+characters agrees between different programs.
 
-If a program reads a file from disk, it gets a stream of bytes. In
-earlier times, when the grass was green, and the world was much simpler,
-everybody knew that the byte value 65 is, of course, an A. It was no
-problem to see which bytes meant which characters (actually these times
-never existed, but anyway). The normal Latin alphabet only has 26
-characters, so 7 bits or 128 distinct values should surely be enough to
-map them, even if you allow yourself the luxury of upper and lower case.
-Nowadays, things are different. The world suddenly grew much larger, and
-all kinds of people wanted all kinds of special characters, just because
-they use them in their language and writing. This is were the mess
-starts. Since the 128 distinct values were already filled up with other
-stuff, people began to use all 8 bits of the byte, and extended the
-byte/character mappings to fit their need, and of course everybody did
-it differently. Some people for instance may have said “let’s use the
-value 213 for the German character <span>ä</span>”. Others may have
-found that 213 should much rather mean <span>é</span>, because they
-didn’t need German and wrote French instead. As long as you use your
-program and data files only on one platform, this is no problem, as all
-know what means what, and everything gets used consistently.
+When your program runs on more than one platform, however, as is often the
+case with Java, things become more complex. Java’s solution to this is to use
+Unicode internally. Unicode aims to be able to represent all known character
+sets and is therefore a perfect base for encoding things that might get used
+all over the world and on different platforms. To make things work correctly,
+you still have to know where you are and how to map byte values to Unicode
+characters and vice versa, but the important thing is, that this mapping is
+at least possible (you can map Kanji characters to Unicode, but you cannot
+map them to ASCII or `iso-latin-1`).
 
-Now Java comes into play, and wants to run everywhere (once written,
-that is) and now there suddenly is a problem: how do I get the same
-program to say <span>ä</span> to a certain byte when it runs in Germany
-and maybe <span>é</span> when it runs in France? And also the other way
-around: when I want to say <span>é</span> on the screen, which byte
-value should I send to the operating system?
 
-Java’s solution to this is to use Unicode internally. Unicode aims to be
-a superset of all known character sets and is therefore a perfect base
-for encoding things that might get used all over the world. To make
-things work correctly, you still have to know where you are and how to
-map byte values to Unicode characters and vice versa, but the important
-thing is, that this mapping is at least possible (you can map Kanji
-characters to Unicode, but you cannot map them to ASCII or iso-latin-1).
-
-Scanning text files {#sec:howtotext}
+Scanning text files
 -------------------
 
 Scanning text files is the standard application for scanners like JFlex.
 Therefore it should also be the most convenient one. Most times it is.
 
-The following scenario works like a breeze: You work on a platform X,
-write your lexer specification there, can use any obscure Unicode
-character in it as you like, and compile the program. Your users work on
-any platform Y (possibly but not necessarily something different from
-X), they write their input files on Y and they run your program on Y. No
-problems.
+The following scenario works fine: You work on a platform X, write your lexer
+specification there, can use any obscure Unicode character in it as you like,
+and compile the program. Your users work on any platform Y (possibly but not
+necessarily something different from X), they write their input files on Y
+and they run your program on Y. No problems.
 
 Java does this as follows: If you want to read anything in Java that is
-supposed to contain text, you use a `FileReader` or some `InputStream`
-together with an `InputStreamReader`. `InputStreams` return the raw
-bytes, the `InputStreamReader` converts the bytes into Unicode
-characters with the platform’s default encoding. If a text file is
-produced on the same platform, the platform’s default encoding should do
-the mapping correctly. Since JFlex also uses readers and Unicode
-internally, this mechanism also works for the scanner specifications. If
-you write an `A` in your text editor and the editor uses the platform’s
-encoding (say `A` is 65), then Java translates this into the logical
-Unicode `A` internally. If a user writes an `A` on a completely
-different platform (say `A` is 237 there), then Java also translates
-this into the logical Unicode `A` internally. Scanning is performed
-after that translation and both match.
+supposed to contain text, you use a `FileReader`, which converts the bytes of
+the file into Unicode characters with the platform’s default encoding. If a
+text file is produced on the same platform, the platform’s default encoding
+should do the mapping correctly. Since JFlex also uses readers and Unicode
+internally, this mechanism also works for the scanner specifications. If you
+write an `A` in your text editor and the editor uses the platform’s encoding
+(say `A` is 65), then Java translates this into the logical Unicode `A`
+internally. If a user writes an `A` on a completely different platform (say
+`A` is 237 there), then Java also translates this into the logical Unicode
+`A` internally. Scanning is performed after that translation and both match.
 
-Note that because of this mapping from bytes to characters, you should
-always use the `%unicode` switch in you lexer specification if you want
-to scan text files. `%8bit` may not be enough, even if you know that
-your platform only uses one byte per character. The encoding Cp1252 used
-on many Windows machines for instance knows 256 characters, but the
-character <span>'</span> with Cp1252 code `\x92` has the Unicode value
-`\u2019`, which is larger than 255 and which would make your scanner
-throw an `ArrayIndexOutOfBoundsException` if it is encountered.
+Note that because of this mapping from bytes to characters, you should always
+use the `%unicode` switch in you lexer specification if you want to scan text
+files. `%8bit` may not be enough, even if you know that your platform only
+uses one byte per character. The encoding `Cp1252` used on many Windows
+machines for instance knows 256 characters, but the character `'` with
+`Cp1252` code `\x92` has the Unicode value `\u2019`, which is larger than 255
+and which would make your scanner throw an `ArrayIndexOutOfBoundsException`
+if it is encountered.
 
-So for the usual case you don’t have to do anything but use the
-`%unicode` switch in your lexer specification.
+So for the usual case you don’t have to do anything but use the `%unicode`
+switch in your lexer specification.
 
-Things may break when you produce a text file on platform X and consume
-it on a different platform Y. Let’s say you have a file written on a
-Windows PC using the encoding Cp1252. Then you move this file to a Linux
-PC with encoding ISO 8859-1 and there you want to run your scanner on
-it. Java now thinks the file is encoded in ISO 8859-1 (the platform’s
-default encoding) while it really is encoded in Cp1252. For most
-characters Cp1252 and ISO 8859-1 are the same, but for the byte values
-`\x80` to `\x9f` they disagree: ISO 8859-1 is undefined there. You can
-fix the problem by telling Java explicitly which encoding to use. When
-constructing the `InputStreamReader`, you can give the encoding as
-argument. The line
+Things may break when you produce a text file on platform X and consume it on
+a different platform Y. Let’s say you have a file written on a Windows PC
+using the encoding `Cp1252`. Then you move this file to a Linux PC with
+encoding `ISO 8859-1` and there you run your scanner on it. Java now thinks
+the file is encoded in `ISO 8859-1` (the platform’s default encoding) while
+it really is encoded in `Cp1252`. For most characters `Cp1252` and `ISO
+8859-1` are the same, but for the byte values `\x80` to `\x9f` they disagree:
+`ISO 8859-1` is undefined there. You can fix the problem by telling Java
+explicitly which encoding to use. When constructing the `InputStreamReader`,
+you can give the encoding as argument. The line
 
-`Reader r = new InputStreamReader(input, Cp1252); `
+    Reader r = new InputStreamReader(input, Cp1252);
 
 will do the trick.
 
@@ -111,36 +91,35 @@ about its character encoding in the headers.
 More information about encodings, which ones are supported, how they are
 called, and how to set them may be found in the official Java
 documentation in the chapter about internationalisation. The link
-<span>[`http://docs.oracle.com/javase/1.5.0/docs/guide/intl/`](http://docs.oracle.com/javase/1.5.0/docs/guide/intl/)</span>
+<http://docs.oracle.com/javase/1.5.0/docs/guide/intl/>
 leads to an online version of this for Oracle’s JDK 1.5.
+<!-- FIXME: update to newer JDK -->
 
-Scanning binaries {#sec:howtobinary}
+
+Scanning binaries
 -----------------
 
-Scanning binaries is both easier and more difficult than scanning text
-files. It’s easier because you want the raw bytes and not their meaning,
-i.e. you don’t want any translation. It’s more difficult because it’s
-not so easy to get “no translation” when you use Java readers.
+Scanning binaries is both easier and more difficult than scanning text files.
+It’s easier because you want the raw bytes and not their meaning, i.e. you
+don’t want any translation. It’s more difficult because it’s not so easy to
+get "no translation" when you use Java readers.
 
-The problem (for binaries) is that JFlex scanners are designed to work
-on text. Therefore the interface is the `Reader` class (there is a
-constructor for `InputStream` instances, but it’s just there for
-convenience and wraps an `InputStreamReader` around it to get
-characters, not bytes). You can still get a binary scanner when you
-write your own custom `InputStreamReader` class that does explicitly no
-translation, but just copies byte values to character codes instead. It
-sounds quite easy, and actually it is no big deal, but there are a few
-little pitfalls on the way. In the scanner specification you can only
-enter positive character codes (for bytes that is `\x00` to `\xFF`).
-Java’s `byte` type on the other hand is a signed 8 bit integer (-128 to
-127), so you have to convert them properly in your custom `Reader`.
-Also, you should take care when you write your lexer spec: if you use
-text in there, it gets interpreted by an encoding first, and what
-scanner you get as result might depend on which platform you run JFlex
-on when you generate the scanner (this is what you want for text, but
-for binaries it gets in the way). If you are not sure, or if the
-development platform might change, it’s probably best to use character
-code escapes in all places, since they don’t change their meaning.
+The problem (for binaries) is that JFlex scanners are designed to work on
+text. Therefore the interface is the `Reader` class. You can still get a
+binary scanner when you write your own custom `InputStreamReader` class that
+explicitly does no translation, but just copies byte values to character
+codes instead. It sounds quite easy, and actually it is no big deal, but
+there are a few pitfalls on the way. In the scanner specification you can
+only enter positive character codes (for bytes that is `\x00` to `\xFF`).
+Java’s `byte` type on the other hand is a signed 8 bit integer (-128 to 127),
+so you have to convert them accordingly in your custom `Reader`. Also, you
+should take care when you write your lexer spec: if you use text in there, it
+gets interpreted by an encoding first, and what scanner you get as result
+might depend on which platform you run JFlex on when you generate the scanner
+(this is what you want for text, but for binaries it gets in the way). If you
+are not sure, or if the development platform might change, it’s probably best
+to use character code escapes in all places, since they don’t change their
+meaning.
 
 
 Conformance with Unicode Regular Expressions UTS\#18 {#unicoderegexconformance}
@@ -150,7 +129,7 @@ This section gives details about JFlex $VERSION’s
 conformance with the requirements for Basic Unicode Support Level 1
 given in UTS\#18 [@unicode_rep].
 
-### RL1.1 Hex Notation {#rl1.1-hex-notation .unnumbered}
+### RL1.1 Hex Notation
 
 > *To meet this requirement, an implementation shall supply a mechanism
 > for specifying any Unicode code point (from U+0000 to U+10FFFF), using
@@ -161,13 +140,13 @@ range, via `\uXXXX`, where `XXXX` is a 4-digit hex value; `\Uyyyyyy`,
 where `yyyyyy` is a 6-digit hex value; and `\u{X+( X+)*}`, where `X+` is
 a 1-6 digit hex value.
 
-### RL1.2 Properties {#rl1.2-properties .unnumbered}
+### RL1.2 Properties
 
 > *To meet this requirement, an implementation shall provide at least a
 > minimal list of properties, consisting of the following:
-> General\_Category, Script and Script\_Extensions, Alphabetic,
-> Uppercase, Lowercase, White\_Space, Noncharacter\_Code\_Point,
-> Default\_Ignorable\_Code\_Point, ANY, ASCII, ASSIGNED.*
+> General_Category, Script and Script_Extensions, Alphabetic,
+> Uppercase, Lowercase, White_Space, Noncharacter_Code_Point,
+> Default_Ignorable_Code_Point, ANY, ASCII, ASSIGNED.*
 >
 > *The values for these properties must follow the Unicode definitions,
 > and include the property and property value aliases from the UCD.
@@ -180,7 +159,8 @@ command line option `--uniprops <ver>`, where `<ver>` is the Unicode
 version. Loose matching is performed: case distinctions, whitespace,
 underscores and hyphens in property names and values are ignored.
 
-### RL1.2a Compatibility Properties {#rl1.2a-compatibility-properties .unnumbered}
+
+### RL1.2a Compatibility Properties
 
 > *To meet this requirement, an implementation shall provide the
 > properties listed in Annex C: Compatibility Properties, with the
@@ -192,7 +172,8 @@ JFlex does not fully conform. The Standard Recommendation version of the
 Annex C Compatibility Properties are provided, with two exceptions: `\X`
 Extended Grapheme Clusters; and `\b` Default Word Boundaries.
 
-### RL1.3 Subtraction and Intersection {#rl1.3-subtraction-and-intersection .unnumbered}
+
+### RL1.3 Subtraction and Intersection
 
 > *To meet this requirement, an implementation shall supply mechanisms
 > for union, intersection and set-difference of Unicode sets.*
@@ -200,24 +181,26 @@ Extended Grapheme Clusters; and `\b` Default Word Boundaries.
 JFlex conforms by providing these mechanisms, as well as symmetric
 difference.
 
-### RL1.4 Simple Word Boundaries {#rl1.4-simple-word-boundaries .unnumbered}
+
+### RL1.4 Simple Word Boundaries
 
 > *To meet this requirement, an implementation shall extend the word
 > boundary mechanism so that:*
 >
 > 1.  *The class of `<word_character>` includes all the Alphabetic
 >     values from the Unicode character database, from UnicodeData.txt
->     [UData], plus the decimals (General\_Category=Decimal\_Number, or
->     equivalently Numeric\_Type=Decimal), and the U+200C ZERO WIDTH
->     NON-JOINER and U+200D ZERO WIDTH JOINER (Join\_Control=True). See
+>     [UData], plus the decimals (General_Category=Decimal_Number, or
+>     equivalently Numeric_Type=Decimal), and the U+200C ZERO WIDTH
+>     NON-JOINER and U+200D ZERO WIDTH JOINER (Join_Control=True). See
 >     also Annex C: Compatibility Properties.*
 >
 > 2.  *Nonspacing marks are never divided from their base characters,
 >     and otherwise ignored in locating boundaries.*
->
+
 JFlex does not conform: `\b` does not match simple word boundaries.
 
-### RL1.5 Simple Loose Matches {#rl1.5-simple-loose-matches .unnumbered}
+
+### RL1.5 Simple Loose Matches
 
 > *To meet this requirement, if an implementation provides for
 > case-insensitive matching, then it shall provide at least the simple,
@@ -230,7 +213,8 @@ JFlex does not conform: `\b` does not match simple word boundaries.
 
 JFlex conforms. All supported Unicode Properties are closed.
 
-### RL1.6 Line Boundaries {#rl1.6-line-boundaries .unnumbered}
+
+### RL1.6 Line Boundaries
 
 > *To meet this requirement, if an implementation provides for
 > line-boundary testing, it shall recognize not only CRLF, LF, CR, but
@@ -239,7 +223,8 @@ JFlex conforms. All supported Unicode Properties are closed.
 
 JFlex conforms.
 
-### RL1.7 Supplementary Code Points {#rl1.7-supplementary-code-points .unnumbered}
+
+### RL1.7 Supplementary Code Points
 
 > *To meet this requirement, an implementation shall handle the full
 > range of Unicode code points, including values from U+FFFF to
