@@ -11,8 +11,8 @@ build: realclean all
 pdf: manual.pdf
 html: manual.html
 
-manual.md: head.md intro.md installing.md example.md lex-specs.md \
-           encodings.md performance.md porting-and-parsers.md end.md
+md/manual.md: md/head.md md/intro.md md/installing.md md/example.md md/lex-specs.md \
+              md/encodings.md md/performance.md md/porting-and-parsers.md md/end.md
 	cat $^ > $@
 
 manual.html: manual.mdx
@@ -30,7 +30,7 @@ manual.pdf: xmanual.pdf
 	cp $< $@
 
 # variable substitutions:
-%.mdx: %.md Makefile
+%.mdx: md/%.md Makefile
 	perl -pi -e 's/\$$VERSION/$(VERSION)/g' < $< | \
 	perl -pi -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
 	perl -pi -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
@@ -43,6 +43,6 @@ clean:
 
 realclean: clean 
 	rm -f *.mdx
-	rm -f manual.html manual.pdf manual.md xmanual.pdf
+	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
 	rm -f intro.tex installing.tex example.tex lex-specs.tex
 	rm -f encodings.tex performance.tex porting-and-parsers.tex end.tex
