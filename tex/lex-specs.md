@@ -59,7 +59,7 @@ generated scanner class.
 
 -   `%implements "interface 1"[, "interface 2", ..]`
 
-    Makes the generated class implement the specified interfaces. If
+    Makes the generated lexer class implement the specified interfaces. If
     more than one `%implements` directive is present, all specified
     interfaces will be implemented.
 
@@ -725,11 +725,16 @@ A regular expression that consists solely of
         `[a-ln-z]`.
 
     -   Symmetric difference (`~~`): the union of two classes minus
-        their intersection. For instance `[\p{Letter}~~\p{ASCII}]` is
-        equivalent to `[[\p{Letter}||\p{ASCII}]--`
-        `[\p{Letter}&&\p{ASCII}]]`: the set of characters that are
-        present in either `\p{Letter}` or in `\p{ASCII}`, but not in
-        both.
+        their intersection. For instance 
+
+            [\p{Letter}~~\p{ASCII}] 
+
+        is equivalent to 
+        
+            [[\p{Letter}||\p{ASCII}]--[\p{Letter}&&\p{ASCII}]]
+        
+        the set of characters that are present in either `\p{Letter}` or in
+        `\p{ASCII}`, but not in both.
 
 -   a negated character class `'[^...]'` matches all characters not
     listed in the class. If the list of characters is empty (i.e.
@@ -747,8 +752,8 @@ A regular expression that consists solely of
 -   a predefined character class matches any of the characters in that
     class. There are the following predefined character classes:
 
-    -   two predefined character classes determined by Java
-        functions of class `java.lang.Character`:
+    -   two predefined character classes that are determined by Java
+        library functions in class `java.lang.Character`:
 
                 [:jletter:]       isJavaIdentifierStart()
                 [:jletterdigit:]  isJavaIdentifierPart()
