@@ -20,7 +20,7 @@ manual.html: manual.mdx
 
 #dependency manual.tex would fire manual.md -> .tex conversion
 xmanual.pdf: xmanual.tex intro.tex installing.tex example.tex lex-specs.tex \
-            encodings.tex performance.tex porting-and-parsers.tex end.tex
+             encodings.tex performance.tex porting-and-parsers.tex end.tex
 	pdflatex xmanual
 	bibtex xmanual
 	pdflatex xmanual
@@ -30,7 +30,7 @@ manual.pdf: xmanual.pdf
 	cp $< $@
 
 # variable substitutions:
-%.mdx: %.md
+%.mdx: %.md Makefile
 	perl -pi -e 's/\$$VERSION/$(VERSION)/g' < $< | \
 	perl -pi -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
 	perl -pi -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
