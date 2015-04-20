@@ -6,7 +6,7 @@ This is the JFlex git repository. The toplevel contains
  * the JFlex maven plugin, that helps to integrate JFlex in your project
  * the JFlex unicode maven plugin, used for compiling JFlex
  * the regression test suite for JFlex,
- * the LaTeX sources for the user manual
+ * the Markdown sources for the user manual in `docs/`
 
 For documentation and more information see the [JFlex web site](http://jflex.de)
 
