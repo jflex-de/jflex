@@ -58,7 +58,7 @@ scanner. Those are (roughly in order of performance gain):
     Column counting could also be included in actions. This will be
     faster, but can in some cases become quite messy.
 
--   Avoid look-ahead expressions and the end of line operator ’\$’
+-   Avoid look-ahead expressions and the end of line operator `$`
 
     In the best case, the trailing context will first have to be read
     and then (because it is not to be consumed) re-read again. The cases
@@ -76,7 +76,7 @@ scanner. Those are (roughly in order of performance gain):
     about a factor of 2 slower than normal scanning. It also consumes
     memory proportional to the size of the matched input for `r1 r2`.
 
--   Avoid the beginning of line operator ’`^`’
+-   Avoid the beginning of line operator `^`
 
     It costs multiple additional comparisons per match. In some cases
     one extra look-ahead character is needed (when the last character
