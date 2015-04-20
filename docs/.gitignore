@@ -1,5 +1,6 @@
 installing.tex
 intro.tex
+ant-task.tex
 head.tex
 example.tex
 encodings.tex
@@ -19,7 +20,7 @@ porting-and-parsers.tex
 *.mdx
 
 manual.md
+manual.html
 manual.pdf
 xmanual.tex
-xmanual.html
 xmanual.pdf
