@@ -86,23 +86,23 @@ The following attributes are available for invoking the JFlex task.
 After the task definition, the `<jflex ..>` task is available in Ant. For
 example:
 
->     <jflex
->         file="src/parser/Parser.flex"
->         destdir="build/generated/"
->     />
+     <jflex
+         file="src/parser/Parser.flex"
+         destdir="build/generated/"
+     />
 
 JFlex generates the scanner for `src/parser/Scanner.flex` and
 saves the result to `build/generated/parser/`, providing `Scanner.flex`
 is declared to be in package `parser`.
 
->     <jflex
->         file="src/parser/Scanner.flex"
->         destdir="build/generated/"
->     />
->     <javac
->         srcdir="build/generated/"
->         destdir="build/classes/"
->     />
+     <jflex
+         file="src/parser/Scanner.flex"
+         destdir="build/generated/"
+     />
+     <javac
+         srcdir="build/generated/"
+         destdir="build/classes/"
+     />
 
 The same as above plus compile generated classes to `build/classes`
 
