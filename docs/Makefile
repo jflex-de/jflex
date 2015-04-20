@@ -47,5 +47,5 @@ clean:
 realclean: clean 
 	rm -f *.mdx
 	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
-	rm -f intro.tex installing.tex example.tex lex-specs.tex
+	rm -f intro.tex installing.tex example.tex lex-specs.tex ant-task.tex
 	rm -f encodings.tex performance.tex porting-and-parsers.tex end.tex
