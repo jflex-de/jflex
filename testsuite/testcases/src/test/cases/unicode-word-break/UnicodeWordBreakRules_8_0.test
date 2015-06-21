@@ -1,4 +1,4 @@
-name: UnicodeWordBreakRules_7_0
+name: UnicodeWordBreakRules_8_0
 
 description: 
 Implements the Unicode 8.0 Word Boundary rules, specified in UAX #29 
