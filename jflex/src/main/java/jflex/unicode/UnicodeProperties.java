@@ -28,9 +28,9 @@ import jflex.unicode.data.*;
 public class UnicodeProperties {
 
   public static final String UNICODE_VERSIONS =
-    "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0";
+    "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0";
   private static final String DEFAULT_UNICODE_VERSION =
-    "7.0";
+    "8.0";
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
@@ -195,6 +195,9 @@ public class UnicodeProperties {
     } else if (version.equals("7") || version.equals("7.0") || version.equals("7.0.0")) {
       bind(Unicode_7_0.propertyValues, Unicode_7_0.intervals, Unicode_7_0.propertyValueAliases,
          Unicode_7_0.maximumCodePoint, Unicode_7_0.caselessMatchPartitions, Unicode_7_0.caselessMatchPartitionSize);
+    } else if (version.equals("8") || version.equals("8.0") || version.equals("8.0.0")) {
+      bind(Unicode_8_0.propertyValues, Unicode_8_0.intervals, Unicode_8_0.propertyValueAliases,
+         Unicode_8_0.maximumCodePoint, Unicode_8_0.caselessMatchPartitions, Unicode_8_0.caselessMatchPartitionSize);
     } else {
       throw new UnsupportedUnicodeVersionException();
     }

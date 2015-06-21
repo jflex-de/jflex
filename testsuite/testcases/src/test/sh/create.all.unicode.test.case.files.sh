@@ -15,9 +15,9 @@
 # which will populate the directories under src/test/cases/unicode-*/ 
 # with test files for the given Unicode version.
 #
-# Next, svn add the newly created test files, using something like:
+# Next, git add the newly created test files, using something like:
 #
-#   PROMPT$ svn add src/test/cases/*/*<underscore-version>*
+#   PROMPT$ git add src/test/cases/*/*<underscore-version>*
 #
 # Next, run all tests:
 #
