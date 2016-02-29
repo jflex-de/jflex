@@ -210,7 +210,7 @@ public class Main {
 
       if ( argv[i].equals("--version") || argv[i].equals("-version") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Out.println(ErrorMessages.THIS_IS_JFLEX, version); 
-        throw new SilentExit();
+        throw new SilentExit(0);
       }
 
       if ( argv[i].equals("--dot") || argv[i].equals("-dot") ) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -220,12 +220,12 @@ public class Main {
 
       if ( argv[i].equals("--help") || argv[i].equals("-h") || argv[i].equals("/h") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         printUsage();
-        throw new SilentExit();
+        throw new SilentExit(0);
       }
 
       if ( argv[i].equals("--info") || argv[i].equals("-info") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Out.printSystemInfo();
-        throw new SilentExit();
+        throw new SilentExit(0);
       }
       
       if ( argv[i].equals("--nomin") || argv[i].equals("-nomin") ) { //$NON-NLS-1$ //$NON-NLS-2$
@@ -415,7 +415,7 @@ public class Main {
       System.exit(1);
     }
     catch (SilentExit e) {
-      System.exit(1);
+      System.exit(e.exitCode());
     }
   }
 }
