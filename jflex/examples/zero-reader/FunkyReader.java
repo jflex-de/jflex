@@ -31,7 +31,7 @@ public class FunkyReader extends Reader {
   public int read(char[] cbuf, int off, int len) throws IOException {
     if (!do_zero) {
       do_zero = true;
-      return reader.read(cbuf,off,Integer.min(10,len));
+      return reader.read(cbuf,off,Math.min(10,len));
     }
     else {
       do_zero = false;
