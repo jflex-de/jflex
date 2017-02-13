@@ -82,7 +82,7 @@ public enum DataFileType {
   },
 
   // SCRIPT_EXTENSIONS must follow SCRIPTS
-  SCRIPT_EXTENSIONSS("ScriptExtensions") {
+  SCRIPT_EXTENSIONS("ScriptExtensions") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
       Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
       ScriptExtensionsScanner scanner

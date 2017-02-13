@@ -1,0 +1,12 @@
+name: UnicodePropList_Pattern_White_Space_9_0
+
+description: 
+Tests character class syntax of the Unicode 9.0 'Pattern_White_Space' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

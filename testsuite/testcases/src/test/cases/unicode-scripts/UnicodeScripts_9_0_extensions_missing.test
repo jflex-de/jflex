@@ -1,0 +1,13 @@
+name: UnicodeScripts_9_0_extensions_missing
+
+description: 
+Tests character class syntax of the Unicode 9.0 Script_Extensions
+property, for those scripts missing from ScriptExtensions.txt, which
+are defined in Scripts.txt.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

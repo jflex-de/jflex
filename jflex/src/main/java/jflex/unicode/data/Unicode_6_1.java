@@ -5389,8 +5389,7 @@ public class Unicode_6_1 {
       + "\ud83d\udc3f\ud83d\udc3f"+"\ud83d\udc41\ud83d\udc41"+"\ud83d\udcf8\ud83d\udcf8"+"\ud83d\udcfd\ud83d\udcff"
       + "\ud83d\udd3e\ud83d\udd3f"+"\ud83d\udd44\ud83d\udd4f"+"\ud83d\udd68\ud83d\uddfa"+"\ud83d\ude41\ud83d\ude44"
       + "\ud83d\ude50\ud83d\ude7f"+"\ud83d\udec6\ud83d\udeff"+"\ud83d\udf74\ud83f\udfff"+"\ud87f\udffe\ud87f\udfff"
-      + "\ud8bf\udffe\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udb7f\udfff"
-      + "\udbbf\udffe\udbbf\udfff"+"\udb80\udc00\udbbf\udffd"+"\udbff\udffe\udbff\udfff"+"\udbc0\udc00\udbff\udffd",
+      + "\ud8bf\udffe\udb40\udc00"+"\udb40\udc02\udb40\udc1f"+"\udb40\udc80\udb40\udcff"+"\udb40\uddf0\udbff\udfff",
     // Unicode 6.1 property value: {linebreak=wordjoiner}
         "\u2060\u2060"+"\ufeff\ufeff",
     // Unicode 6.1 property value: {linebreak=zwspace}
@@ -6542,26 +6541,22 @@ public class Unicode_6_1 {
       + "\ufdfc\ufdfc"+"\ufe69\ufe69"+"\uff04\uff04"+"\uffe0\uffe1"
       + "\uffe5\uffe6",
     // Unicode 6.1 property value: {scriptextensions=arabic}
-        "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0640\u0640"
-      + "\u064b\u0655"+"\u0660\u0669"+"\u0670\u0670"+"\ufdf2\ufdf2"
-      + "\ufdfd\ufdfd"+"\u0600\u0604"+"\u0606\u060b"+"\u060d\u061a"
-      + "\u061e\u061e"+"\u0620\u063f"+"\u0641\u064a"+"\u0656\u065e"
-      + "\u066a\u066f"+"\u0671\u06dc"+"\u06de\u06ff"+"\u0750\u077f"
-      + "\u08a0\u08a0"+"\u08a2\u08ac"+"\u08e4\u08fe"+"\ufb50\ufbc1"
-      + "\ufbd3\ufd3d"+"\ufd50\ufd8f"+"\ufd92\ufdc7"+"\ufdf0\ufdf1"
-      + "\ufdf3\ufdfc"+"\ufe70\ufe74"+"\ufe76\ufefc"+"\ud803\ude60\ud803\ude7e"
-      + "\ud83b\ude00\ud83b\ude03"+"\ud83b\ude05\ud83b\ude1f"+"\ud83b\ude21\ud83b\ude22"+"\ud83b\ude24\ud83b\ude24"
-      + "\ud83b\ude27\ud83b\ude27"+"\ud83b\ude29\ud83b\ude32"+"\ud83b\ude34\ud83b\ude37"+"\ud83b\ude39\ud83b\ude39"
-      + "\ud83b\ude3b\ud83b\ude3b"+"\ud83b\ude42\ud83b\ude42"+"\ud83b\ude47\ud83b\ude47"+"\ud83b\ude49\ud83b\ude49"
-      + "\ud83b\ude4b\ud83b\ude4b"+"\ud83b\ude4d\ud83b\ude4f"+"\ud83b\ude51\ud83b\ude52"+"\ud83b\ude54\ud83b\ude54"
-      + "\ud83b\ude57\ud83b\ude57"+"\ud83b\ude59\ud83b\ude59"+"\ud83b\ude5b\ud83b\ude5b"+"\ud83b\ude5d\ud83b\ude5d"
-      + "\ud83b\ude5f\ud83b\ude5f"+"\ud83b\ude61\ud83b\ude62"+"\ud83b\ude64\ud83b\ude64"+"\ud83b\ude67\ud83b\ude6a"
-      + "\ud83b\ude6c\ud83b\ude72"+"\ud83b\ude74\ud83b\ude77"+"\ud83b\ude79\ud83b\ude7c"+"\ud83b\ude7e\ud83b\ude7e"
-      + "\ud83b\ude80\ud83b\ude89"+"\ud83b\ude8b\ud83b\ude9b"+"\ud83b\udea1\ud83b\udea3"+"\ud83b\udea5\ud83b\udea9"
-      + "\ud83b\udeab\ud83b\udebb"+"\ud83b\udef0\ud83b\udef1",
+        "\u0600\u0604"+"\u0606\u061b"+"\u061e\u065e"+"\u0660\u06dc"
+      + "\u06de\u06ff"+"\u0750\u077f"+"\u08a0\u08a0"+"\u08a2\u08ac"
+      + "\u08e4\u08fe"+"\ufb50\ufbc1"+"\ufbd3\ufd3d"+"\ufd50\ufd8f"
+      + "\ufd92\ufdc7"+"\ufdf0\ufdfd"+"\ufe70\ufe74"+"\ufe76\ufefc"
+      + "\ud803\ude60\ud803\ude7e"+"\ud83b\ude00\ud83b\ude03"+"\ud83b\ude05\ud83b\ude1f"+"\ud83b\ude21\ud83b\ude22"
+      + "\ud83b\ude24\ud83b\ude24"+"\ud83b\ude27\ud83b\ude27"+"\ud83b\ude29\ud83b\ude32"+"\ud83b\ude34\ud83b\ude37"
+      + "\ud83b\ude39\ud83b\ude39"+"\ud83b\ude3b\ud83b\ude3b"+"\ud83b\ude42\ud83b\ude42"+"\ud83b\ude47\ud83b\ude47"
+      + "\ud83b\ude49\ud83b\ude49"+"\ud83b\ude4b\ud83b\ude4b"+"\ud83b\ude4d\ud83b\ude4f"+"\ud83b\ude51\ud83b\ude52"
+      + "\ud83b\ude54\ud83b\ude54"+"\ud83b\ude57\ud83b\ude57"+"\ud83b\ude59\ud83b\ude59"+"\ud83b\ude5b\ud83b\ude5b"
+      + "\ud83b\ude5d\ud83b\ude5d"+"\ud83b\ude5f\ud83b\ude5f"+"\ud83b\ude61\ud83b\ude62"+"\ud83b\ude64\ud83b\ude64"
+      + "\ud83b\ude67\ud83b\ude6a"+"\ud83b\ude6c\ud83b\ude72"+"\ud83b\ude74\ud83b\ude77"+"\ud83b\ude79\ud83b\ude7c"
+      + "\ud83b\ude7e\ud83b\ude7e"+"\ud83b\ude80\ud83b\ude89"+"\ud83b\ude8b\ud83b\ude9b"+"\ud83b\udea1\ud83b\udea3"
+      + "\ud83b\udea5\ud83b\udea9"+"\ud83b\udeab\ud83b\udebb"+"\ud83b\udef0\ud83b\udef1",
     // Unicode 6.1 property value: {scriptextensions=armenian}
-        "\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"+"\u058a\u058a"
-      + "\u058f\u058f"+"\ufb13\ufb17"+"\u0589\u0589",
+        "\u0531\u0556"+"\u0559\u055f"+"\u0561\u0587"+"\u0589\u058a"
+      + "\u058f\u058f"+"\ufb13\ufb17",
     // Unicode 6.1 property value: {scriptextensions=avestan}
         "\ud802\udf00\ud802\udf35"+"\ud802\udf39\ud802\udf3f",
     // Unicode 6.1 property value: {scriptextensions=balinese}
@@ -6576,11 +6571,11 @@ public class Unicode_6_1 {
       + "\u09bc\u09c4"+"\u09c7\u09c8"+"\u09cb\u09ce"+"\u09d7\u09d7"
       + "\u09dc\u09dd"+"\u09df\u09e3"+"\u09e6\u09fb",
     // Unicode 6.1 property value: {scriptextensions=bopomofo}
-        "\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"+"\u302a\u302d"
-      + "\u3030\u3030"+"\u3037\u3037"+"\u303e\u303f"+"\u30fb\u30fb"
-      + "\u31c0\u31e3"+"\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"
-      + "\u3358\u3370"+"\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"
-      + "\uff61\uff65"+"\u02ea\u02eb"+"\u3105\u312d"+"\u31a0\u31ba",
+        "\u02ea\u02eb"+"\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"
+      + "\u302a\u302d"+"\u3030\u3030"+"\u3037\u3037"+"\u303e\u303f"
+      + "\u30fb\u30fb"+"\u3105\u312d"+"\u31a0\u31ba"+"\u31c0\u31e3"
+      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65",
     // Unicode 6.1 property value: {scriptextensions=brahmi}
         "\ud804\udc00\ud804\udc4d"+"\ud804\udc52\ud804\udc6f",
     // Unicode 6.1 property value: {scriptextensions=braille}
@@ -6588,7 +6583,7 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=buginese}
         "\u1a00\u1a1b"+"\u1a1e\u1a1f",
     // Unicode 6.1 property value: {scriptextensions=buhid}
-        "\u1740\u1753"+"\u1735\u1736",
+        "\u1735\u1736"+"\u1740\u1753",
     // Unicode 6.1 property value: {scriptextensions=canadianaboriginal}
         "\u1400\u167f"+"\u18b0\u18f5",
     // Unicode 6.1 property value: {scriptextensions=carian}
@@ -6640,17 +6635,17 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=cuneiform}
         "\ud808\udc00\ud808\udf6e"+"\ud809\udc00\ud809\udc62"+"\ud809\udc70\ud809\udc73",
     // Unicode 6.1 property value: {scriptextensions=cypriot}
-        "\ud802\udc00\ud802\udc05"+"\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"
-      + "\ud802\udc3c\ud802\udc3c"+"\ud802\udc3f\ud802\udc3f"+"\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"
-      + "\ud800\udd37\ud800\udd3f",
+        "\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd3f"+"\ud802\udc00\ud802\udc05"
+      + "\ud802\udc08\ud802\udc08"+"\ud802\udc0a\ud802\udc35"+"\ud802\udc37\ud802\udc38"+"\ud802\udc3c\ud802\udc3c"
+      + "\ud802\udc3f\ud802\udc3f",
     // Unicode 6.1 property value: {scriptextensions=cyrillic}
         "\u0400\u0484"+"\u0487\u0527"+"\u1d2b\u1d2b"+"\u1d78\u1d78"
       + "\u2de0\u2dff"+"\ua640\ua697"+"\ua69f\ua69f",
     // Unicode 6.1 property value: {scriptextensions=deseret}
         "\ud801\udc00\ud801\udc4f",
     // Unicode 6.1 property value: {scriptextensions=devanagari}
-        "\u0900\u0950"+"\u0953\u0963"+"\u0966\u0977"+"\u0979\u097f"
-      + "\ua8e0\ua8fb"+"\u0964\u0965"+"\ua830\ua839",
+        "\u0900\u0950"+"\u0953\u0977"+"\u0979\u097f"+"\ua830\ua839"
+      + "\ua8e0\ua8fb",
     // Unicode 6.1 property value: {scriptextensions=egyptianhieroglyphs}
         "\ud80c\udc00\ud80d\udc2e",
     // Unicode 6.1 property value: {scriptextensions=ethiopic}
@@ -6686,44 +6681,41 @@ public class Unicode_6_1 {
       + "\u0ac7\u0ac9"+"\u0acb\u0acd"+"\u0ad0\u0ad0"+"\u0ae0\u0ae3"
       + "\u0ae6\u0af1"+"\ua830\ua839",
     // Unicode 6.1 property value: {scriptextensions=gurmukhi}
-        "\u0a01\u0a03"+"\u0a05\u0a0a"+"\u0a0f\u0a10"+"\u0a13\u0a28"
-      + "\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"+"\u0a38\u0a39"
-      + "\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"+"\u0a4b\u0a4d"
-      + "\u0a51\u0a51"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"+"\u0a66\u0a75"
-      + "\u0964\u0965"+"\ua830\ua839",
+        "\u0964\u0965"+"\u0a01\u0a03"+"\u0a05\u0a0a"+"\u0a0f\u0a10"
+      + "\u0a13\u0a28"+"\u0a2a\u0a30"+"\u0a32\u0a33"+"\u0a35\u0a36"
+      + "\u0a38\u0a39"+"\u0a3c\u0a3c"+"\u0a3e\u0a42"+"\u0a47\u0a48"
+      + "\u0a4b\u0a4d"+"\u0a51\u0a51"+"\u0a59\u0a5c"+"\u0a5e\u0a5e"
+      + "\u0a66\u0a75"+"\ua830\ua839",
     // Unicode 6.1 property value: {scriptextensions=han}
-        "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u3005\u3005"
-      + "\u3007\u3007"+"\u3021\u3029"+"\u3038\u303b"+"\u3400\u4db5"
-      + "\u4e00\u9fcc"+"\uf900\ufa6d"+"\ufa70\ufad9"+"\ud840\udc00\ud869\uded6"
-      + "\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"+"\ud87e\udc00\ud87e\ude1d"+"\u3001\u3003"
-      + "\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"+"\u302a\u302d"
-      + "\u3030\u3030"+"\u3037\u3037"+"\u303c\u303f"+"\u30fb\u30fb"
-      + "\u3190\u319f"+"\u31c0\u31e3"+"\u3220\u3243"+"\u3280\u32b0"
-      + "\u32c0\u32cb"+"\u3358\u3370"+"\u337b\u337f"+"\u33e0\u33fe"
-      + "\ufe45\ufe46"+"\uff61\uff65",
-    // Unicode 6.1 property value: {scriptextensions=hangul}
-        "\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"+"\u3030\u3030"
-      + "\u3037\u3037"+"\u303e\u303f"+"\u30fb\u30fb"+"\u31c0\u31e3"
+        "\u2e80\u2e99"+"\u2e9b\u2ef3"+"\u2f00\u2fd5"+"\u3001\u3003"
+      + "\u3005\u3011"+"\u3013\u301f"+"\u3021\u302d"+"\u3030\u3030"
+      + "\u3037\u303f"+"\u30fb\u30fb"+"\u3190\u319f"+"\u31c0\u31e3"
       + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
-      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
-      + "\u1100\u11ff"+"\u302e\u302f"+"\u3131\u318e"+"\u3200\u321e"
-      + "\u3260\u327e"+"\ua960\ua97c"+"\uac00\ud7a3"+"\ud7b0\ud7c6"
-      + "\ud7cb\ud7fb"+"\uffa0\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"
-      + "\uffd2\uffd7"+"\uffda\uffdc",
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\u3400\u4db5"+"\u4e00\u9fcc"
+      + "\uf900\ufa6d"+"\ufa70\ufad9"+"\ufe45\ufe46"+"\uff61\uff65"
+      + "\ud840\udc00\ud869\uded6"+"\ud869\udf00\ud86d\udf34"+"\ud86d\udf40\ud86e\udc1d"+"\ud87e\udc00\ud87e\ude1d",
+    // Unicode 6.1 property value: {scriptextensions=hangul}
+        "\u1100\u11ff"+"\u3001\u3003"+"\u3008\u3011"+"\u3013\u301f"
+      + "\u302e\u3030"+"\u3037\u3037"+"\u303e\u303f"+"\u30fb\u30fb"
+      + "\u3131\u318e"+"\u31c0\u31e3"+"\u3200\u321e"+"\u3220\u3243"
+      + "\u3260\u327e"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
+      + "\u337b\u337f"+"\u33e0\u33fe"+"\ua960\ua97c"+"\uac00\ud7a3"
+      + "\ud7b0\ud7c6"+"\ud7cb\ud7fb"+"\ufe45\ufe46"+"\uff61\uff65"
+      + "\uffa0\uffbe"+"\uffc2\uffc7"+"\uffca\uffcf"+"\uffd2\uffd7"
+      + "\uffda\uffdc",
     // Unicode 6.1 property value: {scriptextensions=hanunoo}
-        "\u1720\u1734"+"\u1735\u1736",
+        "\u1720\u1736",
     // Unicode 6.1 property value: {scriptextensions=hebrew}
         "\u0591\u05c7"+"\u05d0\u05ea"+"\u05f0\u05f4"+"\ufb1d\ufb36"
       + "\ufb38\ufb3c"+"\ufb3e\ufb3e"+"\ufb40\ufb41"+"\ufb43\ufb44"
       + "\ufb46\ufb4f",
     // Unicode 6.1 property value: {scriptextensions=hiragana}
-        "\u3041\u3096"+"\u309d\u309f"+"\ud82c\udc01\ud82c\udc01"+"\ud83c\ude00\ud83c\ude00"
-      + "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
-      + "\u3030\u3035"+"\u3037\u3037"+"\u303c\u303f"+"\u3099\u309c"
-      + "\u30a0\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31e3"
+        "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
+      + "\u3030\u3035"+"\u3037\u3037"+"\u303c\u303f"+"\u3041\u3096"
+      + "\u3099\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31e3"
       + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
       + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
-      + "\uff70\uff70"+"\uff9e\uff9f",
+      + "\uff70\uff70"+"\uff9e\uff9f"+"\ud82c\udc01\ud82c\udc01"+"\ud83c\ude00\ud83c\ude00",
     // Unicode 6.1 property value: {scriptextensions=imperialaramaic}
         "\ud802\udc40\ud802\udc55"+"\ud802\udc57\ud802\udc5f",
     // Unicode 6.1 property value: {scriptextensions=inherited}
@@ -6747,14 +6739,12 @@ public class Unicode_6_1 {
       + "\u0cca\u0ccd"+"\u0cd5\u0cd6"+"\u0cde\u0cde"+"\u0ce0\u0ce3"
       + "\u0ce6\u0cef"+"\u0cf1\u0cf2",
     // Unicode 6.1 property value: {scriptextensions=katakana}
-        "\u30a1\u30fa"+"\u30fd\u30ff"+"\u31f0\u31ff"+"\u32d0\u32fe"
-      + "\u3300\u3357"+"\uff66\uff6f"+"\uff71\uff9d"+"\ud82c\udc00\ud82c\udc00"
-      + "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
+        "\u3001\u3003"+"\u3006\u3006"+"\u3008\u3011"+"\u3013\u301f"
       + "\u3030\u3035"+"\u3037\u3037"+"\u303c\u303f"+"\u3099\u309c"
-      + "\u30a0\u30a0"+"\u30fb\u30fc"+"\u3190\u319f"+"\u31c0\u31e3"
-      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u3358\u3370"
-      + "\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"+"\uff61\uff65"
-      + "\uff70\uff70"+"\uff9e\uff9f",
+      + "\u30a0\u30ff"+"\u3190\u319f"+"\u31c0\u31e3"+"\u31f0\u31ff"
+      + "\u3220\u3243"+"\u3280\u32b0"+"\u32c0\u32cb"+"\u32d0\u32fe"
+      + "\u3300\u3370"+"\u337b\u337f"+"\u33e0\u33fe"+"\ufe45\ufe46"
+      + "\uff61\uff9f"+"\ud82c\udc00\ud82c\udc00",
     // Unicode 6.1 property value: {scriptextensions=kayahli}
         "\ua900\ua92f",
     // Unicode 6.1 property value: {scriptextensions=kharoshthi}
@@ -6783,9 +6773,9 @@ public class Unicode_6_1 {
         "\u1900\u191c"+"\u1920\u192b"+"\u1930\u193b"+"\u1940\u1940"
       + "\u1944\u194f",
     // Unicode 6.1 property value: {scriptextensions=linearb}
-        "\ud800\udd00\ud800\udd02"+"\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd3f"+"\ud800\udc00\ud800\udc0b"
-      + "\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"+"\ud800\udc3f\ud800\udc4d"
-      + "\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa",
+        "\ud800\udc00\ud800\udc0b"+"\ud800\udc0d\ud800\udc26"+"\ud800\udc28\ud800\udc3a"+"\ud800\udc3c\ud800\udc3d"
+      + "\ud800\udc3f\ud800\udc4d"+"\ud800\udc50\ud800\udc5d"+"\ud800\udc80\ud800\udcfa"+"\ud800\udd00\ud800\udd02"
+      + "\ud800\udd07\ud800\udd33"+"\ud800\udd37\ud800\udd3f",
     // Unicode 6.1 property value: {scriptextensions=lisu}
         "\ua4d0\ua4ff",
     // Unicode 6.1 property value: {scriptextensions=lycian}
@@ -6797,7 +6787,7 @@ public class Unicode_6_1 {
       + "\u0d3d\u0d44"+"\u0d46\u0d48"+"\u0d4a\u0d4e"+"\u0d57\u0d57"
       + "\u0d60\u0d63"+"\u0d66\u0d75"+"\u0d79\u0d7f",
     // Unicode 6.1 property value: {scriptextensions=mandaic}
-        "\u0840\u085b"+"\u085e\u085e"+"\u0640\u0640",
+        "\u0640\u0640"+"\u0840\u085b"+"\u085e\u085e",
     // Unicode 6.1 property value: {scriptextensions=meeteimayek}
         "\uaae0\uaaf6"+"\uabc0\uabed"+"\uabf0\uabf9",
     // Unicode 6.1 property value: {scriptextensions=meroiticcursive}
@@ -6807,8 +6797,7 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=miao}
         "\ud81b\udf00\ud81b\udf44"+"\ud81b\udf50\ud81b\udf7e"+"\ud81b\udf8f\ud81b\udf9f",
     // Unicode 6.1 property value: {scriptextensions=mongolian}
-        "\u1802\u1803"+"\u1805\u1805"+"\u1800\u1801"+"\u1804\u1804"
-      + "\u1806\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa",
+        "\u1800\u180e"+"\u1810\u1819"+"\u1820\u1877"+"\u1880\u18aa",
     // Unicode 6.1 property value: {scriptextensions=myanmar}
         "\u1000\u109f"+"\uaa60\uaa7b",
     // Unicode 6.1 property value: {scriptextensions=newtailue}
@@ -6835,7 +6824,7 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=osmanya}
         "\ud801\udc80\ud801\udc9d"+"\ud801\udca0\ud801\udca9",
     // Unicode 6.1 property value: {scriptextensions=phagspa}
-        "\ua840\ua877"+"\u1802\u1803"+"\u1805\u1805",
+        "\u1802\u1803"+"\u1805\u1805"+"\ua840\ua877",
     // Unicode 6.1 property value: {scriptextensions=phoenician}
         "\ud802\udd00\ud802\udd1b"+"\ud802\udd1f\ud802\udd1f",
     // Unicode 6.1 property value: {scriptextensions=rejang}
@@ -6867,7 +6856,7 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=tagalog}
         "\u1700\u170c"+"\u170e\u1714"+"\u1735\u1736",
     // Unicode 6.1 property value: {scriptextensions=tagbanwa}
-        "\u1760\u176c"+"\u176e\u1770"+"\u1772\u1773"+"\u1735\u1736",
+        "\u1735\u1736"+"\u1760\u176c"+"\u176e\u1770"+"\u1772\u1773",
     // Unicode 6.1 property value: {scriptextensions=taile}
         "\u1950\u196d"+"\u1970\u1974",
     // Unicode 6.1 property value: {scriptextensions=taitham}
@@ -6876,7 +6865,7 @@ public class Unicode_6_1 {
     // Unicode 6.1 property value: {scriptextensions=taiviet}
         "\uaa80\uaac2"+"\uaadb\uaadf",
     // Unicode 6.1 property value: {scriptextensions=takri}
-        "\ud805\ude80\ud805\udeb7"+"\ud805\udec0\ud805\udec9"+"\ua830\ua839",
+        "\ua830\ua839"+"\ud805\ude80\ud805\udeb7"+"\ud805\udec0\ud805\udec9",
     // Unicode 6.1 property value: {scriptextensions=tamil}
         "\u0b82\u0b83"+"\u0b85\u0b8a"+"\u0b8e\u0b90"+"\u0b92\u0b95"
       + "\u0b99\u0b9a"+"\u0b9c\u0b9c"+"\u0b9e\u0b9f"+"\u0ba3\u0ba4"
@@ -6889,7 +6878,7 @@ public class Unicode_6_1 {
       + "\u0c66\u0c6f"+"\u0c78\u0c7f",
     // Unicode 6.1 property value: {scriptextensions=thaana}
         "\u060c\u060c"+"\u061b\u061b"+"\u061f\u061f"+"\u0660\u0669"
-      + "\ufdf2\ufdf2"+"\ufdfd\ufdfd"+"\u0780\u07b1",
+      + "\u0780\u07b1"+"\ufdf2\ufdf2"+"\ufdfd\ufdfd",
     // Unicode 6.1 property value: {scriptextensions=thai}
         "\u0e01\u0e3a"+"\u0e40\u0e5b",
     // Unicode 6.1 property value: {scriptextensions=tibetan}
@@ -7039,7 +7028,7 @@ public class Unicode_6_1 {
         "\ua500\ua62b",
     // Unicode 6.1 property value: {scriptextensions=yi}
         "\u3001\u3002"+"\u3008\u3011"+"\u3014\u301b"+"\u30fb\u30fb"
-      + "\uff61\uff65"+"\ua000\ua48c"+"\ua490\ua4c6",
+      + "\ua000\ua48c"+"\ua490\ua4c6"+"\uff61\uff65",
     // Unicode 6.1 property value: {sentencebreak=aterm}
         "\u002e\u002e"+"\u2024\u2024"+"\ufe52\ufe52"+"\uff0e\uff0e",
     // Unicode 6.1 property value: {sentencebreak=close}

@@ -1,0 +1,11 @@
+name: UnicodeAge_9_0_age_3_2
+
+description: 
+Tests character class syntax of the Unicode 9.0 Age=3.2 property.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

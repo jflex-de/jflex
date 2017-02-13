@@ -1,5 +1,5 @@
 ## JFlex 1.7.0
-- Unicode 8.0 is supported.
+- Unicode 8.0 and 9.0 are supported.
 - updated to most recent version of CUP (issue #175)
 - JFlex build now depends on JDK 1.6+, JFlex runtime still JDK 1.5+
 

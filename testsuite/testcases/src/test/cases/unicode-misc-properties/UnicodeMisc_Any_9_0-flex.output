@@ -1,0 +1,4 @@
+
+Warning in file "src\test\cases\unicode-misc-properties\UnicodeMisc_Any_9_0.flex" (line 15): 
+Rule can never be matched:
+[^] { }

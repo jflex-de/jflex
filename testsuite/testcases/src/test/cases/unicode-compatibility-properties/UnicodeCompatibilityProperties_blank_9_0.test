@@ -1,0 +1,13 @@
+name: UnicodeCompatibilityProperties_blank_9_0
+
+description: 
+Tests character class syntax of the Unicode 9.0 'blank' compatibility
+property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt and/or
+DerivedCoreProperties(-X.X.X).txt.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

@@ -1,0 +1,12 @@
+name: UnicodePropList_Variation_Selector_9_0
+
+description: 
+Tests character class syntax of the Unicode 9.0 'Variation_Selector' property,
+defined in PropList(-X.X.X).txt.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

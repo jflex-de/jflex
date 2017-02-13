@@ -1,0 +1,5308 @@
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 47): 
+Rule can never be matched:
+"\u0061" { print(0x0061); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 48): 
+Rule can never be matched:
+"\u0062" { print(0x0062); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 49): 
+Rule can never be matched:
+"\u0063" { print(0x0063); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 50): 
+Rule can never be matched:
+"\u0064" { print(0x0064); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 51): 
+Rule can never be matched:
+"\u0065" { print(0x0065); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 52): 
+Rule can never be matched:
+"\u0066" { print(0x0066); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 53): 
+Rule can never be matched:
+"\u0067" { print(0x0067); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 54): 
+Rule can never be matched:
+"\u0068" { print(0x0068); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 55): 
+Rule can never be matched:
+"\u0069" { print(0x0069); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 56): 
+Rule can never be matched:
+"\u006A" { print(0x006A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 57): 
+Rule can never be matched:
+"\u006B" { print(0x006B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 58): 
+Rule can never be matched:
+"\u006C" { print(0x006C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 59): 
+Rule can never be matched:
+"\u006D" { print(0x006D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 60): 
+Rule can never be matched:
+"\u006E" { print(0x006E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 61): 
+Rule can never be matched:
+"\u006F" { print(0x006F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 62): 
+Rule can never be matched:
+"\u0070" { print(0x0070); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 63): 
+Rule can never be matched:
+"\u0071" { print(0x0071); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 64): 
+Rule can never be matched:
+"\u0072" { print(0x0072); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 65): 
+Rule can never be matched:
+"\u0073" { print(0x0073); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 66): 
+Rule can never be matched:
+"\u0074" { print(0x0074); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 67): 
+Rule can never be matched:
+"\u0075" { print(0x0075); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 68): 
+Rule can never be matched:
+"\u0076" { print(0x0076); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 69): 
+Rule can never be matched:
+"\u0077" { print(0x0077); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 70): 
+Rule can never be matched:
+"\u0078" { print(0x0078); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 71): 
+Rule can never be matched:
+"\u0079" { print(0x0079); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 72): 
+Rule can never be matched:
+"\u007A" { print(0x007A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 105): 
+Rule can never be matched:
+"\u00E0" { print(0x00E0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 106): 
+Rule can never be matched:
+"\u00E1" { print(0x00E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 107): 
+Rule can never be matched:
+"\u00E2" { print(0x00E2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 108): 
+Rule can never be matched:
+"\u00E3" { print(0x00E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 109): 
+Rule can never be matched:
+"\u00E4" { print(0x00E4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 110): 
+Rule can never be matched:
+"\u00E5" { print(0x00E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 111): 
+Rule can never be matched:
+"\u00E6" { print(0x00E6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 112): 
+Rule can never be matched:
+"\u00E7" { print(0x00E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 113): 
+Rule can never be matched:
+"\u00E8" { print(0x00E8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 114): 
+Rule can never be matched:
+"\u00E9" { print(0x00E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 115): 
+Rule can never be matched:
+"\u00EA" { print(0x00EA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 116): 
+Rule can never be matched:
+"\u00EB" { print(0x00EB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 117): 
+Rule can never be matched:
+"\u00EC" { print(0x00EC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 118): 
+Rule can never be matched:
+"\u00ED" { print(0x00ED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 119): 
+Rule can never be matched:
+"\u00EE" { print(0x00EE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 120): 
+Rule can never be matched:
+"\u00EF" { print(0x00EF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 121): 
+Rule can never be matched:
+"\u00F0" { print(0x00F0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 122): 
+Rule can never be matched:
+"\u00F1" { print(0x00F1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 123): 
+Rule can never be matched:
+"\u00F2" { print(0x00F2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 124): 
+Rule can never be matched:
+"\u00F3" { print(0x00F3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 125): 
+Rule can never be matched:
+"\u00F4" { print(0x00F4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 126): 
+Rule can never be matched:
+"\u00F5" { print(0x00F5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 127): 
+Rule can never be matched:
+"\u00F6" { print(0x00F6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 128): 
+Rule can never be matched:
+"\u00F8" { print(0x00F8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 129): 
+Rule can never be matched:
+"\u00F9" { print(0x00F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 130): 
+Rule can never be matched:
+"\u00FA" { print(0x00FA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 131): 
+Rule can never be matched:
+"\u00FB" { print(0x00FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 132): 
+Rule can never be matched:
+"\u00FC" { print(0x00FC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 133): 
+Rule can never be matched:
+"\u00FD" { print(0x00FD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 134): 
+Rule can never be matched:
+"\u00FE" { print(0x00FE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 137): 
+Rule can never be matched:
+"\u0101" { print(0x0101); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 139): 
+Rule can never be matched:
+"\u0103" { print(0x0103); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 141): 
+Rule can never be matched:
+"\u0105" { print(0x0105); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 143): 
+Rule can never be matched:
+"\u0107" { print(0x0107); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 145): 
+Rule can never be matched:
+"\u0109" { print(0x0109); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 147): 
+Rule can never be matched:
+"\u010B" { print(0x010B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 149): 
+Rule can never be matched:
+"\u010D" { print(0x010D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 151): 
+Rule can never be matched:
+"\u010F" { print(0x010F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 153): 
+Rule can never be matched:
+"\u0111" { print(0x0111); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 155): 
+Rule can never be matched:
+"\u0113" { print(0x0113); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 157): 
+Rule can never be matched:
+"\u0115" { print(0x0115); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 159): 
+Rule can never be matched:
+"\u0117" { print(0x0117); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 161): 
+Rule can never be matched:
+"\u0119" { print(0x0119); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 163): 
+Rule can never be matched:
+"\u011B" { print(0x011B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 165): 
+Rule can never be matched:
+"\u011D" { print(0x011D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 167): 
+Rule can never be matched:
+"\u011F" { print(0x011F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 169): 
+Rule can never be matched:
+"\u0121" { print(0x0121); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 171): 
+Rule can never be matched:
+"\u0123" { print(0x0123); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 173): 
+Rule can never be matched:
+"\u0125" { print(0x0125); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 175): 
+Rule can never be matched:
+"\u0127" { print(0x0127); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 177): 
+Rule can never be matched:
+"\u0129" { print(0x0129); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 179): 
+Rule can never be matched:
+"\u012B" { print(0x012B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 181): 
+Rule can never be matched:
+"\u012D" { print(0x012D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 183): 
+Rule can never be matched:
+"\u012F" { print(0x012F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 184): 
+Rule can never be matched:
+"\u0130" { print(0x0130); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 185): 
+Rule can never be matched:
+"\u0131" { print(0x0131); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 187): 
+Rule can never be matched:
+"\u0133" { print(0x0133); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 189): 
+Rule can never be matched:
+"\u0135" { print(0x0135); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 191): 
+Rule can never be matched:
+"\u0137" { print(0x0137); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 193): 
+Rule can never be matched:
+"\u013A" { print(0x013A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 195): 
+Rule can never be matched:
+"\u013C" { print(0x013C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 197): 
+Rule can never be matched:
+"\u013E" { print(0x013E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 199): 
+Rule can never be matched:
+"\u0140" { print(0x0140); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 201): 
+Rule can never be matched:
+"\u0142" { print(0x0142); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 203): 
+Rule can never be matched:
+"\u0144" { print(0x0144); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 205): 
+Rule can never be matched:
+"\u0146" { print(0x0146); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 207): 
+Rule can never be matched:
+"\u0148" { print(0x0148); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 209): 
+Rule can never be matched:
+"\u014B" { print(0x014B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 211): 
+Rule can never be matched:
+"\u014D" { print(0x014D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 213): 
+Rule can never be matched:
+"\u014F" { print(0x014F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 215): 
+Rule can never be matched:
+"\u0151" { print(0x0151); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 217): 
+Rule can never be matched:
+"\u0153" { print(0x0153); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 219): 
+Rule can never be matched:
+"\u0155" { print(0x0155); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 221): 
+Rule can never be matched:
+"\u0157" { print(0x0157); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 223): 
+Rule can never be matched:
+"\u0159" { print(0x0159); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 225): 
+Rule can never be matched:
+"\u015B" { print(0x015B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 227): 
+Rule can never be matched:
+"\u015D" { print(0x015D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 229): 
+Rule can never be matched:
+"\u015F" { print(0x015F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 231): 
+Rule can never be matched:
+"\u0161" { print(0x0161); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 233): 
+Rule can never be matched:
+"\u0163" { print(0x0163); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 235): 
+Rule can never be matched:
+"\u0165" { print(0x0165); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 237): 
+Rule can never be matched:
+"\u0167" { print(0x0167); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 239): 
+Rule can never be matched:
+"\u0169" { print(0x0169); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 241): 
+Rule can never be matched:
+"\u016B" { print(0x016B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 243): 
+Rule can never be matched:
+"\u016D" { print(0x016D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 245): 
+Rule can never be matched:
+"\u016F" { print(0x016F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 247): 
+Rule can never be matched:
+"\u0171" { print(0x0171); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 249): 
+Rule can never be matched:
+"\u0173" { print(0x0173); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 251): 
+Rule can never be matched:
+"\u0175" { print(0x0175); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 253): 
+Rule can never be matched:
+"\u0177" { print(0x0177); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 254): 
+Rule can never be matched:
+"\u0178" { print(0x0178); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 256): 
+Rule can never be matched:
+"\u017A" { print(0x017A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 258): 
+Rule can never be matched:
+"\u017C" { print(0x017C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 260): 
+Rule can never be matched:
+"\u017E" { print(0x017E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 261): 
+Rule can never be matched:
+"\u017F" { print(0x017F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 265): 
+Rule can never be matched:
+"\u0183" { print(0x0183); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 267): 
+Rule can never be matched:
+"\u0185" { print(0x0185); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 270): 
+Rule can never be matched:
+"\u0188" { print(0x0188); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 274): 
+Rule can never be matched:
+"\u018C" { print(0x018C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 279): 
+Rule can never be matched:
+"\u0192" { print(0x0192); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 286): 
+Rule can never be matched:
+"\u0199" { print(0x0199); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 293): 
+Rule can never be matched:
+"\u01A1" { print(0x01A1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 295): 
+Rule can never be matched:
+"\u01A3" { print(0x01A3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 297): 
+Rule can never be matched:
+"\u01A5" { print(0x01A5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 300): 
+Rule can never be matched:
+"\u01A8" { print(0x01A8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 303): 
+Rule can never be matched:
+"\u01AD" { print(0x01AD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 306): 
+Rule can never be matched:
+"\u01B0" { print(0x01B0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 310): 
+Rule can never be matched:
+"\u01B4" { print(0x01B4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 312): 
+Rule can never be matched:
+"\u01B6" { print(0x01B6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 315): 
+Rule can never be matched:
+"\u01B9" { print(0x01B9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 317): 
+Rule can never be matched:
+"\u01BD" { print(0x01BD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 320): 
+Rule can never be matched:
+"\u01C5" { print(0x01C5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 321): 
+Rule can never be matched:
+"\u01C6" { print(0x01C6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 323): 
+Rule can never be matched:
+"\u01C8" { print(0x01C8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 324): 
+Rule can never be matched:
+"\u01C9" { print(0x01C9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 326): 
+Rule can never be matched:
+"\u01CB" { print(0x01CB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 327): 
+Rule can never be matched:
+"\u01CC" { print(0x01CC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 329): 
+Rule can never be matched:
+"\u01CE" { print(0x01CE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 331): 
+Rule can never be matched:
+"\u01D0" { print(0x01D0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 333): 
+Rule can never be matched:
+"\u01D2" { print(0x01D2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 335): 
+Rule can never be matched:
+"\u01D4" { print(0x01D4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 337): 
+Rule can never be matched:
+"\u01D6" { print(0x01D6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 339): 
+Rule can never be matched:
+"\u01D8" { print(0x01D8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 341): 
+Rule can never be matched:
+"\u01DA" { print(0x01DA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 343): 
+Rule can never be matched:
+"\u01DC" { print(0x01DC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 344): 
+Rule can never be matched:
+"\u01DD" { print(0x01DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 346): 
+Rule can never be matched:
+"\u01DF" { print(0x01DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 348): 
+Rule can never be matched:
+"\u01E1" { print(0x01E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 350): 
+Rule can never be matched:
+"\u01E3" { print(0x01E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 352): 
+Rule can never be matched:
+"\u01E5" { print(0x01E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 354): 
+Rule can never be matched:
+"\u01E7" { print(0x01E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 356): 
+Rule can never be matched:
+"\u01E9" { print(0x01E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 358): 
+Rule can never be matched:
+"\u01EB" { print(0x01EB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 360): 
+Rule can never be matched:
+"\u01ED" { print(0x01ED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 362): 
+Rule can never be matched:
+"\u01EF" { print(0x01EF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 364): 
+Rule can never be matched:
+"\u01F2" { print(0x01F2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 365): 
+Rule can never be matched:
+"\u01F3" { print(0x01F3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 367): 
+Rule can never be matched:
+"\u01F5" { print(0x01F5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 368): 
+Rule can never be matched:
+"\u01F6" { print(0x01F6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 369): 
+Rule can never be matched:
+"\u01F7" { print(0x01F7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 371): 
+Rule can never be matched:
+"\u01F9" { print(0x01F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 373): 
+Rule can never be matched:
+"\u01FB" { print(0x01FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 375): 
+Rule can never be matched:
+"\u01FD" { print(0x01FD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 377): 
+Rule can never be matched:
+"\u01FF" { print(0x01FF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 379): 
+Rule can never be matched:
+"\u0201" { print(0x0201); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 381): 
+Rule can never be matched:
+"\u0203" { print(0x0203); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 383): 
+Rule can never be matched:
+"\u0205" { print(0x0205); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 385): 
+Rule can never be matched:
+"\u0207" { print(0x0207); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 387): 
+Rule can never be matched:
+"\u0209" { print(0x0209); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 389): 
+Rule can never be matched:
+"\u020B" { print(0x020B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 391): 
+Rule can never be matched:
+"\u020D" { print(0x020D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 393): 
+Rule can never be matched:
+"\u020F" { print(0x020F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 395): 
+Rule can never be matched:
+"\u0211" { print(0x0211); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 397): 
+Rule can never be matched:
+"\u0213" { print(0x0213); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 399): 
+Rule can never be matched:
+"\u0215" { print(0x0215); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 401): 
+Rule can never be matched:
+"\u0217" { print(0x0217); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 403): 
+Rule can never be matched:
+"\u0219" { print(0x0219); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 405): 
+Rule can never be matched:
+"\u021B" { print(0x021B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 407): 
+Rule can never be matched:
+"\u021D" { print(0x021D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 409): 
+Rule can never be matched:
+"\u021F" { print(0x021F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 410): 
+Rule can never be matched:
+"\u0220" { print(0x0220); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 412): 
+Rule can never be matched:
+"\u0223" { print(0x0223); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 414): 
+Rule can never be matched:
+"\u0225" { print(0x0225); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 416): 
+Rule can never be matched:
+"\u0227" { print(0x0227); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 418): 
+Rule can never be matched:
+"\u0229" { print(0x0229); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 420): 
+Rule can never be matched:
+"\u022B" { print(0x022B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 422): 
+Rule can never be matched:
+"\u022D" { print(0x022D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 424): 
+Rule can never be matched:
+"\u022F" { print(0x022F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 426): 
+Rule can never be matched:
+"\u0231" { print(0x0231); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 428): 
+Rule can never be matched:
+"\u0233" { print(0x0233); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 431): 
+Rule can never be matched:
+"\u023C" { print(0x023C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 432): 
+Rule can never be matched:
+"\u023D" { print(0x023D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 437): 
+Rule can never be matched:
+"\u0242" { print(0x0242); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 438): 
+Rule can never be matched:
+"\u0243" { print(0x0243); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 442): 
+Rule can never be matched:
+"\u0247" { print(0x0247); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 444): 
+Rule can never be matched:
+"\u0249" { print(0x0249); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 446): 
+Rule can never be matched:
+"\u024B" { print(0x024B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 448): 
+Rule can never be matched:
+"\u024D" { print(0x024D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 450): 
+Rule can never be matched:
+"\u024F" { print(0x024F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 454): 
+Rule can never be matched:
+"\u0253" { print(0x0253); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 455): 
+Rule can never be matched:
+"\u0254" { print(0x0254); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 456): 
+Rule can never be matched:
+"\u0256" { print(0x0256); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 457): 
+Rule can never be matched:
+"\u0257" { print(0x0257); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 458): 
+Rule can never be matched:
+"\u0259" { print(0x0259); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 459): 
+Rule can never be matched:
+"\u025B" { print(0x025B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 461): 
+Rule can never be matched:
+"\u0260" { print(0x0260); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 463): 
+Rule can never be matched:
+"\u0263" { print(0x0263); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 466): 
+Rule can never be matched:
+"\u0268" { print(0x0268); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 467): 
+Rule can never be matched:
+"\u0269" { print(0x0269); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 471): 
+Rule can never be matched:
+"\u026F" { print(0x026F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 473): 
+Rule can never be matched:
+"\u0272" { print(0x0272); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 474): 
+Rule can never be matched:
+"\u0275" { print(0x0275); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 476): 
+Rule can never be matched:
+"\u0280" { print(0x0280); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 477): 
+Rule can never be matched:
+"\u0283" { print(0x0283); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 479): 
+Rule can never be matched:
+"\u0288" { print(0x0288); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 480): 
+Rule can never be matched:
+"\u0289" { print(0x0289); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 481): 
+Rule can never be matched:
+"\u028A" { print(0x028A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 482): 
+Rule can never be matched:
+"\u028B" { print(0x028B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 483): 
+Rule can never be matched:
+"\u028C" { print(0x028C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 484): 
+Rule can never be matched:
+"\u0292" { print(0x0292); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 489): 
+Rule can never be matched:
+"\u0371" { print(0x0371); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 491): 
+Rule can never be matched:
+"\u0373" { print(0x0373); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 493): 
+Rule can never be matched:
+"\u0377" { print(0x0377); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 513): 
+Rule can never be matched:
+"\u0399" { print(0x0399); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 516): 
+Rule can never be matched:
+"\u039C" { print(0x039C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 531): 
+Rule can never be matched:
+"\u03AC" { print(0x03AC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 532): 
+Rule can never be matched:
+"\u03AD" { print(0x03AD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 533): 
+Rule can never be matched:
+"\u03AE" { print(0x03AE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 534): 
+Rule can never be matched:
+"\u03AF" { print(0x03AF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 535): 
+Rule can never be matched:
+"\u03B1" { print(0x03B1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 536): 
+Rule can never be matched:
+"\u03B2" { print(0x03B2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 537): 
+Rule can never be matched:
+"\u03B3" { print(0x03B3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 538): 
+Rule can never be matched:
+"\u03B4" { print(0x03B4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 539): 
+Rule can never be matched:
+"\u03B5" { print(0x03B5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 540): 
+Rule can never be matched:
+"\u03B6" { print(0x03B6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 541): 
+Rule can never be matched:
+"\u03B7" { print(0x03B7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 542): 
+Rule can never be matched:
+"\u03B8" { print(0x03B8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 543): 
+Rule can never be matched:
+"\u03B9" { print(0x03B9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 544): 
+Rule can never be matched:
+"\u03BA" { print(0x03BA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 545): 
+Rule can never be matched:
+"\u03BB" { print(0x03BB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 546): 
+Rule can never be matched:
+"\u03BC" { print(0x03BC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 547): 
+Rule can never be matched:
+"\u03BD" { print(0x03BD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 548): 
+Rule can never be matched:
+"\u03BE" { print(0x03BE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 549): 
+Rule can never be matched:
+"\u03BF" { print(0x03BF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 550): 
+Rule can never be matched:
+"\u03C0" { print(0x03C0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 551): 
+Rule can never be matched:
+"\u03C1" { print(0x03C1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 552): 
+Rule can never be matched:
+"\u03C2" { print(0x03C2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 553): 
+Rule can never be matched:
+"\u03C3" { print(0x03C3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 554): 
+Rule can never be matched:
+"\u03C4" { print(0x03C4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 555): 
+Rule can never be matched:
+"\u03C5" { print(0x03C5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 556): 
+Rule can never be matched:
+"\u03C6" { print(0x03C6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 557): 
+Rule can never be matched:
+"\u03C7" { print(0x03C7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 558): 
+Rule can never be matched:
+"\u03C8" { print(0x03C8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 559): 
+Rule can never be matched:
+"\u03C9" { print(0x03C9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 560): 
+Rule can never be matched:
+"\u03CA" { print(0x03CA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 561): 
+Rule can never be matched:
+"\u03CB" { print(0x03CB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 562): 
+Rule can never be matched:
+"\u03CC" { print(0x03CC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 563): 
+Rule can never be matched:
+"\u03CD" { print(0x03CD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 564): 
+Rule can never be matched:
+"\u03CE" { print(0x03CE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 566): 
+Rule can never be matched:
+"\u03D0" { print(0x03D0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 567): 
+Rule can never be matched:
+"\u03D1" { print(0x03D1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 568): 
+Rule can never be matched:
+"\u03D5" { print(0x03D5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 569): 
+Rule can never be matched:
+"\u03D6" { print(0x03D6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 570): 
+Rule can never be matched:
+"\u03D7" { print(0x03D7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 572): 
+Rule can never be matched:
+"\u03D9" { print(0x03D9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 574): 
+Rule can never be matched:
+"\u03DB" { print(0x03DB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 576): 
+Rule can never be matched:
+"\u03DD" { print(0x03DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 578): 
+Rule can never be matched:
+"\u03DF" { print(0x03DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 580): 
+Rule can never be matched:
+"\u03E1" { print(0x03E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 582): 
+Rule can never be matched:
+"\u03E3" { print(0x03E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 584): 
+Rule can never be matched:
+"\u03E5" { print(0x03E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 586): 
+Rule can never be matched:
+"\u03E7" { print(0x03E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 588): 
+Rule can never be matched:
+"\u03E9" { print(0x03E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 590): 
+Rule can never be matched:
+"\u03EB" { print(0x03EB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 592): 
+Rule can never be matched:
+"\u03ED" { print(0x03ED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 594): 
+Rule can never be matched:
+"\u03EF" { print(0x03EF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 595): 
+Rule can never be matched:
+"\u03F0" { print(0x03F0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 596): 
+Rule can never be matched:
+"\u03F1" { print(0x03F1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 598): 
+Rule can never be matched:
+"\u03F3" { print(0x03F3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 599): 
+Rule can never be matched:
+"\u03F4" { print(0x03F4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 600): 
+Rule can never be matched:
+"\u03F5" { print(0x03F5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 602): 
+Rule can never be matched:
+"\u03F8" { print(0x03F8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 603): 
+Rule can never be matched:
+"\u03F9" { print(0x03F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 605): 
+Rule can never be matched:
+"\u03FB" { print(0x03FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 606): 
+Rule can never be matched:
+"\u03FD" { print(0x03FD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 607): 
+Rule can never be matched:
+"\u03FE" { print(0x03FE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 608): 
+Rule can never be matched:
+"\u03FF" { print(0x03FF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 657): 
+Rule can never be matched:
+"\u0430" { print(0x0430); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 658): 
+Rule can never be matched:
+"\u0431" { print(0x0431); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 659): 
+Rule can never be matched:
+"\u0432" { print(0x0432); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 660): 
+Rule can never be matched:
+"\u0433" { print(0x0433); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 661): 
+Rule can never be matched:
+"\u0434" { print(0x0434); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 662): 
+Rule can never be matched:
+"\u0435" { print(0x0435); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 663): 
+Rule can never be matched:
+"\u0436" { print(0x0436); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 664): 
+Rule can never be matched:
+"\u0437" { print(0x0437); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 665): 
+Rule can never be matched:
+"\u0438" { print(0x0438); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 666): 
+Rule can never be matched:
+"\u0439" { print(0x0439); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 667): 
+Rule can never be matched:
+"\u043A" { print(0x043A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 668): 
+Rule can never be matched:
+"\u043B" { print(0x043B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 669): 
+Rule can never be matched:
+"\u043C" { print(0x043C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 670): 
+Rule can never be matched:
+"\u043D" { print(0x043D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 671): 
+Rule can never be matched:
+"\u043E" { print(0x043E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 672): 
+Rule can never be matched:
+"\u043F" { print(0x043F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 673): 
+Rule can never be matched:
+"\u0440" { print(0x0440); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 674): 
+Rule can never be matched:
+"\u0441" { print(0x0441); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 675): 
+Rule can never be matched:
+"\u0442" { print(0x0442); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 676): 
+Rule can never be matched:
+"\u0443" { print(0x0443); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 677): 
+Rule can never be matched:
+"\u0444" { print(0x0444); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 678): 
+Rule can never be matched:
+"\u0445" { print(0x0445); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 679): 
+Rule can never be matched:
+"\u0446" { print(0x0446); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 680): 
+Rule can never be matched:
+"\u0447" { print(0x0447); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 681): 
+Rule can never be matched:
+"\u0448" { print(0x0448); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 682): 
+Rule can never be matched:
+"\u0449" { print(0x0449); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 683): 
+Rule can never be matched:
+"\u044A" { print(0x044A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 684): 
+Rule can never be matched:
+"\u044B" { print(0x044B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 685): 
+Rule can never be matched:
+"\u044C" { print(0x044C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 686): 
+Rule can never be matched:
+"\u044D" { print(0x044D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 687): 
+Rule can never be matched:
+"\u044E" { print(0x044E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 688): 
+Rule can never be matched:
+"\u044F" { print(0x044F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 689): 
+Rule can never be matched:
+"\u0450" { print(0x0450); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 690): 
+Rule can never be matched:
+"\u0451" { print(0x0451); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 691): 
+Rule can never be matched:
+"\u0452" { print(0x0452); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 692): 
+Rule can never be matched:
+"\u0453" { print(0x0453); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 693): 
+Rule can never be matched:
+"\u0454" { print(0x0454); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 694): 
+Rule can never be matched:
+"\u0455" { print(0x0455); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 695): 
+Rule can never be matched:
+"\u0456" { print(0x0456); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 696): 
+Rule can never be matched:
+"\u0457" { print(0x0457); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 697): 
+Rule can never be matched:
+"\u0458" { print(0x0458); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 698): 
+Rule can never be matched:
+"\u0459" { print(0x0459); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 699): 
+Rule can never be matched:
+"\u045A" { print(0x045A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 700): 
+Rule can never be matched:
+"\u045B" { print(0x045B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 701): 
+Rule can never be matched:
+"\u045C" { print(0x045C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 702): 
+Rule can never be matched:
+"\u045D" { print(0x045D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 703): 
+Rule can never be matched:
+"\u045E" { print(0x045E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 704): 
+Rule can never be matched:
+"\u045F" { print(0x045F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 706): 
+Rule can never be matched:
+"\u0461" { print(0x0461); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 708): 
+Rule can never be matched:
+"\u0463" { print(0x0463); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 710): 
+Rule can never be matched:
+"\u0465" { print(0x0465); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 712): 
+Rule can never be matched:
+"\u0467" { print(0x0467); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 714): 
+Rule can never be matched:
+"\u0469" { print(0x0469); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 716): 
+Rule can never be matched:
+"\u046B" { print(0x046B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 718): 
+Rule can never be matched:
+"\u046D" { print(0x046D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 720): 
+Rule can never be matched:
+"\u046F" { print(0x046F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 722): 
+Rule can never be matched:
+"\u0471" { print(0x0471); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 724): 
+Rule can never be matched:
+"\u0473" { print(0x0473); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 726): 
+Rule can never be matched:
+"\u0475" { print(0x0475); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 728): 
+Rule can never be matched:
+"\u0477" { print(0x0477); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 730): 
+Rule can never be matched:
+"\u0479" { print(0x0479); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 732): 
+Rule can never be matched:
+"\u047B" { print(0x047B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 734): 
+Rule can never be matched:
+"\u047D" { print(0x047D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 736): 
+Rule can never be matched:
+"\u047F" { print(0x047F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 738): 
+Rule can never be matched:
+"\u0481" { print(0x0481); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 740): 
+Rule can never be matched:
+"\u048B" { print(0x048B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 742): 
+Rule can never be matched:
+"\u048D" { print(0x048D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 744): 
+Rule can never be matched:
+"\u048F" { print(0x048F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 746): 
+Rule can never be matched:
+"\u0491" { print(0x0491); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 748): 
+Rule can never be matched:
+"\u0493" { print(0x0493); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 750): 
+Rule can never be matched:
+"\u0495" { print(0x0495); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 752): 
+Rule can never be matched:
+"\u0497" { print(0x0497); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 754): 
+Rule can never be matched:
+"\u0499" { print(0x0499); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 756): 
+Rule can never be matched:
+"\u049B" { print(0x049B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 758): 
+Rule can never be matched:
+"\u049D" { print(0x049D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 760): 
+Rule can never be matched:
+"\u049F" { print(0x049F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 762): 
+Rule can never be matched:
+"\u04A1" { print(0x04A1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 764): 
+Rule can never be matched:
+"\u04A3" { print(0x04A3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 766): 
+Rule can never be matched:
+"\u04A5" { print(0x04A5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 768): 
+Rule can never be matched:
+"\u04A7" { print(0x04A7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 770): 
+Rule can never be matched:
+"\u04A9" { print(0x04A9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 772): 
+Rule can never be matched:
+"\u04AB" { print(0x04AB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 774): 
+Rule can never be matched:
+"\u04AD" { print(0x04AD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 776): 
+Rule can never be matched:
+"\u04AF" { print(0x04AF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 778): 
+Rule can never be matched:
+"\u04B1" { print(0x04B1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 780): 
+Rule can never be matched:
+"\u04B3" { print(0x04B3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 782): 
+Rule can never be matched:
+"\u04B5" { print(0x04B5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 784): 
+Rule can never be matched:
+"\u04B7" { print(0x04B7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 786): 
+Rule can never be matched:
+"\u04B9" { print(0x04B9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 788): 
+Rule can never be matched:
+"\u04BB" { print(0x04BB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 790): 
+Rule can never be matched:
+"\u04BD" { print(0x04BD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 792): 
+Rule can never be matched:
+"\u04BF" { print(0x04BF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 795): 
+Rule can never be matched:
+"\u04C2" { print(0x04C2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 797): 
+Rule can never be matched:
+"\u04C4" { print(0x04C4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 799): 
+Rule can never be matched:
+"\u04C6" { print(0x04C6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 801): 
+Rule can never be matched:
+"\u04C8" { print(0x04C8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 803): 
+Rule can never be matched:
+"\u04CA" { print(0x04CA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 805): 
+Rule can never be matched:
+"\u04CC" { print(0x04CC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 807): 
+Rule can never be matched:
+"\u04CE" { print(0x04CE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 808): 
+Rule can never be matched:
+"\u04CF" { print(0x04CF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 810): 
+Rule can never be matched:
+"\u04D1" { print(0x04D1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 812): 
+Rule can never be matched:
+"\u04D3" { print(0x04D3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 814): 
+Rule can never be matched:
+"\u04D5" { print(0x04D5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 816): 
+Rule can never be matched:
+"\u04D7" { print(0x04D7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 818): 
+Rule can never be matched:
+"\u04D9" { print(0x04D9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 820): 
+Rule can never be matched:
+"\u04DB" { print(0x04DB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 822): 
+Rule can never be matched:
+"\u04DD" { print(0x04DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 824): 
+Rule can never be matched:
+"\u04DF" { print(0x04DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 826): 
+Rule can never be matched:
+"\u04E1" { print(0x04E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 828): 
+Rule can never be matched:
+"\u04E3" { print(0x04E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 830): 
+Rule can never be matched:
+"\u04E5" { print(0x04E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 832): 
+Rule can never be matched:
+"\u04E7" { print(0x04E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 834): 
+Rule can never be matched:
+"\u04E9" { print(0x04E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 836): 
+Rule can never be matched:
+"\u04EB" { print(0x04EB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 838): 
+Rule can never be matched:
+"\u04ED" { print(0x04ED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 840): 
+Rule can never be matched:
+"\u04EF" { print(0x04EF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 842): 
+Rule can never be matched:
+"\u04F1" { print(0x04F1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 844): 
+Rule can never be matched:
+"\u04F3" { print(0x04F3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 846): 
+Rule can never be matched:
+"\u04F5" { print(0x04F5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 848): 
+Rule can never be matched:
+"\u04F7" { print(0x04F7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 850): 
+Rule can never be matched:
+"\u04F9" { print(0x04F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 852): 
+Rule can never be matched:
+"\u04FB" { print(0x04FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 854): 
+Rule can never be matched:
+"\u04FD" { print(0x04FD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 856): 
+Rule can never be matched:
+"\u04FF" { print(0x04FF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 858): 
+Rule can never be matched:
+"\u0501" { print(0x0501); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 860): 
+Rule can never be matched:
+"\u0503" { print(0x0503); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 862): 
+Rule can never be matched:
+"\u0505" { print(0x0505); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 864): 
+Rule can never be matched:
+"\u0507" { print(0x0507); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 866): 
+Rule can never be matched:
+"\u0509" { print(0x0509); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 868): 
+Rule can never be matched:
+"\u050B" { print(0x050B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 870): 
+Rule can never be matched:
+"\u050D" { print(0x050D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 872): 
+Rule can never be matched:
+"\u050F" { print(0x050F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 874): 
+Rule can never be matched:
+"\u0511" { print(0x0511); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 876): 
+Rule can never be matched:
+"\u0513" { print(0x0513); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 878): 
+Rule can never be matched:
+"\u0515" { print(0x0515); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 880): 
+Rule can never be matched:
+"\u0517" { print(0x0517); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 882): 
+Rule can never be matched:
+"\u0519" { print(0x0519); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 884): 
+Rule can never be matched:
+"\u051B" { print(0x051B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 886): 
+Rule can never be matched:
+"\u051D" { print(0x051D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 888): 
+Rule can never be matched:
+"\u051F" { print(0x051F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 890): 
+Rule can never be matched:
+"\u0521" { print(0x0521); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 892): 
+Rule can never be matched:
+"\u0523" { print(0x0523); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 894): 
+Rule can never be matched:
+"\u0525" { print(0x0525); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 896): 
+Rule can never be matched:
+"\u0527" { print(0x0527); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 898): 
+Rule can never be matched:
+"\u0529" { print(0x0529); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 900): 
+Rule can never be matched:
+"\u052B" { print(0x052B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 902): 
+Rule can never be matched:
+"\u052D" { print(0x052D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 904): 
+Rule can never be matched:
+"\u052F" { print(0x052F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 943): 
+Rule can never be matched:
+"\u0561" { print(0x0561); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 944): 
+Rule can never be matched:
+"\u0562" { print(0x0562); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 945): 
+Rule can never be matched:
+"\u0563" { print(0x0563); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 946): 
+Rule can never be matched:
+"\u0564" { print(0x0564); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 947): 
+Rule can never be matched:
+"\u0565" { print(0x0565); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 948): 
+Rule can never be matched:
+"\u0566" { print(0x0566); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 949): 
+Rule can never be matched:
+"\u0567" { print(0x0567); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 950): 
+Rule can never be matched:
+"\u0568" { print(0x0568); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 951): 
+Rule can never be matched:
+"\u0569" { print(0x0569); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 952): 
+Rule can never be matched:
+"\u056A" { print(0x056A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 953): 
+Rule can never be matched:
+"\u056B" { print(0x056B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 954): 
+Rule can never be matched:
+"\u056C" { print(0x056C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 955): 
+Rule can never be matched:
+"\u056D" { print(0x056D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 956): 
+Rule can never be matched:
+"\u056E" { print(0x056E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 957): 
+Rule can never be matched:
+"\u056F" { print(0x056F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 958): 
+Rule can never be matched:
+"\u0570" { print(0x0570); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 959): 
+Rule can never be matched:
+"\u0571" { print(0x0571); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 960): 
+Rule can never be matched:
+"\u0572" { print(0x0572); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 961): 
+Rule can never be matched:
+"\u0573" { print(0x0573); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 962): 
+Rule can never be matched:
+"\u0574" { print(0x0574); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 963): 
+Rule can never be matched:
+"\u0575" { print(0x0575); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 964): 
+Rule can never be matched:
+"\u0576" { print(0x0576); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 965): 
+Rule can never be matched:
+"\u0577" { print(0x0577); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 966): 
+Rule can never be matched:
+"\u0578" { print(0x0578); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 967): 
+Rule can never be matched:
+"\u0579" { print(0x0579); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 968): 
+Rule can never be matched:
+"\u057A" { print(0x057A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 969): 
+Rule can never be matched:
+"\u057B" { print(0x057B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 970): 
+Rule can never be matched:
+"\u057C" { print(0x057C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 971): 
+Rule can never be matched:
+"\u057D" { print(0x057D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 972): 
+Rule can never be matched:
+"\u057E" { print(0x057E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 973): 
+Rule can never be matched:
+"\u057F" { print(0x057F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 974): 
+Rule can never be matched:
+"\u0580" { print(0x0580); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 975): 
+Rule can never be matched:
+"\u0581" { print(0x0581); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 976): 
+Rule can never be matched:
+"\u0582" { print(0x0582); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 977): 
+Rule can never be matched:
+"\u0583" { print(0x0583); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 978): 
+Rule can never be matched:
+"\u0584" { print(0x0584); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 979): 
+Rule can never be matched:
+"\u0585" { print(0x0585); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 980): 
+Rule can never be matched:
+"\u0586" { print(0x0586); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1107): 
+Rule can never be matched:
+"\u13F8" { print(0x13F8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1108): 
+Rule can never be matched:
+"\u13F9" { print(0x13F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1109): 
+Rule can never be matched:
+"\u13FA" { print(0x13FA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1110): 
+Rule can never be matched:
+"\u13FB" { print(0x13FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1111): 
+Rule can never be matched:
+"\u13FC" { print(0x13FC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1112): 
+Rule can never be matched:
+"\u13FD" { print(0x13FD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1113): 
+Rule can never be matched:
+"\u1C80" { print(0x1C80); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1114): 
+Rule can never be matched:
+"\u1C81" { print(0x1C81); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1115): 
+Rule can never be matched:
+"\u1C82" { print(0x1C82); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1116): 
+Rule can never be matched:
+"\u1C83" { print(0x1C83); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1117): 
+Rule can never be matched:
+"\u1C84" { print(0x1C84); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1118): 
+Rule can never be matched:
+"\u1C85" { print(0x1C85); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1119): 
+Rule can never be matched:
+"\u1C86" { print(0x1C86); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1120): 
+Rule can never be matched:
+"\u1C87" { print(0x1C87); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1125): 
+Rule can never be matched:
+"\u1E01" { print(0x1E01); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1127): 
+Rule can never be matched:
+"\u1E03" { print(0x1E03); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1129): 
+Rule can never be matched:
+"\u1E05" { print(0x1E05); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1131): 
+Rule can never be matched:
+"\u1E07" { print(0x1E07); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1133): 
+Rule can never be matched:
+"\u1E09" { print(0x1E09); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1135): 
+Rule can never be matched:
+"\u1E0B" { print(0x1E0B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1137): 
+Rule can never be matched:
+"\u1E0D" { print(0x1E0D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1139): 
+Rule can never be matched:
+"\u1E0F" { print(0x1E0F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1141): 
+Rule can never be matched:
+"\u1E11" { print(0x1E11); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1143): 
+Rule can never be matched:
+"\u1E13" { print(0x1E13); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1145): 
+Rule can never be matched:
+"\u1E15" { print(0x1E15); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1147): 
+Rule can never be matched:
+"\u1E17" { print(0x1E17); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1149): 
+Rule can never be matched:
+"\u1E19" { print(0x1E19); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1151): 
+Rule can never be matched:
+"\u1E1B" { print(0x1E1B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1153): 
+Rule can never be matched:
+"\u1E1D" { print(0x1E1D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1155): 
+Rule can never be matched:
+"\u1E1F" { print(0x1E1F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1157): 
+Rule can never be matched:
+"\u1E21" { print(0x1E21); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1159): 
+Rule can never be matched:
+"\u1E23" { print(0x1E23); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1161): 
+Rule can never be matched:
+"\u1E25" { print(0x1E25); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1163): 
+Rule can never be matched:
+"\u1E27" { print(0x1E27); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1165): 
+Rule can never be matched:
+"\u1E29" { print(0x1E29); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1167): 
+Rule can never be matched:
+"\u1E2B" { print(0x1E2B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1169): 
+Rule can never be matched:
+"\u1E2D" { print(0x1E2D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1171): 
+Rule can never be matched:
+"\u1E2F" { print(0x1E2F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1173): 
+Rule can never be matched:
+"\u1E31" { print(0x1E31); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1175): 
+Rule can never be matched:
+"\u1E33" { print(0x1E33); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1177): 
+Rule can never be matched:
+"\u1E35" { print(0x1E35); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1179): 
+Rule can never be matched:
+"\u1E37" { print(0x1E37); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1181): 
+Rule can never be matched:
+"\u1E39" { print(0x1E39); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1183): 
+Rule can never be matched:
+"\u1E3B" { print(0x1E3B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1185): 
+Rule can never be matched:
+"\u1E3D" { print(0x1E3D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1187): 
+Rule can never be matched:
+"\u1E3F" { print(0x1E3F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1189): 
+Rule can never be matched:
+"\u1E41" { print(0x1E41); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1191): 
+Rule can never be matched:
+"\u1E43" { print(0x1E43); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1193): 
+Rule can never be matched:
+"\u1E45" { print(0x1E45); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1195): 
+Rule can never be matched:
+"\u1E47" { print(0x1E47); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1197): 
+Rule can never be matched:
+"\u1E49" { print(0x1E49); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1199): 
+Rule can never be matched:
+"\u1E4B" { print(0x1E4B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1201): 
+Rule can never be matched:
+"\u1E4D" { print(0x1E4D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1203): 
+Rule can never be matched:
+"\u1E4F" { print(0x1E4F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1205): 
+Rule can never be matched:
+"\u1E51" { print(0x1E51); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1207): 
+Rule can never be matched:
+"\u1E53" { print(0x1E53); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1209): 
+Rule can never be matched:
+"\u1E55" { print(0x1E55); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1211): 
+Rule can never be matched:
+"\u1E57" { print(0x1E57); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1213): 
+Rule can never be matched:
+"\u1E59" { print(0x1E59); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1215): 
+Rule can never be matched:
+"\u1E5B" { print(0x1E5B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1217): 
+Rule can never be matched:
+"\u1E5D" { print(0x1E5D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1219): 
+Rule can never be matched:
+"\u1E5F" { print(0x1E5F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1221): 
+Rule can never be matched:
+"\u1E61" { print(0x1E61); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1223): 
+Rule can never be matched:
+"\u1E63" { print(0x1E63); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1225): 
+Rule can never be matched:
+"\u1E65" { print(0x1E65); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1227): 
+Rule can never be matched:
+"\u1E67" { print(0x1E67); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1229): 
+Rule can never be matched:
+"\u1E69" { print(0x1E69); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1231): 
+Rule can never be matched:
+"\u1E6B" { print(0x1E6B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1233): 
+Rule can never be matched:
+"\u1E6D" { print(0x1E6D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1235): 
+Rule can never be matched:
+"\u1E6F" { print(0x1E6F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1237): 
+Rule can never be matched:
+"\u1E71" { print(0x1E71); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1239): 
+Rule can never be matched:
+"\u1E73" { print(0x1E73); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1241): 
+Rule can never be matched:
+"\u1E75" { print(0x1E75); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1243): 
+Rule can never be matched:
+"\u1E77" { print(0x1E77); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1245): 
+Rule can never be matched:
+"\u1E79" { print(0x1E79); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1247): 
+Rule can never be matched:
+"\u1E7B" { print(0x1E7B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1249): 
+Rule can never be matched:
+"\u1E7D" { print(0x1E7D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1251): 
+Rule can never be matched:
+"\u1E7F" { print(0x1E7F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1253): 
+Rule can never be matched:
+"\u1E81" { print(0x1E81); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1255): 
+Rule can never be matched:
+"\u1E83" { print(0x1E83); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1257): 
+Rule can never be matched:
+"\u1E85" { print(0x1E85); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1259): 
+Rule can never be matched:
+"\u1E87" { print(0x1E87); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1261): 
+Rule can never be matched:
+"\u1E89" { print(0x1E89); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1263): 
+Rule can never be matched:
+"\u1E8B" { print(0x1E8B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1265): 
+Rule can never be matched:
+"\u1E8D" { print(0x1E8D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1267): 
+Rule can never be matched:
+"\u1E8F" { print(0x1E8F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1269): 
+Rule can never be matched:
+"\u1E91" { print(0x1E91); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1271): 
+Rule can never be matched:
+"\u1E93" { print(0x1E93); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1273): 
+Rule can never be matched:
+"\u1E95" { print(0x1E95); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1274): 
+Rule can never be matched:
+"\u1E9B" { print(0x1E9B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1275): 
+Rule can never be matched:
+"\u1E9E" { print(0x1E9E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1277): 
+Rule can never be matched:
+"\u1EA1" { print(0x1EA1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1279): 
+Rule can never be matched:
+"\u1EA3" { print(0x1EA3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1281): 
+Rule can never be matched:
+"\u1EA5" { print(0x1EA5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1283): 
+Rule can never be matched:
+"\u1EA7" { print(0x1EA7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1285): 
+Rule can never be matched:
+"\u1EA9" { print(0x1EA9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1287): 
+Rule can never be matched:
+"\u1EAB" { print(0x1EAB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1289): 
+Rule can never be matched:
+"\u1EAD" { print(0x1EAD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1291): 
+Rule can never be matched:
+"\u1EAF" { print(0x1EAF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1293): 
+Rule can never be matched:
+"\u1EB1" { print(0x1EB1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1295): 
+Rule can never be matched:
+"\u1EB3" { print(0x1EB3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1297): 
+Rule can never be matched:
+"\u1EB5" { print(0x1EB5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1299): 
+Rule can never be matched:
+"\u1EB7" { print(0x1EB7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1301): 
+Rule can never be matched:
+"\u1EB9" { print(0x1EB9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1303): 
+Rule can never be matched:
+"\u1EBB" { print(0x1EBB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1305): 
+Rule can never be matched:
+"\u1EBD" { print(0x1EBD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1307): 
+Rule can never be matched:
+"\u1EBF" { print(0x1EBF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1309): 
+Rule can never be matched:
+"\u1EC1" { print(0x1EC1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1311): 
+Rule can never be matched:
+"\u1EC3" { print(0x1EC3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1313): 
+Rule can never be matched:
+"\u1EC5" { print(0x1EC5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1315): 
+Rule can never be matched:
+"\u1EC7" { print(0x1EC7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1317): 
+Rule can never be matched:
+"\u1EC9" { print(0x1EC9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1319): 
+Rule can never be matched:
+"\u1ECB" { print(0x1ECB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1321): 
+Rule can never be matched:
+"\u1ECD" { print(0x1ECD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1323): 
+Rule can never be matched:
+"\u1ECF" { print(0x1ECF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1325): 
+Rule can never be matched:
+"\u1ED1" { print(0x1ED1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1327): 
+Rule can never be matched:
+"\u1ED3" { print(0x1ED3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1329): 
+Rule can never be matched:
+"\u1ED5" { print(0x1ED5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1331): 
+Rule can never be matched:
+"\u1ED7" { print(0x1ED7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1333): 
+Rule can never be matched:
+"\u1ED9" { print(0x1ED9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1335): 
+Rule can never be matched:
+"\u1EDB" { print(0x1EDB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1337): 
+Rule can never be matched:
+"\u1EDD" { print(0x1EDD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1339): 
+Rule can never be matched:
+"\u1EDF" { print(0x1EDF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1341): 
+Rule can never be matched:
+"\u1EE1" { print(0x1EE1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1343): 
+Rule can never be matched:
+"\u1EE3" { print(0x1EE3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1345): 
+Rule can never be matched:
+"\u1EE5" { print(0x1EE5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1347): 
+Rule can never be matched:
+"\u1EE7" { print(0x1EE7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1349): 
+Rule can never be matched:
+"\u1EE9" { print(0x1EE9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1351): 
+Rule can never be matched:
+"\u1EEB" { print(0x1EEB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1353): 
+Rule can never be matched:
+"\u1EED" { print(0x1EED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1355): 
+Rule can never be matched:
+"\u1EEF" { print(0x1EEF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1357): 
+Rule can never be matched:
+"\u1EF1" { print(0x1EF1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1359): 
+Rule can never be matched:
+"\u1EF3" { print(0x1EF3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1361): 
+Rule can never be matched:
+"\u1EF5" { print(0x1EF5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1363): 
+Rule can never be matched:
+"\u1EF7" { print(0x1EF7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1365): 
+Rule can never be matched:
+"\u1EF9" { print(0x1EF9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1367): 
+Rule can never be matched:
+"\u1EFB" { print(0x1EFB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1369): 
+Rule can never be matched:
+"\u1EFD" { print(0x1EFD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1371): 
+Rule can never be matched:
+"\u1EFF" { print(0x1EFF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1380): 
+Rule can never be matched:
+"\u1F08" { print(0x1F08); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1381): 
+Rule can never be matched:
+"\u1F09" { print(0x1F09); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1382): 
+Rule can never be matched:
+"\u1F0A" { print(0x1F0A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1383): 
+Rule can never be matched:
+"\u1F0B" { print(0x1F0B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1384): 
+Rule can never be matched:
+"\u1F0C" { print(0x1F0C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1385): 
+Rule can never be matched:
+"\u1F0D" { print(0x1F0D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1386): 
+Rule can never be matched:
+"\u1F0E" { print(0x1F0E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1387): 
+Rule can never be matched:
+"\u1F0F" { print(0x1F0F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1394): 
+Rule can never be matched:
+"\u1F18" { print(0x1F18); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1395): 
+Rule can never be matched:
+"\u1F19" { print(0x1F19); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1396): 
+Rule can never be matched:
+"\u1F1A" { print(0x1F1A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1397): 
+Rule can never be matched:
+"\u1F1B" { print(0x1F1B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1398): 
+Rule can never be matched:
+"\u1F1C" { print(0x1F1C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1399): 
+Rule can never be matched:
+"\u1F1D" { print(0x1F1D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1408): 
+Rule can never be matched:
+"\u1F28" { print(0x1F28); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1409): 
+Rule can never be matched:
+"\u1F29" { print(0x1F29); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1410): 
+Rule can never be matched:
+"\u1F2A" { print(0x1F2A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1411): 
+Rule can never be matched:
+"\u1F2B" { print(0x1F2B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1412): 
+Rule can never be matched:
+"\u1F2C" { print(0x1F2C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1413): 
+Rule can never be matched:
+"\u1F2D" { print(0x1F2D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1414): 
+Rule can never be matched:
+"\u1F2E" { print(0x1F2E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1415): 
+Rule can never be matched:
+"\u1F2F" { print(0x1F2F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1424): 
+Rule can never be matched:
+"\u1F38" { print(0x1F38); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1425): 
+Rule can never be matched:
+"\u1F39" { print(0x1F39); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1426): 
+Rule can never be matched:
+"\u1F3A" { print(0x1F3A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1427): 
+Rule can never be matched:
+"\u1F3B" { print(0x1F3B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1428): 
+Rule can never be matched:
+"\u1F3C" { print(0x1F3C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1429): 
+Rule can never be matched:
+"\u1F3D" { print(0x1F3D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1430): 
+Rule can never be matched:
+"\u1F3E" { print(0x1F3E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1431): 
+Rule can never be matched:
+"\u1F3F" { print(0x1F3F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1438): 
+Rule can never be matched:
+"\u1F48" { print(0x1F48); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1439): 
+Rule can never be matched:
+"\u1F49" { print(0x1F49); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1440): 
+Rule can never be matched:
+"\u1F4A" { print(0x1F4A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1441): 
+Rule can never be matched:
+"\u1F4B" { print(0x1F4B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1442): 
+Rule can never be matched:
+"\u1F4C" { print(0x1F4C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1443): 
+Rule can never be matched:
+"\u1F4D" { print(0x1F4D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1448): 
+Rule can never be matched:
+"\u1F59" { print(0x1F59); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1449): 
+Rule can never be matched:
+"\u1F5B" { print(0x1F5B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1450): 
+Rule can never be matched:
+"\u1F5D" { print(0x1F5D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1451): 
+Rule can never be matched:
+"\u1F5F" { print(0x1F5F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1460): 
+Rule can never be matched:
+"\u1F68" { print(0x1F68); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1461): 
+Rule can never be matched:
+"\u1F69" { print(0x1F69); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1462): 
+Rule can never be matched:
+"\u1F6A" { print(0x1F6A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1463): 
+Rule can never be matched:
+"\u1F6B" { print(0x1F6B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1464): 
+Rule can never be matched:
+"\u1F6C" { print(0x1F6C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1465): 
+Rule can never be matched:
+"\u1F6D" { print(0x1F6D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1466): 
+Rule can never be matched:
+"\u1F6E" { print(0x1F6E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1467): 
+Rule can never be matched:
+"\u1F6F" { print(0x1F6F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1490): 
+Rule can never be matched:
+"\u1F88" { print(0x1F88); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1491): 
+Rule can never be matched:
+"\u1F89" { print(0x1F89); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1492): 
+Rule can never be matched:
+"\u1F8A" { print(0x1F8A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1493): 
+Rule can never be matched:
+"\u1F8B" { print(0x1F8B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1494): 
+Rule can never be matched:
+"\u1F8C" { print(0x1F8C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1495): 
+Rule can never be matched:
+"\u1F8D" { print(0x1F8D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1496): 
+Rule can never be matched:
+"\u1F8E" { print(0x1F8E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1497): 
+Rule can never be matched:
+"\u1F8F" { print(0x1F8F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1506): 
+Rule can never be matched:
+"\u1F98" { print(0x1F98); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1507): 
+Rule can never be matched:
+"\u1F99" { print(0x1F99); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1508): 
+Rule can never be matched:
+"\u1F9A" { print(0x1F9A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1509): 
+Rule can never be matched:
+"\u1F9B" { print(0x1F9B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1510): 
+Rule can never be matched:
+"\u1F9C" { print(0x1F9C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1511): 
+Rule can never be matched:
+"\u1F9D" { print(0x1F9D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1512): 
+Rule can never be matched:
+"\u1F9E" { print(0x1F9E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1513): 
+Rule can never be matched:
+"\u1F9F" { print(0x1F9F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1522): 
+Rule can never be matched:
+"\u1FA8" { print(0x1FA8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1523): 
+Rule can never be matched:
+"\u1FA9" { print(0x1FA9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1524): 
+Rule can never be matched:
+"\u1FAA" { print(0x1FAA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1525): 
+Rule can never be matched:
+"\u1FAB" { print(0x1FAB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1526): 
+Rule can never be matched:
+"\u1FAC" { print(0x1FAC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1527): 
+Rule can never be matched:
+"\u1FAD" { print(0x1FAD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1528): 
+Rule can never be matched:
+"\u1FAE" { print(0x1FAE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1529): 
+Rule can never be matched:
+"\u1FAF" { print(0x1FAF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1533): 
+Rule can never be matched:
+"\u1FB8" { print(0x1FB8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1534): 
+Rule can never be matched:
+"\u1FB9" { print(0x1FB9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1535): 
+Rule can never be matched:
+"\u1FBA" { print(0x1FBA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1536): 
+Rule can never be matched:
+"\u1FBB" { print(0x1FBB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1537): 
+Rule can never be matched:
+"\u1FBC" { print(0x1FBC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1538): 
+Rule can never be matched:
+"\u1FBE" { print(0x1FBE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1540): 
+Rule can never be matched:
+"\u1FC8" { print(0x1FC8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1541): 
+Rule can never be matched:
+"\u1FC9" { print(0x1FC9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1542): 
+Rule can never be matched:
+"\u1FCA" { print(0x1FCA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1543): 
+Rule can never be matched:
+"\u1FCB" { print(0x1FCB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1544): 
+Rule can never be matched:
+"\u1FCC" { print(0x1FCC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1547): 
+Rule can never be matched:
+"\u1FD8" { print(0x1FD8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1548): 
+Rule can never be matched:
+"\u1FD9" { print(0x1FD9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1549): 
+Rule can never be matched:
+"\u1FDA" { print(0x1FDA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1550): 
+Rule can never be matched:
+"\u1FDB" { print(0x1FDB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1554): 
+Rule can never be matched:
+"\u1FE8" { print(0x1FE8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1555): 
+Rule can never be matched:
+"\u1FE9" { print(0x1FE9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1556): 
+Rule can never be matched:
+"\u1FEA" { print(0x1FEA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1557): 
+Rule can never be matched:
+"\u1FEB" { print(0x1FEB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1558): 
+Rule can never be matched:
+"\u1FEC" { print(0x1FEC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1560): 
+Rule can never be matched:
+"\u1FF8" { print(0x1FF8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1561): 
+Rule can never be matched:
+"\u1FF9" { print(0x1FF9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1562): 
+Rule can never be matched:
+"\u1FFA" { print(0x1FFA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1563): 
+Rule can never be matched:
+"\u1FFB" { print(0x1FFB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1564): 
+Rule can never be matched:
+"\u1FFC" { print(0x1FFC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1565): 
+Rule can never be matched:
+"\u2126" { print(0x2126); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1566): 
+Rule can never be matched:
+"\u212A" { print(0x212A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1567): 
+Rule can never be matched:
+"\u212B" { print(0x212B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1569): 
+Rule can never be matched:
+"\u214E" { print(0x214E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1586): 
+Rule can never be matched:
+"\u2170" { print(0x2170); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1587): 
+Rule can never be matched:
+"\u2171" { print(0x2171); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1588): 
+Rule can never be matched:
+"\u2172" { print(0x2172); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1589): 
+Rule can never be matched:
+"\u2173" { print(0x2173); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1590): 
+Rule can never be matched:
+"\u2174" { print(0x2174); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1591): 
+Rule can never be matched:
+"\u2175" { print(0x2175); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1592): 
+Rule can never be matched:
+"\u2176" { print(0x2176); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1593): 
+Rule can never be matched:
+"\u2177" { print(0x2177); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1594): 
+Rule can never be matched:
+"\u2178" { print(0x2178); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1595): 
+Rule can never be matched:
+"\u2179" { print(0x2179); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1596): 
+Rule can never be matched:
+"\u217A" { print(0x217A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1597): 
+Rule can never be matched:
+"\u217B" { print(0x217B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1598): 
+Rule can never be matched:
+"\u217C" { print(0x217C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1599): 
+Rule can never be matched:
+"\u217D" { print(0x217D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1600): 
+Rule can never be matched:
+"\u217E" { print(0x217E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1601): 
+Rule can never be matched:
+"\u217F" { print(0x217F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1603): 
+Rule can never be matched:
+"\u2184" { print(0x2184); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1630): 
+Rule can never be matched:
+"\u24D0" { print(0x24D0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1631): 
+Rule can never be matched:
+"\u24D1" { print(0x24D1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1632): 
+Rule can never be matched:
+"\u24D2" { print(0x24D2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1633): 
+Rule can never be matched:
+"\u24D3" { print(0x24D3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1634): 
+Rule can never be matched:
+"\u24D4" { print(0x24D4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1635): 
+Rule can never be matched:
+"\u24D5" { print(0x24D5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1636): 
+Rule can never be matched:
+"\u24D6" { print(0x24D6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1637): 
+Rule can never be matched:
+"\u24D7" { print(0x24D7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1638): 
+Rule can never be matched:
+"\u24D8" { print(0x24D8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1639): 
+Rule can never be matched:
+"\u24D9" { print(0x24D9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1640): 
+Rule can never be matched:
+"\u24DA" { print(0x24DA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1641): 
+Rule can never be matched:
+"\u24DB" { print(0x24DB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1642): 
+Rule can never be matched:
+"\u24DC" { print(0x24DC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1643): 
+Rule can never be matched:
+"\u24DD" { print(0x24DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1644): 
+Rule can never be matched:
+"\u24DE" { print(0x24DE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1645): 
+Rule can never be matched:
+"\u24DF" { print(0x24DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1646): 
+Rule can never be matched:
+"\u24E0" { print(0x24E0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1647): 
+Rule can never be matched:
+"\u24E1" { print(0x24E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1648): 
+Rule can never be matched:
+"\u24E2" { print(0x24E2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1649): 
+Rule can never be matched:
+"\u24E3" { print(0x24E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1650): 
+Rule can never be matched:
+"\u24E4" { print(0x24E4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1651): 
+Rule can never be matched:
+"\u24E5" { print(0x24E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1652): 
+Rule can never be matched:
+"\u24E6" { print(0x24E6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1653): 
+Rule can never be matched:
+"\u24E7" { print(0x24E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1654): 
+Rule can never be matched:
+"\u24E8" { print(0x24E8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1655): 
+Rule can never be matched:
+"\u24E9" { print(0x24E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1703): 
+Rule can never be matched:
+"\u2C30" { print(0x2C30); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1704): 
+Rule can never be matched:
+"\u2C31" { print(0x2C31); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1705): 
+Rule can never be matched:
+"\u2C32" { print(0x2C32); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1706): 
+Rule can never be matched:
+"\u2C33" { print(0x2C33); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1707): 
+Rule can never be matched:
+"\u2C34" { print(0x2C34); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1708): 
+Rule can never be matched:
+"\u2C35" { print(0x2C35); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1709): 
+Rule can never be matched:
+"\u2C36" { print(0x2C36); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1710): 
+Rule can never be matched:
+"\u2C37" { print(0x2C37); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1711): 
+Rule can never be matched:
+"\u2C38" { print(0x2C38); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1712): 
+Rule can never be matched:
+"\u2C39" { print(0x2C39); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1713): 
+Rule can never be matched:
+"\u2C3A" { print(0x2C3A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1714): 
+Rule can never be matched:
+"\u2C3B" { print(0x2C3B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1715): 
+Rule can never be matched:
+"\u2C3C" { print(0x2C3C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1716): 
+Rule can never be matched:
+"\u2C3D" { print(0x2C3D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1717): 
+Rule can never be matched:
+"\u2C3E" { print(0x2C3E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1718): 
+Rule can never be matched:
+"\u2C3F" { print(0x2C3F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1719): 
+Rule can never be matched:
+"\u2C40" { print(0x2C40); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1720): 
+Rule can never be matched:
+"\u2C41" { print(0x2C41); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1721): 
+Rule can never be matched:
+"\u2C42" { print(0x2C42); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1722): 
+Rule can never be matched:
+"\u2C43" { print(0x2C43); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1723): 
+Rule can never be matched:
+"\u2C44" { print(0x2C44); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1724): 
+Rule can never be matched:
+"\u2C45" { print(0x2C45); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1725): 
+Rule can never be matched:
+"\u2C46" { print(0x2C46); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1726): 
+Rule can never be matched:
+"\u2C47" { print(0x2C47); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1727): 
+Rule can never be matched:
+"\u2C48" { print(0x2C48); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1728): 
+Rule can never be matched:
+"\u2C49" { print(0x2C49); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1729): 
+Rule can never be matched:
+"\u2C4A" { print(0x2C4A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1730): 
+Rule can never be matched:
+"\u2C4B" { print(0x2C4B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1731): 
+Rule can never be matched:
+"\u2C4C" { print(0x2C4C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1732): 
+Rule can never be matched:
+"\u2C4D" { print(0x2C4D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1733): 
+Rule can never be matched:
+"\u2C4E" { print(0x2C4E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1734): 
+Rule can never be matched:
+"\u2C4F" { print(0x2C4F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1735): 
+Rule can never be matched:
+"\u2C50" { print(0x2C50); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1736): 
+Rule can never be matched:
+"\u2C51" { print(0x2C51); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1737): 
+Rule can never be matched:
+"\u2C52" { print(0x2C52); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1738): 
+Rule can never be matched:
+"\u2C53" { print(0x2C53); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1739): 
+Rule can never be matched:
+"\u2C54" { print(0x2C54); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1740): 
+Rule can never be matched:
+"\u2C55" { print(0x2C55); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1741): 
+Rule can never be matched:
+"\u2C56" { print(0x2C56); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1742): 
+Rule can never be matched:
+"\u2C57" { print(0x2C57); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1743): 
+Rule can never be matched:
+"\u2C58" { print(0x2C58); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1744): 
+Rule can never be matched:
+"\u2C59" { print(0x2C59); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1745): 
+Rule can never be matched:
+"\u2C5A" { print(0x2C5A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1746): 
+Rule can never be matched:
+"\u2C5B" { print(0x2C5B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1747): 
+Rule can never be matched:
+"\u2C5C" { print(0x2C5C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1748): 
+Rule can never be matched:
+"\u2C5D" { print(0x2C5D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1749): 
+Rule can never be matched:
+"\u2C5E" { print(0x2C5E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1751): 
+Rule can never be matched:
+"\u2C61" { print(0x2C61); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1752): 
+Rule can never be matched:
+"\u2C62" { print(0x2C62); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1753): 
+Rule can never be matched:
+"\u2C63" { print(0x2C63); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1754): 
+Rule can never be matched:
+"\u2C64" { print(0x2C64); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1755): 
+Rule can never be matched:
+"\u2C65" { print(0x2C65); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1756): 
+Rule can never be matched:
+"\u2C66" { print(0x2C66); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1758): 
+Rule can never be matched:
+"\u2C68" { print(0x2C68); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1760): 
+Rule can never be matched:
+"\u2C6A" { print(0x2C6A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1762): 
+Rule can never be matched:
+"\u2C6C" { print(0x2C6C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1763): 
+Rule can never be matched:
+"\u2C6D" { print(0x2C6D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1764): 
+Rule can never be matched:
+"\u2C6E" { print(0x2C6E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1765): 
+Rule can never be matched:
+"\u2C6F" { print(0x2C6F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1766): 
+Rule can never be matched:
+"\u2C70" { print(0x2C70); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1768): 
+Rule can never be matched:
+"\u2C73" { print(0x2C73); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1770): 
+Rule can never be matched:
+"\u2C76" { print(0x2C76); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1771): 
+Rule can never be matched:
+"\u2C7E" { print(0x2C7E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1772): 
+Rule can never be matched:
+"\u2C7F" { print(0x2C7F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1774): 
+Rule can never be matched:
+"\u2C81" { print(0x2C81); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1776): 
+Rule can never be matched:
+"\u2C83" { print(0x2C83); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1778): 
+Rule can never be matched:
+"\u2C85" { print(0x2C85); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1780): 
+Rule can never be matched:
+"\u2C87" { print(0x2C87); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1782): 
+Rule can never be matched:
+"\u2C89" { print(0x2C89); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1784): 
+Rule can never be matched:
+"\u2C8B" { print(0x2C8B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1786): 
+Rule can never be matched:
+"\u2C8D" { print(0x2C8D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1788): 
+Rule can never be matched:
+"\u2C8F" { print(0x2C8F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1790): 
+Rule can never be matched:
+"\u2C91" { print(0x2C91); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1792): 
+Rule can never be matched:
+"\u2C93" { print(0x2C93); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1794): 
+Rule can never be matched:
+"\u2C95" { print(0x2C95); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1796): 
+Rule can never be matched:
+"\u2C97" { print(0x2C97); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1798): 
+Rule can never be matched:
+"\u2C99" { print(0x2C99); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1800): 
+Rule can never be matched:
+"\u2C9B" { print(0x2C9B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1802): 
+Rule can never be matched:
+"\u2C9D" { print(0x2C9D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1804): 
+Rule can never be matched:
+"\u2C9F" { print(0x2C9F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1806): 
+Rule can never be matched:
+"\u2CA1" { print(0x2CA1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1808): 
+Rule can never be matched:
+"\u2CA3" { print(0x2CA3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1810): 
+Rule can never be matched:
+"\u2CA5" { print(0x2CA5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1812): 
+Rule can never be matched:
+"\u2CA7" { print(0x2CA7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1814): 
+Rule can never be matched:
+"\u2CA9" { print(0x2CA9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1816): 
+Rule can never be matched:
+"\u2CAB" { print(0x2CAB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1818): 
+Rule can never be matched:
+"\u2CAD" { print(0x2CAD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1820): 
+Rule can never be matched:
+"\u2CAF" { print(0x2CAF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1822): 
+Rule can never be matched:
+"\u2CB1" { print(0x2CB1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1824): 
+Rule can never be matched:
+"\u2CB3" { print(0x2CB3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1826): 
+Rule can never be matched:
+"\u2CB5" { print(0x2CB5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1828): 
+Rule can never be matched:
+"\u2CB7" { print(0x2CB7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1830): 
+Rule can never be matched:
+"\u2CB9" { print(0x2CB9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1832): 
+Rule can never be matched:
+"\u2CBB" { print(0x2CBB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1834): 
+Rule can never be matched:
+"\u2CBD" { print(0x2CBD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1836): 
+Rule can never be matched:
+"\u2CBF" { print(0x2CBF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1838): 
+Rule can never be matched:
+"\u2CC1" { print(0x2CC1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1840): 
+Rule can never be matched:
+"\u2CC3" { print(0x2CC3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1842): 
+Rule can never be matched:
+"\u2CC5" { print(0x2CC5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1844): 
+Rule can never be matched:
+"\u2CC7" { print(0x2CC7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1846): 
+Rule can never be matched:
+"\u2CC9" { print(0x2CC9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1848): 
+Rule can never be matched:
+"\u2CCB" { print(0x2CCB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1850): 
+Rule can never be matched:
+"\u2CCD" { print(0x2CCD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1852): 
+Rule can never be matched:
+"\u2CCF" { print(0x2CCF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1854): 
+Rule can never be matched:
+"\u2CD1" { print(0x2CD1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1856): 
+Rule can never be matched:
+"\u2CD3" { print(0x2CD3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1858): 
+Rule can never be matched:
+"\u2CD5" { print(0x2CD5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1860): 
+Rule can never be matched:
+"\u2CD7" { print(0x2CD7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1862): 
+Rule can never be matched:
+"\u2CD9" { print(0x2CD9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1864): 
+Rule can never be matched:
+"\u2CDB" { print(0x2CDB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1866): 
+Rule can never be matched:
+"\u2CDD" { print(0x2CDD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1868): 
+Rule can never be matched:
+"\u2CDF" { print(0x2CDF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1870): 
+Rule can never be matched:
+"\u2CE1" { print(0x2CE1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1872): 
+Rule can never be matched:
+"\u2CE3" { print(0x2CE3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1874): 
+Rule can never be matched:
+"\u2CEC" { print(0x2CEC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1876): 
+Rule can never be matched:
+"\u2CEE" { print(0x2CEE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1878): 
+Rule can never be matched:
+"\u2CF3" { print(0x2CF3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1879): 
+Rule can never be matched:
+"\u2D00" { print(0x2D00); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1880): 
+Rule can never be matched:
+"\u2D01" { print(0x2D01); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1881): 
+Rule can never be matched:
+"\u2D02" { print(0x2D02); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1882): 
+Rule can never be matched:
+"\u2D03" { print(0x2D03); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1883): 
+Rule can never be matched:
+"\u2D04" { print(0x2D04); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1884): 
+Rule can never be matched:
+"\u2D05" { print(0x2D05); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1885): 
+Rule can never be matched:
+"\u2D06" { print(0x2D06); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1886): 
+Rule can never be matched:
+"\u2D07" { print(0x2D07); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1887): 
+Rule can never be matched:
+"\u2D08" { print(0x2D08); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1888): 
+Rule can never be matched:
+"\u2D09" { print(0x2D09); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1889): 
+Rule can never be matched:
+"\u2D0A" { print(0x2D0A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1890): 
+Rule can never be matched:
+"\u2D0B" { print(0x2D0B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1891): 
+Rule can never be matched:
+"\u2D0C" { print(0x2D0C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1892): 
+Rule can never be matched:
+"\u2D0D" { print(0x2D0D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1893): 
+Rule can never be matched:
+"\u2D0E" { print(0x2D0E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1894): 
+Rule can never be matched:
+"\u2D0F" { print(0x2D0F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1895): 
+Rule can never be matched:
+"\u2D10" { print(0x2D10); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1896): 
+Rule can never be matched:
+"\u2D11" { print(0x2D11); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1897): 
+Rule can never be matched:
+"\u2D12" { print(0x2D12); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1898): 
+Rule can never be matched:
+"\u2D13" { print(0x2D13); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1899): 
+Rule can never be matched:
+"\u2D14" { print(0x2D14); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1900): 
+Rule can never be matched:
+"\u2D15" { print(0x2D15); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1901): 
+Rule can never be matched:
+"\u2D16" { print(0x2D16); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1902): 
+Rule can never be matched:
+"\u2D17" { print(0x2D17); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1903): 
+Rule can never be matched:
+"\u2D18" { print(0x2D18); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1904): 
+Rule can never be matched:
+"\u2D19" { print(0x2D19); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1905): 
+Rule can never be matched:
+"\u2D1A" { print(0x2D1A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1906): 
+Rule can never be matched:
+"\u2D1B" { print(0x2D1B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1907): 
+Rule can never be matched:
+"\u2D1C" { print(0x2D1C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1908): 
+Rule can never be matched:
+"\u2D1D" { print(0x2D1D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1909): 
+Rule can never be matched:
+"\u2D1E" { print(0x2D1E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1910): 
+Rule can never be matched:
+"\u2D1F" { print(0x2D1F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1911): 
+Rule can never be matched:
+"\u2D20" { print(0x2D20); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1912): 
+Rule can never be matched:
+"\u2D21" { print(0x2D21); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1913): 
+Rule can never be matched:
+"\u2D22" { print(0x2D22); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1914): 
+Rule can never be matched:
+"\u2D23" { print(0x2D23); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1915): 
+Rule can never be matched:
+"\u2D24" { print(0x2D24); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1916): 
+Rule can never be matched:
+"\u2D25" { print(0x2D25); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1917): 
+Rule can never be matched:
+"\u2D27" { print(0x2D27); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1918): 
+Rule can never be matched:
+"\u2D2D" { print(0x2D2D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1920): 
+Rule can never be matched:
+"\uA641" { print(0xA641); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1922): 
+Rule can never be matched:
+"\uA643" { print(0xA643); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1924): 
+Rule can never be matched:
+"\uA645" { print(0xA645); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1926): 
+Rule can never be matched:
+"\uA647" { print(0xA647); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1928): 
+Rule can never be matched:
+"\uA649" { print(0xA649); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1929): 
+Rule can never be matched:
+"\uA64A" { print(0xA64A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1930): 
+Rule can never be matched:
+"\uA64B" { print(0xA64B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1932): 
+Rule can never be matched:
+"\uA64D" { print(0xA64D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1934): 
+Rule can never be matched:
+"\uA64F" { print(0xA64F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1936): 
+Rule can never be matched:
+"\uA651" { print(0xA651); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1938): 
+Rule can never be matched:
+"\uA653" { print(0xA653); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1940): 
+Rule can never be matched:
+"\uA655" { print(0xA655); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1942): 
+Rule can never be matched:
+"\uA657" { print(0xA657); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1944): 
+Rule can never be matched:
+"\uA659" { print(0xA659); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1946): 
+Rule can never be matched:
+"\uA65B" { print(0xA65B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1948): 
+Rule can never be matched:
+"\uA65D" { print(0xA65D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1950): 
+Rule can never be matched:
+"\uA65F" { print(0xA65F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1952): 
+Rule can never be matched:
+"\uA661" { print(0xA661); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1954): 
+Rule can never be matched:
+"\uA663" { print(0xA663); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1956): 
+Rule can never be matched:
+"\uA665" { print(0xA665); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1958): 
+Rule can never be matched:
+"\uA667" { print(0xA667); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1960): 
+Rule can never be matched:
+"\uA669" { print(0xA669); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1962): 
+Rule can never be matched:
+"\uA66B" { print(0xA66B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1964): 
+Rule can never be matched:
+"\uA66D" { print(0xA66D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1966): 
+Rule can never be matched:
+"\uA681" { print(0xA681); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1968): 
+Rule can never be matched:
+"\uA683" { print(0xA683); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1970): 
+Rule can never be matched:
+"\uA685" { print(0xA685); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1972): 
+Rule can never be matched:
+"\uA687" { print(0xA687); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1974): 
+Rule can never be matched:
+"\uA689" { print(0xA689); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1976): 
+Rule can never be matched:
+"\uA68B" { print(0xA68B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1978): 
+Rule can never be matched:
+"\uA68D" { print(0xA68D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1980): 
+Rule can never be matched:
+"\uA68F" { print(0xA68F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1982): 
+Rule can never be matched:
+"\uA691" { print(0xA691); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1984): 
+Rule can never be matched:
+"\uA693" { print(0xA693); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1986): 
+Rule can never be matched:
+"\uA695" { print(0xA695); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1988): 
+Rule can never be matched:
+"\uA697" { print(0xA697); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1990): 
+Rule can never be matched:
+"\uA699" { print(0xA699); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1992): 
+Rule can never be matched:
+"\uA69B" { print(0xA69B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1994): 
+Rule can never be matched:
+"\uA723" { print(0xA723); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1996): 
+Rule can never be matched:
+"\uA725" { print(0xA725); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 1998): 
+Rule can never be matched:
+"\uA727" { print(0xA727); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2000): 
+Rule can never be matched:
+"\uA729" { print(0xA729); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2002): 
+Rule can never be matched:
+"\uA72B" { print(0xA72B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2004): 
+Rule can never be matched:
+"\uA72D" { print(0xA72D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2006): 
+Rule can never be matched:
+"\uA72F" { print(0xA72F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2008): 
+Rule can never be matched:
+"\uA733" { print(0xA733); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2010): 
+Rule can never be matched:
+"\uA735" { print(0xA735); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2012): 
+Rule can never be matched:
+"\uA737" { print(0xA737); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2014): 
+Rule can never be matched:
+"\uA739" { print(0xA739); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2016): 
+Rule can never be matched:
+"\uA73B" { print(0xA73B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2018): 
+Rule can never be matched:
+"\uA73D" { print(0xA73D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2020): 
+Rule can never be matched:
+"\uA73F" { print(0xA73F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2022): 
+Rule can never be matched:
+"\uA741" { print(0xA741); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2024): 
+Rule can never be matched:
+"\uA743" { print(0xA743); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2026): 
+Rule can never be matched:
+"\uA745" { print(0xA745); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2028): 
+Rule can never be matched:
+"\uA747" { print(0xA747); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2030): 
+Rule can never be matched:
+"\uA749" { print(0xA749); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2032): 
+Rule can never be matched:
+"\uA74B" { print(0xA74B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2034): 
+Rule can never be matched:
+"\uA74D" { print(0xA74D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2036): 
+Rule can never be matched:
+"\uA74F" { print(0xA74F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2038): 
+Rule can never be matched:
+"\uA751" { print(0xA751); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2040): 
+Rule can never be matched:
+"\uA753" { print(0xA753); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2042): 
+Rule can never be matched:
+"\uA755" { print(0xA755); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2044): 
+Rule can never be matched:
+"\uA757" { print(0xA757); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2046): 
+Rule can never be matched:
+"\uA759" { print(0xA759); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2048): 
+Rule can never be matched:
+"\uA75B" { print(0xA75B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2050): 
+Rule can never be matched:
+"\uA75D" { print(0xA75D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2052): 
+Rule can never be matched:
+"\uA75F" { print(0xA75F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2054): 
+Rule can never be matched:
+"\uA761" { print(0xA761); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2056): 
+Rule can never be matched:
+"\uA763" { print(0xA763); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2058): 
+Rule can never be matched:
+"\uA765" { print(0xA765); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2060): 
+Rule can never be matched:
+"\uA767" { print(0xA767); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2062): 
+Rule can never be matched:
+"\uA769" { print(0xA769); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2064): 
+Rule can never be matched:
+"\uA76B" { print(0xA76B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2066): 
+Rule can never be matched:
+"\uA76D" { print(0xA76D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2068): 
+Rule can never be matched:
+"\uA76F" { print(0xA76F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2070): 
+Rule can never be matched:
+"\uA77A" { print(0xA77A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2072): 
+Rule can never be matched:
+"\uA77C" { print(0xA77C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2073): 
+Rule can never be matched:
+"\uA77D" { print(0xA77D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2075): 
+Rule can never be matched:
+"\uA77F" { print(0xA77F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2077): 
+Rule can never be matched:
+"\uA781" { print(0xA781); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2079): 
+Rule can never be matched:
+"\uA783" { print(0xA783); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2081): 
+Rule can never be matched:
+"\uA785" { print(0xA785); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2083): 
+Rule can never be matched:
+"\uA787" { print(0xA787); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2085): 
+Rule can never be matched:
+"\uA78C" { print(0xA78C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2086): 
+Rule can never be matched:
+"\uA78D" { print(0xA78D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2088): 
+Rule can never be matched:
+"\uA791" { print(0xA791); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2090): 
+Rule can never be matched:
+"\uA793" { print(0xA793); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2092): 
+Rule can never be matched:
+"\uA797" { print(0xA797); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2094): 
+Rule can never be matched:
+"\uA799" { print(0xA799); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2096): 
+Rule can never be matched:
+"\uA79B" { print(0xA79B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2098): 
+Rule can never be matched:
+"\uA79D" { print(0xA79D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2100): 
+Rule can never be matched:
+"\uA79F" { print(0xA79F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2102): 
+Rule can never be matched:
+"\uA7A1" { print(0xA7A1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2104): 
+Rule can never be matched:
+"\uA7A3" { print(0xA7A3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2106): 
+Rule can never be matched:
+"\uA7A5" { print(0xA7A5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2108): 
+Rule can never be matched:
+"\uA7A7" { print(0xA7A7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2110): 
+Rule can never be matched:
+"\uA7A9" { print(0xA7A9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2111): 
+Rule can never be matched:
+"\uA7AA" { print(0xA7AA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2112): 
+Rule can never be matched:
+"\uA7AB" { print(0xA7AB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2113): 
+Rule can never be matched:
+"\uA7AC" { print(0xA7AC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2114): 
+Rule can never be matched:
+"\uA7AD" { print(0xA7AD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2115): 
+Rule can never be matched:
+"\uA7AE" { print(0xA7AE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2116): 
+Rule can never be matched:
+"\uA7B0" { print(0xA7B0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2117): 
+Rule can never be matched:
+"\uA7B1" { print(0xA7B1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2118): 
+Rule can never be matched:
+"\uA7B2" { print(0xA7B2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2121): 
+Rule can never be matched:
+"\uA7B5" { print(0xA7B5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2123): 
+Rule can never be matched:
+"\uA7B7" { print(0xA7B7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2124): 
+Rule can never be matched:
+"\uAB53" { print(0xAB53); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2125): 
+Rule can never be matched:
+"\uAB70" { print(0xAB70); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2126): 
+Rule can never be matched:
+"\uAB71" { print(0xAB71); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2127): 
+Rule can never be matched:
+"\uAB72" { print(0xAB72); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2128): 
+Rule can never be matched:
+"\uAB73" { print(0xAB73); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2129): 
+Rule can never be matched:
+"\uAB74" { print(0xAB74); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2130): 
+Rule can never be matched:
+"\uAB75" { print(0xAB75); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2131): 
+Rule can never be matched:
+"\uAB76" { print(0xAB76); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2132): 
+Rule can never be matched:
+"\uAB77" { print(0xAB77); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2133): 
+Rule can never be matched:
+"\uAB78" { print(0xAB78); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2134): 
+Rule can never be matched:
+"\uAB79" { print(0xAB79); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2135): 
+Rule can never be matched:
+"\uAB7A" { print(0xAB7A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2136): 
+Rule can never be matched:
+"\uAB7B" { print(0xAB7B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2137): 
+Rule can never be matched:
+"\uAB7C" { print(0xAB7C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2138): 
+Rule can never be matched:
+"\uAB7D" { print(0xAB7D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2139): 
+Rule can never be matched:
+"\uAB7E" { print(0xAB7E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2140): 
+Rule can never be matched:
+"\uAB7F" { print(0xAB7F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2141): 
+Rule can never be matched:
+"\uAB80" { print(0xAB80); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2142): 
+Rule can never be matched:
+"\uAB81" { print(0xAB81); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2143): 
+Rule can never be matched:
+"\uAB82" { print(0xAB82); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2144): 
+Rule can never be matched:
+"\uAB83" { print(0xAB83); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2145): 
+Rule can never be matched:
+"\uAB84" { print(0xAB84); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2146): 
+Rule can never be matched:
+"\uAB85" { print(0xAB85); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2147): 
+Rule can never be matched:
+"\uAB86" { print(0xAB86); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2148): 
+Rule can never be matched:
+"\uAB87" { print(0xAB87); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2149): 
+Rule can never be matched:
+"\uAB88" { print(0xAB88); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2150): 
+Rule can never be matched:
+"\uAB89" { print(0xAB89); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2151): 
+Rule can never be matched:
+"\uAB8A" { print(0xAB8A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2152): 
+Rule can never be matched:
+"\uAB8B" { print(0xAB8B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2153): 
+Rule can never be matched:
+"\uAB8C" { print(0xAB8C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2154): 
+Rule can never be matched:
+"\uAB8D" { print(0xAB8D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2155): 
+Rule can never be matched:
+"\uAB8E" { print(0xAB8E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2156): 
+Rule can never be matched:
+"\uAB8F" { print(0xAB8F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2157): 
+Rule can never be matched:
+"\uAB90" { print(0xAB90); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2158): 
+Rule can never be matched:
+"\uAB91" { print(0xAB91); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2159): 
+Rule can never be matched:
+"\uAB92" { print(0xAB92); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2160): 
+Rule can never be matched:
+"\uAB93" { print(0xAB93); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2161): 
+Rule can never be matched:
+"\uAB94" { print(0xAB94); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2162): 
+Rule can never be matched:
+"\uAB95" { print(0xAB95); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2163): 
+Rule can never be matched:
+"\uAB96" { print(0xAB96); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2164): 
+Rule can never be matched:
+"\uAB97" { print(0xAB97); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2165): 
+Rule can never be matched:
+"\uAB98" { print(0xAB98); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2166): 
+Rule can never be matched:
+"\uAB99" { print(0xAB99); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2167): 
+Rule can never be matched:
+"\uAB9A" { print(0xAB9A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2168): 
+Rule can never be matched:
+"\uAB9B" { print(0xAB9B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2169): 
+Rule can never be matched:
+"\uAB9C" { print(0xAB9C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2170): 
+Rule can never be matched:
+"\uAB9D" { print(0xAB9D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2171): 
+Rule can never be matched:
+"\uAB9E" { print(0xAB9E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2172): 
+Rule can never be matched:
+"\uAB9F" { print(0xAB9F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2173): 
+Rule can never be matched:
+"\uABA0" { print(0xABA0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2174): 
+Rule can never be matched:
+"\uABA1" { print(0xABA1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2175): 
+Rule can never be matched:
+"\uABA2" { print(0xABA2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2176): 
+Rule can never be matched:
+"\uABA3" { print(0xABA3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2177): 
+Rule can never be matched:
+"\uABA4" { print(0xABA4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2178): 
+Rule can never be matched:
+"\uABA5" { print(0xABA5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2179): 
+Rule can never be matched:
+"\uABA6" { print(0xABA6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2180): 
+Rule can never be matched:
+"\uABA7" { print(0xABA7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2181): 
+Rule can never be matched:
+"\uABA8" { print(0xABA8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2182): 
+Rule can never be matched:
+"\uABA9" { print(0xABA9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2183): 
+Rule can never be matched:
+"\uABAA" { print(0xABAA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2184): 
+Rule can never be matched:
+"\uABAB" { print(0xABAB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2185): 
+Rule can never be matched:
+"\uABAC" { print(0xABAC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2186): 
+Rule can never be matched:
+"\uABAD" { print(0xABAD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2187): 
+Rule can never be matched:
+"\uABAE" { print(0xABAE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2188): 
+Rule can never be matched:
+"\uABAF" { print(0xABAF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2189): 
+Rule can never be matched:
+"\uABB0" { print(0xABB0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2190): 
+Rule can never be matched:
+"\uABB1" { print(0xABB1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2191): 
+Rule can never be matched:
+"\uABB2" { print(0xABB2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2192): 
+Rule can never be matched:
+"\uABB3" { print(0xABB3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2193): 
+Rule can never be matched:
+"\uABB4" { print(0xABB4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2194): 
+Rule can never be matched:
+"\uABB5" { print(0xABB5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2195): 
+Rule can never be matched:
+"\uABB6" { print(0xABB6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2196): 
+Rule can never be matched:
+"\uABB7" { print(0xABB7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2197): 
+Rule can never be matched:
+"\uABB8" { print(0xABB8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2198): 
+Rule can never be matched:
+"\uABB9" { print(0xABB9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2199): 
+Rule can never be matched:
+"\uABBA" { print(0xABBA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2200): 
+Rule can never be matched:
+"\uABBB" { print(0xABBB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2201): 
+Rule can never be matched:
+"\uABBC" { print(0xABBC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2202): 
+Rule can never be matched:
+"\uABBD" { print(0xABBD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2203): 
+Rule can never be matched:
+"\uABBE" { print(0xABBE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2204): 
+Rule can never be matched:
+"\uABBF" { print(0xABBF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2231): 
+Rule can never be matched:
+"\uFF41" { print(0xFF41); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2232): 
+Rule can never be matched:
+"\uFF42" { print(0xFF42); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2233): 
+Rule can never be matched:
+"\uFF43" { print(0xFF43); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2234): 
+Rule can never be matched:
+"\uFF44" { print(0xFF44); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2235): 
+Rule can never be matched:
+"\uFF45" { print(0xFF45); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2236): 
+Rule can never be matched:
+"\uFF46" { print(0xFF46); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2237): 
+Rule can never be matched:
+"\uFF47" { print(0xFF47); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2238): 
+Rule can never be matched:
+"\uFF48" { print(0xFF48); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2239): 
+Rule can never be matched:
+"\uFF49" { print(0xFF49); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2240): 
+Rule can never be matched:
+"\uFF4A" { print(0xFF4A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2241): 
+Rule can never be matched:
+"\uFF4B" { print(0xFF4B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2242): 
+Rule can never be matched:
+"\uFF4C" { print(0xFF4C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2243): 
+Rule can never be matched:
+"\uFF4D" { print(0xFF4D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2244): 
+Rule can never be matched:
+"\uFF4E" { print(0xFF4E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2245): 
+Rule can never be matched:
+"\uFF4F" { print(0xFF4F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2246): 
+Rule can never be matched:
+"\uFF50" { print(0xFF50); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2247): 
+Rule can never be matched:
+"\uFF51" { print(0xFF51); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2248): 
+Rule can never be matched:
+"\uFF52" { print(0xFF52); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2249): 
+Rule can never be matched:
+"\uFF53" { print(0xFF53); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2250): 
+Rule can never be matched:
+"\uFF54" { print(0xFF54); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2251): 
+Rule can never be matched:
+"\uFF55" { print(0xFF55); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2252): 
+Rule can never be matched:
+"\uFF56" { print(0xFF56); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2253): 
+Rule can never be matched:
+"\uFF57" { print(0xFF57); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2254): 
+Rule can never be matched:
+"\uFF58" { print(0xFF58); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2255): 
+Rule can never be matched:
+"\uFF59" { print(0xFF59); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2256): 
+Rule can never be matched:
+"\uFF5A" { print(0xFF5A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2297): 
+Rule can never be matched:
+"\U010428" { print(0x10428); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2298): 
+Rule can never be matched:
+"\U010429" { print(0x10429); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2299): 
+Rule can never be matched:
+"\U01042A" { print(0x1042A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2300): 
+Rule can never be matched:
+"\U01042B" { print(0x1042B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2301): 
+Rule can never be matched:
+"\U01042C" { print(0x1042C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2302): 
+Rule can never be matched:
+"\U01042D" { print(0x1042D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2303): 
+Rule can never be matched:
+"\U01042E" { print(0x1042E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2304): 
+Rule can never be matched:
+"\U01042F" { print(0x1042F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2305): 
+Rule can never be matched:
+"\U010430" { print(0x10430); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2306): 
+Rule can never be matched:
+"\U010431" { print(0x10431); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2307): 
+Rule can never be matched:
+"\U010432" { print(0x10432); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2308): 
+Rule can never be matched:
+"\U010433" { print(0x10433); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2309): 
+Rule can never be matched:
+"\U010434" { print(0x10434); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2310): 
+Rule can never be matched:
+"\U010435" { print(0x10435); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2311): 
+Rule can never be matched:
+"\U010436" { print(0x10436); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2312): 
+Rule can never be matched:
+"\U010437" { print(0x10437); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2313): 
+Rule can never be matched:
+"\U010438" { print(0x10438); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2314): 
+Rule can never be matched:
+"\U010439" { print(0x10439); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2315): 
+Rule can never be matched:
+"\U01043A" { print(0x1043A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2316): 
+Rule can never be matched:
+"\U01043B" { print(0x1043B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2317): 
+Rule can never be matched:
+"\U01043C" { print(0x1043C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2318): 
+Rule can never be matched:
+"\U01043D" { print(0x1043D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2319): 
+Rule can never be matched:
+"\U01043E" { print(0x1043E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2320): 
+Rule can never be matched:
+"\U01043F" { print(0x1043F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2321): 
+Rule can never be matched:
+"\U010440" { print(0x10440); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2322): 
+Rule can never be matched:
+"\U010441" { print(0x10441); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2323): 
+Rule can never be matched:
+"\U010442" { print(0x10442); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2324): 
+Rule can never be matched:
+"\U010443" { print(0x10443); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2325): 
+Rule can never be matched:
+"\U010444" { print(0x10444); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2326): 
+Rule can never be matched:
+"\U010445" { print(0x10445); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2327): 
+Rule can never be matched:
+"\U010446" { print(0x10446); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2328): 
+Rule can never be matched:
+"\U010447" { print(0x10447); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2329): 
+Rule can never be matched:
+"\U010448" { print(0x10448); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2330): 
+Rule can never be matched:
+"\U010449" { print(0x10449); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2331): 
+Rule can never be matched:
+"\U01044A" { print(0x1044A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2332): 
+Rule can never be matched:
+"\U01044B" { print(0x1044B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2333): 
+Rule can never be matched:
+"\U01044C" { print(0x1044C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2334): 
+Rule can never be matched:
+"\U01044D" { print(0x1044D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2335): 
+Rule can never be matched:
+"\U01044E" { print(0x1044E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2336): 
+Rule can never be matched:
+"\U01044F" { print(0x1044F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2373): 
+Rule can never be matched:
+"\U0104D8" { print(0x104D8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2374): 
+Rule can never be matched:
+"\U0104D9" { print(0x104D9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2375): 
+Rule can never be matched:
+"\U0104DA" { print(0x104DA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2376): 
+Rule can never be matched:
+"\U0104DB" { print(0x104DB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2377): 
+Rule can never be matched:
+"\U0104DC" { print(0x104DC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2378): 
+Rule can never be matched:
+"\U0104DD" { print(0x104DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2379): 
+Rule can never be matched:
+"\U0104DE" { print(0x104DE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2380): 
+Rule can never be matched:
+"\U0104DF" { print(0x104DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2381): 
+Rule can never be matched:
+"\U0104E0" { print(0x104E0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2382): 
+Rule can never be matched:
+"\U0104E1" { print(0x104E1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2383): 
+Rule can never be matched:
+"\U0104E2" { print(0x104E2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2384): 
+Rule can never be matched:
+"\U0104E3" { print(0x104E3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2385): 
+Rule can never be matched:
+"\U0104E4" { print(0x104E4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2386): 
+Rule can never be matched:
+"\U0104E5" { print(0x104E5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2387): 
+Rule can never be matched:
+"\U0104E6" { print(0x104E6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2388): 
+Rule can never be matched:
+"\U0104E7" { print(0x104E7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2389): 
+Rule can never be matched:
+"\U0104E8" { print(0x104E8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2390): 
+Rule can never be matched:
+"\U0104E9" { print(0x104E9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2391): 
+Rule can never be matched:
+"\U0104EA" { print(0x104EA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2392): 
+Rule can never be matched:
+"\U0104EB" { print(0x104EB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2393): 
+Rule can never be matched:
+"\U0104EC" { print(0x104EC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2394): 
+Rule can never be matched:
+"\U0104ED" { print(0x104ED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2395): 
+Rule can never be matched:
+"\U0104EE" { print(0x104EE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2396): 
+Rule can never be matched:
+"\U0104EF" { print(0x104EF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2397): 
+Rule can never be matched:
+"\U0104F0" { print(0x104F0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2398): 
+Rule can never be matched:
+"\U0104F1" { print(0x104F1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2399): 
+Rule can never be matched:
+"\U0104F2" { print(0x104F2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2400): 
+Rule can never be matched:
+"\U0104F3" { print(0x104F3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2401): 
+Rule can never be matched:
+"\U0104F4" { print(0x104F4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2402): 
+Rule can never be matched:
+"\U0104F5" { print(0x104F5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2403): 
+Rule can never be matched:
+"\U0104F6" { print(0x104F6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2404): 
+Rule can never be matched:
+"\U0104F7" { print(0x104F7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2405): 
+Rule can never be matched:
+"\U0104F8" { print(0x104F8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2406): 
+Rule can never be matched:
+"\U0104F9" { print(0x104F9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2407): 
+Rule can never be matched:
+"\U0104FA" { print(0x104FA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2408): 
+Rule can never be matched:
+"\U0104FB" { print(0x104FB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2460): 
+Rule can never be matched:
+"\U010CC0" { print(0x10CC0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2461): 
+Rule can never be matched:
+"\U010CC1" { print(0x10CC1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2462): 
+Rule can never be matched:
+"\U010CC2" { print(0x10CC2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2463): 
+Rule can never be matched:
+"\U010CC3" { print(0x10CC3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2464): 
+Rule can never be matched:
+"\U010CC4" { print(0x10CC4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2465): 
+Rule can never be matched:
+"\U010CC5" { print(0x10CC5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2466): 
+Rule can never be matched:
+"\U010CC6" { print(0x10CC6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2467): 
+Rule can never be matched:
+"\U010CC7" { print(0x10CC7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2468): 
+Rule can never be matched:
+"\U010CC8" { print(0x10CC8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2469): 
+Rule can never be matched:
+"\U010CC9" { print(0x10CC9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2470): 
+Rule can never be matched:
+"\U010CCA" { print(0x10CCA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2471): 
+Rule can never be matched:
+"\U010CCB" { print(0x10CCB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2472): 
+Rule can never be matched:
+"\U010CCC" { print(0x10CCC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2473): 
+Rule can never be matched:
+"\U010CCD" { print(0x10CCD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2474): 
+Rule can never be matched:
+"\U010CCE" { print(0x10CCE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2475): 
+Rule can never be matched:
+"\U010CCF" { print(0x10CCF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2476): 
+Rule can never be matched:
+"\U010CD0" { print(0x10CD0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2477): 
+Rule can never be matched:
+"\U010CD1" { print(0x10CD1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2478): 
+Rule can never be matched:
+"\U010CD2" { print(0x10CD2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2479): 
+Rule can never be matched:
+"\U010CD3" { print(0x10CD3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2480): 
+Rule can never be matched:
+"\U010CD4" { print(0x10CD4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2481): 
+Rule can never be matched:
+"\U010CD5" { print(0x10CD5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2482): 
+Rule can never be matched:
+"\U010CD6" { print(0x10CD6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2483): 
+Rule can never be matched:
+"\U010CD7" { print(0x10CD7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2484): 
+Rule can never be matched:
+"\U010CD8" { print(0x10CD8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2485): 
+Rule can never be matched:
+"\U010CD9" { print(0x10CD9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2486): 
+Rule can never be matched:
+"\U010CDA" { print(0x10CDA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2487): 
+Rule can never be matched:
+"\U010CDB" { print(0x10CDB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2488): 
+Rule can never be matched:
+"\U010CDC" { print(0x10CDC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2489): 
+Rule can never be matched:
+"\U010CDD" { print(0x10CDD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2490): 
+Rule can never be matched:
+"\U010CDE" { print(0x10CDE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2491): 
+Rule can never be matched:
+"\U010CDF" { print(0x10CDF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2492): 
+Rule can never be matched:
+"\U010CE0" { print(0x10CE0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2493): 
+Rule can never be matched:
+"\U010CE1" { print(0x10CE1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2494): 
+Rule can never be matched:
+"\U010CE2" { print(0x10CE2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2495): 
+Rule can never be matched:
+"\U010CE3" { print(0x10CE3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2496): 
+Rule can never be matched:
+"\U010CE4" { print(0x10CE4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2497): 
+Rule can never be matched:
+"\U010CE5" { print(0x10CE5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2498): 
+Rule can never be matched:
+"\U010CE6" { print(0x10CE6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2499): 
+Rule can never be matched:
+"\U010CE7" { print(0x10CE7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2500): 
+Rule can never be matched:
+"\U010CE8" { print(0x10CE8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2501): 
+Rule can never be matched:
+"\U010CE9" { print(0x10CE9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2502): 
+Rule can never be matched:
+"\U010CEA" { print(0x10CEA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2503): 
+Rule can never be matched:
+"\U010CEB" { print(0x10CEB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2504): 
+Rule can never be matched:
+"\U010CEC" { print(0x10CEC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2505): 
+Rule can never be matched:
+"\U010CED" { print(0x10CED); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2506): 
+Rule can never be matched:
+"\U010CEE" { print(0x10CEE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2507): 
+Rule can never be matched:
+"\U010CEF" { print(0x10CEF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2508): 
+Rule can never be matched:
+"\U010CF0" { print(0x10CF0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2509): 
+Rule can never be matched:
+"\U010CF1" { print(0x10CF1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2510): 
+Rule can never be matched:
+"\U010CF2" { print(0x10CF2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2543): 
+Rule can never be matched:
+"\U0118C0" { print(0x118C0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2544): 
+Rule can never be matched:
+"\U0118C1" { print(0x118C1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2545): 
+Rule can never be matched:
+"\U0118C2" { print(0x118C2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2546): 
+Rule can never be matched:
+"\U0118C3" { print(0x118C3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2547): 
+Rule can never be matched:
+"\U0118C4" { print(0x118C4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2548): 
+Rule can never be matched:
+"\U0118C5" { print(0x118C5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2549): 
+Rule can never be matched:
+"\U0118C6" { print(0x118C6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2550): 
+Rule can never be matched:
+"\U0118C7" { print(0x118C7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2551): 
+Rule can never be matched:
+"\U0118C8" { print(0x118C8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2552): 
+Rule can never be matched:
+"\U0118C9" { print(0x118C9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2553): 
+Rule can never be matched:
+"\U0118CA" { print(0x118CA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2554): 
+Rule can never be matched:
+"\U0118CB" { print(0x118CB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2555): 
+Rule can never be matched:
+"\U0118CC" { print(0x118CC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2556): 
+Rule can never be matched:
+"\U0118CD" { print(0x118CD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2557): 
+Rule can never be matched:
+"\U0118CE" { print(0x118CE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2558): 
+Rule can never be matched:
+"\U0118CF" { print(0x118CF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2559): 
+Rule can never be matched:
+"\U0118D0" { print(0x118D0); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2560): 
+Rule can never be matched:
+"\U0118D1" { print(0x118D1); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2561): 
+Rule can never be matched:
+"\U0118D2" { print(0x118D2); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2562): 
+Rule can never be matched:
+"\U0118D3" { print(0x118D3); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2563): 
+Rule can never be matched:
+"\U0118D4" { print(0x118D4); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2564): 
+Rule can never be matched:
+"\U0118D5" { print(0x118D5); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2565): 
+Rule can never be matched:
+"\U0118D6" { print(0x118D6); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2566): 
+Rule can never be matched:
+"\U0118D7" { print(0x118D7); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2567): 
+Rule can never be matched:
+"\U0118D8" { print(0x118D8); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2568): 
+Rule can never be matched:
+"\U0118D9" { print(0x118D9); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2569): 
+Rule can never be matched:
+"\U0118DA" { print(0x118DA); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2570): 
+Rule can never be matched:
+"\U0118DB" { print(0x118DB); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2571): 
+Rule can never be matched:
+"\U0118DC" { print(0x118DC); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2572): 
+Rule can never be matched:
+"\U0118DD" { print(0x118DD); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2573): 
+Rule can never be matched:
+"\U0118DE" { print(0x118DE); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2574): 
+Rule can never be matched:
+"\U0118DF" { print(0x118DF); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2609): 
+Rule can never be matched:
+"\U01E922" { print(0x1E922); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2610): 
+Rule can never be matched:
+"\U01E923" { print(0x1E923); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2611): 
+Rule can never be matched:
+"\U01E924" { print(0x1E924); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2612): 
+Rule can never be matched:
+"\U01E925" { print(0x1E925); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2613): 
+Rule can never be matched:
+"\U01E926" { print(0x1E926); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2614): 
+Rule can never be matched:
+"\U01E927" { print(0x1E927); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2615): 
+Rule can never be matched:
+"\U01E928" { print(0x1E928); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2616): 
+Rule can never be matched:
+"\U01E929" { print(0x1E929); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2617): 
+Rule can never be matched:
+"\U01E92A" { print(0x1E92A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2618): 
+Rule can never be matched:
+"\U01E92B" { print(0x1E92B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2619): 
+Rule can never be matched:
+"\U01E92C" { print(0x1E92C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2620): 
+Rule can never be matched:
+"\U01E92D" { print(0x1E92D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2621): 
+Rule can never be matched:
+"\U01E92E" { print(0x1E92E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2622): 
+Rule can never be matched:
+"\U01E92F" { print(0x1E92F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2623): 
+Rule can never be matched:
+"\U01E930" { print(0x1E930); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2624): 
+Rule can never be matched:
+"\U01E931" { print(0x1E931); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2625): 
+Rule can never be matched:
+"\U01E932" { print(0x1E932); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2626): 
+Rule can never be matched:
+"\U01E933" { print(0x1E933); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2627): 
+Rule can never be matched:
+"\U01E934" { print(0x1E934); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2628): 
+Rule can never be matched:
+"\U01E935" { print(0x1E935); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2629): 
+Rule can never be matched:
+"\U01E936" { print(0x1E936); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2630): 
+Rule can never be matched:
+"\U01E937" { print(0x1E937); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2631): 
+Rule can never be matched:
+"\U01E938" { print(0x1E938); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2632): 
+Rule can never be matched:
+"\U01E939" { print(0x1E939); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2633): 
+Rule can never be matched:
+"\U01E93A" { print(0x1E93A); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2634): 
+Rule can never be matched:
+"\U01E93B" { print(0x1E93B); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2635): 
+Rule can never be matched:
+"\U01E93C" { print(0x1E93C); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2636): 
+Rule can never be matched:
+"\U01E93D" { print(0x1E93D); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2637): 
+Rule can never be matched:
+"\U01E93E" { print(0x1E93E); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2638): 
+Rule can never be matched:
+"\U01E93F" { print(0x1E93F); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2639): 
+Rule can never be matched:
+"\U01E940" { print(0x1E940); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2640): 
+Rule can never be matched:
+"\U01E941" { print(0x1E941); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2641): 
+Rule can never be matched:
+"\U01E942" { print(0x1E942); }
+
+Warning in file "src/test/cases/unicode-caseless/UnicodeCaseless_9_0.flex" (line 2642): 
+Rule can never be matched:
+"\U01E943" { print(0x1E943); }

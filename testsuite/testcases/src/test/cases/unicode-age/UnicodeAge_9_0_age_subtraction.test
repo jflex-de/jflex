@@ -1,0 +1,12 @@
+name: UnicodeAge_9_0_age_subtraction
+
+description: 
+Tests subtracting Age Unicode property values in character sets 
+for Unicode 9.0, e.g. [\p{Age:2.0}--\p{Age:1.1}].
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
