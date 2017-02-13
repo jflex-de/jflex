@@ -48,7 +48,7 @@ import java.util.SortedMap;
         scriptIntervals.put(script, intervals);
       }
       for (NamedRange range 
-          : unicodeVersion.propertyValueIntervals.get(script)) {
+          : unicodeVersion.propertyValueIntervals.get(script).getRanges()) {
         for (int ch = range.start ; ch <= range.end ; ++ch) {
           if ( ! scriptExtensionsCodePoint[ch]) {
             intervals.add(new NamedRangeSet(new NamedRange(ch, ch)));

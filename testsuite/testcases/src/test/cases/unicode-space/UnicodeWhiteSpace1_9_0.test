@@ -1,0 +1,12 @@
+name: UnicodeWhiteSpace1_9_0
+
+description: 
+Tests character class syntax of the Unicode 9.0 WhiteSpace property
+using the '\S' syntax.
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

@@ -1,0 +1,11 @@
+name: UnicodeCaseless_9_0
+
+description: 
+Tests the %caseless directive for Unicode 9.0
+
+jflex: -q --noinputstreamctor
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
