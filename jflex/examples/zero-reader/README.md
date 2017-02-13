@@ -20,7 +20,7 @@ return more than 0 characters, should throw an execption, or should return -1
 for end-of-stream. Unfortunately, not all implementations of this class follow
 that protocol. Up to version 1.6.1, JFlex was trying to work around those
 problems. This worked in most circumstances, but not in all, depending on how
-exactly the Reader implemenentation violates the protocol. See also the
+exactly the Reader implementation violates the protocol. See also the
 discussion on https://github.com/jflex-de/jflex/issues/131
 
 From version 1.6.1, JFlex will not try to work around this issue any more, but
