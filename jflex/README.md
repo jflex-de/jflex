@@ -3,7 +3,7 @@
 This directory contains JFlex, a fast scanner generator for Java.
 
 To run JFlex, run `bin/jflex` from the command line or double click on
-`lib/JFlex.jar`. You need JDK 1.5 installed and set up.
+`lib/JFlex.jar`. You need JDK 1.7 installed and set up.
 
 See the manual in `doc/` or the website at <http://jflex.de> for more
 information and for how to get started.
@@ -37,8 +37,8 @@ information and for how to get started.
 
 ## Dependencies ##
 
-* To run JFlex, you need at least JDK 1.5.
-* To build JFlex, you need JDK 1.6+ and Maven 2.2.1+.
+* To run JFlex, you need at least JDK 1.7.
+* To build JFlex, you need JDK 1.7+ and Maven 3.
   Maven will take care of the remaining dependencies, such as JFlex, 
   CUP, JUnit, etc.
 * You can also build JFlex with Ant 1.8+.  To run unit tests you need

@@ -91,9 +91,8 @@ about its character encoding in the headers.
 More information about encodings, which ones are supported, how they are
 called, and how to set them may be found in the official Java
 documentation in the chapter about internationalisation. The link
-<http://docs.oracle.com/javase/1.5.0/docs/guide/intl/>
-leads to an online version of this for Oracle’s JDK 1.5.
-<!-- FIXME: update to newer JDK -->
+<http://docs.oracle.com/javase/7/docs/technotes/guides/intl/>
+leads to an online version of this for Oracle’s JDK 1.7.
 
 
 Scanning binaries

@@ -68,7 +68,7 @@
                   <pluginExecutionFilter>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <versionRange>[3.2,)</versionRange>
+                    <versionRange>[3.5,)</versionRange>
                     <goals>
                       <goal>descriptor</goal>
                     </goals>

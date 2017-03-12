@@ -17,6 +17,6 @@ management and build tool. This plugin makes JFlex available in maven.
 
 ## Dependencies ##
 
-* JDK 1.6
-* maven 2.2.1
+* JDK 1.7
+* Maven 3
 * JFlex >= 1.5.0

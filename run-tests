@@ -6,21 +6,21 @@
 set -e
 
 # builds and tests main projects
-mvn install test
+mvn clean install test
 
 # regression test suite must run from its own directory
 cd testsuite/testcases && mvn test
 
 # also check ant build
-cd ../../jflex && ant gettools build
+cd ../../jflex && ant gettools build test
 
 ## run jflex examples:
 
 # don't assume byacc/j is installed, just run lexer
-cd examples/byaccj && make Yylex.java
-cd ../cup && make
-cd ../interpreter && make
-cd ../java && make
-cd ../simple-maven && mvn test
-cd ../standalone-maven && mvn test
-cd ../zero-reader && make
+cd examples/byaccj && make clean && make Yylex.java
+cd ../cup && make clean && make
+cd ../interpreter && make clean && make
+cd ../java && make clean && make
+cd ../simple-maven && mvn clean test
+cd ../standalone-maven && mvn clean test
+cd ../zero-reader && make clean && make

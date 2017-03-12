@@ -4,6 +4,14 @@
 
 Latest version
 
+* Version 1.7.0
+
+   * Relies on JFlex 1.7.0
+
+   * Requires Java 7
+
+   * Requires Maven 3
+
 * Version 1.6.1
 
    * Relies on JFlex 1.6.1
@@ -27,21 +35,21 @@ Recent versions
    * Relies on JFlex 1.6.0
 
    * changed inputStreamCtor default to false
- 
+
 
 * Version 1.5.0
 
   * Changed name from maven-jflex-plugin to jflex-maven-plugin
- 
+
   * Switched license from GPL to BSD
 
   * Relies on JFlex 1.5.0
- 
+
   * Requires Java 5
 
   * Changed package from org.codehaus.mojo.jlex to de.jflex.plugin.maven.
 
-  
+
 * Version 1.4.3-r1
 
   * Java 1.3 bytecode
@@ -53,45 +61,45 @@ Recent versions
   * Java 1.3 bytecode
 
   * Relies on JFlex 1.4.2
-  
+
 
 * Version 0.3
 
   * Java 1.4 bytecode
 
   * relies on JFlex 1.4.1
-  
+
   * new option staleMillis
-  
+
   * more reports on site
-  
+
   * code improvements
-  
+
 
 Alpha versions
 
 * Version 0.2
 
   * Java 5 bytecode
-  
+
   * new options added: generationMethod, minimize, backup
-  
+
   * enhanced documentation
-  
+
   * many code improvements
-  
-  ** use file comparison, prefer available functionality from File 
+
+  ** use file comparison, prefer available functionality from File
      class to avoid manual string twiddling
-     
-  ** fix testInit(): the generated file size depends on the platform 
+
+  ** fix testInit(): the generated file size depends on the platform
      (because of how new lines are encoded)
-     
+
   ** improve unit test with AbstractMojoTestCase
-  
+
   * changed package from de.jflex.maven.plugin to org.codehaus.maven.plugin
-  
+
 * Version 0.1
 
   * Java 5 bytecode
-  
+
   * Generates Java code from lex files, using JFlex 1.4.1

@@ -5,7 +5,11 @@
   <property name="bootstrap.version" value="1.6.1" />
   <property name="junit.version" value="4.11" />
   <property name="cup.version" value="11b" />
-    
+
+  <property name="jflex.jdk.version" value="1.7"/>
+  <property name="ant.build.javac.source" value="${jflex.jdk.version}"/>
+  <property name="ant.build.javac.target" value="${jflex.jdk.version}"/>
+
   <!-- use any of these files to override properties -->
   <property file="build.properties" />
   <property file="${user.home}/.jflex.properties" />
@@ -34,6 +38,12 @@
 
   <!-- where the output jar goes -->
   <property name="output.jar.name" value="${build.dir}/jflex-${version}.jar" />
+
+  <fail message="Minimum supported Java version is ${jflex.jdk.version}. Your Java version is ${ant.java.version}.">
+    <condition>
+      <not><hasmethod classname="java.lang.Throwable" method="getSuppressed"/></not>
+    </condition>
+  </fail>
   	        
   <target name="help" description="show help message">
   	<echo message="Ant build file for JFlex. Useful targets:"/> 

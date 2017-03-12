@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6 Unicode Maven 2 plugin                                        *
+ * JFlex 1.6 Unicode Maven 3 plugin                                        *
  * Copyright (c) 2008 Steve Rowe <steve_rowe@users.sf.net>                 *
  * All rights reserved.                                                    *
  *                                                                         *

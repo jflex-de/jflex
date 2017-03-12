@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex Maven2 plugin                                                     *
+ * JFlex Maven3 plugin                                                     *
  * Copyright (c) 2007       Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *

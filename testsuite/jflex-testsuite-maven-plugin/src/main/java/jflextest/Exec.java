@@ -16,7 +16,7 @@ import jflex.SilentExit;
 
 public class Exec {
 
-    private static String javaVersion = "1.5";
+    private static String javaVersion = "1.7";
 
     /**
    * Convert two Lists with String elements into one

@@ -32,11 +32,11 @@ About this project
 	Maven is a project management framework.
 	The project is described in as a POM (project object model, 
 	stored into <<<pom.xml>>>).
-	This document isn't intended to be a tutorial on the use of Maven 2,
+	This document isn't intended to be a tutorial on the use of Maven 3,
 	you should consult the {{{http://maven.apache.org/}Maven web site}}.
 	
 	The integration of JFlex and Maven is done with 
-	{{{http://jflex.sourceforge.net/maven-flex-plugin/}maven-flex-plugin}}.
+	{{{http://jflex.sourceforge.net/jflex-maven-plugin/}jflex-maven-plugin}}.
 	
 
 Usage
@@ -56,7 +56,7 @@ Usage
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.5.0</version>
+        <version>1.7.0</version>
         <executions>
           <execution>
             <goals>

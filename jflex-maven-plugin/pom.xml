@@ -7,20 +7,20 @@
   <name>JFlex Maven Plugin</name>
   <version>1.7.0-SNAPSHOT</version>
   <description>
-      This is a Maven 2/3 plugin to generate Lexer code in Java from
-      a Lexer specification, using JFlex.
-  
-      This plugin was previously called maven-jflex-plugin.
-        
-      For JFlex 1.4.3 and earlier, see the maven-jflex-plugin 
-      documentation here: 
-      http://jflex.sourceforge.net/maven-jflex-plugin/
+    This is a Maven 3 plugin to generate Lexer code in Java from
+    a Lexer specification, using JFlex.
+
+    This plugin was previously called maven-jflex-plugin.
+
+    For JFlex 1.4.3 and earlier, see the maven-jflex-plugin
+    documentation here:
+    http://jflex.sourceforge.net/maven-jflex-plugin/
   </description>
   <url>http://jflex.sourceforge.net/jflex-maven-plugin/</url>
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <version>9</version>
     <relativePath/>
   </parent>
   <mailingLists>
@@ -44,8 +44,8 @@
     <url>https://github.com/jflex-de/jflex/issues</url>
   </issueManagement>
   <prerequisites>
-        <maven>2.2.1</maven>
-    </prerequisites>
+    <maven>3.0.1</maven>
+  </prerequisites>
   <inceptionYear>2007</inceptionYear>
   <developers>
     <developer>
@@ -84,93 +84,113 @@
   <licenses>
     <license>
       <name>BSD</name>
-            <url>http://opensource.org/licenses/BSD-3-Clause</url>
-            <distribution>repo</distribution>
+      <url>http://opensource.org/licenses/BSD-3-Clause</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <build>
     <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.1</version>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>${jflex.jdk.version}</source>
+          <target>${jflex.jdk.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <executions>
+          <execution>
+            <id>enforce-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
             <configuration>
-              <source>1.5</source>
-              <target>1.5</target>
+              <rules>
+                <requireJavaVersion>
+                  <version>[${jflex.jdk.version},)</version>
+                </requireJavaVersion>
+              </rules>
             </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>2.5</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.1</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-plugin-plugin</artifactId>
-            <version>3.2</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.6</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.4</version>
-            <configuration>
-                <skip>false</skip>
-                <skipDeploy>false</skipDeploy>
-            </configuration>
-            <dependencies>
-              <dependency><!-- add support for ssh/scp -->
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-                <version>1.0</version>
-              </dependency>
-            </dependencies>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>2.2.1</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.16</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-          <configuration>
-            <keyname>84A70085</keyname>
-          </configuration>
-        </plugin>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.5</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.6</version>
+        <configuration>
+          <skip>false</skip>
+          <skipDeploy>false</skipDeploy>
+        </configuration>
+        <dependencies>
+          <dependency><!-- add support for ssh/scp -->
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-ssh</artifactId>
+            <version>1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.16</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
+        <configuration>
+          <keyname>84A70085</keyname>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -186,7 +206,7 @@
                   <pluginExecutionFilter>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <versionRange>[3.2,)</versionRange>
+                    <versionRange>[3.5,)</versionRange>
                     <goals>
                       <goal>descriptor</goal>
                     </goals>
@@ -234,12 +254,12 @@
     <plugins>
       <plugin>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.5</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.7</version>
+        <version>2.9</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -257,9 +277,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.7</version>
         <configuration>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>1.7</targetJdk>
           <rulesets>
             <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
           </rulesets>
@@ -284,19 +304,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.16</version>
+        <version>2.19.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.5</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9.1</version>
-		<configuration>
-		  <tagletArtifacts>
+        <configuration>
+          <tagletArtifacts>
             <tagletArtifact>
               <groupId>org.apache.maven.plugin-tools</groupId>
               <artifactId>maven-plugin-tools-javadoc</artifactId>
@@ -308,7 +328,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.4</version>
         <configuration>
           <xmlOutput>true</xmlOutput>
           <threshold>Normal</threshold>
@@ -325,7 +345,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0-beta-2</version>
+        <version>2.0</version>
       </plugin>
     </plugins>
   </reporting>
@@ -335,25 +355,25 @@
     <url>scm:git:git@github.com:jflex-de/jflex.git</url>
   </scm>
   <profiles>
-      <profile>
-          <id>release</id>
-          <distributionManagement>
-              <site>
-                <id>sourceforge</id>
-                <name>SourceForge JFlex Maven Plugin site</name>
-                <url>scp://shell.sourceforge.net/home/project-web/jflex/htdocs/jflex-maven-plugin</url>
-              </site>
-          </distributionManagement>
-      </profile>
-      <profile>
+    <profile>
+      <id>release</id>
+      <distributionManagement>
+        <site>
+          <id>sourceforge</id>
+          <name>SourceForge JFlex Maven Plugin site</name>
+          <url>scp://shell.sourceforge.net/home/project-web/jflex/htdocs/jflex-maven-plugin</url>
+        </site>
+      </distributionManagement>
+    </profile>
+    <profile>
+      <id>localhost</id>
+      <distributionManagement>
+        <site>
           <id>localhost</id>
-          <distributionManagement>
-              <site>
-                <id>localhost</id>
-                <name>Local site</name>
-                <url>scp://localhost/tmp/jflex/jflex-maven-plugin</url>
-              </site>
-          </distributionManagement>
-      </profile>
+          <name>Local site</name>
+          <url>scp://localhost/tmp/jflex/jflex-maven-plugin</url>
+        </site>
+      </distributionManagement>
+    </profile>
   </profiles>
 </project>

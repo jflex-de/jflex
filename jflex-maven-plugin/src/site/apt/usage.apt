@@ -1,7 +1,7 @@
  ------
  Usage 
  ------
- Régis Décamps <decamps@users.sf.net>,
+ RÃ©gis DÃ©camps <decamps@users.sf.net>,
  minor updates by Gerwin Klein <lsf@jflex.de>
  ------
  14 March 2015
@@ -152,6 +152,9 @@ Usage
 
 
 * Which version of the plugin is best for you?
+
+  * jflex-maven-plugin-1.7.0 depends on JFlex 1.7.0
+    and required Java 7 when you <<<mvn jflex:generate>>>
 
   * jflex-maven-plugin-1.6.1 depends on JFlex 1.6.1
     and requires Java 5 when you <<<mvn jflex:generate>>>
