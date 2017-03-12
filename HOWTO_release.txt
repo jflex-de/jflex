@@ -58,7 +58,7 @@ Preparing to release
 4. Make sure you have installed Perl and the XML::LibXSLT module (required
    by the prepare-release.pl and post-release.pl scripts).
 
-5. Get the source - put your SourceForge username in place of the ...'s:
+5. Get the source:
 
    PROMPT$ git clone git@github.com:jflex-de/jflex.git 
 
