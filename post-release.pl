@@ -124,8 +124,12 @@ system(qq!perl -pi -e "s/(property\\s+name\\s*=\\s*[\\"']version[\\"']\\s+value\
 
 print "\ndone.\n\n";
 
-print " updating version in tex/manual.tex";
-system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" tex/manual.tex!);
+print " updating version in docs/xmanual.tex";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/xmanual.tex!);
+print "\ndone.\n\n";
+
+print " updating version in docs/Makefile";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/Makefile!);
 print "\ndone.\n\n";
 
 print " updating version in jflex/README.md";

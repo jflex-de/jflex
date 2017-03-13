@@ -112,7 +112,7 @@ system ('find jflex -name "*.java" | xargs perl -pi -e "s/@version (.*)-SNAPSHOT
 print "\ndone.\n\n";
 
 print " updating version in jflex-maven-plugin/src/site/apt/usage.apt";
-system (m!perl -pi -e "s~<version>.*?</version>~<version>$release</version>~" jflex-maven-plugin/src/site/apt/usage.apt!);
+system (qq!perl -pi -e "s~<version>.*?</version>~<version>$release</version>~" jflex-maven-plugin/src/site/apt/usage.apt!);
 print "\ndone.\n\n";
 
 print "Committing version update ...\n";
