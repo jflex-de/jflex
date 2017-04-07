@@ -8,6 +8,17 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import jflex.Main;
+import jflex.Options;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,35 +27,21 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-
-import jflex.Main;
-import jflex.Options;
-
 /**
  * Generates lexical scanners from one or more <a href="http://jflex.de/">JFlex</a>
  * grammar files.
- * 
- * @goal generate
- * @phase generate-sources
+ *
  * @author Régis Décamps (decamps@users.sf.net)
  * 
  */
+@Mojo(name="generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 public class JFlexMojo extends AbstractMojo {
 	/**
 	 * Name of the directory where to look for jflex files by default.
 	 */
 	public static final String SRC_MAIN_JFLEX = "src/main/jflex";
 
-	/**
-	 * @parameter expression="${project}"
-	 * @required
-	 * @readonly
-	 */
+	@Parameter(property="project", required = true, readonly = true)
 	private MavenProject project;
 
 	// cannot use {@value SRC_MAIN_JFLEX} because Maven site goals.html
@@ -58,107 +55,98 @@ public class JFlexMojo extends AbstractMojo {
 	 * processed.
 	 * 
 	 * @see #SRC_MAIN_JFLEX
-	 * @parameter
 	 */
+	@Parameter
 	private File[] lexDefinitions;
 
 	/**
 	 * Name of the directory into which JFlex should generate the parser.
-	 * 
-	 * @parameter expression="${project.build.directory}/generated-sources/jflex"
+	 *
 	 */
+	@Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
 	private File outputDirectory;
 
 	/**
 	 * The granularity in milliseconds of the last modification date for
 	 * testing whether a source needs regeneration.
-	 * 
-	 * @parameter expression="${lastModGranularityMs}" default-value="0"
+	 *
 	 */
+	@Parameter(property = "lastModGranularityMs", defaultValue = "0")
 	private int staleMillis;
 
 	/**
 	 * Whether source code generation should be verbose.
-	 * 
-	 * @parameter default-value="false"
 	 */
+	@Parameter(defaultValue = "false")
 	private boolean verbose;
 	
 	/**
 	 * Whether a warning will be logged when there are unused macros.
-	 * 
-	 * @parameter default-value="true"
+	 *
 	 */
+	@Parameter(defaultValue = "true")
 	private boolean unusedWarning;
 
 	/**
 	 * Whether to dump full debug information.
 	 *
-	 * @parameter default-value="false"
 	 */
+	@Parameter(defaultValue = "false")
 	private boolean dump;
 
 	/**
 	 * Whether to produce graphviz .dot files for the generated automata. This
 	 * feature is EXPERIMENTAL.
-	 * 
-	 * @parameter default-value="false"
 	 */
+	@Parameter(defaultValue = "false")
 	private boolean dot;
 
 	/**
 	 * Use external skeleton file.
-	 * 
-	 * @parameter
 	 */
+	@Parameter
 	private File skeleton;
 
 	/**
 	 * Strict JLex compatibility.
-	 * 
-	 * @parameter default-value="false"
 	 */
+	@Parameter(defaultValue = "false")
 	private boolean jlex;
 
 	/**
 	 * The generation method to use for the scanner. The only valid value is
 	 * <code>pack</code>.
-	 * 
-	 * @parameter default-value="pack"
 	 */
+	@Parameter(defaultValue = "pack")
 	private String generationMethod = "pack"; // NOPMD
 
 	/**
 	 * A flag whether to perform the DFA minimization step during scanner
 	 * generation.
-	 * 
-	 * @parameter default-value="true"
 	 */
+	@Parameter(defaultValue = "true")
 	private boolean minimize = true; // NOPMD
 
 	/**
 	 * A flag whether to enable the generation of a backup copy if the generated
 	 * source file already exists.
-	 * 
-	 * @parameter default-value="true"
 	 */
+	@Parameter(defaultValue = "true")
 	private boolean backup = true; // NOPMD
 
   /**
    * If true, the dot (.) metachar matches [^\n]
    * instead of [^\n\r\u000B\u000C\u0085\u2028\u2029].
-   *
-   * @parameter default-value="false"
    */
+  @Parameter(defaultValue = "false")
   private boolean legacyDot = false; // NOPMD
 
   // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
   /**
    * If true, the generated scanner will include a constructor taking
    * an InputStream.
-   *
-   * @parameter default-value="false"
    */
+  @Parameter(defaultValue = "false")
   private boolean inputStreamCtor = false; // NOPMD
 
   /**
@@ -208,7 +196,7 @@ public class JFlexMojo extends AbstractMojo {
 	 *            Lexer definiton file or directory to process.
 	 * @throws MojoFailureException
 	 *             if the file is not found.
-	 * @throws MojoExecutionException
+	 * @throws MojoExecutionException if file could not be parsed
 	 */
 	@SuppressWarnings("unchecked")
 	private void parseLexDefinition(File lexDefinition)
@@ -278,9 +266,7 @@ public class JFlexMojo extends AbstractMojo {
 
 		Options.no_minimize = !minimize; // NOPMD
 		Options.no_backup = !backup;     // NOPMD
-		if ("pack".equals(generationMethod)) {
-			/* no-op - there is only one generation method */
-		} else {
+		if (!"pack".equals(generationMethod)) {
 			throw new MojoExecutionException("Illegal generation method: "
 					+ generationMethod);
 		}
