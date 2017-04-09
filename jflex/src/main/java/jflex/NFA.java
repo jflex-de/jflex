@@ -224,7 +224,7 @@ final public class NFA {
       }
       else {
         // should never happen
-        throw new Error("When inserting lookahead expression: unkown expression type "+lookAhead.type+" in "+lookAhead); //$NON-NLS-1$ //$NON-NLS-2$
+        throw new Error("When inserting lookahead expression: unknown expression type "+lookAhead.type+" in "+lookAhead); //$NON-NLS-1$ //$NON-NLS-2$
       }
     }
   }

@@ -6593,12 +6593,12 @@ token: LPAREN at line 236, column 24
 19
 line: 236 col: 25 match: --"--
 action [263] { yybegin(STRING); string.setLength(0); }
-line: 236 col: 26 match: --When inserting lookahead expression: unkown expression type --
+line: 236 col: 26 match: --When inserting lookahead expression: unknown expression type --
 action [297] { string.append( yytext() ); }
 line: 236 col: 86 match: --"--
 action [295] { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
 token: STRING_LITERAL at line 236, column 86
-value: [When inserting lookahead expression: unkown expression type ]
+value: [When inserting lookahead expression: unknown expression type ]
 97
 line: 236 col: 87 match: --+--
 action [239] { return symbol(PLUS); }
