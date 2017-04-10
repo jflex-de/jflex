@@ -6595,62 +6595,62 @@ line: 236 col: 25 match: --"--
 action [263] { yybegin(STRING); string.setLength(0); }
 line: 236 col: 26 match: --When inserting lookahead expression: unknown expression type --
 action [297] { string.append( yytext() ); }
-line: 236 col: 86 match: --"--
+line: 236 col: 87 match: --"--
 action [295] { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
-token: STRING_LITERAL at line 236, column 86
+token: STRING_LITERAL at line 236, column 87
 value: [When inserting lookahead expression: unknown expression type ]
 97
-line: 236 col: 87 match: --+--
+line: 236 col: 88 match: --+--
 action [239] { return symbol(PLUS); }
-token: PLUS at line 236, column 87
+token: PLUS at line 236, column 88
 60
-line: 236 col: 88 match: --lookAhead--
+line: 236 col: 89 match: --lookAhead--
 action [291] { return symbol(IDENTIFIER, yytext()); }
-token: IDENTIFIER at line 236, column 88
+token: IDENTIFIER at line 236, column 89
 value: [lookAhead]
 98
-line: 236 col: 97 match: --.--
+line: 236 col: 98 match: --.--
 action [221] { return symbol(DOT); }
-token: DOT at line 236, column 97
+token: DOT at line 236, column 98
 12
-line: 236 col: 98 match: --type--
+line: 236 col: 99 match: --type--
 action [291] { return symbol(IDENTIFIER, yytext()); }
-token: IDENTIFIER at line 236, column 98
+token: IDENTIFIER at line 236, column 99
 value: [type]
 98
-line: 236 col: 102 match: --+--
+line: 236 col: 103 match: --+--
 action [239] { return symbol(PLUS); }
-token: PLUS at line 236, column 102
+token: PLUS at line 236, column 103
 60
-line: 236 col: 103 match: --"--
+line: 236 col: 104 match: --"--
 action [263] { yybegin(STRING); string.setLength(0); }
-line: 236 col: 104 match: -- in --
+line: 236 col: 105 match: -- in --
 action [297] { string.append( yytext() ); }
-line: 236 col: 108 match: --"--
+line: 236 col: 109 match: --"--
 action [295] { yybegin(YYINITIAL); return symbol(STRING_LITERAL, string.toString()); }
-token: STRING_LITERAL at line 236, column 108
+token: STRING_LITERAL at line 236, column 109
 value: [ in ]
 97
-line: 236 col: 109 match: --+--
+line: 236 col: 110 match: --+--
 action [239] { return symbol(PLUS); }
-token: PLUS at line 236, column 109
+token: PLUS at line 236, column 110
 60
-line: 236 col: 110 match: --lookAhead--
+line: 236 col: 111 match: --lookAhead--
 action [291] { return symbol(IDENTIFIER, yytext()); }
-token: IDENTIFIER at line 236, column 110
+token: IDENTIFIER at line 236, column 111
 value: [lookAhead]
 98
-line: 236 col: 119 match: --)--
+line: 236 col: 120 match: --)--
 action [214] { return symbol(RPAREN); }
-token: RPAREN at line 236, column 119
+token: RPAREN at line 236, column 120
 20
-line: 236 col: 120 match: --;--
+line: 236 col: 121 match: --;--
 action [219] { return symbol(SEMICOLON); }
-token: SEMICOLON at line 236, column 120
+token: SEMICOLON at line 236, column 121
 13
-line: 236 col: 121 match: -- --
+line: 236 col: 122 match: -- --
 action [288] { /* ignore */ }
-line: 236 col: 122 match: --//$NON-NLS-1$ //$NON-NLS-2$\u000A--
+line: 236 col: 123 match: --//$NON-NLS-1$ //$NON-NLS-2$\u000A--
 action [288] { /* ignore */ }
 line: 237 col: 1 match: -- --
 action [288] { /* ignore */ }
