@@ -34,7 +34,7 @@ import java.util.List;
  * @author Régis Décamps (decamps@users.sf.net)
  * 
  */
-@Mojo(name="generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
+@Mojo(name="generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
 public class JFlexMojo extends AbstractMojo {
 	/**
 	 * Name of the directory where to look for jflex files by default.
