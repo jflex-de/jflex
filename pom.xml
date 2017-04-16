@@ -154,8 +154,18 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>2.5</version>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>2.5</version>
+            <configuration>
+                <filesets>
+                    <fileset>
+                        <directory>lib</directory>
+                        <includes>
+                            <include>**/${project.artifactId}-${project.version}.jar</include>
+                        </includes>
+                    </fileset>
+                </filesets>
+            </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -176,6 +186,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.4</version>
+          <configuration>
+            <outputDirectory>lib</outputDirectory>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
