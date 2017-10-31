@@ -29,9 +29,9 @@ public class NamedRange implements Comparable<NamedRange> {
   public int compareTo(NamedRange other) {
     int comparison = 0;
     if (null != other) {
-      comparison = (new Integer(start)).compareTo(other.start);
+      comparison = Integer.valueOf(start).compareTo(other.start);
       if (0 == comparison) {
-        comparison = (new Integer(end)).compareTo(other.end);
+        comparison = Integer.valueOf(end).compareTo(other.end);
       }
     }
     return comparison;

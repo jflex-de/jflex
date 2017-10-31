@@ -55,7 +55,7 @@ class DiffStream {
 					return "EOF reached in Input(Line:"+linesProcessed+")... more Lines expected.\n";
 				}
         if (readFromInput != null && !match(readFromInput,readFromExpected)) {
-          if (!diffLines.contains(new Integer(linesProcessed)))
+          if (!diffLines.contains(Integer.valueOf(linesProcessed)))
             return "Difference in line "+linesProcessed+"\n"+
                    "expected :["+readFromExpected+"]\n"+
                    "but got  :["+readFromInput+"]";

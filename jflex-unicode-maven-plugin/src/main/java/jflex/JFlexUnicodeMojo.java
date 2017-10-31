@@ -20,6 +20,7 @@ import java.util.SortedMap;
 import java.util.Collections;
 import java.util.TreeMap;
 import java.util.EnumMap;
+import java.util.Map.Entry;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -177,8 +178,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       }
       updates.put(updateNumber, relativeURL);
     }
-    for (String version : allUnicodeVersions.keySet()) {
-      populateUnicodeVersion(version, allUnicodeVersions.get(version));
+    for (Entry<String, SortedMap<Integer, String>> entry : allUnicodeVersions.entrySet()) {
+      populateUnicodeVersion(entry.getKey(), entry.getValue());
     }
   }
 
@@ -259,14 +260,15 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    * @throws IOException If there is an error fetching the given page.
    */
   private String getPageContent(URL url) throws IOException {
-    InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8");
-    StringBuilder builder = new StringBuilder();
-    char[] buf = new char[BUF_SIZE];
-    int charsRead;
-    while ((charsRead = reader.read(buf)) > 0) {
-      builder.append(buf, 0, charsRead);
+    try(InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+      StringBuilder builder = new StringBuilder();
+      char[] buf = new char[BUF_SIZE];
+      int charsRead;
+      while ((charsRead = reader.read(buf)) > 0) {
+        builder.append(buf, 0, charsRead);
+      }
+      return builder.toString();
     }
-    return builder.toString();
   }
 
   /**
@@ -300,7 +302,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private void emitUnicodeVersionsString(StringBuilder builder) {
     builder.append("    \"");
     boolean isFirst = true;
-    for (String majorMinorVersion : unicodeVersions.keySet()) {
+    for (Entry<String, UnicodeVersion> entry : unicodeVersions.entrySet()) {
+      String majorMinorVersion = entry.getKey();
       if (isFirst) {
         isFirst = false;
       } else {
@@ -311,8 +314,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
           = majorMinorVersion.substring(0, majorMinorVersion.indexOf("."));
         builder.append(majorVersion).append(", ");
       }
-      builder.append(majorMinorVersion).append(", ")
-        .append(unicodeVersions.get(majorMinorVersion).majorMinorUpdateVersion);
+      builder.append(entry).append(", ")
+        .append(entry.getValue().majorMinorUpdateVersion);
     }
     builder.append("\";");
   }
@@ -332,7 +335,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
 
   private void emitInitBody(StringBuilder builder) {
     boolean isFirst = true;
-    for (String majorMinorVersion : unicodeVersions.keySet()) {
+    for (Entry<String, UnicodeVersion> entry : unicodeVersions.entrySet()) {
+      String majorMinorVersion = entry.getKey();
       if (isFirst) {
         builder.append("    if (");
         isFirst = false;
@@ -345,9 +349,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         builder.append("version.equals(\"").append(majorVersion)
           .append("\") || ");
       }
-      UnicodeVersion unicodeVersion = unicodeVersions.get(majorMinorVersion);
+      UnicodeVersion unicodeVersion = entry.getValue();
       String versionSuffix = unicodeVersion.getVersionSuffix();
-      builder.append("version.equals(\"").append(majorMinorVersion)
+      builder.append("version.equals(\"").append(entry)
         .append("\") || version.equals(\"")
         .append(unicodeVersion.majorMinorUpdateVersion).append("\")) {\n")
         .append("      bind(Unicode").append(versionSuffix).append(".propertyValues")
