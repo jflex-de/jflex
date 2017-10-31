@@ -127,7 +127,7 @@ public class NFA<I extends Item, S extends State<I>>
 	
 	
 	/**
-	 * Pattern: [ srcItem.getPrdocution() ]... | symbol | [ dstItems ]...([ ACCEPT ])
+	 * Pattern: [ srcItem.getProduction() ]... | symbol | [ dstItems ]...([ ACCEPT ])
 	 */
 	@Override
 	public String toString()

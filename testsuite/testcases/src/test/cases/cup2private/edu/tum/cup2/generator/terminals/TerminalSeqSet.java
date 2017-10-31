@@ -29,7 +29,7 @@ public class TerminalSeqSet implements ITerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the iterator
+	 * The sequence is based on the ordering of the iterator
 	 * 
 	 * @param sequences
 	 */
@@ -45,7 +45,7 @@ public class TerminalSeqSet implements ITerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the array
+	 * The sequence is based on the ordering of the array
 	 * 
 	 * @param sequences
 	 */
@@ -61,7 +61,7 @@ public class TerminalSeqSet implements ITerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the array
+	 * The sequence is based on the ordering of the array
 	 * 
 	 * @param sequences
 	 */

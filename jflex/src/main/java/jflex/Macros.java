@@ -59,7 +59,7 @@ final public class Macros {
 
 
   /**
-   * Marks a makro as used.
+   * Marks a macro as used.
    *
    * @return <code>true</code>, iff the macro name has been
    *         stored before.
@@ -119,7 +119,7 @@ final public class Macros {
 
   /**
    * Expands all stored macros, so that getDefinition always returns
-   * a defintion that doesn't contain any macro usages.
+   * a definition that doesn't contain any macro usages.
    *
    * @throws MacroException   if there is a cycle in the macro usage graph.
    */

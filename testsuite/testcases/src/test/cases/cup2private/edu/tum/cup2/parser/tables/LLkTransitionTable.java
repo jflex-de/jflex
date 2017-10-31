@@ -16,7 +16,7 @@ import edu.tum.cup2.parser.states.LLkErrorState;
 
 
 /**
- * This is a sub-table of the {@link LLkParsingTable} for one kind of possbile transitions - expand, shift or reduce.
+ * This is a sub-table of the {@link LLkParsingTable} for one kind of possible transitions - expand, shift or reduce.
  * Here are the {@link LLkTransition}s stored, accessible by {@link LLkState}, current {@link Symbol} and
  * lookahead of length k.<br/>
  * Requests to this table are handled in three stages. The ordering is:<br/>

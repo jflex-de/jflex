@@ -27,7 +27,7 @@ import edu.tum.cup2.semantics.SymbolValue;
 
 
 /**
- * This class implements a (strong) LL(k)-Parsing pushdown automaton. Its state is representsed by the {@link LLkItem}s
+ * This class implements a (strong) LL(k)-Parsing pushdown automaton. Its state is represented by the {@link LLkItem}s
  * on the {@link #stack} - or a {@link LLkParserState} containing these one (or two) items.
  * 
  * @author Gero

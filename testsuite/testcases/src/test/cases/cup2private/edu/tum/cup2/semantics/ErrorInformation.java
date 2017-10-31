@@ -229,7 +229,7 @@ public class ErrorInformation implements Serializable {
   
   /**
    * Retrieves information about exact position
-   * where the error occured.
+   * where the error occurred.
    * 
    * @return Line-number of first bad token.
    **/
@@ -239,7 +239,7 @@ public class ErrorInformation implements Serializable {
   }
   /**
    * Retrieves information about exact position
-   * where the error occured.
+   * where the error occurred.
    * 
    * @return Position in line of first bad token (column).
    **/

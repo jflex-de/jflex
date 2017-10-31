@@ -26,7 +26,7 @@ public class Timer {
 
 
   /**
-   * Construct a new timer that starts immediatly.
+   * Construct a new timer that starts immediately.
    */
   public Timer() {
     startTime = System.currentTimeMillis();

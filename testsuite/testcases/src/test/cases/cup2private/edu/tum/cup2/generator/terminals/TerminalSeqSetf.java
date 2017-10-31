@@ -40,7 +40,7 @@ public class TerminalSeqSetf extends TerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the iterator
+	 * The sequence is based on the ordering of the iterator
 	 * 
 	 * @param sequences
 	 */
@@ -57,7 +57,7 @@ public class TerminalSeqSetf extends TerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the array
+	 * The sequence is based on the ordering of the array
 	 * 
 	 * @param sequences
 	 */
@@ -74,7 +74,7 @@ public class TerminalSeqSetf extends TerminalSeqSet
 	
 	
 	/**
-	 * The sequence is based on the orderering of the array
+	 * The sequence is based on the ordering of the array
 	 * 
 	 * @param sequences
 	 */

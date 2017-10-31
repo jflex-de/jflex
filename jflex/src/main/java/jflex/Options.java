@@ -13,7 +13,7 @@ import java.io.File;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser,
- * ant taks, gui, etc.
+ * ant task, gui, etc.
  * 
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT

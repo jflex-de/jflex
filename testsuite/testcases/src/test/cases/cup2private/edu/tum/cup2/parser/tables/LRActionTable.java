@@ -151,7 +151,7 @@ public class LRActionTable implements Serializable
 	
 	/**
 	 * returns a reference to the internal hashtable containing the semantic actions
-	 * (is is required for testing purposes) 
+	 * (is required for testing purposes) 
 	 */
 	protected Hashtable<StateSymbolKey, LRAction> getTable()
 	{
