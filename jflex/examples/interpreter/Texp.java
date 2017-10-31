@@ -12,7 +12,7 @@
  * AST node for an integer expression.
  * 
  * The non terminal exp is the sum of multiple variants and
- * therefore modeled as an abstract class.
+ * therefore modelled as an abstract class.
  * 
  * The interpretation function <tt>interpret</tt> is called with
  * valuations of input variables <tt>in</tt> and parameters

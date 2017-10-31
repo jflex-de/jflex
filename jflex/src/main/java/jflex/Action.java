@@ -188,7 +188,7 @@ final public class Action {
    * Sets the lookahead kind and data for this action
    * 
    * @param kind   which kind of lookahead it is
-   * @param data   the length for fixed length look aheads.
+   * @param data   the length for fixed length lookaheads.
    *   
    */
   public void setLookAction(int kind, int data) {

@@ -12,7 +12,7 @@
  * AST node for function declarations.
  * 
  * Also contains a reference to the symbol table of 
- * the paramaters and their arity.
+ * the parameters and their arity.
  */ 
 class Tdekl implements AST {
   Tident ident;               // identifier

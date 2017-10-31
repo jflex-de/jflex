@@ -22,7 +22,7 @@ import java.awt.TextArea;
  * Use the switches verbose, time and DUMP at compile time to determine
  * the verbosity of JFlex output. There is no switch for
  * suppressing error messages. verbose and time can be overridden 
- * by command line paramters.
+ * by command line parameters.
  *
  * Redirects output to a TextArea in GUI mode.
  *

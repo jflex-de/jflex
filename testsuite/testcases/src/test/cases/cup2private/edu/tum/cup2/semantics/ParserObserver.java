@@ -1,7 +1,7 @@
 package edu.tum.cup2.semantics;
 
 /**
- * This inteface may be implemented and used in the context
+ * This interface may be implemented and used in the context
  * of a call to {@link edu.tum.cup2.parser.LRParser#register(ParserObserver)}
  * in order to listen to events created by the parser
  * or by the specification in the form of

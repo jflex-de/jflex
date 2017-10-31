@@ -270,7 +270,7 @@ public final class Production implements Serializable
 	
 	
 	/**
-	 * Returns a list of the the right hand side symbols.
+	 * Returns a list of the right hand side symbols.
 	 */
 	public List<Symbol> getRHS()
 	{

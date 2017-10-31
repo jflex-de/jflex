@@ -5,7 +5,7 @@ import edu.tum.cup2.generator.LookaheadGenerator;
 
 
 /**
- * Represents an error which occured while running a {@link LLkGenerator}/ {@link LookaheadGenerator}
+ * Represents an error which occurred while running a {@link LLkGenerator}/ {@link LookaheadGenerator}
  * 
  * @author Gero
  * 

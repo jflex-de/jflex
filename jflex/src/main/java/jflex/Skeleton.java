@@ -81,7 +81,7 @@ public class Skeleton {
   /**
    * Make the skeleton private.
    *
-   * Replaces all occurences of " public " in the skeleton with " private ". 
+   * Replaces all occurrences of " public " in the skeleton with " private ". 
    */
   public static void makePrivate() {
     for (int i=0; i < line.length; i++) {

@@ -143,7 +143,7 @@ public class LookaheadGenerator
 	
 	/**
 	 * @param curItem The item which is currently handled
-	 * @param curDepth The recusrion depth the algorithm is actually in. > 0 means processing the items symbols (first),
+	 * @param curDepth The recursion depth the algorithm is actually in. > 0 means processing the items symbols (first),
 	 *           < 0 means somewhere behind the item (follow), == 0 means current item.
 	 * @param maxLength The length the branches/paths should try to reach
 	 * @param parentPath The path which lays before the curItem

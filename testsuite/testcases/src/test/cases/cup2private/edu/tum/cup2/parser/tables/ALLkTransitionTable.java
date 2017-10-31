@@ -17,12 +17,12 @@ public abstract class ALLkTransitionTable
 {
 	/**
 	 * Get the {@link LLkParserState} associated with the given state and symbol. Returns <code>null</code> if no
-	 * appropritate rule is present!
+	 * appropriate rule is present!
 	 * 
 	 * @param from The state...
 	 * @param symbol ... the symbol, and...
 	 * @param lookahead ... the lookahead this method should search the {@link LLkParserState} for
-	 * @return The {@link LLkParserState} associated with the given state and symbol. If theres none, <code>null</code>
+	 * @return The {@link LLkParserState} associated with the given state and symbol. If there's none, <code>null</code>
 	 *         is returned!
 	 */
 	public abstract LLkState getWithNull(LLkState from, Symbol symbol, ITerminalSeq lookahead);

@@ -12,7 +12,7 @@
  * Symbol table entry for names, there are subclasses for
  * variables and functions.
  * 
- * Defines constants UNKNOWN, VAR und FUN as kinds of
+ * Defines constants UNKNOWN, VAR and FUN as kinds of
  * symbol table entries.
  */ 
 class SymtabEntry {

@@ -6,7 +6,7 @@ package edu.tum.cup2.util;
  * to one instance.
  * 
  * This is especially useful for multiple return values.
- * Even more, tupel identity is defined semantically rather than
+ * Even more, tuple identity is defined semantically rather than
  * instance based - we combine the hash-values of e1 and e2 therefore.
  * 
  * @author Andreas Wenger
