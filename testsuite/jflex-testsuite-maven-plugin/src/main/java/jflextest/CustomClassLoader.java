@@ -165,8 +165,7 @@ public class CustomClassLoader extends ClassLoader {
    * Return InputStream for a jar/zip file entry.
    */
   private InputStream getZipEntryStream(String file, String entryName) {
-    try {
-      ZipFile zip = new ZipFile(new File(file));
+    try (ZipFile zip = new ZipFile(new File(file))) {
       ZipEntry entry = zip.getEntry(entryName);
 
       if (entry == null) return null;

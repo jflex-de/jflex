@@ -1,6 +1,7 @@
 package jflex;
 
 import java.io.Reader;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -65,14 +66,14 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
     }
     
     String previousVersion = null;
-    for (String version : ageRangesPerVersion.keySet()) {
-      NamedRangeSet targetRanges = ageRangesPerVersion.get(version);
+    for (Entry<String, NamedRangeSet> entry : ageRangesPerVersion.entrySet()) {
+      NamedRangeSet targetRanges = entry.getValue();
       if (null != previousVersion) {
         // Add previous version's ranges to the next version's
         targetRanges.add(ageRangesPerVersion.get(previousVersion));
       }
-      previousVersion = version;
-      String age = getAge(version);
+      previousVersion = entry.getKey();
+      String age = getAge(entry.getKey());
       for (NamedRange range : targetRanges.getRanges()) {
         unicodeVersion.addInterval(propertyName, age, range.start, range.end);
       }
