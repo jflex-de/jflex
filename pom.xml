@@ -126,6 +126,36 @@
   </dependencyManagement>
     
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <compilerId>javac-with-errorprone</compilerId>
+          <forceJavacCompilerUse>true</forceJavacCompilerUse>
+          <compilerArgs>
+            <arg>-Xep:FallThrough:WARN</arg>
+          </compilerArgs>
+          <source>7</source>
+          <target>7</target>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-compiler-javac-errorprone</artifactId>
+            <version>2.8</version>
+          </dependency>
+          <!-- override plexus-compiler-javac-errorprone's dependency on
+               Error Prone with the latest version -->
+          <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_core</artifactId>
+            <version>2.1.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
