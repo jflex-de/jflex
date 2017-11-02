@@ -9,6 +9,7 @@
 
 package jflex;
 
+
 /**
  * Thrown when code generation has to be aborted.
  *
@@ -17,10 +18,13 @@ package jflex;
  */
 public class GeneratorException extends RuntimeException {
 
-  /** */
-  private static final long serialVersionUID = -9128247888544263982L;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9128247888544263982L;
 
-  public GeneratorException() {
+public GeneratorException() {
     super("Generation aborted");
   }
+
 }

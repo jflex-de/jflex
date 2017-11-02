@@ -11,14 +11,15 @@ package jflex;
 
 import java.util.*;
 
+
 /**
- * Simple symbol table, mapping lexical state names to integers.
+ * Simple symbol table, mapping lexical state names to integers. 
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
 public class LexicalStates {
-
+  
   /** maps state name to state number */
   Map<String, Integer> states;
 
@@ -28,41 +29,57 @@ public class LexicalStates {
   /** number of declared states */
   int numStates;
 
-  /** constructs a new lexical state symbol table */
+
+  /**
+   * constructs a new lexical state symbol table
+   */
   public LexicalStates() {
-    states = new LinkedHashMap<String, Integer>();
+    states = new LinkedHashMap<String,Integer>();
     inclusive = new ArrayList<Integer>();
   }
 
-  /** insert a new state declaration */
+  
+  /**
+   * insert a new state declaration
+   */
   public void insert(String name, boolean is_inclusive) {
-    if (states.containsKey(name)) return;
+    if ( states.containsKey(name) ) return;
 
     Integer code = numStates++;
     states.put(name, code);
 
-    if (is_inclusive) inclusive.add(code);
+    if (is_inclusive) 
+      inclusive.add(code);
   }
 
+
   /**
-   * returns the number (code) of a declared state, <code>null</code> if no such state has been
-   * declared.
+   * returns the number (code) of a declared state, 
+   * <code>null</code> if no such state has been declared.
    */
   public Integer getNumber(String name) {
     return states.get(name);
   }
 
-  /** returns the number of declared states */
+  
+  /**
+   * returns the number of declared states
+   */
   public int number() {
     return numStates;
   }
 
-  /** returns the names of all states */
+  
+  /**
+   * returns the names of all states
+   */
   public Set<String> names() {
     return states.keySet();
   }
 
-  /** returns the code of all inclusive states */
+  /**
+   * returns the code of all inclusive states
+   */
   public List<Integer> getInclusiveStates() {
     return inclusive;
   }
