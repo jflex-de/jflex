@@ -50,7 +50,7 @@ public class ScannerException extends RuntimeException {
   /**
    * Creates a new ScannerException for a file with a message only.
    *
-   * @param file      the file in which the error occured
+   * @param file      the file in which the error occurred
    * @param message   the code for the error description presented to the user.
    */
   public ScannerException(File file, ErrorMessages message) {

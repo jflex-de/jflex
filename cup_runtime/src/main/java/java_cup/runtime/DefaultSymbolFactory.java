@@ -17,7 +17,7 @@ public class DefaultSymbolFactory implements SymbolFactory{
     // Factory methods
     /**
      * DefaultSymbolFactory for CUP.
-     * Users are strongly encoraged to use ComplexSymbolFactory instead, since
+     * Users are strongly encouraged to use ComplexSymbolFactory instead, since
      * it offers more detailed information about Symbols in source code.
      * Yet since migrating has always been a critical process, You have the
      * chance of still using the oldstyle Symbols.

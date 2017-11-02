@@ -1,6 +1,6 @@
 /**
  * A small utility class.
- * TODO: use reosurce bundle
+ * TODO: use resource bundle
  */
 class Utility {
   

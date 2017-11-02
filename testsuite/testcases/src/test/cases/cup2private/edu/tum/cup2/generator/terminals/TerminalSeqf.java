@@ -8,7 +8,7 @@ import edu.tum.cup2.grammar.Terminal;
 import edu.tum.cup2.util.ItIterator;
 
 /**
- * An inmutable implementation of {@link ITerminalSeq}. Mutating methods return new instances.
+ * An immutable implementation of {@link ITerminalSeq}. Mutating methods return new instances.
  * 
  * @author Gero
  * 
@@ -29,7 +29,7 @@ public class TerminalSeqf extends TerminalSeq
 	
 	
 	/**
-	 * The sequence is based on the orderering of the collections iterator
+	 * The sequence is based on the ordering of the collections iterator
 	 * 
 	 * @param terminals
 	 */
@@ -41,7 +41,7 @@ public class TerminalSeqf extends TerminalSeq
 	
 	
 	/**
-	 * The sequence is based on the orderering of the iterator
+	 * The sequence is based on the ordering of the iterator
 	 * 
 	 * @param iterator
 	 */

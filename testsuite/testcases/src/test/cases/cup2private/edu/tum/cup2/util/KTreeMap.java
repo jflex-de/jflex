@@ -9,7 +9,7 @@ import java.util.Stack;
 /**
  * This class is some kind of {@link Map} implementation based on a tree. For each dimension of the key, there might be
  * a branch with a leaf storing a value. Its special ability is that it matches keys which are shorter then stored ones
- * with the same beginning - but still unambigoius - to the value of the full key. <code>null</code> as key or value is
+ * with the same beginning - but still unambiguous - to the value of the full key. <code>null</code> as key or value is
  * omitted.<br/>
  * <br/>
  * The structure of the tree is as follows:
@@ -204,7 +204,7 @@ public class KTreeMap<K extends Iterable<P>, P, V>
 	
 	/**
 	 * @param key
-	 * @return <code>true</code> if the key matches an unambigious branch in the tree
+	 * @return <code>true</code> if the key matches an unambiguous branch in the tree
 	 */
 	public boolean containsKey(K key)
 	{
@@ -224,7 +224,7 @@ public class KTreeMap<K extends Iterable<P>, P, V>
 	
 	/**
 	 * @param key
-	 * @return <code>true</code> if the key matches an unambigious value-branch in the tree
+	 * @return <code>true</code> if the key matches an unambiguous value-branch in the tree
 	 */
 	public boolean containsValueFor(K key)
 	{
@@ -233,7 +233,7 @@ public class KTreeMap<K extends Iterable<P>, P, V>
 	
 	
 	/**
-	 * Gets a value associated with the given key - or the value which has been put for a unambigious longer key with
+	 * Gets a value associated with the given key - or the value which has been put for a unambiguous longer key with
 	 * the same beginning
 	 * 
 	 * @param key
@@ -280,8 +280,8 @@ public class KTreeMap<K extends Iterable<P>, P, V>
 	
 	
 	/**
-	 * Gets a value associated with the given key, the value which has been put for a unambigious longer key with
-	 * the same beginning, or even the value associated with a shorter key if values are unambigious.
+	 * Gets a value associated with the given key, the value which has been put for a unambiguous longer key with
+	 * the same beginning, or even the value associated with a shorter key if values are unambiguous.
 	 * 
 	 * @param key
 	 * @return See above

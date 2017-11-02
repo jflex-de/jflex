@@ -23,7 +23,7 @@ public final class Interval {
   
 
   /**
-   * Constuct a new interval from <code>start</code> to <code>end</code>.
+   * Construct a new interval from <code>start</code> to <code>end</code>.
    *
    * @param start  first character the interval should contain
    * @param end    last  character the interval should contain

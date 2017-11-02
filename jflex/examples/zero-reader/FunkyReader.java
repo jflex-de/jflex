@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * Reader that returns 0 chars read every once in a while.
  * 
- * This is a demonstration of a problematics Reader that does not
+ * This is a demonstration of a problematic Reader that does not
  * implement the Reader specification correctly. Do not use.
  */
 public class FunkyReader extends Reader {

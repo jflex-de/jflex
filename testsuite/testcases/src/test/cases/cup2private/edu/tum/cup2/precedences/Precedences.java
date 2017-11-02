@@ -7,7 +7,7 @@ import edu.tum.cup2.grammar.Terminal;
 
 
 /**
- * Define the precedences of a grammer.
+ * Define the precedences of a grammar.
  * These are needed for ambiguous grammars to resolve
  * shift-reduce conflicts.
  * 

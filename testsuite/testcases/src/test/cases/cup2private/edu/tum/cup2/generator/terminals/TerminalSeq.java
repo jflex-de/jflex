@@ -28,7 +28,7 @@ public class TerminalSeq implements ITerminalSeq
 	
 	
 	/**
-	 * The sequence is based on the orderering of the collections iterator
+	 * The sequence is based on the ordering of the collections iterator
 	 * 
 	 * @param terminals
 	 */
@@ -39,7 +39,7 @@ public class TerminalSeq implements ITerminalSeq
 	
 	
 	/**
-	 * The sequence is based on the orderering of the iterator
+	 * The sequence is based on the ordering of the iterator
 	 * 
 	 * @param iterator
 	 */

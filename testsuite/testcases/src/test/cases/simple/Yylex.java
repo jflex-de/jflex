@@ -401,7 +401,7 @@ public class Yylex {
 
 
   /**
-   * Reports an error that occured while scanning.
+   * Reports an error that occurred while scanning.
    *
    * In a wellformed scanner (no or only correct usage of 
    * yypushback(int) and a match-all fallback rule) this method 
@@ -781,7 +781,7 @@ public class Yylex {
    *
    * This main method is the debugging routine for the scanner.
    * It prints debugging information about each returned token to
-   * System.out until the end of file is reached, or an error occured.
+   * System.out until the end of file is reached, or an error occurred.
    *
    * @param argv   the command line, contains the filenames to run
    *               the scanner on.

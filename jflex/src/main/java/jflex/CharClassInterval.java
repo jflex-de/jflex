@@ -13,7 +13,7 @@ package jflex;
  * Stores an interval of characters together with the character class
  *
  * A character belongs to an interval, if its Unicode value is greater than or equal
- * to the Unicode value of <CODE>start</code> and smaller than or euqal to the Unicode
+ * to the Unicode value of <CODE>start</code> and smaller than or equal to the Unicode
  * value of <CODE>end</code>.
  *
  * All characters of the interval must belong to the same character class.
