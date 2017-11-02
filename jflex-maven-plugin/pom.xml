@@ -16,13 +16,14 @@
     documentation here:
     http://jflex.sourceforge.net/maven-jflex-plugin/
   </description>
-  <url>http://jflex.sourceforge.net/jflex-maven-plugin/</url>
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>9</version>
     <relativePath/>
   </parent>
+  <!-- The parent is Sonatype, so we need to repeat things already in the jflex-parent -->
+  <url>http://jflex.de/</url>
   <mailingLists>
     <mailingList>
       <name>JFlex User List</name>
@@ -259,105 +260,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <reporting>
-    <plugins>
-      <plugin>
-        <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.5</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.9</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>index</report>
-              <report>dependencies</report>
-              <report>project-team</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-              <report>summary</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
-        <configuration>
-          <targetJdk>1.7</targetJdk>
-          <rulesets>
-            <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
-          </rulesets>
-          <format>xml</format>
-          <linkXRef>true</linkXRef>
-          <minimumTokens>100</minimumTokens>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag>FIXME</tag>
-            <tag>@todo</tag>
-            <tag>@deprecated</tag>
-          </tags>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.19.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.5</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9.1</version>
-        <configuration>
-          <tagletArtifacts>
-            <tagletArtifact>
-              <groupId>org.apache.maven.plugin-tools</groupId>
-              <artifactId>maven-plugin-tools-javadoc</artifactId>
-              <version>3.4</version>
-            </tagletArtifact>
-          </tagletArtifacts>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.4</version>
-        <configuration>
-          <xmlOutput>true</xmlOutput>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
-          <outputDirectory>target/findbugs</outputDirectory>
-          <visitors>
-            FindDeadLocalStores,UnreadFields
-          </visitors>
-          <onlyAnalyze>de.jflex.*</onlyAnalyze>
-          <debug>true</debug>
-          <relaxed>true</relaxed>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0</version>
-      </plugin>
-    </plugins>
-  </reporting>
   <scm>
     <connection>scm:git:git@github.com:jflex-de/jflex.git</connection>
     <developerConnection>scm:git:git@github.com:jflex-de/jflex.git</developerConnection>
