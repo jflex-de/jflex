@@ -5,6 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cup_runtime</artifactId>
   <version>${cup.version}</version>
+  <packaging>jar</packaging>
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
