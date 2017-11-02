@@ -76,8 +76,8 @@
   <dependencies>
     <dependency>
       <groupId>de.jflex</groupId>
-      <artifactId>cup</artifactId>
-      <version>${project.version}</version>
+      <artifactId>cup_runtime</artifactId>
+      <version>${cup.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
