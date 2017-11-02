@@ -128,13 +128,11 @@
             </goals>
             <configuration>
               <target name="cup">
-
-                <property name="cup.jar" value="lib/java-cup-${cup.version}.jar"/>
                 <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
                 <property name="cup.file" location="src/main/cup/LexParse.cup"/>
                 <mkdir dir="${cup.output.dir}"/>
                 <echo message="Generating LexParse.java from ${cup.file}"/>
-                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}"/>
+                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpathref="maven.plugin.classpath"/>
                 <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" locations="false" parser="LexParse"/>
               </target>
             </configuration>
@@ -152,6 +150,15 @@
             </configuration>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>de.jflex</groupId>
+            <artifactId>cup</artifactId>
+            <version>${cup.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/java-cup-${cup.version}.jar</systemPath>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
