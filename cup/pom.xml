@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>cup</artifactId>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.7.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>CUP</name>
+  <url>http://www2.cs.tum.edu/projects/cup/</url>
+  <inceptionYear>1998</inceptionYear>
+  <description>
+    A copy of the Java CUP runtime.
+    CUP is a LALR parser generator for Java
+  </description>
+  <licenses>
+    <license>
+      <name>CUP</name>
+      <url>http://www2.cs.tum.edu/projects/cup/licence.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+</project>

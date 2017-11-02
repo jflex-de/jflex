@@ -9,7 +9,6 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>JFlex</name>
-  <url>http://jflex.de/</url>
   <inceptionYear>1998</inceptionYear>
   <description>
     JFlex is a lexical analyzer generator (also known as
@@ -75,6 +74,10 @@
     </mailingList>
   </mailingLists>
   <dependencies>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>cup</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
@@ -343,8 +346,4 @@
       </build>
     </profile>
   </profiles>
-  <properties>
-    <cup.version>11b</cup.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 </project>
