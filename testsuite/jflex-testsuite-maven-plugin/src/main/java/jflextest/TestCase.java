@@ -26,6 +26,9 @@ public class TestCase {
   /** Single common input file for all outputs */
   private String commonInputFile = null;
 
+  /** Java version this test case is intended for */
+  private String javaVersion = System.getProperty("java.version");
+
   /** misc. */
   private String className;
   private String testName;
@@ -60,6 +63,7 @@ public class TestCase {
   public void setInputFileEncoding(String e) { inputFileEncoding = e; }
   public void setOutputFileEncoding(String e) { outputFileEncoding = e; }
   public void setCommonInputFile(String f) { commonInputFile = f; }
+  public void setJavaVersion(String v) { this.javaVersion = v; }
   
   public TestCase() {
     setDefaults();
@@ -70,6 +74,11 @@ public class TestCase {
     jflexFiles = new ArrayList<String>();
     //javacExtraFiles = new ArrayList<String>();
     //jflexCmdln.add("--dump");
+  }
+
+  public boolean checkJavaVersion() {
+    String current = System.getProperty("java.version");
+    return current.startsWith(javaVersion);
   }
 
   public void init(File testDir) {
@@ -254,6 +263,7 @@ public class TestCase {
             ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
             : "") + "\n"
         + "Files to run Main on " + inputOutput 
-        + (null != commonInputFile ? " Common input file: " + commonInputFile : "");
+        + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
+        + "Java version " + javaVersion;
   }
 }

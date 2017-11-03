@@ -78,18 +78,23 @@ public class Main {
         TestCase currentTest = loader.load();
         currentTest.init(currentDir);
 
-        // success? -> run 
+        // success? -> run
         if (currentTest == null) throw new TestFailException("not loaded");
-        
         if (verbose)
           System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
-        currentTest.createScanner();
-        while (currentTest.hasMoreToDo()) 
-          currentTest.runNext();
-        
-        successCount++;
-        System.out.println("Test [" + test + "] finished successfully.");
+        if (currentTest.checkJavaVersion()) {
+          currentTest.createScanner();
+          while (currentTest.hasMoreToDo())
+            currentTest.runNext();
+
+          successCount++;
+          System.out.println("Test [" + test + "] finished successfully.");
+        }
+        else {
+          successCount++;
+          System.out.println("Test [" + test + "] skipped (JDK version mismatch).");
+        }
       }
       catch (TestFailException e) {
         System.out.println("Test ["+test+"] failed!");
