@@ -1,0 +1,31 @@
+match: --@Anident--
+action [14] { System.out.println("matched identifier ["+yytext()+"]"); }
+matched identifier [@Anident]
+match: -- --
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [ ]
+match: --1--
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [1]
+match: --2--
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [2]
+match: --3--
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [3]
+match: --1--
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [1]
+match: -- --
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [ ]
+match: --@@jnother--
+action [14] { System.out.println("matched identifier ["+yytext()+"]"); }
+matched identifier [@@jnother]
+match: -- --
+action [16] { System.out.println("Fallback ["+yytext()+"]"); }
+Fallback [ ]
+match: --ident3--
+action [14] { System.out.println("matched identifier ["+yytext()+"]"); }
+matched identifier [ident3]
+-1
