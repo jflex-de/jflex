@@ -1,20 +1,12 @@
 #!/bin/bash
 
-# Travis already runs Maven, and invokes the script with
-# ./run-tests --travis
-RUN_LOCAL=true
-while true
-do
-  case $1 in
-    --travis) RUN_LOCAL=false ; shift ;;
-    *) break ;;
-  esac
-done
-
 # fail on error
 set -e
 
-if [[ $RUN_LOCAL ]]; then
+if [[ ! $TRAVIS ]]; then
+  echo "[INFO] Applying steps executed by Travis"
+  echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
+  sleep 2
   # clean existing artefacts
   # note that mvn could fail if POM are incorrects
   find . -name target -type d -delete
