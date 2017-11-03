@@ -213,7 +213,7 @@
             <configuration>
               <artifactSet>
                 <includes>
-                  <include>de.jfex:cup_runtime_java</include>
+                  <include>de.jflex:cup_runtime</include>
                 </includes>
               </artifactSet>
             </configuration>
