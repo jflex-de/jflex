@@ -1,8 +1,8 @@
-name: ccl2
+name: ccl3
 
 description:
 bug-test for [:jletter:] style predefined character classes (#467827)
 
 jflex: --nobak --dump --noinputstreamctor
 
-jdk: 1.7
+jdk: 1.8
