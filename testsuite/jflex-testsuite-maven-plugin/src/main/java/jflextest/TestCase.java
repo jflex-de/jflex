@@ -1,7 +1,16 @@
 package jflextest;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 public class TestCase {
 
@@ -103,10 +112,10 @@ public class TestCase {
   }
 
   private void setDefaults() {
-    // jflexCmdln = new ArrayList<String>();
+    //jflexCmdln = new ArrayList<String>();
     jflexFiles = new ArrayList<String>();
-    // javacExtraFiles = new ArrayList<String>();
-    // jflexCmdln.add("--dump");
+    //javacExtraFiles = new ArrayList<String>();
+    //jflexCmdln.add("--dump");
   }
 
   public boolean checkJavaVersion() {

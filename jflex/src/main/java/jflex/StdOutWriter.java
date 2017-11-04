@@ -10,7 +10,8 @@
 package jflex;
 
 import java.awt.TextArea;
-import java.io.*;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 
 /**
  * Convenience class for JFlex stdout, redirects output to a TextArea if in GUI mode.
