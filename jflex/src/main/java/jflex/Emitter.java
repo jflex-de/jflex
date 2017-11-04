@@ -71,6 +71,14 @@ public final class Emitter {
 
   private String visibility = "public";
 
+  /**
+   * Emits the java code.
+   *
+   * @param inputFile input grammar.
+   * @param parser a {@link jflex.LexParse}.
+   * @param dfa a {@link jflex.DFA}.
+   * @throws java.io.IOException if any.
+   */
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
     String name = getBaseName(parser.scanner.className) + ".java";
@@ -1089,6 +1097,7 @@ public final class Emitter {
     return result.toString();
   }
 
+  /** emitActionTable. */
   public void emitActionTable() {
     int lastAction = 1;
     int count = 0;

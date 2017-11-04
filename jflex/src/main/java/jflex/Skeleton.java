@@ -112,8 +112,8 @@ public class Skeleton {
    * Reads an external skeleton file from a BufferedReader.
    *
    * @param reader the reader to read from (must be != null)
-   * @throws IOException if an IO error occurs
-   * @throws GeneratorException if the number of skeleton sections does not match
+   * @throws java.io.IOException if an IO error occurs
+   * @throws jflex.GeneratorException if the number of skeleton sections does not match
    */
   public static void readSkel(BufferedReader reader) throws IOException {
     List<String> lines = new ArrayList<String>();

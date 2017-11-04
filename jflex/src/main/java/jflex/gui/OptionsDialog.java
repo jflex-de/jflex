@@ -56,7 +56,7 @@ public class OptionsDialog extends Dialog {
   /**
    * Create a new options dialog
    *
-   * @param owner
+   * @param owner a {@link java.awt.Frame} object.
    */
   public OptionsDialog(Frame owner) {
     super(owner, "Options");
@@ -74,6 +74,7 @@ public class OptionsDialog extends Dialog {
         });
   }
 
+  /** setup. */
   public void setup() {
     // create components
     ok = new Button("Ok");
@@ -253,6 +254,7 @@ public class OptionsDialog extends Dialog {
     legacy_dot.setEnabled(!jlex.getState());
   }
 
+  /** close. */
   public void close() {
     setVisible(false);
   }

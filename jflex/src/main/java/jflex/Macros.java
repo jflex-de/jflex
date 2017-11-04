@@ -61,6 +61,7 @@ public final class Macros {
    * Marks a macro as used.
    *
    * @return <code>true</code>, iff the macro name has been stored before.
+   * @param name a {@link java.lang.String} object.
    */
   public boolean markUsed(String name) {
     return used.put(name, Boolean.TRUE) != null;
@@ -70,6 +71,7 @@ public final class Macros {
    * Tests if a macro has been used.
    *
    * @return <code>true</code>, iff the macro has been used in a regular expression.
+   * @param name a {@link java.lang.String} object.
    */
   public boolean isUsed(String name) {
     return used.get(name);
@@ -111,7 +113,7 @@ public final class Macros {
    * Expands all stored macros, so that getDefinition always returns a definition that doesn't
    * contain any macro usages.
    *
-   * @throws MacroException if there is a cycle in the macro usage graph.
+   * @throws jflex.MacroException if there is a cycle in the macro usage graph.
    */
   public void expand() throws MacroException {
     for (String name : macros.keySet()) {

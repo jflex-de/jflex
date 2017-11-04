@@ -1,7 +1,15 @@
 package jflex.unicode.data;
 
+/**
+ * Unicode_3_1 class.
+ *
+ * @author JFlex contributors.
+ * @version $Id: $Id
+ */
 public class Unicode_3_1 {
+  /** Constant <code>maximumCodePoint=0x10ffff</code> */
   public static final int maximumCodePoint = 0x10ffff;
+  /** Constant <code>propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}</code> */
   public static final String[] propertyValues = {
     "age=1.1", "age=2.0", "age=2.1", "age=3.0", "age=3.1",
     "age=unassigned", "alnum", "alphabetic", "arabic", "armenian",
@@ -66,6 +74,7 @@ public class Unicode_3_1 {
     "uppercase", "whitespace", "xdigit", "xidcontinue", "xidstart",
     "yi", "zl", "zp", "zs"
   };
+  /** Constant <code>intervals="{// Unicode 3.1 property value: {age=1."{trunked}</code> */
   public static final String[] intervals = {
     // Unicode 3.1 property value: {age=1.1}
     "\000\u01f5"
@@ -11083,9 +11092,15 @@ public class Unicode_3_1 {
         + "\u202f\u202f"
         + "\u3000\u3000"
   };
+  /** Constant <code>propertyValueAliases="{}"</code> */
   public static final String[] propertyValueAliases = {};
 
+  /** Constant <code>caselessMatchPartitionSize=4</code> */
   public static final int caselessMatchPartitionSize = 4;
+  /**
+   * Constant <code>caselessMatchPartitions="\u0041\u0061\000\000\u0042\u0062\000\00"{trunked}
+   * </code>
+   */
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

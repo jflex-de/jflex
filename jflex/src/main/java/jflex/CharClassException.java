@@ -17,10 +17,8 @@ package jflex;
  */
 public class CharClassException extends RuntimeException {
 
-  /** */
   private static final long serialVersionUID = 7199804506062103569L;
 
-  /** Creates a new CharClassException without message */
   public CharClassException() {}
 
   /**
