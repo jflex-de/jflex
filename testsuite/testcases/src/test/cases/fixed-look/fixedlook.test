@@ -3,4 +3,4 @@ name: fixedlook
 description:
 test fixed length lookahead, e.g. r1 / "some text" 
 
-jflex: --nobak --noinputstreamctor
+jflex: --nobak
