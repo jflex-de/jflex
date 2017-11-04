@@ -23,7 +23,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
@@ -37,7 +36,7 @@ import jflex.unicode.UnicodeProperties;
 public class Main {
 
   /** JFlex version */
-  public static final String version = "1.7.0-SNAPSHOT"; //$NON-NLS-1$
+  public static final String version = "1.7.0-SNAPSHOT"; // $NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
@@ -75,7 +74,7 @@ public class Main {
 
       if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
-      if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); //$NON-NLS-1$
+      if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
 
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
 
@@ -90,7 +89,7 @@ public class Main {
 
       if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
 
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); //$NON-NLS-1$
+      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
 
       Out.checkErrors();
 
@@ -102,7 +101,7 @@ public class Main {
 
       if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
 
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); //$NON-NLS-1$
+      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
 
       time.start();
 
@@ -141,7 +140,7 @@ public class Main {
 
     for (int i = 0; i < argv.length; i++) {
 
-      if (argv[i].equals("-d") || argv[i].equals("--outdir")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("-d") || argv[i].equals("--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           Out.error(ErrorMessages.NO_DIRECTORY);
           throw new GeneratorException();
@@ -150,7 +149,7 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("--skel") || argv[i].equals("-skel")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--skel") || argv[i].equals("-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           Out.error(ErrorMessages.NO_SKEL_FILE);
           throw new GeneratorException();
@@ -160,14 +159,14 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("-jlex") || argv[i].equals("--jlex")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("-jlex") || argv[i].equals("--jlex")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.jlex = true;
         continue;
       }
 
       if (argv[i].equals("-v")
           || argv[i].equals("--verbose")
-          || argv[i].equals("-verbose")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          || argv[i].equals("-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
         Options.unused_warning = true;
@@ -176,91 +175,92 @@ public class Main {
 
       if (argv[i].equals("-q")
           || argv[i].equals("--quiet")
-          || argv[i].equals("-quiet")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          || argv[i].equals("-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
         Options.unused_warning = false;
         continue;
       }
 
-      if (argv[i].equals("--warn-unused")) { //$NON-NLS-1$
+      if (argv[i].equals("--warn-unused")) { // $NON-NLS-1$
         Options.unused_warning = true;
         continue;
       }
 
-      if (argv[i].equals("--no-warn-unused")) { //$NON-NLS-1$
+      if (argv[i].equals("--no-warn-unused")) { // $NON-NLS-1$
         Options.unused_warning = false;
         continue;
       }
 
-      if (argv[i].equals("--dump") || argv[i].equals("-dump")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--dump") || argv[i].equals("-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.dump = true;
         continue;
       }
 
-      if (argv[i].equals("--time") || argv[i].equals("-time")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--time") || argv[i].equals("-time")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.time = true;
         continue;
       }
 
-      if (argv[i].equals("--version") || argv[i].equals("-version")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--version") || argv[i].equals("-version")) { // $NON-NLS-1$ //$NON-NLS-2$
         Out.println(ErrorMessages.THIS_IS_JFLEX, version);
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--dot") || argv[i].equals("-dot")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--dot") || argv[i].equals("-dot")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.dot = true;
         continue;
       }
 
       if (argv[i].equals("--help")
           || argv[i].equals("-h")
-          || argv[i].equals("/h")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+          || argv[i].equals("/h")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         printUsage();
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--info") || argv[i].equals("-info")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--info") || argv[i].equals("-info")) { // $NON-NLS-1$ //$NON-NLS-2$
         Out.printSystemInfo();
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--nomin") || argv[i].equals("-nomin")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--nomin") || argv[i].equals("-nomin")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.no_minimize = true;
         continue;
       }
 
-      if (argv[i].equals("--pack") || argv[i].equals("-pack")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--pack") || argv[i].equals("-pack")) { // $NON-NLS-1$ //$NON-NLS-2$
         /* no-op - pack is the only generation method */
         continue;
       }
 
-      if (argv[i].equals("--nobak") || argv[i].equals("-nobak")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--nobak") || argv[i].equals("-nobak")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.no_backup = true;
         continue;
       }
 
       if (argv[i].equals("--legacydot")
-          || argv[i].equals("-legacydot")) { //$NON-NLS-1$ //$NON-NLS-2$
+          || argv[i].equals("-legacydot")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.legacy_dot = true;
         continue;
       }
 
       // TODO: In the JFlex version after 1.6, --inputstreamctor will be removed.
       if (argv[i].equals("--inputstreamctor")
-          || argv[i].equals("-inputstreamctor")) { //$NON-NLS-1$ //$NON-NLS-2$
+          || argv[i].equals("-inputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.emitInputStreamCtor = true;
         continue;
       }
 
       // TODO: In the JFlex version after 1.6, --noinputstreamctor will be removed.
       if (argv[i].equals("--noinputstreamctor")
-          || argv[i].equals("-noinputstreamctor")) { //$NON-NLS-1$ //$NON-NLS-2$
+          || argv[i].equals("-noinputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.emitInputStreamCtor = false;
         continue;
       }
 
-      if (argv[i].equals("--uniprops") || argv[i].equals("-uniprops")) { //$NON-NLS-1$ //$NON-NLS-2$
+      if (argv[i].equals("--uniprops")
+          || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           Out.error(
               ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, UnicodeProperties.UNICODE_VERSIONS);
@@ -278,7 +278,7 @@ public class Main {
         throw new SilentExit();
       }
 
-      if (argv[i].startsWith("-")) { //$NON-NLS-1$
+      if (argv[i].startsWith("-")) { // $NON-NLS-1$
         Out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
         printUsage();
         throw new SilentExit();
@@ -288,7 +288,7 @@ public class Main {
       File f = new File(argv[i]);
       if (f.isFile() && f.canRead()) files.add(f);
       else {
-        Out.error("Sorry, couldn't open \"" + f + "\""); //$NON-NLS-2$
+        Out.error("Sorry, couldn't open \"" + f + "\""); // $NON-NLS-2$
         throw new GeneratorException();
       }
     }
@@ -353,7 +353,7 @@ public class Main {
   }
 
   public static void printUsage() {
-    Out.println(""); //$NON-NLS-1$
+    Out.println(""); // $NON-NLS-1$
     Out.println("Usage: jflex <options> <input-files>");
     Out.println("");
     Out.println("Where <options> can be one or more of");

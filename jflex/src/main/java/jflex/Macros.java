@@ -51,7 +51,7 @@ public final class Macros {
               + name
               + " with definition :"
               + Out.NL
-              + definition); //$NON-NLS-1$ //$NON-NLS-2$
+              + definition); // $NON-NLS-1$ //$NON-NLS-2$
 
     used.put(name, Boolean.FALSE);
     return macros.put(name, definition) == null;
@@ -179,7 +179,7 @@ public final class Macros {
         throw new MacroException(
             "unknown expression type "
                 + definition.type
-                + " in macro expansion"); //$NON-NLS-1$ //$NON-NLS-2$
+                + " in macro expansion"); // $NON-NLS-1$ //$NON-NLS-2$
     }
   }
 }

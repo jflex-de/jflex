@@ -1,14 +1,5 @@
 package jflextest;
 
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Javac;
-import org.apache.tools.ant.types.Path;
-
-import jflex.GeneratorException;
-import jflex.Options;
-import jflex.Out;
-import jflex.SilentExit;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
@@ -18,6 +9,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import jflex.GeneratorException;
+import jflex.Options;
+import jflex.Out;
+import jflex.SilentExit;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Javac;
+import org.apache.tools.ant.types.Path;
 
 public class Exec {
 

@@ -104,7 +104,7 @@ public final class Action {
         + kind
         + ") :"
         + Out.NL
-        + content; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        + content; // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 
   /**

@@ -9,8 +9,8 @@
 
 package jflex;
 
-import junit.framework.TestCase;
 import jflex.unicode.UnicodeProperties;
+import junit.framework.TestCase;
 
 public class UnicodePropertiesTest extends TestCase {
 

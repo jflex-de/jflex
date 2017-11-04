@@ -231,7 +231,7 @@ public final class NFA {
             "When inserting lookahead expression: unknown expression type "
                 + lookAhead.type
                 + " in "
-                + lookAhead); //$NON-NLS-1$ //$NON-NLS-2$
+                + lookAhead); // $NON-NLS-1$ //$NON-NLS-2$
       }
     }
   }
@@ -396,7 +396,8 @@ public final class NFA {
    * @return the set of states that are reached from <code>start</code> via <code>input</code>
    */
   private StateSet DFAEdge(StateSet start, int input) {
-    // Out.debug(String.format("Calculating DFAEdge for state set "+start+" and input U+04X"), input);
+    // Out.debug(String.format("Calculating DFAEdge for state set "+start+" and input U+04X"),
+    // input);
 
     tempStateSet.clear();
 
@@ -491,7 +492,8 @@ public final class NFA {
 
         if (newState.containsElements()) {
 
-          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
+          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is
+          // "+newState);
 
           // Out.debug("Looking for state set "+newState);
           Integer nextDFAState = dfaStates.get(newState);
@@ -618,7 +620,7 @@ public final class NFA {
     return result.toString();
   }
 
-  //-----------------------------------------------------------------------
+  // -----------------------------------------------------------------------
   // Functions for constructing NFAs out of regular expressions.
 
   private void insertLetterNFA(boolean caseless, int ch, int start, int end) {
@@ -724,7 +726,8 @@ public final class NFA {
 
         if (newState.containsElements()) {
 
-          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
+          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is
+          // "+newState);
 
           // Out.debug("Looking for state set "+newState);
           Integer nextDFAState = dfaStates.get(newState);
