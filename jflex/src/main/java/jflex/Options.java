@@ -46,8 +46,6 @@ public class Options {
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
   public static boolean legacy_dot;
-  /** If true, the generated scanner will include a constructor taking an InputStream. */
-  public static boolean emitInputStreamCtor;
 
   static {
     setDefaults();
@@ -103,8 +101,6 @@ public class Options {
     dot = false;
     dump = false;
     legacy_dot = false;
-    // TODO: in the JFlex version after 1.6, the emitInputStreamCtor option will cease to exist.
-    emitInputStreamCtor = false;
     Skeleton.readDefault();
   }
 

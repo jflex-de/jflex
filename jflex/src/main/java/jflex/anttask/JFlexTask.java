@@ -333,14 +333,4 @@ public class JFlexTask extends Task {
   public void setLegacyDot(boolean b) {
     Options.legacy_dot = b;
   }
-
-  // TODO: In the JFlex version after 1.6, this option will cease to exist
-  /**
-   * setInputStreamCtor.
-   *
-   * @param b a boolean.
-   */
-  public void setInputStreamCtor(boolean b) {
-    Options.emitInputStreamCtor = b;
-  }
 }

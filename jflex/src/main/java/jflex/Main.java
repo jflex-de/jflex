@@ -252,20 +252,6 @@ public class Main {
         continue;
       }
 
-      // TODO: In the JFlex version after 1.6, --inputstreamctor will be removed.
-      if (argv[i].equals("--inputstreamctor")
-          || argv[i].equals("-inputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.emitInputStreamCtor = true;
-        continue;
-      }
-
-      // TODO: In the JFlex version after 1.6, --noinputstreamctor will be removed.
-      if (argv[i].equals("--noinputstreamctor")
-          || argv[i].equals("-noinputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.emitInputStreamCtor = false;
-        continue;
-      }
-
       if (argv[i].equals("--uniprops")
           || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
