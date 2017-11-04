@@ -26,12 +26,6 @@
       <timezone>-5</timezone>
     </developer>
   </developers>
-  <licenses>
-    <license>
-      <name>BSD</name>
-      <url>http://opensource.org/licenses/BSD-3-Clause</url>
-    </license>
-  </licenses>
   <build>
     <plugins>
       <plugin>
@@ -54,48 +48,6 @@
         </configuration>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-plugin-plugin</artifactId>
-                    <versionRange>[3.5,)</versionRange>
-                    <goals>
-                      <goal>descriptor</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore/>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>de.jflex</groupId>
-                    <artifactId>maven-jflex-plugin</artifactId>
-                    <versionRange>[1.4.3,)</versionRange>
-                    <goals>
-                      <goal>generate</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore/>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
   <dependencies>
     <dependency>
@@ -103,7 +55,4 @@
       <artifactId>maven-plugin-api</artifactId>
     </dependency>
   </dependencies>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 </project>

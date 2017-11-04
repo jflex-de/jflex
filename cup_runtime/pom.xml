@@ -34,6 +34,14 @@
         <artifactId>fmt-maven-plugin</artifactId>
         <executions><execution><phase>none</phase></execution></executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+          <skipDeploy>false</skipDeploy>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
