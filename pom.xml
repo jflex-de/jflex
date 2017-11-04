@@ -93,7 +93,7 @@
   <properties>
     <cup.version>11b</cup.version>
     <jflex.jdk.version>1.7</jflex.jdk.version>
-    <maven.version>3.2.5</maven.version>
+    <maven.version>3.5.2</maven.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
