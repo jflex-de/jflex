@@ -10,7 +10,7 @@
 package jflex.gui;
 
 import java.awt.*;
-import java.util.*;
+import java.util.Vector;
 
 /**
  * Grid layout manager like GridLayout but with predefinable grid size.

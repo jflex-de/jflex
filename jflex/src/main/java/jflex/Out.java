@@ -11,8 +11,12 @@ package jflex;
 
 import jflex.unicode.UnicodeProperties;
 
-import java.io.*;
 import java.awt.TextArea;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * In this class all output to the java console is filtered.

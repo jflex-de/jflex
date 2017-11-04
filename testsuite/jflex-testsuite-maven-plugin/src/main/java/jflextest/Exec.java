@@ -1,9 +1,5 @@
 package jflextest;
 
-import java.lang.reflect.*;
-import java.util.*;
-import java.io.*;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
@@ -13,6 +9,15 @@ import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Out;
 import jflex.SilentExit;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Exec {
 

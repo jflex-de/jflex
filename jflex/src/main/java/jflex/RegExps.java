@@ -8,7 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores all rules of the specification for later access in RegExp -> NFA

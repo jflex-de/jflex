@@ -9,8 +9,11 @@
 
 package jflex.gui;
 
-import jflex.*;
-
+import jflex.ErrorMessages;
+import jflex.GeneratorException;
+import jflex.Main;
+import jflex.Options;
+import jflex.Out;
 import java.io.File;
 
 /**

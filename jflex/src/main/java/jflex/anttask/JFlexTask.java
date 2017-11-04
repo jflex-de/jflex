@@ -16,7 +16,10 @@ import org.apache.tools.ant.BuildException;
 import jflex.Main;
 import jflex.Options;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
