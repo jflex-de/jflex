@@ -1,7 +1,8 @@
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10)
 - Unicode 8.0 and 9.0 are supported (#209)
-- updated to most recent version of CUP (#175)
+- updated to most recent version of CUP 11b (#175)
 - JFlex build and runtime now depend on JDK 1.7+
+- Option `--noinputstreamctor` removed (#195)
 
 ## [JFlex 1.6.1](https://github.com/jflex-de/jflex/milestone/9) (March 16, 2015)
 - JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
@@ -35,7 +36,8 @@
   (`\uXXXX`) when they are outside the range 32..127.
 - detect javadoc class comment when followed by annotation(s) (#128)
 - removed the "switch" and "table" code generation options
-- By default no InputStream constructor is included in the generated
+- Option `--noinputstreamctor` deprecated.
+  By default no InputStream constructor is included in the generated
   scanner.  The capability to include one is deprecated and will be
   removed in JFlex 1.7.
   
