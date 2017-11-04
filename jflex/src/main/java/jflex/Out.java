@@ -9,10 +9,9 @@
 
 package jflex;
 
-import jflex.unicode.UnicodeProperties;
-
-import java.io.*;
 import java.awt.TextArea;
+import java.io.*;
+import jflex.unicode.UnicodeProperties;
 
 /**
  * In this class all output to the java console is filtered.

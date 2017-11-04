@@ -1,7 +1,7 @@
 package jflex;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NamedRangeSet {
   private List<NamedRange> ranges;

@@ -10,15 +10,13 @@
 
 package jflex.anttask;
 
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.BuildException;
-
-import jflex.Main;
-import jflex.Options;
-
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.Main;
+import jflex.Options;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 /**
  * JFlex task class

@@ -10,15 +10,14 @@
 
 package jflex;
 
-import org.apache.maven.plugin.logging.Log;
-
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.maven.plugin.logging.Log;
 
 /**
  * This class is instantiated for each version of Unicode for which data can be found at

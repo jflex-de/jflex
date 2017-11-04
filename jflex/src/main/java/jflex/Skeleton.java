@@ -10,8 +10,8 @@ package jflex;
 
 import java.io.*;
 import java.net.URL;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class stores the skeleton of generated scanners.
@@ -29,13 +29,13 @@ import java.util.ArrayList;
 public class Skeleton {
 
   /** location of default skeleton */
-  private static final String DEFAULT_LOC = "jflex/skeleton.default"; //$NON-NLS-1$
+  private static final String DEFAULT_LOC = "jflex/skeleton.default"; // $NON-NLS-1$
 
   /** expected number of sections in the skeleton file */
   private static final int size = 21;
 
   /** platform specific newline */
-  private static final String NL = System.getProperty("line.separator"); //$NON-NLS-1$
+  private static final String NL = System.getProperty("line.separator"); // $NON-NLS-1$
 
   /** The skeleton */
   public static String line[];
@@ -74,7 +74,7 @@ public class Skeleton {
    */
   public static void makePrivate() {
     for (int i = 0; i < line.length; i++) {
-      line[i] = replace(" public ", " private ", line[i]); //$NON-NLS-1$ //$NON-NLS-2$
+      line[i] = replace(" public ", " private ", line[i]); // $NON-NLS-1$ //$NON-NLS-2$
     }
   }
 
@@ -85,7 +85,7 @@ public class Skeleton {
    */
   public static void readSkelFile(File skeletonFile) {
     if (skeletonFile == null)
-      throw new IllegalArgumentException("Skeleton file must not be null"); //$NON-NLS-1$
+      throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
       Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
@@ -116,7 +116,7 @@ public class Skeleton {
 
     String ln;
     while ((ln = reader.readLine()) != null) {
-      if (ln.startsWith("---")) { //$NON-NLS-1$
+      if (ln.startsWith("---")) { // $NON-NLS-1$
         lines.add(section.toString());
         section.setLength(0);
       } else {

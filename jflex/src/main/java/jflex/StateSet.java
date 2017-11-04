@@ -47,8 +47,8 @@ public final class StateSet {
 
   public void addState(int state) {
     if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") start"); //$NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); //$NON-NLS-1$
+      Out.dump("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.dump("Set is : " + this); // $NON-NLS-1$
     }
 
     int index = state >> BITS;
@@ -56,8 +56,8 @@ public final class StateSet {
     bits[index] |= (1L << (state & MASK));
 
     if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") end"); //$NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); //$NON-NLS-1$
+      Out.dump("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.dump("Set is : " + this); // $NON-NLS-1$
     }
   }
 
@@ -146,14 +146,14 @@ public final class StateSet {
               + set
               + Out.NL
               + " is :"
-              + result); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
     return result;
   }
 
   public void add(StateSet set) {
 
-    if (DEBUG) Out.dump("StateSet.add(" + set + ") start"); //$NON-NLS-1$ //$NON-NLS-2$
+    if (DEBUG) Out.dump("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
 
     if (set == null) return;
 
@@ -175,15 +175,15 @@ public final class StateSet {
     this.bits = tbits;
 
     if (DEBUG) {
-      Out.dump("StateSet.add(" + set + ") end"); //$NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); //$NON-NLS-1$
+      Out.dump("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.dump("Set is : " + this); // $NON-NLS-1$
     }
   }
 
   public boolean containsSet(StateSet set) {
 
     if (DEBUG)
-      Out.dump("StateSet.containsSet(" + set + "), this=" + this); //$NON-NLS-1$ //$NON-NLS-2$
+      Out.dump("StateSet.containsSet(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
 
     int i;
     int min = Math.min(bits.length, set.bits.length);
@@ -205,7 +205,7 @@ public final class StateSet {
     int l1, l2;
     StateSet set = (StateSet) b;
 
-    if (DEBUG) Out.dump("StateSet.equals(" + set + "), this=" + this); //$NON-NLS-1$ //$NON-NLS-2$
+    if (DEBUG) Out.dump("StateSet.equals(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
 
     l1 = bits.length;
     l2 = set.bits.length;
@@ -266,7 +266,7 @@ public final class StateSet {
    */
   public void copy(StateSet set) {
 
-    if (DEBUG) Out.dump("StateSet.copy(" + set + ") start"); //$NON-NLS-1$ //$NON-NLS-2$
+    if (DEBUG) Out.dump("StateSet.copy(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
 
     if (set == null) {
       for (int i = 0; i < bits.length; i++) bits[i] = 0;
@@ -282,24 +282,24 @@ public final class StateSet {
     System.arraycopy(set.bits, 0, bits, 0, bits.length);
 
     if (DEBUG) {
-      Out.dump("StateSet.copy(" + set + ") end"); //$NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); //$NON-NLS-1$
+      Out.dump("StateSet.copy(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.dump("Set is : " + this); // $NON-NLS-1$
     }
   }
 
   public String toString() {
     StateSetEnumerator set = states();
 
-    StringBuilder result = new StringBuilder("{"); //$NON-NLS-1$
+    StringBuilder result = new StringBuilder("{"); // $NON-NLS-1$
 
-    if (set.hasMoreElements()) result.append("" + set.nextElement()); //$NON-NLS-1$
+    if (set.hasMoreElements()) result.append("" + set.nextElement()); // $NON-NLS-1$
 
     while (set.hasMoreElements()) {
       int i = set.nextElement();
-      result.append(", ").append(i); //$NON-NLS-1$
+      result.append(", ").append(i); // $NON-NLS-1$
     }
 
-    result.append("}"); //$NON-NLS-1$
+    result.append("}"); // $NON-NLS-1$
 
     return result.toString();
   }

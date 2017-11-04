@@ -768,7 +768,8 @@ public final class DFA {
       equiv[i] = new boolean[i];
       for (j = 0; j < i; j++) {
         // i and j are equivalent, iff :
-        // i and j are both final and their actions are equivalent and have same pushback behaviour or
+        // i and j are both final and their actions are equivalent and have same pushback behaviour
+        // or
         // i and j are both not final
 
         if (isFinal[i] && isFinal[j]) equiv[i][j] = action[i].isEquiv(action[j]);

@@ -1,18 +1,16 @@
 package jflextest;
 
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
-import java.io.*;
-
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Javac;
-import org.apache.tools.ant.types.Path;
-
 import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Out;
 import jflex.SilentExit;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Javac;
+import org.apache.tools.ant.types.Path;
 
 public class Exec {
 

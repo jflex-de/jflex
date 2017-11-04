@@ -9,9 +9,8 @@
 
 package jflex.gui;
 
-import jflex.*;
-
 import java.io.File;
+import jflex.*;
 
 /**
  * Low priority thread for code generation (low priority that gui has time for screen updates)

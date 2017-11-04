@@ -9,12 +9,11 @@
 
 package jflex.gui;
 
-import jflex.Main;
-import jflex.Out;
-
-import java.io.File;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import jflex.Main;
+import jflex.Out;
 
 /**
  * JFlex main application frame (GUI mode only)

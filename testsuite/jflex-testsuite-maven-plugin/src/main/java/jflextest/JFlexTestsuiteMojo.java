@@ -1,13 +1,12 @@
 package jflextest;
 
+import java.io.File;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-
-import java.io.File;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Runs test cases in the JFlex test suite

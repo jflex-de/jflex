@@ -11,9 +11,7 @@ package jflex;
 
 import java.io.File;
 import java.io.IOException;
-
 import jflex.anttask.JFlexTask;
-
 import junit.framework.TestCase;
 
 /**
@@ -54,7 +52,7 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testPackageAndClassDefaults() throws IOException {
-    //FIXME
+    // FIXME
     task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
     task.findPackageAndClass();
     assertEquals(null, task.getPackage());

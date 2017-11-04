@@ -11,9 +11,7 @@ package jflex.gui;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.io.File;
-
 import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Skeleton;

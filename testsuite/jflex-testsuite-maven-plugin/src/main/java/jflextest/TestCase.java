@@ -1,7 +1,7 @@
 package jflextest;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class TestCase {
 
@@ -103,10 +103,10 @@ public class TestCase {
   }
 
   private void setDefaults() {
-    //jflexCmdln = new ArrayList<String>();
+    // jflexCmdln = new ArrayList<String>();
     jflexFiles = new ArrayList<String>();
-    //javacExtraFiles = new ArrayList<String>();
-    //jflexCmdln.add("--dump");
+    // javacExtraFiles = new ArrayList<String>();
+    // jflexCmdln.add("--dump");
   }
 
   public boolean checkJavaVersion() {

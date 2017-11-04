@@ -9,11 +9,10 @@
 
 package jflex;
 
-import junit.framework.TestCase;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import junit.framework.TestCase;
 
 /**
  * Some unit tests for the jflex Emitter class

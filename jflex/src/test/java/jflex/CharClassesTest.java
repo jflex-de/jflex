@@ -9,8 +9,8 @@
 
 package jflex;
 
-import junit.framework.TestCase;
 import jflex.unicode.UnicodeProperties;
+import junit.framework.TestCase;
 
 /**
  * CharClassesTest
@@ -99,7 +99,8 @@ public class CharClassesTest extends TestCase {
     //
     // 0049;LATIN CAPITAL LETTER I;Lu;0;L;;;;;N;;;;0069;
     // 0069;LATIN SMALL LETTER I;Ll;0;L;;;;;N;;;0049;;0049
-    // 0130;LATIN CAPITAL LETTER I WITH DOT ABOVE;Lu;0;L;0049 0307;;;;N;LATIN CAPITAL LETTER I DOT;;;0069;
+    // 0130;LATIN CAPITAL LETTER I WITH DOT ABOVE;Lu;0;L;0049 0307;;;;N;LATIN CAPITAL LETTER I
+    // DOT;;;0069;
     // 0131;LATIN SMALL LETTER DOTLESS I;Ll;0;L;;;;;N;;;0049;;0049
     //
     // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B

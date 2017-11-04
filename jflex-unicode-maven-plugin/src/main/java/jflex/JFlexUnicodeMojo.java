@@ -9,22 +9,21 @@
 
 package jflex;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-
-import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.SortedMap;
-import java.util.Collections;
-import java.util.TreeMap;
-import java.util.EnumMap;
-import java.util.Map.Entry;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Generates source code for JFlex Unicode character property handling.
@@ -95,7 +94,6 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    *             associated with them (see <a href="http://www.unicode.org/reports/tr23/">The
    *             Unicode Character Property Model</a>).
    *       </ol>
-   *
    *   <li>Generates Java source for class UnicodeProperties:
    *       <ol type="a">
    *         <li>Has a constructor taking in a string representing the Unicode version given as
@@ -112,7 +110,6 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    *             Unicode General Category Property Values</a>.
    *         <li>Has Unicode-version-specific method maximumCodePoint():int.
    *       </ol>
-   *
    * </ol>
    */
   public void execute() throws MojoExecutionException, MojoFailureException {
