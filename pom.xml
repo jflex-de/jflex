@@ -322,6 +322,7 @@
     <profile>
       <id>format-java</id>
       <activation>
+        <jdk>1.8</jdk>
         <property>
           <name>!env.CI</name>
         </property>
