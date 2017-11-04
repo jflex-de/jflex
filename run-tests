@@ -4,15 +4,15 @@
 set -e
 
 if [[ ! $TRAVIS ]]; then
-  echo "[INFO] Applying steps executed by Travis"
-  echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
-  sleep 2
   # clean existing artefacts
   # note that mvn could fail if POM are incorrects
   find . -name target -type d -delete
 
+  echo "[INFO] Applying steps executed by Travis"
+  echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
+  sleep 2
+
   # Travis installs dependencies
-  # https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven
   #mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
@@ -29,10 +29,6 @@ fi
 cd testsuite/testcases && ../../mvnw test
 cd ../..
 
-# also check ant build
-cd jflex && ant gettools build test
-cd ..
-
 ## run jflex examples:
 cd jflex/examples
 # don't assume byacc/j is installed, just run lexer
@@ -43,3 +39,7 @@ cd java && make clean && make && cd ..
 cd simple-maven && mvn clean test && cd ..
 cd standalone-maven && mvn clean test && cd ..
 cd zero-reader && make clean && make && cd ..
+
+# also check ant build
+cd jflex && ant gettools build test
+cd ..
