@@ -3,4 +3,4 @@ name: no-unused
 description:
 testing the --no-warn-unused option
 
-jflex: -v --nobak --noinputstreamctor --no-warn-unused
+jflex: -v --nobak --no-warn-unused
