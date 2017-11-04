@@ -13,20 +13,21 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+
 /**
  * Central class for all kinds of JFlex messages.
- *
- * <p>[Is not yet used exclusively, but should]
- *
+ * 
+ * [Is not yet used exclusively, but should]
+ * 
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class ErrorMessages {
+public class ErrorMessages {  
   private String key;
 
   /* not final static, because initializing here seems too early
    * for OS/2 JDK 1.1.8. See bug 1065521.
-   */
+   */ 
   private static ResourceBundle resourceBundle = null;
 
   private ErrorMessages(String key) {
@@ -35,31 +36,31 @@ public class ErrorMessages {
 
   public static String get(ErrorMessages msg) {
     if (resourceBundle == null) {
-      resourceBundle = ResourceBundle.getBundle("jflex.Messages");
-    }
+      resourceBundle = ResourceBundle.getBundle("jflex.Messages"); 
+    }    
     try {
       return resourceBundle.getString(msg.key);
     } catch (MissingResourceException e) {
       return '!' + msg.key + '!';
     }
   }
-
+  
   public static String get(ErrorMessages msg, String data) {
-    Object[] args = {data};
-    return MessageFormat.format(get(msg), args);
+    Object [] args = { data };
+    return MessageFormat.format(get(msg),args);
   }
-
+  
   public static String get(ErrorMessages msg, String data1, String data2) {
-    Object[] args = {data1, data2};
-    return MessageFormat.format(get(msg), args);
+    Object [] args = { data1, data2 };
+    return MessageFormat.format(get(msg),args);
   }
 
   public static String get(ErrorMessages msg, int data) {
-    Object[] args = {data};
-    return MessageFormat.format(get(msg), args);
+    Object [] args = { data };
+    return MessageFormat.format(get(msg),args);
   }
 
-  // typesafe enumeration (generated, do not edit)
+  // typesafe enumeration (generated, do not edit)  
   public static ErrorMessages UNTERMINATED_STR = new ErrorMessages("UNTERMINATED_STR");
   public static ErrorMessages EOF_WO_ACTION = new ErrorMessages("EOF_WO_ACTION");
   public static ErrorMessages EOF_SINGLERULE = new ErrorMessages("EOF_SINGLERULE");
@@ -135,19 +136,12 @@ public class ErrorMessages {
   public static ErrorMessages CTOR_ARG = new ErrorMessages("CTOR_ARG");
   public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
   public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");
-  public static ErrorMessages UNSUPPORTED_UNICODE_VERSION =
-      new ErrorMessages("UNSUPPORTED_UNICODE_VERSION");
-  public static ErrorMessages UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE =
-      new ErrorMessages("UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE");
-  public static ErrorMessages INVALID_UNICODE_PROPERTY =
-      new ErrorMessages("INVALID_UNICODE_PROPERTY");
-  public static ErrorMessages DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS =
-      new ErrorMessages("DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS");
-  public static ErrorMessages PROPS_ARG_REQUIRES_UNICODE_VERSION =
-      new ErrorMessages("PROPS_ARG_REQUIRES_UNICODE_VERSION");
-  public static ErrorMessages EMITTING_INPUTSTREAM_CTOR =
-      new ErrorMessages("EMITTING_INPUTSTREAM_CTOR");
-  public static ErrorMessages IMPOSSIBLE_CHARCLASS_RANGE =
-      new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
+  public static ErrorMessages UNSUPPORTED_UNICODE_VERSION = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION");
+  public static ErrorMessages UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE = new ErrorMessages("UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE");
+  public static ErrorMessages INVALID_UNICODE_PROPERTY = new ErrorMessages("INVALID_UNICODE_PROPERTY");
+  public static ErrorMessages DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS = new ErrorMessages("DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS");
+  public static ErrorMessages PROPS_ARG_REQUIRES_UNICODE_VERSION = new ErrorMessages("PROPS_ARG_REQUIRES_UNICODE_VERSION");
+  public static ErrorMessages EMITTING_INPUTSTREAM_CTOR = new ErrorMessages("EMITTING_INPUTSTREAM_CTOR");
+  public static ErrorMessages IMPOSSIBLE_CHARCLASS_RANGE = new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
   public static ErrorMessages CODEPOINT_OUT_OF_RANGE = new ErrorMessages("CODEPOINT_OUT_OF_RANGE");
 }
