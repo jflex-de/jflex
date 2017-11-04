@@ -9,8 +9,9 @@
 
 package jflex;
 
-import java.util.*;
 import jflex.unicode.UnicodeProperties;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CharSet implemented with intervals
