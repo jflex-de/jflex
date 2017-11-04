@@ -921,10 +921,10 @@ public final class Emitter {
       println("        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);");
       println("        zzCharCount = Character.charCount(zzCh);");
       println("        switch (zzCh) {");
-      println("        case '\\u000B':");
-      println("        case '\\u000C':");
-      println("        case '\\u0085':");
-      println("        case '\\u2028':");
+      println("        case '\\u000B':  // fall though");
+      println("        case '\\u000C':  // fall though");
+      println("        case '\\u0085':  // fall though");
+      println("        case '\\u2028':  // fall though");
       println("        case '\\u2029':");
       if (scanner.lineCount) println("          yyline++;");
       if (scanner.columnCount) println("          yycolumn = 0;");
@@ -981,11 +981,11 @@ public final class Emitter {
       println("      if (zzMarkedPosL > zzStartRead) {");
       println("        switch (zzBufferL[zzMarkedPosL-1]) {");
       println("        case '\\n':");
-      println("        case '\\u000B':");
-      println("        case '\\u000C':");
-      println("        case '\\u0085':");
-      println("        case '\\u2028':");
-      println("        case '\\u2029':");
+      println("        case '\\u000B':  // fall though");
+      println("        case '\\u000C':  // fall though");
+      println("        case '\\u0085':  // fall though");
+      println("        case '\\u2028':  // fall though");
+      println("        case '\\u2029':  // fall though");
       println("          zzAtBOL = true;");
       println("          break;");
       println("        case '\\r': ");
@@ -1200,7 +1200,8 @@ public final class Emitter {
       }
 
       println("            { " + action.content);
-      println("            }");
+      println("            } ");
+      println("            // fall through");
       println("          case " + (i++) + ": break;");
     }
   }
@@ -1233,7 +1234,7 @@ public final class Emitter {
             println(" }\");");
           }
           println("              " + action.content);
-          println("            }");
+          println("            }  // fall though");
           println("            case " + (++last) + ": break;");
         }
       }
