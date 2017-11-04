@@ -308,6 +308,15 @@
             </configuration>
           </plugin>
         </plugins>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.coveo</groupId>
+              <artifactId>fmt-maven-plugin</artifactId>
+              <version>2.1.0</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
       </build>
     </profile>
     <profile>
@@ -336,6 +345,7 @@
     <profile>
       <id>check-format-java</id>
       <activation>
+        <jdk>1.8</jdk>
         <property>
           <name>env.CI</name>
         </property>
