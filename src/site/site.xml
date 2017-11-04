@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.6</version>
+  </skin>
+
+  <body>
+    <menu name="Overview" inherit="top">
+      <item name="Home" href="http://jflex.de/"/>
+      <item name="Features" href="http://jflex.de/features.html"/>
+      <item name="Download" href="http://jflex.de/download.html"/>
+      <item name="Documentation" href="http://jflex.de/docu.html"/>
+      <item name="Support" href="http://jflex.de/help.html"/>
+      <item name="Contact" href="http://jflex.de/contact.html"/>
+      <item name="Source Code" href="https://github.com/jflex-de/jflex"/>
+    </menu>
+  </body>
+</project>
