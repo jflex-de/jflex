@@ -34,7 +34,8 @@ public final class Emitter {
           ".*/\\*\\*(.*)\\*/" // javadoc comment, embedded '*/' disallowed
               + "(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*" // @[p.ack.age.]AnnotationClass
               + "   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\"" // ignore close parens in double quotes
-              + "                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in single quotes
+              + "                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in
+              // single quotes
               + "                   |[^)])+\\))?" // optional annotation params
               + ")*\\s*", // zero or more annotations, followed by optional whitespace
           Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);

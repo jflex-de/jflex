@@ -9,8 +9,8 @@
 
 package jflex;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Gerwin Klein
@@ -30,7 +30,7 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  public LexScan scanner; //nocommit - should be private
+  public LexScan scanner; // nocommit - should be private
 
   /**
    * Constructs a new CharClasses object.

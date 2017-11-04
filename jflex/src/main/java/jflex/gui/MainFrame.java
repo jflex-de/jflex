@@ -9,9 +9,6 @@
 
 package jflex.gui;
 
-import jflex.Main;
-import jflex.Out;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +17,8 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import jflex.Main;
+import jflex.Out;
 
 /**
  * JFlex main application frame (GUI mode only)

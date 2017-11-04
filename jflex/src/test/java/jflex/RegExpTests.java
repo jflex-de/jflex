@@ -9,12 +9,6 @@
 
 package jflex;
 
-import jflex.Interval;
-import jflex.Macros;
-import jflex.RegExp;
-import jflex.RegExp1;
-import jflex.RegExp2;
-import jflex.sym;
 import junit.framework.TestCase;
 
 /**

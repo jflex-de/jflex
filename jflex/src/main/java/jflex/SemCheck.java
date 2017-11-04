@@ -103,7 +103,8 @@ public final class SemCheck {
         return maybeEmtpy(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unknown expression type " + re.type + " in " + re); //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error(
+        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
   }
 
   /**
@@ -163,7 +164,8 @@ public final class SemCheck {
         return length(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unknown expression type " + re.type + " in " + re); //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error(
+        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
   }
 
   /**
@@ -215,6 +217,7 @@ public final class SemCheck {
         return isFiniteChoice(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unknown expression type " + re.type + " in " + re); //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error(
+        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
   }
 }

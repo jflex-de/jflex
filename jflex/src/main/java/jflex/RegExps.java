@@ -64,9 +64,10 @@ public class RegExps {
       Boolean isBOL,
       RegExp lookAhead) {
     if (Options.DEBUG) {
-      Out.debug("Inserting regular expression with statelist :" + Out.NL + stateList); //$NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); //$NON-NLS-1$
-      Out.debug("expression :" + Out.NL + regExp); //$NON-NLS-1$
+      Out.debug(
+          "Inserting regular expression with statelist :" + Out.NL + stateList); // $NON-NLS-1$
+      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
+      Out.debug("expression :" + Out.NL + regExp); // $NON-NLS-1$
     }
 
     states.add(stateList);
@@ -83,8 +84,8 @@ public class RegExps {
   public int insert(List<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
-      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList); //$NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); //$NON-NLS-1$
+      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList); // $NON-NLS-1$
+      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
     }
 
     states.add(stateList);
