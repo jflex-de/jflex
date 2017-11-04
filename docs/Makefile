@@ -12,12 +12,14 @@ build: realclean all
 pdf: manual.pdf
 html: manual.html
 
-md/manual.md: md/head.md md/intro.md md/installing.md md/ant-task.md md/example.md md/lex-specs.md \
-              md/encodings.md md/performance.md md/porting-and-parsers.md md/end.md
+md/manual.md: md/head.md md/intro.md md/installing.md \
+              md/maven-plugin.md md/ant-task.md md/example.md md/lex-specs.md \
+              md/encodings.md md/performance.md md/porting-and-parsers.md\
+              md/end.md
 	cat $^ > $@
 
 manual.html: manual.mdx
-	pandoc -S --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
+	pandoc --css manual.css --filter pandoc-citeproc -f markdown+smart $< -o $@
 #	pandoc --filter pandoc-citeproc -f markdown --toc --toc-depth=2 $< -o $@
 
 #dependency manual.tex would fire manual.md -> .tex conversion
