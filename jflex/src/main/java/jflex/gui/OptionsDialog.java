@@ -46,7 +46,6 @@ public class OptionsDialog extends Dialog {
 
   private Checkbox no_minimize;
   private Checkbox no_backup;
-  private Checkbox input_stream_ctor;
 
   private Checkbox jlex;
   private Checkbox dot;
@@ -93,7 +92,6 @@ public class OptionsDialog extends Dialog {
 
     no_minimize = new Checkbox(" skip minimization");
     no_backup = new Checkbox(" no backup file");
-    input_stream_ctor = new Checkbox(" InputStream ctor");
 
     jlex = new Checkbox(" JLex compatibility");
     dot = new Checkbox(" dot graph files");
@@ -179,13 +177,6 @@ public class OptionsDialog extends Dialog {
           }
         });
 
-    input_stream_ctor.addItemListener(
-        new ItemListener() {
-          public void itemStateChanged(ItemEvent e) {
-            Options.emitInputStreamCtor = input_stream_ctor.getState();
-          }
-        });
-
     // setup layout
     GridPanel panel = new GridPanel(4, 5, 10, 10);
     panel.setInsets(new Insets(10, 5, 5, 10));
@@ -206,7 +197,6 @@ public class OptionsDialog extends Dialog {
     panel.add(1, 3, 1, 1, no_minimize);
 
     panel.add(2, 2, 1, 1, no_backup);
-    panel.add(2, 3, 1, 1, input_stream_ctor);
 
     panel.add(3, 2, 1, 1, jlex);
     panel.add(3, 3, 1, 1, dot);
@@ -240,7 +230,6 @@ public class OptionsDialog extends Dialog {
 
     no_minimize.setState(Options.no_minimize);
     no_backup.setState(Options.no_backup);
-    input_stream_ctor.setState(Options.emitInputStreamCtor);
 
     jlex.setState(Options.jlex);
     dot.setState(Options.dot);
