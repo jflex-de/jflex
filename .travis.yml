@@ -5,3 +5,4 @@ jdk:
   - openjdk8
 
 script: ./run-tests
+
