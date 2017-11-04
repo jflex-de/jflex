@@ -149,7 +149,7 @@ name: $base_name
 description: 
 Tests the \%caseless directive for Unicode $version
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

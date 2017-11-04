@@ -2,7 +2,7 @@ name: never
 description:
 test nevermatch warning
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 javac-extra-files: Never.java
 

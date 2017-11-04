@@ -4,6 +4,6 @@ description:
 Implements the Unicode 7.0 Sentence Boundary rules, specified in UAX #29 
 <http://www.unicode.org/reports/tr29/tr29-25.html>.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
