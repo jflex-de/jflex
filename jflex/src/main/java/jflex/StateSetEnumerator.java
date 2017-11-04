@@ -30,10 +30,20 @@ public final class StateSetEnumerator {
    */
   public StateSetEnumerator() {}
 
+  /**
+   * Constructor for StateSetEnumerator.
+   *
+   * @param states a {@link jflex.StateSet} object.
+   */
   public StateSetEnumerator(StateSet states) {
     reset(states);
   }
 
+  /**
+   * reset.
+   *
+   * @param states a {@link jflex.StateSet} object.
+   */
   public void reset(StateSet states) {
     bits = states.bits;
     index = 0;
@@ -99,6 +109,11 @@ public final class StateSetEnumerator {
     this.offset = _offset;
   }
 
+  /**
+   * hasMoreElements.
+   *
+   * @return a boolean.
+   */
   public boolean hasMoreElements() {
     if (DEBUG)
       Out.dump(
@@ -109,6 +124,11 @@ public final class StateSetEnumerator {
     return index < bits.length;
   }
 
+  /**
+   * nextElement.
+   *
+   * @return a int.
+   */
   public int nextElement() {
     if (DEBUG)
       Out.dump(

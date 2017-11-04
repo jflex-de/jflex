@@ -46,6 +46,8 @@ public class Timer {
    * Return the number of milliseconds the timer has been running.
    *
    * <p>(up till now, if it still runs, up to the stop time if it has been stopped)
+   *
+   * @return a long.
    */
   public long diff() {
     if (running) return System.currentTimeMillis() - startTime;

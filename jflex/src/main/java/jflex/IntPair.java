@@ -27,10 +27,12 @@ final class IntPair {
     this.end = end;
   }
 
+  @Override
   public int hashCode() {
     return end + (start << 8);
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof IntPair) {
       IntPair p = (IntPair) o;
@@ -39,6 +41,7 @@ final class IntPair {
     return false;
   }
 
+  @Override
   public String toString() {
     return "(" + start + "," + end + ")";
   }

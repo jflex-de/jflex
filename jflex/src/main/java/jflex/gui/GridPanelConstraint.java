@@ -21,6 +21,16 @@ public class GridPanelConstraint {
   int x, y, width, height, handle;
   Component component;
 
+  /**
+   * Constructor for GridPanelConstraint.
+   *
+   * @param x horizontal position.
+   * @param y vertical position.
+   * @param width width in pixels.
+   * @param height height in pixels.
+   * @param handle a int.
+   * @param component a {@link java.awt.Component} object.
+   */
   public GridPanelConstraint(int x, int y, int width, int height, int handle, Component component) {
     this.x = x;
     this.y = y;

@@ -135,6 +135,13 @@ public class Main {
     }
   }
 
+  /**
+   * parseOptions.
+   *
+   * @param argv an array of {@link java.lang.String} objects.
+   * @return a {@link java.util.List} object.
+   * @throws jflex.SilentExit if any.
+   */
   public static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<File>();
 
@@ -352,6 +359,7 @@ public class Main {
     }
   }
 
+  /** Prints the cli usage on stdout. */
   public static void printUsage() {
     Out.println(""); // $NON-NLS-1$
     Out.println("Usage: jflex <options> <input-files>");
@@ -384,6 +392,12 @@ public class Main {
     Out.println("Have a nice day!");
   }
 
+  /**
+   * generate.
+   *
+   * @param argv an array of {@link java.lang.String} objects.
+   * @throws jflex.SilentExit if any.
+   */
   public static void generate(String argv[]) throws SilentExit {
     List<File> files = parseOptions(argv);
 

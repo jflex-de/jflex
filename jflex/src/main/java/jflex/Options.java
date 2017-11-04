@@ -53,7 +53,11 @@ public class Options {
     setDefaults();
   }
 
-  /** @return the output directory */
+  /**
+   * getDir.
+   *
+   * @return a {@link java.io.File} object.
+   */
   public static File getDir() {
     return directory;
   }
@@ -104,6 +108,11 @@ public class Options {
     Skeleton.readDefault();
   }
 
+  /**
+   * setSkeleton.
+   *
+   * @param skel a {@link java.io.File} object.
+   */
   public static void setSkeleton(File skel) {
     Skeleton.readSkelFile(skel);
   }

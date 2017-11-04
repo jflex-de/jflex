@@ -1,7 +1,15 @@
 package jflex.unicode.data;
 
+/**
+ * Unicode_9_0 class.
+ *
+ * @author JFlex contributors.
+ * @version $Id: $Id
+ */
 public class Unicode_9_0 {
+  /** Constant <code>maximumCodePoint=0x10ffff</code> */
   public static final int maximumCodePoint = 0x10ffff;
+  /** Constant <code>propertyValues="{adlam, age=unassigned, age=v11, age=v2"{trunked}</code> */
   public static final String[] propertyValues = {
     "adlam", "age=unassigned", "age=v11", "age=v20", "age=v21",
     "age=v30", "age=v31", "age=v32", "age=v40", "age=v41",
@@ -255,6 +263,7 @@ public class Unicode_9_0 {
         "xidcontinue",
     "xidstart", "yi", "zl", "zp", "zs"
   };
+  /** Constant <code>intervals="{// Unicode 9.0 property value: {adlam}"{trunked}</code> */
   public static final String[] intervals = {
     // Unicode 9.0 property value: {adlam}
     "\ud83a\udd00\ud83a\udd4a" + "\ud83a\udd50\ud83a\udd59" + "\ud83a\udd5e\ud83a\udd5f",
@@ -38511,6 +38520,9 @@ public class Unicode_9_0 {
         + "\u205f\u205f"
         + "\u3000\u3000"
   };
+  /**
+   * Constant <code>propertyValueAliases="{adlm, adlam, age=1.1, age=v11,age=2.0,"{trunked}</code>
+   */
   public static final String[] propertyValueAliases = {
     "adlm", "adlam", "age=1.1", "age=v11",
     "age=2.0", "age=v20", "age=2.1", "age=v21",
@@ -39778,7 +39790,12 @@ public class Unicode_9_0 {
     "yiii", "yi", "zinh", "inherited",
     "zyyy", "common", "zzzz", "unknown"
   };
+  /** Constant <code>caselessMatchPartitionSize=4</code> */
   public static final int caselessMatchPartitionSize = 4;
+  /**
+   * Constant <code>caselessMatchPartitions="\u0041\u0061\000\000\u0042\u0062\000\00"{trunked}
+   * </code>
+   */
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

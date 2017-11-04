@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * NFA representation in JFlex.
+ * Non-deterministic finite automata representation in JFlex.
  *
- * <p>Contains algorithms RegExp -> NFA and NFA -> DFA.
+ * <p>Contains algorithms RegExp → NFA and NFA → DFA.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
@@ -73,6 +73,12 @@ public final class NFA {
   private static StateSetEnumerator states = new StateSetEnumerator();
   private static StateSet tempStateSet = new StateSet();
 
+  /**
+   * Constructor for NFA.
+   *
+   * @param numInput a int.
+   * @param estSize a int.
+   */
   public NFA(int numInput, int estSize) {
     this.numInput = numInput;
     this.estSize = estSize;
@@ -89,6 +95,11 @@ public final class NFA {
    * <p>Assumes that lookahead cases and numbers are already resolved in RegExps.
    *
    * @see RegExps#checkLookAheads()
+   * @param numInput a int.
+   * @param scanner a {@link jflex.LexScan} object.
+   * @param regExps a {@link jflex.RegExps} object.
+   * @param macros a {@link jflex.Macros} object.
+   * @param classes a {@link jflex.CharClasses} object.
    */
   public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes) {
     this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number());
@@ -106,6 +117,11 @@ public final class NFA {
     numStates = new_num;
   }
 
+  /**
+   * numEntryStates.
+   *
+   * @return a int.
+   */
   public int numEntryStates() {
     return 2 * (numLexStates + regExps.gen_look_count);
   }
@@ -265,6 +281,13 @@ public final class NFA {
     table = newTable;
   }
 
+  /**
+   * addTransition.
+   *
+   * @param start a int.
+   * @param input a int.
+   * @param dest a int.
+   */
   public void addTransition(int start, int input, int dest) {
     Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
 
@@ -278,6 +301,12 @@ public final class NFA {
     else table[start][input] = new StateSet(estSize, dest);
   }
 
+  /**
+   * addEpsilonTransition.
+   *
+   * @param start a int.
+   * @param dest a int.
+   */
   public void addEpsilonTransition(int start, int dest) {
     int max = Math.max(start, dest) + 1;
     ensureCapacity(max);
@@ -414,7 +443,11 @@ public final class NFA {
     return result;
   }
 
-  /** Returns an DFA that accepts the same language as this NFA. This DFA is usually not minimal. */
+  /**
+   * Returns an DFA that accepts the same language as this NFA. This DFA is usually not minimal.
+   *
+   * @return a {@link jflex.DFA} object.
+   */
   public DFA getDFA() {
 
     Map<StateSet, Integer> dfaStates = new HashMap<StateSet, Integer>(numStates);
@@ -528,10 +561,16 @@ public final class NFA {
     return dfa;
   }
 
+  /** dumpTable. */
   public void dumpTable() {
     Out.dump(toString());
   }
 
+  /**
+   * toString.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     StringBuilder result = new StringBuilder();
 
@@ -565,6 +604,11 @@ public final class NFA {
     return result.toString();
   }
 
+  /**
+   * writeDot.
+   *
+   * @param file a {@link java.io.File} object.
+   */
   public void writeDot(File file) {
     try {
       PrintWriter writer = new PrintWriter(new FileWriter(file));
@@ -576,6 +620,11 @@ public final class NFA {
     }
   }
 
+  /**
+   * dotFormat.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String dotFormat() {
     StringBuilder result = new StringBuilder();
 

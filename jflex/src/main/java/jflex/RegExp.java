@@ -43,12 +43,17 @@ public class RegExp {
    *
    * @param tab a String that should contain only space characters and that is inserted in front of
    *     standard String-representation pf this object.
+   * @return a {@link java.lang.String} object.
    */
   public String print(String tab) {
     return tab + toString();
   }
 
-  /** Returns a String-representation of this regular expression */
+  /**
+   * Returns a String-representation of this regular expression
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     return "type = " + type;
   }
@@ -88,6 +93,7 @@ public class RegExp {
    * macro expansion and without negation)
    *
    * @param macros macro table for expansion
+   * @return a int.
    */
   public int size(Macros macros) {
     RegExp1 unary;
@@ -152,7 +158,12 @@ public class RegExp {
     throw new Error("unknown regexp type " + type);
   }
 
-  /** @return the reverse of the specified string. */
+  /**
+   * revString.
+   *
+   * @param s a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object.
+   */
   public static final String revString(String s) {
     StringBuffer b = new StringBuffer(s.length());
     for (int i = s.length(); i > 0; ) {
@@ -252,6 +263,7 @@ public class RegExp {
    * Create a new regexp that matches the reverse text of this one.
    *
    * @return the reverse regexp
+   * @param macros a {@link jflex.Macros} object.
    */
   public final RegExp rev(Macros macros) {
     RegExp1 unary;

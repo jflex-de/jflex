@@ -52,6 +52,7 @@ public final class MainFrame extends Frame implements Handles {
 
   private OptionsDialog dialog;
 
+  /** Constructor for MainFrame. */
   public MainFrame() {
     super("JFlex " + Main.version);
     buildContent();
@@ -185,6 +186,7 @@ public final class MainFrame extends Frame implements Handles {
     setEnabledAll(false);
   }
 
+  /** showOptions. */
   protected void showOptions() {
     if (dialog == null) {
       dialog = new OptionsDialog(this);
@@ -192,6 +194,11 @@ public final class MainFrame extends Frame implements Handles {
     dialog.setVisible(true);
   }
 
+  /**
+   * getPreferredSize.
+   *
+   * @return a {@link java.awt.Dimension} object.
+   */
   public Dimension getPreferredSize() {
     Dimension d = super.getPreferredSize();
     d.width = messages.getPreferredSize().width;
@@ -218,6 +225,11 @@ public final class MainFrame extends Frame implements Handles {
     thread.start();
   }
 
+  /**
+   * generationFinished.
+   *
+   * @param success a boolean.
+   */
   public void generationFinished(boolean success) {
     setEnabledAll(false);
 

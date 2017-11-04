@@ -96,8 +96,8 @@ public class CountEmitter extends PackEmitter {
    *
    * <p>Automatically translates value by the <code>translate</code> value.
    *
-   * @param count
-   * @param value
+   * @param count a int.
+   * @param value a int.
    * @see CountEmitter#setValTranslation(int)
    */
   public void emit(int count, int value) {
