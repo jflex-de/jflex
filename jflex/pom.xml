@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jflex</artifactId>
   <parent>
@@ -53,8 +55,14 @@
   </developers>
   <dependencies>
     <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>cup_runtime</artifactId>
+      <version>${cup.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -107,7 +115,8 @@
                 <mkdir dir="${cup.output.dir}"/>
                 <echo message="Generating LexParse.java from ${cup.file}"/>
                 <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${cup.jar}"/>
-                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true" locations="false" parser="LexParse"/>
+                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true"
+                    locations="false" parser="LexParse"/>
               </target>
             </configuration>
           </execution>
@@ -119,7 +128,8 @@
             </goals>
             <configuration>
               <target name="copy">
-                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar" todir="lib"/>
+                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
+                    todir="lib"/>
               </target>
             </configuration>
           </execution>
@@ -166,6 +176,25 @@
           <skip>false</skip>
           <skipDeploy>false</skipDeploy>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <includes>
+                  <include>de.jflex:cup_runtime</include>
+                </includes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
     <pluginManagement>

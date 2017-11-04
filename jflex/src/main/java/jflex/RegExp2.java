@@ -9,7 +9,6 @@
 
 package jflex;
 
-
 /**
  * Regular expression with two children (e.g. a | b)
  *
@@ -25,15 +24,26 @@ public class RegExp2 extends RegExp {
     this.r1 = r1;
     this.r2 = r2;
   }
-  
+
   public String print(String tab) {
-    return tab+"type = "+type+Out.NL+tab+"child 1 :"+Out.NL+ //$NON-NLS-1$ //$NON-NLS-2$
-           r1.print(tab+"  ")+Out.NL+tab+"child 2 :"+Out.NL+ //$NON-NLS-1$ //$NON-NLS-2$
-           r2.print(tab+"  "); //$NON-NLS-1$
+    return tab
+        + "type = "
+        + type
+        + Out.NL
+        + tab
+        + "child 1 :"
+        + Out.NL
+        + // $NON-NLS-1$ //$NON-NLS-2$
+        r1.print(tab + "  ")
+        + Out.NL
+        + tab
+        + "child 2 :"
+        + Out.NL
+        + // $NON-NLS-1$ //$NON-NLS-2$
+        r2.print(tab + "  "); // $NON-NLS-1$
   }
-  
+
   public String toString() {
-    return print(""); //$NON-NLS-1$
+    return print(""); // $NON-NLS-1$
   }
 }
-  

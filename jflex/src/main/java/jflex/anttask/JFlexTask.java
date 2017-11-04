@@ -10,19 +10,20 @@
 
 package jflex.anttask;
 
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.BuildException;
-
-import jflex.Main;
-import jflex.Options;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.Main;
+import jflex.Options;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 /**
  * JFlex task class
- * 
+ *
  * @author Rafal Mantiuk
  * @version JFlex 1.7.0-SNAPSHOT
  */
@@ -54,8 +55,7 @@ public class JFlexTask extends Task {
       if (inputFile == null)
         throw new BuildException("Input file needed. Use <jflex file=\"your_scanner.flex\"/>");
 
-      if (!inputFile.canRead())
-        throw new BuildException("Cannot read input file " + inputFile);
+      if (!inputFile.canRead()) throw new BuildException("Cannot read input file " + inputFile);
 
       try {
         findPackageAndClass();
@@ -64,8 +64,7 @@ public class JFlexTask extends Task {
 
         if (inputFile.lastModified() > destFile.lastModified()) {
           Main.generate(inputFile);
-          if (!Options.verbose)
-            System.out.println("Generated: " + destFile.getName());
+          if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
@@ -77,9 +76,8 @@ public class JFlexTask extends Task {
 
   /**
    * Peek into .flex file to get package and class name
-   * 
-   * @throws IOException
-   *           if there is a problem reading the .flex file
+   *
+   * @throws IOException if there is a problem reading the .flex file
    */
   public void findPackageAndClass() throws IOException {
     // find name of the package and class in jflex source file
@@ -90,8 +88,7 @@ public class JFlexTask extends Task {
     try {
       while (className == null || packageName == null) {
         String line = reader.readLine();
-        if (line == null)
-          break;
+        if (line == null) break;
 
         if (packageName == null) {
           Matcher matcher = PACKAGE_PATTERN.matcher(line);
@@ -119,15 +116,14 @@ public class JFlexTask extends Task {
 
   /**
    * Sets the actual output directory if not already set.
-   * 
-   * Uses javac logic to determine output dir = dest dir + package name If not
-   * destdir has been set, output dir = parent of input file
-   * 
-   * Assumes that package name is already set.
+   *
+   * <p>Uses javac logic to determine output dir = dest dir + package name If not destdir has been
+   * set, output dir = parent of input file
+   *
+   * <p>Assumes that package name is already set.
    */
   public void normalizeOutdir() {
-    if (outputDir != null)
-      return;
+    if (outputDir != null) return;
 
     // find out what the destination directory is. Append packageName to dest
     // dir.
@@ -150,7 +146,6 @@ public class JFlexTask extends Task {
 
   /**
    * @return package name of input file
-   * 
    * @see #findPackageAndClass()
    */
   public String getPackage() {
@@ -159,7 +154,6 @@ public class JFlexTask extends Task {
 
   /**
    * @return class name of input file
-   * 
    * @see #findPackageAndClass()
    */
   public String getClassName() {

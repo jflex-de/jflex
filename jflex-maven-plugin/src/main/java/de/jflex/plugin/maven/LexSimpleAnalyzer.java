@@ -13,8 +13,8 @@ import java.io.LineNumberReader;
  * @author Rafal Mantiuk (Rafal.Mantiuk@bellstream.pl)
  * @author Gerwin Klein (lsf@jflex.de)
  */
-public class LexSimpleAnalyzer {
-  public static final String DEFAULT_NAME = "Yylex";
+class LexSimpleAnalyzer {
+  static final String DEFAULT_NAME = "Yylex";
 
   /**
    * Guess the package and class name, based on this grammar definition. Does
@@ -23,11 +23,9 @@ public class LexSimpleAnalyzer {
    * @return The name of the java code to generate.
    * @throws FileNotFoundException
    *           if the lex file does not exist
-   * @throws IOException
-   * 
+   * @throws IOException when an IO exception occured while reading a file.
    */
-  protected static ClassInfo guessPackageAndClass(File lexFile) throws FileNotFoundException,
-          IOException {
+  static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
     assert lexFile.isAbsolute() : lexFile;
 
     LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));

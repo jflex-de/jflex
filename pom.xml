@@ -55,6 +55,7 @@
   </developers>
 
   <modules>
+    <module>cup_runtime</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
@@ -91,9 +92,8 @@
 
   <properties>
     <cup.version>11b</cup.version>
-    <!-- Version in Ubuntu Trusty -->
-    <maven.version>3.0.5</maven.version>
     <jflex.jdk.version>1.7</jflex.jdk.version>
+    <maven.version>3.2.5</maven.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -133,6 +133,11 @@
         <version>3.1.0</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-compat</artifactId>
         <version>${maven.version}</version>
@@ -163,6 +168,11 @@
           <groupId>de.jflex</groupId>
           <artifactId>jflex-maven-plugin</artifactId>
           <version>1.6.1</version>
+        </plugin>
+        <plugin>
+          <groupId>com.coveo</groupId>
+          <artifactId>fmt-maven-plugin</artifactId>
+          <version>2.1.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -269,15 +279,44 @@
       </plugins>
     </pluginManagement>
   </build>
+
   <profiles>
     <profile>
-      <!-- Profile for Java 8: Disable Doclint -->
+      <!-- Profile for Java 8: Enable error-prone, Disable Doclint -->
       <id>java8</id>
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.3</version>
+            <configuration>
+              <compilerId>javac-with-errorprone</compilerId>
+              <forceJavacCompilerUse>true</forceJavacCompilerUse>
+              <compilerArgs>
+                <arg>-Xep:FallThrough:WARN</arg>
+              </compilerArgs>
+              <source>7</source>
+              <target>7</target>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-compiler-javac-errorprone</artifactId>
+                <version>2.8</version>
+              </dependency>
+              <!-- override plexus-compiler-javac-errorprone's dependency on
+                   Error Prone with the latest version -->
+              <dependency>
+                <groupId>com.google.errorprone</groupId>
+                <artifactId>error_prone_core</artifactId>
+                <version>2.1.1</version>
+              </dependency>
+            </dependencies>
+          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -300,6 +339,63 @@
                 </plugin>
               </reportPlugins>
             </configuration>
+          </plugin>
+        </plugins>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>com.coveo</groupId>
+              <artifactId>fmt-maven-plugin</artifactId>
+              <version>2.1.0</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    <profile>
+      <id>format-java</id>
+      <activation>
+        <jdk>1.8</jdk>
+        <property>
+          <name>!env.CI</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>check-format-java</id>
+      <activation>
+        <jdk>1.8</jdk>
+        <property>
+          <name>env.CI</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>

@@ -9,34 +9,40 @@
 
 package jflex;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * This class manages the actual code generation, putting
- * the scanner together, filling in skeleton sections etc.
+ * This class manages the actual code generation, putting the scanner together, filling in skeleton
+ * sections etc.
  *
- * Table compression, String packing etc. is also done here.
+ * <p>Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-final public class Emitter {
-  private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN
-      = Pattern.compile
-          (".*/\\*\\*(.*)\\*/"               // javadoc comment, embedded '*/' disallowed
-          +"(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*"        // @[p.ack.age.]AnnotationClass
-          +"   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\""               // ignore close parens in double quotes
-          +"                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in single quotes
-          +"                   |[^)])+\\))?"                       // optional annotation params
-          +")*\\s*",                         // zero or more annotations, followed by optional whitespace
-           Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);
+public final class Emitter {
+  private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN =
+      Pattern.compile(
+          ".*/\\*\\*(.*)\\*/" // javadoc comment, embedded '*/' disallowed
+              + "(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*" // @[p.ack.age.]AnnotationClass
+              + "   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\"" // ignore close parens in double quotes
+              + "                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in
+              // single quotes
+              + "                   |[^)])+\\))?" // optional annotation params
+              + ")*\\s*", // zero or more annotations, followed by optional whitespace
+          Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);
 
   // bit masks for state attributes
-  static final private int FINAL = 1;
-  static final private int NOLOOK = 8;
+  private static final int FINAL = 1;
+  private static final int NOLOOK = 8;
 
   private File inputFile;
 
@@ -47,22 +53,21 @@ final public class Emitter {
   private DFA dfa;
 
   private boolean isTransition[];
-  
+
   // for row killing:
   private int numRows;
-  private int [] rowMap;
-  private boolean [] rowKilled;
-  
+  private int[] rowMap;
+  private boolean[] rowKilled;
+
   // for col killing:
   private int numCols;
-  private int [] colMap;
-  private boolean [] colKilled;
-  
+  private int[] colMap;
+  private boolean[] colKilled;
 
   /** maps actions to their switch label */
-  private Map<Action,Integer> actionTable = new LinkedHashMap<Action,Integer>();
+  private Map<Action, Integer> actionTable = new LinkedHashMap<Action, Integer>();
 
-  private CharClassInterval [] intervals;
+  private CharClassInterval[] intervals;
 
   private String visibility = "public";
 
@@ -72,8 +77,8 @@ final public class Emitter {
 
     File outputFile = normalize(name, inputFile);
 
-    Out.println("Writing code to \""+outputFile+"\"");
-    
+    Out.println("Writing code to \"" + outputFile + "\"");
+
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     this.parser = parser;
     this.scanner = parser.scanner;
@@ -94,47 +99,41 @@ final public class Emitter {
     int gen = className.indexOf('<');
     if (gen < 0) {
       return className;
-    }
-    else {
+    } else {
       return className.substring(0, gen);
     }
   }
-  
 
   /**
-   * Constructs a file in Options.getDir() or in the same directory as
-   * another file. Makes a backup if the file already exists.
+   * Constructs a file in Options.getDir() or in the same directory as another file. Makes a backup
+   * if the file already exists.
    *
-   * @param name  the name (without path) of the file
-   * @param input fall back location if path = <tt>null</tt>
-   *              (expected to be a file in the directory to write to)   
+   * @param name the name (without path) of the file
+   * @param input fall back location if path = <tt>null</tt> (expected to be a file in the directory
+   *     to write to)
    * @return The constructed File
    */
   public static File normalize(String name, File input) {
     File outputFile;
 
-    if ( Options.getDir() == null ) 
-      if ( input == null || input.getParent() == null )
-        outputFile = new File(name);
-      else
-        outputFile = new File(input.getParent(), name);
-    else 
-      outputFile = new File(Options.getDir(), name);
-        
-    if ( outputFile.exists() && !Options.no_backup ) {      
-      File backup = new File( outputFile.toString()+"~" );
-      
-      if ( backup.exists() ) backup.delete();
-      
-      if ( outputFile.renameTo( backup ) )
-        Out.println("Old file \""+outputFile+"\" saved as \""+backup+"\"");
-      else
-        Out.println("Couldn't save old file \""+outputFile+"\", overwriting!");
+    if (Options.getDir() == null)
+      if (input == null || input.getParent() == null) outputFile = new File(name);
+      else outputFile = new File(input.getParent(), name);
+    else outputFile = new File(Options.getDir(), name);
+
+    if (outputFile.exists() && !Options.no_backup) {
+      File backup = new File(outputFile.toString() + "~");
+
+      if (backup.exists()) backup.delete();
+
+      if (outputFile.renameTo(backup))
+        Out.println("Old file \"" + outputFile + "\" saved as \"" + backup + "\"");
+      else Out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
     }
 
     return outputFile;
   }
-  
+
   private void println() {
     out.println();
   }
@@ -158,14 +157,12 @@ final public class Emitter {
   private void print(int i, int tab) {
     int exp;
 
-    if (i < 0) 
-      exp = 1;
-    else
-      exp = 10;
+    if (i < 0) exp = 1;
+    else exp = 10;
 
     while (tab-- > 1) {
       if (Math.abs(i) < exp) print(" ");
-      exp*= 10;
+      exp *= 10;
     }
 
     print(i);
@@ -174,53 +171,51 @@ final public class Emitter {
   private boolean hasGenLookAhead() {
     return dfa.lookaheadUsed;
   }
-  
+
   private void emitLookBuffer() {
     if (!hasGenLookAhead()) return;
-    
+
     println("  /** For the backwards DFA of general lookahead statements */");
     println("  private boolean [] zzFin = new boolean [ZZ_BUFFERSIZE+1];");
     println();
   }
-  
+
   private void emitScanError() {
     print("  private void zzScanError(int errorCode)");
-    
-    if (scanner.scanErrorException != null) 
-      print(" throws "+scanner.scanErrorException);
+
+    if (scanner.scanErrorException != null) print(" throws " + scanner.scanErrorException);
 
     println(" {");
 
     skel.emitNext();
 
-    if (scanner.scanErrorException == null)
-      println("    throw new Error(message);");
-    else
-      println("    throw new "+scanner.scanErrorException+"(message);");    
+    if (scanner.scanErrorException == null) println("    throw new Error(message);");
+    else println("    throw new " + scanner.scanErrorException + "(message);");
 
     skel.emitNext();
 
-    print("  "+visibility+" void yypushback(int number) ");     
-    
-    if (scanner.scanErrorException == null)
-      println(" {");
-    else       
-      println(" throws "+scanner.scanErrorException+" {");
+    print("  " + visibility + " void yypushback(int number) ");
+
+    if (scanner.scanErrorException == null) println(" {");
+    else println(" throws " + scanner.scanErrorException + " {");
   }
 
   private void emitMain() {
-    if ( !(scanner.standalone || scanner.debugOption || scanner.cupDebug) ) return;
+    if (!(scanner.standalone || scanner.debugOption || scanner.cupDebug)) return;
 
-    if ( scanner.cupDebug ) {
+    if (scanner.cupDebug) {
       println("  /**");
       println("   * Converts an int token code into the name of the");
-      println("   * token by reflection on the cup symbol class/interface "+scanner.cupSymbol);
+      println("   * token by reflection on the cup symbol class/interface " + scanner.cupSymbol);
       println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>"); 
+      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
       println("  private String getTokenName(int token) {");
       println("    try {");
-      println("      java.lang.reflect.Field [] classFields = " + scanner.cupSymbol + ".class.getFields();");
+      println(
+          "      java.lang.reflect.Field [] classFields = "
+              + scanner.cupSymbol
+              + ".class.getFields();");
       println("      for (int i = 0; i < classFields.length; i++) {");
       println("        if (classFields[i].getInt(null) == token) {");
       println("          return classFields[i].getName();");
@@ -234,50 +229,44 @@ final public class Emitter {
       println("  }");
       println("");
       println("  /**");
-      println("   * Same as "+scanner.functionName+" but also prints the token to standard out");
+      println(
+          "   * Same as " + scanner.functionName + " but also prints the token to standard out");
       println("   * for debugging.");
       println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>"); 
+      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
 
-      if ( scanner.cupCompatible || scanner.cup2Compatible ) {
+      if (scanner.cupCompatible || scanner.cup2Compatible) {
         // cup interface forces public method
         print("  public ");
+      } else {
+        print("  " + visibility + " ");
       }
-      else {
-        print("  "+visibility+" ");
-      }
-      if ( scanner.tokenType == null ) {
-        if ( scanner.isInteger )
-          print( "int" );
-        else 
-          if ( scanner.isIntWrap )
-            print( "Integer" );
-          else
-            print( "Yytoken" );
-      }
-      else
-        print( scanner.tokenType );
-      
+      if (scanner.tokenType == null) {
+        if (scanner.isInteger) print("int");
+        else if (scanner.isIntWrap) print("Integer");
+        else print("Yytoken");
+      } else print(scanner.tokenType);
+
       print(" debug_");
-      
+
       print(scanner.functionName);
-      
+
       print("() throws java.io.IOException");
-    
-      if ( scanner.lexThrow != null ) {
+
+      if (scanner.lexThrow != null) {
         print(", ");
         print(scanner.lexThrow);
       }
 
-      if ( scanner.scanErrorException != null ) {
+      if (scanner.scanErrorException != null) {
         print(", ");
         print(scanner.scanErrorException);
       }
-      
+
       println(" {");
 
-      println("    "+scanner.tokenType+" s = "+scanner.functionName+"();");
+      println("    " + scanner.tokenType + " s = " + scanner.functionName + "();");
       print("    System.out.println( ");
       if (scanner.lineCount) print("\"line:\" + (yyline+1) + ");
       if (scanner.columnCount) print("\" col:\" + (yycolumn+1) + ");
@@ -287,35 +276,37 @@ final public class Emitter {
       println("");
     }
 
-    if ( scanner.standalone ) {
+    if (scanner.standalone) {
       println("  /**");
       println("   * Runs the scanner on input files.");
       println("   *");
       println("   * This is a standalone scanner, it will print any unmatched");
-      println("   * text to System.out unchanged.");      
+      println("   * text to System.out unchanged.");
       println("   *");
       println("   * @param argv   the command line, contains the filenames to run");
       println("   *               the scanner on.");
       println("   */");
-    }
-    else {
+    } else {
       println("  /**");
       println("   * Runs the scanner on input files.");
       println("   *");
       println("   * This main method is the debugging routine for the scanner.");
       println("   * It prints debugging information about each returned token to");
       println("   * System.out until the end of file is reached, or an error occured.");
-      println("   *"); 
+      println("   *");
       println("   * @param argv   the command line, contains the filenames to run");
-      println("   *               the scanner on."); 
-      println("   */"); 
-    }      
-    
+      println("   *               the scanner on.");
+      println("   */");
+    }
+
     String className = getBaseName(scanner.className);
-    
+
     println("  public static void main(String argv[]) {");
     println("    if (argv.length == 0) {");
-    println("      System.out.println(\"Usage : java "+className+" [ --encoding <name> ] <inputfile(s)>\");");
+    println(
+        "      System.out.println(\"Usage : java "
+            + className
+            + " [ --encoding <name> ] <inputfile(s)>\");");
     println("    }");
     println("    else {");
     println("      int firstFilePos = 0;");
@@ -324,31 +315,31 @@ final public class Emitter {
     println("        firstFilePos = 2;");
     println("        encodingName = argv[1];");
     println("        try {");
-    println("          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? ");
+    println(
+        "          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? ");
     println("        } catch (Exception e) {");
     println("          System.out.println(\"Invalid encoding '\" + encodingName + \"'\");");
     println("          return;");
     println("        }");
     println("      }");
     println("      for (int i = firstFilePos; i < argv.length; i++) {");
-    println("        "+className+" scanner = null;");
+    println("        " + className + " scanner = null;");
     println("        try {");
     println("          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);");
-    println("          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);");
-    println("          scanner = new "+className+"(reader);");
-    if ( scanner.standalone ) {      
-      println("          while ( !scanner.zzAtEOF ) scanner."+scanner.functionName+"();");
-    }
-    else if (scanner.cupDebug ) {
-      println("          while ( !scanner.zzAtEOF ) scanner.debug_"+scanner.functionName+"();");
-    }
-    else {
+    println(
+        "          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);");
+    println("          scanner = new " + className + "(reader);");
+    if (scanner.standalone) {
+      println("          while ( !scanner.zzAtEOF ) scanner." + scanner.functionName + "();");
+    } else if (scanner.cupDebug) {
+      println("          while ( !scanner.zzAtEOF ) scanner.debug_" + scanner.functionName + "();");
+    } else {
       println("          do {");
-      println("            System.out.println(scanner."+scanner.functionName+"());");
+      println("            System.out.println(scanner." + scanner.functionName + "());");
       println("          } while (!scanner.zzAtEOF);");
       println("");
     }
- 
+
     println("        }");
     println("        catch (java.io.FileNotFoundException e) {");
     println("          System.out.println(\"File not found : \\\"\"+argv[i]+\"\\\"\");");
@@ -356,21 +347,21 @@ final public class Emitter {
     println("        catch (java.io.IOException e) {");
     println("          System.out.println(\"IO error scanning file \\\"\"+argv[i]+\"\\\"\");");
     println("          System.out.println(e);");
-    println("        }"); 
+    println("        }");
     println("        catch (Exception e) {");
     println("          System.out.println(\"Unexpected exception:\");");
     println("          e.printStackTrace();");
-    println("        }"); 
+    println("        }");
     println("      }");
     println("    }");
     println("  }");
-    println("");    
+    println("");
   }
-  
+
   private void emitNoMatch() {
     println("            zzScanError(ZZ_NO_MATCH);");
   }
-  
+
   private void emitNextInput() {
     println("          if (zzCurrentPosL < zzEndReadL) {");
     println("            zzInput = Character.codePointAt(zzBufferL, zzCurrentPosL, zzEndReadL);");
@@ -392,23 +383,22 @@ final public class Emitter {
     println("            zzEndReadL     = zzEndRead;");
     println("            if (eof) {");
     println("              zzInput = YYEOF;");
-    println("              break zzForAction;");  
+    println("              break zzForAction;");
     println("            }");
     println("            else {");
     println("              zzInput = Character.codePointAt(zzBufferL, zzCurrentPosL, zzEndReadL);");
     println("              zzCurrentPosL += Character.charCount(zzInput);");
     println("            }");
-    println("          }"); 
+    println("          }");
   }
 
   private void emitHeader() {
     println("/* The following code was generated by JFlex " + Main.version + " */");
     println("");
-  } 
+  }
 
   private void emitUserCode() {
-    if ( scanner.userCode.length() > 0 )
-      println(scanner.userCode.toString());
+    if (scanner.userCode.length() > 0) println(scanner.userCode.toString());
 
     if (scanner.cup2Compatible) {
       println();
@@ -419,64 +409,63 @@ final public class Emitter {
     }
   }
 
-  private void emitClassName() {    
+  private void emitClassName() {
     if (!endsWithJavadoc(scanner.userCode)) {
       String path = inputFile.toString();
       // slashify path (avoid backslash u sequence = unicode escape)
       if (File.separatorChar != '/') {
-	    path = path.replace(File.separatorChar, '/');
+        path = path.replace(File.separatorChar, '/');
       }
-    	
+
       println("/**");
       println(" * This class is a scanner generated by ");
-      println(" * <a href=\"http://www.jflex.de/\">JFlex</a> "+Main.version);
-      println(" * from the specification file <tt>"+path+"</tt>");      
+      println(" * <a href=\"http://www.jflex.de/\">JFlex</a> " + Main.version);
+      println(" * from the specification file <tt>" + path + "</tt>");
       println(" */");
-    }   
+    }
 
-    if ( scanner.isPublic ) print("public ");
+    if (scanner.isPublic) print("public ");
 
-    if ( scanner.isAbstract) print("abstract ");
-   
-    if ( scanner.isFinal ) print("final ");
-    
+    if (scanner.isAbstract) print("abstract ");
+
+    if (scanner.isFinal) print("final ");
+
     print("class ");
     print(scanner.className);
-    
-    if ( scanner.isExtending != null ) {
+
+    if (scanner.isExtending != null) {
       print(" extends ");
       print(scanner.isExtending);
     }
 
-    if ( scanner.isImplementing != null ) {
+    if (scanner.isImplementing != null) {
       print(" implements ");
       print(scanner.isImplementing);
-    }   
-    
+    }
+
     println(" {");
-  }  
+  }
 
   /**
-   * Try to find out if user code ends with a javadoc comment,
-   * maybe followed by one or more annotations
-   * 
-   * @param usercode  the user code
-   * @return true     if it ends with a javadoc comment and zero or more annotations
+   * Try to find out if user code ends with a javadoc comment, maybe followed by one or more
+   * annotations
+   *
+   * @param usercode the user code
+   * @return true if it ends with a javadoc comment and zero or more annotations
    */
   public static boolean endsWithJavadoc(StringBuilder usercode) {
     Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
-    return matcher.matches() && ! matcher.group(1).contains("*/");
+    return matcher.matches() && !matcher.group(1).contains("*/");
   }
-
 
   private void emitLexicalStates() {
     for (String name : scanner.states.names()) {
       int num = scanner.states.getNumber(name);
 
-      println("  "+visibility+" static final int "+name+" = "+2*num+";");
+      println("  " + visibility + " static final int " + name + " = " + 2 * num + ";");
     }
 
-    // can't quite get rid of the indirection, even for non-bol lex states: 
+    // can't quite get rid of the indirection, even for non-bol lex states:
     // their DFA states might be the same, but their EOF actions might be different
     // (see bug #1540228)
     println("");
@@ -487,12 +476,12 @@ final public class Emitter {
     println("   * l is of the form l = 2*k, k a non negative integer");
     println("   */");
     println("  private static final int ZZ_LEXSTATE[] = { ");
-  
+
     int i, j = 0;
     print("    ");
-    
-    for (i = 0; i < 2*dfa.numLexStates-1; i++) {
-      print( dfa.entryState[i], 2 );
+
+    for (i = 0; i < 2 * dfa.numLexStates - 1; i++) {
+      print(dfa.entryState[i], 2);
 
       print(", ");
 
@@ -502,12 +491,12 @@ final public class Emitter {
         j = 0;
       }
     }
-            
-    println( dfa.entryState[i] );
+
+    println(dfa.entryState[i]);
     println("  };");
   }
 
-  private void emitDynamicInit() {    
+  private void emitDynamicInit() {
     int count = 0;
     int value = dfa.table[0][0];
 
@@ -518,19 +507,18 @@ final public class Emitter {
     CountEmitter e = new CountEmitter("Trans");
     e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
     e.emitInit();
-    
+
     for (int i = 0; i < dfa.numStates; i++) {
-      if ( !rowKilled[i] ) {
+      if (!rowKilled[i]) {
         for (int c = 0; c < dfa.numInput; c++) {
-          if ( !colKilled[c] ) {
+          if (!colKilled[c]) {
             if (dfa.table[i][c] == value) {
               count++;
-            } 
-            else {
+            } else {
               e.emit(count, value);
 
               count = 1;
-              value = dfa.table[i][c];              
+              value = dfa.table[i][c];
             }
           }
         }
@@ -539,16 +527,15 @@ final public class Emitter {
 
     e.emit(count, value);
     e.emitUnpack();
-    
+
     println(e.toString());
   }
-
 
   private void emitCharMapInitFunction(int packedCharMapPairs) {
 
     CharClasses cl = parser.getCharClasses();
-    
-    if ( cl.getMaxCharCode() < 256 ) return;
+
+    if (cl.getMaxCharCode() < 256) return;
 
     println("");
     println("  /** ");
@@ -571,30 +558,30 @@ final public class Emitter {
   }
 
   private void emitCharMapArrayUnPacked() {
-   
+
     CharClasses cl = parser.getCharClasses();
-    
+
     println("");
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
     println("  private static final char [] ZZ_CMAP = {");
-  
-    int n = 0;  // numbers of entries in current line    
+
+    int n = 0; // numbers of entries in current line
     print("    ");
-    
-    int max =  cl.getMaxCharCode();
-	
+
+    int max = cl.getMaxCharCode();
+
     // not very efficient, but good enough for <= 255 characters
     for (char c = 0; c <= max; c++) {
-      print(colMap[cl.getClassCode(c)],2);
-      
+      print(colMap[cl.getClassCode(c)], 2);
+
       if (c < max) {
-        print(", ");        
-        if ( ++n >= 16 ) { 
+        print(", ");
+        if (++n >= 16) {
           println();
           print("    ");
-          n = 0; 
+          n = 0;
         }
       }
     }
@@ -605,18 +592,16 @@ final public class Emitter {
   }
 
   /**
-   * Returns the number of elements in the packed char map
-   * array, or zero if the char map array will be not be packed.
-   * 
-   * This will be more than intervals.length if the count
-   * for any of the values is more than 0xFFFF, since
-   * the number of char map array entries per value is
-   * ceil(count / 0xFFFF)
+   * Returns the number of elements in the packed char map array, or zero if the char map array will
+   * be not be packed.
+   *
+   * <p>This will be more than intervals.length if the count for any of the values is more than
+   * 0xFFFF, since the number of char map array entries per value is ceil(count / 0xFFFF)
    */
-  private int emitCharMapArray() {       
+  private int emitCharMapArray() {
     CharClasses cl = parser.getCharClasses();
 
-    if ( cl.getMaxCharCode() < 256 ) {
+    if (cl.getMaxCharCode() < 256) {
       emitCharMapArrayUnPacked();
       return 0; // the char map array will not be packed
     }
@@ -624,20 +609,20 @@ final public class Emitter {
     // ignores cl.getMaxCharCode(), emits all intervals instead
 
     intervals = cl.getIntervals();
-    
+
     println("");
     println("  /** ");
     println("   * Translates characters to character classes");
     println("   */");
     println("  private static final String ZZ_CMAP_PACKED = ");
-  
-    int n = 0;  // numbers of entries in current line    
+
+    int n = 0; // numbers of entries in current line
     print("    \"");
-    
+
     int i = 0, numPairs = 0;
     int count, value;
-    while ( i < intervals.length ) {
-      count = intervals[i].end-intervals[i].start+1;
+    while (i < intervals.length) {
+      count = intervals[i].end - intervals[i].start + 1;
       value = colMap[intervals[i].charClass];
 
       // count could be >= 0x10000
@@ -646,14 +631,14 @@ final public class Emitter {
         printUC(value);
         count -= 0xFFFF;
         numPairs++;
-        n++;       
+        n++;
       }
       numPairs++;
       printUC(count);
       printUC(value);
 
-      if (i < intervals.length-1) {
-        if ( ++n >= 10 ) { 
+      if (i < intervals.length - 1) {
+        if (++n >= 10) {
           println("\"+");
           print("    \"");
           n = 0;
@@ -662,7 +647,7 @@ final public class Emitter {
 
       i++;
     }
-      
+
     println("\";");
     println();
 
@@ -674,79 +659,73 @@ final public class Emitter {
     return numPairs;
   }
 
-
   /**
    * Print number as octal/unicode escaped string character.
-   * 
-   * @param c   the value to print
-   * @prec  0 <= c <= 0xFFFF 
+   *
+   * @param c the value to print
+   * @prec 0 <= c <= 0xFFFF
    */
   private void printUC(int c) {
     if (c > 255) {
       out.print("\\u");
       if (c < 0x1000) out.print("0");
       out.print(Integer.toHexString(c));
-    }
-    else {
+    } else {
       out.print("\\");
       out.print(Integer.toOctalString(c));
-    }    
+    }
   }
-
 
   private void emitRowMapArray() {
     println("");
     println("  /** ");
     println("   * Translates a state to a row index in the transition table");
     println("   */");
-    
+
     HiLowEmitter e = new HiLowEmitter("RowMap");
     e.emitInit();
     for (int i = 0; i < dfa.numStates; i++) {
-      e.emit(rowMap[i]*numCols);
-    }    
+      e.emit(rowMap[i] * numCols);
+    }
     e.emitUnpack();
     println(e.toString());
   }
-
 
   private void emitAttributes() {
     println("  /**");
     println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
     println("   */");
-    
-    CountEmitter e = new CountEmitter("Attribute");    
+
+    CountEmitter e = new CountEmitter("Attribute");
     e.emitInit();
-    
+
     int count = 1;
-    int value = 0; 
-    if ( dfa.isFinal[0]    ) value = FINAL;
-    if ( !isTransition[0]  ) value|= NOLOOK;
-       
-    for (int i = 1;  i < dfa.numStates; i++) {      
-      int attribute = 0;      
-      if ( dfa.isFinal[i]    ) attribute = FINAL;
-      if ( !isTransition[i]  ) attribute|= NOLOOK;
+    int value = 0;
+    if (dfa.isFinal[0]) value = FINAL;
+    if (!isTransition[0]) value |= NOLOOK;
+
+    for (int i = 1; i < dfa.numStates; i++) {
+      int attribute = 0;
+      if (dfa.isFinal[i]) attribute = FINAL;
+      if (!isTransition[i]) attribute |= NOLOOK;
 
       if (value == attribute) {
         count++;
-      }
-      else {        
+      } else {
         e.emit(count, value);
         count = 1;
         value = attribute;
       }
     }
-    
-    e.emit(count, value);    
+
+    e.emit(count, value);
     e.emitUnpack();
-    
+
     println(e.toString());
   }
 
-
   private void emitClassCode() {
-    if ( scanner.classCode != null ) {
+    if (scanner.classCode != null) {
       println("  /* user code: */");
       println(scanner.classCode);
     }
@@ -766,18 +745,16 @@ final public class Emitter {
     }
   }
 
-
   private void emitConstructorDecl() {
     emitConstructorDecl(true);
-    
-    if ((scanner.standalone || scanner.debugOption) && 
-        scanner.ctorArgs.size() > 0) {
+
+    if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
       Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }
   }
-  
+
   private void emitConstructorDecl(boolean printCtorArgs) {
     println("  /**");
     println("   * Creates a new scanner");
@@ -788,30 +765,30 @@ final public class Emitter {
     println("   * @param   in  the java.io.Reader to read input from.");
     println("   */");
 
-    String warn = 
-        "// WARNING: this is a default constructor for " +
-        "debug/standalone only. Has no custom parameters or init code.";
-    
-    if (!printCtorArgs) println(warn); 
-    
+    String warn =
+        "// WARNING: this is a default constructor for "
+            + "debug/standalone only. Has no custom parameters or init code.";
+
+    if (!printCtorArgs) println(warn);
+
     print("  ");
 
-    if ( scanner.isPublic ) print("public ");   
-    print( getBaseName(scanner.className) );      
+    if (scanner.isPublic) print("public ");
+    print(getBaseName(scanner.className));
     print("(java.io.Reader in");
     if (printCtorArgs) emitCtorArgs();
     print(")");
-    
-    if ( scanner.initThrow != null && printCtorArgs) {
+
+    if (scanner.initThrow != null && printCtorArgs) {
       print(" throws ");
-      print( scanner.initThrow );
+      print(scanner.initThrow);
     }
-    
+
     println(" {");
 
-    if ( scanner.initCode != null && printCtorArgs) {
+    if (scanner.initCode != null && printCtorArgs) {
       print("  ");
-      print( scanner.initCode );
+      print(scanner.initCode);
     }
 
     println("    this.zzReader = in;");
@@ -819,7 +796,6 @@ final public class Emitter {
     println("  }");
     println();
 
-    
     if (scanner.emitInputStreamCtor) {
       Out.warning(ErrorMessages.EMITTING_INPUTSTREAM_CTOR, -1);
       println("  /**");
@@ -829,27 +805,27 @@ final public class Emitter {
       println("   * @param   in  the java.io.Inputstream to read input from.");
       println("   */");
       if (!printCtorArgs) println(warn);
-    
+
       print("  ");
-      if ( scanner.isPublic ) print("public ");    
-      print( getBaseName(scanner.className) );      
+      if (scanner.isPublic) print("public ");
+      print(getBaseName(scanner.className));
       print("(java.io.InputStream in");
       if (printCtorArgs) emitCtorArgs();
       print(")");
 
-      if ( scanner.initThrow != null && printCtorArgs ) {
+      if (scanner.initThrow != null && printCtorArgs) {
         print(" throws ");
-        print( scanner.initThrow );
+        print(scanner.initThrow);
       }
 
-      println(" {");    
+      println(" {");
 
       println("    this(new java.io.InputStreamReader");
       print("             (in, java.nio.charset.Charset.forName(\"UTF-8\"))");
       if (printCtorArgs) {
-        for (int i=0; i < scanner.ctorArgs.size(); i++) {
-          print(", "+scanner.ctorArgs.get(i));
-        }      
+        for (int i = 0; i < scanner.ctorArgs.size(); i++) {
+          print(", " + scanner.ctorArgs.get(i));
+        }
       }
       println(");");
       println("  }");
@@ -858,31 +834,31 @@ final public class Emitter {
 
   private void emitCtorArgs() {
     for (int i = 0; i < scanner.ctorArgs.size(); i++) {
-      print(", "+scanner.ctorTypes.get(i));
-      print(" "+scanner.ctorArgs.get(i));
-    }    
+      print(", " + scanner.ctorTypes.get(i));
+      print(" " + scanner.ctorArgs.get(i));
+    }
   }
 
   private void emitDoEOF() {
-    if ( scanner.eofCode == null ) return;
-    
+    if (scanner.eofCode == null) return;
+
     println("  /**");
     println("   * Contains user EOF-code, which will be executed exactly once,");
     println("   * when the end of file is reached");
     println("   */");
-    
+
     print("  private void zzDoEOF()");
-    
-    if ( scanner.eofThrow != null ) {
+
+    if (scanner.eofThrow != null) {
       print(" throws ");
       print(scanner.eofThrow);
     }
-    
+
     println(" {");
-    
+
     println("    if (!zzEOFDone) {");
     println("      zzEOFDone = true;");
-    println("    "+scanner.eofCode );
+    println("    " + scanner.eofCode);
     println("    }");
     println("  }");
     println("");
@@ -890,59 +866,52 @@ final public class Emitter {
   }
 
   private void emitLexFunctHeader() {
-    
-    if (scanner.cupCompatible || scanner.cup2Compatible)  {
+
+    if (scanner.cupCompatible || scanner.cup2Compatible) {
       // force public, because we have to implement cup/cup2 interface
       print("  public ");
+    } else {
+      print("  " + visibility + " ");
     }
-    else {
-      print("  "+visibility+" ");
-    }
-    
-    if ( scanner.tokenType == null ) {
-      if ( scanner.isInteger )
-        print( "int" );
-      else 
-      if ( scanner.isIntWrap )
-        print( "Integer" );
-      else
-        print( "Yytoken" );
-    }
-    else
-      print( scanner.tokenType );
-      
+
+    if (scanner.tokenType == null) {
+      if (scanner.isInteger) print("int");
+      else if (scanner.isIntWrap) print("Integer");
+      else print("Yytoken");
+    } else print(scanner.tokenType);
+
     print(" ");
-    
+
     print(scanner.functionName);
-      
+
     print("() throws java.io.IOException");
-    
-    if ( scanner.lexThrow != null ) {
+
+    if (scanner.lexThrow != null) {
       print(", ");
       print(scanner.lexThrow);
     }
 
-    if ( scanner.scanErrorException != null ) {
+    if (scanner.scanErrorException != null) {
       print(", ");
       print(scanner.scanErrorException);
     }
-    
+
     println(" {");
-    
+
     skel.emitNext();
 
     println("    int [] zzTransL = ZZ_TRANS;");
     println("    int [] zzRowMapL = ZZ_ROWMAP;");
     println("    int [] zzAttrL = ZZ_ATTRIBUTE;");
 
-    skel.emitNext();    
-        
-    if ( scanner.charCount ) {
+    skel.emitNext();
+
+    if (scanner.charCount) {
       println("      yychar+= zzMarkedPosL-zzStartRead;");
       println("");
     }
-    
-    if ( scanner.lineCount || scanner.columnCount ) {
+
+    if (scanner.lineCount || scanner.columnCount) {
       println("      boolean zzR = false;");
       println("      int zzCh;");
       println("      int zzCharCount;");
@@ -952,45 +921,39 @@ final public class Emitter {
       println("        zzCh = Character.codePointAt(zzBufferL, zzCurrentPosL, zzMarkedPosL);");
       println("        zzCharCount = Character.charCount(zzCh);");
       println("        switch (zzCh) {");
-      println("        case '\\u000B':"); 
-      println("        case '\\u000C':"); 
-      println("        case '\\u0085':");
-      println("        case '\\u2028':"); 
-      println("        case '\\u2029':"); 
-      if ( scanner.lineCount )
-        println("          yyline++;");
-      if ( scanner.columnCount )
-        println("          yycolumn = 0;");
+      println("        case '\\u000B':  // fall though");
+      println("        case '\\u000C':  // fall though");
+      println("        case '\\u0085':  // fall though");
+      println("        case '\\u2028':  // fall though");
+      println("        case '\\u2029':");
+      if (scanner.lineCount) println("          yyline++;");
+      if (scanner.columnCount) println("          yycolumn = 0;");
       println("          zzR = false;");
-      println("          break;");      
+      println("          break;");
       println("        case '\\r':");
-      if ( scanner.lineCount )
-        println("          yyline++;");
-      if ( scanner.columnCount )
-        println("          yycolumn = 0;");
+      if (scanner.lineCount) println("          yyline++;");
+      if (scanner.columnCount) println("          yycolumn = 0;");
       println("          zzR = true;");
       println("          break;");
       println("        case '\\n':");
       println("          if (zzR)");
       println("            zzR = false;");
       println("          else {");
-      if ( scanner.lineCount )
-        println("            yyline++;");
-      if ( scanner.columnCount )
-        println("            yycolumn = 0;");
+      if (scanner.lineCount) println("            yyline++;");
+      if (scanner.columnCount) println("            yycolumn = 0;");
       println("          }");
       println("          break;");
       println("        default:");
       println("          zzR = false;");
-      if ( scanner.columnCount ) 
-        println("          yycolumn += zzCharCount;");
+      if (scanner.columnCount) println("          yycolumn += zzCharCount;");
       println("        }");
       println("      }");
       println();
 
-      if ( scanner.lineCount ) {
+      if (scanner.lineCount) {
         println("      if (zzR) {");
-        println("        // peek one character ahead if it is \\n (if we have counted one line too much)");
+        println(
+            "        // peek one character ahead if it is \\n (if we have counted one line too much)");
         println("        boolean zzPeek;");
         println("        if (zzMarkedPosL < zzEndReadL)");
         println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
@@ -1011,21 +974,21 @@ final public class Emitter {
       }
     }
 
-    if ( scanner.bolUsed ) {
+    if (scanner.bolUsed) {
       // zzMarkedPos > zzStartRead <=> last match was not empty
       // if match was empty, last value of zzAtBOL can be used
       // zzStartRead is always >= 0
       println("      if (zzMarkedPosL > zzStartRead) {");
       println("        switch (zzBufferL[zzMarkedPosL-1]) {");
       println("        case '\\n':");
-      println("        case '\\u000B':"); 
-      println("        case '\\u000C':"); 
-      println("        case '\\u0085':");
-      println("        case '\\u2028':"); 
-      println("        case '\\u2029':"); 
+      println("        case '\\u000B':  // fall though");
+      println("        case '\\u000C':  // fall though");
+      println("        case '\\u0085':  // fall though");
+      println("        case '\\u2028':  // fall though");
+      println("        case '\\u2029':  // fall though");
       println("          zzAtBOL = true;");
-      println("          break;"); 
-      println("        case '\\r': "); 
+      println("          break;");
+      println("        case '\\r': ");
       println("          if (zzMarkedPosL < zzEndReadL)");
       println("            zzAtBOL = zzBufferL[zzMarkedPosL] != '\\n';");
       println("          else if (zzAtEOF)");
@@ -1039,24 +1002,23 @@ final public class Emitter {
       println("              zzAtBOL = false;");
       println("            else ");
       println("              zzAtBOL = zzBufferL[zzMarkedPosL] != '\\n';");
-      println("          }");      
-      println("          break;"); 
-      println("        default:"); 
+      println("          }");
+      println("          break;");
+      println("        default:");
       println("          zzAtBOL = false;");
-      println("        }"); 
-      println("      }"); 
+      println("        }");
+      println("      }");
     }
 
     skel.emitNext();
-    
+
     if (scanner.bolUsed) {
       println("      if (zzAtBOL)");
       println("        zzState = ZZ_LEXSTATE[zzLexicalState+1];");
-      println("      else");    
+      println("      else");
       println("        zzState = ZZ_LEXSTATE[zzLexicalState];");
       println();
-    }
-    else {
+    } else {
       println("      zzState = ZZ_LEXSTATE[zzLexicalState];");
       println();
     }
@@ -1067,48 +1029,60 @@ final public class Emitter {
     println("        zzAction = zzState;");
     println("      }");
     println();
-  
+
     skel.emitNext();
   }
 
-  
   private void emitGetRowMapNext() {
     println("          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
-    println("          if (zzNext == "+DFA.NO_TARGET+") break zzForAction;");
+    println("          if (zzNext == " + DFA.NO_TARGET + ") break zzForAction;");
     println("          zzState = zzNext;");
     println();
 
     println("          zzAttributes = zzAttrL[zzState];");
 
-    println("          if ( (zzAttributes & "+FINAL+") == "+FINAL+" ) {");
+    println("          if ( (zzAttributes & " + FINAL + ") == " + FINAL + " ) {");
 
     skel.emitNext();
-    
-    println("            if ( (zzAttributes & "+NOLOOK+") == "+NOLOOK+" ) break zzForAction;");
 
-    skel.emitNext();    
-  }  
+    println(
+        "            if ( (zzAttributes & " + NOLOOK + ") == " + NOLOOK + " ) break zzForAction;");
+
+    skel.emitNext();
+  }
 
   /**
    * Escapes all " ' \ tabs and newlines
-   * 
+   *
    * @param s The string to escape
    * @return The escaped string
    */
   private String escapify(String s) {
-    StringBuilder result = new StringBuilder(s.length()*2);
-    
+    StringBuilder result = new StringBuilder(s.length() * 2);
+
     for (int i = 0; i < s.length(); i++) {
       char c = s.charAt(i);
       switch (c) {
-      case '\'': result.append("\\\'"); break;
-      case '\"': result.append("\\\""); break;
-      case '\\': result.append("\\\\"); break;
-      case '\t': result.append("\\t"); break;
-      case '\r': if (i+1 == s.length() || s.charAt(i+1) != '\n') result.append("\"+ZZ_NL+\""); 
-                 break;
-      case '\n': result.append("\"+ZZ_NL+\""); break;
-      default: result.append(c);
+        case '\'':
+          result.append("\\\'");
+          break;
+        case '\"':
+          result.append("\\\"");
+          break;
+        case '\\':
+          result.append("\\\\");
+          break;
+        case '\t':
+          result.append("\\t");
+          break;
+        case '\r':
+          if (i + 1 == s.length() || s.charAt(i + 1) != '\n') result.append("\"+ZZ_NL+\"");
+          break;
+        case '\n':
+          result.append("\"+ZZ_NL+\"");
+          break;
+        default:
+          result.append(c);
       }
     }
 
@@ -1116,75 +1090,80 @@ final public class Emitter {
   }
 
   public void emitActionTable() {
-    int lastAction = 1;    
+    int lastAction = 1;
     int count = 0;
     int value = 0;
 
     println("  /** ");
     println("   * Translates DFA states to action switch labels.");
     println("   */");
-    CountEmitter e = new CountEmitter("Action");    
+    CountEmitter e = new CountEmitter("Action");
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates; i++) {
-      int newVal = 0; 
-      if ( dfa.isFinal[i] ) {
+      int newVal = 0;
+      if (dfa.isFinal[i]) {
         Action action = dfa.action[i];
         if (action.isEmittable()) {
           Integer stored = actionTable.get(action);
-          if ( stored == null ) { 
+          if (stored == null) {
             stored = lastAction++;
             actionTable.put(action, stored);
           }
           newVal = stored;
         }
       }
-      
+
       if (value == newVal) {
         count++;
-      }
-      else {
-        if (count > 0) e.emit(count,value);
+      } else {
+        if (count > 0) e.emit(count, value);
         count = 1;
-        value = newVal;        
+        value = newVal;
       }
     }
-    
-    if (count > 0) e.emit(count,value);
 
-    e.emitUnpack();    
+    if (count > 0) e.emit(count, value);
+
+    e.emitUnpack();
     println(e.toString());
   }
 
   private void emitActions() {
     println("        switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
 
-    int i = actionTable.size()+1;
-    
-    for (Map.Entry<Action,Integer> entry : actionTable.entrySet()) {
+    int i = actionTable.size() + 1;
+
+    for (Map.Entry<Action, Integer> entry : actionTable.entrySet()) {
       Action action = entry.getKey();
       int label = entry.getValue();
 
-      println("          case "+label+": ");
-      
+      println("          case " + label + ": ");
+
       if (action.lookAhead() == Action.FIXED_BASE) {
         println("            // lookahead expression with fixed base length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
-        println("                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzStartRead, " + action.getLookLength() + ");");
+        println(
+            "                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzStartRead, "
+                + action.getLookLength()
+                + ");");
       }
-      
-      if (action.lookAhead() == Action.FIXED_LOOK || 
-          action.lookAhead() == Action.FINITE_CHOICE) {
+
+      if (action.lookAhead() == Action.FIXED_LOOK || action.lookAhead() == Action.FINITE_CHOICE) {
         println("            // lookahead expression with fixed lookahead length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
-        println("                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzMarkedPos, -" + action.getLookLength() + ");");
+        println(
+            "                (zzBufferL, zzStartRead, zzEndRead - zzStartRead, zzMarkedPos, -"
+                + action.getLookLength()
+                + ");");
       }
-      
+
       if (action.lookAhead() == Action.GENERAL_LOOK) {
         println("            // general lookahead, find correct zzMarkedPos");
-        println("            { int zzFState = "+dfa.entryState[action.getEntryState()]+";");
+        println("            { int zzFState = " + dfa.entryState[action.getEntryState()] + ";");
         println("              int zzFPos = zzStartRead;");
-        println("              if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+        println(
+            "              if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
         println("              boolean zzFinL[] = zzFin;");
         println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
         println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
@@ -1192,76 +1171,74 @@ final public class Emitter {
         println("                zzFPos += Character.charCount(zzInput);");
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("              }");
-        println("              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
+        println(
+            "              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
         println("              while (zzFPos <= zzMarkedPos) {");
         println("                zzFinL[zzFPos++] = false;");
         println("              }");
         println();
-        println("              zzFState = "+dfa.entryState[action.getEntryState()+1]+";");
+        println("              zzFState = " + dfa.entryState[action.getEntryState() + 1] + ";");
         println("              zzFPos = zzMarkedPos;");
         println("              while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
-        println("                zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
+        println(
+            "                zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
         println("                zzFPos -= Character.charCount(zzInput);");
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("              };");
         println("              zzMarkedPos = zzFPos;");
         println("            }");
       }
-      
-      if ( scanner.debugOption ) {
+
+      if (scanner.debugOption) {
         print("            System.out.println(");
-        if ( scanner.lineCount )
-          print("\"line: \"+(yyline+1)+\" \"+");
-        if ( scanner.columnCount )
-          print("\"col: \"+(yycolumn+1)+\" \"+");
-        println("\"match: --\"+zzToPrintable(yytext())+\"--\");");        
-        print("            System.out.println(\"action ["+action.priority+"] { ");
+        if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
+        if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        println("\"match: --\"+zzToPrintable(yytext())+\"--\");");
+        print("            System.out.println(\"action [" + action.priority + "] { ");
         print(escapify(action.content));
         println(" }\");");
       }
-      
-      println("            { "+action.content);
-      println("            }");
-      println("          case "+(i++)+": break;");
+
+      println("            { " + action.content);
+      println("            } ");
+      println("            // fall through");
+      println("          case " + (i++) + ": break;");
     }
   }
 
   private void emitEOFVal() {
     EOFActions eofActions = parser.getEOFActions();
 
-    if ( scanner.eofCode != null ) 
-      println("            zzDoEOF();");
-      
-    if ( eofActions.numActions() > 0 ) {
+    if (scanner.eofCode != null) println("            zzDoEOF();");
+
+    if (eofActions.numActions() > 0) {
       println("            switch (zzLexicalState) {");
-      
-      // pick a start value for break case labels. 
+
+      // pick a start value for break case labels.
       // must be larger than any value of a lex state:
       int last = dfa.numStates;
-      
+
       for (String name : scanner.states.names()) {
         int num = scanner.states.getNumber(name);
         Action action = eofActions.getAction(num);
 
         if (action != null) {
-          println("            case "+name+": {");
-          if ( scanner.debugOption ) {
+          println("            case " + name + ": {");
+          if (scanner.debugOption) {
             print("              System.out.println(");
-            if ( scanner.lineCount )
-              print("\"line: \"+(yyline+1)+\" \"+");
-            if ( scanner.columnCount )
-              print("\"col: \"+(yycolumn+1)+\" \"+");
-            println("\"match: <<EOF>>\");");        
-            print("              System.out.println(\"action ["+action.priority+"] { ");
+            if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
+            if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+            println("\"match: <<EOF>>\");");
+            print("              System.out.println(\"action [" + action.priority + "] { ");
             print(escapify(action.content));
             println(" }\");");
           }
-          println("              "+action.content);
-          println("            }");
-          println("            case "+(++last)+": break;");
+          println("              " + action.content);
+          println("            }  // fall though");
+          println("            case " + (++last) + ": break;");
         }
       }
-      
+
       println("            default:");
     }
 
@@ -1269,68 +1246,60 @@ final public class Emitter {
 
     if (defaultAction != null) {
       println("              {");
-      if ( scanner.debugOption ) {
+      if (scanner.debugOption) {
         print("                System.out.println(");
-        if ( scanner.lineCount )
-          print("\"line: \"+(yyline+1)+\" \"+");
-        if ( scanner.columnCount )
-          print("\"col: \"+(yycolumn+1)+\" \"+");
-        println("\"match: <<EOF>>\");");        
-        print("                System.out.println(\"action ["+defaultAction.priority+"] { ");
+        if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
+        if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        println("\"match: <<EOF>>\");");
+        print("                System.out.println(\"action [" + defaultAction.priority + "] { ");
         print(escapify(defaultAction.content));
         println(" }\");");
       }
       println("                " + defaultAction.content);
       println("              }");
-    }
-    else if ( scanner.eofVal != null ) 
-      println("          { " + scanner.eofVal + " }");
-    else if ( scanner.isInteger ) {
-      if ( scanner.tokenType != null ) {
+    } else if (scanner.eofVal != null) println("          { " + scanner.eofVal + " }");
+    else if (scanner.isInteger) {
+      if (scanner.tokenType != null) {
         Out.error(ErrorMessages.INT_AND_TYPE);
         throw new GeneratorException();
       }
       println("        return YYEOF;");
-    }
-    else
-      println("        return null;");
+    } else println("        return null;");
 
-    if (eofActions.numActions() > 0)
-      println("        }");
+    if (eofActions.numActions() > 0) println("        }");
   }
-  
+
   private void findActionStates() {
-    isTransition = new boolean [dfa.numStates];
-    
-    for (int i = 0; i < dfa.numStates;  i++) {
+    isTransition = new boolean[dfa.numStates];
+
+    for (int i = 0; i < dfa.numStates; i++) {
       char j = 0;
-      while ( !isTransition[i] && j < dfa.numInput )
+      while (!isTransition[i] && j < dfa.numInput)
         isTransition[i] = dfa.table[i][j++] != DFA.NO_TARGET;
     }
   }
-  
-  private void reduceColumns() {
-    colMap = new int [dfa.numInput];
-    colKilled = new boolean [dfa.numInput];
 
-    int i,j,k;
+  private void reduceColumns() {
+    colMap = new int[dfa.numInput];
+    colKilled = new boolean[dfa.numInput];
+
+    int i, j, k;
     int translate = 0;
     boolean equal;
 
     numCols = dfa.numInput;
 
     for (i = 0; i < dfa.numInput; i++) {
-      
-      colMap[i] = i-translate;
-      
+
+      colMap[i] = i - translate;
+
       for (j = 0; j < i; j++) {
-        
+
         // test for equality:
         k = -1;
-        equal = true;        
-        while (equal && ++k < dfa.numStates) 
-          equal = dfa.table[k][i] == dfa.table[k][j];
-        
+        equal = true;
+        while (equal && ++k < dfa.numStates) equal = dfa.table[k][i] == dfa.table[k][j];
+
         if (equal) {
           translate++;
           colMap[i] = colMap[j];
@@ -1341,12 +1310,12 @@ final public class Emitter {
       } // for j
     } // for i
   }
-  
+
   private void reduceRows() {
-    rowMap = new int [dfa.numStates];
-    rowKilled = new boolean [dfa.numStates];
-    
-    int i,j,k;
+    rowMap = new int[dfa.numStates];
+    rowKilled = new boolean[dfa.numStates];
+
+    int i, j, k;
     int translate = 0;
     boolean equal;
 
@@ -1354,19 +1323,18 @@ final public class Emitter {
 
     // i is the state to add to the new table
     for (i = 0; i < dfa.numStates; i++) {
-      
-      rowMap[i] = i-translate;
-      
+
+      rowMap[i] = i - translate;
+
       // check if state i can be removed (i.e. already
       // exists in entries 0..i-1)
       for (j = 0; j < i; j++) {
-        
+
         // test for equality:
         k = -1;
         equal = true;
-        while (equal && ++k < dfa.numInput) 
-          equal = dfa.table[i][k] == dfa.table[j][k];
-        
+        while (equal && ++k < dfa.numInput) equal = dfa.table[i][k] == dfa.table[j][k];
+
         if (equal) {
           translate++;
           rowMap[i] = rowMap[j];
@@ -1376,30 +1344,22 @@ final public class Emitter {
         } // if
       } // for j
     } // for i
-    
-  } 
+  }
 
-
-  /**
-   * Set up EOF code section according to scanner.eofcode 
-   */
+  /** Set up EOF code section according to scanner.eofcode */
   private void setupEOFCode() {
     if (scanner.eofclose) {
       scanner.eofCode = LexScan.conc(scanner.eofCode, "  yyclose();");
       scanner.eofThrow = LexScan.concExc(scanner.eofThrow, "java.io.IOException");
-    }    
-  } 
+    }
+  }
 
-
-  /**
-   * Main Emitter method.  
-   */
-  public void emit() {    
+  /** Main Emitter method. */
+  public void emit() {
 
     setupEOFCode();
 
-    if (scanner.functionName == null) 
-      scanner.functionName = "yylex";
+    if (scanner.functionName == null) scanner.functionName = "yylex";
 
     reduceColumns();
     findActionStates();
@@ -1407,10 +1367,10 @@ final public class Emitter {
     emitHeader();
     emitUserCode();
     emitClassName();
-    
+
     skel.emitNext();
-    
-    println("  private static final int ZZ_BUFFERSIZE = "+scanner.bufferSize+";");
+
+    println("  private static final int ZZ_BUFFERSIZE = " + scanner.bufferSize + ";");
 
     if (scanner.debugOption) {
       println("  private static final String ZZ_NL = System.getProperty(\"line.separator\");");
@@ -1419,31 +1379,31 @@ final public class Emitter {
     skel.emitNext();
 
     emitLexicalStates();
-   
+
     int packedCharMapPairs = emitCharMapArray();
-    
+
     emitActionTable();
-    
+
     reduceRows();
-    
+
     emitRowMapArray();
 
     emitDynamicInit();
-    
-    skel.emitNext();
-    
-    emitAttributes();    
 
     skel.emitNext();
-    
-    emitLookBuffer();
-    
-    emitClassCode();
-    
+
+    emitAttributes();
+
     skel.emitNext();
-    
+
+    emitLookBuffer();
+
+    emitClassCode();
+
+    skel.emitNext();
+
     emitConstructorDecl();
-        
+
     emitCharMapInitFunction(packedCharMapPairs);
 
     if (scanner.debugOption) {
@@ -1467,40 +1427,39 @@ final public class Emitter {
     }
 
     skel.emitNext();
-    
+
     emitScanError();
 
-    skel.emitNext();        
+    skel.emitNext();
 
     emitDoEOF();
-    
+
     skel.emitNext();
-    
+
     emitLexFunctHeader();
-    
+
     emitNextInput();
 
     emitGetRowMapNext();
-        
+
     skel.emitNext();
 
     emitEOFVal();
-    
+
     skel.emitNext();
 
     emitActions();
 
     skel.emitNext();
-    
+
     emitNoMatch();
 
     skel.emitNext();
-    
+
     emitMain();
-    
+
     skel.emitNext();
 
     out.close();
   }
-
 }

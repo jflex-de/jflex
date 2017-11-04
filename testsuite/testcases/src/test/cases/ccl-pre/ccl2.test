@@ -5,3 +5,4 @@ bug-test for [:jletter:] style predefined character classes (#467827)
 
 jflex: --nobak --dump --noinputstreamctor
 
+jdk: 1.7

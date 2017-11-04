@@ -43,6 +43,7 @@
 /testsuite/testcases/src/test/cases/ccl-bug/Yylex.java
 /testsuite/testcases/src/test/cases/ccl-esc/Yylex.java
 /testsuite/testcases/src/test/cases/ccl-pre/Ccl2.java
+/testsuite/testcases/src/test/cases/ccl-pre/Ccl3.java
 /testsuite/testcases/src/test/cases/charclass/Charclass.java
 /testsuite/testcases/src/test/cases/count/Count.java
 /testsuite/testcases/src/test/cases/ctorarg/Ctorarg.java

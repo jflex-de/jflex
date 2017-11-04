@@ -1053,12 +1053,13 @@ Currently, the API consists of the following methods and member fields:
 
 -   `int yylength()`
 
-    returns the length of the matched input text region (does not
-    require a `String` object to be created)
+    returns the length of the matched input text region as number of Java `chars`
+    (as opposed to Unicode code points). Does notrequire a `String` object to be
+    created.
 
 -   `char yycharat(int pos)`
 
-    returns the character at position `pos` from the matched text. It is
+    returns the Java `char` at position `pos` from the matched text. It is
     equivalent to `yytext().charAt(pos)`, but faster. `pos` must be a
     value from `0` to `yylength()-1`.
 
@@ -1126,9 +1127,10 @@ Currently, the API consists of the following methods and member fields:
 
 -   `void yypushback(int number)`
 
-    pushes `number` characters of the matched text back into the input
+    pushes `number` Java `char`s (as opposed to Unicode code points)
+    of the matched text back into the input
     stream. They will be read again in the next call of the scanning
-    method. The number of characters to be read again must not be
+    method. The number of chars to be read again must not be
     greater than the length of the matched text. The pushed back
     characters will not be included in `yylength()` and `yytext()`. Note
     that in Java strings are unchangeable, i.e. an action code like
@@ -1143,6 +1145,9 @@ Currently, the API consists of the following methods and member fields:
             return yytext();
 
     will return the matched text minus the last character.
+
+    Note that with Unicode surrogate characters it is possible that
+    expressions such as `[^]` match more than one `char`.
 
 -   `int yyline`
 
