@@ -3,7 +3,7 @@ name: UnicodeSentenceBreak_6_3
 description: 
 Tests character class syntax of the Unicode 6.3 SentenceBreak property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

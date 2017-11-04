@@ -3,7 +3,7 @@ name: UnicodeCodePointEscapes
 description: 
 Tests \u{X+}, \u{X+( X+)*} hexadecimal codepoint escape syntax.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
