@@ -55,6 +55,7 @@
   </developers>
 
   <modules>
+    <module>cup_runtime</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
@@ -84,9 +85,11 @@
   </prerequisites>
 
   <properties>
+    <cup.version>11b</cup.version>
     <jflex.jdk.version>1.7</jflex.jdk.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <issueManagement>
@@ -122,12 +125,35 @@
         <artifactId>maven-plugin-api</artifactId>
         <version>3.1.0</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
     
   <build>
+    <plugins>
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>com.coveo</groupId>
+          <artifactId>fmt-maven-plugin</artifactId>
+          <version>1.3.0</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-enforcer-plugin</artifactId>
@@ -233,6 +259,7 @@
       </plugins>
     </pluginManagement>
   </build>
+
   <profiles>
     <profile>
       <!-- Profile for Java 8: Enable error-prone, Disable Doclint -->
