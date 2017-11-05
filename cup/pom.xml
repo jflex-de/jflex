@@ -42,7 +42,7 @@
   </developers>
   <scm>
     <url>https://versioncontrolseidl.in.tum.de/parsergenerators/cup</url>
-    <connection>https://versioncontrolseidl.in.tum.de/parsergenerators/cup.git</connection>
+    <connection>scm:git:https://versioncontrolseidl.in.tum.de/parsergenerators/cup.git</connection>
   </scm>
   <modules>
     <module>cup</module>
