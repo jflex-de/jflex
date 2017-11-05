@@ -184,6 +184,12 @@
             <version>${cup.version}</version>
             <scope>runtime</scope>
           </dependency>
+          <dependency>
+            <groupId>de.jflex</groupId>
+            <artifactId>cup_runtime</artifactId>
+            <version>${cup.version}</version>
+            <scope>runtime</scope>
+          </dependency>
         </dependencies>
       </plugin>
       <plugin>
