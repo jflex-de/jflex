@@ -132,8 +132,8 @@ More information in the [POM reference guide on plugins](http://maven.apache.org
 
 Which version of the plugin is best for you?
 
-  * jflex-maven-plugin-1.7.0-SNAPSHOT depends on JFlex 1.7.0-SNAPSHOT
-    and required Java 7 when you `mvn jflex:generate`
+  * jflex-maven-plugin-$VERSION depends on $VERSION
+    and requires Java 7 when you `mvn jflex:generate`
 
   * jflex-maven-plugin-1.6.1 depends on JFlex 1.6.1
     and requires Java 5 when you `mvn jflex:generate`
