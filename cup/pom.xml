@@ -20,6 +20,30 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <name>C. Scott Ananian</name>
+      <url>http://cscott.net/</url>
+    </developer>
+    <developer>
+      <name>Frank Flannery</name>
+    </developer>
+    <developer>
+      <name> Dan Wang</name>
+    </developer>
+    <developer>
+      <name>Andrew W. Appel</name>
+      <url>http://www.cs.princeton.edu/~appel/</url>
+    </developer>
+    <developer>
+      <name>Michael Petter</name>
+      <url>http://www2.in.tum.de/hp/Main?nid=27</url>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://versioncontrolseidl.in.tum.de/parsergenerators/cup</url>
+    <connection>https://versioncontrolseidl.in.tum.de/parsergenerators/cup.git</connection>
+  </scm>
   <modules>
     <module>cup</module>
     <module>cup_runtime</module>
