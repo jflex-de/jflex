@@ -55,13 +55,13 @@
   </developers>
 
   <modules>
-    <module>cup_runtime</module>
+    <module>cup/cup_runtime</module>
+    <module>cup/cup</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
   </modules>
-
   <mailingLists>
     <mailingList>
       <name>JFlex User List</name>
