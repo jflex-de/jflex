@@ -4,7 +4,7 @@ description:
 Tests subtracting Age Unicode property values in character sets 
 for Unicode 6.0, e.g. [\p{Age:2.0}--\p{Age:1.1}].
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

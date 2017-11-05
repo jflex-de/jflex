@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Character Classes.
+ *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
@@ -67,7 +69,11 @@ public class CharClasses {
     classes.add(new IntCharSet(new Interval(0, maxCharCode)));
   }
 
-  /** Returns the greatest Unicode value of the current input character set. */
+  /**
+   * Returns the greatest Unicode value of the current input character set.
+   *
+   * @return unicode value.
+   */
   public int getMaxCharCode() {
     return maxCharUsed;
   }
@@ -92,7 +98,11 @@ public class CharClasses {
     maxCharUsed = maxCharCode;
   }
 
-  /** Returns the current number of character classes. */
+  /**
+   * Returns the current number of character classes.
+   *
+   * @return number of character classes.
+   */
   public int getNumClasses() {
     return classes.size();
   }
@@ -149,7 +159,12 @@ public class CharClasses {
     }
   }
 
-  /** Returns the code of the character class the specified character belongs to. */
+  /**
+   * Returns the code of the character class the specified character belongs to.
+   *
+   * @param codePoint code point.
+   * @return code of the character class.
+   */
   public int getClassCode(int codePoint) {
     int i = -1;
     while (true) {
@@ -158,24 +173,27 @@ public class CharClasses {
     }
   }
 
-  /** Dump charclasses to the dump output stream */
+  /** Dumps charclasses to the dump output stream. */
   public void dump() {
     Out.dump(toString());
   }
 
   /**
-   * Return a string representation of one char class
+   * Returns a string representation of one char class
    *
    * @param theClass the index of the class to
+   * @return a {@link java.lang.String} object.
    */
   public String toString(int theClass) {
     return classes.get(theClass).toString();
   }
 
   /**
-   * Return a string representation of the char classes stored in this class.
+   * Returns a string representation of the char classes stored in this class.
    *
    * <p>Enumerates the classes by index.
+   *
+   * @return representation of this char class.
    */
   public String toString() {
     StringBuilder result = new StringBuilder("CharClasses:");
@@ -198,6 +216,7 @@ public class CharClasses {
    * Creates a new character class for the single character <code>singleChar</code>.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
+   * @param singleChar character.
    */
   public void makeClass(int singleChar, boolean caseless) {
     makeClass(new IntCharSet(singleChar), caseless);
@@ -207,6 +226,7 @@ public class CharClasses {
    * Creates a new character class for each character of the specified String.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
+   * @param str set of characters.
    */
   public void makeClass(String str, boolean caseless) {
     for (int i = 0; i < str.length(); ) {
@@ -341,6 +361,8 @@ public class CharClasses {
    *
    * <p>The array is ordered by char code, i.e. <code>result[i+1].start = result[i].end+1</code>
    * Each CharClassInterval contains the number of the char class it belongs to.
+   *
+   * @return an array of all {@link jflex.CharClassInterval} in this char class collection.
    */
   public CharClassInterval[] getIntervals() {
     int i, c;

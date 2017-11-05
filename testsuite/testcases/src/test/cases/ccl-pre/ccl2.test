@@ -3,6 +3,6 @@ name: ccl2
 description:
 bug-test for [:jletter:] style predefined character classes (#467827)
 
-jflex: --nobak --dump --noinputstreamctor
+jflex: --nobak --dump
 
 jdk: 1.7

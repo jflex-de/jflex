@@ -136,9 +136,6 @@ display transition tables of NFA, initial DFA, and minimised DFA
 dot (`.`) meta character matches `[^\n]` instead of\
 `[^\n\r\u000B\u000C\u0085\u2028\u2029]`
 
-`--noinputstreamctor`\
-don’t include an InputStream constructor in the generated scanner
-
 `--verbose` or `-v`\
 display generation progress messages (enabled by default)
 

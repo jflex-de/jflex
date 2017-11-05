@@ -249,7 +249,7 @@
 
   <profiles>
     <profile>
-      <!-- Profile for Java 8: Enable error-prone, Disable Doclint -->
+      <!-- Profile for Java 8: Enable error-prone. -->
       <id>java8</id>
       <activation>
         <jdk>[1.8,)</jdk>
@@ -283,29 +283,6 @@
                 <version>2.1.1</version>
               </dependency>
             </dependencies>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <additionalparam>-Xdoclint:none</additionalparam>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-site-plugin</artifactId>
-            <version>3.6</version>
-            <configuration>
-              <reportPlugins>
-                <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-javadoc-plugin</artifactId>
-                  <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                  </configuration>
-                </plugin>
-              </reportPlugins>
-            </configuration>
           </plugin>
         </plugins>
         <pluginManagement>

@@ -4,16 +4,20 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cup_runtime</artifactId>
+  <version>${cup.version}</version>
   <packaging>jar</packaging>
   <parent>
     <groupId>de.jflex</groupId>
-    <artifactId>cup-parent</artifactId>
-    <version>11b</version>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.7.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>CUP runtime</name>
+  <url>http://www2.cs.tum.edu/projects/cup/</url>
+  <inceptionYear>1998</inceptionYear>
   <description>
     A copy of the Java CUP runtime.
+    CUP is a LALR parser generator for Java
   </description>
   <licenses>
     <license>

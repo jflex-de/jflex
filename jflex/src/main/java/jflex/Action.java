@@ -70,6 +70,8 @@ public final class Action {
    * @param kind the kind of action
    * @see #FORWARD_ACTION
    * @see #BACKWARD_ACTION
+   * @see #FORWARD_ACTION
+   * @see #BACKWARD_ACTION
    */
   public Action(int kind) {
     if (kind != FORWARD_ACTION && kind != BACKWARD_ACTION) throw new GeneratorException();
@@ -131,11 +133,12 @@ public final class Action {
   }
 
   /**
-   * Test for equality to another object.
+   * {@inheritDoc}
+   *
+   * <p>Test for equality to another object.
    *
    * <p>This action equals another object if the other object is an equivalent action.
    *
-   * @param o the other object.
    * @see Action#isEquiv(Action)
    */
   public boolean equals(Object o) {
@@ -162,7 +165,11 @@ public final class Action {
     return kind != BACKWARD_ACTION && kind != FORWARD_ACTION;
   }
 
-  /** Return kind of lookahead. */
+  /**
+   * Return kind of lookahead.
+   *
+   * @return a int.
+   */
   public int lookAhead() {
     return kind;
   }
@@ -178,7 +185,11 @@ public final class Action {
     this.len = data;
   }
 
-  /** The length of the lookahead or base if this is a fixed length lookahead action. */
+  /**
+   * The length of the lookahead or base if this is a fixed length lookahead action.
+   *
+   * @return a int.
+   */
   public int getLookLength() {
     return len;
   }
@@ -197,12 +208,18 @@ public final class Action {
    * Set the corresponding entry state for the forward DFA of this action (if this is a general
    * lookahead expression)
    *
-   * @param the entry state for the forward DFA of this action
+   * @param entryState a int.
    */
   public void setEntryState(int entryState) {
     this.entryState = entryState;
   }
 
+  /**
+   * copyChoice.
+   *
+   * @param length a int.
+   * @return a {@link jflex.Action} object.
+   */
   public Action copyChoice(int length) {
     Action a = new Action(this.content, this.priority);
     a.setLookAction(FINITE_CHOICE, length);

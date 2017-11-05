@@ -258,7 +258,6 @@ public class JFlexMojo extends AbstractMojo {
 		Options.unused_warning = unusedWarning;
 		Options.dot = dot;
     Options.legacy_dot = legacyDot;
-    Options.emitInputStreamCtor = inputStreamCtor;
 		if (skeleton != null) {
 			Options.setSkeleton(skeleton);
 		}

@@ -20,6 +20,7 @@ public final class StateSet {
 
   private final boolean DEBUG = false;
 
+  /** Constant <code>EMPTY</code> */
   public static final StateSet EMPTY = new StateSet();
 
   static final int BITS = 6;
@@ -27,24 +28,46 @@ public final class StateSet {
 
   long bits[];
 
+  /** Constructor for StateSet. */
   public StateSet() {
     this(256);
   }
 
+  /**
+   * Constructor for StateSet.
+   *
+   * @param size a int.
+   */
   public StateSet(int size) {
     bits = new long[size2nbits(size)];
   }
 
+  /**
+   * Constructor for StateSet.
+   *
+   * @param size a int.
+   * @param state a int.
+   */
   public StateSet(int size, int state) {
     this(size);
     addState(state);
   }
 
+  /**
+   * Constructor for StateSet.
+   *
+   * @param set a {@link jflex.StateSet} object.
+   */
   public StateSet(StateSet set) {
     bits = new long[set.bits.length];
     System.arraycopy(set.bits, 0, bits, 0, set.bits.length);
   }
 
+  /**
+   * addState.
+   *
+   * @param state a int.
+   */
   public void addState(int state) {
     if (DEBUG) {
       Out.dump("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
@@ -76,11 +99,18 @@ public final class StateSet {
     bits = newbits;
   }
 
+  /** clear. */
   public void clear() {
     int l = bits.length;
     for (int i = 0; i < l; i++) bits[i] = 0;
   }
 
+  /**
+   * isElement.
+   *
+   * @param state a int.
+   * @return a boolean.
+   */
   public boolean isElement(int state) {
     int index = state >> BITS;
     if (index >= bits.length) return false;
@@ -91,6 +121,8 @@ public final class StateSet {
    * Returns one element of the set and removes it.
    *
    * <p>Precondition: the set is not empty.
+   *
+   * @return a int.
    */
   public int getAndRemoveElement() {
     int i = 0;
@@ -109,6 +141,11 @@ public final class StateSet {
     return (i << BITS) + o;
   }
 
+  /**
+   * remove.
+   *
+   * @param state a int.
+   */
   public void remove(int state) {
     int index = state >> BITS;
     if (index >= bits.length) return;
@@ -118,6 +155,9 @@ public final class StateSet {
   /**
    * Returns the set of elements that contained are in the specified set but are not contained in
    * this set.
+   *
+   * @param set a {@link jflex.StateSet} object.
+   * @return a {@link jflex.StateSet} object.
    */
   public StateSet complement(StateSet set) {
 
@@ -151,6 +191,11 @@ public final class StateSet {
     return result;
   }
 
+  /**
+   * add.
+   *
+   * @param set a {@link jflex.StateSet} object.
+   */
   public void add(StateSet set) {
 
     if (DEBUG) Out.dump("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
@@ -180,6 +225,12 @@ public final class StateSet {
     }
   }
 
+  /**
+   * containsSet.
+   *
+   * @param set a {@link jflex.StateSet} object.
+   * @return a boolean.
+   */
   public boolean containsSet(StateSet set) {
 
     if (DEBUG)
@@ -195,10 +246,7 @@ public final class StateSet {
     return true;
   }
 
-  /**
-   * @throws ClassCastException if b is not a StateSet
-   * @throws NullPointerException if b is null
-   */
+  /** {@inheritDoc} */
   public boolean equals(Object b) {
 
     int i = 0;
@@ -229,6 +277,11 @@ public final class StateSet {
     return true;
   }
 
+  /**
+   * hashCode.
+   *
+   * @return a int.
+   */
   public int hashCode() {
     long h = 1234;
     long[] _bits = bits;
@@ -242,16 +295,31 @@ public final class StateSet {
     return (int) ((h >> 32) ^ h);
   }
 
+  /**
+   * states.
+   *
+   * @return a {@link jflex.StateSetEnumerator} object.
+   */
   public StateSetEnumerator states() {
     return new StateSetEnumerator(this);
   }
 
+  /**
+   * containsElements.
+   *
+   * @return a boolean.
+   */
   public boolean containsElements() {
     for (long bit : bits) if (bit != 0) return true;
 
     return false;
   }
 
+  /**
+   * copy.
+   *
+   * @return a {@link jflex.StateSet} object.
+   */
   public StateSet copy() {
     StateSet set = new StateSet();
     set.bits = new long[bits.length];
@@ -287,6 +355,11 @@ public final class StateSet {
     }
   }
 
+  /**
+   * toString.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     StateSetEnumerator set = states();
 

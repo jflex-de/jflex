@@ -3,7 +3,7 @@ name: UnicodeAge_7_0_age_7_0
 description: 
 Tests character class syntax of the Unicode 7.0 Age=7.0 property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

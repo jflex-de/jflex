@@ -49,7 +49,7 @@ public class GeneratorThread extends Thread {
     this.outputDir = outputDir;
   }
 
-  /** Run the generator thread. Only one instance of it can run at any time. */
+  /** Runs the generator thread. Only one instance of it can run at any time. */
   public void run() {
     if (running) {
       Out.error(ErrorMessages.ALREADY_RUNNING);

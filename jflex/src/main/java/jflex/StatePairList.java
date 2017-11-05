@@ -25,12 +25,19 @@ public final class StatePairList {
 
   int num;
 
+  /** Constructor for StatePairList. */
   public StatePairList() {
     p = new int[8];
     q = new int[8];
     num = 0;
   }
 
+  /**
+   * addPair.
+   *
+   * @param i a int.
+   * @param j a int.
+   */
   public void addPair(int i, int j) {
     for (int x = 0; x < num; x++) if (p[x] == i && q[x] == j) return;
 
@@ -42,6 +49,12 @@ public final class StatePairList {
     num++;
   }
 
+  /**
+   * markAll.
+   *
+   * @param list an array of {@link jflex.StatePairList} objects.
+   * @param equiv an array of boolean.
+   */
   public void markAll(StatePairList[][] list, boolean[][] equiv) {
     for (int x = 0; x < num; x++) {
       int i = p[x];

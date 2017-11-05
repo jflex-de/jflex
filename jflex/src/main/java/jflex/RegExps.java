@@ -46,6 +46,7 @@ public class RegExps {
    */
   int gen_look_count;
 
+  /** Constructor for RegExps. */
   public RegExps() {
     states = new ArrayList<List<Integer>>();
     regExps = new ArrayList<RegExp>();
@@ -56,6 +57,17 @@ public class RegExps {
     look_entry = new ArrayList<Integer>();
   }
 
+  /**
+   * insert.
+   *
+   * @param line a int.
+   * @param stateList a {@link java.util.List} object.
+   * @param regExp a {@link jflex.RegExp} object.
+   * @param action a {@link jflex.Action} object.
+   * @param isBOL a {@link java.lang.Boolean} object.
+   * @param lookAhead a {@link jflex.RegExp} object.
+   * @return a int.
+   */
   public int insert(
       int line,
       List<Integer> stateList,
@@ -81,6 +93,13 @@ public class RegExps {
     return states.size() - 1;
   }
 
+  /**
+   * insert.
+   *
+   * @param stateList a {@link java.util.List} object.
+   * @param action a {@link jflex.Action} object.
+   * @return a int.
+   */
   public int insert(List<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
@@ -99,42 +118,96 @@ public class RegExps {
     return states.size() - 1;
   }
 
+  /**
+   * addStates.
+   *
+   * @param regNum a int.
+   * @param newStates a {@link java.util.List} object.
+   */
   public void addStates(int regNum, List<Integer> newStates) {
     states.get(regNum).addAll(newStates);
   }
 
+  /**
+   * getNum.
+   *
+   * @return a int.
+   */
   public int getNum() {
     return states.size();
   }
 
+  /**
+   * isBOL.
+   *
+   * @param num a int.
+   * @return a boolean.
+   */
   public boolean isBOL(int num) {
     return BOL.get(num);
   }
 
+  /**
+   * getLookAhead.
+   *
+   * @param num a int.
+   * @return a {@link jflex.RegExp} object.
+   */
   public RegExp getLookAhead(int num) {
     return look.get(num);
   }
 
+  /**
+   * isEOF.
+   *
+   * @param num a int.
+   * @return a boolean.
+   */
   public boolean isEOF(int num) {
     return BOL.get(num) == null;
   }
 
+  /**
+   * Getter for the field <code>states</code>.
+   *
+   * @param num a int.
+   * @return a {@link java.util.List} object.
+   */
   public List<Integer> getStates(int num) {
     return states.get(num);
   }
 
+  /**
+   * getRegExp.
+   *
+   * @param num a int.
+   * @return a {@link jflex.RegExp} object.
+   */
   public RegExp getRegExp(int num) {
     return regExps.get(num);
   }
 
+  /**
+   * getLine.
+   *
+   * @param num a int.
+   * @return a int.
+   */
   public int getLine(int num) {
     return lines.get(num);
   }
 
+  /**
+   * getLookEntry.
+   *
+   * @param num a int.
+   * @return a int.
+   */
   public int getLookEntry(int num) {
     return look_entry.get(num);
   }
 
+  /** checkActions. */
   public void checkActions() {
     if (actions.get(actions.size() - 1) == null) {
       Out.error(ErrorMessages.NO_LAST_ACTION);
@@ -142,12 +215,24 @@ public class RegExps {
     }
   }
 
+  /**
+   * getAction.
+   *
+   * @param num a int.
+   * @return a {@link jflex.Action} object.
+   */
   public Action getAction(int num) {
     while (num < actions.size() && actions.get(num) == null) num++;
 
     return actions.get(num);
   }
 
+  /**
+   * NFASize.
+   *
+   * @param macros a {@link jflex.Macros} object.
+   * @return a int.
+   */
   public int NFASize(Macros macros) {
     int size = 0;
     for (RegExp r : regExps) if (r != null) size += r.size(macros);
@@ -157,6 +242,7 @@ public class RegExps {
     return size;
   }
 
+  /** checkLookAheads. */
   public void checkLookAheads() {
     for (int i = 0; i < regExps.size(); i++) lookAheadCase(i);
   }

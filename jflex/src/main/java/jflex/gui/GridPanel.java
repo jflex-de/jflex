@@ -32,10 +32,19 @@ public class GridPanel extends Panel implements Handles {
   private Vector<GridPanelConstraint> constraints = new Vector<GridPanelConstraint>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
+  /** {@inheritDoc} */
   public GridPanel(int cols, int rows) {
     this(cols, rows, 0, 0);
   }
 
+  /**
+   * Constructor for Grid Panel.
+   *
+   * @param cols number of columns.
+   * @param rows number of rwos.
+   * @param hgap a int.
+   * @param vgap a int.
+   */
   public GridPanel(int cols, int rows, int hgap, int vgap) {
     this.cols = cols;
     this.rows = rows;
@@ -43,6 +52,7 @@ public class GridPanel extends Panel implements Handles {
     this.vgap = vgap;
   }
 
+  /** Lays out the views. */
   public void doLayout() {
     Dimension size = getSize();
     size.height -= insets.top + insets.bottom;
@@ -103,6 +113,11 @@ public class GridPanel extends Panel implements Handles {
     }
   }
 
+  /**
+   * getPreferredSize.
+   *
+   * @return a {@link java.awt.Dimension} object.
+   */
   public Dimension getPreferredSize() {
     float dy = 0;
     float dx = 0;
@@ -128,22 +143,40 @@ public class GridPanel extends Panel implements Handles {
     return new Dimension((int) dx, (int) dy);
   }
 
+  /**
+   * Sets the insets.
+   *
+   * @param insets a {@link java.awt.Insets} object.
+   */
   public void setInsets(Insets insets) {
     this.insets = insets;
   }
 
+  /** {@inheritDoc} */
   public void add(int x, int y, Component c) {
     add(x, y, 1, 1, FILL, c);
   }
 
+  /** {@inheritDoc} */
   public void add(int x, int y, int handle, Component c) {
     add(x, y, 1, 1, handle, c);
   }
 
+  /** {@inheritDoc} */
   public void add(int x, int y, int dx, int dy, Component c) {
     add(x, y, dx, dy, FILL, c);
   }
 
+  /**
+   * add.
+   *
+   * @param x a int.
+   * @param y a int.
+   * @param dx a int.
+   * @param dy a int.
+   * @param handle a int.
+   * @param c a {@link java.awt.Component} object.
+   */
   public void add(int x, int y, int dx, int dy, int handle, Component c) {
     super.add(c);
     constraints.addElement(new GridPanelConstraint(x, y, dx, dy, handle, c));

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DFA representation in JFlex. Contains minimization algorithm.
+ * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
@@ -64,6 +64,13 @@ public final class DFA {
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;
 
+  /**
+   * Constructor for a deterministic finite automata.
+   *
+   * @param numEntryStates a int.
+   * @param numInp a int.
+   * @param numLexStates a int.
+   */
   public DFA(int numEntryStates, int numInp, int numLexStates) {
     numInput = numInp;
 
@@ -82,6 +89,12 @@ public final class DFA {
     }
   }
 
+  /**
+   * Sets the state of the entry.
+   *
+   * @param eState entry state.
+   * @param trueState whether it is the current state.
+   */
   public void setEntryState(int eState, int trueState) {
     entryState[eState] = trueState;
   }
@@ -116,6 +129,12 @@ public final class DFA {
     table = newTable;
   }
 
+  /**
+   * Sets the action.
+   *
+   * @param state a int.
+   * @param stateAction a {@link jflex.Action} object.
+   */
   public void setAction(int state, Action stateAction) {
     action[state] = stateAction;
     if (stateAction != null) {
@@ -124,10 +143,23 @@ public final class DFA {
     }
   }
 
+  /**
+   * setFinal.
+   *
+   * @param state a int.
+   * @param isFinalState a boolean.
+   */
   public void setFinal(int state, boolean isFinalState) {
     isFinal[state] = isFinalState;
   }
 
+  /**
+   * addTransition.
+   *
+   * @param start a int.
+   * @param input a int.
+   * @param dest a int.
+   */
   public void addTransition(int start, int input, int dest) {
     int max = Math.max(start, dest) + 1;
     ensureStateCapacity(max);
@@ -138,6 +170,11 @@ public final class DFA {
     table[start][input] = dest;
   }
 
+  /**
+   * Returns a string reprensentation of the DFA.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     StringBuilder result = new StringBuilder();
 
@@ -168,7 +205,12 @@ public final class DFA {
     return result.toString();
   }
 
-  public void writeDot(File file) {
+  /**
+   * Writes a dot-file representing this DFA.
+   *
+   * @param file output file.
+   */
+  void writeDot(File file) {
     try {
       PrintWriter writer = new PrintWriter(new FileWriter(file));
       writer.println(dotFormat());
@@ -179,7 +221,12 @@ public final class DFA {
     }
   }
 
-  public String dotFormat() {
+  /**
+   * Returns a gnu representation of the DFA.
+   *
+   * @return a representation in the dot format.
+   */
+  private String dotFormat() {
     StringBuilder result = new StringBuilder();
 
     result.append("digraph DFA {").append(Out.NL);
@@ -208,7 +255,12 @@ public final class DFA {
     return result.toString();
   }
 
-  /** Check that all actions can actually be matched in this DFA. */
+  /**
+   * Checks that all actions can actually be matched in this DFA.
+   *
+   * @param scanner a {@link jflex.LexScan}.
+   * @param parser a {@link jflex.LexParse}.
+   */
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
 
@@ -681,6 +733,12 @@ public final class DFA {
     Out.println(numStates + " states in minimized DFA");
   }
 
+  /**
+   * Returns a representation of this DFA.
+   *
+   * @param a an array of int.
+   * @return a {@link java.lang.String} object.
+   */
   public String toString(int[] a) {
     String r = "{";
     int i;
@@ -688,6 +746,14 @@ public final class DFA {
     return r + a[i] + "}";
   }
 
+  /**
+   * printBlocks.
+   *
+   * @param b an array of int.
+   * @param b_f an array of int.
+   * @param b_b an array of int.
+   * @param last a int.
+   */
   public void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
     Out.dump("block     : " + toString(b));
     Out.dump("b_forward : " + toString(b_f));
@@ -721,6 +787,13 @@ public final class DFA {
     }
   }
 
+  /**
+   * printL.
+   *
+   * @param l_f an array of int.
+   * @param l_b an array of int.
+   * @param anchor a int.
+   */
   public void printL(int[] l_f, int[] l_b, int anchor) {
     String l = "L = {";
     int bc = l_f[anchor];
@@ -848,6 +921,12 @@ public final class DFA {
     return equiv;
   }
 
+  /**
+   * Prints the inverse of transition table.
+   *
+   * @param inv_delta an array of int.
+   * @param inv_delta_set an array of int.
+   */
   public void printInvDelta(int[][] inv_delta, int[] inv_delta_set) {
     Out.dump("Inverse of transition table: ");
     for (int s = 0; s < numStates + 1; s++) {
@@ -864,6 +943,11 @@ public final class DFA {
     }
   }
 
+  /**
+   * Prints the equivalence table.
+   *
+   * @param equiv Equivalence table
+   */
   public void printTable(boolean[][] equiv) {
 
     Out.dump("Equivalence table is : ");

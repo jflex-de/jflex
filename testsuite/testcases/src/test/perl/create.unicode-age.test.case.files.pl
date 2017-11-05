@@ -217,7 +217,7 @@ name: ${base_name}_age_${underscore_age}
 description: 
 Tests character class syntax of the Unicode ${version} ${property_name}=${age} property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
@@ -301,7 +301,7 @@ name: ${base_name}_age_unassigned
 description: 
 Tests character class syntax of the Unicode $version ${property_name}=${default_property_value} property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
@@ -383,7 +383,7 @@ description:
 Tests subtracting ${property_name} Unicode property values in character sets 
 for Unicode ${version}, e.g. [\\p{${property_name}:2.0}--\\p{${property_name}:1.1}].
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

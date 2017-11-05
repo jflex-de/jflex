@@ -25,6 +25,11 @@ public final class CharSetEnumerator {
 
   private CharSet set;
 
+  /**
+   * Constructor for CharSetEnumerator.
+   *
+   * @param characters set of characters.
+   */
   public CharSetEnumerator(CharSet characters) {
     set = characters;
 
@@ -60,10 +65,20 @@ public final class CharSetEnumerator {
     }
   }
 
+  /**
+   * Returns whether the iterator has more characters.
+   *
+   * @return whether the iterator has more elements.
+   */
   public boolean hasMoreElements() {
     return index < set.bits.length;
   }
 
+  /**
+   * Returns the next character.
+   *
+   * @return character.
+   */
   public int nextElement() {
     int x = (index << CharSet.BITS) + offset;
     advance();

@@ -74,9 +74,6 @@ The following attributes are available for invoking the JFlex task.
 -  `legacydot` (default `"off"`)\
     The dot `.` meta-character matches `[^\n]` instead of `[^\n\r\u000B\u000C\u0085\u2028\u202 9]`
 
--  `noinputstreamctor` (default `"true"`)\
-    Don't include an `InputStream` constructor in the generated scanner
-
 -  `unusedwarning` (default `"true"`)\
     Warn about unused macro definitions in the lexer specification.
 
