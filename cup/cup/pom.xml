@@ -39,7 +39,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.0.2</version>
         <executions>
           <execution>
             <id>unpack</id>
@@ -57,6 +56,7 @@
                   <overWrite>false</overWrite>
                 </artifactItem>
               </artifactItems>
+              <!-- exclude the runtime because we have a dedicated artefact cup_runtime -->
               <excludes>java_cup/runtime/**</excludes>
               <outputDirectory>${project.build.directory}/classes</outputDirectory>
               <overWriteReleases>false</overWriteReleases>
