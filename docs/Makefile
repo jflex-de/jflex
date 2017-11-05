@@ -36,9 +36,9 @@ manual.pdf: xmanual.pdf
 
 # variable substitutions:
 %.mdx: md/%.md Makefile
-	perl -pi -e 's/\$$VERSION/$(VERSION)/g' < $< | \
-	perl -pi -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
-	perl -pi -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
+	perl -p -e 's/\$$VERSION/$(VERSION)/g' < $< | \
+	perl -p -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
+	perl -p -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
 
 %.tex: %.mdx
 	pandoc -f markdown -t latex --biblatex $< -o $@
@@ -51,3 +51,4 @@ realclean: clean
 	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
 	rm -f intro.tex installing.tex example.tex lex-specs.tex ant-task.tex
 	rm -f encodings.tex performance.tex porting-and-parsers.tex end.tex
+	rm -f maven-plugin.tex
