@@ -1,6 +1,8 @@
 # CUP runtime
 
 The CUP runtime, compiled from a copy of the java source.
+Keeping the source allows us to track modifications – whereas the original code
+changed locations a couple of times.
 
 This artefact is used for:
 
