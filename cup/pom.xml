@@ -1,22 +1,16 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>cup_runtime</artifactId>
-  <version>${cup.version}</version>
-  <packaging>jar</packaging>
-  <parent>
-    <groupId>de.jflex</groupId>
-    <artifactId>jflex-parent</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
-  <name>CUP runtime</name>
+  <groupId>de.jflex</groupId>
+  <artifactId>cup-parent</artifactId>
+  <version>11b</version>
+  <packaging>pom</packaging>
+  <name>CUP</name>
   <url>http://www2.cs.tum.edu/projects/cup/</url>
   <inceptionYear>1998</inceptionYear>
   <description>
-    A copy of the Java CUP runtime.
     CUP is a LALR parser generator for Java
   </description>
   <licenses>
@@ -26,16 +20,36 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <build>
-    <plugins>
-      <!-- Do not format java_cup code -->
-      <plugin>
-        <groupId>com.coveo</groupId>
-        <artifactId>fmt-maven-plugin</artifactId>
-        <executions><execution><phase>none</phase></execution></executions>
-      </plugin>
-    </plugins>
-  </build>
+  <developers>
+    <developer>
+      <name>C. Scott Ananian</name>
+      <url>http://cscott.net/</url>
+    </developer>
+    <developer>
+      <name>Frank Flannery</name>
+    </developer>
+    <developer>
+      <name>Dan Wang</name>
+    </developer>
+    <developer>
+      <name>Andrew W. Appel</name>
+      <url>http://www.cs.princeton.edu/~appel/</url>
+    </developer>
+    <developer>
+      <name>Michael Petter</name>
+      <url>http://www2.in.tum.de/hp/Main?nid=27</url>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://versioncontrolseidl.in.tum.de/parsergenerators/cup</url>
+    <connection>scm:git:https://versioncontrolseidl.in.tum.de/parsergenerators/cup.git</connection>
+  </scm>
+
+  <modules>
+    <module>cup</module>
+    <module>cup_runtime</module>
+  </modules>
+  
   <profiles>
     <profile>
       <id>no-doclint</id>
