@@ -46,9 +46,9 @@ Update the `pom.xml` to add the plugin:
 
 #### More complex configuration
 
-This generates the source for two grammars 
-(`src/main/lex/preprocessor.jflex` and  `/pub/postprocessor.jflex`)
-as well as all grammar files found in  `src/main/jflex` (and it sub-directories).
+This example generates the source for the two grammars 
+`src/main/lex/preprocessor.jflex` and `/pub/postprocessor.jflex`,
+as well as all grammar files found in  `src/main/jflex` (and its sub-directories).
 The generated Java code is placed into `src/main/java` instead of
 `target/generated-sources/jflex`.
 
