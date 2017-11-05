@@ -12,18 +12,20 @@ build: realclean all
 pdf: manual.pdf
 html: manual.html
 
-md/manual.md: md/head.md md/intro.md md/installing.md md/ant-task.md md/example.md md/lex-specs.md \
-              md/encodings.md md/performance.md md/porting-and-parsers.md md/end.md
+md/manual.md: md/head.md md/intro.md md/installing.md \
+              md/maven-plugin.md md/ant-task.md md/example.md md/lex-specs.md \
+              md/encodings.md md/performance.md md/porting-and-parsers.md\
+              md/end.md
 	cat $^ > $@
 
 manual.html: manual.mdx
-	pandoc -S --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
+	pandoc --smart --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
 #	pandoc --filter pandoc-citeproc -f markdown --toc --toc-depth=2 $< -o $@
 
 #dependency manual.tex would fire manual.md -> .tex conversion
 xmanual.pdf: xmanual.tex intro.tex installing.tex example.tex lex-specs.tex \
              encodings.tex performance.tex porting-and-parsers.tex end.tex \
-             ant-task.tex
+             ant-task.tex maven-plugin.tex
 	pdflatex xmanual
 	bibtex xmanual
 	pdflatex xmanual
@@ -34,9 +36,9 @@ manual.pdf: xmanual.pdf
 
 # variable substitutions:
 %.mdx: md/%.md Makefile
-	perl -pi -e 's/\$$VERSION/$(VERSION)/g' < $< | \
-	perl -pi -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
-	perl -pi -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
+	perl -p -e 's/\$$VERSION/$(VERSION)/g' < $< | \
+	perl -p -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
+	perl -p -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
 
 %.tex: %.mdx
 	pandoc -f markdown -t latex --biblatex $< -o $@
@@ -49,3 +51,4 @@ realclean: clean
 	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
 	rm -f intro.tex installing.tex example.tex lex-specs.tex ant-task.tex
 	rm -f encodings.tex performance.tex porting-and-parsers.tex end.tex
+	rm -f maven-plugin.tex
