@@ -13,7 +13,7 @@
   </parent>
   <name>CUP generator</name>
   <description>
-    The cup generator.
+    CUP generator and and task.
   </description>
   <build>
     <plugins>

@@ -29,7 +29,7 @@
       <name>Frank Flannery</name>
     </developer>
     <developer>
-      <name> Dan Wang</name>
+      <name>Dan Wang</name>
     </developer>
     <developer>
       <name>Andrew W. Appel</name>
@@ -44,11 +44,25 @@
     <url>https://versioncontrolseidl.in.tum.de/parsergenerators/cup</url>
     <connection>scm:git:https://versioncontrolseidl.in.tum.de/parsergenerators/cup.git</connection>
   </scm>
+
   <modules>
     <module>cup</module>
     <module>cup_runtime</module>
   </modules>
+
   <build>
+    <plugins>
+      <!-- Do not format java_cup code -->
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -64,4 +78,42 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>no-doclint</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                <additionalparam>-Xdoclint:none</additionalparam>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-site-plugin</artifactId>
+              <version>3.6</version>
+              <configuration>
+                <reportPlugins>
+                  <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                      <additionalparam>-Xdoclint:none</additionalparam>
+                    </configuration>
+                  </plugin>
+                </reportPlugins>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 </project>

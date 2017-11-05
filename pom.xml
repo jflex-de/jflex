@@ -55,8 +55,7 @@
   </developers>
 
   <modules>
-    <module>cup/cup_runtime</module>
-    <module>cup/cup</module>
+    <module>cup</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
