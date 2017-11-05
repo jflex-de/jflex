@@ -1,12 +1,13 @@
-# Maven plugin 
+Maven plugin
+------------
  
 The plugin reads JFlex grammar definition files (`.jflex`) and
 generates a corresponding Java parser 
 (in `target/generated-source/jflex` by default).
 
-## Usage
+### Usage
 
-### Minimal configuration
+#### Minimal configuration
 
 This configuration generates java code of a parser
 for all grammar files (`*.jflex`, `*.jlex`, `*.lex`, `*.flex`) 
@@ -43,7 +44,7 @@ Update the `pom.xml` to add the plugin:
 </project>
 ```
 
-### More complex configuration
+#### More complex configuration
 
 This generates the source for two grammars 
 (`src/main/lex/preprocessor.jflex` and  `/pub/postprocessor.jflex`)
@@ -74,7 +75,7 @@ The generated Java code is placed into `src/main/java` instead of
       </plugin>
 ```
 
-### Even more complex configuration, using several executions
+#### Even more complex configuration, using several executions
 
 This generates the source for 
 
@@ -120,14 +121,14 @@ This generates the source for
       
 More documentation on the configuration options can be found 
 in the description for the mojo:
-```sh
+```
 mvn help:describe  -DgroupId=de.jflex -DartifactId=maven-jflex-plugin -Ddetail
 ```
   
 More information in the [POM reference guide on plugins](http://maven.apache.org/pom.html#Plugins).
 
 
-## Versions
+### Versions
 
 Which version of the plugin is best for you?
 
