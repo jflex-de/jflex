@@ -12,7 +12,7 @@ import java.io.File;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 
-/** @author R�gis D�camps (decamps@users.sf.net) */
+/** @author Régis Décamps (decamps@users.sf.net) */
 public class JFlexMojoTest extends AbstractMojoTestCase {
 
   /** @see org.apache.maven.plugin.testing.AbstractMojoTestCase#setUp() */

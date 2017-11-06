@@ -10,12 +10,6 @@
   <artifactId>jflex-testsuite-testcases</artifactId>
   <name>JFlex test suite test cases</name>
   <packaging>pom</packaging>
-  <licenses>
-    <license>
-      <name>BSD</name>
-      <url>http://opensource.org/licenses/BSD-3-Clause</url>
-    </license>
-  </licenses>
   <dependencies>
     <dependency>
       <groupId>de.jflex</groupId>
@@ -65,7 +59,6 @@
         <plugins>
           <plugin>
             <artifactId>maven-clean-plugin</artifactId>
-            <version>2.5</version>
             <configuration>
               <excludeDefaultDirectories>true</excludeDefaultDirectories>
               <filesets>
