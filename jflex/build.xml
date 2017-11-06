@@ -62,6 +62,7 @@
   <target name="gettools" description="download development tools">
     <get src="${bootstrap.jflex.jar.url}" dest="${bootstrap.jflex.jar}"/>
     <get src="${junit.jar.url}" dest="${junit.jar}"/>
+    <copy file="../cup/cup/java-cup-${cup.version}.jar" todir="${lib.dir}" />
   </target>
 
   <target name="build" depends="clean,jar" 
@@ -89,8 +90,8 @@
     <mkdir dir="${compile.output.dir}" />
     <javac destdir="${compile.output.dir}"
            debug="on"
-           includeantruntime="true">
-      <src path="../cup_runtime/src/main/java"/>
+           includeantruntime="true"
+            classpath="${cup.jar}">
       <src path="src/main/java"/>
       <src path="${generated.sources.dir}"/>
     </javac>
@@ -100,6 +101,7 @@
     <mkdir dir="${tests.dir}"/>
     <junit dir="." printsummary="true" errorproperty="junit.failed">
       <classpath>
+        <file file="${cup.jar}"/>
         <file file="${junit.jar}"/>
         <pathelement location="${compile.output.dir}"/>
         <pathelement location="${test.compile.output.dir}"/>
