@@ -4,18 +4,29 @@
 
 [JFlex][jflex] is a lexical analyzer generator (also known as scanner generator) for Java.
 
-A lexical analyzer generator takes as input a specification with a set of regular expressions and
-corresponding actions. It generates a program (a lexer) that reads input, matches the input against
-the regular expressions in the spec file, and runs the corresponding action if a regular expression 
+JFlex takes as input a specification with a set of regular expressions and corresponding actions.
+It generates Java source of a lexer that reads input, matches the input against the regular
+expressions in the spec file, and runs the corresponding action if a regular expression
 matched. Lexers usually are the first front-end step in compilers, matching keywords, comments, 
 operators, etc, and generating an input token stream for parsers.
 
 JFlex lexers are based on deterministic finite automata (DFAs).
 They are fast, without expensive backtracking.
 
+## Modules
+
+The top level directory of the JFLex git repository contains:
+
+ * **cup** A copy of the CUP runtime
+ * **docs** the Markdown sources for the user manual
+ * **jflex** JFlex, the scanner/lexer generator for Java
+ * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
+ * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
+ * **testsuite** the regression test suite for JFlex,
+
 ## Usage
 
-For documentation and more information see the [JFlex web site][jflex]
+For documentation and more information see the [JFlex documentation][jflex-doc]
 and the [wiki][wiki].
 
 ### Usage with Maven
@@ -47,23 +58,40 @@ and the [wiki][wiki].
 
 Sample project: [simple-maven][example-simple-maven]
 
+### Usage with ant
+
+1. Define ant task
+```xml
+<taskdef classname="jflex.anttask.JFlexTask" name="jflex"
+         classpath="path-to-jflex.jar"/>
+```
+2. Use it
+```xml
+<jflex file="src/grammar/parser.flex" destdir="build/generated/"/>
+<javac srcdir="build/generated/" destdir="build/classes/"/>
+```
+
+### Usage in CLI
+
+You can also use JFlex directly from the command line:
+```
+java -jar jflex-1.6.1.jar -d output src/grammar/parser.flex
+```
+
+## Build from source
+
+```
+./mvnw install
+```
+
 ## Contributing
-
-This is the JFlex git repository. The top level directory contains:
-
- * **cup** A copy of the CUP runtime
- * **docs** the Markdown sources for the user manual
- * **jflex** JFlex, the scanner/lexer generator for Java
- * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
- * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
- * **testsuite** the regression test suite for JFlex,
-
-## Open source
 
 JFlex is free software, contributions are welcome.
 See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
 
+
 [jflex]: http://jflex.de/
+[jflex-doc]: http://jflex.de/manual.html
 [wiki]: https://github.com/jflex-de/jflex/wiki
 [pom-build]: https://maven.apache.org/pom.html#Build_Settings
 [example-simple-maven]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven
