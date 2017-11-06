@@ -1,26 +1,45 @@
 #!/bin/bash
 
-# build all projects and run tests
-
 # fail on error
 set -e
 
-# builds and tests main projects
-mvn clean install test
+if [[ ! $TRAVIS ]]; then
+  # clean existing artefacts
+  # note that mvn could fail if POM are incorrects
+  find . -name target -type d -delete
 
-# regression test suite must run from its own directory
-cd testsuite/testcases && mvn test
+  echo "[INFO] Applying steps executed by Travis"
+  echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
+  sleep 2
 
-# also check ant build
-cd ../../jflex && ant gettools build test
+  # Travis installs dependencies
+  #mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  ./mvnw install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+  # build and tests main projects
+  # mvn test -B
+  ./mvnw test -B
+fi
+
+# Install jflex in local repo
+# implies: validate, compile, test, package, verify
+./mvnw install
+
+# regression test suite must run in its own directory
+cd testsuite/testcases && ../../mvnw test
+cd ../..
 
 ## run jflex examples:
-
+cd jflex/examples
 # don't assume byacc/j is installed, just run lexer
-cd examples/byaccj && make clean && make Yylex.java
-cd ../cup && make clean && make
-cd ../interpreter && make clean && make
-cd ../java && make clean && make
-cd ../simple-maven && mvn clean test
-cd ../standalone-maven && mvn clean test
-cd ../zero-reader && make clean && make
+cd byaccj && make clean && make Yylex.java && cd ..
+cd cup && make clean && make && cd ..
+cd interpreter && make clean && make && cd ..
+cd java && make clean && make && cd ..
+cd simple-maven && mvn clean test && cd ..
+cd standalone-maven && mvn clean test && cd ..
+cd zero-reader && make clean && make && cd ..
+
+# also check ant build
+cd jflex && ant gettools build test
+cd ..

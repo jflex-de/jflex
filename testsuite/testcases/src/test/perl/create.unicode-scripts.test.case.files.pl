@@ -197,7 +197,7 @@ name: $base_name
 description: 
 Tests character class syntax of the Unicode $version $propname property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
@@ -404,7 +404,7 @@ Tests character class syntax of the Unicode $version ${propname}
 property, for those scripts missing from ScriptExtensions.txt, which
 are defined in Scripts.txt.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
@@ -489,7 +489,7 @@ name: ${base_name}${test_num}
 description: 
 Tests character class syntax of the Unicode $version ${propname} property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

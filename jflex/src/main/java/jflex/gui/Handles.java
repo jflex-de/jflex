@@ -17,22 +17,33 @@ package jflex.gui;
  */
 public interface Handles {
 
+  /** Constant <code>FILL=0</code> */
   int FILL = 0;
 
-  int TOP  = 1;
+  /** Constant <code>TOP=1</code> */
+  int TOP = 1;
+  /** Constant <code>TOP_LEFT=TOP</code> */
   int TOP_LEFT = TOP;
-  int TOP_CENTER = 2; 
+  /** Constant <code>TOP_CENTER=2</code> */
+  int TOP_CENTER = 2;
+  /** Constant <code>TOP_RIGHT=3</code> */
   int TOP_RIGHT = 3;
 
+  /** Constant <code>CENTER_LEFT=4</code> */
   int CENTER_LEFT = 4;
+  /** Constant <code>CENTER=5</code> */
   int CENTER = 5;
+  /** Constant <code>CENTER_CENTER=CENTER</code> */
   int CENTER_CENTER = CENTER;
+  /** Constant <code>CENTER_RIGHT=6</code> */
   int CENTER_RIGHT = 6;
 
+  /** Constant <code>BOTTOM=7</code> */
   int BOTTOM = 7;
+  /** Constant <code>BOTTOM_LEFT=BOTTOM</code> */
   int BOTTOM_LEFT = BOTTOM;
+  /** Constant <code>BOTTOM_CENTER=8</code> */
   int BOTTOM_CENTER = 8;
-  int BOTTOM_RIGHT = 9;       
-
+  /** Constant <code>BOTTOM_RIGHT=9</code> */
+  int BOTTOM_RIGHT = 9;
 }
-

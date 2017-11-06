@@ -39,7 +39,7 @@ public class JFlexMojo extends AbstractMojo {
 	/**
 	 * Name of the directory where to look for jflex files by default.
 	 */
-	public static final String SRC_MAIN_JFLEX = "src/main/jflex";
+	private static final String SRC_MAIN_JFLEX = "src/main/jflex";
 
 	@Parameter(property="project", required = true, readonly = true)
 	private MavenProject project;
@@ -258,7 +258,6 @@ public class JFlexMojo extends AbstractMojo {
 		Options.unused_warning = unusedWarning;
 		Options.dot = dot;
     Options.legacy_dot = legacyDot;
-    Options.emitInputStreamCtor = inputStreamCtor;
 		if (skeleton != null) {
 			Options.setSkeleton(skeleton);
 		}
@@ -312,7 +311,7 @@ public class JFlexMojo extends AbstractMojo {
 	 *            The path argument to convert, may be {@code null}.
 	 * @return The absolute path corresponding to the input argument.
 	 */
-	protected File getAbsolutePath(File path) {
+  private File getAbsolutePath(File path) {
 		if (path == null || path.isAbsolute()) {
 			return path;
 		}

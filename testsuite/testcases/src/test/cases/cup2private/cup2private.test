@@ -7,4 +7,4 @@ https://github.com/jflex-de/jflex/issues/125
 The %apiprivate switch should not override the public visibility
 spec for %cup2 interface methods.
 
-jflex: -q --noinputstreamctor
+jflex: -q

@@ -1,64 +1,66 @@
-## JFlex 1.7.0
-- Unicode 8.0 and 9.0 (issue #209) are supported.
-- updated to most recent version of CUP (issue #175)
+## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10)
+- Unicode 8.0 and 9.0 are supported (#209)
+- updated to most recent version of CUP 11b (#175)
 - JFlex build and runtime now depend on JDK 1.7+
+- Option `--noinputstreamctor` removed (#195)
 
-## JFlex 1.6.1 (March 16, 2015)
+## [JFlex 1.6.1](https://github.com/jflex-de/jflex/milestone/9) (March 16, 2015)
 - JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
-- Fixed issue #130, "in caseless mode, chars in regexps not accepted caselessly":
-  Caseless option works again as intended.
-- Fixed issue #131, "re-enable scanning interactively or from a network byte stream":
-  JFlex now throws an IOException when a Reader returns 0 characters.
-- New example, shows how to deal with Readers that return 0 characters.
+- in caseless mode, chars in regexps not accepted caselessly:
+  Caseless option works again as intended. (#130)
+- re-enable scanning interactively or from a network byte stream:
+  JFlex now throws an `IOException` when a `Reader` returns 0 characters. (#131)
+- New example, shows how to deal with `Reader`s that return 0 characters.
 - Command line scripts work again in repository version (contributed by Emma Strubell)
 - New options `--warn-unused` and `--no-warn-unused` that control warnings about unused macros.
-- Fixed issue #125: `%apiprivate` and `%cup2` switches now no longer incompatible
-- Fix issue #133, "Error in skeleton.nested":
+- %apiprivate` and `%cup2` switches now no longer incompatible (#125)
+- "Error in skeleton.nested":
   Empty-string matches were taking precedence over `EOF` and caused non-termination.
-  Now `EOF` is counted as the highest-priority empty match.
+  Now `EOF` is counted as the highest-priority empty match. (#133)
 - New warning when an expression matches the empty string (can lead to non-termination).
 
-## JFlex 1.6.0 (Jun 21, 2014)
+## [JFlex 1.6.0](https://github.com/jflex-de/jflex/milestone/16) (Jun 21, 2014)
 - Unicode 7.0 is supported.
-- In %unicode mode, supplementary code points are now handled properly.
-  . Regular expressions are now code-point based, rather than code-unit/
+- In `%unicode` mode, supplementary code points are now handled properly.
+  - Regular expressions are now code-point based, rather than code-unit/
     char based.
-  . Input streams are read as code point sequences - properly paired
+  - Input streams are read as code point sequences - properly paired
     surrogate code units are read as a single character.
-  . All supported Unicode properties now match supplementary characters
+  - All supported Unicode properties now match supplementary characters
     when Unicode 3.0 or above is specified, or when no version is
     specified, causing the default Unicode version, Unicode 7.0 in this
     release, to be used.
-- New \u{...} escape sequence allows code points (and whitespace-separated
+- New `\u{...}` escape sequence allows code points (and whitespace-separated
   sequences of code points) to be specified as 1-6 hexadecimal digit values.
 - Characters in matches printed in %debug mode are now Unicode escaped
-  (\uXXXX) when they are outside the range 32..127.
-- fixed bug #128, detect javadoc class comment when followed by annotation(s)
+  (`\uXXXX`) when they are outside the range 32..127.
+- detect javadoc class comment when followed by annotation(s) (#128)
 - removed the "switch" and "table" code generation options
-- By default no InputStream constructor is included in the generated
+- Option `--noinputstreamctor` deprecated.
+  By default no InputStream constructor is included in the generated
   scanner.  The capability to include one is deprecated and will be
   removed in JFlex 1.7.
   
-## JFlex 1.5.1 (Mar 21, 2014)
-- fixed bug #127, problem calling ./jflex start scripts
-- fixed bug #126, minor documentation flaws
+## [JFlex 1.5.1](https://github.com/jflex-de/jflex/milestone/13) (Mar 21, 2014)
+- fixed problem calling `./jflex` start scripts (#127)
+- corrected documentation flaws (#126)
 - further documentation and website updates
 - JFlex now reports the correct version string 
 - added support for CUP2 with %cup2 switch, based on patch by Andreas Wenger
 
-## JFlex 1.5.0 (Jan 21, 2014)
+## [JFlex 1.5.0](https://github.com/jflex-de/jflex/milestone/12) (Jan 21, 2014)
 - the "switch" and "table" code generation options are deprecated
   and will be removed in JFlex 1.6
 - the JFlex license has been changed from GPL to BSD.
-- updated JFlex to CUP version 0.11a. 
-- changed the build from Ant to Maven.
+- updated JFlex to CUP version 0.11a.
+- changed the build from Ant to Maven. [523d7a9](https://github.com/jflex-de/jflex/commit/523d7a940cc179494f80af1eb71c721778c3417c)
 - JFlex now mostly conforms with Unicode Regular Expressions UTS#18
   Basic Unicode Support - Level 1.  Supplementary code points (above
   the Basic Multilingual Plane) are not yet supported.
 - new meta characters supported: `\s, \S, \d, \D, \w, \W`.
-- nested character sets now supported, e.g. [[[ABC]D]E[FG]]
-- new character set operations supported: union (e.g. [A||B]), intersection (e.g.
-  [A&&B]), set-difference (e.g. [A--B]), and symmetric difference (e.g. [A~~B]).
+- nested character sets now supported, e.g. `[[[ABC]D]E[FG]]`
+- new character set operations supported: union (e.g. `[A||B]`), intersection (e.g.
+  `[A&&B]`), set-difference (e.g. `[A--B]`), and symmetric difference (e.g. `[A~~B]`).
 - the meaning of the dot (".") meta character has been changed from `[^\n]` to 
   `[^\n\r\u000B\u000C\u0085\u2028\u2029]`. Use the new `--legacydot` option to
   cause "." to be interpreted as `[^\n]`.
@@ -66,8 +68,8 @@
   `"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029]`.
 - new option --noinputstreamctor to not include an InputStream
   constructor in the generated scanner.
-- %include <file> can now be used in the rules section (bug #117)
-- fixed bug #107 & #108 (yychar and zzAtBOL should be reset for nested input streams)
+- %include <file> can now be used in the rules section (#117)
+- yychar and zzAtBOL should be reset for nested input streams (#107 & #108 )
 - fixed bug #109 (could not match input for empty string matches.)
 - fixed bug #112 & #119 (properly update zzFin when reallocating zzBuffer)
 - fixed bug #115 (noncompileable scanner generation when default locale is Turkish)
@@ -75,7 +77,7 @@
 - fixed bug #105 (can't build examples/java/)
 - fixed bug #106 (impossible char class range should trigger syntax error)
 
-## JFlex 1.4.3 (Jan 31, 2009)
+## [JFlex 1.4.3](https://github.com/jflex-de/jflex/milestone/15) (Jan 31, 2009)
 - fixed bug #100 (lookahead syntax error)
 - fixed bug #97 (min_int in Java example scanner)
 - fixed bug #96 (zzEOFDone not reset in yyreset(Reader))

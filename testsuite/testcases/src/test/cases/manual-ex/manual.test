@@ -2,5 +2,5 @@ name: manual
 description:
 the introductory example from the manual
 
-jflex: --nobak --noinputstreamctor
+jflex: --nobak
 

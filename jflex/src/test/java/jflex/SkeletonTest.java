@@ -9,14 +9,12 @@
 
 package jflex;
 
-
 import java.io.File;
-
 import junit.framework.TestCase;
 
 /**
  * SkeletonTest
- * 
+ *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
@@ -24,6 +22,7 @@ public class SkeletonTest extends TestCase {
 
   /**
    * Constructor for SkeletonTest.
+   *
    * @param arg0 test name
    */
   public SkeletonTest(String arg0) {
@@ -31,13 +30,12 @@ public class SkeletonTest extends TestCase {
   }
 
   public void testReplace() {
-    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), 
-                 "blubblub blub");
+    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
   }
 
   public void testMakePrivate() {
-    Skeleton.makePrivate(); 
-    for (int i=0; i < Skeleton.line.length; i++) {
+    Skeleton.makePrivate();
+    for (int i = 0; i < Skeleton.line.length; i++) {
       assertEquals(Skeleton.line[i].indexOf("public"), -1);
     }
   }

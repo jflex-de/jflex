@@ -9,33 +9,36 @@
 
 package jflex;
 
-
 /**
  * Enumerator for the elements of a CharSet.
  *
- * Does not implement java.util.Enumeration, but supports the same protocol.
- *  
+ * <p>Does not implement java.util.Enumeration, but supports the same protocol.
+ *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-final public class CharSetEnumerator {
+public final class CharSetEnumerator {
 
   private int index;
   private int offset;
   private long mask = 1;
 
   private CharSet set;
-  
+
+  /**
+   * Constructor for CharSetEnumerator.
+   *
+   * @param characters set of characters.
+   */
   public CharSetEnumerator(CharSet characters) {
     set = characters;
 
-    while (index < set.bits.length && set.bits[index] == 0) 
-      index++;
+    while (index < set.bits.length && set.bits[index] == 0) index++;
 
     if (index >= set.bits.length) return;
-        
+
     while (offset <= CharSet.MOD && ((set.bits[index] & mask) == 0)) {
-      mask<<= 1;
+      mask <<= 1;
       offset++;
     }
   }
@@ -43,35 +46,42 @@ final public class CharSetEnumerator {
   private void advance() {
     do {
       offset++;
-      mask<<= 1;
+      mask <<= 1;
     } while (offset <= CharSet.MOD && ((set.bits[index] & mask) == 0));
 
     if (offset > CharSet.MOD) {
-      do 
-        index++;
+      do index++;
       while (index < set.bits.length && set.bits[index] == 0);
-        
+
       if (index >= set.bits.length) return;
-        
+
       offset = 0;
       mask = 1;
-      
+
       while (offset <= CharSet.MOD && ((set.bits[index] & mask) == 0)) {
-        mask<<= 1;
+        mask <<= 1;
         offset++;
-      } 
+      }
     }
   }
 
+  /**
+   * Returns whether the iterator has more characters.
+   *
+   * @return whether the iterator has more elements.
+   */
   public boolean hasMoreElements() {
     return index < set.bits.length;
   }
 
+  /**
+   * Returns the next character.
+   *
+   * @return character.
+   */
   public int nextElement() {
     int x = (index << CharSet.BITS) + offset;
     advance();
     return x;
   }
-
 }
-

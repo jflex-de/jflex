@@ -23,7 +23,7 @@
   <property name="junit.jar" value="${lib.dir}/junit-${junit.version}.jar" />
 
   <!-- where to get tool jars from -->
-  <property name="maven.central.url" value="http://central.maven.org/maven2" />
+  <property name="maven.central.url" value="https://repo.maven.apache.org/maven2" />
   <property name="bootstrap.jflex.jar.url" 
   	        value="${maven.central.url}/de/jflex/jflex/${bootstrap.version}/jflex-${bootstrap.version}.jar" />
   <property name="junit.jar.url"
@@ -90,6 +90,7 @@
     <javac destdir="${compile.output.dir}"
            debug="on"
            includeantruntime="true">
+      <src path="../cup_runtime/src/main/java"/>
       <src path="src/main/java"/>
       <src path="${generated.sources.dir}"/>
     </javac>

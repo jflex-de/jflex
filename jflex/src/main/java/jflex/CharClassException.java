@@ -9,8 +9,6 @@
 
 package jflex;
 
-
-
 /**
  * This Exception is used in class CharClasses.
  *
@@ -19,26 +17,16 @@ package jflex;
  */
 public class CharClassException extends RuntimeException {
 
-  /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7199804506062103569L;
+  private static final long serialVersionUID = 7199804506062103569L;
 
-
-  /**
-   * Creates a new CharClassException without message
-   */
-  public CharClassException() {
-  }
-
+  public CharClassException() {}
 
   /**
    * Creates a new CharClassException with the specified message
    *
-   * @param message   the error description presented to the user.
+   * @param message the error description presented to the user.
    */
   public CharClassException(String message) {
     super(message);
   }
-
 }

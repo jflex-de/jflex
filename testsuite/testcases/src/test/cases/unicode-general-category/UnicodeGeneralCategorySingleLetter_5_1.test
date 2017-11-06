@@ -4,7 +4,7 @@ description:
 Tests character class syntax of the Unicode 5.1 single-letter General
 Category property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

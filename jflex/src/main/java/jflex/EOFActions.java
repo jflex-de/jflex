@@ -9,8 +9,9 @@
 
 package jflex;
 
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple table to store EOF actions for each lexical state.
@@ -22,24 +23,34 @@ public class EOFActions {
 
   /** maps lexical states to actions */
   private Map<Integer, Action> actions = new HashMap<Integer, Action>();
+
   private Action defaultAction;
   private int numLexStates;
 
+  /**
+   * Sets the number of lexical states.
+   *
+   * @param num number of states.
+   */
   public void setNumLexStates(int num) {
     numLexStates = num;
   }
 
+  /**
+   * Add.
+   *
+   * @param stateList a {@link java.util.List} object.
+   * @param action a {@link jflex.Action} object.
+   */
   public void add(List<Integer> stateList, Action action) {
 
     if (stateList != null && stateList.size() > 0) {
-      for (Integer state : stateList)
-        add( state, action );   
-    }
-    else {
+      for (Integer state : stateList) add(state, action);
+    } else {
       defaultAction = action.getHigherPriority(defaultAction);
-      
+
       for (int state = 0; state < numLexStates; state++) {
-        if ( actions.get(state) != null ) {
+        if (actions.get(state) != null) {
           Action oldAction = actions.get(state);
           actions.put(state, oldAction.getHigherPriority(action));
         }
@@ -47,32 +58,52 @@ public class EOFActions {
     }
   }
 
+  /**
+   * Add.
+   *
+   * @param state a {@link java.lang.Integer} object.
+   * @param action a {@link jflex.Action} object.
+   */
   public void add(Integer state, Action action) {
-    if ( actions.get(state) == null )
-      actions.put(state, action);
+    if (actions.get(state) == null) actions.put(state, action);
     else {
       Action oldAction = actions.get(state);
       actions.put(state, oldAction.getHigherPriority(action));
     }
   }
 
-  public boolean isEOFAction(Object a) {
+  boolean isEOFAction(Object a) {
     if (a == defaultAction) return true;
 
-    for (Action action : actions.values())
-      if (a == action) return true;
+    for (Action action : actions.values()) if (a == action) return true;
 
     return false;
   }
 
+  /**
+   * getAction.
+   *
+   * @param state a int.
+   * @return a {@link jflex.Action} object.
+   */
   public Action getAction(int state) {
     return actions.get(state);
   }
 
+  /**
+   * Returns the default action.
+   *
+   * @return a default {@link jflex.Action}.
+   */
   public Action getDefault() {
     return defaultAction;
   }
 
+  /**
+   * Returns thenumber of {@link jflex.Action}s.
+   *
+   * @return number of actions.
+   */
   public int numActions() {
     return actions.size();
   }

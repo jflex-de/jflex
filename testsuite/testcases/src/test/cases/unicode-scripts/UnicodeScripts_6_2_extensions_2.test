@@ -3,7 +3,7 @@ name: UnicodeScripts_6_2_extensions_2
 description: 
 Tests character class syntax of the Unicode 6.2 Script_Extensions property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

@@ -11,28 +11,25 @@ package jflex;
 
 import java.io.File;
 import java.io.IOException;
-
 import jflex.anttask.JFlexTask;
-
-
 import junit.framework.TestCase;
 
 /**
  * Unit tests for the jflex ant task.
- * 
+ *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
 public class AntTaskTests extends TestCase {
 
   private JFlexTask task;
-  private final String DIR_RESOURCES="src/test/resources";
-  private final String FILE_LEXSCAN="/jflex/LexScan-test.flex";
+  private final String DIR_RESOURCES = "src/test/resources";
+  private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
   /**
    * Constructor for AntTaskTests.
-   * 
-   * @param name  test case name
+   *
+   * @param name test case name
    */
   public AntTaskTests(String name) {
     super(name);
@@ -48,46 +45,46 @@ public class AntTaskTests extends TestCase {
   }
 
   public void testPackageAndClass() throws IOException {
-    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
+    task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
     assertEquals("jflex", task.getPackage());
-    assertEquals("LexScan",task.getClassName());
+    assertEquals("LexScan", task.getClassName());
   }
 
   public void testPackageAndClassDefaults() throws IOException {
-	  //FIXME
-    task.setFile(new File(DIR_RESOURCES+"/jflex/simple.flex"));
+    // FIXME
+    task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
     task.findPackageAndClass();
     assertEquals(null, task.getPackage());
-    assertEquals("Yylex",task.getClassName());
+    assertEquals("Yylex", task.getClassName());
   }
 
   public void testDestdir() throws IOException {
-    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
+    task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("target/test/src");
     task.setDestdir(dir);
     task.findPackageAndClass();
     task.normalizeOutdir();
-    // not default jflex logic, but javac (uses package name) 
+    // not default jflex logic, but javac (uses package name)
     assertEquals(new File(dir, "jflex"), Options.getDir());
   }
 
   public void testOutdir() throws IOException {
-    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
+    task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("src");
     task.setOutdir(dir);
     task.findPackageAndClass();
     task.normalizeOutdir();
-    // this should be default jflex logic 
+    // this should be default jflex logic
     assertEquals(dir, Options.getDir());
   }
 
   public void testDefaultDir() throws IOException {
-    task.setFile(new File(DIR_RESOURCES+FILE_LEXSCAN));
+    task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
     task.normalizeOutdir();
-    // this should be default jflex logic 
-    assertEquals(new File(DIR_RESOURCES+"/jflex"),Options.getDir());
+    // this should be default jflex logic
+    assertEquals(new File(DIR_RESOURCES + "/jflex"), Options.getDir());
   }
 
   public void testNomin() {
@@ -108,19 +105,19 @@ public class AntTaskTests extends TestCase {
     assertTrue(Options.no_backup);
   }
 
-    public void testSkel() {
-        task.setVerbose(false); // avoid to java console pop up
-        task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-        assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
-    }
-  
+  public void testSkel() {
+    task.setVerbose(false); // avoid to java console pop up
+    task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
+    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+  }
+
   public void testVerbose() {
     task.setVerbose(false);
     assertTrue(!Options.verbose);
     task.setVerbose(true);
     assertTrue(Options.verbose);
   }
-  
+
   public void testUnusedWarning() {
     // Defaults to true, for backward compatibility.
     assertTrue("Defaults to true", Options.unused_warning);
@@ -136,11 +133,11 @@ public class AntTaskTests extends TestCase {
   public void testTime() {
     assertTrue(!Options.time);
     task.setTimeStatistics(true);
-    assertTrue(Options.time);   
+    assertTrue(Options.time);
     task.setTime(false);
-    assertTrue(!Options.time);    
+    assertTrue(!Options.time);
   }
-  
+
   public void testDot() {
     assertTrue(!Options.dot);
     task.setDot(true);
@@ -148,13 +145,13 @@ public class AntTaskTests extends TestCase {
     task.setGenerateDot(false);
     assertTrue(!Options.dot);
   }
-  
+
   public void testDump() {
     assertTrue(!Options.dump);
     task.setDump(true);
     assertTrue(Options.dump);
   }
-  
+
   public void testJlex() {
     assertTrue(!Options.jlex);
     task.setJLex(true);

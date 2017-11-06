@@ -14,7 +14,7 @@ import jflex.sym;
 
 // %debug 
 
-%state DESCR JFLEXCMD JAVAC_EXTRA_FILES LINELIST
+%state DESCR JFLEXCMD JAVAC_EXTRA_FILES LINELIST VERSION
 
 %{
   private StringBuilder buffer = new StringBuilder();
@@ -26,6 +26,7 @@ import jflex.sym;
 %}
 
 NL = \r | \n | \r\n
+DIGIT = [0-9]
 
 %%
 
@@ -53,10 +54,16 @@ NL = \r | \n | \r\n
   
   "common-input-file:"  [^\r\n]* { test.setCommonInputFile(yytext().substring(18).trim()); }
 
+  "jdk:" " "*         { yybegin(VERSION); }
+
   {NL} | [ \t]+       { /* ignore newline and whitespace */ }
   "#" [^\r\n]*        { /* ignore comments */ }
 }
 
+
+<VERSION> {
+  {DIGIT}+ ("." {DIGIT}+)* { test.setJavaVersion(yytext()); yybegin(YYINITIAL); }
+}
 
 <DESCR> {
   [^\r\n]+ | {NL}     { buffer.append(yytext()); }

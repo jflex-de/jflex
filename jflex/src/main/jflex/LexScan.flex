@@ -10,7 +10,9 @@
 package jflex;
 
 import java_cup.runtime.Symbol;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +92,6 @@ import jflex.unicode.UnicodeProperties;
   boolean inclusive_states;
   boolean eofclose;
   boolean isASCII;
-  // TODO: In the version of JFlex after 1.6, the InputStream ctor 
-  // TODO: will never be emitted, and this option will cease to exist.
-  boolean emitInputStreamCtor = Options.emitInputStreamCtor;
 
   String isImplementing;
   String isExtending;
@@ -413,9 +412,6 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%throws"    {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_THROW, yyline); }
   "%scanerror" {WSP}+ {QualIdent} {WSP}* { scanErrorException = yytext().substring(11).trim(); }
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
-// TODO: In the version of JFlex after 1.6, the %inputstreamctor directive will become a no-op: the InputStream ctor will never be emitted.  
-  "%inputstreamctor"({WSP}+"true")? { emitInputStreamCtor = true; }  
-  "%inputstreamctor"{WSP}+"false"   { emitInputStreamCtor = false; }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
   "="{WSP}*                   { if (null == unicodeProperties && ! isASCII) {
