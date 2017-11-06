@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>cup_runtime</artifactId>
+  <packaging>jar</packaging>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>cup-parent</artifactId>
+    <version>11b</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>CUP runtime</name>
+  <url>http://www2.cs.tum.edu/projects/cup/</url>
+  <inceptionYear>1998</inceptionYear>
+  <description>
+    A copy of the Java CUP runtime.
+  </description>
+</project>

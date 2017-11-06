@@ -3,8 +3,10 @@
 # CUP classes should be included in CLASSPATH 
 
 CUP        = java java_cup.Main -interface <
-JFLEX      = ../../bin/jflex
-CUPJAR     = ../../lib/java-cup-11b.jar
+# Root of the project
+ROOT       = ../../..
+JFLEX      = $(ROOT)/jflex/bin/jflex
+CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
 CP         = .:$(CUPJAR)
 JAVA       = java
 JAVAC      = javac
