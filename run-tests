@@ -2,12 +2,12 @@
 
 # fail on error
 set -e
-MVN=${PWD}/$MVNw
+MVN=${PWD}/mvnw
 
 if [[ ! $TRAVIS ]]; then
   # clean existing artefacts
-  # note that $MVN could fail if POM are incorrects
-  find . -name target -type d -delete
+  # note that mvn clean could fail if POM are incorrect
+  find . -name target -type d -exec rm -r "{}" \; || true
 
   echo "[INFO] Applying steps executed by Travis"
   echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
