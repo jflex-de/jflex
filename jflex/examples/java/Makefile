@@ -5,8 +5,8 @@
 CUP        = java java_cup.Main -interface <
 # Root of the project
 ROOT       = ../../..
-JFLEX      = $ROOT/jflex/bin/jflex
-CUPJAR     = $ROOT/cup/cup/java-cup-11b.jar
+JFLEX      = $(ROOT)/jflex/bin/jflex
+CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
 CP         = .:$(CUPJAR)
 JAVA       = java
 JAVAC      = javac
