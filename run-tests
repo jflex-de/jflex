@@ -31,14 +31,21 @@ cd ../..
 
 ## run jflex examples:
 cd jflex/examples
+cd simple-maven && mvn test
+cd ..
+cd standalone-maven && mvn test
+cd ..
 # don't assume byacc/j is installed, just run lexer
-cd byaccj && make clean && make Yylex.java && cd ..
-cd cup && make clean && make && cd ..
-cd interpreter && make clean && make && cd ..
-cd java && make clean && make && cd ..
-cd simple-maven && mvn clean test && cd ..
-cd standalone-maven && mvn clean test && cd ..
-cd zero-reader && make clean && make && cd ..
+cd byaccj && make clean && make Yylex.java
+cd ..
+cd cup && make clean && make
+cd ..
+cd interpreter && make clean && make
+cd ..
+cd java && make clean && make
+cd ..
+cd zero-reader && make clean && make
+cd ..
 
 # also check ant build
 cd jflex && ant gettools build test
