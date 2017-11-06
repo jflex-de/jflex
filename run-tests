@@ -29,7 +29,9 @@ fi
 cd testsuite/testcases && ../../mvnw test
 cd ../..
 
-## run jflex examples:
+## run jflex examples
+# Each line must end with the test command to make the script exit
+# in case of error (see #242)
 cd jflex/examples
 cd simple-maven && mvn test
 cd ..
