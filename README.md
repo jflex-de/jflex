@@ -4,14 +4,25 @@
 
 [JFlex][jflex] is a lexical analyzer generator (also known as scanner generator) for Java.
 
-A lexical analyzer generator takes as input a specification with a set of regular expressions and
-corresponding actions. It generates a program (a lexer) that reads input, matches the input against
-the regular expressions in the spec file, and runs the corresponding action if a regular expression 
+JFlex takes as input a specification with a set of regular expressions and corresponding actions.
+It generates Java source of a lexer that reads input, matches the input against the regular
+expressions in the spec file, and runs the corresponding action if a regular expression
 matched. Lexers usually are the first front-end step in compilers, matching keywords, comments, 
 operators, etc, and generating an input token stream for parsers.
 
 JFlex lexers are based on deterministic finite automata (DFAs).
 They are fast, without expensive backtracking.
+
+## Modules
+
+The top level directory of the JFLex git repository contains:
+
+ * **cup** A copy of the CUP runtime
+ * **docs** the Markdown sources for the user manual
+ * **jflex** JFlex, the scanner/lexer generator for Java
+ * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
+ * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
+ * **testsuite** the regression test suite for JFlex,
 
 ## Usage
 
@@ -67,19 +78,17 @@ You can also use JFlex directly from the command line:
 java -jar jflex-1.6.1.jar -d output src/grammar/parser.flex
 ```
 
+## Build from source
+
+```
+./mvnw install
+```
+
 ## Contributing
 
 JFlex is free software, contributions are welcome.
 See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
 
-The top level directory of the JFLex git repository contains:
-
- * **cup** A copy of the CUP runtime
- * **docs** the Markdown sources for the user manual
- * **jflex** JFlex, the scanner/lexer generator for Java
- * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
- * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
- * **testsuite** the regression test suite for JFlex,
 
 [jflex]: http://jflex.de/
 [jflex-doc]: http://jflex.de/manual.html
