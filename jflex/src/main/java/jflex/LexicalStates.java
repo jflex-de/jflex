@@ -32,13 +32,18 @@ public class LexicalStates {
   /** number of declared states */
   int numStates;
 
-  /** constructs a new lexical state symbol table */
+  /** Constructs a new lexical state symbol table. */
   public LexicalStates() {
     states = new LinkedHashMap<String, Integer>();
     inclusive = new ArrayList<Integer>();
   }
 
-  /** insert a new state declaration */
+  /**
+   * Inserts a new state declaration.
+   *
+   * @param name a {@link java.lang.String} object.
+   * @param is_inclusive a boolean.
+   */
   public void insert(String name, boolean is_inclusive) {
     if (states.containsKey(name)) return;
 
@@ -49,24 +54,39 @@ public class LexicalStates {
   }
 
   /**
-   * returns the number (code) of a declared state, <code>null</code> if no such state has been
+   * Returns the number (code) of a declared state, <code>null</code> if no such state has been
    * declared.
+   *
+   * @param name a {@link java.lang.String} object.
+   * @return a {@link java.lang.Integer} object.
    */
   public Integer getNumber(String name) {
     return states.get(name);
   }
 
-  /** returns the number of declared states */
+  /**
+   * Returns the number of declared states.
+   *
+   * @return the number of declared states.
+   */
   public int number() {
     return numStates;
   }
 
-  /** returns the names of all states */
+  /**
+   * Returns the names of all states.
+   *
+   * @return the names of all states.
+   */
   public Set<String> names() {
     return states.keySet();
   }
 
-  /** returns the code of all inclusive states */
+  /**
+   * Returns the code of all inclusive states.
+   *
+   * @return the code of all inclusive states.
+   */
   public List<Integer> getInclusiveStates() {
     return inclusive;
   }

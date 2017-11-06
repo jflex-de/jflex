@@ -20,7 +20,7 @@ public class MacroException extends RuntimeException {
   /** */
   private static final long serialVersionUID = 275266242549067641L;
 
-  /** Creates a new MacroException without message */
+  /** Creates a new MacroException without message. */
   public MacroException() {}
 
   /**

@@ -29,19 +29,35 @@ public final class IntCharSet {
   private List<Interval> intervals;
   private int pos;
 
+  /** Constructor for IntCharSet. */
   public IntCharSet() {
     this.intervals = new ArrayList<Interval>();
   }
 
+  /**
+   * Constructor for IntCharSet.
+   *
+   * @param c a int.
+   */
   public IntCharSet(int c) {
     this(new Interval(c, c));
   }
 
+  /**
+   * Constructor for IntCharSet.
+   *
+   * @param interval a {@link jflex.Interval} object.
+   */
   public IntCharSet(Interval interval) {
     this();
     intervals.add(interval);
   }
 
+  /**
+   * Constructor for IntCharSet.
+   *
+   * @param chars a {@link java.util.List} object.
+   */
   public IntCharSet(List<Interval> chars) {
     int size = chars.size();
     intervals = new ArrayList<Interval>(size);
@@ -84,11 +100,22 @@ public final class IntCharSet {
     return -1;
   }
 
+  /**
+   * add.
+   *
+   * @param set a {@link jflex.IntCharSet} object.
+   * @return a {@link jflex.IntCharSet} object.
+   */
   public IntCharSet add(IntCharSet set) {
     for (Interval interval : set.intervals) add(interval);
     return this;
   }
 
+  /**
+   * add.
+   *
+   * @param interval a {@link jflex.Interval} object.
+   */
   public void add(Interval interval) {
 
     int size = intervals.size();
@@ -129,6 +156,11 @@ public final class IntCharSet {
     intervals.add(new Interval(interval));
   }
 
+  /**
+   * add.
+   *
+   * @param c a int.
+   */
   public void add(int c) {
     int size = intervals.size();
 
@@ -169,11 +201,21 @@ public final class IntCharSet {
     intervals.add(new Interval(c, c));
   }
 
+  /**
+   * contains.
+   *
+   * @param singleChar a int.
+   * @return a boolean.
+   */
   public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
   }
 
-  /** o instanceof Interval */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>o instanceof Interval
+   */
   public boolean equals(Object o) {
     IntCharSet set = (IntCharSet) o;
 
@@ -189,6 +231,12 @@ public final class IntCharSet {
   }
 
   /* intersection */
+  /**
+   * Intersects two sets.
+   *
+   * @param set a {@link jflex.IntCharSet} object.
+   * @return the {@link jflex.IntCharSet} common to the two sets.
+   */
   public IntCharSet and(IntCharSet set) {
     if (DEBUG) {
       Out.dump("intersection");
@@ -233,6 +281,11 @@ public final class IntCharSet {
 
   /* complement */
   /* prec: this.contains(set), set != null */
+  /**
+   * Returns the relative complement of this set relative to the provided set.
+   *
+   * @param set a {@link jflex.IntCharSet} to substract from this set.
+   */
   public void sub(IntCharSet set) {
     if (DEBUG) {
       Out.dump("complement");
@@ -303,19 +356,39 @@ public final class IntCharSet {
     }
   }
 
+  /**
+   * Returns whether the set contains elements.
+   *
+   * @return Whether the set is non-empty.
+   */
   public boolean containsElements() {
     return intervals.size() > 0;
   }
 
+  /**
+   * Returns the number of Intervals.
+   *
+   * @return number of intervals.
+   */
   public int numIntervals() {
     return intervals.size();
   }
 
+  /**
+   * Returns the intervals.
+   *
+   * @return a {@link java.util.List} object.
+   */
   public List<Interval> getIntervals() {
     return intervals;
   }
 
   // beware: depends on caller protocol, single user only
+  /**
+   * Returns the next interval.
+   *
+   * @return the next {@link jflex.Interval}.
+   */
   public Interval getNext() {
     if (pos == intervals.size()) pos = 0;
     return intervals.get(pos++);

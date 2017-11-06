@@ -3,5 +3,5 @@ name: emptymatch
 description:
 Matching the empty string. May lead to non-termination if not used carefully.
 
-jflex: --nobak --noinputstreamctor
+jflex: --nobak
 

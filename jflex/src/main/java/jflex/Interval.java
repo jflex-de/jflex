@@ -31,7 +31,11 @@ public final class Interval {
     this.end = end;
   }
 
-  /** Copy constructor */
+  /**
+   * Copy constructor.
+   *
+   * @param other a {@link jflex.Interval} object.
+   */
   public Interval(Interval other) {
     this.start = other.start;
     this.end = other.end;
@@ -41,6 +45,7 @@ public final class Interval {
    * Return <code>true</code> iff <code>point</code> is contained in this interval.
    *
    * @param point the character to check
+   * @return whether the codepoint is contained in the interval.
    */
   public boolean contains(int point) {
     return start <= point && end >= point;
@@ -50,15 +55,16 @@ public final class Interval {
    * Return <code>true</code> iff this interval completely contains the other one.
    *
    * @param other the other interval
+   * @return whether this interval completely contains the other one.
    */
   public boolean contains(Interval other) {
     return this.start <= other.start && this.end >= other.end;
   }
 
   /**
-   * Return <code>true</code> if <code>o</code> is an interval with the same borders.
+   * {@inheritDoc}
    *
-   * @param o the object to check equality with
+   * <p>Return <code>true</code> if <code>o</code> is an interval with the same borders.
    */
   public boolean equals(Object o) {
     if (o == this) return true;

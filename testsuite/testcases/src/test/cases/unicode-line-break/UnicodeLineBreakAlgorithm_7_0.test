@@ -4,6 +4,6 @@ description:
 Implements the Unicode 7.0 Line Break algorithm, specified in UAX #14
 <http://www.unicode.org/reports/tr14/tr14-33.html>.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8

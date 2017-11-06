@@ -8,6 +8,7 @@ end.tex
 lex-specs.tex
 performance.tex
 porting-and-parsers.tex
+maven-plugin.tex
 
 *.bbl
 *.blg

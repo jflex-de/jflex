@@ -191,7 +191,7 @@ name: $base_name
 description: 
 Tests character class syntax of the Unicode $version General Category property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 
@@ -390,7 +390,7 @@ description:
 Tests character class syntax of the Unicode $version single-letter General
 Category property.
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 input-file-encoding: UTF-8
 

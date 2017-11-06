@@ -38,7 +38,11 @@ public final class StdOutWriter extends PrintWriter {
     super(System.out, true);
   }
 
-  /** A StdOutWrite, attached to the specified output stream, no gui mode */
+  /**
+   * A StdOutWrite, attached to the specified output stream, no gui mode
+   *
+   * @param out a {@link java.io.OutputStream} object.
+   */
   public StdOutWriter(OutputStream out) {
     super(out, true);
   }
@@ -53,7 +57,11 @@ public final class StdOutWriter extends PrintWriter {
     this.text = text;
   }
 
-  /** Write a single character. */
+  /**
+   * Write a single character.
+   *
+   * @param c a int.
+   */
   public void write(int c) {
     if (text != null) {
       text.append(String.valueOf((char) c));
@@ -61,7 +69,11 @@ public final class StdOutWriter extends PrintWriter {
     } else super.write(c);
   }
 
-  /** Write a portion of an array of characters. */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Write a portion of an array of characters.
+   */
   public void write(char buf[], int off, int len) {
     if (text != null) {
       text.append(new String(buf, off, len));
@@ -69,7 +81,11 @@ public final class StdOutWriter extends PrintWriter {
     } else super.write(buf, off, len);
   }
 
-  /** Write a portion of a string. */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Write a portion of a string.
+   */
   public void write(String s, int off, int len) {
     if (text != null) {
       text.append(s.substring(off, off + len));

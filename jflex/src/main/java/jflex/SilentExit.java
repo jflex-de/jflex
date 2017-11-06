@@ -20,7 +20,11 @@ public class SilentExit extends Exception {
   /** Program exit code if this exception is taken */
   private int exitCode;
 
-  /** SilentExit with specified program exit code. */
+  /**
+   * SilentExit with specified program exit code.
+   *
+   * @param exitCode a int.
+   */
   public SilentExit(int exitCode) {
     this.exitCode = exitCode;
   }
@@ -30,7 +34,11 @@ public class SilentExit extends Exception {
     this(1);
   }
 
-  /** The exit code of this SilentExit exception. */
+  /**
+   * The exit code of this SilentExit exception.
+   *
+   * @return a int.
+   */
   public int exitCode() {
     return exitCode;
   }

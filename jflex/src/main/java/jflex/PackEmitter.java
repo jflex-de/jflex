@@ -71,7 +71,11 @@ public abstract class PackEmitter {
     return "ZZ_" + name.toUpperCase(Locale.ENGLISH);
   }
 
-  /** Return current output buffer. */
+  /**
+   * Return current output buffer.
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     return out.toString();
   }
@@ -192,6 +196,11 @@ public abstract class PackEmitter {
   }
 
   // convenience
+  /**
+   * println.
+   *
+   * @param s a {@link java.lang.String} object.
+   */
   protected void println(String s) {
     out.append(s);
     nl();

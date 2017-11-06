@@ -50,7 +50,12 @@ public final class SemCheck {
     }
   }
 
-  /** Checks if the expression potentially matches the empty string. */
+  /**
+   * Checks if the expression potentially matches the empty string.
+   *
+   * @param re a {@link jflex.RegExp} object.
+   * @return a boolean.
+   */
   public static boolean maybeEmtpy(RegExp re) {
     RegExp2 r;
 
@@ -111,6 +116,9 @@ public final class SemCheck {
    * Returns length if expression has fixed length, -1 otherwise.
    *
    * <p>Negation operators are treated as always variable length.
+   *
+   * @param re a {@link jflex.RegExp} object.
+   * @return a int.
    */
   public static int length(RegExp re) {
     RegExp2 r;
@@ -172,6 +180,9 @@ public final class SemCheck {
    * Returns true iff the expression is a finite choice of fixed length expressions.
    *
    * <p>Negation operators are treated as always variable length.
+   *
+   * @param re a {@link jflex.RegExp} object.
+   * @return a boolean.
    */
   public static boolean isFiniteChoice(RegExp re) {
     RegExp2 r;

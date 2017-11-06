@@ -135,6 +135,13 @@ public class Main {
     }
   }
 
+  /**
+   * parseOptions.
+   *
+   * @param argv an array of {@link java.lang.String} objects.
+   * @return a {@link java.util.List} object.
+   * @throws jflex.SilentExit if any.
+   */
   public static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<File>();
 
@@ -245,20 +252,6 @@ public class Main {
         continue;
       }
 
-      // TODO: In the JFlex version after 1.6, --inputstreamctor will be removed.
-      if (argv[i].equals("--inputstreamctor")
-          || argv[i].equals("-inputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.emitInputStreamCtor = true;
-        continue;
-      }
-
-      // TODO: In the JFlex version after 1.6, --noinputstreamctor will be removed.
-      if (argv[i].equals("--noinputstreamctor")
-          || argv[i].equals("-noinputstreamctor")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.emitInputStreamCtor = false;
-        continue;
-      }
-
       if (argv[i].equals("--uniprops")
           || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
@@ -352,6 +345,7 @@ public class Main {
     }
   }
 
+  /** Prints the cli usage on stdout. */
   public static void printUsage() {
     Out.println(""); // $NON-NLS-1$
     Out.println("Usage: jflex <options> <input-files>");
@@ -363,8 +357,6 @@ public class Main {
     Out.println("--jlex            strict JLex compatibility");
     Out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");
     Out.println("                  [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
-    Out.println("--inputstreamctor    include a scanner constructor taking InputStream (default)");
-    Out.println("--noinputstreamctor  don't include a scanner constructor taking InputStream");
     Out.println("--nomin           skip minimization step");
     Out.println("--nobak           don't create backup files");
     Out.println("--dump            display transition tables");
@@ -384,6 +376,12 @@ public class Main {
     Out.println("Have a nice day!");
   }
 
+  /**
+   * generate.
+   *
+   * @param argv an array of {@link java.lang.String} objects.
+   * @throws jflex.SilentExit if any.
+   */
   public static void generate(String argv[]) throws SilentExit {
     List<File> files = parseOptions(argv);
 

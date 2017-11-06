@@ -51,13 +51,12 @@
   </developers>
 
   <modules>
-    <module>cup_runtime</module>
+    <module>cup</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
   </modules>
-
   <mailingLists>
     <mailingList>
       <name>JFlex User List</name>
@@ -147,11 +146,6 @@
         <groupId>org.apache.maven.plugin-tools</groupId>
         <artifactId>maven-plugin-annotations</artifactId>
         <version>3.4</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.maven.plugin-testing</groupId>
-        <artifactId>maven-plugin-testing-harness</artifactId>
-        <version>2.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -335,18 +329,10 @@
     </plugins>
   </reporting>
 
-  <!--<distributionManagement>-->
-    <!--<site>-->
-      <!--<id>localhost</id>-->
-      <!--<name>Local site</name>-->
-      <!--<url>file:///tmp/jflex/maven-site/</url>-->
-    <!--</site>-->
-  <!--</distributionManagement>-->
-
   <profiles>
     <profile>
-      <!-- Profile for Java 8: Enable error-prone, Disable Doclint -->
-      <id>java8</id>
+      <!-- Profile for Java 8: Enable error-prone. -->
+      <id>error-prone</id>
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
@@ -461,16 +447,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>release</id>
-      <distributionManagement>
-        <site>
-          <id>sourceforge</id>
-          <name>JFlex site</name>
-          <url>scp://shell.sourceforge.net/home/project-web/jflex/htdocs/maven-site</url>
-        </site>
-      </distributionManagement>
     </profile>
   </profiles>
 </project>

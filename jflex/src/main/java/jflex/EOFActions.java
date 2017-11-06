@@ -27,10 +27,21 @@ public class EOFActions {
   private Action defaultAction;
   private int numLexStates;
 
+  /**
+   * Sets the number of lexical states.
+   *
+   * @param num number of states.
+   */
   public void setNumLexStates(int num) {
     numLexStates = num;
   }
 
+  /**
+   * Add.
+   *
+   * @param stateList a {@link java.util.List} object.
+   * @param action a {@link jflex.Action} object.
+   */
   public void add(List<Integer> stateList, Action action) {
 
     if (stateList != null && stateList.size() > 0) {
@@ -47,6 +58,12 @@ public class EOFActions {
     }
   }
 
+  /**
+   * Add.
+   *
+   * @param state a {@link java.lang.Integer} object.
+   * @param action a {@link jflex.Action} object.
+   */
   public void add(Integer state, Action action) {
     if (actions.get(state) == null) actions.put(state, action);
     else {
@@ -55,7 +72,7 @@ public class EOFActions {
     }
   }
 
-  public boolean isEOFAction(Object a) {
+  boolean isEOFAction(Object a) {
     if (a == defaultAction) return true;
 
     for (Action action : actions.values()) if (a == action) return true;
@@ -63,14 +80,30 @@ public class EOFActions {
     return false;
   }
 
+  /**
+   * getAction.
+   *
+   * @param state a int.
+   * @return a {@link jflex.Action} object.
+   */
   public Action getAction(int state) {
     return actions.get(state);
   }
 
+  /**
+   * Returns the default action.
+   *
+   * @return a default {@link jflex.Action}.
+   */
   public Action getDefault() {
     return defaultAction;
   }
 
+  /**
+   * Returns thenumber of {@link jflex.Action}s.
+   *
+   * @return number of actions.
+   */
   public int numActions() {
     return actions.size();
   }

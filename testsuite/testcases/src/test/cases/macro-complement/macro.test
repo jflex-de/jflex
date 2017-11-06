@@ -14,7 +14,7 @@ r = !{s}
 will be accepted, but a NullPointerException is thrown 
 when the dfa is constructed as `s' is not defined. 
 
-jflex: -q --noinputstreamctor
+jflex: -q
 
 jflex-fail: true
 

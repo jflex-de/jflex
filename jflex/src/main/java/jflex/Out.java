@@ -135,6 +135,8 @@ public final class Out {
    *
    * <p>Use like this <code>if (Out.DEBUG) Out.debug(message)</code> to save performance during
    * normal operation (when DEBUG is turned off).
+   *
+   * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
     if (Options.DEBUG) System.out.println(message);
@@ -145,6 +147,7 @@ public final class Out {
    * output.
    *
    * @message the message to be printed
+   * @param message a {@link java.lang.String} object.
    */
   public static void dump(String message) {
     if (Options.dump) out.println(message);
@@ -395,7 +398,11 @@ public final class Out {
     err("JFlex version:    " + Main.version);
   }
 
-  /** Request a bug report for an unexpected Exception/Error. */
+  /**
+   * Request a bug report for an unexpected Exception/Error.
+   *
+   * @param e a {@link java.lang.Error} object.
+   */
   public static void requestBugReport(Error e) {
     err("An unexpected error occurred. Please send a report of this to");
     err("<bugs@jflex.de> and include the following information:");

@@ -41,10 +41,9 @@ public class RegExp1 extends RegExp {
   }
 
   /**
-   * Returns a String-representation of this regular expression with the specified indentation.
+   * {@inheritDoc}
    *
-   * @param tab a String that should contain only space characters and that is inserted in front of
-   *     standard String-representation pf this object.
+   * <p>Returns a String-representation of this regular expression with the specified indentation.
    */
   public String print(String tab) {
     if (content instanceof RegExp) {
@@ -60,7 +59,11 @@ public class RegExp1 extends RegExp {
       return tab + "type = " + type + Out.NL + tab + "content :" + Out.NL + tab + "  " + content;
   }
 
-  /** Returns a String-representation of this regular expression */
+  /**
+   * Returns a String-representation of this regular expression
+   *
+   * @return a {@link java.lang.String} object.
+   */
   public String toString() {
     return print("");
   }
