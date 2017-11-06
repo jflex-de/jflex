@@ -6,11 +6,11 @@ set -e
 if [[ ! $TRAVIS ]]; then
   # clean existing artefacts
   # note that mvn could fail if POM are incorrects
+  echo "[INFO] Clean target directories"
   find . -name target -type d -delete
 
   echo "[INFO] Applying steps executed by Travis"
   echo "[INFO] See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
-  sleep 2
 
   # Travis installs dependencies
   #mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
