@@ -14,7 +14,18 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 
 /** @author Régis Décamps (decamps@users.sf.net) */
 public class JFlexMojoTest extends AbstractMojoTestCase {
+  /** @see org.apache.maven.plugin.testing.AbstractMojoTestCase#setUp() */
+  @Override
+  protected void setUp() throws Exception {
+    // required for mojo lookups to work
+    super.setUp();
+  }
 
+  /** @see org.codehaus.plexus.PlexusTestCase#tearDown() */
+  @Override
+  protected void tearDown() throws Exception {
+    super.tearDown();
+  }
   /**
    * Configures an instance of the jflex mojo for the specified test case.
    *

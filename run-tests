@@ -2,7 +2,7 @@
 
 # fail on error
 set -e
-MVN=${PWD}/mvnw
+MVN="${PWD}/mvnw"
 
 if [[ ! $TRAVIS ]]; then
   # clean existing artefacts
@@ -14,27 +14,24 @@ if [[ ! $TRAVIS ]]; then
   sleep 2
 
   # Travis installs dependencies
-  $MVN install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-  # build and tests main projects
-  $MVN test -B
+  "$MVN" install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 fi
 
 # Install jflex in local repo
 # implies: validate, compile, test, package, verify
-$MVN install
+"$MVN" install
 
 # regression test suite must run in its own directory
-cd testsuite/testcases && ../.$MVN test
+cd testsuite/testcases && "$MVN" test
 cd ../..
 
 ## run jflex examples
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
 cd jflex/examples
-cd simple-maven && $MVN test
+cd simple-maven && "$MVN" test
 cd ..
-cd standalone-maven && $MVN test
+cd standalone-maven && "$MVN" test
 cd ..
 # don't assume byacc/j is installed, just run lexer
 cd byaccj && make clean && make Yylex.java
