@@ -1,0 +1,132 @@
+package de.jflex.plugin.cup;
+
+import com.google.common.base.Optional;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java_cup.Main;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+
+/** Creates a Java parser from CUP definition, using CUP. */
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
+public class GenerateMojo extends AbstractMojo {
+
+  /** Constant {@code src/main/cup}. */
+  public static final String DEFAULT_SRC_DIRECTORY = "src/main/cup";
+
+  /** In a CUP definition, the Java package is introduce by the {@code package} keyword. */
+  public static final String PACKAGE_DEFINITION = "package";
+
+  public static final String DEFAULT_JAVA_PACKAGE = "";
+  /** Constant {@code .java}. */
+  public static final String JAVA_FILE_EXT = ".java";
+
+  /** Name of the directory into which JFlex should generate the parser. */
+  // @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
+  File generatedSourcesDirectory;
+
+  private final Logger log;
+
+  /** Whether to force generation of parser and symbols. */
+  private boolean force;
+
+  public GenerateMojo() {
+    log = new Logger(getLog());
+  }
+
+  @Override
+  public void execute() throws MojoExecutionException, MojoFailureException {
+    File[] srcs = getSources();
+    for (File f : srcs) {
+      try {
+        generateParser(f);
+      } catch (IOException e) {
+        throw new MojoExecutionException("Could not generate parser for " + f.getPath(), e);
+      }
+    }
+  }
+
+  /** @param cupFile CUP definition file */
+  private void generateParser(File cupFile) throws IOException, MojoExecutionException {
+    String javaPackage = javaPackage = findJavaPackage(cupFile);
+    String packageFilename = javaPackage.replace('.', File.separatorChar);
+
+    File outputDirectory = new File(generatedSourcesDirectory, packageFilename);
+    File parserFile = new File(outputDirectory, "Parser" + JAVA_FILE_EXT);
+    File symFile = new File(outputDirectory, "Symbols" + JAVA_FILE_EXT);
+
+    generateParser(javaPackage, cupFile, parserFile, symFile);
+  }
+
+  private void generateParser(String javaPackage, File cupFile, File parserFile, File symFile)
+      throws MojoExecutionException {
+    if (!force && parserFile.lastModified() <= cupFile.lastModified()) {
+      log.d("Parser file %s is not actual", parserFile);
+      force = true;
+    }
+    if (!force && symFile.lastModified() <= cupFile.lastModified()) {
+      log.d("Symbol file %s is not actual", symFile);
+      force = true;
+    }
+    // Seriously? cup doesn't have a better API than calling main like on cli!
+    String[] args = {
+      "-package",
+      javaPackage,
+      "-parser",
+      parserFile.getAbsolutePath(),
+      "-symbols",
+      parserFile.getAbsolutePath(),
+      // inputFile
+      cupFile.getAbsolutePath()
+    };
+    try {
+      Main.main(args);
+    } catch (Exception e) {
+      throw new MojoExecutionException(
+          "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);
+    }
+  }
+
+  private String findJavaPackage(File cupFile) throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(cupFile));
+    while (br.ready()) {
+      String line = br.readLine();
+      Optional<String> optJavaPackage = optionalJavaPackage(line);
+      if (optJavaPackage.isPresent()) {
+        return optJavaPackage.get();
+      }
+    }
+    return DEFAULT_JAVA_PACKAGE;
+  }
+
+  Optional<String> optionalJavaPackage(String line) {
+    if (line.startsWith(PACKAGE_DEFINITION)) {
+      int endOfLine = line.indexOf(";");
+      if (endOfLine > -1) {
+        String javaPackage = line.substring(PACKAGE_DEFINITION.length(), endOfLine);
+        javaPackage = javaPackage.trim();
+        return Optional.of(javaPackage);
+      }
+    }
+    return Optional.absent();
+  }
+
+  /**
+   * Returns the cup source files.
+   *
+   * @return the files in the {@link #DEFAULT_SRC_DIRECTORY} directory.
+   */
+  private File[] getSources() throws MojoFailureException {
+    File defaultDir = new File(DEFAULT_SRC_DIRECTORY);
+    if (!defaultDir.isDirectory()) {
+      throw new MojoFailureException(
+          "Expected " + defaultDir.getAbsolutePath() + " to be a directory");
+    }
+    return defaultDir.listFiles();
+  }
+}
