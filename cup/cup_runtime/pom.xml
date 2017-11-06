@@ -18,4 +18,28 @@
     A copy of the Java CUP runtime.
     CUP is a LALR parser generator for Java
   </description>
+  <profiles>
+    <profile>
+      <id>disable-format-java</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+        <property>
+          <name>!env.CI</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
