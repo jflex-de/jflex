@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
@@ -37,8 +39,8 @@
       </roles>
       <timezone>-5</timezone>
     </developer>
-     <developer>
-      <id>decamps</id>
+    <developer>
+      <id>regisd</id>
       <name>Régis Décamps</name>
       <email>decamps@users.sf.net</email>
       <roles>
@@ -154,7 +156,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-    
+
   <build>
     <pluginManagement>
       <plugins>
@@ -165,9 +167,9 @@
           <version>1.6.1</version>
         </plugin>
         <plugin>
-          <groupId>com.coveo</groupId>
-          <artifactId>fmt-maven-plugin</artifactId>
-          <version>2.1.0</version>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>2.5</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -243,9 +245,9 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
           <version>1.6</version>
-		  <configuration>
-			  <keyname>84A70085</keyname>
-		  </configuration>
+          <configuration>
+            <keyname>84A70085</keyname>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -277,8 +279,7 @@
 
   <profiles>
     <profile>
-      <!-- Profile for Java 8: Enable error-prone. -->
-      <id>java8</id>
+      <id>error-prone</id>
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
@@ -327,7 +328,7 @@
     <profile>
       <id>format-java</id>
       <activation>
-        <jdk>1.8</jdk>
+        <jdk>[1.8,)</jdk>
         <property>
           <name>!env.CI</name>
         </property>

@@ -6,12 +6,6 @@
   <artifactId>cup_runtime</artifactId>
   <version>${cup.version}</version>
   <packaging>jar</packaging>
-  <parent>
-    <groupId>de.jflex</groupId>
-    <artifactId>jflex-parent</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
-    <relativePath>../pom.xml</relativePath>
-  </parent>
   <name>CUP runtime</name>
   <url>http://www2.cs.tum.edu/projects/cup/</url>
   <inceptionYear>1998</inceptionYear>
@@ -40,7 +34,7 @@
     <profile>
       <id>no-doclint</id>
       <activation>
-        <jdk>1.8</jdk>
+        <jdk>[1.8,)</jdk>
       </activation>
       <build>
         <pluginManagement>
