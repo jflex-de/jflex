@@ -60,6 +60,7 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
+    <module>cup-maven-plugin</module>
   </modules>
   <mailingLists>
     <mailingList>
