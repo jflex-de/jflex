@@ -15,7 +15,7 @@ They are fast, without expensive backtracking.
 
 ## Usage
 
-For documentation and more information see the [JFlex web site][jflex]
+For documentation and more information see the [JFlex documentation][jflex-doc]
 and the [wiki][wiki].
 
 ### Usage with Maven
@@ -47,9 +47,32 @@ and the [wiki][wiki].
 
 Sample project: [simple-maven][example-simple-maven]
 
+### Usage with ant
+
+1. Define ant task
+```xml
+<taskdef classname="jflex.anttask.JFlexTask" name="jflex"
+         classpath="path-to-jflex.jar"/>
+```
+2. Use it
+```xml
+<jflex file="src/grammar/parser.flex" destdir="build/generated/"/>
+<javac srcdir="build/generated/" destdir="build/classes/"/>
+```
+
+### Usage in CLI
+
+You can also use JFlex directly from the command line:
+```
+java -jar jflex-1.6.1.jar -d output src/grammar/parser.flex
+```
+
 ## Contributing
 
-This is the JFlex git repository. The top level directory contains:
+JFlex is free software, contributions are welcome.
+See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
+
+The top level directory of the JFLex git repository contains:
 
  * **cup** A copy of the CUP runtime
  * **docs** the Markdown sources for the user manual
@@ -58,12 +81,8 @@ This is the JFlex git repository. The top level directory contains:
  * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
  * **testsuite** the regression test suite for JFlex,
 
-## Open source
-
-JFlex is free software, contributions are welcome.
-See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
-
 [jflex]: http://jflex.de/
+[jflex-doc]: http://jflex.de/manual.html
 [wiki]: https://github.com/jflex-de/jflex/wiki
 [pom-build]: https://maven.apache.org/pom.html#Build_Settings
 [example-simple-maven]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven
