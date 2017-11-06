@@ -1,7 +1,8 @@
 JAVA=java
 JAVAC=javac
 # Root of the project
-ROOT=../../..
+# regis Wrong on purpose, I want to see Travis fail
+ROOT=../..
 JFLEX=$(ROOT)/jflex/bin/jflex
 CUPJAR=$(ROOT)/cup/cup/java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR) <
