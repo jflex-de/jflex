@@ -12,9 +12,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>CUP runtime</name>
-  <url>http://www2.cs.tum.edu/projects/cup/</url>
   <inceptionYear>1998</inceptionYear>
   <description>
     A copy of the Java CUP runtime.
+    CUP is a LALR parser generator for Java
   </description>
 </project>
