@@ -17,7 +17,7 @@
     a Lexer specification, using JFlex.
   </description>
   <prerequisites>
-    <maven>${maven.version}</maven>
+    <maven>3.0</maven>
   </prerequisites>
   <inceptionYear>2007</inceptionYear>
   <developers>
