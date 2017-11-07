@@ -24,13 +24,12 @@ import java.util.regex.Pattern;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
-/**
- * Generates source code for JFlex Unicode character property handling.
- *
- * @goal generate-unicode-properties
- * @phase generate-sources
- */
+/** Generates source code for JFlex Unicode character property handling. */
+@Mojo(name = "generate-unicode-properties", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class JFlexUnicodeMojo extends AbstractMojo {
 
   /** Top-level directory URL from which to download Unicode data */
@@ -45,11 +44,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   /** Buffer size to use when reading web page content */
   private static final int BUF_SIZE = 4096;
 
-  /**
-   * Name of the directory into which the code will be generated.
-   *
-   * @parameter expression="${basedir}/src/main/java/jflex/unicode"
-   */
+  /** Name of the directory into which the code will be generated. */
+  @Parameter(defaultValue = "${basedir}/src/main/java/jflex/unicode")
   private File outputDirectory = null;
 
   /** Maps validated major.minor unicode versions to information about the version. */
