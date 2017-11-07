@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>jflex</artifactId>
   <parent>
@@ -44,7 +44,7 @@
       <timezone>-5</timezone>
     </developer>
     <developer>
-      <id>decamps</id>
+      <id>regisd</id>
       <name>Régis Décamps</name>
       <email>decamps@users.sf.net</email>
       <roles>
@@ -53,28 +53,6 @@
       <timezone>+1</timezone>
     </developer>
   </developers>
-  <mailingLists>
-    <mailingList>
-      <name>announcements (to be notified of new releases - low traffic)</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-announce</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-announce</archive>
-    </mailingList>
-    <mailingList>
-      <name>users (general discussion)</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-users</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-users</archive>
-      <post>jflex-users@lists.sourceforge.net</post>
-    </mailingList>
-    <mailingList>
-      <name>devel (for JFlex developepment team members)</name>
-      <subscribe>https://lists.sourceforge.net/lists/listinfo/jflex-devel</subscribe>
-      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jflex-devel</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=jflex-devel</archive>
-      <post>jflex-devel@lists.sourceforge.net</post>
-    </mailingList>
-  </mailingLists>
   <dependencies>
     <dependency>
       <groupId>de.jflex</groupId>
@@ -107,6 +85,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
+        <!-- bootstrap with previous version -->
         <version>1.6.1</version>
         <executions>
           <execution>
@@ -138,7 +117,7 @@
                 <echo message="Generating LexParse.java from ${cup.file}"/>
                 <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${plugin_classpath}"/>
                 <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true"
-                    locations="false" parser="LexParse"/>
+                  locations="false" parser="LexParse"/>
               </target>
             </configuration>
           </execution>
@@ -151,7 +130,7 @@
             <configuration>
               <target name="copy">
                 <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
-                    todir="lib"/>
+                  todir="lib"/>
               </target>
             </configuration>
           </execution>
@@ -203,15 +182,6 @@
               </includes>
             </fileset>
           </filesets>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.6</version>
-        <configuration>
-          <skip>false</skip>
-          <skipDeploy>false</skipDeploy>
         </configuration>
       </plugin>
       <plugin>
@@ -277,90 +247,7 @@
       </plugins>
     </pluginManagement>
   </build>
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.9</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>index</report>
-              <report>dependencies</report>
-              <report>project-team</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-              <report>summary</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
-        <configuration>
-          <targetJdk>${jflex.jdk.version}</targetJdk>
-          <rulesets>
-            <ruleset>${basedir}/src/main/config/pmd/ruleset.xml</ruleset>
-          </rulesets>
-          <format>xml</format>
-          <linkXRef>true</linkXRef>
-          <minimumTokens>100</minimumTokens>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <tags>
-            <tag>TODO</tag>
-            <tag>FIXME</tag>
-            <tag>@todo</tag>
-            <tag>@deprecated</tag>
-          </tags>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.19.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.5</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.4</version>
-        <configuration>
-          <xmlOutput>true</xmlOutput>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
-          <outputDirectory>target/findbugs</outputDirectory>
-          <visitors>FindDeadLocalStores,UnreadFields</visitors>
-          <onlyAnalyze>de.jflex.*</onlyAnalyze>
-          <debug>true</debug>
-          <relaxed>true</relaxed>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0</version>
-      </plugin>
-    </plugins>
-  </reporting>
+
   <profiles>
     <profile>
       <id>generate-unicode-properties</id>
@@ -369,7 +256,7 @@
           <plugin>
             <groupId>de.jflex</groupId>
             <artifactId>jflex-unicode-maven-plugin</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
             <executions>
               <execution>
                 <id>generate</id>
