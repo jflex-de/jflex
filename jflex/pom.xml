@@ -256,7 +256,7 @@
           <plugin>
             <groupId>de.jflex</groupId>
             <artifactId>jflex-unicode-maven-plugin</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
             <executions>
               <execution>
                 <id>generate</id>
