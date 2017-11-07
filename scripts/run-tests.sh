@@ -1,23 +1,16 @@
 #!/bin/bash
 
+# Multi-platform hack for:
+#SCRIPT_PATH=$(dirname "$(readlink -f $0)")
+CWD=$PWD
+SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd -P)"
+cd $CWD
+
+# Provides the logi function
+source $SCRIPT_PATH/logger.sh
+
 # fail on error
 set -e
-
-RED='\033[0;31m'
-BLUE='\033[1;34m'
-NC='\033[0m' # No Color
-if [[ $(which tput) && "$(tput colors)" -ge 8 ]]; then
-  COLOR_CAPABILITY=true;
-fi
-
-# Log at info level (blue)
-function logi {
-  if [[ $COLOR_CAPABILITY ]]; then
-    printf "${BLUE}${*}${NC}\n"
-  else
-    echo $*
-  fi
-}
 
 logi "Powered by Maven wrapper"
 ./mvnw --version
