@@ -44,6 +44,8 @@ cd java && make clean && make
 cd ..
 cd zero-reader && make clean && make
 cd ..
+# leave jflex/examples
+cd ../..
 
 # also check ant build
 cd jflex
