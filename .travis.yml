@@ -4,5 +4,5 @@ jdk:
   - openjdk7
   - openjdk8
 
-script: ./run-tests
+script: ./scripts/run-tests.sh
 
