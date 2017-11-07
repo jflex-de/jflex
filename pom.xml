@@ -264,6 +264,11 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.20.1</version>
         </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.5</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
@@ -322,7 +327,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.5</version>
         <configuration>
           <xmlOutput>true</xmlOutput>
           <threshold>Normal</threshold>
@@ -336,6 +340,13 @@
       </plugin>
     </plugins>
   </reporting>
+
+  <distributionManagement>
+    <site>
+      <id>local</id>
+      <url>file:///tmp/maven-site</url>
+    </site>
+  </distributionManagement>
 
   <profiles>
     <profile>

@@ -46,5 +46,6 @@ cd zero-reader && make clean && make
 cd ..
 
 # also check ant build
-cd jflex && ant gettools build test
+cd jflex
+ant gettools build test
 cd ..

@@ -62,6 +62,13 @@
     </plugins>
   </build>
 
+  <distributionManagement>
+    <site>
+      <id>local</id>
+      <url>file:///tmp/maven-site</url>
+    </site>
+  </distributionManagement>
+
   <profiles>
     <profile>
       <id>no-doclint</id>

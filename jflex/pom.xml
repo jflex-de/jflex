@@ -247,6 +247,7 @@
       </plugins>
     </pluginManagement>
   </build>
+
   <profiles>
     <profile>
       <id>generate-unicode-properties</id>
