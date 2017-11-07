@@ -37,8 +37,13 @@ fi
 
 logi "Compile and install all"
 # Install jflex in local repo
-# implies: validate, compile, test, package, verify
-"$MVN" install
+# implies: validate, compile, test, package, verify, install
+if [[ $TRAVIS ]]; then
+  # Quiet mode shows errors only.
+  "$MVN" install --quiet
+else
+  "$MVN" install
+fi
 
 logi "Run regression test cases"
 # regression test suite must run in its own directory
