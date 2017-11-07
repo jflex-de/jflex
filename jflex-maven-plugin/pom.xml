@@ -16,9 +16,6 @@
     This is a Maven 3 plugin to generate Lexer code in Java from
     a Lexer specification, using JFlex.
   </description>
-  <prerequisites>
-    <maven>3.0</maven>
-  </prerequisites>
   <inceptionYear>2007</inceptionYear>
   <developers>
     <developer>

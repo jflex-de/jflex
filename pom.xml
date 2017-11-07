@@ -78,10 +78,6 @@
     </mailingList>
   </mailingLists>
 
-  <prerequisites>
-    <maven>${maven.version}</maven>
-  </prerequisites>
-
   <properties>
     <cup.version>11b</cup.version>
     <jflex.jdk.version>1.7</jflex.jdk.version>
@@ -181,6 +177,19 @@
                   <requireJavaVersion>
                     <version>[${jflex.jdk.version},)</version>
                   </requireJavaVersion>
+                </rules>
+              </configuration>
+            </execution>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireMavenVersion>
+                    <version>${maven.version}</version>
+                  </requireMavenVersion>
                 </rules>
               </configuration>
             </execution>
