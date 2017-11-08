@@ -3,6 +3,7 @@ package de.jflex.plugin.cup;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import java.io.File;
 import org.junit.Test;
 
 /** Test for {@link CliCupInvoker}. */
@@ -13,8 +14,15 @@ public class CliCupInvokerTest {
     assertThat(
             ImmutableList.copyOf(
                 CliCupInvoker.buildArgv(
-                    "foo.bar", "Parser", "Symbols", /* interface */ true, "/a/b/c/def.cup")))
+                    new File("/outputDirectory"),
+                    "foo.bar",
+                    "Parser",
+                    "Symbols", /* interface */
+                    true,
+                    "/a/b/c/def.cup")))
         .containsExactly(
+            "-destdir",
+            "/outputDirectory",
             "-package",
             "foo.bar",
             "-parser",

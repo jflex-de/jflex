@@ -92,7 +92,12 @@ public class GenerateMojo extends AbstractMojo {
       log.d("Generate CUP parser for " + cupFile.getAbsolutePath());
       log.d("CUP output directory: " + generatedSourcesDirectory);
       cupInvoker.invoke(
-          javaPackage, parserName, symbolsName, symbolInterface, cupFile.getAbsolutePath());
+          generatedSourcesDirectory,
+          javaPackage,
+          parserName,
+          symbolsName,
+          symbolInterface,
+          cupFile.getAbsolutePath());
     } catch (Exception e) {
       throw new MojoExecutionException(
           "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);
@@ -103,11 +108,11 @@ public class GenerateMojo extends AbstractMojo {
     File parserFile = JavaUtils.file(generatedSourcesDirectory, javaPackage, parserName);
     File symFile = JavaUtils.file(generatedSourcesDirectory, javaPackage, symbolsName);
     if (parserFile.lastModified() <= cupFile.lastModified()) {
-      log.d("Parser file %s is not actual", parserFile);
+      log.d("Parser file for %s is not actual: %s", cupFile.getName(), parserFile);
       return true;
     }
     if (symFile.lastModified() <= cupFile.lastModified()) {
-      log.d("Symbol file %s is not actual", symFile);
+      log.d("Symbol file for %s is not actual: %s", symFile.getName(), symFile);
       return true;
     }
     return false;

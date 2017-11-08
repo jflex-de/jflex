@@ -17,6 +17,9 @@ import org.mockito.junit.MockitoRule;
 /** Tests for {@link GenerateMojo}. */
 public class GenerateMojoTest {
 
+  private static final String TEST_TARGET_GENERATED_CUP_DIRECTORY =
+      "/tmp/target/generated-sources/cup";
+
   private GenerateMojo mojo;
 
   @Mock CliCupInvoker mockCupInvoker;
@@ -28,6 +31,7 @@ public class GenerateMojoTest {
   public void setUp() {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
     // MojoRule is supposed to set default values; but doesn't work.
+    mojo.generatedSourcesDirectory = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY);
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
     mojo.symbolsName = GenerateMojo.DEFAULT_SYMBOLS_NAME;
   }
@@ -58,8 +62,18 @@ public class GenerateMojoTest {
 
     mojo.generateParser(file);
     verify(mockCupInvoker)
-        .invoke(eq("foo.bar"), eq("parser"), eq("sym"), eq(false), endsWith("test.cup"));
-    verify(mockLogger).debug("Parser file foo/bar/parser.java is not actual");
+        .invoke(
+            eq(new File(TEST_TARGET_GENERATED_CUP_DIRECTORY)),
+            eq("foo.bar"),
+            eq("parser"),
+            eq("sym"),
+            eq(false),
+            endsWith("test.cup"));
+    verify(mockLogger)
+        .debug(
+            "Parser file for test.cup is not actual: "
+                + TEST_TARGET_GENERATED_CUP_DIRECTORY
+                + "/foo/bar/parser.java");
   }
 
   /** Test the correct invocation of the CUP command-line interface. */
@@ -71,7 +85,17 @@ public class GenerateMojoTest {
 
     mojo.generateParser(file);
     verify(mockCupInvoker)
-        .invoke(eq("foo.bar"), eq("parser"), eq("sym"), eq(true), endsWith("test.cup"));
-    verify(mockLogger).debug("Parser file foo/bar/parser.java is not actual");
+        .invoke(
+            eq(new File(TEST_TARGET_GENERATED_CUP_DIRECTORY)),
+            eq("foo.bar"),
+            eq("parser"),
+            eq("sym"),
+            eq(true),
+            endsWith("test.cup"));
+    verify(mockLogger)
+        .debug(
+            "Parser file for test.cup is not actual: "
+                + TEST_TARGET_GENERATED_CUP_DIRECTORY
+                + "/foo/bar/parser.java");
   }
 }
