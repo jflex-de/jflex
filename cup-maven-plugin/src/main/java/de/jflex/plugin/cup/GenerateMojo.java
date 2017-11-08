@@ -13,6 +13,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 /** Creates a Java parser from CUP definition, using CUP. */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
@@ -26,7 +27,7 @@ public class GenerateMojo extends AbstractMojo {
 
   private static final String DEFAULT_JAVA_PACKAGE = "";
 
-  // Seriously – by default generates lower case class names.
+  // Seriously – by default CUP generates lower case class names.
   static final String DEFAULT_PARSER_NAME = "parser";
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 
@@ -47,6 +48,9 @@ public class GenerateMojo extends AbstractMojo {
 
   @Parameter(defaultValue = DEFAULT_PARSER_NAME)
   String parserName;
+
+  @Parameter(property = "project", required = true, readonly = true)
+  private MavenProject project;
 
   private CliCupInvoker cupInvoker;
   private final Logger log;
@@ -154,11 +158,27 @@ public class GenerateMojo extends AbstractMojo {
    * @return the files in the {@link #DEFAULT_SRC_DIRECTORY} directory.
    */
   private File[] getSources() throws MojoFailureException {
-    File defaultDir = new File(DEFAULT_SRC_DIRECTORY);
+    File defaultDir = getAbsolutePath(new File(DEFAULT_SRC_DIRECTORY));
     if (!defaultDir.isDirectory()) {
       throw new MojoFailureException(
           "Expected " + defaultDir.getAbsolutePath() + " to be a directory");
     }
     return defaultDir.listFiles();
+  }
+
+  /**
+   * Converts the specified path argument into an absolute path. If the path is relative like
+   * "src/main/jflex", it is resolved against the base directory of the project (in constrast,
+   * File.getAbsoluteFile() would resolve against the current directory which may be different,
+   * especially during a reactor build).
+   *
+   * @param path The path argument to convert, may be {@code null}.
+   * @return The absolute path corresponding to the input argument.
+   */
+  private File getAbsolutePath(File path) {
+    if (path == null || path.isAbsolute()) {
+      return path;
+    }
+    return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
   }
 }
