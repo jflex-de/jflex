@@ -25,10 +25,10 @@ public class GenerateMojo extends AbstractMojo {
   private static final String PACKAGE_DEFINITION = "package";
 
   private static final String DEFAULT_JAVA_PACKAGE = "";
-  /** Constant {@code .java}. */
-  private static final String JAVA_FILE_EXT = ".java";
 
-  static final String DEFAULT_PARSER_NAME = "Parser";
+  // Seriously – by default generates lower case class names.
+  static final String DEFAULT_PARSER_NAME = "parser";
+  static final String DEFAULT_SYMBOLS_NAME = "sym";
 
   /** Name of the directory into which JFlex should generate the parser. */
   @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
@@ -42,6 +42,9 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter(defaultValue = "false")
   boolean symbolInterface;
 
+  @Parameter(defaultValue = DEFAULT_SYMBOLS_NAME)
+  String symbolsName;
+
   @Parameter(defaultValue = DEFAULT_PARSER_NAME)
   String parserName;
 
@@ -49,7 +52,7 @@ public class GenerateMojo extends AbstractMojo {
   private final Logger log;
 
   /** Whether to force generation of parser and symbols. */
-  private boolean force;
+  // private boolean force;
 
   @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
@@ -79,41 +82,33 @@ public class GenerateMojo extends AbstractMojo {
   @VisibleForTesting
   void generateParser(File cupFile) throws IOException, MojoExecutionException {
     String javaPackage = findJavaPackage(cupFile);
-    String packageFilename = javaPackage.replace('.', File.separatorChar);
 
-    File outputDirectory = new File(generatedSourcesDirectory, packageFilename);
-    File parserFile = new File(outputDirectory, parserName + JAVA_FILE_EXT);
-    File symFile = new File(outputDirectory, "sym" + JAVA_FILE_EXT);
-
-    generateParser(javaPackage, cupFile, parserName, parserFile, symFile, symbolInterface);
-  }
-
-  private void generateParser(
-      String javaPackage,
-      File cupFile,
-      String parserName,
-      File parserFile,
-      File symFile,
-      boolean symbolInterface)
-      throws MojoExecutionException {
-    if (!force && parserFile.lastModified() <= cupFile.lastModified()) {
-      log.d("Parser file %s is not actual", parserFile);
-      force = true;
-    }
-    if (!force && symFile.lastModified() <= cupFile.lastModified()) {
-      log.d("Symbol file %s is not actual", symFile);
-      force = true;
+    boolean skipGeneration = !isGeneratedCodeOutdated(cupFile, javaPackage);
+    if (skipGeneration) {
+      // do nothing.
+      log.d("Generated code for " + cupFile + " is up to date. Do nothing");
+      return;
     }
     try {
-      cupInvoker.invoke(
-          javaPackage,
-          parserFile.getAbsolutePath(),
-          symFile.getAbsolutePath(),
-          cupFile.getAbsolutePath());
+      cupInvoker.invoke(javaPackage, parserName, symbolsName, symbolInterface, cupFile.getName());
     } catch (Exception e) {
       throw new MojoExecutionException(
           "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);
     }
+  }
+
+  private boolean isGeneratedCodeOutdated(File cupFile, String javaPackage) {
+    File parserFile = JavaUtils.file(generatedSourcesDirectory, javaPackage, parserName);
+    File symFile = JavaUtils.file(generatedSourcesDirectory, javaPackage, symbolsName);
+    if (parserFile.lastModified() <= cupFile.lastModified()) {
+      log.d("Parser file %s is not actual", parserFile);
+      return true;
+    }
+    if (symFile.lastModified() <= cupFile.lastModified()) {
+      log.d("Symbol file %s is not actual", symFile);
+      return true;
+    }
+    return false;
   }
 
   private String findJavaPackage(File cupFile) throws IOException {

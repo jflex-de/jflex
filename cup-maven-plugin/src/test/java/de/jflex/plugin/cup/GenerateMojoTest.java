@@ -29,6 +29,7 @@ public class GenerateMojoTest {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
     // MojoRule is supposed to set default values; but doesn't work.
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
+    mojo.symbolsName = GenerateMojo.DEFAULT_SYMBOLS_NAME;
   }
 
   @Test
@@ -57,11 +58,7 @@ public class GenerateMojoTest {
 
     mojo.generateParser(file);
     verify(mockCupInvoker)
-        .invoke(
-            eq("foo.bar"),
-            endsWith("/foo/bar/Parser.java"),
-            endsWith("/foo/bar/sym.java"),
-            endsWith("test.cup"));
-    verify(mockLogger).debug("Parser file foo/bar/Parser.java is not actual");
+        .invoke(eq("foo.bar"), eq("parser"), eq("sym"), eq(false), endsWith("test.cup"));
+    verify(mockLogger).debug("Parser file foo/bar/parser.java is not actual");
   }
 }
