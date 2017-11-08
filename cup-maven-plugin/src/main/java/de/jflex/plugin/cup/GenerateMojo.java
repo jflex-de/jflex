@@ -91,6 +91,11 @@ public class GenerateMojo extends AbstractMojo {
     try {
       log.d("Generate CUP parser for " + cupFile.getAbsolutePath());
       log.d("CUP output directory: " + generatedSourcesDirectory);
+      if (!generatedSourcesDirectory.exists()) {
+        if (!generatedSourcesDirectory.mkdirs()) {
+          throw new IOException("Could not create " + generatedSourcesDirectory);
+        }
+      }
       cupInvoker.invoke(
           generatedSourcesDirectory,
           javaPackage,
