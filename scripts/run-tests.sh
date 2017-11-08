@@ -47,7 +47,7 @@ fi
 
 logi "Run regression test cases"
 # regression test suite must run in its own directory
-cd testsuite/testcases; ../."$MVN" test
+cd testsuite/testcases; "$MVN" test
 cd ../..
 
 logi "Run jflex examples"
