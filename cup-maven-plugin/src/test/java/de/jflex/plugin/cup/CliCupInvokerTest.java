@@ -21,10 +21,10 @@ public class CliCupInvokerTest {
                     true,
                     "/a/b/c/def.cup")))
         .containsExactly(
-            "-destdir",
-            "/outputDirectory",
             "-package",
             "foo.bar",
+            "-destdir",
+            "/outputDirectory",
             "-parser",
             "Parser",
             "-symbols",

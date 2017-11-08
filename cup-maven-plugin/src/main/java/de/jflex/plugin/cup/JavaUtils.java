@@ -25,7 +25,7 @@ public class JavaUtils {
   }
 
   /**
-   * Returns the path to assocatiated with a Java package.
+   * Returns the path to associated with a Java package.
    *
    * @param srcDirectory The root source directory, e.g. {@code /src}.
    * @param javaPackage The java package, e.g. {@code foo.bar}.

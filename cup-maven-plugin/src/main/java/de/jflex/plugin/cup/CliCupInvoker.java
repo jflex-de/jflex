@@ -3,7 +3,9 @@ package de.jflex.plugin.cup;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import java.io.File;
+import java.util.ArrayList;
 import java_cup.Main;
 import org.apache.maven.plugin.logging.Log;
 
@@ -15,6 +17,7 @@ class CliCupInvoker {
   CliCupInvoker(Log log) {
     this.log = log;
   };
+
   /**
    * Invokes CUP.
    *
@@ -58,18 +61,40 @@ class CliCupInvoker {
       String symClassName,
       boolean symbolInterface,
       String cupFileName) {
-    return new String[] {
-      "-package",
-      Preconditions.checkNotNull(javaPackage),
-      "-destdir",
-      Preconditions.checkNotNull(outputDirectory.getAbsolutePath()),
-      "-parser",
-      Preconditions.checkNotNull(parserClassName),
-      "-symbols",
-      Preconditions.checkNotNull(symClassName),
-      symbolInterface ? "-interface" : "",
-      // inputFile
-      cupFileName
-    };
+    // It's a builder but it's easier to read the IllegalArgumentException if each arg is added on
+    // its own line.
+    ArgBuilder args = new ArgBuilder();
+    args.addArgs("-package", javaPackage);
+    args.addArgs("-destdir", outputDirectory.getAbsolutePath());
+    args.addArgs("-parser", parserClassName);
+    args.addArgs("-symbols", symClassName);
+    if (symbolInterface) {
+      args.addArgs("-interface");
+    }
+    // inputFile
+    args.addArg(cupFileName);
+    return args.buildArray();
+  }
+
+  private static class ArgBuilder {
+
+    private final ArrayList<String> args = new ArrayList<>();
+
+    ArgBuilder addArgs(String... arguments) {
+      for (String arg : arguments) {
+        addArg(arg);
+      }
+      return this;
+    }
+
+    ArgBuilder addArg(String arg) {
+      Preconditions.checkArgument(!Strings.isNullOrEmpty(arg), "Argument cannot be empty");
+      args.add(arg);
+      return this;
+    }
+
+    public String[] buildArray() {
+      return args.toArray(new String[args.size()]);
+    }
   }
 }
