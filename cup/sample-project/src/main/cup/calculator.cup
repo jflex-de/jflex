@@ -1,4 +1,4 @@
-package de.jflex.testing.cup;
+package de.jflex.testing;
 
 /* Simple +/-/* expression language; parser evaluates constant expressions on the fly*/
 import java_cup.runtime.*;
