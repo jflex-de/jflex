@@ -1,42 +1,54 @@
 package de.jflex.plugin.cup;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java_cup.Main;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /** Creates a Java parser from CUP definition, using CUP. */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
 public class GenerateMojo extends AbstractMojo {
 
   /** Constant {@code src/main/cup}. */
-  public static final String DEFAULT_SRC_DIRECTORY = "src/main/cup";
+  private static final String DEFAULT_SRC_DIRECTORY = "src/main/cup";
 
   /** In a CUP definition, the Java package is introduce by the {@code package} keyword. */
-  public static final String PACKAGE_DEFINITION = "package";
+  private static final String PACKAGE_DEFINITION = "package";
 
-  public static final String DEFAULT_JAVA_PACKAGE = "";
+  private static final String DEFAULT_JAVA_PACKAGE = "";
   /** Constant {@code .java}. */
-  public static final String JAVA_FILE_EXT = ".java";
+  private static final String JAVA_FILE_EXT = ".java";
 
   /** Name of the directory into which JFlex should generate the parser. */
-  // @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
+  @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
+  @SuppressWarnings("WeakerAccess")
   File generatedSourcesDirectory;
 
+  private CupInvoker cupInvoker;
   private final Logger log;
 
   /** Whether to force generation of parser and symbols. */
   private boolean force;
 
+  @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
     log = new Logger(getLog());
+    this.cupInvoker = cupInvoker;
+  }
+
+  @VisibleForTesting
+  GenerateMojo(CupInvoker cupInvoker, Log logger) {
+    log = new Logger(logger);
+    this.cupInvoker = cupInvoker;
   }
 
   @Override
@@ -52,13 +64,14 @@ public class GenerateMojo extends AbstractMojo {
   }
 
   /** @param cupFile CUP definition file */
-  private void generateParser(File cupFile) throws IOException, MojoExecutionException {
-    String javaPackage = javaPackage = findJavaPackage(cupFile);
+  @VisibleForTesting
+  void generateParser(File cupFile) throws IOException, MojoExecutionException {
+    String javaPackage = findJavaPackage(cupFile);
     String packageFilename = javaPackage.replace('.', File.separatorChar);
 
     File outputDirectory = new File(generatedSourcesDirectory, packageFilename);
     File parserFile = new File(outputDirectory, "Parser" + JAVA_FILE_EXT);
-    File symFile = new File(outputDirectory, "Symbols" + JAVA_FILE_EXT);
+    File symFile = new File(outputDirectory, "sym" + JAVA_FILE_EXT);
 
     generateParser(javaPackage, cupFile, parserFile, symFile);
   }
@@ -73,19 +86,12 @@ public class GenerateMojo extends AbstractMojo {
       log.d("Symbol file %s is not actual", symFile);
       force = true;
     }
-    // Seriously? cup doesn't have a better API than calling main like on cli!
-    String[] args = {
-      "-package",
-      javaPackage,
-      "-parser",
-      parserFile.getAbsolutePath(),
-      "-symbols",
-      parserFile.getAbsolutePath(),
-      // inputFile
-      cupFile.getAbsolutePath()
-    };
     try {
-      Main.main(args);
+      cupInvoker.invoke(
+          javaPackage,
+          parserFile.getAbsolutePath(),
+          symFile.getAbsolutePath(),
+          cupFile.getAbsolutePath());
     } catch (Exception e) {
       throw new MojoExecutionException(
           "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);
@@ -104,6 +110,7 @@ public class GenerateMojo extends AbstractMojo {
     return DEFAULT_JAVA_PACKAGE;
   }
 
+  @VisibleForTesting
   Optional<String> optionalJavaPackage(String line) {
     if (line.startsWith(PACKAGE_DEFINITION)) {
       int endOfLine = line.indexOf(";");
