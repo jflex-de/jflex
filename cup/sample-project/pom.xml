@@ -18,6 +18,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <parserName>MyParser</parserName>
+          <symbolsName>MySymbols</symbolsName>
+        </configuration>
       </plugin>
     </plugins>
   </build>
