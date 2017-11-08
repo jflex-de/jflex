@@ -1,39 +1,36 @@
+// This example comes from the CUP manual.
 package de.jflex.testing;
 
-/* Simple +/-/* expression language; parser evaluates constant expressions on the fly*/
 import java_cup.runtime.*;
 
-parser code {:
-    scanner s;
-    Parser(scanner s){
-	    this.s=s;
-    }
-:}
-
-init with {: s.init(); :};
-scan with {: return s.next_token(); :};
+/* Preliminaries to set up and use the scanner.  */
+init with {: scanner.init();              :};
+scan with {: return scanner.next_token(); :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal            SEMI, PLUS, MINUS, TIMES, UMINUS, LPAREN, RPAREN;
-terminal Integer    NUMBER;        // our scanner provides numbers as integers
+terminal            SEMI, PLUS, MINUS, TIMES, DIVIDE, MOD;
+terminal            UMINUS, LPAREN, RPAREN;
+terminal Integer    NUMBER;
 
 /* Non terminals */
-non terminal            expr_list;
-non terminal Integer    expr;      // used to store evaluated subexpressions
+non terminal            expr_list, expr_part;
+non terminal Integer    expr, term, factor;
 
 /* Precedences */
 precedence left PLUS, MINUS;
-precedence left TIMES;
+precedence left TIMES, DIVIDE, MOD;
 precedence left UMINUS;
 
-/* The grammar rules */
-expr_list ::= expr_list expr:e SEMI         {: System.out.println(e);:}
-             | expr:e SEMI                           {: System.out.println(e);:}
-;
-expr      ::= expr:e1 PLUS  expr:e2         {: RESULT = e1+e2;       :}
-             | expr:e1 MINUS expr:e2        {: RESULT = e1-e2;       :}
-             | expr:e1 TIMES expr:e2        {: RESULT = e1*e2;       :}
-             | MINUS expr:e                 {: RESULT = -e;          :}
-             %prec UMINUS
-             | LPAREN expr:e RPAREN         {: RESULT = e;           :}
-             | NUMBER:n                     {: RESULT = n;           :}
+/* The grammar */
+expr_list ::= expr_list expr_part |
+              expr_part;
+expr_part ::= expr SEMI;
+expr      ::= expr PLUS expr
+            | expr MINUS expr
+            | expr TIMES expr
+            | expr DIVIDE expr
+            | expr MOD expr
+	    | MINUS expr %prec UMINUS
+            | LPAREN expr RPAREN
+	    | NUMBER
+	    ;
