@@ -31,7 +31,7 @@ public class GenerateMojo extends AbstractMojo {
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 
   /** Name of the directory into which JFlex should generate the parser. */
-  @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
+  @Parameter(defaultValue = "${project.build.directory}/generated-sources/cup")
   @SuppressWarnings("WeakerAccess")
   File generatedSourcesDirectory;
 
@@ -53,7 +53,6 @@ public class GenerateMojo extends AbstractMojo {
 
   /** Whether to force generation of parser and symbols. */
   // private boolean force;
-
   @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
     log = new Logger(getLog());
@@ -90,7 +89,10 @@ public class GenerateMojo extends AbstractMojo {
       return;
     }
     try {
-      cupInvoker.invoke(javaPackage, parserName, symbolsName, symbolInterface, cupFile.getName());
+      log.d("Generate CUP parser for " + cupFile.getAbsolutePath());
+      log.d("CUP output directory: " + generatedSourcesDirectory);
+      cupInvoker.invoke(
+          javaPackage, parserName, symbolsName, symbolInterface, cupFile.getAbsolutePath());
     } catch (Exception e) {
       throw new MojoExecutionException(
           "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);

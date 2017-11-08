@@ -101,6 +101,13 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>cup-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <!--interface="true" locations="false" parser="LexParse"-->
           <symbolInterface>true</symbolInterface>
