@@ -19,7 +19,7 @@ public class GenerateMojoTest {
 
   private GenerateMojo mojo;
 
-  @Mock CupInvoker mockCupInvoker;
+  @Mock CliCupInvoker mockCupInvoker;
   @Mock Log mockLogger;
 
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -59,6 +59,19 @@ public class GenerateMojoTest {
     mojo.generateParser(file);
     verify(mockCupInvoker)
         .invoke(eq("foo.bar"), eq("parser"), eq("sym"), eq(false), endsWith("test.cup"));
+    verify(mockLogger).debug("Parser file foo/bar/parser.java is not actual");
+  }
+
+  /** Test the correct invocation of the CUP command-line interface. */
+  @Test
+  public void generateParser_cliInvocation_interface() throws Exception {
+    mojo.symbolInterface = true;
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource("test.cup").getFile());
+
+    mojo.generateParser(file);
+    verify(mockCupInvoker)
+        .invoke(eq("foo.bar"), eq("parser"), eq("sym"), eq(true), endsWith("test.cup"));
     verify(mockLogger).debug("Parser file foo/bar/parser.java is not actual");
   }
 }

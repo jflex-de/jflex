@@ -48,7 +48,7 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter(defaultValue = DEFAULT_PARSER_NAME)
   String parserName;
 
-  private CupInvoker cupInvoker;
+  private CliCupInvoker cupInvoker;
   private final Logger log;
 
   /** Whether to force generation of parser and symbols. */
@@ -61,7 +61,7 @@ public class GenerateMojo extends AbstractMojo {
   }
 
   @VisibleForTesting
-  GenerateMojo(CupInvoker cupInvoker, Log logger) {
+  GenerateMojo(CliCupInvoker cupInvoker, Log logger) {
     log = new Logger(logger);
     this.cupInvoker = cupInvoker;
   }
