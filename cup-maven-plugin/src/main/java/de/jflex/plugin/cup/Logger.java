@@ -14,4 +14,8 @@ public class Logger {
   public void d(String format, Object... args) {
     this.log.debug(String.format(format, args));
   }
+
+  public void i(String format, Object... args) {
+    this.log.info(String.format(format, args));
+  }
 }

@@ -89,13 +89,13 @@ public class GenerateMojo extends AbstractMojo {
     boolean skipGeneration = !isGeneratedCodeOutdated(cupFile, javaPackage);
     if (skipGeneration) {
       // do nothing.
-      log.d("Generated code for " + cupFile + " is up to date. Do nothing");
+      log.i("Generated code for %s is up to date. Do nothing.", cupFile.getName());
       return;
     }
     try {
-      log.d("Generate CUP parser for " + cupFile.getAbsolutePath());
+      log.d("Generate CUP parser for %s", cupFile.getAbsolutePath());
       File outputDirectory = JavaUtils.directory(generatedSourcesDirectory, javaPackage);
-      log.d("CUP output directory: " + outputDirectory);
+      log.d("CUP output directory: %s", outputDirectory);
       if (!outputDirectory.exists()) {
         if (!outputDirectory.mkdirs()) {
           throw new IOException("Could not create " + outputDirectory);
@@ -113,6 +113,7 @@ public class GenerateMojo extends AbstractMojo {
           symbolsName,
           symbolInterface,
           cupFile.getAbsolutePath());
+      log.i("CUP generated %s and %s for %s", parserName, symbolsName, cupFile.getPath());
     } catch (Exception e) {
       throw new MojoExecutionException(
           "CUP failed to generate parser for " + cupFile.getAbsolutePath(), e);
@@ -125,10 +126,15 @@ public class GenerateMojo extends AbstractMojo {
     if (parserFile.lastModified() <= cupFile.lastModified()) {
       log.d("Parser file for %s is not actual: %s", cupFile.getName(), parserFile);
       return true;
+    } else {
+      log.d("Parser file for %s is actual: %s", cupFile.getName(), parserFile);
     }
+
     if (symFile.lastModified() <= cupFile.lastModified()) {
       log.d("Symbol file for %s is not actual: %s", symFile.getName(), symFile);
       return true;
+    } else {
+      log.d("Symbol file for %s is actual: %s", symFile.getName(), symFile);
     }
     return false;
   }
