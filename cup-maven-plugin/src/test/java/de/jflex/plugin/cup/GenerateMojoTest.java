@@ -61,19 +61,17 @@ public class GenerateMojoTest {
     File file = new File(classLoader.getResource("test.cup").getFile());
 
     mojo.generateParser(file);
+    File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
-            eq(new File(TEST_TARGET_GENERATED_CUP_DIRECTORY)),
+            eq(expectedDestDir),
             eq("foo.bar"),
             eq("parser"),
             eq("sym"),
             eq(false),
             endsWith("test.cup"));
     verify(mockLogger)
-        .debug(
-            "Parser file for test.cup is not actual: "
-                + TEST_TARGET_GENERATED_CUP_DIRECTORY
-                + "/foo/bar/parser.java");
+        .debug("Parser file for test.cup is not actual: " + expectedDestDir + "/parser.java");
   }
 
   /** Test the correct invocation of the CUP command-line interface. */
@@ -84,18 +82,16 @@ public class GenerateMojoTest {
     File file = new File(classLoader.getResource("test.cup").getFile());
 
     mojo.generateParser(file);
+    File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
-            eq(new File(TEST_TARGET_GENERATED_CUP_DIRECTORY)),
+            eq(expectedDestDir),
             eq("foo.bar"),
             eq("parser"),
             eq("sym"),
             eq(true),
             endsWith("test.cup"));
     verify(mockLogger)
-        .debug(
-            "Parser file for test.cup is not actual: "
-                + TEST_TARGET_GENERATED_CUP_DIRECTORY
-                + "/foo/bar/parser.java");
+        .debug("Parser file for test.cup is not actual: " + expectedDestDir + "/parser.java");
   }
 }

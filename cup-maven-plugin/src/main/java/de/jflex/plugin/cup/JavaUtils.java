@@ -4,19 +4,32 @@ import java.io.File;
 
 public class JavaUtils {
   /** Constant {@code .java}. */
-  public static final String JAVA_FILE_EXT = ".java";
+  private static final String JAVA_FILE_EXT = ".java";
 
   public static String packageToPath(String javaPackage) {
     return javaPackage.replace('.', File.separatorChar);
   }
 
-  public static String fileToClassName(File javaFile) {
-    String fn = javaFile.getName();
-    return fn.substring(0, fn.length() - JAVA_FILE_EXT.length());
+  /**
+   * Returns the Java source file associated with a class name.
+   *
+   * @param srcDirectory The root source directory, e.g. {@code /src}.
+   * @param javaPackage The java package, e.g. {@code foo.bar}.
+   * @param className The Java class name, e.g. {@code MyLexer}.
+   * @return
+   */
+  public static File file(File srcDirectory, String javaPackage, String className) {
+    File dir = directory(srcDirectory, javaPackage);
+    return new File(dir, className + JAVA_FILE_EXT);
   }
 
-  public static File file(File srcDirectory, String javaPackage, String className) {
-    File dir = new File(srcDirectory, packageToPath(javaPackage));
-    return new File(dir, className + JAVA_FILE_EXT);
+  /**
+   * Returns the path to assocatiated with a Java package.
+   *
+   * @param srcDirectory The root source directory, e.g. {@code /src}.
+   * @param javaPackage The java package, e.g. {@code foo.bar}.
+   */
+  public static File directory(File srcDirectory, String javaPackage) {
+    return new File(srcDirectory, packageToPath(javaPackage));
   }
 }
