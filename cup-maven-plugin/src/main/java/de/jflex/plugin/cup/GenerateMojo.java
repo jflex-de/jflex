@@ -28,10 +28,22 @@ public class GenerateMojo extends AbstractMojo {
   /** Constant {@code .java}. */
   private static final String JAVA_FILE_EXT = ".java";
 
+  static final String DEFAULT_PARSER_NAME = "Parser";
+
   /** Name of the directory into which JFlex should generate the parser. */
   @Parameter(defaultValue = "${project.build.directory}/generated-sources/jflex")
   @SuppressWarnings("WeakerAccess")
   File generatedSourcesDirectory;
+
+  /**
+   * Whether to outputs the symbol constant code as an {@ code interface} rather than as a {@code
+   * class}.
+   */
+  @Parameter(defaultValue = "false")
+  boolean symbolInterface;
+
+  @Parameter(defaultValue = DEFAULT_PARSER_NAME)
+  String parserName;
 
   private CupInvoker cupInvoker;
   private final Logger log;
@@ -70,13 +82,19 @@ public class GenerateMojo extends AbstractMojo {
     String packageFilename = javaPackage.replace('.', File.separatorChar);
 
     File outputDirectory = new File(generatedSourcesDirectory, packageFilename);
-    File parserFile = new File(outputDirectory, "Parser" + JAVA_FILE_EXT);
+    File parserFile = new File(outputDirectory, parserName + JAVA_FILE_EXT);
     File symFile = new File(outputDirectory, "sym" + JAVA_FILE_EXT);
 
-    generateParser(javaPackage, cupFile, parserFile, symFile);
+    generateParser(javaPackage, cupFile, parserName, parserFile, symFile, symbolInterface);
   }
 
-  private void generateParser(String javaPackage, File cupFile, File parserFile, File symFile)
+  private void generateParser(
+      String javaPackage,
+      File cupFile,
+      String parserName,
+      File parserFile,
+      File symFile,
+      boolean symbolInterface)
       throws MojoExecutionException {
     if (!force && parserFile.lastModified() <= cupFile.lastModified()) {
       log.d("Parser file %s is not actual", parserFile);

@@ -27,6 +27,8 @@ public class GenerateMojoTest {
   @Before
   public void setUp() {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
+    // MojoRule is supposed to set default values; but doesn't work.
+    mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
   }
 
   @Test

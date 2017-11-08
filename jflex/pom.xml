@@ -101,6 +101,11 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>cup-maven-plugin</artifactId>
+        <configuration>
+          <!--interface="true" locations="false" parser="LexParse"-->
+          <symbolInterface>true</symbolInterface>
+          <parserName>LexParse</parserName>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
