@@ -50,7 +50,7 @@ public class GenerateMojo extends AbstractMojo {
   String parserName;
 
   @Parameter(property = "project", required = true, readonly = true)
-  private MavenProject project;
+  MavenProject mavenProject;
 
   private CliCupInvoker cupInvoker;
   private final Logger log;
@@ -60,7 +60,7 @@ public class GenerateMojo extends AbstractMojo {
   @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
     log = new Logger(getLog());
-    this.cupInvoker = new CliCupInvoker();
+    this.cupInvoker = new CliCupInvoker(getLog());
   }
 
   @VisibleForTesting
@@ -101,9 +101,14 @@ public class GenerateMojo extends AbstractMojo {
           throw new IOException("Could not create " + outputDirectory);
         }
       }
+
+      // compiling the generated source in target/generated-sources/cup is
+      // the whole point of this plugin.
+      mavenProject.addCompileSourceRoot(outputDirectory.getPath());
+
       cupInvoker.invoke(
-          outputDirectory,
           javaPackage,
+          outputDirectory,
           parserName,
           symbolsName,
           symbolInterface,
@@ -169,7 +174,7 @@ public class GenerateMojo extends AbstractMojo {
 
   /**
    * Converts the specified path argument into an absolute path. If the path is relative like
-   * "src/main/jflex", it is resolved against the base directory of the project (in constrast,
+   * "src/main/jflex", it is resolved against the base directory of the mavenProject (in constrast,
    * File.getAbsoluteFile() would resolve against the current directory which may be different,
    * especially during a reactor build).
    *
@@ -180,6 +185,6 @@ public class GenerateMojo extends AbstractMojo {
     if (path == null || path.isAbsolute()) {
       return path;
     }
-    return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
+    return new File(this.mavenProject.getBasedir().getAbsolutePath(), path.getPath());
   }
 }

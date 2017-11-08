@@ -1,5 +1,6 @@
 package de.jflex.plugin.cup;
 
+import com.google.common.base.Strings;
 import java.io.File;
 
 public class JavaUtils {
@@ -30,6 +31,9 @@ public class JavaUtils {
    * @param javaPackage The java package, e.g. {@code foo.bar}.
    */
   public static File directory(File srcDirectory, String javaPackage) {
+    if (Strings.isNullOrEmpty(javaPackage)) {
+      return srcDirectory;
+    }
     return new File(srcDirectory, packageToPath(javaPackage));
   }
 }

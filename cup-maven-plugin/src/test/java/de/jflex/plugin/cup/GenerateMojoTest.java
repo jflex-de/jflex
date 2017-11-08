@@ -6,7 +6,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
+import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,7 +32,10 @@ public class GenerateMojoTest {
   @Before
   public void setUp() {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
-    // MojoRule is supposed to set default values; but doesn't work.
+    Model pom = new Model();
+    pom.setGroupId("de.jflex.testing.groupId");
+    pom.setArtifactId("testing-artifactid");
+    mojo.mavenProject = new MavenProjectStub(pom);
     mojo.generatedSourcesDirectory = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY);
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
     mojo.symbolsName = GenerateMojo.DEFAULT_SYMBOLS_NAME;
@@ -64,8 +69,8 @@ public class GenerateMojoTest {
     File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
-            eq(expectedDestDir),
             eq("foo.bar"),
+            eq(expectedDestDir),
             eq("parser"),
             eq("sym"),
             eq(false),
@@ -85,8 +90,8 @@ public class GenerateMojoTest {
     File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
-            eq(expectedDestDir),
             eq("foo.bar"),
+            eq(expectedDestDir),
             eq("parser"),
             eq("sym"),
             eq(true),

@@ -14,8 +14,8 @@ public class CliCupInvokerTest {
     assertThat(
             ImmutableList.copyOf(
                 CliCupInvoker.buildArgv(
-                    new File("/outputDirectory"),
                     "foo.bar",
+                    new File("/outputDirectory"),
                     "Parser",
                     "Symbols", /* interface */
                     true,
