@@ -86,6 +86,10 @@ public class GenerateMojo extends AbstractMojo {
   void generateParser(File cupFile) throws IOException, MojoExecutionException {
     String javaPackage = findJavaPackage(cupFile);
 
+    // compiling the generated source in target/generated-sources/cup is
+    // the whole point of this plugin.
+    mavenProject.addCompileSourceRoot(generatedSourcesDirectory.getPath());
+
     boolean skipGeneration = !isGeneratedCodeOutdated(cupFile, javaPackage);
     if (skipGeneration) {
       // do nothing.
@@ -101,10 +105,6 @@ public class GenerateMojo extends AbstractMojo {
           throw new IOException("Could not create " + outputDirectory);
         }
       }
-
-      // compiling the generated source in target/generated-sources/cup is
-      // the whole point of this plugin.
-      mavenProject.addCompileSourceRoot(outputDirectory.getPath());
 
       cupInvoker.invoke(
           javaPackage,
