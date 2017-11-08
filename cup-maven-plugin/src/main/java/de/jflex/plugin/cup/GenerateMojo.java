@@ -42,7 +42,7 @@ public class GenerateMojo extends AbstractMojo {
   @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
     log = new Logger(getLog());
-    this.cupInvoker = cupInvoker;
+    this.cupInvoker = new CliCupInvoker();
   }
 
   @VisibleForTesting
