@@ -1,5 +1,6 @@
 package de.jflex.plugin.cup;
 
+import com.google.common.annotations.VisibleForTesting;
 import java_cup.Main;
 
 /** Wrapper around the dirty CUP API. */
@@ -25,7 +26,19 @@ class CliCupInvoker {
       String cupFileName)
       throws Exception {
     // Seriously? cup doesn't have a better API than calling main like on cli!
-    String[] args = {
+    String[] args =
+        buildArgv(javaPackage, parserClassName, symClassName, symbolInterface, cupFileName);
+    Main.main(args);
+  }
+
+  @VisibleForTesting
+  static String[] buildArgv(
+      String javaPackage,
+      String parserClassName,
+      String symClassName,
+      boolean symbolInterface,
+      String cupFileName) {
+    return new String[] {
       "-package",
       javaPackage,
       "-parser",
@@ -36,6 +49,5 @@ class CliCupInvoker {
       // inputFile
       cupFileName
     };
-    Main.main(args);
   }
 }
