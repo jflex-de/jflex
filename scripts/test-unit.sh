@@ -1,14 +1,12 @@
 #!/bin/sh
 # Run unit tests
 
-# Multi-platform hack for:
-#SCRIPT_PATH=$(dirname "$(readlink -f $0)")
 CWD="$PWD"
-SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd -P)"
+BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
-source "$SCRIPT_PATH"/logger.sh
+source "$BASEDIR"/scripts/logger.sh
 # Maven executable
-MVN="$SCRIPT_PATH"/../mvnw
+MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
@@ -24,12 +22,11 @@ fi
 
 logi "Run jflex examples"
 # Some scripts invoke jflex/bin
-cd "$SCRIPT_PATH"/..
-cp jflex/target/jflex-*.jar jflex/lib
+cp "$BASEDIR"/jflex/target/jflex-*.jar "$BASEDIR"/jflex/lib
 set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
-cd jflex/examples
+cd "$BASEDIR"/jflex/examples
 cd simple-maven; mvn test; cd ..
 # Note that mvn is a likely to be a different and older version of Maven.
 cd standalone-maven; mvn test; cd ..
@@ -40,6 +37,5 @@ cd interpreter; make clean; make; cd ..
 cd java; make clean; make; cd ..
 cd zero-reader; make clean; make; cd ..
 set +x
-cd ../..
 
 cd "$CWD"

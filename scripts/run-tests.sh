@@ -1,30 +1,27 @@
 #!/bin/bash
 
-# Multi-platform hack for:
-#SCRIPT_PATH=$(dirname "$(readlink -f $0)")
 CWD="$PWD"
-SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd -P)"
+BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
-source "$SCRIPT_PATH"/logger.sh
+source "$BASEDIR"/scripts/logger.sh
 # Maven executable
-MVN="$SCRIPT_PATH"/../mvnw
+MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
 # Clean environment
 if [[ ! $TRAVIS ]]; then
-  cd "$SCRIPT_PATH"/..
   logi "Clean up environment"
   # Cleanup up Maven targets
   # note that mvn could fail if POM are incorrect
-  find . -name target -type d -exec rm -rf {} \; || true
+  find "$BASEDIR" -name target -type d -exec rm -rf {} \; || true
 
   # Clean up local maven repo
   # TODO: This could be changed with ~/.m2/settings.xml
   rm -rf "$HOME"/.m2/repository/de/jfex || true
 
   logi "Remove jflex.jar in lib directory"
-  rm "$SCRIPT_PATH"/../jflex/lib/jflex-*.jar || true
+  rm "$BASEDIR"/jflex/lib/jflex-*.jar || true
 fi
 
 logi "Powered by Maven wrapper"
@@ -32,13 +29,13 @@ logi "Powered by Maven wrapper"
 
 # Travis then runs _in parallel_ (but we do it in sequence)
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
-  "$SCRIPT_PATH"/test-unit.sh
+  "$BASEDIR"/scripts/test-unit.sh
 fi
-if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
-  "$SCRIPT_PATH"/test-regression.sh
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "regression" ]]; then
+  "$BASEDIR"/scripts/test-regression.sh
 fi
-if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
-  $SCRIPT_PATH"/ant-build.sh
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "ant" ]]; then
+  "$BASEDIR"/scripts/ant-build.sh
 fi
 
 logi "Success"

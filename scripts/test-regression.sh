@@ -1,17 +1,14 @@
 #!/bin/sh
 # Runs regressions tests
 
-# Multi-platform hack for:
-#SCRIPT_PATH=$(dirname "$(readlink -f $0)")
 CWD="$PWD"
-SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd -P)"
+BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
-source "$SCRIPT_PATH"/logger.sh
+source "$BASEDIR"/scripts/logger.sh
 # Maven executable
-MVN="$SCRIPT_PATH"/../mvnw
+MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
-
 
 if [[ $TRAVIS ]]; then
   # We have already installed all, so we can pass this step
@@ -22,6 +19,5 @@ fi
 
 logi "Run regression test cases"
 # regression test suite must run in its own directory
-cd "$SCRIPT_PATH"/..
-cd testsuite/testcases; "$MVN" test
-cd ../..
+cd "$BASEDIR"/testsuite/testcases; "$MVN" test
+cd "$CWD"
