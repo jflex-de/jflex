@@ -53,7 +53,7 @@ cd ../..
 logi "Run jflex examples"
 # Some scripts invoke jflex/bin
 rm jflex/lib/jflex-*.jar || true
-ln jflex/target/jflex-*.jar jflex/lib
+ln jflex/target/jflex-*.jar jflex/l
 set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
@@ -75,3 +75,4 @@ logi "Re-compile with ant"
 cd jflex; ant gettools build test; cd ..
 
 logi "Success"
+
