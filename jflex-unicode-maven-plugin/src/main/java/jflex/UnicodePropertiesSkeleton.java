@@ -35,7 +35,7 @@ public class UnicodePropertiesSkeleton {
   private static final String NL = System.getProperty("line.separator");
 
   /** The skeleton */
-  private List<String> sections = new ArrayList<String>();
+  private List<String> sections = new ArrayList<>();
 
   /** The next element of the skeleton to be emitted */
   private int pos = 0;

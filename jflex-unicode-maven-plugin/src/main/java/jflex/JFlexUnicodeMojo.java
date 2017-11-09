@@ -49,7 +49,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private File outputDirectory = null;
 
   /** Maps validated major.minor unicode versions to information about the version. */
-  private SortedMap<String, UnicodeVersion> unicodeVersions = new TreeMap<String, UnicodeVersion>();
+  private SortedMap<String, UnicodeVersion> unicodeVersions = new TreeMap<>();
 
   /** The name of the output file (without .java) and the contained class. */
   private static final String OUTPUT_CLASS_NAME = "UnicodeProperties";
@@ -130,7 +130,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     // A version with no update is given update number "-1" for the purposes
     // of comparison.
     SortedMap<String, SortedMap<Integer, String>> allUnicodeVersions =
-        new TreeMap<String, SortedMap<Integer, String>>();
+        new TreeMap<>();
 
     URL unicodeURL = new URL(UNICODE_DOT_ORG_URL);
     Matcher matcher = UNICODE_VERSION_LINK_PATTERN.matcher(getPageContent(unicodeURL));
@@ -147,7 +147,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       }
       SortedMap<Integer, String> updates = allUnicodeVersions.get(baseVersion);
       if (null == updates) {
-        updates = new TreeMap<Integer, String>(Collections.reverseOrder());
+        updates = new TreeMap<>(Collections.reverseOrder());
         allUnicodeVersions.put(baseVersion, updates);
       }
       updates.put(updateNumber, relativeURL);
@@ -168,7 +168,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private void populateUnicodeVersion(String version, SortedMap<Integer, String> relativeURLs)
       throws IOException {
 
-    EnumMap<DataFileType, URL> dataFiles = new EnumMap<DataFileType, URL>(DataFileType.class);
+    EnumMap<DataFileType, URL> dataFiles = new EnumMap<>(DataFileType.class);
 
     // The relative URLs are sorted in reverse order of update number; as a
     // result, the most recent update is first, the next most recent is next,

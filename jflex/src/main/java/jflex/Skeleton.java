@@ -116,7 +116,7 @@ public class Skeleton {
    * @throws jflex.GeneratorException if the number of skeleton sections does not match
    */
   public static void readSkel(BufferedReader reader) throws IOException {
-    List<String> lines = new ArrayList<String>();
+    List<String> lines = new ArrayList<>();
     StringBuilder section = new StringBuilder();
 
     String ln;

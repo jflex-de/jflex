@@ -11,12 +11,12 @@ public class NamedRangeSet {
   }
 
   public NamedRangeSet(NamedRange range) {
-    ranges = new ArrayList<NamedRange>();
+    ranges = new ArrayList<>();
     ranges.add(range);
   }
 
   public NamedRangeSet() {
-    ranges = new ArrayList<NamedRange>();
+    ranges = new ArrayList<>();
   }
 
   public List<NamedRange> getRanges() {
@@ -31,7 +31,7 @@ public class NamedRangeSet {
    * @param other The ranges to add
    */
   public void add(NamedRangeSet other) {
-    List<NamedRange> newRanges = new ArrayList<NamedRange>();
+    List<NamedRange> newRanges = new ArrayList<>();
     int thisPos = 0;
     int otherPos = 0;
     while (thisPos < ranges.size() || otherPos < other.ranges.size()) {
@@ -60,7 +60,7 @@ public class NamedRangeSet {
    * @param other The ranges to remove
    */
   public void sub(NamedRangeSet other) {
-    List<NamedRange> newRanges = new ArrayList<NamedRange>();
+    List<NamedRange> newRanges = new ArrayList<>();
     OUTER_LOOP:
     for (NamedRange range : ranges) {
       NamedRange thisRange = new NamedRange(range.start, range.end, range.name);

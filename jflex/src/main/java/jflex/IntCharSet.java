@@ -31,7 +31,7 @@ public final class IntCharSet {
 
   /** Constructor for IntCharSet. */
   public IntCharSet() {
-    this.intervals = new ArrayList<Interval>();
+    this.intervals = new ArrayList<>();
   }
 
   /**
@@ -60,7 +60,7 @@ public final class IntCharSet {
    */
   public IntCharSet(List<Interval> chars) {
     int size = chars.size();
-    intervals = new ArrayList<Interval>(size);
+    intervals = new ArrayList<>(size);
 
     for (Interval interval : chars) add(interval);
   }

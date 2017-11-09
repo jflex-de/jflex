@@ -30,8 +30,8 @@ public class Exec {
    * @return an array containing all elements of a then b
    */
   private static String[] toArray(List<String> a, List<String> b) {
-    if (a == null) a = new ArrayList<String>();
-    if (b == null) b = new ArrayList<String>();
+    if (a == null) a = new ArrayList<>();
+    if (b == null) b = new ArrayList<>();
 
     String[] cmdline = new String[a.size() + b.size()];
 
@@ -99,7 +99,7 @@ public class Exec {
 
   /** Return String with JFlex version number. */
   public static String getJFlexVersion() {
-    List<String> cmdLine = new ArrayList<String>();
+    List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--version");
     TestResult test = execJFlex(cmdLine, new ArrayList<String>());
     return test.getOutput();
@@ -180,7 +180,7 @@ public class Exec {
 
   /** for testing */
   public static void main(String args[]) {
-    List<String> files = new ArrayList<String>();
+    List<String> files = new ArrayList<>();
     files.addAll(Arrays.asList(args));
     System.out.println();
     // System.out.println("javac:\n"+execJavac(new ArrayList<String>(), files));

@@ -51,7 +51,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     boolean success = true;
     try {
       System.setOut(new PrintStream(System.out, true));
-      List<File> files = new ArrayList<File>();
+      List<File> files = new ArrayList<>();
       getLog().info("JFlexTest Version: " + Main.version);
       getLog().info("Testing version: " + Exec.getJFlexVersion());
       getLog().info("Test directory: " + testDirectory);

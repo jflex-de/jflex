@@ -65,7 +65,7 @@ public class CharClasses {
 
     maxCharUsed = maxCharCode;
     this.scanner = scanner;
-    classes = new ArrayList<IntCharSet>();
+    classes = new ArrayList<>();
     classes.add(new IntCharSet(new Interval(0, maxCharCode)));
   }
 

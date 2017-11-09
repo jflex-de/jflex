@@ -45,7 +45,7 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
    */
   @Override
   public void addPropertyValueIntervals() {
-    SortedMap<String, NamedRangeSet> ageRangesPerVersion = new TreeMap<String, NamedRangeSet>();
+    SortedMap<String, NamedRangeSet> ageRangesPerVersion = new TreeMap<>();
 
     // Segregate ranges by version
     for (NamedRange interval : intervals) {

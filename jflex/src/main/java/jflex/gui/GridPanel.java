@@ -29,7 +29,7 @@ public class GridPanel extends Panel implements Handles {
   private int hgap;
   private int vgap;
 
-  private Vector<GridPanelConstraint> constraints = new Vector<GridPanelConstraint>();
+  private Vector<GridPanelConstraint> constraints = new Vector<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
   /** {@inheritDoc} */
