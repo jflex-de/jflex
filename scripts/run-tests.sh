@@ -31,8 +31,15 @@ logi "Powered by Maven wrapper"
 "$MVN" --version
 
 # Travis then runs _in parallel_ (but we do it in sequence)
-"$SCRIPT_PATH"/test-unit.sh
-"$SCRIPT_PATH"/test-regression.sh
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
+  "$SCRIPT_PATH"/test-unit.sh
+fi
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
+  "$SCRIPT_PATH"/test-regression.sh
+fi
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
+  $SCRIPT_PATH"/ant-build.sh
+fi
 
 logi "Success"
 cd "$CWD"

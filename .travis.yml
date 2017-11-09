@@ -6,10 +6,9 @@ jdk:
 
 install: true
 
-jobs:
-  include:
-    # Run the tests
-    - stage: test
-    - script: ./scripts/test-unit.sh
-    - script: ./scripts/test-regression.sh
-    - script: ./scripts/ant-build.sh
+script: ./scripts/run-tests.sh
+
+env:
+  - TEST_SUITE=ant
+  - TEST_SUITE=unit
+  - TEST_SUITE=regression
