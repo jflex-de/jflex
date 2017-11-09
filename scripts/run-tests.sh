@@ -51,7 +51,6 @@ cd testsuite/testcases; "$MVN" test
 cd ../..
 
 logi "Run jflex examples"
-set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
 cd jflex/examples
@@ -64,7 +63,6 @@ cd cup; make clean; make; cd ..
 cd interpreter; make clean; make; cd ..
 cd java; make clean; make; cd ..
 cd zero-reader; make clean; make; cd ..
-set +x
 cd ../..
 
 # also check ant build
