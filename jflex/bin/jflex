@@ -10,12 +10,15 @@
 # Site wide installation: simply make a symlink from e.g.
 # /usr/bin/jflex to this script at its original position
 #
-#===================================================================
 #
 # configurables:
 
 # path to the java interpreter
+# TODO: Use JAVA_HOME
 JAVA=java
+
+# Version of JFlex to execute
+JFLEX_VERSION=1.7.0-SNAPSHOT
 
 # end configurables
 #
@@ -42,4 +45,4 @@ JFLEX_HOME=${PRG}/..
 
 # --------------------------------------------------------------------
 
-$JAVA -Xmx128m -jar $JFLEX_HOME/lib/jflex-1.7.0-SNAPSHOT.jar $@
+$JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-${JFLEX_VERSION}.jar $@
