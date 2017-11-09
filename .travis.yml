@@ -4,6 +4,12 @@ jdk:
   - openjdk7
   - openjdk8
 
-script: ./scripts/run-tests.sh
-
 installation: true
+
+jobs:
+  include:
+    # Run the tests
+    - stage: test
+      script: ./scripts/test-unit.sh
+      script: ./scripts/test-regression.sh
+      script: ./scripts/ant-build.sh
