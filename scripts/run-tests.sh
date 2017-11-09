@@ -52,7 +52,7 @@ cd ../..
 
 logi "Run jflex examples"
 # Some scripts invoke jflex/bin
-rm jflex/bin/jflex-*.jar
+rm jflex/lib/jflex-*.jar || true
 ln jflex/target/jflex-*.jar jflex/bin
 set -x
 # Each line must end with the test command to make the script exit
