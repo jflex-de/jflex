@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Runs regressions tests
 
 CWD="$PWD"

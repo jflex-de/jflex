@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Run unit tests
 
 CWD="$PWD"
