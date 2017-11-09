@@ -120,22 +120,19 @@ class UnicodeVersion {
   Map<String, Set<String>> allPropertyAliases = new HashMap<>();
 
   /** Stores all defined property value aliases */
-  Map<String, Map<String, Set<String>>> allPropertyValueAliases =
-      new HashMap<>();
+  Map<String, Map<String, Set<String>>> allPropertyValueAliases = new HashMap<>();
 
   /** Maps property aliases to their corresponding canonical property names */
   Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
   /** Maps property value aliases to their corresponding canonical property values */
-  Map<String, Map<String, String>> propertyValueAlias2CanonicalValue =
-      new HashMap<>();
+  Map<String, Map<String, String>> propertyValueAlias2CanonicalValue = new HashMap<>();
 
   /**
    * A set of code point space partitions, each containing at least two caselessly equivalent code
    * points.
    */
-  Map<Integer, SortedSet<Integer>> caselessMatchPartitions =
-      new HashMap<>();
+  Map<Integer, SortedSet<Integer>> caselessMatchPartitions = new HashMap<>();
 
   /** The maximum size of the partitions in {@link #caselessMatchPartitions}. */
   int caselessMatchPartitionSize = 0;

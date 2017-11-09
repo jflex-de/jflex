@@ -317,8 +317,7 @@ public class Main {
     } catch (Exception e) {
       throw new UnicodeProperties.UnsupportedUnicodeVersionException();
     }
-    SortedMap<String, SortedSet<String>> propertyValuesToAliases =
-        new TreeMap<>();
+    SortedMap<String, SortedSet<String>> propertyValuesToAliases = new TreeMap<>();
     for (String value : propertyValues) {
       propertyValuesToAliases.put(value, new TreeSet<String>());
     }

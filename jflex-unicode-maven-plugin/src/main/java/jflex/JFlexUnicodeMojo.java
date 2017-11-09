@@ -129,8 +129,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     // Maps available versions to maps from update numbers to relative URLs.
     // A version with no update is given update number "-1" for the purposes
     // of comparison.
-    SortedMap<String, SortedMap<Integer, String>> allUnicodeVersions =
-        new TreeMap<>();
+    SortedMap<String, SortedMap<Integer, String>> allUnicodeVersions = new TreeMap<>();
 
     URL unicodeURL = new URL(UNICODE_DOT_ORG_URL);
     Matcher matcher = UNICODE_VERSION_LINK_PATTERN.matcher(getPageContent(unicodeURL));
