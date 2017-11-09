@@ -52,7 +52,8 @@ cd ../..
 
 logi "Run jflex examples"
 # Some makefiles invoke /bin/jflex which expects the jar in /lib
-ln jflex/target/*.jar jflex/lib
+rm jflex/lib/jflex-*.jar
+ln jflex/target/jflex-*.jar jflex/lib
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
 cd jflex/examples
