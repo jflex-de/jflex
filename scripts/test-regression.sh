@@ -11,11 +11,14 @@ MVN="$BASEDIR"/mvnw
 set -e
 
 if [[ $TRAVIS ]]; then
-  # We have already installed all, so we can pass this step
   logi "Compile and install all (no tests)"
   # Travis has "`install: true` and hence jflex needs to be install in local repo
   "$MVN" install -DskipTests=true -Dmaven.javadoc.skip=true --quiet
+else
+  # On local dev, ./run-tests has already installed all, so we can skip installation
+  echo
 fi
+
 
 logi "Run regression test cases"
 # regression test suite must run in its own directory
