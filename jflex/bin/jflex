@@ -10,6 +10,7 @@
 # Site wide installation: simply make a symlink from e.g.
 # /usr/bin/jflex to this script at its original position
 #
+#===================================================================
 #
 # configurables:
 
