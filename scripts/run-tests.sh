@@ -51,6 +51,8 @@ cd testsuite/testcases; "$MVN" test
 cd ../..
 
 logi "Run jflex examples"
+# Some makefiles invoke /bin/jflex which expects the jar in /lib
+ln jflex/target/*.jar jflex/lib
 set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
@@ -72,4 +74,3 @@ logi "Re-compile with ant"
 cd jflex; ant gettools build test; cd ..
 
 logi "Success"
-
