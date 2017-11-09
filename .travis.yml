@@ -6,3 +6,4 @@ jdk:
 
 script: ./scripts/run-tests.sh
 
+installation: true
