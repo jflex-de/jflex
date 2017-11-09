@@ -93,8 +93,9 @@ public class JFlexTask extends Task {
     try (LineNumberReader reader = new LineNumberReader(new FileReader(inputFile))) {
       while (className == null || packageName == null) {
         String line = reader.readLine();
-        if (line == null)
+        if (line == null) {
           break;
+        }
 
         if (packageName == null) {
           Matcher matcher = PACKAGE_PATTERN.matcher(line);
