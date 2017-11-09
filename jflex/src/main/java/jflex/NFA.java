@@ -450,8 +450,8 @@ public final class NFA {
    */
   public DFA getDFA() {
 
-    Map<StateSet, Integer> dfaStates = new HashMap<StateSet, Integer>(numStates);
-    List<StateSet> dfaList = new ArrayList<StateSet>(numStates);
+    Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
+    List<StateSet> dfaList = new ArrayList<>(numStates);
 
     DFA dfa = new DFA(numEntryStates(), numInput, numLexStates);
 
@@ -741,8 +741,8 @@ public final class NFA {
     // FIXME: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
 
-    Map<StateSet, Integer> dfaStates = new HashMap<StateSet, Integer>(numStates);
-    List<StateSet> dfaList = new ArrayList<StateSet>(numStates);
+    Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
+    List<StateSet> dfaList = new ArrayList<>(numStates);
 
     int numDFAStates = 0;
     int currentDFAState = 0;

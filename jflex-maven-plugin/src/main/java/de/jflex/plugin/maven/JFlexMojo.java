@@ -130,7 +130,7 @@ public class JFlexMojo extends AbstractMojo {
     if (lexDefinitions == null) {
       // use default lexfiles if none provided
       getLog().debug("Use lexer files found in (default) " + SRC_MAIN_JFLEX);
-      filesIt = new ArrayList<File>();
+      filesIt = new ArrayList<>();
       File defaultDir = getAbsolutePath(new File(SRC_MAIN_JFLEX));
       if (defaultDir.isDirectory()) {
         filesIt.add(defaultDir);

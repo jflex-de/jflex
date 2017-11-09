@@ -113,7 +113,7 @@ public class TestCase {
 
   private void setDefaults() {
     // jflexCmdln = new ArrayList<String>();
-    jflexFiles = new ArrayList<String>();
+    jflexFiles = new ArrayList<>();
     // javacExtraFiles = new ArrayList<String>();
     // jflexCmdln.add("--dump");
   }
@@ -125,7 +125,7 @@ public class TestCase {
 
   public void init(File testDir) {
     // get files to process
-    List<InputOutput> temp = new ArrayList<InputOutput>();
+    List<InputOutput> temp = new ArrayList<>();
     String name;
     for (String file : testDir.list()) {
       if (null != commonInputFile) {
@@ -259,10 +259,10 @@ public class TestCase {
     // Get first file and remove it from list
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in
-    List<String> inputFiles = new ArrayList<String>();
+    List<String> inputFiles = new ArrayList<>();
     inputFiles.add(null != commonInputFile ? commonInputFile : current.getName() + ".input");
     // Excute Main on that input
-    List<String> cmdLine = new ArrayList<String>();
+    List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--encoding");
     cmdLine.add(inputFileEncoding);
     classExecResult =

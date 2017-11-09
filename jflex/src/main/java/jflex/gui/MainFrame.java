@@ -37,7 +37,6 @@ public final class MainFrame extends Frame implements Handles {
   private String dirName = "";
 
   private Button quit;
-  private Button options;
   private Button generate;
   private Button stop;
   private Button specChoose;
@@ -73,7 +72,7 @@ public final class MainFrame extends Frame implements Handles {
 
     generate = new Button("Generate");
     quit = new Button("Quit");
-    options = new Button("Options");
+    Button options = new Button("Options");
     stop = new Button("Stop");
     dirChoose = new Button("Browse");
     dir = new TextField(10);

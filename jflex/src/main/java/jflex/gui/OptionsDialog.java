@@ -34,11 +34,7 @@ public class OptionsDialog extends Dialog {
 
   private Frame owner;
 
-  private Button skelBrowse;
   private TextField skelFile;
-
-  private Button ok;
-  private Button defaults;
 
   private Checkbox dump;
   private Checkbox verbose;
@@ -76,9 +72,9 @@ public class OptionsDialog extends Dialog {
   /** setup. */
   public void setup() {
     // create components
-    ok = new Button("Ok");
-    defaults = new Button("Defaults");
-    skelBrowse = new Button(" Browse");
+    Button ok = new Button("Ok");
+    Button defaults = new Button("Defaults");
+    Button skelBrowse = new Button(" Browse");
     skelFile = new TextField();
     skelFile.setEditable(false);
 

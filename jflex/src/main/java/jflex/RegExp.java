@@ -254,7 +254,7 @@ public class RegExp {
    */
   public RegExp anyChar() {
     // FIXME: there is some code duplication here with the parser
-    List<Interval> list = new ArrayList<Interval>();
+    List<Interval> list = new ArrayList<>();
     list.add(new Interval(0, CharClasses.maxChar));
     return new RegExp1(sym.CCLASS, list);
   }

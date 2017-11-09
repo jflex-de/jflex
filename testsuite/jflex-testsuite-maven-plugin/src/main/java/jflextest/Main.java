@@ -27,7 +27,7 @@ public class Main {
    * @return a list of files
    */
   public static List<File> scan(File dir, final String extension, boolean recursive) {
-    List<File> result = new ArrayList<File>();
+    List<File> result = new ArrayList<>();
 
     FilenameFilter extFilter =
         new FilenameFilter() {
@@ -125,7 +125,7 @@ public class Main {
     System.out.println("Testing version: " + Exec.getJFlexVersion());
 
     File dir = new File("testcases"); // assume user.dir/testcases
-    List<File> files = new ArrayList<File>();
+    List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
 

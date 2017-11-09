@@ -143,7 +143,7 @@ public class Main {
    * @throws jflex.SilentExit if any.
    */
   public static List<File> parseOptions(String argv[]) throws SilentExit {
-    List<File> files = new ArrayList<File>();
+    List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
 
@@ -317,8 +317,7 @@ public class Main {
     } catch (Exception e) {
       throw new UnicodeProperties.UnsupportedUnicodeVersionException();
     }
-    SortedMap<String, SortedSet<String>> propertyValuesToAliases =
-        new TreeMap<String, SortedSet<String>>();
+    SortedMap<String, SortedSet<String>> propertyValuesToAliases = new TreeMap<>();
     for (String value : propertyValues) {
       propertyValuesToAliases.put(value, new TreeSet<String>());
     }
@@ -327,7 +326,7 @@ public class Main {
       String value = propertyValueAliases[i + 1];
       SortedSet<String> aliases = propertyValuesToAliases.get(value);
       if (null == aliases) {
-        aliases = new TreeSet<String>();
+        aliases = new TreeSet<>();
         propertyValuesToAliases.put(value, aliases);
       }
       aliases.add(alias);
