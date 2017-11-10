@@ -27,8 +27,12 @@ public class GenerateMojo extends AbstractMojo {
 
   private static final String DEFAULT_JAVA_PACKAGE = "";
 
-  // Seriously – by default CUP generates lower case class names.
+  // TODO(regisd) Use java convention for class name.
+  // Investigate whether we can change the default class names to more conventional
+  // names such as "Parser" and "Symbols".
+  /** Default class name of the parser. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_PARSER_NAME = "parser";
+  /** Default class name of symbols holder. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 
   /** Name of the directory into which JFlex should generate the parser. */
@@ -52,11 +56,13 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter(property = "project", required = true, readonly = true)
   MavenProject mavenProject;
 
+  /** Whether to force generation of parser and symbols. */
+  @Parameter(defaultValue = "false")
+  private boolean force;
+
   private CliCupInvoker cupInvoker;
   private final Logger log;
 
-  /** Whether to force generation of parser and symbols. */
-  // private boolean force;
   @SuppressWarnings("WeakerAccess")
   public GenerateMojo() {
     log = new Logger(getLog());
@@ -90,11 +96,14 @@ public class GenerateMojo extends AbstractMojo {
     // the whole point of this plugin.
     mavenProject.addCompileSourceRoot(generatedSourcesDirectory.getPath());
 
-    boolean skipGeneration = !isGeneratedCodeOutdated(cupFile, javaPackage);
+    boolean skipGeneration = !force && !isGeneratedCodeOutdated(cupFile, javaPackage);
     if (skipGeneration) {
       // do nothing.
-      log.i("Generated code for %s is up to date. Do nothing.", cupFile.getName());
+      log.i("Do nothing. Generated code for is up to date for: %s", cupFile.getName());
       return;
+    }
+    if (force) {
+      log.i("Generation requested by force for: %s", cupFile.getName());
     }
     try {
       log.d("Generate CUP parser for %s", cupFile.getAbsolutePath());

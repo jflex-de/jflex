@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.endsWith;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
+import com.google.common.io.Files;
 import java.io.File;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
@@ -19,9 +20,6 @@ import org.mockito.junit.MockitoRule;
 /** Tests for {@link GenerateMojo}. */
 public class GenerateMojoTest {
 
-  private static final String TEST_TARGET_GENERATED_CUP_DIRECTORY =
-      "/tmp/target/generated-sources/cup";
-
   private GenerateMojo mojo;
 
   @Mock CliCupInvoker mockCupInvoker;
@@ -29,14 +27,17 @@ public class GenerateMojoTest {
 
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
 
+  private File tempTargetGeneratedCupDirectory;
+
   @Before
   public void setUp() {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
     Model pom = new Model();
     pom.setGroupId("de.jflex.testing.groupId");
     pom.setArtifactId("testing-artifactid");
+    tempTargetGeneratedCupDirectory = Files.createTempDir();
     mojo.mavenProject = new MavenProjectStub(pom);
-    mojo.generatedSourcesDirectory = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY);
+    mojo.generatedSourcesDirectory = tempTargetGeneratedCupDirectory;
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
     mojo.symbolsName = GenerateMojo.DEFAULT_SYMBOLS_NAME;
   }
@@ -66,7 +67,7 @@ public class GenerateMojoTest {
     File file = new File(classLoader.getResource("test.cup").getFile());
 
     mojo.generateParser(file);
-    File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
+    File expectedDestDir = new File(tempTargetGeneratedCupDirectory, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
             eq("foo.bar"),
@@ -87,7 +88,7 @@ public class GenerateMojoTest {
     File file = new File(classLoader.getResource("test.cup").getFile());
 
     mojo.generateParser(file);
-    File expectedDestDir = new File(TEST_TARGET_GENERATED_CUP_DIRECTORY, "/foo/bar");
+    File expectedDestDir = new File(tempTargetGeneratedCupDirectory, "/foo/bar");
     verify(mockCupInvoker)
         .invoke(
             eq("foo.bar"),

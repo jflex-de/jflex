@@ -40,7 +40,7 @@ class CliCupInvoker {
       boolean symbolInterface,
       String cupFileName)
       throws Exception {
-    // Seriously? cup doesn't have a better API than calling main like on cli!
+    // CUP can only be invoked with main() method with CLI args.
     String[] args =
         buildArgv(
             javaPackage,
