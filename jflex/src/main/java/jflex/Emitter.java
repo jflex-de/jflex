@@ -65,7 +65,7 @@ public final class Emitter {
   private boolean[] colKilled;
 
   /** maps actions to their switch label */
-  private Map<Action, Integer> actionTable = new LinkedHashMap<Action, Integer>();
+  private Map<Action, Integer> actionTable = new LinkedHashMap<>();
 
   private CharClassInterval[] intervals;
 

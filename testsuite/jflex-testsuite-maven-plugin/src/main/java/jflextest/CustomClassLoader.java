@@ -36,7 +36,7 @@ public class CustomClassLoader extends ClassLoader {
   private void scanPath(String classPath) {
     if (classPath == null) return;
     String separator = System.getProperty("path.separator");
-    pathItems = new ArrayList<String>();
+    pathItems = new ArrayList<>();
     StringTokenizer st = new StringTokenizer(classPath, separator);
     while (st.hasMoreTokens()) {
       pathItems.add(st.nextToken());

@@ -48,13 +48,13 @@ public class RegExps {
 
   /** Constructor for RegExps. */
   public RegExps() {
-    states = new ArrayList<List<Integer>>();
-    regExps = new ArrayList<RegExp>();
-    actions = new ArrayList<Action>();
-    BOL = new ArrayList<Boolean>();
-    look = new ArrayList<RegExp>();
-    lines = new ArrayList<Integer>();
-    look_entry = new ArrayList<Integer>();
+    states = new ArrayList<>();
+    regExps = new ArrayList<>();
+    actions = new ArrayList<>();
+    BOL = new ArrayList<>();
+    look = new ArrayList<>();
+    lines = new ArrayList<>();
+    look_entry = new ArrayList<>();
   }
 
   /**

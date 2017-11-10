@@ -21,7 +21,7 @@ else
 fi
 
 logi "Run jflex examples"
-# Some scripts invoke jflex/bin
+# Some tests invoke /bin/jflex which expects the jar in /lib
 cp "$BASEDIR"/jflex/target/jflex-*.jar "$BASEDIR"/jflex/lib
 set -x
 # Each line must end with the test command to make the script exit

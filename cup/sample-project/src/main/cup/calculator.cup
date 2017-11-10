@@ -1,0 +1,36 @@
+// This example comes from the CUP manual.
+package de.jflex.testing;
+
+import java_cup.runtime.*;
+
+/* Preliminaries to set up and use the scanner.  */
+init with {: scanner.init();              :};
+scan with {: return scanner.next_token(); :};
+
+/* Terminals (tokens returned by the scanner). */
+terminal            SEMI, PLUS, MINUS, TIMES, DIVIDE, MOD;
+terminal            UMINUS, LPAREN, RPAREN;
+terminal Integer    NUMBER;
+
+/* Non terminals */
+non terminal            expr_list, expr_part;
+non terminal Integer    expr, term, factor;
+
+/* Precedences */
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE, MOD;
+precedence left UMINUS;
+
+/* The grammar */
+expr_list ::= expr_list expr_part |
+              expr_part;
+expr_part ::= expr SEMI;
+expr      ::= expr PLUS expr
+            | expr MINUS expr
+            | expr TIMES expr
+            | expr DIVIDE expr
+            | expr MOD expr
+	    | MINUS expr %prec UMINUS
+            | LPAREN expr RPAREN
+	    | NUMBER
+	    ;

@@ -39,7 +39,7 @@ class DiffStream {
    * @param expected the control stream
    */
   public String diff(List<Integer> diffLines, Reader input, Reader expected) {
-    if (diffLines == null) diffLines = new ArrayList<Integer>();
+    if (diffLines == null) diffLines = new ArrayList<>();
     linesProcessed = 1;
     BufferedReader myInput = new BufferedReader(input);
     String readFromInput;

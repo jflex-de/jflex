@@ -32,8 +32,8 @@ public final class Macros {
 
   /** Creates a new macro expander. */
   public Macros() {
-    macros = new HashMap<String, RegExp>();
-    used = new HashMap<String, Boolean>();
+    macros = new HashMap<>();
+    used = new HashMap<>();
   }
 
   /**
@@ -84,7 +84,7 @@ public final class Macros {
    */
   public List<String> unused() {
 
-    List<String> unUsed = new ArrayList<String>();
+    List<String> unUsed = new ArrayList<>();
 
     for (String name : used.keySet()) {
       Boolean isUsed = used.get(name);
