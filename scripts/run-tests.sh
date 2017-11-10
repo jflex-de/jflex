@@ -51,7 +51,7 @@ cd testsuite/testcases; "$MVN" test
 cd ../..
 
 logi "Run jflex examples"
-# Some scripts invoke jflex/bin
+# Some tests invoke /bin/jflex which expects the jar in /lib
 rm jflex/lib/jflex-*.jar || true
 cp jflex/target/jflex-*.jar jflex/lib
 set -x
