@@ -59,7 +59,7 @@ public final class DFA {
   int numLexStates;
 
   /** all actions that are used in this DFA */
-  Map<Action, Action> usedActions = new HashMap<Action, Action>();
+  Map<Action, Action> usedActions = new HashMap<>();
 
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;

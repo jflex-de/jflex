@@ -53,7 +53,7 @@ public class UnicodeProperties {
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
-  private Map<String, IntCharSet> propertyValueIntervals = new HashMap<String, IntCharSet>();
+  private Map<String, IntCharSet> propertyValueIntervals = new HashMap<>();
   private String caselessMatchPartitions;
   private int caselessMatchPartitionSize;
   private IntCharSet caselessMatches[];

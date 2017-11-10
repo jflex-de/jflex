@@ -108,34 +108,31 @@ class UnicodeVersion {
   int maximumCodePoint;
 
   /** Maps Unicode property values to the associated set of code point ranges. */
-  SortedMap<String, NamedRangeSet> propertyValueIntervals = new TreeMap<String, NamedRangeSet>();
+  SortedMap<String, NamedRangeSet> propertyValueIntervals = new TreeMap<>();
 
   /** Stores encountered enumerated property names and values */
-  Map<String, Set<String>> usedEnumeratedProperties = new HashMap<String, Set<String>>();
+  Map<String, Set<String>> usedEnumeratedProperties = new HashMap<>();
 
   /** Stores encountered binary property names */
-  Set<String> usedBinaryProperties = new HashSet<String>();
+  Set<String> usedBinaryProperties = new HashSet<>();
 
   /** Stores all defined property name aliases */
-  Map<String, Set<String>> allPropertyAliases = new HashMap<String, Set<String>>();
+  Map<String, Set<String>> allPropertyAliases = new HashMap<>();
 
   /** Stores all defined property value aliases */
-  Map<String, Map<String, Set<String>>> allPropertyValueAliases =
-      new HashMap<String, Map<String, Set<String>>>();
+  Map<String, Map<String, Set<String>>> allPropertyValueAliases = new HashMap<>();
 
   /** Maps property aliases to their corresponding canonical property names */
-  Map<String, String> propertyAlias2CanonicalName = new HashMap<String, String>();
+  Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
   /** Maps property value aliases to their corresponding canonical property values */
-  Map<String, Map<String, String>> propertyValueAlias2CanonicalValue =
-      new HashMap<String, Map<String, String>>();
+  Map<String, Map<String, String>> propertyValueAlias2CanonicalValue = new HashMap<>();
 
   /**
    * A set of code point space partitions, each containing at least two caselessly equivalent code
    * points.
    */
-  Map<Integer, SortedSet<Integer>> caselessMatchPartitions =
-      new HashMap<Integer, SortedSet<Integer>>();
+  Map<Integer, SortedSet<Integer>> caselessMatchPartitions = new HashMap<>();
 
   /** The maximum size of the partitions in {@link #caselessMatchPartitions}. */
   int caselessMatchPartitionSize = 0;
@@ -252,7 +249,7 @@ class UnicodeVersion {
         if (null == partition && null != titlecaseMapping)
           partition = caselessMatchPartitions.get(title);
         if (null == partition) {
-          partition = new TreeSet<Integer>();
+          partition = new TreeSet<>();
         }
       }
       partition.add(codePoint);
@@ -325,7 +322,7 @@ class UnicodeVersion {
     if (startCodePoint >= 0xD800 && endCodePoint <= 0xDFFF) {
       return Collections.emptyList();
     }
-    List<NamedRange> ranges = new ArrayList<NamedRange>();
+    List<NamedRange> ranges = new ArrayList<>();
     if (endCodePoint < 0xD800 || startCodePoint > 0xDFFF) {
       ranges.add(new NamedRange(startCodePoint, endCodePoint));
       return ranges;
@@ -384,7 +381,7 @@ class UnicodeVersion {
         }
         Set<String> usedValues = usedEnumeratedProperties.get(propName);
         if (null == usedValues) {
-          usedValues = new HashSet<String>();
+          usedValues = new HashSet<>();
           usedEnumeratedProperties.put(propName, usedValues);
         }
         usedValues.add(propValue);
@@ -493,7 +490,7 @@ class UnicodeVersion {
    * @return a sorted map of all possible aliases for used properties & values
    */
   SortedMap<String, String> getUsedPropertyValueAliases() {
-    SortedMap<String, String> usedPropertyValueAliases = new TreeMap<String, String>();
+    SortedMap<String, String> usedPropertyValueAliases = new TreeMap<>();
     for (String binaryProperty : usedBinaryProperties) {
       for (String nameAlias : getPropertyAliases(binaryProperty)) {
         if (!nameAlias.equals(binaryProperty)) {
@@ -582,7 +579,7 @@ class UnicodeVersion {
     writer.append("  public static final String caselessMatchPartitions").append(" =\n");
 
     // Putting all of the partitions into a set ensures there are no duplicates
-    SortedMap<Integer, SortedSet<Integer>> partitions = new TreeMap<Integer, SortedSet<Integer>>();
+    SortedMap<Integer, SortedSet<Integer>> partitions = new TreeMap<>();
     for (SortedSet<Integer> partition : caselessMatchPartitions.values()) {
       partitions.put(partition.first(), partition);
     }
@@ -715,7 +712,7 @@ class UnicodeVersion {
   Set<String> getPropertyAliases(String propertyName) {
     Set<String> aliases = allPropertyAliases.get(propertyName);
     if (null == aliases) {
-      aliases = new HashSet<String>(Arrays.asList(propertyName));
+      aliases = new HashSet<>(Arrays.asList(propertyName));
     }
     return aliases;
   }
@@ -797,14 +794,14 @@ class UnicodeVersion {
     propertyValueAliases.add(propertyValue);
     Map<String, Set<String>> propertyValue2Aliases = allPropertyValueAliases.get(propertyName);
     if (null == propertyValue2Aliases) {
-      propertyValue2Aliases = new HashMap<String, Set<String>>();
+      propertyValue2Aliases = new HashMap<>();
       allPropertyValueAliases.put(propertyName, propertyValue2Aliases);
     }
     propertyValue2Aliases.put(propertyValue, propertyValueAliases);
 
     Map<String, String> aliasMap = propertyValueAlias2CanonicalValue.get(propertyName);
     if (null == aliasMap) {
-      aliasMap = new HashMap<String, String>();
+      aliasMap = new HashMap<>();
       propertyValueAlias2CanonicalValue.put(propertyName, aliasMap);
     }
     for (String propertyValueAlias : propertyValueAliases) {

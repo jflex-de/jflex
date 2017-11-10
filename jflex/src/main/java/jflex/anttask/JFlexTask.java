@@ -90,11 +90,12 @@ public class JFlexTask extends Task {
     packageName = null;
     className = null;
 
-    LineNumberReader reader = new LineNumberReader(new FileReader(inputFile));
-    try {
+    try (LineNumberReader reader = new LineNumberReader(new FileReader(inputFile))) {
       while (className == null || packageName == null) {
         String line = reader.readLine();
-        if (line == null) break;
+        if (line == null) {
+          break;
+        }
 
         if (packageName == null) {
           Matcher matcher = PACKAGE_PATTERN.matcher(line);
@@ -115,8 +116,6 @@ public class JFlexTask extends Task {
       if (className == null) {
         className = "Yylex";
       }
-    } finally {
-      reader.close();
     }
   }
 

@@ -92,8 +92,6 @@ public class ErrorMessages {
   public static ErrorMessages UNTERMINATED_STR = new ErrorMessages("UNTERMINATED_STR");
   /** Constant <code>EOF_WO_ACTION</code> */
   public static ErrorMessages EOF_WO_ACTION = new ErrorMessages("EOF_WO_ACTION");
-  /** Constant <code>EOF_SINGLERULE</code> */
-  public static ErrorMessages EOF_SINGLERULE = new ErrorMessages("EOF_SINGLERULE");
   /** Constant <code>UNKNOWN_OPTION</code> */
   public static ErrorMessages UNKNOWN_OPTION = new ErrorMessages("UNKNOWN_OPTION");
   /** Constant <code>UNEXPECTED_CHAR</code> */
@@ -102,8 +100,6 @@ public class ErrorMessages {
   public static ErrorMessages UNEXPECTED_NL = new ErrorMessages("UNEXPECTED_NL");
   /** Constant <code>LEXSTATE_UNDECL</code> */
   public static ErrorMessages LEXSTATE_UNDECL = new ErrorMessages("LEXSTATE_UNDECL");
-  /** Constant <code>STATE_IDENT_EXP</code> */
-  public static ErrorMessages STATE_IDENT_EXP = new ErrorMessages("STATE_IDENT_EXP");
   /** Constant <code>REPEAT_ZERO</code> */
   public static ErrorMessages REPEAT_ZERO = new ErrorMessages("REPEAT_ZERO");
   /** Constant <code>REPEAT_GREATER</code> */
@@ -126,8 +122,6 @@ public class ErrorMessages {
   public static ErrorMessages SYNTAX_ERROR = new ErrorMessages("SYNTAX_ERROR");
   /** Constant <code>NOT_AT_BOL</code> */
   public static ErrorMessages NOT_AT_BOL = new ErrorMessages("NOT_AT_BOL");
-  /** Constant <code>NO_MATCHING_BR</code> */
-  public static ErrorMessages NO_MATCHING_BR = new ErrorMessages("NO_MATCHING_BR");
   /** Constant <code>EOF_IN_ACTION</code> */
   public static ErrorMessages EOF_IN_ACTION = new ErrorMessages("EOF_IN_ACTION");
   /** Constant <code>EOF_IN_COMMENT</code> */
@@ -253,9 +247,6 @@ public class ErrorMessages {
   /** Constant <code>PROPS_ARG_REQUIRES_UNICODE_VERSION</code> */
   public static ErrorMessages PROPS_ARG_REQUIRES_UNICODE_VERSION =
       new ErrorMessages("PROPS_ARG_REQUIRES_UNICODE_VERSION");
-  /** Constant <code>EMITTING_INPUTSTREAM_CTOR</code> */
-  public static ErrorMessages EMITTING_INPUTSTREAM_CTOR =
-      new ErrorMessages("EMITTING_INPUTSTREAM_CTOR");
   /** Constant <code>IMPOSSIBLE_CHARCLASS_RANGE</code> */
   public static ErrorMessages IMPOSSIBLE_CHARCLASS_RANGE =
       new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
