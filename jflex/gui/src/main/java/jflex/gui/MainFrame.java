@@ -17,6 +17,8 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import jflex.GeneratorOptions;
+import jflex.GeneratorOptions.Builder;
 import jflex.Main;
 import jflex.Out;
 
@@ -30,6 +32,8 @@ public final class MainFrame extends Frame implements Handles {
 
   /** */
   private static final long serialVersionUID = 3296137982410640865L;
+
+  private final Builder generatorOptions;
 
   private volatile boolean choosing;
 
@@ -51,9 +55,13 @@ public final class MainFrame extends Frame implements Handles {
 
   private OptionsDialog dialog;
 
-  /** Constructor for MainFrame. */
-  public MainFrame() {
+  /**
+   * Constructor for MainFrame.
+   * @param generatorOptions
+   */
+  public MainFrame(GeneratorOptions.Builder generatorOptions) {
     super("JFlex " + Main.version);
+    this.generatorOptions =  generatorOptions;
     buildContent();
 
     addWindowListener(
@@ -65,6 +73,14 @@ public final class MainFrame extends Frame implements Handles {
 
     pack();
     setVisible(true);
+  }
+
+  /**
+   * @deprecated Use {@link #MainFrame(GeneratorOptions.Builder)} instead.
+   */
+  @Deprecated
+  public MainFrame() {
+    this(GeneratorOptions.newBuilder());
   }
 
   private void buildContent() {
@@ -85,7 +101,7 @@ public final class MainFrame extends Frame implements Handles {
     if (font != null) messages.setFont(new Font("Monospaced", font.getStyle(), font.getSize()));
     else messages.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
-    Out.setGUIMode(messages);
+    log.setGUIMode(messages);
 
     generate.addActionListener(
         new ActionListener() {

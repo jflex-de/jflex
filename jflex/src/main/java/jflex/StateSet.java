@@ -18,11 +18,6 @@ package jflex;
  */
 public final class StateSet {
 
-  private final boolean DEBUG = false;
-
-  /** Constant <code>EMPTY</code> */
-  public static final StateSet EMPTY = new StateSet();
-
   static final int BITS = 6;
   static final int MASK = (1 << BITS) - 1;
 
@@ -44,7 +39,6 @@ public final class StateSet {
 
   /**
    * Constructor for StateSet.
-   *
    * @param size a int.
    * @param state a int.
    */
@@ -56,7 +50,7 @@ public final class StateSet {
   /**
    * Constructor for StateSet.
    *
-   * @param set a {@link jflex.StateSet} object.
+   * @param set a {@link StateSet} object.
    */
   public StateSet(StateSet set) {
     bits = new long[set.bits.length];
@@ -69,19 +63,11 @@ public final class StateSet {
    * @param state a int.
    */
   public void addState(int state) {
-    if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
 
     int index = state >> BITS;
     if (index >= bits.length) resize(state);
     bits[index] |= (1L << (state & MASK));
 
-    if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
   }
 
   private int size2nbits(int size) {
@@ -177,17 +163,6 @@ public final class StateSet {
     if (bits.length < set.bits.length)
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
-    if (DEBUG)
-      Out.dump(
-          "Complement of "
-              + this
-              + Out.NL
-              + "and "
-              + set
-              + Out.NL
-              + " is :"
-              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
     return result;
   }
 
@@ -197,8 +172,6 @@ public final class StateSet {
    * @param set a {@link jflex.StateSet} object.
    */
   public void add(StateSet set) {
-
-    if (DEBUG) Out.dump("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
 
     if (set == null) return;
 
@@ -219,10 +192,6 @@ public final class StateSet {
 
     this.bits = tbits;
 
-    if (DEBUG) {
-      Out.dump("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
   }
 
   /**
@@ -232,9 +201,6 @@ public final class StateSet {
    * @return a boolean.
    */
   public boolean containsSet(StateSet set) {
-
-    if (DEBUG)
-      Out.dump("StateSet.containsSet(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
 
     int i;
     int min = Math.min(bits.length, set.bits.length);
@@ -252,8 +218,6 @@ public final class StateSet {
     int i = 0;
     int l1, l2;
     StateSet set = (StateSet) b;
-
-    if (DEBUG) Out.dump("StateSet.equals(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
 
     l1 = bits.length;
     l2 = set.bits.length;
@@ -334,8 +298,6 @@ public final class StateSet {
    */
   public void copy(StateSet set) {
 
-    if (DEBUG) Out.dump("StateSet.copy(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-
     if (set == null) {
       for (int i = 0; i < bits.length; i++) bits[i] = 0;
       return;
@@ -349,10 +311,6 @@ public final class StateSet {
 
     System.arraycopy(set.bits, 0, bits, 0, bits.length);
 
-    if (DEBUG) {
-      Out.dump("StateSet.copy(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
   }
 
   /**

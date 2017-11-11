@@ -9,7 +9,7 @@
 
 package jflex;
 
-/**
+import java.io.IOException; /**
  * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
@@ -17,11 +17,21 @@ package jflex;
  */
 public class GeneratorException extends RuntimeException {
 
-  /** */
   private static final long serialVersionUID = -9128247888544263982L;
 
-  /** Constructor for GeneratorException. */
   public GeneratorException() {
-    super("Generation aborted");
+    super();
+  }
+
+  public GeneratorException(ErrorMessages messageFormat, Object... args) {
+    super(ErrorMessages.get(messageFormat, args));
+  }
+
+  public GeneratorException(Throwable cause, ErrorMessages messageFormat, Object... args) {
+    super(ErrorMessages.get(messageFormat, args), cause);
+  }
+
+  public GeneratorException(Throwable cause) {
+    super(cause);
   }
 }

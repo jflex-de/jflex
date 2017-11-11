@@ -30,7 +30,7 @@ public final class SemCheck {
    * @param m the macro table (in expanded form)
    * @param f the spec file containing the rules
    */
-  public static void check(RegExps rs, Macros m, File f) {
+  public static void check(RegExps rs, Macros m, File f, Out log) {
     macros = m;
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
@@ -40,11 +40,11 @@ public final class SemCheck {
 
       if (r != null && maybeEmtpy(r)) {
         if (l != null) {
-          if (a == null) Out.error(ErrorMessages.EMPTY_MATCH_LOOK);
-          else Out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+          if (a == null){ log.error(ErrorMessages.EMPTY_MATCH_LOOK);}
+          else{ log.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);}
         } else {
-          if (a == null) Out.warning(ErrorMessages.EMPTY_MATCH);
-          else Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+          if (a == null) {log.warning(ErrorMessages.EMPTY_MATCH);}
+          else {log.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);}
         }
       }
     }

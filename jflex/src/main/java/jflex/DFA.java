@@ -64,15 +64,22 @@ public final class DFA {
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;
 
+  private final GeneratorOptions generatorOptions;
+  private final Out out;
+
   /**
    * Constructor for a deterministic finite automata.
-   *
-   * @param numEntryStates a int.
+   *  @param numEntryStates a int.
    * @param numInp a int.
    * @param numLexStates a int.
+   * @param generatorOptions
+   * @param out
    */
-  public DFA(int numEntryStates, int numInp, int numLexStates) {
+  public DFA(int numEntryStates, int numInp, int numLexStates, GeneratorOptions generatorOptions,
+      Out out) {
     numInput = numInp;
+    this.generatorOptions = generatorOptions;
+    this.out = out;
 
     int statesNeeded = Math.max(numEntryStates, STATES);
 
@@ -165,7 +172,7 @@ public final class DFA {
     ensureStateCapacity(max);
     if (max > numStates) numStates = max;
 
-    //  Out.debug("Adding DFA transition ("+start+", "+(int)input+", "+dest+")");
+    //  out.debug("Adding DFA transition ("+start+", "+(int)input+", "+dest+")");
 
     table[start][input] = dest;
   }
@@ -189,7 +196,7 @@ public final class DFA {
         }
         result.append("] ");
       }
-      result.append(i + ":" + Out.NL);
+      result.append(i + ":" + out.NL);
 
       for (int j = 0; j < numInput; j++) {
         if (table[i][j] >= 0)
@@ -198,7 +205,7 @@ public final class DFA {
               .append((int) j)
               .append(" in ")
               .append(table[i][j])
-              .append(Out.NL);
+              .append(out.NL);
       }
     }
 
@@ -216,8 +223,7 @@ public final class DFA {
       writer.println(dotFormat());
       writer.close();
     } catch (IOException e) {
-      Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException();
+      throw new GeneratorException(e, ErrorMessages.FILE_WRITE, file);
     }
   }
 
@@ -229,14 +235,14 @@ public final class DFA {
   private String dotFormat() {
     StringBuilder result = new StringBuilder();
 
-    result.append("digraph DFA {").append(Out.NL);
-    result.append("rankdir = LR").append(Out.NL);
+    result.append("digraph DFA {").append(out.NL);
+    result.append("rankdir = LR").append(out.NL);
 
     for (int i = 0; i < numStates; i++) {
       if (isFinal[i]) {
         result.append(i);
         result.append(" [shape = doublecircle]");
-        result.append(Out.NL);
+        result.append(out.NL);
       }
     }
 
@@ -244,13 +250,13 @@ public final class DFA {
       for (int input = 0; input < numInput; input++) {
         if (table[i][input] >= 0) {
           result.append(i).append(" -> ").append(table[i][input]);
-          result.append(" [label=\"[").append(input).append("]\"]").append(Out.NL);
+          result.append(" [label=\"[").append(input).append("]\"]").append(out.NL);
           // result.append(" [label=\"[").append(classes.toString(input)).append("]\"]\n");
         }
       }
     }
 
-    result.append("}").append(Out.NL);
+    result.append("}").append(out.NL);
 
     return result.toString();
   }
@@ -266,7 +272,7 @@ public final class DFA {
 
     for (Action a : scanner.actions)
       if (!a.equals(usedActions.get(a)) && !eofActions.isEOFAction(a))
-        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
+        out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
   }
 
   /**
@@ -276,15 +282,14 @@ public final class DFA {
    * <p>Time: O(n log n) Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
    */
   public void minimize() {
-    Out.print(numStates + " states before minimization, ");
+    out.print(numStates + " states before minimization, ");
 
     if (numStates == 0) {
-      Out.error(ErrorMessages.ZERO_STATES);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.ZERO_STATES);
     }
 
-    if (Options.no_minimize) {
-      Out.println("minimization skipped.");
+    if (!generatorOptions.minimize()) {
+      out.println("minimization skipped.");
       return;
     }
 
@@ -730,7 +735,7 @@ public final class DFA {
       entryState[i] -= move[entryState[i]];
     }
 
-    Out.println(numStates + " states in minimized DFA");
+    out.println(numStates + " states in minimized DFA");
   }
 
   /**
@@ -755,13 +760,13 @@ public final class DFA {
    * @param last a int.
    */
   public void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
-    Out.dump("block     : " + toString(b));
-    Out.dump("b_forward : " + toString(b_f));
-    Out.dump("b_backward: " + toString(b_b));
-    Out.dump("lastBlock : " + last);
+    out.dump("block     : " + toString(b));
+    out.dump("b_forward : " + toString(b_f));
+    out.dump("b_backward: " + toString(b_b));
+    out.dump("lastBlock : " + last);
     final int n = numStates + 1;
     for (int i = n; i <= last; i++) {
-      Out.dump("Block " + (i - n) + " (size " + b[i] + "):");
+      out.dump("Block " + (i - n) + " (size " + b[i] + "):");
       String line = "{";
       int s = b_f[i];
       while (s != i) {
@@ -771,10 +776,10 @@ public final class DFA {
         if (s != i) {
           line = line + ",";
           if (b[s] != i)
-            Out.dump("consistency error for state " + (s - 1) + " (block " + b[s] + ")");
+            out.dump("consistency error for state " + (s - 1) + " (block " + b[s] + ")");
         }
         if (b_b[s] != t)
-          Out.dump(
+          out.dump(
               "consistency error for b_back in state "
                   + (s - 1)
                   + " (back = "
@@ -783,7 +788,7 @@ public final class DFA {
                   + t
                   + ")");
       }
-      Out.dump(line + "}");
+      out.dump(line + "}");
     }
   }
 
@@ -804,9 +809,9 @@ public final class DFA {
       int old_bc = bc;
       bc = l_f[bc];
       if (bc != anchor) l += ",";
-      if (l_b[bc] != old_bc) Out.dump("consistency error for (" + b + "," + c + ")");
+      if (l_b[bc] != old_bc) out.dump("consistency error for (" + b + "," + c + ")");
     }
-    Out.dump(l + "}");
+    out.dump(l + "}");
   }
 
   /**
@@ -819,15 +824,14 @@ public final class DFA {
     int i, j;
     int c;
 
-    Out.print(numStates + " states before minimization, ");
+    out.print(numStates + " states before minimization, ");
 
     if (numStates == 0) {
-      Out.error(ErrorMessages.ZERO_STATES);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.ZERO_STATES);
     }
 
-    if (Options.no_minimize) {
-      Out.println("minimization skipped.");
+    if (!generatorOptions.minimize()) {
+      out.println("minimization skipped.");
       return null;
     }
 
@@ -856,7 +860,7 @@ public final class DFA {
 
     for (i = 1; i < numStates; i++) {
 
-      Out.debug("Testing state " + i);
+      out.debug("Testing state " + i);
 
       for (j = 0; j < i; j++) {
 
@@ -874,8 +878,8 @@ public final class DFA {
                 q = t;
               }
               if (p >= 0 || q >= 0) {
-                // Out.debug("Testing input '"+c+"' for ("+i+","+j+")");
-                // Out.debug("Target states are ("+p+","+q+")");
+                // out.debug("Testing input '"+c+"' for ("+i+","+j+")");
+                // out.debug("Target states are ("+p+","+q+")");
                 if (p != q && (p == -1 || q == -1 || !equiv[p][q])) {
                   equiv[i][j] = false;
                   if (list[i][j] != null) list[i][j].markAll(list, equiv);
@@ -889,7 +893,7 @@ public final class DFA {
 
           if (equiv[i][j]) {
 
-            // Out.debug("("+i+","+j+") are still marked equivalent");
+            // out.debug("("+i+","+j+") are still marked equivalent");
 
             for (c = 0; c < numInput; c++) {
 
@@ -909,7 +913,7 @@ public final class DFA {
               }
             }
           } else {
-            // Out.debug("("+i+","+j+") are not equivalent");
+            // out.debug("("+i+","+j+") are not equivalent");
           }
         } // of first if (equiv[i][j])
       } // of for j
@@ -928,9 +932,9 @@ public final class DFA {
    * @param inv_delta_set an array of int.
    */
   public void printInvDelta(int[][] inv_delta, int[] inv_delta_set) {
-    Out.dump("Inverse of transition table: ");
+    out.dump("Inverse of transition table: ");
     for (int s = 0; s < numStates + 1; s++) {
-      Out.dump("State [" + (s - 1) + "]");
+      out.dump("State [" + (s - 1) + "]");
       for (int c = 0; c < numInput; c++) {
         String line = "With <" + c + "> in {";
         int t = inv_delta[s][c];
@@ -938,7 +942,7 @@ public final class DFA {
           line += inv_delta_set[t++] - 1;
           if (inv_delta_set[t] != -1) line += ",";
         }
-        if (inv_delta_set[inv_delta[s][c]] != -1) Out.dump(line + "}");
+        if (inv_delta_set[inv_delta[s][c]] != -1) out.dump(line + "}");
       }
     }
   }
@@ -950,14 +954,14 @@ public final class DFA {
    */
   public void printTable(boolean[][] equiv) {
 
-    Out.dump("Equivalence table is : ");
+    out.dump("Equivalence table is : ");
     for (int i = 1; i < numStates; i++) {
       String line = i + " :";
       for (int j = 0; j < i; j++) {
         if (equiv[i][j]) line += " E";
         else line += " x";
       }
-      Out.dump(line);
+      out.dump(line);
     }
   }
 }

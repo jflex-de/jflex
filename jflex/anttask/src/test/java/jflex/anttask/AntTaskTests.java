@@ -7,7 +7,7 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex;
+package java.jflex.anttask;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class AntTaskTests extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    Options.setDefaults();
+    OldGeneratorOptions.setDefaults();
     task = new JFlexTask();
   }
 
@@ -66,7 +66,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name)
-    assertEquals(new File(dir, "jflex"), Options.getDir());
+    assertEquals(new File(dir, "jflex"), OldGeneratorOptions.getDir());
   }
 
   public void testOutdir() throws IOException {
@@ -76,7 +76,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(dir, Options.getDir());
+    assertEquals(dir, OldGeneratorOptions.getDir());
   }
 
   public void testDefaultDir() throws IOException {
@@ -84,25 +84,25 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(new File(DIR_RESOURCES + "/jflex"), Options.getDir());
+    assertEquals(new File(DIR_RESOURCES + "/jflex"), OldGeneratorOptions.getDir());
   }
 
   public void testNomin() {
-    assertTrue(!Options.no_minimize);
+    assertTrue(!!generatorOptions.minimize());
     task.setNomin(true);
-    assertTrue(Options.no_minimize);
+    assertTrue(!generatorOptions.minimize());
   }
 
   public void testSkipMinimization() {
-    assertTrue(!Options.no_minimize);
+    assertTrue(!!generatorOptions.minimize());
     task.setSkipMinimization(true);
-    assertTrue(Options.no_minimize);
+    assertTrue(!generatorOptions.minimize());
   }
 
   public void testNobak() {
-    assertTrue(!Options.no_backup);
+    assertTrue(!!generatorOptions.backup());
     task.setNobak(true);
-    assertTrue(Options.no_backup);
+    assertTrue(!generatorOptions.backup());
   }
 
   public void testSkel() {
@@ -113,54 +113,54 @@ public class AntTaskTests extends TestCase {
 
   public void testVerbose() {
     task.setVerbose(false);
-    assertTrue(!Options.verbose);
+    assertFalse(!task.getGeneratorOptions().verbose());
     task.setVerbose(true);
-    assertTrue(Options.verbose);
+    assertTrue(task.getGeneratorOptions().verbose());
   }
 
   public void testUnusedWarning() {
     // Defaults to true, for backward compatibility.
-    assertTrue("Defaults to true", Options.unused_warning);
+    assertTrue("Defaults to true", generatorOptions.unusedWarning());
     task.setUnusedWarning(false);
-    assertFalse(Options.unused_warning);
+    assertFalse(generatorOptions.unusedWarning());
   }
 
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
-    assertFalse("Disabled in quiet mode", Options.unused_warning);
+    assertFalse("Disabled in quiet mode", generatorOptions.unusedWarning());
   }
 
   public void testTime() {
-    assertTrue(!Options.time);
+    assertTrue(!generatorOptions.timing());
     task.setTimeStatistics(true);
-    assertTrue(Options.time);
+    assertTrue(generatorOptions.timing());
     task.setTime(false);
-    assertTrue(!Options.time);
+    assertTrue(!generatorOptions.timing());
   }
 
   public void testDot() {
-    assertTrue(!Options.dot);
+    assertTrue(!generatorOptions.generateDotFile());
     task.setDot(true);
-    assertTrue(Options.dot);
+    assertTrue(generatorOptions.generateDotFile());
     task.setGenerateDot(false);
-    assertTrue(!Options.dot);
+    assertTrue(!generatorOptions.generateDotFile());
   }
 
   public void testDump() {
-    assertTrue(!Options.dump);
+    assertFalse(task.getGeneratorOptions().dump());
     task.setDump(true);
-    assertTrue(Options.dump);
+    assertTrue(task.getGeneratorOptions().dump());
   }
 
   public void testJlex() {
-    assertTrue(!Options.jlex);
+    assertTrue(!generatorOptions.strictJlex());
     task.setJLex(true);
-    assertTrue(Options.jlex);
+    assertTrue(generatorOptions.strictJlex());
   }
 
   public void testLegacyDot() {
-    assertFalse(Options.legacy_dot);
+    assertFalse(generatorOptions.legacyDot());
     task.setLegacyDot(true);
-    assertTrue(Options.legacy_dot);
+    assertTrue(generatorOptions.legacyDot());
   }
 }

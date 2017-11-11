@@ -10,12 +10,8 @@
 package jflex;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -23,8 +19,13 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
  * This is the main class of JFlex controlling the scanner generation process. It is responsible for
@@ -38,255 +39,12 @@ public class Main {
   /** JFlex version */
   public static final String version = "1.7.0-SNAPSHOT"; // $NON-NLS-1$
 
-  /**
-   * Generates a scanner for the specified input file.
-   *
-   * @param inputFile a file containing a lexical specification to generate a scanner for.
-   */
-  public static void generate(File inputFile) {
-
-    Out.resetCounters();
-
-    Timer totalTime = new Timer();
-    Timer time = new Timer();
-
-    LexScan scanner = null;
-    LexParse parser = null;
-    FileReader inputReader = null;
-
-    totalTime.start();
-
+  private static void printUnicodeProperties(String unicodeVersion, Out out) {
     try {
-      Out.println(ErrorMessages.READING, inputFile.toString());
-      inputReader = new FileReader(inputFile);
-      scanner = new LexScan(inputReader);
-      scanner.setFile(inputFile);
-      parser = new LexParse(scanner);
-    } catch (FileNotFoundException e) {
-      Out.error(ErrorMessages.CANNOT_OPEN, inputFile.toString());
-      throw new GeneratorException();
+      printUnicodePropertyValuesAndAliases(unicodeVersion, out);
+    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+      throw new GeneratorException(ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE, UnicodeProperties.UNICODE_VERSIONS);
     }
-
-    try {
-      NFA nfa = (NFA) parser.parse().value;
-
-      Out.checkErrors();
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
-
-      if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
-
-      Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
-
-      time.start();
-      DFA dfa = nfa.getDFA();
-      time.stop();
-      Out.time(ErrorMessages.DFA_TOOK, time);
-
-      dfa.checkActions(scanner, parser);
-
-      nfa = null;
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
-
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
-
-      Out.checkErrors();
-
-      time.start();
-      dfa.minimize();
-      time.stop();
-
-      Out.time(ErrorMessages.MIN_TOOK, time);
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
-
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
-
-      time.start();
-
-      Emitter e = new Emitter(inputFile, parser, dfa);
-      e.emit();
-
-      time.stop();
-
-      Out.time(ErrorMessages.WRITE_TOOK, time);
-
-      totalTime.stop();
-
-      Out.time(ErrorMessages.TOTAL_TIME, totalTime);
-    } catch (ScannerException e) {
-      Out.error(e.file, e.message, e.line, e.column);
-      throw new GeneratorException();
-    } catch (MacroException e) {
-      Out.error(e.getMessage());
-      throw new GeneratorException();
-    } catch (IOException e) {
-      Out.error(ErrorMessages.IO_ERROR, e.toString());
-      throw new GeneratorException();
-    } catch (OutOfMemoryError e) {
-      Out.error(ErrorMessages.OUT_OF_MEMORY);
-      throw new GeneratorException();
-    } catch (GeneratorException e) {
-      throw new GeneratorException();
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new GeneratorException();
-    }
-  }
-
-  /**
-   * parseOptions.
-   *
-   * @param argv an array of {@link java.lang.String} objects.
-   * @return a {@link java.util.List} object.
-   * @throws jflex.SilentExit if any.
-   */
-  public static List<File> parseOptions(String argv[]) throws SilentExit {
-    List<File> files = new ArrayList<>();
-
-    for (int i = 0; i < argv.length; i++) {
-
-      if (argv[i].equals("-d") || argv[i].equals("--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
-        if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_DIRECTORY);
-          throw new GeneratorException();
-        }
-        Options.setDir(argv[i]);
-        continue;
-      }
-
-      if (argv[i].equals("--skel") || argv[i].equals("-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
-        if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_SKEL_FILE);
-          throw new GeneratorException();
-        }
-
-        Options.setSkeleton(new File(argv[i]));
-        continue;
-      }
-
-      if (argv[i].equals("-jlex") || argv[i].equals("--jlex")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.jlex = true;
-        continue;
-      }
-
-      if (argv[i].equals("-v")
-          || argv[i].equals("--verbose")
-          || argv[i].equals("-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = true;
-        Options.progress = true;
-        Options.unused_warning = true;
-        continue;
-      }
-
-      if (argv[i].equals("-q")
-          || argv[i].equals("--quiet")
-          || argv[i].equals("-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = false;
-        Options.progress = false;
-        Options.unused_warning = false;
-        continue;
-      }
-
-      if (argv[i].equals("--warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = true;
-        continue;
-      }
-
-      if (argv[i].equals("--no-warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = false;
-        continue;
-      }
-
-      if (argv[i].equals("--dump") || argv[i].equals("-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.dump = true;
-        continue;
-      }
-
-      if (argv[i].equals("--time") || argv[i].equals("-time")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.time = true;
-        continue;
-      }
-
-      if (argv[i].equals("--version") || argv[i].equals("-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.println(ErrorMessages.THIS_IS_JFLEX, version);
-        throw new SilentExit(0);
-      }
-
-      if (argv[i].equals("--dot") || argv[i].equals("-dot")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.dot = true;
-        continue;
-      }
-
-      if (argv[i].equals("--help")
-          || argv[i].equals("-h")
-          || argv[i].equals("/h")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        printUsage();
-        throw new SilentExit(0);
-      }
-
-      if (argv[i].equals("--info") || argv[i].equals("-info")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.printSystemInfo();
-        throw new SilentExit(0);
-      }
-
-      if (argv[i].equals("--nomin") || argv[i].equals("-nomin")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.no_minimize = true;
-        continue;
-      }
-
-      if (argv[i].equals("--pack") || argv[i].equals("-pack")) { // $NON-NLS-1$ //$NON-NLS-2$
-        /* no-op - pack is the only generation method */
-        continue;
-      }
-
-      if (argv[i].equals("--nobak") || argv[i].equals("-nobak")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.no_backup = true;
-        continue;
-      }
-
-      if (argv[i].equals("--legacydot")
-          || argv[i].equals("-legacydot")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.legacy_dot = true;
-        continue;
-      }
-
-      if (argv[i].equals("--uniprops")
-          || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
-        if (++i >= argv.length) {
-          Out.error(
-              ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, UnicodeProperties.UNICODE_VERSIONS);
-          throw new GeneratorException();
-        }
-        String unicodeVersion = argv[i];
-        try {
-          printUnicodePropertyValuesAndAliases(unicodeVersion);
-        } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-          Out.error(
-              ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE,
-              UnicodeProperties.UNICODE_VERSIONS);
-          throw new GeneratorException();
-        }
-        throw new SilentExit();
-      }
-
-      if (argv[i].startsWith("-")) { // $NON-NLS-1$
-        Out.error(ErrorMessages.UNKNOWN_COMMANDLINE, argv[i]);
-        printUsage();
-        throw new SilentExit();
-      }
-
-      // if argv[i] is not an option, try to read it as file
-      File f = new File(argv[i]);
-      if (f.isFile() && f.canRead()) files.add(f);
-      else {
-        Out.error("Sorry, couldn't open \"" + f + "\""); // $NON-NLS-2$
-        throw new GeneratorException();
-      }
-    }
-
-    return files;
   }
 
   /**
@@ -296,7 +54,7 @@ public class Main {
    * @param unicodeVersion The Unicode version to print property values and aliases for
    * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion is not supported
    */
-  private static void printUnicodePropertyValuesAndAliases(String unicodeVersion)
+  private static void printUnicodePropertyValuesAndAliases(String unicodeVersion, Out log)
       throws UnicodeProperties.UnsupportedUnicodeVersionException {
     Pattern versionPattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.\\d+)?");
     Matcher matcher = versionPattern.matcher(unicodeVersion);
@@ -334,77 +92,148 @@ public class Main {
     for (Map.Entry<String, SortedSet<String>> entry : propertyValuesToAliases.entrySet()) {
       String value = entry.getKey();
       SortedSet<String> aliases = entry.getValue();
-      Out.print(value);
+      log.print(value);
       if (aliases.size() > 0) {
         for (String alias : aliases) {
-          Out.print(", " + alias);
+          log.print(", " + alias);
         }
       }
-      Out.println("");
+      log.println("");
     }
   }
 
-  /** Prints the cli usage on stdout. */
-  public static void printUsage() {
-    Out.println(""); // $NON-NLS-1$
-    Out.println("Usage: jflex <options> <input-files>");
-    Out.println("");
-    Out.println("Where <options> can be one or more of");
-    Out.println("-d <directory>    write generated file to <directory>");
-    Out.println("--skel <file>     use external skeleton <file>");
-    Out.println("--pack            set default code generation method (default)");
-    Out.println("--jlex            strict JLex compatibility");
-    Out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");
-    Out.println("                  [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
-    Out.println("--nomin           skip minimization step");
-    Out.println("--nobak           don't create backup files");
-    Out.println("--dump            display transition tables");
-    Out.println("--dot             write graphviz .dot files for the generated automata (alpha)");
-    Out.println("--verbose");
-    Out.println("-v                display generation progress messages (default)");
-    Out.println("--quiet");
-    Out.println("-q                display errors only");
-    Out.println("--time            display generation time statistics");
-    Out.println("--version         print the version number of this copy of jflex");
-    Out.println("--info            print system + JDK information");
-    Out.println("--uniprops <ver>  print all supported properties for Unicode version <ver>");
-    Out.println("--help");
-    Out.println("-h                print this message");
-    Out.println("");
-    Out.println(ErrorMessages.THIS_IS_JFLEX, version);
-    Out.println("Have a nice day!");
+  private static void printUsage(Options options) {
+    HelpFormatter formatter = new HelpFormatter();
+    formatter.printHelp("jflex [options] [input files…]", options);
   }
 
-  /**
-   * generate.
-   *
-   * @param argv an array of {@link java.lang.String} objects.
-   * @throws jflex.SilentExit if any.
-   */
-  public static void generate(String argv[]) throws SilentExit {
-    List<File> files = parseOptions(argv);
-
-    if (files.size() > 0) {
-      for (File file : files) generate(file);
-    } else {
-      new MainFrame();
-    }
+  private static Options createCliOptions() {
+    return new Options()
+        .addOption("d", "outdir", true, "write generated file to <directory>")
+        .addOption("skel", "skeleton", true, "use external skeleton <file>")
+        .addOption("jflex", "jlex", false, "strict JLex compatibility")
+        .addOption(
+            "legacydot",
+            "legacy-dot",
+            false,
+            "dot (.) metachar matches [^\\n] instead of [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]")
+        .addOption("nomin", "no-min", false, "skip minimization step")
+        .addOption("nobak", "no-backup", false, "don't create backup files")
+        .addOption("dump", "dump", false, "display transition tables")
+        .addOption(
+            "dot", "dot", false, "write graphviz .dot files for the generated automata (alpha)")
+        .addOption("v", "verbose", false, "display generation progress messages (default)")
+        .addOption("q", "quiet", false, "display errors only")
+        .addOption("", "no-warn-unused", false, "TODO")
+        .addOption("", "warn-unused", false, "TODO")
+        .addOption("time", "time", false, "display generation time statistics")
+        .addOption("version", "version", false, "print the version number of this copy of jflex")
+        .addOption("info", "info", false, "print system + JDK information")
+        .addOption(
+            "uniprops",
+            "unicode-properties",
+            true,
+            "print all supported properties for Unicode version <ver>")
+        .addOption("h", "help", false, "print the help message");
   }
 
   /**
    * Starts the generation process with the files in <code>argv</code> or pops up a window to choose
    * a file, when <code>argv</code> doesn't have any file entries.
    *
-   * @param argv the commandline.
+   * @param argv the commandline argument values.
    */
-  public static void main(String argv[]) {
+  public static void main(String argv[]) throws Exception {
     try {
-      generate(argv);
-    } catch (GeneratorException e) {
-      Out.statistics();
-      System.exit(1);
+      execute(argv);
     } catch (SilentExit e) {
+      if (e.getCause() != null) {
+        System.err.println(e.getCause().getLocalizedMessage());
+      }
       System.exit(e.exitCode());
     }
+  }
+
+  private static void execute(String[] argv) throws SilentExit, IOException {
+    Options options = createCliOptions();
+    CommandLineParser parser = new DefaultParser();
+    try {
+      CommandLine args = parser.parse(options, argv);
+      if (args.hasOption("help")) {
+        printUsage(options);
+        throw new SilentExit();
+      }
+      if (args.hasOption("info")) {
+        // TODO(regisd): log.printSystemInfo();
+        // TODO(regisd) I see no reason to exit, but this is legacy behaviour.
+        throw new SilentExit();
+      }
+      if (args.hasOption("info")) {
+        // TODO(regisd) I see no reason to exit, but this is legacy behaviour.
+        throw new SilentExit(ErrorMessages.get(ErrorMessages.THIS_IS_JFLEX, version));
+      }
+      GeneratorOptions generatorOptions = createGeneratorOptions(args);
+      Out out = new Out(generatorOptions);
+      if (args.hasOption("uniprops")) {
+        printUnicodeProperties(args.getOptionValue("uniprops"), out);
+        throw new SilentExit();
+      }
+      String[] inputs = args.getArgs();
+      System.out.println("JFlex options: " + generatorOptions);
+      if (inputs.length == 0) {
+        // No file was provided. Start GUI.
+        // TODO(regisd): new MainFrame(generatorOptions.buildUpon());
+      } else {
+        for (String fileName : inputs) {
+          LexGenerator lexGenerator = new LexGenerator(generatorOptions, out);
+          lexGenerator.generateFromFile(new File(fileName));
+        }
+      }
+    } catch (ParseException e) {
+      printUsage(options);
+      throw new SilentExit(e);
+    }
+  }
+
+  private static GeneratorOptions createGeneratorOptions(CommandLine args) {
+    GeneratorOptions.Builder opts = GeneratorOptions.newBuilder();
+    if (args.hasOption("dot")) {
+      opts.setGenerateDotFile(true);
+    }
+    if (args.hasOption("dot")) {
+      opts.setLegacyDot(true);
+    }
+    if (args.hasOption("nobak")) {
+      opts.setBackup(false);
+    }
+    if (args.hasOption("outdir")) {
+      opts.setOutputDirectory(new File(args.getOptionValue("d")));
+    }
+    if (args.hasOption("skel")) {
+      opts.setSkeleton(new File(args.getOptionValue("skel")));
+    }
+    if (args.hasOption("time")) {
+      opts.setTiming(true);
+    }
+    if (args.hasOption("verbose")) {
+      opts.setVerbose(true);
+      opts.setShowProgress(true);
+      opts.setUnusedWarnings(true);
+    }
+    if (args.hasOption("quiet")) {
+      opts.setVerbose(false);
+      opts.setShowProgress(false);
+      opts.setUnusedWarnings(false);
+    }
+    if (args.hasOption("warn-unused")) {
+      opts.setUnusedWarnings(true);
+    }
+    if (args.hasOption("no-min")) {
+      opts.setMinimize(false);
+    }
+    if (args.hasOption("no-warn-unused")) {
+      opts.setUnusedWarnings(false);
+    }
+    return opts.build();
   }
 }

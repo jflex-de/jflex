@@ -18,16 +18,8 @@ public class TestResult {
     return output;
   }
 
-  public void setOutput(String output) {
-    this.output = output;
-  }
-
   public boolean getSuccess() {
     return success;
-  }
-
-  public void setSuccess(boolean success) {
-    this.success = success;
   }
 
   public String toString() {

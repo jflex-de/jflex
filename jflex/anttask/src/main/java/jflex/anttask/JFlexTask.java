@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.GeneratorOptions;
 import jflex.Main;
-import jflex.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -41,14 +41,14 @@ public class JFlexTask extends Task {
   private File destinationDir;
 
   /** the actual output directory (outputDir = destinationDir + package)) */
-  private File outputDir = null;
+  private GeneratorOptions.Builder generatorOptions = GeneratorOptions.newBuilder();
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {
     // ant default is different from the rest of JFlex
     setVerbose(false);
     setUnusedWarning(true);
-    Options.progress = false;
+    generatorOptions.setShowProgress(false);
   }
 
   /**
@@ -66,11 +66,13 @@ public class JFlexTask extends Task {
       try {
         findPackageAndClass();
         normalizeOutdir();
-        File destFile = new File(outputDir, className + ".java");
+        File destFile = new File(outputDir(), className + ".java");
 
         if (inputFile.lastModified() > destFile.lastModified()) {
-          Main.generate(inputFile);
-          if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
+          Main.generate(inputFile, generatorOptions.build());
+          if (!getGeneratorOptions().verbose()) {
+            System.out.println("Generated: " + destFile.getName());
+          }
         }
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
@@ -78,6 +80,10 @@ public class JFlexTask extends Task {
     } catch (jflex.GeneratorException e) {
       throw new BuildException("JFlex: generation failed!");
     }
+  }
+
+  private File outputDir() {
+    return getGeneratorOptions().outputDirectory().get();
   }
 
   /**
@@ -128,7 +134,7 @@ public class JFlexTask extends Task {
    * <p>Assumes that package name is already set.
    */
   public void normalizeOutdir() {
-    if (outputDir != null) return;
+    if (outputDir() != null) return;
 
     // find out what the destination directory is. Append packageName to dest
     // dir.
@@ -184,8 +190,7 @@ public class JFlexTask extends Task {
    * @param outDir a {@link java.io.File} object.
    */
   public void setOutdir(File outDir) {
-    this.outputDir = outDir;
-    Options.setDir(outputDir);
+    generatorOptions.setOutputDirectory(outDir);
   }
 
   /**
@@ -212,7 +217,7 @@ public class JFlexTask extends Task {
    * @param displayTime a boolean.
    */
   public void setTimeStatistics(boolean displayTime) {
-    Options.time = displayTime;
+    generatorOptions.setTiming(displayTime);
   }
 
   /**
@@ -230,8 +235,8 @@ public class JFlexTask extends Task {
    * @param verbose a boolean.
    */
   public void setVerbose(boolean verbose) {
-    Options.verbose = verbose;
-    Options.unused_warning = verbose;
+    generatorOptions.setVerbose(verbose);
+    generatorOptions.setUnusedWarnings(verbose);
   }
 
   /**
@@ -240,7 +245,7 @@ public class JFlexTask extends Task {
    * @param warn a boolean.
    */
   public void setUnusedWarning(boolean warn) {
-    Options.unused_warning = warn;
+    generatorOptions.setUnusedWarnings(warn);
   }
 
   /**
@@ -249,7 +254,7 @@ public class JFlexTask extends Task {
    * @param skeleton a {@link java.io.File} object.
    */
   public void setSkeleton(File skeleton) {
-    Options.setSkeleton(skeleton);
+    generatorOptions.setSkeleton(skeleton);
   }
 
   /**
@@ -276,7 +281,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setNomin(boolean b) {
-    Options.no_minimize = b;
+    generatorOptions.setMinimize(!b);
   }
 
   /**
@@ -285,7 +290,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setNobak(boolean b) {
-    Options.no_backup = b;
+    generatorOptions.setBackup(!b);
   }
 
   /**
@@ -303,7 +308,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setDot(boolean b) {
-    Options.dot = b;
+    generatorOptions.setGenerateDotFile(b);
   }
 
   /**
@@ -312,7 +317,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setDump(boolean b) {
-    Options.dump = b;
+    generatorOptions.setDump(b);
   }
 
   /**
@@ -321,7 +326,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setJLex(boolean b) {
-    Options.jlex = b;
+    generatorOptions.setStrictJlex(b);
   }
 
   /**
@@ -330,6 +335,10 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setLegacyDot(boolean b) {
-    Options.legacy_dot = b;
+    generatorOptions.setLegacyDot(b);
+  }
+
+  public GeneratorOptions getGeneratorOptions() {
+    return generatorOptions.build();
   }
 }

@@ -37,19 +37,19 @@ action code {:
   }
 
   void syntaxError(ErrorMessages message) {
-    Out.error(scanner.file, message, scanner.currentLine(), -1);
+    log.error(scanner.file, message, scanner.currentLine(), -1);
   }
   
   void syntaxError(ErrorMessages message, int line) {
-    Out.error(scanner.file, message, line, -1);
+    log.error(scanner.file, message, line, -1);
   }
 
   void syntaxError(ErrorMessages message, int line, int col) {
-    Out.error(scanner.file, message, line, col);
+    log.error(scanner.file, message, line, col);
   }
 
   void warning(ErrorMessages message, int line, int col) {
-    Out.warning(scanner.file, message, line, col);
+    log.warning(scanner.file, message, line, col);
   }
 
   private boolean isDotOrNewlinePattern(RegExp r1, RegExp r2) {
@@ -320,11 +320,16 @@ action code {:
 :};
 
 parser code {:
+   // LexParse has a default no-arg constructor
    public LexScan scanner;
+   private GeneratorOptions generatorOptions;
+   private Out log;
 
-   public LexParse(LexScan scanner) {
+   public LexParse(LexScan scanner, GeneratorOptions generatorOptions, Out logger) {
      super(scanner);
      this.scanner = scanner;
+     this.generatorOptions = generatorOptions;
+     this.log = logger;
    }
    
    public CharClasses getCharClasses() {
@@ -353,13 +358,15 @@ parser code {:
      if (info instanceof Symbol) {
        Symbol s = (Symbol) info;
   
-       if (s.sym == sym.EOF) 
-         Out.error(ErrorMessages.UNEXPECTED_EOF);
-       else
-         Out.error(scanner.file, ErrorMessages.SYNTAX_ERROR, s.left, s.right);
+       if (s.sym == sym.EOF) {
+         log.error(ErrorMessages.UNEXPECTED_EOF);
+       } else {
+         log.error(scanner.file, ErrorMessages.SYNTAX_ERROR, s.left, s.right);
+       }
      }
-     else 
-       Out.error(ErrorMessages.UNKNOWN_SYNTAX);
+     else  {
+       log.error(ErrorMessages.UNKNOWN_SYNTAX);
+     }
    }
    
    /**
@@ -427,34 +434,33 @@ specification ::=  USERCODE
                    {:
                      scanner.t.stop();
 
-                     Out.checkErrors();
+                     log.checkErrors();
                      
-                     Out.time(ErrorMessages.PARSING_TOOK, t);
+                     log.time(ErrorMessages.PARSING_TOOK, t);
                      
                      macros.expand();
-                     if (Options.unused_warning) {
+                     if (generatorOptions.unusedWarnings()) {
 	                     for (String unusedMacro : macros.unused()) {
-	                       Out.warning(String.format(
+	                       log.warning(String.format(
 	                    		   "Macro \"%s\" has been declared but never used.", unusedMacro));
 	                     }
                      }
 
-                     SemCheck.check(regExps, macros, scanner.file);
+                     SemCheck.check(regExps, macros, scanner.file, log);
   
                      regExps.checkActions();
                      regExps.checkLookAheads();
 
-                     Out.checkErrors();
+                     log.checkErrors();
+                     if (generatorOptions.dump()) charClasses.dump(log);
 
-                     if (Options.dump) charClasses.dump();
-
-                     Out.print("Constructing NFA : ");
+                     log.print("Constructing NFA : ");
 
                      t.start();
                      int num = regExps.getNum();
                      
                      RESULT = new NFA(charClasses.getNumClasses(), 
-                                      scanner, regExps, macros, charClasses);
+                                      scanner, regExps, macros, charClasses, log);
                      
                      eofActions.setNumLexStates(scanner.states.number());
 
@@ -468,8 +474,8 @@ specification ::=  USERCODE
                      if (scanner.standalone) RESULT.addStandaloneRule();
                      t.stop();
        
-                     Out.time("");              
-	                 Out.time(ErrorMessages.NFA_TOOK, t);
+                     log.time("");              
+	                 log.time(ErrorMessages.NFA_TOOK, t);
                      
                    :}
                  | /* emtpy spec. error */
@@ -596,7 +602,7 @@ hatOPT        ::=  HAT
 
 series        ::= series:r1 BAR concs:r2
                   {:
-                     if ( ! Options.jlex && ! Options.legacy_dot && isDotOrNewlinePattern(r1, r2) ) {
+                     if ( ! generatorOptions.strictJlex() && ! generatorOptions.legacyDot() && isDotOrNewlinePattern(r1, r2) ) {
                        warning(ErrorMessages.DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS, r1left, r1right);
                      }
                      RESULT = new RegExp2(sym.BAR, r1, r2);
@@ -703,7 +709,7 @@ regexp        ::=  regexp:r STAR
                 |  POINT
                    {: 
                       List<Interval> any = new ArrayList<Interval>();
-                      if ( Options.jlex || Options.legacy_dot ) {
+                      if ( generatorOptions.strictJlex() || generatorOptions.legacyDot() ) {
                         any.add(new Interval('\n','\n'));
                         // assumption: newline chars have no uppercase variant
                         charClasses.makeClass('\n', false);
@@ -746,7 +752,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS classcontent:list CLOSECLASS:close
                    {:
                      try {
-                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
+                       charClasses.makeClass(list, generatorOptions.strictJlex() && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -768,7 +774,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                 |  OPENCLASS HAT classcontent:list CLOSECLASS:close
                    {: 
                      try {
-                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
+                       charClasses.makeClassNot(list, generatorOptions.strictJlex() && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -779,7 +785,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                    {: 
                      try {
                        list.add(new Interval('-','-'));
-                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
+                       charClasses.makeClass(list, generatorOptions.strictJlex() && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -790,7 +796,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                    {: 
                      try {
                        list.add(new Interval('-','-'));
-                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
+                       charClasses.makeClassNot(list, generatorOptions.strictJlex() && scanner.caseless);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
@@ -802,7 +808,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset1 = new IntCharSet(list1);
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
@@ -811,7 +817,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset1 = new IntCharSet(list1);
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
@@ -820,7 +826,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      list2.add(new Interval('-', '-'));
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
@@ -830,7 +836,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      list2.add(new Interval('-', '-'));
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
@@ -839,7 +845,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
@@ -849,7 +855,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
@@ -859,7 +865,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
@@ -870,7 +876,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intcharset2 = new IntCharSet(list2);
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -881,7 +887,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -893,7 +899,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -905,7 +911,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -918,7 +924,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -929,7 +935,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -941,7 +947,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -953,7 +959,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -966,7 +972,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      intcharset1.sub(intersection);
                      List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -978,7 +984,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -991,7 +997,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -1004,7 +1010,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -1018,7 +1024,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClass(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASS, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -1030,7 +1036,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
@@ -1043,7 +1049,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -1056,7 +1062,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                 |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
@@ -1070,7 +1076,7 @@ charclass     ::=  OPENCLASS CLOSECLASS
                      IntCharSet intersection = intcharset1.and(intcharset2);
                      union.sub(intersection);
                      List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
+                     charClasses.makeClassNot(intervals, generatorOptions.strictJlex() && scanner.caseless);
                      RESULT = new RegExp1(sym.CCLASSNOT, intervals);
                    :}
                ;

@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Tester {
 
   public static boolean verbose;
   public static String jflexTestVersion;

@@ -44,15 +44,6 @@ public final class Macros {
    * @return <code>true</code>, iff the macro name has not been stored before.
    */
   public boolean insert(String name, RegExp definition) {
-
-    if (Options.DEBUG)
-      Out.debug(
-          "inserting macro "
-              + name
-              + " with definition :"
-              + Out.NL
-              + definition); // $NON-NLS-1$ //$NON-NLS-2$
-
     used.put(name, Boolean.FALSE);
     return macros.put(name, definition) == null;
   }
@@ -133,8 +124,8 @@ public final class Macros {
    */
   private RegExp expandMacro(String name, RegExp definition) throws MacroException {
 
-    // Out.print("checking macro "+name);
-    // Out.print("definition is "+definition);
+    // log.print("checking macro "+name);
+    // log.print("definition is "+definition);
 
     switch (definition.type) {
       case sym.BAR:

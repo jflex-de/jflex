@@ -13,7 +13,6 @@ import java.io.File;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
 import jflex.Main;
-import jflex.Options;
 import jflex.Out;
 
 /**
@@ -52,20 +51,20 @@ public class GeneratorThread extends Thread {
   /** Runs the generator thread. Only one instance of it can run at any time. */
   public void run() {
     if (running) {
-      Out.error(ErrorMessages.ALREADY_RUNNING);
+      log.error(ErrorMessages.ALREADY_RUNNING);
       parent.generationFinished(false);
     } else {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
         if (!outputDir.equals("")) {
-          Options.setDir(outputDir);
+          OldGeneratorOptions.setDir(outputDir);
         }
         Main.generate(new File(inputFile));
-        Out.statistics();
+        log.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
-        Out.statistics();
+        log.statistics();
         parent.generationFinished(false);
       } finally {
         running = false;

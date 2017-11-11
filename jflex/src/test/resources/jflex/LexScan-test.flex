@@ -283,7 +283,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                 if (!Options.jlex) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
-                                if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
+                                if (cupCompatible) log.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"({WSP}+"true")?  { eofclose = true; }
@@ -309,7 +309,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
   "%extends"{WSP}+{QualIdent}{WSP}* { isExtending = yytext().substring(9).trim(); }
   "%public"                   { isPublic = true; }
-  "%apiprivate"               { visibility = "private"; Skeleton.makePrivate(); }
+  "%apiprivate"               { visibility = "private"; // TODO(regisd) Skeleton.makePrivate(); }
   "%final"                    { isFinal = true; }
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
@@ -325,7 +325,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
                                   yypushStream( new FileReader(f) );
                                   files.push(file);
                                   file = f;
-                                  Out.println("Including \""+file+"\"");
+                                  log.println("Including \""+file+"\"");
                                 }
                                 catch (FileNotFoundException e) {
                                   throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
@@ -356,7 +356,7 @@ JavaCode = ({JavaRest}|{StringLiteral}|{CharLiteral}|{JavaComment})+
   ^"%%" {NNL}*                { macroDefinition = false; yybegin(REGEXPSTART); return symbol(DELIMITER); }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
-  ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
+  ^{WSP}+"%"                  { log.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
 
   {WSP}+                      { }
   {NL}+                       { }

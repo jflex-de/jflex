@@ -9976,7 +9976,7 @@ line: 372 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 372 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 372 col: 5 match: --// Out.debug("Calculating closure of "+set);\u000A--
+line: 372 col: 5 match: --// log.debug("Calculating closure of "+set);\u000A--
 action [288] { /* ignore */ }
 line: 373 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -10235,7 +10235,7 @@ line: 381 col: 5 match: -- --
 action [288] { /* ignore */ }
 line: 381 col: 6 match: -- --
 action [288] { /* ignore */ }
-line: 381 col: 7 match: --// Out.debug("closure is now "+closure);\u000A--
+line: 381 col: 7 match: --// log.debug("closure is now "+closure);\u000A--
 action [288] { /* ignore */ }
 line: 382 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -10249,7 +10249,7 @@ line: 382 col: 5 match: -- --
 action [288] { /* ignore */ }
 line: 382 col: 6 match: -- --
 action [288] { /* ignore */ }
-line: 382 col: 7 match: --// Out.debug("notvisited is "+notvisited);\u000A--
+line: 382 col: 7 match: --// log.debug("notvisited is "+notvisited);\u000A--
 action [288] { /* ignore */ }
 line: 383 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -10322,7 +10322,7 @@ line: 384 col: 5 match: -- --
 action [288] { /* ignore */ }
 line: 384 col: 6 match: -- --
 action [288] { /* ignore */ }
-line: 384 col: 7 match: --// Out.debug("removed element "+state+" of "+notvisited);\u000A--
+line: 384 col: 7 match: --// log.debug("removed element "+state+" of "+notvisited);\u000A--
 action [288] { /* ignore */ }
 line: 385 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -10336,7 +10336,7 @@ line: 385 col: 5 match: -- --
 action [288] { /* ignore */ }
 line: 385 col: 6 match: -- --
 action [288] { /* ignore */ }
-line: 385 col: 7 match: --// Out.debug("epsilon[states] = "+epsilon[state]);\u000A--
+line: 385 col: 7 match: --// log.debug("epsilon[states] = "+epsilon[state]);\u000A--
 action [288] { /* ignore */ }
 line: 386 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -10500,7 +10500,7 @@ line: 390 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 390 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 390 col: 5 match: --// Out.debug("Closure is : "+closure);\u000A--
+line: 390 col: 5 match: --// log.debug("Closure is : "+closure);\u000A--
 action [288] { /* ignore */ }
 line: 391 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -11278,7 +11278,7 @@ line: 429 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 429 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 429 col: 5 match: --// Out.debug("Calculating DFAEdge for state set "+start+" and input '"+input+"'");\u000A--
+line: 429 col: 5 match: --// log.debug("Calculating DFAEdge for state set "+start+" and input '"+input+"'");\u000A--
 action [288] { /* ignore */ }
 line: 430 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -11765,7 +11765,7 @@ line: 443 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 443 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 443 col: 5 match: --// Out.debug("DFAEdge is : "+result);\u000A--
+line: 443 col: 5 match: --// log.debug("DFAEdge is : "+result);\u000A--
 action [288] { /* ignore */ }
 line: 444 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -13578,7 +13578,7 @@ line: 507 col: 7 match: -- --
 action [288] { /* ignore */ }
 line: 507 col: 8 match: -- --
 action [288] { /* ignore */ }
-line: 507 col: 9 match: --// Out.debug("Calculating DFAEdge for state set "+currentState+" and input '"+input+"'");\u000A--
+line: 507 col: 9 match: --// log.debug("Calculating DFAEdge for state set "+currentState+" and input '"+input+"'");\u000A--
 action [288] { /* ignore */ }
 line: 508 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -14158,7 +14158,7 @@ line: 520 col: 7 match: -- --
 action [288] { /* ignore */ }
 line: 520 col: 8 match: -- --
 action [288] { /* ignore */ }
-line: 520 col: 9 match: --// Out.debug("DFAEdge is : "+newState);\u000A--
+line: 520 col: 9 match: --// log.debug("DFAEdge is : "+newState);\u000A--
 action [288] { /* ignore */ }
 line: 521 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -14248,7 +14248,7 @@ line: 525 col: 9 match: -- --
 action [288] { /* ignore */ }
 line: 525 col: 10 match: -- --
 action [288] { /* ignore */ }
-line: 525 col: 11 match: --// Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);\u000A--
+line: 525 col: 11 match: --// log.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);\u000A--
 action [288] { /* ignore */ }
 line: 526 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -14284,7 +14284,7 @@ line: 527 col: 8 match: -- --
 action [288] { /* ignore */ }
 line: 527 col: 9 match: -- --
 action [288] { /* ignore */ }
-line: 527 col: 10 match: --// Out.debug("Looking for state set "+newState);\u000A--
+line: 527 col: 10 match: --// log.debug("Looking for state set "+newState);\u000A--
 action [288] { /* ignore */ }
 line: 528 col: 1 match: --\u0009--
 action [288] { /* ignore */ }
@@ -14457,7 +14457,7 @@ line: 531 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 531 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 531 col: 12 match: --// Out.debug("FOUND!");\u000A--
+line: 531 col: 12 match: --// log.debug("FOUND!");\u000A--
 action [288] { /* ignore */ }
 line: 532 col: 1 match: --\u0009--
 action [288] { /* ignore */ }
@@ -14720,7 +14720,7 @@ line: 536 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 536 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 536 col: 12 match: --// Out.debug("NOT FOUND!");\u000A--
+line: 536 col: 12 match: --// log.debug("NOT FOUND!");\u000A--
 action [288] { /* ignore */ }
 line: 537 col: 1 match: --\u0009--
 action [288] { /* ignore */ }
@@ -14744,7 +14744,7 @@ line: 537 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 537 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 537 col: 12 match: --// Out.debug("Table was "+dfaStates);\u000A--
+line: 537 col: 12 match: --// log.debug("Table was "+dfaStates);\u000A--
 action [288] { /* ignore */ }
 line: 538 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -23278,7 +23278,7 @@ line: 750 col: 9 match: -- --
 action [288] { /* ignore */ }
 line: 750 col: 10 match: -- --
 action [288] { /* ignore */ }
-line: 750 col: 11 match: --// Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);\u000A--
+line: 750 col: 11 match: --// log.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);\u000A--
 action [288] { /* ignore */ }
 line: 751 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -23314,7 +23314,7 @@ line: 752 col: 8 match: -- --
 action [288] { /* ignore */ }
 line: 752 col: 9 match: -- --
 action [288] { /* ignore */ }
-line: 752 col: 10 match: --// Out.debug("Looking for state set "+newState);\u000A--
+line: 752 col: 10 match: --// log.debug("Looking for state set "+newState);\u000A--
 action [288] { /* ignore */ }
 line: 753 col: 1 match: --\u0009--
 action [288] { /* ignore */ }
@@ -23487,7 +23487,7 @@ line: 756 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 756 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 756 col: 12 match: --// Out.debug("FOUND!");\u000A--
+line: 756 col: 12 match: --// log.debug("FOUND!");\u000A--
 action [288] { /* ignore */ }
 line: 757 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -23761,7 +23761,7 @@ line: 761 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 761 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 761 col: 12 match: --// Out.debug("NOT FOUND!");\u000A--
+line: 761 col: 12 match: --// log.debug("NOT FOUND!");\u000A--
 action [288] { /* ignore */ }
 line: 762 col: 1 match: --\u0009--
 action [288] { /* ignore */ }
@@ -23785,7 +23785,7 @@ line: 762 col: 10 match: -- --
 action [288] { /* ignore */ }
 line: 762 col: 11 match: -- --
 action [288] { /* ignore */ }
-line: 762 col: 12 match: --// Out.debug("Table was "+dfaStates);\u000A--
+line: 762 col: 12 match: --// log.debug("Table was "+dfaStates);\u000A--
 action [288] { /* ignore */ }
 line: 763 col: 1 match: -- --
 action [288] { /* ignore */ }
@@ -26061,7 +26061,7 @@ line: 829 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 829 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 829 col: 5 match: --// Out.debug("removeDead ("+start+")");\u000A--
+line: 829 col: 5 match: --// log.debug("removeDead ("+start+")");\u000A--
 action [288] { /* ignore */ }
 line: 830 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -26202,7 +26202,7 @@ line: 834 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 834 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 834 col: 5 match: --// Out.debug("not yet visited");\u000A--
+line: 834 col: 5 match: --// log.debug("not yet visited");\u000A--
 action [288] { /* ignore */ }
 line: 835 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -26329,7 +26329,7 @@ line: 839 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 839 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 839 col: 5 match: --// Out.debug("is final :"+live[start]);\u000A--
+line: 839 col: 5 match: --// log.debug("is final :"+live[start]);\u000A--
 action [288] { /* ignore */ }
 line: 840 col: 1 match: --\u000A--
 action [288] { /* ignore */ }
@@ -27648,7 +27648,7 @@ line: 871 col: 3 match: -- --
 action [288] { /* ignore */ }
 line: 871 col: 4 match: -- --
 action [288] { /* ignore */ }
-line: 871 col: 5 match: --// Out.debug("state "+start+" is live :"+live[start]);\u000A--
+line: 871 col: 5 match: --// log.debug("state "+start+" is live :"+live[start]);\u000A--
 action [288] { /* ignore */ }
 line: 872 col: 1 match: -- --
 action [288] { /* ignore */ }

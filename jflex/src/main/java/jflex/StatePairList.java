@@ -69,7 +69,6 @@ public final class StatePairList {
 
   private void increaseSize(int length) {
     length = Math.max(length + 1, 4 * p.length);
-    Out.debug("increasing length to " + length); // $NON-NLS-1$
 
     int pn[] = new int[length];
     int qn[] = new int[length];

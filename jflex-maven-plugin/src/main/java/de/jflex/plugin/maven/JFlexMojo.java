@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import jflex.GeneratorOptions;
 import jflex.Main;
-import jflex.Options;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -207,29 +207,28 @@ public class JFlexMojo extends AbstractMojo {
       return;
     }
 
-    /*
-     * set options. Very strange that JFlex expects this in a static way.
-     */
-    Options.setDefaults();
-    Options.setDir(generatedFile.getParentFile());
-    Options.dump = dump;
-    Options.verbose = verbose;
-    Options.unused_warning = unusedWarning;
-    Options.dot = dot;
-    Options.legacy_dot = legacyDot;
+    GeneratorOptions.Builder generatorOptions =
+        GeneratorOptions.newBuilder()
+            .setOutputDirectory(generatedFile.getParentFile())
+            .setDump(dump)
+            .setVerbose(verbose)
+            .setUnusedWarnings(unusedWarning);
     if (skeleton != null) {
-      Options.setSkeleton(skeleton);
+      generatorOptions.setSkeleton(skeleton);
     }
-    Options.jlex = jlex;
 
-    Options.no_minimize = !minimize; // NOPMD
-    Options.no_backup = !backup; // NOPMD
+    generatorOptions.setGenerateDotFile(dot);
+    generatorOptions.setLegacyDot(legacyDot);
+    generatorOptions.setStrictJlex(jlex);
+
+    generatorOptions.setMinimize(minimize);
+    generatorOptions.setBackup(backup);
     if (!"pack".equals(generationMethod)) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
     try {
-      Main.generate(lexFile);
+      Main.generate(lexFile, generatorOptions.build());
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);

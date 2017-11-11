@@ -43,12 +43,7 @@ public class Skeleton {
   private static final String NL = System.getProperty("line.separator"); // $NON-NLS-1$
 
   /** The skeleton */
-  public static String line[];
-
-  /** initialization */
-  static {
-    readDefault();
-  }
+  public String line[];
 
   // the state based, iterator part of Skeleton:
 
@@ -56,7 +51,7 @@ public class Skeleton {
   private int pos;
 
   /** The writer to write the skeleton-parts to */
-  private PrintWriter out;
+  private final PrintWriter out;
 
   /**
    * Creates a new skeleton (iterator) instance.
@@ -65,6 +60,7 @@ public class Skeleton {
    */
   public Skeleton(PrintWriter out) {
     this.out = out;
+    readDefault();
   }
 
   /** Emits the next part of the skeleton */
@@ -77,7 +73,7 @@ public class Skeleton {
    *
    * <p>Replaces all occurrences of " public " in the skeleton with " private ".
    */
-  public static void makePrivate() {
+  public void makePrivate() {
     for (int i = 0; i < line.length; i++) {
       line[i] = replace(" public ", " private ", line[i]); // $NON-NLS-1$ //$NON-NLS-2$
     }
@@ -88,23 +84,21 @@ public class Skeleton {
    *
    * @param skeletonFile the file to read (must be != null and readable)
    */
-  public static void readSkelFile(File skeletonFile) {
+  public void readSkelFile(File skeletonFile) {
     if (skeletonFile == null)
       throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile);
     }
 
-    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    // TODO(regisd) log.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
       readSkel(reader);
     } catch (IOException e) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR);
-      throw new GeneratorException();
+      throw new GeneratorException(e, ErrorMessages.SKEL_IO_ERROR);
     }
   }
 
@@ -115,7 +109,7 @@ public class Skeleton {
    * @throws java.io.IOException if an IO error occurs
    * @throws jflex.GeneratorException if the number of skeleton sections does not match
    */
-  public static void readSkel(BufferedReader reader) throws IOException {
+  public void readSkel(BufferedReader reader) throws IOException {
     List<String> lines = new ArrayList<>();
     StringBuilder section = new StringBuilder();
 
@@ -133,8 +127,7 @@ public class Skeleton {
     if (section.length() > 0) lines.add(section.toString());
 
     if (lines.size() != size) {
-      Out.error(ErrorMessages.WRONG_SKELETON);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
     }
 
     line = new String[size];
@@ -167,7 +160,7 @@ public class Skeleton {
   }
 
   /** (Re)load the default skeleton. Looks in the current system class path. */
-  public static void readDefault() {
+  public void readDefault() {
     ClassLoader l = Skeleton.class.getClassLoader();
     URL url;
 
@@ -182,16 +175,14 @@ public class Skeleton {
     }
 
     if (url == null) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
 
     try {
       InputStreamReader reader = new InputStreamReader(url.openStream());
       readSkel(new BufferedReader(reader));
     } catch (IOException e) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
-      throw new GeneratorException();
+      throw new GeneratorException(e, ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
   }
 }

@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import jflex.GeneratorException;
-import jflex.Options;
+import jflex.GeneratorOptions;
+import jflex.Main;
 import jflex.Out;
 import jflex.SilentExit;
 import org.apache.tools.ant.BuildException;
@@ -61,6 +62,7 @@ public class Exec {
     // Locate the jflex jar in the user's Maven local repository
     classPath.setPath(
         System.getProperty("user.home")
+            // TODO: users can change the location of their repo.
             + "/.m2/repository/de/jflex/jflex/"
             + jflexTestVersion
             + "/jflex-"
@@ -85,10 +87,12 @@ public class Exec {
   public static TestResult execJFlex(List<String> cmdline, List<String> files) {
     String[] cmd = toArray(cmdline, files);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
+    // TODO(regisd) Replace cmdLine with options
+    GeneratorOptions generatorOptions = GeneratorOptions.defaultOptions();
     try {
-      Options.setDefaults();
-      Out.setOutputStream(out);
-      jflex.Main.generate(cmd);
+      // TODO(regisd): process all files
+      File file=new File(files.get(0));
+      Main.generate(file, new Out(out, generatorOptions), generatorOptions);
       return new TestResult(out.toString(), true);
     } catch (GeneratorException e) {
       return new TestResult(out.toString(), false);
@@ -191,7 +195,7 @@ public class Exec {
       System.out.println(
           "class:\n"
               + execClass(
-                  "jflextest.Main",
+                  "jflextest.Tester",
                   ".",
                   new ArrayList<String>(),
                   files,

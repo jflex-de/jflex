@@ -3,7 +3,7 @@ package jflextest;
 public class TestFailException extends Exception {
 
   public TestFailException() {
-    this("");
+    super();
   }
 
   public TestFailException(String message) {

@@ -34,7 +34,7 @@ public class ErrorMessages {
   }
 
   /**
-   * Returns a localized reprensentation of the error messages.
+   * Returns a localized representation of the error messages.
    *
    * @param msg a {@link jflex.ErrorMessages} object.
    * @return a {@link java.lang.String} representation of the errors.
@@ -51,39 +51,12 @@ public class ErrorMessages {
   }
 
   /**
-   * get.
+   * Returns an error message.
    *
-   * @param msg a {@link jflex.ErrorMessages} object.
-   * @param data a {@link java.lang.String} object.
+   * @param msg a {@link jflex.ErrorMessages} containing the format string.
    * @return a {@link java.lang.String} object.
    */
-  public static String get(ErrorMessages msg, String data) {
-    Object[] args = {data};
-    return MessageFormat.format(get(msg), args);
-  }
-
-  /**
-   * get.
-   *
-   * @param msg a {@link jflex.ErrorMessages} object.
-   * @param data1 a {@link java.lang.String} object.
-   * @param data2 a {@link java.lang.String} object.
-   * @return a {@link java.lang.String} object.
-   */
-  public static String get(ErrorMessages msg, String data1, String data2) {
-    Object[] args = {data1, data2};
-    return MessageFormat.format(get(msg), args);
-  }
-
-  /**
-   * get.
-   *
-   * @param msg a {@link jflex.ErrorMessages} object.
-   * @param data a int.
-   * @return a {@link java.lang.String} object.
-   */
-  public static String get(ErrorMessages msg, int data) {
-    Object[] args = {data};
+  public static String get(ErrorMessages msg, Object... args) {
     return MessageFormat.format(get(msg), args);
   }
 

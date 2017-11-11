@@ -79,13 +79,13 @@ public final class Emitter {
    * @param dfa a {@link jflex.DFA}.
    * @throws java.io.IOException if any.
    */
-  public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
+  public Emitter(File inputFile, LexParse parser, DFA dfa, GeneratorOptions options)
+      throws IOException {
 
     String name = getBaseName(parser.scanner.className) + ".java";
 
-    File outputFile = normalize(name, inputFile);
-
-    Out.println("Writing code to \"" + outputFile + "\"");
+    File outputFile =
+        normalize(options.outputDirectory().orNull(), name, inputFile, options.backup());
 
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     this.parser = parser;
@@ -113,30 +113,38 @@ public final class Emitter {
   }
 
   /**
-   * Constructs a file in Options.getDir() or in the same directory as another file. Makes a backup
-   * if the file already exists.
+   * Constructs a file in {@code outputDirectory} or in the same directory as another file. Makes a
+   * backup if the file already exists.
    *
    * @param name the name (without path) of the file
    * @param input fall back location if path = <tt>null</tt> (expected to be a file in the directory
    *     to write to)
+   * @param backup Whether to backup files.
    * @return The constructed File
    */
-  public static File normalize(String name, File input) {
+  public static File normalize(File outputDir, String name, File input, boolean backup) {
     File outputFile;
 
-    if (Options.getDir() == null)
+    if (outputDir == null) {
       if (input == null || input.getParent() == null) outputFile = new File(name);
       else outputFile = new File(input.getParent(), name);
-    else outputFile = new File(Options.getDir(), name);
+    } else {
+      outputFile = new File(outputDir, name);
+    }
 
-    if (outputFile.exists() && !Options.no_backup) {
-      File backup = new File(outputFile.toString() + "~");
+    if (outputFile.exists() && backup) {
+      File backupFile = new File(outputFile.toString() + "~");
 
-      if (backup.exists()) backup.delete();
+      if (backupFile.exists()) {
+        backupFile.delete();
+      }
 
-      if (outputFile.renameTo(backup))
-        Out.println("Old file \"" + outputFile + "\" saved as \"" + backup + "\"");
-      else Out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+      // TODO(regisd)
+//      if (outputFile.renameTo(backupFile)) {
+//        log.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
+//      } else {
+//        log.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+//      }
     }
 
     return outputFile;
@@ -757,7 +765,8 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
-      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      // TODO(regisd)
+//      log.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }
@@ -1231,8 +1240,7 @@ public final class Emitter {
     } else if (scanner.eofVal != null) println("          { " + scanner.eofVal + " }");
     else if (scanner.isInteger) {
       if (scanner.tokenType != null) {
-        Out.error(ErrorMessages.INT_AND_TYPE);
-        throw new GeneratorException();
+        throw new GeneratorException(ErrorMessages.INT_AND_TYPE);
       }
       println("        return YYEOF;");
     } else println("        return null;");
@@ -1325,8 +1333,9 @@ public final class Emitter {
     }
   }
 
-  /** Main Emitter method. */
-  public void emit() {
+  /** Main Emitter method.
+   * @param log*/
+  public void emit(Out log) {
 
     setupEOFCode();
 

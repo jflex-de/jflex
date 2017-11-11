@@ -63,10 +63,6 @@ public class TestCase {
     jflexDiff = d;
   }
 
-  public String getTestName() {
-    return testName;
-  }
-
   public void setDescription(String s) {
     description = s;
   }
@@ -160,13 +156,8 @@ public class TestCase {
 
     if (jflexResult.getSuccess()) {
       // Scanner generation successful
-      if (Main.verbose) {
-        System.out.println("Scanner generation successful");
-      }
-
       if (expectJFlexFail) {
-        System.out.println("JFlex failure expected!");
-        throw new TestFailException();
+        throw new TestFailException("JFlex failure expected, but it succeeded");
       }
 
       // check JFlex output conformance
@@ -201,20 +192,8 @@ public class TestCase {
         }
       }
       String toCompile = builder.toString();
-      if (Main.verbose) {
-        System.out.println("File(s) to Compile: " + toCompile);
-      }
-      javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
+      javacResult = Exec.execJavac(toCompile, testPath, Tester.jflexTestVersion);
 
-      // System.out.println(javacResult);
-      if (Main.verbose) {
-        System.out.println(
-            "Compilation successful: "
-                + javacResult.getSuccess()
-                + " [expected: "
-                + !expectJavacFail
-                + "]");
-      }
       if (javacResult.getSuccess() == expectJavacFail) {
         System.out.println("Compilation failed, messages:");
         System.out.println(javacResult.getOutput());
@@ -261,7 +240,7 @@ public class TestCase {
     // Create List with only first input in
     List<String> inputFiles = new ArrayList<>();
     inputFiles.add(null != commonInputFile ? commonInputFile : current.getName() + ".input");
-    // Excute Main on that input
+    // Execute Tester on that input
     List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--encoding");
     cmdLine.add(inputFileEncoding);
@@ -271,11 +250,8 @@ public class TestCase {
             testPath.toString(),
             cmdLine,
             inputFiles,
-            Main.jflexTestVersion,
+            Tester.jflexTestVersion,
             outputFileEncoding);
-    if (Main.verbose) {
-      System.out.println("Running scanner on [" + current.getName() + "]");
-    }
 
     // check for output conformance
     File expected = new File(current.getName() + ".output");
@@ -290,22 +266,17 @@ public class TestCase {
                 new StringReader(classExecResult.getOutput()),
                 new InputStreamReader(new FileInputStream(expected), outputFileEncoding));
       } catch (FileNotFoundException e) {
-        System.out.println("Error opening file " + expected);
-        throw new TestFailException();
+        throw new TestFailException("Error opening file " + expected);
       } catch (UnsupportedEncodingException e) {
-        System.out.println("Unsupported encoding '" + outputFileEncoding + "'");
-        throw new TestFailException();
+        throw new TestFailException("Unsupported encoding: " + outputFileEncoding);
       }
       if (diff != null) {
-        System.out.println("Test failed, unexpected output: " + diff);
         System.out.println("Test output: " + classExecResult.getOutput());
-        throw new TestFailException();
+        throw new TestFailException("Unexpected output: " + diff);
       }
     } else {
-      System.out.println("Warning: no file for expected output [" + expected + "]");
+      throw new TestFailException("No file for expected output: " + expected);
     }
-
-    // System.out.println(classExecResult);
   }
 
   public String toString() {
@@ -324,7 +295,7 @@ public class TestCase {
             ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
             : "")
         + "\n"
-        + "Files to run Main on "
+        + "Files to run Tester on "
         + inputOutput
         + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
         + "Java version "

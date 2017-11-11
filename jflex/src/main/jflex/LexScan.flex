@@ -54,6 +54,8 @@ import jflex.unicode.UnicodeProperties;
 
   File file;
   Stack<File> files = new Stack<File>();
+  private GeneratorOptions generatorOptions;
+  private Out log;
 
   StringBuilder userCode   = new StringBuilder();
 
@@ -125,8 +127,30 @@ import jflex.unicode.UnicodeProperties;
     return yyline;
   }
 
+  public LexScan withOptions(GeneratorOptions generatorOptions) {
+    this.generatorOptions = generatorOptions;
+    if (this.log == null) {
+      return withLogger(new Out(generatorOptions));
+    }
+    return this;
+  }
+
+  public LexScan withLexicanSpecification(File file) {
+    this.file = file;
+    return this;
+  }
+
+  /**
+   * @deprecated Use {@link #withLexicanSpecification(File)} instead.
+   */
+  @Deprecated
   public void setFile(File file) {
     this.file = file;
+  }
+
+  public LexScan withLogger(Out logger) {
+    this.log = logger;
+    return this;
   }
 
   private Symbol symbol(int type, Object value) {
@@ -195,7 +219,7 @@ import jflex.unicode.UnicodeProperties;
         (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
     }
     charClasses.init
-      (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+      (generatorOptions.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
   
   private void includeFile(String filePath) {
@@ -209,7 +233,7 @@ import jflex.unicode.UnicodeProperties;
       yypushStream( new FileReader(f) );
       files.push(file);
       file = f;
-      Out.println("Including \""+file+"\"");
+      log.println("Including \""+file+"\"");
     }
     catch (FileNotFoundException e) {
       throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
@@ -341,7 +365,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "ScannerToken<? extends Object>";
                                 if (eofVal == null)
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!generatorOptions.strictJlex()) eofclose = true;
                                 return symbol(UNICODE); // %unicode
                               }
   "%cup"                      { cupCompatible = true;
@@ -352,10 +376,10 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "java_cup.runtime.Symbol";
                                 if (eofVal == null)
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!generatorOptions.strictJlex()) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
-                                if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
+                                if (cupCompatible) log.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"({WSP}+"true")?  { eofclose = true; }
@@ -384,7 +408,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
                                          charClasses.init
-                                           (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+                                           (generatorOptions.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
                                        }
                                        return symbol(UNICODE);
                                      }
@@ -393,7 +417,9 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
   "%extends"{WSP}+{QClassT}{WSP}* { isExtending = yytext().substring(9).trim(); }
   "%public"                   { isPublic = true; }
-  "%apiprivate"               { visibility = "private"; Skeleton.makePrivate(); }
+  "%apiprivate"               { visibility = "private";
+                                // TODO(regisd) Skeleton.makePrivate();
+                              }
   "%final"                    { isFinal = true; }
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
@@ -434,7 +460,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                               }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
-  ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
+  ^{WSP}+"%"                  { log.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
 
   {WSP}+                      { }
   {NL}+                       { }

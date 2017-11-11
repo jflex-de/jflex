@@ -52,7 +52,6 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     try {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
-      getLog().info("JFlexTest Version: " + Main.version);
       getLog().info("Testing version: " + Exec.getJFlexVersion());
       getLog().info("Test directory: " + testDirectory);
       getLog().info("Test case(s): " + (null == testcases ? "All" : testcases));
@@ -69,12 +68,13 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       }
 
       // if we still didn't find anything, scan the whole test path
-      if (files.isEmpty()) files = Main.scan(new File(testDirectory), ".test", true);
+      if (files.isEmpty()) files = Tester.scan(new File(testDirectory), ".test", true);
 
-      Main.verbose = verbose;
-      Main.jflexTestVersion = jflexTestVersion;
+      Tester tester = new Tester();
+      tester.verbose = verbose;
+      tester.jflexTestVersion = jflexTestVersion;
       getLog().info("verbose: " + verbose);
-      success = Main.runTests(files);
+      success = tester.runTests(files);
 
     } catch (Exception e) {
       throw new MojoExecutionException("Exception", e);

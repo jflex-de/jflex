@@ -18,7 +18,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.GeneratorException;
-import jflex.Options;
 import jflex.Skeleton;
 
 /**
@@ -47,6 +46,7 @@ public class OptionsDialog extends Dialog {
   private Checkbox dot;
 
   private Checkbox legacy_dot;
+  private Skeleton generatorOptions;
 
   /**
    * Create a new options dialog
@@ -54,7 +54,7 @@ public class OptionsDialog extends Dialog {
    * @param owner a {@link java.awt.Frame} object.
    */
   public OptionsDialog(Frame owner) {
-    super(owner, "Options");
+    super(owner, "OldGeneratorOptions");
 
     this.owner = owner;
 
@@ -117,21 +117,21 @@ public class OptionsDialog extends Dialog {
     verbose.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.verbose = verbose.getState();
+            OldGeneratorOptions.verbose = verbose.getState();
           }
         });
 
     dump.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.dump = dump.getState();
+            generatorOptions.dump() = dump.getState();
           }
         });
 
     jlex.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.jlex = jlex.getState();
+            generatorOptions.strictJlex() = jlex.getState();
             // JLex compatibility implies that dot (.) metachar matches [^\n]
             legacy_dot.setState(false);
             legacy_dot.setEnabled(!jlex.getState());
@@ -141,35 +141,35 @@ public class OptionsDialog extends Dialog {
     no_minimize.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.no_minimize = no_minimize.getState();
+            !generatorOptions.minimize() = no_minimize.getState();
           }
         });
 
     no_backup.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.no_backup = no_backup.getState();
+            !generatorOptions.backup() = no_backup.getState();
           }
         });
 
     dot.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.dot = dot.getState();
+            generatorOptions.generateDotFile() = dot.getState();
           }
         });
 
     legacy_dot.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.legacy_dot = legacy_dot.getState();
+            generatorOptions.legacyDot() = legacy_dot.getState();
           }
         });
 
     time.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.time = time.getState();
+            generatorOptions.timing() = time.getState();
           }
         });
 
@@ -209,7 +209,7 @@ public class OptionsDialog extends Dialog {
     if (d.getFile() != null) {
       File skel = new File(d.getDirectory() + d.getFile());
       try {
-        Skeleton.readSkelFile(skel);
+        generatorOptions.readSkelFile(skel);
         skelFile.setText(skel.toString());
       } catch (GeneratorException e) {
         // do nothing
@@ -218,22 +218,22 @@ public class OptionsDialog extends Dialog {
   }
 
   private void updateState() {
-    legacy_dot.setState(Options.legacy_dot);
+    legacy_dot.setState(generatorOptions.legacyDot());
 
-    dump.setState(Options.dump);
-    verbose.setState(Options.verbose);
-    time.setState(Options.time);
+    dump.setState(generatorOptions.dump());
+    verbose.setState(OldGeneratorOptions.verbose);
+    time.setState(generatorOptions.timing());
 
-    no_minimize.setState(Options.no_minimize);
-    no_backup.setState(Options.no_backup);
+    no_minimize.setState(!generatorOptions.minimize());
+    no_backup.setState(!generatorOptions.backup());
 
-    jlex.setState(Options.jlex);
-    dot.setState(Options.dot);
+    jlex.setState(generatorOptions.strictJlex());
+    dot.setState(generatorOptions.generateDotFile());
   }
 
   private void setDefaults() {
-    Options.setDefaults();
-    Skeleton.readDefault();
+    OldGeneratorOptions.setDefaults();
+    // TODO(regisd) skeleton.readDefault();
     skelFile.setText("");
     updateState();
     legacy_dot.setEnabled(!jlex.getState());

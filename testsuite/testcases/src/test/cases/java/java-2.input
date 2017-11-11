@@ -134,7 +134,7 @@ final public class NFA {
   public void addRegExp(int regExpNum) {
 
     if (Options.DEBUG)
-      Out.debug("Adding nfa for regexp "+regExpNum+" :"+Out.NL+regExps.getRegExp(regExpNum));
+      log.debug("Adding nfa for regexp "+regExpNum+" :"+Out.NL+regExps.getRegExp(regExpNum));
     
     IntPair nfa = insertNFA( regExps.getRegExp(regExpNum) );
     
@@ -268,7 +268,7 @@ final public class NFA {
   }
   
   public void addTransition(int start, int input, int dest) {
-    Out.debug("Adding transition ("+start+", "+input+", "+dest+")");
+    log.debug("Adding transition ("+start+", "+input+", "+dest+")");
     
     int maxS = Math.max(start,dest)+1;
  
@@ -337,7 +337,7 @@ final public class NFA {
     
     Action maxAction = null;
 
-    Out.debug("Determining action of : "+set);
+    log.debug("Determining action of : "+set);
 
     while ( states.hasMoreElements() ) {
 
@@ -369,7 +369,7 @@ final public class NFA {
    */
   private StateSet closure(int startState) {
 
-    // Out.debug("Calculating closure of "+set);
+    // log.debug("Calculating closure of "+set);
 
     StateSet notvisited = tempStateSet;
     StateSet closure = new StateSet(numStates,startState);
@@ -378,16 +378,16 @@ final public class NFA {
     notvisited.addState(startState);
 
     while ( notvisited.containsElements() ) {
-      // Out.debug("closure is now "+closure);
-      // Out.debug("notvisited is "+notvisited);
+      // log.debug("closure is now "+closure);
+      // log.debug("notvisited is "+notvisited);
       int state = notvisited.getAndRemoveElement();
-      // Out.debug("removed element "+state+" of "+notvisited);
-      // Out.debug("epsilon[states] = "+epsilon[state]);
+      // log.debug("removed element "+state+" of "+notvisited);
+      // log.debug("epsilon[states] = "+epsilon[state]);
       notvisited.add(closure.complement(epsilon[state]));
       closure.add(epsilon[state]);
     }
 
-    // Out.debug("Closure is : "+closure);
+    // log.debug("Closure is : "+closure);
 
     return closure;
   }
@@ -426,7 +426,7 @@ final public class NFA {
    *         via <code>input</code>
    */
   private StateSet DFAEdge(StateSet start, char input) {    
-    // Out.debug("Calculating DFAEdge for state set "+start+" and input '"+input+"'");
+    // log.debug("Calculating DFAEdge for state set "+start+" and input '"+input+"'");
 
     tempStateSet.clear();
 
@@ -440,7 +440,7 @@ final public class NFA {
     while ( states.hasMoreElements() ) 
       result.add( epsilon[states.nextElement()] );
     
-    // Out.debug("DFAEdge is : "+result);
+    // log.debug("DFAEdge is : "+result);
 
     return result;
   }
@@ -460,7 +460,7 @@ final public class NFA {
     int numDFAStates = 0;
     int currentDFAState = 0;
 
-    Out.println("Converting NFA to DFA : ");
+    log.println("Converting NFA to DFA : ");
 
     epsilonFill();
 
@@ -484,7 +484,7 @@ final public class NFA {
     numDFAStates--;
 
     if (Options.DEBUG)
-      Out.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
+      log.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
       
@@ -504,7 +504,7 @@ final public class NFA {
 
         // inlining DFAEdge for performance:
 
-        // Out.debug("Calculating DFAEdge for state set "+currentState+" and input '"+input+"'");
+        // log.debug("Calculating DFAEdge for state set "+currentState+" and input '"+input+"'");
 
         tempStateSet.clear();        
         states.reset(currentState);
@@ -517,24 +517,24 @@ final public class NFA {
         while ( states.hasMoreElements() ) 
           newState.add( epsilon[states.nextElement()] );
     
-        // Out.debug("DFAEdge is : "+newState);
+        // log.debug("DFAEdge is : "+newState);
 
 
 	      if ( newState.containsElements() ) {
 
-          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
+          // log.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
        
-	        // Out.debug("Looking for state set "+newState);
+	        // log.debug("Looking for state set "+newState);
 	        Integer nextDFAState = (Integer) dfaStates.get(newState);
 
 	        if ( nextDFAState != null ) {
-	          // Out.debug("FOUND!");
+	          // log.debug("FOUND!");
 	          dfa.addTransition(currentDFAState, input, nextDFAState.intValue());
 	        }
 	        else {
-            if (Options.progress) Out.print(".");
-	          // Out.debug("NOT FOUND!");
-	          // Out.debug("Table was "+dfaStates);
+            if (Options.progress) log.print(".");
+	          // log.debug("NOT FOUND!");
+	          // log.debug("Table was "+dfaStates);
             numDFAStates++;
 
             // make a new copy of newState to store in dfaStates
@@ -553,14 +553,14 @@ final public class NFA {
       currentDFAState++;     
     }
     
-    if (Options.verbose) Out.println("");
+    if (Options.verbose) log.println("");
 
     return dfa;
   }
 
 
   public void dumpTable() {
-    Out.dump(toString());
+    log.dump(toString());
   }
 
   public String toString() {
@@ -598,7 +598,7 @@ final public class NFA {
       writer.close();
     }
     catch (IOException e) {
-      Out.error(ErrorMessages.FILE_WRITE, file);
+      log.error(ErrorMessages.FILE_WRITE, file);
       throw new GeneratorException();
     }
   }
@@ -712,8 +712,8 @@ final public class NFA {
   private IntPair complement(IntPair nfa) {
 
     if (Options.DEBUG) {
-      Out.debug("complement for "+nfa);
-      Out.debug("NFA is :"+Out.NL+this);
+      log.debug("complement for "+nfa);
+      log.debug("NFA is :"+Out.NL+this);
     }
 
     int dfaStart = nfa.end+1; 
@@ -734,7 +734,7 @@ final public class NFA {
     dfaVector.addElement(newState);
 
     if (Options.DEBUG)
-      Out.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
+      log.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
       
@@ -747,19 +747,19 @@ final public class NFA {
 
 	      if ( newState.containsElements() ) {
 
-          // Out.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
+          // log.debug("DFAEdge for input "+(int)input+" and state set "+currentState+" is "+newState);
        
-	        // Out.debug("Looking for state set "+newState);
+	        // log.debug("Looking for state set "+newState);
 	        Integer nextDFAState = (Integer) dfaStates.get(newState);
 
 	        if ( nextDFAState != null ) {
-	          // Out.debug("FOUND!");
+	          // log.debug("FOUND!");
             addTransition(dfaStart+currentDFAState, input, dfaStart+nextDFAState.intValue());
 	        }
 	        else {
-            if (Options.dump) Out.print("+");
-	          // Out.debug("NOT FOUND!");
-	          // Out.debug("Table was "+dfaStates);
+            if (Options.dump) log.print("+");
+	          // log.debug("NOT FOUND!");
+	          // log.debug("Table was "+dfaStates);
             numDFAStates++;
 
 	          dfaStates.put(newState, new Integer(numDFAStates));
@@ -777,7 +777,7 @@ final public class NFA {
 
     // Now the complement:    
     if (Options.DEBUG) 
-      Out.debug("dfa finished, nfa is now :"+Out.NL+this);
+      log.debug("dfa finished, nfa is now :"+Out.NL+this);
 
     int start = dfaStart+numDFAStates+1;
     int error = dfaStart+numDFAStates+2;
@@ -815,7 +815,7 @@ final public class NFA {
     removeDead(dfaStart, end);
 
     if (Options.DEBUG)
-      Out.debug("complement finished, nfa ("+start+","+end+") is now :"+this);
+      log.debug("complement finished, nfa ("+start+","+end+") is now :"+this);
 
     return new IntPair(start, end);
   }
@@ -826,17 +826,17 @@ final public class NFA {
   private boolean [] visited; // = new boolean [estSize];
 
   private void removeDead(int start, int end) {
-    // Out.debug("removeDead ("+start+")");
+    // log.debug("removeDead ("+start+")");
 
     if ( visited[start] || live[start] ) return;
     visited[start] = true;
 
-    // Out.debug("not yet visited");
+    // log.debug("not yet visited");
 
     if (closure(start).isElement(end))
       live[start] = true;
 
-    // Out.debug("is final :"+live[start]);
+    // log.debug("is final :"+live[start]);
 
     for (int i = 0; i < numInput; i++) {
       StateSet nextState = closure(table[start][i]);
@@ -868,7 +868,7 @@ final public class NFA {
       }
     }
     
-    // Out.debug("state "+start+" is live :"+live[start]);
+    // log.debug("state "+start+" is live :"+live[start]);
   }
 
 
@@ -949,7 +949,7 @@ final public class NFA {
     RegExp2 r;
     
     if (Options.DEBUG)
-      Out.debug("Inserting RegExp : "+regExp);
+      log.debug("Inserting RegExp : "+regExp);
     
     if (regExp.isCharClass(macros)) {
       start = numStates;

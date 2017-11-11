@@ -9,8 +9,8 @@
 
 package jflex;
 
-import java.awt.TextArea;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,31 +37,29 @@ public final class Out {
   public static final String NL = System.getProperty("line.separator");
 
   /** count total warnings */
-  private static int warnings;
+  private int warnings;
 
   /** count total errors */
-  private static int errors;
+  private int errors;
 
   /** output device */
-  private static StdOutWriter out = new StdOutWriter();
+  private final StdOutWriter out;
 
-  /**
-   * Switches to GUI mode if <code>text</code> is not <code>null</code>
-   *
-   * @param text the message TextArea of the JFlex GUI
-   */
-  public static void setGUIMode(TextArea text) {
-    out.setGUIMode(text);
+  private final GeneratorOptions generatorOptions;
+
+  public Out(ByteArrayOutputStream out,GeneratorOptions generatorOptions) {
+    this(new StdOutWriter(out), generatorOptions);
   }
 
-  /**
-   * Sets a new output stream and switches to non-gui mode.
-   *
-   * @param stream the new output stream
-   */
-  public static void setOutputStream(OutputStream stream) {
-    out = new StdOutWriter(stream);
-    out.setGUIMode(null);
+  public Out(GeneratorOptions generatorOptions) {
+    this(new StdOutWriter(),generatorOptions);
+  }
+  public Out(OutputStream out, GeneratorOptions generatorOptions) {
+    this(new StdOutWriter(out), generatorOptions);
+  }
+  public Out(StdOutWriter out, GeneratorOptions generatorOptions) {
+    this.out = out;
+    this.generatorOptions = generatorOptions;
   }
 
   /**
@@ -70,8 +68,8 @@ public final class Out {
    * @param message the message to be printed
    * @param time elapsed time
    */
-  public static void time(ErrorMessages message, Timer time) {
-    if (Options.time) {
+  public void time(ErrorMessages message, Timer time) {
+    if (generatorOptions.timing()) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
     }
@@ -82,8 +80,8 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void time(String message) {
-    if (Options.time) {
+  public void time(String message) {
+    if (generatorOptions.timing()) {
       out.println(message);
     }
   }
@@ -93,8 +91,8 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void println(String message) {
-    if (Options.verbose) out.println(message);
+  public void println(String message) {
+    if (generatorOptions.verbose()) out.println(message);
   }
 
   /**
@@ -103,8 +101,8 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages message, String data) {
-    if (Options.verbose) {
+  public void println(ErrorMessages message, String data) {
+    if (generatorOptions.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -115,8 +113,8 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages message, int data) {
-    if (Options.verbose) {
+  public void println(ErrorMessages message, int data) {
+    if (generatorOptions.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -126,20 +124,20 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void print(String message) {
-    if (Options.verbose) out.print(message);
+  public void print(String message) {
+    if (generatorOptions.verbose()) out.print(message);
   }
 
   /**
    * Dump debug information to System.out
    *
-   * <p>Use like this <code>if (Out.DEBUG) Out.debug(message)</code> to save performance during
+   * <p>Use like this <code>if (Out.DEBUG) log.debug(message)</code> to save performance during
    * normal operation (when DEBUG is turned off).
    *
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (Options.DEBUG) System.out.println(message);
+    if (GeneratorOptions.DEBUG) System.out.println(message);
   }
 
   /**
@@ -149,8 +147,8 @@ public final class Out {
    * @message the message to be printed
    * @param message a {@link java.lang.String} object.
    */
-  public static void dump(String message) {
-    if (Options.dump) out.println(message);
+  public void dump(String message) {
+    if (generatorOptions.dump()) out.println(message);
   }
 
   /**
@@ -158,17 +156,17 @@ public final class Out {
    *
    * @message the message to be printed
    */
-  private static void err(String message) {
+  private void err(String message) {
     out.println(message);
   }
 
   /** throws a GeneratorException if there are any errors recorded */
-  public static void checkErrors() {
-    if (errors > 0) throw new GeneratorException();
+  public void checkErrors() {
+    if (errors > 0) throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
   }
 
   /** print error and warning statistics */
-  public static void statistics() {
+  public void statistics() {
     StringBuilder line = new StringBuilder(errors + " error");
     if (errors != 1) line.append("s");
 
@@ -180,7 +178,7 @@ public final class Out {
   }
 
   /** reset error and warning counters */
-  public static void resetCounters() {
+  public void resetCounters() {
     errors = 0;
     warnings = 0;
   }
@@ -190,7 +188,7 @@ public final class Out {
    *
    * @param message the warning message
    */
-  public static void warning(String message) {
+  public void warning(String message) {
     warnings++;
 
     err(NL + "Warning : " + message);
@@ -202,7 +200,7 @@ public final class Out {
    * @param message code of the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message) {
+  public void warning(ErrorMessages message) {
     warning(message, 0);
   }
 
@@ -213,7 +211,7 @@ public final class Out {
    * @param line the line information
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message, int line) {
+  public void warning(ErrorMessages message, int line) {
     warnings++;
 
     String msg = NL + "Warning";
@@ -230,7 +228,7 @@ public final class Out {
    * @param line the line number of the position
    * @param column the column of the position
    */
-  public static void warning(File file, ErrorMessages message, int line, int column) {
+  public void warning(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -255,7 +253,7 @@ public final class Out {
    *
    * @param message the message to print
    */
-  public static void error(String message) {
+  public void error(String message) {
     errors++;
     err(NL + message);
   }
@@ -266,7 +264,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages message) {
+  public void error(ErrorMessages message) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message));
   }
@@ -278,7 +276,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages message, String data) {
+  public void error(ErrorMessages message, String data) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message, data));
   }
@@ -289,7 +287,7 @@ public final class Out {
    * @param message the code of the error message
    * @param file the file it occurred for
    */
-  public static void error(ErrorMessages message, File file) {
+  public void error(ErrorMessages message, File file) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message) + " (" + file + ")");
   }
@@ -302,7 +300,7 @@ public final class Out {
    * @param line the line number of error position
    * @param column the column of error position
    */
-  public static void error(File file, ErrorMessages message, int line, int column) {
+  public void error(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Error";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -329,7 +327,7 @@ public final class Out {
    * @param line the line to show
    * @param column the column in which to show the marker
    */
-  public static void showPosition(File file, int line, int column) {
+  public void showPosition(File file, int line, int column) {
     try {
       String ln = getLine(file, line);
       if (ln != null) {
@@ -353,7 +351,7 @@ public final class Out {
    * @param file the file to show
    * @param line the line number
    */
-  public static void showPosition(File file, int line) {
+  public void showPosition(File file, int line) {
     try {
       String ln = getLine(file, line);
       if (ln != null) err(ln);
@@ -382,7 +380,8 @@ public final class Out {
   }
 
   /** Print system information (e.g. in case of unexpected exceptions) */
-  public static void printSystemInfo() {
+  public void printSystemInfo() {
+    // TODO(regisd): why is systeminfo sent to stderr?
     err("Java version:     " + System.getProperty("java.version"));
     err("Runtime name:     " + System.getProperty("java.runtime.name"));
     err("Vendor:           " + System.getProperty("java.vendor"));
@@ -403,7 +402,7 @@ public final class Out {
    *
    * @param e a {@link java.lang.Error} object.
    */
-  public static void requestBugReport(Error e) {
+  public void requestBugReport(Error e) {
     err("An unexpected error occurred. Please send a report of this to");
     err("<bugs@jflex.de> and include the following information:");
     err("");
