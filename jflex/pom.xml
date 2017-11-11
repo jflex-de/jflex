@@ -99,56 +99,20 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
+        <groupId>de.jflex</groupId>
+        <artifactId>cup-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>cup-generate-parser</id>
-            <phase>generate-sources</phase>
             <goals>
-              <goal>run</goal>
+              <goal>generate</goal>
             </goals>
-            <configuration>
-              <target name="cup">
-                <property name="plugin_classpath" refid="maven.plugin.classpath"/>
-                <property name="cup.output.dir" location="target/generated-sources/jflex/"/>
-                <property name="cup.file" location="src/main/cup/LexParse.cup"/>
-                <mkdir dir="${cup.output.dir}"/>
-                <echo message="Generating LexParse.java from ${cup.file}"/>
-                <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${plugin_classpath}"/>
-                <cup srcfile="${cup.file}" destdir="${cup.output.dir}" interface="true"
-                  locations="false" parser="LexParse"/>
-              </target>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copy-jar-to-lib</id>
-            <phase>install</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target name="copy">
-                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
-                  todir="lib"/>
-              </target>
-            </configuration>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>de.jflex</groupId>
-            <artifactId>cup</artifactId>
-            <version>${cup.version}</version>
-            <scope>runtime</scope>
-          </dependency>
-          <dependency>
-            <groupId>de.jflex</groupId>
-            <artifactId>cup_runtime</artifactId>
-            <version>${cup.version}</version>
-            <scope>runtime</scope>
-          </dependency>
-        </dependencies>
+        <configuration>
+          <!--interface="true" locations="false" parser="LexParse"-->
+          <symbolInterface>true</symbolInterface>
+          <parserName>LexParse</parserName>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -225,19 +189,6 @@
                   </pluginExecutionFilter>
                   <action>
                     <ignore/>
-                  </action>
-                </pluginExecution>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <versionRange>[1.7,)</versionRange>
-                    <goals>
-                      <goal>run</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <execute/>
                   </action>
                 </pluginExecution>
               </pluginExecutions>
