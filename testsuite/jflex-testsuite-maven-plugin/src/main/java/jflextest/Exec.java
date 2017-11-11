@@ -9,10 +9,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Out;
-import jflex.SilentExit;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
@@ -88,12 +86,10 @@ public class Exec {
     try {
       Options.setDefaults();
       Out.setOutputStream(out);
-      jflex.Main.generate(cmd);
+      jflex.Main.main(cmd);
       return new TestResult(out.toString(), true);
-    } catch (GeneratorException e) {
-      return new TestResult(out.toString(), false);
-    } catch (SilentExit e) {
-      return new TestResult(out.toString(), false);
+    } catch (Exception e) {
+      return new TestResult(e.getMessage() + "\n" + out, false);
     }
   }
 
