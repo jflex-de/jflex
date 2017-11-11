@@ -24,6 +24,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -341,13 +342,13 @@ public class Main {
         throw new SilentExit();
       }
       if (args.hasOption("info")) {
+        Out.println(ErrorMessages.THIS_IS_JFLEX, version);
         // TODO(regisd) I see no reason to exit, but this is legacy behaviour.
-        throw new SilentExit(ErrorMessages.get(ErrorMessages.THIS_IS_JFLEX, version));
+        throw new SilentExit();
       }
       List<File> inputs = handleArgs(args);
       if (inputs.isEmpty()) {
-        // No file was provided. Start GUI.
-        // TODO(regisd): new MainFrame(generatorOptions.buildUpon());
+        new MainFrame();
       } else {
         for (File file : inputs) {
           generate(file);

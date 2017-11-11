@@ -40,11 +40,6 @@ public class SilentExit extends Exception {
     exitCode = DEFAUT_EXIT_CODE;
   }
 
-  public SilentExit(String message) {
-    super(message);
-    exitCode = DEFAUT_EXIT_CODE;
-  }
-
   /**
    * The exit code of this SilentExit exception.
    *
