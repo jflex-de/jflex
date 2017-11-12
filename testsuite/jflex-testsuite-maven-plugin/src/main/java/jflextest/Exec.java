@@ -2,6 +2,7 @@ package jflextest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +21,7 @@ import org.apache.tools.ant.types.Path;
 
 public class Exec {
 
-  private static String javaVersion = "1.7";
+  private static final String JAVA_VERSION = "1.7";
 
   /**
    * Convert two Lists with String elements into one array containing all elements.
@@ -53,8 +54,8 @@ public class Exec {
     javac.setProject(p);
     javac.setSrcdir(path);
     javac.setDestdir(dir);
-    javac.setTarget(javaVersion);
-    javac.setSource(javaVersion);
+    javac.setTarget(JAVA_VERSION);
+    javac.setSource(JAVA_VERSION);
     javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
     javac.setIncludes(toCompile);
     Path classPath = javac.createClasspath();
@@ -128,14 +129,14 @@ public class Exec {
     // System.out.println("cmdline "+cmdline+"\nfiles: "+files);
 
     CustomClassLoader l = new CustomClassLoader(path);
-    // Locate the jflex jar in the user's Maven local repository
-    l.addPath(
-        System.getProperty("user.home")
-            + "/.m2/repository/de/jflex/jflex/"
-            + jflexTestVersion
-            + "/jflex-"
-            + jflexTestVersion
-            + ".jar");
+    // Locate the shaded jar in the lib directory
+    // TODO(regisd) Alternatively, we could load JFlex and its dependency graph.
+    try {
+      // We are in $basedir/testsuite/testcases
+      l.addPath("../../jflex/lib/jflex-full-" + jflexTestVersion + ".jar");
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
 
     try {
       c = l.loadClass(theClass, true);
