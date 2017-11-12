@@ -468,5 +468,28 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <!-- activate manually if you want to accelerate your build
+      mvn -Pfastbuild package
+      -->
+      <id>fastbuild</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
