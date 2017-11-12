@@ -25,25 +25,17 @@ if [[ ! $TRAVIS ]]; then
 
   # Travis steps
   # See https://docs.travis-ci.com/user/languages/java/#Projects-Using-Maven"
-
-  # Travis installs dependencies
-  #mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  #"$MVN" install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  # Skipped because .travis.yml has `installation: true`
-
+  # mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  # Travis installs dependencies with the `install` script defined in .travis.yml
+  "$MVN" -Pfastbuild install
   # Travis runs tests
   # Implemented by this script because `script: ./run-tests`
 fi
 
-logi "Compile and install all"
+logi "Run unit tests"
 # Install jflex in local repo
 # implies: validate, compile, test, package, verify, install
-if [[ $TRAVIS ]]; then
-  # Quiet mode shows errors only.
-  "$MVN" install --quiet
-else
-  "$MVN" install
-fi
+"$MVN" test
 
 # Tests depend on the shaded jar in /lib
 rm jflex/lib/jflex-*.jar || true
