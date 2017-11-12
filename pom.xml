@@ -302,7 +302,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.7</version>
         <executions>
           <execution>
             <id>site</id>
@@ -325,6 +324,7 @@
             <reports>
               <report>index</report>
               <report>summary</report>
+              <report>plugins</report>
             </reports>
           </reportSet>
         </reportSets>
@@ -365,7 +365,7 @@
         </property>
       </activation>
       <properties>
-        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        <additionalparam>-Xdoclint:none</additionalparam>
       </properties>
     </profile>
     <profile>

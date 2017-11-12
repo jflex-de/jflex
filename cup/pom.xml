@@ -85,12 +85,9 @@
     </pluginManagement>
   </build>
 
-  <distributionManagement>
-    <site>
-      <id>local</id>
-      <url>mvn</url>
-    </site>
-  </distributionManagement>
+  <properties>
+    <maven.site.skip>true</maven.site.skip>
+  </properties>
 
   <profiles>
     <profile>
@@ -98,35 +95,9 @@
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-javadoc-plugin</artifactId>
-              <configuration>
-                <additionalparam>-Xdoclint:none</additionalparam>
-              </configuration>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-site-plugin</artifactId>
-              <version>3.6</version>
-              <configuration>
-                <reportPlugins>
-                  <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <configuration>
-                      <additionalparam>-Xdoclint:none</additionalparam>
-                    </configuration>
-                  </plugin>
-                </reportPlugins>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
+      <properties>
+        <additionalparam>-Xdoclint:none</additionalparam>
+      </properties>
     </profile>
   </profiles>
 

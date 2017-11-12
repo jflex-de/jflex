@@ -10,6 +10,7 @@
   </skin>
 
   <body>
+    <menu ref="reports"/>
     <menu name="Overview" inherit="top">
       <item name="Home" href="http://jflex.de/"/>
       <item name="Features" href="http://jflex.de/features.html"/>
