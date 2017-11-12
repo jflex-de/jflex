@@ -45,12 +45,11 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Add a new path item (dir, zip, or jar) to the search path. */
-  public void addPath(String pathItem) throws FileNotFoundException {
-    File f = new File(pathItem);
-    if (!f.exists()) {
-      throw new FileNotFoundException("Couldn't load classpath item " + f.getAbsolutePath());
+  public void addPath(File pathItem) throws FileNotFoundException {
+    if (!pathItem.exists()) {
+      throw new FileNotFoundException("Couldn't load classpath item " + pathItem.getAbsolutePath());
     }
-    pathItems.add(pathItem);
+    pathItems.add(pathItem.getAbsolutePath());
   }
 
   /** Returns a named resource as stream. */

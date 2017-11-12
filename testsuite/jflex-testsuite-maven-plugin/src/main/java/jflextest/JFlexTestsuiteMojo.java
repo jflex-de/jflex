@@ -1,59 +1,49 @@
 package jflextest;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
-/**
- * Runs test cases in the JFlex test suite
- *
- * @goal run-test-suite
- * @phase test
- */
+/** Runs test cases in the JFlex test suite */
+@Mojo(name = "run-test-suite", defaultPhase = LifecyclePhase.TEST)
 public class JFlexTestsuiteMojo extends AbstractMojo {
 
-  /**
-   * Name of the directory into which the code will be generated.
-   *
-   * @parameter default-value="src/test/cases"
-   */
+  /** Name of the directory into which the code will be generated. */
+  @Parameter(defaultValue = "src/test/cases")
   private String testDirectory = null;
 
-  /**
-   * Whether test suite output should be verbose.
-   *
-   * @parameter default-value="false"
-   */
-  private boolean verbose;
+  /** Whether test suite output should be verbose. */
+  @Parameter() private boolean verbose;
 
   /**
    * (Comma-separated list of) name(s) of test case(s) to run.
    *
    * <p>By default, all test cases in src/test/cases/ will be run.
-   *
-   * @parameter
    */
-  private String testcases;
+  @Parameter() private String testcases;
 
-  /**
-   * JFlex test version
-   *
-   * @parameter
-   */
-  private String jflexTestVersion;
+  /** Path of the JFlex uber jar under test. */
+  @Parameter(defaultValue = "${project.parent.basedir}/jflex/lib/jflex-full-${project.version}.jar")
+  private String jflexUberJarFilename;
 
   /** */
   public void execute() throws MojoExecutionException, MojoFailureException {
     boolean success = true;
+    File jflexUberJar = new File(jflexUberJarFilename);
     try {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
-      getLog().info("JFlexTest Version: " + Main.version);
-      getLog().info("Testing version: " + Exec.getJFlexVersion());
+      getLog().info("JFlex: " + jflexUberJar.getAbsolutePath());
+      String jFlexVersion = Exec.getJFlexVersion();
+      getLog().info("Testing version: " + jFlexVersion);
       getLog().info("Test directory: " + testDirectory);
       getLog().info("Test case(s): " + (null == testcases ? "All" : testcases));
 
@@ -61,7 +51,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
         for (String testCase : testcases.split("\\s*,\\s*")) {
           File dir = new File(testDirectory, testCase.trim());
           if (!dir.isDirectory()) {
-            throw new MojoFailureException(dir + " - test path not found");
+            throw new FileNotFoundException("Test directory is not a directory: " + dir);
           }
           List<File> t = Main.scan(dir, ".test", false);
           files.addAll(t);
@@ -72,9 +62,10 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       if (files.isEmpty()) files = Main.scan(new File(testDirectory), ".test", true);
 
       Main.verbose = verbose;
-      Main.jflexTestVersion = jflexTestVersion;
+      Main.jflexTestVersion = jFlexVersion;
       getLog().info("verbose: " + verbose);
-      success = Main.runTests(files);
+
+      success = Main.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
       throw new MojoExecutionException("Exception", e);

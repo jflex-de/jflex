@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import jflex.GeneratorException;
 import jflex.Options;
@@ -110,14 +109,16 @@ public class Exec {
    * Call main method of specified class with command line and input files.
    *
    * @param path the directory in which to search for the class
+   * @param additionalJars
    */
   public static TestResult execClass(
       String theClass,
       String path,
-      List<String> cmdline,
       List<String> files,
+      List<File> additionalJars,
       String jflexTestVersion,
-      String outputFileEncoding)
+      String outputFileEncoding,
+      List<String> cmdline)
       throws UnsupportedEncodingException {
 
     String[] cmd = toArray(cmdline, files);
@@ -132,8 +133,10 @@ public class Exec {
     // Locate the shaded jar in the lib directory
     // TODO(regisd) Alternatively, we could load JFlex and its dependency graph.
     try {
-      // We are in $basedir/testsuite/testcases
-      l.addPath("../../jflex/lib/jflex-full-" + jflexTestVersion + ".jar");
+      for (File jar : additionalJars) {
+        // We are in $basedir/testsuite/testcases
+        l.addPath(jar);
+      }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
@@ -177,30 +180,5 @@ public class Exec {
     // System.out.println("finished exec class "+theClass);
 
     return new TestResult(out.toString(outputFileEncoding), success);
-  }
-
-  /** for testing */
-  public static void main(String args[]) {
-    List<String> files = new ArrayList<>();
-    files.addAll(Arrays.asList(args));
-    System.out.println();
-    // System.out.println("javac:\n"+execJavac(new ArrayList<String>(), files));
-
-    System.out.println("jflex:\n" + execJFlex(new ArrayList<String>(), files));
-
-    try {
-      System.out.println(
-          "class:\n"
-              + execClass(
-                  "jflextest.Main",
-                  ".",
-                  new ArrayList<String>(),
-                  files,
-                  "1.7.0-SNAPSHOT",
-                  "UTF-8"));
-    } catch (UnsupportedEncodingException e) {
-      System.out.println("UTF-8 is not a supported encoding.");
-      System.exit(1);
-    }
   }
 }

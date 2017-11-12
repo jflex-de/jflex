@@ -1,5 +1,6 @@
 package jflextest;
 
+import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +44,6 @@ public class TestCase {
 
   private String testName;
   private String description;
-  private TestResult jflexResult, javacResult, classExecResult;
 
   /** base directory of this test case */
   private File testPath;
@@ -54,56 +54,52 @@ public class TestCase {
   private List<InputOutput> inputOutput;
 
   /** get- set- methods */
-  public void setTestName(String s) {
+  void setTestName(String s) {
     testName = s;
     className = testName.substring(0, 1).toUpperCase(Locale.ENGLISH) + testName.substring(1);
   }
 
-  public void setJFlexDiff(List<Integer> d) {
+  void setJFlexDiff(List<Integer> d) {
     jflexDiff = d;
   }
 
-  public String getTestName() {
-    return testName;
-  }
-
-  public void setDescription(String s) {
+  void setDescription(String s) {
     description = s;
   }
 
-  public void setExpectJavacFail(boolean b) {
+  void setExpectJavacFail(boolean b) {
     expectJavacFail = b;
   }
 
-  public void setExpectJFlexFail(boolean b) {
+  void setExpectJFlexFail(boolean b) {
     expectJFlexFail = b;
   }
 
-  public void setJflexCmdln(List<String> v) {
+  void setJflexCmdln(List<String> v) {
     jflexCmdln = v;
   }
 
-  public void setJavacExtraFiles(List<String> v) {
+  void setJavacExtraFiles(List<String> v) {
     javacExtraFiles = v;
   }
 
-  public void setInputOutput(List<InputOutput> v) {
+  private void setInputOutput(List<InputOutput> v) {
     inputOutput = v;
   }
 
-  public void setInputFileEncoding(String e) {
+  void setInputFileEncoding(String e) {
     inputFileEncoding = e;
   }
 
-  public void setOutputFileEncoding(String e) {
+  void setOutputFileEncoding(String e) {
     outputFileEncoding = e;
   }
 
-  public void setCommonInputFile(String f) {
+  void setCommonInputFile(String f) {
     commonInputFile = f;
   }
 
-  public void setJavaVersion(String v) {
+  void setJavaVersion(String v) {
     this.javaVersion = v;
   }
 
@@ -118,12 +114,12 @@ public class TestCase {
     // jflexCmdln.add("--dump");
   }
 
-  public boolean checkJavaVersion() {
+  boolean checkJavaVersion() {
     String current = System.getProperty("java.version");
     return current.startsWith(javaVersion);
   }
 
-  public void init(File testDir) {
+  void init(File testDir) {
     // get files to process
     List<InputOutput> temp = new ArrayList<>();
     String name;
@@ -152,10 +148,10 @@ public class TestCase {
     testPath = testDir;
   }
 
-  public void createScanner() throws TestFailException {
+  void createScanner() throws TestFailException {
     jflexFiles.add((new File(testPath, testName + ".flex")).getPath());
     // invoke JFlex
-    jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
+    TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
     // System.out.println(jflexResult);
 
     if (jflexResult.getSuccess()) {
@@ -204,7 +200,7 @@ public class TestCase {
       if (Main.verbose) {
         System.out.println("File(s) to Compile: " + toCompile);
       }
-      javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
+      TestResult javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
 
       // System.out.println(javacResult);
       if (Main.verbose) {
@@ -216,7 +212,7 @@ public class TestCase {
                 + "]");
       }
       if (javacResult.getSuccess() == expectJavacFail) {
-        System.out.println("Compilation failed, messages:");
+        System.out.println("Compilation failed in " + testPath + " for " + toCompile);
         System.out.println(javacResult.getOutput());
         throw new TestFailException();
       }
@@ -250,12 +246,12 @@ public class TestCase {
     }
   }
 
-  public boolean hasMoreToDo() {
+  boolean hasMoreToDo() {
     // check if there's more files to run scanner main on
     return !(inputOutput.isEmpty());
   }
 
-  public void runNext() throws TestFailException, UnsupportedEncodingException {
+  void runNext(File jflexUberJar) throws TestFailException, UnsupportedEncodingException {
     // Get first file and remove it from list
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in
@@ -265,14 +261,16 @@ public class TestCase {
     List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--encoding");
     cmdLine.add(inputFileEncoding);
-    classExecResult =
+    List<File> additionalJars = ImmutableList.of(jflexUberJar);
+    TestResult classExecResult =
         Exec.execClass(
             className,
             testPath.toString(),
-            cmdLine,
             inputFiles,
+            additionalJars,
             Main.jflexTestVersion,
-            outputFileEncoding);
+            outputFileEncoding,
+            cmdLine);
     if (Main.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }
