@@ -18,6 +18,7 @@ They are fast, without expensive backtracking.
 The top level directory of the JFLex git repository contains:
 
  * **cup** A copy of the CUP runtime
+ * **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
  * **docs** the Markdown sources for the user manual
  * **jflex** JFlex, the scanner/lexer generator for Java
  * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
