@@ -21,6 +21,7 @@ import org.apache.tools.ant.types.Path;
 public class Exec {
 
   private static final String JAVA_VERSION = "1.7";
+  public static final String NL = System.getProperty("line.separator");
 
   /**
    * Convert two Lists with String elements into one array containing all elements.
@@ -75,7 +76,8 @@ public class Exec {
       javac.execute();
       return new TestResult(out.toString(), true);
     } catch (BuildException e) {
-      return new TestResult(e + System.getProperty("line.separator") + out.toString(), false);
+      return new TestResult(
+          "Compilation with classpath " + classPath + NL + e + NL + out.toString(), false);
     } finally {
       System.setErr(outSafe);
     }
@@ -97,18 +99,9 @@ public class Exec {
     }
   }
 
-  /** Return String with JFlex version number. */
-  public static String getJFlexVersion() {
-    List<String> cmdLine = new ArrayList<>();
-    cmdLine.add("--version");
-    TestResult test = execJFlex(cmdLine, new ArrayList<String>());
-    return test.getOutput();
-  }
-
   /**
    * Call main method of specified class with command line and input files.
-   *
-   * @param path the directory in which to search for the class
+   *  @param path the directory in which to search for the class
    * @param additionalJars
    */
   public static TestResult execClass(
@@ -116,7 +109,6 @@ public class Exec {
       String path,
       List<String> files,
       List<File> additionalJars,
-      String jflexTestVersion,
       String outputFileEncoding,
       List<String> cmdline)
       throws UnsupportedEncodingException {

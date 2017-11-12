@@ -42,7 +42,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
       getLog().info("JFlex: " + jflexUberJar.getAbsolutePath());
-      String jFlexVersion = Exec.getJFlexVersion();
+      String jFlexVersion = PomUtils.getPomVersion("de.jflex", "jflex", jflexUberJar);
       getLog().info("Testing version: " + jFlexVersion);
       getLog().info("Test directory: " + testDirectory);
       getLog().info("Test case(s): " + (null == testcases ? "All" : testcases));
@@ -68,7 +68,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       success = Main.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
-      throw new MojoExecutionException("Exception", e);
+      throw new MojoExecutionException("Failed to execute test suite", e);
     }
     if (!success) {
       throw new MojoFailureException("Test(s) failed.");

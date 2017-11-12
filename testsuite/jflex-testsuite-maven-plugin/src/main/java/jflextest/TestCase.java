@@ -268,7 +268,6 @@ public class TestCase {
             testPath.toString(),
             inputFiles,
             additionalJars,
-            Main.jflexTestVersion,
             outputFileEncoding,
             cmdLine);
     if (Main.verbose) {
