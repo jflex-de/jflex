@@ -45,15 +45,16 @@ else
   "$MVN" install
 fi
 
+# Tests depend on the shaded jar in /lib
+rm jflex/lib/jflex-*.jar || true
+cp jflex/target/jflex-full-*.jar jflex/lib
+
 logi "Run regression test cases"
 # regression test suite must run in its own directory
 cd testsuite/testcases; "$MVN" test
 cd ../..
 
 logi "Run jflex examples"
-# Tests depend on the shaded jar in /lib
-rm jflex/lib/jflex-*.jar || true
-cp jflex/target/jflex-full-*.jar jflex/lib
 set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)
