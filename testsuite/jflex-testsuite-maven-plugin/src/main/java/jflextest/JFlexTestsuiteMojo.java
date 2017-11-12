@@ -42,8 +42,8 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
       getLog().info("JFlex: " + jflexUberJar.getAbsolutePath());
-      String jFlexVersion = PomUtils.getPomVersion("de.jflex", "jflex", jflexUberJar);
-      getLog().info("Testing version: " + jFlexVersion);
+      getLog()
+          .info("Testing version: " + PomUtils.getPomVersion("de.jflex", "jflex", jflexUberJar));
       getLog().info("Test directory: " + testDirectory);
       getLog().info("Test case(s): " + (null == testcases ? "All" : testcases));
 
@@ -62,7 +62,6 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       if (files.isEmpty()) files = Main.scan(new File(testDirectory), ".test", true);
 
       Main.verbose = verbose;
-      Main.jflexTestVersion = jFlexVersion;
       getLog().info("verbose: " + verbose);
 
       success = Main.runTests(files, jflexUberJar);

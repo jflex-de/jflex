@@ -21,8 +21,6 @@ import jflex.sym;
   private TestCase test = new TestCase();
   private List<String> cmdLine;
   private List<Integer> lineList;
-
-  // public TestCase getTestCase() { return test; }
 %}
 
 NL = \r | \n | \r\n

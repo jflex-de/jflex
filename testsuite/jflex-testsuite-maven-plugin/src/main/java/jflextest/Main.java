@@ -88,7 +88,7 @@ public class Main {
         if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
         if (currentTest.checkJavaVersion()) {
-          currentTest.createScanner();
+          currentTest.createScanner(jflexUberJar);
           while (currentTest.hasMoreToDo()) currentTest.runNext(jflexUberJar);
 
           successCount++;

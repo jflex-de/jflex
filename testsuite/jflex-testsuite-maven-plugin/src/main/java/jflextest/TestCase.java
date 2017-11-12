@@ -104,14 +104,7 @@ public class TestCase {
   }
 
   public TestCase() {
-    setDefaults();
-  }
-
-  private void setDefaults() {
-    // jflexCmdln = new ArrayList<String>();
     jflexFiles = new ArrayList<>();
-    // javacExtraFiles = new ArrayList<String>();
-    // jflexCmdln.add("--dump");
   }
 
   boolean checkJavaVersion() {
@@ -148,7 +141,7 @@ public class TestCase {
     testPath = testDir;
   }
 
-  void createScanner() throws TestFailException {
+  void createScanner(File jflexUberJar) throws TestFailException {
     jflexFiles.add((new File(testPath, testName + ".flex")).getPath());
     // invoke JFlex
     TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
@@ -200,7 +193,7 @@ public class TestCase {
       if (Main.verbose) {
         System.out.println("File(s) to Compile: " + toCompile);
       }
-      TestResult javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
+      TestResult javacResult = Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath());
 
       // System.out.println(javacResult);
       if (Main.verbose) {

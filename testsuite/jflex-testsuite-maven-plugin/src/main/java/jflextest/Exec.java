@@ -47,7 +47,7 @@ public class Exec {
    * Call javac on toCompile in input dir. If toCompile is null, all *.java files below dir will be
    * compiled.
    */
-  public static TestResult execJavac(String toCompile, File dir, String jflexTestVersion) {
+  public static TestResult execJavac(String toCompile, File dir, String additionalJars) {
     Project p = new Project();
     Javac javac = new Javac();
     Path path = new Path(p, dir.toString());
@@ -60,13 +60,7 @@ public class Exec {
     javac.setIncludes(toCompile);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
-    classPath.setPath(
-        System.getProperty("user.home")
-            + "/.m2/repository/de/jflex/jflex/"
-            + jflexTestVersion
-            + "/jflex-"
-            + jflexTestVersion
-            + ".jar");
+    classPath.setPath(additionalJars);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     PrintStream outSafe = System.err;
@@ -101,7 +95,8 @@ public class Exec {
 
   /**
    * Call main method of specified class with command line and input files.
-   *  @param path the directory in which to search for the class
+   *
+   * @param path the directory in which to search for the class
    * @param additionalJars
    */
   public static TestResult execClass(
