@@ -49,6 +49,7 @@
 
   <modules>
     <module>cup</module>
+    <module>cup-maven-plugin</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
@@ -102,9 +103,29 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>20.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.truth</groupId>
+        <artifactId>truth</artifactId>
+        <version>0.36</version>
+      </dependency>
+      <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>de.jflex</groupId>
+        <artifactId>cup</artifactId>
+        <version>${cup.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.jflex</groupId>
+        <artifactId>cup_runtime</artifactId>
+        <version>${cup.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.ant</groupId>
@@ -141,6 +162,12 @@
         <artifactId>junit</artifactId>
         <version>4.12</version>
       </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.11.0</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -148,12 +175,13 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <artifactId>maven-antrun-plugin</artifactId>
-          <version>1.7</version>
+          <groupId>de.jflex</groupId>
+          <artifactId>cup-maven-plugin</artifactId>
+          <version>1.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.1</version>
+          <version>3.7.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
@@ -330,6 +358,17 @@
 
   <profiles>
     <profile>
+      <id>no-doclint</id>
+      <activation>
+        <property>
+          <name>!env.CI</name>
+        </property>
+      </activation>
+      <properties>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+      </properties>
+    </profile>
+    <profile>
       <id>error-prone</id>
       <activation>
         <jdk>[1.8,)</jdk>
@@ -338,7 +377,6 @@
         <plugins>
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.3</version>
             <configuration>
               <compilerId>javac-with-errorprone</compilerId>
               <forceJavacCompilerUse>true</forceJavacCompilerUse>
@@ -363,34 +401,7 @@
               </dependency>
             </dependencies>
           </plugin>
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <additionalparam>-Xdoclint:none</additionalparam>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-site-plugin</artifactId>
-            <configuration>
-              <reportPlugins>
-                <plugin>
-                  <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                  </configuration>
-                </plugin>
-              </reportPlugins>
-            </configuration>
-          </plugin>
         </plugins>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>com.coveo</groupId>
-              <artifactId>fmt-maven-plugin</artifactId>
-              <version>2.1.0</version>
-            </plugin>
-          </plugins>
-        </pluginManagement>
       </build>
     </profile>
     <profile>
@@ -435,6 +446,29 @@
                 <goals>
                   <goal>check</goal>
                 </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- activate manually if you want to accelerate your build
+      mvn -Pfastbuild package
+      -->
+      <id>fastbuild</id>
+      <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>none</phase>
               </execution>
             </executions>
           </plugin>

@@ -4,6 +4,6 @@ jdk:
   - openjdk7
   - openjdk8
 
-script: ./scripts/run-tests.sh
+install: ./mvnw -Pfastbuild install
 
-installation: true
+script: ./scripts/run-tests.sh
