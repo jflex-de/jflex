@@ -124,5 +124,9 @@
       <scope>system</scope>
       <systemPath>${toolsjar}</systemPath>
     </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+    </dependency>
   </dependencies>
 </project>
