@@ -40,11 +40,17 @@ public final class SemCheck {
 
       if (r != null && maybeEmtpy(r)) {
         if (l != null) {
-          if (a == null){ log.error(ErrorMessages.EMPTY_MATCH_LOOK);}
-          else{ log.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);}
+          if (a == null) {
+            log.error(ErrorMessages.EMPTY_MATCH_LOOK);
+          } else {
+            log.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+          }
         } else {
-          if (a == null) {log.warning(ErrorMessages.EMPTY_MATCH);}
-          else {log.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);}
+          if (a == null) {
+            log.warning(ErrorMessages.EMPTY_MATCH);
+          } else {
+            log.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+          }
         }
       }
     }

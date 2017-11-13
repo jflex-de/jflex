@@ -78,7 +78,8 @@ public final class NFA {
 
   /**
    * Constructor for NFA.
-   *  @param numInput a int.
+   *
+   * @param numInput a int.
    * @param estSize a int.
    * @param out Output stream of user-friendly messages.
    */
@@ -106,8 +107,8 @@ public final class NFA {
    * @param classes a {@link CharClasses} object.
    * @param out Output stream of user-friendly messages.
    */
-  public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes,
-      Out out) {
+  public NFA(
+      int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes, Out out) {
     this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number(), out);
 
     this.scanner = scanner;

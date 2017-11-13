@@ -9,13 +9,13 @@
 
 package jflex;
 
-import java.io.IOException; /**
+/**
  * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class GeneratorException extends RuntimeException {
+public class GeneratorException extends Exception {
 
   private static final long serialVersionUID = -9128247888544263982L;
 

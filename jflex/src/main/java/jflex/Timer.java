@@ -9,7 +9,7 @@
 package jflex;
 
 /**
- * Very simple timer for code generation time statistics.
+ * Very simple timer for code generation time printStatistics.
  *
  * <p>Not very exact, measures user time, not processor time.
  *

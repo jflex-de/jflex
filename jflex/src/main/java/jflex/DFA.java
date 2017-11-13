@@ -69,13 +69,18 @@ public final class DFA {
 
   /**
    * Constructor for a deterministic finite automata.
-   *  @param numEntryStates a int.
+   *
+   * @param numEntryStates a int.
    * @param numInp a int.
    * @param numLexStates a int.
    * @param generatorOptions
    * @param out
    */
-  public DFA(int numEntryStates, int numInp, int numLexStates, GeneratorOptions generatorOptions,
+  public DFA(
+      int numEntryStates,
+      int numInp,
+      int numLexStates,
+      GeneratorOptions generatorOptions,
       Out out) {
     numInput = numInp;
     this.generatorOptions = generatorOptions;

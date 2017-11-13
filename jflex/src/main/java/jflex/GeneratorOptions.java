@@ -32,7 +32,7 @@ public abstract class GeneratorOptions {
   public abstract boolean showProgress();
   /** Skeleton file. JFlex comes with a skeleton, hence this should usually be left absent. */
   public abstract Optional<File> skeleton();
-  /** Whether JFlex will record time statistics about the generation process */
+  /** Whether JFlex will record time printStatistics about the generation process */
   public abstract boolean timing();
   /** Whether to warn about unused macros. */
   public abstract boolean unusedWarnings();

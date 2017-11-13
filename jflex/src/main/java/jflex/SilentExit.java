@@ -10,7 +10,7 @@
 package jflex;
 
 /**
- * Signals a silent exit (no statistics printout).
+ * Signals a silent exit (no printStatistics printout).
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
@@ -35,14 +35,13 @@ public class SilentExit extends Exception {
     this(DEFAUT_EXIT_CODE);
   }
 
-  public SilentExit(Throwable th) {
-    super(th);
-    exitCode = DEFAUT_EXIT_CODE;
-  }
-
   public SilentExit(String message) {
     super(message);
     exitCode = DEFAUT_EXIT_CODE;
+  }
+
+  public SilentExit(ErrorMessages messageFormat, Object... args) {
+    this(ErrorMessages.get(messageFormat, args));
   }
 
   /**

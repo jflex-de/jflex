@@ -47,16 +47,18 @@ public final class Out {
 
   private final GeneratorOptions generatorOptions;
 
-  public Out(ByteArrayOutputStream out,GeneratorOptions generatorOptions) {
+  public Out(ByteArrayOutputStream out, GeneratorOptions generatorOptions) {
     this(new StdOutWriter(out), generatorOptions);
   }
 
   public Out(GeneratorOptions generatorOptions) {
-    this(new StdOutWriter(),generatorOptions);
+    this(new StdOutWriter(), generatorOptions);
   }
+
   public Out(OutputStream out, GeneratorOptions generatorOptions) {
     this(new StdOutWriter(out), generatorOptions);
   }
+
   public Out(StdOutWriter out, GeneratorOptions generatorOptions) {
     this.out = out;
     this.generatorOptions = generatorOptions;
@@ -165,8 +167,8 @@ public final class Out {
     if (errors > 0) throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
   }
 
-  /** print error and warning statistics */
-  public void statistics() {
+  /** print error and warning printStatistics */
+  public void printStatistics() {
     StringBuilder line = new StringBuilder(errors + " error");
     if (errors != 1) line.append("s");
 

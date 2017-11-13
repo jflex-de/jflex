@@ -26,9 +26,9 @@ public class LexGenerator {
   private final GeneratorOptions generatorOptions;
   private final Out log;
 
-  LexGenerator(GeneratorOptions options, Out log) {
+  LexGenerator(GeneratorOptions options) {
     this.generatorOptions = options;
-    this.log = log;
+    this.log = new Out(generatorOptions);;
   }
 
   /**
@@ -36,7 +36,11 @@ public class LexGenerator {
    *
    * @param inputFile a file containing a lexical specification to generateFromFile a scanner for.
    */
-  public void generateFromFile(File inputFile) throws IOException {
+  public void generateFromFile(File inputFile) throws GeneratorException {
+    // Verify that the file exists
+    if (!inputFile.isFile() || !inputFile.canRead()) {
+      throw new GeneratorException(new IOException("Sorry, couldn't open: \"" + inputFile.getAbsolutePath() + "\""));
+    }
 
     log.resetCounters();
 
@@ -138,5 +142,9 @@ public class LexGenerator {
     } catch (Exception e) {
       throw new GeneratorException(e);
     }
+  }
+
+  public void printStatistics() {
+    log.printStatistics();
   }
 }

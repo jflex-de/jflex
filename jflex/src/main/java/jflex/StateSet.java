@@ -39,6 +39,7 @@ public final class StateSet {
 
   /**
    * Constructor for StateSet.
+   *
    * @param size a int.
    * @param state a int.
    */
@@ -337,7 +338,6 @@ public final class StateSet {
     }
 
     System.arraycopy(set.bits, 0, bits, 0, bits.length);
-
   }
 
   /**

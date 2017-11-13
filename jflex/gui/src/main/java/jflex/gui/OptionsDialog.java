@@ -84,7 +84,7 @@ public class OptionsDialog extends Dialog {
 
     dump = new Checkbox(" dump");
     verbose = new Checkbox(" verbose");
-    time = new Checkbox(" time statistics");
+    time = new Checkbox(" time printStatistics");
 
     no_minimize = new Checkbox(" skip minimization");
     no_backup = new Checkbox(" no backup file");

@@ -173,9 +173,14 @@ public class CharClasses {
     }
   }
 
-  /** Dumps charclasses to the dump output stream. */
-  public void debugDump(Out out) {
+  /** Dumps char classes to stdout. */
+  public void debugDump() {
     System.out.println(toString());
+  }
+
+  /** Dumps char classes to the dump output stream. */
+  public void dump(Out out) {
+    out.dump(toString());
   }
 
   /**
@@ -299,7 +304,7 @@ public class CharClasses {
       } else {
         if (set.and(x).containsElements()) {
           temp[length++] = i;
-          if (DEBUG){
+          if (DEBUG) {
             // TODO(regisd) Out.dump("code " + i);
           }
         }

@@ -140,11 +140,11 @@ public final class Emitter {
       }
 
       // TODO(regisd)
-//      if (outputFile.renameTo(backupFile)) {
-//        log.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
-//      } else {
-//        log.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
-//      }
+      //      if (outputFile.renameTo(backupFile)) {
+      //        log.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
+      //      } else {
+      //        log.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+      //      }
     }
 
     return outputFile;
@@ -766,7 +766,7 @@ public final class Emitter {
 
     if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
       // TODO(regisd)
-//      log.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      //      log.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }
@@ -1333,8 +1333,11 @@ public final class Emitter {
     }
   }
 
-  /** Main Emitter method.
-   * @param log*/
+  /**
+   * Main Emitter method.
+   *
+   * @param log
+   */
   public void emit(Out log) {
 
     setupEOFCode();
