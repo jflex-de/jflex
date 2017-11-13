@@ -24,9 +24,6 @@ if [[ ! $TRAVIS ]]; then
   rm "$BASEDIR"/jflex/lib/jflex-*.jar || true
 fi
 
-logi "Powered by Maven wrapper"
-"$MVN" --version
-
 # Travis then runs _in parallel_ (but we do it in sequence)
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
   "$BASEDIR"/scripts/test-unit.sh

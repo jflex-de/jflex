@@ -4,6 +4,7 @@ jdk:
   - openjdk7
   - openjdk8
 
+# mvn installation is not needed for ant, so we do it ourselves
 install: true
 
 script: ./scripts/run-tests.sh
