@@ -45,7 +45,7 @@ cd ../..
 logi "Run jflex examples"
 # Some tests invoke /bin/jflex which expects the jar in /lib
 rm jflex/lib/jflex-*.jar || true
-cp jflex/target/jflex-*.jar jflex/lib
+cp jflex/target/jflex-full-*.jar jflex/lib
 set -x
 # Each line must end with the test command to make the script exit
 # in case of error (see #242)

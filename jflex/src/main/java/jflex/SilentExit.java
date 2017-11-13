@@ -17,8 +17,9 @@ package jflex;
  */
 public class SilentExit extends Exception {
 
+  private static final int DEFAUT_EXIT_CODE = 1;
   /** Program exit code if this exception is taken */
-  private int exitCode;
+  private final int exitCode;
 
   /**
    * SilentExit with specified program exit code.
@@ -31,7 +32,12 @@ public class SilentExit extends Exception {
 
   /** SilentExit with default exit code 1. */
   public SilentExit() {
-    this(1);
+    this(DEFAUT_EXIT_CODE);
+  }
+
+  public SilentExit(Throwable cause) {
+    super(cause);
+    exitCode = DEFAUT_EXIT_CODE;
   }
 
   /**
