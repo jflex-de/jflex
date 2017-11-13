@@ -63,11 +63,19 @@ public final class StateSet {
    * @param state a int.
    */
   public void addState(int state) {
+    if (GeneratorOptions.DEBUG) {
+      System.out.println("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+      System.out.println("Set is : " + this); // $NON-NLS-1$
+    }
 
     int index = state >> BITS;
     if (index >= bits.length) resize(state);
     bits[index] |= (1L << (state & MASK));
 
+    if (GeneratorOptions.DEBUG) {
+      System.out.println("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      System.out.println("Set is : " + this); // $NON-NLS-1$
+    }
   }
 
   private int size2nbits(int size) {
@@ -163,6 +171,17 @@ public final class StateSet {
     if (bits.length < set.bits.length)
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
+    if (GeneratorOptions.DEBUG)
+      System.out.println(
+          "Complement of "
+              + this
+              + Out.NL
+              + "and "
+              + set
+              + Out.NL
+              + " is :"
+              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
     return result;
   }
 
@@ -172,6 +191,10 @@ public final class StateSet {
    * @param set a {@link jflex.StateSet} object.
    */
   public void add(StateSet set) {
+
+    if (GeneratorOptions.DEBUG) {
+      System.out.println("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+    }
 
     if (set == null) return;
 
@@ -192,6 +215,10 @@ public final class StateSet {
 
     this.bits = tbits;
 
+    if (GeneratorOptions.DEBUG) {
+      System.out.println("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      System.out.println("Set is : " + this); // $NON-NLS-1$
+    }
   }
 
   /**

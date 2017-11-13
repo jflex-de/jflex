@@ -23,6 +23,8 @@ import jflex.unicode.UnicodeProperties;
  */
 public final class IntCharSet {
 
+  private static final boolean DEBUG = false;
+
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals;
   private int pos;
@@ -236,6 +238,12 @@ public final class IntCharSet {
    * @return the {@link jflex.IntCharSet} common to the two sets.
    */
   public IntCharSet and(IntCharSet set) {
+    if (DEBUG) {
+      // TODO(regisd)
+      // Out.dump("intersection");
+      // Out.dump("this  : " + this);
+      // Out.dump("other : " + set);
+    }
 
     IntCharSet result = new IntCharSet();
 
@@ -265,6 +273,10 @@ public final class IntCharSet {
       if (y.end >= x.end) i++;
     }
 
+    if (DEBUG) {
+      // TODO(regisd) Out.dump("result: " + result);
+    }
+
     return result;
   }
 
@@ -276,6 +288,11 @@ public final class IntCharSet {
    * @param set a {@link jflex.IntCharSet} to substract from this set.
    */
   public void sub(IntCharSet set) {
+    if (DEBUG) {
+      // TODO(regisd)Out.dump("complement");
+      // TODO(regisd)Out.dump("this  : " + this);
+      // TODO(regisd)Out.dump("other : " + set);
+    }
 
     int i = 0; // index in this.intervals
     int j = 0; // index in set.intervals
@@ -285,6 +302,12 @@ public final class IntCharSet {
     while (i < intervals.size() && j < setSize) {
       Interval x = this.intervals.get(i);
       Interval y = set.intervals.get(j);
+
+      if (DEBUG) {
+        // TODO(regisd)Out.dump("this      : " + this);
+        // TODO(regisd)Out.dump("this  [" + i + "] : " + x);
+        // TODO(regisd)Out.dump("other [" + j + "] : " + y);
+      }
 
       if (x.end < y.start) {
         i++;
@@ -327,6 +350,10 @@ public final class IntCharSet {
 
       i++;
       j++;
+    }
+
+    if (DEBUG) {
+      // TODO(regisd) Out.dump("result: " + this);
     }
   }
 

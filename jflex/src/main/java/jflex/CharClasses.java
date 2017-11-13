@@ -120,6 +120,11 @@ public class CharClasses {
   public void makeClass(IntCharSet set, boolean caseless) {
     if (caseless) set = set.getCaseless(scanner.getUnicodeProperties());
 
+    if (DEBUG) {
+      System.out.println("makeClass(" + set + ")");
+      debugDump();
+    }
+
     int oldSize = classes.size();
     for (int i = 0; i < oldSize; i++) {
       IntCharSet x = classes.get(i);
@@ -135,6 +140,10 @@ public class CharClasses {
         } else if (set.equals(and)) {
           x.sub(and);
           classes.add(and);
+          if (DEBUG) {
+            System.out.println("makeClass(..) finished");
+            debugDump();
+          }
           return;
         }
 
@@ -144,6 +153,10 @@ public class CharClasses {
       }
     }
 
+    if (DEBUG) {
+      System.out.println("makeClass(..) finished");
+      debugDump();
+    }
   }
 
   /**
@@ -161,8 +174,8 @@ public class CharClasses {
   }
 
   /** Dumps charclasses to the dump output stream. */
-  public void dump(Out out) {
-    out.dump(toString());
+  public void debugDump(Out out) {
+    System.out.println(toString());
   }
 
   /**
@@ -261,6 +274,13 @@ public class CharClasses {
    */
   private int[] getClassCodes(IntCharSet set, boolean negate) {
 
+    if (DEBUG) {
+      System.out.println("getting class codes for " + set);
+      if (negate) {
+        // TODO(regisd) Out.dump("[negated]");
+      }
+    }
+
     int size = classes.size();
 
     // [fixme: optimize]
@@ -272,10 +292,16 @@ public class CharClasses {
       if (negate) {
         if (!set.and(x).containsElements()) {
           temp[length++] = i;
+          if (DEBUG) {
+            // TODO(regisd) Out.dump("code " + i);
+          }
         }
       } else {
         if (set.and(x).containsElements()) {
           temp[length++] = i;
+          if (DEBUG){
+            // TODO(regisd) Out.dump("code " + i);
+          }
         }
       }
     }

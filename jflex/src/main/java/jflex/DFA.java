@@ -196,7 +196,7 @@ public final class DFA {
         }
         result.append("] ");
       }
-      result.append(i + ":" + out.NL);
+      result.append(i + ":" + Out.NL);
 
       for (int j = 0; j < numInput; j++) {
         if (table[i][j] >= 0)
@@ -205,7 +205,7 @@ public final class DFA {
               .append((int) j)
               .append(" in ")
               .append(table[i][j])
-              .append(out.NL);
+              .append(Out.NL);
       }
     }
 
@@ -235,14 +235,14 @@ public final class DFA {
   private String dotFormat() {
     StringBuilder result = new StringBuilder();
 
-    result.append("digraph DFA {").append(out.NL);
-    result.append("rankdir = LR").append(out.NL);
+    result.append("digraph DFA {").append(Out.NL);
+    result.append("rankdir = LR").append(Out.NL);
 
     for (int i = 0; i < numStates; i++) {
       if (isFinal[i]) {
         result.append(i);
         result.append(" [shape = doublecircle]");
-        result.append(out.NL);
+        result.append(Out.NL);
       }
     }
 
@@ -250,13 +250,13 @@ public final class DFA {
       for (int input = 0; input < numInput; input++) {
         if (table[i][input] >= 0) {
           result.append(i).append(" -> ").append(table[i][input]);
-          result.append(" [label=\"[").append(input).append("]\"]").append(out.NL);
+          result.append(" [label=\"[").append(input).append("]\"]").append(Out.NL);
           // result.append(" [label=\"[").append(classes.toString(input)).append("]\"]\n");
         }
       }
     }
 
-    result.append("}").append(out.NL);
+    result.append("}").append(Out.NL);
 
     return result.toString();
   }
