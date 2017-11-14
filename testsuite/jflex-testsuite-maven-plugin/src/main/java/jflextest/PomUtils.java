@@ -9,17 +9,20 @@ import java.util.Properties;
 class PomUtils {
 
   static String getPomVersion(String groupId, String artifactId, File jar)
-      throws IllegalArgumentException {
+      throws IOException {
+    if (!jar.isFile() || !jar.canRead()) {
+      throw new FileNotFoundException("Couldn't open jar file " + jar);
+    }
     return getPomProperty("version", artifactId, jar, groupId);
   }
 
   private static String getPomProperty(
-      String propertyName, String artifactId, File jar, String groupId) {
+      String propertyName, String artifactId, File jar, String groupId) throws IOException {
     try {
       Properties pomProperties = getPomProperties(groupId, artifactId, new CustomClassLoader(jar));
       return pomProperties.getProperty(propertyName);
     } catch (IOException e) {
-      throw new IllegalArgumentException(
+      throw new IOException(
           "Couldn't extract POM version of " + groupId + ":" + artifactId, e);
     }
   }
@@ -30,7 +33,7 @@ class PomUtils {
     String propertiesName = "META-INF/maven/" + groupId + "/" + artifactId + "/pom.properties";
     try (InputStream pomPropertiesContent = classLoader.getResourceAsStream(propertiesName)) {
       if (pomPropertiesContent == null) {
-        throw new FileNotFoundException("Missing POM properties: " + propertiesName);
+        throw new IOException("Missing POM property: " + propertiesName);
       }
       pomProperties.load(pomPropertiesContent);
     }
