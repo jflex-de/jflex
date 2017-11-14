@@ -15,7 +15,7 @@ env:
   - TEST_SUITE=unit
   - TEST_SUITE=regression
   global:
-    secure: aJESGpKw6em1tXsr6EJgXmViV5+obxbqkW3ir1FQ4gjK3hlKzvOCCS/Yws1zgmcO1O65kIKTLPNDScDqTxSwxujwu487M4m+3bqEj7A5MQf6lVw+25jgfMYh31tQXGingnz/i6n23cOPIlHMD5mufCgzPUhIrMY70ATEBdgG8F4=
+    secure: "aJESGpKw6em1tXsr6EJgXmViV5+obxbqkW3ir1FQ4gjK3hlKzvOCCS/Yws1zgmcO1O65kIKTLPNDScDqTxSwxujwu487M4m+3bqEj7A5MQf6lVw+25jgfMYh31tQXGingnz/i6n23cOPIlHMD5mufCgzPUhIrMY70ATEBdgG8F4="
 
 deploy:
   provider: script
