@@ -81,6 +81,7 @@
 
   <properties>
     <cup.version>11b</cup.version>
+    <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.7</jflex.jdk.version>
     <!-- 3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->
     <maven.version>3.5.2</maven.version>
@@ -97,7 +98,7 @@
   <scm>
     <connection>scm:git:git@github.com:jflex-de/jflex.git</connection>
     <developerConnection>scm:git:git@github.com:jflex-de/jflex.git</developerConnection>
-    <url>scm:git:git@github.com:jflex-de/jflex.git</url>
+    <url>https://github.com/jflex-de/jflex</url>
   </scm>
 
   <dependencyManagement>
@@ -296,8 +297,11 @@
           </execution>
         </executions>
         <configuration>
-          <topSiteURL>http://jflex.de/</topSiteURL>
+          <topSiteURL>http://jflex-de.github.io/</topSiteURL>
           <stagingDirectory>/tmp/maven-staging-site</stagingDirectory>
+          <!-- We use github instead -->
+          <skip>true</skip>
+          <skipDeploy>true</skipDeploy>
         </configuration>
       </plugin>
       <plugin>
@@ -351,8 +355,9 @@
 
   <distributionManagement>
     <site>
-      <id>local</id>
-      <url>mvn</url>
+      <id>github.pages</id>
+      <name>Github pages</name>
+      <url>maven-site/${project.version</url>
     </site>
   </distributionManagement>
 

@@ -65,8 +65,41 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- Deploy on github -->
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.12</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>site</goal>
+            </goals>
+            <phase>site-deploy</phase>
+            <configuration>
+              <!-- The server defined in your settings.xml
+              https://github.com/github/maven-plugins#authentication-example -->
+              <server>github</server>
+              <!-- The commit message -->
+              <message>Site with developer documentation for jflex.de</message>
+              <!-- The location where the site is uploaded -->
+              <path>${project.distributionManagement.site.url}</path>
+              <!-- Use merge or override the content -->
+              <merge>true</merge>
+              <!--<repositoryName>jflex-de</repositoryName>-->
+              <!-- testing only -->
+              <dryRun>true</dryRun>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

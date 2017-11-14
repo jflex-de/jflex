@@ -59,6 +59,13 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <skipDeploy>true</skipDeploy>
+        </configuration>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
@@ -81,6 +88,11 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.3</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -101,4 +113,11 @@
     </profile>
   </profiles>
 
+  <distributionManagement>
+    <site>
+      <id>github.pages</id>
+      <name>Github pages</name>
+      <url>maven-site/${project.version</url>
+    </site>
+  </distributionManagement>
 </project>
