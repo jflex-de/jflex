@@ -13,12 +13,18 @@ env:
   - TEST_SUITE=ant
   - TEST_SUITE=unit
   - TEST_SUITE=regression
+  gobal:
+    # travis encrypt GITHUB_TOKEN="github-token"
+    # Alternatively, set GITHUB_TOKEN in travis-ci.org dashboard
+    secure: "bx4jQxX39s/uhl6ijv1SbcJYmmBLjlT+n1jqgF34oYiW2eLXkVWdlEIoFHqfaztqX9nEZKbS3e1gdgYzfU5ExtRCEQm52NZtCLq29vG0SX4k/dFyDgqyqMs0mAdTmT/ZTD3bH9315jSyJPtzd3Iyz/KaOgIU5d4dW6iN+RsCjc0="
+
+before_deploy: ./scripts/dbefore-eploy.sh
 
 deploy:
-  provider: script
-  script: ./scripts/deploy.sh
-  skip_cleanup: true
+  provider: pages
+  github_token: $GITHUB_TOKEN
   on:
     branch: site
-  api_key:
-    secure: "ScAdHddVY+WYRBSVsTgvb2FHRhnzWt34oO0XZQvvrS0cMZvC0tpVQtHd00YEIJm4DG+H4yAhs99aR6BQE4+fiH76LLPryKCdhv/ktnyjV+TNumVJO9I0yhT9ehtM+vAQVjlCI5E72CLNkD3r4WDt5Gha+txt0/wO6KYllP5zizU="
+  local_dir: target/maven-staging-site/
+  repo: jflex-de/jflex-web
+  name: Travis site-deploy bot
