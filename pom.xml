@@ -325,6 +325,10 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <!-- Timestamps create annoying diff on gh-pages -->
+          <notimestamp>true</notimestamp>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
