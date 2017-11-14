@@ -97,7 +97,8 @@
               <path>${project.distributionManagement.site.url}</path>
               <!-- Use merge or override the content -->
               <merge>true</merge>
-              <!--<repositoryName>jflex-de</repositoryName>-->
+              <repositoryOwner>jflex-de</repositoryOwner>
+              <repositoryName>jflex-web</repositoryName>
             </configuration>
           </execution>
         </executions>
