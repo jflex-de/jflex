@@ -6,7 +6,7 @@
   <name>JFlex parent and aggregator POM</name>
   <version>1.7.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <url>http://jflex.de/</url>
+  <url>https://jflex-de.github.io/jflex/</url>
   <description>JFlex parent and aggregator POM</description>
   <licenses>
     <license>
@@ -304,18 +304,6 @@
           <skipDeploy>true</skipDeploy>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>site</id>
-            <goals>
-              <goal>index</goal>
-              <goal>summary</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
 
@@ -328,6 +316,8 @@
             <reports>
               <report>index</report>
               <report>summary</report>
+              <report>plugins</report>
+              <report>dependencies</report>
               <report>plugins</report>
             </reports>
           </reportSet>
@@ -357,7 +347,7 @@
     <site>
       <id>github.pages</id>
       <name>Github pages</name>
-      <url>maven-site/${project.version</url>
+      <url>maven-site/${project.version}</url>
     </site>
   </distributionManagement>
 

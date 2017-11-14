@@ -43,6 +43,9 @@
       </roles>
     </contributor>
   </contributors>
+  <scm>
+    <url>https://github.com/jflex-de/jflex/tree/master/jflex-maven-plugin</url>
+  </scm>
   <build>
     <plugins>
       <plugin>
@@ -95,8 +98,6 @@
               <!-- Use merge or override the content -->
               <merge>true</merge>
               <!--<repositoryName>jflex-de</repositoryName>-->
-              <!-- testing only -->
-              <dryRun>true</dryRun>
             </configuration>
           </execution>
         </executions>
