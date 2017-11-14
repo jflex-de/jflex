@@ -11,13 +11,15 @@
 
   <body>
     <menu name="Module info" ref="reports" inherit="top"/>
-    <menu name="JFlex" inherit="bottom">
+    <menu name="JFlex.de" inherit="bottom">
       <item name="Home" href="http://jflex.de/"/>
       <item name="Features" href="http://jflex.de/features.html"/>
-      <item name="Download" href="http://jflex.de/download.html"/>
       <item name="Documentation" href="http://jflex.de/docu.html"/>
       <item name="Support" href="http://jflex.de/help.html"/>
       <item name="Contact" href="http://jflex.de/contact.html"/>
+    </menu>
+    <menu name="JFlex Github" inherit="bottom">
+      <item name="Releases" href="https://github.com/jflex-de/jflex/releases"/>
       <item name="Source Code" href="https://github.com/jflex-de/jflex"/>
     </menu>
   </body>
