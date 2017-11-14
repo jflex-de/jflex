@@ -6,6 +6,6 @@ source "$BASEDIR"/scripts/logger.sh
 # Maven executable
 MVN="$BASEDIR"/mvnw
 
-if [[ "$TEST_SUITE" == "unit" ]]; then
+if [[ -z "$CI" || "$TEST_SUITE" == "unit" ]]; then
   "$MVNW" site site-deploy
 fi
