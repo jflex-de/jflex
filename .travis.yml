@@ -19,6 +19,6 @@ env:
 
 deploy:
  provider: script
- script: ./mvnw site-deploy
+ script: ./scripts/deploy.sh
  on:
    branch: site
