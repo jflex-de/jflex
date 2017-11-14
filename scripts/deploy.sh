@@ -7,5 +7,5 @@ source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
 
 if [[ -z "$CI" || "$TEST_SUITE" == "unit" ]]; then
-  "$MVNW" site site-deploy
+  "$MVN" site site-deploy
 fi
