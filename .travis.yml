@@ -21,5 +21,4 @@ deploy:
  provider: script
  script: ./mvnw site-deploy
  on:
-   branch: master
-
+   branch: site
