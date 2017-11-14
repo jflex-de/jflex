@@ -18,7 +18,7 @@ env:
     # Alternatively, set GITHUB_TOKEN in travis-ci.org dashboard
     secure: "bx4jQxX39s/uhl6ijv1SbcJYmmBLjlT+n1jqgF34oYiW2eLXkVWdlEIoFHqfaztqX9nEZKbS3e1gdgYzfU5ExtRCEQm52NZtCLq29vG0SX4k/dFyDgqyqMs0mAdTmT/ZTD3bH9315jSyJPtzd3Iyz/KaOgIU5d4dW6iN+RsCjc0="
 
-before_deploy: ./scripts/dbefore-eploy.sh
+before_deploy: ./scripts/before-deploy.sh
 
 deploy:
   provider: pages
