@@ -7,5 +7,8 @@ source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
 
 if [[ -z "$CI" || "$TEST_SUITE" == "unit" ]]; then
-  "$MVN" site site-deploy
+  logi "Buil Maven site"
+  "$MVN" site
+  logi "Deploy Maven site"
+  "$MVN" site-deploy
 fi

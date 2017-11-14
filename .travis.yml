@@ -20,9 +20,6 @@ env:
 deploy:
   provider: script
   script: ./scripts/deploy.sh
-  # clean causes:
-  # Could not restore untracked files from stash entry
-  #  Script failed with status 1
   skip_cleanup: true
   on:
     branch: site
