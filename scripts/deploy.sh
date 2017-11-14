@@ -1,14 +1,18 @@
 #!/bin/bash
 
+echo "Starting deploy script"
+
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
+echo "BASEDIR=$BASEDIR"
 # Provides the logi function
 source "$BASEDIR"/scripts/logger.sh
 # Maven executable
 MVN="$BASEDIR"/mvnw
 
+logi "Deploying..."
 if [[ -z "$CI" || "$TEST_SUITE" == "unit" ]]; then
-  logi "Buil Maven site"
-  "$MVN" site
+  logi "Build Maven site"
+  echo "$MVN" site
   logi "Deploy Maven site"
-  "$MVN" site-deploy
+  echo "$MVN" site-deploy
 fi
