@@ -92,7 +92,7 @@
               https://github.com/github/maven-plugins#authentication-example -->
               <server>github</server>
               <!-- The commit message -->
-              <message>Site with developer documentation for jflex.de</message>
+              <message>Github pages for JFlex ${project.version}</message>
               <!-- The location where the site is uploaded -->
               <path>${project.distributionManagement.site.url}</path>
               <!-- Use merge or override the content -->
