@@ -6,7 +6,7 @@
   <name>JFlex parent and aggregator POM</name>
   <version>1.7.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <url>http://jflex.de/</url>
+  <url>https://jflex-de.github.io/jflex/</url>
   <description>JFlex parent and aggregator POM</description>
   <licenses>
     <license>
@@ -81,6 +81,7 @@
 
   <properties>
     <cup.version>11b</cup.version>
+    <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.7</jflex.jdk.version>
     <!-- 3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->
     <maven.version>3.5.2</maven.version>
@@ -97,7 +98,7 @@
   <scm>
     <connection>scm:git:git@github.com:jflex-de/jflex.git</connection>
     <developerConnection>scm:git:git@github.com:jflex-de/jflex.git</developerConnection>
-    <url>scm:git:git@github.com:jflex-de/jflex.git</url>
+    <url>https://github.com/jflex-de/jflex</url>
   </scm>
 
   <dependencyManagement>
@@ -296,22 +297,12 @@
           </execution>
         </executions>
         <configuration>
-          <topSiteURL>http://jflex.de/</topSiteURL>
-          <stagingDirectory>/tmp/maven-staging-site</stagingDirectory>
+          <topSiteURL>http://jflex-de.github.io/</topSiteURL>
+          <stagingDirectory>${project.parent.basedir}/target/maven-staging-site</stagingDirectory>
+          <!-- We use github instead -->
+          <skip>true</skip>
+          <skipDeploy>true</skipDeploy>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.7</version>
-        <executions>
-          <execution>
-            <id>site</id>
-            <goals>
-              <goal>index</goal>
-              <goal>summary</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>
@@ -325,12 +316,19 @@
             <reports>
               <report>index</report>
               <report>summary</report>
+              <report>plugins</report>
+              <report>dependencies</report>
+              <report>plugins</report>
             </reports>
           </reportSet>
         </reportSets>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <!-- Timestamps create annoying diff on gh-pages -->
+          <notimestamp>true</notimestamp>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -351,8 +349,9 @@
 
   <distributionManagement>
     <site>
-      <id>local</id>
-      <url>mvn</url>
+      <id>github.pages</id>
+      <name>Github pages</name>
+      <url>maven-site/</url>
     </site>
   </distributionManagement>
 
@@ -365,7 +364,7 @@
         </property>
       </activation>
       <properties>
-        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        <additionalparam>-Xdoclint:none</additionalparam>
       </properties>
     </profile>
     <profile>
