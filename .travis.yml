@@ -18,6 +18,7 @@ before_deploy: ./scripts/before-deploy.sh
 
 deploy:
   provider: pages
+  skip_cleanup: true
   # GITHUB_TOKEN set in travis-ci.org dashboard
   github_token: $GITHUB_TOKEN
   on:
