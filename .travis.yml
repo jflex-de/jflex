@@ -22,7 +22,7 @@ deploy:
   # GITHUB_TOKEN set in travis-ci.org dashboard
   github_token: $GITHUB_TOKEN
   on:
-    branch: site
+    branch: master
     condition: $TEST_SUITE = unit
   local_dir: target/maven-staging-site
   repo: jflex-de/jflex-web
