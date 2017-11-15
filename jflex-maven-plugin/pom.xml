@@ -76,33 +76,6 @@
           <skip>false</skip>
         </configuration>
       </plugin>
-      <plugin>
-        <!-- Deploy on github -->
-        <groupId>com.github.github</groupId>
-        <artifactId>site-maven-plugin</artifactId>
-        <version>0.12</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>site</goal>
-            </goals>
-            <phase>site-deploy</phase>
-            <configuration>
-              <!-- The server defined in your settings.xml
-              https://github.com/github/maven-plugins#authentication-example -->
-              <server>github</server>
-              <!-- The commit message -->
-              <message>Github pages for JFlex ${project.version}</message>
-              <!-- The location where the site is uploaded -->
-              <path>${project.distributionManagement.site.url}</path>
-              <!-- Use merge or override the content -->
-              <merge>true</merge>
-              <repositoryOwner>jflex-de</repositoryOwner>
-              <repositoryName>jflex-web</repositoryName>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <dependencies>
