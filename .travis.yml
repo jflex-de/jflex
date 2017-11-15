@@ -13,15 +13,12 @@ env:
   - TEST_SUITE=ant
   - TEST_SUITE=unit
   - TEST_SUITE=regression
-  gobal:
-    # travis encrypt GITHUB_TOKEN="github-token"
-    # Alternatively, set GITHUB_TOKEN in travis-ci.org dashboard
-    secure: "bx4jQxX39s/uhl6ijv1SbcJYmmBLjlT+n1jqgF34oYiW2eLXkVWdlEIoFHqfaztqX9nEZKbS3e1gdgYzfU5ExtRCEQm52NZtCLq29vG0SX4k/dFyDgqyqMs0mAdTmT/ZTD3bH9315jSyJPtzd3Iyz/KaOgIU5d4dW6iN+RsCjc0="
 
 before_deploy: ./scripts/before-deploy.sh
 
 deploy:
   provider: pages
+  # GITHUB_TOKEN set in travis-ci.org dashboard
   github_token: $GITHUB_TOKEN
   on:
     branch: site
