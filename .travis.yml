@@ -1,15 +1,29 @@
 language: java
 
 jdk:
-  - openjdk7
-  - openjdk8
+- openjdk7
+- openjdk8
 
-# mvn installation is not needed for ant, so we do it ourselves
 install: true
 
 script: ./scripts/run-tests.sh
 
 env:
+  matrix:
   - TEST_SUITE=ant
   - TEST_SUITE=unit
   - TEST_SUITE=regression
+
+before_deploy: ./scripts/before-deploy.sh
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  # GITHUB_TOKEN set in travis-ci.org dashboard
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+    condition: $TEST_SUITE = unit
+  local_dir: target/maven-staging-site
+  repo: jflex-de/jflex-web
+  name: Travis site-deploy bot
