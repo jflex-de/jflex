@@ -3,6 +3,7 @@ package jflextest;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.zip.ZipFile;
 public class CustomClassLoader extends ClassLoader {
 
   /** the class path */
-  private List<String> pathItems;
+  private List<String> pathItems = new ArrayList<>();
 
   /**
    * Constructs a CustomClassLoader. It scans the specified class path (system class path is handled
@@ -26,6 +27,12 @@ public class CustomClassLoader extends ClassLoader {
    */
   public CustomClassLoader(String classPath) {
     scanPath(classPath);
+  }
+
+  public CustomClassLoader(File... files) {
+    for (File file : files) {
+      pathItems.add(file.getAbsolutePath());
+    }
   }
 
   /**
@@ -36,7 +43,6 @@ public class CustomClassLoader extends ClassLoader {
   private void scanPath(String classPath) {
     if (classPath == null) return;
     String separator = System.getProperty("path.separator");
-    pathItems = new ArrayList<>();
     StringTokenizer st = new StringTokenizer(classPath, separator);
     while (st.hasMoreTokens()) {
       pathItems.add(st.nextToken());
@@ -44,30 +50,37 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Add a new path item (dir, zip, or jar) to the search path. */
-  public void addPath(String pathItem) {
-    pathItems.add(pathItem);
+  public void addPath(File pathItem) throws FileNotFoundException {
+    if (!pathItem.exists()) {
+      throw new FileNotFoundException("Couldn't load classpath item " + pathItem.getAbsolutePath());
+    }
+    pathItems.add(pathItem.getAbsolutePath());
   }
 
   /** Returns a named resource as stream. */
   public synchronized InputStream getResourceAsStream(String name) {
     // call super, handles delegation to parent+system class loader
     InputStream s = super.getResourceAsStream(name);
-    if (s != null) return s;
+    if (s != null) {
+      return s;
+    }
 
     // search in path
     for (String path : pathItems) {
       if (isJar(path)) {
-        s = getZipEntryStream(path, name);
-        if (s != null) return s;
-      } else {
-        File file = new File(path, name);
-        if (file.canRead()) {
-          try {
-            return new FileInputStream(file);
-          } catch (IOException e) {
-            // ignore, maybe another path item succeds
-          }
+        try {
+          s = getZipEntryStream(path, name);
+        } catch (FileNotFoundException e) {
+          // we might find the entry in another path item.
+          s = null;
+        } catch (IOException e) {
+          throw new RuntimeException(e);
         }
+      } else {
+        s = getFileEntry(name, path);
+      }
+      if (s != null) {
+        return s;
       }
     }
 
@@ -137,17 +150,28 @@ public class CustomClassLoader extends ClassLoader {
     return null;
   }
 
-  /** Return InputStream for a jar/zip file entry. */
-  private InputStream getZipEntryStream(String file, String entryName) {
-    try (ZipFile zip = new ZipFile(new File(file))) {
-      ZipEntry entry = zip.getEntry(entryName);
-
-      if (entry == null) return null;
-
+  /** Returns {@link InputStream} for a jar/zip file entry. */
+  private InputStream getZipEntryStream(String file, String entryName) throws IOException {
+    ZipFile zip = new ZipFile(new File(file));
+    ZipEntry entry = zip.getEntry(entryName);
+    if (entry != null) {
+      // Don't close the zip now, otherwise the content is unreadable.
       return zip.getInputStream(entry);
-    } catch (IOException e) {
-      return null;
     }
+    zip.close();
+    return null;
+  }
+
+  private InputStream getFileEntry(String name, String path) {
+    File file = new File(path, name);
+    if (file.canRead()) {
+      try {
+        return new FileInputStream(file);
+      } catch (IOException e) {
+        return null;
+      }
+    }
+    return null;
   }
 
   /** Load class data from jar/zip file */

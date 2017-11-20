@@ -2,12 +2,12 @@ package jflextest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import jflex.GeneratorException;
 import jflex.Options;
@@ -20,7 +20,8 @@ import org.apache.tools.ant.types.Path;
 
 public class Exec {
 
-  private static String javaVersion = "1.7";
+  private static final String JAVA_VERSION = "1.7";
+  public static final String NL = System.getProperty("line.separator");
 
   /**
    * Convert two Lists with String elements into one array containing all elements.
@@ -46,26 +47,20 @@ public class Exec {
    * Call javac on toCompile in input dir. If toCompile is null, all *.java files below dir will be
    * compiled.
    */
-  public static TestResult execJavac(String toCompile, File dir, String jflexTestVersion) {
+  public static TestResult execJavac(String toCompile, File dir, String additionalJars) {
     Project p = new Project();
     Javac javac = new Javac();
     Path path = new Path(p, dir.toString());
     javac.setProject(p);
     javac.setSrcdir(path);
     javac.setDestdir(dir);
-    javac.setTarget(javaVersion);
-    javac.setSource(javaVersion);
+    javac.setTarget(JAVA_VERSION);
+    javac.setSource(JAVA_VERSION);
     javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
     javac.setIncludes(toCompile);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
-    classPath.setPath(
-        System.getProperty("user.home")
-            + "/.m2/repository/de/jflex/jflex/"
-            + jflexTestVersion
-            + "/jflex-"
-            + jflexTestVersion
-            + ".jar");
+    classPath.setPath(additionalJars);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     PrintStream outSafe = System.err;
@@ -75,7 +70,8 @@ public class Exec {
       javac.execute();
       return new TestResult(out.toString(), true);
     } catch (BuildException e) {
-      return new TestResult(e + System.getProperty("line.separator") + out.toString(), false);
+      return new TestResult(
+          "Compilation with classpath " + classPath + NL + e + NL + out.toString(), false);
     } finally {
       System.setErr(outSafe);
     }
@@ -97,26 +93,19 @@ public class Exec {
     }
   }
 
-  /** Return String with JFlex version number. */
-  public static String getJFlexVersion() {
-    List<String> cmdLine = new ArrayList<>();
-    cmdLine.add("--version");
-    TestResult test = execJFlex(cmdLine, new ArrayList<String>());
-    return test.getOutput();
-  }
-
   /**
    * Call main method of specified class with command line and input files.
    *
    * @param path the directory in which to search for the class
+   * @param additionalJars
    */
   public static TestResult execClass(
       String theClass,
       String path,
-      List<String> cmdline,
       List<String> files,
-      String jflexTestVersion,
-      String outputFileEncoding)
+      List<File> additionalJars,
+      String outputFileEncoding,
+      List<String> cmdline)
       throws UnsupportedEncodingException {
 
     String[] cmd = toArray(cmdline, files);
@@ -128,14 +117,16 @@ public class Exec {
     // System.out.println("cmdline "+cmdline+"\nfiles: "+files);
 
     CustomClassLoader l = new CustomClassLoader(path);
-    // Locate the jflex jar in the user's Maven local repository
-    l.addPath(
-        System.getProperty("user.home")
-            + "/.m2/repository/de/jflex/jflex/"
-            + jflexTestVersion
-            + "/jflex-"
-            + jflexTestVersion
-            + ".jar");
+    // Locate the shaded jar in the lib directory
+    // TODO(regisd) Alternatively, we could load JFlex and its dependency graph.
+    try {
+      for (File jar : additionalJars) {
+        // We are in $basedir/testsuite/testcases
+        l.addPath(jar);
+      }
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
 
     try {
       c = l.loadClass(theClass, true);
@@ -176,30 +167,5 @@ public class Exec {
     // System.out.println("finished exec class "+theClass);
 
     return new TestResult(out.toString(outputFileEncoding), success);
-  }
-
-  /** for testing */
-  public static void main(String args[]) {
-    List<String> files = new ArrayList<>();
-    files.addAll(Arrays.asList(args));
-    System.out.println();
-    // System.out.println("javac:\n"+execJavac(new ArrayList<String>(), files));
-
-    System.out.println("jflex:\n" + execJFlex(new ArrayList<String>(), files));
-
-    try {
-      System.out.println(
-          "class:\n"
-              + execClass(
-                  "jflextest.Main",
-                  ".",
-                  new ArrayList<String>(),
-                  files,
-                  "1.7.0-SNAPSHOT",
-                  "UTF-8"));
-    } catch (UnsupportedEncodingException e) {
-      System.out.println("UTF-8 is not a supported encoding.");
-      System.exit(1);
-    }
   }
 }
