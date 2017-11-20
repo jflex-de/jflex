@@ -31,7 +31,9 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
   @Parameter() private String testcases;
 
   /** Path of the JFlex uber jar under test. */
-  @Parameter(defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar")
+  @Parameter(
+    defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar"
+  )
   private String jflexUberJarFilename;
 
   /** */

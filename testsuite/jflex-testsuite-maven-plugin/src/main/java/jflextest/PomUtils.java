@@ -8,8 +8,7 @@ import java.util.Properties;
 
 class PomUtils {
 
-  static String getPomVersion(String groupId, String artifactId, File jar)
-      throws IOException {
+  static String getPomVersion(String groupId, String artifactId, File jar) throws IOException {
     if (!jar.isFile() || !jar.canRead()) {
       throw new FileNotFoundException("Couldn't open jar file " + jar);
     }
@@ -22,8 +21,7 @@ class PomUtils {
       Properties pomProperties = getPomProperties(groupId, artifactId, new CustomClassLoader(jar));
       return pomProperties.getProperty(propertyName);
     } catch (IOException e) {
-      throw new IOException(
-          "Couldn't extract POM version of " + groupId + ":" + artifactId, e);
+      throw new IOException("Couldn't extract POM version of " + groupId + ":" + artifactId, e);
     }
   }
 
