@@ -150,7 +150,7 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>${artifactId}-full-${version}</finalName>
+              <finalName>${project.artifactId}-full-${project.version}</finalName>
               <artifactSet>
                 <includes>
                   <include>de.jflex:cup_runtime</include>
