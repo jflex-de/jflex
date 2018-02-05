@@ -10,13 +10,21 @@
   </skin>
 
   <body>
-    <menu name="Overview" inherit="top">
+    <menu name="Module info" ref="reports" inherit="top"/>
+    <menu name="Examples">
+      <item name="Simple Maven project" href="https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven"/>
+      <item name="Simple grammar" href="http://jflex.de/manual.html#Example"/>
+      <item name="More grammars" href="https://github.com/jflex-de/jflex/wiki/External-JFlex-Grammars"/>
+    </menu>
+    <menu name="JFlex.de" inherit="bottom">
       <item name="Home" href="http://jflex.de/"/>
       <item name="Features" href="http://jflex.de/features.html"/>
-      <item name="Download" href="http://jflex.de/download.html"/>
-      <item name="Documentation" href="http://jflex.de/docu.html"/>
+      <item name="Documentation" href="http://jflex.de/manual.html"/>
       <item name="Support" href="http://jflex.de/help.html"/>
       <item name="Contact" href="http://jflex.de/contact.html"/>
+    </menu>
+    <menu name="JFlex Github" inherit="bottom">
+      <item name="Releases" href="https://github.com/jflex-de/jflex/releases"/>
       <item name="Source Code" href="https://github.com/jflex-de/jflex"/>
     </menu>
   </body>
