@@ -64,7 +64,9 @@ class CliCupInvoker {
     // It's a builder but it's easier to read the IllegalArgumentException if each arg is added on
     // its own line.
     ArgBuilder args = new ArgBuilder();
-    args.addArgs("-package", javaPackage);
+    if (!Strings.isNullOrEmpty(javaPackage)) {
+      args.addArgs("-package", javaPackage);
+    }
     args.addArgs("-destdir", outputDirectory.getAbsolutePath());
     args.addArgs("-parser", parserClassName);
     args.addArgs("-symbols", symClassName);

@@ -18,6 +18,11 @@
       <version>3.8.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>cup_runtime</artifactId>
+      <version>11b</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -30,6 +35,9 @@
             <goals>
               <goal>generate</goal>
             </goals>
+            <configuration>
+              <inputStreamCtor>true</inputStreamCtor>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -42,12 +50,13 @@
             <goals>
               <goal>generate</goal>
             </goals>
+            <configuration>
+            </configuration>
           </execution>
         </executions>
         <configuration>
-          <!--interface="true" locations="false" parser="LexParse"-->
-          <symbolInterface>true</symbolInterface>
-          <parserName>parser</parserName>
+          <!-- By default runs:
+          cup -destdir target/generated-sources/cup -parser parser -symbols sym src/main/cup/ycalc.cup -->
         </configuration>
       </plugin>
     </plugins>
