@@ -59,6 +59,27 @@
           cup -destdir target/generated-sources/cup -parser parser -symbols sym src/main/cup/ycalc.cup -->
         </configuration>
       </plugin>
+      <!-- Build an Uberjar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>${project.artifactId}-full-${project.version}</finalName>
+              <artifactSet>
+                <includes>
+                  <include>de.jflex:cup_runtime</include>
+                </includes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

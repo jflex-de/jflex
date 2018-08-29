@@ -15,13 +15,17 @@ Small changes and updates to newest JFlex+Cup versions by Gerwin Klein.
 To compile:
 
 ```
-mvn compile
+mvn compile test
 ```
+
+This will build and test that the `src/test/resources/test.txt` file
+is parsed and generates the expected `src/test/resources/output.good`.
 
 To run:
 
 ```
-java Main test.txt
+mvn package
+java -jar target/simple-maven-full-1.0.jar Main test.txt
 ```
 
 ## Files:
