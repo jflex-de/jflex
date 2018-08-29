@@ -18,7 +18,7 @@ echo '==========================================================================
 if [[ ! $TRAVIS ]]; then
   logi "Clean up environment"
   # Cleanup up Maven targets
-  # note that mvn could fail if POM are incorrect
+  # note that Maven could fail if POM are incorrect
   find "$BASEDIR" -name target -type d -exec rm -rf {} \; || true
 
   # Clean up local maven repo
