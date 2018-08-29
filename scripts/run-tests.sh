@@ -10,6 +10,7 @@ MVN="$BASEDIR"/mvnw
 set -e
 
 echo '==============================  JAVA VERSION  =============================='
+echo '$JAVA_HOME =' $JAVA_HOME
 java -version
 javac -version
 echo '============================================================================'
