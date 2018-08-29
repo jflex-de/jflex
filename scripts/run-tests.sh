@@ -9,6 +9,11 @@ MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
+echo '==============================  JAVA VERSION  =============================='
+java -version
+javac -version
+echo '============================================================================'
+
 # Clean environment
 if [[ ! $TRAVIS ]]; then
   logi "Clean up environment"

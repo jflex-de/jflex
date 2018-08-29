@@ -38,7 +38,6 @@
             <configuration>
               <verbose>${verbose}</verbose>
               <testcases>${testcases}</testcases>
-              <jflexTestVersion>${project.version}</jflexTestVersion>
             </configuration>
           </execution>
         </executions>

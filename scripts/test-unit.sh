@@ -11,6 +11,7 @@ MVN="$BASEDIR"/mvnw
 set -e
 
 logi "Compile, test and install all"
+logi "============================="
 # NB: Installs jflex in local repo
 # implies: validate, compile, test, package, verify, install
 if [[ $TRAVIS ]]; then
@@ -21,20 +22,28 @@ else
 fi
 
 logi "Run jflex examples"
+logi "=================="
 # Some tests invoke /bin/jflex which expects the jar in /lib
-cp "$BASEDIR"/jflex/target/jflex-*.jar "$BASEDIR"/jflex/lib
+cp "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
+# Exit with error in case of error (see #242)
 set -x
-# Each line must end with the test command to make the script exit
-# in case of error (see #242)
+
 cd "$BASEDIR"/jflex/examples
+logi "Example: simple-maven"
 cd simple-maven; mvn test; cd ..
+logi "Example: standalone-maven"
 # Note that mvn is a likely to be a different and older version of Maven.
 cd standalone-maven; mvn test; cd ..
+logi "Example: byacc/j"
 # don't assume byacc/j is installed, just run lexer
 cd byaccj; make clean; make Yylex.java; cd ..
+logi "Example: cup"
 cd cup; make clean; make; cd ..
+logi "Example: interpreter"
 cd interpreter; make clean; make; cd ..
+logi "Example: java"
 cd java; make clean; make; cd ..
+logi "Example: zero-reader"
 cd zero-reader; make clean; make; cd ..
 set +x
 

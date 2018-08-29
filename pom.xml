@@ -181,6 +181,11 @@
           <version>1.0</version>
         </plugin>
         <plugin>
+          <groupId>com.coveo</groupId>
+          <artifactId>fmt-maven-plugin</artifactId>
+          <version>2.2.0</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
         </plugin>
@@ -311,6 +316,9 @@
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <!-- Use a version compatible with maven 3
+             https://maven.apache.org/plugins/maven-site-plugin/maven-3.html -->
+        <version>2.2</version>
         <reportSets>
           <reportSet>
             <reports>

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +62,10 @@ public class Main {
 
   /**
    * @param tests a list of File
+   * @param jflexUberJar The JFlex shaded jar
    * @return true if all tests succeeded, false otherwise
    */
-  public static boolean runTests(List<File> tests) {
+  public static boolean runTests(List<File> tests, File jflexUberJar) {
     int successCount = 0;
     int totalCount = 0;
 
@@ -88,8 +88,8 @@ public class Main {
         if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
         if (currentTest.checkJavaVersion()) {
-          currentTest.createScanner();
-          while (currentTest.hasMoreToDo()) currentTest.runNext();
+          currentTest.createScanner(jflexUberJar);
+          while (currentTest.hasMoreToDo()) currentTest.runNext(jflexUberJar);
 
           successCount++;
           System.out.println("Test [" + test + "] finished successfully.");
@@ -117,45 +117,5 @@ public class Main {
             + (totalCount - successCount)
             + " tests failed.");
     return 0 == totalCount - successCount;
-  }
-
-  public static void main(String[] argv) {
-    System.setOut(new PrintStream(System.out, true));
-    System.out.println("JFlexTest Version: " + version);
-    System.out.println("Testing version: " + Exec.getJFlexVersion());
-
-    File dir = new File("testcases"); // assume user.dir/testcases
-    List<File> files = new ArrayList<>();
-
-    for (int i = 0; i < argv.length; i++) {
-
-      if (argv[i].equals("-testpath")) {
-        if (++i >= argv.length) {
-          showUsage("missing path argument");
-          return;
-        }
-        dir = new File(argv[i]);
-        // Quit if dir is not valid
-        if (!dir.isDirectory()) {
-          showUsage(dir + " - test path not found");
-          return;
-        }
-
-        continue;
-      }
-
-      if (argv[i].equals("-v")) {
-        verbose = true;
-        continue;
-      }
-
-      List<File> t = scan(new File(dir, argv[i]), ".test", false);
-      files.addAll(t);
-    }
-
-    // if we still didn't find anything, scan the whole test path
-    if (files.isEmpty()) files = scan(dir, ".test", true);
-
-    runTests(files);
   }
 }

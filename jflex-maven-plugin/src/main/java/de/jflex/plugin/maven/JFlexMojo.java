@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven3 plugin                                                     *
- * Copyright (c) 2007-2015  Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007-2017  Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -109,11 +109,6 @@ public class JFlexMojo extends AbstractMojo {
   @Parameter(defaultValue = "false")
   private boolean legacyDot = false; // NOPMD
 
-  // TODO: In the JFlex version after 1.6, this parameter will cease to exist.
-  /** If true, the generated scanner will include a constructor taking an InputStream. */
-  @Parameter(defaultValue = "false")
-  private boolean inputStreamCtor = false; // NOPMD
-
   /**
    * Generate java parsers from lexer definition files.
    *
@@ -153,7 +148,7 @@ public class JFlexMojo extends AbstractMojo {
   }
 
   /**
-   * Generate java code of a parser from a lexer file.
+   * Generates java code of a parser from a lexer file.
    *
    * <p>If the {@code lexDefinition} is a directory, process all lexer files contained within.
    *
@@ -197,19 +192,17 @@ public class JFlexMojo extends AbstractMojo {
 
     checkParameters(lexFile);
 
-    /* set destination directory */
+    // set destination directory
     File generatedFile = new File(outputDirectory, classInfo.getOutputFilename());
 
-    /* Generate only if needs to */
+    // generate only if needs to
     if (lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
       getLog().info("  " + generatedFile.getName() + " is up to date.");
       getLog().debug("StaleMillis = " + staleMillis + "ms");
       return;
     }
 
-    /*
-     * set options. Very strange that JFlex expects this in a static way.
-     */
+    // set options. Very strange that JFlex expects this in a static way.
     Options.setDefaults();
     Options.setDir(generatedFile.getParentFile());
     Options.dump = dump;
@@ -239,7 +232,7 @@ public class JFlexMojo extends AbstractMojo {
   /**
    * Check parameter lexFile.
    *
-   * <p>Must not be null and file must exist.
+   * <p>Must not be {@code null} and file must exist.
    *
    * @param lexFile input file to check.
    * @throws MojoExecutionException in case of error
@@ -249,7 +242,6 @@ public class JFlexMojo extends AbstractMojo {
       throw new MojoExecutionException(
           "<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
     }
-    assert lexFile.isAbsolute() : lexFile;
     if (!lexFile.isFile()) {
       throw new MojoExecutionException("Input file does not exist: " + lexFile);
     }
