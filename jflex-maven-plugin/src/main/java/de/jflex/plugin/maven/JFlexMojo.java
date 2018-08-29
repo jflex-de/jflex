@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Maven3 plugin                                                     *
- * Copyright (c) 2007-2017  Régis Décamps <decamps@users.sf.net>           *
+ * Copyright (c) 2007-2015  Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *

@@ -1,12 +1,6 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex Maven3 plugin                                                     *
- * Copyright (c) 2007-2017  Régis Décamps <decamps@users.sf.net>           *
- * Credit goes to the authors of the ant task.                             *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Credit goes to the authors of the ant task.
+ */
 package de.jflex.plugin.maven;
 
 import java.io.File;
