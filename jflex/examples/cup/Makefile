@@ -1,9 +1,9 @@
-ifndef JAVA_HOME
-  JAVA=java
-  JAVAC=javac
-else
+ifdef JAVA_HOME
   JAVA=$(JAVA_HOME)/bin/java
   JAVAC=$(JAVA_HOME)/bin/javac
+else
+  JAVA=java
+  JAVAC=javac
 endif
 
 # Root of the project
