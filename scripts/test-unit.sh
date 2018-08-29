@@ -30,10 +30,10 @@ set -x
 
 cd "$BASEDIR"/jflex/examples
 logi "Example: simple-maven"
-cd simple-maven; mvn test; cd ..
+cd simple-maven; $MVN test; cd ..
 logi "Example: standalone-maven"
 # Note that mvn is a likely to be a different and older version of Maven.
-cd standalone-maven; mvn test; cd ..
+cd standalone-maven; $MVN test; cd ..
 logi "Example: byacc/j"
 # don't assume byacc/j is installed, just run lexer
 cd byaccj; make clean; make Yylex.java; cd ..
