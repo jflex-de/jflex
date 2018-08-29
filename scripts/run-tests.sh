@@ -36,6 +36,9 @@ fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "regression" ]]; then
   "$BASEDIR"/scripts/test-regression.sh
 fi
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "check-format" ]]; then
+  "$MVN" validate
+fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "ant" ]]; then
   "$BASEDIR"/scripts/ant-build.sh
 fi

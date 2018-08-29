@@ -440,7 +440,8 @@
       <activation>
         <jdk>1.8</jdk>
         <property>
-          <name>env.CI</name>
+          <name>env.TEST_SUITE</name>
+          <value>check-format</value>
         </property>
       </activation>
       <build>
@@ -450,6 +451,7 @@
             <artifactId>fmt-maven-plugin</artifactId>
             <executions>
               <execution>
+                <phase>validate</phase>
                 <goals>
                   <goal>check</goal>
                 </goals>
