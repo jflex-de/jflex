@@ -1,5 +1,11 @@
-JAVA=java
-JAVAC=javac
+ifndef JAVA_HOME
+  JAVA=java
+  JAVAC=javac
+else
+  JAVA=$(JAVA_HOME)/bin/java
+  JAVAC=$(JAVA_HOME)/bin/javac
+endif
+
 # Root of the project
 ROOT=../../..
 JFLEX=$(ROOT)/jflex/bin/jflex
