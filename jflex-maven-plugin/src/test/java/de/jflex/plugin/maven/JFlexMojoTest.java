@@ -31,6 +31,7 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
    *
    * @param testCase The name of the test case (i.e. its directory name).
    * @return The configured mojo.
+   * @throws Exception
    */
   protected JFlexMojo newMojo(String testCase) throws Exception {
     File unitBasedir = new File(getBasedir(), "src/test/resources/unit");
@@ -43,7 +44,23 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
     return mojo;
   }
 
-  /** Tests configuration with a single input file. */
+  /**
+   * Gets the expected path to the output file from jflex.
+   *
+   * @param mojo The jflex mojo under test.
+   * @return The expected path to the output file from jflex.
+   * @throws Exception
+   */
+  protected File getExpectedOutputFile(JFlexMojo mojo) throws Exception {
+    File outDir = (File) getVariableValueFromObject(mojo, "outputDirectory");
+    return new File(outDir, "/org/jamwiki/parser/jflex/" + "JAMWikiPreProcessor" + ".java");
+  }
+
+  /**
+   * Tests configuration with a single input file.
+   *
+   * @throws Exception
+   */
   public void testSingleFile() throws Exception {
     JFlexMojo mojo = newMojo("single-file-test");
     mojo.execute();
@@ -61,7 +78,11 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
     assertTrue("size of produced file between 26k and 36k. Actual is " + size, correctSize);
   }
 
-  /** Tests configuration with a single input directory. */
+  /**
+   * Tests configuration with a single input directory.
+   *
+   * @throws Exception
+   */
   public void testSingleDir() throws Exception {
     JFlexMojo mojo = newMojo("single-dir-test");
     mojo.execute();
@@ -70,23 +91,16 @@ public class JFlexMojoTest extends AbstractMojoTestCase {
     assertTrue("produced file is a file: " + produced, produced.isFile());
   }
 
-  /** Tests configuration with a single input directory containing sub directories. */
+  /**
+   * Tests configuration with a single input directory containing sub directories.
+   *
+   * @throws Exception
+   */
   public void testRecursion() throws Exception {
     JFlexMojo mojo = newMojo("recursion-test");
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
     assertTrue("produced file is a file: " + produced, produced.isFile());
-  }
-
-  /**
-   * Gets the expected path to the output file from jflex.
-   *
-   * @param mojo The jflex mojo under test.
-   * @return The expected path to the output file from jflex.
-   */
-  private File getExpectedOutputFile(JFlexMojo mojo) throws Exception {
-    File outDir = (File) getVariableValueFromObject(mojo, "outputDirectory");
-    return new File(outDir, "/org/jamwiki/parser/jflex/" + "JAMWikiPreProcessor" + ".java");
   }
 }

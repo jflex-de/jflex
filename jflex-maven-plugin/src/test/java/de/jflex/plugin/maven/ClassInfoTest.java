@@ -1,16 +1,14 @@
 package de.jflex.plugin.maven;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
-import org.junit.Test;
+import junit.framework.TestCase;
 
-public class ClassInfoTest {
-  @Test
+public class ClassInfoTest extends TestCase {
+
   public void testGetOutputFilename() {
-    ClassInfo clazz = new ClassInfo();
-    clazz.className = "Bar";
-    clazz.packageName = "org.foo";
-    assertEquals(new File("org/foo/Bar.java"), new File(clazz.getOutputFilename()));
+    ClassInfo classe = new ClassInfo();
+    classe.className = "Bar";
+    classe.packageName = "org.foo";
+    assertEquals(new File("org/foo/Bar.java"), new File(classe.getOutputFilename()));
   }
 }

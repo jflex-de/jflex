@@ -17,17 +17,19 @@ class LexSimpleAnalyzer {
   static final String DEFAULT_NAME = "Yylex";
 
   /**
-   * Guesses the package and class name, based on this grammar definition. Does not override the
-   * Mojo configuration if it exist.
+   * Guess the package and class name, based on this grammar definition. Does not override the Mojo
+   * configuration if it exist.
    *
    * @return The name of the java code to generate.
    * @throws FileNotFoundException if the lex file does not exist
-   * @throws IOException when an IO exception occurred while reading a file.
+   * @throws IOException when an IO exception occured while reading a file.
    */
   static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
     assert lexFile.isAbsolute() : lexFile;
 
-    try (LineNumberReader reader = new LineNumberReader(new FileReader(lexFile))) {
+    LineNumberReader reader = new LineNumberReader(new FileReader(lexFile));
+
+    try {
       ClassInfo classInfo = new ClassInfo();
       while (classInfo.className == null || classInfo.packageName == null) {
         String line = reader.readLine();
@@ -43,6 +45,8 @@ class LexSimpleAnalyzer {
         classInfo.className = DEFAULT_NAME;
       }
       return classInfo;
+    } finally {
+      reader.close();
     }
   }
 
