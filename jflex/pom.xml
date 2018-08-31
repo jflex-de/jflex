@@ -137,14 +137,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
         <configuration>
           <filesets>
@@ -167,7 +159,12 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <finalName>${artifactId}-full-${version}</finalName>
+              <finalName>${project.artifactId}-full-${project.version}</finalName>
+              <artifactSet>
+                <includes>
+                  <include>de.jflex:cup_runtime</include>
+                </includes>
+              </artifactSet>
             </configuration>
           </execution>
         </executions>

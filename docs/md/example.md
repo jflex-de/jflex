@@ -290,9 +290,9 @@ scanner proceeds immediately.
 In lexical state `STRING` another rule demonstrates how to refer to the
 input that has been matched:
 
-    [^\n\r\"]+  { string.append( yytext() ); }
+    [^\n\r\"\\]+                   { string.append( yytext() ); }
 
-The expression `[^\n\r\"]+` matches all characters in the input up to
+The expression `[^\n\r\"\\]+` matches all characters in the input up to
 the next backslash (indicating an escape sequence such as `\n`), double
 quote (indicating the end of the string), or line terminator (which must
 not occur in a Java string literal). The matched region of the input is

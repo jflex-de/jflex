@@ -1,9 +1,48 @@
+# We also compile on pull requests.
+branches:
+  only:
+  - master
+
 language: java
 
 jdk:
-  - openjdk7
-  - openjdk8
+- openjdk7
+- oraclejdk8
+
+install: true
 
 script: ./scripts/run-tests.sh
 
-installation: true
+env:
+  matrix:
+  - TEST_SUITE=ant
+  - TEST_SUITE=unit
+  - TEST_SUITE=regression
+
+# Travis sometimes fails to download deps from repo1.maven.org
+# A cache avoids downloading too much, and will also speed up the build.
+# NB: There is one cache per branch and language version/ compiler version/ JDK version
+cache:
+  # The timeout (in seconds) empties the cache to avoid being stuck with a corrupted artefact
+  timeout: 86400  # 24 hours
+  directories:
+  - $HOME/.m2
+  - jflex/lib
+
+# Empty our own artifacts from the cache. Those need to be build and installed.
+before_cache: ./scripts/clean.sh
+
+# Build the maven site
+before_deploy: ./scripts/before-deploy.sh
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  # GITHUB_TOKEN set in travis-ci.org dashboard
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+    condition: $TEST_SUITE = unit
+  local_dir: target/maven-staging-site
+  repo: jflex-de/jflex-web
+  name: Travis site-deploy bot

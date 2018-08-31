@@ -1,6 +1,6 @@
 #! /bin/bash 
 #
-#     JFlex start script $Revision$
+#     JFlex start script
 #
 # if Java is not in your binary path, you need to supply its
 # location in this script. The script automatically finds 
@@ -28,8 +28,7 @@ JFLEX_VERSION=1.7.0-SNAPSHOT
 
 # calculate true location
 
-PRG=`type $0`
-PRG=${PRG##* }
+PRG="$0"
 
 # If PRG is a symlink, trace it to the real home directory
 
@@ -46,4 +45,4 @@ JFLEX_HOME=${PRG}/..
 
 # --------------------------------------------------------------------
 
-$JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-${JFLEX_VERSION}.jar $@
+$JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-full-${JFLEX_VERSION}.jar $@
