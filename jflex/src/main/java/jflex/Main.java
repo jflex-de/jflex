@@ -267,7 +267,7 @@ public class Main {
   }
 
   private static void generate(String[] argv) throws SilentExit, GeneratorException {
-    GeneratorOptions.Builder opts = GeneratorOptions.newBuilder();
+    GeneratorOptions.Builder opts = GeneratorOptions.builder();
     List<File> files = parseOptions(argv, opts);
     GeneratorOptions generatorOptions = opts.build();
 

@@ -39,7 +39,7 @@ public abstract class GeneratorOptions {
   /** Whether to be verbose. If false, only error/warning output will be generated. */
   public abstract boolean verbose();
 
-  public static GeneratorOptions.Builder newBuilder() {
+  public static GeneratorOptions.Builder builder() {
     return new AutoValue_GeneratorOptions.Builder()
         // Set default values
         .setBackup(true)
@@ -57,7 +57,7 @@ public abstract class GeneratorOptions {
   public abstract Builder buildUpon();
 
   public static GeneratorOptions defaultOptions() {
-    return newBuilder().build();
+    return builder().build();
   }
 
   @AutoValue.Builder

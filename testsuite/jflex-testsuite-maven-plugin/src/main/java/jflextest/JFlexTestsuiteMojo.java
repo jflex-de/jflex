@@ -1,5 +1,7 @@
 package jflextest;
 
+import static jflextest.Tester.scan;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -55,19 +57,18 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
           if (!dir.isDirectory()) {
             throw new FileNotFoundException("Test directory is not a directory: " + dir);
           }
-          List<File> t = Main.scan(dir, ".test", false);
+          List<File> t = scan(dir, ".test", false);
           files.addAll(t);
         }
       }
 
       // if we still didn't find anything, scan the whole test path
-      if (files.isEmpty()) files = Tester.scan(new File(testDirectory), ".test", true);
+      if (files.isEmpty()) files = scan(new File(testDirectory), ".test", true);
 
       Tester tester = new Tester();
       tester.verbose = verbose;
-      tester.jflexTestVersion = jflexTestVersion;
       getLog().info("verbose: " + verbose);
-      success = tester.runTests(files);
+      success = tester.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
       throw new MojoExecutionException("Failed to execute test suite", e);

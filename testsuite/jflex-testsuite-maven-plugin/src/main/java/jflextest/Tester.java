@@ -10,9 +10,8 @@ import java.util.List;
 public class Tester {
 
   public static boolean verbose;
-  public static String jflexTestVersion;
 
-  public static final String version = "1.0alpha";
+  public static final String version = "1.1";
 
   public static void showUsage(String error) {
     System.out.println("Usage: [-v] [-testpath path] <test1> <test2> <test3> ...");

@@ -203,7 +203,7 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     GeneratorOptions.Builder generatorOptions =
-        GeneratorOptions.newBuilder()
+        GeneratorOptions.builder()
             .setOutputDirectory(generatedFile.getParentFile())
             .setDump(dump)
             .setVerbose(verbose)

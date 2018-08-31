@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import jflex.GeneratorOptions;
 
 public class TestCase {
 
@@ -185,7 +186,8 @@ public class TestCase {
         }
       }
       String toCompile = builder.toString();
-      javacResult = Exec.execJavac(toCompile, testPath, Main.jflexTestVersion);
+      GeneratorOptions generatorOptions = GeneratorOptions.builder().build();
+      TestResult javacResult = Exec.execJavac(toCompile, testPath, "jflex-1.7.0-SNAPSHOT.jar");
 
       if (javacResult.getSuccess() == expectJavacFail) {
         System.out.println("Compilation failed in " + testPath + " for " + toCompile);
@@ -245,7 +247,6 @@ public class TestCase {
             inputFiles,
             additionalJars,
             outputFileEncoding,
-            Tester.jflexTestVersion,
             cmdLine);
 
     // check for output conformance

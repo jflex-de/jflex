@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.GeneratorException;
 import jflex.GeneratorOptions;
-import jflex.Main;
-import jflex.Out;
-import jflex.SilentExit;
+import jflex.LexGenerator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
@@ -60,15 +58,7 @@ public class Exec {
     javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
     javac.setIncludes(toCompile);
     Path classPath = javac.createClasspath();
-    // Locate the jflex jar in the user's Maven local repository
-    // classPath.setPath(
-    //     System.getProperty("user.home")
-    //         // TODO: users can change the location of their repo.
-    //         + "/.m2/repository/de/jflex/jflex/"
-    //         + jflexTestVersion
-    //         + "/jflex-"
-    //         + jflexTestVersion
-    //         + ".jar");
+    // Add the jflex.jar in the user's Maven local repository
     classPath.setPath(additionalJars);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -94,12 +84,11 @@ public class Exec {
     GeneratorOptions generatorOptions = GeneratorOptions.defaultOptions();
     try {
       // TODO(regisd): process all files
-      File file=new File(files.get(0));
-      Main.generate(file, new Out(out, generatorOptions), generatorOptions);
+      File file = new File(files.get(0));
+      LexGenerator lexGenerator = new LexGenerator(generatorOptions);
+      lexGenerator.generateFromFile(file);
       return new TestResult(out.toString(), true);
     } catch (GeneratorException e) {
-      return new TestResult(out.toString(), false);
-    } catch (SilentExit e) {
       return new TestResult(out.toString(), false);
     }
   }
