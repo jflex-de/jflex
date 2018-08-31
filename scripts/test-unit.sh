@@ -10,12 +10,6 @@ MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
-# Work around
-# The following artifacts could not be resolved: de.jflex:cup:jar:11b, de.jflex:cup_runtime:jar:11b
-logi "Compile, test and install CUP"
-logi "============================="
-"$MVN" -pl cup,cup/cup,cup/cup_runtime install
-
 logi "Compile, test and install all"
 logi "============================="
 # NB: Installs jflex in local repo
