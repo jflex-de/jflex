@@ -222,8 +222,8 @@ public class JFlexMojo extends AbstractMojo {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
+    LexGenerator lexGenerator = new LexGenerator(generatorOptions.build());
     try {
-      LexGenerator lexGenerator = new LexGenerator(generatorOptions.build());
       lexGenerator.generateFromFile(lexFile);
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
