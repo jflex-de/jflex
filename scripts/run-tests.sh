@@ -22,8 +22,7 @@ if [[ ! $TRAVIS ]]; then
   find "$BASEDIR" -name target -type d -exec rm -rf {} \; || true
 
   # Clean up local maven repo
-  # TODO: This could be changed with ~/.m2/settings.xml
-  rm -rf "$HOME"/.m2/repository/de/jfex || true
+  find ~/.m2/repository/de/jflex -name '*-SNAPSHOT.*' -exec rm -rf {} \; || true
 fi
 
 # Travis then runs _in parallel_ (but we do it in sequence)
