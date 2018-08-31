@@ -7,9 +7,12 @@ source "$BASEDIR"/scripts/logger.sh
 logi "Clean the environment"
 logi "====================="
 
-# Cleanup up Maven targets
+# Clean up all Maven targets
 # note that Maven could fail if POM are incorrect
 find "$BASEDIR" -name target -type d -exec rm -rf {} \; || true
 
-# Clean up local maven repo
+# Clean up SNAPSHOT in ant lib
+find "$BASEDIR/jflex/lib" -name '*-SNAPSHOT.*' -exec rm -rf {} \; || true
+
+# Clean up SNAPSHOT in local maven repo
 find ~/.m2/repository/de/jflex -name '*-SNAPSHOT.*' -exec rm -rf {} \; || true
