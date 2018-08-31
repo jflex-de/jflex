@@ -15,7 +15,8 @@ package jflex;
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class GeneratorException extends Exception {
+// TODO(regisd) Replace RuntimeException by checked exception
+public class GeneratorException extends RuntimeException {
 
   private static final long serialVersionUID = -9128247888544263982L;
 

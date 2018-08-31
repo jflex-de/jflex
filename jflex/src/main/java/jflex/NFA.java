@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public final class NFA {
 
-  GeneratorOptions generatorOptions;
+  final GeneratorOptions generatorOptions;
 
   /**
    * table[current_state][next_char] is the set of states that can be reached from current_state
@@ -79,11 +79,13 @@ public final class NFA {
   /**
    * Constructor for NFA.
    *
+   * @param generatorOptions
    * @param numInput a int.
    * @param estSize a int.
    * @param out Output stream of user-friendly messages.
    */
-  public NFA(int numInput, int estSize, Out out) {
+  public NFA(GeneratorOptions generatorOptions, int numInput, int estSize, Out out) {
+    this.generatorOptions = generatorOptions;
     this.numInput = numInput;
     this.estSize = estSize;
     this.out = out;
@@ -109,7 +111,11 @@ public final class NFA {
    */
   public NFA(
       int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes, Out out) {
-    this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number(), out);
+    this(
+        scanner.generatorOptions,
+        numInput,
+        regExps.NFASize(macros) + 2 * scanner.states.number(),
+        out);
 
     this.scanner = scanner;
     this.regExps = regExps;

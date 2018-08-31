@@ -9,41 +9,56 @@
 
 package jflex;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.io.BufferedWriter;
 import java.io.File;
-import junit.framework.TestCase;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * SkeletonTest
+ * Tests for {@link Skeleton}.
  *
- * @author Gerwin Klein
+ * @author Gerwin Klein, Régis Décamps
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class SkeletonTest extends TestCase {
+public class SkeletonTest {
 
-  /**
-   * Constructor for SkeletonTest.
-   *
-   * @param arg0 test name
-   */
-  public SkeletonTest(String arg0) {
-    super(arg0);
+  private Skeleton skeleton;
+
+  @Before
+  public void createSkeleton() throws IOException {
+    String charset = "UTF-8";
+    File tempFile = File.createTempFile("out", ".tmp");
+    PrintWriter out =
+        new PrintWriter(
+            new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile), charset)));
+    skeleton = new Skeleton(out);
   }
 
-  public void testReplace() {
+  @Test
+  public void replace() {
     assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
   }
 
-  public void testMakePrivate() {
-    Skeleton.makePrivate();
-    for (int i = 0; i < Skeleton.line.length; i++) {
-      assertEquals(Skeleton.line[i].indexOf("public"), -1);
+  @Test
+  public void makePrivate() {
+    skeleton.makePrivate();
+    for (int i = 0; i < skeleton.line.length; i++) {
+      assertEquals(skeleton.line[i].indexOf("public"), -1);
     }
   }
 
-  public void testDefault() {
-    Skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
-    Skeleton.readDefault();
-    assertEquals(jflex.Skeleton.line[3].indexOf("java.util.Stack"), -1);
+  @Test
+  public void readDefault() {
+    skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
+    assertTrue(skeleton.line[3].indexOf("java.util.Stack") > 0);
+    skeleton.readDefault();
+    assertEquals(skeleton.line[3].indexOf("java.util.Stack"), -1);
   }
 }

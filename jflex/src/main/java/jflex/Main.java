@@ -10,7 +10,6 @@
 package jflex;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +37,9 @@ public class Main {
    * @param argv an array of cli argument values.
    * @param options A {@link GeneratorOptions} builder.
    * @return a {@link java.util.List} object.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
-  public static List<File> parseOptions(String argv[], GeneratorOptions.Builder options)
+  private static List<File> parseOptions(String argv[], GeneratorOptions.Builder options)
       throws SilentExit {
     List<File> files = new ArrayList<>();
 
@@ -48,17 +47,15 @@ public class Main {
 
       if (argv[i].equals("-d") || argv[i].equals("--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_DIRECTORY);
-          throw new GeneratorException();
+          throw new GeneratorException(ErrorMessages.NO_DIRECTORY);
         }
-        options.setOutputDirectory(argv[i]);
+        options.setOutputDirectory(new File(argv[i]));
         continue;
       }
 
       if (argv[i].equals("--skel") || argv[i].equals("-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          Out.error(ErrorMessages.NO_SKEL_FILE);
-          throw new GeneratorException();
+          throw new GeneratorException(ErrorMessages.NO_SKEL_FILE);
         }
 
         options.setSkeleton(new File(argv[i]));
@@ -149,8 +146,8 @@ public class Main {
       if (argv[i].equals("--uniprops")
           || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
-          throw new GeneratorException(ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION,
-              UnicodeProperties.UNICODE_VERSIONS);
+          throw new GeneratorException(
+              ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, UnicodeProperties.UNICODE_VERSIONS);
         }
         String unicodeVersion = argv[i];
         printUnicodeProperties(unicodeVersion, new Out(options.build()));
@@ -168,9 +165,7 @@ public class Main {
     return files;
   }
 
-  /**
-   * JFlex version
-   */
+  /** JFlex version */
   public static final String version = "1.7.0-SNAPSHOT"; // $NON-NLS-1$
 
   private static void printUnicodeProperties(String unicodeVersion, Out out) {
@@ -188,8 +183,7 @@ public class Main {
    * unicodeVersion.
    *
    * @param unicodeVersion The Unicode version to print property values and aliases for
-   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion is not
-   * supported
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion is not supported
    */
   private static void printUnicodePropertyValuesAndAliases(String unicodeVersion, Out log)
       throws UnicodeProperties.UnsupportedUnicodeVersionException {
@@ -239,9 +233,7 @@ public class Main {
     }
   }
 
-  /**
-   * Prints the cli usage on stdout.
-   */
+  /** Prints the cli usage on stdout. */
   public static void printUsage() {
     System.out.println(""); // $NON-NLS-1$
     System.out.println("Usage: jflex <options> <input-files>");

@@ -26,9 +26,9 @@ public class LexGenerator {
   private final GeneratorOptions generatorOptions;
   private final Out log;
 
-  LexGenerator(GeneratorOptions options) {
+  public LexGenerator(GeneratorOptions options) {
     this.generatorOptions = options;
-    this.log = new Out(generatorOptions);;
+    this.log = new Out(generatorOptions);
   }
 
   /**
@@ -39,7 +39,8 @@ public class LexGenerator {
   public void generateFromFile(File inputFile) throws GeneratorException {
     // Verify that the file exists
     if (!inputFile.isFile() || !inputFile.canRead()) {
-      throw new GeneratorException(new IOException("Sorry, couldn't open: \"" + inputFile.getAbsolutePath() + "\""));
+      throw new GeneratorException(
+          new IOException("Sorry, couldn't open: \"" + inputFile.getAbsolutePath() + "\""));
     }
 
     log.resetCounters();
@@ -47,8 +48,8 @@ public class LexGenerator {
     Timer totalTime = new Timer();
     Timer time = new Timer();
 
-    LexScan scanner = null;
-    LexParse parser = null;
+    LexScan scanner;
+    LexParse parser;
     FileReader inputReader = null;
 
     totalTime.start();
@@ -60,7 +61,7 @@ public class LexGenerator {
           new LexScan(inputReader)
               .withLexicanSpecification(inputFile)
               .withOptions(generatorOptions);
-      parser = new LexParse(scanner);
+      parser = new LexParse(scanner, generatorOptions, log);
     } catch (FileNotFoundException e) {
       throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
     }
