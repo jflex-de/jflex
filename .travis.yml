@@ -23,9 +23,8 @@ cache:
   directories:
   - $HOME/.m2
 
-# Empty our own artefacts from the cache. Those need to be build and installed.
-before_cache:
-  - find $HOME/.m2/repository/de/jflex -name '*-SNAPSHOT.*' -exec rm -rf {} \; || true
+# Empty our own artifacts from the cache. Those need to be build and installed.
+before_cache: ./scripts/clean.sh
 
 # Build the maven site
 before_deploy: ./scripts/before-deploy.sh
