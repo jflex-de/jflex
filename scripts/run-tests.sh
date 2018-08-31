@@ -24,9 +24,6 @@ if [[ ! $TRAVIS ]]; then
   # Clean up local maven repo
   # TODO: This could be changed with ~/.m2/settings.xml
   rm -rf "$HOME"/.m2/repository/de/jfex || true
-
-  logi "Remove jflex.jar in lib directory"
-  rm "$BASEDIR"/jflex/lib/jflex-*.jar || true
 fi
 
 # Travis then runs _in parallel_ (but we do it in sequence)
