@@ -1,3 +1,8 @@
+# We also compile on pull requests.
+branches:
+  only:
+  - master
+
 language: java
 
 jdk:
@@ -22,10 +27,10 @@ cache:
   timeout: 86400  # 24 hours
   directories:
   - $HOME/.m2
+  - jflex/lib
 
-# Empty our own artefacts from the cache. Those need to be build and installed.
-before_cache:
-  - rm -rf $HOME/.m2/repository/de/jflex
+# Empty our own artifacts from the cache. Those need to be build and installed.
+before_cache: ./scripts/clean.sh
 
 # Build the maven site
 before_deploy: ./scripts/before-deploy.sh
