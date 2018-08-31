@@ -16,17 +16,7 @@ echo '==========================================================================
 
 # Clean environment
 if [[ ! $TRAVIS ]]; then
-  logi "Clean up environment"
-  # Cleanup up Maven targets
-  # note that Maven could fail if POM are incorrect
-  find "$BASEDIR" -name target -type d -exec rm -rf {} \; || true
-
-  # Clean up local maven repo
-  # TODO: This could be changed with ~/.m2/settings.xml
-  rm -rf "$HOME"/.m2/repository/de/jfex || true
-
-  logi "Remove jflex.jar in lib directory"
-  rm "$BASEDIR"/jflex/lib/jflex-*.jar || true
+  "$BASEDIR"/scripts/clean.sh
 fi
 
 # Travis then runs _in parallel_ (but we do it in sequence)
