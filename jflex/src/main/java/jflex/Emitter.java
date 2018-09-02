@@ -85,7 +85,7 @@ public final class Emitter {
     String name = getBaseName(parser.scanner.className) + ".java";
 
     File outputFile =
-        normalize(options.outputDirectory().orNull(), name, inputFile, options.backup());
+        normalize(options.outputDirectory(), name, inputFile, options.backup());
 
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     this.parser = parser;

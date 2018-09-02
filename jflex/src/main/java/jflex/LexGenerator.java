@@ -77,7 +77,7 @@ public class LexGenerator {
       if (generatorOptions.generateDotFile()) {
         nfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory().orNull(),
+                generatorOptions.outputDirectory(),
                 "nfa.dot",
                 null,
                 generatorOptions.backup())); // $NON-NLS-1$
@@ -99,7 +99,7 @@ public class LexGenerator {
       if (generatorOptions.generateDotFile()) {
         dfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory().orNull(),
+                generatorOptions.outputDirectory(),
                 "dfa-big.dot",
                 null,
                 generatorOptions.backup())); // $NON-NLS-1$
@@ -118,7 +118,7 @@ public class LexGenerator {
       if (generatorOptions.generateDotFile())
         dfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory().orNull(),
+                generatorOptions.outputDirectory(),
                 "dfa-min.dot",
                 null,
                 generatorOptions.backup())); // $NON-NLS-1$
