@@ -9,6 +9,11 @@ jdk:
 - openjdk7
 - oraclejdk8
 
+# Empty the previously built artifacts
+# They cannot be deleted in the before_cache phase,
+# otherwise `mvn site` fails in the before_deploy phase.
+before_install: ./scripts/clean.sh
+
 install: true
 
 script: ./scripts/run-tests.sh
@@ -28,9 +33,6 @@ cache:
   directories:
   - $HOME/.m2
   - jflex/lib
-
-# Empty our own artifacts from the cache. Those need to be build and installed.
-before_cache: ./scripts/clean.sh
 
 # Build the maven site
 before_deploy: ./scripts/before-deploy.sh
