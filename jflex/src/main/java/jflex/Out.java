@@ -45,23 +45,23 @@ public final class Out {
   /** output device */
   private final StdOutWriter out;
 
-  private final GeneratorOptions generatorOptions;
+  private final Options options;
 
-  public Out(ByteArrayOutputStream out, GeneratorOptions generatorOptions) {
-    this(new StdOutWriter(out), generatorOptions);
+  public Out(ByteArrayOutputStream out, Options options) {
+    this(new StdOutWriter(out), options);
   }
 
-  public Out(GeneratorOptions generatorOptions) {
-    this(new StdOutWriter(), generatorOptions);
+  public Out(Options options) {
+    this(new StdOutWriter(), options);
   }
 
-  public Out(OutputStream out, GeneratorOptions generatorOptions) {
-    this(new StdOutWriter(out), generatorOptions);
+  public Out(OutputStream out, Options options) {
+    this(new StdOutWriter(out), options);
   }
 
-  public Out(StdOutWriter out, GeneratorOptions generatorOptions) {
+  public Out(StdOutWriter out, Options options) {
     this.out = out;
-    this.generatorOptions = generatorOptions;
+    this.options = options;
   }
 
   /**
@@ -71,7 +71,7 @@ public final class Out {
    * @param time elapsed time
    */
   public void time(ErrorMessages message, Timer time) {
-    if (generatorOptions.timing()) {
+    if (options.timing()) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
     }
@@ -83,7 +83,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public void time(String message) {
-    if (generatorOptions.timing()) {
+    if (options.timing()) {
       out.println(message);
     }
   }
@@ -94,7 +94,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public void println(String message) {
-    if (generatorOptions.verbose()) out.println(message);
+    if (options.verbose()) out.println(message);
   }
 
   /**
@@ -104,7 +104,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public void println(ErrorMessages message, String data) {
-    if (generatorOptions.verbose()) {
+    if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -116,7 +116,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public void println(ErrorMessages message, int data) {
-    if (generatorOptions.verbose()) {
+    if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -127,7 +127,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public void print(String message) {
-    if (generatorOptions.verbose()) out.print(message);
+    if (options.verbose()) out.print(message);
   }
 
   /**
@@ -139,7 +139,7 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (GeneratorOptions.DEBUG) System.out.println(message);
+    if (Options.DEBUG) System.out.println(message);
   }
 
   /**
@@ -150,7 +150,7 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public void dump(String message) {
-    if (generatorOptions.dump()) out.println(message);
+    if (options.dump()) out.println(message);
   }
 
   /**

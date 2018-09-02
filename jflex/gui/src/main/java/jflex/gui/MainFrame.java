@@ -17,8 +17,8 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.GeneratorOptions;
-import jflex.GeneratorOptions.Builder;
+import jflex.Options;
+import jflex.Options.Builder;
 import jflex.Main;
 import jflex.Out;
 
@@ -59,7 +59,7 @@ public final class MainFrame extends Frame implements Handles {
    * Constructor for MainFrame.
    * @param generatorOptions
    */
-  public MainFrame(GeneratorOptions.Builder generatorOptions) {
+  public MainFrame(Options.Builder generatorOptions) {
     super("JFlex " + Main.version);
     this.generatorOptions =  generatorOptions;
     buildContent();
@@ -76,11 +76,11 @@ public final class MainFrame extends Frame implements Handles {
   }
 
   /**
-   * @deprecated Use {@link #MainFrame(GeneratorOptions.Builder)} instead.
+   * @deprecated Use {@link #MainFrame(Options.Builder)} instead.
    */
   @Deprecated
   public MainFrame() {
-    this(GeneratorOptions.newBuilder());
+    this(Options.newBuilder());
   }
 
   private void buildContent() {

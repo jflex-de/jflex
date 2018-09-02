@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.GeneratorOptions;
+import jflex.Options;
 import jflex.Main;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -40,7 +40,7 @@ public class JFlexTask extends Task {
   /** for javac-like dest dir behaviour */
   private File destinationDir;
 
-  private GeneratorOptions.Builder generatorOptions = GeneratorOptions.builder();
+  private Options.Builder generatorOptions = Options.builder();
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {
@@ -337,7 +337,7 @@ public class JFlexTask extends Task {
     generatorOptions.setLegacyDot(b);
   }
 
-  public GeneratorOptions getGeneratorOptions() {
+  public Options getGeneratorOptions() {
     return generatorOptions.build();
   }
 }

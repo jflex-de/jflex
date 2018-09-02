@@ -75,7 +75,7 @@ public class RegExps {
       Action action,
       Boolean isBOL,
       RegExp lookAhead) {
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println(
           "Inserting regular expression with statelist :" + Out.NL + stateList); // $NON-NLS-1$
       System.out.println("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
@@ -102,7 +102,7 @@ public class RegExps {
    */
   public int insert(List<Integer> stateList, Action action) {
 
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println("Inserting eofrule with statelist :" + Out.NL + stateList); // $NON-NLS-1$
       System.out.println("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
     }

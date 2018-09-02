@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.GeneratorException;
-import jflex.GeneratorOptions;
+import jflex.Options;
 import jflex.LexGenerator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -81,11 +81,11 @@ public class Exec {
     String[] cmd = toArray(cmdline, files);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     // TODO(regisd) Replace cmdLine with options
-    GeneratorOptions generatorOptions = GeneratorOptions.defaultOptions();
+    Options options = Options.defaultOptions();
     try {
       // TODO(regisd): process all files
       File file = new File(files.get(0));
-      LexGenerator lexGenerator = new LexGenerator(generatorOptions);
+      LexGenerator lexGenerator = new LexGenerator(options);
       lexGenerator.generateFromFile(file);
       return new TestResult(out.toString(), true);
     } catch (GeneratorException e) {

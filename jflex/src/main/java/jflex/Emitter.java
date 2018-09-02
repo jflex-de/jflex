@@ -79,7 +79,7 @@ public final class Emitter {
    * @param dfa a {@link jflex.DFA}.
    * @throws java.io.IOException if any.
    */
-  public Emitter(File inputFile, LexParse parser, DFA dfa, GeneratorOptions options)
+  public Emitter(File inputFile, LexParse parser, DFA dfa, Options options)
       throws IOException {
 
     String name = getBaseName(parser.scanner.className) + ".java";

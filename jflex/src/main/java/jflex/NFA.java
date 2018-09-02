@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public final class NFA {
 
-  final GeneratorOptions generatorOptions;
+  final Options options;
 
   /**
    * table[current_state][next_char] is the set of states that can be reached from current_state
@@ -79,13 +79,13 @@ public final class NFA {
   /**
    * Constructor for NFA.
    *
-   * @param generatorOptions
+   * @param options
    * @param numInput a int.
    * @param estSize a int.
    * @param out Output stream of user-friendly messages.
    */
-  public NFA(GeneratorOptions generatorOptions, int numInput, int estSize, Out out) {
-    this.generatorOptions = generatorOptions;
+  public NFA(Options options, int numInput, int estSize, Out out) {
+    this.options = options;
     this.numInput = numInput;
     this.estSize = estSize;
     this.out = out;
@@ -162,7 +162,7 @@ public final class NFA {
    */
   public void addRegExp(int regExpNum) {
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       out.debug(
           "Adding nfa for regexp " + regExpNum + " :" + out.NL + regExps.getRegExp(regExpNum));
 
@@ -466,7 +466,7 @@ public final class NFA {
     Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
     List<StateSet> dfaList = new ArrayList<>(numStates);
 
-    DFA dfa = new DFA(numEntryStates(), numInput, numLexStates, generatorOptions, out);
+    DFA dfa = new DFA(numEntryStates(), numInput, numLexStates, options, out);
 
     int numDFAStates = 0;
     int currentDFAState = 0;
@@ -494,7 +494,7 @@ public final class NFA {
 
     numDFAStates--;
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       out.debug(
           "DFA start states are :"
               + out.NL
@@ -548,7 +548,7 @@ public final class NFA {
             // out.debug("FOUND!");
             dfa.addTransition(currentDFAState, input, nextDFAState);
           } else {
-            if (generatorOptions.showProgress()) {
+            if (options.showProgress()) {
               out.print(".");
             }
             numDFAStates++;
@@ -569,7 +569,7 @@ public final class NFA {
       currentDFAState++;
     }
 
-    if (generatorOptions.verbose()) out.println("");
+    if (options.verbose()) out.println("");
 
     return dfa;
   }
@@ -744,7 +744,7 @@ public final class NFA {
    */
   private IntPair complement(IntPair nfa) {
 
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       out.debug("complement for " + nfa);
       out.debug("NFA is :" + out.NL + this);
     }
@@ -766,7 +766,7 @@ public final class NFA {
     dfaStates.put(newState, numDFAStates);
     dfaList.add(newState);
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       out.debug(
           "pos DFA start state is :"
               + out.NL
@@ -798,7 +798,7 @@ public final class NFA {
             // out.debug("FOUND!");
             addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
           } else {
-            if (generatorOptions.dump()) out.print("+");
+            if (options.dump()) out.print("+");
             // out.debug("NOT FOUND!");
             // out.debug("Table was "+dfaStates);
             numDFAStates++;
@@ -817,7 +817,7 @@ public final class NFA {
     // We have a dfa accepting the positive regexp.
 
     // Now the complement:
-    if (GeneratorOptions.DEBUG) out.debug("dfa finished, nfa is now :" + out.NL + this);
+    if (Options.DEBUG) out.debug("dfa finished, nfa is now :" + out.NL + this);
 
     int start = dfaStart + numDFAStates + 1;
     int error = dfaStart + numDFAStates + 2;
@@ -851,7 +851,7 @@ public final class NFA {
 
     removeDead(dfaStart, end);
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
 
     return new IntPair(start, end);
@@ -962,7 +962,7 @@ public final class NFA {
     int start, end;
     RegExp2 r;
 
-    if (GeneratorOptions.DEBUG) out.debug("Inserting RegExp : " + regExp);
+    if (Options.DEBUG) out.debug("Inserting RegExp : " + regExp);
 
     if (regExp.isCharClass(macros)) {
       start = numStates;

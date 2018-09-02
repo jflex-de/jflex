@@ -23,12 +23,12 @@ import java.io.IOException;
  */
 public class LexGenerator {
 
-  private final GeneratorOptions generatorOptions;
+  private final Options options;
   private final Out log;
 
-  public LexGenerator(GeneratorOptions options) {
-    this.generatorOptions = options;
-    this.log = new Out(generatorOptions);
+  public LexGenerator(Options options) {
+    this.options = options;
+    this.log = new Out(this.options);
   }
 
   /**
@@ -60,8 +60,8 @@ public class LexGenerator {
       scanner =
           new LexScan(inputReader)
               .withLexicanSpecification(inputFile)
-              .withOptions(generatorOptions);
-      parser = new LexParse(scanner, generatorOptions, log);
+              .withOptions(options);
+      parser = new LexParse(scanner, options, log);
     } catch (FileNotFoundException e) {
       throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
     }
@@ -71,16 +71,16 @@ public class LexGenerator {
 
       log.checkErrors();
 
-      if (generatorOptions.dump())
+      if (options.dump())
         log.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
-      if (generatorOptions.generateDotFile()) {
+      if (options.generateDotFile()) {
         nfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory(),
+                options.outputDirectory(),
                 "nfa.dot",
                 null,
-                generatorOptions.backup())); // $NON-NLS-1$
+                options.backup())); // $NON-NLS-1$
       }
       log.println(ErrorMessages.NFA_STATES, nfa.numStates);
 
@@ -93,16 +93,16 @@ public class LexGenerator {
 
       nfa = null;
 
-      if (generatorOptions.dump())
+      if (options.dump())
         log.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
 
-      if (generatorOptions.generateDotFile()) {
+      if (options.generateDotFile()) {
         dfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory(),
+                options.outputDirectory(),
                 "dfa-big.dot",
                 null,
-                generatorOptions.backup())); // $NON-NLS-1$
+                options.backup())); // $NON-NLS-1$
       }
       log.checkErrors();
 
@@ -112,20 +112,20 @@ public class LexGenerator {
 
       log.time(ErrorMessages.MIN_TOOK, time);
 
-      if (generatorOptions.dump())
+      if (options.dump())
         log.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
 
-      if (generatorOptions.generateDotFile())
+      if (options.generateDotFile())
         dfa.writeDot(
             Emitter.normalize(
-                generatorOptions.outputDirectory(),
+                options.outputDirectory(),
                 "dfa-min.dot",
                 null,
-                generatorOptions.backup())); // $NON-NLS-1$
+                options.backup())); // $NON-NLS-1$
 
       time.start();
 
-      Emitter e = new Emitter(inputFile, parser, dfa, generatorOptions);
+      Emitter e = new Emitter(inputFile, parser, dfa, options);
       e.emit(log);
 
       time.stop();

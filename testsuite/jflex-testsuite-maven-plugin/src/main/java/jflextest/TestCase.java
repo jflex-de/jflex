@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import jflex.GeneratorOptions;
+import jflex.Options;
 
 public class TestCase {
 
@@ -186,7 +186,7 @@ public class TestCase {
         }
       }
       String toCompile = builder.toString();
-      GeneratorOptions generatorOptions = GeneratorOptions.builder().build();
+      Options options = Options.builder().build();
       TestResult javacResult = Exec.execJavac(toCompile, testPath, "jflex-1.7.0-SNAPSHOT.jar");
 
       if (javacResult.getSuccess() == expectJavacFail) {

@@ -35,11 +35,11 @@ public class Main {
    * parseOptions.
    *
    * @param argv an array of cli argument values.
-   * @param options A {@link GeneratorOptions} builder.
+   * @param options A {@link Options} builder.
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  private static List<File> parseOptions(String argv[], GeneratorOptions.Builder options)
+  private static List<File> parseOptions(String argv[], Options.Builder options)
       throws SilentExit {
     List<File> files = new ArrayList<>();
 
@@ -267,18 +267,18 @@ public class Main {
   }
 
   private static void generate(String[] argv) throws SilentExit, GeneratorException {
-    GeneratorOptions.Builder opts = GeneratorOptions.builder();
+    Options.Builder opts = Options.builder();
     List<File> files = parseOptions(argv, opts);
-    GeneratorOptions generatorOptions = opts.build();
+    Options options = opts.build();
 
-    System.out.println("JFlex options: " + generatorOptions);
+    System.out.println("JFlex options: " + options);
 
     if (files.isEmpty()) {
       // No file was provided. Start GUI.
-      // TODO(regisd): new MainFrame(generatorOptions.buildUpon());
+      // TODO(regisd): new MainFrame(options.buildUpon());
     } else {
       for (File file : files) {
-        LexGenerator lexGenerator = new LexGenerator(generatorOptions);
+        LexGenerator lexGenerator = new LexGenerator(options);
         try {
           lexGenerator.generateFromFile(file);
         } catch (GeneratorException e) {

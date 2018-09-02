@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import jflex.GeneratorOptions;
+import jflex.Options;
 import jflex.LexGenerator;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -202,8 +202,8 @@ public class JFlexMojo extends AbstractMojo {
       return;
     }
 
-    GeneratorOptions.Builder generatorOptions =
-        GeneratorOptions.builder()
+    Options.Builder generatorOptions =
+        Options.builder()
             .setOutputDirectory(generatedFile.getParentFile())
             .setDump(dump)
             .setVerbose(verbose)

@@ -64,7 +64,7 @@ public final class DFA {
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;
 
-  private final GeneratorOptions generatorOptions;
+  private final Options options;
   private final Out out;
 
   /**
@@ -73,17 +73,17 @@ public final class DFA {
    * @param numEntryStates a int.
    * @param numInp a int.
    * @param numLexStates a int.
-   * @param generatorOptions
+   * @param options
    * @param out
    */
   public DFA(
       int numEntryStates,
       int numInp,
       int numLexStates,
-      GeneratorOptions generatorOptions,
+      Options options,
       Out out) {
     numInput = numInp;
-    this.generatorOptions = generatorOptions;
+    this.options = options;
     this.out = out;
 
     int statesNeeded = Math.max(numEntryStates, STATES);
@@ -293,7 +293,7 @@ public final class DFA {
       throw new GeneratorException(ErrorMessages.ZERO_STATES);
     }
 
-    if (!generatorOptions.minimize()) {
+    if (!options.minimize()) {
       out.println("minimization skipped.");
       return;
     }
@@ -835,7 +835,7 @@ public final class DFA {
       throw new GeneratorException(ErrorMessages.ZERO_STATES);
     }
 
-    if (!generatorOptions.minimize()) {
+    if (!options.minimize()) {
       out.println("minimization skipped.");
       return null;
     }

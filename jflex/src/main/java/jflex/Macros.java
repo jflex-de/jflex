@@ -45,7 +45,7 @@ public final class Macros {
    */
   public boolean insert(String name, RegExp definition) {
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       System.out.println(
           "inserting macro "
               + name

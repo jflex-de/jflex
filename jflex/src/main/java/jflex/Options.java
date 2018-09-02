@@ -2,7 +2,7 @@ package jflex;
 
 import java.io.File;
 
-public class GeneratorOptions {
+public class Options {
 
   /**
    * If true, additional verbose debug information is produced. This is a compile time option.
@@ -109,7 +109,7 @@ public class GeneratorOptions {
   }
 
   public static Builder builder() {
-    return new GeneratorOptions.Builder()
+    return new Options.Builder()
         // Set default values
         .setBackup(true)
         .setDump(false)
@@ -123,11 +123,11 @@ public class GeneratorOptions {
         .setVerbose(true);
   }
 
-  public static GeneratorOptions defaultOptions() {
+  public static Options defaultOptions() {
     return builder().build();
   }
 
-  private GeneratorOptions(
+  private Options(
       boolean backup,
       boolean legacyDot,
       boolean dump,
@@ -156,7 +156,7 @@ public class GeneratorOptions {
 
   @Override
   public String toString() {
-    return "GeneratorOptions{"
+    return "Options{"
         + "backup=" + backup + ", "
         + "legacyDot=" + legacyDot + ", "
         + "dump=" + dump + ", "
@@ -177,8 +177,8 @@ public class GeneratorOptions {
     if (o == this) {
       return true;
     }
-    if (o instanceof GeneratorOptions) {
-      GeneratorOptions that = (GeneratorOptions) o;
+    if (o instanceof Options) {
+      Options that = (Options) o;
       return (this.backup == that.backup())
           && (this.legacyDot == that.legacyDot())
           && (this.dump == that.dump())
@@ -225,8 +225,8 @@ public class GeneratorOptions {
     return h;
   }
 
-  public GeneratorOptions.Builder buildUpon() {
-    return new GeneratorOptions.Builder(this);
+  public Options.Builder buildUpon() {
+    return new Options.Builder(this);
   }
 
   public static final class Builder {
@@ -247,7 +247,7 @@ public class GeneratorOptions {
     Builder() {
     }
 
-    private Builder(GeneratorOptions source) {
+    private Builder(Options source) {
       this.backup = source.backup();
       this.legacyDot = source.legacyDot();
       this.dump = source.dump();
@@ -262,37 +262,37 @@ public class GeneratorOptions {
       this.verbose = source.verbose();
     }
 
-    public GeneratorOptions.Builder setBackup(boolean backup) {
+    public Options.Builder setBackup(boolean backup) {
       this.backup = backup;
       return this;
     }
 
-    public GeneratorOptions.Builder setLegacyDot(boolean legacyDot) {
+    public Options.Builder setLegacyDot(boolean legacyDot) {
       this.legacyDot = legacyDot;
       return this;
     }
 
-    public GeneratorOptions.Builder setDump(boolean dump) {
+    public Options.Builder setDump(boolean dump) {
       this.dump = dump;
       return this;
     }
 
-    public GeneratorOptions.Builder setGenerateDotFile(boolean generateDotFile) {
+    public Options.Builder setGenerateDotFile(boolean generateDotFile) {
       this.generateDotFile = generateDotFile;
       return this;
     }
 
-    public GeneratorOptions.Builder setStrictJlex(boolean strictJlex) {
+    public Options.Builder setStrictJlex(boolean strictJlex) {
       this.strictJlex = strictJlex;
       return this;
     }
 
-    public GeneratorOptions.Builder setMinimize(boolean minimize) {
+    public Options.Builder setMinimize(boolean minimize) {
       this.minimize = minimize;
       return this;
     }
 
-    public GeneratorOptions.Builder setOutputDirectory(File outputDirectory) {
+    public Options.Builder setOutputDirectory(File outputDirectory) {
       if (outputDirectory == null) {
         throw new NullPointerException("Null outputDirectory");
       }
@@ -300,12 +300,12 @@ public class GeneratorOptions {
       return this;
     }
 
-    public GeneratorOptions.Builder setShowProgress(boolean showProgress) {
+    public Options.Builder setShowProgress(boolean showProgress) {
       this.showProgress = showProgress;
       return this;
     }
 
-    public GeneratorOptions.Builder setSkeleton(File skeleton) {
+    public Options.Builder setSkeleton(File skeleton) {
       if (skeleton == null) {
         throw new NullPointerException("Null skeleton");
       }
@@ -313,22 +313,22 @@ public class GeneratorOptions {
       return this;
     }
 
-    public GeneratorOptions.Builder setTiming(boolean timing) {
+    public Options.Builder setTiming(boolean timing) {
       this.timing = timing;
       return this;
     }
 
-    public GeneratorOptions.Builder setUnusedWarnings(boolean unusedWarnings) {
+    public Options.Builder setUnusedWarnings(boolean unusedWarnings) {
       this.unusedWarnings = unusedWarnings;
       return this;
     }
 
-    public GeneratorOptions.Builder setVerbose(boolean verbose) {
+    public Options.Builder setVerbose(boolean verbose) {
       this.verbose = verbose;
       return this;
     }
 
-    public GeneratorOptions build() {
+    public Options build() {
       String missing = "";
       if (this.backup == null) {
         missing += " backup";
@@ -363,7 +363,7 @@ public class GeneratorOptions {
       if (!missing.isEmpty()) {
         throw new IllegalStateException("Missing required properties:" + missing);
       }
-      return new GeneratorOptions(
+      return new Options(
           this.backup,
           this.legacyDot,
           this.dump,

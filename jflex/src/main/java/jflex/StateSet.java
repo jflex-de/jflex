@@ -64,7 +64,7 @@ public final class StateSet {
    * @param state a int.
    */
   public void addState(int state) {
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
       System.out.println("Set is : " + this); // $NON-NLS-1$
     }
@@ -73,7 +73,7 @@ public final class StateSet {
     if (index >= bits.length) resize(state);
     bits[index] |= (1L << (state & MASK));
 
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
       System.out.println("Set is : " + this); // $NON-NLS-1$
     }
@@ -172,7 +172,7 @@ public final class StateSet {
     if (bits.length < set.bits.length)
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
-    if (GeneratorOptions.DEBUG)
+    if (Options.DEBUG)
       System.out.println(
           "Complement of "
               + this
@@ -193,7 +193,7 @@ public final class StateSet {
    */
   public void add(StateSet set) {
 
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
     }
 
@@ -216,7 +216,7 @@ public final class StateSet {
 
     this.bits = tbits;
 
-    if (GeneratorOptions.DEBUG) {
+    if (Options.DEBUG) {
       System.out.println("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
       System.out.println("Set is : " + this); // $NON-NLS-1$
     }

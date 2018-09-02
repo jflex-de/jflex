@@ -54,7 +54,7 @@ import jflex.unicode.UnicodeProperties;
 
   File file;
   Stack<File> files = new Stack<File>();
-  private GeneratorOptions generatorOptions;
+  private GeneratorOptions options;
   private Out log;
 
   StringBuilder userCode   = new StringBuilder();
@@ -127,10 +127,10 @@ import jflex.unicode.UnicodeProperties;
     return yyline;
   }
 
-  public LexScan withOptions(GeneratorOptions generatorOptions) {
-    this.generatorOptions = generatorOptions;
+  public LexScan withOptions(GeneratorOptions options) {
+    this.options = options;
     if (this.log == null) {
-      return withLogger(new Out(generatorOptions));
+      return withLogger(new Out(options));
     }
     return this;
   }
@@ -219,7 +219,7 @@ import jflex.unicode.UnicodeProperties;
         (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
     }
     charClasses.init
-      (generatorOptions.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+      (options.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
   
   private void includeFile(String filePath) {
@@ -365,7 +365,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "ScannerToken<? extends Object>";
                                 if (eofVal == null)
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
-                                if (!generatorOptions.strictJlex()) eofclose = true;
+                                if (!options.strictJlex()) eofclose = true;
                                 return symbol(UNICODE); // %unicode
                               }
   "%cup"                      { cupCompatible = true;
@@ -376,7 +376,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "java_cup.runtime.Symbol";
                                 if (eofVal == null)
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
-                                if (!generatorOptions.strictJlex()) eofclose = true;
+                                if (!options.strictJlex()) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
                                 if (cupCompatible) log.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
@@ -408,7 +408,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
                                          charClasses.init
-                                           (generatorOptions.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+                                           (options.strictJlex() ? 127 : unicodeProperties.getMaximumCodePoint(), this);
                                        }
                                        return symbol(UNICODE);
                                      }
