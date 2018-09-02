@@ -40,8 +40,7 @@ public class JFlexTask extends Task {
   /** for javac-like dest dir behaviour */
   private File destinationDir;
 
-  /** the actual output directory (outputDir = destinationDir + package)) */
-  private GeneratorOptions.Builder generatorOptions = GeneratorOptions.newBuilder();
+  private GeneratorOptions.Builder generatorOptions = GeneratorOptions.builder();
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {

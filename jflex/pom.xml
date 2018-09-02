@@ -55,11 +55,6 @@
   </developers>
   <dependencies>
     <dependency>
-      <groupId>com.google.auto.value</groupId>
-      <artifactId>auto-value</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>cup_runtime</artifactId>
       <version>${cup.version}</version>

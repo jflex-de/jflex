@@ -1,46 +1,115 @@
 package jflex;
 
-import com.google.auto.value.AutoValue;
-import com.google.common.base.Optional;
 import java.io.File;
 
-@AutoValue
-public abstract class GeneratorOptions {
-  /** If true, additional verbose debug information is produced. This is a compile time option. */
+public class GeneratorOptions {
+
+  /**
+   * If true, additional verbose debug information is produced. This is a compile time option.
+   */
   static final boolean DEBUG = false;
 
-  /** Whether to back-up modified files. */
-  public abstract boolean backup();
+  private final boolean backup;
+  private final boolean legacyDot;
+  private final boolean dump;
+  private final boolean generateDotFile;
+  private final boolean strictJlex;
+  private final boolean minimize;
+  private final File outputDirectory;
+  private final boolean showProgress;
+  private final File skeleton;
+  private final boolean timing;
+  private final boolean unusedWarnings;
+  private final boolean verbose;
+
+  /**
+   * Whether to back-up modified files.
+   */
+  public boolean backup() {
+    return backup;
+  }
+
   /**
    * If true, dot ({@code .}) metachar matches "{@code [^\n]}" instead of "{@code
    * [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n}".
    */
-  public abstract boolean legacyDot();
+  public boolean legacyDot() {
+    return legacyDot;
+  }
 
-  /** Whether to dump generation data. You will be flooded with information (e.g. dfa tables). */
-  public abstract boolean dump();
-  /** Whether jflex will write graphviz .dot files for generated automata (alpha feature). */
-  public abstract boolean generateDotFile();
-  /** Whether to use strict JLex compatibility. */
-  public abstract boolean strictJlex();
-  /** Whether to minimize the DFA. */
-  public abstract boolean minimize();
-  /** The directory to write generated code into. */
+  /**
+   * Whether to dump generation data. You will be flooded with information (e.g. dfa tables).
+   */
+  public boolean dump() {
+    return dump;
+  }
+
+  /**
+   * Whether jflex will write graphviz .dot files for generated automata (alpha feature).
+   */
+  public boolean generateDotFile() {
+    return generateDotFile;
+  }
+
+  /**
+   * Whether to use strict JLex compatibility.
+   */
+  public boolean strictJlex() {
+    return strictJlex;
+  }
+
+  /**
+   * Whether to minimize the DFA.
+   */
+  public boolean minimize() {
+    return minimize;
+  }
+
+  /**
+   * The directory to write generated code into.
+   */
   // TODO(regisd): Clarify whether this includes java package path or not.
-  public abstract Optional<File> outputDirectory();
-  /** Whether to show progress (e.g. printing dots). */
-  public abstract boolean showProgress();
-  /** Skeleton file. JFlex comes with a skeleton, hence this should usually be left absent. */
-  public abstract Optional<File> skeleton();
-  /** Whether JFlex will record time printStatistics about the generation process */
-  public abstract boolean timing();
-  /** Whether to warn about unused macros. */
-  public abstract boolean unusedWarnings();
-  /** Whether to be verbose. If false, only error/warning output will be generated. */
-  public abstract boolean verbose();
+  public File outputDirectory() {
+    return outputDirectory;
+  }
 
-  public static GeneratorOptions.Builder builder() {
-    return new AutoValue_GeneratorOptions.Builder()
+  /**
+   * Whether to show progress (e.g. printing dots).
+   */
+  public boolean showProgress() {
+    return showProgress;
+  }
+
+  /**
+   * Skeleton file. JFlex comes with a skeleton, hence this should usually be left absent.
+   */
+  public File skeleton() {
+    return skeleton;
+  }
+
+  /**
+   * Whether JFlex will record time printStatistics about the generation process
+   */
+  public boolean timing() {
+    return timing;
+  }
+
+  /**
+   * Whether to warn about unused macros.
+   */
+  public boolean unusedWarnings() {
+    return unusedWarnings;
+  }
+
+  /**
+   * Whether to be verbose. If false, only error/warning output will be generated.
+   */
+  public boolean verbose() {
+    return verbose;
+  }
+
+  public static Builder builder() {
+    return new GeneratorOptions.Builder()
         // Set default values
         .setBackup(true)
         .setDump(false)
@@ -54,39 +123,259 @@ public abstract class GeneratorOptions {
         .setVerbose(true);
   }
 
-  public abstract Builder buildUpon();
-
   public static GeneratorOptions defaultOptions() {
     return builder().build();
   }
 
-  @AutoValue.Builder
-  public abstract static class Builder {
+  private GeneratorOptions(
+      boolean backup,
+      boolean legacyDot,
+      boolean dump,
+      boolean generateDotFile,
+      boolean strictJlex,
+      boolean minimize,
+      File outputDirectory,
+      boolean showProgress,
+      File skeleton,
+      boolean timing,
+      boolean unusedWarnings,
+      boolean verbose) {
+    this.backup = backup;
+    this.legacyDot = legacyDot;
+    this.dump = dump;
+    this.generateDotFile = generateDotFile;
+    this.strictJlex = strictJlex;
+    this.minimize = minimize;
+    this.outputDirectory = outputDirectory;
+    this.showProgress = showProgress;
+    this.skeleton = skeleton;
+    this.timing = timing;
+    this.unusedWarnings = unusedWarnings;
+    this.verbose = verbose;
+  }
 
-    public abstract GeneratorOptions build();
+  @Override
+  public String toString() {
+    return "GeneratorOptions{"
+        + "backup=" + backup + ", "
+        + "legacyDot=" + legacyDot + ", "
+        + "dump=" + dump + ", "
+        + "generateDotFile=" + generateDotFile + ", "
+        + "strictJlex=" + strictJlex + ", "
+        + "minimize=" + minimize + ", "
+        + "outputDirectory=" + outputDirectory + ", "
+        + "showProgress=" + showProgress + ", "
+        + "skeleton=" + skeleton + ", "
+        + "timing=" + timing + ", "
+        + "unusedWarnings=" + unusedWarnings + ", "
+        + "verbose=" + verbose
+        + "}";
+  }
 
-    public abstract Builder setBackup(boolean backup);
+  @Override
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (o instanceof GeneratorOptions) {
+      GeneratorOptions that = (GeneratorOptions) o;
+      return (this.backup == that.backup())
+          && (this.legacyDot == that.legacyDot())
+          && (this.dump == that.dump())
+          && (this.generateDotFile == that.generateDotFile())
+          && (this.strictJlex == that.strictJlex())
+          && (this.minimize == that.minimize())
+          && (this.outputDirectory.equals(that.outputDirectory()))
+          && (this.showProgress == that.showProgress())
+          && (this.skeleton.equals(that.skeleton()))
+          && (this.timing == that.timing())
+          && (this.unusedWarnings == that.unusedWarnings())
+          && (this.verbose == that.verbose());
+    }
+    return false;
+  }
 
-    public abstract Builder setDump(boolean shouldDump);
+  @Override
+  public int hashCode() {
+    int h = 1;
+    h *= 1000003;
+    h ^= this.backup ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.legacyDot ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.dump ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.generateDotFile ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.strictJlex ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.minimize ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.outputDirectory.hashCode();
+    h *= 1000003;
+    h ^= this.showProgress ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.skeleton.hashCode();
+    h *= 1000003;
+    h ^= this.timing ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.unusedWarnings ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.verbose ? 1231 : 1237;
+    return h;
+  }
 
-    public abstract Builder setGenerateDotFile(boolean generateDotFile);
+  public GeneratorOptions.Builder buildUpon() {
+    return new GeneratorOptions.Builder(this);
+  }
 
-    public abstract Builder setLegacyDot(boolean legacyDot);
+  public static final class Builder {
 
-    public abstract Builder setMinimize(boolean enableMinimizationStep);
+    private Boolean backup;
+    private Boolean legacyDot;
+    private Boolean dump;
+    private Boolean generateDotFile;
+    private Boolean strictJlex;
+    private Boolean minimize;
+    private File outputDirectory;
+    private Boolean showProgress;
+    private File skeleton;
+    private Boolean timing;
+    private Boolean unusedWarnings;
+    private Boolean verbose;
 
-    public abstract Builder setOutputDirectory(File outputDirectory);
+    Builder() {
+    }
 
-    public abstract Builder setShowProgress(boolean showProgress);
+    private Builder(GeneratorOptions source) {
+      this.backup = source.backup();
+      this.legacyDot = source.legacyDot();
+      this.dump = source.dump();
+      this.generateDotFile = source.generateDotFile();
+      this.strictJlex = source.strictJlex();
+      this.minimize = source.minimize();
+      this.outputDirectory = source.outputDirectory();
+      this.showProgress = source.showProgress();
+      this.skeleton = source.skeleton();
+      this.timing = source.timing();
+      this.unusedWarnings = source.unusedWarnings();
+      this.verbose = source.verbose();
+    }
 
-    public abstract Builder setStrictJlex(boolean strict);
+    public GeneratorOptions.Builder setBackup(boolean backup) {
+      this.backup = backup;
+      return this;
+    }
 
-    public abstract Builder setSkeleton(File skeleton);
+    public GeneratorOptions.Builder setLegacyDot(boolean legacyDot) {
+      this.legacyDot = legacyDot;
+      return this;
+    }
 
-    public abstract Builder setTiming(boolean profilePerformance);
+    public GeneratorOptions.Builder setDump(boolean dump) {
+      this.dump = dump;
+      return this;
+    }
 
-    public abstract Builder setUnusedWarnings(boolean showUnusedWarnings);
+    public GeneratorOptions.Builder setGenerateDotFile(boolean generateDotFile) {
+      this.generateDotFile = generateDotFile;
+      return this;
+    }
 
-    public abstract Builder setVerbose(boolean isVerbose);
+    public GeneratorOptions.Builder setStrictJlex(boolean strictJlex) {
+      this.strictJlex = strictJlex;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setMinimize(boolean minimize) {
+      this.minimize = minimize;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setOutputDirectory(File outputDirectory) {
+      if (outputDirectory == null) {
+        throw new NullPointerException("Null outputDirectory");
+      }
+      this.outputDirectory = outputDirectory;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setShowProgress(boolean showProgress) {
+      this.showProgress = showProgress;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setSkeleton(File skeleton) {
+      if (skeleton == null) {
+        throw new NullPointerException("Null skeleton");
+      }
+      this.skeleton = skeleton;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setTiming(boolean timing) {
+      this.timing = timing;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setUnusedWarnings(boolean unusedWarnings) {
+      this.unusedWarnings = unusedWarnings;
+      return this;
+    }
+
+    public GeneratorOptions.Builder setVerbose(boolean verbose) {
+      this.verbose = verbose;
+      return this;
+    }
+
+    public GeneratorOptions build() {
+      String missing = "";
+      if (this.backup == null) {
+        missing += " backup";
+      }
+      if (this.legacyDot == null) {
+        missing += " legacyDot";
+      }
+      if (this.dump == null) {
+        missing += " dump";
+      }
+      if (this.generateDotFile == null) {
+        missing += " generateDotFile";
+      }
+      if (this.strictJlex == null) {
+        missing += " strictJlex";
+      }
+      if (this.minimize == null) {
+        missing += " minimize";
+      }
+      if (this.showProgress == null) {
+        missing += " showProgress";
+      }
+      if (this.timing == null) {
+        missing += " timing";
+      }
+      if (this.unusedWarnings == null) {
+        missing += " unusedWarnings";
+      }
+      if (this.verbose == null) {
+        missing += " verbose";
+      }
+      if (!missing.isEmpty()) {
+        throw new IllegalStateException("Missing required properties:" + missing);
+      }
+      return new GeneratorOptions(
+          this.backup,
+          this.legacyDot,
+          this.dump,
+          this.generateDotFile,
+          this.strictJlex,
+          this.minimize,
+          this.outputDirectory,
+          this.showProgress,
+          this.skeleton,
+          this.timing,
+          this.unusedWarnings,
+          this.verbose);
+    }
   }
 }
