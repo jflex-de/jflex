@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.flex.examples</groupId>
-  <artifactId>simple-maven</artifactId>
+  <artifactId>cup-maven</artifactId>
   <version>1.0</version>
-  <name>A scanner for a toy programming language.</name>
+  <name>A scanner for calculator.</name>
   <description>It is the example from the JLex website with some small
 		modifications, to make it a bit more readable.
 
-		It does nothing really useful, because there is no parser for
-		the toy programming language. It's just a demonstration how a
-		small simple scanner looks like.</description>
+    It comes from a short article series in the Linux Gazette
+    by Richard A. Sevenich and Christopher Lopes,
+    titled Compiler Construction Tools.</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
