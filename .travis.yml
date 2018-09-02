@@ -12,7 +12,7 @@ jdk:
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
 # otherwise `mvn site` fails in the before_deploy phase.
-before_install: ./scripts/before-deploy.sh
+before_install: ./scripts/clean.sh
 
 install: true
 
