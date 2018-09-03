@@ -192,10 +192,6 @@ public class JFlexMojo extends AbstractMojo {
 
     checkParameters(lexFile);
 
-    // set destination directory
-    if (!outputDirectory.exists()) {
-      outputDirectory.mkdirs();
-    }
     File generatedFile = new File(outputDirectory, classInfo.getOutputFilename());
 
     // generate only if needs to
