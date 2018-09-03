@@ -13,7 +13,6 @@ import java.io.File;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
 import jflex.LexGenerator;
-import jflex.Main;
 import jflex.Options;
 import jflex.Out;
 
@@ -40,7 +39,8 @@ public class GeneratorThread extends Thread {
 
   /**
    * Create a new GeneratorThread, but do not run it yet.
-   *  @param parent the frame, main UI component
+   *
+   * @param parent the frame, main UI component
    * @param inputFile input file from UI settings
    */
   public GeneratorThread(MainFrame parent, String inputFile, Options generatorOptions) {

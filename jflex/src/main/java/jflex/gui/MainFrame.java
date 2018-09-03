@@ -17,11 +17,10 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import jflex.Main;
 import jflex.Options;
 import jflex.Options.Builder;
-import jflex.Main;
 import jflex.Out;
-import jflex.StdOutWriter;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -56,12 +55,10 @@ public final class MainFrame extends Frame implements Handles {
 
   private OptionsDialog dialog;
 
-  /**
-   * Constructor for MainFrame.
-   */
+  /** Constructor for MainFrame. */
   public MainFrame(Options.Builder generatorOptions) {
     super("JFlex " + Main.version);
-    this.generatorOptions =  generatorOptions;
+    this.generatorOptions = generatorOptions;
     buildContent();
 
     addWindowListener(
@@ -75,9 +72,7 @@ public final class MainFrame extends Frame implements Handles {
     setVisible(true);
   }
 
-  /**
-   * @deprecated Use {@link #MainFrame(Options.Builder)} instead.
-   */
+  /** @deprecated Use {@link #MainFrame(Options.Builder)} instead. */
   @Deprecated
   public MainFrame() {
     this(Options.builder());

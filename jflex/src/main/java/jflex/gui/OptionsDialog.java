@@ -16,7 +16,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintWriter;
 import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Skeleton;
@@ -29,8 +31,9 @@ import jflex.Skeleton;
  */
 public class OptionsDialog extends Dialog {
 
-  /** */
   private static final long serialVersionUID = 6807759416163314769L;
+
+  private Options.Builder generatorOptions = Options.builder();
 
   private Frame owner;
 
@@ -46,7 +49,6 @@ public class OptionsDialog extends Dialog {
   private Checkbox dot;
 
   private Checkbox legacy_dot;
-  private Options.Builder generatorOptions;
 
   /**
    * Create a new options dialog
@@ -123,7 +125,7 @@ public class OptionsDialog extends Dialog {
     jlex.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            generatorOptions.setStrictJlex( jlex.getState());
+            generatorOptions.setStrictJlex(jlex.getState());
             // JLex compatibility implies that dot (.) metachar matches [^\n]
             legacy_dot.setState(false);
             legacy_dot.setEnabled(!jlex.getState());
@@ -147,7 +149,7 @@ public class OptionsDialog extends Dialog {
     dot.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            generatorOptions.setGenerateDotFile( dot.getState());
+            generatorOptions.setGenerateDotFile(dot.getState());
           }
         });
 
@@ -198,11 +200,11 @@ public class OptionsDialog extends Dialog {
     d.setVisible(true);
 
     if (d.getFile() != null) {
-      File skel = new File(d.getDirectory() + d.getFile());
+      File skel = new File(d.getDirectory(), d.getFile());
       try {
-        // TODO(regisd) Open skeleton
-//        Skeleton skeleton = new Skeleton(out);
-//        skeleton.readSkelFile(skel);
+        PrintWriter out = new PrintWriter(new ByteArrayOutputStream());
+        Skeleton skeleton = new Skeleton(out);
+        skeleton.readSkelFile(skel);
         skelFile.setText(skel.toString());
       } catch (GeneratorException e) {
         // do nothing
