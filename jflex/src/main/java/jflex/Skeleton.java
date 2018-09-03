@@ -63,7 +63,7 @@ public class Skeleton {
     readDefault();
   }
 
-  /** Emits the next part of the skeleton */
+  /** Emits the next part of the skeleton to {@link Out}. */
   public void emitNext() {
     out.print(line[pos++]);
   }
@@ -92,7 +92,8 @@ public class Skeleton {
       throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile);
     }
 
-    // TODO(regisd) log.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    System.out.print(ErrorMessages.READING_SKEL);
+    System.out.println(skeletonFile.toString());
 
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
@@ -184,5 +185,9 @@ public class Skeleton {
     } catch (IOException e) {
       throw new GeneratorException(e, ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
+  }
+
+  public String getLine(int index) {
+    return line[index];
   }
 }

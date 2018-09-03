@@ -57,10 +57,7 @@ public class LexGenerator {
     try {
       log.println(ErrorMessages.READING, inputFile.toString());
       inputReader = new FileReader(inputFile);
-      scanner =
-          new LexScan(inputReader)
-              .withLexicanSpecification(inputFile)
-              .withOptions(options);
+      scanner = new LexScan(inputReader).withLexicanSpecification(inputFile).withOptions(options);
       parser = new LexParse(scanner, options, log);
     } catch (FileNotFoundException e) {
       throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
@@ -71,16 +68,12 @@ public class LexGenerator {
 
       log.checkErrors();
 
-      if (options.dump())
-        log.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
+      if (options.dump()) log.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
       if (options.generateDotFile()) {
         nfa.writeDot(
             Emitter.normalize(
-                options.outputDirectory(),
-                "nfa.dot",
-                null,
-                options.backup())); // $NON-NLS-1$
+                options.outputDirectory(), "nfa.dot", null, options.backup())); // $NON-NLS-1$
       }
       log.println(ErrorMessages.NFA_STATES, nfa.numStates);
 
@@ -93,16 +86,12 @@ public class LexGenerator {
 
       nfa = null;
 
-      if (options.dump())
-        log.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
+      if (options.dump()) log.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
 
       if (options.generateDotFile()) {
         dfa.writeDot(
             Emitter.normalize(
-                options.outputDirectory(),
-                "dfa-big.dot",
-                null,
-                options.backup())); // $NON-NLS-1$
+                options.outputDirectory(), "dfa-big.dot", null, options.backup())); // $NON-NLS-1$
       }
       log.checkErrors();
 
@@ -112,16 +101,12 @@ public class LexGenerator {
 
       log.time(ErrorMessages.MIN_TOOK, time);
 
-      if (options.dump())
-        log.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
+      if (options.dump()) log.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
 
       if (options.generateDotFile())
         dfa.writeDot(
             Emitter.normalize(
-                options.outputDirectory(),
-                "dfa-min.dot",
-                null,
-                options.backup())); // $NON-NLS-1$
+                options.outputDirectory(), "dfa-min.dot", null, options.backup())); // $NON-NLS-1$
 
       time.start();
 

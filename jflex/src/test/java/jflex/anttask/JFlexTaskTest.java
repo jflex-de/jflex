@@ -7,31 +7,39 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package java.jflex.anttask;
+package jflex.anttask;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import jflex.anttask.JFlexTask;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import jflex.Options;
+import jflex.Skeleton;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for the jflex ant task.
+ * Test {@link JFlexTask}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class AntTaskTests extends TestCase {
+public class JFlexTaskTest extends TestCase {
 
-  private JFlexTask task;
   private final String DIR_RESOURCES = "src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
+  private JFlexTask task;
+  private PrintWriter out;
+
   /**
-   * Constructor for AntTaskTests.
+   * Constructor for JFlexTaskTest.
    *
    * @param name test case name
    */
-  public AntTaskTests(String name) {
+  public JFlexTaskTest(String name) {
     super(name);
   }
 
@@ -40,8 +48,8 @@ public class AntTaskTests extends TestCase {
    */
   protected void setUp() throws Exception {
     super.setUp();
-    OldGeneratorOptions.setDefaults();
     task = new JFlexTask();
+    out = new PrintWriter(new ByteArrayOutputStream());
   }
 
   public void testPackageAndClass() throws IOException {
@@ -66,7 +74,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name)
-    assertEquals(new File(dir, "jflex"), OldGeneratorOptions.getDir());
+    assertEquals(new File(dir, "jflex"), getOptions().outputDirectory());
   }
 
   public void testOutdir() throws IOException {
@@ -76,7 +84,7 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(dir, OldGeneratorOptions.getDir());
+    assertEquals(dir, getOptions().outputDirectory());
   }
 
   public void testDefaultDir() throws IOException {
@@ -84,83 +92,101 @@ public class AntTaskTests extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(new File(DIR_RESOURCES + "/jflex"), OldGeneratorOptions.getDir());
+    assertEquals(new File(DIR_RESOURCES + "/jflex"), getOptions().outputDirectory());
   }
 
   public void testNomin() {
-    assertTrue(!!generatorOptions.minimize());
+    assertTrue(getOptions().minimize());
     task.setNomin(true);
-    assertTrue(!generatorOptions.minimize());
+    assertFalse(getOptions().minimize());
   }
 
   public void testSkipMinimization() {
-    assertTrue(!!generatorOptions.minimize());
+    assertTrue(getOptions().minimize());
     task.setSkipMinimization(true);
-    assertTrue(!generatorOptions.minimize());
+    assertFalse(getOptions().minimize());
   }
 
   public void testNobak() {
-    assertTrue(!!generatorOptions.backup());
+    assertTrue(getOptions().backup());
     task.setNobak(true);
-    assertTrue(!generatorOptions.backup());
+    assertFalse(getOptions().backup());
   }
 
-  public void testSkel() {
+  public void testSkel() throws IOException {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    Skeleton skeleton = new Skeleton(out);
+    skeleton.readSkelFile(getOptions().skeleton());
+    assertTrue(skeleton.getLine(3).indexOf("java.util.Stack") > 0);
   }
 
   public void testVerbose() {
     task.setVerbose(false);
-    assertFalse(!task.getGeneratorOptions().verbose());
+    assertFalse(getOptions().verbose());
     task.setVerbose(true);
-    assertTrue(task.getGeneratorOptions().verbose());
+    assertTrue(getOptions().verbose());
   }
 
-  public void testUnusedWarning() {
+  public void testUnusedWarnings() {
     // Defaults to true, for backward compatibility.
-    assertTrue("Defaults to true", generatorOptions.unusedWarning());
+    assertTrue("Defaults to true", getOptions().unusedWarnings());
     task.setUnusedWarning(false);
-    assertFalse(generatorOptions.unusedWarning());
+    assertFalse(getOptions().unusedWarnings());
   }
 
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
-    assertFalse("Disabled in quiet mode", generatorOptions.unusedWarning());
+    assertFalse("Disabled in quiet mode", getOptions().unusedWarnings());
   }
 
   public void testTime() {
-    assertTrue(!generatorOptions.timing());
+    assertFalse(getOptions().timing());
     task.setTimeStatistics(true);
-    assertTrue(generatorOptions.timing());
+    assertTrue(getOptions().timing());
     task.setTime(false);
-    assertTrue(!generatorOptions.timing());
+    assertFalse(getOptions().timing());
   }
 
   public void testDot() {
-    assertTrue(!generatorOptions.generateDotFile());
+    assertFalse(getOptions().generateDotFile());
     task.setDot(true);
-    assertTrue(generatorOptions.generateDotFile());
+    assertTrue(getOptions().generateDotFile());
     task.setGenerateDot(false);
-    assertTrue(!generatorOptions.generateDotFile());
+    assertFalse(getOptions().generateDotFile());
   }
 
   public void testDump() {
-    assertFalse(task.getGeneratorOptions().dump());
+    assertFalse(getOptions().dump());
     task.setDump(true);
-    assertTrue(task.getGeneratorOptions().dump());
+    assertTrue(getOptions().dump());
   }
 
   public void testJlex() {
-    assertTrue(!generatorOptions.strictJlex());
+    assertFalse(getOptions().strictJlex());
     task.setJLex(true);
-    assertTrue(generatorOptions.strictJlex());
+    assertTrue(getOptions().strictJlex());
   }
 
   public void testLegacyDot() {
-    assertFalse(generatorOptions.legacyDot());
+    assertFalse(getOptions().legacyDot());
     task.setLegacyDot(true);
-    assertTrue(generatorOptions.legacyDot());
+    assertTrue(getOptions().legacyDot());
+  }
+
+  private Options getOptions() {
+    return task.getGeneratorOptions();
+  }
+
+  private String[] readLines(File file) throws IOException {
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+
+      ArrayList<String> lines = new ArrayList<>();
+      String line;
+      while ((line = br.readLine()) != null) {
+        lines.add(line);
+      }
+      return lines.toArray(new String[lines.size()]);
+    }
   }
 }

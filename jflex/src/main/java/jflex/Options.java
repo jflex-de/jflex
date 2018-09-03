@@ -4,9 +4,7 @@ import java.io.File;
 
 public class Options {
 
-  /**
-   * If true, additional verbose debug information is produced. This is a compile time option.
-   */
+  /** If true, additional verbose debug information is produced. This is a compile time option. */
   static final boolean DEBUG = false;
 
   private final boolean backup;
@@ -22,9 +20,7 @@ public class Options {
   private final boolean unusedWarnings;
   private final boolean verbose;
 
-  /**
-   * Whether to back-up modified files.
-   */
+  /** Whether to back-up modified files. */
   public boolean backup() {
     return backup;
   }
@@ -37,73 +33,53 @@ public class Options {
     return legacyDot;
   }
 
-  /**
-   * Whether to dump generation data. You will be flooded with information (e.g. dfa tables).
-   */
+  /** Whether to dump generation data. You will be flooded with information (e.g. dfa tables). */
   public boolean dump() {
     return dump;
   }
 
-  /**
-   * Whether jflex will write graphviz .dot files for generated automata (alpha feature).
-   */
+  /** Whether jflex will write graphviz .dot files for generated automata (alpha feature). */
   public boolean generateDotFile() {
     return generateDotFile;
   }
 
-  /**
-   * Whether to use strict JLex compatibility.
-   */
+  /** Whether to use strict JLex compatibility. */
   public boolean strictJlex() {
     return strictJlex;
   }
 
-  /**
-   * Whether to minimize the DFA.
-   */
+  /** Whether to minimize the DFA. */
   public boolean minimize() {
     return minimize;
   }
 
-  /**
-   * The directory to write generated code into.
-   */
+  /** The directory to write generated code into. */
   // TODO(regisd): Clarify whether this includes java package path or not.
   public File outputDirectory() {
     return outputDirectory;
   }
 
-  /**
-   * Whether to show progress (e.g. printing dots).
-   */
+  /** Whether to show progress (e.g. printing dots). */
   public boolean showProgress() {
     return showProgress;
   }
 
-  /**
-   * Skeleton file. JFlex comes with a skeleton, hence this should usually be left absent.
-   */
+  /** Skeleton file. JFlex comes with a skeleton, hence this should usually be left absent. */
   public File skeleton() {
     return skeleton;
   }
 
-  /**
-   * Whether JFlex will record time printStatistics about the generation process
-   */
+  /** Whether JFlex will record time printStatistics about the generation process */
   public boolean timing() {
     return timing;
   }
 
-  /**
-   * Whether to warn about unused macros.
-   */
+  /** Whether to warn about unused macros. */
   public boolean unusedWarnings() {
     return unusedWarnings;
   }
 
-  /**
-   * Whether to be verbose. If false, only error/warning output will be generated.
-   */
+  /** Whether to be verbose. If false, only error/warning output will be generated. */
   public boolean verbose() {
     return verbose;
   }
@@ -157,18 +133,41 @@ public class Options {
   @Override
   public String toString() {
     return "Options{"
-        + "backup=" + backup + ", "
-        + "legacyDot=" + legacyDot + ", "
-        + "dump=" + dump + ", "
-        + "generateDotFile=" + generateDotFile + ", "
-        + "strictJlex=" + strictJlex + ", "
-        + "minimize=" + minimize + ", "
-        + "outputDirectory=" + outputDirectory + ", "
-        + "showProgress=" + showProgress + ", "
-        + "skeleton=" + skeleton + ", "
-        + "timing=" + timing + ", "
-        + "unusedWarnings=" + unusedWarnings + ", "
-        + "verbose=" + verbose
+        + "backup="
+        + backup
+        + ", "
+        + "legacyDot="
+        + legacyDot
+        + ", "
+        + "dump="
+        + dump
+        + ", "
+        + "generateDotFile="
+        + generateDotFile
+        + ", "
+        + "strictJlex="
+        + strictJlex
+        + ", "
+        + "minimize="
+        + minimize
+        + ", "
+        + "outputDirectory="
+        + outputDirectory
+        + ", "
+        + "showProgress="
+        + showProgress
+        + ", "
+        + "skeleton="
+        + skeleton
+        + ", "
+        + "timing="
+        + timing
+        + ", "
+        + "unusedWarnings="
+        + unusedWarnings
+        + ", "
+        + "verbose="
+        + verbose
         + "}";
   }
 
@@ -244,8 +243,7 @@ public class Options {
     private Boolean unusedWarnings;
     private Boolean verbose;
 
-    Builder() {
-    }
+    Builder() {}
 
     private Builder(Options source) {
       this.backup = source.backup();

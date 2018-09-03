@@ -76,12 +76,7 @@ public final class DFA {
    * @param options
    * @param out
    */
-  public DFA(
-      int numEntryStates,
-      int numInp,
-      int numLexStates,
-      Options options,
-      Out out) {
+  public DFA(int numEntryStates, int numInp, int numLexStates, Options options, Out out) {
     numInput = numInp;
     this.options = options;
     this.out = out;

@@ -54,7 +54,7 @@ import jflex.unicode.UnicodeProperties;
 
   File file;
   Stack<File> files = new Stack<File>();
-  private GeneratorOptions options;
+  private Options options;
   private Out log;
 
   StringBuilder userCode   = new StringBuilder();
@@ -127,12 +127,16 @@ import jflex.unicode.UnicodeProperties;
     return yyline;
   }
 
-  public LexScan withOptions(GeneratorOptions options) {
+  public LexScan withOptions(Options options) {
     this.options = options;
     if (this.log == null) {
       return withLogger(new Out(options));
     }
     return this;
+  }
+
+  public Options getOptions() {
+    return options;
   }
 
   public LexScan withLexicanSpecification(File file) {

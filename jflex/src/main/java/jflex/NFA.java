@@ -112,10 +112,7 @@ public final class NFA {
   public NFA(
       int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes, Out out) {
     this(
-        scanner.generatorOptions,
-        numInput,
-        regExps.NFASize(macros) + 2 * scanner.states.number(),
-        out);
+        scanner.getOptions(), numInput, regExps.NFASize(macros) + 2 * scanner.states.number(), out);
 
     this.scanner = scanner;
     this.regExps = regExps;

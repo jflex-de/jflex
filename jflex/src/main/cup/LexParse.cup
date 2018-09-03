@@ -322,10 +322,10 @@ action code {:
 parser code {:
    // LexParse has a default no-arg constructor
    public LexScan scanner;
-   private GeneratorOptions options;
+   private Options options;
    private Out log;
 
-   public LexParse(LexScan scanner, GeneratorOptions options, Out logger) {
+   public LexParse(LexScan scanner, Options options, Out logger) {
      super(scanner);
      this.scanner = scanner;
      this.options = options;

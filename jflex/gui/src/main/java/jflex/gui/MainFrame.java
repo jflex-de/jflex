@@ -21,6 +21,7 @@ import jflex.Options;
 import jflex.Options.Builder;
 import jflex.Main;
 import jflex.Out;
+import jflex.StdOutWriter;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -57,7 +58,6 @@ public final class MainFrame extends Frame implements Handles {
 
   /**
    * Constructor for MainFrame.
-   * @param generatorOptions
    */
   public MainFrame(Options.Builder generatorOptions) {
     super("JFlex " + Main.version);
@@ -80,7 +80,7 @@ public final class MainFrame extends Frame implements Handles {
    */
   @Deprecated
   public MainFrame() {
-    this(Options.newBuilder());
+    this(Options.builder());
   }
 
   private void buildContent() {
@@ -100,8 +100,6 @@ public final class MainFrame extends Frame implements Handles {
     Font font = messages.getFont();
     if (font != null) messages.setFont(new Font("Monospaced", font.getStyle(), font.getSize()));
     else messages.setFont(new Font("Monospaced", Font.PLAIN, 12));
-
-    log.setGUIMode(messages);
 
     generate.addActionListener(
         new ActionListener() {
@@ -235,8 +233,7 @@ public final class MainFrame extends Frame implements Handles {
     if (choosing) return;
 
     setEnabledAll(true);
-
-    thread = new GeneratorThread(this, fileName, dirName);
+    thread = new GeneratorThread(this, fileName, generatorOptions.build());
     thread.start();
   }
 

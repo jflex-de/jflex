@@ -200,8 +200,9 @@ public class OptionsDialog extends Dialog {
     if (d.getFile() != null) {
       File skel = new File(d.getDirectory() + d.getFile());
       try {
-        
-        generatorOptions.readSkelFile(skel);
+        // TODO(regisd) Open skeleton
+//        Skeleton skeleton = new Skeleton(out);
+//        skeleton.readSkelFile(skel);
         skelFile.setText(skel.toString());
       } catch (GeneratorException e) {
         // do nothing
