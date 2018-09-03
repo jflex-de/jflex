@@ -137,12 +137,11 @@ public final class Emitter {
         backupFile.delete();
       }
 
-      // TODO(regisd)
-      //      if (outputFile.renameTo(backupFile)) {
-      //        log.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
-      //      } else {
-      //        log.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
-      //      }
+            if (outputFile.renameTo(backupFile)) {
+              System.out.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
+            } else {
+              System.out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+            }
     }
 
     return outputFile;
@@ -763,8 +762,7 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
-      // TODO(regisd)
-      //      log.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      System.err.println(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }
@@ -1334,9 +1332,9 @@ public final class Emitter {
   /**
    * Main Emitter method.
    *
-   * @param log
+   * @param out Output in which to emit java code.
    */
-  public void emit(Out log) {
+  public void emit(Out out) {
 
     setupEOFCode();
 
@@ -1441,6 +1439,6 @@ public final class Emitter {
 
     skel.emitNext();
 
-    out.close();
+    this.out.close();
   }
 }

@@ -282,7 +282,7 @@ public class CharClasses {
     if (DEBUG) {
       System.out.println("getting class codes for " + set);
       if (negate) {
-        // TODO(regisd) Out.dump("[negated]");
+        System.out.println("[negated]");
       }
     }
 
@@ -298,14 +298,14 @@ public class CharClasses {
         if (!set.and(x).containsElements()) {
           temp[length++] = i;
           if (DEBUG) {
-            // TODO(regisd) Out.dump("code " + i);
+            System.out.println("code " + i);
           }
         }
       } else {
         if (set.and(x).containsElements()) {
           temp[length++] = i;
           if (DEBUG) {
-            // TODO(regisd) Out.dump("code " + i);
+            System.out.println("code " + i);
           }
         }
       }

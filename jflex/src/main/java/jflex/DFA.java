@@ -69,12 +69,6 @@ public final class DFA {
 
   /**
    * Constructor for a deterministic finite automata.
-   *
-   * @param numEntryStates a int.
-   * @param numInp a int.
-   * @param numLexStates a int.
-   * @param options
-   * @param out
    */
   public DFA(int numEntryStates, int numInp, int numLexStates, Options options, Out out) {
     numInput = numInp;
@@ -178,9 +172,7 @@ public final class DFA {
   }
 
   /**
-   * Returns a string reprensentation of the DFA.
-   *
-   * @return a {@link java.lang.String} object.
+   * Returns a string representation of the DFA.
    */
   public String toString() {
     StringBuilder result = new StringBuilder();
