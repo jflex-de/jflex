@@ -149,7 +149,6 @@ public class TestCase {
     // System.out.println(jflexResult);
 
     if (jflexResult.getSuccess()) {
-      // Scanner generation successful
       if (expectJFlexFail) {
         throw new TestFailException("JFlex failure expected, but it succeeded");
       }
@@ -186,6 +185,7 @@ public class TestCase {
         }
       }
       String toCompile = builder.toString();
+
       Options options = Options.builder().build();
       TestResult javacResult = Exec.execJavac(toCompile, testPath, "jflex-1.7.0-SNAPSHOT.jar");
 
