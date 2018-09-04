@@ -89,7 +89,7 @@ public class Skeleton {
       throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile);
+      throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.getAbsolutePath());
     }
 
     System.out.print(ErrorMessages.READING_SKEL);
