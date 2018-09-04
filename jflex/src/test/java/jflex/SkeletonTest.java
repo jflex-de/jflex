@@ -9,17 +9,9 @@
 
 package jflex;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import junit.framework.TestCase;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import org.junit.Before;
-import org.junit.Test;
+import java.io.*;
 
 /**
  * Tests for {@link Skeleton}.
@@ -27,12 +19,11 @@ import org.junit.Test;
  * @author Gerwin Klein, Régis Décamps
  * @version JFlex 1.7.0-SNAPSHOT
  */
-public class SkeletonTest {
+public class SkeletonTest extends TestCase {
 
   private Skeleton skeleton;
 
-  @Before
-  public void createSkeleton() throws IOException {
+  public void setUp() throws IOException {
     String charset = "UTF-8";
     File tempFile = File.createTempFile("out", ".tmp");
     PrintWriter out =
@@ -41,21 +32,18 @@ public class SkeletonTest {
     skeleton = new Skeleton(out);
   }
 
-  @Test
-  public void replace() {
+  public void testReplace() {
     assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
   }
 
-  @Test
-  public void makePrivate() {
+  public void testMakePrivate() {
     skeleton.makePrivate();
     for (int i = 0; i < skeleton.line.length; i++) {
       assertEquals(skeleton.line[i].indexOf("public"), -1);
     }
   }
 
-  @Test
-  public void readDefault() {
+  public void testReadDefault() {
     skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
     assertTrue(skeleton.line[3].indexOf("java.util.Stack") > 0);
     skeleton.readDefault();
