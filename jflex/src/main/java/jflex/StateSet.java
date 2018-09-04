@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex;
-
+import static jflex.Options.DEBUG;
 /**
  * A set of NFA states (= integers).
  *
@@ -64,18 +64,18 @@ public final class StateSet {
    * @param state a int.
    */
   public void addState(int state) {
-    if (Options.DEBUG) {
-      System.out.println("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-      System.out.println("Set is : " + this); // $NON-NLS-1$
+    if (DEBUG) {
+      Out.debug("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.debug("Set is : " + this); // $NON-NLS-1$
     }
 
     int index = state >> BITS;
     if (index >= bits.length) resize(state);
     bits[index] |= (1L << (state & MASK));
 
-    if (Options.DEBUG) {
-      System.out.println("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      System.out.println("Set is : " + this); // $NON-NLS-1$
+    if (DEBUG) {
+      Out.debug("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.debug("Set is : " + this); // $NON-NLS-1$
     }
   }
 
@@ -172,8 +172,8 @@ public final class StateSet {
     if (bits.length < set.bits.length)
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
-    if (Options.DEBUG)
-      System.out.println(
+    if (DEBUG)
+      Out.debug(
           "Complement of "
               + this
               + Out.NL
@@ -193,8 +193,8 @@ public final class StateSet {
    */
   public void add(StateSet set) {
 
-    if (Options.DEBUG) {
-      System.out.println("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+    if (DEBUG) {
+      Out.debug("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
     }
 
     if (set == null) return;
@@ -216,9 +216,9 @@ public final class StateSet {
 
     this.bits = tbits;
 
-    if (Options.DEBUG) {
-      System.out.println("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      System.out.println("Set is : " + this); // $NON-NLS-1$
+    if (DEBUG) {
+      Out.debug("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.debug("Set is : " + this); // $NON-NLS-1$
     }
   }
 
@@ -230,6 +230,9 @@ public final class StateSet {
    */
   public boolean containsSet(StateSet set) {
 
+    if (DEBUG) {
+      Out.debug("StateSet.containsSet(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     int i;
     int min = Math.min(bits.length, set.bits.length);
 
@@ -247,6 +250,9 @@ public final class StateSet {
     int l1, l2;
     StateSet set = (StateSet) b;
 
+    if (DEBUG) {
+      Out.debug("StateSet.equals(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     l1 = bits.length;
     l2 = set.bits.length;
 
@@ -326,6 +332,9 @@ public final class StateSet {
    */
   public void copy(StateSet set) {
 
+    if (DEBUG) {
+      Out.debug("StateSet.copy(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     if (set == null) {
       for (int i = 0; i < bits.length; i++) bits[i] = 0;
       return;
@@ -338,6 +347,11 @@ public final class StateSet {
     }
 
     System.arraycopy(set.bits, 0, bits, 0, bits.length);
+
+    if (DEBUG) {
+      Out.debug("StateSet.copy(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
+      Out.debug("Set is : " + this); // $NON-NLS-1$
+    }
   }
 
   /**

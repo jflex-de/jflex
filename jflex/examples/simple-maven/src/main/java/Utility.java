@@ -17,7 +17,7 @@ class Utility {
   public static final int E_UNMATCHED = 3; 
 
   public static void error(int code) {
-	  System.out.println(errorMsg[code]);
+	  System.err.println(errorMsg[code]);
   }
 }
 

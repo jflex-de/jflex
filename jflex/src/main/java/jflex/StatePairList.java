@@ -25,7 +25,7 @@ public final class StatePairList {
 
   int num;
 
-  /** Constructor for StatePairList. */
+  /** Constructor for StatePairList.  */
   public StatePairList() {
     p = new int[8];
     q = new int[8];
@@ -69,6 +69,7 @@ public final class StatePairList {
 
   private void increaseSize(int length) {
     length = Math.max(length + 1, 4 * p.length);
+      Out.debug("increasing length to " + length);
 
     int pn[] = new int[length];
     int qn[] = new int[length];

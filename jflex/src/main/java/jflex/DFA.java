@@ -848,7 +848,7 @@ public final class DFA {
 
     for (i = 1; i < numStates; i++) {
 
-      out.debug("Testing state " + i);
+      Out.debug("Testing state " + i);
 
       for (j = 0; j < i; j++) {
 

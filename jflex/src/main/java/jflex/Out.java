@@ -139,7 +139,7 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (Options.DEBUG) System.out.println(message);
+    if (Options.DEBUG) {System.out.println(message);}
   }
 
   /**

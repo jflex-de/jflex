@@ -159,9 +159,10 @@ public final class NFA {
    */
   public void addRegExp(int regExpNum) {
 
-    if (Options.DEBUG)
-      out.debug(
+    if (Options.DEBUG) {
+      Out.debug(
           "Adding nfa for regexp " + regExpNum + " :" + out.NL + regExps.getRegExp(regExpNum));
+    }
 
     IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
 
@@ -299,7 +300,7 @@ public final class NFA {
    * @param dest a int.
    */
   public void addTransition(int start, int input, int dest) {
-    out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
+    Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
 
     int maxS = Math.max(start, dest) + 1;
 
@@ -359,7 +360,7 @@ public final class NFA {
 
     Action maxAction = null;
 
-    out.debug("Determining action of : " + set);
+    Out.debug("Determining action of : " + set);
 
     while (states.hasMoreElements()) {
 
@@ -492,14 +493,14 @@ public final class NFA {
     numDFAStates--;
 
     if (Options.DEBUG)
-      out.debug(
+      Out.debug(
           "DFA start states are :"
-              + out.NL
+              + Out.NL
               + dfaStates
-              + out.NL
-              + out.NL
+              + Out.NL
+              + Out.NL
               + "ordered :"
-              + out.NL
+              + Out.NL
               + dfaList);
 
     currentDFAState = 0;
@@ -604,11 +605,11 @@ public final class NFA {
               .append((int) input)
               .append(" in ")
               .append(table[i][input])
-              .append(out.NL);
+              .append(Out.NL);
       }
 
       if (epsilon[i] != null && epsilon[i].containsElements())
-        result.append("  with epsilon in ").append(epsilon[i]).append(out.NL);
+        result.append("  with epsilon in ").append(epsilon[i]).append(Out.NL);
     }
 
     return result.toString();
@@ -638,14 +639,14 @@ public final class NFA {
   public String dotFormat() {
     StringBuilder result = new StringBuilder();
 
-    result.append("digraph NFA {").append(out.NL);
-    result.append("rankdir = LR").append(out.NL);
+    result.append("digraph NFA {").append(Out.NL);
+    result.append("rankdir = LR").append(Out.NL);
 
     for (int i = 0; i < numStates; i++) {
       if (isFinal[i]) {
         result.append(i);
         result.append(" [shape = doublecircle]");
-        result.append(out.NL);
+        result.append(Out.NL);
       }
     }
 
@@ -661,7 +662,7 @@ public final class NFA {
                 .append(" [label=\"")
                 .append(classes.toString(input))
                 .append("\"]")
-                .append(out.NL);
+                .append(Out.NL);
           }
         }
       }
@@ -669,12 +670,12 @@ public final class NFA {
         StateSetEnumerator states = epsilon[i].states();
         while (states.hasMoreElements()) {
           int s = states.nextElement();
-          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(out.NL);
+          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
         }
       }
     }
 
-    result.append("}").append(out.NL);
+    result.append("}").append(Out.NL);
 
     return result.toString();
   }
@@ -742,8 +743,8 @@ public final class NFA {
   private IntPair complement(IntPair nfa) {
 
     if (Options.DEBUG) {
-      out.debug("complement for " + nfa);
-      out.debug("NFA is :" + out.NL + this);
+      Out.debug("complement for " + nfa);
+      Out.debug("NFA is :" + Out.NL + this);
     }
 
     int dfaStart = nfa.end + 1;
@@ -763,17 +764,17 @@ public final class NFA {
     dfaStates.put(newState, numDFAStates);
     dfaList.add(newState);
 
-    if (Options.DEBUG)
-      out.debug(
+    if (Options.DEBUG) {
+      Out.debug(
           "pos DFA start state is :"
-              + out.NL
+              + Out.NL
               + dfaStates
-              + out.NL
-              + out.NL
+              + Out.NL
+              + Out.NL
               + "ordered :"
-              + out.NL
+              + Out.NL
               + dfaList);
-
+    }
     currentDFAState = 0;
 
     while (currentDFAState <= numDFAStates) {
@@ -814,7 +815,7 @@ public final class NFA {
     // We have a dfa accepting the positive regexp.
 
     // Now the complement:
-    if (Options.DEBUG) out.debug("dfa finished, nfa is now :" + out.NL + this);
+    if (Options.DEBUG) {Out.debug("dfa finished, nfa is now :" + out.NL + this);}
 
     int start = dfaStart + numDFAStates + 1;
     int error = dfaStart + numDFAStates + 2;
@@ -848,9 +849,9 @@ public final class NFA {
 
     removeDead(dfaStart, end);
 
-    if (Options.DEBUG)
-      out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
-
+    if (Options.DEBUG) {
+      Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
+    }
     return new IntPair(start, end);
   }
 
@@ -959,7 +960,8 @@ public final class NFA {
     int start, end;
     RegExp2 r;
 
-    if (Options.DEBUG) out.debug("Inserting RegExp : " + regExp);
+    if (Options.DEBUG) {
+      Out.debug("Inserting RegExp : " + regExp);}
 
     if (regExp.isCharClass(macros)) {
       start = numStates;

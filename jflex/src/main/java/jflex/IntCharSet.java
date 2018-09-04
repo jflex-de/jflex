@@ -239,10 +239,9 @@ public final class IntCharSet {
    */
   public IntCharSet and(IntCharSet set) {
     if (DEBUG) {
-      // TODO(regisd)
-      // Out.dump("intersection");
-      // Out.dump("this  : " + this);
-      // Out.dump("other : " + set);
+      Out.debug("intersection");
+      Out.debug("this  : " + this);
+      Out.debug("other : " + set);
     }
 
     IntCharSet result = new IntCharSet();
@@ -289,9 +288,9 @@ public final class IntCharSet {
    */
   public void sub(IntCharSet set) {
     if (DEBUG) {
-      // TODO(regisd)Out.dump("complement");
-      // TODO(regisd)Out.dump("this  : " + this);
-      // TODO(regisd)Out.dump("other : " + set);
+      Out.debug("complement");
+      Out.debug("this  : " + this);
+      Out.debug("other : " + set);
     }
 
     int i = 0; // index in this.intervals
@@ -304,9 +303,9 @@ public final class IntCharSet {
       Interval y = set.intervals.get(j);
 
       if (DEBUG) {
-        // TODO(regisd)Out.dump("this      : " + this);
-        // TODO(regisd)Out.dump("this  [" + i + "] : " + x);
-        // TODO(regisd)Out.dump("other [" + j + "] : " + y);
+        Out.debug("this      : " + this);
+        Out.debug("this  [" + i + "] : " + x);
+        Out.debug("other [" + j + "] : " + y);
       }
 
       if (x.end < y.start) {
