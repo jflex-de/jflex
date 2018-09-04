@@ -226,4 +226,3 @@ public class ErrorMessages {
   /** Constant <code>CODEPOINT_OUT_OF_RANGE</code> */
   public static ErrorMessages CODEPOINT_OUT_OF_RANGE = new ErrorMessages("CODEPOINT_OUT_OF_RANGE");
 }
-
