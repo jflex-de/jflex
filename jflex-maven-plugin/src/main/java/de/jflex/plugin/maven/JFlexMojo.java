@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import jflex.Options;
 import jflex.LexGenerator;
+import jflex.Options;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -192,32 +192,37 @@ public class JFlexMojo extends AbstractMojo {
 
     checkParameters(lexFile);
 
-    // set destination directory
     File generatedFile = new File(outputDirectory, classInfo.getOutputFilename());
 
     // generate only if needs to
-    if (lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
+    if (generatedFile.exists()
+        && lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
       getLog().info("  " + generatedFile.getName() + " is up to date.");
       getLog().debug("StaleMillis = " + staleMillis + "ms");
       return;
     }
 
+    File actualOutputDirectory = new File(generatedFile.getParent());
+
+    if (!actualOutputDirectory.exists()) {
+      actualOutputDirectory.mkdirs();
+    }
+
     Options.Builder generatorOptions =
         Options.builder()
-            .setOutputDirectory(generatedFile.getParentFile())
+            .setOutputDirectory(actualOutputDirectory)
             .setDump(dump)
             .setVerbose(verbose)
-            .setUnusedWarnings(unusedWarning);
+            .setUnusedWarnings(unusedWarning)
+            .setGenerateDotFile(dot)
+            .setLegacyDot(legacyDot)
+            .setStrictJlex(jlex)
+            .setMinimize(minimize)
+            .setBackup(backup);
     if (skeleton != null) {
       generatorOptions.setSkeleton(skeleton);
     }
 
-    generatorOptions.setGenerateDotFile(dot);
-    generatorOptions.setLegacyDot(legacyDot);
-    generatorOptions.setStrictJlex(jlex);
-
-    generatorOptions.setMinimize(minimize);
-    generatorOptions.setBackup(backup);
     if (!"pack".equals(generationMethod)) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }

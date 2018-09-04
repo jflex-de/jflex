@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.LexGenerator;
 import jflex.Options;
-import jflex.Main;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -68,7 +68,8 @@ public class JFlexTask extends Task {
         File destFile = new File(outputDir(), className + ".java");
 
         if (inputFile.lastModified() > destFile.lastModified()) {
-          Main.generate(inputFile, generatorOptions.build());
+          LexGenerator lexGenerator = new LexGenerator(generatorOptions.build());
+          lexGenerator.generateFromFile(inputFile);
           if (!getGeneratorOptions().verbose()) {
             System.out.println("Generated: " + destFile.getName());
           }
@@ -82,7 +83,7 @@ public class JFlexTask extends Task {
   }
 
   private File outputDir() {
-    return getGeneratorOptions().outputDirectory().get();
+    return getGeneratorOptions().outputDirectory();
   }
 
   /**

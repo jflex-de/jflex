@@ -12,7 +12,8 @@ package jflex.gui;
 import java.io.File;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
-import jflex.Main;
+import jflex.LexGenerator;
+import jflex.Options;
 import jflex.Out;
 
 /**
@@ -26,11 +27,12 @@ public class GeneratorThread extends Thread {
   /** there must be at most one instance of this Thread running */
   private static volatile boolean running = false;
 
+  private final Options generatorOptions;
+
+  private Out log;
+
   /** input file setting from GUI */
   String inputFile;
-
-  /** output directory */
-  String outputDir;
 
   /** main UI component, likes to be notified when generator finishes */
   MainFrame parent;
@@ -40,12 +42,11 @@ public class GeneratorThread extends Thread {
    *
    * @param parent the frame, main UI component
    * @param inputFile input file from UI settings
-   * @param outputDir output directory from UI settings
    */
-  public GeneratorThread(MainFrame parent, String inputFile, String outputDir) {
+  public GeneratorThread(MainFrame parent, String inputFile, Options generatorOptions) {
     this.parent = parent;
     this.inputFile = inputFile;
-    this.outputDir = outputDir;
+    this.generatorOptions = generatorOptions;
   }
 
   /** Runs the generator thread. Only one instance of it can run at any time. */
@@ -57,14 +58,12 @@ public class GeneratorThread extends Thread {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
-        if (!outputDir.equals("")) {
-          OldGeneratorOptions.setDir(outputDir);
-        }
-        Main.generate(new File(inputFile));
-        log.statistics();
+        LexGenerator lexGenerator = new LexGenerator(generatorOptions);
+        lexGenerator.generateFromFile(new File(inputFile));
+        log.printStatistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
-        log.statistics();
+        log.printStatistics();
         parent.generationFinished(false);
       } finally {
         running = false;
