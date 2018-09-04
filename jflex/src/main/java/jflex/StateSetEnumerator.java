@@ -61,13 +61,13 @@ public final class StateSetEnumerator {
 
   private void advance() {
 
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "Advancing, at start, index = "
               + index
               + ", offset = "
               + offset); // $NON-NLS-1$ //$NON-NLS-2$
-
+    }
     // cache fields in local variable for faster access
     int _index = this.index;
     int _offset = this.offset;
@@ -115,12 +115,13 @@ public final class StateSetEnumerator {
    * @return a boolean.
    */
   public boolean hasMoreElements() {
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "hasMoreElements, index = "
               + index
               + ", offset = "
               + offset); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     return index < bits.length;
   }
 
@@ -130,9 +131,10 @@ public final class StateSetEnumerator {
    * @return a int.
    */
   public int nextElement() {
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "nextElement, index = " + index + ", offset = " + offset); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     int x = (index << StateSet.BITS) + offset;
     advance();
     return x;
