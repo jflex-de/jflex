@@ -137,11 +137,11 @@ public final class Emitter {
         backupFile.delete();
       }
 
-            if (outputFile.renameTo(backupFile)) {
-              System.out.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
-            } else {
-              System.out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
-            }
+      if (outputFile.renameTo(backupFile)) {
+        System.out.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
+      } else {
+        System.out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+      }
     }
 
     return outputFile;

@@ -67,9 +67,7 @@ public final class DFA {
   private final Options options;
   private final Out out;
 
-  /**
-   * Constructor for a deterministic finite automata.
-   */
+  /** Constructor for a deterministic finite automata. */
   public DFA(int numEntryStates, int numInp, int numLexStates, Options options, Out out) {
     numInput = numInp;
     this.options = options;
@@ -171,9 +169,7 @@ public final class DFA {
     table[start][input] = dest;
   }
 
-  /**
-   * Returns a string representation of the DFA.
-   */
+  /** Returns a string representation of the DFA. */
   public String toString() {
     StringBuilder result = new StringBuilder();
 
