@@ -39,8 +39,7 @@ public class Main {
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  private static List<File> parseOptions(String argv[], Options.Builder options)
-      throws SilentExit {
+  private static List<File> parseOptions(String argv[], Options.Builder options) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
