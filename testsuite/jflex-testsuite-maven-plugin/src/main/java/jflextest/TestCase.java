@@ -149,7 +149,7 @@ public class TestCase {
 
     if (jflexResult.getSuccess()) {
       // Scanner generation successful
-      if (Main.verbose) {
+      if (Tester.verbose) {
         System.out.println("Scanner generation successful");
       }
 
@@ -190,13 +190,13 @@ public class TestCase {
         }
       }
       String toCompile = builder.toString();
-      if (Main.verbose) {
+      if (Tester.verbose) {
         System.out.println("File(s) to Compile: " + toCompile);
       }
       TestResult javacResult = Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath());
 
       // System.out.println(javacResult);
-      if (Main.verbose) {
+      if (Tester.verbose) {
         System.out.println(
             "Compilation successful: "
                 + javacResult.getSuccess()
@@ -250,7 +250,7 @@ public class TestCase {
     // Create List with only first input in
     List<String> inputFiles = new ArrayList<>();
     inputFiles.add(null != commonInputFile ? commonInputFile : current.getName() + ".input");
-    // Excute Main on that input
+    // Excute Tester on that input
     List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--encoding");
     cmdLine.add(inputFileEncoding);
@@ -263,7 +263,7 @@ public class TestCase {
             additionalJars,
             outputFileEncoding,
             cmdLine);
-    if (Main.verbose) {
+    if (Tester.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }
 
@@ -314,7 +314,7 @@ public class TestCase {
             ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
             : "")
         + "\n"
-        + "Files to run Main on "
+        + "Files to run Tester on "
         + inputOutput
         + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
         + "Java version "
