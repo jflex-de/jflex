@@ -1,17 +1,22 @@
+# Backup files
 *~
+*.versionsBackup
+
+# Binaries
 *.class
+**/target
+dependency-reduced-pom.xml
+/bazel-*
+
+# IntelliJ
 *.iml
 *.ipr
 *.iws
 .idea
-*.versionsBackup
-
-**/target
-
-dependency-reduced-pom.xml
 
 # Eclipse project
 .project
 .classpath
 .metadata/
 .settings/
+
