@@ -29,7 +29,6 @@ import jflex.Skeleton;
  */
 public class OptionsDialog extends Dialog {
 
-  /** */
   private static final long serialVersionUID = 6807759416163314769L;
 
   private Frame owner;

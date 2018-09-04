@@ -64,13 +64,7 @@ public final class DFA {
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;
 
-  /**
-   * Constructor for a deterministic finite automata.
-   *
-   * @param numEntryStates a int.
-   * @param numInp a int.
-   * @param numLexStates a int.
-   */
+  /** Constructor for a deterministic finite automata. */
   public DFA(int numEntryStates, int numInp, int numLexStates) {
     numInput = numInp;
 
@@ -170,11 +164,7 @@ public final class DFA {
     table[start][input] = dest;
   }
 
-  /**
-   * Returns a string reprensentation of the DFA.
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  /** Returns a string representation of the DFA. */
   public String toString() {
     StringBuilder result = new StringBuilder();
 
