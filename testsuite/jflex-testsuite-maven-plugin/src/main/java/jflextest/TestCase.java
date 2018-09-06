@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import jflex.Options;
 
 public class TestCase {
 
@@ -154,27 +153,7 @@ public class TestCase {
       }
 
       // check JFlex output conformance
-      File expected = new File(testPath, testName + "-flex.output");
-
-      if (expected.exists()) {
-        DiffStream check = new DiffStream();
-        String diff;
-        try {
-          diff =
-              check.diff(
-                  jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
-        } catch (FileNotFoundException e) {
-          System.out.println("Error opening file " + expected);
-          throw new TestFailException();
-        }
-        if (diff != null) {
-          System.out.println("Test failed, unexpected jflex output: " + diff);
-          System.out.println("JFlex output: " + jflexResult.getOutput());
-          throw new TestFailException();
-        }
-      } else {
-        System.out.println("Warning: no file for expected output [" + expected + "]");
-      }
+      checkOutput(jflexResult);
 
       // Compile Scanner
       StringBuilder builder = new StringBuilder();
@@ -186,7 +165,6 @@ public class TestCase {
       }
       String toCompile = builder.toString();
 
-      Options options = Options.builder().build();
       TestResult javacResult = Exec.execJavac(toCompile, testPath, "jflex-1.7.0-SNAPSHOT.jar");
 
       if (javacResult.getSuccess() == expectJavacFail) {
@@ -198,29 +176,37 @@ public class TestCase {
       if (!expectJFlexFail) {
         System.out.println("Scanner generation failed!");
         System.out.println("JFlex output was:\n" + jflexResult.getOutput());
-        throw new TestFailException();
+        throw new TestFailException("Scanner generation failed");
       } else {
-        // check JFlex output conformance
-        File expected = new File(testPath, testName + "-flex.output");
-
-        if (expected.exists()) {
-          DiffStream check = new DiffStream();
-          String diff;
-          try {
-            diff =
-                check.diff(
-                    jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
-          } catch (FileNotFoundException e) {
-            System.out.println("Error opening file " + expected);
-            throw new TestFailException();
-          }
-          if (diff != null) {
-            System.out.println("Test failed, unexpected jflex output: " + diff);
-            System.out.println("JFlex output: " + jflexResult.getOutput());
-            throw new TestFailException();
-          }
-        }
+        checkOutput(jflexResult);
       }
+    }
+  }
+
+  /**
+   * Check JFlex output conformance
+   */
+  private void checkOutput(TestResult jflexResult) throws TestFailException {
+    File expected = new File(testPath, testName + "-flex.output");
+
+    if (expected.exists()) {
+      DiffStream check = new DiffStream();
+      String diff;
+      try {
+        diff =
+            check.diff(
+                jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
+      } catch (FileNotFoundException e) {
+        System.out.println("Error opening file " + expected);
+        throw new TestFailException();
+      }
+      if (diff != null) {
+        System.out.println("Test failed, unexpected jflex output: " + diff);
+        System.out.println("JFlex output: " + jflexResult.getOutput());
+        throw new TestFailException();
+      }
+    } else {
+      System.out.println("Warning: no file for expected output [" + expected + "]");
     }
   }
 
