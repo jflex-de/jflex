@@ -127,7 +127,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public void print(String message) {
-    if (options.verbose()) out.print(message);
+    if (options.verbose()) {
+      out.print(message);
+    }
   }
 
   /**
@@ -139,7 +141,9 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (Options.DEBUG) {System.out.println(message);}
+    if (Options.DEBUG) {
+      System.out.println(message);
+    }
   }
 
   /**
@@ -150,7 +154,9 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public void dump(String message) {
-    if (options.dump()) out.println(message);
+    if (options.dump()) {
+      out.println(message);
+    }
   }
 
   /**
@@ -164,7 +170,9 @@ public final class Out {
 
   /** throws a GeneratorException if there are any errors recorded */
   public void checkErrors() {
-    if (errors > 0) throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
+    if (errors > 0) {
+      throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
+    }
   }
 
   /** print error and warning printStatistics */

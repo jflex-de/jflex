@@ -7,7 +7,9 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex;
+
 import static jflex.Options.DEBUG;
+
 /**
  * A set of NFA states (= integers).
  *

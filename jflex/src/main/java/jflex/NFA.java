@@ -79,9 +79,6 @@ public final class NFA {
   /**
    * Constructor for NFA.
    *
-   * @param options
-   * @param numInput a int.
-   * @param estSize a int.
    * @param out Output stream of user-friendly messages.
    */
   public NFA(Options options, int numInput, int estSize, Out out) {
@@ -796,9 +793,11 @@ public final class NFA {
             // out.debug("FOUND!");
             addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
           } else {
-            if (options.dump()) out.print("+");
-            // out.debug("NOT FOUND!");
-            // out.debug("Table was "+dfaStates);
+            if (options.dump()) {
+              out.print("+");
+              // out.debug("NOT FOUND!");
+              // out.debug("Table was "+dfaStates);
+            }
             numDFAStates++;
 
             dfaStates.put(newState, numDFAStates);
@@ -815,7 +814,9 @@ public final class NFA {
     // We have a dfa accepting the positive regexp.
 
     // Now the complement:
-    if (Options.DEBUG) {Out.debug("dfa finished, nfa is now :" + out.NL + this);}
+    if (Options.DEBUG) {
+      Out.debug("dfa finished, nfa is now :" + out.NL + this);
+    }
 
     int start = dfaStart + numDFAStates + 1;
     int error = dfaStart + numDFAStates + 2;
@@ -961,7 +962,8 @@ public final class NFA {
     RegExp2 r;
 
     if (Options.DEBUG) {
-      Out.debug("Inserting RegExp : " + regExp);}
+      Out.debug("Inserting RegExp : " + regExp);
+    }
 
     if (regExp.isCharClass(macros)) {
       start = numStates;
