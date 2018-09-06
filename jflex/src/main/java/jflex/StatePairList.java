@@ -25,7 +25,7 @@ public final class StatePairList {
 
   int num;
 
-  /** Constructor for StatePairList.  */
+  /** Constructor for StatePairList. */
   public StatePairList() {
     p = new int[8];
     q = new int[8];

@@ -41,6 +41,7 @@ public class SkeletonTest extends TestCase {
   }
 
   public void testMakePrivate() {
+    skeleton.readDefault();
     skeleton.makePrivate();
     for (int i = 0; i < skeleton.line.length; i++) {
       assertEquals(skeleton.line[i].indexOf("public"), -1);
@@ -48,9 +49,12 @@ public class SkeletonTest extends TestCase {
   }
 
   public void testReadDefault() {
+    skeleton.readDefault();
+    assertEquals(-1, skeleton.line[3].indexOf("java.util.Stack"));
+  }
+
+  public void testReadSkelFile() {
     skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
     assertTrue(skeleton.line[3].indexOf("java.util.Stack") > 0);
-    skeleton.readDefault();
-    assertEquals(skeleton.line[3].indexOf("java.util.Stack"), -1);
   }
 }

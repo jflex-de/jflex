@@ -60,7 +60,6 @@ public class Skeleton {
    */
   public Skeleton(PrintWriter out) {
     this.out = out;
-    readDefault();
   }
 
   /** Emits the next part of the skeleton to {@link Out}. */

@@ -83,6 +83,7 @@ public final class Emitter {
 
     String name = getBaseName(parser.scanner.className) + ".java";
 
+    // TODO(regisd) Move reading file outside the constrcutor
     File outputFile = normalize(options.outputDirectory(), name, inputFile, options.backup());
 
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
@@ -92,6 +93,12 @@ public final class Emitter {
     this.inputFile = inputFile;
     this.dfa = dfa;
     this.skel = new Skeleton(out);
+    // TODO(regisd) Move reading file outside the constrcutor
+    if (options.skeleton() != null && options.skeleton().exists()) {
+      this.skel.readSkelFile(options.skeleton());
+    } else {
+      this.skel.readDefault();
+    }
   }
 
   /**
