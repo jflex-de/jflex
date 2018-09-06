@@ -38,6 +38,9 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
   )
   private String jflexUberJarFilename;
 
+  @Parameter(defaultValue = "false")
+  private boolean stopOnFailure;
+
   /** */
   public void execute() throws MojoExecutionException, MojoFailureException {
     boolean success = true;
@@ -65,8 +68,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       // if we still didn't find anything, scan the whole test path
       if (files.isEmpty()) files = scan(new File(testDirectory), ".test", true);
 
-      Tester tester = new Tester();
-      tester.verbose = verbose;
+      Tester tester = new Tester(verbose, stopOnFailure);
       getLog().info("verbose: " + verbose);
       success = tester.runTests(files, jflexUberJar);
     } catch (Exception e) {

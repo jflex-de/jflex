@@ -199,8 +199,10 @@ public class TestCase {
         throw new TestFailException();
       }
       if (diff != null) {
-        System.out.println("Test failed, unexpected jflex output: " + diff);
-        System.out.println("JFlex output: " + jflexResult.getOutput());
+        System.err.println("Test failed, unexpected jflex output: " + diff);
+        System.out.println("Expected content of: " + expected.getPath());
+        System.out.println("Actual JFlex output:\n" + jflexResult.getOutput());
+
         throw new TestFailException();
       }
     } else {
@@ -278,7 +280,7 @@ public class TestCase {
         + "Files to run Tester on "
         + inputOutput
         + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
-        + "Java version "
+        + "Java VERSION "
         + javaVersion;
   }
 }

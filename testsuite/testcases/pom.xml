@@ -38,6 +38,7 @@
             <configuration>
               <verbose>${verbose}</verbose>
               <testcases>${testcases}</testcases>
+              <stopOnFailure>true</stopOnFailure>
             </configuration>
           </execution>
         </executions>

@@ -3,15 +3,21 @@ package jflextest;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tester {
 
-  public static boolean verbose;
+  public static final String VERSION = "1.1";
 
-  public static final String version = "1.1";
+  final boolean verbose;
+  final boolean stopOnFailure;
+
+  public Tester(boolean verbose, boolean stopOnFailure) {
+    this.verbose = verbose;
+    this.stopOnFailure = stopOnFailure;
+  }
 
   public static void showUsage(String error) {
     System.out.println("Usage: [-v] [-testpath path] <test1> <test2> <test3> ...");
@@ -64,8 +70,10 @@ public class Tester {
    * @param jflexUberJar The JFlex shaded jar
    * @return true if all tests succeeded, false otherwise
    */
-  public static boolean runTests(List<File> tests, File jflexUberJar) {
+  public boolean runTests(List<File> tests, File jflexUberJar) {
     int successCount = 0;
+    int skipCount = 0;
+    int failCount = 0;
     int totalCount = 0;
 
     for (File test : tests) {
@@ -81,28 +89,27 @@ public class Tester {
         TestLoader loader = new TestLoader(new FileReader(test));
         TestCase currentTest = loader.load();
         currentTest.init(currentDir);
-
-        // success? -> run
-        if (currentTest == null) throw new TestFailException("not loaded");
-        if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
-
-        if (currentTest.checkJavaVersion()) {
-          currentTest.createScanner(jflexUberJar);
-          while (currentTest.hasMoreToDo()) currentTest.runNext(jflexUberJar);
-
-          successCount++;
-          System.out.println("Test [" + test + "] finished successfully.");
-        } else {
-          successCount++;
-          System.out.println("Test [" + test + "] skipped (JDK version mismatch).");
+        Status status = runTest(currentTest, jflexUberJar);
+        switch (status) {
+          case SUCCESS:
+            successCount++;
+            System.out.println("Test [" + test + "] finished successfully.");
+            break;
+          case JDK_MISMATCH:
+            skipCount++;
+            System.out.println("Test [" + test + "] skipped (JDK version mismatch).");
+            break;
         }
       } catch (TestFailException e) {
-        System.out.println("Test [" + test + "] failed!");
+        failCount++;
+        System.err.println("Test [" + test + "] failed! ");
+        if (stopOnFailure) {
+          break;
+        }
       } catch (LoadException e) {
-        System.out.println("Load Error:" + e.getMessage());
-      } catch (IOException e) {
-        System.out.println("IO Error:" + e.getMessage());
+        System.err.println("Load Error:" + e.getMessage());
       } catch (Exception e) {
+        System.err.println("Exception running test");
         e.printStackTrace();
       }
     }
@@ -110,11 +117,35 @@ public class Tester {
     // Give some Status
     System.out.println();
     System.out.println(
-        "All done - "
-            + successCount
-            + " tests completed successfully, "
-            + (totalCount - successCount)
-            + " tests failed.");
-    return 0 == totalCount - successCount;
+        String.format(
+            "All done: %s tests completed successfully, %s tests failed. %s in total",
+            successCount, failCount, totalCount));
+    if (totalCount != failCount + successCount + skipCount) {
+      throw new IllegalStateException("Incorrect count of tests");
+    }
+    return 0 == failCount;
+  }
+
+  private Status runTest(TestCase currentTest, File jflexUberJar)
+      throws TestFailException, UnsupportedEncodingException {
+    if (currentTest == null) {
+      throw new TestFailException("Test not loaded");
+    }
+    if (verbose) {
+      System.out.println("Loaded successfully");
+    }
+    if (!currentTest.checkJavaVersion()) {
+      return Status.JDK_MISMATCH;
+    }
+    currentTest.createScanner(jflexUberJar);
+    while (currentTest.hasMoreToDo()) {
+      currentTest.runNext(jflexUberJar);
+    }
+    return Status.SUCCESS;
+  }
+
+  private enum Status {
+    SUCCESS,
+    JDK_MISMATCH
   }
 }
