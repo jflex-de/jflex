@@ -53,6 +53,9 @@ public class Skeleton {
   /** The writer to write the skeleton-parts to */
   private final PrintWriter out;
 
+  /** The skeleton that was loaded. */
+  private String fileName;
+
   /**
    * Creates a new skeleton (iterator) instance.
    *
@@ -97,6 +100,7 @@ public class Skeleton {
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
       readSkel(reader);
+      fileName = skeletonFile.getPath();
     } catch (IOException e) {
       throw new GeneratorException(e, ErrorMessages.SKEL_IO_ERROR);
     }
@@ -109,7 +113,7 @@ public class Skeleton {
    * @throws java.io.IOException if an IO error occurs
    * @throws jflex.GeneratorException if the number of skeleton sections does not match
    */
-  public void readSkel(BufferedReader reader) throws IOException {
+  private void readSkel(BufferedReader reader) throws IOException {
     List<String> lines = new ArrayList<>();
     StringBuilder section = new StringBuilder();
 
@@ -131,7 +135,9 @@ public class Skeleton {
     }
 
     line = new String[size];
-    for (int i = 0; i < size; i++) line[i] = lines.get(i);
+    for (int i = 0; i < size; i++) {
+      line[i] = lines.get(i);
+    }
   }
 
   /**
@@ -181,6 +187,7 @@ public class Skeleton {
     try {
       InputStreamReader reader = new InputStreamReader(url.openStream());
       readSkel(new BufferedReader(reader));
+      fileName = DEFAULT_LOC;
     } catch (IOException e) {
       throw new GeneratorException(e, ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
@@ -188,5 +195,10 @@ public class Skeleton {
 
   public String getLine(int index) {
     return line[index];
+  }
+
+  /** Returns the file name of the loaded skeleton. */
+  public String getFileName() {
+    return fileName;
   }
 }

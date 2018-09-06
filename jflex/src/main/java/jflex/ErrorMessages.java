@@ -60,6 +60,11 @@ public class ErrorMessages {
     return MessageFormat.format(get(msg), args);
   }
 
+  @Override
+  public String toString() {
+    return String.format("ErrorMessages(%s)", key);
+  }
+
   // typesafe enumeration (generated, do not edit)
   /** Constant <code>UNTERMINATED_STR</code> */
   public static ErrorMessages UNTERMINATED_STR = new ErrorMessages("UNTERMINATED_STR");

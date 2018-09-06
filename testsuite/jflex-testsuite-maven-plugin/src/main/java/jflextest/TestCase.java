@@ -183,9 +183,7 @@ public class TestCase {
     }
   }
 
-  /**
-   * Check JFlex output conformance
-   */
+  /** Check JFlex output conformance */
   private void checkOutput(TestResult jflexResult) throws TestFailException {
     File expected = new File(testPath, testName + "-flex.output");
 
