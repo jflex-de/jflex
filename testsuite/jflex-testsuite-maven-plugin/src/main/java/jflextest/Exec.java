@@ -3,15 +3,18 @@ package jflextest;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import jflex.GeneratorException;
 import jflex.LexGenerator;
 import jflex.Main;
 import jflex.Options;
+import jflex.SilentExit;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
@@ -67,10 +70,13 @@ public class Exec {
 
     try {
       javac.execute();
+      out.flush();
       return new TestResult(out.toString(), true);
     } catch (BuildException e) {
       return new TestResult(
           "Compilation with classpath " + classPath + NL + e + NL + out.toString(), false);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       System.setErr(outSafe);
     }
@@ -88,12 +94,18 @@ public class Exec {
       for (String fileName : files) {
         lexGenerator.generateFromFile(new File(fileName));
       }
+      out.flush();
       return new TestResult(out.toString(), true);
-    } catch (Exception e) {
+    } catch (GeneratorException e) {
       String[] cmd = toArray(cmdline, files);
       System.err.println(String.format("%s", cmd));
       System.err.println(opts);
       return new TestResult(out.toString(), false);
+    } catch (SilentExit silentExit) {
+      silentExit.printStackTrace();
+      return new TestResult(silentExit.getMessage(), false);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -169,7 +181,11 @@ public class Exec {
     }
 
     // System.out.println("finished exec class "+theClass);
-
+    try {
+      out.flush();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     return new TestResult(out.toString(outputFileEncoding), success);
   }
 }

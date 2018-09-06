@@ -52,7 +52,7 @@ public final class Out {
   }
 
   public Out(Options options) {
-    this(new StdOutWriter(), options);
+    this(System.out, options);
   }
 
   public Out(OutputStream out, Options options) {
@@ -426,5 +426,9 @@ public final class Out {
     err("that doesn't have this problem");
     err("");
     err("Thanks for your support.");
+  }
+
+  public void flush() {
+    this.out.flush();
   }
 }

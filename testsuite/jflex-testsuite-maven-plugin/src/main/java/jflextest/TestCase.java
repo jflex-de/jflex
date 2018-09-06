@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -200,9 +202,15 @@ public class TestCase {
       }
       if (diff != null) {
         System.err.println("Test failed, unexpected jflex output: " + diff);
-        System.out.println("Expected content of: " + expected.getPath());
-        System.out.println("Actual JFlex output:\n" + jflexResult.getOutput());
-
+        System.out.println("Expected content of: " + expected.getAbsolutePath());
+        try {
+          File file = File.createTempFile(testName, ".actual");
+          FileWriter writer = new FileWriter(file);
+          writer.write(jflexResult.getOutput());
+          System.out.println("Actual JFlex saved in: " + file.getAbsolutePath());
+        } catch (IOException e) {
+          throw new TestFailException(e.getMessage());
+        }
         throw new TestFailException();
       }
     } else {

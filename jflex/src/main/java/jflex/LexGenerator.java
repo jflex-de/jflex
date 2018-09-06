@@ -38,33 +38,33 @@ public class LexGenerator {
    * @param inputFile a file containing a lexical specification to generateFromFile a scanner for.
    */
   public void generateFromFile(File inputFile) throws GeneratorException {
-    // Verify that the file exists
-    if (!inputFile.isFile() || !inputFile.canRead()) {
-      throw new GeneratorException(
-          new IOException("Sorry, couldn't open: \"" + inputFile.getAbsolutePath() + "\""));
-    }
-
-    log.resetCounters();
-
-    Timer totalTime = new Timer();
-    Timer time = new Timer();
-
-    LexScan scanner;
-    LexParse parser;
-    FileReader inputReader = null;
-
-    totalTime.start();
-
     try {
-      log.println(ErrorMessages.READING, inputFile.toString());
-      inputReader = new FileReader(inputFile);
-      scanner = new LexScan(inputReader).withLexicanSpecification(inputFile).withOptions(options);
-      parser = new LexParse(scanner, options, log);
-    } catch (FileNotFoundException e) {
-      throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
-    }
+      // Verify that the file exists
+      if (!inputFile.isFile() || !inputFile.canRead()) {
+        throw new GeneratorException(
+            new IOException("Sorry, couldn't open: \"" + inputFile.getAbsolutePath() + "\""));
+      }
 
-    try {
+      log.resetCounters();
+
+      Timer totalTime = new Timer();
+      Timer time = new Timer();
+
+      LexScan scanner;
+      LexParse parser;
+      FileReader inputReader = null;
+
+      totalTime.start();
+
+      try {
+        log.println(ErrorMessages.READING, inputFile.toString());
+        inputReader = new FileReader(inputFile);
+        scanner = new LexScan(inputReader).withLexicanSpecification(inputFile).withOptions(options);
+        parser = new LexParse(scanner, options, log);
+      } catch (FileNotFoundException e) {
+        throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
+      }
+
       NFA nfa = (NFA) parser.parse().value;
 
       log.checkErrors();
@@ -121,12 +121,15 @@ public class LexGenerator {
       totalTime.stop();
 
       log.time(ErrorMessages.TOTAL_TIME, totalTime);
+      log.flush();
     } catch (ScannerException e) {
       log.error(e.file, e.message, e.line, e.column);
       throw new GeneratorException(e);
     } catch (OutOfMemoryError e) {
+      log.flush();
       throw new GeneratorException(ErrorMessages.OUT_OF_MEMORY);
     } catch (Exception e) {
+      log.flush();
       throw new GeneratorException(e);
     }
   }

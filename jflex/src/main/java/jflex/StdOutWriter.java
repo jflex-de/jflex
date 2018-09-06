@@ -33,11 +33,6 @@ public final class StdOutWriter extends PrintWriter {
   /** auto wrap lines in gui mode at this value */
   private static final int wrap = 78;
 
-  /** A StdOutWriter, attached to System.out, no gui mode */
-  public StdOutWriter() {
-    super(System.out, true);
-  }
-
   /**
    * A StdOutWrite, attached to the specified output stream, no gui mode
    *

@@ -3,7 +3,6 @@ package jflextest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +22,6 @@ class DiffStream {
   private boolean match(String s1, String s2) {
     if (s1 == null) return s2 == null;
     return s1.replace('\\', '/').equals(s2.replace('\\', '/'));
-  }
-
-  public String diff(Reader input, Reader expected) {
-    return diff(null, input, expected);
   }
 
   /**
@@ -77,9 +72,5 @@ class DiffStream {
     }
 
     return null;
-  }
-
-  public String diff(String input, String expected) {
-    return diff(new StringReader(input), new StringReader(expected));
   }
 }
