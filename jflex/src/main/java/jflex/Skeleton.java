@@ -94,8 +94,7 @@ public class Skeleton {
       throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.getAbsolutePath());
     }
 
-    System.out.print(ErrorMessages.READING_SKEL);
-    System.out.println(skeletonFile.toString());
+    System.out.println(ErrorMessages.get(ErrorMessages.READING_SKEL, skeletonFile.toString()));
 
     try {
       BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
