@@ -9,8 +9,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import jflex.GeneratorException;
 import jflex.LexGenerator;
+import jflex.Main;
 import jflex.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -78,18 +78,21 @@ public class Exec {
 
   /** Call jflex with command line and input files. */
   public static TestResult execJFlex(List<String> cmdline, List<String> files) {
-    String[] cmd = toArray(cmdline, files);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
-    // TODO(regisd) Replace cmdLine with options
-    Options options = Options.defaultOptions();
+    Options.Builder opts = Options.builder();
     try {
-      // TODO(regisd): process all files
-      File file = new File(files.get(0));
+      Main.parseOptions(cmdline.toArray(new String[cmdline.size()]), opts);
+      Options options = opts.build();
       LexGenerator lexGenerator = new LexGenerator(options);
       lexGenerator.setLogOut(out);
-      lexGenerator.generateFromFile(file);
+      for (String fileName : files) {
+        lexGenerator.generateFromFile(new File(fileName));
+      }
       return new TestResult(out.toString(), true);
-    } catch (GeneratorException e) {
+    } catch (Exception e) {
+      String[] cmd = toArray(cmdline, files);
+      System.err.println(String.format("%s", cmd));
+      System.err.println(opts);
       return new TestResult(out.toString(), false);
     }
   }
