@@ -86,6 +86,7 @@ public class Exec {
       // TODO(regisd): process all files
       File file = new File(files.get(0));
       LexGenerator lexGenerator = new LexGenerator(options);
+      lexGenerator.setLogOut(out);
       lexGenerator.generateFromFile(file);
       return new TestResult(out.toString(), true);
     } catch (GeneratorException e) {

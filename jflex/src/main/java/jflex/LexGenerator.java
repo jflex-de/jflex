@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * This is the main class of JFlex controlling the scanner generation process. It is responsible for
@@ -24,7 +25,7 @@ import java.io.IOException;
 public class LexGenerator {
 
   private final Options options;
-  private final Out log;
+  private Out log;
 
   public LexGenerator(Options options) {
     this.options = options;
@@ -132,5 +133,10 @@ public class LexGenerator {
 
   public void printStatistics() {
     log.printStatistics();
+  }
+
+  // Used by jflex-testsuite-maven-plugin to compare the output normally on System.out
+  public void setLogOut(OutputStream out) {
+    this.log = new Out(out, this.options);
   }
 }
