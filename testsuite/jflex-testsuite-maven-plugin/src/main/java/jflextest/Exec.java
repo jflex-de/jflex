@@ -84,9 +84,8 @@ public class Exec {
 
   /** Call jflex with command line and input files. */
   public static TestResult execJFlex(List<String> cmdline, List<String> files) {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
     Options.Builder opts = Options.builder();
-    try {
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
       Main.parseOptions(cmdline.toArray(new String[cmdline.size()]), opts);
       Options options = opts.build();
       LexGenerator lexGenerator = new LexGenerator(options);
@@ -100,7 +99,7 @@ public class Exec {
       String[] cmd = toArray(cmdline, files);
       System.err.println(String.format("%s", cmd));
       System.err.println(opts);
-      return new TestResult(out.toString(), false);
+      return new TestResult(e.getMessage(), false);
     } catch (SilentExit silentExit) {
       silentExit.printStackTrace();
       return new TestResult(silentExit.getMessage(), false);
@@ -158,34 +157,23 @@ public class Exec {
       return null;
     }
 
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    boolean success = true;
-
-    // System.out.println("loaded class "+theClass);
-
     PrintStream stdOut = System.out;
-    System.setOut(new PrintStream(out, true));
-
-    try {
+    try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+      System.setOut(new PrintStream(out, true));
       Object[] params = {cmd};
       main.invoke(null, params);
-      System.setOut(stdOut);
+      out.flush();
+      return new TestResult(out.toString(outputFileEncoding), true);
     } catch (IllegalAccessException e) {
-      System.setOut(stdOut);
-      System.out.println("main not public :" + e + main);
+      System.err.println("main not public :" + e + main);
       return null;
     } catch (InvocationTargetException e) {
-      System.setOut(stdOut);
-      System.out.println("test subject threw exception :" + e);
-      success = false;
-    }
-
-    // System.out.println("finished exec class "+theClass);
-    try {
-      out.flush();
+      System.err.println("test subject threw exception :" + e);
+      return new TestResult(e.getMessage(), false);
     } catch (IOException e) {
       throw new RuntimeException(e);
+    } finally {
+      System.setOut(stdOut);
     }
-    return new TestResult(out.toString(outputFileEncoding), success);
   }
 }
