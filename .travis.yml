@@ -32,7 +32,7 @@ install:
   - sudo dpkg -i downloads/bazel.deb
 
 script:
-  bazel run //java/com/example/hello:Hello
+  - bazel build //cup/sample-project:gen_java
 
 env:
   matrix:
