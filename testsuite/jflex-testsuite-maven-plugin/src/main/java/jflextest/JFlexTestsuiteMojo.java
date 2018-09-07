@@ -55,18 +55,18 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
           if (!dir.isDirectory()) {
             throw new FileNotFoundException("Test directory is not a directory: " + dir);
           }
-          List<File> t = Main.scan(dir, ".test", false);
+          List<File> t = Tester.scan(dir, ".test", false);
           files.addAll(t);
         }
       }
 
       // if we still didn't find anything, scan the whole test path
-      if (files.isEmpty()) files = Main.scan(new File(testDirectory), ".test", true);
+      if (files.isEmpty()) files = Tester.scan(new File(testDirectory), ".test", true);
 
-      Main.verbose = verbose;
+      Tester.verbose = verbose;
       getLog().info("verbose: " + verbose);
 
-      success = Main.runTests(files, jflexUberJar);
+      success = Tester.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
       throw new MojoExecutionException("Failed to execute test suite", e);

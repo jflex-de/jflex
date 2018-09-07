@@ -112,6 +112,7 @@
         <enable/>
       </assertions>
       <batchtest fork="yes" todir="${tests.dir}">
+        <formatter type="plain" usefile="false" /> <!-- to screen -->
         <formatter type="plain"/>
         <fileset dir="src/test/java">
           <include name="**/*Test*.java"/>
