@@ -144,6 +144,7 @@ public class TestCase {
   }
 
   void createScanner(File jflexUberJar) throws TestFailException {
+    File expected = new File(testPath, testName + "-flex.output");
     jflexFiles.add((new File(testPath, testName + ".flex")).getPath());
     // invoke JFlex
     TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
@@ -155,7 +156,7 @@ public class TestCase {
       }
 
       // check JFlex output conformance
-      checkOutput(jflexResult);
+      checkOutput(jflexResult.getOutput(), expected);
 
       // Compile Scanner
       StringBuilder builder = new StringBuilder();
@@ -180,34 +181,32 @@ public class TestCase {
         System.out.println("JFlex output was:\n" + jflexResult.getOutput());
         throw new TestFailException("Scanner generation failed");
       } else {
-        checkOutput(jflexResult);
+        checkOutput(jflexResult.getOutput(), expected);
       }
     }
   }
 
   /** Check JFlex output conformance */
-  private void checkOutput(TestResult jflexResult) throws TestFailException {
-    File expected = new File(testPath, testName + "-flex.output");
-
-    if (expected.exists()) {
+  private void checkOutput(String actual, File goldenFile) throws TestFailException {
+    if (goldenFile.exists()) {
       DiffStream check = new DiffStream();
       String diff;
       try {
         diff =
             check.diff(
-                jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
+                jflexDiff, new StringReader(actual), new FileReader(goldenFile));
       } catch (FileNotFoundException e) {
-        System.out.println("Error opening file " + expected);
+        System.out.println("Error opening file " + goldenFile);
         throw new TestFailException();
       }
       if (diff != null) {
         System.err.println("Test failed, unexpected jflex output: " + diff);
-        System.out.println("Expected content of: " + expected.getAbsolutePath());
+        System.out.println("Expected content of: " + goldenFile.getAbsolutePath());
         try {
           {
             File file = File.createTempFile(testName, ".actual");
             try (FileWriter writer = new FileWriter(file)) {
-              writer.write(jflexResult.getOutput());
+              writer.write(actual);
               System.out.println("Actual JFlex saved in: " + file.getAbsolutePath());
             }
           }
@@ -217,7 +216,7 @@ public class TestCase {
         throw new TestFailException();
       }
     } else {
-      System.out.println("Warning: no file for expected output [" + expected + "]");
+      System.err.println("Warning: Golden file [" + goldenFile + "] missing");
     }
   }
 
@@ -247,29 +246,7 @@ public class TestCase {
             cmdLine);
 
     // check for output conformance
-    File expected = new File(current.getName() + ".output");
-
-    if (expected.exists()) {
-      DiffStream check = new DiffStream();
-      String diff;
-      try {
-        diff =
-            check.diff(
-                jflexDiff,
-                new StringReader(classExecResult.getOutput()),
-                new InputStreamReader(new FileInputStream(expected), outputFileEncoding));
-      } catch (FileNotFoundException e) {
-        throw new TestFailException("Error opening file " + expected);
-      } catch (UnsupportedEncodingException e) {
-        throw new TestFailException("Unsupported encoding: " + outputFileEncoding);
-      }
-      if (diff != null) {
-        System.out.println("Test output: " + classExecResult.getOutput());
-        throw new TestFailException("Unexpected output: " + diff);
-      }
-    } else {
-      throw new TestFailException("No file for expected output: " + expected);
-    }
+    checkOutput(classExecResult.getOutput(), new File(current.getName() + ".output"));
   }
 
   public String toString() {
