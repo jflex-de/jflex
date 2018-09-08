@@ -60,10 +60,11 @@ public class LexGenerator {
       try {
         log.println(ErrorMessages.READING, inputFile.toString());
         inputReader = new FileReader(inputFile);
-        scanner = new LexScan(inputReader)
-            .withLogger(log)
-            .withLexicanSpecification(inputFile)
-            .withOptions(options);
+        scanner =
+            new LexScan(inputReader)
+                .withLogger(log)
+                .withLexicanSpecification(inputFile)
+                .withOptions(options);
         parser = new LexParse(scanner, options, log);
       } catch (FileNotFoundException e) {
         throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
@@ -135,7 +136,8 @@ public class LexGenerator {
       throw e;
     } catch (MacroException e) {
       log.error(e.getMessage());
-      log.flush();;
+      log.flush();
+      ;
       throw e;
     } catch (GeneratorException e) {
       log.flush();

@@ -83,8 +83,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
   public static void main(String[] argv) throws Exception {
     JFlexTestsuiteMojo mojo = new JFlexTestsuiteMojo();
     mojo.testDirectory = "src/test/cases";
-    mojo.jflexUberJarFilename =
-        "../../jflex/target/jflex-full-1.7.0-SNAPSHOT.jar";
+    mojo.jflexUberJarFilename = "../../jflex/target/jflex-full-1.7.0-SNAPSHOT.jar";
     if (argv.length > 0) {
       mojo.testcases = Joiner.on(',').join(argv);
     }
