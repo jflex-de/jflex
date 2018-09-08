@@ -26,13 +26,19 @@ addons:
 # Download bazel
 before_install:
   - curl -L https://github.com/bazelbuild/bazel/releases/download/0.16.1/bazel_0.16.1-linux-x86_64.deb -o downloads/bazel.deb
+  - curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o downloads/google-java-format.jar
 
 # Install bazel itself
 install:
   - sudo dpkg -i downloads/bazel.deb
 
-script:
-  - bazel build //cup/sample-project:gen_java
+jobs:
+  include:
+    - stage: codestyle
+      script: java -jar downloads/google-java-format-1.6-all-deps.jar -n --set-exit-if-changed $(find jflex -name '*.java' | tr '\n' ' ')
+    - stage: test
+      script:
+        - bazel build //cup/sample-project:gen_java
 
 env:
   matrix:
