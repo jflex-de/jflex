@@ -14,6 +14,7 @@ import jflex.GeneratorException;
 import jflex.LexGenerator;
 import jflex.Main;
 import jflex.Options;
+import jflex.ScannerException;
 import jflex.SilentExit;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -86,23 +87,23 @@ public class Exec {
   public static TestResult execJFlex(List<String> cmdline, List<String> files) {
     Options.Builder opts = Options.builder();
     try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-      Main.parseOptions(cmdline.toArray(new String[cmdline.size()]), opts);
-      Options options = opts.build();
-      LexGenerator lexGenerator = new LexGenerator(options);
-      lexGenerator.setLogOut(out);
-      for (String fileName : files) {
-        lexGenerator.generateFromFile(new File(fileName));
+      try {
+        Main.parseOptions(cmdline.toArray(new String[0]), opts);
+        opts.setBackup(false); // This is a waste of time when running tests.
+        Options options = opts.build();
+        LexGenerator lexGenerator = new LexGenerator(options);
+        lexGenerator.setLogOut(out);
+        for (String fileName : files) {
+          lexGenerator.generateFromFile(new File(fileName));
+        }
+        out.flush();
+        return new TestResult(out.toString(), true);
+      } catch (GeneratorException | ScannerException e) {
+        return new TestResult(out.toString(), false);
+      } catch (SilentExit silentExit) {
+        silentExit.printStackTrace();
+        return new TestResult(silentExit.getMessage(), false);
       }
-      out.flush();
-      return new TestResult(out.toString(), true);
-    } catch (GeneratorException e) {
-      String[] cmd = toArray(cmdline, files);
-      System.err.println(String.format("%s", cmd));
-      System.err.println(opts);
-      return new TestResult(e.getMessage(), false);
-    } catch (SilentExit silentExit) {
-      silentExit.printStackTrace();
-      return new TestResult(silentExit.getMessage(), false);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -112,7 +113,6 @@ public class Exec {
    * Call main method of specified class with command line and input files.
    *
    * @param path the directory in which to search for the class
-   * @param additionalJars
    */
   public static TestResult execClass(
       String theClass,
