@@ -17,10 +17,10 @@ package jflex.base;
  * @author Gerwin Klein
  * @version JFlex 1.7.0-SNAPSHOT
  */
-final class IntPair {
+public final class IntPair {
 
-  int start;
-  int end;
+  private int start;
+  private int end;
 
   IntPair(int start, int end) {
     this.start = start;

@@ -10,7 +10,9 @@
 package jflex;
 
 import java.util.*;
-import jflex.unicode.UnicodeProperties;
+import jflex.base.*;
+import jflex.exception.*;
+import jflex.unicode.*;
 import java_cup.runtime.Symbol;
 
 /* customizing code */

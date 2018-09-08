@@ -1,32 +1,18 @@
-load("//bazel:cup_rules.bzl", "cup")
-
-java_library(
+alias(
     name = "jflex",
-    srcs = glob(["src/main/java/**"]),
-    deps = [
-        ":parser",
-        "//jflex/src/main/java/jflex/base",
+    actual = "//jflex/src/main"
+)
+
+alias(
+    name = "jflex_1_6_1",
+    actual = "@de_jflex_jflex_1_6_1//jar",
+)
+
+java_binary(
+    name = "jflex_1_6_1_bin",
+    main_class = "jflex.Main",
+    runtime_deps = [
+        ":jflex_1_6_1",
     ],
-)
-
-java_library(
-    name = "parser",
-    srcs = [":gen_parser"],
-    deps = [
-        "//cup/cup_runtime",
-        "//jflex/src/main/java/jflex/unicode",
-    ],
-)
-
-cup(
-    name = "gen_parser",
-    srcs = ["src/main/cup/LexParse.cup"],
-    parser = "LexParse",
-    symbols = "sym",
-)
-
-maven_jar(
-    name = "jflex-1.6.1",
-    artifact = "de.jflex:jflex:1.6.1",
-    sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
+    visibility = ["//jflex/src/main:__subpackages__"],
 )
