@@ -28,7 +28,6 @@ import jflex.exception.GeneratorException;
 import jflex.exception.MacroException;
 import jflex.exception.ScannerException;
 import jflex.exception.SilentExit;
-import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
 /**
@@ -392,7 +391,7 @@ public class Main {
     if (files.size() > 0) {
       for (File file : files) generate(file);
     } else {
-      new MainFrame();
+      printUsage();
     }
   }
 
