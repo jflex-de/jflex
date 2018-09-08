@@ -84,8 +84,13 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("--warn-unused") || argv[i].equals("--no-warn-unused")) { // $NON-NLS-1$
+      if (argv[i].equals("--warn-unused")) { // $NON-NLS-1$
         options.setUnusedWarnings(true);
+        continue;
+      }
+
+      if (argv[i].equals("--no-warn-unused")) { // $NON-NLS-1$
+        options.setUnusedWarnings(false);
         continue;
       }
 
