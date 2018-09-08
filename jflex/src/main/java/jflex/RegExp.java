@@ -11,6 +11,7 @@ package jflex;
 
 import java.util.ArrayList;
 import java.util.List;
+import jflex.unicode.Interval;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.

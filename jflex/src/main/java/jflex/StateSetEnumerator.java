@@ -33,7 +33,7 @@ public final class StateSetEnumerator {
   /**
    * Constructor for StateSetEnumerator.
    *
-   * @param states a {@link jflex.StateSet} object.
+   * @param states a {@link StateSet} object.
    */
   public StateSetEnumerator(StateSet states) {
     reset(states);
@@ -42,7 +42,7 @@ public final class StateSetEnumerator {
   /**
    * reset.
    *
-   * @param states a {@link jflex.StateSet} object.
+   * @param states a {@link StateSet} object.
    */
   public void reset(StateSet states) {
     bits = states.bits;

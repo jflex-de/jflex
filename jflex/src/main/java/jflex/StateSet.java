@@ -156,8 +156,8 @@ public final class StateSet {
    * Returns the set of elements that contained are in the specified set but are not contained in
    * this set.
    *
-   * @param set a {@link jflex.StateSet} object.
-   * @return a {@link jflex.StateSet} object.
+   * @param set a {@link StateSet} object.
+   * @return a {@link StateSet} object.
    */
   public StateSet complement(StateSet set) {
 
@@ -194,7 +194,7 @@ public final class StateSet {
   /**
    * add.
    *
-   * @param set a {@link jflex.StateSet} object.
+   * @param set a {@link StateSet} object.
    */
   public void add(StateSet set) {
 
@@ -230,7 +230,7 @@ public final class StateSet {
   /**
    * containsSet.
    *
-   * @param set a {@link jflex.StateSet} object.
+   * @param set a {@link StateSet} object.
    * @return a boolean.
    */
   public boolean containsSet(StateSet set) {
@@ -301,7 +301,7 @@ public final class StateSet {
   /**
    * states.
    *
-   * @return a {@link jflex.StateSetEnumerator} object.
+   * @return a {@link StateSetEnumerator} object.
    */
   public StateSetEnumerator states() {
     return new StateSetEnumerator(this);
@@ -321,7 +321,7 @@ public final class StateSet {
   /**
    * copy.
    *
-   * @return a {@link jflex.StateSet} object.
+   * @return a {@link StateSet} object.
    */
   public StateSet copy() {
     StateSet set = new StateSet();

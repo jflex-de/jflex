@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.

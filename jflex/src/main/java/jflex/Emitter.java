@@ -18,6 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.base.CharClassInterval;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
 
 /**
  * This class manages the actual code generation, putting the scanner together, filling in skeleton

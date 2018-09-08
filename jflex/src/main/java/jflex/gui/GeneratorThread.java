@@ -10,8 +10,8 @@
 package jflex.gui;
 
 import java.io.File;
-import jflex.ErrorMessages;
-import jflex.GeneratorException;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
 import jflex.Main;
 import jflex.Options;
 import jflex.Out;

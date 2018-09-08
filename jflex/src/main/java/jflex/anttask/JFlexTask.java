@@ -18,6 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.Main;
 import jflex.Options;
+import jflex.exception.GeneratorException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -75,7 +76,7 @@ public class JFlexTask extends Task {
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
       }
-    } catch (jflex.GeneratorException e) {
+    } catch (GeneratorException e) {
       throw new BuildException("JFlex: generation failed!");
     }
   }

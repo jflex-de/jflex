@@ -12,6 +12,7 @@ package jflex;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jflex.Action;
 
 /**
  * A simple table to store EOF actions for each lexical state.

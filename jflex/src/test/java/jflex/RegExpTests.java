@@ -9,6 +9,7 @@
 
 package jflex;
 
+import jflex.unicode.Interval;
 import junit.framework.TestCase;
 
 /**

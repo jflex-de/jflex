@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jflex.base.IntPair;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
+import jflex.unicode.IntCharSet;
+import jflex.unicode.Interval;
 
 /**
  * Non-deterministic finite automata representation in JFlex.

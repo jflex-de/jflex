@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jflex.exception.ErrorMessages;
+import jflex.exception.MacroException;
 
 /**
  * Symbol table and expander for macros.
@@ -113,7 +115,7 @@ public final class Macros {
    * Expands all stored macros, so that getDefinition always returns a definition that doesn't
    * contain any macro usages.
    *
-   * @throws jflex.MacroException if there is a cycle in the macro usage graph.
+   * @throws MacroException if there is a cycle in the macro usage graph.
    */
   public void expand() throws MacroException {
     for (String name : macros.keySet()) {

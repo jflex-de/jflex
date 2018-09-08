@@ -11,6 +11,10 @@ package jflex;
 
 import java.util.ArrayList;
 import java.util.List;
+import jflex.base.CharClassInterval;
+import jflex.Out;
+import jflex.unicode.IntCharSet;
+import jflex.unicode.Interval;
 
 /**
  * Character Classes.
@@ -362,7 +366,7 @@ public class CharClasses {
    * <p>The array is ordered by char code, i.e. <code>result[i+1].start = result[i].end+1</code>
    * Each CharClassInterval contains the number of the char class it belongs to.
    *
-   * @return an array of all {@link jflex.CharClassInterval} in this char class collection.
+   * @return an array of all {@link CharClassInterval} in this char class collection.
    */
   public CharClassInterval[] getIntervals() {
     int i, c;

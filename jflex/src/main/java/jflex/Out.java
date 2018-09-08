@@ -15,6 +15,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
+import jflex.Main;
+import jflex.Options;
+import jflex.StdOutWriter;
+import jflex.Timer;
 import jflex.unicode.UnicodeProperties;
 
 /**

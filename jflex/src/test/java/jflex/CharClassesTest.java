@@ -9,6 +9,8 @@
 
 package jflex;
 
+import jflex.unicode.IntCharSet;
+import jflex.unicode.Interval;
 import jflex.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 

@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import jflex.exception.ErrorMessages;
+import jflex.exception.GeneratorException;
 
 /**
  * This class stores the skeleton of generated scanners.
@@ -113,7 +115,7 @@ public class Skeleton {
    *
    * @param reader the reader to read from (must be != null)
    * @throws java.io.IOException if an IO error occurs
-   * @throws jflex.GeneratorException if the number of skeleton sections does not match
+   * @throws GeneratorException if the number of skeleton sections does not match
    */
   public static void readSkel(BufferedReader reader) throws IOException {
     List<String> lines = new ArrayList<>();

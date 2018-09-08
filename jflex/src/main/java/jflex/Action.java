@@ -9,6 +9,8 @@
 
 package jflex;
 
+import jflex.exception.GeneratorException;
+
 /**
  * Encapsulates an action in the specification.
  *

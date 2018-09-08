@@ -9,6 +9,7 @@
 package jflex;
 
 import java.io.File;
+import jflex.exception.ErrorMessages;
 
 /**
  * Performs simple semantic analysis on regular expressions.

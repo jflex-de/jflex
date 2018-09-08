@@ -10,6 +10,7 @@
 package jflex;
 
 import java.io.File;
+import jflex.exception.GeneratorException;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.

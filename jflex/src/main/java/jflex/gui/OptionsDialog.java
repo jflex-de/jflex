@@ -17,7 +17,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.GeneratorException;
+import jflex.exception.GeneratorException;
 import jflex.Options;
 import jflex.Skeleton;
 
