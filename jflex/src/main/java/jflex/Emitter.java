@@ -75,17 +75,13 @@ public final class Emitter {
    * Emits the java code.
    *
    * @param inputFile input grammar.
-   * @param parser a {@link jflex.LexParse}.
-   * @param dfa a {@link jflex.DFA}.
+   * @param outputFile
+   * @param parser a {@link LexParse}.
+   * @param dfa a {@link DFA}.
    * @throws java.io.IOException if any.
    */
-  public Emitter(File inputFile, LexParse parser, DFA dfa, Options options) throws IOException {
-
-    String name = getBaseName(parser.scanner.className) + ".java";
-
-    // TODO(regisd) Move reading file outside the constrcutor
-    File outputFile = normalize(options.outputDirectory(), name, inputFile, options.backup());
-
+  public Emitter(File inputFile, File outputFile, LexParse parser, DFA dfa, Options options)
+      throws IOException {
     this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
     this.parser = parser;
     this.scanner = parser.scanner;
@@ -115,43 +111,6 @@ public final class Emitter {
     } else {
       return className.substring(0, gen);
     }
-  }
-
-  /**
-   * Constructs a file in {@code outputDirectory} or in the same directory as another file. Makes a
-   * backup if the file already exists.
-   *
-   * @param name the name (without path) of the file
-   * @param input fall back location if path = <tt>null</tt> (expected to be a file in the directory
-   *     to write to)
-   * @param backup Whether to backup files.
-   * @return The constructed File
-   */
-  public static File normalize(File outputDir, String name, File input, boolean backup) {
-    File outputFile;
-
-    if (outputDir == null) {
-      if (input == null || input.getParent() == null) outputFile = new File(name);
-      else outputFile = new File(input.getParent(), name);
-    } else {
-      outputFile = new File(outputDir, name);
-    }
-
-    if (outputFile.exists() && backup) {
-      File backupFile = new File(outputFile.toString() + "~");
-
-      if (backupFile.exists()) {
-        backupFile.delete();
-      }
-
-      if (outputFile.renameTo(backupFile)) {
-        System.out.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
-      } else {
-        System.out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
-      }
-    }
-
-    return outputFile;
   }
 
   private void println() {

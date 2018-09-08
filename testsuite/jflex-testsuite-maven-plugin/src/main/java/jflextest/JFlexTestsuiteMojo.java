@@ -83,7 +83,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     JFlexTestsuiteMojo mojo = new JFlexTestsuiteMojo();
     mojo.testDirectory = "/Users/regisd/workspace_jflex/jflex/testsuite/testcases/src/test/cases";
     mojo.jflexUberJarFilename = "/Users/regisd/workspace_jflex/jflex/jflex/target/jflex-full-1.7.0-SNAPSHOT.jar";
-    mojo.testcases="semcheck";
+    mojo.testcases="ccl-esc";
     mojo.execute();
   }
 }

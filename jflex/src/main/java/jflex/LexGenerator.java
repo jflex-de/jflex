@@ -73,8 +73,7 @@ public class LexGenerator {
 
       if (options.generateDotFile()) {
         nfa.writeDot(
-            Emitter.normalize(
-                options.outputDirectory(), "nfa.dot", null, options.backup())); // $NON-NLS-1$
+            normalize(options.outputDirectory(), "nfa.dot", null, options.backup())); // $NON-NLS-1$
       }
       log.println(ErrorMessages.NFA_STATES, nfa.numStates);
 
@@ -91,7 +90,7 @@ public class LexGenerator {
 
       if (options.generateDotFile()) {
         dfa.writeDot(
-            Emitter.normalize(
+            normalize(
                 options.outputDirectory(), "dfa-big.dot", null, options.backup())); // $NON-NLS-1$
       }
       log.checkErrors();
@@ -106,12 +105,16 @@ public class LexGenerator {
 
       if (options.generateDotFile())
         dfa.writeDot(
-            Emitter.normalize(
+            normalize(
                 options.outputDirectory(), "dfa-min.dot", null, options.backup())); // $NON-NLS-1$
 
       time.start();
 
-      Emitter e = new Emitter(inputFile, parser, dfa, options);
+      String name = Emitter.getBaseName(parser.scanner.className) + ".java";
+      File outputFile = normalize(options.outputDirectory(), name, inputFile, options.backup());
+      log.println("Writing code to \"" + outputFile + "\"");
+
+      Emitter e = new Emitter(inputFile, outputFile, parser, dfa, options);
       e.emit(log);
 
       time.stop();
@@ -143,7 +146,45 @@ public class LexGenerator {
   }
 
   // Used by jflex-testsuite-maven-plugin to compare the output normally on System.out
+
   public void setLogOut(OutputStream out) {
     this.log = new Out(out, this.options);
+  }
+
+  /**
+   * Constructs a file in {@code outputDirectory} or in the same directory as another file. Makes a
+   * backup if the file already exists.
+   *
+   * @param name the name (without path) of the file
+   * @param input fall back location if path = <tt>null</tt> (expected to be a file in the directory
+   *     to write to)
+   * @param backup Whether to backup files.
+   * @return The constructed File
+   */
+  private static File normalize(File outputDir, String name, File input, boolean backup) {
+    File outputFile;
+
+    if (outputDir == null) {
+      if (input == null || input.getParent() == null) outputFile = new File(name);
+      else outputFile = new File(input.getParent(), name);
+    } else {
+      outputFile = new File(outputDir, name);
+    }
+
+    if (outputFile.exists() && backup) {
+      File backupFile = new File(outputFile.toString() + "~");
+
+      if (backupFile.exists()) {
+        backupFile.delete();
+      }
+
+      if (outputFile.renameTo(backupFile)) {
+        System.out.println("Old file \"" + outputFile + "\" saved as \"" + backupFile + "\"");
+      } else {
+        System.out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+      }
+    }
+
+    return outputFile;
   }
 }
