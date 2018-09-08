@@ -1,6 +1,4 @@
- ---------
- Changelog
- ---------
+# Changelog
 
 Latest version
 
