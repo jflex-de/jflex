@@ -171,7 +171,7 @@ public final class Out {
   /** throws a GeneratorException if there are any errors recorded */
   public void checkErrors() {
     if (errors > 0) {
-      throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
+      throw new GeneratorException();
     }
   }
 
