@@ -20,6 +20,7 @@ import java.io.OutputStream;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.0-SNAPSHOT
  */
 public class LexGenerator {
@@ -129,7 +130,7 @@ public class LexGenerator {
       log.error(e.file, e.message, e.line, e.column);
       log.flush();
       throw e;
-    } catch (GeneratorException e) {
+    } catch (MacroException | GeneratorException e) {
       log.flush();
       throw e;
     } catch (OutOfMemoryError e) {
