@@ -14,6 +14,8 @@ public class Tester {
   final boolean verbose;
   final boolean stopOnFailure;
 
+  private int failCount;
+
   public Tester(boolean verbose, boolean stopOnFailure) {
     this.verbose = verbose;
     this.stopOnFailure = stopOnFailure;
@@ -73,7 +75,6 @@ public class Tester {
   public boolean runTests(List<File> tests, File jflexUberJar) {
     int successCount = 0;
     int skipCount = 0;
-    int failCount = 0;
     int totalCount = 0;
 
     for (File test : tests) {
@@ -101,17 +102,14 @@ public class Tester {
             break;
         }
       } catch (TestFailException e) {
-        failCount++;
         System.err.println("Test [" + test + "] failed! " + e.getMessage());
-        if (stopOnFailure) {
-          break;
-        }
+        incrementFailureCount(e);
       } catch (LoadException e) {
-        failCount++;
+        incrementFailureCount(e);
         System.err.println("Load Error:" + e.getMessage());
       } catch (Exception e) {
-        failCount++;
         System.err.println("Exception running test");
+        incrementFailureCount(e);
         e.printStackTrace();
       }
     }
@@ -126,6 +124,16 @@ public class Tester {
       throw new IllegalStateException("Incorrect count of tests");
     }
     return 0 == failCount;
+  }
+
+  private int incrementFailureCount(Exception e) {
+    failCount++;
+    if (stopOnFailure) {
+      System.err.println("Exception in regression test");
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+    return failCount;
   }
 
   private Status runTest(TestCase currentTest, File jflexUberJar)
