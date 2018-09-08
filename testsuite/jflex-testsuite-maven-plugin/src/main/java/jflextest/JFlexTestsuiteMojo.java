@@ -2,6 +2,7 @@ package jflextest;
 
 import static jflextest.Tester.scan;
 
+import com.google.common.base.Joiner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -77,5 +78,16 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     if (!success) {
       throw new MojoFailureException("Test(s) failed.");
     }
+  }
+
+  public static void main(String[] argv) throws Exception {
+    JFlexTestsuiteMojo mojo = new JFlexTestsuiteMojo();
+    mojo.testDirectory = "src/test/cases";
+    mojo.jflexUberJarFilename =
+        "../../jflex/target/jflex-full-1.7.0-SNAPSHOT.jar";
+    if (argv.length > 0) {
+      mojo.testcases = Joiner.on(',').join(argv);
+    }
+    mojo.execute();
   }
 }
