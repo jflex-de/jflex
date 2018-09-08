@@ -167,7 +167,7 @@ public class TestCase {
       }
       String toCompile = builder.toString();
 
-      TestResult javacResult = Exec.execJavac(toCompile, testPath, "jflex-1.7.0-SNAPSHOT.jar");
+      TestResult javacResult = Exec.execJavac(toCompile, testPath, jflexUberJar);
 
       if (javacResult.getSuccess() == expectJavacFail) {
         System.out.println("Compilation failed in " + testPath + " for " + toCompile);
