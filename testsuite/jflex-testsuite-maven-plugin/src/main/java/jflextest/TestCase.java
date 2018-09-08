@@ -18,7 +18,7 @@ import java.util.Locale;
 public class TestCase {
 
   /** command line switches for jflex invocation */
-  private List<String> jflexCmdln;
+  private List<String> jflexCmdln = new ArrayList<>();
 
   /** files on which to invoke jflex */
   private List<String> jflexFiles;
