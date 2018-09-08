@@ -107,8 +107,10 @@ public class Tester {
           break;
         }
       } catch (LoadException e) {
+        failCount++;
         System.err.println("Load Error:" + e.getMessage());
       } catch (Exception e) {
+        failCount++;
         System.err.println("Exception running test");
         e.printStackTrace();
       }
