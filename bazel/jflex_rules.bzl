@@ -8,17 +8,22 @@ def _jflex_impl(ctx):
     output_dir = "/".join(
         [ctx.configuration.genfiles_dir.path, ctx.label.package],
     )
+    # TODO(regisd): Add support for JFlex options.
+    maybe_skel = ["-skel", ctx.file.skeleton.path] if ctx.file.skeleton else []
+    arguments = (
+        maybe_skel + \
+        # Option to specify output directory
+        ["-d", output_dir] + \
+        # Input files
+        [f.path for f in ctx.files.srcs])
     ctx.action(
-        inputs = ctx.files.srcs,
+        inputs = ctx.files.srcs + [ctx.file.skeleton],
         outputs = ctx.outputs.outputs,
         executable = ctx.executable._jflex,
         arguments =
-            # TODO(regisd): Add support for JFlex options.
-            # Option to specify output directory
-            ["-d", output_dir] +
-            # Input files
-            [f.path for f in ctx.files.srcs],
+            arguments,
     )
+    print("Arguments " + (" ".join(arguments)))
 
 jflex = rule(
     implementation = _jflex_impl,
@@ -47,6 +52,12 @@ jflex_old = rule(
             allow_empty = False,
             allow_files = True,
             mandatory = True,
+            doc = "a list of grammar specifications"
+        ),
+        "skeleton": attr.label(
+            allow_files = True,
+            single_file = True,
+            doc = "an optional skeleton",
         ),
         "outputs": attr.output_list(allow_empty = False),
         "_jflex": attr.label(

@@ -19,10 +19,10 @@ package jflex.base;
  */
 public final class IntPair {
 
-  private int start;
-  private int end;
+  public final int start;
+  public final int end;
 
-  IntPair(int start, int end) {
+  public IntPair(int start, int end) {
     this.start = start;
     this.end = end;
   }
