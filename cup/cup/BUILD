@@ -1,5 +1,5 @@
-java_import(
+alias(
     name = "cup",
-    jars = ["java-cup-11b.jar"],
+    actual = "//cup/cup/11b:cup",
     visibility = ["//visibility:public"],
 )
