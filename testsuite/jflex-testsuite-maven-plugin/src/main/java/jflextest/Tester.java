@@ -108,7 +108,7 @@ public class Tester {
         incrementFailureCount(e);
         System.err.println("Load Error:" + e.getMessage());
       } catch (Exception e) {
-        System.err.println("Exception running test");
+        System.err.println("Exception running test [" + test + "]");
         incrementFailureCount(e);
         e.printStackTrace();
       }

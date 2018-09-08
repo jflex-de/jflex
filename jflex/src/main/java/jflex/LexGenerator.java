@@ -133,7 +133,11 @@ public class LexGenerator {
       log.error(e.file, e.message, e.line, e.column);
       log.flush();
       throw e;
-    } catch (MacroException | GeneratorException e) {
+    } catch (MacroException e) {
+      log.error(e.getMessage());
+      log.flush();;
+      throw e;
+    } catch (GeneratorException e) {
       log.flush();
       throw e;
     } catch (OutOfMemoryError e) {

@@ -10,8 +10,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import javax.crypto.Mac;
 import jflex.GeneratorException;
 import jflex.LexGenerator;
+import jflex.MacroException;
 import jflex.Main;
 import jflex.Options;
 import jflex.ScannerException;
@@ -98,7 +100,8 @@ public class Exec {
         }
         out.flush();
         return new TestResult(out.toString(), true);
-      } catch (GeneratorException | ScannerException e) {
+      } catch (GeneratorException | ScannerException | MacroException e) {
+        out.flush();
         return new TestResult(out.toString(), false);
       } catch (SilentExit silentExit) {
         silentExit.printStackTrace();
