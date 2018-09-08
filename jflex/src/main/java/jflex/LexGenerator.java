@@ -60,7 +60,10 @@ public class LexGenerator {
       try {
         log.println(ErrorMessages.READING, inputFile.toString());
         inputReader = new FileReader(inputFile);
-        scanner = new LexScan(inputReader).withLexicanSpecification(inputFile).withOptions(options);
+        scanner = new LexScan(inputReader)
+            .withLogger(log)
+            .withLexicanSpecification(inputFile)
+            .withOptions(options);
         parser = new LexParse(scanner, options, log);
       } catch (FileNotFoundException e) {
         throw new GeneratorException(e, ErrorMessages.CANNOT_OPEN, inputFile);
