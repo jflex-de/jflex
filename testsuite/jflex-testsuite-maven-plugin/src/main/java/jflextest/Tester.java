@@ -102,7 +102,7 @@ public class Tester {
         }
       } catch (TestFailException e) {
         failCount++;
-        System.err.println("Test [" + test + "] failed! ");
+        System.err.println("Test [" + test + "] failed! " + e.getMessage());
         if (stopOnFailure) {
           break;
         }

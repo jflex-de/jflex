@@ -201,7 +201,7 @@ public final class Out {
   public void warning(String message) {
     warnings++;
 
-    err(NL + "Warning : " + message);
+    err(NL + "Warning: " + message);
   }
 
   /**

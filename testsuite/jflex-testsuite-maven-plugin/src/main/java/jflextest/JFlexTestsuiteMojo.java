@@ -78,4 +78,12 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       throw new MojoFailureException("Test(s) failed.");
     }
   }
+
+  public static void main(String[] argv) throws Exception {
+    JFlexTestsuiteMojo mojo = new JFlexTestsuiteMojo();
+    mojo.testDirectory = "/Users/regisd/workspace_jflex/jflex/testsuite/testcases/src/test/cases";
+    mojo.jflexUberJarFilename = "/Users/regisd/workspace_jflex/jflex/jflex/target/jflex-full-1.7.0-SNAPSHOT.jar";
+    mojo.testcases="six-digit-unicode-escape";
+    mojo.execute();
+  }
 }

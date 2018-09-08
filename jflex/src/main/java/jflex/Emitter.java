@@ -767,11 +767,11 @@ public final class Emitter {
     }
   }
 
-  private void emitConstructorDecl() {
+  private void emitConstructorDecl(Out out) {
     emitConstructorDecl(true);
 
     if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
-      System.err.println(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      out.warning(ErrorMessages.CTOR_DEBUG);
       println();
       emitConstructorDecl(false);
     }
@@ -1390,7 +1390,7 @@ public final class Emitter {
 
     skel.emitNext();
 
-    emitConstructorDecl();
+    emitConstructorDecl(out);
 
     emitCharMapInitFunction(packedCharMapPairs);
 

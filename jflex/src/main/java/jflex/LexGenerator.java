@@ -124,7 +124,8 @@ public class LexGenerator {
       log.flush();
     } catch (ScannerException e) {
       log.error(e.file, e.message, e.line, e.column);
-      throw new GeneratorException(e);
+      log.flush();
+      throw e;
     } catch (OutOfMemoryError e) {
       log.flush();
       throw new GeneratorException(ErrorMessages.OUT_OF_MEMORY);

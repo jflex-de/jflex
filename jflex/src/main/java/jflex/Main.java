@@ -270,8 +270,9 @@ public class Main {
     List<File> files = parseOptions(argv, opts);
     Options options = opts.build();
 
-    System.out.println("JFlex options: " + options);
-
+    if (options.verbose()) {
+      System.out.println("JFlex " + options);
+    }
     if (files.isEmpty()) {
       // No file was provided. Start GUI.
       // TODO(regisd): new MainFrame(options.buildUpon());
