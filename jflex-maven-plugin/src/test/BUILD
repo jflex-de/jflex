@@ -1,3 +1,5 @@
+package(default_visibility = ["//jflex-maven-plugin/src/test:__subpackages__"])
+
 load("//bazel:jar_rules.bzl", "simple_jar")
 
 # Works around inability to add files in META-INF
@@ -9,7 +11,11 @@ load("//bazel:jar_rules.bzl", "simple_jar")
 #test/META-INF/maven/
 #test/META-INF/maven/plugin.xml
 simple_jar(
-    name = "res",
+    name = "test_res",
     srcs = ["META-INF/maven/plugin.xml"],
-    visibility = ["//jflex-maven-plugin/src/test:__subpackages__"],
+)
+
+filegroup(
+    name = "test_data",
+    srcs = glob(["projects/**"]),
 )
