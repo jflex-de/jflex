@@ -26,5 +26,6 @@ java_test(
         "//third_party/org/eclipse/sisu",
         "//third_party/org/eclipse/sisu:sisu_inject",
         "//third_party/org/eclipse/aether:aether_api",
+        "//jflex-maven-plugin/src/test:res",
     ],
 )
