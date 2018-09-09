@@ -32,16 +32,14 @@ before_install:
 install:
   - sudo dpkg -i downloads/bazel.deb
 
-jobs:
-  include:
+script:
 # TODO(regisd) Reformat code once we are ready to submit
-#    - stage: codestyle
-#      script: java -jar downloads/google-java-format-1.6-all-deps.jar -n --set-exit-if-changed $(find jflex -name '*.java' | tr '\n' ' ')
-    - stage: test
-      script:
-        - bazel build //cup/sample-project:gen_java
-        - bazel build jflex:jflex_gui_bin
-        - bazel test --test_output=errors //jflex-maven-plugin/...
+# - java -jar downloads/google-java-format-1.6-all-deps.jar -n --set-exit-if-changed $(find jflex -name '*.java' | tr '\n' ' ')
+  - bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc build //cup/sample-project:gen_java
+  - bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc build //jflex:jflex_gui_bin
+  - bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc test //jflex/...
+  - bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc test //jflex-maven-plugin/...
+  - bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc shutdown
 
 env:
   matrix:
