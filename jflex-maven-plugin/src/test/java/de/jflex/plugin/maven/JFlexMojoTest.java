@@ -22,7 +22,7 @@ import org.junit.Test;
 public class JFlexMojoTest {
 
   @Rule public MojoRule mojoRule = new MojoRule();
-  @Rule public TestResources testResources = new TestResources("jflex-maven-plugin/src/test/projects", "target/test-projects");
+  @Rule public TestResources testResources = new TestResources("jflex-maven-plugin/src/test/projects", "jflex-maven-plugin/target/test-projects");
 
   /**
    * Configures an instance of the jflex mojo for the specified test case.
@@ -45,7 +45,7 @@ public class JFlexMojoTest {
   public void testTestResources() throws IOException {
     String actualResDir = testResources.getBasedir("single-file-test").getAbsolutePath();
     String expectedSuffix =
-        "/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
+        "/jflex-maven-plugin/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
     assertTrue(
         actualResDir + " ends with " + expectedSuffix, actualResDir.endsWith(expectedSuffix));
   }
