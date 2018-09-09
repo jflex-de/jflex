@@ -36,6 +36,11 @@ maven_jar(
 )
 
 maven_jar(
+    name = "org_apache_maven_maven_compat_3_5_4",
+    artifact = "org.apache.maven:maven-compat:jar:3.5.4",
+)
+
+maven_jar(
     name = "org_apache_maven_maven_core_3_5_4",
     artifact = "org.apache.maven:maven-core:jar:3.3.1",
 )
@@ -46,8 +51,33 @@ maven_jar(
 )
 
 maven_jar(
+    name = "org_apache_maven_maven_model_builder_3_5_4",
+    artifact = "org.apache.maven:maven-model-builder:jar:3.5.4",
+)
+
+maven_jar(
     name = "org_apache_maven_maven_plugin_api_3_5_4",
     artifact = "org.apache.maven:maven-plugin-api:jar:3.3.1",
+)
+
+maven_jar(
+    name = "org_apache_maven_maven_repository_metadata_3_5_4",
+    artifact = "org.apache.maven:maven-repository-metadata:jar:3.5.4",
+)
+
+maven_jar(
+    name = "org_apache_maven_maven_settings_3_5_4",
+    artifact = "org.apache.maven:maven-settings:jar:3.5.4",
+)
+
+maven_jar(
+    name = "org_apache_maven_maven_settings_builder_3_5_4",
+    artifact = "org.apache.maven:maven-settings-builder:jar:3.5.4",
+)
+
+maven_jar(
+    name = "org_apache_maven_plugin_testing_maven_plugin_testing_harness_3_3_0",
+    artifact = "org.apache.maven.plugin-testing:maven-plugin-testing-harness:jar:3.3.0",
 )
 
 maven_jar(
@@ -56,8 +86,13 @@ maven_jar(
 )
 
 maven_jar(
-    name = "org_apache_maven_plugin_testing_maven_plugin_testing_harness_3_3_0",
-    artifact = "org.apache.maven.plugin-testing:maven-plugin-testing-harness:jar:3.3.0",
+    name = "org_apache_maven_resolver_maven_resolver_impl_1_1_1",
+    artifact = "org.apache.maven.resolver:maven-resolver-impl:jar:1.1.1",
+)
+
+maven_jar(
+    name = "org_apache_maven_wagon_wagon_provider_api_3_1_0",
+    artifact = "org.apache.maven.wagon:wagon-provider-api:jar:3.1.0"
 )
 
 maven_jar(
