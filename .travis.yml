@@ -41,6 +41,7 @@ jobs:
       script:
         - bazel build //cup/sample-project:gen_java
         - bazel build jflex:jflex_gui_bin
+        - bazel test --test_output=errors //jflex-maven-plugin/...
 
 env:
   matrix:
