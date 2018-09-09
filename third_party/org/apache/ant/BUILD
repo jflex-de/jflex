@@ -4,5 +4,5 @@ licenses(["notice"])
 
 alias(
     name = "ant",
-    actual = "@org_apache_ant_ant//jar",
+    actual = "//third_party:org_apache_ant_ant",
 )

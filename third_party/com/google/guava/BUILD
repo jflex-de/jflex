@@ -4,5 +4,5 @@ licenses(["notice"])
 
 alias(
     name = "guava",
-    actual = "@com_google_guava_guava//jar",
+    actual = "//third_party:com_google_guava_guava",
 )

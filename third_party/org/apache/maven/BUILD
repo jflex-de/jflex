@@ -4,10 +4,10 @@ licenses(["notice"])
 
 alias(
     name = "maven_core",
-    actual = "@org_apache_maven_maven_core//jar",
+    actual = "//third_party:org_apache_maven_maven_core",
 )
 
 alias(
     name = "maven_plugin_api",
-    actual = "@org_apache_maven_maven_plugin_api//jar",
+    actual = "//third_party:org_apache_maven_maven_plugin_api",
 )

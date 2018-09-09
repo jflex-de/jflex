@@ -12,7 +12,10 @@ java_test(
     deps = [
         "//jflex-maven-plugin/src/main",
         "//third_party/org/apache/maven/testing:maven_plugin_testing_harness",
-        "//third_party/org/eclipse/aether",
-        "//third_party/org/eclipse/sisu/plexus",
     ],
+    runtime_deps = [
+        "//jflex-maven-plugin/src/test:res",
+        "//third_party:org_apache_maven_maven_compat",
+    ]
+    
 )

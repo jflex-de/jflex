@@ -4,5 +4,5 @@ licenses(["notice"])
 
 alias(
     name = "maven_plugin_testing_harness",
-    actual = "@org_apache_maven_plugin_testing_maven_plugin_testing_harness//jar"
+    actual = "//third_party:org_apache_maven_plugin_testing_maven_plugin_testing_harness",
 )
