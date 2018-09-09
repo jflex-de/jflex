@@ -13,6 +13,11 @@ alias(
 )
 
 alias(
+    name = "maven_model",
+    actual = "@org_apache_maven_maven_model_3_5_4//jar",
+)
+
+alias(
     name = "maven_plugin_api",
     actual = "@org_apache_maven_maven_plugin_api_3_5_4//jar",
 )

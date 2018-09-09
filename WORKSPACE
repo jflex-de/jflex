@@ -1,4 +1,19 @@
 maven_jar(
+    name = "aopalliance_aopalliance_jar_1_0",
+    artifact = "aopalliance:aopalliance:jar:1.0",
+)
+
+maven_jar(
+    name = "com_google_guava_guava_26_0_jre",
+    artifact = "com.google.guava:guava:jar:26.0-jre"
+)
+
+maven_jar(
+    name = "com_google_inject_guice_4_2_0",
+    artifact = "com.google.inject:guice:jar:4.2.0"
+)
+
+maven_jar(
     name = "commons_io_commons_io_2_6",
     artifact = "commons-io:commons-io:jar:2.6",
 )
@@ -17,27 +32,37 @@ maven_jar(
 
 maven_jar(
     name = "org_apache_maven_maven_artifact_3_5_4",
-    artifact = "org.apache.maven:maven-artifact:jar:3.5.4",
+    artifact = "org.apache.maven:maven-artifact:jar:3.3.1",
 )
 
 maven_jar(
     name = "org_apache_maven_maven_core_3_5_4",
-    artifact = "org.apache.maven:maven-core:jar:3.5.4",
+    artifact = "org.apache.maven:maven-core:jar:3.3.1",
+)
+
+maven_jar(
+    name = "org_apache_maven_maven_model_3_5_4",
+    artifact = "org.apache.maven:maven-model:jar:3.5.4",
 )
 
 maven_jar(
     name = "org_apache_maven_maven_plugin_api_3_5_4",
-    artifact = "org.apache.maven:maven-plugin-api:jar:3.5.4",
+    artifact = "org.apache.maven:maven-plugin-api:jar:3.3.1",
 )
 
 maven_jar(
     name = "org_apache_maven_plugin_tools_maven_plugin_annotations_3_5_2",
-    artifact = "org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.5.2",
+    artifact = "org.apache.maven.plugin-tools:maven-plugin-annotations:jar:3.3",
 )
 
 maven_jar(
     name = "org_apache_maven_plugin_testing_maven_plugin_testing_harness_3_3_0",
     artifact = "org.apache.maven.plugin-testing:maven-plugin-testing-harness:jar:3.3.0",
+)
+
+maven_jar(
+    name = "org_codehaus_plexus_plexus_component_annotations_1_7_1",
+    artifact = "org.codehaus.plexus:plexus-component-annotations:jar:1.7.1",
 )
 
 maven_jar(
@@ -68,4 +93,9 @@ maven_jar(
 maven_jar(
     name = "org_eclipse_sisu_org_eclipse_sisu_plexus_0_3_3",
     artifact = "org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.3.3",
+)
+
+maven_jar(
+    name = "org_eclipse_sisu_org_eclipse_sisu_inject_0_3_3",
+    artifact = "org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.3.3",
 )
