@@ -383,7 +383,7 @@ def generated_maven_jars():
   # pom.xml got requested version
   # de.jflex:jflex-maven-plugin:maven-plugin:1.6.1
   native.maven_jar(
-      name = "de_jflex_jflex",
+      name = "de_jflex_jflex_1_6_1",
       artifact = "de.jflex:jflex:1.6.1",
       repository = "https://jcenter.bintray.com/",
       sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
@@ -869,7 +869,7 @@ def generated_java_libraries():
   native.java_library(
       name = "de_jflex_jflex",
       visibility = ["//visibility:public"],
-      exports = ["@de_jflex_jflex//jar"],
+      exports = ["@de_jflex_jflex_1_6_1//jar"],
       runtime_deps = [
           ":org_apache_ant_ant",
           ":org_apache_ant_ant_launcher",
