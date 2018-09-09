@@ -4,5 +4,5 @@ licenses(["notice"])
 
 alias(
     name = "commons_io",
-    actual = "@commons_io_commons_io_2_6//jar",
+    actual = "@commons_io_commons_io//jar",
 )
