@@ -9,9 +9,6 @@
 
 package jflex.unicode;
 
-import jflex.unicode.IntCharSet;
-import jflex.unicode.Interval;
-import jflex.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 
 public class UnicodePropertiesTest extends TestCase {

@@ -12,7 +12,6 @@ package jflex.anttask;
 import java.io.File;
 import java.io.IOException;
 import jflex.Options;
-import jflex.anttask.JFlexTask;
 import junit.framework.TestCase;
 
 /**
