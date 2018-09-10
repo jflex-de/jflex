@@ -1,5 +1,7 @@
 load("//bazel:jflex_rules.bzl", "jflex_old")
 
+exports_files(["skeleton.nested"])
+
 jflex_old(
     name = "gen_scanner",
     srcs = ["LexScan.flex"],

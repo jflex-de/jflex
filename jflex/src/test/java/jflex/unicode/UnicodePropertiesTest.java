@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.unicode;
 
 import jflex.unicode.IntCharSet;
 import jflex.unicode.Interval;

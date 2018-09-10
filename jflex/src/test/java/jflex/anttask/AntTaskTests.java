@@ -7,10 +7,11 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex;
+package jflex.anttask;
 
 import java.io.File;
 import java.io.IOException;
+import jflex.Options;
 import jflex.anttask.JFlexTask;
 import junit.framework.TestCase;
 
@@ -23,7 +24,7 @@ import junit.framework.TestCase;
 public class AntTaskTests extends TestCase {
 
   private JFlexTask task;
-  private final String DIR_RESOURCES = "src/test/resources";
+  private final String DIR_RESOURCES = "jflex/src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
   /**
@@ -107,7 +108,7 @@ public class AntTaskTests extends TestCase {
 
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
-    task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
+    task.setSkeleton(new File("jflex/src/main/jflex/skeleton.nested"));
     assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
 
