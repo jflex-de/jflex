@@ -53,6 +53,7 @@ cache:
   timeout: 86400  # 24 hours
   directories:
   - downloads
+  - $HOME/.cache
 
 # Build the maven site
 #before_deploy: ./scripts/before-deploy.sh
