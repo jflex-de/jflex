@@ -1,0 +1,3 @@
+build --spawn_strategy=remote
+build --strategy=Javac=remote
+build --genrule_strategy=remote
