@@ -1,0 +1,7 @@
+container:
+  image: cirrusci/bazel:latest
+task:
+  build_script:
+  - bazel --bazelrc=.cirrus.bazelrc --remote_rest_cache=http://$CIRRUS_HTTP_CACHE_HOST build //..
+  test_script:
+  - bazel --bazelrc=.cirrus.bazelrc --remote_rest_cache=http://$CIRRUS_HTTP_CACHE_HOST test //...
