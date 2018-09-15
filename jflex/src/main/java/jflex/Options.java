@@ -10,6 +10,7 @@
 package jflex;
 
 import java.io.File;
+import java.nio.charset.Charset;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
@@ -46,6 +47,8 @@ public class Options {
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
   public static boolean legacy_dot;
+  /** The encoding to use for input files. */
+  public static Charset encoding;
 
   static {
     setDefaults();
@@ -88,6 +91,16 @@ public class Options {
     directory = d;
   }
 
+  /** Set encoding for input files, and check availability of encoding on this JVM. */
+  public static void setEncoding(String encodingName) {
+    if (Charset.isSupported(encodingName)) {
+      encoding = Charset.forName(encodingName);
+    } else {
+      Out.error(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName);
+      throw new GeneratorException();
+    }
+  }
+
   /** Sets all options back to default values. */
   public static void setDefaults() {
     directory = null;
@@ -101,6 +114,7 @@ public class Options {
     dot = false;
     dump = false;
     legacy_dot = false;
+    encoding = Charset.defaultCharset();
     Skeleton.readDefault();
   }
 
