@@ -2,6 +2,7 @@
 branches:
   only:
   - master
+  - aggregated-java-sources
 
 language: java
 
