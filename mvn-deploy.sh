@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# mvn-deploy
+# mvn-deploy.sh
 # 
 # This script deploys the current working copy to the Sonatype OSS Maven
 # staging repository.
