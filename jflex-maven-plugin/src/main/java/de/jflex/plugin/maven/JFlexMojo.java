@@ -10,7 +10,7 @@ package de.jflex.plugin.maven;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -281,20 +281,20 @@ public class JFlexMojo extends AbstractMojo {
     return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
   }
 
-  private class ExtensionPredicate implements Predicate<File> {
-    final ImmutableList<String> extensions;
+  static class ExtensionPredicate implements Predicate<File> {
+    final ImmutableSet<String> extensions;
 
-    ExtensionPredicate(ImmutableList<String> extensions) {
+    ExtensionPredicate(ImmutableSet<String> extensions) {
       this.extensions = extensions;
     }
 
     ExtensionPredicate(String... extensions) {
-      this(ImmutableList.copyOf(extensions));
+      this(ImmutableSet.copyOf(extensions));
     }
 
     @Override
     public boolean apply(File file) {
-      return false;
+      return extensions.contains(Files.getFileExtension(file.getName()));
     }
   }
 }
