@@ -2,6 +2,7 @@
 branches:
   only:
   - master
+  - aggregated-java-sources
 
 language: java
 
@@ -17,6 +18,9 @@ before_install: ./scripts/clean.sh
 install: true
 
 script: ./scripts/run-tests.sh
+
+after_success:
+  - ./scripts/desploy-source-code.sh
 
 env:
   matrix:
