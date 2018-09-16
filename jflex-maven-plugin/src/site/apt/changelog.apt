@@ -11,6 +11,8 @@ Latest version
    * Requires Java 7
 
    * Requires Maven 3
+   
+   * New option 'enconding' to set lexer spec encoding
 
 * Version 1.6.1
 

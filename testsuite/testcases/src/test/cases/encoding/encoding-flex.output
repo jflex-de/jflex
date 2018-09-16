@@ -1,0 +1,6 @@
+Reading "src/test/cases/encoding/encoding.flex"
+Constructing NFA : 8 states in NFA
+Converting NFA to DFA : 
+...
+5 states before minimization, 4 states in minimized DFA
+Writing code to "src/test/cases/encoding/Encoding.java"
