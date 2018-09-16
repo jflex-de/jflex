@@ -1,7 +1,14 @@
 				    
 package java_cup.runtime;
 
+import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
+
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+
+
 
 /** This class implements a skeleton table driven LR parser.  In general,
  *  LR parsers are a form of bottom up shift-reduce parsers.  Shift-reduce
@@ -118,14 +125,24 @@ public abstract class lr_parser {
     /*-----------------------------------------------------------*/
 
     /** 
-     * Simple constructor. 
+     * Simple constructor.  
+     * deprecated; The use of a SymbolFactory, e.g. Complexsymbolfactory is advised  
      */
+	@Deprecated
     public lr_parser() {
+        this(new DefaultSymbolFactory());
     }
-    
     /** 
-     * Constructor that sets the default scanner. [CSA/davidm] 
+     * Simple constructor.  
      */
+    public lr_parser(SymbolFactory fac) {
+        symbolFactory = fac;
+    }
+    /** 
+     * Constructor that sets the default scanner. [CSA/davidm]
+     * deprecated; The use of a SymbolFactory, e.g. Complexsymbolfactory is advised 
+     */
+    @Deprecated
     public lr_parser(Scanner s) {
         this(s,new DefaultSymbolFactory()); // TUM 20060327 old cup v10 Symbols as default
     }
@@ -137,7 +154,7 @@ public abstract class lr_parser {
         symbolFactory = symfac;
         setScanner(s);
     }
-    public SymbolFactory symbolFactory;// = new DefaultSymbolFactory();
+    public SymbolFactory symbolFactory;
     /**
      * Whenever creation of a new Symbol is necessary, one should use this factory.
      */
@@ -262,7 +279,7 @@ public abstract class lr_parser {
   /*. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .*/
 
   /** The parse stack itself. */
-  protected Stack<Symbol> stack = new Stack<Symbol>();
+  protected Stack stack = new Stack();
 
   /*. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .*/
 
@@ -312,7 +329,7 @@ public abstract class lr_parser {
   public abstract Symbol do_action(
     int       act_num, 
     lr_parser parser, 
-    Stack<Symbol>     stack, 
+    Stack     stack, 
     int       top) 
     throws java.lang.Exception;
 
@@ -388,13 +405,17 @@ public abstract class lr_parser {
    */
   public void report_error(String message, Object info)
     {
-      System.err.print(message);
+      if (info instanceof ComplexSymbol){
+    	  ComplexSymbol cs = (ComplexSymbol)info;
+    	  System.err.println(message+" for input symbol \""+cs.getName()+"\" spanning from "+cs.getLeft() +" to "+cs.getRight());
+    	  return;
+      }
+
+	  System.err.print(message);
       System.err.flush();
       if (info instanceof Symbol)
-	if (((Symbol)info).left != -1)
-	System.err.println(" at character " + ((Symbol)info).left + 
-			   " of input");
-	else System.err.println("");
+    	  if (((Symbol)info).left != -1)
+    		  System.err.println(" at character " + ((Symbol)info).left + " of input");
       else System.err.println("");
     }
 
@@ -409,7 +430,101 @@ public abstract class lr_parser {
   public void syntax_error(Symbol cur_token)
     {
       report_error("Syntax error", cur_token);
+      report_expected_token_ids();
     }
+  /**
+   * We need this Method in order to resolve names for symbol IDs
+   * @return the class that keeps all the symbols
+   */
+  public Class getSymbolContainer() {
+	  return null;
+  };
+  protected void report_expected_token_ids(){
+	  List<Integer> ids = expected_token_ids();
+	  LinkedList<String> list = new LinkedList<String>();
+	  for (Integer expected : ids){
+		  list.add(symbl_name_from_id(expected));
+	  }
+	  System.out.println("instead expected token classes are "+list);
+  }
+  /**
+   * Translates numerical symbol ids to the (non)terminal names from the spec
+   * @param internal id for (non)terminal
+   * @return (non)terminal name as string
+   */
+  public String symbl_name_from_id(int id){
+	  Field[] fields = getSymbolContainer().getFields();
+	  for(Field f : fields){
+		  try {
+			if (f.getInt(null)==id)
+			  return f.getName();
+		} catch (IllegalArgumentException e) {
+			//e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			//e.printStackTrace();
+		}
+	  }
+	  return "invalid symbol id";
+  }
+  /**
+   * Return the expected symbol during this state of state of the parser
+   * @return list of integer (non)temrinal ids
+   */
+  public List<Integer> expected_token_ids(){
+	  List<Integer> ret = new LinkedList<Integer>();
+	  int parse_state = ((Symbol)stack.peek()).parse_state ;
+	  short[] row = action_tab[parse_state];
+	  for (int i = 0; i<row.length; i+=2){
+		  if (row[i]==-1) continue;
+		  if (!validate_expected_symbol(row[i])) continue;
+		  ret.add(new Integer(row[i]));
+	  }
+	  return ret;
+  }
+  private boolean validate_expected_symbol(int id){
+	  short lhs,rhs_size;
+	  int act;
+	  try {
+		  virtual_parse_stack vstack = new virtual_parse_stack(stack);
+		  /* parse until we fail or get past the lookahead input */
+		  for (;;)
+		  {
+			  /* look up the action from the current state (on top of stack) */
+			  act = get_action(vstack.top(), id);
+
+			  /* if its an error, we fail */
+			  if (act == 0) return false;
+
+			  /* > 0 encodes a shift */
+			  if (act > 0)
+			  {
+				  /* push the new state on the stack */
+				  vstack.push(act-1);
+
+				  /* advance simulated input, if we run off the end, we are done */
+				  if (!advance_lookahead()) return true;
+			  }
+			  /* < 0 encodes a reduce */
+			  else
+			  {
+				  /* if this is a reduce with the start production we are done */
+				  if ((-act)-1 == start_production())  return true;
+
+				  /* get the lhs Symbol and the rhs size */
+				  lhs = production_tab[(-act)-1][0];
+				  rhs_size = production_tab[(-act)-1][1];
+				  /* pop handle off the stack */
+				  for (int i = 0; i < rhs_size; i++) vstack.pop();
+
+				  vstack.push(get_reduce(vstack.top(), lhs));
+			  }
+		  }
+
+	  } catch (Exception e) {
+		  e.printStackTrace();
+	  }
+	  return true;
+  }
 
   /*. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .*/
 
@@ -563,7 +678,7 @@ public abstract class lr_parser {
 	  /* current state is always on the top of the stack */
 
 	  /* look up action out of the current state with the current input */
-	  act = get_action(stack.peek().parse_state, cur_token.sym);
+	  act = get_action(((Symbol)stack.peek()).parse_state, cur_token.sym);
 
 	  /* decode the action -- > 0 encodes shift */
 	  if (act > 0)
@@ -595,7 +710,7 @@ public abstract class lr_parser {
 		}
 	      
 	      /* look up the state to go to from the one popped back to */
-	      act = get_reduce(stack.peek().parse_state, lhs_sym_num);
+	      act = get_reduce(((Symbol)stack.peek()).parse_state, lhs_sym_num);
 
 	      /* shift to that state */
 	      lhs_sym.parse_state = act;
@@ -618,7 +733,7 @@ public abstract class lr_parser {
 		  /* just in case that wasn't fatal enough, end parse */
 		  done_parsing();
 		} else {
-		  lhs_sym = stack.peek();
+		  lhs_sym = (Symbol)stack.peek();
 		}
 	    }
 	}
@@ -653,8 +768,8 @@ public abstract class lr_parser {
       /* dump the stack */
       for (int i=0; i<stack.size(); i++)
 	{
-	  debug_message("Symbol: " + stack.elementAt(i).sym +
-			" State: " + stack.elementAt(i).parse_state);
+	  debug_message("Symbol: " + ((Symbol)stack.elementAt(i)).sym +
+			" State: " + ((Symbol)stack.elementAt(i)).parse_state);
 	}
       debug_message("==========================================");
     }
@@ -690,13 +805,13 @@ public abstract class lr_parser {
   /** Do debug output for stack state. [CSA]
    */
   public void debug_stack() {
-      StringBuilder sb=new StringBuilder("## STACK:");
+      StringBuffer sb=new StringBuffer("## STACK:");
       for (int i=0; i<stack.size(); i++) {
-	  Symbol s = stack.elementAt(i);
+	  Symbol s = (Symbol) stack.elementAt(i);
 	  sb.append(" <state "+s.parse_state+", sym "+s.sym+">");
 	  if ((i%3)==2 || (i==(stack.size()-1))) {
 	      debug_message(sb.toString());
-	      sb = new StringBuilder("         ");
+	      sb = new StringBuffer("         ");
 	  }
       }
   }
@@ -754,7 +869,7 @@ public abstract class lr_parser {
 	  //debug_stack();
 
 	  /* look up action out of the current state with the current input */
-	  act = get_action(stack.peek().parse_state, cur_token.sym);
+	  act = get_action(((Symbol)stack.peek()).parse_state, cur_token.sym);
 
 	  /* decode the action -- > 0 encodes shift */
 	  if (act > 0)
@@ -790,9 +905,9 @@ public abstract class lr_parser {
 		}
 	      
 	      /* look up the state to go to from the one popped back to */
-	      act = get_reduce(stack.peek().parse_state, lhs_sym_num);
+	      act = get_reduce(((Symbol)stack.peek()).parse_state, lhs_sym_num);
 	      debug_message("# Reduce rule: top state " +
-			     stack.peek().parse_state +
+			     ((Symbol)stack.peek()).parse_state +
 			     ", lhs sym " + lhs_sym_num + " -> state " + act); 
 
 	      /* shift to that state */
@@ -818,7 +933,7 @@ public abstract class lr_parser {
 		  /* just in case that wasn't fatal enough, end parse */
 		  done_parsing();
 		} else {
-		  lhs_sym = stack.peek();
+		  lhs_sym = (Symbol)stack.peek();
 		}
 	    }
 	}
@@ -913,7 +1028,7 @@ public abstract class lr_parser {
   protected boolean shift_under_error()
     {
       /* is there a shift under error Symbol */
-      return get_action(stack.peek().parse_state, error_sym()) > 0;
+      return get_action(((Symbol)stack.peek()).parse_state, error_sym()) > 0;
     }
 
   /*. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .*/
@@ -933,7 +1048,7 @@ public abstract class lr_parser {
       if (debug) debug_message("# Finding recovery state on stack");
 
       /* Remember the right-position of the top symbol on the stack */
-      Symbol right = stack.peek();// TUM 20060327 removed .right	
+      Symbol right = ((Symbol)stack.peek());// TUM 20060327 removed .right	
       Symbol left  = right;// TUM 20060327 removed .left	
 
       /* pop down until we can shift under error Symbol */
@@ -942,8 +1057,8 @@ public abstract class lr_parser {
 	  /* pop the stack */
 	  if (debug) 
 	    debug_message("# Pop stack by one, state was # " +
-	                  stack.peek().parse_state);
-          left = stack.pop(); // TUM 20060327 removed .left	
+	                  ((Symbol)stack.peek()).parse_state);
+          left = ((Symbol)stack.pop()); // TUM 20060327 removed .left	
 	  tos--;
 
 	  /* if we have hit bottom, we fail */
@@ -955,11 +1070,11 @@ public abstract class lr_parser {
 	}
 
       /* state on top of the stack can shift under error, find the shift */
-      act = get_action(stack.peek().parse_state, error_sym());
+      act = get_action(((Symbol)stack.peek()).parse_state, error_sym());
       if (debug) 
 	{
 	  debug_message("# Recover state found (#" + 
-			stack.peek().parse_state + ")");
+			((Symbol)stack.peek()).parse_state + ")");
 	  debug_message("# Shifting on error to state #" + (act-1));
 	}
 
@@ -1146,7 +1261,7 @@ public abstract class lr_parser {
 	  debug_message("# Reparsing saved input with actions");
 	  debug_message("# Current Symbol is #" + cur_err_token().sym);
 	  debug_message("# Current state is #" + 
-			stack.peek().parse_state);
+			((Symbol)stack.peek()).parse_state);
 	}
 
       /* continue until we accept or have read all lookahead input */
@@ -1156,7 +1271,7 @@ public abstract class lr_parser {
 
 	  /* look up action out of the current state with the current input */
 	  act = 
-	    get_action(stack.peek().parse_state, cur_err_token().sym);
+	    get_action(((Symbol)stack.peek()).parse_state, cur_err_token().sym);
 
 	  /* decode the action -- > 0 encodes shift */
 	  if (act > 0)
@@ -1206,7 +1321,7 @@ public abstract class lr_parser {
 		}
 	      
 	      /* look up the state to go to from the one popped back to */
-	      act = get_reduce(stack.peek().parse_state, lhs_sym_num);
+	      act = get_reduce(((Symbol)stack.peek()).parse_state, lhs_sym_num);
 
 	      /* shift to that state */
 	      lhs_sym.parse_state = act;
@@ -1235,7 +1350,7 @@ public abstract class lr_parser {
   protected static short[][] unpackFromStrings(String[] sa)
     {
       // Concatanate initialization strings.
-      StringBuilder sb = new StringBuilder(sa[0]);
+      StringBuffer sb = new StringBuffer(sa[0]);
       for (int i=1; i<sa.length; i++)
 	sb.append(sa[i]);
       int n=0; // location in initialization string

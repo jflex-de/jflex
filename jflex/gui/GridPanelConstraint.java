@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.6.1                                                             *
+ * JFlex 1.7.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -14,20 +14,29 @@ import java.awt.Component;
  * Constraints for layout elements of GridLayout
  *
  * @author Gerwin Klein
- * @version JFlex 1.6.1
+ * @version JFlex 1.7.0-SNAPSHOT
  */
 public class GridPanelConstraint {
 
   int x, y, width, height, handle;
   Component component;
 
-  public GridPanelConstraint(int x, int y, int width, int height, 
-                             int handle, Component component) {
-    this.x         = x;
-    this.y         = y;
-    this.width     = width;
-    this.height    = height;
-    this.handle    = handle;
+  /**
+   * Constructor for GridPanelConstraint.
+   *
+   * @param x horizontal position.
+   * @param y vertical position.
+   * @param width width in pixels.
+   * @param height height in pixels.
+   * @param handle a int.
+   * @param component a {@link java.awt.Component} object.
+   */
+  public GridPanelConstraint(int x, int y, int width, int height, int handle, Component component) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.handle = handle;
     this.component = component;
   }
 }
