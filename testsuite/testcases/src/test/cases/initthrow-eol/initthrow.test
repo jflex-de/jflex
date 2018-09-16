@@ -1,6 +1,0 @@
-name: initthrow
-
-description:
-bug #510010 "single-line %initthrow option fails" (for extra space before eol)
-
-jflex: --noinputstreamctor

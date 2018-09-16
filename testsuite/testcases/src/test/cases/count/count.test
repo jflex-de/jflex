@@ -1,6 +1,0 @@
-name: count
-
-description:
-test line/column/char counting
-
-jflex: -q --noinputstreamctor

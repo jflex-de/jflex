@@ -1,4 +1,0 @@
-
-Error in file "src\test\cases\semcheck\semcheck.flex" (line 11): 
-Lookahead expression must have match with at least length 1.
-!"foo" / "bar"  {  }

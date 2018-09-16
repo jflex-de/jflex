@@ -1,6 +1,0 @@
-name: manual
-description:
-the introductory example from the manual
-
-jflex: --noinputstreamctor
-

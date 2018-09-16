@@ -1,6 +1,0 @@
-name: eofclose
-description:
-test eofclose directive
-
-jflex: -q --noinputstreamctor
-

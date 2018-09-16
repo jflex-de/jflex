@@ -1,6 +1,0 @@
-name: simple
-
-description:
-the example 'simple' from the JFlex distribution
-
-jflex: -q --noinputstreamctor

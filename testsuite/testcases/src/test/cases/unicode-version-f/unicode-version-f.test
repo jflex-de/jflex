@@ -1,9 +1,0 @@
-name: unicode-version-f
-
-description:
-Specifies invalid unicode version with %unicode directive
-
-jflex: --noinputstreamctor
-
-jflex-fail: true
-
