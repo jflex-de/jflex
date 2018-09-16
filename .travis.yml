@@ -1,6 +1,6 @@
 script:
 - ./compile.sh
-- java jflex.Main -- -version
+- java jflex.Main --version
 
 language: java
 
