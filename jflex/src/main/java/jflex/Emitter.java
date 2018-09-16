@@ -278,6 +278,7 @@ public final class Emitter {
       print("    System.out.println( ");
       if (scanner.lineCount) print("\"line:\" + (yyline+1) + ");
       if (scanner.columnCount) print("\" col:\" + (yycolumn+1) + ");
+      if (scanner.charCount) print("\"char:\" + yychar + ");
       println("\" --\"+ yytext() + \"--\" + getTokenName(s.sym) + \"--\");");
       println("    return s;");
       println("  }");
@@ -1164,6 +1165,7 @@ public final class Emitter {
         print("            System.out.println(");
         if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
         if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        if (scanner.charCount) print("\"char: \"+yychar+\" \"+");
         println("\"match: --\"+zzToPrintable(yytext())+\"--\");");
         print("            System.out.println(\"action [" + action.priority + "] { ");
         print(escapify(action.content));
@@ -1199,6 +1201,7 @@ public final class Emitter {
             print("              System.out.println(");
             if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
             if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+            if (scanner.charCount) print("\"char:\" + yychar + ");
             println("\"match: <<EOF>>\");");
             print("              System.out.println(\"action [" + action.priority + "] { ");
             print(escapify(action.content));
@@ -1221,6 +1224,7 @@ public final class Emitter {
         print("                System.out.println(");
         if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
         if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        if (scanner.charCount) print("\"char:\" + yychar + ");
         println("\"match: <<EOF>>\");");
         print("                System.out.println(\"action [" + defaultAction.priority + "] { ");
         print(escapify(defaultAction.content));
