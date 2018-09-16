@@ -19,6 +19,9 @@ install: true
 
 script: ./scripts/run-tests.sh
 
+after_success:
+  - ./scripts/desploy-source-code.sh
+
 env:
   matrix:
   - TEST_SUITE=ant
