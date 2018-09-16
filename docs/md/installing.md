@@ -112,6 +112,10 @@ JFlex knows about the following options:
 `-d <directory>`\
 writes the generated file to the directory `<directory>`
 
+`--encoding <name>`\
+uses the character encoding `<name>` (e.g. `utf-8`) to read lexer
+specifications.
+
 `--skel <file>`\
 uses external skeleton `<file>`. This is mainly for JFlex maintenance
 and special low level customisations. Use only when you know what you
