@@ -74,7 +74,7 @@
   `"\r\n" | [\n\r\u000B\u000C\u0085\u2028\u2029]`.
 - new option --noinputstreamctor to not include an InputStream
   constructor in the generated scanner.
-- %include <file> can now be used in the rules section (#117)
+- `%include <file>` can now be used in the rules section (#117)
 - yychar and zzAtBOL should be reset for nested input streams (#107 & #108 )
 - fixed bug #109 (could not match input for empty string matches.)
 - fixed bug #112 & #119 (properly update zzFin when reallocating zzBuffer)
