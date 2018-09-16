@@ -1,8 +1,14 @@
-## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10)
+## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 16, 2018)
 - Unicode 8.0 and 9.0 are supported (#209)
 - updated to most recent version of CUP 11b (#175)
 - JFlex build and runtime now depend on JDK 1.7+
+- Maven build now depends on >= 3.2.2
+- Ant build now depends on >= 1.9.7 (#294)
 - Option `--noinputstreamctor` removed (#195)
+- documentation improvements (#152, #187, #215, #290)
+- add an `--encoding` option to specify the lexer spec encoding (#164)
+- make jflex start script robust for other locales (#251)
+- report character position when %debug and %char are present (#207)
 
 ## [JFlex 1.6.1](https://github.com/jflex-de/jflex/milestone/9) (March 16, 2015)
 - JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
