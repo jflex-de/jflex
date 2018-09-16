@@ -1,0 +1,10 @@
+script: ./compile.sh
+
+language: java
+
+jdk:
+- openjdk7
+
+cache:
+  directories:
+  - lib
