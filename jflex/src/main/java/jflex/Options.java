@@ -1,6 +1,8 @@
 package jflex;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 public class Options {
 
@@ -18,6 +20,7 @@ public class Options {
   private final File skeleton;
   private final boolean timing;
   private final boolean unusedWarnings;
+  private final Charset encoding;
   private final boolean verbose;
 
   /** Whether to back-up modified files. */
@@ -79,6 +82,11 @@ public class Options {
     return unusedWarnings;
   }
 
+  /** The encoding to use for input files. */
+  public Charset encoding() {
+    return encoding;
+  }
+
   /** Whether to be verbose. If false, only error/warning output will be generated. */
   public boolean verbose() {
     return verbose;
@@ -115,6 +123,7 @@ public class Options {
       File skeleton,
       boolean timing,
       boolean unusedWarnings,
+      Charset encoding,
       boolean verbose) {
     this.backup = backup;
     this.legacyDot = legacyDot;
@@ -127,6 +136,7 @@ public class Options {
     this.skeleton = skeleton;
     this.timing = timing;
     this.unusedWarnings = unusedWarnings;
+    this.encoding = encoding;
     this.verbose = verbose;
   }
 
@@ -221,6 +231,8 @@ public class Options {
     h ^= this.unusedWarnings ? 1231 : 1237;
     h *= 1000003;
     h ^= this.verbose ? 1231 : 1237;
+    h *= 1000003;
+    h ^= this.encoding.hashCode();
     return h;
   }
 
@@ -241,6 +253,7 @@ public class Options {
     private File skeleton;
     private Boolean timing;
     private Boolean unusedWarnings;
+    private Charset encoding;
     private Boolean verbose;
 
     Builder() {}
@@ -321,6 +334,15 @@ public class Options {
       return this;
     }
 
+    public Options.Builder setEncoding(Charset encoding) {
+      this.encoding = encoding;
+      return this;
+    }
+
+    public void setEncoding(String encodingName) throws UnsupportedCharsetException {
+      setEncoding(Charset.forName(encodingName));
+    }
+
     public Options.Builder setVerbose(boolean verbose) {
       this.verbose = verbose;
       return this;
@@ -355,6 +377,9 @@ public class Options {
       if (this.unusedWarnings == null) {
         missing += " unusedWarnings";
       }
+      if (this.encoding == null) {
+        missing += " encoding";
+      }
       if (this.verbose == null) {
         missing += " verbose";
       }
@@ -373,6 +398,7 @@ public class Options {
           this.skeleton,
           this.timing,
           this.unusedWarnings,
+          this.encoding,
           this.verbose);
     }
   }

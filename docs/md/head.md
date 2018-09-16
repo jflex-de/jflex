@@ -8,7 +8,7 @@ bibliography: manual.bib
 
 The Fast Lexical Analyser Generator
 
-Copyright © 1998–2015 by 
+Copyright © 1998–2018 by 
 [Gerwin Klein](http://www.doclsf.de), Steve Rowe, and 
 [Régis Décamps](http://regis.decamps.info/).
 

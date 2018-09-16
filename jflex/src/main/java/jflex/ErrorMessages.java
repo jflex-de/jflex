@@ -230,4 +230,8 @@ public class ErrorMessages {
       new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
   /** Constant <code>CODEPOINT_OUT_OF_RANGE</code> */
   public static ErrorMessages CODEPOINT_OUT_OF_RANGE = new ErrorMessages("CODEPOINT_OUT_OF_RANGE");
+  /** Constant <code>NO_ENCODING</code> */
+  public static ErrorMessages NO_ENCODING = new ErrorMessages("NO_ENCODING");
+  /** Constant <code>CHARSET_NOT_SUPPORTED</code> */
+  public static ErrorMessages CHARSET_NOT_SUPPORTED = new ErrorMessages("CHARSET_NOT_SUPPORTED");
 }

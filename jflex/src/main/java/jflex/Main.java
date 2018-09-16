@@ -11,6 +11,7 @@ package jflex;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,19 @@ public class Main {
         }
 
         options.setSkeleton(new File(argv[i]));
+        continue;
+      }
+
+      if (argv[i].equals("--encoding")) {
+        if (++i >= argv.length) {
+          throw new GeneratorException(ErrorMessages.NO_ENCODING);
+        }
+        String encodingName = argv[i];
+        try {
+          options.setEncoding(encodingName);
+        } catch (UnsupportedCharsetException e) {
+          System.out.println(ErrorMessages.get(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName));
+        }
         continue;
       }
 

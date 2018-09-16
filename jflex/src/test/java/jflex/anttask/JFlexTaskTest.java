@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import jflex.Options;
 import jflex.Skeleton;
@@ -172,6 +173,15 @@ public class JFlexTaskTest extends TestCase {
     assertFalse(getOptions().legacyDot());
     task.setLegacyDot(true);
     assertTrue(getOptions().legacyDot());
+  }
+
+  public void testSetEncoding() {
+    Charset defaultSet = Charset.defaultCharset();
+    String name = "utf-8";
+    Charset charset = Charset.forName(name);
+    assertTrue(getOptions().encoding().equals(defaultSet));
+    task.setEncoding(name);
+    assertTrue(getOptions().encoding().equals(charset));
   }
 
   private Options getOptions() {

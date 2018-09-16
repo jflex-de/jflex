@@ -1,108 +1,108 @@
-line: 1 match: --class--
+line: 1 char: 0 match: --class--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : class
 index : 43
 line  : 0
 cBeg. : 0
 cEnd. : 5
-line: 1 match: -- --
+line: 1 char: 5 match: -- --
 action [53] {  }
-line: 1 match: --Utility--
+line: 1 char: 6 match: --Utility--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : Utility
 index : 43
 line  : 0
 cBeg. : 6
 cEnd. : 13
-line: 1 match: -- --
+line: 1 char: 13 match: -- --
 action [53] {  }
-line: 1 match: --{--
+line: 1 char: 14 match: --{--
 action [36] { return (new Yytoken(7,yytext(),yyline,yychar,yychar+1)); }
 Text   : {
 index : 7
 line  : 0
 cBeg. : 14
 cEnd. : 15
-line: 1 match: --\u000A  \u000A  --
+line: 1 char: 15 match: --\u000A  \u000A  --
 action [53] {  }
-line: 3 match: --private--
+line: 3 char: 21 match: --private--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : private
 index : 43
 line  : 2
 cBeg. : 21
 cEnd. : 28
-line: 3 match: -- --
+line: 3 char: 28 match: -- --
 action [53] {  }
-line: 3 match: --static--
+line: 3 char: 29 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 2
 cBeg. : 29
 cEnd. : 35
-line: 3 match: -- --
+line: 3 char: 35 match: -- --
 action [53] {  }
-line: 3 match: --final--
+line: 3 char: 36 match: --final--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : final
 index : 43
 line  : 2
 cBeg. : 36
 cEnd. : 41
-line: 3 match: -- --
+line: 3 char: 41 match: -- --
 action [53] {  }
-line: 3 match: --String--
+line: 3 char: 42 match: --String--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : String
 index : 43
 line  : 2
 cBeg. : 42
 cEnd. : 48
-line: 3 match: -- --
+line: 3 char: 48 match: -- --
 action [53] {  }
-line: 3 match: --errorMsg--
+line: 3 char: 49 match: --errorMsg--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : errorMsg
 index : 43
 line  : 2
 cBeg. : 49
 cEnd. : 57
-line: 3 match: --[--
+line: 3 char: 57 match: --[--
 action [34] { return (new Yytoken(5,yytext(),yyline,yychar,yychar+1)); }
 Text   : [
 index : 5
 line  : 2
 cBeg. : 57
 cEnd. : 58
-line: 3 match: --]--
+line: 3 char: 58 match: --]--
 action [35] { return (new Yytoken(6,yytext(),yyline,yychar,yychar+1)); }
 Text   : ]
 index : 6
 line  : 2
 cBeg. : 58
 cEnd. : 59
-line: 3 match: -- --
+line: 3 char: 59 match: -- --
 action [53] {  }
-line: 3 match: --=--
+line: 3 char: 60 match: --=--
 action [43] { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1)); }
 Text   : =
 index : 14
 line  : 2
 cBeg. : 60
 cEnd. : 61
-line: 3 match: -- --
+line: 3 char: 61 match: -- --
 action [53] {  }
-line: 3 match: --{--
+line: 3 char: 62 match: --{--
 action [36] { return (new Yytoken(7,yytext(),yyline,yychar,yychar+1)); }
 Text   : {
 index : 7
 line  : 2
 cBeg. : 62
 cEnd. : 63
-line: 3 match: --\u000A    --
+line: 3 char: 63 match: --\u000A    --
 action [53] {  }
-line: 4 match: --"Error: Unmatched end-of-comment punctuation."--
+line: 4 char: 68 match: --"Error: Unmatched end-of-comment punctuation."--
 action [57] { String str =  yytext().substring(1,yylength()-1);
     return (new Yytoken(40,str,yyline,yychar,yychar+yylength())); }
 Text   : Error: Unmatched end-of-comment punctuation.
@@ -110,16 +110,16 @@ index : 40
 line  : 3
 cBeg. : 68
 cEnd. : 114
-line: 4 match: --,--
+line: 4 char: 114 match: --,--
 action [29] { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1)); }
 Text   : ,
 index : 0
 line  : 3
 cBeg. : 114
 cEnd. : 115
-line: 4 match: --\u000A    --
+line: 4 char: 115 match: --\u000A    --
 action [53] {  }
-line: 5 match: --"Error: Unmatched start-of-comment punctuation."--
+line: 5 char: 120 match: --"Error: Unmatched start-of-comment punctuation."--
 action [57] { String str =  yytext().substring(1,yylength()-1);
     return (new Yytoken(40,str,yyline,yychar,yychar+yylength())); }
 Text   : Error: Unmatched start-of-comment punctuation.
@@ -127,16 +127,16 @@ index : 40
 line  : 4
 cBeg. : 120
 cEnd. : 168
-line: 5 match: --,--
+line: 5 char: 168 match: --,--
 action [29] { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1)); }
 Text   : ,
 index : 0
 line  : 4
 cBeg. : 168
 cEnd. : 169
-line: 5 match: --\u000A    --
+line: 5 char: 169 match: --\u000A    --
 action [53] {  }
-line: 6 match: --"Error: Unclosed string."--
+line: 6 char: 174 match: --"Error: Unclosed string."--
 action [57] { String str =  yytext().substring(1,yylength()-1);
     return (new Yytoken(40,str,yyline,yychar,yychar+yylength())); }
 Text   : Error: Unclosed string.
@@ -144,16 +144,16 @@ index : 40
 line  : 5
 cBeg. : 174
 cEnd. : 199
-line: 6 match: --,--
+line: 6 char: 199 match: --,--
 action [29] { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1)); }
 Text   : ,
 index : 0
 line  : 5
 cBeg. : 199
 cEnd. : 200
-line: 6 match: --\u000A    --
+line: 6 char: 200 match: --\u000A    --
 action [53] {  }
-line: 7 match: --"Error: Illegal character."--
+line: 7 char: 205 match: --"Error: Illegal character."--
 action [57] { String str =  yytext().substring(1,yylength()-1);
     return (new Yytoken(40,str,yyline,yychar,yychar+yylength())); }
 Text   : Error: Illegal character.
@@ -161,481 +161,481 @@ index : 40
 line  : 6
 cBeg. : 205
 cEnd. : 232
-line: 7 match: --\u000A    --
+line: 7 char: 232 match: --\u000A    --
 action [53] {  }
-line: 8 match: --}--
+line: 8 char: 237 match: --}--
 action [37] { return (new Yytoken(8,yytext(),yyline,yychar,yychar+1)); }
 Text   : }
 index : 8
 line  : 7
 cBeg. : 237
 cEnd. : 238
-line: 8 match: --;--
+line: 8 char: 238 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 7
 cBeg. : 238
 cEnd. : 239
-line: 8 match: --\u000A  \u000A  --
+line: 8 char: 239 match: --\u000A  \u000A  --
 action [53] {  }
-line: 10 match: --public--
+line: 10 char: 245 match: --public--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : public
 index : 43
 line  : 9
 cBeg. : 245
 cEnd. : 251
-line: 10 match: -- --
+line: 10 char: 251 match: -- --
 action [53] {  }
-line: 10 match: --static--
+line: 10 char: 252 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 9
 cBeg. : 252
 cEnd. : 258
-line: 10 match: -- --
+line: 10 char: 258 match: -- --
 action [53] {  }
-line: 10 match: --final--
+line: 10 char: 259 match: --final--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : final
 index : 43
 line  : 9
 cBeg. : 259
 cEnd. : 264
-line: 10 match: -- --
+line: 10 char: 264 match: -- --
 action [53] {  }
-line: 10 match: --int--
+line: 10 char: 265 match: --int--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : int
 index : 43
 line  : 9
 cBeg. : 265
 cEnd. : 268
-line: 10 match: -- --
+line: 10 char: 268 match: -- --
 action [53] {  }
-line: 10 match: --E_ENDCOMMENT--
+line: 10 char: 269 match: --E_ENDCOMMENT--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : E_ENDCOMMENT
 index : 43
 line  : 9
 cBeg. : 269
 cEnd. : 281
-line: 10 match: -- --
+line: 10 char: 281 match: -- --
 action [53] {  }
-line: 10 match: --=--
+line: 10 char: 282 match: --=--
 action [43] { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1)); }
 Text   : =
 index : 14
 line  : 9
 cBeg. : 282
 cEnd. : 283
-line: 10 match: -- --
+line: 10 char: 283 match: -- --
 action [53] {  }
-line: 10 match: --0--
+line: 10 char: 284 match: --0--
 action [68] { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : 0
 index : 42
 line  : 9
 cBeg. : 284
 cEnd. : 285
-line: 10 match: --;--
+line: 10 char: 285 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 9
 cBeg. : 285
 cEnd. : 286
-line: 10 match: -- \u000A  --
+line: 10 char: 286 match: -- \u000A  --
 action [53] {  }
-line: 11 match: --public--
+line: 11 char: 290 match: --public--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : public
 index : 43
 line  : 10
 cBeg. : 290
 cEnd. : 296
-line: 11 match: -- --
+line: 11 char: 296 match: -- --
 action [53] {  }
-line: 11 match: --static--
+line: 11 char: 297 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 10
 cBeg. : 297
 cEnd. : 303
-line: 11 match: -- --
+line: 11 char: 303 match: -- --
 action [53] {  }
-line: 11 match: --final--
+line: 11 char: 304 match: --final--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : final
 index : 43
 line  : 10
 cBeg. : 304
 cEnd. : 309
-line: 11 match: -- --
+line: 11 char: 309 match: -- --
 action [53] {  }
-line: 11 match: --int--
+line: 11 char: 310 match: --int--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : int
 index : 43
 line  : 10
 cBeg. : 310
 cEnd. : 313
-line: 11 match: -- --
+line: 11 char: 313 match: -- --
 action [53] {  }
-line: 11 match: --E_STARTCOMMENT--
+line: 11 char: 314 match: --E_STARTCOMMENT--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : E_STARTCOMMENT
 index : 43
 line  : 10
 cBeg. : 314
 cEnd. : 328
-line: 11 match: -- --
+line: 11 char: 328 match: -- --
 action [53] {  }
-line: 11 match: --=--
+line: 11 char: 329 match: --=--
 action [43] { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1)); }
 Text   : =
 index : 14
 line  : 10
 cBeg. : 329
 cEnd. : 330
-line: 11 match: -- --
+line: 11 char: 330 match: -- --
 action [53] {  }
-line: 11 match: --1--
+line: 11 char: 331 match: --1--
 action [68] { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : 1
 index : 42
 line  : 10
 cBeg. : 331
 cEnd. : 332
-line: 11 match: --;--
+line: 11 char: 332 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 10
 cBeg. : 332
 cEnd. : 333
-line: 11 match: -- \u000A  --
+line: 11 char: 333 match: -- \u000A  --
 action [53] {  }
-line: 12 match: --public--
+line: 12 char: 337 match: --public--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : public
 index : 43
 line  : 11
 cBeg. : 337
 cEnd. : 343
-line: 12 match: -- --
+line: 12 char: 343 match: -- --
 action [53] {  }
-line: 12 match: --static--
+line: 12 char: 344 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 11
 cBeg. : 344
 cEnd. : 350
-line: 12 match: -- --
+line: 12 char: 350 match: -- --
 action [53] {  }
-line: 12 match: --final--
+line: 12 char: 351 match: --final--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : final
 index : 43
 line  : 11
 cBeg. : 351
 cEnd. : 356
-line: 12 match: -- --
+line: 12 char: 356 match: -- --
 action [53] {  }
-line: 12 match: --int--
+line: 12 char: 357 match: --int--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : int
 index : 43
 line  : 11
 cBeg. : 357
 cEnd. : 360
-line: 12 match: -- --
+line: 12 char: 360 match: -- --
 action [53] {  }
-line: 12 match: --E_UNCLOSEDSTR--
+line: 12 char: 361 match: --E_UNCLOSEDSTR--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : E_UNCLOSEDSTR
 index : 43
 line  : 11
 cBeg. : 361
 cEnd. : 374
-line: 12 match: -- --
+line: 12 char: 374 match: -- --
 action [53] {  }
-line: 12 match: --=--
+line: 12 char: 375 match: --=--
 action [43] { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1)); }
 Text   : =
 index : 14
 line  : 11
 cBeg. : 375
 cEnd. : 376
-line: 12 match: -- --
+line: 12 char: 376 match: -- --
 action [53] {  }
-line: 12 match: --2--
+line: 12 char: 377 match: --2--
 action [68] { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : 2
 index : 42
 line  : 11
 cBeg. : 377
 cEnd. : 378
-line: 12 match: --;--
+line: 12 char: 378 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 11
 cBeg. : 378
 cEnd. : 379
-line: 12 match: -- \u000A  --
+line: 12 char: 379 match: -- \u000A  --
 action [53] {  }
-line: 13 match: --public--
+line: 13 char: 383 match: --public--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : public
 index : 43
 line  : 12
 cBeg. : 383
 cEnd. : 389
-line: 13 match: -- --
+line: 13 char: 389 match: -- --
 action [53] {  }
-line: 13 match: --static--
+line: 13 char: 390 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 12
 cBeg. : 390
 cEnd. : 396
-line: 13 match: -- --
+line: 13 char: 396 match: -- --
 action [53] {  }
-line: 13 match: --final--
+line: 13 char: 397 match: --final--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : final
 index : 43
 line  : 12
 cBeg. : 397
 cEnd. : 402
-line: 13 match: -- --
+line: 13 char: 402 match: -- --
 action [53] {  }
-line: 13 match: --int--
+line: 13 char: 403 match: --int--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : int
 index : 43
 line  : 12
 cBeg. : 403
 cEnd. : 406
-line: 13 match: -- --
+line: 13 char: 406 match: -- --
 action [53] {  }
-line: 13 match: --E_UNMATCHED--
+line: 13 char: 407 match: --E_UNMATCHED--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : E_UNMATCHED
 index : 43
 line  : 12
 cBeg. : 407
 cEnd. : 418
-line: 13 match: -- --
+line: 13 char: 418 match: -- --
 action [53] {  }
-line: 13 match: --=--
+line: 13 char: 419 match: --=--
 action [43] { return (new Yytoken(14,yytext(),yyline,yychar,yychar+1)); }
 Text   : =
 index : 14
 line  : 12
 cBeg. : 419
 cEnd. : 420
-line: 13 match: -- --
+line: 13 char: 420 match: -- --
 action [53] {  }
-line: 13 match: --3--
+line: 13 char: 421 match: --3--
 action [68] { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : 3
 index : 42
 line  : 12
 cBeg. : 421
 cEnd. : 422
-line: 13 match: --;--
+line: 13 char: 422 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 12
 cBeg. : 422
 cEnd. : 423
-line: 13 match: -- \u000A\u000A  --
+line: 13 char: 423 match: -- \u000A\u000A  --
 action [53] {  }
-line: 15 match: --public--
+line: 15 char: 428 match: --public--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : public
 index : 43
 line  : 14
 cBeg. : 428
 cEnd. : 434
-line: 15 match: -- --
+line: 15 char: 434 match: -- --
 action [53] {  }
-line: 15 match: --static--
+line: 15 char: 435 match: --static--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : static
 index : 43
 line  : 14
 cBeg. : 435
 cEnd. : 441
-line: 15 match: -- --
+line: 15 char: 441 match: -- --
 action [53] {  }
-line: 15 match: --void--
+line: 15 char: 442 match: --void--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : void
 index : 43
 line  : 14
 cBeg. : 442
 cEnd. : 446
-line: 15 match: -- --
+line: 15 char: 446 match: -- --
 action [53] {  }
-line: 15 match: --error--
+line: 15 char: 447 match: --error--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : error
 index : 43
 line  : 14
 cBeg. : 447
 cEnd. : 452
-line: 15 match: --(--
+line: 15 char: 452 match: --(--
 action [32] { return (new Yytoken(3,yytext(),yyline,yychar,yychar+1)); }
 Text   : (
 index : 3
 line  : 14
 cBeg. : 452
 cEnd. : 453
-line: 15 match: --int--
+line: 15 char: 453 match: --int--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : int
 index : 43
 line  : 14
 cBeg. : 453
 cEnd. : 456
-line: 15 match: -- --
+line: 15 char: 456 match: -- --
 action [53] {  }
-line: 15 match: --code--
+line: 15 char: 457 match: --code--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : code
 index : 43
 line  : 14
 cBeg. : 457
 cEnd. : 461
-line: 15 match: --)--
+line: 15 char: 461 match: --)--
 action [33] { return (new Yytoken(4,yytext(),yyline,yychar,yychar+1)); }
 Text   : )
 index : 4
 line  : 14
 cBeg. : 461
 cEnd. : 462
-line: 15 match: -- --
+line: 15 char: 462 match: -- --
 action [53] {  }
-line: 15 match: --{--
+line: 15 char: 463 match: --{--
 action [36] { return (new Yytoken(7,yytext(),yyline,yychar,yychar+1)); }
 Text   : {
 index : 7
 line  : 14
 cBeg. : 463
 cEnd. : 464
-line: 15 match: --\u000A\u0009  --
+line: 15 char: 464 match: --\u000A\u0009  --
 action [53] {  }
-line: 16 match: --System--
+line: 16 char: 468 match: --System--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : System
 index : 43
 line  : 15
 cBeg. : 468
 cEnd. : 474
-line: 16 match: --.--
+line: 16 char: 474 match: --.--
 action [38] { return (new Yytoken(9,yytext(),yyline,yychar,yychar+1)); }
 Text   : .
 index : 9
 line  : 15
 cBeg. : 474
 cEnd. : 475
-line: 16 match: --out--
+line: 16 char: 475 match: --out--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : out
 index : 43
 line  : 15
 cBeg. : 475
 cEnd. : 478
-line: 16 match: --.--
+line: 16 char: 478 match: --.--
 action [38] { return (new Yytoken(9,yytext(),yyline,yychar,yychar+1)); }
 Text   : .
 index : 9
 line  : 15
 cBeg. : 478
 cEnd. : 479
-line: 16 match: --println--
+line: 16 char: 479 match: --println--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : println
 index : 43
 line  : 15
 cBeg. : 479
 cEnd. : 486
-line: 16 match: --(--
+line: 16 char: 486 match: --(--
 action [32] { return (new Yytoken(3,yytext(),yyline,yychar,yychar+1)); }
 Text   : (
 index : 3
 line  : 15
 cBeg. : 486
 cEnd. : 487
-line: 16 match: --errorMsg--
+line: 16 char: 487 match: --errorMsg--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : errorMsg
 index : 43
 line  : 15
 cBeg. : 487
 cEnd. : 495
-line: 16 match: --[--
+line: 16 char: 495 match: --[--
 action [34] { return (new Yytoken(5,yytext(),yyline,yychar,yychar+1)); }
 Text   : [
 index : 5
 line  : 15
 cBeg. : 495
 cEnd. : 496
-line: 16 match: --code--
+line: 16 char: 496 match: --code--
 action [70] { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 Text   : code
 index : 43
 line  : 15
 cBeg. : 496
 cEnd. : 500
-line: 16 match: --]--
+line: 16 char: 500 match: --]--
 action [35] { return (new Yytoken(6,yytext(),yyline,yychar,yychar+1)); }
 Text   : ]
 index : 6
 line  : 15
 cBeg. : 500
 cEnd. : 501
-line: 16 match: --)--
+line: 16 char: 501 match: --)--
 action [33] { return (new Yytoken(4,yytext(),yyline,yychar,yychar+1)); }
 Text   : )
 index : 4
 line  : 15
 cBeg. : 501
 cEnd. : 502
-line: 16 match: --;--
+line: 16 char: 502 match: --;--
 action [31] { return (new Yytoken(2,yytext(),yyline,yychar,yychar+1)); }
 Text   : ;
 index : 2
 line  : 15
 cBeg. : 502
 cEnd. : 503
-line: 16 match: --\u000A  --
+line: 16 char: 503 match: --\u000A  --
 action [53] {  }
-line: 17 match: --}--
+line: 17 char: 506 match: --}--
 action [37] { return (new Yytoken(8,yytext(),yyline,yychar,yychar+1)); }
 Text   : }
 index : 8
 line  : 16
 cBeg. : 506
 cEnd. : 507
-line: 17 match: --\u000A--
+line: 17 char: 507 match: --\u000A--
 action [53] {  }
-line: 18 match: --}--
+line: 18 char: 508 match: --}--
 action [37] { return (new Yytoken(8,yytext(),yyline,yychar,yychar+1)); }
 Text   : }
 index : 8
 line  : 17
 cBeg. : 508
 cEnd. : 509
-line: 18 match: --\u000A\u000A--
+line: 18 char: 509 match: --\u000A\u000A--
 action [53] {  }
 null

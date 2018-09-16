@@ -14,7 +14,7 @@
   </target>
 
   <target name="jflex">
-    <jflex file="scanner.flex" />
+    <jflex file="scanner.flex" encoding="utf-8"/>
   </target>
 
   <target name="cup">

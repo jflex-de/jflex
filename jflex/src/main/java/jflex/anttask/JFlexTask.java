@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.LexGenerator;
@@ -45,9 +46,11 @@ public class JFlexTask extends Task {
   /** Constructor for JFlexTask. */
   public JFlexTask() {
     // ant default is different from the rest of JFlex
-    setVerbose(false);
-    setUnusedWarning(true);
-    generatorOptions.setShowProgress(false);
+    generatorOptions
+        .setVerbose(false)
+        .setUnusedWarnings(true)
+        .setShowProgress(false)
+        .setEncoding(Charset.defaultCharset());
   }
 
   /**
@@ -340,5 +343,14 @@ public class JFlexTask extends Task {
 
   public Options getGeneratorOptions() {
     return generatorOptions.build();
+  }
+
+  /**
+   * Sets the input encoding. If unset will use the JVM default.
+   *
+   * @param encodingName the name of the encoding to set (e.g. "utf-8").
+   */
+  public void setEncoding(String encodingName) {
+    generatorOptions.setEncoding(encodingName);
   }
 }
