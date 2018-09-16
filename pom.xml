@@ -8,13 +8,6 @@
   <packaging>pom</packaging>
   <url>http://jflex.de</url>
   <description>JFlex parent and aggregator POM</description>
-
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
-
   <licenses>
     <license>
       <name>BSD</name>
