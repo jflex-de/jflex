@@ -11,6 +11,7 @@ package de.jflex.plugin.maven;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -225,7 +226,8 @@ public class JFlexMojo extends AbstractMojo {
             .setLegacyDot(legacyDot)
             .setStrictJlex(jlex)
             .setMinimize(minimize)
-            .setBackup(backup);
+            .setBackup(backup)
+            .setEncoding(Charset.defaultCharset());
     if (skeleton != null) {
       generatorOptions.setSkeleton(skeleton);
     }

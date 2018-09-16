@@ -86,11 +86,11 @@ public class Exec {
 
   /** Call jflex with command line and input files. */
   public static TestResult execJFlex(List<String> cmdline, List<String> files) {
-    Options.Builder opts = Options.builder();
+    Options.Builder opts =
+        Options.builder().setBackup(false); // This is a waste of time when running tests.
     try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
       try {
         Main.parseOptions(cmdline.toArray(new String[0]), opts);
-        opts.setBackup(false); // This is a waste of time when running tests.
         Options options = opts.build();
         LexGenerator lexGenerator = new LexGenerator(options);
         lexGenerator.setLogOut(out);
