@@ -1,20 +1,6 @@
-./de/jflex/plugin/maven/JFlexMojo.java
-./de/jflex/plugin/maven/ClassInfo.class
-./de/jflex/plugin/maven/ClassInfo.java
-./de/jflex/plugin/maven/LexSimpleAnalyzer.class
-./de/jflex/plugin/maven/LexSimpleAnalyzer.java
+./de/jflex/plugin/
 
-./jflextest/JFlexTestsuiteMojo.java
-./jflextest/LoadException.java
-./jflextest/Main.java
-./jflextest/TestCase.java
-./jflextest/TestFailException.java
-./jflextest/TestLoader.java
-./jflextest/TestResult.java
-./jflextest/Exec.java
-./jflextest/CustomClassLoader.java
-./jflextest/DiffStream.java
-./jflextest/InputOutput.java
+./jflextest/
 
 ./jflex/JFlexUnicodeMojo.java
 ./jflex/DataFileType.java
