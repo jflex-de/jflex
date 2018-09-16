@@ -15,7 +15,7 @@
 
   /* error messages for the codes above */
   private static final String ZZ_ERROR_MSG[] = {
-    "Unkown internal scanner error",
+    "Unknown internal scanner error",
     "Error: could not match input",
     "Error: pushback value was too large"
   };
@@ -69,6 +69,14 @@
 
   /** denotes if the user-EOF-code has already been executed */
   private boolean zzEOFDone;
+  
+  /** 
+   * The number of occupied positions in zzBuffer beyond zzEndRead.
+   * When a lead/high surrogate has been read from the input stream
+   * into the final zzBuffer position, this will have a value of 1;
+   * otherwise, it will have a value of 0.
+   */
+  private int zzFinalHighSurrogate = 0;
 
 --- user class code
 
@@ -86,6 +94,8 @@
 
     /* first: make room (if you can) */
     if (zzStartRead > 0) {
+      zzEndRead += zzFinalHighSurrogate;
+      zzFinalHighSurrogate = 0;
       System.arraycopy(zzBuffer, zzStartRead,
                        zzBuffer, 0,
                        zzEndRead-zzStartRead);
@@ -98,33 +108,39 @@
     }
 
     /* is the buffer big enough? */
-    if (zzCurrentPos >= zzBuffer.length) {
+    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
       /* if not: blow it up */
-      char newBuffer[] = new char[zzCurrentPos*2];
+      char newBuffer[] = new char[zzBuffer.length*2];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
+      zzEndRead += zzFinalHighSurrogate;
+      zzFinalHighSurrogate = 0;
     }
 
-    /* finally: fill the buffer with new input */
-    int numRead = zzReader.read(zzBuffer, zzEndRead,
-                                            zzBuffer.length-zzEndRead);
+    /* fill the buffer with new input */
+    int requested = zzBuffer.length - zzEndRead;
+    int numRead = zzReader.read(zzBuffer, zzEndRead, requested);
 
+    /* not supposed to occur according to specification of java.io.Reader */
+    if (numRead == 0) {
+      throw new java.io.IOException("Reader returned 0 characters. See JFlex examples for workaround.");
+    }
     if (numRead > 0) {
-      zzEndRead+= numRead;
+      zzEndRead += numRead;
+      /* If numRead == requested, we might have requested to few chars to
+         encode a full Unicode character. We assume that a Reader would
+         otherwise never return half characters. */
+      if (numRead == requested) {
+        if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
+          --zzEndRead;
+          zzFinalHighSurrogate = 1;
+        }
+      }
+      /* potentially more input available */
       return false;
     }
-    // unlikely but not impossible: read 0 characters, but not at end of stream    
-    if (numRead == 0) {
-      int c = zzReader.read();
-      if (c == -1) {
-        return true;
-      } else {
-        zzBuffer[zzEndRead++] = (char) c;
-        return false;
-      }     
-    }
 
-    // numRead < 0
+    /* numRead < 0 ==> end of stream */
     return true;
   }
 
@@ -160,6 +176,7 @@
     zzEOFDone = false;
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
+    zzFinalHighSurrogate = 0;
     yyline = yychar = yycolumn = 0;
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE)
@@ -307,15 +324,15 @@
       zzMarkedPos = zzMarkedPosL;
 --- char count update
 
---- actions
-        default: 
-          if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
-            zzAtEOF = true;
+      if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
+        zzAtEOF = true;
 --- eofvalue
-          } 
-          else {
+      }
+      else {
+--- actions
+          default:
 --- no match
-          }
+        }
       }
     }
   }

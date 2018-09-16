@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -14,7 +14,7 @@ package jflex;
  * Regular expression with two children (e.g. a | b)
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class RegExp2 extends RegExp {
 

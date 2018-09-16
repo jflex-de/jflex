@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -19,7 +19,7 @@ import java.io.File;
  * that gui has time for screen updates)
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class GeneratorThread extends Thread {
 

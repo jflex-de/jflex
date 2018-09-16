@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -16,21 +16,15 @@ import java.io.File;
  * ant taks, gui, etc.
  * 
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class Options {
 
-  /** If true, additional verbose debug information is produced
-   *  This is a compile time option */
+  /** 
+   * If true, additional verbose debug information is produced.
+   * This is a compile time option.
+   */
   public final static boolean DEBUG = false;
-
-	/** code generation method: maximum packing */
-	final public static int PACK   = 0;
-	/** code generation method: traditional */
-	final public static int TABLE  = 1;
-	/** code generation method: switch statement */
-	final public static int SWITCH = 2;
-
 
 	/** output directory */
 	private static File directory;
@@ -40,10 +34,10 @@ public class Options {
   public static boolean no_minimize; 
   /** don't write backup files if this is true */
   public static boolean no_backup;
-  /** default code generation method */
-  public static int gen_method;
   /** If false, only error/warning output will be generated */
   public static boolean verbose;
+  /** Whether to warn about unused macros. */
+  public static boolean unused_warning;
   /** If true, progress dots will be printed */
   public static boolean progress;
   /** If true, jflex will print time statistics about the generation process */
@@ -102,18 +96,17 @@ public class Options {
   public static void setDefaults() {
   	directory = null;
     jlex = false;
-	no_minimize = false;
-	no_backup = false;
-	gen_method = Options.PACK;    
+	  no_minimize = false;
+	  no_backup = false;
     verbose = true;
     progress = true;
+    unused_warning = true;
     time = false;
     dot = false;
     dump = false;
     legacy_dot = false;
-    // TODO: in JFlex 1.6, the default for emitInputStreamCtor will be false.
     // TODO: in the JFlex version after 1.6, the emitInputStreamCtor option will cease to exist.
-    emitInputStreamCtor = true;
+    emitInputStreamCtor = false;
     Skeleton.readDefault();
   }
 

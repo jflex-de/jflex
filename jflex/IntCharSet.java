@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -19,7 +19,7 @@ import jflex.unicode.UnicodeProperties;
  * [fixme: optimizations possible]
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public final class IntCharSet {
 
@@ -33,7 +33,7 @@ public final class IntCharSet {
     this.intervals = new ArrayList<Interval>();
   }
 
-  public IntCharSet(char c) {
+  public IntCharSet(int c) {
     this(new Interval(c,c));
   }
 
@@ -54,7 +54,7 @@ public final class IntCharSet {
 
   /**
    * returns the index of the interval that contains
-   * the character c, -1 if there is no such intevall
+   * the character c, -1 if there is no such interval
    *
    * @prec: true
    * @post: -1 <= return < intervals.size() && 
@@ -63,7 +63,7 @@ public final class IntCharSet {
    * @param c  the character
    * @return the index of the enclosing interval, -1 if no such interval  
    */
-  private int indexOf(char c) {
+  private int indexOf(int c) {
     int start = 0;
     int end   = intervals.size()-1;
 
@@ -138,7 +138,7 @@ public final class IntCharSet {
     intervals.add(new Interval(interval));
   }
 
-  public void add(char c) {
+  public void add(int c) {
     int size = intervals.size();
 
     for (int i = 0; i < size; i++) {
@@ -179,7 +179,7 @@ public final class IntCharSet {
   } 
 
  
-  public boolean contains(char singleChar) {
+  public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
   }
 
@@ -193,11 +193,11 @@ public final class IntCharSet {
     return intervals.equals(set.intervals);
   }
 
-  private char min(char a, char b) {
+  private int min(int a, int b) {
     return a <= b ? a : b;
   }
 
-  private char max(char a, char b) {
+  private int max(int a, int b) {
     return a >= b ? a : b;
   }
 
@@ -286,7 +286,7 @@ public final class IntCharSet {
       // x.end >= y.start && y.end >= x.start ->
       // x.end <= y.end && x.start >= y.start (prec)
       
-      if ( x.start == y.start && x.end == y.end ) {
+      if (x.start == y.start && x.end == y.end) {
         intervals.remove(i);
         j++;
         continue;
@@ -296,21 +296,21 @@ public final class IntCharSet {
       // (x.end < y.end || x.start > y.start) ->
       // x.start < x.end 
 
-      if ( x.start == y.start ) {
-        x.start = (char) (y.end+1);
+      if (x.start == y.start) {
+        x.start = y.end + 1;
         j++;
         continue;
       }
 
-      if ( x.end == y.end ) {
-        x.end = (char) (y.start-1);
+      if (x.end == y.end) {
+        x.end = y.start - 1;
         i++;
         j++;
         continue;
       }
 
-      intervals.add(i, new Interval(x.start, (char) (y.start-1)));
-      x.start = (char) (y.end+1);
+      intervals.add(i, new Interval(x.start, y.start - 1));
+      x.start = y.end + 1;
 
       i++;
       j++;
@@ -356,7 +356,7 @@ public final class IntCharSet {
     int size = intervals.size();
     for (int i=0; i < size; i++) {
       Interval elem = intervals.get(i);
-      for (char c = elem.start; c <= elem.end; c++) {
+      for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
         if (null != equivalenceClass)
           n.add(equivalenceClass);

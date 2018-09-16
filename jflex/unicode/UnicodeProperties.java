@@ -28,9 +28,9 @@ import jflex.unicode.data.*;
 public class UnicodeProperties {
 
   public static final String UNICODE_VERSIONS =
-    "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0";
+    "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0";
   private static final String DEFAULT_UNICODE_VERSION =
-    "6.3";
+    "7.0";
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
@@ -107,7 +107,7 @@ public class UnicodeProperties {
    * @return All case-insensitively equivalent characters, or null
    *  if the given character is case-insensitively equivalent only to itself.
    */
-  public IntCharSet getCaselessMatches(char c) {
+  public IntCharSet getCaselessMatches(int c) {
     if (null == caselessMatches)
       initCaselessMatches();
     return caselessMatches[c];
@@ -115,7 +115,7 @@ public class UnicodeProperties {
 
   /**
    * Unpacks the caseless match data. Called from
-   * {@link #getCaselessMatches(char)} to lazily initialize.
+   * {@link #getCaselessMatches(int)} to lazily initialize.
    */
   private void initCaselessMatches() {
     caselessMatches = new IntCharSet[maximumCodePoint + 1];
@@ -124,12 +124,9 @@ public class UnicodeProperties {
       IntCharSet partition = new IntCharSet();
       for (int n = 0 ; n < caselessMatchPartitionSize ; ++n) {
         int c = caselessMatchPartitions.codePointAt(index);
-        index += (c <= 0xFFFF ? 1 : 2);
+        index += Character.charCount(c);
         members[n] = c;
-        //TODO: Remove BMP boundary condition
-        if (c > 0 && c <= 0xFFFF)
-          //TODO: Change the character type from char to int
-          partition.add((char)c);
+        if (c > 0) partition.add(c); // ignore trailing zero padding
       }
       if (partition.containsElements()) {
         for (int n = 0 ; n < caselessMatchPartitionSize ; ++n) {
@@ -195,6 +192,9 @@ public class UnicodeProperties {
     } else if (version.equals("6.3") || version.equals("6.3.0")) {
       bind(Unicode_6_3.propertyValues, Unicode_6_3.intervals, Unicode_6_3.propertyValueAliases,
          Unicode_6_3.maximumCodePoint, Unicode_6_3.caselessMatchPartitions, Unicode_6_3.caselessMatchPartitionSize);
+    } else if (version.equals("7") || version.equals("7.0") || version.equals("7.0.0")) {
+      bind(Unicode_7_0.propertyValues, Unicode_7_0.intervals, Unicode_7_0.propertyValueAliases,
+         Unicode_7_0.maximumCodePoint, Unicode_7_0.caselessMatchPartitions, Unicode_7_0.caselessMatchPartitionSize);
     } else {
       throw new UnsupportedUnicodeVersionException();
     }
@@ -233,14 +233,10 @@ public class UnicodeProperties {
       IntCharSet set = new IntCharSet();
       for (int index = 0 ; index < propertyIntervals.length() ; ) {
         int start = propertyIntervals.codePointAt(index);
-        index += (start <= 0xFFFF ? 1 : 2);
+        index += Character.charCount(start);
         int end = propertyIntervals.codePointAt(index);
-        index += (end <= 0xFFFF ? 1 : 2);
-        //TODO: Remove BMP boundary condition
-        if (start <= 0xFFFF) {
-          //TODO: Change the character type from char to int and remove boundary condition
-          set.add(new Interval((char)start, (char)Math.min(end, 0xFFFF)));
-        }
+        index += Character.charCount(end);
+        set.add(new Interval(start, end));
       }
       propertyValueIntervals.put(propertyValue, set);
       if (2 == propertyValue.length()) {
@@ -269,13 +265,10 @@ public class UnicodeProperties {
    * Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}.
    */
   private void bindInvariantIntervals() {
-    //TODO: Change the character type from char to int
-    IntCharSet asciiSet = new IntCharSet(new Interval('\000', '\u007F'));
+    IntCharSet asciiSet = new IntCharSet(new Interval(0, 0x7F));
     propertyValueIntervals.put(normalize("ASCII"), asciiSet);
 
-    //TODO: Change the character type from char to int
-    //TODO: End of interval should be maximumCodePoint instead of '\uFFFF'
-    IntCharSet anySet = new IntCharSet(new Interval('\000', '\uFFFF'));
+    IntCharSet anySet = new IntCharSet(new Interval(0, maximumCodePoint));
     propertyValueIntervals.put(normalize("Any"), anySet);
   }
 

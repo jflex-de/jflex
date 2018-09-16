@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * [Is not yet used exclusively, but should]
  * 
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class ErrorMessages {  
   private String key;
@@ -132,6 +132,7 @@ public class ErrorMessages {
   public static ErrorMessages NFA_TOOK = new ErrorMessages("NFA_TOOK");
   public static ErrorMessages LOOKAHEAD_NEEDS_ACTION = new ErrorMessages("LOOKAHEAD_NEEDS_ACTION");
   public static ErrorMessages EMPTY_MATCH = new ErrorMessages("EMPTY_MATCH");
+  public static ErrorMessages EMPTY_MATCH_LOOK = new ErrorMessages("EMPTY_MATCH_LOOK");
   public static ErrorMessages CTOR_ARG = new ErrorMessages("CTOR_ARG");
   public static ErrorMessages CTOR_DEBUG = new ErrorMessages("CTOR_DEBUG");
   public static ErrorMessages INT_AND_TYPE = new ErrorMessages("INT_AND_TYPE");
@@ -141,7 +142,6 @@ public class ErrorMessages {
   public static ErrorMessages DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS = new ErrorMessages("DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS");
   public static ErrorMessages PROPS_ARG_REQUIRES_UNICODE_VERSION = new ErrorMessages("PROPS_ARG_REQUIRES_UNICODE_VERSION");
   public static ErrorMessages EMITTING_INPUTSTREAM_CTOR = new ErrorMessages("EMITTING_INPUTSTREAM_CTOR");
-  public static ErrorMessages SWITCH_METHOD_DEPRECATED = new ErrorMessages("SWITCH_METHOD_DEPRECATED");
-  public static ErrorMessages TABLE_METHOD_DEPRECATED = new ErrorMessages("TABLE_METHOD_DEPRECATED");
   public static ErrorMessages IMPOSSIBLE_CHARCLASS_RANGE = new ErrorMessages("IMPOSSIBLE_CHARCLASS_RANGE");
+  public static ErrorMessages CODEPOINT_OUT_OF_RANGE = new ErrorMessages("CODEPOINT_OUT_OF_RANGE");
 }

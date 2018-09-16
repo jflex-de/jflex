@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -25,12 +25,12 @@ import jflex.unicode.UnicodeProperties;
  * starting up the GUI if necessary, etc. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class Main {
   
   /** JFlex version */
-  final public static String version = "1.5.1"; //$NON-NLS-1$
+  final public static String version = "1.6.1"; //$NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
@@ -177,12 +177,24 @@ public class Main {
       if ( argv[i].equals("-v") || argv[i].equals("--verbose") || argv[i].equals("-verbose") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
+        Options.unused_warning = true;
         continue;
       }
 
       if ( argv[i].equals("-q") || argv[i].equals("--quiet") || argv[i].equals("-quiet") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
+        Options.unused_warning = false;
+        continue;
+      }
+
+      if ( argv[i].equals("--warn-unused") ) { //$NON-NLS-1$
+        Options.unused_warning = true;
+        continue;
+      }
+
+      if ( argv[i].equals("--no-warn-unused") ) { //$NON-NLS-1$
+        Options.unused_warning = false;
         continue;
       }
 
@@ -222,20 +234,10 @@ public class Main {
       }
 
       if ( argv[i].equals("--pack") || argv[i].equals("-pack") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.PACK;
+        /* no-op - pack is the only generation method */
         continue;
       }
 
-      if ( argv[i].equals("--table") || argv[i].equals("-table") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.TABLE;
-        continue;
-      }
-
-      if ( argv[i].equals("--switch") || argv[i].equals("-switch") ) { //$NON-NLS-1$ //$NON-NLS-2$
-        Options.gen_method = Options.SWITCH;
-        continue;
-      }
-      
       if ( argv[i].equals("--nobak") || argv[i].equals("-nobak") ) { //$NON-NLS-1$ //$NON-NLS-2$
         Options.no_backup = true;
         continue;
@@ -358,8 +360,6 @@ public class Main {
     Out.println("Where <options> can be one or more of");
     Out.println("-d <directory>    write generated file to <directory>");
     Out.println("--skel <file>     use external skeleton <file>");
-    Out.println("--switch             (DEPRECATED - will be removed in JFlex 1.6)");
-    Out.println("--table              (DEPRECATED - will be removed in JFlex 1.6)");
     Out.println("--pack            set default code generation method (default)");
     Out.println("--jlex            strict JLex compatibility");
     Out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");

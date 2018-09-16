@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class CharClasses {
 
@@ -23,44 +23,58 @@ public class CharClasses {
   private static final boolean DEBUG = false;
 
   /** the largest character that can be used in char classes */
-  public static final char maxChar = '\uFFFF';
+  public static final int maxChar = 0x10FFFF;
 
   /** the char classes */
   private List<IntCharSet> classes;
 
   /** the largest character actually used in a specification */
-  private char maxCharUsed;
+  private int maxCharUsed;
   
-  private LexScan scanner;
+  public LexScan scanner; //nocommit - should be private
 
   /**
-   * Constructs a new CharClass object that provides space for 
-   * classes of characters from 0 to maxCharCode.
+   * Constructs a new CharClasses object.
+   * 
+   * CharClasses.init() is delayed until UnicodeProperties.init() has
+   * been called, since the max char code won't be known until then.
+   */
+  public CharClasses() { }
+
+  /**
+   * Provides space for classes of characters from 0 to maxCharCode.
    *
    * Initially all characters are in class 0.
    *
    * @param maxCharCode the last character code to be
    *                    considered. (127 for 7bit Lexers, 
-   *                    255 for 8bit Lexers and 0xFFFF
+   *                    255 for 8bit Lexers and 
+   *                    UnicodeProperties.getMaximumCodePoint()
    *                    for Unicode Lexers).
    * @param scanner     the scanner containing the UnicodeProperties instance
    *                    from which caseless partitions are obtained.
    */
-  public CharClasses(int maxCharCode, LexScan scanner) {
-    if (maxCharCode < 0 || maxCharCode > 0xFFFF) 
-      throw new IllegalArgumentException();
+  public void init(int maxCharCode, LexScan scanner) {
+    if (maxCharCode < 0) {
+      throw new IllegalArgumentException("maxCharCode " + maxCharCode + " is negative.");
+    }
+    else if (maxCharCode > maxChar) {
+      throw new IllegalArgumentException
+          ("maxCharCode " + Integer.toHexString(maxCharCode)
+           + " is larger than maxChar " + Integer.toHexString(maxChar));
+    }
 
-    maxCharUsed = (char) maxCharCode;
+    maxCharUsed = maxCharCode;
     this.scanner = scanner;
     classes = new ArrayList<IntCharSet>();
-    classes.add(new IntCharSet(new Interval((char) 0, maxChar)));
+    classes.add(new IntCharSet(new Interval(0, maxCharCode)));
   }
 
 
   /**
    * Returns the greatest Unicode value of the current input character set.
    */
-  public char getMaxCharCode() {
+  public int getMaxCharCode() {
     return maxCharUsed;
   }
   
@@ -68,14 +82,19 @@ public class CharClasses {
   /**
    * Sets the largest Unicode value of the current input character set.
    *
-   * @param charCode   the largest character code, used for the scanner 
-   *                   (i.e. %7bit, %8bit, %16bit etc.)
+   * @param maxCharCode   the largest character code, used for the scanner 
+   *                      (i.e. %7bit, %8bit, %16bit etc.)
    */
-  public void setMaxCharCode(int charCode) {
-    if (charCode < 0 || charCode > 0xFFFF) 
-      throw new IllegalArgumentException();
+  public void setMaxCharCode(int maxCharCode) {
+    if (maxCharCode < 0) {
+      throw new IllegalArgumentException("maxCharCode " + maxCharCode + " is negative.");
+    } else if (maxCharCode > maxChar) {
+      throw new IllegalArgumentException
+          ("maxCharCode " + Integer.toHexString(maxCharCode)
+           + " is larger than maxChar " + Integer.toHexString(maxChar));
+    }
 
-    maxCharUsed = (char) charCode;
+    maxCharUsed = maxCharCode;
   }
   
 
@@ -145,11 +164,11 @@ public class CharClasses {
   /**
    * Returns the code of the character class the specified character belongs to.
    */
-  public int getClassCode(char letter) {
+  public int getClassCode(int codePoint) {
     int i = -1;
     while (true) {
       IntCharSet x = classes.get(++i);
-      if ( x.contains(letter) ) return i;      
+      if ( x.contains(codePoint) ) return i;      
     }
   }
 
@@ -194,7 +213,7 @@ public class CharClasses {
    *    
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
-  public void makeClass(char singleChar, boolean caseless) {
+  public void makeClass(int singleChar, boolean caseless) {
     makeClass(new IntCharSet(singleChar), caseless);
   }
 
@@ -205,7 +224,11 @@ public class CharClasses {
    * @param caseless  if true upper/lower/title case are considered equivalent  
    */
   public void makeClass(String str, boolean caseless) {
-    for (int i = 0; i < str.length(); i++) makeClass(str.charAt(i), caseless);
+    for (int i = 0; i < str.length(); ) {
+      int ch = str.codePointAt(i);
+      makeClass(ch, caseless);
+      i += Character.charCount(ch);
+    }
   }  
 
 
@@ -336,7 +359,7 @@ public class CharClasses {
 
     // check if each character has a classcode 
     // (= if getClassCode terminates)
-    for (char c = 0; c < maxChar; c++) {
+    for (int c = 0; c < maxChar; c++) {
       getClassCode(c);
       if (c % 100 == 0) System.out.print(".");
     }
@@ -368,9 +391,9 @@ public class CharClasses {
     i = 0; 
     c = 0;
     while (i < numIntervals) {
-      int       code = getClassCode((char) c);
+      int       code = getClassCode(c);
       IntCharSet set = classes.get(code);
-      Interval  iv  = set.getNext();
+      Interval    iv = set.getNext();
       
       result[i++]    = new CharClassInterval(iv.start, iv.end, code);
       c              = iv.end+1;

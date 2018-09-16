@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -29,7 +29,7 @@ import java.awt.TextArea;
  * Counts error and warning messages.
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public final class Out {
 
@@ -210,6 +210,18 @@ public final class Out {
     warnings++;
 
     err(NL+"Warning : "+message);
+  }
+
+
+  /**
+   * print a warning message without line information
+   *
+   * @param message  code of the warning message
+   *
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message) {
+    warning(message, 0);
   }
 
 

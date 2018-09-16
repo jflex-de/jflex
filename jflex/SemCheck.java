@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -14,7 +14,7 @@ import java.io.File;
  * Performs simple semantic analysis on regular expressions.
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public final class SemCheck {
 
@@ -38,11 +38,18 @@ public final class SemCheck {
       RegExp l = rs.getLookAhead(i);
       Action a = rs.getAction(i);
       
-      if (r != null && l != null && maybeEmtpy(r)) {
-        if (a == null) 
-          Out.error(ErrorMessages.EMPTY_MATCH, "");
-        else 
-          Out.error(f, ErrorMessages.EMPTY_MATCH, a.priority-1, -1);
+      if (r != null && maybeEmtpy(r)) {
+        if (l != null) {
+          if (a == null)
+            Out.error(ErrorMessages.EMPTY_MATCH_LOOK);
+          else
+            Out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority-1, -1);
+        } else {
+          if (a == null)
+            Out.warning(ErrorMessages.EMPTY_MATCH);
+          else
+            Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority-1, -1);
+        }
       }
     }
   }
@@ -100,7 +107,7 @@ public final class SemCheck {
       return maybeEmtpy(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unknown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
   }
 
 
@@ -161,7 +168,7 @@ public final class SemCheck {
       return length(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unknown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
   }
 
   /**
@@ -212,6 +219,6 @@ public final class SemCheck {
       return isFiniteChoice(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error("Unkown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unknown expression type "+re.type+" in "+re);   //$NON-NLS-1$ //$NON-NLS-2$
   }
 }

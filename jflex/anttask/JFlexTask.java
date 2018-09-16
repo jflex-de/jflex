@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * JFlex task class
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class JFlexTask extends Task {
     private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");
@@ -45,6 +45,7 @@ public class JFlexTask extends Task {
   public JFlexTask() {
     // ant default is different from the rest of JFlex
     setVerbose(false);
+    setUnusedWarning(true);
     Options.progress = false;
   }
 
@@ -184,6 +185,11 @@ public class JFlexTask extends Task {
 
   public void setVerbose(boolean verbose) {
     Options.verbose = verbose;
+    Options.unused_warning = verbose;
+  }
+  
+  public void setUnusedWarning(boolean warn) {
+    Options.unused_warning = warn;
   }
 
   public void setSkeleton(File skeleton) {
@@ -206,31 +212,8 @@ public class JFlexTask extends Task {
     Options.no_backup = b;
   }
 
-  public void setSwitch(boolean b) {
-    if (b) {
-      Options.gen_method = Options.SWITCH;
-    }
-    else {
-      Options.gen_method = Options.PACK;
-    }
-  }
-
-  public void setTable(boolean b) {
-    if (b) {
-      Options.gen_method = Options.TABLE;
-    }
-    else {
-      Options.gen_method = Options.PACK;
-    }
-  }
-
   public void setPack(boolean b) {
-    if (b) {
-      Options.gen_method = Options.PACK;
-    }
-    else {
-      Options.gen_method = Options.SWITCH;
-    }    
+    /* no-op - this is the only available generation method */
   }
 
   public void setDot(boolean b) {

@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                              *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -24,7 +24,7 @@ import java.util.Locale;
  * <code>p.emitUnpack();</code> 
  * 
  * @author Gerwin Klein
- * @version $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public abstract class PackEmitter {
 
@@ -193,11 +193,11 @@ public abstract class PackEmitter {
    * would have in UTF8 representation in a class file.
    *
    * @param value  the char code of the Unicode character
-   * @prec  0 <= value <= 0xFFFF
+   * @prec  0 <= value <= 0x10FFFF
    *
    * @return length of UTF8 representation.
    */
-  private int UTF8Length(char value) {
+  private int UTF8Length(int value) {
     // if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
 
     // see JVM spec section 4.4.7, p 111

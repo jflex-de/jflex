@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -18,7 +18,7 @@ import java.util.List;
  * This base class has no content other than its type. 
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 public class RegExp {
   
@@ -166,8 +166,11 @@ public class RegExp {
    */
   public final static String revString(String s) {
     StringBuffer b = new StringBuffer(s.length());
-    for (int i=s.length()-1; i >= 0; i--) {
-      b.append(s.charAt(i));
+    for (int i = s.length() ; i > 0; ) {
+      int ch = s.codePointBefore(i);
+      char[] chars = Character.toChars(ch);
+      b.append(chars);
+      i -= chars.length;
     }
     return b.toString();
   }
@@ -252,7 +255,7 @@ public class RegExp {
   public RegExp anyChar() {
     // FIXME: there is some code duplication here with the parser
     List<Interval> list = new ArrayList<Interval>();
-    list.add(new Interval((char)0,CharClasses.maxChar));    
+    list.add(new Interval(0, CharClasses.maxChar));    
     return new RegExp1(sym.CCLASS,list);
   }
 

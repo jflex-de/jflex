@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.5                                                               *
- * Copyright (C) 1998-2014  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.6.1                                                             *
+ * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -20,7 +20,7 @@ import java.awt.event.*;
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.5, $Revision$, $Date$
+ * @version JFlex 1.6.1
  */
 final public class MainFrame extends Frame implements Handles {
 
@@ -238,6 +238,9 @@ final public class MainFrame extends Frame implements Handles {
   private void dirChoose() {
     choosing = true;
     
+    /* Hacky way to let the user select directories on MacOS. We're counting
+       on this setting being ignored on other platforms */ 
+    System.setProperty("apple.awt.fileDialogForDirectories", "true");
     FileDialog d = new FileDialog(this, "Choose directory", FileDialog.LOAD);
     
     d.setVisible(true);
@@ -245,6 +248,7 @@ final public class MainFrame extends Frame implements Handles {
     if (d.getDirectory() != null) {
       dir.setText( (new File(d.getDirectory())).getAbsolutePath() );
     }
+    System.setProperty("apple.awt.fileDialogForDirectories", "false");
     
     choosing = false;    
   }
