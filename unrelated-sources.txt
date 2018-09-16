@@ -1,4 +1,8 @@
 ./de/jflex/plugin/maven/JFlexMojo.java
+./de/jflex/plugin/maven/ClassInfo.class
+./de/jflex/plugin/maven/ClassInfo.java
+./de/jflex/plugin/maven/LexSimpleAnalyzer.class
+./de/jflex/plugin/maven/LexSimpleAnalyzer.java
 
 ./jflextest/JFlexTestsuiteMojo.java
 ./jflextest/LoadException.java
