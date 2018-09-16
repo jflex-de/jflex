@@ -85,7 +85,7 @@ Perform the release
    If you are happy with the changes, you can tag and push:
      ```sh
      git tag X.Y.Z
-     git push --tags
+     git push X.Y.Z
      ```
 
    If something goes wrong with one of the steps performed by
@@ -125,7 +125,7 @@ Perform the release
 3. Build the user manual
  
    ```sh
-   cd tex && make
+   cd docs && make
    ```
 
 4. Create the release package
