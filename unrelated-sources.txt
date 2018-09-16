@@ -1,16 +1,6 @@
-./de/jflex/plugin/maven/JFlexMojo.java
+./de/jflex/plugin/
 
-./jflextest/JFlexTestsuiteMojo.java
-./jflextest/LoadException.java
-./jflextest/Main.java
-./jflextest/TestCase.java
-./jflextest/TestFailException.java
-./jflextest/TestLoader.java
-./jflextest/TestResult.java
-./jflextest/Exec.java
-./jflextest/CustomClassLoader.java
-./jflextest/DiffStream.java
-./jflextest/InputOutput.java
+./jflextest/
 
 ./jflex/JFlexUnicodeMojo.java
 ./jflex/DataFileType.java
@@ -29,3 +19,4 @@
 ./jflex/PropertyValueAliasesScanner.java
 ./jflex/ScriptExtensionsScanner.java
 ./jflex/UnicodeDataScanner.java
+
