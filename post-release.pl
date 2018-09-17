@@ -7,7 +7,7 @@
 #
 # Performs the following:
 #
-#   - switches working copy to git master branch
+#   - switches working copy to git **new_snapshot** branch
 #   - Changes the JFlex version in all POMs to the supplied
 #     snapshot version (X.Y.Z-SNAPSHOT)
 #   - Changes the bootstrap JFlex version in the de.jflex:jflex
@@ -82,8 +82,8 @@ if ($stat_results) {
 }
 print "Yes.\n\n";
 
-print "Switching to master branch..\n";
-system ("git checkout master");
+print "Switching to new_snapshot branch..\n";
+system ("git checkout -b new_snapshot");
 if ($?) {
   print "FAILED.\n";
   exit 1;
