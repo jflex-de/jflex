@@ -68,7 +68,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
 
 The script does the following:
 
-   - Creates a release branch **jflex_X.Y.Z**
+   - Creates a release branch **jflex-X.Y.Z**
    - Changes the version in all POMs by removing all -SNAPSHOT suffixes
    - Changes the versions in java comments and @version tags
    - Commits the changes
@@ -136,8 +136,10 @@ git push --tag vX.Y.Z
 ```
 
 Then:
-  1. Create a pull request to merge into master
-  2. Confirm merge into master
+  1. Create a pull request to merge **jflex_X_Y** into **master**.
+     This is important so that **aggregated-java-sources** is built by Travis with the final release
+     version.
+  2. Confirm merge into master.
 
 
 ### Create the release package
@@ -191,6 +193,7 @@ The`post-release.pl` script does the following:
 Finally:
    - create a pull request with these changes
    - merge in master
+   - delete the temporary jflex-X.Y.Z branch
 
 [sonatype]: http://oss.sonatype.org/
 [maven-site-deploy]: http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
