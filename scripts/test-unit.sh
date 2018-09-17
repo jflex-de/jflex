@@ -48,4 +48,6 @@ logi "Example: zero-reader"
 cd zero-reader; make clean; make; cd ..
 set +x
 
+"$MVN" source:aggregate
+
 cd "$CWD"

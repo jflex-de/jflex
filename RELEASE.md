@@ -9,9 +9,9 @@ The Maven Central repository is synchronized with this repository.
 For more information, see [Sonatype respository usage guide][sonatype-repo-usage]. 
 
 
-## Preparing to release
+## Prepare to release (only once)
 
-1. First, create a JIRA account on issues.sonatype.org, then make sure that your
+1. First, create a JIRA account on <http://issues.sonatype.org>, then make sure that your
    account is authorized to deploy to the Sonatype OSS Maven repository - see
    the above-linked usage guide for more information.
 
@@ -69,45 +69,61 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
    ```
 
 
-Perform the release
--------------------
+## Perform the release
 
-1. Run the `prepare-release.pl` script, which does the following:
+### Build all artifacts
 
-   - Creates a release branch
+```bash
+./mvnw install
+./mvnw javadoc:jar
+./mvnw source:jar
+```
+
+### Run the `prepare-release.pl` script
+
+```sh
+./prepare-release.pl
+``` 
+
+The script does the following:
+
+   - Creates a release branch **jflex_X.Y.Z**
    - Changes the version in all POMs by removing all -SNAPSHOT suffixes
    - Changes the versions in java comments and @version tags
    - Commits the changes
-     ```sh
-     ./prepare-release.pl
-     ```
 
-   If you are happy with the changes, you can tag and push:
-     ```sh
-     git tag X.Y.Z
-     git push --tags
-     ```
+If you are happy with the changes, you can tag and push:
+```sh
+# Create a maintenance branch
+git co -b jflex_X_Y
+git push
+# Tag the exact released version
+git tag vX.Y.Z
+git push --tag vX.Y.Z
+```
 
-   If something goes wrong with one of the steps performed by
-   the script, it will halt.  You can return to the state before
-   it ran by checking out the master branch and deleting the
-   release branch:
+If something goes wrong with one of the steps performed by
+the script, it will halt.  You can return to the state before
+it ran by checking out the master branch and deleting the
+release branch:
 
-   ```sh
-   git checkout master
-   git reset --hard
-   git branch -D branch-X.Y.Z
-   ```
+```sh
+git checkout master
+git reset --hard
+git branch -D jflex-X.Y.Z
+```
 
-2. Stage the release to the Sonatype OSS Maven repository:
+### Stage the release to the Sonatype OSS Maven repository:
 
-   ```sh
-   ./mvn-deploy
-   ```
+```sh
+./mvn-deploy
+```
 
-3. After staging the release, you have to perform several manual steps
-   on the Sonatype OSS Maven repository website <http://oss.sonatype.org>
-   after logging into the site:
+### Publish the staged release on Sonatype
+
+After staging the release, you have to perform several manual steps
+on the Sonatype OSS Maven repository website <http://oss.sonatype.org>
+after logging into the site:
    
    1. Click the "Staging Repositories" link in the left-hand navigation bar.
    2. Select "de.jflex" from the Filter combobox on the top right
@@ -122,54 +138,43 @@ Perform the release
      this is the final step to release the artifacts.  Maven Central
      will then sync within less than one day.
 
-3. Build the user manual
+### Build the user manual
  
-   ```sh
-   cd tex && make
-   ```
+```sh
+cd docs && make
+```
 
-4. Create the release package
+### Create the release package
 
-5. Upload the release package and user manual files
+TODO: Document this step
 
-6. Update the website
+### Upload the release package and user manual files
 
-7. Build and upload the JFlex Maven Plugin to SourceForge -
-   see the following for more information:
-   - [Maven site deploy][maven-site-deploy]
-   - [Sourceforge shell service][sf-shell]
+TODO: Document this step
 
-   1. Create a shell on SourceForge
-     ```sh   
-     ssh -t decamps,jflex@shell.sf.net create
-     ```
+### Update the website
 
-   2. Build, check, then upload the JFlex Maven Plugin site to SourceForge 
-     ```sh   
-     cd jflex-maven-plugin && mvn site
-     ```
-     - The site is built under `jflex-maven-plugin/target/site/` - visit the
-       index.html page there with a browser to sanity check that links work,
-       etc.
-       
-     - Then upload the built site to SourceForge:
-       ```sh
-       mvn -Prelease site:deploy
-       ```
+TODO: Document this step
 
-## Post-release step
+### Post-release
 
-Run the post-release.pl script, which does the following:
-   - switches back to the master branch
-   - Changes the JFlex version in all POMs to the supplied
-     snapshot version (X.Y.Z-SNAPSHOT)
+```sh
+./post-release.pl
+# Review
+git diff HEAD^1
+git push
+```
+
+The`post-release.pl` script does the following:
+   - Creates a new branch for the future release
+   - Bump the JFlex version in all POMs to the supplied
+     snapshot version (X.Y+1.Z-SNAPSHOT)
    - Changes the bootstrap JFlex version in the de.jflex:jflex
      POM to the latest release version.
+   - Review the change
    - Commits the changes
-   ```sh
-   ./post-release.pl
-   git push
-   ```
+
+Finally, create a pull request with these changes.
 
 [sonatype]: http://oss.sonatype.org/
 [maven-site-deploy]: http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html

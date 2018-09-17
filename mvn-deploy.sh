@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# mvn-deploy
+# mvn-deploy.sh
 # 
 # This script deploys the current working copy to the Sonatype OSS Maven
 # staging repository.
@@ -29,19 +29,19 @@ fi
 echo "Yes."
 
 # Install the jflex-parent POM
-mvn3 -N install
+mvn -N install
 
 # Install JFlex
 cd jflex
-mvn3 clean
-mvn3 install
+mvn clean
+mvn install
 
 # Install the JFlex Maven Plugin
 cd ../jflex-maven-plugin
-mvn3 clean
-mvn3 install
+mvn clean
+mvn install
 
 # Deploy the deployable stuff to the Sonatype OSS Maven repository
 cd ..
-mvn3 -Psonatype-oss-release deploy
+mvn deploy
 

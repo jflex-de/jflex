@@ -31,12 +31,13 @@ my $sheet =<<'__STYLESHEET__';
   <!-- Replace all JFlex versions with the new JFlex release version, -->
   <!-- except for the bootstrap version in the de.jflex:jflex POM.    -->
   <xsl:template
-      match=" /pom:project[pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex')]/pom:version
+      match=" /pom:project[(pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex'))
+                           and not (pom:artifactId='cup-maven-plugin' or pom:artifactId='cup-parent')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
-             |/pom:project/pom:dependencies/pom:dependency[pom:groupId='de.jflex' and pom:artifactId='jflex']/pom:version
              |/pom:project/pom:build/pom:plugins/pom:plugin
               [   (pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin')
-              and not(/pom:project/pom:parent/pom:groupId='de.jflex' and /pom:project/pom:artifactId='jflex')]/pom:version">
+              and not(/pom:project/pom:parent/pom:groupId='de.jflex' and /pom:project/pom:artifactId='jflex')
+              and not(/pom:project/pom:artifactId='jflex-unicode-maven-plugin')]/pom:version">
     <version><xsl:value-of select="$release"/></version>
   </xsl:template>
 
@@ -108,6 +109,7 @@ print "\ndone.\n\n";
 print " updating version in comments and version tags in jflex/**.java";
 system ('find jflex -name "*.java" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
 system ('find jflex -name "LexScan.flex" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
+system ('find jflex -name "LexParse.cup" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
 system ('find jflex -name "*.java" | xargs perl -pi -e "s/@version (.*)-SNAPSHOT/@version \\1/"');
 print "\ndone.\n\n";
 
