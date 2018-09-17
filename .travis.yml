@@ -50,6 +50,10 @@ deploy:
     branch: master
     condition: $TEST_SUITE = unit
   local_dir: target/maven-staging-site/maven-site
+<<<<<<< HEAD
   repo: jflex-de/jflex-web
+=======
+  repo: jflex-de/jflex
+>>>>>>> a339f4a392ef8f24d973927accec50a4f3dc08c3
   name: Travis site-deploy bot
   keep-history: true
