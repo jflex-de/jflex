@@ -309,6 +309,23 @@
           <skipDeploy>true</skipDeploy>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pdf-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>pdf</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>pdf</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
+          <includeReports>false</includeReports>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
