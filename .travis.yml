@@ -26,7 +26,6 @@ install: ./mvnw -version
 
 script: ./scripts/run-tests.sh
 
-# Build the maven site
 after_success:
 - ./scripts/mvn-site.sh
 - ./scripts/mvn-aggregate-srcs.sh
@@ -46,7 +45,7 @@ deploy:
 - provider: pages
   skip_cleanup: true
   on:
-    branch: master
+    branch: release
     condition:
     - $TEST_SUITE = unit
     - $TRAVIS_JDK_VERSION = oraclejdk8
