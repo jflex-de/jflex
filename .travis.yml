@@ -19,9 +19,6 @@ install: true
 
 script: ./scripts/run-tests.sh
 
-after_success:
-  - ./scripts/deploy-source-code.sh
-
 env:
   matrix:
   - TEST_SUITE=ant
@@ -39,9 +36,9 @@ cache:
   - jflex/lib
 
 # Build the maven site
-before_deploy:
-- if [ "_$TEST_SUITE" = "_unit" ]; then ./mvnw site; fi
+after_sucess:
 - ./scripts/before-deploy.sh
+- ./scripts/deploy-source-code.sh
 
 deploy:
   provider: pages
