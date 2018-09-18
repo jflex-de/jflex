@@ -9,7 +9,6 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
-
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
   git clone --depth 1 --branch aggregated-java-sources https://github.com/jflex-de/jflex.git repo
@@ -39,7 +38,6 @@ git_push() {
 }
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-logi "CI=$CI TEST_SUITE=$TEST_SUITE JDK=$TRAVIS_JDK_VERSION branch=$current_branch"
 
 if [ -z "$CI" ] || \
     ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
@@ -50,6 +48,7 @@ else
 fi
 
 # Travis should only push from master ; not from pull requests
+# TODO: Introduce a "release"/"stable" branch
 if [ "_$TEST_SUITE" == "_unit" ] && [ "_$current_branch" == "_master" ]; then
   git_push
 else
