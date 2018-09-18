@@ -23,26 +23,34 @@ update_source() {
   logi "Remove unrelated sources and compile"
   ./compile.sh
   git add --all
+  logi "Git status"
+  git status
   git commit -a -m "Update from $version"
   cd ..
 }
 
 git_push() {
   cd repo
-  logi "Git log"
-  git --no-pager log
-  git diff --name-only HEAD^1
   logi "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
+  git log -1
   git push
   cd ..
 }
 
-if [ -z "$CI" ] || [ "_$TEST_SUITE" -eq "_unit" ]; then
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [ -z "$CI" ] || \
+    ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
   git_clone
   update_source
+else
+  logi "Skipping update in CI for test suite '$TEST_SUITE' (JDK='$TRAVIS_JDK_VERSION')"
 fi
 
 # Travis should only push from master ; not from pull requests
-if [ "_$TEST_SUITE" -eq "_unit" ] && [ "_$(git rev-parse --abbrev-ref HEAD)" -eq "_master" ]; then
+# TODO: Introduce a "release"/"stable" branch
+if [ "_$TEST_SUITE" == "_unit" ] && [ "_$current_branch" == "_master" ]; then
   git_push
+else
+  logi "Skipping git push in branch '$current_branch'"
 fi
