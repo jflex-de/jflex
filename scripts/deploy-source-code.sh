@@ -1,13 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 # Push aggregated source code back to git
 # This is inspired by https://martinrotter.github.io/it-programming/2016/08/26/pushing-git-travis/
 
 CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
-. "$BASEDIR"/scripts/logger.sh
+source "$BASEDIR"/scripts/logger.sh
+# Maven executable
+MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
+
+create_source_jar() {
+  logi "Aggregate all sources in jar"
+  "$MVN" source:aggregate
+}
 
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
@@ -41,6 +48,7 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 if [ -z "$CI" ] || \
     ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
+  create_source_jar
   git_clone
   update_source
 else
