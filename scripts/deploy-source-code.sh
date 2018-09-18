@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Push aggregated source code back to git
 # This is inspired by https://martinrotter.github.io/it-programming/2016/08/26/pushing-git-travis/
 
@@ -20,7 +20,8 @@ update_source() {
   cd repo
   git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
   jar -xf ../target/jflex-*-sources.jar
-  logi "Remove unrelated sources and compile"
+  logi "Remove unrelated sources"
+  logi "Download deps and Compile"
   ./compile.sh
   git add --all
   logi "Git status"
@@ -37,15 +38,18 @@ git_push() {
   cd ..
 }
 
-current_branch=$(git rev-parse --abbrev-ref HEAD)
+# N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
+logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
 git_clone
 update_source
 
-# Travis should only push from master ; not from pull requests
-# TODO: Introduce a "release"/"stable" branch
-if [ "_$TEST_SUITE" == "_unit" ] && [ "_$current_branch" == "_master" ]; then
-  git_push
+if [[ -z "$CI" ]]; then
+  logi "Check the last commit"
+  logi "git log -1"
+  logi "git diff HEAD^1"
+  logi "And run:"
+  logi "git push"
 else
-  logi "Skipping git push in branch '$current_branch'"
+  git_push
 fi

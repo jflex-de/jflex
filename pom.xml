@@ -316,9 +316,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <!-- Use a version compatible with maven 3
-             https://maven.apache.org/plugins/maven-site-plugin/maven-3.html -->
-        <version>2.2</version>
+        <version>2.7</version>
         <reportSets>
           <reportSet>
             <reports>

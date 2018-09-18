@@ -22,13 +22,24 @@ env:
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install: ./scripts/clean.sh
 
-install: true
+install: ./mvnw -version
 
 script: ./scripts/run-tests.sh
 
 # Build the maven site
-before_deploy:
-- if [ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]; then ./scripts/before-deploy.sh; fi
+after_success:
+- ./scripts/mvn-site.sh
+- ./scripts/mvn-aggregate-srcs.sh
+
+# Travis sometimes fails to download deps from repo1.maven.org
+# A cache avoids downloading too much, and will also speed up the build.
+# NB: There is one cache per branch and language version/ compiler version/ JDK version
+cache:
+  # The timeout (in seconds) empties the cache to avoid being stuck with a corrupted artefact
+  timeout: 86400  # 24 hours
+  directories:
+  - $HOME/.m2
+  - jflex/lib
 
 deploy:
 # Deploy the maven site on Github pages
@@ -54,13 +65,3 @@ deploy:
     - $TEST_SUITE = unit
     - $TRAVIS_JDK_VERSION = oraclejdk8
   script: ./scripts/deploy-source-code.sh
-
-# Travis sometimes fails to download deps from repo1.maven.org
-# A cache avoids downloading too much, and will also speed up the build.
-# NB: There is one cache per branch and language version/ compiler version/ JDK version
-cache:
-  # The timeout (in seconds) empties the cache to avoid being stuck with a corrupted artefact
-  timeout: 86400  # 24 hours
-  directories:
-  - $HOME/.m2
-  - jflex/lib
