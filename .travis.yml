@@ -15,7 +15,7 @@ jdk:
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install: ./scripts/clean.sh
 
-install: true
+install: ./mvnw -version
 
 script: ./scripts/run-tests.sh
 
