@@ -29,19 +29,21 @@ fi
 echo "Yes."
 
 # Install the jflex-parent POM
-mvn -N install
+./mvnw -N install
 
 # Install JFlex
 cd jflex
-mvn clean
-mvn install
+../mvnw clean
+../mvnw install
 
 # Install the JFlex Maven Plugin
 cd ../jflex-maven-plugin
-mvn clean
-mvn install
+../mvnw clean
+../mvnw install
 
 # Deploy the deployable stuff to the Sonatype OSS Maven repository
 cd ..
-mvn deploy
+./mvnw javadoc:jar
+./mvnw source:jar
+./mvnw deploy
 
