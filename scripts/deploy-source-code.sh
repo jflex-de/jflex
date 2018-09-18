@@ -9,11 +9,6 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
-git_setup() {
-  git config --global user.name "Travis CI"
-  git config --global user.email "deploy@travis-ci.org"
-}
-
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
   git clone --depth 1 --branch aggregated-java-sources https://github.com/jflex-de/jflex.git repo
@@ -43,7 +38,6 @@ git_push() {
 }
 
 if [ -z "$CI" ] || [ "_$TEST_SUITE" -eq "_unit" ]; then
-  git_setup
   git_clone
   update_source
 fi
