@@ -36,7 +36,7 @@ cache:
   - jflex/lib
 
 # Build the maven site
-after_sucess:
+after_success:
 - ./scripts/before-deploy.sh
 - ./scripts/deploy-source-code.sh
 
