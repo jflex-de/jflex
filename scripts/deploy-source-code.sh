@@ -39,13 +39,8 @@ git_push() {
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 
-if [ -z "$CI" ] || \
-    ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
-  git_clone
-  update_source
-else
-  logi "Skipping update in CI for test suite '$TEST_SUITE' (JDK='$TRAVIS_JDK_VERSION')"
-fi
+git_clone
+update_source
 
 # Travis should only push from master ; not from pull requests
 # TODO: Introduce a "release"/"stable" branch

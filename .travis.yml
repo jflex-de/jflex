@@ -6,9 +6,16 @@ branches:
 
 language: java
 
+# TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
 jdk:
 - openjdk7
 - oraclejdk8
+
+env:
+  matrix:
+  - TEST_SUITE=ant
+  - TEST_SUITE=unit
+  - TEST_SUITE=regression
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
@@ -19,14 +26,34 @@ install: true
 
 script: ./scripts/run-tests.sh
 
-after_success:
-  - ./scripts/deploy-source-code.sh
+# Build the maven site
+before_deploy:
+- if [ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]; then ./scripts/before-deploy.sh; fi
 
-env:
-  matrix:
-  - TEST_SUITE=ant
-  - TEST_SUITE=unit
-  - TEST_SUITE=regression
+deploy:
+# Deploy the maven site on Github pages
+- provider: pages
+  skip_cleanup: true
+  on:
+    branch: master
+    condition:
+    - $TEST_SUITE = unit
+    - $TRAVIS_JDK_VERSION = oraclejdk8
+  local_dir: target/maven-staging-site/maven-site
+  # GITHUB_TOKEN set in travis-ci.org dashboard
+  github_token: $GITHUB_TOKEN
+  repo: jflex-de/jflex-web
+  name: Travis site-deploy bot
+  keep-history: true
+# Aggregate sources and push to branch aggregated-java-sources
+- provider: script
+  skip_cleanup: true
+  on:
+    branch: master
+    condition:
+    - $TEST_SUITE = unit
+    - $TRAVIS_JDK_VERSION = oraclejdk8
+  script: ./scripts/deploy-source-code.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
@@ -37,20 +64,3 @@ cache:
   directories:
   - $HOME/.m2
   - jflex/lib
-
-# Build the maven site
-before_deploy: ./scripts/before-deploy.sh
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  # GITHUB_TOKEN set in travis-ci.org dashboard
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
-    condition: $TEST_SUITE = unit
-  local_dir: target/maven-staging-site/maven-site
-  repo: jflex-de/jflex-web
-  name: Travis site-deploy bot
-  keep-history: true
-
