@@ -46,4 +46,3 @@ cd ..
 ./mvnw javadoc:jar
 ./mvnw source:jar
 ./mvnw deploy
-
