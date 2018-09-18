@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Push aggregated source code back to git
 # This is inspired by https://martinrotter.github.io/it-programming/2016/08/26/pushing-git-travis/
 
@@ -6,12 +6,14 @@ CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
 source "$BASEDIR"/scripts/logger.sh
+# Maven executable
+MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
-git_setup() {
-  git config --global user.name "Travis CI"
-  git config --global user.email "deploy@travis-ci.org"
+create_source_jar() {
+  logi "Aggregate all sources in jar"
+  "$MVN" source:aggregate
 }
 
 git_clone() {
@@ -25,30 +27,47 @@ update_source() {
   cd repo
   git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
   jar -xf ../target/jflex-*-sources.jar
-  logi "Remove unrelated sources and compile"
+  logi "Remove unrelated sources"
+  logi "Download deps and Compile"
   ./compile.sh
   git add --all
+  logi "Git status"
+  git status
   git commit -a -m "Update from $version"
   cd ..
 }
 
 git_push() {
   cd repo
-  logi "Git log"
-  git --no-pager log
-  git diff --name-only HEAD^1
   logi "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
+  git log -1
   git push
   cd ..
 }
 
-if [ -z "$CI" ] || [ "_$TEST_SUITE" -eq "_unit" ]; then
-  git_setup
+# Git is in detached state
+# current_branch=$(git rev-parse --abbrev-ref HEAD)
+# returns "HEAD"
+
+# N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
+# Hence preprend with PULL_REQUEST_DATA to discard pull requests
+current_branch="${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH}_${TRAVIS_BRANCH}"
+logi "On branch ${current_branch}"
+
+if [ -z "$CI" ] || \
+    ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
+  create_source_jar
   git_clone
   update_source
+else
+  logi "Skipping update in CI for test suite '$TEST_SUITE' (JDK='$TRAVIS_JDK_VERSION')"
 fi
 
 # Travis should only push from master ; not from pull requests
-if [ "_$TEST_SUITE" -eq "_unit" ] && [ "_$(git rev-parse --abbrev-ref HEAD)" -eq "_master" ]; then
+# TODO: Introduce a "release"/"stable" branch
+# ":_master" because we use slug:pr_branch
+if [ "_$TEST_SUITE" == "_unit" ] && [ "$current_branch" == ":_master" ]; then
   git_push
+else
+  logi "Skipping git push in branch '$current_branch'"
 fi

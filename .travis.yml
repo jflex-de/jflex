@@ -15,12 +15,9 @@ jdk:
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install: ./scripts/clean.sh
 
-install: true
+install: ./mvnw -version
 
 script: ./scripts/run-tests.sh
-
-after_success:
-  - ./scripts/desploy-source-code.sh
 
 env:
   matrix:
@@ -39,7 +36,9 @@ cache:
   - jflex/lib
 
 # Build the maven site
-before_deploy: ./scripts/before-deploy.sh
+after_success:
+- ./scripts/before-deploy.sh
+- ./scripts/deploy-source-code.sh
 
 deploy:
   provider: pages
