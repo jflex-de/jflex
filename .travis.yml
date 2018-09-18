@@ -40,7 +40,7 @@ cache:
 
 # Build the maven site
 before_deploy:
-- if [ "_$TEST_SUITE" == "_unit" ]; then ./mvnw site; fi
+- if [ "_$TEST_SUITE" = "_unit" ]; then ./mvnw site; fi
 - ./scripts/before-deploy.sh
 
 deploy:
