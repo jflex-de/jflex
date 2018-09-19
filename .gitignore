@@ -2,11 +2,13 @@
 *~
 *.versionsBackup
 
-# Binaries
+# Build artifacts
 *.class
-**/target
+
+# Build tools
 dependency-reduced-pom.xml
-/bazel-*
+**/target
+bazel-*
 
 # IntelliJ
 *.iml
@@ -20,3 +22,5 @@ dependency-reduced-pom.xml
 .metadata/
 .settings/
 
+# aggregated-java-source repository
+repo

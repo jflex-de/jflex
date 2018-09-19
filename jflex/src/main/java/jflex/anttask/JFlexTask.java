@@ -333,4 +333,13 @@ public class JFlexTask extends Task {
   public void setLegacyDot(boolean b) {
     Options.legacy_dot = b;
   }
+
+  /**
+   * Set the input encoding. If unset will use the JVM default.
+   *
+   * @param encodingName the name of the encoding to set (e.g. "utf-8").
+   */
+  public void setEncoding(String encodingName) {
+    Options.setEncoding(encodingName);
+  }
 }

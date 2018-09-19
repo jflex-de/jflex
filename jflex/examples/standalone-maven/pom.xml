@@ -27,6 +27,9 @@ of "hello" by "hello <name> !".]]></description>
             <goals>
               <goal>generate</goal>
             </goals>
+            <configuration>
+              <encoding>utf-8</encoding>
+            </configuration>
           </execution>
         </executions>
       </plugin>

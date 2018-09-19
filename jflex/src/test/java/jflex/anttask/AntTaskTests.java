@@ -11,6 +11,7 @@ package jflex.anttask;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import jflex.Options;
 import junit.framework.TestCase;
 
@@ -162,5 +163,14 @@ public class AntTaskTests extends TestCase {
     assertFalse(Options.legacy_dot);
     task.setLegacyDot(true);
     assertTrue(Options.legacy_dot);
+  }
+
+  public void testSetEncoding() {
+    Charset defaultSet = Charset.defaultCharset();
+    String name = "utf-8";
+    Charset charset = Charset.forName(name);
+    assertTrue(Options.encoding.equals(defaultSet));
+    task.setEncoding(name);
+    assertTrue(Options.encoding.equals(charset));
   }
 }

@@ -10,9 +10,11 @@
 package jflex;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +58,13 @@ public class Main {
 
     LexScan scanner = null;
     LexParse parser = null;
-    FileReader inputReader = null;
+    Reader inputReader = null;
 
     totalTime.start();
 
     try {
       Out.println(ErrorMessages.READING, inputFile.toString());
-      inputReader = new FileReader(inputFile);
+      inputReader = new InputStreamReader(new FileInputStream(inputFile), Options.encoding);
       scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
       parser = new LexParse(scanner);
@@ -167,6 +169,16 @@ public class Main {
         }
 
         Options.setSkeleton(new File(argv[i]));
+        continue;
+      }
+
+      if (argv[i].equals("--encoding")) {
+        if (++i >= argv.length) {
+          Out.error(ErrorMessages.NO_ENCODING);
+          throw new GeneratorException();
+        }
+
+        Options.setEncoding(argv[i]);
         continue;
       }
 
