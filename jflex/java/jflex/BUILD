@@ -7,8 +7,9 @@ java_library(
         "//jflex/lex:gen_scanner",
     ],
     resources = [
-        "//jflex/java/resources",
-    ],
+                        "Messages.properties",
+                        "skeleton.default",
+                    ],
     deps = [
         "//third_party/java_cup",
         "//jflex/java/jflex/base",

@@ -10,9 +10,6 @@ java_binary(
     runtime_deps = [
         ":jflex",
     ],
-    resources = [
-        "//jflex/java/resources",
-    ],
     main_class = "jflex.Main",
 )
 
