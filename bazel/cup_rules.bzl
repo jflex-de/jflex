@@ -5,11 +5,11 @@ def cup(name, srcs, parser = "Parser", symbols = "Symbols", interface = False):
     opts = "-parser {parser} -symbols {symbols}".format(parser = parser, symbols = symbols)
     if interface:
         opts = opts + " -interface"
-    cmd = ("$(location //cup:cup_bin) -destdir $(@D) " + opts + " < $<")
+    cmd = ("$(location //third_party/java_cup:cup_bin) -destdir $(@D) " + opts + " < $<")
     native.genrule(
         name = name,
         srcs = srcs,
-        tools = ["//cup:cup_bin"],
+        tools = ["//third_party/java_cup:cup_bin"],
         outs = [parser + ".java", symbols + ".java"],
         cmd = cmd,
     )

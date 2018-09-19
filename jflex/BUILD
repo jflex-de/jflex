@@ -2,13 +2,16 @@ package(default_visibility = ["//visibility:public"])
 
 alias(
     name = "jflex",
-    actual = "//jflex/src/main"
+    actual = "//jflex/java/jflex"
 )
 
 java_binary(
     name = "jflex_bin",
     runtime_deps = [
         ":jflex",
+    ],
+    resources = [
+        "//jflex/java/resources",
     ],
     main_class = "jflex.Main",
 )
@@ -17,7 +20,7 @@ java_binary(
     name = "jflex_gui_bin",
     runtime_deps = [
         ":jflex",
-        "//jflex/src/main/java/jflex/gui",
+        "//jflex/java/jflex/gui",
     ],
     main_class = "jflex.gui.Gui",
 )
@@ -33,5 +36,5 @@ java_binary(
     runtime_deps = [
         ":jflex_1_6_1",
     ],
-    visibility = ["//jflex/src/main:__subpackages__"],
+    visibility = ["//jflex/java:__subpackages__", "//jflex/lex:__pkg__"],
 )
