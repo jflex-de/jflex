@@ -53,6 +53,9 @@ public class TestCase {
   /** inputOutputFiles to invoke test.main on and compare */
   private List<InputOutput> inputOutput;
 
+  /** encoding to use for compiling the .java file; defaults to UTF-8 */
+  private String javacEncoding = "UTF-8";
+
   /** get- set- methods */
   void setTestName(String s) {
     testName = s;
@@ -101,6 +104,10 @@ public class TestCase {
 
   void setJavaVersion(String v) {
     this.javaVersion = v;
+  }
+
+  void setJavacEncoding(String v) {
+    this.javacEncoding = v;
   }
 
   public TestCase() {
@@ -193,7 +200,8 @@ public class TestCase {
       if (Tester.verbose) {
         System.out.println("File(s) to Compile: " + toCompile);
       }
-      TestResult javacResult = Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath());
+      TestResult javacResult =
+          Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
       // System.out.println(javacResult);
       if (Tester.verbose) {
