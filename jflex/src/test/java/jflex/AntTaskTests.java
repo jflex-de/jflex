@@ -169,8 +169,8 @@ public class AntTaskTests extends TestCase {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";
     Charset charset = Charset.forName(name);
-    assertTrue(Options.encoding.equals(defaultSet));
+    assertEquals(Options.encoding, defaultSet);
     task.setEncoding(name);
-    assertTrue(Options.encoding.equals(charset));
+    assertEquals(Options.encoding, charset);
   }
 }

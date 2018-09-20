@@ -11,8 +11,9 @@ package jflex;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -87,7 +88,10 @@ public final class Emitter {
 
     Out.println("Writing code to \"" + outputFile + "\"");
 
-    this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    this.out =
+        new PrintWriter(
+            new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(outputFile), Options.encoding)));
     this.parser = parser;
     this.scanner = parser.scanner;
     this.visibility = scanner.visibility;

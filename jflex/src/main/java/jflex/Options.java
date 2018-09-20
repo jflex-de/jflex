@@ -47,7 +47,7 @@ public class Options {
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
   public static boolean legacy_dot;
-  /** The encoding to use for input files. */
+  /** The encoding to use for input and output files. */
   public static Charset encoding;
 
   static {
@@ -91,7 +91,7 @@ public class Options {
     directory = d;
   }
 
-  /** Set encoding for input files, and check availability of encoding on this JVM. */
+  /** Sets encoding for input files, and check availability of encoding on this JVM. */
   public static void setEncoding(String encodingName) {
     if (Charset.isSupported(encodingName)) {
       encoding = Charset.forName(encodingName);
