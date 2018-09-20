@@ -228,7 +228,7 @@ public class JFlexMojo extends AbstractMojo {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
-    if (!encodingName.equals("")) {
+    if (!"".equals(encodingName)) {
       try {
         Options.setEncoding(encodingName);
       } catch (Exception e) {
