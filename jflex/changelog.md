@@ -6,7 +6,7 @@
 - Ant build now depends on >= 1.9.7 (#294)
 - Option `--noinputstreamctor` removed (#195)
 - documentation improvements (#152, #187, #215, #290)
-- add an `--encoding` option to specify the lexer spec encoding (#164)
+- add an `--encoding` option to specify input/output encoding (#164)
 - make jflex start script robust for other locales (#251)
 - report character position when %debug and %char are present (#207)
 
