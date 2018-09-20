@@ -47,7 +47,8 @@ public class Exec {
    * Call javac on toCompile in input dir. If toCompile is null, all *.java files below dir will be
    * compiled.
    */
-  public static TestResult execJavac(String toCompile, File dir, String additionalJars) {
+  public static TestResult execJavac(
+      String toCompile, File dir, String additionalJars, String encoding) {
     Project p = new Project();
     Javac javac = new Javac();
     Path path = new Path(p, dir.toString());
@@ -58,6 +59,7 @@ public class Exec {
     javac.setSource(JAVA_VERSION);
     javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
     javac.setIncludes(toCompile);
+    javac.setEncoding(encoding);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
     classPath.setPath(additionalJars);
