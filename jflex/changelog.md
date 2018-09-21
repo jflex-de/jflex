@@ -1,4 +1,4 @@
-## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 16, 2018)
+## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
 - Unicode 8.0 and 9.0 are supported (#209)
 - updated to most recent version of CUP 11b (#175)
 - JFlex build and runtime now depend on JDK 1.7+
