@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
+Built-By: travis
 Created-By: Apache Maven 3.5.2
-Built-By: regisd
-Build-Jdk: 1.8.0_151-google-v7
+Build-Jdk: 1.8.0_151
 
