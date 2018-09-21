@@ -3,6 +3,7 @@ branches:
   only:
   - master
   - aggregated-java-sources
+  - release
 
 language: java
 
