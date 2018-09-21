@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.7.0-SNAPSHOT</version>
+    <version>1.7.1-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-testsuite-maven-plugin</artifactId>
@@ -24,7 +24,7 @@
     <developer>
       <id>lsf37</id>
       <name>Gerwin Klein</name>
-      <email>gerwin.klein@nicta.com.au</email>
+      <email>lsf@jflex.de</email>
       <roles>
         <role>developer</role>
       </roles>
@@ -44,7 +44,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>${project.version}</version>
+        <version>1.7.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -127,10 +127,6 @@
       <version>1.5.0</version>
       <scope>system</scope>
       <systemPath>${toolsjar}</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.plugin-tools</groupId>
-      <artifactId>maven-plugin-annotations</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>

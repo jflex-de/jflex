@@ -34,11 +34,12 @@ cd simple-maven; $MVN test; cd ..
 logi "Example: standalone-maven"
 # Note that mvn is a likely to be a different and older version of Maven.
 cd standalone-maven; $MVN test; cd ..
+logi "Example: cup-maven"
+cd cup-maven; $MVN test; cd ..
+
 logi "Example: byacc/j"
 # don't assume byacc/j is installed, just run lexer
 cd byaccj; make clean; make Yylex.java; cd ..
-logi "Example: cup"
-cd cup; make clean; make; cd ..
 logi "Example: interpreter"
 cd interpreter; make clean; make; cd ..
 logi "Example: java"

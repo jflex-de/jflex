@@ -1,88 +1,88 @@
-line: 1 col: 1 match: --hello--
+line: 1 col: 1 char: 0 match: --hello--
 action [19] { System.out.println("hello at BOL and EOL"); }
 hello at BOL and EOL
-line: 1 col: 6 match: --\u000A--
+line: 1 col: 6 char: 5 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 2 col: 1 match: -- --
+line: 2 col: 1 char: 6 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 2 col: 2 match: -- --
+line: 2 col: 2 char: 7 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 2 col: 3 match: --hello--
+line: 2 col: 3 char: 8 match: --hello--
 action [21] { System.out.println("hello at EOL"); }
 hello at EOL
-line: 2 col: 8 match: --\u000A--
+line: 2 col: 8 char: 13 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 3 col: 1 match: -- --
+line: 3 col: 1 char: 14 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 3 col: 2 match: -- --
+line: 3 col: 2 char: 15 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 3 col: 3 match: --hello--
+line: 3 col: 3 char: 16 match: --hello--
 action [22] { System.out.println("just hello"); }
 just hello
-line: 3 col: 8 match: -- --
+line: 3 col: 8 char: 21 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 3 col: 9 match: -- --
+line: 3 col: 9 char: 22 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 3 col: 10 match: --\u000A--
+line: 3 col: 10 char: 23 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 4 col: 1 match: --hello--
+line: 4 col: 1 char: 24 match: --hello--
 action [20] { System.out.println("hello at BOL"); }
 hello at BOL
-line: 4 col: 6 match: -- --
+line: 4 col: 6 char: 29 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 4 col: 7 match: --\u000A--
+line: 4 col: 7 char: 30 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 5 col: 1 match: -- --
+line: 5 col: 1 char: 31 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 5 col: 2 match: -- --
+line: 5 col: 2 char: 32 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 5 col: 3 match: --hello--
+line: 5 col: 3 char: 33 match: --hello--
 action [21] { System.out.println("hello at EOL"); }
 hello at EOL
-line: 5 col: 8 match: --\u000A--
+line: 5 col: 8 char: 38 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 6 col: 1 match: --hello--
+line: 6 col: 1 char: 39 match: --hello--
 action [20] { System.out.println("hello at BOL"); }
 hello at BOL
-line: 6 col: 6 match: -- --
+line: 6 col: 6 char: 44 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 6 col: 7 match: --\u000A--
+line: 6 col: 7 char: 45 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 7 col: 1 match: -- --
+line: 7 col: 1 char: 46 match: -- --
 action [27] { System.out.println( "\" \"" ); }
 " "
-line: 7 col: 2 match: --\u000A--
+line: 7 col: 2 char: 47 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
-line: 8 col: 1 match: --s--
+line: 8 col: 1 char: 48 match: --s--
 action [28] { System.out.println( yytext() ); }
 s
-line: 8 col: 2 match: --d--
+line: 8 col: 2 char: 49 match: --d--
 action [28] { System.out.println( yytext() ); }
 d
-line: 8 col: 3 match: --f--
+line: 8 col: 3 char: 50 match: --f--
 action [28] { System.out.println( yytext() ); }
 f
-line: 8 col: 4 match: --a--
+line: 8 col: 4 char: 51 match: --a--
 action [28] { System.out.println( yytext() ); }
 a
-line: 8 col: 5 match: --\u000A--
+line: 8 col: 5 char: 52 match: --\u000A--
 action [25] { System.out.println("\\n"); }
 \n
 -1

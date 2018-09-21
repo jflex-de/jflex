@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -14,7 +14,7 @@ import java.io.File;
  * Performs simple semantic analysis on regular expressions.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class SemCheck {
 
@@ -40,11 +40,17 @@ public final class SemCheck {
 
       if (r != null && maybeEmtpy(r)) {
         if (l != null) {
-          if (a == null) Out.error(ErrorMessages.EMPTY_MATCH_LOOK);
-          else Out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+          if (a == null) {
+            Out.error(ErrorMessages.EMPTY_MATCH_LOOK);
+          } else {
+            Out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+          }
         } else {
-          if (a == null) Out.warning(ErrorMessages.EMPTY_MATCH);
-          else Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+          if (a == null) {
+            Out.warning(ErrorMessages.EMPTY_MATCH);
+          } else {
+            Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+          }
         }
       }
     }

@@ -110,6 +110,13 @@ public class JFlexMojo extends AbstractMojo {
   private boolean legacyDot = false; // NOPMD
 
   /**
+   * The name of the character encoding for reading lexer specifications. Uses JVM default encoding
+   * if unset.
+   */
+  @Parameter(defaultValue = "")
+  private String encodingName = ""; // NOPMD
+
+  /**
    * Generate java parsers from lexer definition files.
    *
    * <p>This methods is checks parameters, sets options and calls JFlex.Main.generate()
@@ -219,6 +226,14 @@ public class JFlexMojo extends AbstractMojo {
     Options.no_backup = !backup; // NOPMD
     if (!"pack".equals(generationMethod)) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
+    }
+
+    if (!"".equals(encodingName)) {
+      try {
+        Options.setEncoding(encodingName);
+      } catch (Exception e) {
+        throw new MojoExecutionException(e.getMessage());
+      }
     }
 
     try {

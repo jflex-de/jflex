@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <project name="JFlex" default="help">
 
-  <property name="version" value="1.7.0-SNAPSHOT" />
-  <property name="bootstrap.version" value="1.6.1" />
+  <property environment="env" />
+
+  <property name="version" value="1.7.1-SNAPSHOT" />
+  <property name="bootstrap.version" value="1.7.0" />
   <property name="junit.version" value="4.11" />
   <property name="cup.version" value="11b" />
 
@@ -13,9 +15,10 @@
   <!-- use any of these files to override properties -->
   <property file="build.properties" />
   <property file="${user.home}/.jflex.properties" />
-  
+
   <!-- location of development tools necessary for the build -->
   <property name="lib.dir" value="lib"/>
+  <property name="m2repo" value="${env.HOME}/.m2/repository" />
     
   <!-- override these if you want to use your own versions -->
   <property name="bootstrap.jflex.jar" value="${lib.dir}/jflex-${bootstrap.version}.jar" />
@@ -24,10 +27,8 @@
 
   <!-- where to get tool jars from -->
   <property name="maven.central.url" value="https://repo.maven.apache.org/maven2" />
-  <property name="bootstrap.jflex.jar.url" 
-  	        value="${maven.central.url}/de/jflex/jflex/${bootstrap.version}/jflex-${bootstrap.version}.jar" />
-  <property name="junit.jar.url"
-            value="${maven.central.url}/junit/junit/${junit.version}/junit-${junit.version}.jar" />
+  <property name="bootstrap.jflex.jar.path" value="de/jflex/jflex/${bootstrap.version}/jflex-${bootstrap.version}.jar" />
+  <property name="junit.jar.path" value="junit/junit/${junit.version}/junit-${junit.version}.jar" />
 
   <!-- where build output goes, including the jflex jar -->
   <property name="build.dir" value="build"/>
@@ -60,9 +61,10 @@
   </target> 
 
   <target name="gettools" description="download development tools">
-    <get src="${bootstrap.jflex.jar.url}" dest="${bootstrap.jflex.jar}"/>
-    <get src="${junit.jar.url}" dest="${junit.jar}"/>
-    <copy file="../cup/cup/java-cup-${cup.version}.jar" todir="${lib.dir}" />
+    <!-- Download libs from central Maven repo otherwise. -->
+    <get src="${maven.central.url}/${bootstrap.jflex.jar.path}" dest="${bootstrap.jflex.jar}" skipexisting="true"/>
+    <get src="${maven.central.url}/${junit.jar.path}" dest="${junit.jar}" skipexisting="true"/>
+    <copy file="../cup/cup/java-cup-${cup.version}.jar" todir="${lib.dir}" overwrite="false"/>
   </target>
 
   <target name="build" depends="clean,jar" 
@@ -110,6 +112,7 @@
         <enable/>
       </assertions>
       <batchtest fork="yes" todir="${tests.dir}">
+        <formatter type="plain" usefile="false" /> <!-- to screen -->
         <formatter type="plain"/>
         <fileset dir="src/test/java">
           <include name="**/*Test*.java"/>
@@ -127,7 +130,7 @@
 
   <target name="-generate-scanner">
     <taskdef classname="jflex.anttask.JFlexTask" 
-             name="jflex" classpath="${bootstrap.jflex.jar}"/>
+             name="jflex" classpath="${bootstrap.jflex.jar}:${cup.jar}"/>
     <mkdir dir="${generated.sources.dir}"/>
     <jflex file="src/main/jflex/LexScan.flex"
            destdir="${generated.sources.dir}"

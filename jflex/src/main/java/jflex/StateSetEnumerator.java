@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -12,7 +12,7 @@ package jflex;
  * Enumerates the states of a StateSet.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class StateSetEnumerator {
 
@@ -61,13 +61,13 @@ public final class StateSetEnumerator {
 
   private void advance() {
 
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "Advancing, at start, index = "
               + index
               + ", offset = "
               + offset); // $NON-NLS-1$ //$NON-NLS-2$
-
+    }
     // cache fields in local variable for faster access
     int _index = this.index;
     int _offset = this.offset;
@@ -115,12 +115,13 @@ public final class StateSetEnumerator {
    * @return a boolean.
    */
   public boolean hasMoreElements() {
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "hasMoreElements, index = "
               + index
               + ", offset = "
               + offset); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     return index < bits.length;
   }
 
@@ -130,9 +131,10 @@ public final class StateSetEnumerator {
    * @return a int.
    */
   public int nextElement() {
-    if (DEBUG)
+    if (DEBUG) {
       Out.dump(
           "nextElement, index = " + index + ", offset = " + offset); // $NON-NLS-1$ //$NON-NLS-2$
+    }
     int x = (index << StateSet.BITS) + offset;
     advance();
     return x;

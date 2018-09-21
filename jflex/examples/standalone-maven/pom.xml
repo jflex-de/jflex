@@ -4,10 +4,10 @@
   <groupId>de.flex.examples</groupId>
   <artifactId>standalone-maven</artifactId>
   <version>1.0</version>
-  <description><![CDATA[This is a small example of a standalone text substitution scanner.
+  <description>This is a small example of a standalone text substitution scanner.
 
 It reads a name after the keyword name and replaces all occurrences
-of "hello" by "hello <name> !".]]></description>
+of "hello" by "hello &lt;name&gt; !".</description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,15 +21,21 @@ of "hello" by "hello <name> !".]]></description>
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.7.0-SNAPSHOT</version>
+        <version>1.7.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
               <goal>generate</goal>
             </goals>
+            <configuration>
+              <encoding>utf-8</encoding>
+            </configuration>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

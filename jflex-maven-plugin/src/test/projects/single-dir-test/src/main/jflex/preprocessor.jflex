@@ -3,7 +3,7 @@
  * metadata, replace syntax that should not be saved to the database,
  * and prepare the document for the full parsing by the processor.
  */
-package org.jamwiki.parser.jflex;
+package org.jamwiki.parser;
 
 import org.jamwiki.Environment;
 import org.jamwiki.utils.WikiLogger;

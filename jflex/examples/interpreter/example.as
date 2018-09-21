@@ -1,6 +1,6 @@
 
 // example program for interpreter testing 
-// contains division and modulo functins 
+// contains division and modulo functions
 
 input a,b
 functions div(x,y) = if x < y

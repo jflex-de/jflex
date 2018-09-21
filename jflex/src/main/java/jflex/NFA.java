@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -23,7 +23,7 @@ import java.util.Map;
  * <p>Contains algorithms RegExp → NFA and NFA → DFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class NFA {
 
@@ -73,12 +73,7 @@ public final class NFA {
   private static StateSetEnumerator states = new StateSetEnumerator();
   private static StateSet tempStateSet = new StateSet();
 
-  /**
-   * Constructor for NFA.
-   *
-   * @param numInput a int.
-   * @param estSize a int.
-   */
+  /** Constructor for NFA. */
   public NFA(int numInput, int estSize) {
     this.numInput = numInput;
     this.estSize = estSize;
@@ -96,10 +91,10 @@ public final class NFA {
    *
    * @see RegExps#checkLookAheads()
    * @param numInput a int.
-   * @param scanner a {@link jflex.LexScan} object.
-   * @param regExps a {@link jflex.RegExps} object.
-   * @param macros a {@link jflex.Macros} object.
-   * @param classes a {@link jflex.CharClasses} object.
+   * @param scanner a {@link LexScan} object.
+   * @param regExps a {@link RegExps} object.
+   * @param macros a {@link Macros} object.
+   * @param classes a {@link CharClasses} object.
    */
   public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes) {
     this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number());
@@ -753,7 +748,7 @@ public final class NFA {
     dfaStates.put(newState, numDFAStates);
     dfaList.add(newState);
 
-    if (Options.DEBUG)
+    if (Options.DEBUG) {
       Out.debug(
           "pos DFA start state is :"
               + Out.NL
@@ -763,7 +758,7 @@ public final class NFA {
               + "ordered :"
               + Out.NL
               + dfaList);
-
+    }
     currentDFAState = 0;
 
     while (currentDFAState <= numDFAStates) {
@@ -785,9 +780,11 @@ public final class NFA {
             // Out.debug("FOUND!");
             addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
           } else {
-            if (Options.dump) Out.print("+");
-            // Out.debug("NOT FOUND!");
-            // Out.debug("Table was "+dfaStates);
+            if (Options.dump) {
+              Out.print("+");
+              // Out.debug("NOT FOUND!");
+              // Out.debug("Table was "+dfaStates);
+            }
             numDFAStates++;
 
             dfaStates.put(newState, numDFAStates);
@@ -804,7 +801,9 @@ public final class NFA {
     // We have a dfa accepting the positive regexp.
 
     // Now the complement:
-    if (Options.DEBUG) Out.debug("dfa finished, nfa is now :" + Out.NL + this);
+    if (Options.DEBUG) {
+      Out.debug("dfa finished, nfa is now :" + Out.NL + this);
+    }
 
     int start = dfaStart + numDFAStates + 1;
     int error = dfaStart + numDFAStates + 2;
@@ -838,9 +837,9 @@ public final class NFA {
 
     removeDead(dfaStart, end);
 
-    if (Options.DEBUG)
+    if (Options.DEBUG) {
       Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
-
+    }
     return new IntPair(start, end);
   }
 
@@ -949,7 +948,9 @@ public final class NFA {
     int start, end;
     RegExp2 r;
 
-    if (Options.DEBUG) Out.debug("Inserting RegExp : " + regExp);
+    if (Options.DEBUG) {
+      Out.debug("Inserting RegExp : " + regExp);
+    }
 
     if (regExp.isCharClass(macros)) {
       start = numStates;

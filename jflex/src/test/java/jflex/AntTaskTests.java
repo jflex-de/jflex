@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>,                   *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -11,6 +11,7 @@ package jflex;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import jflex.anttask.JFlexTask;
 import junit.framework.TestCase;
 
@@ -18,7 +19,7 @@ import junit.framework.TestCase;
  * Unit tests for the jflex ant task.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class AntTaskTests extends TestCase {
 
@@ -162,5 +163,14 @@ public class AntTaskTests extends TestCase {
     assertFalse(Options.legacy_dot);
     task.setLegacyDot(true);
     assertTrue(Options.legacy_dot);
+  }
+
+  public void testSetEncoding() {
+    Charset defaultSet = Charset.defaultCharset();
+    String name = "utf-8";
+    Charset charset = Charset.forName(name);
+    assertEquals(Options.encoding, defaultSet);
+    task.setEncoding(name);
+    assertEquals(Options.encoding, charset);
   }
 }

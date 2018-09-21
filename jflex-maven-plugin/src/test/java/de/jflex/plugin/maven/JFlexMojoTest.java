@@ -11,6 +11,7 @@ package de.jflex.plugin.maven;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -30,7 +31,6 @@ public class JFlexMojoTest {
    * @return The configured mojo.
    */
   private JFlexMojo newMojo(String testCase) throws Exception {
-    // getBaseDir(BASEDIR) is ${WORKSPACE}/jflex/jflex-maven-plugin/src/test/projects/BASEDIR
     File unitBaseDir = testResources.getBasedir(testCase);
     File testPom = new File(unitBaseDir, "plugin-config.xml");
     JFlexMojo mojo = new JFlexMojo();
@@ -39,6 +39,15 @@ public class JFlexMojoTest {
       mojoRule.setVariableValueToObject(mojo, "project", new MavenProjectStub());
     }
     return mojo;
+  }
+
+  @Test
+  public void testTestResources() throws IOException {
+    String actualResDir = testResources.getBasedir("single-file-test").getAbsolutePath();
+    String expectedSuffix =
+        "/jflex-maven-plugin/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
+    assertTrue(
+        actualResDir + " ends with " + expectedSuffix, actualResDir.endsWith(expectedSuffix));
   }
 
   /** Tests configuration with a single input file. */
@@ -88,6 +97,6 @@ public class JFlexMojoTest {
    */
   private File getExpectedOutputFile(JFlexMojo mojo) throws Exception {
     File outDir = (File) mojoRule.getVariableValueFromObject(mojo, "outputDirectory");
-    return new File(outDir, "/org/jamwiki/parser/jflex/" + "JAMWikiPreProcessor" + ".java");
+    return new File(outDir, "/org/jamwiki/parser/" + "JAMWikiPreProcessor.java");
   }
 }

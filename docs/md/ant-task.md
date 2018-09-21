@@ -50,6 +50,9 @@ The following attributes are available for invoking the JFlex task.
 -  `verbose` (default `"off"`)\
     Display generation process messages.                     
 
+-  `encoding` (if unset uses the JVM default encoding)\
+    The character encoding to use when reading lexer specifications and writing java files.
+
 -  `dump` (default `"off"`)\           
     Dump character classes, NFA and DFA tables.                           
 

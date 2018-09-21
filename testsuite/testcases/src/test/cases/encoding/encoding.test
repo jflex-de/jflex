@@ -1,0 +1,7 @@
+name: encoding 
+
+description:
+testing input file character encoding option
+
+jflex: --nobak --encoding ISO-8859-1
+javac-encoding: ISO-8859-1
