@@ -88,17 +88,18 @@ git branch -D jflex-X.Y.Z
 
 ```bash
 ./mvnw install
-./mvnw javadoc:jar
-./mvnw source:jar
 ```
 
-### Build the user manual
- 
+### Create the release package
+
+Run the packaging script:
 ```sh
-cd docs && make
+scripts/mk-release.sh
 ```
 
-This generates `manual.html` and `manual.pdf`
+This generates the documentation and builds the .tar.gz and .zip file.
+
+Go into `releases/jflex-$version` and see if things look as expected.
 
 ### Stage the release to the Sonatype OSS Maven repository:
 
@@ -143,9 +144,6 @@ Then:
      version.
   2. Confirm merge into master.
 
-### Create the release package
-
-TODO: Document this step
 
 ### Update the website
 
@@ -162,9 +160,6 @@ In repository `jflex-web`, in `pages/`
 
 (FIXME: steps 2-5 can/should be automated)
 
-
-- Update README.md
-- Update Changelog.md
 
 ### Tag the _aggregate-java-sources_ branch
 
