@@ -42,8 +42,6 @@ import jflex.unicode.UnicodeProperties;
 %state CTOR_ARG, REGEXP_CODEPOINT_SEQUENCE
 %state STRING_CODEPOINT_SEQUENCE, CHARCLASS_CODEPOINT
 
-%inputstreamctor false
-
 %cupdebug
 
 %{
