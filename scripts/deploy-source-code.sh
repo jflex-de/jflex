@@ -40,7 +40,9 @@ update_source() {
 
   logi "Git status"
   git status
-  git commit -a -m "Update from $version"
+  # Don't commit if the diff is empty.
+  # git commit fails if the commit is empty, which makes Travis build fail.
+  git diff-index --quiet HEAD || git commit -a -m "Update from $version"
   cd ..
 }
 
@@ -62,8 +64,7 @@ if [[ -z "$CI" ]]; then
   logi "Check the last commit"
   logi "git log -1"
   logi "git diff HEAD^1"
-  logi "And run:"
-  logi "git push"
+  logi "# git push"
 else
   git_push
 fi
