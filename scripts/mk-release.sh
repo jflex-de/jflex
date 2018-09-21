@@ -6,7 +6,7 @@ set -e
 # a hack for enabling ant builds outside the repo until we figure out something better
 CUP_URL="https://raw.githubusercontent.com/jflex-de/jflex/05632859c94c348dee7d243e4a36bd656c132e96/cup/cup/java-cup-11b.jar"
 
-VERSION="1.7.0"
+VERSION="1.7.1-SNAPSHOT"
 JFLEX_JAR="jflex-full-$VERSION.jar"
 
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
@@ -69,7 +69,7 @@ cp ../../docs/fig/jflex-black.png doc/fig/
 rm -f .gitignore
 
 JFLEX_TAR=jflex-$VERSION.tar.gz
-JFLEX_ZIP=jflex-$VERSION.zips
+JFLEX_ZIP=jflex-$VERSION.zip
 
 cd ..
 rm -f $JFLEX_TAR $JFLEX_TAR.asc $JFLEX_TAR.sha1

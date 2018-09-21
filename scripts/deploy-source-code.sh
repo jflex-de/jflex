@@ -11,13 +11,15 @@ set -e
 
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-  git clone --depth 1 --branch aggregated-java-sources https://github.com/jflex-de/jflex.git repo
+  git clone --depth 1 --branch aggregated-java-sources git@github.com:jflex-de/jflex.git repo
 }
 
 update_source() {
   version=$(ls target/jflex-*-sources.jar)
   logi "Updating sources from $version"
   cd repo
+  git config user.name "Travis CI"
+  git config user.email "deploy@travis-ci.org"
   git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
   jar -xf ../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
