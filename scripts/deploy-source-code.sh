@@ -11,7 +11,7 @@ set -e
 
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-  git clone --depth 1 --branch aggregated-java-sources git@github.com:jflex-de/jflex.git repo
+  git clone --depth 1 --branch aggregated-java-sources https://github.com/jflex-de/jflex.git repo
 }
 
 update_source() {
