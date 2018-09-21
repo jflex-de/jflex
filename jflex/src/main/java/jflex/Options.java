@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Options {
 
@@ -47,7 +47,7 @@ public class Options {
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
   public static boolean legacy_dot;
-  /** The encoding to use for input files. */
+  /** The encoding to use for input and output files. */
   public static Charset encoding;
 
   static {
@@ -91,7 +91,7 @@ public class Options {
     directory = d;
   }
 
-  /** Set encoding for input files, and check availability of encoding on this JVM. */
+  /** Sets encoding for input files, and check availability of encoding on this JVM. */
   public static void setEncoding(String encodingName) {
     if (Charset.isSupported(encodingName)) {
       encoding = Charset.forName(encodingName);

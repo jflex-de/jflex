@@ -13,7 +13,7 @@
 
 %%
 
-"ä"    { return 0; }
+"ä"    { System.out.println("ä"); return 0; }
 "b"    { return 1; }
 
 

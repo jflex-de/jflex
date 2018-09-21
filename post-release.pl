@@ -7,7 +7,7 @@
 #
 # Performs the following:
 #
-#   - switches working copy to git master branch
+#   - switches working copy to git **new_snapshot** branch
 #   - Changes the JFlex version in all POMs to the supplied
 #     snapshot version (X.Y.Z-SNAPSHOT)
 #   - Changes the bootstrap JFlex version in the de.jflex:jflex
@@ -82,8 +82,8 @@ if ($stat_results) {
 }
 print "Yes.\n\n";
 
-print "Switching to master branch..\n";
-system ("git checkout master");
+print "Switching to new_snapshot branch..\n";
+system ("git checkout -b new_snapshot");
 if ($?) {
   print "FAILED.\n";
   exit 1;
@@ -137,9 +137,15 @@ print " updating version in jflex/README.md";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/README.md!);
 print "\ndone.\n\n";
 
+print " updating version in scripts/mk-release.sh";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" scripts/mk-release.sh!);
+print "\ndone.\n\n";
+
 print " updating version in comments and version tags in jflex/**.java";
-system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
-system (qq!find jflex -name "LexScan.flex" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
+system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\Q$previous_snapshot         \E/$snapshot/"!);
+system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\@version \Q$previous_snapshot\E/\@version $snapshot/"!);
+system (qq!find jflex -name "LexScan.flex" | xargs perl -pi -e "s/\Q$previous_snapshot         \E/$snapshot/"!);
+system (qq!find jflex -name "LexParse.cup" | xargs perl -pi -e "s/\Q$previous_snapshot         \E/$snapshot/"!);
 print "\ndone.\n\n";
 
 print "Committing version update ...\n";
