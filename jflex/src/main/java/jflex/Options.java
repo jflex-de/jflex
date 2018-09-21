@@ -1,9 +1,24 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
+ * All rights reserved.                                                    *
+ *                                                                         *
+ * License: BSD                                                            *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 package jflex;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
+/**
+ * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
+ *
+ * @author Gerwin Klein, Régis Décamps
+ * @version JFlex 1.7.1-SNAPSHOT
+ */
 public class Options {
 
   /** If true, additional verbose debug information is produced. This is a compile time option. */
@@ -339,8 +354,8 @@ public class Options {
       return this;
     }
 
-    public void setEncoding(String encodingName) throws UnsupportedCharsetException {
-      setEncoding(Charset.forName(encodingName));
+    public Builder setEncoding(String encodingName) throws UnsupportedCharsetException {
+      return setEncoding(Charset.forName(encodingName));
     }
 
     public Options.Builder setVerbose(boolean verbose) {

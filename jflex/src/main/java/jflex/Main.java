@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -29,7 +29,7 @@ import jflex.unicode.UnicodeProperties;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Main {
 
@@ -260,6 +260,7 @@ public class Main {
     System.out.println("Where <options> can be one or more of");
     System.out.println("-d <directory>    write generated file to <directory>");
     System.out.println("--skel <file>     use external skeleton <file>");
+    System.out.println("--encoding <name> use <name> as input/output encoding");
     System.out.println("--pack            set default code generation method (default)");
     System.out.println("--jlex            strict JLex compatibility");
     System.out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");

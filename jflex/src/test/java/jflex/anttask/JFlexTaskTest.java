@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>,                   *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * Test {@link JFlexTask}.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class JFlexTaskTest extends TestCase {
 
@@ -179,9 +179,9 @@ public class JFlexTaskTest extends TestCase {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";
     Charset charset = Charset.forName(name);
-    assertTrue(getOptions().encoding().equals(defaultSet));
+    assertEquals(defaultSet, getOptions().encoding());
     task.setEncoding(name);
-    assertTrue(getOptions().encoding().equals(charset));
+    assertEquals(charset, getOptions().encoding());
   }
 
   private Options getOptions() {
