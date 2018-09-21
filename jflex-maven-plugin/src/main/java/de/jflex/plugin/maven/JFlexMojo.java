@@ -8,16 +8,18 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import jflex.Main;
 import jflex.Options;
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -170,11 +172,12 @@ public class JFlexMojo extends AbstractMojo {
 
     if (lexDefinition.isDirectory()) {
       // recursively process files contained within
-      String[] extensions = {"jflex", "jlex", "lex", "flex"};
       getLog().debug("Processing lexer files found in " + lexDefinition);
-      Iterator<File> fileIterator = FileUtils.iterateFiles(lexDefinition, extensions, true);
-      while (fileIterator.hasNext()) {
-        File lexFile = fileIterator.next();
+      FluentIterable<File> files =
+          Files.fileTreeTraverser()
+              .preOrderTraversal(lexDefinition)
+              .filter(new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
+      for (File lexFile : files) {
         parseLexFile(lexFile);
       }
     } else {
@@ -276,5 +279,22 @@ public class JFlexMojo extends AbstractMojo {
       return path;
     }
     return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
+  }
+
+  static class ExtensionPredicate implements Predicate<File> {
+    final ImmutableSet<String> extensions;
+
+    ExtensionPredicate(ImmutableSet<String> extensions) {
+      this.extensions = extensions;
+    }
+
+    ExtensionPredicate(String... extensions) {
+      this(ImmutableSet.copyOf(extensions));
+    }
+
+    @Override
+    public boolean apply(File file) {
+      return extensions.contains(Files.getFileExtension(file.getName()));
+    }
   }
 }
