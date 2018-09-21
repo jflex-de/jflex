@@ -10,8 +10,8 @@ source "$BASEDIR"/scripts/logger.sh
 set -e
 
 git_clone() {
-  logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-  git clone --depth 1 --branch aggregated-java-sources git@github.com:jflex-de/jflex.git repo
+  logi "Cloning https://[GITHUB_TOKEN]@github.com/jflex-de/jflex/tree/aggregated-java-sources"
+  git clone --depth 1 --branch aggregated-java-sources "https://${GITHUB_TOKEN}@github.com/jflex-de/jflex.git" repo > /dev/null 2>&1
 }
 
 update_source() {
