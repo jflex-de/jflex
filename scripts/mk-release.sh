@@ -69,7 +69,7 @@ cp ../../docs/fig/jflex-black.png doc/fig/
 rm -f .gitignore
 
 JFLEX_TAR=jflex-$VERSION.tar.gz
-JFLEX_ZIP=jflex-$VERSION.zips
+JFLEX_ZIP=jflex-$VERSION.zip
 
 cd ..
 rm -f $JFLEX_TAR $JFLEX_TAR.asc $JFLEX_TAR.sha1
