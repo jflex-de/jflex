@@ -60,7 +60,9 @@ deploy:
 - provider: script
   skip_cleanup: true
   on:
-    branch: master
+    branch:
+    - master
+    - release
     condition:
     - $TEST_SUITE = unit
     - $TRAVIS_JDK_VERSION = oraclejdk8
