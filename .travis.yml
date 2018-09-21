@@ -63,4 +63,4 @@ deploy:
     condition:
     - $TEST_SUITE = unit
     - $TRAVIS_JDK_VERSION = oraclejdk8
-  script: ./scripts/deploy-source-code.sh
+  script: true || ./scripts/deploy-source-code.sh
