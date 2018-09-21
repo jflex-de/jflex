@@ -22,3 +22,5 @@ dependency-reduced-pom.xml
 # aggregated-java-source repository
 repo
 
+# release files
+release
