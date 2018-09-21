@@ -8,14 +8,11 @@ language: java
 
 # TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
 jdk:
-- openjdk7
 - oraclejdk8
 
 env:
   matrix:
-  - TEST_SUITE=ant
   - TEST_SUITE=unit
-  - TEST_SUITE=regression
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
