@@ -1,9 +1,9 @@
-# JFlex 1.7.0-SNAPSHOT
+# JFlex 1.7.0
 
 This directory contains JFlex, a fast scanner generator for Java.
 
-To run JFlex, run `bin/jflex` from the command line or double click on
-`lib/JFlex.jar`. You need JDK 1.7 installed and set up.
+To run JFlex, run `bin/jflex` from the command line or double click on the
+JFLex jar file in the `lib/` directory. You need JDK 1.7 installed and set up.
 
 See the manual in `doc/` or the website at <http://jflex.de> for more
 information and for how to get started.
@@ -14,14 +14,8 @@ information and for how to get started.
       bin/                    command line start scripts
       doc/                    manual
       examples/               some example scanners
-      lib/                    JFlex.jar, syntax highlighting, skeleton files
-      
-      src/                    
-      src/main/java/          JFLex sources
-      src/main/jflex/         scanner spec
-      src/main/cup/           parser spec
-      src/main/resources/     strings and default skeleton file
-      src/test/               unit tests
+      lib/                    JFlex jar file, syntax highlighting files
+      src/                    JFLex sources
      
       pom.xml                 Maven project object model, useful commands:
                                  mvn compile   build and compile JFlex

@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.0                                                             *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -33,12 +33,12 @@ import jflex.unicode.UnicodeProperties;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.0
  */
 public class Main {
 
   /** JFlex version */
-  public static final String version = "1.7.0-SNAPSHOT"; // $NON-NLS-1$
+  public static final String version = "1.7.0"; // $NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
@@ -362,26 +362,27 @@ public class Main {
     Out.println("Usage: jflex <options> <input-files>");
     Out.println("");
     Out.println("Where <options> can be one or more of");
-    Out.println("-d <directory>    write generated file to <directory>");
-    Out.println("--skel <file>     use external skeleton <file>");
-    Out.println("--pack            set default code generation method (default)");
-    Out.println("--jlex            strict JLex compatibility");
-    Out.println("--legacydot       dot (.) metachar matches [^\\n] instead of");
-    Out.println("                  [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
-    Out.println("--nomin           skip minimization step");
-    Out.println("--nobak           don't create backup files");
-    Out.println("--dump            display transition tables");
-    Out.println("--dot             write graphviz .dot files for the generated automata (alpha)");
+    Out.println("-d <directory>     write generated file to <directory>");
+    Out.println("--skel <file>      use external skeleton <file>");
+    Out.println("--encoding <name>  use <name> as input/output encoding");
+    Out.println("--pack             set default code generation method (default)");
+    Out.println("--jlex             strict JLex compatibility");
+    Out.println("--legacydot        dot (.) metachar matches [^\\n] instead of");
+    Out.println("                   [^\\n\\r\\u000B\\u000C\\u0085\\u2028\\u2029]");
+    Out.println("--nomin            skip minimization step");
+    Out.println("--nobak            don't create backup files");
+    Out.println("--dump             display transition tables");
+    Out.println("--dot              write graphviz .dot files for the generated automata (alpha)");
     Out.println("--verbose");
-    Out.println("-v                display generation progress messages (default)");
+    Out.println("-v                 display generation progress messages (default)");
     Out.println("--quiet");
-    Out.println("-q                display errors only");
-    Out.println("--time            display generation time statistics");
-    Out.println("--version         print the version number of this copy of jflex");
-    Out.println("--info            print system + JDK information");
-    Out.println("--uniprops <ver>  print all supported properties for Unicode version <ver>");
+    Out.println("-q                 display errors only");
+    Out.println("--time             display generation time statistics");
+    Out.println("--version          print the version number of this copy of jflex");
+    Out.println("--info             print system + JDK information");
+    Out.println("--uniprops <ver>   print all supported properties for Unicode version <ver>");
     Out.println("--help");
-    Out.println("-h                print this message");
+    Out.println("-h                 print this message");
     Out.println("");
     Out.println(ErrorMessages.THIS_IS_JFLEX, version);
     Out.println("Have a nice day!");

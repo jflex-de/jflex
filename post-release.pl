@@ -137,9 +137,14 @@ print " updating version in jflex/README.md";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/README.md!);
 print "\ndone.\n\n";
 
+print " updating version in scripts/mk-release.sh";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" scripts/mk-release.sh!);
+print "\ndone.\n\n";
+
 print " updating version in comments and version tags in jflex/**.java";
 system (qq!find jflex -name "*.java" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
 system (qq!find jflex -name "LexScan.flex" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
+system (qq!find jflex -name "LexParse.cup" | xargs perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!);
 print "\ndone.\n\n";
 
 print "Committing version update ...\n";
