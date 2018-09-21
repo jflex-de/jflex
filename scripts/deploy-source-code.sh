@@ -18,6 +18,8 @@ update_source() {
   version=$(ls target/jflex-*-sources.jar)
   logi "Updating sources from $version"
   cd repo
+  git config user.name "Travis CI"
+  git config user.email "deploy@travis-ci.org"
   git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
   jar -xf ../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
