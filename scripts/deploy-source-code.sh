@@ -6,15 +6,8 @@ CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
 source "$BASEDIR"/scripts/logger.sh
-# Maven executable
-MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
-
-create_source_jar() {
-  logi "Aggregate all sources in jar"
-  "$MVN" source:aggregate
-}
 
 git_clone() {
   logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
@@ -45,29 +38,18 @@ git_push() {
   cd ..
 }
 
-# Git is in detached state
-# current_branch=$(git rev-parse --abbrev-ref HEAD)
-# returns "HEAD"
-
 # N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
-# Hence preprend with PULL_REQUEST_DATA to discard pull requests
-current_branch="${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH}_${TRAVIS_BRANCH}"
-logi "On branch ${current_branch}"
+logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
-if [ -z "$CI" ] || \
-    ([ "_$TEST_SUITE" == "_unit" ] && [ "_${TRAVIS_JDK_VERSION}" == "_oraclejdk8" ]); then
-  create_source_jar
-  git_clone
-  update_source
+git_clone
+update_source
+
+if [[ -z "$CI" ]]; then
+  logi "Check the last commit"
+  logi "git log -1"
+  logi "git diff HEAD^1"
+  logi "And run:"
+  logi "git push"
 else
-  logi "Skipping update in CI for test suite '$TEST_SUITE' (JDK='$TRAVIS_JDK_VERSION')"
-fi
-
-# Travis should only push from master ; not from pull requests
-# TODO: Introduce a "release"/"stable" branch
-# ":_master" because we use slug:pr_branch
-if [ "_$TEST_SUITE" == "_unit" ] && [ "$current_branch" == ":_master" ]; then
   git_push
-else
-  logi "Skipping git push in branch '$current_branch'"
 fi
