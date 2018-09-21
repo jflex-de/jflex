@@ -43,6 +43,4 @@ cd ../jflex-maven-plugin
 
 # Deploy the deployable stuff to the Sonatype OSS Maven repository
 cd ..
-./mvnw javadoc:jar
-./mvnw source:jar
-./mvnw deploy
+./mvnw deploy -Prelease
