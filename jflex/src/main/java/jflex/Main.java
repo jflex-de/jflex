@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0                                                             *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -33,12 +33,12 @@ import jflex.unicode.UnicodeProperties;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Main {
 
   /** JFlex version */
-  public static final String version = "1.7.0"; // $NON-NLS-1$
+  public static final String version = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
