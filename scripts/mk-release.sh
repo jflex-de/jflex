@@ -6,7 +6,7 @@ set -e
 # a hack for enabling ant builds outside the repo until we figure out something better
 CUP_URL="https://raw.githubusercontent.com/jflex-de/jflex/05632859c94c348dee7d243e4a36bd656c132e96/cup/cup/java-cup-11b.jar"
 
-VERSION="1.7.0-SNAPSHOT"
+VERSION="1.7.0"
 JFLEX_JAR="jflex-full-$VERSION.jar"
 
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
