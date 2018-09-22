@@ -20,7 +20,10 @@ git_clone() {
   fi
 }
 
+# update_source <initial_log_message>
 update_source() {
+  gitlog="$1"
+  logi "Updating source for $gitlog"
   version=$(ls target/jflex-*-sources.jar)
   logi "Updating sources from $version"
   cd repo
@@ -31,12 +34,18 @@ update_source() {
   logi "Remove unrelated sources"
   logi "Download deps and Compile"
   ./compile.sh
+
+  logi "Add license files"
+  cp ../LICENSE.md .
+  cp ../cup/LICENSE LICENSE_CUP
+  logi "Update git sources"
   git add --all
+
   logi "Git status"
   git status
   # Don't commit if the diff is empty.
   # git commit fails if the commit is empty, which makes Travis build fail.
-  git diff-index --quiet HEAD || git commit -a -m "Update from $version"
+  git diff-index --quiet HEAD || git commit -a -m "Update from $version\n\nInitial $gitlog"
   cd ..
 }
 
@@ -51,8 +60,9 @@ git_push() {
 # N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
 logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
+gitlog=$(git log -1)
 git_clone
-update_source
+update_source "$gitlog"
 
 if [[ -z "$CI" ]]; then
   logi "Check the last commit"
