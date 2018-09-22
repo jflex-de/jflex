@@ -118,6 +118,7 @@ public class Options {
         .setShowProgress(true)
         .setStrictJlex(false)
         .setTiming(false)
+        .setEncoding(Charset.defaultCharset())
         .setUnusedWarnings(true)
         .setVerbose(true);
   }

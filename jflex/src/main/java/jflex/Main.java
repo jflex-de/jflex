@@ -11,7 +11,6 @@ package jflex;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,7 +286,7 @@ public class Main {
   }
 
   private static void generate(String[] argv) throws SilentExit, GeneratorException {
-    Options.Builder opts = Options.builder().setEncoding(Charset.defaultCharset());
+    Options.Builder opts = Options.builder();
     List<File> files = parseOptions(argv, opts);
     Options options = opts.build();
 
