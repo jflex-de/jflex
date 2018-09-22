@@ -431,9 +431,6 @@
             <configuration>
               <compilerId>javac-with-errorprone</compilerId>
               <forceJavacCompilerUse>true</forceJavacCompilerUse>
-              <compilerArgs>
-                <arg>-Xep:FallThrough:WARN</arg>
-              </compilerArgs>
               <source>7</source>
               <target>7</target>
             </configuration>
