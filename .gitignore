@@ -6,6 +6,7 @@
 # Build artefacts
 **/target
 dependency-reduced-pom.xml
+bazel-*
 
 # IntelliJ
 *.iml
