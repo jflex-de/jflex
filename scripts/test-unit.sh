@@ -30,15 +30,15 @@ set -x
 
 cd "$BASEDIR"/jflex/examples
 logi "Example: simple-maven"
-cd simple-maven; $MVN test; cd ..
+cd simple-maven; "$MVN" test; cd ..
 logi "Example: standalone-maven"
 # Note that mvn is a likely to be a different and older version of Maven.
-cd standalone-maven; $MVN test; cd ..
+cd standalone-maven; "$MVN" test; cd ..
 logi "Example: cup-calculator"
-cd cup-calculator; $MVN test; cd ..
+cd cup-calculator; "$MVN" test; cd ..
 logi "Example: cup-interpreter"
 cd cup-interpreter
-$MVN compile
+"$MVN" compile
 # TODO(regisd) Rewrite the test with a JUnit @Test
 java -jar target/cup-interpreter-full-1.0.jar src/test/example.as > target/output.txt
 diff src/test/output.good target/output.txt
