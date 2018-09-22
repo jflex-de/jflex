@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -20,7 +20,7 @@ import java.util.Map;
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class DFA {
 
@@ -64,13 +64,7 @@ public final class DFA {
   /** True iff this DFA contains general lookahead */
   boolean lookaheadUsed;
 
-  /**
-   * Constructor for a deterministic finite automata.
-   *
-   * @param numEntryStates a int.
-   * @param numInp a int.
-   * @param numLexStates a int.
-   */
+  /** Constructor for a deterministic finite automata. */
   public DFA(int numEntryStates, int numInp, int numLexStates) {
     numInput = numInp;
 
@@ -170,11 +164,7 @@ public final class DFA {
     table[start][input] = dest;
   }
 
-  /**
-   * Returns a string reprensentation of the DFA.
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  /** Returns a string representation of the DFA. */
   public String toString() {
     StringBuilder result = new StringBuilder();
 

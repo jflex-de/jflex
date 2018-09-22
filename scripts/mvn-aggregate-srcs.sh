@@ -5,8 +5,5 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
 
-if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
-  logi "Build Maven site"
-  "$MVN" site
-  "$MVN" site:stage
-fi
+logi "Build sources jar"
+"$MVN" source:aggregate

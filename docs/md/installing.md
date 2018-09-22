@@ -18,22 +18,23 @@ To install JFlex on Windows, follow these three steps:
         +--doc\                        (FAQ and manual) 
         +--examples\ 
             +--byaccj\                 (calculator example for BYacc/J) 
-            +--cup\                    (calculator example for cup) 
+            +--cup-maven\              (calculator example for cup and maven) 
             +--interpreter\            (interpreter example for cup) 
             +--java\                   (Java lexer specification) 
             +--simple-maven\           (example scanner built with maven) 
             +--standalone-maven\       (a simple standalone scanner, 
                                         built with maven) 
             +--zero-reader\            (Readers that return 0 characters) 
-        +--lib\                        (precompiled classes, skeleton files) 
+        +--lib\                        (precompiled classes) 
         +--src\ 
             +--main\ 
+                +--config\             (PMD source analyzer configuration) 
                 +--cup\                (JFlex parser spec) 
                 +--java\ 
-                    +--java_cup\ 
-                        +--runtime\    (source code of cup runtime classes) 
                     +--jflex\          (source code of JFlex) 
+                        +--anttask\    (source code of JFlex Ant Task) 
                         +--gui\        (source code of JFlex UI classes) 
+                        +--unicode\    (source code for Unicode properties) 
                 +--jflex\              (JFlex scanner spec) 
                 +--resources\          (messages and default skeleton file) 
             +--test\                   (unit tests)
@@ -111,6 +112,10 @@ JFlex knows about the following options:
 
 `-d <directory>`\
 writes the generated file to the directory `<directory>`
+
+`--encoding <name>`\
+uses the character encoding `<name>` (e.g. `utf-8`) to read lexer
+specifications and write java files.
 
 `--skel <file>`\
 uses external skeleton `<file>`. This is mainly for JFlex maintenance

@@ -1,8 +1,9 @@
 package de.jflex.plugin.cup;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import java.io.File;
 import java.util.ArrayList;
@@ -64,12 +65,14 @@ class CliCupInvoker {
     // It's a builder but it's easier to read the IllegalArgumentException if each arg is added on
     // its own line.
     ArgBuilder args = new ArgBuilder();
-    args.addArgs("-package", javaPackage);
-    args.addArgs("-destdir", outputDirectory.getAbsolutePath());
-    args.addArgs("-parser", parserClassName);
-    args.addArgs("-symbols", symClassName);
+    if (!Strings.isNullOrEmpty(javaPackage)) {
+      args.addOption("package", javaPackage);
+    }
+    args.addOption("destdir", outputDirectory.getAbsolutePath());
+    args.addOption("parser", parserClassName);
+    args.addOption("symbols", symClassName);
     if (symbolInterface) {
-      args.addArgs("-interface");
+      args.addOption("interface");
     }
     // inputFile
     args.addArg(cupFileName);
@@ -80,20 +83,28 @@ class CliCupInvoker {
 
     private final ArrayList<String> args = new ArrayList<>();
 
-    ArgBuilder addArgs(String... arguments) {
-      for (String arg : arguments) {
-        addArg(arg);
-      }
+    ArgBuilder addArg(String argument) {
+      args.add(argument);
       return this;
     }
 
-    ArgBuilder addArg(String arg) {
-      Preconditions.checkArgument(!Strings.isNullOrEmpty(arg), "Argument cannot be empty");
-      args.add(arg);
+    ArgBuilder addOption(String optionName) {
+      checkArgument(!Strings.isNullOrEmpty(optionName), "Option name cannot be empty");
+      args.add("-" + optionName);
       return this;
     }
 
-    public String[] buildArray() {
+    ArgBuilder addOption(String optionName, String optionValue) {
+      checkArgument(!Strings.isNullOrEmpty(optionName), "Option name cannot be empty");
+      checkArgument(
+          !Strings.isNullOrEmpty(optionValue),
+          String.format("Value for option -%s should not be empty", optionName));
+      args.add("-" + optionName);
+      args.add(optionValue);
+      return this;
+    }
+
+    String[] buildArray() {
       return args.toArray(new String[args.size()]);
     }
   }

@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -29,7 +29,7 @@ import jflex.unicode.UnicodeProperties;
  * <p>Counts error and warning messages.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class Out {
 
@@ -127,7 +127,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    if (Options.verbose) out.print(message);
+    if (Options.verbose) {
+      out.print(message);
+    }
   }
 
   /**
@@ -139,7 +141,9 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (Options.DEBUG) System.out.println(message);
+    if (Options.DEBUG) {
+      System.out.println(message);
+    }
   }
 
   /**
@@ -150,7 +154,9 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void dump(String message) {
-    if (Options.dump) out.println(message);
+    if (Options.dump) {
+      out.println(message);
+    }
   }
 
   /**
@@ -164,7 +170,9 @@ public final class Out {
 
   /** throws a GeneratorException if there are any errors recorded */
   public static void checkErrors() {
-    if (errors > 0) throw new GeneratorException();
+    if (errors > 0) {
+      throw new GeneratorException();
+    }
   }
 
   /** print error and warning statistics */

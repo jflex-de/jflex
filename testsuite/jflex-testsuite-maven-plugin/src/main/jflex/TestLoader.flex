@@ -46,6 +46,8 @@ DIGIT = [0-9]
 
   "javac-fail:" " "+ "true"  { test.setExpectJavacFail(true); }
   "javac-fail:" " "+ "false" { test.setExpectJavacFail(false); }
+
+  "javac-encoding:" [^\r\n]* { test.setJavacEncoding(yytext().substring(15).trim()); }
     
   "input-file-encoding:" [^\r\n]* { test.setInputFileEncoding(yytext().substring(20).trim()); }
   "output-file-encoding:" [^\r\n]* { test.setOutputFileEncoding(yytext().substring(21).trim()); }

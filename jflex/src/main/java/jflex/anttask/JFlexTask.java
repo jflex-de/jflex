@@ -25,7 +25,7 @@ import org.apache.tools.ant.Task;
  * JFlex ant task.
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public class JFlexTask extends Task {
   private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");
@@ -331,5 +331,14 @@ public class JFlexTask extends Task {
    */
   public void setLegacyDot(boolean b) {
     Options.legacy_dot = b;
+  }
+
+  /**
+   * Set the input encoding. If unset will use the JVM default.
+   *
+   * @param encodingName the name of the encoding to set (e.g. "utf-8").
+   */
+  public void setEncoding(String encodingName) {
+    Options.setEncoding(encodingName);
   }
 }

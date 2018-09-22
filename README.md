@@ -41,7 +41,7 @@ and the [wiki][wiki].
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.6.1</version>
+          <version>1.7.0</version>
           <executions>
             <execution>
               <goals>
@@ -76,7 +76,12 @@ Sample project: [simple-maven][example-simple-maven]
 
 You can also use JFlex directly from the command line:
 ```
-java -jar jflex-1.6.1.jar -d output src/grammar/parser.flex
+jflex/bin/jflex src/grammar/parser.flex
+```
+
+Or:
+```
+java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 ```
 
 ## Build from source

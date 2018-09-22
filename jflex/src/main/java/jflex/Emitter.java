@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -11,8 +11,9 @@ package jflex;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
  * <p>Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.0-SNAPSHOT
+ * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class Emitter {
   private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN =
@@ -87,7 +88,10 @@ public final class Emitter {
 
     Out.println("Writing code to \"" + outputFile + "\"");
 
-    this.out = new PrintWriter(new BufferedWriter(new FileWriter(outputFile)));
+    this.out =
+        new PrintWriter(
+            new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(outputFile), Options.encoding)));
     this.parser = parser;
     this.scanner = parser.scanner;
     this.visibility = scanner.visibility;
@@ -278,6 +282,7 @@ public final class Emitter {
       print("    System.out.println( ");
       if (scanner.lineCount) print("\"line:\" + (yyline+1) + ");
       if (scanner.columnCount) print("\" col:\" + (yycolumn+1) + ");
+      if (scanner.charCount) print("\" char:\" + yychar + ");
       println("\" --\"+ yytext() + \"--\" + getTokenName(s.sym) + \"--\");");
       println("    return s;");
       println("  }");
@@ -1164,6 +1169,7 @@ public final class Emitter {
         print("            System.out.println(");
         if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
         if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        if (scanner.charCount) print("\"char: \"+yychar+\" \"+");
         println("\"match: --\"+zzToPrintable(yytext())+\"--\");");
         print("            System.out.println(\"action [" + action.priority + "] { ");
         print(escapify(action.content));
@@ -1199,6 +1205,7 @@ public final class Emitter {
             print("              System.out.println(");
             if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
             if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+            if (scanner.charCount) print("\"char: \"+yychar+\" \"+");
             println("\"match: <<EOF>>\");");
             print("              System.out.println(\"action [" + action.priority + "] { ");
             print(escapify(action.content));
@@ -1221,6 +1228,7 @@ public final class Emitter {
         print("                System.out.println(");
         if (scanner.lineCount) print("\"line: \"+(yyline+1)+\" \"+");
         if (scanner.columnCount) print("\"col: \"+(yycolumn+1)+\" \"+");
+        if (scanner.charCount) print("\"char: \"+yychar+\" \"+");
         println("\"match: <<EOF>>\");");
         print("                System.out.println(\"action [" + defaultAction.priority + "] { ");
         print(escapify(defaultAction.content));

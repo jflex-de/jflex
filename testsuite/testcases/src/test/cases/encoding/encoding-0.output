@@ -1,0 +1,10 @@
+line: 1 col: 1 match: --\u00E4--
+action [16] { System.out.println("ä"); return 0; }
+ä
+0
+line: 1 col: 2 match: --b--
+action [17] { return 1; }
+1
+line: 1 col: 3 match: --\u000A--
+action [20] {  }
+-1

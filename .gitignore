@@ -1,17 +1,27 @@
 *~
+*.versionsBackup
+
 *.class
+
+# Build artefacts
+**/target
+dependency-reduced-pom.xml
+bazel-*
+
+# IntelliJ
 *.iml
 *.ipr
 *.iws
 .idea
-*.versionsBackup
-
-**/target
-
-dependency-reduced-pom.xml
 
 # Eclipse project
 .project
 .classpath
 .metadata/
 .settings/
+
+# aggregated-java-source repository
+repo
+
+# release files
+release
