@@ -2,15 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.flex.examples</groupId>
-  <artifactId>cup-calculator</artifactId>
+  <artifactId>cup-interpreter</artifactId>
   <version>1.0</version>
-  <name>A scanner for calculator.</name>
-  <description>It is the example from the JLex website with some small
-		modifications, to make it a bit more readable.
+  <name>A scanner for the AS language.</name>
+  <description>AS is a simple functional programming language.
 
-    It comes from a short article series in the Linux Gazette
-    by Richard A. Sevenich and Christopher Lopes,
-    titled Compiler Construction Tools.</description>
+  This example generates a scanner for the AS language.
+  </description>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -50,6 +48,7 @@
               <goal>generate</goal>
             </goals>
             <configuration>
+              <symbolInterface>true</symbolInterface>
             </configuration>
           </execution>
         </executions>
@@ -75,6 +74,11 @@
                   <include>de.jflex:cup_runtime</include>
                 </includes>
               </artifactSet>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>Main</mainClass>
+                </transformer>
+              </transformers>
             </configuration>
           </execution>
         </executions>

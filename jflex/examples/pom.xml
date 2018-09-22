@@ -10,6 +10,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>cup-calculator</module>
+		<module>cup-interpreter</module>
 		<module>simple-maven</module>
 		<module>standalone-maven</module>
 	</modules>

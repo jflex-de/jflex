@@ -10,14 +10,31 @@ programming language (called "AS"). It uses JFlex and CUP.
   std in and interprets it.
 - Classes beginning with "T" implement the abstract syntax tree.
   They also contain context condition checking and the interpreter.
-- `Symtab.java`, `SymtabEntry.java, STEfun.java, STEvar.java implement
+- `Symtab.java`, `SymtabEntry.java`, `STEfun.java`, `STEvar.java` implement
   the symbol table.
 - `scanner.lex` and `parser.cup` contain the scanner and parser.
 - `example.as` is an example program in AS
 
-'ant run' or the Makefile runs jflex, cup, javac and the
-compiled interpreter
+Build
+-----
 
+```
+../../../mvnw package
+```
+
+Run
+---
+```
+# See the output
+java -jar target/cup-interpreter-full-1.0.jar src/test/example.as
+# Save the output in a file
+java -jar target/cup-interpreter-full-1.0.jar src/test/example.as > target/output.txt
+# Compare with the expected output
+cp src/test/output.good target/output.txt 
+```
+
+References
+----------
 
 The language is described in:
 Manfred Broy: _Einfuehrung in die Informatik_, Springer Verlag 

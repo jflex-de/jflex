@@ -10,11 +10,11 @@
   </target>
 
   <target name="compile" depends="jflex,cup">
-    <javac srcdir="." destdir="." />
+    <javac srcdir="src/main/java" destdir="out" />
   </target>
 
   <target name="jflex">
-    <jflex file="scanner.flex" encoding="utf-8"/>
+    <jflex file="src/main/fjlex/scanner.flex" encoding="utf-8"/>
   </target>
 
   <target name="cup">
