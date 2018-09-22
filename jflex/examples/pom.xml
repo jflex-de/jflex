@@ -9,7 +9,7 @@
 	</description>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cup-maven</module>
+		<module>cup-calculator</module>
 		<module>simple-maven</module>
 		<module>standalone-maven</module>
 	</modules>
