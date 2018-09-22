@@ -285,6 +285,13 @@
      built-in lifecycle bindings for projects with pom packaging. -->
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <executions>
           <execution>
@@ -434,8 +441,8 @@
               <compilerArgs>
                 <arg>-Xep:FallThrough:WARN</arg>
               </compilerArgs>
-              <source>7</source>
-              <target>7</target>
+              <source>1.7</source>
+              <target>1.7</target>
             </configuration>
             <dependencies>
               <dependency>
