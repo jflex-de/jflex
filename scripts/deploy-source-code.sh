@@ -34,7 +34,13 @@ update_source() {
   logi "Remove unrelated sources"
   logi "Download deps and Compile"
   ./compile.sh
+
+  logi "Add license files"
+  cp ../LICENSE.md .
+  cp ../cup/LICENSE LICENSE_CUP
+  logi "Update git sources"
   git add --all
+
   logi "Git status"
   git status
   # Don't commit if the diff is empty.
