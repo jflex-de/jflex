@@ -13,11 +13,5 @@ cd "$BASEDIR"/jflex
 ant gettools build test
 cd ..
 
-# There are also a few examples made with ant
-cd "$BASEDIR"/jflex/examples/
-cd cup-interpreter
-ant compile
-cd ..
-
 # Return to the user Initial directory
 cd "$CWD"
