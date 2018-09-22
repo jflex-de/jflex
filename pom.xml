@@ -441,7 +441,7 @@
               <compilerArgs>
                 <arg>-Xep:FallThrough:WARN</arg>
               </compilerArgs>
-              <source>1.7</source>
+              <source>1.6</source>
               <target>1.7</target>
             </configuration>
             <dependencies>
