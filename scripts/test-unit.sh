@@ -14,11 +14,11 @@ logi "Compile, test and install all"
 logi "============================="
 # NB: Installs jflex in local repo
 # implies: validate, compile, test, package, verify, install
-if [[ "$TRAVIS" = "true" ]]; then
+if [[ -z "$CI" ]]; then
+  "$MVN" install
+else
   # Quiet mode shows errors only.
   "$MVN" install --quiet
-else
-  "$MVN" install
 fi
 
 logi "Run jflex examples"
