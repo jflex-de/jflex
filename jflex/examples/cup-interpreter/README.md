@@ -30,7 +30,7 @@ java -jar target/cup-interpreter-full-1.0.jar src/test/example.as
 # Save the output in a file
 java -jar target/cup-interpreter-full-1.0.jar src/test/example.as > target/output.txt
 # Compare with the expected output
-cp src/test/output.good target/output.txt 
+diff src/test/output.good target/output.txt 
 ```
 
 References
