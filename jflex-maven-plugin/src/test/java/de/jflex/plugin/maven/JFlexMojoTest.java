@@ -49,7 +49,8 @@ public class JFlexMojoTest {
     String expectedSuffix =
         "/jflex-maven-plugin/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
     assertWithMessage(actualResDir + " ends with " + expectedSuffix)
-        .that(actualResDir.endsWith(expectedSuffix)).isTrue;
+        .that(actualResDir.endsWith(expectedSuffix))
+        .isTrue();
   }
 
   /** Tests configuration with a single input file. */
@@ -59,7 +60,7 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue;
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
 
     long size = produced.length();
     /*
@@ -69,7 +70,8 @@ public class JFlexMojoTest {
      */
     boolean correctSize = (size > 26624) && (size < 36696);
     assertWithMessage("size of produced file between 26k and 36k. Actual is " + size)
-        .that(correctSize).isTrue;
+        .that(correctSize)
+        .isTrue();
   }
 
   /** Tests configuration with a single input directory. */
@@ -79,7 +81,7 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue;
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
   }
 
   /** Tests configuration with a single input directory containing sub directories. */
@@ -89,7 +91,7 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue;
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
   }
 
   @Test
