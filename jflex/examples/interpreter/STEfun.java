@@ -7,37 +7,34 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 /**
  * Symbol table entry for functions.
- * 
- * Contains arity and reference to location of definition
- */ 
+ *
+ * <p>Contains arity and reference to location of definition
+ */
 class STEfun extends SymtabEntry {
   int arity;
   Tdekl dekl; // location of definition
-  
-  public STEfun(String f, Tdekl d, int a) { 
+
+  public STEfun(String f, Tdekl d, int a) {
     super(f);
-    dekl=d;
-    arity=a;
-  }
-  
-  public int kind() { 
-    return SymtabEntry.FUN; 
+    dekl = d;
+    arity = a;
   }
 
-  public String toString() { 
-    return "function    "+name+", arity "+arity; 
+  public int kind() {
+    return SymtabEntry.FUN;
   }
 
-  public int arity() { 
-    return arity; 
+  public String toString() {
+    return "function    " + name + ", arity " + arity;
   }
 
-  public Tdekl getDekl() { 
-    return dekl; 
+  public int arity() {
+    return arity;
+  }
+
+  public Tdekl getDekl() {
+    return dekl;
   }
 }
-
-

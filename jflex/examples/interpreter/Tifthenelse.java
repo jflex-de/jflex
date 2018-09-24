@@ -7,22 +7,19 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-/**
- * AST node for if-then-else expressions
- */ 
+/** AST node for if-then-else expressions */
 class Tifthenelse extends Texp implements AST {
-  Tboolexp boolexp;           // condition
-  Texp exp1, exp2;            // then and else branch
-  
+  Tboolexp boolexp; // condition
+  Texp exp1, exp2; // then and else branch
+
   public Tifthenelse(Tboolexp b, Texp e1, Texp e2) {
-    boolexp=b;
-    exp1=e1;
-    exp2=e2;
+    boolexp = b;
+    exp1 = e1;
+    exp2 = e2;
   }
-  
+
   public String toString() {
-    return "if "+boolexp+" then "+exp1+" else "+exp2+" fi"; 
+    return "if " + boolexp + " then " + exp1 + " else " + exp2 + " fi";
   }
 
   public void checkcontext(SymTab st) {
@@ -38,11 +35,8 @@ class Tifthenelse extends Texp implements AST {
   }
 
   public int interpret(int[] in, int[] par) {
-    boolean b = boolexp.interpret(in,par);
-    if (b) 
-      return exp1.interpret(in,par);
-    else 
-      return exp2.interpret(in,par);
+    boolean b = boolexp.interpret(in, par);
+    if (b) return exp1.interpret(in, par);
+    else return exp2.interpret(in, par);
   }
 }
-

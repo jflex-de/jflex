@@ -7,45 +7,36 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-/**
- * AST node for an identifier
- */ 
+/** AST node for an identifier */
 class Tident extends Texp implements AST {
-  String name;                
+  String name;
 
   public Tident(String s) {
-    name = s; 
+    name = s;
   }
 
   public String toString() {
-    return name; 
+    return name;
   }
 
-  public void checkcontext(SymTab st) {         // CoCo (DefVar)
+  public void checkcontext(SymTab st) { // CoCo (DefVar)
     SymtabEntry ste = st.lookup(name);
 
-    if (ste==null)
-      Main.error("variable not defined: "+name);
-    else if (ste.kind() != SymtabEntry.VAR)
-      Main.error("function used as variable: "+name);
+    if (ste == null) Main.error("variable not defined: " + name);
+    else if (ste.kind() != SymtabEntry.VAR) Main.error("function used as variable: " + name);
   }
 
-  int index;              // number of ident in environment
-  boolean is_input;       // is it an input variable?    
+  int index; // number of ident in environment
+  boolean is_input; // is it an input variable?
 
-  public void prepInterp(SymTab st) {  // set index for environment 
-    STEvar ste = (STEvar)st.lookup(name);
+  public void prepInterp(SymTab st) { // set index for environment
+    STEvar ste = (STEvar) st.lookup(name);
     index = ste.getIndex();
     is_input = ste.isInput();
   }
 
   public int interpret(int[] in, int[] par) {
-    if (is_input) 
-      return(in[index]); 
-    else 
-      return(par[index]);
+    if (is_input) return (in[index]);
+    else return (par[index]);
   }
 }
-
-

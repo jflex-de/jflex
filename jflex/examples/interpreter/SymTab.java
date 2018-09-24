@@ -7,56 +7,51 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 import java.util.*;
 
 /**
- * Symbol table for the interpreter, contains information about
- * variables and functions.
- * 
- * For every binding location of a name a symbol will be created.
- * The symbol tables are connected hierarchically by pointers to
- * the predecessor. Lookup takes predecessors into account.
- */ 
+ * Symbol table for the interpreter, contains information about variables and functions.
+ *
+ * <p>For every binding location of a name a symbol will be created. The symbol tables are connected
+ * hierarchically by pointers to the predecessor. Lookup takes predecessors into account.
+ */
 public class SymTab {
-  Map<String,SymtabEntry> m;   // contains the list of words
-  SymTab pred;  // predecessor symbol table (if exists)
+  Map<String, SymtabEntry> m; // contains the list of words
+  SymTab pred; // predecessor symbol table (if exists)
 
   public SymTab() {
-    this(null); 
+    this(null);
   }
 
   public SymTab(SymTab p) {
-    m = new HashMap<String,SymtabEntry>();
+    m = new HashMap<String, SymtabEntry>();
     pred = p;
   }
 
   public boolean enter(String s, SymtabEntry e) {
     Object value = lookup(s);
     m.put(s, e);
-    return(value==null);
+    return (value == null);
   }
 
   public SymtabEntry lookup(String s) {
     SymtabEntry value = m.get(s);
-    if (value==null && pred!=null)
-      value = pred.lookup(s);
+    if (value == null && pred != null) value = pred.lookup(s);
     return value;
   }
 
-  public String toString() {    // for output with print
+  public String toString() { // for output with print
     StringBuilder res = new StringBuilder("symbol table\n=============\n");
-    
-    for (Map.Entry<String,SymtabEntry> entry : m.entrySet())
+
+    for (Map.Entry<String, SymtabEntry> entry : m.entrySet())
       res.append(entry.getKey()).append("   \t").append(entry.getValue()).append("\n");
 
-    if (pred != null)
-      res.append("++ predecessor!\n");
+    if (pred != null) res.append("++ predecessor!\n");
 
     return res.toString();
   }
 
   public int size() {
-    return(m.size()); 
+    return (m.size());
   }
 }

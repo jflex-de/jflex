@@ -8,10 +8,8 @@
 
 import java.io.*;
 
-
 /**
- * Simple test driver for the java parser. Just runs it on some
- * input files, gives no useful output.
+ * Simple test driver for the java parser. Just runs it on some input files, gives no useful output.
  */
 public class JavaParser {
 
@@ -19,18 +17,16 @@ public class JavaParser {
 
     for (int i = 0; i < argv.length; i++) {
       try {
-        System.out.println("Parsing ["+argv[i]+"]");
+        System.out.println("Parsing [" + argv[i] + "]");
         Scanner s = new Scanner(new UnicodeEscapes(new FileReader(argv[i])));
         parser p = new parser(s);
         p.parse();
-        
+
         System.out.println("No errors.");
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         e.printStackTrace(System.out);
         System.exit(1);
       }
     }
   }
-
 }
