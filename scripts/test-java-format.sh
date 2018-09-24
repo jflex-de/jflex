@@ -12,6 +12,7 @@ set -e
 
 logi "Download google-java-format"
 logi "==========================="
+mkdir lib
 curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o lib/google-java-format.jar
 
 logi "Check java format"
