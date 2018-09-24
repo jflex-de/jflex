@@ -1,4 +1,5 @@
-/** A small utility class. TODO: use resource bundle */
+/** A small utility class. */
+// TODO: use resource bundle
 class Utility {
 
   private static final String errorMsg[] = {

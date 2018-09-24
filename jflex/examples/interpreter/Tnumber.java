@@ -17,11 +17,10 @@ class Tnumber extends Texp implements AST {
     } catch (NumberFormatException e) {
       n = -1;
     }
-    ;
   }
 
   public String toString() {
-    return ("" + n);
+    return String.valueOf(n);
   }
 
   public void checkcontext(SymTab st) {}
@@ -29,6 +28,6 @@ class Tnumber extends Texp implements AST {
   public void prepInterp(SymTab st) {}
 
   public int interpret(int[] in, int[] par) {
-    return (n);
+    return n;
   }
 }

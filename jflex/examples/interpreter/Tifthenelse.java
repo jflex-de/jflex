@@ -9,8 +9,12 @@
 
 /** AST node for if-then-else expressions */
 class Tifthenelse extends Texp implements AST {
-  Tboolexp boolexp; // condition
-  Texp exp1, exp2; // then and else branch
+  /** condition* */
+  Tboolexp boolexp;
+  /** then branch */
+  Texp exp1;
+  /** else branch */
+  Texp exp2;
 
   public Tifthenelse(Tboolexp b, Texp e1, Texp e2) {
     boolexp = b;

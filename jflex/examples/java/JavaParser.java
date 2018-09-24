@@ -24,7 +24,7 @@ public class JavaParser {
 
         System.out.println("No errors.");
       } catch (Exception e) {
-        e.printStackTrace(System.out);
+        e.printStackTrace(System.err);
         System.exit(1);
       }
     }

@@ -9,8 +9,12 @@
 
 /** AST node for bool expressions */
 class Tboolexp implements AST {
-  Texp exp1, exp2; // left and right subexpression
-  char kind; // '=', '<' and '!' for "<="
+  /** Left subexpression. */
+  Texp exp1;
+  /** Right subexpression. */
+  Texp exp2;
+  /** {@code '='}, {@code '<'} and {@code '!'} for "<=". */
+  char kind;
 
   public Tboolexp(Texp e1, char k, Texp e2) {
     exp1 = e1;

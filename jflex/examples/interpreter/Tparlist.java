@@ -9,8 +9,10 @@
 
 /** AST node for a parameter list. */
 class Tparlist implements AST {
-  Tparlist parlist; // rest of the liste (optional null)
-  Tident ident; // identifier
+  /** Rest of the list (optional null) */
+  Tparlist parlist;
+  /** identifier */
+  Tident ident;
 
   public Tparlist(Tparlist p, Tident i) {
     parlist = p;

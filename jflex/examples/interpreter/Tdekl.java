@@ -13,9 +13,12 @@
  * <p>Also contains a reference to the symbol table of the parameters and their arity.
  */
 class Tdekl implements AST {
-  Tident ident; // identifier
-  Tparlist parlist; // liste of parameter
-  Texp exp; // function body
+  /** identifier */
+  Tident ident; //
+  /** list of parameters */
+  Tparlist parlist;
+  /** function body */
+  Texp exp;
 
   public Tdekl(Tident i, Tparlist p, Texp e) {
     parlist = p;

@@ -10,7 +10,8 @@
 /** AST node for infix expressions */
 class Texpinfix extends Texp implements AST {
   Texp exp1, exp2; // left and right sub expression
-  char kind; // kind ('+', '-', '*', '/')
+  /** kind ('+', '-', '*', '/') */
+  char kind;
 
   public Texpinfix(Texp e1, char k, Texp e2) {
     exp1 = e1;

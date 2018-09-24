@@ -16,8 +16,10 @@ import java.util.*;
  * hierarchically by pointers to the predecessor. Lookup takes predecessors into account.
  */
 public class SymTab {
-  Map<String, SymtabEntry> m; // contains the list of words
-  SymTab pred; // predecessor symbol table (if exists)
+  /** contains the list of words. */
+  Map<String, SymtabEntry> m;
+  /** predecessor symbol table (if exists) */
+  SymTab pred;
 
   public SymTab() {
     this(null);

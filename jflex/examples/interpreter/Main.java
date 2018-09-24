@@ -12,9 +12,16 @@ import java.io.*;
 /**
  * Main program of the interpreter for the AS programming language. Based on JFlex/CUP.
  *
- * <p>Steps: - scanning (Yylex) - context free parsing and AST building (yyparse) - build up symbol
- * table (setSymtabs) - check context conditions (checkcontext) - prepare interpretation
- * (prepInterp) - start interpretation (interpret)
+ * <p>Steps:
+ *
+ * <ol>
+ *   <li>scanning (Yylex)
+ *   <li>context free parsing and AST building (yyparse)
+ *   <li>build up symbol table (setSymtabs)
+ *   <li>check context conditions (checkcontext)
+ *   <li>prepare interpretation (prepInterp)
+ *   <li>start interpretation (interpret)
+ * </ol>
  */
 public class Main {
 
@@ -24,7 +31,7 @@ public class Main {
     if (args.length == 1) {
       File input = new File(args[0]);
       if (!input.canRead()) {
-        System.out.println("Error: could not read [" + input + "]");
+        System.err.println("Error: could not read [" + input + "]");
       }
       reader = new FileReader(input);
     } else {
@@ -44,11 +51,9 @@ public class Main {
       e.printStackTrace();
     }
 
-    // System.out.println(symtab);
     System.out.println(syntaxbaum);
 
     syntaxbaum.setSymtabs(); // set symbol table
-    // syntaxbaum.printSymtabs();       // print symbol table
 
     syntaxbaum.checkcontext(); // CoCo (DefVar, DefFun, Arity)
     if (contexterror > 0) return;

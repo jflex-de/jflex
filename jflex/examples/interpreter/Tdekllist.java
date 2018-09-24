@@ -9,8 +9,10 @@
 
 /** AST node for declaration lists of functions */
 class Tdekllist implements AST {
-  Tdekllist dekllist; // rest list (optional null)
-  Tdekl dekl; // declaration
+  /** rest list (optional null) */
+  Tdekllist dekllist;
+  /** declaration */
+  Tdekl dekl;
 
   public Tdekllist(Tdekllist p, Tdekl e) {
     dekllist = p;

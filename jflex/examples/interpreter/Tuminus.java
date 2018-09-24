@@ -9,8 +9,8 @@
 
 /** AST node for unary minus expressions. */
 class Tuminus extends Texp implements AST {
-
-  Texp exp; // the negated expression
+  /** the negated expression */
+  Texp exp;
 
   public Tuminus(Texp e) {
     exp = e;
