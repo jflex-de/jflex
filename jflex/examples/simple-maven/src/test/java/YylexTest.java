@@ -46,7 +46,7 @@ public class YylexTest extends TestCase {
 		assertThat(expected.isFile()).isTrue();
 		assertThat(actual.isFile()).isTrue();
 
-		BufferedReader actualContent = new BufferedReader(nSubsTte
+		BufferedReader actualContent = new BufferedReader(
 				new FileReader(actual));
 		BufferedReader expectedContent = new BufferedReader(new FileReader(
 				expected));
