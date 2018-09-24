@@ -1,4 +1,4 @@
-import static com.google.common.truth.Truth.assertTrue;
+import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import java.io.BufferedReader;
