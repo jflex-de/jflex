@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.google.common.base.Predicate;
 import java.io.File;
 import java.io.IOException;
 import org.apache.maven.plugin.testing.MojoRule;
@@ -87,6 +89,15 @@ public class JFlexMojoTest {
 
     File produced = getExpectedOutputFile(mojo);
     assertTrue("produced file is a file: " + produced, produced.isFile());
+  }
+
+  @Test
+  public void extensionPredicate() {
+    Predicate<File> predicate = new JFlexMojo.ExtensionPredicate("bar", "baz");
+    assertTrue(predicate.apply(new File("/tmp/foo.bar")));
+    assertTrue(predicate.apply(new File("/tmp/foo.baz")));
+    assertFalse(predicate.apply(new File("/tmp/foo.bar.too")));
+    assertFalse(predicate.apply(new File("/tmp/foo.blahblahbar")));
   }
 
   /**

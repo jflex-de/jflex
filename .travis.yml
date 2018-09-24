@@ -3,6 +3,7 @@ branches:
   only:
   - master
   - aggregated-java-sources
+  - travis
 
 language: java
 
@@ -60,7 +61,9 @@ deploy:
 - provider: script
   skip_cleanup: true
   on:
-    branch: master
+    branch:
+    - master
+    - travis
     condition:
     - $TEST_SUITE = unit
     - $TRAVIS_JDK_VERSION = oraclejdk8
