@@ -12,35 +12,34 @@ import java.io.Reader;
 import junit.framework.TestCase;
 
 public class SubstTest extends TestCase {
-	private static final String OUTPUT_FILE = "target/sample.out";
+  private static final String OUTPUT_FILE = "target/sample.out";
 
-	public void testSample() throws IOException {
-		// the standalon Subst prints status on stdout
-		// redirecte it into a file
-		String[] argv = new String[1];
-		argv[0] = "src/test/resources/sample.in";
-		File actual = new File(OUTPUT_FILE);
-		actual.delete();
-		FileOutputStream fos = new FileOutputStream(OUTPUT_FILE, true);
-		System.setOut(new PrintStream(fos));
+  public void testSample() throws IOException {
+    // the standalon Subst prints status on stdout
+    // redirecte it into a file
+    String[] argv = new String[1];
+    argv[0] = "src/test/resources/sample.in";
+    File actual = new File(OUTPUT_FILE);
+    actual.delete();
+    FileOutputStream fos = new FileOutputStream(OUTPUT_FILE, true);
+    System.setOut(new PrintStream(fos));
 
-		Subst.main(argv);
+    Subst.main(argv);
 
-		fos.close();
+    fos.close();
 
-		BufferedReader actualContent = new BufferedReader(new FileReader(
-				actual));
+    BufferedReader actualContent = new BufferedReader(new FileReader(actual));
 
-		// the expected result is in a file
-		Reader expected = new FileReader("src/test/resources/sample.expected");
-		BufferedReader expectedContent = new BufferedReader(expected);
+    // the expected result is in a file
+    Reader expected = new FileReader("src/test/resources/sample.expected");
+    BufferedReader expectedContent = new BufferedReader(expected);
 
-		String expectedLine, actualLine;
-		do {
-			expectedLine = expectedContent.readLine();
-			actualLine = actualContent.readLine();
+    String expectedLine, actualLine;
+    do {
+      expectedLine = expectedContent.readLine();
+      actualLine = actualContent.readLine();
 
       assertThat(actualLine).isEqualTo(expectedLine);
-		} while (expectedLine != null);
-	}
+    } while (expectedLine != null);
+  }
 }
