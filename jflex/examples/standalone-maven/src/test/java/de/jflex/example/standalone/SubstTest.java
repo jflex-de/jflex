@@ -1,5 +1,7 @@
 package de.jflex.example.standalone;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,8 +10,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Reader;
 import junit.framework.TestCase;
-
-
 
 public class SubstTest extends TestCase {
 	private static final String OUTPUT_FILE = "target/sample.out";
@@ -40,7 +40,7 @@ public class SubstTest extends TestCase {
 			expectedLine = expectedContent.readLine();
 			actualLine = actualContent.readLine();
 
-			assertEquals(expectedLine, actualLine);
-		} while (expectedLine != null);
-	}
+      assertThat(actualLine).isEqualTo(expectedLine);
+    } while (expectedLine != null);
+  }
 }

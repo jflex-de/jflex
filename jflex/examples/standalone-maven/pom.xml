@@ -15,6 +15,12 @@ of "hello" by "hello &lt;name&gt; !".</description>
       <version>3.8.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>0.36</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

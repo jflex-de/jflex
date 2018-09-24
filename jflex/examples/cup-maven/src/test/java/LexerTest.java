@@ -1,3 +1,6 @@
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,8 +43,8 @@ public class LexerTest extends TestCase {
   }
 
   private void checkFileContent(File expected, File actual) throws IOException {
-    assertTrue(expected.isFile());
-    assertTrue(actual.isFile());
+    assertThat(expected.isFile()).isTrue();
+    assertThat(actual.isFile()).isTrue();
 
     BufferedReader actualContent = new BufferedReader(new FileReader(actual));
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
@@ -49,7 +52,7 @@ public class LexerTest extends TestCase {
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
       String actualLine = actualContent.readLine();
-      assertEquals("Line " + lineNumber, expectedLine, actualLine);
+      assertWithMessage("Line " + lineNumber).that(actualLine).isEqualTo(expectedLine);
       if (expectedLine == null) {
         lineNumber = -2; // EOF
       }
