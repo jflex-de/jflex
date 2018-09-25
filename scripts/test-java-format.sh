@@ -23,6 +23,7 @@ curl -L https://github.com/google/google-java-format/releases/download/google-ja
 
 logi "Check java format"
 logi "================="
+java -jar $TOOLSDIR/google-java-format.jar --version
 
 function gjf() {
   directory=$1
