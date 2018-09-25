@@ -20,6 +20,7 @@ in sub-directories following the Java convention on package names.
 
 
 Update the `pom.xml` to add the plugin:
+
 ```
 <project>
   <!-- ... -->
