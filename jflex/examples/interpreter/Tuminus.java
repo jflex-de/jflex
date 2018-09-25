@@ -7,32 +7,28 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-/**
- * AST node for unary minus expressions.
- */ 
+/** AST node for unary minus expressions. */
 class Tuminus extends Texp implements AST {
-
-  Texp exp;                           // the negated expression
+  /** the negated expression */
+  Texp exp;
 
   public Tuminus(Texp e) {
-    exp=e; 
+    exp = e;
   }
 
   public String toString() {
-    return "-"+exp; 
+    return "-" + exp;
   }
 
   public void checkcontext(SymTab st) {
-    exp.checkcontext(st); 
+    exp.checkcontext(st);
   }
 
-  public void prepInterp(SymTab st) {  
-    exp.prepInterp(st); 
+  public void prepInterp(SymTab st) {
+    exp.prepInterp(st);
   }
 
   public int interpret(int[] in, int[] par) {
-    return -(exp.interpret(in,par)); 
+    return -(exp.interpret(in, par));
   }
 }
-
