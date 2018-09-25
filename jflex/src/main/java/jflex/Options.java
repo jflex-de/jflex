@@ -30,7 +30,7 @@ public class Options {
    *
    * <p>In a maven project, this is the directory that contains {@code src} and {@code target}.
    */
-  private static File sourceDirectory;
+  private static File rootDirectory;
   /** strict JLex compatibility */
   public static boolean jlex;
   /** don't run minimization algorithm if this is true */
@@ -97,8 +97,16 @@ public class Options {
     directory = d;
   }
 
-  public static File getSourceDirectory() {
-    return sourceDirectory;
+  /**
+   * Returns the root directory that contains source code. This is the java working (from system
+   * property {@code user.dir}) by default.
+   */
+  public static File getRootDirectory() {
+    return rootDirectory;
+  }
+
+  public static void setRootDirectory(File rootDir) {
+    rootDirectory = rootDir;
   }
 
   /** Sets encoding for input files, and check availability of encoding on this JVM. */
@@ -114,8 +122,8 @@ public class Options {
   /** Sets all options back to default values. */
   public static void setDefaults() {
     directory = null;
-    // Relative to System.getProperty("user.dir"), the directory where java was run from.
-    sourceDirectory = new File("");
+    // System.getProperty("user.dir"), the directory where java was run from.
+    rootDirectory = new File("");
     jlex = false;
     no_minimize = false;
     no_backup = false;
