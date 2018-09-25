@@ -17,12 +17,6 @@ jdk:
 - oraclejdk8
 - openjdk9
 
-env:
-  matrix:
-  - TEST_SUITE=ant
-  - TEST_SUITE=unit
-  - TEST_SUITE=regression
-
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
 # otherwise `mvn site` fails in the before_deploy phase.
@@ -30,11 +24,20 @@ before_install: ./scripts/clean.sh
 
 install: ./mvnw -version
 
-script: ./scripts/run-tests.sh
-
-after_success:
-- ./scripts/mvn-site.sh
-- ./scripts/mvn-aggregate-srcs.sh
+jobs:
+  include:
+    - stage: Check Java format
+      script: echo "TODO"
+      if: $TRAVIS_JDK_VERSION = openjdk9
+    - stage: Compile and test
+      script: ./scripts/test-unit.sh
+      script: ./scripts/test-regression.sh
+    - stage: Deploy site and aggregated sources
+      script: ./scripts/mvn-site.sh
+      script: ./scripts/mvn-aggregate-srcs.sh
+      if:
+      - branch = master
+      - $TRAVIS_JDK_VERSION = openjdk9
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
@@ -53,8 +56,7 @@ deploy:
   on:
     branch: release
     condition:
-    - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
+    - $TRAVIS_JDK_VERSION = openjdk9
   local_dir: target/maven-staging-site/maven-site
   # GITHUB_TOKEN set in travis-ci.org dashboard
   github_token: $GITHUB_TOKEN
@@ -69,6 +71,5 @@ deploy:
     - master
     - travis
     condition:
-    - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
+    - $TRAVIS_JDK_VERSION = openjdk9
   script: ./scripts/deploy-source-code.sh
