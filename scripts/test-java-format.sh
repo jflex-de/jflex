@@ -32,6 +32,6 @@ function gjf() {
 
 gjf cup-maven-plugin
 gjf jflex
-gjf jfkex-maven-plugin
+gjf jflex-maven-plugin
 gjf jflex-unicode-maven-plugin
 gjf testsuite/jflex-testsuite-maven-plugin
