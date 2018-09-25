@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
-import static org.junit.Assert.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
 import org.junit.Test;
@@ -19,6 +19,6 @@ public class ClassInfoTest {
     ClassInfo clazz = new ClassInfo();
     clazz.className = "Bar";
     clazz.packageName = "org.foo";
-    assertEquals(new File("org/foo/Bar.java"), new File(clazz.getOutputFilename()));
+    assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("org/foo/Bar.java"));
   }
 }

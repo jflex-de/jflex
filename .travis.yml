@@ -5,6 +5,10 @@ branches:
   - aggregated-java-sources
   - travis
 
+# We don't use the git log, a very small depth is sufficient
+git:
+  depth: 3
+
 language: java
 
 # TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
