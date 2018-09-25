@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.flex.examples</groupId>
-	<artifactId>pom</artifactId>
-	<version>1</version>
-	<description>
-		Examples on how to use JFlex and jflex-maven-plugin
-	</description>
-	<packaging>pom</packaging>
-	<modules>
-		<module>cup-maven</module>
-		<module>simple-maven</module>
-		<module>standalone-maven</module>
-	</modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.flex.examples</groupId>
+  <artifactId>pom</artifactId>
+  <version>1</version>
+  <description>
+    Examples on how to use JFlex and jflex-maven-plugin
+  </description>
+  <packaging>pom</packaging>
+  <modules>
+    <module>cup-maven</module>
+    <module>simple-maven</module>
+    <module>standalone-maven</module>
+  </modules>
 </project>
