@@ -45,7 +45,10 @@ update_source() {
   git status
   # Don't commit if the diff is empty.
   # git commit fails if the commit is empty, which makes Travis build fail.
-  git diff-index --quiet HEAD || git commit -a -m "Update from $version\n\nInitial $gitlog"
+  git diff-index --quiet HEAD || \
+      git commit -a \
+          -m "Update from $version" \
+          -m "Initial $gitlog"
   cd ..
 }
 
