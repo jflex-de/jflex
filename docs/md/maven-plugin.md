@@ -28,7 +28,7 @@ Update the `pom.xml` to add the plugin:
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.7.1-SNAPSHOT</version>
+        <version>$VERSION</version>
         <executions>
           <execution>
             <goals>
@@ -56,7 +56,7 @@ The generated Java code is placed into `src/main/java` instead of
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.7.1-SNAPSHOT</version>
+        <version>$VERSION</version>
         <executions>
           <execution>
             <goals>
@@ -89,7 +89,7 @@ This generates the source for
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.7.1-SNAPSHOT</version>
+        <version>$VERSION</version>
         <executions>
           <execution>
             <id>strict jlex</id>
