@@ -7,22 +7,20 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-/**
- * AST node for infix expressions
- */ 
+/** AST node for infix expressions */
 class Texpinfix extends Texp implements AST {
-  Texp exp1, exp2;            // left and right sub expression
-  char kind;                  // kind ('+', '-', '*', '/')
+  Texp exp1, exp2; // left and right sub expression
+  /** kind ('+', '-', '*', '/') */
+  char kind;
 
   public Texpinfix(Texp e1, char k, Texp e2) {
-    exp1=e1;
-    kind=k;
-    exp2=e2;
+    exp1 = e1;
+    kind = k;
+    exp2 = e2;
   }
 
   public String toString() {
-    return("("+exp1+kind+exp2+")"); 
+    return ("(" + exp1 + kind + exp2 + ")");
   }
 
   public void checkcontext(SymTab st) { // context conditions
@@ -30,24 +28,26 @@ class Texpinfix extends Texp implements AST {
     exp2.checkcontext(st);
   }
 
-  public void prepInterp(SymTab st) {  // set pointers und indices
+  public void prepInterp(SymTab st) { // set pointers und indices
     exp1.prepInterp(st);
     exp2.prepInterp(st);
   }
 
-  public int interpret(int[] in, int[] par) {    
-    int e1 = exp1.interpret(in,par);
-    int e2 = exp2.interpret(in,par);
+  public int interpret(int[] in, int[] par) {
+    int e1 = exp1.interpret(in, par);
+    int e2 = exp2.interpret(in, par);
 
     switch (kind) {
-    case '+': return(e1+e2);
-    case '-': return(e1-e2);
-    case '*': return(e1*e2);
-    case '/': return(e1/e2);
+      case '+':
+        return (e1 + e2);
+      case '-':
+        return (e1 - e2);
+      case '*':
+        return (e1 * e2);
+      case '/':
+        return (e1 / e2);
     }
 
-    return -1;        // error
+    return -1; // error
   }
 }
-
-

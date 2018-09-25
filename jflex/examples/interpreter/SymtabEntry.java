@@ -7,31 +7,27 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 /**
- * Symbol table entry for names, there are subclasses for
- * variables and functions.
- * 
- * Defines constants UNKNOWN, VAR and FUN as kinds of
- * symbol table entries.
- */ 
+ * Symbol table entry for names, there are subclasses for variables and functions.
+ *
+ * <p>Defines constants UNKNOWN, VAR and FUN as kinds of symbol table entries.
+ */
 class SymtabEntry {
   String name;
 
   public SymtabEntry(String v) {
-    name=v; 
+    name = v;
   }
 
   public int kind() {
-    return UNKNOWN; 
+    return UNKNOWN;
   }
 
   public String toString() {
-    return("unknown "+name); 
+    return ("unknown " + name);
   }
 
   static final int UNKNOWN = 12;
   static final int VAR = 13;
   static final int FUN = 14;
 }
-

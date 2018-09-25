@@ -7,30 +7,27 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-/**
- * AST node for a number
- */ 
+/** AST node for a number */
 class Tnumber extends Texp implements AST {
-  int n;             // value of the number
+  int n; // value of the number
 
   public Tnumber(String s) {
-    try { n = Integer.parseInt(s); }
-    catch (NumberFormatException e) { n=-1; };
+    try {
+      n = Integer.parseInt(s);
+    } catch (NumberFormatException e) {
+      n = -1;
+    }
   }
 
   public String toString() {
-    return(""+n); 
+    return String.valueOf(n);
   }
 
-  public void checkcontext(SymTab st) { 
-  }
+  public void checkcontext(SymTab st) {}
 
-  public void prepInterp(SymTab st) { 
-  }
+  public void prepInterp(SymTab st) {}
 
   public int interpret(int[] in, int[] par) {
-    return(n);
+    return n;
   }
 }
-
