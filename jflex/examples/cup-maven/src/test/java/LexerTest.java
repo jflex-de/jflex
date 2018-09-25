@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import junit.framework.TestCase;
 
 /**
@@ -19,9 +18,7 @@ public class LexerTest extends TestCase {
 
   private static final String OUTPUT_FILE = "target/output.actual";
 
-  /**
-   * Tests that Lexer parses the calculator syntax correctly.
-   */
+  /** Tests that Lexer parses the calculator syntax correctly. */
   public void testOutput() throws Exception {
     String[] argv = new String[1];
     argv[0] = "src/test/resources/test.txt";
