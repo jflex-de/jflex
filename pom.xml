@@ -274,11 +274,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.20.1</version>
         </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.5</version>
-        </plugin>
       </plugins>
     </pluginManagement>
     <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
@@ -327,20 +322,6 @@
         <configuration>
           <!-- Timestamps create annoying diff on gh-pages -->
           <notimestamp>true</notimestamp>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <configuration>
-          <xmlOutput>true</xmlOutput>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
-          <outputDirectory>target/findbugs</outputDirectory>
-          <visitors>FindDeadLocalStores,UnreadFields</visitors>
-          <onlyAnalyze>de.jflex.*</onlyAnalyze>
-          <debug>true</debug>
-          <relaxed>true</relaxed>
         </configuration>
       </plugin>
     </plugins>
