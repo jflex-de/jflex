@@ -19,6 +19,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>0.36</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>cup_runtime</artifactId>
       <version>11b</version>
