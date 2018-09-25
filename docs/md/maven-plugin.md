@@ -7,6 +7,9 @@ generates a corresponding Java parser
 
 ### Usage
 
+See [jflex-maven-plugin site](http://jflex-de.github.io/jflex-web/jflex-maven-plugin/plugin-info.html)
+for more information.
+
 #### Minimal configuration
 
 This configuration generates java code of a parser
