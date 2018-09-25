@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run the java-format code style
-
+TOOLSDIR=buildtools
 CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
@@ -18,8 +18,8 @@ fi
 logi "Download google-java-format"
 logi "==========================="
 echo "TRAVIS_JDK_VERSION=$TRAVIS_JDK_VERSION"
-mkdir tools
-curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o tools/google-java-format.jar
+mkdir -p $TOOLSDIR
+curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o $TOOLSDIR/google-java-format.jar
 
 logi "Check java format"
 logi "================="
@@ -27,7 +27,7 @@ logi "================="
 function gjf() {
   directory=$1
   logi "Checking $directory"
-  java -jar tools/google-java-format.jar --dry-run --set-exit-if-changed $(find $directory -name '*.java')  
+  java -jar $TOOLSDIR/google-java-format.jar --dry-run --set-exit-if-changed $(find $directory -name '*.java')  
 }
 
 gjf cup-maven-plugin
