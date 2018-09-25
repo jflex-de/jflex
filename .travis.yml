@@ -45,6 +45,7 @@ cache:
   directories:
   - $HOME/.m2
   - jflex/lib
+  - tools
 
 deploy:
 # Deploy the maven site on Github pages

@@ -10,17 +10,24 @@ MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
+if [[ "_${TRAVIS_JDK_VERSION}" = "_openjdk7" ]]; then
+  logi "Skip google-java-format. Unsupported java version."
+  exit
+fi
+
 logi "Download google-java-format"
 logi "==========================="
-mkdir lib
-curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o lib/google-java-format.jar
+echo "TRAVIS_JDK_VERSION=$TRAVIS_JDK_VERSION"
+mkdir tools
+curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o tools/google-java-format.jar
 
 logi "Check java format"
 logi "================="
 
 function gjf() {
   directory=$1
-  java -jar lib/google-java-format.jar --dry-run --set-exit-if-changed $(find $directory -name '*.java')  
+  logi "Checking $directory"
+  java -jar tools/google-java-format.jar --dry-run --set-exit-if-changed $(find $directory -name '*.java')  
 }
 
 gjf cup-maven-plugin
