@@ -25,6 +25,12 @@ public class Options {
 
   /** output directory */
   private static File directory;
+  /**
+   * The root source directory.
+   *
+   * <p>In a maven project, this is the directory that contains {@code src} and {@code target}.
+   */
+  private static File sourceDirectory;
   /** strict JLex compatibility */
   public static boolean jlex;
   /** don't run minimization algorithm if this is true */
@@ -91,6 +97,10 @@ public class Options {
     directory = d;
   }
 
+  public static File getSourceDirectory() {
+    return sourceDirectory;
+  }
+
   /** Sets encoding for input files, and check availability of encoding on this JVM. */
   public static void setEncoding(String encodingName) {
     if (Charset.isSupported(encodingName)) {
@@ -104,6 +114,8 @@ public class Options {
   /** Sets all options back to default values. */
   public static void setDefaults() {
     directory = null;
+    // Relative to System.getProperty("user.dir"), the directory where java was run from.
+    sourceDirectory = new File("");
     jlex = false;
     no_minimize = false;
     no_backup = false;
