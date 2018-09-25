@@ -1,4 +1,3 @@
-
 public class JavaSymbol extends java_cup.runtime.Symbol {
   private int line;
   private int column;
@@ -25,7 +24,13 @@ public class JavaSymbol extends java_cup.runtime.Symbol {
     return column;
   }
 
-  public String toString() {   
-    return "line "+line+", column "+column+", sym: "+sym+(value == null ? "" : (", value: '"+value+"'"));
+  public String toString() {
+    return "line "
+        + line
+        + ", column "
+        + column
+        + ", sym: "
+        + sym
+        + (value == null ? "" : (", value: '" + value + "'"));
   }
 }

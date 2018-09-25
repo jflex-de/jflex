@@ -7,26 +7,23 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
 /**
  * AST node for an integer expression.
- * 
- * The non terminal exp is the sum of multiple variants and
- * therefore modelled as an abstract class.
- * 
- * The interpretation function <tt>interpret</tt> is called with
- * valuations of input variables <tt>in</tt> and parameters
- * <tt>par</tt>. Before interpret can be called, pointers
- * and variable indices must be set with <tt>prepInterp</tt>.
- */ 
+ *
+ * <p>The non terminal exp is the sum of multiple variants and therefore modelled as an abstract
+ * class.
+ *
+ * <p>The interpretation function <tt>interpret</tt> is called with valuations of input variables
+ * <tt>in</tt> and parameters <tt>par</tt>. Before interpret can be called, pointers and variable
+ * indices must be set with <tt>prepInterp</tt>.
+ */
 abstract class Texp implements AST {
   // test context conditions (DefFun,DefVar,Arity)
-  abstract public void checkcontext(SymTab st);
-  
-  // set pointers and indices for variables and functions
-  abstract public void prepInterp(SymTab st);
-  
-  // interpretation
-  abstract public int interpret(int[] in, int[] par);
-}
+  public abstract void checkcontext(SymTab st);
 
+  // set pointers and indices for variables and functions
+  public abstract void prepInterp(SymTab st);
+
+  // interpretation
+  public abstract int interpret(int[] in, int[] par);
+}
