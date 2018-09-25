@@ -11,17 +11,7 @@ git:
 
 language: java
 
-# TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
-jdk:
-- openjdk7
-- oraclejdk8
-- openjdk9
-
-env:
-  matrix:
-  - TEST_SUITE=ant
-  - TEST_SUITE=unit
-  - TEST_SUITE=regression
+jdk: openjdk9
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
@@ -30,11 +20,41 @@ before_install: ./scripts/clean.sh
 
 install: ./mvnw -version
 
-script: ./scripts/run-tests.sh
-
-after_success:
-- ./scripts/mvn-site.sh
-- ./scripts/mvn-aggregate-srcs.sh
+jobs:
+  include:
+    - stage: Check Java format
+      script: echo "TODO"
+      jdk: openjdk9
+    - stage: Compile and test
+      script:
+        - ./scripts/test-unit.sh
+        - ./scripts/test-regression.sh
+      jdk:
+      - openjdk7
+      - oraclejdk8
+      - openjdk9
+    - stage: Deploy site
+      jdk: openjdk9
+      if: branch = travis
+      script: ./scripts/mvn-site.sh
+      deploy: gh-pages
+        provider: pages
+        skip_cleanup: true
+        local_dir: target/maven-staging-site/maven-site
+        # GITHUB_TOKEN set in travis-ci.org dashboard
+        github_token: $GITHUB_TOKEN
+        repo: jflex-de/jflex-web
+        name: Travis site-deploy bot
+        keep-history: true
+    - stage: Commit aggregated source
+      jdk: openjdk9
+      if: branch = travis
+      script: ./scripts/mvn-aggregate-srcs.sh
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script: ./scripts/deploy-source-code.sh
+    - stage: cache
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
@@ -45,30 +65,3 @@ cache:
   directories:
   - $HOME/.m2
   - jflex/lib
-
-deploy:
-# Deploy the maven site on Github pages
-- provider: pages
-  skip_cleanup: true
-  on:
-    branch: release
-    condition:
-    - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
-  local_dir: target/maven-staging-site/maven-site
-  # GITHUB_TOKEN set in travis-ci.org dashboard
-  github_token: $GITHUB_TOKEN
-  repo: jflex-de/jflex-web
-  name: Travis site-deploy bot
-  keep-history: true
-# Aggregate sources and push to branch aggregated-java-sources
-- provider: script
-  skip_cleanup: true
-  on:
-    branch:
-    - master
-    - travis
-    condition:
-    - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
-  script: ./scripts/deploy-source-code.sh
