@@ -311,8 +311,6 @@
               <report>index</report>
               <report>summary</report>
               <report>plugins</report>
-              <report>dependencies</report>
-              <report>plugins</report>
             </reports>
           </reportSet>
         </reportSets>
