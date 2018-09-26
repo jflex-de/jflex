@@ -36,10 +36,10 @@ manual.pdf: xmanual.pdf
 
 # variable substitutions:
 %.mdx: md/%.md Makefile
-	perl -p -e 's/\$$VERSION/$(VERSION)/g' < $< | \
-	perl -p -e 's/\$$\{project.version\}/$(VERSION)/g' < $< | \
-	perl -p -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' | \
-	perl -p -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' > $@
+	sed -e 's/\$$VERSION/$(VERSION)/g' \
+	    -e 's/\$${project.version}/$(VERSION)/g' \
+	    -e 's/\$$RELEASE_DATE/$(RELEASE_DATE)/g' \
+	    -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' $< > $@
 
 %.tex: %.mdx
 	pandoc -f markdown -t latex --biblatex $< -o $@
