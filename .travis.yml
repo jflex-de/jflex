@@ -34,8 +34,8 @@ install: ./mvnw -version
 script: ./scripts/run-tests.sh
 
 after_success:
-- [ "_$TEST_SUITE" != "_unit" ] || ./scripts/mvn-site.sh)
-- [ "_$TEST_SUITE" != "_unit" ] || ./scripts/mvn-aggregate-srcs.sh
+- test $TEST_SUITE = "unit" && ./scripts/mvn-site.sh)
+- test $TEST_SUITE = "unit" && ./scripts/mvn-aggregate-srcs.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
