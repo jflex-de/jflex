@@ -17,7 +17,8 @@ CUP        = java -jar $(CUPJAR)
 all: clean compile
 
 clean:
-	rm -rf out; mkdir -p out/genfiles
+	rm -rf out
+	mkdir -p out/genfiles
 
 compile: gen_cup gen_jflex src/main/java/*.java
 	javac -cp $(CUPJAR):out -d out src/main/java/*.java out/genfiles/*.java
@@ -27,7 +28,8 @@ gen_jflex: src/main/jflex/scanner.flex
 	$(JFLEX) -d out/genfiles $<
 
 gen_cup: src/main/cup/parser.cup
-	$(CUP) -interface < $< ; mv parser.java sym.java out/genfiles
+	$(CUP) -interface < $<
+	mv parser.java sym.java out/genfiles
 
 output: compile src/test/data/example.as
 	java -cp $(CUPJAR):out Main < src/test/data/example.as > out/output.txt
