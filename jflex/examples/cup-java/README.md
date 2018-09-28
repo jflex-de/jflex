@@ -3,14 +3,24 @@ JFlex: Complex example (with CUP)
 
 This directory contains a scanner and parser for the Java programming language (Java 1.2).
 
-## Prerequisite
+## Build with maven
 
-You need the parser generator CUP v0.11a for the parser to work.
+    ../../mvnw package
+    
+To run the parser:
+
+    java -cp target/cup-java-1.0.jar:../../../cup/cup/java-cup-11b.jar JavaParser <inputfile>
+
+or more simply the uberjar version:
+
+    java -jar target/cup-java-full-1.0.jar <inputfile>
+
 
 ## Build with ant
 
     ant compile
     ant run
+    java -jar build:../../../cup/cup/java-cup-11b.jar JavaParser <inputfiles>
 
 ## Build with make
 

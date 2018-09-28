@@ -12,6 +12,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>cup-interpreter</module>
+    <module>cup-java</module>
     <module>cup-lcalc</module>
     <module>simple-maven</module>
     <module>standalone-maven</module>
