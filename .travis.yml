@@ -13,7 +13,6 @@ language: java
 
 # TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
 jdk:
-- openjdk7
 - oraclejdk8
 - openjdk9
 
