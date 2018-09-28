@@ -2,53 +2,35 @@
 #
 # CUP classes should be included in CLASSPATH 
 
-CUP        = java java_cup.Main -interface <
-# Root of the project
 ROOT       = ../../..
 JFLEX      = $(ROOT)/jflex/bin/jflex
 CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
-CP         = .:$(CUPJAR)
-JAVA       = java
-JAVAC      = javac
-JAVACFLAGS = -cp $(CP)
-CUP        = $(JAVA) -jar $(CUPJAR)
+CUP        = java -jar $(CUPJAR)
 
 
+all: clean compile
 
-# --------------------------------------------------
+compile: gen_all src/main/java/*.java
+	javac -d out -cp $(CUPJAR) out/genfiles/*.java src/main/java/*.java
 
-all: test
+test: out/lexer-output.txt
+	@(diff $< src/test/data/lexer-output.good && echo "Test OK!") || echo "Test failed!"
 
-test: lexer-output.txt
-	@(diff lexer-output.txt lexer-output.good && echo "Test OK!") || echo "Test failed!"
+out/lexer-output.txt: compile
+	java -cp out:$(CUPJAR) TestLexer src/main/java/TestLexer.java > out/lexer-output.txt
 
-lexer-output.txt: compile
-	$(JAVA) -cp $(CP) TestLexer TestLexer.java > lexer-output.txt
+gen_all: gen_parser gen_scanner gen_unicode
 
+gen_parser: src/main/cup/java12.cup
+	$(CUP) -interface $<
+	mv parser.java sym.java out/genfiles
 
-compile: scanner parser unicode
-	$(JAVAC) $(JAVACFLAGS) JavaParser.java TestLexer.java
+gen_scanner: src/main/jflex/java.flex
+	$(JFLEX) -d out/genfiles $<
 
-parser: parser.java 
-
-parser.java: java12.cup
-	$(CUP) -interface java12.cup
-
-scanner: Scanner.java
-
-Scanner.java: java.flex
-	$(JFLEX) java.flex
-
-unicode: UnicodeEscapes.java
-
-UnicodeEscapes.java: unicode.flex
-	$(JFLEX) unicode.flex
+gen_unicode: src/main/jflex/unicode.flex
+	$(JFLEX) -d out/genfiles $<
 
 clean:
-	rm -f *.class
-	rm -f *~
-	rm -f Scanner.java
-	rm -f parser.java
-	rm -f sym.java
-	rm -f UnicodeEscapes.java
-	rm -f lexer-output.txt
+	rm -f
+	mkdir -p out/genfiles
