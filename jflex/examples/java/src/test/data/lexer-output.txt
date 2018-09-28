@@ -1,0 +1,386 @@
+Lexing [TestLexer.java]
+line:9 col:1 --import--IMPORT--
+token: line 9, column 1, sym: 23
+line:9 col:8 --java--IDENTIFIER--
+token: line 9, column 8, sym: 98, value: 'java'
+line:9 col:12 --.--DOT--
+token: line 9, column 12, sym: 12
+line:9 col:13 --io--IDENTIFIER--
+token: line 9, column 13, sym: 98, value: 'io'
+line:9 col:15 --.--DOT--
+token: line 9, column 15, sym: 12
+line:9 col:16 --*--MULT--
+token: line 9, column 16, sym: 14
+line:9 col:17 --;--SEMICOLON--
+token: line 9, column 17, sym: 13
+line:10 col:1 --import--IMPORT--
+token: line 10, column 1, sym: 23
+line:10 col:8 --java_cup--IDENTIFIER--
+token: line 10, column 8, sym: 98, value: 'java_cup'
+line:10 col:16 --.--DOT--
+token: line 10, column 16, sym: 12
+line:10 col:17 --runtime--IDENTIFIER--
+token: line 10, column 17, sym: 98, value: 'runtime'
+line:10 col:24 --.--DOT--
+token: line 10, column 24, sym: 12
+line:10 col:25 --Symbol--IDENTIFIER--
+token: line 10, column 25, sym: 98, value: 'Symbol'
+line:10 col:31 --;--SEMICOLON--
+token: line 10, column 31, sym: 13
+line:18 col:1 --public--PUBLIC--
+token: line 18, column 1, sym: 24
+line:18 col:8 --class--CLASS--
+token: line 18, column 8, sym: 34
+line:18 col:14 --TestLexer--IDENTIFIER--
+token: line 18, column 14, sym: 98, value: 'TestLexer'
+line:18 col:24 --{--LBRACE--
+token: line 18, column 24, sym: 16
+line:21 col:3 --int--INT--
+token: line 21, column 3, sym: 5
+line:21 col:7 --intDec--IDENTIFIER--
+token: line 21, column 7, sym: 98, value: 'intDec'
+line:21 col:14 --=--EQ--
+token: line 21, column 14, sym: 18
+line:21 col:16 --37--INTEGER_LITERAL--
+token: line 21, column 16, sym: 93, value: '37'
+line:21 col:18 --;--SEMICOLON--
+token: line 21, column 18, sym: 13
+line:22 col:3 --long--LONG--
+token: line 22, column 3, sym: 6
+line:22 col:8 --longDec--IDENTIFIER--
+token: line 22, column 8, sym: 98, value: 'longDec'
+line:22 col:16 --=--EQ--
+token: line 22, column 16, sym: 18
+line:22 col:18 --37l--INTEGER_LITERAL--
+token: line 22, column 18, sym: 93, value: '37'
+line:22 col:21 --;--SEMICOLON--
+token: line 22, column 21, sym: 13
+line:23 col:3 --int--INT--
+token: line 23, column 3, sym: 5
+line:23 col:7 --intHex--IDENTIFIER--
+token: line 23, column 7, sym: 98, value: 'intHex'
+line:23 col:14 --=--EQ--
+token: line 23, column 14, sym: 18
+line:23 col:16 --0x0001--INTEGER_LITERAL--
+token: line 23, column 16, sym: 93, value: '1'
+line:23 col:22 --;--SEMICOLON--
+token: line 23, column 22, sym: 13
+line:24 col:3 --long--LONG--
+token: line 24, column 3, sym: 6
+line:24 col:8 --longHex--IDENTIFIER--
+token: line 24, column 8, sym: 98, value: 'longHex'
+line:24 col:16 --=--EQ--
+token: line 24, column 16, sym: 18
+line:24 col:18 --0xFFFFl--INTEGER_LITERAL--
+token: line 24, column 18, sym: 93, value: '65535'
+line:24 col:25 --;--SEMICOLON--
+token: line 24, column 25, sym: 13
+line:25 col:3 --int--INT--
+token: line 25, column 3, sym: 5
+line:25 col:7 --intOct--IDENTIFIER--
+token: line 25, column 7, sym: 98, value: 'intOct'
+line:25 col:14 --=--EQ--
+token: line 25, column 14, sym: 18
+line:25 col:16 --0377--INTEGER_LITERAL--
+token: line 25, column 16, sym: 93, value: '255'
+line:25 col:20 --;--SEMICOLON--
+token: line 25, column 20, sym: 13
+line:26 col:3 --long--LONG--
+token: line 26, column 3, sym: 6
+line:26 col:8 --longOc--IDENTIFIER--
+token: line 26, column 8, sym: 98, value: 'longOc'
+line:26 col:15 --=--EQ--
+token: line 26, column 15, sym: 18
+line:26 col:17 --007l--INTEGER_LITERAL--
+token: line 26, column 17, sym: 93, value: '7'
+line:26 col:21 --;--SEMICOLON--
+token: line 26, column 21, sym: 13
+line:27 col:3 --int--INT--
+token: line 27, column 3, sym: 5
+line:27 col:7 --smallest--IDENTIFIER--
+token: line 27, column 7, sym: 98, value: 'smallest'
+line:27 col:16 --=--EQ--
+token: line 27, column 16, sym: 18
+line:27 col:18 ---2147483648--INTEGER_LITERAL--
+token: line 27, column 18, sym: 93, value: '-2147483648'
+line:27 col:29 --;--SEMICOLON--
+token: line 27, column 29, sym: 13
+line:29 col:3 --public--PUBLIC--
+token: line 29, column 3, sym: 24
+line:29 col:10 --static--STATIC--
+token: line 29, column 10, sym: 27
+line:29 col:17 --void--VOID--
+token: line 29, column 17, sym: 37
+line:29 col:22 --main--IDENTIFIER--
+token: line 29, column 22, sym: 98, value: 'main'
+line:29 col:26 --(--LPAREN--
+token: line 29, column 26, sym: 19
+line:29 col:27 --String--IDENTIFIER--
+token: line 29, column 27, sym: 98, value: 'String'
+line:29 col:34 --argv--IDENTIFIER--
+token: line 29, column 34, sym: 98, value: 'argv'
+line:29 col:38 --[--LBRACK--
+token: line 29, column 38, sym: 10
+line:29 col:39 --]--RBRACK--
+token: line 29, column 39, sym: 11
+line:29 col:40 --)--RPAREN--
+token: line 29, column 40, sym: 20
+line:29 col:42 --{--LBRACE--
+token: line 29, column 42, sym: 16
+line:31 col:5 --for--FOR--
+token: line 31, column 5, sym: 49
+line:31 col:9 --(--LPAREN--
+token: line 31, column 9, sym: 19
+line:31 col:10 --int--INT--
+token: line 31, column 10, sym: 5
+line:31 col:14 --i--IDENTIFIER--
+token: line 31, column 14, sym: 98, value: 'i'
+line:31 col:16 --=--EQ--
+token: line 31, column 16, sym: 18
+line:31 col:18 --0--INTEGER_LITERAL--
+token: line 31, column 18, sym: 93, value: '0'
+line:31 col:19 --;--SEMICOLON--
+token: line 31, column 19, sym: 13
+line:31 col:21 --i--IDENTIFIER--
+token: line 31, column 21, sym: 98, value: 'i'
+line:31 col:23 --<--LT--
+token: line 31, column 23, sym: 69
+line:31 col:25 --argv--IDENTIFIER--
+token: line 31, column 25, sym: 98, value: 'argv'
+line:31 col:29 --.--DOT--
+token: line 31, column 29, sym: 12
+line:31 col:30 --length--IDENTIFIER--
+token: line 31, column 30, sym: 98, value: 'length'
+line:31 col:36 --;--SEMICOLON--
+token: line 31, column 36, sym: 13
+line:31 col:38 --i--IDENTIFIER--
+token: line 31, column 38, sym: 98, value: 'i'
+line:31 col:39 --++--PLUSPLUS--
+token: line 31, column 39, sym: 58
+line:31 col:41 --)--RPAREN--
+token: line 31, column 41, sym: 20
+line:31 col:43 --{--LBRACE--
+token: line 31, column 43, sym: 16
+line:32 col:7 --try--TRY--
+token: line 32, column 7, sym: 54
+line:32 col:11 --{--LBRACE--
+token: line 32, column 11, sym: 16
+line:33 col:9 --System--IDENTIFIER--
+token: line 33, column 9, sym: 98, value: 'System'
+line:33 col:15 --.--DOT--
+token: line 33, column 15, sym: 12
+line:33 col:16 --out--IDENTIFIER--
+token: line 33, column 16, sym: 98, value: 'out'
+line:33 col:19 --.--DOT--
+token: line 33, column 19, sym: 12
+line:33 col:20 --println--IDENTIFIER--
+token: line 33, column 20, sym: 98, value: 'println'
+line:33 col:27 --(--LPAREN--
+token: line 33, column 27, sym: 19
+line:33 col:37 --"--STRING_LITERAL--
+token: line 33, column 37, sym: 97, value: 'Lexing ['
+line:33 col:38 --+--PLUS--
+token: line 33, column 38, sym: 60
+line:33 col:39 --argv--IDENTIFIER--
+token: line 33, column 39, sym: 98, value: 'argv'
+line:33 col:43 --[--LBRACK--
+token: line 33, column 43, sym: 10
+line:33 col:44 --i--IDENTIFIER--
+token: line 33, column 44, sym: 98, value: 'i'
+line:33 col:45 --]--RBRACK--
+token: line 33, column 45, sym: 11
+line:33 col:46 --+--PLUS--
+token: line 33, column 46, sym: 60
+line:33 col:49 --"--STRING_LITERAL--
+token: line 33, column 49, sym: 97, value: ']'
+line:33 col:50 --)--RPAREN--
+token: line 33, column 50, sym: 20
+line:33 col:51 --;--SEMICOLON--
+token: line 33, column 51, sym: 13
+line:34 col:9 --Scanner--IDENTIFIER--
+token: line 34, column 9, sym: 98, value: 'Scanner'
+line:34 col:17 --scanner--IDENTIFIER--
+token: line 34, column 17, sym: 98, value: 'scanner'
+line:34 col:25 --=--EQ--
+token: line 34, column 25, sym: 18
+line:34 col:27 --new--NEW--
+token: line 34, column 27, sym: 57
+line:34 col:31 --Scanner--IDENTIFIER--
+token: line 34, column 31, sym: 98, value: 'Scanner'
+line:34 col:38 --(--LPAREN--
+token: line 34, column 38, sym: 19
+line:34 col:39 --new--NEW--
+token: line 34, column 39, sym: 57
+line:34 col:43 --UnicodeEscapes--IDENTIFIER--
+token: line 34, column 43, sym: 98, value: 'UnicodeEscapes'
+line:34 col:57 --(--LPAREN--
+token: line 34, column 57, sym: 19
+line:34 col:58 --new--NEW--
+token: line 34, column 58, sym: 57
+line:34 col:62 --FileReader--IDENTIFIER--
+token: line 34, column 62, sym: 98, value: 'FileReader'
+line:34 col:72 --(--LPAREN--
+token: line 34, column 72, sym: 19
+line:34 col:73 --argv--IDENTIFIER--
+token: line 34, column 73, sym: 98, value: 'argv'
+line:34 col:77 --[--LBRACK--
+token: line 34, column 77, sym: 10
+line:34 col:78 --i--IDENTIFIER--
+token: line 34, column 78, sym: 98, value: 'i'
+line:34 col:79 --]--RBRACK--
+token: line 34, column 79, sym: 11
+line:34 col:80 --)--RPAREN--
+token: line 34, column 80, sym: 20
+line:34 col:81 --)--RPAREN--
+token: line 34, column 81, sym: 20
+line:34 col:82 --)--RPAREN--
+token: line 34, column 82, sym: 20
+line:34 col:83 --;--SEMICOLON--
+token: line 34, column 83, sym: 13
+line:36 col:9 --Symbol--IDENTIFIER--
+token: line 36, column 9, sym: 98, value: 'Symbol'
+line:36 col:16 --s--IDENTIFIER--
+token: line 36, column 16, sym: 98, value: 's'
+line:36 col:17 --;--SEMICOLON--
+token: line 36, column 17, sym: 13
+line:37 col:9 --do--DO--
+token: line 37, column 9, sym: 47
+line:37 col:12 --{--LBRACE--
+token: line 37, column 12, sym: 16
+line:38 col:11 --s--IDENTIFIER--
+token: line 38, column 11, sym: 98, value: 's'
+line:38 col:13 --=--EQ--
+token: line 38, column 13, sym: 18
+line:38 col:15 --scanner--IDENTIFIER--
+token: line 38, column 15, sym: 98, value: 'scanner'
+line:38 col:22 --.--DOT--
+token: line 38, column 22, sym: 12
+line:38 col:23 --debug_next_token--IDENTIFIER--
+token: line 38, column 23, sym: 98, value: 'debug_next_token'
+line:38 col:39 --(--LPAREN--
+token: line 38, column 39, sym: 19
+line:38 col:40 --)--RPAREN--
+token: line 38, column 40, sym: 20
+line:38 col:41 --;--SEMICOLON--
+token: line 38, column 41, sym: 13
+line:39 col:11 --System--IDENTIFIER--
+token: line 39, column 11, sym: 98, value: 'System'
+line:39 col:17 --.--DOT--
+token: line 39, column 17, sym: 12
+line:39 col:18 --out--IDENTIFIER--
+token: line 39, column 18, sym: 98, value: 'out'
+line:39 col:21 --.--DOT--
+token: line 39, column 21, sym: 12
+line:39 col:22 --println--IDENTIFIER--
+token: line 39, column 22, sym: 98, value: 'println'
+line:39 col:29 --(--LPAREN--
+token: line 39, column 29, sym: 19
+line:39 col:38 --"--STRING_LITERAL--
+token: line 39, column 38, sym: 97, value: 'token: '
+line:39 col:39 --+--PLUS--
+token: line 39, column 39, sym: 60
+line:39 col:40 --s--IDENTIFIER--
+token: line 39, column 40, sym: 98, value: 's'
+line:39 col:41 --)--RPAREN--
+token: line 39, column 41, sym: 20
+line:39 col:42 --;--SEMICOLON--
+token: line 39, column 42, sym: 13
+line:40 col:9 --}--RBRACE--
+token: line 40, column 9, sym: 17
+line:40 col:11 --while--WHILE--
+token: line 40, column 11, sym: 48
+line:40 col:17 --(--LPAREN--
+token: line 40, column 17, sym: 19
+line:40 col:18 --s--IDENTIFIER--
+token: line 40, column 18, sym: 98, value: 's'
+line:40 col:19 --.--DOT--
+token: line 40, column 19, sym: 12
+line:40 col:20 --sym--IDENTIFIER--
+token: line 40, column 20, sym: 98, value: 'sym'
+line:40 col:24 --!=--NOTEQ--
+token: line 40, column 24, sym: 75
+line:40 col:27 --sym--IDENTIFIER--
+token: line 40, column 27, sym: 98, value: 'sym'
+line:40 col:30 --.--DOT--
+token: line 40, column 30, sym: 12
+line:40 col:31 --EOF--IDENTIFIER--
+token: line 40, column 31, sym: 98, value: 'EOF'
+line:40 col:34 --)--RPAREN--
+token: line 40, column 34, sym: 20
+line:40 col:35 --;--SEMICOLON--
+token: line 40, column 35, sym: 13
+line:42 col:9 --System--IDENTIFIER--
+token: line 42, column 9, sym: 98, value: 'System'
+line:42 col:15 --.--DOT--
+token: line 42, column 15, sym: 12
+line:42 col:16 --out--IDENTIFIER--
+token: line 42, column 16, sym: 98, value: 'out'
+line:42 col:19 --.--DOT--
+token: line 42, column 19, sym: 12
+line:42 col:20 --println--IDENTIFIER--
+token: line 42, column 20, sym: 98, value: 'println'
+line:42 col:27 --(--LPAREN--
+token: line 42, column 27, sym: 19
+line:42 col:39 --"--STRING_LITERAL--
+token: line 42, column 39, sym: 97, value: 'No errors.'
+line:42 col:40 --)--RPAREN--
+token: line 42, column 40, sym: 20
+line:42 col:41 --;--SEMICOLON--
+token: line 42, column 41, sym: 13
+line:43 col:7 --}--RBRACE--
+token: line 43, column 7, sym: 17
+line:44 col:7 --catch--CATCH--
+token: line 44, column 7, sym: 55
+line:44 col:13 --(--LPAREN--
+token: line 44, column 13, sym: 19
+line:44 col:14 --Exception--IDENTIFIER--
+token: line 44, column 14, sym: 98, value: 'Exception'
+line:44 col:24 --e--IDENTIFIER--
+token: line 44, column 24, sym: 98, value: 'e'
+line:44 col:25 --)--RPAREN--
+token: line 44, column 25, sym: 20
+line:44 col:27 --{--LBRACE--
+token: line 44, column 27, sym: 16
+line:45 col:9 --e--IDENTIFIER--
+token: line 45, column 9, sym: 98, value: 'e'
+line:45 col:10 --.--DOT--
+token: line 45, column 10, sym: 12
+line:45 col:11 --printStackTrace--IDENTIFIER--
+token: line 45, column 11, sym: 98, value: 'printStackTrace'
+line:45 col:26 --(--LPAREN--
+token: line 45, column 26, sym: 19
+line:45 col:27 --System--IDENTIFIER--
+token: line 45, column 27, sym: 98, value: 'System'
+line:45 col:33 --.--DOT--
+token: line 45, column 33, sym: 12
+line:45 col:34 --out--IDENTIFIER--
+token: line 45, column 34, sym: 98, value: 'out'
+line:45 col:37 --)--RPAREN--
+token: line 45, column 37, sym: 20
+line:45 col:38 --;--SEMICOLON--
+token: line 45, column 38, sym: 13
+line:46 col:9 --System--IDENTIFIER--
+token: line 46, column 9, sym: 98, value: 'System'
+line:46 col:15 --.--DOT--
+token: line 46, column 15, sym: 12
+line:46 col:16 --exit--IDENTIFIER--
+token: line 46, column 16, sym: 98, value: 'exit'
+line:46 col:20 --(--LPAREN--
+token: line 46, column 20, sym: 19
+line:46 col:21 --1--INTEGER_LITERAL--
+token: line 46, column 21, sym: 93, value: '1'
+line:46 col:22 --)--RPAREN--
+token: line 46, column 22, sym: 20
+line:46 col:23 --;--SEMICOLON--
+token: line 46, column 23, sym: 13
+line:47 col:7 --}--RBRACE--
+token: line 47, column 7, sym: 17
+line:48 col:5 --}--RBRACE--
+token: line 48, column 5, sym: 17
+line:49 col:3 --}--RBRACE--
+token: line 49, column 3, sym: 17
+line:50 col:1 --}--RBRACE--
+token: line 50, column 1, sym: 17
+line:51 col:1 ----EOF--
+token: line 51, column 1, sym: 0
+No errors.
