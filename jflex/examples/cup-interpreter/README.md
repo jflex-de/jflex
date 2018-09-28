@@ -16,6 +16,7 @@ You can expect `src/test/data/output.good`.
 
 ## Build with ant
 
+    ant compile
     ant run
 
 ## Build with make

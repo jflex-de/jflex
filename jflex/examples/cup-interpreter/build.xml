@@ -1,4 +1,4 @@
-<project name="interpreter" default="run">
+<project name="interpreter" default="compile">
 
   <property name="java_cup" value="../../../cup/cup/java-cup-11b.jar"/>
   <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>

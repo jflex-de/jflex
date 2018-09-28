@@ -1,46 +1,39 @@
-<project name="java scanner" default="run">
+<project name="java scanner" default="compile">
 
-  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" />
-  <taskdef classname="java_cup.anttask.CUPTask" name="cup" />
+  <property name="java_cup" value="../../../cup/cup/java-cup-11b.jar"/>
+  <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
 
-  <target name="build" depends="realclean,compile" />
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
+  <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
+
+  <target name="build" depends="clean,compile" />
 
   <target name="run" depends="compile">
-    <java classname="JavaParser"> 
-      <arg line="JavaParser.java"/> 
-      <arg line="JavaSymbol.java"/> 
-      <arg line="UnicodeEscapes.java"/> 
-      <arg line="parser.java"/> 
-      <arg line="sym.java"/> 
-      <arg line="Scanner.java"/> 
+    <java classname="JavaParser" classpath="build:${java_cup}">
+      <arg line="src/main/java/TestLexer.java"/>
     </java>
   </target>
 
-  <target name="compile" depends="scanner,unicode,cup">
-    <javac srcdir="." destdir="." />
+  <target name="compile" depends="cup,scanner,unicode">
+    <javac destdir="build" classpath="${java_cup}">
+      <src path="src/main/java/" />
+      <src path="build/"/>
+    </javac>
   </target>
-
-  <target name="scanner"> <jflex file="java.flex"/> </target>
-
-  <target name="unicode"> <jflex file="unicode.flex"/> </target>
 
   <target name="cup">
-    <cup srcfile="java12.cup" interface="yes" destdir="."/>
+    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="build"/>
   </target>
 
-  <target name="genclean">
-    <delete file="Scanner.java"/>
-    <delete file="UnicodeEscapes.java"/>
-    <delete file="sym.java" />
-    <delete file="parser.java" />
+  <target name="scanner">
+    <jflex file="src/main/jflex/java.flex" destdir="build"/>
+  </target>
+
+  <target name="unicode">
+    <jflex file="src/main/jflex/unicode.flex" destdir="build"/>
   </target>
 
   <target name="clean">
-    <delete>
-      <fileset dir="." includes="**/*~"/>
-      <fileset dir="." includes="**/*.class"/>
-    </delete>
+    <delete dir="build"/>
   </target>
-
-  <target name="realclean" depends="clean,genclean" />
 </project>

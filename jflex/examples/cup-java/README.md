@@ -7,29 +7,26 @@ This directory contains a scanner and parser for the Java programming language (
 
 You need the parser generator CUP v0.11a for the parser to work.
 
-## Build and run
+## Build with ant
+
+    ant compile
+    ant run
+
+## Build with make
 
 Use the Makefile or Ant (via 'ant run') to generate the lexer and
 parser, or type:
 
-```
-jflex unicode.flex
-jflex java.flex
-java java_cup.Main -interface < java12.cup
-javac JavaParser.java TestLexer.java
-```
+    make compile
+    make test
 
 The parser can be tested with:
 
-```
-java JavaParser <inputfiles>
-```
+    java -cp out:../../../cup/cup/java-cup-11b.jar JavaParser <inputfiles>
 
 The scanner (without parser attached) can be test with:
 
-```
-java TestLexer <inputfiles>
-```
+    java -cp out:../../../cup/cup/java-cup-11b.jar TestLexer <inputfiles>
 
 ## Files
 
