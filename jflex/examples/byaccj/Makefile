@@ -3,7 +3,6 @@
 
 JFLEX  = ../../bin/jflex 
 BYACCJ = yacc -J
-JAVAC  = javac
 
 # targets:
 
@@ -18,7 +17,7 @@ clean:
 	rm -f *~ *.class *.java
 
 Parser.class: Yylex.java Parser.java
-	$(JAVAC) Parser.java
+	javac Parser.java
 
 Yylex.java: calc.flex
 	$(JFLEX) calc.flex
