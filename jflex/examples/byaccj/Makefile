@@ -1,26 +1,22 @@
-# only works with the Java extension of yacc: 
-# byacc/j from http://byaccj.sourceforge.net/
+# Be sure to use yacc/j ; not unix yacc nor bison.
+BYACCJ = yaccj -J
+JFLEX  = ../../bin/jflex
 
-JFLEX  = ../../bin/jflex 
-BYACCJ = yacc -J
+run: all
+	java -cp target Parser
 
-# targets:
+all: build
 
-all: Parser.class
-
-run: Parser.class
-	java Parser
-
-build: clean Parser.class
+build: Parser.class
 
 clean:
-	rm -f *~ *.class *.java
+	rm -f target
 
 Parser.class: Yylex.java Parser.java
-	javac Parser.java
+	javac -d target target/*.java
 
-Yylex.java: calc.flex
-	$(JFLEX) calc.flex
+Yylex.java: src/main/jflex/calc.flex
+	$(JFLEX) -d target $<
 
-Parser.java: calc.y
-	$(BYACCJ) calc.y
+Parser.java: src/main/yacc/calc.y
+	$(BYACCJ) $< ;  mv Parser.java ParserVal.java target
