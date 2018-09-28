@@ -10,7 +10,7 @@ LEXER      = ZeroLexer
 all: test
 
 test: output.txt
-	@(diff --strip-trailing-cr output.txt lexer-output.good && echo "Test OK!") || echo "Test failed!"
+	@(diff --strip-trailing-cr output.txt lexer-output.good && echo "Test OK!")
 
 output.txt: $(LEXER).class test-input.txt
 	$(JAVA) $(LEXER) test-input.txt > output.txt
