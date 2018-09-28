@@ -1,6 +1,6 @@
 # Be sure to use yacc/j ; not unix yacc nor bison.
 BYACCJ = yaccj -J
-JFLEX  = ../../bin/jflex
+JFLEX  = java -jar ../../target/jflex-full-1.7.1-SNAPSHOT.jar
 
 run: all
 	java -cp target Parser
