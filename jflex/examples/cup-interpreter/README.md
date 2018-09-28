@@ -18,6 +18,10 @@ You can expect `src/test/data/output.good`.
 
     ant run
 
+## Build with make
+
+    make test
+    java -cp java -cp ../../../cup/cup/java-cup-11b.jar:out src/test/data/example.as
 
 ## Files
 

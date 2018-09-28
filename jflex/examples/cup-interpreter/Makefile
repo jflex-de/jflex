@@ -2,55 +2,35 @@
 #
 # targets:
 #
-# make all                                                            
+# make all (or just: make)
 #    generates lexer, and parser, and compiles all *.java files
 #                                                                     
-# make run (or just: make)                                           
+# make test
 #    starts the program on a test example
 #                                                                     
 
-JAVA=java
-JAVAC=javac
 # Root of the project
 ROOT=../../..
-JFLEX=$(ROOT)/jflex/bin/jflex
-CUPJAR=$(ROOT)/cup/cup/java-cup-11b.jar
-CUP=$(JAVA) -jar $(CUPJAR)
-CP=.:$(CUPJAR)
+JFLEX=$(ROOT)/jflex/target/jflex-full-1.7.1-SNAPSHOT.jar
+CUP=$(ROOT)/cup/cup/java-cup-11b.jar
 
-default: test
-
-.SUFFIXES: $(SUFFIXES) .class .java
-
-.java.class:
-	$(JAVAC) -cp $(CP) $*.java
-
-FILE=	Yylex.java      parser.java    sym.java \
-	SymTab.java	AST.java \
-	Tnumber.java	Tident.java	Texp.java	\
-	Tfun.java	Texpinfix.java	Tuminus.java	\
-	Tboolexp.java	Tifthenelse.java		\
-	Tdekl.java	Tdekllist.java			\
-	Tparlist.java   Texplist.java	Tprogram.java	\
-	Main.java \
-	SymtabEntry.java STEfun.java	STEvar.java
-
-run: output.txt
-
-output.txt: all
-	$(JAVA) -cp $(CP) Main < example.as > output.txt
-	cat output.txt
-
-all: Yylex.java parser.java $(FILE:java=class)
+all: clean compile
 
 clean:
-	rm -f *.class *~ *.bak Yylex.java parser.java sym.java
+	rm -rf out; mkdir -p out/genfiles
 
-Yylex.java: scanner.flex
-	$(JFLEX) scanner.flex
+compile: gen_cup gen_jflex src/main/java/*.java
+	javac -cp $(CUP):out -d out src/main/java/*.java out/genfiles/*.java
 
-parser.java: parser.cup
-	$(CUP) -interface < parser.cup
+# writes parser.java	sym.java
+gen_jflex: src/main/jflex/scanner.flex
+	java -jar $(JFLEX) -d out/genfiles $<
 
-test: output.txt
-	@(diff output.txt output.good && echo "Test OK!") || echo "Test failed!"
+gen_cup: src/main/cup/parser.cup
+	java -jar $(CUP) -interface < $< ; mv parser.java sym.java out/genfiles
+
+output: compile src/test/data/example.as
+	java -cp $(CUP):out Main < src/test/data/example.as > out/output.txt
+
+test: output
+	@(diff out/output.txt src/test/data/output.good && echo "Test OK!") || echo "Test failed!"
