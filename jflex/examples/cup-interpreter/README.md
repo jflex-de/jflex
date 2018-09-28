@@ -4,6 +4,21 @@ FJlex complex example (with CUP)
 This directory contains an interpreter for a small functional
 programming language (called "AS"). It uses JFlex and CUP.
 
+## Build with maven
+
+    ../../../mvnw package
+
+To run the interpreter on a sample input.
+
+    java -jar target/cup-interpreter-full-1.0.jar src/test/data/example.as
+
+You can expect `src/test/data/output.good`.
+
+## Build with ant
+
+    ant run
+
+
 ## Files
 
 - `Main.java` is the main program. It reads an AS program from
