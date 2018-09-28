@@ -6,7 +6,7 @@ LEXER      = ZeroLexer
 
 # --------------------------------------------------
 
-all: test
+all: clean compile
 
 test: out/output.txt
 	@(diff --strip-trailing-cr src/test/data/lexer-output.good $<  && echo "Test OK!")
