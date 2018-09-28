@@ -11,7 +11,7 @@
   </description>
   <packaging>pom</packaging>
   <modules>
-    <module>cup-maven</module>
+    <module>cup-lcalc</module>
     <module>simple-maven</module>
     <module>standalone-maven</module>
   </modules>
