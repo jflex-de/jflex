@@ -1,5 +1,5 @@
 # only works with the Java extension of yacc: 
-# byacc/j from http://troi.lincom-asg.com/~rjamison/byacc/
+# byacc/j from http://byaccj.sourceforge.net/
 
 JFLEX  = ../../bin/jflex 
 BYACCJ = yacc -J
