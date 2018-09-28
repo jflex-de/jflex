@@ -9,10 +9,10 @@
 #    starts the program on a test example
 #                                                                     
 
-# Root of the project
-ROOT=../../..
-JFLEX=$(ROOT)/jflex/target/jflex-full-1.7.1-SNAPSHOT.jar
-CUP=$(ROOT)/cup/cup/java-cup-11b.jar
+ROOT       = ../../..
+JFLEX      = $(ROOT)/jflex/bin/jflex
+CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
+CUP        = java -jar $(CUPJAR)
 
 all: clean compile
 
@@ -20,17 +20,17 @@ clean:
 	rm -rf out; mkdir -p out/genfiles
 
 compile: gen_cup gen_jflex src/main/java/*.java
-	javac -cp $(CUP):out -d out src/main/java/*.java out/genfiles/*.java
+	javac -cp $(CUPJAR):out -d out src/main/java/*.java out/genfiles/*.java
 
 # writes parser.java	sym.java
 gen_jflex: src/main/jflex/scanner.flex
-	java -jar $(JFLEX) -d out/genfiles $<
+	$(JFLEX) -d out/genfiles $<
 
 gen_cup: src/main/cup/parser.cup
-	java -jar $(CUP) -interface < $< ; mv parser.java sym.java out/genfiles
+	$(CUP) -interface < $< ; mv parser.java sym.java out/genfiles
 
 output: compile src/test/data/example.as
-	java -cp $(CUP):out Main < src/test/data/example.as > out/output.txt
+	java -cp $(CUPJAR):out Main < src/test/data/example.as > out/output.txt
 
 test: output
 	@(diff out/output.txt src/test/data/output.good && echo "Test OK!") || echo "Test failed!"

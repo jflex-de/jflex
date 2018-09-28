@@ -1,6 +1,7 @@
 # Be sure to use yacc/j ; not unix yacc nor bison.
 BYACCJ = yaccj -J
-JFLEX  = java -jar ../../out/jflex-full-1.7.1-SNAPSHOT.jar
+ROOT       = ../../..
+JFLEX      = $(ROOT)/jflex/bin/jflex
 
 run: all
 	java -cp out Parser
