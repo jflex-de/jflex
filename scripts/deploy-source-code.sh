@@ -38,6 +38,7 @@ update_source() {
   logi "Checking licenses"
   [[ -f LICENSE_CUP ]] || loge "Missing LICENSE_CUP"
   [[ -f LICENSE_JFLEX ]] || loge "Missing LICENSE_JFLEX"
+  [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || loge "JFlex license has bad content"
 
   logi "Update git sources"
   git add --all
