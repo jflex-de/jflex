@@ -16,15 +16,15 @@ logi "============================="
 # implies: validate, compile, test, package, verify, install
 if [[ "$TRAVIS" ]]; then
   # Quiet mode shows errors only.
-  "$MVN" install --quiet
+  "$MVN" -Pfastbuild install --quiet
 else
-  "$MVN" install
+  "$MVN" -Pfastbuild install
 fi
 
 logi "Run jflex examples with ant"
 logi "==========================="
 # Some tests invoke /bin/jflex which expects the jar in /lib
-ln "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
+cp "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
 # Exit with error in case of error (see #242)
 set -x
 
@@ -65,5 +65,4 @@ cd zero-reader
 logi "(skipped)"
 cd ..
 
-set +x
 cd "$CWD"

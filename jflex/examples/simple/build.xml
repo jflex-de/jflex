@@ -1,4 +1,4 @@
-<project name="java scanner" default="compile">
+<project name="simple scanner" default="compile">
 
   <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
 
@@ -10,6 +10,10 @@
     <java classname="Yylex" classpath="build">
       <arg line="src/test/resources/test.txt"/>
     </java>
+  </target>
+
+  <target name="test" depends="run">
+    <!-- TODO(regisd) compare output with golden. -->
   </target>
 
   <target name="compile" depends="scanner">

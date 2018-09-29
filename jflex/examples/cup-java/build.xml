@@ -14,6 +14,10 @@
     </java>
   </target>
 
+  <target name="test" depends="run">
+    <!-- TODO(regisd) compare output with golden. -->
+  </target>
+
   <target name="compile" depends="cup,scanner,unicode">
     <javac destdir="build" classpath="${java_cup}">
       <src path="src/main/java/" />
