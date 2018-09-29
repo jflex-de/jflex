@@ -21,8 +21,8 @@ else
   "$MVN" install
 fi
 
-logi "Run jflex examples"
-logi "=================="
+logi "Run jflex examples with ant"
+logi "==========================="
 # Some tests invoke /bin/jflex which expects the jar in /lib
 ln "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
 # Exit with error in case of error (see #242)
@@ -30,43 +30,40 @@ set -x
 
 cd "$BASEDIR"/jflex/examples
 
-logi "Example: byacc/j"
-# don't assume byacc/j is installed, just run lexer
-cd byaccj; make clean; make Yylex.java; cd ..
+logi "Example: byaccj"
+cd byaccj
+logi "(skipped)"
+cd ..
 
 logi "Example: cup-interpreter"
-cd interpreter
-make clean; make test
+cd cup-interpreter
 ant test
-"$MVN" test
 cd ..
 
 logi "Example: cup-java"
-cd java
-make clean; make test
+cd cup-java
 ant test
-"$MVN" test
 cd ..
 
 logi "Example: simple"
 cd simple
 ant test
-"$MVN" test
 cd ..
 
 logi "Example: standalone-maven"
 cd standalone-maven
-$MVN test
+logi "(skipped)"
 cd ..
 
 logi "Example: cup-lcalc"
 cd cup-lcalc
-"$MVN" test
+logi "(skipped)"
 cd ..
 
-
 logi "Example: zero-reader"
-cd zero-reader; make clean; make; cd ..
-set +x
+cd zero-reader
+logi "(skipped)"
+cd ..
 
+set +x
 cd "$CWD"
