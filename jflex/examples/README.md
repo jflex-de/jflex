@@ -1,9 +1,6 @@
 # JFlex examples
 
-All examples support multiple build systems:
-- [Maven](https://maven.apache.org/). Build artifacts are in `target` (in subdirectories depending on their nature)
-- [ant](https://ant.apache.org/). We place build artifacts in `build`.
-- [make](https://www.gnu.org/software/make). We place build artifacts in `out`.
+## The Examples
 
 * **byaccj**:
   integration between JFlex and byacc/j on a simple parser for an arithmetic calculator
@@ -20,3 +17,65 @@ All examples support multiple build systems:
 * **zero-reader**:
   This example shows how to work with input Readers that sometimes return 0
   characters.
+
+Every example also provides its own `README.md` with more context.
+
+## Build systems
+
+All examples (try to) support multiple build systems:
+- [Maven](https://maven.apache.org/).
+- [ant](https://ant.apache.org/).
+- [make](https://www.gnu.org/software/make). We place build artifacts in `out`.
+
+All examples follow the Maven layout, in particular:
+- `src` contains the source files
+  - `src/main` contains the source files for the actual programm
+    - `src/main/java` contains the Java sources
+    - `src/main/jflex` contains the flex definitions that should be used by JFlex
+      to generate java code
+    - `src/main/cup` contains the CUP definitions that should be used by CUP  
+  - `src/test` contains the source files for tests
+    - `src/test/data` contains an input file for the scanner; as well as a _golden file_
+      of the expected output for this input.
+
+### Maven
+
+When the example can be build with Maven, there is a `pom.xml`.
+
+Please use `mvn package` to
+- generate the Java source from flex and cup definitions
+- compile all Java source
+- run unit tests
+
+Build artifacts are in `target` (in subdirectories depending on their nature).
+
+In the end run the compiled lexer with:
+`java -jar target/` _BUILD-ARTEFACT.jar_ `<args>`
+
+### ant
+
+When the example can be build with Maven, there is a `build.xml`.
+
+We place build artifacts in the `build` directory.
+
+Also, we consistently use:
+- `ant` _default action_ for **compile**
+- `ant compile` to generate the source code form flex and cup definitions
+   and compile all Java code
+- `ant run` to run the lexer on a sample input
+- `ant test` to run the lexer on the sample input and check it produces
+  the expected output.
+  
+### GNU make
+
+When the example can be build with Maven, there is a `Makefile`.
+
+We place build artifacts in the `out` directory.
+
+Also, we consistently use:
+- `make` _default action_ for **compile**
+- `make compile` to generate the source code form flex and cup definitions
+   and compile all Java code
+- `make run` to run the lexer on a sample input
+- `make test` to run the lexer on the sample input and check it produces
+  the expected output.
