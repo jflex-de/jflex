@@ -35,4 +35,4 @@ output: compile src/test/data/example.as
 	java -cp $(CUPJAR):out Main < src/test/data/example.as > out/output.txt
 
 test: output
-	@(diff out/output.txt src/test/data/output.good && echo "Test OK!")
+	@(diff out/output.txt src/test/data/output.good && echo "Test OK!") || (echo "Test FAILED"; exit 1)

@@ -14,7 +14,7 @@ compile: gen_all src/main/java/*.java
 	javac -d out -cp $(CUPJAR) out/genfiles/*.java src/main/java/*.java
 
 test: out/lexer-output.txt
-	@(diff $< src/test/data/lexer-output.good && echo "Test OK!")
+	@(diff $< src/test/data/lexer-output.good && echo "Test OK") || (echo "Test FAILED"; exit 1)
 
 out/lexer-output.txt: compile
 	java -cp out:$(CUPJAR) TestLexer src/main/java/TestLexer.java > out/lexer-output.txt

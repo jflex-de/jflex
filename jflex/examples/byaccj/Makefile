@@ -11,7 +11,7 @@ all: build
 build: Parser.class
 
 clean:
-	rm -f out
+	rm -rf out
 
 Parser.class: Yylex.java Parser.java
 	javac -d out out/*.java

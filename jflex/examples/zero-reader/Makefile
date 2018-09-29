@@ -9,7 +9,7 @@ LEXER      = ZeroLexer
 all: clean compile
 
 test: out/output.txt
-	@(diff --strip-trailing-cr src/test/data/lexer-output.good $<  && echo "Test OK!")
+	@(diff --strip-trailing-cr src/test/data/lexer-output.good $<  && echo "Test OK") || (echo "Test FAILED"; exit 1)
 
 out/output.txt: out/$(LEXER).class src/test/data/test-input.txt
 	java -cp out $(LEXER) src/test/data/test-input.txt > $@
