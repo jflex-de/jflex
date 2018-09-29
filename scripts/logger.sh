@@ -15,3 +15,11 @@ function logi {
     echo $*
   fi
 }
+function loge {
+  if [[ $COLOR_CAPABILITY ]]; then
+    printf "${RED}${*}${NC}\n"
+  else
+    echo "[ERROR] ${*}"
+  fi
+  exit 1
+}
