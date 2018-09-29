@@ -35,10 +35,9 @@ update_source() {
   logi "Download deps and Compile"
   ./compile.sh
 
-  logi "Checking licenses"
-  [[ -f LICENSE_CUP ]] || loge "Missing LICENSE_CUP"
-  [[ -f LICENSE_JFLEX ]] || loge "Missing LICENSE_JFLEX"
-
+  logi "Add license files"
+  cp ../LICENSE.md .
+  cp ../cup/LICENSE LICENSE_CUP
   logi "Update git sources"
   git add --all
 
