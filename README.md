@@ -93,7 +93,7 @@ java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 ## Contributing
 
 JFlex is free software, contributions are welcome.
-See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
+See the [Contributing][contrib] page for instructions.
 
 
 [jflex]: http://jflex.de/
@@ -101,3 +101,5 @@ See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
 [wiki]: https://github.com/jflex-de/jflex/wiki
 [pom-build]: https://maven.apache.org/pom.html#Build_Settings
 [example-simple-maven]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven
+[contrib]: https://github.com/jflex-de/jflex/wiki/Contributing
+
