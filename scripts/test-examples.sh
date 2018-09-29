@@ -32,37 +32,52 @@ cd "$BASEDIR"/jflex/examples
 
 logi "Example: byaccj"
 cd byaccj
-logi "(skipped)"
+# Maven not supported
+# ant not supported
+# don't assume byacc/j is installed, just run lexer
+make clean; make Yylex.java;
 cd ..
 
 logi "Example: cup-interpreter"
 cd cup-interpreter
+"$MVN" test
 ant test
+make test
 cd ..
 
 logi "Example: cup-java"
 cd cup-java
+"$MVN" test
 ant test
-cd ..
-
-logi "Example: simple"
-cd simple
-ant test
-cd ..
-
-logi "Example: standalone-maven"
-cd standalone-maven
-logi "(skipped)"
+make test
 cd ..
 
 logi "Example: cup-lcalc"
 cd cup-lcalc
-logi "(skipped)"
+"$MVN" test
+# ant test
+# make test
+cd ..
+
+logi "Example: simple"
+cd simple
+"$MVN" test
+ant test
+# make test
+cd ..
+
+logi "Example: standalone-maven"
+cd standalone-maven
+"$MVN" test
+# ant test
+# make test
 cd ..
 
 logi "Example: zero-reader"
 cd zero-reader
-logi "(skipped)"
+"$MVN" test
+# ant test
+make test
 cd ..
 
 cd "$CWD"

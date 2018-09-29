@@ -28,7 +28,7 @@ if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "regression" ]]; then
 fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "ant" ]]; then
   "$BASEDIR"/scripts/ant-build.sh
-  "$BASEDIR"/scripts/ant-examples.sh
+  "$BASEDIR"/scripts/test-examples.sh
 fi
 
 logi "Success"
