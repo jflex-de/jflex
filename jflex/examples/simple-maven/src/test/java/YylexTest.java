@@ -41,8 +41,12 @@ public class YylexTest extends TestCase {
 
     // test actual is expected
     File expected = new File("src/test/resources/output.good");
-    assertThat(expected.getAbsolutePath() + " should be a file", expected.isFile()).isTrue();
-    assertThat(actual.getAbsolutePath() + " should be a file", actual.isFile()).isTrue();
+    assertWithMessage(expected.getAbsolutePath() + " should be a file")
+        .that(expected.isFile())
+        .isTrue();
+    assertWithMessage(actual.getAbsolutePath() + " should be a file")
+        .that(actual.isFile())
+        .isTrue();
 
     BufferedReader actualContent = new BufferedReader(new FileReader(actual));
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
