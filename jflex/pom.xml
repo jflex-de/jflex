@@ -162,11 +162,6 @@
                   <include>de.jflex:cup_runtime</include>
                 </includes>
               </artifactSet>
-              <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>jflex.Main</mainClass>
-                </transformer>
-              </transformers>
             </configuration>
           </execution>
         </executions>
