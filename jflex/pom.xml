@@ -71,6 +71,9 @@
   <build>
     <resources>
       <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+      </resource>
+      <resource>
         <directory>..</directory>
         <includes>
           <include>LICENSE.md</include>
