@@ -15,7 +15,7 @@
     <module>cup-java</module>
     <module>cup-lcalc</module>
     <module>simple</module>
-    <module>standalone-maven</module>
+    <module>standalone</module>
     <module>zero-reader</module>
   </modules>
 </project>
