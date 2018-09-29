@@ -5,15 +5,20 @@ branches:
   - aggregated-java-sources
   - travis
 
+# We don't use the git log, a very small depth is sufficient
+git:
+  depth: 3
+
 language: java
 
 # TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
 jdk:
-- openjdk7
 - oraclejdk8
+- openjdk9
 
 env:
   matrix:
+  - TEST_SUITE=java-format
   - TEST_SUITE=ant
   - TEST_SUITE=unit
   - TEST_SUITE=regression
@@ -28,8 +33,8 @@ install: ./mvnw -version
 script: ./scripts/run-tests.sh
 
 after_success:
-- ./scripts/mvn-site.sh
-- ./scripts/mvn-aggregate-srcs.sh
+- test $TEST_SUITE = "unit" && ./scripts/mvn-site.sh)
+- test $TEST_SUITE = "unit" && ./scripts/mvn-aggregate-srcs.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
@@ -40,6 +45,7 @@ cache:
   directories:
   - $HOME/.m2
   - jflex/lib
+  - tools
 
 deploy:
 # Deploy the maven site on Github pages

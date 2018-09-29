@@ -216,13 +216,12 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     File actualOutputDirectory = new File(generatedFile.getParent());
-
     if (!actualOutputDirectory.exists()) {
       actualOutputDirectory.mkdirs();
     }
-
     Options.Builder generatorOptions =
         Options.builder()
+            .setRootDirectory(project.getBasedir())
             .setOutputDirectory(actualOutputDirectory)
             .setDump(dump)
             .setVerbose(verbose)

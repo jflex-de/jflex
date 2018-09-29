@@ -1,10 +1,12 @@
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import junit.framework.TestCase;
 
 /**
@@ -16,9 +18,7 @@ public class LexerTest extends TestCase {
 
   private static final String OUTPUT_FILE = "target/output.actual";
 
-  /**
-   * Tests that Lexer parses the calculator syntax correctly.
-   */
+  /** Tests that Lexer parses the calculator syntax correctly. */
   public void testOutput() throws Exception {
     String[] argv = new String[1];
     argv[0] = "src/test/resources/test.txt";
@@ -40,8 +40,8 @@ public class LexerTest extends TestCase {
   }
 
   private void checkFileContent(File expected, File actual) throws IOException {
-    assertTrue(expected.isFile());
-    assertTrue(actual.isFile());
+    assertThat(expected.isFile()).isTrue();
+    assertThat(actual.isFile()).isTrue();
 
     BufferedReader actualContent = new BufferedReader(new FileReader(actual));
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
@@ -49,7 +49,7 @@ public class LexerTest extends TestCase {
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
       String actualLine = actualContent.readLine();
-      assertEquals("Line " + lineNumber, expectedLine, actualLine);
+      assertWithMessage("Line " + lineNumber).that(actualLine).isEqualTo(expectedLine);
       if (expectedLine == null) {
         lineNumber = -2; // EOF
       }

@@ -7,6 +7,9 @@ generates a corresponding Java parser
 
 ### Usage
 
+See [jflex-maven-plugin site](http://jflex-de.github.io/jflex-web/jflex-maven-plugin/plugin-info.html)
+for more information.
+
 #### Minimal configuration
 
 This configuration generates java code of a parser
@@ -20,6 +23,7 @@ in sub-directories following the Java convention on package names.
 
 
 Update the `pom.xml` to add the plugin:
+
 ```
 <project>
   <!-- ... -->
@@ -28,7 +32,7 @@ Update the `pom.xml` to add the plugin:
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.7.0</version>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <goals>
@@ -56,7 +60,7 @@ The generated Java code is placed into `src/main/java` instead of
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <goals>
@@ -89,7 +93,7 @@ This generates the source for
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>${project.version}</version>
         <executions>
           <execution>
             <id>strict jlex</id>
@@ -132,7 +136,7 @@ More information in the [POM reference guide on plugins](http://maven.apache.org
 
 Which version of the plugin is best for you?
 
-  * jflex-maven-plugin-$VERSION depends on $VERSION
+  * jflex-maven-plugin-${project.version} depends on ${project.version}
     and requires Java 7 when you `mvn jflex:generate`
 
   * jflex-maven-plugin-1.7.0 depends on 1.7.0

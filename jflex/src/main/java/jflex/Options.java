@@ -16,7 +16,8 @@ import java.nio.charset.UnsupportedCharsetException;
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
  *
- * @author Gerwin Klein, Régis Décamps
+ * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Options {
@@ -24,19 +25,35 @@ public class Options {
   /** If true, additional verbose debug information is produced. This is a compile time option. */
   static final boolean DEBUG = false;
 
+  private final File rootDirectory;
+  private final File outputDirectory;
   private final boolean backup;
   private final boolean legacyDot;
   private final boolean dump;
   private final boolean generateDotFile;
   private final boolean strictJlex;
   private final boolean minimize;
-  private final File outputDirectory;
   private final boolean showProgress;
   private final File skeleton;
   private final boolean timing;
   private final boolean unusedWarnings;
   private final Charset encoding;
   private final boolean verbose;
+
+  /**
+   * Returns the root source directory.
+   *
+   * <p>In a maven project, this is the directory that contains {@code src} and {@code target}.
+   */
+  public File rootDirectory() {
+    return rootDirectory;
+  }
+
+  /** Returns the directory to write generated code into. */
+  // TODO(regisd): Clarify whether this includes java package path or not.
+  public File outputDirectory() {
+    return outputDirectory;
+  }
 
   /** Whether to back-up modified files. */
   public boolean backup() {
@@ -69,12 +86,6 @@ public class Options {
   /** Whether to minimize the DFA. */
   public boolean minimize() {
     return minimize;
-  }
-
-  /** The directory to write generated code into. */
-  // TODO(regisd): Clarify whether this includes java package path or not.
-  public File outputDirectory() {
-    return outputDirectory;
   }
 
   /** Whether to show progress (e.g. printing dots). */
@@ -110,6 +121,7 @@ public class Options {
   public static Builder builder() {
     return new Options.Builder()
         // Set default values
+        .setRootDirectory(new File("")) // relative to where java is executed from
         .setBackup(true)
         .setDump(false)
         .setGenerateDotFile(false)
@@ -128,13 +140,14 @@ public class Options {
   }
 
   private Options(
+      File rootDirectory,
+      File outputDirectory,
       boolean backup,
       boolean legacyDot,
       boolean dump,
       boolean generateDotFile,
       boolean strictJlex,
       boolean minimize,
-      File outputDirectory,
       boolean showProgress,
       File skeleton,
       boolean timing,
@@ -147,6 +160,7 @@ public class Options {
     this.generateDotFile = generateDotFile;
     this.strictJlex = strictJlex;
     this.minimize = minimize;
+    this.rootDirectory = rootDirectory;
     this.outputDirectory = outputDirectory;
     this.showProgress = showProgress;
     this.skeleton = skeleton;
@@ -159,6 +173,12 @@ public class Options {
   @Override
   public String toString() {
     return "Options{"
+        + "rootDirectory="
+        + rootDirectory
+        + ", "
+        + "outputDirectory="
+        + outputDirectory
+        + ", "
         + "backup="
         + backup
         + ", "
@@ -176,9 +196,6 @@ public class Options {
         + ", "
         + "minimize="
         + minimize
-        + ", "
-        + "outputDirectory="
-        + outputDirectory
         + ", "
         + "showProgress="
         + showProgress
@@ -204,13 +221,14 @@ public class Options {
     }
     if (o instanceof Options) {
       Options that = (Options) o;
-      return (this.backup == that.backup())
+      return (this.rootDirectory.equals(that.rootDirectory()))
+          && (this.outputDirectory.equals(that.outputDirectory()))
+          && (this.backup == that.backup())
           && (this.legacyDot == that.legacyDot())
           && (this.dump == that.dump())
           && (this.generateDotFile == that.generateDotFile())
           && (this.strictJlex == that.strictJlex())
           && (this.minimize == that.minimize())
-          && (this.outputDirectory.equals(that.outputDirectory()))
           && (this.showProgress == that.showProgress())
           && (this.skeleton.equals(that.skeleton()))
           && (this.timing == that.timing())
@@ -224,6 +242,10 @@ public class Options {
   public int hashCode() {
     int h = 1;
     h *= 1000003;
+    h ^= this.rootDirectory.hashCode();
+    h *= 1000003;
+    h ^= this.outputDirectory.hashCode();
+    h *= 1000003;
     h ^= this.backup ? 1231 : 1237;
     h *= 1000003;
     h ^= this.legacyDot ? 1231 : 1237;
@@ -235,8 +257,6 @@ public class Options {
     h ^= this.strictJlex ? 1231 : 1237;
     h *= 1000003;
     h ^= this.minimize ? 1231 : 1237;
-    h *= 1000003;
-    h ^= this.outputDirectory.hashCode();
     h *= 1000003;
     h ^= this.showProgress ? 1231 : 1237;
     h *= 1000003;
@@ -258,13 +278,14 @@ public class Options {
 
   public static final class Builder {
 
+    private File rootDirectory;
+    private File outputDirectory;
     private Boolean backup;
     private Boolean legacyDot;
     private Boolean dump;
     private Boolean generateDotFile;
     private Boolean strictJlex;
     private Boolean minimize;
-    private File outputDirectory;
     private Boolean showProgress;
     private File skeleton;
     private Boolean timing;
@@ -275,18 +296,35 @@ public class Options {
     Builder() {}
 
     private Builder(Options source) {
+      this.rootDirectory = source.rootDirectory();
+      this.outputDirectory = source.outputDirectory();
       this.backup = source.backup();
       this.legacyDot = source.legacyDot();
       this.dump = source.dump();
       this.generateDotFile = source.generateDotFile();
       this.strictJlex = source.strictJlex();
       this.minimize = source.minimize();
-      this.outputDirectory = source.outputDirectory();
       this.showProgress = source.showProgress();
       this.skeleton = source.skeleton();
       this.timing = source.timing();
       this.unusedWarnings = source.unusedWarnings();
       this.verbose = source.verbose();
+    }
+
+    public Options.Builder setRootDirectory(File rootDirectory) {
+      if (rootDirectory == null) {
+        throw new NullPointerException("Null rootDirectory");
+      }
+      this.rootDirectory = rootDirectory;
+      return this;
+    }
+
+    public Options.Builder setOutputDirectory(File outputDirectory) {
+      if (outputDirectory == null) {
+        throw new NullPointerException("Null outputDirectory");
+      }
+      this.outputDirectory = outputDirectory;
+      return this;
     }
 
     public Options.Builder setBackup(boolean backup) {
@@ -316,14 +354,6 @@ public class Options {
 
     public Options.Builder setMinimize(boolean minimize) {
       this.minimize = minimize;
-      return this;
-    }
-
-    public Options.Builder setOutputDirectory(File outputDirectory) {
-      if (outputDirectory == null) {
-        throw new NullPointerException("Null outputDirectory");
-      }
-      this.outputDirectory = outputDirectory;
       return this;
     }
 
@@ -366,6 +396,12 @@ public class Options {
 
     public Options build() {
       String missing = "";
+      if (this.rootDirectory == null) {
+        missing += " rootDirectory";
+      }
+      if (this.outputDirectory == null) {
+        missing += " outputDirectory";
+      }
       if (this.backup == null) {
         missing += " backup";
       }
@@ -403,13 +439,14 @@ public class Options {
         throw new IllegalStateException("Missing required properties:" + missing);
       }
       return new Options(
+          this.rootDirectory,
+          this.outputDirectory,
           this.backup,
           this.legacyDot,
           this.dump,
           this.generateDotFile,
           this.strictJlex,
           this.minimize,
-          this.outputDirectory,
           this.showProgress,
           this.skeleton,
           this.timing,

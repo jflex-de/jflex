@@ -45,7 +45,11 @@ public class JFlexTask extends Task {
   /** Constructor for JFlexTask. */
   public JFlexTask() {
     // ant default is different from the rest of JFlex
-    generatorOptions.setVerbose(false).setUnusedWarnings(true).setShowProgress(false);
+    generatorOptions
+        .setVerbose(false)
+        .setUnusedWarnings(true)
+        .setShowProgress(false)
+        .setOutputDirectory(new File(""));
   }
 
   /**
@@ -132,7 +136,9 @@ public class JFlexTask extends Task {
    * <p>Assumes that package name is already set.
    */
   public void normalizeOutdir() {
-    if (outputDir() != null) return;
+    if (!outputDir().getPath().isEmpty()) {
+      return;
+    }
 
     // find out what the destination directory is. Append packageName to dest
     // dir.

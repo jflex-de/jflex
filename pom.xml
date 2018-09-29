@@ -189,7 +189,7 @@
         <plugin>
           <groupId>com.coveo</groupId>
           <artifactId>fmt-maven-plugin</artifactId>
-          <version>2.2.0</version>
+          <version>2.5.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -280,16 +280,18 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.20.1</version>
         </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.5</version>
-        </plugin>
       </plugins>
     </pluginManagement>
     <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
      built-in lifecycle bindings for projects with pom packaging. -->
     <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <executions>
@@ -322,8 +324,6 @@
               <report>index</report>
               <report>summary</report>
               <report>plugins</report>
-              <report>dependencies</report>
-              <report>plugins</report>
             </reports>
           </reportSet>
         </reportSets>
@@ -333,20 +333,6 @@
         <configuration>
           <!-- Timestamps create annoying diff on gh-pages -->
           <notimestamp>true</notimestamp>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <configuration>
-          <xmlOutput>true</xmlOutput>
-          <threshold>Normal</threshold>
-          <effort>Default</effort>
-          <outputDirectory>target/findbugs</outputDirectory>
-          <visitors>FindDeadLocalStores,UnreadFields</visitors>
-          <onlyAnalyze>de.jflex.*</onlyAnalyze>
-          <debug>true</debug>
-          <relaxed>true</relaxed>
         </configuration>
       </plugin>
     </plugins>
@@ -440,8 +426,8 @@
               <compilerArgs>
                 <arg>-Xep:FallThrough:WARN</arg>
               </compilerArgs>
-              <source>7</source>
-              <target>7</target>
+              <source>1.7</source>
+              <target>1.7</target>
             </configuration>
             <dependencies>
               <dependency>
