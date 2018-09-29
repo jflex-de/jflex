@@ -20,6 +20,9 @@ if [[ ! $TRAVIS ]]; then
 fi
 
 # Travis then runs _in parallel_ (but we do it in sequence)
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
+  "$BASEDIR"/scripts/test-java-format.sh
+fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
   "$BASEDIR"/scripts/test-unit.sh
 fi
