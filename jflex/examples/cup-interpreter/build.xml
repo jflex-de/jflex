@@ -18,7 +18,7 @@
   </target>
 
   <target name="test" depends="run">
-    <!-- TODO(regisd) compare output with golden. -->
+    <!-- TODO(#384) compare output with golden. -->
   </target>
 
   <target name="compile" depends="jflex,cup">
