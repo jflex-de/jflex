@@ -16,21 +16,23 @@ compile: gen_all src/main/java/*.java
 test: out/lexer-output.txt
 	@(diff $< src/test/data/lexer-output.good && echo "Test OK") || (echo "Test FAILED"; exit 1)
 
-out/lexer-output.txt: compile
+out/lexer-output.txt: compile outdir
 	java -cp out:$(CUPJAR) TestLexer src/main/java/TestLexer.java > out/lexer-output.txt
 
 gen_all: gen_parser gen_scanner gen_unicode
 
-gen_parser: src/main/cup/java12.cup
+gen_parser: src/main/cup/java12.cup outdir
 	$(CUP) -interface $<
 	mv parser.java sym.java out/genfiles
 
-gen_scanner: src/main/jflex/java.flex
+gen_scanner: src/main/jflex/java.flex outdir
 	$(JFLEX) -d out/genfiles $<
 
-gen_unicode: src/main/jflex/unicode.flex
+gen_unicode: src/main/jflex/unicode.flex outdir
 	$(JFLEX) -d out/genfiles $<
 
 clean:
-	rm -f
+	rm -rf out
+
+outdir:
 	mkdir -p out/genfiles

@@ -42,42 +42,42 @@ logi "Example: cup-interpreter"
 cd cup-interpreter
 "$MVN" test
 ant test
-make test
+make clean test
 cd ..
 
 logi "Example: cup-java"
 cd cup-java
 "$MVN" test
 ant test
-make test
+make clean test
 cd ..
 
 logi "Example: cup-lcalc"
 cd cup-lcalc
 "$MVN" test
 # ant test
-# make test
+# make clean test
 cd ..
 
 logi "Example: simple"
 cd simple
 "$MVN" test
 ant test
-# make test
+# make clean test
 cd ..
 
 logi "Example: standalone-maven"
 cd standalone-maven
 "$MVN" test
 # ant test
-# make test
+# make clean test
 cd ..
 
 logi "Example: zero-reader"
 cd zero-reader
 "$MVN" test
 # ant test
-make test
+make clean test
 cd ..
 
 cd "$CWD"
