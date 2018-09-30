@@ -8,16 +8,22 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
+if [[ $TRAVIS ]]; then
+  BAZEL='bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc'
+else
+  BAZEL='bazel'
+fi
+
 logi "Start Bazel"
 logi "==========="
 cd jflex/examples
-bazel start
+$BAZEL start
 
 logi "Build everything"
-bazel build //...
+$BAZEL build //...
 
 logi "Test everything"
 logi "==============="
-bazel test //..
+$BAZEL test //...
 
 cd "$CWD"
