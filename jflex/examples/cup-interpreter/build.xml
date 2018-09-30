@@ -1,0 +1,42 @@
+<project name="AS language interpreter" default="compile">
+
+  <property name="java_cup" value="../../../cup/cup/java-cup-11b.jar"/>
+  <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
+
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
+  <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
+
+  <target name="build" depends="clean,compile" />
+
+  <target name="run" depends="compile">
+    <java classname="Main">
+      <classpath>
+        <pathelement location="${java_cup}"/>
+        <pathelement path="build"/>
+      </classpath>
+      <arg line="src/test/data/example.as"/> </java>
+  </target>
+
+  <target name="test" depends="run">
+    <!-- TODO(#384) compare output with golden. -->
+  </target>
+
+  <target name="compile" depends="jflex,cup">
+    <javac destdir="build" classpath="${java_cup}">
+      <src path="src/main/java/" />
+      <src path="build/"/>
+    </javac>
+  </target>
+
+  <target name="jflex">
+    <jflex file="src/main/jflex/scanner.flex" destdir="build" encoding="utf-8"/>
+  </target>
+
+  <target name="cup">
+    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="build"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="build"/>
+  </target>
+</project>
