@@ -3,9 +3,9 @@ package jflextest;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.maven.plugin.MojoExecutionException;
 
 public class Tester {
 
@@ -65,7 +65,8 @@ public class Tester {
    * @param jflexUberJar The JFlex shaded jar
    * @return true if all tests succeeded, false otherwise
    */
-  public static boolean runTests(List<File> tests, File jflexUberJar) {
+  public static boolean runTests(List<File> tests, File jflexUberJar)
+      throws TestFailException, MojoExecutionException {
     int successCount = 0;
     int totalCount = 0;
 
@@ -88,7 +89,7 @@ public class Tester {
         if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
         if (currentTest.checkJavaVersion()) {
-          currentTest.createScanner(jflexUberJar);
+          currentTest.createScanner(jflexUberJar, verbose);
           while (currentTest.hasMoreToDo()) currentTest.runNext(jflexUberJar);
 
           successCount++;
@@ -99,12 +100,8 @@ public class Tester {
         }
       } catch (TestFailException e) {
         System.out.println("Test [" + test + "] failed!");
-      } catch (LoadException e) {
-        System.out.println("Load Error:" + e.getMessage());
-      } catch (IOException e) {
-        System.out.println("IO Error:" + e.getMessage());
       } catch (Exception e) {
-        e.printStackTrace();
+        throw new MojoExecutionException("Test [" + test.getName() + "] failed to execute", e);
       }
     }
 

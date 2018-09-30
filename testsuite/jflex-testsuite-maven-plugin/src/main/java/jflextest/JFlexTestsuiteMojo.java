@@ -68,7 +68,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       success = Tester.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
-      throw new MojoExecutionException("Failed to execute test suite", e);
+      throw new MojoExecutionException("Failed to execute test suite: " + e.getMessage(), e);
     }
     if (!success) {
       throw new MojoFailureException("Test(s) failed.");

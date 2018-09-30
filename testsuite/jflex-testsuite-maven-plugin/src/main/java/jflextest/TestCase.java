@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import org.apache.maven.plugin.MojoFailureException;
 
 public class TestCase {
 
@@ -148,8 +149,17 @@ public class TestCase {
     testPath = testDir;
   }
 
-  void createScanner(File jflexUberJar) throws TestFailException {
-    jflexFiles.add((new File(testPath, testName + ".flex")).getPath());
+  void createScanner(File jflexUberJar, boolean verbose)
+      throws TestFailException, MojoFailureException {
+    File lexFile = new File(testPath, testName + ".flex");
+    if (verbose) {
+      System.out.println(String.format("Open lex specification [%s]", lexFile));
+    }
+    if (!lexFile.exists()) {
+      throw new MojoFailureException(
+          "Cannot open lex definition", new FileNotFoundException(lexFile.getPath()));
+    }
+    jflexFiles.add(lexFile.getPath());
     // invoke JFlex
     TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
     // System.out.println(jflexResult);
