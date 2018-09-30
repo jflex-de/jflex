@@ -3,7 +3,8 @@
 This directory contains build rules to use JFlex with the
 [Bazel build system][bazel].
 
-## Update your workspace
+## Preparation
+### Update your workspace
 
 Add the [`maven_jar`][be_maven_jar] rule in your [`WORKSPACE` file][be_workspace].
 
@@ -17,7 +18,7 @@ Add the [`maven_jar`][be_maven_jar] rule in your [`WORKSPACE` file][be_workspace
         sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
     )
 
-## Add a BUILD alias for JFlex
+### Add a BUILD alias for JFlex
 
 Create `third_party/de/jflex/BUILD` with that defines the
 `//third_party/de/jflex:jflex_bin` target.
@@ -27,6 +28,24 @@ It should be sufficient to take out `third_party/de/jflex/BUILD`.
 However, we use `//third_party/de/jflex` in the examples
 to make it consistent with the recommended
 [directory structure for third-party dependencies][be_3p].
+
+## Usage
+
+    load("//third_party/de/jflex:build_rules.bzl", "jflex")
+    
+    jflex(
+        name = "rule-name",  # Replace with the name of the rule
+        srcs = [],           # Add input lex specifications
+        outputs = [],        # List expected generated files
+    )
+
+Then, this rule can be used as one of the `srcs` of another rules, such as a `java_library`.
+
+## Example
+
+See `examples/WORKSPACE` and `examples/simple/BUILD`.
+
+
 
 [bazel]: https://bazel.build/
 [be_maven_jar]: https://docs.bazel.build/versions/master/be/workspace.html#maven_jar
