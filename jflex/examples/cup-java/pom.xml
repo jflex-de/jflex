@@ -2,32 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.flex.examples</groupId>
-  <artifactId>cup-maven</artifactId>
+  <artifactId>cup-java</artifactId>
   <version>1.0</version>
-  <name>A scanner for calculator.</name>
-  <description>It is the example from the JLex website with some small
-		modifications, to make it a bit more readable.
-
-    It comes from a short article series in the Linux Gazette
-    by Richard A. Sevenich and Christopher Lopes,
-    titled Compiler Construction Tools.</description>
+  <name>A parser for Java</name>
+  <description>An parser for the Java programming language.
+    This simple grammar can only parse Java up to version 1.2.
+    It uses JFlex and CUP.</description>
   <dependencies>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>cup_runtime</artifactId>
+      <version>11b</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.2</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.truth</groupId>
-      <artifactId>truth</artifactId>
-      <version>0.36</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup_runtime</artifactId>
-      <version>11b</version>
     </dependency>
   </dependencies>
   <build>
@@ -51,7 +42,6 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <inputStreamCtor>true</inputStreamCtor>
             </configuration>
           </execution>
         </executions>
@@ -66,6 +56,7 @@
               <goal>generate</goal>
             </goals>
             <configuration>
+              <symbolInterface>true</symbolInterface>
             </configuration>
           </execution>
         </executions>
@@ -86,6 +77,11 @@
             </goals>
             <configuration>
               <finalName>${project.artifactId}-full-${project.version}</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>JavaParser</mainClass>
+                </transformer>
+              </transformers>
               <artifactSet>
                 <includes>
                   <include>de.jflex:cup_runtime</include>
