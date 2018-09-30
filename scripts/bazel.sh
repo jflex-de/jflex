@@ -17,7 +17,7 @@ fi
 logi "Start Bazel"
 logi "==========="
 cd jflex/examples
-$BAZEL start
+$BAZEL info
 
 logi "Build everything"
 $BAZEL build //...
