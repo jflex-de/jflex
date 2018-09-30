@@ -413,6 +413,8 @@ public final class Emitter {
     if (File.separatorChar == '\\') {
       path = FileUtil.slashify(path);
     }
+    // Character '\' can be use for Unicode representation, e.g. \\u000A is new line
+    path = path.replace("\\", "\\\\");
     println("// source: " + path);
     println("");
   }

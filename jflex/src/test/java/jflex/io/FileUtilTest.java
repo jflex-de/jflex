@@ -31,6 +31,6 @@ public class FileUtilTest extends TestCase {
 
   @Test
   public void test_slashify() {
-    assertThat(FileUtil.slashify("C:\\u0022.txt")).isEqualTo("C:/u0022.txt");
+    assertEquals("C:/u0022.txt", FileUtil.slashify("C:\\u0022.txt"));
   }
 }
