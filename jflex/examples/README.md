@@ -25,7 +25,8 @@ Every example also provides its own `README.md` with more context.
 All examples (try to) support multiple build systems:
 - [Maven](https://maven.apache.org/).
 - [ant](https://ant.apache.org/).
-- [make](https://www.gnu.org/software/make). We place build artifacts in `out`.
+- [bazel](https://bazel.build/).
+- [make](https://www.gnu.org/software/make). 
 
 All examples follow the Maven layout, in particular:
 - `src` contains the source files
@@ -65,10 +66,23 @@ Also, we consistently use:
 - `ant run` to run the lexer on a sample input
 - `ant test` to run the lexer on the sample input and check it produces
   the expected output.
-  
+
+### Bazel
+
+When the example can be build with Bazel, there is a `BUILD` file.
+
+Bazel places artifacts in `bazel-*` in the root `examples` directory
+(because it is the workspace).
+
+- `bazel build <targets>` generates the sources and compile for the given targets
+- `bazel run <target>`  runs the given target
+- `bazel test <targets>` tests the given targets
+
+See also [third_party/de/jflex/README.md].
+
 ### GNU make
 
-When the example can be build with Maven, there is a `Makefile`.
+When the example can be build with make, there is a `Makefile`.
 
 We place build artifacts in the `out` directory.
 
