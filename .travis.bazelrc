@@ -1,3 +1,6 @@
+# This allows to cache the build artefacts :-D
+startup --output_user_root=$TRAVIS_BUILD_DIR/__bazel__
+
 # Taken from https://github.com/korfuri/bazel-travis/blob/master/.bazelrc
 
 # This is from Bazel's former travis setup, to avoid blowing up the RAM usage.
@@ -15,3 +18,4 @@ test  --test_output=errors
 # fails to run tests.
 # build --spawn_strategy=standalone --genrule_strategy=standalone
 # test --test_strategy=standalone
+
