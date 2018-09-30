@@ -12,22 +12,23 @@ git:
 language: java
 
 jdk:
-- oraclejdk8
 - openjdk9
 
 matrix:
   include:
   - name: "Java format"
-    TEST_SUITE=java-format
+    env: TEST_SUITE=java-format
   - name: "Ant JDK8"
     sdk: oraclejdk8
-    TEST_SUITE=ant
+    env: TEST_SUITE=ant
   - name: "Ant JDK9"
-    TEST_SUITE=ant
+    env: TEST_SUITE=ant
   - name: "Maven unit tests"
-    TEST_SUITE=unit
+    env: TEST_SUITE=unit
   - name: "Regression tests"
-    TEST_SUITE=regression
+    env: TEST_SUITE=regression
+  - name: "Do nothing"
+    script: true
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
