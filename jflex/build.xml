@@ -31,7 +31,7 @@
   <property name="junit.jar.path" value="junit/junit/${junit.version}/junit-${junit.version}.jar" />
 
   <!-- where build output goes, including the jflex jar -->
-  <property name="build.dir" value="build"/>
+  <property name="build.dir" value="antbuild"/>
   <property name="generated.sources.dir" value="${build.dir}/generated-sources"/>
   <property name="compile.output.dir" value="${build.dir}/classes"/>
   <property name="test.compile.output.dir" value="${build.dir}/test-classes"/>
