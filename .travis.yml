@@ -11,7 +11,9 @@ git:
 
 language: java
 
-jdk: openjdk9
+jdk:
+- oraclejdk8
+- openjdk9
 
 matrix:
   include:
@@ -26,7 +28,7 @@ matrix:
     TEST_SUITE=unit
   - name: "Regression tests"
     TEST_SUITE=regression
-       
+
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
 # otherwise `mvn site` fails in the before_deploy phase.
