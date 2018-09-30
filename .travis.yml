@@ -11,47 +11,54 @@ git:
 
 language: java
 
-# TODO(regisd) Remove the build matrix ; it really makes the deploy phase more complex
 jdk:
-- oraclejdk8
 - openjdk9
 
-env:
-  matrix:
-  - TEST_SUITE=java-format
-  - TEST_SUITE=ant
-  - TEST_SUITE=unit
-  - TEST_SUITE=regression
-  - TEST_SUITE=bazel
-
-# Prerequisites for Bazel
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - curl
-      - pkg-config
-      - zip
-      - g++
-      - zlib1g-dev
-      - unzip
-      - python
-
-sudo: $TEST_SUITE = bazel
+matrix:
+  include:
+  - name: "Check Java format"
+    script: scripts/test-java-format.sh
+  - name: "Maven everything"
+    script:
+    - scripts/test-unit.sh
+    - scripts/mvn-site.sh
+    - scripts/mvn-aggregate-srcs.sh
+    env: TEST_SUITE=unit
+  - name: "Regression tests"
+    script: scripts/test-regression.sh
+  - name: "Ant JDK8"
+    script: scripts/run-ant.sh
+    sdk: oraclejdk8
+  - name: "Ant JDK9"
+    script: scripts/run-ant.sh
+  - name: "Bazel"
+    sudo: true
+    script: scripts/bazel.sh
+    # Prerequisites for Bazel
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - curl
+          - pkg-config
+          - zip
+          - g++
+          - zlib1g-dev
+          - unzip
+          - python
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install: ./scripts/clean.sh
 
-install: ./mvnw -version
+install:
+- java -version
+- javac -version
+- ./mvnw -version
 
-script: ./scripts/run-tests.sh
-
-after_success:
-- test $TEST_SUITE = "unit" && ./scripts/mvn-site.sh
-- test $TEST_SUITE = "unit" && ./scripts/mvn-aggregate-srcs.sh
+script: scripts/run-tests.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
@@ -72,7 +79,7 @@ deploy:
     branch: release
     condition:
     - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
+    - $TRAVIS_JDK_VERSION = openjdk9
   local_dir: target/maven-staging-site/maven-site
   # GITHUB_TOKEN set in travis-ci.org dashboard
   github_token: $GITHUB_TOKEN
@@ -88,5 +95,5 @@ deploy:
     - travis
     condition:
     - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = oraclejdk8
+    - $TRAVIS_JDK_VERSION = openjdk9
   script: ./scripts/deploy-source-code.sh

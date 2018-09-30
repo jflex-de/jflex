@@ -9,15 +9,13 @@ MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
-echo '==============================  JAVA VERSION  =============================='
-java -version
-javac -version
-echo '============================================================================'
+if [[ $TRAVIS ]]; then
+  loge "This script is only for manual invocation"
+  exit 1
+fi
 
 # Clean environment
-if [[ ! $TRAVIS ]]; then
-  "$BASEDIR"/scripts/clean.sh
-fi
+"$BASEDIR"/scripts/clean.sh
 
 # Travis then runs _in parallel_ (but we do it in sequence)
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
