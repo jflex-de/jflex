@@ -1,0 +1,386 @@
+Lexing [src/main/java/TestLexer.java]
+line:9 col:1 --import--IMPORT--
+token: line 9, column 1, sym: 23
+line:9 col:8 --java--IDENTIFIER--
+token: line 9, column 8, sym: 98, value: 'java'
+line:9 col:12 --.--DOT--
+token: line 9, column 12, sym: 12
+line:9 col:13 --io--IDENTIFIER--
+token: line 9, column 13, sym: 98, value: 'io'
+line:9 col:15 --.--DOT--
+token: line 9, column 15, sym: 12
+line:9 col:16 --*--MULT--
+token: line 9, column 16, sym: 14
+line:9 col:17 --;--SEMICOLON--
+token: line 9, column 17, sym: 13
+line:10 col:1 --import--IMPORT--
+token: line 10, column 1, sym: 23
+line:10 col:8 --java_cup--IDENTIFIER--
+token: line 10, column 8, sym: 98, value: 'java_cup'
+line:10 col:16 --.--DOT--
+token: line 10, column 16, sym: 12
+line:10 col:17 --runtime--IDENTIFIER--
+token: line 10, column 17, sym: 98, value: 'runtime'
+line:10 col:24 --.--DOT--
+token: line 10, column 24, sym: 12
+line:10 col:25 --Symbol--IDENTIFIER--
+token: line 10, column 25, sym: 98, value: 'Symbol'
+line:10 col:31 --;--SEMICOLON--
+token: line 10, column 31, sym: 13
+line:16 col:1 --public--PUBLIC--
+token: line 16, column 1, sym: 24
+line:16 col:8 --class--CLASS--
+token: line 16, column 8, sym: 34
+line:16 col:14 --TestLexer--IDENTIFIER--
+token: line 16, column 14, sym: 98, value: 'TestLexer'
+line:16 col:24 --{--LBRACE--
+token: line 16, column 24, sym: 16
+line:19 col:3 --int--INT--
+token: line 19, column 3, sym: 5
+line:19 col:7 --intDec--IDENTIFIER--
+token: line 19, column 7, sym: 98, value: 'intDec'
+line:19 col:14 --=--EQ--
+token: line 19, column 14, sym: 18
+line:19 col:16 --37--INTEGER_LITERAL--
+token: line 19, column 16, sym: 93, value: '37'
+line:19 col:18 --;--SEMICOLON--
+token: line 19, column 18, sym: 13
+line:21 col:3 --long--LONG--
+token: line 21, column 3, sym: 6
+line:21 col:8 --longDec--IDENTIFIER--
+token: line 21, column 8, sym: 98, value: 'longDec'
+line:21 col:16 --=--EQ--
+token: line 21, column 16, sym: 18
+line:21 col:18 --37l--INTEGER_LITERAL--
+token: line 21, column 18, sym: 93, value: '37'
+line:21 col:21 --;--SEMICOLON--
+token: line 21, column 21, sym: 13
+line:22 col:3 --int--INT--
+token: line 22, column 3, sym: 5
+line:22 col:7 --intHex--IDENTIFIER--
+token: line 22, column 7, sym: 98, value: 'intHex'
+line:22 col:14 --=--EQ--
+token: line 22, column 14, sym: 18
+line:22 col:16 --0x0001--INTEGER_LITERAL--
+token: line 22, column 16, sym: 93, value: '1'
+line:22 col:22 --;--SEMICOLON--
+token: line 22, column 22, sym: 13
+line:23 col:3 --long--LONG--
+token: line 23, column 3, sym: 6
+line:23 col:8 --longHex--IDENTIFIER--
+token: line 23, column 8, sym: 98, value: 'longHex'
+line:23 col:16 --=--EQ--
+token: line 23, column 16, sym: 18
+line:23 col:18 --0xFFFFl--INTEGER_LITERAL--
+token: line 23, column 18, sym: 93, value: '65535'
+line:23 col:25 --;--SEMICOLON--
+token: line 23, column 25, sym: 13
+line:24 col:3 --int--INT--
+token: line 24, column 3, sym: 5
+line:24 col:7 --intOct--IDENTIFIER--
+token: line 24, column 7, sym: 98, value: 'intOct'
+line:24 col:14 --=--EQ--
+token: line 24, column 14, sym: 18
+line:24 col:16 --0377--INTEGER_LITERAL--
+token: line 24, column 16, sym: 93, value: '255'
+line:24 col:20 --;--SEMICOLON--
+token: line 24, column 20, sym: 13
+line:25 col:3 --long--LONG--
+token: line 25, column 3, sym: 6
+line:25 col:8 --longOc--IDENTIFIER--
+token: line 25, column 8, sym: 98, value: 'longOc'
+line:25 col:15 --=--EQ--
+token: line 25, column 15, sym: 18
+line:25 col:17 --007l--INTEGER_LITERAL--
+token: line 25, column 17, sym: 93, value: '7'
+line:25 col:21 --;--SEMICOLON--
+token: line 25, column 21, sym: 13
+line:26 col:3 --int--INT--
+token: line 26, column 3, sym: 5
+line:26 col:7 --smallest--IDENTIFIER--
+token: line 26, column 7, sym: 98, value: 'smallest'
+line:26 col:16 --=--EQ--
+token: line 26, column 16, sym: 18
+line:26 col:18 ---2147483648--INTEGER_LITERAL--
+token: line 26, column 18, sym: 93, value: '-2147483648'
+line:26 col:29 --;--SEMICOLON--
+token: line 26, column 29, sym: 13
+line:28 col:3 --public--PUBLIC--
+token: line 28, column 3, sym: 24
+line:28 col:10 --static--STATIC--
+token: line 28, column 10, sym: 27
+line:28 col:17 --void--VOID--
+token: line 28, column 17, sym: 37
+line:28 col:22 --main--IDENTIFIER--
+token: line 28, column 22, sym: 98, value: 'main'
+line:28 col:26 --(--LPAREN--
+token: line 28, column 26, sym: 19
+line:28 col:27 --String--IDENTIFIER--
+token: line 28, column 27, sym: 98, value: 'String'
+line:28 col:34 --argv--IDENTIFIER--
+token: line 28, column 34, sym: 98, value: 'argv'
+line:28 col:38 --[--LBRACK--
+token: line 28, column 38, sym: 10
+line:28 col:39 --]--RBRACK--
+token: line 28, column 39, sym: 11
+line:28 col:40 --)--RPAREN--
+token: line 28, column 40, sym: 20
+line:28 col:42 --{--LBRACE--
+token: line 28, column 42, sym: 16
+line:30 col:5 --for--FOR--
+token: line 30, column 5, sym: 49
+line:30 col:9 --(--LPAREN--
+token: line 30, column 9, sym: 19
+line:30 col:10 --int--INT--
+token: line 30, column 10, sym: 5
+line:30 col:14 --i--IDENTIFIER--
+token: line 30, column 14, sym: 98, value: 'i'
+line:30 col:16 --=--EQ--
+token: line 30, column 16, sym: 18
+line:30 col:18 --0--INTEGER_LITERAL--
+token: line 30, column 18, sym: 93, value: '0'
+line:30 col:19 --;--SEMICOLON--
+token: line 30, column 19, sym: 13
+line:30 col:21 --i--IDENTIFIER--
+token: line 30, column 21, sym: 98, value: 'i'
+line:30 col:23 --<--LT--
+token: line 30, column 23, sym: 69
+line:30 col:25 --argv--IDENTIFIER--
+token: line 30, column 25, sym: 98, value: 'argv'
+line:30 col:29 --.--DOT--
+token: line 30, column 29, sym: 12
+line:30 col:30 --length--IDENTIFIER--
+token: line 30, column 30, sym: 98, value: 'length'
+line:30 col:36 --;--SEMICOLON--
+token: line 30, column 36, sym: 13
+line:30 col:38 --i--IDENTIFIER--
+token: line 30, column 38, sym: 98, value: 'i'
+line:30 col:39 --++--PLUSPLUS--
+token: line 30, column 39, sym: 58
+line:30 col:41 --)--RPAREN--
+token: line 30, column 41, sym: 20
+line:30 col:43 --{--LBRACE--
+token: line 30, column 43, sym: 16
+line:31 col:7 --try--TRY--
+token: line 31, column 7, sym: 54
+line:31 col:11 --{--LBRACE--
+token: line 31, column 11, sym: 16
+line:32 col:9 --System--IDENTIFIER--
+token: line 32, column 9, sym: 98, value: 'System'
+line:32 col:15 --.--DOT--
+token: line 32, column 15, sym: 12
+line:32 col:16 --out--IDENTIFIER--
+token: line 32, column 16, sym: 98, value: 'out'
+line:32 col:19 --.--DOT--
+token: line 32, column 19, sym: 12
+line:32 col:20 --println--IDENTIFIER--
+token: line 32, column 20, sym: 98, value: 'println'
+line:32 col:27 --(--LPAREN--
+token: line 32, column 27, sym: 19
+line:32 col:37 --"--STRING_LITERAL--
+token: line 32, column 37, sym: 97, value: 'Lexing ['
+line:32 col:39 --+--PLUS--
+token: line 32, column 39, sym: 60
+line:32 col:41 --argv--IDENTIFIER--
+token: line 32, column 41, sym: 98, value: 'argv'
+line:32 col:45 --[--LBRACK--
+token: line 32, column 45, sym: 10
+line:32 col:46 --i--IDENTIFIER--
+token: line 32, column 46, sym: 98, value: 'i'
+line:32 col:47 --]--RBRACK--
+token: line 32, column 47, sym: 11
+line:32 col:49 --+--PLUS--
+token: line 32, column 49, sym: 60
+line:32 col:53 --"--STRING_LITERAL--
+token: line 32, column 53, sym: 97, value: ']'
+line:32 col:54 --)--RPAREN--
+token: line 32, column 54, sym: 20
+line:32 col:55 --;--SEMICOLON--
+token: line 32, column 55, sym: 13
+line:33 col:9 --Scanner--IDENTIFIER--
+token: line 33, column 9, sym: 98, value: 'Scanner'
+line:33 col:17 --scanner--IDENTIFIER--
+token: line 33, column 17, sym: 98, value: 'scanner'
+line:33 col:25 --=--EQ--
+token: line 33, column 25, sym: 18
+line:33 col:27 --new--NEW--
+token: line 33, column 27, sym: 57
+line:33 col:31 --Scanner--IDENTIFIER--
+token: line 33, column 31, sym: 98, value: 'Scanner'
+line:33 col:38 --(--LPAREN--
+token: line 33, column 38, sym: 19
+line:33 col:39 --new--NEW--
+token: line 33, column 39, sym: 57
+line:33 col:43 --UnicodeEscapes--IDENTIFIER--
+token: line 33, column 43, sym: 98, value: 'UnicodeEscapes'
+line:33 col:57 --(--LPAREN--
+token: line 33, column 57, sym: 19
+line:33 col:58 --new--NEW--
+token: line 33, column 58, sym: 57
+line:33 col:62 --FileReader--IDENTIFIER--
+token: line 33, column 62, sym: 98, value: 'FileReader'
+line:33 col:72 --(--LPAREN--
+token: line 33, column 72, sym: 19
+line:33 col:73 --argv--IDENTIFIER--
+token: line 33, column 73, sym: 98, value: 'argv'
+line:33 col:77 --[--LBRACK--
+token: line 33, column 77, sym: 10
+line:33 col:78 --i--IDENTIFIER--
+token: line 33, column 78, sym: 98, value: 'i'
+line:33 col:79 --]--RBRACK--
+token: line 33, column 79, sym: 11
+line:33 col:80 --)--RPAREN--
+token: line 33, column 80, sym: 20
+line:33 col:81 --)--RPAREN--
+token: line 33, column 81, sym: 20
+line:33 col:82 --)--RPAREN--
+token: line 33, column 82, sym: 20
+line:33 col:83 --;--SEMICOLON--
+token: line 33, column 83, sym: 13
+line:35 col:9 --Symbol--IDENTIFIER--
+token: line 35, column 9, sym: 98, value: 'Symbol'
+line:35 col:16 --s--IDENTIFIER--
+token: line 35, column 16, sym: 98, value: 's'
+line:35 col:17 --;--SEMICOLON--
+token: line 35, column 17, sym: 13
+line:36 col:9 --do--DO--
+token: line 36, column 9, sym: 47
+line:36 col:12 --{--LBRACE--
+token: line 36, column 12, sym: 16
+line:37 col:11 --s--IDENTIFIER--
+token: line 37, column 11, sym: 98, value: 's'
+line:37 col:13 --=--EQ--
+token: line 37, column 13, sym: 18
+line:37 col:15 --scanner--IDENTIFIER--
+token: line 37, column 15, sym: 98, value: 'scanner'
+line:37 col:22 --.--DOT--
+token: line 37, column 22, sym: 12
+line:37 col:23 --debug_next_token--IDENTIFIER--
+token: line 37, column 23, sym: 98, value: 'debug_next_token'
+line:37 col:39 --(--LPAREN--
+token: line 37, column 39, sym: 19
+line:37 col:40 --)--RPAREN--
+token: line 37, column 40, sym: 20
+line:37 col:41 --;--SEMICOLON--
+token: line 37, column 41, sym: 13
+line:38 col:11 --System--IDENTIFIER--
+token: line 38, column 11, sym: 98, value: 'System'
+line:38 col:17 --.--DOT--
+token: line 38, column 17, sym: 12
+line:38 col:18 --out--IDENTIFIER--
+token: line 38, column 18, sym: 98, value: 'out'
+line:38 col:21 --.--DOT--
+token: line 38, column 21, sym: 12
+line:38 col:22 --println--IDENTIFIER--
+token: line 38, column 22, sym: 98, value: 'println'
+line:38 col:29 --(--LPAREN--
+token: line 38, column 29, sym: 19
+line:38 col:38 --"--STRING_LITERAL--
+token: line 38, column 38, sym: 97, value: 'token: '
+line:38 col:40 --+--PLUS--
+token: line 38, column 40, sym: 60
+line:38 col:42 --s--IDENTIFIER--
+token: line 38, column 42, sym: 98, value: 's'
+line:38 col:43 --)--RPAREN--
+token: line 38, column 43, sym: 20
+line:38 col:44 --;--SEMICOLON--
+token: line 38, column 44, sym: 13
+line:39 col:9 --}--RBRACE--
+token: line 39, column 9, sym: 17
+line:39 col:11 --while--WHILE--
+token: line 39, column 11, sym: 48
+line:39 col:17 --(--LPAREN--
+token: line 39, column 17, sym: 19
+line:39 col:18 --s--IDENTIFIER--
+token: line 39, column 18, sym: 98, value: 's'
+line:39 col:19 --.--DOT--
+token: line 39, column 19, sym: 12
+line:39 col:20 --sym--IDENTIFIER--
+token: line 39, column 20, sym: 98, value: 'sym'
+line:39 col:24 --!=--NOTEQ--
+token: line 39, column 24, sym: 75
+line:39 col:27 --sym--IDENTIFIER--
+token: line 39, column 27, sym: 98, value: 'sym'
+line:39 col:30 --.--DOT--
+token: line 39, column 30, sym: 12
+line:39 col:31 --EOF--IDENTIFIER--
+token: line 39, column 31, sym: 98, value: 'EOF'
+line:39 col:34 --)--RPAREN--
+token: line 39, column 34, sym: 20
+line:39 col:35 --;--SEMICOLON--
+token: line 39, column 35, sym: 13
+line:41 col:9 --System--IDENTIFIER--
+token: line 41, column 9, sym: 98, value: 'System'
+line:41 col:15 --.--DOT--
+token: line 41, column 15, sym: 12
+line:41 col:16 --out--IDENTIFIER--
+token: line 41, column 16, sym: 98, value: 'out'
+line:41 col:19 --.--DOT--
+token: line 41, column 19, sym: 12
+line:41 col:20 --println--IDENTIFIER--
+token: line 41, column 20, sym: 98, value: 'println'
+line:41 col:27 --(--LPAREN--
+token: line 41, column 27, sym: 19
+line:41 col:39 --"--STRING_LITERAL--
+token: line 41, column 39, sym: 97, value: 'No errors.'
+line:41 col:40 --)--RPAREN--
+token: line 41, column 40, sym: 20
+line:41 col:41 --;--SEMICOLON--
+token: line 41, column 41, sym: 13
+line:42 col:7 --}--RBRACE--
+token: line 42, column 7, sym: 17
+line:42 col:9 --catch--CATCH--
+token: line 42, column 9, sym: 55
+line:42 col:15 --(--LPAREN--
+token: line 42, column 15, sym: 19
+line:42 col:16 --Exception--IDENTIFIER--
+token: line 42, column 16, sym: 98, value: 'Exception'
+line:42 col:26 --e--IDENTIFIER--
+token: line 42, column 26, sym: 98, value: 'e'
+line:42 col:27 --)--RPAREN--
+token: line 42, column 27, sym: 20
+line:42 col:29 --{--LBRACE--
+token: line 42, column 29, sym: 16
+line:43 col:9 --e--IDENTIFIER--
+token: line 43, column 9, sym: 98, value: 'e'
+line:43 col:10 --.--DOT--
+token: line 43, column 10, sym: 12
+line:43 col:11 --printStackTrace--IDENTIFIER--
+token: line 43, column 11, sym: 98, value: 'printStackTrace'
+line:43 col:26 --(--LPAREN--
+token: line 43, column 26, sym: 19
+line:43 col:27 --System--IDENTIFIER--
+token: line 43, column 27, sym: 98, value: 'System'
+line:43 col:33 --.--DOT--
+token: line 43, column 33, sym: 12
+line:43 col:34 --out--IDENTIFIER--
+token: line 43, column 34, sym: 98, value: 'out'
+line:43 col:37 --)--RPAREN--
+token: line 43, column 37, sym: 20
+line:43 col:38 --;--SEMICOLON--
+token: line 43, column 38, sym: 13
+line:44 col:9 --System--IDENTIFIER--
+token: line 44, column 9, sym: 98, value: 'System'
+line:44 col:15 --.--DOT--
+token: line 44, column 15, sym: 12
+line:44 col:16 --exit--IDENTIFIER--
+token: line 44, column 16, sym: 98, value: 'exit'
+line:44 col:20 --(--LPAREN--
+token: line 44, column 20, sym: 19
+line:44 col:21 --1--INTEGER_LITERAL--
+token: line 44, column 21, sym: 93, value: '1'
+line:44 col:22 --)--RPAREN--
+token: line 44, column 22, sym: 20
+line:44 col:23 --;--SEMICOLON--
+token: line 44, column 23, sym: 13
+line:45 col:7 --}--RBRACE--
+token: line 45, column 7, sym: 17
+line:46 col:5 --}--RBRACE--
+token: line 46, column 5, sym: 17
+line:47 col:3 --}--RBRACE--
+token: line 47, column 3, sym: 17
+line:48 col:1 --}--RBRACE--
+token: line 48, column 1, sym: 17
+line:49 col:1 ----EOF--
+token: line 49, column 1, sym: 0
+No errors.

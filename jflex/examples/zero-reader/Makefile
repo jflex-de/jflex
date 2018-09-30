@@ -1,30 +1,26 @@
 
 JFLEX      = ../../bin/jflex
-JAVA       = java
-JAVAC      = javac
+
 
 LEXER      = ZeroLexer
 
 # --------------------------------------------------
 
-all: test
+all: clean compile
 
-test: output.txt
-	@(diff --strip-trailing-cr output.txt lexer-output.good && echo "Test OK!") || echo "Test failed!"
+test: out/output.txt
+	@(diff --strip-trailing-cr src/test/data/lexer-output.good $<  && echo "Test OK") || (echo "Test FAILED"; exit 1)
 
-output.txt: $(LEXER).class test-input.txt
-	$(JAVA) $(LEXER) test-input.txt > output.txt
+out/output.txt: out/$(LEXER).class src/test/data/test-input.txt
+	java -cp out $(LEXER) src/test/data/test-input.txt > $@
 
-compile: $(LEXER).class
+compile: out/$(LEXER).class
 	
-$(LEXER).class: $(LEXER).java FunkyReader.java ZeroReader.java
-	$(JAVAC) $^
+out/$(LEXER).class: out/$(LEXER).java src/main/java/*.java
+	javac -d out $^
 
-$(LEXER).java: zero-lexer.jflex
-	$(JFLEX) $<
+out/$(LEXER).java: src/main/jflex/zero-lexer.jflex
+	$(JFLEX) -d out $<
 
 clean:
-	rm -f *.class
-	rm -f *~
-	rm -f $(LEXER).java
-	rm -f output.txt
+	rm -rf out
