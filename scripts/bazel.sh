@@ -20,6 +20,7 @@ cd jflex/examples
 $BAZEL info
 
 logi "Build everything"
+logi "================"
 $BAZEL build //...
 
 logi "Test everything"
