@@ -17,6 +17,6 @@ sudo apt-get install ./tools/bazel-0.16.1.deb
 logi "Run Bazel tests on examples"
 logi "==========================="
 cd jflex/examples
-bazel test /..
+bazel test //..
 
 cd "$CWD"
