@@ -35,49 +35,49 @@ cd byaccj
 # Maven not supported
 # ant not supported
 # don't assume byacc/j is installed, just run lexer
-make clean; make Yylex.java;
+make Yylex.java
 cd ..
 
 logi "Example: cup-interpreter"
 cd cup-interpreter
 "$MVN" test
 ant test
-make clean test
+make test
 cd ..
 
 logi "Example: cup-java"
 cd cup-java
 "$MVN" test
 ant test
-make clean test
+make test
 cd ..
 
 logi "Example: cup-lcalc"
 cd cup-lcalc
 "$MVN" test
 # ant test
-# make clean test
+# make test
 cd ..
 
 logi "Example: simple"
 cd simple
 "$MVN" test
 ant test
-# make clean test
+# make test
 cd ..
 
-logi "Example: standalone-maven"
-cd standalone-maven
+logi "Example: standalone"
+cd standalone
 "$MVN" test
 # ant test
-# make clean test
+# make test
 cd ..
 
 logi "Example: zero-reader"
 cd zero-reader
 "$MVN" test
 # ant test
-make clean test
+make test
 cd ..
 
 cd "$CWD"
