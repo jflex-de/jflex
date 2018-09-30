@@ -6,6 +6,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 public class Tester {
 
@@ -66,7 +67,7 @@ public class Tester {
    * @return true if all tests succeeded, false otherwise
    */
   public static boolean runTests(List<File> tests, File jflexUberJar)
-      throws TestFailException, MojoExecutionException {
+      throws TestFailException, MojoExecutionException, MojoFailureException {
     int successCount = 0;
     int totalCount = 0;
 
@@ -99,7 +100,7 @@ public class Tester {
           System.out.println("Test [" + test + "] skipped (JDK version mismatch).");
         }
       } catch (TestFailException e) {
-        System.out.println("Test [" + test + "] failed!");
+        throw new MojoFailureException("Test [" + test + "] failed", e);
       } catch (Exception e) {
         throw new MojoExecutionException("Test [" + test.getName() + "] failed to execute", e);
       }

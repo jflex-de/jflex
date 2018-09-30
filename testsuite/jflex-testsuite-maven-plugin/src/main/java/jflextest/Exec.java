@@ -1,5 +1,6 @@
 package jflextest;
 
+import com.google.common.base.Joiner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,21 +45,29 @@ public class Exec {
   }
 
   /**
-   * Call javac on toCompile in input dir. If toCompile is null, all *.java files below dir will be
-   * compiled.
+   * Call javac on javaSourceFiles in input dir. If javaSourceFiles is {@code null}, all {@code
+   * *.java} files in the directory will be compiled.
+   *
+   * @param javaSourceFiles A list of files to compile, or {@code null}
+   * @param dir Source directory.
    */
   public static TestResult execJavac(
-      String toCompile, File dir, String additionalJars, String encoding) {
+      List<String> javaSourceFiles, File dir, String additionalJars, String encoding)
+      throws FileNotFoundException {
+    // javac fails if an input file doesn't exist
+    checkFilesExist(javaSourceFiles, dir);
     Project p = new Project();
-    Javac javac = new Javac();
     Path path = new Path(p, dir.toString());
+    Javac javac = new Javac();
     javac.setProject(p);
     javac.setSrcdir(path);
     javac.setDestdir(dir);
     javac.setTarget(JAVA_VERSION);
     javac.setSource(JAVA_VERSION);
     javac.setSourcepath(new Path(p, "")); // Only compile explicitly specified source files
-    javac.setIncludes(toCompile);
+    if (javaSourceFiles != null) {
+      javac.setIncludes(Joiner.on(' ').join(javaSourceFiles));
+    }
     javac.setEncoding(encoding);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
@@ -73,7 +82,7 @@ public class Exec {
       return new TestResult(out.toString(), true);
     } catch (BuildException e) {
       return new TestResult(
-          "Compilation with classpath " + classPath + NL + e + NL + out.toString(), false);
+          e + NL + out.toString() + NL + "classpath: " + classPath, false);
     } finally {
       System.setErr(outSafe);
     }
@@ -169,5 +178,21 @@ public class Exec {
     // System.out.println("finished exec class "+theClass);
 
     return new TestResult(out.toString(outputFileEncoding), success);
+  }
+
+  /**
+   * Checks that all files exist in the given directory.
+   *
+   * @throws FileNotFoundException when a file doesn't exist.
+   */
+  private static void checkFilesExist(List<String> files, File dir) throws FileNotFoundException {
+    if (files != null) {
+      for (String src : files) {
+        File f = new File(dir, src);
+        if (!f.isFile()) {
+          throw new FileNotFoundException(f.getPath());
+        }
+      }
+    }
   }
 }

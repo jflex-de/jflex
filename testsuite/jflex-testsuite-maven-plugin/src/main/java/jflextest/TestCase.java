@@ -60,6 +60,7 @@ public class TestCase {
   /** get- set- methods */
   void setTestName(String s) {
     testName = s;
+    // TODO(regisd): The class name should depend on the flex `%class`, not on the test name.
     className = testName.substring(0, 1).toUpperCase(Locale.ENGLISH) + testName.substring(1);
   }
 
@@ -199,26 +200,30 @@ public class TestCase {
       }
 
       // Compile Scanner
-      final String toCompile = getFilesToCompile();
+      final List<String> toCompile = getFilesToCompile();
       if (Tester.verbose) {
         System.out.println("File(s) to compile: " + toCompile);
       }
-      TestResult javacResult =
-          Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
+      try {
+        TestResult javacResult =
+            Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
-      // System.out.println(javacResult);
-      if (Tester.verbose) {
-        System.out.println(
-            "Compilation successful: "
-                + javacResult.getSuccess()
-                + " [expected: "
-                + !expectJavacFail
-                + "]");
-      }
-      if (javacResult.getSuccess() == expectJavacFail) {
-        System.out.println("Compilation failed in " + testPath + " for " + toCompile);
-        System.out.println(javacResult.getOutput());
-        throw new TestFailException();
+        // System.out.println(javacResult);
+        if (Tester.verbose) {
+          System.out.println(
+              "Compilation successful: "
+                  + javacResult.getSuccess()
+                  + " [expected: "
+                  + !expectJavacFail
+                  + "]");
+        }
+        if (javacResult.getSuccess() == expectJavacFail) {
+          throw new TestFailException(
+              "Compilation failed in " + testPath + " for " + toCompile,
+              new Exception(javacResult.getOutput()));
+        }
+      } catch (FileNotFoundException e) {
+        throw new TestFailException("javac: file not found: ", e);
       }
     } else {
       if (!expectJFlexFail) {
@@ -250,16 +255,17 @@ public class TestCase {
     }
   }
 
-  /** Returns the space-separated list of java files to compile. */
-  private String getFilesToCompile() {
+  /** Returns the list of java files to compile. */
+  private List<String> getFilesToCompile() {
     if (javacFiles == null) {
-      return new File(testPath, className + ".java").getName();
+      return ImmutableList.of(new File(testPath, className + ".java").getName());
     } else {
-      StringBuilder builder = new StringBuilder();
+      ImmutableList.Builder<String> builder = ImmutableList.builder();
       for (String explicitJavaSrc : javacFiles) {
-        builder.append(' ').append(explicitJavaSrc);
+        File f = new File(testPath, explicitJavaSrc);
+        builder.add(f.getName());
       }
-      return builder.toString();
+      return builder.build();
     }
   }
 
