@@ -84,7 +84,7 @@ DIGIT = [0-9]
   {NL}                { test.setJflexCmdln(cmdLine); yybegin(YYINITIAL); }
 
 <JAVAC_FILES>
-  {NL}                { test.setJavacExtraFiles(cmdLine); yybegin(YYINITIAL); }
+  {NL}                { test.setJavacFiles(cmdLine); yybegin(YYINITIAL); }
 
 <LINELIST> {
   [0-9]+              { lineList.add(new Integer(yytext())); }
