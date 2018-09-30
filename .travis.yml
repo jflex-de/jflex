@@ -33,7 +33,7 @@ install: ./mvnw -version
 script: ./scripts/run-tests.sh
 
 after_success:
-- test $TEST_SUITE = "unit" && ./scripts/mvn-site.sh)
+- test $TEST_SUITE = "unit" && ./scripts/mvn-site.sh
 - test $TEST_SUITE = "unit" && ./scripts/mvn-aggregate-srcs.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
