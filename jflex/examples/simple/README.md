@@ -1,11 +1,15 @@
 Simple usage of the jflex-maven-plugin
 ======================================
 
-This is a small Maven project that demonstrates the use of `jflex-maven-plugin`.
-
 ## Build with maven
 
     ../../mvnw package site
+
+## Build with Bazel
+
+    blaze build //simple
+
+The generated lexer will be in (`examples/`)`bazel-genfiles/simple/Yylex.java`.
 
 
 ## Files

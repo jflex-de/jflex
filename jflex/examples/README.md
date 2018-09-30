@@ -78,6 +78,10 @@ Bazel places artifacts in `bazel-*` in the root `examples` directory
 - `bazel run <target>`  runs the given target
 - `bazel test <targets>` tests the given targets
 
+You can build all examples from here with
+
+    bazel build //...
+
 See also [third_party/de/jflex/README.md].
 
 ### GNU make

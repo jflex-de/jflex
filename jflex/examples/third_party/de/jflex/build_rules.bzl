@@ -42,10 +42,10 @@ jflex = rule(
         ),
         "outputs": attr.output_list(allow_empty = False),
         "_jflex": attr.label(
-            default = Label("//third/party/jflex:jflex_bin"),
+            default = Label("//third_party/de/jflex:jflex_bin"),
             executable = True,
             cfg = "host",
         ),
     },
     output_to_genfiles = True,  # JFlex generates java files, not bin files
-))
+)
