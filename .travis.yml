@@ -22,6 +22,23 @@ env:
   - TEST_SUITE=ant
   - TEST_SUITE=unit
   - TEST_SUITE=regression
+  - TEST_SUITE=bazel
+
+# Prerequisites for Bazel
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - curl
+      - pkg-config
+      - zip
+      - g++
+      - zlib1g-dev
+      - unzip
+      - python
+
+sudo: $TEST_SUITE = bazel
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
