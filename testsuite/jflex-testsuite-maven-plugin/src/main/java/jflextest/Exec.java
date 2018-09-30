@@ -81,8 +81,7 @@ public class Exec {
       javac.execute();
       return new TestResult(out.toString(), true);
     } catch (BuildException e) {
-      return new TestResult(
-           e + NL + out.toString()+ NL + "classpath: " + classPath, false);
+      return new TestResult(e + NL + out.toString() + NL + "classpath: " + classPath, false);
     } finally {
       System.setErr(outSafe);
     }
