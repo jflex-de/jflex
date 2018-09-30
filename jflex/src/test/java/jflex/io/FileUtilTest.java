@@ -3,7 +3,6 @@ package jflex.io;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.lang.annotation.Target;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -32,6 +31,6 @@ public class FileUtilTest extends TestCase {
 
   @Test
   public void test_slashify() {
-    assertThat(FileUtil.slashify("C:\\u1234.txt")).isEqualTo("C:/u1234.txt");
+    assertThat(FileUtil.slashify("C:\\u0022.txt")).isEqualTo("C:/u0022.txt");
   }
 }

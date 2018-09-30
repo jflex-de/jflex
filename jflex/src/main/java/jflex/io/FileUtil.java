@@ -24,7 +24,7 @@ public class FileUtil {
    * sequence in Java (e.g. {@code \u1234} is a unicode character.
    */
   public static String slashify(String path) {
-    return path.replace('\\','/');
+    return path.replace('\\', '/');
   }
 
   private FileUtil() {} // utility class
