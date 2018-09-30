@@ -11,8 +11,7 @@ git:
 
 language: java
 
-jdk:
-- openjdk9
+jdk: openjdk9
 
 matrix:
   include:
@@ -27,8 +26,6 @@ matrix:
     env: TEST_SUITE=unit
   - name: "Regression tests"
     env: TEST_SUITE=regression
-  - name: "Do nothing"
-    script: true
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
