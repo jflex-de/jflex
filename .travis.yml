@@ -77,7 +77,6 @@ cache:
   - $HOME/.m2
   - jflex/lib
   - tools
-  - __bazel__
 
 deploy:
 # Deploy the maven site on Github pages
