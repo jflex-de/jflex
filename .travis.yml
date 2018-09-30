@@ -31,6 +31,29 @@ matrix:
     sdk: oraclejdk8
   - name: "Ant JDK9"
     script: scripts/run-ant.sh
+  - name: "Bazel"
+    script: scripts/bazel.sh
+    # Prerequisites for Bazel
+    addons:
+      apt:
+        sources:
+          - ubuntu-toolchain-r-test
+        packages:
+          - curl
+          - pkg-config
+          - zip
+          - g++
+          - zlib1g-dev
+          - unzip
+          - python
+    before_install:
+    - mkdir -p tools
+    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.16.1/bazel_0.16.1-linux-x86_64.deb -o tools/bazel-0.16.1.deb
+    install:
+    - java -version
+    - sudo apt-get install ./tools/bazel-0.16.1.deb
+    sudo: true
+    after_success: blaze shutdown
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
