@@ -1,7 +1,7 @@
 name: filename\u000AFILE_NAMES_MUST_BE_ESCAPED\u000A
 
 # The generated java file is not the test name
-javac-extra-files: DangerousFileName.java
+javac-files: DangerousFileName.java
 
 description:
 Tests that the emitter emits valid Java code when the file name is dangerous.

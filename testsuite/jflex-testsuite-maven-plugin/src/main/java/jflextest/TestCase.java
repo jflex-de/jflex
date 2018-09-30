@@ -22,8 +22,8 @@ public class TestCase {
   /** files on which to invoke jflex */
   private List<String> jflexFiles;
 
-  /** command line switches for javac invocation */
-  private List<String> javacExtraFiles;
+  /** command line switches for javac invocation, instead of the default {@code <testname>.java}. */
+  private List<String> javacFiles;
 
   /** lines with expected differences in jflex output */
   private List<Integer> jflexDiff;
@@ -83,8 +83,8 @@ public class TestCase {
     jflexCmdln = v;
   }
 
-  void setJavacExtraFiles(List<String> v) {
-    javacExtraFiles = v;
+  void setJavacFiles(List<String> v) {
+    javacFiles = v;
   }
 
   private void setInputOutput(List<InputOutput> v) {
@@ -199,16 +199,9 @@ public class TestCase {
       }
 
       // Compile Scanner
-      StringBuilder builder = new StringBuilder();
-      builder.append(new File(testPath, className + ".java").getName());
-      if (null != javacExtraFiles) {
-        for (String extraFile : javacExtraFiles) {
-          builder.append(',').append(extraFile);
-        }
-      }
-      String toCompile = builder.toString();
+      final String toCompile = getFilesToCompile();
       if (Tester.verbose) {
-        System.out.println("File(s) to Compile: " + toCompile);
+        System.out.println("File(s) to compile: " + toCompile);
       }
       TestResult javacResult =
           Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
@@ -254,6 +247,19 @@ public class TestCase {
           }
         }
       }
+    }
+  }
+
+  /** Returns the space-separated list of java files to compile. */
+  private String getFilesToCompile() {
+    if (javacFiles == null) {
+      return new File(testPath, className + ".java").getName();
+    } else {
+      StringBuilder builder = new StringBuilder();
+      for (String explicitJavaSrc : javacFiles) {
+        builder.append(' ').append(explicitJavaSrc);
+      }
+      return builder.toString();
     }
   }
 
@@ -317,7 +323,7 @@ public class TestCase {
   }
 
   public String toString() {
-    return "Testname: "
+    return "Test name: "
         + testName
         + "\nDescription: "
         + description
@@ -328,9 +334,7 @@ public class TestCase {
         + "\n"
         + "JFlex Command line: "
         + jflexCmdln
-        + (null != javacExtraFiles
-            ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
-            : "")
+        + (null != javacFiles ? " Javac Files: " + Arrays.toString(javacFiles.toArray()) : "")
         + "\n"
         + "Files to run Tester on "
         + inputOutput
