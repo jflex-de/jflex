@@ -9,7 +9,7 @@ source "$BASEDIR"/scripts/logger.sh
 set -e
 
 if [[ $TRAVIS ]]; then
-  BAZEL="bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc"
+  BAZEL="bazel --bazelrc=$TRAVIS_BUILD_DIR/.travis.bazelrc --output_user_root=$TRAVIS_BUILD_DIR/__bazel__"
 else
   BAZEL='bazel'
 fi

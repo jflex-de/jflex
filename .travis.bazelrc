@@ -1,5 +1,5 @@
-# This allows to cache the build artefacts :-D
-startup --output_user_root=$TRAVIS_BUILD_DIR/__bazel__
+# Env variables are not substituted in .bazelrc :(
+#startup --output_user_root=$TRAVIS_BUILD_DIR/__bazel__
 
 # Taken from https://github.com/korfuri/bazel-travis/blob/master/.bazelrc
 
