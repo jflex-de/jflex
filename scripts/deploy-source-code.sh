@@ -36,8 +36,8 @@ update_source() {
   ./compile.sh
 
   logi "Checking licenses"
-  [[ -f LICENSE ]] || loge "Missing LICENSE for CUP"
-  [[ -f LICENSE.md ]] || loge "Missing LICENSE for JFlex"
+  [[ -f LICENSE_CUP ]] || loge "Missing LICENSE_CUP for CUP"
+  [[ -f LICENSE_JFLEX ]] || loge "Missing LICENSE_JFLEX for JFlex"
   [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || loge "JFlex license has bad content"
 
   logi "Update git sources"
