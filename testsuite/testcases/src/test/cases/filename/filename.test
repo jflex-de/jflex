@@ -1,5 +1,8 @@
 name: filename\u000AFILE_NAMES_MUST_BE_ESCAPED\u000A
 
+# The generated java file is not the test name
+javac-extra-files: DangerousFileName.java
+
 description:
 Tests that the emitter emits valid Java code when the file name is dangerous.
 If unescaped, the header would be
@@ -10,9 +13,3 @@ Which is strictly equivalent to:
     .flex
 which doesn't compile.
 In particular, on Windows, backslash is use as a path separator, so this problem would be likely.
-
-
-jflex: --nobak
-
-# The generated java file is not the test name
-javac-extra-files: DangerousFileName.java
