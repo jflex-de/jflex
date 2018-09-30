@@ -16,10 +16,13 @@ jdk:
 
 matrix:
   include:
-  - name: "Java format"
+  - name: "Check Java format"
     script: scripts/test-java-format.sh
-  - name: "Maven unit tests"
-    script: scripts/test-unit.sh
+  - name: "Maven everything"
+    script:
+    - scripts/test-unit.sh
+    - scripts/mvn-site.sh
+    - scripts/mvn-aggregate-srcs.sh
     env: TEST_SUITE=unit
   - name: "Regression tests"
     script: scripts/test-regression.sh
@@ -34,13 +37,12 @@ matrix:
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install: ./scripts/clean.sh
 
-install: ./mvnw -version
+install:
+- java -version
+- javac -version
+- ./mvnw -version
 
-script: ./scripts/run-tests.sh
-
-after_success:
-- test $TEST_SUITE="unit" && ./scripts/mvn-site.sh
-- test $TEST_SUITE="unit" && ./scripts/mvn-aggregate-srcs.sh
+script: scripts/run-tests.sh
 
 # Travis sometimes fails to download deps from repo1.maven.org
 # A cache avoids downloading too much, and will also speed up the build.
