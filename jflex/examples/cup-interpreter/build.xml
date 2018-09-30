@@ -6,13 +6,13 @@
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
   <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
 
-  <target name="build" depends="clean,compile" />
+  <target name="formica" depends="clean,compile" />
 
   <target name="run" depends="compile">
     <java classname="Main">
       <classpath>
         <pathelement location="${java_cup}"/>
-        <pathelement path="build"/>
+        <pathelement path="formica"/>
       </classpath>
       <arg line="src/test/data/example.as"/> </java>
   </target>
@@ -22,21 +22,21 @@
   </target>
 
   <target name="compile" depends="jflex,cup">
-    <javac destdir="build" classpath="${java_cup}">
+    <javac destdir="formica" classpath="${java_cup}">
       <src path="src/main/java/" />
       <src path="build/"/>
     </javac>
   </target>
 
   <target name="jflex">
-    <jflex file="src/main/jflex/scanner.flex" destdir="build" encoding="utf-8"/>
+    <jflex file="src/main/jflex/scanner.flex" destdir="formica" encoding="utf-8"/>
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="build"/>
+    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="formica"/>
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
+    <delete dir="formica"/>
   </target>
 </project>

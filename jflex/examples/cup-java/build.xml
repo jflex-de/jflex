@@ -6,7 +6,7 @@
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
   <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
 
-  <target name="build" depends="clean,compile" />
+  <target name="formica" depends="clean,compile" />
 
   <target name="run" depends="compile">
     <java classname="JavaParser" classpath="build:${java_cup}">
@@ -19,25 +19,25 @@
   </target>
 
   <target name="compile" depends="cup,scanner,unicode">
-    <javac destdir="build" classpath="${java_cup}">
+    <javac destdir="formica" classpath="${java_cup}">
       <src path="src/main/java/" />
       <src path="build/"/>
     </javac>
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="build"/>
+    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="formica"/>
   </target>
 
   <target name="scanner">
-    <jflex file="src/main/jflex/java.flex" destdir="build"/>
+    <jflex file="src/main/jflex/java.flex" destdir="formica"/>
   </target>
 
   <target name="unicode">
-    <jflex file="src/main/jflex/unicode.flex" destdir="build"/>
+    <jflex file="src/main/jflex/unicode.flex" destdir="formica"/>
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
+    <delete dir="formica"/>
   </target>
 </project>

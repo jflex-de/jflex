@@ -4,10 +4,10 @@
 
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
-  <target name="build" depends="clean,compile" />
+  <target name="formica" depends="clean,compile" />
 
   <target name="run" depends="compile">
-    <java classname="Yylex" classpath="build">
+    <java classname="Yylex" classpath="formica">
       <arg line="src/test/resources/test.txt"/>
     </java>
   </target>
@@ -17,17 +17,17 @@
   </target>
 
   <target name="compile" depends="scanner">
-    <javac destdir="build">
+    <javac destdir="formica">
       <src path="src/main/java/" />
       <src path="build/"/>
     </javac>
   </target>
 
   <target name="scanner">
-    <jflex file="src/main/jflex/simple.flex" destdir="build"/>
+    <jflex file="src/main/jflex/simple.flex" destdir="formica"/>
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
+    <delete dir="formica"/>
   </target>
 </project>
