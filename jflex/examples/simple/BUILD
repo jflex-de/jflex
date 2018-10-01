@@ -31,5 +31,7 @@ java_test(
     resources = glob(["src/test/resources/**"]),
     deps = [
         ":simple",
-        "//third_party/com/google/truth"],
+        "//third_party/com/google/truth",
+        "//third_party/com/google/guava"
+        ],
 )
