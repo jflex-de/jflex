@@ -1,5 +1,12 @@
 load("//third_party/de/jflex:build_rules.bzl", "jflex")
 
+# The best practice is to define the rules in their respective directory in
+# - src/main/java/org/example/foo/BUILD
+# - src/main/jflex/BUILD
+# - src/test/java/org/example/foo/BUILD
+# - etc.
+# However, this example is simple enough and we can define all rules here.
+
 java_binary(
     name="simple_bin",
     main_class = "Yylex",
@@ -16,4 +23,11 @@ jflex(
     name = "gen_lexer",
     srcs = ["src/main/jflex/simple.flex"],
     outputs = ["Yylex.java"],
+)
+
+java_test(
+    name = "YylexTest",
+    srcs = ["java/YylexTest.java"],
+    resources = glob(["resources/**"]),
+    deps = ["//simple/src/main"],
 )
