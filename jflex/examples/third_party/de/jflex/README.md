@@ -34,7 +34,7 @@ to make it consistent with the recommended
     load("//third_party/de/jflex:build_rules.bzl", "jflex")
     
     jflex(
-        name = "rule-name",  # Replace with the name of the rule
+        name = "",           # Choose a rule name
         srcs = [],           # Add input lex specifications
         outputs = [],        # List expected generated files
     )
