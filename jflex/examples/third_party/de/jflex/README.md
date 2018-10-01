@@ -10,7 +10,7 @@ Add the [`maven_jar`][be_maven_jar] rule in your [`WORKSPACE` file][be_workspace
 
     # TODO(#390) Use maven 1.7.0 when cup_runtime is published
     # de.jflex:jflex-maven-plugin:maven-plugin:1.6.1
-    native.maven_jar(
+    maven_jar(
         name = "de_jflex_jflex_1_6_1",
         artifact = "de.jflex:jflex:1.6.1",
         # TODO() Use jcenter.bintray.com when synced with central
