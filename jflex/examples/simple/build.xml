@@ -8,7 +8,7 @@
 
   <target name="run" depends="compile">
     <java classname="Yylex" classpath="antbuild">
-      <arg line="src/test/resources/test.txt"/>
+      <arg line="src/test/data/test.txt"/>
     </java>
   </target>
 
