@@ -75,6 +75,7 @@ cache:
   timeout: 86400  # 24 hours
   directories:
   - $HOME/.m2
+  - $HOME/__bazel__
   - jflex/lib
   - tools
 
