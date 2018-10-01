@@ -8,7 +8,7 @@ load("//third_party/de/jflex:build_rules.bzl", "jflex")
 # However, this example is simple enough and we can define all rules here.
 
 java_binary(
-    name="simple_bin",
+    name = "simple_bin",
     main_class = "Yylex",
     runtime_deps = [":simple"],
 )
@@ -16,7 +16,7 @@ java_binary(
 java_library(
     name = "simple",
     # glob is not a best practice, but it's good enough for this example
-    srcs = glob(["src/main/java/**/*.java"])  + [":gen_lexer"],
+    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer"],
 )
 
 jflex(
@@ -27,6 +27,7 @@ jflex(
 
 # Test disabled because Bazel uses JFlex 1.6.1
 # And the dump has changed (i.e. the golden file is not coorect)
+# TODO(#390) Use JFlex 1.7.0 and re-enabled the test when java_cup has been published on mvn repo
 #java_test(
 #    name = "YylexTest",
 #    srcs = ["src/test/java/YylexTest.java"],
