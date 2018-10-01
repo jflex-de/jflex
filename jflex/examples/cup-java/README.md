@@ -3,7 +3,9 @@ JFlex: Complex example (with CUP)
 
 This directory contains a scanner and parser for the Java programming language (Java 1.2).
 
-## Build with maven
+## Build, run, test
+
+### Using Maven
 
     ../../mvnw package
     
@@ -16,13 +18,13 @@ or more simply the uberjar version:
     java -jar target/cup-java-full-1.0.jar <inputfile>
 
 
-## Build with ant
+### Using ant
 
     ant compile
     ant run
     java -jar build:../../../cup/cup/java-cup-11b.jar JavaParser <inputfiles>
 
-## Build with make
+### Using make
 
 Use the Makefile or Ant (via 'ant run') to generate the lexer and
 parser, or type:
