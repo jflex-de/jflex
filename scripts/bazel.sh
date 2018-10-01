@@ -16,7 +16,7 @@ fi
 
 logi "Start Bazel"
 logi "==========="
-cd jflex/examples
+cd "$BASEDIR"/jflex/examples
 $BAZEL info
 
 logi "Build everything"
@@ -28,6 +28,7 @@ logi "==============="
 $BAZEL test //...
 
 if [[ -z"$CI" ]]; then
+  logi "Done"
 else
   logi "Shutdown"
   logi "========"
