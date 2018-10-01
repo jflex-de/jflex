@@ -27,4 +27,11 @@ logi "Test everything"
 logi "==============="
 $BAZEL test //...
 
+if [[ -z"$CI" ]]; then
+else
+  logi "Shutdown"
+  logi "========"
+  $BAZEL shutdown
+fi
+
 cd "$CWD"

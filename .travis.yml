@@ -53,7 +53,6 @@ matrix:
     - java -version
     - sudo apt-get install ./tools/bazel-0.16.1.deb
     sudo: true
-    after_success: blaze shutdown
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
