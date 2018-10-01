@@ -19,8 +19,6 @@ import junit.framework.TestCase;
  */
 public class YylexTest extends TestCase {
 
-  private static final String OUTPUT_FILE = "target/output.actual";
-
   private ByteArrayOutputStream outputStream;
 
   @Override
@@ -35,30 +33,38 @@ public class YylexTest extends TestCase {
     outputStream.close();
   }
 
-  /**
-   * Tests that the generated {@link Yylex} lexer behaves like expected.
-   */
+  /** Tests that the generated {@link Yylex} lexer behaves like expected. */
   public void testOutput() throws Exception {
-    String[] argv = new String[1];
-    argv[0] = "src/test/data/test.txt";
+    File inputFile = openFile("src/test/data/test.txt");
+    assertThat(inputFile.isFile()).isTrue();
+
+    String[] argv = new String[] {inputFile.getPath()};
 
     Yylex.main(argv);
 
     // test actual is expected
-    File expected = new File("src/test/data/output.good");
+    File expected = openFile("src/test/data/output.good");
     assertThat(expected.isFile()).isTrue();
 
     byte[] rawOutput = outputStream.toByteArray();
-    BufferedReader actualContent = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
+    BufferedReader actualContent =
+        new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
 
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
       String actualLine = actualContent.readLine();
       assertWithMessage("Line " + lineNumber).that(actualLine).isEqualTo(expectedLine);
-      if (expectedLine == null)
-        lineNumber = -2; // EOF
+      if (expectedLine == null) lineNumber = -2; // EOF
     }
+  }
 
+  // Hack for Bazel
+  private File openFile(String pathName) {
+    File file = new File(pathName);
+    if (file.isFile()) {
+      return file;
+    }
+    return new File("simple/" + pathName);
   }
 }

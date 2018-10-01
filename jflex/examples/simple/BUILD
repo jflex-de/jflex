@@ -28,7 +28,7 @@ jflex(
 java_test(
     name = "YylexTest",
     srcs = ["src/test/java/YylexTest.java"],
-    resources = glob(["src/test/resources/**"]),
+    data = glob(["src/test/data/**"]),
     deps = [
         ":simple",
         "//third_party/com/google/truth",
