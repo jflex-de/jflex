@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -46,9 +47,7 @@ public class YylexTest extends TestCase {
     File expected = openFile("src/test/data/output.good");
     assertThat(expected.isFile()).isTrue();
 
-    byte[] rawOutput = outputStream.toByteArray();
-    BufferedReader actualContent =
-        new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
+    BufferedReader actualContent = readOutputStream();
     BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
 
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
@@ -59,12 +58,16 @@ public class YylexTest extends TestCase {
     }
   }
 
-  // Hack for Bazel
-  private File openFile(String pathName) {
+  private BufferedReader readOutputStream() {
+    byte[] rawOutput = outputStream.toByteArray();
+    return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
+  }
+
+  private File openFile(String pathName) throws FileNotFoundException {
     File file = new File(pathName);
-    if (file.isFile()) {
-      return file;
+    if (!file.isFile()) {
+      throw new FileNotFoundException(pathName);
     }
-    return new File("simple/" + pathName);
+    return file;
   }
 }
