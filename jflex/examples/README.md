@@ -57,7 +57,7 @@ In the end run the compiled lexer with:
 
 When the example can be build with Maven, there is a `build.xml`.
 
-We place build artifacts in the `formica` directory.
+We place build artifacts in the `antbuild` directory.
 
 Also, we consistently use:
 - `ant` _default action_ for **compile**
