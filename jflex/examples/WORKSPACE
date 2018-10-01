@@ -11,7 +11,72 @@
 maven_jar(
     name = "de_jflex_jflex_1_6_1",
     artifact = "de.jflex:jflex:1.6.1",
-    # TODO() Use jcenter.bintray.com when synced with central
     repository = "https://jcenter.bintray.com/",
     sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
+)
+
+# com.google.guava:guava:bundle:22.0-android
+maven_jar(
+    name = "com_google_code_findbugs_jsr305",
+    artifact = "com.google.code.findbugs:jsr305:1.3.9",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf",
+)
+
+
+# com.google.guava:guava:bundle:22.0-android
+maven_jar(
+    name = "org_codehaus_mojo_animal_sniffer_annotations",
+    artifact = "org.codehaus.mojo:animal-sniffer-annotations:1.14",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "775b7e22fb10026eed3f86e8dc556dfafe35f2d5",
+)
+
+
+# pom.xml got requested version
+# de.flex.examples:simple:jar:1.0
+maven_jar(
+    name = "com_google_truth_truth",
+    artifact = "com.google.truth:truth:0.36",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "7485219d2c1d341097a19382c02bde07e69ff5d2",
+)
+
+
+# com.google.guava:guava:bundle:22.0-android
+# com.google.truth:truth:jar:0.36 wanted version 2.0.19
+maven_jar(
+    name = "com_google_errorprone_error_prone_annotations",
+    artifact = "com.google.errorprone:error_prone_annotations:2.0.18",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "5f65affce1684999e2f4024983835efc3504012e",
+)
+
+
+# com.google.truth:truth:jar:0.36
+maven_jar(
+    name = "com_google_guava_guava",
+    artifact = "com.google.guava:guava:22.0-android",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "7b2fc7ef242f35bc2c9a3b816ed846c9345e3f95",
+)
+
+
+# pom.xml got requested version
+# de.flex.examples:simple:jar:1.0
+# com.google.truth:truth:jar:0.36 wanted version 4.12
+maven_jar(
+    name = "junit_junit",
+    artifact = "junit:junit:3.8.2",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "07e4cde26b53a9a0e3fe5b00d1dbbc7cc1d46060",
+)
+
+
+# com.google.guava:guava:bundle:22.0-android
+maven_jar(
+    name = "com_google_j2objc_j2objc_annotations",
+    artifact = "com.google.j2objc:j2objc-annotations:1.1",
+    repository = "https://jcenter.bintray.com/",
+    sha1 = "976d8d30bebc251db406f2bdb3eb01962b5685b3",
 )
