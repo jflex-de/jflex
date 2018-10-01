@@ -1,4 +1,4 @@
-# Use JFlex in Bazel
+# Use JFlex in a Bazel workspace
 
 This directory contains build rules to use JFlex with the
 [Bazel build system][bazel].
@@ -20,9 +20,10 @@ Add the [`maven_jar`][be_maven_jar] rule in your [`WORKSPACE` file][be_workspace
 
 ### Add a BUILD alias for JFlex
 
-Create `third_party/de/jflex/BUILD` with that defines the
+In your workspace, create `third_party/de/jflex/BUILD` with defines the
 `//third_party/de/jflex:jflex_bin` target.
-It should be sufficient to take out `third_party/de/jflex/BUILD`.
+It should be sufficient to check out the one provided in
+`jflex/jflex/examples/third_party/de/jflex/BUILD`.
 
 **N.B.** In our case, JFlex is obviously not a third-party package.
 However, we use `//third_party/de/jflex` in the examples
@@ -41,7 +42,15 @@ to make it consistent with the recommended
 
 Then, this rule can be used as one of the `srcs` of another rules, such as a `java_library`.
 
-## Example
+### Example
+
+The example "simple" generates a lexer from `simple.flex` with:
+
+    jflex(
+        name = "gen_lexer",
+        srcs = ["src/main/jflex/simple.flex"],
+        outputs = ["Yylex.java"],
+    )
 
 See `examples/WORKSPACE` and `examples/simple/BUILD`.
 
