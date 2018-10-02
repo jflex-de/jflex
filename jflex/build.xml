@@ -31,6 +31,7 @@
   <property name="junit.jar.path" value="junit/junit/${junit.version}/junit-${junit.version}.jar" />
 
   <!-- where build output goes, including the jflex jar -->
+  <!-- TODO(#304): Rename `build` directory to something else as Bazel uses `BUILD` files. -->
   <property name="build.dir" value="build"/>
   <property name="generated.sources.dir" value="${build.dir}/generated-sources"/>
   <property name="compile.output.dir" value="${build.dir}/classes"/>

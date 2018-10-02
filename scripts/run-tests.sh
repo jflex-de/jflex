@@ -31,6 +31,9 @@ if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "ant" ]]; then
   "$BASEDIR"/scripts/ant-build.sh
   "$BASEDIR"/scripts/test-examples.sh
 fi
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "bazel" ]]; then
+  "$BASEDIR"/scripts/bazel.sh
+fi
 
 logi "Success"
 cd "$CWD"
