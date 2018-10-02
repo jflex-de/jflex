@@ -7,7 +7,7 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 source "$BASEDIR"/scripts/logger.sh
 # Maven executable
 MVN="$BASEDIR"/mvnw
-# fail on error
+# Exit with error in case of error (see #242)
 set -e
 
 logi "Compile, test and install all"
@@ -25,8 +25,6 @@ logi "Run jflex examples with ant"
 logi "==========================="
 # Some tests invoke /bin/jflex which expects the jar in /lib
 cp "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
-# Exit with error in case of error (see #242)
-set -x
 
 cd "$BASEDIR"/jflex/examples
 

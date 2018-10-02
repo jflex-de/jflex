@@ -1,5 +1,4 @@
-JFlex with cup
-==============
+#JFlex with cup
 
 This directory contains a small example of integration
 between JFlex and [CUP][cup].
@@ -10,7 +9,9 @@ titled _Compiler Construction Tools_.
 
 Small changes and updates to newest JFlex+Cup versions by Gerwin Klein.
 
-## Build and run
+## Build, run, test
+
+### Using Maven
 
 To compile:
 
@@ -28,7 +29,7 @@ mvn package
 java -jar target/simple-maven-full-1.0.jar Main test.txt
 ```
 
-## Files:
+## Files
 
 * `src/main/java/Main.java`         demo of a main program
 * `src/main/flex/lcalc.flex`        the lexer spec
