@@ -7,8 +7,13 @@
 
 # Build tools
 dependency-reduced-pom.xml
-**/target
+# Maven
+target
+# Bazel
 bazel-*
+# ant
+jflex/build
+
 
 # IntelliJ
 *.iml
@@ -24,3 +29,6 @@ bazel-*
 
 # aggregated-java-source repository
 repo
+
+# release files
+release

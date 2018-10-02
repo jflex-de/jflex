@@ -1,3 +1,5 @@
+# Readers returning 0 characters
+
 This example shows what to do about input Readers that sometimes return 0
 characters.
 
@@ -53,3 +55,23 @@ blocking if no input is available yet (if `read()` returns 0, it means the
 character 0 has been read, not that 0 characters have been read). This method
 is usually too inefficient to use always, but 0-character returns tend to be
 rare, so the impact of using it only in those cases is small.
+
+Build
+-----
+
+### Build with maven
+
+     ../../mvnw package
+     java -jar target/zero-reader-1.0.jar <inputfiles>
+
+e.g.
+
+     java -jar target/zero-reader-1.0.jar src/test/data/test-input.txt
+
+and expect `src/test/data/lexer-output.good`.
+
+### Build with make
+
+    make
+    make test
+    java -cp out ZeroLexer <inputfiles>

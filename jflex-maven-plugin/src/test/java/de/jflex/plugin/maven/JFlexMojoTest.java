@@ -8,8 +8,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
-import static org.junit.Assert.assertTrue;
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 
+import com.google.common.base.Predicate;
 import java.io.File;
 import java.io.IOException;
 import org.apache.maven.plugin.testing.MojoRule;
@@ -46,8 +48,9 @@ public class JFlexMojoTest {
     String actualResDir = testResources.getBasedir("single-file-test").getAbsolutePath();
     String expectedSuffix =
         "/jflex-maven-plugin/target/test-projects/JFlexMojoTest_testTestResources_single-file-test";
-    assertTrue(
-        actualResDir + " ends with " + expectedSuffix, actualResDir.endsWith(expectedSuffix));
+    assertWithMessage(actualResDir + " ends with " + expectedSuffix)
+        .that(actualResDir.endsWith(expectedSuffix))
+        .isTrue();
   }
 
   /** Tests configuration with a single input file. */
@@ -57,7 +60,7 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertTrue("produced file is a file: " + produced, produced.isFile());
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
 
     long size = produced.length();
     /*
@@ -66,7 +69,9 @@ public class JFlexMojoTest {
      * Windows platform ("\r\n") than on a Unix platform ("\n").
      */
     boolean correctSize = (size > 26624) && (size < 36696);
-    assertTrue("size of produced file between 26k and 36k. Actual is " + size, correctSize);
+    assertWithMessage("size of produced file between 26k and 36k. Actual is " + size)
+        .that(correctSize)
+        .isTrue();
   }
 
   /** Tests configuration with a single input directory. */
@@ -76,7 +81,7 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertTrue("produced file is a file: " + produced, produced.isFile());
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
   }
 
   /** Tests configuration with a single input directory containing sub directories. */
@@ -86,7 +91,16 @@ public class JFlexMojoTest {
     mojo.execute();
 
     File produced = getExpectedOutputFile(mojo);
-    assertTrue("produced file is a file: " + produced, produced.isFile());
+    assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
+  }
+
+  @Test
+  public void extensionPredicate() {
+    Predicate<File> predicate = new JFlexMojo.ExtensionPredicate("bar", "baz");
+    assertThat(predicate.apply(new File("/tmp/foo.bar"))).isTrue();
+    assertThat(predicate.apply(new File("/tmp/foo.baz"))).isTrue();
+    assertThat(predicate.apply(new File("/tmp/foo.bar.too"))).isFalse();
+    assertThat(predicate.apply(new File("/tmp/foo.blahblahbar"))).isFalse();
   }
 
   /**

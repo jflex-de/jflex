@@ -57,8 +57,6 @@ and the [wiki][wiki].
 3. Voilà: Java code is produced in `target/generated-sources/` during the `generate-sources` phase
 (which happens before the `compile` phase) and included in the compilation scope.
 
-Sample project: [simple-maven][example-simple-maven]
-
 ### Usage with ant
 
 1. Define ant task
@@ -76,8 +74,17 @@ Sample project: [simple-maven][example-simple-maven]
 
 You can also use JFlex directly from the command line:
 ```
-java -jar jflex-1.7.0.jar -d output src/grammar/parser.flex
+jflex/bin/jflex src/grammar/parser.flex
 ```
+
+Or:
+```
+java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
+```
+
+## Examples
+
+Have a look at the sample project: [simple][example-simple] and other [examples].
 
 ## Build from source
 
@@ -88,11 +95,13 @@ java -jar jflex-1.7.0.jar -d output src/grammar/parser.flex
 ## Contributing
 
 JFlex is free software, contributions are welcome.
-See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
+See the [Contributing][contrib] page for instructions.
 
 
 [jflex]: http://jflex.de/
 [jflex-doc]: http://jflex.de/manual.html
 [wiki]: https://github.com/jflex-de/jflex/wiki
 [pom-build]: https://maven.apache.org/pom.html#Build_Settings
-[example-simple-maven]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven
+[example-simple]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple
+[examples]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/
+[contrib]: https://github.com/jflex-de/jflex/wiki/Contributing

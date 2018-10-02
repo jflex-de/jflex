@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2015  Gerwin Klein <lsf@jflex.de>                    *
+ * JFlex 1.7.1-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -43,8 +43,6 @@ import jflex.unicode.UnicodeProperties;
 %state CHARCLASS, COPY, REPEATEXP, EATWSPNL
 %state CTOR_ARG, REGEXP_CODEPOINT_SEQUENCE
 %state STRING_CODEPOINT_SEQUENCE, CHARCLASS_CODEPOINT
-
-%inputstreamctor false
 
 %cupdebug
 

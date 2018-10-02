@@ -106,6 +106,10 @@ print " updating version in jflex/README.md";
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/README.md');
 print "\ndone.\n\n";
 
+print " updating version in scripts/mk-release.sh";
+system ('perl -pi -e "s/-SNAPSHOT//" scripts/mk-release.sh');
+print "\ndone.\n\n";
+
 print " updating version in comments and version tags in jflex/**.java";
 system ('find jflex -name "*.java" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
 system ('find jflex -name "LexScan.flex" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');

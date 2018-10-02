@@ -21,7 +21,7 @@ To install JFlex on Windows, follow these three steps:
             +--cup-maven\              (calculator example for cup and maven) 
             +--interpreter\            (interpreter example for cup) 
             +--java\                   (Java lexer specification) 
-            +--simple-maven\           (example scanner built with maven) 
+            +--simple\                 (example scanner with no parser)
             +--standalone-maven\       (a simple standalone scanner, 
                                         built with maven) 
             +--zero-reader\            (Readers that return 0 characters) 
@@ -115,7 +115,7 @@ writes the generated file to the directory `<directory>`
 
 `--encoding <name>`\
 uses the character encoding `<name>` (e.g. `utf-8`) to read lexer
-specifications.
+specifications and write java files.
 
 `--skel <file>`\
 uses external skeleton `<file>`. This is mainly for JFlex maintenance

@@ -88,9 +88,18 @@ git branch -D jflex-X.Y.Z
 
 ```bash
 ./mvnw install
-./mvnw javadoc:jar
-./mvnw source:jar
 ```
+
+### Create the release package
+
+Run the packaging script:
+```sh
+scripts/mk-release.sh
+```
+
+This generates the documentation and builds the .tar.gz and .zip file.
+
+Go into `releases/jflex-$version` and see if things look as expected.
 
 ### Stage the release to the Sonatype OSS Maven repository:
 
@@ -117,18 +126,12 @@ after logging into the site:
      this is the final step to release the artifacts.  Maven Central
      will then sync within less than one day.
 
-### Build the user manual
- 
-```sh
-cd docs && make
-```
-
 ### Commit the release branch
 
 If you are happy with the changes, you can tag and push:
 ```sh
 # Create a maintenance branch
-git co -b jflex_X_Y
+git checkout -b jflex_X_Y
 git push
 # Tag the exact released version
 git tag vX.Y.Z
@@ -142,20 +145,21 @@ Then:
   2. Confirm merge into master.
 
 
-### Create the release package
-
-TODO: Document this step
-
-### Upload the release package and user manual files
-
-TODO: Document this step
-
 ### Update the website
 
-TODO: Document this step
+In repository `jflex-web`, in `pages/`
 
-- Update README.md
-- Update Changelog.md
+   1. Update index.md with news and current release
+   2. Sync changelog.md with the jflex repo
+   3. Sync installing.md with installing.md in the jflex repo docs
+   4. Copy over generated `manual.html` and `manual.pdf` from jflex repo
+   5. Update version numbers in download.md
+   6. Commit and push to master
+   7. Copy over the release package files into `release/`
+   8. Run `make deploy`
+
+(FIXME: steps 2-5 can/should be automated)
+
 
 ### Tag the _aggregate-java-sources_ branch
 
@@ -163,7 +167,7 @@ Travis will update the **aggregated-java-sources** branch from master.
 
 Once this is done,
 ```sh
-git co aggregated-java-sources
+git checkout aggregated-java-sources
 # Verify that the last commit was to update for the release version
 git log
 # Tag
