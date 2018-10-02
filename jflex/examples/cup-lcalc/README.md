@@ -26,7 +26,7 @@ To run:
 
 ```
 mvn package
-java -jar target/simple-maven-full-1.0.jar Main test.txt
+java -jar target/cup-lcalc-full-1.0.jar Main test.txt
 ```
 
 ## Files
