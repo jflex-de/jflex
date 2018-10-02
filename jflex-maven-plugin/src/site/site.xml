@@ -8,7 +8,7 @@
       <item name="Goals" href="plugin-info.html"/>
     </menu>
     <menu name="Examples">
-      <item name="Simple Maven project" href="https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven"/>
+      <item name="Simple Maven project" href="https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple"/>
       <item name="Simple grammar" href="http://jflex.de/manual.html#Example"/>
       <item name="More grammars" href="https://github.com/jflex-de/jflex/wiki/External-JFlex-Grammars"/>
     </menu>
