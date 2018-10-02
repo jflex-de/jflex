@@ -31,18 +31,18 @@ public final class DFA {
   public static final int NO_TARGET = -1;
 
   /**
-   * table[current_state][character] is the next state for <code>current_state</code> with input
-   * <code>character</code>, <code>NO_TARGET</code> if there is no transition for this input in
-   * <code>current_state</code>
+   * table[current_state][character] is the next state for {@code current_state} with input {@code
+   * character</code>, <code>NO_TARGET} if there is no transition for this input in {@code
+   * current_state}
    */
   int[][] table;
 
-  /** <code>isFinal[state] == true</code> <=> the state <code>state</code> is a final state. */
+  /** {@code isFinal[state] == true</code> <=> the state <code>state} is a final state. */
   boolean[] isFinal;
 
   /**
-   * <code>action[state]</code> is the action that is to be carried out in state <code>state</code>,
-   * <code>null</code> if there is no action.
+   * {@code action[state]</code> is the action that is to be carried out in state <code>state},
+   * {@code null} if there is no action.
    */
   Action[] action;
 

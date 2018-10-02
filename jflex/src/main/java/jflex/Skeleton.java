@@ -25,7 +25,7 @@ import java.util.List;
  * portion of generated code (produced in class Emitter) between every two parts of skeleton code.
  *
  * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
- * iterator part is used to emit consecutive skeleton sections to some <code>PrintWriter</code>.
+ * iterator part is used to emit consecutive skeleton sections to some {@code PrintWriter}.
  *
  * @see jflex.Emitter
  * @author Gerwin Klein

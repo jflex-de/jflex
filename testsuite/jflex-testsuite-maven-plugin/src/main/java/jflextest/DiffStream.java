@@ -32,7 +32,7 @@ class DiffStream {
   /**
    * Compares to streams line by line.
    *
-   * @return <code>null</code> if they are the same, a String error message otherwise
+   * @return {@code null} if they are the same, a String error message otherwise
    * @param diffLines a List of Integer. The line numbers where differences are expected (and to be
    *     ignored)
    * @param input the input stream

@@ -13,7 +13,7 @@ package jflex;
  * Stores an interval of characters together with the character class
  *
  * <p>A character belongs to an interval, if its Unicode value is greater than or equal to the
- * Unicode value of <CODE>start</code> and smaller than or equal to the Unicode value of <CODE>end
+ * Unicode value of {@code start} and smaller than or equal to the Unicode value of <CODE>end
  * </code>.
  *
  * <p>All characters of the interval must belong to the same character class.
@@ -33,8 +33,8 @@ public class CharClassInterval {
   int charClass;
 
   /**
-   * Creates a new CharClassInterval from <CODE>start</code> to <CODE>end</code> that belongs to
-   * character class <CODE>charClass</code>.
+   * Creates a new CharClassInterval from {@code start</code> to <CODE>end} that belongs to
+   * character class {@code charClass}.
    *
    * @param start The first character of the interval
    * @param end The last character of the interval
