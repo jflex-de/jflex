@@ -22,7 +22,7 @@ import java.util.List;
  * portion of generated code between every two parts of skeleton code.
  *
  * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
- * iterator part is used to emit consecutive skeleton sections to some <code>StringBuilder</code>.
+ * iterator part is used to emit consecutive skeleton sections to some {@code StringBuilder}.
  *
  * <p>Copied from the version used for scanner generation.
  */

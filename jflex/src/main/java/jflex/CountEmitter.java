@@ -84,8 +84,8 @@ public class CountEmitter extends PackEmitter {
    *
    * <p>Use to move value interval from [0, 0xFFFF] to something different.
    *
-   * @param i amount the value will be translated by. Example: <code>i = 1</code> allows values in
-   *     [-1, 0xFFFE].
+   * @param i amount the value will be translated by. Example: {@code i = 1} allows values in [-1,
+   *     0xFFFE].
    */
   public void setValTranslation(int i) {
     this.translate = i;
@@ -94,7 +94,7 @@ public class CountEmitter extends PackEmitter {
   /**
    * Emit one count/value pair.
    *
-   * <p>Automatically translates value by the <code>translate</code> value.
+   * <p>Automatically translates value by the {@code translate} value.
    *
    * @param count a int.
    * @param value a int.

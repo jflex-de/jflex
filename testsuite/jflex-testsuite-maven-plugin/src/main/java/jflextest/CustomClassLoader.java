@@ -36,9 +36,9 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /**
-   * Break up a class path string into its items and store in <code>pathItems</code>.
+   * Break up a class path string into its items and store in {@code pathItems}.
    *
-   * <p>Uses system property <code>path.separator</code> as delimiter.
+   * <p>Uses system property {@code path.separator} as delimiter.
    */
   private void scanPath(String classPath) {
     if (classPath == null) return;

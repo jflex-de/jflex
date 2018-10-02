@@ -47,7 +47,7 @@ public class JFlexMojo extends AbstractMojo {
    * List of grammar definitions to run the JFlex parser generator on. Each path may either specify
    * a single grammar file or a directory. Directories will be recursively scanned for files with
    * one of the following extensions: ".jflex", ".flex", ".jlex" or ".lex". By default, all files in
-   * <code>src/main/jflex</code> will be processed.
+   * {@code src/main/jflex} will be processed.
    *
    * @see #SRC_MAIN_JFLEX
    */
@@ -90,7 +90,7 @@ public class JFlexMojo extends AbstractMojo {
   @Parameter(defaultValue = "false")
   private boolean jlex;
 
-  /** The generation method to use for the scanner. The only valid value is <code>pack</code>. */
+  /** The generation method to use for the scanner. The only valid value is {@code pack}. */
   @Parameter(defaultValue = "pack")
   private String generationMethod = "pack"; // NOPMD
 

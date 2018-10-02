@@ -7,9 +7,9 @@ package jflex.unicode.data;
  * @version $Id: $Id
  */
 public class Unicode_1_1 {
-  /** Constant <code>maximumCodePoint=0xffff</code> */
+  /** Constant {@code maximumCodePoint=0xffff} */
   public static final int maximumCodePoint = 0xffff;
-  /** Constant <code>propertyValues="{alnum, assigned, blank, cc, cn,graph, "{trunked}</code> */
+  /** Constant {@code propertyValues="{alnum, assigned, blank, cc, cn,graph, "{trunked}} */
   public static final String[] propertyValues = {
     "alnum", "assigned", "blank", "cc", "cn",
     "graph", "ll", "lm", "lo", "lu",
@@ -18,7 +18,7 @@ public class Unicode_1_1 {
     "sm", "so", "xdigit", "zl", "zp",
     "zs"
   };
-  /** Constant <code>intervals="{// Unicode 1.1 property value: {alnum}"{trunked}</code> */
+  /** Constant {@code intervals="{// Unicode 1.1 property value: {alnum}"{trunked}} */
   public static final String[] intervals = {
     // Unicode 1.1 property value: {alnum}
     "\u0030\u0039"
@@ -2611,10 +2611,10 @@ public class Unicode_1_1 {
     // Unicode 1.1 property value: {zs}
     "\u0020\u0020" + "\u00a0\u00a0" + "\u2000\u200b" + "\u3000\u3000" + "\ufeff\ufeff"
   };
-  /** Constant <code>propertyValueAliases="{}"</code> */
+  /** Constant {@code propertyValueAliases="{}"} */
   public static final String[] propertyValueAliases = {};
 
-  /** Constant <code>caselessMatchPartitionSize=3</code> */
+  /** Constant {@code caselessMatchPartitionSize=3} */
   public static final int caselessMatchPartitionSize = 3;
   /**
    * Constant <code>caselessMatchPartitions="\u0041\u0061\000\u0042\u0062\000\u0043\"{trunked}
