@@ -12,7 +12,7 @@
     <java classname="Main">
       <classpath>
         <pathelement location="${java_cup}"/>
-        <pathelement path="build"/>
+        <pathelement path="antbuild"/>
       </classpath>
       <arg line="src/test/data/example.as"/> </java>
   </target>
@@ -22,21 +22,21 @@
   </target>
 
   <target name="compile" depends="jflex,cup">
-    <javac destdir="build" classpath="${java_cup}">
+    <javac destdir="antbuild" classpath="${java_cup}">
       <src path="src/main/java/" />
-      <src path="build/"/>
+      <src path="antbuild/"/>
     </javac>
   </target>
 
   <target name="jflex">
-    <jflex file="src/main/jflex/scanner.flex" destdir="build" encoding="utf-8"/>
+    <jflex file="src/main/jflex/scanner.flex" destdir="antbuild" encoding="utf-8"/>
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="build"/>
+    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="antbuild"/>
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
+    <delete dir="antbuild"/>
   </target>
 </project>

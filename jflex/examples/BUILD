@@ -8,17 +8,19 @@
 # So here is a test:
 
 sh_test(
-  name = "hello_test",
-  size = "small",
-  srcs = [":hello_test_lib"],
+    name = "hello_test",
+    size = "small",
+    srcs = [":hello_test_lib"],
 )
+
 sh_library(
-  name = "hello_test_lib",
-  srcs = [":gen_hello_test_sh"],
+    name = "hello_test_lib",
+    srcs = [":gen_hello_test_sh"],
 )
+
 genrule(
-  name = "gen_hello_test_sh",
-  srcs = [],
-  outs = ["hello_test.sh"],
-  cmd = "echo 'echo \"Hello World\"' > $@",
+    name = "gen_hello_test_sh",
+    srcs = [],
+    outs = ["hello_test.sh"],
+    cmd = "echo 'echo \"Hello World\"' > $@",
 )
