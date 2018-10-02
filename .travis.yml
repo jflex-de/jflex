@@ -32,6 +32,7 @@ matrix:
   - name: "Ant JDK9"
     script: scripts/run-ant.sh
   - name: "Bazel"
+    language: minimal
     script: scripts/bazel.sh
     # Prerequisites for Bazel
     addons:
