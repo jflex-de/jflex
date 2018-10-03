@@ -695,7 +695,7 @@ public final class Emitter {
 
   private void emitAttributes() {
     println("  /**");
-    println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>");
+    println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state {@code aState}");
     println("   */");
 
     CountEmitter e = new CountEmitter("Attribute");

@@ -20,7 +20,7 @@ public final class StateSet {
 
   private final boolean DEBUG = false;
 
-  /** Constant <code>EMPTY</code> */
+  /** Constant {@code EMPTY} */
   public static final StateSet EMPTY = new StateSet();
 
   static final int BITS = 6;

@@ -405,8 +405,8 @@ public class Main {
   }
 
   /**
-   * Starts the generation process with the files in <code>argv</code> or pops up a window to choose
-   * a file, when <code>argv</code> doesn't have any file entries.
+   * Starts the generation process with the files in {@code argv} or pops up a window to choose a
+   * file, when {@code argv} doesn't have any file entries.
    *
    * @param argv the commandline.
    */

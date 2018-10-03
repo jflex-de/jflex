@@ -41,8 +41,7 @@ public final class Action {
   int priority;
 
   /**
-   * Which kind of action this is. (normal, <code>a/b</code> with fixed length a, fixed length b,
-   * etc)
+   * Which kind of action this is. (normal, {@code a/b} with fixed length a, fixed length b, etc)
    */
   private int kind = NORMAL;
 
@@ -110,7 +109,7 @@ public final class Action {
   }
 
   /**
-   * Returns <code>true</code> iff the parameter is an Action with the same content as this one.
+   * Returns {@code true} iff the parameter is an Action with the same content as this one.
    *
    * @param a the object to compare this Action with
    * @return true if the action strings are equal
