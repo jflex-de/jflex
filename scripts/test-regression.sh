@@ -11,9 +11,7 @@ MVN="$BASEDIR"/mvnw
 set -e
 
 if [[ $TRAVIS ]]; then
-  logi "Compile and install all (no tests)"
-  # Travis has "`install: true` and hence jflex needs to be install in local repo
-  "$MVN" install -Pfastbuild --quiet
+  "$BASEDIR"/scripts/mvn-install-fastbuild.sh
 else
   # On local dev, ./run-tests has already installed all, so we can skip installation
   echo
@@ -21,6 +19,7 @@ fi
 
 
 logi "Run regression test cases"
+logi "========================="
 # regression test suite must run in its own directory
 cd "$BASEDIR"/testsuite/testcases; "$MVN" test
 cd "$CWD"

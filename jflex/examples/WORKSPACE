@@ -15,5 +15,18 @@ maven_jar(
     sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
 )
 
+# The current SNAPSHOT version (it can actually be a release)
+java_import(
+    name = "de_jflex_jflex_snapshot",
+    jars = ["jflex.jar"],
+    deps = [":de_jflex_cup_runtime_snapshot"],
+)
+
+java_import(
+    name = "de_jflex_cup_runtime_snapshot",
+    jars = ["cup_runtime.jar"],
+)
+
 load("//third_party:generate_workspace.bzl", "generated_maven_jars")
+
 generated_maven_jars()
