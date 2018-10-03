@@ -45,7 +45,7 @@ import jflex.unicode.data.Unicode_9_0;
  */
 public class UnicodeProperties {
 
-  /** Constant <code>UNICODE_VERSIONS="1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9,"{trunked}</code> */
+  /** Constant {@code UNICODE_VERSIONS="1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9,"{trunked}} */
   public static final String UNICODE_VERSIONS =
       "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0";
 

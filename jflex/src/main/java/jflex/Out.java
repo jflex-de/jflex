@@ -46,7 +46,7 @@ public final class Out {
   private static StdOutWriter out = new StdOutWriter();
 
   /**
-   * Switches to GUI mode if <code>text</code> is not <code>null</code>
+   * Switches to GUI mode if {@code text</code> is not <code>null}
    *
    * @param text the message TextArea of the JFlex GUI
    */
@@ -135,8 +135,8 @@ public final class Out {
   /**
    * Dump debug information to System.out
    *
-   * <p>Use like this <code>if (Out.DEBUG) Out.debug(message)</code> to save performance during
-   * normal operation (when DEBUG is turned off).
+   * <p>Use like this {@code if (Out.DEBUG) Out.debug(message)} to save performance during normal
+   * operation (when DEBUG is turned off).
    *
    * @param message a {@link java.lang.String} object.
    */

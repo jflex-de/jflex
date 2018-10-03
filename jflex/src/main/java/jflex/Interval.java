@@ -21,7 +21,7 @@ public final class Interval {
   public int start, end;
 
   /**
-   * Construct a new interval from <code>start</code> to <code>end</code>.
+   * Construct a new interval from {@code start</code> to <code>end}.
    *
    * @param start first character the interval should contain
    * @param end last character the interval should contain
@@ -42,7 +42,7 @@ public final class Interval {
   }
 
   /**
-   * Return <code>true</code> iff <code>point</code> is contained in this interval.
+   * Return {@code true</code> iff <code>point} is contained in this interval.
    *
    * @param point the character to check
    * @return whether the codepoint is contained in the interval.
@@ -52,7 +52,7 @@ public final class Interval {
   }
 
   /**
-   * Return <code>true</code> iff this interval completely contains the other one.
+   * Return {@code true} iff this interval completely contains the other one.
    *
    * @param other the other interval
    * @return whether this interval completely contains the other one.
@@ -64,7 +64,7 @@ public final class Interval {
   /**
    * {@inheritDoc}
    *
-   * <p>Return <code>true</code> if <code>o</code> is an interval with the same borders.
+   * <p>Return {@code true</code> if <code>o} is an interval with the same borders.
    */
   public boolean equals(Object o) {
     if (o == this) return true;
@@ -105,9 +105,9 @@ public final class Interval {
   /**
    * Get a String representation of this interval.
    *
-   * @return a string <code>"[start-end]"</code> or <code>"[start]"</code> (if there is only one
-   *     character in the interval) where <code>start</code> and <code>end</code> are either a
-   *     number (the character code) or something of the from <code>'a'</code>.
+   * @return a string {@code "[start-end]"</code> or <code>"[start]"} (if there is only one
+   *     character in the interval) where {@code start</code> and <code>end} are either a number
+   *     (the character code) or something of the from {@code 'a'}.
    */
   public String toString() {
     StringBuilder result = new StringBuilder("[");
