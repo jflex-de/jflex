@@ -33,10 +33,13 @@ logi "Test everything"
 logi "==============="
 $BAZEL test //...
 
+
 if [[ -n "$CI" ]]; then
   logi "Shutdown"
   logi "========"
   $BAZEL shutdown
+else
+  logi "Done"
 fi
 logi "Done ✅"
 cd "$CWD"
