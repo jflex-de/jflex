@@ -28,7 +28,7 @@ matrix:
     language: generic
   - name: "Regression tests"
     script:
-    - scripts/mvn-install-fastbuild.sh testsuite/jflex-testsuite-maven-plugin
+    - scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
     - scripts/test-regression.sh
   # TODO(regisd): Remove the ant build, it only adds maintenance burden
   - name: "Ant build"
