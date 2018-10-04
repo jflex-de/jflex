@@ -18,12 +18,14 @@ matrix:
   include:
   - name: "Check Java format"
     script: scripts/test-java-format.sh
+    language: generic
   - name: "Maven (compile, unit test, uberjar, ubersrcs, site)"
     script:
     - scripts/test-unit.sh
     - scripts/mvn-site.sh
     - scripts/mvn-aggregate-srcs.sh
     env: TEST_SUITE=unit
+    language: generic
   - name: "Regression tests"
     script:
     - scripts/mvn-install-fastbuild.sh
@@ -37,6 +39,7 @@ matrix:
     script: scripts/test-examples.sh
     jdk: openjdk7
   - name: "Example (with Bazel)"
+    language: generic
     script:
     - scripts/mvn-install-fastbuild.sh
     - scripts/bazel.sh
