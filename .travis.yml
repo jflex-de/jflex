@@ -18,21 +18,28 @@ matrix:
   include:
   - name: "Check Java format"
     script: scripts/test-java-format.sh
-  - name: "Maven everything"
+  - name: "Maven (compile, unit test, uberjar, ubersrcs, site)"
     script:
     - scripts/test-unit.sh
     - scripts/mvn-site.sh
     - scripts/mvn-aggregate-srcs.sh
     env: TEST_SUITE=unit
   - name: "Regression tests"
-    script: scripts/test-regression.sh
-  - name: "Ant JDK8"
-    script: scripts/run-ant.sh
-    sdk: oraclejdk8
-  - name: "Ant JDK9"
-    script: scripts/run-ant.sh
-  - name: "Bazel"
-    script: scripts/bazel.sh
+    script:
+    - scripts/mvn-install-fastbuild.sh
+    - scripts/test-regression.sh
+  # TODO(regisd): Remove the ant build, it only adds maintenance burden
+  - name: "Ant build"
+    script: scripts/ant-build.sh
+  - name: "Examples (mvn, ant, make)"
+    - scripts/test-examples.sh
+  - name: "Examples (mvn, ant, make) — JDK7"
+    - scripts/test-examples.sh
+    - jdk: openjdk7
+  - name: "Example (with Bazel)"
+    script:
+    - scripts/mvn-install-fastbuild.sh
+    - scripts/bazel.sh
     # Prerequisites for Bazel
     addons:
       apt:
@@ -50,7 +57,6 @@ matrix:
     - mkdir -p tools
     - curl -L https://github.com/bazelbuild/bazel/releases/download/0.16.1/bazel_0.16.1-linux-x86_64.deb -o tools/bazel-0.16.1.deb
     install:
-    - java -version
     - sudo apt-get install ./tools/bazel-0.16.1.deb
     sudo: true
 

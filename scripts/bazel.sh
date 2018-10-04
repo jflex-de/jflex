@@ -14,8 +14,6 @@ else
   BAZEL='bazel'
 fi
 
-# This will allow to import the jflex jar
-"$BASEDIR"/scripts/mvn-install-fastbuild.sh
 logi "Copy JFlex jar in //third_party"
 logi "==============================="
 cp "$BASEDIR"/jflex/target/jflex-1-*.jar  "$BASEDIR"/jflex/examples/third_party/de/jflex/jflex.jar

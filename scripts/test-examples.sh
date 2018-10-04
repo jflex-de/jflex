@@ -12,7 +12,7 @@ set -e
 
 logi "Compile, test and install all "
 logi "============================="
-"$BASEDIR"/scripts/mvn-install-fastbuild.sh
+"$BASEDIR"/scripts/mvn-install-fastbuild.sh jflex-maven-plugin
 
 logi "Run jflex examples with ant"
 logi "==========================="
