@@ -32,10 +32,10 @@ matrix:
   - name: "Ant build"
     script: scripts/ant-build.sh
   - name: "Examples (mvn, ant, make)"
-    - scripts/test-examples.sh
+    script: scripts/test-examples.sh
   - name: "Examples (mvn, ant, make) — JDK7"
-    - scripts/test-examples.sh
-    - jdk: openjdk7
+    script: scripts/test-examples.sh
+    jdk: openjdk7
   - name: "Example (with Bazel)"
     script:
     - scripts/mvn-install-fastbuild.sh
