@@ -10,7 +10,7 @@ MVN="$BASEDIR"/mvnw
 # Exit with error in case of error (see #242)
 set -e
 
-logi "Compile, test and install all "
+logi "Compile, test and install all"
 logi "============================="
 "$BASEDIR"/scripts/mvn-install-fastbuild.sh jflex-maven-plugin
 

@@ -1,0 +1,7 @@
+# Maven is our main build system.
+# Maven builds jflex and cup_runtime
+# The artifacts should then be copied in this directory.
+# Run ./scripts/bazel.sh to do this automatically
+
+cup_runtime.jar
+jflex.jar
