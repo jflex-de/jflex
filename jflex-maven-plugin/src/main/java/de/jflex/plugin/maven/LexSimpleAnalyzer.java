@@ -9,12 +9,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import javax.annotation.Nullable;
 
 /**
@@ -35,7 +37,7 @@ class LexSimpleAnalyzer {
    * @throws IOException when an IO exception occurred while reading a file.
    */
   static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
-    FileReader lexFileReader = new FileReader(lexFile);
+    Reader lexFileReader = Files.newReader(lexFile, StandardCharsets.UTF_8);
     return guessPackageAndClass(lexFileReader);
   }
 
