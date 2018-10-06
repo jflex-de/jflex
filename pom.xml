@@ -54,6 +54,7 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
+    <module>report-module</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -175,6 +176,11 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.2</version>
+        </plugin>
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>cup-maven-plugin</artifactId>
@@ -303,6 +309,24 @@
           <skip>true</skip>
           <skipDeploy>true</skipDeploy>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-code-coverage-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
