@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.7.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>report-module</artifactId>
+  <packaging>jar</packaging>
+  <name>Report aggregator for JFlex Modules</name>
+  <description>
+    Aggregates code quality reports for JFlex.
+    The reason it's a separate maven module is because the parent is built first,
+    hence its aggregated reports.
+    Ideally, maven would run a second pass on the parent when it's also an aggregator,
+    but that's not what maven does.
+  </description>
+  <inceptionYear>2018</inceptionYear>
+  <developers>
+    <developer>
+      <id>regisd</id>
+      <name>Régis Décamps</name>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <email>benjamin.bentmann@udo.edu</email>
+      <name>Benjamin Bentmann</name>
+      <roles>
+        <role>reviewer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <email>support_0384@newplanetsoftware.com</email>
+      <name>John Lindal</name>
+      <roles>
+        <role>reviewer</role>
+      </roles>
+    </contributor>
+  </contributors>
+  <dependencies>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex-maven-plugin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>cup-maven-plugin</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex-unicode-maven-plugin</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>jacoco-initialize</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report-aggregate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

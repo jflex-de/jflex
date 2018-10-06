@@ -19,7 +19,7 @@ logi "Download google-java-format"
 logi "==========================="
 echo "TRAVIS_JDK_VERSION=$TRAVIS_JDK_VERSION"
 mkdir -p $TOOLSDIR
-curl -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o $TOOLSDIR/google-java-format.jar
+curl -C - -L https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar -o $TOOLSDIR/google-java-format.jar
 
 logi "Check java format"
 logi "================="
