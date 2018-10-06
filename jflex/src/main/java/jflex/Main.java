@@ -333,7 +333,7 @@ public class Main {
     for (String value : propertyValues) {
       propertyValuesToAliases.put(value, new TreeSet<String>());
     }
-    for (int i = 0; i < propertyValueAliases.length; i += 2) {
+    for (int i = 0; i < propertyValueAliases.length - 1; i += 2) {
       String alias = propertyValueAliases[i];
       String value = propertyValueAliases[i + 1];
       SortedSet<String> aliases = propertyValuesToAliases.get(value);
