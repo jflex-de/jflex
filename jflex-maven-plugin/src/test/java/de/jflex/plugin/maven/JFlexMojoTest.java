@@ -14,6 +14,8 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import com.google.common.base.Predicate;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -96,11 +98,11 @@ public class JFlexMojoTest {
 
   @Test
   public void extensionPredicate() {
-    Predicate<File> predicate = new JFlexMojo.ExtensionPredicate("bar", "baz");
-    assertThat(predicate.apply(new File("/tmp/foo.bar"))).isTrue();
-    assertThat(predicate.apply(new File("/tmp/foo.baz"))).isTrue();
-    assertThat(predicate.apply(new File("/tmp/foo.bar.too"))).isFalse();
-    assertThat(predicate.apply(new File("/tmp/foo.blahblahbar"))).isFalse();
+    Predicate<Path> predicate = new JFlexMojo.ExtensionPredicate("bar", "baz");
+    assertThat(predicate.test(Paths.get("/tmp/foo.bar"))).isTrue();
+    assertThat(predicate.test(Paths.get("/tmp/foo.baz"))).isTrue();
+    assertThat(predicate.test(Paths.get("/tmp/foo.bar.too"))).isFalse();
+    assertThat(predicate.test(Paths.get("/tmp/foo.blahblahbar"))).isFalse();
   }
 
   /**
