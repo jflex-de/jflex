@@ -117,7 +117,7 @@ public final class IntCharSet {
       if (elem.contains(interval)) return;
 
       if (elem.start > interval.end + 1) {
-        intervals.add(i, Interval.copyOf(interval));
+        intervals.add(i, new Interval(interval));
         return;
       }
 
@@ -142,7 +142,7 @@ public final class IntCharSet {
       return;
     }
 
-    intervals.add(Interval.copyOf(interval));
+    intervals.add(new Interval(interval));
   }
 
   /**

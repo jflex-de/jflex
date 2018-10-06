@@ -34,8 +34,9 @@ public final class Interval {
     this.end = end;
   }
 
-  public static Interval copyOf(Interval other) {
-    return new Interval(other.start, other.end);
+  public Interval(Interval other) {
+    this.start = other.start;
+    this.end = other.end;
   }
 
   /**
