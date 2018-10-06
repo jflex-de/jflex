@@ -29,20 +29,15 @@ public final class IntCharSet {
   private List<Interval> intervals = new ArrayList<>();
   private int pos;
 
-  /**
-   * Constructor for IntCharSet.
-   *
-   * @param c a int.
-   */
+  /** Creates an empty char set. */
+  public IntCharSet() {}
+
+  /** Creates a char set that contains only the given character. */
   public IntCharSet(int c) {
     this(new Interval(c, c));
   }
 
-  /**
-   * Constructor for IntCharSet.
-   *
-   * @param interval a {@link jflex.Interval} object.
-   */
+  /** Creates a charset that contains only one interval. */
   public IntCharSet(Interval interval) {
     intervals.add(interval);
   }
@@ -122,7 +117,7 @@ public final class IntCharSet {
       if (elem.contains(interval)) return;
 
       if (elem.start > interval.end + 1) {
-        intervals.add(i, new Interval(interval));
+        intervals.add(i, Interval.copyOf(interval));
         return;
       }
 
@@ -147,7 +142,7 @@ public final class IntCharSet {
       return;
     }
 
-    intervals.add(new Interval(interval));
+    intervals.add(Interval.copyOf(interval));
   }
 
   /**
