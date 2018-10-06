@@ -16,9 +16,13 @@ import org.junit.Test;
 public class ClassInfoTest {
   @Test
   public void testGetOutputFilename() {
-    ClassInfo clazz = new ClassInfo();
-    clazz.className = "Bar";
-    clazz.packageName = "org.foo";
+    ClassInfo clazz = new ClassInfo("Bar", "org.foo");
     assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("org/foo/Bar.java"));
+  }
+
+  @Test
+  public void testGetOutputFilename_defaultPackage() {
+    ClassInfo clazz = new ClassInfo("Bar", null);
+    assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("Bar.java"));
   }
 }
