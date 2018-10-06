@@ -223,7 +223,7 @@ public final class IntCharSet {
   @Override
   public int hashCode() {
     int h = 1;
-    for (Interval interval :intervals) {
+    for (Interval interval : intervals) {
       h *= 1000003;
       h ^= interval.hashCode();
     }

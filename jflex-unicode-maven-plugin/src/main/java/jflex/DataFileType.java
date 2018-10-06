@@ -11,50 +11,55 @@ import java.util.regex.Pattern;
 public enum DataFileType {
   PROPERTY_ALIASES("PropertyAliases") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      PropertyAliasesScanner scanner = new PropertyAliasesScanner(reader, version);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        PropertyAliasesScanner scanner = new PropertyAliasesScanner(reader, version);
+        scanner.scan();
+      }
     }
   },
 
   PROPERTY_VALUE_ALIASES("PropertyValueAliases") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      PropertyValueAliasesScanner scanner = new PropertyValueAliasesScanner(reader, version);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        PropertyValueAliasesScanner scanner = new PropertyValueAliasesScanner(reader, version);
+        scanner.scan();
+      }
     }
   },
 
   UNICODE_DATA("UnicodeData") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      UnicodeDataScanner scanner = new UnicodeDataScanner(reader, version);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        UnicodeDataScanner scanner = new UnicodeDataScanner(reader, version);
+        scanner.scan();
+      }
     }
   },
 
   PROPLIST("PropList") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      // Before Unicode 3.1, PropList-X.X.X.txt used a different format.
-      // Before Unicode 2.0, PropList-X.X.X.txt did not exist.
-      if (version.majorMinorVersion.equals("2.0")
-          || version.majorMinorVersion.equals("2.1")
-          || version.majorMinorVersion.equals("3.0")) {
-        ArchaicPropListScanner scanner = new ArchaicPropListScanner(reader, version);
-        scanner.scan();
-      } else {
-        BinaryPropertiesFileScanner scanner = new BinaryPropertiesFileScanner(reader, version);
-        scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        // Before Unicode 3.1, PropList-X.X.X.txt used a different format.
+        // Before Unicode 2.0, PropList-X.X.X.txt did not exist.
+        if (version.majorMinorVersion.equals("2.0")
+            || version.majorMinorVersion.equals("2.1")
+            || version.majorMinorVersion.equals("3.0")) {
+          ArchaicPropListScanner scanner = new ArchaicPropListScanner(reader, version);
+          scanner.scan();
+        } else {
+          BinaryPropertiesFileScanner scanner = new BinaryPropertiesFileScanner(reader, version);
+          scanner.scan();
+        }
       }
     }
   },
 
   DERIVED_CORE_PROPERTIES("DerivedCoreProperties") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      BinaryPropertiesFileScanner scanner = new BinaryPropertiesFileScanner(reader, version);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        BinaryPropertiesFileScanner scanner = new BinaryPropertiesFileScanner(reader, version);
+        scanner.scan();
+      }
     }
   },
 
@@ -70,89 +75,96 @@ public enum DataFileType {
           || version.majorMinorVersion.equals("4.1")) {
         defaultPropertyValue = "Common";
       }
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(reader, version, "Script", defaultPropertyValue);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        EnumeratedPropertyFileScanner scanner =
+            new EnumeratedPropertyFileScanner(reader, version, "Script", defaultPropertyValue);
+        scanner.scan();
+      }
     }
   },
 
   // SCRIPT_EXTENSIONS must follow SCRIPTS
   SCRIPT_EXTENSIONS("ScriptExtensions") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")){
       ScriptExtensionsScanner scanner =
           new ScriptExtensionsScanner(reader, version, "Script_Extensions");
       scanner.scan();
-    }
+    }}
   },
 
   BLOCKS("Blocks") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      // Before Unicode 3.1, Blocks-X.txt used a different format.
-      // Before Unicode 2.0, Blocks-X.txt did not exist.
-      if (version.majorMinorVersion.equals("2.0")
-          || version.majorMinorVersion.equals("2.1")
-          || version.majorMinorVersion.equals("3.0")) {
-        ArchaicBlocksScanner scanner = new ArchaicBlocksScanner(reader, version);
-        scanner.scan();
-      } else {
-        EnumeratedPropertyFileScanner scanner =
-            new EnumeratedPropertyFileScanner(reader, version, "Block", "No_Block");
-        scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        // Before Unicode 3.1, Blocks-X.txt used a different format.
+        // Before Unicode 2.0, Blocks-X.txt did not exist.
+        if (version.majorMinorVersion.equals("2.0")
+            || version.majorMinorVersion.equals("2.1")
+            || version.majorMinorVersion.equals("3.0")) {
+          ArchaicBlocksScanner scanner = new ArchaicBlocksScanner(reader, version);
+          scanner.scan();
+        } else {
+          EnumeratedPropertyFileScanner scanner =
+              new EnumeratedPropertyFileScanner(reader, version, "Block", "No_Block");
+          scanner.scan();
+        }
       }
     }
   },
 
   LINE_BREAK("LineBreak") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      // In Unicode 3.0, LineBreak-X.txt used a different format.
-      // Before Unicode 3.0, LineBreak-X.txt did not exist.
-      if (version.majorMinorVersion.equals("3.0")) {
-        ArchaicLineBreakScanner scanner = new ArchaicLineBreakScanner(reader, version);
-        scanner.scan();
-      } else {
-        EnumeratedPropertyFileScanner scanner =
-            new EnumeratedPropertyFileScanner(reader, version, "Line_Break", "XX");
-        scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        // In Unicode 3.0, LineBreak-X.txt used a different format.
+        // Before Unicode 3.0, LineBreak-X.txt did not exist.
+        if (version.majorMinorVersion.equals("3.0")) {
+          ArchaicLineBreakScanner scanner = new ArchaicLineBreakScanner(reader, version);
+          scanner.scan();
+        } else {
+          EnumeratedPropertyFileScanner scanner =
+              new EnumeratedPropertyFileScanner(reader, version, "Line_Break", "XX");
+          scanner.scan();
+        }
       }
     }
   },
 
   GRAPHEME_BREAK_PROPERTY("GraphemeBreakProperty") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(reader, version, "Grapheme_Cluster_Break", "Other");
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        EnumeratedPropertyFileScanner scanner =
+            new EnumeratedPropertyFileScanner(reader, version, "Grapheme_Cluster_Break", "Other");
+        scanner.scan();
+      }
     }
   },
 
   SENTENCE_BREAK_PROPERTY("SentenceBreakProperty") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(reader, version, "Sentence_Break", "Other");
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        EnumeratedPropertyFileScanner scanner =
+            new EnumeratedPropertyFileScanner(reader, version, "Sentence_Break", "Other");
+        scanner.scan();
+      }
     }
   },
 
   WORD_BREAK_PROPERTY("WordBreakProperty") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(reader, version, "Word_Break", "Other");
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        EnumeratedPropertyFileScanner scanner =
+            new EnumeratedPropertyFileScanner(reader, version, "Word_Break", "Other");
+        scanner.scan();
+      }
     }
   },
 
   DERIVED_AGE("DerivedAge") {
     public void scan(URL url, UnicodeVersion version) throws IOException {
-      Reader reader = new InputStreamReader(url.openStream(), "UTF-8");
-      DerivedAgeScanner scanner = new DerivedAgeScanner(reader, version);
-      scanner.scan();
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        DerivedAgeScanner scanner = new DerivedAgeScanner(reader, version);
+        scanner.scan();
+      }
     }
     /**
      * Always return the URL for the latest Unicode version's DerivedAge.txt, except for Unicode

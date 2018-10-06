@@ -58,9 +58,7 @@ public final class Interval {
     return this.start <= other.start && this.end >= other.end;
   }
 
-  /**
-   * Returns {@code true} if {@code o} is an interval with the same borders.
-   */
+  /** Returns {@code true} if {@code o} is an interval with the same borders. */
   @Override
   public boolean equals(Object o) {
     if (o == this) return true;
@@ -111,9 +109,9 @@ public final class Interval {
   /**
    * Returns a String representation of this interval.
    *
-   * @return a string "{@code [start-end]}" or "{@code [start]}" (if there is only one
-   *     character in the interval) where {@code start} and {@code end} are either a number
-   *     (the character code) or something of the from {@code 'a'}.
+   * @return a string "{@code [start-end]}" or "{@code [start]}" (if there is only one character in
+   *     the interval) where {@code start} and {@code end} are either a number (the character code)
+   *     or something of the from {@code 'a'}.
    */
   public String toString() {
     StringBuilder result = new StringBuilder("[");

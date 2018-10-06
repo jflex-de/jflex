@@ -99,8 +99,7 @@ public class Skeleton {
 
     Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
+    try (BufferedReader reader = new BufferedReader(new FileReader(skeletonFile))) {
       readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR);
@@ -186,8 +185,7 @@ public class Skeleton {
       throw new GeneratorException();
     }
 
-    try {
-      InputStreamReader reader = new InputStreamReader(url.openStream());
+    try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
       readSkel(new BufferedReader(reader));
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
