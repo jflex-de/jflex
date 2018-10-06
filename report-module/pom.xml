@@ -82,23 +82,11 @@
             </goals>
           </execution>
           <execution>
-            <id>merge</id>
+            <id>report</id>
             <phase>test</phase>
             <goals>
-              <goal>merge</goal>
+              <goal>report-aggregate</goal>
             </goals>
-            <configuration>
-              <fileSets>
-                <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-                  <!--<directory>${project.parent.basedir}</directory>-->
-                  <directory>..</directory>
-                  <includes>
-                    <include>**/target/jacoco.exec</include>
-                  </includes>
-                </fileSet>
-              </fileSets>
-              <destFile>${project.build.directory}/jacoco.merged.exec</destFile>
-            </configuration>
           </execution>
         </executions>
       </plugin>
