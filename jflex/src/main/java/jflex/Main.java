@@ -9,13 +9,15 @@
 
 package jflex;
 
+import static jflex.Options.encoding;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,7 @@ import jflex.unicode.UnicodeProperties;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Main {
@@ -60,11 +63,12 @@ public class Main {
 
     try {
       Out.println(ErrorMessages.READING, inputFile.toString());
-      inputReader = new InputStreamReader(new FileInputStream(inputFile), Options.encoding);
+      inputReader =
+          new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding);
       scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
       parser = new LexParse(scanner);
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       Out.error(ErrorMessages.CANNOT_OPEN, inputFile.toString());
       throw new GeneratorException();
     }

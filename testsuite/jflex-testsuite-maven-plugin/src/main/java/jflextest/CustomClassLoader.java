@@ -2,10 +2,11 @@ package jflextest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -134,8 +135,7 @@ public class CustomClassLoader extends ClassLoader {
   private byte[] loadFileData(String path, String fileName) {
     File file = new File(path, fileName);
     if (file.canRead()) {
-      try {
-        FileInputStream stream = new FileInputStream(file);
+      try (InputStream stream = Files.newInputStream(Paths.get(file.toString()))) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(1000);
         byte[] b = new byte[1000];
         int n;
@@ -144,7 +144,7 @@ public class CustomClassLoader extends ClassLoader {
         out.close();
         return out.toByteArray();
       } catch (IOException e) {
-        // ignore, maybe another path item succeds
+        // ignore, maybe another path item succeeds
       }
     }
     return null;
@@ -166,7 +166,7 @@ public class CustomClassLoader extends ClassLoader {
     File file = new File(path, name);
     if (file.canRead()) {
       try {
-        return new FileInputStream(file);
+        return Files.newInputStream(Paths.get(file.toString()));
       } catch (IOException e) {
         return null;
       }
