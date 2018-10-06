@@ -14,25 +14,20 @@ import java.util.List;
 import jflex.unicode.UnicodeProperties;
 
 /**
- * CharSet implemented with intervals
- *
- * <p>[fixme: optimizations possible]
+ * CharSet implemented with intervals.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
+// FIXME: optimizations possible
 public final class IntCharSet {
 
   private static final boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
-  private List<Interval> intervals;
+  private List<Interval> intervals = new ArrayList<>();
   private int pos;
-
-  /** Constructor for IntCharSet. */
-  public IntCharSet() {
-    this.intervals = new ArrayList<>();
-  }
 
   /**
    * Constructor for IntCharSet.
@@ -49,7 +44,6 @@ public final class IntCharSet {
    * @param interval a {@link jflex.Interval} object.
    */
   public IntCharSet(Interval interval) {
-    this();
     intervals.add(interval);
   }
 
@@ -216,10 +210,24 @@ public final class IntCharSet {
    *
    * <p>o instanceof Interval
    */
+  @Override
   public boolean equals(Object o) {
+    if (!(o instanceof IntCharSet)) {
+      return false;
+    }
     IntCharSet set = (IntCharSet) o;
 
     return intervals.equals(set.intervals);
+  }
+
+  @Override
+  public int hashCode() {
+    int h = 1;
+    for (Interval interval :intervals) {
+      h *= 1000003;
+      h ^= interval.hashCode();
+    }
+    return h;
   }
 
   private int min(int a, int b) {
