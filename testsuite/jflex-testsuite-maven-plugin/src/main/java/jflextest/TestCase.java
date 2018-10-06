@@ -2,12 +2,14 @@ package jflextest;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -281,17 +283,13 @@ public class TestCase {
     if (expected.exists()) {
       DiffStream check = new DiffStream();
       String diff;
-      try {
+      try (InputStreamReader expectedContent =
+          new InputStreamReader(
+              Files.newInputStream(Paths.get(expected.toString())), outputFileEncoding)) {
         diff =
-            check.diff(
-                jflexDiff,
-                new StringReader(classExecResult.getOutput()),
-                new InputStreamReader(new FileInputStream(expected), outputFileEncoding));
-      } catch (FileNotFoundException e) {
+            check.diff(jflexDiff, new StringReader(classExecResult.getOutput()), expectedContent);
+      } catch (IOException e) {
         System.out.println("Error opening file " + expected);
-        throw new TestFailException();
-      } catch (UnsupportedEncodingException e) {
-        System.out.println("Unsupported encoding '" + outputFileEncoding + "'");
         throw new TestFailException();
       }
       if (diff != null) {

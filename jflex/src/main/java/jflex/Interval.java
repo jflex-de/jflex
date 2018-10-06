@@ -13,12 +13,15 @@ package jflex;
  * An interval of characters with basic operations.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class Interval {
 
-  /* start and end of the interval */
-  public int start, end;
+  /** Start of the interval. */
+  public int start;
+  /** End of the interval. */
+  public int end;
 
   /**
    * Construct a new interval from {@code start</code> to <code>end}.
@@ -31,21 +34,16 @@ public final class Interval {
     this.end = end;
   }
 
-  /**
-   * Copy constructor.
-   *
-   * @param other a {@link jflex.Interval} object.
-   */
   public Interval(Interval other) {
     this.start = other.start;
     this.end = other.end;
   }
 
   /**
-   * Return {@code true</code> iff <code>point} is contained in this interval.
+   * Returns {@code true} iff {@code point} is contained in this interval.
    *
    * @param point the character to check
-   * @return whether the codepoint is contained in the interval.
+   * @return whether the code point is contained in the interval.
    */
   public boolean contains(int point) {
     return start <= point && end >= point;
@@ -61,17 +59,24 @@ public final class Interval {
     return this.start <= other.start && this.end >= other.end;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Return {@code true</code> if <code>o} is an interval with the same borders.
-   */
+  /** Returns {@code true} if {@code o} is an interval with the same borders. */
+  @Override
   public boolean equals(Object o) {
     if (o == this) return true;
     if (!(o instanceof Interval)) return false;
 
     Interval other = (Interval) o;
     return other.start == this.start && other.end == this.end;
+  }
+
+  @Override
+  public int hashCode() {
+    int h = 1;
+    h *= 1000003;
+    h ^= start;
+    h *= 1000003;
+    h ^= end;
+    return h;
   }
 
   /**
@@ -99,15 +104,15 @@ public final class Interval {
    */
   private static boolean isPrintable(int c) {
     // fixme: should make unicode test here
-    return c > 31 && c < 127;
+    return 31 < c && c < 127;
   }
 
   /**
-   * Get a String representation of this interval.
+   * Returns a String representation of this interval.
    *
-   * @return a string {@code "[start-end]"</code> or <code>"[start]"} (if there is only one
-   *     character in the interval) where {@code start</code> and <code>end} are either a number
-   *     (the character code) or something of the from {@code 'a'}.
+   * @return a string "{@code [start-end]}" or "{@code [start]}" (if there is only one character in
+   *     the interval) where {@code start} and {@code end} are either a number (the character code)
+   *     or something of the from {@code 'a'}.
    */
   public String toString() {
     StringBuilder result = new StringBuilder("[");
