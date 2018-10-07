@@ -41,7 +41,6 @@ import jflex.unicode.data.Unicode_9_0;
  * downloaded from unicode.org.
  *
  * @author JFlex contributors.
-
  */
 public class UnicodeProperties {
 

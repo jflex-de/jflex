@@ -4,7 +4,6 @@ package jflex.unicode.data;
  * Unicode_6_2 class.
  *
  * @author JFlex contributors.
-
  */
 public class Unicode_6_2 {
   /** Constant {@code maximumCodePoint=0x10ffff} */
