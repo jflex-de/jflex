@@ -9,6 +9,8 @@
 
 package jflex;
 
+import static jflex.RegExp.revString;
+
 import junit.framework.TestCase;
 
 /**
@@ -29,7 +31,7 @@ public class RegExpTests extends TestCase implements sym {
   }
 
   public void testrevString() {
-    assertTrue(RegExp.revString("blah").equals("halb"));
+    assertEquals("halb", revString("blah"));
   }
 
   public void testCharClass() {

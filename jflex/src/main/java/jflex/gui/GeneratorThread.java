@@ -10,6 +10,7 @@
 package jflex.gui;
 
 import java.io.File;
+import java.util.Objects;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
 import jflex.Main;
@@ -58,7 +59,7 @@ public class GeneratorThread extends Thread {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
-        if (!outputDir.equals("")) {
+        if (!Objects.equals(outputDir, "")) {
           Options.setDir(outputDir);
         }
         Main.generate(new File(inputFile));

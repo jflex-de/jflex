@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import jflex.Main;
 import jflex.Options;
 import org.apache.maven.plugin.AbstractMojo;
@@ -219,11 +222,11 @@ public class JFlexMojo extends AbstractMojo {
 
     Options.no_minimize = !minimize; // NOPMD
     Options.no_backup = !backup; // NOPMD
-    if (!"pack".equals(generationMethod)) {
+    if (!Objects.equals("pack", generationMethod)) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
-    if (!"".equals(encodingName)) {
+    if (!isNullOrEmpty(encodingName)) {
       try {
         Options.setEncoding(encodingName);
       } catch (Exception e) {

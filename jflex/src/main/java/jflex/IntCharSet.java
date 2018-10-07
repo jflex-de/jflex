@@ -11,6 +11,7 @@ package jflex;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import jflex.unicode.UnicodeProperties;
 
 /**
@@ -212,7 +213,7 @@ public final class IntCharSet {
     }
     IntCharSet set = (IntCharSet) o;
 
-    return intervals.equals(set.intervals);
+    return Objects.equals(intervals, set.intervals);
   }
 
   @Override

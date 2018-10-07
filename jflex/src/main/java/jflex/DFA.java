@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
@@ -173,7 +174,7 @@ public final class DFA {
       if (isFinal[i]) {
         result.append("[FINAL");
         String l = action[i].lookString();
-        if (!l.equals("")) {
+        if (!Objects.equals(l, "")) {
           result.append(", ");
           result.append(l);
         }
@@ -255,7 +256,7 @@ public final class DFA {
     EOFActions eofActions = parser.getEOFActions();
 
     for (Action a : scanner.actions)
-      if (!a.equals(usedActions.get(a)) && !eofActions.isEOFAction(a))
+      if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
         Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
   }
 

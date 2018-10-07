@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import org.apache.maven.plugin.MojoFailureException;
 
 public class TestCase {
@@ -129,7 +130,7 @@ public class TestCase {
     String name;
     for (String file : testDir.list()) {
       if (null != commonInputFile) {
-        if (file.equals(testName + ".output")) {
+        if (Objects.equals(file, testName + ".output")) {
           temp.add(new InputOutput((new File(testDir, testName)).toString(), true));
           commonInputFile = (new File(testDir, commonInputFile)).toString();
         }

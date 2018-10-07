@@ -9,10 +9,14 @@
 
 package jflex;
 
+import static jflex.ErrorMessages.MACRO_CYCLE;
+import static jflex.ErrorMessages.get;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Symbol table and expander for macros.
@@ -156,8 +160,7 @@ public final class Macros {
       case sym.MACROUSE:
         String usename = (String) ((RegExp1) definition).content;
 
-        if (name.equals(usename))
-          throw new MacroException(ErrorMessages.get(ErrorMessages.MACRO_CYCLE, name));
+        if (Objects.equals(name, usename)) throw new MacroException(get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 
