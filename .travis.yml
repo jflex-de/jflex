@@ -68,6 +68,8 @@ matrix:
     language: generic
     install:
     - sudo apt-get install -y pandoc texlive
+    - tlmgr init-usertree
+    - tlmgr install upquote
     script:
     - cd docs; make; cd ..
 
