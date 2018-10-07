@@ -18,6 +18,7 @@ public class IntCharSetTest extends TestCase {
     IntCharSet original_a = a.copy();
     IntCharSet b = new IntCharSet(new Interval((char) 0, (char) 4));
     a.add(b);
-    assertTrue(original_a + " + " + b + " should be " + b + " instead of " + a, a.equals(b));
+    assertTrue(
+        original_a + " + " + b + " should be " + b + " instead of " + a, Objects.equals(a, b));
   }
 }

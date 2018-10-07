@@ -212,7 +212,7 @@ public final class IntCharSet {
     }
     IntCharSet set = (IntCharSet) o;
 
-    return intervals.equals(set.intervals);
+    return Objects.equals(intervals, set.intervals);
   }
 
   @Override

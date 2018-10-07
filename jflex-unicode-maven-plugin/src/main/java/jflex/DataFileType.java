@@ -41,9 +41,9 @@ public enum DataFileType {
       try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
         // Before Unicode 3.1, PropList-X.X.X.txt used a different format.
         // Before Unicode 2.0, PropList-X.X.X.txt did not exist.
-        if (version.majorMinorVersion.equals("2.0")
-            || version.majorMinorVersion.equals("2.1")
-            || version.majorMinorVersion.equals("3.0")) {
+        if (Objects.equals(version.majorMinorVersion, "2.0")
+            || Objects.equals(version.majorMinorVersion, "2.1")
+            || Objects.equals(version.majorMinorVersion, "3.0")) {
           ArchaicPropListScanner scanner = new ArchaicPropListScanner(reader, version);
           scanner.scan();
         } else {
@@ -69,10 +69,10 @@ public enum DataFileType {
       // From Unicode 5.0 onward, the default Script property value is "Unknown".
       // Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
       String defaultPropertyValue = "Unknown";
-      if (version.majorMinorVersion.equals("3.1")
-          || version.majorMinorVersion.equals("3.2")
-          || version.majorMinorVersion.equals("4.0")
-          || version.majorMinorVersion.equals("4.1")) {
+      if (Objects.equals(version.majorMinorVersion, "3.1")
+          || Objects.equals(version.majorMinorVersion, "3.2")
+          || Objects.equals(version.majorMinorVersion, "4.0")
+          || Objects.equals(version.majorMinorVersion, "4.1")) {
         defaultPropertyValue = "Common";
       }
       try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
@@ -99,9 +99,9 @@ public enum DataFileType {
       try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
         // Before Unicode 3.1, Blocks-X.txt used a different format.
         // Before Unicode 2.0, Blocks-X.txt did not exist.
-        if (version.majorMinorVersion.equals("2.0")
-            || version.majorMinorVersion.equals("2.1")
-            || version.majorMinorVersion.equals("3.0")) {
+        if (Objects.equals(version.majorMinorVersion, "2.0")
+            || Objects.equals(version.majorMinorVersion, "2.1")
+            || Objects.equals(version.majorMinorVersion, "3.0")) {
           ArchaicBlocksScanner scanner = new ArchaicBlocksScanner(reader, version);
           scanner.scan();
         } else {
@@ -118,7 +118,7 @@ public enum DataFileType {
       try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
         // In Unicode 3.0, LineBreak-X.txt used a different format.
         // Before Unicode 3.0, LineBreak-X.txt did not exist.
-        if (version.majorMinorVersion.equals("3.0")) {
+        if (Objects.equals(version.majorMinorVersion, "3.0")) {
           ArchaicLineBreakScanner scanner = new ArchaicLineBreakScanner(reader, version);
           scanner.scan();
         } else {

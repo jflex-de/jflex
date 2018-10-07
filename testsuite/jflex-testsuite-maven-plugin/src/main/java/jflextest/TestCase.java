@@ -129,7 +129,7 @@ public class TestCase {
     String name;
     for (String file : testDir.list()) {
       if (null != commonInputFile) {
-        if (file.equals(testName + ".output")) {
+        if (Objects.equals(file, testName + ".output")) {
           temp.add(new InputOutput((new File(testDir, testName)).toString(), true));
           commonInputFile = (new File(testDir, commonInputFile)).toString();
         }

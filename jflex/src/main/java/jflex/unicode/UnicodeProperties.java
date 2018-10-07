@@ -41,7 +41,6 @@ import jflex.unicode.data.Unicode_9_0;
  * downloaded from unicode.org.
  *
  * @author JFlex contributors.
-
  */
 public class UnicodeProperties {
 
@@ -159,7 +158,7 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
 
-    if (version.equals("1.1") || version.equals("1.1.5")) {
+    if (Objects.equals(version, "1.1") || Objects.equals(version, "1.1.5")) {
       bind(
           Unicode_1_1.propertyValues,
           Unicode_1_1.intervals,
@@ -167,7 +166,9 @@ public class UnicodeProperties {
           Unicode_1_1.maximumCodePoint,
           Unicode_1_1.caselessMatchPartitions,
           Unicode_1_1.caselessMatchPartitionSize);
-    } else if (version.equals("2") || version.equals("2.0") || version.equals("2.0.14")) {
+    } else if (Objects.equals(version, "2")
+        || Objects.equals(version, "2.0")
+        || Objects.equals(version, "2.0.14")) {
       bind(
           Unicode_2_0.propertyValues,
           Unicode_2_0.intervals,
@@ -175,7 +176,7 @@ public class UnicodeProperties {
           Unicode_2_0.maximumCodePoint,
           Unicode_2_0.caselessMatchPartitions,
           Unicode_2_0.caselessMatchPartitionSize);
-    } else if (version.equals("2.1") || version.equals("2.1.9")) {
+    } else if (Objects.equals(version, "2.1") || Objects.equals(version, "2.1.9")) {
       bind(
           Unicode_2_1.propertyValues,
           Unicode_2_1.intervals,
@@ -183,7 +184,9 @@ public class UnicodeProperties {
           Unicode_2_1.maximumCodePoint,
           Unicode_2_1.caselessMatchPartitions,
           Unicode_2_1.caselessMatchPartitionSize);
-    } else if (version.equals("3") || version.equals("3.0") || version.equals("3.0.1")) {
+    } else if (Objects.equals(version, "3")
+        || Objects.equals(version, "3.0")
+        || Objects.equals(version, "3.0.1")) {
       bind(
           Unicode_3_0.propertyValues,
           Unicode_3_0.intervals,
@@ -191,7 +194,7 @@ public class UnicodeProperties {
           Unicode_3_0.maximumCodePoint,
           Unicode_3_0.caselessMatchPartitions,
           Unicode_3_0.caselessMatchPartitionSize);
-    } else if (version.equals("3.1") || version.equals("3.1.0")) {
+    } else if (Objects.equals(version, "3.1") || Objects.equals(version, "3.1.0")) {
       bind(
           Unicode_3_1.propertyValues,
           Unicode_3_1.intervals,
@@ -199,7 +202,7 @@ public class UnicodeProperties {
           Unicode_3_1.maximumCodePoint,
           Unicode_3_1.caselessMatchPartitions,
           Unicode_3_1.caselessMatchPartitionSize);
-    } else if (version.equals("3.2") || version.equals("3.2.0")) {
+    } else if (Objects.equals(version, "3.2") || Objects.equals(version, "3.2.0")) {
       bind(
           Unicode_3_2.propertyValues,
           Unicode_3_2.intervals,
@@ -207,7 +210,9 @@ public class UnicodeProperties {
           Unicode_3_2.maximumCodePoint,
           Unicode_3_2.caselessMatchPartitions,
           Unicode_3_2.caselessMatchPartitionSize);
-    } else if (version.equals("4") || version.equals("4.0") || version.equals("4.0.1")) {
+    } else if (Objects.equals(version, "4")
+        || Objects.equals(version, "4.0")
+        || Objects.equals(version, "4.0.1")) {
       bind(
           Unicode_4_0.propertyValues,
           Unicode_4_0.intervals,
@@ -215,7 +220,7 @@ public class UnicodeProperties {
           Unicode_4_0.maximumCodePoint,
           Unicode_4_0.caselessMatchPartitions,
           Unicode_4_0.caselessMatchPartitionSize);
-    } else if (version.equals("4.1") || version.equals("4.1.0")) {
+    } else if (Objects.equals(version, "4.1") || Objects.equals(version, "4.1.0")) {
       bind(
           Unicode_4_1.propertyValues,
           Unicode_4_1.intervals,
@@ -223,7 +228,9 @@ public class UnicodeProperties {
           Unicode_4_1.maximumCodePoint,
           Unicode_4_1.caselessMatchPartitions,
           Unicode_4_1.caselessMatchPartitionSize);
-    } else if (version.equals("5") || version.equals("5.0") || version.equals("5.0.0")) {
+    } else if (Objects.equals(version, "5")
+        || Objects.equals(version, "5.0")
+        || Objects.equals(version, "5.0.0")) {
       bind(
           Unicode_5_0.propertyValues,
           Unicode_5_0.intervals,
@@ -231,7 +238,7 @@ public class UnicodeProperties {
           Unicode_5_0.maximumCodePoint,
           Unicode_5_0.caselessMatchPartitions,
           Unicode_5_0.caselessMatchPartitionSize);
-    } else if (version.equals("5.1") || version.equals("5.1.0")) {
+    } else if (Objects.equals(version, "5.1") || Objects.equals(version, "5.1.0")) {
       bind(
           Unicode_5_1.propertyValues,
           Unicode_5_1.intervals,
@@ -239,7 +246,7 @@ public class UnicodeProperties {
           Unicode_5_1.maximumCodePoint,
           Unicode_5_1.caselessMatchPartitions,
           Unicode_5_1.caselessMatchPartitionSize);
-    } else if (version.equals("5.2") || version.equals("5.2.0")) {
+    } else if (Objects.equals(version, "5.2") || Objects.equals(version, "5.2.0")) {
       bind(
           Unicode_5_2.propertyValues,
           Unicode_5_2.intervals,
@@ -247,7 +254,9 @@ public class UnicodeProperties {
           Unicode_5_2.maximumCodePoint,
           Unicode_5_2.caselessMatchPartitions,
           Unicode_5_2.caselessMatchPartitionSize);
-    } else if (version.equals("6") || version.equals("6.0") || version.equals("6.0.0")) {
+    } else if (Objects.equals(version, "6")
+        || Objects.equals(version, "6.0")
+        || Objects.equals(version, "6.0.0")) {
       bind(
           Unicode_6_0.propertyValues,
           Unicode_6_0.intervals,
@@ -255,7 +264,7 @@ public class UnicodeProperties {
           Unicode_6_0.maximumCodePoint,
           Unicode_6_0.caselessMatchPartitions,
           Unicode_6_0.caselessMatchPartitionSize);
-    } else if (version.equals("6.1") || version.equals("6.1.0")) {
+    } else if (Objects.equals(version, "6.1") || Objects.equals(version, "6.1.0")) {
       bind(
           Unicode_6_1.propertyValues,
           Unicode_6_1.intervals,
@@ -263,7 +272,7 @@ public class UnicodeProperties {
           Unicode_6_1.maximumCodePoint,
           Unicode_6_1.caselessMatchPartitions,
           Unicode_6_1.caselessMatchPartitionSize);
-    } else if (version.equals("6.2") || version.equals("6.2.0")) {
+    } else if (Objects.equals(version, "6.2") || Objects.equals(version, "6.2.0")) {
       bind(
           Unicode_6_2.propertyValues,
           Unicode_6_2.intervals,
@@ -271,7 +280,7 @@ public class UnicodeProperties {
           Unicode_6_2.maximumCodePoint,
           Unicode_6_2.caselessMatchPartitions,
           Unicode_6_2.caselessMatchPartitionSize);
-    } else if (version.equals("6.3") || version.equals("6.3.0")) {
+    } else if (Objects.equals(version, "6.3") || Objects.equals(version, "6.3.0")) {
       bind(
           Unicode_6_3.propertyValues,
           Unicode_6_3.intervals,
@@ -279,7 +288,9 @@ public class UnicodeProperties {
           Unicode_6_3.maximumCodePoint,
           Unicode_6_3.caselessMatchPartitions,
           Unicode_6_3.caselessMatchPartitionSize);
-    } else if (version.equals("7") || version.equals("7.0") || version.equals("7.0.0")) {
+    } else if (Objects.equals(version, "7")
+        || Objects.equals(version, "7.0")
+        || Objects.equals(version, "7.0.0")) {
       bind(
           Unicode_7_0.propertyValues,
           Unicode_7_0.intervals,
@@ -287,7 +298,9 @@ public class UnicodeProperties {
           Unicode_7_0.maximumCodePoint,
           Unicode_7_0.caselessMatchPartitions,
           Unicode_7_0.caselessMatchPartitionSize);
-    } else if (version.equals("8") || version.equals("8.0") || version.equals("8.0.0")) {
+    } else if (Objects.equals(version, "8")
+        || Objects.equals(version, "8.0")
+        || Objects.equals(version, "8.0.0")) {
       bind(
           Unicode_8_0.propertyValues,
           Unicode_8_0.intervals,
@@ -295,7 +308,9 @@ public class UnicodeProperties {
           Unicode_8_0.maximumCodePoint,
           Unicode_8_0.caselessMatchPartitions,
           Unicode_8_0.caselessMatchPartitionSize);
-    } else if (version.equals("9") || version.equals("9.0") || version.equals("9.0.0")) {
+    } else if (Objects.equals(version, "9")
+        || Objects.equals(version, "9.0")
+        || Objects.equals(version, "9.0.0")) {
       bind(
           Unicode_9_0.propertyValues,
           Unicode_9_0.intervals,

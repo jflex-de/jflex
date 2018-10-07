@@ -574,7 +574,7 @@ public final class NFA {
       if (isFinal[i]) {
         result.append("[FINAL");
         String l = action[i].lookString();
-        if (!l.equals("")) {
+        if (!Objects.equals(l, "")) {
           result.append(", ");
           result.append(l);
         }

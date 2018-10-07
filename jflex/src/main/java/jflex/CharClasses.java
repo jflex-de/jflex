@@ -129,15 +129,15 @@ public class CharClasses {
     for (int i = 0; i < oldSize; i++) {
       IntCharSet x = classes.get(i);
 
-      if (x.equals(set)) return;
+      if (Objects.equals(x, set)) return;
 
       IntCharSet and = x.and(set);
 
       if (and.containsElements()) {
-        if (x.equals(and)) {
+        if (Objects.equals(x, and)) {
           set.sub(and);
           continue;
-        } else if (set.equals(and)) {
+        } else if (Objects.equals(set, and)) {
           x.sub(and);
           classes.add(and);
           if (DEBUG) {

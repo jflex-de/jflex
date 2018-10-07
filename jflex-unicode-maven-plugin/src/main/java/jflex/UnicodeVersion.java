@@ -302,7 +302,7 @@ class UnicodeVersion {
           // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
           // value, as are the previous code points, so to include
           // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-          if (range.end == 0x4E00 && majorMinorVersion.equals("1.1")) {
+          if (range.end == 0x4E00 && Objects.equals(majorMinorVersion, "1.1")) {
             range.end = 0x9FFF;
           }
           intervals.add(new NamedRangeSet(range));
@@ -355,7 +355,8 @@ class UnicodeVersion {
       List<NamedRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
       if (!ranges.isEmpty()) {
         String canonicalValue = propName + '=' + propValue;
-        if (propName.equals(NORMALIZED_GENERAL_CATEGORY) || propName.equals(NORMALIZED_SCRIPT)) {
+        if (Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)
+            || Objects.equals(propName, NORMALIZED_SCRIPT)) {
           canonicalValue = propValue;
         }
         NamedRangeSet intervals = propertyValueIntervals.get(canonicalValue);
@@ -374,7 +375,9 @@ class UnicodeVersion {
           //   FE70; FEFF; Arabic Presentation Forms-B
           //   ...
           //   FEFF; FEFF; Specials
-          if (range.start == 0xFE70 && range.end == 0xFEFF && majorMinorVersion.equals("2.0")) {
+          if (range.start == 0xFE70
+              && range.end == 0xFEFF
+              && Objects.equals(majorMinorVersion, "2.0")) {
             range.end = 0xFEFE;
           }
           intervals.add(new NamedRangeSet(range));
@@ -388,7 +391,7 @@ class UnicodeVersion {
 
         // Initial letters of two-letter General Category property values
         // should be put on the used property values list
-        if (propName.equals(NORMALIZED_GENERAL_CATEGORY) && propValue.length() == 2) {
+        if (Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY) && propValue.length() == 2) {
           String firstLetter = propValue.substring(0, 1);
           usedValues.add(firstLetter);
         }
@@ -493,7 +496,7 @@ class UnicodeVersion {
     SortedMap<String, String> usedPropertyValueAliases = new TreeMap<>();
     for (String binaryProperty : usedBinaryProperties) {
       for (String nameAlias : getPropertyAliases(binaryProperty)) {
-        if (!nameAlias.equals(binaryProperty)) {
+        if (!Objects.equals(nameAlias, binaryProperty)) {
           usedPropertyValueAliases.put(nameAlias, binaryProperty);
         }
       }
@@ -509,10 +512,11 @@ class UnicodeVersion {
         String canonicalValue = propName + '=' + propValue;
 
         // Add value-only aliases for General Category and Script properties.
-        if (propName.equals(NORMALIZED_SCRIPT) || propName.equals(NORMALIZED_GENERAL_CATEGORY)) {
+        if (Objects.equals(propName, NORMALIZED_SCRIPT)
+            || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)) {
           canonicalValue = propValue;
           for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
-            if (!valueAlias.equals(propValue)) {
+            if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
             }
           }
@@ -523,9 +527,10 @@ class UnicodeVersion {
             // all possible alias combinations, exclude the one that is the same
             // as the full property name + full property value, unless the
             // property is General Category or Script.
-            if (propName.equals(NORMALIZED_SCRIPT)
-                || propName.equals(NORMALIZED_GENERAL_CATEGORY)
-                || !(nameAlias.equals(propName) && valueAlias.equals(propValue))) {
+            if (Objects.equals(propName, NORMALIZED_SCRIPT)
+                || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)
+                || !(Objects.equals(nameAlias, propName)
+                    && Objects.equals(valueAlias, propValue))) {
               String alias = nameAlias + '=' + valueAlias;
               usedPropertyValueAliases.put(alias, canonicalValue);
             }

@@ -92,7 +92,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("Empty interval set returned for \\p{Lo}", set_1.containsElements());
       assertTrue(
           "\\p{General Category : Other Letter} and \\p{Lo} should" + " return the same thing.",
-          set_1.equals(set_2));
+          Objects.equals(set_1, set_2));
 
       set_1 = properties.getIntCharSet(" Script:Tibetan ");
       assertNotNull("Null interval set returned for \\p{ Script:Tibetan }", set_1);
@@ -102,7 +102,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("Empty interval set returned for \\p{-_T i b t_-}", set_1.containsElements());
       assertTrue(
           "\\p{ Script:Tibetan } and \\p{-_T i b t_-} should" + " return the same thing.",
-          set_1.equals(set_2));
+          Objects.equals(set_1, set_2));
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       fail("Default version is unsupported: " + e);
     }
@@ -240,7 +240,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 
-      assertTrue("\\p{S} is not the same as \\p{Symbol}", set_1.equals(set_2));
+      assertTrue("\\p{S} is not the same as \\p{Symbol}", Objects.equals(set_1, set_2));
 
       // 0024;DOLLAR SIGN;Sc;0;ET;;;;;N;;;;;
       assertTrue("\\p{S} does not contain \\u0024 '\u0024' (\\p{Sc})", set_1.contains('\u0024'));
@@ -277,7 +277,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 
-      assertTrue("\\p{S} is not the same as \\p{Symbol}", set_1.equals(set_2));
+      assertTrue("\\p{S} is not the same as \\p{Symbol}", Objects.equals(set_1, set_2));
 
       // 0024;DOLLAR SIGN;Sc;0;ET;;;;;N;;;;;
       assertTrue("\\p{S} does not contain \\u0024 '\u0024' (\\p{Sc})", set_1.contains('\u0024'));
@@ -314,7 +314,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 
-      assertTrue("\\p{S} is not the same as \\p{Symbol}", set_1.equals(set_2));
+      assertTrue("\\p{S} is not the same as \\p{Symbol}", Objects.equals(set_1, set_2));
 
       // 0024;DOLLAR SIGN;Sc;0;ET;;;;;N;;;;;
       assertTrue("\\p{S} does not contain \\u0024 '\u0024' (\\p{Sc})", set_1.contains('\u0024'));
@@ -351,7 +351,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertNotNull("Null interval set for \\p{Symbol}", set_2);
       assertTrue("Empty interval set for \\p{Symbol}", set_2.containsElements());
 
-      assertTrue("\\p{S} is not the same as \\p{Symbol}", set_1.equals(set_2));
+      assertTrue("\\p{S} is not the same as \\p{Symbol}", Objects.equals(set_1, set_2));
 
       // 0024;DOLLAR SIGN;Sc;0;ET;;;;;N;;;;;
       assertTrue("\\p{S} does not contain \\u0024 '\u0024' (\\p{Sc})", set_1.contains('\u0024'));

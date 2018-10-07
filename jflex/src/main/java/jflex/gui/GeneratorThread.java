@@ -58,7 +58,7 @@ public class GeneratorThread extends Thread {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
-        if (!outputDir.equals("")) {
+        if (!Objects.equals(outputDir, "")) {
           Options.setDir(outputDir);
         }
         Main.generate(new File(inputFile));
