@@ -9,6 +9,8 @@
 
 package jflex;
 
+import java.util.Objects;
+
 /**
  * Encapsulates an action in the specification.
  *
@@ -116,7 +118,7 @@ public final class Action {
    */
   public boolean isEquiv(Action a) {
     return this == a
-        || (this.content.equals(a.content)
+        || (Objects.equals(this.content, a.content)
             && this.kind == a.kind
             && this.len == a.len
             && this.entryState == a.entryState);

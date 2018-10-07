@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Non-deterministic finite automata representation in JFlex.
@@ -574,7 +575,7 @@ public final class NFA {
       if (isFinal[i]) {
         result.append("[FINAL");
         String l = action[i].lookString();
-        if (!l.equals("")) {
+        if (!Objects.equals(l, "")) {
           result.append(", ");
           result.append(l);
         }
