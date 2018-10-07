@@ -21,7 +21,8 @@ matrix:
     install:
     # pandoc used for building the doc
     # texlive used for PDF output
-    - sudo apt-get install -y pandoc texlive
+    # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
+    - sudo apt-get install -y pandoc texlive texlive-latex-extra
     script:
     - cd docs; make; cd ..
 
