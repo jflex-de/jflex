@@ -82,6 +82,10 @@ Or:
 java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 ```
 
+### Other build tools
+
+See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-plugins).
+
 ## Examples
 
 Have a look at the sample project: [simple][example-simple] and other [examples].
