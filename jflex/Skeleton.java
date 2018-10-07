@@ -8,13 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,8 +102,8 @@ public class Skeleton {
 
     Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
+    try (BufferedReader reader =
+        Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
       readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR);
@@ -186,8 +189,7 @@ public class Skeleton {
       throw new GeneratorException();
     }
 
-    try {
-      InputStreamReader reader = new InputStreamReader(url.openStream());
+    try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
       readSkel(new BufferedReader(reader));
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);

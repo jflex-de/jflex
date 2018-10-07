@@ -250,6 +250,9 @@ public final class StateSet {
 
   /** {@inheritDoc} */
   public boolean equals(Object b) {
+    if (!(b instanceof StateSet)) {
+      return false;
+    }
 
     int i = 0;
     int l1, l2;
