@@ -21,10 +21,7 @@ matrix:
     install:
     # pandoc used for building the doc
     # texlive used for PDF output
-    # xzdec use by texlive manager to install \LaTeX packages
-    - sudo apt-get install -y pandoc texlive xzdec
-    - tlmgr init-usertree
-    - tlmgr install upquote
+    - sudo apt-get install -y pandoc texlive
     script:
     - cd docs; make; cd ..
 
