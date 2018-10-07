@@ -1,5 +1,6 @@
 package jflex;
 
+import java.util.Objects;
 import junit.framework.TestCase;
 
 public class IntCharSetTest extends TestCase {

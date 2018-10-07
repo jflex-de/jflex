@@ -3,6 +3,7 @@ package edu.tum.cup2.parser.tables;
 import edu.tum.cup2.grammar.Symbol;
 import edu.tum.cup2.parser.states.LRParserState;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Helper class to create a one-dimensional key from a two-dimensional table index ({@link

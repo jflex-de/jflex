@@ -6,6 +6,7 @@ import edu.tum.cup2.generator.states.State;
 import edu.tum.cup2.grammar.Symbol;
 import edu.tum.cup2.io.IAutomatonVisitor;
 import edu.tum.cup2.io.IVisitedElement;
+import java.util.Objects;
 
 /**
  * An edge within a LR state transition diagram.

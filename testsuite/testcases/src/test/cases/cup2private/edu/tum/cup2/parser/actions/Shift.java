@@ -3,6 +3,7 @@ package edu.tum.cup2.parser.actions;
 import edu.tum.cup2.grammar.Production;
 import edu.tum.cup2.parser.states.LRParserState;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * LR shift parser action.

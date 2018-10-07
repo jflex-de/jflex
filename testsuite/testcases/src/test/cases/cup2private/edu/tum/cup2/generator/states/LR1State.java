@@ -13,6 +13,7 @@ import edu.tum.cup2.grammar.Terminal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * LR(1) state (immutable, no side effects possible), consisting of a list of LR(1) items.

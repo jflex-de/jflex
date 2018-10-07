@@ -9,6 +9,7 @@ import edu.tum.cup2.grammar.Symbol;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Set;
 
 /**

@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 /**
  * CheckedGrammar also has additional information (reachability and productivity) for symbols,

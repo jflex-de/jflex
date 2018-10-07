@@ -9,6 +9,7 @@ import edu.tum.cup2.grammar.SpecialTerminals;
 import edu.tum.cup2.grammar.Symbol;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * The {@link Item}-implementation of an LL(k)-item cellar automaton.

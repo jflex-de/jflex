@@ -7,6 +7,7 @@ import edu.tum.cup2.generator.NullableSet;
 import edu.tum.cup2.generator.terminals.TerminalSet;
 import edu.tum.cup2.grammar.Production;
 import edu.tum.cup2.grammar.Symbol;
+import java.util.Objects;
 
 /**
  * An LR(1)-Item is an LR(0)-Item, combined with a set of lookahead terminals.

@@ -9,6 +9,7 @@
 
 package jflex;
 
+import java.util.Objects;
 import jflex.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 

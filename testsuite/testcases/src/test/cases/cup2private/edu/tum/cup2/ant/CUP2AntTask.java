@@ -16,6 +16,7 @@ import edu.tum.cup2.spec.CUP2Specification;
 import edu.tum.cup2.spec.exceptions.IllegalSpecException;
 import java.io.File;
 import java.util.LinkedList;
+import java.util.Objects;
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.taskdefs.Javac;
 import org.apache.tools.ant.types.Path;

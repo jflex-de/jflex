@@ -4,6 +4,7 @@ import edu.tum.cup2.grammar.Production;
 import edu.tum.cup2.grammar.SpecialTerminals;
 import edu.tum.cup2.grammar.Symbol;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * An LR(0)-Item is a {@link Production} combined with a position in its right hand side.

@@ -6,6 +6,7 @@ import edu.tum.cup2.parser.LRParser;
 import edu.tum.cup2.spec.exceptions.IllegalSpecException;
 import edu.tum.cup2.spec.util.RHSItem;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * Class around an action method. Replaced by closures later if possible.

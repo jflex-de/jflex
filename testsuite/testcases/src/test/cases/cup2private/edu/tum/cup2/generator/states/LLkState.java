@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * This class holds the state of a item pushdown automaton for a {@link LLkParser}. LR counterpart:

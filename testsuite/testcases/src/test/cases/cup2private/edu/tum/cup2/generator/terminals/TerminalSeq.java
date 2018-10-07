@@ -5,6 +5,7 @@ import edu.tum.cup2.util.It;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /**
  * Naive, mutable implementation of {@link ITerminalSeq}.

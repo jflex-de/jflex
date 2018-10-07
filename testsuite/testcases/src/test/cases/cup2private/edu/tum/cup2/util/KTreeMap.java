@@ -3,6 +3,7 @@ package edu.tum.cup2.util;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Stack;
 
 /**

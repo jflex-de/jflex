@@ -10,6 +10,7 @@ import edu.tum.cup2.grammar.Production;
 import edu.tum.cup2.grammar.Symbol;
 import edu.tum.cup2.grammar.Terminal;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * The FIRST sets of all symbols. This is the set of all terminals that may appear at the beginning

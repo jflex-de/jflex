@@ -9,6 +9,8 @@
 
 package jflex;
 
+import java.util.Objects;
+
 /**
  * Encapsulates an action in the specification.
  *

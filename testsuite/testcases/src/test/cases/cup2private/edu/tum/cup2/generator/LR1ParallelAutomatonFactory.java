@@ -7,6 +7,7 @@ import edu.tum.cup2.generator.items.*;
 import edu.tum.cup2.generator.states.*;
 import edu.tum.cup2.grammar.Symbol;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;

@@ -10,6 +10,7 @@
 package jflex.gui;
 
 import java.io.File;
+import java.util.Objects;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
 import jflex.Main;
