@@ -14,7 +14,7 @@ import jflex.sym;
 
 // %debug 
 
-%state DESCR JFLEXCMD JAVAC_EXTRA_FILES LINELIST VERSION
+%state DESCR JFLEXCMD JAVAC_FILES LINELIST VERSION
 
 %{
   private StringBuilder buffer = new StringBuilder();
@@ -34,7 +34,7 @@ DIGIT = [0-9]
   "description:"      { yybegin(DESCR); }
 
   "jflex: "           { cmdLine = new ArrayList<String>(); yybegin(JFLEXCMD); }
-  "javac-extra-files: " { cmdLine = new ArrayList<String>(); yybegin(JAVAC_EXTRA_FILES); }
+  "javac-files: "     { cmdLine = new ArrayList<String>(); yybegin(JAVAC_FILES); }
 
   "jflex-fail:" " "+ "true"  { test.setExpectJFlexFail(true); }
   "jflex-fail:" " "+ "false" { test.setExpectJFlexFail(false); }
@@ -72,7 +72,7 @@ DIGIT = [0-9]
 }
 
 
-<JFLEXCMD, JAVAC_EXTRA_FILES> {
+<JFLEXCMD, JAVAC_FILES> {
   [^ \t\r\n]+         { cmdLine.add(yytext()); }
   \" ~\"              { cmdLine.add(yytext().substring(1,yylength()-1)); 
                         /* quoted cmdline options */ } 
@@ -83,8 +83,8 @@ DIGIT = [0-9]
 <JFLEXCMD>
   {NL}                { test.setJflexCmdln(cmdLine); yybegin(YYINITIAL); }
 
-<JAVAC_EXTRA_FILES>
-  {NL}                { test.setJavacExtraFiles(cmdLine); yybegin(YYINITIAL); }
+<JAVAC_FILES>
+  {NL}                { test.setJavacFiles(cmdLine); yybegin(YYINITIAL); }
 
 <LINELIST> {
   [0-9]+              { lineList.add(new Integer(yytext())); }
