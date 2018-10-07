@@ -44,7 +44,7 @@ public class UnicodePropertiesTest extends TestCase {
             "intervals for 'Lu' property value should have an interval",
             intervals.numIntervals() > 0);
       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-        assertTrue("Unsupported version '" + version + "' should be supported: " + e, false);
+        fail("Unsupported version '" + version + "' should be supported: " + e);
       }
     }
   }
@@ -52,10 +52,9 @@ public class UnicodePropertiesTest extends TestCase {
   public void testUnsupportedVersion() {
     try {
       new UnicodeProperties("1.0");
-      assertTrue(
+      fail(
           "new UnicodeProperties(\"1.0\") should trigger an"
-              + " UnsupportedUnicodeVersionException, but it did not.",
-          false);
+              + " UnsupportedUnicodeVersionException, but it did not.");
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       // Drop the exception - it is expected.
     }
@@ -75,7 +74,7 @@ public class UnicodePropertiesTest extends TestCase {
           "intervals for 'Lu' property value should have an interval",
           intervals.numIntervals() > 0);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Default version is unsupported: " + e, false);
+      fail("Default version is unsupported: " + e);
     }
   }
 
@@ -105,7 +104,7 @@ public class UnicodePropertiesTest extends TestCase {
           "\\p{ Script:Tibetan } and \\p{-_T i b t_-} should" + " return the same thing.",
           set_1.equals(set_2));
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Default version is unsupported: " + e, false);
+      fail("Default version is unsupported: " + e);
     }
   }
 
@@ -126,7 +125,7 @@ public class UnicodePropertiesTest extends TestCase {
               + caselessMatches.numIntervals(),
           caselessMatches.numIntervals() == 2);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '1.1' should be supported: " + e, false);
+      fail("Unsupported version '1.1' should be supported: " + e);
     }
   }
 
@@ -135,7 +134,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("2.0");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '2.0' should be supported: " + e, false);
+      fail("Unsupported version '2.0' should be supported: " + e);
     }
   }
 
@@ -173,7 +172,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("2.1");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '2.1' should be supported: " + e, false);
+      fail("Unsupported version '2.1' should be supported: " + e);
     }
   }
 
@@ -182,7 +181,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("3.0");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '3.0' should be supported: " + e, false);
+      fail("Unsupported version '3.0' should be supported: " + e);
     }
   }
 
@@ -191,7 +190,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("3.1");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '3.1' should be supported: " + e, false);
+      fail("Unsupported version '3.1' should be supported: " + e);
     }
   }
 
@@ -200,7 +199,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("3.2");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '3.2' should be supported: " + e, false);
+      fail("Unsupported version '3.2' should be supported: " + e);
     }
   }
 
@@ -209,7 +208,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("4.0");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '4.0' should be supported: " + e, false);
+      fail("Unsupported version '4.0' should be supported: " + e);
     }
   }
 
@@ -218,7 +217,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("4.1");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '4.1' should be supported: " + e, false);
+      fail("Unsupported version '4.1' should be supported: " + e);
     }
   }
 
@@ -227,7 +226,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("5.0");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '5.0' should be supported: " + e, false);
+      fail("Unsupported version '5.0' should be supported: " + e);
     }
   }
 
@@ -255,7 +254,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("\\p{S} does not contain \\uFF04 (\\p{Sc}", set_1.contains('\uFF04'));
 
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Version '5.0' not supported: " + e, false);
+      fail("Version '5.0' not supported: " + e);
     }
   }
 
@@ -264,7 +263,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("5.1");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '5.1' should be supported: " + e, false);
+      fail("Unsupported version '5.1' should be supported: " + e);
     }
   }
 
@@ -292,7 +291,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("\\p{S} does not contain \\uFF04 (\\p{Sc}", set_1.contains('\uFF04'));
 
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Version '5.1' not supported: " + e, false);
+      fail("Version '5.1' not supported: " + e);
     }
   }
 
@@ -301,7 +300,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("5.2");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '5.2' should be supported: " + e, false);
+      fail("Unsupported version '5.2' should be supported: " + e);
     }
   }
 
@@ -329,7 +328,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("\\p{S} does not contain \\uFF04 (\\p{Sc}", set_1.contains('\uFF04'));
 
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Version '5.2' not supported: " + e, false);
+      fail("Version '5.2' not supported: " + e);
     }
   }
 
@@ -338,7 +337,7 @@ public class UnicodePropertiesTest extends TestCase {
       UnicodeProperties properties = new UnicodeProperties("6.0");
       checkCaseless_i_matches(properties);
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported version '6.0' should be supported: " + e, false);
+      fail("Unsupported version '6.0' should be supported: " + e);
     }
   }
 
@@ -366,7 +365,7 @@ public class UnicodePropertiesTest extends TestCase {
       assertTrue("\\p{S} does not contain \\uFF04 (\\p{Sc}", set_1.contains('\uFF04'));
 
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Version '6.0' not supported: " + e, false);
+      fail("Version '6.0' not supported: " + e);
     }
   }
 }
