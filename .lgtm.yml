@@ -6,12 +6,12 @@
 # Path syntax is ant matcher https://confluence.atlassian.com/fisheye/pattern-matching-guide-298976797.html
 path_classifiers:
   test:
-  - "src/test/**"
+  - "src/test/**/*"
   docs:
   - "LICENSE*"
   - "*.md"
   third_party:
-  - "/cup/**"
-  - "/third_party/**"
+  - "/cup/**/*"
+  - "/third_party/**/*"
   generated:
-  - "/jflex/src/main/java/jflex/unicode/data/**"
+  - "/jflex/src/main/java/jflex/unicode/data/Unicode_*.java"
