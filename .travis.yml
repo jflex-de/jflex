@@ -64,6 +64,12 @@ matrix:
     install:
     - sudo apt-get install ./tools/bazel-0.16.1.deb
     sudo: true
+  - name: "📄 Documentation"
+    language: generic
+    install:
+    - sudo apt-get install -y pandoc texlive
+    script:
+    - cd docs; make; cd ..
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
