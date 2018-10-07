@@ -25,7 +25,8 @@ matrix:
     - scripts/mvn-site.sh
     - scripts/mvn-aggregate-srcs.sh
     after_success: scripts/send-code-coverage.sh
-    env: TEST_SUITE=unit
+    env:
+    - PUBLISH_SOURCES=true
     language: generic
   - name: "📝 Regression tests"
     script:
@@ -116,6 +117,5 @@ deploy:
     - master
     - travis
     condition:
-    - $TEST_SUITE = unit
-    - $TRAVIS_JDK_VERSION = openjdk9
+    - $PUBLISH_SOURCES
   script: ./scripts/deploy-source-code.sh
