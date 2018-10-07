@@ -192,16 +192,7 @@ public class JFlexMojo extends AbstractMojo {
     assert lexFile.isAbsolute() : lexFile;
 
     getLog().debug("Generating Java code from " + lexFile.getName());
-    ClassInfo classInfo;
-    try {
-      classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
-    } catch (FileNotFoundException e) {
-      throw new MojoFailureException(e.getMessage(), e);
-    } catch (IOException e) {
-      classInfo = new ClassInfo();
-      classInfo.className = LexSimpleAnalyzer.DEFAULT_NAME;
-      classInfo.packageName = null; // NOPMD
-    }
+    ClassInfo classInfo = findClassInfo(lexFile);
 
     checkParameters(lexFile);
 
@@ -248,6 +239,16 @@ public class JFlexMojo extends AbstractMojo {
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
+    }
+  }
+
+  private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
+    try {
+      return LexSimpleAnalyzer.guessPackageAndClass(lexFile);
+    } catch (FileNotFoundException e) {
+      throw new MojoFailureException(e.getMessage(), e);
+    } catch (IOException e) {
+      return new ClassInfo(LexSimpleAnalyzer.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 
