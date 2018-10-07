@@ -18,6 +18,7 @@ matrix:
   include:
   - name: "📄 Documentation"
     language: generic
+    install: true
     addons:
       apt:
         packages:
@@ -28,6 +29,8 @@ matrix:
         - texlive
         # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
         - texlive-latex-extra
+        # lmodern.sty
+        - lmodern
     script:
     - cd docs; make; cd ..
 
