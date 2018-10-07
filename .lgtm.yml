@@ -1,0 +1,15 @@
+# Configutation for LGTM
+# https://lgtm.com/projects/g/jflex-de/jflex/
+# Format at https://help.semmle.com/lgtm-enterprise/user/help/lgtm.yml-configuration-file.html
+
+# Note that results for all files classified with a tag are hidden.
+path_classifiers:
+  test:
+  - "**/src/test/**"
+  docs:
+  - "LICENSE*"
+  - "**/*.md"
+  third-party:
+  - "cup/**"
+  - "third_party/**"
+
