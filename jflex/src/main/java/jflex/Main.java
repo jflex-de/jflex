@@ -9,12 +9,24 @@
 
 package jflex;
 
+import static jflex.ErrorMessages.NO_ENCODING;
+import static jflex.Options.encoding;
+import static jflex.Options.setEncoding;
+import static jflex.Options.unused_warning;
+import static jflex.Out.error;
+
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.Field;
 import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -28,6 +40,7 @@ import jflex.unicode.UnicodeProperties;
  * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public class Main {
@@ -45,7 +58,8 @@ public class Main {
 
     for (int i = 0; i < argv.length; i++) {
 
-      if (argv[i].equals("-d") || argv[i].equals("--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "-d")
+          || Objects.equals(argv[i], "--outdir")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           throw new GeneratorException(ErrorMessages.NO_DIRECTORY);
         }
@@ -53,7 +67,8 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("--skel") || argv[i].equals("-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--skel")
+          || Objects.equals(argv[i], "-skel")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           throw new GeneratorException(ErrorMessages.NO_SKEL_FILE);
         }
@@ -62,7 +77,7 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("--encoding")) {
+      if (Objects.equals(argv[i], "--encoding")) {
         if (++i >= argv.length) {
           throw new GeneratorException(ErrorMessages.NO_ENCODING);
         }
@@ -75,94 +90,103 @@ public class Main {
         continue;
       }
 
-      if (argv[i].equals("-jlex") || argv[i].equals("--jlex")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "-jlex")
+          || Objects.equals(argv[i], "--jlex")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setStrictJlex(true);
         continue;
       }
 
-      if (argv[i].equals("-v")
-          || argv[i].equals("--verbose")
-          || argv[i].equals("-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+      if (Objects.equals(argv[i], "-v")
+          || Objects.equals(argv[i], "--verbose")
+          || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         options.setVerbose(true);
         options.setShowProgress(true);
         options.setUnusedWarnings(true);
         continue;
       }
 
-      if (argv[i].equals("-q")
-          || argv[i].equals("--quiet")
-          || argv[i].equals("-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+      if (Objects.equals(argv[i], "-q")
+          || Objects.equals(argv[i], "--quiet")
+          || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         options.setVerbose(false);
         options.setShowProgress(false);
         options.setUnusedWarnings(false);
         continue;
       }
 
-      if (argv[i].equals("--warn-unused")) { // $NON-NLS-1$
+      if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
         options.setUnusedWarnings(true);
         continue;
       }
 
-      if (argv[i].equals("--no-warn-unused")) { // $NON-NLS-1$
+      if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
         options.setUnusedWarnings(false);
         continue;
       }
 
-      if (argv[i].equals("--dump") || argv[i].equals("-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--dump")
+          || Objects.equals(argv[i], "-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setDump(true);
         continue;
       }
 
-      if (argv[i].equals("--time") || argv[i].equals("-time")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--time")
+          || Objects.equals(argv[i], "-time")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setTiming(true);
         continue;
       }
 
-      if (argv[i].equals("--version") || argv[i].equals("-version")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--version")
+          || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
         System.out.println(ErrorMessages.get(ErrorMessages.THIS_IS_JFLEX, version));
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--dot") || argv[i].equals("-dot")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--dot")
+          || Objects.equals(argv[i], "-dot")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setGenerateDotFile(true);
         continue;
       }
 
-      if (argv[i].equals("--help")
-          || argv[i].equals("-h")
-          || argv[i].equals("/h")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+      if (Objects.equals(argv[i], "--help")
+          || Objects.equals(argv[i], "-h")
+          || Objects.equals(argv[i], "/h")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         printUsage();
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--info") || argv[i].equals("-info")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--info")
+          || Objects.equals(argv[i], "-info")) { // $NON-NLS-1$ //$NON-NLS-2$
         // TODO(regisd) Out.printSystemInfo();
         throw new SilentExit(0);
       }
 
-      if (argv[i].equals("--nomin") || argv[i].equals("-nomin")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--nomin")
+          || Objects.equals(argv[i], "-nomin")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setMinimize(false);
         continue;
       }
 
-      if (argv[i].equals("--pack") || argv[i].equals("-pack")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--pack")
+          || Objects.equals(argv[i], "-pack")) { // $NON-NLS-1$ //$NON-NLS-2$
         /* no-op - pack is the only generation method */
         continue;
       }
 
-      if (argv[i].equals("--nobak") || argv[i].equals("-nobak")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--nobak")
+          || Objects.equals(argv[i], "-nobak")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setBackup(false);
         continue;
       }
 
-      if (argv[i].equals("--legacydot")
-          || argv[i].equals("-legacydot")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--legacydot")
+          || Objects.equals(argv[i], "-legacydot")) { // $NON-NLS-1$ //$NON-NLS-2$
         options.setLegacyDot(true);
         continue;
       }
 
-      if (argv[i].equals("--uniprops")
-          || argv[i].equals("-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
+      if (Objects.equals(argv[i], "--uniprops")
+          || Objects.equals(argv[i], "-uniprops")) { // $NON-NLS-1$ //$NON-NLS-2$
         if (++i >= argv.length) {
           throw new GeneratorException(
               ErrorMessages.PROPS_ARG_REQUIRES_UNICODE_VERSION, UnicodeProperties.UNICODE_VERSIONS);
@@ -228,7 +252,7 @@ public class Main {
     for (String value : propertyValues) {
       propertyValuesToAliases.put(value, new TreeSet<String>());
     }
-    for (int i = 0; i < propertyValueAliases.length; i += 2) {
+    for (int i = 0; i < propertyValueAliases.length - 1; i += 2) {
       String alias = propertyValueAliases[i];
       String value = propertyValueAliases[i + 1];
       SortedSet<String> aliases = propertyValuesToAliases.get(value);
@@ -310,8 +334,8 @@ public class Main {
   }
 
   /**
-   * Starts the generation process with the files in <code>argv</code> or pops up a window to choose
-   * a file, when <code>argv</code> doesn't have any file entries.
+   * Starts the generation process with the files in {@code argv} or pops up a window to choose a
+   * file, when {@code argv} doesn't have any file entries.
    *
    * @param argv the commandline argument values.
    */

@@ -20,6 +20,9 @@ import static jflex.Options.DEBUG;
  */
 public final class StateSet {
 
+  /** Constant {@code EMPTY} */
+  public static final StateSet EMPTY = new StateSet();
+
   static final int BITS = 6;
   static final int MASK = (1 << BITS) - 1;
 
@@ -247,6 +250,9 @@ public final class StateSet {
 
   /** {@inheritDoc} */
   public boolean equals(Object b) {
+    if (!(b instanceof StateSet)) {
+      return false;
+    }
 
     int i = 0;
     int l1, l2;

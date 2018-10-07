@@ -8,13 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,7 @@ import java.util.List;
  * portion of generated code (produced in class Emitter) between every two parts of skeleton code.
  *
  * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
- * iterator part is used to emit consecutive skeleton sections to some <code>PrintWriter</code>.
+ * iterator part is used to emit consecutive skeleton sections to some {@code PrintWriter}.
  *
  * @see jflex.Emitter
  * @author Gerwin Klein
@@ -96,8 +99,8 @@ public class Skeleton {
 
     System.out.println(ErrorMessages.get(ErrorMessages.READING_SKEL, skeletonFile.toString()));
 
-    try {
-      BufferedReader reader = new BufferedReader(new FileReader(skeletonFile));
+    try (BufferedReader reader =
+        Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
       readSkel(reader);
       fileName = skeletonFile.getPath();
     } catch (IOException e) {
@@ -183,8 +186,7 @@ public class Skeleton {
       throw new GeneratorException(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
 
-    try {
-      InputStreamReader reader = new InputStreamReader(url.openStream());
+    try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
       readSkel(new BufferedReader(reader));
       fileName = DEFAULT_LOC;
     } catch (IOException e) {

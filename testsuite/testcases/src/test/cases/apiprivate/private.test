@@ -6,6 +6,7 @@ test feature request #513500 [Generate cleaner interfaces], %apiprivate option
 
 jflex:  -q
 
-javac-extra-files: Test.java
+# Verify that the Test class doesn't have access to the Private class,
+javac-files: Private.java Test.java
 
 javac-fail: true

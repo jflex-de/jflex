@@ -54,8 +54,7 @@ public class LexicalStates {
   }
 
   /**
-   * Returns the number (code) of a declared state, <code>null</code> if no such state has been
-   * declared.
+   * Returns the number (code) of a declared state, {@code null} if no such state has been declared.
    *
    * @param name a {@link java.lang.String} object.
    * @return a {@link java.lang.Integer} object.

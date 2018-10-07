@@ -65,6 +65,15 @@ public final class Out {
   }
 
   /**
+   * Switches to GUI mode if {@code text</code> is not <code>null}
+   *
+   * @param text the message TextArea of the JFlex GUI
+   */
+  public static void setGUIMode(TextArea text) {
+    out.setGUIMode(text);
+  }
+
+  /**
    * Report time statistic data.
    *
    * @param message the message to be printed
@@ -135,8 +144,8 @@ public final class Out {
   /**
    * Dump debug information to System.out
    *
-   * <p>Use like this <code>if (Out.DEBUG) log.debug(message)</code> to save performance during
-   * normal operation (when DEBUG is turned off).
+   * <p>Use like this {@code if (Out.DEBUG) log.debug(message)} to save performance during normal
+   * operation (when DEBUG is turned off).
    *
    * @param message a {@link java.lang.String} object.
    */

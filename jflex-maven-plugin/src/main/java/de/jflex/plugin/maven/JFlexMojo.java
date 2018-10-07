@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package de.jflex.plugin.maven;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import jflex.LexGenerator;
+import java.util.Objects;
+import jflex.Main;
 import jflex.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -47,7 +51,7 @@ public class JFlexMojo extends AbstractMojo {
    * List of grammar definitions to run the JFlex parser generator on. Each path may either specify
    * a single grammar file or a directory. Directories will be recursively scanned for files with
    * one of the following extensions: ".jflex", ".flex", ".jlex" or ".lex". By default, all files in
-   * <code>src/main/jflex</code> will be processed.
+   * {@code src/main/jflex} will be processed.
    *
    * @see #SRC_MAIN_JFLEX
    */
@@ -90,7 +94,7 @@ public class JFlexMojo extends AbstractMojo {
   @Parameter(defaultValue = "false")
   private boolean jlex;
 
-  /** The generation method to use for the scanner. The only valid value is <code>pack</code>. */
+  /** The generation method to use for the scanner. The only valid value is {@code pack}. */
   @Parameter(defaultValue = "pack")
   private String generationMethod = "pack"; // NOPMD
 
@@ -189,19 +193,10 @@ public class JFlexMojo extends AbstractMojo {
     assert lexFile.isAbsolute() : lexFile;
 
     getLog().debug("Generating Java code from " + lexFile.getName());
-    if (!"pack".equals(generationMethod)) {
+    if (!Objects.equal(generationMethod, "pack")) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
-    ClassInfo classInfo;
-    try {
-      classInfo = LexSimpleAnalyzer.guessPackageAndClass(lexFile);
-    } catch (FileNotFoundException e) {
-      throw new MojoFailureException(e.getMessage(), e);
-    } catch (IOException e) {
-      classInfo = new ClassInfo();
-      classInfo.className = LexSimpleAnalyzer.DEFAULT_NAME;
-      classInfo.packageName = null; // NOPMD
-    }
+    ClassInfo classInfo = findClassInfo(lexFile);
 
     checkParameters(lexFile);
 
@@ -234,7 +229,7 @@ public class JFlexMojo extends AbstractMojo {
     if (skeleton != null) {
       generatorOptions.setSkeleton(skeleton);
     }
-    if (!"".equals(encodingName)) {
+    if (!isNullOrEmpty(encodingName)) {
       try {
         generatorOptions.setEncoding(encodingName);
       } catch (Exception e) {
@@ -251,6 +246,16 @@ public class JFlexMojo extends AbstractMojo {
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
+    }
+  }
+
+  private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
+    try {
+      return LexSimpleAnalyzer.guessPackageAndClass(lexFile);
+    } catch (FileNotFoundException e) {
+      throw new MojoFailureException(e.getMessage(), e);
+    } catch (IOException e) {
+      return new ClassInfo(LexSimpleAnalyzer.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 

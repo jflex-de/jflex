@@ -6,6 +6,8 @@ import java.io.FilenameFilter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 public class Tester {
 
@@ -72,7 +74,8 @@ public class Tester {
    * @param jflexUberJar The JFlex shaded jar
    * @return true if all tests succeeded, false otherwise
    */
-  public boolean runTests(List<File> tests, File jflexUberJar) {
+  public boolean runTests(List<File> tests, File jflexUberJar)
+      throws TestFailException, MojoExecutionException, MojoFailureException {
     int successCount = 0;
     int skipCount = 0;
     int totalCount = 0;
@@ -90,7 +93,7 @@ public class Tester {
         TestLoader loader = new TestLoader(new FileReader(test));
         TestCase currentTest = loader.load();
         currentTest.init(currentDir);
-        Status status = runTest(currentTest, jflexUberJar);
+        Status status = runTest(currentTest, jflexUberJar, verbose);
         switch (status) {
           case SUCCESS:
             successCount++;
@@ -108,9 +111,7 @@ public class Tester {
         incrementFailureCount(e);
         System.err.println("Load Error:" + e.getMessage());
       } catch (Exception e) {
-        System.err.println("Exception running test [" + test + "]");
-        incrementFailureCount(e);
-        e.printStackTrace();
+        throw new MojoExecutionException("Test [" + test.getName() + "] failed to execute", e);
       }
     }
 

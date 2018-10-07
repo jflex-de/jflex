@@ -9,10 +9,14 @@
 
 package jflex;
 
+import static jflex.ErrorMessages.MACRO_CYCLE;
+import static jflex.ErrorMessages.get;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Symbol table and expander for macros.
@@ -41,7 +45,7 @@ public final class Macros {
    *
    * @param name the name of the new macro
    * @param definition the definition of the new macro
-   * @return <code>true</code>, iff the macro name has not been stored before.
+   * @return {@code true}, iff the macro name has not been stored before.
    */
   public boolean insert(String name, RegExp definition) {
 
@@ -60,7 +64,7 @@ public final class Macros {
   /**
    * Marks a macro as used.
    *
-   * @return <code>true</code>, iff the macro name has been stored before.
+   * @return {@code true}, iff the macro name has been stored before.
    * @param name a {@link java.lang.String} object.
    */
   public boolean markUsed(String name) {
@@ -70,7 +74,7 @@ public final class Macros {
   /**
    * Tests if a macro has been used.
    *
-   * @return <code>true</code>, iff the macro has been used in a regular expression.
+   * @return {@code true}, iff the macro has been used in a regular expression.
    * @param name a {@link java.lang.String} object.
    */
   public boolean isUsed(String name) {
@@ -101,8 +105,8 @@ public final class Macros {
    * one, that doesn't contain any macro usages (expand() called before).
    *
    * @param name the name of the macro
-   * @return the definition of the macro, <code>null</code> if no macro with the specified name has
-   *     been stored.
+   * @return the definition of the macro, {@code null} if no macro with the specified name has been
+   *     stored.
    * @see jflex.Macros#expand
    */
   public RegExp getDefinition(String name) {
@@ -156,8 +160,7 @@ public final class Macros {
       case sym.MACROUSE:
         String usename = (String) ((RegExp1) definition).content;
 
-        if (name.equals(usename))
-          throw new MacroException(ErrorMessages.get(ErrorMessages.MACRO_CYCLE, name));
+        if (Objects.equals(name, usename)) throw new MacroException(get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 

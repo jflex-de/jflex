@@ -9,4 +9,8 @@ public class TestFailException extends Exception {
   public TestFailException(String message) {
     super(message);
   }
+
+  public TestFailException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

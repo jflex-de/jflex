@@ -25,7 +25,7 @@ public final class StdOutWriter extends PrintWriter {
   private TextArea text;
 
   /**
-   * approximation of the current column in the text area for auto wrapping at <code>wrap</code>
+   * approximation of the current column in the text area for auto wrapping at {@code wrap}
    * characters
    */
   private int col;

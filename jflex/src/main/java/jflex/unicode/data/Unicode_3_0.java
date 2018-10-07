@@ -4,12 +4,11 @@ package jflex.unicode.data;
  * Unicode_3_0 class.
  *
  * @author JFlex contributors.
- * @version $Id: $Id
  */
 public class Unicode_3_0 {
-  /** Constant <code>maximumCodePoint=0x10ffff</code> */
+  /** Constant {@code maximumCodePoint=0x10ffff} */
   public static final int maximumCodePoint = 0x10ffff;
-  /** Constant <code>propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}</code> */
+  /** Constant {@code propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}} */
   public static final String[] propertyValues = {
     "age=1.1", "age=2.0", "age=2.1", "age=3.0", "age=unassigned",
     "alnum", "alphabetic", "assigned", "bidi=arabicdigit", "bidi=arabicrighttoleft",
@@ -71,7 +70,7 @@ public class Unicode_3_0 {
     "whitespace", "xdigit", "zerowidth", "zl", "zp",
     "zs"
   };
-  /** Constant <code>intervals="{// Unicode 3.0 property value: {age=1."{trunked}</code> */
+  /** Constant {@code intervals="{// Unicode 3.0 property value: {age=1."{trunked}} */
   public static final String[] intervals = {
     // Unicode 3.0 property value: {age=1.1}
     "\000\u01f5"
@@ -9871,10 +9870,10 @@ public class Unicode_3_0 {
         + "\u202f\u202f"
         + "\u3000\u3000"
   };
-  /** Constant <code>propertyValueAliases="{}"</code> */
+  /** Constant {@code propertyValueAliases="{}"} */
   public static final String[] propertyValueAliases = {};
 
-  /** Constant <code>caselessMatchPartitionSize=4</code> */
+  /** Constant {@code caselessMatchPartitionSize=4} */
   public static final int caselessMatchPartitionSize = 4;
   /**
    * Constant <code>caselessMatchPartitions="\u0041\u0061\000\000\u0042\u0062\000\00"{trunked}

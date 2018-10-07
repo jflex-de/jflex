@@ -54,6 +54,7 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
+    <module>report-module</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -104,6 +105,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.google.code.findbugs</groupId>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.2</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.auto.value</groupId>
         <artifactId>auto-value</artifactId>
         <version>1.5.2</version>
@@ -112,12 +118,13 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
+        <!-- Release 21.0 requires JDK 1.8 or newer. -->
         <version>20.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.truth</groupId>
         <artifactId>truth</artifactId>
-        <version>0.36</version>
+        <version>0.42</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
@@ -137,7 +144,7 @@
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant</artifactId>
-        <version>1.9.7</version>
+        <version>1.10.5</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
@@ -157,7 +164,7 @@
       <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
         <artifactId>maven-plugin-annotations</artifactId>
-        <version>3.5</version>
+        <version>3.5.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.plugin-testing</groupId>
@@ -172,7 +179,7 @@
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>2.11.0</version>
+        <version>2.23.0</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
@@ -181,6 +188,11 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.2</version>
+        </plugin>
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>cup-maven-plugin</artifactId>
@@ -309,6 +321,24 @@
           <skip>true</skip>
           <skipDeploy>true</skipDeploy>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-code-coverage-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

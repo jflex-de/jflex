@@ -149,12 +149,13 @@ public class GenerateMojo extends AbstractMojo {
   }
 
   private String findJavaPackage(File cupFile) throws IOException {
-    BufferedReader br = new BufferedReader(new FileReader(cupFile));
-    while (br.ready()) {
-      String line = br.readLine();
-      Optional<String> optJavaPackage = optionalJavaPackage(line);
-      if (optJavaPackage.isPresent()) {
-        return optJavaPackage.get();
+    try (BufferedReader br = new BufferedReader(new FileReader(cupFile))) {
+      while (br.ready()) {
+        String line = br.readLine();
+        Optional<String> optJavaPackage = optionalJavaPackage(line);
+        if (optJavaPackage.isPresent()) {
+          return optJavaPackage.get();
+        }
       }
     }
     return DEFAULT_JAVA_PACKAGE;

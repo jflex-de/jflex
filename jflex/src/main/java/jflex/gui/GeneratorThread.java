@@ -10,6 +10,7 @@
 package jflex.gui;
 
 import java.io.File;
+import java.util.Objects;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
 import jflex.LexGenerator;
@@ -58,6 +59,7 @@ public class GeneratorThread extends Thread {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
+        // TOSO(regisd) Options.setDir(outputDir);
         LexGenerator lexGenerator = new LexGenerator(generatorOptions);
         lexGenerator.generateFromFile(new File(inputFile));
         log.printStatistics();

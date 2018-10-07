@@ -28,4 +28,9 @@ public class FileUtilTest extends TestCase {
     File f = new File("/a/b/c.txt");
     assertEquals("/a/b/c.txt", FileUtil.getRelativePath(dir, f));
   }
+
+  @Test
+  public void test_slashify() {
+    assertEquals("C:/u0022.txt", FileUtil.slashify("C:\\u0022.txt"));
+  }
 }

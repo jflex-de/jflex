@@ -170,7 +170,7 @@ public class JFlexTask extends Task {
   }
 
   /**
-   * Getter for the field <code>className</code>.
+   * Getter for the field {@code className}.
    *
    * @return class name of input file
    * @see #findPackageAndClass()

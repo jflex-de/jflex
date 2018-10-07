@@ -3,20 +3,22 @@
 def _jflex_impl(ctx):
     """ Generates a Java lexer from a lex definition, using JFlex. """
 
-    # Output directory is bazel-genfiles, regardless of Java package defined in
+    # Output directory is bazel-genfiles/package, regardless of Java package defined in
     # the grammar
     output_dir = "/".join(
         [ctx.configuration.genfiles_dir.path, ctx.label.package],
     )
+
     # TODO(regisd): Add support for JFlex options.
-    maybe_skel =  [ctx.file.skeleton] if ctx.file.skeleton else []
+    maybe_skel = [ctx.file.skeleton] if ctx.file.skeleton else []
     cmd_maybe_skel = ["-skel", ctx.file.skeleton.path] if ctx.file.skeleton else []
     arguments = (
-        cmd_maybe_skel + \
+        cmd_maybe_skel +
         # Option to specify output directory
-        ["-d", output_dir] + \
+        ["-d", output_dir] +
         # Input files
-        [f.path for f in ctx.files.srcs])
+        [f.path for f in ctx.files.srcs]
+    )
     ctx.action(
         inputs = ctx.files.srcs + maybe_skel,
         outputs = ctx.outputs.outputs,
@@ -33,7 +35,7 @@ jflex = rule(
             allow_empty = False,
             allow_files = True,
             mandatory = True,
-            doc = "a list of grammar specifications"
+            doc = "a list of grammar specifications",
         ),
         "skeleton": attr.label(
             allow_files = True,
