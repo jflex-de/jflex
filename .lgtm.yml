@@ -3,6 +3,7 @@
 # Format at https://help.semmle.com/lgtm-enterprise/user/help/lgtm.yml-configuration-file.html
 
 # Note that results for all files classified with a tag are hidden.
+# Path syntax is ant matcher https://confluence.atlassian.com/fisheye/pattern-matching-guide-298976797.html
 path_classifiers:
   test:
   - "src/test/**"
