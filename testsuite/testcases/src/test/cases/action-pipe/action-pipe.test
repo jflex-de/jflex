@@ -1,0 +1,7 @@
+name: action-pipe
+
+description:
+Issue #201. Pipe action doesn't compile when first.
+
+# TODO(#201) Fix the pipe action on EOF
+jflex-fail: true
