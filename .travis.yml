@@ -18,11 +18,16 @@ matrix:
   include:
   - name: "📄 Documentation"
     language: generic
-    install:
-    # pandoc used for building the doc
-    # texlive used for PDF output
-    # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
-    - sudo apt-get install -y pandoc pandoc-citeproc texlive texlive-latex-extra
+    addons:
+      apt:
+        packages:
+        # pandoc used for building the doc
+        - pandoc
+        - pandoc-citeproc
+        # texlive used for PDF output
+        - texlive
+        # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
+        - texlive-latex-extra
     script:
     - cd docs; make; cd ..
 
@@ -43,6 +48,7 @@ script: scripts/run-tests.sh
 # A cache avoids downloading too much, and will also speed up the build.
 # NB: There is one cache per branch and language version/ compiler version/ JDK version
 cache:
+  apt: true
   # The timeout (in seconds) empties the cache to avoid being stuck with a corrupted artefact
   timeout: 86400  # 24 hours
   directories:
