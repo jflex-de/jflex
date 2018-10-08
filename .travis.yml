@@ -64,6 +64,23 @@ matrix:
     install:
     - sudo apt-get install ./tools/bazel-0.16.1.deb
     sudo: true
+  - name: "📄 Documentation"
+    language: generic
+    install: true
+    addons:
+      apt:
+        packages:
+        # pandoc used for building the doc
+        - pandoc
+        - pandoc-citeproc
+        # texlive used for PDF output
+        - texlive
+        # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
+        - texlive-latex-extra
+        # lmodern.sty
+        - lmodern
+    script:
+    - cd docs; make; cd ..
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
@@ -82,6 +99,7 @@ script: scripts/run-tests.sh
 # A cache avoids downloading too much, and will also speed up the build.
 # NB: There is one cache per branch and language version/ compiler version/ JDK version
 cache:
+  apt: true
   # The timeout (in seconds) empties the cache to avoid being stuck with a corrupted artefact
   timeout: 86400  # 24 hours
   directories:
