@@ -1,0 +1,13 @@
+# Default owner for everything, unless a later match takes precedence
+# This project was created by Gerwin
+*	@lsf37
+
+# In general, we don't wan't to change code in cup.
+# Be sure we have a big red warning by giving ownership to nobody.
+/cup/	@issues
+
+# The Maven plugin was initally authored by Régis
+/jflex-maven-plugin/	@regisd
+# Régis alsi knows more Bazel confg
+WORKSPACE	@regis
+BUILD	@regisd
