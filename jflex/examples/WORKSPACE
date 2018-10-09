@@ -1,17 +1,35 @@
 #
-# For your own project, please see https://github.com/jflex-de/bazel_rules
+# For your own project, please see https://jflex-de.github.io/bazel_rules/
 #
-# This is only to test that the examples build with the SNAPSHOT version of JFLex.
+# This workspace is mostly to test that the examples build with the SNAPSHOT version of JFLex.
 #
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
-    name = "jflex_bazel_rules",
+    name = "jflex_rules",
     remote = "https://github.com/jflex-de/bazel_rules.git",
     tag = "stable",
 )
 
-load("//third_party:generate_workspace.bzl", "generated_maven_jars")
+load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
-generated_maven_jars()
+jflex_deps()
+
+maven_jar(
+  name = "com_google_truth_truth",
+  artifact = "com.google.truth:truth:0.36",
+  repository = "http://jcenter.bintray.com/",
+)
+
+maven_jar(
+    name = "com_google_guava_guava",
+    artifact = 'com.google.guava:guava:jar:26.0-jre',
+      repository = "http://jcenter.bintray.com/",
+)
+
+maven_jar(
+    name = "junit_junit",
+    artifact = '',
+      repository = "http://jcenter.bintray.com/",
+)

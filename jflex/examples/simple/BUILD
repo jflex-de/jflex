@@ -1,4 +1,4 @@
-load("@jflex_bazel_rules//jflex:jflex.bzl", "jflex")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 # The best practice is to define the rules in their respective directory in
 # - src/main/java/org/example/foo/BUILD
