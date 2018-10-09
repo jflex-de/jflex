@@ -1,18 +1,15 @@
-# Workspace file for the Bazel build system
-# https://bazel.build/
+#
+# For your own project, please see https://github.com/jflex-de/bazel_rules
+#
+# This is only to test that the examples build with the SNAPSHOT version of JFLex.
+#
 
-# JFlex doesn't use Bazel itself, but some examples do.
-# This WORKSPACE is only to illustrate usage of Bazel on the examples.
-# In a real usage, the WORKSPACE file is at the root of the workspace.
-# https://docs.bazel.build/versions/master/build-ref.html#workspace
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-# TODO(#390) Add maven 1.7.0 when cup_runtime is published
-# de.jflex:jflex-maven-plugin:maven-plugin:1.6.1
-maven_jar(
-    name = "de_jflex_jflex_1_6_1",
-    artifact = "de.jflex:jflex:1.6.1",
-    repository = "https://jcenter.bintray.com/",
-    sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
+git_repository(
+    name = "jflex_bazel_rules",
+    remote = "https://github.com/jflex-de/bazel_rules.git",
+    tag = "stable",
 )
 
 load("//third_party:generate_workspace.bzl", "generated_maven_jars")

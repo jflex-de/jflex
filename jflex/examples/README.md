@@ -20,6 +20,7 @@
 
 Every example also provides its own `README.md` with more context.
 
+
 ## Build systems
 
 All examples (try to) support multiple build systems:
@@ -39,6 +40,7 @@ All examples follow the Maven layout, in particular:
     - `src/test/data` contains an input file for the scanner; as well as a _golden file_
       of the expected output for this input.
 
+
 ### Maven
 
 When the example can be build with Maven, there is a `pom.xml`.
@@ -52,6 +54,7 @@ Build artifacts are in `target` (in subdirectories depending on their nature).
 
 In the end run the compiled lexer with:
 `java -jar target/` _BUILD-ARTEFACT.jar_ `<args>`
+
 
 ### ant
 
@@ -67,22 +70,14 @@ Also, we consistently use:
 - `ant test` to run the lexer on the sample input and check it produces
   the expected output.
 
+
 ### Bazel
 
-When the example can be build with Bazel, there is a `BUILD` file.
+We test the examples with Bazel.
 
-Bazel places artifacts in `bazel-*` in the root `examples` directory
-(because it is the workspace).
+In order to use the Skylark "jflex()" rule and see example, please see
+[jflex-de/bazel_rules](https://github.com/jflex-de/bazel_rules).
 
-- `bazel build <targets>` generates the sources and compile for the given targets
-- `bazel run <target>`  runs the given target
-- `bazel test <targets>` tests the given targets
-
-You can build all examples from here with
-
-    bazel build //...
-
-See also [third_party/de/jflex/README.md].
 
 ### GNU make
 
