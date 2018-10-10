@@ -403,7 +403,7 @@ public final class Out {
     err("OS version:       " + System.getProperty("os.version"));
     err("Encoding:         " + System.getProperty("file.encoding"));
     err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
-    err("JFlex version:    " + Main.version);
+    err("JFlex version:    " + LexGenerator.VERSION);
   }
 
   /**
