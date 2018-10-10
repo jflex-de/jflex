@@ -30,8 +30,10 @@ import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
 /**
- * This is the main class of JFlex controlling the scanner generation process. It is responsible for
- * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
+ * This is the command-line interface.
+ *
+ * <p>It is responsible for parsing the commandline, getting input files, starting up the GUI if
+ * necessary, etc. and invokes {@link LexGenerator} accordingly.
  *
  * @author Gerwin Klein
  * @author Régis Décamps

@@ -19,8 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * This is the main class of JFlex controlling the scanner generation process. It is responsible for
- * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
+ * This is the generator of JFlex, controlling the scanner generation process.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
