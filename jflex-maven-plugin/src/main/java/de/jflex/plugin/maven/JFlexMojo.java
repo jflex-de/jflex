@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import jflex.Main;
+import jflex.LexGenerator;
 import jflex.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -235,7 +235,7 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     try {
-      Main.generate(lexFile);
+      LexGenerator.generate(lexFile);
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
