@@ -9,7 +9,7 @@
   <target name="build" depends="clean,compile" />
 
   <target name="run" depends="compile">
-    <java classname="JavaParser" classpath="build:${java_cup}">
+    <java classname="JavaParser" classpath="antbuild:${java_cup}">
       <arg line="src/main/java/TestLexer.java"/>
     </java>
   </target>
@@ -19,25 +19,25 @@
   </target>
 
   <target name="compile" depends="cup,scanner,unicode">
-    <javac destdir="build" classpath="${java_cup}">
+    <javac destdir="antbuild" classpath="${java_cup}">
       <src path="src/main/java/" />
-      <src path="build/"/>
+      <src path="antbuild/"/>
     </javac>
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="build"/>
+    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="antbuild"/>
   </target>
 
   <target name="scanner">
-    <jflex file="src/main/jflex/java.flex" destdir="build"/>
+    <jflex file="src/main/jflex/java.flex" destdir="antbuild"/>
   </target>
 
   <target name="unicode">
-    <jflex file="src/main/jflex/unicode.flex" destdir="build"/>
+    <jflex file="src/main/jflex/unicode.flex" destdir="antbuild"/>
   </target>
 
   <target name="clean">
-    <delete dir="build"/>
+    <delete dir="antbuild"/>
   </target>
 </project>
