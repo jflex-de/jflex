@@ -80,14 +80,15 @@ public class YylexTest extends TestCase {
    * </ul>
    */
   private File openFile(String pathName) throws IOException {
+    String path = pathName;
     File pwd = new File(".").getCanonicalFile();
     assertThat(pwd.isDirectory()).isTrue();
     if (Objects.equal(pwd.getName(), "__main__")) {
-      pathName = "simple/" + pathName;
+      path = "simple/" + path;
     }
-    File file = new File(pathName);
+    File file = new File(path);
     if (!file.isFile()) {
-      throw new FileNotFoundException(pathName);
+      throw new FileNotFoundException(path);
     }
     return file;
   }
