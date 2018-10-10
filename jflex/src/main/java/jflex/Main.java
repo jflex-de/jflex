@@ -10,18 +10,12 @@
 package jflex;
 
 import static jflex.ErrorMessages.NO_ENCODING;
-import static jflex.Options.encoding;
 import static jflex.Options.setEncoding;
 import static jflex.Options.unused_warning;
 import static jflex.Out.error;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,111 +43,13 @@ public class Main {
   public static final String version = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
 
   /**
-   * Generates a scanner for the specified input file.
-   *
-   * @param inputFile a file containing a lexical specification to generate a scanner for.
-   */
-  public static void generate(File inputFile) {
-
-    Out.resetCounters();
-
-    Timer totalTime = new Timer();
-    Timer time = new Timer();
-
-    LexScan scanner = null;
-    LexParse parser = null;
-    Reader inputReader = null;
-
-    totalTime.start();
-
-    try {
-      Out.println(ErrorMessages.READING, inputFile.toString());
-      inputReader =
-          new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding);
-      scanner = new LexScan(inputReader);
-      scanner.setFile(inputFile);
-      parser = new LexParse(scanner);
-    } catch (IOException e) {
-      Out.error(ErrorMessages.CANNOT_OPEN, inputFile.toString());
-      throw new GeneratorException();
-    }
-
-    try {
-      NFA nfa = (NFA) parser.parse().value;
-
-      Out.checkErrors();
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
-
-      if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
-
-      Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
-
-      time.start();
-      DFA dfa = nfa.getDFA();
-      time.stop();
-      Out.time(ErrorMessages.DFA_TOOK, time);
-
-      dfa.checkActions(scanner, parser);
-
-      nfa = null;
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
-
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
-
-      Out.checkErrors();
-
-      time.start();
-      dfa.minimize();
-      time.stop();
-
-      Out.time(ErrorMessages.MIN_TOOK, time);
-
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
-
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
-
-      time.start();
-
-      Emitter e = new Emitter(inputFile, parser, dfa);
-      e.emit();
-
-      time.stop();
-
-      Out.time(ErrorMessages.WRITE_TOOK, time);
-
-      totalTime.stop();
-
-      Out.time(ErrorMessages.TOTAL_TIME, totalTime);
-    } catch (ScannerException e) {
-      Out.error(e.file, e.message, e.line, e.column);
-      throw new GeneratorException();
-    } catch (MacroException e) {
-      Out.error(e.getMessage());
-      throw new GeneratorException();
-    } catch (IOException e) {
-      Out.error(ErrorMessages.IO_ERROR, e.toString());
-      throw new GeneratorException();
-    } catch (OutOfMemoryError e) {
-      Out.error(ErrorMessages.OUT_OF_MEMORY);
-      throw new GeneratorException();
-    } catch (GeneratorException e) {
-      throw new GeneratorException();
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new GeneratorException();
-    }
-  }
-
-  /**
    * parseOptions.
    *
    * @param argv an array of {@link java.lang.String} objects.
    * @return a {@link java.util.List} object.
    * @throws jflex.SilentExit if any.
    */
-  public static List<File> parseOptions(String argv[]) throws SilentExit {
+  private static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -377,7 +273,7 @@ public class Main {
   }
 
   /** Prints the cli usage on stdout. */
-  public static void printUsage() {
+  private static void printUsage() {
     Out.println(""); // $NON-NLS-1$
     Out.println("Usage: jflex <options> <input-files>");
     Out.println("");
@@ -418,7 +314,9 @@ public class Main {
     List<File> files = parseOptions(argv);
 
     if (files.size() > 0) {
-      for (File file : files) generate(file);
+      for (File file : files) {
+        LexGenerator.generate(file);
+      }
     } else {
       new MainFrame();
     }
