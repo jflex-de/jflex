@@ -15,3 +15,14 @@ maven_jar(
 load("//third_party:generate_workspace.bzl", "generated_maven_jars")
 
 generated_maven_jars()
+
+http_archive(
+    name = "bazel_pandoc",
+    strip_prefix = "bazel-pandoc-0.1",
+    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.1.tar.gz",
+)
+
+
+load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
+
+pandoc_repositories()
