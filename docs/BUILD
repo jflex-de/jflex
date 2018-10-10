@@ -1,6 +1,7 @@
 # Build the user manual
 
-load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+# Consider using
+# load("@bazel_pandoc//:pandoc.bzl", "pandoc")
 
 VERSION = "1.7.1-SNAPSHOT"
 
@@ -8,11 +9,12 @@ RELEASE_DATE = "21 September 2018"
 
 UNICODE_VER = "9.0"
 
-pandoc(
+
+genrule(
     name = "html",
-    src = "manual.mdx",
-    from_format = "markdown",
-    to_format = "html",
+    srcs = ["manual.mdx"],
+    cmd = "pandoc --smart --css manual.css --filter pandoc-citeproc -f markdown $< -o $@",
+    outs = ["manual.html"],
 )
 
 genrule(
