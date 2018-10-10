@@ -13,7 +13,7 @@ import java.io.File;
 import java.util.Objects;
 import jflex.ErrorMessages;
 import jflex.GeneratorException;
-import jflex.Main;
+import jflex.LexGenerator;
 import jflex.Options;
 import jflex.Out;
 
@@ -62,7 +62,7 @@ public class GeneratorThread extends Thread {
         if (!Objects.equals(outputDir, "")) {
           Options.setDir(outputDir);
         }
-        Main.generate(new File(inputFile));
+        LexGenerator.generate(new File(inputFile));
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
