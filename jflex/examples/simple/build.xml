@@ -1,25 +1,32 @@
-<project name="simple scanner" default="compile">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="simple scanner" default="build">
 
   <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
+  <ivy:retrieve/>
 
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
-  <target name="build" depends="clean,compile" />
-
-  <target name="run" depends="compile">
+  <target name="run" depends="build">
     <java classname="Yylex" classpath="antbuild">
       <arg line="src/test/data/test.txt"/>
     </java>
   </target>
 
-  <target name="test" depends="run">
-    <!-- TODO(#384) compare output with golden. -->
+  <target name="test" depends="build">
+    <junit>
+      <test name="YylexTest">
+        <formatter type="plain" usefile="false" />
+      </test>
+      <classpath refid="ivy-deps"/>
+      <classpath refid="build-artifacts"/>
+    </junit>
   </target>
 
-  <target name="compile" depends="scanner">
+  <target name="build" depends="scanner">
     <javac destdir="antbuild">
       <src path="src/main/java/" />
+      <src path="src/test/java" />
       <src path="antbuild/"/>
+      <classpath refid="ivy-deps"/>
     </javac>
   </target>
 
@@ -30,4 +37,14 @@
   <target name="clean">
     <delete dir="antbuild"/>
   </target>
+
+  <path id="ivy-deps">
+    <fileset dir="${ivy.lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="build-artifacts">
+    <pathelement path="antbuild"/>
+  </path>
 </project>

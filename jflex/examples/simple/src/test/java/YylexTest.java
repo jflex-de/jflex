@@ -63,11 +63,6 @@ public class YylexTest {
     }
   }
 
-  @Test
-  public void failure() {
-    assertThat(true).isFalse();
-  }
-
   private BufferedReader readOutputStream() {
     byte[] rawOutput = outputStream.toByteArray();
     return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
