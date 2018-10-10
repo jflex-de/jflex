@@ -1,12 +1,14 @@
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import com.google.common.base.Objects;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import junit.framework.TestCase;
@@ -63,7 +65,26 @@ public class YylexTest extends TestCase {
     return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
   }
 
-  private File openFile(String pathName) throws FileNotFoundException {
+  /**
+   * Opens the given file.
+   *
+   * <p>This method also works around a build difficulty:
+   *
+   * <ul>
+   *   <li>Maven uses the directory that contains {@code pom.xml} as a working directory, i.e.
+   *       {@code examples/simple}
+   *   <li>ant uses the directory that contains {@code build.xml} as a working directory, i.e.
+   *       {@code examples/simple}
+   *   <li>bazel uses the directory that contains {@code WORKSPACE} as a working directory, i.e.
+   *       {@code __main__} in <em>runfiles</em>.
+   * </ul>
+   */
+  private File openFile(String pathName) throws IOException {
+    File pwd = new File(".").getCanonicalFile();
+    assertThat(pwd.isDirectory()).isTrue();
+    if (Objects.equal(pwd.getName(), "__main__")) {
+      pathName = "simple/" + pathName;
+    }
     File file = new File(pathName);
     if (!file.isFile()) {
       throw new FileNotFoundException(pathName);
