@@ -39,9 +39,6 @@ import jflex.unicode.UnicodeProperties;
  */
 public class Main {
 
-  /** JFlex version */
-  public static final String version = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
-
   /**
    * parseOptions.
    *
@@ -133,7 +130,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--version")
           || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.println(ErrorMessages.THIS_IS_JFLEX, version);
+        Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
         throw new SilentExit(0);
       }
 
@@ -300,7 +297,7 @@ public class Main {
     Out.println("--help");
     Out.println("-h                 print this message");
     Out.println("");
-    Out.println(ErrorMessages.THIS_IS_JFLEX, version);
+    Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
     Out.println("Have a nice day!");
   }
 
@@ -338,4 +335,7 @@ public class Main {
       System.exit(e.exitCode());
     }
   }
+
+  // Only CLI, not meant for instanciation.
+  private Main() {}
 }

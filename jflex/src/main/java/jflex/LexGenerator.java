@@ -29,7 +29,7 @@ import java.nio.file.Paths;
 public class LexGenerator {
 
   /** JFlex version */
-  public static final String version = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
+  public static final String VERSION = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
