@@ -4,8 +4,13 @@
 
 licenses(["notice"])  # Apache License 2.0
 
-alias(
+java_library(
     name = "truth",
-    actual = "//third_party:com_google_truth_truth",
     visibility = ["//visibility:public"],
+    exports = [
+        "@com_google_truth_truth//jar",
+        # TODO(regisd) This should be a runtime_deps
+        # But in tht case Optional is not found
+        "//third_party/com/google/guava",
+    ],
 )
