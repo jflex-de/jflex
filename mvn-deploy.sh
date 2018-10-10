@@ -21,7 +21,7 @@ set -e
 
 # Abort if the checkout is not clean
 printf "Clean checkout?  "
-stat_results=`git status -s`
+stat_results=$(git status -s)
 if [ ! -z "$stat_results" ] ; then
   printf "NO!\n\n${stat_results}\nAborting.\n"
   exit 1
