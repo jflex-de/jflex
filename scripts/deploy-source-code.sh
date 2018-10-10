@@ -77,3 +77,5 @@ if [[ -z "$CI" ]]; then
 else
   git_push
 fi
+
+cd "$CWD"
