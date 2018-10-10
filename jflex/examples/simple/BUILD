@@ -1,3 +1,5 @@
+package(default_visibility = ["//visibility:public"])
+
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 # The best practice is to define the rules in their respective directory in
@@ -22,6 +24,6 @@ java_library(
 jflex(
     name = "gen_lexer",
     srcs = ["src/main/jflex/simple.flex"],
-    outputs = ["Yylex.java"],
     jflex_bin = "//:jflex_bin",
+    outputs = ["Yylex.java"],
 )
