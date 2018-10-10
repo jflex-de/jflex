@@ -1,10 +1,7 @@
 # Workspace file for the Bazel build system
 # https://bazel.build/
 
-# JFlex doesn't use Bazel itself, but some examples do.
-# This WORKSPACE is only to illustrate usage of Bazel on the examples.
-# In a real usage, the WORKSPACE file is at the root of the workspace.
-# https://docs.bazel.build/versions/master/build-ref.html#workspace
+# JFlex itself is not built with Bazel, but some examples and the documentation do.
 
 # TODO(#390) Add maven 1.7.0 when cup_runtime is published
 # de.jflex:jflex-maven-plugin:maven-plugin:1.6.1
