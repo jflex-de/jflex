@@ -13,6 +13,7 @@ operators, etc, and generating an input token stream for parsers.
 JFlex lexers are based on deterministic finite automata (DFAs).
 They are fast, without expensive backtracking.
 
+
 ## Modules
 
 The top level directory of the JFLex git repository contains:
@@ -24,6 +25,7 @@ The top level directory of the JFLex git repository contains:
  * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
  * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
  * **testsuite** the regression test suite for JFlex,
+
 
 ## Usage
 
@@ -70,6 +72,19 @@ and the [wiki][wiki].
 <javac srcdir="build/generated/" destdir="build/classes/"/>
 ```
 
+### Usage with Bazel
+
+We provide a [jflex rule](https://jflex-de.github.io/bazel_rules/)
+
+```
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+jflex(
+    name = "",           # Choose a rule name
+    srcs = [],           # Add input lex specifications
+    outputs = [],        # List expected generated files
+)
+```
+
 ### Usage in CLI
 
 You can also use JFlex directly from the command line:
@@ -84,17 +99,20 @@ java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 
 ### Other build tools
 
-See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-plugins).
+See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-integration).
+
 
 ## Examples
 
 Have a look at the sample project: [simple][example-simple] and other [examples].
+
 
 ## Build from source
 
 ```
 ./mvnw install
 ```
+
 
 ## Contributing
 
