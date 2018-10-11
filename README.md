@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/jflex-de/jflex.svg?branch=master)](https://travis-ci.org/jflex-de/jflex)
+<a href="https://travis-ci.org/jflex-de/jflex">
+  <img alt="Build status" src="https://travis-ci.org/jflex-de/jflex.svg?branch=master" height="20">
+</a>
+<a href="https://search.maven.org/artifact/de.jflex/jflex/">
+  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
+</a>
 
 # JFlex
 
