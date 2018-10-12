@@ -23,6 +23,13 @@ pandoc(
     options = [],
 )
 
+pandoc(
+    name = "latex",
+    src = ":manual_mdx",
+    from_format = "markdown",
+    to_format = "latex",
+)
+
 # Replaces placeholders by their respective value.
 genrule(
     name = "manual_mdx",
@@ -51,6 +58,6 @@ genrule(
         "md/porting-and-parsers.md",
         "md/end.md",
     ],
-    outs = ["concatenated_manual.mdx"],
+    outs = ["concatenated_manual.md"],
     cmd = "cat $(SRCS) > $@",
 )
