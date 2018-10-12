@@ -14,6 +14,13 @@ pandoc(
     from_format = "markdown",
     output = "manual.html",
     to_format = "html",
+    # TODO: Add "--css manual.css" when the rule accepts data files
+    #
+    # TODO: Add "+smart" when the toolchain supports it
+    #
+    # TODO: Add ["--filter", "pandoc-citeproc"] when #2 is fixed
+    # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/2
+    options = [],
 )
 
 # Replaces placeholders by their respective value.
