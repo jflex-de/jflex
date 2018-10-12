@@ -7,7 +7,7 @@
           <project implementation="org.apache.maven.plugin.testing.stubs.MavenProjectStub"/>
           <outputDirectory>target/projects/single-dir-test/target/generated-sources/jflex</outputDirectory>
           <lexDefinitions>
-            <lexDefinition>src/test/projects/single-dir-test/src/main/jflex</lexDefinition>
+            <lexDefinition>jflex-maven-plugin/src/test/projects/single-dir-test/src/main/jflex</lexDefinition>
           </lexDefinitions>
         </configuration>
       </plugin>

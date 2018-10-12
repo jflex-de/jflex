@@ -24,7 +24,7 @@ import org.junit.Test;
 public class JFlexMojoTest {
 
   @Rule public MojoRule mojoRule = new MojoRule();
-  @Rule public TestResources testResources = new TestResources();
+  @Rule public TestResources testResources = new TestResources("jflex-maven-plugin/src/test/projects", "jflex-maven-plugin/target/test-projects");
 
   /**
    * Configures an instance of the jflex mojo for the specified test case.

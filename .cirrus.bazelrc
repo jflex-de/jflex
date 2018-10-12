@@ -1,0 +1,5 @@
+# https://docs.bazel.build/versions/master/remote-caching.html
+# Valid values are: darwin-sandbox, local, processwrapper-sandbox, sandboxed, standalone, worker
+build --spawn_strategy=sandboxed
+build --genrule_strategy=sandboxed
+build --strategy=Javac=sandboxed
