@@ -4,9 +4,7 @@ bibliography: manual.bib
 ---
 
 <center>
-```TODO
-`![](fig/jflex-black.png)
-```
+TODO: Restore image
 
 The Fast Lexical Analyser Generator
 

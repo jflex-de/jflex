@@ -54,6 +54,7 @@ genrule(
         "manual_full.log",
     ],
     cmd = "pdflatex -output-directory $(@D) $(location :manual_full_tex)",
+    output_to_bindir = True,
 )
 
 # Replaces placeholders by their respective value.
