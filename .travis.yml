@@ -32,9 +32,6 @@ matrix:
     script:
     - scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
     - scripts/test-regression.sh
-  # TODO(regisd): Remove the ant build, it only adds maintenance burden
-  - name: "🐜 Ant build"
-    script: scripts/ant-build.sh
   - name: "😎 Examples (mvn, ant, make)"
     script: scripts/test-examples.sh
   - name: "👴 Examples (mvn, ant, make) — JDK7"
@@ -60,9 +57,9 @@ matrix:
           - python
     before_install:
     - mkdir -p tools
-    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.16.1/bazel_0.16.1-linux-x86_64.deb -o tools/bazel-0.16.1.deb
+    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel_0.17.2-linux-x86_64.deb -o tools/bazel-0.17.2.deb
     install:
-    - sudo apt-get install ./tools/bazel-0.16.1.deb
+    - sudo apt-get install ./tools/bazel-0.17.2.deb
     sudo: true
   - name: "📄 Documentation"
     language: generic

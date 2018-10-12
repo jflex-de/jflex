@@ -2,19 +2,18 @@
 # https://bazel.build/
 
 # JFlex itself is not built with Bazel, but some examples and the documentation do.
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-# TODO(#390) Add maven 1.7.0 when cup_runtime is published
-# de.jflex:jflex-maven-plugin:maven-plugin:1.6.1
-maven_jar(
-    name = "de_jflex_jflex_1_6_1",
-    artifact = "de.jflex:jflex:1.6.1",
-    repository = "https://jcenter.bintray.com/",
-    sha1 = "eb4d51e1a8ea7ee96068905ddeceb9b28737c7eb",
+git_repository(
+    name = "jflex_rules",
+    branch = "stable",
+    remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 
-load("//third_party:generate_workspace.bzl", "generated_maven_jars")
+load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
-generated_maven_jars()
+jflex_deps()
+
 
 # TODO(regisd) Take upstream when they have accepted my PR to allow specifying output
 # https://github.com/ProdriveTechnologies/bazel-pandoc/pull/1
@@ -44,3 +43,16 @@ http_archive(
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
+
+# Third-party depenencies
+maven_jar(
+    name = "com_google_truth_truth",
+    artifact = "com.google.truth:truth:0.36",
+    repository = "http://jcenter.bintray.com/",
+)
+
+maven_jar(
+    name = "com_google_guava_guava",
+    artifact = "com.google.guava:guava:jar:26.0-jre",
+    repository = "http://jcenter.bintray.com/",
+)
