@@ -78,6 +78,19 @@ matrix:
         - lmodern
     script:
     - cd docs; make; cd ..
+    deploy:
+      provider: bintray
+      skip_cleanup: true
+      file:
+      - docs/manual.pdf
+      - docs/manual.html
+      user: "rgs"
+      key: $BINTRAY_API_KEY
+      subject: rgs
+      name: jflex_manual
+      repo: jflex_manual
+      vcs_url: https://github.com/jflex-de/jflex/tree/master/docs
+      licenses: ["BSD-3"]
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
