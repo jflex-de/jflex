@@ -8,12 +8,12 @@ RELEASE_DATE = "21 September 2018"
 
 UNICODE_VER = "9.0"
 
+GENRULE_CONCATENATE = "cat $(SRCS) > $@"
+
 pandoc(
     name = "html",
     src = ":manual_mdx",
     from_format = "markdown",
-    output = "manual.html",
-    to_format = "html",
     # TODO: Add "--css manual.css" when the rule accepts data files
     #
     # TODO: Add "+smart" when the toolchain supports it
@@ -21,13 +21,39 @@ pandoc(
     # TODO: Add ["--filter", "pandoc-citeproc"] when #2 is fixed
     # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/2
     options = [],
+    output = "manual.html",
+    to_format = "html",
 )
 
 pandoc(
-    name = "latex",
+    name = "latex_content",
     src = ":manual_mdx",
     from_format = "markdown",
+    output = "content.tex",  # If changed, then change \include{} in manual.tex
     to_format = "latex",
+)
+
+genrule(
+    name = "manual_full_tex",
+    srcs = [
+        "manual_start.tex",
+        ":latex_content",
+        "manual_end.tex",
+    ],
+    outs = ["manual_full.tex"],
+    cmd = GENRULE_CONCATENATE,
+)
+
+genrule(
+    name = "pre_pdf",
+    srcs = [
+        ":manual_full_tex",
+    ],
+    outs = [
+        "manual_full.pdf",
+        "manual_full.log",
+    ],
+    cmd = "pdflatex -output-directory $(@D) $(location :manual_full_tex)",
 )
 
 # Replaces placeholders by their respective value.
@@ -59,5 +85,5 @@ genrule(
         "md/end.md",
     ],
     outs = ["concatenated_manual.md"],
-    cmd = "cat $(SRCS) > $@",
+    cmd = GENRULE_CONCATENATE,
 )
