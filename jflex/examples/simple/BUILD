@@ -19,11 +19,12 @@ java_library(
     name = "simple",
     # glob is not a best practice, but it's good enough for this example
     srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer"],
+    deps = ["//cup:cup_runtime"],
 )
 
 jflex(
     name = "gen_lexer",
     srcs = ["src/main/jflex/simple.flex"],
-    jflex_bin = "//:jflex_bin",
+    jflex_bin = "//jflex:jflex_bin",
     outputs = ["Yylex.java"],
 )
