@@ -32,17 +32,7 @@ pandoc(
     from_format = "markdown",
     output = "content.tex",  # If changed, then change \include{} in manual.tex
     to_format = "latex",
-)
-
-genrule(
-    name = "manual_full_tex",
-    srcs = [
-        "manual_start.tex",
-        ":latex_content",
-        "manual_end.tex",
-    ],
-    outs = ["manual_full.tex"],
-    cmd = GENRULE_CONCATENATE,
+    options = ["--template", ""],
 )
 
 latex_document(
