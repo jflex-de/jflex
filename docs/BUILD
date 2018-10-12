@@ -1,6 +1,7 @@
 # Build the user manual
 
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+load("@bazel_latex//:latex.bzl", "latex_document")
 
 VERSION = "1.7.1-SNAPSHOT"
 
@@ -33,28 +34,10 @@ pandoc(
     to_format = "latex",
 )
 
-genrule(
-    name = "manual_full_tex",
-    srcs = [
-        "manual_start.tex",
-        ":latex_content",
-        "manual_end.tex",
-    ],
-    outs = ["manual_full.tex"],
-    cmd = GENRULE_CONCATENATE,
-)
-
-genrule(
-    name = "pre_pdf",
-    srcs = [
-        ":manual_full_tex",
-    ],
-    outs = [
-        "manual_full.pdf",
-        "manual_full.log",
-    ],
-    cmd = "pdflatex -output-directory $(@D) $(location :manual_full_tex)",
-    output_to_bindir = True,
+latex_document(
+    name = "pdf",
+    srcs = ["manual.tex", ":latex_content"],
+    main = "manual.tex",
 )
 
 # Replaces placeholders by their respective value.

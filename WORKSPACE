@@ -34,3 +34,13 @@ http_archive(
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
 
 pandoc_repositories()
+
+http_archive(
+    name = "bazel_latex",
+    strip_prefix = "bazel-latex-0.9",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.9.tar.gz",
+)
+
+load("@bazel_latex//:repositories.bzl", "latex_repositories")
+
+latex_repositories()

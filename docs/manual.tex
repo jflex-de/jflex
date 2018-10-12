@@ -1,4 +1,4 @@
-% Starting the manual, when doc built with bazel
+% The Latex template for the manual, when doc built with bazel
 
 \documentclass[11pt]{scrartcl}
 \usepackage{a4wide,verbatim,graphicx,upquote,microtype}
@@ -65,3 +65,12 @@ Version 1.7.1-SNAPSHOT, {\today}
 \newpage
 \tableofcontents
 \newpage
+
+\include{manual_content}
+
+\newpage
+
+\bibliographystyle{plain}
+\bibliography{manual}
+
+\end{document}
