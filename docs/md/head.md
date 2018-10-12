@@ -3,8 +3,9 @@ title: JFlex User's Manual
 bibliography: manual.bib
 ---
 
-<center>
 TODO: Restore image
+
+<center>
 
 The Fast Lexical Analyser Generator
 

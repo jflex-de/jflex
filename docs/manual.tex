@@ -1,17 +1,22 @@
 % The Latex template for the manual, when doc built with bazel
 
-\documentclass[11pt] %{scrartcl}
-\usepackage{a4wide,verbatim,graphicx,upquote,microtype}
+\documentclass[11pt]
+%{scrartcl}
+%\usepackage{a4wide}
+%\usepackage{verbatim}
+%\usepackage{graphicx} % "@bazel_latex//packages:graphicx"
+%\usepackage{upquote}
+%\usepackage{microtype} % "@bazel_latex//packages:microtype"
 
-\usepackage{color}
+%\usepackage{color}
 \definecolor{lcol}{rgb}{0,0,0.5}
-\usepackage[unicode=true,bookmarks,
-            colorlinks=true,linkcolor=lcol,citecolor=lcol,
-            filecolor=lcol,urlcolor=lcol,
-            pdfauthor={Gerwin Klein, Steve Rowe, Regis Decamps},
-            pdftitle={JFlex User's Manual},
-            pdfkeywords={Java, scanner, lexer, scanner generator},
-            plainpages=false]{hyperref}
+%\usepackage[unicode=true,bookmarks,
+%            colorlinks=true,linkcolor=lcol,citecolor=lcol,
+%            filecolor=lcol,urlcolor=lcol,
+%            pdfauthor={Gerwin Klein, Steve Rowe, Regis Decamps},
+%            pdftitle={JFlex User's Manual},
+%            pdfkeywords={Java, scanner, lexer, scanner generator},
+%            plainpages=false]{hyperref}
 
 
 % pandoc packages
@@ -53,8 +58,10 @@
 \sffamily
 {\Large The Fast Lexical Analyser Generator}\\
 \smallskip\smallskip
-Copyright \copyright\ 1998--2018 by \href{http://www.doclsf.de}{Gerwin Klein},
-Steve Rowe, and \href{http://regis.decamps.info/}{R\'egis D\'ecamps}.
+Copyright \copyright\ 1998--2018
+by \href{http://www.doclsf.de}{Gerwin Klein},
+Steve Rowe,
+and \href{http://regis.decamps.info/}{R\'egis D\'ecamps}.
 
 \vspace*{15ex}
 {\Huge \sffamily \bfseries JFlex User's Manual}\\
@@ -66,7 +73,7 @@ Version 1.7.1-SNAPSHOT, {\today}
 \tableofcontents
 \newpage
 
-\include{manual_content}
+\include{content}
 
 \newpage
 

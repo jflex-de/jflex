@@ -34,10 +34,28 @@ pandoc(
     to_format = "latex",
 )
 
+genrule(
+    name = "manual_full_tex",
+    srcs = [
+        "manual_start.tex",
+        ":latex_content",
+        "manual_end.tex",
+    ],
+    outs = ["manual_full.tex"],
+    cmd = GENRULE_CONCATENATE,
+)
+
 latex_document(
-    name = "pdf",
-    srcs = ["manual.tex", ":latex_content"],
-    main = "manual.tex",
+    name = "manual",
+    srcs = [
+        #"manual.tex",
+        # "minimal.tex",
+        # "manual_full.tex",
+        "@bazel_latex//packages:graphicx",
+        "@bazel_latex//packages:hyperref",
+        "@bazel_latex//packages:microtype",
+    ],
+    main = "manual_full.tex",
 )
 
 # Replaces placeholders by their respective value.
