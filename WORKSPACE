@@ -16,10 +16,18 @@ load("//third_party:generate_workspace.bzl", "generated_maven_jars")
 
 generated_maven_jars()
 
+# TODO(regisd) Take upstream when they have accepted my PR to allow specifying output
+# https://github.com/ProdriveTechnologies/bazel-pandoc/pull/1
+#http_archive(
+#    name = "bazel_pandoc",
+#    strip_prefix = "bazel-pandoc-0.1",
+#    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.1.tar.gz",
+#)
 http_archive(
     name = "bazel_pandoc",
-    strip_prefix = "bazel-pandoc-0.1",
-    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.1.tar.gz",
+    strip_prefix = "bazel_pandoc-0.1.1",
+    url = "https://github.com/regisd/bazel_pandoc/archive/v0.1.1.tar.gz",
+    sha256 = "0dd9d0d44658d46a96c36caba25f7ce9f119a6883c3219f61b76c11cfdc83c8f",
 )
 
 

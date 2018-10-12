@@ -1,7 +1,6 @@
 # Build the user manual
 
-# Consider using
-# load("@bazel_pandoc//:pandoc.bzl", "pandoc")
+load("@bazel_pandoc//:pandoc.bzl", "pandoc")
 
 VERSION = "1.7.1-SNAPSHOT"
 
@@ -9,14 +8,15 @@ RELEASE_DATE = "21 September 2018"
 
 UNICODE_VER = "9.0"
 
-
-genrule(
+pandoc(
     name = "html",
-    srcs = ["manual.mdx"],
-    cmd = "pandoc --smart --css manual.css --filter pandoc-citeproc -f markdown $< -o $@",
-    outs = ["manual.html"],
+    src = ":manual_mdx",
+    from_format = "markdown",
+    output = "manual.html",
+    to_format = "html",
 )
 
+# Replaces placeholders by their respective value.
 genrule(
     name = "manual_mdx",
     srcs = [":concatenated_manual"],
@@ -28,6 +28,7 @@ genrule(
           " $< > $@",
 )
 
+# Concatenates all pages in a single document.
 genrule(
     name = "concatenated_manual",
     srcs = [
