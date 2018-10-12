@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class DiffStream {
 
@@ -22,7 +23,7 @@ class DiffStream {
    */
   private boolean match(String s1, String s2) {
     if (s1 == null) return s2 == null;
-    return s1.replace('\\', '/').equals(s2.replace('\\', '/'));
+    return Objects.equals(s1.replace('\\', '/'), s2.replace('\\', '/'));
   }
 
   public String diff(Reader input, Reader expected) {
@@ -32,7 +33,7 @@ class DiffStream {
   /**
    * Compares to streams line by line.
    *
-   * @return <code>null</code> if they are the same, a String error message otherwise
+   * @return {@code null} if they are the same, a String error message otherwise
    * @param diffLines a List of Integer. The line numbers where differences are expected (and to be
    *     ignored)
    * @param input the input stream

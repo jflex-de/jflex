@@ -170,7 +170,7 @@ public class RegExps {
   }
 
   /**
-   * Getter for the field <code>states</code>.
+   * Getter for the field {@code states}.
    *
    * @param num a int.
    * @return a {@link java.util.List} object.

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.Main;
+import jflex.LexGenerator;
 import jflex.Options;
 import jflex.exception.GeneratorException;
 import org.apache.tools.ant.BuildException;
@@ -70,7 +70,7 @@ public class JFlexTask extends Task {
         File destFile = new File(outputDir, className + ".java");
 
         if (inputFile.lastModified() > destFile.lastModified()) {
-          Main.generate(inputFile);
+          LexGenerator.generate(inputFile);
           if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
@@ -161,7 +161,7 @@ public class JFlexTask extends Task {
   }
 
   /**
-   * Getter for the field <code>className</code>.
+   * Getter for the field {@code className}.
    *
    * @return class name of input file
    * @see #findPackageAndClass()

@@ -11,44 +11,35 @@ package jflex.unicode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import jflex.unicode.UnicodeProperties;
 
 /**
- * CharSet implemented with intervals
- *
- * <p>[fixme: optimizations possible]
+ * CharSet implemented with intervals.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
+// FIXME: optimizations possible
 public final class IntCharSet {
 
   private static final boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
-  private List<Interval> intervals;
+  private List<Interval> intervals = new ArrayList<>();
   private int pos;
 
-  /** Constructor for IntCharSet. */
-  public IntCharSet() {
-    this.intervals = new ArrayList<>();
-  }
+  /** Creates an empty char set. */
+  public IntCharSet() {}
 
-  /**
-   * Constructor for IntCharSet.
-   *
-   * @param c a int.
-   */
+  /** Creates a char set that contains only the given character. */
   public IntCharSet(int c) {
     this(new Interval(c, c));
   }
 
-  /**
-   * Constructor for IntCharSet.
-   *
-   * @param interval a {@link Interval} object.
-   */
+  /** Creates a charset that contains only one interval. */
   public IntCharSet(Interval interval) {
-    this();
     intervals.add(interval);
   }
 
@@ -215,10 +206,24 @@ public final class IntCharSet {
    *
    * <p>o instanceof Interval
    */
+  @Override
   public boolean equals(Object o) {
+    if (!(o instanceof IntCharSet)) {
+      return false;
+    }
     IntCharSet set = (IntCharSet) o;
 
-    return intervals.equals(set.intervals);
+    return Objects.equals(intervals, set.intervals);
+  }
+
+  @Override
+  public int hashCode() {
+    int h = 1;
+    for (Interval interval : intervals) {
+      h *= 1000003;
+      h ^= interval.hashCode();
+    }
+    return h;
   }
 
   private int min(int a, int b) {

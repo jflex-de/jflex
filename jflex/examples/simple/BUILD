@@ -1,4 +1,6 @@
-load("//third_party/de/jflex:build_rules.bzl", "jflex")
+package(default_visibility = ["//visibility:public"])
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 # The best practice is to define the rules in their respective directory in
 # - src/main/java/org/example/foo/BUILD
@@ -22,19 +24,6 @@ java_library(
 jflex(
     name = "gen_lexer",
     srcs = ["src/main/jflex/simple.flex"],
+    jflex_bin = "//:jflex_bin",
     outputs = ["Yylex.java"],
 )
-
-# Test disabled because Bazel uses JFlex 1.6.1
-# And the dump has changed (i.e. the golden file is not coorect)
-# TODO(#390) Use JFlex 1.7.0 and re-enabled the test when java_cup has been published on mvn repo
-#java_test(
-#    name = "YylexTest",
-#    srcs = ["src/test/java/YylexTest.java"],
-#    data = glob(["src/test/data/**"]),
-#    deps = [
-#        ":simple",
-#        "//third_party/com/google/truth",
-#        "//third_party/com/google/guava"
-#        ],
-#)

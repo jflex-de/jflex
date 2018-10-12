@@ -15,6 +15,7 @@ import jflex.base.CharClassInterval;
 import jflex.Out;
 import jflex.unicode.IntCharSet;
 import jflex.unicode.Interval;
+import java.util.Objects;
 
 /**
  * Character Classes.
@@ -115,8 +116,8 @@ public class CharClasses {
    * Updates the current partition, so that the specified set of characters gets a new character
    * class.
    *
-   * <p>Characters that are elements of <code>set</code> are not in the same equivalence class with
-   * characters that are not elements of <code>set</code>.
+   * <p>Characters that are elements of {@code set} are not in the same equivalence class with
+   * characters that are not elements of {@code set}.
    *
    * @param set the set of characters to distinguish from the rest
    * @param caseless if true upper/lower/title case are considered equivalent
@@ -133,15 +134,15 @@ public class CharClasses {
     for (int i = 0; i < oldSize; i++) {
       IntCharSet x = classes.get(i);
 
-      if (x.equals(set)) return;
+      if (Objects.equals(x, set)) return;
 
       IntCharSet and = x.and(set);
 
       if (and.containsElements()) {
-        if (x.equals(and)) {
+        if (Objects.equals(x, and)) {
           set.sub(and);
           continue;
-        } else if (set.equals(and)) {
+        } else if (Objects.equals(set, and)) {
           x.sub(and);
           classes.add(and);
           if (DEBUG) {
@@ -217,7 +218,7 @@ public class CharClasses {
   }
 
   /**
-   * Creates a new character class for the single character <code>singleChar</code>.
+   * Creates a new character class for the single character {@code singleChar}.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
    * @param singleChar character.
@@ -244,8 +245,8 @@ public class CharClasses {
    * Updates the current partition, so that the specified set of characters gets a new character
    * class.
    *
-   * <p>Characters that are elements of the set <code>l</code> are not in the same equivalence class
-   * with characters that are not elements of the set <code>l</code>.
+   * <p>Characters that are elements of the set {@code l} are not in the same equivalence class with
+   * characters that are not elements of the set {@code l}.
    *
    * @param l a List of Interval objects. This List represents a set of characters. The set of
    *     characters is the union of all intervals in the List.
@@ -259,10 +260,10 @@ public class CharClasses {
    * Updates the current partition, so that the set of all characters not contained in the specified
    * set of characters gets a new character class.
    *
-   * <p>Characters that are elements of the set <code>v</code> are not in the same equivalence class
-   * with characters that are not elements of the set <code>v</code>.
+   * <p>Characters that are elements of the set {@code v} are not in the same equivalence class with
+   * characters that are not elements of the set {@code v}.
    *
-   * <p>This method is equivalent to <code>makeClass(v)</code>
+   * <p>This method is equivalent to {@code makeClass(v)}
    *
    * @param l a List of Interval objects. This List represents a set of characters. The set of
    *     characters is the union of all intervals in the List.
@@ -363,8 +364,8 @@ public class CharClasses {
   /**
    * Returns an array of all CharClassIntervals in this char class collection.
    *
-   * <p>The array is ordered by char code, i.e. <code>result[i+1].start = result[i].end+1</code>
-   * Each CharClassInterval contains the number of the char class it belongs to.
+   * <p>The array is ordered by char code, i.e. {@code result[i+1].start = result[i].end+1} Each
+   * CharClassInterval contains the number of the char class it belongs to.
    *
    * @return an array of all {@link CharClassInterval} in this char class collection.
    */

@@ -1,3 +1,5 @@
 name: line
 
 jflex: --nobak --dump
+
+javac-files: Yylex.java

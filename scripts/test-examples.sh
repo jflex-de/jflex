@@ -12,14 +12,7 @@ set -e
 
 logi "Compile, test and install all"
 logi "============================="
-# NB: Installs jflex in local repo
-# implies: validate, compile, test, package, verify, install
-if [[ "$TRAVIS" ]]; then
-  # Quiet mode shows errors only.
-  "$MVN" -Pfastbuild install --quiet
-else
-  "$MVN" -Pfastbuild install
-fi
+"$BASEDIR"/scripts/mvn-install-fastbuild.sh jflex-maven-plugin
 
 logi "Run jflex examples with ant"
 logi "==========================="

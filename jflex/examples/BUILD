@@ -1,26 +1,23 @@
-# Root bazel package
+package(default_visibility = ["//visibility:public"])
 
-# This pacakge exists because
-# `bazel build //...` needs at least one package
+licenses(["notice"])  # BSD
 
-# But bazel test //... fails with
-# No test targets were found, yet testing was requested
-# So here is a test:
-
-sh_test(
-    name = "hello_test",
-    size = "small",
-    srcs = [":hello_test_lib"],
+java_binary(
+    name = "jflex_bin",
+    main_class = "jflex.Main",
+    runtime_deps = [":jflex"],
 )
 
-sh_library(
-    name = "hello_test_lib",
-    srcs = [":gen_hello_test_sh"],
+# The snapshots are:
+# - built by Maven
+# - copied in this directort by bazel.sh
+java_import(
+    name = "jflex",
+    jars = ["jflex.jar"],
+    deps = [":cup_runtime"],
 )
 
-genrule(
-    name = "gen_hello_test_sh",
-    srcs = [],
-    outs = ["hello_test.sh"],
-    cmd = "echo 'echo \"Hello World\"' > $@",
+java_import(
+    name = "cup_runtime",
+    jars = ["cup_runtime.jar"],
 )

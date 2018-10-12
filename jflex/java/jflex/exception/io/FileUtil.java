@@ -19,5 +19,13 @@ public class FileUtil {
     return file.getPath();
   }
 
+  /**
+   * Replaces the {@code \} by a {@code /} in the path, because backslash is used as an escape
+   * sequence in Java (e.g. {@code \u1234} is a unicode character.
+   */
+  public static String slashify(String path) {
+    return path.replace('\\', '/');
+  }
+
   private FileUtil() {} // utility class
 }

@@ -90,7 +90,7 @@ public class CharClassesTest extends TestCase {
     try {
       unicodeProperties = new UnicodeProperties("4.0");
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      assertTrue("Unsupported default Unicode version: " + e, false);
+      fail("Unsupported default Unicode version: " + e);
       return;
     }
 

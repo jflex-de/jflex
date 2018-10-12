@@ -5,3 +5,5 @@ description:
 Generated Yylex.java does not compile, because of missing ","
 
 jflex: --nobak
+
+javac-files: Yylex.java

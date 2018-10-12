@@ -249,9 +249,9 @@ public class RegExp {
   }
 
   /**
-   * Returns a regexp that matches any character: <code>[^]</code>
+   * Returns a regexp that matches any character: {@code [^]}
    *
-   * @return the regexp for <code>[^]</code>
+   * @return the regexp for {@code [^]}
    */
   public RegExp anyChar() {
     // FIXME: there is some code duplication here with the parser

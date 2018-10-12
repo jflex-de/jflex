@@ -20,7 +20,7 @@ public final class StateSet {
 
   private final boolean DEBUG = false;
 
-  /** Constant <code>EMPTY</code> */
+  /** Constant {@code EMPTY} */
   public static final StateSet EMPTY = new StateSet();
 
   static final int BITS = 6;
@@ -250,6 +250,9 @@ public final class StateSet {
 
   /** {@inheritDoc} */
   public boolean equals(Object b) {
+    if (!(b instanceof StateSet)) {
+      return false;
+    }
 
     int i = 0;
     int l1, l2;

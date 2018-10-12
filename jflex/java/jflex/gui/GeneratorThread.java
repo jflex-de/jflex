@@ -10,9 +10,10 @@
 package jflex.gui;
 
 import java.io.File;
+import java.util.Objects;
 import jflex.exception.ErrorMessages;
 import jflex.exception.GeneratorException;
-import jflex.Main;
+import jflex.LexGenerator;
 import jflex.Options;
 import jflex.Out;
 
@@ -58,10 +59,10 @@ public class GeneratorThread extends Thread {
       running = true;
       setPriority(MIN_PRIORITY);
       try {
-        if (!outputDir.equals("")) {
+        if (!Objects.equals(outputDir, "")) {
           Options.setDir(outputDir);
         }
-        Main.generate(new File(inputFile));
+        LexGenerator.generate(new File(inputFile));
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
