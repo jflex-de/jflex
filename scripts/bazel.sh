@@ -14,12 +14,6 @@ else
   BAZEL='bazel'
 fi
 
-logi "Copy JFlex jar in examples"
-logi "=========================="
-# NB This will fail if there are multiple versions of the jflex jar.
-cp "$BASEDIR"/jflex/target/jflex-1.*.jar  "$BASEDIR"/jflex/examples/jflex.jar
-cp "$BASEDIR"/cup/cup_runtime/target/cup_runtime-*.jar  "$BASEDIR"/jflex/examples/cup_runtime.jar
-
 logi "Start Bazel"
 logi "==========="
 cd "$BASEDIR"/jflex/examples
