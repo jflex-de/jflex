@@ -1,7 +1,7 @@
 # Workspace file for the Bazel build system
 # https://bazel.build/
 
-# JFlex itself is not built with Bazel, but some examples and the documentation do.
+# JFlex itself is not built with Bazel, but some examples and the documentation are.
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
@@ -35,9 +35,7 @@ load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
 
 pandoc_repositories()
 
-
-# third-party libraries
-
+# latex rule to build PDF from tex files
 
 http_archive(
     name = "bazel_latex",
@@ -50,6 +48,7 @@ load("@bazel_latex//:repositories.bzl", "latex_repositories")
 latex_repositories()
 
 # Third-party depenencies
+
 maven_jar(
     name = "com_google_truth_truth",
     artifact = "com.google.truth:truth:0.36",
