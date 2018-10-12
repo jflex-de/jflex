@@ -101,6 +101,7 @@ cache:
   timeout: 86400  # 24 hours
   directories:
   - $HOME/.m2
+  - $HOME/.ant
   # All our Bazel build artifacts
   - $HOME/__bazel_output_base__/
   # Items fetched from repositories

@@ -13,13 +13,13 @@ set -e
 logi "Compile, test and install all"
 logi "============================="
 "$BASEDIR"/scripts/mvn-install-fastbuild.sh jflex-maven-plugin
-
-logi "Run jflex examples with ant"
-logi "==========================="
 # Some tests invoke /bin/jflex which expects the jar in /lib
 cp "$BASEDIR"/jflex/target/jflex-full-*.jar "$BASEDIR"/jflex/lib
 
 cd "$BASEDIR"/jflex/examples
+
+logi "Run jflex examples"
+logi "=================="
 
 logi "Example: byaccj"
 cd byaccj
