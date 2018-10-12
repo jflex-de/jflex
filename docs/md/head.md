@@ -4,7 +4,9 @@ bibliography: manual.bib
 ---
 
 <center>
-![](fig/jflex-black.png)
+```TODO
+`![](fig/jflex-black.png)
+```
 
 The Fast Lexical Analyser Generator
 
