@@ -3,9 +3,6 @@
 # fail on error
 set -e
 
-# a hack for enabling ant builds outside the repo until we figure out something better
-CUP_URL="https://raw.githubusercontent.com/jflex-de/jflex/05632859c94c348dee7d243e4a36bd656c132e96/cup/cup/java-cup-11b.jar"
-
 VERSION="1.7.1-SNAPSHOT"
 JFLEX_JAR="jflex-full-$VERSION.jar"
 
@@ -16,7 +13,7 @@ GPG=gpg
 KEY=84A70085
 
 printf "Clean checkout?  "
-stat_results=`git status -s`
+stat_results=$(git status -s)
 if [ ! -z "$stat_results" ] ; then
   printf "NO!\n\n${stat_results}\nAborting.\n"
   exit 1
@@ -43,9 +40,6 @@ echo "------[ Packaging jflex ]"
 # make parent pom available
 cp ../../pom.xml parent.xml
 perl -pi -e "s|<relativePath>../pom.xml</relativePath>|<relativePath>parent.xml</relativePath>|" pom.xml
-
-# hack for ant build outside repo
-perl -pi -e "s|<copy file=\"../cup/cup/java-cup-.*>|<get src=\"${CUP_URL}\" dest=\"lib/\${cup.jar}\" skipexisting=\"true\"/>|" build.xml
 
 # build things
 "$MVN" package
