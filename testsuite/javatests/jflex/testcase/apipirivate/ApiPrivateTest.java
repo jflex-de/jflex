@@ -1,5 +1,8 @@
 package jflex.testcase.apipirivate;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
+
 import com.google.common.collect.ImmutableList;
 import jflex.testing.JFlexTestRunner;
 import jflex.testing.JavacUtil;
@@ -15,12 +18,16 @@ public class ApiPrivateTest {
   @Test
   public void ok() {}
 
-  // TODO(regisd) user assertThrows instead
-  @Test(expected = CompilerException.class)
+  @Test
   public void compile() throws CompilerException {
-    JavacUtil.compile(
-        ImmutableList.of(
-            "testsuite/javatests/jflex/testcase/apipirivate/Private.java",
-            "testsuite/javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));
+    try {
+      JavacUtil.compile(
+          ImmutableList.of(
+              "testsuite/javatests/jflex/testcase/apipirivate/Private.java",
+              "testsuite/javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));
+      fail("Class `Private` should have private access");
+    } catch (CompilerException e) {
+      assertThat(e).hasMessageThat().contains("compiler.err.report.access");
+    }
   }
 }

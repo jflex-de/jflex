@@ -1,6 +1,7 @@
 package jflex.testing.exception;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
 import java.util.Locale;
@@ -13,12 +14,12 @@ public class CompilerException extends Exception {
   private final List<Diagnostic<? extends JavaFileObject>> diagnostics;
 
   public CompilerException(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
-    super("javac exception");
+    super("javac exception: " + diagnosticCode(diagnostics));
     this.diagnostics = diagnostics;
   }
 
   public CompilerException(Throwable e) {
-    super("javac exception", e);
+    super("javac exception: " + e.getMessage(), e);
     this.diagnostics = ImmutableList.of();
   }
 
@@ -39,5 +40,11 @@ public class CompilerException extends Exception {
                         d.getMessage(Locale.ENGLISH), d.getLineNumber(), d.getSource().getName()))
             .collect(Collectors.toList());
     return super.toString() + "\n" + Joiner.on('\n').join(diagnosticMessages);
+  }
+
+  private static String diagnosticCode(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+    Preconditions.checkArgument(!diagnostics.isEmpty(), "Empty diagnostic");
+    Diagnostic<? extends JavaFileObject> firstDiagnostic = diagnostics.get(0);
+    return firstDiagnostic.getCode();
   }
 }
