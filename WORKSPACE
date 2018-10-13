@@ -25,11 +25,10 @@ jflex_deps()
 #)
 http_archive(
     name = "bazel_pandoc",
+    sha256 = "0dd9d0d44658d46a96c36caba25f7ce9f119a6883c3219f61b76c11cfdc83c8f",
     strip_prefix = "bazel_pandoc-0.1.1",
     url = "https://github.com/regisd/bazel_pandoc/archive/v0.1.1.tar.gz",
-    sha256 = "0dd9d0d44658d46a96c36caba25f7ce9f119a6883c3219f61b76c11cfdc83c8f",
 )
-
 
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
 
@@ -48,16 +47,6 @@ load("@bazel_latex//:repositories.bzl", "latex_repositories")
 latex_repositories()
 
 # Third-party depenencies
+load("//third_party:deps.bzl", "third_party_deps")
 
-maven_jar(
-    name = "com_google_truth_truth",
-    artifact = "com.google.truth:truth:0.36",
-    repository = "http://jcenter.bintray.com/",
-)
-
-maven_jar(
-    name = "com_google_guava_guava",
-    artifact = "com.google.guava:guava:jar:26.0-jre",
-    repository = "http://jcenter.bintray.com/",
-)
-
+third_party_deps()
