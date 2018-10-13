@@ -16,3 +16,8 @@ def third_party_deps():
         artifact = "com.google.truth:truth:0.36",
         repository = "http://jcenter.bintray.com/",
     )
+    native.maven_jar(
+        name = "junit_junit",
+        artifact = "junit:junit:jar:4.12",
+        repository = "http://jcenter.bintray.com/",
+    )
