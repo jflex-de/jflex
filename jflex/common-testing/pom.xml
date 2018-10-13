@@ -14,4 +14,14 @@
   <description>
     Classes commonly used in tests.
   </description>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+  </dependencies>
 </project>

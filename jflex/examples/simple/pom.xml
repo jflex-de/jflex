@@ -24,6 +24,12 @@
       <version>0.36</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>de.jflex.common</groupId>
+      <artifactId>jflex-common-testing</artifactId>
+      <version>1.7.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

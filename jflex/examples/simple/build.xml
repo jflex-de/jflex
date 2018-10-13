@@ -1,8 +1,11 @@
 <project name="simple scanner" default="compile">
 
   <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
+  <property name="jflex.common.testing"
+    value="../../common-testing/target/jflex-common-testing-1.7.1-SNAPSHOT.jar"/>
 
-  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex"
+    classpath="${jflex}:${jflex.common.testing}"/>
 
   <target name="build" depends="clean,compile" />
 
