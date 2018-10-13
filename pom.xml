@@ -50,6 +50,7 @@
   <modules>
     <module>cup</module>
     <module>cup-maven-plugin</module>
+    <module>jflex/common-testing</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
