@@ -16,7 +16,7 @@ java_import(
     jars = ["cup/target/cup-11b.jar"],
 )
 
-java_import(
+alias(
     name = "cup_runtime",
-    jars = ["cup_runtime/target/cup_runtime-11b.jar"],
+    actual = "//cup/cup_runtime",
 )
