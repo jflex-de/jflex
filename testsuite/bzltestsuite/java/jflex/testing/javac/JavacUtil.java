@@ -1,4 +1,4 @@
-package jflex.testing;
+package jflex.testing.javac;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import jflex.testing.exception.CompilerException;
+import jflex.testing.javac.CompilerException;
 
 public class JavacUtil {
 

@@ -1,10 +1,6 @@
-java_library(
+package(default_visibility = ["//testsuite:__subpackages__"])
+
+alias(
     name = "bzltestsuite",
-    srcs = glob(["java/**/*.java"]),
-    visibility = ["//testsuite/javatests:__subpackages__"],
-    deps = [
-        "//jflex",
-        "//third_party/com/google/guava",
-        "//third_party/junit",
-    ],
+    actual = "//testsuite/bzltestsuite/java/jflex/testing",
 )

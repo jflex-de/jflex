@@ -5,9 +5,9 @@ import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
 import jflex.testing.JFlexTestRunner;
-import jflex.testing.JavacUtil;
 import jflex.testing.annotations.TestSpec;
-import jflex.testing.exception.CompilerException;
+import jflex.testing.javac.CompilerException;
+import jflex.testing.javac.JavacUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

@@ -1,4 +1,4 @@
-package jflex.testing.exception;
+package jflex.testing.javac;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
