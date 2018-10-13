@@ -1,7 +1,7 @@
 """Bazel rules for cup. """
 
 # CUP can only read from stdin, which Skylark rules don't support. Use a genrule for now.
-def cup(name, srcs, parser = "Parser", symbols = "Symbols", interface = False):
+def cup(name, src, parser = "Parser", symbols = "Symbols", interface = False):
     """Generate a parser with CUP.
 
     Args:
@@ -17,7 +17,7 @@ def cup(name, srcs, parser = "Parser", symbols = "Symbols", interface = False):
     cmd = ("$(location //cup:cup_bin) -destdir $(@D) " + opts + " < $<")
     native.genrule(
         name = name,
-        srcs = srcs,
+        srcs = [src],
         tools = ["//cup:cup_bin"],
         outs = [parser + ".java", symbols + ".java"],
         cmd = cmd,
