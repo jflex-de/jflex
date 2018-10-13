@@ -37,7 +37,7 @@ matrix:
   - name: "👴 Examples (mvn, ant, make) — JDK7"
     script: scripts/test-examples.sh
     jdk: openjdk7
-  - name: "😎 Examples (with Bazel)"
+  - name: "💚 Bazel (Examples and documentation)"
     language: generic
     script:
     - scripts/mvn-install-fastbuild.sh
