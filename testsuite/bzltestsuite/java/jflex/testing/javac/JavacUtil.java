@@ -11,9 +11,8 @@ import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import jflex.testing.javac.CompilerException;
 
-public class JavacUtil {
+public final class JavacUtil {
 
   public static void compile(Iterable<? extends File> files) throws CompilerException {
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
