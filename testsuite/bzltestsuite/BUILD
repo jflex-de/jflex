@@ -4,4 +4,5 @@ java_library(
     deps = [
         "//third_party/junit"
     ],
+    visibility=["//testsuite/javatests:__subpackages__"]
 )
