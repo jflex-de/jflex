@@ -7,13 +7,13 @@ java_binary(
     main_class = "java_cup.Main",
     runtime_deps = [
         ":cup",
-        ":cup_runtime",
     ],
 )
 
+# This is the full Java CUP (with runtime)
 java_import(
     name = "cup",
-    jars = ["cup/target/cup-11b.jar"],
+    jars = ["cup/java-cup-11b.jar"],
 )
 
 alias(
