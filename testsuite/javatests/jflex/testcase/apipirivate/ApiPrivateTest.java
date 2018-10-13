@@ -1,9 +1,10 @@
 package jflex.testcase.apipirivate;
 
-import static org.junit.Assert.fail;
-
+import com.google.common.collect.ImmutableList;
 import jflex.testing.JFlexTestRunner;
+import jflex.testing.JavacUtil;
 import jflex.testing.annotations.TestSpec;
+import jflex.testing.exception.CompilerException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,7 +13,13 @@ import org.junit.runner.RunWith;
 @TestSpec(lex = "testsuite/javatests/jflex/testcase/apipirivate/private.flex")
 public class ApiPrivateTest {
   @Test
-  public void testFail() {
-    fail("ignore");
+  public void ok() {}
+
+  @Test
+  public void compile() throws CompilerException {
+    JavacUtil.compile(
+        ImmutableList.of(
+            "testsuite/javatests/jflex/testcase/apipirivate/Private.java",
+            "testsuite/javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));
   }
 }
