@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 @RunWith(JFlexTestRunner.class)
 @TestSpec(lex = "testsuite/javatests/jflex/testcase/apipirivate/private.flex")
 public class ApiPrivateTest {
-  @Test
-  public void ok() {}
 
   @Test
   public void compile() throws CompilerException {
