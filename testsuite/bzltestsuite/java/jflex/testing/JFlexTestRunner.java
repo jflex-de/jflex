@@ -4,8 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import java.util.List;
-import java.util.stream.Collectors;
 import jflex.LexGenerator;
 import jflex.testing.annotations.TestSpec;
 import jflex.testing.exception.CompilerException;
@@ -49,16 +47,9 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     return lexerJavaFileName;
   }
 
-  private void compile(RunNotifier notifier, List<? extends String> javaSourceFileNames)
-      throws CompilerException {
-    List<File> javaSourceFiles =
-        javaSourceFileNames.stream().map(File::new).collect(Collectors.toList());
-    compile(notifier, javaSourceFiles);
-  }
-
-  private void compile(RunNotifier notifier, Iterable<? extends File> javaSourceFiles)
+  private void compile(RunNotifier notifier, ImmutableList<String> javaFileNames)
       throws CompilerException {
     notifier.fireTestStarted(Description.createTestDescription(klass, "Compile java code"));
-    JavacUtil.compile(javaSourceFiles);
+    JavacUtil.compile(javaFileNames);
   }
 }
