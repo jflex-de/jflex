@@ -1,8 +1,10 @@
 java_library(
     name = "bzltestsuite",
     srcs = glob(["java/**/*.java"]),
+    visibility = ["//testsuite/javatests:__subpackages__"],
     deps = [
-        "//third_party/junit"
+        "//jflex",
+        "//third_party/com/google/guava",
+        "//third_party/junit",
     ],
-    visibility=["//testsuite/javatests:__subpackages__"]
 )
