@@ -13,6 +13,6 @@ import org.junit.runner.RunWith;
 public class ApiPrivateTest {
   @Test
   public void testFail() {
-    fail();
+    fail("ignore");
   }
 }

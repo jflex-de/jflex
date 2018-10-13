@@ -35,7 +35,7 @@ public class LexGenerator {
    *
    * @param inputFile a file containing a lexical specification to generate a scanner for.
    */
-  public static void generate(File inputFile) {
+  public static String generate(File inputFile) {
 
     Out.resetCounters();
 
@@ -98,8 +98,8 @@ public class LexGenerator {
 
       time.start();
 
-      Emitter e = new Emitter(inputFile, parser, dfa);
-      e.emit();
+      Emitter emitter = new Emitter(inputFile, parser, dfa);
+      emitter.emit();
 
       time.stop();
 
@@ -108,6 +108,7 @@ public class LexGenerator {
       totalTime.stop();
 
       Out.time(ErrorMessages.TOTAL_TIME, totalTime);
+      return emitter.outputFileName;
     } catch (ScannerException e) {
       Out.error(e.file, e.message, e.line, e.column);
       throw new GeneratorException();

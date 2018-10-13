@@ -47,6 +47,7 @@ public final class Emitter {
   private static final int NOLOOK = 8;
 
   private File inputFile;
+  final String outputFileName;
 
   private PrintWriter out;
   private Skeleton skel;
@@ -84,8 +85,8 @@ public final class Emitter {
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
     String name = getBaseName(parser.scanner.className) + ".java";
-
     File outputFile = normalize(name, inputFile);
+    outputFileName = outputFile.getAbsolutePath();
 
     Out.println("Writing code to \"" + outputFile + "\"");
 
