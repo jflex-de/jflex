@@ -15,7 +15,8 @@ public class ApiPrivateTest {
   @Test
   public void ok() {}
 
-  @Test
+  // TODO(regisd) user assertThrows instead
+  @Test(expected = CompilerException.class)
   public void compile() throws CompilerException {
     JavacUtil.compile(
         ImmutableList.of(
