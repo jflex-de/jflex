@@ -19,7 +19,7 @@ java_binary(
 java_library(
     name = "java_simplified",
     # glob is not a best practice, but it's good enough for this example
-    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer"],
+    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer", ":gen_parser"],
     deps = ["//cup:cup_runtime"],
 )
 
