@@ -35,3 +35,10 @@ cup(
     src = "src/main/cup/java_simplified.cup",
     symbols = "sym",
 )
+
+# Tests
+java_test(
+    name = "LexerTest",
+    srcs = ["src/test/java/jflex/examples/java_simplified/LexerTest.java"],
+    deps = [":java_simplified"],
+)
