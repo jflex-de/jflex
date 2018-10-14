@@ -6,7 +6,7 @@ java_test(
         "data/test.txt",
     ],
     deps = [
-        "//simple",
+        "//jflex/examples/simple",
         "//third_party/com/google/truth",
     ],
 )

@@ -11,4 +11,15 @@ Home directory and parent POM of 2 artefacts:
 Note that this code is excluded from many rules of our codebase,
 for instance google-java-format is not applied.
 
+
+## Bazel rule
+
+    load("//cup:cup.bzl", "cup")
+    
+    cup(
+      name = "rule_name",
+      src = "spec.cup",
+     )
+
+
 [cup]: http://www2.cs.tum.edu/projects/cup/

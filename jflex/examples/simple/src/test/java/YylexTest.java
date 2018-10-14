@@ -87,7 +87,7 @@ public class YylexTest {
     File pwd = new File(".").getCanonicalFile();
     assertThat(pwd.isDirectory()).isTrue();
     if (Objects.equal(pwd.getName(), "__main__")) {
-      path = "simple/" + path;
+      path = "jflex/examples/simple/" + path;
     }
     File file = new File(path);
     if (!file.isFile()) {
