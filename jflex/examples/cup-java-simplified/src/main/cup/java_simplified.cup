@@ -1,49 +1,17 @@
+/*
+ * Copyright (C) 1998 C. Scott Ananian <cananian@alumni.princeton.edu>
+ * Copyright (C) 1999 Gerwin Klein <lsf@jflex.de>
+ *
+ * This program is released under the terms of the GPL; see the file
+ * COPYING for more details.  There is NO WARRANTY on this code.
+ */
 package jflex.examples.java_simplified;
 
 import java_cup.runtime.*;
 
 
-/* August 1999 - modified by Gerwin Klein <lsf@jflex.de>
-                 to interface with JFlex scanners,
-                 allows empty semicolon in class decls.
+/** Parser for a lamguages inspired by Java. */
 
-  changed productions:
-
-  class_member_declaration ::=
-	  	field_declaration
-  	|	method_declaration
-    [..]
-  	|	interface_declaration
-    | SEMICOLON
-  	;
-
-  interface_member_declaration ::=
-  		constant_declaration
-	  |	abstract_method_declaration
-  	|	class_declaration
-  	|	interface_declaration
-    | SEMICOLON
-	  ;
-
-*/
-
-
-/* Java 1.2 parser for CUP.
- * Copyright (C) 1998 C. Scott Ananian <cananian@alumni.princeton.edu>
- * This program is released under the terms of the GPL; see the file
- * COPYING for more details.  There is NO WARRANTY on this code.
- */
-
-/*
-JDK 1.2 Features added:
-  strictfp modifier.
-  explicit_constructor_invocation ::= ...
-        | primary DOT THIS LPAREN argument_list_opt RPAREN SEMICOLON ;
-  field_access ::= ...
-        |       name DOT SUPER DOT IDENTIFIER ;
-  method_invocation ::= ...
-        |       name DOT SUPER DOT IDENTIFIER LPAREN argument_list_opt RPAREN ;
-*/
 
 parser code  {:
   public void report_error(String message, Object info) {

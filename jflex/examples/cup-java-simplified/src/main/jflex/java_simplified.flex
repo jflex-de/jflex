@@ -4,7 +4,7 @@ package jflex.examples.java_simplified;
 
 import java_cup.runtime.Symbol;
 
-/** Partial lexer of the Java programming language. */
+/** Lexer of a very minimal version of the Java programming language. */
 
 %%
 
