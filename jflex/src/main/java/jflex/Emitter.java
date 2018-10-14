@@ -85,6 +85,7 @@ public final class Emitter {
   public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
 
     String name = getBaseName(parser.scanner.className) + ".java";
+
     File outputFile = normalize(name, inputFile);
     outputFileName = outputFile.getAbsolutePath();
 
