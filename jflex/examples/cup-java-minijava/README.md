@@ -26,5 +26,7 @@ or more simply the uberjar version:
 
 ## Files
 
-* `src/main/jflex/java_simplified.flex`
+* `src/main/jflex/minijava.flex`
   Partial (simplified) specification of Java.
+* `src/test/java/jflex/examples/minijava/LexerTest.java`
+  Test of the generated lexer.

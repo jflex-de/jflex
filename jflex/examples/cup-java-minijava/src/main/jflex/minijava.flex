@@ -1,6 +1,6 @@
 // JFlex example from the user Manual
 
-package jflex.examples.java_simplified;
+package jflex.examples.minijava;
 
 import java_cup.runtime.Symbol;
 

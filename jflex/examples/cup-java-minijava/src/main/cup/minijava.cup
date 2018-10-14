@@ -6,7 +6,7 @@
  * This program is released under the terms of the GPL; see the file
  * COPYING for more details.  There is NO WARRANTY on this code.
  */
-package jflex.examples.java_simplified;
+package jflex.examples.minijava;
 
 import java_cup.runtime.*;
 

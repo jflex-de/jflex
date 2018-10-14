@@ -1,4 +1,4 @@
-package jflex.examples.java_simplified;
+package jflex.examples.minijava;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
@@ -52,7 +52,7 @@ public class LexerTest {
     assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
     try {
       nextToken();
-      fail("Character `;` is not declared in the java_simplified.flex");
+      fail("Character `;` is not declared in the minijava.flex");
     } catch (Error expected) {
       // This is bad, but the JFlex API doesn't allow better
       // https://errorprone.info/bugpattern/TryFailThrowable

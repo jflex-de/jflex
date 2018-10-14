@@ -11,13 +11,13 @@ load("//cup:cup.bzl", "cup")
 # However, this example is simple enough and we can define all rules here.
 
 java_binary(
-    name = "java_simplified_bin",
+    name = "minijava_bin",
     main_class = "Yylex",
-    runtime_deps = [":java_simplified"],
+    runtime_deps = [":minijava"],
 )
 
 java_library(
-    name = "java_simplified",
+    name = "minijava",
     # glob is not a best practice, but it's good enough for this example
     srcs = glob(["src/main/java/**/*.java"]) + [
         ":gen_lexer",
@@ -28,23 +28,23 @@ java_library(
 
 jflex(
     name = "gen_lexer",
-    srcs = ["src/main/jflex/java_simplified.flex"],
+    srcs = ["src/main/jflex/minijava.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["Lexer.java"],
 )
 
 cup(
     name = "gen_parser",
-    src = "src/main/cup/java_simplified.cup",
+    src = "src/main/cup/minijava.cup",
     symbols = "sym",
 )
 
 # Tests
 java_test(
     name = "LexerTest",
-    srcs = ["src/test/java/jflex/examples/java_simplified/LexerTest.java"],
+    srcs = ["src/test/java/jflex/examples/minijava/LexerTest.java"],
     deps = [
-        ":java_simplified",
+        ":minijava",
         "//cup/cup_runtime",
         "//third_party/com/google/truth",
     ],
