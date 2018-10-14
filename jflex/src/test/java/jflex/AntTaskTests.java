@@ -37,7 +37,7 @@ public class AntTaskTests extends TestCase {
   }
 
   /*
-   * @see TestSpec#setUp()
+   * @see TestCase#setUp()
    */
   protected void setUp() throws Exception {
     super.setUp();
