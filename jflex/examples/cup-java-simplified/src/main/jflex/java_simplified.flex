@@ -1,5 +1,8 @@
-/* JFlex example: part of Java language lexer specification */
+// JFlex example from the user Manual
+
 import java_cup.runtime.*;
+
+/** Partial lexer of the Java programming language. */
 
 %%
 
