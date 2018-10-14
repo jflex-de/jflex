@@ -9,6 +9,11 @@ import java.util.stream.Collectors;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
+/**
+ * Exception while using the Java compiler.
+ *
+ * @author Régis Décamps
+ */
 public class CompilerException extends Exception {
 
   private final List<Diagnostic<? extends JavaFileObject>> diagnostics;

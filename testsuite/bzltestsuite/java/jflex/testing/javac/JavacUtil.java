@@ -12,8 +12,14 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
+/**
+ * Helper class to invoke the {@link JavaCompiler}.
+ *
+ * @author Régis Décamps
+ */
 public final class JavacUtil {
 
+  /** Compiles the given java source files. */
   public static void compile(Iterable<? extends File> files) throws CompilerException {
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
     DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
@@ -42,6 +48,11 @@ public final class JavacUtil {
     }
   }
 
+  /**
+   * Compiles the given java source files.
+   *
+   * @see #compile(Iterable)
+   */
   public static void compile(List<? extends String> javaSourceFileNames) throws CompilerException {
     List<File> javaSourceFiles =
         javaSourceFileNames.stream().map(File::new).collect(Collectors.toList());
