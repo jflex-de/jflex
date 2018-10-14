@@ -1,5 +1,6 @@
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static jflex.common.testing.BazelFileUtil.openFile;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -19,6 +20,7 @@ import junit.framework.TestCase;
  */
 public class YylexTest extends TestCase {
 
+  private static final String BAZEL_PACKAGE = "//jflex/examples/simple/src/test";
   private ByteArrayOutputStream outputStream;
 
   @Override
@@ -33,9 +35,9 @@ public class YylexTest extends TestCase {
     outputStream.close();
   }
 
-  /** Tests that the generated {@link Yylex} lexer behaves like expected. */
+  /** Tests that the generated {@link Yylex} lexer behaves as expected. */
   public void testOutput() throws Exception {
-    File inputFile = jflex.common.testing.TestResourceFileUtil.openFile("src/test/data/test.txt");
+    File inputFile = openFile(BAZEL_PACKAGE + ":data/test.txt");
     assertThat(inputFile.isFile()).isTrue();
 
     String[] argv = new String[] {inputFile.getPath()};
@@ -43,7 +45,7 @@ public class YylexTest extends TestCase {
     Yylex.main(argv);
 
     // test actual is expected
-    File expected = jflex.common.testing.TestResourceFileUtil.openFile("src/test/data/output.good");
+    File expected = openFile(BAZEL_PACKAGE + ":data/output.good");
     assertThat(expected.isFile()).isTrue();
 
     BufferedReader actualContent = readOutputStream();
