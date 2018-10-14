@@ -105,12 +105,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.google.auto.value</groupId>
-        <artifactId>auto-value</artifactId>
-        <version>1.4.1</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>
         <version>3.0.2</version>
