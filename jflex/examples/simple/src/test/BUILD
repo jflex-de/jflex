@@ -8,5 +8,6 @@ java_test(
     deps = [
         "//jflex/examples/simple",
         "//third_party/com/google/truth",
+        "//jflex/common-testing/src/main/java/jflex/common/testing"
     ],
 )

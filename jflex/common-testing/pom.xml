@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.jflex.common</groupId>
+  <artifactId>jflex-common-testing</artifactId>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.7.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <name>Common testing</name>
+  <inceptionYear>2018</inceptionYear>
+  <description>
+    Classes commonly used in tests.
+  </description>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+  </dependencies>
+</project>
