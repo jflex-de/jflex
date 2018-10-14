@@ -28,6 +28,7 @@
         uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
   </target>
 
+  <ivy:retrieve/>
 
   <!-- Sample project -->
   <target name="run" depends="build">
@@ -41,7 +42,7 @@
       <test name="YylexTest">
         <formatter type="plain" usefile="false"/>
       </test>
-      <classpath refid="ivy-deps"/>
+      <classpath refid="ivy.lib.path"/>
       <classpath refid="build-artifacts"/>
     </junit>
   </target>
