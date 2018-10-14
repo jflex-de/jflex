@@ -1,4 +1,4 @@
-#JFlex with cup
+# JFlex with cup
 
 This directory contains a small example of integration
 between JFlex and [CUP][cup].
