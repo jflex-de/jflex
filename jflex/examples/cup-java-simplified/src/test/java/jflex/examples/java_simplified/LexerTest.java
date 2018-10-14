@@ -1,8 +1,70 @@
 package jflex.examples.java_simplified;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import org.junit.After;
 import org.junit.Test;
 
+/**
+ * Test for the generated {@link Lexer}.
+ *
+ * <p>The lexer is probably already correct thanks to the regression tests. This test class is
+ * mostly here to show how the lexer behaves.
+ */
 public class LexerTest {
+
+  private Lexer lexer;
+
+  @After
+  public void resetLexer() {
+    lexer = null;
+  }
+
   @Test
-  public void ok() {}
+  public void scan_tokenIdentifier() throws IOException {
+    scan("helloWorld");
+    assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
+  }
+
+  @Test
+  public void scan_assignment() throws IOException {
+    scan("boolean debug = 2 == 1 + 1");
+    assertThat(nextToken()).isEqualTo(sym.BOOLEAN);
+    assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
+    assertThat(nextToken()).isEqualTo(sym.EQ);
+    assertThat(nextToken()).isEqualTo(sym.INTEGER_LITERAL);
+    assertThat(nextToken()).isEqualTo(sym.EQEQ);
+    assertThat(nextToken()).isEqualTo(sym.INTEGER_LITERAL);
+    assertThat(nextToken()).isEqualTo(sym.PLUS);
+    assertThat(nextToken()).isEqualTo(sym.INTEGER_LITERAL);
+    assertThat(nextToken()).isEqualTo(sym.EOF);
+  }
+
+  @SuppressWarnings("TryFailThrowable")
+  @Test
+  public void scan_illegalChar() throws IOException {
+    scan("boolean debug;");
+    assertThat(nextToken()).isEqualTo(sym.BOOLEAN);
+    assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
+    try {
+      nextToken();
+      fail("Character `;` is not declared in the java_simplified.flex");
+    } catch (Error expected) {
+      // This is bad, but the JFlex API doesn't allow better
+      // https://errorprone.info/bugpattern/TryFailThrowable
+    }
+  }
+
+  private void scan(String input) {
+    Reader in = new StringReader(input);
+    lexer = new Lexer(in);
+  }
+
+  private int nextToken() throws IOException {
+    return lexer.next_token().sym;
+  }
 }

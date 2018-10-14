@@ -19,7 +19,10 @@ java_binary(
 java_library(
     name = "java_simplified",
     # glob is not a best practice, but it's good enough for this example
-    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer", ":gen_parser"],
+    srcs = glob(["src/main/java/**/*.java"]) + [
+        ":gen_lexer",
+        ":gen_parser",
+    ],
     deps = ["//cup:cup_runtime"],
 )
 
@@ -40,5 +43,9 @@ cup(
 java_test(
     name = "LexerTest",
     srcs = ["src/test/java/jflex/examples/java_simplified/LexerTest.java"],
-    deps = [":java_simplified"],
+    deps = [
+        ":java_simplified",
+        "//cup/cup_runtime",
+        "//third_party/com/google/truth",
+    ],
 )
