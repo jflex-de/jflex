@@ -34,6 +34,7 @@ public class LexGenerator {
    * Generates a scanner for the specified input file.
    *
    * @param inputFile a file containing a lexical specification to generate a scanner for.
+   * @return the file name of the generated Java sources.
    */
   public static String generate(File inputFile) {
 
