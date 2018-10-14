@@ -22,7 +22,6 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//cup",
-        "//third_party/com/google/auto_value",
         "//third_party/org/apache/ant",
     ],
 )
