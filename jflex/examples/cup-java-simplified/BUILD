@@ -11,15 +11,15 @@ load("//cup:cup.bzl", "cup")
 # However, this example is simple enough and we can define all rules here.
 
 java_binary(
-    name = "java_simple_bin",
+    name = "java_simplified_bin",
     main_class = "Yylex",
-    runtime_deps = [":java_simple"],
+    runtime_deps = [":java_simplified"],
 )
 
 java_library(
-    name = "java_simple",
+    name = "java_simplified",
     # glob is not a best practice, but it's good enough for this example
-    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer",],
+    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer"],
     deps = ["//cup:cup_runtime"],
 )
 
