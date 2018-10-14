@@ -92,8 +92,9 @@ matrix:
       vcs_url: https://github.com/jflex-de/jflex/tree/master/docs
       licenses: ["BSD-3"]
       on:
-      - travis
-      - master
+        branch:
+        - travis
+        - master
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
