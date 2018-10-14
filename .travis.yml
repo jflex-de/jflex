@@ -81,15 +81,10 @@ matrix:
     deploy:
       provider: bintray
       skip_cleanup: true
-      file: docs/manual.pdf
+      file: docs/bintray.json
       user: "rgs"
       key:
         secure: $BINTRAY_API_KEY
-      subject: rgs
-      name: jflex_manual
-      repo: jflex_manual
-      vcs_url: https://github.com/jflex-de/jflex/tree/master/docs
-      licenses: ["BSD-3"]
       on:
         branch:
         - travis
