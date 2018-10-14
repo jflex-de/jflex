@@ -4,6 +4,6 @@ java_library(
     name = "javac",
     srcs = glob(["*.java"]),
     deps = [
-                "//third_party/com/google/guava",
-    ]
+        "//third_party/com/google/guava",
+    ],
 )
