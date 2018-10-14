@@ -1,3 +1,5 @@
+package jflex.examples.java_simplified;
+
 import java_cup.runtime.*;
 
 

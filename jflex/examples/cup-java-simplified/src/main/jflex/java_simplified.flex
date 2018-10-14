@@ -1,6 +1,8 @@
 // JFlex example from the user Manual
 
-import java_cup.runtime.*;
+package jflex.examples.java_simplified;
+
+import java_cup.runtime.Symbol;
 
 /** Partial lexer of the Java programming language. */
 
