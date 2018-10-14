@@ -85,7 +85,8 @@ matrix:
       - docs/manual.pdf
       - docs/manual.html
       user: "rgs"
-      key: $BINTRAY_API_KEY
+      key:
+        secure: $BINTRAY_API_KEY
       subject: rgs
       name: jflex_manual
       repo: jflex_manual
