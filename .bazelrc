@@ -1,0 +1,3 @@
+# https://errorprone.info/
+# TODO(#222) Increase to warning when we build from jflex-1.7.1
+build --javacopt "-Xep:FallThrough:WARN"
