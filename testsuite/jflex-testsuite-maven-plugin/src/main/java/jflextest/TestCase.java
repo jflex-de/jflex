@@ -2,16 +2,20 @@ package jflextest;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import org.apache.maven.plugin.MojoFailureException;
 
 public class TestCase {
 
@@ -21,8 +25,8 @@ public class TestCase {
   /** files on which to invoke jflex */
   private List<String> jflexFiles;
 
-  /** command line switches for javac invocation */
-  private List<String> javacExtraFiles;
+  /** command line switches for javac invocation, instead of the default {@code <testname>.java}. */
+  private List<String> javacFiles;
 
   /** lines with expected differences in jflex output */
   private List<Integer> jflexDiff;
@@ -59,6 +63,7 @@ public class TestCase {
   /** get- set- methods */
   void setTestName(String s) {
     testName = s;
+    // TODO(regisd): The class name should depend on the flex `%class`, not on the test name.
     className = testName.substring(0, 1).toUpperCase(Locale.ENGLISH) + testName.substring(1);
   }
 
@@ -82,8 +87,8 @@ public class TestCase {
     jflexCmdln = v;
   }
 
-  void setJavacExtraFiles(List<String> v) {
-    javacExtraFiles = v;
+  void setJavacFiles(List<String> v) {
+    javacFiles = v;
   }
 
   private void setInputOutput(List<InputOutput> v) {
@@ -125,7 +130,7 @@ public class TestCase {
     String name;
     for (String file : testDir.list()) {
       if (null != commonInputFile) {
-        if (file.equals(testName + ".output")) {
+        if (Objects.equals(file, testName + ".output")) {
           temp.add(new InputOutput((new File(testDir, testName)).toString(), true));
           commonInputFile = (new File(testDir, commonInputFile)).toString();
         }
@@ -148,8 +153,17 @@ public class TestCase {
     testPath = testDir;
   }
 
-  void createScanner(File jflexUberJar) throws TestFailException {
-    jflexFiles.add((new File(testPath, testName + ".flex")).getPath());
+  void createScanner(File jflexUberJar, boolean verbose)
+      throws TestFailException, MojoFailureException {
+    File lexFile = new File(testPath, testName + ".flex");
+    if (verbose) {
+      System.out.println(String.format("Open lex specification [%s]", lexFile));
+    }
+    if (!lexFile.exists()) {
+      throw new MojoFailureException(
+          "Cannot open lex definition", new FileNotFoundException(lexFile.getPath()));
+    }
+    jflexFiles.add(lexFile.getPath());
     // invoke JFlex
     TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
     // System.out.println(jflexResult);
@@ -189,33 +203,30 @@ public class TestCase {
       }
 
       // Compile Scanner
-      StringBuilder builder = new StringBuilder();
-      builder.append(new File(testPath, className + ".java").getName());
-      if (null != javacExtraFiles) {
-        for (String extraFile : javacExtraFiles) {
-          builder.append(',').append(extraFile);
-        }
-      }
-      String toCompile = builder.toString();
+      final List<String> toCompile = getFilesToCompile();
       if (Tester.verbose) {
-        System.out.println("File(s) to Compile: " + toCompile);
+        System.out.println("File(s) to compile: " + toCompile);
       }
-      TestResult javacResult =
-          Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
+      try {
+        TestResult javacResult =
+            Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
-      // System.out.println(javacResult);
-      if (Tester.verbose) {
-        System.out.println(
-            "Compilation successful: "
-                + javacResult.getSuccess()
-                + " [expected: "
-                + !expectJavacFail
-                + "]");
-      }
-      if (javacResult.getSuccess() == expectJavacFail) {
-        System.out.println("Compilation failed in " + testPath + " for " + toCompile);
-        System.out.println(javacResult.getOutput());
-        throw new TestFailException();
+        // System.out.println(javacResult);
+        if (Tester.verbose) {
+          System.out.println(
+              "Compilation successful: "
+                  + javacResult.getSuccess()
+                  + " [expected: "
+                  + !expectJavacFail
+                  + "]");
+        }
+        if (javacResult.getSuccess() == expectJavacFail) {
+          throw new TestFailException(
+              "Compilation failed in " + testPath + " for " + toCompile,
+              new Exception(javacResult.getOutput()));
+        }
+      } catch (FileNotFoundException e) {
+        throw new TestFailException("javac: file not found: ", e);
       }
     } else {
       if (!expectJFlexFail) {
@@ -244,6 +255,20 @@ public class TestCase {
           }
         }
       }
+    }
+  }
+
+  /** Returns the list of java files to compile. */
+  private List<String> getFilesToCompile() {
+    if (javacFiles == null) {
+      return ImmutableList.of(new File(testPath, className + ".java").getName());
+    } else {
+      ImmutableList.Builder<String> builder = ImmutableList.builder();
+      for (String explicitJavaSrc : javacFiles) {
+        File f = new File(testPath, explicitJavaSrc);
+        builder.add(f.getName());
+      }
+      return builder.build();
     }
   }
 
@@ -281,17 +306,13 @@ public class TestCase {
     if (expected.exists()) {
       DiffStream check = new DiffStream();
       String diff;
-      try {
+      try (InputStreamReader expectedContent =
+          new InputStreamReader(
+              Files.newInputStream(Paths.get(expected.toString())), outputFileEncoding)) {
         diff =
-            check.diff(
-                jflexDiff,
-                new StringReader(classExecResult.getOutput()),
-                new InputStreamReader(new FileInputStream(expected), outputFileEncoding));
-      } catch (FileNotFoundException e) {
+            check.diff(jflexDiff, new StringReader(classExecResult.getOutput()), expectedContent);
+      } catch (IOException e) {
         System.out.println("Error opening file " + expected);
-        throw new TestFailException();
-      } catch (UnsupportedEncodingException e) {
-        System.out.println("Unsupported encoding '" + outputFileEncoding + "'");
         throw new TestFailException();
       }
       if (diff != null) {
@@ -307,7 +328,7 @@ public class TestCase {
   }
 
   public String toString() {
-    return "Testname: "
+    return "Test name: "
         + testName
         + "\nDescription: "
         + description
@@ -318,9 +339,7 @@ public class TestCase {
         + "\n"
         + "JFlex Command line: "
         + jflexCmdln
-        + (null != javacExtraFiles
-            ? " Javac Extra Files: " + Arrays.toString(javacExtraFiles.toArray())
-            : "")
+        + (null != javacFiles ? " Javac Files: " + Arrays.toString(javacFiles.toArray()) : "")
         + "\n"
         + "Files to run Tester on "
         + inputOutput

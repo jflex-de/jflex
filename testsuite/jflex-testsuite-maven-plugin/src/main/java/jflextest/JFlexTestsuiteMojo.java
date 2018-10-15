@@ -32,8 +32,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
 
   /** Path of the JFlex uber jar under test. */
   @Parameter(
-    defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar"
-  )
+      defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar")
   private String jflexUberJarFilename;
 
   /** */
@@ -69,7 +68,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       success = Tester.runTests(files, jflexUberJar);
 
     } catch (Exception e) {
-      throw new MojoExecutionException("Failed to execute test suite", e);
+      throw new MojoExecutionException("Failed to execute test suite: " + e.getMessage(), e);
     }
     if (!success) {
       throw new MojoFailureException("Test(s) failed.");

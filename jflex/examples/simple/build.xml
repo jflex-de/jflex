@@ -1,0 +1,33 @@
+<project name="simple scanner" default="compile">
+
+  <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
+
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
+
+  <target name="build" depends="clean,compile" />
+
+  <target name="run" depends="compile">
+    <java classname="Yylex" classpath="antbuild">
+      <arg line="src/test/data/test.txt"/>
+    </java>
+  </target>
+
+  <target name="test" depends="run">
+    <!-- TODO(#384) compare output with golden. -->
+  </target>
+
+  <target name="compile" depends="scanner">
+    <javac destdir="antbuild">
+      <src path="src/main/java/" />
+      <src path="antbuild/"/>
+    </javac>
+  </target>
+
+  <target name="scanner">
+    <jflex file="src/main/jflex/simple.flex" destdir="antbuild"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="antbuild"/>
+  </target>
+</project>

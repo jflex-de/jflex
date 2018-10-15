@@ -12,13 +12,13 @@ package jflex;
 import java.util.Locale;
 
 /**
- * Encodes <code>int</code> arrays as strings.
+ * Encodes {@code int} arrays as strings.
  *
  * <p>Also splits up strings when longer than 64K in UTF8 encoding. Subclasses emit unpacking code.
  *
- * <p>Usage protocol: <code>p.emitInit();</code><br>
- * <code>for each data: p.emitData(data);</code><br>
- * <code>p.emitUnpack();</code>
+ * <p>Usage protocol: {@code p.emitInit();}<br>
+ * {@code for each data: p.emitData(data);}<br>
+ * {@code p.emitUnpack();}
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
@@ -64,7 +64,7 @@ public abstract class PackEmitter {
   /**
    * Convert array name into all uppercase internal scanner constant name.
    *
-   * @return <code>name</code> as a internal constant name.
+   * @return {@code name} as a internal constant name.
    * @see PackEmitter#name
    */
   protected String constName() {
@@ -156,7 +156,7 @@ public abstract class PackEmitter {
   }
 
   /**
-   * Append a unicode/octal escaped character to <code>out</code> buffer.
+   * Append a unicode/octal escaped character to {@code out} buffer.
    *
    * @param c the character to append
    */

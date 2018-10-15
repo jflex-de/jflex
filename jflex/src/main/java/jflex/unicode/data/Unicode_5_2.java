@@ -4,12 +4,11 @@ package jflex.unicode.data;
  * Unicode_5_2 class.
  *
  * @author JFlex contributors.
- * @version $Id: $Id
  */
 public class Unicode_5_2 {
-  /** Constant <code>maximumCodePoint=0x10ffff</code> */
+  /** Constant {@code maximumCodePoint=0x10ffff} */
   public static final int maximumCodePoint = 0x10ffff;
-  /** Constant <code>propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}</code> */
+  /** Constant {@code propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}} */
   public static final String[] propertyValues = {
     "age=1.1", "age=2.0", "age=2.1", "age=3.0", "age=3.1",
     "age=3.2", "age=4.0", "age=4.1", "age=5.0", "age=5.1",
@@ -153,7 +152,7 @@ public class Unicode_5_2 {
     "xdigit", "xidcontinue", "xidstart", "yi", "zl",
     "zp", "zs"
   };
-  /** Constant <code>intervals="{// Unicode 5.2 property value: {age=1."{trunked}</code> */
+  /** Constant {@code intervals="{// Unicode 5.2 property value: {age=1."{trunked}} */
   public static final String[] intervals = {
     // Unicode 5.2 property value: {age=1.1}
     "\000\u01f5"
@@ -27250,7 +27249,7 @@ public class Unicode_5_2 {
         + "\u3000\u3000"
   };
   /**
-   * Constant <code>propertyValueAliases="{ahex, asciihexdigit, alpha, alphabetic"{trunked}</code>
+   * Constant {@code propertyValueAliases="{ahex, asciihexdigit, alpha, alphabetic"{trunked}}
    */
   public static final String[] propertyValueAliases = {
     "ahex", "asciihexdigit", "alpha", "alphabetic",
@@ -27854,7 +27853,7 @@ public class Unicode_5_2 {
     "zinh", "inherited", "zyyy", "common",
     "zzzz", "unknown"
   };
-  /** Constant <code>caselessMatchPartitionSize=4</code> */
+  /** Constant {@code caselessMatchPartitionSize=4} */
   public static final int caselessMatchPartitionSize = 4;
   /**
    * Constant <code>caselessMatchPartitions="\u0041\u0061\000\000\u0042\u0062\000\00"{trunked}

@@ -4,3 +4,5 @@ description:
 bug-test for [".."] style character escapes (#467469)
 
 jflex: --nobak --dump
+
+javac-files: Yylex.java

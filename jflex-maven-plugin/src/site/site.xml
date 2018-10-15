@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+  <body>
+    <menu name="Overview">
+      <item name="Usage" href="usage.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+    </menu>
+    <menu name="Examples">
+      <item name="Simple Maven project" href="https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple"/>
+      <item name="Simple grammar" href="http://jflex.de/manual.html#Example"/>
+      <item name="More grammars" href="https://github.com/jflex-de/jflex/wiki/External-JFlex-Grammars"/>
+    </menu>
+
+  </body>
+
+</project>

@@ -4,6 +4,6 @@ test nevermatch warning
 
 jflex: -q
 
-javac-extra-files: Never.java
+javac-files: Never.java
 
 javac-fail: true

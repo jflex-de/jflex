@@ -35,9 +35,11 @@ update_source() {
   logi "Download deps and Compile"
   ./compile.sh
 
-  logi "Add license files"
-  cp ../LICENSE.md .
-  cp ../cup/LICENSE LICENSE_CUP
+  logi "Checking licenses"
+  [[ -f LICENSE_CUP ]] || loge "Missing LICENSE_CUP for CUP"
+  [[ -f LICENSE_JFLEX ]] || loge "Missing LICENSE_JFLEX for JFlex"
+  [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || loge "JFlex license has bad content"
+
   logi "Update git sources"
   git add --all
 
@@ -45,7 +47,10 @@ update_source() {
   git status
   # Don't commit if the diff is empty.
   # git commit fails if the commit is empty, which makes Travis build fail.
-  git diff-index --quiet HEAD || git commit -a -m "Update from $version\n\nInitial $gitlog"
+  git diff-index --quiet HEAD || \
+      git commit -a \
+          -m "Update from $version" \
+          -m "Initial $gitlog"
   cd ..
 }
 
@@ -72,3 +77,5 @@ if [[ -z "$CI" ]]; then
 else
   git_push
 fi
+
+cd "$CWD"

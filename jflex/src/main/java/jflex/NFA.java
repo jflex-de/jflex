@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Non-deterministic finite automata representation in JFlex.
@@ -312,7 +313,7 @@ public final class NFA {
   }
 
   /**
-   * Returns <code>true</code>, iff the specified set of states contains a final state.
+   * Returns {@code true}, iff the specified set of states contains a final state.
    *
    * @param set the set of states that is tested for final states.
    */
@@ -325,7 +326,7 @@ public final class NFA {
   }
 
   /**
-   * Returns <code>true</code>, iff the specified set of states contains a pushback-state.
+   * Returns {@code true}, iff the specified set of states contains a pushback-state.
    *
    * @param set the set of states that is tested for pushback-states. private boolean
    *     containsPushback(StateSet set) { states.reset(set);
@@ -412,12 +413,12 @@ public final class NFA {
   }
 
   /**
-   * Calculates the set of states that can be reached from another set of states <code>start</code>
-   * with an specified input character <code>input</code>
+   * Calculates the set of states that can be reached from another set of states {@code start} with
+   * an specified input character {@code input}
    *
    * @param start the set of states to start from
    * @param input the input character for which to search the next states
-   * @return the set of states that are reached from <code>start</code> via <code>input</code>
+   * @return the set of states that are reached from {@code start</code> via <code>input}
    */
   private StateSet DFAEdge(StateSet start, int input) {
     // Out.debug(String.format("Calculating DFAEdge for state set "+start+" and input U+04X"),
@@ -574,7 +575,7 @@ public final class NFA {
       if (isFinal[i]) {
         result.append("[FINAL");
         String l = action[i].lookString();
-        if (!l.equals("")) {
+        if (!Objects.equals(l, "")) {
           result.append(", ");
           result.append(l);
         }

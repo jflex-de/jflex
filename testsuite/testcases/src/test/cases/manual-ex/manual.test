@@ -4,3 +4,4 @@ the introductory example from the manual
 
 jflex: --nobak
 
+javac-files: Lexer.java sym.java

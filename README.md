@@ -1,4 +1,9 @@
-[![Build Status](https://travis-ci.org/jflex-de/jflex.svg?branch=master)](https://travis-ci.org/jflex-de/jflex)
+<a href="https://travis-ci.org/jflex-de/jflex">
+  <img alt="Build status" src="https://travis-ci.org/jflex-de/jflex.svg?branch=master" height="20">
+</a>
+<a href="https://search.maven.org/artifact/de.jflex/jflex/">
+  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
+</a>
 
 # JFlex
 
@@ -13,6 +18,7 @@ operators, etc, and generating an input token stream for parsers.
 JFlex lexers are based on deterministic finite automata (DFAs).
 They are fast, without expensive backtracking.
 
+
 ## Modules
 
 The top level directory of the JFLex git repository contains:
@@ -24,6 +30,8 @@ The top level directory of the JFLex git repository contains:
  * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
  * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
  * **testsuite** the regression test suite for JFlex,
+ * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
+
 
 ## Usage
 
@@ -57,8 +65,6 @@ and the [wiki][wiki].
 3. Voilà: Java code is produced in `target/generated-sources/` during the `generate-sources` phase
 (which happens before the `compile` phase) and included in the compilation scope.
 
-Sample project: [simple-maven][example-simple-maven]
-
 ### Usage with ant
 
 1. Define ant task
@@ -70,6 +76,19 @@ Sample project: [simple-maven][example-simple-maven]
 ```xml
 <jflex file="src/grammar/parser.flex" destdir="build/generated/"/>
 <javac srcdir="build/generated/" destdir="build/classes/"/>
+```
+
+### Usage with Bazel
+
+We provide a [jflex rule](https://jflex-de.github.io/bazel_rules/)
+
+```
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+jflex(
+    name = "",           # Choose a rule name
+    srcs = [],           # Add input lex specifications
+    outputs = [],        # List expected generated files
+)
 ```
 
 ### Usage in CLI
@@ -84,20 +103,34 @@ Or:
 java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 ```
 
+### Other build tools
+
+See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-integration).
+
+
+## Examples
+
+Have a look at the sample project: [simple][example-simple] and other [examples].
+
+
 ## Build from source
 
 ```
 ./mvnw install
 ```
 
+
 ## Contributing
 
 JFlex is free software, contributions are welcome.
-See the file [CONTRIBUTING.md](CONTRIBUTING.md) for instructions.
+See the [Contributing][contrib] page for instructions.
 
 
 [jflex]: http://jflex.de/
 [jflex-doc]: http://jflex.de/manual.html
 [wiki]: https://github.com/jflex-de/jflex/wiki
 [pom-build]: https://maven.apache.org/pom.html#Build_Settings
-[example-simple-maven]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple-maven
+[example-simple]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple
+[examples]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/
+[contrib]: https://github.com/jflex-de/jflex/wiki/Contributing
+[bazel]: http://bazel.build/
