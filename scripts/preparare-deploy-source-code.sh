@@ -10,8 +10,14 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
+set -x
 
 git_clone() {
+  if [[ -d repo ]]; then
+    backup=$(mktemp -d)
+    logi "Move existing repo to $backup"
+    mv repo $backup
+  fi
   if [[ -z "$GITHUB_TOKEN" ]]; then
     logi "Cloning ssh://git@github.com:jflex-de/jflex.git (aggregated-java-sources)"
     git clone --depth 1 --branch aggregated-java-sources "git@github.com:jflex-de/jflex.git" repo > /dev/null 2>&1
@@ -32,15 +38,21 @@ update_source() {
   git config user.name "Travis CI"
   git config user.email "deploy@travis-ci.org"
   git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
-  jar -xf ../target/jflex-*-sources.jar
+  mkdir -p java
+  cd java
+  jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
-  logi "Download deps and Compile"
-  ./compile.sh
+  rm -rf jflex/maven jflextest
 
   logi "Checking licenses"
-  [[ -f LICENSE_CUP ]] || loge "Missing LICENSE_CUP for CUP"
-  [[ -f LICENSE_JFLEX ]] || loge "Missing LICENSE_JFLEX for JFlex"
-  [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || loge "JFlex license has bad content"
+  [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
+      loge "JFlex license has bad content" && cat LICENSE_JFLEX
+  cp LICENSE_JFLEX ..
+  cp LICENSE_CUP ..
+  cd ..
+
+  logi "Download deps and Compile"
+  ./compile.sh
 
   logi "Update git sources"
   git add --all
