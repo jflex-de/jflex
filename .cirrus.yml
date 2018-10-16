@@ -1,0 +1,11 @@
+# Copyright 2018 Google LLC.
+# SPDX-License-Identifier: Apache-2.0
+
+container:
+  image: cirrusci/bazel:latest
+task:
+  name: Bazel build and test
+  build_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST //...
+  test_script:
+  - bazel --bazelrc=.ci.bazelrc test --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST //...
