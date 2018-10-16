@@ -1,21 +1,4 @@
-./de/jflex/plugin/
-
 ./jflextest/
 
-./jflex/JFlexUnicodeMojo.java
-./jflex/DataFileType.java
-./jflex/DerivedAgeScanner.java
-./jflex/JFlexUnicodeMojo.java
-./jflex/NamedRange.java
-./jflex/NamedRangeSet.java
-./jflex/UnicodePropertiesSkeleton.java
-./jflex/UnicodeVersion.java
-./jflex/ArchaicBlocksScanner.java
-./jflex/ArchaicLineBreakScanner.java
-./jflex/ArchaicPropListScanner.java
-./jflex/BinaryPropertiesFileScanner.java
-./jflex/EnumeratedPropertyFileScanner.java
-./jflex/PropertyAliasesScanner.java
-./jflex/PropertyValueAliasesScanner.java
-./jflex/ScriptExtensionsScanner.java
-./jflex/UnicodeDataScanner.java
+./jflex/maven/plugin
+
