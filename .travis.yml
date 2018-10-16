@@ -24,6 +24,7 @@ matrix:
     - scripts/test-unit.sh
     - scripts/mvn-site.sh
     - scripts/mvn-aggregate-srcs.sh
+    - scripts/preparare-deploy-source-code.sh
     after_success: scripts/send-code-coverage.sh
     env:
     - PUBLISH_SOURCES=true
@@ -133,4 +134,6 @@ deploy:
     - travis
     condition:
     - $PUBLISH_SOURCES
-  script: ./scripts/deploy-source-code.sh
+  script:
+    - echo "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
+    - cd repo; git push

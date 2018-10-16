@@ -1,5 +1,7 @@
 #!/bin/bash
-# Push aggregated source code back to git
+# Prepare the aggregated source code in the 'repo' directory that is cloned from
+# branch [aggregated-java-sources].
+
 # This is inspired by https://martinrotter.github.io/it-programming/2016/08/26/pushing-git-travis/
 
 CWD="$PWD"
@@ -10,7 +12,7 @@ source "$BASEDIR"/scripts/logger.sh
 set -e
 
 git_clone() {
-  if [[ -z "$CI" ]]; then
+  if [[ -z "$GITHUB_TOKEN" ]]; then
     logi "Cloning ssh://git@github.com:jflex-de/jflex.git (aggregated-java-sources)"
     git clone --depth 1 --branch aggregated-java-sources "git@github.com:jflex-de/jflex.git" repo > /dev/null 2>&1
   else
@@ -54,14 +56,6 @@ update_source() {
   cd ..
 }
 
-git_push() {
-  cd repo
-  logi "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-  git log -1
-  git push
-  cd ..
-}
-
 # N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
 logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
@@ -74,8 +68,6 @@ if [[ -z "$CI" ]]; then
   logi "git log -1"
   logi "git diff HEAD^1"
   logi "# git push"
-else
-  git_push
 fi
 
 cd "$CWD"
