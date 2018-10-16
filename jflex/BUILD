@@ -21,7 +21,7 @@ java_library(
     resources = glob(["src/main/resources/**"]),
     visibility = ["//visibility:public"],
     deps = [
-        "//cup",
+        "//cup:cup_runtime",
         "//third_party/org/apache/ant",
     ],
 )
@@ -29,6 +29,7 @@ java_library(
 cup(
     name = "gen_parser",
     src = "src/main/cup/LexParse.cup",
+    cup_bin = "@jflex_rules//cup:cup_bin",
     interface = True,
     parser = "LexParse",
     symbols = "sym",
