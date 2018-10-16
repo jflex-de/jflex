@@ -1,4 +1,4 @@
-load("//cup:cup.bzl", "cup")
+load("@jflex_rules//cup:cup.bzl", "cup")
 
 cup(
     name = "gen_parser",

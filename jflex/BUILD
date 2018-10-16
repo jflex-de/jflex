@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-load("//cup:cup.bzl", "cup")
+load("@jflex_rules//cup:cup.bzl", "cup")
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_binary(
