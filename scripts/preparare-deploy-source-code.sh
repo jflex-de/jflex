@@ -10,7 +10,6 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
-set -x
 
 git_clone() {
   if [[ -d repo ]]; then
@@ -37,8 +36,7 @@ update_source() {
   cd repo
   git config user.name "Travis CI"
   git config user.email "deploy@travis-ci.org"
-  git rm -r META-INF jflex java_cup UnicodeProperties.java.skeleton
-  mkdir -p java
+  git rm -r java || mkdir -p java
   cd java
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
