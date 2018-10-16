@@ -1,4 +1,0 @@
-./jflextest/
-
-./jflex/maven/plugin
-
