@@ -134,10 +134,5 @@ deploy:
     - travis
     condition:
     - $PUBLISH_SOURCES
-  script:
-    - echo "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-    # SECURITY NOTICE: Be sure to send stdout & stderr to /dev/null so that the the ${GITHUB_TOKEN} is never revealed
-    - cd repo
-    - git remote set-url --push origin "https://${GITHUB_TOKEN}@github.com/jflex-de/jflex.git" repo > /dev/null 2>&1
-    - git push
+  script: scripts/deploy-aggregated-sources.sh
 
