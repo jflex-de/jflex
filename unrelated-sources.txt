@@ -3,13 +3,3 @@
 ./jflextest/
 
 ./jflex/jflex/maven
-
-./jflex/ArchaicBlocksScanner.java
-./jflex/ArchaicLineBreakScanner.java
-./jflex/ArchaicPropListScanner.java
-./jflex/BinaryPropertiesFileScanner.java
-./jflex/EnumeratedPropertyFileScanner.java
-./jflex/PropertyAliasesScanner.java
-./jflex/PropertyValueAliasesScanner.java
-./jflex/ScriptExtensionsScanner.java
-./jflex/UnicodeDataScanner.java
