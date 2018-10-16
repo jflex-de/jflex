@@ -44,7 +44,6 @@
   </scm>
 
   <modules>
-    <module>cup</module>
     <module>cup_runtime</module>
   </modules>
 
