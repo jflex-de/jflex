@@ -47,8 +47,8 @@ update_source() {
   logi "Checking licenses"
   [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
       loge "JFlex license has bad content" && cat LICENSE_JFLEX
-  cp LICENSE_JFLEX ..
-  cp LICENSE_CUP ..
+  mv LICENSE_JFLEX ..
+  mv LICENSE_CUP ..
   cd ..
 
   logi "Download deps and Compile"
