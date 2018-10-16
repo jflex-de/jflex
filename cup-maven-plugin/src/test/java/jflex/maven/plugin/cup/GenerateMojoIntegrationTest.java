@@ -4,13 +4,15 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import java.io.File;
-import jflex.maven.plugin.cup.GenerateMojo;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.project.MavenProject;
 import org.junit.Rule;
 import org.junit.Test;
 
-/** Integration test for {@link GenerateMojo} on {@code /jflex/cup/sample-project/pom.xml}. */
+/**
+ * Integration test for {@link jflex.maven.plugin.cup.GenerateMojo} on {@code
+ * /jflex/cup/sample-project/pom.xml}.
+ */
 public class GenerateMojoIntegrationTest {
 
   private MavenProject mavenTestProject;
