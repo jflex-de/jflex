@@ -4,10 +4,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.maven.plugin.cup.CliCupInvoker;
 import org.junit.Test;
 
-/** Test for {@link CliCupInvoker}. */
+/** Test for {@link jflex.maven.plugin.cup.CliCupInvoker}. */
 public class CliCupInvokerTest {
 
   @Test
