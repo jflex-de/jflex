@@ -36,11 +36,12 @@ update_source() {
   cd repo
   git config user.name "Travis CI"
   git config user.email "deploy@travis-ci.org"
-  git rm -r java || mkdir -p java
+  git rm -r java
+  mkdir -p java
   cd java
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
-  rm -rf jflex/maven jflextest
+  rm -rf jflex/maven
 
   logi "Checking licenses"
   [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
