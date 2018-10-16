@@ -1,4 +1,4 @@
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.io.Reader;
 import java.util.Map.Entry;

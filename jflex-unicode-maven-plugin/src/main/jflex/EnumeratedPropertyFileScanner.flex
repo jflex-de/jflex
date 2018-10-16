@@ -1,4 +1,4 @@
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -32,7 +32,7 @@ import java.util.TreeSet;
   String propertyName;
   int start;
   int end;
-  
+
   public void addPropertyValueIntervals() {
     int prevEnd = -1;
     int prevStart = -1;
@@ -56,14 +56,14 @@ import java.util.TreeSet;
 
     // Add final default property value interval, if necessary
     if (prevEnd < unicodeVersion.maximumCodePoint) {
-      unicodeVersion.addInterval(propertyName, defaultPropertyValue, 
+      unicodeVersion.addInterval(propertyName, defaultPropertyValue,
                                  prevEnd + 1, unicodeVersion.maximumCodePoint);
     }
-    
+
     // Add final named interval
     unicodeVersion.addInterval(propertyName, prevValue, prevStart, prevEnd);
   }
-  
+
   protected boolean accept(String propertyValue) {
     return true;
   }
