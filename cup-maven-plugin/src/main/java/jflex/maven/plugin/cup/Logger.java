@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import org.apache.maven.plugin.logging.Log;
 

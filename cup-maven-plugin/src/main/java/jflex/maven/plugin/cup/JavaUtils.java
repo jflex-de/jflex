@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import com.google.common.base.Strings;
 import java.io.File;

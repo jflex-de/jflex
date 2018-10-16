@@ -1,9 +1,10 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import java.io.File;
+import jflex.maven.plugin.cup.GenerateMojo;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.project.MavenProject;
 import org.junit.Rule;

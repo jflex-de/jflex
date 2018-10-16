@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.endsWith;
@@ -7,6 +7,8 @@ import static org.mockito.Mockito.verify;
 
 import com.google.common.io.Files;
 import java.io.File;
+import jflex.maven.plugin.cup.CliCupInvoker;
+import jflex.maven.plugin.cup.GenerateMojo;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -22,7 +24,8 @@ public class GenerateMojoTest {
 
   private GenerateMojo mojo;
 
-  @Mock CliCupInvoker mockCupInvoker;
+  @Mock
+  CliCupInvoker mockCupInvoker;
   @Mock Log mockLogger;
 
   @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();

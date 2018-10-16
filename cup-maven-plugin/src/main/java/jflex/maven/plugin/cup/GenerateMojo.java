@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Optional;
