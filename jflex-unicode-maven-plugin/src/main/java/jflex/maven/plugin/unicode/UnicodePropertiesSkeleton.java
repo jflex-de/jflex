@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -6,7 +6,7 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package de.jflex.plugin.maven;
+package jflex.maven.plugin.jflex;
 
 import com.google.common.base.Strings;
 import java.io.File;

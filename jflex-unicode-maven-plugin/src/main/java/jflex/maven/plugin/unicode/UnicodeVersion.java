@@ -8,7 +8,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.io.File;
 import java.io.IOException;

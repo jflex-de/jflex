@@ -1,4 +1,4 @@
-package de.jflex.plugin.maven;
+package jflex.maven.plugin.jflex;
 
 import static com.google.common.truth.Truth.assertThat;
 

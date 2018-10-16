@@ -1,4 +1,4 @@
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.util.ArrayList;
 import java.util.List;
