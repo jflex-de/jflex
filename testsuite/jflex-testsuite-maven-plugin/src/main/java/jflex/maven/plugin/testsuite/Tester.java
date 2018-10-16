@@ -1,10 +1,11 @@
-package jflextest;
+package jflex.maven.plugin.testsuite;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+import jflextest.TestLoader;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 

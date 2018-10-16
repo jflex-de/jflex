@@ -1,4 +1,4 @@
-package jflextest;
+package jflex.maven.plugin.testsuite;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

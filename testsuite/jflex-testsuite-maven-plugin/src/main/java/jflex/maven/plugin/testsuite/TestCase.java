@@ -1,4 +1,4 @@
-package jflextest;
+package jflex.maven.plugin.testsuite;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
