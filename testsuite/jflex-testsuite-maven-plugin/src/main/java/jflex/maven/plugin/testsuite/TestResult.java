@@ -1,4 +1,4 @@
-package jflextest;
+package jflex.maven.plugin.testsuite;
 
 /**
  * Stores the result (for now: output + success status) of a test run of one single program (jflex,

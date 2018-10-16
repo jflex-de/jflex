@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import static com.google.common.base.Preconditions.checkArgument;
 

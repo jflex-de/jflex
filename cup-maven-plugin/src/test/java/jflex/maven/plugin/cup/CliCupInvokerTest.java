@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableList;
 import java.io.File;
 import org.junit.Test;
 
-/** Test for {@link CliCupInvoker}. */
+/** Test for {@link jflex.maven.plugin.cup.CliCupInvoker}. */
 public class CliCupInvokerTest {
 
   @Test

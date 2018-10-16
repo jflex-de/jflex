@@ -1,4 +1,4 @@
-package de.jflex.plugin.cup;
+package jflex.maven.plugin.cup;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.ArgumentMatchers.endsWith;
@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-/** Tests for {@link GenerateMojo}. */
+/** Tests for {@link jflex.maven.plugin.cup.GenerateMojo}. */
 public class GenerateMojoTest {
 
   private GenerateMojo mojo;
