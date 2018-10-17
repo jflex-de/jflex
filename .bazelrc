@@ -1,0 +1,4 @@
+# https://errorprone.info/
+# TODO(#222) Increase to error when we build from jflex-1.7.1 with a lexer annotated with
+# @SuppressWarnings
+build --javacopt "-Xep:FallThrough:WARN"
