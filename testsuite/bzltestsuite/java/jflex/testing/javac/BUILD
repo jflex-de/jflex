@@ -6,4 +6,8 @@ java_library(
     deps = [
         "//third_party/com/google/guava",
     ],
+    javacopts = [
+        # Only used for testing
+        "-Xep:Java7ApiChecker:OFF",
+        ],
 )
