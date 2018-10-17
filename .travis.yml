@@ -1,6 +1,6 @@
 script:
 - ./compile.sh
-- java jflex.Main --version
+- cd java; java jflex.Main --version; cd ..
 
 language: java
 
