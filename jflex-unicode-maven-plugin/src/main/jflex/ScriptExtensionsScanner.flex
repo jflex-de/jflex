@@ -1,4 +1,4 @@
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,11 +34,11 @@ import java.util.SortedMap;
   private int end;
   private UnicodeVersion unicodeVersion;
   private String propertyName;
-  private Map<String,NamedRangeSet> scriptIntervals 
+  private Map<String,NamedRangeSet> scriptIntervals
       = new HashMap<String,NamedRangeSet>();
   private boolean[] scriptExtensionsCodePoint;
   private Set<String> scripts = new HashSet<String>();
-  
+
   private void addPropertyValueIntervals() {
     // Add script property value for missing code points
     for (String script : scripts) {
@@ -47,7 +47,7 @@ import java.util.SortedMap;
         intervals = new NamedRangeSet();
         scriptIntervals.put(script, intervals);
       }
-      for (NamedRange range 
+      for (NamedRange range
           : unicodeVersion.propertyValueIntervals.get(script).getRanges()) {
         for (int ch = range.start ; ch <= range.end ; ++ch) {
           if ( ! scriptExtensionsCodePoint[ch]) {
