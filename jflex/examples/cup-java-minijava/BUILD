@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
-load("//cup:cup.bzl", "cup")
+load("@jflex_rules//cup:cup.bzl", "cup")
 
 # The best practice is to define the rules in their respective directory in
 # - src/main/java/org/example/foo/BUILD
