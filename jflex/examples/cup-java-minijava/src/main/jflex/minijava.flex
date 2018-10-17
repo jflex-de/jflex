@@ -1,5 +1,10 @@
-/* JFlex example: part of Java language lexer specification */
-import java_cup.runtime.*;
+// JFlex example from the user Manual
+
+package jflex.examples.minijava;
+
+import java_cup.runtime.Symbol;
+
+/** Lexer of a very minimal version of the Java programming language. */
 
 %%
 
