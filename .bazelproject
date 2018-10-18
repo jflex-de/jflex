@@ -1,0 +1,28 @@
+directories:
+  # Add the directories you want added as source here
+  # By default, we've added your entire workspace ('.')
+  cup
+  docs
+  jflex
+  jflex-maven-plugin
+  jflex-unicode-maven-plugin
+  scripts
+  testsuite
+  third_party
+
+targets:
+  # Add targets that reach the source code that you want to resolve here
+  //jflex/examples/...
+  //testsuite/javatests/...
+
+additional_languages:
+  # Uncomment any additional languages you want supported
+  # android
+  # dart
+  # go
+  # python
+  # scala
+
+test_sources:
+  javatests
+  src/test/java
