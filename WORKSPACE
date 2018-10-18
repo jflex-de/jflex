@@ -6,7 +6,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "jflex_rules",
-    tag = "v2",
+    tag = "v3",
     remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 
