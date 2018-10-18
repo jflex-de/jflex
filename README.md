@@ -1,6 +1,9 @@
 <a href="https://travis-ci.org/jflex-de/jflex">
   <img alt="Build status" src="https://travis-ci.org/jflex-de/jflex.svg?branch=master" height="20">
 </a>
+<a href="https://cirrus-ci.com/github/jflex-de/jflex/master">
+  <img alt="Bazel build status" src="https://api.cirrus-ci.com/github/jflex-de/jflex.svg" height="20">
+</a>
 <a href="https://search.maven.org/artifact/de.jflex/jflex/">
   <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
 </a>
