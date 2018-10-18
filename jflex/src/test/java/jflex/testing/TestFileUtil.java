@@ -42,7 +42,7 @@ public class TestFileUtil {
         bazelPackage);
     Preconditions.checkArgument(
         bazelPackage.indexOf(':') <= 0,
-        "The bazel package is a valid name, but `$s` contain `:`",
+        "The bazel package is a valid name, but `%s` contain `:`",
         bazelPackage);
     String safeBazelPackage = bazelPackage.endsWith("/") ? bazelPackage : bazelPackage + "/";
     return resolveInternal(safeBazelPackage, path);
