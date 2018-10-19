@@ -50,3 +50,18 @@ jflex(
     outputs = ["LexScan.java"],
     skeleton = "src/main/jflex/skeleton.nested",
 )
+
+# Test helpers
+java_library(
+    name = "testing",
+    srcs = glob(["src/test/java/jflex/testing/**/*.java"]),
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
+
+# Tests
+filegroup(
+    name = "test_data",
+    srcs = glob(["src/test/resources/**"]) + ["src/main/jflex/skeleton.nested"],
+)
