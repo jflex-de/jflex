@@ -17,6 +17,12 @@ java_binary(
     ],
 )
 
+java_binary(
+    name = "jflex_gui_bin",
+    main_class = "jflex.gui.MainFrame",
+    runtime_deps = ["//jflex/src/main/java/jflex/gui"],
+)
+
 java_library(
     name = "jflex",
     srcs = glob(["src/main/java/**/*.java"]) + [
