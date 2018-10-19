@@ -44,7 +44,7 @@ PRG=${PRG%/*}
 JFLEX_HOME=${PRG}/.. 
 
 # --------------------------------------------------------------------
-if [ "$#" -eq 0 ];
+if [ "$#" -eq 0 ]; then
   $JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-full-${JFLEX_VERSION}.jar jflex.gui.MainFrame
 else;
   $JAVA -Xmx128m -jar "$JFLEX_HOME"/lib/jflex-full-${JFLEX_VERSION}.jar $@
