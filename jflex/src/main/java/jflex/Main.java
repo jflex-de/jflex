@@ -26,7 +26,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
 /**
@@ -317,7 +316,10 @@ public class Main {
         LexGenerator.generate(file);
       }
     } else {
-      new MainFrame();
+      Out.error(ErrorMessages.MISSING_INPUT_FILE);
+      printUsage();
+      System.out.println("To start the GUI, use class jflex.gui.MainFrame");
+      throw new SilentExit(2);
     }
   }
 

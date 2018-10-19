@@ -229,4 +229,6 @@ public class ErrorMessages {
   public static ErrorMessages NO_ENCODING = new ErrorMessages("NO_ENCODING");
   /** Constant {@code CHARSET_NOT_SUPPORTED} */
   public static ErrorMessages CHARSET_NOT_SUPPORTED = new ErrorMessages("CHARSET_NOT_SUPPORTED");
+  /** Message when the cli was invoked with no input file. */
+  public static ErrorMessages MISSING_INPUT_FILE = new ErrorMessages("MISSING_INPUT_FILE");
 }
