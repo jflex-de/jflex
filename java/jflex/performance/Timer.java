@@ -6,7 +6,7 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex;
+package jflex.performance;
 
 /**
  * Very simple timer for code generation time statistics.

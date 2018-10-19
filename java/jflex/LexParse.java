@@ -5,7 +5,11 @@
 
 package jflex;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import jflex.performance.Timer;
 import jflex.unicode.UnicodeProperties;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.XMLElement;

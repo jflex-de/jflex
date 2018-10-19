@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import jflex.performance.Timer;
 import jflex.unicode.UnicodeProperties;
 
 
@@ -1925,10 +1926,10 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
   String functionName;
   String tokenType;
   String visibility = "public";
-    
+
   List<String> ctorArgs = new ArrayList<String>();
   List<String> ctorTypes = new ArrayList<String>();
-    
+
   LexicalStates states = new LexicalStates();
 
   List<Action> actions = new ArrayList<Action>();
@@ -1942,7 +1943,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
   // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
   // since the max char code won't be known until then.
   private CharClasses charClasses = new CharClasses();
-  
+
   public CharClasses getCharClasses() {
     return charClasses;
   }
@@ -2008,11 +2009,11 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
 
     return a.toString()+", "+b.toString();
   }
-  
+
   public UnicodeProperties getUnicodeProperties() {
     return unicodeProperties;
   }
-  
+
   private void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
@@ -2023,7 +2024,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
     charClasses.init
       (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
-  
+
   private void includeFile(String filePath) {
     File f = new File(file.getParentFile(), filePath);
     if ( !f.canRead() )
