@@ -13,7 +13,7 @@ import java.util.List;
 import jflex.GeneratorException;
 import jflex.Options;
 import jflex.Out;
-import jflex.SilentExit;
+import jflex.exceptions.SilentExit;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;

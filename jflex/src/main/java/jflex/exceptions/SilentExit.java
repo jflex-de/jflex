@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.exceptions;
 
 /**
  * Signals a silent exit (no statistics printout).

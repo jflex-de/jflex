@@ -26,6 +26,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.exceptions.SilentExit;
 import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
@@ -46,7 +47,7 @@ public class Main {
    *
    * @param argv an array of {@link java.lang.String} objects.
    * @return a {@link java.util.List} object.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   private static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<>();
@@ -307,7 +308,7 @@ public class Main {
    * generate.
    *
    * @param argv an array of {@link java.lang.String} objects.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   public static void generate(String argv[]) throws SilentExit {
     List<File> files = parseOptions(argv);
