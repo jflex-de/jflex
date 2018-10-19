@@ -26,6 +26,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;

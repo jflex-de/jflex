@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.exceptions.GeneratorException;
 
 /**
  * Non-deterministic finite automata representation in JFlex.

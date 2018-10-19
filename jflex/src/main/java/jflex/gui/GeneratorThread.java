@@ -12,7 +12,7 @@ package jflex.gui;
 import java.io.File;
 import java.util.Objects;
 import jflex.ErrorMessages;
-import jflex.GeneratorException;
+import jflex.exceptions.GeneratorException;
 import jflex.LexGenerator;
 import jflex.Options;
 import jflex.Out;

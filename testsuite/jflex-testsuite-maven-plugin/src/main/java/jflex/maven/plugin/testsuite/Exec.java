@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import jflex.GeneratorException;
+import jflex.exceptions.GeneratorException;
 import jflex.Options;
 import jflex.Out;
 import jflex.exceptions.SilentExit;

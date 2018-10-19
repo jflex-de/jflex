@@ -10,6 +10,7 @@ package jflex;
 
 import java.util.ArrayList;
 import java.util.List;
+import jflex.exceptions.GeneratorException;
 
 /**
  * Stores all rules of the specification for later access in RegExp -> NFA

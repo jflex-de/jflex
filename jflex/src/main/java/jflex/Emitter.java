@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.exceptions.GeneratorException;
 import jflex.io.FileUtil;
 
 /**
