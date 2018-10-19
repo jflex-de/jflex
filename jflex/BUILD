@@ -3,6 +3,11 @@ package(default_visibility = ["//visibility:public"])
 load("@jflex_rules//cup:cup.bzl", "cup")
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
+package_group(
+    name = "visibility",
+    packages = ["//jflex/..."],
+)
+
 java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
@@ -22,6 +27,8 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//cup:cup_runtime",
+        "//jflex/src/main/java/jflex/io",
+        "//jflex/src/main/java/jflex/performance",
         "//third_party/org/apache/ant",
     ],
 )
@@ -41,4 +48,19 @@ jflex(
     srcs = ["src/main/jflex/LexScan.flex"],
     outputs = ["LexScan.java"],
     skeleton = "src/main/jflex/skeleton.nested",
+)
+
+# Test helpers
+java_library(
+    name = "testing",
+    srcs = glob(["src/test/java/jflex/testing/**/*.java"]),
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
+
+# Tests
+filegroup(
+    name = "test_data",
+    srcs = glob(["src/test/resources/**"]) + ["src/main/jflex/skeleton.nested"],
 )
