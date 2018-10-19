@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.IntCharSet;
-import jflex.Interval;
+import jflex.chars.Interval;
 import jflex.unicode.data.Unicode_1_1;
 import jflex.unicode.data.Unicode_2_0;
 import jflex.unicode.data.Unicode_2_1;
