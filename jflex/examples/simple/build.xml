@@ -5,7 +5,7 @@
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
   <!-- ivy installer -->
-  <property name="ivy.install.version" value="2.5.0-rc1"/>
+  <property name="ivy.install.version" value="2.4.0"/>
   <property name="ivy.home" value="${user.home}/.ant"/>
   <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
   <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
