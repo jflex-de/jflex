@@ -98,15 +98,14 @@ variable instead.
 
 Then you run JFlex with:
 
-`java jflex.Main <options> <inputfiles>`
+`bin/jflex <options> <inputfiles>`
 
-or with:
+If you don’t provide arguments, JFlex will start its graphical user interface.
 
-`java -jar jflex-$VERSION.jar <options> <inputfiles>`
+Alternatively, you can start JFlex with the jar directly:
 
-The input files and options are in both cases optional. If you don’t
-provide a file name on the command line, JFlex will pop up a window to
-ask you for one.
+* command-line `java -jar lib/jflex-$VERSION.jar <options> <inputfiles>`.
+* graphical user interface `java -jar lib/jflex-$VERSION.jar jflex.gui.MainFrame`
 
 JFlex knows about the following options:
 
