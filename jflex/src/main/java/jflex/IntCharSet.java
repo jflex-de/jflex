@@ -12,10 +12,11 @@ package jflex;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import jflex.chars.Interval;
 import jflex.unicode.UnicodeProperties;
 
 /**
- * CharSet implemented with intervals.
+ * Char Set implemented with intervals.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
