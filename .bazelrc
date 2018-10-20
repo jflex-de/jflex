@@ -1,6 +1,6 @@
 test --test_output=errors
 
-http://errorprone.info/bugpatterns
+# http://errorprone.info/bugpatterns
 # To avoid bugs in the code
 # P1 Fix the errors and bump from :WARN to :ERROR
 # P2 Fix the warnings and bump from :OFF to :WARN
