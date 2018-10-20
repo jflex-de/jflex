@@ -8,6 +8,7 @@ import java.io.File;
 import jflex.LexGenerator;
 import jflex.testing.annotations.NoExceptionThrown;
 import jflex.testing.annotations.TestSpec;
+import jflex.testing.assertion.MoreAsserts;
 import jflex.testing.javac.CompilerException;
 import jflex.testing.javac.JavacUtil;
 import org.junit.runner.Description;
@@ -34,19 +35,16 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
-    String lexerJavaFileName;
-    try {
-      lexerJavaFileName = generateLexer(notifier);
-    } catch (Throwable e) {
-      // Possibly, this exception was expected
-      if (e.getClass() == spec.generatorThrows()) {
-        super.run(notifier);
-        return;
-      } else {
-        throw e;
-      }
+    if (spec.generatorThrows() != NoExceptionThrown.class) {
+      MoreAsserts.assertThrows(
+          "@TestCase indicates that the jflex generation must throw a "
+              + spec.generatorThrows().getSimpleName(),
+          spec.generatorThrows(),
+          () -> generateLexer(notifier));
+    } else {
+      String lexerJavaFileName = generateLexer(notifier);
+      buildLexer(notifier, lexerJavaFileName);
     }
-    buildLexer(notifier, lexerJavaFileName);
     super.run(notifier);
   }
 
