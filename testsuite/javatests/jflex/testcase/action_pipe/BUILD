@@ -1,10 +1,8 @@
-java_test(
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+jflex_testsuite(
     name = "ActionPipeTest",
     srcs = ["ActionPipeTest.java"],
-    deps = [
-        "//testsuite/bzltestsuite",
-        "//jflex",
-    ],
     data = [
         "action-pipe.flex",
     ],
