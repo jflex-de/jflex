@@ -7,8 +7,7 @@ java_test(
     ],
     deps = [
         "//testsuite/bzltestsuite",
-        "//testsuite/bzltestsuite/java/jflex/testing/annotations",
-        "//testsuite/bzltestsuite/java/jflex/testing/javac",
+        "//testsuite/bzltestsuite:javac",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
