@@ -7,32 +7,32 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex;
+package jflex.anttask;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import jflex.anttask.JFlexTask;
+import jflex.Options;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for the jflex ant task.
+ * Unit tests for the {@link jflex.anttask.JFlexTask}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class AntTaskTests extends TestCase {
+public class JFlexTaskTest extends TestCase {
 
   private JFlexTask task;
   private final String DIR_RESOURCES = "src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
   /**
-   * Constructor for AntTaskTests.
+   * Constructor for JFlexTaskTest.
    *
    * @param name test case name
    */
-  public AntTaskTests(String name) {
+  public JFlexTaskTest(String name) {
     super(name);
   }
 

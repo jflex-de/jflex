@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 public class TestFileUtil {
 
   /** Whether the process is in a Bazel <em>runfiles</em> sandbox. */
-  private static final boolean BAZEL_RUNFILES =
+  public static final boolean BAZEL_RUNFILES =
       "__main__".equals(new File(".").getAbsoluteFile().getParentFile().getName());
 
   /** Prefix used in Bazel packages to indicate an absolute paths. */
