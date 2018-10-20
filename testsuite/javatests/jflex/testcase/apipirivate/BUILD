@@ -1,4 +1,6 @@
-java_test(
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+jflex_testsuite(
     name = "ApiPrivateTest",
     srcs = ["ApiPrivateTest.java"],
     data = [
@@ -6,9 +8,7 @@ java_test(
         "private.flex",
     ],
     deps = [
-        "//testsuite/bzltestsuite",
         "//testsuite/bzltestsuite:javac",
         "//third_party/com/google/guava",
-        "//third_party/com/google/truth",
     ],
 )
