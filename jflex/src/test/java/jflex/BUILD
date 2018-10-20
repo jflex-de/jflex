@@ -41,13 +41,13 @@ java_test(
 java_test(
     name = "SkeletonTest",
     srcs = ["SkeletonTest.java"],
-    deps = [
-        "//jflex/src/main/java/jflex",
-        "//jflex:testing",
+    data = [
+        "//jflex:resources",
     ],
-    data=[
-        "//jflex:resources"
-    ]
+    deps = [
+        "//jflex:testing",
+        "//jflex/src/main/java/jflex",
+    ],
 )
 
 java_test(

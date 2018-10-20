@@ -45,7 +45,10 @@ filegroup(
 )
 
 # Test helpers
-alias(name = "testing", actual = "//jflex/src/test/java/jflex/testing")
+alias(
+    name = "testing",
+    actual = "//jflex/src/test/java/jflex/testing",
+)
 
 # Tests
 filegroup(
