@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JFlexTestRunner.class)
-@TestSpec(lex = "testsuite/javatests/jflex/testcase/arr_return/arr.flex")
+@TestSpec(
+    lex = "testsuite/javatests/jflex/testcase/arr_return/arr.flex",
+    expectedLogs = "testsuite/javatests/jflex/testcase/arr_return/arr-flex.flex")
 public class ArrReturnTest {
   @Test
   public void ok() {}
