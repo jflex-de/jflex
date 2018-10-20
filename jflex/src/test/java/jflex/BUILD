@@ -1,0 +1,55 @@
+java_test(
+    name = "CharClassesTest",
+    srcs = ["CharClassesTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "EmitterTest",
+    srcs = ["EmitterTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "IntCharSetTest",
+    srcs = ["IntCharSetTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "PackEmitterTest",
+    srcs = ["PackEmitterTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "RegExpTests",
+    srcs = ["RegExpTests.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "SkeletonTest",
+    srcs = ["SkeletonTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
+
+java_test(
+    name = "UnicodePropertiesTest",
+    srcs = ["UnicodePropertiesTest.java"],
+    deps = [
+        "//jflex/src/main/java/jflex",
+    ],
+)
