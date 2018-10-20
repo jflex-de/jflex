@@ -13,7 +13,7 @@ import jflex.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 
 /**
- * CharClassesTest
+ * Test for {@link CharClasses}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT

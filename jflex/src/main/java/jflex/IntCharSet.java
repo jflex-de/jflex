@@ -16,7 +16,7 @@ import jflex.chars.Interval;
 import jflex.unicode.UnicodeProperties;
 
 /**
- * CharSet implemented with intervals.
+ * Char Set implemented with intervals.
  *
  * @author Gerwin Klein
  * @author Régis Décamps

@@ -9,30 +9,31 @@
 
 package jflex;
 
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
+
 import java.io.File;
-import junit.framework.TestCase;
+import java.io.FileNotFoundException;
+import jflex.testing.TestFileUtil;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * SkeletonTest
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class SkeletonTest extends TestCase {
+public class SkeletonTest {
 
-  /**
-   * Constructor for SkeletonTest.
-   *
-   * @param arg0 test name
-   */
-  public SkeletonTest(String arg0) {
-    super(arg0);
-  }
-
+  @Test
   public void testReplace() {
     assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
   }
 
+  @Test
   public void testMakePrivate() {
     Skeleton.makePrivate();
     for (int i = 0; i < Skeleton.line.length; i++) {
@@ -40,10 +41,26 @@ public class SkeletonTest extends TestCase {
     }
   }
 
-  public void testDefault() {
-    Skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+  @Test
+  public void readSkelFile_maven() {
+    assumeTrue(!TestFileUtil.BAZEL_RUNFILES);
+    File skeletonFile = new File("src/main/jflex/skeleton.nested");
+    Skeleton.readSkelFile(skeletonFile);
+    checkDefaultSkeleton();
+  }
+
+  @Test
+  @Ignore // fix loading resources
+  public void readSkelFile_bazel() throws FileNotFoundException {
+    assumeTrue(TestFileUtil.BAZEL_RUNFILES);
+    File skeletonFile = TestFileUtil.open("//jflex", "jflex/skeleton.nested");
+    Skeleton.readSkelFile(skeletonFile);
+    checkDefaultSkeleton();
+  }
+
+  private void checkDefaultSkeleton() {
+    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
     Skeleton.readDefault();
-    assertEquals(jflex.Skeleton.line[3].indexOf("java.util.Stack"), -1);
+    assertEquals(Skeleton.line[3].indexOf("java.util.Stack"), -1);
   }
 }
