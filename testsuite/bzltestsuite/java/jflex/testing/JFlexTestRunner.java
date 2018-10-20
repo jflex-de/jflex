@@ -1,7 +1,6 @@
 package jflex.testing;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static junit.framework.TestCase.fail;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
@@ -53,14 +52,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   private String generateLexer(RunNotifier notifier) {
     notifier.fireTestStarted(Description.createTestDescription(klass, "Generate Lexer"));
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
-
-    // The generator didn't throw an exception but we expected one
-    if (spec.generatorThrows() != NoExceptionThrown.class) {
-      fail(
-          String.format(
-              "Text expected to throw %s but JFlex didn't throw anything",
-              spec.generatorThrows().getName()));
-    }
     return checkNotNull(lexerJavaFileName);
   }
 
