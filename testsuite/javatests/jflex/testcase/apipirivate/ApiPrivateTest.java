@@ -11,7 +11,11 @@ import jflex.testing.javac.JavacUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** test feature request #513500 [Generate cleaner interfaces], %apiprivate option */
+/**
+ * Test that JFlex can generate private classes.
+ *
+ * <p>See feature request #513500 (Generate cleaner interfaces), {@code %apiprivate} option
+ */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(lex = "testsuite/javatests/jflex/testcase/apipirivate/private.flex")
 public class ApiPrivateTest {

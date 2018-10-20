@@ -1,7 +1,7 @@
 load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex_testsuite(
-    name = "ArrReturn",
-    srcs = ["ArrReturn.java"],
+    name = "ArrReturnTest",
+    srcs = ["ArrReturnTest.java"],
     data = ["arr.flex"],
 )
