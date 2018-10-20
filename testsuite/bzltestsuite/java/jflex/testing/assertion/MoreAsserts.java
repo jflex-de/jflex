@@ -1,7 +1,8 @@
 package jflex.testing.assertion;
 
-public class MoreAsserts {
+public final class MoreAsserts {
 
+  @SuppressWarnings("AvoidCatchingThrowable")
   public static <T extends Throwable> void assertThrows(
       String message, Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
     try {

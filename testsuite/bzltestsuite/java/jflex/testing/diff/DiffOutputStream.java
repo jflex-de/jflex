@@ -19,15 +19,13 @@ import java.io.Reader;
 public class DiffOutputStream extends OutputStream {
 
   /** Constant for the Unicode {@code UTF-8}charset. */
-  public static final String UTF_8 = "UTF-8";
+  private static final String UTF_8 = "UTF-8";
 
   /** The golden content this OutputStream will compare against. */
   private final BufferedReader in;
 
   /** The internal buffer where actual data is stored. */
-  protected byte buf[] = new byte[2048];
-
-  private String previousExpectedLine;
+  private byte buf[] = new byte[2048];
 
   /** The current lines being compared. Only {@code \n} serves as a line separator. */
   private int line = 0;
@@ -43,6 +41,7 @@ public class DiffOutputStream extends OutputStream {
     this(new BufferedReader(in));
   }
 
+  @SuppressWarnings("WeakerAccess")
   public DiffOutputStream(BufferedReader in) {
     this.in = in;
   }
@@ -53,7 +52,6 @@ public class DiffOutputStream extends OutputStream {
     if (b == '\n') {
       String expectedLine = in.readLine();
       assertThatWrittenWasExpected(expectedLine);
-      previousExpectedLine = expectedLine;
       count = 0;
     } else {
       count++;
