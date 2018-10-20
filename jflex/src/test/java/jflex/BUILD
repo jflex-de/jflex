@@ -43,7 +43,11 @@ java_test(
     srcs = ["SkeletonTest.java"],
     deps = [
         "//jflex/src/main/java/jflex",
+        "//jflex:testing",
     ],
+    data=[
+        "//jflex:resources"
+    ]
 )
 
 java_test(
