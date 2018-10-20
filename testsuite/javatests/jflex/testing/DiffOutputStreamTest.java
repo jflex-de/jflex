@@ -1,5 +1,7 @@
 package jflex.testing;
 
+import static jflex.testing.assertion.MoreAsserts.assertThrows;
+
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
@@ -22,7 +24,10 @@ public class DiffOutputStreamTest {
   public void testOneLine_differs() throws Exception {
     String in = "Hello world!\n";
     String out = "Hello\n";
-    diff(in, out);
+    assertThrows(
+        DiffOutputStream.class + " throws an exception when the content differs",
+        AssertionError.class,
+        () -> diff(in, out));
   }
 
   private static void diff(String in, String out) throws IOException {
