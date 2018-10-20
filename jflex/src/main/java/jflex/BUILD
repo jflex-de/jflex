@@ -11,6 +11,7 @@ java_library(
     resources = ["//jflex:resources"],
     deps = [
         "//cup:cup_runtime",
+        "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/io",
         "//jflex/src/main/java/jflex/performance",
     ],

@@ -3,6 +3,7 @@ java_test(
     srcs = ["CharClassesTest.java"],
     deps = [
         "//jflex/src/main/java/jflex",
+        "//jflex/src/main/java/jflex/chars",
     ],
 )
 
@@ -19,6 +20,7 @@ java_test(
     srcs = ["IntCharSetTest.java"],
     deps = [
         "//jflex/src/main/java/jflex",
+        "//jflex/src/main/java/jflex/chars",
     ],
 )
 
@@ -35,6 +37,7 @@ java_test(
     srcs = ["RegExpTests.java"],
     deps = [
         "//jflex/src/main/java/jflex",
+        "//jflex/src/main/java/jflex/chars",
     ],
 )
 
@@ -55,5 +58,6 @@ java_test(
     srcs = ["UnicodePropertiesTest.java"],
     deps = [
         "//jflex/src/main/java/jflex",
+        "//jflex/src/main/java/jflex/chars",
     ],
 )

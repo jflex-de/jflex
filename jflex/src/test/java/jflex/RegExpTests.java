@@ -11,6 +11,7 @@ package jflex;
 
 import static jflex.RegExp.revString;
 
+import jflex.chars.Interval;
 import junit.framework.TestCase;
 
 /**
