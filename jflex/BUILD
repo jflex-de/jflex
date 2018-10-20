@@ -12,7 +12,7 @@ java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
     runtime_deps = [
-        ":jflex",
+        "//jflex/src/main/java/jflex:jflex_ui",
         "//cup:cup_runtime",
     ],
 )
