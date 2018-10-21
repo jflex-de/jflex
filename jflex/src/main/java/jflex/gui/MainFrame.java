@@ -17,8 +17,8 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.LexGenerator;
-import jflex.Out;
+import jflex.base.Build;
+import jflex.core.Out;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -53,7 +53,7 @@ public final class MainFrame extends Frame implements Handles {
 
   /** Constructor for MainFrame. */
   public MainFrame() {
-    super("JFlex " + LexGenerator.VERSION);
+    super("JFlex " + Build.VERSION);
     buildContent();
 
     addWindowListener(

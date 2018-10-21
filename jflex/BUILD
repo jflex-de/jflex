@@ -5,7 +5,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package_group(
     name = "visibility",
-    packages = ["//jflex/..."],
+    packages = ["//jflex/...", "//testsuite/..."],
 )
 
 java_binary(
@@ -19,7 +19,7 @@ java_binary(
 
 alias(
     name = "jflex",
-    actual = "//jflex/src/main/java/jflex",
+    actual = "//jflex/src/main/java/jflex/core",
 )
 
 cup(

@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.LexGenerator;
+import jflex.core.LexGenerator;
 import jflex.testing.annotations.NoExceptionThrown;
 import jflex.testing.annotations.TestSpec;
 import jflex.testing.assertion.MoreAsserts;
