@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.scanner;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
