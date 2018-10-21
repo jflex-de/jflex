@@ -14,7 +14,5 @@ mvnget() {
   fi
   wget $REPO/$dep -P lib
 }
-set -x
 mvnget org/apache/ant/ant/1.7.0/ant-1.7.0.jar
-javac -cp lib/ant-1.7.0.jar:lib/auto-value-1.4.1.jar $(find . -name '*.java')
-
+javac -cp lib/ant-1.7.0.jar $(find . -name '*.java')
