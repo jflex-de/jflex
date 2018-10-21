@@ -20,15 +20,13 @@ import com.google.auto.value.AutoValue;
  * @version JFlex 1.7.1-SNAPSHOT
  */
 @AutoValue
-abstract class IntPair {
+public abstract class IntPair {
 
-  abstract int start();
+  public abstract int start();
 
-  abstract int end();
+  public abstract int end();
 
-  public int xxx;
-
-  static IntPair create(int start, int end) {
+  public static IntPair create(int start, int end) {
     return new AutoValue_IntPair(start, end);
   }
 }
