@@ -28,6 +28,7 @@ import jflex.io.FileUtil;
  * <p>Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class Emitter {
@@ -98,7 +99,7 @@ public final class Emitter {
     this.inputFile = inputFile;
     this.dfa = dfa;
     this.skel = new Skeleton(out);
-    // TODO(regisd) Move reading file outside the constrcutor
+    // TODO(regisd) Move reading file outside the constructor
     if (options.skeleton() != null && options.skeleton().exists()) {
       this.skel.readSkelFile(options.skeleton());
     } else {
