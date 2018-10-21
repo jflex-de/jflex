@@ -19,7 +19,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import jflex.Options;
 import jflex.Skeleton;
-import jflex.Options;
 import junit.framework.TestCase;
 
 /**

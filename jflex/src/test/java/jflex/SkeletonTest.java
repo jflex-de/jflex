@@ -15,11 +15,11 @@ import static org.junit.Assume.assumeTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.FileNotFoundException;
 import jflex.testing.TestFileUtil;
 import org.junit.Before;
 import org.junit.Ignore;

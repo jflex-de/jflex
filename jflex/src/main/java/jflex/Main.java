@@ -9,16 +9,9 @@
 
 package jflex;
 
-import static jflex.ErrorMessages.NO_ENCODING;
-import static jflex.Options.setEncoding;
-import static jflex.Options.unused_warning;
-import static jflex.Out.error;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.charset.UnsupportedCharsetException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

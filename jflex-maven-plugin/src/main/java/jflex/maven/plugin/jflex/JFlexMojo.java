@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jflex.LexGenerator;
 import java.util.Objects;
 import jflex.LexGenerator;
 import jflex.Options;
