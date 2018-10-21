@@ -113,7 +113,9 @@ public abstract class AbstractLexScan {
     for (int i = 0; i < text.length(); i++) {
       char c = text.charAt(i);
 
-      if (c != '\n' && c != '\r' && c != ' ' && c != '\t') return new Symbol(type, lc, cc, value);
+      if (c != '\n' && c != '\r' && c != ' ' && c != '\t') {
+        return new Symbol(type, lc, cc, value);
+      }
 
       if (c == '\n') {
         lc++;
@@ -130,17 +132,29 @@ public abstract class AbstractLexScan {
   }
 
   public static String conc(Object a, Object b) {
-    if (a == null && b == null) return null;
-    if (a == null) return b.toString();
-    if (b == null) return a.toString();
+    if (a == null && b == null) {
+      return null;
+    }
+    if (a == null) {
+      return b.toString();
+    }
+    if (b == null) {
+      return a.toString();
+    }
 
     return a.toString() + b.toString();
   }
 
   public static String concExc(Object a, Object b) {
-    if (a == null && b == null) return null;
-    if (a == null) return b.toString();
-    if (b == null) return a.toString();
+    if (a == null && b == null) {
+      return null;
+    }
+    if (a == null) {
+      return b.toString();
+    }
+    if (b == null) {
+      return a.toString();
+    }
 
     return a.toString() + ", " + b.toString();
   }
@@ -160,9 +174,13 @@ public abstract class AbstractLexScan {
 
   private void includeFile(String filePath) {
     File f = new File(file.getParentFile(), filePath);
-    if (!f.canRead()) throw new ScannerException(file, ErrorMessages.NOT_READABLE, yyline);
+    if (!f.canRead()) {
+      throw new ScannerException(file, ErrorMessages.NOT_READABLE, yyline);
+    }
     // check for cycle
-    if (files.search(f) > 0) throw new ScannerException(file, ErrorMessages.FILE_CYCLE, yyline);
+    if (files.search(f) > 0) {
+      throw new ScannerException(file, ErrorMessages.FILE_CYCLE, yyline);
+    }
     try {
       yypushStream(new FileReader(f));
       files.push(file);
