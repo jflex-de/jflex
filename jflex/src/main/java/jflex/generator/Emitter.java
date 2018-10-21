@@ -33,6 +33,7 @@ import jflex.core.Out;
 import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
 import jflex.io.FileUtil;
+import jflex.l10n.ErrorMessages;
 
 /**
  * This class manages the actual code generation, putting the scanner together, filling in skeleton
@@ -775,7 +776,7 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone || scanner.debugOption) && scanner.ctorArgs.size() > 0) {
-      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      Out.warning(jflex.l10n.ErrorMessages.get(jflex.l10n.ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }

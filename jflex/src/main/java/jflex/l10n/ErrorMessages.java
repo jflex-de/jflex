@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.l10n;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;

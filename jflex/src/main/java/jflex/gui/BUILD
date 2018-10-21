@@ -7,5 +7,6 @@ java_library(
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/generator",
+        "//jflex/src/main/java/jflex/l10n",
     ],
 )

@@ -9,10 +9,10 @@
 
 package jflex;
 
-import static jflex.core.ErrorMessages.NO_ENCODING;
 import static jflex.core.Options.setEncoding;
 import static jflex.core.Options.unused_warning;
 import static jflex.core.Out.error;
+import static jflex.l10n.ErrorMessages.NO_ENCODING;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -27,7 +27,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
-import jflex.core.ErrorMessages;
 import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.unicode.UnicodeProperties;
@@ -35,6 +34,7 @@ import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.generator.LexGenerator;
 import jflex.gui.MainFrame;
+import jflex.l10n.ErrorMessages;
 
 /**
  * This is the command-line interface.

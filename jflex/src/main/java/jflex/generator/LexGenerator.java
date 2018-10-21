@@ -27,6 +27,7 @@ import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.ScannerException;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
 
 /**
@@ -58,14 +59,14 @@ public class LexGenerator {
     totalTime.start();
 
     try {
-      Out.println(ErrorMessages.READING, inputFile.toString());
+      Out.println(jflex.l10n.ErrorMessages.READING, inputFile.toString());
       inputReader =
           new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding);
       scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
       parser = new LexParse(scanner);
     } catch (IOException e) {
-      Out.error(ErrorMessages.CANNOT_OPEN, inputFile.toString());
+      Out.error(jflex.l10n.ErrorMessages.CANNOT_OPEN, inputFile.toString());
       throw new GeneratorException();
     }
 
@@ -74,22 +75,26 @@ public class LexGenerator {
 
       Out.checkErrors();
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
+      if (Options.dump)
+        Out.dump(
+            jflex.l10n.ErrorMessages.get(jflex.l10n.ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
       if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
 
-      Out.println(ErrorMessages.NFA_STATES, nfa.numStates);
+      Out.println(jflex.l10n.ErrorMessages.NFA_STATES, nfa.numStates);
 
       time.start();
       DFA dfa = nfa.getDFA();
       time.stop();
-      Out.time(ErrorMessages.DFA_TOOK, time);
+      Out.time(jflex.l10n.ErrorMessages.DFA_TOOK, time);
 
       dfa.checkActions(scanner, parser);
 
       nfa = null;
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
+      if (Options.dump)
+        Out.dump(
+            jflex.l10n.ErrorMessages.get(jflex.l10n.ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
 
       if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
 
@@ -99,9 +104,10 @@ public class LexGenerator {
       dfa.minimize();
       time.stop();
 
-      Out.time(ErrorMessages.MIN_TOOK, time);
+      Out.time(jflex.l10n.ErrorMessages.MIN_TOOK, time);
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
+      if (Options.dump)
+        Out.dump(jflex.l10n.ErrorMessages.get(jflex.l10n.ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
 
       if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
 
@@ -112,11 +118,11 @@ public class LexGenerator {
 
       time.stop();
 
-      Out.time(ErrorMessages.WRITE_TOOK, time);
+      Out.time(jflex.l10n.ErrorMessages.WRITE_TOOK, time);
 
       totalTime.stop();
 
-      Out.time(ErrorMessages.TOTAL_TIME, totalTime);
+      Out.time(jflex.l10n.ErrorMessages.TOTAL_TIME, totalTime);
       return emitter.outputFileName;
     } catch (ScannerException e) {
       Out.error(e.file, e.message, e.line, e.column);
@@ -125,7 +131,7 @@ public class LexGenerator {
       Out.error(e.getMessage());
       throw new GeneratorException();
     } catch (IOException e) {
-      Out.error(ErrorMessages.IO_ERROR, e.toString());
+      Out.error(jflex.l10n.ErrorMessages.IO_ERROR, e.toString());
       throw new GeneratorException();
     } catch (OutOfMemoryError e) {
       Out.error(ErrorMessages.OUT_OF_MEMORY);
