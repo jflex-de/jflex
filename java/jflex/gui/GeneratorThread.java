@@ -11,10 +11,10 @@ package jflex.gui;
 
 import java.io.File;
 import java.util.Objects;
-import jflex.ErrorMessages;
-import jflex.LexGenerator;
-import jflex.Options;
-import jflex.Out;
+import jflex.core.ErrorMessages;
+import jflex.core.LexGenerator;
+import jflex.core.Options;
+import jflex.core.Out;
 import jflex.exceptions.GeneratorException;
 
 /**
