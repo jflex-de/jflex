@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Stack;
 import java_cup.runtime.Symbol;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.l10n.ErrorMessages;
 
 public abstract class AbstractLexScan {
 

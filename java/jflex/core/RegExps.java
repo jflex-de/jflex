@@ -11,6 +11,7 @@ package jflex.core;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Stores all rules of the specification for later access in RegExp -> NFA

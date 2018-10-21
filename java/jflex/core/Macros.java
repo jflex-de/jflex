@@ -9,14 +9,15 @@
 
 package jflex.core;
 
-import static jflex.core.ErrorMessages.MACRO_CYCLE;
-import static jflex.core.ErrorMessages.get;
+import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
+import static jflex.l10n.ErrorMessages.get;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Symbol table and expander for macros.
@@ -166,7 +167,7 @@ public final class Macros {
 
         if (usedef == null)
           throw new MacroException(
-              ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+              jflex.l10n.ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
 
         markUsed(usename);
 

@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
@@ -208,7 +209,7 @@ public final class DFA {
       writer.println(dotFormat());
       writer.close();
     } catch (IOException e) {
-      Out.error(ErrorMessages.FILE_WRITE, file);
+      Out.error(jflex.l10n.ErrorMessages.FILE_WRITE, file);
       throw new GeneratorException();
     }
   }
@@ -258,7 +259,7 @@ public final class DFA {
 
     for (Action a : scanner.actions)
       if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
-        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
+        Out.warning(scanner.file, jflex.l10n.ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
   }
 
   /**
@@ -271,7 +272,7 @@ public final class DFA {
     Out.print(numStates + " states before minimization, ");
 
     if (numStates == 0) {
-      Out.error(ErrorMessages.ZERO_STATES);
+      Out.error(jflex.l10n.ErrorMessages.ZERO_STATES);
       throw new GeneratorException();
     }
 
