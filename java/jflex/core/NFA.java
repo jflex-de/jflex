@@ -152,7 +152,7 @@ public final class NFA {
       Out.debug(
           "Adding nfa for regexp " + regExpNum + " :" + Out.NL + regExps.getRegExp(regExpNum));
 
-    IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
+    jflex.base.IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
 
     List<Integer> lexStates = regExps.getStates(regExpNum);
 
@@ -176,7 +176,7 @@ public final class NFA {
         RegExp r1 = regExps.getRegExp(regExpNum);
         RegExp r2 = regExps.getLookAhead(regExpNum);
 
-        IntPair look = insertNFA(r2);
+        jflex.base.IntPair look = insertNFA(r2);
 
         addEpsilonTransition(nfa.end, look.start);
 
@@ -185,9 +185,9 @@ public final class NFA {
 
         if (a.lookAhead() == Action.GENERAL_LOOK) {
           // base forward pass
-          IntPair forward = insertNFA(r1);
+          jflex.base.IntPair forward = insertNFA(r1);
           // lookahead backward pass
-          IntPair backward = insertNFA(r2.rev(macros));
+          jflex.base.IntPair backward = insertNFA(r2.rev(macros));
 
           isFinal[forward.end] = true;
           action[forward.end] = new Action(Action.FORWARD_ACTION);
@@ -229,7 +229,7 @@ public final class NFA {
 
       if (len >= 0) {
         // termination case
-        IntPair look = insertNFA(lookAhead);
+        jflex.base.IntPair look = insertNFA(lookAhead);
 
         addEpsilonTransition(baseEnd, look.start);
 
@@ -685,7 +685,7 @@ public final class NFA {
     }
   }
 
-  private IntPair insertStringNFA(boolean caseless, String str) {
+  private jflex.base.IntPair insertStringNFA(boolean caseless, String str) {
     int start = numStates;
     int i = 0;
     for (int pos = 0; pos < str.length(); ++i) {
@@ -704,7 +704,7 @@ public final class NFA {
       pos += Character.charCount(ch);
     }
 
-    return new IntPair(start, i + start);
+    return new jflex.base.IntPair(start, i + start);
   }
 
   private void insertClassNFA(List<Interval> intervals, int start, int end) {
@@ -728,7 +728,7 @@ public final class NFA {
    * @param nfa the NFA to construct the complement for.
    * @return a pair of integers denoting the index of start and end state of the complement NFA.
    */
-  private IntPair complement(IntPair nfa) {
+  private jflex.base.IntPair complement(jflex.base.IntPair nfa) {
 
     if (Options.DEBUG) {
       Out.debug("complement for " + nfa);
@@ -844,7 +844,7 @@ public final class NFA {
     if (Options.DEBUG) {
       Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
     }
-    return new IntPair(start, end);
+    return new jflex.base.IntPair(start, end);
   }
 
   // "global" data for use in method removeDead only:
@@ -946,9 +946,9 @@ public final class NFA {
    * @param regExp the regular expression to construct the NFA for
    * @return a pair of integers denoting the index of start and end state of the NFA.
    */
-  public IntPair insertNFA(RegExp regExp) {
+  public jflex.base.IntPair insertNFA(RegExp regExp) {
 
-    IntPair nfa1, nfa2;
+    jflex.base.IntPair nfa1, nfa2;
     int start, end;
     RegExp2 r;
 
@@ -965,7 +965,7 @@ public final class NFA {
 
       insertCCLNFA(regExp, start, end);
 
-      return new IntPair(start, end);
+      return new jflex.base.IntPair(start, end);
     }
 
     switch (regExp.type) {
@@ -983,7 +983,7 @@ public final class NFA {
         addEpsilonTransition(nfa1.end, end);
         addEpsilonTransition(nfa2.end, end);
 
-        return new IntPair(start, end);
+        return new jflex.base.IntPair(start, end);
 
       case sym.CONCAT:
         r = (RegExp2) regExp;
@@ -993,7 +993,7 @@ public final class NFA {
 
         addEpsilonTransition(nfa1.end, nfa2.start);
 
-        return new IntPair(nfa1.start, nfa2.end);
+        return new jflex.base.IntPair(nfa1.start, nfa2.end);
 
       case sym.STAR:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
@@ -1007,7 +1007,7 @@ public final class NFA {
         addEpsilonTransition(start, end);
         addEpsilonTransition(nfa1.end, nfa1.start);
 
-        return new IntPair(start, end);
+        return new jflex.base.IntPair(start, end);
 
       case sym.PLUS:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
@@ -1020,14 +1020,14 @@ public final class NFA {
 
         addEpsilonTransition(nfa1.end, nfa1.start);
 
-        return new IntPair(start, end);
+        return new jflex.base.IntPair(start, end);
 
       case sym.QUESTION:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
 
         addEpsilonTransition(nfa1.start, nfa1.end);
 
-        return new IntPair(nfa1.start, nfa1.end);
+        return new jflex.base.IntPair(nfa1.start, nfa1.end);
 
       case sym.BANG:
         return complement(insertNFA((RegExp) ((RegExp1) regExp).content));
