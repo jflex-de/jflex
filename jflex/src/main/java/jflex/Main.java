@@ -10,15 +10,11 @@
 package jflex;
 
 import static jflex.ErrorMessages.NO_ENCODING;
-import static jflex.Options.encoding;
 import static jflex.Options.setEncoding;
 import static jflex.Options.unused_warning;
 import static jflex.Out.error;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Field;
 import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Files;
@@ -36,8 +32,10 @@ import java.util.regex.Pattern;
 import jflex.unicode.UnicodeProperties;
 
 /**
- * This is the main class of JFlex controlling the scanner generation process. It is responsible for
- * parsing the commandline, getting input files, starting up the GUI if necessary, etc.
+ * This is the command-line interface.
+ *
+ * <p>It is responsible for parsing the commandline, getting input files, starting up the GUI if
+ * necessary, etc. and invokes {@link LexGenerator} accordingly.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
@@ -53,7 +51,7 @@ public class Main {
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  public static List<File> parseOptions(String argv[], Options.Builder options) throws SilentExit {
+  private static List<File> parseOptions(String argv[], Options.Builder options) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -138,7 +136,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--version")
           || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        System.out.println(ErrorMessages.get(ErrorMessages.THIS_IS_JFLEX, version));
+        System.out.println(ErrorMessages.get(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION));
         throw new SilentExit(0);
       }
 
@@ -354,4 +352,7 @@ public class Main {
       System.exit(1);
     }
   }
+
+  // Only CLI, not meant for instanciation.
+  private Main() {}
 }

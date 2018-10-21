@@ -17,7 +17,7 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.Main;
+import jflex.LexGenerator;
 import jflex.Options;
 import jflex.Options.Builder;
 import jflex.Out;
@@ -57,7 +57,7 @@ public final class MainFrame extends Frame implements Handles {
 
   /** Constructor for MainFrame. */
   public MainFrame(Options.Builder generatorOptions) {
-    super("JFlex " + Main.version);
+    super("JFlex " + LexGenerator.VERSION);
     this.generatorOptions = generatorOptions;
     buildContent();
 

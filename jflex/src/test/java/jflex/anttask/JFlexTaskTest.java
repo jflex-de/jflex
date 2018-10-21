@@ -19,10 +19,11 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import jflex.Options;
 import jflex.Skeleton;
+import jflex.Options;
 import junit.framework.TestCase;
 
 /**
- * Test {@link JFlexTask}.
+ * Unit tests for the {@link jflex.anttask.JFlexTask}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT

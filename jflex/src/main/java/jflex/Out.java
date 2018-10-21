@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import jflex.performance.Timer;
 import jflex.unicode.UnicodeProperties;
 
 /**
@@ -413,7 +414,7 @@ public final class Out {
     err("OS version:       " + System.getProperty("os.version"));
     err("Encoding:         " + System.getProperty("file.encoding"));
     err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
-    err("JFlex version:    " + Main.version);
+    err("JFlex version:    " + LexGenerator.VERSION);
   }
 
   /**
