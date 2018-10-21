@@ -253,8 +253,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                            throw new ScannerException
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
-                                         getCharClasses().init
-                                           (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+                                         initCharClasses();
                                        }
                                        return symbol(UNICODE);
                                      }

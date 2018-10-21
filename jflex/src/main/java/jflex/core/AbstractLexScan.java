@@ -66,7 +66,8 @@ public abstract class AbstractLexScan {
   // since the max char code won't be known until then.
   private CharClasses charClasses = new CharClasses();
 
-  @SuppressWarnings("unused") // Used in generated LexScan
+  // TODO(regisd) Return an immutable representation of char classes
+  @SuppressWarnings("unused") // Used in generated LexParse
   public CharClasses getCharClasses() {
     return charClasses;
   }
@@ -133,6 +134,7 @@ public abstract class AbstractLexScan {
     return a.toString() + b.toString();
   }
 
+  @SuppressWarnings("WeakerAccess") // Used in generated LexScan
   public static String concExc(Object a, Object b) {
     if (a == null && b == null) {
       return null;
@@ -147,16 +149,22 @@ public abstract class AbstractLexScan {
     return a.toString() + ", " + b.toString();
   }
 
-  public UnicodeProperties getUnicodeProperties() {
+  UnicodeProperties getUnicodeProperties() {
     return unicodeProperties;
   }
 
+  @SuppressWarnings("unused") // Used in generated LexScan
   void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       throw new ScannerException(file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, lexLine());
     }
+    initCharClasses();
+  }
+
+  @SuppressWarnings("WeakerAccess") // Used in generated LexScan
+  void initCharClasses() {
     charClasses.init(Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
 
