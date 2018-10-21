@@ -34,7 +34,7 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  public LexScan scanner; // nocommit - should be private
+  public AbstractLexScan scanner; // nocommit - should be private
 
   /**
    * Constructs a new CharClasses object.
@@ -52,9 +52,8 @@ public class CharClasses {
    * @param maxCharCode the last character code to be considered. (127 for 7bit Lexers, 255 for 8bit
    *     Lexers and UnicodeProperties.getMaximumCodePoint() for Unicode Lexers).
    * @param scanner the scanner containing the UnicodeProperties instance from which caseless
-   *     partitions are obtained.
    */
-  public void init(int maxCharCode, LexScan scanner) {
+  public void init(int maxCharCode, AbstractLexScan scanner) {
     if (maxCharCode < 0) {
       throw new IllegalArgumentException("maxCharCode " + maxCharCode + " is negative.");
     } else if (maxCharCode > maxChar) {

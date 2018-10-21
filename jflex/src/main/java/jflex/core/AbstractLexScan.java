@@ -2,7 +2,6 @@ package jflex.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -35,7 +34,7 @@ public abstract class AbstractLexScan {
   StringBuilder actionText = new StringBuilder();
   StringBuilder string = new StringBuilder();
 
-  private UnicodeProperties unicodeProperties;
+  UnicodeProperties unicodeProperties;
 
   boolean charCount;
   boolean lineCount;
@@ -72,7 +71,7 @@ public abstract class AbstractLexScan {
 
   List<Action> actions = new ArrayList<Action>();
 
-  private int nextState;
+  int nextState;
 
   boolean macroDefinition;
 
@@ -86,29 +85,25 @@ public abstract class AbstractLexScan {
     return charClasses;
   }
 
-  public int currentLine() {
-    return yyline;
-  }
-
   public void setFile(File file) {
     this.file = file;
   }
 
-  private Symbol symbol(int type, Object value) {
-    return new Symbol(type, yyline, yycolumn, value);
+  Symbol symbol(int type, Object value) {
+    return new Symbol(type, lexLine(), lexColumn(), value);
   }
 
-  private Symbol symbol(int type) {
-    return new Symbol(type, yyline, yycolumn);
+  Symbol symbol(int type) {
+    return new Symbol(type, lexLine(), lexColumn());
   }
 
   // updates line and column count to the beginning of the first
-  // non whitespace character in yytext, but leaves yyline+yycolumn
+  // non whitespace character in yytext, but leaves yyline()+lexColumn()
   // untouched
-  private Symbol symbol_countUpdate(int type, Object value) {
-    int lc = yyline;
-    int cc = yycolumn;
-    String text = yytext();
+  Symbol symbol_countUpdate(int type, Object value) {
+    int lc = lexLine();
+    int cc = lexColumn();
+    String text = lexText();
 
     for (int i = 0; i < text.length(); i++) {
       char c = text.charAt(i);
@@ -120,14 +115,16 @@ public abstract class AbstractLexScan {
       if (c == '\n') {
         lc++;
         cc = 0;
-      } else cc++;
+      } else {
+        cc++;
+      }
     }
 
-    return new Symbol(type, yyline, yycolumn, value);
+    return new Symbol(type, lexLine(), lexColumn(), value);
   }
 
-  private String makeMacroIdent() {
-    String matched = yytext().trim();
+  String makeMacroIdent() {
+    String matched = lexText().trim();
     return matched.substring(1, matched.length() - 1).trim();
   }
 
@@ -163,31 +160,45 @@ public abstract class AbstractLexScan {
     return unicodeProperties;
   }
 
-  private void populateDefaultVersionUnicodeProperties() {
+  void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      throw new ScannerException(file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
+      throw new ScannerException(file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, lexLine());
     }
     charClasses.init(Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
 
-  private void includeFile(String filePath) {
+  void includeFile(String filePath) {
     File f = new File(file.getParentFile(), filePath);
     if (!f.canRead()) {
-      throw new ScannerException(file, ErrorMessages.NOT_READABLE, yyline);
+      throw new ScannerException(file, ErrorMessages.NOT_READABLE, lexLine());
     }
     // check for cycle
     if (files.search(f) > 0) {
-      throw new ScannerException(file, ErrorMessages.FILE_CYCLE, yyline);
+      throw new ScannerException(file, ErrorMessages.FILE_CYCLE, lexLine());
     }
     try {
-      yypushStream(new FileReader(f));
+      lexPushStream(f);
       files.push(file);
       file = f;
       Out.println("Including \"" + file + "\"");
     } catch (FileNotFoundException e) {
-      throw new ScannerException(file, ErrorMessages.NOT_READABLE, yyline);
+      throw new ScannerException(file, ErrorMessages.NOT_READABLE, lexLine());
     }
   }
+
+  @Deprecated
+  /** @deprecated Use {link #lexLine} directly. */
+  public int currentLine() {
+    return lexLine();
+  }
+
+  protected abstract int lexLine();
+
+  protected abstract int lexColumn();
+
+  protected abstract String lexText();
+
+  protected abstract void lexPushStream(File f) throws FileNotFoundException;
 }
