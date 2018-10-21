@@ -12,13 +12,14 @@ java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
     runtime_deps = [
-        ":jflex",
+        "//jflex/src/main/java/jflex:jflex_ui",
         "//cup:cup_runtime",
     ],
 )
 
-java_library(
+alias(
     name = "jflex",
+    actual = "//jflex/src/main/java/jflex",
     srcs = glob(["src/main/java/**/*.java"]) + [
         ":gen_parser",
         ":gen_scanner",
@@ -48,4 +49,21 @@ jflex(
     srcs = ["src/main/jflex/LexScan.flex"],
     outputs = ["LexScan.java"],
     skeleton = "src/main/jflex/skeleton.nested",
+)
+
+filegroup(
+    name = "resources",
+    srcs = glob(["src/main/resources/**"]),
+)
+
+# Test helpers
+alias(
+    name = "testing",
+    actual = "//jflex/src/test/java/jflex/testing",
+)
+
+# Tests
+filegroup(
+    name = "test_data",
+    srcs = glob(["src/test/resources/**"]) + ["src/main/jflex/skeleton.nested"],
 )

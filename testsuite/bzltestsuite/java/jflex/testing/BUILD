@@ -9,5 +9,6 @@ java_library(
         "//testsuite/bzltestsuite/java/jflex/testing/javac",
         "//third_party/com/google/guava",
         "//third_party/junit",
+        "//testsuite/bzltestsuite/java/jflex/testing/assertion",
     ],
 )
