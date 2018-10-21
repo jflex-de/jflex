@@ -7,26 +7,42 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.exceptions;
 
 /**
- * This Exception is used in class CharClasses.
+ * Signals a silent exit (no statistics printout).
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class CharClassException extends RuntimeException {
+public class SilentExit extends Exception {
 
-  private static final long serialVersionUID = 7199804506062103569L;
-
-  public CharClassException() {}
+  /** Program exit code if this exception is taken */
+  private int exitCode;
 
   /**
-   * Creates a new CharClassException with the specified message
+   * SilentExit with specified program exit code.
    *
-   * @param message the error description presented to the user.
+   * @param exitCode a int.
    */
-  public CharClassException(String message) {
-    super(message);
+  public SilentExit(int exitCode) {
+    this.exitCode = exitCode;
   }
+
+  /** SilentExit with default exit code 1. */
+  public SilentExit() {
+    this(1);
+  }
+
+  /**
+   * The exit code of this SilentExit exception.
+   *
+   * @return a int.
+   */
+  public int exitCode() {
+    return exitCode;
+  }
+
+  /** Serialisation */
+  private static final long serialVersionUID = 8288632239818668902L;
 }

@@ -6,4 +6,5 @@ jflex_testsuite(
     data = [
         "action-pipe.flex",
     ],
+    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )

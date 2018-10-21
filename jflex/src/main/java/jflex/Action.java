@@ -10,6 +10,7 @@
 package jflex;
 
 import java.util.Objects;
+import jflex.exceptions.GeneratorException;
 
 /**
  * Encapsulates an action in the specification.
