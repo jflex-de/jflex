@@ -16,8 +16,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.core.IntCharSet;
 import jflex.chars.Interval;
+import jflex.core.IntCharSet;
 import jflex.core.unicode.data.Unicode_2_1;
 import jflex.core.unicode.data.Unicode_3_1;
 import jflex.core.unicode.data.Unicode_3_2;
@@ -54,8 +54,8 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
    * #DEFAULT_UNICODE_VERSION}".
    *
-   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the default
-   *     version is not supported.
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the default version is not
+   *     supported.
    */
   public UnicodeProperties() throws UnsupportedUnicodeVersionException {
     init(DEFAULT_UNICODE_VERSION);
@@ -65,8 +65,8 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the given version.
    *
    * @param version The Unicode version for which to unpack data
-   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the given version
-   *     is not supported.
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the given version is not
+   *     supported.
    */
   public UnicodeProperties(String version) throws UnsupportedUnicodeVersionException {
     init(version);
