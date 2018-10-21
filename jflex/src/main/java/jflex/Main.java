@@ -26,13 +26,14 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.base.Build;
 import jflex.core.ErrorMessages;
-import jflex.core.LexGenerator;
 import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
+import jflex.generator.LexGenerator;
 import jflex.gui.MainFrame;
 
 /**
@@ -138,7 +139,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--version")
           || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
+        Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
         throw new SilentExit(0);
       }
 
@@ -305,7 +306,7 @@ public class Main {
     Out.println("--help");
     Out.println("-h                 print this message");
     Out.println("");
-    Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
+    Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
     Out.println("Have a nice day!");
   }
 

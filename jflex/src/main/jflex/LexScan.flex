@@ -120,19 +120,31 @@ import jflex.performance.Timer;
     return charClasses;
   }
 
+  public String className() {
+    return className;
+  }
+
   public int currentLine() {
     return yyline;
+  }
+
+  public boolean isColumnCount() {
+    return columnCount;
+  }
+
+  public String visibility() {
+    return visibility;
   }
 
   public void setFile(File file) {
     this.file = file;
   }
 
-  private Symbol symbol(int type, Object value) {
+  private static Symbol symbol(int type, Object value) {
     return new Symbol(type, yyline, yycolumn, value);
   }
 
-  private Symbol symbol(int type) {
+  private static Symbol symbol(int type) {
     return new Symbol(type, yyline, yycolumn);
   }
 

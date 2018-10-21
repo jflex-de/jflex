@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.generator;
 
 import static jflex.core.Options.encoding;
 
@@ -17,6 +17,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import jflex.core.DFA;
+import jflex.core.ErrorMessages;
+import jflex.core.LexParse;
+import jflex.core.LexScan;
+import jflex.core.MacroException;
+import jflex.core.NFA;
+import jflex.core.Options;
+import jflex.core.Out;
+import jflex.core.ScannerException;
 import jflex.exceptions.GeneratorException;
 import jflex.performance.Timer;
 
@@ -28,9 +37,6 @@ import jflex.performance.Timer;
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public class LexGenerator {
-
-  /** JFlex version */
-  public static final String VERSION = "1.7.1-SNAPSHOT"; // $NON-NLS-1$
 
   /**
    * Generates a scanner for the specified input file.
