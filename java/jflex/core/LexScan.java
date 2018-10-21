@@ -29,7 +29,7 @@ import jflex.performance.Timer;
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>/home/travis/build/jflex-de/jflex/jflex/src/main/jflex/LexScan.flex</tt>
  */
-public final class LexScan implements sym, java_cup.runtime.Scanner {
+public final class LexScan extends AbstractLexScan implements sym, java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -1874,173 +1874,43 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
   }
 
   /* user code: */
+
   int balance = 0;
   int commentbalance = 0;
   int action_line = 0;
-  int bufferSize = 16384;
-
-  File file;
-  Stack<File> files = new Stack<File>();
-
-  StringBuilder userCode   = new StringBuilder();
-
-  String classCode;
-  String initCode;
-  String initThrow;
-  String eofCode;
-  String eofThrow;
-  String lexThrow;
-  String eofVal;
-  String scanErrorException;
-  String cupSymbol = "sym";
-
   StringBuilder actionText = new StringBuilder();
-  StringBuilder string     = new StringBuilder();
 
-  private UnicodeProperties unicodeProperties;
-
-  boolean charCount;
-  boolean lineCount;
-  boolean columnCount;
-  boolean cupCompatible;
-  boolean cup2Compatible;
-  boolean cupDebug;
-  boolean isInteger;
-  boolean isIntWrap;
   boolean isYYEOF;
   boolean notUnix;
-  boolean isPublic;
-  boolean isFinal;
-  boolean isAbstract;
-  boolean bolUsed;
-  boolean standalone;
-  boolean debugOption;
   boolean caseless;
   boolean inclusive_states;
-  boolean eofclose;
   boolean isASCII;
 
-  String isImplementing;
-  String isExtending;
-  String className = "Yylex";
-  String functionName;
-  String tokenType;
-  String visibility = "public";
-
-  List<String> ctorArgs = new ArrayList<String>();
-  List<String> ctorTypes = new ArrayList<String>();
-
-  LexicalStates states = new LexicalStates();
-
-  List<Action> actions = new ArrayList<Action>();
-
-  private int nextState;
+  int nextState;
 
   boolean macroDefinition;
 
   Timer t = new Timer();
 
-  // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
-  // since the max char code won't be known until then.
-  private CharClasses charClasses = new CharClasses();
-
-  public CharClasses getCharClasses() {
-    return charClasses;
-  }
-
-  public int currentLine() {
+  @Override
+  protected int lexLine() {
     return yyline;
   }
 
-  public void setFile(File file) {
-    this.file = file;
+  @Override
+  protected int lexColumn() {
+    return yycolumn;
   }
 
-  private Symbol symbol(int type, Object value) {
-    return new Symbol(type, yyline, yycolumn, value);
+  @Override
+  protected String lexText() {
+    return yytext();
   }
 
-  private Symbol symbol(int type) {
-    return new Symbol(type, yyline, yycolumn);
-  }
-
-  // updates line and column count to the beginning of the first
-  // non whitespace character in yytext, but leaves yyline+yycolumn
-  // untouched
-  private Symbol symbol_countUpdate(int type, Object value) {
-     int lc = yyline;
-     int cc = yycolumn;
-     String text = yytext();
-
-     for (int i=0; i < text.length(); i++) {
-      char c = text.charAt(i);
-
-      if (c != '\n' && c != '\r' && c != ' ' && c != '\t' )
-        return new Symbol(type, lc, cc, value);
-
-      if (c == '\n') {
-        lc++;
-        cc = 0;
-      }
-      else
-        cc++;
-    }
-
-    return new Symbol(type, yyline, yycolumn, value);
-  }
-
-  private String makeMacroIdent() {
-    String matched = yytext().trim();
-    return matched.substring(1, matched.length()-1).trim();
-  }
-
-  public static String conc(Object a, Object b) {
-    if (a == null && b == null) return null;
-    if (a == null) return b.toString();
-    if (b == null) return a.toString();
-
-    return a.toString()+b.toString();
-  }
-
-  public static String concExc(Object a, Object b) {
-    if (a == null && b == null) return null;
-    if (a == null) return b.toString();
-    if (b == null) return a.toString();
-
-    return a.toString()+", "+b.toString();
-  }
-
-  public UnicodeProperties getUnicodeProperties() {
-    return unicodeProperties;
-  }
-
-  private void populateDefaultVersionUnicodeProperties() {
-    try {
-      unicodeProperties = new UnicodeProperties();
-    } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-      throw new ScannerException
-        (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
-    }
-    charClasses.init
-      (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
-  }
-
-  private void includeFile(String filePath) {
-    File f = new File(file.getParentFile(), filePath);
-    if ( !f.canRead() )
-      throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
-    // check for cycle
-    if (files.search(f) > 0)
-      throw new ScannerException(file,ErrorMessages.FILE_CYCLE, yyline);
-    try {
-      yypushStream( new FileReader(f) );
-      files.push(file);
-      file = f;
-      Out.println("Including \""+file+"\"");
-    }
-    catch (FileNotFoundException e) {
-      throw new ScannerException(file,ErrorMessages.NOT_READABLE, yyline);
-    }
+  @Override
+  protected void lexPushStream(File f) throws FileNotFoundException {
+    // Generated by JFlex
+    yypushStream(new FileReader(f));
   }
 
 
@@ -2542,7 +2412,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
             case 798: break;
             case MACROS: {
               if ( yymoreStreams() ) {
-                                  file = (File) files.pop();
+                                  file = popFile();
                                   yypopStream();
                                 }
                                 else
@@ -2588,7 +2458,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
             default:
               {
                 if ( yymoreStreams() ) {
-             file = (File) files.pop();
+             file = popFile();
              yypopStream();
            }
            else {
@@ -2643,7 +2513,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
             { if (null == unicodeProperties && ! isASCII) {
                                   populateDefaultVersionUnicodeProperties();
                                 }
-                                yybegin(REGEXP); 
+                                yybegin(REGEXP);
                                 return symbol(EQUALS);
             } 
             // fall through
@@ -2917,7 +2787,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
             { if (null == unicodeProperties && ! isASCII) {
                                   populateDefaultVersionUnicodeProperties();
                                 }
-                                macroDefinition = false; 
+                                macroDefinition = false;
                                 yybegin(REGEXPSTART);
                                 return symbol(DELIMITER);
             } 
@@ -3009,8 +2879,8 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
             // fall through
           case 244: break;
           case 76: 
-            { yybegin(REPEATEXP); 
-                                   return symbol(REPEAT, 
+            { yybegin(REPEATEXP);
+                                   return symbol(REPEAT,
                                                  new Integer(yytext().trim().substring(1).trim()));
             } 
             // fall through
@@ -3332,8 +3202,7 @@ public final class LexScan implements sym, java_cup.runtime.Scanner {
                                            throw new ScannerException
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
-                                         charClasses.init
-                                           (Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+                                         initCharClasses();
                                        }
                                        return symbol(UNICODE);
             } 
