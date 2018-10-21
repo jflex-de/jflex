@@ -195,40 +195,129 @@ public abstract class AbstractLexScan {
     return files.pop();
   }
 
-  public String userCode() {return userCode.toString();}
+  public String userCode() {
+    return userCode.toString();
+  }
 
-  public String classCode(){return classCode;}
-  public String initCode() {return initCode;};
-  public String initThrow() {return initThrow;};
-  public String eofCode() {return eofCode;};
-  public String eofThrow() {return eofThrow;};
-  public String lexThrow() {return lexThrow;};
-  public String eofVal() {return eofVal;};
-  public String scanErrorException() {return scanErrorException;};
-  public String cupSymbol() {return cupSymbol;};
+  public String classCode() {
+    return classCode;
+  }
 
-  public boolean charCount(){return charCount;};
-  public boolean lineCount(){return lineCount;};
-  public boolean columnCount(){return columnCount;};
-  public boolean cupCompatible(){return cupCompatible;};
-  public boolean cup2Compatible(){return cup2Compatible;};
-  public boolean cupDebug(){return cupDebug;};
-  public boolean isInteger(){return isInteger;};
-  public boolean isIntWrap(){return isIntWrap;};
-  public boolean isPublic(){return isPublic;};
-  public boolean isFinal(){return isFinal;};
-  public boolean isAbstract(){return isAbstract;};
-  public boolean bolUsed(){return bolUsed;};
-  public boolean standalone(){return standalone;};
-  public boolean debugOption(){return debugOption;};
-  public boolean eofclose(){return eofclose;};
+  public String initCode() {
+    return initCode;
+  };
 
-  public String isImplementing() {return isImplementing;};
-  public String isExtending() {return isExtending;};
-  public String className() {return className;};
-  public String functionName() {return functionName;};
-  public String tokenType() {return tokenType;};
-  public String visibility() {return visibility;};
+  public String initThrow() {
+    return initThrow;
+  };
+
+  public String eofCode() {
+    return eofCode;
+  };
+
+  public String eofThrow() {
+    return eofThrow;
+  };
+
+  public String lexThrow() {
+    return lexThrow;
+  };
+
+  public String eofVal() {
+    return eofVal;
+  };
+
+  public String scanErrorException() {
+    return scanErrorException;
+  };
+
+  public String cupSymbol() {
+    return cupSymbol;
+  };
+
+  public boolean charCount() {
+    return charCount;
+  };
+
+  public boolean lineCount() {
+    return lineCount;
+  };
+
+  public boolean columnCount() {
+    return columnCount;
+  };
+
+  public boolean cupCompatible() {
+    return cupCompatible;
+  };
+
+  public boolean cup2Compatible() {
+    return cup2Compatible;
+  };
+
+  public boolean cupDebug() {
+    return cupDebug;
+  };
+
+  public boolean isInteger() {
+    return isInteger;
+  };
+
+  public boolean isIntWrap() {
+    return isIntWrap;
+  };
+
+  public boolean isPublic() {
+    return isPublic;
+  };
+
+  public boolean isFinal() {
+    return isFinal;
+  };
+
+  public boolean isAbstract() {
+    return isAbstract;
+  };
+
+  public boolean bolUsed() {
+    return bolUsed;
+  };
+
+  public boolean standalone() {
+    return standalone;
+  };
+
+  public boolean debugOption() {
+    return debugOption;
+  };
+
+  public boolean eofclose() {
+    return eofclose;
+  };
+
+  public String isImplementing() {
+    return isImplementing;
+  };
+
+  public String isExtending() {
+    return isExtending;
+  };
+
+  public String className() {
+    return className;
+  };
+
+  public String functionName() {
+    return functionName;
+  };
+
+  public String tokenType() {
+    return tokenType;
+  };
+
+  public String visibility() {
+    return visibility;
+  };
 
   public Set<String> stateNames() {
     return states.names();
