@@ -6,7 +6,7 @@ build_task:
   name: Bazel build and test
   container:
     image: cirrusci/bazel:latest
-  check_script:
+  bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
   build_script:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
