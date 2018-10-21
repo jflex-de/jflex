@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.exceptions;
 
 /**
  * This Exception is used in the macro expander to report cycles or undefined macro usages.

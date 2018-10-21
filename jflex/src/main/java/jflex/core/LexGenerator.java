@@ -18,6 +18,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import jflex.exceptions.GeneratorException;
+import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
 
