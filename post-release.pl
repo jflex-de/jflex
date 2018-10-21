@@ -101,8 +101,8 @@ File::Find::find({wanted => \&wanted, follow => 1}, '.');
 print "Updating version in build.xml\n";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/build.xml !);
 
-print "Updating version in Main.java\n";
-system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/src/main/java/jflex/Main.java !);
+print "Updating version in Build.java\n";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/src/main/java/jflex/base/Build.java !);
 
 print "Updating version in the testsuite's Exec.java\n";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!

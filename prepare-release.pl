@@ -81,8 +81,8 @@ print " updating version in build.xml";
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/build.xml');
 print "\ndone.\n\n";
 
-print " updating version in Main.java";
-system ('perl -pi -e "s/version = \"(.*)-SNAPSHOT/version = \"\\1/" jflex/src/main/java/jflex/Main.java ');
+print " updating version in Build.java";
+system ('perl -pi -e "s/version = \"(.*)-SNAPSHOT/version = \"\\1/" jflex/src/main/java/jflex/base/Build.java ');
 print "\ndone.\n\n";
 
 print " updating version in the testsuite's Exec.java";
