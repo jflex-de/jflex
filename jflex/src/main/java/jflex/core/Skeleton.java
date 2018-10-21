@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 
 /**
  * This class stores the skeleton of generated scanners.
@@ -97,17 +98,17 @@ public class Skeleton {
       throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
+      Out.error(jflex.l10n.ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
       throw new GeneratorException();
     }
 
-    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    Out.println(jflex.l10n.ErrorMessages.READING_SKEL, skeletonFile.toString());
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
       readSkel(reader);
     } catch (IOException e) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR);
+      Out.error(jflex.l10n.ErrorMessages.SKEL_IO_ERROR);
       throw new GeneratorException();
     }
   }
@@ -137,7 +138,7 @@ public class Skeleton {
     if (section.length() > 0) lines.add(section.toString());
 
     if (lines.size() != size) {
-      Out.error(ErrorMessages.WRONG_SKELETON);
+      Out.error(jflex.l10n.ErrorMessages.WRONG_SKELETON);
       throw new GeneratorException();
     }
 
@@ -186,7 +187,7 @@ public class Skeleton {
     }
 
     if (url == null) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
+      Out.error(jflex.l10n.ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException();
     }
 
