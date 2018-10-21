@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
 
 %%
