@@ -8,5 +8,6 @@ java_library(
         "//jflex/src/main/java/jflex/anttask",
         "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/gui",
+        "//jflex/src/main/java/jflex/exceptions",
     ],
 )

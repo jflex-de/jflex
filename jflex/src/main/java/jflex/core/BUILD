@@ -10,6 +10,7 @@ java_library(
     deps = [
         "//cup:cup_runtime",
         "//jflex/src/main/java/jflex/chars",
+        "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/io",
         "//jflex/src/main/java/jflex/performance",
     ],

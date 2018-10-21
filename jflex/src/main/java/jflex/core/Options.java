@@ -11,6 +11,7 @@ package jflex.core;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import jflex.exceptions.GeneratorException;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.

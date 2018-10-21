@@ -5,6 +5,7 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//jflex",
+        "//jflex/src/main/java/jflex/exceptions",
         "//third_party/org/apache/ant",
     ],
 )

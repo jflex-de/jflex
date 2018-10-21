@@ -7,19 +7,26 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.exceptions;
 
 /**
- * Thrown when code generation has to be aborted.
+ * This Exception is used in class CharClasses.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class GeneratorException extends RuntimeException {
+public class CharClassException extends RuntimeException {
 
-  private static final long serialVersionUID = -9128247888544263982L;
+  private static final long serialVersionUID = 7199804506062103569L;
 
-  public GeneratorException() {
-    super("Generation aborted");
+  public CharClassException() {}
+
+  /**
+   * Creates a new CharClassException with the specified message
+   *
+   * @param message the error description presented to the user.
+   */
+  public CharClassException(String message) {
+    super(message);
   }
 }

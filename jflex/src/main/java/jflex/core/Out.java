@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.exceptions.GeneratorException;
 import jflex.performance.Timer;
 
 /**

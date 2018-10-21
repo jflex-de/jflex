@@ -27,12 +27,12 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.core.ErrorMessages;
-import jflex.core.GeneratorException;
 import jflex.core.LexGenerator;
 import jflex.core.Options;
 import jflex.core.Out;
-import jflex.core.SilentExit;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.exceptions.GeneratorException;
+import jflex.exceptions.SilentExit;
 import jflex.gui.MainFrame;
 
 /**

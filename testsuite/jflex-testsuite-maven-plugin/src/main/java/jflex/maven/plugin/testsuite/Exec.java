@@ -14,6 +14,8 @@ import jflex.core.GeneratorException;
 import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.SilentExit;
+import jflex.exceptions.GeneratorException;
+import jflex.exceptions.SilentExit;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;

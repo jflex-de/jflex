@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import jflex.exceptions.GeneratorException;
 import jflex.performance.Timer;
 
 /**

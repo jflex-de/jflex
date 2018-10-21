@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.exceptions.GeneratorException;
 
 /**
  * Non-deterministic finite automata representation in JFlex.
@@ -93,7 +94,7 @@ public final class NFA {
    *
    * @see RegExps#checkLookAheads()
    * @param numInput a int.
-   * @param scanner a {@link jflex.core.LexScan} object.
+   * @param scanner a {@link LexScan} object.
    * @param regExps a {@link RegExps} object.
    * @param macros a {@link Macros} object.
    * @param classes a {@link CharClasses} object.

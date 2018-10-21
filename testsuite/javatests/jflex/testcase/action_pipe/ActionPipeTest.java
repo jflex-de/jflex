@@ -1,6 +1,6 @@
 package jflex.testcase.action_pipe;
 
-import jflex.core.GeneratorException;
+import jflex.exceptions.GeneratorException;
 import jflex.testing.JFlexTestRunner;
 import jflex.testing.annotations.TestSpec;
 import org.junit.Test;

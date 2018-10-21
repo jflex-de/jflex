@@ -7,42 +7,19 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.exceptions;
 
 /**
- * Signals a silent exit (no statistics printout).
+ * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class SilentExit extends Exception {
+public class GeneratorException extends RuntimeException {
 
-  /** Program exit code if this exception is taken */
-  private int exitCode;
+  private static final long serialVersionUID = -9128247888544263982L;
 
-  /**
-   * SilentExit with specified program exit code.
-   *
-   * @param exitCode a int.
-   */
-  public SilentExit(int exitCode) {
-    this.exitCode = exitCode;
+  public GeneratorException() {
+    super("Generation aborted");
   }
-
-  /** SilentExit with default exit code 1. */
-  public SilentExit() {
-    this(1);
-  }
-
-  /**
-   * The exit code of this SilentExit exception.
-   *
-   * @return a int.
-   */
-  public int exitCode() {
-    return exitCode;
-  }
-
-  /** Serialisation */
-  private static final long serialVersionUID = 8288632239818668902L;
 }
