@@ -6,12 +6,12 @@ java_library(
         "//jflex:gen_parser",
         "//jflex:gen_scanner",
     ],
-    resources = ["//jflex:resources"],
     deps = [
         "//cup:cup_runtime",
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/io",
+        "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/performance",
     ],
 )

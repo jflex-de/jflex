@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import jflex.chars.Interval;
 import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Non-deterministic finite automata representation in JFlex.

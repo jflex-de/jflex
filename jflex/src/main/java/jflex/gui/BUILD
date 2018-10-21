@@ -6,5 +6,6 @@ java_library(
     deps = [
         "//jflex",
         "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/l10n",
     ],
 )
