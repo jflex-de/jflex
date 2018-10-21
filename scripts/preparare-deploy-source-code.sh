@@ -31,6 +31,10 @@ update_source() {
   gitlog="$1"
   logi "Updating source for $gitlog"
   version=$(ls target/jflex-*-sources.jar)
+
+  logi "Copying compile script"
+  cp scripts/compile-aggregated-java-sources.sh repo/compile.sh
+
   logi "Updating sources from $version"
   cd repo
   git config user.name "Travis CI"
