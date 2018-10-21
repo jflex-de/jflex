@@ -24,3 +24,14 @@ codestyle_task:
     image: openjdk:8-jdk
   script: scripts/test-java-format.sh
 
+steps:
+- restore_cache:
+  keys:
+  - source-v1-{{ .Branch }}-{{ .Revision }}
+  - source-v1-{{ .Branch }}-
+  - source-v1-
+- checkout
+- save_cache:
+  key: source-v1-{{ .Branch }}-{{ .Revision }}
+  paths:
+  - ".git"
