@@ -12,10 +12,6 @@ package jflex.core;
 import static jflex.core.RegExp.revString;
 
 import jflex.chars.Interval;
-import jflex.core.Macros;
-import jflex.core.RegExp;
-import jflex.core.RegExp1;
-import jflex.core.RegExp2;
 import junit.framework.TestCase;
 
 /**

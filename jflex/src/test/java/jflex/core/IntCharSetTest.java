@@ -2,7 +2,6 @@ package jflex.core;
 
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.core.IntCharSet;
 import junit.framework.TestCase;
 
 public class IntCharSetTest extends TestCase {

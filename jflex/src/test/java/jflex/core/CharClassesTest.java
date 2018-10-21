@@ -10,8 +10,6 @@
 package jflex.core;
 
 import jflex.chars.Interval;
-import jflex.core.CharClasses;
-import jflex.core.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 
