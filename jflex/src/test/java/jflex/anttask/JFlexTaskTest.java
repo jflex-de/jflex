@@ -12,7 +12,8 @@ package jflex.anttask;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import jflex.Options;
+import jflex.core.Options;
+import jflex.core.Skeleton;
 import junit.framework.TestCase;
 
 /**
@@ -109,7 +110,7 @@ public class JFlexTaskTest extends TestCase {
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(jflex.Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
 
   public void testVerbose() {

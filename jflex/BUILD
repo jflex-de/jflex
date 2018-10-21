@@ -19,7 +19,7 @@ java_binary(
 
 alias(
     name = "jflex",
-    actual = "//jflex/src/main/java/jflex",
+    actual = "//jflex/src/main/java/jflex/core",
 )
 
 cup(

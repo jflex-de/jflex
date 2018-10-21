@@ -9,10 +9,10 @@
 
 package jflex;
 
-import static jflex.ErrorMessages.NO_ENCODING;
-import static jflex.Options.setEncoding;
-import static jflex.Options.unused_warning;
-import static jflex.Out.error;
+import static jflex.core.ErrorMessages.NO_ENCODING;
+import static jflex.core.Options.setEncoding;
+import static jflex.core.Options.unused_warning;
+import static jflex.core.Out.error;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -26,6 +26,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.core.ErrorMessages;
+import jflex.core.GeneratorException;
+import jflex.core.LexGenerator;
+import jflex.core.Options;
+import jflex.core.Out;
+import jflex.core.SilentExit;
 import jflex.gui.MainFrame;
 import jflex.unicode.UnicodeProperties;
 
@@ -46,7 +52,7 @@ public class Main {
    *
    * @param argv an array of {@link java.lang.String} objects.
    * @return a {@link java.util.List} object.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   private static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<>();
@@ -307,7 +313,7 @@ public class Main {
    * generate.
    *
    * @param argv an array of {@link java.lang.String} objects.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   public static void generate(String argv[]) throws SilentExit {
     List<File> files = parseOptions(argv);

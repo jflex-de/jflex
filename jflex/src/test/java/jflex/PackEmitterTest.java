@@ -9,6 +9,8 @@
 
 package jflex;
 
+import jflex.core.Out;
+import jflex.core.PackEmitter;
 import junit.framework.TestCase;
 
 /**

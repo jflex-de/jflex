@@ -12,6 +12,7 @@ package jflex;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import jflex.core.Emitter;
 import junit.framework.TestCase;
 
 /**

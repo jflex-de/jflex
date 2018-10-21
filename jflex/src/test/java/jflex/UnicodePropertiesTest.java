@@ -11,6 +11,7 @@ package jflex;
 
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.core.IntCharSet;
 import jflex.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 
