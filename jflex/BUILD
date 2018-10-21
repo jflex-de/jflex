@@ -5,7 +5,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package_group(
     name = "visibility",
-    packages = ["//jflex/..."],
+    packages = ["//jflex/...", "//testsuite/..."],
 )
 
 java_binary(
@@ -20,18 +20,6 @@ java_binary(
 alias(
     name = "jflex",
     actual = "//jflex/src/main/java/jflex",
-    srcs = glob(["src/main/java/**/*.java"]) + [
-        ":gen_parser",
-        ":gen_scanner",
-    ],
-    resources = glob(["src/main/resources/**"]),
-    visibility = ["//visibility:public"],
-    deps = [
-        "//cup:cup_runtime",
-        "//jflex/src/main/java/jflex/exceptions",
-        "//jflex/src/main/java/jflex/performance",
-        "//third_party/org/apache/ant",
-    ],
 )
 
 cup(

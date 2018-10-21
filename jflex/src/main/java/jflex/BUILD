@@ -4,7 +4,10 @@ LAUNCHER_SRCS = ["Main.java"]
 
 java_library(
     name = "jflex",
-    srcs = glob(["**/*.java"], exclude = LAUNCHER_SRCS) + [
+    srcs = glob(
+        ["**/*.java"],
+        exclude = LAUNCHER_SRCS,
+    ) + [
         "//jflex:gen_parser",
         "//jflex:gen_scanner",
     ],
@@ -12,6 +15,7 @@ java_library(
     deps = [
         "//cup:cup_runtime",
         "//jflex/src/main/java/jflex/chars",
+        "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/io",
         "//jflex/src/main/java/jflex/performance",
     ],
@@ -24,6 +28,7 @@ java_library(
     deps = [
         ":jflex",
         "//jflex/src/main/java/jflex/anttask",
+        "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/gui",
     ],
 )
