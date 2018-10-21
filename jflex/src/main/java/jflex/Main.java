@@ -9,10 +9,10 @@
 
 package jflex;
 
-import static jflex.ErrorMessages.NO_ENCODING;
-import static jflex.Options.setEncoding;
-import static jflex.Options.unused_warning;
-import static jflex.Out.error;
+import static jflex.core.Options.setEncoding;
+import static jflex.core.Options.unused_warning;
+import static jflex.core.Out.error;
+import static jflex.l10n.ErrorMessages.NO_ENCODING;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -26,8 +26,15 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.base.Build;
+import jflex.core.LexGenerator;
+import jflex.core.Options;
+import jflex.core.Out;
+import jflex.core.unicode.UnicodeProperties;
+import jflex.exceptions.GeneratorException;
+import jflex.exceptions.SilentExit;
 import jflex.gui.MainFrame;
-import jflex.unicode.UnicodeProperties;
+import jflex.l10n.ErrorMessages;
 
 /**
  * This is the command-line interface.
@@ -46,7 +53,7 @@ public class Main {
    *
    * @param argv an array of {@link java.lang.String} objects.
    * @return a {@link java.util.List} object.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   private static List<File> parseOptions(String argv[]) throws SilentExit {
     List<File> files = new ArrayList<>();
@@ -132,7 +139,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--version")
           || Objects.equals(argv[i], "-version")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
+        Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
         throw new SilentExit(0);
       }
 
@@ -299,7 +306,7 @@ public class Main {
     Out.println("--help");
     Out.println("-h                 print this message");
     Out.println("");
-    Out.println(ErrorMessages.THIS_IS_JFLEX, LexGenerator.VERSION);
+    Out.println(ErrorMessages.THIS_IS_JFLEX, Build.VERSION);
     Out.println("Have a nice day!");
   }
 
@@ -307,7 +314,7 @@ public class Main {
    * generate.
    *
    * @param argv an array of {@link java.lang.String} objects.
-   * @throws jflex.SilentExit if any.
+   * @throws SilentExit if any.
    */
   public static void generate(String argv[]) throws SilentExit {
     List<File> files = parseOptions(argv);

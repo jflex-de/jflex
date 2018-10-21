@@ -4,8 +4,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.LexGenerator;
+import jflex.core.LexGenerator;
+import jflex.testing.annotations.NoExceptionThrown;
 import jflex.testing.annotations.TestSpec;
+import jflex.testing.assertion.MoreAsserts;
 import jflex.testing.javac.CompilerException;
 import jflex.testing.javac.JavacUtil;
 import org.junit.runner.Description;
@@ -32,12 +34,15 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
-    String lexerJavaFileName = generateLexer(notifier);
-    try {
-      compile(notifier, ImmutableList.of(lexerJavaFileName));
-    } catch (CompilerException e) {
-      notifier.fireTestFailure(
-          new Failure(Description.createTestDescription(klass, "Failed to compile java code"), e));
+    if (spec.generatorThrows() != NoExceptionThrown.class) {
+      MoreAsserts.assertThrows(
+          "@TestCase indicates that the jflex generation must throw a "
+              + spec.generatorThrows().getSimpleName(),
+          spec.generatorThrows(),
+          () -> generateLexer(notifier));
+    } else {
+      String lexerJavaFileName = generateLexer(notifier);
+      buildLexer(notifier, lexerJavaFileName);
     }
     super.run(notifier);
   }
@@ -45,7 +50,16 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   private String generateLexer(RunNotifier notifier) {
     notifier.fireTestStarted(Description.createTestDescription(klass, "Generate Lexer"));
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
-    return lexerJavaFileName;
+    return checkNotNull(lexerJavaFileName);
+  }
+
+  private void buildLexer(RunNotifier notifier, String lexerJavaFileName) {
+    try {
+      compile(notifier, ImmutableList.of(lexerJavaFileName));
+    } catch (CompilerException e) {
+      notifier.fireTestFailure(
+          new Failure(Description.createTestDescription(klass, "Failed to compile lexer"), e));
+    }
   }
 
   private void compile(RunNotifier notifier, ImmutableList<String> javaFileNames)

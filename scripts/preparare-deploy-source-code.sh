@@ -41,6 +41,7 @@ update_source() {
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
   rm -rf jflex/maven
+  rm $(find . -name 'BUILD')
 
   logi "Checking licenses"
   [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
