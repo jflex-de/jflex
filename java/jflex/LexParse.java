@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jflex.exceptions.CharClassException;
+import jflex.exceptions.GeneratorException;
 import jflex.chars.Interval;
 import jflex.performance.Timer;
 import jflex.unicode.UnicodeProperties;
