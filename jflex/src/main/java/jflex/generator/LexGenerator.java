@@ -18,7 +18,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import jflex.core.DFA;
-import jflex.core.ErrorMessages;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.MacroException;
@@ -81,7 +80,7 @@ public class LexGenerator {
 
       if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
 
-      Out.println(jflex.l10n.ErrorMessages.NFA_STATES, nfa.numStates);
+      Out.println(jflex.l10n.ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
       DFA dfa = nfa.getDFA();

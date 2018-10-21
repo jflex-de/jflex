@@ -11,7 +11,7 @@ java_test(
     name = "EmitterTest",
     srcs = ["EmitterTest.java"],
     deps = [
-        "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/generator",
     ],
 )
 

@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.generator;
+package jflex.core;
 
 import java_cup.runtime.Symbol;
 import java.io.File;

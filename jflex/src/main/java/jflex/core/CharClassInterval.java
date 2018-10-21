@@ -24,13 +24,13 @@ package jflex.core;
 public class CharClassInterval {
 
   /** The first character of the interval */
-  int start;
+  public final int start;
 
   /** The last character of the interval */
-  int end;
+  public final int end;
 
   /** The code of the class all characters of this interval belong to. */
-  int charClass;
+  public final int charClass;
 
   /**
    * Creates a new CharClassInterval from {@code start</code> to <CODE>end} that belongs to
