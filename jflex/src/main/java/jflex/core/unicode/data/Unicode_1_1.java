@@ -1,4 +1,4 @@
-package jflex.unicode.data;
+package jflex.core.unicode.data;
 
 /**
  * Unicode_1_1 class.

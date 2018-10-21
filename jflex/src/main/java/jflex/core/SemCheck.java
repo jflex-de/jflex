@@ -9,7 +9,6 @@
 package jflex.core;
 
 import java.io.File;
-import jflex.sym;
 
 /**
  * Performs simple semantic analysis on regular expressions.

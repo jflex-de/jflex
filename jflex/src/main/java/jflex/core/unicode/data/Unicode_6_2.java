@@ -1,30 +1,33 @@
-package jflex.unicode.data;
+package jflex.core.unicode.data;
 
 /**
- * Unicode_6_0 class.
+ * Unicode_6_2 class.
  *
  * @author JFlex contributors.
  */
-public class Unicode_6_0 {
+public class Unicode_6_2 {
   /** Constant {@code maximumCodePoint=0x10ffff} */
   public static final int maximumCodePoint = 0x10ffff;
-  /** Constant {@code propertyValues="{age=1.1, age=2.0, age=2.1, age=3.0, ag"{trunked}} */
+  /** Constant {@code propertyValues="{age=unassigned, age=v11, age=v20, age="{trunked}} */
   public static final String[] propertyValues = {
-    "age=1.1", "age=2.0", "age=2.1", "age=3.0", "age=3.1",
-    "age=3.2", "age=4.0", "age=4.1", "age=5.0", "age=5.1",
-    "age=5.2", "age=6.0", "age=unassigned", "alnum", "alphabetic",
-    "arabic", "armenian", "asciihexdigit", "assigned", "avestan",
-    "balinese", "bamum", "batak", "bengali", "bidicontrol",
-    "blank", "block=aegeannumbers", "block=alchemicalsymbols", "block=alphabeticpresentationforms",
-        "block=ancientgreekmusicalnotation",
-    "block=ancientgreeknumbers", "block=ancientsymbols", "block=arabic",
+    "age=unassigned", "age=v11", "age=v20", "age=v21", "age=v30",
+    "age=v31", "age=v32", "age=v40", "age=v41", "age=v50",
+    "age=v51", "age=v52", "age=v60", "age=v61", "age=v62",
+    "alnum", "alphabetic", "arabic", "armenian", "asciihexdigit",
+    "assigned", "avestan", "balinese", "bamum", "batak",
+    "bengali", "bidicontrol", "blank", "block=aegeannumbers", "block=alchemicalsymbols",
+    "block=alphabeticpresentationforms", "block=ancientgreekmusicalnotation",
+        "block=ancientgreeknumbers", "block=ancientsymbols", "block=arabic",
+    "block=arabicextendeda", "block=arabicmathematicalalphabeticsymbols",
         "block=arabicpresentationformsa", "block=arabicpresentationformsb",
-    "block=arabicsupplement", "block=armenian", "block=arrows", "block=avestan", "block=balinese",
-    "block=bamum", "block=bamumsupplement", "block=basiclatin", "block=batak", "block=bengali",
-    "block=blockelements", "block=bopomofo", "block=bopomofoextended", "block=boxdrawing",
-        "block=brahmi",
-    "block=braillepatterns", "block=buginese", "block=buhid", "block=byzantinemusicalsymbols",
-        "block=carian",
+        "block=arabicsupplement",
+    "block=armenian", "block=arrows", "block=avestan", "block=balinese", "block=bamum",
+    "block=bamumsupplement", "block=basiclatin", "block=batak", "block=bengali",
+        "block=blockelements",
+    "block=bopomofo", "block=bopomofoextended", "block=boxdrawing", "block=brahmi",
+        "block=braillepatterns",
+    "block=buginese", "block=buhid", "block=byzantinemusicalsymbols", "block=carian",
+        "block=chakma",
     "block=cham", "block=cherokee", "block=cjkcompatibility", "block=cjkcompatibilityforms",
         "block=cjkcompatibilityideographs",
     "block=cjkcompatibilityideographssupplement", "block=cjkradicalssupplement", "block=cjkstrokes",
@@ -64,72 +67,75 @@ public class Unicode_6_0 {
     "block=limbu", "block=linearbideograms", "block=linearbsyllabary", "block=lisu", "block=lycian",
     "block=lydian", "block=mahjongtiles", "block=malayalam", "block=mandaic",
         "block=mathematicalalphanumericsymbols",
-    "block=mathematicaloperators", "block=meeteimayek", "block=miscellaneousmathematicalsymbolsa",
+    "block=mathematicaloperators", "block=meeteimayek", "block=meeteimayekextensions",
+        "block=meroiticcursive", "block=meroitichieroglyphs",
+    "block=miao", "block=miscellaneousmathematicalsymbolsa",
         "block=miscellaneousmathematicalsymbolsb", "block=miscellaneoussymbols",
-    "block=miscellaneoussymbolsandarrows", "block=miscellaneoussymbolsandpictographs",
-        "block=miscellaneoustechnical", "block=modifiertoneletters", "block=mongolian",
-    "block=musicalsymbols", "block=myanmar", "block=myanmarextendeda", "block=newtailue",
-        "block=nko",
-    "block=noblock", "block=numberforms", "block=ogham", "block=olchiki", "block=olditalic",
-    "block=oldpersian", "block=oldsoutharabian", "block=oldturkic",
-        "block=opticalcharacterrecognition", "block=oriya",
-    "block=osmanya", "block=phagspa", "block=phaistosdisc", "block=phoenician",
-        "block=phoneticextensions",
-    "block=phoneticextensionssupplement", "block=playingcards", "block=privateusearea",
-        "block=rejang", "block=ruminumeralsymbols",
-    "block=runic", "block=samaritan", "block=saurashtra", "block=shavian", "block=sinhala",
-    "block=smallformvariants", "block=spacingmodifierletters", "block=specials", "block=sundanese",
-        "block=superscriptsandsubscripts",
-    "block=supplementalarrowsa", "block=supplementalarrowsb",
-        "block=supplementalmathematicaloperators", "block=supplementalpunctuation",
-        "block=supplementaryprivateuseareaa",
-    "block=supplementaryprivateuseareab", "block=sylotinagri", "block=syriac", "block=tagalog",
-        "block=tagbanwa",
-    "block=tags", "block=taile", "block=taitham", "block=taiviet", "block=taixuanjingsymbols",
-    "block=tamil", "block=telugu", "block=thaana", "block=thai", "block=tibetan",
-    "block=tifinagh", "block=transportandmapsymbols", "block=ugaritic",
-        "block=unifiedcanadianaboriginalsyllabics",
-        "block=unifiedcanadianaboriginalsyllabicsextended",
-    "block=vai", "block=variationselectors", "block=variationselectorssupplement",
-        "block=vedicextensions", "block=verticalforms",
-    "block=yijinghexagramsymbols", "block=yiradicals", "block=yisyllables", "bopomofo", "brahmi",
-    "braille", "buginese", "buhid", "canadianaboriginal", "carian",
-    "cased", "caseignorable", "cc", "cf", "cham",
-    "changeswhencasefolded", "changeswhencasemapped", "changeswhenlowercased",
-        "changeswhentitlecased", "changeswhenuppercased",
-    "cherokee", "cn", "co", "common", "coptic",
-    "cuneiform", "cypriot", "cyrillic", "dash", "defaultignorablecodepoint",
-    "deprecated", "deseret", "devanagari", "diacritic", "egyptianhieroglyphs",
-    "ethiopic", "extender", "georgian", "glagolitic", "gothic",
-    "graph", "graphemebase", "graphemeclusterbreak=control", "graphemeclusterbreak=cr",
-        "graphemeclusterbreak=extend",
-    "graphemeclusterbreak=l", "graphemeclusterbreak=lf", "graphemeclusterbreak=lv",
-        "graphemeclusterbreak=lvt", "graphemeclusterbreak=other",
-    "graphemeclusterbreak=prepend", "graphemeclusterbreak=spacingmark", "graphemeclusterbreak=t",
-        "graphemeclusterbreak=v", "graphemeextend",
-    "graphemelink", "greek", "gujarati", "gurmukhi", "han",
-    "hangul", "hanunoo", "hebrew", "hexdigit", "hiragana",
-    "hyphen", "idcontinue", "ideographic", "idsbinaryoperator", "idstart",
-    "idstrinaryoperator", "imperialaramaic", "inherited", "inscriptionalpahlavi",
-        "inscriptionalparthian",
-    "javanese", "joincontrol", "kaithi", "kannada", "katakana",
-    "kayahli", "kharoshthi", "khmer", "lao", "latin",
-    "lepcha", "limbu", "linearb", "linebreak=alphabetic", "linebreak=ambiguous",
-    "linebreak=breakafter", "linebreak=breakbefore", "linebreak=breakboth",
-        "linebreak=breaksymbols", "linebreak=carriagereturn",
-    "linebreak=closeparenthesis", "linebreak=closepunctuation", "linebreak=combiningmark",
-        "linebreak=complexcontext", "linebreak=contingentbreak",
-    "linebreak=exclamation", "linebreak=glue", "linebreak=h2", "linebreak=h3", "linebreak=hyphen",
-    "linebreak=ideographic", "linebreak=infixnumeric", "linebreak=inseparable", "linebreak=jl",
-        "linebreak=jt",
-    "linebreak=jv", "linebreak=linefeed", "linebreak=mandatorybreak", "linebreak=nextline",
-        "linebreak=nonstarter",
-    "linebreak=numeric", "linebreak=openpunctuation", "linebreak=postfixnumeric",
-        "linebreak=prefixnumeric", "linebreak=quotation",
-    "linebreak=space", "linebreak=unknown", "linebreak=wordjoiner", "linebreak=zwspace", "lisu",
-    "ll", "lm", "lo", "logicalorderexception", "lowercase",
-    "lt", "lu", "lycian", "lydian", "malayalam",
-    "mandaic", "math", "mc", "me", "meeteimayek",
+        "block=miscellaneoussymbolsandarrows",
+    "block=miscellaneoussymbolsandpictographs", "block=miscellaneoustechnical",
+        "block=modifiertoneletters", "block=mongolian", "block=musicalsymbols",
+    "block=myanmar", "block=myanmarextendeda", "block=newtailue", "block=nko", "block=noblock",
+    "block=numberforms", "block=ogham", "block=olchiki", "block=olditalic", "block=oldpersian",
+    "block=oldsoutharabian", "block=oldturkic", "block=opticalcharacterrecognition", "block=oriya",
+        "block=osmanya",
+    "block=phagspa", "block=phaistosdisc", "block=phoenician", "block=phoneticextensions",
+        "block=phoneticextensionssupplement",
+    "block=playingcards", "block=privateusearea", "block=rejang", "block=ruminumeralsymbols",
+        "block=runic",
+    "block=samaritan", "block=saurashtra", "block=sharada", "block=shavian", "block=sinhala",
+    "block=smallformvariants", "block=sorasompeng", "block=spacingmodifierletters",
+        "block=specials", "block=sundanese",
+    "block=sundanesesupplement", "block=superscriptsandsubscripts", "block=supplementalarrowsa",
+        "block=supplementalarrowsb", "block=supplementalmathematicaloperators",
+    "block=supplementalpunctuation", "block=supplementaryprivateuseareaa",
+        "block=supplementaryprivateuseareab", "block=sylotinagri", "block=syriac",
+    "block=tagalog", "block=tagbanwa", "block=tags", "block=taile", "block=taitham",
+    "block=taiviet", "block=taixuanjingsymbols", "block=takri", "block=tamil", "block=telugu",
+    "block=thaana", "block=thai", "block=tibetan", "block=tifinagh", "block=transportandmapsymbols",
+    "block=ugaritic", "block=unifiedcanadianaboriginalsyllabics",
+        "block=unifiedcanadianaboriginalsyllabicsextended", "block=vai", "block=variationselectors",
+    "block=variationselectorssupplement", "block=vedicextensions", "block=verticalforms",
+        "block=yijinghexagramsymbols", "block=yiradicals",
+    "block=yisyllables", "bopomofo", "brahmi", "braille", "buginese",
+    "buhid", "canadianaboriginal", "carian", "cased", "caseignorable",
+    "cc", "cf", "chakma", "cham", "changeswhencasefolded",
+    "changeswhencasemapped", "changeswhenlowercased", "changeswhentitlecased",
+        "changeswhenuppercased", "cherokee",
+    "cn", "co", "common", "coptic", "cuneiform",
+    "cypriot", "cyrillic", "dash", "defaultignorablecodepoint", "deprecated",
+    "deseret", "devanagari", "diacritic", "egyptianhieroglyphs", "ethiopic",
+    "extender", "georgian", "glagolitic", "gothic", "graph",
+    "graphemebase", "graphemeclusterbreak=control", "graphemeclusterbreak=cr",
+        "graphemeclusterbreak=extend", "graphemeclusterbreak=l",
+    "graphemeclusterbreak=lf", "graphemeclusterbreak=lv", "graphemeclusterbreak=lvt",
+        "graphemeclusterbreak=other", "graphemeclusterbreak=regionalindicator",
+    "graphemeclusterbreak=spacingmark", "graphemeclusterbreak=t", "graphemeclusterbreak=v",
+        "graphemeextend", "graphemelink",
+    "greek", "gujarati", "gurmukhi", "han", "hangul",
+    "hanunoo", "hebrew", "hexdigit", "hiragana", "hyphen",
+    "idcontinue", "ideographic", "idsbinaryoperator", "idstart", "idstrinaryoperator",
+    "imperialaramaic", "inherited", "inscriptionalpahlavi", "inscriptionalparthian", "javanese",
+    "joincontrol", "kaithi", "kannada", "katakana", "kayahli",
+    "kharoshthi", "khmer", "lao", "latin", "lepcha",
+    "limbu", "linearb", "linebreak=alphabetic", "linebreak=ambiguous", "linebreak=breakafter",
+    "linebreak=breakbefore", "linebreak=breakboth", "linebreak=breaksymbols",
+        "linebreak=carriagereturn", "linebreak=closeparenthesis",
+    "linebreak=closepunctuation", "linebreak=combiningmark", "linebreak=complexcontext",
+        "linebreak=conditionaljapanesestarter", "linebreak=contingentbreak",
+    "linebreak=exclamation", "linebreak=glue", "linebreak=h2", "linebreak=h3",
+        "linebreak=hebrewletter",
+    "linebreak=hyphen", "linebreak=ideographic", "linebreak=infixnumeric", "linebreak=inseparable",
+        "linebreak=jl",
+    "linebreak=jt", "linebreak=jv", "linebreak=linefeed", "linebreak=mandatorybreak",
+        "linebreak=nextline",
+    "linebreak=nonstarter", "linebreak=numeric", "linebreak=openpunctuation",
+        "linebreak=postfixnumeric", "linebreak=prefixnumeric",
+    "linebreak=quotation", "linebreak=regionalindicator", "linebreak=space", "linebreak=unknown",
+        "linebreak=wordjoiner",
+    "linebreak=zwspace", "lisu", "ll", "lm", "lo",
+    "logicalorderexception", "lowercase", "lt", "lu", "lycian",
+    "lydian", "malayalam", "mandaic", "math", "mc",
+    "me", "meeteimayek", "meroiticcursive", "meroitichieroglyphs", "miao",
     "mn", "mongolian", "myanmar", "nd", "newtailue",
     "nko", "nl", "no", "noncharactercodepoint", "ogham",
     "olchiki", "olditalic", "oldpersian", "oldsoutharabian", "oldturkic",
@@ -144,50 +150,51 @@ public class Unicode_6_0 {
     "scriptextensions=bengali", "scriptextensions=bopomofo", "scriptextensions=brahmi",
         "scriptextensions=braille", "scriptextensions=buginese",
     "scriptextensions=buhid", "scriptextensions=canadianaboriginal", "scriptextensions=carian",
-        "scriptextensions=cham", "scriptextensions=cherokee",
-    "scriptextensions=common", "scriptextensions=coptic", "scriptextensions=cuneiform",
-        "scriptextensions=cypriot", "scriptextensions=cyrillic",
-    "scriptextensions=deseret", "scriptextensions=devanagari",
+        "scriptextensions=chakma", "scriptextensions=cham",
+    "scriptextensions=cherokee", "scriptextensions=common", "scriptextensions=coptic",
+        "scriptextensions=cuneiform", "scriptextensions=cypriot",
+    "scriptextensions=cyrillic", "scriptextensions=deseret", "scriptextensions=devanagari",
         "scriptextensions=egyptianhieroglyphs", "scriptextensions=ethiopic",
-        "scriptextensions=georgian",
-    "scriptextensions=glagolitic", "scriptextensions=gothic", "scriptextensions=greek",
-        "scriptextensions=gujarati", "scriptextensions=gurmukhi",
-    "scriptextensions=han", "scriptextensions=hangul", "scriptextensions=hanunoo",
-        "scriptextensions=hebrew", "scriptextensions=hiragana",
-    "scriptextensions=imperialaramaic", "scriptextensions=inherited",
+    "scriptextensions=georgian", "scriptextensions=glagolitic", "scriptextensions=gothic",
+        "scriptextensions=greek", "scriptextensions=gujarati",
+    "scriptextensions=gurmukhi", "scriptextensions=han", "scriptextensions=hangul",
+        "scriptextensions=hanunoo", "scriptextensions=hebrew",
+    "scriptextensions=hiragana", "scriptextensions=imperialaramaic", "scriptextensions=inherited",
         "scriptextensions=inscriptionalpahlavi", "scriptextensions=inscriptionalparthian",
-        "scriptextensions=javanese",
-    "scriptextensions=kaithi", "scriptextensions=kannada", "scriptextensions=katakana",
-        "scriptextensions=kayahli", "scriptextensions=kharoshthi",
-    "scriptextensions=khmer", "scriptextensions=lao", "scriptextensions=latin",
-        "scriptextensions=lepcha", "scriptextensions=limbu",
-    "scriptextensions=linearb", "scriptextensions=lisu", "scriptextensions=lycian",
-        "scriptextensions=lydian", "scriptextensions=malayalam",
-    "scriptextensions=mandaic", "scriptextensions=meeteimayek", "scriptextensions=mongolian",
-        "scriptextensions=myanmar", "scriptextensions=newtailue",
-    "scriptextensions=nko", "scriptextensions=ogham", "scriptextensions=olchiki",
-        "scriptextensions=olditalic", "scriptextensions=oldpersian",
-    "scriptextensions=oldsoutharabian", "scriptextensions=oldturkic", "scriptextensions=oriya",
-        "scriptextensions=osmanya", "scriptextensions=phagspa",
-    "scriptextensions=phoenician", "scriptextensions=rejang", "scriptextensions=runic",
-        "scriptextensions=samaritan", "scriptextensions=saurashtra",
-    "scriptextensions=shavian", "scriptextensions=sinhala", "scriptextensions=sundanese",
-        "scriptextensions=sylotinagri", "scriptextensions=syriac",
-    "scriptextensions=tagalog", "scriptextensions=tagbanwa", "scriptextensions=taile",
-        "scriptextensions=taitham", "scriptextensions=taiviet",
-    "scriptextensions=tamil", "scriptextensions=telugu", "scriptextensions=thaana",
-        "scriptextensions=thai", "scriptextensions=tibetan",
-    "scriptextensions=tifinagh", "scriptextensions=ugaritic", "scriptextensions=unknown",
-        "scriptextensions=vai", "scriptextensions=yi",
-    "sentencebreak=aterm", "sentencebreak=close", "sentencebreak=cr", "sentencebreak=extend",
-        "sentencebreak=format",
-    "sentencebreak=lf", "sentencebreak=lower", "sentencebreak=numeric", "sentencebreak=oletter",
-        "sentencebreak=other",
-    "sentencebreak=scontinue", "sentencebreak=sep", "sentencebreak=sp", "sentencebreak=sterm",
-        "sentencebreak=upper",
-    "shavian", "sinhala", "sk", "sm", "so",
-    "softdotted", "sterm", "sundanese", "sylotinagri", "syriac",
-    "tagalog", "tagbanwa", "taile", "taitham", "taiviet",
+    "scriptextensions=javanese", "scriptextensions=kaithi", "scriptextensions=kannada",
+        "scriptextensions=katakana", "scriptextensions=kayahli",
+    "scriptextensions=kharoshthi", "scriptextensions=khmer", "scriptextensions=lao",
+        "scriptextensions=latin", "scriptextensions=lepcha",
+    "scriptextensions=limbu", "scriptextensions=linearb", "scriptextensions=lisu",
+        "scriptextensions=lycian", "scriptextensions=lydian",
+    "scriptextensions=malayalam", "scriptextensions=mandaic", "scriptextensions=meeteimayek",
+        "scriptextensions=meroiticcursive", "scriptextensions=meroitichieroglyphs",
+    "scriptextensions=miao", "scriptextensions=mongolian", "scriptextensions=myanmar",
+        "scriptextensions=newtailue", "scriptextensions=nko",
+    "scriptextensions=ogham", "scriptextensions=olchiki", "scriptextensions=olditalic",
+        "scriptextensions=oldpersian", "scriptextensions=oldsoutharabian",
+    "scriptextensions=oldturkic", "scriptextensions=oriya", "scriptextensions=osmanya",
+        "scriptextensions=phagspa", "scriptextensions=phoenician",
+    "scriptextensions=rejang", "scriptextensions=runic", "scriptextensions=samaritan",
+        "scriptextensions=saurashtra", "scriptextensions=sharada",
+    "scriptextensions=shavian", "scriptextensions=sinhala", "scriptextensions=sorasompeng",
+        "scriptextensions=sundanese", "scriptextensions=sylotinagri",
+    "scriptextensions=syriac", "scriptextensions=tagalog", "scriptextensions=tagbanwa",
+        "scriptextensions=taile", "scriptextensions=taitham",
+    "scriptextensions=taiviet", "scriptextensions=takri", "scriptextensions=tamil",
+        "scriptextensions=telugu", "scriptextensions=thaana",
+    "scriptextensions=thai", "scriptextensions=tibetan", "scriptextensions=tifinagh",
+        "scriptextensions=ugaritic", "scriptextensions=unknown",
+    "scriptextensions=vai", "scriptextensions=yi", "sentencebreak=aterm", "sentencebreak=close",
+        "sentencebreak=cr",
+    "sentencebreak=extend", "sentencebreak=format", "sentencebreak=lf", "sentencebreak=lower",
+        "sentencebreak=numeric",
+    "sentencebreak=oletter", "sentencebreak=other", "sentencebreak=scontinue", "sentencebreak=sep",
+        "sentencebreak=sp",
+    "sentencebreak=sterm", "sentencebreak=upper", "sharada", "shavian", "sinhala",
+    "sk", "sm", "so", "softdotted", "sorasompeng",
+    "sterm", "sundanese", "sylotinagri", "syriac", "tagalog",
+    "tagbanwa", "taile", "taitham", "taiviet", "takri",
     "tamil", "telugu", "terminalpunctuation", "thaana", "thai",
     "tibetan", "tifinagh", "ugaritic", "unifiedideograph", "unknown",
     "uppercase", "vai", "variationselector", "whitespace", "wordbreak=aletter",
@@ -195,12 +202,561 @@ public class Unicode_6_0 {
         "wordbreak=katakana",
     "wordbreak=lf", "wordbreak=midletter", "wordbreak=midnum", "wordbreak=midnumlet",
         "wordbreak=newline",
-    "wordbreak=numeric", "wordbreak=other", "xdigit", "xidcontinue", "xidstart",
-    "yi", "zl", "zp", "zs"
+    "wordbreak=numeric", "wordbreak=other", "wordbreak=regionalindicator", "xdigit", "xidcontinue",
+    "xidstart", "yi", "zl", "zp", "zs"
   };
-  /** Constant {@code intervals="{// Unicode 6.0 property value: {age=1."{trunked}} */
+  /** Constant {@code intervals="{// Unicode 6.2 property value: {age=un"{trunked}} */
   public static final String[] intervals = {
-    // Unicode 6.0 property value: {age=1.1}
+    // Unicode 6.2 property value: {age=unassigned}
+    "\u0378\u0379"
+        + "\u037f\u0383"
+        + "\u038b\u038b"
+        + "\u038d\u038d"
+        + "\u03a2\u03a2"
+        + "\u0528\u0530"
+        + "\u0557\u0558"
+        + "\u0560\u0560"
+        + "\u0588\u0588"
+        + "\u058b\u058e"
+        + "\u0590\u0590"
+        + "\u05c8\u05cf"
+        + "\u05eb\u05ef"
+        + "\u05f5\u05ff"
+        + "\u0605\u0605"
+        + "\u061c\u061d"
+        + "\u070e\u070e"
+        + "\u074b\u074c"
+        + "\u07b2\u07bf"
+        + "\u07fb\u07ff"
+        + "\u082e\u082f"
+        + "\u083f\u083f"
+        + "\u085c\u085d"
+        + "\u085f\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
+        + "\u0978\u0978"
+        + "\u0980\u0980"
+        + "\u0984\u0984"
+        + "\u098d\u098e"
+        + "\u0991\u0992"
+        + "\u09a9\u09a9"
+        + "\u09b1\u09b1"
+        + "\u09b3\u09b5"
+        + "\u09ba\u09bb"
+        + "\u09c5\u09c6"
+        + "\u09c9\u09ca"
+        + "\u09cf\u09d6"
+        + "\u09d8\u09db"
+        + "\u09de\u09de"
+        + "\u09e4\u09e5"
+        + "\u09fc\u0a00"
+        + "\u0a04\u0a04"
+        + "\u0a0b\u0a0e"
+        + "\u0a11\u0a12"
+        + "\u0a29\u0a29"
+        + "\u0a31\u0a31"
+        + "\u0a34\u0a34"
+        + "\u0a37\u0a37"
+        + "\u0a3a\u0a3b"
+        + "\u0a3d\u0a3d"
+        + "\u0a43\u0a46"
+        + "\u0a49\u0a4a"
+        + "\u0a4e\u0a50"
+        + "\u0a52\u0a58"
+        + "\u0a5d\u0a5d"
+        + "\u0a5f\u0a65"
+        + "\u0a76\u0a80"
+        + "\u0a84\u0a84"
+        + "\u0a8e\u0a8e"
+        + "\u0a92\u0a92"
+        + "\u0aa9\u0aa9"
+        + "\u0ab1\u0ab1"
+        + "\u0ab4\u0ab4"
+        + "\u0aba\u0abb"
+        + "\u0ac6\u0ac6"
+        + "\u0aca\u0aca"
+        + "\u0ace\u0acf"
+        + "\u0ad1\u0adf"
+        + "\u0ae4\u0ae5"
+        + "\u0af2\u0b00"
+        + "\u0b04\u0b04"
+        + "\u0b0d\u0b0e"
+        + "\u0b11\u0b12"
+        + "\u0b29\u0b29"
+        + "\u0b31\u0b31"
+        + "\u0b34\u0b34"
+        + "\u0b3a\u0b3b"
+        + "\u0b45\u0b46"
+        + "\u0b49\u0b4a"
+        + "\u0b4e\u0b55"
+        + "\u0b58\u0b5b"
+        + "\u0b5e\u0b5e"
+        + "\u0b64\u0b65"
+        + "\u0b78\u0b81"
+        + "\u0b84\u0b84"
+        + "\u0b8b\u0b8d"
+        + "\u0b91\u0b91"
+        + "\u0b96\u0b98"
+        + "\u0b9b\u0b9b"
+        + "\u0b9d\u0b9d"
+        + "\u0ba0\u0ba2"
+        + "\u0ba5\u0ba7"
+        + "\u0bab\u0bad"
+        + "\u0bba\u0bbd"
+        + "\u0bc3\u0bc5"
+        + "\u0bc9\u0bc9"
+        + "\u0bce\u0bcf"
+        + "\u0bd1\u0bd6"
+        + "\u0bd8\u0be5"
+        + "\u0bfb\u0c00"
+        + "\u0c04\u0c04"
+        + "\u0c0d\u0c0d"
+        + "\u0c11\u0c11"
+        + "\u0c29\u0c29"
+        + "\u0c34\u0c34"
+        + "\u0c3a\u0c3c"
+        + "\u0c45\u0c45"
+        + "\u0c49\u0c49"
+        + "\u0c4e\u0c54"
+        + "\u0c57\u0c57"
+        + "\u0c5a\u0c5f"
+        + "\u0c64\u0c65"
+        + "\u0c70\u0c77"
+        + "\u0c80\u0c81"
+        + "\u0c84\u0c84"
+        + "\u0c8d\u0c8d"
+        + "\u0c91\u0c91"
+        + "\u0ca9\u0ca9"
+        + "\u0cb4\u0cb4"
+        + "\u0cba\u0cbb"
+        + "\u0cc5\u0cc5"
+        + "\u0cc9\u0cc9"
+        + "\u0cce\u0cd4"
+        + "\u0cd7\u0cdd"
+        + "\u0cdf\u0cdf"
+        + "\u0ce4\u0ce5"
+        + "\u0cf0\u0cf0"
+        + "\u0cf3\u0d01"
+        + "\u0d04\u0d04"
+        + "\u0d0d\u0d0d"
+        + "\u0d11\u0d11"
+        + "\u0d3b\u0d3c"
+        + "\u0d45\u0d45"
+        + "\u0d49\u0d49"
+        + "\u0d4f\u0d56"
+        + "\u0d58\u0d5f"
+        + "\u0d64\u0d65"
+        + "\u0d76\u0d78"
+        + "\u0d80\u0d81"
+        + "\u0d84\u0d84"
+        + "\u0d97\u0d99"
+        + "\u0db2\u0db2"
+        + "\u0dbc\u0dbc"
+        + "\u0dbe\u0dbf"
+        + "\u0dc7\u0dc9"
+        + "\u0dcb\u0dce"
+        + "\u0dd5\u0dd5"
+        + "\u0dd7\u0dd7"
+        + "\u0de0\u0df1"
+        + "\u0df5\u0e00"
+        + "\u0e3b\u0e3e"
+        + "\u0e5c\u0e80"
+        + "\u0e83\u0e83"
+        + "\u0e85\u0e86"
+        + "\u0e89\u0e89"
+        + "\u0e8b\u0e8c"
+        + "\u0e8e\u0e93"
+        + "\u0e98\u0e98"
+        + "\u0ea0\u0ea0"
+        + "\u0ea4\u0ea4"
+        + "\u0ea6\u0ea6"
+        + "\u0ea8\u0ea9"
+        + "\u0eac\u0eac"
+        + "\u0eba\u0eba"
+        + "\u0ebe\u0ebf"
+        + "\u0ec5\u0ec5"
+        + "\u0ec7\u0ec7"
+        + "\u0ece\u0ecf"
+        + "\u0eda\u0edb"
+        + "\u0ee0\u0eff"
+        + "\u0f48\u0f48"
+        + "\u0f6d\u0f70"
+        + "\u0f98\u0f98"
+        + "\u0fbd\u0fbd"
+        + "\u0fcd\u0fcd"
+        + "\u0fdb\u0fff"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
+        + "\u1249\u1249"
+        + "\u124e\u124f"
+        + "\u1257\u1257"
+        + "\u1259\u1259"
+        + "\u125e\u125f"
+        + "\u1289\u1289"
+        + "\u128e\u128f"
+        + "\u12b1\u12b1"
+        + "\u12b6\u12b7"
+        + "\u12bf\u12bf"
+        + "\u12c1\u12c1"
+        + "\u12c6\u12c7"
+        + "\u12d7\u12d7"
+        + "\u1311\u1311"
+        + "\u1316\u1317"
+        + "\u135b\u135c"
+        + "\u137d\u137f"
+        + "\u139a\u139f"
+        + "\u13f5\u13ff"
+        + "\u169d\u169f"
+        + "\u16f1\u16ff"
+        + "\u170d\u170d"
+        + "\u1715\u171f"
+        + "\u1737\u173f"
+        + "\u1754\u175f"
+        + "\u176d\u176d"
+        + "\u1771\u1771"
+        + "\u1774\u177f"
+        + "\u17de\u17df"
+        + "\u17ea\u17ef"
+        + "\u17fa\u17ff"
+        + "\u180f\u180f"
+        + "\u181a\u181f"
+        + "\u1878\u187f"
+        + "\u18ab\u18af"
+        + "\u18f6\u18ff"
+        + "\u191d\u191f"
+        + "\u192c\u192f"
+        + "\u193c\u193f"
+        + "\u1941\u1943"
+        + "\u196e\u196f"
+        + "\u1975\u197f"
+        + "\u19ac\u19af"
+        + "\u19ca\u19cf"
+        + "\u19db\u19dd"
+        + "\u1a1c\u1a1d"
+        + "\u1a5f\u1a5f"
+        + "\u1a7d\u1a7e"
+        + "\u1a8a\u1a8f"
+        + "\u1a9a\u1a9f"
+        + "\u1aae\u1aff"
+        + "\u1b4c\u1b4f"
+        + "\u1b7d\u1b7f"
+        + "\u1bf4\u1bfb"
+        + "\u1c38\u1c3a"
+        + "\u1c4a\u1c4c"
+        + "\u1c80\u1cbf"
+        + "\u1cc8\u1ccf"
+        + "\u1cf7\u1cff"
+        + "\u1de7\u1dfb"
+        + "\u1f16\u1f17"
+        + "\u1f1e\u1f1f"
+        + "\u1f46\u1f47"
+        + "\u1f4e\u1f4f"
+        + "\u1f58\u1f58"
+        + "\u1f5a\u1f5a"
+        + "\u1f5c\u1f5c"
+        + "\u1f5e\u1f5e"
+        + "\u1f7e\u1f7f"
+        + "\u1fb5\u1fb5"
+        + "\u1fc5\u1fc5"
+        + "\u1fd4\u1fd5"
+        + "\u1fdc\u1fdc"
+        + "\u1ff0\u1ff1"
+        + "\u1ff5\u1ff5"
+        + "\u1fff\u1fff"
+        + "\u2065\u2069"
+        + "\u2072\u2073"
+        + "\u208f\u208f"
+        + "\u209d\u209f"
+        + "\u20bb\u20cf"
+        + "\u20f1\u20ff"
+        + "\u218a\u218f"
+        + "\u23f4\u23ff"
+        + "\u2427\u243f"
+        + "\u244b\u245f"
+        + "\u2700\u2700"
+        + "\u2b4d\u2b4f"
+        + "\u2b5a\u2bff"
+        + "\u2c2f\u2c2f"
+        + "\u2c5f\u2c5f"
+        + "\u2cf4\u2cf8"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
+        + "\u2d71\u2d7e"
+        + "\u2d97\u2d9f"
+        + "\u2da7\u2da7"
+        + "\u2daf\u2daf"
+        + "\u2db7\u2db7"
+        + "\u2dbf\u2dbf"
+        + "\u2dc7\u2dc7"
+        + "\u2dcf\u2dcf"
+        + "\u2dd7\u2dd7"
+        + "\u2ddf\u2ddf"
+        + "\u2e3c\u2e7f"
+        + "\u2e9a\u2e9a"
+        + "\u2ef4\u2eff"
+        + "\u2fd6\u2fef"
+        + "\u2ffc\u2fff"
+        + "\u3040\u3040"
+        + "\u3097\u3098"
+        + "\u3100\u3104"
+        + "\u312e\u3130"
+        + "\u318f\u318f"
+        + "\u31bb\u31bf"
+        + "\u31e4\u31ef"
+        + "\u321f\u321f"
+        + "\u32ff\u32ff"
+        + "\u4db6\u4dbf"
+        + "\u9fcd\u9fff"
+        + "\ua48d\ua48f"
+        + "\ua4c7\ua4cf"
+        + "\ua62c\ua63f"
+        + "\ua698\ua69e"
+        + "\ua6f8\ua6ff"
+        + "\ua78f\ua78f"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
+        + "\ua82c\ua82f"
+        + "\ua83a\ua83f"
+        + "\ua878\ua87f"
+        + "\ua8c5\ua8cd"
+        + "\ua8da\ua8df"
+        + "\ua8fc\ua8ff"
+        + "\ua954\ua95e"
+        + "\ua97d\ua97f"
+        + "\ua9ce\ua9ce"
+        + "\ua9da\ua9dd"
+        + "\ua9e0\ua9ff"
+        + "\uaa37\uaa3f"
+        + "\uaa4e\uaa4f"
+        + "\uaa5a\uaa5b"
+        + "\uaa7c\uaa7f"
+        + "\uaac3\uaada"
+        + "\uaaf7\uab00"
+        + "\uab07\uab08"
+        + "\uab0f\uab10"
+        + "\uab17\uab1f"
+        + "\uab27\uab27"
+        + "\uab2f\uabbf"
+        + "\uabee\uabef"
+        + "\uabfa\uabff"
+        + "\ud7a4\ud7af"
+        + "\ud7c7\ud7ca"
+        + "\ud7fc\ud7ff"
+        + "\ufa6e\ufa6f"
+        + "\ufada\ufaff"
+        + "\ufb07\ufb12"
+        + "\ufb18\ufb1c"
+        + "\ufb37\ufb37"
+        + "\ufb3d\ufb3d"
+        + "\ufb3f\ufb3f"
+        + "\ufb42\ufb42"
+        + "\ufb45\ufb45"
+        + "\ufbc2\ufbd2"
+        + "\ufd40\ufd4f"
+        + "\ufd90\ufd91"
+        + "\ufdc8\ufdcf"
+        + "\ufdfe\ufdff"
+        + "\ufe1a\ufe1f"
+        + "\ufe27\ufe2f"
+        + "\ufe53\ufe53"
+        + "\ufe67\ufe67"
+        + "\ufe6c\ufe6f"
+        + "\ufe75\ufe75"
+        + "\ufefd\ufefe"
+        + "\uff00\uff00"
+        + "\uffbf\uffc1"
+        + "\uffc8\uffc9"
+        + "\uffd0\uffd1"
+        + "\uffd8\uffd9"
+        + "\uffdd\uffdf"
+        + "\uffe7\uffe7"
+        + "\uffef\ufff8"
+        + "\ud800\udc0c\ud800\udc0c"
+        + "\ud800\udc27\ud800\udc27"
+        + "\ud800\udc3b\ud800\udc3b"
+        + "\ud800\udc3e\ud800\udc3e"
+        + "\ud800\udc4e\ud800\udc4f"
+        + "\ud800\udc5e\ud800\udc7f"
+        + "\ud800\udcfb\ud800\udcff"
+        + "\ud800\udd03\ud800\udd06"
+        + "\ud800\udd34\ud800\udd36"
+        + "\ud800\udd8b\ud800\udd8f"
+        + "\ud800\udd9c\ud800\uddcf"
+        + "\ud800\uddfe\ud800\ude7f"
+        + "\ud800\ude9d\ud800\ude9f"
+        + "\ud800\uded1\ud800\udeff"
+        + "\ud800\udf1f\ud800\udf1f"
+        + "\ud800\udf24\ud800\udf2f"
+        + "\ud800\udf4b\ud800\udf7f"
+        + "\ud800\udf9e\ud800\udf9e"
+        + "\ud800\udfc4\ud800\udfc7"
+        + "\ud800\udfd6\ud800\udfff"
+        + "\ud801\udc9e\ud801\udc9f"
+        + "\ud801\udcaa\ud801\udfff"
+        + "\ud802\udc06\ud802\udc07"
+        + "\ud802\udc09\ud802\udc09"
+        + "\ud802\udc36\ud802\udc36"
+        + "\ud802\udc39\ud802\udc3b"
+        + "\ud802\udc3d\ud802\udc3e"
+        + "\ud802\udc56\ud802\udc56"
+        + "\ud802\udc60\ud802\udcff"
+        + "\ud802\udd1c\ud802\udd1e"
+        + "\ud802\udd3a\ud802\udd3e"
+        + "\ud802\udd40\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
+        + "\ud802\ude04\ud802\ude04"
+        + "\ud802\ude07\ud802\ude0b"
+        + "\ud802\ude14\ud802\ude14"
+        + "\ud802\ude18\ud802\ude18"
+        + "\ud802\ude34\ud802\ude37"
+        + "\ud802\ude3b\ud802\ude3e"
+        + "\ud802\ude48\ud802\ude4f"
+        + "\ud802\ude59\ud802\ude5f"
+        + "\ud802\ude80\ud802\udeff"
+        + "\ud802\udf36\ud802\udf38"
+        + "\ud802\udf56\ud802\udf57"
+        + "\ud802\udf73\ud802\udf77"
+        + "\ud802\udf80\ud802\udfff"
+        + "\ud803\udc49\ud803\ude5f"
+        + "\ud803\ude7f\ud803\udfff"
+        + "\ud804\udc4e\ud804\udc51"
+        + "\ud804\udc70\ud804\udc7f"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc9\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
+        + "\ud808\udf6f\ud808\udfff"
+        + "\ud809\udc63\ud809\udc6f"
+        + "\ud809\udc74\ud80b\udfff"
+        + "\ud80d\udc2f\ud819\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
+        + "\ud82c\udc02\ud833\udfff"
+        + "\ud834\udcf6\ud834\udcff"
+        + "\ud834\udd27\ud834\udd28"
+        + "\ud834\uddde\ud834\uddff"
+        + "\ud834\ude46\ud834\udeff"
+        + "\ud834\udf57\ud834\udf5f"
+        + "\ud834\udf72\ud834\udfff"
+        + "\ud835\udc55\ud835\udc55"
+        + "\ud835\udc9d\ud835\udc9d"
+        + "\ud835\udca0\ud835\udca1"
+        + "\ud835\udca3\ud835\udca4"
+        + "\ud835\udca7\ud835\udca8"
+        + "\ud835\udcad\ud835\udcad"
+        + "\ud835\udcba\ud835\udcba"
+        + "\ud835\udcbc\ud835\udcbc"
+        + "\ud835\udcc4\ud835\udcc4"
+        + "\ud835\udd06\ud835\udd06"
+        + "\ud835\udd0b\ud835\udd0c"
+        + "\ud835\udd15\ud835\udd15"
+        + "\ud835\udd1d\ud835\udd1d"
+        + "\ud835\udd3a\ud835\udd3a"
+        + "\ud835\udd3f\ud835\udd3f"
+        + "\ud835\udd45\ud835\udd45"
+        + "\ud835\udd47\ud835\udd49"
+        + "\ud835\udd51\ud835\udd51"
+        + "\ud835\udea6\ud835\udea7"
+        + "\ud835\udfcc\ud835\udfcd"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83b\udeef"
+        + "\ud83b\udef2\ud83b\udfff"
+        + "\ud83c\udc2c\ud83c\udc2f"
+        + "\ud83c\udc94\ud83c\udc9f"
+        + "\ud83c\udcaf\ud83c\udcb0"
+        + "\ud83c\udcbf\ud83c\udcc0"
+        + "\ud83c\udcd0\ud83c\udcd0"
+        + "\ud83c\udce0\ud83c\udcff"
+        + "\ud83c\udd0b\ud83c\udd0f"
+        + "\ud83c\udd2f\ud83c\udd2f"
+        + "\ud83c\udd6c\ud83c\udd6f"
+        + "\ud83c\udd9b\ud83c\udde5"
+        + "\ud83c\ude03\ud83c\ude0f"
+        + "\ud83c\ude3b\ud83c\ude3f"
+        + "\ud83c\ude49\ud83c\ude4f"
+        + "\ud83c\ude52\ud83c\udeff"
+        + "\ud83c\udf21\ud83c\udf2f"
+        + "\ud83c\udf36\ud83c\udf36"
+        + "\ud83c\udf7d\ud83c\udf7f"
+        + "\ud83c\udf94\ud83c\udf9f"
+        + "\ud83c\udfc5\ud83c\udfc5"
+        + "\ud83c\udfcb\ud83c\udfdf"
+        + "\ud83c\udff1\ud83c\udfff"
+        + "\ud83d\udc3f\ud83d\udc3f"
+        + "\ud83d\udc41\ud83d\udc41"
+        + "\ud83d\udcf8\ud83d\udcf8"
+        + "\ud83d\udcfd\ud83d\udcff"
+        + "\ud83d\udd3e\ud83d\udd3f"
+        + "\ud83d\udd44\ud83d\udd4f"
+        + "\ud83d\udd68\ud83d\uddfa"
+        + "\ud83d\ude41\ud83d\ude44"
+        + "\ud83d\ude50\ud83d\ude7f"
+        + "\ud83d\udec6\ud83d\udeff"
+        + "\ud83d\udf74\ud83f\udffd"
+        + "\ud869\uded7\ud869\udeff"
+        + "\ud86d\udf35\ud86d\udf3f"
+        + "\ud86e\udc1e\ud87d\udfff"
+        + "\ud87e\ude1e\ud87f\udffd"
+        + "\ud880\udc00\ud8bf\udffd"
+        + "\ud8c0\udc00\ud8ff\udffd"
+        + "\ud900\udc00\ud93f\udffd"
+        + "\ud940\udc00\ud97f\udffd"
+        + "\ud980\udc00\ud9bf\udffd"
+        + "\ud9c0\udc00\ud9ff\udffd"
+        + "\uda00\udc00\uda3f\udffd"
+        + "\uda40\udc00\uda7f\udffd"
+        + "\uda80\udc00\udabf\udffd"
+        + "\udac0\udc00\udaff\udffd"
+        + "\udb00\udc00\udb3f\udffd"
+        + "\udb40\udc00\udb40\udc00"
+        + "\udb40\udc02\udb40\udc1f"
+        + "\udb40\udc80\udb40\udcff"
+        + "\udb40\uddf0\udb7f\udffd",
+    // Unicode 6.2 property value: {age=v11}
     "\000\u01f5"
         + "\u01fa\u0217"
         + "\u0250\u02a8"
@@ -489,7 +1045,7 @@ public class Unicode_6_0 {
         + "\uffe0\uffe6"
         + "\uffe8\uffee"
         + "\ufffd\uffff",
-    // Unicode 6.0 property value: {age=2.0}
+    // Unicode 6.2 property value: {age=v20}
     "\000\u01f5"
         + "\u01fa\u0217"
         + "\u0250\u02a8"
@@ -802,7 +1358,7 @@ public class Unicode_6_0 {
         + "\udaff\udffe\udaff\udfff"
         + "\udb3f\udffe\udb3f\udfff"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=2.1}
+    // Unicode 6.2 property value: {age=v21}
     "\000\u01f5"
         + "\u01fa\u0217"
         + "\u0250\u02a8"
@@ -1115,7 +1671,7 @@ public class Unicode_6_0 {
         + "\udaff\udffe\udaff\udfff"
         + "\udb3f\udffe\udb3f\udfff"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=3.0}
+    // Unicode 6.2 property value: {age=v30}
     "\000\u021f"
         + "\u0222\u0233"
         + "\u0250\u02ad"
@@ -1485,7 +2041,7 @@ public class Unicode_6_0 {
         + "\udaff\udffe\udaff\udfff"
         + "\udb3f\udffe\udb3f\udfff"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=3.1}
+    // Unicode 6.2 property value: {age=v31}
     "\000\u021f"
         + "\u0222\u0233"
         + "\u0250\u02ad"
@@ -1888,7 +2444,7 @@ public class Unicode_6_0 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=3.2}
+    // Unicode 6.2 property value: {age=v32}
     "\000\u0220"
         + "\u0222\u0233"
         + "\u0250\u02ad"
@@ -2286,7 +2842,7 @@ public class Unicode_6_0 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=4.0}
+    // Unicode 6.2 property value: {age=v40}
     "\000\u0236"
         + "\u0250\u0357"
         + "\u035d\u036f"
@@ -2699,7 +3255,7 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=4.1}
+    // Unicode 6.2 property value: {age=v41}
     "\000\u0241"
         + "\u0250\u036f"
         + "\u0374\u0375"
@@ -3130,7 +3686,7 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=5.0}
+    // Unicode 6.2 property value: {age=v50}
     "\000\u036f"
         + "\u0374\u0375"
         + "\u037a\u037e"
@@ -3571,7 +4127,7 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=5.1}
+    // Unicode 6.2 property value: {age=v51}
     "\000\u0377"
         + "\u037a\u037e"
         + "\u0384\u038a"
@@ -4027,7 +4583,7 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=5.2}
+    // Unicode 6.2 property value: {age=v52}
     "\000\u0377"
         + "\u037a\u037e"
         + "\u0384\u038a"
@@ -4523,7 +5079,7 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=6.0}
+    // Unicode 6.2 property value: {age=v60}
     "\000\u0377"
         + "\u037a\u037e"
         + "\u0384\u038a"
@@ -5035,518 +5591,1107 @@ public class Unicode_6_0 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef"
         + "\udb7f\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {age=unassigned}
-    "\u0378\u0379"
-        + "\u037f\u0383"
-        + "\u038b\u038b"
-        + "\u038d\u038d"
-        + "\u03a2\u03a2"
-        + "\u0528\u0530"
-        + "\u0557\u0558"
-        + "\u0560\u0560"
-        + "\u0588\u0588"
-        + "\u058b\u0590"
-        + "\u05c8\u05cf"
-        + "\u05eb\u05ef"
-        + "\u05f5\u05ff"
-        + "\u0604\u0605"
-        + "\u061c\u061d"
-        + "\u070e\u070e"
-        + "\u074b\u074c"
-        + "\u07b2\u07bf"
-        + "\u07fb\u07ff"
-        + "\u082e\u082f"
-        + "\u083f\u083f"
-        + "\u085c\u085d"
-        + "\u085f\u08ff"
-        + "\u0978\u0978"
-        + "\u0980\u0980"
-        + "\u0984\u0984"
-        + "\u098d\u098e"
-        + "\u0991\u0992"
-        + "\u09a9\u09a9"
-        + "\u09b1\u09b1"
-        + "\u09b3\u09b5"
-        + "\u09ba\u09bb"
-        + "\u09c5\u09c6"
-        + "\u09c9\u09ca"
-        + "\u09cf\u09d6"
-        + "\u09d8\u09db"
-        + "\u09de\u09de"
-        + "\u09e4\u09e5"
-        + "\u09fc\u0a00"
-        + "\u0a04\u0a04"
-        + "\u0a0b\u0a0e"
-        + "\u0a11\u0a12"
-        + "\u0a29\u0a29"
-        + "\u0a31\u0a31"
-        + "\u0a34\u0a34"
-        + "\u0a37\u0a37"
-        + "\u0a3a\u0a3b"
-        + "\u0a3d\u0a3d"
-        + "\u0a43\u0a46"
-        + "\u0a49\u0a4a"
-        + "\u0a4e\u0a50"
-        + "\u0a52\u0a58"
-        + "\u0a5d\u0a5d"
-        + "\u0a5f\u0a65"
-        + "\u0a76\u0a80"
-        + "\u0a84\u0a84"
-        + "\u0a8e\u0a8e"
-        + "\u0a92\u0a92"
-        + "\u0aa9\u0aa9"
-        + "\u0ab1\u0ab1"
-        + "\u0ab4\u0ab4"
-        + "\u0aba\u0abb"
-        + "\u0ac6\u0ac6"
-        + "\u0aca\u0aca"
-        + "\u0ace\u0acf"
-        + "\u0ad1\u0adf"
-        + "\u0ae4\u0ae5"
-        + "\u0af0\u0af0"
-        + "\u0af2\u0b00"
-        + "\u0b04\u0b04"
-        + "\u0b0d\u0b0e"
-        + "\u0b11\u0b12"
-        + "\u0b29\u0b29"
-        + "\u0b31\u0b31"
-        + "\u0b34\u0b34"
-        + "\u0b3a\u0b3b"
-        + "\u0b45\u0b46"
-        + "\u0b49\u0b4a"
-        + "\u0b4e\u0b55"
-        + "\u0b58\u0b5b"
-        + "\u0b5e\u0b5e"
-        + "\u0b64\u0b65"
-        + "\u0b78\u0b81"
-        + "\u0b84\u0b84"
-        + "\u0b8b\u0b8d"
-        + "\u0b91\u0b91"
-        + "\u0b96\u0b98"
-        + "\u0b9b\u0b9b"
-        + "\u0b9d\u0b9d"
-        + "\u0ba0\u0ba2"
-        + "\u0ba5\u0ba7"
-        + "\u0bab\u0bad"
-        + "\u0bba\u0bbd"
-        + "\u0bc3\u0bc5"
-        + "\u0bc9\u0bc9"
-        + "\u0bce\u0bcf"
-        + "\u0bd1\u0bd6"
-        + "\u0bd8\u0be5"
-        + "\u0bfb\u0c00"
-        + "\u0c04\u0c04"
-        + "\u0c0d\u0c0d"
-        + "\u0c11\u0c11"
-        + "\u0c29\u0c29"
-        + "\u0c34\u0c34"
-        + "\u0c3a\u0c3c"
-        + "\u0c45\u0c45"
-        + "\u0c49\u0c49"
-        + "\u0c4e\u0c54"
-        + "\u0c57\u0c57"
-        + "\u0c5a\u0c5f"
-        + "\u0c64\u0c65"
-        + "\u0c70\u0c77"
-        + "\u0c80\u0c81"
-        + "\u0c84\u0c84"
-        + "\u0c8d\u0c8d"
-        + "\u0c91\u0c91"
-        + "\u0ca9\u0ca9"
-        + "\u0cb4\u0cb4"
-        + "\u0cba\u0cbb"
-        + "\u0cc5\u0cc5"
-        + "\u0cc9\u0cc9"
-        + "\u0cce\u0cd4"
-        + "\u0cd7\u0cdd"
-        + "\u0cdf\u0cdf"
-        + "\u0ce4\u0ce5"
-        + "\u0cf0\u0cf0"
-        + "\u0cf3\u0d01"
-        + "\u0d04\u0d04"
-        + "\u0d0d\u0d0d"
-        + "\u0d11\u0d11"
-        + "\u0d3b\u0d3c"
-        + "\u0d45\u0d45"
-        + "\u0d49\u0d49"
-        + "\u0d4f\u0d56"
-        + "\u0d58\u0d5f"
-        + "\u0d64\u0d65"
-        + "\u0d76\u0d78"
-        + "\u0d80\u0d81"
-        + "\u0d84\u0d84"
-        + "\u0d97\u0d99"
-        + "\u0db2\u0db2"
-        + "\u0dbc\u0dbc"
-        + "\u0dbe\u0dbf"
-        + "\u0dc7\u0dc9"
-        + "\u0dcb\u0dce"
-        + "\u0dd5\u0dd5"
-        + "\u0dd7\u0dd7"
-        + "\u0de0\u0df1"
-        + "\u0df5\u0e00"
-        + "\u0e3b\u0e3e"
-        + "\u0e5c\u0e80"
-        + "\u0e83\u0e83"
-        + "\u0e85\u0e86"
-        + "\u0e89\u0e89"
-        + "\u0e8b\u0e8c"
-        + "\u0e8e\u0e93"
-        + "\u0e98\u0e98"
-        + "\u0ea0\u0ea0"
-        + "\u0ea4\u0ea4"
-        + "\u0ea6\u0ea6"
-        + "\u0ea8\u0ea9"
-        + "\u0eac\u0eac"
-        + "\u0eba\u0eba"
-        + "\u0ebe\u0ebf"
-        + "\u0ec5\u0ec5"
-        + "\u0ec7\u0ec7"
-        + "\u0ece\u0ecf"
-        + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
-        + "\u0f48\u0f48"
-        + "\u0f6d\u0f70"
-        + "\u0f98\u0f98"
-        + "\u0fbd\u0fbd"
-        + "\u0fcd\u0fcd"
-        + "\u0fdb\u0fff"
-        + "\u10c6\u10cf"
-        + "\u10fd\u10ff"
-        + "\u1249\u1249"
-        + "\u124e\u124f"
-        + "\u1257\u1257"
-        + "\u1259\u1259"
-        + "\u125e\u125f"
-        + "\u1289\u1289"
-        + "\u128e\u128f"
-        + "\u12b1\u12b1"
-        + "\u12b6\u12b7"
-        + "\u12bf\u12bf"
-        + "\u12c1\u12c1"
-        + "\u12c6\u12c7"
-        + "\u12d7\u12d7"
-        + "\u1311\u1311"
-        + "\u1316\u1317"
-        + "\u135b\u135c"
-        + "\u137d\u137f"
-        + "\u139a\u139f"
-        + "\u13f5\u13ff"
-        + "\u169d\u169f"
-        + "\u16f1\u16ff"
-        + "\u170d\u170d"
-        + "\u1715\u171f"
-        + "\u1737\u173f"
-        + "\u1754\u175f"
-        + "\u176d\u176d"
-        + "\u1771\u1771"
-        + "\u1774\u177f"
-        + "\u17de\u17df"
-        + "\u17ea\u17ef"
-        + "\u17fa\u17ff"
-        + "\u180f\u180f"
-        + "\u181a\u181f"
-        + "\u1878\u187f"
-        + "\u18ab\u18af"
-        + "\u18f6\u18ff"
-        + "\u191d\u191f"
-        + "\u192c\u192f"
-        + "\u193c\u193f"
-        + "\u1941\u1943"
-        + "\u196e\u196f"
-        + "\u1975\u197f"
-        + "\u19ac\u19af"
-        + "\u19ca\u19cf"
-        + "\u19db\u19dd"
-        + "\u1a1c\u1a1d"
-        + "\u1a5f\u1a5f"
-        + "\u1a7d\u1a7e"
-        + "\u1a8a\u1a8f"
-        + "\u1a9a\u1a9f"
-        + "\u1aae\u1aff"
-        + "\u1b4c\u1b4f"
-        + "\u1b7d\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
-        + "\u1bf4\u1bfb"
-        + "\u1c38\u1c3a"
-        + "\u1c4a\u1c4c"
-        + "\u1c80\u1ccf"
-        + "\u1cf3\u1cff"
-        + "\u1de7\u1dfb"
-        + "\u1f16\u1f17"
-        + "\u1f1e\u1f1f"
-        + "\u1f46\u1f47"
-        + "\u1f4e\u1f4f"
-        + "\u1f58\u1f58"
-        + "\u1f5a\u1f5a"
-        + "\u1f5c\u1f5c"
-        + "\u1f5e\u1f5e"
-        + "\u1f7e\u1f7f"
-        + "\u1fb5\u1fb5"
-        + "\u1fc5\u1fc5"
-        + "\u1fd4\u1fd5"
-        + "\u1fdc\u1fdc"
-        + "\u1ff0\u1ff1"
-        + "\u1ff5\u1ff5"
-        + "\u1fff\u1fff"
-        + "\u2065\u2069"
-        + "\u2072\u2073"
-        + "\u208f\u208f"
-        + "\u209d\u209f"
-        + "\u20ba\u20cf"
-        + "\u20f1\u20ff"
-        + "\u218a\u218f"
-        + "\u23f4\u23ff"
-        + "\u2427\u243f"
-        + "\u244b\u245f"
-        + "\u2700\u2700"
-        + "\u27cb\u27cb"
-        + "\u27cd\u27cd"
-        + "\u2b4d\u2b4f"
-        + "\u2b5a\u2bff"
-        + "\u2c2f\u2c2f"
-        + "\u2c5f\u2c5f"
-        + "\u2cf2\u2cf8"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
-        + "\u2d71\u2d7e"
-        + "\u2d97\u2d9f"
-        + "\u2da7\u2da7"
-        + "\u2daf\u2daf"
-        + "\u2db7\u2db7"
-        + "\u2dbf\u2dbf"
-        + "\u2dc7\u2dc7"
-        + "\u2dcf\u2dcf"
-        + "\u2dd7\u2dd7"
-        + "\u2ddf\u2ddf"
-        + "\u2e32\u2e7f"
-        + "\u2e9a\u2e9a"
-        + "\u2ef4\u2eff"
-        + "\u2fd6\u2fef"
-        + "\u2ffc\u2fff"
-        + "\u3040\u3040"
-        + "\u3097\u3098"
-        + "\u3100\u3104"
-        + "\u312e\u3130"
-        + "\u318f\u318f"
-        + "\u31bb\u31bf"
-        + "\u31e4\u31ef"
-        + "\u321f\u321f"
-        + "\u32ff\u32ff"
-        + "\u4db6\u4dbf"
-        + "\u9fcc\u9fff"
-        + "\ua48d\ua48f"
-        + "\ua4c7\ua4cf"
-        + "\ua62c\ua63f"
-        + "\ua674\ua67b"
-        + "\ua698\ua69f"
-        + "\ua6f8\ua6ff"
-        + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
-        + "\ua82c\ua82f"
-        + "\ua83a\ua83f"
-        + "\ua878\ua87f"
-        + "\ua8c5\ua8cd"
-        + "\ua8da\ua8df"
-        + "\ua8fc\ua8ff"
-        + "\ua954\ua95e"
-        + "\ua97d\ua97f"
-        + "\ua9ce\ua9ce"
-        + "\ua9da\ua9dd"
-        + "\ua9e0\ua9ff"
-        + "\uaa37\uaa3f"
-        + "\uaa4e\uaa4f"
-        + "\uaa5a\uaa5b"
-        + "\uaa7c\uaa7f"
-        + "\uaac3\uaada"
-        + "\uaae0\uab00"
-        + "\uab07\uab08"
-        + "\uab0f\uab10"
-        + "\uab17\uab1f"
-        + "\uab27\uab27"
-        + "\uab2f\uabbf"
-        + "\uabee\uabef"
-        + "\uabfa\uabff"
-        + "\ud7a4\ud7af"
-        + "\ud7c7\ud7ca"
-        + "\ud7fc\ud7ff"
-        + "\ufa2e\ufa2f"
-        + "\ufa6e\ufa6f"
-        + "\ufada\ufaff"
-        + "\ufb07\ufb12"
-        + "\ufb18\ufb1c"
-        + "\ufb37\ufb37"
-        + "\ufb3d\ufb3d"
-        + "\ufb3f\ufb3f"
-        + "\ufb42\ufb42"
-        + "\ufb45\ufb45"
-        + "\ufbc2\ufbd2"
-        + "\ufd40\ufd4f"
-        + "\ufd90\ufd91"
-        + "\ufdc8\ufdcf"
-        + "\ufdfe\ufdff"
-        + "\ufe1a\ufe1f"
-        + "\ufe27\ufe2f"
-        + "\ufe53\ufe53"
-        + "\ufe67\ufe67"
-        + "\ufe6c\ufe6f"
-        + "\ufe75\ufe75"
-        + "\ufefd\ufefe"
-        + "\uff00\uff00"
-        + "\uffbf\uffc1"
-        + "\uffc8\uffc9"
-        + "\uffd0\uffd1"
-        + "\uffd8\uffd9"
-        + "\uffdd\uffdf"
-        + "\uffe7\uffe7"
-        + "\uffef\ufff8"
-        + "\ud800\udc0c\ud800\udc0c"
-        + "\ud800\udc27\ud800\udc27"
-        + "\ud800\udc3b\ud800\udc3b"
-        + "\ud800\udc3e\ud800\udc3e"
-        + "\ud800\udc4e\ud800\udc4f"
-        + "\ud800\udc5e\ud800\udc7f"
-        + "\ud800\udcfb\ud800\udcff"
-        + "\ud800\udd03\ud800\udd06"
-        + "\ud800\udd34\ud800\udd36"
-        + "\ud800\udd8b\ud800\udd8f"
-        + "\ud800\udd9c\ud800\uddcf"
-        + "\ud800\uddfe\ud800\ude7f"
-        + "\ud800\ude9d\ud800\ude9f"
-        + "\ud800\uded1\ud800\udeff"
-        + "\ud800\udf1f\ud800\udf1f"
-        + "\ud800\udf24\ud800\udf2f"
-        + "\ud800\udf4b\ud800\udf7f"
-        + "\ud800\udf9e\ud800\udf9e"
-        + "\ud800\udfc4\ud800\udfc7"
-        + "\ud800\udfd6\ud800\udfff"
-        + "\ud801\udc9e\ud801\udc9f"
-        + "\ud801\udcaa\ud801\udfff"
-        + "\ud802\udc06\ud802\udc07"
-        + "\ud802\udc09\ud802\udc09"
-        + "\ud802\udc36\ud802\udc36"
-        + "\ud802\udc39\ud802\udc3b"
-        + "\ud802\udc3d\ud802\udc3e"
-        + "\ud802\udc56\ud802\udc56"
-        + "\ud802\udc60\ud802\udcff"
-        + "\ud802\udd1c\ud802\udd1e"
-        + "\ud802\udd3a\ud802\udd3e"
-        + "\ud802\udd40\ud802\uddff"
-        + "\ud802\ude04\ud802\ude04"
-        + "\ud802\ude07\ud802\ude0b"
-        + "\ud802\ude14\ud802\ude14"
-        + "\ud802\ude18\ud802\ude18"
-        + "\ud802\ude34\ud802\ude37"
-        + "\ud802\ude3b\ud802\ude3e"
-        + "\ud802\ude48\ud802\ude4f"
-        + "\ud802\ude59\ud802\ude5f"
-        + "\ud802\ude80\ud802\udeff"
-        + "\ud802\udf36\ud802\udf38"
-        + "\ud802\udf56\ud802\udf57"
-        + "\ud802\udf73\ud802\udf77"
-        + "\ud802\udf80\ud802\udfff"
-        + "\ud803\udc49\ud803\ude5f"
-        + "\ud803\ude7f\ud803\udfff"
-        + "\ud804\udc4e\ud804\udc51"
-        + "\ud804\udc70\ud804\udc7f"
-        + "\ud804\udcc2\ud807\udfff"
-        + "\ud808\udf6f\ud808\udfff"
-        + "\ud809\udc63\ud809\udc6f"
-        + "\ud809\udc74\ud80b\udfff"
-        + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
-        + "\ud82c\udc02\ud833\udfff"
-        + "\ud834\udcf6\ud834\udcff"
-        + "\ud834\udd27\ud834\udd28"
-        + "\ud834\uddde\ud834\uddff"
-        + "\ud834\ude46\ud834\udeff"
-        + "\ud834\udf57\ud834\udf5f"
-        + "\ud834\udf72\ud834\udfff"
-        + "\ud835\udc55\ud835\udc55"
-        + "\ud835\udc9d\ud835\udc9d"
-        + "\ud835\udca0\ud835\udca1"
-        + "\ud835\udca3\ud835\udca4"
-        + "\ud835\udca7\ud835\udca8"
-        + "\ud835\udcad\ud835\udcad"
-        + "\ud835\udcba\ud835\udcba"
-        + "\ud835\udcbc\ud835\udcbc"
-        + "\ud835\udcc4\ud835\udcc4"
-        + "\ud835\udd06\ud835\udd06"
-        + "\ud835\udd0b\ud835\udd0c"
-        + "\ud835\udd15\ud835\udd15"
-        + "\ud835\udd1d\ud835\udd1d"
-        + "\ud835\udd3a\ud835\udd3a"
-        + "\ud835\udd3f\ud835\udd3f"
-        + "\ud835\udd45\ud835\udd45"
-        + "\ud835\udd47\ud835\udd49"
-        + "\ud835\udd51\ud835\udd51"
-        + "\ud835\udea6\ud835\udea7"
-        + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83b\udfff"
-        + "\ud83c\udc2c\ud83c\udc2f"
-        + "\ud83c\udc94\ud83c\udc9f"
-        + "\ud83c\udcaf\ud83c\udcb0"
-        + "\ud83c\udcbf\ud83c\udcc0"
-        + "\ud83c\udcd0\ud83c\udcd0"
-        + "\ud83c\udce0\ud83c\udcff"
-        + "\ud83c\udd0b\ud83c\udd0f"
-        + "\ud83c\udd2f\ud83c\udd2f"
-        + "\ud83c\udd6a\ud83c\udd6f"
-        + "\ud83c\udd9b\ud83c\udde5"
-        + "\ud83c\ude03\ud83c\ude0f"
-        + "\ud83c\ude3b\ud83c\ude3f"
-        + "\ud83c\ude49\ud83c\ude4f"
-        + "\ud83c\ude52\ud83c\udeff"
-        + "\ud83c\udf21\ud83c\udf2f"
-        + "\ud83c\udf36\ud83c\udf36"
-        + "\ud83c\udf7d\ud83c\udf7f"
-        + "\ud83c\udf94\ud83c\udf9f"
-        + "\ud83c\udfc5\ud83c\udfc5"
-        + "\ud83c\udfcb\ud83c\udfdf"
-        + "\ud83c\udff1\ud83c\udfff"
-        + "\ud83d\udc3f\ud83d\udc3f"
-        + "\ud83d\udc41\ud83d\udc41"
-        + "\ud83d\udcf8\ud83d\udcf8"
-        + "\ud83d\udcfd\ud83d\udcff"
-        + "\ud83d\udd3e\ud83d\udd4f"
-        + "\ud83d\udd68\ud83d\uddfa"
-        + "\ud83d\ude00\ud83d\ude00"
-        + "\ud83d\ude11\ud83d\ude11"
-        + "\ud83d\ude15\ud83d\ude15"
-        + "\ud83d\ude17\ud83d\ude17"
-        + "\ud83d\ude19\ud83d\ude19"
-        + "\ud83d\ude1b\ud83d\ude1b"
-        + "\ud83d\ude1f\ud83d\ude1f"
-        + "\ud83d\ude26\ud83d\ude27"
-        + "\ud83d\ude2c\ud83d\ude2c"
-        + "\ud83d\ude2e\ud83d\ude2f"
-        + "\ud83d\ude34\ud83d\ude34"
-        + "\ud83d\ude41\ud83d\ude44"
-        + "\ud83d\ude50\ud83d\ude7f"
-        + "\ud83d\udec6\ud83d\udeff"
-        + "\ud83d\udf74\ud83f\udffd"
-        + "\ud869\uded7\ud869\udeff"
-        + "\ud86d\udf35\ud86d\udf3f"
-        + "\ud86e\udc1e\ud87d\udfff"
-        + "\ud87e\ude1e\ud87f\udffd"
-        + "\ud880\udc00\ud8bf\udffd"
-        + "\ud8c0\udc00\ud8ff\udffd"
-        + "\ud900\udc00\ud93f\udffd"
-        + "\ud940\udc00\ud97f\udffd"
-        + "\ud980\udc00\ud9bf\udffd"
-        + "\ud9c0\udc00\ud9ff\udffd"
-        + "\uda00\udc00\uda3f\udffd"
-        + "\uda40\udc00\uda7f\udffd"
-        + "\uda80\udc00\udabf\udffd"
-        + "\udac0\udc00\udaff\udffd"
-        + "\udb00\udc00\udb3f\udffd"
-        + "\udb40\udc00\udb40\udc00"
-        + "\udb40\udc02\udb40\udc1f"
-        + "\udb40\udc80\udb40\udcff"
-        + "\udb40\uddf0\udb7f\udffd",
-    // Unicode 6.0 property value: {alnum}
+    // Unicode 6.2 property value: {age=v61}
+    "\000\u0377"
+        + "\u037a\u037e"
+        + "\u0384\u038a"
+        + "\u038c\u038c"
+        + "\u038e\u03a1"
+        + "\u03a3\u0527"
+        + "\u0531\u0556"
+        + "\u0559\u055f"
+        + "\u0561\u0587"
+        + "\u0589\u058a"
+        + "\u058f\u058f"
+        + "\u0591\u05c7"
+        + "\u05d0\u05ea"
+        + "\u05f0\u05f4"
+        + "\u0600\u0604"
+        + "\u0606\u061b"
+        + "\u061e\u070d"
+        + "\u070f\u074a"
+        + "\u074d\u07b1"
+        + "\u07c0\u07fa"
+        + "\u0800\u082d"
+        + "\u0830\u083e"
+        + "\u0840\u085b"
+        + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
+        + "\u0900\u0977"
+        + "\u0979\u097f"
+        + "\u0981\u0983"
+        + "\u0985\u098c"
+        + "\u098f\u0990"
+        + "\u0993\u09a8"
+        + "\u09aa\u09b0"
+        + "\u09b2\u09b2"
+        + "\u09b6\u09b9"
+        + "\u09bc\u09c4"
+        + "\u09c7\u09c8"
+        + "\u09cb\u09ce"
+        + "\u09d7\u09d7"
+        + "\u09dc\u09dd"
+        + "\u09df\u09e3"
+        + "\u09e6\u09fb"
+        + "\u0a01\u0a03"
+        + "\u0a05\u0a0a"
+        + "\u0a0f\u0a10"
+        + "\u0a13\u0a28"
+        + "\u0a2a\u0a30"
+        + "\u0a32\u0a33"
+        + "\u0a35\u0a36"
+        + "\u0a38\u0a39"
+        + "\u0a3c\u0a3c"
+        + "\u0a3e\u0a42"
+        + "\u0a47\u0a48"
+        + "\u0a4b\u0a4d"
+        + "\u0a51\u0a51"
+        + "\u0a59\u0a5c"
+        + "\u0a5e\u0a5e"
+        + "\u0a66\u0a75"
+        + "\u0a81\u0a83"
+        + "\u0a85\u0a8d"
+        + "\u0a8f\u0a91"
+        + "\u0a93\u0aa8"
+        + "\u0aaa\u0ab0"
+        + "\u0ab2\u0ab3"
+        + "\u0ab5\u0ab9"
+        + "\u0abc\u0ac5"
+        + "\u0ac7\u0ac9"
+        + "\u0acb\u0acd"
+        + "\u0ad0\u0ad0"
+        + "\u0ae0\u0ae3"
+        + "\u0ae6\u0af1"
+        + "\u0b01\u0b03"
+        + "\u0b05\u0b0c"
+        + "\u0b0f\u0b10"
+        + "\u0b13\u0b28"
+        + "\u0b2a\u0b30"
+        + "\u0b32\u0b33"
+        + "\u0b35\u0b39"
+        + "\u0b3c\u0b44"
+        + "\u0b47\u0b48"
+        + "\u0b4b\u0b4d"
+        + "\u0b56\u0b57"
+        + "\u0b5c\u0b5d"
+        + "\u0b5f\u0b63"
+        + "\u0b66\u0b77"
+        + "\u0b82\u0b83"
+        + "\u0b85\u0b8a"
+        + "\u0b8e\u0b90"
+        + "\u0b92\u0b95"
+        + "\u0b99\u0b9a"
+        + "\u0b9c\u0b9c"
+        + "\u0b9e\u0b9f"
+        + "\u0ba3\u0ba4"
+        + "\u0ba8\u0baa"
+        + "\u0bae\u0bb9"
+        + "\u0bbe\u0bc2"
+        + "\u0bc6\u0bc8"
+        + "\u0bca\u0bcd"
+        + "\u0bd0\u0bd0"
+        + "\u0bd7\u0bd7"
+        + "\u0be6\u0bfa"
+        + "\u0c01\u0c03"
+        + "\u0c05\u0c0c"
+        + "\u0c0e\u0c10"
+        + "\u0c12\u0c28"
+        + "\u0c2a\u0c33"
+        + "\u0c35\u0c39"
+        + "\u0c3d\u0c44"
+        + "\u0c46\u0c48"
+        + "\u0c4a\u0c4d"
+        + "\u0c55\u0c56"
+        + "\u0c58\u0c59"
+        + "\u0c60\u0c63"
+        + "\u0c66\u0c6f"
+        + "\u0c78\u0c7f"
+        + "\u0c82\u0c83"
+        + "\u0c85\u0c8c"
+        + "\u0c8e\u0c90"
+        + "\u0c92\u0ca8"
+        + "\u0caa\u0cb3"
+        + "\u0cb5\u0cb9"
+        + "\u0cbc\u0cc4"
+        + "\u0cc6\u0cc8"
+        + "\u0cca\u0ccd"
+        + "\u0cd5\u0cd6"
+        + "\u0cde\u0cde"
+        + "\u0ce0\u0ce3"
+        + "\u0ce6\u0cef"
+        + "\u0cf1\u0cf2"
+        + "\u0d02\u0d03"
+        + "\u0d05\u0d0c"
+        + "\u0d0e\u0d10"
+        + "\u0d12\u0d3a"
+        + "\u0d3d\u0d44"
+        + "\u0d46\u0d48"
+        + "\u0d4a\u0d4e"
+        + "\u0d57\u0d57"
+        + "\u0d60\u0d63"
+        + "\u0d66\u0d75"
+        + "\u0d79\u0d7f"
+        + "\u0d82\u0d83"
+        + "\u0d85\u0d96"
+        + "\u0d9a\u0db1"
+        + "\u0db3\u0dbb"
+        + "\u0dbd\u0dbd"
+        + "\u0dc0\u0dc6"
+        + "\u0dca\u0dca"
+        + "\u0dcf\u0dd4"
+        + "\u0dd6\u0dd6"
+        + "\u0dd8\u0ddf"
+        + "\u0df2\u0df4"
+        + "\u0e01\u0e3a"
+        + "\u0e3f\u0e5b"
+        + "\u0e81\u0e82"
+        + "\u0e84\u0e84"
+        + "\u0e87\u0e88"
+        + "\u0e8a\u0e8a"
+        + "\u0e8d\u0e8d"
+        + "\u0e94\u0e97"
+        + "\u0e99\u0e9f"
+        + "\u0ea1\u0ea3"
+        + "\u0ea5\u0ea5"
+        + "\u0ea7\u0ea7"
+        + "\u0eaa\u0eab"
+        + "\u0ead\u0eb9"
+        + "\u0ebb\u0ebd"
+        + "\u0ec0\u0ec4"
+        + "\u0ec6\u0ec6"
+        + "\u0ec8\u0ecd"
+        + "\u0ed0\u0ed9"
+        + "\u0edc\u0edf"
+        + "\u0f00\u0f47"
+        + "\u0f49\u0f6c"
+        + "\u0f71\u0f97"
+        + "\u0f99\u0fbc"
+        + "\u0fbe\u0fcc"
+        + "\u0fce\u0fda"
+        + "\u1000\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
+        + "\u124a\u124d"
+        + "\u1250\u1256"
+        + "\u1258\u1258"
+        + "\u125a\u125d"
+        + "\u1260\u1288"
+        + "\u128a\u128d"
+        + "\u1290\u12b0"
+        + "\u12b2\u12b5"
+        + "\u12b8\u12be"
+        + "\u12c0\u12c0"
+        + "\u12c2\u12c5"
+        + "\u12c8\u12d6"
+        + "\u12d8\u1310"
+        + "\u1312\u1315"
+        + "\u1318\u135a"
+        + "\u135d\u137c"
+        + "\u1380\u1399"
+        + "\u13a0\u13f4"
+        + "\u1400\u169c"
+        + "\u16a0\u16f0"
+        + "\u1700\u170c"
+        + "\u170e\u1714"
+        + "\u1720\u1736"
+        + "\u1740\u1753"
+        + "\u1760\u176c"
+        + "\u176e\u1770"
+        + "\u1772\u1773"
+        + "\u1780\u17dd"
+        + "\u17e0\u17e9"
+        + "\u17f0\u17f9"
+        + "\u1800\u180e"
+        + "\u1810\u1819"
+        + "\u1820\u1877"
+        + "\u1880\u18aa"
+        + "\u18b0\u18f5"
+        + "\u1900\u191c"
+        + "\u1920\u192b"
+        + "\u1930\u193b"
+        + "\u1940\u1940"
+        + "\u1944\u196d"
+        + "\u1970\u1974"
+        + "\u1980\u19ab"
+        + "\u19b0\u19c9"
+        + "\u19d0\u19da"
+        + "\u19de\u1a1b"
+        + "\u1a1e\u1a5e"
+        + "\u1a60\u1a7c"
+        + "\u1a7f\u1a89"
+        + "\u1a90\u1a99"
+        + "\u1aa0\u1aad"
+        + "\u1b00\u1b4b"
+        + "\u1b50\u1b7c"
+        + "\u1b80\u1bf3"
+        + "\u1bfc\u1c37"
+        + "\u1c3b\u1c49"
+        + "\u1c4d\u1c7f"
+        + "\u1cc0\u1cc7"
+        + "\u1cd0\u1cf6"
+        + "\u1d00\u1de6"
+        + "\u1dfc\u1f15"
+        + "\u1f18\u1f1d"
+        + "\u1f20\u1f45"
+        + "\u1f48\u1f4d"
+        + "\u1f50\u1f57"
+        + "\u1f59\u1f59"
+        + "\u1f5b\u1f5b"
+        + "\u1f5d\u1f5d"
+        + "\u1f5f\u1f7d"
+        + "\u1f80\u1fb4"
+        + "\u1fb6\u1fc4"
+        + "\u1fc6\u1fd3"
+        + "\u1fd6\u1fdb"
+        + "\u1fdd\u1fef"
+        + "\u1ff2\u1ff4"
+        + "\u1ff6\u1ffe"
+        + "\u2000\u2064"
+        + "\u206a\u2071"
+        + "\u2074\u208e"
+        + "\u2090\u209c"
+        + "\u20a0\u20b9"
+        + "\u20d0\u20f0"
+        + "\u2100\u2189"
+        + "\u2190\u23f3"
+        + "\u2400\u2426"
+        + "\u2440\u244a"
+        + "\u2460\u26ff"
+        + "\u2701\u2b4c"
+        + "\u2b50\u2b59"
+        + "\u2c00\u2c2e"
+        + "\u2c30\u2c5e"
+        + "\u2c60\u2cf3"
+        + "\u2cf9\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
+        + "\u2d6f\u2d70"
+        + "\u2d7f\u2d96"
+        + "\u2da0\u2da6"
+        + "\u2da8\u2dae"
+        + "\u2db0\u2db6"
+        + "\u2db8\u2dbe"
+        + "\u2dc0\u2dc6"
+        + "\u2dc8\u2dce"
+        + "\u2dd0\u2dd6"
+        + "\u2dd8\u2dde"
+        + "\u2de0\u2e3b"
+        + "\u2e80\u2e99"
+        + "\u2e9b\u2ef3"
+        + "\u2f00\u2fd5"
+        + "\u2ff0\u2ffb"
+        + "\u3000\u303f"
+        + "\u3041\u3096"
+        + "\u3099\u30ff"
+        + "\u3105\u312d"
+        + "\u3131\u318e"
+        + "\u3190\u31ba"
+        + "\u31c0\u31e3"
+        + "\u31f0\u321e"
+        + "\u3220\u32fe"
+        + "\u3300\u4db5"
+        + "\u4dc0\u9fcc"
+        + "\ua000\ua48c"
+        + "\ua490\ua4c6"
+        + "\ua4d0\ua62b"
+        + "\ua640\ua697"
+        + "\ua69f\ua6f7"
+        + "\ua700\ua78e"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua82b"
+        + "\ua830\ua839"
+        + "\ua840\ua877"
+        + "\ua880\ua8c4"
+        + "\ua8ce\ua8d9"
+        + "\ua8e0\ua8fb"
+        + "\ua900\ua953"
+        + "\ua95f\ua97c"
+        + "\ua980\ua9cd"
+        + "\ua9cf\ua9d9"
+        + "\ua9de\ua9df"
+        + "\uaa00\uaa36"
+        + "\uaa40\uaa4d"
+        + "\uaa50\uaa59"
+        + "\uaa5c\uaa7b"
+        + "\uaa80\uaac2"
+        + "\uaadb\uaaf6"
+        + "\uab01\uab06"
+        + "\uab09\uab0e"
+        + "\uab11\uab16"
+        + "\uab20\uab26"
+        + "\uab28\uab2e"
+        + "\uabc0\uabed"
+        + "\uabf0\uabf9"
+        + "\uac00\ud7a3"
+        + "\ud7b0\ud7c6"
+        + "\ud7cb\ud7fb"
+        + "\ue000\ufa6d"
+        + "\ufa70\ufad9"
+        + "\ufb00\ufb06"
+        + "\ufb13\ufb17"
+        + "\ufb1d\ufb36"
+        + "\ufb38\ufb3c"
+        + "\ufb3e\ufb3e"
+        + "\ufb40\ufb41"
+        + "\ufb43\ufb44"
+        + "\ufb46\ufbc1"
+        + "\ufbd3\ufd3f"
+        + "\ufd50\ufd8f"
+        + "\ufd92\ufdc7"
+        + "\ufdd0\ufdfd"
+        + "\ufe00\ufe19"
+        + "\ufe20\ufe26"
+        + "\ufe30\ufe52"
+        + "\ufe54\ufe66"
+        + "\ufe68\ufe6b"
+        + "\ufe70\ufe74"
+        + "\ufe76\ufefc"
+        + "\ufeff\ufeff"
+        + "\uff01\uffbe"
+        + "\uffc2\uffc7"
+        + "\uffca\uffcf"
+        + "\uffd2\uffd7"
+        + "\uffda\uffdc"
+        + "\uffe0\uffe6"
+        + "\uffe8\uffee"
+        + "\ufff9\ud800\udc0b"
+        + "\ud800\udc0d\ud800\udc26"
+        + "\ud800\udc28\ud800\udc3a"
+        + "\ud800\udc3c\ud800\udc3d"
+        + "\ud800\udc3f\ud800\udc4d"
+        + "\ud800\udc50\ud800\udc5d"
+        + "\ud800\udc80\ud800\udcfa"
+        + "\ud800\udd00\ud800\udd02"
+        + "\ud800\udd07\ud800\udd33"
+        + "\ud800\udd37\ud800\udd8a"
+        + "\ud800\udd90\ud800\udd9b"
+        + "\ud800\uddd0\ud800\uddfd"
+        + "\ud800\ude80\ud800\ude9c"
+        + "\ud800\udea0\ud800\uded0"
+        + "\ud800\udf00\ud800\udf1e"
+        + "\ud800\udf20\ud800\udf23"
+        + "\ud800\udf30\ud800\udf4a"
+        + "\ud800\udf80\ud800\udf9d"
+        + "\ud800\udf9f\ud800\udfc3"
+        + "\ud800\udfc8\ud800\udfd5"
+        + "\ud801\udc00\ud801\udc9d"
+        + "\ud801\udca0\ud801\udca9"
+        + "\ud802\udc00\ud802\udc05"
+        + "\ud802\udc08\ud802\udc08"
+        + "\ud802\udc0a\ud802\udc35"
+        + "\ud802\udc37\ud802\udc38"
+        + "\ud802\udc3c\ud802\udc3c"
+        + "\ud802\udc3f\ud802\udc55"
+        + "\ud802\udc57\ud802\udc5f"
+        + "\ud802\udd00\ud802\udd1b"
+        + "\ud802\udd1f\ud802\udd39"
+        + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
+        + "\ud802\ude00\ud802\ude03"
+        + "\ud802\ude05\ud802\ude06"
+        + "\ud802\ude0c\ud802\ude13"
+        + "\ud802\ude15\ud802\ude17"
+        + "\ud802\ude19\ud802\ude33"
+        + "\ud802\ude38\ud802\ude3a"
+        + "\ud802\ude3f\ud802\ude47"
+        + "\ud802\ude50\ud802\ude58"
+        + "\ud802\ude60\ud802\ude7f"
+        + "\ud802\udf00\ud802\udf35"
+        + "\ud802\udf39\ud802\udf55"
+        + "\ud802\udf58\ud802\udf72"
+        + "\ud802\udf78\ud802\udf7f"
+        + "\ud803\udc00\ud803\udc48"
+        + "\ud803\ude60\ud803\ude7e"
+        + "\ud804\udc00\ud804\udc4d"
+        + "\ud804\udc52\ud804\udc6f"
+        + "\ud804\udc80\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd80\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
+        + "\ud808\udc00\ud808\udf6e"
+        + "\ud809\udc00\ud809\udc62"
+        + "\ud809\udc70\ud809\udc73"
+        + "\ud80c\udc00\ud80d\udc2e"
+        + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
+        + "\ud82c\udc00\ud82c\udc01"
+        + "\ud834\udc00\ud834\udcf5"
+        + "\ud834\udd00\ud834\udd26"
+        + "\ud834\udd29\ud834\udddd"
+        + "\ud834\ude00\ud834\ude45"
+        + "\ud834\udf00\ud834\udf56"
+        + "\ud834\udf60\ud834\udf71"
+        + "\ud835\udc00\ud835\udc54"
+        + "\ud835\udc56\ud835\udc9c"
+        + "\ud835\udc9e\ud835\udc9f"
+        + "\ud835\udca2\ud835\udca2"
+        + "\ud835\udca5\ud835\udca6"
+        + "\ud835\udca9\ud835\udcac"
+        + "\ud835\udcae\ud835\udcb9"
+        + "\ud835\udcbb\ud835\udcbb"
+        + "\ud835\udcbd\ud835\udcc3"
+        + "\ud835\udcc5\ud835\udd05"
+        + "\ud835\udd07\ud835\udd0a"
+        + "\ud835\udd0d\ud835\udd14"
+        + "\ud835\udd16\ud835\udd1c"
+        + "\ud835\udd1e\ud835\udd39"
+        + "\ud835\udd3b\ud835\udd3e"
+        + "\ud835\udd40\ud835\udd44"
+        + "\ud835\udd46\ud835\udd46"
+        + "\ud835\udd4a\ud835\udd50"
+        + "\ud835\udd52\ud835\udea5"
+        + "\ud835\udea8\ud835\udfcb"
+        + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
+        + "\ud83c\udc00\ud83c\udc2b"
+        + "\ud83c\udc30\ud83c\udc93"
+        + "\ud83c\udca0\ud83c\udcae"
+        + "\ud83c\udcb1\ud83c\udcbe"
+        + "\ud83c\udcc1\ud83c\udccf"
+        + "\ud83c\udcd1\ud83c\udcdf"
+        + "\ud83c\udd00\ud83c\udd0a"
+        + "\ud83c\udd10\ud83c\udd2e"
+        + "\ud83c\udd30\ud83c\udd6b"
+        + "\ud83c\udd70\ud83c\udd9a"
+        + "\ud83c\udde6\ud83c\ude02"
+        + "\ud83c\ude10\ud83c\ude3a"
+        + "\ud83c\ude40\ud83c\ude48"
+        + "\ud83c\ude50\ud83c\ude51"
+        + "\ud83c\udf00\ud83c\udf20"
+        + "\ud83c\udf30\ud83c\udf35"
+        + "\ud83c\udf37\ud83c\udf7c"
+        + "\ud83c\udf80\ud83c\udf93"
+        + "\ud83c\udfa0\ud83c\udfc4"
+        + "\ud83c\udfc6\ud83c\udfca"
+        + "\ud83c\udfe0\ud83c\udff0"
+        + "\ud83d\udc00\ud83d\udc3e"
+        + "\ud83d\udc40\ud83d\udc40"
+        + "\ud83d\udc42\ud83d\udcf7"
+        + "\ud83d\udcf9\ud83d\udcfc"
+        + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
+        + "\ud83d\udd50\ud83d\udd67"
+        + "\ud83d\uddfb\ud83d\ude40"
+        + "\ud83d\ude45\ud83d\ude4f"
+        + "\ud83d\ude80\ud83d\udec5"
+        + "\ud83d\udf00\ud83d\udf73"
+        + "\ud83f\udffe\ud869\uded6"
+        + "\ud869\udf00\ud86d\udf34"
+        + "\ud86d\udf40\ud86e\udc1d"
+        + "\ud87e\udc00\ud87e\ude1d"
+        + "\ud87f\udffe\ud87f\udfff"
+        + "\ud8bf\udffe\ud8bf\udfff"
+        + "\ud8ff\udffe\ud8ff\udfff"
+        + "\ud93f\udffe\ud93f\udfff"
+        + "\ud97f\udffe\ud97f\udfff"
+        + "\ud9bf\udffe\ud9bf\udfff"
+        + "\ud9ff\udffe\ud9ff\udfff"
+        + "\uda3f\udffe\uda3f\udfff"
+        + "\uda7f\udffe\uda7f\udfff"
+        + "\udabf\udffe\udabf\udfff"
+        + "\udaff\udffe\udaff\udfff"
+        + "\udb3f\udffe\udb3f\udfff"
+        + "\udb40\udc01\udb40\udc01"
+        + "\udb40\udc20\udb40\udc7f"
+        + "\udb40\udd00\udb40\uddef"
+        + "\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {age=v62}
+    "\000\u0377"
+        + "\u037a\u037e"
+        + "\u0384\u038a"
+        + "\u038c\u038c"
+        + "\u038e\u03a1"
+        + "\u03a3\u0527"
+        + "\u0531\u0556"
+        + "\u0559\u055f"
+        + "\u0561\u0587"
+        + "\u0589\u058a"
+        + "\u058f\u058f"
+        + "\u0591\u05c7"
+        + "\u05d0\u05ea"
+        + "\u05f0\u05f4"
+        + "\u0600\u0604"
+        + "\u0606\u061b"
+        + "\u061e\u070d"
+        + "\u070f\u074a"
+        + "\u074d\u07b1"
+        + "\u07c0\u07fa"
+        + "\u0800\u082d"
+        + "\u0830\u083e"
+        + "\u0840\u085b"
+        + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
+        + "\u0900\u0977"
+        + "\u0979\u097f"
+        + "\u0981\u0983"
+        + "\u0985\u098c"
+        + "\u098f\u0990"
+        + "\u0993\u09a8"
+        + "\u09aa\u09b0"
+        + "\u09b2\u09b2"
+        + "\u09b6\u09b9"
+        + "\u09bc\u09c4"
+        + "\u09c7\u09c8"
+        + "\u09cb\u09ce"
+        + "\u09d7\u09d7"
+        + "\u09dc\u09dd"
+        + "\u09df\u09e3"
+        + "\u09e6\u09fb"
+        + "\u0a01\u0a03"
+        + "\u0a05\u0a0a"
+        + "\u0a0f\u0a10"
+        + "\u0a13\u0a28"
+        + "\u0a2a\u0a30"
+        + "\u0a32\u0a33"
+        + "\u0a35\u0a36"
+        + "\u0a38\u0a39"
+        + "\u0a3c\u0a3c"
+        + "\u0a3e\u0a42"
+        + "\u0a47\u0a48"
+        + "\u0a4b\u0a4d"
+        + "\u0a51\u0a51"
+        + "\u0a59\u0a5c"
+        + "\u0a5e\u0a5e"
+        + "\u0a66\u0a75"
+        + "\u0a81\u0a83"
+        + "\u0a85\u0a8d"
+        + "\u0a8f\u0a91"
+        + "\u0a93\u0aa8"
+        + "\u0aaa\u0ab0"
+        + "\u0ab2\u0ab3"
+        + "\u0ab5\u0ab9"
+        + "\u0abc\u0ac5"
+        + "\u0ac7\u0ac9"
+        + "\u0acb\u0acd"
+        + "\u0ad0\u0ad0"
+        + "\u0ae0\u0ae3"
+        + "\u0ae6\u0af1"
+        + "\u0b01\u0b03"
+        + "\u0b05\u0b0c"
+        + "\u0b0f\u0b10"
+        + "\u0b13\u0b28"
+        + "\u0b2a\u0b30"
+        + "\u0b32\u0b33"
+        + "\u0b35\u0b39"
+        + "\u0b3c\u0b44"
+        + "\u0b47\u0b48"
+        + "\u0b4b\u0b4d"
+        + "\u0b56\u0b57"
+        + "\u0b5c\u0b5d"
+        + "\u0b5f\u0b63"
+        + "\u0b66\u0b77"
+        + "\u0b82\u0b83"
+        + "\u0b85\u0b8a"
+        + "\u0b8e\u0b90"
+        + "\u0b92\u0b95"
+        + "\u0b99\u0b9a"
+        + "\u0b9c\u0b9c"
+        + "\u0b9e\u0b9f"
+        + "\u0ba3\u0ba4"
+        + "\u0ba8\u0baa"
+        + "\u0bae\u0bb9"
+        + "\u0bbe\u0bc2"
+        + "\u0bc6\u0bc8"
+        + "\u0bca\u0bcd"
+        + "\u0bd0\u0bd0"
+        + "\u0bd7\u0bd7"
+        + "\u0be6\u0bfa"
+        + "\u0c01\u0c03"
+        + "\u0c05\u0c0c"
+        + "\u0c0e\u0c10"
+        + "\u0c12\u0c28"
+        + "\u0c2a\u0c33"
+        + "\u0c35\u0c39"
+        + "\u0c3d\u0c44"
+        + "\u0c46\u0c48"
+        + "\u0c4a\u0c4d"
+        + "\u0c55\u0c56"
+        + "\u0c58\u0c59"
+        + "\u0c60\u0c63"
+        + "\u0c66\u0c6f"
+        + "\u0c78\u0c7f"
+        + "\u0c82\u0c83"
+        + "\u0c85\u0c8c"
+        + "\u0c8e\u0c90"
+        + "\u0c92\u0ca8"
+        + "\u0caa\u0cb3"
+        + "\u0cb5\u0cb9"
+        + "\u0cbc\u0cc4"
+        + "\u0cc6\u0cc8"
+        + "\u0cca\u0ccd"
+        + "\u0cd5\u0cd6"
+        + "\u0cde\u0cde"
+        + "\u0ce0\u0ce3"
+        + "\u0ce6\u0cef"
+        + "\u0cf1\u0cf2"
+        + "\u0d02\u0d03"
+        + "\u0d05\u0d0c"
+        + "\u0d0e\u0d10"
+        + "\u0d12\u0d3a"
+        + "\u0d3d\u0d44"
+        + "\u0d46\u0d48"
+        + "\u0d4a\u0d4e"
+        + "\u0d57\u0d57"
+        + "\u0d60\u0d63"
+        + "\u0d66\u0d75"
+        + "\u0d79\u0d7f"
+        + "\u0d82\u0d83"
+        + "\u0d85\u0d96"
+        + "\u0d9a\u0db1"
+        + "\u0db3\u0dbb"
+        + "\u0dbd\u0dbd"
+        + "\u0dc0\u0dc6"
+        + "\u0dca\u0dca"
+        + "\u0dcf\u0dd4"
+        + "\u0dd6\u0dd6"
+        + "\u0dd8\u0ddf"
+        + "\u0df2\u0df4"
+        + "\u0e01\u0e3a"
+        + "\u0e3f\u0e5b"
+        + "\u0e81\u0e82"
+        + "\u0e84\u0e84"
+        + "\u0e87\u0e88"
+        + "\u0e8a\u0e8a"
+        + "\u0e8d\u0e8d"
+        + "\u0e94\u0e97"
+        + "\u0e99\u0e9f"
+        + "\u0ea1\u0ea3"
+        + "\u0ea5\u0ea5"
+        + "\u0ea7\u0ea7"
+        + "\u0eaa\u0eab"
+        + "\u0ead\u0eb9"
+        + "\u0ebb\u0ebd"
+        + "\u0ec0\u0ec4"
+        + "\u0ec6\u0ec6"
+        + "\u0ec8\u0ecd"
+        + "\u0ed0\u0ed9"
+        + "\u0edc\u0edf"
+        + "\u0f00\u0f47"
+        + "\u0f49\u0f6c"
+        + "\u0f71\u0f97"
+        + "\u0f99\u0fbc"
+        + "\u0fbe\u0fcc"
+        + "\u0fce\u0fda"
+        + "\u1000\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
+        + "\u124a\u124d"
+        + "\u1250\u1256"
+        + "\u1258\u1258"
+        + "\u125a\u125d"
+        + "\u1260\u1288"
+        + "\u128a\u128d"
+        + "\u1290\u12b0"
+        + "\u12b2\u12b5"
+        + "\u12b8\u12be"
+        + "\u12c0\u12c0"
+        + "\u12c2\u12c5"
+        + "\u12c8\u12d6"
+        + "\u12d8\u1310"
+        + "\u1312\u1315"
+        + "\u1318\u135a"
+        + "\u135d\u137c"
+        + "\u1380\u1399"
+        + "\u13a0\u13f4"
+        + "\u1400\u169c"
+        + "\u16a0\u16f0"
+        + "\u1700\u170c"
+        + "\u170e\u1714"
+        + "\u1720\u1736"
+        + "\u1740\u1753"
+        + "\u1760\u176c"
+        + "\u176e\u1770"
+        + "\u1772\u1773"
+        + "\u1780\u17dd"
+        + "\u17e0\u17e9"
+        + "\u17f0\u17f9"
+        + "\u1800\u180e"
+        + "\u1810\u1819"
+        + "\u1820\u1877"
+        + "\u1880\u18aa"
+        + "\u18b0\u18f5"
+        + "\u1900\u191c"
+        + "\u1920\u192b"
+        + "\u1930\u193b"
+        + "\u1940\u1940"
+        + "\u1944\u196d"
+        + "\u1970\u1974"
+        + "\u1980\u19ab"
+        + "\u19b0\u19c9"
+        + "\u19d0\u19da"
+        + "\u19de\u1a1b"
+        + "\u1a1e\u1a5e"
+        + "\u1a60\u1a7c"
+        + "\u1a7f\u1a89"
+        + "\u1a90\u1a99"
+        + "\u1aa0\u1aad"
+        + "\u1b00\u1b4b"
+        + "\u1b50\u1b7c"
+        + "\u1b80\u1bf3"
+        + "\u1bfc\u1c37"
+        + "\u1c3b\u1c49"
+        + "\u1c4d\u1c7f"
+        + "\u1cc0\u1cc7"
+        + "\u1cd0\u1cf6"
+        + "\u1d00\u1de6"
+        + "\u1dfc\u1f15"
+        + "\u1f18\u1f1d"
+        + "\u1f20\u1f45"
+        + "\u1f48\u1f4d"
+        + "\u1f50\u1f57"
+        + "\u1f59\u1f59"
+        + "\u1f5b\u1f5b"
+        + "\u1f5d\u1f5d"
+        + "\u1f5f\u1f7d"
+        + "\u1f80\u1fb4"
+        + "\u1fb6\u1fc4"
+        + "\u1fc6\u1fd3"
+        + "\u1fd6\u1fdb"
+        + "\u1fdd\u1fef"
+        + "\u1ff2\u1ff4"
+        + "\u1ff6\u1ffe"
+        + "\u2000\u2064"
+        + "\u206a\u2071"
+        + "\u2074\u208e"
+        + "\u2090\u209c"
+        + "\u20a0\u20ba"
+        + "\u20d0\u20f0"
+        + "\u2100\u2189"
+        + "\u2190\u23f3"
+        + "\u2400\u2426"
+        + "\u2440\u244a"
+        + "\u2460\u26ff"
+        + "\u2701\u2b4c"
+        + "\u2b50\u2b59"
+        + "\u2c00\u2c2e"
+        + "\u2c30\u2c5e"
+        + "\u2c60\u2cf3"
+        + "\u2cf9\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
+        + "\u2d6f\u2d70"
+        + "\u2d7f\u2d96"
+        + "\u2da0\u2da6"
+        + "\u2da8\u2dae"
+        + "\u2db0\u2db6"
+        + "\u2db8\u2dbe"
+        + "\u2dc0\u2dc6"
+        + "\u2dc8\u2dce"
+        + "\u2dd0\u2dd6"
+        + "\u2dd8\u2dde"
+        + "\u2de0\u2e3b"
+        + "\u2e80\u2e99"
+        + "\u2e9b\u2ef3"
+        + "\u2f00\u2fd5"
+        + "\u2ff0\u2ffb"
+        + "\u3000\u303f"
+        + "\u3041\u3096"
+        + "\u3099\u30ff"
+        + "\u3105\u312d"
+        + "\u3131\u318e"
+        + "\u3190\u31ba"
+        + "\u31c0\u31e3"
+        + "\u31f0\u321e"
+        + "\u3220\u32fe"
+        + "\u3300\u4db5"
+        + "\u4dc0\u9fcc"
+        + "\ua000\ua48c"
+        + "\ua490\ua4c6"
+        + "\ua4d0\ua62b"
+        + "\ua640\ua697"
+        + "\ua69f\ua6f7"
+        + "\ua700\ua78e"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua82b"
+        + "\ua830\ua839"
+        + "\ua840\ua877"
+        + "\ua880\ua8c4"
+        + "\ua8ce\ua8d9"
+        + "\ua8e0\ua8fb"
+        + "\ua900\ua953"
+        + "\ua95f\ua97c"
+        + "\ua980\ua9cd"
+        + "\ua9cf\ua9d9"
+        + "\ua9de\ua9df"
+        + "\uaa00\uaa36"
+        + "\uaa40\uaa4d"
+        + "\uaa50\uaa59"
+        + "\uaa5c\uaa7b"
+        + "\uaa80\uaac2"
+        + "\uaadb\uaaf6"
+        + "\uab01\uab06"
+        + "\uab09\uab0e"
+        + "\uab11\uab16"
+        + "\uab20\uab26"
+        + "\uab28\uab2e"
+        + "\uabc0\uabed"
+        + "\uabf0\uabf9"
+        + "\uac00\ud7a3"
+        + "\ud7b0\ud7c6"
+        + "\ud7cb\ud7fb"
+        + "\ue000\ufa6d"
+        + "\ufa70\ufad9"
+        + "\ufb00\ufb06"
+        + "\ufb13\ufb17"
+        + "\ufb1d\ufb36"
+        + "\ufb38\ufb3c"
+        + "\ufb3e\ufb3e"
+        + "\ufb40\ufb41"
+        + "\ufb43\ufb44"
+        + "\ufb46\ufbc1"
+        + "\ufbd3\ufd3f"
+        + "\ufd50\ufd8f"
+        + "\ufd92\ufdc7"
+        + "\ufdd0\ufdfd"
+        + "\ufe00\ufe19"
+        + "\ufe20\ufe26"
+        + "\ufe30\ufe52"
+        + "\ufe54\ufe66"
+        + "\ufe68\ufe6b"
+        + "\ufe70\ufe74"
+        + "\ufe76\ufefc"
+        + "\ufeff\ufeff"
+        + "\uff01\uffbe"
+        + "\uffc2\uffc7"
+        + "\uffca\uffcf"
+        + "\uffd2\uffd7"
+        + "\uffda\uffdc"
+        + "\uffe0\uffe6"
+        + "\uffe8\uffee"
+        + "\ufff9\ud800\udc0b"
+        + "\ud800\udc0d\ud800\udc26"
+        + "\ud800\udc28\ud800\udc3a"
+        + "\ud800\udc3c\ud800\udc3d"
+        + "\ud800\udc3f\ud800\udc4d"
+        + "\ud800\udc50\ud800\udc5d"
+        + "\ud800\udc80\ud800\udcfa"
+        + "\ud800\udd00\ud800\udd02"
+        + "\ud800\udd07\ud800\udd33"
+        + "\ud800\udd37\ud800\udd8a"
+        + "\ud800\udd90\ud800\udd9b"
+        + "\ud800\uddd0\ud800\uddfd"
+        + "\ud800\ude80\ud800\ude9c"
+        + "\ud800\udea0\ud800\uded0"
+        + "\ud800\udf00\ud800\udf1e"
+        + "\ud800\udf20\ud800\udf23"
+        + "\ud800\udf30\ud800\udf4a"
+        + "\ud800\udf80\ud800\udf9d"
+        + "\ud800\udf9f\ud800\udfc3"
+        + "\ud800\udfc8\ud800\udfd5"
+        + "\ud801\udc00\ud801\udc9d"
+        + "\ud801\udca0\ud801\udca9"
+        + "\ud802\udc00\ud802\udc05"
+        + "\ud802\udc08\ud802\udc08"
+        + "\ud802\udc0a\ud802\udc35"
+        + "\ud802\udc37\ud802\udc38"
+        + "\ud802\udc3c\ud802\udc3c"
+        + "\ud802\udc3f\ud802\udc55"
+        + "\ud802\udc57\ud802\udc5f"
+        + "\ud802\udd00\ud802\udd1b"
+        + "\ud802\udd1f\ud802\udd39"
+        + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
+        + "\ud802\ude00\ud802\ude03"
+        + "\ud802\ude05\ud802\ude06"
+        + "\ud802\ude0c\ud802\ude13"
+        + "\ud802\ude15\ud802\ude17"
+        + "\ud802\ude19\ud802\ude33"
+        + "\ud802\ude38\ud802\ude3a"
+        + "\ud802\ude3f\ud802\ude47"
+        + "\ud802\ude50\ud802\ude58"
+        + "\ud802\ude60\ud802\ude7f"
+        + "\ud802\udf00\ud802\udf35"
+        + "\ud802\udf39\ud802\udf55"
+        + "\ud802\udf58\ud802\udf72"
+        + "\ud802\udf78\ud802\udf7f"
+        + "\ud803\udc00\ud803\udc48"
+        + "\ud803\ude60\ud803\ude7e"
+        + "\ud804\udc00\ud804\udc4d"
+        + "\ud804\udc52\ud804\udc6f"
+        + "\ud804\udc80\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd80\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
+        + "\ud808\udc00\ud808\udf6e"
+        + "\ud809\udc00\ud809\udc62"
+        + "\ud809\udc70\ud809\udc73"
+        + "\ud80c\udc00\ud80d\udc2e"
+        + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
+        + "\ud82c\udc00\ud82c\udc01"
+        + "\ud834\udc00\ud834\udcf5"
+        + "\ud834\udd00\ud834\udd26"
+        + "\ud834\udd29\ud834\udddd"
+        + "\ud834\ude00\ud834\ude45"
+        + "\ud834\udf00\ud834\udf56"
+        + "\ud834\udf60\ud834\udf71"
+        + "\ud835\udc00\ud835\udc54"
+        + "\ud835\udc56\ud835\udc9c"
+        + "\ud835\udc9e\ud835\udc9f"
+        + "\ud835\udca2\ud835\udca2"
+        + "\ud835\udca5\ud835\udca6"
+        + "\ud835\udca9\ud835\udcac"
+        + "\ud835\udcae\ud835\udcb9"
+        + "\ud835\udcbb\ud835\udcbb"
+        + "\ud835\udcbd\ud835\udcc3"
+        + "\ud835\udcc5\ud835\udd05"
+        + "\ud835\udd07\ud835\udd0a"
+        + "\ud835\udd0d\ud835\udd14"
+        + "\ud835\udd16\ud835\udd1c"
+        + "\ud835\udd1e\ud835\udd39"
+        + "\ud835\udd3b\ud835\udd3e"
+        + "\ud835\udd40\ud835\udd44"
+        + "\ud835\udd46\ud835\udd46"
+        + "\ud835\udd4a\ud835\udd50"
+        + "\ud835\udd52\ud835\udea5"
+        + "\ud835\udea8\ud835\udfcb"
+        + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
+        + "\ud83c\udc00\ud83c\udc2b"
+        + "\ud83c\udc30\ud83c\udc93"
+        + "\ud83c\udca0\ud83c\udcae"
+        + "\ud83c\udcb1\ud83c\udcbe"
+        + "\ud83c\udcc1\ud83c\udccf"
+        + "\ud83c\udcd1\ud83c\udcdf"
+        + "\ud83c\udd00\ud83c\udd0a"
+        + "\ud83c\udd10\ud83c\udd2e"
+        + "\ud83c\udd30\ud83c\udd6b"
+        + "\ud83c\udd70\ud83c\udd9a"
+        + "\ud83c\udde6\ud83c\ude02"
+        + "\ud83c\ude10\ud83c\ude3a"
+        + "\ud83c\ude40\ud83c\ude48"
+        + "\ud83c\ude50\ud83c\ude51"
+        + "\ud83c\udf00\ud83c\udf20"
+        + "\ud83c\udf30\ud83c\udf35"
+        + "\ud83c\udf37\ud83c\udf7c"
+        + "\ud83c\udf80\ud83c\udf93"
+        + "\ud83c\udfa0\ud83c\udfc4"
+        + "\ud83c\udfc6\ud83c\udfca"
+        + "\ud83c\udfe0\ud83c\udff0"
+        + "\ud83d\udc00\ud83d\udc3e"
+        + "\ud83d\udc40\ud83d\udc40"
+        + "\ud83d\udc42\ud83d\udcf7"
+        + "\ud83d\udcf9\ud83d\udcfc"
+        + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
+        + "\ud83d\udd50\ud83d\udd67"
+        + "\ud83d\uddfb\ud83d\ude40"
+        + "\ud83d\ude45\ud83d\ude4f"
+        + "\ud83d\ude80\ud83d\udec5"
+        + "\ud83d\udf00\ud83d\udf73"
+        + "\ud83f\udffe\ud869\uded6"
+        + "\ud869\udf00\ud86d\udf34"
+        + "\ud86d\udf40\ud86e\udc1d"
+        + "\ud87e\udc00\ud87e\ude1d"
+        + "\ud87f\udffe\ud87f\udfff"
+        + "\ud8bf\udffe\ud8bf\udfff"
+        + "\ud8ff\udffe\ud8ff\udfff"
+        + "\ud93f\udffe\ud93f\udfff"
+        + "\ud97f\udffe\ud97f\udfff"
+        + "\ud9bf\udffe\ud9bf\udfff"
+        + "\ud9ff\udffe\ud9ff\udfff"
+        + "\uda3f\udffe\uda3f\udfff"
+        + "\uda7f\udffe\uda7f\udfff"
+        + "\udabf\udffe\udabf\udfff"
+        + "\udaff\udffe\udaff\udfff"
+        + "\udb3f\udffe\udb3f\udfff"
+        + "\udb40\udc01\udb40\udc01"
+        + "\udb40\udc20\udb40\udc7f"
+        + "\udb40\udd00\udb40\uddef"
+        + "\udb7f\udffe\udbff\udfff",
+    // Unicode 6.2 property value: {alnum}
     "\u0030\u0039"
         + "\u0041\u005a"
         + "\u0061\u007a"
@@ -5597,6 +6742,10 @@ public class Unicode_6_0 {
         + "\u0800\u0817"
         + "\u081a\u082c"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08e9"
+        + "\u08f0\u08fe"
         + "\u0900\u093b"
         + "\u093d\u094c"
         + "\u094e\u0950"
@@ -5748,7 +6897,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ecd\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f20\u0f29"
         + "\u0f40\u0f47"
@@ -5766,9 +6915,10 @@ public class Unicode_6_0 {
         + "\u1090\u1099"
         + "\u109c\u109d"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -5827,14 +6977,14 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b50\u1b59"
         + "\u1b80\u1ba9"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1be5"
+        + "\u1bac\u1be5"
         + "\u1be7\u1bf1"
         + "\u1c00\u1c35"
         + "\u1c40\u1c49"
         + "\u1c4d\u1c7d"
         + "\u1ce9\u1cec"
-        + "\u1cee\u1cf2"
+        + "\u1cee\u1cf3"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -5877,8 +7027,11 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -5904,20 +7057,21 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
         + "\ua610\ua62b"
         + "\ua640\ua66e"
+        + "\ua674\ua67b"
         + "\ua67f\ua697"
-        + "\ua6a0\ua6ef"
+        + "\ua69f\ua6ef"
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua827"
@@ -5941,6 +7095,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaef"
+        + "\uaaf2\uaaf5"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -5951,8 +7107,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -6003,6 +7158,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -6016,10 +7173,22 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc45"
         + "\ud804\udc66\ud804\udc6f"
         + "\ud804\udc82\ud804\udcb8"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd32"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\udd80\ud804\uddbf"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb5"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud835\udc00\ud835\udc54"
         + "\ud835\udc56\ud835\udc9c"
@@ -6052,11 +7221,44 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {alphabetic}
+    // Unicode 6.2 property value: {alphabetic}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -6107,6 +7309,10 @@ public class Unicode_6_0 {
         + "\u0800\u0817"
         + "\u081a\u082c"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08e9"
+        + "\u08f0\u08fe"
         + "\u0900\u093b"
         + "\u093d\u094c"
         + "\u094e\u0950"
@@ -6249,7 +7455,7 @@ public class Unicode_6_0 {
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
         + "\u0ecd\u0ecd"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f40\u0f47"
         + "\u0f49\u0f6c"
@@ -6265,9 +7471,10 @@ public class Unicode_6_0 {
         + "\u108e\u108e"
         + "\u109c\u109d"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -6320,14 +7527,15 @@ public class Unicode_6_0 {
         + "\u1b35\u1b43"
         + "\u1b45\u1b4b"
         + "\u1b80\u1ba9"
-        + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bac\u1baf"
+        + "\u1bba\u1be5"
         + "\u1be7\u1bf1"
         + "\u1c00\u1c35"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
         + "\u1ce9\u1cec"
-        + "\u1cee\u1cf2"
+        + "\u1cee\u1cf3"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -6370,8 +7578,11 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -6397,21 +7608,22 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
         + "\ua610\ua61f"
         + "\ua62a\ua62b"
         + "\ua640\ua66e"
+        + "\ua674\ua67b"
         + "\ua67f\ua697"
-        + "\ua6a0\ua6ef"
+        + "\ua69f\ua6ef"
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua827"
@@ -6433,6 +7645,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaef"
+        + "\uaaf2\uaaf5"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -6442,8 +7656,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -6492,6 +7705,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -6504,10 +7719,18 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc00\ud804\udc45"
         + "\ud804\udc82\ud804\udcb8"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd00\ud804\udd32"
+        + "\ud804\udd80\ud804\uddbf"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeb5"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud835\udc00\ud835\udc54"
         + "\ud835\udc56\ud835\udc9c"
@@ -6539,22 +7762,58 @@ public class Unicode_6_0 {
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {arabic}
-    "\u0600\u0603"
+    // Unicode 6.2 property value: {arabic}
+    "\u0600\u0604"
         + "\u0606\u060b"
         + "\u060d\u061a"
         + "\u061e\u061e"
         + "\u0620\u063f"
         + "\u0641\u064a"
-        + "\u0656\u065e"
+        + "\u0656\u065f"
         + "\u066a\u066f"
         + "\u0671\u06dc"
         + "\u06de\u06ff"
         + "\u0750\u077f"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\ufb50\ufbc1"
         + "\ufbd3\ufd3d"
         + "\ufd50\ufd8f"
@@ -6562,12 +7821,51 @@ public class Unicode_6_0 {
         + "\ufdf0\ufdfc"
         + "\ufe70\ufe74"
         + "\ufe76\ufefc"
-        + "\ud803\ude60\ud803\ude7e",
-    // Unicode 6.0 property value: {armenian}
-    "\u0531\u0556" + "\u0559\u055f" + "\u0561\u0587" + "\u058a\u058a" + "\ufb13\ufb17",
-    // Unicode 6.0 property value: {asciihexdigit}
+        + "\ud803\ude60\ud803\ude7e"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1",
+    // Unicode 6.2 property value: {armenian}
+    "\u0531\u0556"
+        + "\u0559\u055f"
+        + "\u0561\u0587"
+        + "\u058a\u058a"
+        + "\u058f\u058f"
+        + "\ufb13\ufb17",
+    // Unicode 6.2 property value: {asciihexdigit}
     "\u0030\u0039" + "\u0041\u0046" + "\u0061\u0066",
-    // Unicode 6.0 property value: {assigned}
+    // Unicode 6.2 property value: {assigned}
     "\000\u0377"
         + "\u037a\u037e"
         + "\u0384\u038a"
@@ -6578,10 +7876,11 @@ public class Unicode_6_0 {
         + "\u0559\u055f"
         + "\u0561\u0587"
         + "\u0589\u058a"
+        + "\u058f\u058f"
         + "\u0591\u05c7"
         + "\u05d0\u05ea"
         + "\u05f0\u05f4"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u0606\u061b"
         + "\u061e\u070d"
         + "\u070f\u074a"
@@ -6591,6 +7890,9 @@ public class Unicode_6_0 {
         + "\u0830\u083e"
         + "\u0840\u085b"
         + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\u0900\u0977"
         + "\u0979\u097f"
         + "\u0981\u0983"
@@ -6635,8 +7937,7 @@ public class Unicode_6_0 {
         + "\u0acb\u0acd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae3"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1"
+        + "\u0ae6\u0af1"
         + "\u0b01\u0b03"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
@@ -6736,7 +8037,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f47"
         + "\u0f49\u0f6c"
         + "\u0f71\u0f97"
@@ -6744,8 +8045,9 @@ public class Unicode_6_0 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fda"
         + "\u1000\u10c5"
-        + "\u10d0\u10fc"
-        + "\u1100\u1248"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -6798,13 +8100,12 @@ public class Unicode_6_0 {
         + "\u1aa0\u1aad"
         + "\u1b00\u1b4b"
         + "\u1b50\u1b7c"
-        + "\u1b80\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1bf3"
+        + "\u1b80\u1bf3"
         + "\u1bfc\u1c37"
         + "\u1c3b\u1c49"
         + "\u1c4d\u1c7f"
-        + "\u1cd0\u1cf2"
+        + "\u1cc0\u1cc7"
+        + "\u1cd0\u1cf6"
         + "\u1d00\u1de6"
         + "\u1dfc\u1f15"
         + "\u1f18\u1f1d"
@@ -6826,22 +8127,22 @@ public class Unicode_6_0 {
         + "\u206a\u2071"
         + "\u2074\u208e"
         + "\u2090\u209c"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u20d0\u20f0"
         + "\u2100\u2189"
         + "\u2190\u23f3"
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u2b4c"
+        + "\u2701\u2b4c"
         + "\u2b50\u2b59"
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
-        + "\u2c60\u2cf1"
+        + "\u2c60\u2cf3"
         + "\u2cf9\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d70"
         + "\u2d7f\u2d96"
         + "\u2da0\u2da6"
@@ -6852,7 +8153,7 @@ public class Unicode_6_0 {
         + "\u2dc8\u2dce"
         + "\u2dd0\u2dd6"
         + "\u2dd8\u2dde"
-        + "\u2de0\u2e31"
+        + "\u2de0\u2e3b"
         + "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -6867,17 +8168,16 @@ public class Unicode_6_0 {
         + "\u31f0\u321e"
         + "\u3220\u32fe"
         + "\u3300\u4db5"
-        + "\u4dc0\u9fcb"
+        + "\u4dc0\u9fcc"
         + "\ua000\ua48c"
         + "\ua490\ua4c6"
         + "\ua4d0\ua62b"
-        + "\ua640\ua673"
-        + "\ua67c\ua697"
-        + "\ua6a0\ua6f7"
+        + "\ua640\ua697"
+        + "\ua69f\ua6f7"
         + "\ua700\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua82b"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua82b"
         + "\ua830\ua839"
         + "\ua840\ua877"
         + "\ua880\ua8c4"
@@ -6893,7 +8193,7 @@ public class Unicode_6_0 {
         + "\uaa50\uaa59"
         + "\uaa5c\uaa7b"
         + "\uaa80\uaac2"
-        + "\uaadb\uaadf"
+        + "\uaadb\uaaf6"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -6904,8 +8204,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\ue000\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\ue000\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -6967,6 +8266,8 @@ public class Unicode_6_0 {
         + "\ud802\udd00\ud802\udd1b"
         + "\ud802\udd1f\ud802\udd39"
         + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -6985,11 +8286,22 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc4d"
         + "\ud804\udc52\ud804\udc6f"
         + "\ud804\udc80\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd80\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud809\udc70\ud809\udc73"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udc00\ud834\udcf5"
         + "\ud834\udd00\ud834\udd26"
@@ -7018,6 +8330,40 @@ public class Unicode_6_0 {
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
         + "\ud83c\udc00\ud83c\udc2b"
         + "\ud83c\udc30\ud83c\udc93"
         + "\ud83c\udca0\ud83c\udcae"
@@ -7026,7 +8372,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
@@ -7044,19 +8390,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
@@ -7069,15 +8405,15 @@ public class Unicode_6_0 {
         + "\udb40\udd00\udb40\uddef"
         + "\udb80\udc00\udbbf\udffd"
         + "\udbc0\udc00\udbff\udffd",
-    // Unicode 6.0 property value: {avestan}
+    // Unicode 6.2 property value: {avestan}
     "\ud802\udf00\ud802\udf35" + "\ud802\udf39\ud802\udf3f",
-    // Unicode 6.0 property value: {balinese}
+    // Unicode 6.2 property value: {balinese}
     "\u1b00\u1b4b" + "\u1b50\u1b7c",
-    // Unicode 6.0 property value: {bamum}
+    // Unicode 6.2 property value: {bamum}
     "\ua6a0\ua6f7" + "\ud81a\udc00\ud81a\ude38",
-    // Unicode 6.0 property value: {batak}
+    // Unicode 6.2 property value: {batak}
     "\u1bc0\u1bf3" + "\u1bfc\u1bff",
-    // Unicode 6.0 property value: {bengali}
+    // Unicode 6.2 property value: {bengali}
     "\u0981\u0983"
         + "\u0985\u098c"
         + "\u098f\u0990"
@@ -7092,9 +8428,9 @@ public class Unicode_6_0 {
         + "\u09dc\u09dd"
         + "\u09df\u09e3"
         + "\u09e6\u09fb",
-    // Unicode 6.0 property value: {bidicontrol}
+    // Unicode 6.2 property value: {bidicontrol}
     "\u200e\u200f" + "\u202a\u202e",
-    // Unicode 6.0 property value: {blank}
+    // Unicode 6.2 property value: {blank}
     "\t\t"
         + "\u0020\u0020"
         + "\u00a0\u00a0"
@@ -7104,301 +8440,314 @@ public class Unicode_6_0 {
         + "\u202f\u202f"
         + "\u205f\u205f"
         + "\u3000\u3000",
-    // Unicode 6.0 property value: {block=aegeannumbers}
+    // Unicode 6.2 property value: {block=aegeannumbers}
     "\ud800\udd00\ud800\udd3f",
-    // Unicode 6.0 property value: {block=alchemicalsymbols}
+    // Unicode 6.2 property value: {block=alchemicalsymbols}
     "\ud83d\udf00\ud83d\udf7f",
-    // Unicode 6.0 property value: {block=alphabeticpresentationforms}
+    // Unicode 6.2 property value: {block=alphabeticpresentationforms}
     "\ufb00\ufb4f",
-    // Unicode 6.0 property value: {block=ancientgreekmusicalnotation}
+    // Unicode 6.2 property value: {block=ancientgreekmusicalnotation}
     "\ud834\ude00\ud834\ude4f",
-    // Unicode 6.0 property value: {block=ancientgreeknumbers}
+    // Unicode 6.2 property value: {block=ancientgreeknumbers}
     "\ud800\udd40\ud800\udd8f",
-    // Unicode 6.0 property value: {block=ancientsymbols}
+    // Unicode 6.2 property value: {block=ancientsymbols}
     "\ud800\udd90\ud800\uddcf",
-    // Unicode 6.0 property value: {block=arabic}
+    // Unicode 6.2 property value: {block=arabic}
     "\u0600\u06ff",
-    // Unicode 6.0 property value: {block=arabicpresentationformsa}
+    // Unicode 6.2 property value: {block=arabicextendeda}
+    "\u08a0\u08ff",
+    // Unicode 6.2 property value: {block=arabicmathematicalalphabeticsymbols}
+    "\ud83b\ude00\ud83b\udeff",
+    // Unicode 6.2 property value: {block=arabicpresentationformsa}
     "\ufb50\ufdff",
-    // Unicode 6.0 property value: {block=arabicpresentationformsb}
+    // Unicode 6.2 property value: {block=arabicpresentationformsb}
     "\ufe70\ufeff",
-    // Unicode 6.0 property value: {block=arabicsupplement}
+    // Unicode 6.2 property value: {block=arabicsupplement}
     "\u0750\u077f",
-    // Unicode 6.0 property value: {block=armenian}
+    // Unicode 6.2 property value: {block=armenian}
     "\u0530\u058f",
-    // Unicode 6.0 property value: {block=arrows}
+    // Unicode 6.2 property value: {block=arrows}
     "\u2190\u21ff",
-    // Unicode 6.0 property value: {block=avestan}
+    // Unicode 6.2 property value: {block=avestan}
     "\ud802\udf00\ud802\udf3f",
-    // Unicode 6.0 property value: {block=balinese}
+    // Unicode 6.2 property value: {block=balinese}
     "\u1b00\u1b7f",
-    // Unicode 6.0 property value: {block=bamum}
+    // Unicode 6.2 property value: {block=bamum}
     "\ua6a0\ua6ff",
-    // Unicode 6.0 property value: {block=bamumsupplement}
+    // Unicode 6.2 property value: {block=bamumsupplement}
     "\ud81a\udc00\ud81a\ude3f",
-    // Unicode 6.0 property value: {block=basiclatin}
+    // Unicode 6.2 property value: {block=basiclatin}
     "\000\u007f",
-    // Unicode 6.0 property value: {block=batak}
+    // Unicode 6.2 property value: {block=batak}
     "\u1bc0\u1bff",
-    // Unicode 6.0 property value: {block=bengali}
+    // Unicode 6.2 property value: {block=bengali}
     "\u0980\u09ff",
-    // Unicode 6.0 property value: {block=blockelements}
+    // Unicode 6.2 property value: {block=blockelements}
     "\u2580\u259f",
-    // Unicode 6.0 property value: {block=bopomofo}
+    // Unicode 6.2 property value: {block=bopomofo}
     "\u3100\u312f",
-    // Unicode 6.0 property value: {block=bopomofoextended}
+    // Unicode 6.2 property value: {block=bopomofoextended}
     "\u31a0\u31bf",
-    // Unicode 6.0 property value: {block=boxdrawing}
+    // Unicode 6.2 property value: {block=boxdrawing}
     "\u2500\u257f",
-    // Unicode 6.0 property value: {block=brahmi}
+    // Unicode 6.2 property value: {block=brahmi}
     "\ud804\udc00\ud804\udc7f",
-    // Unicode 6.0 property value: {block=braillepatterns}
+    // Unicode 6.2 property value: {block=braillepatterns}
     "\u2800\u28ff",
-    // Unicode 6.0 property value: {block=buginese}
+    // Unicode 6.2 property value: {block=buginese}
     "\u1a00\u1a1f",
-    // Unicode 6.0 property value: {block=buhid}
+    // Unicode 6.2 property value: {block=buhid}
     "\u1740\u175f",
-    // Unicode 6.0 property value: {block=byzantinemusicalsymbols}
+    // Unicode 6.2 property value: {block=byzantinemusicalsymbols}
     "\ud834\udc00\ud834\udcff",
-    // Unicode 6.0 property value: {block=carian}
+    // Unicode 6.2 property value: {block=carian}
     "\ud800\udea0\ud800\udedf",
-    // Unicode 6.0 property value: {block=cham}
+    // Unicode 6.2 property value: {block=chakma}
+    "\ud804\udd00\ud804\udd4f",
+    // Unicode 6.2 property value: {block=cham}
     "\uaa00\uaa5f",
-    // Unicode 6.0 property value: {block=cherokee}
+    // Unicode 6.2 property value: {block=cherokee}
     "\u13a0\u13ff",
-    // Unicode 6.0 property value: {block=cjkcompatibility}
+    // Unicode 6.2 property value: {block=cjkcompatibility}
     "\u3300\u33ff",
-    // Unicode 6.0 property value: {block=cjkcompatibilityforms}
+    // Unicode 6.2 property value: {block=cjkcompatibilityforms}
     "\ufe30\ufe4f",
-    // Unicode 6.0 property value: {block=cjkcompatibilityideographs}
+    // Unicode 6.2 property value: {block=cjkcompatibilityideographs}
     "\uf900\ufaff",
-    // Unicode 6.0 property value: {block=cjkcompatibilityideographssupplement}
+    // Unicode 6.2 property value: {block=cjkcompatibilityideographssupplement}
     "\ud87e\udc00\ud87e\ude1f",
-    // Unicode 6.0 property value: {block=cjkradicalssupplement}
+    // Unicode 6.2 property value: {block=cjkradicalssupplement}
     "\u2e80\u2eff",
-    // Unicode 6.0 property value: {block=cjkstrokes}
+    // Unicode 6.2 property value: {block=cjkstrokes}
     "\u31c0\u31ef",
-    // Unicode 6.0 property value: {block=cjksymbolsandpunctuation}
+    // Unicode 6.2 property value: {block=cjksymbolsandpunctuation}
     "\u3000\u303f",
-    // Unicode 6.0 property value: {block=cjkunifiedideographs}
+    // Unicode 6.2 property value: {block=cjkunifiedideographs}
     "\u4e00\u9fff",
-    // Unicode 6.0 property value: {block=cjkunifiedideographsextensiona}
+    // Unicode 6.2 property value: {block=cjkunifiedideographsextensiona}
     "\u3400\u4dbf",
-    // Unicode 6.0 property value: {block=cjkunifiedideographsextensionb}
+    // Unicode 6.2 property value: {block=cjkunifiedideographsextensionb}
     "\ud840\udc00\ud869\udedf",
-    // Unicode 6.0 property value: {block=cjkunifiedideographsextensionc}
+    // Unicode 6.2 property value: {block=cjkunifiedideographsextensionc}
     "\ud869\udf00\ud86d\udf3f",
-    // Unicode 6.0 property value: {block=cjkunifiedideographsextensiond}
+    // Unicode 6.2 property value: {block=cjkunifiedideographsextensiond}
     "\ud86d\udf40\ud86e\udc1f",
-    // Unicode 6.0 property value: {block=combiningdiacriticalmarks}
+    // Unicode 6.2 property value: {block=combiningdiacriticalmarks}
     "\u0300\u036f",
-    // Unicode 6.0 property value: {block=combiningdiacriticalmarksforsymbols}
+    // Unicode 6.2 property value: {block=combiningdiacriticalmarksforsymbols}
     "\u20d0\u20ff",
-    // Unicode 6.0 property value: {block=combiningdiacriticalmarkssupplement}
+    // Unicode 6.2 property value: {block=combiningdiacriticalmarkssupplement}
     "\u1dc0\u1dff",
-    // Unicode 6.0 property value: {block=combininghalfmarks}
+    // Unicode 6.2 property value: {block=combininghalfmarks}
     "\ufe20\ufe2f",
-    // Unicode 6.0 property value: {block=commonindicnumberforms}
+    // Unicode 6.2 property value: {block=commonindicnumberforms}
     "\ua830\ua83f",
-    // Unicode 6.0 property value: {block=controlpictures}
+    // Unicode 6.2 property value: {block=controlpictures}
     "\u2400\u243f",
-    // Unicode 6.0 property value: {block=coptic}
+    // Unicode 6.2 property value: {block=coptic}
     "\u2c80\u2cff",
-    // Unicode 6.0 property value: {block=countingrodnumerals}
+    // Unicode 6.2 property value: {block=countingrodnumerals}
     "\ud834\udf60\ud834\udf7f",
-    // Unicode 6.0 property value: {block=cuneiform}
+    // Unicode 6.2 property value: {block=cuneiform}
     "\ud808\udc00\ud808\udfff",
-    // Unicode 6.0 property value: {block=cuneiformnumbersandpunctuation}
+    // Unicode 6.2 property value: {block=cuneiformnumbersandpunctuation}
     "\ud809\udc00\ud809\udc7f",
-    // Unicode 6.0 property value: {block=currencysymbols}
+    // Unicode 6.2 property value: {block=currencysymbols}
     "\u20a0\u20cf",
-    // Unicode 6.0 property value: {block=cypriotsyllabary}
+    // Unicode 6.2 property value: {block=cypriotsyllabary}
     "\ud802\udc00\ud802\udc3f",
-    // Unicode 6.0 property value: {block=cyrillic}
+    // Unicode 6.2 property value: {block=cyrillic}
     "\u0400\u04ff",
-    // Unicode 6.0 property value: {block=cyrillicextendeda}
+    // Unicode 6.2 property value: {block=cyrillicextendeda}
     "\u2de0\u2dff",
-    // Unicode 6.0 property value: {block=cyrillicextendedb}
+    // Unicode 6.2 property value: {block=cyrillicextendedb}
     "\ua640\ua69f",
-    // Unicode 6.0 property value: {block=cyrillicsupplement}
+    // Unicode 6.2 property value: {block=cyrillicsupplement}
     "\u0500\u052f",
-    // Unicode 6.0 property value: {block=deseret}
+    // Unicode 6.2 property value: {block=deseret}
     "\ud801\udc00\ud801\udc4f",
-    // Unicode 6.0 property value: {block=devanagari}
+    // Unicode 6.2 property value: {block=devanagari}
     "\u0900\u097f",
-    // Unicode 6.0 property value: {block=devanagariextended}
+    // Unicode 6.2 property value: {block=devanagariextended}
     "\ua8e0\ua8ff",
-    // Unicode 6.0 property value: {block=dingbats}
+    // Unicode 6.2 property value: {block=dingbats}
     "\u2700\u27bf",
-    // Unicode 6.0 property value: {block=dominotiles}
+    // Unicode 6.2 property value: {block=dominotiles}
     "\ud83c\udc30\ud83c\udc9f",
-    // Unicode 6.0 property value: {block=egyptianhieroglyphs}
+    // Unicode 6.2 property value: {block=egyptianhieroglyphs}
     "\ud80c\udc00\ud80d\udc2f",
-    // Unicode 6.0 property value: {block=emoticons}
+    // Unicode 6.2 property value: {block=emoticons}
     "\ud83d\ude00\ud83d\ude4f",
-    // Unicode 6.0 property value: {block=enclosedalphanumerics}
+    // Unicode 6.2 property value: {block=enclosedalphanumerics}
     "\u2460\u24ff",
-    // Unicode 6.0 property value: {block=enclosedalphanumericsupplement}
+    // Unicode 6.2 property value: {block=enclosedalphanumericsupplement}
     "\ud83c\udd00\ud83c\uddff",
-    // Unicode 6.0 property value: {block=enclosedcjklettersandmonths}
+    // Unicode 6.2 property value: {block=enclosedcjklettersandmonths}
     "\u3200\u32ff",
-    // Unicode 6.0 property value: {block=enclosedideographicsupplement}
+    // Unicode 6.2 property value: {block=enclosedideographicsupplement}
     "\ud83c\ude00\ud83c\udeff",
-    // Unicode 6.0 property value: {block=ethiopic}
+    // Unicode 6.2 property value: {block=ethiopic}
     "\u1200\u137f",
-    // Unicode 6.0 property value: {block=ethiopicextended}
+    // Unicode 6.2 property value: {block=ethiopicextended}
     "\u2d80\u2ddf",
-    // Unicode 6.0 property value: {block=ethiopicextendeda}
+    // Unicode 6.2 property value: {block=ethiopicextendeda}
     "\uab00\uab2f",
-    // Unicode 6.0 property value: {block=ethiopicsupplement}
+    // Unicode 6.2 property value: {block=ethiopicsupplement}
     "\u1380\u139f",
-    // Unicode 6.0 property value: {block=generalpunctuation}
+    // Unicode 6.2 property value: {block=generalpunctuation}
     "\u2000\u206f",
-    // Unicode 6.0 property value: {block=geometricshapes}
+    // Unicode 6.2 property value: {block=geometricshapes}
     "\u25a0\u25ff",
-    // Unicode 6.0 property value: {block=georgian}
+    // Unicode 6.2 property value: {block=georgian}
     "\u10a0\u10ff",
-    // Unicode 6.0 property value: {block=georgiansupplement}
+    // Unicode 6.2 property value: {block=georgiansupplement}
     "\u2d00\u2d2f",
-    // Unicode 6.0 property value: {block=glagolitic}
+    // Unicode 6.2 property value: {block=glagolitic}
     "\u2c00\u2c5f",
-    // Unicode 6.0 property value: {block=gothic}
+    // Unicode 6.2 property value: {block=gothic}
     "\ud800\udf30\ud800\udf4f",
-    // Unicode 6.0 property value: {block=greekandcoptic}
+    // Unicode 6.2 property value: {block=greekandcoptic}
     "\u0370\u03ff",
-    // Unicode 6.0 property value: {block=greekextended}
+    // Unicode 6.2 property value: {block=greekextended}
     "\u1f00\u1fff",
-    // Unicode 6.0 property value: {block=gujarati}
+    // Unicode 6.2 property value: {block=gujarati}
     "\u0a80\u0aff",
-    // Unicode 6.0 property value: {block=gurmukhi}
+    // Unicode 6.2 property value: {block=gurmukhi}
     "\u0a00\u0a7f",
-    // Unicode 6.0 property value: {block=halfwidthandfullwidthforms}
+    // Unicode 6.2 property value: {block=halfwidthandfullwidthforms}
     "\uff00\uffef",
-    // Unicode 6.0 property value: {block=hangulcompatibilityjamo}
+    // Unicode 6.2 property value: {block=hangulcompatibilityjamo}
     "\u3130\u318f",
-    // Unicode 6.0 property value: {block=hanguljamo}
+    // Unicode 6.2 property value: {block=hanguljamo}
     "\u1100\u11ff",
-    // Unicode 6.0 property value: {block=hanguljamoextendeda}
+    // Unicode 6.2 property value: {block=hanguljamoextendeda}
     "\ua960\ua97f",
-    // Unicode 6.0 property value: {block=hanguljamoextendedb}
+    // Unicode 6.2 property value: {block=hanguljamoextendedb}
     "\ud7b0\ud7ff",
-    // Unicode 6.0 property value: {block=hangulsyllables}
+    // Unicode 6.2 property value: {block=hangulsyllables}
     "\uac00\ud7af",
-    // Unicode 6.0 property value: {block=hanunoo}
+    // Unicode 6.2 property value: {block=hanunoo}
     "\u1720\u173f",
-    // Unicode 6.0 property value: {block=hebrew}
+    // Unicode 6.2 property value: {block=hebrew}
     "\u0590\u05ff",
-    // Unicode 6.0 property value: {block=hiragana}
+    // Unicode 6.2 property value: {block=hiragana}
     "\u3040\u309f",
-    // Unicode 6.0 property value: {block=ideographicdescriptioncharacters}
+    // Unicode 6.2 property value: {block=ideographicdescriptioncharacters}
     "\u2ff0\u2fff",
-    // Unicode 6.0 property value: {block=imperialaramaic}
+    // Unicode 6.2 property value: {block=imperialaramaic}
     "\ud802\udc40\ud802\udc5f",
-    // Unicode 6.0 property value: {block=inscriptionalpahlavi}
+    // Unicode 6.2 property value: {block=inscriptionalpahlavi}
     "\ud802\udf60\ud802\udf7f",
-    // Unicode 6.0 property value: {block=inscriptionalparthian}
+    // Unicode 6.2 property value: {block=inscriptionalparthian}
     "\ud802\udf40\ud802\udf5f",
-    // Unicode 6.0 property value: {block=ipaextensions}
+    // Unicode 6.2 property value: {block=ipaextensions}
     "\u0250\u02af",
-    // Unicode 6.0 property value: {block=javanese}
+    // Unicode 6.2 property value: {block=javanese}
     "\ua980\ua9df",
-    // Unicode 6.0 property value: {block=kaithi}
+    // Unicode 6.2 property value: {block=kaithi}
     "\ud804\udc80\ud804\udccf",
-    // Unicode 6.0 property value: {block=kanasupplement}
+    // Unicode 6.2 property value: {block=kanasupplement}
     "\ud82c\udc00\ud82c\udcff",
-    // Unicode 6.0 property value: {block=kanbun}
+    // Unicode 6.2 property value: {block=kanbun}
     "\u3190\u319f",
-    // Unicode 6.0 property value: {block=kangxiradicals}
+    // Unicode 6.2 property value: {block=kangxiradicals}
     "\u2f00\u2fdf",
-    // Unicode 6.0 property value: {block=kannada}
+    // Unicode 6.2 property value: {block=kannada}
     "\u0c80\u0cff",
-    // Unicode 6.0 property value: {block=katakana}
+    // Unicode 6.2 property value: {block=katakana}
     "\u30a0\u30ff",
-    // Unicode 6.0 property value: {block=katakanaphoneticextensions}
+    // Unicode 6.2 property value: {block=katakanaphoneticextensions}
     "\u31f0\u31ff",
-    // Unicode 6.0 property value: {block=kayahli}
+    // Unicode 6.2 property value: {block=kayahli}
     "\ua900\ua92f",
-    // Unicode 6.0 property value: {block=kharoshthi}
+    // Unicode 6.2 property value: {block=kharoshthi}
     "\ud802\ude00\ud802\ude5f",
-    // Unicode 6.0 property value: {block=khmer}
+    // Unicode 6.2 property value: {block=khmer}
     "\u1780\u17ff",
-    // Unicode 6.0 property value: {block=khmersymbols}
+    // Unicode 6.2 property value: {block=khmersymbols}
     "\u19e0\u19ff",
-    // Unicode 6.0 property value: {block=lao}
+    // Unicode 6.2 property value: {block=lao}
     "\u0e80\u0eff",
-    // Unicode 6.0 property value: {block=latin1supplement}
+    // Unicode 6.2 property value: {block=latin1supplement}
     "\u0080\u00ff",
-    // Unicode 6.0 property value: {block=latinextendeda}
+    // Unicode 6.2 property value: {block=latinextendeda}
     "\u0100\u017f",
-    // Unicode 6.0 property value: {block=latinextendedadditional}
+    // Unicode 6.2 property value: {block=latinextendedadditional}
     "\u1e00\u1eff",
-    // Unicode 6.0 property value: {block=latinextendedb}
+    // Unicode 6.2 property value: {block=latinextendedb}
     "\u0180\u024f",
-    // Unicode 6.0 property value: {block=latinextendedc}
+    // Unicode 6.2 property value: {block=latinextendedc}
     "\u2c60\u2c7f",
-    // Unicode 6.0 property value: {block=latinextendedd}
+    // Unicode 6.2 property value: {block=latinextendedd}
     "\ua720\ua7ff",
-    // Unicode 6.0 property value: {block=lepcha}
+    // Unicode 6.2 property value: {block=lepcha}
     "\u1c00\u1c4f",
-    // Unicode 6.0 property value: {block=letterlikesymbols}
+    // Unicode 6.2 property value: {block=letterlikesymbols}
     "\u2100\u214f",
-    // Unicode 6.0 property value: {block=limbu}
+    // Unicode 6.2 property value: {block=limbu}
     "\u1900\u194f",
-    // Unicode 6.0 property value: {block=linearbideograms}
+    // Unicode 6.2 property value: {block=linearbideograms}
     "\ud800\udc80\ud800\udcff",
-    // Unicode 6.0 property value: {block=linearbsyllabary}
+    // Unicode 6.2 property value: {block=linearbsyllabary}
     "\ud800\udc00\ud800\udc7f",
-    // Unicode 6.0 property value: {block=lisu}
+    // Unicode 6.2 property value: {block=lisu}
     "\ua4d0\ua4ff",
-    // Unicode 6.0 property value: {block=lycian}
+    // Unicode 6.2 property value: {block=lycian}
     "\ud800\ude80\ud800\ude9f",
-    // Unicode 6.0 property value: {block=lydian}
+    // Unicode 6.2 property value: {block=lydian}
     "\ud802\udd20\ud802\udd3f",
-    // Unicode 6.0 property value: {block=mahjongtiles}
+    // Unicode 6.2 property value: {block=mahjongtiles}
     "\ud83c\udc00\ud83c\udc2f",
-    // Unicode 6.0 property value: {block=malayalam}
+    // Unicode 6.2 property value: {block=malayalam}
     "\u0d00\u0d7f",
-    // Unicode 6.0 property value: {block=mandaic}
+    // Unicode 6.2 property value: {block=mandaic}
     "\u0840\u085f",
-    // Unicode 6.0 property value: {block=mathematicalalphanumericsymbols}
+    // Unicode 6.2 property value: {block=mathematicalalphanumericsymbols}
     "\ud835\udc00\ud835\udfff",
-    // Unicode 6.0 property value: {block=mathematicaloperators}
+    // Unicode 6.2 property value: {block=mathematicaloperators}
     "\u2200\u22ff",
-    // Unicode 6.0 property value: {block=meeteimayek}
+    // Unicode 6.2 property value: {block=meeteimayek}
     "\uabc0\uabff",
-    // Unicode 6.0 property value: {block=miscellaneousmathematicalsymbolsa}
+    // Unicode 6.2 property value: {block=meeteimayekextensions}
+    "\uaae0\uaaff",
+    // Unicode 6.2 property value: {block=meroiticcursive}
+    "\ud802\udda0\ud802\uddff",
+    // Unicode 6.2 property value: {block=meroitichieroglyphs}
+    "\ud802\udd80\ud802\udd9f",
+    // Unicode 6.2 property value: {block=miao}
+    "\ud81b\udf00\ud81b\udf9f",
+    // Unicode 6.2 property value: {block=miscellaneousmathematicalsymbolsa}
     "\u27c0\u27ef",
-    // Unicode 6.0 property value: {block=miscellaneousmathematicalsymbolsb}
+    // Unicode 6.2 property value: {block=miscellaneousmathematicalsymbolsb}
     "\u2980\u29ff",
-    // Unicode 6.0 property value: {block=miscellaneoussymbols}
+    // Unicode 6.2 property value: {block=miscellaneoussymbols}
     "\u2600\u26ff",
-    // Unicode 6.0 property value: {block=miscellaneoussymbolsandarrows}
+    // Unicode 6.2 property value: {block=miscellaneoussymbolsandarrows}
     "\u2b00\u2bff",
-    // Unicode 6.0 property value: {block=miscellaneoussymbolsandpictographs}
+    // Unicode 6.2 property value: {block=miscellaneoussymbolsandpictographs}
     "\ud83c\udf00\ud83d\uddff",
-    // Unicode 6.0 property value: {block=miscellaneoustechnical}
+    // Unicode 6.2 property value: {block=miscellaneoustechnical}
     "\u2300\u23ff",
-    // Unicode 6.0 property value: {block=modifiertoneletters}
+    // Unicode 6.2 property value: {block=modifiertoneletters}
     "\ua700\ua71f",
-    // Unicode 6.0 property value: {block=mongolian}
+    // Unicode 6.2 property value: {block=mongolian}
     "\u1800\u18af",
-    // Unicode 6.0 property value: {block=musicalsymbols}
+    // Unicode 6.2 property value: {block=musicalsymbols}
     "\ud834\udd00\ud834\uddff",
-    // Unicode 6.0 property value: {block=myanmar}
+    // Unicode 6.2 property value: {block=myanmar}
     "\u1000\u109f",
-    // Unicode 6.0 property value: {block=myanmarextendeda}
+    // Unicode 6.2 property value: {block=myanmarextendeda}
     "\uaa60\uaa7f",
-    // Unicode 6.0 property value: {block=newtailue}
+    // Unicode 6.2 property value: {block=newtailue}
     "\u1980\u19df",
-    // Unicode 6.0 property value: {block=nko}
+    // Unicode 6.2 property value: {block=nko}
     "\u07c0\u07ff",
-    // Unicode 6.0 property value: {block=noblock}
-    "\u0860\u08ff"
+    // Unicode 6.2 property value: {block=noblock}
+    "\u0860\u089f"
         + "\u1ab0\u1aff"
-        + "\u1c80\u1ccf"
+        + "\u1c80\u1cbf"
         + "\u2fe0\u2fef"
         + "\ua9e0\ua9ff"
-        + "\uaae0\uaaff"
         + "\uab30\uabbf"
         + "\ud800\ude00\ud800\ude7f"
         + "\ud800\udee0\ud800\udeff"
@@ -7406,19 +8755,23 @@ public class Unicode_6_0 {
         + "\ud800\udfe0\ud800\udfff"
         + "\ud801\udcb0\ud801\udfff"
         + "\ud802\udc60\ud802\udcff"
-        + "\ud802\udd40\ud802\uddff"
+        + "\ud802\udd40\ud802\udd7f"
         + "\ud802\ude80\ud802\udeff"
         + "\ud802\udf80\ud802\udfff"
         + "\ud803\udc50\ud803\ude5f"
         + "\ud803\ude80\ud803\udfff"
-        + "\ud804\udcd0\ud807\udfff"
+        + "\ud804\udd50\ud804\udd7f"
+        + "\ud804\udde0\ud805\ude7f"
+        + "\ud805\uded0\ud807\udfff"
         + "\ud809\udc80\ud80b\udfff"
         + "\ud80d\udc30\ud819\udfff"
-        + "\ud81a\ude40\ud82b\udfff"
+        + "\ud81a\ude40\ud81b\udeff"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udd00\ud833\udfff"
         + "\ud834\ude50\ud834\udeff"
         + "\ud834\udf80\ud834\udfff"
-        + "\ud836\udc00\ud83b\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\udf00\ud83b\udfff"
         + "\ud83d\ude50\ud83d\ude7f"
         + "\ud83d\udf80\ud83f\udfff"
         + "\ud869\udee0\ud869\udeff"
@@ -7426,145 +8779,153 @@ public class Unicode_6_0 {
         + "\ud87e\ude20\udb3f\udfff"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udb7f\udfff",
-    // Unicode 6.0 property value: {block=numberforms}
+    // Unicode 6.2 property value: {block=numberforms}
     "\u2150\u218f",
-    // Unicode 6.0 property value: {block=ogham}
+    // Unicode 6.2 property value: {block=ogham}
     "\u1680\u169f",
-    // Unicode 6.0 property value: {block=olchiki}
+    // Unicode 6.2 property value: {block=olchiki}
     "\u1c50\u1c7f",
-    // Unicode 6.0 property value: {block=olditalic}
+    // Unicode 6.2 property value: {block=olditalic}
     "\ud800\udf00\ud800\udf2f",
-    // Unicode 6.0 property value: {block=oldpersian}
+    // Unicode 6.2 property value: {block=oldpersian}
     "\ud800\udfa0\ud800\udfdf",
-    // Unicode 6.0 property value: {block=oldsoutharabian}
+    // Unicode 6.2 property value: {block=oldsoutharabian}
     "\ud802\ude60\ud802\ude7f",
-    // Unicode 6.0 property value: {block=oldturkic}
+    // Unicode 6.2 property value: {block=oldturkic}
     "\ud803\udc00\ud803\udc4f",
-    // Unicode 6.0 property value: {block=opticalcharacterrecognition}
+    // Unicode 6.2 property value: {block=opticalcharacterrecognition}
     "\u2440\u245f",
-    // Unicode 6.0 property value: {block=oriya}
+    // Unicode 6.2 property value: {block=oriya}
     "\u0b00\u0b7f",
-    // Unicode 6.0 property value: {block=osmanya}
+    // Unicode 6.2 property value: {block=osmanya}
     "\ud801\udc80\ud801\udcaf",
-    // Unicode 6.0 property value: {block=phagspa}
+    // Unicode 6.2 property value: {block=phagspa}
     "\ua840\ua87f",
-    // Unicode 6.0 property value: {block=phaistosdisc}
+    // Unicode 6.2 property value: {block=phaistosdisc}
     "\ud800\uddd0\ud800\uddff",
-    // Unicode 6.0 property value: {block=phoenician}
+    // Unicode 6.2 property value: {block=phoenician}
     "\ud802\udd00\ud802\udd1f",
-    // Unicode 6.0 property value: {block=phoneticextensions}
+    // Unicode 6.2 property value: {block=phoneticextensions}
     "\u1d00\u1d7f",
-    // Unicode 6.0 property value: {block=phoneticextensionssupplement}
+    // Unicode 6.2 property value: {block=phoneticextensionssupplement}
     "\u1d80\u1dbf",
-    // Unicode 6.0 property value: {block=playingcards}
+    // Unicode 6.2 property value: {block=playingcards}
     "\ud83c\udca0\ud83c\udcff",
-    // Unicode 6.0 property value: {block=privateusearea}
+    // Unicode 6.2 property value: {block=privateusearea}
     "\ue000\uf8ff",
-    // Unicode 6.0 property value: {block=rejang}
+    // Unicode 6.2 property value: {block=rejang}
     "\ua930\ua95f",
-    // Unicode 6.0 property value: {block=ruminumeralsymbols}
+    // Unicode 6.2 property value: {block=ruminumeralsymbols}
     "\ud803\ude60\ud803\ude7f",
-    // Unicode 6.0 property value: {block=runic}
+    // Unicode 6.2 property value: {block=runic}
     "\u16a0\u16ff",
-    // Unicode 6.0 property value: {block=samaritan}
+    // Unicode 6.2 property value: {block=samaritan}
     "\u0800\u083f",
-    // Unicode 6.0 property value: {block=saurashtra}
+    // Unicode 6.2 property value: {block=saurashtra}
     "\ua880\ua8df",
-    // Unicode 6.0 property value: {block=shavian}
+    // Unicode 6.2 property value: {block=sharada}
+    "\ud804\udd80\ud804\udddf",
+    // Unicode 6.2 property value: {block=shavian}
     "\ud801\udc50\ud801\udc7f",
-    // Unicode 6.0 property value: {block=sinhala}
+    // Unicode 6.2 property value: {block=sinhala}
     "\u0d80\u0dff",
-    // Unicode 6.0 property value: {block=smallformvariants}
+    // Unicode 6.2 property value: {block=smallformvariants}
     "\ufe50\ufe6f",
-    // Unicode 6.0 property value: {block=spacingmodifierletters}
+    // Unicode 6.2 property value: {block=sorasompeng}
+    "\ud804\udcd0\ud804\udcff",
+    // Unicode 6.2 property value: {block=spacingmodifierletters}
     "\u02b0\u02ff",
-    // Unicode 6.0 property value: {block=specials}
+    // Unicode 6.2 property value: {block=specials}
     "\ufff0\uffff",
-    // Unicode 6.0 property value: {block=sundanese}
+    // Unicode 6.2 property value: {block=sundanese}
     "\u1b80\u1bbf",
-    // Unicode 6.0 property value: {block=superscriptsandsubscripts}
+    // Unicode 6.2 property value: {block=sundanesesupplement}
+    "\u1cc0\u1ccf",
+    // Unicode 6.2 property value: {block=superscriptsandsubscripts}
     "\u2070\u209f",
-    // Unicode 6.0 property value: {block=supplementalarrowsa}
+    // Unicode 6.2 property value: {block=supplementalarrowsa}
     "\u27f0\u27ff",
-    // Unicode 6.0 property value: {block=supplementalarrowsb}
+    // Unicode 6.2 property value: {block=supplementalarrowsb}
     "\u2900\u297f",
-    // Unicode 6.0 property value: {block=supplementalmathematicaloperators}
+    // Unicode 6.2 property value: {block=supplementalmathematicaloperators}
     "\u2a00\u2aff",
-    // Unicode 6.0 property value: {block=supplementalpunctuation}
+    // Unicode 6.2 property value: {block=supplementalpunctuation}
     "\u2e00\u2e7f",
-    // Unicode 6.0 property value: {block=supplementaryprivateuseareaa}
+    // Unicode 6.2 property value: {block=supplementaryprivateuseareaa}
     "\udb80\udc00\udbbf\udfff",
-    // Unicode 6.0 property value: {block=supplementaryprivateuseareab}
+    // Unicode 6.2 property value: {block=supplementaryprivateuseareab}
     "\udbc0\udc00\udbff\udfff",
-    // Unicode 6.0 property value: {block=sylotinagri}
+    // Unicode 6.2 property value: {block=sylotinagri}
     "\ua800\ua82f",
-    // Unicode 6.0 property value: {block=syriac}
+    // Unicode 6.2 property value: {block=syriac}
     "\u0700\u074f",
-    // Unicode 6.0 property value: {block=tagalog}
+    // Unicode 6.2 property value: {block=tagalog}
     "\u1700\u171f",
-    // Unicode 6.0 property value: {block=tagbanwa}
+    // Unicode 6.2 property value: {block=tagbanwa}
     "\u1760\u177f",
-    // Unicode 6.0 property value: {block=tags}
+    // Unicode 6.2 property value: {block=tags}
     "\udb40\udc00\udb40\udc7f",
-    // Unicode 6.0 property value: {block=taile}
+    // Unicode 6.2 property value: {block=taile}
     "\u1950\u197f",
-    // Unicode 6.0 property value: {block=taitham}
+    // Unicode 6.2 property value: {block=taitham}
     "\u1a20\u1aaf",
-    // Unicode 6.0 property value: {block=taiviet}
+    // Unicode 6.2 property value: {block=taiviet}
     "\uaa80\uaadf",
-    // Unicode 6.0 property value: {block=taixuanjingsymbols}
+    // Unicode 6.2 property value: {block=taixuanjingsymbols}
     "\ud834\udf00\ud834\udf5f",
-    // Unicode 6.0 property value: {block=tamil}
+    // Unicode 6.2 property value: {block=takri}
+    "\ud805\ude80\ud805\udecf",
+    // Unicode 6.2 property value: {block=tamil}
     "\u0b80\u0bff",
-    // Unicode 6.0 property value: {block=telugu}
+    // Unicode 6.2 property value: {block=telugu}
     "\u0c00\u0c7f",
-    // Unicode 6.0 property value: {block=thaana}
+    // Unicode 6.2 property value: {block=thaana}
     "\u0780\u07bf",
-    // Unicode 6.0 property value: {block=thai}
+    // Unicode 6.2 property value: {block=thai}
     "\u0e00\u0e7f",
-    // Unicode 6.0 property value: {block=tibetan}
+    // Unicode 6.2 property value: {block=tibetan}
     "\u0f00\u0fff",
-    // Unicode 6.0 property value: {block=tifinagh}
+    // Unicode 6.2 property value: {block=tifinagh}
     "\u2d30\u2d7f",
-    // Unicode 6.0 property value: {block=transportandmapsymbols}
+    // Unicode 6.2 property value: {block=transportandmapsymbols}
     "\ud83d\ude80\ud83d\udeff",
-    // Unicode 6.0 property value: {block=ugaritic}
+    // Unicode 6.2 property value: {block=ugaritic}
     "\ud800\udf80\ud800\udf9f",
-    // Unicode 6.0 property value: {block=unifiedcanadianaboriginalsyllabics}
+    // Unicode 6.2 property value: {block=unifiedcanadianaboriginalsyllabics}
     "\u1400\u167f",
-    // Unicode 6.0 property value: {block=unifiedcanadianaboriginalsyllabicsextended}
+    // Unicode 6.2 property value: {block=unifiedcanadianaboriginalsyllabicsextended}
     "\u18b0\u18ff",
-    // Unicode 6.0 property value: {block=vai}
+    // Unicode 6.2 property value: {block=vai}
     "\ua500\ua63f",
-    // Unicode 6.0 property value: {block=variationselectors}
+    // Unicode 6.2 property value: {block=variationselectors}
     "\ufe00\ufe0f",
-    // Unicode 6.0 property value: {block=variationselectorssupplement}
+    // Unicode 6.2 property value: {block=variationselectorssupplement}
     "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {block=vedicextensions}
+    // Unicode 6.2 property value: {block=vedicextensions}
     "\u1cd0\u1cff",
-    // Unicode 6.0 property value: {block=verticalforms}
+    // Unicode 6.2 property value: {block=verticalforms}
     "\ufe10\ufe1f",
-    // Unicode 6.0 property value: {block=yijinghexagramsymbols}
+    // Unicode 6.2 property value: {block=yijinghexagramsymbols}
     "\u4dc0\u4dff",
-    // Unicode 6.0 property value: {block=yiradicals}
+    // Unicode 6.2 property value: {block=yiradicals}
     "\ua490\ua4cf",
-    // Unicode 6.0 property value: {block=yisyllables}
+    // Unicode 6.2 property value: {block=yisyllables}
     "\ua000\ua48f",
-    // Unicode 6.0 property value: {bopomofo}
+    // Unicode 6.2 property value: {bopomofo}
     "\u02ea\u02eb" + "\u3105\u312d" + "\u31a0\u31ba",
-    // Unicode 6.0 property value: {brahmi}
+    // Unicode 6.2 property value: {brahmi}
     "\ud804\udc00\ud804\udc4d" + "\ud804\udc52\ud804\udc6f",
-    // Unicode 6.0 property value: {braille}
+    // Unicode 6.2 property value: {braille}
     "\u2800\u28ff",
-    // Unicode 6.0 property value: {buginese}
+    // Unicode 6.2 property value: {buginese}
     "\u1a00\u1a1b" + "\u1a1e\u1a1f",
-    // Unicode 6.0 property value: {buhid}
+    // Unicode 6.2 property value: {buhid}
     "\u1740\u1753",
-    // Unicode 6.0 property value: {canadianaboriginal}
+    // Unicode 6.2 property value: {canadianaboriginal}
     "\u1400\u167f" + "\u18b0\u18f5",
-    // Unicode 6.0 property value: {carian}
+    // Unicode 6.2 property value: {carian}
     "\ud800\udea0\ud800\uded0",
-    // Unicode 6.0 property value: {cased}
+    // Unicode 6.2 property value: {cased}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -7592,6 +8953,8 @@ public class Unicode_6_0 {
         + "\u0531\u0556"
         + "\u0561\u0587"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -7612,7 +8975,9 @@ public class Unicode_6_0 {
         + "\u1fe0\u1fec"
         + "\u1ff2\u1ff4"
         + "\u1ff6\u1ffc"
-        + "\u2090\u2094"
+        + "\u2071\u2071"
+        + "\u207f\u207f"
+        + "\u2090\u209c"
         + "\u2102\u2102"
         + "\u2107\u2107"
         + "\u210a\u2113"
@@ -7634,14 +8999,17 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua640\ua66d"
         + "\ua680\ua697"
         + "\ua722\ua787"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua7fa"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua7fa"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
         + "\uff21\uff3a"
@@ -7677,7 +9045,7 @@ public class Unicode_6_0 {
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb",
-    // Unicode 6.0 property value: {caseignorable}
+    // Unicode 6.2 property value: {caseignorable}
     "\u0027\u0027"
         + "\u002e\u002e"
         + "\u003a\u003a"
@@ -7701,7 +9069,7 @@ public class Unicode_6_0 {
         + "\u05c4\u05c5"
         + "\u05c7\u05c7"
         + "\u05f4\u05f4"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u0610\u061a"
         + "\u0640\u0640"
         + "\u064b\u065f"
@@ -7717,6 +9085,7 @@ public class Unicode_6_0 {
         + "\u07fa\u07fa"
         + "\u0816\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0902"
         + "\u093a\u093a"
         + "\u093c\u093c"
@@ -7836,6 +9205,7 @@ public class Unicode_6_0 {
         + "\u1b80\u1b81"
         + "\u1ba2\u1ba5"
         + "\u1ba8\u1ba9"
+        + "\u1bab\u1bab"
         + "\u1be6\u1be6"
         + "\u1be8\u1be9"
         + "\u1bed\u1bed"
@@ -7847,7 +9217,8 @@ public class Unicode_6_0 {
         + "\u1cd4\u1ce0"
         + "\u1ce2\u1ce8"
         + "\u1ced\u1ced"
-        + "\u1d2c\u1d61"
+        + "\u1cf4\u1cf4"
+        + "\u1d2c\u1d6a"
         + "\u1d78\u1d78"
         + "\u1d9b\u1de6"
         + "\u1dfc\u1dff"
@@ -7868,14 +9239,14 @@ public class Unicode_6_0 {
         + "\u207f\u207f"
         + "\u2090\u209c"
         + "\u20d0\u20f0"
-        + "\u2c7d\u2c7d"
+        + "\u2c7c\u2c7d"
         + "\u2cef\u2cf1"
         + "\u2d6f\u2d6f"
         + "\u2d7f\u2d7f"
         + "\u2de0\u2dff"
         + "\u2e2f\u2e2f"
         + "\u3005\u3005"
-        + "\u302a\u302f"
+        + "\u302a\u302d"
         + "\u3031\u3035"
         + "\u303b\u303b"
         + "\u3099\u309e"
@@ -7884,12 +9255,14 @@ public class Unicode_6_0 {
         + "\ua4f8\ua4fd"
         + "\ua60c\ua60c"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
         + "\ua67f\ua67f"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua700\ua721"
         + "\ua770\ua770"
         + "\ua788\ua78a"
+        + "\ua7f8\ua7f9"
         + "\ua802\ua802"
         + "\ua806\ua806"
         + "\ua80b\ua80b"
@@ -7915,6 +9288,9 @@ public class Unicode_6_0 {
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
         + "\uaadd\uaadd"
+        + "\uaaec\uaaed"
+        + "\uaaf3\uaaf4"
+        + "\uaaf6\uaaf6"
         + "\uabe5\uabe5"
         + "\uabe8\uabe8"
         + "\uabed\uabed"
@@ -7947,6 +9323,16 @@ public class Unicode_6_0 {
         + "\ud804\udcb3\ud804\udcb6"
         + "\ud804\udcb9\ud804\udcba"
         + "\ud804\udcbd\ud804\udcbd"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd2b"
+        + "\ud804\udd2d\ud804\udd34"
+        + "\ud804\udd80\ud804\udd81"
+        + "\ud804\uddb6\ud804\uddbe"
+        + "\ud805\udeab\ud805\udeab"
+        + "\ud805\udead\ud805\udead"
+        + "\ud805\udeb0\ud805\udeb5"
+        + "\ud805\udeb7\ud805\udeb7"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud834\udd67\ud834\udd69"
         + "\ud834\udd73\ud834\udd82"
         + "\ud834\udd85\ud834\udd8b"
@@ -7955,14 +9341,13 @@ public class Unicode_6_0 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {cc}
+    // Unicode 6.2 property value: {cc}
     "\000\u001f" + "\u007f\u009f",
-    // Unicode 6.0 property value: {cf}
+    // Unicode 6.2 property value: {cf}
     "\u00ad\u00ad"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u06dd\u06dd"
         + "\u070f\u070f"
-        + "\u17b4\u17b5"
         + "\u200b\u200f"
         + "\u202a\u202e"
         + "\u2060\u2064"
@@ -7973,9 +9358,11 @@ public class Unicode_6_0 {
         + "\ud834\udd73\ud834\udd7a"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {cham}
+    // Unicode 6.2 property value: {chakma}
+    "\ud804\udd00\ud804\udd34" + "\ud804\udd36\ud804\udd43",
+    // Unicode 6.2 property value: {cham}
     "\uaa00\uaa36" + "\uaa40\uaa4d" + "\uaa50\uaa59" + "\uaa5c\uaa5f",
-    // Unicode 6.0 property value: {changeswhencasefolded}
+    // Unicode 6.2 property value: {changeswhencasefolded}
     "\u0041\u005a"
         + "\u00b5\u00b5"
         + "\u00c0\u00d6"
@@ -8250,6 +9637,8 @@ public class Unicode_6_0 {
         + "\u0531\u0556"
         + "\u0587\u0587"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1e00\u1e00"
         + "\u1e02\u1e02"
         + "\u1e04\u1e04"
@@ -8461,6 +9850,7 @@ public class Unicode_6_0 {
         + "\u2ce2\u2ce2"
         + "\u2ceb\u2ceb"
         + "\u2ced\u2ced"
+        + "\u2cf2\u2cf2"
         + "\ua640\ua640"
         + "\ua642\ua642"
         + "\ua644\ua644"
@@ -8544,16 +9934,18 @@ public class Unicode_6_0 {
         + "\ua78b\ua78b"
         + "\ua78d\ua78d"
         + "\ua790\ua790"
+        + "\ua792\ua792"
         + "\ua7a0\ua7a0"
         + "\ua7a2\ua7a2"
         + "\ua7a4\ua7a4"
         + "\ua7a6\ua7a6"
         + "\ua7a8\ua7a8"
+        + "\ua7aa\ua7aa"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
         + "\uff21\uff3a"
         + "\ud801\udc00\ud801\udc27",
-    // Unicode 6.0 property value: {changeswhencasemapped}
+    // Unicode 6.2 property value: {changeswhencasemapped}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00b5\u00b5"
@@ -8574,7 +9966,7 @@ public class Unicode_6_0 {
         + "\u025b\u025b"
         + "\u0260\u0260"
         + "\u0263\u0263"
-        + "\u0265\u0265"
+        + "\u0265\u0266"
         + "\u0268\u0269"
         + "\u026b\u026b"
         + "\u026f\u026f"
@@ -8602,6 +9994,8 @@ public class Unicode_6_0 {
         + "\u0531\u0556"
         + "\u0561\u0587"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1d79\u1d79"
         + "\u1d7d\u1d7d"
         + "\u1e00\u1e9b"
@@ -8639,21 +10033,24 @@ public class Unicode_6_0 {
         + "\u2c75\u2c76"
         + "\u2c7e\u2ce3"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua640\ua66d"
         + "\ua680\ua697"
         + "\ua722\ua72f"
         + "\ua732\ua76f"
         + "\ua779\ua787"
         + "\ua78b\ua78d"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
         + "\uff21\uff3a"
         + "\uff41\uff5a"
         + "\ud801\udc00\ud801\udc4f",
-    // Unicode 6.0 property value: {changeswhenlowercased}
+    // Unicode 6.2 property value: {changeswhenlowercased}
     "\u0041\u005a"
         + "\u00c0\u00d6"
         + "\u00d8\u00de"
@@ -8921,6 +10318,8 @@ public class Unicode_6_0 {
         + "\u0526\u0526"
         + "\u0531\u0556"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1e00\u1e00"
         + "\u1e02\u1e02"
         + "\u1e04\u1e04"
@@ -9130,6 +10529,7 @@ public class Unicode_6_0 {
         + "\u2ce2\u2ce2"
         + "\u2ceb\u2ceb"
         + "\u2ced\u2ced"
+        + "\u2cf2\u2cf2"
         + "\ua640\ua640"
         + "\ua642\ua642"
         + "\ua644\ua644"
@@ -9213,14 +10613,16 @@ public class Unicode_6_0 {
         + "\ua78b\ua78b"
         + "\ua78d\ua78d"
         + "\ua790\ua790"
+        + "\ua792\ua792"
         + "\ua7a0\ua7a0"
         + "\ua7a2\ua7a2"
         + "\ua7a4\ua7a4"
         + "\ua7a6\ua7a6"
         + "\ua7a8\ua7a8"
+        + "\ua7aa\ua7aa"
         + "\uff21\uff3a"
         + "\ud801\udc00\ud801\udc27",
-    // Unicode 6.0 property value: {changeswhentitlecased}
+    // Unicode 6.2 property value: {changeswhentitlecased}
     "\u0061\u007a"
         + "\u00b5\u00b5"
         + "\u00df\u00f6"
@@ -9371,7 +10773,7 @@ public class Unicode_6_0 {
         + "\u025b\u025b"
         + "\u0260\u0260"
         + "\u0263\u0263"
-        + "\u0265\u0265"
+        + "\u0265\u0266"
         + "\u0268\u0269"
         + "\u026b\u026b"
         + "\u026f\u026f"
@@ -9712,7 +11114,10 @@ public class Unicode_6_0 {
         + "\u2ce3\u2ce3"
         + "\u2cec\u2cec"
         + "\u2cee\u2cee"
+        + "\u2cf3\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua641\ua641"
         + "\ua643\ua643"
         + "\ua645\ua645"
@@ -9795,6 +11200,7 @@ public class Unicode_6_0 {
         + "\ua787\ua787"
         + "\ua78c\ua78c"
         + "\ua791\ua791"
+        + "\ua793\ua793"
         + "\ua7a1\ua7a1"
         + "\ua7a3\ua7a3"
         + "\ua7a5\ua7a5"
@@ -9804,7 +11210,7 @@ public class Unicode_6_0 {
         + "\ufb13\ufb17"
         + "\uff41\uff5a"
         + "\ud801\udc28\ud801\udc4f",
-    // Unicode 6.0 property value: {changeswhenuppercased}
+    // Unicode 6.2 property value: {changeswhenuppercased}
     "\u0061\u007a"
         + "\u00b5\u00b5"
         + "\u00df\u00f6"
@@ -9954,7 +11360,7 @@ public class Unicode_6_0 {
         + "\u025b\u025b"
         + "\u0260\u0260"
         + "\u0263\u0263"
-        + "\u0265\u0265"
+        + "\u0265\u0266"
         + "\u0268\u0269"
         + "\u026b\u026b"
         + "\u026f\u026f"
@@ -10295,7 +11701,10 @@ public class Unicode_6_0 {
         + "\u2ce3\u2ce3"
         + "\u2cec\u2cec"
         + "\u2cee\u2cee"
+        + "\u2cf3\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua641\ua641"
         + "\ua643\ua643"
         + "\ua645\ua645"
@@ -10378,6 +11787,7 @@ public class Unicode_6_0 {
         + "\ua787\ua787"
         + "\ua78c\ua78c"
         + "\ua791\ua791"
+        + "\ua793\ua793"
         + "\ua7a1\ua7a1"
         + "\ua7a3\ua7a3"
         + "\ua7a5\ua7a5"
@@ -10387,9 +11797,9 @@ public class Unicode_6_0 {
         + "\ufb13\ufb17"
         + "\uff41\uff5a"
         + "\ud801\udc28\ud801\udc4f",
-    // Unicode 6.0 property value: {cherokee}
+    // Unicode 6.2 property value: {cherokee}
     "\u13a0\u13f4",
-    // Unicode 6.0 property value: {cn}
+    // Unicode 6.2 property value: {cn}
     "\u0378\u0379"
         + "\u037f\u0383"
         + "\u038b\u038b"
@@ -10399,11 +11809,12 @@ public class Unicode_6_0 {
         + "\u0557\u0558"
         + "\u0560\u0560"
         + "\u0588\u0588"
-        + "\u058b\u0590"
+        + "\u058b\u058e"
+        + "\u0590\u0590"
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f5\u05ff"
-        + "\u0604\u0605"
+        + "\u0605\u0605"
         + "\u061c\u061d"
         + "\u070e\u070e"
         + "\u074b\u074c"
@@ -10412,7 +11823,10 @@ public class Unicode_6_0 {
         + "\u082e\u082f"
         + "\u083f\u083f"
         + "\u085c\u085d"
-        + "\u085f\u08ff"
+        + "\u085f\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0978\u0978"
         + "\u0980\u0980"
         + "\u0984\u0984"
@@ -10457,7 +11871,6 @@ public class Unicode_6_0 {
         + "\u0ace\u0acf"
         + "\u0ad1\u0adf"
         + "\u0ae4\u0ae5"
-        + "\u0af0\u0af0"
         + "\u0af2\u0b00"
         + "\u0b04\u0b04"
         + "\u0b0d\u0b0e"
@@ -10558,15 +11971,16 @@ public class Unicode_6_0 {
         + "\u0ec7\u0ec7"
         + "\u0ece\u0ecf"
         + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
+        + "\u0ee0\u0eff"
         + "\u0f48\u0f48"
         + "\u0f6d\u0f70"
         + "\u0f98\u0f98"
         + "\u0fbd\u0fbd"
         + "\u0fcd\u0fcd"
         + "\u0fdb\u0fff"
-        + "\u10c6\u10cf"
-        + "\u10fd\u10ff"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -10620,13 +12034,12 @@ public class Unicode_6_0 {
         + "\u1aae\u1aff"
         + "\u1b4c\u1b4f"
         + "\u1b7d\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bfb"
         + "\u1c38\u1c3a"
         + "\u1c4a\u1c4c"
-        + "\u1c80\u1ccf"
-        + "\u1cf3\u1cff"
+        + "\u1c80\u1cbf"
+        + "\u1cc8\u1ccf"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -10648,22 +12061,22 @@ public class Unicode_6_0 {
         + "\u2072\u2073"
         + "\u208f\u208f"
         + "\u209d\u209f"
-        + "\u20ba\u20cf"
+        + "\u20bb\u20cf"
         + "\u20f1\u20ff"
         + "\u218a\u218f"
         + "\u23f4\u23ff"
         + "\u2427\u243f"
         + "\u244b\u245f"
         + "\u2700\u2700"
-        + "\u27cb\u27cb"
-        + "\u27cd\u27cd"
         + "\u2b4d\u2b4f"
         + "\u2b5a\u2bff"
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
-        + "\u2cf2\u2cf8"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cf8"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d71\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -10674,7 +12087,7 @@ public class Unicode_6_0 {
         + "\u2dcf\u2dcf"
         + "\u2dd7\u2dd7"
         + "\u2ddf\u2ddf"
-        + "\u2e32\u2e7f"
+        + "\u2e3c\u2e7f"
         + "\u2e9a\u2e9a"
         + "\u2ef4\u2eff"
         + "\u2fd6\u2fef"
@@ -10689,16 +12102,15 @@ public class Unicode_6_0 {
         + "\u321f\u321f"
         + "\u32ff\u32ff"
         + "\u4db6\u4dbf"
-        + "\u9fcc\u9fff"
+        + "\u9fcd\u9fff"
         + "\ua48d\ua48f"
         + "\ua4c7\ua4cf"
         + "\ua62c\ua63f"
-        + "\ua674\ua67b"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f8\ua6ff"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua82c\ua82f"
         + "\ua83a\ua83f"
         + "\ua878\ua87f"
@@ -10715,7 +12127,7 @@ public class Unicode_6_0 {
         + "\uaa5a\uaa5b"
         + "\uaa7c\uaa7f"
         + "\uaac3\uaada"
-        + "\uaae0\uab00"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -10726,7 +12138,6 @@ public class Unicode_6_0 {
         + "\ud7a4\ud7af"
         + "\ud7c7\ud7ca"
         + "\ud7fc\ud7ff"
-        + "\ufa2e\ufa2f"
         + "\ufa6e\ufa6f"
         + "\ufada\ufaff"
         + "\ufb07\ufb12"
@@ -10788,7 +12199,9 @@ public class Unicode_6_0 {
         + "\ud802\udc60\ud802\udcff"
         + "\ud802\udd1c\ud802\udd1e"
         + "\ud802\udd3a\ud802\udd3e"
-        + "\ud802\udd40\ud802\uddff"
+        + "\ud802\udd40\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -10806,12 +12219,23 @@ public class Unicode_6_0 {
         + "\ud803\ude7f\ud803\udfff"
         + "\ud804\udc4e\ud804\udc51"
         + "\ud804\udc70\ud804\udc7f"
-        + "\ud804\udcc2\ud807\udfff"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc9\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud809\udc6f"
         + "\ud809\udc74\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc02\ud833\udfff"
         + "\ud834\udcf6\ud834\udcff"
         + "\ud834\udd27\ud834\udd28"
@@ -10839,7 +12263,41 @@ public class Unicode_6_0 {
         + "\ud835\udd51\ud835\udd51"
         + "\ud835\udea6\ud835\udea7"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83b\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83b\udeef"
+        + "\ud83b\udef2\ud83b\udfff"
         + "\ud83c\udc2c\ud83c\udc2f"
         + "\ud83c\udc94\ud83c\udc9f"
         + "\ud83c\udcaf\ud83c\udcb0"
@@ -10848,7 +12306,7 @@ public class Unicode_6_0 {
         + "\ud83c\udce0\ud83c\udcff"
         + "\ud83c\udd0b\ud83c\udd0f"
         + "\ud83c\udd2f\ud83c\udd2f"
-        + "\ud83c\udd6a\ud83c\udd6f"
+        + "\ud83c\udd6c\ud83c\udd6f"
         + "\ud83c\udd9b\ud83c\udde5"
         + "\ud83c\ude03\ud83c\ude0f"
         + "\ud83c\ude3b\ud83c\ude3f"
@@ -10865,19 +12323,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc41\ud83d\udc41"
         + "\ud83d\udcf8\ud83d\udcf8"
         + "\ud83d\udcfd\ud83d\udcff"
-        + "\ud83d\udd3e\ud83d\udd4f"
+        + "\ud83d\udd3e\ud83d\udd3f"
+        + "\ud83d\udd44\ud83d\udd4f"
         + "\ud83d\udd68\ud83d\uddfa"
-        + "\ud83d\ude00\ud83d\ude00"
-        + "\ud83d\ude11\ud83d\ude11"
-        + "\ud83d\ude15\ud83d\ude15"
-        + "\ud83d\ude17\ud83d\ude17"
-        + "\ud83d\ude19\ud83d\ude19"
-        + "\ud83d\ude1b\ud83d\ude1b"
-        + "\ud83d\ude1f\ud83d\ude1f"
-        + "\ud83d\ude26\ud83d\ude27"
-        + "\ud83d\ude2c\ud83d\ude2c"
-        + "\ud83d\ude2e\ud83d\ude2f"
-        + "\ud83d\ude34\ud83d\ude34"
         + "\ud83d\ude41\ud83d\ude44"
         + "\ud83d\ude50\ud83d\ude7f"
         + "\ud83d\udec6\ud83d\udeff"
@@ -10891,9 +12339,9 @@ public class Unicode_6_0 {
         + "\udb40\uddf0\udb7f\udfff"
         + "\udbbf\udffe\udbbf\udfff"
         + "\udbff\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {co}
+    // Unicode 6.2 property value: {co}
     "\ue000\uf8ff" + "\udb80\udc00\udbbf\udffd" + "\udbc0\udc00\udbff\udffd",
-    // Unicode 6.0 property value: {common}
+    // Unicode 6.2 property value: {common}
     "\000\u0040"
         + "\u005b\u0060"
         + "\u007b\u00a9"
@@ -10916,7 +12364,6 @@ public class Unicode_6_0 {
         + "\u0660\u0669"
         + "\u06dd\u06dd"
         + "\u0964\u0965"
-        + "\u0970\u0970"
         + "\u0e3f\u0e3f"
         + "\u0fd5\u0fd8"
         + "\u10fb\u10fb"
@@ -10927,13 +12374,14 @@ public class Unicode_6_0 {
         + "\u1cd3\u1cd3"
         + "\u1ce1\u1ce1"
         + "\u1ce9\u1cec"
-        + "\u1cee\u1cf2"
+        + "\u1cee\u1cf3"
+        + "\u1cf5\u1cf6"
         + "\u2000\u200b"
         + "\u200e\u2064"
         + "\u206a\u2070"
         + "\u2074\u207e"
         + "\u2080\u208e"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u2100\u2125"
         + "\u2127\u2129"
         + "\u212c\u2131"
@@ -10944,12 +12392,10 @@ public class Unicode_6_0 {
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u27ff"
+        + "\u2701\u27ff"
         + "\u2900\u2b4c"
         + "\u2b50\u2b59"
-        + "\u2e00\u2e31"
+        + "\u2e00\u2e3b"
         + "\u2ff0\u2ffb"
         + "\u3000\u3004"
         + "\u3006\u3006"
@@ -11026,7 +12472,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\uddff"
         + "\ud83c\ude01\ud83c\ude02"
@@ -11045,44 +12491,34 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {coptic}
-    "\u03e2\u03ef" + "\u2c80\u2cf1" + "\u2cf9\u2cff",
-    // Unicode 6.0 property value: {cuneiform}
+    // Unicode 6.2 property value: {coptic}
+    "\u03e2\u03ef" + "\u2c80\u2cf3" + "\u2cf9\u2cff",
+    // Unicode 6.2 property value: {cuneiform}
     "\ud808\udc00\ud808\udf6e" + "\ud809\udc00\ud809\udc62" + "\ud809\udc70\ud809\udc73",
-    // Unicode 6.0 property value: {cypriot}
+    // Unicode 6.2 property value: {cypriot}
     "\ud802\udc00\ud802\udc05"
         + "\ud802\udc08\ud802\udc08"
         + "\ud802\udc0a\ud802\udc35"
         + "\ud802\udc37\ud802\udc38"
         + "\ud802\udc3c\ud802\udc3c"
         + "\ud802\udc3f\ud802\udc3f",
-    // Unicode 6.0 property value: {cyrillic}
+    // Unicode 6.2 property value: {cyrillic}
     "\u0400\u0484"
         + "\u0487\u0527"
         + "\u1d2b\u1d2b"
         + "\u1d78\u1d78"
         + "\u2de0\u2dff"
-        + "\ua640\ua673"
-        + "\ua67c\ua697",
-    // Unicode 6.0 property value: {dash}
+        + "\ua640\ua697"
+        + "\ua69f\ua69f",
+    // Unicode 6.2 property value: {dash}
     "\u002d\u002d"
         + "\u058a\u058a"
         + "\u05be\u05be"
@@ -11095,6 +12531,7 @@ public class Unicode_6_0 {
         + "\u2212\u2212"
         + "\u2e17\u2e17"
         + "\u2e1a\u2e1a"
+        + "\u2e3a\u2e3b"
         + "\u301c\u301c"
         + "\u3030\u3030"
         + "\u30a0\u30a0"
@@ -11102,7 +12539,7 @@ public class Unicode_6_0 {
         + "\ufe58\ufe58"
         + "\ufe63\ufe63"
         + "\uff0d\uff0d",
-    // Unicode 6.0 property value: {defaultignorablecodepoint}
+    // Unicode 6.2 property value: {defaultignorablecodepoint}
     "\u00ad\u00ad"
         + "\u034f\u034f"
         + "\u115f\u1160"
@@ -11118,7 +12555,7 @@ public class Unicode_6_0 {
         + "\ufff0\ufff8"
         + "\ud834\udd73\ud834\udd7a"
         + "\udb40\udc00\udb43\udfff",
-    // Unicode 6.0 property value: {deprecated}
+    // Unicode 6.2 property value: {deprecated}
     "\u0149\u0149"
         + "\u0673\u0673"
         + "\u0f77\u0f77"
@@ -11128,16 +12565,11 @@ public class Unicode_6_0 {
         + "\u2329\u232a"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {deseret}
+    // Unicode 6.2 property value: {deseret}
     "\ud801\udc00\ud801\udc4f",
-    // Unicode 6.0 property value: {devanagari}
-    "\u0900\u0950"
-        + "\u0953\u0963"
-        + "\u0966\u096f"
-        + "\u0971\u0977"
-        + "\u0979\u097f"
-        + "\ua8e0\ua8fb",
-    // Unicode 6.0 property value: {diacritic}
+    // Unicode 6.2 property value: {devanagari}
+    "\u0900\u0950" + "\u0953\u0963" + "\u0966\u0977" + "\u0979\u097f" + "\ua8e0\ua8fb",
+    // Unicode 6.2 property value: {diacritic}
     "\u005e\u005e"
         + "\u0060\u0060"
         + "\u00a8\u00a8"
@@ -11166,6 +12598,7 @@ public class Unicode_6_0 {
         + "\u07a6\u07b0"
         + "\u07eb\u07f5"
         + "\u0818\u0819"
+        + "\u08e4\u08fe"
         + "\u093c\u093c"
         + "\u094d\u094d"
         + "\u0951\u0954"
@@ -11208,11 +12641,12 @@ public class Unicode_6_0 {
         + "\u1b34\u1b34"
         + "\u1b44\u1b44"
         + "\u1b6b\u1b73"
-        + "\u1baa\u1baa"
+        + "\u1baa\u1bab"
         + "\u1c36\u1c37"
         + "\u1c78\u1c7d"
         + "\u1cd0\u1ce8"
         + "\u1ced\u1ced"
+        + "\u1cf4\u1cf4"
         + "\u1d2c\u1d6a"
         + "\u1dc4\u1dcf"
         + "\u1dfd\u1dff"
@@ -11233,6 +12667,7 @@ public class Unicode_6_0 {
         + "\ua6f0\ua6f1"
         + "\ua717\ua721"
         + "\ua788\ua788"
+        + "\ua7f8\ua7f9"
         + "\ua8c4\ua8c4"
         + "\ua8e0\ua8f1"
         + "\ua92b\ua92e"
@@ -11241,6 +12676,7 @@ public class Unicode_6_0 {
         + "\ua9c0\ua9c0"
         + "\uaa7b\uaa7b"
         + "\uaabf\uaac2"
+        + "\uaaf6\uaaf6"
         + "\uabec\uabed"
         + "\ufb1e\ufb1e"
         + "\ufe20\ufe26"
@@ -11250,14 +12686,18 @@ public class Unicode_6_0 {
         + "\uff9e\uff9f"
         + "\uffe3\uffe3"
         + "\ud804\udcb9\ud804\udcba"
+        + "\ud804\udd33\ud804\udd34"
+        + "\ud804\uddc0\ud804\uddc0"
+        + "\ud805\udeb6\ud805\udeb7"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud834\udd67\ud834\udd69"
         + "\ud834\udd6d\ud834\udd72"
         + "\ud834\udd7b\ud834\udd82"
         + "\ud834\udd85\ud834\udd8b"
         + "\ud834\uddaa\ud834\uddad",
-    // Unicode 6.0 property value: {egyptianhieroglyphs}
+    // Unicode 6.2 property value: {egyptianhieroglyphs}
     "\ud80c\udc00\ud80d\udc2e",
-    // Unicode 6.0 property value: {ethiopic}
+    // Unicode 6.2 property value: {ethiopic}
     "\u1200\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
@@ -11290,13 +12730,14 @@ public class Unicode_6_0 {
         + "\uab11\uab16"
         + "\uab20\uab26"
         + "\uab28\uab2e",
-    // Unicode 6.0 property value: {extender}
+    // Unicode 6.2 property value: {extender}
     "\u00b7\u00b7"
         + "\u02d0\u02d1"
         + "\u0640\u0640"
         + "\u07fa\u07fa"
         + "\u0e46\u0e46"
         + "\u0ec6\u0ec6"
+        + "\u180a\u180a"
         + "\u1843\u1843"
         + "\u1aa7\u1aa7"
         + "\u1c36\u1c36"
@@ -11310,14 +12751,22 @@ public class Unicode_6_0 {
         + "\ua9cf\ua9cf"
         + "\uaa70\uaa70"
         + "\uaadd\uaadd"
+        + "\uaaf3\uaaf4"
         + "\uff70\uff70",
-    // Unicode 6.0 property value: {georgian}
-    "\u10a0\u10c5" + "\u10d0\u10fa" + "\u10fc\u10fc" + "\u2d00\u2d25",
-    // Unicode 6.0 property value: {glagolitic}
+    // Unicode 6.2 property value: {georgian}
+    "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u10fa"
+        + "\u10fc\u10ff"
+        + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d",
+    // Unicode 6.2 property value: {glagolitic}
     "\u2c00\u2c2e" + "\u2c30\u2c5e",
-    // Unicode 6.0 property value: {gothic}
+    // Unicode 6.2 property value: {gothic}
     "\ud800\udf30\ud800\udf4a",
-    // Unicode 6.0 property value: {graph}
+    // Unicode 6.2 property value: {graph}
     "\u0021\u007e"
         + "\u00a1\u0377"
         + "\u037a\u037e"
@@ -11329,10 +12778,11 @@ public class Unicode_6_0 {
         + "\u0559\u055f"
         + "\u0561\u0587"
         + "\u0589\u058a"
+        + "\u058f\u058f"
         + "\u0591\u05c7"
         + "\u05d0\u05ea"
         + "\u05f0\u05f4"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u0606\u061b"
         + "\u061e\u070d"
         + "\u070f\u074a"
@@ -11342,6 +12792,9 @@ public class Unicode_6_0 {
         + "\u0830\u083e"
         + "\u0840\u085b"
         + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\u0900\u0977"
         + "\u0979\u097f"
         + "\u0981\u0983"
@@ -11386,8 +12839,7 @@ public class Unicode_6_0 {
         + "\u0acb\u0acd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae3"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1"
+        + "\u0ae6\u0af1"
         + "\u0b01\u0b03"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
@@ -11487,7 +12939,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f47"
         + "\u0f49\u0f6c"
         + "\u0f71\u0f97"
@@ -11495,8 +12947,9 @@ public class Unicode_6_0 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fda"
         + "\u1000\u10c5"
-        + "\u10d0\u10fc"
-        + "\u1100\u1248"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -11550,13 +13003,12 @@ public class Unicode_6_0 {
         + "\u1aa0\u1aad"
         + "\u1b00\u1b4b"
         + "\u1b50\u1b7c"
-        + "\u1b80\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1bf3"
+        + "\u1b80\u1bf3"
         + "\u1bfc\u1c37"
         + "\u1c3b\u1c49"
         + "\u1c4d\u1c7f"
-        + "\u1cd0\u1cf2"
+        + "\u1cc0\u1cc7"
+        + "\u1cd0\u1cf6"
         + "\u1d00\u1de6"
         + "\u1dfc\u1f15"
         + "\u1f18\u1f1d"
@@ -11581,22 +13033,22 @@ public class Unicode_6_0 {
         + "\u206a\u2071"
         + "\u2074\u208e"
         + "\u2090\u209c"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u20d0\u20f0"
         + "\u2100\u2189"
         + "\u2190\u23f3"
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u2b4c"
+        + "\u2701\u2b4c"
         + "\u2b50\u2b59"
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
-        + "\u2c60\u2cf1"
+        + "\u2c60\u2cf3"
         + "\u2cf9\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d70"
         + "\u2d7f\u2d96"
         + "\u2da0\u2da6"
@@ -11607,7 +13059,7 @@ public class Unicode_6_0 {
         + "\u2dc8\u2dce"
         + "\u2dd0\u2dd6"
         + "\u2dd8\u2dde"
-        + "\u2de0\u2e31"
+        + "\u2de0\u2e3b"
         + "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -11622,17 +13074,16 @@ public class Unicode_6_0 {
         + "\u31f0\u321e"
         + "\u3220\u32fe"
         + "\u3300\u4db5"
-        + "\u4dc0\u9fcb"
+        + "\u4dc0\u9fcc"
         + "\ua000\ua48c"
         + "\ua490\ua4c6"
         + "\ua4d0\ua62b"
-        + "\ua640\ua673"
-        + "\ua67c\ua697"
-        + "\ua6a0\ua6f7"
+        + "\ua640\ua697"
+        + "\ua69f\ua6f7"
         + "\ua700\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua82b"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua82b"
         + "\ua830\ua839"
         + "\ua840\ua877"
         + "\ua880\ua8c4"
@@ -11648,7 +13099,7 @@ public class Unicode_6_0 {
         + "\uaa50\uaa59"
         + "\uaa5c\uaa7b"
         + "\uaa80\uaac2"
-        + "\uaadb\uaadf"
+        + "\uaadb\uaaf6"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -11659,8 +13110,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\ue000\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\ue000\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -11722,6 +13172,8 @@ public class Unicode_6_0 {
         + "\ud802\udd00\ud802\udd1b"
         + "\ud802\udd1f\ud802\udd39"
         + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -11740,11 +13192,22 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc4d"
         + "\ud804\udc52\ud804\udc6f"
         + "\ud804\udc80\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd80\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud809\udc70\ud809\udc73"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udc00\ud834\udcf5"
         + "\ud834\udd00\ud834\udd26"
@@ -11773,6 +13236,40 @@ public class Unicode_6_0 {
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
         + "\ud83c\udc00\ud83c\udc2b"
         + "\ud83c\udc30\ud83c\udc93"
         + "\ud83c\udca0\ud83c\udcae"
@@ -11781,7 +13278,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
@@ -11799,19 +13296,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
@@ -11824,7 +13311,7 @@ public class Unicode_6_0 {
         + "\udb40\udd00\udb40\uddef"
         + "\udb80\udc00\udbbf\udffd"
         + "\udbc0\udc00\udbff\udffd",
-    // Unicode 6.0 property value: {graphemebase}
+    // Unicode 6.2 property value: {graphemebase}
     "\u0020\u007e"
         + "\u00a0\u00ac"
         + "\u00ae\u02ff"
@@ -11839,6 +13326,7 @@ public class Unicode_6_0 {
         + "\u0559\u055f"
         + "\u0561\u0587"
         + "\u0589\u058a"
+        + "\u058f\u058f"
         + "\u05be\u05be"
         + "\u05c0\u05c0"
         + "\u05c3\u05c3"
@@ -11867,6 +13355,8 @@ public class Unicode_6_0 {
         + "\u0830\u083e"
         + "\u0840\u0858"
         + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0903\u0939"
         + "\u093b\u093b"
         + "\u093d\u0940"
@@ -11915,8 +13405,7 @@ public class Unicode_6_0 {
         + "\u0acb\u0acc"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae1"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1"
+        + "\u0ae6\u0af1"
         + "\u0b02\u0b03"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
@@ -12016,7 +13505,7 @@ public class Unicode_6_0 {
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f17"
         + "\u0f1a\u0f34"
         + "\u0f36\u0f36"
@@ -12041,8 +13530,9 @@ public class Unicode_6_0 {
         + "\u1087\u108c"
         + "\u108e\u109c"
         + "\u109e\u10c5"
-        + "\u10d0\u10fc"
-        + "\u1100\u1248"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -12115,8 +13605,7 @@ public class Unicode_6_0 {
         + "\u1b82\u1ba1"
         + "\u1ba6\u1ba7"
         + "\u1baa\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1be5"
+        + "\u1bac\u1be5"
         + "\u1be7\u1be7"
         + "\u1bea\u1bec"
         + "\u1bee\u1bee"
@@ -12125,10 +13614,12 @@ public class Unicode_6_0 {
         + "\u1c34\u1c35"
         + "\u1c3b\u1c49"
         + "\u1c4d\u1c7f"
+        + "\u1cc0\u1cc7"
         + "\u1cd3\u1cd3"
         + "\u1ce1\u1ce1"
         + "\u1ce9\u1cec"
-        + "\u1cee\u1cf2"
+        + "\u1cee\u1cf3"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -12152,21 +13643,22 @@ public class Unicode_6_0 {
         + "\u2070\u2071"
         + "\u2074\u208e"
         + "\u2090\u209c"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u2100\u2189"
         + "\u2190\u23f3"
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u2b4c"
+        + "\u2701\u2b4c"
         + "\u2b50\u2b59"
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
         + "\u2c60\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2cf9\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d70"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -12177,7 +13669,7 @@ public class Unicode_6_0 {
         + "\u2dc8\u2dce"
         + "\u2dd0\u2dd6"
         + "\u2dd8\u2dde"
-        + "\u2e00\u2e31"
+        + "\u2e00\u2e3b"
         + "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -12193,7 +13685,7 @@ public class Unicode_6_0 {
         + "\u31f0\u321e"
         + "\u3220\u32fe"
         + "\u3300\u4db5"
-        + "\u4dc0\u9fcb"
+        + "\u4dc0\u9fcc"
         + "\ua000\ua48c"
         + "\ua490\ua4c6"
         + "\ua4d0\ua62b"
@@ -12203,9 +13695,9 @@ public class Unicode_6_0 {
         + "\ua6a0\ua6ef"
         + "\ua6f2\ua6f7"
         + "\ua700\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua824"
@@ -12239,7 +13731,8 @@ public class Unicode_6_0 {
         + "\uaab9\uaabd"
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
-        + "\uaadb\uaadf"
+        + "\uaadb\uaaeb"
+        + "\uaaee\uaaf5"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -12252,8 +13745,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -12315,6 +13807,8 @@ public class Unicode_6_0 {
         + "\ud802\udd00\ud802\udd1b"
         + "\ud802\udd1f\ud802\udd39"
         + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -12336,11 +13830,27 @@ public class Unicode_6_0 {
         + "\ud804\udcb7\ud804\udcb8"
         + "\ud804\udcbb\ud804\udcbc"
         + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd2c\ud804\udd2c"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd82\ud804\uddb5"
+        + "\ud804\uddbf\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeaa"
+        + "\ud805\udeac\ud805\udeac"
+        + "\ud805\udeae\ud805\udeaf"
+        + "\ud805\udeb6\ud805\udeb6"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud809\udc70\ud809\udc73"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udc00\ud834\udcf5"
         + "\ud834\udd00\ud834\udd26"
@@ -12375,6 +13885,40 @@ public class Unicode_6_0 {
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
         + "\ud83c\udc00\ud83c\udc2b"
         + "\ud83c\udc30\ud83c\udc93"
         + "\ud83c\udca0\ud83c\udcae"
@@ -12383,7 +13927,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
@@ -12401,19 +13945,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
@@ -12421,30 +13955,28 @@ public class Unicode_6_0 {
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {graphemeclusterbreak=control}
+    // Unicode 6.2 property value: {graphemeclusterbreak=control}
     "\000\t"
         + "\u000b\f"
         + "\u000e\u001f"
         + "\u007f\u009f"
         + "\u00ad\u00ad"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u06dd\u06dd"
         + "\u070f\u070f"
-        + "\u17b4\u17b5"
         + "\u200b\u200b"
         + "\u200e\u200f"
         + "\u2028\u202e"
-        + "\u2060\u2064"
-        + "\u206a\u206f"
+        + "\u2060\u206f"
         + "\ufeff\ufeff"
-        + "\ufff9\ufffb"
+        + "\ufff0\ufffb"
         + "\ud804\udcbd\ud804\udcbd"
         + "\ud834\udd73\ud834\udd7a"
-        + "\udb40\udc01\udb40\udc01"
-        + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {graphemeclusterbreak=cr}
+        + "\udb40\udc00\udb40\udcff"
+        + "\udb40\uddf0\udb43\udfff",
+    // Unicode 6.2 property value: {graphemeclusterbreak=cr}
     "\r\r",
-    // Unicode 6.0 property value: {graphemeclusterbreak=extend}
+    // Unicode 6.2 property value: {graphemeclusterbreak=extend}
     "\u0300\u036f"
         + "\u0483\u0489"
         + "\u0591\u05bd"
@@ -12468,6 +14000,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0902"
         + "\u093a\u093a"
         + "\u093c\u093c"
@@ -12563,6 +14096,7 @@ public class Unicode_6_0 {
         + "\u1732\u1734"
         + "\u1752\u1753"
         + "\u1772\u1773"
+        + "\u17b4\u17b5"
         + "\u17b7\u17bd"
         + "\u17c6\u17c6"
         + "\u17c9\u17d3"
@@ -12590,6 +14124,7 @@ public class Unicode_6_0 {
         + "\u1b80\u1b81"
         + "\u1ba2\u1ba5"
         + "\u1ba8\u1ba9"
+        + "\u1bab\u1bab"
         + "\u1be6\u1be6"
         + "\u1be8\u1be9"
         + "\u1bed\u1bed"
@@ -12600,6 +14135,7 @@ public class Unicode_6_0 {
         + "\u1cd4\u1ce0"
         + "\u1ce2\u1ce8"
         + "\u1ced\u1ced"
+        + "\u1cf4\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
@@ -12610,7 +14146,8 @@ public class Unicode_6_0 {
         + "\u302a\u302f"
         + "\u3099\u309a"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -12634,6 +14171,8 @@ public class Unicode_6_0 {
         + "\uaab7\uaab8"
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
+        + "\uaaec\uaaed"
+        + "\uaaf6\uaaf6"
         + "\uabe5\uabe5"
         + "\uabe8\uabe8"
         + "\uabed\uabed"
@@ -12652,6 +14191,16 @@ public class Unicode_6_0 {
         + "\ud804\udc80\ud804\udc81"
         + "\ud804\udcb3\ud804\udcb6"
         + "\ud804\udcb9\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd2b"
+        + "\ud804\udd2d\ud804\udd34"
+        + "\ud804\udd80\ud804\udd81"
+        + "\ud804\uddb6\ud804\uddbe"
+        + "\ud805\udeab\ud805\udeab"
+        + "\ud805\udead\ud805\udead"
+        + "\ud805\udeb0\ud805\udeb5"
+        + "\ud805\udeb7\ud805\udeb7"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd65\ud834\udd65"
         + "\ud834\udd67\ud834\udd69"
         + "\ud834\udd6e\ud834\udd72"
@@ -12660,11 +14209,11 @@ public class Unicode_6_0 {
         + "\ud834\uddaa\ud834\uddad"
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {graphemeclusterbreak=l}
+    // Unicode 6.2 property value: {graphemeclusterbreak=l}
     "\u1100\u115f" + "\ua960\ua97c",
-    // Unicode 6.0 property value: {graphemeclusterbreak=lf}
+    // Unicode 6.2 property value: {graphemeclusterbreak=lf}
     "\n\n",
-    // Unicode 6.0 property value: {graphemeclusterbreak=lv}
+    // Unicode 6.2 property value: {graphemeclusterbreak=lv}
     "\uac00\uac00"
         + "\uac1c\uac1c"
         + "\uac38\uac38"
@@ -13064,7 +14613,7 @@ public class Unicode_6_0 {
         + "\ud750\ud750"
         + "\ud76c\ud76c"
         + "\ud788\ud788",
-    // Unicode 6.0 property value: {graphemeclusterbreak=lvt}
+    // Unicode 6.2 property value: {graphemeclusterbreak=lvt}
     "\uac01\uac1b"
         + "\uac1d\uac37"
         + "\uac39\uac53"
@@ -13464,7 +15013,7 @@ public class Unicode_6_0 {
         + "\ud751\ud76b"
         + "\ud76d\ud787"
         + "\ud789\ud7a3",
-    // Unicode 6.0 property value: {graphemeclusterbreak=other}
+    // Unicode 6.2 property value: {graphemeclusterbreak=other}
     "\u0020\u007e"
         + "\u00a0\u00ac"
         + "\u00ae\u02ff"
@@ -13475,7 +15024,7 @@ public class Unicode_6_0 {
         + "\u05c3\u05c3"
         + "\u05c6\u05c6"
         + "\u05c8\u05ff"
-        + "\u0604\u060f"
+        + "\u0605\u060f"
         + "\u061b\u064a"
         + "\u0660\u066f"
         + "\u0671\u06d5"
@@ -13492,7 +15041,8 @@ public class Unicode_6_0 {
         + "\u0824\u0824"
         + "\u0828\u0828"
         + "\u082e\u0858"
-        + "\u085c\u08ff"
+        + "\u085c\u08e3"
+        + "\u08ff\u08ff"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -13555,13 +15105,13 @@ public class Unicode_6_0 {
         + "\u0dd5\u0dd5"
         + "\u0dd7\u0dd7"
         + "\u0de0\u0df1"
-        + "\u0df4\u0e2f"
-        + "\u0e3b\u0e3f"
-        + "\u0e46\u0e46"
-        + "\u0e4f\u0eaf"
+        + "\u0df4\u0e30"
+        + "\u0e32\u0e32"
+        + "\u0e3b\u0e46"
+        + "\u0e4f\u0eb0"
+        + "\u0eb2\u0eb2"
         + "\u0eba\u0eba"
-        + "\u0ebd\u0ebf"
-        + "\u0ec5\u0ec7"
+        + "\u0ebd\u0ec7"
         + "\u0ece\u0f17"
         + "\u0f1a\u0f34"
         + "\u0f36\u0f36"
@@ -13572,15 +15122,15 @@ public class Unicode_6_0 {
         + "\u0f88\u0f8c"
         + "\u0f98\u0f98"
         + "\u0fbd\u0fc5"
-        + "\u0fc7\u102a"
+        + "\u0fc7\u102c"
+        + "\u1038\u1038"
         + "\u103f\u1055"
         + "\u105a\u105d"
-        + "\u1061\u1061"
-        + "\u1065\u1066"
-        + "\u106e\u1070"
+        + "\u1061\u1070"
         + "\u1075\u1081"
-        + "\u108e\u108e"
-        + "\u1090\u1099"
+        + "\u1083\u1083"
+        + "\u1087\u108c"
+        + "\u108e\u109c"
         + "\u109e\u10ff"
         + "\u1200\u135c"
         + "\u1360\u1711"
@@ -13593,29 +15143,30 @@ public class Unicode_6_0 {
         + "\u180e\u18a8"
         + "\u18aa\u191f"
         + "\u192c\u192f"
-        + "\u193c\u19af"
-        + "\u19c1\u19c7"
-        + "\u19ca\u1a16"
+        + "\u193c\u19b4"
+        + "\u19b8\u19b9"
+        + "\u19bb\u1a16"
         + "\u1a1c\u1a54"
         + "\u1a5f\u1a5f"
+        + "\u1a61\u1a61"
+        + "\u1a63\u1a64"
         + "\u1a7d\u1a7e"
         + "\u1a80\u1aff"
         + "\u1b05\u1b33"
         + "\u1b45\u1b6a"
         + "\u1b74\u1b7f"
         + "\u1b83\u1ba0"
-        + "\u1bab\u1be5"
+        + "\u1bae\u1be5"
         + "\u1bf4\u1c23"
         + "\u1c38\u1ccf"
         + "\u1cd3\u1cd3"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
-        + "\u1cf3\u1dbf"
+        + "\u1cf5\u1dbf"
         + "\u1de7\u1dfb"
         + "\u1e00\u200a"
         + "\u2010\u2027"
         + "\u202f\u205f"
-        + "\u2065\u2069"
         + "\u2070\u20cf"
         + "\u20f1\u2cee"
         + "\u2cf2\u2d7e"
@@ -13623,8 +15174,9 @@ public class Unicode_6_0 {
         + "\u2e00\u3029"
         + "\u3030\u3098"
         + "\u309b\ua66e"
-        + "\ua673\ua67b"
-        + "\ua67e\ua6ef"
+        + "\ua673\ua673"
+        + "\ua67e\ua69e"
+        + "\ua6a0\ua6ef"
         + "\ua6f2\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
@@ -13640,13 +15192,14 @@ public class Unicode_6_0 {
         + "\ua9c1\uaa28"
         + "\uaa37\uaa42"
         + "\uaa44\uaa4b"
-        + "\uaa4e\uaa7a"
-        + "\uaa7c\uaaaf"
+        + "\uaa4e\uaaaf"
         + "\uaab1\uaab1"
-        + "\uaaba\uaaba"
-        + "\uaabd\uaabd"
+        + "\uaab5\uaab6"
+        + "\uaab9\uaabd"
         + "\uaac0\uaac0"
-        + "\uaac2\uabe2"
+        + "\uaac2\uaaea"
+        + "\uaaf0\uaaf4"
+        + "\uaaf7\uabe2"
         + "\uabeb\uabeb"
         + "\uabee\uabff"
         + "\ud7a4\ud7af"
@@ -13657,7 +15210,7 @@ public class Unicode_6_0 {
         + "\ufe10\ufe1f"
         + "\ufe27\ufefe"
         + "\uff00\uff9d"
-        + "\uffa0\ufff8"
+        + "\uffa0\uffef"
         + "\ufffc\ud800\uddfc"
         + "\ud800\uddfe\ud802\ude00"
         + "\ud802\ude04\ud802\ude04"
@@ -13669,18 +15222,24 @@ public class Unicode_6_0 {
         + "\ud804\udc47\ud804\udc7f"
         + "\ud804\udc83\ud804\udcaf"
         + "\ud804\udcbb\ud804\udcbc"
-        + "\ud804\udcbe\ud834\udd64"
+        + "\ud804\udcbe\ud804\udcff"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd35\ud804\udd7f"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud805\udeaa"
+        + "\ud805\udeb8\ud81b\udf50"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udf93\ud834\udd64"
         + "\ud834\udd6a\ud834\udd6c"
         + "\ud834\udd83\ud834\udd84"
         + "\ud834\udd8c\ud834\udda9"
         + "\ud834\uddae\ud834\ude41"
-        + "\ud834\ude45\udb40\udc00"
-        + "\udb40\udc02\udb40\udc1f"
-        + "\udb40\udc80\udb40\udcff"
-        + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {graphemeclusterbreak=prepend}
-    "\u0e40\u0e44" + "\u0ec0\u0ec4" + "\uaab5\uaab6" + "\uaab9\uaab9" + "\uaabb\uaabc",
-    // Unicode 6.0 property value: {graphemeclusterbreak=spacingmark}
+        + "\ud834\ude45\ud83c\udde5"
+        + "\ud83c\ude00\udb3f\udfff"
+        + "\udb44\udc00\udbff\udfff",
+    // Unicode 6.2 property value: {graphemeclusterbreak=regionalindicator}
+    "\ud83c\udde6\ud83c\uddff",
+    // Unicode 6.2 property value: {graphemeclusterbreak=spacingmark}
     "\u0903\u0903"
         + "\u093b\u093b"
         + "\u093e\u0940"
@@ -13720,24 +15279,14 @@ public class Unicode_6_0 {
         + "\u0dd0\u0dd1"
         + "\u0dd8\u0dde"
         + "\u0df2\u0df3"
-        + "\u0e30\u0e30"
-        + "\u0e32\u0e33"
-        + "\u0e45\u0e45"
-        + "\u0eb0\u0eb0"
-        + "\u0eb2\u0eb3"
+        + "\u0e33\u0e33"
+        + "\u0eb3\u0eb3"
         + "\u0f3e\u0f3f"
         + "\u0f7f\u0f7f"
-        + "\u102b\u102c"
         + "\u1031\u1031"
-        + "\u1038\u1038"
         + "\u103b\u103c"
         + "\u1056\u1057"
-        + "\u1062\u1064"
-        + "\u1067\u106d"
-        + "\u1083\u1084"
-        + "\u1087\u108c"
-        + "\u108f\u108f"
-        + "\u109a\u109c"
+        + "\u1084\u1084"
         + "\u17b6\u17b6"
         + "\u17be\u17c5"
         + "\u17c7\u17c8"
@@ -13745,13 +15294,11 @@ public class Unicode_6_0 {
         + "\u1929\u192b"
         + "\u1930\u1931"
         + "\u1933\u1938"
-        + "\u19b0\u19c0"
-        + "\u19c8\u19c9"
+        + "\u19b5\u19b7"
+        + "\u19ba\u19ba"
         + "\u1a19\u1a1b"
         + "\u1a55\u1a55"
         + "\u1a57\u1a57"
-        + "\u1a61\u1a61"
-        + "\u1a63\u1a64"
         + "\u1a6d\u1a72"
         + "\u1b04\u1b04"
         + "\u1b35\u1b35"
@@ -13762,6 +15309,7 @@ public class Unicode_6_0 {
         + "\u1ba1\u1ba1"
         + "\u1ba6\u1ba7"
         + "\u1baa\u1baa"
+        + "\u1bac\u1bad"
         + "\u1be7\u1be7"
         + "\u1bea\u1bec"
         + "\u1bee\u1bee"
@@ -13769,7 +15317,7 @@ public class Unicode_6_0 {
         + "\u1c24\u1c2b"
         + "\u1c34\u1c35"
         + "\u1ce1\u1ce1"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf3"
         + "\ua823\ua824"
         + "\ua827\ua827"
         + "\ua880\ua881"
@@ -13782,7 +15330,9 @@ public class Unicode_6_0 {
         + "\uaa2f\uaa30"
         + "\uaa33\uaa34"
         + "\uaa4d\uaa4d"
-        + "\uaa7b\uaa7b"
+        + "\uaaeb\uaaeb"
+        + "\uaaee\uaaef"
+        + "\uaaf5\uaaf5"
         + "\uabe3\uabe4"
         + "\uabe6\uabe7"
         + "\uabe9\uabea"
@@ -13792,13 +15342,21 @@ public class Unicode_6_0 {
         + "\ud804\udc82\ud804\udc82"
         + "\ud804\udcb0\ud804\udcb2"
         + "\ud804\udcb7\ud804\udcb8"
+        + "\ud804\udd2c\ud804\udd2c"
+        + "\ud804\udd82\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddb5"
+        + "\ud804\uddbf\ud804\uddc0"
+        + "\ud805\udeac\ud805\udeac"
+        + "\ud805\udeae\ud805\udeaf"
+        + "\ud805\udeb6\ud805\udeb6"
+        + "\ud81b\udf51\ud81b\udf7e"
         + "\ud834\udd66\ud834\udd66"
         + "\ud834\udd6d\ud834\udd6d",
-    // Unicode 6.0 property value: {graphemeclusterbreak=t}
+    // Unicode 6.2 property value: {graphemeclusterbreak=t}
     "\u11a8\u11ff" + "\ud7cb\ud7fb",
-    // Unicode 6.0 property value: {graphemeclusterbreak=v}
+    // Unicode 6.2 property value: {graphemeclusterbreak=v}
     "\u1160\u11a7" + "\ud7b0\ud7c6",
-    // Unicode 6.0 property value: {graphemeextend}
+    // Unicode 6.2 property value: {graphemeextend}
     "\u0300\u036f"
         + "\u0483\u0489"
         + "\u0591\u05bd"
@@ -13822,6 +15380,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0902"
         + "\u093a\u093a"
         + "\u093c\u093c"
@@ -13917,6 +15476,7 @@ public class Unicode_6_0 {
         + "\u1732\u1734"
         + "\u1752\u1753"
         + "\u1772\u1773"
+        + "\u17b4\u17b5"
         + "\u17b7\u17bd"
         + "\u17c6\u17c6"
         + "\u17c9\u17d3"
@@ -13944,6 +15504,7 @@ public class Unicode_6_0 {
         + "\u1b80\u1b81"
         + "\u1ba2\u1ba5"
         + "\u1ba8\u1ba9"
+        + "\u1bab\u1bab"
         + "\u1be6\u1be6"
         + "\u1be8\u1be9"
         + "\u1bed\u1bed"
@@ -13954,6 +15515,7 @@ public class Unicode_6_0 {
         + "\u1cd4\u1ce0"
         + "\u1ce2\u1ce8"
         + "\u1ced\u1ced"
+        + "\u1cf4\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
@@ -13964,7 +15526,8 @@ public class Unicode_6_0 {
         + "\u302a\u302f"
         + "\u3099\u309a"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -13988,6 +15551,8 @@ public class Unicode_6_0 {
         + "\uaab7\uaab8"
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
+        + "\uaaec\uaaed"
+        + "\uaaf6\uaaf6"
         + "\uabe5\uabe5"
         + "\uabe8\uabe8"
         + "\uabed\uabed"
@@ -14006,6 +15571,16 @@ public class Unicode_6_0 {
         + "\ud804\udc80\ud804\udc81"
         + "\ud804\udcb3\ud804\udcb6"
         + "\ud804\udcb9\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd2b"
+        + "\ud804\udd2d\ud804\udd34"
+        + "\ud804\udd80\ud804\udd81"
+        + "\ud804\uddb6\ud804\uddbe"
+        + "\ud805\udeab\ud805\udeab"
+        + "\ud805\udead\ud805\udead"
+        + "\ud805\udeb0\ud805\udeb5"
+        + "\ud805\udeb7\ud805\udeb7"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd65\ud834\udd65"
         + "\ud834\udd67\ud834\udd69"
         + "\ud834\udd6e\ud834\udd72"
@@ -14014,7 +15589,7 @@ public class Unicode_6_0 {
         + "\ud834\uddaa\ud834\uddad"
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {graphemelink}
+    // Unicode 6.2 property value: {graphemelink}
     "\u094d\u094d"
         + "\u09cd\u09cd"
         + "\u0a4d\u0a4d"
@@ -14033,18 +15608,22 @@ public class Unicode_6_0 {
         + "\u17d2\u17d2"
         + "\u1a60\u1a60"
         + "\u1b44\u1b44"
-        + "\u1baa\u1baa"
+        + "\u1baa\u1bab"
         + "\u1bf2\u1bf3"
         + "\u2d7f\u2d7f"
         + "\ua806\ua806"
         + "\ua8c4\ua8c4"
         + "\ua953\ua953"
         + "\ua9c0\ua9c0"
+        + "\uaaf6\uaaf6"
         + "\uabed\uabed"
         + "\ud802\ude3f\ud802\ude3f"
         + "\ud804\udc46\ud804\udc46"
-        + "\ud804\udcb9\ud804\udcb9",
-    // Unicode 6.0 property value: {greek}
+        + "\ud804\udcb9\ud804\udcb9"
+        + "\ud804\udd33\ud804\udd34"
+        + "\ud804\uddc0\ud804\uddc0"
+        + "\ud805\udeb6\ud805\udeb6",
+    // Unicode 6.2 property value: {greek}
     "\u0370\u0373"
         + "\u0375\u0377"
         + "\u037a\u037d"
@@ -14078,7 +15657,7 @@ public class Unicode_6_0 {
         + "\u2126\u2126"
         + "\ud800\udd40\ud800\udd8a"
         + "\ud834\ude00\ud834\ude45",
-    // Unicode 6.0 property value: {gujarati}
+    // Unicode 6.2 property value: {gujarati}
     "\u0a81\u0a83"
         + "\u0a85\u0a8d"
         + "\u0a8f\u0a91"
@@ -14091,9 +15670,8 @@ public class Unicode_6_0 {
         + "\u0acb\u0acd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae3"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1",
-    // Unicode 6.0 property value: {gurmukhi}
+        + "\u0ae6\u0af1",
+    // Unicode 6.2 property value: {gurmukhi}
     "\u0a01\u0a03"
         + "\u0a05\u0a0a"
         + "\u0a0f\u0a10"
@@ -14110,7 +15688,7 @@ public class Unicode_6_0 {
         + "\u0a59\u0a5c"
         + "\u0a5e\u0a5e"
         + "\u0a66\u0a75",
-    // Unicode 6.0 property value: {han}
+    // Unicode 6.2 property value: {han}
     "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -14119,15 +15697,14 @@ public class Unicode_6_0 {
         + "\u3021\u3029"
         + "\u3038\u303b"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\u4e00\u9fcc"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {hangul}
+    // Unicode 6.2 property value: {hangul}
     "\u1100\u11ff"
         + "\u302e\u302f"
         + "\u3131\u318e"
@@ -14142,9 +15719,9 @@ public class Unicode_6_0 {
         + "\uffca\uffcf"
         + "\uffd2\uffd7"
         + "\uffda\uffdc",
-    // Unicode 6.0 property value: {hanunoo}
+    // Unicode 6.2 property value: {hanunoo}
     "\u1720\u1734",
-    // Unicode 6.0 property value: {hebrew}
+    // Unicode 6.2 property value: {hebrew}
     "\u0591\u05c7"
         + "\u05d0\u05ea"
         + "\u05f0\u05f4"
@@ -14154,16 +15731,16 @@ public class Unicode_6_0 {
         + "\ufb40\ufb41"
         + "\ufb43\ufb44"
         + "\ufb46\ufb4f",
-    // Unicode 6.0 property value: {hexdigit}
+    // Unicode 6.2 property value: {hexdigit}
     "\u0030\u0039"
         + "\u0041\u0046"
         + "\u0061\u0066"
         + "\uff10\uff19"
         + "\uff21\uff26"
         + "\uff41\uff46",
-    // Unicode 6.0 property value: {hiragana}
+    // Unicode 6.2 property value: {hiragana}
     "\u3041\u3096" + "\u309d\u309f" + "\ud82c\udc01\ud82c\udc01" + "\ud83c\ude00\ud83c\ude00",
-    // Unicode 6.0 property value: {hyphen}
+    // Unicode 6.2 property value: {hyphen}
     "\u002d\u002d"
         + "\u00ad\u00ad"
         + "\u058a\u058a"
@@ -14174,7 +15751,7 @@ public class Unicode_6_0 {
         + "\ufe63\ufe63"
         + "\uff0d\uff0d"
         + "\uff65\uff65",
-    // Unicode 6.0 property value: {idcontinue}
+    // Unicode 6.2 property value: {idcontinue}
     "\u0030\u0039"
         + "\u0041\u005a"
         + "\u005f\u005f"
@@ -14223,6 +15800,9 @@ public class Unicode_6_0 {
         + "\u07fa\u07fa"
         + "\u0800\u082d"
         + "\u0840\u085b"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\u0900\u0963"
         + "\u0966\u096f"
         + "\u0971\u0977"
@@ -14370,7 +15950,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f18\u0f19"
         + "\u0f20\u0f29"
@@ -14386,9 +15966,10 @@ public class Unicode_6_0 {
         + "\u1000\u1049"
         + "\u1050\u109d"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -14420,8 +16001,7 @@ public class Unicode_6_0 {
         + "\u1760\u176c"
         + "\u176e\u1770"
         + "\u1772\u1773"
-        + "\u1780\u17b3"
-        + "\u17b6\u17d3"
+        + "\u1780\u17d3"
         + "\u17d7\u17d7"
         + "\u17dc\u17dd"
         + "\u17e0\u17e9"
@@ -14447,14 +16027,12 @@ public class Unicode_6_0 {
         + "\u1b00\u1b4b"
         + "\u1b50\u1b59"
         + "\u1b6b\u1b73"
-        + "\u1b80\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1bf3"
+        + "\u1b80\u1bf3"
         + "\u1c00\u1c37"
         + "\u1c40\u1c49"
         + "\u1c4d\u1c7d"
         + "\u1cd0\u1cd2"
-        + "\u1cd4\u1cf2"
+        + "\u1cd4\u1cf6"
         + "\u1d00\u1de6"
         + "\u1dfc\u1f15"
         + "\u1f18\u1f1d"
@@ -14499,9 +16077,11 @@ public class Unicode_6_0 {
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
-        + "\u2ceb\u2cf1"
+        + "\u2ceb\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d7f\u2d96"
         + "\u2da0\u2da6"
@@ -14526,21 +16106,21 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
         + "\ua610\ua62b"
         + "\ua640\ua66f"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
         + "\ua67f\ua697"
-        + "\ua6a0\ua6f1"
+        + "\ua69f\ua6f1"
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua827"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua827"
         + "\ua840\ua873"
         + "\ua880\ua8c4"
         + "\ua8d0\ua8d9"
@@ -14558,6 +16138,8 @@ public class Unicode_6_0 {
         + "\uaa7a\uaa7b"
         + "\uaa80\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaef"
+        + "\uaaf2\uaaf6"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -14569,8 +16151,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -14627,6 +16208,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -14642,10 +16225,21 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc46"
         + "\ud804\udc66\ud804\udc6f"
         + "\ud804\udc80\ud804\udcba"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\udd80\ud804\uddc4"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udd65\ud834\udd69"
         + "\ud834\udd6d\ud834\udd72"
@@ -14684,27 +16278,59 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {ideographic}
+    // Unicode 6.2 property value: {ideographic}
     "\u3006\u3007"
         + "\u3021\u3029"
         + "\u3038\u303a"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\u4e00\u9fcc"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {idsbinaryoperator}
+    // Unicode 6.2 property value: {idsbinaryoperator}
     "\u2ff0\u2ff1" + "\u2ff4\u2ffb",
-    // Unicode 6.0 property value: {idstart}
+    // Unicode 6.2 property value: {idstart}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -14752,6 +16378,8 @@ public class Unicode_6_0 {
         + "\u0824\u0824"
         + "\u0828\u0828"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -14857,7 +16485,7 @@ public class Unicode_6_0 {
         + "\u0ebd\u0ebd"
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f40\u0f47"
         + "\u0f49\u0f6c"
@@ -14872,9 +16500,10 @@ public class Unicode_6_0 {
         + "\u1075\u1081"
         + "\u108e\u108e"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -14922,12 +16551,13 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1c00\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -14968,8 +16598,11 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -14993,7 +16626,7 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
@@ -15005,9 +16638,9 @@ public class Unicode_6_0 {
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua822"
@@ -15032,6 +16665,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf4"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -15041,8 +16676,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -15092,6 +16726,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -15103,10 +16739,18 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc03\ud804\udc37"
         + "\ud804\udc83\ud804\udcaf"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud835\udc00\ud835\udc54"
         + "\ud835\udc56\ud835\udc9c"
@@ -15138,25 +16782,58 @@ public class Unicode_6_0 {
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {idstrinaryoperator}
+    // Unicode 6.2 property value: {idstrinaryoperator}
     "\u2ff2\u2ff3",
-    // Unicode 6.0 property value: {imperialaramaic}
+    // Unicode 6.2 property value: {imperialaramaic}
     "\ud802\udc40\ud802\udc55" + "\ud802\udc57\ud802\udc5f",
-    // Unicode 6.0 property value: {inherited}
+    // Unicode 6.2 property value: {inherited}
     "\u0300\u036f"
         + "\u0485\u0486"
         + "\u064b\u0655"
-        + "\u065f\u065f"
         + "\u0670\u0670"
         + "\u0951\u0952"
         + "\u1cd0\u1cd2"
         + "\u1cd4\u1ce0"
         + "\u1ce2\u1ce8"
         + "\u1ced\u1ced"
+        + "\u1cf4\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
@@ -15171,17 +16848,17 @@ public class Unicode_6_0 {
         + "\ud834\udd85\ud834\udd8b"
         + "\ud834\uddaa\ud834\uddad"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {inscriptionalpahlavi}
+    // Unicode 6.2 property value: {inscriptionalpahlavi}
     "\ud802\udf60\ud802\udf72" + "\ud802\udf78\ud802\udf7f",
-    // Unicode 6.0 property value: {inscriptionalparthian}
+    // Unicode 6.2 property value: {inscriptionalparthian}
     "\ud802\udf40\ud802\udf55" + "\ud802\udf58\ud802\udf5f",
-    // Unicode 6.0 property value: {javanese}
+    // Unicode 6.2 property value: {javanese}
     "\ua980\ua9cd" + "\ua9cf\ua9d9" + "\ua9de\ua9df",
-    // Unicode 6.0 property value: {joincontrol}
+    // Unicode 6.2 property value: {joincontrol}
     "\u200c\u200d",
-    // Unicode 6.0 property value: {kaithi}
+    // Unicode 6.2 property value: {kaithi}
     "\ud804\udc80\ud804\udcc1",
-    // Unicode 6.0 property value: {kannada}
+    // Unicode 6.2 property value: {kannada}
     "\u0c82\u0c83"
         + "\u0c85\u0c8c"
         + "\u0c8e\u0c90"
@@ -15196,7 +16873,7 @@ public class Unicode_6_0 {
         + "\u0ce0\u0ce3"
         + "\u0ce6\u0cef"
         + "\u0cf1\u0cf2",
-    // Unicode 6.0 property value: {katakana}
+    // Unicode 6.2 property value: {katakana}
     "\u30a1\u30fa"
         + "\u30fd\u30ff"
         + "\u31f0\u31ff"
@@ -15205,9 +16882,9 @@ public class Unicode_6_0 {
         + "\uff66\uff6f"
         + "\uff71\uff9d"
         + "\ud82c\udc00\ud82c\udc00",
-    // Unicode 6.0 property value: {kayahli}
+    // Unicode 6.2 property value: {kayahli}
     "\ua900\ua92f",
-    // Unicode 6.0 property value: {kharoshthi}
+    // Unicode 6.2 property value: {kharoshthi}
     "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -15216,9 +16893,9 @@ public class Unicode_6_0 {
         + "\ud802\ude38\ud802\ude3a"
         + "\ud802\ude3f\ud802\ude47"
         + "\ud802\ude50\ud802\ude58",
-    // Unicode 6.0 property value: {khmer}
+    // Unicode 6.2 property value: {khmer}
     "\u1780\u17dd" + "\u17e0\u17e9" + "\u17f0\u17f9" + "\u19e0\u19ff",
-    // Unicode 6.0 property value: {lao}
+    // Unicode 6.2 property value: {lao}
     "\u0e81\u0e82"
         + "\u0e84\u0e84"
         + "\u0e87\u0e88"
@@ -15236,8 +16913,8 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd",
-    // Unicode 6.0 property value: {latin}
+        + "\u0edc\u0edf",
+    // Unicode 6.2 property value: {latin}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -15262,17 +16939,17 @@ public class Unicode_6_0 {
         + "\u2c60\u2c7f"
         + "\ua722\ua787"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua7ff"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua7ff"
         + "\ufb00\ufb06"
         + "\uff21\uff3a"
         + "\uff41\uff5a",
-    // Unicode 6.0 property value: {lepcha}
+    // Unicode 6.2 property value: {lepcha}
     "\u1c00\u1c37" + "\u1c3b\u1c49" + "\u1c4d\u1c4f",
-    // Unicode 6.0 property value: {limbu}
+    // Unicode 6.2 property value: {limbu}
     "\u1900\u191c" + "\u1920\u192b" + "\u1930\u193b" + "\u1940\u1940" + "\u1944\u194f",
-    // Unicode 6.0 property value: {linearb}
+    // Unicode 6.2 property value: {linearb}
     "\ud800\udc00\ud800\udc0b"
         + "\ud800\udc0d\ud800\udc26"
         + "\ud800\udc28\ud800\udc3a"
@@ -15280,7 +16957,7 @@ public class Unicode_6_0 {
         + "\ud800\udc3f\ud800\udc4d"
         + "\ud800\udc50\ud800\udc5d"
         + "\ud800\udc80\ud800\udcfa",
-    // Unicode 6.0 property value: {linebreak=alphabetic}
+    // Unicode 6.2 property value: {linebreak=alphabetic}
     "\u0023\u0023"
         + "\u0026\u0026"
         + "\u002a\u002a"
@@ -15313,9 +16990,8 @@ public class Unicode_6_0 {
         + "\u0561\u0587"
         + "\u05c0\u05c0"
         + "\u05c3\u05c3"
-        + "\u05d0\u05ea"
-        + "\u05f0\u05f4"
-        + "\u0600\u0603"
+        + "\u05f3\u05f4"
+        + "\u0600\u0604"
         + "\u0606\u0608"
         + "\u060e\u060f"
         + "\u0620\u064a"
@@ -15341,6 +17017,8 @@ public class Unicode_6_0 {
         + "\u0830\u083e"
         + "\u0840\u0858"
         + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -15379,6 +17057,7 @@ public class Unicode_6_0 {
         + "\u0abd\u0abd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae1"
+        + "\u0af0\u0af0"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
         + "\u0b13\u0b28"
@@ -15452,7 +17131,9 @@ public class Unicode_6_0 {
         + "\u0fd4\u0fd8"
         + "\u104c\u104f"
         + "\u10a0\u10c5"
-        + "\u10d0\u10fc"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u10ff"
         + "\u1200\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
@@ -15503,13 +17184,15 @@ public class Unicode_6_0 {
         + "\u1b74\u1b7c"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1bfc\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
+        + "\u1cc0\u1cc7"
         + "\u1cd3\u1cd3"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -15585,8 +17268,9 @@ public class Unicode_6_0 {
         + "\u229a\u22a4"
         + "\u22a6\u22be"
         + "\u22c0\u2311"
-        + "\u2313\u2328"
-        + "\u232b\u23f3"
+        + "\u2313\u2319"
+        + "\u231c\u2328"
+        + "\u232b\u23ef"
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u24ff\u24ff"
@@ -15604,33 +17288,33 @@ public class Unicode_6_0 {
         + "\u25cc\u25cd"
         + "\u25d2\u25e1"
         + "\u25e6\u25ee"
-        + "\u25f0\u2604"
+        + "\u25f0\u25ff"
+        + "\u2604\u2604"
         + "\u2607\u2608"
         + "\u260a\u260d"
         + "\u2610\u2613"
-        + "\u2618\u261b"
-        + "\u261d\u261d"
-        + "\u261f\u263f"
+        + "\u2619\u2619"
+        + "\u2620\u2638"
+        + "\u263c\u263f"
         + "\u2641\u2641"
         + "\u2643\u265f"
         + "\u2662\u2662"
         + "\u2666\u2666"
         + "\u266b\u266b"
         + "\u266e\u266e"
-        + "\u2670\u269d"
-        + "\u26a0\u26bd"
-        + "\u26c0\u26c3"
+        + "\u2670\u267e"
+        + "\u2680\u269d"
+        + "\u26a0\u26bc"
         + "\u26ce\u26ce"
         + "\u26e2\u26e2"
         + "\u26e4\u26e7"
-        + "\u2701\u2756"
+        + "\u2705\u2707"
+        + "\u270e\u2756"
         + "\u2758\u275a"
         + "\u275f\u2761"
         + "\u2764\u2767"
         + "\u2794\u27c4"
-        + "\u27c7\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u27e5"
+        + "\u27c7\u27e5"
         + "\u27f0\u2982"
         + "\u2999\u29d7"
         + "\u29dc\u29fb"
@@ -15639,9 +17323,12 @@ public class Unicode_6_0 {
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
         + "\u2c60\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2cfd\u2cfd"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -15656,6 +17343,8 @@ public class Unicode_6_0 {
         + "\u2e1a\u2e1b"
         + "\u2e1e\u2e1f"
         + "\u2e2f\u2e2f"
+        + "\u2e32\u2e32"
+        + "\u2e35\u2e39"
         + "\u4dc0\u4dff"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
@@ -15667,9 +17356,9 @@ public class Unicode_6_0 {
         + "\ua6a0\ua6ef"
         + "\ua6f2\ua6f2"
         + "\ua700\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua822"
@@ -15691,6 +17380,8 @@ public class Unicode_6_0 {
         + "\uaa40\uaa42"
         + "\uaa44\uaa4b"
         + "\uaa5c\uaa5c"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf4"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -15699,13 +17390,8 @@ public class Unicode_6_0 {
         + "\uabc0\uabe2"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
-        + "\ufb1d\ufb1d"
-        + "\ufb1f\ufb36"
-        + "\ufb38\ufb3c"
-        + "\ufb3e\ufb3e"
-        + "\ufb40\ufb41"
-        + "\ufb43\ufb44"
-        + "\ufb46\ufbc1"
+        + "\ufb29\ufb29"
+        + "\ufb50\ufbc1"
         + "\ufbd3\ufd3d"
         + "\ufd50\ufd8f"
         + "\ufd92\ufdc7"
@@ -15752,6 +17438,8 @@ public class Unicode_6_0 {
         + "\ud802\udd00\ud802\udd1b"
         + "\ud802\udd20\ud802\udd39"
         + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -15770,6 +17458,12 @@ public class Unicode_6_0 {
         + "\ud804\udc52\ud804\udc65"
         + "\ud804\udc83\ud804\udcaf"
         + "\ud804\udcbb\ud804\udcbd"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud804\uddc7\ud804\uddc7"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80c\ude57"
@@ -15778,6 +17472,9 @@ public class Unicode_6_0 {
         + "\ud80c\ude8a\ud80c\udf78"
         + "\ud80c\udf7c\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud834\udc00\ud834\udcf5"
         + "\ud834\udd00\ud834\udd26"
         + "\ud834\udd29\ud834\udd64"
@@ -15809,43 +17506,55 @@ public class Unicode_6_0 {
         + "\ud835\udd4a\ud835\udd50"
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
-        + "\ud83c\udc00\ud83c\udc2b"
-        + "\ud83c\udc30\ud83c\udc93"
-        + "\ud83c\udca0\ud83c\udcae"
-        + "\ud83c\udcb1\ud83c\udcbe"
-        + "\ud83c\udcc1\ud83c\udccf"
-        + "\ud83c\udcd1\ud83c\udcdf"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
         + "\ud83c\udd2e\ud83c\udd2e"
-        + "\ud83c\udde6\ud83c\uddff"
-        + "\ud83c\udf00\ud83c\udf20"
-        + "\ud83c\udf30\ud83c\udf35"
-        + "\ud83c\udf37\ud83c\udf7c"
-        + "\ud83c\udf80\ud83c\udf93"
-        + "\ud83c\udfa0\ud83c\udfc4"
-        + "\ud83c\udfc6\ud83c\udfca"
-        + "\ud83c\udfe0\ud83c\udff0"
-        + "\ud83d\udc00\ud83d\udc3e"
-        + "\ud83d\udc40\ud83d\udc40"
-        + "\ud83d\udc42\ud83d\udcf7"
-        + "\ud83d\udcf9\ud83d\udcfc"
-        + "\ud83d\udd00\ud83d\udd3d"
-        + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
-        + "\ud83d\ude45\ud83d\ude4f"
-        + "\ud83d\ude80\ud83d\udec5"
+        + "\ud83c\udd6a\ud83c\udd6b"
+        + "\ud83c\udfb5\ud83c\udfb6"
+        + "\ud83c\udfbc\ud83c\udfbc"
+        + "\ud83d\udca0\ud83d\udca0"
+        + "\ud83d\udca2\ud83d\udca2"
+        + "\ud83d\udca4\ud83d\udca4"
+        + "\ud83d\udcaf\ud83d\udcaf"
+        + "\ud83d\udcb1\ud83d\udcb2"
+        + "\ud83d\udd00\ud83d\udd06"
+        + "\ud83d\udd17\ud83d\udd24"
+        + "\ud83d\udd32\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udf00\ud83d\udf73",
-    // Unicode 6.0 property value: {linebreak=ambiguous}
+    // Unicode 6.2 property value: {linebreak=ambiguous}
     "\u00a7\u00a8"
         + "\u00aa\u00aa"
         + "\u00b2\u00b3"
@@ -15926,22 +17635,26 @@ public class Unicode_6_0 {
         + "\u2605\u2606"
         + "\u2609\u2609"
         + "\u260e\u260f"
-        + "\u2614\u2617"
-        + "\u261c\u261c"
-        + "\u261e\u261e"
+        + "\u2616\u2617"
         + "\u2640\u2640"
         + "\u2642\u2642"
         + "\u2660\u2661"
         + "\u2663\u2665"
-        + "\u2667\u266a"
+        + "\u2667\u2667"
+        + "\u2669\u266a"
         + "\u266c\u266d"
         + "\u266f\u266f"
         + "\u269e\u269f"
-        + "\u26be\u26bf"
-        + "\u26c4\u26cd"
-        + "\u26cf\u26e1"
+        + "\u26c9\u26cc"
+        + "\u26d2\u26d2"
+        + "\u26d5\u26d7"
+        + "\u26da\u26db"
+        + "\u26dd\u26de"
         + "\u26e3\u26e3"
-        + "\u26e8\u26ff"
+        + "\u26e8\u26e9"
+        + "\u26eb\u26f0"
+        + "\u26f6\u26f6"
+        + "\u26fb\u26fc"
         + "\u2757\u2757"
         + "\u2776\u2793"
         + "\u2b55\u2b59"
@@ -15951,7 +17664,7 @@ public class Unicode_6_0 {
         + "\ud83c\udd10\ud83c\udd2d"
         + "\ud83c\udd30\ud83c\udd69"
         + "\ud83c\udd70\ud83c\udd9a",
-    // Unicode 6.0 property value: {linebreak=breakafter}
+    // Unicode 6.2 property value: {linebreak=breakafter}
     "\t\t"
         + "\u007c\u007c"
         + "\u00ad\u00ad"
@@ -15995,6 +17708,7 @@ public class Unicode_6_0 {
         + "\u2e19\u2e19"
         + "\u2e2a\u2e2d"
         + "\u2e30\u2e31"
+        + "\u2e33\u2e34"
         + "\ua4fe\ua4ff"
         + "\ua60d\ua60d"
         + "\ua60f\ua60f"
@@ -16003,6 +17717,7 @@ public class Unicode_6_0 {
         + "\ua92e\ua92f"
         + "\ua9c7\ua9c9"
         + "\uaa5d\uaa5f"
+        + "\uaaf0\uaaf1"
         + "\uabeb\uabeb"
         + "\ud800\udd00\ud800\udd02"
         + "\ud800\udf9f\ud800\udf9f"
@@ -16013,8 +17728,11 @@ public class Unicode_6_0 {
         + "\ud802\udf39\ud802\udf3f"
         + "\ud804\udc47\ud804\udc48"
         + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udd40\ud804\udd43"
+        + "\ud804\uddc5\ud804\uddc6"
+        + "\ud804\uddc8\ud804\uddc8"
         + "\ud809\udc70\ud809\udc73",
-    // Unicode 6.0 property value: {linebreak=breakbefore}
+    // Unicode 6.2 property value: {linebreak=breakbefore}
     "\u00b4\u00b4"
         + "\u02c8\u02c8"
         + "\u02cc\u02cc"
@@ -16027,15 +17745,15 @@ public class Unicode_6_0 {
         + "\u1806\u1806"
         + "\u1ffd\u1ffd"
         + "\ua874\ua875",
-    // Unicode 6.0 property value: {linebreak=breakboth}
-    "\u2014\u2014",
-    // Unicode 6.0 property value: {linebreak=breaksymbols}
+    // Unicode 6.2 property value: {linebreak=breakboth}
+    "\u2014\u2014" + "\u2e3a\u2e3b",
+    // Unicode 6.2 property value: {linebreak=breaksymbols}
     "\u002f\u002f",
-    // Unicode 6.0 property value: {linebreak=carriagereturn}
+    // Unicode 6.2 property value: {linebreak=carriagereturn}
     "\r\r",
-    // Unicode 6.0 property value: {linebreak=closeparenthesis}
+    // Unicode 6.2 property value: {linebreak=closeparenthesis}
     "\u0029\u0029" + "\u005d\u005d",
-    // Unicode 6.0 property value: {linebreak=closepunctuation}
+    // Unicode 6.2 property value: {linebreak=closepunctuation}
     "\u007d\u007d"
         + "\u0f3b\u0f3b"
         + "\u0f3d\u0f3d"
@@ -16115,7 +17833,7 @@ public class Unicode_6_0 {
         + "\ud80c\ude87\ud80c\ude87"
         + "\ud80c\ude89\ud80c\ude89"
         + "\ud80c\udf7a\ud80c\udf7b",
-    // Unicode 6.0 property value: {linebreak=combiningmark}
+    // Unicode 6.2 property value: {linebreak=combiningmark}
     "\000\u0008"
         + "\u000e\u001f"
         + "\u007f\u0084"
@@ -16145,6 +17863,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0903"
         + "\u093a\u093c"
         + "\u093e\u094f"
@@ -16234,13 +17953,13 @@ public class Unicode_6_0 {
         + "\u1b34\u1b44"
         + "\u1b6b\u1b73"
         + "\u1b80\u1b82"
-        + "\u1ba1\u1baa"
+        + "\u1ba1\u1bad"
         + "\u1be6\u1bf3"
         + "\u1c24\u1c37"
         + "\u1cd0\u1cd2"
         + "\u1cd4\u1ce8"
         + "\u1ced\u1ced"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200f"
@@ -16253,7 +17972,8 @@ public class Unicode_6_0 {
         + "\u302a\u302f"
         + "\u3099\u309a"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -16269,6 +17989,8 @@ public class Unicode_6_0 {
         + "\uaa29\uaa36"
         + "\uaa43\uaa43"
         + "\uaa4c\uaa4d"
+        + "\uaaeb\uaaef"
+        + "\uaaf5\uaaf6"
         + "\uabe3\uabea"
         + "\uabec\uabed"
         + "\ufb1e\ufb1e"
@@ -16285,6 +18007,13 @@ public class Unicode_6_0 {
         + "\ud804\udc38\ud804\udc46"
         + "\ud804\udc80\ud804\udc82"
         + "\ud804\udcb0\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd34"
+        + "\ud804\udd80\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddc0"
+        + "\ud805\udeab\ud805\udeb7"
+        + "\ud81b\udf51\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd65\ud834\udd69"
         + "\ud834\udd6d\ud834\udd82"
         + "\ud834\udd85\ud834\udd8b"
@@ -16293,7 +18022,7 @@ public class Unicode_6_0 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {linebreak=complexcontext}
+    // Unicode 6.2 property value: {linebreak=complexcontext}
     "\u0e01\u0e3a"
         + "\u0e40\u0e4e"
         + "\u0e81\u0e82"
@@ -16312,7 +18041,7 @@ public class Unicode_6_0 {
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u1000\u103f"
         + "\u1050\u108f"
         + "\u109a\u109f"
@@ -16331,9 +18060,35 @@ public class Unicode_6_0 {
         + "\uaa60\uaa7b"
         + "\uaa80\uaac2"
         + "\uaadb\uaadf",
-    // Unicode 6.0 property value: {linebreak=contingentbreak}
+    // Unicode 6.2 property value: {linebreak=conditionaljapanesestarter}
+    "\u3041\u3041"
+        + "\u3043\u3043"
+        + "\u3045\u3045"
+        + "\u3047\u3047"
+        + "\u3049\u3049"
+        + "\u3063\u3063"
+        + "\u3083\u3083"
+        + "\u3085\u3085"
+        + "\u3087\u3087"
+        + "\u308e\u308e"
+        + "\u3095\u3096"
+        + "\u30a1\u30a1"
+        + "\u30a3\u30a3"
+        + "\u30a5\u30a5"
+        + "\u30a7\u30a7"
+        + "\u30a9\u30a9"
+        + "\u30c3\u30c3"
+        + "\u30e3\u30e3"
+        + "\u30e5\u30e5"
+        + "\u30e7\u30e7"
+        + "\u30ee\u30ee"
+        + "\u30f5\u30f6"
+        + "\u30fc\u30fc"
+        + "\u31f0\u31ff"
+        + "\uff67\uff70",
+    // Unicode 6.2 property value: {linebreak=contingentbreak}
     "\ufffc\ufffc",
-    // Unicode 6.0 property value: {linebreak=exclamation}
+    // Unicode 6.2 property value: {linebreak=exclamation}
     "\u0021\u0021"
         + "\u003f\u003f"
         + "\u05c6\u05c6"
@@ -16356,7 +18111,7 @@ public class Unicode_6_0 {
         + "\ufe56\ufe57"
         + "\uff01\uff01"
         + "\uff1f\uff1f",
-    // Unicode 6.0 property value: {linebreak=glue}
+    // Unicode 6.2 property value: {linebreak=glue}
     "\u00a0\u00a0"
         + "\u034f\u034f"
         + "\u035c\u0362"
@@ -16368,7 +18123,7 @@ public class Unicode_6_0 {
         + "\u2007\u2007"
         + "\u2011\u2011"
         + "\u202f\u202f",
-    // Unicode 6.0 property value: {linebreak=h2}
+    // Unicode 6.2 property value: {linebreak=h2}
     "\uac00\uac00"
         + "\uac1c\uac1c"
         + "\uac38\uac38"
@@ -16768,7 +18523,7 @@ public class Unicode_6_0 {
         + "\ud750\ud750"
         + "\ud76c\ud76c"
         + "\ud788\ud788",
-    // Unicode 6.0 property value: {linebreak=h3}
+    // Unicode 6.2 property value: {linebreak=h3}
     "\uac01\uac1b"
         + "\uac1d\uac37"
         + "\uac39\uac53"
@@ -17168,10 +18923,43 @@ public class Unicode_6_0 {
         + "\ud751\ud76b"
         + "\ud76d\ud787"
         + "\ud789\ud7a3",
-    // Unicode 6.0 property value: {linebreak=hyphen}
+    // Unicode 6.2 property value: {linebreak=hebrewletter}
+    "\u05d0\u05ea"
+        + "\u05f0\u05f2"
+        + "\ufb1d\ufb1d"
+        + "\ufb1f\ufb28"
+        + "\ufb2a\ufb36"
+        + "\ufb38\ufb3c"
+        + "\ufb3e\ufb3e"
+        + "\ufb40\ufb41"
+        + "\ufb43\ufb44"
+        + "\ufb46\ufb4f",
+    // Unicode 6.2 property value: {linebreak=hyphen}
     "\u002d\u002d",
-    // Unicode 6.0 property value: {linebreak=ideographic}
-    "\u2e80\u2e99"
+    // Unicode 6.2 property value: {linebreak=ideographic}
+    "\u231a\u231b"
+        + "\u23f0\u23f3"
+        + "\u2600\u2603"
+        + "\u2614\u2615"
+        + "\u2618\u2618"
+        + "\u261a\u261f"
+        + "\u2639\u263b"
+        + "\u2668\u2668"
+        + "\u267f\u267f"
+        + "\u26bd\u26c8"
+        + "\u26cd\u26cd"
+        + "\u26cf\u26d1"
+        + "\u26d3\u26d4"
+        + "\u26d8\u26d9"
+        + "\u26dc\u26dc"
+        + "\u26df\u26e1"
+        + "\u26ea\u26ea"
+        + "\u26f1\u26f5"
+        + "\u26f7\u26fa"
+        + "\u26fd\u26ff"
+        + "\u2701\u2704"
+        + "\u2708\u270d"
+        + "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
         + "\u2ff0\u2ffb"
@@ -17238,13 +19026,43 @@ public class Unicode_6_0 {
         + "\uff5e\uff5e"
         + "\uffe2\uffe4"
         + "\ud82c\udc00\ud82c\udc01"
+        + "\ud83c\udc00\ud83c\udc2b"
+        + "\ud83c\udc30\ud83c\udc93"
+        + "\ud83c\udca0\ud83c\udcae"
+        + "\ud83c\udcb1\ud83c\udcbe"
+        + "\ud83c\udcc1\ud83c\udccf"
+        + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\ude00\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
         + "\ud83c\ude40\ud83c\ude48"
         + "\ud83c\ude50\ud83c\ude51"
+        + "\ud83c\udf00\ud83c\udf20"
+        + "\ud83c\udf30\ud83c\udf35"
+        + "\ud83c\udf37\ud83c\udf7c"
+        + "\ud83c\udf80\ud83c\udf93"
+        + "\ud83c\udfa0\ud83c\udfb4"
+        + "\ud83c\udfb7\ud83c\udfbb"
+        + "\ud83c\udfbd\ud83c\udfc4"
+        + "\ud83c\udfc6\ud83c\udfca"
+        + "\ud83c\udfe0\ud83c\udff0"
+        + "\ud83d\udc00\ud83d\udc3e"
+        + "\ud83d\udc40\ud83d\udc40"
+        + "\ud83d\udc42\ud83d\udc9f"
+        + "\ud83d\udca1\ud83d\udca1"
+        + "\ud83d\udca3\ud83d\udca3"
+        + "\ud83d\udca5\ud83d\udcae"
+        + "\ud83d\udcb0\ud83d\udcb0"
+        + "\ud83d\udcb3\ud83d\udcf7"
+        + "\ud83d\udcf9\ud83d\udcfc"
+        + "\ud83d\udd07\ud83d\udd16"
+        + "\ud83d\udd25\ud83d\udd31"
+        + "\ud83d\udd50\ud83d\udd67"
+        + "\ud83d\uddfb\ud83d\ude40"
+        + "\ud83d\ude45\ud83d\ude4f"
+        + "\ud83d\ude80\ud83d\udec5"
         + "\ud840\udc00\ud87f\udffd"
         + "\ud880\udc00\ud8bf\udffd",
-    // Unicode 6.0 property value: {linebreak=infixnumeric}
+    // Unicode 6.2 property value: {linebreak=infixnumeric}
     "\u002c\u002c"
         + "\u002e\u002e"
         + "\u003a\u003b"
@@ -17255,59 +19073,37 @@ public class Unicode_6_0 {
         + "\u2044\u2044"
         + "\ufe10\ufe10"
         + "\ufe13\ufe14",
-    // Unicode 6.0 property value: {linebreak=inseparable}
+    // Unicode 6.2 property value: {linebreak=inseparable}
     "\u2024\u2026" + "\ufe19\ufe19",
-    // Unicode 6.0 property value: {linebreak=jl}
+    // Unicode 6.2 property value: {linebreak=jl}
     "\u1100\u115f" + "\ua960\ua97c",
-    // Unicode 6.0 property value: {linebreak=jt}
+    // Unicode 6.2 property value: {linebreak=jt}
     "\u11a8\u11ff" + "\ud7cb\ud7fb",
-    // Unicode 6.0 property value: {linebreak=jv}
+    // Unicode 6.2 property value: {linebreak=jv}
     "\u1160\u11a7" + "\ud7b0\ud7c6",
-    // Unicode 6.0 property value: {linebreak=linefeed}
+    // Unicode 6.2 property value: {linebreak=linefeed}
     "\n\n",
-    // Unicode 6.0 property value: {linebreak=mandatorybreak}
+    // Unicode 6.2 property value: {linebreak=mandatorybreak}
     "\u000b\f" + "\u2028\u2029",
-    // Unicode 6.0 property value: {linebreak=nextline}
+    // Unicode 6.2 property value: {linebreak=nextline}
     "\u0085\u0085",
-    // Unicode 6.0 property value: {linebreak=nonstarter}
+    // Unicode 6.2 property value: {linebreak=nonstarter}
     "\u17d6\u17d6"
         + "\u203c\u203d"
         + "\u2047\u2049"
         + "\u3005\u3005"
         + "\u301c\u301c"
         + "\u303b\u303c"
-        + "\u3041\u3041"
-        + "\u3043\u3043"
-        + "\u3045\u3045"
-        + "\u3047\u3047"
-        + "\u3049\u3049"
-        + "\u3063\u3063"
-        + "\u3083\u3083"
-        + "\u3085\u3085"
-        + "\u3087\u3087"
-        + "\u308e\u308e"
-        + "\u3095\u3096"
         + "\u309b\u309e"
-        + "\u30a0\u30a1"
-        + "\u30a3\u30a3"
-        + "\u30a5\u30a5"
-        + "\u30a7\u30a7"
-        + "\u30a9\u30a9"
-        + "\u30c3\u30c3"
-        + "\u30e3\u30e3"
-        + "\u30e5\u30e5"
-        + "\u30e7\u30e7"
-        + "\u30ee\u30ee"
-        + "\u30f5\u30f6"
-        + "\u30fb\u30fe"
-        + "\u31f0\u31ff"
+        + "\u30a0\u30a0"
+        + "\u30fb\u30fb"
+        + "\u30fd\u30fe"
         + "\ua015\ua015"
         + "\ufe54\ufe55"
         + "\uff1a\uff1b"
         + "\uff65\uff65"
-        + "\uff67\uff70"
         + "\uff9e\uff9f",
-    // Unicode 6.0 property value: {linebreak=numeric}
+    // Unicode 6.2 property value: {linebreak=numeric}
     "\u0030\u0039"
         + "\u0660\u0669"
         + "\u066b\u066c"
@@ -17345,8 +19141,12 @@ public class Unicode_6_0 {
         + "\uabf0\uabf9"
         + "\ud801\udca0\ud801\udca9"
         + "\ud804\udc66\ud804\udc6f"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {linebreak=openpunctuation}
+    // Unicode 6.2 property value: {linebreak=openpunctuation}
     "\u0028\u0028"
         + "\u005b\u005b"
         + "\u007b\u007b"
@@ -17426,7 +19226,7 @@ public class Unicode_6_0 {
         + "\ud80c\ude86\ud80c\ude86"
         + "\ud80c\ude88\ud80c\ude88"
         + "\ud80c\udf79\ud80c\udf79",
-    // Unicode 6.0 property value: {linebreak=postfixnumeric}
+    // Unicode 6.2 property value: {linebreak=postfixnumeric}
     "\u0025\u0025"
         + "\u00a2\u00a2"
         + "\u00b0\u00b0"
@@ -17445,12 +19245,13 @@ public class Unicode_6_0 {
         + "\ufe6a\ufe6a"
         + "\uff05\uff05"
         + "\uffe0\uffe0",
-    // Unicode 6.0 property value: {linebreak=prefixnumeric}
+    // Unicode 6.2 property value: {linebreak=prefixnumeric}
     "\u0024\u0024"
         + "\u002b\u002b"
         + "\\\\"
         + "\u00a3\u00a5"
         + "\u00b1\u00b1"
+        + "\u058f\u058f"
         + "\u09fb\u09fb"
         + "\u0af1\u0af1"
         + "\u0bf9\u0bf9"
@@ -17458,14 +19259,14 @@ public class Unicode_6_0 {
         + "\u17db\u17db"
         + "\u20a0\u20a6"
         + "\u20a8\u20b5"
-        + "\u20b7\u20b9"
+        + "\u20b7\u20ba"
         + "\u2116\u2116"
         + "\u2212\u2213"
         + "\ufe69\ufe69"
         + "\uff04\uff04"
         + "\uffe1\uffe1"
         + "\uffe5\uffe6",
-    // Unicode 6.0 property value: {linebreak=quotation}
+    // Unicode 6.2 property value: {linebreak=quotation}
     "\"\""
         + "\u0027\u0027"
         + "\u00ab\u00ab"
@@ -17478,9 +19279,11 @@ public class Unicode_6_0 {
         + "\u2e00\u2e0d"
         + "\u2e1c\u2e1d"
         + "\u2e20\u2e21",
-    // Unicode 6.0 property value: {linebreak=space}
+    // Unicode 6.2 property value: {linebreak=regionalindicator}
+    "\ud83c\udde6\ud83c\uddff",
+    // Unicode 6.2 property value: {linebreak=space}
     "\u0020\u0020",
-    // Unicode 6.0 property value: {linebreak=unknown}
+    // Unicode 6.2 property value: {linebreak=unknown}
     "\u0378\u0379"
         + "\u037f\u0383"
         + "\u038b\u038b"
@@ -17490,11 +19293,12 @@ public class Unicode_6_0 {
         + "\u0557\u0558"
         + "\u0560\u0560"
         + "\u0588\u0588"
-        + "\u058b\u0590"
+        + "\u058b\u058e"
+        + "\u0590\u0590"
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f5\u05ff"
-        + "\u0604\u0605"
+        + "\u0605\u0605"
         + "\u061c\u061d"
         + "\u070e\u070e"
         + "\u074b\u074c"
@@ -17503,7 +19307,10 @@ public class Unicode_6_0 {
         + "\u082e\u082f"
         + "\u083f\u083f"
         + "\u085c\u085d"
-        + "\u085f\u08ff"
+        + "\u085f\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0978\u0978"
         + "\u0980\u0980"
         + "\u0984\u0984"
@@ -17548,7 +19355,6 @@ public class Unicode_6_0 {
         + "\u0ace\u0acf"
         + "\u0ad1\u0adf"
         + "\u0ae4\u0ae5"
-        + "\u0af0\u0af0"
         + "\u0af2\u0b00"
         + "\u0b04\u0b04"
         + "\u0b0d\u0b0e"
@@ -17649,15 +19455,16 @@ public class Unicode_6_0 {
         + "\u0ec7\u0ec7"
         + "\u0ece\u0ecf"
         + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
+        + "\u0ee0\u0eff"
         + "\u0f48\u0f48"
         + "\u0f6d\u0f70"
         + "\u0f98\u0f98"
         + "\u0fbd\u0fbd"
         + "\u0fcd\u0fcd"
         + "\u0fdb\u0fff"
-        + "\u10c6\u10cf"
-        + "\u10fd\u10ff"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -17711,13 +19518,12 @@ public class Unicode_6_0 {
         + "\u1aae\u1aff"
         + "\u1b4c\u1b4f"
         + "\u1b7d\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bfb"
         + "\u1c38\u1c3a"
         + "\u1c4a\u1c4c"
-        + "\u1c80\u1ccf"
-        + "\u1cf3\u1cff"
+        + "\u1c80\u1cbf"
+        + "\u1cc8\u1ccf"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -17739,22 +19545,22 @@ public class Unicode_6_0 {
         + "\u2072\u2073"
         + "\u208f\u208f"
         + "\u209d\u209f"
-        + "\u20ba\u20cf"
+        + "\u20bb\u20cf"
         + "\u20f1\u20ff"
         + "\u218a\u218f"
         + "\u23f4\u23ff"
         + "\u2427\u243f"
         + "\u244b\u245f"
         + "\u2700\u2700"
-        + "\u27cb\u27cb"
-        + "\u27cd\u27cd"
         + "\u2b4d\u2b4f"
         + "\u2b5a\u2bff"
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
-        + "\u2cf2\u2cf8"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cf8"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d71\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -17765,7 +19571,7 @@ public class Unicode_6_0 {
         + "\u2dcf\u2dcf"
         + "\u2dd7\u2dd7"
         + "\u2ddf\u2ddf"
-        + "\u2e32\u2e7f"
+        + "\u2e3c\u2e7f"
         + "\u2e9a\u2e9a"
         + "\u2ef4\u2eff"
         + "\u2fd6\u2fef"
@@ -17782,12 +19588,11 @@ public class Unicode_6_0 {
         + "\ua48d\ua48f"
         + "\ua4c7\ua4cf"
         + "\ua62c\ua63f"
-        + "\ua674\ua67b"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f8\ua6ff"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua82c\ua82f"
         + "\ua83a\ua83f"
         + "\ua878\ua87f"
@@ -17804,7 +19609,7 @@ public class Unicode_6_0 {
         + "\uaa5a\uaa5b"
         + "\uaa7c\uaa7f"
         + "\uaac3\uaada"
-        + "\uaae0\uab00"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -17875,7 +19680,9 @@ public class Unicode_6_0 {
         + "\ud802\udc60\ud802\udcff"
         + "\ud802\udd1c\ud802\udd1e"
         + "\ud802\udd3a\ud802\udd3e"
-        + "\ud802\udd40\ud802\uddff"
+        + "\ud802\udd40\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -17893,12 +19700,23 @@ public class Unicode_6_0 {
         + "\ud803\ude7f\ud803\udfff"
         + "\ud804\udc4e\ud804\udc51"
         + "\ud804\udc70\ud804\udc7f"
-        + "\ud804\udcc2\ud807\udfff"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc9\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud809\udc6f"
         + "\ud809\udc74\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc02\ud833\udfff"
         + "\ud834\udcf6\ud834\udcff"
         + "\ud834\udd27\ud834\udd28"
@@ -17926,7 +19744,41 @@ public class Unicode_6_0 {
         + "\ud835\udd51\ud835\udd51"
         + "\ud835\udea6\ud835\udea7"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83b\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83b\udeef"
+        + "\ud83b\udef2\ud83b\udfff"
         + "\ud83c\udc2c\ud83c\udc2f"
         + "\ud83c\udc94\ud83c\udc9f"
         + "\ud83c\udcaf\ud83c\udcb0"
@@ -17935,7 +19787,7 @@ public class Unicode_6_0 {
         + "\ud83c\udce0\ud83c\udcff"
         + "\ud83c\udd0b\ud83c\udd0f"
         + "\ud83c\udd2f\ud83c\udd2f"
-        + "\ud83c\udd6a\ud83c\udd6f"
+        + "\ud83c\udd6c\ud83c\udd6f"
         + "\ud83c\udd9b\ud83c\udde5"
         + "\ud83c\ude03\ud83c\ude0f"
         + "\ud83c\ude3b\ud83c\ude3f"
@@ -17952,19 +19804,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc41\ud83d\udc41"
         + "\ud83d\udcf8\ud83d\udcf8"
         + "\ud83d\udcfd\ud83d\udcff"
-        + "\ud83d\udd3e\ud83d\udd4f"
+        + "\ud83d\udd3e\ud83d\udd3f"
+        + "\ud83d\udd44\ud83d\udd4f"
         + "\ud83d\udd68\ud83d\uddfa"
-        + "\ud83d\ude00\ud83d\ude00"
-        + "\ud83d\ude11\ud83d\ude11"
-        + "\ud83d\ude15\ud83d\ude15"
-        + "\ud83d\ude17\ud83d\ude17"
-        + "\ud83d\ude19\ud83d\ude19"
-        + "\ud83d\ude1b\ud83d\ude1b"
-        + "\ud83d\ude1f\ud83d\ude1f"
-        + "\ud83d\ude26\ud83d\ude27"
-        + "\ud83d\ude2c\ud83d\ude2c"
-        + "\ud83d\ude2e\ud83d\ude2f"
-        + "\ud83d\ude34\ud83d\ude34"
         + "\ud83d\ude41\ud83d\ude44"
         + "\ud83d\ude50\ud83d\ude7f"
         + "\ud83d\udec6\ud83d\udeff"
@@ -17974,17 +19816,15 @@ public class Unicode_6_0 {
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {linebreak=wordjoiner}
+    // Unicode 6.2 property value: {linebreak=wordjoiner}
     "\u2060\u2060" + "\ufeff\ufeff",
-    // Unicode 6.0 property value: {linebreak=zwspace}
+    // Unicode 6.2 property value: {linebreak=zwspace}
     "\u200b\u200b",
-    // Unicode 6.0 property value: {lisu}
+    // Unicode 6.2 property value: {lisu}
     "\ua4d0\ua4ff",
-    // Unicode 6.0 property value: {ll}
+    // Unicode 6.2 property value: {ll}
     "\u0061\u007a"
-        + "\u00aa\u00aa"
         + "\u00b5\u00b5"
-        + "\u00ba\u00ba"
         + "\u00df\u00f6"
         + "\u00f8\u00ff"
         + "\u0101\u0101"
@@ -18250,7 +20090,7 @@ public class Unicode_6_0 {
         + "\u0527\u0527"
         + "\u0561\u0587"
         + "\u1d00\u1d2b"
-        + "\u1d62\u1d77"
+        + "\u1d6b\u1d77"
         + "\u1d79\u1d9a"
         + "\u1e01\u1e01"
         + "\u1e03\u1e03"
@@ -18414,7 +20254,7 @@ public class Unicode_6_0 {
         + "\u2c6c\u2c6c"
         + "\u2c71\u2c71"
         + "\u2c73\u2c74"
-        + "\u2c76\u2c7c"
+        + "\u2c76\u2c7b"
         + "\u2c81\u2c81"
         + "\u2c83\u2c83"
         + "\u2c85\u2c85"
@@ -18467,7 +20307,10 @@ public class Unicode_6_0 {
         + "\u2ce3\u2ce4"
         + "\u2cec\u2cec"
         + "\u2cee\u2cee"
+        + "\u2cf3\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua641\ua641"
         + "\ua643\ua643"
         + "\ua645\ua645"
@@ -18552,6 +20395,7 @@ public class Unicode_6_0 {
         + "\ua78c\ua78c"
         + "\ua78e\ua78e"
         + "\ua791\ua791"
+        + "\ua793\ua793"
         + "\ua7a1\ua7a1"
         + "\ua7a3\ua7a3"
         + "\ua7a5\ua7a5"
@@ -18590,7 +20434,7 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfc9"
         + "\ud835\udfcb\ud835\udfcb",
-    // Unicode 6.0 property value: {lm}
+    // Unicode 6.2 property value: {lm}
     "\u02b0\u02c1"
         + "\u02c6\u02d1"
         + "\u02e0\u02e4"
@@ -18614,13 +20458,13 @@ public class Unicode_6_0 {
         + "\u1843\u1843"
         + "\u1aa7\u1aa7"
         + "\u1c78\u1c7d"
-        + "\u1d2c\u1d61"
+        + "\u1d2c\u1d6a"
         + "\u1d78\u1d78"
         + "\u1d9b\u1dbf"
         + "\u2071\u2071"
         + "\u207f\u207f"
         + "\u2090\u209c"
-        + "\u2c7d\u2c7d"
+        + "\u2c7c\u2c7d"
         + "\u2d6f\u2d6f"
         + "\u2e2f\u2e2f"
         + "\u3005\u3005"
@@ -18635,13 +20479,18 @@ public class Unicode_6_0 {
         + "\ua717\ua71f"
         + "\ua770\ua770"
         + "\ua788\ua788"
+        + "\ua7f8\ua7f9"
         + "\ua9cf\ua9cf"
         + "\uaa70\uaa70"
         + "\uaadd\uaadd"
+        + "\uaaf3\uaaf4"
         + "\uff70\uff70"
-        + "\uff9e\uff9f",
-    // Unicode 6.0 property value: {lo}
-    "\u01bb\u01bb"
+        + "\uff9e\uff9f"
+        + "\ud81b\udf93\ud81b\udf9f",
+    // Unicode 6.2 property value: {lo}
+    "\u00aa\u00aa"
+        + "\u00ba\u00ba"
+        + "\u01bb\u01bb"
         + "\u01c0\u01c3"
         + "\u0294\u0294"
         + "\u05d0\u05ea"
@@ -18661,6 +20510,8 @@ public class Unicode_6_0 {
         + "\u07ca\u07ea"
         + "\u0800\u0815"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -18765,7 +20616,7 @@ public class Unicode_6_0 {
         + "\u0eb2\u0eb3"
         + "\u0ebd\u0ebd"
         + "\u0ec0\u0ec4"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f40\u0f47"
         + "\u0f49\u0f6c"
@@ -18780,7 +20631,7 @@ public class Unicode_6_0 {
         + "\u1075\u1081"
         + "\u108e\u108e"
         + "\u10d0\u10fa"
-        + "\u1100\u1248"
+        + "\u10fd\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -18826,14 +20677,15 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1c00\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c77"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u2135\u2138"
-        + "\u2d30\u2d65"
+        + "\u2d30\u2d67"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
         + "\u2da8\u2dae"
@@ -18854,7 +20706,7 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua014"
         + "\ua016\ua48c"
         + "\ua4d0\ua4f7"
@@ -18888,6 +20740,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadc"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf2"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -18897,8 +20751,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb1d\ufb1d"
         + "\ufb1f\ufb28"
@@ -18945,6 +20798,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -18956,17 +20811,57 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc03\ud804\udc37"
         + "\ud804\udc83\ud804\udcaf"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
         + "\ud82c\udc00\ud82c\udc01"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {logicalorderexception}
+    // Unicode 6.2 property value: {logicalorderexception}
     "\u0e40\u0e44" + "\u0ec0\u0ec4" + "\uaab5\uaab6" + "\uaab9\uaab9" + "\uaabb\uaabc",
-    // Unicode 6.0 property value: {lowercase}
+    // Unicode 6.2 property value: {lowercase}
     "\u0061\u007a"
         + "\u00aa\u00aa"
         + "\u00b5\u00b5"
@@ -19383,7 +21278,9 @@ public class Unicode_6_0 {
         + "\u1fe0\u1fe7"
         + "\u1ff2\u1ff4"
         + "\u1ff6\u1ff7"
-        + "\u2090\u2094"
+        + "\u2071\u2071"
+        + "\u207f\u207f"
+        + "\u2090\u209c"
         + "\u210a\u210a"
         + "\u210e\u210f"
         + "\u2113\u2113"
@@ -19457,7 +21354,10 @@ public class Unicode_6_0 {
         + "\u2ce3\u2ce4"
         + "\u2cec\u2cec"
         + "\u2cee\u2cee"
+        + "\u2cf3\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua641\ua641"
         + "\ua643\ua643"
         + "\ua645\ua645"
@@ -19541,12 +21441,13 @@ public class Unicode_6_0 {
         + "\ua78c\ua78c"
         + "\ua78e\ua78e"
         + "\ua791\ua791"
+        + "\ua793\ua793"
         + "\ua7a1\ua7a1"
         + "\ua7a3\ua7a3"
         + "\ua7a5\ua7a5"
         + "\ua7a7\ua7a7"
         + "\ua7a9\ua7a9"
-        + "\ua7fa\ua7fa"
+        + "\ua7f8\ua7fa"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
         + "\uff41\uff5a"
@@ -19579,7 +21480,7 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfc9"
         + "\ud835\udfcb\ud835\udfcb",
-    // Unicode 6.0 property value: {lt}
+    // Unicode 6.2 property value: {lt}
     "\u01c5\u01c5"
         + "\u01c8\u01c8"
         + "\u01cb\u01cb"
@@ -19590,7 +21491,7 @@ public class Unicode_6_0 {
         + "\u1fbc\u1fbc"
         + "\u1fcc\u1fcc"
         + "\u1ffc\u1ffc",
-    // Unicode 6.0 property value: {lu}
+    // Unicode 6.2 property value: {lu}
     "\u0041\u005a"
         + "\u00c0\u00d6"
         + "\u00d8\u00de"
@@ -19859,6 +21760,8 @@ public class Unicode_6_0 {
         + "\u0526\u0526"
         + "\u0531\u0556"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1e00\u1e00"
         + "\u1e02\u1e02"
         + "\u1e04\u1e04"
@@ -20073,6 +21976,7 @@ public class Unicode_6_0 {
         + "\u2ce2\u2ce2"
         + "\u2ceb\u2ceb"
         + "\u2ced\u2ced"
+        + "\u2cf2\u2cf2"
         + "\ua640\ua640"
         + "\ua642\ua642"
         + "\ua644\ua644"
@@ -20156,11 +22060,13 @@ public class Unicode_6_0 {
         + "\ua78b\ua78b"
         + "\ua78d\ua78d"
         + "\ua790\ua790"
+        + "\ua792\ua792"
         + "\ua7a0\ua7a0"
         + "\ua7a2\ua7a2"
         + "\ua7a4\ua7a4"
         + "\ua7a6\ua7a6"
         + "\ua7a8\ua7a8"
+        + "\ua7aa\ua7aa"
         + "\uff21\uff3a"
         + "\ud801\udc00\ud801\udc27"
         + "\ud835\udc00\ud835\udc19"
@@ -20194,11 +22100,11 @@ public class Unicode_6_0 {
         + "\ud835\udf56\ud835\udf6e"
         + "\ud835\udf90\ud835\udfa8"
         + "\ud835\udfca\ud835\udfca",
-    // Unicode 6.0 property value: {lycian}
+    // Unicode 6.2 property value: {lycian}
     "\ud800\ude80\ud800\ude9c",
-    // Unicode 6.0 property value: {lydian}
+    // Unicode 6.2 property value: {lydian}
     "\ud802\udd20\ud802\udd39" + "\ud802\udd3f\ud802\udd3f",
-    // Unicode 6.0 property value: {malayalam}
+    // Unicode 6.2 property value: {malayalam}
     "\u0d02\u0d03"
         + "\u0d05\u0d0c"
         + "\u0d0e\u0d10"
@@ -20210,9 +22116,9 @@ public class Unicode_6_0 {
         + "\u0d60\u0d63"
         + "\u0d66\u0d75"
         + "\u0d79\u0d7f",
-    // Unicode 6.0 property value: {mandaic}
+    // Unicode 6.2 property value: {mandaic}
     "\u0840\u085b" + "\u085e\u085e",
-    // Unicode 6.0 property value: {math}
+    // Unicode 6.2 property value: {math}
     "\u002b\u002b"
         + "\u003c\u003e"
         + "\u005e\u005e"
@@ -20281,9 +22187,7 @@ public class Unicode_6_0 {
         + "\u2642\u2642"
         + "\u2660\u2663"
         + "\u266d\u266f"
-        + "\u27c0\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u27ff"
+        + "\u27c0\u27ff"
         + "\u2900\u2aff"
         + "\u2b30\u2b44"
         + "\u2b47\u2b4c"
@@ -20318,8 +22222,42 @@ public class Unicode_6_0 {
         + "\ud835\udd4a\ud835\udd50"
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
-        + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {mc}
+        + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1",
+    // Unicode 6.2 property value: {mc}
     "\u0903\u0903"
         + "\u093b\u093b"
         + "\u093e\u0940"
@@ -20401,6 +22339,7 @@ public class Unicode_6_0 {
         + "\u1ba1\u1ba1"
         + "\u1ba6\u1ba7"
         + "\u1baa\u1baa"
+        + "\u1bac\u1bad"
         + "\u1be7\u1be7"
         + "\u1bea\u1bec"
         + "\u1bee\u1bee"
@@ -20408,7 +22347,8 @@ public class Unicode_6_0 {
         + "\u1c24\u1c2b"
         + "\u1c34\u1c35"
         + "\u1ce1\u1ce1"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf3"
+        + "\u302e\u302f"
         + "\ua823\ua824"
         + "\ua827\ua827"
         + "\ua880\ua881"
@@ -20422,6 +22362,9 @@ public class Unicode_6_0 {
         + "\uaa33\uaa34"
         + "\uaa4d\uaa4d"
         + "\uaa7b\uaa7b"
+        + "\uaaeb\uaaeb"
+        + "\uaaee\uaaef"
+        + "\uaaf5\uaaf5"
         + "\uabe3\uabe4"
         + "\uabe6\uabe7"
         + "\uabe9\uabea"
@@ -20431,13 +22374,27 @@ public class Unicode_6_0 {
         + "\ud804\udc82\ud804\udc82"
         + "\ud804\udcb0\ud804\udcb2"
         + "\ud804\udcb7\ud804\udcb8"
+        + "\ud804\udd2c\ud804\udd2c"
+        + "\ud804\udd82\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddb5"
+        + "\ud804\uddbf\ud804\uddc0"
+        + "\ud805\udeac\ud805\udeac"
+        + "\ud805\udeae\ud805\udeaf"
+        + "\ud805\udeb6\ud805\udeb6"
+        + "\ud81b\udf51\ud81b\udf7e"
         + "\ud834\udd65\ud834\udd66"
         + "\ud834\udd6d\ud834\udd72",
-    // Unicode 6.0 property value: {me}
+    // Unicode 6.2 property value: {me}
     "\u0488\u0489" + "\u20dd\u20e0" + "\u20e2\u20e4" + "\ua670\ua672",
-    // Unicode 6.0 property value: {meeteimayek}
-    "\uabc0\uabed" + "\uabf0\uabf9",
-    // Unicode 6.0 property value: {mn}
+    // Unicode 6.2 property value: {meeteimayek}
+    "\uaae0\uaaf6" + "\uabc0\uabed" + "\uabf0\uabf9",
+    // Unicode 6.2 property value: {meroiticcursive}
+    "\ud802\udda0\ud802\uddb7" + "\ud802\uddbe\ud802\uddbf",
+    // Unicode 6.2 property value: {meroitichieroglyphs}
+    "\ud802\udd80\ud802\udd9f",
+    // Unicode 6.2 property value: {miao}
+    "\ud81b\udf00\ud81b\udf44" + "\ud81b\udf50\ud81b\udf7e" + "\ud81b\udf8f\ud81b\udf9f",
+    // Unicode 6.2 property value: {mn}
     "\u0300\u036f"
         + "\u0483\u0487"
         + "\u0591\u05bd"
@@ -20461,6 +22418,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0902"
         + "\u093a\u093a"
         + "\u093c\u093c"
@@ -20546,6 +22504,7 @@ public class Unicode_6_0 {
         + "\u1732\u1734"
         + "\u1752\u1753"
         + "\u1772\u1773"
+        + "\u17b4\u17b5"
         + "\u17b7\u17bd"
         + "\u17c6\u17c6"
         + "\u17c9\u17d3"
@@ -20573,6 +22532,7 @@ public class Unicode_6_0 {
         + "\u1b80\u1b81"
         + "\u1ba2\u1ba5"
         + "\u1ba8\u1ba9"
+        + "\u1bab\u1bab"
         + "\u1be6\u1be6"
         + "\u1be8\u1be9"
         + "\u1bed\u1bed"
@@ -20583,6 +22543,7 @@ public class Unicode_6_0 {
         + "\u1cd4\u1ce0"
         + "\u1ce2\u1ce8"
         + "\u1ced\u1ced"
+        + "\u1cf4\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u20d0\u20dc"
@@ -20591,10 +22552,11 @@ public class Unicode_6_0 {
         + "\u2cef\u2cf1"
         + "\u2d7f\u2d7f"
         + "\u2de0\u2dff"
-        + "\u302a\u302f"
+        + "\u302a\u302d"
         + "\u3099\u309a"
         + "\ua66f\ua66f"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -20618,6 +22580,8 @@ public class Unicode_6_0 {
         + "\uaab7\uaab8"
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
+        + "\uaaec\uaaed"
+        + "\uaaf6\uaaf6"
         + "\uabe5\uabe5"
         + "\uabe8\uabe8"
         + "\uabed\uabed"
@@ -20635,22 +22599,32 @@ public class Unicode_6_0 {
         + "\ud804\udc80\ud804\udc81"
         + "\ud804\udcb3\ud804\udcb6"
         + "\ud804\udcb9\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd2b"
+        + "\ud804\udd2d\ud804\udd34"
+        + "\ud804\udd80\ud804\udd81"
+        + "\ud804\uddb6\ud804\uddbe"
+        + "\ud805\udeab\ud805\udeab"
+        + "\ud805\udead\ud805\udead"
+        + "\ud805\udeb0\ud805\udeb5"
+        + "\ud805\udeb7\ud805\udeb7"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd67\ud834\udd69"
         + "\ud834\udd7b\ud834\udd82"
         + "\ud834\udd85\ud834\udd8b"
         + "\ud834\uddaa\ud834\uddad"
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {mongolian}
+    // Unicode 6.2 property value: {mongolian}
     "\u1800\u1801"
         + "\u1804\u1804"
         + "\u1806\u180e"
         + "\u1810\u1819"
         + "\u1820\u1877"
         + "\u1880\u18aa",
-    // Unicode 6.0 property value: {myanmar}
+    // Unicode 6.2 property value: {myanmar}
     "\u1000\u109f" + "\uaa60\uaa7b",
-    // Unicode 6.0 property value: {nd}
+    // Unicode 6.2 property value: {nd}
     "\u0030\u0039"
         + "\u0660\u0669"
         + "\u06f0\u06f9"
@@ -20688,12 +22662,16 @@ public class Unicode_6_0 {
         + "\uff10\uff19"
         + "\ud801\udca0\ud801\udca9"
         + "\ud804\udc66\ud804\udc6f"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {newtailue}
+    // Unicode 6.2 property value: {newtailue}
     "\u1980\u19ab" + "\u19b0\u19c9" + "\u19d0\u19da" + "\u19de\u19df",
-    // Unicode 6.0 property value: {nko}
+    // Unicode 6.2 property value: {nko}
     "\u07c0\u07fa",
-    // Unicode 6.0 property value: {nl}
+    // Unicode 6.2 property value: {nl}
     "\u16ee\u16f0"
         + "\u2160\u2182"
         + "\u2185\u2188"
@@ -20706,7 +22684,7 @@ public class Unicode_6_0 {
         + "\ud800\udf4a\ud800\udf4a"
         + "\ud800\udfd1\ud800\udfd5"
         + "\ud809\udc00\ud809\udc62",
-    // Unicode 6.0 property value: {no}
+    // Unicode 6.2 property value: {no}
     "\u00b2\u00b3"
         + "\u00b9\u00b9"
         + "\u00bc\u00be"
@@ -20730,6 +22708,7 @@ public class Unicode_6_0 {
         + "\u2cfd\u2cfd"
         + "\u3192\u3195"
         + "\u3220\u3229"
+        + "\u3248\u324f"
         + "\u3251\u325f"
         + "\u3280\u3289"
         + "\u32b1\u32bf"
@@ -20748,7 +22727,7 @@ public class Unicode_6_0 {
         + "\ud804\udc52\ud804\udc65"
         + "\ud834\udf60\ud834\udf71"
         + "\ud83c\udd00\ud83c\udd0a",
-    // Unicode 6.0 property value: {noncharactercodepoint}
+    // Unicode 6.2 property value: {noncharactercodepoint}
     "\ufdd0\ufdef"
         + "\ufffe\uffff"
         + "\ud83f\udffe\ud83f\udfff"
@@ -20767,19 +22746,19 @@ public class Unicode_6_0 {
         + "\udb7f\udffe\udb7f\udfff"
         + "\udbbf\udffe\udbbf\udfff"
         + "\udbff\udffe\udbff\udfff",
-    // Unicode 6.0 property value: {ogham}
+    // Unicode 6.2 property value: {ogham}
     "\u1680\u169c",
-    // Unicode 6.0 property value: {olchiki}
+    // Unicode 6.2 property value: {olchiki}
     "\u1c50\u1c7f",
-    // Unicode 6.0 property value: {olditalic}
+    // Unicode 6.2 property value: {olditalic}
     "\ud800\udf00\ud800\udf1e" + "\ud800\udf20\ud800\udf23",
-    // Unicode 6.0 property value: {oldpersian}
+    // Unicode 6.2 property value: {oldpersian}
     "\ud800\udfa0\ud800\udfc3" + "\ud800\udfc8\ud800\udfd5",
-    // Unicode 6.0 property value: {oldsoutharabian}
+    // Unicode 6.2 property value: {oldsoutharabian}
     "\ud802\ude60\ud802\ude7f",
-    // Unicode 6.0 property value: {oldturkic}
+    // Unicode 6.2 property value: {oldturkic}
     "\ud803\udc00\ud803\udc48",
-    // Unicode 6.0 property value: {oriya}
+    // Unicode 6.2 property value: {oriya}
     "\u0b01\u0b03"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
@@ -20794,9 +22773,9 @@ public class Unicode_6_0 {
         + "\u0b5c\u0b5d"
         + "\u0b5f\u0b63"
         + "\u0b66\u0b77",
-    // Unicode 6.0 property value: {osmanya}
+    // Unicode 6.2 property value: {osmanya}
     "\ud801\udc80\ud801\udc9d" + "\ud801\udca0\ud801\udca9",
-    // Unicode 6.0 property value: {otheralphabetic}
+    // Unicode 6.2 property value: {otheralphabetic}
     "\u0345\u0345"
         + "\u05b0\u05bd"
         + "\u05bf\u05bf"
@@ -20818,6 +22797,8 @@ public class Unicode_6_0 {
         + "\u081b\u0823"
         + "\u0825\u0827"
         + "\u0829\u082c"
+        + "\u08e4\u08e9"
+        + "\u08f0\u08fe"
         + "\u0900\u0903"
         + "\u093a\u093b"
         + "\u093e\u094c"
@@ -20914,11 +22895,14 @@ public class Unicode_6_0 {
         + "\u1b35\u1b43"
         + "\u1b80\u1b82"
         + "\u1ba1\u1ba9"
+        + "\u1bac\u1bad"
         + "\u1be7\u1bf1"
         + "\u1c24\u1c35"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf3"
         + "\u24b6\u24e9"
         + "\u2de0\u2dff"
+        + "\ua674\ua67b"
+        + "\ua69f\ua69f"
         + "\ua823\ua827"
         + "\ua880\ua881"
         + "\ua8b4\ua8c3"
@@ -20933,6 +22917,8 @@ public class Unicode_6_0 {
         + "\uaab2\uaab4"
         + "\uaab7\uaab8"
         + "\uaabe\uaabe"
+        + "\uaaeb\uaaef"
+        + "\uaaf5\uaaf5"
         + "\uabe3\uabea"
         + "\ufb1e\ufb1e"
         + "\ud802\ude01\ud802\ude03"
@@ -20941,10 +22927,17 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc02"
         + "\ud804\udc38\ud804\udc45"
         + "\ud804\udc82\ud804\udc82"
-        + "\ud804\udcb0\ud804\udcb8",
-    // Unicode 6.0 property value: {otherdefaultignorablecodepoint}
+        + "\ud804\udcb0\ud804\udcb8"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd32"
+        + "\ud804\udd80\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddbf"
+        + "\ud805\udeab\ud805\udeb5"
+        + "\ud81b\udf51\ud81b\udf7e",
+    // Unicode 6.2 property value: {otherdefaultignorablecodepoint}
     "\u034f\u034f"
         + "\u115f\u1160"
+        + "\u17b4\u17b5"
         + "\u2065\u2069"
         + "\u3164\u3164"
         + "\uffa0\uffa0"
@@ -20953,7 +22946,7 @@ public class Unicode_6_0 {
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udb43\udfff",
-    // Unicode 6.0 property value: {othergraphemeextend}
+    // Unicode 6.2 property value: {othergraphemeextend}
     "\u09be\u09be"
         + "\u09d7\u09d7"
         + "\u0b3e\u0b3e"
@@ -20967,28 +22960,34 @@ public class Unicode_6_0 {
         + "\u0dcf\u0dcf"
         + "\u0ddf\u0ddf"
         + "\u200c\u200d"
+        + "\u302e\u302f"
         + "\uff9e\uff9f"
         + "\ud834\udd65\ud834\udd65"
         + "\ud834\udd6e\ud834\udd72",
-    // Unicode 6.0 property value: {otheridcontinue}
+    // Unicode 6.2 property value: {otheridcontinue}
     "\u00b7\u00b7" + "\u0387\u0387" + "\u1369\u1371" + "\u19da\u19da",
-    // Unicode 6.0 property value: {otheridstart}
+    // Unicode 6.2 property value: {otheridstart}
     "\u2118\u2118" + "\u212e\u212e" + "\u309b\u309c",
-    // Unicode 6.0 property value: {otherlowercase}
-    "\u02b0\u02b8"
+    // Unicode 6.2 property value: {otherlowercase}
+    "\u00aa\u00aa"
+        + "\u00ba\u00ba"
+        + "\u02b0\u02b8"
         + "\u02c0\u02c1"
         + "\u02e0\u02e4"
         + "\u0345\u0345"
         + "\u037a\u037a"
-        + "\u1d2c\u1d61"
+        + "\u1d2c\u1d6a"
         + "\u1d78\u1d78"
         + "\u1d9b\u1dbf"
-        + "\u2090\u2094"
+        + "\u2071\u2071"
+        + "\u207f\u207f"
+        + "\u2090\u209c"
         + "\u2170\u217f"
         + "\u24d0\u24e9"
-        + "\u2c7d\u2c7d"
-        + "\ua770\ua770",
-    // Unicode 6.0 property value: {othermath}
+        + "\u2c7c\u2c7d"
+        + "\ua770\ua770"
+        + "\ua7f8\ua7f9",
+    // Unicode 6.2 property value: {othermath}
     "\u005e\u005e"
         + "\u03d0\u03d2"
         + "\u03d5\u03d5"
@@ -21088,10 +23087,43 @@ public class Unicode_6_0 {
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
-        + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {otheruppercase}
+        + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb",
+    // Unicode 6.2 property value: {otheruppercase}
     "\u2160\u216f" + "\u24b6\u24cf",
-    // Unicode 6.0 property value: {patternsyntax}
+    // Unicode 6.2 property value: {patternsyntax}
     "\u0021\u002f"
         + "\u003a\u0040"
         + "\u005b\u005e"
@@ -21120,16 +23152,16 @@ public class Unicode_6_0 {
         + "\u3030\u3030"
         + "\ufd3e\ufd3f"
         + "\ufe45\ufe46",
-    // Unicode 6.0 property value: {patternwhitespace}
+    // Unicode 6.2 property value: {patternwhitespace}
     "\t\r" + "\u0020\u0020" + "\u0085\u0085" + "\u200e\u200f" + "\u2028\u2029",
-    // Unicode 6.0 property value: {pc}
+    // Unicode 6.2 property value: {pc}
     "\u005f\u005f"
         + "\u203f\u2040"
         + "\u2054\u2054"
         + "\ufe33\ufe34"
         + "\ufe4d\ufe4f"
         + "\uff3f\uff3f",
-    // Unicode 6.0 property value: {pd}
+    // Unicode 6.2 property value: {pd}
     "\u002d\u002d"
         + "\u058a\u058a"
         + "\u05be\u05be"
@@ -21138,6 +23170,7 @@ public class Unicode_6_0 {
         + "\u2010\u2015"
         + "\u2e17\u2e17"
         + "\u2e1a\u2e1a"
+        + "\u2e3a\u2e3b"
         + "\u301c\u301c"
         + "\u3030\u3030"
         + "\u30a0\u30a0"
@@ -21145,7 +23178,7 @@ public class Unicode_6_0 {
         + "\ufe58\ufe58"
         + "\ufe63\ufe63"
         + "\uff0d\uff0d",
-    // Unicode 6.0 property value: {pe}
+    // Unicode 6.2 property value: {pe}
     "\u0029\u0029"
         + "\u005d\u005d"
         + "\u007d\u007d"
@@ -21216,7 +23249,7 @@ public class Unicode_6_0 {
         + "\uff5d\uff5d"
         + "\uff60\uff60"
         + "\uff63\uff63",
-    // Unicode 6.0 property value: {pf}
+    // Unicode 6.2 property value: {pf}
     "\u00bb\u00bb"
         + "\u2019\u2019"
         + "\u201d\u201d"
@@ -21227,11 +23260,11 @@ public class Unicode_6_0 {
         + "\u2e0d\u2e0d"
         + "\u2e1d\u2e1d"
         + "\u2e21\u2e21",
-    // Unicode 6.0 property value: {phagspa}
+    // Unicode 6.2 property value: {phagspa}
     "\ua840\ua877",
-    // Unicode 6.0 property value: {phoenician}
+    // Unicode 6.2 property value: {phoenician}
     "\ud802\udd00\ud802\udd1b" + "\ud802\udd1f\ud802\udd1f",
-    // Unicode 6.0 property value: {pi}
+    // Unicode 6.2 property value: {pi}
     "\u00ab\u00ab"
         + "\u2018\u2018"
         + "\u201b\u201c"
@@ -21243,7 +23276,7 @@ public class Unicode_6_0 {
         + "\u2e0c\u2e0c"
         + "\u2e1c\u2e1c"
         + "\u2e20\u2e20",
-    // Unicode 6.0 property value: {po}
+    // Unicode 6.2 property value: {po}
     "\u0021\u0023"
         + "\u0025\u0027"
         + "\u002a\u002a"
@@ -21253,7 +23286,8 @@ public class Unicode_6_0 {
         + "\u003f\u0040"
         + "\\\\"
         + "\u00a1\u00a1"
-        + "\u00b7\u00b7"
+        + "\u00a7\u00a7"
+        + "\u00b6\u00b7"
         + "\u00bf\u00bf"
         + "\u037e\u037e"
         + "\u0387\u0387"
@@ -21275,16 +23309,18 @@ public class Unicode_6_0 {
         + "\u085e\u085e"
         + "\u0964\u0965"
         + "\u0970\u0970"
+        + "\u0af0\u0af0"
         + "\u0df4\u0df4"
         + "\u0e4f\u0e4f"
         + "\u0e5a\u0e5b"
         + "\u0f04\u0f12"
+        + "\u0f14\u0f14"
         + "\u0f85\u0f85"
         + "\u0fd0\u0fd4"
         + "\u0fd9\u0fda"
         + "\u104a\u104f"
         + "\u10fb\u10fb"
-        + "\u1361\u1368"
+        + "\u1360\u1368"
         + "\u166d\u166e"
         + "\u16eb\u16ed"
         + "\u1735\u1736"
@@ -21300,6 +23336,7 @@ public class Unicode_6_0 {
         + "\u1bfc\u1bff"
         + "\u1c3b\u1c3f"
         + "\u1c7e\u1c7f"
+        + "\u1cc0\u1cc7"
         + "\u1cd3\u1cd3"
         + "\u2016\u2017"
         + "\u2020\u2027"
@@ -21320,7 +23357,7 @@ public class Unicode_6_0 {
         + "\u2e1b\u2e1b"
         + "\u2e1e\u2e1f"
         + "\u2e2a\u2e2e"
-        + "\u2e30\u2e31"
+        + "\u2e30\u2e39"
         + "\u3001\u3003"
         + "\u303d\u303d"
         + "\u30fb\u30fb"
@@ -21338,6 +23375,7 @@ public class Unicode_6_0 {
         + "\ua9de\ua9df"
         + "\uaa5c\uaa5f"
         + "\uaade\uaadf"
+        + "\uaaf0\uaaf1"
         + "\uabeb\uabeb"
         + "\ufe10\ufe16"
         + "\ufe19\ufe19"
@@ -21359,7 +23397,7 @@ public class Unicode_6_0 {
         + "\uff3c\uff3c"
         + "\uff61\uff61"
         + "\uff64\uff65"
-        + "\ud800\udd00\ud800\udd01"
+        + "\ud800\udd00\ud800\udd02"
         + "\ud800\udf9f\ud800\udf9f"
         + "\ud800\udfd0\ud800\udfd0"
         + "\ud802\udc57\ud802\udc57"
@@ -21371,8 +23409,10 @@ public class Unicode_6_0 {
         + "\ud804\udc47\ud804\udc4d"
         + "\ud804\udcbb\ud804\udcbc"
         + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udd40\ud804\udd43"
+        + "\ud804\uddc5\ud804\uddc8"
         + "\ud809\udc70\ud809\udc73",
-    // Unicode 6.0 property value: {print}
+    // Unicode 6.2 property value: {print}
     "\u0020\u007e"
         + "\u00a0\u0377"
         + "\u037a\u037e"
@@ -21384,10 +23424,11 @@ public class Unicode_6_0 {
         + "\u0559\u055f"
         + "\u0561\u0587"
         + "\u0589\u058a"
+        + "\u058f\u058f"
         + "\u0591\u05c7"
         + "\u05d0\u05ea"
         + "\u05f0\u05f4"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u0606\u061b"
         + "\u061e\u070d"
         + "\u070f\u074a"
@@ -21397,6 +23438,9 @@ public class Unicode_6_0 {
         + "\u0830\u083e"
         + "\u0840\u085b"
         + "\u085e\u085e"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\u0900\u0977"
         + "\u0979\u097f"
         + "\u0981\u0983"
@@ -21441,8 +23485,7 @@ public class Unicode_6_0 {
         + "\u0acb\u0acd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae3"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1"
+        + "\u0ae6\u0af1"
         + "\u0b01\u0b03"
         + "\u0b05\u0b0c"
         + "\u0b0f\u0b10"
@@ -21542,7 +23585,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f47"
         + "\u0f49\u0f6c"
         + "\u0f71\u0f97"
@@ -21550,8 +23593,9 @@ public class Unicode_6_0 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fda"
         + "\u1000\u10c5"
-        + "\u10d0\u10fc"
-        + "\u1100\u1248"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -21604,13 +23648,12 @@ public class Unicode_6_0 {
         + "\u1aa0\u1aad"
         + "\u1b00\u1b4b"
         + "\u1b50\u1b7c"
-        + "\u1b80\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1bf3"
+        + "\u1b80\u1bf3"
         + "\u1bfc\u1c37"
         + "\u1c3b\u1c49"
         + "\u1c4d\u1c7f"
-        + "\u1cd0\u1cf2"
+        + "\u1cc0\u1cc7"
+        + "\u1cd0\u1cf6"
         + "\u1d00\u1de6"
         + "\u1dfc\u1f15"
         + "\u1f18\u1f1d"
@@ -21633,22 +23676,22 @@ public class Unicode_6_0 {
         + "\u206a\u2071"
         + "\u2074\u208e"
         + "\u2090\u209c"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u20d0\u20f0"
         + "\u2100\u2189"
         + "\u2190\u23f3"
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u2b4c"
+        + "\u2701\u2b4c"
         + "\u2b50\u2b59"
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
-        + "\u2c60\u2cf1"
+        + "\u2c60\u2cf3"
         + "\u2cf9\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d70"
         + "\u2d7f\u2d96"
         + "\u2da0\u2da6"
@@ -21659,7 +23702,7 @@ public class Unicode_6_0 {
         + "\u2dc8\u2dce"
         + "\u2dd0\u2dd6"
         + "\u2dd8\u2dde"
-        + "\u2de0\u2e31"
+        + "\u2de0\u2e3b"
         + "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -21674,17 +23717,16 @@ public class Unicode_6_0 {
         + "\u31f0\u321e"
         + "\u3220\u32fe"
         + "\u3300\u4db5"
-        + "\u4dc0\u9fcb"
+        + "\u4dc0\u9fcc"
         + "\ua000\ua48c"
         + "\ua490\ua4c6"
         + "\ua4d0\ua62b"
-        + "\ua640\ua673"
-        + "\ua67c\ua697"
-        + "\ua6a0\ua6f7"
+        + "\ua640\ua697"
+        + "\ua69f\ua6f7"
         + "\ua700\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua82b"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua82b"
         + "\ua830\ua839"
         + "\ua840\ua877"
         + "\ua880\ua8c4"
@@ -21700,7 +23742,7 @@ public class Unicode_6_0 {
         + "\uaa50\uaa59"
         + "\uaa5c\uaa7b"
         + "\uaa80\uaac2"
-        + "\uaadb\uaadf"
+        + "\uaadb\uaaf6"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -21711,8 +23753,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\ue000\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\ue000\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -21774,6 +23815,8 @@ public class Unicode_6_0 {
         + "\ud802\udd00\ud802\udd1b"
         + "\ud802\udd1f\ud802\udd39"
         + "\ud802\udd3f\ud802\udd3f"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -21792,11 +23835,22 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc4d"
         + "\ud804\udc52\ud804\udc6f"
         + "\ud804\udc80\ud804\udcc1"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd43"
+        + "\ud804\udd80\ud804\uddc8"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud809\udc70\ud809\udc73"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udc00\ud834\udcf5"
         + "\ud834\udd00\ud834\udd26"
@@ -21825,6 +23879,40 @@ public class Unicode_6_0 {
         + "\ud835\udd52\ud835\udea5"
         + "\ud835\udea8\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1"
         + "\ud83c\udc00\ud83c\udc2b"
         + "\ud83c\udc30\ud83c\udc93"
         + "\ud83c\udca0\ud83c\udcae"
@@ -21833,7 +23921,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
@@ -21851,19 +23939,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
@@ -21876,7 +23954,7 @@ public class Unicode_6_0 {
         + "\udb40\udd00\udb40\uddef"
         + "\udb80\udc00\udbbf\udffd"
         + "\udbc0\udc00\udbff\udffd",
-    // Unicode 6.0 property value: {ps}
+    // Unicode 6.2 property value: {ps}
     "\u0028\u0028"
         + "\u005b\u005b"
         + "\u007b\u007b"
@@ -21949,7 +24027,7 @@ public class Unicode_6_0 {
         + "\uff5b\uff5b"
         + "\uff5f\uff5f"
         + "\uff62\uff62",
-    // Unicode 6.0 property value: {quotationmark}
+    // Unicode 6.2 property value: {quotationmark}
     "\"\""
         + "\u0027\u0027"
         + "\u00ab\u00ab"
@@ -21962,19 +24040,20 @@ public class Unicode_6_0 {
         + "\uff02\uff02"
         + "\uff07\uff07"
         + "\uff62\uff63",
-    // Unicode 6.0 property value: {radical}
+    // Unicode 6.2 property value: {radical}
     "\u2e80\u2e99" + "\u2e9b\u2ef3" + "\u2f00\u2fd5",
-    // Unicode 6.0 property value: {rejang}
+    // Unicode 6.2 property value: {rejang}
     "\ua930\ua953" + "\ua95f\ua95f",
-    // Unicode 6.0 property value: {runic}
+    // Unicode 6.2 property value: {runic}
     "\u16a0\u16ea" + "\u16ee\u16f0",
-    // Unicode 6.0 property value: {samaritan}
+    // Unicode 6.2 property value: {samaritan}
     "\u0800\u082d" + "\u0830\u083e",
-    // Unicode 6.0 property value: {saurashtra}
+    // Unicode 6.2 property value: {saurashtra}
     "\ua880\ua8c4" + "\ua8ce\ua8d9",
-    // Unicode 6.0 property value: {sc}
+    // Unicode 6.2 property value: {sc}
     "\u0024\u0024"
         + "\u00a2\u00a5"
+        + "\u058f\u058f"
         + "\u060b\u060b"
         + "\u09f2\u09f3"
         + "\u09fb\u09fb"
@@ -21982,20 +24061,22 @@ public class Unicode_6_0 {
         + "\u0bf9\u0bf9"
         + "\u0e3f\u0e3f"
         + "\u17db\u17db"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\ua838\ua838"
         + "\ufdfc\ufdfc"
         + "\ufe69\ufe69"
         + "\uff04\uff04"
         + "\uffe0\uffe1"
         + "\uffe5\uffe6",
-    // Unicode 6.0 property value: {scriptextensions=arabic}
-    "\u0600\u0603"
+    // Unicode 6.2 property value: {scriptextensions=arabic}
+    "\u0600\u0604"
         + "\u0606\u061b"
-        + "\u061e\u065e"
-        + "\u0660\u06dc"
+        + "\u061e\u06dc"
         + "\u06de\u06ff"
         + "\u0750\u077f"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\ufb50\ufbc1"
         + "\ufbd3\ufd3d"
         + "\ufd50\ufd8f"
@@ -22003,18 +24084,57 @@ public class Unicode_6_0 {
         + "\ufdf0\ufdfd"
         + "\ufe70\ufe74"
         + "\ufe76\ufefc"
-        + "\ud803\ude60\ud803\ude7e",
-    // Unicode 6.0 property value: {scriptextensions=armenian}
-    "\u0531\u0556" + "\u0559\u055f" + "\u0561\u0587" + "\u0589\u058a" + "\ufb13\ufb17",
-    // Unicode 6.0 property value: {scriptextensions=avestan}
+        + "\ud803\ude60\ud803\ude7e"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
+        + "\ud83b\udef0\ud83b\udef1",
+    // Unicode 6.2 property value: {scriptextensions=armenian}
+    "\u0531\u0556"
+        + "\u0559\u055f"
+        + "\u0561\u0587"
+        + "\u0589\u058a"
+        + "\u058f\u058f"
+        + "\ufb13\ufb17",
+    // Unicode 6.2 property value: {scriptextensions=avestan}
     "\ud802\udf00\ud802\udf35" + "\ud802\udf39\ud802\udf3f",
-    // Unicode 6.0 property value: {scriptextensions=balinese}
+    // Unicode 6.2 property value: {scriptextensions=balinese}
     "\u1b00\u1b4b" + "\u1b50\u1b7c",
-    // Unicode 6.0 property value: {scriptextensions=bamum}
+    // Unicode 6.2 property value: {scriptextensions=bamum}
     "\ua6a0\ua6f7" + "\ud81a\udc00\ud81a\ude38",
-    // Unicode 6.0 property value: {scriptextensions=batak}
+    // Unicode 6.2 property value: {scriptextensions=batak}
     "\u1bc0\u1bf3" + "\u1bfc\u1bff",
-    // Unicode 6.0 property value: {scriptextensions=bengali}
+    // Unicode 6.2 property value: {scriptextensions=bengali}
     "\u0964\u0965"
         + "\u0981\u0983"
         + "\u0985\u098c"
@@ -22030,7 +24150,7 @@ public class Unicode_6_0 {
         + "\u09dc\u09dd"
         + "\u09df\u09e3"
         + "\u09e6\u09fb",
-    // Unicode 6.0 property value: {scriptextensions=bopomofo}
+    // Unicode 6.2 property value: {scriptextensions=bopomofo}
     "\u02ea\u02eb"
         + "\u3001\u3003"
         + "\u3008\u3011"
@@ -22051,23 +24171,25 @@ public class Unicode_6_0 {
         + "\u33e0\u33fe"
         + "\ufe45\ufe46"
         + "\uff61\uff65",
-    // Unicode 6.0 property value: {scriptextensions=brahmi}
+    // Unicode 6.2 property value: {scriptextensions=brahmi}
     "\ud804\udc00\ud804\udc4d" + "\ud804\udc52\ud804\udc6f",
-    // Unicode 6.0 property value: {scriptextensions=braille}
+    // Unicode 6.2 property value: {scriptextensions=braille}
     "\u2800\u28ff",
-    // Unicode 6.0 property value: {scriptextensions=buginese}
+    // Unicode 6.2 property value: {scriptextensions=buginese}
     "\u1a00\u1a1b" + "\u1a1e\u1a1f",
-    // Unicode 6.0 property value: {scriptextensions=buhid}
+    // Unicode 6.2 property value: {scriptextensions=buhid}
     "\u1735\u1736" + "\u1740\u1753",
-    // Unicode 6.0 property value: {scriptextensions=canadianaboriginal}
+    // Unicode 6.2 property value: {scriptextensions=canadianaboriginal}
     "\u1400\u167f" + "\u18b0\u18f5",
-    // Unicode 6.0 property value: {scriptextensions=carian}
+    // Unicode 6.2 property value: {scriptextensions=carian}
     "\ud800\udea0\ud800\uded0",
-    // Unicode 6.0 property value: {scriptextensions=cham}
+    // Unicode 6.2 property value: {scriptextensions=chakma}
+    "\ud804\udd00\ud804\udd34" + "\ud804\udd36\ud804\udd43",
+    // Unicode 6.2 property value: {scriptextensions=cham}
     "\uaa00\uaa36" + "\uaa40\uaa4d" + "\uaa50\uaa59" + "\uaa5c\uaa5f",
-    // Unicode 6.0 property value: {scriptextensions=cherokee}
+    // Unicode 6.2 property value: {scriptextensions=cherokee}
     "\u13a0\u13f4",
-    // Unicode 6.0 property value: {scriptextensions=common}
+    // Unicode 6.2 property value: {scriptextensions=common}
     "\000\u0040"
         + "\u005b\u0060"
         + "\u007b\u00a9"
@@ -22083,21 +24205,20 @@ public class Unicode_6_0 {
         + "\u0385\u0385"
         + "\u0387\u0387"
         + "\u06dd\u06dd"
-        + "\u0970\u0970"
         + "\u0e3f\u0e3f"
         + "\u0fd5\u0fd8"
         + "\u10fb\u10fb"
         + "\u16eb\u16ed"
         + "\u1cd3\u1cd3"
-        + "\u1ce1\u1ce1"
         + "\u1ce9\u1cec"
-        + "\u1cee\u1cf2"
+        + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u2000\u200b"
         + "\u200e\u2064"
         + "\u206a\u2070"
         + "\u2074\u207e"
         + "\u2080\u208e"
-        + "\u20a0\u20b9"
+        + "\u20a0\u20ba"
         + "\u2100\u2125"
         + "\u2127\u2129"
         + "\u212c\u2131"
@@ -22108,12 +24229,10 @@ public class Unicode_6_0 {
         + "\u2400\u2426"
         + "\u2440\u244a"
         + "\u2460\u26ff"
-        + "\u2701\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u27ff"
+        + "\u2701\u27ff"
         + "\u2900\u2b4c"
         + "\u2b50\u2b59"
-        + "\u2e00\u2e31"
+        + "\u2e00\u2e3b"
         + "\u2ff0\u2ffb"
         + "\u3000\u3000"
         + "\u3004\u3004"
@@ -22130,7 +24249,6 @@ public class Unicode_6_0 {
         + "\u4dc0\u4dff"
         + "\ua700\ua721"
         + "\ua788\ua78a"
-        + "\ua830\ua839"
         + "\ufd3e\ufd3f"
         + "\ufe10\ufe19"
         + "\ufe30\ufe44"
@@ -22144,9 +24262,6 @@ public class Unicode_6_0 {
         + "\uffe0\uffe6"
         + "\uffe8\uffee"
         + "\ufff9\ufffd"
-        + "\ud800\udd00\ud800\udd02"
-        + "\ud800\udd07\ud800\udd33"
-        + "\ud800\udd37\ud800\udd3f"
         + "\ud800\udd90\ud800\udd9b"
         + "\ud800\uddd0\ud800\uddfc"
         + "\ud834\udc00\ud834\udcf5"
@@ -22187,7 +24302,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd00\ud83c\udd0a"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\uddff"
         + "\ud83c\ude01\ud83c\ude02"
@@ -22206,50 +24321,49 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {scriptextensions=coptic}
-    "\u03e2\u03ef" + "\u2c80\u2cf1" + "\u2cf9\u2cff",
-    // Unicode 6.0 property value: {scriptextensions=cuneiform}
+    // Unicode 6.2 property value: {scriptextensions=coptic}
+    "\u03e2\u03ef" + "\u2c80\u2cf3" + "\u2cf9\u2cff",
+    // Unicode 6.2 property value: {scriptextensions=cuneiform}
     "\ud808\udc00\ud808\udf6e" + "\ud809\udc00\ud809\udc62" + "\ud809\udc70\ud809\udc73",
-    // Unicode 6.0 property value: {scriptextensions=cypriot}
-    "\ud802\udc00\ud802\udc05"
+    // Unicode 6.2 property value: {scriptextensions=cypriot}
+    "\ud800\udd00\ud800\udd02"
+        + "\ud800\udd07\ud800\udd33"
+        + "\ud800\udd37\ud800\udd3f"
+        + "\ud802\udc00\ud802\udc05"
         + "\ud802\udc08\ud802\udc08"
         + "\ud802\udc0a\ud802\udc35"
         + "\ud802\udc37\ud802\udc38"
         + "\ud802\udc3c\ud802\udc3c"
         + "\ud802\udc3f\ud802\udc3f",
-    // Unicode 6.0 property value: {scriptextensions=cyrillic}
-    "\u0400\u0484"
-        + "\u0487\u0527"
+    // Unicode 6.2 property value: {scriptextensions=cyrillic}
+    "\u0400\u0527"
         + "\u1d2b\u1d2b"
         + "\u1d78\u1d78"
         + "\u2de0\u2dff"
-        + "\ua640\ua673"
-        + "\ua67c\ua697",
-    // Unicode 6.0 property value: {scriptextensions=deseret}
+        + "\ua640\ua697"
+        + "\ua69f\ua69f",
+    // Unicode 6.2 property value: {scriptextensions=deseret}
     "\ud801\udc00\ud801\udc4f",
-    // Unicode 6.0 property value: {scriptextensions=devanagari}
-    "\u0900\u0950" + "\u0953\u096f" + "\u0971\u0977" + "\u0979\u097f" + "\ua8e0\ua8fb",
-    // Unicode 6.0 property value: {scriptextensions=egyptianhieroglyphs}
+    // Unicode 6.2 property value: {scriptextensions=devanagari}
+    "\u0900\u0977"
+        + "\u0979\u097f"
+        + "\u1cd0\u1cd2"
+        + "\u1cd4\u1ce8"
+        + "\u1ced\u1ced"
+        + "\u1cf2\u1cf4"
+        + "\ua830\ua839"
+        + "\ua8e0\ua8fb",
+    // Unicode 6.2 property value: {scriptextensions=egyptianhieroglyphs}
     "\ud80c\udc00\ud80d\udc2e",
-    // Unicode 6.0 property value: {scriptextensions=ethiopic}
+    // Unicode 6.2 property value: {scriptextensions=ethiopic}
     "\u1200\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
@@ -22282,14 +24396,24 @@ public class Unicode_6_0 {
         + "\uab11\uab16"
         + "\uab20\uab26"
         + "\uab28\uab2e",
-    // Unicode 6.0 property value: {scriptextensions=georgian}
-    "\u0589\u0589" + "\u10a0\u10c5" + "\u10d0\u10fa" + "\u10fc\u10fc" + "\u2d00\u2d25",
-    // Unicode 6.0 property value: {scriptextensions=glagolitic}
+    // Unicode 6.2 property value: {scriptextensions=georgian}
+    "\u0589\u0589"
+        + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
+        + "\u10d0\u10fa"
+        + "\u10fc\u10ff"
+        + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d",
+    // Unicode 6.2 property value: {scriptextensions=glagolitic}
     "\u2c00\u2c2e" + "\u2c30\u2c5e",
-    // Unicode 6.0 property value: {scriptextensions=gothic}
+    // Unicode 6.2 property value: {scriptextensions=gothic}
     "\ud800\udf30\ud800\udf4a",
-    // Unicode 6.0 property value: {scriptextensions=greek}
-    "\u0370\u0373"
+    // Unicode 6.2 property value: {scriptextensions=greek}
+    "\u0342\u0342"
+        + "\u0345\u0345"
+        + "\u0370\u0373"
         + "\u0375\u0377"
         + "\u037a\u037d"
         + "\u0384\u0384"
@@ -22302,7 +24426,7 @@ public class Unicode_6_0 {
         + "\u1d26\u1d2a"
         + "\u1d5d\u1d61"
         + "\u1d66\u1d6a"
-        + "\u1dbf\u1dbf"
+        + "\u1dbf\u1dc1"
         + "\u1f00\u1f15"
         + "\u1f18\u1f1d"
         + "\u1f20\u1f45"
@@ -22322,7 +24446,7 @@ public class Unicode_6_0 {
         + "\u2126\u2126"
         + "\ud800\udd40\ud800\udd8a"
         + "\ud834\ude00\ud834\ude45",
-    // Unicode 6.0 property value: {scriptextensions=gujarati}
+    // Unicode 6.2 property value: {scriptextensions=gujarati}
     "\u0a81\u0a83"
         + "\u0a85\u0a8d"
         + "\u0a8f\u0a91"
@@ -22335,9 +24459,9 @@ public class Unicode_6_0 {
         + "\u0acb\u0acd"
         + "\u0ad0\u0ad0"
         + "\u0ae0\u0ae3"
-        + "\u0ae6\u0aef"
-        + "\u0af1\u0af1",
-    // Unicode 6.0 property value: {scriptextensions=gurmukhi}
+        + "\u0ae6\u0af1"
+        + "\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=gurmukhi}
     "\u0964\u0965"
         + "\u0a01\u0a03"
         + "\u0a05\u0a0a"
@@ -22354,8 +24478,9 @@ public class Unicode_6_0 {
         + "\u0a51\u0a51"
         + "\u0a59\u0a5c"
         + "\u0a5e\u0a5e"
-        + "\u0a66\u0a75",
-    // Unicode 6.0 property value: {scriptextensions=han}
+        + "\u0a66\u0a75"
+        + "\ua830\ua839",
+    // Unicode 6.2 property value: {scriptextensions=han}
     "\u2e80\u2e99"
         + "\u2e9b\u2ef3"
         + "\u2f00\u2fd5"
@@ -22375,9 +24500,8 @@ public class Unicode_6_0 {
         + "\u337b\u337f"
         + "\u33e0\u33fe"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\u4e00\u9fcc"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufe45\ufe46"
         + "\uff61\uff65"
@@ -22385,7 +24509,7 @@ public class Unicode_6_0 {
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {scriptextensions=hangul}
+    // Unicode 6.2 property value: {scriptextensions=hangul}
     "\u1100\u11ff"
         + "\u3001\u3003"
         + "\u3008\u3011"
@@ -22415,9 +24539,9 @@ public class Unicode_6_0 {
         + "\uffca\uffcf"
         + "\uffd2\uffd7"
         + "\uffda\uffdc",
-    // Unicode 6.0 property value: {scriptextensions=hanunoo}
+    // Unicode 6.2 property value: {scriptextensions=hanunoo}
     "\u1720\u1736",
-    // Unicode 6.0 property value: {scriptextensions=hebrew}
+    // Unicode 6.2 property value: {scriptextensions=hebrew}
     "\u0591\u05c7"
         + "\u05d0\u05ea"
         + "\u05f0\u05f4"
@@ -22427,7 +24551,7 @@ public class Unicode_6_0 {
         + "\ufb40\ufb41"
         + "\ufb43\ufb44"
         + "\ufb46\ufb4f",
-    // Unicode 6.0 property value: {scriptextensions=hiragana}
+    // Unicode 6.2 property value: {scriptextensions=hiragana}
     "\u3001\u3003"
         + "\u3006\u3006"
         + "\u3008\u3011"
@@ -22452,18 +24576,13 @@ public class Unicode_6_0 {
         + "\uff9e\uff9f"
         + "\ud82c\udc01\ud82c\udc01"
         + "\ud83c\ude00\ud83c\ude00",
-    // Unicode 6.0 property value: {scriptextensions=imperialaramaic}
+    // Unicode 6.2 property value: {scriptextensions=imperialaramaic}
     "\ud802\udc40\ud802\udc55" + "\ud802\udc57\ud802\udc5f",
-    // Unicode 6.0 property value: {scriptextensions=inherited}
-    "\u0300\u036f"
-        + "\u0485\u0486"
-        + "\u065f\u065f"
-        + "\u0951\u0952"
-        + "\u1cd0\u1cd2"
-        + "\u1cd4\u1ce0"
-        + "\u1ce2\u1ce8"
-        + "\u1ced\u1ced"
-        + "\u1dc0\u1de6"
+    // Unicode 6.2 property value: {scriptextensions=inherited}
+    "\u0300\u0341"
+        + "\u0343\u0344"
+        + "\u0346\u0362"
+        + "\u1dc2\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
         + "\u20d0\u20f0"
@@ -22475,15 +24594,15 @@ public class Unicode_6_0 {
         + "\ud834\udd85\ud834\udd8b"
         + "\ud834\uddaa\ud834\uddad"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {scriptextensions=inscriptionalpahlavi}
+    // Unicode 6.2 property value: {scriptextensions=inscriptionalpahlavi}
     "\ud802\udf60\ud802\udf72" + "\ud802\udf78\ud802\udf7f",
-    // Unicode 6.0 property value: {scriptextensions=inscriptionalparthian}
+    // Unicode 6.2 property value: {scriptextensions=inscriptionalparthian}
     "\ud802\udf40\ud802\udf55" + "\ud802\udf58\ud802\udf5f",
-    // Unicode 6.0 property value: {scriptextensions=javanese}
+    // Unicode 6.2 property value: {scriptextensions=javanese}
     "\ua980\ua9cd" + "\ua9cf\ua9d9" + "\ua9de\ua9df",
-    // Unicode 6.0 property value: {scriptextensions=kaithi}
-    "\ud804\udc80\ud804\udcc1",
-    // Unicode 6.0 property value: {scriptextensions=kannada}
+    // Unicode 6.2 property value: {scriptextensions=kaithi}
+    "\ua830\ua839" + "\ud804\udc80\ud804\udcc1",
+    // Unicode 6.2 property value: {scriptextensions=kannada}
     "\u0c82\u0c83"
         + "\u0c85\u0c8c"
         + "\u0c8e\u0c90"
@@ -22498,7 +24617,7 @@ public class Unicode_6_0 {
         + "\u0ce0\u0ce3"
         + "\u0ce6\u0cef"
         + "\u0cf1\u0cf2",
-    // Unicode 6.0 property value: {scriptextensions=katakana}
+    // Unicode 6.2 property value: {scriptextensions=katakana}
     "\u3001\u3003"
         + "\u3006\u3006"
         + "\u3008\u3011"
@@ -22521,9 +24640,9 @@ public class Unicode_6_0 {
         + "\ufe45\ufe46"
         + "\uff61\uff9f"
         + "\ud82c\udc00\ud82c\udc00",
-    // Unicode 6.0 property value: {scriptextensions=kayahli}
+    // Unicode 6.2 property value: {scriptextensions=kayahli}
     "\ua900\ua92f",
-    // Unicode 6.0 property value: {scriptextensions=kharoshthi}
+    // Unicode 6.2 property value: {scriptextensions=kharoshthi}
     "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -22532,9 +24651,9 @@ public class Unicode_6_0 {
         + "\ud802\ude38\ud802\ude3a"
         + "\ud802\ude3f\ud802\ude47"
         + "\ud802\ude50\ud802\ude58",
-    // Unicode 6.0 property value: {scriptextensions=khmer}
+    // Unicode 6.2 property value: {scriptextensions=khmer}
     "\u1780\u17dd" + "\u17e0\u17e9" + "\u17f0\u17f9" + "\u19e0\u19ff",
-    // Unicode 6.0 property value: {scriptextensions=lao}
+    // Unicode 6.2 property value: {scriptextensions=lao}
     "\u0e81\u0e82"
         + "\u0e84\u0e84"
         + "\u0e87\u0e88"
@@ -22552,8 +24671,8 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd",
-    // Unicode 6.0 property value: {scriptextensions=latin}
+        + "\u0edc\u0edf",
+    // Unicode 6.2 property value: {scriptextensions=latin}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -22562,6 +24681,9 @@ public class Unicode_6_0 {
         + "\u00d8\u00f6"
         + "\u00f8\u02b8"
         + "\u02e0\u02e4"
+        + "\u0363\u036f"
+        + "\u0485\u0486"
+        + "\u0951\u0952"
         + "\u1d00\u1d25"
         + "\u1d2c\u1d5c"
         + "\u1d62\u1d65"
@@ -22578,31 +24700,34 @@ public class Unicode_6_0 {
         + "\u2c60\u2c7f"
         + "\ua722\ua787"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua7ff"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua7ff"
         + "\ufb00\ufb06"
         + "\uff21\uff3a"
         + "\uff41\uff5a",
-    // Unicode 6.0 property value: {scriptextensions=lepcha}
+    // Unicode 6.2 property value: {scriptextensions=lepcha}
     "\u1c00\u1c37" + "\u1c3b\u1c49" + "\u1c4d\u1c4f",
-    // Unicode 6.0 property value: {scriptextensions=limbu}
+    // Unicode 6.2 property value: {scriptextensions=limbu}
     "\u1900\u191c" + "\u1920\u192b" + "\u1930\u193b" + "\u1940\u1940" + "\u1944\u194f",
-    // Unicode 6.0 property value: {scriptextensions=linearb}
+    // Unicode 6.2 property value: {scriptextensions=linearb}
     "\ud800\udc00\ud800\udc0b"
         + "\ud800\udc0d\ud800\udc26"
         + "\ud800\udc28\ud800\udc3a"
         + "\ud800\udc3c\ud800\udc3d"
         + "\ud800\udc3f\ud800\udc4d"
         + "\ud800\udc50\ud800\udc5d"
-        + "\ud800\udc80\ud800\udcfa",
-    // Unicode 6.0 property value: {scriptextensions=lisu}
+        + "\ud800\udc80\ud800\udcfa"
+        + "\ud800\udd00\ud800\udd02"
+        + "\ud800\udd07\ud800\udd33"
+        + "\ud800\udd37\ud800\udd3f",
+    // Unicode 6.2 property value: {scriptextensions=lisu}
     "\ua4d0\ua4ff",
-    // Unicode 6.0 property value: {scriptextensions=lycian}
+    // Unicode 6.2 property value: {scriptextensions=lycian}
     "\ud800\ude80\ud800\ude9c",
-    // Unicode 6.0 property value: {scriptextensions=lydian}
+    // Unicode 6.2 property value: {scriptextensions=lydian}
     "\ud802\udd20\ud802\udd39" + "\ud802\udd3f\ud802\udd3f",
-    // Unicode 6.0 property value: {scriptextensions=malayalam}
+    // Unicode 6.2 property value: {scriptextensions=malayalam}
     "\u0d02\u0d03"
         + "\u0d05\u0d0c"
         + "\u0d0e\u0d10"
@@ -22614,31 +24739,37 @@ public class Unicode_6_0 {
         + "\u0d60\u0d63"
         + "\u0d66\u0d75"
         + "\u0d79\u0d7f",
-    // Unicode 6.0 property value: {scriptextensions=mandaic}
-    "\u0840\u085b" + "\u085e\u085e",
-    // Unicode 6.0 property value: {scriptextensions=meeteimayek}
-    "\uabc0\uabed" + "\uabf0\uabf9",
-    // Unicode 6.0 property value: {scriptextensions=mongolian}
+    // Unicode 6.2 property value: {scriptextensions=mandaic}
+    "\u0640\u0640" + "\u0840\u085b" + "\u085e\u085e",
+    // Unicode 6.2 property value: {scriptextensions=meeteimayek}
+    "\uaae0\uaaf6" + "\uabc0\uabed" + "\uabf0\uabf9",
+    // Unicode 6.2 property value: {scriptextensions=meroiticcursive}
+    "\ud802\udda0\ud802\uddb7" + "\ud802\uddbe\ud802\uddbf",
+    // Unicode 6.2 property value: {scriptextensions=meroitichieroglyphs}
+    "\ud802\udd80\ud802\udd9f",
+    // Unicode 6.2 property value: {scriptextensions=miao}
+    "\ud81b\udf00\ud81b\udf44" + "\ud81b\udf50\ud81b\udf7e" + "\ud81b\udf8f\ud81b\udf9f",
+    // Unicode 6.2 property value: {scriptextensions=mongolian}
     "\u1800\u180e" + "\u1810\u1819" + "\u1820\u1877" + "\u1880\u18aa",
-    // Unicode 6.0 property value: {scriptextensions=myanmar}
+    // Unicode 6.2 property value: {scriptextensions=myanmar}
     "\u1000\u109f" + "\uaa60\uaa7b",
-    // Unicode 6.0 property value: {scriptextensions=newtailue}
+    // Unicode 6.2 property value: {scriptextensions=newtailue}
     "\u1980\u19ab" + "\u19b0\u19c9" + "\u19d0\u19da" + "\u19de\u19df",
-    // Unicode 6.0 property value: {scriptextensions=nko}
+    // Unicode 6.2 property value: {scriptextensions=nko}
     "\u07c0\u07fa",
-    // Unicode 6.0 property value: {scriptextensions=ogham}
+    // Unicode 6.2 property value: {scriptextensions=ogham}
     "\u1680\u169c",
-    // Unicode 6.0 property value: {scriptextensions=olchiki}
+    // Unicode 6.2 property value: {scriptextensions=olchiki}
     "\u1c50\u1c7f",
-    // Unicode 6.0 property value: {scriptextensions=olditalic}
+    // Unicode 6.2 property value: {scriptextensions=olditalic}
     "\ud800\udf00\ud800\udf1e" + "\ud800\udf20\ud800\udf23",
-    // Unicode 6.0 property value: {scriptextensions=oldpersian}
+    // Unicode 6.2 property value: {scriptextensions=oldpersian}
     "\ud800\udfa0\ud800\udfc3" + "\ud800\udfc8\ud800\udfd5",
-    // Unicode 6.0 property value: {scriptextensions=oldsoutharabian}
+    // Unicode 6.2 property value: {scriptextensions=oldsoutharabian}
     "\ud802\ude60\ud802\ude7f",
-    // Unicode 6.0 property value: {scriptextensions=oldturkic}
+    // Unicode 6.2 property value: {scriptextensions=oldturkic}
     "\ud803\udc00\ud803\udc48",
-    // Unicode 6.0 property value: {scriptextensions=oriya}
+    // Unicode 6.2 property value: {scriptextensions=oriya}
     "\u0964\u0965"
         + "\u0b01\u0b03"
         + "\u0b05\u0b0c"
@@ -22654,23 +24785,25 @@ public class Unicode_6_0 {
         + "\u0b5c\u0b5d"
         + "\u0b5f\u0b63"
         + "\u0b66\u0b77",
-    // Unicode 6.0 property value: {scriptextensions=osmanya}
+    // Unicode 6.2 property value: {scriptextensions=osmanya}
     "\ud801\udc80\ud801\udc9d" + "\ud801\udca0\ud801\udca9",
-    // Unicode 6.0 property value: {scriptextensions=phagspa}
+    // Unicode 6.2 property value: {scriptextensions=phagspa}
     "\u1802\u1803" + "\u1805\u1805" + "\ua840\ua877",
-    // Unicode 6.0 property value: {scriptextensions=phoenician}
+    // Unicode 6.2 property value: {scriptextensions=phoenician}
     "\ud802\udd00\ud802\udd1b" + "\ud802\udd1f\ud802\udd1f",
-    // Unicode 6.0 property value: {scriptextensions=rejang}
+    // Unicode 6.2 property value: {scriptextensions=rejang}
     "\ua930\ua953" + "\ua95f\ua95f",
-    // Unicode 6.0 property value: {scriptextensions=runic}
+    // Unicode 6.2 property value: {scriptextensions=runic}
     "\u16a0\u16ea" + "\u16ee\u16f0",
-    // Unicode 6.0 property value: {scriptextensions=samaritan}
+    // Unicode 6.2 property value: {scriptextensions=samaritan}
     "\u0800\u082d" + "\u0830\u083e",
-    // Unicode 6.0 property value: {scriptextensions=saurashtra}
+    // Unicode 6.2 property value: {scriptextensions=saurashtra}
     "\ua880\ua8c4" + "\ua8ce\ua8d9",
-    // Unicode 6.0 property value: {scriptextensions=shavian}
+    // Unicode 6.2 property value: {scriptextensions=sharada}
+    "\ud804\udd80\ud804\uddc8" + "\ud804\uddd0\ud804\uddd9",
+    // Unicode 6.2 property value: {scriptextensions=shavian}
     "\ud801\udc50\ud801\udc7f",
-    // Unicode 6.0 property value: {scriptextensions=sinhala}
+    // Unicode 6.2 property value: {scriptextensions=sinhala}
     "\u0d82\u0d83"
         + "\u0d85\u0d96"
         + "\u0d9a\u0db1"
@@ -22682,11 +24815,13 @@ public class Unicode_6_0 {
         + "\u0dd6\u0dd6"
         + "\u0dd8\u0ddf"
         + "\u0df2\u0df4",
-    // Unicode 6.0 property value: {scriptextensions=sundanese}
-    "\u1b80\u1baa" + "\u1bae\u1bb9",
-    // Unicode 6.0 property value: {scriptextensions=sylotinagri}
+    // Unicode 6.2 property value: {scriptextensions=sorasompeng}
+    "\ud804\udcd0\ud804\udce8" + "\ud804\udcf0\ud804\udcf9",
+    // Unicode 6.2 property value: {scriptextensions=sundanese}
+    "\u1b80\u1bbf" + "\u1cc0\u1cc7",
+    // Unicode 6.2 property value: {scriptextensions=sylotinagri}
     "\ua800\ua82b",
-    // Unicode 6.0 property value: {scriptextensions=syriac}
+    // Unicode 6.2 property value: {scriptextensions=syriac}
     "\u060c\u060c"
         + "\u061b\u061b"
         + "\u061f\u061f"
@@ -22696,17 +24831,19 @@ public class Unicode_6_0 {
         + "\u0700\u070d"
         + "\u070f\u074a"
         + "\u074d\u074f",
-    // Unicode 6.0 property value: {scriptextensions=tagalog}
+    // Unicode 6.2 property value: {scriptextensions=tagalog}
     "\u1700\u170c" + "\u170e\u1714" + "\u1735\u1736",
-    // Unicode 6.0 property value: {scriptextensions=tagbanwa}
+    // Unicode 6.2 property value: {scriptextensions=tagbanwa}
     "\u1735\u1736" + "\u1760\u176c" + "\u176e\u1770" + "\u1772\u1773",
-    // Unicode 6.0 property value: {scriptextensions=taile}
+    // Unicode 6.2 property value: {scriptextensions=taile}
     "\u1950\u196d" + "\u1970\u1974",
-    // Unicode 6.0 property value: {scriptextensions=taitham}
+    // Unicode 6.2 property value: {scriptextensions=taitham}
     "\u1a20\u1a5e" + "\u1a60\u1a7c" + "\u1a7f\u1a89" + "\u1a90\u1a99" + "\u1aa0\u1aad",
-    // Unicode 6.0 property value: {scriptextensions=taiviet}
+    // Unicode 6.2 property value: {scriptextensions=taiviet}
     "\uaa80\uaac2" + "\uaadb\uaadf",
-    // Unicode 6.0 property value: {scriptextensions=tamil}
+    // Unicode 6.2 property value: {scriptextensions=takri}
+    "\u0964\u0965" + "\ua830\ua839" + "\ud805\ude80\ud805\udeb7" + "\ud805\udec0\ud805\udec9",
+    // Unicode 6.2 property value: {scriptextensions=tamil}
     "\u0b82\u0b83"
         + "\u0b85\u0b8a"
         + "\u0b8e\u0b90"
@@ -22723,7 +24860,7 @@ public class Unicode_6_0 {
         + "\u0bd0\u0bd0"
         + "\u0bd7\u0bd7"
         + "\u0be6\u0bfa",
-    // Unicode 6.0 property value: {scriptextensions=telugu}
+    // Unicode 6.2 property value: {scriptextensions=telugu}
     "\u0c01\u0c03"
         + "\u0c05\u0c0c"
         + "\u0c0e\u0c10"
@@ -22738,7 +24875,7 @@ public class Unicode_6_0 {
         + "\u0c60\u0c63"
         + "\u0c66\u0c6f"
         + "\u0c78\u0c7f",
-    // Unicode 6.0 property value: {scriptextensions=thaana}
+    // Unicode 6.2 property value: {scriptextensions=thaana}
     "\u060c\u060c"
         + "\u061b\u061b"
         + "\u061f\u061f"
@@ -22746,9 +24883,9 @@ public class Unicode_6_0 {
         + "\u0780\u07b1"
         + "\ufdf2\ufdf2"
         + "\ufdfd\ufdfd",
-    // Unicode 6.0 property value: {scriptextensions=thai}
+    // Unicode 6.2 property value: {scriptextensions=thai}
     "\u0e01\u0e3a" + "\u0e40\u0e5b",
-    // Unicode 6.0 property value: {scriptextensions=tibetan}
+    // Unicode 6.2 property value: {scriptextensions=tibetan}
     "\u0f00\u0f47"
         + "\u0f49\u0f6c"
         + "\u0f71\u0f97"
@@ -22756,11 +24893,11 @@ public class Unicode_6_0 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fd4"
         + "\u0fd9\u0fda",
-    // Unicode 6.0 property value: {scriptextensions=tifinagh}
-    "\u2d30\u2d65" + "\u2d6f\u2d70" + "\u2d7f\u2d7f",
-    // Unicode 6.0 property value: {scriptextensions=ugaritic}
+    // Unicode 6.2 property value: {scriptextensions=tifinagh}
+    "\u2d30\u2d67" + "\u2d6f\u2d70" + "\u2d7f\u2d7f",
+    // Unicode 6.2 property value: {scriptextensions=ugaritic}
     "\ud800\udf80\ud800\udf9d" + "\ud800\udf9f\ud800\udf9f",
-    // Unicode 6.0 property value: {scriptextensions=unknown}
+    // Unicode 6.2 property value: {scriptextensions=unknown}
     "\u0378\u0379"
         + "\u037f\u0383"
         + "\u038b\u038b"
@@ -22770,11 +24907,12 @@ public class Unicode_6_0 {
         + "\u0557\u0558"
         + "\u0560\u0560"
         + "\u0588\u0588"
-        + "\u058b\u0590"
+        + "\u058b\u058e"
+        + "\u0590\u0590"
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f5\u05ff"
-        + "\u0604\u0605"
+        + "\u0605\u0605"
         + "\u061c\u061d"
         + "\u070e\u070e"
         + "\u074b\u074c"
@@ -22783,7 +24921,10 @@ public class Unicode_6_0 {
         + "\u082e\u082f"
         + "\u083f\u083f"
         + "\u085c\u085d"
-        + "\u085f\u08ff"
+        + "\u085f\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0978\u0978"
         + "\u0980\u0980"
         + "\u0984\u0984"
@@ -22828,7 +24969,6 @@ public class Unicode_6_0 {
         + "\u0ace\u0acf"
         + "\u0ad1\u0adf"
         + "\u0ae4\u0ae5"
-        + "\u0af0\u0af0"
         + "\u0af2\u0b00"
         + "\u0b04\u0b04"
         + "\u0b0d\u0b0e"
@@ -22929,15 +25069,16 @@ public class Unicode_6_0 {
         + "\u0ec7\u0ec7"
         + "\u0ece\u0ecf"
         + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
+        + "\u0ee0\u0eff"
         + "\u0f48\u0f48"
         + "\u0f6d\u0f70"
         + "\u0f98\u0f98"
         + "\u0fbd\u0fbd"
         + "\u0fcd\u0fcd"
         + "\u0fdb\u0fff"
-        + "\u10c6\u10cf"
-        + "\u10fd\u10ff"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -22991,13 +25132,12 @@ public class Unicode_6_0 {
         + "\u1aae\u1aff"
         + "\u1b4c\u1b4f"
         + "\u1b7d\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bfb"
         + "\u1c38\u1c3a"
         + "\u1c4a\u1c4c"
-        + "\u1c80\u1ccf"
-        + "\u1cf3\u1cff"
+        + "\u1c80\u1cbf"
+        + "\u1cc8\u1ccf"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -23019,22 +25159,22 @@ public class Unicode_6_0 {
         + "\u2072\u2073"
         + "\u208f\u208f"
         + "\u209d\u209f"
-        + "\u20ba\u20cf"
+        + "\u20bb\u20cf"
         + "\u20f1\u20ff"
         + "\u218a\u218f"
         + "\u23f4\u23ff"
         + "\u2427\u243f"
         + "\u244b\u245f"
         + "\u2700\u2700"
-        + "\u27cb\u27cb"
-        + "\u27cd\u27cd"
         + "\u2b4d\u2b4f"
         + "\u2b5a\u2bff"
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
-        + "\u2cf2\u2cf8"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cf8"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d71\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -23045,7 +25185,7 @@ public class Unicode_6_0 {
         + "\u2dcf\u2dcf"
         + "\u2dd7\u2dd7"
         + "\u2ddf\u2ddf"
-        + "\u2e32\u2e7f"
+        + "\u2e3c\u2e7f"
         + "\u2e9a\u2e9a"
         + "\u2ef4\u2eff"
         + "\u2fd6\u2fef"
@@ -23060,16 +25200,15 @@ public class Unicode_6_0 {
         + "\u321f\u321f"
         + "\u32ff\u32ff"
         + "\u4db6\u4dbf"
-        + "\u9fcc\u9fff"
+        + "\u9fcd\u9fff"
         + "\ua48d\ua48f"
         + "\ua4c7\ua4cf"
         + "\ua62c\ua63f"
-        + "\ua674\ua67b"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f8\ua6ff"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua82c\ua82f"
         + "\ua83a\ua83f"
         + "\ua878\ua87f"
@@ -23086,7 +25225,7 @@ public class Unicode_6_0 {
         + "\uaa5a\uaa5b"
         + "\uaa7c\uaa7f"
         + "\uaac3\uaada"
-        + "\uaae0\uab00"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -23098,7 +25237,6 @@ public class Unicode_6_0 {
         + "\ud7c7\ud7ca"
         + "\ud7fc\ud7ff"
         + "\ue000\uf8ff"
-        + "\ufa2e\ufa2f"
         + "\ufa6e\ufa6f"
         + "\ufada\ufaff"
         + "\ufb07\ufb12"
@@ -23160,7 +25298,9 @@ public class Unicode_6_0 {
         + "\ud802\udc60\ud802\udcff"
         + "\ud802\udd1c\ud802\udd1e"
         + "\ud802\udd3a\ud802\udd3e"
-        + "\ud802\udd40\ud802\uddff"
+        + "\ud802\udd40\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -23178,12 +25318,23 @@ public class Unicode_6_0 {
         + "\ud803\ude7f\ud803\udfff"
         + "\ud804\udc4e\ud804\udc51"
         + "\ud804\udc70\ud804\udc7f"
-        + "\ud804\udcc2\ud807\udfff"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc9\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud809\udc6f"
         + "\ud809\udc74\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc02\ud833\udfff"
         + "\ud834\udcf6\ud834\udcff"
         + "\ud834\udd27\ud834\udd28"
@@ -23211,7 +25362,41 @@ public class Unicode_6_0 {
         + "\ud835\udd51\ud835\udd51"
         + "\ud835\udea6\ud835\udea7"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83b\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83b\udeef"
+        + "\ud83b\udef2\ud83b\udfff"
         + "\ud83c\udc2c\ud83c\udc2f"
         + "\ud83c\udc94\ud83c\udc9f"
         + "\ud83c\udcaf\ud83c\udcb0"
@@ -23220,7 +25405,7 @@ public class Unicode_6_0 {
         + "\ud83c\udce0\ud83c\udcff"
         + "\ud83c\udd0b\ud83c\udd0f"
         + "\ud83c\udd2f\ud83c\udd2f"
-        + "\ud83c\udd6a\ud83c\udd6f"
+        + "\ud83c\udd6c\ud83c\udd6f"
         + "\ud83c\udd9b\ud83c\udde5"
         + "\ud83c\ude03\ud83c\ude0f"
         + "\ud83c\ude3b\ud83c\ude3f"
@@ -23237,19 +25422,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc41\ud83d\udc41"
         + "\ud83d\udcf8\ud83d\udcf8"
         + "\ud83d\udcfd\ud83d\udcff"
-        + "\ud83d\udd3e\ud83d\udd4f"
+        + "\ud83d\udd3e\ud83d\udd3f"
+        + "\ud83d\udd44\ud83d\udd4f"
         + "\ud83d\udd68\ud83d\uddfa"
-        + "\ud83d\ude00\ud83d\ude00"
-        + "\ud83d\ude11\ud83d\ude11"
-        + "\ud83d\ude15\ud83d\ude15"
-        + "\ud83d\ude17\ud83d\ude17"
-        + "\ud83d\ude19\ud83d\ude19"
-        + "\ud83d\ude1b\ud83d\ude1b"
-        + "\ud83d\ude1f\ud83d\ude1f"
-        + "\ud83d\ude26\ud83d\ude27"
-        + "\ud83d\ude2c\ud83d\ude2c"
-        + "\ud83d\ude2e\ud83d\ude2f"
-        + "\ud83d\ude34\ud83d\ude34"
         + "\ud83d\ude41\ud83d\ude44"
         + "\ud83d\ude50\ud83d\ude7f"
         + "\ud83d\udec6\ud83d\udeff"
@@ -23261,9 +25436,9 @@ public class Unicode_6_0 {
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {scriptextensions=vai}
+    // Unicode 6.2 property value: {scriptextensions=vai}
     "\ua500\ua62b",
-    // Unicode 6.0 property value: {scriptextensions=yi}
+    // Unicode 6.2 property value: {scriptextensions=yi}
     "\u3001\u3002"
         + "\u3008\u3011"
         + "\u3014\u301b"
@@ -23271,9 +25446,9 @@ public class Unicode_6_0 {
         + "\ua000\ua48c"
         + "\ua490\ua4c6"
         + "\uff61\uff65",
-    // Unicode 6.0 property value: {sentencebreak=aterm}
+    // Unicode 6.2 property value: {sentencebreak=aterm}
     "\u002e\u002e" + "\u2024\u2024" + "\ufe52\ufe52" + "\uff0e\uff0e",
-    // Unicode 6.0 property value: {sentencebreak=close}
+    // Unicode 6.2 property value: {sentencebreak=close}
     "\"\""
         + "\u0027\u0029"
         + "\u005b\u005b"
@@ -23315,9 +25490,9 @@ public class Unicode_6_0 {
         + "\uff5d\uff5d"
         + "\uff5f\uff60"
         + "\uff62\uff63",
-    // Unicode 6.0 property value: {sentencebreak=cr}
+    // Unicode 6.2 property value: {sentencebreak=cr}
     "\r\r",
-    // Unicode 6.0 property value: {sentencebreak=extend}
+    // Unicode 6.2 property value: {sentencebreak=extend}
     "\u0300\u036f"
         + "\u0483\u0489"
         + "\u0591\u05bd"
@@ -23341,6 +25516,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0903"
         + "\u093a\u093c"
         + "\u093e\u094f"
@@ -23435,7 +25611,7 @@ public class Unicode_6_0 {
         + "\u1732\u1734"
         + "\u1752\u1753"
         + "\u1772\u1773"
-        + "\u17b6\u17d3"
+        + "\u17b4\u17d3"
         + "\u17dd\u17dd"
         + "\u180b\u180d"
         + "\u18a9\u18a9"
@@ -23451,13 +25627,13 @@ public class Unicode_6_0 {
         + "\u1b34\u1b44"
         + "\u1b6b\u1b73"
         + "\u1b80\u1b82"
-        + "\u1ba1\u1baa"
+        + "\u1ba1\u1bad"
         + "\u1be6\u1bf3"
         + "\u1c24\u1c37"
         + "\u1cd0\u1cd2"
         + "\u1cd4\u1ce8"
         + "\u1ced\u1ced"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
@@ -23468,7 +25644,8 @@ public class Unicode_6_0 {
         + "\u302a\u302f"
         + "\u3099\u309a"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -23490,6 +25667,8 @@ public class Unicode_6_0 {
         + "\uaab7\uaab8"
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
+        + "\uaaeb\uaaef"
+        + "\uaaf5\uaaf6"
         + "\uabe3\uabea"
         + "\uabec\uabed"
         + "\ufb1e\ufb1e"
@@ -23506,6 +25685,13 @@ public class Unicode_6_0 {
         + "\ud804\udc38\ud804\udc46"
         + "\ud804\udc80\ud804\udc82"
         + "\ud804\udcb0\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd34"
+        + "\ud804\udd80\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddc0"
+        + "\ud805\udeab\ud805\udeb7"
+        + "\ud81b\udf51\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd65\ud834\udd69"
         + "\ud834\udd6d\ud834\udd72"
         + "\ud834\udd7b\ud834\udd82"
@@ -23513,12 +25699,11 @@ public class Unicode_6_0 {
         + "\ud834\uddaa\ud834\uddad"
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {sentencebreak=format}
+    // Unicode 6.2 property value: {sentencebreak=format}
     "\u00ad\u00ad"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u06dd\u06dd"
         + "\u070f\u070f"
-        + "\u17b4\u17b5"
         + "\u200b\u200b"
         + "\u200e\u200f"
         + "\u202a\u202e"
@@ -23530,9 +25715,9 @@ public class Unicode_6_0 {
         + "\ud834\udd73\ud834\udd7a"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {sentencebreak=lf}
+    // Unicode 6.2 property value: {sentencebreak=lf}
     "\n\n",
-    // Unicode 6.0 property value: {sentencebreak=lower}
+    // Unicode 6.2 property value: {sentencebreak=lower}
     "\u0061\u007a"
         + "\u00aa\u00aa"
         + "\u00b5\u00b5"
@@ -23948,7 +26133,9 @@ public class Unicode_6_0 {
         + "\u1fe0\u1fe7"
         + "\u1ff2\u1ff4"
         + "\u1ff6\u1ff7"
-        + "\u2090\u2094"
+        + "\u2071\u2071"
+        + "\u207f\u207f"
+        + "\u2090\u209c"
         + "\u210a\u210a"
         + "\u210e\u210f"
         + "\u2113\u2113"
@@ -24022,7 +26209,10 @@ public class Unicode_6_0 {
         + "\u2ce3\u2ce4"
         + "\u2cec\u2cec"
         + "\u2cee\u2cee"
+        + "\u2cf3\u2cf3"
         + "\u2d00\u2d25"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
         + "\ua641\ua641"
         + "\ua643\ua643"
         + "\ua645\ua645"
@@ -24106,12 +26296,13 @@ public class Unicode_6_0 {
         + "\ua78c\ua78c"
         + "\ua78e\ua78e"
         + "\ua791\ua791"
+        + "\ua793\ua793"
         + "\ua7a1\ua7a1"
         + "\ua7a3\ua7a3"
         + "\ua7a5\ua7a5"
         + "\ua7a7\ua7a7"
         + "\ua7a9\ua7a9"
-        + "\ua7fa\ua7fa"
+        + "\ua7f8\ua7fa"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
         + "\uff41\uff5a"
@@ -24144,7 +26335,7 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfc9"
         + "\ud835\udfcb\ud835\udfcb",
-    // Unicode 6.0 property value: {sentencebreak=numeric}
+    // Unicode 6.2 property value: {sentencebreak=numeric}
     "\u0030\u0039"
         + "\u0660\u0669"
         + "\u066b\u066c"
@@ -24182,8 +26373,12 @@ public class Unicode_6_0 {
         + "\uabf0\uabf9"
         + "\ud801\udca0\ud801\udca9"
         + "\ud804\udc66\ud804\udc6f"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {sentencebreak=oletter}
+    // Unicode 6.2 property value: {sentencebreak=oletter}
     "\u01bb\u01bb"
         + "\u01c0\u01c3"
         + "\u0294\u0294"
@@ -24215,6 +26410,8 @@ public class Unicode_6_0 {
         + "\u0824\u0824"
         + "\u0828\u0828"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -24320,7 +26517,7 @@ public class Unicode_6_0 {
         + "\u0ebd\u0ebd"
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f40\u0f47"
         + "\u0f49\u0f6c"
@@ -24335,8 +26532,7 @@ public class Unicode_6_0 {
         + "\u1075\u1081"
         + "\u108e\u108e"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -24384,19 +26580,17 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1c00\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
-        + "\u2071\u2071"
-        + "\u207f\u207f"
-        + "\u2095\u209c"
+        + "\u1cf5\u1cf6"
         + "\u2135\u2138"
         + "\u2180\u2182"
         + "\u2185\u2188"
-        + "\u2d30\u2d65"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -24421,7 +26615,7 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
@@ -24457,6 +26651,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf4"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -24466,8 +26662,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb1d\ufb1d"
         + "\ufb1f\ufb28"
@@ -24514,6 +26709,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -24525,16 +26722,57 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc03\ud804\udc37"
         + "\ud804\udc83\ud804\udcaf"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {sentencebreak=other}
+    // Unicode 6.2 property value: {sentencebreak=other}
     "\000\u0008"
         + "\u000e\u001f"
         + "\u0023\u0026"
@@ -24581,7 +26819,7 @@ public class Unicode_6_0 {
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f4\u05ff"
-        + "\u0604\u060b"
+        + "\u0605\u060b"
         + "\u060e\u060f"
         + "\u061b\u061e"
         + "\u066a\u066a"
@@ -24595,7 +26833,10 @@ public class Unicode_6_0 {
         + "\u07f6\u07f7"
         + "\u07fb\u07ff"
         + "\u082e\u083f"
-        + "\u085c\u08ff"
+        + "\u085c\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0970\u0970"
         + "\u0978\u0978"
         + "\u0980\u0980"
@@ -24742,7 +26983,7 @@ public class Unicode_6_0 {
         + "\u0ec7\u0ec7"
         + "\u0ece\u0ecf"
         + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
+        + "\u0ee0\u0eff"
         + "\u0f01\u0f17"
         + "\u0f1a\u0f1f"
         + "\u0f2a\u0f34"
@@ -24756,9 +26997,10 @@ public class Unicode_6_0 {
         + "\u0fc7\u0fff"
         + "\u104c\u104f"
         + "\u109e\u109f"
-        + "\u10c6\u10cf"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u10fb\u10fb"
-        + "\u10fd\u10ff"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -24820,15 +27062,13 @@ public class Unicode_6_0 {
         + "\u1b5c\u1b5d"
         + "\u1b60\u1b6a"
         + "\u1b74\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bff"
         + "\u1c38\u1c3a"
         + "\u1c3d\u1c3f"
         + "\u1c4a\u1c4c"
         + "\u1c80\u1ccf"
         + "\u1cd3\u1cd3"
-        + "\u1cf3\u1cff"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -24890,9 +27130,11 @@ public class Unicode_6_0 {
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
         + "\u2ce5\u2cea"
-        + "\u2cf2\u2cff"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cff"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d70\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -24924,22 +27166,22 @@ public class Unicode_6_0 {
         + "\u31bb\u31ef"
         + "\u3200\u33ff"
         + "\u4db6\u4dff"
-        + "\u9fcc\u9fff"
+        + "\u9fcd\u9fff"
         + "\ua48d\ua4cf"
         + "\ua4fe\ua4fe"
         + "\ua60d\ua60d"
         + "\ua62c\ua63f"
-        + "\ua673\ua67b"
+        + "\ua673\ua673"
         + "\ua67e\ua67e"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f2\ua6f2"
         + "\ua6f4\ua6f6"
         + "\ua6f8\ua716"
         + "\ua720\ua721"
         + "\ua789\ua78a"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua828\ua83f"
         + "\ua874\ua875"
         + "\ua878\ua87f"
@@ -24959,7 +27201,8 @@ public class Unicode_6_0 {
         + "\uaa77\uaa79"
         + "\uaa7c\uaa7f"
         + "\uaac3\uaada"
-        + "\uaade\uab00"
+        + "\uaade\uaadf"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -24971,7 +27214,6 @@ public class Unicode_6_0 {
         + "\ud7c7\ud7ca"
         + "\ud7fc\ud7ff"
         + "\ue000\uf8ff"
-        + "\ufa2e\ufa2f"
         + "\ufa6e\ufa6f"
         + "\ufada\ufaff"
         + "\ufb07\ufb12"
@@ -25042,7 +27284,9 @@ public class Unicode_6_0 {
         + "\ud802\udc3d\ud802\udc3e"
         + "\ud802\udc56\ud802\udcff"
         + "\ud802\udd16\ud802\udd1f"
-        + "\ud802\udd3a\ud802\uddff"
+        + "\ud802\udd3a\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -25059,11 +27303,23 @@ public class Unicode_6_0 {
         + "\ud804\udc49\ud804\udc65"
         + "\ud804\udc70\ud804\udc7f"
         + "\ud804\udcbb\ud804\udcbc"
-        + "\ud804\udcc2\ud807\udfff"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd40\ud804\udd40"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc7\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc02\ud834\udd64"
         + "\ud834\udd6a\ud834\udd6c"
         + "\ud834\udd83\ud834\udd84"
@@ -25100,7 +27356,40 @@ public class Unicode_6_0 {
         + "\ud835\udfa9\ud835\udfa9"
         + "\ud835\udfc3\ud835\udfc3"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83f\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83f\udfff"
         + "\ud869\uded7\ud869\udeff"
         + "\ud86d\udf35\ud86d\udf3f"
         + "\ud86e\udc1e\ud87d\udfff"
@@ -25108,7 +27397,7 @@ public class Unicode_6_0 {
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {sentencebreak=scontinue}
+    // Unicode 6.2 property value: {sentencebreak=scontinue}
     "\u002c\u002d"
         + "\u003a\u003a"
         + "\u055d\u055d"
@@ -25128,9 +27417,9 @@ public class Unicode_6_0 {
         + "\uff0c\uff0d"
         + "\uff1a\uff1a"
         + "\uff64\uff64",
-    // Unicode 6.0 property value: {sentencebreak=sep}
+    // Unicode 6.2 property value: {sentencebreak=sep}
     "\u0085\u0085" + "\u2028\u2029",
-    // Unicode 6.0 property value: {sentencebreak=sp}
+    // Unicode 6.2 property value: {sentencebreak=sp}
     "\t\t"
         + "\u000b\f"
         + "\u0020\u0020"
@@ -25141,7 +27430,7 @@ public class Unicode_6_0 {
         + "\u202f\u202f"
         + "\u205f\u205f"
         + "\u3000\u3000",
-    // Unicode 6.0 property value: {sentencebreak=sterm}
+    // Unicode 6.2 property value: {sentencebreak=sterm}
     "\u0021\u0021"
         + "\u003f\u003f"
         + "\u055c\u055c"
@@ -25178,6 +27467,7 @@ public class Unicode_6_0 {
         + "\ua92f\ua92f"
         + "\ua9c8\ua9c9"
         + "\uaa5d\uaa5f"
+        + "\uaaf0\uaaf1"
         + "\uabeb\uabeb"
         + "\ufe56\ufe57"
         + "\uff01\uff01"
@@ -25185,8 +27475,10 @@ public class Unicode_6_0 {
         + "\uff61\uff61"
         + "\ud802\ude56\ud802\ude57"
         + "\ud804\udc47\ud804\udc48"
-        + "\ud804\udcbe\ud804\udcc1",
-    // Unicode 6.0 property value: {sentencebreak=upper}
+        + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udd41\ud804\udd43"
+        + "\ud804\uddc5\ud804\uddc6",
+    // Unicode 6.2 property value: {sentencebreak=upper}
     "\u0041\u005a"
         + "\u00c0\u00d6"
         + "\u00d8\u00de"
@@ -25455,6 +27747,8 @@ public class Unicode_6_0 {
         + "\u0526\u0526"
         + "\u0531\u0556"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1e00\u1e00"
         + "\u1e02\u1e02"
         + "\u1e04\u1e04"
@@ -25674,6 +27968,7 @@ public class Unicode_6_0 {
         + "\u2ce2\u2ce2"
         + "\u2ceb\u2ceb"
         + "\u2ced\u2ced"
+        + "\u2cf2\u2cf2"
         + "\ua640\ua640"
         + "\ua642\ua642"
         + "\ua644\ua644"
@@ -25757,11 +28052,13 @@ public class Unicode_6_0 {
         + "\ua78b\ua78b"
         + "\ua78d\ua78d"
         + "\ua790\ua790"
+        + "\ua792\ua792"
         + "\ua7a0\ua7a0"
         + "\ua7a2\ua7a2"
         + "\ua7a4\ua7a4"
         + "\ua7a6\ua7a6"
         + "\ua7a8\ua7a8"
+        + "\ua7aa\ua7aa"
         + "\uff21\uff3a"
         + "\ud801\udc00\ud801\udc27"
         + "\ud835\udc00\ud835\udc19"
@@ -25795,9 +28092,11 @@ public class Unicode_6_0 {
         + "\ud835\udf56\ud835\udf6e"
         + "\ud835\udf90\ud835\udfa8"
         + "\ud835\udfca\ud835\udfca",
-    // Unicode 6.0 property value: {shavian}
+    // Unicode 6.2 property value: {sharada}
+    "\ud804\udd80\ud804\uddc8" + "\ud804\uddd0\ud804\uddd9",
+    // Unicode 6.2 property value: {shavian}
     "\ud801\udc50\ud801\udc7f",
-    // Unicode 6.0 property value: {sinhala}
+    // Unicode 6.2 property value: {sinhala}
     "\u0d82\u0d83"
         + "\u0d85\u0d96"
         + "\u0d9a\u0db1"
@@ -25809,7 +28108,7 @@ public class Unicode_6_0 {
         + "\u0dd6\u0dd6"
         + "\u0dd8\u0ddf"
         + "\u0df2\u0df4",
-    // Unicode 6.0 property value: {sk}
+    // Unicode 6.2 property value: {sk}
     "\u005e\u005e"
         + "\u0060\u0060"
         + "\u00a8\u00a8"
@@ -25837,7 +28136,7 @@ public class Unicode_6_0 {
         + "\uff3e\uff3e"
         + "\uff40\uff40"
         + "\uffe3\uffe3",
-    // Unicode 6.0 property value: {sm}
+    // Unicode 6.2 property value: {sm}
     "\u002b\u002b"
         + "\u003c\u003e"
         + "\u007c\u007c"
@@ -25875,9 +28174,7 @@ public class Unicode_6_0 {
         + "\u25f8\u25ff"
         + "\u266f\u266f"
         + "\u27c0\u27c4"
-        + "\u27c7\u27ca"
-        + "\u27cc\u27cc"
-        + "\u27ce\u27e5"
+        + "\u27c7\u27e5"
         + "\u27f0\u27ff"
         + "\u2900\u2982"
         + "\u2999\u29d7"
@@ -25903,13 +28200,13 @@ public class Unicode_6_0 {
         + "\ud835\udf6f\ud835\udf6f"
         + "\ud835\udf89\ud835\udf89"
         + "\ud835\udfa9\ud835\udfa9"
-        + "\ud835\udfc3\ud835\udfc3",
-    // Unicode 6.0 property value: {so}
-    "\u00a6\u00a7"
+        + "\ud835\udfc3\ud835\udfc3"
+        + "\ud83b\udef0\ud83b\udef1",
+    // Unicode 6.2 property value: {so}
+    "\u00a6\u00a6"
         + "\u00a9\u00a9"
         + "\u00ae\u00ae"
         + "\u00b0\u00b0"
-        + "\u00b6\u00b6"
         + "\u0482\u0482"
         + "\u060e\u060f"
         + "\u06de\u06de"
@@ -25923,7 +28220,8 @@ public class Unicode_6_0 {
         + "\u0c7f\u0c7f"
         + "\u0d79\u0d79"
         + "\u0f01\u0f03"
-        + "\u0f13\u0f17"
+        + "\u0f13\u0f13"
+        + "\u0f15\u0f17"
         + "\u0f1a\u0f1f"
         + "\u0f34\u0f34"
         + "\u0f36\u0f36"
@@ -25933,7 +28231,6 @@ public class Unicode_6_0 {
         + "\u0fce\u0fcf"
         + "\u0fd5\u0fd8"
         + "\u109e\u109f"
-        + "\u1360\u1360"
         + "\u1390\u1399"
         + "\u1940\u1940"
         + "\u19de\u19ff"
@@ -25997,7 +28294,8 @@ public class Unicode_6_0 {
         + "\u3196\u319f"
         + "\u31c0\u31e3"
         + "\u3200\u321e"
-        + "\u322a\u3250"
+        + "\u322a\u3247"
+        + "\u3250\u3250"
         + "\u3260\u327f"
         + "\u328a\u32b0"
         + "\u32c0\u32fe"
@@ -26013,7 +28311,6 @@ public class Unicode_6_0 {
         + "\uffe8\uffe8"
         + "\uffed\uffee"
         + "\ufffc\ufffd"
-        + "\ud800\udd02\ud800\udd02"
         + "\ud800\udd37\ud800\udd3f"
         + "\ud800\udd79\ud800\udd89"
         + "\ud800\udd90\ud800\udd9b"
@@ -26035,7 +28332,7 @@ public class Unicode_6_0 {
         + "\ud83c\udcc1\ud83c\udccf"
         + "\ud83c\udcd1\ud83c\udcdf"
         + "\ud83c\udd10\ud83c\udd2e"
-        + "\ud83c\udd30\ud83c\udd69"
+        + "\ud83c\udd30\ud83c\udd6b"
         + "\ud83c\udd70\ud83c\udd9a"
         + "\ud83c\udde6\ud83c\ude02"
         + "\ud83c\ude10\ud83c\ude3a"
@@ -26053,23 +28350,13 @@ public class Unicode_6_0 {
         + "\ud83d\udc42\ud83d\udcf7"
         + "\ud83d\udcf9\ud83d\udcfc"
         + "\ud83d\udd00\ud83d\udd3d"
+        + "\ud83d\udd40\ud83d\udd43"
         + "\ud83d\udd50\ud83d\udd67"
-        + "\ud83d\uddfb\ud83d\uddff"
-        + "\ud83d\ude01\ud83d\ude10"
-        + "\ud83d\ude12\ud83d\ude14"
-        + "\ud83d\ude16\ud83d\ude16"
-        + "\ud83d\ude18\ud83d\ude18"
-        + "\ud83d\ude1a\ud83d\ude1a"
-        + "\ud83d\ude1c\ud83d\ude1e"
-        + "\ud83d\ude20\ud83d\ude25"
-        + "\ud83d\ude28\ud83d\ude2b"
-        + "\ud83d\ude2d\ud83d\ude2d"
-        + "\ud83d\ude30\ud83d\ude33"
-        + "\ud83d\ude35\ud83d\ude40"
+        + "\ud83d\uddfb\ud83d\ude40"
         + "\ud83d\ude45\ud83d\ude4f"
         + "\ud83d\ude80\ud83d\udec5"
         + "\ud83d\udf00\ud83d\udf73",
-    // Unicode 6.0 property value: {softdotted}
+    // Unicode 6.2 property value: {softdotted}
     "\u0069\u006a"
         + "\u012f\u012f"
         + "\u0249\u0249"
@@ -26101,7 +28388,9 @@ public class Unicode_6_0 {
         + "\ud835\ude2a\ud835\ude2b"
         + "\ud835\ude5e\ud835\ude5f"
         + "\ud835\ude92\ud835\ude93",
-    // Unicode 6.0 property value: {sterm}
+    // Unicode 6.2 property value: {sorasompeng}
+    "\ud804\udcd0\ud804\udce8" + "\ud804\udcf0\ud804\udcf9",
+    // Unicode 6.2 property value: {sterm}
     "\u0021\u0021"
         + "\u002e\u002e"
         + "\u003f\u003f"
@@ -26139,6 +28428,7 @@ public class Unicode_6_0 {
         + "\ua92f\ua92f"
         + "\ua9c8\ua9c9"
         + "\uaa5d\uaa5f"
+        + "\uaaf0\uaaf1"
         + "\uabeb\uabeb"
         + "\ufe52\ufe52"
         + "\ufe56\ufe57"
@@ -26148,24 +28438,28 @@ public class Unicode_6_0 {
         + "\uff61\uff61"
         + "\ud802\ude56\ud802\ude57"
         + "\ud804\udc47\ud804\udc48"
-        + "\ud804\udcbe\ud804\udcc1",
-    // Unicode 6.0 property value: {sundanese}
-    "\u1b80\u1baa" + "\u1bae\u1bb9",
-    // Unicode 6.0 property value: {sylotinagri}
+        + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udd41\ud804\udd43"
+        + "\ud804\uddc5\ud804\uddc6",
+    // Unicode 6.2 property value: {sundanese}
+    "\u1b80\u1bbf" + "\u1cc0\u1cc7",
+    // Unicode 6.2 property value: {sylotinagri}
     "\ua800\ua82b",
-    // Unicode 6.0 property value: {syriac}
+    // Unicode 6.2 property value: {syriac}
     "\u0700\u070d" + "\u070f\u074a" + "\u074d\u074f",
-    // Unicode 6.0 property value: {tagalog}
+    // Unicode 6.2 property value: {tagalog}
     "\u1700\u170c" + "\u170e\u1714",
-    // Unicode 6.0 property value: {tagbanwa}
+    // Unicode 6.2 property value: {tagbanwa}
     "\u1760\u176c" + "\u176e\u1770" + "\u1772\u1773",
-    // Unicode 6.0 property value: {taile}
+    // Unicode 6.2 property value: {taile}
     "\u1950\u196d" + "\u1970\u1974",
-    // Unicode 6.0 property value: {taitham}
+    // Unicode 6.2 property value: {taitham}
     "\u1a20\u1a5e" + "\u1a60\u1a7c" + "\u1a7f\u1a89" + "\u1a90\u1a99" + "\u1aa0\u1aad",
-    // Unicode 6.0 property value: {taiviet}
+    // Unicode 6.2 property value: {taiviet}
     "\uaa80\uaac2" + "\uaadb\uaadf",
-    // Unicode 6.0 property value: {tamil}
+    // Unicode 6.2 property value: {takri}
+    "\ud805\ude80\ud805\udeb7" + "\ud805\udec0\ud805\udec9",
+    // Unicode 6.2 property value: {tamil}
     "\u0b82\u0b83"
         + "\u0b85\u0b8a"
         + "\u0b8e\u0b90"
@@ -26182,7 +28476,7 @@ public class Unicode_6_0 {
         + "\u0bd0\u0bd0"
         + "\u0bd7\u0bd7"
         + "\u0be6\u0bfa",
-    // Unicode 6.0 property value: {telugu}
+    // Unicode 6.2 property value: {telugu}
     "\u0c01\u0c03"
         + "\u0c05\u0c0c"
         + "\u0c0e\u0c10"
@@ -26197,7 +28491,7 @@ public class Unicode_6_0 {
         + "\u0c60\u0c63"
         + "\u0c66\u0c6f"
         + "\u0c78\u0c7f",
-    // Unicode 6.0 property value: {terminalpunctuation}
+    // Unicode 6.2 property value: {terminalpunctuation}
     "\u0021\u0021"
         + "\u002c\u002c"
         + "\u002e\u002e"
@@ -26247,6 +28541,7 @@ public class Unicode_6_0 {
         + "\ua9c7\ua9c9"
         + "\uaa5d\uaa5f"
         + "\uaadf\uaadf"
+        + "\uaaf0\uaaf1"
         + "\uabeb\uabeb"
         + "\ufe50\ufe52"
         + "\ufe54\ufe57"
@@ -26264,12 +28559,14 @@ public class Unicode_6_0 {
         + "\ud802\udf3a\ud802\udf3f"
         + "\ud804\udc47\ud804\udc4d"
         + "\ud804\udcbe\ud804\udcc1"
+        + "\ud804\udd41\ud804\udd43"
+        + "\ud804\uddc5\ud804\uddc6"
         + "\ud809\udc70\ud809\udc73",
-    // Unicode 6.0 property value: {thaana}
+    // Unicode 6.2 property value: {thaana}
     "\u0780\u07b1",
-    // Unicode 6.0 property value: {thai}
+    // Unicode 6.2 property value: {thai}
     "\u0e01\u0e3a" + "\u0e40\u0e5b",
-    // Unicode 6.0 property value: {tibetan}
+    // Unicode 6.2 property value: {tibetan}
     "\u0f00\u0f47"
         + "\u0f49\u0f6c"
         + "\u0f71\u0f97"
@@ -26277,13 +28574,13 @@ public class Unicode_6_0 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fd4"
         + "\u0fd9\u0fda",
-    // Unicode 6.0 property value: {tifinagh}
-    "\u2d30\u2d65" + "\u2d6f\u2d70" + "\u2d7f\u2d7f",
-    // Unicode 6.0 property value: {ugaritic}
+    // Unicode 6.2 property value: {tifinagh}
+    "\u2d30\u2d67" + "\u2d6f\u2d70" + "\u2d7f\u2d7f",
+    // Unicode 6.2 property value: {ugaritic}
     "\ud800\udf80\ud800\udf9d" + "\ud800\udf9f\ud800\udf9f",
-    // Unicode 6.0 property value: {unifiedideograph}
+    // Unicode 6.2 property value: {unifiedideograph}
     "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ufa0e\ufa0f"
         + "\ufa11\ufa11"
         + "\ufa13\ufa14"
@@ -26294,7 +28591,7 @@ public class Unicode_6_0 {
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d",
-    // Unicode 6.0 property value: {unknown}
+    // Unicode 6.2 property value: {unknown}
     "\u0378\u0379"
         + "\u037f\u0383"
         + "\u038b\u038b"
@@ -26304,11 +28601,12 @@ public class Unicode_6_0 {
         + "\u0557\u0558"
         + "\u0560\u0560"
         + "\u0588\u0588"
-        + "\u058b\u0590"
+        + "\u058b\u058e"
+        + "\u0590\u0590"
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f5\u05ff"
-        + "\u0604\u0605"
+        + "\u0605\u0605"
         + "\u061c\u061d"
         + "\u070e\u070e"
         + "\u074b\u074c"
@@ -26317,7 +28615,10 @@ public class Unicode_6_0 {
         + "\u082e\u082f"
         + "\u083f\u083f"
         + "\u085c\u085d"
-        + "\u085f\u08ff"
+        + "\u085f\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0978\u0978"
         + "\u0980\u0980"
         + "\u0984\u0984"
@@ -26362,7 +28663,6 @@ public class Unicode_6_0 {
         + "\u0ace\u0acf"
         + "\u0ad1\u0adf"
         + "\u0ae4\u0ae5"
-        + "\u0af0\u0af0"
         + "\u0af2\u0b00"
         + "\u0b04\u0b04"
         + "\u0b0d\u0b0e"
@@ -26463,15 +28763,16 @@ public class Unicode_6_0 {
         + "\u0ec7\u0ec7"
         + "\u0ece\u0ecf"
         + "\u0eda\u0edb"
-        + "\u0ede\u0eff"
+        + "\u0ee0\u0eff"
         + "\u0f48\u0f48"
         + "\u0f6d\u0f70"
         + "\u0f98\u0f98"
         + "\u0fbd\u0fbd"
         + "\u0fcd\u0fcd"
         + "\u0fdb\u0fff"
-        + "\u10c6\u10cf"
-        + "\u10fd\u10ff"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -26525,13 +28826,12 @@ public class Unicode_6_0 {
         + "\u1aae\u1aff"
         + "\u1b4c\u1b4f"
         + "\u1b7d\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bfb"
         + "\u1c38\u1c3a"
         + "\u1c4a\u1c4c"
-        + "\u1c80\u1ccf"
-        + "\u1cf3\u1cff"
+        + "\u1c80\u1cbf"
+        + "\u1cc8\u1ccf"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -26553,22 +28853,22 @@ public class Unicode_6_0 {
         + "\u2072\u2073"
         + "\u208f\u208f"
         + "\u209d\u209f"
-        + "\u20ba\u20cf"
+        + "\u20bb\u20cf"
         + "\u20f1\u20ff"
         + "\u218a\u218f"
         + "\u23f4\u23ff"
         + "\u2427\u243f"
         + "\u244b\u245f"
         + "\u2700\u2700"
-        + "\u27cb\u27cb"
-        + "\u27cd\u27cd"
         + "\u2b4d\u2b4f"
         + "\u2b5a\u2bff"
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
-        + "\u2cf2\u2cf8"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cf8"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d71\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -26579,7 +28879,7 @@ public class Unicode_6_0 {
         + "\u2dcf\u2dcf"
         + "\u2dd7\u2dd7"
         + "\u2ddf\u2ddf"
-        + "\u2e32\u2e7f"
+        + "\u2e3c\u2e7f"
         + "\u2e9a\u2e9a"
         + "\u2ef4\u2eff"
         + "\u2fd6\u2fef"
@@ -26594,16 +28894,15 @@ public class Unicode_6_0 {
         + "\u321f\u321f"
         + "\u32ff\u32ff"
         + "\u4db6\u4dbf"
-        + "\u9fcc\u9fff"
+        + "\u9fcd\u9fff"
         + "\ua48d\ua48f"
         + "\ua4c7\ua4cf"
         + "\ua62c\ua63f"
-        + "\ua674\ua67b"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f8\ua6ff"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua82c\ua82f"
         + "\ua83a\ua83f"
         + "\ua878\ua87f"
@@ -26620,7 +28919,7 @@ public class Unicode_6_0 {
         + "\uaa5a\uaa5b"
         + "\uaa7c\uaa7f"
         + "\uaac3\uaada"
-        + "\uaae0\uab00"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -26632,7 +28931,6 @@ public class Unicode_6_0 {
         + "\ud7c7\ud7ca"
         + "\ud7fc\ud7ff"
         + "\ue000\uf8ff"
-        + "\ufa2e\ufa2f"
         + "\ufa6e\ufa6f"
         + "\ufada\ufaff"
         + "\ufb07\ufb12"
@@ -26694,7 +28992,9 @@ public class Unicode_6_0 {
         + "\ud802\udc60\ud802\udcff"
         + "\ud802\udd1c\ud802\udd1e"
         + "\ud802\udd3a\ud802\udd3e"
-        + "\ud802\udd40\ud802\uddff"
+        + "\ud802\udd40\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -26712,12 +29012,23 @@ public class Unicode_6_0 {
         + "\ud803\ude7f\ud803\udfff"
         + "\ud804\udc4e\ud804\udc51"
         + "\ud804\udc70\ud804\udc7f"
-        + "\ud804\udcc2\ud807\udfff"
+        + "\ud804\udcc2\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd44\ud804\udd7f"
+        + "\ud804\uddc9\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud809\udc6f"
         + "\ud809\udc74\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc02\ud833\udfff"
         + "\ud834\udcf6\ud834\udcff"
         + "\ud834\udd27\ud834\udd28"
@@ -26745,7 +29056,41 @@ public class Unicode_6_0 {
         + "\ud835\udd51\ud835\udd51"
         + "\ud835\udea6\ud835\udea7"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\ud83b\udfff"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83b\udeef"
+        + "\ud83b\udef2\ud83b\udfff"
         + "\ud83c\udc2c\ud83c\udc2f"
         + "\ud83c\udc94\ud83c\udc9f"
         + "\ud83c\udcaf\ud83c\udcb0"
@@ -26754,7 +29099,7 @@ public class Unicode_6_0 {
         + "\ud83c\udce0\ud83c\udcff"
         + "\ud83c\udd0b\ud83c\udd0f"
         + "\ud83c\udd2f\ud83c\udd2f"
-        + "\ud83c\udd6a\ud83c\udd6f"
+        + "\ud83c\udd6c\ud83c\udd6f"
         + "\ud83c\udd9b\ud83c\udde5"
         + "\ud83c\ude03\ud83c\ude0f"
         + "\ud83c\ude3b\ud83c\ude3f"
@@ -26771,19 +29116,9 @@ public class Unicode_6_0 {
         + "\ud83d\udc41\ud83d\udc41"
         + "\ud83d\udcf8\ud83d\udcf8"
         + "\ud83d\udcfd\ud83d\udcff"
-        + "\ud83d\udd3e\ud83d\udd4f"
+        + "\ud83d\udd3e\ud83d\udd3f"
+        + "\ud83d\udd44\ud83d\udd4f"
         + "\ud83d\udd68\ud83d\uddfa"
-        + "\ud83d\ude00\ud83d\ude00"
-        + "\ud83d\ude11\ud83d\ude11"
-        + "\ud83d\ude15\ud83d\ude15"
-        + "\ud83d\ude17\ud83d\ude17"
-        + "\ud83d\ude19\ud83d\ude19"
-        + "\ud83d\ude1b\ud83d\ude1b"
-        + "\ud83d\ude1f\ud83d\ude1f"
-        + "\ud83d\ude26\ud83d\ude27"
-        + "\ud83d\ude2c\ud83d\ude2c"
-        + "\ud83d\ude2e\ud83d\ude2f"
-        + "\ud83d\ude34\ud83d\ude34"
         + "\ud83d\ude41\ud83d\ude44"
         + "\ud83d\ude50\ud83d\ude7f"
         + "\ud83d\udec6\ud83d\udeff"
@@ -26795,7 +29130,7 @@ public class Unicode_6_0 {
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {uppercase}
+    // Unicode 6.2 property value: {uppercase}
     "\u0041\u005a"
         + "\u00c0\u00d6"
         + "\u00d8\u00de"
@@ -27064,6 +29399,8 @@ public class Unicode_6_0 {
         + "\u0526\u0526"
         + "\u0531\u0556"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u1e00\u1e00"
         + "\u1e02\u1e02"
         + "\u1e04\u1e04"
@@ -27280,6 +29617,7 @@ public class Unicode_6_0 {
         + "\u2ce2\u2ce2"
         + "\u2ceb\u2ceb"
         + "\u2ced\u2ced"
+        + "\u2cf2\u2cf2"
         + "\ua640\ua640"
         + "\ua642\ua642"
         + "\ua644\ua644"
@@ -27363,11 +29701,13 @@ public class Unicode_6_0 {
         + "\ua78b\ua78b"
         + "\ua78d\ua78d"
         + "\ua790\ua790"
+        + "\ua792\ua792"
         + "\ua7a0\ua7a0"
         + "\ua7a2\ua7a2"
         + "\ua7a4\ua7a4"
         + "\ua7a6\ua7a6"
         + "\ua7a8\ua7a8"
+        + "\ua7aa\ua7aa"
         + "\uff21\uff3a"
         + "\ud801\udc00\ud801\udc27"
         + "\ud835\udc00\ud835\udc19"
@@ -27401,11 +29741,11 @@ public class Unicode_6_0 {
         + "\ud835\udf56\ud835\udf6e"
         + "\ud835\udf90\ud835\udfa8"
         + "\ud835\udfca\ud835\udfca",
-    // Unicode 6.0 property value: {vai}
+    // Unicode 6.2 property value: {vai}
     "\ua500\ua62b",
-    // Unicode 6.0 property value: {variationselector}
+    // Unicode 6.2 property value: {variationselector}
     "\u180b\u180d" + "\ufe00\ufe0f" + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {whitespace}
+    // Unicode 6.2 property value: {whitespace}
     "\t\r"
         + "\u0020\u0020"
         + "\u0085\u0085"
@@ -27417,7 +29757,7 @@ public class Unicode_6_0 {
         + "\u202f\u202f"
         + "\u205f\u205f"
         + "\u3000\u3000",
-    // Unicode 6.0 property value: {wordbreak=aletter}
+    // Unicode 6.2 property value: {wordbreak=aletter}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -27465,6 +29805,8 @@ public class Unicode_6_0 {
         + "\u0824\u0824"
         + "\u0828\u0828"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -27556,9 +29898,10 @@ public class Unicode_6_0 {
         + "\u0f49\u0f6c"
         + "\u0f88\u0f8c"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -27597,12 +29940,13 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1c00\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -27645,8 +29989,11 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -27674,9 +30021,9 @@ public class Unicode_6_0 {
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua822"
@@ -27692,6 +30039,8 @@ public class Unicode_6_0 {
         + "\uaa00\uaa28"
         + "\uaa40\uaa42"
         + "\uaa44\uaa4b"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf4"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -27749,6 +30098,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -27760,10 +30111,18 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc03\ud804\udc37"
         + "\ud804\udc83\ud804\udcaf"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud835\udc00\ud835\udc54"
         + "\ud835\udc56\ud835\udc9c"
         + "\ud835\udc9e\ud835\udc9f"
@@ -27793,10 +30152,43 @@ public class Unicode_6_0 {
         + "\ud835\udf70\ud835\udf88"
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
-        + "\ud835\udfc4\ud835\udfcb",
-    // Unicode 6.0 property value: {wordbreak=cr}
+        + "\ud835\udfc4\ud835\udfcb"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb",
+    // Unicode 6.2 property value: {wordbreak=cr}
     "\r\r",
-    // Unicode 6.0 property value: {wordbreak=extend}
+    // Unicode 6.2 property value: {wordbreak=extend}
     "\u0300\u036f"
         + "\u0483\u0489"
         + "\u0591\u05bd"
@@ -27820,6 +30212,7 @@ public class Unicode_6_0 {
         + "\u0825\u0827"
         + "\u0829\u082d"
         + "\u0859\u085b"
+        + "\u08e4\u08fe"
         + "\u0900\u0903"
         + "\u093a\u093c"
         + "\u093e\u094f"
@@ -27914,7 +30307,7 @@ public class Unicode_6_0 {
         + "\u1732\u1734"
         + "\u1752\u1753"
         + "\u1772\u1773"
-        + "\u17b6\u17d3"
+        + "\u17b4\u17d3"
         + "\u17dd\u17dd"
         + "\u180b\u180d"
         + "\u18a9\u18a9"
@@ -27930,13 +30323,13 @@ public class Unicode_6_0 {
         + "\u1b34\u1b44"
         + "\u1b6b\u1b73"
         + "\u1b80\u1b82"
-        + "\u1ba1\u1baa"
+        + "\u1ba1\u1bad"
         + "\u1be6\u1bf3"
         + "\u1c24\u1c37"
         + "\u1cd0\u1cd2"
         + "\u1cd4\u1ce8"
         + "\u1ced\u1ced"
-        + "\u1cf2\u1cf2"
+        + "\u1cf2\u1cf4"
         + "\u1dc0\u1de6"
         + "\u1dfc\u1dff"
         + "\u200c\u200d"
@@ -27947,7 +30340,8 @@ public class Unicode_6_0 {
         + "\u302a\u302f"
         + "\u3099\u309a"
         + "\ua66f\ua672"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
+        + "\ua69f\ua69f"
         + "\ua6f0\ua6f1"
         + "\ua802\ua802"
         + "\ua806\ua806"
@@ -27969,6 +30363,8 @@ public class Unicode_6_0 {
         + "\uaab7\uaab8"
         + "\uaabe\uaabf"
         + "\uaac1\uaac1"
+        + "\uaaeb\uaaef"
+        + "\uaaf5\uaaf6"
         + "\uabe3\uabea"
         + "\uabec\uabed"
         + "\ufb1e\ufb1e"
@@ -27985,6 +30381,13 @@ public class Unicode_6_0 {
         + "\ud804\udc38\ud804\udc46"
         + "\ud804\udc80\ud804\udc82"
         + "\ud804\udcb0\ud804\udcba"
+        + "\ud804\udd00\ud804\udd02"
+        + "\ud804\udd27\ud804\udd34"
+        + "\ud804\udd80\ud804\udd82"
+        + "\ud804\uddb3\ud804\uddc0"
+        + "\ud805\udeab\ud805\udeb7"
+        + "\ud81b\udf51\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf92"
         + "\ud834\udd65\ud834\udd69"
         + "\ud834\udd6d\ud834\udd72"
         + "\ud834\udd7b\ud834\udd82"
@@ -27992,19 +30395,18 @@ public class Unicode_6_0 {
         + "\ud834\uddaa\ud834\uddad"
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {wordbreak=extendnumlet}
+    // Unicode 6.2 property value: {wordbreak=extendnumlet}
     "\u005f\u005f"
         + "\u203f\u2040"
         + "\u2054\u2054"
         + "\ufe33\ufe34"
         + "\ufe4d\ufe4f"
         + "\uff3f\uff3f",
-    // Unicode 6.0 property value: {wordbreak=format}
+    // Unicode 6.2 property value: {wordbreak=format}
     "\u00ad\u00ad"
-        + "\u0600\u0603"
+        + "\u0600\u0604"
         + "\u06dd\u06dd"
         + "\u070f\u070f"
-        + "\u17b4\u17b5"
         + "\u200e\u200f"
         + "\u202a\u202e"
         + "\u2060\u2064"
@@ -28015,7 +30417,7 @@ public class Unicode_6_0 {
         + "\ud834\udd73\ud834\udd7a"
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
-    // Unicode 6.0 property value: {wordbreak=katakana}
+    // Unicode 6.2 property value: {wordbreak=katakana}
     "\u3031\u3035"
         + "\u309b\u309c"
         + "\u30a0\u30fa"
@@ -28025,9 +30427,9 @@ public class Unicode_6_0 {
         + "\u3300\u3357"
         + "\uff66\uff9d"
         + "\ud82c\udc00\ud82c\udc00",
-    // Unicode 6.0 property value: {wordbreak=lf}
+    // Unicode 6.2 property value: {wordbreak=lf}
     "\n\n",
-    // Unicode 6.0 property value: {wordbreak=midletter}
+    // Unicode 6.2 property value: {wordbreak=midletter}
     "\u003a\u003a"
         + "\u00b7\u00b7"
         + "\u0387\u0387"
@@ -28036,7 +30438,7 @@ public class Unicode_6_0 {
         + "\ufe13\ufe13"
         + "\ufe55\ufe55"
         + "\uff1a\uff1a",
-    // Unicode 6.0 property value: {wordbreak=midnum}
+    // Unicode 6.2 property value: {wordbreak=midnum}
     "\u002c\u002c"
         + "\u003b\u003b"
         + "\u037e\u037e"
@@ -28051,7 +30453,7 @@ public class Unicode_6_0 {
         + "\ufe54\ufe54"
         + "\uff0c\uff0c"
         + "\uff1b\uff1b",
-    // Unicode 6.0 property value: {wordbreak=midnumlet}
+    // Unicode 6.2 property value: {wordbreak=midnumlet}
     "\u0027\u0027"
         + "\u002e\u002e"
         + "\u2018\u2019"
@@ -28059,9 +30461,9 @@ public class Unicode_6_0 {
         + "\ufe52\ufe52"
         + "\uff07\uff07"
         + "\uff0e\uff0e",
-    // Unicode 6.0 property value: {wordbreak=newline}
+    // Unicode 6.2 property value: {wordbreak=newline}
     "\u000b\f" + "\u0085\u0085" + "\u2028\u2029",
-    // Unicode 6.0 property value: {wordbreak=numeric}
+    // Unicode 6.2 property value: {wordbreak=numeric}
     "\u0030\u0039"
         + "\u0660\u0669"
         + "\u066b\u066b"
@@ -28099,8 +30501,12 @@ public class Unicode_6_0 {
         + "\uabf0\uabf9"
         + "\ud801\udca0\ud801\udca9"
         + "\ud804\udc66\ud804\udc6f"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {wordbreak=other}
+    // Unicode 6.2 property value: {wordbreak=other}
     "\000\t"
         + "\u000e\u0026"
         + "\u0028\u002b"
@@ -28143,7 +30549,7 @@ public class Unicode_6_0 {
         + "\u05c8\u05cf"
         + "\u05eb\u05ef"
         + "\u05f5\u05ff"
-        + "\u0604\u060b"
+        + "\u0605\u060b"
         + "\u060e\u060f"
         + "\u061b\u061f"
         + "\u066a\u066a"
@@ -28159,7 +30565,10 @@ public class Unicode_6_0 {
         + "\u07f9\u07f9"
         + "\u07fb\u07ff"
         + "\u082e\u083f"
-        + "\u085c\u08ff"
+        + "\u085c\u089f"
+        + "\u08a1\u08a1"
+        + "\u08ad\u08e3"
+        + "\u08ff\u08ff"
         + "\u0964\u0965"
         + "\u0970\u0970"
         + "\u0978\u0978"
@@ -28317,9 +30726,10 @@ public class Unicode_6_0 {
         + "\u1075\u1081"
         + "\u108e\u108e"
         + "\u109e\u109f"
-        + "\u10c6\u10cf"
+        + "\u10c6\u10c6"
+        + "\u10c8\u10cc"
+        + "\u10ce\u10cf"
         + "\u10fb\u10fb"
-        + "\u10fd\u10ff"
         + "\u1249\u1249"
         + "\u124e\u124f"
         + "\u1257\u1257"
@@ -28374,14 +30784,12 @@ public class Unicode_6_0 {
         + "\u1b4c\u1b4f"
         + "\u1b5a\u1b6a"
         + "\u1b74\u1b7f"
-        + "\u1bab\u1bad"
-        + "\u1bba\u1bbf"
         + "\u1bf4\u1bff"
         + "\u1c38\u1c3f"
         + "\u1c4a\u1c4c"
         + "\u1c7e\u1ccf"
         + "\u1cd3\u1cd3"
-        + "\u1cf3\u1cff"
+        + "\u1cf7\u1cff"
         + "\u1de7\u1dfb"
         + "\u1f16\u1f17"
         + "\u1f1e\u1f1f"
@@ -28433,9 +30841,11 @@ public class Unicode_6_0 {
         + "\u2c2f\u2c2f"
         + "\u2c5f\u2c5f"
         + "\u2ce5\u2cea"
-        + "\u2cf2\u2cff"
-        + "\u2d26\u2d2f"
-        + "\u2d66\u2d6e"
+        + "\u2cf4\u2cff"
+        + "\u2d26\u2d26"
+        + "\u2d28\u2d2c"
+        + "\u2d2e\u2d2f"
+        + "\u2d68\u2d6e"
         + "\u2d70\u2d7e"
         + "\u2d97\u2d9f"
         + "\u2da7\u2da7"
@@ -28465,15 +30875,15 @@ public class Unicode_6_0 {
         + "\ua4fe\ua4ff"
         + "\ua60d\ua60f"
         + "\ua62c\ua63f"
-        + "\ua673\ua67b"
+        + "\ua673\ua673"
         + "\ua67e\ua67e"
-        + "\ua698\ua69f"
+        + "\ua698\ua69e"
         + "\ua6f2\ua716"
         + "\ua720\ua721"
         + "\ua789\ua78a"
         + "\ua78f\ua78f"
-        + "\ua792\ua79f"
-        + "\ua7aa\ua7f9"
+        + "\ua794\ua79f"
+        + "\ua7ab\ua7f7"
         + "\ua828\ua83f"
         + "\ua874\ua87f"
         + "\ua8c5\ua8cf"
@@ -28493,7 +30903,9 @@ public class Unicode_6_0 {
         + "\uaab5\uaab6"
         + "\uaab9\uaabd"
         + "\uaac0\uaac0"
-        + "\uaac2\uab00"
+        + "\uaac2\uaadf"
+        + "\uaaf0\uaaf1"
+        + "\uaaf7\uab00"
         + "\uab07\uab08"
         + "\uab0f\uab10"
         + "\uab17\uab1f"
@@ -28568,7 +30980,9 @@ public class Unicode_6_0 {
         + "\ud802\udc3d\ud802\udc3e"
         + "\ud802\udc56\ud802\udcff"
         + "\ud802\udd16\ud802\udd1f"
-        + "\ud802\udd3a\ud802\uddff"
+        + "\ud802\udd3a\ud802\udd7f"
+        + "\ud802\uddb8\ud802\uddbd"
+        + "\ud802\uddc0\ud802\uddff"
         + "\ud802\ude04\ud802\ude04"
         + "\ud802\ude07\ud802\ude0b"
         + "\ud802\ude14\ud802\ude14"
@@ -28584,11 +30998,22 @@ public class Unicode_6_0 {
         + "\ud804\udc47\ud804\udc65"
         + "\ud804\udc70\ud804\udc7f"
         + "\ud804\udcbb\ud804\udcbc"
-        + "\ud804\udcbe\ud807\udfff"
+        + "\ud804\udcbe\ud804\udccf"
+        + "\ud804\udce9\ud804\udcef"
+        + "\ud804\udcfa\ud804\udcff"
+        + "\ud804\udd35\ud804\udd35"
+        + "\ud804\udd40\ud804\udd7f"
+        + "\ud804\uddc5\ud804\uddcf"
+        + "\ud804\uddda\ud805\ude7f"
+        + "\ud805\udeb8\ud805\udebf"
+        + "\ud805\udeca\ud807\udfff"
         + "\ud808\udf6f\ud808\udfff"
         + "\ud809\udc63\ud80b\udfff"
         + "\ud80d\udc2f\ud819\udfff"
-        + "\ud81a\ude39\ud82b\udfff"
+        + "\ud81a\ude39\ud81b\udeff"
+        + "\ud81b\udf45\ud81b\udf4f"
+        + "\ud81b\udf7f\ud81b\udf8e"
+        + "\ud81b\udfa0\ud82b\udfff"
         + "\ud82c\udc01\ud834\udd64"
         + "\ud834\udd6a\ud834\udd6c"
         + "\ud834\udd83\ud834\udd84"
@@ -28625,11 +31050,47 @@ public class Unicode_6_0 {
         + "\ud835\udfa9\ud835\udfa9"
         + "\ud835\udfc3\ud835\udfc3"
         + "\ud835\udfcc\ud835\udfcd"
-        + "\ud836\udc00\udb40\udc00"
+        + "\ud836\udc00\ud83b\uddff"
+        + "\ud83b\ude04\ud83b\ude04"
+        + "\ud83b\ude20\ud83b\ude20"
+        + "\ud83b\ude23\ud83b\ude23"
+        + "\ud83b\ude25\ud83b\ude26"
+        + "\ud83b\ude28\ud83b\ude28"
+        + "\ud83b\ude33\ud83b\ude33"
+        + "\ud83b\ude38\ud83b\ude38"
+        + "\ud83b\ude3a\ud83b\ude3a"
+        + "\ud83b\ude3c\ud83b\ude41"
+        + "\ud83b\ude43\ud83b\ude46"
+        + "\ud83b\ude48\ud83b\ude48"
+        + "\ud83b\ude4a\ud83b\ude4a"
+        + "\ud83b\ude4c\ud83b\ude4c"
+        + "\ud83b\ude50\ud83b\ude50"
+        + "\ud83b\ude53\ud83b\ude53"
+        + "\ud83b\ude55\ud83b\ude56"
+        + "\ud83b\ude58\ud83b\ude58"
+        + "\ud83b\ude5a\ud83b\ude5a"
+        + "\ud83b\ude5c\ud83b\ude5c"
+        + "\ud83b\ude5e\ud83b\ude5e"
+        + "\ud83b\ude60\ud83b\ude60"
+        + "\ud83b\ude63\ud83b\ude63"
+        + "\ud83b\ude65\ud83b\ude66"
+        + "\ud83b\ude6b\ud83b\ude6b"
+        + "\ud83b\ude73\ud83b\ude73"
+        + "\ud83b\ude78\ud83b\ude78"
+        + "\ud83b\ude7d\ud83b\ude7d"
+        + "\ud83b\ude7f\ud83b\ude7f"
+        + "\ud83b\ude8a\ud83b\ude8a"
+        + "\ud83b\ude9c\ud83b\udea0"
+        + "\ud83b\udea4\ud83b\udea4"
+        + "\ud83b\udeaa\ud83b\udeaa"
+        + "\ud83b\udebc\ud83c\udde5"
+        + "\ud83c\ude00\udb40\udc00"
         + "\udb40\udc02\udb40\udc1f"
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
-    // Unicode 6.0 property value: {xdigit}
+    // Unicode 6.2 property value: {wordbreak=regionalindicator}
+    "\ud83c\udde6\ud83c\uddff",
+    // Unicode 6.2 property value: {xdigit}
     "\u0030\u0039"
         + "\u0041\u0046"
         + "\u0061\u0066"
@@ -28671,8 +31132,12 @@ public class Unicode_6_0 {
         + "\uff41\uff46"
         + "\ud801\udca0\ud801\udca9"
         + "\ud804\udc66\ud804\udc6f"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud835\udfce\ud835\udfff",
-    // Unicode 6.0 property value: {xidcontinue}
+    // Unicode 6.2 property value: {xidcontinue}
     "\u0030\u0039"
         + "\u0041\u005a"
         + "\u005f\u005f"
@@ -28721,6 +31186,9 @@ public class Unicode_6_0 {
         + "\u07fa\u07fa"
         + "\u0800\u082d"
         + "\u0840\u085b"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
+        + "\u08e4\u08fe"
         + "\u0900\u0963"
         + "\u0966\u096f"
         + "\u0971\u0977"
@@ -28868,7 +31336,7 @@ public class Unicode_6_0 {
         + "\u0ec6\u0ec6"
         + "\u0ec8\u0ecd"
         + "\u0ed0\u0ed9"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f18\u0f19"
         + "\u0f20\u0f29"
@@ -28884,9 +31352,10 @@ public class Unicode_6_0 {
         + "\u1000\u1049"
         + "\u1050\u109d"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -28918,8 +31387,7 @@ public class Unicode_6_0 {
         + "\u1760\u176c"
         + "\u176e\u1770"
         + "\u1772\u1773"
-        + "\u1780\u17b3"
-        + "\u17b6\u17d3"
+        + "\u1780\u17d3"
         + "\u17d7\u17d7"
         + "\u17dc\u17dd"
         + "\u17e0\u17e9"
@@ -28945,14 +31413,12 @@ public class Unicode_6_0 {
         + "\u1b00\u1b4b"
         + "\u1b50\u1b59"
         + "\u1b6b\u1b73"
-        + "\u1b80\u1baa"
-        + "\u1bae\u1bb9"
-        + "\u1bc0\u1bf3"
+        + "\u1b80\u1bf3"
         + "\u1c00\u1c37"
         + "\u1c40\u1c49"
         + "\u1c4d\u1c7d"
         + "\u1cd0\u1cd2"
-        + "\u1cd4\u1cf2"
+        + "\u1cd4\u1cf6"
         + "\u1d00\u1de6"
         + "\u1dfc\u1f15"
         + "\u1f18\u1f1d"
@@ -28997,9 +31463,11 @@ public class Unicode_6_0 {
         + "\u2c00\u2c2e"
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
-        + "\u2ceb\u2cf1"
+        + "\u2ceb\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d7f\u2d96"
         + "\u2da0\u2da6"
@@ -29025,21 +31493,21 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
         + "\ua610\ua62b"
         + "\ua640\ua66f"
-        + "\ua67c\ua67d"
+        + "\ua674\ua67d"
         + "\ua67f\ua697"
-        + "\ua6a0\ua6f1"
+        + "\ua69f\ua6f1"
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua827"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua827"
         + "\ua840\ua873"
         + "\ua880\ua8c4"
         + "\ua8d0\ua8d9"
@@ -29057,6 +31525,8 @@ public class Unicode_6_0 {
         + "\uaa7a\uaa7b"
         + "\uaa80\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaef"
+        + "\uaaf2\uaaf6"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -29068,8 +31538,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -29132,6 +31601,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude03"
         + "\ud802\ude05\ud802\ude06"
         + "\ud802\ude0c\ud802\ude13"
@@ -29147,10 +31618,21 @@ public class Unicode_6_0 {
         + "\ud804\udc00\ud804\udc46"
         + "\ud804\udc66\ud804\udc6f"
         + "\ud804\udc80\ud804\udcba"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udcf0\ud804\udcf9"
+        + "\ud804\udd00\ud804\udd34"
+        + "\ud804\udd36\ud804\udd3f"
+        + "\ud804\udd80\ud804\uddc4"
+        + "\ud804\uddd0\ud804\uddd9"
+        + "\ud805\ude80\ud805\udeb7"
+        + "\ud805\udec0\ud805\udec9"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf7e"
+        + "\ud81b\udf8f\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud834\udd65\ud834\udd69"
         + "\ud834\udd6d\ud834\udd72"
@@ -29189,12 +31671,45 @@ public class Unicode_6_0 {
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d"
         + "\udb40\udd00\udb40\uddef",
-    // Unicode 6.0 property value: {xidstart}
+    // Unicode 6.2 property value: {xidstart}
     "\u0041\u005a"
         + "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -29242,6 +31757,8 @@ public class Unicode_6_0 {
         + "\u0824\u0824"
         + "\u0828\u0828"
         + "\u0840\u0858"
+        + "\u08a0\u08a0"
+        + "\u08a2\u08ac"
         + "\u0904\u0939"
         + "\u093d\u093d"
         + "\u0950\u0950"
@@ -29347,7 +31864,7 @@ public class Unicode_6_0 {
         + "\u0ebd\u0ebd"
         + "\u0ec0\u0ec4"
         + "\u0ec6\u0ec6"
-        + "\u0edc\u0edd"
+        + "\u0edc\u0edf"
         + "\u0f00\u0f00"
         + "\u0f40\u0f47"
         + "\u0f49\u0f6c"
@@ -29362,9 +31879,10 @@ public class Unicode_6_0 {
         + "\u1075\u1081"
         + "\u108e\u108e"
         + "\u10a0\u10c5"
+        + "\u10c7\u10c7"
+        + "\u10cd\u10cd"
         + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u1100\u1248"
+        + "\u10fc\u1248"
         + "\u124a\u124d"
         + "\u1250\u1256"
         + "\u1258\u1258"
@@ -29412,12 +31930,13 @@ public class Unicode_6_0 {
         + "\u1b45\u1b4b"
         + "\u1b83\u1ba0"
         + "\u1bae\u1baf"
-        + "\u1bc0\u1be5"
+        + "\u1bba\u1be5"
         + "\u1c00\u1c23"
         + "\u1c4d\u1c4f"
         + "\u1c5a\u1c7d"
         + "\u1ce9\u1cec"
         + "\u1cee\u1cf1"
+        + "\u1cf5\u1cf6"
         + "\u1d00\u1dbf"
         + "\u1e00\u1f15"
         + "\u1f18\u1f1d"
@@ -29458,8 +31977,11 @@ public class Unicode_6_0 {
         + "\u2c30\u2c5e"
         + "\u2c60\u2ce4"
         + "\u2ceb\u2cee"
+        + "\u2cf2\u2cf3"
         + "\u2d00\u2d25"
-        + "\u2d30\u2d65"
+        + "\u2d27\u2d27"
+        + "\u2d2d\u2d2d"
+        + "\u2d30\u2d67"
         + "\u2d6f\u2d6f"
         + "\u2d80\u2d96"
         + "\u2da0\u2da6"
@@ -29483,7 +32005,7 @@ public class Unicode_6_0 {
         + "\u31a0\u31ba"
         + "\u31f0\u31ff"
         + "\u3400\u4db5"
-        + "\u4e00\u9fcb"
+        + "\u4e00\u9fcc"
         + "\ua000\ua48c"
         + "\ua4d0\ua4fd"
         + "\ua500\ua60c"
@@ -29495,9 +32017,9 @@ public class Unicode_6_0 {
         + "\ua717\ua71f"
         + "\ua722\ua788"
         + "\ua78b\ua78e"
-        + "\ua790\ua791"
-        + "\ua7a0\ua7a9"
-        + "\ua7fa\ua801"
+        + "\ua790\ua793"
+        + "\ua7a0\ua7aa"
+        + "\ua7f8\ua801"
         + "\ua803\ua805"
         + "\ua807\ua80a"
         + "\ua80c\ua822"
@@ -29522,6 +32044,8 @@ public class Unicode_6_0 {
         + "\uaac0\uaac0"
         + "\uaac2\uaac2"
         + "\uaadb\uaadd"
+        + "\uaae0\uaaea"
+        + "\uaaf2\uaaf4"
         + "\uab01\uab06"
         + "\uab09\uab0e"
         + "\uab11\uab16"
@@ -29531,8 +32055,7 @@ public class Unicode_6_0 {
         + "\uac00\ud7a3"
         + "\ud7b0\ud7c6"
         + "\ud7cb\ud7fb"
-        + "\uf900\ufa2d"
-        + "\ufa30\ufa6d"
+        + "\uf900\ufa6d"
         + "\ufa70\ufad9"
         + "\ufb00\ufb06"
         + "\ufb13\ufb17"
@@ -29589,6 +32112,8 @@ public class Unicode_6_0 {
         + "\ud802\udc3f\ud802\udc55"
         + "\ud802\udd00\ud802\udd15"
         + "\ud802\udd20\ud802\udd39"
+        + "\ud802\udd80\ud802\uddb7"
+        + "\ud802\uddbe\ud802\uddbf"
         + "\ud802\ude00\ud802\ude00"
         + "\ud802\ude10\ud802\ude13"
         + "\ud802\ude15\ud802\ude17"
@@ -29600,10 +32125,18 @@ public class Unicode_6_0 {
         + "\ud803\udc00\ud803\udc48"
         + "\ud804\udc03\ud804\udc37"
         + "\ud804\udc83\ud804\udcaf"
+        + "\ud804\udcd0\ud804\udce8"
+        + "\ud804\udd03\ud804\udd26"
+        + "\ud804\udd83\ud804\uddb2"
+        + "\ud804\uddc1\ud804\uddc4"
+        + "\ud805\ude80\ud805\udeaa"
         + "\ud808\udc00\ud808\udf6e"
         + "\ud809\udc00\ud809\udc62"
         + "\ud80c\udc00\ud80d\udc2e"
         + "\ud81a\udc00\ud81a\ude38"
+        + "\ud81b\udf00\ud81b\udf44"
+        + "\ud81b\udf50\ud81b\udf50"
+        + "\ud81b\udf93\ud81b\udf9f"
         + "\ud82c\udc00\ud82c\udc01"
         + "\ud835\udc00\ud835\udc54"
         + "\ud835\udc56\ud835\udc9c"
@@ -29635,17 +32168,50 @@ public class Unicode_6_0 {
         + "\ud835\udf8a\ud835\udfa8"
         + "\ud835\udfaa\ud835\udfc2"
         + "\ud835\udfc4\ud835\udfcb"
+        + "\ud83b\ude00\ud83b\ude03"
+        + "\ud83b\ude05\ud83b\ude1f"
+        + "\ud83b\ude21\ud83b\ude22"
+        + "\ud83b\ude24\ud83b\ude24"
+        + "\ud83b\ude27\ud83b\ude27"
+        + "\ud83b\ude29\ud83b\ude32"
+        + "\ud83b\ude34\ud83b\ude37"
+        + "\ud83b\ude39\ud83b\ude39"
+        + "\ud83b\ude3b\ud83b\ude3b"
+        + "\ud83b\ude42\ud83b\ude42"
+        + "\ud83b\ude47\ud83b\ude47"
+        + "\ud83b\ude49\ud83b\ude49"
+        + "\ud83b\ude4b\ud83b\ude4b"
+        + "\ud83b\ude4d\ud83b\ude4f"
+        + "\ud83b\ude51\ud83b\ude52"
+        + "\ud83b\ude54\ud83b\ude54"
+        + "\ud83b\ude57\ud83b\ude57"
+        + "\ud83b\ude59\ud83b\ude59"
+        + "\ud83b\ude5b\ud83b\ude5b"
+        + "\ud83b\ude5d\ud83b\ude5d"
+        + "\ud83b\ude5f\ud83b\ude5f"
+        + "\ud83b\ude61\ud83b\ude62"
+        + "\ud83b\ude64\ud83b\ude64"
+        + "\ud83b\ude67\ud83b\ude6a"
+        + "\ud83b\ude6c\ud83b\ude72"
+        + "\ud83b\ude74\ud83b\ude77"
+        + "\ud83b\ude79\ud83b\ude7c"
+        + "\ud83b\ude7e\ud83b\ude7e"
+        + "\ud83b\ude80\ud83b\ude89"
+        + "\ud83b\ude8b\ud83b\ude9b"
+        + "\ud83b\udea1\ud83b\udea3"
+        + "\ud83b\udea5\ud83b\udea9"
+        + "\ud83b\udeab\ud83b\udebb"
         + "\ud840\udc00\ud869\uded6"
         + "\ud869\udf00\ud86d\udf34"
         + "\ud86d\udf40\ud86e\udc1d"
         + "\ud87e\udc00\ud87e\ude1d",
-    // Unicode 6.0 property value: {yi}
+    // Unicode 6.2 property value: {yi}
     "\ua000\ua48c" + "\ua490\ua4c6",
-    // Unicode 6.0 property value: {zl}
+    // Unicode 6.2 property value: {zl}
     "\u2028\u2028",
-    // Unicode 6.0 property value: {zp}
+    // Unicode 6.2 property value: {zp}
     "\u2029\u2029",
-    // Unicode 6.0 property value: {zs}
+    // Unicode 6.2 property value: {zs}
     "\u0020\u0020"
         + "\u00a0\u00a0"
         + "\u1680\u1680"
@@ -29656,175 +32222,349 @@ public class Unicode_6_0 {
         + "\u3000\u3000"
   };
   /**
-   * Constant {@code propertyValueAliases="{ahex, asciihexdigit, alpha, alphabetic"{trunked}}
+   * Constant {@code propertyValueAliases="{age=1.1, age=v11, age=2.0, age=v20,age"{trunked}}
    */
   public static final String[] propertyValueAliases = {
-    "ahex", "asciihexdigit", "alpha", "alphabetic",
-    "arab", "arabic", "armi", "imperialaramaic",
-    "armn", "armenian", "avst", "avestan",
-    "bali", "balinese", "bamu", "bamum",
-    "batk", "batak", "beng", "bengali",
-    "bidic", "bidicontrol", "blk=aegeannumbers", "block=aegeannumbers",
-    "blk=alchemicalsymbols", "block=alchemicalsymbols", "blk=alphabeticpresentationforms",
+    "age=1.1", "age=v11", "age=2.0", "age=v20",
+    "age=2.1", "age=v21", "age=3.0", "age=v30",
+    "age=3.1", "age=v31", "age=3.2", "age=v32",
+    "age=4.0", "age=v40", "age=4.1", "age=v41",
+    "age=5.0", "age=v50", "age=5.1", "age=v51",
+    "age=5.2", "age=v52", "age=6.0", "age=v60",
+    "age=6.1", "age=v61", "age=6.2", "age=v62",
+    "age=na", "age=unassigned", "ahex", "asciihexdigit",
+    "alpha", "alphabetic", "arab", "arabic",
+    "armi", "imperialaramaic", "armn", "armenian",
+    "avst", "avestan", "bali", "balinese",
+    "bamu", "bamum", "batk", "batak",
+    "beng", "bengali", "bidic", "bidicontrol",
+    "blk=aegeannumbers", "block=aegeannumbers", "blk=alchemical", "block=alchemicalsymbols",
+    "blk=alchemicalsymbols", "block=alchemicalsymbols", "blk=alphabeticpf",
         "block=alphabeticpresentationforms",
+    "blk=alphabeticpresentationforms", "block=alphabeticpresentationforms", "blk=ancientgreekmusic",
+        "block=ancientgreekmusicalnotation",
     "blk=ancientgreekmusicalnotation", "block=ancientgreekmusicalnotation",
         "blk=ancientgreeknumbers", "block=ancientgreeknumbers",
     "blk=ancientsymbols", "block=ancientsymbols", "blk=arabic", "block=arabic",
+    "blk=arabicexta", "block=arabicextendeda", "blk=arabicextendeda", "block=arabicextendeda",
+    "blk=arabicmath", "block=arabicmathematicalalphabeticsymbols",
+        "blk=arabicmathematicalalphabeticsymbols", "block=arabicmathematicalalphabeticsymbols",
+    "blk=arabicpfa", "block=arabicpresentationformsa", "blk=arabicpfb",
+        "block=arabicpresentationformsb",
     "blk=arabicpresentationformsa", "block=arabicpresentationformsa",
         "blk=arabicpresentationformsb", "block=arabicpresentationformsb",
-    "blk=arabicsupplement", "block=arabicsupplement", "blk=armenian", "block=armenian",
-    "blk=arrows", "block=arrows", "blk=ascii", "block=basiclatin",
-    "blk=avestan", "block=avestan", "blk=balinese", "block=balinese",
-    "blk=bamum", "block=bamum", "blk=bamumsupplement", "block=bamumsupplement",
+    "blk=arabicsup", "block=arabicsupplement", "blk=arabicsupplement", "block=arabicsupplement",
+    "blk=armenian", "block=armenian", "blk=arrows", "block=arrows",
+    "blk=ascii", "block=basiclatin", "blk=avestan", "block=avestan",
+    "blk=balinese", "block=balinese", "blk=bamum", "block=bamum",
+    "blk=bamumsup", "block=bamumsupplement", "blk=bamumsupplement", "block=bamumsupplement",
     "blk=basiclatin", "block=basiclatin", "blk=batak", "block=batak",
     "blk=bengali", "block=bengali", "blk=blockelements", "block=blockelements",
-    "blk=bopomofo", "block=bopomofo", "blk=bopomofoextended", "block=bopomofoextended",
-    "blk=boxdrawing", "block=boxdrawing", "blk=brahmi", "block=brahmi",
+    "blk=bopomofo", "block=bopomofo", "blk=bopomofoext", "block=bopomofoextended",
+    "blk=bopomofoextended", "block=bopomofoextended", "blk=boxdrawing", "block=boxdrawing",
+    "blk=brahmi", "block=brahmi", "blk=braille", "block=braillepatterns",
     "blk=braillepatterns", "block=braillepatterns", "blk=buginese", "block=buginese",
-    "blk=buhid", "block=buhid", "blk=byzantinemusicalsymbols", "block=byzantinemusicalsymbols",
-    "blk=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics", "blk=carian",
-        "block=carian",
+    "blk=buhid", "block=buhid", "blk=byzantinemusic", "block=byzantinemusicalsymbols",
+    "blk=byzantinemusicalsymbols", "block=byzantinemusicalsymbols", "blk=canadiansyllabics",
+        "block=unifiedcanadianaboriginalsyllabics",
+    "blk=carian", "block=carian", "blk=chakma", "block=chakma",
     "blk=cham", "block=cham", "blk=cherokee", "block=cherokee",
-    "blk=cjkcompatibility", "block=cjkcompatibility", "blk=cjkcompatibilityforms",
-        "block=cjkcompatibilityforms",
-    "blk=cjkcompatibilityideographs", "block=cjkcompatibilityideographs",
-        "blk=cjkcompatibilityideographssupplement", "block=cjkcompatibilityideographssupplement",
+    "blk=cjk", "block=cjkunifiedideographs", "blk=cjkcompat", "block=cjkcompatibility",
+    "blk=cjkcompatforms", "block=cjkcompatibilityforms", "blk=cjkcompatibility",
+        "block=cjkcompatibility",
+    "blk=cjkcompatibilityforms", "block=cjkcompatibilityforms", "blk=cjkcompatibilityideographs",
+        "block=cjkcompatibilityideographs",
+    "blk=cjkcompatibilityideographssupplement", "block=cjkcompatibilityideographssupplement",
+        "blk=cjkcompatideographs", "block=cjkcompatibilityideographs",
+    "blk=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement", "blk=cjkexta",
+        "block=cjkunifiedideographsextensiona",
+    "blk=cjkextb", "block=cjkunifiedideographsextensionb", "blk=cjkextc",
+        "block=cjkunifiedideographsextensionc",
+    "blk=cjkextd", "block=cjkunifiedideographsextensiond", "blk=cjkradicalssup",
+        "block=cjkradicalssupplement",
     "blk=cjkradicalssupplement", "block=cjkradicalssupplement", "blk=cjkstrokes",
         "block=cjkstrokes",
-    "blk=cjksymbolsandpunctuation", "block=cjksymbolsandpunctuation", "blk=cjkunifiedideographs",
-        "block=cjkunifiedideographs",
-    "blk=cjkunifiedideographsextensiona", "block=cjkunifiedideographsextensiona",
-        "blk=cjkunifiedideographsextensionb", "block=cjkunifiedideographsextensionb",
-    "blk=cjkunifiedideographsextensionc", "block=cjkunifiedideographsextensionc",
-        "blk=cjkunifiedideographsextensiond", "block=cjkunifiedideographsextensiond",
-    "blk=combiningdiacriticalmarks", "block=combiningdiacriticalmarks",
-        "blk=combiningdiacriticalmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
-    "blk=combiningdiacriticalmarkssupplement", "block=combiningdiacriticalmarkssupplement",
-        "blk=combininghalfmarks", "block=combininghalfmarks",
-    "blk=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
-        "blk=commonindicnumberforms", "block=commonindicnumberforms",
+    "blk=cjksymbols", "block=cjksymbolsandpunctuation", "blk=cjksymbolsandpunctuation",
+        "block=cjksymbolsandpunctuation",
+    "blk=cjkunifiedideographs", "block=cjkunifiedideographs", "blk=cjkunifiedideographsextensiona",
+        "block=cjkunifiedideographsextensiona",
+    "blk=cjkunifiedideographsextensionb", "block=cjkunifiedideographsextensionb",
+        "blk=cjkunifiedideographsextensionc", "block=cjkunifiedideographsextensionc",
+    "blk=cjkunifiedideographsextensiond", "block=cjkunifiedideographsextensiond",
+        "blk=combiningdiacriticalmarks", "block=combiningdiacriticalmarks",
+    "blk=combiningdiacriticalmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
+        "blk=combiningdiacriticalmarkssupplement", "block=combiningdiacriticalmarkssupplement",
+    "blk=combininghalfmarks", "block=combininghalfmarks", "blk=combiningmarksforsymbols",
+        "block=combiningdiacriticalmarksforsymbols",
+    "blk=commonindicnumberforms", "block=commonindicnumberforms", "blk=compatjamo",
+        "block=hangulcompatibilityjamo",
     "blk=controlpictures", "block=controlpictures", "blk=coptic", "block=coptic",
-    "blk=countingrodnumerals", "block=countingrodnumerals", "blk=cuneiform", "block=cuneiform",
+    "blk=countingrod", "block=countingrodnumerals", "blk=countingrodnumerals",
+        "block=countingrodnumerals",
+    "blk=cuneiform", "block=cuneiform", "blk=cuneiformnumbers",
+        "block=cuneiformnumbersandpunctuation",
     "blk=cuneiformnumbersandpunctuation", "block=cuneiformnumbersandpunctuation",
         "blk=currencysymbols", "block=currencysymbols",
     "blk=cypriotsyllabary", "block=cypriotsyllabary", "blk=cyrillic", "block=cyrillic",
+    "blk=cyrillicexta", "block=cyrillicextendeda", "blk=cyrillicextb", "block=cyrillicextendedb",
     "blk=cyrillicextendeda", "block=cyrillicextendeda", "blk=cyrillicextendedb",
         "block=cyrillicextendedb",
-    "blk=cyrillicsupplement", "block=cyrillicsupplement", "blk=cyrillicsupplementary",
+    "blk=cyrillicsup", "block=cyrillicsupplement", "blk=cyrillicsupplement",
         "block=cyrillicsupplement",
-    "blk=deseret", "block=deseret", "blk=devanagari", "block=devanagari",
-    "blk=devanagariextended", "block=devanagariextended", "blk=dingbats", "block=dingbats",
+    "blk=cyrillicsupplementary", "block=cyrillicsupplement", "blk=deseret", "block=deseret",
+    "blk=devanagari", "block=devanagari", "blk=devanagariext", "block=devanagariextended",
+    "blk=devanagariextended", "block=devanagariextended", "blk=diacriticals",
+        "block=combiningdiacriticalmarks",
+    "blk=diacriticalsforsymbols", "block=combiningdiacriticalmarksforsymbols",
+        "blk=diacriticalssup", "block=combiningdiacriticalmarkssupplement",
+    "blk=dingbats", "block=dingbats", "blk=domino", "block=dominotiles",
     "blk=dominotiles", "block=dominotiles", "blk=egyptianhieroglyphs", "block=egyptianhieroglyphs",
-    "blk=emoticons", "block=emoticons", "blk=enclosedalphanumerics", "block=enclosedalphanumerics",
-    "blk=enclosedalphanumericsupplement", "block=enclosedalphanumericsupplement",
-        "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",
+    "blk=emoticons", "block=emoticons", "blk=enclosedalphanum", "block=enclosedalphanumerics",
+    "blk=enclosedalphanumerics", "block=enclosedalphanumerics",
+        "blk=enclosedalphanumericsupplement", "block=enclosedalphanumericsupplement",
+    "blk=enclosedalphanumsup", "block=enclosedalphanumericsupplement", "blk=enclosedcjk",
+        "block=enclosedcjklettersandmonths",
+    "blk=enclosedcjklettersandmonths", "block=enclosedcjklettersandmonths",
+        "blk=enclosedideographicsup", "block=enclosedideographicsupplement",
     "blk=enclosedideographicsupplement", "block=enclosedideographicsupplement", "blk=ethiopic",
         "block=ethiopic",
+    "blk=ethiopicext", "block=ethiopicextended", "blk=ethiopicexta", "block=ethiopicextendeda",
     "blk=ethiopicextended", "block=ethiopicextended", "blk=ethiopicextendeda",
         "block=ethiopicextendeda",
-    "blk=ethiopicsupplement", "block=ethiopicsupplement", "blk=generalpunctuation",
-        "block=generalpunctuation",
-    "blk=geometricshapes", "block=geometricshapes", "blk=georgian", "block=georgian",
+    "blk=ethiopicsup", "block=ethiopicsupplement", "blk=ethiopicsupplement",
+        "block=ethiopicsupplement",
+    "blk=generalpunctuation", "block=generalpunctuation", "blk=geometricshapes",
+        "block=geometricshapes",
+    "blk=georgian", "block=georgian", "blk=georgiansup", "block=georgiansupplement",
     "blk=georgiansupplement", "block=georgiansupplement", "blk=glagolitic", "block=glagolitic",
     "blk=gothic", "block=gothic", "blk=greek", "block=greekandcoptic",
-    "blk=greekandcoptic", "block=greekandcoptic", "blk=greekextended", "block=greekextended",
-    "blk=gujarati", "block=gujarati", "blk=gurmukhi", "block=gurmukhi",
-    "blk=halfwidthandfullwidthforms", "block=halfwidthandfullwidthforms",
-        "blk=hangulcompatibilityjamo", "block=hangulcompatibilityjamo",
+    "blk=greekandcoptic", "block=greekandcoptic", "blk=greekext", "block=greekextended",
+    "blk=greekextended", "block=greekextended", "blk=gujarati", "block=gujarati",
+    "blk=gurmukhi", "block=gurmukhi", "blk=halfandfullforms", "block=halfwidthandfullwidthforms",
+    "blk=halfmarks", "block=combininghalfmarks", "blk=halfwidthandfullwidthforms",
+        "block=halfwidthandfullwidthforms",
+    "blk=hangul", "block=hangulsyllables", "blk=hangulcompatibilityjamo",
+        "block=hangulcompatibilityjamo",
     "blk=hanguljamo", "block=hanguljamo", "blk=hanguljamoextendeda", "block=hanguljamoextendeda",
     "blk=hanguljamoextendedb", "block=hanguljamoextendedb", "blk=hangulsyllables",
         "block=hangulsyllables",
     "blk=hanunoo", "block=hanunoo", "blk=hebrew", "block=hebrew",
-    "blk=hiragana", "block=hiragana", "blk=ideographicdescriptioncharacters",
-        "block=ideographicdescriptioncharacters",
-    "blk=imperialaramaic", "block=imperialaramaic", "blk=inscriptionalpahlavi",
+    "blk=hiragana", "block=hiragana", "blk=idc", "block=ideographicdescriptioncharacters",
+    "blk=ideographicdescriptioncharacters", "block=ideographicdescriptioncharacters",
+        "blk=imperialaramaic", "block=imperialaramaic",
+    "blk=indicnumberforms", "block=commonindicnumberforms", "blk=inscriptionalpahlavi",
         "block=inscriptionalpahlavi",
-    "blk=inscriptionalparthian", "block=inscriptionalparthian", "blk=ipaextensions",
-        "block=ipaextensions",
+    "blk=inscriptionalparthian", "block=inscriptionalparthian", "blk=ipaext", "block=ipaextensions",
+    "blk=ipaextensions", "block=ipaextensions", "blk=jamo", "block=hanguljamo",
+    "blk=jamoexta", "block=hanguljamoextendeda", "blk=jamoextb", "block=hanguljamoextendedb",
     "blk=javanese", "block=javanese", "blk=kaithi", "block=kaithi",
-    "blk=kanasupplement", "block=kanasupplement", "blk=kanbun", "block=kanbun",
+    "blk=kanasup", "block=kanasupplement", "blk=kanasupplement", "block=kanasupplement",
+    "blk=kanbun", "block=kanbun", "blk=kangxi", "block=kangxiradicals",
     "blk=kangxiradicals", "block=kangxiradicals", "blk=kannada", "block=kannada",
-    "blk=katakana", "block=katakana", "blk=katakanaphoneticextensions",
-        "block=katakanaphoneticextensions",
-    "blk=kayahli", "block=kayahli", "blk=kharoshthi", "block=kharoshthi",
-    "blk=khmer", "block=khmer", "blk=khmersymbols", "block=khmersymbols",
-    "blk=lao", "block=lao", "blk=latin1", "block=latin1supplement",
-    "blk=latin1supplement", "block=latin1supplement", "blk=latinextendeda", "block=latinextendeda",
-    "blk=latinextendedadditional", "block=latinextendedadditional", "blk=latinextendedb",
+    "blk=katakana", "block=katakana", "blk=katakanaext", "block=katakanaphoneticextensions",
+    "blk=katakanaphoneticextensions", "block=katakanaphoneticextensions", "blk=kayahli",
+        "block=kayahli",
+    "blk=kharoshthi", "block=kharoshthi", "blk=khmer", "block=khmer",
+    "blk=khmersymbols", "block=khmersymbols", "blk=lao", "block=lao",
+    "blk=latin1", "block=latin1supplement", "blk=latin1sup", "block=latin1supplement",
+    "blk=latin1supplement", "block=latin1supplement", "blk=latinexta", "block=latinextendeda",
+    "blk=latinextadditional", "block=latinextendedadditional", "blk=latinextb",
         "block=latinextendedb",
-    "blk=latinextendedc", "block=latinextendedc", "blk=latinextendedd", "block=latinextendedd",
-    "blk=lepcha", "block=lepcha", "blk=letterlikesymbols", "block=letterlikesymbols",
-    "blk=limbu", "block=limbu", "blk=linearbideograms", "block=linearbideograms",
-    "blk=linearbsyllabary", "block=linearbsyllabary", "blk=lisu", "block=lisu",
-    "blk=lycian", "block=lycian", "blk=lydian", "block=lydian",
+    "blk=latinextc", "block=latinextendedc", "blk=latinextd", "block=latinextendedd",
+    "blk=latinextendeda", "block=latinextendeda", "blk=latinextendedadditional",
+        "block=latinextendedadditional",
+    "blk=latinextendedb", "block=latinextendedb", "blk=latinextendedc", "block=latinextendedc",
+    "blk=latinextendedd", "block=latinextendedd", "blk=lepcha", "block=lepcha",
+    "blk=letterlikesymbols", "block=letterlikesymbols", "blk=limbu", "block=limbu",
+    "blk=linearbideograms", "block=linearbideograms", "blk=linearbsyllabary",
+        "block=linearbsyllabary",
+    "blk=lisu", "block=lisu", "blk=lycian", "block=lycian",
+    "blk=lydian", "block=lydian", "blk=mahjong", "block=mahjongtiles",
     "blk=mahjongtiles", "block=mahjongtiles", "blk=malayalam", "block=malayalam",
-    "blk=mandaic", "block=mandaic", "blk=mathematicalalphanumericsymbols",
-        "block=mathematicalalphanumericsymbols",
-    "blk=mathematicaloperators", "block=mathematicaloperators", "blk=meeteimayek",
-        "block=meeteimayek",
+    "blk=mandaic", "block=mandaic", "blk=mathalphanum", "block=mathematicalalphanumericsymbols",
+    "blk=mathematicalalphanumericsymbols", "block=mathematicalalphanumericsymbols",
+        "blk=mathematicaloperators", "block=mathematicaloperators",
+    "blk=mathoperators", "block=mathematicaloperators", "blk=meeteimayek", "block=meeteimayek",
+    "blk=meeteimayekext", "block=meeteimayekextensions", "blk=meeteimayekextensions",
+        "block=meeteimayekextensions",
+    "blk=meroiticcursive", "block=meroiticcursive", "blk=meroitichieroglyphs",
+        "block=meroitichieroglyphs",
+    "blk=miao", "block=miao", "blk=miscarrows", "block=miscellaneoussymbolsandarrows",
     "blk=miscellaneousmathematicalsymbolsa", "block=miscellaneousmathematicalsymbolsa",
         "blk=miscellaneousmathematicalsymbolsb", "block=miscellaneousmathematicalsymbolsb",
     "blk=miscellaneoussymbols", "block=miscellaneoussymbols", "blk=miscellaneoussymbolsandarrows",
         "block=miscellaneoussymbolsandarrows",
     "blk=miscellaneoussymbolsandpictographs", "block=miscellaneoussymbolsandpictographs",
         "blk=miscellaneoustechnical", "block=miscellaneoustechnical",
+    "blk=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa", "blk=miscmathsymbolsb",
+        "block=miscellaneousmathematicalsymbolsb",
+    "blk=miscpictographs", "block=miscellaneoussymbolsandpictographs", "blk=miscsymbols",
+        "block=miscellaneoussymbols",
+    "blk=misctechnical", "block=miscellaneoustechnical", "blk=modifierletters",
+        "block=spacingmodifierletters",
     "blk=modifiertoneletters", "block=modifiertoneletters", "blk=mongolian", "block=mongolian",
-    "blk=musicalsymbols", "block=musicalsymbols", "blk=myanmar", "block=myanmar",
-    "blk=myanmarextendeda", "block=myanmarextendeda", "blk=newtailue", "block=newtailue",
-    "blk=nko", "block=nko", "blk=noblock", "block=noblock",
-    "blk=numberforms", "block=numberforms", "blk=ogham", "block=ogham",
+    "blk=music", "block=musicalsymbols", "blk=musicalsymbols", "block=musicalsymbols",
+    "blk=myanmar", "block=myanmar", "blk=myanmarexta", "block=myanmarextendeda",
+    "blk=myanmarextendeda", "block=myanmarextendeda", "blk=nb", "block=noblock",
+    "blk=newtailue", "block=newtailue", "blk=nko", "block=nko",
+    "blk=noblock", "block=noblock", "blk=numberforms", "block=numberforms",
+    "blk=ocr", "block=opticalcharacterrecognition", "blk=ogham", "block=ogham",
     "blk=olchiki", "block=olchiki", "blk=olditalic", "block=olditalic",
     "blk=oldpersian", "block=oldpersian", "blk=oldsoutharabian", "block=oldsoutharabian",
     "blk=oldturkic", "block=oldturkic", "blk=opticalcharacterrecognition",
         "block=opticalcharacterrecognition",
     "blk=oriya", "block=oriya", "blk=osmanya", "block=osmanya",
-    "blk=phagspa", "block=phagspa", "blk=phaistosdisc", "block=phaistosdisc",
-    "blk=phoenician", "block=phoenician", "blk=phoneticextensions", "block=phoneticextensions",
-    "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement", "blk=playingcards",
-        "block=playingcards",
-    "blk=privateuse", "block=privateusearea", "blk=privateusearea", "block=privateusearea",
-    "blk=rejang", "block=rejang", "blk=ruminumeralsymbols", "block=ruminumeralsymbols",
+    "blk=phagspa", "block=phagspa", "blk=phaistos", "block=phaistosdisc",
+    "blk=phaistosdisc", "block=phaistosdisc", "blk=phoenician", "block=phoenician",
+    "blk=phoneticext", "block=phoneticextensions", "blk=phoneticextensions",
+        "block=phoneticextensions",
+    "blk=phoneticextensionssupplement", "block=phoneticextensionssupplement", "blk=phoneticextsup",
+        "block=phoneticextensionssupplement",
+    "blk=playingcards", "block=playingcards", "blk=privateuse", "block=privateusearea",
+    "blk=privateusearea", "block=privateusearea", "blk=pua", "block=privateusearea",
+    "blk=punctuation", "block=generalpunctuation", "blk=rejang", "block=rejang",
+    "blk=rumi", "block=ruminumeralsymbols", "blk=ruminumeralsymbols", "block=ruminumeralsymbols",
     "blk=runic", "block=runic", "blk=samaritan", "block=samaritan",
-    "blk=saurashtra", "block=saurashtra", "blk=shavian", "block=shavian",
-    "blk=sinhala", "block=sinhala", "blk=smallformvariants", "block=smallformvariants",
-    "blk=spacingmodifierletters", "block=spacingmodifierletters", "blk=specials", "block=specials",
-    "blk=sundanese", "block=sundanese", "blk=superscriptsandsubscripts",
+    "blk=saurashtra", "block=saurashtra", "blk=sharada", "block=sharada",
+    "blk=shavian", "block=shavian", "blk=sinhala", "block=sinhala",
+    "blk=smallforms", "block=smallformvariants", "blk=smallformvariants", "block=smallformvariants",
+    "blk=sorasompeng", "block=sorasompeng", "blk=spacingmodifierletters",
+        "block=spacingmodifierletters",
+    "blk=specials", "block=specials", "blk=sundanese", "block=sundanese",
+    "blk=sundanesesup", "block=sundanesesupplement", "blk=sundanesesupplement",
+        "block=sundanesesupplement",
+    "blk=suparrowsa", "block=supplementalarrowsa", "blk=suparrowsb", "block=supplementalarrowsb",
+    "blk=superandsub", "block=superscriptsandsubscripts", "blk=superscriptsandsubscripts",
         "block=superscriptsandsubscripts",
-    "blk=supplementalarrowsa", "block=supplementalarrowsa", "blk=supplementalarrowsb",
-        "block=supplementalarrowsb",
-    "blk=supplementalmathematicaloperators", "block=supplementalmathematicaloperators",
-        "blk=supplementalpunctuation", "block=supplementalpunctuation",
-    "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",
-        "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab",
+    "blk=supmathoperators", "block=supplementalmathematicaloperators", "blk=supplementalarrowsa",
+        "block=supplementalarrowsa",
+    "blk=supplementalarrowsb", "block=supplementalarrowsb", "blk=supplementalmathematicaloperators",
+        "block=supplementalmathematicaloperators",
+    "blk=supplementalpunctuation", "block=supplementalpunctuation",
+        "blk=supplementaryprivateuseareaa", "block=supplementaryprivateuseareaa",
+    "blk=supplementaryprivateuseareab", "block=supplementaryprivateuseareab", "blk=suppuaa",
+        "block=supplementaryprivateuseareaa",
+    "blk=suppuab", "block=supplementaryprivateuseareab", "blk=suppunctuation",
+        "block=supplementalpunctuation",
     "blk=sylotinagri", "block=sylotinagri", "blk=syriac", "block=syriac",
     "blk=tagalog", "block=tagalog", "blk=tagbanwa", "block=tagbanwa",
     "blk=tags", "block=tags", "blk=taile", "block=taile",
     "blk=taitham", "block=taitham", "blk=taiviet", "block=taiviet",
-    "blk=taixuanjingsymbols", "block=taixuanjingsymbols", "blk=tamil", "block=tamil",
+    "blk=taixuanjing", "block=taixuanjingsymbols", "blk=taixuanjingsymbols",
+        "block=taixuanjingsymbols",
+    "blk=takri", "block=takri", "blk=tamil", "block=tamil",
     "blk=telugu", "block=telugu", "blk=thaana", "block=thaana",
     "blk=thai", "block=thai", "blk=tibetan", "block=tibetan",
-    "blk=tifinagh", "block=tifinagh", "blk=transportandmapsymbols", "block=transportandmapsymbols",
-    "blk=ugaritic", "block=ugaritic", "blk=unifiedcanadianaboriginalsyllabics",
+    "blk=tifinagh", "block=tifinagh", "blk=transportandmap", "block=transportandmapsymbols",
+    "blk=transportandmapsymbols", "block=transportandmapsymbols", "blk=ucas",
         "block=unifiedcanadianaboriginalsyllabics",
-    "blk=unifiedcanadianaboriginalsyllabicsextended",
-        "block=unifiedcanadianaboriginalsyllabicsextended", "blk=vai", "block=vai",
-    "blk=variationselectors", "block=variationselectors", "blk=variationselectorssupplement",
-        "block=variationselectorssupplement",
+    "blk=ucasext", "block=unifiedcanadianaboriginalsyllabicsextended", "blk=ugaritic",
+        "block=ugaritic",
+    "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",
+        "blk=unifiedcanadianaboriginalsyllabicsextended",
+        "block=unifiedcanadianaboriginalsyllabicsextended",
+    "blk=vai", "block=vai", "blk=variationselectors", "block=variationselectors",
+    "blk=variationselectorssupplement", "block=variationselectorssupplement", "blk=vedicext",
+        "block=vedicextensions",
     "blk=vedicextensions", "block=vedicextensions", "blk=verticalforms", "block=verticalforms",
-    "blk=yijinghexagramsymbols", "block=yijinghexagramsymbols", "blk=yiradicals",
-        "block=yiradicals",
-    "blk=yisyllables", "block=yisyllables", "block=ascii", "block=basiclatin",
-    "block=canadiansyllabics", "block=unifiedcanadianaboriginalsyllabics",
-        "block=combiningmarksforsymbols", "block=combiningdiacriticalmarksforsymbols",
-    "block=cyrillicsupplementary", "block=cyrillicsupplement", "block=greek",
-        "block=greekandcoptic",
-    "block=latin1", "block=latin1supplement", "block=privateuse", "block=privateusearea",
+    "blk=vs", "block=variationselectors", "blk=vssup", "block=variationselectorssupplement",
+    "blk=yijing", "block=yijinghexagramsymbols", "blk=yijinghexagramsymbols",
+        "block=yijinghexagramsymbols",
+    "blk=yiradicals", "block=yiradicals", "blk=yisyllables", "block=yisyllables",
+    "block=alchemical", "block=alchemicalsymbols", "block=alphabeticpf",
+        "block=alphabeticpresentationforms",
+    "block=ancientgreekmusic", "block=ancientgreekmusicalnotation", "block=arabicexta",
+        "block=arabicextendeda",
+    "block=arabicmath", "block=arabicmathematicalalphabeticsymbols", "block=arabicpfa",
+        "block=arabicpresentationformsa",
+    "block=arabicpfb", "block=arabicpresentationformsb", "block=arabicsup",
+        "block=arabicsupplement",
+    "block=ascii", "block=basiclatin", "block=bamumsup", "block=bamumsupplement",
+    "block=bopomofoext", "block=bopomofoextended", "block=braille", "block=braillepatterns",
+    "block=byzantinemusic", "block=byzantinemusicalsymbols", "block=canadiansyllabics",
+        "block=unifiedcanadianaboriginalsyllabics",
+    "block=cjk", "block=cjkunifiedideographs", "block=cjkcompat", "block=cjkcompatibility",
+    "block=cjkcompatforms", "block=cjkcompatibilityforms", "block=cjkcompatideographs",
+        "block=cjkcompatibilityideographs",
+    "block=cjkcompatideographssup", "block=cjkcompatibilityideographssupplement", "block=cjkexta",
+        "block=cjkunifiedideographsextensiona",
+    "block=cjkextb", "block=cjkunifiedideographsextensionb", "block=cjkextc",
+        "block=cjkunifiedideographsextensionc",
+    "block=cjkextd", "block=cjkunifiedideographsextensiond", "block=cjkradicalssup",
+        "block=cjkradicalssupplement",
+    "block=cjksymbols", "block=cjksymbolsandpunctuation", "block=combiningmarksforsymbols",
+        "block=combiningdiacriticalmarksforsymbols",
+    "block=compatjamo", "block=hangulcompatibilityjamo", "block=countingrod",
+        "block=countingrodnumerals",
+    "block=cuneiformnumbers", "block=cuneiformnumbersandpunctuation", "block=cyrillicexta",
+        "block=cyrillicextendeda",
+    "block=cyrillicextb", "block=cyrillicextendedb", "block=cyrillicsup",
+        "block=cyrillicsupplement",
+    "block=cyrillicsupplementary", "block=cyrillicsupplement", "block=devanagariext",
+        "block=devanagariextended",
+    "block=diacriticals", "block=combiningdiacriticalmarks", "block=diacriticalsforsymbols",
+        "block=combiningdiacriticalmarksforsymbols",
+    "block=diacriticalssup", "block=combiningdiacriticalmarkssupplement", "block=domino",
+        "block=dominotiles",
+    "block=enclosedalphanum", "block=enclosedalphanumerics", "block=enclosedalphanumsup",
+        "block=enclosedalphanumericsupplement",
+    "block=enclosedcjk", "block=enclosedcjklettersandmonths", "block=enclosedideographicsup",
+        "block=enclosedideographicsupplement",
+    "block=ethiopicext", "block=ethiopicextended", "block=ethiopicexta", "block=ethiopicextendeda",
+    "block=ethiopicsup", "block=ethiopicsupplement", "block=georgiansup",
+        "block=georgiansupplement",
+    "block=greek", "block=greekandcoptic", "block=greekext", "block=greekextended",
+    "block=halfandfullforms", "block=halfwidthandfullwidthforms", "block=halfmarks",
+        "block=combininghalfmarks",
+    "block=hangul", "block=hangulsyllables", "block=idc", "block=ideographicdescriptioncharacters",
+    "block=indicnumberforms", "block=commonindicnumberforms", "block=ipaext", "block=ipaextensions",
+    "block=jamo", "block=hanguljamo", "block=jamoexta", "block=hanguljamoextendeda",
+    "block=jamoextb", "block=hanguljamoextendedb", "block=kanasup", "block=kanasupplement",
+    "block=kangxi", "block=kangxiradicals", "block=katakanaext", "block=katakanaphoneticextensions",
+    "block=latin1", "block=latin1supplement", "block=latin1sup", "block=latin1supplement",
+    "block=latinexta", "block=latinextendeda", "block=latinextadditional",
+        "block=latinextendedadditional",
+    "block=latinextb", "block=latinextendedb", "block=latinextc", "block=latinextendedc",
+    "block=latinextd", "block=latinextendedd", "block=mahjong", "block=mahjongtiles",
+    "block=mathalphanum", "block=mathematicalalphanumericsymbols", "block=mathoperators",
+        "block=mathematicaloperators",
+    "block=meeteimayekext", "block=meeteimayekextensions", "block=miscarrows",
+        "block=miscellaneoussymbolsandarrows",
+    "block=miscmathsymbolsa", "block=miscellaneousmathematicalsymbolsa", "block=miscmathsymbolsb",
+        "block=miscellaneousmathematicalsymbolsb",
+    "block=miscpictographs", "block=miscellaneoussymbolsandpictographs", "block=miscsymbols",
+        "block=miscellaneoussymbols",
+    "block=misctechnical", "block=miscellaneoustechnical", "block=modifierletters",
+        "block=spacingmodifierletters",
+    "block=music", "block=musicalsymbols", "block=myanmarexta", "block=myanmarextendeda",
+    "block=nb", "block=noblock", "block=ocr", "block=opticalcharacterrecognition",
+    "block=phaistos", "block=phaistosdisc", "block=phoneticext", "block=phoneticextensions",
+    "block=phoneticextsup", "block=phoneticextensionssupplement", "block=privateuse",
+        "block=privateusearea",
+    "block=pua", "block=privateusearea", "block=punctuation", "block=generalpunctuation",
+    "block=rumi", "block=ruminumeralsymbols", "block=smallforms", "block=smallformvariants",
+    "block=sundanesesup", "block=sundanesesupplement", "block=suparrowsa",
+        "block=supplementalarrowsa",
+    "block=suparrowsb", "block=supplementalarrowsb", "block=superandsub",
+        "block=superscriptsandsubscripts",
+    "block=supmathoperators", "block=supplementalmathematicaloperators", "block=suppuaa",
+        "block=supplementaryprivateuseareaa",
+    "block=suppuab", "block=supplementaryprivateuseareab", "block=suppunctuation",
+        "block=supplementalpunctuation",
+    "block=taixuanjing", "block=taixuanjingsymbols", "block=transportandmap",
+        "block=transportandmapsymbols",
+    "block=ucas", "block=unifiedcanadianaboriginalsyllabics", "block=ucasext",
+        "block=unifiedcanadianaboriginalsyllabicsextended",
+    "block=vedicext", "block=vedicextensions", "block=vs", "block=variationselectors",
+    "block=vssup", "block=variationselectorssupplement", "block=yijing",
+        "block=yijinghexagramsymbols",
     "bopo", "bopomofo", "brah", "brahmi",
     "brai", "braille", "bugi", "buginese",
-    "buhd", "buhid", "cans", "canadianaboriginal",
-    "cari", "carian", "casedletter", "lc",
-    "cher", "cherokee", "ci", "caseignorable",
-    "closepunctuation", "pe", "cntrl", "cc",
+    "buhd", "buhid", "cakm", "chakma",
+    "cans", "canadianaboriginal", "cari", "carian",
+    "casedletter", "lc", "cher", "cherokee",
+    "ci", "caseignorable", "closepunctuation", "pe",
+    "cntrl", "cc", "combiningmark", "m",
     "connectorpunctuation", "pc", "control", "cc",
     "copt", "coptic", "cprt", "cypriot",
     "currencysymbol", "sc", "cwcf", "changeswhencasefolded",
@@ -29841,55 +32581,57 @@ public class Unicode_6_0 {
     "gc=casedletter", "lc", "gc=cc", "cc",
     "gc=cf", "cf", "gc=closepunctuation", "pe",
     "gc=cn", "cn", "gc=cntrl", "cc",
-    "gc=co", "co", "gc=connectorpunctuation", "pc",
-    "gc=control", "cc", "gc=currencysymbol", "sc",
-    "gc=dashpunctuation", "pd", "gc=decimalnumber", "nd",
-    "gc=digit", "nd", "gc=enclosingmark", "me",
-    "gc=finalpunctuation", "pf", "gc=format", "cf",
-    "gc=initialpunctuation", "pi", "gc=l", "l",
-    "gc=lc", "lc", "gc=letter", "l",
-    "gc=letternumber", "nl", "gc=lineseparator", "zl",
-    "gc=ll", "ll", "gc=lm", "lm",
-    "gc=lo", "lo", "gc=lowercaseletter", "ll",
-    "gc=lt", "lt", "gc=lu", "lu",
-    "gc=m", "m", "gc=mark", "m",
-    "gc=mathsymbol", "sm", "gc=mc", "mc",
-    "gc=me", "me", "gc=mn", "mn",
-    "gc=modifierletter", "lm", "gc=modifiersymbol", "sk",
-    "gc=n", "n", "gc=nd", "nd",
-    "gc=nl", "nl", "gc=no", "no",
-    "gc=nonspacingmark", "mn", "gc=number", "n",
-    "gc=openpunctuation", "ps", "gc=other", "c",
-    "gc=otherletter", "lo", "gc=othernumber", "no",
-    "gc=otherpunctuation", "po", "gc=othersymbol", "so",
-    "gc=p", "p", "gc=paragraphseparator", "zp",
-    "gc=pc", "pc", "gc=pd", "pd",
-    "gc=pe", "pe", "gc=pf", "pf",
-    "gc=pi", "pi", "gc=po", "po",
-    "gc=privateuse", "co", "gc=ps", "ps",
-    "gc=punct", "p", "gc=punctuation", "p",
-    "gc=s", "s", "gc=sc", "sc",
-    "gc=separator", "z", "gc=sk", "sk",
-    "gc=sm", "sm", "gc=so", "so",
-    "gc=spaceseparator", "zs", "gc=spacingmark", "mc",
-    "gc=symbol", "s", "gc=titlecaseletter", "lt",
-    "gc=unassigned", "cn", "gc=uppercaseletter", "lu",
-    "gc=z", "z", "gc=zl", "zl",
-    "gc=zp", "zp", "gc=zs", "zs",
-    "gcb=cn", "graphemeclusterbreak=control", "gcb=control", "graphemeclusterbreak=control",
-    "gcb=cr", "graphemeclusterbreak=cr", "gcb=ex", "graphemeclusterbreak=extend",
-    "gcb=extend", "graphemeclusterbreak=extend", "gcb=l", "graphemeclusterbreak=l",
-    "gcb=lf", "graphemeclusterbreak=lf", "gcb=lv", "graphemeclusterbreak=lv",
-    "gcb=lvt", "graphemeclusterbreak=lvt", "gcb=other", "graphemeclusterbreak=other",
-    "gcb=pp", "graphemeclusterbreak=prepend", "gcb=prepend", "graphemeclusterbreak=prepend",
-    "gcb=sm", "graphemeclusterbreak=spacingmark", "gcb=spacingmark",
+    "gc=co", "co", "gc=combiningmark", "m",
+    "gc=connectorpunctuation", "pc", "gc=control", "cc",
+    "gc=currencysymbol", "sc", "gc=dashpunctuation", "pd",
+    "gc=decimalnumber", "nd", "gc=digit", "nd",
+    "gc=enclosingmark", "me", "gc=finalpunctuation", "pf",
+    "gc=format", "cf", "gc=initialpunctuation", "pi",
+    "gc=l", "l", "gc=lc", "lc",
+    "gc=letter", "l", "gc=letternumber", "nl",
+    "gc=lineseparator", "zl", "gc=ll", "ll",
+    "gc=lm", "lm", "gc=lo", "lo",
+    "gc=lowercaseletter", "ll", "gc=lt", "lt",
+    "gc=lu", "lu", "gc=m", "m",
+    "gc=mark", "m", "gc=mathsymbol", "sm",
+    "gc=mc", "mc", "gc=me", "me",
+    "gc=mn", "mn", "gc=modifierletter", "lm",
+    "gc=modifiersymbol", "sk", "gc=n", "n",
+    "gc=nd", "nd", "gc=nl", "nl",
+    "gc=no", "no", "gc=nonspacingmark", "mn",
+    "gc=number", "n", "gc=openpunctuation", "ps",
+    "gc=other", "c", "gc=otherletter", "lo",
+    "gc=othernumber", "no", "gc=otherpunctuation", "po",
+    "gc=othersymbol", "so", "gc=p", "p",
+    "gc=paragraphseparator", "zp", "gc=pc", "pc",
+    "gc=pd", "pd", "gc=pe", "pe",
+    "gc=pf", "pf", "gc=pi", "pi",
+    "gc=po", "po", "gc=privateuse", "co",
+    "gc=ps", "ps", "gc=punct", "p",
+    "gc=punctuation", "p", "gc=s", "s",
+    "gc=sc", "sc", "gc=separator", "z",
+    "gc=sk", "sk", "gc=sm", "sm",
+    "gc=so", "so", "gc=spaceseparator", "zs",
+    "gc=spacingmark", "mc", "gc=symbol", "s",
+    "gc=titlecaseletter", "lt", "gc=unassigned", "cn",
+    "gc=uppercaseletter", "lu", "gc=z", "z",
+    "gc=zl", "zl", "gc=zp", "zp",
+    "gc=zs", "zs", "gcb=cn", "graphemeclusterbreak=control",
+    "gcb=control", "graphemeclusterbreak=control", "gcb=cr", "graphemeclusterbreak=cr",
+    "gcb=ex", "graphemeclusterbreak=extend", "gcb=extend", "graphemeclusterbreak=extend",
+    "gcb=l", "graphemeclusterbreak=l", "gcb=lf", "graphemeclusterbreak=lf",
+    "gcb=lv", "graphemeclusterbreak=lv", "gcb=lvt", "graphemeclusterbreak=lvt",
+    "gcb=other", "graphemeclusterbreak=other", "gcb=regionalindicator",
+        "graphemeclusterbreak=regionalindicator",
+    "gcb=ri", "graphemeclusterbreak=regionalindicator", "gcb=sm",
         "graphemeclusterbreak=spacingmark",
-    "gcb=t", "graphemeclusterbreak=t", "gcb=v", "graphemeclusterbreak=v",
-    "gcb=xx", "graphemeclusterbreak=other", "generalcategory=c", "c",
-    "generalcategory=casedletter", "lc", "generalcategory=cc", "cc",
-    "generalcategory=cf", "cf", "generalcategory=closepunctuation", "pe",
-    "generalcategory=cn", "cn", "generalcategory=cntrl", "cc",
-    "generalcategory=co", "co", "generalcategory=connectorpunctuation", "pc",
+    "gcb=spacingmark", "graphemeclusterbreak=spacingmark", "gcb=t", "graphemeclusterbreak=t",
+    "gcb=v", "graphemeclusterbreak=v", "gcb=xx", "graphemeclusterbreak=other",
+    "generalcategory=c", "c", "generalcategory=casedletter", "lc",
+    "generalcategory=cc", "cc", "generalcategory=cf", "cf",
+    "generalcategory=closepunctuation", "pe", "generalcategory=cn", "cn",
+    "generalcategory=cntrl", "cc", "generalcategory=co", "co",
+    "generalcategory=combiningmark", "m", "generalcategory=connectorpunctuation", "pc",
     "generalcategory=control", "cc", "generalcategory=currencysymbol", "sc",
     "generalcategory=dashpunctuation", "pd", "generalcategory=decimalnumber", "nd",
     "generalcategory=digit", "nd", "generalcategory=enclosingmark", "me",
@@ -29926,8 +32668,8 @@ public class Unicode_6_0 {
     "generalcategory=zp", "zp", "generalcategory=zs", "zs",
     "geor", "georgian", "glag", "glagolitic",
     "goth", "gothic", "graphemeclusterbreak=cn", "graphemeclusterbreak=control",
-    "graphemeclusterbreak=ex", "graphemeclusterbreak=extend", "graphemeclusterbreak=pp",
-        "graphemeclusterbreak=prepend",
+    "graphemeclusterbreak=ex", "graphemeclusterbreak=extend", "graphemeclusterbreak=ri",
+        "graphemeclusterbreak=regionalindicator",
     "graphemeclusterbreak=sm", "graphemeclusterbreak=spacingmark", "graphemeclusterbreak=xx",
         "graphemeclusterbreak=other",
     "grbase", "graphemebase", "grek", "greek",
@@ -29952,14 +32694,18 @@ public class Unicode_6_0 {
     "lb=breakafter", "linebreak=breakafter", "lb=breakbefore", "linebreak=breakbefore",
     "lb=breakboth", "linebreak=breakboth", "lb=breaksymbols", "linebreak=breaksymbols",
     "lb=carriagereturn", "linebreak=carriagereturn", "lb=cb", "linebreak=contingentbreak",
-    "lb=cl", "linebreak=closepunctuation", "lb=closeparenthesis", "linebreak=closeparenthesis",
-    "lb=closepunctuation", "linebreak=closepunctuation", "lb=cm", "linebreak=combiningmark",
-    "lb=combiningmark", "linebreak=combiningmark", "lb=complexcontext", "linebreak=complexcontext",
+    "lb=cj", "linebreak=conditionaljapanesestarter", "lb=cl", "linebreak=closepunctuation",
+    "lb=closeparenthesis", "linebreak=closeparenthesis", "lb=closepunctuation",
+        "linebreak=closepunctuation",
+    "lb=cm", "linebreak=combiningmark", "lb=combiningmark", "linebreak=combiningmark",
+    "lb=complexcontext", "linebreak=complexcontext", "lb=conditionaljapanesestarter",
+        "linebreak=conditionaljapanesestarter",
     "lb=contingentbreak", "linebreak=contingentbreak", "lb=cp", "linebreak=closeparenthesis",
     "lb=cr", "linebreak=carriagereturn", "lb=ex", "linebreak=exclamation",
     "lb=exclamation", "linebreak=exclamation", "lb=gl", "linebreak=glue",
     "lb=glue", "linebreak=glue", "lb=h2", "linebreak=h2",
-    "lb=h3", "linebreak=h3", "lb=hy", "linebreak=hyphen",
+    "lb=h3", "linebreak=h3", "lb=hebrewletter", "linebreak=hebrewletter",
+    "lb=hl", "linebreak=hebrewletter", "lb=hy", "linebreak=hyphen",
     "lb=hyphen", "linebreak=hyphen", "lb=id", "linebreak=ideographic",
     "lb=ideographic", "linebreak=ideographic", "lb=in", "linebreak=inseparable",
     "lb=infixnumeric", "linebreak=infixnumeric", "lb=inseparable", "linebreak=inseparable",
@@ -29974,6 +32720,7 @@ public class Unicode_6_0 {
     "lb=po", "linebreak=postfixnumeric", "lb=postfixnumeric", "linebreak=postfixnumeric",
     "lb=pr", "linebreak=prefixnumeric", "lb=prefixnumeric", "linebreak=prefixnumeric",
     "lb=qu", "linebreak=quotation", "lb=quotation", "linebreak=quotation",
+    "lb=regionalindicator", "linebreak=regionalindicator", "lb=ri", "linebreak=regionalindicator",
     "lb=sa", "linebreak=complexcontext", "lb=sp", "linebreak=space",
     "lb=space", "linebreak=space", "lb=sy", "linebreak=breaksymbols",
     "lb=unknown", "linebreak=unknown", "lb=wj", "linebreak=wordjoiner",
@@ -29985,41 +32732,45 @@ public class Unicode_6_0 {
     "linebreak=al", "linebreak=alphabetic", "linebreak=b2", "linebreak=breakboth",
     "linebreak=ba", "linebreak=breakafter", "linebreak=bb", "linebreak=breakbefore",
     "linebreak=bk", "linebreak=mandatorybreak", "linebreak=cb", "linebreak=contingentbreak",
-    "linebreak=cl", "linebreak=closepunctuation", "linebreak=cm", "linebreak=combiningmark",
-    "linebreak=cp", "linebreak=closeparenthesis", "linebreak=cr", "linebreak=carriagereturn",
-    "linebreak=ex", "linebreak=exclamation", "linebreak=gl", "linebreak=glue",
+    "linebreak=cj", "linebreak=conditionaljapanesestarter", "linebreak=cl",
+        "linebreak=closepunctuation",
+    "linebreak=cm", "linebreak=combiningmark", "linebreak=cp", "linebreak=closeparenthesis",
+    "linebreak=cr", "linebreak=carriagereturn", "linebreak=ex", "linebreak=exclamation",
+    "linebreak=gl", "linebreak=glue", "linebreak=hl", "linebreak=hebrewletter",
     "linebreak=hy", "linebreak=hyphen", "linebreak=id", "linebreak=ideographic",
     "linebreak=in", "linebreak=inseparable", "linebreak=inseperable", "linebreak=inseparable",
     "linebreak=is", "linebreak=infixnumeric", "linebreak=lf", "linebreak=linefeed",
     "linebreak=nl", "linebreak=nextline", "linebreak=ns", "linebreak=nonstarter",
     "linebreak=nu", "linebreak=numeric", "linebreak=op", "linebreak=openpunctuation",
     "linebreak=po", "linebreak=postfixnumeric", "linebreak=pr", "linebreak=prefixnumeric",
-    "linebreak=qu", "linebreak=quotation", "linebreak=sa", "linebreak=complexcontext",
-    "linebreak=sp", "linebreak=space", "linebreak=sy", "linebreak=breaksymbols",
-    "linebreak=wj", "linebreak=wordjoiner", "linebreak=xx", "linebreak=unknown",
-    "linebreak=zw", "linebreak=zwspace", "lineseparator", "zl",
-    "loe", "logicalorderexception", "lower", "lowercase",
-    "lowercaseletter", "ll", "lyci", "lycian",
-    "lydi", "lydian", "mand", "mandaic",
-    "mark", "m", "mathsymbol", "sm",
-    "mlym", "malayalam", "modifierletter", "lm",
-    "modifiersymbol", "sk", "mong", "mongolian",
-    "mtei", "meeteimayek", "mymr", "myanmar",
-    "nchar", "noncharactercodepoint", "nkoo", "nko",
-    "nonspacingmark", "mn", "number", "n",
-    "oalpha", "otheralphabetic", "odi", "otherdefaultignorablecodepoint",
-    "ogam", "ogham", "ogrext", "othergraphemeextend",
-    "oidc", "otheridcontinue", "oids", "otheridstart",
-    "olck", "olchiki", "olower", "otherlowercase",
-    "omath", "othermath", "openpunctuation", "ps",
-    "orkh", "oldturkic", "orya", "oriya",
-    "osma", "osmanya", "other", "c",
-    "otherletter", "lo", "othernumber", "no",
-    "otherpunctuation", "po", "othersymbol", "so",
-    "oupper", "otheruppercase", "paragraphseparator", "zp",
-    "patsyn", "patternsyntax", "patws", "patternwhitespace",
-    "phag", "phagspa", "phli", "inscriptionalpahlavi",
-    "phnx", "phoenician", "privateuse", "co",
+    "linebreak=qu", "linebreak=quotation", "linebreak=ri", "linebreak=regionalindicator",
+    "linebreak=sa", "linebreak=complexcontext", "linebreak=sp", "linebreak=space",
+    "linebreak=sy", "linebreak=breaksymbols", "linebreak=wj", "linebreak=wordjoiner",
+    "linebreak=xx", "linebreak=unknown", "linebreak=zw", "linebreak=zwspace",
+    "lineseparator", "zl", "loe", "logicalorderexception",
+    "lower", "lowercase", "lowercaseletter", "ll",
+    "lyci", "lycian", "lydi", "lydian",
+    "mand", "mandaic", "mark", "m",
+    "mathsymbol", "sm", "merc", "meroiticcursive",
+    "mero", "meroitichieroglyphs", "mlym", "malayalam",
+    "modifierletter", "lm", "modifiersymbol", "sk",
+    "mong", "mongolian", "mtei", "meeteimayek",
+    "mymr", "myanmar", "nchar", "noncharactercodepoint",
+    "nkoo", "nko", "nonspacingmark", "mn",
+    "number", "n", "oalpha", "otheralphabetic",
+    "odi", "otherdefaultignorablecodepoint", "ogam", "ogham",
+    "ogrext", "othergraphemeextend", "oidc", "otheridcontinue",
+    "oids", "otheridstart", "olck", "olchiki",
+    "olower", "otherlowercase", "omath", "othermath",
+    "openpunctuation", "ps", "orkh", "oldturkic",
+    "orya", "oriya", "osma", "osmanya",
+    "other", "c", "otherletter", "lo",
+    "othernumber", "no", "otherpunctuation", "po",
+    "othersymbol", "so", "oupper", "otheruppercase",
+    "paragraphseparator", "zp", "patsyn", "patternsyntax",
+    "patws", "patternwhitespace", "phag", "phagspa",
+    "phli", "inscriptionalpahlavi", "phnx", "phoenician",
+    "plrd", "miao", "privateuse", "co",
     "prti", "inscriptionalparthian", "punct", "p",
     "punctuation", "p", "qaac", "coptic",
     "qaai", "inherited", "qmark", "quotationmark",
@@ -30051,9 +32802,10 @@ public class Unicode_6_0 {
     "sc=brahmi", "brahmi", "sc=brai", "braille",
     "sc=braille", "braille", "sc=bugi", "buginese",
     "sc=buginese", "buginese", "sc=buhd", "buhid",
-    "sc=buhid", "buhid", "sc=canadianaboriginal", "canadianaboriginal",
-    "sc=cans", "canadianaboriginal", "sc=cari", "carian",
-    "sc=carian", "carian", "sc=cham", "cham",
+    "sc=buhid", "buhid", "sc=cakm", "chakma",
+    "sc=canadianaboriginal", "canadianaboriginal", "sc=cans", "canadianaboriginal",
+    "sc=cari", "carian", "sc=carian", "carian",
+    "sc=chakma", "chakma", "sc=cham", "cham",
     "sc=cher", "cherokee", "sc=cherokee", "cherokee",
     "sc=common", "common", "sc=copt", "coptic",
     "sc=coptic", "coptic", "sc=cprt", "cypriot",
@@ -30094,34 +32846,40 @@ public class Unicode_6_0 {
     "sc=lycian", "lycian", "sc=lydi", "lydian",
     "sc=lydian", "lydian", "sc=malayalam", "malayalam",
     "sc=mand", "mandaic", "sc=mandaic", "mandaic",
-    "sc=meeteimayek", "meeteimayek", "sc=mlym", "malayalam",
-    "sc=mong", "mongolian", "sc=mongolian", "mongolian",
-    "sc=mtei", "meeteimayek", "sc=myanmar", "myanmar",
-    "sc=mymr", "myanmar", "sc=newtailue", "newtailue",
-    "sc=nko", "nko", "sc=nkoo", "nko",
-    "sc=ogam", "ogham", "sc=ogham", "ogham",
-    "sc=olchiki", "olchiki", "sc=olck", "olchiki",
-    "sc=olditalic", "olditalic", "sc=oldpersian", "oldpersian",
-    "sc=oldsoutharabian", "oldsoutharabian", "sc=oldturkic", "oldturkic",
-    "sc=oriya", "oriya", "sc=orkh", "oldturkic",
-    "sc=orya", "oriya", "sc=osma", "osmanya",
-    "sc=osmanya", "osmanya", "sc=phag", "phagspa",
-    "sc=phagspa", "phagspa", "sc=phli", "inscriptionalpahlavi",
-    "sc=phnx", "phoenician", "sc=phoenician", "phoenician",
+    "sc=meeteimayek", "meeteimayek", "sc=merc", "meroiticcursive",
+    "sc=mero", "meroitichieroglyphs", "sc=meroiticcursive", "meroiticcursive",
+    "sc=meroitichieroglyphs", "meroitichieroglyphs", "sc=miao", "miao",
+    "sc=mlym", "malayalam", "sc=mong", "mongolian",
+    "sc=mongolian", "mongolian", "sc=mtei", "meeteimayek",
+    "sc=myanmar", "myanmar", "sc=mymr", "myanmar",
+    "sc=newtailue", "newtailue", "sc=nko", "nko",
+    "sc=nkoo", "nko", "sc=ogam", "ogham",
+    "sc=ogham", "ogham", "sc=olchiki", "olchiki",
+    "sc=olck", "olchiki", "sc=olditalic", "olditalic",
+    "sc=oldpersian", "oldpersian", "sc=oldsoutharabian", "oldsoutharabian",
+    "sc=oldturkic", "oldturkic", "sc=oriya", "oriya",
+    "sc=orkh", "oldturkic", "sc=orya", "oriya",
+    "sc=osma", "osmanya", "sc=osmanya", "osmanya",
+    "sc=phag", "phagspa", "sc=phagspa", "phagspa",
+    "sc=phli", "inscriptionalpahlavi", "sc=phnx", "phoenician",
+    "sc=phoenician", "phoenician", "sc=plrd", "miao",
     "sc=prti", "inscriptionalparthian", "sc=qaac", "coptic",
     "sc=qaai", "inherited", "sc=rejang", "rejang",
     "sc=rjng", "rejang", "sc=runic", "runic",
     "sc=runr", "runic", "sc=samaritan", "samaritan",
     "sc=samr", "samaritan", "sc=sarb", "oldsoutharabian",
     "sc=saur", "saurashtra", "sc=saurashtra", "saurashtra",
-    "sc=shavian", "shavian", "sc=shaw", "shavian",
+    "sc=sharada", "sharada", "sc=shavian", "shavian",
+    "sc=shaw", "shavian", "sc=shrd", "sharada",
     "sc=sinh", "sinhala", "sc=sinhala", "sinhala",
+    "sc=sora", "sorasompeng", "sc=sorasompeng", "sorasompeng",
     "sc=sund", "sundanese", "sc=sundanese", "sundanese",
     "sc=sylo", "sylotinagri", "sc=sylotinagri", "sylotinagri",
     "sc=syrc", "syriac", "sc=syriac", "syriac",
     "sc=tagalog", "tagalog", "sc=tagb", "tagbanwa",
     "sc=tagbanwa", "tagbanwa", "sc=taile", "taile",
     "sc=taitham", "taitham", "sc=taiviet", "taiviet",
+    "sc=takr", "takri", "sc=takri", "takri",
     "sc=tale", "taile", "sc=talu", "newtailue",
     "sc=tamil", "tamil", "sc=taml", "tamil",
     "sc=tavt", "taiviet", "sc=telu", "telugu",
@@ -30148,8 +32906,9 @@ public class Unicode_6_0 {
     "script=brai", "braille", "script=braille", "braille",
     "script=bugi", "buginese", "script=buginese", "buginese",
     "script=buhd", "buhid", "script=buhid", "buhid",
-    "script=canadianaboriginal", "canadianaboriginal", "script=cans", "canadianaboriginal",
-    "script=cari", "carian", "script=carian", "carian",
+    "script=cakm", "chakma", "script=canadianaboriginal", "canadianaboriginal",
+    "script=cans", "canadianaboriginal", "script=cari", "carian",
+    "script=carian", "carian", "script=chakma", "chakma",
     "script=cham", "cham", "script=cher", "cherokee",
     "script=cherokee", "cherokee", "script=common", "common",
     "script=copt", "coptic", "script=coptic", "coptic",
@@ -30190,34 +32949,41 @@ public class Unicode_6_0 {
     "script=lydi", "lydian", "script=lydian", "lydian",
     "script=malayalam", "malayalam", "script=mand", "mandaic",
     "script=mandaic", "mandaic", "script=meeteimayek", "meeteimayek",
-    "script=mlym", "malayalam", "script=mong", "mongolian",
-    "script=mongolian", "mongolian", "script=mtei", "meeteimayek",
-    "script=myanmar", "myanmar", "script=mymr", "myanmar",
-    "script=newtailue", "newtailue", "script=nko", "nko",
-    "script=nkoo", "nko", "script=ogam", "ogham",
-    "script=ogham", "ogham", "script=olchiki", "olchiki",
-    "script=olck", "olchiki", "script=olditalic", "olditalic",
-    "script=oldpersian", "oldpersian", "script=oldsoutharabian", "oldsoutharabian",
-    "script=oldturkic", "oldturkic", "script=oriya", "oriya",
-    "script=orkh", "oldturkic", "script=orya", "oriya",
-    "script=osma", "osmanya", "script=osmanya", "osmanya",
-    "script=phag", "phagspa", "script=phagspa", "phagspa",
-    "script=phli", "inscriptionalpahlavi", "script=phnx", "phoenician",
-    "script=phoenician", "phoenician", "script=prti", "inscriptionalparthian",
+    "script=merc", "meroiticcursive", "script=mero", "meroitichieroglyphs",
+    "script=meroiticcursive", "meroiticcursive", "script=meroitichieroglyphs",
+        "meroitichieroglyphs",
+    "script=miao", "miao", "script=mlym", "malayalam",
+    "script=mong", "mongolian", "script=mongolian", "mongolian",
+    "script=mtei", "meeteimayek", "script=myanmar", "myanmar",
+    "script=mymr", "myanmar", "script=newtailue", "newtailue",
+    "script=nko", "nko", "script=nkoo", "nko",
+    "script=ogam", "ogham", "script=ogham", "ogham",
+    "script=olchiki", "olchiki", "script=olck", "olchiki",
+    "script=olditalic", "olditalic", "script=oldpersian", "oldpersian",
+    "script=oldsoutharabian", "oldsoutharabian", "script=oldturkic", "oldturkic",
+    "script=oriya", "oriya", "script=orkh", "oldturkic",
+    "script=orya", "oriya", "script=osma", "osmanya",
+    "script=osmanya", "osmanya", "script=phag", "phagspa",
+    "script=phagspa", "phagspa", "script=phli", "inscriptionalpahlavi",
+    "script=phnx", "phoenician", "script=phoenician", "phoenician",
+    "script=plrd", "miao", "script=prti", "inscriptionalparthian",
     "script=qaac", "coptic", "script=qaai", "inherited",
     "script=rejang", "rejang", "script=rjng", "rejang",
     "script=runic", "runic", "script=runr", "runic",
     "script=samaritan", "samaritan", "script=samr", "samaritan",
     "script=sarb", "oldsoutharabian", "script=saur", "saurashtra",
-    "script=saurashtra", "saurashtra", "script=shavian", "shavian",
-    "script=shaw", "shavian", "script=sinh", "sinhala",
-    "script=sinhala", "sinhala", "script=sund", "sundanese",
+    "script=saurashtra", "saurashtra", "script=sharada", "sharada",
+    "script=shavian", "shavian", "script=shaw", "shavian",
+    "script=shrd", "sharada", "script=sinh", "sinhala",
+    "script=sinhala", "sinhala", "script=sora", "sorasompeng",
+    "script=sorasompeng", "sorasompeng", "script=sund", "sundanese",
     "script=sundanese", "sundanese", "script=sylo", "sylotinagri",
     "script=sylotinagri", "sylotinagri", "script=syrc", "syriac",
     "script=syriac", "syriac", "script=tagalog", "tagalog",
     "script=tagb", "tagbanwa", "script=tagbanwa", "tagbanwa",
     "script=taile", "taile", "script=taitham", "taitham",
-    "script=taiviet", "taiviet", "script=tale", "taile",
+    "script=taiviet", "taiviet", "script=takr", "takri",
+    "script=takri", "takri", "script=tale", "taile",
     "script=talu", "newtailue", "script=tamil", "tamil",
     "script=taml", "tamil", "script=tavt", "taiviet",
     "script=telu", "telugu", "script=telugu", "telugu",
@@ -30243,58 +33009,62 @@ public class Unicode_6_0 {
         "scriptextensions=brahmi",
     "scriptextensions=brai", "scriptextensions=braille", "scriptextensions=bugi",
         "scriptextensions=buginese",
-    "scriptextensions=buhd", "scriptextensions=buhid", "scriptextensions=cans",
-        "scriptextensions=canadianaboriginal",
-    "scriptextensions=cari", "scriptextensions=carian", "scriptextensions=cher",
-        "scriptextensions=cherokee",
-    "scriptextensions=copt", "scriptextensions=coptic", "scriptextensions=cprt",
-        "scriptextensions=cypriot",
-    "scriptextensions=cyrl", "scriptextensions=cyrillic", "scriptextensions=deva",
-        "scriptextensions=devanagari",
-    "scriptextensions=dsrt", "scriptextensions=deseret", "scriptextensions=egyp",
-        "scriptextensions=egyptianhieroglyphs",
-    "scriptextensions=ethi", "scriptextensions=ethiopic", "scriptextensions=geor",
-        "scriptextensions=georgian",
-    "scriptextensions=glag", "scriptextensions=glagolitic", "scriptextensions=goth",
-        "scriptextensions=gothic",
-    "scriptextensions=grek", "scriptextensions=greek", "scriptextensions=gujr",
-        "scriptextensions=gujarati",
-    "scriptextensions=guru", "scriptextensions=gurmukhi", "scriptextensions=hang",
-        "scriptextensions=hangul",
-    "scriptextensions=hani", "scriptextensions=han", "scriptextensions=hano",
-        "scriptextensions=hanunoo",
-    "scriptextensions=hebr", "scriptextensions=hebrew", "scriptextensions=hira",
-        "scriptextensions=hiragana",
-    "scriptextensions=ital", "scriptextensions=olditalic", "scriptextensions=java",
-        "scriptextensions=javanese",
-    "scriptextensions=kali", "scriptextensions=kayahli", "scriptextensions=kana",
-        "scriptextensions=katakana",
-    "scriptextensions=khar", "scriptextensions=kharoshthi", "scriptextensions=khmr",
-        "scriptextensions=khmer",
-    "scriptextensions=knda", "scriptextensions=kannada", "scriptextensions=kthi",
-        "scriptextensions=kaithi",
-    "scriptextensions=lana", "scriptextensions=taitham", "scriptextensions=laoo",
-        "scriptextensions=lao",
-    "scriptextensions=latn", "scriptextensions=latin", "scriptextensions=lepc",
-        "scriptextensions=lepcha",
-    "scriptextensions=limb", "scriptextensions=limbu", "scriptextensions=linb",
-        "scriptextensions=linearb",
-    "scriptextensions=lyci", "scriptextensions=lycian", "scriptextensions=lydi",
-        "scriptextensions=lydian",
-    "scriptextensions=mand", "scriptextensions=mandaic", "scriptextensions=mlym",
-        "scriptextensions=malayalam",
-    "scriptextensions=mong", "scriptextensions=mongolian", "scriptextensions=mtei",
-        "scriptextensions=meeteimayek",
-    "scriptextensions=mymr", "scriptextensions=myanmar", "scriptextensions=nkoo",
-        "scriptextensions=nko",
-    "scriptextensions=ogam", "scriptextensions=ogham", "scriptextensions=olck",
-        "scriptextensions=olchiki",
-    "scriptextensions=orkh", "scriptextensions=oldturkic", "scriptextensions=orya",
-        "scriptextensions=oriya",
-    "scriptextensions=osma", "scriptextensions=osmanya", "scriptextensions=phag",
-        "scriptextensions=phagspa",
-    "scriptextensions=phli", "scriptextensions=inscriptionalpahlavi", "scriptextensions=phnx",
-        "scriptextensions=phoenician",
+    "scriptextensions=buhd", "scriptextensions=buhid", "scriptextensions=cakm",
+        "scriptextensions=chakma",
+    "scriptextensions=cans", "scriptextensions=canadianaboriginal", "scriptextensions=cari",
+        "scriptextensions=carian",
+    "scriptextensions=cher", "scriptextensions=cherokee", "scriptextensions=copt",
+        "scriptextensions=coptic",
+    "scriptextensions=cprt", "scriptextensions=cypriot", "scriptextensions=cyrl",
+        "scriptextensions=cyrillic",
+    "scriptextensions=deva", "scriptextensions=devanagari", "scriptextensions=dsrt",
+        "scriptextensions=deseret",
+    "scriptextensions=egyp", "scriptextensions=egyptianhieroglyphs", "scriptextensions=ethi",
+        "scriptextensions=ethiopic",
+    "scriptextensions=geor", "scriptextensions=georgian", "scriptextensions=glag",
+        "scriptextensions=glagolitic",
+    "scriptextensions=goth", "scriptextensions=gothic", "scriptextensions=grek",
+        "scriptextensions=greek",
+    "scriptextensions=gujr", "scriptextensions=gujarati", "scriptextensions=guru",
+        "scriptextensions=gurmukhi",
+    "scriptextensions=hang", "scriptextensions=hangul", "scriptextensions=hani",
+        "scriptextensions=han",
+    "scriptextensions=hano", "scriptextensions=hanunoo", "scriptextensions=hebr",
+        "scriptextensions=hebrew",
+    "scriptextensions=hira", "scriptextensions=hiragana", "scriptextensions=ital",
+        "scriptextensions=olditalic",
+    "scriptextensions=java", "scriptextensions=javanese", "scriptextensions=kali",
+        "scriptextensions=kayahli",
+    "scriptextensions=kana", "scriptextensions=katakana", "scriptextensions=khar",
+        "scriptextensions=kharoshthi",
+    "scriptextensions=khmr", "scriptextensions=khmer", "scriptextensions=knda",
+        "scriptextensions=kannada",
+    "scriptextensions=kthi", "scriptextensions=kaithi", "scriptextensions=lana",
+        "scriptextensions=taitham",
+    "scriptextensions=laoo", "scriptextensions=lao", "scriptextensions=latn",
+        "scriptextensions=latin",
+    "scriptextensions=lepc", "scriptextensions=lepcha", "scriptextensions=limb",
+        "scriptextensions=limbu",
+    "scriptextensions=linb", "scriptextensions=linearb", "scriptextensions=lyci",
+        "scriptextensions=lycian",
+    "scriptextensions=lydi", "scriptextensions=lydian", "scriptextensions=mand",
+        "scriptextensions=mandaic",
+    "scriptextensions=merc", "scriptextensions=meroiticcursive", "scriptextensions=mero",
+        "scriptextensions=meroitichieroglyphs",
+    "scriptextensions=mlym", "scriptextensions=malayalam", "scriptextensions=mong",
+        "scriptextensions=mongolian",
+    "scriptextensions=mtei", "scriptextensions=meeteimayek", "scriptextensions=mymr",
+        "scriptextensions=myanmar",
+    "scriptextensions=nkoo", "scriptextensions=nko", "scriptextensions=ogam",
+        "scriptextensions=ogham",
+    "scriptextensions=olck", "scriptextensions=olchiki", "scriptextensions=orkh",
+        "scriptextensions=oldturkic",
+    "scriptextensions=orya", "scriptextensions=oriya", "scriptextensions=osma",
+        "scriptextensions=osmanya",
+    "scriptextensions=phag", "scriptextensions=phagspa", "scriptextensions=phli",
+        "scriptextensions=inscriptionalpahlavi",
+    "scriptextensions=phnx", "scriptextensions=phoenician", "scriptextensions=plrd",
+        "scriptextensions=miao",
     "scriptextensions=prti", "scriptextensions=inscriptionalparthian", "scriptextensions=qaac",
         "scriptextensions=coptic",
     "scriptextensions=qaai", "scriptextensions=inherited", "scriptextensions=rjng",
@@ -30303,29 +33073,143 @@ public class Unicode_6_0 {
         "scriptextensions=samaritan",
     "scriptextensions=sarb", "scriptextensions=oldsoutharabian", "scriptextensions=saur",
         "scriptextensions=saurashtra",
-    "scriptextensions=shaw", "scriptextensions=shavian", "scriptextensions=sinh",
-        "scriptextensions=sinhala",
+    "scriptextensions=shaw", "scriptextensions=shavian", "scriptextensions=shrd",
+        "scriptextensions=sharada",
+    "scriptextensions=sinh", "scriptextensions=sinhala", "scriptextensions=sora",
+        "scriptextensions=sorasompeng",
     "scriptextensions=sund", "scriptextensions=sundanese", "scriptextensions=sylo",
         "scriptextensions=sylotinagri",
     "scriptextensions=syrc", "scriptextensions=syriac", "scriptextensions=tagb",
         "scriptextensions=tagbanwa",
-    "scriptextensions=tale", "scriptextensions=taile", "scriptextensions=talu",
-        "scriptextensions=newtailue",
-    "scriptextensions=taml", "scriptextensions=tamil", "scriptextensions=tavt",
-        "scriptextensions=taiviet",
-    "scriptextensions=telu", "scriptextensions=telugu", "scriptextensions=tfng",
-        "scriptextensions=tifinagh",
-    "scriptextensions=tglg", "scriptextensions=tagalog", "scriptextensions=thaa",
-        "scriptextensions=thaana",
-    "scriptextensions=tibt", "scriptextensions=tibetan", "scriptextensions=ugar",
-        "scriptextensions=ugaritic",
-    "scriptextensions=vaii", "scriptextensions=vai", "scriptextensions=xpeo",
-        "scriptextensions=oldpersian",
-    "scriptextensions=xsux", "scriptextensions=cuneiform", "scriptextensions=yiii",
-        "scriptextensions=yi",
-    "scriptextensions=zinh", "scriptextensions=inherited", "scriptextensions=zyyy",
-        "scriptextensions=common",
-    "scriptextensions=zzzz", "scriptextensions=unknown", "sd", "softdotted",
+    "scriptextensions=takr", "scriptextensions=takri", "scriptextensions=tale",
+        "scriptextensions=taile",
+    "scriptextensions=talu", "scriptextensions=newtailue", "scriptextensions=taml",
+        "scriptextensions=tamil",
+    "scriptextensions=tavt", "scriptextensions=taiviet", "scriptextensions=telu",
+        "scriptextensions=telugu",
+    "scriptextensions=tfng", "scriptextensions=tifinagh", "scriptextensions=tglg",
+        "scriptextensions=tagalog",
+    "scriptextensions=thaa", "scriptextensions=thaana", "scriptextensions=tibt",
+        "scriptextensions=tibetan",
+    "scriptextensions=ugar", "scriptextensions=ugaritic", "scriptextensions=vaii",
+        "scriptextensions=vai",
+    "scriptextensions=xpeo", "scriptextensions=oldpersian", "scriptextensions=xsux",
+        "scriptextensions=cuneiform",
+    "scriptextensions=yiii", "scriptextensions=yi", "scriptextensions=zinh",
+        "scriptextensions=inherited",
+    "scriptextensions=zyyy", "scriptextensions=common", "scriptextensions=zzzz",
+        "scriptextensions=unknown",
+    "scx=arab", "scriptextensions=arabic", "scx=arabic", "scriptextensions=arabic",
+    "scx=armenian", "scriptextensions=armenian", "scx=armi", "scriptextensions=imperialaramaic",
+    "scx=armn", "scriptextensions=armenian", "scx=avestan", "scriptextensions=avestan",
+    "scx=avst", "scriptextensions=avestan", "scx=bali", "scriptextensions=balinese",
+    "scx=balinese", "scriptextensions=balinese", "scx=bamu", "scriptextensions=bamum",
+    "scx=bamum", "scriptextensions=bamum", "scx=batak", "scriptextensions=batak",
+    "scx=batk", "scriptextensions=batak", "scx=beng", "scriptextensions=bengali",
+    "scx=bengali", "scriptextensions=bengali", "scx=bopo", "scriptextensions=bopomofo",
+    "scx=bopomofo", "scriptextensions=bopomofo", "scx=brah", "scriptextensions=brahmi",
+    "scx=brahmi", "scriptextensions=brahmi", "scx=brai", "scriptextensions=braille",
+    "scx=braille", "scriptextensions=braille", "scx=bugi", "scriptextensions=buginese",
+    "scx=buginese", "scriptextensions=buginese", "scx=buhd", "scriptextensions=buhid",
+    "scx=buhid", "scriptextensions=buhid", "scx=cakm", "scriptextensions=chakma",
+    "scx=canadianaboriginal", "scriptextensions=canadianaboriginal", "scx=cans",
+        "scriptextensions=canadianaboriginal",
+    "scx=cari", "scriptextensions=carian", "scx=carian", "scriptextensions=carian",
+    "scx=chakma", "scriptextensions=chakma", "scx=cham", "scriptextensions=cham",
+    "scx=cher", "scriptextensions=cherokee", "scx=cherokee", "scriptextensions=cherokee",
+    "scx=common", "scriptextensions=common", "scx=copt", "scriptextensions=coptic",
+    "scx=coptic", "scriptextensions=coptic", "scx=cprt", "scriptextensions=cypriot",
+    "scx=cuneiform", "scriptextensions=cuneiform", "scx=cypriot", "scriptextensions=cypriot",
+    "scx=cyrillic", "scriptextensions=cyrillic", "scx=cyrl", "scriptextensions=cyrillic",
+    "scx=deseret", "scriptextensions=deseret", "scx=deva", "scriptextensions=devanagari",
+    "scx=devanagari", "scriptextensions=devanagari", "scx=dsrt", "scriptextensions=deseret",
+    "scx=egyp", "scriptextensions=egyptianhieroglyphs", "scx=egyptianhieroglyphs",
+        "scriptextensions=egyptianhieroglyphs",
+    "scx=ethi", "scriptextensions=ethiopic", "scx=ethiopic", "scriptextensions=ethiopic",
+    "scx=geor", "scriptextensions=georgian", "scx=georgian", "scriptextensions=georgian",
+    "scx=glag", "scriptextensions=glagolitic", "scx=glagolitic", "scriptextensions=glagolitic",
+    "scx=goth", "scriptextensions=gothic", "scx=gothic", "scriptextensions=gothic",
+    "scx=greek", "scriptextensions=greek", "scx=grek", "scriptextensions=greek",
+    "scx=gujarati", "scriptextensions=gujarati", "scx=gujr", "scriptextensions=gujarati",
+    "scx=gurmukhi", "scriptextensions=gurmukhi", "scx=guru", "scriptextensions=gurmukhi",
+    "scx=han", "scriptextensions=han", "scx=hang", "scriptextensions=hangul",
+    "scx=hangul", "scriptextensions=hangul", "scx=hani", "scriptextensions=han",
+    "scx=hano", "scriptextensions=hanunoo", "scx=hanunoo", "scriptextensions=hanunoo",
+    "scx=hebr", "scriptextensions=hebrew", "scx=hebrew", "scriptextensions=hebrew",
+    "scx=hira", "scriptextensions=hiragana", "scx=hiragana", "scriptextensions=hiragana",
+    "scx=imperialaramaic", "scriptextensions=imperialaramaic", "scx=inherited",
+        "scriptextensions=inherited",
+    "scx=inscriptionalpahlavi", "scriptextensions=inscriptionalpahlavi",
+        "scx=inscriptionalparthian", "scriptextensions=inscriptionalparthian",
+    "scx=ital", "scriptextensions=olditalic", "scx=java", "scriptextensions=javanese",
+    "scx=javanese", "scriptextensions=javanese", "scx=kaithi", "scriptextensions=kaithi",
+    "scx=kali", "scriptextensions=kayahli", "scx=kana", "scriptextensions=katakana",
+    "scx=kannada", "scriptextensions=kannada", "scx=katakana", "scriptextensions=katakana",
+    "scx=kayahli", "scriptextensions=kayahli", "scx=khar", "scriptextensions=kharoshthi",
+    "scx=kharoshthi", "scriptextensions=kharoshthi", "scx=khmer", "scriptextensions=khmer",
+    "scx=khmr", "scriptextensions=khmer", "scx=knda", "scriptextensions=kannada",
+    "scx=kthi", "scriptextensions=kaithi", "scx=lana", "scriptextensions=taitham",
+    "scx=lao", "scriptextensions=lao", "scx=laoo", "scriptextensions=lao",
+    "scx=latin", "scriptextensions=latin", "scx=latn", "scriptextensions=latin",
+    "scx=lepc", "scriptextensions=lepcha", "scx=lepcha", "scriptextensions=lepcha",
+    "scx=limb", "scriptextensions=limbu", "scx=limbu", "scriptextensions=limbu",
+    "scx=linb", "scriptextensions=linearb", "scx=linearb", "scriptextensions=linearb",
+    "scx=lisu", "scriptextensions=lisu", "scx=lyci", "scriptextensions=lycian",
+    "scx=lycian", "scriptextensions=lycian", "scx=lydi", "scriptextensions=lydian",
+    "scx=lydian", "scriptextensions=lydian", "scx=malayalam", "scriptextensions=malayalam",
+    "scx=mand", "scriptextensions=mandaic", "scx=mandaic", "scriptextensions=mandaic",
+    "scx=meeteimayek", "scriptextensions=meeteimayek", "scx=merc",
+        "scriptextensions=meroiticcursive",
+    "scx=mero", "scriptextensions=meroitichieroglyphs", "scx=meroiticcursive",
+        "scriptextensions=meroiticcursive",
+    "scx=meroitichieroglyphs", "scriptextensions=meroitichieroglyphs", "scx=miao",
+        "scriptextensions=miao",
+    "scx=mlym", "scriptextensions=malayalam", "scx=mong", "scriptextensions=mongolian",
+    "scx=mongolian", "scriptextensions=mongolian", "scx=mtei", "scriptextensions=meeteimayek",
+    "scx=myanmar", "scriptextensions=myanmar", "scx=mymr", "scriptextensions=myanmar",
+    "scx=newtailue", "scriptextensions=newtailue", "scx=nko", "scriptextensions=nko",
+    "scx=nkoo", "scriptextensions=nko", "scx=ogam", "scriptextensions=ogham",
+    "scx=ogham", "scriptextensions=ogham", "scx=olchiki", "scriptextensions=olchiki",
+    "scx=olck", "scriptextensions=olchiki", "scx=olditalic", "scriptextensions=olditalic",
+    "scx=oldpersian", "scriptextensions=oldpersian", "scx=oldsoutharabian",
+        "scriptextensions=oldsoutharabian",
+    "scx=oldturkic", "scriptextensions=oldturkic", "scx=oriya", "scriptextensions=oriya",
+    "scx=orkh", "scriptextensions=oldturkic", "scx=orya", "scriptextensions=oriya",
+    "scx=osma", "scriptextensions=osmanya", "scx=osmanya", "scriptextensions=osmanya",
+    "scx=phag", "scriptextensions=phagspa", "scx=phagspa", "scriptextensions=phagspa",
+    "scx=phli", "scriptextensions=inscriptionalpahlavi", "scx=phnx", "scriptextensions=phoenician",
+    "scx=phoenician", "scriptextensions=phoenician", "scx=plrd", "scriptextensions=miao",
+    "scx=prti", "scriptextensions=inscriptionalparthian", "scx=qaac", "scriptextensions=coptic",
+    "scx=qaai", "scriptextensions=inherited", "scx=rejang", "scriptextensions=rejang",
+    "scx=rjng", "scriptextensions=rejang", "scx=runic", "scriptextensions=runic",
+    "scx=runr", "scriptextensions=runic", "scx=samaritan", "scriptextensions=samaritan",
+    "scx=samr", "scriptextensions=samaritan", "scx=sarb", "scriptextensions=oldsoutharabian",
+    "scx=saur", "scriptextensions=saurashtra", "scx=saurashtra", "scriptextensions=saurashtra",
+    "scx=sharada", "scriptextensions=sharada", "scx=shavian", "scriptextensions=shavian",
+    "scx=shaw", "scriptextensions=shavian", "scx=shrd", "scriptextensions=sharada",
+    "scx=sinh", "scriptextensions=sinhala", "scx=sinhala", "scriptextensions=sinhala",
+    "scx=sora", "scriptextensions=sorasompeng", "scx=sorasompeng", "scriptextensions=sorasompeng",
+    "scx=sund", "scriptextensions=sundanese", "scx=sundanese", "scriptextensions=sundanese",
+    "scx=sylo", "scriptextensions=sylotinagri", "scx=sylotinagri", "scriptextensions=sylotinagri",
+    "scx=syrc", "scriptextensions=syriac", "scx=syriac", "scriptextensions=syriac",
+    "scx=tagalog", "scriptextensions=tagalog", "scx=tagb", "scriptextensions=tagbanwa",
+    "scx=tagbanwa", "scriptextensions=tagbanwa", "scx=taile", "scriptextensions=taile",
+    "scx=taitham", "scriptextensions=taitham", "scx=taiviet", "scriptextensions=taiviet",
+    "scx=takr", "scriptextensions=takri", "scx=takri", "scriptextensions=takri",
+    "scx=tale", "scriptextensions=taile", "scx=talu", "scriptextensions=newtailue",
+    "scx=tamil", "scriptextensions=tamil", "scx=taml", "scriptextensions=tamil",
+    "scx=tavt", "scriptextensions=taiviet", "scx=telu", "scriptextensions=telugu",
+    "scx=telugu", "scriptextensions=telugu", "scx=tfng", "scriptextensions=tifinagh",
+    "scx=tglg", "scriptextensions=tagalog", "scx=thaa", "scriptextensions=thaana",
+    "scx=thaana", "scriptextensions=thaana", "scx=thai", "scriptextensions=thai",
+    "scx=tibetan", "scriptextensions=tibetan", "scx=tibt", "scriptextensions=tibetan",
+    "scx=tifinagh", "scriptextensions=tifinagh", "scx=ugar", "scriptextensions=ugaritic",
+    "scx=ugaritic", "scriptextensions=ugaritic", "scx=unknown", "scriptextensions=unknown",
+    "scx=vai", "scriptextensions=vai", "scx=vaii", "scriptextensions=vai",
+    "scx=xpeo", "scriptextensions=oldpersian", "scx=xsux", "scriptextensions=cuneiform",
+    "scx=yi", "scriptextensions=yi", "scx=yiii", "scriptextensions=yi",
+    "scx=zinh", "scriptextensions=inherited", "scx=zyyy", "scriptextensions=common",
+    "scx=zzzz", "scriptextensions=unknown", "sd", "softdotted",
     "sentencebreak=at", "sentencebreak=aterm", "sentencebreak=cl", "sentencebreak=close",
     "sentencebreak=ex", "sentencebreak=extend", "sentencebreak=fo", "sentencebreak=format",
     "sentencebreak=le", "sentencebreak=oletter", "sentencebreak=lo", "sentencebreak=lower",
@@ -30333,36 +33217,39 @@ public class Unicode_6_0 {
     "sentencebreak=se", "sentencebreak=sep", "sentencebreak=st", "sentencebreak=sterm",
     "sentencebreak=up", "sentencebreak=upper", "sentencebreak=xx", "sentencebreak=other",
     "separator", "z", "shaw", "shavian",
-    "sinh", "sinhala", "space", "whitespace",
+    "shrd", "sharada", "sinh", "sinhala",
+    "sora", "sorasompeng", "space", "whitespace",
     "spaceseparator", "zs", "spacingmark", "mc",
     "sund", "sundanese", "sylo", "sylotinagri",
     "symbol", "s", "syrc", "syriac",
-    "tagb", "tagbanwa", "tale", "taile",
-    "talu", "newtailue", "taml", "tamil",
-    "tavt", "taiviet", "telu", "telugu",
-    "term", "terminalpunctuation", "tfng", "tifinagh",
-    "tglg", "tagalog", "thaa", "thaana",
-    "tibt", "tibetan", "titlecaseletter", "lt",
-    "ugar", "ugaritic", "uideo", "unifiedideograph",
-    "unassigned", "cn", "upper", "uppercase",
-    "uppercaseletter", "lu", "vaii", "vai",
-    "vs", "variationselector", "wb=aletter", "wordbreak=aletter",
-    "wb=cr", "wordbreak=cr", "wb=ex", "wordbreak=extendnumlet",
-    "wb=extend", "wordbreak=extend", "wb=extendnumlet", "wordbreak=extendnumlet",
-    "wb=fo", "wordbreak=format", "wb=format", "wordbreak=format",
-    "wb=ka", "wordbreak=katakana", "wb=katakana", "wordbreak=katakana",
-    "wb=le", "wordbreak=aletter", "wb=lf", "wordbreak=lf",
-    "wb=mb", "wordbreak=midnumlet", "wb=midletter", "wordbreak=midletter",
-    "wb=midnum", "wordbreak=midnum", "wb=midnumlet", "wordbreak=midnumlet",
-    "wb=ml", "wordbreak=midletter", "wb=mn", "wordbreak=midnum",
-    "wb=newline", "wordbreak=newline", "wb=nl", "wordbreak=newline",
-    "wb=nu", "wordbreak=numeric", "wb=numeric", "wordbreak=numeric",
-    "wb=other", "wordbreak=other", "wb=xx", "wordbreak=other",
-    "wordbreak=ex", "wordbreak=extendnumlet", "wordbreak=fo", "wordbreak=format",
-    "wordbreak=ka", "wordbreak=katakana", "wordbreak=le", "wordbreak=aletter",
-    "wordbreak=mb", "wordbreak=midnumlet", "wordbreak=ml", "wordbreak=midletter",
-    "wordbreak=mn", "wordbreak=midnum", "wordbreak=nl", "wordbreak=newline",
-    "wordbreak=nu", "wordbreak=numeric", "wordbreak=xx", "wordbreak=other",
+    "tagb", "tagbanwa", "takr", "takri",
+    "tale", "taile", "talu", "newtailue",
+    "taml", "tamil", "tavt", "taiviet",
+    "telu", "telugu", "term", "terminalpunctuation",
+    "tfng", "tifinagh", "tglg", "tagalog",
+    "thaa", "thaana", "tibt", "tibetan",
+    "titlecaseletter", "lt", "ugar", "ugaritic",
+    "uideo", "unifiedideograph", "unassigned", "cn",
+    "upper", "uppercase", "uppercaseletter", "lu",
+    "vaii", "vai", "vs", "variationselector",
+    "wb=aletter", "wordbreak=aletter", "wb=cr", "wordbreak=cr",
+    "wb=ex", "wordbreak=extendnumlet", "wb=extend", "wordbreak=extend",
+    "wb=extendnumlet", "wordbreak=extendnumlet", "wb=fo", "wordbreak=format",
+    "wb=format", "wordbreak=format", "wb=ka", "wordbreak=katakana",
+    "wb=katakana", "wordbreak=katakana", "wb=le", "wordbreak=aletter",
+    "wb=lf", "wordbreak=lf", "wb=mb", "wordbreak=midnumlet",
+    "wb=midletter", "wordbreak=midletter", "wb=midnum", "wordbreak=midnum",
+    "wb=midnumlet", "wordbreak=midnumlet", "wb=ml", "wordbreak=midletter",
+    "wb=mn", "wordbreak=midnum", "wb=newline", "wordbreak=newline",
+    "wb=nl", "wordbreak=newline", "wb=nu", "wordbreak=numeric",
+    "wb=numeric", "wordbreak=numeric", "wb=other", "wordbreak=other",
+    "wb=regionalindicator", "wordbreak=regionalindicator", "wb=ri", "wordbreak=regionalindicator",
+    "wb=xx", "wordbreak=other", "wordbreak=ex", "wordbreak=extendnumlet",
+    "wordbreak=fo", "wordbreak=format", "wordbreak=ka", "wordbreak=katakana",
+    "wordbreak=le", "wordbreak=aletter", "wordbreak=mb", "wordbreak=midnumlet",
+    "wordbreak=ml", "wordbreak=midletter", "wordbreak=mn", "wordbreak=midnum",
+    "wordbreak=nl", "wordbreak=newline", "wordbreak=nu", "wordbreak=numeric",
+    "wordbreak=ri", "wordbreak=regionalindicator", "wordbreak=xx", "wordbreak=other",
     "wspace", "whitespace", "xidc", "xidcontinue",
     "xids", "xidstart", "xpeo", "oldpersian",
     "xsux", "cuneiform", "yiii", "yi",
@@ -30605,6 +33492,7 @@ public class Unicode_6_0 {
           + "\u0251\u2c6d\000\000"
           + "\u0252\u2c70\000\000"
           + "\u0265\ua78d\000\000"
+          + "\u0266\ua7aa\000\000"
           + "\u026b\u2c62\000\000"
           + "\u0271\u2c6e\000\000"
           + "\u027d\u2c64\000\000"
@@ -30882,6 +33770,8 @@ public class Unicode_6_0 {
           + "\u10c3\u2d23\000\000"
           + "\u10c4\u2d24\000\000"
           + "\u10c5\u2d25\000\000"
+          + "\u10c7\u2d27\000\000"
+          + "\u10cd\u2d2d\000\000"
           + "\u1d79\ua77d\000\000"
           + "\u1d7d\u2c63\000\000"
           + "\u1e00\u1e01\000\000"
@@ -31252,6 +34142,7 @@ public class Unicode_6_0 {
           + "\u2ce2\u2ce3\000\000"
           + "\u2ceb\u2cec\000\000"
           + "\u2ced\u2cee\000\000"
+          + "\u2cf2\u2cf3\000\000"
           + "\ua640\ua641\000\000"
           + "\ua642\ua643\000\000"
           + "\ua644\ua645\000\000"
@@ -31334,6 +34225,7 @@ public class Unicode_6_0 {
           + "\ua786\ua787\000\000"
           + "\ua78b\ua78c\000\000"
           + "\ua790\ua791\000\000"
+          + "\ua792\ua793\000\000"
           + "\ua7a0\ua7a1\000\000"
           + "\ua7a2\ua7a3\000\000"
           + "\ua7a4\ua7a5\000\000"

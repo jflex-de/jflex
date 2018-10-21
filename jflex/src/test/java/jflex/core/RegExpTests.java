@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.core;
 
 import static jflex.core.RegExp.revString;
 

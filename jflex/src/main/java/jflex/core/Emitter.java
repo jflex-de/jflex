@@ -19,8 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.LexParse;
-import jflex.LexScan;
 import jflex.io.FileUtil;
 
 /**
@@ -109,7 +107,7 @@ public final class Emitter {
    * Computes base name of the class name. Needs to take into account generics.
    *
    * @param className Class name for which to construct the base name
-   * @see LexScan#className
+   * @see jflex.core.LexScan#className
    * @return the
    */
   public static String getBaseName(String className) {

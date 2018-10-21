@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.core;
 
 import jflex.core.Out;
 import jflex.core.PackEmitter;

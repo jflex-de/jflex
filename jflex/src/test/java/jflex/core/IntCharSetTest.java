@@ -1,4 +1,4 @@
-package jflex;
+package jflex.core;
 
 import java.util.Objects;
 import jflex.chars.Interval;

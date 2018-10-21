@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.unicode.UnicodeProperties;
+import jflex.core.unicode.UnicodeProperties;
 
 /**
  * Char Set implemented with intervals.

@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.core;
 
 import java.util.Arrays;
 import java.util.Collections;

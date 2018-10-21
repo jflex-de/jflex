@@ -7,12 +7,12 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex;
+package jflex.core;
 
 import jflex.chars.Interval;
 import jflex.core.CharClasses;
 import jflex.core.IntCharSet;
-import jflex.unicode.UnicodeProperties;
+import jflex.core.unicode.UnicodeProperties;
 import junit.framework.TestCase;
 
 /**
@@ -23,11 +23,6 @@ import junit.framework.TestCase;
  */
 public class CharClassesTest extends TestCase {
 
-  /**
-   * Constructor for CharClassesTest.
-   *
-   * @param arg0
-   */
   public CharClassesTest(String arg0) {
     super(arg0);
   }

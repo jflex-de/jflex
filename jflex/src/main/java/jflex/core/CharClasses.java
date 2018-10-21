@@ -12,7 +12,6 @@ package jflex.core;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import jflex.LexScan;
 import jflex.chars.Interval;
 
 /**

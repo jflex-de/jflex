@@ -32,8 +32,8 @@ import jflex.core.LexGenerator;
 import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.SilentExit;
+import jflex.core.unicode.UnicodeProperties;
 import jflex.gui.MainFrame;
-import jflex.unicode.UnicodeProperties;
 
 /**
  * This is the command-line interface.
