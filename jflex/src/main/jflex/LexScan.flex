@@ -26,6 +26,7 @@ import jflex.performance.Timer;
 %final
 %public
 %class LexScan
+%extends AbstractLexScan
 %implements sym, java_cup.runtime.Scanner
 %function next_token
 
