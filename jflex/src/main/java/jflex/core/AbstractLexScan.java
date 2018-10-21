@@ -120,6 +120,7 @@ public abstract class AbstractLexScan {
     return matched.substring(1, matched.length() - 1).trim();
   }
 
+  @SuppressWarnings("SameParameterValue") // Generated LexScan uses different parameters
   static String conc(Object a, Object b) {
     if (a == null && b == null) {
       return null;
@@ -134,8 +135,7 @@ public abstract class AbstractLexScan {
     return a.toString() + b.toString();
   }
 
-  @SuppressWarnings("WeakerAccess") // Used in generated LexScan
-  public static String concExc(Object a, Object b) {
+  static String concExc(Object a, Object b) {
     if (a == null && b == null) {
       return null;
     }
