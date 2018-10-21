@@ -9,8 +9,6 @@
 
 package jflex.generator;
 
-import jflex.core.PackEmitter;
-
 /**
  * An emitter for an array encoded as count/value pairs in a string.
  *

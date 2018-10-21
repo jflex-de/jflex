@@ -7,9 +7,10 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.generator;
 
 import java.util.Locale;
+import jflex.core.Out;
 
 /**
  * Encodes {@code int} arrays as strings.

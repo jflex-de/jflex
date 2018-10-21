@@ -9,8 +9,6 @@
 
 package jflex.generator;
 
-import jflex.core.PackEmitter;
-
 /**
  * HiLowEmitter
  *
