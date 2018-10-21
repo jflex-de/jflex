@@ -47,6 +47,24 @@ import jflex.performance.Timer;
 %cupdebug
 
 %{
+
+  int balance = 0;
+  int commentbalance = 0;
+  int action_line = 0;
+  StringBuilder actionText = new StringBuilder();
+
+  boolean isYYEOF;
+  boolean notUnix;
+  boolean caseless;
+  boolean inclusive_states;
+  boolean isASCII;
+
+  int nextState;
+
+  boolean macroDefinition;
+
+  Timer t = new Timer();
+
   @Override
   protected int lexLine() {
     return yyline;
@@ -291,7 +309,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   {WSP}+                      { }
   {NL}+                       { }
   <<EOF>>                     { if ( yymoreStreams() ) {
-                                  file = (File) files.pop();
+                                  file = popFile();
                                   yypopStream();
                                 }
                                 else
@@ -581,7 +599,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 \R { throw new ScannerException(file,ErrorMessages.UNEXPECTED_NL, yyline, yycolumn); }
 
 <<EOF>>  { if ( yymoreStreams() ) {
-             file = (File) files.pop();
+             file = popFile();
              yypopStream();
            }
            else {
