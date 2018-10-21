@@ -1,4 +1,4 @@
-package jflex.core;
+package jflex.generator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -201,6 +201,19 @@ public abstract class AbstractLexScan {
   @Deprecated
   public int currentLine() {
     return lexLine();
+  }
+
+  public String className() {
+    return className;
+  }
+
+  @SuppressWarnings("unused") // Used by generated LexScan
+  public boolean isColumnCount() {
+    return columnCount;
+  }
+
+  public String visibility() {
+    return visibility;
   }
 
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
