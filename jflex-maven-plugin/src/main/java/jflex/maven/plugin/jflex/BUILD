@@ -5,6 +5,7 @@ java_library(
         "//jflex",
         "@jsr305//jar",
         "//third_party/com/google/guava",
-        "//third_party/org/apache/maven:maven_plugin_api"
+        "//third_party/org/apache/maven:maven_plugin_api",
     ],
+    visibility = ["//jflex-maven-plugin/src/test:__subpackages__"],
 )

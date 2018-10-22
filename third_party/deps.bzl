@@ -17,6 +17,11 @@ def third_party_deps():
         repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
+        name =     "org_apache_maven_plugin_testing_maven_plugin_testing_harness",
+        artifact = "org.apache.maven.plugin-testing:maven-plugin-testing-harness:jar:3.3.0",
+        repository = "https://jcenter.bintray.com/",
+    )
+    native.maven_jar(
         name = "org_apache_maven_maven_project",
         artifact = "org.apache.maven:maven-project:2.2.1",
         repository = "https://jcenter.bintray.com/",
