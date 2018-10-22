@@ -9,6 +9,8 @@
 
 package jflex.base;
 
+import com.google.auto.value.AutoValue;
+
 /**
  * Simple pair of integers.
  *
