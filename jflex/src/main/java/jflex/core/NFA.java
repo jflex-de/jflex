@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.IntPair;
 import jflex.chars.Interval;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -152,7 +153,7 @@ public final class NFA {
       Out.debug(
           "Adding nfa for regexp " + regExpNum + " :" + Out.NL + regExps.getRegExp(regExpNum));
 
-    jflex.base.IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
+    IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
 
     List<Integer> lexStates = regExps.getStates(regExpNum);
 
@@ -176,7 +177,7 @@ public final class NFA {
         RegExp r1 = regExps.getRegExp(regExpNum);
         RegExp r2 = regExps.getLookAhead(regExpNum);
 
-        jflex.base.IntPair look = insertNFA(r2);
+        IntPair look = insertNFA(r2);
 
         addEpsilonTransition(nfa.end, look.start);
 
@@ -185,9 +186,9 @@ public final class NFA {
 
         if (a.lookAhead() == Action.GENERAL_LOOK) {
           // base forward pass
-          jflex.base.IntPair forward = insertNFA(r1);
+          IntPair forward = insertNFA(r1);
           // lookahead backward pass
-          jflex.base.IntPair backward = insertNFA(r2.rev(macros));
+          IntPair backward = insertNFA(r2.rev(macros));
 
           isFinal[forward.end] = true;
           action[forward.end] = new Action(Action.FORWARD_ACTION);
@@ -229,7 +230,7 @@ public final class NFA {
 
       if (len >= 0) {
         // termination case
-        jflex.base.IntPair look = insertNFA(lookAhead);
+        IntPair look = insertNFA(lookAhead);
 
         addEpsilonTransition(baseEnd, look.start);
 
@@ -685,7 +686,7 @@ public final class NFA {
     }
   }
 
-  private jflex.base.IntPair insertStringNFA(boolean caseless, String str) {
+  private IntPair insertStringNFA(boolean caseless, String str) {
     int start = numStates;
     int i = 0;
     for (int pos = 0; pos < str.length(); ++i) {
@@ -728,7 +729,7 @@ public final class NFA {
    * @param nfa the NFA to construct the complement for.
    * @return a pair of integers denoting the index of start and end state of the complement NFA.
    */
-  private jflex.base.IntPair complement(jflex.base.IntPair nfa) {
+  private IntPair complement(IntPair nfa) {
 
     if (Options.DEBUG) {
       Out.debug("complement for " + nfa);
@@ -946,9 +947,9 @@ public final class NFA {
    * @param regExp the regular expression to construct the NFA for
    * @return a pair of integers denoting the index of start and end state of the NFA.
    */
-  public jflex.base.IntPair insertNFA(RegExp regExp) {
+  public IntPair insertNFA(RegExp regExp) {
 
-    jflex.base.IntPair nfa1, nfa2;
+    IntPair nfa1, nfa2;
     int start, end;
     RegExp2 r;
 
