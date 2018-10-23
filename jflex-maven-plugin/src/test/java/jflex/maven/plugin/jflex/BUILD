@@ -20,6 +20,7 @@ java_test(
         "//third_party/jvm/org/apache/maven:maven_core",
         "//third_party/jvm/org/apache/maven/plugin_testing:maven_plugin_testing_harness",
     ],
+    data = ["//jflex-maven-plugin/src/test:projects"],
 )
 
 java_test(

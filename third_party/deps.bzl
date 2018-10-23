@@ -31,9 +31,10 @@ def third_party_deps():
         artifact = "com.google.auto.value:auto-value:jar:1.4.1",
         repository = "http://jcenter.bintray.com/",
     )
+    # Guava 21 or above requires JDK 8, but we want to keep running on JDK 7.
     native.maven_jar(
         name = "com_google_guava_guava",
-        artifact = "com.google.guava:guava:jar:26.0-jre",
+        artifact = "com.google.guava:guava:jar:20.0",
         repository = "http://jcenter.bintray.com/",
     )
     native.maven_jar(
