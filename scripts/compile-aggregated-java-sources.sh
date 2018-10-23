@@ -18,7 +18,7 @@ mvnget() {
 }
 
 mvnget org/apache/ant/ant/1.7.0/ant-1.7.0.jar
-mvnget com/google/auto/value/auto-value/1.4.1/auto-value-1.4.1.jar
+mvnget com/google/auto/value/auto-value-annotations/1.6.2/auto-value-annotations-1.6.2.jar
 
 CP=${CP##:}  # Remove leading ':'
 javac -cp "$CP" $(find . -name '*.java')
