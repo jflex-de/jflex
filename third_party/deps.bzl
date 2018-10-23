@@ -27,6 +27,11 @@ def third_party_deps():
         repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
+        name = "com_google_auto_value_auto_value",
+        artifact = "com.google.auto.value:auto-value:jar:1.4.1",
+        repository = "http://jcenter.bintray.com/",
+    )
+    native.maven_jar(
         name = "com_google_guava_guava",
         artifact = "com.google.guava:guava:jar:26.0-jre",
         repository = "http://jcenter.bintray.com/",
