@@ -9,6 +9,8 @@
 
 package jflex.base;
 
+import com.google.auto.value.AutoValue;
+
 /**
  * Simple pair of integers.
  *
@@ -17,32 +19,14 @@ package jflex.base;
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public final class IntPair {
+@AutoValue
+public abstract class IntPair {
 
-  public final int start;
-  public final int end;
+  public abstract int start();
 
-  public IntPair(int start, int end) {
-    this.start = start;
-    this.end = end;
-  }
+  public abstract int end();
 
-  @Override
-  public int hashCode() {
-    return end + (start << 8);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof IntPair) {
-      IntPair p = (IntPair) o;
-      return start == p.start && end == p.end;
-    }
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    return "(" + start + "," + end + ")";
+  public static IntPair create(int start, int end) {
+    return new AutoValue_IntPair(start, end);
   }
 }
