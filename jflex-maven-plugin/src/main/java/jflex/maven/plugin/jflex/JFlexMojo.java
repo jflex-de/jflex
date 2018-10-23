@@ -11,15 +11,12 @@ package jflex.maven.plugin.jflex;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
-import com.google.common.io.MoreFiles;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -179,23 +176,16 @@ public class JFlexMojo extends AbstractMojo {
     if (lexDefinition.isDirectory()) {
       // recursively process files contained within
       getLog().debug("Processing lexer files found in " + lexDefinition);
-      Iterable<Path> lexFiles = traverseDirectory(lexDefinition);
-      for (Path lexFile : lexFiles) {
-        parseLexFile(lexFile.toFile());
+      FluentIterable<File> files =
+          Files.fileTreeTraverser()
+              .preOrderTraversal(lexDefinition)
+              .filter(new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
+      for (File lexFile : files) {
+        parseLexFile(lexFile);
       }
     } else {
       parseLexFile(lexDefinition);
     }
-  }
-
-  /**
-   * Traverse the given directory and its sub-directories for lex definitions.
-   *
-   * @return The path of all lex definitions which are nested under {@code directory}.
-   */
-  private Iterable<Path> traverseDirectory(File directory) {
-    Iterable<Path> files = MoreFiles.fileTraverser().breadthFirst(Paths.get(directory.getPath()));
-    return Iterables.filter(files, new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
   }
 
   private void parseLexFile(File lexFile) throws MojoFailureException, MojoExecutionException {
@@ -296,7 +286,7 @@ public class JFlexMojo extends AbstractMojo {
     return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
   }
 
-  static class ExtensionPredicate implements Predicate<Path> {
+  static class ExtensionPredicate implements Predicate<File> {
     final ImmutableSet<String> extensions;
 
     ExtensionPredicate(ImmutableSet<String> extensions) {
@@ -308,8 +298,8 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     @Override
-    public boolean apply(Path file) {
-      return extensions.contains(Files.getFileExtension(file.getFileName().toString()));
+    public boolean apply(File file) {
+      return extensions.contains(Files.getFileExtension(file.getName()));
     }
   }
 }
