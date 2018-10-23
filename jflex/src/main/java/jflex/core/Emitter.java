@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex 1.7.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
+ * Copyrigth (C) 2018 Google LLC.
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -31,6 +32,7 @@ import jflex.l10n.ErrorMessages;
  * <p>Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
+ * @author Régis Décamps
  * @version JFlex 1.7.1-SNAPSHOT
  */
 public final class Emitter {
@@ -425,7 +427,9 @@ public final class Emitter {
   }
 
   private void emitUserCode() {
-    if (scanner.userCode.length() > 0) println(scanner.userCode.toString());
+    if (scanner.userCode.length() > 0) {
+      println(scanner.userCode.toString());
+    }
 
     if (scanner.cup2Compatible) {
       println();
@@ -437,6 +441,7 @@ public final class Emitter {
   }
 
   private void emitClassName() {
+    println(String.format("@javax.annotation.Generated(\"%s\")", getClass().getName()));
     // TODO(#222) Actually fix the fall-through violations
     println("// See https://github.com/jflex-de/jflex/issues/222");
     println("@SuppressWarnings(\"FallThrough\")");
