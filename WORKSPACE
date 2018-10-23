@@ -51,5 +51,5 @@ load("//third_party:deps.bzl", "third_party_deps")
 
 third_party_deps()
 
-load("//3rdparty:maven_workspace.bzl", "maven_dependencies")
+load("//third_party:maven_workspace.bzl", "maven_dependencies")
 maven_dependencies()
