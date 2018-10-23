@@ -1,0 +1,14 @@
+options:
+  languages:                       ["java"]
+  resolverType:                    "coursier"
+  transitivity:                    runtime_deps
+  versionConflictPolicy:           highest
+dependencies:
+  org.apache.maven.plugin-testing:
+    maven-plugin-testing-harness:
+      version:                     3.3.0
+      lang:                        java
+  org.apache.maven:
+    maven-core:
+      version:                     3.5.2
+      lang:                        java
