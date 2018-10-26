@@ -7,42 +7,28 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.exceptions;
 
 /**
- * Simple pair of integers.
- *
- * <p>Used in NFA to represent a partial NFA by its start and end state.
+ * This Exception is used in the macro expander to report cycles or undefined macro usages.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-final class IntPair {
+public class MacroException extends RuntimeException {
 
-  int start;
-  int end;
+  /** */
+  private static final long serialVersionUID = 275266242549067641L;
 
-  IntPair(int start, int end) {
-    this.start = start;
-    this.end = end;
-  }
+  /** Creates a new MacroException without message. */
+  public MacroException() {}
 
-  @Override
-  public int hashCode() {
-    return end + (start << 8);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof IntPair) {
-      IntPair p = (IntPair) o;
-      return start == p.start && end == p.end;
-    }
-    return false;
-  }
-
-  @Override
-  public String toString() {
-    return "(" + start + "," + end + ")";
+  /**
+   * Creates a new MacroException with the specified message
+   *
+   * @param message the error description presented to the user.
+   */
+  public MacroException(String message) {
+    super(message);
   }
 }

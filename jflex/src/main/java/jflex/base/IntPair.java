@@ -7,28 +7,26 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.base;
+
+import com.google.auto.value.AutoValue;
 
 /**
- * This Exception is used in the macro expander to report cycles or undefined macro usages.
+ * Simple pair of integers.
+ *
+ * <p>Used in NFA to represent a partial NFA by its start and end state.
  *
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */
-public class MacroException extends RuntimeException {
+@AutoValue
+public abstract class IntPair {
 
-  /** */
-  private static final long serialVersionUID = 275266242549067641L;
+  public abstract int start();
 
-  /** Creates a new MacroException without message. */
-  public MacroException() {}
+  public abstract int end();
 
-  /**
-   * Creates a new MacroException with the specified message
-   *
-   * @param message the error description presented to the user.
-   */
-  public MacroException(String message) {
-    super(message);
+  public static IntPair create(int start, int end) {
+    return new AutoValue_IntPair(start, end);
   }
 }
