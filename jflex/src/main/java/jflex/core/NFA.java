@@ -962,7 +962,7 @@ public final class NFA {
       end = numStates + 1;
 
       ensureCapacity(end + 1);
-      if (end + 1 > numStates) numStates = end + 1;
+      numStates = end + 1;
 
       insertCCLNFA(regExp, start, end);
 
