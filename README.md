@@ -22,26 +22,14 @@ JFlex lexers are based on deterministic finite automata (DFAs).
 They are fast, without expensive backtracking.
 
 
-## Modules
-
-The top level directory of the JFLex git repository contains:
-
- * **cup** A copy of the CUP runtime
- * **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
- * **docs** the Markdown sources for the user manual
- * **jflex** JFlex, the scanner/lexer generator for Java
- * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
- * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
- * **testsuite** the regression test suite for JFlex,
- * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
-
-
 ## Usage
 
 For documentation and more information see the [JFlex documentation][jflex-doc]
 and the [wiki][wiki].
 
 ### Usage with Maven
+
+You need JDK 7 or later.
 
 1. Place grammar files in `src/main/flex/` directory.
 
@@ -70,6 +58,8 @@ and the [wiki][wiki].
 
 ### Usage with ant
 
+You need JDK 7 or later.
+
 1. Define ant task
 ```xml
 <taskdef classname="jflex.anttask.JFlexTask" name="jflex"
@@ -96,6 +86,8 @@ jflex(
 
 ### Usage in CLI
 
+You need JDK 7 or later.
+
 You can also use JFlex directly from the command line:
 ```
 jflex/bin/jflex src/grammar/parser.flex
@@ -116,7 +108,23 @@ See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-integ
 Have a look at the sample project: [simple][example-simple] and other [examples].
 
 
+## Modules
+
+The top level directory of the JFLex git repository contains:
+
+ * **cup** A copy of the CUP runtime
+ * **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
+ * **docs** the Markdown sources for the user manual
+ * **jflex** JFlex, the scanner/lexer generator for Java
+ * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
+ * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
+ * **testsuite** the regression test suite for JFlex,
+ * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
+
+
 ## Build from source
+
+You need JDK 8 or later and Maven 3.5.2 or later.
 
 ```
 ./mvnw install
