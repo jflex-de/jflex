@@ -20,7 +20,6 @@ import java.nio.file.Paths;
 import jflex.core.DFA;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.MacroException;
 import jflex.core.NFA;
 import jflex.core.Options;
 import jflex.core.Out;
