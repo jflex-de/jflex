@@ -631,7 +631,7 @@ class UnicodeVersion {
    * @param writer Where to emit the escaped character.
    * @param codePoint The code point for which to emit an escaped character.
    */
-  private void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
+  private static void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
     switch (codePoint) {
         // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
         // a syntax error when it is included in a literal string, because it is

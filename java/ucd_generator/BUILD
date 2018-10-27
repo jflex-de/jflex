@@ -8,6 +8,7 @@ java_library(
     ),
     deps = [
         "//third_party/com/google/guava",
+        "//jflex-unicode-maven-plugin/src/main/java/jflex/maven/plugin/unicode",
     ],
 )
 

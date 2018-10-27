@@ -85,7 +85,7 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   /** Returns a two digit base 36 version string */
-  private String getSortableVersion(String version) {
+  private static String getSortableVersion(String version) {
     Matcher matcher = AGE_PATTERN.matcher(version);
     if (matcher.matches()) {
       return Integer.toString(Integer.parseInt(matcher.group(1)), 36) + matcher.group(2);
@@ -98,7 +98,7 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
    * Converts a two digit base 36 version string returned by {@link #getSortableVersion} into a
    * "\d+.\d" version string
    */
-  private String getAge(String sortableVersion) {
+  private static String getAge(String sortableVersion) {
     return Integer.parseInt(sortableVersion.substring(0, 1), 36)
         + "."
         + sortableVersion.substring(1);
