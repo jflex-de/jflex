@@ -2,7 +2,6 @@ directories:
   java
   javatests
   # Add the directories you want added as source here
-  buildtools
   cup
   docs
   jflex
