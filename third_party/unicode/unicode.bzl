@@ -30,7 +30,7 @@ def unicode_urls(path):
         "http://www.unicode.org/Public" + path,
     ]
 
-def ucd_zip_version(name, version, sha256, extra_files = None):
+def ucd_zip_version(name, version, sha256, extra_files = []):
     """Macro to import the UCD for a given unicode version, by individual files.
 
     Recommended for v4 and later.
@@ -39,7 +39,7 @@ def ucd_zip_version(name, version, sha256, extra_files = None):
     http_archive(
         name = name,
         build_file_content = BUILD_UCD_ZIP.format(
-            extra_files = ",".join(extra_files) if extra_files else ""
+            extra_files = "".join(['"{file}",'.format(file = f) for f in extra_files]),
         ),
         sha256 = sha256,
         urls = unicode_urls(path),
@@ -88,4 +88,33 @@ def unicode_deps():
         name = "ucd_4",
         version = "4.1.0",
         sha256 = "1aa4041a36de1ef94b66beeb152ebd967f5f9be62f8b4ef382909258ef99b732",
+    )
+    ucd_zip_version(
+        name = "ucd_5",
+        version = "5.2.0",
+        sha256 = "3d7a2467d6ee2533de545d833b3cd1cc2488f198e38d7b8b42adc67023a0c646",
+    )
+    ucd_zip_version(
+        name = "ucd_6",
+        version = "6.3.0",
+        sha256 = "2d3c6c51b5821e821881b13694eccb78812d493762c41e9c95c31a7686ed3823",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_7",
+        version = "7.0.0",
+        sha256 = "9c9d92ec9f011691d6d22d2c2d3e5825f50e4f8d6f85c2c2bc01705f085e2af6",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_8",
+        version = "8.0.0",
+        sha256 = "e3959c0b96c5ea7ff118254b55e1a752c2a28170b3404ba6bb5ab2c58536ce2e",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_9",
+        version = "9.0.0",
+        sha256 = "df9e028425816fd5117eaea7173704056f88f7cd030681e457c6f3827f9390ec",
+        extra_files = ["ScriptExtensions.txt"],
     )
