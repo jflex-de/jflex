@@ -17,3 +17,16 @@ filegroup(
         "@ucd_2_UnicodeData_2_1_9_txt//file",
     ],
 )
+filegroup(
+    name = "ucd_3",
+    srcs = [
+        "@ucd_3_Blocks_3_2_0_txt//file",
+        "@ucd_3_DerivedCoreProperties_3_2_0_txt//file",
+        "@ucd_3_LineBreak_3_2_0_txt//file",
+        "@ucd_3_PropList_3_2_0_txt//file",
+        "@ucd_3_PropertyAliases_3_2_0_txt//file",
+        "@ucd_3_PropertyValueAliases_3_2_0_txt//file",
+        "@ucd_3_Scripts_3_2_0_txt//file",
+        "@ucd_3_UnicodeData_3_2_0_txt//file",
+    ],
+)
