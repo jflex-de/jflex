@@ -211,7 +211,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       // If UnicodeData(-X.X.X).txt was found, then this version of Unicode
       // is not a beta version, so we can proceed to fetch, parse, and emit.
       UnicodeVersion unicodeVersion = new UnicodeVersion(version, dataFiles);
-      unicodeVersion.fetchAndParseDataFiles(getLog());
+      fetchAndParseDataFiles(unicodeVersion);
       unicodeVersion.addCompatibilityProperties();
       unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
       getLog()
@@ -219,6 +219,21 @@ public class JFlexUnicodeMojo extends AbstractMojo {
               "Completed downloading and parsing Unicode "
                   + unicodeVersion.majorMinorVersion
                   + " data.\n");
+    }
+  }
+  /**
+   * Fetches and parses the data files defined for this Unicode version.
+   *
+   * @throws IOException If there is a problem fetching or parsing any of this version's data files.
+   */
+  void fetchAndParseDataFiles(UnicodeVersion unicodeVersion) throws IOException {
+    // Use the enum ordering to process in the correct order
+    for (EnumMap.Entry<DataFileType, URL> entry : unicodeVersion.dataFiles.entrySet()) {
+      DataFileType fileType = entry.getKey();
+      URL url = entry.getValue();
+      getLog().info("\t\tFetching/parsing: " + url.getPath());
+      fileType.scan(url, unicodeVersion);
+      getLog().info("\t\tCompleted: " + url.getPath());
     }
   }
 
