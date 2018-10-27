@@ -1,6 +1,6 @@
 directories:
   # Add the directories you want added as source here
-  # By default, we've added your entire workspace ('.')
+  buildtools
   cup
   docs
   jflex
