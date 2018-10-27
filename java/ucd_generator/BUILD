@@ -6,6 +6,9 @@ java_library(
         ["*.java"],
         exclude = SRCS_MAIN,
     ),
+    deps = [
+        "//third_party/com/google/guava",
+    ],
 )
 
 java_binary(

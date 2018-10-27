@@ -16,6 +16,7 @@ public class Main {
   /** Args: version=file,file,file version=file,file, */
   public static void main(String[] argv) throws Exception {
     ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> versions = parseArgs(argv);
+    UcdGenerator.generate(versions);
   }
 
   private static ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> parseArgs(String[] argv)

@@ -1,4 +1,12 @@
 package ucd_generator;
 
-/** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
-public class UcdGenerator {}
+import com.google.common.collect.ImmutableMap;
+import java.io.File;
+
+public class UcdGenerator {
+
+  /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
+  public static void generate(ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> versions) {}
+
+  private UcdGenerator() {}
+}
