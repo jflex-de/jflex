@@ -1,3 +1,5 @@
+package(default_visibility = ["//visibility:public"])
+
 licenses(["notice"])
 
 exports_files(["LICENSE"])
@@ -17,6 +19,7 @@ filegroup(
         "@ucd_2_UnicodeData_2_1_9_txt//file",
     ],
 )
+
 filegroup(
     name = "ucd_3",
     srcs = [
@@ -29,4 +32,9 @@ filegroup(
         "@ucd_3_Scripts_3_2_0_txt//file",
         "@ucd_3_UnicodeData_3_2_0_txt//file",
     ],
+)
+
+alias(
+    name = "ucd_4",
+    actual = "@ucd_4//:files",
 )

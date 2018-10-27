@@ -1,9 +1,52 @@
 # Workspace macro to import all UCD
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
+
+BUILD_UCD_ZIP = """# Content of a UCD archive
+filegroup(
+  name = "files",
+  srcs = [
+    "Blocks.txt",
+    "DerivedCoreProperties.txt",
+    "LineBreak.txt",
+    "PropList.txt",
+    "PropertyAliases.txt",
+    "PropertyValueAliases.txt",
+    "Scripts.txt",
+    "UnicodeData.txt",
+    "auxiliary/GraphemeBreakProperty.txt",
+    "auxiliary/SentenceBreakProperty.txt",
+    "auxiliary/WordBreakProperty.txt",
+    {extra_files}
+  ],
+  visibility = ["//visibility:public"],
+)
+"""
+
+def unicode_urls(path):
+    return [
+        # the Unicode.org site is extremely slow. Prefer a mirror.
+        "http://ftp.lanet.lv/ftp/mirror/unicode" + path,
+        "http://www.unicode.org/Public" + path,
+    ]
+
+def ucd_zip_version(name, version, sha256, extra_files = None):
+    """Macro to import the UCD for a given unicode version, by individual files.
+
+    Recommended for v4 and later.
+    """
+    path = "/zipped/" + version + "/UCD.zip"
+    http_archive(
+        name = name,
+        build_file_content = BUILD_UCD_ZIP.format(
+            extra_files = ",".join(extra_files) if extra_files else ""
+        ),
+        sha256 = sha256,
+        urls = unicode_urls(path),
+    )
 
 def ucd_version(name, version, files):
-    """Macro to import the UCD for a given unicode version."""
+    """Macro to import the UCD for a given unicode version, by individual files."""
     for fn, sha in files.items():
         # TODO All files
         ucd_file(
@@ -18,11 +61,7 @@ def ucd_file(name, version, file, sha256):
     path = "/" + version + "/" + file
     http_file(
         name = bzl_name,
-        urls = [
-            # the Unicode.org site is extremely slow. Prefer a mirror.
-            "http://ftp.lanet.lv/ftp/mirror/unicode" + path,
-            "http://www.unicode.org/Public" + path,
-        ],
+        urls = unicode_urls(path),
         sha256 = sha256,
     )
 
@@ -45,4 +84,8 @@ def unicode_deps():
         "Scripts-3.2.0.txt": "16b3db9e2d1b87600831209df02ecff41aeaf0c2aab0f034684fda14189c1aa5",
         "UnicodeData-3.2.0.txt": "5e444028b6e76d96f9dc509609c5e3222bf609056f35e5fcde7e6fb8a58cd446",
     })
-
+    ucd_zip_version(
+        name = "ucd_4",
+        version = "4.1.0",
+        sha256 = "1aa4041a36de1ef94b66beeb152ebd967f5f9be62f8b4ef382909258ef99b732",
+    )
