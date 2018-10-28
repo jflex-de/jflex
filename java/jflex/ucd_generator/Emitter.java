@@ -62,8 +62,10 @@ public class Emitter {
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
     unicodePropertiesVars.classComment = createClassComment();
-    unicodePropertiesVars.unicodeVersionsAsString = Joiner.on(", ").join(versions.versions());
-    unicodePropertiesVars.latestUnicodeVersion = versions.getLastVersion();
+    unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.versions());
+    unicodePropertiesVars.latestVersion = versions.getLastVersion();
+    unicodePropertiesVars.versions = versions.versions();
+    unicodePropertiesVars.ucdVersions = versions;
     return unicodePropertiesVars;
   }
 

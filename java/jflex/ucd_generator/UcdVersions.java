@@ -48,6 +48,15 @@ public class UcdVersions {
     return versions.lastKey();
   }
 
+  public String getClassNameForVersion(String version) {
+    // TODO: This should be in emitter
+    return "jflex.core.unicode.data.Unicode_" + getMajorVersion(version);
+  }
+
+  private static String getMajorVersion(String version) {
+    return version.substring(0, version.indexOf('.'));
+  }
+
   static class Builder {
 
     ImmutableSortedMap.Builder<String, ImmutableMap<UcdFileType, File>> versionsBuilder =

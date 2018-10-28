@@ -144,13 +144,14 @@ public class UnicodeProperties {
     switch(version) {
       #foreach( $v in $versions )
       case "$v":
-          bind(
-              $ucdVersions.getClassNameForVersion($v).propertyValues,
-              jflex.core.unicode.data.Unicode_1.intervals,
-              jflex.core.unicode.data.Unicode_1.propertyValueAliases,
-              jflex.core.unicode.data.Unicode_1.maximumCodePoint,
-              jflex.core.unicode.data.Unicode_1.caselessMatchPartitions,
-              jflex.core.unicode.data.Unicode_1.caselessMatchPartitionSize);
+        bind(
+            ${ucdVersions.getClassNameForVersion($v)}.propertyValues,
+            ${ucdVersions.getClassNameForVersion($v)}.intervals,
+            ${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
+            ${ucdVersions.getClassNameForVersion($v)}.maximumCodePoint,
+            ${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
+            ${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
+        break;
       #end
       default:
         throw new UnsupportedUnicodeVersionException();
