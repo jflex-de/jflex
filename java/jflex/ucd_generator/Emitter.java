@@ -61,7 +61,7 @@ public class Emitter {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
     unicodePropertiesVars.packageName = targetPackage;
     unicodePropertiesVars.classComment = createClassComment();
-    unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.versions());
+    unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
     unicodePropertiesVars.latestVersion = versions.getLastVersion();
     unicodePropertiesVars.versions = versions.versions();
     unicodePropertiesVars.ucdVersions = versions;

@@ -141,11 +141,12 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch(version) {
-      #foreach( $v in $versions )
-#*  *#// Version $v
-      case "${ucdVersions.getMajorVersion($v)}":
-      case "$v":
-        bind(
+#foreach( $v in $versions )
+      // Version $v
+  #foreach( $ev in ${ucdVersions.expandVersion($v)} )
+      case "$ev":
+  #end
+#**#      bind(
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValues,
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.intervals,
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
@@ -153,8 +154,8 @@ public class UnicodeProperties {
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
         break;
-      #end
-#*  *#default:
+#end
+      default:
         throw new UnsupportedUnicodeVersionException();
     }
   }

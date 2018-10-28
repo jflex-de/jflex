@@ -7,13 +7,14 @@ import org.junit.Test;
 public class UcdVersionsTest {
 
   @Test
-  public void getMajorVersion() throws Exception {
-    assertThat(UcdVersions.getMajorVersion("1.2.3.4")).isEqualTo("1");
+  public void expandVersions() throws Exception {
+    assertThat(UcdVersions.expandVersion("1.2.3.4"))
+        .containsExactly("1", "1.2", "1.2.3", "1.2.3.4");
   }
 
   @Test
-  public void getMajorVersion_majorOnly() throws Exception {
-    assertThat(UcdVersions.getMajorVersion("1")).isEqualTo("1");
+  public void expandVersions_majorOnly() throws Exception {
+    assertThat(UcdVersions.expandVersion("1")).containsExactly("1");
   }
 
   @Test

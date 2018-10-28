@@ -19,6 +19,7 @@ import static java.lang.Math.min;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import java.io.File;
@@ -61,13 +62,21 @@ public class UcdVersions {
   }
 
   @SuppressWarnings("unused") // Used in .vm
-  public static String getMajorVersion(String version) {
-    int idx = version.indexOf('.');
-    if (idx > 0) {
-      return version.substring(0, idx);
-    } else {
-      return version;
+  public static ImmutableList<String> expandVersion(String version) {
+    ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
+    List<String> v = Splitter.on('.').splitToList(version);
+    for (int i = 1; i <= v.size(); i++) {
+      expandedVersions.add(Joiner.on('.').join(v.subList(0, i)));
     }
+    return expandedVersions.build();
+  }
+
+  public ImmutableList<String> expandAllVersions() {
+    ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
+    for (String v : versions()) {
+      expandedVersions.addAll(expandVersion(v));
+    }
+    return expandedVersions.build();
   }
 
   static class Builder {

@@ -30,9 +30,9 @@ public class UnicodeProperties {
 
   /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.2, 2.3";
+      "1, 1.2, 2, 2.3, 2.3.4";
 
-  private static final String DEFAULT_UNICODE_VERSION = "2.3";
+  private static final String DEFAULT_UNICODE_VERSION = "2.3.4";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
@@ -144,8 +144,8 @@ public class UnicodeProperties {
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch(version) {
       // Version 1.2
-      case "1":
-      case "1.2":
+        case "1":
+        case "1.2":
         bind(
             org.example.data.Unicode_1_2.propertyValues,
             org.example.data.Unicode_1_2.intervals,
@@ -154,9 +154,10 @@ public class UnicodeProperties {
             org.example.data.Unicode_1_2.caselessMatchPartitions,
             org.example.data.Unicode_1_2.caselessMatchPartitionSize);
         break;
-      // Version 2.3
-      case "2":
-      case "2.3":
+      // Version 2.3.4
+        case "2":
+        case "2.3":
+        case "2.3.4":
         bind(
             org.example.data.Unicode_2_3.propertyValues,
             org.example.data.Unicode_2_3.intervals,

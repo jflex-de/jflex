@@ -32,6 +32,6 @@ genrule(
     name = "gen_unicode_properties",
     srcs = ["//third_party/unicode:ucd_9"],
     outs = ["UnicodeProperties.java"],
-    cmd = "$(location :Main) --version=9.0 $(locations //third_party/unicode:ucd_9) > $@",
+    cmd = "$(location :Main) --version=9.0.0 $(locations //third_party/unicode:ucd_9) > $@",
     tools = [":Main"],
 )
