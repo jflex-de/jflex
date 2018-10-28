@@ -30,6 +30,16 @@ public class DiffOutputStreamTest {
         () -> diff(in, out));
   }
 
+  @Test
+  public void testOneLine_differs2() throws Exception {
+    String in = "Hello!\n";
+    String out = "Hello world!\n";
+    assertThrows(
+        DiffOutputStream.class + " throws an exception when the content differs",
+        AssertionError.class,
+        () -> diff(in, out));
+  }
+
   private static void diff(String in, String out) throws IOException {
     BufferedOutputStream diffStream =
         new BufferedOutputStream(new DiffOutputStream(new StringReader(in)));
