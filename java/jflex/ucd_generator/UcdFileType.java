@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ucd_generator;
+package jflex.ucd_generator;
 
-import com.google.common.collect.ImmutableMap;
-import java.io.File;
-
-public class UcdGenerator {
-
-  /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
-  public static void generate(
-      ImmutableMap<String, ImmutableMap<ucd_generator.UcdFileType, File>> versions)
-      throws Exception {
-    Emitter emitter = new Emitter(new File("java/jflex/core/unicode"), versions);
-    emitter.emitUnicodeProperties();
-  }
-
-  private UcdGenerator() {}
+public enum UcdFileType {
+  DerivedAge, // Common across all versions
+  UnicodeData, // Always exists since version 1
+  Blocks,
+  DerivedCoreProperties,
+  GraphemeBreakProperty,
+  LineBreak,
+  PropertyAliases,
+  PropertyValueAliases,
+  PropList,
+  SentenceBreakProperty,
+  Scripts,
+  ScriptExtensions,
+  WordBreakProperty,
 }

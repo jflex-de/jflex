@@ -1,4 +1,4 @@
-package ucd_generator;
+package jflex.ucd_generator;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;

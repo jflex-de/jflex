@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ucd_generator;
+package jflex.ucd_generator;
 
-import velocity.TemplateVars;
+import jflex.velocity.TemplateVars;
 
-@SuppressWarnings("unused") // the fields in this class are only read via reflection by Velocity
+// the fields in this class are read via reflection by Velocity
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class UnicodePropertiesVars extends TemplateVars {
-  String classComment;
+  public String classComment;
 }

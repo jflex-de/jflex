@@ -117,7 +117,7 @@ public class UnicodeProperties {
 
   /**
    * Unpacks the caseless match data. Called from
-   * {@link #getCaselessMatches(int)} to lazily initialize.
+   * {@link \#getCaselessMatches(int)} to lazily initialize.
    */
   private void initCaselessMatches() {
     caselessMatches = new IntCharSet[maximumCodePoint + 1];

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package velocity;
+package jflex.velocity;
 
 import java.lang.reflect.Field;
 import org.apache.velocity.VelocityContext;

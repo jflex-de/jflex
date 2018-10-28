@@ -10,7 +10,7 @@ java_library(
         "UnicodeProperties.java.vm",
     ],
     deps = [
-        "//java/velocity",
+        "//java/jflex/velocity:velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],
