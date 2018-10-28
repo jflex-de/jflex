@@ -8,6 +8,7 @@ public class PackageUtilTest {
 
   @Test
   public void getPathForPackage() throws Exception {
-    assertThat(PackageUtil.getPathForPackage(Package.getPackage("foo.bar"))).isEqualTo("foo/bar");
+    assertThat(PackageUtil.getPathForPackage(getClass().getPackage()))
+        .isEqualTo("jflex/testing/javac");
   }
 }
