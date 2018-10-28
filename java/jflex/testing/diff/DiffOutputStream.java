@@ -1,12 +1,12 @@
 package jflex.testing.diff;
 
 import static com.google.common.truth.Truth.assertWithMessage;
-import static java.lang.Math.max;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * An output streams that asserts that every printed lined is equal to the one from the expected
@@ -28,7 +28,7 @@ public class DiffOutputStream extends OutputStream {
   private byte buf[] = new byte[2048];
 
   /** The current lines being compared. Only {@code \n} serves as a line separator. */
-  private int line = 0;
+  private int line = 1;
 
   /**
    * The number of valid bytes in the buffer.
@@ -53,6 +53,7 @@ public class DiffOutputStream extends OutputStream {
       String expectedLine = in.readLine();
       assertThatWrittenWasExpected(expectedLine);
       count = 0;
+      line++;
     } else {
       count++;
     }
@@ -60,16 +61,23 @@ public class DiffOutputStream extends OutputStream {
 
   private void assertThatWrittenWasExpected(String expectedLine) throws IOException {
     byte[] expectedRaw = expectedLine.getBytes(UTF_8);
-    for (int i = 0; i < max(count, expectedRaw.length); i++) {
+    if (count != expectedLine.length()) {
+      failOnDifferentLine(expectedLine);
+    }
+    int length = count;
+    for (int i = 0; i < length; i++) {
       if (buf[i] != expectedRaw[i]) {
-        byte[] actualRaw = new byte[count];
-        System.arraycopy(buf, 0, actualRaw, 0, count);
-        String actualLine = new String(actualRaw, UTF_8);
-        assertWithMessage("Content differs on line %s:\n", line)
-            .that(actualLine)
-            .isEqualTo(expectedLine);
-        return;
+        failOnDifferentLine(expectedLine);
       }
     }
+  }
+
+  private void failOnDifferentLine(String expectedLine) throws UnsupportedEncodingException {
+    byte[] actualRaw = new byte[count];
+    System.arraycopy(buf, 0, actualRaw, 0, count);
+    String actualLine = new String(actualRaw, UTF_8);
+    assertWithMessage("Content differs on line %s:\n", line)
+        .that(actualLine)
+        .isEqualTo(expectedLine);
   }
 }
