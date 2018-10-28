@@ -53,3 +53,8 @@ third_party_deps()
 
 load("//third_party:maven_workspace.bzl", "maven_dependencies")
 maven_dependencies()
+
+# Unicode character definitions (UCD) from Unicode.org
+load("//third_party/unicode:unicode.bzl", "unicode_deps")
+
+unicode_deps()

@@ -1,4 +1,6 @@
 directories:
+  java
+  javatests
   # Add the directories you want added as source here
   # By default, we've added your entire workspace ('.')
   cup
@@ -11,6 +13,8 @@ directories:
   third_party
 
 targets:
+  //java/...
+  //javatests/...
   # Add targets that reach the source code that you want to resolve here
   //jflex/examples/...
   //testsuite/javatests/...
