@@ -1,8 +1,11 @@
 package jflex.ucd_generator;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.google.common.collect.ImmutableMap;
+import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
 import org.junit.Test;
 
@@ -13,8 +16,8 @@ public class EmitterTest {
     File goldenFile = new File("javatests/jflex/ucd_generator/UnicodeProperties.java.golden");
 
     // in-memory output
-    // ByteArrayOutputStream output = new ByteArrayOutputStream();
-    DiffOutputStream output = new DiffOutputStream(new FileReader(goldenFile));
+    DiffOutputStream output =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
 
     // fake ucd version 1.2
     ImmutableMap<UcdFileType, File> ucd1 =
@@ -28,9 +31,6 @@ public class EmitterTest {
     Emitter emitter = new Emitter("org.example", versions);
 
     emitter.emitUnicodeProperties(output);
-
-    // TODO(regisd) Integration test for what we have in codebase
-    //    String expected = Files.asCharSource(goldenFile, Charsets.UTF_8).read();
-    // assertThat(output.toString()).isEqualTo(expected);
+    assertThat(output.isCompleted()).isTrue();
   }
 }
