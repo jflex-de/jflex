@@ -15,6 +15,9 @@
  */
 package jflex.ucd_generator;
 
+import static java.lang.Math.min;
+
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
@@ -54,14 +57,17 @@ public class UcdVersions {
   public static String getClassNameForVersion(String version) {
     // TODO: This should be in emitter
     List<String> v = Splitter.on('.').splitToList(version);
-    String major = v.get(0);
-    String minor = v.get(1);
-    return String.format("Unicode_%s_%s", major, minor);
+    return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }
 
   @SuppressWarnings("unused") // Used in .vm
   public static String getMajorVersion(String version) {
-    return version.substring(0, version.indexOf('.'));
+    int idx = version.indexOf('.');
+    if (idx > 0) {
+      return version.substring(0, idx);
+    } else {
+      return version;
+    }
   }
 
   static class Builder {
