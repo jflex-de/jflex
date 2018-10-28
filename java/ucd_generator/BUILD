@@ -6,13 +6,13 @@ java_library(
         ["*.java"],
         exclude = SRCS_MAIN,
     ),
+    resources = [
+        "UnicodeProperties.java.vm",
+    ],
     deps = [
         "//java/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
-    ],
-    resources = [
-        "UnicodeProperties.java.vm",
     ],
 )
 

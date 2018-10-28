@@ -1,10 +1,10 @@
 package velocity;
 
 import static com.google.common.truth.Truth.assertThat;
+import static jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class TemplateVarsTest {
@@ -17,10 +17,8 @@ public class TemplateVarsTest {
   }
 
   @Test
-  @Ignore // use assertThrows
   public void toVelocityContext_notSet() {
-    VelocityContext context = foo.toVelocityContext();
-    assertThat(context.get("bar")).isNull();
+    assertThrows(NullPointerException.class, () -> foo.toVelocityContext());
   }
 
   @Test
@@ -31,8 +29,8 @@ public class TemplateVarsTest {
   }
 
   @Test
-  @Ignore
   public void toVelocityContext_nonPublicField() {
+    foo.bar = "ignored";
     VelocityContext context = foo.toVelocityContext();
     assertThat(context.get("secret")).isNull();
   }
@@ -41,7 +39,7 @@ public class TemplateVarsTest {
     @SuppressWarnings("WeakerAccess") // Only public fields are exposed to the template.
     public String bar;
 
-    @SuppressWarnings("unused") // used by reflection
+    @SuppressWarnings("unused") // unused, but that's for test
     String secret;
   }
 }
