@@ -30,8 +30,28 @@ java_binary(
 
 genrule(
     name = "gen_unicode_properties",
-    srcs = ["//third_party/unicode:ucd_9"],
+    srcs = [
+        "//third_party/unicode:ucd_1",
+        "//third_party/unicode:ucd_2",
+        "//third_party/unicode:ucd_3",
+        "//third_party/unicode:ucd_4",
+        "//third_party/unicode:ucd_5",
+        "//third_party/unicode:ucd_6",
+        "//third_party/unicode:ucd_7",
+        "//third_party/unicode:ucd_8",
+        "//third_party/unicode:ucd_9",
+        ],
     outs = ["UnicodeProperties.java"],
-    cmd = "$(location :Main) --version=9.0.0 $(locations //third_party/unicode:ucd_9) > $@",
+    cmd = "$(location :Main)" +
+        " --version=1.1.5 $(locations //third_party/unicode:ucd_1)" +
+        " --version=2.1.9 $(locations //third_party/unicode:ucd_2)" +
+        " --version=3.2.0 $(locations //third_party/unicode:ucd_3)" +
+        " --version=4.1.0 $(locations //third_party/unicode:ucd_4)" +
+        " --version=5.2.0 $(locations //third_party/unicode:ucd_5)" +
+        " --version=6.3.0 $(locations //third_party/unicode:ucd_6)" +
+        " --version=7.0.0 $(locations //third_party/unicode:ucd_7)" +
+        " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
+        " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
+        " > $@",
     tools = [":Main"],
 )
