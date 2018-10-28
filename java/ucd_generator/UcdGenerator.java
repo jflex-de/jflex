@@ -11,7 +11,7 @@ public class UcdGenerator {
   public static void generate(ImmutableMap<String, ImmutableMap<DataFileType, File>> versions)
       throws IOException {
 
-    new Emitter(new File("."));
+    new Emitter(new File("java/jflex/core/unicode"));
   }
 
   private UcdGenerator() {}
