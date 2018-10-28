@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.unicode;
+package jflex.core.unicode;
 
 import java.util.HashMap;
 import java.util.Map;
