@@ -1,6 +1,7 @@
 package jflex.testing.javac;
 
-public class PackageUtil {
+@SuppressWarnings("WeakerAccess")
+public final class PackageUtil {
   public static String getPathForClass(Class clazz) {
     return getPathForPackage(clazz.getPackage());
   }
