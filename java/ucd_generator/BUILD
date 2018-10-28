@@ -7,10 +7,12 @@ java_library(
         exclude = SRCS_MAIN,
     ),
     deps = [
+        "//java/ucd_generator/velocity",
         "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
     ],
     resources = [
-        "//jflex-unicode-maven-plugin/src/main/resources:skeleton",
+        "UnicodeProperties.java.vm",
     ],
 )
 

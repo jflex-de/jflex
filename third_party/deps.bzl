@@ -7,6 +7,12 @@ def third_party_deps():
         sha1 = "9746af1a485e50cf18dcb232489032a847067066",
     )
     native.maven_jar(
+        name = "org_apache_velocity",
+        artifact = "org.apache.velocity:velocity:jar:1.7",
+        repository = "https://jcenter.bintray.com/",
+        sha1 = "2ceb567b8f3f21118ecdec129fe1271dbc09aa7a",
+    )
+    native.maven_jar(
         name = "com_google_auto_value_auto_value",
         artifact = "com.google.auto.value:auto-value:jar:1.4.1",
         repository = "http://jcenter.bintray.com/",
