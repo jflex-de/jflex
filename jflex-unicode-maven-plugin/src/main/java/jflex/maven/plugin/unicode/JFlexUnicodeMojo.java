@@ -108,8 +108,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     try {
       getLog().info("Downloading Unicode data from " + UNICODE_DOT_ORG_URL + "\n");
       collectUnicodeVersions();
-      emitUnicodeProperties();
-      emitVersionedUnicodeData();
+      Emitter emitter = new Emitter(outputDirectory);
+      emitter.emitUnicodeProperties(SKELETON_FILENAME);
+      emitter.emitVersionedUnicodeData();
     } catch (Exception e) {
       throw new MojoExecutionException("Exception", e);
     }

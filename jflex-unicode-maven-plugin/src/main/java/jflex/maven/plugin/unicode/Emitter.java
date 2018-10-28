@@ -26,7 +26,7 @@ public class Emitter {
    *
    * @throws Exception If there is an error writing the output file.
    */
-  private void emitUnicodeProperties(String skeletonFileName) throws Exception {
+  public void emitUnicodeProperties(String skeletonFileName) throws Exception {
     StringBuilder builder = new StringBuilder();
     UnicodePropertiesSkeleton skeleton = new UnicodePropertiesSkeleton(skeletonFileName);
     skeleton.emitNext(builder); // Header
@@ -67,7 +67,7 @@ public class Emitter {
     builder.append("\";");
   }
 
-  private void emitVersionedUnicodeData() throws IOException {
+  public void emitVersionedUnicodeData() throws IOException {
     for (UnicodeVersion unicodeVersion : unicodeVersions.values()) {
       unicodeVersion.emitToDir(new File(outputDirectory, "data"));
     }
