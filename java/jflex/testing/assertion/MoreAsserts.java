@@ -1,10 +1,19 @@
 package jflex.testing.assertion;
 
+import javax.annotation.Nullable;
+
 public final class MoreAsserts {
+
+  private static final String MESSAGE = "Expected to throw a %s but method has thrown a %s instead";
+
+  public static <T extends Throwable> void assertThrows(
+      Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
+    assertThrows(/*message=*/ null, expectedThrowable, throwingRunnable);
+  }
 
   @SuppressWarnings("AvoidCatchingThrowable")
   public static <T extends Throwable> void assertThrows(
-      String message, Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
+      @Nullable String message, Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
     try {
       throwingRunnable.run();
     } catch (Throwable actualThrowable) {
@@ -14,9 +23,14 @@ public final class MoreAsserts {
       } else {
         // Unexpected exception
         String msg =
-            String.format(
-                "%s: expected to throw a %s but method has thrown a %s instead",
-                message, expectedThrowable.getName(), actualThrowable.getClass().getName());
+            message == null
+                ? String.format(
+                    MESSAGE, expectedThrowable.getName(), actualThrowable.getClass().getName())
+                : String.format(
+                    "%s: " + MESSAGE,
+                    message,
+                    expectedThrowable.getName(),
+                    actualThrowable.getClass().getName());
         throw new AssertionError(msg, actualThrowable);
       }
     }

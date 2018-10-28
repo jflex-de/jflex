@@ -7,4 +7,7 @@ java_library(
         "MoreAsserts.java",
         "ThrowingRunnable.java",
     ],
+    deps = [
+        "@jsr305//jar",
+    ],
 )
