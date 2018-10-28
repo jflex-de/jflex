@@ -1,4 +1,4 @@
-package(default_visibility = ["//testsuite:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "javac",

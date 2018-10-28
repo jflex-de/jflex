@@ -1,8 +1,8 @@
 package jflex.testcase.action_pipe;
 
 import jflex.exceptions.GeneratorException;
-import jflex.testing.JFlexTestRunner;
-import jflex.testing.annotations.TestSpec;
+import jflex.testing.testsuite.JFlexTestRunner;
+import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

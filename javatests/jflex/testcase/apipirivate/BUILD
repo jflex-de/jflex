@@ -8,7 +8,7 @@ jflex_testsuite(
         "private.flex",
     ],
     deps = [
-        "//testsuite/bzltestsuite:javac",
+        "//java/jflex/testing/javac",
         "//third_party/com/google/guava",
     ],
 )

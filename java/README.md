@@ -1,3 +1,3 @@
-# Java sources of main code
+# Java sources
 
-**WIP** Migration to Bazel.
+**WIP** Migation to Bazel

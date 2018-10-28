@@ -1,12 +1,12 @@
 package jflex.testcase.arr_return;
 
-import jflex.testing.JFlexTestRunner;
-import jflex.testing.annotations.TestSpec;
+import jflex.testing.testsuite.JFlexTestRunner;
+import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JFlexTestRunner.class)
-@TestSpec(lex = "testsuite/javatests/jflex/testcase/arr_return/arr.flex")
+@TestSpec(lex = "javatests/jflex/testcase/arr_return/arr.flex")
 public class ArrReturnTest {
   @Test
   public void ok() {}

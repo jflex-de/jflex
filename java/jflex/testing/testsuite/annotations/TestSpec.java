@@ -1,4 +1,4 @@
-package jflex.testing.annotations;
+package jflex.testing.testsuite.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

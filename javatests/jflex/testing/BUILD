@@ -4,7 +4,7 @@ jflex_testsuite(
     name = "DiffOutputStreamTest",
     srcs = ["DiffOutputStreamTest.java"],
     deps = [
-        "//testsuite/bzltestsuite/java/jflex/testing/assertion",
-        "//testsuite/bzltestsuite/java/jflex/testing/diff",
+        "//java/jflex/testing/assertion",
+        "//java/jflex/testing/diff",
     ],
 )
