@@ -1,46 +1,50 @@
 package ucd_generator;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
 public class Main {
 
-  static final String BAZEL_PREFIX =
+  private static final String BAZEL_PREFIX =
       Main.class.getPackage().getName().replace('.', File.separatorChar);
+  private static final String ARG_VERSION = "--version=";
 
-  /** Args: version=file,file,file version=file,file, */
+  /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
-    ImmutableMap<String, ImmutableMap<DataFileType, File>> versions = parseArgs(argv);
+    System.out.println("Args " + Arrays.toString(argv));
+    ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions = parseArgs(argv);
+    System.out.println("Generate unicode properties for " + versions);
     UcdGenerator.generate(versions);
   }
 
-  private static ImmutableMap<String, ImmutableMap<DataFileType, File>> parseArgs(String[] argv)
+  private static ImmutableMap<String, ImmutableMap<UcdFileType, File>> parseArgs(String[] argv)
       throws FileNotFoundException {
-    ImmutableMap.Builder<String, ImmutableMap<DataFileType, File>> versions =
-        ImmutableMap.builder();
-    for (String arg : argv) {
-      List<String> a = Splitter.on("=").splitToList(arg);
-      String version = a.get(0);
-      List<String> files = ImmutableList.copyOf(Splitter.on(",").split(a.get(1)));
-      ImmutableMap<DataFileType, File> fileMap = findUcdFiles(files);
-      System.out.println(Joiner.on('\n').join(fileMap.entrySet()));
-      versions.put(version, fileMap);
+    ImmutableMap.Builder<String, ImmutableMap<UcdFileType, File>> versions = ImmutableMap.builder();
+    ArrayList<String> files = new ArrayList<>();
+    for (int i = argv.length - 1; i >= 0; i--) {
+      String arg = argv[i];
+      if (arg.startsWith(ARG_VERSION)) {
+        String version = arg.substring(ARG_VERSION.length());
+        versions.put(version, findUcdFiles(files));
+        files.clear();
+      } else {
+        files.add(arg);
+      }
     }
     return versions.build();
   }
 
-  private static ImmutableMap<DataFileType, File> findUcdFiles(List<String> argv)
+  private static ImmutableMap<UcdFileType, File> findUcdFiles(List<String> argv)
       throws FileNotFoundException {
-    EnumMap<DataFileType, File> files = new EnumMap<>(DataFileType.class);
+    EnumMap<UcdFileType, File> files = new EnumMap<>(UcdFileType.class);
     for (String arg : argv) {
-      for (DataFileType type : DataFileType.values()) {
+      for (UcdFileType type : UcdFileType.values()) {
         if (arg.contains(type.name())) {
           // File downloaded by Bazel in the external dir
           File externalFile = new File(BAZEL_PREFIX, arg);

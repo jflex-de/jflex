@@ -8,7 +8,9 @@ java_library(
     ),
     deps = [
         "//third_party/com/google/guava",
-        "//jflex-unicode-maven-plugin/src/main/java/jflex/maven/plugin/unicode",
+    ],
+    resources = [
+        "//jflex-unicode-maven-plugin/src/main/resources:skeleton",
     ],
 )
 
@@ -23,8 +25,8 @@ java_binary(
 
 genrule(
     name = "gen_unicode_properties",
-    srcs = ["//third_party/unicode:ucd_1"],
+    srcs = ["//third_party/unicode:ucd_9"],
     outs = ["logs.txt"],
-    cmd = "$(location :Main) 1=$(location //third_party/unicode:ucd_1) > $@",
+    cmd = "$(location :Main) --version=9 $(locations //third_party/unicode:ucd_9) > $@",
     tools = [":Main"],
 )

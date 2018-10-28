@@ -1,6 +1,6 @@
 package ucd_generator;
 
-public enum DataFileType {
+public enum UcdFileType {
   DerivedAge, // Common across all versions
   UnicodeData, // Always exists since version 1
   Blocks,

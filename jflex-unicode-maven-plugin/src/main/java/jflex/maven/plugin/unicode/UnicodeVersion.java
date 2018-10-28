@@ -31,6 +31,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.maven.plugin.logging.Log;
 
 /**
  * This class is instantiated for each version of Unicode for which data can be found at
@@ -137,7 +138,7 @@ class UnicodeVersion {
   /** The maximum size of the partitions in {@link #caselessMatchPartitions}. */
   int caselessMatchPartitionSize = 0;
 
-  EnumMap<DataFileType, URL> dataFiles;
+  private EnumMap<DataFileType, URL> dataFiles;
 
   /**
    * Instantiates a container for versioned Unicode data.
@@ -149,6 +150,23 @@ class UnicodeVersion {
   UnicodeVersion(String version, EnumMap<DataFileType, URL> dataFiles) {
     this.dataFiles = dataFiles;
     setVersions(version, dataFiles.get(DataFileType.UNICODE_DATA));
+  }
+
+  /**
+   * Fetches and parses the data files defined for this Unicode version.
+   *
+   * @param log Where to put info about which files have been fetched and parsed
+   * @throws IOException If there is a problem fetching or parsing any of this version's data files.
+   */
+  public void fetchAndParseDataFiles(Log log) throws IOException {
+    // Use the enum ordering to process in the correct order
+    for (EnumMap.Entry<DataFileType, URL> entry : dataFiles.entrySet()) {
+      DataFileType fileType = entry.getKey();
+      URL url = entry.getValue();
+      log.info("\t\tFetching/parsing: " + url.getPath());
+      fileType.scan(url, this);
+      log.info("\t\tCompleted: " + url.getPath());
+    }
   }
 
   /**
@@ -631,7 +649,7 @@ class UnicodeVersion {
    * @param writer Where to emit the escaped character.
    * @param codePoint The code point for which to emit an escaped character.
    */
-  private static void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
+  private void emitEscapedBMPChar(PrintWriter writer, int codePoint) {
     switch (codePoint) {
         // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
         // a syntax error when it is included in a literal string, because it is
