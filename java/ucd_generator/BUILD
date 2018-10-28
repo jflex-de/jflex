@@ -7,7 +7,7 @@ java_library(
         exclude = SRCS_MAIN,
     ),
     deps = [
-        "//java/ucd_generator/velocity",
+        "//java/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],

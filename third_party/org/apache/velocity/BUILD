@@ -2,7 +2,11 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
-alias(
+java_library(
     name = "velocity",
-    actual = "@org_apache_velocity//jar",
+    exports = [
+        "@org_apache_velocity//jar",
+        "@org_apache_commons_collections//jar",
+        "@org_apache_commons_lang//jar",
+    ],
 )
