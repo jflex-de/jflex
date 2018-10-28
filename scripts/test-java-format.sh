@@ -29,6 +29,8 @@ logi "Check java format"
 logi "================="
 java -jar $TOOLSDIR/google-java-format.jar --version
 gjf cup-maven-plugin
+gjf java
+gjf javatests
 gjf jflex
 gjf jflex-maven-plugin
 gjf jflex-unicode-maven-plugin
