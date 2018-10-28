@@ -5,15 +5,20 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package_group(
     name = "visibility",
-    packages = ["//jflex/...", "//testsuite/..."],
+    packages = [
+        "//java/...",
+        "//javatests/...",
+        "//jflex/...",
+        "//testsuite/...",
+    ],
 )
 
 java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
     runtime_deps = [
-        "//jflex/src/main/java/jflex:jflex_ui",
         "//cup:cup_runtime",
+        "//jflex/src/main/java/jflex:jflex_ui",
     ],
 )
 
