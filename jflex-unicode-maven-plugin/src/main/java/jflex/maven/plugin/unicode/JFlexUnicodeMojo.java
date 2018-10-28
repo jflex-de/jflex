@@ -51,8 +51,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private SortedMap<String, UnicodeVersion> unicodeVersions = new TreeMap<>();
 
   /** The name of the skeleton file for the output class. */
-  private static final String SKELETON_FILENAME =
-      jflex.maven.plugin.unicode.Emitter.OUTPUT_CLASS_NAME + ".java.skeleton";
+  private static final String SKELETON_FILENAME = Emitter.OUTPUT_CLASS_NAME + ".java.skeleton";
 
   /** Pattern for links that lead to sub-directories on Unicode.org directory listing web pages. */
   private static final Pattern DIRECTORY_LINK_PATTERN =

@@ -4,8 +4,10 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.EnumMap;
 import java.util.List;
 
 public class Main {
@@ -36,7 +38,7 @@ public class Main {
 
   private static ImmutableMap<UnicodeFileType, File> findUcdFiles(List<String> argv)
       throws FileNotFoundException {
-    ImmutableMap.Builder<UnicodeFileType, File> files = ImmutableMap.builder();
+    EnumMap<UnicodeFileType, File> files = new EnumMap<UnicodeFileType, File>();
     for (String arg : argv) {
       for (UnicodeFileType type : UnicodeFileType.values()) {
         if (arg.contains(type.name())) {
@@ -49,7 +51,7 @@ public class Main {
         }
       }
     }
-    return files.build();
+    return Maps.immutableEnumMap(files);
   }
 
   private Main() {}
