@@ -4,10 +4,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
 import jflex.testing.javac.CompilerException;
 import jflex.testing.javac.JavacUtil;
+import jflex.testing.testsuite.JFlexTestRunner;
+import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
