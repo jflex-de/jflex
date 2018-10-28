@@ -1,3 +1,4 @@
+#set( $H = '#' )
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Unicode Properties                                                *
  * Copyright (c) 2008-2013  Steve Rowe <sarowe@gmail.com>                  *
@@ -28,25 +29,24 @@ public class UnicodeProperties {
 
   /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "$unicodeVersionsAsString";
+      "$versionsAsString";
 
-  private static final String DEFAULT_UNICODE_VERSION = "$latestUnicodeVersion";
+  private static final String DEFAULT_UNICODE_VERSION = "$latestVersion";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
-  private Map<String,IntCharSet> propertyValueIntervals
-    = new HashMap<String,IntCharSet>();
+  private Map<String, IntCharSet> propertyValueIntervals = new HashMap<>();
   private String caselessMatchPartitions;
   private int caselessMatchPartitionSize;
   private IntCharSet caselessMatches[];
 
   /**
-   * Unpacks the Unicode data corresponding to the default Unicode version:
-   * "{@value #DEFAULT_UNICODE_VERSION}".
+   * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
+   * #DEFAULT_UNICODE_VERSION}".
    *
-   * @throws UnsupportedUnicodeVersionException if the default version is not
-   *  supported.
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the default version is not
+   *     supported.
    */
   public UnicodeProperties() throws UnsupportedUnicodeVersionException {
     init(DEFAULT_UNICODE_VERSION);
@@ -56,11 +56,10 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the given version.
    *
    * @param version The Unicode version for which to unpack data
-   * @throws UnsupportedUnicodeVersionException if the given version is not
-   *  supported.
+   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the given version is not
+   *     supported.
    */
-  public UnicodeProperties(String version)
-    throws UnsupportedUnicodeVersionException {
+  public UnicodeProperties(String version) throws UnsupportedUnicodeVersionException {
     init(version);
   }
 
@@ -74,115 +73,121 @@ public class UnicodeProperties {
   }
 
   /**
-   * Returns the character interval set associated with the given property value
-   * for the selected Unicode version.
+   * Returns the character interval set associated with the given property value for the selected
+   * Unicode version.
    *
-   * @param propertyValue The Unicode property or property value (or alias for
-   *  one of these) for which to return the corresponding character intervals.
-   * @return The character interval set corresponding to the given property
-   *  value, if a match exists, and null otherwise.
+   * @param propertyValue The Unicode property or property value (or alias for one of these) for
+   *     which to return the corresponding character intervals.
+   * @return The character interval set corresponding to the given property value, if a match
+   *     exists, and null otherwise.
    */
   public IntCharSet getIntCharSet(String propertyValue) {
     return propertyValueIntervals.get(normalize(propertyValue));
   }
 
   /**
-   * Returns the set of all properties, property values, and their aliases
-   * supported by the specified Unicode version.
+   * Returns the set of all properties, property values, and their aliases supported by the
+   * specified Unicode version.
    *
-   * @return The set of all properties supported by the specified Unicode
-   *  version
+   * @return The set of all properties supported by the specified Unicode version
    */
   public Set<String> getPropertyValues() {
     return propertyValueIntervals.keySet();
   }
 
   /**
-   * Returns a set of character intervals representing all characters
-   * that are case-insensitively equivalent to the given character,
-   * including the given character itself.
-   * <p/>
-   * The first call to this method lazily initializes the backing data.
+   * Returns a set of character intervals representing all characters that are case-insensitively
+   * equivalent to the given character, including the given character itself.
+   *
+   * <p>The first call to this method lazily initializes the backing data.
    *
    * @param c The character for which to return case-insensitive equivalents.
-   * @return All case-insensitively equivalent characters, or null
-   *  if the given character is case-insensitively equivalent only to itself.
+   * @return All case-insensitively equivalent characters, or null if the given character is
+   *     case-insensitively equivalent only to itself.
    */
   public IntCharSet getCaselessMatches(int c) {
-    if (null == caselessMatches)
-      initCaselessMatches();
+    if (null == caselessMatches) initCaselessMatches();
     return caselessMatches[c];
   }
 
   /**
-   * Unpacks the caseless match data. Called from
-   * {@link \#getCaselessMatches(int)} to lazily initialize.
+   * Unpacks the caseless match data. Called from {@link ${H}getCaselessMatches(int)} to lazily
+   * initialize.
    */
   private void initCaselessMatches() {
     caselessMatches = new IntCharSet[maximumCodePoint + 1];
     int[] members = new int[caselessMatchPartitionSize];
-    for (int index = 0 ; index < caselessMatchPartitions.length() ; ) {
+    for (int index = 0; index < caselessMatchPartitions.length(); ) {
       IntCharSet partition = new IntCharSet();
-      for (int n = 0 ; n < caselessMatchPartitionSize ; ++n) {
+      for (int n = 0; n < caselessMatchPartitionSize; ++n) {
         int c = caselessMatchPartitions.codePointAt(index);
         index += Character.charCount(c);
         members[n] = c;
         if (c > 0) partition.add(c); // ignore trailing zero padding
       }
       if (partition.containsElements()) {
-        for (int n = 0 ; n < caselessMatchPartitionSize ; ++n) {
-          if (members[n] > 0)
-            caselessMatches[members[n]] = partition;
+        for (int n = 0; n < caselessMatchPartitionSize; ++n) {
+          if (members[n] > 0) caselessMatches[members[n]] = partition;
         }
       }
     }
   }
 
   /**
-   * Based on the given version, selects and binds the corresponding Unicode
-   * data to facilitate mappings from property values to character intervals.
+   * Based on the given version, selects and binds the corresponding Unicode data to facilitate
+   * mappings from property values to character intervals.
    *
    * @param version The Unicode version for which to bind data
-   * @throws UnsupportedUnicodeVersionException if the given version is not
-   *  supported.
+   * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
-
---- Initialization
-
+    switch(version) {
+      #foreach( $v in $versions )
+      case "$v":
+          bind(
+              $ucdVersions.getClassNameForVersion($v).propertyValues,
+              jflex.core.unicode.data.Unicode_1.intervals,
+              jflex.core.unicode.data.Unicode_1.propertyValueAliases,
+              jflex.core.unicode.data.Unicode_1.maximumCodePoint,
+              jflex.core.unicode.data.Unicode_1.caselessMatchPartitions,
+              jflex.core.unicode.data.Unicode_1.caselessMatchPartitionSize);
+      #end
+      default:
+        throw new UnsupportedUnicodeVersionException();
+    }
   }
 
   /**
-   * Unpacks data for the selected Unicode version, populating
-   * {@link #propertyValueIntervals}.
+   * Unpacks data for the selected Unicode version, populating {@link #propertyValueIntervals}.
    *
-   * @param propertyValues The list of property values, in same order as the
-   *  packed data corresponding to them, in the given intervals, for the
-   *  selected Unicode version.
-   * @param intervals The packed character intervals corresponding to and in the
-   *  same order as the given propertyValues, for the selected Unicode version.
-   * @param propertyValueAliases Key/value pairs mapping property value aliases
-   *  to property values, for the selected Unicode version.
-   * @param maximumCodePoint The maximum code point for the selected Unicode
-   *  version.
-   * @param caselessMatchPartitions The packed caseless match partition data for
-   *  the selected Unicode version
-   * @param caselessMatchPartitionSize The partition data record length (the
-   *  maximum number of elements in a caseless match partition) for the selected
-   *  Unicode version.
+   * @param propertyValues The list of property values, in same order as the packed data
+   *     corresponding to them, in the given intervals, for the selected Unicode version.
+   * @param intervals The packed character intervals corresponding to and in the same order as the
+   *     given propertyValues, for the selected Unicode version.
+   * @param propertyValueAliases Key/value pairs mapping property value aliases to property values,
+   *     for the selected Unicode version.
+   * @param maximumCodePoint The maximum code point for the selected Unicode version.
+   * @param caselessMatchPartitions The packed caseless match partition data for the selected
+   *     Unicode version
+   * @param caselessMatchPartitionSize The partition data record length (the maximum number of
+   *     elements in a caseless match partition) for the selected Unicode version.
    */
-  private void bind(String[] propertyValues, String[] intervals,
-                    String[] propertyValueAliases, int maximumCodePoint,
-                    String caselessMatchPartitions, int caselessMatchPartitionSize) {
+  private void bind(
+      String[] propertyValues,
+      String[] intervals,
+      String[] propertyValueAliases,
+      int maximumCodePoint,
+      String caselessMatchPartitions,
+      int caselessMatchPartitionSize) {
     // IntCharSet caselessMatches[] is lazily initialized - don't unpack here
     this.caselessMatchPartitions = caselessMatchPartitions;
     this.caselessMatchPartitionSize = caselessMatchPartitionSize;
     this.maximumCodePoint = maximumCodePoint;
-    for (int n = 0 ; n < propertyValues.length ; ++n) {
+    for (int n = 0; n < propertyValues.length; ++n) {
       String propertyValue = propertyValues[n];
       String propertyIntervals = intervals[n];
       IntCharSet set = new IntCharSet();
-      for (int index = 0 ; index < propertyIntervals.length() ; ) {
+      for (int index = 0; index < propertyIntervals.length(); ) {
         int start = propertyIntervals.codePointAt(index);
         index += Character.charCount(start);
         int end = propertyIntervals.codePointAt(index);
@@ -192,8 +197,7 @@ public class UnicodeProperties {
       propertyValueIntervals.put(propertyValue, set);
       if (2 == propertyValue.length()) {
         String singleLetter = propertyValue.substring(0, 1);
-        IntCharSet singleLetterPropValueSet
-          = propertyValueIntervals.get(singleLetter);
+        IntCharSet singleLetterPropValueSet = propertyValueIntervals.get(singleLetter);
         if (null == singleLetterPropValueSet) {
           singleLetterPropValueSet = new IntCharSet();
           propertyValueIntervals.put(singleLetter, singleLetterPropValueSet);
@@ -201,7 +205,7 @@ public class UnicodeProperties {
         singleLetterPropValueSet.add(set);
       }
     }
-    for (int n = 0 ; n < propertyValueAliases.length ; n += 2) {
+    for (int n = 0; n < propertyValueAliases.length; n += 2) {
       String alias = propertyValueAliases[n];
       String propertyValue = propertyValueAliases[n + 1];
       IntCharSet targetSet = propertyValueIntervals.get(propertyValue);
@@ -212,9 +216,7 @@ public class UnicodeProperties {
     bindInvariantIntervals();
   }
 
-  /**
-   * Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}.
-   */
+  /** Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}. */
   private void bindInvariantIntervals() {
     IntCharSet asciiSet = new IntCharSet(new Interval(0, 0x7F));
     propertyValueIntervals.put(normalize("ASCII"), asciiSet);
@@ -224,21 +226,20 @@ public class UnicodeProperties {
   }
 
   /**
-   * Normalizes the given identifier, by: downcasing; removing whitespace,
-   * underscores, hyphens, and parentheses; and substituting '=' for every ':'.
+   * Normalizes the given identifier, by: downcasing; removing whitespace, underscores, hyphens, and
+   * parentheses; and substituting '=' for every ':'.
    *
    * @param identifier The identifier to normalize
    * @return The normalized identifier
    */
   private String normalize(String identifier) {
-    if (null == identifier)
-      return identifier;
+    if (null == identifier) return identifier;
     Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase(Locale.ENGLISH));
     return matcher.replaceAll("").replace(':', '=');
   }
 
   public static class UnsupportedUnicodeVersionException extends Exception {
-	private static final long serialVersionUID = -1718158223161422981L;
+    private static final long serialVersionUID = -1718158223161422981L;
 
     public UnsupportedUnicodeVersionException() {
       super("Supported versions: " + UNICODE_VERSIONS);
