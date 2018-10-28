@@ -18,13 +18,9 @@ package jflex.velocity;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.context.InternalContextAdapterImpl;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeInstance;
-import org.apache.velocity.runtime.RuntimeServices;
-import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.ParseException;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
 
@@ -37,15 +33,15 @@ public class Velocity {
     velocityRuntimeInstance.setProperty(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
   }
 
-  public static void render(Reader templateReader, String templateName, TemplateVars templateVars, Writer writer)
+  public static void render(
+      Reader templateReader, String templateName, TemplateVars templateVars, Writer writer)
       throws IOException, ParseException {
     VelocityContext velocityContext = templateVars.toVelocityContext();
     SimpleNode tpl = Velocity.parsedTemplateForResource(templateReader, templateName);
     velocityRuntimeInstance.render(velocityContext, writer, templateName, tpl);
   }
 
-  private static SimpleNode parsedTemplateForResource(Reader template,
-      String templateName) {
+  private static SimpleNode parsedTemplateForResource(Reader template, String templateName) {
     try {
       return velocityRuntimeInstance.parse(template, templateName);
     } catch (ParseException e) {
