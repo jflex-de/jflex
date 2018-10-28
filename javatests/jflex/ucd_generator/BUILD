@@ -8,6 +8,6 @@ java_test(
         "//third_party/com/google/truth",
     ],
     data = [
-        "//jflex/src/main/java/jflex/core:unicode/UnicodeProperties.java"
+        "UnicodeProperties.java.golden",
     ]
 )

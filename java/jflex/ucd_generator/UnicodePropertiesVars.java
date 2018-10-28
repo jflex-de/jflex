@@ -21,4 +21,6 @@ import jflex.velocity.TemplateVars;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class UnicodePropertiesVars extends TemplateVars {
   public String classComment;
+  public String unicodeVersionsAsString;
+  public String latestUnicodeVersion;
 }

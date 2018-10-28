@@ -10,7 +10,7 @@ public class EmitterTest {
 
   @Test
   public void emitUnicodeProperties() throws Exception {
-    File goldenFile = new File("jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java");
+    File goldenFile = new File("javatests/jflex/ucd_generator/UnicodeProperties.java.golden");
 
     // in-memory output
     // ByteArrayOutputStream output = new ByteArrayOutputStream();

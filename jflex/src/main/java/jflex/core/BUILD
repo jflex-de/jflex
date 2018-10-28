@@ -17,6 +17,3 @@ java_library(
         "//jflex/src/main/java/jflex/scanner",
     ],
 )
-
-# Used as a golden file by ucd_generator
-exports_files(["unicode/UnicodeProperties.java"])

@@ -15,6 +15,7 @@
  */
 package jflex.ucd_generator;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,6 +64,8 @@ public class Emitter {
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
     unicodePropertiesVars.classComment = createClassComment();
+    unicodePropertiesVars.unicodeVersionsAsString = Joiner.on(", ").join(versions.keySet());
+    unicodePropertiesVars.latestUnicodeVersion = versions.keySet().asList().get(0);
     return unicodePropertiesVars;
   }
 
