@@ -15,7 +15,6 @@
  */
 package jflex.ucd_generator;
 
-import com.google.common.collect.ImmutableMap;
 import java.io.File;
 import java.io.FileOutputStream;
 import jflex.testing.javac.PackageUtil;
@@ -25,8 +24,7 @@ public class UcdGenerator {
   public static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
   /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
-  public static void generate(ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions)
-      throws Exception {
+  public static void generate(UcdVersions versions) throws Exception {
     Package targetPackage = Package.getPackage(PACKAGE_JFLEX_UNICODE);
     Emitter emitter = new Emitter(targetPackage, versions);
     try (FileOutputStream output =

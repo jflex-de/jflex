@@ -18,14 +18,13 @@ public class Main {
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
     System.out.println("Args " + Arrays.toString(argv));
-    ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions = parseArgs(argv);
+    UcdVersions versions = parseArgs(argv);
     System.out.println("Generate unicode properties for " + versions);
     UcdGenerator.generate(versions);
   }
 
-  private static ImmutableMap<String, ImmutableMap<UcdFileType, File>> parseArgs(String[] argv)
-      throws FileNotFoundException {
-    ImmutableMap.Builder<String, ImmutableMap<UcdFileType, File>> versions = ImmutableMap.builder();
+  private static UcdVersions parseArgs(String[] argv) throws FileNotFoundException {
+    UcdVersions.Builder versions = UcdVersions.builder();
     ArrayList<String> files = new ArrayList<>();
     for (int i = argv.length - 1; i >= 0; i--) {
       String arg = argv[i];

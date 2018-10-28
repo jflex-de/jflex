@@ -16,9 +16,7 @@
 package jflex.ucd_generator;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableMap;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -32,9 +30,9 @@ public class Emitter {
       PackageUtil.getPathForClass(Emitter.class) + "/UnicodeProperties.java.vm";
 
   private final Package targetPackage;
-  private final ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions;
+  private final UcdVersions versions;
 
-  Emitter(Package targetPackage, ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions) {
+  Emitter(Package targetPackage, UcdVersions versions) {
     this.targetPackage = targetPackage;
     this.versions = versions;
   }
@@ -64,8 +62,8 @@ public class Emitter {
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
     unicodePropertiesVars.classComment = createClassComment();
-    unicodePropertiesVars.unicodeVersionsAsString = Joiner.on(", ").join(versions.keySet());
-    unicodePropertiesVars.latestUnicodeVersion = versions.keySet().asList().get(0);
+    unicodePropertiesVars.unicodeVersionsAsString = Joiner.on(", ").join(versions.versions());
+    unicodePropertiesVars.latestUnicodeVersion = versions.getLastVersion();
     return unicodePropertiesVars;
   }
 

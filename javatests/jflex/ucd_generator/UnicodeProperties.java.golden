@@ -31,9 +31,10 @@ public class UnicodeProperties {
 
   /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.2";
+      "1.2, 2.3";
 
-  private static final String DEFAULT_UNICODE_VERSION = "9.0";
+  private static final String DEFAULT_UNICODE_VERSION = "2.3";
+
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;

@@ -30,8 +30,7 @@ public class UnicodeProperties {
   public static final String UNICODE_VERSIONS =
       "$unicodeVersionsAsString";
 
-  private static final String DEFAULT_UNICODE_VERSION =
-      "$latestUnicodeVersion";
+  private static final String DEFAULT_UNICODE_VERSION = "$latestUnicodeVersion";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 

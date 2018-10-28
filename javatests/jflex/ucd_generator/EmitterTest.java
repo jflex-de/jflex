@@ -19,7 +19,12 @@ public class EmitterTest {
     // fake ucd version 1.2
     ImmutableMap<UcdFileType, File> ucd1 =
         ImmutableMap.of(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions = ImmutableMap.of("1.2", ucd1);
+    ImmutableMap<UcdFileType, File> ucd2 =
+        ImmutableMap.of(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
+    UcdVersions versions =
+        UcdVersions.of(
+            "1.2", ucd1,
+            "2.3", ucd2);
     Emitter emitter = new Emitter(Package.getPackage("org.example"), versions);
 
     emitter.emitUnicodeProperties(output);
