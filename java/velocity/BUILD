@@ -5,6 +5,6 @@ java_library(
         "//third_party/org/apache/velocity",
     ],
     visibility = [
-        "//java/ucd_generator:__subpackages__",
+        "//visibility:public",
     ],
 )

@@ -17,7 +17,9 @@ package ucd_generator;
 
 import com.google.common.collect.ImmutableMap;
 import java.io.File;
-import org.apache.velocity.runtime.parser.node.SimpleNode;
+import java.io.StringWriter;
+import java.io.Writer;
+import org.apache.velocity.app.VelocityEngine;
 import velocity.Velocity;
 
 public class Emitter {
@@ -28,8 +30,13 @@ public class Emitter {
   Emitter(File skeleton, ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions) {}
 
   void emitUnicodeProperties() throws Exception {
-    SimpleNode template =
-        Velocity.parsedTemplateForResource(UNICODE_PROPERTIES_TEMPLATE, "emitUnicodeProperties");
+    VelocityEngine velocityEngine = new VelocityEngine();
+    velocityEngine.init();
+
+    UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
+    Writer writer = new StringWriter();
+    Velocity.render(UNICODE_PROPERTIES_TEMPLATE, unicodePropertiesVars, writer);
+    //    template.render();
 
     //    UnicodePropertiesSkeleton skeleton = new UnicodePropertiesSkeleton(out);
     //

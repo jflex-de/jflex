@@ -15,6 +15,10 @@
  */
 package velocity;
 
+import java.io.IOException;
+import java.io.Writer;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.context.InternalContextAdapterImpl;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeInstance;
 import org.apache.velocity.runtime.parser.ParseException;
@@ -29,7 +33,14 @@ public class Velocity {
     velocityRuntimeInstance.setProperty(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
   }
 
-  public static SimpleNode parsedTemplateForResource(String templateStr, String resourceName) {
+  public static void render(String templateResName, TemplateVars temolateVars, Writer writer)
+      throws IOException {
+    VelocityContext velocityContext = temolateVars.toVelocityContext();
+    SimpleNode tpl = Velocity.parsedTemplateForResource(templateResName, templateResName);
+    tpl.render(new InternalContextAdapterImpl(velocityContext), writer);
+  }
+
+  private static SimpleNode parsedTemplateForResource(String templateStr, String resourceName) {
     try {
       return velocityRuntimeInstance.parse(templateStr, resourceName);
     } catch (ParseException e) {
