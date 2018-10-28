@@ -20,6 +20,7 @@ import jflex.velocity.TemplateVars;
 // the fields in this class are read via reflection by Velocity
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class UnicodePropertiesVars extends TemplateVars {
+  public String packageName;
   public String classComment;
   public String versionsAsString;
   public String latestVersion;

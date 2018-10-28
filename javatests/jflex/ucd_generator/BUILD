@@ -9,5 +9,14 @@ java_test(
     ],
     data = [
         "UnicodeProperties.java.golden",
-    ]
+    ],
+)
+
+java_test(
+    name = "UcdVersionsTest",
+    srcs = ["UcdVersionsTest.java"],
+    deps = [
+        "//java/jflex/ucd_generator",
+        "//third_party/com/google/truth",
+    ],
 )

@@ -29,10 +29,10 @@ public class Emitter {
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       PackageUtil.getPathForClass(Emitter.class) + "/UnicodeProperties.java.vm";
 
-  private final Package targetPackage;
+  private final String targetPackage;
   private final UcdVersions versions;
 
-  Emitter(Package targetPackage, UcdVersions versions) {
+  Emitter(String targetPackage, UcdVersions versions) {
     this.targetPackage = targetPackage;
     this.versions = versions;
   }
@@ -61,6 +61,7 @@ public class Emitter {
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
+    unicodePropertiesVars.packageName = targetPackage;
     unicodePropertiesVars.classComment = createClassComment();
     unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.versions());
     unicodePropertiesVars.latestVersion = versions.getLastVersion();

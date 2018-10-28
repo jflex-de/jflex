@@ -9,7 +9,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core.unicode;
+package $packageName;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -20,7 +20,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.chars.Interval;
 import jflex.core.IntCharSet;
-import jflex.core.unicode.data.*;
 
 #if (!$classComment.empty)
 $classComment
@@ -147,12 +146,12 @@ public class UnicodeProperties {
       case "${ucdVersions.getMajorVersion($v)}":
       case "$v":
         bind(
-            ${ucdVersions.getClassNameForVersion($v)}.propertyValues,
-            ${ucdVersions.getClassNameForVersion($v)}.intervals,
-            ${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
-            ${ucdVersions.getClassNameForVersion($v)}.maximumCodePoint,
-            ${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
-            ${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValues,
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.intervals,
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.maximumCodePoint,
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
+            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
         break;
       #end
 #*  *#default:

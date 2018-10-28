@@ -25,7 +25,7 @@ public class EmitterTest {
         UcdVersions.of(
             "1.2", ucd1,
             "2.3", ucd2);
-    Emitter emitter = new Emitter(Package.getPackage("org.example"), versions);
+    Emitter emitter = new Emitter("org.example", versions);
 
     emitter.emitUnicodeProperties(output);
 

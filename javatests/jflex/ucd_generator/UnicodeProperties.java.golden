@@ -8,7 +8,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core.unicode;
+package org.example;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -147,23 +147,23 @@ public class UnicodeProperties {
       case "1":
       case "1.2":
         bind(
-            jflex.core.unicode.data.Unicode_1.propertyValues,
-            jflex.core.unicode.data.Unicode_1.intervals,
-            jflex.core.unicode.data.Unicode_1.propertyValueAliases,
-            jflex.core.unicode.data.Unicode_1.maximumCodePoint,
-            jflex.core.unicode.data.Unicode_1.caselessMatchPartitions,
-            jflex.core.unicode.data.Unicode_1.caselessMatchPartitionSize);
+            org.example.data.Unicode_1_2.propertyValues,
+            org.example.data.Unicode_1_2.intervals,
+            org.example.data.Unicode_1_2.propertyValueAliases,
+            org.example.data.Unicode_1_2.maximumCodePoint,
+            org.example.data.Unicode_1_2.caselessMatchPartitions,
+            org.example.data.Unicode_1_2.caselessMatchPartitionSize);
         break;
       // Version 2.3
       case "2":
       case "2.3":
         bind(
-            jflex.core.unicode.data.Unicode_2.propertyValues,
-            jflex.core.unicode.data.Unicode_2.intervals,
-            jflex.core.unicode.data.Unicode_2.propertyValueAliases,
-            jflex.core.unicode.data.Unicode_2.maximumCodePoint,
-            jflex.core.unicode.data.Unicode_2.caselessMatchPartitions,
-            jflex.core.unicode.data.Unicode_2.caselessMatchPartitionSize);
+            org.example.data.Unicode_2_3.propertyValues,
+            org.example.data.Unicode_2_3.intervals,
+            org.example.data.Unicode_2_3.propertyValueAliases,
+            org.example.data.Unicode_2_3.maximumCodePoint,
+            org.example.data.Unicode_2_3.caselessMatchPartitions,
+            org.example.data.Unicode_2_3.caselessMatchPartitionSize);
         break;
       default:
         throw new UnsupportedUnicodeVersionException();
