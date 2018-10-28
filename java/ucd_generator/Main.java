@@ -38,7 +38,7 @@ public class Main {
 
   private static ImmutableMap<DataFileType, File> findUcdFiles(List<String> argv)
       throws FileNotFoundException {
-    EnumMap<DataFileType, File> files = new EnumMap<DataFileType, File>();
+    EnumMap<DataFileType, File> files = new EnumMap<>(DataFileType.class);
     for (String arg : argv) {
       for (DataFileType type : DataFileType.values()) {
         if (arg.contains(type.name())) {
