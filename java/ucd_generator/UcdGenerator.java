@@ -8,7 +8,7 @@ import jflex.maven.plugin.unicode.Emitter;
 public class UcdGenerator {
 
   /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
-  public static void generate(ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> versions)
+  public static void generate(ImmutableMap<String, ImmutableMap<DataFileType, File>> versions)
       throws IOException {
 
     new Emitter(new File("."));

@@ -17,30 +17,30 @@ public class Main {
 
   /** Args: version=file,file,file version=file,file, */
   public static void main(String[] argv) throws Exception {
-    ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> versions = parseArgs(argv);
+    ImmutableMap<String, ImmutableMap<DataFileType, File>> versions = parseArgs(argv);
     UcdGenerator.generate(versions);
   }
 
-  private static ImmutableMap<String, ImmutableMap<UnicodeFileType, File>> parseArgs(String[] argv)
+  private static ImmutableMap<String, ImmutableMap<DataFileType, File>> parseArgs(String[] argv)
       throws FileNotFoundException {
-    ImmutableMap.Builder<String, ImmutableMap<UnicodeFileType, File>> versions =
+    ImmutableMap.Builder<String, ImmutableMap<DataFileType, File>> versions =
         ImmutableMap.builder();
     for (String arg : argv) {
       List<String> a = Splitter.on("=").splitToList(arg);
       String version = a.get(0);
       List<String> files = ImmutableList.copyOf(Splitter.on(",").split(a.get(1)));
-      ImmutableMap<UnicodeFileType, File> fileMap = findUcdFiles(files);
+      ImmutableMap<DataFileType, File> fileMap = findUcdFiles(files);
       System.out.println(Joiner.on('\n').join(fileMap.entrySet()));
       versions.put(version, fileMap);
     }
     return versions.build();
   }
 
-  private static ImmutableMap<UnicodeFileType, File> findUcdFiles(List<String> argv)
+  private static ImmutableMap<DataFileType, File> findUcdFiles(List<String> argv)
       throws FileNotFoundException {
-    EnumMap<UnicodeFileType, File> files = new EnumMap<UnicodeFileType, File>();
+    EnumMap<DataFileType, File> files = new EnumMap<DataFileType, File>();
     for (String arg : argv) {
-      for (UnicodeFileType type : UnicodeFileType.values()) {
+      for (DataFileType type : DataFileType.values()) {
         if (arg.contains(type.name())) {
           // File downloaded by Bazel in the external dir
           File externalFile = new File(BAZEL_PREFIX, arg);
