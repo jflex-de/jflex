@@ -38,8 +38,6 @@ public class Emitter {
   }
 
   void emitUnicodeProperties(OutputStream output) throws Exception {
-    System.out.println("Rendering " + UNICODE_PROPERTIES_TEMPLATE);
-
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
       Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);

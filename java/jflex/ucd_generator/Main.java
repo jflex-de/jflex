@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -17,9 +16,7 @@ public class Main {
 
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
-    System.out.println("Args " + Arrays.toString(argv));
     UcdVersions versions = parseArgs(argv);
-    System.out.println("Generate unicode properties for " + versions);
     UcdGenerator.generate(versions);
   }
 
