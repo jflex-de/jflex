@@ -1,32 +1,31 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Unicode Properties                                                *
  * Copyright (c) 2008-2013  Steve Rowe <sarowe@gmail.com>                  *
- * Copyright (c) 2018       Google, LLC.                                   *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.unicode;
+package jflex.core.unicode;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.chars.Interval;
 import jflex.core.IntCharSet;
-import jflex.Interval;
-import jflex.unicode.data.*;
-
+import jflex.core.unicode.data.*;
 
 #if (!$classComment.empty)
-package $classComment;
+$classComment
 #end
-
 public class UnicodeProperties {
 
+  /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
 --- List of Unicode versions
 
