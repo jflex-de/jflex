@@ -144,7 +144,9 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch(version) {
-            case "1.2":
+      // Version 1.2
+      case "1":
+      case "1.2":
         bind(
             jflex.core.unicode.data.Unicode_1.propertyValues,
             jflex.core.unicode.data.Unicode_1.intervals,
@@ -153,7 +155,7 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_1.caselessMatchPartitionSize);
         break;
-      // TODO Major version
+      // Version 2.3
       case "2":
       case "2.3":
         bind(

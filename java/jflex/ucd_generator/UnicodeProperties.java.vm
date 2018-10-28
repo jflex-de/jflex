@@ -143,6 +143,8 @@ public class UnicodeProperties {
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch(version) {
       #foreach( $v in $versions )
+#*  *#// Version $v
+      case "${ucdVersions.getMajorVersion($v)}":
       case "$v":
         bind(
             ${ucdVersions.getClassNameForVersion($v)}.propertyValues,
@@ -153,7 +155,7 @@ public class UnicodeProperties {
             ${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
         break;
       #end
-      default:
+#*  *#default:
         throw new UnsupportedUnicodeVersionException();
     }
   }

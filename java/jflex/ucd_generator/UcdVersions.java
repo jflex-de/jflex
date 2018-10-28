@@ -53,7 +53,7 @@ public class UcdVersions {
     return "jflex.core.unicode.data.Unicode_" + getMajorVersion(version);
   }
 
-  private static String getMajorVersion(String version) {
+  public static String getMajorVersion(String version) {
     return version.substring(0, version.indexOf('.'));
   }
 
