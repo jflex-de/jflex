@@ -26,10 +26,12 @@ public class UcdGenerator {
   /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
   public static void generate(UcdVersions versions) throws Exception {
     Emitter emitter = new Emitter(PACKAGE_JFLEX_UNICODE, versions);
+    File outputDir = new File(PackageUtil.getPathForPackage(PACKAGE_JFLEX_UNICODE));
+    if (!outputDir.exists()) {
+      outputDir.mkdirs();
+    }
     try (FileOutputStream output =
-        new FileOutputStream(
-            new File(
-                PackageUtil.getPathForPackage(PACKAGE_JFLEX_UNICODE), "UnicodeProperties.java"))) {
+        new FileOutputStream(new File(outputDir, "UnicodeProperties.java"))) {
       emitter.emitUnicodeProperties(output);
     }
   }
