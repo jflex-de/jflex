@@ -50,3 +50,8 @@ latex_repositories()
 load("//third_party:deps.bzl", "third_party_deps")
 
 third_party_deps()
+
+# Unicode character definitions (UCD) from Unicode.org
+load("//third_party/unicode:unicode.bzl", "unicode_deps")
+
+unicode_deps()
