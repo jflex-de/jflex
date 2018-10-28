@@ -18,14 +18,15 @@ package jflex.ucd_generator;
 import com.google.common.collect.ImmutableMap;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import jflex.testing.javac.PackageUtil;
 import jflex.velocity.Velocity;
 
 public class Emitter {
 
   private static final String UNICODE_PROPERTIES_TEMPLATE =
-      Emitter.class.getPackage().getName().replace('.', '/') + "/UnicodeProperties.java.vm";
+      PackageUtil.getPathForClass(Emitter.class) + "/UnicodeProperties.java.vm";
 
   private final Package targetPackage;
   private final ImmutableMap<String, ImmutableMap<UcdFileType, File>> versions;
@@ -39,7 +40,7 @@ public class Emitter {
     System.out.println("Rendering " + UNICODE_PROPERTIES_TEMPLATE);
 
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
-    Writer writer = new StringWriter();
+    Writer writer = Files.newBufferedWriter();
     Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);
 
     //    emitClassComment();
