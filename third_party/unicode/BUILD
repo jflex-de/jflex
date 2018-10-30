@@ -30,16 +30,38 @@ filegroup(
 )
 
 filegroup(
-    name = "ucd_3",
+    name = "ucd_3_0_1",
     srcs = [
-        "@ucd_3_Blocks_3_2_0_txt//file",
-        "@ucd_3_DerivedCoreProperties_3_2_0_txt//file",
-        "@ucd_3_LineBreak_3_2_0_txt//file",
-        "@ucd_3_PropList_3_2_0_txt//file",
-        "@ucd_3_PropertyAliases_3_2_0_txt//file",
-        "@ucd_3_PropertyValueAliases_3_2_0_txt//file",
-        "@ucd_3_Scripts_3_2_0_txt//file",
-        "@ucd_3_UnicodeData_3_2_0_txt//file",
+        "@ucd_3_0_0_Blocks_3_txt//file",
+        "@ucd_3_0_0_LineBreak_5_txt//file",
+        "@ucd_3_0_1_PropList_3_0_1_txt//file",
+        "@ucd_3_0_1_UnicodeData_3_0_1_txt//file",
+    ],
+)
+
+filegroup(
+    name = "ucd_3_1_1",
+    srcs = [
+        "@ucd_3_1_0_Blocks_4_txt//file",
+        "@ucd_3_1_0_DerivedCoreProperties_3_1_0_txt//file",
+        "@ucd_3_1_0_LineBreak_6_txt//file",
+        "@ucd_3_1_0_Scripts_3_1_0_txt//file",
+        "@ucd_3_1_0_UnicodeData_3_1_0_txt//file",
+        "@ucd_3_1_1_PropList_3_1_1_txt//file",
+    ],
+)
+
+filegroup(
+    name = "ucd_3_2_0",
+    srcs = [
+        "@ucd_3_2_0_Blocks_3_2_0_txt//file",
+        "@ucd_3_2_0_DerivedCoreProperties_3_2_0_txt//file",
+        "@ucd_3_2_0_LineBreak_3_2_0_txt//file",
+        "@ucd_3_2_0_PropList_3_2_0_txt//file",
+        "@ucd_3_2_0_PropertyAliases_3_2_0_txt//file",
+        "@ucd_3_2_0_PropertyValueAliases_3_2_0_txt//file",
+        "@ucd_3_2_0_Scripts_3_2_0_txt//file",
+        "@ucd_3_2_0_UnicodeData_3_2_0_txt//file",
     ],
 )
 

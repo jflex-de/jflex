@@ -79,7 +79,25 @@ def unicode_deps():
         "PropList-2.1.9.txt": "c794fe1d60fbdb0ab8c76a151f56c3d4e51c57e0f779914a767f11bc213630f6",
         "UnicodeData-2.1.9.txt": "3dcee8b6b68151956fb799e4445c4e8948c0f4257d241b193ec3881b08c48137",
     })
-    ucd_version(name = "ucd_3", version = "3.2-Update", files = {
+    ucd_version(name = "ucd_3_0_0", version = "3.0-Update", files = {
+        "Blocks-3.txt": "b574340ba81a64c2eee69ef37eacd422258a67e6899c068f98f3165ef60e31ea",
+        "LineBreak-5.txt": "a8f29019410364458c30c5a8dad41f9748d07280027eeb808bc4cc7f7c1abc73",
+                        })
+    ucd_version(name = "ucd_3_0_1", version = "3.0-Update1", files = {
+        "PropList-3.0.1.txt": "909eef4adbeddbdddcd9487c856fe8cdbb8912aa8eb315ed7885b6ef65f4dc4c",
+        "UnicodeData-3.0.1.txt": "2aea1fc7d7e64d792fcbd56721fef104a153e2783ab28bcaeb171d9742dd5a24",
+    })
+    ucd_version(name = "ucd_3_1_0", version = "3.1-Update", files = {
+        "Blocks-4.txt": "00cdecb26876e7576abb724e39fafb78be24c2f34fe59b94deb70e8262f7bba5",
+        "DerivedCoreProperties-3.1.0.txt": "337c9bdd2098fd354c80b9aecb18cedf06b7aecb78aa88a1be74b249dedd2e06",
+        "LineBreak-6.txt": "e630bb90aca76ba299f109ee2feaa41ded43c663df9f7a8c4d664e2aabff1017",
+        "Scripts-3.1.0.txt": "23423fca7931ba38c5f19ec588c7de76c15af401e2a71b317d9022c2a717665a",
+        "UnicodeData-3.1.0.txt": "8e57884da0da3a66782b8a6332a601fccbcae9ed0060e12501aca02fa56ffecd",
+    })
+    ucd_version(name = "ucd_3_1_1", version = "3.1-Update1", files = {
+        "PropList-3.1.1.txt": "d8b483e1b1143be208ee6ef9aeeb424f3c19828834c4d2c1427fc9a8d4c64d0e",
+    })
+    ucd_version(name = "ucd_3_2_0", version = "3.2-Update", files = {
         "Blocks-3.2.0.txt": "8b367b02089762e753a0b5554182a6a132b9394431c0fe9f1dffb7a3338d86b9",
         "DerivedCoreProperties-3.2.0.txt": "787419dde91701018d7ad4f47432eaa55af14e3fe3fe140a11e4bbf3db18bb4c",
         "LineBreak-3.2.0.txt": "d693ef2a603d07e20b769ef8ba29afca39765588a03e3196294e5be8638ca735",
