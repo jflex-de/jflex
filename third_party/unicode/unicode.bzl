@@ -113,6 +113,16 @@ def unicode_deps():
         sha256 = "1aa4041a36de1ef94b66beeb152ebd967f5f9be62f8b4ef382909258ef99b732",
     )
     ucd_zip_version(
+        name = "ucd_5_0_0",
+        version = "5.0.0",
+        sha256 = "3d007602de6c7de0c4c9a3d8199ae4238de23cb3fe04cb4a1b6935b19333631b",
+    )
+    ucd_zip_version(
+        name = "ucd_5_1_0",
+        version = "5.1.0",
+        sha256 = "d4960aed52cfa1a7b9cf264a2c99a6638344ad0668f6a1c47a3248e0e6aef213",
+    )
+    ucd_zip_version(
         name = "ucd_5_2_0",
         version = "5.2.0",
         sha256 = "3d7a2467d6ee2533de545d833b3cd1cc2488f198e38d7b8b42adc67023a0c646",
