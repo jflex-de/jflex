@@ -118,7 +118,7 @@ def unicode_deps():
         sha256 = "3d7a2467d6ee2533de545d833b3cd1cc2488f198e38d7b8b42adc67023a0c646",
     )
     ucd_zip_version(
-        name = "ucd_6",
+        name = "ucd_6_3_0",
         version = "6.3.0",
         sha256 = "2d3c6c51b5821e821881b13694eccb78812d493762c41e9c95c31a7686ed3823",
         extra_files = ["ScriptExtensions.txt"],
