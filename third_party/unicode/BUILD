@@ -66,8 +66,8 @@ filegroup(
 )
 
 alias(
-    name = "ucd_4",
-    actual = "@ucd_4//:files",
+    name = "ucd_4_1_0",
+    actual = "@ucd_4_1_0//:files",
 )
 
 alias(

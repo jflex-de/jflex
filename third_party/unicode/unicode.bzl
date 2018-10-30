@@ -108,7 +108,7 @@ def unicode_deps():
         "UnicodeData-3.2.0.txt": "5e444028b6e76d96f9dc509609c5e3222bf609056f35e5fcde7e6fb8a58cd446",
     })
     ucd_zip_version(
-        name = "ucd_4",
+        name = "ucd_4_1_0",
         version = "4.1.0",
         sha256 = "1aa4041a36de1ef94b66beeb152ebd967f5f9be62f8b4ef382909258ef99b732",
     )
