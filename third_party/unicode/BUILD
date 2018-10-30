@@ -7,7 +7,7 @@ exports_files(["LICENSE"])
 filegroup(
     name = "ucd_1_1_5",
     srcs = [
-        "@ucd_1_UnicodeData_1_1_5_txt//file",
+        "@ucd_1_1_5_UnicodeData_1_1_5_txt//file",
     ],
 )
 
