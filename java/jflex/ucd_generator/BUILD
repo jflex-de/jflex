@@ -28,6 +28,7 @@ java_binary(
     ],
 )
 
+#TODO(regisd) Move in //jflex/core/jnicode when migration to bazel is completed
 genrule(
     name = "gen_unicode_properties",
     srcs = [
