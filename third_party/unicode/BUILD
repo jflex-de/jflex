@@ -71,8 +71,8 @@ alias(
 )
 
 alias(
-    name = "ucd_5",
-    actual = "@ucd_5//:files",
+    name = "ucd_5_2_0",
+    actual = "@ucd_5_2_0//:files",
 )
 
 alias(
