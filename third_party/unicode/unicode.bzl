@@ -66,10 +66,15 @@ def ucd_file(name, version, file, sha256):
     )
 
 def unicode_deps():
-    ucd_version(name = "ucd_1", version = "1.1-Update", files = {
+    ucd_version(name = "ucd_1_1_5", version = "1.1-Update", files = {
         "UnicodeData-1.1.5.txt": "b0aa30303db3c13701967320550952e7368470776e304b52270fdb9256e4bd5b",
     })
-    ucd_version(name = "ucd_2", version = "2.1-Update4", files = {
+    ucd_version(name = "ucd_2_0_14", version = "2.0-Update", files = {
+        "Blocks-1.txt": "91b0d41a60af658a73e277f108d3f4959a8ec3f3983654b24c00db3a4e146877",
+        "PropList-2.0.14.txt": "b23b98764b7e3e6eef67c161cd4b247dc1e5bcea3184598cdfc8d6cf83a83e23",
+        "UnicodeData-2.0.14.txt": "fdb15931fefb25d34546c575c6507732a4ac48b4b4148510f46ee0161a84c336",
+    })
+    ucd_version(name = "ucd_2_1_9", version = "2.1-Update4", files = {
         "Blocks-2.txt": "6a6653752ce1d8bd1f7a7777001d24d5008a58d138e03f11f9399f2de13fc81c",
         "PropList-2.1.9.txt": "c794fe1d60fbdb0ab8c76a151f56c3d4e51c57e0f779914a767f11bc213630f6",
         "UnicodeData-2.1.9.txt": "3dcee8b6b68151956fb799e4445c4e8948c0f4257d241b193ec3881b08c48137",

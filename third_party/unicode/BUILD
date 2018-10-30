@@ -5,18 +5,27 @@ licenses(["notice"])
 exports_files(["LICENSE"])
 
 filegroup(
-    name = "ucd_1",
+    name = "ucd_1_1_5",
     srcs = [
         "@ucd_1_UnicodeData_1_1_5_txt//file",
     ],
 )
 
 filegroup(
-    name = "ucd_2",
+    name = "ucd_2_0_14",
     srcs = [
-        "@ucd_2_Blocks_2_txt//file",
-        "@ucd_2_PropList_2_1_9_txt//file",
-        "@ucd_2_UnicodeData_2_1_9_txt//file",
+        "@ucd_2_0_14_Blocks_1_txt//file",
+        "@ucd_2_0_14_PropList_2_0_14_txt//file",
+        "@ucd_2_0_14_UnicodeData_2_0_14_txt//file",
+    ],
+)
+
+filegroup(
+    name = "ucd_2_1_9",
+    srcs = [
+        "@ucd_2_1_9_Blocks_2_txt//file",
+        "@ucd_2_1_9_PropList_2_1_9_txt//file",
+        "@ucd_2_1_9_UnicodeData_2_1_9_txt//file",
     ],
 )
 
