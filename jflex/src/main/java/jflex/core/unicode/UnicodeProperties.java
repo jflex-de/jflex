@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * JFlex Unicode Properties                                                *
- * Copyright (c) 2008-2103  Steve Rowe <sarowe@gmail.com>                  *
+ * Copyright (c) 2008-2013  Steve Rowe <sarowe@gmail.com>                  *
+ * Copyright (c) 2018       Google, LLC.                                   *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -12,7 +13,6 @@ package jflex.core.unicode;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,11 +27,11 @@ import jflex.core.IntCharSet;
  */
 public class UnicodeProperties {
 
-  /** Constant {@code UNICODE_VERSIONS="1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9,"{trunked}} */
+  /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0";
+      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.1, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0";
 
-  private static final String DEFAULT_UNICODE_VERSION = "9.0";
+  private static final String DEFAULT_UNICODE_VERSION = "9.0.0";
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
@@ -140,169 +140,215 @@ public class UnicodeProperties {
    * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
-
-    if (Objects.equals(version, "1.1") || Objects.equals(version, "1.1.5")) {
-      bind(
-          jflex.core.unicode.data.Unicode_1_1.propertyValues,
-          jflex.core.unicode.data.Unicode_1_1.intervals,
-          jflex.core.unicode.data.Unicode_1_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_1_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "2")
-        || Objects.equals(version, "2.0")
-        || Objects.equals(version, "2.0.14")) {
-      bind(
-          jflex.core.unicode.data.Unicode_2_0.propertyValues,
-          jflex.core.unicode.data.Unicode_2_0.intervals,
-          jflex.core.unicode.data.Unicode_2_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_2_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "2.1") || Objects.equals(version, "2.1.9")) {
-      bind(
-          jflex.core.unicode.data.Unicode_2_1.propertyValues,
-          jflex.core.unicode.data.Unicode_2_1.intervals,
-          jflex.core.unicode.data.Unicode_2_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_2_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "3")
-        || Objects.equals(version, "3.0")
-        || Objects.equals(version, "3.0.1")) {
-      bind(
-          jflex.core.unicode.data.Unicode_3_0.propertyValues,
-          jflex.core.unicode.data.Unicode_3_0.intervals,
-          jflex.core.unicode.data.Unicode_3_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_3_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "3.1") || Objects.equals(version, "3.1.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_3_1.propertyValues,
-          jflex.core.unicode.data.Unicode_3_1.intervals,
-          jflex.core.unicode.data.Unicode_3_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_3_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "3.2") || Objects.equals(version, "3.2.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_3_2.propertyValues,
-          jflex.core.unicode.data.Unicode_3_2.intervals,
-          jflex.core.unicode.data.Unicode_3_2.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_3_2.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "4")
-        || Objects.equals(version, "4.0")
-        || Objects.equals(version, "4.0.1")) {
-      bind(
-          jflex.core.unicode.data.Unicode_4_0.propertyValues,
-          jflex.core.unicode.data.Unicode_4_0.intervals,
-          jflex.core.unicode.data.Unicode_4_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_4_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "4.1") || Objects.equals(version, "4.1.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_4_1.propertyValues,
-          jflex.core.unicode.data.Unicode_4_1.intervals,
-          jflex.core.unicode.data.Unicode_4_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_4_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "5")
-        || Objects.equals(version, "5.0")
-        || Objects.equals(version, "5.0.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_5_0.propertyValues,
-          jflex.core.unicode.data.Unicode_5_0.intervals,
-          jflex.core.unicode.data.Unicode_5_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_5_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "5.1") || Objects.equals(version, "5.1.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_5_1.propertyValues,
-          jflex.core.unicode.data.Unicode_5_1.intervals,
-          jflex.core.unicode.data.Unicode_5_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_5_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "5.2") || Objects.equals(version, "5.2.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_5_2.propertyValues,
-          jflex.core.unicode.data.Unicode_5_2.intervals,
-          jflex.core.unicode.data.Unicode_5_2.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_5_2.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "6")
-        || Objects.equals(version, "6.0")
-        || Objects.equals(version, "6.0.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_6_0.propertyValues,
-          jflex.core.unicode.data.Unicode_6_0.intervals,
-          jflex.core.unicode.data.Unicode_6_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_6_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "6.1") || Objects.equals(version, "6.1.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_6_1.propertyValues,
-          jflex.core.unicode.data.Unicode_6_1.intervals,
-          jflex.core.unicode.data.Unicode_6_1.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_6_1.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "6.2") || Objects.equals(version, "6.2.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_6_2.propertyValues,
-          jflex.core.unicode.data.Unicode_6_2.intervals,
-          jflex.core.unicode.data.Unicode_6_2.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_6_2.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "6.3") || Objects.equals(version, "6.3.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_6_3.propertyValues,
-          jflex.core.unicode.data.Unicode_6_3.intervals,
-          jflex.core.unicode.data.Unicode_6_3.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_6_3.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "7")
-        || Objects.equals(version, "7.0")
-        || Objects.equals(version, "7.0.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_7_0.propertyValues,
-          jflex.core.unicode.data.Unicode_7_0.intervals,
-          jflex.core.unicode.data.Unicode_7_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_7_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "8")
-        || Objects.equals(version, "8.0")
-        || Objects.equals(version, "8.0.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_8_0.propertyValues,
-          jflex.core.unicode.data.Unicode_8_0.intervals,
-          jflex.core.unicode.data.Unicode_8_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_8_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitionSize);
-    } else if (Objects.equals(version, "9")
-        || Objects.equals(version, "9.0")
-        || Objects.equals(version, "9.0.0")) {
-      bind(
-          jflex.core.unicode.data.Unicode_9_0.propertyValues,
-          jflex.core.unicode.data.Unicode_9_0.intervals,
-          jflex.core.unicode.data.Unicode_9_0.propertyValueAliases,
-          jflex.core.unicode.data.Unicode_9_0.maximumCodePoint,
-          jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitions,
-          jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitionSize);
-    } else {
-      throw new UnsupportedUnicodeVersionException();
+    switch (version) {
+        // Version 1.1.5
+      case "1.1":
+      case "1.1.5":
+        bind(
+            jflex.core.unicode.data.Unicode_1_1.propertyValues,
+            jflex.core.unicode.data.Unicode_1_1.intervals,
+            jflex.core.unicode.data.Unicode_1_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_1_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
+        break;
+        // Version 2.0.14
+      case "2":
+      case "2.0":
+      case "2.0.14":
+        bind(
+            jflex.core.unicode.data.Unicode_2_0.propertyValues,
+            jflex.core.unicode.data.Unicode_2_0.intervals,
+            jflex.core.unicode.data.Unicode_2_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
+        break;
+        // Version 2.1.9
+      case "2.1":
+      case "2.1.9":
+        bind(
+            jflex.core.unicode.data.Unicode_2_1.propertyValues,
+            jflex.core.unicode.data.Unicode_2_1.intervals,
+            jflex.core.unicode.data.Unicode_2_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitionSize);
+        break;
+        // Version 3.0.1
+      case "3":
+      case "3.0":
+      case "3.0.1":
+        bind(
+            jflex.core.unicode.data.Unicode_3_0.propertyValues,
+            jflex.core.unicode.data.Unicode_3_0.intervals,
+            jflex.core.unicode.data.Unicode_3_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitionSize);
+        break;
+        // Version 3.1.1
+      case "3.1":
+      case "3.1.1":
+        bind(
+            jflex.core.unicode.data.Unicode_3_1.propertyValues,
+            jflex.core.unicode.data.Unicode_3_1.intervals,
+            jflex.core.unicode.data.Unicode_3_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitionSize);
+        break;
+        // Version 3.2.0
+      case "3.2":
+      case "3.2.0":
+        bind(
+            jflex.core.unicode.data.Unicode_3_2.propertyValues,
+            jflex.core.unicode.data.Unicode_3_2.intervals,
+            jflex.core.unicode.data.Unicode_3_2.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_2.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitionSize);
+        break;
+        // Version 4.0.1
+      case "4":
+      case "4.0":
+      case "4.0.1":
+        bind(
+            jflex.core.unicode.data.Unicode_4_0.propertyValues,
+            jflex.core.unicode.data.Unicode_4_0.intervals,
+            jflex.core.unicode.data.Unicode_4_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_4_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitionSize);
+        break;
+        // Version 4.1.0
+      case "4.1":
+      case "4.1.0":
+        bind(
+            jflex.core.unicode.data.Unicode_4_1.propertyValues,
+            jflex.core.unicode.data.Unicode_4_1.intervals,
+            jflex.core.unicode.data.Unicode_4_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_4_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitionSize);
+        break;
+        // Version 5.0.0
+      case "5":
+      case "5.0":
+      case "5.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_5_0.propertyValues,
+            jflex.core.unicode.data.Unicode_5_0.intervals,
+            jflex.core.unicode.data.Unicode_5_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_5_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitionSize);
+        break;
+        // Version 5.1.0
+      case "5.1":
+      case "5.1.0":
+        bind(
+            jflex.core.unicode.data.Unicode_5_1.propertyValues,
+            jflex.core.unicode.data.Unicode_5_1.intervals,
+            jflex.core.unicode.data.Unicode_5_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_5_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitionSize);
+        break;
+        // Version 5.2.0
+      case "5.2":
+      case "5.2.0":
+        bind(
+            jflex.core.unicode.data.Unicode_5_2.propertyValues,
+            jflex.core.unicode.data.Unicode_5_2.intervals,
+            jflex.core.unicode.data.Unicode_5_2.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_5_2.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitionSize);
+        break;
+        // Version 6.0.0
+      case "6":
+      case "6.0":
+      case "6.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_6_0.propertyValues,
+            jflex.core.unicode.data.Unicode_6_0.intervals,
+            jflex.core.unicode.data.Unicode_6_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_6_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitionSize);
+        break;
+        // Version 6.1.0
+      case "6.1":
+      case "6.1.0":
+        bind(
+            jflex.core.unicode.data.Unicode_6_1.propertyValues,
+            jflex.core.unicode.data.Unicode_6_1.intervals,
+            jflex.core.unicode.data.Unicode_6_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_6_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitionSize);
+        break;
+        // Version 6.2.0
+      case "6.2":
+      case "6.2.0":
+        bind(
+            jflex.core.unicode.data.Unicode_6_2.propertyValues,
+            jflex.core.unicode.data.Unicode_6_2.intervals,
+            jflex.core.unicode.data.Unicode_6_2.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_6_2.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitionSize);
+        break;
+        // Version 6.3.0
+      case "6.3":
+      case "6.3.0":
+        bind(
+            jflex.core.unicode.data.Unicode_6_3.propertyValues,
+            jflex.core.unicode.data.Unicode_6_3.intervals,
+            jflex.core.unicode.data.Unicode_6_3.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_6_3.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitionSize);
+        break;
+        // Version 7.0.0
+      case "7":
+      case "7.0":
+      case "7.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_7_0.propertyValues,
+            jflex.core.unicode.data.Unicode_7_0.intervals,
+            jflex.core.unicode.data.Unicode_7_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_7_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitionSize);
+        break;
+        // Version 8.0.0
+      case "8":
+      case "8.0":
+      case "8.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_8_0.propertyValues,
+            jflex.core.unicode.data.Unicode_8_0.intervals,
+            jflex.core.unicode.data.Unicode_8_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_8_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitionSize);
+        break;
+        // Version 9.0.0
+      case "9":
+      case "9.0":
+      case "9.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_9_0.propertyValues,
+            jflex.core.unicode.data.Unicode_9_0.intervals,
+            jflex.core.unicode.data.Unicode_9_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_9_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitionSize);
+        break;
+      default:
+        throw new UnsupportedUnicodeVersionException();
     }
   }
 
