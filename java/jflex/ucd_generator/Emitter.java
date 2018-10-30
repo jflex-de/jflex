@@ -42,19 +42,6 @@ public class Emitter {
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
       Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);
     }
-
-    //    emitClassComment();
-    //    // Class declaration and unicode versions static field declaration
-    //    skeleton.emitNext();
-    //    emitUnicodeVersionsString();
-    //    // default unicode version static field declaration
-    //    skeleton.emitNext(builder);
-    //    emitDefaultUnicodeVersion();
-    //    // static vars and fixed method definitions, part 1
-    //    skeleton.emitNext();
-    //    emitInitBody();
-    //    skeleton.emitNext(); // Fixed method definitions, part 2; etc.
-    //    writeOutputFile();
   }
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {
