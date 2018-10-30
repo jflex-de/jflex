@@ -100,6 +100,21 @@ alias(
 )
 
 alias(
+    name = "ucd_6_0_0",
+    actual = "@ucd_6_0_0//:files",
+)
+
+alias(
+    name = "ucd_6_1_0",
+    actual = "@ucd_6_1_0//:files",
+)
+
+alias(
+    name = "ucd_6_2_0",
+    actual = "@ucd_6_2_0//:files",
+)
+
+alias(
     name = "ucd_6_3_0",
     actual = "@ucd_6_3_0//:files",
 )
