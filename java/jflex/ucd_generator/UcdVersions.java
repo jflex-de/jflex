@@ -18,19 +18,20 @@ package jflex.ucd_generator;
 import static java.lang.Math.min;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
-import java.io.File;
+import com.google.common.collect.ImmutableSortedSet;
 import java.util.List;
 
 public class UcdVersions {
 
   // version –> Map<UcdFileType, File>
-  private final ImmutableSortedMap<String, ImmutableMap<UcdFileType, File>> versions;
+  private final ImmutableSortedMap<String, UcdVersion> versions;
 
-  private UcdVersions(ImmutableSortedMap<String, ImmutableMap<UcdFileType, File>> versions) {
+  private UcdVersions(ImmutableSortedMap<String, UcdVersion> versions) {
     this.versions = versions;
   }
 
@@ -40,13 +41,15 @@ public class UcdVersions {
 
   public static UcdVersions of(
       String v1,
-      ImmutableMap<UcdFileType, File> ucd1,
+      UcdVersion.Builder ucd1,
       String v2,
-      ImmutableMap<UcdFileType, File> ucd2) {
-    return builder().put(v1, ucd1).put(v2, ucd2).build();
+      UcdVersion.Builder ucd2,
+      String v3,
+      UcdVersion.Builder ucd3) {
+    return builder().put(v1, ucd1).put(v2, ucd2).put(v3, ucd3).build();
   }
 
-  public Iterable<String> versions() {
+  public ImmutableSet<String> versions() {
     return versions.keySet();
   }
 
@@ -61,18 +64,29 @@ public class UcdVersions {
     return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }
 
+  /** Expands the version {@code x.y.z} into {@code x}, {@code x.y}, {@code x.y.z}. */
   @SuppressWarnings("unused") // Used in .vm
   public static ImmutableList<String> expandVersion(String version) {
     ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
     List<String> v = Splitter.on('.').splitToList(version);
-    for (int i = 1; i <= v.size(); i++) {
-      expandedVersions.add(Joiner.on('.').join(v.subList(0, i)));
+    // Add the major version x if it is a x.0.z version
+    if (v.size() == 1 || (v.size() > 1 && Objects.equal(v.get(1), "0"))) {
+      expandedVersions.add(v.get(0));
+    }
+    for (int i = 2; i <= v.size(); i++) {
+      String subVersion = Joiner.on('.').join(v.subList(0, i));
+      expandedVersions.add(subVersion);
     }
     return expandedVersions.build();
   }
 
-  public ImmutableList<String> expandAllVersions() {
-    ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
+  /**
+   * Expands all versions.
+   *
+   * @return the set of all versions, in decreasing order.
+   */
+  public ImmutableSortedSet<String> expandAllVersions() {
+    ImmutableSortedSet.Builder<String> expandedVersions = ImmutableSortedSet.naturalOrder();
     for (String v : versions()) {
       expandedVersions.addAll(expandVersion(v));
     }
@@ -81,11 +95,11 @@ public class UcdVersions {
 
   static class Builder {
 
-    ImmutableSortedMap.Builder<String, ImmutableMap<UcdFileType, File>> versionsBuilder =
+    ImmutableSortedMap.Builder<String, UcdVersion> versionsBuilder =
         ImmutableSortedMap.naturalOrder();
 
-    public Builder put(String version, ImmutableMap<UcdFileType, File> ucdFiles) {
-      versionsBuilder.put(version, ucdFiles);
+    public Builder put(String version, UcdVersion.Builder ucdFiles) {
+      versionsBuilder.put(version, ucdFiles.withVersion(version).build());
       return this;
     }
 

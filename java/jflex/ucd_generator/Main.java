@@ -1,11 +1,8 @@
 package jflex.ucd_generator;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
 public class Main {
@@ -36,9 +33,8 @@ public class Main {
     return versions.build();
   }
 
-  private static ImmutableMap<UcdFileType, File> findUcdFiles(List<String> argv)
-      throws FileNotFoundException {
-    EnumMap<UcdFileType, File> files = new EnumMap<>(UcdFileType.class);
+  private static UcdVersion.Builder findUcdFiles(List<String> argv) throws FileNotFoundException {
+    UcdVersion.Builder version = UcdVersion.builder();
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {
         if (arg.contains(type.name())) {
@@ -47,11 +43,11 @@ public class Main {
           if (externalFile.exists()) {
             throw new FileNotFoundException(externalFile.getAbsolutePath());
           }
-          files.put(type, externalFile);
+          version.putFile(type, externalFile);
         }
       }
     }
-    return Maps.immutableEnumMap(files);
+    return version;
   }
 
   private Main() {}

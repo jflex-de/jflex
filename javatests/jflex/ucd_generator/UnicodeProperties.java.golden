@@ -30,9 +30,9 @@ public class UnicodeProperties {
 
   /** List of supported unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1, 1.2, 2, 2.3, 2.3.4";
+      "1.2, 1.2.0, 2, 2.0, 2.0.1, 2.4, 2.4.6";
 
-  private static final String DEFAULT_UNICODE_VERSION = "2.3.4";
+  private static final String DEFAULT_UNICODE_VERSION = "2.4.6";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
@@ -143,9 +143,9 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch(version) {
-      // Version 1.2
-        case "1":
+      // Version 1.2.0
         case "1.2":
+        case "1.2.0":
         bind(
             org.example.data.Unicode_1_2.propertyValues,
             org.example.data.Unicode_1_2.intervals,
@@ -154,17 +154,28 @@ public class UnicodeProperties {
             org.example.data.Unicode_1_2.caselessMatchPartitions,
             org.example.data.Unicode_1_2.caselessMatchPartitionSize);
         break;
-      // Version 2.3.4
+      // Version 2.0.1
         case "2":
-        case "2.3":
-        case "2.3.4":
+        case "2.0":
+        case "2.0.1":
         bind(
-            org.example.data.Unicode_2_3.propertyValues,
-            org.example.data.Unicode_2_3.intervals,
-            org.example.data.Unicode_2_3.propertyValueAliases,
-            org.example.data.Unicode_2_3.maximumCodePoint,
-            org.example.data.Unicode_2_3.caselessMatchPartitions,
-            org.example.data.Unicode_2_3.caselessMatchPartitionSize);
+            org.example.data.Unicode_2_0.propertyValues,
+            org.example.data.Unicode_2_0.intervals,
+            org.example.data.Unicode_2_0.propertyValueAliases,
+            org.example.data.Unicode_2_0.maximumCodePoint,
+            org.example.data.Unicode_2_0.caselessMatchPartitions,
+            org.example.data.Unicode_2_0.caselessMatchPartitionSize);
+        break;
+      // Version 2.4.6
+        case "2.4":
+        case "2.4.6":
+        bind(
+            org.example.data.Unicode_2_4.propertyValues,
+            org.example.data.Unicode_2_4.intervals,
+            org.example.data.Unicode_2_4.propertyValueAliases,
+            org.example.data.Unicode_2_4.maximumCodePoint,
+            org.example.data.Unicode_2_4.caselessMatchPartitions,
+            org.example.data.Unicode_2_4.caselessMatchPartitionSize);
         break;
       default:
         throw new UnsupportedUnicodeVersionException();
