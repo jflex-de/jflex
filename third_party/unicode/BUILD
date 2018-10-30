@@ -65,6 +65,20 @@ filegroup(
     ],
 )
 
+filegroup(
+    name = "ucd_4_0_1",
+    srcs = [
+        "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+        "@ucd_4_0_1_DerivedCoreProperties_4_0_1_txt//file",
+        "@ucd_4_0_1_LineBreak_4_0_1_txt//file",
+        "@ucd_4_0_1_PropList_4_0_1_txt//file",
+        "@ucd_4_0_1_PropertyAliases_4_0_1_txt//file",
+        "@ucd_4_0_1_PropertyValueAliases_4_0_1_txt//file",
+        "@ucd_4_0_1_Scripts_4_0_1_txt//file",
+        "@ucd_4_0_1_UnicodeData_4_0_1_txt//file",
+    ],
+)
+
 alias(
     name = "ucd_4_1_0",
     actual = "@ucd_4_1_0//:files",

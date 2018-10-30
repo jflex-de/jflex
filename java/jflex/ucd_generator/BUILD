@@ -38,6 +38,7 @@ genrule(
         "//third_party/unicode:ucd_3_0_1",
         "//third_party/unicode:ucd_3_1_1",
         "//third_party/unicode:ucd_3_2_0",
+        "//third_party/unicode:ucd_4_0_1",
         "//third_party/unicode:ucd_4_1_0",
         "//third_party/unicode:ucd_5_0_0",
         "//third_party/unicode:ucd_5_1_0",
@@ -55,6 +56,7 @@ genrule(
         " --version=3.0.1 $(locations //third_party/unicode:ucd_3_0_1)" +
         " --version=3.1.1 $(locations //third_party/unicode:ucd_3_1_1)" +
         " --version=3.2.0 $(locations //third_party/unicode:ucd_3_2_0)" +
+        " --version=4.0.1 $(locations //third_party/unicode:ucd_4_0_1)" +
         " --version=4.1.0 $(locations //third_party/unicode:ucd_4_1_0)" +
         " --version=5.0.0 $(locations //third_party/unicode:ucd_5_0_0)" +
         " --version=5.1.0 $(locations //third_party/unicode:ucd_5_1_0)" +
