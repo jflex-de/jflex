@@ -2,12 +2,7 @@
 
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")
 load("@bazel_latex//:latex.bzl", "latex_document")
-
-VERSION = "1.7.1-SNAPSHOT"
-
-RELEASE_DATE = "21 September 2018"
-
-UNICODE_VER = "9.0"
+load(":docs.bzl", "replace_placeholders")
 
 GENRULE_CONCATENATE = "cat $(SRCS) > $@"
 
@@ -28,7 +23,7 @@ pandoc(
 
 pandoc(
     name = "latex_content",
-    src = ":manual_mdx",
+    src = ":manual_md",
     from_format = "markdown",
     output = "content.tex",  # If changed, then change \include{} in manual.tex
     to_format = "latex",
@@ -58,16 +53,9 @@ latex_document(
     main = "manual_full.tex",
 )
 
-# Replaces placeholders by their respective value.
-genrule(
-    name = "manual_mdx",
-    srcs = [":concatenated_manual"],
-    outs = ["manual.mdx"],
-    cmd = "sed -e 's/\$$VERSION/" + VERSION + "/g'" +
-          " -e 's/\$${project.version}/" + VERSION + "/g'" +
-          " -e 's/\$$RELEASE_DATE/" + RELEASE_DATE + "/g'" +
-          " -e 's/\$$UNICODE_VER/" + UNICODE_VER + "/g'" +
-          " $< > $@",
+replace_placeholders(
+    name = "manual_md",
+    src = ":concatenated_manual",
 )
 
 # Concatenates all pages in a single document.
