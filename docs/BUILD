@@ -6,9 +6,23 @@ load(":docs.bzl", "replace_placeholders")
 
 GENRULE_CONCATENATE = "cat $(SRCS) > $@"
 
+MD_SRCS = [
+    "md/head.md",
+    "md/intro.md",
+    "md/installing.md",
+    "md/maven-plugin.md",
+    "md/ant-task.md",
+    "md/example.md",
+    "md/lex-specs.md",
+    "md/encodings.md",
+    "md/performance.md",
+    "md/porting-and-parsers.md",
+    "md/end.md",
+]
+
 pandoc(
     name = "html",
-    src = ":manual_mdx",
+    src = ":manual_md",
     from_format = "markdown",
     # TODO: Add "--css manual.css" when the rule accepts data files
     #
@@ -61,19 +75,7 @@ replace_placeholders(
 # Concatenates all pages in a single document.
 genrule(
     name = "concatenated_manual",
-    srcs = [
-        "md/head.md",
-        "md/intro.md",
-        "md/installing.md",
-        "md/maven-plugin.md",
-        "md/ant-task.md",
-        "md/example.md",
-        "md/lex-specs.md",
-        "md/encodings.md",
-        "md/performance.md",
-        "md/porting-and-parsers.md",
-        "md/end.md",
-    ],
+    srcs = MD_SRCS,
     outs = ["concatenated_manual.md"],
     cmd = GENRULE_CONCATENATE,
 )
