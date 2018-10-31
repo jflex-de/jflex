@@ -35,12 +35,14 @@ pandoc(
     to_format = "html",
 )
 
-pandoc(
-    name = "latex_content",
-    src = ":manual_md",
-    from_format = "markdown",
-    output = "content.tex",  # If changed, then change \include{} in manual.tex
-    to_format = "latex",
+latex_document(
+    name = "manual",
+    srcs = [
+        "@bazel_latex//packages:graphicx",
+        "@bazel_latex//packages:hyperref",
+        "@bazel_latex//packages:microtype",
+    ],
+    main = "manual_full.tex",
 )
 
 genrule(
@@ -54,23 +56,19 @@ genrule(
     cmd = GENRULE_CONCATENATE,
 )
 
-latex_document(
-    name = "manual",
-    srcs = [
-        #"manual.tex",
-        # "minimal.tex",
-        # "manual_full.tex",
-        "@bazel_latex//packages:graphicx",
-        "@bazel_latex//packages:hyperref",
-        "@bazel_latex//packages:microtype",
-    ],
-    main = "manual_full.tex",
+pandoc(
+    name = "latex_content",
+    src = ":manual_md",
+    from_format = "markdown",
+    output = "content.tex",  # If changed, then change \include{} in manual.tex
+    to_format = "latex",
 )
 
 replace_placeholders(
     name = "manual_md",
     src = ":concatenated_manual",
 )
+
 
 # Concatenates all pages in a single document.
 genrule(
