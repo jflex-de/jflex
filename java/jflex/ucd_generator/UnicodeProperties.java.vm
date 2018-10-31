@@ -31,6 +31,7 @@ public class UnicodeProperties {
       "$versionsAsString";
 
   private static final String DEFAULT_UNICODE_VERSION = "$latestVersion";
+
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
