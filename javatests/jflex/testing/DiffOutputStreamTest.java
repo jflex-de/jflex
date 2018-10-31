@@ -1,8 +1,8 @@
 package jflex.testing;
 
+import static com.google.common.truth.Truth.assertThat;
 import static jflex.testing.assertion.MoreAsserts.assertThrows;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -17,11 +17,12 @@ public class DiffOutputStreamTest {
     String in = "Hello world!\n";
     @SuppressWarnings("RedundantStringConstructorCall")
     String out = new String(in);
-    diff(in, out);
+    DiffOutputStream differ = diff(in, out);
+    assertThat(differ.isCompleted()).isTrue();
   }
 
   @Test
-  public void testOneLine_differs() throws Exception {
+  public void testOneLine_differ_inHasMore() throws Exception {
     String in = "Hello world!\n";
     String out = "Hello\n";
     assertThrows(
@@ -31,7 +32,7 @@ public class DiffOutputStreamTest {
   }
 
   @Test
-  public void testOneLine_differs2() throws Exception {
+  public void testOneLine_differs_outHasMore() throws Exception {
     String in = "Hello!\n";
     String out = "Hello world!\n";
     assertThrows(
@@ -40,13 +41,13 @@ public class DiffOutputStreamTest {
         () -> diff(in, out));
   }
 
-  private static void diff(String in, String out) throws IOException {
-    BufferedOutputStream diffStream =
-        new BufferedOutputStream(new DiffOutputStream(new StringReader(in)));
+  private static DiffOutputStream diff(String in, String out) throws IOException {
+    DiffOutputStream diffStream = new DiffOutputStream(new StringReader(in));
     try {
       diffStream.write(out.getBytes("UTF-8"));
     } catch (UnsupportedEncodingException impossible) {
     }
     diffStream.flush();
+    return diffStream;
   }
 }
