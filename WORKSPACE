@@ -37,11 +37,15 @@ pandoc_repositories()
 
 # latex rule to build PDF from tex files
 
-http_archive(
+#http_archive(
+#    name = "bazel_latex",
+#    sha256 = "a70090917f42b3d413c02fac7428ffaeeb2a62ebfe283bfb5a4c54debcb96fa5",
+#    strip_prefix = "bazel-latex-0.12",
+#    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.12.tar.gz",
+#)
+local_repository(
     name = "bazel_latex",
-    sha256 = "a70090917f42b3d413c02fac7428ffaeeb2a62ebfe283bfb5a4c54debcb96fa5",
-    strip_prefix = "bazel-latex-0.12",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.12.tar.gz",
+    path = "../bazel-latex",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
