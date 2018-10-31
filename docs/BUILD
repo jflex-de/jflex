@@ -38,6 +38,7 @@ pandoc(
 latex_document(
     name = "manual",
     srcs = [
+        "//docs:fig/jflex-black.png",
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
