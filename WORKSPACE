@@ -39,9 +39,9 @@ pandoc_repositories()
 
 http_archive(
     name = "bazel_latex",
-    sha256 = "a70090917f42b3d413c02fac7428ffaeeb2a62ebfe283bfb5a4c54debcb96fa5",
-    strip_prefix = "bazel-latex-0.12",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.12.tar.gz",
+    sha256 = "ecab535bb50699817cea662014432b4398edd7318ee6a6f64399a3287010961c",
+    strip_prefix = "bazel-latex-0.9",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.9.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
