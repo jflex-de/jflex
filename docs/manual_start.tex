@@ -26,4 +26,7 @@
 
 \newcommand{\textquotesingle}{'}
 
+\let\orighyperref\hyperref
+\renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
+
 \begin{document}
