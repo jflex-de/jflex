@@ -6,7 +6,6 @@ load(":docs.bzl", "jflex_doc_tex", "replace_placeholders")
 
 GENRULE_CONCATENATE = "cat $(SRCS) > $@"
 
-# Changeinput statements if you add a section
 DOC_SECTIONS = [
     "intro",
     "installing",
@@ -56,6 +55,7 @@ latex_document(
     name = "manual",
     srcs = [
         ":fig/jflex-black.png",
+        ":latex_content",
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
@@ -71,5 +71,6 @@ genrule(
     name = "latex_content",
     outs = ["_content.tex"],
     srcs = TEX_SRCS,
-    cmd = "echo " + ("".join(["\input{docs/" + section + "}" for section in DOC_SECTIONS])) + " > $@",
+    cmd = "echo '" + ("\n".join(["\\input{docs/" + section + "}" for section in DOC_SECTIONS])) + "' > $@",
+    output_to_bindir = True, # that's where pdf_latex looks into
 )
