@@ -36,14 +36,14 @@ public class EmitterTest {
     // fake ucd version 1.2
     UcdVersion.Builder ucd1_2 =
         UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_3 =
+    UcdVersion.Builder ucd2_0 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
     UcdVersion.Builder ucd2_4 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
     UcdVersions versions =
         UcdVersions.of(
             "1.2.0", ucd1_2,
-            "2.0.1", ucd2_3,
+            "2.0.1", ucd2_0,
             "2.4.6", ucd2_4);
     Emitter emitter = new Emitter("org.example", versions);
 
