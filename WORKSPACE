@@ -3,11 +3,12 @@
 
 # JFlex itself is not built with Bazel, but some examples and the documentation are.
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
     name = "jflex_rules",
-    tag = "v3",
     remote = "https://github.com/jflex-de/bazel_rules.git",
+    tag = "v3",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
@@ -38,8 +39,9 @@ pandoc_repositories()
 
 http_archive(
     name = "bazel_latex",
-    strip_prefix = "bazel-latex-0.9",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.9.tar.gz",
+    sha256 = "a70090917f42b3d413c02fac7428ffaeeb2a62ebfe283bfb5a4c54debcb96fa5",
+    strip_prefix = "bazel-latex-0.12",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.12.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
