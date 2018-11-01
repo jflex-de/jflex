@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 
 % \usepackage{a4wide} % deprecated. Replace by geometry.
+\usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{microtype}
 % upquote depends on https://github.com/ProdriveTechnologies/bazel-latex/pull/4
@@ -18,6 +19,11 @@
    colorlinks=true, linkcolor=lcol, citecolor=lcol, filecolor=lcol, urlcolor=lcol,
    plainpages=false,
   ]{hyperref}
+
+\geometry{
+   includeheadfoot,
+   margin=2.54cm
+}
 
 % pandoc now uses \tightlist
 \providecommand{\tightlist}{%

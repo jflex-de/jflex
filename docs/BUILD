@@ -57,6 +57,7 @@ latex_document(
         ":fig/jflex-black.png",
         ":first_page",
         ":latex_content",
+        "@bazel_latex//packages:geometry",
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
