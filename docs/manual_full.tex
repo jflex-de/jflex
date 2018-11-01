@@ -25,6 +25,9 @@
 
 \newcommand{\textquotesingle}{'}
 
+\newcommand{\autocite}[1]{\cite{#1}}
+\newcommand{\textcite}[1]{\cite{#1}}
+
 \let\orighyperref\hyperref
 \renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
 

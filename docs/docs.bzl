@@ -34,6 +34,7 @@ def jflex_doc_tex(name, src = None):
         from_format = "markdown",
         output = name + ".tex",  # If changed, then change \include{} in manual.tex
         to_format = "latex",
+        options = ["--biblatex"],
     )
 
     replace_placeholders(
