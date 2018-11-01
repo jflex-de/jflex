@@ -55,6 +55,7 @@ latex_document(
     name = "manual",
     srcs = [
         ":fig/jflex-black.png",
+        ":manual_first_page.tex",
         ":latex_content",
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
