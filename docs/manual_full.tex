@@ -1,0 +1,41 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% \usepackage{a4wide} % deprecated. Replace by geometry.
+\usepackage{graphicx}
+\usepackage{microtype}
+% upquote depends on https://github.com/ProdriveTechnologies/bazel-latex/pull/4
+% \usepackage{upquote}
+\usepackage{color}
+\definecolor{lcol}{rgb}{0,0,0.5}
+\usepackage[
+%  unicode=true,
+   bookmarks,
+   pdftitle={JFlex User's Manual},
+   pdfauthor={Gerwin Klein, Steve Rowe, Regis Decamps},
+   pdfkeywords={Java, scanner, lexer, scanner generator, cup, regexp, regex, dfa, nfa, lalr},
+   colorlinks=true, linkcolor=lcol, citecolor=lcol, filecolor=lcol, urlcolor=lcol,
+   plainpages=false,
+  ]{hyperref}
+
+% pandoc now uses \tightlist
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\newcommand{\textquotesingle}{'}
+
+\let\orighyperref\hyperref
+\renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+\begin{document}
+
+\centerline{\includegraphics[width=0.6\textwidth]{docs/fig/jflex-black}}
+
+\input{docs/_content}
+
+\end{document}
