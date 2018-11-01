@@ -55,7 +55,7 @@ latex_document(
     name = "manual",
     srcs = [
         ":fig/jflex-black.png",
-        ":manual_first_page.tex",
+        ":first_page",
         ":latex_content",
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
@@ -65,13 +65,20 @@ latex_document(
     main = "manual_full.tex",
 )
 
+replace_placeholders(
+    name = "first_page",
+    src = "manual_first_page.tex",
+    out = "_first_page.tex",
+    output_to_bindir = True,  # that's where pdf_latex looks into
+)
+
 # Generates :section_tex (with substituted variables)
 [jflex_doc_tex(name = section) for section in DOC_SECTIONS]
 
 genrule(
     name = "latex_content",
-    outs = ["_content.tex"],
     srcs = TEX_SRCS,
+    outs = ["_content.tex"],
     cmd = "echo '" + ("\n".join(["\\input{docs/" + section + "}" for section in DOC_SECTIONS])) + "' > $@",
-    output_to_bindir = True, # that's where pdf_latex looks into
+    output_to_bindir = True,  # that's where pdf_latex looks into
 )

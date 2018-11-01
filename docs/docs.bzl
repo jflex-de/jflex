@@ -8,17 +8,20 @@ RELEASE_DATE = "21 September 2018"
 
 UNICODE_VER = "9.0"
 
-def replace_placeholders(name, src = ""):
+def replace_placeholders(name, src = "", out = None, **kwargs):
     """Replaces placeholders by their respective value."""
+    if not out:
+        out = name + "_VERSIONED.md"
     native.genrule(
         name = name,
         srcs = [src],
-        outs = [name + "_VERSIONED.md"],
+        outs = [out],
         cmd = "sed -e 's/\$$VERSION/" + VERSION + "/g'" +
               " -e 's/\$${project.version}/" + VERSION + "/g'" +
               " -e 's/\$$RELEASE_DATE/" + RELEASE_DATE + "/g'" +
               " -e 's/\$$UNICODE_VER/" + UNICODE_VER + "/g'" +
               " $< > $@",
+        **kwargs
     )
 
 def jflex_doc_tex(name, src = None):
