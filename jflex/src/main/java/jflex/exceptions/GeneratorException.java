@@ -20,6 +20,10 @@ public class GeneratorException extends RuntimeException {
   private static final long serialVersionUID = -9128247888544263982L;
 
   public GeneratorException() {
-    super("Generation aborted");
+    super("Generation aborted for an unknown reason");
+  }
+
+  public GeneratorException(Throwable cause) {
+    super("Generation aborted: " + cause, cause);
   }
 }

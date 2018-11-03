@@ -106,21 +106,20 @@ public class LexGenerator {
       return emitter.outputFileName;
     } catch (ScannerException e) {
       Out.error(e.file, e.message, e.line, e.column);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     } catch (MacroException e) {
       Out.error(e.getMessage());
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     } catch (IOException e) {
       Out.error(jflex.l10n.ErrorMessages.IO_ERROR, e.toString());
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     } catch (OutOfMemoryError e) {
       Out.error(ErrorMessages.OUT_OF_MEMORY);
       throw new GeneratorException();
     } catch (GeneratorException e) {
-      throw new GeneratorException();
+      throw e;
     } catch (Exception e) {
-      e.printStackTrace();
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 }
