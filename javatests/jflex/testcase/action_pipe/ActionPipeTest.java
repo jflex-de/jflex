@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 // TODO(#201): Fix bug
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "testsuite/javatests/jflex/testcase/action_pipe/action-pipe.flex",
+    lex = "javatests/jflex/testcase/action_pipe/action-pipe.flex",
     generatorThrows = GeneratorException.class)
 public class ActionPipeTest {
   @Test
