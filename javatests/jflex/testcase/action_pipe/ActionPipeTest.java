@@ -11,7 +11,8 @@ import org.junit.runner.RunWith;
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex = "javatests/jflex/testcase/action_pipe/action-pipe.flex",
-    generatorThrows = GeneratorException.class)
+    generatorThrows = GeneratorException.class,
+    generatorThrowableCause = Void.class)
 public class ActionPipeTest {
   @Test
   public void ok() {}

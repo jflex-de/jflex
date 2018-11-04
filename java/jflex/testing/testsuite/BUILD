@@ -8,11 +8,11 @@ java_library(
         "//java/jflex/testing/testsuite/annotations",
     ],
     deps = [
-        "//java/jflex/testing/assertion",
         "//java/jflex/testing/javac",
         "//java/jflex/testing/testsuite/annotations",
         "//jflex",
         "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
         "//third_party/junit",
     ],
 )
