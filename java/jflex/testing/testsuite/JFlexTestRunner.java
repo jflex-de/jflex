@@ -2,6 +2,7 @@ package jflex.testing.testsuite;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
@@ -37,6 +38,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     if (spec.generatorThrows() != NoExceptionThrown.class) {
       try {
         generateLexer(notifier);
+        fail("@TestCase indicates that the jflex generation throws a "
+            + spec.generatorThrows().getSimpleName() + " but nothing was thrown");
+      } catch (AssertionError e) {
+        throw e;
       } catch (Throwable e) {
         assertWithMessage(
                 "@TestCase indicates that the jflex generation must throw a "
