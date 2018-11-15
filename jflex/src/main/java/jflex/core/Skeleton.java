@@ -191,8 +191,8 @@ public class Skeleton {
       throw new GeneratorException();
     }
 
-    try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
-      readSkel(new BufferedReader(reader));
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+      readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException();

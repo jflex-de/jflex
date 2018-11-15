@@ -51,25 +51,15 @@ public class LexGenerator {
     Timer totalTime = new Timer();
     Timer time = new Timer();
 
-    LexScan scanner = null;
-    LexParse parser = null;
-    Reader inputReader = null;
-
     totalTime.start();
 
-    try {
+    try (Reader inputReader =
+        new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding)) {
       Out.println(jflex.l10n.ErrorMessages.READING, inputFile.toString());
-      inputReader =
-          new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding);
-      scanner = new LexScan(inputReader);
+      LexScan scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
-      parser = new LexParse(scanner);
-    } catch (IOException e) {
-      Out.error(jflex.l10n.ErrorMessages.CANNOT_OPEN, inputFile.toString());
-      throw new GeneratorException();
-    }
+      LexParse parser = new LexParse(scanner);
 
-    try {
       NFA nfa = (NFA) parser.parse().value;
 
       Out.checkErrors();
@@ -88,8 +78,6 @@ public class LexGenerator {
       Out.time(jflex.l10n.ErrorMessages.DFA_TOOK, time);
 
       dfa.checkActions(scanner, parser);
-
-      nfa = null;
 
       if (Options.dump)
         Out.dump(
