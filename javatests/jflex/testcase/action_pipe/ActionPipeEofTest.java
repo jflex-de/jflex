@@ -6,14 +6,11 @@ import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Reproduce Issue #201. Pipe action doesn't compile when first action. */
-// TODO(#201): Fix bug
+/** Test action piped with {@code <<EOF>>}. */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/jflex/testcase/action_pipe/action-pipe.flex",
-    generatorThrows = GeneratorException.class,
-    generatorThrowableCause = Void.class)
-public class ActionPipeTest {
+    lex = "javatests/jflex/testcase/action_pipe/action-pipe-eof.flex")
+public class ActionPipeEofTest {
   @Test
   public void ok() {}
 }
