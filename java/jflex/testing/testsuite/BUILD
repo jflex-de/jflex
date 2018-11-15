@@ -12,6 +12,7 @@ java_library(
         "//java/jflex/testing/javac",
         "//java/jflex/testing/testsuite/annotations",
         "//jflex",
+        "//jflex/src/main/java/jflex/generator",
         "//third_party/com/google/guava",
         "//third_party/junit",
     ],
