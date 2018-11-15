@@ -32,7 +32,7 @@ import jflex.l10n.ErrorMessages;
  * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
  * iterator part is used to emit consecutive skeleton sections to some {@code PrintWriter}.
  *
- * @see Emitter
+ * @see jflex.generator.Emitter
  * @author Gerwin Klein
  * @version JFlex 1.7.1-SNAPSHOT
  */

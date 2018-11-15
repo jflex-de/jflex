@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.generator;
 
 import static jflex.core.Options.encoding;
 
@@ -17,6 +17,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import jflex.core.DFA;
+import jflex.core.LexParse;
+import jflex.core.LexScan;
+import jflex.core.NFA;
+import jflex.core.Options;
+import jflex.core.Out;
+import jflex.core.ScannerException;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
@@ -63,7 +70,7 @@ public class LexGenerator {
 
       if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
 
-      Out.println(jflex.l10n.ErrorMessages.NFA_STATES, nfa.numStates);
+      Out.println(jflex.l10n.ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
       DFA dfa = nfa.getDFA();
