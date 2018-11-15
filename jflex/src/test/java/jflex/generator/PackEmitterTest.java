@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.generator;
 
 import junit.framework.TestCase;
 
@@ -19,6 +19,7 @@ import junit.framework.TestCase;
  */
 public class PackEmitterTest extends TestCase {
 
+  private static final String NL = "\n";
   private PackEmitter p;
 
   /** Constructor for PackEmitterTest. */
@@ -37,10 +38,10 @@ public class PackEmitterTest extends TestCase {
     p.emitInit();
     assertEquals(
         "  private static final int [] ZZ_BLA = zzUnpackBla();"
-            + Out.NL
-            + Out.NL
+            + NL
+            + NL
             + "  private static final String ZZ_BLA_PACKED_0 ="
-            + Out.NL
+            + NL
             + "    \"",
         p.toString());
   }
@@ -60,9 +61,9 @@ public class PackEmitterTest extends TestCase {
     System.out.println(p);
     assertEquals(
         "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"
-            + Out.NL
+            + NL
             + "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"
-            + Out.NL
+            + NL
             + "    \"\\40\\41\\42\\43",
         p.toString());
   }

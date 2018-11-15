@@ -5,7 +5,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.core.LexGenerator;
+import jflex.generator.LexGenerator;
 import jflex.testing.javac.CompilerException;
 import jflex.testing.javac.JavacUtil;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
