@@ -18,3 +18,7 @@ dependencies:
     maven-compat:
       version:                     3.5.2
       lang:                        java
+  org.apache.maven.wagon:
+    wagon-provider-api:
+      version:                     3.2.0
+      lang:                        java
