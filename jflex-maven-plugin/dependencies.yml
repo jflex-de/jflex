@@ -1,3 +1,6 @@
+# List of dependencies for jflex-maven-plugin using https://github.com/johnynek/bazel-deps
+# bazel run //:parse -- generate --repo-root $JFLEX_WORKSPACE_DIR -s third_party/maven_workspace.bzl  --deps jflex-maven-plugin/dependencies.yml
+
 options:
   languages:                       ["java"]
   resolverType:                    "coursier"
@@ -10,5 +13,8 @@ dependencies:
       lang:                        java
   org.apache.maven:
     maven-core:
+      version:                     3.5.2
+      lang:                        java
+    maven-compat:
       version:                     3.5.2
       lang:                        java
