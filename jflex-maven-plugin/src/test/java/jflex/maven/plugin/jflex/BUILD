@@ -11,6 +11,7 @@ java_test(
     name = "JFlexMojoTest",
     srcs = ["JFlexMojoTest.java"],
     deps = [
+        "//jflex/src/test/java/jflex/testing",
         "//jflex-maven-plugin/src/main/java/jflex/maven/plugin/jflex",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",

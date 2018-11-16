@@ -14,6 +14,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import com.google.common.base.Predicate;
 import java.io.File;
 import java.io.IOException;
+import jflex.testing.TestFileUtil;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -33,7 +34,7 @@ public class JFlexMojoTest {
    * @return The configured mojo.
    */
   private JFlexMojo newMojo(String testCase) throws Exception {
-    File unitBaseDir = testResources.getBasedir(testCase);
+    File unitBaseDir = getBaseDir(testCase);
     File testPom = new File(unitBaseDir, "plugin-config.xml");
     JFlexMojo mojo = new JFlexMojo();
     mojoRule.configureMojo(mojo, "jflex-maven-plugin", testPom);
@@ -41,6 +42,14 @@ public class JFlexMojoTest {
       mojoRule.setVariableValueToObject(mojo, "project", new MavenProjectStub());
     }
     return mojo;
+  }
+
+  private File getBaseDir(String testCase) throws IOException {
+    if (TestFileUtil.BAZEL_RUNFILES) {
+      return new File("jflex-maven-plugin/src/test/projects", testCase);
+    } else {
+      return testResources.getBasedir(testCase);
+    }
   }
 
   @Test

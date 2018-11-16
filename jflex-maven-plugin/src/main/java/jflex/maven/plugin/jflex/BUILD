@@ -11,6 +11,5 @@ java_library(
     ],
     resources=[
         "//jflex-maven-plugin/java:meta_inf",
-
     ],
 )
