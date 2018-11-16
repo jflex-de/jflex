@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.generator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,15 +33,15 @@ public class EmitterTest extends TestCase {
 
   public void testJavadoc() {
     StringBuilder usercode = new StringBuilder("/* some *** comment */");
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
+    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
     usercode.append("import bla;  /** javadoc /* */  ");
-    assertTrue(Emitter.endsWithJavadoc(usercode));
+    assertTrue(jflex.generator.Emitter.endsWithJavadoc(usercode));
     usercode.append("bla");
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
+    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
     usercode.setLength(usercode.length() - "bla".length());
     String nonJavadocComment = "\n/* blah */\n";
     usercode.append(nonJavadocComment);
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
+    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
     usercode.setLength(usercode.length() - nonJavadocComment.length());
     List<String> annotations =
         Arrays.asList(
@@ -74,7 +74,7 @@ public class EmitterTest extends TestCase {
       usercode.append("\n  ").append(annotation);
       assertTrue(
           "Problematic annotation: '" + annotation + "' in '" + usercode.toString() + "'",
-          Emitter.endsWithJavadoc(usercode));
+          jflex.generator.Emitter.endsWithJavadoc(usercode));
     }
     usercode.append("\n").append(nonJavadocComment);
     assertTrue(!Emitter.endsWithJavadoc(usercode));
