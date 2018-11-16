@@ -1048,4 +1048,8 @@ public final class NFA {
 
     throw new Error("Unknown expression type " + regExp.type + " in NFA construction");
   }
+
+  public int numStates() {
+    return numStates;
+  }
 }

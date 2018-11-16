@@ -11,4 +11,10 @@ public @interface TestSpec {
 
   /** Exception that the generator is expected to throw. Defaults to none. */
   Class<? extends Throwable> generatorThrows() default NoExceptionThrown.class;
+
+  /**
+   * Cause why the generator has thrown an exception. Use {@link Void} to indicate that no cause is
+   * expected.
+   */
+  Class<?> generatorThrowableCause() default NoExceptionThrown.class;
 }

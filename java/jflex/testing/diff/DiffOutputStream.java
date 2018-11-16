@@ -80,4 +80,17 @@ public class DiffOutputStream extends OutputStream {
         .that(actualLine)
         .isEqualTo(expectedLine);
   }
+
+  public boolean isCompleted() {
+    char[] extraInput = new char[64];
+    try {
+      int read = in.read(extraInput);
+      assertWithMessage("There is still content in the expected input: " + new String(extraInput))
+          .that(read)
+          .isLessThan(0);
+      return read == -1;
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

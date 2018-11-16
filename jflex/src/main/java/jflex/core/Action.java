@@ -38,10 +38,10 @@ public final class Action {
   public static final int BACKWARD_ACTION = 6;
 
   /** The Java code this Action represents */
-  String content;
+  public final String content;
 
   /** The priority (i.e. line number in the specification) of this Action. */
-  int priority;
+  public final int priority;
 
   /**
    * Which kind of action this is. (normal, {@code a/b} with fixed length a, fixed length b, etc)
