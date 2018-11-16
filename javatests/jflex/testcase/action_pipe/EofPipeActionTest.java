@@ -7,9 +7,11 @@ import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Reproduce Issue #201.
+/**
+ * Reproduce Issue #201.
  *
- * <p>{@code <<EOF>>} action doesn't compile when piped with another action. */
+ * <p>{@code <<EOF>>} action doesn't compile when piped with another action.
+ */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex = "javatests/jflex/testcase/action_pipe/eof-pipe-action.flex",
