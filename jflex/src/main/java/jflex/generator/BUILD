@@ -1,4 +1,4 @@
-package(default_visibility = ["//jflex:visibility"])
+package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "generator",

@@ -1,5 +1,6 @@
 # Please keep deps in alphabetical order
 def third_party_deps():
+    # @Nullable
     native.maven_jar(
         name = "jsr305",
         artifact = "com.google.code.findbugs:jsr305:3.0.2",
@@ -35,7 +36,7 @@ def third_party_deps():
         repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
-        name =     "org_apache_maven_plugin_testing_maven_plugin_testing_harness",
+        name = "org_apache_maven_plugin_testing_maven_plugin_testing_harness",
         artifact = "org.apache.maven.plugin-testing:maven-plugin-testing-harness:jar:3.3.0",
         repository = "https://jcenter.bintray.com/",
     )
@@ -44,17 +45,18 @@ def third_party_deps():
         artifact = "org.apache.maven:maven-project:2.2.1",
         repository = "https://jcenter.bintray.com/",
     )
-        native.maven_jar(
-            name = "org_apache_velocity",
-            artifact = "org.apache.velocity:velocity:jar:1.7",
-            repository = "https://jcenter.bintray.com/",
-            sha1 = "2ceb567b8f3f21118ecdec129fe1271dbc09aa7a",
-        )
+    native.maven_jar(
+        name = "org_apache_velocity",
+        artifact = "org.apache.velocity:velocity:jar:1.7",
+        repository = "https://jcenter.bintray.com/",
+        sha1 = "2ceb567b8f3f21118ecdec129fe1271dbc09aa7a",
+    )
     native.maven_jar(
         name = "com_google_auto_value_auto_value",
         artifact = "com.google.auto.value:auto-value:jar:1.4.1",
         repository = "http://jcenter.bintray.com/",
     )
+
     # Guava 21 or above requires JDK 8, but we want to keep running on JDK 7.
     native.maven_jar(
         name = "com_google_guava_guava",
@@ -66,12 +68,7 @@ def third_party_deps():
         artifact = "com.google.truth:truth:0.36",
         repository = "http://jcenter.bintray.com/",
     )
-    # @Nullable
-    native.maven_jar(
-        name = "jsr305",
-        artifact = "com.google.code.findbugs:jsr305:jar:3.0.2",
-        repository = "http://jcenter.bintray.com/",
-    )
+
     native.maven_jar(
         name = "junit_junit",
         artifact = "junit:junit:jar:4.12",
