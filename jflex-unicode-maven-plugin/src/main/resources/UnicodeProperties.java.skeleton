@@ -10,18 +10,16 @@
 package jflex.core.unicode;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.chars.Interval;
 import jflex.core.IntCharSet;
-import jflex.Interval;
-import jflex.unicode.data.*;
-
 
 --- Class comment
-
 public class UnicodeProperties {
 
   public static final String UNICODE_VERSIONS =
@@ -33,8 +31,7 @@ public class UnicodeProperties {
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private int maximumCodePoint;
-  private Map<String,IntCharSet> propertyValueIntervals
-    = new HashMap<String,IntCharSet>();
+  private Map<String,IntCharSet> propertyValueIntervals = new HashMap<>();
   private String caselessMatchPartitions;
   private int caselessMatchPartitionSize;
   private IntCharSet caselessMatches[];

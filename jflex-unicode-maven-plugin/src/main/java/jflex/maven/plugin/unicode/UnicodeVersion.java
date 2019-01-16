@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -198,7 +197,7 @@ class UnicodeVersion {
     String generatedClassName = getGeneratedClassName();
     PrintWriter writer =
         new PrintWriter(new File(outputDir, generatedClassName + ".java"), "UTF-8");
-    writer.append("package jflex.unicode.data;\n\n");
+    writer.append("package jflex.core.unicode.data;\n\n");
     writer.append("public class ").append(generatedClassName).append(" {\n");
     emitConstructor(writer);
     emitMaximumCodePoint(writer);
@@ -719,7 +718,7 @@ class UnicodeVersion {
   Set<String> getPropertyAliases(String propertyName) {
     Set<String> aliases = allPropertyAliases.get(propertyName);
     if (null == aliases) {
-      aliases = new HashSet<>(Arrays.asList(propertyName));
+      aliases = new HashSet<>(Collections.singletonList(propertyName));
     }
     return aliases;
   }
