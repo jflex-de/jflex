@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 %%
 
-%unicode 6.1
+%unicode 9.0
 %public
-%class UnicodeLineBreakAlgorithm_6_1
+%class UnicodeLineBreakAlgorithm_9_0
 %type String
 
 %{
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
   public static void main(String argv[]) {
     if (argv.length == 0) {
-      System.out.println("Usage : java UnicodeLineBreakAlgorithm_6_1 [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java UnicodeLineBreakAlgorithm_9_0 [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
         }
       }
       
-      UnicodeLineBreakAlgorithm_6_1 scanner = null;
+      UnicodeLineBreakAlgorithm_9_0 scanner = null;
       for (int i = firstFilePos; i < argv.length; i++) {
         try {
           FileInputStream stream = new FileInputStream(argv[i]);
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
-              scanner = new UnicodeLineBreakAlgorithm_6_1(testReader);
+              scanner = new UnicodeLineBreakAlgorithm_9_0(testReader);
             } else {
               scanner.yyreset(testReader);
             }
@@ -234,6 +234,11 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 \p{LB:ZW} \p{LB:SP}* / \P{LB:SP} { addMatch(); return nextSegment(); }
 \p{LB:ZW} \p{LB:SP}+ { addMatch(); return nextSegment(); }
 
+// LB8a Do not break between a zero width joiner and an ideograph, emoji base or emoji modifier.
+//    
+//    ZWJ × (ID | EB | EM)
+\p{LB:ZWJ} / [\p{LB:ID}\p{LB:EB}\p{LB:EM}] { addMatch(); }
+
 // Combining marks:
 //
 // See also Section 9.2, Legacy Support for Space Character as Base for
@@ -257,14 +262,16 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 [^\p{LB:SP}\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] {CM}+ { addMatch(); return nextSegment(); }
 
-// LB10  Treat any remaining combining mark as AL.
+// LB10  Treat any remaining combining mark or ZWJ as AL.
 //
-// Treat any remaining CM as it if were AL.
+// Treat any remaining CM or ZWJ as it if were AL.
 //
 // This catches the case where a CM is the first character on the line or
 // follows SP, BK, CR, LF, NL, or ZW.
 //
-// [LB10 is handled in the following rules]
+// [LB10 is partially handled in the following rules]
+//
+[^\p{LB:SP}\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 // Word joiner:
 //
@@ -276,8 +283,8 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // [LB11 is partially handled through lookaheads in the following rules]
 //
-\p{LB:WJ} {CM}* / [^] { addMatch(); }
-\p{LB:WJ} {CM}* { addMatch(); }
+\p{LB:WJ} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:WJ} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 
 // Non-breaking characters:
@@ -286,17 +293,17 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // GL ×
 //
-\p{LB:GL} {CM}* / [^] { addMatch(); }
-\p{LB:GL} {CM}* { addMatch(); }
+\p{LB:GL} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:GL} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
-// 6.2 Tailorable Line Breaking Rules
+// 6.3 Tailorable Line Breaking Rules
 //
 // The following rules and the classes referenced in them provide a reasonable 
 // default set of line break opportunities. Implementations should implement 
 // them unless alternate approaches produce better results for some classes of 
 // text or applications. When using alternative rules or algorithms,
 // implementations must ensure that the mandatory breaks, break opportunities
-// and non-break positions determined by the algorithm and rules of Section 6.1,
+// and non-break positions determined by the algorithm and rules of Section 6.3,
 // Non-tailorable Line Breaking Rules, are preserved. See Section 4, Conformance.
 //
 // Non-breaking characters:
@@ -316,7 +323,7 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // common way of handling special line breaking of explicit hyphens, such as
 // in Polish and Portuguese. See Section 5.3, Use of Hyphen.
 //
-[^\p{LB:CM}\p{LB:SP}\p{LB:BA}\p{LB:HY}\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] {CM}* / \p{LB:GL} { addMatch(); }
+[^\p{LB:CM}\p{LB:SP}\p{LB:BA}\p{LB:HY}\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] ({CM} | \p{LB:ZWJ})* / \p{LB:GL} { addMatch(); }
 ^ {CM}+ / \p{LB:GL} { addMatch(); }
 
 // Opening and closing:
@@ -335,8 +342,8 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // OP SP* ×
 //
-\p{LB:OP} {CM}* \p{LB:SP}* / [^] { addMatch(); }
-\p{LB:OP} {CM}* \p{LB:SP}* { addMatch(); }
+\p{LB:OP} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* / [^] { addMatch(); }
+\p{LB:OP} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* { addMatch(); }
 
 
 // LB15  Do not break within ‘”[’, even with intervening spaces.
@@ -346,7 +353,7 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // For more information on this rule, see the note in the description for the
 // QU class.
 //
-\p{LB:QU} {CM}* \p{LB:SP}* / \p{LB:OP} { addMatch(); }
+\p{LB:QU} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* / \p{LB:OP} { addMatch(); }
 
 
 // LB16  Do not break between closing punctuation and a nonstarter (lb=NS), 
@@ -354,14 +361,14 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // (CL | CP) SP* × NS
 //
-[\p{LB:CL}\p{LB:CP}] {CM}* \p{LB:SP}* / {NS} { addMatch(); }
+[\p{LB:CL}\p{LB:CP}] ({CM} | \p{LB:ZWJ})* \p{LB:SP}* / {NS} { addMatch(); }
 
 
 // LB17  Do not break within ‘——’, even with intervening spaces.
 //
 // B2 SP* × B2
 //
-\p{LB:B2} {CM}* \p{LB:SP}* / \p{LB:B2} { addMatch(); }
+\p{LB:B2} ({CM} | \p{LB:ZWJ})* \p{LB:SP}* / \p{LB:B2} { addMatch(); }
 
 
 // Spaces:
@@ -391,8 +398,8 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // [LB19 is partially handled through lookaheads in following rules]
 //
-\p{LB:QU} {CM}* / [^] { addMatch(); }
-\p{LB:QU} {CM}* { addMatch(); }
+\p{LB:QU} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:QU} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 
 // LB20  Break before and after unresolved CB.
@@ -411,9 +418,9 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // (LB13 lookaheads included:  × ( CL | CP | EX | IS | SY ) )
 // (LB19 lookahead  included:  × QU )
 //
-\p{LB:CB} {CM}* / [\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:SP}\p{LB:ZW}\p{LB:WJ}\p{LB:CL}\p{LB:CP}\p{LB:EX}\p{LB:IS}\p{LB:SY}\p{LB:QU}] { addMatch(); }
-\p{LB:CB} {CM}* / [^] { addMatch(); return nextSegment(); }
-\p{LB:CB} {CM}* { addMatch(); return nextSegment(); }
+\p{LB:CB} ({CM} | \p{LB:ZWJ})* / [\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:SP}\p{LB:ZW}\p{LB:WJ}\p{LB:CL}\p{LB:CP}\p{LB:EX}\p{LB:IS}\p{LB:SY}\p{LB:QU}] { addMatch(); }
+\p{LB:CB} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); return nextSegment(); }
+\p{LB:CB} ({CM} | \p{LB:ZWJ})* { addMatch(); return nextSegment(); }
 
 
 // LB21  Do not break before hyphen-minus, other hyphens, fixed-width spaces,
@@ -425,9 +432,9 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // (LB20 lookahead included)
 //
-\p{LB:BB} {CM}* / \p{LB:CB} { addMatch(); return nextSegment(); }
-\p{LB:BB} {CM}* / [^] { addMatch(); }
-\p{LB:BB} {CM}* { addMatch(); }
+\p{LB:BB} ({CM} | \p{LB:ZWJ})* / \p{LB:CB} { addMatch(); return nextSegment(); }
+\p{LB:BB} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:BB} ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
 // LB21a  Don't break after Hebrew + Hyphen
 //
@@ -435,36 +442,53 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // (LB20 lookahead included)
 //
-\p{LB:HL} {CM}* [\p{LB:HY}\p{LB:BA}] {CM}* / \p{LB:CB} { addMatch(); return nextSegment(); }
-\p{LB:HL} {CM}* [\p{LB:HY}\p{LB:BA}] {CM}* / [^] { addMatch(); }
-\p{LB:HL} {CM}* [\p{LB:HY}\p{LB:BA}] {CM}* { addMatch(); }
+\p{LB:HL} ({CM} | \p{LB:ZWJ})* [\p{LB:HY}\p{LB:BA}] ({CM} | \p{LB:ZWJ})* / \p{LB:CB} { addMatch(); return nextSegment(); }
+\p{LB:HL} ({CM} | \p{LB:ZWJ})* [\p{LB:HY}\p{LB:BA}] ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:HL} ({CM} | \p{LB:ZWJ})* [\p{LB:HY}\p{LB:BA}] ({CM} | \p{LB:ZWJ})* { addMatch(); }
 
-// LB22  Do not break between two ellipses, or between letters or numbers and ellipsis.
+// LB21b  Don’t break between Solidus and Hebrew letters.
+//          
+// SY × HL
 //
-// (AL | HL) × IN  ;  ID × IN  ;  IN × IN  ;  NU × IN
+// (LB20 lookahead included)
 //
-(({AL} | [\p{LB:HL}\p{LB:ID}\p{LB:IN}\p{LB:NU}]) {CM}* | {CM}+) / \p{LB:IN} { addMatch(); }
+\p{LB:SY} ({CM} | \p{LB:ZWJ})* \p{LB:HL} ({CM} | \p{LB:ZWJ})* / \p{LB:CB} { addMatch(); return nextSegment(); }
+\p{LB:SY} ({CM} | \p{LB:ZWJ})* \p{LB:HL} ({CM} | \p{LB:ZWJ})* / [^] { addMatch(); }
+\p{LB:SY} ({CM} | \p{LB:ZWJ})* \p{LB:HL} ({CM} | \p{LB:ZWJ})* { addMatch(); }
+
+// LB22  Do not break between two ellipses, or between letters, numbers or exclamations and ellipsis.
+//
+// (AL | HL) × IN  ;  EX × IN  ;  (ID | EB | EM) × IN  ;  IN × IN  ;  NU × IN
+//
+// Examples: ‘9...’, ‘a...’, ‘H...’
+//
+(({AL} | [\p{LB:HL}\p{LB:EX}\p{LB:ID}\p{LB:EB}\p{LB:EM}\p{LB:IN}\p{LB:NU}]) ({CM} | \p{LB:ZWJ})* | ({CM} | \p{LB:ZWJ})+) / \p{LB:IN} { addMatch(); }
 
 // Numbers:
 //
 // Do not break alphanumerics.
 // 
-// LB23  Do not break within ‘a9’, ‘3a’, or ‘H%’.
+// LB23  Do not break between digits and letters.
 //
-// ID × PO  ;  (AL | HL) × NU  ;  NU × (AL | HL)
+// (AL | HL) × NU  ;  NU × (AL | HL)
 //
-\p{LB:ID} {CM}* / \p{LB:PO} { addMatch(); }
-(({AL} | \p{LB:HL}) {CM}* | {CM}+) / \p{LB:NU} { addMatch(); }
-\p{LB:NU} {CM}* / ({AL} | \p{LB:HL}) { addMatch(); }
+(({AL} | \p{LB:HL}) ({CM} | \p{LB:ZWJ})* | ({CM} | \p{LB:ZWJ})+) / \p{LB:NU} { addMatch(); }
+\p{LB:NU} ({CM} | \p{LB:ZWJ})* / ({AL} | \p{LB:HL}) { addMatch(); }
 
-
-// LB24  Do not break between prefix and letters or ideographs.
+// LB23a  Do not break between numeric prefixes and ideographs, or between ideographs and numeric postfixes.
 //
-// PR × ID  ;  PR × (AL | HL)  ;  PO × (AL | HL)
+// PR × (ID | EB | EM)  ;  (ID | EB | EM) × PO
 //
-\p{LB:PR} {CM}* / ({AL} | [\p{LB:ID}\p{LB:HL}]) { addMatch(); }
-\p{LB:PO} {CM}* / ({AL} | \p{LB:HL}) { addMatch(); }
+\p{LB:PR} ({CM} | \p{LB:ZWJ})* / [\p{LB:ID}\p{LB:EB}\p{LB:EM}] { addMatch(); }
+[\p{LB:ID}\p{LB:EB}\p{LB:EM}] ({CM} | \p{LB:ZWJ})* / \p{LB:PO} { addMatch(); }
 
+// LB24  Do not break between numeric prefix/postfix and letters, or between letters and prefix/postfix.
+//
+// (PR | PO) × (AL | HL)  ;  (AL | HL) × (PR | PO)
+[\p{LB:PR}\p{LB:PO}] ({CM} | \p{LB:ZWJ})* / ({AL} | \p{LB:HL}) { addMatch(); }
+({CM} | \p{LB:ZWJ})+ / ({AL} | \p{LB:HL}) { addMatch(); }
+({AL} | \p{LB:HL}) ({CM} | \p{LB:ZWJ})* / [\p{LB:PR}\p{LB:PO}] { addMatch(); }
+({CM} | \p{LB:ZWJ})+ / [\p{LB:PR}\p{LB:PO}] { addMatch(); }
 
 // In general, it is recommended to not break lines inside numbers of the form
 // described by the following regular expression:
@@ -475,12 +499,11 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // [The following directly implement the above, so the LB25 approximation is not needed.]
 //
-([\p{LB:PR}\p{LB:PO}] {CM}*)? [\p{LB:OP}\p{LB:HY}] {CM}* / \p{LB:NU} { addMatch(); }
-[\p{LB:PR}\p{LB:PO}] {CM}* / \p{LB:NU} { addMatch(); }
-\p{LB:NU} {CM}* ([\p{LB:NU}\p{LB:SY}\p{LB:IS}] {CM}*)* [\p{LB:CL}\p{LB:CP}]? / [\p{LB:PR}\p{LB:PO}] { addMatch(); }
-\p{LB:NU} {CM}* [\p{LB:NU}\p{LB:SY}\p{LB:IS}]* / [\p{LB:CL}\p{LB:CP}] { addMatch(); }
-\p{LB:NU} {CM}* / [\p{LB:NU}\p{LB:SY}\p{LB:IS}] { addMatch(); }
-
+([\p{LB:PR}\p{LB:PO}] ({CM} | \p{LB:ZWJ})*)? [\p{LB:OP}\p{LB:HY}] ({CM} | \p{LB:ZWJ})* / \p{LB:NU} { addMatch(); }
+[\p{LB:PR}\p{LB:PO}] ({CM} | \p{LB:ZWJ})* / \p{LB:NU} { addMatch(); }
+\p{LB:NU} ({CM} | \p{LB:ZWJ})* ([\p{LB:NU}\p{LB:SY}\p{LB:IS}] ({CM} | \p{LB:ZWJ})*)* [\p{LB:CL}\p{LB:CP}]? / [\p{LB:PR}\p{LB:PO}] { addMatch(); }
+\p{LB:NU} ({CM} | \p{LB:ZWJ})* [\p{LB:NU}\p{LB:SY}\p{LB:IS}]* / [\p{LB:CL}\p{LB:CP}] { addMatch(); }
+\p{LB:NU} ({CM} | \p{LB:ZWJ})* / [\p{LB:NU}\p{LB:SY}\p{LB:IS}] { addMatch(); }
 
 
 // Korean syllable blocks
@@ -497,9 +520,9 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // where the notation (JT | H3) means JT or H3.
 //
-\p{LB:JL} {CM}* / [\p{LB:JL}\p{LB:JV}\p{LB:H2}\p{LB:H3}] { addMatch(); }
-[\p{LB:JV}\p{LB:H2}] {CM}* / [\p{LB:JV}\p{LB:JT}] { addMatch(); }
-[\p{LB:JT}\p{LB:H3}] {CM}* / \p{LB:JT} { addMatch(); }
+\p{LB:JL} ({CM} | \p{LB:ZWJ})* / [\p{LB:JL}\p{LB:JV}\p{LB:H2}\p{LB:H3}] { addMatch(); }
+[\p{LB:JV}\p{LB:H2}] ({CM} | \p{LB:ZWJ})* / [\p{LB:JV}\p{LB:JT}] { addMatch(); }
+[\p{LB:JT}\p{LB:H3}] ({CM} | \p{LB:ZWJ})* / \p{LB:JT} { addMatch(); }
 
 
 // The effective line breaking class for the syllable block matches the line 
@@ -512,14 +535,14 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 //      (JL | JV | JT | H2 | H3) × PO
 //
-// PR × (JL | JV | JT | H2 | H3)
+//      PR × (JL | JV | JT | H2 | H3)
 //
 // When Korean uses SPACE for line breaking, the classes in rule LB26, as well 
 // as characters of class ID, are often tailored to AL; see Section 8,
 // Customization.
 //
-[\p{LB:JL}\p{LB:JV}\p{LB:JT}\p{LB:H2}\p{LB:H3}] {CM}* / [\p{LB:IN}\p{LB:PO}] { addMatch(); }
-\p{LB:PR} {CM}* / [\p{LB:JL}\p{LB:JV}\p{LB:JT}\p{LB:H2}\p{LB:H3}] { addMatch(); }
+[\p{LB:JL}\p{LB:JV}\p{LB:JT}\p{LB:H2}\p{LB:H3}] ({CM} | \p{LB:ZWJ})* / [\p{LB:IN}\p{LB:PO}] { addMatch(); }
+\p{LB:PR} ({CM} | \p{LB:ZWJ})* / [\p{LB:JL}\p{LB:JV}\p{LB:JT}\p{LB:H2}\p{LB:H3}] { addMatch(); }
 
 
 // Finally, join alphabetic letters into words and break everything else.
@@ -528,32 +551,45 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 //
 // (AL | HL) × (AL | HL)
 //
-(({AL} | \p{LB:HL}) {CM}* | {CM}+) / ({AL} | \p{LB:HL}) { addMatch(); }
+(({AL} | \p{LB:HL}) ({CM} | \p{LB:ZWJ})* | {CM}+) / ({AL} | \p{LB:HL} | {CM} | \p{LB:ZWJ}) { addMatch(); }
 
 
 // LB29  Do not break between numeric punctuation and alphabetics (“e.g.”).
 //
 // IS × (AL | HL)
 //
-\p{LB:IS} {CM}* / ({AL} | \p{LB:HL}) { addMatch(); }
+\p{LB:IS} ({CM} | \p{LB:ZWJ})* / ({AL} | \p{LB:HL}) { addMatch(); }
+
 
 // LB30 Do not break between letters, numbers, or ordinary symbols and opening 
 // or closing parentheses.
 //
 // (AL | HL | NU) × OP
 //
-// CP × (AL | HL } NU)
+// CP × (AL | HL | NU)
 //
 // The purpose of this rule is to prevent breaks in common cases where a part 
 // of a word appears between delimiters--for example, in “person(s)”.
 //
-({AL} | [\p{LB:HL}\p{LB:NU}]) {CM}* / \p{LB:OP} { addMatch(); }
-\p{LB:CP} {CM}* / ({AL} | [\p{LB:HL}\p{LB:NU}]) { addMatch(); }
+(({AL} | [\p{LB:HL}\p{LB:NU}]) ({CM} | \p{LB:ZWJ})* | ({CM} | \p{LB:ZWJ})+) / \p{LB:OP} { addMatch(); }
+\p{LB:CP} ({CM} | \p{LB:ZWJ})* / ({AL} | [\p{LB:HL}\p{LB:NU}]) { addMatch(); }
 
-// Although the rule below is not specified, without it, at least one test string fails:
-// ÷ 000B ÷ 0308 × 0028 ÷	#  ÷ [0.2] <LINE TABULATION> (BK) ÷ [4.0] COMBINING DIAERESIS (CM) × [30.01] LEFT PARENTHESIS (OP) ÷ [0.3]
-// ( Rule 30.01 is: (AL|NU)×OP ) 
-{CM}+ / \p{LB:OP} { addMatch(); }
+
+// LB30a  Break between two regional indicator symbols 
+// if and only if there are an even number of regional indicators 
+// preceding the position of the break.
+//
+// sot (RI RI)* RI × RI  ;  [^RI] (RI RI)* RI × RI
+//
+// (LB7  lookaheads included:  × ( SP | ZW ) )
+//
+(\p{LB:RI} ({CM} | \p{LB:ZWJ})*){2} [\p{LB:SP}\p{LB:ZW}]? { addMatch(); return nextSegment(); }
+
+
+// LB30b  Do not break between an emoji base and an emoji modifier.
+//
+// EB × EM
+\p{LB:EB} ({CM} | \p{LB:ZWJ})* / \p{LB:EM} { addMatch(); }
 
 
 // LB31  Break everywhere else.
@@ -567,7 +603,7 @@ NS = [\p{LB:NS}\p{LB:CJ}]
 // (LB19 lookahead  included:  × QU )
 // (LB21 lookaheads included:  × ( BA | HY | NS ) )
 //
-[^\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] {CM}* / [\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:SP}\p{LB:ZW}\p{LB:WJ}\p{LB:CL}\p{LB:CP}\p{LB:EX}\p{LB:IS}\p{LB:SY}\p{LB:QU}\p{LB:BA}\p{LB:HY}] { addMatch(); }
-[^\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] {CM}* / {NS} { addMatch(); }
+[^\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] ({CM} | \p{LB:ZWJ})* / [\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:SP}\p{LB:ZW}\p{LB:WJ}\p{LB:CL}\p{LB:CP}\p{LB:EX}\p{LB:IS}\p{LB:SY}\p{LB:QU}\p{LB:BA}\p{LB:HY}] { addMatch(); }
+[^\p{LB:BK}\p{LB:CR}\p{LB:LF}\p{LB:NL}\p{LB:ZW}] ({CM} | \p{LB:ZWJ})* / {NS} { addMatch(); }
 [^] / [^] { addMatch(); return nextSegment(); }
 [^] { addMatch(); }

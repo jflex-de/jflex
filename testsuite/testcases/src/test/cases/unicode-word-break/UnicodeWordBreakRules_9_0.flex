@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 %%
 
-%unicode 8.0
+%unicode 9.0
 %public
-%class UnicodeWordBreakRules_8_0
+%class UnicodeWordBreakRules_9_0
 %type String
 
 %{
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
   public static void main(String argv[]) {
     if (argv.length == 0) {
-      System.out.println("Usage : java UnicodeWordBreakRules_8_0 [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java UnicodeWordBreakRules_9_0 [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
         }
       }
       
-      UnicodeWordBreakRules_8_0 scanner = null;
+      UnicodeWordBreakRules_9_0 scanner = null;
       for (int i = firstFilePos; i < argv.length; i++) {
         try {
           FileInputStream stream = new FileInputStream(argv[i]);
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
-              scanner = new UnicodeWordBreakRules_8_0(testReader);
+              scanner = new UnicodeWordBreakRules_9_0(testReader);
             } else {
               scanner.yyreset(testReader);
             }
@@ -128,8 +128,9 @@ import java.util.regex.Pattern;
 %%
 
 // Break at the start and end of text.
-// WB1. 	sot 	÷ 	
-// WB2. 		÷ 	eot
+// WB1.   sot ÷ Any	
+// WB2.   Any ÷ eot
+//
 <<EOF>> { return nextSegment(); }
 
 
@@ -155,51 +156,62 @@ import java.util.regex.Pattern;
 [^] / [\p{WB:Newline}\p{WB:CR}\p{WB:LF}] { addMatch(); return nextSegment(); }
 
 
+// Do not break within emoji zwj sequences.
+//
+// WB3c.   ZWJ × (Glue_After_Zwj | EBG)
+//
+\p{WB:ZWJ} / [\p{WB:Glue_After_Zwj}\p{WB:EBG}] { addMatch(); }
+
 // Ignore Format and Extend characters, except when they appear at the 
 // beginning of a region of text.
 //
 // (See Section 6.3, Replacing Ignore Rules.)
 //
-// WB4. 	X (Extend | Format)* 	→ 	X
+// WB4. 	X (Extend | Format | ZWJ)* 	→ 	X
 //
-//      --> [^ Newline CR LF ] × [Format Extend]
+//      --> [^ Newline CR LF ] × [Format Extend ZWJ]
 //
-[^\p{WB:Newline}\p{WB:CR}\p{WB:LF}] / [\p{WB:Format}\p{WB:Extend}] { addMatch(); }
+[^\p{WB:Newline}\p{WB:CR}\p{WB:LF}] / [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}] { addMatch(); }
 
 
 // Do not break between most letters.
 //
-// WB5. 	(ALetter | Hebrew_Letter) 	× 	(ALetter | Hebrew_Letter)
+//     AHLetter	= (ALetter | Hebrew_Letter)
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// WB5. 	AHLetter  ×  AHLetter
 //
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] [^] { addMatch(); }
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] [^] { addMatch(); }
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
 
 
 // Do not break letters across certain punctuation.
 //
-// WB6. 	(ALetter | Hebrew_Letter) 	× 	(MidLetter | MidNumLet | Single_Quote) (ALetter | Hebrew_Letter)
-// WB7. 	(ALetter | Hebrew_Letter) (MidLetter | MidNumLet | Single_Quote) 	× 	(ALetter | Hebrew_Letter)
+//      AHLetter = (ALetter | Hebrew_Letter)
+//      MidNumLetQ = (MidNumLet | Single_Quote)
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// WB6. 	AHLetter 	× 	(MidLetter | MidNumLetQ) AHLetter
+// WB7. 	AHLetter (MidLetter | MidNumLetQ) 	× 	AHLetter
 //
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}]* [\p{WB:MidLetter}\p{WB:MidNumLet}\p{WB:Single_Quote}] [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* [\p{WB:MidLetter}\p{WB:MidNumLet}\p{WB:Single_Quote}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
 
 
 // WB7a. 	Hebrew_Letter 	× 	Single_Quote
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
 //
-\p{WB:Hebrew_Letter} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Single_Quote} { addMatch(); } 
+\p{WB:Hebrew_Letter} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Single_Quote} { addMatch(); } 
 
 
 // WB7b. 	Hebrew_Letter 	× 	Double_Quote Hebrew_Letter
 // WB7c. 	Hebrew_Letter Double_Quote 	× 	Hebrew_Letter
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
 //
-\p{WB:Hebrew_Letter} [\p{WB:Format}\p{WB:Extend}]* \p{WB:Double_Quote} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Hebrew_Letter} { addMatch(); }
+\p{WB:Hebrew_Letter} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* \p{WB:Double_Quote} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Hebrew_Letter} { addMatch(); }
 
 
 // Do not break within sequences of digits, or digits adjacent to letters
@@ -207,77 +219,98 @@ import java.util.regex.Pattern;
 //
 // WB8. 	Numeric 	× 	Numeric
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
 //
-\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} [^] { addMatch(); }
-\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} { addMatch(); }
+\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Numeric} [^] { addMatch(); }
+\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Numeric} { addMatch(); }
 
 
-// WB9. 	(ALetter | Hebrew_Letter) 	× 	Numeric
+// WB9. 	AHLetter 	× 	Numeric
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+//      AHLetter = (ALetter | Hebrew_Letter)
 //
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} [^] { addMatch(); }
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Numeric} [^] { addMatch(); }
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Numeric} { addMatch(); }
 
 
 // WB10. 	Numeric 	× 	(ALetter | Hebrew_Letter)
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+//      AHLetter = (ALetter | Hebrew_Letter)
 //
-\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] [^] { addMatch(); }
-\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] [^] { addMatch(); }
+\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}] { addMatch(); }
 
 
 // Do not break within sequences, such as “3.2” or “3,456.789”.
 //
-// WB11. 	Numeric (MidNum | MidNumLet | Single_Quote) 	× 	Numeric
-// WB12. 	Numeric 	× 	(MidNum | MidNumLet | Single_Quote) Numeric
+// WB11. 	Numeric (MidNum | MidNumLetQ) 	× 	Numeric
+// WB12. 	Numeric 	× 	(MidNum | MidNumLetQ) Numeric
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+//      MidNumLetQ = (MidNumLet | Single_Quote)
 //
-\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}]* [\p{WB:MidNum}\p{WB:MidNumLet}\p{WB:Single_Quote}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Numeric} { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+\p{WB:Numeric} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* [\p{WB:MidNum}\p{WB:MidNumLet}\p{WB:Single_Quote}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Numeric} { addMatch(); }
 
 
 // Do not break between Katakana.
 //
 // WB13. 	Katakana 	× 	Katakana
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
 //
-\p{WB:Katakana} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Katakana} [^] { addMatch(); }
-\p{WB:Katakana} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Katakana} { addMatch(); }
+\p{WB:Katakana} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Katakana} [^] { addMatch(); }
+\p{WB:Katakana} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:Katakana} { addMatch(); }
 
 // Do not break from extenders.
 //
-// WB13a. 	(ALetter | Hebrew_Letter | Numeric | Katakana | ExtendNumLet) 	× 	ExtendNumLet
+// WB13a. 	(AHLetter | Numeric | Katakana | ExtendNumLet) 	× 	ExtendNumLet
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+//      AHLetter = (ALetter | Hebrew_Letter)
 //
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}\p{WB:ExtendNumLet}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:ExtendNumLet} [^] { addMatch(); }
-[\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}\p{WB:ExtendNumLet}] [\p{WB:Format}\p{WB:Extend}]* / \p{WB:ExtendNumLet} { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}\p{WB:ExtendNumLet}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:ExtendNumLet} [^] { addMatch(); }
+[\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}\p{WB:ExtendNumLet}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:ExtendNumLet} { addMatch(); }
 
 
-// WB13b. 	ExtendNumLet 	× 	(ALetter | Hebrew_Letter | Numeric | Katakana) 
+// WB13b. 	ExtendNumLet 	× 	(AHLetter | Numeric | Katakana) 
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+//      AHLetter = (ALetter | Hebrew_Letter)
 //
-\p{WB:ExtendNumLet} [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}] [^] { addMatch(); }
-\p{WB:ExtendNumLet} [\p{WB:Format}\p{WB:Extend}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}] { addMatch(); }
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+\p{WB:ExtendNumLet} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}] [^] { addMatch(); }
+\p{WB:ExtendNumLet} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}] { addMatch(); }
 
 
-// Do not break between regional indicator symbols.
+// Do not break within emoji modifier sequences.
 //
-// WB13c. 	Regional_Indicator 	× 	Regional_Indicator
+// WB14.	(E_Base | EBG)	×	E_Modifier
 //
-// [included WB4. 	X (Extend | Format)* 	→ 	X]
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
 //
-\p{WB:Regional_Indicator} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Regional_Indicator} [^] { addMatch(); }
-\p{WB:Regional_Indicator} [\p{WB:Format}\p{WB:Extend}]* / \p{WB:Regional_Indicator} { addMatch(); }
+[\p{WB:E_Base}\p{WB:EBG}] [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / \p{WB:E_Modifier} { addMatch(); }
+
+
+// Do not break within emoji flag sequences. That is, do not break between regional indicator
+// (RI) symbols if there is an odd number of RI characters before the break point.
+//
+// WB15.	^ (RI RI)* RI	×	RI
+// WB16.	[^RI] (RI RI)* RI	×	RI
+//
+// [included WB4. 	X (Extend | Format | ZWJ)* 	→ 	X]
+//
+(\p{WB:Regional_Indicator} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]*){2} / [^] { addMatch(); return nextSegment(); }
+(\p{WB:Regional_Indicator} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]*){2} { addMatch(); return nextSegment(); }
 
 
 // Otherwise, break everywhere (including around ideographs).
 //
-// WB14. 	Any 	÷ 	Any
+// WB999. 	Any 	÷ 	Any
 //
 [^] { addMatch(); return nextSegment(); }

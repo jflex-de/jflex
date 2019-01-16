@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 %%
 
-%unicode 7.0
+%unicode 9.0
 %public
-%class UnicodeGraphemeBreakRules_7_0
+%class UnicodeSentenceBreakRules_9_0
 %type String
 
 %{
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
   public static void main(String argv[]) {
     if (argv.length == 0) {
-      System.out.println("Usage : java UnicodeGraphemeBreakRules_7_0 [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java UnicodeSentenceBreakRules_9_0 [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
         }
       }
       
-      UnicodeGraphemeBreakRules_7_0 scanner = null;
+      UnicodeSentenceBreakRules_9_0 scanner = null;
       for (int i = firstFilePos; i < argv.length; i++) {
         try {
           FileInputStream stream = new FileInputStream(argv[i]);
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
-              scanner = new UnicodeGraphemeBreakRules_7_0(testReader);
+              scanner = new UnicodeSentenceBreakRules_9_0(testReader);
             } else {
               scanner.yyreset(testReader);
             }
@@ -129,76 +129,103 @@ import java.util.regex.Pattern;
 
 // Break at the start and end of text.
 //
-// GB1.  sot  ÷
-// GB2.       ÷  eot
+// SB1. 	sot ÷ Any	
+// SB2. 	Any ÷ eot
 //
 <<EOF>> { return nextSegment(); }
 
 
-// Do not break between a CR and LF. Otherwise, break before and after controls.
+// Do not break within CRLF.
 //
-// GB3. 	CR 	×  LF
+// SB3. 	CR 	× 	LF
 //
-\p{GCB:CR} \p{GCB:LF} { addMatch(); return nextSegment(); }
+\p{SB:CR} \p{SB:LF} { addMatch(); return nextSegment(); }
 
 
-// GB4. 	( Control | CR | LF ) 	÷
+// Break after paragraph separators.
 //
-[\p{GCB:Control}\p{GCB:CR}\p{GCB:LF}] / [^] { addMatch(); return nextSegment(); }
-
-
-// GB5. 		÷ 	( Control | CR | LF )
+// SB4. 	ParaSep ÷ 	
 //
-[^] / [\p{GCB:Control}\p{GCB:CR}\p{GCB:LF}] { addMatch(); return nextSegment(); }
-
-
-// Do not break Hangul syllable sequences.
+//     ParaSep = (Sep | CR | LF) 
 //
-// GB6. 	L 	× 	( L | V | LV | LVT )
+[\p{SB:Sep}\p{SB:CR}\p{SB:LF}] / [^] { addMatch(); return nextSegment(); }
+
+
+// Ignore Format and Extend characters, except when they appear at the
+// beginning of a region of text. (See Section 6.3, Replacing Ignore Rules.)
 //
-\p{GCB:L} / [\p{GCB:L}\p{GCB:V}\p{GCB:LV}\p{GCB:LVT}] { addMatch(); }
-
-
-// GB7. 	( LV | V ) 	× 	( V | T )
+// SB5. 	X (Extend | Format)* 	→ 	X
 //
-[\p{GCB:LV}\p{GCB:V}] / [\p{GCB:V}\p{GCB:T}] { addMatch(); }
-
-
-// GB8. 	( LVT | T) 	× 	T
+//     --> [^ Sep CR LF ] × [Format Extend]
 //
-[\p{GCB:LVT}\p{GCB:T}] / \p{GCB:T} { addMatch(); }
+[^\p{SB:Sep}\p{SB:CR}\p{SB:LF}] / [\p{SB:Extend}\p{SB:Format}] { addMatch(); }
 
 
-// Do not break between regional indicator symbols.
+// Do not break after full stop in certain contexts.
 //
-// GB8a. 	Regional_Indicator 	× 	Regional_Indicator
-\p{GCB:Regional_Indicator} / \p{GCB:Regional_Indicator} { addMatch(); }
+//     Rules SB6–SB8 are designed to forbid breaks after ambiguous terminators 
+//     (primarily U+002E FULL STOP) within strings such as those shown in Figure 3.
+//     The contexts which forbid breaks include occurrence directly before a number,
+//     between uppercase letters, when followed by a lowercase letter (optionally
+//     after certain punctuation), or when followed by certain continuation
+//     punctuation such as a comma, colon, or semicolon. These rules permit breaks
+//     in strings such as those shown in Figure 4. They cannot detect cases such as
+//     “...Mr. Jones...”; more sophisticated tailoring would be required to detect
+//     such cases.
+//
+// SB6. 	ATerm 	× 	Numeric
+//
+// [included SB5. 	X (Extend | Format)* 	→ 	X]
+//
+\p{SB:ATerm} [\p{SB:Extend}\p{SB:Format}]* / \p{SB:Numeric} { addMatch(); }
 
 
-// Do not break before extending characters.
+// SB7. 	(Upper | Lower) ATerm 	× 	Upper
 //
-// GB9. 	  	× 	Extend
+// [included SB5. 	X (Extend | Format)* 	→ 	X]
 //
-[^] / \p{GCB:Extend} { addMatch(); }
+[\p{SB:Upper}\p{SB:Lower}] [\p{SB:Extend}\p{SB:Format}]* \p{SB:Aterm} [\p{SB:Extend}\p{SB:Format}]* / \p{SB:Upper} { addMatch(); }
 
 
-// Only for extended grapheme clusters:
-// Do not break before SpacingMarks, or after Prepend characters.
+// SB8. 	ATerm Close* Sp* 	× 	( ¬(OLetter | Upper | Lower | ParaSep | SATerm) )* Lower
 //
-// GB9a. 	  	× 	SpacingMark
+//      ParaSep = (Sep | CR | LF)
+//      SATerm = (STerm | ATerm)
 //
-[^] / \p{GCB:SpacingMark} { addMatch(); }
+// [included SB5. 	X (Extend | Format)* 	→ 	X]
+//
+\p{SB:Aterm} [\p{SB:Extend}\p{SB:Format}]* (\p{SB:Close} [\p{SB:Extend}\p{SB:Format}]*)* (\p{SB:Sp} [\p{SB:Extend}\p{SB:Format}]*)* / ([^\p{SB:OLetter}\p{SB:Upper}\p{SB:Lower}\p{SB:Sep}\p{SB:CR}\p{SB:LF}\p{SB:STerm}\p{SB:ATerm}] [\p{SB:Extend}\p{SB:Format}]*)* \p{SB:Lower} { addMatch(); } 
 
 
-// GB9b. 	Prepend 	× 	 
+// SB8a. 	SATerm Close* Sp* 	× 	(SContinue | SATerm)
 //
-// Unicode 7.0 has no GCB:Prepend chars, so this is not a valid property under JFLex
+//      ParaSep = (Sep | CR | LF)
+//      SATerm = (STerm | ATerm)
 //
-//// \p{GCB:Prepend} / [^] { addMatch(); }
+// [included SB5. 	X (Extend | Format)* 	→ 	X]
+//
+[\p{SB:STerm}\p{SB:Aterm}] [\p{SB:Extend}\p{SB:Format}]* (\p{SB:Close} [\p{SB:Extend}\p{SB:Format}]*)* (\p{SB:Sp} [\p{SB:Extend}\p{SB:Format}]*)* / [\p{SB:SContinue}\p{SB:STerm}\p{SB:Aterm}] { addMatch(); }
 
 
-// Otherwise, break everywhere.
+// Break after sentence terminators, but include closing punctuation, trailing 
+// spaces, and any paragraph separator.
 //
-// GB10. 	Any 	÷ 	Any
+//     Rules SB9–SB11 are designed to allow breaks after sequences of the following form,
+//     but not within them:
 //
-[^] { addMatch(); return nextSegment(); }
+//        (STerm | ATerm) Close* Sp* (Sep | CR | LF)?
+//
+// SB9.   ( STerm | ATerm ) Close*  ×  ( Close | Sp | Sep | CR | LF )
+// SB10.  ( STerm | ATerm ) Close* Sp*  ×      ( Sp | Sep | CR | LF )
+// SB11.  ( STerm | ATerm ) Close* Sp*              ( Sep | CR | LF )?  ÷
+//
+// [included SB5. 	X (Extend | Format)* 	→ 	X]
+//
+[\p{SB:STerm}\p{SB:ATerm}] [\p{SB:Extend}\p{SB:Format}]* (\p{SB:Close} [\p{SB:Extend}\p{SB:Format}]*)* (\p{SB:Sp} [\p{SB:Extend}\p{SB:Format}]*)* [\p{SB:Sep}\p{SB:CR}\p{SB:LF}]? { addMatch(); return nextSegment(); }
+[\p{SB:STerm}\p{SB:ATerm}] [\p{SB:Extend}\p{SB:Format}]* / [^\p{SB:Close}\p{SB:Sp}\p{SB:Sep}\p{SB:CR}\p{SB:LF}] { addMatch(); return nextSegment(); }
+
+// Otherwise, do not break.
+//
+// SB12. 	Any 	× 	Any
+//
+[^] { addMatch(); }

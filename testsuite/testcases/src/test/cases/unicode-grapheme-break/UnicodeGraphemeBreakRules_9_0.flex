@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 %%
 
-%unicode 7.0
+%unicode 9.0
 %public
-%class UnicodeGraphemeBreakRules_7_0
+%class UnicodeGraphemeBreakRules_9_0
 %type String
 
 %{
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
   public static void main(String argv[]) {
     if (argv.length == 0) {
-      System.out.println("Usage : java UnicodeGraphemeBreakRules_7_0 [ --encoding <name> ] <inputfile(s)>");
+      System.out.println("Usage : java UnicodeGraphemeBreakRules_9_0 [ --encoding <name> ] <inputfile(s)>");
     }
     else {
       int firstFilePos = 0;
@@ -42,7 +42,7 @@ import java.util.regex.Pattern;
         }
       }
       
-      UnicodeGraphemeBreakRules_7_0 scanner = null;
+      UnicodeGraphemeBreakRules_9_0 scanner = null;
       for (int i = firstFilePos; i < argv.length; i++) {
         try {
           FileInputStream stream = new FileInputStream(argv[i]);
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
             }
             Reader testReader = new StringReader(testStringBuilder.toString());            
             if (null == scanner) {
-              scanner = new UnicodeGraphemeBreakRules_7_0(testReader);
+              scanner = new UnicodeGraphemeBreakRules_9_0(testReader);
             } else {
               scanner.yyreset(testReader);
             }
@@ -129,8 +129,8 @@ import java.util.regex.Pattern;
 
 // Break at the start and end of text.
 //
-// GB1.  sot  ÷
-// GB2.       ÷  eot
+// GB1.  sot  ÷  Any
+// GB2.  Any  ÷  eot
 //
 <<EOF>> { return nextSegment(); }
 
@@ -169,17 +169,11 @@ import java.util.regex.Pattern;
 [\p{GCB:LVT}\p{GCB:T}] / \p{GCB:T} { addMatch(); }
 
 
-// Do not break between regional indicator symbols.
+// Do not break before extending characters or ZWJ.
 //
-// GB8a. 	Regional_Indicator 	× 	Regional_Indicator
-\p{GCB:Regional_Indicator} / \p{GCB:Regional_Indicator} { addMatch(); }
-
-
-// Do not break before extending characters.
+// GB9. 	  	× 	( Extend | ZWJ )
 //
-// GB9. 	  	× 	Extend
-//
-[^] / \p{GCB:Extend} { addMatch(); }
+[^] / [\p{GCB:Extend}\p{GCB:ZWJ}] { addMatch(); }
 
 
 // Only for extended grapheme clusters:
@@ -192,13 +186,34 @@ import java.util.regex.Pattern;
 
 // GB9b. 	Prepend 	× 	 
 //
-// Unicode 7.0 has no GCB:Prepend chars, so this is not a valid property under JFLex
+\p{GCB:Prepend} / [^] { addMatch(); }
+
+
+// Do not break within emoji modifier sequences or emoji zwj sequences.
+// 
+// GB10.	( E_Base | EBG ) Extend*  ×  E_Modifier
 //
-//// \p{GCB:Prepend} / [^] { addMatch(); }
+[\p{GCB:E_Base}\p{GCB:EBG}] \p{GCB:Extend}* / \p{GCB:E_Modifier} { addMatch(); }
+
+
+// GB11.	ZWJ	×	(Glue_After_Zwj | EBG)
+//
+\p{GCB:ZWJ} / [\p{GCB:Glue_After_Zwj}\p{GCB:EBG}] { addMatch(); }
+
+
+// Do not break within emoji flag sequences. 
+// That is, do not break between regional indicator (RI) symbols
+// if there is an odd number of RI characters before the break point.
+//
+// GB9. 	  	× 	( Extend | ZWJ )
+// GB12.	^ (RI RI)* RI	×	RI
+// GB13.	[^RI] (RI RI)* RI	×	RI
+//
+\p{GCB:RI}{2} [\p{GCB:Extend}\p{GCB:ZWJ}]? { addMatch(); return nextSegment(); }
 
 
 // Otherwise, break everywhere.
 //
-// GB10. 	Any 	÷ 	Any
+// GB999. 	Any 	÷ 	Any
 //
 [^] { addMatch(); return nextSegment(); }
