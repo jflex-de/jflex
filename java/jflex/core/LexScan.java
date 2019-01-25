@@ -1989,13 +1989,17 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     }
     if (numRead > 0) {
       zzEndRead += numRead;
-      /* If numRead == requested, we might have requested to few chars to
-         encode a full Unicode character. We assume that a Reader would
-         otherwise never return half characters. */
-      if (numRead == requested) {      
-        if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
+      if (Character.isHighSurrogate(zzBuffer[zzEndRead - 1])) {
+        if (numRead == requested) { // We requested too few chars to encode a full Unicode character
           --zzEndRead;
           zzFinalHighSurrogate = 1;
+        } else {                    // There is room in the buffer for at least one more char
+          int c = zzReader.read();  // Expecting to read a paired low surrogate char
+          if (c == -1) {
+            return true;
+          } else {
+            zzBuffer[zzEndRead++] = (char)c;
+          }
         }
       }
       /* potentially more input available */
