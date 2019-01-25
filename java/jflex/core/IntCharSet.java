@@ -105,7 +105,7 @@ public final class IntCharSet {
   /**
    * add.
    *
-   * @param interval a {@link jflex.Interval} object.
+   * @param interval a {@link jflex.chars.Interval} object.
    */
   public void add(Interval interval) {
 
@@ -392,7 +392,7 @@ public final class IntCharSet {
   /**
    * Returns the next interval.
    *
-   * @return the next {@link jflex.Interval}.
+   * @return the next {@link jflex.chars.Interval}.
    */
   public Interval getNext() {
     if (pos == intervals.size()) pos = 0;
