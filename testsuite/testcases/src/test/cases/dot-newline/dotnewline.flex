@@ -78,4 +78,6 @@ import java.util.ArrayList;
           return -1;
         }
 
+[\uD800-\uDFFF] { System.out.format("Matched unpaired surrogate char \\u%04X\n", (int)yytext().charAt(0)); } 
+
 [^] { System.out.format("Should never get here - char \\u%04X is matched by neither dot (.) nor (\\R)\n", (int)yytext().charAt(0)); }
