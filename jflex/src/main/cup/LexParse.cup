@@ -720,7 +720,7 @@ regexp        ::=  regexp:r STAR
                         any.add(new Interval('\u0085','\u0085'));
                         any.add(new Interval('\u2028','\u2029'));
                       }
-                      // assumption: newline chars have no uppercase variant
+                      // assumption: surrogate and newline chars have no uppercase variant
                       charClasses.makeClass(any, false);
                       RegExp1 r = new RegExp1(sym.CCLASSNOT, any);
                       r.isPoint = true;
