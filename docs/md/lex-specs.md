@@ -739,7 +739,7 @@ A regular expression that consists solely of
 -   a negated character class `'[^...]'` matches all characters not
     listed in the class. If the list of characters is empty (i.e.
     `[^]`), the expression matches any character of the input character
-    set.
+    set, including unpaired Unicode surrogate characters.
 
 -   a string `’’ StringCharacter+ ’’` matches the exact text enclosed in
     double quotes. All meta characters apart from `\` and `"` lose their
@@ -804,7 +804,9 @@ A regular expression that consists solely of
         most recent Unicode version.
 
     -   Dot (`.`) matches `[^\r\n\u2028\u2029\u000B\u000C\u0085]`.\
-        Use the `–legacydot` option to instead match `[^\n]`.
+        Use the `–legacydot` option to instead match `[^\n]`.\
+        Note that unpaired Unicode surrogate chars `[\uD800-\uDFFF]`
+        are not matched by `.`.
 
     -   `\R` matches any newline:
         `\r\n|[\r\n\u2028\u2029\u000B\u000C\u0085]`.
@@ -1146,8 +1148,11 @@ Currently, the API consists of the following methods and member fields:
 
     will return the matched text minus the last character.
 
-    Note that with Unicode surrogate characters it is possible that
-    expressions such as `[^]` match more than one `char`.
+    Note that supplementary Unicode characters (i.e., those above the
+    Basic Multilingual Plane) are represented in Java Strings by paired
+    Unicode surrogate characters, and as a result expressions such as
+    `[^]` (any character) and `\p{...}` (characters having a Unicode
+    property) can match more than one `char`.
 
 -   `int yyline`
 
