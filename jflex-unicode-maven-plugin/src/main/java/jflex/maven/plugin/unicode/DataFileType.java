@@ -174,11 +174,55 @@ public enum DataFileType {
      * code points (old Korean syllables), so the Age property is excluded for those code points in
      * following Unicode versions.
      */
+    @Override
     public URL getURL(String version, URL baseURL, String versionedDirectoryListing)
         throws MalformedURLException {
       return version.startsWith("1.1")
           ? null
           : new URL("http://www.unicode.org/Public/UNIDATA/DerivedAge.txt");
+    }
+  },
+
+  EMOJI("emoji-data") {
+    public void scan(URL url, UnicodeVersion version) throws IOException {
+      try (Reader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
+        BinaryPropertiesFileScanner scanner = new BinaryPropertiesFileScanner(reader, version);
+        scanner.scan();
+      }
+    }
+    /**
+     * Pull Emoji data from the emoji version corresponding to the Unicode version. The most recent
+     * Emoji Version data is used for each Unicode version. NOTE: Emoji 1.0 data is in a completely
+     * different format and will not be supported.
+     *
+     * <p>From http://unicode.org/reports/tr51/ :
+     *
+     * <ul>
+     *   <li>Emoji 1.0 2015-06-09 Unicode 8.0
+     *   <li>Emoji 2.0 2015-11-12 Unicode 8.0
+     *   <li>Emoji 3.0 2016-06-03 Unicode 9.0
+     *   <li>Emoji 4.0 2016-11-22 Unicode 9.0
+     *   <li>Emoji 5.0 2017-06-20 Unicode 10.0
+     *   <li>Emoji 11.0 2018-05-21 Unicode 11.0
+     * </ul>
+     */
+    @Override
+    public URL getURL(String version, URL baseURL, String versionedDirectoryListing)
+        throws MalformedURLException {
+      URL url = null; // default: not supported for this version of Unicode
+      String[] versionComponents = version.split("\\.");
+      int majorVersion = Integer.parseInt(versionComponents[0]);
+      if (majorVersion >= 11) {
+        String majorMinorVersion = versionComponents[0] + "." + versionComponents[1];
+        url = new URL("https://unicode.org/Public/emoji/" + majorMinorVersion + "/emoji-data.txt");
+      } else if (majorVersion == 8) {
+        url = new URL("https://unicode.org/Public/emoji/2.0/emoji-data.txt");
+      } else if (majorVersion == 9) {
+        url = new URL("https://unicode.org/Public/emoji/4.0/emoji-data.txt");
+      } else if (majorVersion == 10) {
+        url = new URL("https://unicode.org/Public/emoji/5.0/emoji-data.txt");
+      }
+      return url;
     }
   };
 

@@ -92,7 +92,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_NAME> {
-  [^ \t\r\n]+   { propertyName = yytext(); }
+  [^ \t\r\n#]+   { propertyName = yytext(); }
 
   {Spaces} ("#" .*)? {NL} { addCurrentInterval(); yybegin(YYINITIAL); }
 }
