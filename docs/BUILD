@@ -62,7 +62,7 @@ latex_document(
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
-        # "@bazel_latex//packages:upquote",
+        "@bazel_latex//packages:upquote",
     ] + TEX_SRCS,
     main = "manual_full.tex",
 )
