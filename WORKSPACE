@@ -3,11 +3,12 @@
 
 # JFlex itself is not built with Bazel, but some examples and the documentation are.
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 git_repository(
     name = "jflex_rules",
-    tag = "v3",
     remote = "https://github.com/jflex-de/bazel_rules.git",
+    tag = "v3",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
@@ -16,18 +17,10 @@ jflex_deps()
 
 # pandoc used to build the documentatoin
 
-# TODO(regisd) Take upstream when they have accepted my PR to allow specifying output
-# https://github.com/ProdriveTechnologies/bazel-pandoc/pull/1
-#http_archive(
-#    name = "bazel_pandoc",
-#    strip_prefix = "bazel-pandoc-0.1",
-#    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.1.tar.gz",
-#)
 http_archive(
     name = "bazel_pandoc",
-    sha256 = "0dd9d0d44658d46a96c36caba25f7ce9f119a6883c3219f61b76c11cfdc83c8f",
-    strip_prefix = "bazel_pandoc-0.1.1",
-    url = "https://github.com/regisd/bazel_pandoc/archive/v0.1.1.tar.gz",
+    strip_prefix = "bazel-pandoc-0.2",
+    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
 )
 
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
@@ -38,8 +31,9 @@ pandoc_repositories()
 
 http_archive(
     name = "bazel_latex",
-    strip_prefix = "bazel-latex-0.9",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.9.tar.gz",
+    sha256 = "b4dd9ae76c570b328be30cdc5ea7045a61ecd55e4e6e2e433fb3bb959be2a44b",
+    strip_prefix = "bazel-latex-0.16",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.16.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
@@ -50,3 +44,8 @@ latex_repositories()
 load("//third_party:deps.bzl", "third_party_deps")
 
 third_party_deps()
+
+# Unicode character definitions (UCD) from Unicode.org
+load("//third_party/unicode:unicode.bzl", "unicode_deps")
+
+unicode_deps()

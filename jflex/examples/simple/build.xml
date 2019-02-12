@@ -1,6 +1,6 @@
 <project name="simple scanner" default="compile">
 
-  <property name="jflex" value="../../target/jflex-full-1.7.1-SNAPSHOT.jar"/>
+  <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
 
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -28,7 +28,7 @@ import jflex.l10n.ErrorMessages;
  * <p>Contains algorithms RegExp → NFA and NFA → DFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class NFA {
 
@@ -962,7 +962,7 @@ public final class NFA {
       end = numStates + 1;
 
       ensureCapacity(end + 1);
-      if (end + 1 > numStates) numStates = end + 1;
+      numStates = end + 1;
 
       insertCCLNFA(regExp, start, end);
 
@@ -1047,5 +1047,9 @@ public final class NFA {
     }
 
     throw new Error("Unknown expression type " + regExp.type + " in NFA construction");
+  }
+
+  public int numStates() {
+    return numStates;
   }
 }

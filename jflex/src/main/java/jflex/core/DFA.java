@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -23,7 +23,7 @@ import jflex.l10n.ErrorMessages;
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class DFA {
 
@@ -167,6 +167,10 @@ public final class DFA {
     table[start][input] = dest;
   }
 
+  public boolean lookaheadUsed() {
+    return lookaheadUsed;
+  }
+
   /** Returns a string representation of the DFA. */
   public String toString() {
     StringBuilder result = new StringBuilder();
@@ -203,7 +207,7 @@ public final class DFA {
    *
    * @param file output file.
    */
-  void writeDot(File file) {
+  public void writeDot(File file) {
     try {
       PrintWriter writer = new PrintWriter(new FileWriter(file));
       writer.println(dotFormat());
@@ -952,5 +956,33 @@ public final class DFA {
       }
       Out.dump(line);
     }
+  }
+
+  public int numInput() {
+    return numInput;
+  }
+
+  public int numStates() {
+    return numStates;
+  }
+
+  public int numLexStates() {
+    return numLexStates;
+  }
+
+  public int entryState(int i) {
+    return entryState[i];
+  }
+
+  public boolean isFinal(int i) {
+    return isFinal[i];
+  }
+
+  public int table(int i, int j) {
+    return table[i][j];
+  }
+
+  public Action action(int i) {
+    return action[i];
   }
 }

@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -23,7 +24,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -45,11 +45,18 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private static final int BUF_SIZE = 4096;
 
   /** Name of the directory into which the code will be generated. */
-  @Parameter(defaultValue = "${basedir}/src/main/java/jflex/unicode")
+  @Parameter(defaultValue = "${basedir}/src/main/java/jflex/core/unicode")
   private File outputDirectory = null;
 
   /** Maps validated major.minor unicode versions to information about the version. */
-  private SortedMap<String, UnicodeVersion> unicodeVersions = new TreeMap<>();
+  private SortedMap<String, UnicodeVersion> unicodeVersions =
+      new TreeMap<>(
+          new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+              return (new Version(o1)).compareTo(new Version(o2));
+            }
+          });
 
   /** The name of the output file (without .java) and the contained class. */
   private static final String OUTPUT_CLASS_NAME = "UnicodeProperties";
@@ -108,7 +115,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    *       </ol>
    * </ol>
    */
-  public void execute() throws MojoExecutionException, MojoFailureException {
+  public void execute() throws MojoExecutionException {
     try {
       getLog().info("Downloading Unicode data from " + UNICODE_DOT_ORG_URL + "\n");
       collectUnicodeVersions();
@@ -129,7 +136,14 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     // Maps available versions to maps from update numbers to relative URLs.
     // A version with no update is given update number "-1" for the purposes
     // of comparison.
-    SortedMap<String, SortedMap<Integer, String>> allUnicodeVersions = new TreeMap<>();
+    SortedMap<String, SortedMap<Integer, String>> allUnicodeVersions =
+        new TreeMap<>(
+            new Comparator<String>() {
+              @Override
+              public int compare(String o1, String o2) {
+                return (new Version(o1)).compareTo(new Version(o2));
+              }
+            });
 
     URL unicodeURL = new URL(UNICODE_DOT_ORG_URL);
     Matcher matcher = UNICODE_VERSION_LINK_PATTERN.matcher(getPageContent(unicodeURL));
@@ -151,8 +165,8 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       }
       updates.put(updateNumber, relativeURL);
     }
-    for (Entry<String, SortedMap<Integer, String>> entry : allUnicodeVersions.entrySet()) {
-      populateUnicodeVersion(entry.getKey(), entry.getValue());
+    for (String version : allUnicodeVersions.keySet()) {
+      populateUnicodeVersion(version, allUnicodeVersions.get(version));
     }
   }
 
@@ -250,7 +264,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     StringBuilder builder = new StringBuilder();
     UnicodePropertiesSkeleton skeleton = new UnicodePropertiesSkeleton(SKELETON_FILENAME);
     skeleton.emitNext(builder); // Header
-    emitClassComment(builder);
+    emitClassHeader(builder);
     // Class declaration and unicode versions static field declaration
     skeleton.emitNext(builder);
     emitUnicodeVersionsString(builder);
@@ -269,10 +283,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   }
 
   private void emitUnicodeVersionsString(StringBuilder builder) {
-    builder.append("    \"");
+    builder.append("      \"");
     boolean isFirst = true;
-    for (Entry<String, UnicodeVersion> entry : unicodeVersions.entrySet()) {
-      String majorMinorVersion = entry.getKey();
+    for (String majorMinorVersion : unicodeVersions.keySet()) {
       if (isFirst) {
         isFirst = false;
       } else {
@@ -282,7 +295,10 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         String majorVersion = majorMinorVersion.substring(0, majorMinorVersion.indexOf("."));
         builder.append(majorVersion).append(", ");
       }
-      builder.append(entry).append(", ").append(entry.getValue().majorMinorUpdateVersion);
+      builder
+          .append(majorMinorVersion)
+          .append(", ")
+          .append(unicodeVersions.get(majorMinorVersion).majorMinorUpdateVersion);
     }
     builder.append("\";");
   }
@@ -293,12 +309,11 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     }
   }
 
-  private void emitClassComment(StringBuilder builder) {
+  private void emitClassHeader(StringBuilder builder) {
     builder
-        .append("\n/**\n") // emit Class comment
-        .append(" * This class was automatically generated by")
-        .append(" jflex-unicode-maven-plugin based\n")
-        .append(" * on data files downloaded from unicode.org.\n */");
+        .append("// DO NOT EDIT\n")
+        .append("// This class was automatically generated by jflex-unicode-maven-plugin\n")
+        .append("// based on data files downloaded from unicode.org.\n");
   }
 
   private void emitInitBody(StringBuilder builder) {
@@ -313,35 +328,30 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       }
       if (majorMinorVersion.indexOf(".0") == majorMinorVersion.length() - 2) {
         String majorVersion = majorMinorVersion.substring(0, majorMinorVersion.indexOf("."));
-        builder.append("version.equals(\"").append(majorVersion).append("\") || ");
+        builder.append("Objects.equals(version, \"").append(majorVersion).append("\") || ");
       }
       UnicodeVersion unicodeVersion = entry.getValue();
-      String versionSuffix = unicodeVersion.getVersionSuffix();
+      String className = unicodeVersion.getGeneratedClassName();
+      String fqcn = "jflex.core.unicode.data." + className;
       builder
-          .append("version.equals(\"")
-          .append(entry)
-          .append("\") || version.equals(\"")
+          .append("Objects.equals(version, \"")
+          .append(majorMinorVersion)
+          .append("\") || Objects.equals(version, \"")
           .append(unicodeVersion.majorMinorUpdateVersion)
           .append("\")) {\n")
-          .append("      bind(Unicode")
-          .append(versionSuffix)
-          .append(".propertyValues")
-          .append(", Unicode")
-          .append(versionSuffix)
-          .append(".intervals")
-          .append(", Unicode")
-          .append(versionSuffix)
-          .append(".propertyValueAliases")
-          .append(",\n         Unicode")
-          .append(versionSuffix)
-          .append(".maximumCodePoint")
-          .append(", Unicode")
-          .append(versionSuffix)
-          .append(".caselessMatchPartitions")
-          .append(", Unicode")
-          .append(versionSuffix)
-          .append(".caselessMatchPartitionSize")
-          .append(");\n");
+          .append("      bind(")
+          .append(fqcn)
+          .append(".propertyValues,\n           ")
+          .append(fqcn)
+          .append(".intervals,\n           ")
+          .append(fqcn)
+          .append(".propertyValueAliases,\n           ")
+          .append(fqcn)
+          .append(".maximumCodePoint,\n           ")
+          .append(fqcn)
+          .append(".caselessMatchPartitions,\n           ")
+          .append(fqcn)
+          .append(".caselessMatchPartitionSize);\n");
     }
     builder
         .append("    } else {\n")
@@ -370,5 +380,47 @@ public class JFlexUnicodeMojo extends AbstractMojo {
    */
   private File getOutputFile() {
     return new File(outputDirectory, OUTPUT_CLASS_NAME + ".java");
+  }
+
+  private static class Version implements Comparable {
+    private static final Pattern PATTERN = Pattern.compile("(\\d+)(?:.(\\d+))?(?:.(\\d+))?");
+    int major;
+    int minor;
+    int patch;
+
+    Version(String v) {
+      Matcher m = PATTERN.matcher(v);
+      if (m.matches()) {
+        this.major = Integer.parseInt(m.group(1));
+        this.minor =
+            m.group(2) != null && m.group(2).length() > 0 ? Integer.parseInt(m.group(2)) : -1;
+        this.patch =
+            m.group(3) != null && m.group(3).length() > 0 ? Integer.parseInt(m.group(3)) : -1;
+      } else {
+        throw new IllegalArgumentException("Unable to parse version string '" + v + "'");
+      }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+      int comparison = 0;
+      if (o != null) {
+        Version other = (Version) o;
+        if (this.major < other.major) {
+          comparison = -1;
+        } else if (this.major > other.major) {
+          comparison = 1;
+        } else if (this.minor < other.minor) {
+          comparison = -1;
+        } else if (this.minor > other.minor) {
+          comparison = 1;
+        } else if (this.patch < other.patch) {
+          comparison = -1;
+        } else if (this.patch > other.patch) {
+          comparison = 1;
+        }
+      }
+      return comparison;
+    }
   }
 }
