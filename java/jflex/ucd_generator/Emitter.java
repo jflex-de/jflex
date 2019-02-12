@@ -62,7 +62,7 @@ public class Emitter {
         + "// based on Unicode data files downloaded from unicode.org.\n"
         + "/**\n"
         + " * Unicode properties.\n"
-        + " *.\n"
+        + " *\n"
         + " * @author JFlex contributors.\n"
         + " */";
   }

@@ -13,7 +13,6 @@ package org.example;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,7 +24,7 @@ import jflex.core.IntCharSet;
 // based on Unicode data files downloaded from unicode.org.
 /**
  * Unicode properties.
- *.
+ *
  * @author JFlex contributors.
  */
 public class UnicodeProperties {
@@ -142,10 +141,10 @@ public class UnicodeProperties {
    * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
-    switch(version) {
-      // Version 1.2.0
-        case "1.2":
-        case "1.2.0":
+    switch (version) {
+        // Version 1.2.0
+      case "1.2":
+      case "1.2.0":
         bind(
             org.example.data.Unicode_1_2.propertyValues,
             org.example.data.Unicode_1_2.intervals,
@@ -154,10 +153,10 @@ public class UnicodeProperties {
             org.example.data.Unicode_1_2.caselessMatchPartitions,
             org.example.data.Unicode_1_2.caselessMatchPartitionSize);
         break;
-      // Version 2.0.1
-        case "2":
-        case "2.0":
-        case "2.0.1":
+        // Version 2.0.1
+      case "2":
+      case "2.0":
+      case "2.0.1":
         bind(
             org.example.data.Unicode_2_0.propertyValues,
             org.example.data.Unicode_2_0.intervals,
@@ -166,9 +165,9 @@ public class UnicodeProperties {
             org.example.data.Unicode_2_0.caselessMatchPartitions,
             org.example.data.Unicode_2_0.caselessMatchPartitionSize);
         break;
-      // Version 2.4.6
-        case "2.4":
-        case "2.4.6":
+        // Version 2.4.6
+      case "2.4":
+      case "2.4.6":
         bind(
             org.example.data.Unicode_2_4.propertyValues,
             org.example.data.Unicode_2_4.intervals,
@@ -177,10 +176,10 @@ public class UnicodeProperties {
             org.example.data.Unicode_2_4.caselessMatchPartitions,
             org.example.data.Unicode_2_4.caselessMatchPartitionSize);
         break;
-      // Version 10.0.0
-        case "10":
-        case "10.0":
-        case "10.0.0":
+        // Version 10.0.0
+      case "10":
+      case "10.0":
+      case "10.0.0":
         bind(
             org.example.data.Unicode_10_0.propertyValues,
             org.example.data.Unicode_10_0.intervals,

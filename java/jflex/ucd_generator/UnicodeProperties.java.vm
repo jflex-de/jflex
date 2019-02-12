@@ -14,7 +14,6 @@ package $packageName;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -138,11 +137,11 @@ public class UnicodeProperties {
    * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
-    switch(version) {
+    switch (version) {
 #foreach( $v in ${ucdVersions.versions()} )
-      // Version $v
+        // Version $v
   #foreach( $ev in ${ucdVersions.expandVersion($v)} )
-      case "$ev":
+    case "$ev":
   #end
 #**#      bind(
             ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValues,

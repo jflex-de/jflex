@@ -154,5 +154,10 @@ public class UcdVersions {
       Version other = (Version) o;
       return this.major == other.major && this.minor == other.minor && this.patch == other.patch;
     }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(this.major, this.minor, this.patch);
+    }
   }
 }

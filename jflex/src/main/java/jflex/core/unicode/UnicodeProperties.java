@@ -13,7 +13,6 @@ package jflex.core.unicode;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,16 +24,16 @@ import jflex.core.IntCharSet;
 // based on Unicode data files downloaded from unicode.org.
 /**
  * Unicode properties.
- *.
+ *
  * @author JFlex contributors.
  */
 public class UnicodeProperties {
 
-  /** List of supported unicode versions. */
+  /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.1, 1.1.5, 10, 10.0, 10.0.0, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.1, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0";
+      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.1, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0, 10, 10.0, 10.0.0";
 
-  private static final String DEFAULT_UNICODE_VERSION = "9.0.0";
+  private static final String DEFAULT_UNICODE_VERSION = "10.0.0";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
@@ -48,8 +47,7 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
    * #DEFAULT_UNICODE_VERSION}".
    *
-   * @throws UnsupportedUnicodeVersionException if the default version is not
-   *     supported.
+   * @throws UnsupportedUnicodeVersionException if the default version is not supported.
    */
   public UnicodeProperties() throws UnsupportedUnicodeVersionException {
     init(DEFAULT_UNICODE_VERSION);
@@ -143,10 +141,10 @@ public class UnicodeProperties {
    * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
-    switch(version) {
-      // Version 1.1.5
-        case "1.1":
-        case "1.1.5":
+    switch (version) {
+        // Version 1.1.5
+      case "1.1":
+      case "1.1.5":
         bind(
             jflex.core.unicode.data.Unicode_1_1.propertyValues,
             jflex.core.unicode.data.Unicode_1_1.intervals,
@@ -155,22 +153,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
         break;
-      // Version 10.0.0
-        case "10":
-        case "10.0":
-        case "10.0.0":
-        bind(
-            jflex.core.unicode.data.Unicode_10_0.propertyValues,
-            jflex.core.unicode.data.Unicode_10_0.intervals,
-            jflex.core.unicode.data.Unicode_10_0.propertyValueAliases,
-            jflex.core.unicode.data.Unicode_10_0.maximumCodePoint,
-            jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitions,
-            jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitionSize);
-        break;
-      // Version 2.0.14
-        case "2":
-        case "2.0":
-        case "2.0.14":
+        // Version 2.0.14
+      case "2":
+      case "2.0":
+      case "2.0.14":
         bind(
             jflex.core.unicode.data.Unicode_2_0.propertyValues,
             jflex.core.unicode.data.Unicode_2_0.intervals,
@@ -179,9 +165,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
         break;
-      // Version 2.1.9
-        case "2.1":
-        case "2.1.9":
+        // Version 2.1.9
+      case "2.1":
+      case "2.1.9":
         bind(
             jflex.core.unicode.data.Unicode_2_1.propertyValues,
             jflex.core.unicode.data.Unicode_2_1.intervals,
@@ -190,10 +176,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitionSize);
         break;
-      // Version 3.0.1
-        case "3":
-        case "3.0":
-        case "3.0.1":
+        // Version 3.0.1
+      case "3":
+      case "3.0":
+      case "3.0.1":
         bind(
             jflex.core.unicode.data.Unicode_3_0.propertyValues,
             jflex.core.unicode.data.Unicode_3_0.intervals,
@@ -202,9 +188,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitionSize);
         break;
-      // Version 3.1.1
-        case "3.1":
-        case "3.1.1":
+        // Version 3.1.1
+      case "3.1":
+      case "3.1.1":
         bind(
             jflex.core.unicode.data.Unicode_3_1.propertyValues,
             jflex.core.unicode.data.Unicode_3_1.intervals,
@@ -213,9 +199,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitionSize);
         break;
-      // Version 3.2.0
-        case "3.2":
-        case "3.2.0":
+        // Version 3.2.0
+      case "3.2":
+      case "3.2.0":
         bind(
             jflex.core.unicode.data.Unicode_3_2.propertyValues,
             jflex.core.unicode.data.Unicode_3_2.intervals,
@@ -224,10 +210,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitionSize);
         break;
-      // Version 4.0.1
-        case "4":
-        case "4.0":
-        case "4.0.1":
+        // Version 4.0.1
+      case "4":
+      case "4.0":
+      case "4.0.1":
         bind(
             jflex.core.unicode.data.Unicode_4_0.propertyValues,
             jflex.core.unicode.data.Unicode_4_0.intervals,
@@ -236,9 +222,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitionSize);
         break;
-      // Version 4.1.0
-        case "4.1":
-        case "4.1.0":
+        // Version 4.1.0
+      case "4.1":
+      case "4.1.0":
         bind(
             jflex.core.unicode.data.Unicode_4_1.propertyValues,
             jflex.core.unicode.data.Unicode_4_1.intervals,
@@ -247,10 +233,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitionSize);
         break;
-      // Version 5.0.0
-        case "5":
-        case "5.0":
-        case "5.0.0":
+        // Version 5.0.0
+      case "5":
+      case "5.0":
+      case "5.0.0":
         bind(
             jflex.core.unicode.data.Unicode_5_0.propertyValues,
             jflex.core.unicode.data.Unicode_5_0.intervals,
@@ -259,9 +245,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitionSize);
         break;
-      // Version 5.1.0
-        case "5.1":
-        case "5.1.0":
+        // Version 5.1.0
+      case "5.1":
+      case "5.1.0":
         bind(
             jflex.core.unicode.data.Unicode_5_1.propertyValues,
             jflex.core.unicode.data.Unicode_5_1.intervals,
@@ -270,9 +256,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_5_1.caselessMatchPartitionSize);
         break;
-      // Version 5.2.0
-        case "5.2":
-        case "5.2.0":
+        // Version 5.2.0
+      case "5.2":
+      case "5.2.0":
         bind(
             jflex.core.unicode.data.Unicode_5_2.propertyValues,
             jflex.core.unicode.data.Unicode_5_2.intervals,
@@ -281,10 +267,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_5_2.caselessMatchPartitionSize);
         break;
-      // Version 6.0.0
-        case "6":
-        case "6.0":
-        case "6.0.0":
+        // Version 6.0.0
+      case "6":
+      case "6.0":
+      case "6.0.0":
         bind(
             jflex.core.unicode.data.Unicode_6_0.propertyValues,
             jflex.core.unicode.data.Unicode_6_0.intervals,
@@ -293,9 +279,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_6_0.caselessMatchPartitionSize);
         break;
-      // Version 6.1.0
-        case "6.1":
-        case "6.1.0":
+        // Version 6.1.0
+      case "6.1":
+      case "6.1.0":
         bind(
             jflex.core.unicode.data.Unicode_6_1.propertyValues,
             jflex.core.unicode.data.Unicode_6_1.intervals,
@@ -304,9 +290,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_6_1.caselessMatchPartitionSize);
         break;
-      // Version 6.2.0
-        case "6.2":
-        case "6.2.0":
+        // Version 6.2.0
+      case "6.2":
+      case "6.2.0":
         bind(
             jflex.core.unicode.data.Unicode_6_2.propertyValues,
             jflex.core.unicode.data.Unicode_6_2.intervals,
@@ -315,9 +301,9 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_6_2.caselessMatchPartitionSize);
         break;
-      // Version 6.3.0
-        case "6.3":
-        case "6.3.0":
+        // Version 6.3.0
+      case "6.3":
+      case "6.3.0":
         bind(
             jflex.core.unicode.data.Unicode_6_3.propertyValues,
             jflex.core.unicode.data.Unicode_6_3.intervals,
@@ -326,10 +312,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitionSize);
         break;
-      // Version 7.0.0
-        case "7":
-        case "7.0":
-        case "7.0.0":
+        // Version 7.0.0
+      case "7":
+      case "7.0":
+      case "7.0.0":
         bind(
             jflex.core.unicode.data.Unicode_7_0.propertyValues,
             jflex.core.unicode.data.Unicode_7_0.intervals,
@@ -338,10 +324,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_7_0.caselessMatchPartitionSize);
         break;
-      // Version 8.0.0
-        case "8":
-        case "8.0":
-        case "8.0.0":
+        // Version 8.0.0
+      case "8":
+      case "8.0":
+      case "8.0.0":
         bind(
             jflex.core.unicode.data.Unicode_8_0.propertyValues,
             jflex.core.unicode.data.Unicode_8_0.intervals,
@@ -350,10 +336,10 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_8_0.caselessMatchPartitionSize);
         break;
-      // Version 9.0.0
-        case "9":
-        case "9.0":
-        case "9.0.0":
+        // Version 9.0.0
+      case "9":
+      case "9.0":
+      case "9.0.0":
         bind(
             jflex.core.unicode.data.Unicode_9_0.propertyValues,
             jflex.core.unicode.data.Unicode_9_0.intervals,
@@ -361,6 +347,18 @@ public class UnicodeProperties {
             jflex.core.unicode.data.Unicode_9_0.maximumCodePoint,
             jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_9_0.caselessMatchPartitionSize);
+        break;
+        // Version 10.0.0
+      case "10":
+      case "10.0":
+      case "10.0.0":
+        bind(
+            jflex.core.unicode.data.Unicode_10_0.propertyValues,
+            jflex.core.unicode.data.Unicode_10_0.intervals,
+            jflex.core.unicode.data.Unicode_10_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_10_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitionSize);
         break;
       default:
         throw new UnsupportedUnicodeVersionException();
