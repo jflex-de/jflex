@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
 import org.junit.Test;
 
+/** Test for {@link Emitter}. */
 public class EmitterTest {
 
   @Test

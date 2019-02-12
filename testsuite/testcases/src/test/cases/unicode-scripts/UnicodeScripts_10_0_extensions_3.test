@@ -1,0 +1,11 @@
+name: UnicodeScripts_10_0_extensions_3
+
+description: 
+Tests character class syntax of the Unicode 10.0 Script_Extensions property.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+

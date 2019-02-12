@@ -28,7 +28,7 @@ java_binary(
     ],
 )
 
-#TODO(regisd) Move in //jflex/core/jnicode when migration to bazel is completed
+#TODO(regisd) Move in //jflex/core/unicode when migration to bazel is completed
 genrule(
     name = "gen_unicode_properties",
     srcs = [
@@ -50,6 +50,7 @@ genrule(
         "//third_party/unicode:ucd_7",
         "//third_party/unicode:ucd_8",
         "//third_party/unicode:ucd_9",
+        "//third_party/unicode:ucd_10",
     ],
     outs = ["UnicodeProperties.java"],
     cmd = "$(location :Main)" +
@@ -71,6 +72,7 @@ genrule(
           " --version=7.0.0 $(locations //third_party/unicode:ucd_7)" +
           " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
           " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
+          " --version=10.0.0 $(locations //third_party/unicode:ucd_10)" +
           " > $@",
     tools = [":Main"],
 )

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -27,12 +27,12 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
-import jflex.core.LexGenerator;
 import jflex.core.Options;
 import jflex.core.Out;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
+import jflex.generator.LexGenerator;
 import jflex.gui.MainFrame;
 import jflex.l10n.ErrorMessages;
 
@@ -44,7 +44,7 @@ import jflex.l10n.ErrorMessages;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class Main {
 

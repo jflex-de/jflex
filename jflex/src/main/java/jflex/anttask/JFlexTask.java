@@ -16,9 +16,9 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.core.LexGenerator;
 import jflex.core.Options;
 import jflex.exceptions.GeneratorException;
+import jflex.generator.LexGenerator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -26,7 +26,7 @@ import org.apache.tools.ant.Task;
  * JFlex ant task.
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class JFlexTask extends Task {
   private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");

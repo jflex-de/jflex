@@ -133,3 +133,8 @@ alias(
     name = "ucd_9",
     actual = "@ucd_9//:files",
 )
+
+alias(
+    name = "ucd_10",
+    actual = "@ucd_10//:files",
+)

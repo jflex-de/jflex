@@ -1,11 +1,12 @@
 package jflex.testing.testsuite;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.core.LexGenerator;
-import jflex.testing.assertion.MoreAsserts;
+import jflex.generator.LexGenerator;
 import jflex.testing.javac.CompilerException;
 import jflex.testing.javac.JavacUtil;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
@@ -35,11 +36,33 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   @Override
   public void run(RunNotifier notifier) {
     if (spec.generatorThrows() != NoExceptionThrown.class) {
-      MoreAsserts.assertThrows(
-          "@TestCase indicates that the jflex generation must throw a "
-              + spec.generatorThrows().getSimpleName(),
-          spec.generatorThrows(),
-          () -> generateLexer(notifier));
+      try {
+        generateLexer(notifier);
+        fail(
+            "@TestCase indicates that the jflex generation throws a "
+                + spec.generatorThrows().getSimpleName()
+                + " but nothing was thrown");
+      } catch (AssertionError e) {
+        throw e;
+      } catch (Throwable e) {
+        assertWithMessage(
+                "@TestCase indicates that the jflex generation must throw a "
+                    + spec.generatorThrows().getSimpleName())
+            .that(e)
+            .isInstanceOf(spec.generatorThrows());
+        if (spec.generatorThrowableCause() == Void.class) {
+          assertWithMessage(
+                  "@TestCase indicates that there is no cause for the generator exception")
+              .that(e.getCause())
+              .isNull();
+        } else if (spec.generatorThrowableCause() != NoExceptionThrown.class) {
+          assertWithMessage(
+                  "@TestCase indicates that cause of the generator exception is "
+                      + spec.generatorThrowableCause())
+              .that(e.getCause())
+              .isInstanceOf(spec.generatorThrowableCause());
+        }
+      }
     } else {
       String lexerJavaFileName = generateLexer(notifier);
       buildLexer(notifier, lexerJavaFileName);
