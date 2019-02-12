@@ -23,6 +23,8 @@ MD_SRCS = ["md/head.md"] + ["md/" + src + ".md" for src in DOC_SECTIONS]
 
 TEX_SRCS = [":" + section + "_tex" for section in DOC_SECTIONS]
 
+# TODO(regisd) Add `output` attribute
+# https://github.com/ProdriveTechnologies/bazel-pandoc/pull/1
 pandoc(
     name = "html",
     src = ":manual_md",
@@ -34,7 +36,6 @@ pandoc(
     # TODO: Add ["--filter", "pandoc-citeproc"] when #2 is fixed
     # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/2
     options = [],
-    output = "manual.html",
     to_format = "html",
 )
 
@@ -61,7 +62,7 @@ latex_document(
         "@bazel_latex//packages:graphicx",
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
-        # "@bazel_latex//packages:upquote",
+        "@bazel_latex//packages:upquote",
     ] + TEX_SRCS,
     main = "manual_full.tex",
 )
@@ -80,6 +81,6 @@ genrule(
     name = "latex_content",
     srcs = TEX_SRCS,
     outs = ["_content.tex"],
-    cmd = "echo '" + ("\n".join(["\\input{docs/" + section + "}" for section in DOC_SECTIONS])) + "' > $@",
+    cmd = "echo '" + ("\n".join(["\\input{docs/" + section + "_tex}" for section in DOC_SECTIONS])) + "' > $@",
     output_to_bindir = True,  # that's where pdf_latex looks into
 )
