@@ -5,7 +5,7 @@
 build_task:
   name: Bazel build and test
   container:
-    image: cirrusci/bazel:latest
+    image: l.gcr.io/google/bazel:latest
   bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
   build_script:
@@ -18,6 +18,7 @@ build_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
   test_all_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+
 codestyle_task:
   name: Check code style
   container:
