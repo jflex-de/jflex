@@ -41,11 +41,14 @@ public class EmitterTest {
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
     UcdVersion.Builder ucd2_4 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    UcdVersion.Builder ucd10_0 =
+        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
     UcdVersions versions =
         UcdVersions.of(
             "1.2.0", ucd1_2,
             "2.0.1", ucd2_0,
-            "2.4.6", ucd2_4);
+            "2.4.6", ucd2_4,
+            "10.0.0", ucd10_0);
     Emitter emitter = new Emitter("org.example", versions);
 
     emitter.emitUnicodeProperties(output);

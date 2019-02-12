@@ -65,6 +65,15 @@ public class UcdVersionsTest {
   }
 
   @Test
+  public void expandAllVersions_unnaturalOrder() {
+    UcdVersions ucdVersions =
+        UcdVersions.builder().put("1.2.3", ucd1).put("2.4.6", ucd1).put("10.0.0", ucd1).build();
+    assertThat(ucdVersions.expandAllVersions())
+        .containsExactly("1.2", "1.2.3", "2.4", "2.4.6", "10", "10.0", "10.0.0")
+        .inOrder();
+  }
+
+  @Test
   public void getClassNameForVersion() throws Exception {
     assertThat(UcdVersions.getClassNameForVersion("4.2")).isEqualTo("Unicode_4_2");
   }

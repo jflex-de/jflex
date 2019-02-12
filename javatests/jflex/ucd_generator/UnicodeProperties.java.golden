@@ -32,9 +32,9 @@ public class UnicodeProperties {
 
   /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.2, 1.2.0, 2, 2.0, 2.0.1, 2.4, 2.4.6";
+      "1.2, 1.2.0, 2, 2.0, 2.0.1, 2.4, 2.4.6, 10, 10.0, 10.0.0";
 
-  private static final String DEFAULT_UNICODE_VERSION = "2.4.6";
+  private static final String DEFAULT_UNICODE_VERSION = "10.0.0";
 
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
@@ -176,6 +176,18 @@ public class UnicodeProperties {
             org.example.data.Unicode_2_4.maximumCodePoint,
             org.example.data.Unicode_2_4.caselessMatchPartitions,
             org.example.data.Unicode_2_4.caselessMatchPartitionSize);
+        break;
+      // Version 10.0.0
+        case "10":
+        case "10.0":
+        case "10.0.0":
+        bind(
+            org.example.data.Unicode_10_0.propertyValues,
+            org.example.data.Unicode_10_0.intervals,
+            org.example.data.Unicode_10_0.propertyValueAliases,
+            org.example.data.Unicode_10_0.maximumCodePoint,
+            org.example.data.Unicode_10_0.caselessMatchPartitions,
+            org.example.data.Unicode_10_0.caselessMatchPartitionSize);
         break;
       default:
         throw new UnsupportedUnicodeVersionException();
