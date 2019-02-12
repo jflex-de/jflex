@@ -48,7 +48,7 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
    * #DEFAULT_UNICODE_VERSION}".
    *
-   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the default version is not
+   * @throws UnsupportedUnicodeVersionException if the default version is not
    *     supported.
    */
   public UnicodeProperties() throws UnsupportedUnicodeVersionException {
@@ -59,8 +59,7 @@ public class UnicodeProperties {
    * Unpacks the Unicode data corresponding to the given version.
    *
    * @param version The Unicode version for which to unpack data
-   * @throws UnicodeProperties.UnsupportedUnicodeVersionException if the given version is not
-   *     supported.
+   * @throws UnsupportedUnicodeVersionException if the given version is not supported.
    */
   public UnicodeProperties(String version) throws UnsupportedUnicodeVersionException {
     init(version);
