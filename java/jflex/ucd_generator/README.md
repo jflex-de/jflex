@@ -12,6 +12,10 @@ Each unicode version is defined as a filegroup in
 
 Bazel is responsible for fetching (using mirrors) and caching the remote resources.
 
+The generated `UnicodeProperties.java` is build by
+
+    bazel build java/jflex/ucd_generator:gen_unicode_properties
+
 ## Software architecture.
 
 * `Main` is only responsible for parsing the cli arguments
