@@ -32,7 +32,6 @@ def jflex_doc_tex(name, src = None):
         name = name + "_tex",
         src = ":" + name + "_md",
         from_format = "markdown",
-        output = name + ".tex",  # If changed, then change \include{} in manual.tex
         to_format = "latex",
         options = ["--biblatex"],
     )
