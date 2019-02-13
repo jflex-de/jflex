@@ -58,9 +58,9 @@ matrix:
           - python
     before_install:
     - mkdir -p tools
-    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel_0.17.2-linux-x86_64.deb -o tools/bazel-0.17.2.deb
+    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.22.0/bazel_0.22.0-linux-x86_64.deb -o tools/bazel-0.22.0.deb
     install:
-    - sudo apt-get install ./tools/bazel-0.17.2.deb
+    - sudo apt-get install ./tools/bazel-0.22.0.deb
     sudo: true
   - name: "📄 Documentation"
     language: generic
