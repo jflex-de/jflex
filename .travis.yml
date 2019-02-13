@@ -39,7 +39,8 @@ matrix:
     script: scripts/test-examples.sh
     jdk: openjdk7
   - name: "💚 Bazel (Examples and documentation)"
-    language: generic
+    language: python
+    python: "2.7"
     script:
     - scripts/mvn-install-fastbuild.sh
     - scripts/bazel.sh
