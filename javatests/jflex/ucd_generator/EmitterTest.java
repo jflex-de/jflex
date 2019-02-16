@@ -31,6 +31,9 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
+import jflex.ucd_generator.ucd.UcdFileType;
+import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.UcdVersions;
 import org.junit.Test;
 
 /** Test for {@link Emitter}. */
@@ -45,15 +48,19 @@ public class EmitterTest {
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
 
     // fake ucd version 1.2
-    UcdVersion.Builder ucd1_2 =
-        UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_0 =
+    jflex.ucd_generator.ucd.UcdVersion.Builder ucd1_2 =
+        jflex.ucd_generator.ucd.UcdVersion.builder()
+            .putFile(
+                jflex.ucd_generator.ucd.UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
+    jflex.ucd_generator.ucd.UcdVersion.Builder ucd2_0 =
+        jflex.ucd_generator.ucd.UcdVersion.builder()
+            .putFile(jflex.ucd_generator.ucd.UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    jflex.ucd_generator.ucd.UcdVersion.Builder ucd2_4 =
+        jflex.ucd_generator.ucd.UcdVersion.builder()
+            .putFile(jflex.ucd_generator.ucd.UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    jflex.ucd_generator.ucd.UcdVersion.Builder ucd10_0 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_4 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd10_0 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersions versions =
+    jflex.ucd_generator.ucd.UcdVersions versions =
         UcdVersions.of(
             "1.2.0", ucd1_2,
             "2.0.1", ucd2_0,

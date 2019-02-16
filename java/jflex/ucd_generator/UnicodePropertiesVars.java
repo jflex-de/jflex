@@ -25,6 +25,7 @@
  */
 package jflex.ucd_generator;
 
+import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.velocity.TemplateVars;
 
 // the fields in this class are read via reflection by Velocity

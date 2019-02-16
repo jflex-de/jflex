@@ -13,6 +13,7 @@ java_library(
     ],
     deps = [
         "//java/jflex/testing/javac",
+        "//java/jflex/ucd_generator/ucd",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
@@ -24,6 +25,7 @@ java_binary(
     srcs = SRCS_MAIN,
     deps = [
         ":ucd_generator",
+        "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
     ],
 )

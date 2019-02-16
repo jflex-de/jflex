@@ -29,6 +29,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import jflex.ucd_generator.ucd.UcdFileType;
+import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.UcdVersions;
 
 public class Main {
 
@@ -38,7 +41,7 @@ public class Main {
 
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
-    UcdVersions versions = parseArgs(argv);
+    jflex.ucd_generator.ucd.UcdVersions versions = parseArgs(argv);
     if (versions.versions().isEmpty()) {
       System.out.println("No unicode version specified. Nothing to do.");
       printUsage();
@@ -59,8 +62,9 @@ public class Main {
     System.out.println("See also java/jflex/ucd_generator/README.md");
   }
 
-  private static UcdVersions parseArgs(String[] argv) throws FileNotFoundException {
-    UcdVersions.Builder versions = UcdVersions.builder();
+  private static jflex.ucd_generator.ucd.UcdVersions parseArgs(String[] argv)
+      throws FileNotFoundException {
+    jflex.ucd_generator.ucd.UcdVersions.Builder versions = UcdVersions.builder();
     ArrayList<String> files = new ArrayList<>();
     for (int i = argv.length - 1; i >= 0; i--) {
       String arg = argv[i];
@@ -78,7 +82,7 @@ public class Main {
   private static UcdVersion.Builder findUcdFiles(List<String> argv) throws FileNotFoundException {
     UcdVersion.Builder version = UcdVersion.builder();
     for (String arg : argv) {
-      for (UcdFileType type : UcdFileType.values()) {
+      for (jflex.ucd_generator.ucd.UcdFileType type : UcdFileType.values()) {
         if (arg.contains(type.name())) {
           // File downloaded by Bazel in the external dir
           File externalFile = new File(BAZEL_PREFIX, arg);

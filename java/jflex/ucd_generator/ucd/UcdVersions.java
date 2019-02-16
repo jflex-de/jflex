@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.ucd;
 
 import static java.lang.Math.min;
 
@@ -37,6 +37,7 @@ import com.google.common.collect.ImmutableSortedSet;
 import java.util.Comparator;
 import java.util.List;
 
+/** A set of {@link UcdVersion}s. */
 public class UcdVersions {
 
   // version –> Map<UcdFileType, File>
@@ -107,7 +108,7 @@ public class UcdVersions {
     return expandedVersions.build();
   }
 
-  static class Builder {
+  public static class Builder {
 
     ImmutableSortedMap.Builder<String, UcdVersion> versionsBuilder =
         ImmutableSortedMap.orderedBy(new VersionComparator());

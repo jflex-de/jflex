@@ -8,15 +8,8 @@ java_test(
         "//java/jflex/testing/diff",
         "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator",
+        "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
     ],
 )
 
-java_test(
-    name = "UcdVersionsTest",
-    srcs = ["UcdVersionsTest.java"],
-    deps = [
-        "//java/jflex/ucd_generator",
-        "//third_party/com/google/truth",
-    ],
-)

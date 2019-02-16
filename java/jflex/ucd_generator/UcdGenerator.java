@@ -25,9 +25,11 @@
  */
 package jflex.ucd_generator;
 
+import jflex.ucd_generator.ucd.UcdVersions;
+
 public class UcdGenerator {
 
-  public static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
+  static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
   /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
   public static void generate(UcdVersions versions) throws Exception {
