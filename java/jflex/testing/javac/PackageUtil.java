@@ -7,7 +7,11 @@ public final class PackageUtil {
   }
 
   public static String getPathForPackage(Package targetPackage) {
-    return targetPackage.getName().replace('.', '/');
+    return getPathForPackage(targetPackage.getName());
+  }
+
+  public static String getPathForPackage(String packageName) {
+    return packageName.replace('.', '/');
   }
 
   private PackageUtil() {}
