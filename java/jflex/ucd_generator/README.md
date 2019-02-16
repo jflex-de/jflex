@@ -14,7 +14,7 @@ Bazel is responsible for fetching (using mirrors) and caching the remote resourc
 
 The generated `UnicodeProperties.java` is build by
 
-    bazel build java/jflex/ucd_generator:gen_unicode_properties
+    bazel build //java/jflex/ucd_generator:gen_unicode_properties
 
 ## Software architecture.
 

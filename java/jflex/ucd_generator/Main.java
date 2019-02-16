@@ -14,7 +14,25 @@ public class Main {
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
     UcdVersions versions = parseArgs(argv);
+    if (versions.versions().isEmpty()) {
+      System.out.println("No unicode version specified. Nothing to do.");
+      printUsage();
+      return;
+    }
+    ;
     UcdGenerator.generate(versions);
+  }
+
+  private static void printUsage() {
+    System.out.println("bazel run //java/jflex/ucd_generator:Main -- \\");
+    System.out.println(
+        String.format("  %s1.2.3 /absolute/path/to/ucd_1.2.3_files \\", ARG_VERSION));
+    System.out.println(String.format("  %s4.5.6 /absolute/path/to/ucd_4.5.6_files", ARG_VERSION));
+    System.out.println("or more simply, just run");
+    System.out.println();
+    System.out.println("    bazel build //java/jflex/ucd_generator:gen_unicode_properties");
+    System.out.println();
+    System.out.println("See also java/jflex/ucd_generator/README.md");
   }
 
   private static UcdVersions parseArgs(String[] argv) throws FileNotFoundException {
