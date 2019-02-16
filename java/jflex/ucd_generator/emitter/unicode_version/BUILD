@@ -1,10 +1,12 @@
+package(default_visibility = ["//javatests/jflex/ucd_generator:__subpackages__"])
+
 SRCS_MAIN = ["Main.java"]
 
 java_library(
-    name = "unicode_properties",
+    name = "unicode_version",
     srcs = glob(["*.java"]),
     resources = [
-        "UnicodeProperties.java.vm",
+        "Unicode_x_y.java.vm",
     ],
     visibility = [
         "//java/jflex/ucd_generator:__pkg__",

@@ -32,13 +32,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import jflex.testing.javac.PackageUtil;
+import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.velocity.Velocity;
 
-/**
- * UnicodePropertiesEmitter for {@code UnicodeProperties.java}.
- */
-public class UnicodePropertiesEmitter {
+/** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */
+public class UnicodePropertiesEmitter extends UcdEmitter {
 
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
