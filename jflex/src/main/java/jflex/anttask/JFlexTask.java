@@ -16,8 +16,9 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.LexGenerator;
-import jflex.Options;
+import jflex.core.Options;
+import jflex.exceptions.GeneratorException;
+import jflex.generator.LexGenerator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -25,7 +26,7 @@ import org.apache.tools.ant.Task;
  * JFlex ant task.
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class JFlexTask extends Task {
   private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");
@@ -54,7 +55,7 @@ public class JFlexTask extends Task {
   /**
    * Executes the ant task.
    *
-   * @throws org.apache.tools.ant.BuildException if any.
+   * @throws BuildException if any.
    */
   public void execute() throws BuildException {
     try {
@@ -75,7 +76,7 @@ public class JFlexTask extends Task {
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
       }
-    } catch (jflex.GeneratorException e) {
+    } catch (GeneratorException e) {
       throw new BuildException("JFlex: generation failed!");
     }
   }

@@ -38,30 +38,6 @@ matrix:
   - name: "👴 Examples (mvn, ant, make) — JDK7"
     script: scripts/test-examples.sh
     jdk: openjdk7
-  - name: "💚 Bazel (Examples and documentation)"
-    language: generic
-    script:
-    - scripts/mvn-install-fastbuild.sh
-    - scripts/bazel.sh
-    # Prerequisites for Bazel
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - curl
-          - pkg-config
-          - zip
-          - g++
-          - zlib1g-dev
-          - unzip
-          - python
-    before_install:
-    - mkdir -p tools
-    - curl -L https://github.com/bazelbuild/bazel/releases/download/0.17.2/bazel_0.17.2-linux-x86_64.deb -o tools/bazel-0.17.2.deb
-    install:
-    - sudo apt-get install ./tools/bazel-0.17.2.deb
-    sudo: true
   - name: "📄 Documentation"
     language: generic
     install: true

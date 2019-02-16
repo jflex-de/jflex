@@ -4,7 +4,7 @@
   <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
   <name>JFlex parent and aggregator POM</name>
-  <version>1.7.1-SNAPSHOT</version>
+  <version>1.8.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://jflex-de.github.io/jflex/</url>
   <description>JFlex parent and aggregator POM</description>
@@ -104,6 +104,12 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.google.auto.value</groupId>
+        <artifactId>auto-value</artifactId>
+        <version>1.4.1</version>
+        <scope>provided</scope>
+      </dependency>
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
         <artifactId>jsr305</artifactId>

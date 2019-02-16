@@ -19,7 +19,7 @@ git_clone() {
   fi
   if [[ -z "$CI" ]]; then
     logi "Cloning ssh://git@github.com:jflex-de/jflex.git (aggregated-java-sources)"
-    git clone --depth 1 --branch aggregated-java-sources "git@github.com:jflex-de/jflex.git"
+    git clone --depth 1 --branch aggregated-java-sources "git@github.com:jflex-de/jflex.git" repo
   else
     logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
     git clone --depth 1 --branch aggregated-java-sources "https://github.com/jflex-de/jflex.git" repo
@@ -31,6 +31,10 @@ update_source() {
   gitlog="$1"
   logi "Updating source for $gitlog"
   version=$(ls target/jflex-*-sources.jar)
+
+  logi "Copying compile script"
+  cp scripts/compile-aggregated-java-sources.sh repo/compile.sh
+
   logi "Updating sources from $version"
   cd repo
   git config user.name "Travis CI"
@@ -41,6 +45,7 @@ update_source() {
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
   rm -rf jflex/maven
+  rm $(find . -name 'BUILD')
 
   logi "Checking licenses"
   [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
