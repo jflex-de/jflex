@@ -139,6 +139,9 @@ Which version of the plugin is best for you?
   * jflex-maven-plugin-${project.version} depends on ${project.version}
     and requires Java 7 when you `mvn jflex:generate`
 
+  * jflex-maven-plugin-1.8.0 depends on 1.8.0
+    and requires Java 7 when you `mvn jflex:generate`
+    
   * jflex-maven-plugin-1.7.0 depends on 1.7.0
     and requires Java 7 when you `mvn jflex:generate`
 
