@@ -2,7 +2,7 @@ package jflex.testing.diff;
 /*
  * Copyright (C) 2018-2019 Google, LLC.
  *
- * This file is licensed under https://opensource.org/licenses/BSD-3-Clause
+ * License: https://opensource.org/licenses/BSD-3-Clause
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:
