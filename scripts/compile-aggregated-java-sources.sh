@@ -11,6 +11,7 @@ mvnget() {
   ls lib/$jarfile
   if [ -f lib/$jarfile ]; then
     echo "Using cached $jarfile"
+    CP="$CP:lib/$jarfile"
     return 0
   fi
   wget $REPO/$dep -P lib
