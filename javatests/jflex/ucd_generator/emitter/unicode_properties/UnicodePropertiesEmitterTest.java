@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.emitter.unicode_properties;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -36,37 +36,37 @@ import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
 import org.junit.Test;
 
-/** Test for {@link Emitter}. */
-public class EmitterTest {
+/** Test for {@link UnicodePropertiesEmitter}. */
+public class UnicodePropertiesEmitterTest {
 
   @Test
   public void emitUnicodeProperties() throws Exception {
-    File goldenFile = new File("javatests/jflex/ucd_generator/UnicodeProperties.java.golden");
+    File goldenFile = new File("javatests/jflex/ucd_generator/emitter/unicode_properties/UnicodeProperties.java.golden");
 
     // in-memory output
     DiffOutputStream output =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
 
     // fake ucd version 1.2
-    jflex.ucd_generator.ucd.UcdVersion.Builder ucd1_2 =
-        jflex.ucd_generator.ucd.UcdVersion.builder()
+    UcdVersion.Builder ucd1_2 =
+        UcdVersion.builder()
             .putFile(
-                jflex.ucd_generator.ucd.UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    jflex.ucd_generator.ucd.UcdVersion.Builder ucd2_0 =
-        jflex.ucd_generator.ucd.UcdVersion.builder()
-            .putFile(jflex.ucd_generator.ucd.UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    jflex.ucd_generator.ucd.UcdVersion.Builder ucd2_4 =
-        jflex.ucd_generator.ucd.UcdVersion.builder()
-            .putFile(jflex.ucd_generator.ucd.UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    jflex.ucd_generator.ucd.UcdVersion.Builder ucd10_0 =
+                UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
+    UcdVersion.Builder ucd2_0 =
+        UcdVersion.builder()
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    UcdVersion.Builder ucd2_4 =
+        UcdVersion.builder()
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    UcdVersion.Builder ucd10_0 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    jflex.ucd_generator.ucd.UcdVersions versions =
+    UcdVersions versions =
         UcdVersions.of(
             "1.2.0", ucd1_2,
             "2.0.1", ucd2_0,
             "2.4.6", ucd2_4,
             "10.0.0", ucd10_0);
-    Emitter emitter = new Emitter("org.example", versions);
+    UnicodePropertiesEmitter emitter = new UnicodePropertiesEmitter("org.example", versions);
 
     emitter.emitUnicodeProperties(output);
     assertThat(output.isCompleted()).isTrue();

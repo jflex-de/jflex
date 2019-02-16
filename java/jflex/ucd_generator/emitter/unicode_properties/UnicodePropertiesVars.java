@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.emitter.unicode_properties;
 
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.velocity.TemplateVars;

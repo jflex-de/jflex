@@ -25,15 +25,17 @@
  */
 package jflex.ucd_generator;
 
+import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.ucd.UcdVersions;
 
 public class UcdGenerator {
 
-  static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
+  private static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
   /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
   public static void generate(UcdVersions versions) throws Exception {
-    Emitter emitter = new Emitter(PACKAGE_JFLEX_UNICODE, versions);
+    UnicodePropertiesEmitter emitter =
+        new UnicodePropertiesEmitter(PACKAGE_JFLEX_UNICODE, versions);
     emitter.emitUnicodeProperties(System.out);
   }
 

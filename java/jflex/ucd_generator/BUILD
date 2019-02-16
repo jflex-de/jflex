@@ -4,16 +4,11 @@ SRCS_MAIN = ["Main.java"]
 
 java_library(
     name = "ucd_generator",
-    srcs = glob(
-        ["*.java"],
-        exclude = SRCS_MAIN,
-    ),
-    resources = [
-        "UnicodeProperties.java.vm",
-    ],
+    srcs = ["UcdGenerator.java"],
     deps = [
         "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
@@ -26,7 +21,6 @@ java_binary(
     deps = [
         ":ucd_generator",
         "//java/jflex/ucd_generator/ucd",
-        "//third_party/com/google/guava",
     ],
 )
 

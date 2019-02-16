@@ -5,7 +5,7 @@ java_library(
         "//third_party/com/google/guava",
     ],
     visibility = [
-        "//java/jflex/ucd_generator:__pkg__",
+        "//java/jflex/ucd_generator:__subpackages__",
         "//javatests/jflex/ucd_generator:__subpackages__",
     ],
 )

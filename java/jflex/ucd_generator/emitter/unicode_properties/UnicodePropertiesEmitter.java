@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
@@ -35,20 +35,23 @@ import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.velocity.Velocity;
 
-public class Emitter {
+/**
+ * UnicodePropertiesEmitter for {@code UnicodeProperties.java}.
+ */
+public class UnicodePropertiesEmitter {
 
   private static final String UNICODE_PROPERTIES_TEMPLATE =
-      PackageUtil.getPathForClass(Emitter.class) + "/UnicodeProperties.java.vm";
+      PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
 
   private final String targetPackage;
   private final jflex.ucd_generator.ucd.UcdVersions versions;
 
-  Emitter(String targetPackage, UcdVersions versions) {
+  public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
     this.targetPackage = targetPackage;
     this.versions = versions;
   }
 
-  void emitUnicodeProperties(OutputStream output) throws Exception {
+  public void emitUnicodeProperties(OutputStream output) throws Exception {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
       Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);
