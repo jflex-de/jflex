@@ -5,4 +5,5 @@ import jflex.velocity.TemplateVars;
 public class UnicodeVersionVars extends TemplateVars {
 
   public String packageName;
+  public String className;
 }

@@ -26,3 +26,6 @@
  */
 package $packageName;
 
+class $className {
+
+}

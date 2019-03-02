@@ -32,6 +32,7 @@ import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
+import jflex.ucd_generator.ucd.Version;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class UcdGenerator {
@@ -63,7 +64,7 @@ public class UcdGenerator {
   private static void emitUnicodeXY(UcdVersions ucdVersions, File outputDir)
       throws IOException, ParseException {
     // Emit Unicode_X_Y
-    for (UcdVersions.Version version : ucdVersions.versionSet()) {
+    for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
       File outputFile =
           new File(outputDir, String.format("Unicode_%s.java", version.makeString('_')));

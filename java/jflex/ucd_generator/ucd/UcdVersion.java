@@ -31,7 +31,7 @@ import java.io.File;
 /** Describes a single Unicode version. */
 public class UcdVersion {
 
-  final String version;
+  public final String version;
   final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
 
   UcdVersion(String version, ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files) {
@@ -41,6 +41,10 @@ public class UcdVersion {
 
   public static Builder builder() {
     return new Builder();
+  }
+
+  public Version getVersion() {
+    return new Version(version);
   }
 
   public static class Builder {

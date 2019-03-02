@@ -35,6 +35,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
   private UnicodeVersionVars createUnicodeVersionVars() {
     UnicodeVersionVars unicodeVersionVars = new UnicodeVersionVars();
     unicodeVersionVars.packageName = getTargetPackage();
+    unicodeVersionVars.className = "Unicode_" + ucdVersion.getVersion().makeString('_');
     return unicodeVersionVars;
   }
 }
