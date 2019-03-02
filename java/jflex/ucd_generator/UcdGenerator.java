@@ -25,18 +25,53 @@
  */
 package jflex.ucd_generator;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
+import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
+import org.apache.velocity.runtime.parser.ParseException;
 
 public class UcdGenerator {
 
   private static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
-  /** Generates {@code UnicodeProperties_X_Y} from {@code //third_paty/unicode_ucd_X}. */
-  public static void generate(UcdVersions versions) throws Exception {
-    UnicodePropertiesEmitter emitter =
-        new UnicodePropertiesEmitter(PACKAGE_JFLEX_UNICODE, versions);
-    emitter.emitUnicodeProperties(System.out);
+  /**
+   * Generates {@code UnicodeProperties} and {Unicode_X_Y} from {@code //third_party/unicode_ucd_X}.
+   */
+  public static void generate(UcdGeneratorParams params) throws IOException, ParseException {
+    UcdVersions ucdVersions = params.ucdVersions();
+    File outputDir = params.outputDir();
+    emitUnicodeProperties(ucdVersions, outputDir);
+    emitUnicodeXY(ucdVersions, outputDir);
+  }
+
+  /** Emits {@code UnicodeProperties.java} */
+  private static void emitUnicodeProperties(UcdVersions ucdVersions, File outputDir)
+      throws IOException, ParseException {
+    UnicodePropertiesEmitter propertiesEmitter =
+        new UnicodePropertiesEmitter(PACKAGE_JFLEX_UNICODE, ucdVersions);
+    File outputFile = new File(outputDir, "UnicodeProperties.java");
+    try (FileOutputStream out = new FileOutputStream(outputFile)) {
+      propertiesEmitter.emitUnicodeProperties(out);
+    }
+  }
+
+  /** Emits {@code Unicode_X_Y.java} */
+  private static void emitUnicodeXY(UcdVersions ucdVersions, File outputDir)
+      throws IOException, ParseException {
+    // Emit Unicode_X_Y
+    for (UcdVersions.Version version : ucdVersions.versionSet()) {
+      UcdVersion ucdVersion = ucdVersions.get(version);
+      File outputFile =
+          new File(outputDir, String.format("Unicode_%s.java", version.makeString('_')));
+      UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion);
+      try (FileOutputStream out = new FileOutputStream(outputFile)) {
+        emitter.emitUnicodeVersion(out);
+      }
+    }
   }
 
   private UcdGenerator() {}

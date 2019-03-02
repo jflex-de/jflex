@@ -154,7 +154,7 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
-#foreach( $v in ${ucdVersions.versions()} )
+#foreach( $v in ${ucdVersions.versionsAsList()} )
         // Version $v
   #foreach( $ev in ${ucdVersions.expandVersion($v)} )
     case "$ev":

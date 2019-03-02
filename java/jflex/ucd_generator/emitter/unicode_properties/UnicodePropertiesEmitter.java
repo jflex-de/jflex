@@ -27,6 +27,7 @@ package jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -35,6 +36,7 @@ import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.velocity.Velocity;
+import org.apache.velocity.runtime.parser.ParseException;
 
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */
 public class UnicodePropertiesEmitter extends UcdEmitter {
@@ -42,15 +44,14 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
 
-  private final String targetPackage;
   private final jflex.ucd_generator.ucd.UcdVersions versions;
 
   public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
-    this.targetPackage = targetPackage;
+    super(targetPackage);
     this.versions = versions;
   }
 
-  public void emitUnicodeProperties(OutputStream output) throws Exception {
+  public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
       Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);
@@ -59,11 +60,11 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
-    unicodePropertiesVars.packageName = targetPackage;
+    unicodePropertiesVars.packageName = getTargetPackage();
     unicodePropertiesVars.classComment = createClassComment();
     unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
-    unicodePropertiesVars.latestVersion = versions.getLastVersion();
-    unicodePropertiesVars.versions = versions.versions();
+    unicodePropertiesVars.latestVersion = versions.getLastVersion().toString();
+    unicodePropertiesVars.versions = versions.versionsAsList();
     unicodePropertiesVars.ucdVersions = versions;
     return unicodePropertiesVars;
   }

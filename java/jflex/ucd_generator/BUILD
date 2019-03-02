@@ -4,14 +4,16 @@ SRCS_MAIN = ["Main.java"]
 
 java_library(
     name = "ucd_generator",
-    srcs = ["UcdGenerator.java"],
+    srcs = ["UcdGenerator.java", "UcdGeneratorParams.java"],
     deps = [
         "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/emitter/unicode_properties",
+        "//java/jflex/ucd_generator/emitter/unicode_version",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
+        "//third_party/com/google/auto_value",
     ],
 )
 
@@ -69,6 +71,6 @@ genrule(
           " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
           " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
           " --version=10.0.0 $(locations //third_party/unicode:ucd_10)" +
-          " > $@",
+          " --out=$(@D)",
     tools = [":Main"],
 )
