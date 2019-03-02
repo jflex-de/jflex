@@ -28,7 +28,6 @@ package jflex.ucd_generator.emitter.unicode_properties;
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -54,7 +53,11 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
-      Velocity.render(readResource(), "UnicodeProperties", unicodePropertiesVars, writer);
+      Velocity.render(
+          readResource(UNICODE_PROPERTIES_TEMPLATE),
+          "UnicodeProperties",
+          unicodePropertiesVars,
+          writer);
     }
   }
 
@@ -78,10 +81,5 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
         + " *\n"
         + " * @author JFlex contributors.\n"
         + " */";
-  }
-
-  private InputStreamReader readResource() {
-    return new InputStreamReader(
-        getClass().getClassLoader().getResourceAsStream(UNICODE_PROPERTIES_TEMPLATE));
   }
 }

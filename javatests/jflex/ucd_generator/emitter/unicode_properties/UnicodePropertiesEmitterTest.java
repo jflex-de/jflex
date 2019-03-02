@@ -52,6 +52,7 @@ public class UnicodePropertiesEmitterTest {
     // fake ucd version 1.2
     UcdVersion.Builder ucd1_2 =
         UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
+    // fake ucd 2.0
     UcdVersion.Builder ucd2_0 =
         UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
     UcdVersion.Builder ucd2_4 =
