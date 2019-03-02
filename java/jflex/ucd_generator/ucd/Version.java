@@ -44,17 +44,21 @@ public class Version implements Comparable<Version> {
 
   @Override
   public String toString() {
-    return makeString('.');
+    return makeString('.', true);
   }
 
-  public String makeString(char sep) {
+  public String unicodeClassName() {
+    return String.format("Unicode_%s", makeString('_', false));
+  }
+
+  private String makeString(char sep, boolean includePatch) {
     StringBuilder v = new StringBuilder();
     v.append(major);
     if (minor != -1) {
       v.append(sep);
       v.append(minor);
     }
-    if (minor != -1 && patch != -1) {
+    if (includePatch && minor != -1 && patch != -1) {
       v.append(sep);
       v.append(patch);
     }

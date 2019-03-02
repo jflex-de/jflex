@@ -45,7 +45,9 @@ public class UcdGenerator {
   public static void generate(UcdGeneratorParams params) throws IOException, ParseException {
     UcdVersions ucdVersions = params.ucdVersions();
     File outputDir = params.outputDir();
+    System.out.println("Emitting UnicodeProperties.java");
     emitUnicodeProperties(ucdVersions, outputDir);
+    System.out.println("Emitting Unicode versions");
     emitUnicodeXY(ucdVersions, outputDir);
   }
 
@@ -63,11 +65,11 @@ public class UcdGenerator {
   /** Emits {@code Unicode_X_Y.java} */
   private static void emitUnicodeXY(UcdVersions ucdVersions, File outputDir)
       throws IOException, ParseException {
-    // Emit Unicode_X_Y
     for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
-      File outputFile =
-          new File(outputDir, String.format("Unicode_%s.java", version.makeString('_')));
+      String unicodeClassName = version.unicodeClassName();
+      System.out.println(String.format("Emitting %s", unicodeClassName));
+      File outputFile = new File(outputDir, unicodeClassName + ".java");
       UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion);
       try (FileOutputStream out = new FileOutputStream(outputFile)) {
         emitter.emitUnicodeVersion(out);
