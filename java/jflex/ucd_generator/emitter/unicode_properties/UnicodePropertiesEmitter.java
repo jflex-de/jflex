@@ -43,7 +43,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
 
-  private final jflex.ucd_generator.ucd.UcdVersions versions;
+  private final UcdVersions versions;
 
   public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
     super(targetPackage);
