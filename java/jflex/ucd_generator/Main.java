@@ -29,22 +29,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import jflex.ucd_generator.ucd.UcdFileType;
+import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.UcdVersions;
 
 public class Main {
 
   private static final String BAZEL_PREFIX =
       Main.class.getPackage().getName().replace('.', File.separatorChar);
   private static final String ARG_VERSION = "--version=";
+  private static final String ARG_OUT = "--out=";
 
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
-    UcdVersions versions = parseArgs(argv);
-    if (versions.versions().isEmpty()) {
+    UcdGeneratorParams params = parseArgs(argv);
+    if (params.ucdVersions().versionSet().isEmpty()) {
       System.out.println("No unicode version specified. Nothing to do.");
       printUsage();
       return;
     }
-    UcdGenerator.generate(versions);
+    System.out.println("Params " + params);
+    UcdGenerator.generate(params);
   }
 
   private static void printUsage() {
@@ -59,7 +64,8 @@ public class Main {
     System.out.println("See also java/jflex/ucd_generator/README.md");
   }
 
-  private static UcdVersions parseArgs(String[] argv) throws FileNotFoundException {
+  private static UcdGeneratorParams parseArgs(String[] argv) throws FileNotFoundException {
+    UcdGeneratorParams.Builder params = UcdGeneratorParams.builder();
     UcdVersions.Builder versions = UcdVersions.builder();
     ArrayList<String> files = new ArrayList<>();
     for (int i = argv.length - 1; i >= 0; i--) {
@@ -68,11 +74,15 @@ public class Main {
         String version = arg.substring(ARG_VERSION.length());
         versions.put(version, findUcdFiles(files));
         files.clear();
+      }
+      if (arg.startsWith(ARG_OUT)) {
+        String outputDir = arg.substring(ARG_OUT.length());
+        params.setOutputDir(new File(outputDir));
       } else {
         files.add(arg);
       }
     }
-    return versions.build();
+    return params.setUcdVersions(versions.build()).build();
   }
 
   private static UcdVersion.Builder findUcdFiles(List<String> argv) throws FileNotFoundException {

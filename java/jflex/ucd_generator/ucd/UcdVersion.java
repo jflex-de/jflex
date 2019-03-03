@@ -23,17 +23,47 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.ucd;
 
-import jflex.velocity.TemplateVars;
+import com.google.common.collect.ImmutableMap;
+import java.io.File;
 
-// the fields in this class are read via reflection by Velocity
-@SuppressWarnings({"unused", "WeakerAccess"})
-public class UnicodePropertiesVars extends TemplateVars {
-  public String packageName;
-  public String classComment;
-  public String versionsAsString;
-  public String latestVersion;
-  public Iterable<String> versions;
-  public UcdVersions ucdVersions;
+/** Describes a single Unicode version. */
+public class UcdVersion {
+
+  public final String version;
+  final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
+
+  UcdVersion(String version, ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files) {
+    this.version = version;
+    this.files = files;
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public Version getVersion() {
+    return new Version(version);
+  }
+
+  public static class Builder {
+    private ImmutableMap.Builder<jflex.ucd_generator.ucd.UcdFileType, File> files =
+        ImmutableMap.builder();
+    private String version;
+
+    public Builder withVersion(String version) {
+      this.version = version;
+      return this;
+    }
+
+    public Builder putFile(UcdFileType unicodeFileType, File file) {
+      files.put(unicodeFileType, file);
+      return this;
+    }
+
+    public UcdVersion build() {
+      return new UcdVersion(version, files.build());
+    }
+  }
 }

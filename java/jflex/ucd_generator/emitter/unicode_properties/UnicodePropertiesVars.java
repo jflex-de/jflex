@@ -23,20 +23,18 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.emitter.unicode_properties;
 
-public enum UcdFileType {
-  DerivedAge, // Common across all versions
-  UnicodeData, // Always exists since version 1
-  Blocks,
-  DerivedCoreProperties,
-  GraphemeBreakProperty,
-  LineBreak,
-  PropertyAliases,
-  PropertyValueAliases,
-  PropList,
-  SentenceBreakProperty,
-  Scripts,
-  ScriptExtensions,
-  WordBreakProperty,
+import jflex.ucd_generator.ucd.UcdVersions;
+import jflex.velocity.TemplateVars;
+
+// the fields in this class are read via reflection by Velocity
+@SuppressWarnings({"unused", "WeakerAccess"})
+public class UnicodePropertiesVars extends TemplateVars {
+  public String packageName;
+  public String classComment;
+  public String versionsAsString;
+  public String latestVersion;
+  public Iterable<String> versions;
+  public UcdVersions ucdVersions;
 }

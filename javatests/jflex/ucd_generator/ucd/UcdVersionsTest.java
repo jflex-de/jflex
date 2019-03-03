@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -33,9 +33,9 @@ import org.junit.Test;
 
 public class UcdVersionsTest {
 
-  private UcdVersion.Builder ucd1;
+  private jflex.ucd_generator.ucd.UcdVersion.Builder ucd1;
 
-  private UcdVersion.Builder ucd2;
+  private jflex.ucd_generator.ucd.UcdVersion.Builder ucd2;
 
   @Before
   public void createUcd() {
@@ -54,6 +54,11 @@ public class UcdVersionsTest {
   }
 
   @Test
+  public void expandVersion_majorOnly() throws Exception {
+    assertThat(UcdVersions.expandVersion("1")).containsExactly("1");
+  }
+
+  @Test
   public void expandAllVersions() throws Exception {
     UcdVersions ucdVersions = UcdVersions.builder().put("1.2.3", ucd1).put("1.3.5", ucd2).build();
     assertThat(ucdVersions.expandAllVersions())
@@ -67,11 +72,6 @@ public class UcdVersionsTest {
     assertThat(ucdVersions.expandAllVersions())
         .containsExactly("1", "1.0", "1.0.3", "1.3", "1.3.5")
         .inOrder();
-  }
-
-  @Test
-  public void expandVersions_majorOnly() throws Exception {
-    assertThat(UcdVersions.expandVersion("1")).containsExactly("1");
   }
 
   @Test

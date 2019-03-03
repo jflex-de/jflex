@@ -23,45 +23,20 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package jflex.ucd_generator.ucd;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import com.google.common.io.Files;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import jflex.testing.diff.DiffOutputStream;
-import org.junit.Test;
-
-/** Test for {@link Emitter}. */
-public class EmitterTest {
-
-  @Test
-  public void emitUnicodeProperties() throws Exception {
-    File goldenFile = new File("javatests/jflex/ucd_generator/UnicodeProperties.java.golden");
-
-    // in-memory output
-    DiffOutputStream output =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
-
-    // fake ucd version 1.2
-    UcdVersion.Builder ucd1_2 =
-        UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_0 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_4 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd10_0 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersions versions =
-        UcdVersions.of(
-            "1.2.0", ucd1_2,
-            "2.0.1", ucd2_0,
-            "2.4.6", ucd2_4,
-            "10.0.0", ucd10_0);
-    Emitter emitter = new Emitter("org.example", versions);
-
-    emitter.emitUnicodeProperties(output);
-    assertThat(output.isCompleted()).isTrue();
-  }
+public enum UcdFileType {
+  DerivedAge, // Common across all versions
+  UnicodeData, // Always exists since version 1
+  Blocks,
+  DerivedCoreProperties,
+  GraphemeBreakProperty,
+  LineBreak,
+  PropertyAliases,
+  PropertyValueAliases,
+  PropList,
+  SentenceBreakProperty,
+  Scripts,
+  ScriptExtensions,
+  WordBreakProperty,
 }

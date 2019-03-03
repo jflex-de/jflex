@@ -84,6 +84,10 @@ public class DiffOutputStream extends OutputStream {
   }
 
   private void assertThatWrittenWasExpected(String expectedLine) throws IOException {
+    if (expectedLine == null) {
+      failOnDifferentLine("");
+      return;
+    }
     byte[] expectedRaw = expectedLine.getBytes(UTF_8);
     if (count != expectedLine.length()) {
       failOnDifferentLine(expectedLine);

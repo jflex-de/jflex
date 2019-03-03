@@ -4,18 +4,16 @@ SRCS_MAIN = ["Main.java"]
 
 java_library(
     name = "ucd_generator",
-    srcs = glob(
-        ["*.java"],
-        exclude = SRCS_MAIN,
-    ),
-    resources = [
-        "UnicodeProperties.java.vm",
-    ],
+    srcs = ["UcdGenerator.java", "UcdGeneratorParams.java"],
     deps = [
         "//java/jflex/testing/javac",
+        "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/ucd_generator/emitter/unicode_properties",
+        "//java/jflex/ucd_generator/emitter/unicode_version",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
+        "//third_party/com/google/auto_value",
     ],
 )
 
@@ -24,7 +22,7 @@ java_binary(
     srcs = SRCS_MAIN,
     deps = [
         ":ucd_generator",
-        "//third_party/com/google/guava",
+        "//java/jflex/ucd_generator/ucd",
     ],
 )
 
@@ -52,7 +50,28 @@ genrule(
         "//third_party/unicode:ucd_9",
         "//third_party/unicode:ucd_10",
     ],
-    outs = ["UnicodeProperties.java"],
+    outs = [
+        "UnicodeProperties.java",
+        "Unicode_1_1.java",
+        "Unicode_2_0.java",
+        "Unicode_2_1.java",
+        "Unicode_3_0.java",
+        "Unicode_3_1.java",
+        "Unicode_3_2.java",
+        "Unicode_4_0.java",
+        "Unicode_4_1.java",
+        "Unicode_5_0.java",
+        "Unicode_5_1.java",
+        "Unicode_5_2.java",
+        "Unicode_6_0.java",
+        "Unicode_6_1.java",
+        "Unicode_6_2.java",
+        "Unicode_6_3.java",
+        "Unicode_7_0.java",
+        "Unicode_8_0.java",
+        "Unicode_9_0.java",
+        "Unicode_10_0.java",
+    ],
     cmd = "$(location :Main)" +
           " --version=1.1.5 $(locations //third_party/unicode:ucd_1_1_5)" +
           " --version=2.0.14 $(locations //third_party/unicode:ucd_2_0_14)" +
@@ -73,6 +92,6 @@ genrule(
           " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
           " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
           " --version=10.0.0 $(locations //third_party/unicode:ucd_10)" +
-          " > $@",
+          " --out=$(@D)",
     tools = [":Main"],
 )
