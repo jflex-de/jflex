@@ -294,7 +294,7 @@ import java.util.regex.Pattern;
 \p{WB:ExtendNumLet} [\p{WB:Format}\p{WB:Extend}\p{WB:ZWJ}]* / [\p{WB:ALetter}\p{WB:Hebrew_Letter}\p{WB:Numeric}\p{WB:Katakana}] { addMatch(); }
 
 
-/ Do not break within emoji flag sequences. That is, do not break between regional indicator
+// Do not break within emoji flag sequences. That is, do not break between regional indicator
 // (RI) symbols if there is an odd number of RI characters before the break point.
 //
 // WB15.	^ (RI RI)* RI	×	RI

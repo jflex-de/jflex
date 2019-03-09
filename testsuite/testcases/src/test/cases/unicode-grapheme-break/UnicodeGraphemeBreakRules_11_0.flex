@@ -193,7 +193,7 @@ import java.util.regex.Pattern;
 //
 // GB11.	\p{Extended_Pictographic} Extend* ZWJ	×	\p{Extended_Pictographic}
 //
-\p{GCB:ZWJ} / [\p{GCB:Glue_After_Zwj}\p{GCB:EBG}] { addMatch(); }
+\p{Extended_Pictographic} \p{GCB:Extend}* \p{GCB:ZWJ} / \p{Extended_Pictographic} { addMatch(); }
 
 
 // Do not break within emoji flag sequences. 
