@@ -1,0 +1,11 @@
+name: UnicodeScripts_12_0
+
+description: 
+Tests character class syntax of the Unicode 12.0 Script property.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
