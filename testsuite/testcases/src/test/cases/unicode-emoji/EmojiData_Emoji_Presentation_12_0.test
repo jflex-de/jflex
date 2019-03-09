@@ -1,0 +1,12 @@
+name: EmojiData_Emoji_Presentation_12_0
+
+description: 
+Tests character class syntax of the Unicode 12.0 'Emoji_Presentation' property,
+defined in emoji-data.txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
