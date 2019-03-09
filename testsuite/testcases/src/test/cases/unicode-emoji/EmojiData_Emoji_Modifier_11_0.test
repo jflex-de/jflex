@@ -1,0 +1,12 @@
+name: EmojiData_Emoji_Modifier_11_0
+
+description: 
+Tests character class syntax of the Unicode 11.0 'Emoji_Modifier' property,
+defined in emoji-data.txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
