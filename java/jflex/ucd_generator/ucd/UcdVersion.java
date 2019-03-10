@@ -29,12 +29,12 @@ import com.google.common.collect.ImmutableMap;
 import java.io.File;
 
 /** Describes a single Unicode version. */
-public class UcdVersion {
+public class UcdVersion implements jflex.ucd.UcdVersion {
 
   public final String version;
   final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
 
-  UcdVersion(String version, ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files) {
+  UcdVersion(String version, ImmutableMap<UcdFileType, File> files) {
     this.version = version;
     this.files = files;
   }

@@ -30,6 +30,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.ucd.UcdVersion;
 import org.apache.maven.plugin.logging.Log;
 
 /**
@@ -56,7 +57,7 @@ import org.apache.maven.plugin.logging.Log;
  * UnicodeProperties.java) the set of Property Values supported by this version of Unicode, as well
  * as the corresponding code point interval sets for each member of the Property Value set.
  */
-class UnicodeVersion {
+class UnicodeVersion implements UcdVersion {
 
   /** Pattern for the full Unicode version */
   private static final Pattern FULL_VERSION_PATTERN = Pattern.compile("((\\d+)\\.(\\d+))\\.\\d+");
