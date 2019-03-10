@@ -22,6 +22,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import jflex.ucd.UcdVersion;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -224,14 +225,14 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     if (null != dataFiles.get(DataFileType.UNICODE_DATA)) {
       // If UnicodeData(-X.X.X).txt was found, then this version of Unicode
       // is not a beta version, so we can proceed to fetch, parse, and emit.
-      UnicodeVersion unicodeVersion = new UnicodeVersion(version, dataFiles);
-      unicodeVersion.fetchAndParseDataFiles(getLog());
+      UcdVersion unicodeVersion = new UnicodeVersion(version, dataFiles, getLog());
+      unicodeVersion.fetchAndParseDataFiles();
       unicodeVersion.addCompatibilityProperties();
-      unicodeVersions.put(unicodeVersion.majorMinorVersion, unicodeVersion);
+      unicodeVersions.put(unicodeVersion.getMajorMinorVersion(), (UnicodeVersion) unicodeVersion);
       getLog()
           .info(
               "Completed downloading and parsing Unicode "
-                  + unicodeVersion.majorMinorVersion
+                  + unicodeVersion.getMajorMinorVersion()
                   + " data.\n");
     }
   }

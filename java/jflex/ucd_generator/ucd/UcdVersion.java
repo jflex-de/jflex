@@ -27,15 +27,18 @@ package jflex.ucd_generator.ucd;
 
 import com.google.common.collect.ImmutableMap;
 import java.io.File;
+import java.io.IOException;
 
-/** Describes a single Unicode version. */
+/** Describes a single Unicode versionMajorMinor. */
 public class UcdVersion implements jflex.ucd.UcdVersion {
 
-  public final String version;
+  private final Version version;
+  private final String versionMajorMinor;
   final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
 
-  UcdVersion(String version, ImmutableMap<UcdFileType, File> files) {
+  UcdVersion(Version version, ImmutableMap<UcdFileType, File> files) {
     this.version = version;
+    this.versionMajorMinor = version.toMajorMinorString();
     this.files = files;
   }
 
@@ -44,15 +47,32 @@ public class UcdVersion implements jflex.ucd.UcdVersion {
   }
 
   public Version getVersion() {
-    return new Version(version);
+    return new Version(versionMajorMinor);
+  }
+
+  @Override
+  public void fetchAndParseDataFiles() throws IOException {
+    // TODO(regisd) Implement the parser
+    throw new UnsupportedOperationException("TODO");
+  }
+
+  @Override
+  public void addCompatibilityProperties() {
+    // TODO(regisd) Implement
+    throw new UnsupportedOperationException("TODO");
+  }
+
+  @Override
+  public String getMajorMinorVersion() {
+    return null;
   }
 
   public static class Builder {
     private ImmutableMap.Builder<jflex.ucd_generator.ucd.UcdFileType, File> files =
         ImmutableMap.builder();
-    private String version;
+    private Version version;
 
-    public Builder withVersion(String version) {
+    public Builder withVersion(Version version) {
       this.version = version;
       return this;
     }

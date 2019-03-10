@@ -44,7 +44,15 @@ public class Version implements Comparable<Version> {
 
   @Override
   public String toString() {
+    return toMajorMinorPatchString();
+  }
+
+  private String toMajorMinorPatchString() {
     return makeString('.', true);
+  }
+
+  public String toMajorMinorString() {
+    return makeString('.', false);
   }
 
   public String unicodeClassName() {

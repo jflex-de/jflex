@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.Version;
 import org.junit.Test;
 
 /** Test for {@link UnicodeVersionEmitter}. */
@@ -23,7 +24,7 @@ public class UnicodeVersionEmitterTest {
     // fake ucd version 0.1
     UcdVersion ucd0_1 =
         UcdVersion.builder()
-            .withVersion("0.1")
+            .withVersion(new Version("0.1"))
             .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
             .build();
 

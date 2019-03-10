@@ -93,6 +93,9 @@ class UnicodeVersion implements UcdVersion {
   private static final Pattern SURROGATE_PATTERN =
       Pattern.compile("^cs$|surrogate", Pattern.CASE_INSENSITIVE);
 
+  /** Maven logger. */
+  private final Log log;
+
   /** Unicode version X.X.X */
   String majorMinorUpdateVersion;
 
@@ -145,20 +148,16 @@ class UnicodeVersion implements UcdVersion {
    *
    * @param version The Unicode version, either in form "X.X.X" or "X.X".
    * @param dataFiles Set of unicode data file types and corresponding URLs to be fetched and
-   *     parsed.
+   * @param log Maven logger.
    */
-  UnicodeVersion(String version, EnumMap<DataFileType, URL> dataFiles) {
+  UnicodeVersion(String version, EnumMap<DataFileType, URL> dataFiles, Log log) {
     this.dataFiles = dataFiles;
     setVersions(version, dataFiles.get(DataFileType.UNICODE_DATA));
+    this.log = log;
   }
 
-  /**
-   * Fetches and parses the data files defined for this Unicode version.
-   *
-   * @param log Where to put info about which files have been fetched and parsed
-   * @throws IOException If there is a problem fetching or parsing any of this version's data files.
-   */
-  public void fetchAndParseDataFiles(Log log) throws IOException {
+  @Override
+  public void fetchAndParseDataFiles() throws IOException {
     // Use the enum ordering to process in the correct order
     for (EnumMap.Entry<DataFileType, URL> entry : dataFiles.entrySet()) {
       DataFileType fileType = entry.getKey();
@@ -911,5 +910,10 @@ class UnicodeVersion implements UcdVersion {
     printSet.sub(propertyValueIntervals.get("cc"));
     propertyValueIntervals.put("print", printSet);
     usedBinaryProperties.add("print");
+  }
+
+  @Override
+  public String getMajorMinorVersion() {
+    return majorMinorVersion;
   }
 }

@@ -37,7 +37,7 @@ import java.util.List;
 /** A set of {@link UcdVersion}s. */
 public class UcdVersions {
 
-  // version –> Map<UcdFileType, File>
+  // versionMajorMinor –> Map<UcdFileType, File>
   private final ImmutableSortedMap<Version, UcdVersion> versions;
 
   private UcdVersions(ImmutableSortedMap<Version, UcdVersion> versions) {
@@ -71,11 +71,11 @@ public class UcdVersions {
     return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }
 
-  /** Expands the version {@code x.y.z} into {@code x}, {@code x.y}, {@code x.y.z}. */
+  /** Expands the versionMajorMinor {@code x.y.z} into {@code x}, {@code x.y}, {@code x.y.z}. */
   @SuppressWarnings("unused") // Used in .vm
   public static ImmutableList<String> expandVersion(Version version) {
     ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
-    // Add the major version x if it is a x.0.z version
+    // Add the major versionMajorMinor x if it is a x.0.z versionMajorMinor
     if (version.minor == -1 || (version.minor == 0 && version.patch != -1)) {
       expandedVersions.add(String.valueOf(version.major));
     }
@@ -118,7 +118,8 @@ public class UcdVersions {
     }
 
     public Builder put(String version, UcdVersion.Builder ucdFiles) {
-      return put(new Version(version), ucdFiles.withVersion(version));
+      Version v = new Version(version);
+      return put(v, ucdFiles.withVersion(v));
     }
 
     public UcdVersions build() {
