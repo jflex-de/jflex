@@ -47,16 +47,12 @@ public class Version implements Comparable<Version> {
     return toMajorMinorPatchString();
   }
 
-  private String toMajorMinorPatchString() {
+  public String toMajorMinorPatchString() {
     return makeString('.', true);
   }
 
   public String toMajorMinorString() {
     return makeString('.', false);
-  }
-
-  public String unicodeClassName() {
-    return String.format("Unicode_%s", makeString('_', false));
   }
 
   private String makeString(char sep, boolean includePatch) {

@@ -194,7 +194,7 @@ class UnicodeVersion implements UcdVersion {
   }
 
   public void emitToDir(File outputDir) throws IOException {
-    String generatedClassName = getGeneratedClassName();
+    String generatedClassName = getUnicodeClassName();
     PrintWriter writer =
         new PrintWriter(new File(outputDir, generatedClassName + ".java"), "UTF-8");
     writer.append("package jflex.core.unicode.data;\n\n");
@@ -683,12 +683,9 @@ class UnicodeVersion implements UcdVersion {
     }
   }
 
-  /**
-   * Returns an class name for the unicode version, suffixed the Unicode major.minor version
-   *
-   * @return "Unicode_X_Y", where X = major version, and Y = minor version.
-   */
-  String getGeneratedClassName() {
+  /** @return "Unicode_X_Y", where X = major version, and Y = minor version. */
+  @Override
+  public String getUnicodeClassName() {
     return String.format("Unicode_%s", majorMinorVersion.replace(".", "_"));
   }
 
@@ -915,5 +912,10 @@ class UnicodeVersion implements UcdVersion {
   @Override
   public String getMajorMinorVersion() {
     return majorMinorVersion;
+  }
+
+  @Override
+  public String getMajorMinorPatchVersion() {
+    return majorMinorUpdateVersion;
   }
 }

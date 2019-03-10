@@ -34,11 +34,15 @@ public class UcdVersion implements jflex.ucd.UcdVersion {
 
   private final Version version;
   private final String versionMajorMinor;
+  private final String versionMajorMinorPatch;
+  private final String unicodeClassName;
   final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
 
   UcdVersion(Version version, ImmutableMap<UcdFileType, File> files) {
     this.version = version;
     this.versionMajorMinor = version.toMajorMinorString();
+    this.versionMajorMinorPatch = version.toMajorMinorPatchString();
+    this.unicodeClassName = "Unicode_" + versionMajorMinor.replace(',', '_');
     this.files = files;
   }
 
@@ -64,7 +68,17 @@ public class UcdVersion implements jflex.ucd.UcdVersion {
 
   @Override
   public String getMajorMinorVersion() {
-    return null;
+    return versionMajorMinor;
+  }
+
+  @Override
+  public String getMajorMinorPatchVersion() {
+    return versionMajorMinorPatch;
+  }
+
+  @Override
+  public String getUnicodeClassName() {
+    return "Unicode_" + versionMajorMinor.replace('.', '_');
   }
 
   public static class Builder {

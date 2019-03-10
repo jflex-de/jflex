@@ -50,7 +50,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
   private File outputDirectory = null;
 
   /** Maps validated major.minor unicode versions to information about the version. */
-  private SortedMap<String, UnicodeVersion> unicodeVersions =
+  private SortedMap<String, UcdVersion> unicodeVersions =
       new TreeMap<>(
           new Comparator<String>() {
             @Override
@@ -228,7 +228,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       UcdVersion unicodeVersion = new UnicodeVersion(version, dataFiles, getLog());
       unicodeVersion.fetchAndParseDataFiles();
       unicodeVersion.addCompatibilityProperties();
-      unicodeVersions.put(unicodeVersion.getMajorMinorVersion(), (UnicodeVersion) unicodeVersion);
+      unicodeVersions.put(unicodeVersion.getMajorMinorVersion(), unicodeVersion);
       getLog()
           .info(
               "Completed downloading and parsing Unicode "
@@ -299,13 +299,15 @@ public class JFlexUnicodeMojo extends AbstractMojo {
       builder
           .append(majorMinorVersion)
           .append(", ")
-          .append(unicodeVersions.get(majorMinorVersion).majorMinorUpdateVersion);
+          .append(unicodeVersions.get(majorMinorVersion).getMajorMinorVersion());
     }
     builder.append("\";");
   }
 
   private void emitVersionedUnicodeData() throws IOException {
-    for (UnicodeVersion unicodeVersion : unicodeVersions.values()) {
+    for (UcdVersion ucdVersion : unicodeVersions.values()) {
+      // TODO(regisd) Extract the emitter part from the value object
+      UnicodeVersion unicodeVersion = (UnicodeVersion) ucdVersion;
       unicodeVersion.emitToDir(new File(outputDirectory, "data"));
     }
   }
@@ -319,7 +321,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
 
   private void emitInitBody(StringBuilder builder) {
     boolean isFirst = true;
-    for (Entry<String, UnicodeVersion> entry : unicodeVersions.entrySet()) {
+    for (Entry<String, UcdVersion> entry : unicodeVersions.entrySet()) {
       String majorMinorVersion = entry.getKey();
       if (isFirst) {
         builder.append("    if (");
@@ -331,14 +333,14 @@ public class JFlexUnicodeMojo extends AbstractMojo {
         String majorVersion = majorMinorVersion.substring(0, majorMinorVersion.indexOf("."));
         builder.append("Objects.equals(version, \"").append(majorVersion).append("\") || ");
       }
-      UnicodeVersion unicodeVersion = entry.getValue();
-      String className = unicodeVersion.getGeneratedClassName();
+      UcdVersion ucdVersion = entry.getValue();
+      String className = ucdVersion.getUnicodeClassName();
       String fqcn = "jflex.core.unicode.data." + className;
       builder
           .append("Objects.equals(version, \"")
           .append(majorMinorVersion)
           .append("\") || Objects.equals(version, \"")
-          .append(unicodeVersion.majorMinorUpdateVersion)
+          .append(ucdVersion.getMajorMinorPatchVersion())
           .append("\")) {\n")
           .append("      bind(")
           .append(fqcn)

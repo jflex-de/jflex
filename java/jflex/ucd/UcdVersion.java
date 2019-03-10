@@ -14,6 +14,12 @@ public interface UcdVersion {
 
   void addCompatibilityProperties();
 
-  /** Unicode versionMajorMinor in the form {@code X.Y}. */
+  /** Returns the Unicode versionMajorMinor in the form {@code X.Y}. */
   String getMajorMinorVersion();
+
+  /** Returns the Unicode versionMajorMinor in the form {@code X.Y.Z}. */
+  String getMajorMinorPatchVersion();
+
+  /** Returns a class name for the unicode version. */
+  String getUnicodeClassName();
 }
