@@ -6,7 +6,7 @@ VERSION = "1.8.0-SNAPSHOT"
 
 RELEASE_DATE = "21 September 2018"
 
-UNICODE_VER = "9.0"
+UNICODE_VER = "12.0"
 
 def replace_placeholders(name, src = "", out = None, **kwargs):
     """Replaces placeholders by their respective value."""
