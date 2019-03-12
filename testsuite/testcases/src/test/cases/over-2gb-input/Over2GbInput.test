@@ -1,0 +1,6 @@
+name: Over2GbInput
+
+description:
+Tests ability to scan an input file with more than Integer.MAX_VALUE characters.
+
+jflex: -q

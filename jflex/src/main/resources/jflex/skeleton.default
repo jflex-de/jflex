@@ -57,7 +57,7 @@
   private int yyline;
 
   /** Number of characters up to the start of the matched text. */
-  private int yychar;
+  private long yychar;
 
   /** Number of characters from the last newline up to the start of the matched text. */
   private int yycolumn;
@@ -183,7 +183,8 @@
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyline = yycolumn = 0;
+    yychar = 0L;
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE) {
       zzBuffer = new char[ZZ_BUFFERSIZE];

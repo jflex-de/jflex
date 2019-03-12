@@ -2,10 +2,10 @@ public class Yytoken {
   public int m_index;
   public String m_text;
   public int m_line;
-  public int m_charBegin;
-  public int m_charEnd;
+  public long m_charBegin;
+  public long m_charEnd;
   
-  Yytoken (int index, String text, int line, int charBegin, int charEnd) {
+  Yytoken (int index, String text, int line, long charBegin, long charEnd) {
      m_index = index;
     m_text = text;
     m_line = line;

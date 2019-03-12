@@ -1,6 +1,7 @@
 ## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11)
 - Unicode 10.0 and 11.0 are supported (#540, #555)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
+- make yychar long to enable scanners with the %char option to consume files larger than 2GB (#536)
 
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
 - Unicode 8.0 and 9.0 are supported (#209)

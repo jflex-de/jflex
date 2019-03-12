@@ -51,7 +51,7 @@
   private int yyline;
 
   /** the number of characters up to the start of the matched text */
-  private int yychar;
+  private long yychar;
 
   /**
    * the number of characters from the last newline up to the start of the 
@@ -93,7 +93,7 @@
     int zzCurrentPos;
     int zzMarkedPos;
     int yyline;
-    int yychar;
+    long yychar;
     int yycolumn;
     char [] zzBuffer;
     boolean zzAtBOL;
@@ -105,7 +105,7 @@
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
                   int zzCurrentPos, int zzMarkedPos, char [] zzBuffer, 
                   boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
-                  int zzFinalHighSurrogate, int yyline, int yychar, int yycolumn) {
+                  int zzFinalHighSurrogate, int yyline, long yychar, int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
       this.zzStartRead   = zzStartRead;
@@ -230,7 +230,8 @@
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyline = yycolumn = 0;
+    yychar = 0L;
   }
     
 
@@ -297,7 +298,8 @@
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyline = yycolumn = 0;
+    yychar = 0L;
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE)
       zzBuffer = new char[ZZ_BUFFERSIZE];
