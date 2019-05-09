@@ -214,7 +214,9 @@ public enum DataFileType {
       int majorVersion = Integer.parseInt(versionComponents[0]);
       if (majorVersion >= 11) {
         String majorMinorVersion = versionComponents[0] + "." + versionComponents[1];
-        url = new URL("https://unicode.org/Public/emoji/" + majorMinorVersion + "/emoji-data.txt");
+        // There was no emoji data file produced for Emoji 12.1; use version <major>.0
+        // TODO: manually check this for future minor versions; some probing may be required
+        url = new URL("https://unicode.org/Public/emoji/" + majorVersion + ".0/emoji-data.txt");
       } else if (majorVersion == 8) {
         url = new URL("https://unicode.org/Public/emoji/2.0/emoji-data.txt");
       } else if (majorVersion == 9) {

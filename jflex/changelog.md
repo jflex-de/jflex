@@ -1,5 +1,5 @@
 ## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11)
-- Unicode 10.0, 11.0, and 12.0 are supported (#540, #555, #556)
+- Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #557)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
 
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
