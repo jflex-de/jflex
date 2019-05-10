@@ -1,0 +1,12 @@
+name: EmojiData_Emoji_Component_12_1
+
+description: 
+Tests character class syntax of the Unicode 12.1 'Emoji_Component' property,
+defined in emoji-data.txt.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+
+common-input-file: ../../resources/All.Unicode.characters.input
+
