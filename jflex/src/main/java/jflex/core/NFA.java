@@ -20,6 +20,7 @@ import java.util.Objects;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
 import jflex.exceptions.GeneratorException;
+import jflex.exceptions.RegExpException;
 import jflex.l10n.ErrorMessages;
 
 /**
@@ -188,7 +189,7 @@ public final class NFA {
           // base forward pass
           IntPair forward = insertNFA(r1);
           // lookahead backward pass
-          IntPair backward = insertNFA(r2.rev(macros));
+          IntPair backward = insertNFA(r2.rev());
 
           isFinal[forward.end()] = true;
           action[forward.end()] = new Action(Action.FORWARD_ACTION);
@@ -222,9 +223,6 @@ public final class NFA {
       RegExp2 r = (RegExp2) lookAhead;
       insertLookAheadChoices(baseEnd, a, r.r1);
       insertLookAheadChoices(baseEnd, a, r.r2);
-    } else if (lookAhead.type == sym.MACROUSE) {
-      RegExp1 r = (RegExp1) lookAhead;
-      insertLookAheadChoices(baseEnd, a, macros.getDefinition((String) r.content));
     } else {
       int len = SemCheck.length(lookAhead);
 
@@ -243,11 +241,11 @@ public final class NFA {
         scanner.actions.add(x);
       } else {
         // should never happen
-        throw new Error(
+        throw new RegExpException(
             "When inserting lookahead expression: unknown expression type "
-                + lookAhead.type
+                + lookAhead.typeName()
                 + " in "
-                + lookAhead); // $NON-NLS-1$ //$NON-NLS-2$
+                + lookAhead);
       }
     }
   }
@@ -671,20 +669,8 @@ public final class NFA {
     return IntPair.create(start, i + start);
   }
 
-  private void insertClassNFA(List<Interval> intervals, int start, int end) {
-    // empty char class is ok:
-    if (intervals == null) return;
-
-    for (int aCl : classes.getClassCodes(intervals)) {
-      addTransition(start, aCl, end);
-    }
-  }
-
-  private void insertNotClassNFA(List<Interval> intervals, int start, int end) {
-
-    for (int input : classes.getNotClassCodes(intervals)) {
-      addTransition(start, input, end);
-    }
+  private void insertClassNFA(IntCharSet set, int start, int end) {
+    for (int aCl : classes.getClassCodes(set, false)) addTransition(start, aCl, end);
   }
 
   /**
@@ -909,9 +895,7 @@ public final class NFA {
    * <p>Assumes that regExp.isCharClass(macros) == true
    *
    * @param regExp the regular expression to construct the NFA for
-   * @return a pair of integers denoting the index of start and end state of the NFA.
    */
-  @SuppressWarnings("unchecked") // for List<Interval> casts
   private void insertCCLNFA(RegExp regExp, int start, int end) {
     switch (regExp.type) {
       case sym.BAR:
@@ -920,12 +904,8 @@ public final class NFA {
         insertCCLNFA(r.r2, start, end);
         return;
 
-      case sym.CCLASS:
-        insertClassNFA((List<Interval>) ((RegExp1) regExp).content, start, end);
-        return;
-
-      case sym.CCLASSNOT:
-        insertNotClassNFA((List<Interval>) ((RegExp1) regExp).content, start, end);
+      case sym.PRIMCLASS:
+        insertClassNFA((IntCharSet) ((RegExp1) regExp).content, start, end);
         return;
 
       case sym.CHAR:
@@ -935,13 +915,10 @@ public final class NFA {
       case sym.CHAR_I:
         insertLetterNFA(true, (Integer) ((RegExp1) regExp).content, start, end);
         return;
-
-      case sym.MACROUSE:
-        insertCCLNFA(macros.getDefinition((String) ((RegExp1) regExp).content), start, end);
-        return;
     }
 
-    throw new Error("Unknown expression type " + regExp.type + " in NFA construction");
+    throw new RegExpException(
+        "Unknown expression type " + regExp.typeName() + " in NFA construction");
   }
 
   /**
@@ -963,7 +940,7 @@ public final class NFA {
       Out.debug("Inserting RegExp : " + regExp);
     }
 
-    if (regExp.isCharClass(macros)) {
+    if (regExp.isCharClass()) {
       start = numStates;
       end = numStates + 1;
 
@@ -1040,19 +1017,17 @@ public final class NFA {
         return complement(insertNFA((RegExp) ((RegExp1) regExp).content));
 
       case sym.TILDE:
-        return insertNFA(regExp.resolveTilde(macros));
+        return insertNFA(regExp.resolveTilde());
 
       case sym.STRING:
         return insertStringNFA(false, (String) ((RegExp1) regExp).content);
 
       case sym.STRING_I:
         return insertStringNFA(true, (String) ((RegExp1) regExp).content);
-
-      case sym.MACROUSE:
-        return insertNFA(macros.getDefinition((String) ((RegExp1) regExp).content));
     }
 
-    throw new Error("Unknown expression type " + regExp.type + " in NFA construction");
+    throw new RegExpException(
+        "Unknown expression type " + regExp.typeName() + " in NFA construction");
   }
 
   public int numStates() {

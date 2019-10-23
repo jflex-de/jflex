@@ -37,7 +37,7 @@ public class RegExp2 extends RegExp {
   public String print(String tab) {
     return tab
         + "type = "
-        + type
+        + typeName()
         + Out.NL
         + tab
         + "child 1 :"

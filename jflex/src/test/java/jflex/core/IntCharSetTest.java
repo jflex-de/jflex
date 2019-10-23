@@ -16,11 +16,29 @@ public class IntCharSetTest extends TestCase {
   }
 
   public void testAddIntCharSet() {
-    IntCharSet a = new IntCharSet((char) 0);
-    a.add((char) 3);
+    IntCharSet a = new IntCharSet(0);
+    a.add(3);
     IntCharSet original_a = a.copy();
-    IntCharSet b = new IntCharSet(new Interval((char) 0, (char) 4));
+    IntCharSet b = new IntCharSet(0, 4);
     a.add(b);
     assertWithMessage("a ← a + b = %s + %s should be b", original_a, b).that(a).isEqualTo(b);
+  }
+
+  public void testContainsSet() {
+    IntCharSet a = new IntCharSet(3, 7);
+    a.add(new Interval(10, 15));
+    IntCharSet b = new IntCharSet(4, 6);
+    IntCharSet c = new IntCharSet(1, 5);
+    IntCharSet d = new IntCharSet(1, 20);
+
+    assertTrue(a.contains(b));
+    b.add(new Interval(10, 15));
+    assertTrue(a.contains(b));
+    a.sub(new IntCharSet(4, 7));
+    a.sub(new IntCharSet(10, 15));
+    assertFalse(a.contains(b));
+    assertFalse(a.contains(c));
+    assertFalse(c.contains(d));
+    assertTrue("d.contains(a); d is " + d + " and a is " + a, d.contains(a));
   }
 }

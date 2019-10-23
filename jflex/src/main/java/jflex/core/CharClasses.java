@@ -121,6 +121,8 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(IntCharSet set, boolean caseless) {
+    set = set.copy(); // avoid destructively updating the original
+
     if (caseless) set = set.getCaseless(unicodeProps);
 
     if (DEBUG) {
@@ -275,7 +277,7 @@ public class CharClasses {
    * Returns an array that contains the character class codes of all characters in the specified set
    * of input characters.
    */
-  private int[] getClassCodes(IntCharSet set, boolean negate) {
+  public int[] getClassCodes(IntCharSet set, boolean negate) {
 
     if (DEBUG) {
       Out.dump("getting class codes for " + set);
@@ -307,29 +309,6 @@ public class CharClasses {
     System.arraycopy(temp, 0, result, 0, length);
 
     return result;
-  }
-
-  /**
-   * Returns an array that contains the character class codes of all characters in the specified set
-   * of input characters.
-   *
-   * @param intervalList a List of Intervals, the set of characters to get the class codes for
-   * @return an array with the class codes for intervalList
-   */
-  public int[] getClassCodes(List<Interval> intervalList) {
-    return getClassCodes(new IntCharSet(intervalList), false);
-  }
-
-  /**
-   * Returns an array that contains the character class codes of all characters that are
-   * <strong>not</strong> in the specified set of input characters.
-   *
-   * @param intervalList a List of Intervals, the complement of the set of characters to get the
-   *     class codes for
-   * @return an array with the class codes for the complement of intervalList
-   */
-  public int[] getNotClassCodes(List<Interval> intervalList) {
-    return getClassCodes(new IntCharSet(intervalList), true);
   }
 
   /**
