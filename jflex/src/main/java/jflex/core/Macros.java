@@ -137,6 +137,7 @@ public final class Macros {
    * @throws jflex.exceptions.MacroException when an error (such as a cyclic definition) occurs
    *     during expansion
    */
+  @SuppressWarnings("unchecked")
   private RegExp expandMacro(String name, RegExp definition)
       throws jflex.exceptions.MacroException {
 
@@ -180,15 +181,29 @@ public final class Macros {
       case sym.STRING_I:
       case sym.CHAR:
       case sym.CHAR_I:
+      case sym.PRIMCLASS:
+        return definition;
+
       case sym.CCLASS:
       case sym.CCLASSNOT:
+        RegExp1 cclass = (RegExp1) definition;
+        List<RegExp> classes = (List<RegExp>) cclass.content;
+        List<RegExp> newClasses = new ArrayList<RegExp>();
+        for (RegExp r : classes) {
+          newClasses.add(expandMacro(name, r));
+        }
+        cclass.content = newClasses;
+        return cclass;
+
+      case sym.CCLASSOP:
+        RegExp2 cclassOp = (RegExp2) ((RegExp1) definition).content;
+        cclassOp.r1 = expandMacro(name, cclassOp.r1);
+        cclassOp.r2 = expandMacro(name, cclassOp.r2);
         return definition;
 
       default:
         throw new MacroException(
-            "unknown expression type "
-                + definition.type
-                + " in macro expansion"); // $NON-NLS-1$ //$NON-NLS-2$
+            "unknown expression type " + definition.typeName() + " in macro expansion");
     }
   }
 }
