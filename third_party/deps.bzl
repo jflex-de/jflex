@@ -33,20 +33,20 @@ def third_party_deps():
     native.maven_jar(
         name = "com_google_auto_value_auto_value",
         artifact = "com.google.auto.value:auto-value:jar:1.4.1",
-        repository = "http://jcenter.bintray.com/",
+        repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
         name = "com_google_guava_guava",
         artifact = "com.google.guava:guava:jar:26.0-jre",
-        repository = "http://jcenter.bintray.com/",
+        repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
         name = "com_google_truth_truth",
         artifact = "com.google.truth:truth:0.36",
-        repository = "http://jcenter.bintray.com/",
+        repository = "https://jcenter.bintray.com/",
     )
     native.maven_jar(
         name = "junit_junit",
         artifact = "junit:junit:jar:4.12",
-        repository = "http://jcenter.bintray.com/",
+        repository = "https://jcenter.bintray.com/",
     )
