@@ -1,3 +1,9 @@
+# This incompatible change was introduced in Bazel 0.26
+# https://github.com/bazelbuild/bazel/issues/5817
+# bazel_pandoc needs to update 
+# https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
+build --incompatible_depset_union=false
+
 test --test_output=errors
 
 # http://errorprone.info/bugpatterns
