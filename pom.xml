@@ -290,7 +290,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.20.1</version>
+          <version>3.0.0-M3</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -445,6 +445,9 @@
       <id>error-prone</id>
       <activation>
         <jdk>[1.9,)</jdk>
+        <property>
+          <name>DISABLED</name>
+        </property>
       </activation>
       <build>
         <plugins>
