@@ -204,7 +204,7 @@
           <version>2.5.0</version>
         </plugin>
         <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
+          <artifactId>maven-`compiler-plugin</artifactId>
           <version>3.8.0</version>
         </plugin>
         <plugin>
@@ -300,8 +300,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -444,7 +444,7 @@
     <profile>
       <id>error-prone</id>
       <activation>
-        <jdk>[1.8,)</jdk>
+        <jdk>[1.9,)</jdk>
       </activation>
       <build>
         <plugins>
@@ -455,8 +455,7 @@
               <target>8</target>
               <compilerArgs>
                 <arg>-XDcompilePolicy=simple</arg>
-                <arg>-Xplugin:ErrorProne
-                     -Xep:FallThrough:WARN</arg>
+                <arg>-Xplugin:ErrorProne -Xep:FallThrough:WARN</arg>
               </compilerArgs>
               <annotationProcessorPaths>
                 <path>
