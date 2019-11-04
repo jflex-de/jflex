@@ -455,8 +455,8 @@
               <target>8</target>
               <compilerArgs>
                 <arg>-XDcompilePolicy=simple</arg>
-                <arg>-Xplugin:ErrorProne</arg>
-                <arg>-Xep:FallThrough:WARN</arg>
+                <arg>-Xplugin:ErrorProne
+                     -Xep:FallThrough:WARN</arg>
               </compilerArgs>
               <annotationProcessorPaths>
                 <path>
