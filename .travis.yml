@@ -35,9 +35,9 @@ matrix:
     - scripts/test-regression.sh
   - name: "😎 Examples (mvn, ant, make)"
     script: scripts/test-examples.sh
-  - name: "👴 Examples (mvn, ant, make) — JDK7"
+  - name: "👴 Examples (mvn, ant, make) — JDK8"
     script: scripts/test-examples.sh
-    jdk: openjdk7
+    jdk: openjdk8
   - name: "📄 Documentation"
     language: generic
     install: true
@@ -111,4 +111,3 @@ deploy:
     condition:
     - $PUBLISH_SOURCES
   script: scripts/deploy-aggregated-sources.sh
-
