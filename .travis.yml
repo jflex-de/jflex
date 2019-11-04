@@ -12,7 +12,7 @@ git:
 language: java
 
 jdk:
-- openjdk9
+- openjdk11
 
 matrix:
   include:
