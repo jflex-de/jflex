@@ -451,7 +451,6 @@
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <compilerId>javac-with-errorprone</compilerId>
               <source>8</source>
               <target>8</target>
               <compilerArgs>
