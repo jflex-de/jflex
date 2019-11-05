@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java_cup.runtime.Symbol;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
+import jflex.scanner.LexicalStates;
 
 public abstract class AbstractLexScan {
 
@@ -25,7 +27,7 @@ public abstract class AbstractLexScan {
   String eofThrow;
   String lexThrow;
   String eofVal;
-  String scanErrorException;
+  public String scanErrorException;
   String cupSymbol = "sym";
 
   StringBuilder string = new StringBuilder();
@@ -122,7 +124,7 @@ public abstract class AbstractLexScan {
   }
 
   @SuppressWarnings("SameParameterValue") // Generated LexScan uses different parameters
-  static String conc(Object a, Object b) {
+  public static String conc(Object a, Object b) {
     if (a == null && b == null) {
       return null;
     }
@@ -136,7 +138,7 @@ public abstract class AbstractLexScan {
     return a.toString() + b.toString();
   }
 
-  static String concExc(Object a, Object b) {
+  public static String concExc(Object a, Object b) {
     if (a == null && b == null) {
       return null;
     }
@@ -194,14 +196,169 @@ public abstract class AbstractLexScan {
     return files.pop();
   }
 
+  public String userCode() {
+    return userCode.toString();
+  }
+
+  public String classCode() {
+    return classCode;
+  }
+
+  public String initCode() {
+    return initCode;
+  };
+
+  public String initThrow() {
+    return initThrow;
+  };
+
+  public String eofCode() {
+    return eofCode;
+  };
+
+  public String eofThrow() {
+    return eofThrow;
+  };
+
+  public String lexThrow() {
+    return lexThrow;
+  };
+
+  public String eofVal() {
+    return eofVal;
+  };
+
+  public String scanErrorException() {
+    return scanErrorException;
+  };
+
+  public String cupSymbol() {
+    return cupSymbol;
+  };
+
+  public boolean charCount() {
+    return charCount;
+  };
+
+  public boolean lineCount() {
+    return lineCount;
+  };
+
+  public boolean columnCount() {
+    return columnCount;
+  };
+
+  public boolean cupCompatible() {
+    return cupCompatible;
+  };
+
+  public boolean cup2Compatible() {
+    return cup2Compatible;
+  };
+
+  public boolean cupDebug() {
+    return cupDebug;
+  };
+
+  public boolean isInteger() {
+    return isInteger;
+  };
+
+  public boolean isIntWrap() {
+    return isIntWrap;
+  };
+
+  public boolean isPublic() {
+    return isPublic;
+  };
+
+  public boolean isFinal() {
+    return isFinal;
+  };
+
+  public boolean isAbstract() {
+    return isAbstract;
+  };
+
+  public boolean bolUsed() {
+    return bolUsed;
+  };
+
+  public boolean standalone() {
+    return standalone;
+  };
+
+  public boolean debugOption() {
+    return debugOption;
+  };
+
+  public boolean eofclose() {
+    return eofclose;
+  };
+
+  public String isImplementing() {
+    return isImplementing;
+  };
+
+  public String isExtending() {
+    return isExtending;
+  };
+
+  public String className() {
+    return className;
+  };
+
+  public String functionName() {
+    return functionName;
+  };
+
+  public String tokenType() {
+    return tokenType;
+  };
+
+  public String visibility() {
+    return visibility;
+  };
+
+  public Set<String> stateNames() {
+    return states.names();
+  }
+
+  public int getStateNumber(String name) {
+    return states.getNumber(name);
+  }
+
+  public int ctorArgsCount() {
+    return ctorArgs.size();
+  }
+
+  public String ctorType(int i) {
+    return ctorTypes.get(i);
+  }
+
+  public String ctorArg(int i) {
+    return ctorArgs.get(i);
+  }
+
+  public int bufferSize() {
+    return bufferSize;
+  }
+
   /**
    * Returns the current line number.
    *
-   * @deprecated Use {link #lexLine} directly.
+   * @deprecated Use {@link #lexLine} directly.
    */
   @Deprecated
   public int currentLine() {
     return lexLine();
+  }
+
+  @SuppressWarnings("unused") // Used by generated LexScan
+  /** @deprecated Use {@link #columnCoount} */
+  @Deprecated
+  public boolean isColumnCount() {
+    return columnCount;
   }
 
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan

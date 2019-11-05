@@ -1,0 +1,9 @@
+name: UnicodeSentenceBreakRules_12_0
+
+description: 
+Implements the Unicode 12.0 Sentence Boundary rules, specified in UAX #29 
+<https://www.unicode.org/reports/tr29/tr29-35.html>.
+
+jflex: -q
+
+input-file-encoding: UTF-8

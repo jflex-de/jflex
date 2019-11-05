@@ -1,14 +1,7 @@
 package jflex.core.unicode.data;
 
-/**
- * Unicode_9_0 class.
- *
- * @author JFlex contributors.
- */
 public class Unicode_9_0 {
-  /** Constant {@code maximumCodePoint=0x10ffff} */
   public static final int maximumCodePoint = 0x10ffff;
-  /** Constant {@code propertyValues="{adlam, age=unassigned, age=v11, age=v2"{trunked}} */
   public static final String[] propertyValues = {
     "adlam", "age=unassigned", "age=v11", "age=v20", "age=v21",
     "age=v30", "age=v31", "age=v32", "age=v40", "age=v41",
@@ -128,141 +121,135 @@ public class Unicode_9_0 {
     "changeswhentitlecased", "changeswhenuppercased", "cherokee", "cn", "co",
     "common", "coptic", "cuneiform", "cypriot", "cyrillic",
     "dash", "defaultignorablecodepoint", "deprecated", "deseret", "devanagari",
-    "diacritic", "duployan", "egyptianhieroglyphs", "elbasan", "ethiopic",
-    "extender", "georgian", "glagolitic", "gothic", "grantha",
-    "graph", "graphemebase", "graphemeclusterbreak=control", "graphemeclusterbreak=cr",
-        "graphemeclusterbreak=ebase",
-    "graphemeclusterbreak=ebasegaz", "graphemeclusterbreak=emodifier",
-        "graphemeclusterbreak=extend", "graphemeclusterbreak=glueafterzwj",
-        "graphemeclusterbreak=l",
-    "graphemeclusterbreak=lf", "graphemeclusterbreak=lv", "graphemeclusterbreak=lvt",
-        "graphemeclusterbreak=other", "graphemeclusterbreak=prepend",
-    "graphemeclusterbreak=regionalindicator", "graphemeclusterbreak=spacingmark",
-        "graphemeclusterbreak=t", "graphemeclusterbreak=v", "graphemeclusterbreak=zwj",
-    "graphemeextend", "graphemelink", "greek", "gujarati", "gurmukhi",
-    "han", "hangul", "hanunoo", "hatran", "hebrew",
-    "hexdigit", "hiragana", "hyphen", "idcontinue", "ideographic",
-    "idsbinaryoperator", "idstart", "idstrinaryoperator", "imperialaramaic", "inherited",
-    "inscriptionalpahlavi", "inscriptionalparthian", "javanese", "joincontrol", "kaithi",
-    "kannada", "katakana", "kayahli", "kharoshthi", "khmer",
-    "khojki", "khudawadi", "lao", "latin", "lepcha",
-    "limbu", "lineara", "linearb", "linebreak=alphabetic", "linebreak=ambiguous",
-    "linebreak=breakafter", "linebreak=breakbefore", "linebreak=breakboth",
-        "linebreak=breaksymbols", "linebreak=carriagereturn",
-    "linebreak=closeparenthesis", "linebreak=closepunctuation", "linebreak=combiningmark",
-        "linebreak=complexcontext", "linebreak=conditionaljapanesestarter",
-    "linebreak=contingentbreak", "linebreak=ebase", "linebreak=emodifier", "linebreak=exclamation",
-        "linebreak=glue",
-    "linebreak=h2", "linebreak=h3", "linebreak=hebrewletter", "linebreak=hyphen",
-        "linebreak=ideographic",
-    "linebreak=infixnumeric", "linebreak=inseparable", "linebreak=jl", "linebreak=jt",
-        "linebreak=jv",
-    "linebreak=linefeed", "linebreak=mandatorybreak", "linebreak=nextline", "linebreak=nonstarter",
-        "linebreak=numeric",
-    "linebreak=openpunctuation", "linebreak=postfixnumeric", "linebreak=prefixnumeric",
-        "linebreak=quotation", "linebreak=regionalindicator",
-    "linebreak=space", "linebreak=unknown", "linebreak=wordjoiner", "linebreak=zwj",
-        "linebreak=zwspace",
-    "lisu", "ll", "lm", "lo", "logicalorderexception",
-    "lowercase", "lt", "lu", "lycian", "lydian",
-    "mahajani", "malayalam", "mandaic", "manichaean", "marchen",
-    "math", "mc", "me", "meeteimayek", "mendekikakui",
-    "meroiticcursive", "meroitichieroglyphs", "miao", "mn", "modi",
-    "mongolian", "mro", "multani", "myanmar", "nabataean",
-    "nd", "newa", "newtailue", "nko", "nl",
-    "no", "noncharactercodepoint", "ogham", "olchiki", "oldhungarian",
-    "olditalic", "oldnortharabian", "oldpermic", "oldpersian", "oldsoutharabian",
-    "oldturkic", "oriya", "osage", "osmanya", "otheralphabetic",
-    "otherdefaultignorablecodepoint", "othergraphemeextend", "otheridcontinue", "otheridstart",
-        "otherlowercase",
-    "othermath", "otheruppercase", "pahawhhmong", "palmyrene", "patternsyntax",
-    "patternwhitespace", "paucinhau", "pc", "pd", "pe",
-    "pf", "phagspa", "phoenician", "pi", "po",
-    "prependedconcatenationmark", "print", "ps", "psalterpahlavi", "quotationmark",
-    "radical", "rejang", "runic", "samaritan", "saurashtra",
-    "sc", "scriptextensions=adlam", "scriptextensions=ahom",
-        "scriptextensions=anatolianhieroglyphs", "scriptextensions=arabic",
-    "scriptextensions=armenian", "scriptextensions=avestan", "scriptextensions=balinese",
-        "scriptextensions=bamum", "scriptextensions=bassavah",
-    "scriptextensions=batak", "scriptextensions=bengali", "scriptextensions=bhaiksuki",
-        "scriptextensions=bopomofo", "scriptextensions=brahmi",
-    "scriptextensions=braille", "scriptextensions=buginese", "scriptextensions=buhid",
-        "scriptextensions=canadianaboriginal", "scriptextensions=carian",
-    "scriptextensions=caucasianalbanian", "scriptextensions=chakma", "scriptextensions=cham",
-        "scriptextensions=cherokee", "scriptextensions=common",
-    "scriptextensions=coptic", "scriptextensions=cuneiform", "scriptextensions=cypriot",
-        "scriptextensions=cyrillic", "scriptextensions=deseret",
-    "scriptextensions=devanagari", "scriptextensions=duployan",
-        "scriptextensions=egyptianhieroglyphs", "scriptextensions=elbasan",
-        "scriptextensions=ethiopic",
-    "scriptextensions=georgian", "scriptextensions=glagolitic", "scriptextensions=gothic",
-        "scriptextensions=grantha", "scriptextensions=greek",
-    "scriptextensions=gujarati", "scriptextensions=gurmukhi", "scriptextensions=han",
-        "scriptextensions=hangul", "scriptextensions=hanunoo",
-    "scriptextensions=hatran", "scriptextensions=hebrew", "scriptextensions=hiragana",
-        "scriptextensions=imperialaramaic", "scriptextensions=inherited",
-    "scriptextensions=inscriptionalpahlavi", "scriptextensions=inscriptionalparthian",
-        "scriptextensions=javanese", "scriptextensions=kaithi", "scriptextensions=kannada",
-    "scriptextensions=katakana", "scriptextensions=kayahli", "scriptextensions=kharoshthi",
-        "scriptextensions=khmer", "scriptextensions=khojki",
-    "scriptextensions=khudawadi", "scriptextensions=lao", "scriptextensions=latin",
-        "scriptextensions=lepcha", "scriptextensions=limbu",
-    "scriptextensions=lineara", "scriptextensions=linearb", "scriptextensions=lisu",
-        "scriptextensions=lycian", "scriptextensions=lydian",
-    "scriptextensions=mahajani", "scriptextensions=malayalam", "scriptextensions=mandaic",
-        "scriptextensions=manichaean", "scriptextensions=marchen",
-    "scriptextensions=meeteimayek", "scriptextensions=mendekikakui",
-        "scriptextensions=meroiticcursive", "scriptextensions=meroitichieroglyphs",
-        "scriptextensions=miao",
-    "scriptextensions=modi", "scriptextensions=mongolian", "scriptextensions=mro",
-        "scriptextensions=multani", "scriptextensions=myanmar",
-    "scriptextensions=nabataean", "scriptextensions=newa", "scriptextensions=newtailue",
-        "scriptextensions=nko", "scriptextensions=ogham",
-    "scriptextensions=olchiki", "scriptextensions=oldhungarian", "scriptextensions=olditalic",
+    "diacritic", "duployan", "egyptianhieroglyphs", "elbasan", "emoji",
+    "emojimodifier", "emojimodifierbase", "emojipresentation", "ethiopic", "extender",
+    "georgian", "glagolitic", "gothic", "grantha", "graph",
+    "graphemebase", "graphemeclusterbreak=control", "graphemeclusterbreak=cr",
+        "graphemeclusterbreak=ebase", "graphemeclusterbreak=ebasegaz",
+    "graphemeclusterbreak=emodifier", "graphemeclusterbreak=extend",
+        "graphemeclusterbreak=glueafterzwj", "graphemeclusterbreak=l", "graphemeclusterbreak=lf",
+    "graphemeclusterbreak=lv", "graphemeclusterbreak=lvt", "graphemeclusterbreak=other",
+        "graphemeclusterbreak=prepend", "graphemeclusterbreak=regionalindicator",
+    "graphemeclusterbreak=spacingmark", "graphemeclusterbreak=t", "graphemeclusterbreak=v",
+        "graphemeclusterbreak=zwj", "graphemeextend",
+    "graphemelink", "greek", "gujarati", "gurmukhi", "han",
+    "hangul", "hanunoo", "hatran", "hebrew", "hexdigit",
+    "hiragana", "hyphen", "idcontinue", "ideographic", "idsbinaryoperator",
+    "idstart", "idstrinaryoperator", "imperialaramaic", "inherited", "inscriptionalpahlavi",
+    "inscriptionalparthian", "javanese", "joincontrol", "kaithi", "kannada",
+    "katakana", "kayahli", "kharoshthi", "khmer", "khojki",
+    "khudawadi", "lao", "latin", "lepcha", "limbu",
+    "lineara", "linearb", "linebreak=alphabetic", "linebreak=ambiguous", "linebreak=breakafter",
+    "linebreak=breakbefore", "linebreak=breakboth", "linebreak=breaksymbols",
+        "linebreak=carriagereturn", "linebreak=closeparenthesis",
+    "linebreak=closepunctuation", "linebreak=combiningmark", "linebreak=complexcontext",
+        "linebreak=conditionaljapanesestarter", "linebreak=contingentbreak",
+    "linebreak=ebase", "linebreak=emodifier", "linebreak=exclamation", "linebreak=glue",
+        "linebreak=h2",
+    "linebreak=h3", "linebreak=hebrewletter", "linebreak=hyphen", "linebreak=ideographic",
+        "linebreak=infixnumeric",
+    "linebreak=inseparable", "linebreak=jl", "linebreak=jt", "linebreak=jv", "linebreak=linefeed",
+    "linebreak=mandatorybreak", "linebreak=nextline", "linebreak=nonstarter", "linebreak=numeric",
+        "linebreak=openpunctuation",
+    "linebreak=postfixnumeric", "linebreak=prefixnumeric", "linebreak=quotation",
+        "linebreak=regionalindicator", "linebreak=space",
+    "linebreak=unknown", "linebreak=wordjoiner", "linebreak=zwj", "linebreak=zwspace", "lisu",
+    "ll", "lm", "lo", "logicalorderexception", "lowercase",
+    "lt", "lu", "lycian", "lydian", "mahajani",
+    "malayalam", "mandaic", "manichaean", "marchen", "math",
+    "mc", "me", "meeteimayek", "mendekikakui", "meroiticcursive",
+    "meroitichieroglyphs", "miao", "mn", "modi", "mongolian",
+    "mro", "multani", "myanmar", "nabataean", "nd",
+    "newa", "newtailue", "nko", "nl", "no",
+    "noncharactercodepoint", "ogham", "olchiki", "oldhungarian", "olditalic",
+    "oldnortharabian", "oldpermic", "oldpersian", "oldsoutharabian", "oldturkic",
+    "oriya", "osage", "osmanya", "otheralphabetic", "otherdefaultignorablecodepoint",
+    "othergraphemeextend", "otheridcontinue", "otheridstart", "otherlowercase", "othermath",
+    "otheruppercase", "pahawhhmong", "palmyrene", "patternsyntax", "patternwhitespace",
+    "paucinhau", "pc", "pd", "pe", "pf",
+    "phagspa", "phoenician", "pi", "po", "prependedconcatenationmark",
+    "print", "ps", "psalterpahlavi", "quotationmark", "radical",
+    "rejang", "runic", "samaritan", "saurashtra", "sc",
+    "scriptextensions=adlam", "scriptextensions=ahom", "scriptextensions=anatolianhieroglyphs",
+        "scriptextensions=arabic", "scriptextensions=armenian",
+    "scriptextensions=avestan", "scriptextensions=balinese", "scriptextensions=bamum",
+        "scriptextensions=bassavah", "scriptextensions=batak",
+    "scriptextensions=bengali", "scriptextensions=bhaiksuki", "scriptextensions=bopomofo",
+        "scriptextensions=brahmi", "scriptextensions=braille",
+    "scriptextensions=buginese", "scriptextensions=buhid", "scriptextensions=canadianaboriginal",
+        "scriptextensions=carian", "scriptextensions=caucasianalbanian",
+    "scriptextensions=chakma", "scriptextensions=cham", "scriptextensions=cherokee",
+        "scriptextensions=common", "scriptextensions=coptic",
+    "scriptextensions=cuneiform", "scriptextensions=cypriot", "scriptextensions=cyrillic",
+        "scriptextensions=deseret", "scriptextensions=devanagari",
+    "scriptextensions=duployan", "scriptextensions=egyptianhieroglyphs", "scriptextensions=elbasan",
+        "scriptextensions=ethiopic", "scriptextensions=georgian",
+    "scriptextensions=glagolitic", "scriptextensions=gothic", "scriptextensions=grantha",
+        "scriptextensions=greek", "scriptextensions=gujarati",
+    "scriptextensions=gurmukhi", "scriptextensions=han", "scriptextensions=hangul",
+        "scriptextensions=hanunoo", "scriptextensions=hatran",
+    "scriptextensions=hebrew", "scriptextensions=hiragana", "scriptextensions=imperialaramaic",
+        "scriptextensions=inherited", "scriptextensions=inscriptionalpahlavi",
+    "scriptextensions=inscriptionalparthian", "scriptextensions=javanese",
+        "scriptextensions=kaithi", "scriptextensions=kannada", "scriptextensions=katakana",
+    "scriptextensions=kayahli", "scriptextensions=kharoshthi", "scriptextensions=khmer",
+        "scriptextensions=khojki", "scriptextensions=khudawadi",
+    "scriptextensions=lao", "scriptextensions=latin", "scriptextensions=lepcha",
+        "scriptextensions=limbu", "scriptextensions=lineara",
+    "scriptextensions=linearb", "scriptextensions=lisu", "scriptextensions=lycian",
+        "scriptextensions=lydian", "scriptextensions=mahajani",
+    "scriptextensions=malayalam", "scriptextensions=mandaic", "scriptextensions=manichaean",
+        "scriptextensions=marchen", "scriptextensions=meeteimayek",
+    "scriptextensions=mendekikakui", "scriptextensions=meroiticcursive",
+        "scriptextensions=meroitichieroglyphs", "scriptextensions=miao", "scriptextensions=modi",
+    "scriptextensions=mongolian", "scriptextensions=mro", "scriptextensions=multani",
+        "scriptextensions=myanmar", "scriptextensions=nabataean",
+    "scriptextensions=newa", "scriptextensions=newtailue", "scriptextensions=nko",
+        "scriptextensions=ogham", "scriptextensions=olchiki",
+    "scriptextensions=oldhungarian", "scriptextensions=olditalic",
         "scriptextensions=oldnortharabian", "scriptextensions=oldpermic",
-    "scriptextensions=oldpersian", "scriptextensions=oldsoutharabian", "scriptextensions=oldturkic",
-        "scriptextensions=oriya", "scriptextensions=osage",
-    "scriptextensions=osmanya", "scriptextensions=pahawhhmong", "scriptextensions=palmyrene",
-        "scriptextensions=paucinhau", "scriptextensions=phagspa",
-    "scriptextensions=phoenician", "scriptextensions=psalterpahlavi", "scriptextensions=rejang",
-        "scriptextensions=runic", "scriptextensions=samaritan",
-    "scriptextensions=saurashtra", "scriptextensions=sharada", "scriptextensions=shavian",
-        "scriptextensions=siddham", "scriptextensions=signwriting",
-    "scriptextensions=sinhala", "scriptextensions=sorasompeng", "scriptextensions=sundanese",
-        "scriptextensions=sylotinagri", "scriptextensions=syriac",
-    "scriptextensions=tagalog", "scriptextensions=tagbanwa", "scriptextensions=taile",
-        "scriptextensions=taitham", "scriptextensions=taiviet",
-    "scriptextensions=takri", "scriptextensions=tamil", "scriptextensions=tangut",
-        "scriptextensions=telugu", "scriptextensions=thaana",
-    "scriptextensions=thai", "scriptextensions=tibetan", "scriptextensions=tifinagh",
-        "scriptextensions=tirhuta", "scriptextensions=ugaritic",
-    "scriptextensions=unknown", "scriptextensions=vai", "scriptextensions=warangciti",
-        "scriptextensions=yi", "sentencebreak=aterm",
-    "sentencebreak=close", "sentencebreak=cr", "sentencebreak=extend", "sentencebreak=format",
-        "sentencebreak=lf",
-    "sentencebreak=lower", "sentencebreak=numeric", "sentencebreak=oletter", "sentencebreak=other",
-        "sentencebreak=scontinue",
-    "sentencebreak=sep", "sentencebreak=sp", "sentencebreak=sterm", "sentencebreak=upper",
-        "sentenceterminal",
-    "sharada", "shavian", "siddham", "signwriting", "sinhala",
-    "sk", "sm", "so", "softdotted", "sorasompeng",
-    "sundanese", "sylotinagri", "syriac", "tagalog", "tagbanwa",
-    "taile", "taitham", "taiviet", "takri", "tamil",
-    "tangut", "telugu", "terminalpunctuation", "thaana", "thai",
-    "tibetan", "tifinagh", "tirhuta", "ugaritic", "unifiedideograph",
-    "unknown", "uppercase", "vai", "variationselector", "warangciti",
-    "whitespace", "wordbreak=aletter", "wordbreak=cr", "wordbreak=doublequote", "wordbreak=ebase",
-    "wordbreak=ebasegaz", "wordbreak=emodifier", "wordbreak=extend", "wordbreak=extendnumlet",
-        "wordbreak=format",
-    "wordbreak=glueafterzwj", "wordbreak=hebrewletter", "wordbreak=katakana", "wordbreak=lf",
-        "wordbreak=midletter",
-    "wordbreak=midnum", "wordbreak=midnumlet", "wordbreak=newline", "wordbreak=numeric",
-        "wordbreak=other",
-    "wordbreak=regionalindicator", "wordbreak=singlequote", "wordbreak=zwj", "xdigit",
-        "xidcontinue",
-    "xidstart", "yi", "zl", "zp", "zs"
+        "scriptextensions=oldpersian",
+    "scriptextensions=oldsoutharabian", "scriptextensions=oldturkic", "scriptextensions=oriya",
+        "scriptextensions=osage", "scriptextensions=osmanya",
+    "scriptextensions=pahawhhmong", "scriptextensions=palmyrene", "scriptextensions=paucinhau",
+        "scriptextensions=phagspa", "scriptextensions=phoenician",
+    "scriptextensions=psalterpahlavi", "scriptextensions=rejang", "scriptextensions=runic",
+        "scriptextensions=samaritan", "scriptextensions=saurashtra",
+    "scriptextensions=sharada", "scriptextensions=shavian", "scriptextensions=siddham",
+        "scriptextensions=signwriting", "scriptextensions=sinhala",
+    "scriptextensions=sorasompeng", "scriptextensions=sundanese", "scriptextensions=sylotinagri",
+        "scriptextensions=syriac", "scriptextensions=tagalog",
+    "scriptextensions=tagbanwa", "scriptextensions=taile", "scriptextensions=taitham",
+        "scriptextensions=taiviet", "scriptextensions=takri",
+    "scriptextensions=tamil", "scriptextensions=tangut", "scriptextensions=telugu",
+        "scriptextensions=thaana", "scriptextensions=thai",
+    "scriptextensions=tibetan", "scriptextensions=tifinagh", "scriptextensions=tirhuta",
+        "scriptextensions=ugaritic", "scriptextensions=unknown",
+    "scriptextensions=vai", "scriptextensions=warangciti", "scriptextensions=yi",
+        "sentencebreak=aterm", "sentencebreak=close",
+    "sentencebreak=cr", "sentencebreak=extend", "sentencebreak=format", "sentencebreak=lf",
+        "sentencebreak=lower",
+    "sentencebreak=numeric", "sentencebreak=oletter", "sentencebreak=other",
+        "sentencebreak=scontinue", "sentencebreak=sep",
+    "sentencebreak=sp", "sentencebreak=sterm", "sentencebreak=upper", "sentenceterminal", "sharada",
+    "shavian", "siddham", "signwriting", "sinhala", "sk",
+    "sm", "so", "softdotted", "sorasompeng", "sundanese",
+    "sylotinagri", "syriac", "tagalog", "tagbanwa", "taile",
+    "taitham", "taiviet", "takri", "tamil", "tangut",
+    "telugu", "terminalpunctuation", "thaana", "thai", "tibetan",
+    "tifinagh", "tirhuta", "ugaritic", "unifiedideograph", "unknown",
+    "uppercase", "vai", "variationselector", "warangciti", "whitespace",
+    "wordbreak=aletter", "wordbreak=cr", "wordbreak=doublequote", "wordbreak=ebase",
+        "wordbreak=ebasegaz",
+    "wordbreak=emodifier", "wordbreak=extend", "wordbreak=extendnumlet", "wordbreak=format",
+        "wordbreak=glueafterzwj",
+    "wordbreak=hebrewletter", "wordbreak=katakana", "wordbreak=lf", "wordbreak=midletter",
+        "wordbreak=midnum",
+    "wordbreak=midnumlet", "wordbreak=newline", "wordbreak=numeric", "wordbreak=other",
+        "wordbreak=regionalindicator",
+    "wordbreak=singlequote", "wordbreak=zwj", "xdigit", "xidcontinue", "xidstart",
+    "yi", "zl", "zp", "zs"
   };
-  /** Constant {@code intervals="{// Unicode 9.0 property value: {adlam}"{trunked}} */
   public static final String[] intervals = {
     // Unicode 9.0 property value: {adlam}
     "\ud83a\udd00\ud83a\udd4a" + "\ud83a\udd50\ud83a\udd59" + "\ud83a\udd5e\ud83a\udd5f",
@@ -16062,6 +16049,267 @@ public class Unicode_9_0 {
     "\ud80c\udc00\ud80d\udc2e",
     // Unicode 9.0 property value: {elbasan}
     "\ud801\udd00\ud801\udd27",
+    // Unicode 9.0 property value: {emoji}
+    "\u0023\u0023"
+        + "\u002a\u002a"
+        + "\u0030\u0039"
+        + "\u00a9\u00a9"
+        + "\u00ae\u00ae"
+        + "\u203c\u203c"
+        + "\u2049\u2049"
+        + "\u2122\u2122"
+        + "\u2139\u2139"
+        + "\u2194\u2199"
+        + "\u21a9\u21aa"
+        + "\u231a\u231b"
+        + "\u2328\u2328"
+        + "\u23cf\u23cf"
+        + "\u23e9\u23f3"
+        + "\u23f8\u23fa"
+        + "\u24c2\u24c2"
+        + "\u25aa\u25ab"
+        + "\u25b6\u25b6"
+        + "\u25c0\u25c0"
+        + "\u25fb\u25fe"
+        + "\u2600\u2604"
+        + "\u260e\u260e"
+        + "\u2611\u2611"
+        + "\u2614\u2615"
+        + "\u2618\u2618"
+        + "\u261d\u261d"
+        + "\u2620\u2620"
+        + "\u2622\u2623"
+        + "\u2626\u2626"
+        + "\u262a\u262a"
+        + "\u262e\u262f"
+        + "\u2638\u263a"
+        + "\u2640\u2640"
+        + "\u2642\u2642"
+        + "\u2648\u2653"
+        + "\u2660\u2660"
+        + "\u2663\u2663"
+        + "\u2665\u2666"
+        + "\u2668\u2668"
+        + "\u267b\u267b"
+        + "\u267f\u267f"
+        + "\u2692\u2697"
+        + "\u2699\u2699"
+        + "\u269b\u269c"
+        + "\u26a0\u26a1"
+        + "\u26aa\u26ab"
+        + "\u26b0\u26b1"
+        + "\u26bd\u26be"
+        + "\u26c4\u26c5"
+        + "\u26c8\u26c8"
+        + "\u26ce\u26cf"
+        + "\u26d1\u26d1"
+        + "\u26d3\u26d4"
+        + "\u26e9\u26ea"
+        + "\u26f0\u26f5"
+        + "\u26f7\u26fa"
+        + "\u26fd\u26fd"
+        + "\u2702\u2702"
+        + "\u2705\u2705"
+        + "\u2708\u270d"
+        + "\u270f\u270f"
+        + "\u2712\u2712"
+        + "\u2714\u2714"
+        + "\u2716\u2716"
+        + "\u271d\u271d"
+        + "\u2721\u2721"
+        + "\u2728\u2728"
+        + "\u2733\u2734"
+        + "\u2744\u2744"
+        + "\u2747\u2747"
+        + "\u274c\u274c"
+        + "\u274e\u274e"
+        + "\u2753\u2755"
+        + "\u2757\u2757"
+        + "\u2763\u2764"
+        + "\u2795\u2797"
+        + "\u27a1\u27a1"
+        + "\u27b0\u27b0"
+        + "\u27bf\u27bf"
+        + "\u2934\u2935"
+        + "\u2b05\u2b07"
+        + "\u2b1b\u2b1c"
+        + "\u2b50\u2b50"
+        + "\u2b55\u2b55"
+        + "\u3030\u3030"
+        + "\u303d\u303d"
+        + "\u3297\u3297"
+        + "\u3299\u3299"
+        + "\ud83c\udc04\ud83c\udc04"
+        + "\ud83c\udccf\ud83c\udccf"
+        + "\ud83c\udd70\ud83c\udd71"
+        + "\ud83c\udd7e\ud83c\udd7f"
+        + "\ud83c\udd8e\ud83c\udd8e"
+        + "\ud83c\udd91\ud83c\udd9a"
+        + "\ud83c\udde6\ud83c\uddff"
+        + "\ud83c\ude01\ud83c\ude02"
+        + "\ud83c\ude1a\ud83c\ude1a"
+        + "\ud83c\ude2f\ud83c\ude2f"
+        + "\ud83c\ude32\ud83c\ude3a"
+        + "\ud83c\ude50\ud83c\ude51"
+        + "\ud83c\udf00\ud83c\udf21"
+        + "\ud83c\udf24\ud83c\udf93"
+        + "\ud83c\udf96\ud83c\udf97"
+        + "\ud83c\udf99\ud83c\udf9b"
+        + "\ud83c\udf9e\ud83c\udff0"
+        + "\ud83c\udff3\ud83c\udff5"
+        + "\ud83c\udff7\ud83d\udcfd"
+        + "\ud83d\udcff\ud83d\udd3d"
+        + "\ud83d\udd49\ud83d\udd4e"
+        + "\ud83d\udd50\ud83d\udd67"
+        + "\ud83d\udd6f\ud83d\udd70"
+        + "\ud83d\udd73\ud83d\udd7a"
+        + "\ud83d\udd87\ud83d\udd87"
+        + "\ud83d\udd8a\ud83d\udd8d"
+        + "\ud83d\udd90\ud83d\udd90"
+        + "\ud83d\udd95\ud83d\udd96"
+        + "\ud83d\udda4\ud83d\udda5"
+        + "\ud83d\udda8\ud83d\udda8"
+        + "\ud83d\uddb1\ud83d\uddb2"
+        + "\ud83d\uddbc\ud83d\uddbc"
+        + "\ud83d\uddc2\ud83d\uddc4"
+        + "\ud83d\uddd1\ud83d\uddd3"
+        + "\ud83d\udddc\ud83d\uddde"
+        + "\ud83d\udde1\ud83d\udde1"
+        + "\ud83d\udde3\ud83d\udde3"
+        + "\ud83d\udde8\ud83d\udde8"
+        + "\ud83d\uddef\ud83d\uddef"
+        + "\ud83d\uddf3\ud83d\uddf3"
+        + "\ud83d\uddfa\ud83d\ude4f"
+        + "\ud83d\ude80\ud83d\udec5"
+        + "\ud83d\udecb\ud83d\uded2"
+        + "\ud83d\udee0\ud83d\udee5"
+        + "\ud83d\udee9\ud83d\udee9"
+        + "\ud83d\udeeb\ud83d\udeec"
+        + "\ud83d\udef0\ud83d\udef0"
+        + "\ud83d\udef3\ud83d\udef6"
+        + "\ud83e\udd10\ud83e\udd1e"
+        + "\ud83e\udd20\ud83e\udd27"
+        + "\ud83e\udd30\ud83e\udd30"
+        + "\ud83e\udd33\ud83e\udd3a"
+        + "\ud83e\udd3c\ud83e\udd3e"
+        + "\ud83e\udd40\ud83e\udd45"
+        + "\ud83e\udd47\ud83e\udd4b"
+        + "\ud83e\udd50\ud83e\udd5e"
+        + "\ud83e\udd80\ud83e\udd91"
+        + "\ud83e\uddc0\ud83e\uddc0",
+    // Unicode 9.0 property value: {emojimodifier}
+    "\ud83c\udffb\ud83c\udfff",
+    // Unicode 9.0 property value: {emojimodifierbase}
+    "\u261d\u261d"
+        + "\u26f9\u26f9"
+        + "\u270a\u270d"
+        + "\ud83c\udf85\ud83c\udf85"
+        + "\ud83c\udfc2\ud83c\udfc4"
+        + "\ud83c\udfc7\ud83c\udfc7"
+        + "\ud83c\udfca\ud83c\udfcc"
+        + "\ud83d\udc42\ud83d\udc43"
+        + "\ud83d\udc46\ud83d\udc50"
+        + "\ud83d\udc66\ud83d\udc69"
+        + "\ud83d\udc6e\ud83d\udc6e"
+        + "\ud83d\udc70\ud83d\udc78"
+        + "\ud83d\udc7c\ud83d\udc7c"
+        + "\ud83d\udc81\ud83d\udc83"
+        + "\ud83d\udc85\ud83d\udc87"
+        + "\ud83d\udcaa\ud83d\udcaa"
+        + "\ud83d\udd74\ud83d\udd75"
+        + "\ud83d\udd7a\ud83d\udd7a"
+        + "\ud83d\udd90\ud83d\udd90"
+        + "\ud83d\udd95\ud83d\udd96"
+        + "\ud83d\ude45\ud83d\ude47"
+        + "\ud83d\ude4b\ud83d\ude4f"
+        + "\ud83d\udea3\ud83d\udea3"
+        + "\ud83d\udeb4\ud83d\udeb6"
+        + "\ud83d\udec0\ud83d\udec0"
+        + "\ud83d\udecc\ud83d\udecc"
+        + "\ud83e\udd18\ud83e\udd1c"
+        + "\ud83e\udd1e\ud83e\udd1e"
+        + "\ud83e\udd26\ud83e\udd26"
+        + "\ud83e\udd30\ud83e\udd30"
+        + "\ud83e\udd33\ud83e\udd39"
+        + "\ud83e\udd3d\ud83e\udd3e",
+    // Unicode 9.0 property value: {emojipresentation}
+    "\u231a\u231b"
+        + "\u23e9\u23ec"
+        + "\u23f0\u23f0"
+        + "\u23f3\u23f3"
+        + "\u25fd\u25fe"
+        + "\u2614\u2615"
+        + "\u2648\u2653"
+        + "\u267f\u267f"
+        + "\u2693\u2693"
+        + "\u26a1\u26a1"
+        + "\u26aa\u26ab"
+        + "\u26bd\u26be"
+        + "\u26c4\u26c5"
+        + "\u26ce\u26ce"
+        + "\u26d4\u26d4"
+        + "\u26ea\u26ea"
+        + "\u26f2\u26f3"
+        + "\u26f5\u26f5"
+        + "\u26fa\u26fa"
+        + "\u26fd\u26fd"
+        + "\u2705\u2705"
+        + "\u270a\u270b"
+        + "\u2728\u2728"
+        + "\u274c\u274c"
+        + "\u274e\u274e"
+        + "\u2753\u2755"
+        + "\u2757\u2757"
+        + "\u2795\u2797"
+        + "\u27b0\u27b0"
+        + "\u27bf\u27bf"
+        + "\u2b1b\u2b1c"
+        + "\u2b50\u2b50"
+        + "\u2b55\u2b55"
+        + "\ud83c\udc04\ud83c\udc04"
+        + "\ud83c\udccf\ud83c\udccf"
+        + "\ud83c\udd8e\ud83c\udd8e"
+        + "\ud83c\udd91\ud83c\udd9a"
+        + "\ud83c\udde6\ud83c\uddff"
+        + "\ud83c\ude01\ud83c\ude01"
+        + "\ud83c\ude1a\ud83c\ude1a"
+        + "\ud83c\ude2f\ud83c\ude2f"
+        + "\ud83c\ude32\ud83c\ude36"
+        + "\ud83c\ude38\ud83c\ude3a"
+        + "\ud83c\ude50\ud83c\ude51"
+        + "\ud83c\udf00\ud83c\udf20"
+        + "\ud83c\udf2d\ud83c\udf35"
+        + "\ud83c\udf37\ud83c\udf7c"
+        + "\ud83c\udf7e\ud83c\udf93"
+        + "\ud83c\udfa0\ud83c\udfca"
+        + "\ud83c\udfcf\ud83c\udfd3"
+        + "\ud83c\udfe0\ud83c\udff0"
+        + "\ud83c\udff4\ud83c\udff4"
+        + "\ud83c\udff8\ud83d\udc3e"
+        + "\ud83d\udc40\ud83d\udc40"
+        + "\ud83d\udc42\ud83d\udcfc"
+        + "\ud83d\udcff\ud83d\udd3d"
+        + "\ud83d\udd4b\ud83d\udd4e"
+        + "\ud83d\udd50\ud83d\udd67"
+        + "\ud83d\udd7a\ud83d\udd7a"
+        + "\ud83d\udd95\ud83d\udd96"
+        + "\ud83d\udda4\ud83d\udda4"
+        + "\ud83d\uddfb\ud83d\ude4f"
+        + "\ud83d\ude80\ud83d\udec5"
+        + "\ud83d\udecc\ud83d\udecc"
+        + "\ud83d\uded0\ud83d\uded2"
+        + "\ud83d\udeeb\ud83d\udeec"
+        + "\ud83d\udef4\ud83d\udef6"
+        + "\ud83e\udd10\ud83e\udd1e"
+        + "\ud83e\udd20\ud83e\udd27"
+        + "\ud83e\udd30\ud83e\udd30"
+        + "\ud83e\udd33\ud83e\udd3a"
+        + "\ud83e\udd3c\ud83e\udd3e"
+        + "\ud83e\udd40\ud83e\udd45"
+        + "\ud83e\udd47\ud83e\udd4b"
+        + "\ud83e\udd50\ud83e\udd5e"
+        + "\ud83e\udd80\ud83e\udd91"
+        + "\ud83e\uddc0\ud83e\uddc0",
     // Unicode 9.0 property value: {ethiopic}
     "\u1200\u1248"
         + "\u124a\u124d"
@@ -38519,9 +38767,6 @@ public class Unicode_9_0 {
         + "\u205f\u205f"
         + "\u3000\u3000"
   };
-  /**
-   * Constant {@code propertyValueAliases="{adlm, adlam, age=1.1, age=v11,age=2.0,"{trunked}}
-   */
   public static final String[] propertyValueAliases = {
     "adlm", "adlam", "age=1.1", "age=v11",
     "age=2.0", "age=v20", "age=2.1", "age=v21",
@@ -39789,12 +40034,7 @@ public class Unicode_9_0 {
     "yiii", "yi", "zinh", "inherited",
     "zyyy", "common", "zzzz", "unknown"
   };
-  /** Constant {@code caselessMatchPartitionSize=4} */
   public static final int caselessMatchPartitionSize = 4;
-  /**
-   * Constant <code>caselessMatchPartitions="\u0041\u0061\000\000\u0042\u0062\000\00"{trunked}
-   * </code>
-   */
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

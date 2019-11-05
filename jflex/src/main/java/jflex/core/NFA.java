@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.IntPair;
 import jflex.chars.Interval;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -27,7 +28,7 @@ import jflex.l10n.ErrorMessages;
  * <p>Contains algorithms RegExp → NFA and NFA → DFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class NFA {
 
@@ -159,16 +160,16 @@ public final class NFA {
     if (lexStates.isEmpty()) lexStates = scanner.states.getInclusiveStates();
 
     for (Integer stateNum : lexStates) {
-      if (!regExps.isBOL(regExpNum)) addEpsilonTransition(2 * stateNum, nfa.start);
+      if (!regExps.isBOL(regExpNum)) addEpsilonTransition(2 * stateNum, nfa.start());
 
-      addEpsilonTransition(2 * stateNum + 1, nfa.start);
+      addEpsilonTransition(2 * stateNum + 1, nfa.start());
     }
 
     if (regExps.getLookAhead(regExpNum) != null) {
       Action a = regExps.getAction(regExpNum);
 
       if (a.lookAhead() == Action.FINITE_CHOICE) {
-        insertLookAheadChoices(nfa.end, a, regExps.getLookAhead(regExpNum));
+        insertLookAheadChoices(nfa.end(), a, regExps.getLookAhead(regExpNum));
         // remove the original action from the collection: it will never
         // be matched directly, only its copies will.
         scanner.actions.remove(a);
@@ -178,10 +179,10 @@ public final class NFA {
 
         IntPair look = insertNFA(r2);
 
-        addEpsilonTransition(nfa.end, look.start);
+        addEpsilonTransition(nfa.end(), look.start());
 
-        action[look.end] = a;
-        isFinal[look.end] = true;
+        action[look.end()] = a;
+        isFinal[look.end()] = true;
 
         if (a.lookAhead() == Action.GENERAL_LOOK) {
           // base forward pass
@@ -189,22 +190,22 @@ public final class NFA {
           // lookahead backward pass
           IntPair backward = insertNFA(r2.rev(macros));
 
-          isFinal[forward.end] = true;
-          action[forward.end] = new Action(Action.FORWARD_ACTION);
+          isFinal[forward.end()] = true;
+          action[forward.end()] = new Action(Action.FORWARD_ACTION);
 
-          isFinal[backward.end] = true;
-          action[backward.end] = new Action(Action.BACKWARD_ACTION);
+          isFinal[backward.end()] = true;
+          action[backward.end()] = new Action(Action.BACKWARD_ACTION);
 
           int entry = 2 * (regExps.getLookEntry(regExpNum) + numLexStates);
-          addEpsilonTransition(entry, forward.start);
-          addEpsilonTransition(entry + 1, backward.start);
+          addEpsilonTransition(entry, forward.start());
+          addEpsilonTransition(entry + 1, backward.start());
 
           a.setEntryState(entry);
         }
       }
     } else {
-      action[nfa.end] = regExps.getAction(regExpNum);
-      isFinal[nfa.end] = true;
+      action[nfa.end()] = regExps.getAction(regExpNum);
+      isFinal[nfa.end()] = true;
     }
   }
 
@@ -231,11 +232,11 @@ public final class NFA {
         // termination case
         IntPair look = insertNFA(lookAhead);
 
-        addEpsilonTransition(baseEnd, look.start);
+        addEpsilonTransition(baseEnd, look.start());
 
         Action x = a.copyChoice(len);
-        action[look.end] = x;
-        isFinal[look.end] = true;
+        action[look.end()] = x;
+        isFinal[look.end()] = true;
 
         // add new copy to the collection of known actions such that
         // it can be checked for the NEVER_MATCH warning.
@@ -704,7 +705,7 @@ public final class NFA {
       pos += Character.charCount(ch);
     }
 
-    return new IntPair(start, i + start);
+    return IntPair.create(start, i + start);
   }
 
   private void insertClassNFA(List<Interval> intervals, int start, int end) {
@@ -735,7 +736,7 @@ public final class NFA {
       Out.debug("NFA is :" + Out.NL + this);
     }
 
-    int dfaStart = nfa.end + 1;
+    int dfaStart = nfa.end() + 1;
 
     // FIXME: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
@@ -748,7 +749,7 @@ public final class NFA {
 
     StateSet currentState, newState;
 
-    newState = epsilon[nfa.start];
+    newState = epsilon[nfa.start()];
     dfaStates.put(newState, numDFAStates);
     dfaList.add(newState);
 
@@ -825,7 +826,7 @@ public final class NFA {
       currentDFAState = dfaStart + s;
 
       // if it was not a final state, it is now in the complement
-      if (!currentState.isElement(nfa.end)) addEpsilonTransition(currentDFAState, end);
+      if (!currentState.isElement(nfa.end())) addEpsilonTransition(currentDFAState, end);
 
       // all inputs not present (formerly leading to an implicit error)
       // now lead to an explicit (final) state accepting everything.
@@ -844,7 +845,7 @@ public final class NFA {
     if (Options.DEBUG) {
       Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
     }
-    return new IntPair(start, end);
+    return IntPair.create(start, end);
   }
 
   // "global" data for use in method removeDead only:
@@ -961,11 +962,11 @@ public final class NFA {
       end = numStates + 1;
 
       ensureCapacity(end + 1);
-      if (end + 1 > numStates) numStates = end + 1;
+      numStates = end + 1;
 
       insertCCLNFA(regExp, start, end);
 
-      return new IntPair(start, end);
+      return IntPair.create(start, end);
     }
 
     switch (regExp.type) {
@@ -975,15 +976,15 @@ public final class NFA {
         nfa1 = insertNFA(r.r1);
         nfa2 = insertNFA(r.r2);
 
-        start = nfa2.end + 1;
-        end = nfa2.end + 2;
+        start = nfa2.end() + 1;
+        end = nfa2.end() + 2;
 
-        addEpsilonTransition(start, nfa1.start);
-        addEpsilonTransition(start, nfa2.start);
-        addEpsilonTransition(nfa1.end, end);
-        addEpsilonTransition(nfa2.end, end);
+        addEpsilonTransition(start, nfa1.start());
+        addEpsilonTransition(start, nfa2.start());
+        addEpsilonTransition(nfa1.end(), end);
+        addEpsilonTransition(nfa2.end(), end);
 
-        return new IntPair(start, end);
+        return IntPair.create(start, end);
 
       case sym.CONCAT:
         r = (RegExp2) regExp;
@@ -991,43 +992,43 @@ public final class NFA {
         nfa1 = insertNFA(r.r1);
         nfa2 = insertNFA(r.r2);
 
-        addEpsilonTransition(nfa1.end, nfa2.start);
+        addEpsilonTransition(nfa1.end(), nfa2.start());
 
-        return new IntPair(nfa1.start, nfa2.end);
+        return IntPair.create(nfa1.start(), nfa2.end());
 
       case sym.STAR:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
 
-        start = nfa1.end + 1;
-        end = nfa1.end + 2;
+        start = nfa1.end() + 1;
+        end = nfa1.end() + 2;
 
-        addEpsilonTransition(nfa1.end, end);
-        addEpsilonTransition(start, nfa1.start);
+        addEpsilonTransition(nfa1.end(), end);
+        addEpsilonTransition(start, nfa1.start());
 
         addEpsilonTransition(start, end);
-        addEpsilonTransition(nfa1.end, nfa1.start);
+        addEpsilonTransition(nfa1.end(), nfa1.start());
 
-        return new IntPair(start, end);
+        return IntPair.create(start, end);
 
       case sym.PLUS:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
 
-        start = nfa1.end + 1;
-        end = nfa1.end + 2;
+        start = nfa1.end() + 1;
+        end = nfa1.end() + 2;
 
-        addEpsilonTransition(nfa1.end, end);
-        addEpsilonTransition(start, nfa1.start);
+        addEpsilonTransition(nfa1.end(), end);
+        addEpsilonTransition(start, nfa1.start());
 
-        addEpsilonTransition(nfa1.end, nfa1.start);
+        addEpsilonTransition(nfa1.end(), nfa1.start());
 
-        return new IntPair(start, end);
+        return IntPair.create(start, end);
 
       case sym.QUESTION:
         nfa1 = insertNFA((RegExp) ((RegExp1) regExp).content);
 
-        addEpsilonTransition(nfa1.start, nfa1.end);
+        addEpsilonTransition(nfa1.start(), nfa1.end());
 
-        return new IntPair(nfa1.start, nfa1.end);
+        return IntPair.create(nfa1.start(), nfa1.end());
 
       case sym.BANG:
         return complement(insertNFA((RegExp) ((RegExp1) regExp).content));
@@ -1046,5 +1047,9 @@ public final class NFA {
     }
 
     throw new Error("Unknown expression type " + regExp.type + " in NFA construction");
+  }
+
+  public int numStates() {
+    return numStates;
   }
 }

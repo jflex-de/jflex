@@ -376,9 +376,9 @@ in how to interface your generated scanner with CUP.
 You may also want to read [JFlex and BYacc/J](#BYaccJ) if you are
 interested in how to interface your generated scanner with Byacc/J.
 
--   `%byacc`
+-   `%byaccj`
 
-    The `%byacc` directive enables BYacc/J compatibility mode and is
+    The `%byaccj` directive enables BYacc/J compatibility mode and is
     equivalent to the following set of directives:
 
         %integer

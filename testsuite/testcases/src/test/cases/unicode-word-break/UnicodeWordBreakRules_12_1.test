@@ -1,0 +1,10 @@
+name: UnicodeWordBreakRules_12_1
+
+description: 
+Implements the Unicode 12.1 Word Boundary rules, specified in UAX #29 
+<https://www.unicode.org/reports/tr29/tr29-37.html>.
+
+jflex: -q
+
+input-file-encoding: UTF-8
+output-file-encoding: UTF-8

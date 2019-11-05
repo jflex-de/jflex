@@ -1,7 +1,7 @@
 BASE_DEPS = [
     "//jflex",
     "//jflex:testing",
-    "//testsuite/bzltestsuite",
+    "//java/jflex/testing/testsuite",
     "//third_party/com/google/truth",
 ]
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -32,9 +32,9 @@ import jflex.l10n.ErrorMessages;
  * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
  * iterator part is used to emit consecutive skeleton sections to some {@code PrintWriter}.
  *
- * @see Emitter
+ * @see jflex.generator.Emitter
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class Skeleton {
 
@@ -191,8 +191,8 @@ public class Skeleton {
       throw new GeneratorException();
     }
 
-    try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
-      readSkel(new BufferedReader(reader));
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+      readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException();

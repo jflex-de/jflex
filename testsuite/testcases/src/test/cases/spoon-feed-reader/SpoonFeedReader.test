@@ -1,0 +1,14 @@
+name: SpoonFeedReader
+
+description:
+Test demonstrating a fix for issue #538. 
+The scanner, which doesn't recognize surrogate chars in its non-fallback rule,
+is fed input text "12345678𐌀" using a spoon-feeding reader that splits the input
+between the high and low surrogate chars for "𐌀".  Using the fixed.skeleton.default,
+the scanner should output all input chars.  This test's success verifies that the
+problem is fixed by fixed.skeleton.default.
+See SpoonFeedReaderF.test in this directory for the negative version of this test. 
+
+javac-files: SpoonFeedMaxCharsReaderWrapper.java SpoonFeedReader.java
+
+jflex: -q --skel src/test/cases/spoon-feed-reader/fixed.skeleton.default

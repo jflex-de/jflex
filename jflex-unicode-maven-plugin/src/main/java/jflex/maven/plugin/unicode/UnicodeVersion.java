@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -195,19 +194,22 @@ class UnicodeVersion {
   }
 
   public void emitToDir(File outputDir) throws IOException {
+    String generatedClassName = getGeneratedClassName();
     PrintWriter writer =
-        new PrintWriter(new File(outputDir, "Unicode" + getVersionSuffix() + ".java"), "UTF-8");
-    writer.append("package jflex.unicode.data;\n\n");
-    writer.append("public class Unicode").append(getVersionSuffix()).append(" {\n");
+        new PrintWriter(new File(outputDir, generatedClassName + ".java"), "UTF-8");
+    writer.append("package jflex.core.unicode.data;\n\n");
+    writer.append("public class ").append(generatedClassName).append(" {\n");
+    emitConstructor(writer);
     emitMaximumCodePoint(writer);
     emitPropertyValuesArray(writer);
     emitIntervalsArray(writer);
     emitPropertyValueAliasesArray(writer);
     emitCaselessMatchPartitions(writer);
     writer.append("}\n");
-    writer.flush();
     writer.close();
   }
+
+  private void emitConstructor(PrintWriter writer) {}
 
   /**
    * Grows the partition containing the given codePoint and its caseless equivalents, if any, to
@@ -682,14 +684,12 @@ class UnicodeVersion {
   }
 
   /**
-   * Returns an identifier suffix based on the Unicode major.minor version, substituting an
-   * underscore for the period, and with a leading underscore, for use in naming versioned Unicode
-   * data in the generated UnicodeProperties.java.
+   * Returns an class name for the unicode version, suffixed the Unicode major.minor version
    *
-   * @return "_X_Y", where X = major version, and Y = minor version.
+   * @return "Unicode_X_Y", where X = major version, and Y = minor version.
    */
-  String getVersionSuffix() {
-    return "_" + majorMinorVersion.replace(".", "_");
+  String getGeneratedClassName() {
+    return String.format("Unicode_%s", majorMinorVersion.replace(".", "_"));
   }
 
   /**
@@ -718,7 +718,7 @@ class UnicodeVersion {
   Set<String> getPropertyAliases(String propertyName) {
     Set<String> aliases = allPropertyAliases.get(propertyName);
     if (null == aliases) {
-      aliases = new HashSet<>(Arrays.asList(propertyName));
+      aliases = new HashSet<>(Collections.singletonList(propertyName));
     }
     return aliases;
   }

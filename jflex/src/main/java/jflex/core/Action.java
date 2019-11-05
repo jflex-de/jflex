@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,7 +18,7 @@ import jflex.exceptions.GeneratorException;
  * <p>It stores the Java code as String together with a priority (line number in the specification).
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class Action {
 
@@ -38,10 +38,10 @@ public final class Action {
   public static final int BACKWARD_ACTION = 6;
 
   /** The Java code this Action represents */
-  String content;
+  public final String content;
 
   /** The priority (i.e. line number in the specification) of this Action. */
-  int priority;
+  public final int priority;
 
   /**
    * Which kind of action this is. (normal, {@code a/b} with fixed length a, fixed length b, etc)
