@@ -1,0 +1,9 @@
+name: UnicodeLineBreakAlgorithm_12_1
+
+description: 
+Implements the Unicode 12.1 Line Break algorithm, specified in UAX #14
+<https://www.unicode.org/reports/tr14/tr14-43.html>.
+
+jflex: -q
+
+input-file-encoding: UTF-8

@@ -15,6 +15,7 @@ jflex/build
 *.ipr
 *.iws
 .idea
+.ijwb
 
 # Eclipse project
 .project

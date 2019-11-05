@@ -65,14 +65,53 @@ filegroup(
     ],
 )
 
+filegroup(
+    name = "ucd_4_0_1",
+    srcs = [
+        "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+        "@ucd_4_0_1_DerivedCoreProperties_4_0_1_txt//file",
+        "@ucd_4_0_1_LineBreak_4_0_1_txt//file",
+        "@ucd_4_0_1_PropList_4_0_1_txt//file",
+        "@ucd_4_0_1_PropertyAliases_4_0_1_txt//file",
+        "@ucd_4_0_1_PropertyValueAliases_4_0_1_txt//file",
+        "@ucd_4_0_1_Scripts_4_0_1_txt//file",
+        "@ucd_4_0_1_UnicodeData_4_0_1_txt//file",
+    ],
+)
+
 alias(
     name = "ucd_4_1_0",
     actual = "@ucd_4_1_0//:files",
 )
 
 alias(
+    name = "ucd_5_0_0",
+    actual = "@ucd_5_0_0//:files",
+)
+
+alias(
+    name = "ucd_5_1_0",
+    actual = "@ucd_5_1_0//:files",
+)
+
+alias(
     name = "ucd_5_2_0",
     actual = "@ucd_5_2_0//:files",
+)
+
+alias(
+    name = "ucd_6_0_0",
+    actual = "@ucd_6_0_0//:files",
+)
+
+alias(
+    name = "ucd_6_1_0",
+    actual = "@ucd_6_1_0//:files",
+)
+
+alias(
+    name = "ucd_6_2_0",
+    actual = "@ucd_6_2_0//:files",
 )
 
 alias(
@@ -93,4 +132,9 @@ alias(
 alias(
     name = "ucd_9",
     actual = "@ucd_9//:files",
+)
+
+alias(
+    name = "ucd_10",
+    actual = "@ucd_10//:files",
 )
