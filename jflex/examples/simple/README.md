@@ -11,41 +11,51 @@ The generated lexer has the default name **Yylex** because the flex
 specification doesn't define a name with the `%class`.
 
 The project comes with a test class for the lexer: `YylexTest`.
+
 The test:
-- runs the lexer in debug mode on `test.txt`
-- collects the output of JFlex by redirecting `System.out`
-- and verifies that the verbose logs of JFlex corresponds to 
-  the expected content of `output.good`.
+
+1. runs the lexer in debug mode on `test.txt`
+2. collects the output of JFlex by redirecting `System.out`
+3. and verifies that the verbose logs of JFlex corresponds to 
+   the expected content of `output.good`.
+
 
 ## Files
 
-* `main/flex/simple.flex`:
+* `src/main/flex/simple.flex`:
   the simple grammar specification
-* `test/resources/test.txt`:
+* `src/test/data/test.txt`:
   sample input
-* `test/resources/output.good`:
+* `src/test/data/output.good`:
   _golden file_, i.e. expected output corresponding to the sample input from `test.txt`
-* `tests/java/YylexTest.java`:
+* `src/test/java/YylexTest.java`:
    jUnit integration test that running the lexer on the sample input produces
    the same output as the _golden file_.
+
 
 ## Compile and test
 
 ### Using Maven
 
-**Tip** Jflex comes with the Maven wrapper.
-You can use `../../mvnw` instead of `mvn` if the later is not installed on your
-system.
+**Tip** JFlex comes with the Maven wrapper (mvnw).
+This guide uses the wrapper located in `../../../mvnw`.
+Use `..\..\..\mvnw.bat` if your are on Microsoft Windows.
+You can also use `mvn` if Maven is installed on your system.
+
 
 #### Generate the lexer
 
-    mvn generate-sources
+    ../../../mvnw generate-sources
      
-The **jflex-maven-plugin** will read the grammar `src/main/jflex/simple.jflex`
-and generate a Java scanner **Yylex** in
-`target/generated-sources/flex/Yylex.java`.
+The **jflex-maven-plugin** reads the grammar `src/main/jflex/simple.jflex`
+and generates a Java scanner **Yylex**.
+ 
+Expected output:
+
+* `target/generated-sources/flex/Yylex.java`.
 
 This is defined by the following section
+
 ```xml
   <build>
     <plugins>
@@ -65,75 +75,74 @@ This is defined by the following section
   </build>
 ```
 
-By default, the **jflex-maven-plugin** generates a lexer (scanner) for every file
+**N.B.** By default, the **jflex-maven-plugin** generates a lexer (scanner) for every file
 in `src/main/jflex/`.
 
 #### Build
 
-    mvn compile
+    ../../../mvnw compile
     
-The compile phase will build all Java classes, including those generated automatically.
+The **compile** phase will generate the sources, and
+build all Java classes, including those generated automatically.
 
-You will find the class files in `target/classes`.
+
+Expected output:
+
+* Java compiled class files in `target/classes`.
 
 **Tip** In fact, you don't have to invoke `mvn generate-sources` explicitly,
 the **compile** phase will do it automatically.
 
 #### Test
 
-    mvn test
+    ../../../mvnw test
     
-The **test** phase executes the test in `src/test/java`.
+The **test** phase does everything above and executes the test in `src/test/java`.
 
-	This goal test the generated scanner (if required, the lexer will be 
-	generated and all Java classes will be compiled)
-	by running all tests in <<<src/test/java>>>.
-	
-	There is only one test in <<<src/test/java/YylexTest.java>>>.
-	In this test, 
-	the scanner is run with the input file <<<src/test/resources/test.txt>>>.
-	
-	By default, the scanner outputs debugging information about each 
-	returned token to <<<System.out>>> until the end of file is reached, 
-	or an error occurs.
-	But in the test, the output is redirected into <<<target/output.actual>>>.
-	
-	The test is successful if every line match
-	with <<<src/test/resources/output.good>>>,
-	which is the expected scanner debugging information.
-	
-	
-    ../../mvnw package
+There is only one test in `src/test/java/YylexTest.java`.
+In this test, the scanner is run with the input file `src/test/data/test.txt`.
 
-Expected output:
-* `target/generated-sources/jflex/Yylex.java` Java code generated from the flex file.
+By default, the scanner outputs debugging information about each  returned token to `System.out`
+until the end of file is reached,  or an error occurs.
+But in the test, the output is redirected into an in-memory output stream.
 
-**Rem** Notice that Maven ran a test for you. 
+Then, test opens the _golden file_ `src/test/data/output.good`.
 
-### Build with Bazel
+Finally, the test iterates:
+
+1. Reads one line from the golden file
+2. Reads one line from the in-memory actual output
+3. Fails if the lines aren't equal
+4. Stops if one file reaches the end of file
+
+
+#### Package
+
+    ../../../mvnw package
+    
+The **package** phase does everything above and packages the jar archive of the Java classes.
+
+
+### Using ant
+
+**N.B.** You need to install **ant** with **ivy**.
 
 #### Build
 
-    blaze build //simple
+    ant build
 
-Expected output:
-* (`examples/`)`bazel-genfiles/simple/Yylex.java` Java code generated from the flex file.
+#### Run on sample file
 
-#### Test 
-
-To execute the tests
-
-    blaze test //simple/...
-
-To run the lexer on any file
-
-    bazel run //simple:simple_bin -- /full/path/to/src/test/resources/test.txt
+    ant run
     
-**N.B.** Relative path doesn't work in `bazel run`.
-
-**Rem:** The Bazel commands work from any directory in the workspace.
-
-Alternatively, use the generated artifact. From the `examples` directory:
-
-    bazel-bin/simple/simple_bin simple/src/test/resources/test.txt
     
+#### Test
+
+TODO [#429](https://github.com/jflex-de/jflex/issues/429)
+This currently fails
+
+    ant run
+
+### Using Bazel
+
+Please see [bazel_rules/examples](https://github.com/jflex-de/bazel_rules).
