@@ -8,7 +8,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository(
     name = "jflex_rules",
     remote = "https://github.com/jflex-de/bazel_rules.git",
-    tag = "v3",
+    tag = "v4",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
@@ -28,12 +28,20 @@ load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
 pandoc_repositories()
 
 # latex rule to build PDF from tex files
-
-http_archive(
+#
+#http_archive(
+#    name = "bazel_latex",
+#    sha256 = "b4dd9ae76c570b328be30cdc5ea7045a61ecd55e4e6e2e433fb3bb959be2a44b",
+#    strip_prefix = "bazel-latex-0.16",
+#    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.16.tar.gz",
+#)
+#
+# This is a proposed fix for `OSError: [Errno 13] Permission denied: run_lualatex.py`
+# https://github.com/ProdriveTechnologies/bazel-latex/issues/23
+git_repository(
     name = "bazel_latex",
-    sha256 = "b4dd9ae76c570b328be30cdc5ea7045a61ecd55e4e6e2e433fb3bb959be2a44b",
-    strip_prefix = "bazel-latex-0.16",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.16.tar.gz",
+    commit = "1ba1fb087b8526cfe28c7c31471f412107ee6f09",
+    remote = "https://github.com/Selmaai/bazel-latex.git",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
