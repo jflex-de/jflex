@@ -51,7 +51,7 @@
 
   <target name="build" depends="scanner,init-ivy,retrieve">
     <ivy:cachepath pathid="lib.path.id"/>
-    <javac destdir="antbuild" classpathref="lib.path.id">
+    <javac destdir="antbuild" classpathref="lib.path.id" encoding="UTF-8">
       <src path="src/main/java/"/>
       <src path="src/test/java"/>
       <src path="antbuild/"/>
