@@ -7,6 +7,13 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 source "$BASEDIR"/scripts/logger.sh
 # Maven executable
 MVN="$BASEDIR"/mvnw
+# Alias for Make or noop
+which make
+if [[ $? -eq 0 ]]; then
+  MAKE=make
+else
+  MAKE=echo
+fi
 # Exit with error in case of error (see #242)
 set -e
 
@@ -26,7 +33,7 @@ cd byaccj
 # Maven not supported
 # ant not supported
 # don't assume byacc/j is installed, just run lexer
-make Yylex.java
+"$MAKE" Yylex.java
 cd ..
 
 logi "Example: cup-interpreter"
@@ -35,7 +42,7 @@ cd cup-interpreter
 # TODO(#384) Fix ant test
 # ant test
 ant build
-make test
+"$MAKE" test
 cd ..
 
 logi "Example: cup-java"
@@ -44,7 +51,8 @@ cd cup-java
 # Fix ant #384
 #ant test
 ant build
-make test
+ant test
+"$MAKE" test
 cd ..
 
 logi "Example: cup-lcalc"
@@ -74,7 +82,7 @@ logi "Example: zero-reader"
 cd zero-reader
 "$MVN" test
 # ant test
-make test
+"$MAKE" test
 cd ..
 
 cd "$CWD"
