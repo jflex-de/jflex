@@ -204,7 +204,7 @@
           <version>2.5.0</version>
         </plugin>
         <plugin>
-          <artifactId>maven-`compiler-plugin</artifactId>
+          <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
         </plugin>
         <plugin>
