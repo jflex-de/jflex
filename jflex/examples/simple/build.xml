@@ -28,7 +28,9 @@
         uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
   </target>
 
-  <ivy:retrieve/>
+  <target name="retrieve">
+    <ivy:retrieve/>
+  </target>
 
   <!-- Sample project -->
   <target name="run" depends="build">
@@ -47,7 +49,7 @@
     </junit>
   </target>
 
-  <target name="build" depends="scanner,init-ivy">
+  <target name="build" depends="scanner,init-ivy,retrieve">
     <ivy:cachepath pathid="lib.path.id"/>
     <javac destdir="antbuild" classpathref="lib.path.id">
       <src path="src/main/java/"/>
