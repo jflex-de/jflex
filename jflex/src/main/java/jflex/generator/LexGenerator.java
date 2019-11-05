@@ -100,7 +100,7 @@ public class LexGenerator {
 
       time.start();
 
-      Emitter emitter = new Emitter(inputFile, parser, dfa);
+      Emitter emitter = Emitters.createFileEmitter(inputFile, parser, dfa);
       emitter.emit();
 
       time.stop();
