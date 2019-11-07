@@ -26,20 +26,21 @@ public final class Emitters {
   private Emitters() {}
 
   /**
-   * Create Emitter that writes to file
+   * Creates an Emitter that generates the java code in a file. The output file name is inferred
+   * from the class defined in the grammar.
    *
-   * @param inputFile input grammar.
+   * @param inputLexFile input grammar.
    * @param parser a {@link LexParse}.
    * @param dfa a {@link DFA}.
    * @return {@link Emitter}.
-   * @throws java.io.IOException if any.
+   * @throws IOException if any.
    */
-  public static Emitter createFileEmitter(File inputFile, LexParse parser, DFA dfa)
+  public static Emitter createFileEmitter(File inputLexFile, LexParse parser, DFA dfa)
       throws IOException {
 
     String name = Emitter.getBaseName(parser.scanner.className()) + ".java";
 
-    File outputFile = Emitter.normalize(name, inputFile);
+    File outputFile = Emitter.normalize(name, inputLexFile);
     String outputFileName = outputFile.getAbsolutePath();
 
     Out.println("Writing code to \"" + outputFile + "\"");
@@ -49,7 +50,7 @@ public final class Emitters {
             new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(outputFile), Options.encoding)));
 
-    return new Emitter(outputFileName, inputFile, parser, dfa, out);
+    return new Emitter(outputFileName, inputLexFile, parser, dfa, out);
   }
 
   /**
