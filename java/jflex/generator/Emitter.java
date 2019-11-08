@@ -9,11 +9,7 @@
 
 package jflex.generator;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -96,21 +92,12 @@ public final class Emitter {
    * @param inputFile input grammar.
    * @param parser a {@link LexParse}.
    * @param dfa a {@link DFA}.
-   * @throws java.io.IOException if any.
+   * @param writer output file.
    */
-  public Emitter(File inputFile, LexParse parser, DFA dfa) throws IOException {
-
-    String name = getBaseName(parser.scanner.className()) + ".java";
-
-    File outputFile = normalize(name, inputFile);
-    outputFileName = outputFile.getAbsolutePath();
-
-    Out.println("Writing code to \"" + outputFile + "\"");
-
-    this.out =
-        new PrintWriter(
-            new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(outputFile), Options.encoding)));
+  public Emitter(
+      String outputFileName, File inputFile, LexParse parser, DFA dfa, PrintWriter writer) {
+    this.outputFileName = outputFileName;
+    this.out = writer;
     this.parser = parser;
     this.scanner = parser.scanner;
     this.visibility = scanner.visibility();
