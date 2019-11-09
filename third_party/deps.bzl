@@ -37,6 +37,12 @@ def third_party_deps():
         sha256 = "b66df6984d5c29f15a6253514c817fb046e8e242efffc79e42c33f2dde0edf41",
     )
     native.maven_jar(
+        name = "com_google_auto_value_auto_value_annotations",
+        artifact = "com.google.auto.value:auto-value-annotations:jar:1.7",
+        repository = "https://jcenter.bintray.com/",
+        sha256 = "b134bab5082e9f49f2b45802573c78e0726e059b645323645da03e328e501f86",
+    )
+    native.maven_jar(
         name = "com_google_guava_guava",
         artifact = "com.google.guava:guava:jar:26.0-jre",
         repository = "https://jcenter.bintray.com/",
