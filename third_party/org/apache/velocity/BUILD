@@ -5,8 +5,8 @@ licenses(["notice"])
 java_library(
     name = "velocity",
     exports = [
-        "@org_apache_commons_collections//jar",
-        "@org_apache_commons_lang//jar",
-        "@org_apache_velocity//jar",
+        "@maven//:commons_collections_commons_collections",
+        "@maven//:commons_lang_commons_lang",
+        "@maven//:org_apache_velocity_velocity",
     ],
 )
