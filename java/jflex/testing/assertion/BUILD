@@ -8,6 +8,6 @@ java_library(
         "ThrowingRunnable.java",
     ],
     deps = [
-        "@jsr305//jar",
+        "//third_party/com/google/code/findbugs:jsr305",
     ],
 )

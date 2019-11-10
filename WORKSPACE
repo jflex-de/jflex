@@ -1,9 +1,12 @@
 # Workspace file for the Bazel build system
 # https://bazel.build/
 
-# JFlex itself is not built with Bazel, but some examples and the documentation are.
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+RULES_JVM_EXTERNAL_TAG = "2.10"
+RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b3664283c9c716d26"
+
 
 git_repository(
     name = "jflex_rules",
@@ -14,6 +17,7 @@ git_repository(
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
 jflex_deps()
+
 
 # pandoc used to build the documentatoin
 
@@ -48,10 +52,35 @@ load("@bazel_latex//:repositories.bzl", "latex_repositories")
 
 latex_repositories()
 
-# Third-party depenencies
-load("//third_party:deps.bzl", "third_party_deps")
 
-third_party_deps()
+# Third-party dependencies
+load("//third_party:deps.bzl", "ARTIFACTS")
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    name = "maven",
+    artifacts = ARTIFACTS,
+    repositories = [
+        "https://jcenter.bintray.com/",
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+    maven_install_json = "//third_party:maven_install.json",
+)
+
+# To update maven_install.json, run this command to re-pin the unpinned repository:
+#
+#    bazel run @unpinned_maven//:pin
+#
+load("@maven//:defs.bzl", "pinned_maven_install")
+pinned_maven_install()
+
 
 # Unicode character definitions (UCD) from Unicode.org
 load("//third_party/unicode:unicode.bzl", "unicode_deps")
