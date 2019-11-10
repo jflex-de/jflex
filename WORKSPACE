@@ -64,13 +64,14 @@ http_archive(
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
+    name = "maven",
     artifacts = ARTIFACTS,
     repositories = [
         "https://jcenter.bintray.com/",
         "https://maven.google.com",
         "https://repo1.maven.org/maven2",
     ],
-    maven_install_json = "//:maven_install.json",
+    maven_install_json = "//third_party:maven_install.json",
 )
 
 # To update maven_install.json, run this command to re-pin the unpinned repository:
