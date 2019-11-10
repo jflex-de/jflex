@@ -5,7 +5,9 @@ licenses(["notice"])  # Apache License 2.0
 java_library(
     name = "auto_value",
     exported_plugins = [":auto_plugin"],
-    exports = ["@com_google_auto_value_auto_value//jar"],
+    exports = [
+        "@com_google_auto_value_auto_value_annotations//jar",
+    ],
 )
 
 java_plugin(
