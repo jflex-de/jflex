@@ -23,9 +23,13 @@ public class Version {
   }
 
   public Version(int major, int minor) {
+    this(major, minor, -1);
+  }
+
+  public Version(int major, int minor, int patch) {
     this.major = major;
     this.minor = minor;
-    this.patch = -1;
+    this.patch = patch;
   }
 
   @Override
