@@ -1,5 +1,16 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
+java_library(
+    name = "unicode_data_scanner",
+    srcs = [
+        ":gen_unicode_data_scanner",
+    ],
+    deps = [
+        ":unicode_data",
+        "//java/jflex/ucd_generator/ucd",
+    ],
+)
+
 jflex(
     name = "gen_unicode_data_scanner",
     srcs = glob(["*.flex"]),
@@ -10,10 +21,12 @@ jflex(
 )
 
 java_library(
-    name = "UnicodeData",
+    name = "unicode_data",
     srcs = ["UnicodeData.java"],
     deps = [
-        "//third_party/com/google/auto_value",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/ucd_generator/util:hexa_utils",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/guava",
     ],
 )

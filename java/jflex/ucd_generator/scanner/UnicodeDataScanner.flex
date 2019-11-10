@@ -1,6 +1,8 @@
 package jflex.ucd_generator.scanner;
 
-import jflex.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.Version;
+
 /**
  * Scanner of the {@code UnicodeData.txt}.
  */
@@ -27,6 +29,7 @@ import jflex.ucd.UcdVersion;
 
 %{
   private static final String GENERAL_CATEGORY = "General_Category";
+  private static final Version VERSION_1_1 = new Version(1, 1);
 
   UcdVersion ucdVersion;
   UnicodeData.Builder unicodeDataBuilder;
@@ -58,16 +61,16 @@ import jflex.ucd.UcdVersion;
         // value, as are the previous code points, so to include
         // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
         if (assignedEndCodePoint  == 0x4E00
-            && unicodeDataBuilder.majorMinorVersion.equals("1.1")) {
+            && Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), VERSION_1_1) == 0) {
           assignedEndCodePoint = 0x9FFF;
         }
 
       if (assignedStartCodePoint == -1) {
         assignedStartCodePoint = startCodePoint;
       } else if (codePoint > assignedEndCodePoint + 1 && ! isLastInRange) {
-        unicodeDataBuilder.addInterval
+        unicodeDataBuilder.addPropertyInterval
           ("Assigned", assignedStartCodePoint, assignedEndCodePoint);
-        unicodeDataBuilder.addInterval(GENERAL_CATEGORY, "Cn",
+        unicodeDataBuilder.addPropertyInterval(GENERAL_CATEGORY, "Cn",
                                    assignedEndCodePoint + 1, codePoint - 1);
         assignedStartCodePoint = codePoint;
       }
@@ -87,10 +90,10 @@ import jflex.ucd.UcdVersion;
         // value, as are the previous code points, so to include
         // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
         if (prevCodePoint == 0x4E00
-            && unicodeDataBuilder.majorMinorVersion.equals("1.1")) {
+            && Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), VERSION_1_1) == 0) {
           prevCodePoint = 0x9FFF;
         }
-        unicodeDataBuilder.addInterval
+        unicodeDataBuilder.addPropertyInterval
           (GENERAL_CATEGORY, prevGenCatPropValue, startCodePoint, prevCodePoint);
         startCodePoint = -1;
       }
@@ -113,22 +116,22 @@ import jflex.ucd.UcdVersion;
   
   public void handleFinalInterval() {
     if (startCodePoint != -1 && prevGenCatPropValue.length() > 0) {
-      unicodeDataBuilder.addInterval
+      unicodeDataBuilder.addPropertyInterval
         (GENERAL_CATEGORY, prevGenCatPropValue, startCodePoint, prevCodePoint);
     }
     
     // Handle the final Assigned interval
-    unicodeDataBuilder.addInterval
+    unicodeDataBuilder.addPropertyInterval
       ("Assigned", assignedStartCodePoint, assignedEndCodePoint);
     
     // Round max code point up to end-of-plane.
-    unicodeDataBuilder.setMaximumCodePoint(((prevCodePoint + 0x800) & 0xFFF000) - 1);
+    unicodeDataBuilder.maximumCodePoint(((prevCodePoint + 0x800) & 0xFFF000) - 1);
     
     // Handle the final Unassigned (Cn) interval, if any
-    if (assignedEndCodePoint < unicodeDataBuilder.getMaximumCodePoint()) {
-      unicodeDataBuilder.addInterval(GENERAL_CATEGORY, "Cn",
+    if (assignedEndCodePoint < unicodeDataBuilder.maximumCodePoint()) {
+      unicodeDataBuilder.addPropertyInterval(GENERAL_CATEGORY, "Cn",
                                  assignedEndCodePoint + 1, 
-                                 unicodeDataBuilder.getMaximumCodePoint());
+                                 unicodeDataBuilder.maximumCodePoint());
     }
   }
 %}
