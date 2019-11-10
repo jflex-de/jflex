@@ -68,7 +68,7 @@ public class UcdGenerator {
     for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
       String unicodeClassName = version.unicodeClassName();
-      System.out.println(String.format("Emitting %s", unicodeClassName));
+      System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
       File outputFile = new File(outputDir, unicodeClassName + ".java");
       UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion);
       try (FileOutputStream out = new FileOutputStream(outputFile)) {
