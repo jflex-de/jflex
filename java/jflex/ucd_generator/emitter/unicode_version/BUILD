@@ -15,6 +15,7 @@ java_library(
     deps = [
         "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator/emitter/common",
+        "//java/jflex/ucd_generator/scanner:unicode_data",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",

@@ -4,25 +4,23 @@ import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Strings;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Multimap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Stream;
+import jflex.ucd_generator.scanner.AutoValue_UnicodeData.Builder;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 
 @AutoValue
 public abstract class UnicodeData {
-
-  abstract Builder builder();
-
   /**
    * A set of code point space partitions, each containing at least two caselessly equivalent code
    * points.
@@ -34,10 +32,13 @@ public abstract class UnicodeData {
 
   public abstract int maximumCodePoint();
 
-  @AutoValue.Builder
-  abstract static class Builder {
+  public static Builder builder() {
+    return new AutoValue_UnicodeData.Builder();
+  }
 
-    private Multimap<String, CodepointRange> propertyValueIntervals = HashMultimap.create();
+  @AutoValue.Builder
+  public abstract static class Builder {
+    private Map<String, List<CodepointRange.Builder>> mPropertyValueIntervals = new HashMap<>();
 
     abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
 
@@ -89,7 +90,12 @@ public abstract class UnicodeData {
      * @param endCodePoint The last code point in the interval.
      */
     Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
-      propertyValueIntervals.put(propName, CodepointRange.create(startCodePoint, endCodePoint));
+      List<CodepointRange.Builder> values = mPropertyValueIntervals.get(propName);
+      if (values == null) {
+        values = new ArrayList<>();
+        mPropertyValueIntervals.put(propName, values);
+      }
+      values.add(CodepointRange.builder(startCodePoint, endCodePoint));
       return this;
     }
 
@@ -104,15 +110,15 @@ public abstract class UnicodeData {
 
     abstract UnicodeData internalBuild();
 
-    UnicodeData build() {
+    public UnicodeData build() {
       addAllPropertyValueIntervals();
       return internalBuild();
     }
 
     private void addAllPropertyValueIntervals() {
-      for (String propName : propertyValueIntervals.keys()) {
+      for (String propName : mPropertyValueIntervals.keySet()) {
         CodepointRangeSet rangeSet =
-            CodepointRangeSet.builder().addAll(propertyValueIntervals.get(propName)).build();
+            CodepointRangeSet.builder().addAll(mPropertyValueIntervals.get(propName)).build();
         propertyValueIntervalsBuilder().put(propName, rangeSet);
       }
     }

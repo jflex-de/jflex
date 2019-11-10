@@ -7,6 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
+import jflex.ucd_generator.scanner.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
@@ -18,10 +19,12 @@ public class UnicodeVersionEmitter extends UcdEmitter {
       PackageUtil.getPathForClass(UnicodeVersionEmitter.class) + "/Unicode_x_y.java.vm";
 
   private final UcdVersion ucdVersion;
+  private final UnicodeData unicodeData;
 
-  public UnicodeVersionEmitter(String packageName, UcdVersion ucdVersion) {
+  public UnicodeVersionEmitter(String packageName, UcdVersion ucdVersion, UnicodeData unicodeData) {
     super(packageName);
     this.ucdVersion = ucdVersion;
+    this.unicodeData = unicodeData;
   }
 
   public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
@@ -36,6 +39,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     UnicodeVersionVars unicodeVersionVars = new UnicodeVersionVars();
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
+    unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
     return unicodeVersionVars;
   }
 }

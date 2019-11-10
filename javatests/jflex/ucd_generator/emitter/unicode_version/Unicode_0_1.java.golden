@@ -29,4 +29,8 @@ package org.example;
 
 class Unicode_0_1 {
 
+  // Only holds constants.
+  private Unicode_0_1() {}
+
+  public static final int maximumCodePoint = 0x1234;
 }

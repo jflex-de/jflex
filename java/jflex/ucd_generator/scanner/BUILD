@@ -9,6 +9,9 @@ java_library(
         ":unicode_data",
         "//java/jflex/ucd_generator/ucd",
     ],
+    visibility=[
+         "//javatests/jflex:__subpackages__",
+    ],
 )
 
 jflex(
@@ -28,5 +31,9 @@ java_library(
         "//java/jflex/ucd_generator/util:hexa_utils",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
+    ],
+    visibility = [
+        "//java/jflex/ucd_generator:__subpackages__",
+        "//javatests/jflex:__subpackages__",
     ],
 )

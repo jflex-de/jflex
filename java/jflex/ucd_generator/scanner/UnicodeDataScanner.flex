@@ -31,8 +31,8 @@ import jflex.ucd_generator.ucd.Version;
   private static final String GENERAL_CATEGORY = "General_Category";
   private static final Version VERSION_1_1 = new Version(1, 1);
 
-  UcdVersion ucdVersion;
-  UnicodeData.Builder unicodeDataBuilder;
+  final UcdVersion ucdVersion;
+  final UnicodeData.Builder unicodeDataBuilder = UnicodeData.builder();
 
   int codePoint = -1;
   int startCodePoint = -1;
@@ -133,6 +133,10 @@ import jflex.ucd_generator.ucd.Version;
                                  assignedEndCodePoint + 1, 
                                  unicodeDataBuilder.maximumCodePoint());
     }
+  }
+
+  UnicodeData getUnicodeData() {
+    return unicodeDataBuilder.build();
   }
 %}
 
