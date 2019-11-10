@@ -118,7 +118,7 @@ public class UcdVersions {
     }
 
     public Builder put(String version, UcdVersion.Builder ucdFiles) {
-      return put(new Version(version), ucdFiles.withVersion(version));
+      return put(new Version(version), ucdFiles.setVersion(version));
     }
 
     public UcdVersions build() {

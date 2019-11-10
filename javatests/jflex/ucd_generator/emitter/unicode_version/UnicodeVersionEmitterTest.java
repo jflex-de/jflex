@@ -23,7 +23,7 @@ public class UnicodeVersionEmitterTest {
     // fake ucd version 0.1
     UcdVersion ucd0_1 =
         UcdVersion.builder()
-            .withVersion("0.1")
+            .setVersion("0.1")
             .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
             .build();
 
