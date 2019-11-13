@@ -80,24 +80,6 @@ public final class Interval {
   }
 
   /**
-   * Set a new last character
-   *
-   * @param end the new last character of this interval
-   */
-  public void setEnd(int end) {
-    this.end = end;
-  }
-
-  /**
-   * Set a new first character
-   *
-   * @param start the new first character of this interval
-   */
-  public void setStart(int start) {
-    this.start = start;
-  }
-
-  /**
    * Check whether a character is printable.
    *
    * @param c the character to check
