@@ -68,7 +68,6 @@ public final class Emitter {
   private boolean isTransition[];
 
   // for row killing:
-  private int numRows;
   private int[] rowMap;
   private boolean[] rowKilled;
 
@@ -1301,8 +1300,6 @@ public final class Emitter {
     int translate = 0;
     boolean equal;
 
-    numRows = dfa.numStates();
-
     // i is the state to add to the new table
     for (i = 0; i < dfa.numStates(); i++) {
 
@@ -1321,7 +1318,6 @@ public final class Emitter {
           translate++;
           rowMap[i] = rowMap[j];
           rowKilled[i] = true;
-          numRows--;
           break;
         } // if
       } // for j
