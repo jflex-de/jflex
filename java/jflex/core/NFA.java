@@ -265,7 +265,6 @@ public final class NFA {
     int newStatesLength = Math.max(oldLength * 2, newNumStates);
 
     boolean[] newFinal = new boolean[newStatesLength];
-    boolean[] newIsPush = new boolean[newStatesLength];
     Action[] newAction = new Action[newStatesLength];
     StateSet[][] newTable = new StateSet[newStatesLength][numInput];
     StateSet[] newEpsilon = new StateSet[newStatesLength];

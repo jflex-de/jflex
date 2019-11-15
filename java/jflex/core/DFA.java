@@ -105,7 +105,6 @@ public final class DFA {
     while (newLength <= newNumStates) newLength *= 2;
 
     boolean[] newFinal = new boolean[newLength];
-    boolean[] newPushback = new boolean[newLength];
     Action[] newAction = new Action[newLength];
     int[][] newTable = new int[newLength][numInput];
 
