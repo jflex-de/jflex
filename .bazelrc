@@ -1,6 +1,6 @@
 # This incompatible change was introduced in Bazel 0.26
 # https://github.com/bazelbuild/bazel/issues/5817
-# bazel_pandoc needs to update 
+# bazel_pandoc needs to update
 # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
 build --incompatible_depset_union=false
 
@@ -281,7 +281,7 @@ build --javacopt "-Xep:InjectedConstructorAnnotations:ERROR"
 build --javacopt "-Xep:InsecureCryptoUsage:ERROR"
 build --javacopt "-Xep:IterablePathParameter:ERROR"
 build --javacopt "-Xep:JMockTestWithoutRunWithOrRuleAnnotation:ERROR"
-build --javacopt "-Xep:Java7ApiChecker:ERROR"
+build --javacopt "-Xep:Java7ApiChecker:OFF"
 build --javacopt "-Xep:JavaxInjectOnFinalField:ERROR"
 build --javacopt "-Xep:LockMethodChecker:ERROR"
 build --javacopt "-Xep:LongLiteralLowerCaseSuffix:ERROR"
