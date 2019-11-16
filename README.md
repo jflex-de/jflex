@@ -15,7 +15,7 @@
 JFlex takes as input a specification with a set of regular expressions and corresponding actions.
 It generates Java source of a lexer that reads input, matches the input against the regular
 expressions in the spec file, and runs the corresponding action if a regular expression
-matched. Lexers usually are the first front-end step in compilers, matching keywords, comments, 
+matched. Lexers usually are the first front-end step in compilers, matching keywords, comments,
 operators, etc, and generating an input token stream for parsers.
 
 JFlex lexers are based on deterministic finite automata (DFAs).
@@ -29,7 +29,7 @@ and the [wiki][wiki].
 
 ### Usage with Maven
 
-You need JDK 7 or later.
+You need JDK 8 or later.
 
 1. Place grammar files in `src/main/flex/` directory.
 
@@ -58,7 +58,7 @@ You need JDK 7 or later.
 
 ### Usage with ant
 
-You need JDK 7 or later.
+You need JDK 8 or later.
 
 1. Define ant task
 ```xml
@@ -86,7 +86,7 @@ jflex(
 
 ### Usage in CLI
 
-You need JDK 7 or later.
+You need JDK 8 or later.
 
 You can also use JFlex directly from the command line:
 ```
