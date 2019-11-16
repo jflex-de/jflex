@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.core;
 
+import java.util.Iterator;
+
 /**
  * A set of NFA states (= integers).
  *
@@ -16,7 +18,7 @@ package jflex.core;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class StateSet {
+public final class StateSet implements Iterable<Integer> {
 
   private final boolean DEBUG = false;
 
@@ -111,7 +113,7 @@ public final class StateSet {
    * @param state a int.
    * @return a boolean.
    */
-  public boolean isElement(int state) {
+  public boolean hasElement(int state) {
     int index = state >> BITS;
     if (index >= bits.length) return false;
     return (bits[index] & (1L << (state & MASK))) != 0;
@@ -153,6 +155,21 @@ public final class StateSet {
   }
 
   /**
+   * Remove all states from {@code this} that are not contained in the provided {@link StateSet}.
+   *
+   * @param set the {@link StateSet} object to intersect with.
+   */
+  public void intersect(StateSet set) {
+    if (set == null) {
+      clear();
+    } else {
+      int l = Math.min(bits.length, set.bits.length);
+      for (int i = 0; i < l; i++) bits[i] &= set.bits[i];
+      for (int i = l; i < bits.length; i++) bits[i] = 0;
+    }
+  }
+
+  /**
    * Returns the set of elements that contained are in the specified set but are not contained in
    * this set.
    *
@@ -178,15 +195,7 @@ public final class StateSet {
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
     if (DEBUG) {
-      Out.dump(
-          "Complement of "
-              + this
-              + Out.NL
-              + "and "
-              + set
-              + Out.NL
-              + " is :"
-              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+      Out.dump("Complement of " + this + Out.NL + "and " + set + Out.NL + " is :" + result);
     }
     return result;
   }
@@ -382,5 +391,10 @@ public final class StateSet {
     result.append("}"); // $NON-NLS-1$
 
     return result.toString();
+  }
+
+  @Override
+  public Iterator<Integer> iterator() {
+    return states();
   }
 }
