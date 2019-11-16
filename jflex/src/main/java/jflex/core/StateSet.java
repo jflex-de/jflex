@@ -8,6 +8,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.core;
 
+import java.util.Iterator;
+
 /**
  * A set of NFA states (= integers).
  *
@@ -16,7 +18,7 @@ package jflex.core;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class StateSet {
+public final class StateSet implements Iterable<Integer> {
 
   private final boolean DEBUG = false;
 
@@ -111,7 +113,7 @@ public final class StateSet {
    * @param state a int.
    * @return a boolean.
    */
-  public boolean isElement(int state) {
+  public boolean hasElement(int state) {
     int index = state >> BITS;
     if (index >= bits.length) return false;
     return (bits[index] & (1L << (state & MASK))) != 0;
@@ -201,7 +203,7 @@ public final class StateSet {
               + set
               + Out.NL
               + " is :"
-              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+              + result);
     }
     return result;
   }
@@ -397,5 +399,10 @@ public final class StateSet {
     result.append("}"); // $NON-NLS-1$
 
     return result.toString();
+  }
+
+  @Override
+  public Iterator<Integer> iterator() {
+    return states();
   }
 }

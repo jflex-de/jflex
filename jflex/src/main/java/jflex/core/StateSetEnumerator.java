@@ -8,13 +8,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.core;
 
+import java.util.NoSuchElementException;
+import java.util.PrimitiveIterator;
+
 /**
  * Enumerates the states of a StateSet.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class StateSetEnumerator {
+public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
 
   private static final boolean DEBUG = false;
 
@@ -135,8 +138,19 @@ public final class StateSetEnumerator {
       Out.dump(
           "nextElement, index = " + index + ", offset = " + offset); // $NON-NLS-1$ //$NON-NLS-2$
     }
+    if (index >= bits.length) throw new NoSuchElementException();
     int x = (index << StateSet.BITS) + offset;
     advance();
     return x;
+  }
+
+  @Override
+  public boolean hasNext() {
+    return hasMoreElements();
+  }
+
+  @Override
+  public int nextInt() {
+    return nextElement();
   }
 }

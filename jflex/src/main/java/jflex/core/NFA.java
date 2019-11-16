@@ -628,26 +628,13 @@ public final class NFA {
 
     for (int i = 0; i < numStates; i++) {
       for (int input = 0; input < numInput; input++) {
-        if (table[i][input] != null) {
-          StateSetEnumerator states = table[i][input].states();
-
-          while (states.hasMoreElements()) {
-            int s = states.nextElement();
-            result.append(i).append(" -> ").append(s);
-            result
-                .append(" [label=\"")
-                .append(classes.toString(input))
-                .append("\"]")
-                .append(Out.NL);
-          }
+        for (int s : table[i][input]) {
+          result.append(i).append(" -> ").append(s);
+          result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Out.NL);
         }
       }
-      if (epsilon[i] != null) {
-        StateSetEnumerator states = epsilon[i].states();
-        while (states.hasMoreElements()) {
-          int s = states.nextElement();
-          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
-        }
+      for (int s : epsilon[i]) {
+        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
       }
     }
 
@@ -812,7 +799,7 @@ public final class NFA {
       currentDFAState = dfaStart + s;
 
       // if it was not a final state, it is now in the complement
-      if (!currentState.isElement(nfa.end())) addEpsilonTransition(currentDFAState, end);
+      if (!currentState.hasElement(nfa.end())) addEpsilonTransition(currentDFAState, end);
 
       // all inputs not present (formerly leading to an implicit error)
       // now lead to an explicit (final) state accepting everything.
@@ -878,15 +865,11 @@ public final class NFA {
     while (changed) {
       changed = false;
       Out.debug("live: " + live);
-      StateSetEnumerator nonlive = live.complement(reachable).states();
-      while (nonlive.hasMoreElements()) {
-        int s = nonlive.nextElement();
+      for (int s : live.complement(reachable)) {
         for (int i = 0; i < numInput; i++) {
           if (table[s][i] != null) {
-            StateSetEnumerator states = table[s][i].states();
-            while (states.hasMoreElements()) {
-              int state = states.nextElement();
-              if (live.isElement(state)) {
+            for (int state : table[s][i]) {
+              if (live.hasElement(state)) {
                 changed = true;
                 live.addState(s);
               }
@@ -894,10 +877,8 @@ public final class NFA {
           }
         }
         if (epsilon[s] != null) {
-          states = epsilon[s].states();
-          while (states.hasMoreElements()) {
-            int state = states.nextElement();
-            if (live.isElement(state)) {
+          for (int state : epsilon[s]) {
+            if (live.hasElement(state)) {
               changed = true;
               live.addState(s);
             }
@@ -912,9 +893,7 @@ public final class NFA {
 
     // now remove all transitions to non-live states (unless everything is live)
     if (!reachable.equals(live)) {
-      StateSetEnumerator allStates = reachable.states();
-      while (allStates.hasMoreElements()) {
-        int s = allStates.nextElement();
+      for (int s : reachable) {
         for (int i = 0; i < numInput; i++) if (table[s][i] != null) table[s][i].intersect(live);
         if (epsilon[s] != null) epsilon[s].intersect(live);
       }
