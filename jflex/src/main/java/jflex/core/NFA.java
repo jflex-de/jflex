@@ -397,18 +397,6 @@ public final class NFA {
     return closure;
   }
 
-  /** Returns the epsilon closure of a set of states */
-  private StateSet closure(StateSet startStates) {
-    StateSet result = new StateSet(numStates);
-
-    if (startStates != null) {
-      states.reset(startStates);
-      while (states.hasMoreElements()) result.add(closure(states.nextElement()));
-    }
-
-    return result;
-  }
-
   private void epsilonFill() {
     for (int i = 0; i < numStates; i++) {
       epsilon[i] = closure(i);
@@ -737,7 +725,6 @@ public final class NFA {
 
     int dfaStart = nfa.end() + 1;
 
-    // FIXME: only need epsilon closure of states reachable from nfa.start
     epsilonFill();
 
     Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
@@ -833,12 +820,7 @@ public final class NFA {
         if (table[currentDFAState][i] == null) addTransition(currentDFAState, i, error);
     }
 
-    // eliminate transitions leading to dead states
-    if (live == null || live.length < numStates) {
-      live = new boolean[2 * numStates];
-      visited = new boolean[2 * numStates];
-    }
-
+    // eliminate transitions that cannot reach final states
     removeDead(dfaStart, end);
 
     if (Options.DEBUG) {
@@ -847,51 +829,100 @@ public final class NFA {
     return IntPair.create(start, end);
   }
 
-  // "global" data for use in method removeDead only:
-  // live[s] == false <=> no final state can be reached from s
-  private boolean[] live; // = new boolean [estSize];
-  private boolean[] visited; // = new boolean [estSize];
-
+  /**
+   * Find all states from (numerically) {@code start} to @{@code end} that (transitively) cannot
+   * reach reach {@code end}, and remove the transitions leading to those states.
+   *
+   * <p>After a complement operation, there may be dead states left over in the NFA, which could
+   * lead the scanning engine into a situation where it is trying to perform lookahead even though
+   * no final state can ever be reached.
+   *
+   * <p>Precondition: all states that potentially lead to {@code end} are within the interval @{code
+   * [start,end]}. This is satisfied by DFA generation in the complement operation.
+   *
+   * <p>Precondition: end state has no outgoing transitions
+   *
+   * @param start the first state from which to compute live states
+   * @param end the state that if it can be reached makes a state live
+   * @see NFA#complement(IntPair)
+   */
   private void removeDead(int start, int end) {
-    // Out.debug("removeDead ("+start+")");
+    if (Options.DEBUG) {
+      Out.debug("removeDead (" + start + "," + end + ") " + Out.NL + this);
+    }
 
-    if (visited[start] || live[start]) return;
-    visited[start] = true;
+    StateSet notvisited = tempStateSet;
+    StateSet reachable = new StateSet(numStates, start);
 
-    // Out.debug("not yet visited");
+    notvisited.clear();
+    notvisited.addState(start);
 
-    if (closure(start).isElement(end)) live[start] = true;
+    while (notvisited.containsElements()) {
+      int state = notvisited.getAndRemoveElement();
+      notvisited.add(reachable.complement(epsilon[state]));
+      reachable.add(epsilon[state]);
+      for (int i = 0; i < numInput; i++) {
+        notvisited.add(reachable.complement(table[state][i]));
+        reachable.add(table[state][i]);
+      }
+    }
 
-    // Out.debug("is final :"+live[start]);
+    if (Options.DEBUG) {
+      Out.debug("reachable states " + reachable);
+    }
 
-    for (int i = 0; i < numInput; i++) {
-      StateSet nextState = closure(table[start][i]);
-      StateSetEnumerator states = nextState.states();
-      while (states.hasMoreElements()) {
-        int next = states.nextElement();
+    StateSet live = new StateSet(numStates, end);
+    boolean changed = true;
 
-        if (next != start) {
-          removeDead(next, end);
-
-          if (live[next]) live[start] = true;
-          else table[start][i] = null;
+    // compute all live states
+    while (changed) {
+      changed = false;
+      Out.debug("live: " + live);
+      StateSetEnumerator nonlive = live.complement(reachable).states();
+      while (nonlive.hasMoreElements()) {
+        int s = nonlive.nextElement();
+        for (int i = 0; i < numInput; i++) {
+          if (table[s][i] != null) {
+            StateSetEnumerator states = table[s][i].states();
+            while (states.hasMoreElements()) {
+              int state = states.nextElement();
+              if (live.isElement(state)) {
+                changed = true;
+                live.addState(s);
+              }
+            }
+          }
+        }
+        if (epsilon[s] != null) {
+          states = epsilon[s].states();
+          while (states.hasMoreElements()) {
+            int state = states.nextElement();
+            if (live.isElement(state)) {
+              changed = true;
+              live.addState(s);
+            }
+          }
         }
       }
     }
 
-    StateSet nextState = closure(epsilon[start]);
-    StateSetEnumerator states = nextState.states();
-    while (states.hasMoreElements()) {
-      int next = states.nextElement();
+    if (Options.DEBUG) {
+      Out.debug("live states: " + live);
+    }
 
-      if (next != start) {
-        removeDead(next, end);
-
-        if (live[next]) live[start] = true;
+    // now remove all transitions to non-live states (unless everything is live)
+    if (!reachable.equals(live)) {
+      StateSetEnumerator allStates = reachable.states();
+      while (allStates.hasMoreElements()) {
+        int s = allStates.nextElement();
+        for (int i = 0; i < numInput; i++) if (table[s][i] != null) table[s][i].intersect(live);
+        if (epsilon[s] != null) epsilon[s].intersect(live);
       }
     }
 
-    // Out.debug("state "+start+" is live :"+live[start]);
+    if (Options.DEBUG) {
+      Out.debug("Removed dead states " + Out.NL + this);
+    }
   }
 
   /**
