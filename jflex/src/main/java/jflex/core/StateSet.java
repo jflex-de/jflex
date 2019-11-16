@@ -195,15 +195,7 @@ public final class StateSet implements Iterable<Integer> {
       System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
 
     if (DEBUG) {
-      Out.dump(
-          "Complement of "
-              + this
-              + Out.NL
-              + "and "
-              + set
-              + Out.NL
-              + " is :"
-              + result);
+      Out.dump("Complement of " + this + Out.NL + "and " + set + Out.NL + " is :" + result);
     }
     return result;
   }
