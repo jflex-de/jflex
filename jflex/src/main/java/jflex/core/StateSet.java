@@ -153,6 +153,21 @@ public final class StateSet {
   }
 
   /**
+   * Remove all states from {@code this} that are not contained in the provided {@link StateSet}.
+   *
+   * @param set the {@link StateSet} object to intersect with.
+   */
+  public void intersect(StateSet set) {
+    if (set == null) {
+      clear();
+    } else {
+      int l = Math.min(bits.length, set.bits.length);
+      for (int i = 0; i < l; i++) bits[i] &= set.bits[i];
+      for (int i = l; i < bits.length; i++) bits[i] = 0;
+    }
+  }
+
+  /**
    * Returns the set of elements that contained are in the specified set but are not contained in
    * this set.
    *
