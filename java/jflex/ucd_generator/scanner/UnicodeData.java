@@ -1,9 +1,6 @@
 package jflex.ucd_generator.scanner;
 
-import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
-
 import com.google.auto.value.AutoValue;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
@@ -11,10 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.stream.Stream;
 import jflex.ucd_generator.scanner.AutoValue_UnicodeData.Builder;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
@@ -40,12 +33,10 @@ public abstract class UnicodeData {
   public abstract static class Builder {
     private Map<String, List<CodepointRange.Builder>> mPropertyValueIntervals = new HashMap<>();
 
-    abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
-
-    public abstract ImmutableMap.Builder<Integer, ImmutableSortedSet<Integer>>
+    abstract ImmutableMap.Builder<Integer, ImmutableSortedSet<Integer>>
         caselessMatchPartitionsBuilder();
 
-    Map<Integer, SortedSet<Integer>> caselessMatchPartitions = new HashMap<>();
+    abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
 
     /**
      * Grows the partition containing the given codePoint and its caseless equivalents, if any, to
@@ -53,30 +44,14 @@ public abstract class UnicodeData {
      *
      * @param codePoint The code point to include in a caselessly equivalent partition
      * @param uppercaseMapping A hex String representation of the uppercase mapping of codePoint, or
-     *     null if there isn't one
+     *     {@code null} if there isn't one
      * @param lowercaseMapping A hex String representation of the lowercase mapping of codePoint, or
-     *     null if there isn't one
+     *     {@code null} if there isn't one
      * @param titlecaseMapping A hex String representation of the titlecase mapping of codePoint, or
-     *     null if there isn't one
+     *     {@code null} if there isn't one
      */
-    public Builder addCaselessMatches(
+    Builder addCaselessMatches(
         int codePoint, String uppercaseMapping, String lowercaseMapping, String titlecaseMapping) {
-      if (Strings.isNullOrEmpty(uppercaseMapping)
-          && Strings.isNullOrEmpty(lowercaseMapping)
-          && Strings.isNullOrEmpty(titlecaseMapping)) {
-        return this;
-      }
-      Integer upper = intFromHexa(uppercaseMapping);
-      Integer lower = intFromHexa(lowercaseMapping);
-      Integer title = intFromHexa(titlecaseMapping);
-
-      SortedSet<Integer> partition =
-          Stream.of(codePoint, upper, lower, title)
-              .map(cp -> caselessMatchPartitions.get(cp))
-              .filter(Objects::nonNull)
-              .findFirst()
-              .orElse(new TreeSet<>());
-
       // TODO
       return this;
     }
