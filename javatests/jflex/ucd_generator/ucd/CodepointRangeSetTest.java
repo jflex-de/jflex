@@ -9,8 +9,8 @@ public class CodepointRangeSetTest {
   public void add_disjoined() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
-            .add(CodepointRange.builder(42, 43))
-            .add(CodepointRange.builder(100, 200))
+            .add(new MutableCodepointRange(42, 43))
+            .add(new MutableCodepointRange(100, 200))
             .build();
     assertThat(rangeSet.ranges())
         .containsExactly(CodepointRange.create(42, 43), CodepointRange.create(100, 200))
@@ -21,8 +21,8 @@ public class CodepointRangeSetTest {
   public void add_contiguous() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
-            .add(CodepointRange.builder(42, 43))
-            .add(CodepointRange.builder(44, 100))
+            .add(new MutableCodepointRange(42, 43))
+            .add(new MutableCodepointRange(44, 100))
             .build();
     assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(42, 100)).inOrder();
   }

@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jflex.ucd_generator.scanner.AutoValue_UnicodeData.Builder;
-import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
+import jflex.ucd_generator.ucd.MutableCodepointRange;
 
 @AutoValue
 public abstract class UnicodeData {
@@ -31,7 +30,7 @@ public abstract class UnicodeData {
 
   @AutoValue.Builder
   public abstract static class Builder {
-    private Map<String, List<CodepointRange.Builder>> mPropertyValueIntervals = new HashMap<>();
+    private Map<String, List<MutableCodepointRange>> mPropertyValueIntervals = new HashMap<>();
 
     abstract ImmutableMap.Builder<Integer, ImmutableSortedSet<Integer>>
         caselessMatchPartitionsBuilder();
@@ -65,12 +64,12 @@ public abstract class UnicodeData {
      * @param endCodePoint The last code point in the interval.
      */
     Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
-      List<CodepointRange.Builder> values = mPropertyValueIntervals.get(propName);
+      List<MutableCodepointRange> values = mPropertyValueIntervals.get(propName);
       if (values == null) {
         values = new ArrayList<>();
         mPropertyValueIntervals.put(propName, values);
       }
-      values.add(CodepointRange.builder(startCodePoint, endCodePoint));
+      values.add(new MutableCodepointRange(startCodePoint, endCodePoint));
       return this;
     }
 
