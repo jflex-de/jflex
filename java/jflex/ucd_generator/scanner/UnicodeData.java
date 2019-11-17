@@ -4,6 +4,8 @@ import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
@@ -40,6 +42,21 @@ public abstract class UnicodeData {
         .map(Set::size)
         .max(Integer::compareTo)
         .orElseGet(() -> 0);
+  }
+
+  /**
+   * Returns the {@link #caselessMatchPartitions()} where the key is the first element from the
+   * partition.
+   */
+  public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
+    ImmutableList.Builder<SortedSet<Integer>> partitions = ImmutableList.builder();
+    for (Map.Entry<Integer, ImmutableSortedSet<Integer>> entry :
+        caselessMatchPartitions().entrySet()) {
+      if (entry.getKey().equals(entry.getValue().first())) {
+        partitions.add(entry.getValue());
+      }
+    }
+    return partitions.build();
   }
 
   public static Builder builder() {
