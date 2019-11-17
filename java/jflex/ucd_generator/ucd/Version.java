@@ -2,9 +2,14 @@ package jflex.ucd_generator.ucd;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
+import java.util.Comparator;
 import java.util.List;
 
-public class Version implements Comparable<Version> {
+public class Version {
+
+  static final Comparator<Version> EXACT_VERSION_COMPARATOR = new ExactVersionComparator();
+  public static final Comparator<Version> MAJOR_MINOR_COMPARATOR =
+      new MajorMinorVersionComparator();
 
   final int major;
   final int minor;
@@ -17,15 +22,14 @@ public class Version implements Comparable<Version> {
     this.patch = parts.size() > 2 ? Integer.parseInt(parts.get(2)) : -1;
   }
 
-  @Override
-  public int compareTo(Version other) {
-    if (this.major != other.major) {
-      return this.major - other.major;
-    }
-    if (this.minor != other.minor) {
-      return this.minor - other.minor;
-    }
-    return this.patch - other.patch;
+  public Version(int major, int minor) {
+    this(major, minor, -1);
+  }
+
+  public Version(int major, int minor, int patch) {
+    this.major = major;
+    this.minor = minor;
+    this.patch = patch;
   }
 
   @Override
@@ -34,7 +38,7 @@ public class Version implements Comparable<Version> {
       return false;
     }
     Version other = (Version) o;
-    return this.major == other.major && this.minor == other.minor && this.patch == other.patch;
+    return MAJOR_MINOR_COMPARATOR.compare(this, other) == 0;
   }
 
   @Override
@@ -63,5 +67,30 @@ public class Version implements Comparable<Version> {
       v.append(patch);
     }
     return v.toString();
+  }
+
+  static class MajorMinorVersionComparator implements Comparator<Version> {
+    @Override
+    public int compare(Version left, Version right) {
+      if (left.major != right.major) {
+        return Integer.compare(left.major, right.major);
+      }
+      if (left.minor != right.minor) {
+        return Integer.compare(left.minor, right.minor);
+      }
+      return 0;
+    }
+  }
+
+  private static class ExactVersionComparator implements Comparator<Version> {
+    @Override
+    public int compare(Version left, Version right) {
+      int majorMinorComp = MAJOR_MINOR_COMPARATOR.compare(left, right);
+      if (majorMinorComp == 0) {
+        return Integer.compare(left.patch, right.patch);
+      } else {
+        return majorMinorComp;
+      }
+    }
   }
 }

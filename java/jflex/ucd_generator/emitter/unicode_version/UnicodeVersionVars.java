@@ -6,4 +6,5 @@ public class UnicodeVersionVars extends TemplateVars {
 
   public String packageName;
   public String className;
+  public int maxCodePoint;
 }

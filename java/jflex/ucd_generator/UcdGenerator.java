@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import jflex.ucd_generator.scanner.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.ucd_generator.ucd.Version;
@@ -68,9 +69,11 @@ public class UcdGenerator {
     for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
       String unicodeClassName = version.unicodeClassName();
-      System.out.println(String.format("Emitting %s", unicodeClassName));
+      System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
       File outputFile = new File(outputDir, unicodeClassName + ".java");
-      UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion);
+      UnicodeData unicodeData = UnicodeData.builder().maximumCodePoint(0xFFFF).build();
+      UnicodeVersionEmitter emitter =
+          new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
       try (FileOutputStream out = new FileOutputStream(outputFile)) {
         emitter.emitUnicodeVersion(out);
       }
