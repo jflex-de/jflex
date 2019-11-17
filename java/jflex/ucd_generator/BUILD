@@ -1,7 +1,5 @@
 package(default_visibility = ["//javatests/jflex/ucd_generator:__subpackages__"])
 
-SRCS_MAIN = ["Main.java"]
-
 java_library(
     name = "ucd_generator",
     srcs = [
@@ -23,7 +21,7 @@ java_library(
 
 java_binary(
     name = "Main",
-    srcs = SRCS_MAIN,
+    srcs = ["Main.java"],
     deps = [
         ":ucd_generator",
         "//java/jflex/ucd_generator/ucd",
