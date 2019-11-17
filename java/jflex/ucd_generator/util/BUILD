@@ -6,4 +6,5 @@ java_library(
     deps = [
         "//third_party/com/google/guava",
     ],
+    visibility = ["//visibility:public"],
 )
