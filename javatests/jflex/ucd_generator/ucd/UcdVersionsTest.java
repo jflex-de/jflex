@@ -92,4 +92,13 @@ public class UcdVersionsTest {
   public void getClassNameForVersion_majorOnly() throws Exception {
     assertThat(UcdVersions.getClassNameForVersion("5")).isEqualTo("Unicode_5");
   }
+
+  @Test
+  public void findExternalPath() {
+    File bazelDep =
+        new File("jflex/ucd_generator/external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded");
+    ucd1.setVersion("1.1").putFile(UcdFileType.WordBreakProperty, bazelDep);
+    assertThat(ucd1.build().getFile(UcdFileType.WordBreakProperty))
+        .isEqualTo(new File("external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded"));
+  }
 }

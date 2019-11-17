@@ -135,7 +135,7 @@ import jflex.ucd_generator.ucd.Version;
     }
   }
 
-  UnicodeData getUnicodeData() {
+  public UnicodeData getUnicodeData() {
     return unicodeDataBuilder.build();
   }
 %}

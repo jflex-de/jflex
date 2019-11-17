@@ -33,9 +33,15 @@ import java.io.File;
 @AutoValue
 public abstract class UcdVersion {
 
+  public static final String EXTERNAL = "external";
+
   public abstract Version version();
 
   public abstract ImmutableMap<UcdFileType, File> files();
+
+  public File getFile(UcdFileType type) {
+    return files().get(type);
+  }
 
   public static Builder builder() {
     return new AutoValue_UcdVersion.Builder();
@@ -52,10 +58,28 @@ public abstract class UcdVersion {
     abstract ImmutableMap.Builder<UcdFileType, File> filesBuilder();
 
     public Builder putFile(UcdFileType unicodeFileType, File file) {
-      filesBuilder().put(unicodeFileType, file);
+      filesBuilder().put(unicodeFileType, findExternalPath(file));
       return this;
     }
 
     public abstract UcdVersion build();
+  }
+
+  /** Given a path that contains "external", returns only the path after "external/". */
+  private static File findExternalPath(File file) {
+    File externalDir = getExternalRootDirectory(file);
+    if (externalDir != null) {
+      return new File(file.getPath().substring(externalDir.getPath().length() - EXTERNAL.length()));
+    }
+    return file;
+  }
+
+  private static File getExternalRootDirectory(File file) {
+    for (File parent = file.getParentFile(); parent != null; parent = parent.getParentFile()) {
+      if (EXTERNAL.equals(parent.getName())) {
+        return parent;
+      }
+    }
+    return null;
   }
 }

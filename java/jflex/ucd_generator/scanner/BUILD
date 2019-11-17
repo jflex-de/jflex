@@ -11,6 +11,7 @@ java_library(
     ],
     visibility=[
          "//javatests/jflex:__subpackages__",
+         "//java/jflex/ucd_generator:__subpackages__"
     ],
 )
 
