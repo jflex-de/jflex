@@ -67,6 +67,7 @@ public abstract class UnicodeData {
 
   @AutoValue.Builder
   public abstract static class Builder {
+
     private Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
     private Map<String, List<MutableCodepointRange>> mPropertyValueIntervals = new HashMap<>();
 
