@@ -24,5 +24,7 @@ public class UnicodeDataScannerTest {
     scanner.scan();
     UnicodeData unicodeData = scanner.getUnicodeData();
     assertThat(unicodeData.maximumCodePoint()).isEqualTo(0x10ffff);
+    assertThat(unicodeData.caselessMatchPartitions()).isNotEmpty();
+    assertThat(unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
   }
 }

@@ -7,4 +7,6 @@ public class UnicodeVersionVars extends TemplateVars {
   public String packageName;
   public String className;
   public int maxCodePoint;
+  public int maxCaselessMatchPartitionSize;
+  public String caselessMatchPartitions;
 }
