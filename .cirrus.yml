@@ -35,3 +35,7 @@ steps:
   key: source-v1-{{ .Branch }}-{{ .Revision }}
   paths:
   - ".git"
+- save_cache:
+  key: build_tools
+  path:
+  - "buildtools"

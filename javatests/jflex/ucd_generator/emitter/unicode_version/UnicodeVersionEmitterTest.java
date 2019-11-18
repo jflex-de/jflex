@@ -28,11 +28,13 @@ public class UnicodeVersionEmitterTest {
             .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
             .build();
 
-    UnicodeData unicodeData = UnicodeData.builder().maximumCodePoint(0x1234)
-        .addPropertyInterval("General",32,127)
-        .addCaselessMatches('a', "41", "","")
-        .addCaselessMatches('b',"42", "43", "44")
-        .build();
+    UnicodeData unicodeData =
+        UnicodeData.builder()
+            .maximumCodePoint(0x1234)
+            .addPropertyInterval("General", 32, 127)
+            .addCaselessMatches('a', "41", "", "")
+            .addCaselessMatches('b', "42", "43", "44")
+            .build();
     UnicodeVersionEmitter emitter = new UnicodeVersionEmitter("org.example", ucd0_1, unicodeData);
 
     emitter.emitUnicodeVersion(output);

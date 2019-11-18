@@ -46,9 +46,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
-        unicodeData
-            .uniqueCaselessMatchPartitions()
-            .stream()
+        unicodeData.uniqueCaselessMatchPartitions().stream()
             .map(
                 partition ->
                     partitionToString(partition, unicodeVersionVars.maxCaselessMatchPartitionSize))

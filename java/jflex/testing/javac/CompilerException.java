@@ -61,8 +61,7 @@ public class CompilerException extends Exception {
   @Override
   public String toString() {
     List<String> diagnosticMessages =
-        diagnostics
-            .stream()
+        diagnostics.stream()
             .map(
                 d ->
                     String.format(
