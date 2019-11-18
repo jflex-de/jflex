@@ -52,7 +52,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
             .map(
                 partition ->
                     partitionToString(partition, unicodeVersionVars.maxCaselessMatchPartitionSize))
-            .collect(Collectors.joining("\" +\n      \""));
+            .collect(Collectors.joining("\"\n          + \""));
     return unicodeVersionVars;
   }
 
