@@ -1,5 +1,7 @@
 package jflex.ucd_generator.scanner;
 
+import static jflex.ucd_generator.scanner.SurrogateUtils.isSurrogate;
+import static jflex.ucd_generator.scanner.SurrogateUtils.removeSurrogates;
 import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
 
 import com.google.auto.value.AutoValue;
@@ -19,7 +21,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Stream;
+import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.MutableCodepointRange;
 
@@ -68,6 +70,7 @@ public abstract class UnicodeData {
   @AutoValue.Builder
   public abstract static class Builder {
 
+    private PropertyNameNormalizer mPropertyNameNormalizer = new PropertyNameNormalizer();
     private Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
     private Map<String, List<MutableCodepointRange>> mPropertyValueIntervals = new HashMap<>();
 
@@ -96,16 +99,20 @@ public abstract class UnicodeData {
         return this;
       }
 
-      Integer upper = intFromHexa(uppercaseMapping);
-      Integer lower = intFromHexa(lowercaseMapping);
-      Integer title = intFromHexa(titlecaseMapping);
+      List<Integer> codepoints =
+          Arrays.asList(
+              codePoint,
+              intFromHexa(uppercaseMapping),
+              intFromHexa(lowercaseMapping),
+              intFromHexa(titlecaseMapping));
       SortedSet<Integer> partition =
-          Stream.of(codePoint, upper, lower, title)
+          codepoints.stream()
+              .filter(Objects::nonNull)
               .map(cp -> mCaselessMatchPartitions.get(cp))
               .filter(Objects::nonNull)
               .findFirst()
               .orElse(new TreeSet<>());
-      for (Integer cp : Arrays.asList(codePoint, upper, lower, title)) {
+      for (Integer cp : codepoints) {
         if (cp != null) {
           partition.add(cp);
           mCaselessMatchPartitions.put(cp, partition);
@@ -123,12 +130,32 @@ public abstract class UnicodeData {
      * @param endCodePoint The last code point in the interval.
      */
     public Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
-      List<MutableCodepointRange> values = mPropertyValueIntervals.get(propName);
-      if (values == null) {
-        values = new ArrayList<>();
-        mPropertyValueIntervals.put(propName, values);
+      propName = mPropertyNameNormalizer.getCanonicalPropertyName(propName);
+      if (isSurrogate(propName)) {
+        // Skip surrogates
+        return this;
       }
-      values.add(new MutableCodepointRange(startCodePoint, endCodePoint));
+      List<CodepointRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
+      if (ranges.isEmpty()) {
+        return this;
+      }
+      List<MutableCodepointRange> intervals = getOrCreateIntervals(propName);
+      for (CodepointRange range : ranges) {
+        // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
+        // range (starting point is listed as U+4E00).  This is U+9FFF according
+        // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
+        //
+        //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
+        //
+        // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
+        // value, as are the previous code points, so to include
+        // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
+        // TODO
+        //        if (range.end() == 0x4E00 && Objects.equalsmajorMinor, "1.1")) {
+        //          range.end = 0x9FFF;
+        //        }
+        intervals.add(new MutableCodepointRange(startCodePoint, endCodePoint));
+      }
       return this;
     }
 
@@ -162,6 +189,15 @@ public abstract class UnicodeData {
             CodepointRangeSet.builder().addAll(mPropertyValueIntervals.get(propName)).build();
         propertyValueIntervalsBuilder().put(propName, rangeSet);
       }
+    }
+
+    private List<MutableCodepointRange> getOrCreateIntervals(String propName) {
+      List<MutableCodepointRange> intervals = mPropertyValueIntervals.get(propName);
+      if (intervals == null) {
+        intervals = new ArrayList<>();
+        mPropertyValueIntervals.put(propName, intervals);
+      }
+      return intervals;
     }
   }
 }

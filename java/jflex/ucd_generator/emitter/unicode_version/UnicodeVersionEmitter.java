@@ -44,6 +44,8 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
+    unicodeVersionVars.propertyValues =
+        String.join("\", \"", unicodeData.propertyValueIntervals().keySet());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()
