@@ -87,7 +87,7 @@ public abstract class UnicodeData {
      * @param titlecaseMapping A hex String representation of the titlecase mapping of codePoint, or
      *     {@code null} if there isn't one
      */
-    Builder addCaselessMatches(
+    public Builder addCaselessMatches(
         int codePoint, String uppercaseMapping, String lowercaseMapping, String titlecaseMapping) {
       if (Strings.isNullOrEmpty(uppercaseMapping)
           && Strings.isNullOrEmpty(lowercaseMapping)
@@ -121,7 +121,7 @@ public abstract class UnicodeData {
      * @param startCodePoint The first code point in the interval.
      * @param endCodePoint The last code point in the interval.
      */
-    Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
+    public Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
       List<MutableCodepointRange> values = mPropertyValueIntervals.get(propName);
       if (values == null) {
         values = new ArrayList<>();
