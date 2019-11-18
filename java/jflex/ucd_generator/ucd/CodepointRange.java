@@ -13,7 +13,7 @@ public abstract class CodepointRange {
   abstract int start();
 
   /** End code-point, included. */
-  abstract int end();
+  public abstract int end();
 
   public final int length() {
     return end() - start();
