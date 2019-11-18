@@ -10,6 +10,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +38,7 @@ public abstract class UnicodeData {
   public abstract int maximumCodePoint();
 
   public int maxCaselessMatchPartitionSize() {
-    return caselessMatchPartitions()
-        .values()
-        .stream()
+    return caselessMatchPartitions().values().stream()
         .map(Set::size)
         .max(Integer::compareTo)
         .orElseGet(() -> 0);
@@ -49,14 +49,16 @@ public abstract class UnicodeData {
    * partition.
    */
   public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
-    ImmutableList.Builder<SortedSet<Integer>> partitions = ImmutableList.builder();
+    ArrayList<SortedSet<Integer>> partitions = new ArrayList<>();
     for (Map.Entry<Integer, ImmutableSortedSet<Integer>> entry :
         caselessMatchPartitions().entrySet()) {
       if (entry.getKey().equals(entry.getValue().first())) {
         partitions.add(entry.getValue());
       }
     }
-    return partitions.build();
+    Comparator<SortedSet<Integer>> comparator =
+        (left, right) -> Integer.compare(left.first(), right.first());
+    return ImmutableList.sortedCopyOf(comparator, partitions);
   }
 
   public static Builder builder() {
@@ -102,8 +104,12 @@ public abstract class UnicodeData {
               .filter(Objects::nonNull)
               .findFirst()
               .orElse(new TreeSet<>());
-      partition.add(codePoint);
-      mCaselessMatchPartitions.put(codePoint, partition);
+      for (Integer cp : Arrays.asList(codePoint, upper, lower, title)) {
+        if (cp != null) {
+          partition.add(cp);
+          mCaselessMatchPartitions.put(cp, partition);
+        }
+      }
       return this;
     }
 
