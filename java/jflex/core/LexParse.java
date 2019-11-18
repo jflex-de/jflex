@@ -2172,19 +2172,18 @@ class CUP$LexParse$actions {
             {
               RegExp RESULT =null;
 		 
-                      List<Interval> any = new ArrayList<Interval>();
+                      List<Interval> any = new ArrayList<>();
+                      any.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
                       if ( Options.jlex || Options.legacy_dot ) {
                         any.add(new Interval('\n','\n'));
-                        // assumption: newline chars have no uppercase variant
-                        charClasses.makeClass('\n', false);
                       }
                       else {
                         any.add(new Interval('\n','\r'));
                         any.add(new Interval('\u0085','\u0085'));
                         any.add(new Interval('\u2028','\u2029'));
-                        // assumption: newline chars have no uppercase variant
-                        charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
                       }
+                      // assumption: surrogate and newline chars have no uppercase variant
+                      charClasses.makeClass(any, false);
                       RegExp1 r = new RegExp1(sym.CCLASSNOT, any);
                       r.isPoint = true;
                       RESULT = r;
