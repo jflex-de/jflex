@@ -221,11 +221,11 @@ public class ErrorMessages {
    * @param msg a {@link ErrorMessages} containing the format string.
    * @return a {@link java.lang.String} object.
    */
-  public static String get(ErrorMessages msg, Object... args) {
+  public static String get(ErrorMessages.ErrorMessage msg, Object... args) {
     return MessageFormat.format(get(msg), args);
   }
 
-  private static class ErrorMessage {
+  public static class ErrorMessage {
     private final String key;
 
     private ErrorMessage(String key) {
