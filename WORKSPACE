@@ -11,7 +11,7 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 git_repository(
     name = "jflex_rules",
     remote = "https://github.com/jflex-de/bazel_rules.git",
-    tag = "v4",
+    tag = "v5",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
