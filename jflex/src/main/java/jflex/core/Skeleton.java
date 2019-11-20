@@ -98,17 +98,17 @@ public class Skeleton {
       throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error(jflex.l10n.ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
+      Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
       throw new GeneratorException();
     }
 
-    Out.println(jflex.l10n.ErrorMessages.READING_SKEL, skeletonFile.toString());
+    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
       readSkel(reader);
     } catch (IOException e) {
-      Out.error(jflex.l10n.ErrorMessages.SKEL_IO_ERROR);
+      Out.error(ErrorMessages.SKEL_IO_ERROR);
       throw new GeneratorException();
     }
   }
@@ -138,7 +138,7 @@ public class Skeleton {
     if (section.length() > 0) lines.add(section.toString());
 
     if (lines.size() != size) {
-      Out.error(jflex.l10n.ErrorMessages.WRONG_SKELETON);
+      Out.error(ErrorMessages.WRONG_SKELETON);
       throw new GeneratorException();
     }
 
@@ -187,7 +187,7 @@ public class Skeleton {
     }
 
     if (url == null) {
-      Out.error(jflex.l10n.ErrorMessages.SKEL_IO_ERROR_DEFAULT);
+      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException();
     }
 
