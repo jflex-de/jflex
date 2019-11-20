@@ -11,10 +11,8 @@ set -e
 # Version of Google java format
 # https://github.com/google/google-java-format/releases
 VERSION_GJF=1.7
-# Version of Buildifier
-VERSION_BZL_BUILDTOOLS=0.29.0
 
-if [[ "_${TRAVIS_JDK_VERSION_GJF}" = "_openjdk7" ]]; then
+if [[ "_${TRAVIS_JDK_VERSION}" = "_openjdk7" ]]; then
   logi "Skip google-java-format. Unsupported java version."
   exit
 fi
@@ -25,13 +23,16 @@ function gjf() {
   java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -name '*.java')
 }
 
-logi "Download tools"
-logi "=============="
-echo "TRAVIS_JDK_VERSION_GJF=$TRAVIS_JDK_VERSION_GJF"
-mkdir -p $TOOLSDIR
-curl -C - -L https://github.com/google/google-java-format/releases/download/google-java-format-${VERSION_GJF}/google-java-format-${VERSION_GJF}-all-deps.jar -o ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar
-curl -C - -L https://github.com/bazelbuild/buildtools/releases/download/${VERSION_BZL_BUILDTOOLS}/buildifier -o ${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS}
-chmod u+x ${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS}
+if [[ ${TRAVIS} ]]; then
+  echo "TRAVIS_JDK_VERSION=$TRAVIS_JDK_VERSION"
+fi
+
+if [[ ! -f ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar ]]; then
+    logi "Download tools"
+    logi "=============="
+    mkdir -p $TOOLSDIR
+    curl -C - -L https://github.com/google/google-java-format/releases/download/google-java-format-${VERSION_GJF}/google-java-format-${VERSION_GJF}-all-deps.jar -o ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar
+fi
 
 logi "Check java format"
 logi "================="
@@ -44,10 +45,6 @@ gjf jflex-maven-plugin
 gjf jflex-unicode-maven-plugin
 gjf testsuite/jflex-testsuite-maven-plugin
 
-logi "Check Starlark (Bazel) format"
-logi "============================="
-${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -version
-${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -mode=check -r=true .
 logi "OK 🙌"
 
 cd "$CWD"
