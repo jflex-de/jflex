@@ -46,6 +46,7 @@ gjf testsuite/jflex-testsuite-maven-plugin
 
 logi "Check Starlark (Bazel) format"
 logi "============================="
+${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -version
 ${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -mode=check -r=true .
 logi "OK 🙌"
 
