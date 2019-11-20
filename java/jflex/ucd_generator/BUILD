@@ -11,7 +11,7 @@ java_library(
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
         "//java/jflex/ucd_generator/scanner:unicode_data",
-        "//java/jflex/ucd_generator/scanner:unicode_data_scanner",
+        "//java/jflex/ucd_generator/scanner:unicode_scanners",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/velocity",
         "//third_party/com/google/auto_value",

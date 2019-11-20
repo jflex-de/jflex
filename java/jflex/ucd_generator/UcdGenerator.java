@@ -34,6 +34,8 @@ import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
 import jflex.ucd_generator.scanner.UnicodeData;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
+import jflex.ucd_generator.scanner.UnicodePropertyValueAliasesScanner;
+
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
@@ -83,12 +85,12 @@ public class UcdGenerator {
     File dataFile = ucdVersion.getFile(UcdFileType.UnicodeData);
     System.out.println("Opening " + dataFile);
     File outputFile = new File(outputDir, unicodeClassName + ".java");
-    UnicodeDataScanner scanner =
+    UnicodeDataScanner unicodeDataScanner =
         new UnicodeDataScanner(Files.newReader(dataFile, Charsets.UTF_8), ucdVersion);
-    scanner.scan();
-    UnicodeData unicodeData = scanner.getUnicodeData();
-    UnicodeVersionEmitter emitter =
-        new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
+    unicodeDataScanner.scan();
+    UnicodeData unicodeData = unicodeDataScanner.getUnicodeData();
+    UnicodePropertyValueAliasesScanner unicodePropertyValueAliasesScanner = new UnicodePropertyValueAliasesScanner();
+            UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
     try (FileOutputStream out = new FileOutputStream(outputFile)) {
       emitter.emitUnicodeVersion(out);
     }
