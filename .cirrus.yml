@@ -25,9 +25,7 @@ codestyle_task:
   check_java_format_script: scripts/test-java-format.sh
   check_bzl_format_script:  scripts/test-bzl-format.sh
   buildtools_cache:
-    key: build_tools
-    path:
-    - "buildtools"
+    folder: buildtools
 
 steps:
 - restore_cache:
