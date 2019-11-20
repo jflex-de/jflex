@@ -11,4 +11,3 @@ ARTIFACTS = [
     "com.google.truth:truth:0.36",
     "junit:junit:jar:4.12",
 ]
-
