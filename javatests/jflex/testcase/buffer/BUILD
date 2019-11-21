@@ -1,0 +1,20 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_buffer_scanner",
+    srcs = ["buffer.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["BufferScanner.java"],
+)
+
+java_test(
+    name = "BufferTest",
+    srcs = [
+        "BufferTest.java",
+        ":gen_buffer_scanner",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)
