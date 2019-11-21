@@ -14,7 +14,7 @@ public class BolTest {
 
   @Before
   public void testMustInitializeScanner() {
-      scanner = null;
+    scanner = null;
   }
 
   @After
