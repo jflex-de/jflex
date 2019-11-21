@@ -22,7 +22,10 @@ codestyle_task:
   name: Check code style
   container:
     image: openjdk:8-jdk
-  script: scripts/test-java-format.sh
+  check_java_format_script: scripts/test-java-format.sh
+  check_bzl_format_script:  scripts/test-bzl-format.sh
+  buildtools_cache:
+    folder: buildtools
 
 steps:
 - restore_cache:
@@ -31,11 +34,7 @@ steps:
   - source-v1-{{ .Branch }}-
   - source-v1-
 - checkout
-- save_cache:
+- git_cache:
   key: source-v1-{{ .Branch }}-{{ .Revision }}
   paths:
   - ".git"
-- save_cache:
-  key: build_tools
-  path:
-  - "buildtools"

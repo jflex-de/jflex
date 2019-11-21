@@ -5,13 +5,13 @@ java_library(
     srcs = [
         ":gen_unicode_data_scanner",
     ],
+    visibility = [
+        "//java/jflex/ucd_generator:__subpackages__",
+        "//javatests/jflex:__subpackages__",
+    ],
     deps = [
         ":unicode_data",
         "//java/jflex/ucd_generator/ucd",
-    ],
-    visibility=[
-         "//javatests/jflex:__subpackages__",
-         "//java/jflex/ucd_generator:__subpackages__"
     ],
 )
 
@@ -27,14 +27,14 @@ jflex(
 java_library(
     name = "unicode_data",
     srcs = ["UnicodeData.java"],
+    visibility = [
+        "//java/jflex/ucd_generator:__subpackages__",
+        "//javatests/jflex:__subpackages__",
+    ],
     deps = [
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/util:hexa_utils",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
-    ],
-    visibility = [
-        "//java/jflex/ucd_generator:__subpackages__",
-        "//javatests/jflex:__subpackages__",
     ],
 )
