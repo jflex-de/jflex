@@ -22,6 +22,12 @@ java_binary(
     ],
 )
 
+java_binary(
+    name = "jflex_bin_1_4",
+    srcs = [],
+    deps = [],
+)
+
 alias(
     name = "jflex",
     actual = "//jflex/src/main/java/jflex/core",
