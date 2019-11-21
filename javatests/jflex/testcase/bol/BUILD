@@ -14,7 +14,6 @@ java_test(
         "State.java",
         ":bol_scanner",
     ],
-    data = ["bol-0.input"],
     deps = [
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
