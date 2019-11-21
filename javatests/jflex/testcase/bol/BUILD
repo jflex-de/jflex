@@ -1,11 +1,22 @@
-load("//testsuite:testsuite.bzl", "jflex_testsuite")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
-jflex_testsuite(
-    name = "BolTest",
-    srcs = ["BolTest.java"],
-    data = [
-        "bol.flex",
-    ],
-    deps = ["//jflex/src/main/java/jflex/exceptions"],
+jflex(
+    name = "bol_scanner",
+    srcs = ["bol.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["BolScanner.java"],
 )
 
+java_test(
+    name = "BolTest",
+    srcs = [
+        "BolTest.java",
+        "State.java",
+        ":bol_scanner",
+    ],
+    data = ["bol-0.input"],
+    deps = [
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

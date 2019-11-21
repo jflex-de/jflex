@@ -3,8 +3,8 @@ package jflex.testcase.bol;
 %%
 
 %public
-%class Bol
-%integer
+%class BolScanner
+%type State
 %debug
 
 %line
@@ -13,19 +13,21 @@ package jflex.testcase.bol;
 %unicode
 
 %char
+%{
+  State state = State.INITIAL;
+%}
 
 %%
 
-// "hello" / [ \r\n]* "hello" { System.out.println("hello followed by hello"); }
-^"hello"$  { System.out.println("hello at BOL and EOL"); }
-^"hello"   { System.out.println("hello at BOL"); }
-"hello"$   { System.out.println("hello at EOL"); }
-"hello"    { System.out.println("just hello");   }
+^"hello"$  { return State.HELLO_AT_BOL_AND_EOL; }
+^"hello"   { return State.HELLO_AT_BOL; }
+"hello"$   { return State.HELLO_AT_EOL; }
+"hello"    { return State.HELLO_SIMPLY; }
 
-\r         { System.out.println("\\r"); }
-\n         { System.out.println("\\n"); }
+\r         { return State.CARRIAGE_RETURN; }
+\n         { return State.LINE_FEED; }
 
-" "        { System.out.println( "\" \"" ); }
-.          { System.out.println( yytext() ); }
+" "        { return State.SPACE; }
+.          { return State.OTHER; }
 
-
+<<EOF>>    { return State.END_OF_FILE; }
