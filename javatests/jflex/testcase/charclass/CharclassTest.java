@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Test;
 
+/** Test character class syntax. */
 public class CharclassTest {
 
   private CharclassScanner scanner;
