@@ -19,3 +19,13 @@ java_test(
         "//third_party/com/google/truth",
     ],
 )
+
+java_test(
+    name = "ImpossibleScannerTest",
+    srcs = ["ImpossibleScannerTest.java"],
+    data = ["char-range-failing.flex"],
+    deps = [
+        "//java/jflex/testing/testsuite",
+        "//jflex/src/main/java/jflex/exceptions",
+    ],
+)

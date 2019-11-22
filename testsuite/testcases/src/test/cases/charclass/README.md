@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/charclass:CharclassTest
+    bazel test //javatests/jflex/testcase/charclass:all
