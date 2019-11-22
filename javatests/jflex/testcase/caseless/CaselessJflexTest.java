@@ -9,6 +9,11 @@ import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * Test {@code %ignorecase} with JFlex semantics.
+ *
+ * <p>Only strings and chars are caseless.
+ */
 public class CaselessJflexTest {
 
   private CaselessScanner scanner;
