@@ -7,7 +7,7 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
-if [[ $TRAVIS ]]; then
+if [[ ${CI} ]]; then
   loge "This script is only for manual invocation"
   exit 1
 fi
@@ -15,9 +15,17 @@ fi
 # Clean environment
 "$BASEDIR"/scripts/clean.sh
 
-# Travis then runs _in parallel_ (but we do it in sequence)
+logi "Test *** ${TEST_SUITE}"
+
+# CI then runs _in parallel_ (but we do it in sequence on dev machine)
+
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
   "$BASEDIR"/scripts/test-java-format.sh
+fi
+if [[ !${CI} || -z "$TEST_SUITE" ]]; then
+  buildifier -r=true .
+elif [[ ${CI} && "$TEST_SUITE" == "bzl-format"  ]]; then
+  "$BASEDIR"/scripts/test-bzl-format.sh
 fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
   "$BASEDIR"/scripts/test-unit.sh

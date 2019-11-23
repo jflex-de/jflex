@@ -1,7 +1,7 @@
-package jflextest;
+package jflex.maven.plugin.testsuite;
 
 import java.util.*;
-import jflex.sym;
+import jflex.core.sym;
 
 %%
 

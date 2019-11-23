@@ -1,4 +1,4 @@
-package jflex;
+package jflex.maven.plugin.unicode;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -26,12 +26,12 @@ import java.util.Map;
 
 %{
   UnicodeVersion unicodeVersion;
-  Map<String, SortedSet<NamedRange>> properties 
+  Map<String, SortedSet<NamedRange>> properties
     = new HashMap<String, SortedSet<NamedRange>>();
   String propertyName;
   int start;
   int end;
-  
+
   public void addPropertyIntervals() {
     for (Map.Entry<String,SortedSet<NamedRange>> property : properties.entrySet()) {
       String currentPropertyName = property.getKey();
@@ -51,7 +51,7 @@ import java.util.Map;
       unicodeVersion.addInterval(currentPropertyName, prevStart, prevEnd);
     }
   }
-  
+
   public void addCurrentInterval() {
     SortedSet<NamedRange> intervals = properties.get(propertyName);
     if (null == intervals) {
@@ -92,7 +92,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_NAME> {
-  [^ \t\r\n]+   { propertyName = yytext(); }
+  [^ \t\r\n#]+   { propertyName = yytext(); }
 
   {Spaces} ("#" .*)? {NL} { addCurrentInterval(); yybegin(YYINITIAL); }
 }

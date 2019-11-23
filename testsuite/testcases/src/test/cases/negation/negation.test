@@ -1,0 +1,6 @@
+name: negation
+
+description:
+test for bug #567 (r|!r does not always match everything)
+
+jflex: --nobak

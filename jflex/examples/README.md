@@ -21,13 +21,7 @@
 Every example also provides its own `README.md` with more context.
 
 
-## Build systems
-
-All examples (try to) support multiple build systems:
-- [Maven](https://maven.apache.org/).
-- [ant](https://ant.apache.org/).
-- [bazel](https://bazel.build/).
-- [make](https://www.gnu.org/software/make). 
+## Directory structure
 
 All examples follow the Maven layout, in particular:
 - `src` contains the source files
@@ -41,11 +35,45 @@ All examples follow the Maven layout, in particular:
       of the expected output for this input.
 
 
+## Build systems
+
+All examples (try to) support multiple build systems:
+- [Maven](https://maven.apache.org/).
+- [ant](https://ant.apache.org/).
+- [bazel](https://bazel.build/).
+- [make](https://www.gnu.org/software/make). 
+
+### Prerequisites
+
+- [Maven](https://maven.apache.org/)
+  
+  - Install Java Runtime
+  - You don't need to install Maven, since the project ships the Maven wrapper.
+
+- [ant](https://ant.apache.org/)
+  
+  - Install Java Development Kit
+  - Install [Apache ant](https://ant.apache.org/bindownload.cgi)
+  - Install [Apache ivy](http://ant.apache.org/ivy/history/2.5.0-rc1/install.html)
+
+- [bazel](https://bazel.build/)
+
+  - Install [Bazel](https://docs.bazel.build/versions/master/install.html)
+
+- [GNU make](https://www.gnu.org/software/make)
+
+  - Install make
+  - Install Java Development Kit
+
+
+## Usage
+
 ### Maven
 
 When the example can be build with Maven, there is a `pom.xml`.
 
-Please use `mvn package` to
+Please run `../mvnw package` to:
+
 - generate the Java source from flex and cup definitions
 - compile all Java source
 - run unit tests
@@ -58,7 +86,7 @@ In the end run the compiled lexer with:
 
 ### ant
 
-When the example can be build with Maven, there is a `build.xml`.
+When the example can be build with ant, there is a `build.xml`.
 
 We place build artifacts in the `antbuild` directory.
 
@@ -73,9 +101,10 @@ Also, we consistently use:
 
 ### Bazel
 
-We test the examples with Bazel.
+We test the examples with Bazel, after the `bazel.sh` has copied the SNAPSHOT JFlex in the
+`examples` directory.
 
-In order to use the Skylark "jflex()" rule and see example, please see
+If you are interested in using the Skylark "jflex()" rule and see example, please see
 [jflex-de/bazel_rules](https://github.com/jflex-de/bazel_rules).
 
 

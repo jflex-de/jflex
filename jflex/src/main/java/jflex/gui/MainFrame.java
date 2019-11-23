@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,14 +17,14 @@ import java.awt.event.TextListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.LexGenerator;
-import jflex.Out;
+import jflex.base.Build;
+import jflex.core.Out;
 
 /**
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class MainFrame extends Frame implements Handles {
 
@@ -53,7 +53,7 @@ public final class MainFrame extends Frame implements Handles {
 
   /** Constructor for MainFrame. */
   public MainFrame() {
-    super("JFlex " + LexGenerator.VERSION);
+    super("JFlex " + Build.VERSION);
     buildContent();
 
     addWindowListener(

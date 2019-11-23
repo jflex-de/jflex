@@ -7,5 +7,5 @@ licenses(["notice"])  # Apache License 2.0
 java_library(
     name = "guava",
     visibility = ["//visibility:public"],
-    exports = ["@com_google_guava_guava//jar"],
+    exports = ["@maven//:com_google_guava_guava"],
 )

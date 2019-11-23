@@ -3,10 +3,13 @@
 # First, download the zipped UCD (excluding the Unihan database)
 # from the public Unicode.org site, using something like:
 #
-#    PROMPT$ mkdir ~/temp/Unicode-<version> && cd ~/temp/Unicode-<version>
-#    PROMPT$ wget ftp://www.unicode.org/Public/zipped/<version>/UCD.zip
+#    PROMPT$ mkdir ~/temp/Unicode-<version> && cd ~/temp/Unicode-<version>  # major.minor version
+#    PROMPT$ wget ftp://www.unicode.org/Public/zipped/<version>/UCD.zip     # major.minor.patch version
+#    PROMPT$ unzip UCD.zip
 #
-# Then unzip the file.
+# Next, download the Emoji data file corresponding to the Unicode version, using something like:
+#
+#    PROMPT$ wget ftp://www.unicode.org/Public/emoji/<version>/emoji-data.txt  # major.minor version
 #
 # Next, run this script (using the X.Y version string), e.g.:
 # 
@@ -105,3 +108,6 @@ cd ../unicode-word-break/
  
 cd ../unicode-age/
 ../../perl/create.unicode-age.test.case.files.pl -v $version -d $ucd/DerivedAge.txt
+
+cd ../unicode-emoji
+../../perl/create.unicode-emoji.test.case.files.pl -v $version -d $ucd/emoji-data.txt

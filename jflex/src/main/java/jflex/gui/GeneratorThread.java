@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -11,17 +11,17 @@ package jflex.gui;
 
 import java.io.File;
 import java.util.Objects;
-import jflex.ErrorMessages;
-import jflex.GeneratorException;
-import jflex.LexGenerator;
-import jflex.Options;
-import jflex.Out;
+import jflex.core.Options;
+import jflex.core.Out;
+import jflex.exceptions.GeneratorException;
+import jflex.generator.LexGenerator;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Low priority thread for code generation (low priority that gui has time for screen updates)
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class GeneratorThread extends Thread {
 
