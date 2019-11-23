@@ -31,6 +31,12 @@ import jflex.util.javac.JavaPackageUtil;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
+/**
+ * Tool to migrate a test case from {@code //testsuite/testcases/src/test/cases} (as executed by the
+ * jflex-testsuite-amven-plugin) to {@code //ajvatests/jflex/testcase} (as executed by bazel).
+ *
+ * <p>See <a href="README.md">README</a> for usage.
+ */
 public class Migrator {
 
   private static final String PATH = JavaPackageUtil.getPathForClass(Migrator.class);
@@ -53,6 +59,7 @@ public class Migrator {
     }
   }
 
+  /** Migrates one given test-case directory. */
   private static void migrateCase(String testCase) throws MigrationException {
     File dir = new File(testCase);
     if (!dir.exists()) {
@@ -63,6 +70,7 @@ public class Migrator {
     migrateCase(dir);
   }
 
+  /** Migrates one given test-case directory. */
   private static void migrateCase(File testCaseDir) throws MigrationException {
     logger.atInfo().log("Migrating %s...", testCaseDir.getName());
     logger.atFine().log("location: %s", testCaseDir.getAbsolutePath());
@@ -76,6 +84,11 @@ public class Migrator {
     }
   }
 
+  /**
+   * Migrates one given test case (such as {@code test-0}) within the test case directory.
+   *
+   * <p>Scans the grammar specification and creates a {@link TestCase} model.
+   */
   private static void migrateTestCase(File testCaseDir, File testSpecFile)
       throws MigrationException {
     try (BufferedReader reader = Files.newReader(testSpecFile, Charsets.UTF_8)) {
@@ -90,6 +103,12 @@ public class Migrator {
     }
   }
 
+  /**
+   * Migrates one given test case (such as {@code test-0}), represented by a {@link TestCase} data
+   * model, within the test case directory.
+   *
+   * <p>Creates all velocity {@link MigrationTemplateVars} for this case.
+   */
   private static void migrateTestCase(File testCaseDir, TestCase test) throws MigrationException {
     String lowerUnderscoreTestDir =
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, testCaseDir.getName());
@@ -100,6 +119,19 @@ public class Migrator {
     migrateTestCase(lowerUnderscoreTestDir, templateVars);
   }
 
+  /**
+   * Migrates one given test case.
+   *
+   * <ol>
+   *   <li>Creates a target folder in {@code /tmp} based on the original directory name (replaces
+   *       '-' by '_')
+   *   <li>Generates a build file
+   *   <li><Renders the java test class
+   *   <li>Modifies and copies the flex grammar in the target folder. See {@link
+   *       #copyGrammarFile(File, String, File)}
+   *   <li>Copies the golden files
+   * </ol>
+   */
   private static void migrateTestCase(String targetTestDir, MigrationTemplateVars templateVars)
       throws MigrationException {
     File outputDir = new File(new File("/tmp"), targetTestDir);
@@ -113,9 +145,17 @@ public class Migrator {
     copyGoldenFiles(templateVars.goldens, outputDir);
   }
 
+  /** Generates the BUILD file for this test case. */
+  // FIXME This should be done once for the whole directory, but with many java_test()
   private static void renderBuildFile(MigrationTemplateVars templateVars, File outputDir)
       throws MigrationException {
     File outFile = new File(outputDir, "BUILD");
+    try {
+      // If there are multiple `.test` files in a directory, this is going to break.
+      Preconditions.checkState(!outFile.exists(), "Attempting to override an existing BUILD file");
+    } catch (IllegalArgumentException e) {
+      throw new MigrationException("Please output to a clean directory", e);
+    }
     try (OutputStream outputStream = new FileOutputStream(outFile)) {
       logger.atInfo().log("Generating %s", outFile);
       velocityRenderBuildFile(templateVars, outputStream);
@@ -124,6 +164,7 @@ public class Migrator {
     }
   }
 
+  /** Generates the Java test class. */
   private static void renderTestCase(MigrationTemplateVars templateVars, File outputDir)
       throws MigrationException {
     File outFile = new File(outputDir, templateVars.testClassName + ".java");
@@ -135,6 +176,12 @@ public class Migrator {
     }
   }
 
+  /**
+   * Copy the grammar file.
+   *
+   * <p>The old grammars were defined in the default (empty) java package. The copied file be
+   * prepended with a {@code package} declaration matches its directory location.
+   */
   private static void copyGrammarFile(File flexFile, String javaPackage, File outputDir)
       throws MigrationException {
     try {
@@ -157,6 +204,7 @@ public class Migrator {
     }
   }
 
+  /** Copy the list of golden files. */
   private static void copyGoldenFiles(ImmutableList<GoldenInOutFilePair> goldens, File outputDir)
       throws MigrationException {
     logger.atInfo().log("Copy Golden files to %s", outputDir.getAbsolutePath());
@@ -170,6 +218,7 @@ public class Migrator {
     }
   }
 
+  /** Creates the template variables for velocity. */
   private static MigrationTemplateVars createTemplateVars(
       String lowerUnderscoreTestDir,
       TestCase test,
@@ -191,6 +240,7 @@ public class Migrator {
     return vars;
   }
 
+  /** Lists all golden files for a given test. */
   private static ImmutableList<GoldenInOutFilePair> findGoldenFiles(
       File testCaseDir, TestCase test) {
     Iterable<File> dirContent = Files.fileTraverser().breadthFirst(testCaseDir);
@@ -200,6 +250,7 @@ public class Migrator {
         .collect(toImmutableList());
   }
 
+  /** Finds the grammar file for a test. */
   private static File findFlexFile(File testCaseDir, TestCase test) {
     return new File(testCaseDir, test.getTestName() + ".flex");
   }
@@ -208,13 +259,18 @@ public class Migrator {
     return f.getName().startsWith(test.getTestName() + "-") && f.getName().endsWith(".input");
   }
 
-  private static File getGoldenOutputFile(File f) {
-    Preconditions.checkArgument(f.getName().endsWith(GOLDEN_INPUT_EXT));
+  /** Returns the output file for the given input file. */
+  private static File getGoldenOutputFile(File goldenInputFIle) {
+    Preconditions.checkArgument(goldenInputFIle.getName().endsWith(GOLDEN_INPUT_EXT));
     return new File(
-        f.getParentFile(),
-        f.getName().substring(0, f.getName().length() - ".input".length()) + GOLDEN_OUTPUT_EXT);
+        goldenInputFIle.getParentFile(),
+        goldenInputFIle
+                .getName()
+                .substring(0, goldenInputFIle.getName().length() - ".input".length())
+            + GOLDEN_OUTPUT_EXT);
   }
 
+  /** Invokes velocity to generate the BUILD file. */
   private static void velocityRenderBuildFile(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
@@ -225,6 +281,7 @@ public class Migrator {
     }
   }
 
+  /** Invokes velocity to generate the Test file. */
   private static void velocityRenderTestCase(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
@@ -235,15 +292,16 @@ public class Migrator {
     }
   }
 
-  private static void copyFile(File file, File targetTestDir) throws IOException {
+  /** Copies file to the target directory. */
+  private static void copyFile(File file, File targetDir) throws IOException {
     checkArgument(file.isFile(), "Input %s should be a file: %s", file, file.getAbsoluteFile());
     checkArgument(
-        targetTestDir.isDirectory(),
+        targetDir.isDirectory(),
         "Target %s should be a directory: %s",
-        targetTestDir,
-        targetTestDir.getAbsoluteFile());
+        targetDir,
+        targetDir.getAbsoluteFile());
     logger.atFine().log("Copying %s...", file.getName());
-    File copiedFile = new File(targetTestDir, file.getName());
+    File copiedFile = new File(targetDir, file.getName());
     Files.copy(file, copiedFile);
   }
 
