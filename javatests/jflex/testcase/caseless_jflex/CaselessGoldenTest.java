@@ -1,6 +1,6 @@
-// test: $testName
+// test: caseless
 
-package $javaPackage;
+package jflex.testcase.caseless_jflex;
 
 import com.google.common.io.Files;
 import java.io.File;
@@ -12,9 +12,9 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code $flexGrammar.Name}.
+ * Tests scanner generated from {@code caseless.flex}.
  *
- * <p>$testDescription
+ * <p>tests %ignorecase with jflex semantics (only strings and chars are caseless)
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -24,25 +24,23 @@ import org.junit.Test;
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class $testClassName extends AbstractGoldenTest {
+public class CaselessGoldenTest extends AbstractGoldenTest {
 
-  private File testRuntimeDir = new File("javatests/$javaPackageDir");
+  private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
 
-#foreach ( $golden in $goldens )
   @Test
-  public void goldenTest$velocityCount() throws Exception {
+  public void goldenTest0() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "$golden.InputFileName"),
-            new File(testRuntimeDir, "$golden.OutputFileName"));
+            new File(testRuntimeDir, "caseless-0.input"),
+            new File(testRuntimeDir, "caseless-0.output"));
     compareSystemOutWith(golden);
 
-    $scannerClassName scanner = createScanner(golden.inputFile);
+    Caseless scanner = createScanner(golden.inputFile);
     scanner.yylex();
   }
-#end
 
-  private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
-    return new $scannerClassName(Files.newReader(inputFile, Charset.forName("UTF-8")));
+  private static Caseless createScanner(File inputFile) throws FileNotFoundException {
+    return new Caseless(Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 }
