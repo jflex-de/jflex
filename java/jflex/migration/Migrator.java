@@ -139,10 +139,13 @@ public class Migrator {
       //noinspection ResultOfMethodCallIgnored
       outputDir.mkdirs();
     }
+    logger.atInfo().log("Generating into %s", outputDir);
     renderBuildFile(templateVars, outputDir);
     renderTestCase(templateVars, outputDir);
     copyGrammarFile(templateVars.flexGrammar, templateVars.javaPackage, outputDir);
     copyGoldenFiles(templateVars.goldens, outputDir);
+    logger.atInfo().log("Import the files in your workspace");
+    logger.atInfo().log("   cp -r %s $(bazel info workspace)/javatests/jflex/testcase", outputDir);
   }
 
   /** Generates the BUILD file for this test case. */
@@ -153,8 +156,9 @@ public class Migrator {
     try {
       // If there are multiple `.test` files in a directory, this is going to break.
       Preconditions.checkState(!outFile.exists(), "Attempting to override an existing BUILD file");
-    } catch (IllegalArgumentException e) {
-      throw new MigrationException("Please output to a clean directory", e);
+    } catch (IllegalStateException e) {
+      // throw new MigrationException("Please output to a clean directory", e);
+      logger.atWarning().log("Overriding %s", outFile);
     }
     try (OutputStream outputStream = new FileOutputStream(outFile)) {
       logger.atInfo().log("Generating %s", outFile);
@@ -207,7 +211,7 @@ public class Migrator {
   /** Copy the list of golden files. */
   private static void copyGoldenFiles(ImmutableList<GoldenInOutFilePair> goldens, File outputDir)
       throws MigrationException {
-    logger.atInfo().log("Copy Golden files to %s", outputDir.getAbsolutePath());
+    logger.atInfo().log("Copy %n pairs of olden files", goldens.size());
     try {
       for (GoldenInOutFilePair golden : goldens) {
         copyFile(golden.inputFile, outputDir);
