@@ -49,7 +49,7 @@ public class Migrator {
 
   public static void main(String[] args) {
     LoggerConfig.of(logger).setLevel(Level.FINEST);
-    Preconditions.checkArgument(args.length > 0, "Syntax error: migrator TESTCASE_DIRS_ABS_PATH");
+    checkArgument(args.length > 0, "Syntax error: migrator TESTCASE_DIRS_ABS_PATH");
     try {
       for (String testCaseDir : args) {
         migrateCase(testCaseDir);
@@ -199,7 +199,7 @@ public class Migrator {
               Files.asCharSource(flexFile, Charsets.UTF_8));
 
       fixedContent.copyTo(out);
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new MigrationException("Could not copy .flex file", e);
     }
   }

@@ -1,19 +1,12 @@
 package jflex.migration;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 public class TestCase {
 
-  /** Test input file encoding -- defaults to UTF-8 */
-  private String inputFileEncoding = "UTF-8";
-
-  /** Test output file encoding -- defaults to UTF-8 */
-  private String outputFileEncoding = "UTF-8";
-
   /** Single common input file for all outputs */
-  private String commonInputFile = null;
+  private String commonInputFile;
 
   private String className;
 
@@ -49,13 +42,9 @@ public class TestCase {
 
   void setJavacFiles(List<String> v) {}
 
-  void setInputFileEncoding(String e) {
-    inputFileEncoding = e;
-  }
+  void setInputFileEncoding(String e) {}
 
-  void setOutputFileEncoding(String e) {
-    outputFileEncoding = e;
-  }
+  void setOutputFileEncoding(String e) {}
 
   void setCommonInputFile(String f) {
     commonInputFile = f;
@@ -64,18 +53,6 @@ public class TestCase {
   void setJavaVersion(String v) {}
 
   void setJavacEncoding(String v) {}
-
-  public List<String> getJflexFiles() {
-    return Collections.emptyList();
-  }
-
-  public List<Integer> getJflexDiff() {
-    return Collections.emptyList();
-  }
-
-  public String getInputFileEncoding() {
-    return inputFileEncoding;
-  }
 
   public String getCommonInputFile() {
     return commonInputFile;
