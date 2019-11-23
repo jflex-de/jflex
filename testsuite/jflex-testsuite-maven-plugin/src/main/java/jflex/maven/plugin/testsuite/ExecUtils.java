@@ -121,9 +121,9 @@ public class ExecUtils {
       throws UnsupportedEncodingException {
 
     String[] cmd = toArray(cmdline, files);
-    Class c;
+    Class<?> c;
     Method main;
-    Class[] sig = {String[].class};
+    Class<?>[] sig = {String[].class};
 
     // System.out.println("exec class "+theClass);
     // System.out.println("cmdline "+cmdline+"\nfiles: "+files);
