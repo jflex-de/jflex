@@ -90,9 +90,9 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Loads a class by name. */
-  public synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+  public synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 
-    Class c;
+    Class<?> c;
 
     // try to delegate to parent/system class loader
     try {
