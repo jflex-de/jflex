@@ -6,7 +6,7 @@ import jflex.core.sym;
 %%
 
 %unicode
-%class TestLoader
+%class TestSpecScanner
 
 %function load
 %type TestCase

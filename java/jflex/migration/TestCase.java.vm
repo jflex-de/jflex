@@ -1,0 +1,5 @@
+package $javaPackage;
+
+public class $testCaseName {
+
+}

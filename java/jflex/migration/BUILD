@@ -9,10 +9,13 @@ java_binary(
 
 java_library(
     name = "migrator",
-    srcs = ["Migrator.java"],
+    srcs = [
+        "MigrationException.java",
+        "Migrator.java",
+    ],
     deps = [
         ":test_case_parser",
-        "//third_party/com/google/flogger",
+        "//third_party/com/google/common/flogger",
         "//third_party/com/google/guava",
     ],
 )
@@ -40,7 +43,7 @@ java_library(
 
 jflex(
     name = "gen_test_loader",
-    srcs = ["TestLoader.flex"],
+    srcs = ["TestSpecScanner.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["TestLoader.java"],
+    outputs = ["TestSpecScanner.java"],
 )
