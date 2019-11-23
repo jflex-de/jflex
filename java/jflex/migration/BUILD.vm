@@ -1,7 +1,8 @@
 #set( $H = '#' )
 $H $testName
 
-$H This build file was generated automatically. Feel free to improve.
+$H This build file was generated automatically, but won't be re-generated.
+$H Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
@@ -12,13 +13,24 @@ jflex(
     outputs = ["${scannerClassName}.java"],
 )
 
+java_library(
+    name = "${testName}_scanner",
+    srcs = [
+        ":gen_${testName}_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
 java_test(
     name = "$testClassName",
     srcs = [
         "${testClassName}.java",
-        ":gen_${testName}_scanner",
     ],
     deps = [
+        ":${testName}_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
