@@ -10,6 +10,9 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
+import com.google.common.flogger.LoggerConfig;
+import com.google.common.io.CharSink;
+import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.javac.JavaPackageUtil;
 import jflex.velocity.Velocity;
@@ -29,14 +33,16 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public class Migrator {
 
-  private static final String TEST_CASE_TEMPLATE =
-      JavaPackageUtil.getPathForClass(Migrator.class) + "/TestCase.java.vm";
+  private static final String PATH = JavaPackageUtil.getPathForClass(Migrator.class);
+  private static final String TEST_CASE_TEMPLATE = PATH + "/TestCase.java.vm";
+  private static final String BUILD_TEMPLATE = PATH + "/BUILD.vm";
   private static final String GOLDEN_INPUT_EXT = ".input";
   private static final String GOLDEN_OUTPUT_EXT = ".output";
 
-  private static FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   public static void main(String[] args) {
+    LoggerConfig.of(logger).setLevel(Level.FINEST);
     Preconditions.checkArgument(args.length > 0, "Syntax error: migrator TESTCASE_DIRS_ABS_PATH");
     try {
       for (String testCaseDir : args) {
@@ -59,6 +65,7 @@ public class Migrator {
 
   private static void migrateCase(File testCaseDir) throws MigrationException {
     logger.atInfo().log("Migrating %s...", testCaseDir.getName());
+    logger.atFine().log("location: %s", testCaseDir.getAbsolutePath());
     Iterable<File> directoryContent = Files.fileTraverser().breadthFirst(testCaseDir);
     ImmutableList<File> testSpecFiles =
         Streams.stream(directoryContent)
@@ -86,30 +93,67 @@ public class Migrator {
   private static void migrateTestCase(File testCaseDir, TestCase test) throws MigrationException {
     String lowerUnderscoreTestDir =
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, testCaseDir.getName());
+    File flexFile = findFlexFile(testCaseDir, test);
     ImmutableList<GoldenInOutFilePair> goldenFiles = findGoldenFiles(testCaseDir, test);
-    TestCaseVars templateVars = createTemplateVars(lowerUnderscoreTestDir, test, goldenFiles);
+    MigrationTemplateVars templateVars =
+        createTemplateVars(lowerUnderscoreTestDir, test, flexFile, goldenFiles);
     migrateTestCase(lowerUnderscoreTestDir, templateVars);
   }
 
-  private static void migrateTestCase(String targetTestDir, TestCaseVars templateVars)
+  private static void migrateTestCase(String targetTestDir, MigrationTemplateVars templateVars)
       throws MigrationException {
     File outputDir = new File(new File("/tmp"), targetTestDir);
     if (!outputDir.isDirectory()) {
       //noinspection ResultOfMethodCallIgnored
       outputDir.mkdirs();
     }
+    renderBuildFile(templateVars, outputDir);
     renderTestCase(templateVars, outputDir);
+    copyGrammarFile(templateVars.flexGrammar, templateVars.javaPackage, outputDir);
     copyGoldenFiles(templateVars.goldens, outputDir);
   }
 
-  private static void renderTestCase(TestCaseVars templateVars, File outputDir)
+  private static void renderBuildFile(MigrationTemplateVars templateVars, File outputDir)
+      throws MigrationException {
+    File outFile = new File(outputDir, "BUILD");
+    try (OutputStream outputStream = new FileOutputStream(outFile)) {
+      logger.atInfo().log("Generating %s", outFile);
+      velocityRenderBuildFile(templateVars, outputStream);
+    } catch (IOException e) {
+      throw new MigrationException("Couldn't write BUILD file", e);
+    }
+  }
+
+  private static void renderTestCase(MigrationTemplateVars templateVars, File outputDir)
       throws MigrationException {
     File outFile = new File(outputDir, templateVars.testClassName + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile)) {
       logger.atInfo().log("Generating %s", outFile);
-      render(templateVars, outputStream);
+      velocityRenderTestCase(templateVars, outputStream);
     } catch (IOException e) {
       throw new MigrationException("Couldn't write java test case", e);
+    }
+  }
+
+  private static void copyGrammarFile(File flexFile, String javaPackage, File outputDir)
+      throws MigrationException {
+    try {
+      logger.atInfo().log("Copy grammar %s", flexFile.getName());
+      logger.atFine().log("location: %s", flexFile.getAbsolutePath());
+      // The grammars are defined in the default package. This is so bad practice that I'm not
+      // sure that bazel allows compilation. Don't simply copy the original:
+      // copyFile(fixedFlexFile, outputDir);
+      // But instead:
+      File copiedWithPatch = new File(outputDir, flexFile.getName());
+      CharSink out = Files.asCharSink(copiedWithPatch, Charsets.UTF_8);
+      CharSource fixedContent =
+          CharSource.concat(
+              CharSource.wrap(String.format("package %s;\n", javaPackage)),
+              Files.asCharSource(flexFile, Charsets.UTF_8));
+
+      fixedContent.copyTo(out);
+    } catch (Exception e) {
+      throw new MigrationException("Could not copy .flex file", e);
     }
   }
 
@@ -118,20 +162,21 @@ public class Migrator {
     logger.atInfo().log("Copy Golden files to %s", outputDir.getAbsolutePath());
     try {
       for (GoldenInOutFilePair golden : goldens) {
-        copyGoldenFile(golden.inputFile, outputDir);
-        copyGoldenFile(golden.outputFile, outputDir);
+        copyFile(golden.inputFile, outputDir);
+        copyFile(golden.outputFile, outputDir);
       }
     } catch (IOException e) {
       throw new MigrationException("Could not copy golden files", e);
     }
   }
 
-  private static TestCaseVars createTemplateVars(
+  private static MigrationTemplateVars createTemplateVars(
       String lowerUnderscoreTestDir,
       TestCase test,
+      File flexGrammar,
       ImmutableList<GoldenInOutFilePair> goldenFiles) {
-    TestCaseVars vars = new TestCaseVars();
-    vars.flexGrammar = new File(test.getTestName() + ".flex");
+    MigrationTemplateVars vars = new MigrationTemplateVars();
+    vars.flexGrammar = flexGrammar;
     vars.javaPackage = "jflex.testcase." + lowerUnderscoreTestDir;
     vars.javaPackageDir = "jflex/testcase/" + lowerUnderscoreTestDir;
     vars.testClassName =
@@ -155,6 +200,10 @@ public class Migrator {
         .collect(toImmutableList());
   }
 
+  private static File findFlexFile(File testCaseDir, TestCase test) {
+    return new File(testCaseDir, test.getTestName() + ".flex");
+  }
+
   private static boolean isGoldenInputFile(TestCase test, File f) {
     return f.getName().startsWith(test.getTestName() + "-") && f.getName().endsWith(".input");
   }
@@ -166,7 +215,18 @@ public class Migrator {
         f.getName().substring(0, f.getName().length() - ".input".length()) + GOLDEN_OUTPUT_EXT);
   }
 
-  private static void render(TestCaseVars templateVars, OutputStream output)
+  private static void velocityRenderBuildFile(
+      MigrationTemplateVars templateVars, OutputStream output)
+      throws IOException, MigrationException {
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+      Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, writer);
+    } catch (ParseException e) {
+      throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
+    }
+  }
+
+  private static void velocityRenderTestCase(
+      MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
       Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, writer);
@@ -175,12 +235,16 @@ public class Migrator {
     }
   }
 
-  private static void copyGoldenFile(File file, File targetTestDir) throws IOException {
-    checkArgument(file.isFile());
-    checkArgument(targetTestDir.isDirectory());
+  private static void copyFile(File file, File targetTestDir) throws IOException {
+    checkArgument(file.isFile(), "Input %s should be a file: %s", file, file.getAbsoluteFile());
+    checkArgument(
+        targetTestDir.isDirectory(),
+        "Target %s should be a directory: %s",
+        targetTestDir,
+        targetTestDir.getAbsoluteFile());
     logger.atFine().log("Copying %s...", file.getName());
-    File cpInputFile = new File(targetTestDir, file.getName());
-    Files.copy(file, cpInputFile);
+    File copiedFile = new File(targetTestDir, file.getName());
+    Files.copy(file, copiedFile);
   }
 
   private static InputStreamReader readResource(String resourceName) {

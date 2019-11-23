@@ -1,5 +1,6 @@
-// test: caseless
-package jflex.testcase.caseless_jflex;
+// test: $testName
+
+package $javaPackage;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
@@ -27,7 +28,7 @@ public class $testClassName {
   public void goldenTest() throws Exception {
 
     // The .input / .output Golden files
-    File testRuntimeDir = new File("$javaPackageDir");
+    File testRuntimeDir = new File("javatests/$javaPackageDir");
     List<GoldenInOutFilePair> goldenFiles =
         ImmutableList.of(
 #foreach ( $golden in $goldens )

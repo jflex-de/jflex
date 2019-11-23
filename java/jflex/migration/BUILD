@@ -16,7 +16,7 @@ java_library(
     deps = [
         ":model",
         ":test_case_parser",
-        ":test_case_velocity",
+        ":velocity_templates",
         "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/javac:package_util",
         "//java/jflex/velocity",
@@ -27,9 +27,12 @@ java_library(
 )
 
 java_library(
-    name = "test_case_velocity",
-    srcs = ["TestCaseVars.java"],
-    resources = ["TestCase.java.vm"],
+    name = "velocity_templates",
+    srcs = ["MigrationTemplateVars.java"],
+    resources = [
+        "BUILD.vm",
+        "TestCase.java.vm",
+    ],
     deps = [
         ":model",
         "//java/jflex/testing/testsuite/golden",

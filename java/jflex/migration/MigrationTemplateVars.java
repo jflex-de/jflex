@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import java.io.File;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 
-public class TestCaseVars extends jflex.velocity.TemplateVars {
+public class MigrationTemplateVars extends jflex.velocity.TemplateVars {
 
   /** The name of the test. */
   public String testName;
