@@ -1,0 +1,19 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_ccl_scanner",
+    srcs = ["ccl.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["CclScanner.java"],
+)
+
+java_test(
+    name = "Ccl16Test",
+    srcs = [
+        "Ccl16Test.java",
+        ":gen_ccl_scanner",
+    ],
+    deps = [
+        "//third_party/com/google/truth",
+    ],
+)
