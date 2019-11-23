@@ -101,8 +101,6 @@ public class TestCase {
     return expectJFlexFail;
   }
 
-  public TestCase() {}
-
   public String toString() {
     return testName;
   }

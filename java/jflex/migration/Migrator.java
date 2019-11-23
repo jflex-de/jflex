@@ -261,7 +261,7 @@ public class Migrator {
 
   /** Returns the output file for the given input file. */
   private static File getGoldenOutputFile(File goldenInputFIle) {
-    Preconditions.checkArgument(goldenInputFIle.getName().endsWith(GOLDEN_INPUT_EXT));
+    checkArgument(goldenInputFIle.getName().endsWith(GOLDEN_INPUT_EXT));
     return new File(
         goldenInputFIle.getParentFile(),
         goldenInputFIle
