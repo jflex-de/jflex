@@ -31,7 +31,7 @@ public class $testClassName extends AbstractGoldenTest {
   public void goldenTest$velocityCount() throws Exception {
     GoldenInOutFilePair golden = new GoldenInOutFilePair(
         new File(testRuntimeDir, "$golden.InputFileName"),
-        new File(testRuntimeDir, "$golden.OutputFileName"))
+        new File(testRuntimeDir, "$golden.OutputFileName"));
     compareSystemOutWith(golden);
 
     // Scanner for $flexGrammar
