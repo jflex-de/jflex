@@ -31,29 +31,23 @@ import org.junit.Test;
 @Generated("jflex.migration.Migrator")
 public class $testClassName extends AbstractGoldenTest {
 
-  @Test
-  public void goldenTest() throws Exception {
+  private File testRuntimeDir = new File("javatests/$javaPackageDir");
 
-    // The .input / .output Golden files
-    File testRuntimeDir = new File("javatests/$javaPackageDir");
-    List<GoldenInOutFilePair> goldenFiles =
-        ImmutableList.of(
 #foreach ( $golden in $goldens )
-            new GoldenInOutFilePair(
-                new File(testRuntimeDir, "$golden.InputFileName"),
-                new File(testRuntimeDir, "$golden.OutputFileName"))
-#if( $foreach.hasNext ),#end
-        );
-#end
+  @Test
+  public void goldenTest$velocityCount() throws Exception {
+    GoldenInOutFilePair golden = new GoldenInOutFilePair(
+        new File(testRuntimeDir, "$golden.InputFileName"),
+        new File(testRuntimeDir, "$golden.OutputFileName"))
+    compareSystemOutWith(golden);
 
-    for (GoldenInOutFilePair golden : goldenFiles) {
-      compareSystemOutWith(golden);
+    // Scanner for $flexGrammar
+    $scannerClassName scanner = createScanner(golden.inputFile);
 
-      // Scanner for $flexGrammar
-      $scannerClassName scanner = createScanner(golden.inputFile);
-      scanner.yylex();
-    }
+    // Run the scanner
+    scanner.yylex();
   }
+#end
 
   private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
     return new $scannerClassName(
