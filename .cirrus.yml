@@ -1,0 +1,40 @@
+# Copyright 2018 Google LLC.
+# SPDX-License-Identifier: Apache-2.0
+
+
+build_task:
+  name: Bazel build and test
+  container:
+    image: l.gcr.io/google/bazel:1.1.0
+  bazel_version_script:
+  - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
+  build_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
+  build_all_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+  test_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex/...
+  regression_tests_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
+  test_all_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+codestyle_task:
+  name: Check code style
+  container:
+    image: openjdk:8-jdk
+  check_java_format_script: scripts/test-java-format.sh
+  check_bzl_format_script:  scripts/test-bzl-format.sh
+  buildtools_cache:
+    folder: buildtools
+
+steps:
+- restore_cache:
+  keys:
+  - source-v1-{{ .Branch }}-{{ .Revision }}
+  - source-v1-{{ .Branch }}-
+  - source-v1-
+- checkout
+- git_cache:
+  key: source-v1-{{ .Branch }}-{{ .Revision }}
+  paths:
+  - ".git"

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import jflex.performance.Timer;
 
 /**
  * The lexer of JFlex.

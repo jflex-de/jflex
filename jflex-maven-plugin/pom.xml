@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.7.1-SNAPSHOT</version>
+    <version>1.8.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-maven-plugin</artifactId>
@@ -121,16 +121,6 @@
       <groupId>com.google.truth</groupId>
       <artifactId>truth</artifactId>
       <version>0.42</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -1,0 +1,15 @@
+name: SpoonFeedReaderF
+
+description:
+Test demonstrating issue #538. 
+The scanner, which doesn't recognize surrogate chars in its non-fallback rule,
+is fed input text "12345678𐌀" using a spoon-feeding reader that splits the input
+between the high and low surrogate chars for "𐌀".  Using the problematic.skeleton.default
+(the default skeleton at the time of writing), the scanner will output all input chars
+except the "𐌀" because its non-fallback rule doesn't recognize unpaired surrogates.
+This test's success just verifies the problem, since the output file excludes the trailing "𐌀".
+See SpoonFeedReader.test in this directory for the positive version of this test. 
+
+javac-files: SpoonFeedMaxCharsReaderWrapper.java SpoonFeedReaderF.java
+
+jflex: -q --skel src/test/cases/spoon-feed-reader/problematic.skeleton.default

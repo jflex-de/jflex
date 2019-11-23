@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.7.1-SNAPSHOT                                                    *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,15 +17,15 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.GeneratorException;
-import jflex.Options;
-import jflex.Skeleton;
+import jflex.core.Options;
+import jflex.core.Skeleton;
+import jflex.exceptions.GeneratorException;
 
 /**
  * A dialog for setting JFlex options
  *
  * @author Gerwin Klein
- * @version JFlex 1.7.1-SNAPSHOT
+ * @version JFlex 1.8.0-SNAPSHOT
  */
 public class OptionsDialog extends Dialog {
 

@@ -1,0 +1,100 @@
+package(default_visibility = ["//javatests/jflex/ucd_generator:__subpackages__"])
+
+java_library(
+    name = "ucd_generator",
+    srcs = [
+        "UcdGenerator.java",
+        "UcdGeneratorParams.java",
+    ],
+    deps = [
+        "//java/jflex/ucd_generator/emitter/unicode_properties",
+        "//java/jflex/ucd_generator/emitter/unicode_version",
+        "//java/jflex/ucd_generator/scanner:unicode_data",
+        "//java/jflex/ucd_generator/scanner:unicode_data_scanner",
+        "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/util/javac",
+        "//java/jflex/velocity",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_binary(
+    name = "Main",
+    srcs = ["Main.java"],
+    deps = [
+        ":ucd_generator",
+        "//java/jflex/ucd_generator/ucd",
+    ],
+)
+
+#TODO(regisd) Move in //jflex/core/unicode when migration to bazel is completed
+genrule(
+    name = "gen_unicode_properties",
+    srcs = [
+        "//third_party/unicode:ucd_1_1_5",
+        "//third_party/unicode:ucd_2_0_14",
+        "//third_party/unicode:ucd_2_1_9",
+        "//third_party/unicode:ucd_3_0_1",
+        "//third_party/unicode:ucd_3_1_1",
+        "//third_party/unicode:ucd_3_2_0",
+        "//third_party/unicode:ucd_4_0_1",
+        "//third_party/unicode:ucd_4_1_0",
+        "//third_party/unicode:ucd_5_0_0",
+        "//third_party/unicode:ucd_5_1_0",
+        "//third_party/unicode:ucd_5_2_0",
+        "//third_party/unicode:ucd_6_0_0",
+        "//third_party/unicode:ucd_6_1_0",
+        "//third_party/unicode:ucd_6_2_0",
+        "//third_party/unicode:ucd_6_3_0",
+        "//third_party/unicode:ucd_7",
+        "//third_party/unicode:ucd_8",
+        "//third_party/unicode:ucd_9",
+        "//third_party/unicode:ucd_10",
+    ],
+    outs = [
+        "UnicodeProperties.java",
+        "Unicode_1_1.java",
+        "Unicode_2_0.java",
+        "Unicode_2_1.java",
+        "Unicode_3_0.java",
+        "Unicode_3_1.java",
+        "Unicode_3_2.java",
+        "Unicode_4_0.java",
+        "Unicode_4_1.java",
+        "Unicode_5_0.java",
+        "Unicode_5_1.java",
+        "Unicode_5_2.java",
+        "Unicode_6_0.java",
+        "Unicode_6_1.java",
+        "Unicode_6_2.java",
+        "Unicode_6_3.java",
+        "Unicode_7_0.java",
+        "Unicode_8_0.java",
+        "Unicode_9_0.java",
+        "Unicode_10_0.java",
+    ],
+    cmd = "$(location :Main)" +
+          " --version=1.1.5 $(locations //third_party/unicode:ucd_1_1_5)" +
+          " --version=2.0.14 $(locations //third_party/unicode:ucd_2_0_14)" +
+          " --version=2.1.9 $(locations //third_party/unicode:ucd_2_1_9)" +
+          " --version=3.0.1 $(locations //third_party/unicode:ucd_3_0_1)" +
+          " --version=3.1.1 $(locations //third_party/unicode:ucd_3_1_1)" +
+          " --version=3.2.0 $(locations //third_party/unicode:ucd_3_2_0)" +
+          " --version=4.0.1 $(locations //third_party/unicode:ucd_4_0_1)" +
+          " --version=4.1.0 $(locations //third_party/unicode:ucd_4_1_0)" +
+          " --version=5.0.0 $(locations //third_party/unicode:ucd_5_0_0)" +
+          " --version=5.1.0 $(locations //third_party/unicode:ucd_5_1_0)" +
+          " --version=5.2.0 $(locations //third_party/unicode:ucd_5_2_0)" +
+          " --version=6.0.0 $(locations //third_party/unicode:ucd_6_0_0)" +
+          " --version=6.1.0 $(locations //third_party/unicode:ucd_6_1_0)" +
+          " --version=6.2.0 $(locations //third_party/unicode:ucd_6_2_0)" +
+          " --version=6.3.0 $(locations //third_party/unicode:ucd_6_3_0)" +
+          " --version=7.0.0 $(locations //third_party/unicode:ucd_7)" +
+          " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
+          " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
+          " --version=10.0.0 $(locations //third_party/unicode:ucd_10)" +
+          " --out=$(@D)",
+    tools = [":Main"],
+)

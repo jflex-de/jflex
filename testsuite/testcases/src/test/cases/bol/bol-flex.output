@@ -1,7 +1,7 @@
 Reading "src/test/cases/bol/bol.flex"
 CharClasses:
 class 0:
-{ [0-9][14-31]['!'-'d']['f'-'g']['i'-'k']['m'-'n']['p'-132][134-8231][8234-1114111] }
+{ [0-9][14-31]['!'-'d']['f'-'g']['i'-'k']['m'-'n']['p'-132][134-8231][8234-55295][57344-1114111] }
 class 1:
 { [10] }
 class 2:
@@ -26,6 +26,8 @@ class 11:
 { ['o'] }
 class 12:
 { [' '] }
+class 13:
+{ [55296-57343] }
 
 Constructing NFA : NFA is
 State 0
