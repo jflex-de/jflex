@@ -13,12 +13,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import jflex.util.javac.JavaPackageUtil;
 import jflex.velocity.Velocity;
+import org.apache.velocity.runtime.parser.ParseException;
 
 public class Migrator {
+
+  private static final String TEST_CASE_TEMPLATE =
+      JavaPackageUtil.getPathForClass(Migrator.class) + "/TestCase.java.vm";
 
   private static FluentLogger logger = FluentLogger.forEnclosingClass();
 
@@ -66,7 +72,7 @@ public class Migrator {
     }
   }
 
-  private static void migrateTestCase(File testCaseDir, TestCase test) {
+  private static void migrateTestCase(File testCaseDir, TestCase test) throws MigrationException {
     TestCaseVars templateVars = createTemplateVars(testCaseDir, test);
     try {
       render(templateVars, System.out);
@@ -82,14 +88,18 @@ public class Migrator {
     return vars;
   }
 
-  private static void render(TestCaseVars templateVars, OutputStream output) throws IOException {
+  private static void render(TestCaseVars templateVars, OutputStream output)
+      throws IOException, MigrationException {
     try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
-      Velocity.render(
-          readResource(UNICODE_PROPERTIES_TEMPLATE),
-          "UnicodeProperties",
-          unicodePropertiesVars,
-          writer);
+      Velocity.render(readResource(TEST_CASE_TEMPLATE), "UnicodeProperties", templateVars, writer);
+    } catch (ParseException e) {
+      throw new MigrationException("Failed to parse Velocity template " + TEST_CASE_TEMPLATE, e);
     }
+  }
+
+  private static InputStreamReader readResource(String resourceName) {
+    return new InputStreamReader(
+        ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName));
   }
 
   private Migrator() {}

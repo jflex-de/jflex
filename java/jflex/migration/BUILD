@@ -14,9 +14,24 @@ java_library(
         "Migrator.java",
     ],
     deps = [
+        ":model",
         ":test_case_parser",
+        ":test_case_velocity",
+        "//java/jflex/util/javac:package_util",
+        "//java/jflex/velocity",
         "//third_party/com/google/common/flogger",
         "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "test_case_velocity",
+    srcs = ["TestCaseVars.java"],
+    resources = ["TestCase.java.vm"],
+    deps = [
+        "//java/jflex/velocity",
+        "//third_party/org/apache/velocity",
     ],
 )
 

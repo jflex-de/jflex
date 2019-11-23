@@ -11,9 +11,9 @@ java_library(
         "//javatests/jflex/ucd_generator:__subpackages__",
     ],
     deps = [
-        "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator/emitter/common",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/util/javac:package_util",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
