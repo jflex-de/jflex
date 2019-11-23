@@ -1,24 +1,10 @@
 package jflex.migration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 public class TestCase {
-
-  /** command line switches for jflex invocation */
-  private List<String> jflexCmdln;
-
-  /** files on which to invoke jflex */
-  private List<String> jflexFiles;
-
-  /** command line switches for javac invocation, instead of the default {@code <testname>.java}. */
-  private List<String> javacFiles;
-
-  /** lines with expected differences in jflex output */
-  private List<Integer> jflexDiff;
 
   /** Test input file encoding -- defaults to UTF-8 */
   private String inputFileEncoding = "UTF-8";
@@ -29,22 +15,14 @@ public class TestCase {
   /** Single common input file for all outputs */
   private String commonInputFile = null;
 
-  /** Java version this test case is intended for */
-  private String javaVersion = System.getProperty("java.version");
-
-  /** misc. */
   private String className;
 
+  /** The test name, usually lower case. */
   private String testName;
+
   private String description;
 
-  /** base directory of this test case */
-  private File testPath;
-
   private boolean expectJavacFail, expectJFlexFail;
-
-  /** encoding to use for compiling the .java file; defaults to UTF-8 */
-  private String javacEncoding = "UTF-8";
 
   /** get- set- methods */
   void setTestName(String s) {
@@ -53,9 +31,7 @@ public class TestCase {
     className = testName.substring(0, 1).toUpperCase(Locale.ENGLISH) + testName.substring(1);
   }
 
-  void setJFlexDiff(List<Integer> d) {
-    jflexDiff = d;
-  }
+  void setJFlexDiff(List<Integer> d) {}
 
   void setDescription(String s) {
     description = s;
@@ -69,13 +45,9 @@ public class TestCase {
     expectJFlexFail = b;
   }
 
-  void setJflexCmdln(List<String> v) {
-    jflexCmdln = v;
-  }
+  void setJflexCmdln(List<String> v) {}
 
-  void setJavacFiles(List<String> v) {
-    javacFiles = v;
-  }
+  void setJavacFiles(List<String> v) {}
 
   void setInputFileEncoding(String e) {
     inputFileEncoding = e;
@@ -89,20 +61,16 @@ public class TestCase {
     commonInputFile = f;
   }
 
-  void setJavaVersion(String v) {
-    this.javaVersion = v;
-  }
+  void setJavaVersion(String v) {}
 
-  void setJavacEncoding(String v) {
-    this.javacEncoding = v;
-  }
+  void setJavacEncoding(String v) {}
 
   public List<String> getJflexFiles() {
-    return jflexFiles;
+    return Collections.emptyList();
   }
 
   public List<Integer> getJflexDiff() {
-    return jflexDiff;
+    return Collections.emptyList();
   }
 
   public String getInputFileEncoding() {
@@ -125,10 +93,6 @@ public class TestCase {
     return description;
   }
 
-  public File getTestPath() {
-    return testPath;
-  }
-
   public boolean isExpectJavacFail() {
     return expectJavacFail;
   }
@@ -137,31 +101,9 @@ public class TestCase {
     return expectJFlexFail;
   }
 
-  public TestCase() {
-    jflexFiles = new ArrayList<>();
-  }
-
-  boolean checkJavaVersion() {
-    String current = System.getProperty("java.version");
-    return current.startsWith(javaVersion);
-  }
+  public TestCase() {}
 
   public String toString() {
-    return "Test name: "
-        + testName
-        + "\nDescription: "
-        + description
-        + "JFlexFail: "
-        + expectJFlexFail
-        + " JavacFail: "
-        + expectJavacFail
-        + "\n"
-        + "JFlex Command line: "
-        + jflexCmdln
-        + (null != javacFiles ? " Javac Files: " + Arrays.toString(javacFiles.toArray()) : "")
-        + "\n"
-        + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
-        + "Java version "
-        + javaVersion;
+    return testName;
   }
 }
