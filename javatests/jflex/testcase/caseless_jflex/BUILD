@@ -18,7 +18,7 @@ java_library(
         ":gen_caseless_scanner",
     ],
     deps = [
-        "//java/jflex/testing/testsuite/golden:model",
+        "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -36,7 +36,6 @@ java_test(
         ":caseless_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
-        "//java/jflex/testing/testsuite/golden:model",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

@@ -12,7 +12,9 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * $testDescription
+ * Tests scanner generated from {@code $flexGrammar.Name}.
+ *
+ * <p>$testDescription
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -29,21 +31,18 @@ public class $testClassName extends AbstractGoldenTest {
 #foreach ( $golden in $goldens )
   @Test
   public void goldenTest$velocityCount() throws Exception {
-    GoldenInOutFilePair golden = new GoldenInOutFilePair(
-        new File(testRuntimeDir, "$golden.InputFileName"),
-        new File(testRuntimeDir, "$golden.OutputFileName"));
+    GoldenInOutFilePair golden =
+        new GoldenInOutFilePair(
+            new File(testRuntimeDir, "$golden.InputFileName"),
+            new File(testRuntimeDir, "$golden.OutputFileName"));
     compareSystemOutWith(golden);
 
-    // Scanner for $flexGrammar
     $scannerClassName scanner = createScanner(golden.inputFile);
-
-    // Run the scanner
     scanner.yylex();
   }
 #end
 
   private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
-    return new $scannerClassName(
-        Files.newReader(inputFile, Charset.forName("UTF-8")));
+    return new $scannerClassName(Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 }
