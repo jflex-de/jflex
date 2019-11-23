@@ -30,7 +30,9 @@ java_library(
     srcs = ["TestCaseVars.java"],
     resources = ["TestCase.java.vm"],
     deps = [
+        ":model",
         "//java/jflex/velocity",
+        "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],
 )
@@ -49,7 +51,7 @@ java_library(
 java_library(
     name = "model",
     srcs = [
-        "InputOutput.java",
+        "GoldenInOutFilePair.java",
         "TestCase.java",
     ],
     deps = [

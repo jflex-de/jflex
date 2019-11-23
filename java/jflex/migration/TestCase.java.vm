@@ -1,5 +1,37 @@
+// test: $testName
 package $javaPackage;
 
-public class $testCaseName {
+import com.google.common.collect.ImmutableList;
+import java.util.List;
 
+/**
+ * $testDescription
+ *
+ * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
+ * relies on golden files for testing, expecting the scanner to output logs on the
+ * {@code System.out}. Please migrate to proper unit tests, as describe in
+ * <a href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
+ * //javatest/jflex/testcase
+ * </a>.
+ */
+@Generated("jflex.migration.Migrator")
+public class testClassName {
+
+  @Test
+  public void goldenTest() {
+
+    // The .input / .output Golden files
+    File testRuntimeDir = new File("$javaPackageDir");
+    List<GoldenInOutFilePair> goldenFiles = ImmutableList.of(
+#foreach ( $golden in $goldens )
+      new GoldenInOutFilePair("$golden.Name",
+          new File(testRuntimeDir, "$golden.InputFileName"),
+          new File(testRuntimeDir, "$golden.OutputFileName")
+#if( $foreach.hasNext ),#end
+#end
+    );
+
+    // Scanner for $flexGrammar
+
+  }
 }

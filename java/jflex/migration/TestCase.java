@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class TestCase {
 
@@ -44,9 +43,6 @@ public class TestCase {
 
   private boolean expectJavacFail, expectJFlexFail;
 
-  /** inputOutputFiles to invoke test.main on and compare */
-  private List<InputOutput> inputOutput;
-
   /** encoding to use for compiling the .java file; defaults to UTF-8 */
   private String javacEncoding = "UTF-8";
 
@@ -81,10 +77,6 @@ public class TestCase {
     javacFiles = v;
   }
 
-  private void setInputOutput(List<InputOutput> v) {
-    inputOutput = v;
-  }
-
   void setInputFileEncoding(String e) {
     inputFileEncoding = e;
   }
@@ -105,6 +97,46 @@ public class TestCase {
     this.javacEncoding = v;
   }
 
+  public List<String> getJflexFiles() {
+    return jflexFiles;
+  }
+
+  public List<Integer> getJflexDiff() {
+    return jflexDiff;
+  }
+
+  public String getInputFileEncoding() {
+    return inputFileEncoding;
+  }
+
+  public String getCommonInputFile() {
+    return commonInputFile;
+  }
+
+  public String getClassName() {
+    return className;
+  }
+
+  public String getTestName() {
+    return testName;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public File getTestPath() {
+    return testPath;
+  }
+
+  public boolean isExpectJavacFail() {
+    return expectJavacFail;
+  }
+
+  public boolean isExpectJFlexFail() {
+    return expectJFlexFail;
+  }
+
   public TestCase() {
     jflexFiles = new ArrayList<>();
   }
@@ -112,35 +144,6 @@ public class TestCase {
   boolean checkJavaVersion() {
     String current = System.getProperty("java.version");
     return current.startsWith(javaVersion);
-  }
-
-  void init(File testDir) {
-    // get files to process
-    List<InputOutput> temp = new ArrayList<>();
-    String name;
-    for (String file : testDir.list()) {
-      if (null != commonInputFile) {
-        if (Objects.equals(file, testName + ".output")) {
-          temp.add(new InputOutput((new File(testDir, testName)).toString(), true));
-          commonInputFile = (new File(testDir, commonInputFile)).toString();
-        }
-      } else {
-        if (file.endsWith(".input") && file.startsWith(testName + "-")) {
-          name = file.substring(0, file.length() - 6);
-          temp.add(
-              new InputOutput(
-                  (new File(testDir, name)).toString(),
-                  new File(testDir, name + ".output").exists()));
-        }
-      }
-    }
-    // When a common input file is specified, but no output file exists, add
-    // a single InputOutput for the common input file.
-    if (null != commonInputFile && 0 == temp.size()) {
-      temp.add(new InputOutput(null, false));
-    }
-    setInputOutput(temp);
-    testPath = testDir;
   }
 
   public String toString() {
@@ -157,8 +160,6 @@ public class TestCase {
         + jflexCmdln
         + (null != javacFiles ? " Javac Files: " + Arrays.toString(javacFiles.toArray()) : "")
         + "\n"
-        + "Files to run Tester on "
-        + inputOutput
         + (null != commonInputFile ? " Common input file: " + commonInputFile : "")
         + "Java version "
         + javaVersion;
