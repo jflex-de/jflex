@@ -7,6 +7,8 @@ ARTIFACTS = [
     "org.apache.velocity:velocity:jar:1.7",
     "com.google.auto.value:auto-value:jar:1.7",
     "com.google.auto.value:auto-value-annotations:jar:1.7",
+    "com.google.flogger:flogger:jar:0.4",
+    "com.google.flogger:flogger-system-backend:0.4",
     "com.google.guava:guava:jar:26.0-jre",
     "com.google.truth:truth:0.36",
     "junit:junit:jar:4.12",

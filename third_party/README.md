@@ -14,5 +14,8 @@ Contributors who want to add a new dependency need to
 3. Add a BUILD file in that directory
    - The build must have a `license()` declaration.
    - The build target must declare all its dependencies.
-
+4. Run
+   ```sh
+   bazel run @unpinned_maven//:pin
+   ```
 [bazel]: https://bazel.build/

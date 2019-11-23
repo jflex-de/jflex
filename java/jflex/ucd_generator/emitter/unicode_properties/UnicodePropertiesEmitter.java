@@ -31,9 +31,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.ucd.UcdVersions;
+import jflex.util.javac.JavaPackageUtil;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -41,7 +41,8 @@ import org.apache.velocity.runtime.parser.ParseException;
 public class UnicodePropertiesEmitter extends UcdEmitter {
 
   private static final String UNICODE_PROPERTIES_TEMPLATE =
-      PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
+      JavaPackageUtil.getPathForClass(UnicodePropertiesEmitter.class)
+          + "/UnicodeProperties.java.vm";
 
   private final UcdVersions versions;
 

@@ -7,12 +7,12 @@ java_library(
         "UcdGeneratorParams.java",
     ],
     deps = [
-        "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
         "//java/jflex/ucd_generator/scanner:unicode_data",
         "//java/jflex/ucd_generator/scanner:unicode_data_scanner",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/util/javac",
         "//java/jflex/velocity",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
