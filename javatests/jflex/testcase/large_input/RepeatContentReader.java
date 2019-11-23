@@ -5,6 +5,9 @@ import static java.lang.Math.min;
 import java.io.Reader;
 
 public class RepeatContentReader extends Reader {
+
+  private static final int MIN_INTERNAL_BUFFER_SIZE = 64 * 1024;
+
   /** The size of the content that this reader will provide. */
   private final long size;
   /** The content that this reader will return in loop. */
@@ -14,7 +17,7 @@ public class RepeatContentReader extends Reader {
 
   public RepeatContentReader(long size, String content) {
     this.size = size;
-    this.content = content.toCharArray();
+    this.content = createInternalContent(content);
   }
 
   @Override
@@ -38,4 +41,18 @@ public class RepeatContentReader extends Reader {
 
   @Override
   public void close() {}
+
+  private static char[] createInternalContent(String content) {
+    char[] givenContent = content.toCharArray();
+    if (givenContent.length > MIN_INTERNAL_BUFFER_SIZE) {
+      return givenContent;
+    }
+    // round down the size
+    int size = MIN_INTERNAL_BUFFER_SIZE / givenContent.length * givenContent.length;
+    char[] myContent = new char[size];
+    for (int destPos = 0; destPos < size; destPos += givenContent.length) {
+      System.arraycopy(givenContent, 0, myContent, destPos, givenContent.length);
+    }
+    return myContent;
+  }
 }
