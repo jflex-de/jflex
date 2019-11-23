@@ -116,7 +116,7 @@ The top level directory of the JFLex git repository contains:
  * **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
  * **docs** the Markdown sources for the user manual
  * **java** Java sources [WIP, Bazel]
- * **ajvatests** Java sources of test [WIP, Bazel]
+ * **javatests** Java sources of test [WIP, Bazel]
  * **jflex** JFlex, the scanner/lexer generator for Java
  * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
  * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
