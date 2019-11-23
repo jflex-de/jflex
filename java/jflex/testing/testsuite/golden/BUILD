@@ -3,6 +3,7 @@ java_library(
     testonly = True,
     srcs = ["AbstractGoldenTest.java"],
     visibility = ["//visibility:public"],
+    exports = [":model"],
     deps = [
         ":model",
         "//java/jflex/testing/diff",
