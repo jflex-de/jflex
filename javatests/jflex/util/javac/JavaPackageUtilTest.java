@@ -23,21 +23,17 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.testing.javac;
+package jflex.util.javac;
 
-@SuppressWarnings("WeakerAccess")
-public final class PackageUtil {
-  public static String getPathForClass(Class clazz) {
-    return getPathForPackage(clazz.getPackage());
+import static com.google.common.truth.Truth.assertThat;
+
+import org.junit.Test;
+
+public class JavaPackageUtilTest {
+
+  @Test
+  public void getPathForPackage() throws Exception {
+    assertThat(JavaPackageUtil.getPathForPackage(getClass().getPackage()))
+        .isEqualTo("jflex/util/javac");
   }
-
-  public static String getPathForPackage(Package targetPackage) {
-    return getPathForPackage(targetPackage.getName());
-  }
-
-  public static String getPathForPackage(String packageName) {
-    return packageName.replace('.', '/');
-  }
-
-  private PackageUtil() {}
 }
