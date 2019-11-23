@@ -29,9 +29,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.Assert.fail;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.Files;
 import java.io.File;
+import java.io.FileNotFoundException;
+import jflex.core.Out;
 import jflex.generator.LexGenerator;
+import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
 import jflex.util.javac.CompilerException;
@@ -60,6 +66,17 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
+    if (!Strings.isNullOrEmpty(spec.sysout())) {
+      File sysoutFile = new File(spec.sysout());
+      try {
+        DiffOutputStream diffSysOut =
+            new DiffOutputStream(Files.newReader(sysoutFile, Charsets.UTF_8));
+        Out.setOutputStream(diffSysOut);
+      } catch (FileNotFoundException e) {
+        throw new AssertionError(
+            "The golden sysout was not found: " + sysoutFile.getAbsolutePath(), e);
+      }
+    }
     if (spec.generatorThrows() != NoExceptionThrown.class) {
       try {
         generateLexer(notifier);
