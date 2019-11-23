@@ -9,6 +9,7 @@ java_test(
     deps = [
         ":large_input_scanner",
         ":repeat_content_reader",
+        "//java/jflex/testing/assertion",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
