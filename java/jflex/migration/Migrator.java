@@ -246,7 +246,8 @@ public class Migrator {
     Iterable<File> dirContent = Files.fileTraverser().breadthFirst(testCaseDir);
     return Streams.stream(dirContent)
         .filter(f -> isGoldenInputFile(test, f))
-        .map(f -> new GoldenInOutFilePair(test.getTestName(), f, getGoldenOutputFile(f)))
+        .map(f -> new GoldenInOutFilePair(f, getGoldenOutputFile(f)))
+        .filter(g -> g.outputFile.isFile())
         .collect(toImmutableList());
   }
 

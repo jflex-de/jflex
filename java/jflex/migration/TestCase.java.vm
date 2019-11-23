@@ -39,7 +39,6 @@ public class $testClassName {
         ImmutableList.of(
 #foreach ( $golden in $goldens )
             new GoldenInOutFilePair(
-                "$golden.Name",
                 new File(testRuntimeDir, "$golden.InputFileName"),
                 new File(testRuntimeDir, "$golden.OutputFileName"))
 #if( $foreach.hasNext ),#end

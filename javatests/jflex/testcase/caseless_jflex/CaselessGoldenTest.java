@@ -38,7 +38,6 @@ public class CaselessGoldenTest {
     List<GoldenInOutFilePair> goldenFiles =
         ImmutableList.of(
             new GoldenInOutFilePair(
-                "caseless",
                 new File(testRuntimeDir, "caseless-0.input"),
                 new File(testRuntimeDir, "caseless-0.output")));
 
