@@ -1,14 +1,14 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_binary(
-    name = "migration",
+    name = "migrator",
     srcs = [],
     main_class = "jflex.migration.Migrator",
-    runtime_deps = [":migrator"],
+    runtime_deps = [":migration"],
 )
 
 java_library(
-    name = "migrator",
+    name = "migration",
     srcs = [
         "MigrationException.java",
         "Migrator.java",
@@ -43,17 +43,6 @@ java_library(
 )
 
 java_library(
-    name = "test_case_parser",
-    srcs = [
-        ":gen_test_loader",
-    ],
-    deps = [
-        ":model",
-        "//jflex/src/main/java/jflex/core",
-    ],
-)
-
-java_library(
     name = "model",
     srcs = [
         "TestCase.java",
@@ -63,8 +52,19 @@ java_library(
     ],
 )
 
+java_library(
+    name = "test_case_parser",
+    srcs = [
+        ":gen_test_spec_scanner",
+    ],
+    deps = [
+        ":model",
+        "//jflex/src/main/java/jflex/core",
+    ],
+)
+
 jflex(
-    name = "gen_test_loader",
+    name = "gen_test_spec_scanner",
     srcs = ["TestSpecScanner.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["TestSpecScanner.java"],
