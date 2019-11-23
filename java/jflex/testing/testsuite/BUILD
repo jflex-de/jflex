@@ -8,6 +8,7 @@ java_library(
         "//java/jflex/testing/testsuite/annotations",
     ],
     deps = [
+        "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/annotations",
         "//java/jflex/util/javac",
         "//jflex",
