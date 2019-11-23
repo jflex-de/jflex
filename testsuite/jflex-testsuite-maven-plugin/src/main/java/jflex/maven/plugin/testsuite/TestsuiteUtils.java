@@ -87,8 +87,7 @@ public class TestsuiteUtils {
         TestCase currentTest = loader.load();
         currentTest.init(currentDir);
 
-        // success? -> run
-        if (currentTest == null) throw new TestFailException("not loaded");
+        // failure above would have thrown exception
         if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
         if (currentTest.checkJavaVersion()) {
