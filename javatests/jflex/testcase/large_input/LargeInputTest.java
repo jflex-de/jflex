@@ -2,6 +2,8 @@
 
 package jflex.testcase.large_input;
 
+import static jflex.testing.assertion.MoreAsserts.assertThrows;
+
 import java.io.File;
 import java.io.Reader;
 import org.junit.Test;
@@ -19,7 +21,10 @@ public class LargeInputTest {
   public void consumeLargeInput() throws Exception {
     Reader largeContentReader = new RepeatContentReader((long) Integer.MAX_VALUE + 1L, "Hello ");
     LargeInputScanner scanner = createScanner(largeContentReader);
-    scanner.yylex();
+    // FIX bug #536
+    // This is not expected, only how JFlex 1.7 behaves, and demonstrates that the test verifies
+    // that the scanner can parse a 2GB input.
+    assertThrows(NegativeArraySizeException.class, scanner::yylex);
   }
 
   private static LargeInputScanner createScanner(Reader reader) {
