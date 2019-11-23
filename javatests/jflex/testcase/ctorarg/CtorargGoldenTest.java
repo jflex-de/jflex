@@ -3,12 +3,8 @@
 package jflex.testcase.ctorarg;
 
 import com.google.common.io.CharSource;
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.charset.Charset;
 import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
@@ -29,16 +25,10 @@ import org.junit.Test;
 @Generated("jflex.migration.Migrator")
 public class CtorargGoldenTest extends AbstractGoldenTest {
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/ctorarg");
-
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    Ctorarg scanner = createScanner("");
-  }
-
-  private static Ctorarg createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
+    createScanner("");
   }
 
   private static Ctorarg createScanner(String content) throws IOException {
