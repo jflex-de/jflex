@@ -17,7 +17,7 @@ java_library(
         ":model",
         ":test_case_parser",
         ":velocity_templates",
-        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/testing/testsuite/golden:model",
         "//java/jflex/util/javac:package_util",
         "//java/jflex/velocity",
         "//third_party/com/google/common/flogger",
@@ -35,7 +35,7 @@ java_library(
     ],
     deps = [
         ":model",
-        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/testing/testsuite/golden:model",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
@@ -48,7 +48,7 @@ java_library(
         "TestCase.java",
     ],
     deps = [
-        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/testing/testsuite/golden:model",
     ],
 )
 
