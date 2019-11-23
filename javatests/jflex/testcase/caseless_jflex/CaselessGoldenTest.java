@@ -36,11 +36,11 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "caseless-0.output"));
     compareSystemOutWith(golden);
 
-    Caseless scanner = createScanner(golden.inputFile);
+    CaselessScanner scanner = createScanner(golden.inputFile);
     scanner.yylex();
   }
 
-  private static Caseless createScanner(File inputFile) throws FileNotFoundException {
-    return new Caseless(Files.newReader(inputFile, Charset.forName("UTF-8")));
+  private static CaselessScanner createScanner(File inputFile) throws FileNotFoundException {
+    return new CaselessScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 }

@@ -6,12 +6,13 @@ jflex(
     name = "gen_caseless_scanner",
     srcs = ["caseless.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Caseless.java"],
+    outputs = ["CaselessScanner.java"],
 )
 
 java_library(
     name = "caseless_scanner",
     srcs = [
+        "State.java",
         ":gen_caseless_scanner",
     ],
     deps = [
@@ -24,7 +25,6 @@ java_test(
     name = "CaselessJflexTest",
     srcs = [
         "CaselessJflexTest.java",
-        "State.java",
     ],
     deps = [
         ":caseless_scanner",
