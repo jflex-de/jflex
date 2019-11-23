@@ -29,17 +29,17 @@ java_test(
     srcs = [
         "${testClassName}.java",
     ],
+    data = [
+#foreach ( $golden in $goldens )
+        "$golden.InputFileName",
+        "$golden.OutputFileName",
+#end
+    ],
     deps = [
         ":${testName}_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
-    ],
-    data = [
-#foreach ( $golden in $goldens )
-        "$golden.InputFileName",
-        "$golden.OutputFileName",
-#end
     ],
 )
