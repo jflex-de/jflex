@@ -1,8 +1,5 @@
 # caseless
 
-# This build file was generated automatically, but won't be re-generated.
-# Feel free to improve.
-
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
@@ -24,18 +21,13 @@ java_library(
 )
 
 java_test(
-    name = "CaselessGoldenTest",
+    name = "CaselessJflexTest",
     srcs = [
-        "CaselessGoldenTest.java",
-    ],
-    data = [
-        "caseless-0.input",
-        "caseless-0.output",
+        "CaselessJflexTest.java",
+        "State.java",
     ],
     deps = [
         ":caseless_scanner",
-        "//java/jflex/testing/diff",
-        "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

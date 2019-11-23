@@ -1,4 +1,4 @@
-package jflex.testcase.caseless;
+package jflex.testcase.caseless_jflex;
 
 public enum State {
   A,
