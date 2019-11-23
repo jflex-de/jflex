@@ -1,14 +1,14 @@
-package jflex.migration;
+package jflex.testing.testsuite.golden;
 
 import java.io.File;
 
 public class GoldenInOutFilePair {
 
-  final String name;
-  final File inputFile;
-  final File outputFile;
+  public final String name;
+  public final File inputFile;
+  public final File outputFile;
 
-  GoldenInOutFilePair(String name, File inputFile, File outputFile) {
+  public GoldenInOutFilePair(String name, File inputFile, File outputFile) {
     this.name = name;
     this.inputFile = inputFile;
     this.outputFile = outputFile;

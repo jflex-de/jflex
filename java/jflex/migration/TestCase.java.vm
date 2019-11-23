@@ -1,37 +1,52 @@
-// test: $testName
-package $javaPackage;
+// test: caseless
+package jflex.testcase.caseless_jflex;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.Files;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.charset.Charset;
 import java.util.List;
+import javax.annotation.Generated;
+import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import org.junit.Test;
 
 /**
  * $testDescription
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
- * relies on golden files for testing, expecting the scanner to output logs on the
- * {@code System.out}. Please migrate to proper unit tests, as describe in
- * <a href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
- * //javatest/jflex/testcase
- * </a>.
+ * relies on golden files for testing, expecting the scanner to output logs on the {@code
+ * System.out}. Please migrate to proper unit tests, as describe in <a
+ * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
+ * //javatest/jflex/testcase</a>.
  */
 @Generated("jflex.migration.Migrator")
-public class testClassName {
+public class $testClassName {
 
   @Test
-  public void goldenTest() {
+  public void goldenTest() throws Exception {
 
     // The .input / .output Golden files
     File testRuntimeDir = new File("$javaPackageDir");
-    List<GoldenInOutFilePair> goldenFiles = ImmutableList.of(
+    List<GoldenInOutFilePair> goldenFiles =
+        ImmutableList.of(
 #foreach ( $golden in $goldens )
-      new GoldenInOutFilePair("$golden.Name",
-          new File(testRuntimeDir, "$golden.InputFileName"),
-          new File(testRuntimeDir, "$golden.OutputFileName")
+            new GoldenInOutFilePair(
+                "$golden.Name",
+                new File(testRuntimeDir, "$golden.InputFileName"),
+                new File(testRuntimeDir, "$golden.OutputFileName"))
 #if( $foreach.hasNext ),#end
+        );
 #end
-    );
 
-    // Scanner for $flexGrammar
+    for (GoldenInOutFilePair golden : goldenFiles) {
+      // Scanner for $flexGrammar
+      $scannerClassName scanner = createScanner(golden.inputFile);
+    }
+  }
 
+  private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
+    return new $scannerClassName(
+        Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 }

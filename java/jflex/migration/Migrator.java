@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.javac.JavaPackageUtil;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
@@ -138,6 +139,10 @@ public class Migrator {
     vars.testName = test.getTestName();
     vars.testDescription = test.getDescription().trim();
     vars.goldens = goldenFiles;
+    // TODO(regisd). We should use the real JFLex generator to read the `%class` value from the
+    // grammar. For now, we rely on the convention that the name of the scanner is the name of
+    // the test...
+    vars.scannerClassName = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, test.getTestName());
     return vars;
   }
 

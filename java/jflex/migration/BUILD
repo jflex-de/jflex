@@ -17,6 +17,7 @@ java_library(
         ":model",
         ":test_case_parser",
         ":test_case_velocity",
+        "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/javac:package_util",
         "//java/jflex/velocity",
         "//third_party/com/google/common/flogger",
@@ -31,6 +32,7 @@ java_library(
     resources = ["TestCase.java.vm"],
     deps = [
         ":model",
+        "//java/jflex/testing/testsuite/golden",
         "//java/jflex/velocity",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
@@ -51,10 +53,10 @@ java_library(
 java_library(
     name = "model",
     srcs = [
-        "GoldenInOutFilePair.java",
         "TestCase.java",
     ],
     deps = [
+        "//java/jflex/testing/testsuite/golden",
     ],
 )
 

@@ -2,9 +2,9 @@ package jflex.migration;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.velocity.TemplateVars;
+import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 
-public class TestCaseVars extends TemplateVars {
+public class TestCaseVars extends jflex.velocity.TemplateVars {
 
   /** The name of the test. */
   public String testName;
@@ -19,6 +19,8 @@ public class TestCaseVars extends TemplateVars {
   public String javaPackageDir;
   /** The name of the test class. */
   public String testClassName;
+  /** The name of the scanner class. */
+  public String scannerClassName;
   /** Golden input/output files. */
   public ImmutableList<GoldenInOutFilePair> goldens;
 }
