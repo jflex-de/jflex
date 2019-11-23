@@ -12,6 +12,7 @@ java_library(
     srcs = ["Migrator.java"],
     deps = [
         ":test_case_parser",
+        "//third_party/com/google/flogger",
         "//third_party/com/google/guava",
     ],
 )
