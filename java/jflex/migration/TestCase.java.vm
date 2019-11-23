@@ -26,6 +26,7 @@ import org.junit.Test;
  * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
  * //javatest/jflex/testcase</a>.
  */
+// TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
 public class $testClassName {
 
