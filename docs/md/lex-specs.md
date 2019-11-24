@@ -444,7 +444,7 @@ interested in how to interface your generated scanner with Byacc/J.
 
 -   `%char`
 
-    Turns character counting on. The `int` member variable `yychar`
+    Turns character counting on. The `long` member variable `yychar`
     contains the number of characters (starting with 0) from the
     beginning of input to the beginning of the current token.
 
@@ -1159,7 +1159,7 @@ Currently, the API consists of the following methods and member fields:
     contains the current line of input (starting with 0, only active
     with the `lineCounting` directive)
 
--   `int yychar`
+-   `long yychar`
 
     contains the current character count in the input (starting with 0,
     only active with the `charCounting` directive)
