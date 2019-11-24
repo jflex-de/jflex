@@ -19,6 +19,7 @@ java_test(
 java_library(
     name = "large_input_scanner",
     srcs = [
+        "NegativeYyCharException.java",
         "State.java",
         ":gen_large_input_scanner",
     ],

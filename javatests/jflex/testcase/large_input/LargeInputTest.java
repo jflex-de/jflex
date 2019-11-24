@@ -2,7 +2,6 @@ package jflex.testcase.large_input;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
@@ -16,7 +15,10 @@ import org.junit.Test;
  */
 public class LargeInputTest {
 
-  /** Tests a well-formed input content larger than MAX_INT (2^32-1). */
+  /**
+   * Tests a well-formed input content larger than MAX_INT (2^32-1). The scanner should never
+   * encounter {@code zzchar < 0} and hence never throw {@link NegativeYyCharException}.
+   */
   @Test
   public void consumeLargeInput() throws Exception {
     final String content = "hello foo\n";
@@ -27,10 +29,7 @@ public class LargeInputTest {
         .isGreaterThan((long) Integer.MAX_VALUE + 1L);
     Reader largeContentReader = new RepeatContentReader(size, content);
     LargeInputScanner scanner = createScanner(largeContentReader);
-    // FIX bug #536
-    // This is not expected, only how JFlex < 1.8 behaves. This assertion only demonstrates the
-    // test reproduces the bug.
-    assertThrows(IllegalStateException.class, () -> readUntilEof(scanner));
+    readUntilEof(scanner);
   }
 
   @Test
