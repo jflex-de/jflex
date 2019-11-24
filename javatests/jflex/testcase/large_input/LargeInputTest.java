@@ -21,9 +21,8 @@ public class LargeInputTest {
    */
   @Test
   public void consumeLargeInput() throws Exception {
-    final String content = "hello foo\n";
-    long size = Integer.MAX_VALUE / content.length() * content.length();
-    size += 3 * (long) content.length(); // a few more
+    final String content = "One every character the `yychar` is incremented, but don't overflow!\n";
+    long size = (long) Integer.MAX_VALUE + 3 * (long) content.length(); // a few more
     assertWithMessage("Tests an input content larger than MAX_INT (2^32-1)")
         .that(size)
         .isGreaterThan((long) Integer.MAX_VALUE + 1L);

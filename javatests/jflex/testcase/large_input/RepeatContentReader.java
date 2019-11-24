@@ -1,5 +1,6 @@
 package jflex.testcase.large_input;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.lang.Math.min;
 
 import java.io.Reader;
@@ -7,7 +8,8 @@ import java.io.Reader;
 /** A reader that returns the same content over and over again. */
 public class RepeatContentReader extends Reader {
 
-  private static final int MIN_INTERNAL_BUFFER_SIZE = 64 * 1024;
+  /** Size of the precomputed buffer with the repeated content. */
+  private static final int PREPARED_BUFFER_SIZE = 64 * 1024;
 
   /** The size of the content that this reader will provide. */
   private final long size;
@@ -25,8 +27,9 @@ public class RepeatContentReader extends Reader {
    *     loops and reads the given content from the beginning again.
    */
   RepeatContentReader(long size, String content) {
+    checkArgument(size > 0);
     this.size = size;
-    this.content = createInternalContent(content);
+    this.content = createInternalContent(size, content);
   }
 
   @Override
@@ -51,13 +54,25 @@ public class RepeatContentReader extends Reader {
   @Override
   public void close() {}
 
-  private static char[] createInternalContent(String content) {
+  private static char[] createInternalContent(long wantedSize, String content) {
     char[] givenContent = content.toCharArray();
-    if (givenContent.length > MIN_INTERNAL_BUFFER_SIZE) {
+    if (wantedSize <= givenContent.length) {
+      // The given buffer is larger than what we will read.
+      // Actually, we could even take the substring for memory efficiency. But from tests, the given
+      // content is always small.
       return givenContent;
     }
-    // round down the size
-    int size = MIN_INTERNAL_BUFFER_SIZE / givenContent.length * givenContent.length;
+    // wantedSize > content.size(): The reader will loop over then content.
+    if (givenContent.length >= PREPARED_BUFFER_SIZE) {
+      // The given content is large enough. Nothing to do.
+      return givenContent;
+    }
+    // To maximize use of the buffer, we already prepare a repeated content of PREPARED_BUFFER_SIZE.
+    int size = PREPARED_BUFFER_SIZE / givenContent.length * givenContent.length;
+    if (size > wantedSize) {
+      // But we dont't need so much if we read less.
+      size = (int) (wantedSize / givenContent.length + 1) * givenContent.length;
+    }
     char[] myContent = new char[size];
     for (int destPos = 0; destPos < size; destPos += givenContent.length) {
       System.arraycopy(givenContent, 0, myContent, destPos, givenContent.length);
