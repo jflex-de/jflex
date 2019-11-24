@@ -171,7 +171,7 @@ build --javacopt "-Xep:EqualsUsingHashCode:WARN"
 build --javacopt "-Xep:ExtendingJUnitAssert:WARN"
 # TODO(#222) Increase to error when we build from jflex-1.7.1 with a lexer annotated with
 # @SuppressWarnings
-build --javacopt "-Xep:FallThrough:OFF"
+build --javacopt "-Xep:FallThrough:WARN"
 build --javacopt "-Xep:Finally:WARN"
 build --javacopt "-Xep:FloatCast:WARN"
 build --javacopt "-Xep:FloatingPointAssertionWithinEpsilon:WARN"
