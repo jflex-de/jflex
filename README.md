@@ -77,6 +77,7 @@ We provide a [jflex rule](https://jflex-de.github.io/bazel_rules/)
 
 ```
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
 jflex(
     name = "",           # Choose a rule name
     srcs = [],           # Add input lex specifications
@@ -95,7 +96,7 @@ jflex/bin/jflex src/grammar/parser.flex
 
 Or:
 ```
-java -jar jflex-full-1.8.0.jar -d output src/grammar/parser.flex
+java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
 ```
 
 ### Other build tools
@@ -126,12 +127,43 @@ The top level directory of the JFLex git repository contains:
 
 ## Build from source
 
-You need JDK 8 or later and Maven 3.5.2 or later.
+### Build with Bazel
+
+You need [Bazel][bazel].
+
+```
+bazel build //jflex:jflex_bin
+```
+
+This builds `bazel-bin/jflex/jflex_bin`, that you can use
+
+```
+bazel-bin/jflex/jflex_bin --info
+```
+
+Or:
+
+```
+bazel run //jflex:jflex_bin -- --info
+```
+
+Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
+
+### Build with Maven
+
+You need JDK 8 or later and [Maven][maven] 3.5.2 or later.
 
 ```
 ./mvnw install
 ```
 
+This generates `jflex/target/jflex-full-1.7.0.jar` that you can use, e.g.
+
+```
+java -jar jflex-full-1.7.0.jar --info
+```
+
+Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
 ## Contributing
 
@@ -146,4 +178,5 @@ See the [Contributing][contrib] page for instructions.
 [example-simple]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple
 [examples]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/
 [contrib]: https://github.com/jflex-de/jflex/wiki/Contributing
-[bazel]: http://bazel.build/
+[bazel]: https://bazel.build/
+[maven]: https://maven.apache.org/
