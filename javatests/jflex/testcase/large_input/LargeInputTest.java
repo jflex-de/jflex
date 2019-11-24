@@ -4,7 +4,6 @@ package jflex.testcase.large_input;
 
 import static jflex.testing.assertion.MoreAsserts.assertThrows;
 
-import java.io.File;
 import java.io.Reader;
 import org.junit.Test;
 
@@ -14,8 +13,6 @@ import org.junit.Test;
  * <p>See <a href="https://github.com/jflex-de/jflex/issues/536">#536</a>.
  */
 public class LargeInputTest {
-
-  private File testRuntimeDir = new File("jflex/testcase/large_input");
 
   @Test
   public void consumeLargeInput() throws Exception {
