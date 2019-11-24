@@ -2,6 +2,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_test(
     name = "LargeInputTest",
+    size = "enormous",
     srcs = [
         "LargeInputTest.java",
     ],
