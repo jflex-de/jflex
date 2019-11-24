@@ -7,6 +7,10 @@ class Yytoken {
   public long m_charEnd;
 
   Yytoken(int index, String text, int line, long charBegin, long charEnd) {
+    checkArgument("index", index >= 0);
+    checkArgument("line", line >= 0);
+    checkArgument("charBegin", charBegin >= 0);
+    checkArgument("charEnd", charEnd > 0);
     m_index = index;
     m_text = text;
     m_line = line;
@@ -25,5 +29,11 @@ class Yytoken {
         + m_charBegin
         + "\ncEnd. : "
         + m_charEnd;
+  }
+
+  private static void checkArgument(String argName, boolean expectation) {
+    if (!expectation) {
+      throw new IllegalArgumentException(argName);
+    }
   }
 }
