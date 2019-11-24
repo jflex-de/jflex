@@ -11,11 +11,11 @@ import org.junit.Test;
 public class RepeatContentReaderTest {
   @Test
   public void read_sizeLessThanContent() throws IOException {
-    int length = 10;
+    int length = 11;
     Reader reader = new RepeatContentReader(length, "The content is larger than the declared size");
     String read = CharStreams.toString(reader);
     assertThat(read).hasLength(length);
-    assertThat(read).isEqualTo("The conten");
+    assertThat(read).isEqualTo("The content");
   }
 
   @Test
@@ -40,8 +40,8 @@ public class RepeatContentReaderTest {
   public void read_offsetLoop() throws IOException {
     Reader reader = new RepeatContentReader(25, "abc");
     char[] cbuf = new char[7];
-    int read = reader.read(cbuf, 1, 7);
-    assertThat(read).isEqualTo(3);
-    assertThat(new String(cbuf)).isEqualTo("\0abc\0\0\0");
+    int read = reader.read(cbuf, 1, 7 - 1);
+    assertThat(read).isEqualTo(6);
+    assertThat(new String(cbuf)).isEqualTo("\0abcabc");
   }
 }
