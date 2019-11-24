@@ -2,11 +2,9 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_test(
     name = "LargeInputTest",
-    size = "enormous",
     srcs = [
         "LargeInputTest.java",
     ],
-    jvm_flags = ["-Xmx5G"],
     deps = [
         ":large_input_scanner",
         ":repeat_content_reader",

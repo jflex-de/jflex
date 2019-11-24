@@ -18,8 +18,15 @@ import java.util.zip.ZipException;
 %unicode
 %type State
 
-%% 
+%%
 
-^.+ "\n" { if (yychar > Integer.MAX_VALUE) {return State.AFTER_2GB;} }
-
+^.+        { if (yychar < 0) {
+                 throw new IllegalStateException("yychar must not be negative but is: " + yychar);
+             } else if (yychar <= Integer.MAX_VALUE) {
+                  return State.BEFORE_2GB;
+             } else {
+                  return State.AFTER_2GB;
+             }
+           }
+"\n"       { /*nothing*/ }
 <<EOF>>    { return State.END_OF_FILE; }

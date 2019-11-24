@@ -1,7 +1,8 @@
 package jflex.testcase.large_input;
 
 public enum State {
-  INITIAL,
+  BEFORE_2GB,
   AFTER_2GB,
+  LINE_FEED,
   END_OF_FILE,
 }

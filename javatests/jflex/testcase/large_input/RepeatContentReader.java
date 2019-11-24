@@ -15,7 +15,7 @@ public class RepeatContentReader extends Reader {
   /** How many characters have been read so far. */
   private long read;
 
-  public RepeatContentReader(long size, String content) {
+  RepeatContentReader(long size, String content) {
     this.size = size;
     this.content = createInternalContent(content);
   }
