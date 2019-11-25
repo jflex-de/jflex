@@ -17,7 +17,7 @@ java_library(
 
 java_library(
     name = "package_util",
-    srcs = ["JavaPackageUtil.java"],
+    srcs = ["JavaPackageUtils.java"],
     deps = [
     ],
 )

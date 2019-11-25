@@ -25,19 +25,15 @@
  */
 package jflex.util.javac;
 
-@SuppressWarnings("WeakerAccess")
-public final class JavaPackageUtil {
-  public static String getPathForClass(Class clazz) {
-    return getPathForPackage(clazz.getPackage());
-  }
+import static com.google.common.truth.Truth.assertThat;
 
-  public static String getPathForPackage(Package targetPackage) {
-    return getPathForPackage(targetPackage.getName());
-  }
+import org.junit.Test;
 
-  public static String getPathForPackage(String packageName) {
-    return packageName.replace('.', '/');
-  }
+public class JavaPackageUtilsTest {
 
-  private JavaPackageUtil() {}
+  @Test
+  public void getPathForPackage() throws Exception {
+    assertThat(JavaPackageUtils.getPathForPackage(getClass().getPackage()))
+        .isEqualTo("jflex/util/javac");
+  }
 }

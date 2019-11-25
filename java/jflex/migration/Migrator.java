@@ -27,7 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.javac.JavaPackageUtil;
+import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -39,7 +39,7 @@ import org.apache.velocity.runtime.parser.ParseException;
  */
 public class Migrator {
 
-  private static final String PATH = JavaPackageUtil.getPathForClass(Migrator.class);
+  private static final String PATH = JavaPackageUtils.getPathForClass(Migrator.class);
   private static final String TEST_CASE_TEMPLATE = PATH + "/TestCase.java.vm";
   private static final String BUILD_TEMPLATE = PATH + "/BUILD.vm";
   private static final String GOLDEN_INPUT_EXT = ".input";
