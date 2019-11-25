@@ -21,16 +21,21 @@ build_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
   test_all_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+
+measure_coverage_task:
+  depends_on: build
+  container:
+    image: l.gcr.io/google/bazel:1.1.0
+    memory: 6G
   # Bazel fails to build combined report on Cirrus-ci.
   # https://github.com/bazelbuild/bazel/issues/6450
   measure_coverage_script:
   - bazel --bazelrc=.ci.bazelrc coverage --combined_report=none --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
-  - name: Send code coverage to Codacy
-    only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == "cirrus"
-    environnement:
-      CODACY_PROJECT_TOKEN: ENCRYPTED[2fac1c4b7834a7f75477aa710279eaaa65db5999d9d0219940eb1e9679a38073c9fd99f240904ab318f95aab5eea5af9]
-    send_coverage_report_script:
-    - scripts/send-code-coverage.sh
+  send_coverage_report_script:
+  - scripts/send-code-coverage.sh
+  only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == 'cirrus'
+  environnement:
+    CODACY_PROJECT_TOKEN: ENCRYPTED[2fac1c4b7834a7f75477aa710279eaaa65db5999d9d0219940eb1e9679a38073c9fd99f240904ab318f95aab5eea5af9]
 
 codestyle_task:
   name: Check code style
