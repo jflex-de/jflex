@@ -15,7 +15,7 @@ import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import jflex.testing.TestFileUtil;
+import jflex.testing.TestFileUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class SkeletonTest {
 
   @Test
   public void readSkelFile_maven() {
-    assumeTrue(!TestFileUtil.BAZEL_RUNFILES);
+    assumeTrue(!TestFileUtils.BAZEL_RUNFILES);
     File skeletonFile = new File("src/main/jflex/skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
@@ -52,8 +52,8 @@ public class SkeletonTest {
   @Test
   @Ignore // fix loading resources
   public void readSkelFile_bazel() throws FileNotFoundException {
-    assumeTrue(TestFileUtil.BAZEL_RUNFILES);
-    File skeletonFile = TestFileUtil.open("//jflex", "jflex/skeleton.nested");
+    assumeTrue(TestFileUtils.BAZEL_RUNFILES);
+    File skeletonFile = TestFileUtils.open("//jflex", "jflex/skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
   }
