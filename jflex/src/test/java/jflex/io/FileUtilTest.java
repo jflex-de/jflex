@@ -1,7 +1,5 @@
 package jflex.io;
 
-import static org.junit.Assert.*;
-
 import java.io.File;
 import junit.framework.TestCase;
 import org.junit.Test;
