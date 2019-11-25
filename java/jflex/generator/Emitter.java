@@ -198,7 +198,7 @@ public final class Emitter {
   }
 
   private void emitScanError() {
-    print("  private void zzScanError(int errorCode)");
+    print("  private static void zzScanError(int errorCode)");
 
     if (scanner.scanErrorException() != null) print(" throws " + scanner.scanErrorException());
 
