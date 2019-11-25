@@ -4,7 +4,7 @@
 buildtools_cache:
   folder: buildtools
 
-build_task:
+bazel_build_task:
   name: Bazel build and test
   container:
     image: l.gcr.io/google/bazel:1.1.0
@@ -23,7 +23,8 @@ build_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
 
 measure_coverage_task:
-  depends_on: build
+  depends_on: bazel_build
+  name: Measure code coverage
   container:
     image: l.gcr.io/google/bazel:1.1.0
     memory: 6G
