@@ -1,5 +1,5 @@
 java_test(
     name = "FileUtilTest",
-    srcs = ["FileUtilTest.java"],
+    srcs = ["FileUtilsTest.java"],
     deps = ["//jflex/src/main/java/jflex/io"],
 )
