@@ -41,7 +41,7 @@ import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
 import jflex.util.javac.CompilerException;
-import jflex.util.javac.JavacUtil;
+import jflex.util.javac.JavacUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
@@ -130,6 +130,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   private void compile(RunNotifier notifier, ImmutableList<String> javaFileNames)
       throws CompilerException {
     notifier.fireTestStarted(Description.createTestDescription(klass, "Compile java code"));
-    JavacUtil.compile(javaFileNames);
+    JavacUtils.compile(javaFileNames);
   }
 }
