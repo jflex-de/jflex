@@ -38,7 +38,6 @@ public class CountGoldenTest {
     List<GoldenInOutFilePair> goldenFiles =
         ImmutableList.of(
             new GoldenInOutFilePair(
-                "count",
                 new File(testRuntimeDir, "count-0.input"),
                 new File(testRuntimeDir, "count-0.output")));
 
