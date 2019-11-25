@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  * @author Gerwin Klein (lsf@jflex.de)
  * @author Régis Décamps
  */
-class LexSimpleAnalyzer {
+class LexSimpleAnalyzerUtils {
 
   static final String DEFAULT_NAME = "Yylex";
 
@@ -88,4 +88,6 @@ class LexSimpleAnalyzer {
 
     return null;
   }
+
+  private LexSimpleAnalyzerUtils() {}
 }

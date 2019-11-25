@@ -7,7 +7,7 @@ import java.io.StringReader;
 import org.junit.Test;
 
 /** Test for {@link LexSimpleAnalyzer}. */
-public class LexSimpleAnalyzerTest {
+public class LexSimpleAnalyzerUtilsTest {
 
   @Test
   public void guessPackageAndClass_givenClass_defaultPackage() throws Exception {
