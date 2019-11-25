@@ -2,23 +2,21 @@
 
 package $javaPackage;
 
-import static com.google.common.truth.Truth.assertWithMessage;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableList;
+import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.List;
 import javax.annotation.Generated;
-import jflex.testing.diff.DiffOutputStream;
-import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * $testDescription
+ * Tests scanner generated from {@code $flexGrammar.Name}.
+ *
+ * <p>$testDescription
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -28,42 +26,43 @@ import org.junit.Test;
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class $testClassName {
+public class $testClassName extends AbstractGoldenTest {
 
-  @Test
-  public void goldenTest() throws Exception {
-
-    // The .input / .output Golden files
-    File testRuntimeDir = new File("javatests/$javaPackageDir");
-    List<GoldenInOutFilePair> goldenFiles =
-        ImmutableList.of(
-#foreach ( $golden in $goldens )
-            new GoldenInOutFilePair(
-                "$golden.Name",
-                new File(testRuntimeDir, "$golden.InputFileName"),
-                new File(testRuntimeDir, "$golden.OutputFileName"))
-#if( $foreach.hasNext ),#end
-        );
+#if ( $goldens.size() > 0 )
+  private File testRuntimeDir = new File("javatests/$javaPackageDir");
 #end
 
-    for (GoldenInOutFilePair golden : goldenFiles) {
-      // in-memory output comparison
-      DiffOutputStream output =
-          new DiffOutputStream(Files.newReader(golden.outputFile, Charsets.UTF_8));
-      System.setOut(new PrintStream(output));
+#foreach ( $golden in $goldens )
+  @Test
+  public void goldenTest$velocityCount() throws Exception {
+    GoldenInOutFilePair golden =
+        new GoldenInOutFilePair(
+            new File(testRuntimeDir, "$golden.InputFileName"),
+            new File(testRuntimeDir, "$golden.OutputFileName"));
+    compareSystemOutWith(golden);
 
-      // Scanner for $flexGrammar
-      $scannerClassName scanner = createScanner(golden.inputFile);
-      scanner.yylex();
-
-      assertWithMessage("All expected output has been printed on System.out")
-          .that(output.isCompleted())
-          .isTrue();
-    }
+    $scannerClassName scanner = createScanner(golden.inputFile);
+    scanner.yylex();
   }
+#end
+
+#if ( $goldens.size() == 0 )
+  /** Tests that the scanner was successfully generated and can be instantiated. */
+  @Test
+  public void canInstantiateScanner() throws Exception {
+    createScanner("");
+  }
+#end
 
   private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
-    return new $scannerClassName(
-        Files.newReader(inputFile, Charset.forName("UTF-8")));
+    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
+  }
+
+  private static $scannerClassName createScanner(String content) throws IOException {
+    return createScanner(CharSource.wrap(content).openStream());
+  }
+
+  private static $scannerClassName createScanner(Reader reader) {
+    return new $scannerClassName(reader);
   }
 }

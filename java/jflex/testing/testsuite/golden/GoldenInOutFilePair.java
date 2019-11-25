@@ -4,18 +4,12 @@ import java.io.File;
 
 public class GoldenInOutFilePair {
 
-  public final String name;
   public final File inputFile;
   public final File outputFile;
 
-  public GoldenInOutFilePair(String name, File inputFile, File outputFile) {
-    this.name = name;
+  public GoldenInOutFilePair(File inputFile, File outputFile) {
     this.inputFile = inputFile;
     this.outputFile = outputFile;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public String getInputFileName() {
@@ -27,6 +21,6 @@ public class GoldenInOutFilePair {
   }
 
   public String toString() {
-    return "Name:" + name;
+    return inputFile.getParent() + File.separator + inputFile.getName();
   }
 }
