@@ -9,27 +9,20 @@ build_task:
   container:
     image: l.gcr.io/google/bazel:1.1.0
     memory: 6G
-  - name: Bazel version
-    bazel_version_script:
-    - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
-  - name: Bazel build JFlex
-    build_script:
-    - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
-  - name: Bazel build all
-    build_all_script:
-    - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-  - name: Bazel test Jflex
-    test_script:
-    - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex/...
-  - name: Bazel regression tests
-    regression_tests_script:
-    - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
-  - name: Bazel test all
-    test_all_script:
-    - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-  - name: Bazel measure & aggregate code coverage (jacoco, lcov report)
-    measure_and_aggregate_coverage:
-    - bazel --bazelrc=.ci.bazelrc coverage  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
+  bazel_version_script:
+  - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
+  build_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
+  build_all_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+  test_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex/...
+  regression_tests_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
+  test_all_script:
+  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+  measure_and_aggregate_coverage_script:
+  - bazel --bazelrc=.ci.bazelrc coverage  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
   - name: Send code coverage to Codacy
     only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == "cirrus"
     environnement:
