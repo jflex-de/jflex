@@ -1,7 +1,8 @@
 test --test_output=errors
-test --combined_report=lcov
-# https://github.com/bazelbuild/bazel/issues/6450
-test --coverage_report_generator="@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main"
+
+# https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
+# test --combined_report=lcov
+# test --coverage_report_generator="@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main"
 
 # http://errorprone.info/bugpatterns
 # To avoid bugs in the code
