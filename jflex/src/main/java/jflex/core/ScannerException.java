@@ -53,7 +53,7 @@ public class ScannerException extends RuntimeException {
    * @param message the code for the error description presented to the user.
    */
   public ScannerException(File file, ErrorMessages.ErrorMessage message) {
-    this(file, jflex.l10n.ErrorMessages.get(message), message, -1, -1);
+    this(file, ErrorMessages.get(message), message, -1, -1);
   }
 
   /**
@@ -63,7 +63,7 @@ public class ScannerException extends RuntimeException {
    * @param line the number of the line in the specification that contains the error
    */
   public ScannerException(ErrorMessages.ErrorMessage message, int line) {
-    this(null, jflex.l10n.ErrorMessages.get(message), message, line, -1);
+    this(null, ErrorMessages.get(message), message, line, -1);
   }
 
   /**
@@ -74,7 +74,7 @@ public class ScannerException extends RuntimeException {
    * @param file a {@link java.io.File} object.
    */
   public ScannerException(File file, ErrorMessages.ErrorMessage message, int line) {
-    this(file, jflex.l10n.ErrorMessages.get(message), message, line, -1);
+    this(file, ErrorMessages.get(message), message, line, -1);
   }
 
   /**
