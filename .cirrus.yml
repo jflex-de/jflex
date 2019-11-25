@@ -34,7 +34,7 @@ measure_coverage_task:
   send_coverage_report_script:
   - scripts/send-code-coverage.sh
   only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == 'cirrus'
-  environnement:
+  environment:
     CODACY_PROJECT_TOKEN: ENCRYPTED[2fac1c4b7834a7f75477aa710279eaaa65db5999d9d0219940eb1e9679a38073c9fd99f240904ab318f95aab5eea5af9]
 
 codestyle_task:
