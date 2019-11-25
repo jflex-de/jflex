@@ -8,7 +8,9 @@ import java.util.List;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
-public class Tester {
+public class TestsuiteUtils {
+
+  private TestsuiteUtils() {}
 
   public static boolean verbose;
   public static String jflexTestVersion;
