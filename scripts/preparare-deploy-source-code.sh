@@ -67,7 +67,7 @@ update_source() {
   # git commit fails if the commit is empty, which makes Travis build fail.
   git diff-index --quiet HEAD || \
       git commit -a \
-          -m "Pseudo-Merge $gittilte" \
+          -m "Pseudo-Merge $gittitle" \
           -m "$gitlog" \
           -m "Updated from $version"
   cd ..
