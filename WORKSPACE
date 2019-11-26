@@ -20,11 +20,20 @@ jflex_deps()
 
 # pandoc used to build the documentatoin
 
-http_archive(
+#http_archive(
+#    name = "bazel_pandoc",
+#    sha256 = "47ad1f08db3e6c8cc104931c11e099fd0603c174400b9cc852e2481abe08db24",
+#    strip_prefix = "bazel-pandoc-0.2",
+#    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
+#)
+
+# The unionset incompatible change was introduced in Bazel 0.26
+# bazel_pandoc needs to update
+# https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
+git_repository(
     name = "bazel_pandoc",
-    sha256 = "47ad1f08db3e6c8cc104931c11e099fd0603c174400b9cc852e2481abe08db24",
-    strip_prefix = "bazel-pandoc-0.2",
-    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
+    commit = "7d87bb1463835bfea8438a5dae8f536d1857c97f",
+    remote = "https://github.com/ProdriveTechnologies/bazel-pandoc.git",
 )
 
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
