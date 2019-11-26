@@ -1827,7 +1827,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
   private int yyline;
 
   /** the number of characters up to the start of the matched text */
-  private int yychar;
+  private long yychar;
 
   /**
    * the number of characters from the last newline up to the start of the 
@@ -1869,7 +1869,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     int zzCurrentPos;
     int zzMarkedPos;
     int yyline;
-    int yychar;
+    long yychar;
     int yycolumn;
     char [] zzBuffer;
     boolean zzAtBOL;
@@ -1881,7 +1881,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
                   int zzCurrentPos, int zzMarkedPos, char [] zzBuffer, 
                   boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
-                  int zzFinalHighSurrogate, int yyline, int yychar, int yycolumn) {
+                  int zzFinalHighSurrogate, int yyline, long yychar,
+                  int yycolumn) {
       this.zzReader      = zzReader;
       this.zzEndRead     = zzEndRead;
       this.zzStartRead   = zzStartRead;
@@ -2065,14 +2066,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
                         zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF, zzEOFDone,
                         zzFinalHighSurrogate, yyline, yychar, yycolumn)
     );
-    zzAtBOL  = true;
-    zzAtEOF  = false;
     zzBuffer = new char[ZZ_BUFFERSIZE];
     zzReader = reader;
-    zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = 0;
-    zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyResetPosition();
   }
     
 
@@ -2133,18 +2129,26 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    */
   public final void yyreset(java.io.Reader reader) {
     zzReader = reader;
-    zzAtBOL  = true;
-    zzAtEOF  = false;
     zzEOFDone = false;
-    zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = 0;
-    zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyResetPosition();
     zzLexicalState = YYINITIAL;
-    if (zzBuffer.length > ZZ_BUFFERSIZE)
+    if (zzBuffer.length > ZZ_BUFFERSIZE) {
       zzBuffer = new char[ZZ_BUFFERSIZE];
+    }
   }
 
+  private final void yyResetPosition() {
+      zzAtBOL  = true;
+      zzAtEOF  = false;
+      zzCurrentPos = 0;
+      zzMarkedPos = 0;
+      zzStartRead = 0;
+      zzEndRead = 0;
+      zzFinalHighSurrogate = 0;
+      yyline = 0;
+      yycolumn = 0;
+      yychar = 0L;
+  }
 
   /**
    * Returns the current lexical state.
