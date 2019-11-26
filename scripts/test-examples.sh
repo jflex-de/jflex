@@ -17,7 +17,7 @@ fi
 
 which ant
 if [[ $? -eq 0 ]]; then
-  ANT=make
+  ANT=ant
 else
   ANT=echo
 fi
