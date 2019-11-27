@@ -42,4 +42,7 @@ public @interface TestSpec {
    * expected.
    */
   Class<?> generatorThrowableCause() default NoExceptionThrown.class;
+
+  /** Golden file for JFlex's log (output stream). */
+  String sysout() default "";
 }

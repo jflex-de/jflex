@@ -57,7 +57,7 @@
   private int yyline;
 
   /** Number of characters up to the start of the matched text. */
-  private int yychar;
+  private long yychar;
 
   /** Number of characters from the last newline up to the start of the matched text. */
   private int yycolumn;
@@ -177,19 +177,26 @@
    */
   public final void yyreset(java.io.Reader reader) {
     zzReader = reader;
-    zzAtBOL = true;
-    zzAtEOF = false;
     zzEOFDone = false;
-    zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = 0;
-    zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyResetPosition();
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE) {
       zzBuffer = new char[ZZ_BUFFERSIZE];
     }
   }
 
+  private final void yyResetPosition() {
+      zzAtBOL  = true;
+      zzAtEOF  = false;
+      zzCurrentPos = 0;
+      zzMarkedPos = 0;
+      zzStartRead = 0;
+      zzEndRead = 0;
+      zzFinalHighSurrogate = 0;
+      yyline = 0;
+      yycolumn = 0;
+      yychar = 0L;
+  }
 
   /**
    * Returns the current lexical state.
