@@ -8,13 +8,16 @@ import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/** Should fail on parsing 2nd identifier. */
+/** Tests that JFlex refuses to generate a parser if its argument name is not a Java identifier.
+ *
+ */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/jflex/testcase/ctorarg/ctorargf.flex",
+    lex = "javatests/jflex/testcase/ctorarg/ctor-bad-arg.flex",
     generatorThrows = GeneratorException.class,
-    generatorThrowableCause = ScannerException.class)
-public class CtorArgFailureTest {
+    generatorThrowableCause = ScannerException.class,
+sysout = "javatests/jflex/testcase/ctorarg/ctor-bad-arg.output")
+public class CtorBadArgTest {
   @Test
   public void ok() {}
 }

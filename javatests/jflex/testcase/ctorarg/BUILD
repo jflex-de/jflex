@@ -8,7 +8,7 @@ load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
     name = "gen_ctorarg_scanner",
-    srcs = ["ctorarg.flex"],
+    srcs = ["ctor-arg.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["Ctorarg.java"],
 )
@@ -25,9 +25,9 @@ java_library(
 )
 
 java_test(
-    name = "CtorArgPositiveTest",
+    name = "CtorArgTest",
     srcs = [
-        "CtorArgPositiveTest.java",
+        "CtorArgTest.java",
     ],
     data = [
     ],
@@ -41,10 +41,11 @@ java_test(
 )
 
 jflex_testsuite(
-    name = "CtorArgFailureTest",
-    srcs = ["CtorArgFailureTest.java"],
+    name = "CtorBadArgTest",
+    srcs = ["CtorBadArgTest.java"],
     data = [
-        "ctorargf.flex",
+        "ctor-bad-arg.flex",
+        "ctor-bad-arg.output",
     ],
     deps = [
         "//java/jflex/util/javac",

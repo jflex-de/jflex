@@ -10,14 +10,14 @@ import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code ctorarg.flex}.
+ * Tests scanner generated from {@code ctor-arg.flex}.
  *
  * <p>Tests that the lex spec has an option to add arguments to constructor and yylex. See feature
  * request <a href="https://github.com/jflex-de/jflex/issues/156">#156 provide option to add
  * arguments to constructor and yylex</a>.
  */
 @Generated("jflex.migration.Migrator")
-public class CtorArgPositiveTest extends AbstractGoldenTest {
+public class CtorArgTest extends AbstractGoldenTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
