@@ -244,7 +244,7 @@ public class JFlexMojo extends AbstractMojo {
 
   private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
     try {
-      return LexSimpleAnalyzer.guessPackageAndClass(lexFile);
+      return LexSimpleAnalyzerUtils.guessPackageAndClass(lexFile);
     } catch (FileNotFoundException e) {
       throw new MojoFailureException(e.getMessage(), e);
     } catch (IOException e) {
