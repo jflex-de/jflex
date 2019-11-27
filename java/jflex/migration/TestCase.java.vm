@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
+import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
