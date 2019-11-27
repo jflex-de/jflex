@@ -4,10 +4,11 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
     name = "gen_ctorarg_scanner",
-    srcs = ["ctorarg.flex"],
+    srcs = ["ctor-arg.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["Ctorarg.java"],
 )
@@ -24,9 +25,9 @@ java_library(
 )
 
 java_test(
-    name = "CtorargGoldenTest",
+    name = "CtorArgTest",
     srcs = [
-        "CtorargGoldenTest.java",
+        "CtorArgTest.java",
     ],
     data = [
     ],
@@ -37,4 +38,11 @@ java_test(
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
+)
+
+jflex_testsuite(
+    name = "",
+    srcs = [],
+    data = [],
+    deps = [],
 )
