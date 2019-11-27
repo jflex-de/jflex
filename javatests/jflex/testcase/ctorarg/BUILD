@@ -7,7 +7,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
     name = "gen_ctorarg_scanner",
-    srcs = ["ctorarg.flex"],
+    srcs = ["ctor-arg.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["Ctorarg.java"],
 )
@@ -24,9 +24,9 @@ java_library(
 )
 
 java_test(
-    name = "CtorargGoldenTest",
+    name = "CtorArgTest",
     srcs = [
-        "CtorargGoldenTest.java",
+        "CtorArgTest.java",
     ],
     data = [
     ],

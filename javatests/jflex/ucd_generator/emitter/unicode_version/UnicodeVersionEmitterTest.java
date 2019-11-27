@@ -38,6 +38,6 @@ public class UnicodeVersionEmitterTest {
     UnicodeVersionEmitter emitter = new UnicodeVersionEmitter("org.example", ucd0_1, unicodeData);
 
     emitter.emitUnicodeVersion(output);
-    assertThat(output.isCompleted()).isTrue();
+    assertThat(output.remainingContent()).isEmpty();
   }
 }
