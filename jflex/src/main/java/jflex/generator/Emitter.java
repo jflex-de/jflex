@@ -198,7 +198,7 @@ public final class Emitter {
   }
 
   private void emitScanError() {
-    print("  private void zzScanError(int errorCode)");
+    print("  private static void zzScanError(int errorCode)");
 
     if (scanner.scanErrorException() != null) print(" throws " + scanner.scanErrorException());
 
@@ -763,7 +763,7 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone() || scanner.debugOption()) && scanner.ctorArgsCount() > 0) {
-      Out.warning(jflex.l10n.ErrorMessages.get(jflex.l10n.ErrorMessages.CTOR_DEBUG));
+      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
       println();
       emitConstructorDecl(false);
     }

@@ -33,9 +33,9 @@ import org.junit.Test;
 
 public class UcdVersionsTest {
 
-  private jflex.ucd_generator.ucd.UcdVersion.Builder ucd1;
+  private UcdVersion.Builder ucd1;
 
-  private jflex.ucd_generator.ucd.UcdVersion.Builder ucd2;
+  private UcdVersion.Builder ucd2;
 
   @Before
   public void createUcd() {
