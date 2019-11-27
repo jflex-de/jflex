@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import org.junit.Test;
 
-/** Test for {@link LexSimpleAnalyzer}. */
+/** Test for {@link LexSimpleAnalyzerUtils}. */
 public class LexSimpleAnalyzerUtilsTest {
 
   @Test
@@ -82,6 +82,6 @@ public class LexSimpleAnalyzerUtilsTest {
   }
 
   private ClassInfo guessPackageAndClass(String lex) throws IOException {
-    return LexSimpleAnalyzer.guessPackageAndClass(new StringReader(lex));
+    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex));
   }
 }

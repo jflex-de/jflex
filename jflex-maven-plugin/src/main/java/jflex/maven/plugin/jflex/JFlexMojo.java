@@ -248,7 +248,7 @@ public class JFlexMojo extends AbstractMojo {
     } catch (FileNotFoundException e) {
       throw new MojoFailureException(e.getMessage(), e);
     } catch (IOException e) {
-      return new ClassInfo(LexSimpleAnalyzer.DEFAULT_NAME, /*packageName=*/ "");
+      return new ClassInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 
