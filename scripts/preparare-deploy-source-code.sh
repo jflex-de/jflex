@@ -28,8 +28,9 @@ git_clone() {
 
 # update_source <initial_log_message>
 update_source() {
-  gitlog="$1"
-  logi "Updating source for $gitlog"
+  gittitle="$1"
+  gitlog="$2"
+  logi "Updating source for $gittitle"
   version=$(ls target/jflex-*-sources.jar)
 
   logi "Copying compile script"
@@ -66,7 +67,8 @@ update_source() {
   # git commit fails if the commit is empty, which makes Travis build fail.
   git diff-index --quiet HEAD || \
       git commit -a \
-          -m "Pseudo-Merge $gitlog" \
+          -m "Pseudo-Merge $gittitle" \
+          -m "$gitlog" \
           -m "Updated from $version"
   cd ..
 }
@@ -74,9 +76,10 @@ update_source() {
 # N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
 logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
-gitlog=$(git log -1)
+gittitle=$(git log -1 --pretty=format:oneline)
+gitlog=$(git log -1 --pretty=format:fuller)
 git_clone
-update_source "$gitlog"
+update_source "$gittitle" "$gitlog"
 
 if [[ -z "$CI" ]]; then
   logi "Check the last commit"
