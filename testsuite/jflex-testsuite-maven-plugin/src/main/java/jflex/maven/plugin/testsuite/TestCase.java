@@ -165,7 +165,7 @@ public class TestCase {
     }
     jflexFiles.add(lexFile.getPath());
     // invoke JFlex
-    TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
+    TestResult jflexResult = ExecUtils.execJFlex(jflexCmdln, jflexFiles);
     // System.out.println(jflexResult);
 
     if (jflexResult.getSuccess()) {
@@ -209,7 +209,7 @@ public class TestCase {
       }
       try {
         TestResult javacResult =
-            Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
+            ExecUtils.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
         // System.out.println(javacResult);
         if (Tester.verbose) {
@@ -289,7 +289,7 @@ public class TestCase {
     cmdLine.add(inputFileEncoding);
     List<File> additionalJars = ImmutableList.of(jflexUberJar);
     TestResult classExecResult =
-        Exec.execClass(
+        ExecUtils.execClass(
             className,
             testPath.toString(),
             inputFiles,
