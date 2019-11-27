@@ -1,4 +1,4 @@
-# ctorarg
+# count
 
 # This build file was generated automatically, but won't be re-generated.
 # Feel free to improve.
@@ -6,16 +6,16 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
-    name = "gen_ctorarg_scanner",
-    srcs = ["ctor-arg.flex"],
+    name = "gen_count_scanner",
+    srcs = ["count.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Ctorarg.java"],
+    outputs = ["Count.java"],
 )
 
 java_library(
-    name = "ctorarg_scanner",
+    name = "count_scanner",
     srcs = [
-        ":gen_ctorarg_scanner",
+        ":gen_count_scanner",
     ],
     deps = [
         "//java/jflex/testing/testsuite/golden",
@@ -24,14 +24,16 @@ java_library(
 )
 
 java_test(
-    name = "CtorArgTest",
+    name = "CountGoldenTest",
     srcs = [
-        "CtorArgTest.java",
+        "CountGoldenTest.java",
     ],
     data = [
+        "count-0.input",
+        "count-0.output",
     ],
     deps = [
-        ":ctorarg_scanner",
+        ":count_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",

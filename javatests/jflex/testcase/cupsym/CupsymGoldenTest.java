@@ -1,6 +1,6 @@
-// test: $testName
+// test: cupsym
 
-package $javaPackage;
+package jflex.testcase.cupsym;
 
 import com.google.common.io.CharSource;
 import com.google.common.io.Files;
@@ -15,9 +15,14 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code $flexGrammar.Name}.
+ * Tests scanner generated from {@code cupsym.flex}.
  *
- * <p>$testDescription
+ * <p>bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all
+ * code</a>
+ *
+ * <p>If %cupdebug is used, the code generated for getTokenName uses "sym" as the cup symbol name
+ * even if %cupsym is specified. The comment correctly uses the cupSymbol variable, but the
+ * generated code does not.
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -27,43 +32,31 @@ import org.junit.Test;
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class $testClassName extends AbstractGoldenTest {
+public class CupsymGoldenTest extends AbstractGoldenTest {
 
-#if ( $goldens.size() > 0 )
-  private File testRuntimeDir = new File("javatests/$javaPackageDir");
-#end
+  private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
 
-#foreach ( $golden in $goldens )
   @Test
-  public void goldenTest$velocityCount() throws Exception {
+  public void goldenTest0() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "$golden.InputFileName"),
-            new File(testRuntimeDir, "$golden.OutputFileName"));
+            new File(testRuntimeDir, "cupsym-0.input"),
+            new File(testRuntimeDir, "cupsym-0.output"));
     compareSystemOutWith(golden);
 
-    $scannerClassName scanner = createScanner(golden.inputFile);
-    scanner.yylex();
+    Cupsym scanner = createScanner(golden.inputFile);
+    scanner.debug_next_token();
   }
-#end
 
-#if ( $goldens.size() == 0 )
-  /** Tests that the scanner was successfully generated and can be instantiated. */
-  @Test
-  public void canInstantiateScanner() throws Exception {
-    createScanner("");
-  }
-#end
-
-  private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
+  private static Cupsym createScanner(File inputFile) throws FileNotFoundException {
     return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 
-  private static $scannerClassName createScanner(String content) throws IOException {
+  private static Cupsym createScanner(String content) throws IOException {
     return createScanner(CharSource.wrap(content).openStream());
   }
 
-  private static $scannerClassName createScanner(Reader reader) {
-    return new $scannerClassName(reader);
+  private static Cupsym createScanner(Reader reader) {
+    return new Cupsym(reader);
   }
 }

@@ -35,6 +35,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 import jflex.core.Out;
 import jflex.generator.LexGenerator;
 import jflex.testing.diff.DiffOutputStream;
@@ -66,17 +67,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
-    if (!Strings.isNullOrEmpty(spec.sysout())) {
-      File sysoutFile = new File(spec.sysout());
-      try {
-        DiffOutputStream diffSysOut =
-            new DiffOutputStream(Files.newReader(sysoutFile, Charsets.UTF_8));
-        Out.setOutputStream(diffSysOut);
-      } catch (FileNotFoundException e) {
-        throw new AssertionError(
-            "The golden sysout was not found: " + sysoutFile.getAbsolutePath(), e);
-      }
-    }
+    Optional<DiffOutputStream> diffSysOut = injectDiffSysOut();
     if (spec.generatorThrows() != NoExceptionThrown.class) {
       try {
         generateLexer(notifier);
@@ -104,12 +95,34 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
               .that(e.getCause())
               .isInstanceOf(spec.generatorThrowableCause());
         }
+      } finally {
+        if (diffSysOut.isPresent()) {
+          assertWithMessage("Some content from expected output %s was not read", spec.sysout())
+              .that(diffSysOut.get().remainingContent())
+              .isEmpty();
+        }
       }
     } else {
       String lexerJavaFileName = generateLexer(notifier);
       buildLexer(notifier, lexerJavaFileName);
     }
     super.run(notifier);
+  }
+
+  private Optional<DiffOutputStream> injectDiffSysOut() {
+    if (!Strings.isNullOrEmpty(spec.sysout())) {
+      File sysoutFile = new File(spec.sysout());
+      try {
+        DiffOutputStream diffSysOut =
+            new DiffOutputStream(Files.newReader(sysoutFile, Charsets.UTF_8));
+        Out.setOutputStream(diffSysOut);
+        return Optional.of(diffSysOut);
+      } catch (FileNotFoundException e) {
+        throw new AssertionError(
+            "The golden sysout was not found: " + sysoutFile.getAbsolutePath(), e);
+      }
+    }
+    return Optional.empty();
   }
 
   private String generateLexer(RunNotifier notifier) {

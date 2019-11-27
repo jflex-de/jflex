@@ -43,7 +43,7 @@ public class DiffOutputStreamTest {
     @SuppressWarnings("RedundantStringConstructorCall")
     String out = new String(in);
     DiffOutputStream differ = diff(in, out);
-    assertThat(differ.isCompleted()).isTrue();
+    assertThat(differ.remainingContent()).isEmpty();
   }
 
   @Test

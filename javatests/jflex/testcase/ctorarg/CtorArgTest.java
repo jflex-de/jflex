@@ -10,20 +10,15 @@ import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code ctorarg.flex}.
+ * Tests scanner generated from {@code ctor-arg.flex}.
  *
- * <p>test feature request #1762500 (provide option to add arguments to constructor and yylex).
- * Positive test case.
+ * <p>test feature request <a href="https://github.com/jflex-de/jflex/issues/156">#156 provide
+ * option to add arguments to constructor and yylex<a/>.
  *
- * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
- * relies on golden files for testing, expecting the scanner to output logs on the {@code
- * System.out}. Please migrate to proper unit tests, as describe in <a
- * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
- * //javatest/jflex/testcase</a>.
+ * <p>Positive test case: arguments are specified.
  */
-// TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class CtorargGoldenTest extends AbstractGoldenTest {
+public class CtorArgTest extends AbstractGoldenTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
