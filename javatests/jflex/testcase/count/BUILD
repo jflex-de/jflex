@@ -1,0 +1,42 @@
+# count
+
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_count_scanner",
+    srcs = ["count.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Count.java"],
+)
+
+java_library(
+    name = "count_scanner",
+    srcs = [
+        ":gen_count_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "CountGoldenTest",
+    srcs = [
+        "CountGoldenTest.java",
+    ],
+    data = [
+        "count-0.input",
+        "count-0.output",
+    ],
+    deps = [
+        ":count_scanner",
+        "//java/jflex/testing/diff",
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)
