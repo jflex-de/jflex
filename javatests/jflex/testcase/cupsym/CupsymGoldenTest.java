@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
+import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
@@ -44,7 +45,7 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Cupsym scanner = createScanner(golden.inputFile);
-    scanner.yylex();
+    scanner.debug_next_token();
   }
 
   private static Cupsym createScanner(File inputFile) throws FileNotFoundException {

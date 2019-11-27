@@ -15,9 +15,11 @@ jflex(
 java_library(
     name = "cupsym_scanner",
     srcs = [
+        "sym2.java",
         ":gen_cupsym_scanner",
     ],
     deps = [
+        "//cup/cup_runtime",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
