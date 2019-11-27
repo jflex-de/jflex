@@ -13,6 +13,7 @@ import java_cup.runtime.Symbol;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;

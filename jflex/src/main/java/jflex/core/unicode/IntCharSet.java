@@ -7,13 +7,13 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.core.unicode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.core.unicode.UnicodeProperties;
+import jflex.core.Out;
 
 /**
  * Char Set implemented with intervals.

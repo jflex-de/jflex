@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 

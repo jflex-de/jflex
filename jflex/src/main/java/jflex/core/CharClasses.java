@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.core.unicode.IntCharSet;
 
 /**
  * Character Classes.

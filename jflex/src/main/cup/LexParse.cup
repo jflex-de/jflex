@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
