@@ -1176,7 +1176,7 @@ also affect character classes.
 \item
 {\bf \texttt{\%char}}
 
-Turns character counting on. The \texttt{int} member variable \texttt{yychar}
+Turns character counting on. The \texttt{long} member variable \texttt{yychar}
 contains the number of characters (starting with 0) from the beginning
 of input to the beginning of the current token.
  
@@ -1819,7 +1819,7 @@ Currently, the API consists of the following methods and member fields:
   contains the current line of input (starting with 0, only active with
   the \texttt{\htmlref{\%line}{Counting}} directive)
 
-\item \texttt{int yychar}\\
+\item \texttt{long yychar}\\
   contains the current character count in the input (starting with 0,
   only active with the \texttt{\htmlref{\%char}{Counting}} directive)
 

@@ -21,7 +21,7 @@ import java.util.zip.ZipException;
 %%
 
 ^.+        { if (yychar < 0) {
-                 throw new IllegalStateException("yychar must not be negative but is: " + yychar);
+                 throw new NegativeYyCharException(yychar);
              } else if (yychar <= Integer.MAX_VALUE) {
                   return State.BEFORE_2GB;
              } else {

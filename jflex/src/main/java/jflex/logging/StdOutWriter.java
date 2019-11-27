@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.logging;
 
 import java.awt.TextArea;
 import java.io.OutputStream;
@@ -20,6 +20,9 @@ import java.io.PrintWriter;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class StdOutWriter extends PrintWriter {
+
+  /** platform dependent newline sequence */
+  public static final String NL = System.getProperty("line.separator");
 
   /** text area to write to if in gui mode, gui mode = (text != null) */
   private TextArea text;
@@ -99,7 +102,7 @@ public final class StdOutWriter extends PrintWriter {
   /** Begin a new line. Which actual character/s is/are written depends on the runtime platform. */
   public void println() {
     if (text != null) {
-      text.append(Out.NL);
+      text.append(NL);
       col = 0;
     } else super.println();
   }
