@@ -76,8 +76,8 @@ update_source() {
 # N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
 logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
 
-gittitle=$(git log -1 --pretty=format:oneline)
-gitlog=$(git log -1 --pretty=format:fuller)
+gittitle=$(git log -1 --pretty=format:'%h %s')
+gitlog=$(git log -1 --pretty=fuller)
 git_clone
 update_source "$gittitle" "$gitlog"
 
