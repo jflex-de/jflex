@@ -1,5 +1,5 @@
 java_test(
-    name = "JavaPackageUtilTest",
+    name = "JavaPackageUtilsTest",
     srcs = ["JavaPackageUtilsTest.java"],
     deps = [
         "//java/jflex/util/javac:package_util",

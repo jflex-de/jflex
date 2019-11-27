@@ -1,10 +1,11 @@
 package jflex.io;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class FileUtilsTest extends TestCase {
+public class FileUtilsTest {
 
   @Test
   public void test_getRelativePath_fileInDir() {
