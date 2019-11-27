@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.core.Out;
 
 /**
  * Char Set implemented with intervals.
@@ -244,9 +243,9 @@ public final class IntCharSet {
    */
   public IntCharSet and(IntCharSet set) {
     if (DEBUG) {
-      Out.dump("intersection");
-      Out.dump("this  : " + this);
-      Out.dump("other : " + set);
+      System.out.println("intersection");
+      System.out.println("this  : " + this);
+      System.out.println("other : " + set);
     }
 
     IntCharSet result = new IntCharSet();
@@ -278,7 +277,7 @@ public final class IntCharSet {
     }
 
     if (DEBUG) {
-      Out.dump("result: " + result);
+      System.out.println("result: " + result);
     }
 
     return result;
@@ -293,9 +292,9 @@ public final class IntCharSet {
    */
   public void sub(IntCharSet set) {
     if (DEBUG) {
-      Out.dump("complement");
-      Out.dump("this  : " + this);
-      Out.dump("other : " + set);
+      System.out.println("complement");
+      System.out.println("this  : " + this);
+      System.out.println("other : " + set);
     }
 
     int i = 0; // index in this.intervals
@@ -308,9 +307,9 @@ public final class IntCharSet {
       Interval y = set.intervals.get(j);
 
       if (DEBUG) {
-        Out.dump("this      : " + this);
-        Out.dump("this  [" + i + "] : " + x);
-        Out.dump("other [" + j + "] : " + y);
+        System.out.println("this      : " + this);
+        System.out.println("this  [" + i + "] : " + x);
+        System.out.println("other [" + j + "] : " + y);
       }
 
       if (x.end < y.start) {
@@ -357,7 +356,7 @@ public final class IntCharSet {
     }
 
     if (DEBUG) {
-      Out.dump("result: " + this);
+      System.out.println("result: " + this);
     }
   }
 

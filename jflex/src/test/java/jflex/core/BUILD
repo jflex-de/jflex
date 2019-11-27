@@ -4,6 +4,7 @@ java_test(
     deps = [
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/core/unicode",
     ],
 )
 
@@ -12,7 +13,7 @@ java_test(
     srcs = ["IntCharSetTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/core/unicode",
     ],
 )
 

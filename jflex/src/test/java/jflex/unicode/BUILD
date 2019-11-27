@@ -3,6 +3,6 @@ java_test(
     srcs = ["UnicodePropertiesTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/core/unicode",
     ],
 )
