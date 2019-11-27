@@ -2,18 +2,12 @@
 
 package jflex.testcase.count;
 
-import static com.google.common.truth.Truth.assertWithMessage;
-
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.nio.charset.Charset;
-import java.util.List;
 import javax.annotation.Generated;
-import jflex.testing.diff.DiffOutputStream;
+import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
@@ -28,33 +22,22 @@ import org.junit.Test;
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class CountGoldenTest {
+public class CountGoldenTest extends AbstractGoldenTest {
 
   @Test
-  public void goldenTest() throws Exception {
+  public void goldenTest0() throws Exception {
 
     // The .input / .output Golden files
     File testRuntimeDir = new File("javatests/jflex/testcase/count");
-    List<GoldenInOutFilePair> goldenFiles =
-        ImmutableList.of(
-            new GoldenInOutFilePair(
-                new File(testRuntimeDir, "count-0.input"),
-                new File(testRuntimeDir, "count-0.output")));
+    GoldenInOutFilePair golden =
+        new GoldenInOutFilePair(
+            new File(testRuntimeDir, "count-0.input"), new File(testRuntimeDir, "count-0.output"));
 
-    for (GoldenInOutFilePair golden : goldenFiles) {
-      // in-memory output comparison
-      DiffOutputStream output =
-          new DiffOutputStream(Files.newReader(golden.outputFile, Charsets.UTF_8));
-      System.setOut(new PrintStream(output));
+    compareSystemOutWith(golden);
 
-      // Scanner for /Users/regis/Projects/jflex/testsuite/testcases/src/test/cases/count/count.flex
-      Count scanner = createScanner(golden.inputFile);
-      scanner.yylex();
-
-      assertWithMessage("All expected output has been printed on System.out")
-          .that(output.isCompleted())
-          .isTrue();
-    }
+    // Scanner for /Users/regis/Projects/jflex/testsuite/testcases/src/test/cases/count/count.flex
+    Count scanner = createScanner(golden.inputFile);
+    scanner.yylex();
   }
 
   private static Count createScanner(File inputFile) throws FileNotFoundException {
