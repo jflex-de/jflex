@@ -41,7 +41,6 @@ public class Velocity {
 
   static {
     velocityRuntimeInstance.setProperty(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
-    velocityRuntimeInstance.setProperty("directive.foreach.counter.initial.value", 0);
   }
 
   public static void render(
