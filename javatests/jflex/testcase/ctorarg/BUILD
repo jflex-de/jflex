@@ -4,7 +4,6 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
-load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
     name = "gen_ctorarg_scanner",
@@ -38,14 +37,4 @@ java_test(
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
-)
-
-jflex_testsuite(
-    name = "CtorNoArgTest",
-    srcs = ["CtorNoArgTest.java"],
-    data = [
-        "ctor-no-arg.flex",
-        "ctor-no-arg.output",
-    ],
-    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )
