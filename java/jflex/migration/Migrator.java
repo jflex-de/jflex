@@ -211,7 +211,7 @@ public class Migrator {
   /** Copy the list of golden files. */
   private static void copyGoldenFiles(ImmutableList<GoldenInOutFilePair> goldens, File outputDir)
       throws MigrationException {
-    logger.atInfo().log("Copy %n pairs of olden files", goldens.size());
+    logger.atInfo().log("Copy %d pairs of golden files", goldens.size());
     try {
       for (GoldenInOutFilePair golden : goldens) {
         copyFile(golden.inputFile, outputDir);
