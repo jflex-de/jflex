@@ -41,8 +41,11 @@ java_test(
 )
 
 jflex_testsuite(
-    name = "",
-    srcs = [],
-    data = [],
-    deps = [],
+    name = "CtorNoArgTest",
+    srcs = ["CtorNoArgTest.java"],
+    data = [
+        "ctor-no-arg.flex",
+        "ctor-no-arg.output",
+    ],
+    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )
