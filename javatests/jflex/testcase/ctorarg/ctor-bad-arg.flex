@@ -1,3 +1,4 @@
+package jflex.testcase.ctorarg;
 
 %%
 

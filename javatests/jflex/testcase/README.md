@@ -17,8 +17,8 @@ If you want to contribute, here is how to migrate a test from
 to
 [javatests/jflex/testcase](https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase).
 
-There are just a few steps to migrate a test,
-and [testcase/bol](https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase/bol)
+There are a few steps to migrate a test, and
+[testcase/bol](https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase/bol)
 is a simple example.
 
 1. Generate a scanner from the flex file with the `jflex` rule, by creating a
@@ -131,6 +131,6 @@ is a simple example.
 Of course, this cannot be applied if the generation of the scanner is expected
 to fail: We can't break the build to make a test pass.
 
-In that case, you can use a custom `JflexTestRunner`.
+In that case, you can use a custom `JflexTestRunner` and write a test in just a few lines of codes.
 
 Example: [EofPipeActionTest](https://github.com/jflex-de/jflex/blob/master/javatests/jflex/testcase/action_pipe/EofPipeActionTest.java).

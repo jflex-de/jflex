@@ -35,7 +35,7 @@ public class CountGoldenTest extends AbstractGoldenTest {
 
     compareSystemOutWith(golden);
 
-    // Scanner for /Users/regis/Projects/jflex/testsuite/testcases/src/test/cases/count/count.flex
+    // Scanner for test/cases/count/count.flex
     Count scanner = createScanner(golden.inputFile);
     scanner.yylex();
   }

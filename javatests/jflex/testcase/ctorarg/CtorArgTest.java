@@ -12,10 +12,9 @@ import org.junit.Test;
 /**
  * Tests scanner generated from {@code ctor-arg.flex}.
  *
- * <p>test feature request <a href="https://github.com/jflex-de/jflex/issues/156">#156 provide
- * option to add arguments to constructor and yylex<a/>.
- *
- * <p>Positive test case: arguments are specified.
+ * <p>Tests that the lex spec has an option to add arguments to constructor and yylex. See feature
+ * request <a href="https://github.com/jflex-de/jflex/issues/156">#156 provide option to add
+ * arguments to constructor and yylex</a>.
  */
 @Generated("jflex.migration.Migrator")
 public class CtorArgTest extends AbstractGoldenTest {
