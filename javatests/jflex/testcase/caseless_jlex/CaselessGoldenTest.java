@@ -16,7 +16,7 @@ import org.junit.Test;
 
 /**
  * Tests {@code %ignorecase} with JLex semantics (char classes are caseless, in addition to strings
- * and chars).
+ * and chars.)
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -50,7 +50,7 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
     return createScanner(CharSource.wrap(content).openStream());
   }
 
-  /** Scanner generated from {@code caseless.flex}. */
+  /** Creates a scanner conforming to the {@code caseless.flex} spec. */
   private static Caseless createScanner(Reader reader) {
     return new Caseless(reader);
   }
