@@ -32,7 +32,7 @@ import com.google.common.collect.ImmutableList;
 import jflex.testing.testsuite.JFlexTestRunner;
 import jflex.testing.testsuite.annotations.TestSpec;
 import jflex.util.javac.CompilerException;
-import jflex.util.javac.JavacUtil;
+import jflex.util.javac.JavacUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -48,7 +48,7 @@ public class ApiPrivateTest {
   @Test
   public void compile() throws CompilerException {
     try {
-      JavacUtil.compile(
+      JavacUtils.compile(
           ImmutableList.of(
               "javatests/jflex/testcase/apipirivate/Private.java",
               "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));

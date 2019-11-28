@@ -42,7 +42,7 @@ import javax.tools.ToolProvider;
  *
  * @author Régis Décamps
  */
-public final class JavacUtil {
+public final class JavacUtils {
 
   /** Compiles the given java source files. */
   public static void compile(Iterable<? extends File> files) throws CompilerException {
@@ -84,5 +84,5 @@ public final class JavacUtil {
     compile(javaSourceFiles);
   }
 
-  private JavacUtil() {}
+  private JavacUtils() {}
 }

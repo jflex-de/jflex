@@ -1,34 +1,37 @@
 package jflex.io;
 
+import static com.google.common.truth.Truth.assertThat;
+import static jflex.io.FileUtils.getRelativePath;
+import static jflex.io.FileUtils.slashify;
+
 import java.io.File;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class FileUtilTest extends TestCase {
+public class FileUtilsTest {
 
   @Test
   public void test_getRelativePath_fileInDir() {
     File dir = new File("/a/b/c");
     File f = new File("/a/b/c/d/foo.bar");
-    assertEquals("d/foo.bar", FileUtil.getRelativePath(dir, f));
+    assertThat(getRelativePath(dir, f)).isEqualTo("d/foo.bar");
   }
 
   @Test
   public void test_getRelativePath_fileNotInDir() {
     File dir = new File("/a/b/c");
     File f = new File("/d/e/f/foo.bar");
-    assertEquals("/d/e/f/foo.bar", FileUtil.getRelativePath(dir, f));
+    assertThat(getRelativePath(dir, f)).isEqualTo("/d/e/f/foo.bar");
   }
 
   @Test
   public void test_getRelativePath_sameStart() {
     File dir = new File("/a/b/c");
     File f = new File("/a/b/c.txt");
-    assertEquals("/a/b/c.txt", FileUtil.getRelativePath(dir, f));
+    assertThat(getRelativePath(dir, f)).isEqualTo("/a/b/c.txt");
   }
 
   @Test
   public void test_slashify() {
-    assertEquals("C:/u0022.txt", FileUtil.slashify("C:\\u0022.txt"));
+    assertThat(slashify("C:\\u0022.txt")).isEqualTo("C:/u0022.txt");
   }
 }

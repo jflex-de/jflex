@@ -1,6 +1,6 @@
 java_test(
-    name = "JavaPackageUtilTest",
-    srcs = ["JavaPackageUtilTest.java"],
+    name = "JavaPackageUtilsTest",
+    srcs = ["JavaPackageUtilsTest.java"],
     deps = [
         "//java/jflex/util/javac:package_util",
         "//third_party/com/google/truth",

@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
  *
  * <p>See <a href="https://github.com/jflex-de/jflex/issues/449">#449</a>
  */
-public class TestFileUtil {
+public class TestFileUtils {
 
   /** Whether the process is in a Bazel <em>runfiles</em> sandbox. */
   public static final boolean BAZEL_RUNFILES =
@@ -76,5 +76,5 @@ public class TestFileUtil {
     return file;
   }
 
-  private TestFileUtil() {}
+  private TestFileUtils() {}
 }

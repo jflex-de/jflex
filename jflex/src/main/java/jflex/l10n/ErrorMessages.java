@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
  */
 public class ErrorMessages {
 
+  private ErrorMessages() {}
+
   // typesafe enumeration (generated, do not edit)
   /** Constant {@code UNTERMINATED_STR} */
   public static ErrorMessage UNTERMINATED_STR = new ErrorMessage("UNTERMINATED_STR");

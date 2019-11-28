@@ -25,15 +25,19 @@
  */
 package jflex.util.javac;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import org.junit.Test;
-
-public class JavaPackageUtilTest {
-
-  @Test
-  public void getPathForPackage() throws Exception {
-    assertThat(JavaPackageUtil.getPathForPackage(getClass().getPackage()))
-        .isEqualTo("jflex/util/javac");
+@SuppressWarnings("WeakerAccess")
+public final class JavaPackageUtils {
+  public static String getPathForClass(Class clazz) {
+    return getPathForPackage(clazz.getPackage());
   }
+
+  public static String getPathForPackage(Package targetPackage) {
+    return getPathForPackage(targetPackage.getName());
+  }
+
+  public static String getPathForPackage(String packageName) {
+    return packageName.replace('.', '/');
+  }
+
+  private JavaPackageUtils() {}
 }

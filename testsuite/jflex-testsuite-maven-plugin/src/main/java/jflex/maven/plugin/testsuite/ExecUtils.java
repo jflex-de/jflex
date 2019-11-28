@@ -19,7 +19,9 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
 import org.apache.tools.ant.types.Path;
 
-public class Exec {
+public class ExecUtils {
+
+  private ExecUtils() {}
 
   private static final String JAVA_VERSION = "1.7";
   public static final String NL = System.getProperty("line.separator");
