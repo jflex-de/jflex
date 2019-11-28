@@ -170,7 +170,7 @@ public class TestCase {
 
     if (jflexResult.getSuccess()) {
       // Scanner generation successful
-      if (Tester.verbose) {
+      if (TestsuiteUtils.verbose) {
         System.out.println("Scanner generation successful");
       }
 
@@ -204,7 +204,7 @@ public class TestCase {
 
       // Compile Scanner
       final List<String> toCompile = getFilesToCompile();
-      if (Tester.verbose) {
+      if (TestsuiteUtils.verbose) {
         System.out.println("File(s) to compile: " + toCompile);
       }
       try {
@@ -212,7 +212,7 @@ public class TestCase {
             ExecUtils.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
         // System.out.println(javacResult);
-        if (Tester.verbose) {
+        if (TestsuiteUtils.verbose) {
           System.out.println(
               "Compilation successful: "
                   + javacResult.getSuccess()
@@ -296,7 +296,7 @@ public class TestCase {
             additionalJars,
             outputFileEncoding,
             cmdLine);
-    if (Tester.verbose) {
+    if (TestsuiteUtils.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }
 
