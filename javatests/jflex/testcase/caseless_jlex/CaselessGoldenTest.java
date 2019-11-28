@@ -1,10 +1,13 @@
 // test: caseless
 
-package jflex.testcase.caseless_jflex;
+package jflex.testcase.caseless_jlex;
 
+import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.Charset;
 import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
@@ -12,7 +15,8 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * Tests {@code %ignorecase} with jflex semantics (only strings and chars are caseless).
+ * Tests {@code %ignorecase} with JLex semantics (char classes are caseless, in addition to strings
+ * and chars).
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -24,7 +28,7 @@ import org.junit.Test;
 @Generated("jflex.migration.Migrator")
 public class CaselessGoldenTest extends AbstractGoldenTest {
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
+  private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jlex");
 
   @Test
   public void goldenTest0() throws Exception {
@@ -38,8 +42,16 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
     scanner.yylex();
   }
 
-  /** Scanner generated from {@code caseless.flex}. */
   private static Caseless createScanner(File inputFile) throws FileNotFoundException {
-    return new Caseless(Files.newReader(inputFile, Charset.forName("UTF-8")));
+    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
+  }
+
+  private static Caseless createScanner(String content) throws IOException {
+    return createScanner(CharSource.wrap(content).openStream());
+  }
+
+  /** Scanner generated from {@code caseless.flex}. */
+  private static Caseless createScanner(Reader reader) {
+    return new Caseless(reader);
   }
 }
