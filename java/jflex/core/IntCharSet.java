@@ -9,6 +9,9 @@
 
 package jflex.core;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -225,14 +228,6 @@ public final class IntCharSet {
       h ^= interval.hashCode();
     }
     return h;
-  }
-
-  private int min(int a, int b) {
-    return a <= b ? a : b;
-  }
-
-  private int max(int a, int b) {
-    return a >= b ? a : b;
   }
 
   /* intersection */

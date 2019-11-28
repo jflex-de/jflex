@@ -3,7 +3,7 @@ package jflex.io;
 import java.io.File;
 import java.io.IOException;
 
-public class FileUtil {
+public class FileUtils {
 
   /** Returns the path of {@code file} relative to {@code rootDirectory}. */
   public static String getRelativePath(File rootDirectory, File file) {
@@ -27,5 +27,5 @@ public class FileUtil {
     return path.replace('\\', '/');
   }
 
-  private FileUtil() {} // utility class
+  private FileUtils() {} // utility class
 }

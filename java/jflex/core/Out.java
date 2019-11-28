@@ -38,6 +38,8 @@ import jflex.performance.Timer;
  */
 public final class Out {
 
+  private Out() {}
+
   /** platform dependent newline sequence */
   public static final String NL = System.getProperty("line.separator");
 
