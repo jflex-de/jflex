@@ -35,7 +35,7 @@ public class $testClassName extends AbstractGoldenTest {
 
 #foreach ( $golden in $goldens )
   @Test
-  public void goldenTest$velocityCount() throws Exception {
+  public void goldenTest${foreach.index}() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
             new File(testRuntimeDir, "$golden.InputFileName"),

@@ -345,7 +345,8 @@ build --javacopt "-Xep:EmptySetMultibindingContributions:WARN"
 build --javacopt "-Xep:ExpectedExceptionRefactoring:WARN"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:FieldCanBeFinal:OFF"
-build --javacopt "-Xep:FieldMissingNullable:WARN"
+# TOD(#469) We don't have a nullness checker anyway.
+build --javacopt "-Xep:FieldMissingNullable:OFF"
 build --javacopt "-Xep:ImmutableRefactoring:WARN"
 build --javacopt "-Xep:LambdaFunctionalInterface:WARN"
 build --javacopt "-Xep:MethodCanBeStatic:WARN"
