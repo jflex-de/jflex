@@ -20,7 +20,7 @@ public class BufferTest {
     scanner.yylex();
   }
 
-  private EatAllScanner createScanner(String content) {
+  private static EatAllScanner createScanner(String content) {
     try {
       return new EatAllScanner(CharSource.wrap(content).openStream());
     } catch (IOException impossible) {
