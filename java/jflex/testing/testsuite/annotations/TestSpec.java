@@ -48,4 +48,10 @@ public @interface TestSpec {
 
   /** Golden file for JFlex's warning and errors (System.err stream). */
   String syserr() default "";
+
+  /** Run JFlex generation with the {@code q} option. */
+  boolean quiet() default true;
+
+  /** Generates a lexer with {@code --jlex} option. */
+  boolean jlexCompat() default false;
 }

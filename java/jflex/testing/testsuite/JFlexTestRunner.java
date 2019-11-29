@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Optional;
+import jflex.core.Options;
 import jflex.core.Out;
 import jflex.generator.LexGenerator;
 import jflex.testing.diff.DiffOutputStream;
@@ -67,13 +68,12 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
+    super.run(notifier);
     String lexerJavaFileName = generateLexer(notifier);
 
     if (lexerJavaFileName != null) {
       buildLexer(notifier, lexerJavaFileName);
     }
-
-    super.run(notifier);
   }
 
   private String generateLexer(RunNotifier notifier) {
@@ -177,6 +177,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private String invokeJflex() {
+    Options.verbose = !spec.quiet();
+    Options.jlex = spec.jlexCompat();
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
     return checkNotNull(lexerJavaFileName);
   }
