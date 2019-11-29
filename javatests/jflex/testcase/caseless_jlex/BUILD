@@ -9,6 +9,7 @@ jflex(
     name = "gen_caseless_scanner",
     srcs = ["caseless.flex"],
     jflex_bin = "//jflex:jflex_bin",
+    jlex = True,
     outputs = ["Caseless.java"],
 )
 
