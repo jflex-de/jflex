@@ -58,7 +58,7 @@ public final class JavacUtils {
     Boolean success = task.call();
     try {
       if (!diagnostics.getDiagnostics().isEmpty()) {
-        throw new CompilerException(diagnostics.getDiagnostics());
+        throw new CompilerException(files, diagnostics.getDiagnostics());
       }
       if (!Objects.equals(success, Boolean.TRUE)) {
         // Something went wrong: the default DiagnosticListener should add a diagnostic entry.

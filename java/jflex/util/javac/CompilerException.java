@@ -28,6 +28,8 @@ package jflex.util.javac;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -43,8 +45,14 @@ public class CompilerException extends Exception {
 
   private final List<Diagnostic<? extends JavaFileObject>> diagnostics;
 
-  public CompilerException(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
-    super("javac exception: " + diagnosticCode(diagnostics));
+  public CompilerException(
+      Iterable<? extends File> files, List<Diagnostic<? extends JavaFileObject>> diagnostics) {
+    super(
+        "javac exception while compiling: "
+            + Streams.stream(files)
+                .map(f -> ((File) f).getAbsolutePath())
+                .collect(Collectors.joining(", ")),
+        new Exception(diagnosticCode(diagnostics)));
     this.diagnostics = diagnostics;
   }
 
