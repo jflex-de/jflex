@@ -93,8 +93,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       lexerJavaFileName = null;
       try {
         generateLexerWithExpectedException();
-      } catch (Throwable t) {
-        notifier.fireTestFailure(new Failure(desc, t));
+      } catch (Exception e) {
+        notifier.fireTestFailure(new Failure(desc, e));
         return null;
       }
     }
