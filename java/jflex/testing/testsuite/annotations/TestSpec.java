@@ -43,6 +43,9 @@ public @interface TestSpec {
    */
   Class<?> generatorThrowableCause() default NoExceptionThrown.class;
 
-  /** Golden file for JFlex's log (output stream). */
+  /** Golden file for JFlex's log (System.out stream). */
   String sysout() default "";
+
+  /** Golden file for JFlex's warning and errors (System.err stream). */
+  String syserr() default "";
 }
