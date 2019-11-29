@@ -50,7 +50,7 @@ public @interface TestSpec {
   String syserr() default "";
 
   /** Run JFlex generation with the {@code q} option. */
-  boolean quiet() default true;
+  boolean quiet() default false;
 
   /** Generates a lexer with {@code --jlex} option. */
   boolean jlexCompat() default false;
