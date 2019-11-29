@@ -68,12 +68,15 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
-    super.run(notifier);
     String lexerJavaFileName = generateLexer(notifier);
 
     if (lexerJavaFileName != null) {
       buildLexer(notifier, lexerJavaFileName);
     }
+
+    // The lexer must be generated before the other tests are executed, as they can try to
+    // compile this generated code.
+    super.run(notifier);
   }
 
   private String generateLexer(RunNotifier notifier) {
@@ -187,7 +190,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Description desc = Description.createTestDescription(klass, "Compile java code");
     notifier.fireTestStarted(desc);
     try {
-      JavacUtils.compile(ImmutableList.of(lexerJavaFileName));
+      JavacUtils.compile(ImmutableList.of(new File(lexerJavaFileName)));
       notifier.fireTestFinished(desc);
     } catch (CompilerException e) {
       notifier.fireTestFailure(new Failure(desc, e));

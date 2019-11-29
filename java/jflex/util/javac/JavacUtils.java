@@ -28,9 +28,7 @@ package jflex.util.javac;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -58,7 +56,7 @@ public final class JavacUtils {
     Boolean success = task.call();
     try {
       if (!diagnostics.getDiagnostics().isEmpty()) {
-        throw new CompilerException(files, diagnostics.getDiagnostics());
+        throw new CompilerException(diagnostics.getDiagnostics());
       }
       if (!Objects.equals(success, Boolean.TRUE)) {
         // Something went wrong: the default DiagnosticListener should add a diagnostic entry.
@@ -71,17 +69,6 @@ public final class JavacUtils {
       } catch (IOException ignore) {
       }
     }
-  }
-
-  /**
-   * Compiles the given java source files.
-   *
-   * @see #compile(Iterable)
-   */
-  public static void compile(List<? extends String> javaSourceFileNames) throws CompilerException {
-    List<File> javaSourceFiles =
-        javaSourceFileNames.stream().map(File::new).collect(Collectors.toList());
-    compile(javaSourceFiles);
   }
 
   private JavacUtils() {}
