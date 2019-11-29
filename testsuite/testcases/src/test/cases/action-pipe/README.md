@@ -1,1 +1,3 @@
-fully migrated to bzltestsuite
+Migrated to Bazel
+
+    bazel test //javatests/jflex/testcase/action_pipe:all

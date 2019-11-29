@@ -22,7 +22,7 @@ fi
 logi "Check Starlark (Bazel) format"
 logi "============================="
 ${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -version
-${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -mode=check -r=true .
+${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} -r=true -mode=diff .
 logi "OK 🙌"
 
 cd "$CWD"

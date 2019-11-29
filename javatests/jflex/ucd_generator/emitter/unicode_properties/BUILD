@@ -6,10 +6,10 @@ java_test(
     ],
     deps = [
         "//java/jflex/testing/diff",
-        "//java/jflex/testing/javac",
         "//java/jflex/ucd_generator",
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/util/javac",
         "//third_party/com/google/truth",
     ],
 )

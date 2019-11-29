@@ -1,3 +1,3 @@
 # Java sources
 
-**WIP** Migation to Bazel
+**WIP** [Migration to Bazel](https://github.com/jflex-de/jflex/projects/12)

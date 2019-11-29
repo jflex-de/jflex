@@ -29,13 +29,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.Assert.fail;
 
+import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
+import com.google.common.io.Files;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Optional;
+import jflex.core.Out;
 import jflex.generator.LexGenerator;
-import jflex.testing.javac.CompilerException;
-import jflex.testing.javac.JavacUtil;
+import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
+import jflex.util.javac.CompilerException;
+import jflex.util.javac.JavacUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
@@ -60,6 +67,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @Override
   public void run(RunNotifier notifier) {
+    Optional<DiffOutputStream> diffSysOut = injectDiffSysOut();
     if (spec.generatorThrows() != NoExceptionThrown.class) {
       try {
         generateLexer(notifier);
@@ -87,12 +95,34 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
               .that(e.getCause())
               .isInstanceOf(spec.generatorThrowableCause());
         }
+      } finally {
+        if (diffSysOut.isPresent()) {
+          assertWithMessage("Some content from expected output %s was not read", spec.sysout())
+              .that(diffSysOut.get().remainingContent())
+              .isEmpty();
+        }
       }
     } else {
       String lexerJavaFileName = generateLexer(notifier);
       buildLexer(notifier, lexerJavaFileName);
     }
     super.run(notifier);
+  }
+
+  private Optional<DiffOutputStream> injectDiffSysOut() {
+    if (!Strings.isNullOrEmpty(spec.sysout())) {
+      File sysoutFile = new File(spec.sysout());
+      try {
+        DiffOutputStream diffSysOut =
+            new DiffOutputStream(Files.newReader(sysoutFile, Charsets.UTF_8));
+        Out.setOutputStream(diffSysOut);
+        return Optional.of(diffSysOut);
+      } catch (FileNotFoundException e) {
+        throw new AssertionError(
+            "The golden sysout was not found: " + sysoutFile.getAbsolutePath(), e);
+      }
+    }
+    return Optional.empty();
   }
 
   private String generateLexer(RunNotifier notifier) {
@@ -113,6 +143,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   private void compile(RunNotifier notifier, ImmutableList<String> javaFileNames)
       throws CompilerException {
     notifier.fireTestStarted(Description.createTestDescription(klass, "Compile java code"));
-    JavacUtil.compile(javaFileNames);
+    JavacUtils.compile(javaFileNames);
   }
 }

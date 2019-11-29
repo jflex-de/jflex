@@ -29,10 +29,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
-import jflex.testing.javac.CompilerException;
-import jflex.testing.javac.JavacUtil;
 import jflex.testing.testsuite.JFlexTestRunner;
 import jflex.testing.testsuite.annotations.TestSpec;
+import jflex.util.javac.CompilerException;
+import jflex.util.javac.JavacUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -48,7 +48,7 @@ public class ApiPrivateTest {
   @Test
   public void compile() throws CompilerException {
     try {
-      JavacUtil.compile(
+      JavacUtils.compile(
           ImmutableList.of(
               "javatests/jflex/testcase/apipirivate/Private.java",
               "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));
