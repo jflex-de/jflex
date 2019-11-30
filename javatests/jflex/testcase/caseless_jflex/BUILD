@@ -1,20 +1,18 @@
 # caseless
 
-# This build file was generated automatically, but won't be re-generated.
-# Feel free to improve.
-
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
     name = "gen_caseless_scanner",
     srcs = ["caseless.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Caseless.java"],
+    outputs = ["CaselessScanner.java"],
 )
 
 java_library(
     name = "caseless_scanner",
     srcs = [
+        "State.java",
         ":gen_caseless_scanner",
     ],
     deps = [
@@ -24,13 +22,9 @@ java_library(
 )
 
 java_test(
-    name = "CaselessGoldenTest",
+    name = "CaselessJflexTest",
     srcs = [
-        "CaselessGoldenTest.java",
-    ],
-    data = [
-        "caseless-0.input",
-        "caseless-0.output",
+        "CaselessJflexTest.java",
     ],
     deps = [
         ":caseless_scanner",

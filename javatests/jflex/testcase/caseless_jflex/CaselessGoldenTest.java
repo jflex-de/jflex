@@ -21,7 +21,8 @@ import org.junit.Test;
 public class CaselessGoldenTest extends AbstractGoldenTest {
 
   /** Creates a scanner conforming to the {@code caseless.flex} specification. */
-  private final ScannerFactory<Caseless> scannerFactory = ScannerFactory.of(Caseless::new);
+  private final ScannerFactory<CaselessScanner> scannerFactory =
+      ScannerFactory.of(CaselessScanner::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
 
@@ -33,7 +34,7 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "caseless-0.output"));
     compareSystemOutWith(golden);
 
-    Caseless scanner = scannerFactory.createScannerForFile(golden.inputFile);
+    CaselessScanner scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 }
