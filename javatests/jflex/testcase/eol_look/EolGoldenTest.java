@@ -2,13 +2,7 @@
 
 package jflex.testcase.eol_look;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.scanner.ScannerFactory;
@@ -26,8 +20,8 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class EolGoldenTest extends AbstractGoldenTest {
 
- /** Creates a scanner conforming to the {@code eol.flex} specification. */
- private final ScannerFactory<Eol> scannerFactory = ScannerFactory.of(Eol::new);
+  /** Creates a scanner conforming to the {@code eol.flex} specification. */
+  private final ScannerFactory<Eol> scannerFactory = ScannerFactory.of(Eol::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/eol_look");
 
@@ -35,12 +29,10 @@ public class EolGoldenTest extends AbstractGoldenTest {
   public void goldenTest0() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "eol-0.input"),
-            new File(testRuntimeDir, "eol-0.output"));
+            new File(testRuntimeDir, "eol-0.input"), new File(testRuntimeDir, "eol-0.output"));
     compareSystemOutWith(golden);
 
     Eol scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
-
 }
