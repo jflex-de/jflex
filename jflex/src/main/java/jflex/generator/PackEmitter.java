@@ -9,6 +9,8 @@
 
 package jflex.generator;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.util.Locale;
 import jflex.core.Out;
 
@@ -107,7 +109,7 @@ public abstract class PackEmitter {
     char c = (char) i;
 
     printUC(c);
-    UTF8Length += UTF8Length(c);
+    UTF8Length += Utf8Length(c);
     linepos++;
   }
 
@@ -177,11 +179,10 @@ public abstract class PackEmitter {
    * file.
    *
    * @param value the char code of the Unicode character
-   * @prec 0 <= value <= 0x10FFFF
    * @return length of UTF8 representation.
    */
-  private int UTF8Length(int value) {
-    // if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
+  private static int Utf8Length(int value) {
+    checkArgument(value < 0 || value > 0x10FFFF, "Not a char value (%s)", value);
 
     // see JVM spec section 4.4.7, p 111
     if (value == 0) return 2;
