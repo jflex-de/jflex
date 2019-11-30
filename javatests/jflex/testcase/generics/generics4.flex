@@ -1,4 +1,5 @@
 package jflex.testcase.generics;
+
 import java.util.Vector;
 import java.util.HashMap;
 

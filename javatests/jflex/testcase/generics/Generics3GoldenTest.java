@@ -2,6 +2,7 @@
 
 package jflex.testcase.generics;
 
+import com.google.common.collect.ImmutableMap;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
@@ -22,7 +23,8 @@ import org.junit.Test;
 public class Generics3GoldenTest extends AbstractGoldenTest {
 
   /** Creates a scanner conforming to the {@code generics3.flex} specification. */
-  private final ScannerFactory<Generics3> scannerFactory = ScannerFactory.of(Generics3::new);
+  private final ScannerFactory<Generics3> scannerFactory =
+      ScannerFactory.of(reader -> new Generics3(reader, ImmutableMap.of()));
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test

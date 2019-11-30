@@ -1,13 +1,14 @@
 package jflex.testcase.generics;
+
 import java.util.Vector;
-import java.util.HashMap;
+import java.util.Map;
 
 %%
 
 %class Generics2
 
 %type Vector<Integer>
-%ctorarg HashMap<Vector<Integer>, String> arg1
+%ctorarg Map<Vector<Integer>, String> arg1
 
 %%
 
