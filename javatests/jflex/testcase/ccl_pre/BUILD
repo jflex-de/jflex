@@ -6,20 +6,38 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
-    name = "gen_ccl3_scanner",
-    srcs = ["ccl3.flex"],
+    name = "gen_ccl_scanner",
+    srcs = ["ccl.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Ccl3.java"],
+    outputs = ["Ccl.java"],
 )
 
 java_library(
-    name = "ccl3_scanner",
+    name = "ccl_scanner",
     srcs = [
-        ":gen_ccl3_scanner",
+        ":gen_ccl_scanner",
     ],
     deps = [
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "Ccl2GoldenTest",
+    srcs = [
+        "Ccl3GoldenTest.java",
+    ],
+    data = [
+        "ccl3-0.input",
+        "ccl3-0.output",
+    ],
+    deps = [
+        ":ccl_scanner",
+        "//java/jflex/testing/diff",
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
     ],
 )
 
@@ -33,7 +51,7 @@ java_test(
         "ccl3-0.output",
     ],
     deps = [
-        ":ccl3_scanner",
+        ":ccl_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",

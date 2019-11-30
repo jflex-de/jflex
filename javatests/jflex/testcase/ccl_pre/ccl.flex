@@ -5,7 +5,7 @@ package jflex.testcase.ccl_pre;
 Identifier = [\@]* [:jletter:] [:jletterdigit:]*
 
 %public
-%class Ccl3
+%class Ccl
 
 %debug
 %int
