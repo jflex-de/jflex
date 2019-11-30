@@ -19,6 +19,6 @@ public class CclBugTest {
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    scannerFactory.createScanner("");
+    scannerFactory.createScannerWithContent("");
   }
 }

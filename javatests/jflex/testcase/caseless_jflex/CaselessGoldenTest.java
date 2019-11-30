@@ -30,7 +30,7 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "caseless-0.output"));
     compareSystemOutWith(golden);
 
-    Caseless scanner = scannerFactory.createScanner(golden.inputFile);
+    Caseless scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 

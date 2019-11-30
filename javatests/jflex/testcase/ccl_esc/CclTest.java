@@ -17,19 +17,19 @@ public class CclTest {
 
   @Test
   public void tokenOther_a() throws Exception {
-    Ccl scanner = scannerFactory.createScanner("a");
+    Ccl scanner = scannerFactory.createScannerWithContent("a");
     assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
   }
 
   @Test
   public void tokenOther_hello() throws Exception {
-    Ccl scanner = scannerFactory.createScanner("hello");
+    Ccl scanner = scannerFactory.createScannerWithContent("hello");
     assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
   }
 
   @Test
   public void tokenAB() throws Exception {
-    Ccl scanner = scannerFactory.createScanner("ab");
+    Ccl scanner = scannerFactory.createScannerWithContent("ab");
     assertThat(scanner.yylex()).isEqualTo(Token.AB);
   }
 }

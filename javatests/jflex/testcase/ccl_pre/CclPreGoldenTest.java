@@ -29,7 +29,7 @@ public class CclPreGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "ccl-0.input"), new File(testRuntimeDir, "ccl-0.output"));
     compareSystemOutWith(golden);
 
-    Ccl scanner = scannerFactory.createScanner(golden.inputFile);
+    Ccl scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 

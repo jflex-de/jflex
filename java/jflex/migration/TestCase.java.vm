@@ -42,7 +42,7 @@ public class $testClassName extends AbstractGoldenTest {
             new File(testRuntimeDir, "$golden.OutputFileName"));
     compareSystemOutWith(golden);
 
-    $scannerClassName scanner = scannerFactory.createScanner(golden.inputFile);
+    $scannerClassName scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 #end
@@ -51,7 +51,7 @@ public class $testClassName extends AbstractGoldenTest {
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    createScanner("");
+    scannerFactory.createScannerWithContent("");
   }
 #end
 }

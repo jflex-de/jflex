@@ -34,7 +34,7 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "cupsym-0.output"));
     compareSystemOutWith(golden);
 
-    Cupsym scanner = scannerFactory.createScanner(golden.inputFile);
+    Cupsym scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.debug_next_token();
   }
 

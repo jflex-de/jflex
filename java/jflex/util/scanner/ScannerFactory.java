@@ -18,11 +18,11 @@ public class ScannerFactory<T> {
     this.defaultConstructor = defaultConstructor;
   }
 
-  public T createScanner(File inputFile) throws FileNotFoundException {
+  public T createScannerForFile(File inputFile) throws FileNotFoundException {
     return (T) defaultConstructor.apply(Files.newReader(inputFile, StandardCharsets.UTF_8));
   }
 
-  public T createScanner(String content) throws IOException {
+  public T createScannerWithContent(String content) throws IOException {
     return defaultConstructor.apply(CharSource.wrap(content).openStream());
   }
 

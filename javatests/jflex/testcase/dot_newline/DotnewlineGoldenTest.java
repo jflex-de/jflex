@@ -31,7 +31,7 @@ public class DotnewlineGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "dotnewline-0.output"));
     compareSystemOutWith(golden);
 
-    Dotnewline scanner = scannerFactory.createScanner(golden.inputFile);
+    Dotnewline scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 
