@@ -34,6 +34,7 @@ java_test(
         ":ccl-bug_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

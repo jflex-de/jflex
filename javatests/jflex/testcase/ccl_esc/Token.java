@@ -1,6 +1,6 @@
 package jflex.testcase.ccl_esc;
 
-public enum Token {
+enum Token {
   AB,
   OTHER,
 }
