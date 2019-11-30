@@ -15,17 +15,16 @@ jflex(
 java_library(
     name = "ccl_scanner",
     srcs = [
-        "Yytoken.java",
+        "Token.java",
         ":gen_ccl_scanner",
     ],
     deps = [
-        "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
 
 java_test(
-    name = "CclGoldenTest",
+    name = "CclTest",
     srcs = ["CclTest.java"],
     data = [
     ],
