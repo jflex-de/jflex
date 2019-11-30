@@ -62,15 +62,15 @@ public class RepeatContentReader extends Reader {
       // content is always small.
       return givenContent;
     }
-    // wantedSize > content.size(): The reader will loop over then content.
+    // wantedSize > content.size(): The reader will loop over the content.
     if (givenContent.length >= PREPARED_BUFFER_SIZE) {
       // The given content is large enough. Nothing to do.
       return givenContent;
     }
-    // To maximize use of the buffer, we already prepare a repeated content of PREPARED_BUFFER_SIZE.
+    // To maximize use of the buffer, we already prepare a repeated content of ~PREPARED_BUFFER_SIZE
     int size = PREPARED_BUFFER_SIZE / givenContent.length * givenContent.length;
     if (size > wantedSize) {
-      // But we dont't need so much if we read less.
+      // But we don't need so much if we read less.
       size = (int) (wantedSize / givenContent.length + 1) * givenContent.length;
     }
     char[] myContent = new char[size];
