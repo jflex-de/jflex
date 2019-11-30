@@ -24,7 +24,7 @@ java_library(
 )
 
 java_test(
-    name = "CclBugGoldenTest",
+    name = "CclBugTest",
     srcs = [
         "CclBugTest.java",
     ],
