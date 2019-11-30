@@ -2,8 +2,7 @@
 
 package jflex.testcase.ccl_bug;
 
-import java.io.Reader;
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -12,17 +11,14 @@ import org.junit.Test;
  *
  * <p>Generated CclBug.java does not compile, because of missing ",".
  */
-public class CclBugTest extends AbstractGoldenTest<CclBug> {
+public class CclBugTest {
+
+  /** Creates scanner generated from {@code ccl-bug.flex}. */
+  ScannerFactory<CclBug> scannerFactory = ScannerFactory.of(reader -> new CclBug(reader));
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    createScanner("");
-  }
-
-  /** Creates scanner generated from {@code ccl-bug.flex}. */
-  @Override
-  protected CclBug createScanner(Reader reader) {
-    return new CclBug(reader);
+    scannerFactory.createScanner("");
   }
 }

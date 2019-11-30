@@ -4,6 +4,7 @@ package jflex.testcase.eof;
 
 %public
 %class Scanner
+%type Token
 
 %char
 %line
