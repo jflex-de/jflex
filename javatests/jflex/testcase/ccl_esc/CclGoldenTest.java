@@ -7,7 +7,8 @@ import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * bug-test for [".."] style character escapes (#467469)
+ * bug-test for [".."] style character escapes (<a
+ * href="https://github.com/jflex-de/jflex/issues/48">#48</a>)
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
