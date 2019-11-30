@@ -2,22 +2,14 @@
 
 package jflex.testcase.cupsym;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Reader;
-import java.nio.charset.Charset;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code cupsym.flex}.
- *
- * <p>bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all
- * code</a>
+ * bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all code</a>
  *
  * <p>If %cupdebug is used, the code generated for getTokenName uses "sym" as the cup symbol name
  * even if %cupsym is specified. The comment correctly uses the cupSymbol variable, but the
@@ -30,7 +22,7 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class CupsymGoldenTest extends AbstractGoldenTest {
+public class CupsymGoldenTest extends AbstractGoldenTest<Cupsym> {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
 
@@ -46,15 +38,9 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
     scanner.debug_next_token();
   }
 
-  private static Cupsym createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
-  }
-
-  private static Cupsym createScanner(String content) throws IOException {
-    return createScanner(CharSource.wrap(content).openStream());
-  }
-
-  private static Cupsym createScanner(Reader reader) {
+  /** scanner generated from {@code cupsym.flex}. */
+  @Override
+  protected Cupsym createScanner(Reader reader) {
     return new Cupsym(reader);
   }
 }
