@@ -18,7 +18,7 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class CclPreGoldenTest extends AbstractGoldenTest<Ccl2> {
+public class CclPreGoldenTest extends AbstractGoldenTest<Ccl> {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/ccl_pre");
 
@@ -29,13 +29,13 @@ public class CclPreGoldenTest extends AbstractGoldenTest<Ccl2> {
             new File(testRuntimeDir, "ccl-0.input"), new File(testRuntimeDir, "ccl-0.output"));
     compareSystemOutWith(golden);
 
-    Ccl2 scanner = createScanner(golden.inputFile);
+    Ccl scanner = createScanner(golden.inputFile);
     scanner.yylex();
   }
 
   /** Creates a scanner conforming to the {@code ccl.flex} specification. */
   @Override
-  protected Ccl2 createScanner(Reader reader) {
-    return new Ccl2(reader);
+  protected Ccl createScanner(Reader reader) {
+    return new Ccl(reader);
   }
 }

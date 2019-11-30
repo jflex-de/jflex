@@ -24,31 +24,13 @@ java_library(
 )
 
 java_test(
-    name = "Ccl2GoldenTest",
+    name = "CclPreGoldenTest",
     srcs = [
-        "Ccl3GoldenTest.java",
+        "CclPreGoldenTest.java",
     ],
     data = [
-        "ccl3-0.input",
-        "ccl3-0.output",
-    ],
-    deps = [
-        ":ccl_scanner",
-        "//java/jflex/testing/diff",
-        "//java/jflex/testing/testsuite/golden",
-        "//third_party/com/google/guava",
-        "//third_party/com/google/truth",
-    ],
-)
-
-java_test(
-    name = "Ccl3GoldenTest",
-    srcs = [
-        "Ccl3GoldenTest.java",
-    ],
-    data = [
-        "ccl3-0.input",
-        "ccl3-0.output",
+        "ccl-0.input",
+        "ccl-0.output",
     ],
     deps = [
         ":ccl_scanner",
