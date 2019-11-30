@@ -15,9 +15,7 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code $flexGrammar.Name}.
- *
- * <p>$testDescription
+ * $testDescription
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -27,7 +25,7 @@ import org.junit.Test;
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class $testClassName extends AbstractGoldenTest {
+public class $testClassName extends AbstractGoldenTest<$scannerClassName> {
 
 #if ( $goldens.size() > 0 )
   private File testRuntimeDir = new File("javatests/$javaPackageDir");
@@ -55,15 +53,9 @@ public class $testClassName extends AbstractGoldenTest {
   }
 #end
 
-  private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
-  }
-
-  private static $scannerClassName createScanner(String content) throws IOException {
-    return createScanner(CharSource.wrap(content).openStream());
-  }
-
-  private static $scannerClassName createScanner(Reader reader) {
-    return new $scannerClassName(reader);
-  }
+ /** Creates a scanner conforming to the {@code $flexGrammar.Name} specification. */
+ @Override
+ protected $scannerClassName createScanner(Reader reader) {
+   return new $scannerClassName(reader);
+ }
 }
