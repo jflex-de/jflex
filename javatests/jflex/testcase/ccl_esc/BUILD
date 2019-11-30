@@ -15,6 +15,8 @@ jflex(
 java_library(
     name = "ccl_scanner",
     srcs = [
+        "Sample.java",
+        "Yytoken.java",
         ":gen_ccl_scanner",
     ],
     deps = [

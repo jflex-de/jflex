@@ -1,29 +1,9 @@
 package jflex.testcase.ccl_esc;
-class Sample {
-    public static void main(String argv[]) throws java.io.IOException {
-    java.io.Reader reader = new java.io.InputStreamReader(System.in);
-	Yylex yy = new Yylex(reader);
-	Yytoken t;
-	while ((t = yy.yylex()) != null)
-	    System.out.println(t);
-    }
-}
 
-class Yytoken {
-  Yytoken (int index, String text) {
-	m_index = index;
-	m_text = text;
-  }
-
-  public int m_index;
-  public String m_text;
-  public String toString() {
-      return "Token #"+m_index+": "+m_text;
-  }
-}
 
 %%
 
+%class Ccl
 %state IN_ATTRIBUTE
 %state IN_TAG
 %state IN_DATA
