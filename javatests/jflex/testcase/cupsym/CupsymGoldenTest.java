@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
@@ -31,7 +30,6 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class CupsymGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");

@@ -5,7 +5,6 @@ package jflex.testcase.ccl_bug;
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
@@ -15,8 +14,6 @@ import org.junit.Test;
  *
  * <p>Generated CclBug.java does not compile, because of missing ",".
  */
-// TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class CclBugTest extends AbstractGoldenTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
