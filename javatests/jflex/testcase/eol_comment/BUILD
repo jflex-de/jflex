@@ -26,7 +26,7 @@ java_library(
 java_test(
     name = "EolcommentGoldenTest",
     srcs = [
-        "EolcommentGoldenTest.java",
+        "EolCommentTest.java",
     ],
     data = [
     ],

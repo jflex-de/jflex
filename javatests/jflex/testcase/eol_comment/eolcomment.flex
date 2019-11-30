@@ -3,7 +3,7 @@ package jflex.testcase.eol_comment;
 %%
 
 %public
-%class Eolcomment
+%class EolComment
 
 %standalone
 
