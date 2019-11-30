@@ -4,7 +4,6 @@ package jflex.testcase.dot_newline;
 
 import java.io.File;
 import java.io.Reader;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
@@ -20,7 +19,6 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class DotnewlineGoldenTest extends AbstractGoldenTest<Dotnewline> {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/dot_newline");

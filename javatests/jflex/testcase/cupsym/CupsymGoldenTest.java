@@ -4,7 +4,6 @@ package jflex.testcase.cupsym;
 
 import java.io.File;
 import java.io.Reader;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
@@ -23,7 +22,6 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class CupsymGoldenTest extends AbstractGoldenTest<Cupsym> {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
