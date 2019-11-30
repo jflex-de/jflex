@@ -4,7 +4,6 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.io.CharSource;
-import java.io.IOException;
 import java.io.Reader;
 import org.junit.Test;
 
@@ -28,7 +27,11 @@ public class LargeInputTest {
         .isGreaterThan((long) Integer.MAX_VALUE + 1L);
     Reader largeContentReader = new RepeatContentReader(size, content);
     LargeInputScanner scanner = createScanner(largeContentReader);
-    readUntilEof(scanner);
+    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
+    while (scanner.yylex() == State.BEFORE_2GB) {}
+    assertThat(scanner.yylex()).isEqualTo(State.AFTER_2GB);
+    assertThat(scanner.yylex()).isEqualTo(State.AFTER_2GB);
+    assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
   }
 
   @Test
@@ -50,11 +53,6 @@ public class LargeInputTest {
     assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
     assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
     assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
-  }
-
-  @SuppressWarnings("StatementWithEmptyBody")
-  private static void readUntilEof(LargeInputScanner scanner) throws IOException {
-    while (scanner.yylex() != State.END_OF_FILE) {}
   }
 
   private static LargeInputScanner createScanner(Reader reader) {
