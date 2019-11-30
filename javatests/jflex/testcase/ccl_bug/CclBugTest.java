@@ -3,22 +3,17 @@
 package jflex.testcase.ccl_bug;
 
 import com.google.common.io.CharSource;
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.charset.Charset;
 import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * Test against <a href="https://github.com/jflex-de/jflex/issues/81>#81 {@code char[] ZZ_CMAP} is incorrect</a>
+ * Test against <a href="https://github.com/jflex-de/jflex/issues/81>#81 {@code char[] ZZ_CMAP} is
+ * incorrect</a>
  *
- * Generated CclBug.java does not compile, because of
- * missing ",".
- *
+ * <p>Generated CclBug.java does not compile, because of missing ",".
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
