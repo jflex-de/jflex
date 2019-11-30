@@ -1,22 +1,11 @@
 directories:
-  java
-  javatests
-  # Add the directories you want added as source here
-  # By default, we've added your entire workspace ('.')
-  cup
-  docs
-  jflex
-  jflex-maven-plugin
-  jflex-unicode-maven-plugin
-  scripts
-  testsuite
-  third_party
+  .
 
 targets:
   //java/...
   //javatests/...
   # Add targets that reach the source code that you want to resolve here
-  //jflex/examples/...
+  //jflex/...
 
 additional_languages:
   # Uncomment any additional languages you want supported
@@ -29,3 +18,4 @@ additional_languages:
 test_sources:
   javatests
   src/test/java
+ 
