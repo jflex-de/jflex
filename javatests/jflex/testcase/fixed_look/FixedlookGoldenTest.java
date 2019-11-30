@@ -41,8 +41,8 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
   public void goldenTest1() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "fixedlook-2.input"),
-            new File(testRuntimeDir, "fixedlook-2.output"));
+            new File(testRuntimeDir, "fixedlook-1.input"),
+            new File(testRuntimeDir, "fixedlook-1.output"));
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
@@ -53,8 +53,8 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
   public void goldenTest2() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "fixedlook-3.input"),
-            new File(testRuntimeDir, "fixedlook-3.output"));
+            new File(testRuntimeDir, "fixedlook-2.input"),
+            new File(testRuntimeDir, "fixedlook-2.output"));
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
@@ -65,8 +65,8 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
   public void goldenTest3() throws Exception {
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "fixedlook-1.input"),
-            new File(testRuntimeDir, "fixedlook-1.output"));
+            new File(testRuntimeDir, "fixedlook-3.input"),
+            new File(testRuntimeDir, "fixedlook-3.output"));
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);

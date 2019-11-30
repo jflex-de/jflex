@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Comparator;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.javac.JavaPackageUtils;
@@ -78,6 +79,7 @@ public class Migrator {
     ImmutableList<File> testSpecFiles =
         Streams.stream(directoryContent)
             .filter(f -> Files.getFileExtension(f.getName()).equals("test"))
+            .sorted(Comparator.comparing(File::getName))
             .collect(toImmutableList());
     for (File testSpec : testSpecFiles) {
       migrateTestCase(testCaseDir, testSpec);
@@ -250,6 +252,7 @@ public class Migrator {
     Iterable<File> dirContent = Files.fileTraverser().breadthFirst(testCaseDir);
     return Streams.stream(dirContent)
         .filter(f -> isGoldenInputFile(test, f))
+        .sorted(Comparator.comparing(File::getName))
         .map(f -> new GoldenInOutFilePair(f, getGoldenOutputFile(f)))
         .filter(g -> g.outputFile.isFile())
         .collect(toImmutableList());
