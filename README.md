@@ -129,6 +129,10 @@ The top level directory of the JFLex git repository contains:
 
 ### Build with Bazel
 
+JFlex can be build with Bazel.
+[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance. 
+
+
 You need [Bazel][bazel].
 
 ```
@@ -180,3 +184,4 @@ See the [Contributing][contrib] page for instructions.
 [contrib]: https://github.com/jflex-de/jflex/wiki/Contributing
 [bazel]: https://bazel.build/
 [maven]: https://maven.apache.org/
+[migration-bazel]: https://github.com/jflex-de/jflex/wiki/Migration-to-Bazel
