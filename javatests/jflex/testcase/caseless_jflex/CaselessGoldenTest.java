@@ -3,10 +3,9 @@
 package jflex.testcase.caseless_jflex;
 
 import java.io.File;
-import java.io.Reader;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -19,8 +18,10 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
-public class CaselessGoldenTest extends AbstractGoldenTest<Caseless> {
+public class CaselessGoldenTest extends AbstractGoldenTest {
+
+  /** Creates a scanner conforming to the {@code caseless.flex} specification. */
+  private final ScannerFactory<Caseless> scannerFactory = ScannerFactory.of(Caseless::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
 
@@ -32,13 +33,7 @@ public class CaselessGoldenTest extends AbstractGoldenTest<Caseless> {
             new File(testRuntimeDir, "caseless-0.output"));
     compareSystemOutWith(golden);
 
-    Caseless scanner = createScanner(golden.inputFile);
+    Caseless scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
-  }
-
-  /** Creates a scanner conforming to the {@code caseless.flex} specification. */
-  @Override
-  protected Caseless createScanner(Reader reader) {
-    return new Caseless(reader);
   }
 }

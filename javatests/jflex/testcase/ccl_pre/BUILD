@@ -1,23 +1,21 @@
-# caseless
+# ccl3
 
 # This build file was generated automatically, but won't be re-generated.
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
-load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
-    name = "gen_caseless_scanner",
-    srcs = ["caseless.flex"],
+    name = "gen_ccl_scanner",
+    srcs = ["ccl.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    jlex = True,
-    outputs = ["Caseless.java"],
+    outputs = ["Ccl.java"],
 )
 
 java_library(
-    name = "caseless_scanner",
+    name = "ccl_scanner",
     srcs = [
-        ":gen_caseless_scanner",
+        ":gen_ccl_scanner",
     ],
     deps = [
         "//java/jflex/testing/testsuite/golden",
@@ -26,30 +24,20 @@ java_library(
 )
 
 java_test(
-    name = "CaselessGoldenTest",
+    name = "CclPreGoldenTest",
     srcs = [
-        "CaselessGoldenTest.java",
+        "CclPreGoldenTest.java",
     ],
     data = [
-        "caseless-0.input",
-        "caseless-0.output",
+        "ccl-0.input",
+        "ccl-0.output",
     ],
     deps = [
-        ":caseless_scanner",
+        ":ccl_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
-)
-
-jflex_testsuite(
-    name = "GenerationTest",
-    srcs = ["GenerationTest.java"],
-    data = [
-        "caseless.flex",
-        "caseless.sysout",
-    ],
-    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )

@@ -7,6 +7,7 @@ java_library(
     deps = [
         ":model",
         "//java/jflex/testing/diff",
+        "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
         "//third_party/junit",

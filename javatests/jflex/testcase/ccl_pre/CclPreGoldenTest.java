@@ -1,6 +1,6 @@
-// test: count
+// test: ccl2
 
-package jflex.testcase.count;
+package jflex.testcase.ccl_pre;
 
 import java.io.File;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
@@ -9,7 +9,7 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * test line/column/char counting
+ * bug-test for [:jletter:] style predefined character classes (#467827)
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -18,23 +18,21 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class CountGoldenTest extends AbstractGoldenTest {
+public class CclPreGoldenTest extends AbstractGoldenTest {
 
-  private final ScannerFactory<Count> scannerFactory = ScannerFactory.of(Count::new);
+  /** Creates a scanner conforming to the {@code ccl.flex} specification. */
+  private final ScannerFactory<Ccl> scannerFactory = ScannerFactory.of(Ccl::new);
+
+  private File testRuntimeDir = new File("javatests/jflex/testcase/ccl_pre");
 
   @Test
   public void goldenTest0() throws Exception {
-
-    // The .input / .output Golden files
-    File testRuntimeDir = new File("javatests/jflex/testcase/count");
     GoldenInOutFilePair golden =
         new GoldenInOutFilePair(
-            new File(testRuntimeDir, "count-0.input"), new File(testRuntimeDir, "count-0.output"));
-
+            new File(testRuntimeDir, "ccl-0.input"), new File(testRuntimeDir, "ccl-0.output"));
     compareSystemOutWith(golden);
 
-    // Scanner for test/cases/count/count.flex
-    Count scanner = scannerFactory.createScannerForFile(golden.inputFile);
+    Ccl scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 }
