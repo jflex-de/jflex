@@ -23,6 +23,9 @@ public class DotnewlineGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/dot_newline");
 
+  /** scanner generated from {@code dotnewline.flex}. */
+  private final ScannerFactory<Dotnewline> scannerFactory = ScannerFactory.of(Dotnewline::new);
+
   @Test
   public void goldenTest0() throws Exception {
     GoldenInOutFilePair golden =
@@ -34,7 +37,4 @@ public class DotnewlineGoldenTest extends AbstractGoldenTest {
     Dotnewline scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
-
-  /** scanner generated from {@code dotnewline.flex}. */
-  private ScannerFactory<Dotnewline> scannerFactory = ScannerFactory.of(Dotnewline::new);
 }

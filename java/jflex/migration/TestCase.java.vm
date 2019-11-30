@@ -27,7 +27,7 @@ import org.junit.Test;
 public class $testClassName extends AbstractGoldenTest {
 
  /** Creates a scanner conforming to the {@code $flexGrammar.Name} specification. */
- ScannerFactory<$scannerClassName> scannerFactory = ScannerFactory.of($scannerClassName::new);
+ private final ScannerFactory<$scannerClassName> scannerFactory = ScannerFactory.of($scannerClassName::new);
 
 #if ( $goldens.size() > 0 )
   private File testRuntimeDir = new File("javatests/$javaPackageDir");

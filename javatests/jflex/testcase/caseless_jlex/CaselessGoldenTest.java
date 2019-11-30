@@ -21,6 +21,9 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class CaselessGoldenTest extends AbstractGoldenTest {
 
+  /** Creates a scanner conforming to the {@code caseless.flex} spec. */
+  private final ScannerFactory<Caseless> scannerFactory = ScannerFactory.of(Caseless::new);
+
   private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jlex");
 
   @Test
@@ -34,7 +37,4 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
     Caseless scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
-
-  /** Creates a scanner conforming to the {@code caseless.flex} spec. */
-  private ScannerFactory<Caseless> scannerFactory = ScannerFactory.of(Caseless::new);
 }

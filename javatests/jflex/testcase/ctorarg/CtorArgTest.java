@@ -13,12 +13,12 @@ import org.junit.Test;
  */
 public class CtorArgTest extends AbstractGoldenTest {
 
+  /** scanner generated from {@code ctor-arg.flex}. */
+  private final ScannerFactory<Ctorarg> scannerFactory = ScannerFactory.of(Ctorarg::new);
+
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
     scannerFactory.createScannerWithContent("");
   }
-
-  /** scanner generated from {@code ctor-arg.flex}. */
-  private ScannerFactory<Ctorarg> scannerFactory = ScannerFactory.of(Ctorarg::new);
 }

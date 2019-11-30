@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class CclTest {
   /** Creates a scanner conforming to the {@code ccl.flex} specification. */
-  private ScannerFactory<Ccl> scannerFactory = ScannerFactory.of(Ccl::new);
+  private final ScannerFactory<Ccl> scannerFactory = ScannerFactory.of(Ccl::new);
 
   @Test
   public void tokenOther_a() throws Exception {

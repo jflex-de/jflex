@@ -20,7 +20,7 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class CountGoldenTest extends AbstractGoldenTest {
 
-  private ScannerFactory<Count> scannerFactory = ScannerFactory.of(Count::new);
+  private final ScannerFactory<Count> scannerFactory = ScannerFactory.of(Count::new);
 
   @Test
   public void goldenTest0() throws Exception {

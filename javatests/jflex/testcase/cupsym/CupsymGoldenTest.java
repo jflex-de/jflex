@@ -26,6 +26,9 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
 
+  /** scanner generated from {@code cupsym.flex}. */
+  private final ScannerFactory<Cupsym> scannerFactory = ScannerFactory.of(Cupsym::new);
+
   @Test
   public void goldenTest0() throws Exception {
     GoldenInOutFilePair golden =
@@ -37,7 +40,4 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
     Cupsym scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.debug_next_token();
   }
-
-  /** scanner generated from {@code cupsym.flex}. */
-  private ScannerFactory<Cupsym> scannerFactory = ScannerFactory.of(Cupsym::new);
 }
