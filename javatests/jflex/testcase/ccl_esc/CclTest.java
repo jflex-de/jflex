@@ -17,7 +17,7 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class CclGoldenTest extends AbstractGoldenTest<Ccl> {
+public class CclTest extends AbstractGoldenTest<Ccl> {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
