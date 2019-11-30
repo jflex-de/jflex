@@ -2,6 +2,8 @@
 
 package jflex.testcase.empty_match;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import java.io.File;
 import java.io.Reader;
 import javax.annotation.Generated;
@@ -33,7 +35,19 @@ public class EmptymatchGoldenTest extends AbstractGoldenTest<Emptymatch> {
     compareSystemOutWith(golden);
 
     Emptymatch scanner = createScanner(golden.inputFile);
-    scanner.yylex();
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(3);
+    assertThat(scanner.yylex()).isEqualTo(4);
+    assertThat(scanner.yylex()).isEqualTo(2);
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(3);
+    assertThat(scanner.yylex()).isEqualTo(5);
+    assertThat(scanner.yylex()).isEqualTo(5);
+    assertThat(scanner.yylex()).isEqualTo(5);
+    assertThat(scanner.yylex()).isEqualTo(4);
+    assertThat(scanner.yylex()).isEqualTo(2);
+    assertThat(scanner.yylex()).isEqualTo(2);
+    assertThat(scanner.yylex()).isEqualTo(Emptymatch.YYEOF);
   }
 
   /** Creates a scanner conforming to the {@code emptymatch.flex} specification. */
