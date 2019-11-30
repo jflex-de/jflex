@@ -1,7 +1,7 @@
 line: 1 col: 1 match: --a--
 action [23] {  }
 line: 1 col: 2 match: --bb--
-action [19] { System.out.println(yytext()); return 3; }
+action [20] { System.out.println(yytext()); return 3; }
 bb
 3
 line: 1 col: 4 match: --b--
@@ -19,7 +19,7 @@ aa
 line: 1 col: 12 match: --a--
 action [23] {  }
 line: 1 col: 13 match: --ab--
-action [20] { System.out.println(yytext()); return 4; }
+action [21] { System.out.println(yytext()); return 4; }
 ab
 4
 line: 1 col: 15 match: --c--

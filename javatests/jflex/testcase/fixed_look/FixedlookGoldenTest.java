@@ -34,7 +34,9 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    scanner.yylex();
+    for (int token = scanner.yylex(); token != Fixedlook.YYEOF; token = scanner.yylex()) {
+      System.out.println(token);
+    }
   }
 
   @Test
@@ -46,7 +48,9 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    scanner.yylex();
+    for (int token = scanner.yylex(); token != Fixedlook.YYEOF; token = scanner.yylex()) {
+      System.out.println(token);
+    }
   }
 
   @Test
@@ -58,7 +62,9 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    scanner.yylex();
+    for (int token = scanner.yylex(); token != Fixedlook.YYEOF; token = scanner.yylex()) {
+      System.out.println(token);
+    }
   }
 
   @Test
@@ -70,6 +76,8 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Fixedlook scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    scanner.yylex();
+    for (int token = scanner.yylex(); token != Fixedlook.YYEOF; token = scanner.yylex()) {
+      System.out.println(token);
+    }
   }
 }
