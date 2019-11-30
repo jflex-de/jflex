@@ -9,8 +9,7 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * Test for feature request <a href="https://github.com/jflex-de/jflex/issues/75">#75 Support
- * generics for %type and %extends</a>.
+ * Test for feature request [ 1212181 ] Support generics for %type and %extends
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
