@@ -14,20 +14,15 @@ import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code ccl-bug.flex}.
+ * Test against <a href="https://github.com/jflex-de/jflex/issues/81>#81 {@code char[] ZZ_CMAP} is incorrect</a>
  *
- * <p>#1498726 char [] ZZ_CMAP is incorrect Generated Yylex.java does not compile, because of
- * missing ","
+ * Generated CclBug.java does not compile, because of
+ * missing ",".
  *
- * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
- * relies on golden files for testing, expecting the scanner to output logs on the {@code
- * System.out}. Please migrate to proper unit tests, as describe in <a
- * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
- * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
 @Generated("jflex.migration.Migrator")
-public class CclBugGoldenTest extends AbstractGoldenTest {
+public class CclBugTest extends AbstractGoldenTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
@@ -35,14 +30,11 @@ public class CclBugGoldenTest extends AbstractGoldenTest {
     createScanner("");
   }
 
-  private static CclBug createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
-  }
-
   private static CclBug createScanner(String content) throws IOException {
     return createScanner(CharSource.wrap(content).openStream());
   }
 
+  /** Creates scanner generated from {@code ccl-bug.flex}. */
   private static CclBug createScanner(Reader reader) {
     return new CclBug(reader);
   }

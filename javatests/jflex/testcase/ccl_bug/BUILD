@@ -26,7 +26,7 @@ java_library(
 java_test(
     name = "CclBugGoldenTest",
     srcs = [
-        "CclBugGoldenTest.java",
+        "CclBugTest.java",
     ],
     data = [
     ],
