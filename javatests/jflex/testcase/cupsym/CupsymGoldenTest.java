@@ -2,23 +2,14 @@
 
 package jflex.testcase.cupsym;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code cupsym.flex}.
- *
- * <p>bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all
- * code</a>
+ * bug <a href "https://github.com/jflex-de/jflex/issues/58">#58 %cupsym doesn't affect all code</a>
  *
  * <p>If %cupdebug is used, the code generated for getTokenName uses "sym" as the cup symbol name
  * even if %cupsym is specified. The comment correctly uses the cupSymbol variable, but the
@@ -31,10 +22,12 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class CupsymGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
+
+  /** scanner generated from {@code cupsym.flex}. */
+  private final ScannerFactory<Cupsym> scannerFactory = ScannerFactory.of(Cupsym::new);
 
   @Test
   public void goldenTest0() throws Exception {
@@ -44,19 +37,7 @@ public class CupsymGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "cupsym-0.output"));
     compareSystemOutWith(golden);
 
-    Cupsym scanner = createScanner(golden.inputFile);
+    Cupsym scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.debug_next_token();
-  }
-
-  private static Cupsym createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
-  }
-
-  private static Cupsym createScanner(String content) throws IOException {
-    return createScanner(CharSource.wrap(content).openStream());
-  }
-
-  private static Cupsym createScanner(Reader reader) {
-    return new Cupsym(reader);
   }
 }

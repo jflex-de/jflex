@@ -2,13 +2,10 @@
 
 package jflex.testcase.count;
 
-import com.google.common.io.Files;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -21,8 +18,9 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class CountGoldenTest extends AbstractGoldenTest {
+
+  private final ScannerFactory<Count> scannerFactory = ScannerFactory.of(Count::new);
 
   @Test
   public void goldenTest0() throws Exception {
@@ -36,11 +34,7 @@ public class CountGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     // Scanner for test/cases/count/count.flex
-    Count scanner = createScanner(golden.inputFile);
+    Count scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
-  }
-
-  private static Count createScanner(File inputFile) throws FileNotFoundException {
-    return new Count(Files.newReader(inputFile, Charset.forName("UTF-8")));
   }
 }

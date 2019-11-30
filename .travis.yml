@@ -80,11 +80,6 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/.ant
-  # All our Bazel build artifacts
-  - $HOME/__bazel_output_base__/
-  # Items fetched from repositories
-  - $HOME/__bazel_travis_root__/cache
-  # DO NOT cache __bazel_output_travis__/install
   - jflex/lib
   - tools
 

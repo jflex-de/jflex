@@ -9,15 +9,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * Tests scanner generated from {@code $flexGrammar.Name}.
- *
- * <p>$testDescription
+ * $testDescription
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -26,8 +24,10 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class $testClassName extends AbstractGoldenTest {
+
+ /** Creates a scanner conforming to the {@code $flexGrammar.Name} specification. */
+ private final ScannerFactory<$scannerClassName> scannerFactory = ScannerFactory.of($scannerClassName::new);
 
 #if ( $goldens.size() > 0 )
   private File testRuntimeDir = new File("javatests/$javaPackageDir");
@@ -42,7 +42,7 @@ public class $testClassName extends AbstractGoldenTest {
             new File(testRuntimeDir, "$golden.OutputFileName"));
     compareSystemOutWith(golden);
 
-    $scannerClassName scanner = createScanner(golden.inputFile);
+    $scannerClassName scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.yylex();
   }
 #end
@@ -51,19 +51,7 @@ public class $testClassName extends AbstractGoldenTest {
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    createScanner("");
+    scannerFactory.createScannerWithContent("");
   }
 #end
-
-  private static $scannerClassName createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, Charset.forName("UTF-8")));
-  }
-
-  private static $scannerClassName createScanner(String content) throws IOException {
-    return createScanner(CharSource.wrap(content).openStream());
-  }
-
-  private static $scannerClassName createScanner(Reader reader) {
-    return new $scannerClassName(reader);
-  }
 }
