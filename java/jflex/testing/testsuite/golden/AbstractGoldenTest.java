@@ -3,13 +3,18 @@ package jflex.testing.testsuite.golden;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.base.Charsets;
+import com.google.common.io.CharSource;
 import com.google.common.io.Files;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
 import org.junit.After;
 
-public class AbstractGoldenTest {
+public abstract class AbstractGoldenTest<T> {
 
   private DiffOutputStream output;
 
@@ -29,4 +34,14 @@ public class AbstractGoldenTest {
         .that(output.remainingContent())
         .isEmpty();
   }
+
+  protected T createScanner(File inputFile) throws FileNotFoundException {
+    return createScanner(Files.newReader(inputFile, StandardCharsets.UTF_8));
+  }
+
+  protected T createScanner(String content) throws IOException {
+    return createScanner(CharSource.wrap(content).openStream());
+  }
+
+  protected abstract T createScanner(Reader reader);
 }
