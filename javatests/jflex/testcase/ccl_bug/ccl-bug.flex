@@ -2,6 +2,7 @@ package jflex.testcase.ccl_bug;
 
 %%
 
+%class CclBug
 %8bit
 %standalone
 
