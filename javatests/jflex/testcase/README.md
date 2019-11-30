@@ -14,6 +14,9 @@ See [Migration instructions](https://github.com/jflex-de/jflex/wiki/Migration-to
 
 ### Not migrated
 
+- **ccl_pre** with JDK variants.
+  ccl-pre/ccl2.test was not migrated.
+  Bazel makes it hard to change the runtime.
 - **encoding**.
   Bazel makes it hard to
   [change the encoding used by javac](https://stackoverflow.com/a/43472003/94363).
