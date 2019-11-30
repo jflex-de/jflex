@@ -1,7 +1,8 @@
-package jflex.testcase.ccl;
+package jflex.testcase.ccl_16bit;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
+import jflex.testcase.ccl.CclScanner;
 import org.junit.Test;
 
 /**
