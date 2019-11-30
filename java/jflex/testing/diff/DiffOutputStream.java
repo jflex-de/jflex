@@ -109,16 +109,27 @@ public class DiffOutputStream extends OutputStream {
         .isEqualTo(expectedLine);
   }
 
-  public boolean isCompleted() {
-    char[] extraInput = new char[64];
+  public String remainingContent() {
+    char[] extraInput = new char[140];
     try {
       int read = in.read(extraInput);
-      assertWithMessage("There is still content in the expected input: " + new String(extraInput))
-          .that(read)
-          .isLessThan(0);
-      return read == -1;
+      if (read == -1) {
+        return "";
+      }
+      String extraContent = new String(extraInput);
+      if (read == extraInput.length) {
+        return extraContent + "\n[...]\n";
+      } else {
+        return extraContent;
+      }
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public void close() throws IOException {
+    assertWithMessage("All expected content has been output").that(remainingContent()).isEmpty();
+    super.close();
   }
 }

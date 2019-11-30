@@ -4,7 +4,7 @@ java_library(
     name = "javac",
     srcs = [
         "CompilerException.java",
-        "JavacUtil.java",
+        "JavacUtils.java",
     ],
     javacopts = [
         # Only used for testing
@@ -17,7 +17,7 @@ java_library(
 
 java_library(
     name = "package_util",
-    srcs = ["JavaPackageUtil.java"],
+    srcs = ["JavaPackageUtils.java"],
     deps = [
     ],
 )

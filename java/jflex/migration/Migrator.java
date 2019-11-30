@@ -25,9 +25,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Comparator;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.javac.JavaPackageUtil;
+import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -39,7 +40,7 @@ import org.apache.velocity.runtime.parser.ParseException;
  */
 public class Migrator {
 
-  private static final String PATH = JavaPackageUtil.getPathForClass(Migrator.class);
+  private static final String PATH = JavaPackageUtils.getPathForClass(Migrator.class);
   private static final String TEST_CASE_TEMPLATE = PATH + "/TestCase.java.vm";
   private static final String BUILD_TEMPLATE = PATH + "/BUILD.vm";
   private static final String GOLDEN_INPUT_EXT = ".input";
@@ -78,6 +79,7 @@ public class Migrator {
     ImmutableList<File> testSpecFiles =
         Streams.stream(directoryContent)
             .filter(f -> Files.getFileExtension(f.getName()).equals("test"))
+            .sorted(Comparator.comparing(File::getName))
             .collect(toImmutableList());
     for (File testSpec : testSpecFiles) {
       migrateTestCase(testCaseDir, testSpec);
@@ -211,7 +213,7 @@ public class Migrator {
   /** Copy the list of golden files. */
   private static void copyGoldenFiles(ImmutableList<GoldenInOutFilePair> goldens, File outputDir)
       throws MigrationException {
-    logger.atInfo().log("Copy %n pairs of olden files", goldens.size());
+    logger.atInfo().log("Copy %d pairs of golden files", goldens.size());
     try {
       for (GoldenInOutFilePair golden : goldens) {
         copyFile(golden.inputFile, outputDir);
@@ -250,6 +252,7 @@ public class Migrator {
     Iterable<File> dirContent = Files.fileTraverser().breadthFirst(testCaseDir);
     return Streams.stream(dirContent)
         .filter(f -> isGoldenInputFile(test, f))
+        .sorted(Comparator.comparing(File::getName))
         .map(f -> new GoldenInOutFilePair(f, getGoldenOutputFile(f)))
         .filter(g -> g.outputFile.isFile())
         .collect(toImmutableList());

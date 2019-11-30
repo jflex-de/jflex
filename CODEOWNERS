@@ -6,8 +6,12 @@
 # Be sure we have a big red warning by giving ownership to nobody.
 /cup/	@issues
 
+# The jflex-unicode-maven-plugin was author by Steve
+/jflex-unicode-maven-plugin/  @sarowe
+/testsuite/  @sarowe
+
 # The Maven plugin was initally authored by Régis
 /jflex-maven-plugin/	@regisd
-# Régis alsi knows more Bazel confg
+# Régis also knows more Bazel confg
 WORKSPACE	@regis
 BUILD	@regisd
