@@ -4,11 +4,13 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
     name = "gen_caseless_scanner",
     srcs = ["caseless.flex"],
     jflex_bin = "//jflex:jflex_bin",
+    jlex = True,
     outputs = ["Caseless.java"],
 )
 
@@ -39,4 +41,14 @@ java_test(
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
+)
+
+jflex_testsuite(
+    name = "GenerationTest",
+    srcs = ["GenerationTest.java"],
+    data = [
+        "caseless.flex",
+        "caseless.sysout",
+    ],
+    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )
