@@ -65,7 +65,7 @@
   /** Whether the scanner is currently at the beginning of a line. */
   private boolean zzAtBOL = true;
 
-  /** Whether the scanner is at the end of line. */
+  /** Whether the scanner is at the end of file. */
   private boolean zzAtEOF;
 
   /** Whether the user-EOF-code has already been executed. */
@@ -82,7 +82,6 @@
 --- user class code
 
 --- constructor declaration
-
 
   /**
    * Refills the input buffer.
@@ -196,6 +195,13 @@
       yyline = 0;
       yycolumn = 0;
       yychar = 0L;
+  }
+
+  /**
+   * Returns whether the scanner has reached the end of the reader.
+   */
+  public final boolean zzAtEof() {
+    return zzAtEOF;
   }
 
   /**
