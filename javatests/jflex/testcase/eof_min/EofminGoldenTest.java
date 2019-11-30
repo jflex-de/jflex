@@ -9,8 +9,11 @@ import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
- * #1540228 "State minimizer ignores EOF actions" Should not get a warning for equivalent lex states
- * Should end up in different states for the two inputs
+ * Regression test <a href="https://github.com/jflex-de/jflex/issues/82">#82 State minimizer ignores
+ * EOF actions</a>
+ *
+ * <p>Should not get a warning for equivalent lex states. Should end up in different states for the
+ * two inputs.
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -32,7 +35,8 @@ public class EofminGoldenTest extends AbstractGoldenTest<Eofmin> {
     compareSystemOutWith(golden);
 
     Eofmin scanner = createScanner(golden.inputFile);
-    scanner.yylex();
+    while (scanner.yylex() != Eofmin.YYEOF) {}
+    ;
   }
 
   @Test
@@ -44,7 +48,8 @@ public class EofminGoldenTest extends AbstractGoldenTest<Eofmin> {
     compareSystemOutWith(golden);
 
     Eofmin scanner = createScanner(golden.inputFile);
-    scanner.yylex();
+    while (scanner.yylex() != Eofmin.YYEOF) {}
+    ;
   }
 
   /** Creates a scanner conforming to the {@code eofmin.flex} specification. */
