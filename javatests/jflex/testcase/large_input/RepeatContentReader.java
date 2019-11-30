@@ -9,7 +9,7 @@ import java.io.Reader;
 public class RepeatContentReader extends Reader {
 
   /** Size of the precomputed buffer with the repeated content. */
-  private static final int PREPARED_BUFFER_SIZE = 64 * 1024;
+  private static final int PREPARED_BUFFER_SIZE = 256 * 1024;
 
   /** The size of the content that this reader will provide. */
   private final long size;
