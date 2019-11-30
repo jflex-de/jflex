@@ -9,7 +9,7 @@ import java.io.Reader;
 public class RepeatContentReader extends Reader {
 
   /** Size of the precomputed buffer with the repeated content. */
-  private static final int PREPARED_BUFFER_SIZE = 64 * 1024;
+  private static final int PREPARED_BUFFER_SIZE = 256 * 1024;
 
   /** The size of the content that this reader will provide. */
   private final long size;
@@ -62,15 +62,15 @@ public class RepeatContentReader extends Reader {
       // content is always small.
       return givenContent;
     }
-    // wantedSize > content.size(): The reader will loop over then content.
+    // wantedSize > content.size(): The reader will loop over the content.
     if (givenContent.length >= PREPARED_BUFFER_SIZE) {
       // The given content is large enough. Nothing to do.
       return givenContent;
     }
-    // To maximize use of the buffer, we already prepare a repeated content of PREPARED_BUFFER_SIZE.
+    // To maximize use of the buffer, we already prepare a repeated content of ~PREPARED_BUFFER_SIZE
     int size = PREPARED_BUFFER_SIZE / givenContent.length * givenContent.length;
     if (size > wantedSize) {
-      // But we dont't need so much if we read less.
+      // But we don't need so much if we read less.
       size = (int) (wantedSize / givenContent.length + 1) * givenContent.length;
     }
     char[] myContent = new char[size];
