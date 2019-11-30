@@ -9,7 +9,7 @@ jflex(
     name = "gen_eolcomment_scanner",
     srcs = ["eolcomment.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Eolcomment.java"],
+    outputs = ["EolComment.java"],
 )
 
 java_library(
@@ -24,7 +24,7 @@ java_library(
 )
 
 java_test(
-    name = "EolcommentGoldenTest",
+    name = "EolCommentTest",
     srcs = [
         "EolCommentTest.java",
     ],
@@ -33,7 +33,6 @@ java_test(
     deps = [
         ":eolcomment_scanner",
         "//java/jflex/testing/diff",
-        "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",

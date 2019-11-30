@@ -11,7 +11,6 @@ import org.junit.Test;
  * <p>end of line comments (//) at end of action did not compile. (Generated closing bracket is on
  * same line)
  */
-@RunWith(JFlexTestRunner.class)
 public class EolCommentTest {
 
   /** Creates a scanner conforming to the {@code eolcomment.flex} specification. */
