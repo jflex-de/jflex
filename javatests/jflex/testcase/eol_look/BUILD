@@ -1,0 +1,43 @@
+# eol
+
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_eol_scanner",
+    srcs = ["eol.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Eol.java"],
+)
+
+java_library(
+    name = "eol_scanner",
+    srcs = [
+        ":gen_eol_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "EolGoldenTest",
+    srcs = [
+        "EolGoldenTest.java",
+    ],
+    data = [
+        "eol-0.input",
+        "eol-0.output",
+    ],
+    deps = [
+        ":eol_scanner",
+        "//java/jflex/testing/diff",
+        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

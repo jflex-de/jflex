@@ -3,9 +3,9 @@
 package jflex.testcase.eof_min;
 
 import java.io.File;
-import java.io.Reader;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -22,7 +22,9 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class EofminGoldenTest extends AbstractGoldenTest<Eofmin> {
+public class EofminGoldenTest extends AbstractGoldenTest {
+
+  private final ScannerFactory<Eofmin> scannerFactory = ScannerFactory.of(Eofmin::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/eof_min");
 
@@ -34,9 +36,8 @@ public class EofminGoldenTest extends AbstractGoldenTest<Eofmin> {
             new File(testRuntimeDir, "eofmin-0.output"));
     compareSystemOutWith(golden);
 
-    Eofmin scanner = createScanner(golden.inputFile);
+    Eofmin scanner = scannerFactory.createScannerForFile(golden.inputFile);
     while (scanner.yylex() != Eofmin.YYEOF) {}
-    ;
   }
 
   @Test
@@ -47,14 +48,7 @@ public class EofminGoldenTest extends AbstractGoldenTest<Eofmin> {
             new File(testRuntimeDir, "eofmin-1.output"));
     compareSystemOutWith(golden);
 
-    Eofmin scanner = createScanner(golden.inputFile);
+    Eofmin scanner = scannerFactory.createScannerForFile(golden.inputFile);
     while (scanner.yylex() != Eofmin.YYEOF) {}
-    ;
-  }
-
-  /** Creates a scanner conforming to the {@code eofmin.flex} specification. */
-  @Override
-  protected Eofmin createScanner(Reader reader) {
-    return new Eofmin(reader);
   }
 }
