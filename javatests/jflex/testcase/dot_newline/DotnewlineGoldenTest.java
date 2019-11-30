@@ -3,9 +3,9 @@
 package jflex.testcase.dot_newline;
 
 import java.io.File;
-import java.io.Reader;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -19,7 +19,7 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class DotnewlineGoldenTest extends AbstractGoldenTest<Dotnewline> {
+public class DotnewlineGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/dot_newline");
 
@@ -31,13 +31,10 @@ public class DotnewlineGoldenTest extends AbstractGoldenTest<Dotnewline> {
             new File(testRuntimeDir, "dotnewline-0.output"));
     compareSystemOutWith(golden);
 
-    Dotnewline scanner = createScanner(golden.inputFile);
+    Dotnewline scanner = scannerFactory.createScanner(golden.inputFile);
     scanner.yylex();
   }
 
   /** scanner generated from {@code dotnewline.flex}. */
-  @Override
-  protected Dotnewline createScanner(Reader reader) {
-    return new Dotnewline(reader);
-  }
+  private ScannerFactory<Dotnewline> scannerFactory = ScannerFactory.of(Dotnewline::new);
 }

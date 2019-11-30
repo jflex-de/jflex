@@ -4,37 +4,32 @@ package jflex.testcase.ccl_esc;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.io.Reader;
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
  * bug-test for [".."] style character escapes (<a
  * href="https://github.com/jflex-de/jflex/issues/48">#48</a>)
  */
-public class CclTest extends AbstractGoldenTest<Ccl> {
+public class CclTest {
+  /** Creates a scanner conforming to the {@code ccl.flex} specification. */
+  private ScannerFactory<Ccl> scannerFactory = ScannerFactory.of(Ccl::new);
 
   @Test
   public void tokenOther_a() throws Exception {
-    Ccl scanner = createScanner("a");
+    Ccl scanner = scannerFactory.createScanner("a");
     assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
   }
 
   @Test
   public void tokenOther_hello() throws Exception {
-    Ccl scanner = createScanner("hello");
+    Ccl scanner = scannerFactory.createScanner("hello");
     assertThat(scanner.yylex()).isEqualTo(Token.OTHER);
   }
 
   @Test
   public void tokenAB() throws Exception {
-    Ccl scanner = createScanner("ab");
+    Ccl scanner = scannerFactory.createScanner("ab");
     assertThat(scanner.yylex()).isEqualTo(Token.AB);
-  }
-
-  /** Creates a scanner conforming to the {@code ccl.flex} specification. */
-  @Override
-  protected Ccl createScanner(Reader reader) {
-    return new Ccl(reader);
   }
 }

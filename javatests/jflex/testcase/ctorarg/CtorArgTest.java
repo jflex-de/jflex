@@ -2,8 +2,8 @@
 
 package jflex.testcase.ctorarg;
 
-import java.io.Reader;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -11,17 +11,14 @@ import org.junit.Test;
  * request <a href="https://github.com/jflex-de/jflex/issues/156">#156 provide option to add
  * arguments to constructor and yylex</a>.
  */
-public class CtorArgTest extends AbstractGoldenTest<Ctorarg> {
+public class CtorArgTest extends AbstractGoldenTest {
 
   /** Tests that the scanner was successfully generated and can be instantiated. */
   @Test
   public void canInstantiateScanner() throws Exception {
-    createScanner("");
+    scannerFactory.createScanner("");
   }
 
   /** scanner generated from {@code ctor-arg.flex}. */
-  @Override
-  protected Ctorarg createScanner(Reader reader) {
-    return new Ctorarg(reader);
-  }
+  private ScannerFactory<Ctorarg> scannerFactory = ScannerFactory.of(Ctorarg::new);
 }

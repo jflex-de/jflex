@@ -9,26 +9,31 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
-public abstract class ScannerFactory<T> {
+public class ScannerFactory<T> {
+
+  private final Function<Reader, T> defaultConstructor;
+
   /** Use the {@link #of} method to create a scanner. */
-  private ScannerFactory() {}
+  private ScannerFactory(Function<Reader, T> defaultConstructor) {
+    this.defaultConstructor = defaultConstructor;
+  }
 
   public T createScanner(File inputFile) throws FileNotFoundException {
-    return createScanner(Files.newReader(inputFile, StandardCharsets.UTF_8));
+    return (T) defaultConstructor.apply(Files.newReader(inputFile, StandardCharsets.UTF_8));
   }
 
   public T createScanner(String content) throws IOException {
-    return createScanner(CharSource.wrap(content).openStream());
+    return defaultConstructor.apply(CharSource.wrap(content).openStream());
   }
 
-  protected abstract T createScanner(Reader reader);
-
-  public static <S> ScannerFactory<S> of(Function<Reader, S> createFunction) {
-    return new ScannerFactory<S>() {
-      @Override
-      protected S createScanner(Reader reader) {
-        return createFunction.apply(reader);
-      }
-    };
+  /**
+   * Creates a ScannerFactory for the given scanner.
+   *
+   * @param constructorRef Reference to the default constructor of {@code <S>}.
+   * @param <S> The type of the scanner.
+   * @return A ScannerFactory that helps to create {@code <S>} scanners.
+   */
+  public static <S> ScannerFactory<S> of(Function<Reader, S> constructorRef) {
+    return new ScannerFactory<>(constructorRef);
   }
 }

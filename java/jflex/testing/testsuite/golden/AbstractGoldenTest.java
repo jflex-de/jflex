@@ -4,20 +4,14 @@ import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.io.Reader;
 import jflex.testing.diff.DiffOutputStream;
-import jflex.util.scanner.ScannerFactory;
 import org.junit.After;
 
-public abstract class AbstractGoldenTest<T> {
+public abstract class AbstractGoldenTest {
 
   private DiffOutputStream output;
-
-  private final ScannerFactory<T> scannerFactory = ScannerFactory.of(this::createScanner);
 
   protected void compareSystemOutWith(GoldenInOutFilePair golden) throws FileNotFoundException {
     // in-memory output comparison
@@ -35,14 +29,4 @@ public abstract class AbstractGoldenTest<T> {
         .that(output.remainingContent())
         .isEmpty();
   }
-
-  protected T createScanner(File inputFile) throws FileNotFoundException {
-    return scannerFactory.createScanner(inputFile);
-  }
-
-  protected T createScanner(String content) throws IOException {
-    return scannerFactory.createScanner(content);
-  }
-
-  protected abstract T createScanner(Reader reader);
 }
