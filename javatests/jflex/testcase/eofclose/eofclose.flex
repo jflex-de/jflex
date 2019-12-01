@@ -1,7 +1,5 @@
 package jflex.testcase.eofclose;
 
-import java.io.*;
-
 %%
 
 %public
