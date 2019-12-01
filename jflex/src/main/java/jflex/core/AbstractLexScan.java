@@ -10,6 +10,7 @@ import java_cup.runtime.Symbol;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.scanner.LexicalStates;
+import jflex.scanner.ScannerException;
 
 public abstract class AbstractLexScan {
 
