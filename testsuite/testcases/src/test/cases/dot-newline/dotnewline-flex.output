@@ -1,10 +1,10 @@
 Reading "src/test/cases/dot-newline/dotnewline.flex"
-Constructing NFA : 16 states in NFA
+Constructing NFA : 18 states in NFA
 Converting NFA to DFA : 
-....
+.....
 
-Warning in file "src/test/cases/dot-newline/dotnewline.flex" (line 81): 
+Warning in file "src/test/cases/dot-newline/dotnewline.flex" (line 83): 
 Rule can never be matched:
 [^] { System.out.format("Should never get here - char \\u%04X is matched by neither dot (.) nor (\\R)\n", (int)yytext().charAt(0)); }
-6 states before minimization, 4 states in minimized DFA
+7 states before minimization, 5 states in minimized DFA
 Writing code to "src/test/cases/dot-newline/Dotnewline.java"

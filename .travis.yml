@@ -16,9 +16,10 @@ jdk:
 
 matrix:
   include:
-  - name: "🛂 Check Java format"
-    script: scripts/test-java-format.sh
-    language: generic
+# Travis fails with: # callsort format
+#  - name: "🛂 Check Java format"
+#    script: scripts/test-java-format.sh
+#    language: generic
   - name: "🔨 Maven (compile, unit test, uberjar, ubersrcs, site)"
     script:
     - scripts/test-unit.sh
@@ -38,6 +39,23 @@ matrix:
   - name: "👴 Examples (mvn, ant, make) — JDK8"
     script: scripts/test-examples.sh
     jdk: openjdk8
+  - name: "📄 Documentation"
+    language: generic
+    install: true
+    addons:
+      apt:
+        packages:
+        # pandoc used for building the doc
+        - pandoc
+        - pandoc-citeproc
+        # texlive used for PDF output
+        - texlive
+        # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
+        - texlive-latex-extra
+        # lmodern.sty
+        - lmodern
+    script:
+    - cd docs; make; cd ..
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
@@ -61,11 +79,7 @@ cache:
   timeout: 86400  # 24 hours
   directories:
   - $HOME/.m2
-  # All our Bazel build artifacts
-  - $HOME/__bazel_output_base__/
-  # Items fetched from repositories
-  - $HOME/__bazel_travis_root__/cache
-  # DO NOT cache __bazel_output_travis__/install
+  - $HOME/.ant
   - jflex/lib
   - tools
 

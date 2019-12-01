@@ -25,45 +25,61 @@
  */
 package jflex.ucd_generator.ucd;
 
+import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableMap;
 import java.io.File;
 
 /** Describes a single Unicode version. */
-public class UcdVersion {
+@AutoValue
+public abstract class UcdVersion {
 
-  public final String version;
-  final ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files;
+  public static final String EXTERNAL = "external";
 
-  UcdVersion(String version, ImmutableMap<jflex.ucd_generator.ucd.UcdFileType, File> files) {
-    this.version = version;
-    this.files = files;
+  public abstract Version version();
+
+  public abstract ImmutableMap<UcdFileType, File> files();
+
+  public File getFile(UcdFileType type) {
+    return files().get(type);
   }
 
   public static Builder builder() {
-    return new Builder();
+    return new AutoValue_UcdVersion.Builder();
   }
 
-  public Version getVersion() {
-    return new Version(version);
-  }
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder setVersion(Version version);
 
-  public static class Builder {
-    private ImmutableMap.Builder<jflex.ucd_generator.ucd.UcdFileType, File> files =
-        ImmutableMap.builder();
-    private String version;
-
-    public Builder withVersion(String version) {
-      this.version = version;
-      return this;
+    public Builder setVersion(String version) {
+      return setVersion(new Version(version));
     }
+
+    abstract ImmutableMap.Builder<UcdFileType, File> filesBuilder();
 
     public Builder putFile(UcdFileType unicodeFileType, File file) {
-      files.put(unicodeFileType, file);
+      filesBuilder().put(unicodeFileType, findExternalPath(file));
       return this;
     }
 
-    public UcdVersion build() {
-      return new UcdVersion(version, files.build());
+    public abstract UcdVersion build();
+  }
+
+  /** Given a path that contains "external", returns only the path after "external/". */
+  private static File findExternalPath(File file) {
+    File externalDir = getExternalRootDirectory(file);
+    if (externalDir != null) {
+      return new File(file.getPath().substring(externalDir.getPath().length() - EXTERNAL.length()));
     }
+    return file;
+  }
+
+  private static File getExternalRootDirectory(File file) {
+    for (File parent = file.getParentFile(); parent != null; parent = parent.getParentFile()) {
+      if (EXTERNAL.equals(parent.getName())) {
+        return parent;
+      }
+    }
+    return null;
   }
 }

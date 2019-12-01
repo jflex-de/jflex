@@ -1,3 +1,4 @@
+package jflex.testcase.arr_return;
 
 %%
 

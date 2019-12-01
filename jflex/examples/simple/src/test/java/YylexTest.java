@@ -11,7 +11,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * This is an integration test.
@@ -20,24 +22,25 @@ import junit.framework.TestCase;
  *
  * @author Régis Décamps
  */
-public class YylexTest extends TestCase {
+public class YylexTest {
 
   private ByteArrayOutputStream outputStream;
 
-  @Override
+  @Before
   public void setUp() {
     // the Yylex prints status on stdout. Redirect to ByteOutputStream.
     outputStream = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStream));
   }
 
-  @Override
+  @After
   public void tearDown() throws Exception {
     outputStream.close();
   }
 
   /** Tests that the generated {@link Yylex} lexer behaves like expected. */
-  public void testOutput() throws Exception {
+  @Test
+  public void output() throws Exception {
     File inputFile = openFile("src/test/data/test.txt");
     assertThat(inputFile.isFile()).isTrue();
 

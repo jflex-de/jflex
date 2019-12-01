@@ -165,12 +165,12 @@ public class TestCase {
     }
     jflexFiles.add(lexFile.getPath());
     // invoke JFlex
-    TestResult jflexResult = Exec.execJFlex(jflexCmdln, jflexFiles);
+    TestResult jflexResult = ExecUtils.execJFlex(jflexCmdln, jflexFiles);
     // System.out.println(jflexResult);
 
     if (jflexResult.getSuccess()) {
       // Scanner generation successful
-      if (Tester.verbose) {
+      if (TestsuiteUtils.verbose) {
         System.out.println("Scanner generation successful");
       }
 
@@ -204,15 +204,15 @@ public class TestCase {
 
       // Compile Scanner
       final List<String> toCompile = getFilesToCompile();
-      if (Tester.verbose) {
+      if (TestsuiteUtils.verbose) {
         System.out.println("File(s) to compile: " + toCompile);
       }
       try {
         TestResult javacResult =
-            Exec.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
+            ExecUtils.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
 
         // System.out.println(javacResult);
-        if (Tester.verbose) {
+        if (TestsuiteUtils.verbose) {
           System.out.println(
               "Compilation successful: "
                   + javacResult.getSuccess()
@@ -289,14 +289,14 @@ public class TestCase {
     cmdLine.add(inputFileEncoding);
     List<File> additionalJars = ImmutableList.of(jflexUberJar);
     TestResult classExecResult =
-        Exec.execClass(
+        ExecUtils.execClass(
             className,
             testPath.toString(),
             inputFiles,
             additionalJars,
             outputFileEncoding,
             cmdLine);
-    if (Tester.verbose) {
+    if (TestsuiteUtils.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }
 

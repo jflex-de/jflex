@@ -7,6 +7,8 @@ public class JavaUtils {
   /** Constant {@code .java}. */
   private static final String JAVA_FILE_EXT = ".java";
 
+  private JavaUtils() {}
+
   public static String packageToPath(String javaPackage) {
     return javaPackage.replace('.', File.separatorChar);
   }

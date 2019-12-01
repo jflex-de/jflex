@@ -33,15 +33,31 @@ public class VersionTest {
   }
 
   @Test
-  public void compare() {
+  public void compare_eaxact() {
     ImmutableSortedSet<Version> versions =
-        ImmutableSortedSet.<Version>naturalOrder()
-            .add(new Version("1.2"))
+        ImmutableSortedSet.<Version>orderedBy(Version.EXACT_VERSION_COMPARATOR)
+            .add(new Version("1.2.1"))
+            .add(new Version("1.2.0"))
             .add(new Version("1.0"))
             .add(new Version("10.0"))
             .build();
     assertThat(versions)
-        .containsExactly(new Version("1.0"), new Version("1.2"), new Version("10.0"))
+        .containsExactly(
+            new Version(1, 0), new Version(1, 2, 0), new Version(1, 2, 1), new Version(10, 0))
+        .inOrder();
+  }
+
+  @Test
+  public void compare_majorMinor() {
+    ImmutableSortedSet<Version> versions =
+        ImmutableSortedSet.<Version>orderedBy(Version.MAJOR_MINOR_COMPARATOR)
+            .add(new Version("1.2.1"))
+            .add(new Version("1.2.0"))
+            .add(new Version("1.0"))
+            .add(new Version("10.0"))
+            .build();
+    assertThat(versions)
+        .containsExactly(new Version(1, 0), new Version(1, 2), new Version(10, 0))
         .inOrder();
   }
 }

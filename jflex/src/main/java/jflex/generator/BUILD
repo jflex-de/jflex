@@ -10,5 +10,6 @@ java_library(
         "//jflex/src/main/java/jflex/io",
         "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/performance",
+        "//jflex/src/main/java/jflex/scanner",
     ],
 )

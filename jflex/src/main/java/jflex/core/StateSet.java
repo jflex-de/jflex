@@ -8,45 +8,61 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.core;
 
+import java.util.Iterator;
+
 /**
- * A set of NFA states (= integers).
+ * A set of NFA states (= ints).
  *
- * <p>Very similar to java.util.BitSet, but is faster and doesn't crash
+ * <p>Similar to {@link java.util.BitSet}, but tuned for sets of states. Can hold at most {@code
+ * 2^64} elements, but is only useful for much smaller sets (ideally not more than tens of
+ * thousands).
+ *
+ * <p>Provides an Integer iterator and a native int enumerator.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
+ * @see jflex.core.StateSetEnumerator
  */
-public final class StateSet {
+public final class StateSet implements Iterable<Integer> {
 
+  /** Compile time {@code DEBUG} setting, local to {@code StateSet} */
   private final boolean DEBUG = false;
 
-  /** Constant {@code EMPTY} */
+  /** The empty set of states */
   public static final StateSet EMPTY = new StateSet();
 
+  /** {@code 2^BITS} per word */
   static final int BITS = 6;
+
   static final int MASK = (1 << BITS) - 1;
 
+  /**
+   * Content of the {@code StateSet}, one bit per int, i.e. bit 0 of {@code bits[0]} stands for 0,
+   * bit 1 of {@code bits[0]} stands for 1, bit 1 of {@code bits[1]} stands for 65, etc.
+   */
   long bits[];
 
-  /** Constructor for StateSet. */
+  /** Construct an empty StateSet with default memory backing. */
   public StateSet() {
     this(256);
   }
 
   /**
-   * Constructor for StateSet.
+   * Construct an empty StateSet with specified memory backing.
    *
-   * @param size a int.
+   * @param size an int specifying the largest number this set will store. The StateSet will
+   *     automatically resize of a larger number is added; specifying the size avoids re-allocation.
    */
   public StateSet(int size) {
     bits = new long[size2nbits(size)];
   }
 
   /**
-   * Constructor for StateSet.
+   * Construct an StateSet with specified initial element and memory backing.
    *
-   * @param size a int.
-   * @param state a int.
+   * @param size an int specifying the largest number this set will store. The StateSet will
+   *     automatically resize of a larger number is added; specifying the size avoids re-allocation.
+   * @param state the element the set should contain.
    */
   public StateSet(int size, int state) {
     this(size);
@@ -54,75 +70,100 @@ public final class StateSet {
   }
 
   /**
-   * Constructor for StateSet.
+   * Copy the specified StateSet to create a new one.
    *
-   * @param set a {@link StateSet} object.
+   * @param set the {@link StateSet} object to copy.
    */
   public StateSet(StateSet set) {
     bits = new long[set.bits.length];
     System.arraycopy(set.bits, 0, bits, 0, set.bits.length);
   }
 
+  /** Return a new StateSet of the specified length. */
+  public static StateSet emptySet(int length) {
+    return new StateSet(nbits2size(length));
+  }
+
   /**
-   * addState.
+   * Add an element (a state) to the set. Will automatically resize the set representation if
+   * necessary.
    *
-   * @param state a int.
+   * @param state the element to add.
    */
   public void addState(int state) {
-    if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
+    if (DEBUG) Out.debug("StateSet.addState(" + state + ") start to " + this);
 
     int index = state >> BITS;
     if (index >= bits.length) resize(state);
     bits[index] |= (1L << (state & MASK));
 
-    if (DEBUG) {
-      Out.dump("StateSet.addState(" + state + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
+    if (DEBUG) Out.debug("StateSet.addState(" + state + ") result: " + this);
   }
 
-  private int size2nbits(int size) {
-    return ((size >> BITS) + 1);
+  /**
+   * Compute the array size for a given set size.
+   *
+   * @param size the desired size of the set.
+   * @return an array size such that the set can hold at least {@code size} elements.
+   */
+  private static int size2nbits(int size) {
+    return (size >> BITS) + 1;
   }
 
+  /**
+   * Compute a set size that will lead to an array of the given length.
+   *
+   * <p>Precondition: length > 0 && length <= 2^58 (58=64-BITS)
+   *
+   * @param length desired length of the StateSet array
+   * @return an int {@code val} such that {@code size2nbits(val) = length}
+   */
+  private static int nbits2size(int length) {
+    // size2nbits((length - 1) << BITS)
+    // = (((length - 1) << BITS) >> BITS) + 1
+    // = length, if (length - 1) << BITS has no overflow
+    return (length - 1) << BITS;
+  }
+
+  /**
+   * Resize this set so it can hold at least {@code size} elements.
+   *
+   * @param size new maximum element
+   */
   private void resize(int size) {
     int needed = size2nbits(size);
 
-    // if (needed < bits.length) return;
-
+    // grow at least by a factor of 4 to reduce number of re-allocations
     long newbits[] = new long[Math.max(bits.length * 4, needed)];
     System.arraycopy(bits, 0, newbits, 0, bits.length);
 
     bits = newbits;
   }
 
-  /** clear. */
+  /** Remove all elements from this set. */
   public void clear() {
     int l = bits.length;
     for (int i = 0; i < l; i++) bits[i] = 0;
   }
 
   /**
-   * isElement.
+   * Determine if a given state is an element of the set.
    *
-   * @param state a int.
-   * @return a boolean.
+   * @param state the element to check for.
+   * @return true iff this set has the element {@code state}.
    */
-  public boolean isElement(int state) {
+  public boolean hasElement(int state) {
     int index = state >> BITS;
     if (index >= bits.length) return false;
     return (bits[index] & (1L << (state & MASK))) != 0;
   }
 
   /**
-   * Returns one element of the set and removes it.
+   * Returns an element of the set and removes it.
    *
    * <p>Precondition: the set is not empty.
    *
-   * @return a int.
+   * @return an element of the set.
    */
   public int getAndRemoveElement() {
     int i = 0;
@@ -142,9 +183,9 @@ public final class StateSet {
   }
 
   /**
-   * remove.
+   * Remove a given state from the set.
    *
-   * @param state a int.
+   * @param state the element to remove.
    */
   public void remove(int state) {
     int index = state >> BITS;
@@ -153,99 +194,75 @@ public final class StateSet {
   }
 
   /**
-   * Returns the set of elements that contained are in the specified set but are not contained in
-   * this set.
+   * Remove all states from {@code this} that are not contained in the provided {@link StateSet}.
    *
-   * @param set a {@link StateSet} object.
-   * @return a {@link StateSet} object.
+   * @param set the {@link StateSet} object to intersect with.
    */
-  public StateSet complement(StateSet set) {
+  public void intersect(StateSet set) {
+    if (set == null) {
+      clear();
+    } else {
+      int l = Math.min(bits.length, set.bits.length);
+      for (int i = 0; i < l; i++) bits[i] &= set.bits[i];
+      for (int i = l; i < bits.length; i++) bits[i] = 0;
+    }
+  }
 
-    if (set == null) return null;
+  /**
+   * Returns the complement of this set with respect to the specified set, that is, the set of
+   * elements that are contained in the specified set but are not contained in this set.
+   *
+   * <p>Does not change this set.
+   *
+   * @param univ the {@link StateSet} that determines which elements can at most be returned.
+   * @return the {@link StateSet} that contains all elements of {@code univ} that are not in this
+   *     set.
+   */
+  public StateSet complement(StateSet univ) {
+    if (univ == null) return null;
 
-    StateSet result = new StateSet();
-
-    result.bits = new long[set.bits.length];
+    StateSet result = emptySet(univ.bits.length);
 
     int i;
-    int m = Math.min(bits.length, set.bits.length);
+    int m = Math.min(bits.length, univ.bits.length);
 
-    for (i = 0; i < m; i++) {
-      result.bits[i] = ~bits[i] & set.bits[i];
-    }
+    for (i = 0; i < m; i++) result.bits[i] = ~bits[i] & univ.bits[i];
 
-    if (bits.length < set.bits.length)
-      System.arraycopy(set.bits, m, result.bits, m, result.bits.length - m);
+    if (bits.length < univ.bits.length)
+      System.arraycopy(univ.bits, m, result.bits, m, result.bits.length - m);
 
-    if (DEBUG) {
-      Out.dump(
-          "Complement of "
-              + this
-              + Out.NL
-              + "and "
-              + set
-              + Out.NL
-              + " is :"
-              + result); // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-    }
+    if (DEBUG)
+      Out.debug("Complement of " + this + Out.NL + "and " + univ + Out.NL + " is :" + result);
+
     return result;
   }
 
   /**
-   * add.
+   * Add all elements of the specified StateSet to this one.
    *
-   * @param set a {@link StateSet} object.
+   * @param set a {@link StateSet} object to be added.
    */
   public void add(StateSet set) {
-
-    if (DEBUG) {
-      Out.dump("StateSet.add(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-    }
+    if (DEBUG) Out.debug("StateSet.add(" + set + "), this = " + this);
 
     if (set == null) return;
 
-    long tbits[];
-    long sbits[] = set.bits;
-    int sbitsl = sbits.length;
+    long this_bits[];
+    long add_bits[] = set.bits;
+    int add_bits_length = add_bits.length;
 
-    if (bits.length < sbitsl) {
-      tbits = new long[sbitsl];
-      System.arraycopy(bits, 0, tbits, 0, bits.length);
+    if (bits.length < add_bits_length) {
+      this_bits = new long[add_bits_length];
+      System.arraycopy(bits, 0, this_bits, 0, bits.length);
     } else {
-      tbits = this.bits;
+      this_bits = this.bits;
     }
 
-    for (int i = 0; i < sbitsl; i++) {
-      tbits[i] |= sbits[i];
-    }
+    for (int i = 0; i < add_bits_length; i++) this_bits[i] |= add_bits[i];
 
-    this.bits = tbits;
+    this.bits = this_bits;
 
-    if (DEBUG) {
-      Out.dump("StateSet.add(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
-    }
-  }
-
-  /**
-   * containsSet.
-   *
-   * @param set a {@link StateSet} object.
-   * @return a boolean.
-   */
-  public boolean containsSet(StateSet set) {
-
-    if (DEBUG) {
-      Out.dump("StateSet.containsSet(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
-    }
-    int i;
-    int min = Math.min(bits.length, set.bits.length);
-
-    for (i = 0; i < min; i++) if ((bits[i] & set.bits[i]) != set.bits[i]) return false;
-
-    for (i = min; i < set.bits.length; i++) if (set.bits[i] != 0) return false;
-
-    return true;
+    if (DEBUG) Out.debug("StateSet.add() result: " + this);
   }
 
   /** {@inheritDoc} */
@@ -258,9 +275,6 @@ public final class StateSet {
     int l1, l2;
     StateSet set = (StateSet) b;
 
-    if (DEBUG) {
-      Out.dump("StateSet.equals(" + set + "), this=" + this); // $NON-NLS-1$ //$NON-NLS-2$
-    }
     l1 = bits.length;
     l2 = set.bits.length;
 
@@ -283,11 +297,7 @@ public final class StateSet {
     return true;
   }
 
-  /**
-   * hashCode.
-   *
-   * @return a int.
-   */
+  /** {@inheritDoc} */
   public int hashCode() {
     long h = 1234;
     long[] _bits = bits;
@@ -302,33 +312,31 @@ public final class StateSet {
   }
 
   /**
-   * states.
+   * Construct an enumerator for this set.
    *
-   * @return a {@link StateSetEnumerator} object.
+   * @return a {@link StateSetEnumerator} object for this set.
    */
   public StateSetEnumerator states() {
     return new StateSetEnumerator(this);
   }
 
   /**
-   * containsElements.
+   * Determine if the State set contains elements.
    *
-   * @return a boolean.
+   * @return true iff the set is not empty.
    */
   public boolean containsElements() {
     for (long bit : bits) if (bit != 0) return true;
-
     return false;
   }
 
   /**
-   * copy.
+   * Return a copy of this StateSet.
    *
-   * @return a {@link StateSet} object.
+   * @return a {@link StateSet} object with the same content as this.
    */
   public StateSet copy() {
-    StateSet set = new StateSet();
-    set.bits = new long[bits.length];
+    StateSet set = emptySet(bits.length);
     System.arraycopy(bits, 0, set.bits, 0, bits.length);
     return set;
   }
@@ -339,48 +347,44 @@ public final class StateSet {
    * @param set the state set to copy.
    */
   public void copy(StateSet set) {
+    if (set == null) clear();
+    else {
+      if (bits.length < set.bits.length) bits = new long[set.bits.length];
+      else for (int i = set.bits.length; i < bits.length; i++) bits[i] = 0;
 
-    if (DEBUG) {
-      Out.dump("StateSet.copy(" + set + ") start"); // $NON-NLS-1$ //$NON-NLS-2$
-    }
-    if (set == null) {
-      for (int i = 0; i < bits.length; i++) bits[i] = 0;
-      return;
-    }
-
-    if (bits.length < set.bits.length) {
-      bits = new long[set.bits.length];
-    } else {
-      for (int i = set.bits.length; i < bits.length; i++) bits[i] = 0;
-    }
-
-    System.arraycopy(set.bits, 0, bits, 0, bits.length);
-
-    if (DEBUG) {
-      Out.dump("StateSet.copy(" + set + ") end"); // $NON-NLS-1$ //$NON-NLS-2$
-      Out.dump("Set is : " + this); // $NON-NLS-1$
+      System.arraycopy(set.bits, 0, bits, 0, bits.length);
     }
   }
 
   /**
-   * toString.
+   * Convert this StateSet into a String.
    *
-   * @return a {@link java.lang.String} object.
+   * @return a {@link java.lang.String} object representing this StateSet.
    */
   public String toString() {
     StateSetEnumerator set = states();
 
-    StringBuilder result = new StringBuilder("{"); // $NON-NLS-1$
+    StringBuilder result = new StringBuilder("{");
 
-    if (set.hasMoreElements()) result.append("" + set.nextElement()); // $NON-NLS-1$
+    if (set.hasMoreElements()) result.append("" + set.nextElement());
 
     while (set.hasMoreElements()) {
       int i = set.nextElement();
-      result.append(", ").append(i); // $NON-NLS-1$
+      result.append(", ").append(i);
     }
 
-    result.append("}"); // $NON-NLS-1$
+    result.append("}");
 
     return result.toString();
+  }
+
+  /**
+   * Construct an Integer iterator for this StateSet.
+   *
+   * @return an iterator for this StateSet.
+   */
+  @Override
+  public Iterator<Integer> iterator() {
+    return states();
   }
 }

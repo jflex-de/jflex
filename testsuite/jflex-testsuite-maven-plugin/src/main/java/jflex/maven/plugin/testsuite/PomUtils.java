@@ -8,6 +8,8 @@ import java.util.Properties;
 
 class PomUtils {
 
+  private PomUtils() {}
+
   static String getPomVersion(String groupId, String artifactId, File jar) throws IOException {
     if (!jar.isFile() || !jar.canRead()) {
       throw new FileNotFoundException("Couldn't open jar file " + jar);

@@ -54,7 +54,6 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
-    <module>report-module</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -106,8 +105,8 @@
     <dependencies>
       <dependency>
         <groupId>com.google.auto.value</groupId>
-        <artifactId>auto-value</artifactId>
-        <version>1.4.1</version>
+        <artifactId>auto-value-annotations</artifactId>
+        <version>1.7</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -298,16 +297,23 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
-     built-in lifecycle bindings for projects with pom packaging. -->
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>8</source>
           <target>8</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.auto.value</groupId>
+              <artifactId>auto-value</artifactId>
+              <version>1.7</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
+    <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
+     built-in lifecycle bindings for projects with pom packaging. -->
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <executions>

@@ -1,25 +1,28 @@
 package(default_visibility = ["//javatests/jflex/ucd_generator:__subpackages__"])
 
-SRCS_MAIN = ["Main.java"]
-
 java_library(
     name = "ucd_generator",
-    srcs = ["UcdGenerator.java", "UcdGeneratorParams.java"],
+    srcs = [
+        "UcdGenerator.java",
+        "UcdGeneratorParams.java",
+    ],
     deps = [
-        "//java/jflex/testing/javac",
-        "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
+        "//java/jflex/ucd_generator/scanner:unicode_data",
+        "//java/jflex/ucd_generator/scanner:unicode_data_scanner",
+        "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/util/javac",
         "//java/jflex/velocity",
+        "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
-        "//third_party/com/google/auto_value",
     ],
 )
 
 java_binary(
     name = "Main",
-    srcs = SRCS_MAIN,
+    srcs = ["Main.java"],
     deps = [
         ":ucd_generator",
         "//java/jflex/ucd_generator/ucd",

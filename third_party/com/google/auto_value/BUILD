@@ -5,11 +5,13 @@ licenses(["notice"])  # Apache License 2.0
 java_library(
     name = "auto_value",
     exported_plugins = [":auto_plugin"],
-    exports = ["@com_google_auto_value_auto_value//jar"],
+    exports = [
+        "@maven//:com_google_auto_value_auto_value_annotations",
+    ],
 )
 
 java_plugin(
     name = "auto_plugin",
     processor_class = "com.google.auto.value.processor.AutoValueProcessor",
-    deps = ["@com_google_auto_value_auto_value//jar"],
+    deps = ["@maven//:com_google_auto_value_auto_value"],
 )

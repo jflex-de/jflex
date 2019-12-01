@@ -19,6 +19,7 @@ import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
+import jflex.scanner.ScannerException;
 import java_cup.runtime.Symbol;
 
 /* customizing code */
@@ -34,29 +35,29 @@ action code {:
   EOFActions  eofActions  = new EOFActions();
   Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
 
-  void fatalError(ErrorMessages message, int line, int col) {
+  void fatalError(ErrorMessages.ErrorMessage message, int line, int col) {
     syntaxError(message, line, col);
     throw new GeneratorException();
   }
 
-  void fatalError(ErrorMessages message) {
+  void fatalError(ErrorMessages.ErrorMessage message) {
     fatalError(message, scanner.currentLine(), -1);
     throw new GeneratorException();
   }
 
-  void syntaxError(ErrorMessages message) {
+  void syntaxError(ErrorMessages.ErrorMessage message) {
     Out.error(scanner.file, message, scanner.currentLine(), -1);
   }
   
-  void syntaxError(ErrorMessages message, int line) {
+  void syntaxError(ErrorMessages.ErrorMessage message, int line) {
     Out.error(scanner.file, message, line, -1);
   }
 
-  void syntaxError(ErrorMessages message, int line, int col) {
+  void syntaxError(ErrorMessages.ErrorMessage message, int line, int col) {
     Out.error(scanner.file, message, line, col);
   }
 
-  void warning(ErrorMessages message, int line, int col) {
+  void warning(ErrorMessages.ErrorMessage message, int line, int col) {
     Out.warning(scanner.file, message, line, col);
   }
 
@@ -710,19 +711,18 @@ regexp        ::=  regexp:r STAR
                    :}
                 |  POINT
                    {: 
-                      List<Interval> any = new ArrayList<Interval>();
+                      List<Interval> any = new ArrayList<>();
+                      any.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
                       if ( Options.jlex || Options.legacy_dot ) {
                         any.add(new Interval('\n','\n'));
-                        // assumption: newline chars have no uppercase variant
-                        charClasses.makeClass('\n', false);
                       }
                       else {
                         any.add(new Interval('\n','\r'));
                         any.add(new Interval('\u0085','\u0085'));
                         any.add(new Interval('\u2028','\u2029'));
-                        // assumption: newline chars have no uppercase variant
-                        charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
                       }
+                      // assumption: surrogate and newline chars have no uppercase variant
+                      charClasses.makeClass(any, false);
                       RegExp1 r = new RegExp1(sym.CCLASSNOT, any);
                       r.isPoint = true;
                       RESULT = r;
