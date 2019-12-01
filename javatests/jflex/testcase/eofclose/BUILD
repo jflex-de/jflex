@@ -28,10 +28,6 @@ java_test(
     srcs = [
         "EofCloseTest.java",
     ],
-    data = [
-        "eofclose-0.input",
-        "eofclose-0.output",
-    ],
     deps = [
         ":eofclose_scanner",
         "//java/jflex/testing/assertion",
