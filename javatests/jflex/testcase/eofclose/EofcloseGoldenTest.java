@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
-import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import org.junit.Test;
 
 /**
@@ -29,12 +28,7 @@ public class EofcloseGoldenTest extends AbstractGoldenTest {
 
   @Test
   public void goldenTest0() throws Exception {
-    GoldenInOutFilePair golden =
-        new GoldenInOutFilePair(
-            new File(testRuntimeDir, "eofclose-0.input"),
-            new File(testRuntimeDir, "eofclose-0.output"));
-    compareSystemOutWith(golden);
-
+    File inputFile = new File(testRuntimeDir, "eofclose-0.input");
     Reader reader = Files.newReader(inputFile, StandardCharsets.UTF_8);
     Eofclose scanner = new Eofclose(reader);
     while (scanner.yylex() != Eofclose.YYEOF) {}
