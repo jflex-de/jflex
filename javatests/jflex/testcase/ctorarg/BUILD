@@ -51,6 +51,7 @@ jflex_testsuite(
     deps = [
         "//java/jflex/util/javac",
         "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/scanner",
         "//third_party/com/google/guava",
     ],
 )
