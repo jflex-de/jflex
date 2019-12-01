@@ -98,16 +98,17 @@ public abstract class PackEmitter {
    * <p>Updates length, position, etc.
    *
    * @param i the character to emit.
-   * @prec 0 <= i <= 0xFFFF
    */
   public void emitUC(int i) {
-    if (i < 0 || i > 0xFFFF) throw new IllegalArgumentException("character value expected");
+    if (i < 0 || i > 0xFFFF) {
+      throw new IllegalArgumentException("character value expected");
+    }
 
     // cast ok because of prec
     char c = (char) i;
 
     printUC(c);
-    UTF8Length += UTF8Length(c);
+    UTF8Length += Utf8Length(c);
     linepos++;
   }
 
@@ -177,12 +178,9 @@ public abstract class PackEmitter {
    * file.
    *
    * @param value the char code of the Unicode character
-   * @prec 0 <= value <= 0x10FFFF
    * @return length of UTF8 representation.
    */
-  private int UTF8Length(int value) {
-    // if (value < 0 || value > 0xFFFF) throw new Error("not a char value ("+value+")");
-
+  private static int Utf8Length(int value) {
     // see JVM spec section 4.4.7, p 111
     if (value == 0) return 2;
     if (value <= 0x7F) return 1;

@@ -3,9 +3,9 @@
 package jflex.testcase.cupsym;
 
 import java.io.File;
-import java.io.Reader;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -22,9 +22,12 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class CupsymGoldenTest extends AbstractGoldenTest<Cupsym> {
+public class CupsymGoldenTest extends AbstractGoldenTest {
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
+
+  /** scanner generated from {@code cupsym.flex}. */
+  private final ScannerFactory<Cupsym> scannerFactory = ScannerFactory.of(Cupsym::new);
 
   @Test
   public void goldenTest0() throws Exception {
@@ -34,13 +37,7 @@ public class CupsymGoldenTest extends AbstractGoldenTest<Cupsym> {
             new File(testRuntimeDir, "cupsym-0.output"));
     compareSystemOutWith(golden);
 
-    Cupsym scanner = createScanner(golden.inputFile);
+    Cupsym scanner = scannerFactory.createScannerForFile(golden.inputFile);
     scanner.debug_next_token();
-  }
-
-  /** scanner generated from {@code cupsym.flex}. */
-  @Override
-  protected Cupsym createScanner(Reader reader) {
-    return new Cupsym(reader);
   }
 }

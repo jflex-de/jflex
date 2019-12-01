@@ -1,10 +1,6 @@
 #set( $H = '#' )
+
 $H $testName
-
-$H This build file was generated automatically, but won't be re-generated.
-$H Feel free to improve.
-
-load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
     name = "gen_${testName}_scanner",
@@ -39,6 +35,7 @@ java_test(
         ":${testName}_scanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
