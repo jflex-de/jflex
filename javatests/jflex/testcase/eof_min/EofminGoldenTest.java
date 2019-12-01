@@ -37,7 +37,9 @@ public class EofminGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Eofmin scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    for (int token = scanner.yylex(); token != 2 && token != 3; token = scanner.yylex()) {}
+    while (!scanner.zzAtEof()) {
+      scanner.yylex();
+    }
   }
 
   @Test
@@ -49,6 +51,8 @@ public class EofminGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Eofmin scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    for (int token = scanner.yylex(); token != 2 && token != 3; token = scanner.yylex()) {}
+    while (!scanner.zzAtEof()) {
+      scanner.yylex();
+    }
   }
 }
