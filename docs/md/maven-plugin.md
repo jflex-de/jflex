@@ -1,23 +1,20 @@
 Maven plugin
 ------------
  
-The plugin reads JFlex grammar definition files (`.jflex`) and
+The plugin reads JFlex grammar specification files (`.jflex`) and
 generates a corresponding Java parser 
 (in `target/generated-source/jflex` by default).
 
 ### Usage
 
-See [jflex-maven-plugin site](http://jflex-de.github.io/jflex-web/jflex-maven-plugin/plugin-info.html)
-for more information.
-
 #### Minimal configuration
 
 This configuration generates java code of a parser
 for all grammar files (`*.jflex`, `*.jlex`, `*.lex`, `*.flex`) 
-found in  `src/main/jflex/`
-and its sub-directories.
+found in  `src/main/jflex/` and its sub-directories.
 
-The name and package of the generated Java source code are the ones defined in the grammar.
+The name and package of the generated Java source code are the ones defined in
+the grammar.
 The generated Java source code is placed in `target/generated-source/jflex`,
 in sub-directories following the Java convention on package names.
 
@@ -123,34 +120,12 @@ This generates the source for
       </plugin>
 ```
       
-More documentation on the configuration options can be found 
-in the description for the mojo:
-```
-mvn help:describe  -DgroupId=de.jflex -DartifactId=maven-jflex-plugin -Ddetail
-```
   
-More information in the [POM reference guide on plugins](http://maven.apache.org/pom.html#Plugins).
+### More information
 
-
-### Versions
-
-Which version of the plugin is best for you?
-
-  * jflex-maven-plugin-${project.version} depends on ${project.version}
-    and requires Java 7 when you `mvn jflex:generate`
-
-  * jflex-maven-plugin-1.8.0 depends on 1.8.0
-    and requires Java 7 when you `mvn jflex:generate`
-    
-  * jflex-maven-plugin-1.7.0 depends on 1.7.0
-    and requires Java 7 when you `mvn jflex:generate`
-
-  * jflex-maven-plugin-1.6.1 depends on JFlex 1.6.1
-    and requires Java 5 when you `mvn jflex:generate`
-
-  * jflex-maven-plugin-1.5.0 depends on JFlex 1.5.0
-    and requires Java 5 when you `mvn jflex:generate`
-
-  * maven-jflex-plugin-1.4.3-r1 depends on JFlex 1.4.3
-    and requires Java 1.3 when you `mvn jflex:generate`
+* [jflex:generate](https://jflex-de.github.io/jflex-web/jflex-maven-plugin/generate-mojo.html)
+  for more information about the configuration options of the
+  jflex-maven-plugin.
+* [POM reference guide on plugins](http://maven.apache.org/pom.html#Plugins)
+  for more information about using plugins in a project.
 
