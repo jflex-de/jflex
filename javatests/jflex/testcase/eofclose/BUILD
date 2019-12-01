@@ -9,13 +9,33 @@ jflex(
     name = "gen_eofclose_scanner",
     srcs = ["eofclose.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Eofclose.java"],
+    outputs = ["EofClose.java"],
 )
 
 java_library(
     name = "eofclose_scanner",
     srcs = [
         ":gen_eofclose_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+# eofclose2
+
+jflex(
+    name = "gen_eofnoclose_scanner",
+    srcs = ["eofnoclose.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["EofNoClose.java"],
+)
+
+java_library(
+    name = "eofnoclose_scanner",
+    srcs = [
+        ":gen_eofnoclose_scanner",
     ],
     deps = [
         "//java/jflex/testing/testsuite/golden",
@@ -30,6 +50,7 @@ java_test(
     ],
     deps = [
         ":eofclose_scanner",
+        ":eofnoclose_scanner",
         "//java/jflex/testing/assertion",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",

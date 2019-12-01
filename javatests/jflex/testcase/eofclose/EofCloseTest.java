@@ -15,20 +15,34 @@ import org.junit.Test;
 public class EofCloseTest extends AbstractGoldenTest {
 
   @Test
-  public void eofcloseDirective_closesReaderAtEof() throws Exception {
+  public void eofcloseDirective_true_closesReaderAtEof() throws Exception {
+    Reader reader = readContent();
+    ScannerFactory<EofClose> scannerFactory = ScannerFactory.of(EofClose::new);
+    EofClose scanner = scannerFactory.createForReader(reader);
+    while (scanner.yylex() != EofClose.YYEOF) {}
+    assertThrows(
+        "The scanner should close the reader at EOF, making reading further impossible",
+        IOException.class,
+        reader::read);
+  }
+
+  @Test
+  public void eofcloseDirective_false_doesntCloseReaderAtEof() throws Exception {
+    Reader reader = readContent();
+    ScannerFactory<EofNoClose> scannerFactory = ScannerFactory.of(EofNoClose::new);
+    EofNoClose scanner = scannerFactory.createForReader(reader);
+    while (scanner.yylex() != EofNoClose.YYEOF) {}
+    // The scanner should not close the reader at EOF, making reading further legal
+    reader.read();
+  }
+
+  private Reader readContent() throws IOException {
     CharSource content =
         CharSource.wrap(
             "" + //
                 "bla\n" + // bla
                 "blub\n" + // blub
                 "\n");
-    Reader reader = content.openStream();
-    ScannerFactory<Eofclose> scannerFactory = ScannerFactory.of(Eofclose::new);
-    Eofclose scanner = scannerFactory.createForReader(reader);
-    while (scanner.yylex() != Eofclose.YYEOF) {}
-    assertThrows(
-        "The scanner should close the reader at EOF, making reading further impossible",
-        IOException.class,
-        reader::read);
+    return content.openStream();
   }
 }

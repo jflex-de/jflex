@@ -3,10 +3,10 @@ package jflex.testcase.eofclose;
 %%
 
 %public
-%class EofClose
+%class EofNoClose
 %int
 
-%eofclose
+%eofclose false
 
 %%
 
