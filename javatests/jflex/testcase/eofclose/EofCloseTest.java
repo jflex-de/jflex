@@ -2,17 +2,17 @@
 
 package jflex.testcase.eofclose;
 
+import static com.google.common.truth.Truth.assertWithMessage;
 import static jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /** Test for {@code eofclose} directive. */
-public class EofCloseTest extends AbstractGoldenTest {
+public class EofCloseTest {
 
   @Test
   public void eofcloseDirective_true_closesReaderAtEof() throws Exception {
@@ -32,8 +32,11 @@ public class EofCloseTest extends AbstractGoldenTest {
     ScannerFactory<EofNoClose> scannerFactory = ScannerFactory.of(EofNoClose::new);
     EofNoClose scanner = scannerFactory.createForReader(reader);
     while (scanner.yylex() != EofNoClose.YYEOF) {}
-    // The scanner should not close the reader at EOF, making reading further legal
-    reader.read();
+    assertWithMessage(
+            "The scanner should not close the reader at EOF, making reading further legal,"
+                + " even though there is no more content")
+        .that(reader.read())
+        .isEqualTo(-1);
   }
 
   private Reader readContent() throws IOException {
