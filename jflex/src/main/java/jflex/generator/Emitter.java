@@ -1034,7 +1034,7 @@ public final class Emitter {
    * @param s The string to escape
    * @return The escaped string
    */
-  private String escapify(String s) {
+  private static String escapify(String s) {
     StringBuilder result = new StringBuilder(s.length() * 2);
 
     for (int i = 0; i < s.length(); i++) {
