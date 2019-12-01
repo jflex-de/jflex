@@ -39,7 +39,7 @@ public class EofCloseTest {
         .isEqualTo(-1);
   }
 
-  private Reader readContent() throws IOException {
+  private static Reader readContent() throws IOException {
     CharSource content =
         CharSource.wrap(
             "" + //
