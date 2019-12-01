@@ -13,6 +13,9 @@ java_library(
         "MigrationException.java",
         "Migrator.java",
     ],
+    data = [
+        "BUILD-header.bzl",
+    ],
     deps = [
         ":model",
         ":test_case_parser",

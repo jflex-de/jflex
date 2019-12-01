@@ -1,0 +1,25 @@
+line: 0, column: 0, char: 0
+match [bla]
+line: 0, column: 3, char: 3
+match [ ]
+line: 0, column: 4, char: 4
+match [blu]
+line: 0, column: 7, char: 7
+match [b]
+line: 0, column: 8, char: 8
+match [
+]
+line: 1, column: 0, char: 9
+match [blu]
+line: 1, column: 3, char: 12
+match [bbe]
+line: 1, column: 6, char: 15
+match [r]
+line: 1, column: 7, char: 16
+match [
+]
+line: 2, column: 0, char: 17
+match [bla]
+line: 2, column: 3, char: 20
+match [
+]

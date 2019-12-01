@@ -1,7 +1,12 @@
 ## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11)
+- Defend against spoon-feeding readers not fully populating the scanning buffer #543
 - Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #563)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
+- `yychar` type has been changed from `int` to `long` (#605)
 - JFlex build now depends on JDK 1.8+; JFlex runtime still supports JDK 7+
+- Code cleanups and modularization
+- Updated Maven dependencies
+- JFlex can be build with [Bazel](https://bazel.build) 
 
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
 - Unicode 8.0 and 9.0 are supported (#209)

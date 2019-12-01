@@ -5,6 +5,7 @@ This directory contains the sources of the JFlex Maven plugin.
 Maven <http://maven.apache.org> is a software project management, dependency
 management and build tool. This plugin makes JFlex available in maven.
 
+See [Usage with Maven](https://github.com/jflex-de/jflex#usage-with-maven)
 
 ## Contents ##
 

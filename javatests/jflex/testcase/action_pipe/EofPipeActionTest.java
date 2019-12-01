@@ -25,8 +25,8 @@
  */
 package jflex.testcase.action_pipe;
 
-import jflex.core.ScannerException;
 import jflex.exceptions.GeneratorException;
+import jflex.scanner.ScannerException;
 import jflex.testing.testsuite.JFlexTestRunner;
 import jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;

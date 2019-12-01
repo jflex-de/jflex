@@ -6,7 +6,6 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Charsets;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
@@ -25,9 +24,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Comparator;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.javac.JavaPackageUtil;
+import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -39,8 +39,9 @@ import org.apache.velocity.runtime.parser.ParseException;
  */
 public class Migrator {
 
-  private static final String PATH = JavaPackageUtil.getPathForClass(Migrator.class);
+  private static final String PATH = JavaPackageUtils.getPathForClass(Migrator.class);
   private static final String TEST_CASE_TEMPLATE = PATH + "/TestCase.java.vm";
+  private static final String BUILD_HEADER = "java/" + PATH + "/BUILD-header.bzl";
   private static final String BUILD_TEMPLATE = PATH + "/BUILD.vm";
   private static final String GOLDEN_INPUT_EXT = ".input";
   private static final String GOLDEN_OUTPUT_EXT = ".output";
@@ -70,17 +71,52 @@ public class Migrator {
     migrateCase(dir);
   }
 
-  /** Migrates one given test-case directory. */
+  /**
+   * Migrates one given test-case directory.
+   *
+   * <ol>
+   *   <li>Creates a target folder in {@code /tmp} based on the original directory name (replaces
+   *       '-' by '_')
+   *   <li>Initializes a BUILD file
+   *   <li>Finds all test specs, and migrate them.
+   * </ol>
+   */
   private static void migrateCase(File testCaseDir) throws MigrationException {
     logger.atInfo().log("Migrating %s...", testCaseDir.getName());
     logger.atFine().log("location: %s", testCaseDir.getAbsolutePath());
-    Iterable<File> directoryContent = Files.fileTraverser().breadthFirst(testCaseDir);
+    File outputDir = initTargetDir(testCaseDir);
+    File buildFile = initBuildFile(outputDir);
+    Iterable<File> originalDirectoryContent = Files.fileTraverser().breadthFirst(testCaseDir);
     ImmutableList<File> testSpecFiles =
-        Streams.stream(directoryContent)
+        Streams.stream(originalDirectoryContent)
             .filter(f -> Files.getFileExtension(f.getName()).equals("test"))
+            .sorted(Comparator.comparing(File::getName))
             .collect(toImmutableList());
     for (File testSpec : testSpecFiles) {
-      migrateTestCase(testCaseDir, testSpec);
+      migrateTestCase(testCaseDir, testSpec, buildFile);
+    }
+  }
+
+  private static File initTargetDir(File testCaseDir) {
+    String lowerUnderscoreTestDir =
+        CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, testCaseDir.getName());
+    File outputDir = new File(new File("/tmp"), lowerUnderscoreTestDir);
+    if (!outputDir.isDirectory()) {
+      //noinspection ResultOfMethodCallIgnored
+      outputDir.mkdirs();
+    }
+    return outputDir;
+  }
+
+  /** Creates a new BUILD file in the given directory. If there is one, it is replaced. */
+  private static File initBuildFile(File outputDir) throws MigrationException {
+    File outFile = new File(outputDir, "BUILD");
+    outFile.delete();
+    try {
+      Files.copy(new File(BUILD_HEADER), outFile);
+      return outFile;
+    } catch (IOException e) {
+      throw new MigrationException("Could not create BUILD file", e);
     }
   }
 
@@ -89,7 +125,7 @@ public class Migrator {
    *
    * <p>Scans the grammar specification and creates a {@link TestCase} model.
    */
-  private static void migrateTestCase(File testCaseDir, File testSpecFile)
+  private static void migrateTestCase(File testCaseDir, File testSpecFile, File buildFile)
       throws MigrationException {
     try (BufferedReader reader = Files.newReader(testSpecFile, Charsets.UTF_8)) {
       TestSpecScanner scanner = new TestSpecScanner(reader);
@@ -97,7 +133,7 @@ public class Migrator {
       if (test.isExpectJavacFail() || test.isExpectJFlexFail()) {
         logger.atWarning().log("Test %s must be migrated with JflexTestRunner", test.getTestName());
       }
-      migrateTestCase(testCaseDir, test);
+      migrateTestCase(testCaseDir, test, buildFile);
     } catch (IOException e) {
       throw new MigrationException("Failed reading the test spec " + testSpecFile.getName(), e);
     }
@@ -109,38 +145,32 @@ public class Migrator {
    *
    * <p>Creates all velocity {@link MigrationTemplateVars} for this case.
    */
-  private static void migrateTestCase(File testCaseDir, TestCase test) throws MigrationException {
-    String lowerUnderscoreTestDir =
-        CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_UNDERSCORE, testCaseDir.getName());
+  private static void migrateTestCase(File testCaseDir, TestCase test, File buildFile)
+      throws MigrationException {
     File flexFile = findFlexFile(testCaseDir, test);
     ImmutableList<GoldenInOutFilePair> goldenFiles = findGoldenFiles(testCaseDir, test);
+    String lowerUnderscoreTestDir = buildFile.getParentFile().getName();
     MigrationTemplateVars templateVars =
         createTemplateVars(lowerUnderscoreTestDir, test, flexFile, goldenFiles);
-    migrateTestCase(lowerUnderscoreTestDir, templateVars);
+    migrateTestCase(buildFile, templateVars);
   }
 
   /**
    * Migrates one given test case.
    *
    * <ol>
-   *   <li>Creates a target folder in {@code /tmp} based on the original directory name (replaces
-   *       '-' by '_')
-   *   <li>Generates a build file
-   *   <li><Renders the java test class
+   *   <li>Add targets to BUILD file
+   *   <li>Renders the java test class
    *   <li>Modifies and copies the flex grammar in the target folder. See {@link
    *       #copyGrammarFile(File, String, File)}
    *   <li>Copies the golden files
    * </ol>
    */
-  private static void migrateTestCase(String targetTestDir, MigrationTemplateVars templateVars)
+  private static void migrateTestCase(File buildFile, MigrationTemplateVars templateVars)
       throws MigrationException {
-    File outputDir = new File(new File("/tmp"), targetTestDir);
-    if (!outputDir.isDirectory()) {
-      //noinspection ResultOfMethodCallIgnored
-      outputDir.mkdirs();
-    }
+    File outputDir = buildFile.getParentFile();
     logger.atInfo().log("Generating into %s", outputDir);
-    renderBuildFile(templateVars, outputDir);
+    renderBuildFile(templateVars, buildFile);
     renderTestCase(templateVars, outputDir);
     copyGrammarFile(templateVars.flexGrammar, templateVars.javaPackage, outputDir);
     copyGoldenFiles(templateVars.goldens, outputDir);
@@ -150,21 +180,13 @@ public class Migrator {
 
   /** Generates the BUILD file for this test case. */
   // FIXME This should be done once for the whole directory, but with many java_test()
-  private static void renderBuildFile(MigrationTemplateVars templateVars, File outputDir)
+  private static void renderBuildFile(MigrationTemplateVars templateVars, File buildFile)
       throws MigrationException {
-    File outFile = new File(outputDir, "BUILD");
-    try {
-      // If there are multiple `.test` files in a directory, this is going to break.
-      Preconditions.checkState(!outFile.exists(), "Attempting to override an existing BUILD file");
-    } catch (IllegalStateException e) {
-      // throw new MigrationException("Please output to a clean directory", e);
-      logger.atWarning().log("Overriding %s", outFile);
-    }
-    try (OutputStream outputStream = new FileOutputStream(outFile)) {
-      logger.atInfo().log("Generating %s", outFile);
+    try (OutputStream outputStream = new FileOutputStream(buildFile, /*append=*/ true)) {
+      logger.atInfo().log("Generating %s", buildFile);
       velocityRenderBuildFile(templateVars, outputStream);
     } catch (IOException e) {
-      throw new MigrationException("Couldn't write BUILD file", e);
+      throw new MigrationException("Couldn't write into BUILD file", e);
     }
   }
 
@@ -211,7 +233,7 @@ public class Migrator {
   /** Copy the list of golden files. */
   private static void copyGoldenFiles(ImmutableList<GoldenInOutFilePair> goldens, File outputDir)
       throws MigrationException {
-    logger.atInfo().log("Copy %n pairs of olden files", goldens.size());
+    logger.atInfo().log("Copy %d pairs of golden files", goldens.size());
     try {
       for (GoldenInOutFilePair golden : goldens) {
         copyFile(golden.inputFile, outputDir);
@@ -250,6 +272,7 @@ public class Migrator {
     Iterable<File> dirContent = Files.fileTraverser().breadthFirst(testCaseDir);
     return Streams.stream(dirContent)
         .filter(f -> isGoldenInputFile(test, f))
+        .sorted(Comparator.comparing(File::getName))
         .map(f -> new GoldenInOutFilePair(f, getGoldenOutputFile(f)))
         .filter(g -> g.outputFile.isFile())
         .collect(toImmutableList());

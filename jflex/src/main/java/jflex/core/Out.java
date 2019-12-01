@@ -19,6 +19,7 @@ import jflex.base.Build;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.StdOutWriter;
 import jflex.performance.Timer;
 
 /**
@@ -36,6 +37,8 @@ import jflex.performance.Timer;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class Out {
+
+  private Out() {}
 
   /** platform dependent newline sequence */
   public static final String NL = System.getProperty("line.separator");

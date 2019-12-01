@@ -25,21 +25,25 @@
  */
 package jflex.testcase.apipirivate;
 
-import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.util.stream.Stream;
 import jflex.testing.testsuite.JFlexTestRunner;
 import jflex.testing.testsuite.annotations.TestSpec;
 import jflex.util.javac.CompilerException;
-import jflex.util.javac.JavacUtil;
+import jflex.util.javac.JavacUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
  * Test that JFlex can generate private classes.
  *
- * <p>See feature request #513500 (Generate cleaner interfaces), {@code %apiprivate} option
+ * <p>See feature request <a href="https://github.com/jflex-de/jflex/issues/141">#141 Generate
+ * cleaner interfaces</a>, {@code %apiprivate} option.
  */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(lex = "javatests/jflex/testcase/apipirivate/private.flex")
@@ -47,14 +51,22 @@ public class ApiPrivateTest {
 
   @Test
   public void compile() throws CompilerException {
+    ImmutableList<File> srcFiles =
+        Stream.of(
+                "javatests/jflex/testcase/apipirivate/PrivateScanner.java",
+                "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java")
+            .map(File::new)
+            .collect(ImmutableList.toImmutableList());
     try {
-      JavacUtil.compile(
-          ImmutableList.of(
-              "javatests/jflex/testcase/apipirivate/Private.java",
-              "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java"));
-      fail("Class `Private` should have private access");
+      JavacUtils.compile(srcFiles);
+      fail("Class `PrivateScanner` should have private access");
     } catch (CompilerException e) {
-      assertThat(e).hasMessageThat().contains("compiler.err.report.access");
+      assertWithMessage(
+              "While compiling %s",
+              srcFiles.stream().map(File::getAbsolutePath).collect(joining(", ")))
+          .that(e)
+          .hasMessageThat()
+          .contains("compiler.err.report.access");
     }
   }
 }

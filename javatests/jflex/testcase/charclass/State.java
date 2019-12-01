@@ -1,6 +1,6 @@
 package jflex.testcase.charclass;
 
-public enum State {
+enum State {
   NESTED_ABCDEF,
   NESTED_GHIJKMTS,
   NESTED_AZ47,

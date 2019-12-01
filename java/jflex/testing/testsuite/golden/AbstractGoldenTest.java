@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import jflex.testing.diff.DiffOutputStream;
 import org.junit.After;
 
-public class AbstractGoldenTest {
+public abstract class AbstractGoldenTest {
 
   private DiffOutputStream output;
 
@@ -26,7 +26,7 @@ public class AbstractGoldenTest {
       return;
     }
     assertWithMessage("All expected output has been printed on System.out")
-        .that(output.isCompleted())
-        .isTrue();
+        .that(output.remainingContent())
+        .isEmpty();
   }
 }

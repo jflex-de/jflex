@@ -1,0 +1,11 @@
+match: --a--
+action [17] { yybegin(STATE2);
+          return 0; }
+match: --a--
+action [17] { yybegin(STATE2);
+          return 0; }
+match: --a--
+action [17] { yybegin(STATE2);
+          return 0; }
+match: <<EOF>>
+action [34] { return 3; }
