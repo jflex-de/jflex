@@ -3,9 +3,9 @@
 package jflex.testcase.eofclose;
 
 import com.google.common.io.Files;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
@@ -41,17 +41,11 @@ public class EofcloseGoldenTest extends AbstractGoldenTest {
     scanner.yylex();
   }
 
-  public static void main(String argv[]) throws IOException {
-    int firstFilePos = 0;
-    for (int i = firstFilePos; i < argv.length; i++) {
-      Eofclose scanner;
-      BufferedReader reader;
-      File inputFile = new File(argv[i]);
-      reader = Files.newReader(inputFile, StandardCharsets.UTF_8);
-      scanner = new Eofclose(reader);
-      scanner.yylex();
-      reader.read();
-      System.out.println("Reader still open.");
-    }
+  public static void main(File inputFile) throws IOException {
+    Reader reader = Files.newReader(inputFile, StandardCharsets.UTF_8);
+    Eofclose scanner = new Eofclose(reader);
+    scanner.yylex();
+    reader.read();
+    System.out.println("Reader still open.");
   }
 }
