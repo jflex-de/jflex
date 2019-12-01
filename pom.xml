@@ -16,6 +16,11 @@
     </license>
   </licenses>
 
+  <organization>
+    <name>JFlex</name>
+    <url>http://jflex.de/</url>
+  </organization>
+
   <developers>
     <developer>
       <id>lsf37</id>

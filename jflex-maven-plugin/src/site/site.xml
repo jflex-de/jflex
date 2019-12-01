@@ -5,7 +5,6 @@
   <body>
     <menu name="Overview">
       <item name="Usage" href="usage.html"/>
-      <item name="Goals" href="plugin-info.html"/>
     </menu>
     <menu name="Examples">
       <item name="Simple Maven project" href="https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple"/>
