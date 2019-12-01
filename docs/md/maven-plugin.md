@@ -123,7 +123,7 @@ This generates the source for
   
 ### More information
 
-* [jflex:generate](generate-mojo.html)
+* [jflex:generate](https://jflex-de.github.io/jflex-web/jflex-maven-plugin/generate-mojo.html)
   for more information about the configuration options of the
   jflex-maven-plugin.
 * [POM reference guide on plugins](http://maven.apache.org/pom.html#Plugins)
