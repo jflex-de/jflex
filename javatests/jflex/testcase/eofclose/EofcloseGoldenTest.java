@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.scanner.ScannerFactory;
@@ -43,23 +44,12 @@ public class EofcloseGoldenTest extends AbstractGoldenTest {
 
   public static void main(String argv[]) {
     int firstFilePos = 0;
-    String encodingName = "UTF-8";
-    if (argv[0].equals("--encoding")) {
-      firstFilePos = 2;
-      encodingName = argv[1];
-      try {
-        java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid?
-      } catch (Exception e) {
-        System.out.println("Invalid encoding '" + encodingName + "'");
-        return;
-      }
-    }
     for (int i = firstFilePos; i < argv.length; i++) {
       Eofclose scanner;
       Reader reader = null;
       try {
         FileInputStream stream = new FileInputStream(argv[i]);
-        reader = new InputStreamReader(stream, encodingName);
+        reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
         scanner = new Eofclose(reader);
         scanner.yylex();
       } catch (IOException e) {
