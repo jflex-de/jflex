@@ -2,11 +2,10 @@
 
 package jflex.testcase.eofclose;
 
+import com.google.common.io.Files;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
@@ -42,27 +41,17 @@ public class EofcloseGoldenTest extends AbstractGoldenTest {
     scanner.yylex();
   }
 
-  public static void main(String argv[]) {
+  public static void main(String argv[]) throws IOException {
     int firstFilePos = 0;
     for (int i = firstFilePos; i < argv.length; i++) {
       Eofclose scanner;
-      Reader reader = null;
-      try {
-        FileInputStream stream = new FileInputStream(argv[i]);
-        reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
-        scanner = new Eofclose(reader);
-        scanner.yylex();
-      } catch (IOException e) {
-        System.out.println("IO error scanning file \"" + argv[i] + "\"");
-        System.out.println(e);
-        return;
-      }
-      try {
-        reader.read();
-        System.out.println("Reader still open.");
-      } catch (IOException e) {
-        System.out.println("Reader closed. Exception is: " + e);
-      }
+      BufferedReader reader;
+      File inputFile = new File(argv[i]);
+      reader = Files.newReader(inputFile, StandardCharsets.UTF_8);
+      scanner = new Eofclose(reader);
+      scanner.yylex();
+      reader.read();
+      System.out.println("Reader still open.");
     }
   }
 }
