@@ -38,6 +38,8 @@ import jflex.performance.Timer;
  */
 public class LexGenerator {
 
+  private LexGenerator() {}
+
   /**
    * Generates a scanner for the specified input file.
    *
