@@ -15,6 +15,7 @@ import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
+import jflex.scanner.ScannerException;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.XMLElement;
 

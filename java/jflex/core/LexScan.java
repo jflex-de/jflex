@@ -18,6 +18,7 @@ import java.io.FileReader;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
+import jflex.scanner.ScannerException;
 
 
 /**

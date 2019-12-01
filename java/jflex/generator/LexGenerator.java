@@ -23,11 +23,11 @@ import jflex.core.LexScan;
 import jflex.core.NFA;
 import jflex.core.Options;
 import jflex.core.Out;
-import jflex.core.ScannerException;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
+import jflex.scanner.ScannerException;
 
 /**
  * This is the generator of JFlex, controlling the scanner generation process.
