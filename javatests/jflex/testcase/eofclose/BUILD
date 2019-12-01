@@ -24,9 +24,9 @@ java_library(
 )
 
 java_test(
-    name = "EofcloseGoldenTest",
+    name = "EofCloseTest",
     srcs = [
-        "EofcloseGoldenTest.java",
+        "EofCloseTest.java",
     ],
     data = [
         "eofclose-0.input",
@@ -34,6 +34,7 @@ java_test(
     ],
     deps = [
         ":eofclose_scanner",
+        "//java/jflex/testing/assertion",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/scanner:scanner_factory",
