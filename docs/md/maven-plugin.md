@@ -21,7 +21,7 @@ in sub-directories following the Java convention on package names.
 
 Update the `pom.xml` to add the plugin:
 
-```xml
+```
 <project>
   <!-- ... -->
   <build>
@@ -53,7 +53,7 @@ as well as all grammar files found in  `src/main/jflex` (and its sub-directories
 The generated Java code is placed into `src/main/java` instead of
 `target/generated-sources/jflex`.
 
-```xml
+```
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -86,7 +86,7 @@ This generates the source for
 * and all files found in 
  `src/main/jflex`, in verbose mode.
 
-```xml
+```
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
