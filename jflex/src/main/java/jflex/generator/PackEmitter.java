@@ -9,8 +9,6 @@
 
 package jflex.generator;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import java.util.Locale;
 import jflex.core.Out;
 
@@ -100,10 +98,11 @@ public abstract class PackEmitter {
    * <p>Updates length, position, etc.
    *
    * @param i the character to emit.
-   * @prec 0 <= i <= 0xFFFF
    */
   public void emitUC(int i) {
-    if (i < 0 || i > 0xFFFF) throw new IllegalArgumentException("character value expected");
+    if (i < 0 || i > 0xFFFF) {
+      throw new IllegalArgumentException("character value expected");
+    }
 
     // cast ok because of prec
     char c = (char) i;
@@ -182,8 +181,6 @@ public abstract class PackEmitter {
    * @return length of UTF8 representation.
    */
   private static int Utf8Length(int value) {
-    checkArgument(value < 0 || value > 0x10FFFF, "Not a char value (%s)", value);
-
     // see JVM spec section 4.4.7, p 111
     if (value == 0) return 2;
     if (value <= 0x7F) return 1;
