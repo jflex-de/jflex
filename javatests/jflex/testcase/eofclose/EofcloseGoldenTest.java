@@ -2,6 +2,8 @@
 
 package jflex.testcase.eofclose;
 
+import static jflex.testing.assertion.MoreAsserts.assertThrows;
+
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
@@ -9,7 +11,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -24,9 +25,6 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class EofcloseGoldenTest extends AbstractGoldenTest {
 
-  /** Creates a scanner conforming to the {@code eofclose.flex} specification. */
-  private final ScannerFactory<Eofclose> scannerFactory = ScannerFactory.of(Eofclose::new);
-
   private File testRuntimeDir = new File("javatests/jflex/testcase/eofclose");
 
   @Test
@@ -37,15 +35,9 @@ public class EofcloseGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "eofclose-0.output"));
     compareSystemOutWith(golden);
 
-    Eofclose scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    scanner.yylex();
-  }
-
-  public static void main(File inputFile) throws IOException {
     Reader reader = Files.newReader(inputFile, StandardCharsets.UTF_8);
     Eofclose scanner = new Eofclose(reader);
-    scanner.yylex();
-    reader.read();
-    System.out.println("Reader still open.");
+    while (scanner.yylex() != Eofclose.YYEOF) {}
+    assertThrows("The scanner should close the reader at EOF", IOException.class, reader::read);
   }
 }
