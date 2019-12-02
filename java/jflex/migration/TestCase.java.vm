@@ -43,7 +43,7 @@ public class $testClassName extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     $scannerClassName scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    while (!scanner.zzAtEof()) {
+    while (!scanner.yyatEOF()) {
       System.out.println(scanner.yylex());
     }
   }

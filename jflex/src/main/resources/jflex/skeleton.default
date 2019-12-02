@@ -65,7 +65,10 @@
   /** Whether the scanner is currently at the beginning of a line. */
   private boolean zzAtBOL = true;
 
-  /** Whether the scanner is at the end of file. */
+  /**
+   * Whether the scanner is at the end of file. */
+   * @see #yyatEOF
+   */
   private boolean zzAtEOF;
 
   /** Whether the user-EOF-code has already been executed. */
@@ -184,6 +187,7 @@
     }
   }
 
+
   private final void yyResetPosition() {
       zzAtBOL  = true;
       zzAtEOF  = false;
@@ -197,12 +201,14 @@
       yychar = 0L;
   }
 
+
   /**
-   * Returns whether the scanner has reached the end of the reader.
+   * Returns whether the scanner has reached the end of the reader it reads from.
    */
-  public final boolean zzAtEof() {
+  public final boolean yyatEOF() {
     return zzAtEOF;
   }
+
 
   /**
    * Returns the current lexical state.
