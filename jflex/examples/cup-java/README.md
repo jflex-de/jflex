@@ -8,10 +8,10 @@ This directory contains a scanner and parser for the Java programming language (
 ### Using Maven
 
     ../../mvnw package
-    
+
 To run the parser:
 
-    java -cp target/cup-java-1.0.jar:../../../cup/cup/java-cup-11b.jar JavaParser <inputfile>
+    java -cp target/cup-java-1.0.jar:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfile>
 
 or more simply the uberjar version:
 
@@ -22,7 +22,7 @@ or more simply the uberjar version:
 
     ant compile
     ant run
-    java -jar build:../../../cup/cup/java-cup-11b.jar JavaParser <inputfiles>
+    java -jar build:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfiles>
 
 ### Using make
 
@@ -34,11 +34,11 @@ parser, or type:
 
 The parser can be tested with:
 
-    java -cp out:../../../cup/cup/java-cup-11b.jar JavaParser <inputfiles>
+    java -cp out:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfiles>
 
-The scanner (without parser attached) can be test with:
+The scanner (without parser attached) can be tested with:
 
-    java -cp out:../../../cup/cup/java-cup-11b.jar TestLexer <inputfiles>
+    java -cp out:../../../cup/cup/java-cup-11b-20160615.jar TestLexer <inputfiles>
 
 ## Files
 

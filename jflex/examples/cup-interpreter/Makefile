@@ -1,17 +1,17 @@
-# uses JFlex >= 1.3.2, and CUP >= 0.10j
+# uses JFlex >= 1.3.2, and CUP >= 0.11b-20160615
 #
 # targets:
 #
 # make all (or just: make)
 #    generates lexer, and parser, and compiles all *.java files
-#                                                                     
+#
 # make test
 #    starts the program on a test example
-#                                                                     
+#
 
 ROOT       = ../../..
 JFLEX      = $(ROOT)/jflex/bin/jflex
-CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
+CUPJAR     = $(ROOT)/cup/cup/java-cup-11b-20160615.jar
 CUP        = java -jar $(CUPJAR)
 
 all: clean compile
