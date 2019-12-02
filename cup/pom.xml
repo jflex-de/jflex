@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.jflex</groupId>
   <artifactId>cup-parent</artifactId>
-  <version>11b</version>
+  <version>11b-20160615</version>
   <packaging>pom</packaging>
   <name>CUP</name>
   <url>http://www2.cs.tum.edu/projects/cup/</url>

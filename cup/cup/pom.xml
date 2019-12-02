@@ -6,7 +6,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>cup-parent</artifactId>
-    <version>11b</version>
+    <version>11b-20160615</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>CUP generator</name>

@@ -6,13 +6,25 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>cup-parent</artifactId>
-    <version>11b</version>
+    <version>11b-20160615</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>CUP runtime</name>
   <inceptionYear>1998</inceptionYear>
   <description>
     A copy of the Java CUP runtime.
-    CUP is a LALR parser generator for Java
+    CUP is a LALR parser generator for Java.
   </description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>7</source>
+          <target>7</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
