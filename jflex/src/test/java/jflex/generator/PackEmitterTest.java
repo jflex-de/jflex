@@ -58,7 +58,6 @@ public class PackEmitterTest extends TestCase {
       p.breaks();
       p.emitUC(i);
     }
-    System.out.println(p);
     assertEquals(
         "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"
             + NL

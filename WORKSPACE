@@ -10,7 +10,7 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
-    commit = "69539a2de26b661b254e6e44aad8d0ba974b31df",
+    commit = "5604f3dba7c1f674ac5654e6c46f49452d1af182",
     remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 

@@ -1,6 +1,6 @@
 <project name="java scanner" default="compile">
 
-  <property name="java_cup" value="../../../cup/cup/java-cup-11b.jar"/>
+  <property name="java_cup" value="../../../cup/cup/java-cup-11b-20160615.jar"/>
   <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
 
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
@@ -9,7 +9,7 @@
   <target name="build" depends="clean,compile" />
 
   <target name="run" depends="compile">
-    <java classname="JavaParser" classpath="antbuild:${java_cup}">
+    <java classname="TestLexer" classpath="antbuild:${java_cup}">
       <arg line="src/main/java/TestLexer.java"/>
     </java>
   </target>
@@ -19,7 +19,7 @@
   </target>
 
   <target name="compile" depends="cup,scanner,unicode">
-    <javac destdir="antbuild" classpath="${java_cup}">
+    <javac includeantruntime="false" destdir="antbuild" classpath="${java_cup}">
       <src path="src/main/java/" />
       <src path="antbuild/"/>
     </javac>
