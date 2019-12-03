@@ -84,3 +84,11 @@ genrule(
     cmd = "echo '" + ("\n".join(["\\input{docs/" + section + "_tex}" for section in DOC_SECTIONS])) + "' > $@",
     output_to_bindir = True,  # that's where pdf_latex looks into
 )
+
+filegroup(
+    name = "docs",
+    srcs = [
+        ":html",
+        ":manual",
+    ],
+)
