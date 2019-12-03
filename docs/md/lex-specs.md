@@ -1056,8 +1056,9 @@ Currently, the API consists of the following methods and member fields:
 -   `int yylength()`
 
     returns the length of the matched input text region as number of Java `chars`
-    (as opposed to Unicode code points). Does notrequire a `String` object to be
-    created.
+    (as opposed to Unicode code points). It is equivalent to
+    `yytext().length()`, but faster since it does not require a `String` object
+    to be created.
 
 -   `char yycharat(int pos)`
 
@@ -1068,7 +1069,7 @@ Currently, the API consists of the following methods and member fields:
 -   `void yyclose()`
 
     closes the input stream. All subsequent calls to the scanning method
-    will return the end of file value
+    will return the end of file value.
 
 -   `void yyreset(java.io.Reader reader)`
 
@@ -1153,7 +1154,7 @@ Currently, the API consists of the following methods and member fields:
     Unicode surrogate characters, and as a result expressions such as
     `[^]` (any character) and `\p{...}` (characters having a Unicode
     property) can match more than one `char`.
-
+    
 -   `int yyline`
 
     contains the current line of input (starting with 0, only active
