@@ -38,6 +38,7 @@ jflex(
 
 java_library(
     name = "repeat_content_reader",
+    testonly = True,
     srcs = ["RepeatContentReader.java"],
     deps = [
         "//third_party/com/google/guava",
