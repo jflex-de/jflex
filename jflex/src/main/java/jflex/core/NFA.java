@@ -915,6 +915,7 @@ public final class NFA {
    * @param regExp the regular expression to construct the NFA for
    * @return a pair of integers denoting the index of start and end state of the NFA.
    */
+  @SuppressWarnings("unchecked") // for List<Interval> casts
   private void insertCCLNFA(RegExp regExp, int start, int end) {
     switch (regExp.type) {
       case sym.BAR:
