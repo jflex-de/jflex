@@ -36,6 +36,7 @@ pandoc(
     # TODO: Add ["--filter", "pandoc-citeproc"] when #2 is fixed
     # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/2
     options = [],
+    output = "manual.html",
     to_format = "html",
 )
 
