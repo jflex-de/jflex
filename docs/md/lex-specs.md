@@ -1000,7 +1000,8 @@ expressions that match the current input.
     expressions), then the two constants will get the same value.
 
 
-### The generated class
+The generated class {#GeneratedJavaCode}
+===================
 
 JFlex generates exactly one file containing one class from the
 specification (unless you have declared another class in the first
@@ -1033,7 +1034,8 @@ executes the `EOF` action, and (also upon each further call to the scanning
 method) returns the specified `EOF` value.
 
 
-### Scanner methods and fields accessible in actions (API) {#ScannerMethods}
+Scanner methods and fields accessible in actions (API) {#ScannerMethods}
+------------------------------------------------------
 
 Generated methods and member fields in JFlex scanners are prefixed with `yy`
 to indicate that they are generated and to avoid name conflicts with user
