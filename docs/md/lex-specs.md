@@ -1153,7 +1153,12 @@ Currently, the API consists of the following methods and member fields:
     Unicode surrogate characters, and as a result expressions such as
     `[^]` (any character) and `\p{...}` (characters having a Unicode
     property) can match more than one `char`.
-
+    
+-   `yyatEOF()`
+    
+    returns whether the scanner has reached the end of the reader it reads
+    from, which often corresponds to the end of file.
+    
 -   `int yyline`
 
     contains the current line of input (starting with 0, only active
