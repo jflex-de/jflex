@@ -1,7 +1,6 @@
 package jflex.testcase.large_input;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.io.CharSource;
 import java.io.Reader;
