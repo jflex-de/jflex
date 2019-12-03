@@ -1,7 +1,6 @@
 package jflex.testcase.large_input;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.io.CharSource;
 import java.io.Reader;
@@ -21,15 +20,14 @@ public class LargeInputTest {
   @Test
   public void consumeLargeInput() throws Exception {
     final String content = "One every character the `yychar` is incremented, but don't overflow!\n";
-    long size = (long) Integer.MAX_VALUE + 3 * (long) content.length(); // a few more
-    assertWithMessage("Tests an input content larger than MAX_INT (2^32-1)")
-        .that(size)
-        .isGreaterThan((long) Integer.MAX_VALUE + 1L);
+    long size = 4 * (long) content.length();
     Reader largeContentReader = new RepeatContentReader(size, content);
     LargeInputScanner scanner = createScanner(largeContentReader);
+    // Pretend we move close to MAX_INT
+    scanner.fakeRead(Integer.MAX_VALUE - 2 * content.length());
     assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
-    while (scanner.yylex() == State.BEFORE_2GB) {}
-    assertThat(scanner.yylex()).isEqualTo(State.AFTER_2GB);
+    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
+    assertThat(scanner.yylex()).isEqualTo(State.BEFORE_2GB);
     assertThat(scanner.yylex()).isEqualTo(State.AFTER_2GB);
     assertThat(scanner.yylex()).isEqualTo(State.END_OF_FILE);
   }
