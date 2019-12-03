@@ -1841,7 +1841,10 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    */
   private boolean zzAtBOL = true;
 
-  /** zzAtEOF == true iff the scanner is at the EOF */
+  /**
+   * Whether the scanner is at the end of file.
+   * @see #yyatEOF
+   */
   private boolean zzAtEOF;
 
   /** denotes if the user-EOF-code has already been executed */
@@ -2036,13 +2039,12 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     return true;
   }
 
-    
   /**
    * Closes the input stream.
    */
   public final void yyclose() throws java.io.IOException {
-    zzAtEOF = true;            /* indicate end of file */
-    zzEndRead = zzStartRead;  /* invalidate buffer    */
+    zzAtEOF = true;           // indicate end of file
+    zzEndRead = zzStartRead;  // invalidate buffer
 
     if (zzReader != null)
       zzReader.close();
@@ -2150,6 +2152,14 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
       yycolumn = 0;
       yychar = 0L;
   }
+
+  /**
+   * Returns whether the scanner has reached the end of the reader it reads from.
+   */
+  public final boolean yyatEOF() {
+    return zzAtEOF;
+  }
+
 
   /**
    * Returns the current lexical state.
