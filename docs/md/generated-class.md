@@ -9,6 +9,9 @@ The generated class contains (among other things) the DFA tables, an
 input buffer, the lexical states of the specification, a constructor,
 and the scanning method with the user supplied actions.
 
+Name of the generated class {#GeneratedClassName}
+---------------------------
+
 The name of the class is by default `Yylex`. The name is customisable with
 the `%class` directive. The input buffer of the lexer is connected with
 external input through the `java.io.Reader` object which is passed to the
@@ -18,6 +21,9 @@ input buffer. The input buffer should not be accessed directly, but only
 through the advertised API (see also [Scanner Methods](#ScannerMethods)). Its
 internal implementation may change between releases or skeleton files without
 notice.
+
+Scanning method {#ScanningMethod}
+---------------
 
 The main interface to the outside world is the generated scanning method
 (default name `yylex`, default return type `Yytoken`). Most of its aspects

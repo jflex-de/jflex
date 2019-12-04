@@ -15,7 +15,7 @@ DOC_SECTIONS = [
     "ant-task",
     "example",
     "lex-specs",
-    "generated-class.md",
+    "generated-class",
     "encodings",
     "performance",
     "porting-and-parsers",
