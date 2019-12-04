@@ -121,7 +121,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(IntCharSet set, boolean caseless) {
-    if (caseless) set = set.getCaseless(scanner.getUnicodeProperties());
+    if (caseless) set = set.getCaseless(unicodeProps);
 
     if (DEBUG) {
       Out.dump("makeClass(" + set + ")");
