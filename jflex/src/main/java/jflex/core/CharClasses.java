@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.core.unicode.UnicodeProperties;
 
 /**
  * Character Classes.
@@ -34,7 +35,8 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  public AbstractLexScan scanner; // nocommit - should be private
+  /** the @{link UnicodeProperties} the scanner used */
+  private UnicodeProperties unicodeProps;
 
   /**
    * Constructs a new CharClasses object.
@@ -65,7 +67,7 @@ public class CharClasses {
     }
 
     maxCharUsed = maxCharCode;
-    this.scanner = scanner;
+    this.unicodeProps = scanner.getUnicodeProperties();
     classes = new ArrayList<>();
     classes.add(new IntCharSet(new Interval(0, maxCharCode)));
   }
