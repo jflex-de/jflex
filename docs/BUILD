@@ -17,6 +17,7 @@ pandoc(
     # TODO: Add ["--filter", "pandoc-citeproc"] when #2 is fixed
     # https://github.com/ProdriveTechnologies/bazel-pandoc/issues/2
     options = [],
+    output = "manual.html",
     to_format = "html",
 )
 
@@ -51,4 +52,12 @@ genrule(
     outs = ["_content.tex"],
     cmd = "echo '" + ("\n".join(["\\input{docs/md/" + section + "_tex}" for section in DOC_SECTIONS])) + "' > $@",
     output_to_bindir = True,  # that's where pdf_latex looks into
+)
+
+filegroup(
+    name = "docs",
+    srcs = [
+        ":html",
+        ":manual",
+    ],
 )
