@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.core.unicode.UnicodeProperties;
 
 /**
  * Character Classes.
@@ -34,7 +35,8 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  public AbstractLexScan scanner; // nocommit - should be private
+  /** the @{link UnicodeProperties} the scanner used */
+  private UnicodeProperties unicodeProps;
 
   /**
    * Constructs a new CharClasses object.
@@ -65,7 +67,7 @@ public class CharClasses {
     }
 
     maxCharUsed = maxCharCode;
-    this.scanner = scanner;
+    this.unicodeProps = scanner.getUnicodeProperties();
     classes = new ArrayList<>();
     classes.add(new IntCharSet(new Interval(0, maxCharCode)));
   }
@@ -119,7 +121,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(IntCharSet set, boolean caseless) {
-    if (caseless) set = set.getCaseless(scanner.getUnicodeProperties());
+    if (caseless) set = set.getCaseless(unicodeProps);
 
     if (DEBUG) {
       Out.dump("makeClass(" + set + ")");
@@ -386,5 +388,20 @@ public class CharClasses {
     }
 
     return result;
+  }
+
+  /**
+   * Bring the partitions into a canonical order such that objects that implement the same
+   * partitions but in different order become equal.
+   *
+   * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
+   * have different content. Different order will lead to different input assignments in the NFA and
+   * DFA phases and will make otherwise equal automata look distinct.
+   *
+   * <p>This is not needed for correctness, but it makes the comparison of output DFAs (e.g. in the
+   * test suite) for equivalence more robust.
+   */
+  public void normalise() {
+    classes.sort(null);
   }
 }
