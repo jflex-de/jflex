@@ -25,8 +25,7 @@ import jflex.core.unicode.UnicodeProperties;
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-// FIXME: optimizations possible
-public final class IntCharSet {
+public final class IntCharSet implements Comparable<IntCharSet> {
 
   private static final boolean DEBUG = false;
 
@@ -442,5 +441,33 @@ public final class IntCharSet {
     IntCharSet result = new IntCharSet();
     for (Interval interval : intervals) result.intervals.add(interval.copy());
     return result;
+  }
+
+  /**
+   * Compare this IntCharSet to another IntCharSet.
+   *
+   * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
+   *
+   * <p>This method does *not* implement subset order, but instead compares the smallest elements of
+   * the two sets, with the empty set smaller than any other set. This is to make the order total
+   * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
+   * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
+   * have the same smallest element but are not equal.
+   *
+   * @param the IntCharSet to compare to
+   * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
+   *     smallest element of this set, and +1 if it is larger.
+   */
+  @Override
+  public int compareTo(IntCharSet o) {
+    if (o == null) throw new NullPointerException();
+
+    if (this.equals(o)) return 0;
+
+    if (!this.containsElements()) return -1;
+    if (!o.containsElements()) return 1;
+
+    if (this.intervals.get(0).start < o.intervals.get(0).start) return -1;
+    else return 1;
   }
 }

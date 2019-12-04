@@ -387,4 +387,19 @@ public class CharClasses {
 
     return result;
   }
+
+  /**
+   * Bring the partitions into a canonical order such that objects that implement the same
+   * partitions but in different order become equal.
+   *
+   * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
+   * have different content. Different order will lead to different input assignments in the NFA and
+   * DFA phases and will make otherwise equal automata look distinct.
+   *
+   * <p>This is not needed for correctness, but it makes the comparison of output DFAs (e.g. in the
+   * test suite) for equivalence more robust.
+   */
+  public void normalise() {
+    classes.sort(null);
+  }
 }

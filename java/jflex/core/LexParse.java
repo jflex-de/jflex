@@ -1393,6 +1393,7 @@ class CUP$LexParse$actions {
 
                      Out.checkErrors();
 
+                     charClasses.normalise();
                      if (Options.dump) charClasses.dump();
 
                      Out.print("Constructing NFA : ");
