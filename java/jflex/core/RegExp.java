@@ -50,11 +50,7 @@ public class RegExp {
     return tab + toString();
   }
 
-  /**
-   * Returns a String-representation of this regular expression
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
     return "type = " + type;
   }
@@ -261,7 +257,7 @@ public class RegExp {
   }
 
   /**
-   * Create a new regexp that matches the reverse text of this one.
+   * Creates a new regexp that matches the reverse text of this one.
    *
    * @return the reverse regexp
    * @param macros a {@link Macros} object.

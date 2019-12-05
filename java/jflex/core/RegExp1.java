@@ -40,11 +40,7 @@ public class RegExp1 extends RegExp {
     this.content = content;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Returns a String-representation of this regular expression with the specified indentation.
-   */
+  @Override
   public String print(String tab) {
     if (content instanceof RegExp) {
       return tab
@@ -59,11 +55,7 @@ public class RegExp1 extends RegExp {
       return tab + "type = " + type + Out.NL + tab + "content :" + Out.NL + tab + "  " + content;
   }
 
-  /**
-   * Returns a String-representation of this regular expression
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
     return print("");
   }

@@ -22,28 +22,28 @@ import jflex.l10n.ErrorMessages;
 public class RegExps {
 
   /** the spec line in which a regexp is used */
-  List<Integer> lines;
+  private List<Integer> lines;
 
-  /** the lexical states in wich the regexp is used */
-  List<List<Integer>> states;
+  /** the lexical states in which the regexp is used */
+  private List<List<Integer>> states;
 
   /** the regexp */
-  List<RegExp> regExps;
+  private List<RegExp> regExps;
 
   /** the action of a regexp */
-  List<Action> actions;
+  private List<Action> actions;
 
   /** flag if it is a BOL regexp */
-  List<Boolean> BOL;
+  private List<Boolean> BOL;
 
   /** the lookahead expression */
-  List<RegExp> look;
+  private List<RegExp> look;
 
   /** the forward DFA entry point of the lookahead expression */
-  List<Integer> look_entry;
+  private List<Integer> look_entry;
 
   /**
-   * Count of many general lookahead expressions there are. Need 2*gen_look_count additional DFA
+   * Count of how many general lookahead expressions there are. Need 2*gen_look_count additional DFA
    * entry points.
    */
   int gen_look_count;
