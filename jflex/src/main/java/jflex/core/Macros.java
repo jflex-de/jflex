@@ -9,6 +9,7 @@
 
 package jflex.core;
 
+import static java.util.stream.Collectors.toList;
 import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
 import static jflex.l10n.ErrorMessages.get;
 
@@ -188,11 +189,8 @@ public final class Macros {
       case sym.CCLASSNOT:
         RegExp1 cclass = (RegExp1) definition;
         List<RegExp> classes = (List<RegExp>) cclass.content;
-        List<RegExp> newClasses = new ArrayList<RegExp>();
-        for (RegExp r : classes) {
-          newClasses.add(expandMacro(name, r));
-        }
-        cclass.content = newClasses;
+        cclass.content =
+            classes.stream().map(regexp -> expandMacro(name, regexp)).collect(toList());
         return cclass;
 
       case sym.CCLASSOP:
