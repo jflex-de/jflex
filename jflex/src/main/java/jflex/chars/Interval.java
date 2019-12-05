@@ -112,13 +112,4 @@ public final class Interval {
     result.append("]");
     return result.toString();
   }
-
-  /**
-   * Make a copy of this interval.
-   *
-   * @return the copy
-   */
-  public Interval copy() {
-    return new Interval(start, end);
-  }
 }

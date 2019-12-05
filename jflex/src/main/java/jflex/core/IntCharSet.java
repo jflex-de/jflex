@@ -439,7 +439,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    */
   public IntCharSet copy() {
     IntCharSet result = new IntCharSet();
-    for (Interval interval : intervals) result.intervals.add(interval.copy());
+    for (Interval interval : intervals) {
+      result.intervals.add(new Interval(interval));
+    }
     return result;
   }
 
