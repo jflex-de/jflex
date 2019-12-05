@@ -24,7 +24,7 @@ public final class Interval {
   public int end;
 
   /**
-   * Construct a new interval from {@code start</code> to <code>end}.
+   * Constructs a new interval from {@code start} to {@code end}, including both end points.
    *
    * @param start first character the interval should contain
    * @param end last character the interval should contain
