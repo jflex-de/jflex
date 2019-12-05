@@ -20,7 +20,6 @@ import java.util.Objects;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
 import jflex.exceptions.GeneratorException;
-import jflex.exceptions.RegExpException;
 import jflex.l10n.ErrorMessages;
 
 /**
@@ -241,11 +240,7 @@ public final class NFA {
         scanner.actions.add(x);
       } else {
         // should never happen
-        throw new RegExpException(
-            "When inserting lookahead expression: unknown expression type "
-                + lookAhead.typeName()
-                + " in "
-                + lookAhead);
+        throw new RegExpException(lookAhead);
       }
     }
   }
@@ -917,8 +912,7 @@ public final class NFA {
         return;
     }
 
-    throw new RegExpException(
-        "Unknown expression type " + regExp.typeName() + " in NFA construction");
+    throw new RegExpException(regExp);
   }
 
   /**
@@ -1026,8 +1020,7 @@ public final class NFA {
         return insertStringNFA(true, (String) ((RegExp1) regExp).content);
     }
 
-    throw new RegExpException(
-        "Unknown expression type " + regExp.typeName() + " in NFA construction");
+    throw new RegExpException(regExp);
   }
 
   public int numStates() {

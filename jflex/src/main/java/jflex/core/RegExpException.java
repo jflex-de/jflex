@@ -7,11 +7,14 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.exceptions;
+package jflex.core;
 
 /**
  * This exception is used for unexpected errors in in regexp recursion, such as unexpected
  * expression type or structure.
+ *
+ * <p>This class lives in package jflex.core, because the reference to jflex.core.RegExp would
+ * introduce a cyclic module dependency in jflex.exceptions.
  *
  * <p>If this is encountered, this means there is a bug.
  *
@@ -28,7 +31,16 @@ public class RegExpException extends RuntimeException {
    *
    * @param message the error description presented to the user.
    */
-  public RegExpException(String message) {
+  private RegExpException(String message) {
     super(message);
+  }
+
+  /**
+   * Creates a new RegExpException for the specified regular expression.
+   *
+   * @param e the regexp that caused this exception.
+   */
+  public RegExpException(RegExp e) {
+    this("Unexpected regexp " + e);
   }
 }

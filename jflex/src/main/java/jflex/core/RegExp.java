@@ -11,7 +11,6 @@ package jflex.core;
 
 import java.util.List;
 import jflex.exceptions.CharClassException;
-import jflex.exceptions.RegExpException;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.
@@ -150,7 +149,7 @@ public class RegExp {
         return macros.getDefinition((String) unary.content).size(macros);
     }
 
-    throw new RegExpException("unknown regexp type " + this);
+    throw new RegExpException(this);
   }
 
   /**
@@ -232,7 +231,7 @@ public class RegExp {
         return new RegExp1(unary.type, unary.content);
     }
 
-    throw new RegExpException("Resolve tilde: unknown regexp " + this);
+    throw new RegExpException(this);
   }
 
   /**
@@ -345,7 +344,7 @@ public class RegExp {
             break;
 
           default:
-            throw new RegExpException("Unexpected regexp in CCLASSOP, " + this);
+            throw new RegExpException(this);
         }
 
         return new RegExp1(sym.PRIMCLASS, set);
@@ -355,7 +354,7 @@ public class RegExp {
         return m.getDefinition((String) unary.content).normalise(m);
     }
 
-    throw new RegExpException("Unexpected regexp " + this);
+    throw new RegExpException(this);
   }
 
   /**
@@ -457,6 +456,6 @@ public class RegExp {
         return new RegExp1(unary.type, unary.content);
     }
 
-    throw new RegExpException("RegExp.rev: unknown regexp " + this);
+    throw new RegExpException(this);
   }
 }
