@@ -64,7 +64,8 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * returns the index of the interval that contains the character c, -1 if there is no such
    * interval
    *
-   * <p>post: {@code -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))}
+   * <p>post: {@code -1 <= return < intervals.size() && (return > -1 -->
+   * intervals[return].contains(c))}
    *
    * @param c the character
    * @return the index of the enclosing interval, -1 if no such interval
@@ -409,8 +410,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
-        if (null != equivalenceClass)
-          n.add(equivalenceClass);
+        if (null != equivalenceClass) n.add(equivalenceClass);
       }
     }
     return n;
