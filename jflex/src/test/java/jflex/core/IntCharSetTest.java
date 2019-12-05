@@ -39,6 +39,6 @@ public class IntCharSetTest extends TestCase {
     assertFalse(a.contains(b));
     assertFalse(a.contains(c));
     assertFalse(c.contains(d));
-    assertTrue("d.contains(a); d is " + d + " and a is " + a, d.contains(a));
+    assertWithMessage("d.contains(a); d is %s and a is %s", d, a).that(d.contains(a)).isTrue();
   }
 }
