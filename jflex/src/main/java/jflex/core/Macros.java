@@ -124,8 +124,7 @@ public final class Macros {
   public void expand() throws jflex.exceptions.MacroException {
     for (String name : macros.keySet()) {
       if (isUsed(name)) macros.put(name, expandMacro(name, getDefinition(name)));
-      // this put doesn't get a new key, so only a new value
-      // is set for the key "name"
+      // this put doesn't get a new key, so only a new value is set for the key "name"
     }
   }
 

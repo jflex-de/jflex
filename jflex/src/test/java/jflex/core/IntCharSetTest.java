@@ -1,6 +1,7 @@
 package jflex.core;
 
-import java.util.Objects;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import jflex.chars.Interval;
 import junit.framework.TestCase;
 
@@ -20,7 +21,6 @@ public class IntCharSetTest extends TestCase {
     IntCharSet original_a = a.copy();
     IntCharSet b = new IntCharSet(new Interval((char) 0, (char) 4));
     a.add(b);
-    assertTrue(
-        original_a + " + " + b + " should be " + b + " instead of " + a, Objects.equals(a, b));
+    assertWithMessage("a ← a + b = %s + %s should be b", original_a, b).that(a).isEqualTo(b);
   }
 }

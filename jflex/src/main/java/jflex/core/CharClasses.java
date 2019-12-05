@@ -391,7 +391,7 @@ public class CharClasses {
   }
 
   /**
-   * Bring the partitions into a canonical order such that objects that implement the same
+   * Brings the partitions into a canonical order such that objects that implement the same
    * partitions but in different order become equal.
    *
    * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
