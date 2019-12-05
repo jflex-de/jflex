@@ -68,7 +68,6 @@ public final class NFA {
   /** estimated size of the NFA (before actual construction) */
   private int estSize;
 
-  Macros macros;
   private CharClasses classes;
 
   private LexScan scanner;
@@ -106,7 +105,6 @@ public final class NFA {
 
     this.scanner = scanner;
     this.regExps = regExps;
-    this.macros = macros;
     this.classes = classes;
 
     numLexStates = scanner.states.number();
@@ -665,7 +663,9 @@ public final class NFA {
   }
 
   private void insertClassNFA(IntCharSet set, int start, int end) {
-    for (int aCl : classes.getClassCodes(set, false)) addTransition(start, aCl, end);
+    for (int aCl : classes.getClassCodes(set, false)) {
+      addTransition(start, aCl, end);
+    }
   }
 
   /**
