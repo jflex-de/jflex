@@ -36,43 +36,43 @@ public final class NFA {
    * table[current_state][next_char] is the set of states that can be reached from current_state
    * with an input next_char
    */
-  StateSet[][] table;
+  private StateSet[][] table;
 
   /**
    * epsilon[current_state] is the set of states that can be reached from current_state via epsilon
    * edges
    */
-  StateSet[] epsilon;
+  private StateSet[] epsilon;
 
   /** isFinal[state] == true <=> state is a final state of the NFA */
-  boolean[] isFinal;
+  private boolean[] isFinal;
 
   /**
    * action[current_state]: the action associated with the state current_state (null, if there is no
    * action for the state)
    */
-  Action[] action;
+  private Action[] action;
 
   /** the number of states in this NFA */
-  int numStates;
+  private int numStates;
 
   /** the current maximum number of input characters */
-  int numInput;
+  private int numInput;
 
   /**
    * the number of lexical States. Lexical states have the indices 0..numLexStates-1 in the
    * transition table
    */
-  int numLexStates;
+  private int numLexStates;
 
   /** estimated size of the NFA (before actual construction) */
-  int estSize = 256;
+  private int estSize;
 
   Macros macros;
-  CharClasses classes;
+  private CharClasses classes;
 
-  LexScan scanner;
-  RegExps regExps;
+  private LexScan scanner;
+  private RegExps regExps;
 
   // will be reused by several methods (avoids excessive object creation)
   private static StateSetEnumerator states = new StateSetEnumerator();
@@ -255,7 +255,7 @@ public final class NFA {
   /**
    * Make sure the NFA can contain at least newNumStates states.
    *
-   * @param newNumStates the minimu number of states.
+   * @param newNumStates the minimum number of states.
    */
   private void ensureCapacity(int newNumStates) {
     int oldLength = epsilon.length;
@@ -327,15 +327,6 @@ public final class NFA {
 
     return false;
   }
-
-  /**
-   * Returns {@code true}, iff the specified set of states contains a pushback-state.
-   *
-   * @param set the set of states that is tested for pushback-states. private boolean
-   *     containsPushback(StateSet set) { states.reset(set);
-   *     <p>while ( states.hasMoreElements() ) if ( isPushback[states.nextElement()] ) return true;
-   *     <p>return false; }
-   */
 
   /**
    * Returns the action with highest priority in the specified set of states.
@@ -479,8 +470,6 @@ public final class NFA {
               + Out.NL
               + dfaList);
 
-    currentDFAState = 0;
-
     StateSet tempStateSet = NFA.tempStateSet;
     StateSetEnumerator states = NFA.states;
 
@@ -572,13 +561,13 @@ public final class NFA {
         }
         result.append("]");
       }
-      result.append(" " + i + Out.NL);
+      result.append(" ").append(i).append(Out.NL);
 
       for (int input = 0; input < numInput; input++) {
         if (table[i][input] != null && table[i][input].containsElements())
           result
               .append("  with ")
-              .append((int) input)
+              .append(input)
               .append(" in ")
               .append(table[i][input])
               .append(Out.NL);
@@ -686,12 +675,16 @@ public final class NFA {
     // empty char class is ok:
     if (intervals == null) return;
 
-    for (int aCl : classes.getClassCodes(intervals)) addTransition(start, aCl, end);
+    for (int aCl : classes.getClassCodes(intervals)) {
+      addTransition(start, aCl, end);
+    }
   }
 
   private void insertNotClassNFA(List<Interval> intervals, int start, int end) {
 
-    for (int input : classes.getNotClassCodes(intervals)) addTransition(start, input, end);
+    for (int input : classes.getNotClassCodes(intervals)) {
+      addTransition(start, input, end);
+    }
   }
 
   /**
@@ -737,7 +730,6 @@ public final class NFA {
               + Out.NL
               + dfaList);
     }
-    currentDFAState = 0;
 
     while (currentDFAState <= numDFAStates) {
 
