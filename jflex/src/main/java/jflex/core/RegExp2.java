@@ -17,7 +17,8 @@ package jflex.core;
  */
 public class RegExp2 extends RegExp {
 
-  RegExp r1, r2;
+  RegExp r1;
+  RegExp r2;
 
   /**
    * Constructor for RegExp2.
@@ -32,7 +33,7 @@ public class RegExp2 extends RegExp {
     this.r2 = r2;
   }
 
-  /** {@inheritDoc} */
+  @Override
   public String print(String tab) {
     return tab
         + "type = "
@@ -51,11 +52,7 @@ public class RegExp2 extends RegExp {
         r2.print(tab + "  "); // $NON-NLS-1$
   }
 
-  /**
-   * toString.
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
     return print(""); // $NON-NLS-1$
   }
