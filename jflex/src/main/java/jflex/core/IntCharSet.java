@@ -121,7 +121,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       if (elem.contains(interval)) return;
 
       if (elem.start > interval.end + 1) {
-        intervals.add(i, new Interval(interval));
+        intervals.add(i, Interval.copyOf(interval));
         return;
       }
 
@@ -146,7 +146,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       return;
     }
 
-    intervals.add(new Interval(interval));
+    intervals.add(Interval.copyOf(interval));
   }
 
   /**
@@ -440,7 +440,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public IntCharSet copy() {
     IntCharSet result = new IntCharSet();
     for (Interval interval : intervals) {
-      result.intervals.add(new Interval(interval));
+      result.intervals.add(Interval.copyOf(interval));
     }
     return result;
   }

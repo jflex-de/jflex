@@ -10,7 +10,7 @@
 package jflex.chars;
 
 /**
- * An interval of characters with basic operations.
+ * A mutable interval of characters with basic operations.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
@@ -32,11 +32,6 @@ public final class Interval {
   public Interval(int start, int end) {
     this.start = start;
     this.end = end;
-  }
-
-  public Interval(Interval other) {
-    this.start = other.start;
-    this.end = other.end;
   }
 
   /**
@@ -111,5 +106,14 @@ public final class Interval {
 
     result.append("]");
     return result.toString();
+  }
+
+  /**
+   * Creates a copy of the interval.
+   *
+   * @return the copy of the given interval.
+   */
+  public static Interval copyOf(Interval interval) {
+    return new Interval(interval.start, interval.end);
   }
 }
