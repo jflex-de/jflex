@@ -62,8 +62,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * returns the index of the interval that contains the character c, -1 if there is no such
    * interval
    *
-   * @prec: true
-   * @post: -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))
+   * <p>post {@code -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))}
    * @param c the character
    * @return the index of the enclosing interval, -1 if no such interval
    */
@@ -150,9 +149,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
-   * add.
+   * Adds a single character.
    *
-   * @param c a int.
+   * @param c Character to add.
    */
   public void add(int c) {
     int size = intervals.size();
@@ -166,7 +165,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       // assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
 
       if (elem.start > c + 1) {
-        intervals.add(i, new Interval(c, c));
+        intervals.add(i, Interval.ofCharacter(c));
         return;
       }
 
@@ -406,12 +405,11 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copy();
 
-    int size = intervals.size();
-    for (int i = 0; i < size; i++) {
-      Interval elem = intervals.get(i);
+    for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
-        if (null != equivalenceClass) n.add(equivalenceClass);
+        if (null != equivalenceClass)
+          n.add(equivalenceClass);
       }
     }
     return n;
@@ -456,7 +454,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
    * have the same smallest element but are not equal.
    *
-   * @param the IntCharSet to compare to
+   * @param o the IntCharSet to compare to
    * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
    *     smallest element of this set, and +1 if it is larger.
    */

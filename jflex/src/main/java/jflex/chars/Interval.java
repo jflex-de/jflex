@@ -24,10 +24,10 @@ public final class Interval {
   public int end;
 
   /**
-   * Constructs a new interval from {@code start} to {@code end}, including both end points.
+   * Constructs a new interval from {@code start} to {@code end}, including both start and end points.
    *
-   * @param start first character the interval should contain
-   * @param end last character the interval should contain
+   * @param start first codepoint the interval contains
+   * @param end last codepoint the interval contains
    */
   public Interval(int start, int end) {
     this.start = start;
@@ -37,7 +37,7 @@ public final class Interval {
   /**
    * Returns {@code true} iff {@code point} is contained in this interval.
    *
-   * @param point the character to check
+   * @param point the character codepoint to check
    * @return whether the code point is contained in the interval.
    */
   public boolean contains(int point) {
@@ -75,9 +75,9 @@ public final class Interval {
   }
 
   /**
-   * Check whether a character is printable.
+   * Returns whether a character is printable.
    *
-   * @param c the character to check
+   * @param c the codepoint to check
    */
   private static boolean isPrintable(int c) {
     // fixme: should make unicode test here
@@ -106,6 +106,16 @@ public final class Interval {
 
     result.append("]");
     return result.toString();
+  }
+
+  /**
+   * Creates an interval of a single character.
+   *
+   * @param c The unique codepoint contained in this interval.
+   * @return A single-character interval.
+   */
+  public static Interval ofCharacter(int c) {
+    return new Interval(c, c);
   }
 
   /**
