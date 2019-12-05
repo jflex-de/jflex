@@ -899,8 +899,12 @@ public final class NFA {
   /**
    * Constructs a two state NFA for char class regexps, such that the NFA has
    *
-   * <p>exactly one start state, exactly one end state, no transitions leading out of the end state
-   * no transitions leading into the start state
+   * <ul>
+   *   <li>exactly one start state,
+   *   <li>exactly one end state,
+   *   <li>no transitions leading out of the end state,
+   *   <li>no transitions leading into the start state.
+   * </ul>
    *
    * <p>Assumes that regExp.isCharClass(macros) == true
    *

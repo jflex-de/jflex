@@ -31,6 +31,8 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals = new ArrayList<>();
+
+  /** for iterating over the char set */
   private int pos;
 
   /** Creates an empty char set. */
@@ -62,7 +64,8 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * returns the index of the interval that contains the character c, -1 if there is no such
    * interval
    *
-   * <p>post {@code -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))}
+   * <p>post: {@code -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))}
+   *
    * @param c the character
    * @return the index of the enclosing interval, -1 if no such interval
    */
@@ -194,10 +197,10 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
-   * contains.
+   * Returns whether this set contains a given character.
    *
-   * @param singleChar a int.
-   * @return a boolean.
+   * @param singleChar a single character (int).
+   * @return true iff singleChar is contained in the set.
    */
   public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
@@ -206,7 +209,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   /**
    * {@inheritDoc}
    *
-   * <p>o instanceof Interval
+   * <p>o instanceof IntCharSet
    */
   @Override
   public boolean equals(Object o) {
@@ -228,7 +231,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return h;
   }
 
-  /* intersection */
   /**
    * Intersects two sets.
    *
@@ -277,7 +279,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return result;
   }
 
-  /* complement */
   /* prec: this.contains(set), set != null */
   /**
    * Returns the relative complement of this set relative to the provided set.

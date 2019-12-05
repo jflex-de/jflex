@@ -43,7 +43,7 @@ public class RegExps {
   private List<Integer> look_entry;
 
   /**
-   * Count of many general lookahead expressions there are. Need 2*gen_look_count additional DFA
+   * Count of how many general lookahead expressions there are. Need 2*gen_look_count additional DFA
    * entry points.
    */
   int gen_look_count;

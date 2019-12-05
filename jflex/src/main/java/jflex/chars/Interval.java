@@ -24,7 +24,8 @@ public final class Interval {
   public int end;
 
   /**
-   * Constructs a new interval from {@code start} to {@code end}, including both start and end points.
+   * Constructs a new interval from {@code start} to {@code end}, including both start and end
+   * points.
    *
    * @param start first codepoint the interval contains
    * @param end last codepoint the interval contains

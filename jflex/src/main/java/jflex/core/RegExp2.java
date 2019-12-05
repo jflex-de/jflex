@@ -42,18 +42,16 @@ public class RegExp2 extends RegExp {
         + tab
         + "child 1 :"
         + Out.NL
-        + // $NON-NLS-1$ //$NON-NLS-2$
-        r1.print(tab + "  ")
+        + r1.print(tab + "  ")
         + Out.NL
         + tab
         + "child 2 :"
         + Out.NL
-        + // $NON-NLS-1$ //$NON-NLS-2$
-        r2.print(tab + "  "); // $NON-NLS-1$
+        + r2.print(tab + "  ");
   }
 
   @Override
   public String toString() {
-    return print(""); // $NON-NLS-1$
+    return print("");
   }
 }
