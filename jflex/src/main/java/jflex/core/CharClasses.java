@@ -27,7 +27,7 @@ public class CharClasses {
   private static final boolean DEBUG = false;
 
   /** the largest character that can be used in char classes */
-  public static final int maxChar = 0x10FFFF;
+  static final int maxChar = 0x10FFFF;
 
   /** the char classes */
   private List<IntCharSet> classes;
@@ -287,7 +287,7 @@ public class CharClasses {
     int size = classes.size();
 
     // [fixme: optimize]
-    int temp[] = new int[size];
+    int[] temp = new int[size];
     int length = 0;
 
     for (int i = 0; i < size; i++) {
@@ -305,7 +305,7 @@ public class CharClasses {
       }
     }
 
-    int result[] = new int[length];
+    int[] result = new int[length];
     System.arraycopy(temp, 0, result, 0, length);
 
     return result;

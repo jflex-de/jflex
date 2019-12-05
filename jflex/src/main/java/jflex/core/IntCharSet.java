@@ -70,7 +70,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    *
    * @return a new IntCharSet that contains all characters.
    */
-  public static IntCharSet allChars() {
+  static IntCharSet allChars() {
     return new IntCharSet(0, CharClasses.maxChar);
   }
 
@@ -235,7 +235,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
-   * Check wether this set contains a another set.
+   * Check whether this set contains a another set.
    *
    * @param other an IntCharSet.
    * @return true iff all characters of {@code other} are contained in this set.
