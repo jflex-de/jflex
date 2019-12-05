@@ -23,6 +23,7 @@ import jflex.core.LexScan;
 import jflex.core.NFA;
 import jflex.core.Options;
 import jflex.core.Out;
+import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
@@ -66,7 +67,7 @@ public class LexGenerator {
 
       Out.checkErrors();
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
+      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Env.NL + nfa + Env.NL);
 
       if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
 
@@ -79,7 +80,7 @@ public class LexGenerator {
 
       dfa.checkActions(scanner, parser);
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
+      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Env.NL + dfa + Env.NL);
 
       if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
 
@@ -91,7 +92,7 @@ public class LexGenerator {
 
       Out.time(ErrorMessages.MIN_TOOK, time);
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
+      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Env.NL + dfa);
 
       if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
 

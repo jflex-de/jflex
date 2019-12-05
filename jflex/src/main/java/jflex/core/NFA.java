@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
+import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 
@@ -151,7 +152,7 @@ public final class NFA {
 
     if (Options.DEBUG)
       Out.debug(
-          "Adding nfa for regexp " + regExpNum + " :" + Out.NL + regExps.getRegExp(regExpNum));
+          "Adding nfa for regexp " + regExpNum + " :" + Env.NL + regExps.getRegExp(regExpNum));
 
     IntPair nfa = insertNFA(regExps.getRegExp(regExpNum));
 
@@ -462,12 +463,12 @@ public final class NFA {
     if (Options.DEBUG)
       Out.debug(
           "DFA start states are :"
-              + Out.NL
+              + Env.NL
               + dfaStates
-              + Out.NL
-              + Out.NL
+              + Env.NL
+              + Env.NL
               + "ordered :"
-              + Out.NL
+              + Env.NL
               + dfaList);
 
     StateSet tempStateSet = NFA.tempStateSet;
@@ -561,7 +562,7 @@ public final class NFA {
         }
         result.append("]");
       }
-      result.append(" ").append(i).append(Out.NL);
+      result.append(" ").append(i).append(Env.NL);
 
       for (int input = 0; input < numInput; input++) {
         if (table[i][input] != null && table[i][input].containsElements())
@@ -570,11 +571,11 @@ public final class NFA {
               .append(input)
               .append(" in ")
               .append(table[i][input])
-              .append(Out.NL);
+              .append(Env.NL);
       }
 
       if (epsilon[i] != null && epsilon[i].containsElements())
-        result.append("  with epsilon in ").append(epsilon[i]).append(Out.NL);
+        result.append("  with epsilon in ").append(epsilon[i]).append(Env.NL);
     }
 
     return result.toString();
@@ -604,14 +605,14 @@ public final class NFA {
   public String dotFormat() {
     StringBuilder result = new StringBuilder();
 
-    result.append("digraph NFA {").append(Out.NL);
-    result.append("rankdir = LR").append(Out.NL);
+    result.append("digraph NFA {").append(Env.NL);
+    result.append("rankdir = LR").append(Env.NL);
 
     for (int i = 0; i < numStates; i++) {
       if (isFinal[i]) {
         result.append(i);
         result.append(" [shape = doublecircle]");
-        result.append(Out.NL);
+        result.append(Env.NL);
       }
     }
 
@@ -619,15 +620,15 @@ public final class NFA {
       for (int input = 0; input < numInput; input++) {
         for (int s : table[i][input]) {
           result.append(i).append(" -> ").append(s);
-          result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Out.NL);
+          result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Env.NL);
         }
       }
       for (int s : epsilon[i]) {
-        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
+        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Env.NL);
       }
     }
 
-    result.append("}").append(Out.NL);
+    result.append("}").append(Env.NL);
 
     return result.toString();
   }
@@ -700,7 +701,7 @@ public final class NFA {
 
     if (Options.DEBUG) {
       Out.debug("complement for " + nfa);
-      Out.debug("NFA is :" + Out.NL + this);
+      Out.debug("NFA is :" + Env.NL + this);
     }
 
     int dfaStart = nfa.end() + 1;
@@ -722,12 +723,12 @@ public final class NFA {
     if (Options.DEBUG) {
       Out.debug(
           "pos DFA start state is :"
-              + Out.NL
+              + Env.NL
               + dfaStates
-              + Out.NL
-              + Out.NL
+              + Env.NL
+              + Env.NL
               + "ordered :"
-              + Out.NL
+              + Env.NL
               + dfaList);
     }
 
@@ -772,7 +773,7 @@ public final class NFA {
 
     // Now the complement:
     if (Options.DEBUG) {
-      Out.debug("dfa finished, nfa is now :" + Out.NL + this);
+      Out.debug("dfa finished, nfa is now :" + Env.NL + this);
     }
 
     int start = dfaStart + numDFAStates + 1;
@@ -827,7 +828,7 @@ public final class NFA {
    */
   private void removeDead(int start, int end) {
     if (Options.DEBUG) {
-      Out.debug("removeDead (" + start + "," + end + ") " + Out.NL + this);
+      Out.debug("removeDead (" + start + "," + end + ") " + Env.NL + this);
     }
 
     StateSet notvisited = tempStateSet;
@@ -892,7 +893,7 @@ public final class NFA {
     }
 
     if (Options.DEBUG) {
-      Out.debug("Removed dead states " + Out.NL + this);
+      Out.debug("Removed dead states " + Env.NL + this);
     }
   }
 

@@ -10,6 +10,7 @@ package jflex.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 
@@ -79,9 +80,9 @@ public class RegExps {
       RegExp lookAhead) {
     if (Options.DEBUG) {
       Out.debug(
-          "Inserting regular expression with statelist :" + Out.NL + stateList); // $NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
-      Out.debug("expression :" + Out.NL + regExp); // $NON-NLS-1$
+          "Inserting regular expression with statelist :" + Env.NL + stateList); // $NON-NLS-1$
+      Out.debug("and action code :" + Env.NL + action.content + Env.NL); // $NON-NLS-1$
+      Out.debug("expression :" + Env.NL + regExp); // $NON-NLS-1$
     }
 
     states.add(stateList);
@@ -105,8 +106,8 @@ public class RegExps {
   public int insert(List<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
-      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList); // $NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
+      Out.debug("Inserting eofrule with statelist :" + Env.NL + stateList); // $NON-NLS-1$
+      Out.debug("and action code :" + Env.NL + action.content + Env.NL); // $NON-NLS-1$
     }
 
     states.add(stateList);

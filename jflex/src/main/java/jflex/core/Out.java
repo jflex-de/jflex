@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 package jflex.core;
-
+import static jflex.env.Env.NL;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,9 +39,6 @@ import jflex.performance.Timer;
 public final class Out {
 
   private Out() {}
-
-  /** platform dependent newline sequence */
-  public static final String NL = System.getProperty("line.separator");
 
   /** count total warnings */
   private static int warnings;

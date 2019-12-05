@@ -9,6 +9,8 @@
 
 package jflex.core;
 
+import jflex.env.Env;
+
 /**
  * Stores a regular expression from the rules section of a JFlex specification.
  *
@@ -46,13 +48,13 @@ public class RegExp1 extends RegExp {
       return tab
           + "type = "
           + type
-          + Out.NL
+          + Env.NL
           + tab
           + "content :"
-          + Out.NL
+          + Env.NL
           + ((RegExp) content).print(tab + "  ");
     } else
-      return tab + "type = " + type + Out.NL + tab + "content :" + Out.NL + tab + "  " + content;
+      return tab + "type = " + type + Env.NL + tab + "content :" + Env.NL + tab + "  " + content;
   }
 
   @Override

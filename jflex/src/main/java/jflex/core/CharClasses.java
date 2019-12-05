@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
+import jflex.env.Env;
 
 /**
  * Character Classes.
@@ -201,16 +202,16 @@ public class CharClasses {
   public String toString() {
     StringBuilder result = new StringBuilder("CharClasses:");
 
-    result.append(Out.NL);
+    result.append(Env.NL);
 
     for (int i = 0; i < classes.size(); i++)
       result
           .append("class ")
           .append(i)
           .append(":")
-          .append(Out.NL)
+          .append(Env.NL)
           .append(classes.get(i))
-          .append(Out.NL);
+          .append(Env.NL);
 
     return result.toString();
   }

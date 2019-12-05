@@ -10,6 +10,7 @@
 package jflex.core;
 
 import java.util.Objects;
+import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 
 /**
@@ -107,7 +108,7 @@ public final class Action {
         + ", lookahead "
         + kind
         + ") :"
-        + Out.NL
+        + Env.NL
         + content; // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 

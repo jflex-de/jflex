@@ -9,6 +9,7 @@
 package jflex.core;
 
 import java.util.Iterator;
+import jflex.env.Env;
 
 /**
  * A set of NFA states (= ints).
@@ -231,8 +232,9 @@ public final class StateSet implements Iterable<Integer> {
     if (bits.length < univ.bits.length)
       System.arraycopy(univ.bits, m, result.bits, m, result.bits.length - m);
 
-    if (DEBUG)
-      Out.debug("Complement of " + this + Out.NL + "and " + univ + Out.NL + " is :" + result);
+    if (DEBUG) {
+      Out.debug("Complement of " + this + Env.NL + "and " + univ + Env.NL + " is :" + result);
+    }
 
     return result;
   }

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
-
+import static jflex.env.Env.NL;
 /**
  * This class stores the skeleton of generated scanners.
  *
@@ -43,9 +43,6 @@ public class Skeleton {
 
   /** expected number of sections in the skeleton file */
   private static final int size = 21;
-
-  /** platform specific newline */
-  private static final String NL = System.getProperty("line.separator"); // $NON-NLS-1$
 
   /** The skeleton */
   public static String line[];
