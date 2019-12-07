@@ -33,7 +33,7 @@ public class JFlexTaskTest {
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
   @Before
-  protected void setUp() throws Exception {
+  public void setUp() {
     Options.setDefaults();
     task = new JFlexTask();
   }
