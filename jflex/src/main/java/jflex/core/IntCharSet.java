@@ -46,6 +46,17 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
+   * Creates a charset that contains the given intervals.
+   *
+   * <p>The intervals must be sorted and disjointed. Use {@link #add(Interval)} otherwise.
+   */
+  public static IntCharSet of(List<Interval> intervals) {
+    IntCharSet charset = new IntCharSet();
+    charset.intervals.addAll(intervals);
+    return charset;
+  }
+
+  /**
    * Creates a charset that contains only one interval, given by its {@code start} and {@code end}
    * values.
    */
@@ -200,8 +211,10 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    */
   public boolean contains(IntCharSet other) {
     // treat null as empty set
-    if (other == null) return true;
-    IntCharSet set = other.copy();
+    if (other == null) {
+      return true;
+    }
+    IntCharSet set = IntCharSet.copyOf(other);
     IntCharSet inter = this.and(other);
     set.sub(inter);
     return !set.containsElements();
@@ -402,7 +415,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * @return a caseless copy of this set
    */
   IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
-    IntCharSet n = copy();
+    IntCharSet n = copyOf(this);
 
     for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
@@ -432,16 +445,10 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return result.toString();
   }
 
-  /**
-   * Return a (deep) copy of this char set
-   *
-   * @return the copy
-   */
-  public IntCharSet copy() {
+  /** Returns a (deep) copy of the char set. */
+  public static IntCharSet copyOf(IntCharSet intCharSet) {
     IntCharSet result = new IntCharSet();
-    for (Interval interval : intervals) {
-      result.intervals.add(Interval.copyOf(interval));
-    }
+    result.intervals.addAll(intCharSet.intervals);
     return result;
   }
 

@@ -121,7 +121,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(IntCharSet set, boolean caseless) {
-    set = set.copy(); // avoid destructively updating the original
+    set = IntCharSet.copyOf(set); // avoid destructively updating the original
 
     if (caseless) set = set.getCaseless(unicodeProps);
 
@@ -253,7 +253,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(List<Interval> l, boolean caseless) {
-    makeClass(IntCharSet.ofCharacter(l), caseless);
+    makeClass(IntCharSet.of(l), caseless);
   }
 
   /**
@@ -270,7 +270,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClassNot(List<Interval> l, boolean caseless) {
-    makeClass(IntCharSet.ofCharacter(l), caseless);
+    makeClass(IntCharSet.of(l), caseless);
   }
 
   /**
