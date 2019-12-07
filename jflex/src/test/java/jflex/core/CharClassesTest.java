@@ -9,9 +9,12 @@
 
 package jflex.core;
 
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
+
 import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test for {@link CharClasses}.
@@ -19,66 +22,69 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class CharClassesTest extends TestCase {
+public class CharClassesTest {
 
-  public CharClassesTest(String arg0) {
-    super(arg0);
-  }
-
+  @Test
   public void testAdd1() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('h', 'o'));
-    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testAdd2() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('i', 'n'));
-    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testAdd3() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('a', 'n'));
-    assertEquals("{ ['A'-'Z']['a'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testMergeLast() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'k'));
-    assertEquals("{ ['a'-'k'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'k'] }");
     set.add('l');
-    assertEquals("{ ['a'-'l'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'l'] }");
   }
 
+  @Test
   public void testAddChar() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add('n');
     set.add('k');
-    assertEquals("{ ['a'-'h']['k']['n'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'h']['k']['n'-'z'] }");
     set.add('i');
-    assertEquals("{ ['a'-'i']['k']['n'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'i']['k']['n'-'z'] }");
     set.add('j');
-    assertEquals("{ ['a'-'k']['n'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'k']['n'-'z'] }");
     set.add(new Interval('l', 'm'));
-    assertEquals("{ ['a'-'z'] }", set.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'z'] }");
   }
 
+  @Test
   public void testCopy() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'z'));
     IntCharSet copy = IntCharSet.copyOf(set);
     Interval i = set.getNext();
     i.end = 'h';
-    assertEquals("{ ['a'-'h'] }", set.toString());
-    assertEquals("{ ['a'-'z'] }", copy.toString());
+    assertThat(set.toString()).isEqualTo("{ ['a'-'h'] }");
+    assertThat(copy.toString()).isEqualTo("{ ['a'-'z'] }");
   }
 
+  @Test
   public void testCaseless() {
     UnicodeProperties unicodeProperties;
     try {
@@ -101,8 +107,7 @@ public class CharClassesTest extends TestCase {
     //
     // 006B;LATIN SMALL LETTER K;Ll;0;L;;;;;N;;;004B;;004B
     // 212A;KELVIN SIGN;Lu;0;L;004B;;;;N;DEGREES KELVIN;;;006B;
-    assertEquals(
-        "{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }",
-        set.getCaseless(unicodeProperties).toString());
+    assertThat(set.getCaseless(unicodeProperties).toString())
+        .isEqualTo("{ ['A'-'C']['H'-'O']['a'-'c']['h'-'o'][304-305][8490] }");
   }
 }
