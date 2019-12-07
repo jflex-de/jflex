@@ -1,7 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@jflex_rules//jflex:jflex.bzl", "jflex")
-
 package_group(
     name = "visibility",
     packages = [
@@ -26,14 +24,6 @@ alias(
     actual = "//jflex/src/main/java/jflex/core",
 )
 
-# Use bootstrap version defined in @jflex_rules
-jflex(
-    name = "gen_scanner",
-    srcs = ["src/main/jflex/LexScan.flex"],
-    outputs = ["LexScan.java"],
-    skeleton = "src/main/jflex/skeleton.nested",
-)
-
 filegroup(
     name = "resources",
     srcs = glob(["src/main/resources/**"]),
@@ -48,5 +38,5 @@ alias(
 # Tests
 filegroup(
     name = "test_data",
-    srcs = glob(["src/test/resources/**"]) + ["src/main/jflex/skeleton.nested"],
+    srcs = glob(["src/test/resources/**"]),
 )

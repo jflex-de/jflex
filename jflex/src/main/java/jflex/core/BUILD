@@ -1,12 +1,13 @@
 load("@jflex_rules//cup:cup.bzl", "cup")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "core",
     srcs = glob(["**/*.java"]) + [
-        "//jflex/src/main/java/jflex/core:gen_parser",
-        "//jflex:gen_scanner",
+        ":gen_parser",
+        ":gen_scanner",
     ],
     deps = [
         "//cup:cup_runtime",
@@ -19,6 +20,14 @@ java_library(
         "//jflex/src/main/java/jflex/performance",
         "//jflex/src/main/java/jflex/scanner",
     ],
+)
+
+# Use bootstrap version defined in @jflex_rules
+jflex(
+    name = "gen_scanner",
+    srcs = ["//jflex/src/main/jflex:LexScan.flex"],
+    outputs = ["LexScan.java"],
+    skeleton = "//jflex/src/main/jflex:skeleton.nested",
 )
 
 cup(
