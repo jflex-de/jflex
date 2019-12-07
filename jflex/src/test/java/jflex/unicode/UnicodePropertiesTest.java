@@ -9,23 +9,19 @@
 
 package jflex.unicode;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Objects;
 import jflex.chars.Interval;
 import jflex.core.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class UnicodePropertiesTest extends TestCase {
+public class UnicodePropertiesTest {
 
-  /**
-   * Constructor for UnicodePropertiesTest.
-   *
-   * @param testName test name
-   */
-  public UnicodePropertiesTest(String testName) {
-    super(testName);
-  }
-
+  @Test
   public void testSupportedVersions() {
     String[] versions =
         new String[] {
@@ -52,6 +48,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testUnsupportedVersion() {
     try {
       new UnicodeProperties("1.0");
@@ -63,6 +60,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testDefaultVersion() {
     try {
       UnicodeProperties properties = new UnicodeProperties();
@@ -81,6 +79,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testDefaultVersionAliases() {
     try {
       UnicodeProperties properties = new UnicodeProperties();
@@ -111,6 +110,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_1_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("1.1");
@@ -132,6 +132,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_2_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("2.0");
@@ -170,6 +171,7 @@ public class UnicodePropertiesTest extends TestCase {
         charCount == 4);
   }
 
+  @Test
   public void testCaselessMatches_2_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("2.1");
@@ -179,6 +181,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_3_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("3.0");
@@ -188,6 +191,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_3_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("3.1");
@@ -197,6 +201,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_3_2() {
     try {
       UnicodeProperties properties = new UnicodeProperties("3.2");
@@ -206,6 +211,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_4_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("4.0");
@@ -215,6 +221,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_4_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("4.1");
@@ -224,6 +231,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_5_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.0");
@@ -233,6 +241,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testSingleLetterProperties_5_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.0");
@@ -261,6 +270,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_5_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.1");
@@ -270,6 +280,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testSingleLetterProperties_5_1() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.1");
@@ -298,6 +309,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_5_2() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.2");
@@ -307,6 +319,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testSingleLetterProperties_5_2() {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.2");
@@ -335,6 +348,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testCaselessMatches_6_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("6.0");
@@ -344,6 +358,7 @@ public class UnicodePropertiesTest extends TestCase {
     }
   }
 
+  @Test
   public void testSingleLetterProperties_6_0() {
     try {
       UnicodeProperties properties = new UnicodeProperties("6.0");

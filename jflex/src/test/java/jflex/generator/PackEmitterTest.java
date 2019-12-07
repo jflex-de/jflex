@@ -11,7 +11,8 @@ package jflex.generator;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * PackEmitterTest
@@ -19,16 +20,12 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class PackEmitterTest extends TestCase {
+public class PackEmitterTest {
 
   private static final String NL = "\n";
   private PackEmitter p;
 
-  /** Constructor for PackEmitterTest. */
-  public PackEmitterTest() {
-    super("PackEmitter test");
-  }
-
+  @Before
   public void setUp() {
     p =
         new PackEmitter("Bla") {
@@ -36,6 +33,7 @@ public class PackEmitterTest extends TestCase {
         };
   }
 
+  @Test
   public void testInit() {
     p.emitInit();
     assertThat(p.toString())
@@ -48,6 +46,7 @@ public class PackEmitterTest extends TestCase {
                 + "    \"");
   }
 
+  @Test
   public void testEmitUCplain() {
     p.emitUC(8);
     p.emitUC(0xFF00);
@@ -55,6 +54,7 @@ public class PackEmitterTest extends TestCase {
     assertThat(p.toString()).isEqualTo("\\10\\uff00");
   }
 
+  @Test
   public void testLineBreak() {
     for (int i = 0; i < 36; i++) {
       p.breaks();

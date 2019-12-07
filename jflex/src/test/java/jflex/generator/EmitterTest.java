@@ -9,10 +9,12 @@
 
 package jflex.generator;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Some unit tests for the jflex Emitter class
@@ -20,17 +22,9 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class EmitterTest extends TestCase {
+public class EmitterTest {
 
-  /**
-   * Constructor for EmitterTest.
-   *
-   * @param name the test name
-   */
-  public EmitterTest(String name) {
-    super(name);
-  }
-
+  @Test
   public void testJavadoc() {
     StringBuilder usercode = new StringBuilder("/* some *** comment */");
     assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));

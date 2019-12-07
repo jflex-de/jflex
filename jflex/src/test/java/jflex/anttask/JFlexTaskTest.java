@@ -10,13 +10,16 @@
 package jflex.anttask;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import jflex.core.Options;
 import jflex.core.Skeleton;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests for the {@link jflex.anttask.JFlexTask}.
@@ -24,30 +27,19 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class JFlexTaskTest extends TestCase {
+public class JFlexTaskTest {
 
   private JFlexTask task;
   private final String DIR_RESOURCES = "src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
-  /**
-   * Constructor for JFlexTaskTest.
-   *
-   * @param name test case name
-   */
-  public JFlexTaskTest(String name) {
-    super(name);
-  }
-
-  /*
-   * @see TestCase#setUp()
-   */
+  @Before
   protected void setUp() throws Exception {
-    super.setUp();
     Options.setDefaults();
     task = new JFlexTask();
   }
 
+  @Test
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
@@ -55,6 +47,7 @@ public class JFlexTaskTest extends TestCase {
     assertThat(task.getClassName()).isEqualTo("LexScan");
   }
 
+  @Test
   public void testPackageAndClassDefaults() throws IOException {
     // FIXME
     task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
@@ -63,6 +56,7 @@ public class JFlexTaskTest extends TestCase {
     assertThat(task.getClassName()).isEqualTo("Yylex");
   }
 
+  @Test
   public void testDestdir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("target/test/src");
@@ -73,6 +67,7 @@ public class JFlexTaskTest extends TestCase {
     assertThat(Options.getDir()).isEqualTo(new File(dir, "jflex"));
   }
 
+  @Test
   public void testOutdir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("src");
@@ -83,6 +78,7 @@ public class JFlexTaskTest extends TestCase {
     assertThat(Options.getDir()).isEqualTo(dir);
   }
 
+  @Test
   public void testDefaultDir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
@@ -91,30 +87,35 @@ public class JFlexTaskTest extends TestCase {
     assertThat(Options.getDir()).isEqualTo(new File(DIR_RESOURCES + "/jflex"));
   }
 
+  @Test
   public void testNomin() {
     assertTrue(!Options.no_minimize);
     task.setNomin(true);
     assertTrue(Options.no_minimize);
   }
 
+  @Test
   public void testSkipMinimization() {
     assertTrue(!Options.no_minimize);
     task.setSkipMinimization(true);
     assertTrue(Options.no_minimize);
   }
 
+  @Test
   public void testNobak() {
     assertTrue(!Options.no_backup);
     task.setNobak(true);
     assertTrue(Options.no_backup);
   }
 
+  @Test
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
     assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
   }
 
+  @Test
   public void testVerbose() {
     task.setVerbose(false);
     assertTrue(!Options.verbose);
@@ -122,6 +123,7 @@ public class JFlexTaskTest extends TestCase {
     assertTrue(Options.verbose);
   }
 
+  @Test
   public void testUnusedWarning() {
     // Defaults to true, for backward compatibility.
     assertTrue("Defaults to true", Options.unused_warning);
@@ -129,11 +131,13 @@ public class JFlexTaskTest extends TestCase {
     assertFalse(Options.unused_warning);
   }
 
+  @Test
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
     assertFalse("Disabled in quiet mode", Options.unused_warning);
   }
 
+  @Test
   public void testTime() {
     assertTrue(!Options.time);
     task.setTimeStatistics(true);
@@ -142,6 +146,7 @@ public class JFlexTaskTest extends TestCase {
     assertTrue(!Options.time);
   }
 
+  @Test
   public void testDot() {
     assertTrue(!Options.dot);
     task.setDot(true);
@@ -150,24 +155,28 @@ public class JFlexTaskTest extends TestCase {
     assertTrue(!Options.dot);
   }
 
+  @Test
   public void testDump() {
     assertTrue(!Options.dump);
     task.setDump(true);
     assertTrue(Options.dump);
   }
 
+  @Test
   public void testJlex() {
     assertTrue(!Options.jlex);
     task.setJLex(true);
     assertTrue(Options.jlex);
   }
 
+  @Test
   public void testLegacyDot() {
     assertFalse(Options.legacy_dot);
     task.setLegacyDot(true);
     assertTrue(Options.legacy_dot);
   }
 
+  @Test
   public void testSetEncoding() {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";

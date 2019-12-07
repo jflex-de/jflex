@@ -10,10 +10,11 @@
 package jflex.core;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
 
 import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test for {@link CharClasses}.
@@ -21,12 +22,9 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class CharClassesTest extends TestCase {
+public class CharClassesTest {
 
-  public CharClassesTest(String arg0) {
-    super(arg0);
-  }
-
+  @Test
   public void testAdd1() {
     IntCharSet set = new IntCharSet(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
@@ -35,6 +33,7 @@ public class CharClassesTest extends TestCase {
     assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testAdd2() {
     IntCharSet set = new IntCharSet(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
@@ -43,6 +42,7 @@ public class CharClassesTest extends TestCase {
     assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testAdd3() {
     IntCharSet set = new IntCharSet(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
@@ -51,6 +51,7 @@ public class CharClassesTest extends TestCase {
     assertThat(set.toString()).isEqualTo("{ ['A'-'Z']['a'-'z'] }");
   }
 
+  @Test
   public void testMergeLast() {
     IntCharSet set = new IntCharSet(new Interval('a', 'k'));
     assertThat(set.toString()).isEqualTo("{ ['a'-'k'] }");
@@ -58,6 +59,7 @@ public class CharClassesTest extends TestCase {
     assertThat(set.toString()).isEqualTo("{ ['a'-'l'] }");
   }
 
+  @Test
   public void testAddChar() {
     IntCharSet set = new IntCharSet(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
@@ -72,6 +74,7 @@ public class CharClassesTest extends TestCase {
     assertThat(set.toString()).isEqualTo("{ ['a'-'z'] }");
   }
 
+  @Test
   public void testCopy() {
     IntCharSet set = new IntCharSet(new Interval('a', 'z'));
     IntCharSet copy = set.copy();
@@ -81,6 +84,7 @@ public class CharClassesTest extends TestCase {
     assertThat(copy.toString()).isEqualTo("{ ['a'-'z'] }");
   }
 
+  @Test
   public void testCaseless() {
     UnicodeProperties unicodeProperties;
     try {

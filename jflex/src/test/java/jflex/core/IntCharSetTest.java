@@ -1,20 +1,15 @@
 package jflex.core;
 
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import jflex.chars.Interval;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class IntCharSetTest extends TestCase {
-  /**
-   * Constructor for IntCharSetTest.
-   *
-   * @param name the test name
-   */
-  public IntCharSetTest(String name) {
-    super(name);
-  }
+public class IntCharSetTest {
 
+  @Test
   public void testAddIntCharSet() {
     IntCharSet a = new IntCharSet(0);
     a.add(3);
@@ -24,6 +19,7 @@ public class IntCharSetTest extends TestCase {
     assertWithMessage("a ← a + b = %s + %s should be b", original_a, b).that(a).isEqualTo(b);
   }
 
+  @Test
   public void testContainsSet() {
     IntCharSet a = new IntCharSet(3, 7);
     a.add(new Interval(10, 15));

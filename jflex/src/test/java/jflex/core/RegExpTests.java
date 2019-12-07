@@ -11,9 +11,11 @@ package jflex.core;
 
 import static com.google.common.truth.Truth.assertThat;
 import static jflex.core.RegExp.revString;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Unit tests for JFlex.RegExp
@@ -21,21 +23,14 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class RegExpTests extends TestCase implements sym {
+public class RegExpTests implements sym {
 
-  /**
-   * Constructor for RegExpTests.
-   *
-   * @param name the test name
-   */
-  public RegExpTests(String name) {
-    super(name);
-  }
-
+  @Test
   public void testrevString() {
     assertThat(revString("blah")).isEqualTo("halb");
   }
 
+  @Test
   public void testCharClass() {
     Macros m = new Macros();
     RegExp e1 = new RegExp1(PRIMCLASS, new IntCharSet('a', 'z'));
