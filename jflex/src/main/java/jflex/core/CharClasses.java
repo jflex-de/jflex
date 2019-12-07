@@ -69,7 +69,7 @@ public class CharClasses {
     maxCharUsed = maxCharCode;
     this.unicodeProps = scanner.getUnicodeProperties();
     classes = new ArrayList<>();
-    classes.add(new IntCharSet(new Interval(0, maxCharCode)));
+    classes.add(IntCharSet.ofCharacterRange(0, maxCharCode));
   }
 
   /**
@@ -224,7 +224,7 @@ public class CharClasses {
    * @param singleChar character.
    */
   public void makeClass(int singleChar, boolean caseless) {
-    makeClass(new IntCharSet(singleChar), caseless);
+    makeClass(IntCharSet.ofCharacter(singleChar), caseless);
   }
 
   /**
@@ -253,7 +253,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(List<Interval> l, boolean caseless) {
-    makeClass(new IntCharSet(l), caseless);
+    makeClass(IntCharSet.ofCharacter(l), caseless);
   }
 
   /**
@@ -270,7 +270,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClassNot(List<Interval> l, boolean caseless) {
-    makeClass(new IntCharSet(l), caseless);
+    makeClass(IntCharSet.ofCharacter(l), caseless);
   }
 
   /**

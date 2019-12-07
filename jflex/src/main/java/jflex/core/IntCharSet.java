@@ -19,7 +19,7 @@ import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
 
 /**
- * Char Set implemented with intervals.
+ * Mutable Char Set implemented with intervals.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
@@ -35,43 +35,36 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   /** for iterating over the char set */
   private int pos;
 
-  /** Creates an empty char set. */
+  /** Constructs an empty char set. */
   public IntCharSet() {}
 
-  /** Creates a char set that contains only the given character. */
-  public IntCharSet(int c) {
-    this(Interval.ofCharacter(c));
-  }
-
-  /** Creates a char set that contains only the given interval. */
-  public IntCharSet(int start, int end) {
-    this(new Interval(start, end));
-  }
-
   /** Creates a charset that contains only one interval. */
-  public IntCharSet(Interval interval) {
-    intervals.add(interval);
+  public static IntCharSet of(Interval interval) {
+    IntCharSet charset = new IntCharSet();
+    charset.intervals.add(interval);
+    return charset;
   }
 
   /**
-   * Constructor for IntCharSet.
-   *
-   * @param chars a {@link java.util.List} object.
+   * Creates a charset that contains only one interval, given by its {@code start} and {@code end}
+   * values.
    */
-  public IntCharSet(List<Interval> chars) {
-    int size = chars.size();
-    intervals = new ArrayList<>(size);
+  public static IntCharSet ofCharacterRange(int start, int end) {
+    return of(new Interval(start, end));
+  }
 
-    for (Interval interval : chars) add(interval);
+  /** Creates a char set that contains only the given character. */
+  public static IntCharSet ofCharacter(int singleChar) {
+    return of(Interval.ofCharacter(singleChar));
   }
 
   /**
-   * The set of all characters.
+   * Creates the set of all characters.
    *
    * @return a new IntCharSet that contains all characters.
    */
   static IntCharSet allChars() {
-    return new IntCharSet(0, CharClasses.maxChar);
+    return IntCharSet.ofCharacterRange(0, CharClasses.maxChar);
   }
 
   /**
@@ -81,14 +74,15 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    *     Java.
    */
   public static IntCharSet nlChars() {
-    IntCharSet set = new IntCharSet(new Interval('\n', '\r'));
-    set.add(new Interval('\u0085', '\u0085'));
-    set.add(new Interval('\u2028', '\u2029'));
+    IntCharSet set = new IntCharSet();
+    set.intervals.add(new Interval('\n', '\r'));
+    set.intervals.add(Interval.ofCharacter('\u0085'));
+    set.intervals.add(new Interval('\u2028', '\u2029'));
     return set;
   }
 
   /**
-   * returns the index of the interval that contains the character c, -1 if there is no such
+   * Returns the index of the interval that contains the character c, -1 if there is no such
    * interval
    *
    * <p>post: {@code -1 <= return < intervals.size() && (return > -1 -->
@@ -123,22 +117,14 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return -1;
   }
 
-  /**
-   * add.
-   *
-   * @param set a {@link IntCharSet} object.
-   * @return a {@link IntCharSet} object.
-   */
+  /** Merges another set. */
   public IntCharSet add(IntCharSet set) {
-    for (Interval interval : set.intervals) add(interval);
+    for (Interval interval : set.intervals) {
+      add(interval);
+    }
     return this;
   }
 
-  /**
-   * add.
-   *
-   * @param interval a {@link jflex.chars.Interval} object.
-   */
   public void add(Interval interval) {
 
     int size = intervals.size();
@@ -249,11 +235,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return !set.containsElements();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>o instanceof IntCharSet
-   */
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof IntCharSet)) {
@@ -264,7 +245,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return Objects.equals(intervals, set.intervals);
   }
 
-  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     int h = 1;
@@ -409,7 +389,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
-   * Returns the number of Intervals.
+   * Returns the number of intervals.
    *
    * @return number of intervals.
    */
@@ -433,7 +413,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * @return the next {@link jflex.chars.Interval}.
    */
   public Interval getNext() {
-    if (pos == intervals.size()) pos = 0;
+    if (pos == intervals.size()) {
+      pos = 0;
+    }
     return intervals.get(pos++);
   }
 
@@ -453,7 +435,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
-        if (null != equivalenceClass) n.add(equivalenceClass);
+        if (null != equivalenceClass) {
+          n.add(equivalenceClass);
+        }
       }
     }
     return n;
@@ -467,7 +451,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public String toString() {
     StringBuilder result = new StringBuilder("{ ");
 
-    for (Interval interval : intervals) result.append(interval);
+    for (Interval interval : intervals) {
+      result.append(interval);
+    }
 
     result.append(" }");
 
@@ -504,14 +490,25 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    */
   @Override
   public int compareTo(IntCharSet o) {
-    if (o == null) throw new NullPointerException();
+    if (o == null) {
+      throw new NullPointerException();
+    }
 
-    if (this.equals(o)) return 0;
+    if (this.equals(o)) {
+      return 0;
+    }
 
-    if (!this.containsElements()) return -1;
-    if (!o.containsElements()) return 1;
+    if (!this.containsElements()) {
+      return -1;
+    }
+    if (!o.containsElements()) {
+      return 1;
+    }
 
-    if (this.intervals.get(0).start < o.intervals.get(0).start) return -1;
-    else return 1;
+    if (this.intervals.get(0).start < o.intervals.get(0).start) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 }
