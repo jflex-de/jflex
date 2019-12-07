@@ -1,8 +1,7 @@
 package jflex.core;
 
+import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import jflex.chars.Interval;
 import org.junit.Test;
@@ -27,14 +26,14 @@ public class IntCharSetTest {
     IntCharSet c = new IntCharSet(1, 5);
     IntCharSet d = new IntCharSet(1, 20);
 
-    assertTrue(a.contains(b));
+    assertThat(a.contains(b)).isTrue();
     b.add(new Interval(10, 15));
-    assertTrue(a.contains(b));
+    assertThat(a.contains(b)).isTrue();
     a.sub(new IntCharSet(4, 7));
     a.sub(new IntCharSet(10, 15));
-    assertFalse(a.contains(b));
-    assertFalse(a.contains(c));
-    assertFalse(c.contains(d));
+    assertThat(a.contains(b)).isFalse();
+    assertThat(a.contains(c)).isFalse();
+    assertThat(c.contains(d)).isFalse();
     assertWithMessage("d.contains(a); d is %s and a is %s", d, a).that(d.contains(a)).isTrue();
   }
 }

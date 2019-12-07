@@ -11,8 +11,6 @@ package jflex.core;
 
 import static com.google.common.truth.Truth.assertThat;
 import static jflex.core.RegExp.revString;
-import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import org.junit.Test;
@@ -48,10 +46,10 @@ public class RegExpTests implements sym {
     b = b.normalise(m);
     s = s.normalise(m);
     u = u.normalise(m);
-    assertTrue(e1.isCharClass());
-    assertTrue(e2.isCharClass());
-    assertTrue(b.isCharClass());
-    assertFalse(s.isCharClass());
-    assertTrue(u.isCharClass());
+    assertThat(e1.isCharClass()).isTrue();
+    assertThat(e2.isCharClass()).isTrue();
+    assertThat(b.isCharClass()).isTrue();
+    assertThat(s.isCharClass()).isFalse();
+    assertThat(u.isCharClass()).isTrue();
   }
 }

@@ -10,7 +10,6 @@
 package jflex.core;
 
 import static com.google.common.truth.Truth.assertThat;
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
@@ -59,7 +58,7 @@ public class SkeletonTest {
   }
 
   private void checkDefaultSkeleton() {
-    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
     Skeleton.readDefault();
     assertThat(-1).isEqualTo(Skeleton.line[3].indexOf("java.util.Stack"));
   }
