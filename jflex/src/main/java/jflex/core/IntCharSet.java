@@ -445,10 +445,16 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return result.toString();
   }
 
-  /** Returns a (deep) copy of the char set. */
+  /**
+   * Creates a IntCharSet from an existing IntCharSet.
+   *
+   * @return a (deep) copy of the char set.
+   */
   public static IntCharSet copyOf(IntCharSet intCharSet) {
     IntCharSet result = new IntCharSet();
-    result.intervals.addAll(intCharSet.intervals);
+    for (Interval interval : intCharSet.intervals) {
+      result.intervals.add(Interval.copyOf(interval));
+    }
     return result;
   }
 

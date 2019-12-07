@@ -178,7 +178,7 @@ action code {:
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.of(Interval.ofCharacter('_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
             result = IntCharSet.copyOf(alphaClass);
             result.add(markClass);
@@ -201,7 +201,7 @@ action code {:
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.of(Interval.ofCharacter('_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
             IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
             wordClass.add(markClass);
