@@ -1,9 +1,11 @@
+load("@jflex_rules//cup:cup.bzl", "cup")
+
 package(default_visibility = ["//visibility:public"])
 
 java_library(
     name = "core",
     srcs = glob(["**/*.java"]) + [
-        "//jflex:gen_parser",
+        "//jflex/src/main/java/jflex/core:gen_parser",
         "//jflex:gen_scanner",
     ],
     deps = [
@@ -17,4 +19,13 @@ java_library(
         "//jflex/src/main/java/jflex/performance",
         "//jflex/src/main/java/jflex/scanner",
     ],
+)
+
+cup(
+    name = "gen_parser",
+    src = "//jflex/src/main/cup:LexParse.cup",
+    cup_bin = "@jflex_rules//cup:cup_bin",
+    interface = True,
+    parser = "LexParse",
+    symbols = "sym",
 )

@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@jflex_rules//cup:cup.bzl", "cup")
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package_group(
@@ -25,15 +24,6 @@ java_binary(
 alias(
     name = "jflex",
     actual = "//jflex/src/main/java/jflex/core",
-)
-
-cup(
-    name = "gen_parser",
-    src = "src/main/cup/LexParse.cup",
-    cup_bin = "@jflex_rules//cup:cup_bin",
-    interface = True,
-    parser = "LexParse",
-    symbols = "sym",
 )
 
 # Use bootstrap version defined in @jflex_rules
