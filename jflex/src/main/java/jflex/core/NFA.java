@@ -628,7 +628,7 @@ public final class NFA {
 
   private void insertLetterNFA(boolean caseless, int ch, int start, int end) {
     if (caseless) {
-      IntCharSet set = new IntCharSet(ch);
+      IntCharSet set = IntCharSet.ofCharacter(ch);
       IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
       for (Interval interval : caselessSet.getIntervals()) {
         for (int elem = interval.start; elem <= interval.end; ++elem) {
@@ -646,7 +646,7 @@ public final class NFA {
     for (int pos = 0; pos < str.length(); ++i) {
       int ch = str.codePointAt(pos);
       if (caseless) {
-        IntCharSet set = new IntCharSet(ch);
+        IntCharSet set = IntCharSet.ofCharacter(ch);
         IntCharSet caselessSet = set.getCaseless(scanner.getUnicodeProperties());
         for (Interval interval : caselessSet.getIntervals()) {
           for (int elem = interval.start; elem <= interval.end; ++elem) {
