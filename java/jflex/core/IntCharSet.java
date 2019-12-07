@@ -40,7 +40,12 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
   /** Creates a char set that contains only the given character. */
   public IntCharSet(int c) {
-    this(new Interval(c, c));
+    this(new Interval(c));
+  }
+
+  /** Creates a char set that contains only the given interval. */
+  public IntCharSet(int start, int end) {
+    this(new Interval(start, end));
   }
 
   /** Creates a charset that contains only one interval. */
@@ -58,6 +63,28 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     intervals = new ArrayList<>(size);
 
     for (Interval interval : chars) add(interval);
+  }
+
+  /**
+   * The set of all characters.
+   *
+   * @return a new IntCharSet that contains all characters.
+   */
+  static IntCharSet allChars() {
+    return new IntCharSet(0, CharClasses.maxChar);
+  }
+
+  /**
+   * The set of new-line characters.
+   *
+   * @return a new IntCharSet that contains all characters that are considered a new-line char in
+   *     Java.
+   */
+  public static IntCharSet nlChars() {
+    IntCharSet set = new IntCharSet(new Interval('\n', '\r'));
+    set.add(new Interval('\u0085', '\u0085'));
+    set.add(new Interval('\u2028', '\u2029'));
+    return set;
   }
 
   /**
@@ -194,7 +221,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     }
 
     // end reached but nothing found -> append at end
-    intervals.add(new Interval(c, c));
+    intervals.add(new Interval(c));
   }
 
   /**
@@ -205,6 +232,21 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    */
   public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
+  }
+
+  /**
+   * Check whether this set contains a another set.
+   *
+   * @param other an IntCharSet.
+   * @return true iff all characters of {@code other} are contained in this set.
+   */
+  public boolean contains(IntCharSet other) {
+    // treat null as empty set
+    if (other == null) return true;
+    IntCharSet set = other.copy();
+    IntCharSet inter = this.and(other);
+    set.sub(inter);
+    return !set.containsElements();
   }
 
   /**
@@ -222,6 +264,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return Objects.equals(intervals, set.intervals);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     int h = 1;

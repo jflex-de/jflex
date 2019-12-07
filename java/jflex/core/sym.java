@@ -11,9 +11,9 @@ public interface sym {
   public static final int WORDCLASSNOT = 33;
   public static final int DELIMITER = 9;
   public static final int EOFRULE = 27;
-  public static final int STRING_I = 58;
+  public static final int STRING_I = 60;
   public static final int CHAR = 50;
-  public static final int CONCAT = 57;
+  public static final int CONCAT = 59;
   public static final int MACROUSE = 52;
   public static final int LOWERCLASS = 26;
   public static final int EQUALS = 10;
@@ -21,7 +21,7 @@ public interface sym {
   public static final int UNIPROPCCLASSNOT = 54;
   public static final int REPEAT = 41;
   public static final int TILDE = 49;
-  public static final int CHAR_I = 59;
+  public static final int CHAR_I = 61;
   public static final int STAR = 42;
   public static final int BAR = 44;
   public static final int FULL = 17;
@@ -46,6 +46,7 @@ public interface sym {
   public static final int JLETTERCLASS = 20;
   public static final int ACTION = 38;
   public static final int CLOSECLASS = 7;
+  public static final int CCLASSOP = 57;
   public static final int DIGITCLASS = 23;
   public static final int UNION = 34;
   public static final int LBRACE = 14;
@@ -57,6 +58,7 @@ public interface sym {
   public static final int LETTERCLASS = 22;
   public static final int MORETHAN = 13;
   public static final int DOLLAR = 5;
+  public static final int PRIMCLASS = 58;
   public static final int RBRACE = 15;
   public static final int WHITESPACECLASS = 30;
   public static final int STRING = 51;
@@ -126,6 +128,8 @@ public interface sym {
   "UNIPROPCCLASSNOT",
   "CCLASS",
   "CCLASSNOT",
+  "CCLASSOP",
+  "PRIMCLASS",
   "CONCAT",
   "STRING_I",
   "CHAR_I"

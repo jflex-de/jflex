@@ -78,10 +78,9 @@ public class RegExps {
       Boolean isBOL,
       RegExp lookAhead) {
     if (Options.DEBUG) {
-      Out.debug(
-          "Inserting regular expression with statelist :" + Out.NL + stateList); // $NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
-      Out.debug("expression :" + Out.NL + regExp); // $NON-NLS-1$
+      Out.debug("Inserting regular expression with statelist :" + Out.NL + stateList);
+      Out.debug("and action code :" + Out.NL + (action == null ? "null" : action.content) + Out.NL);
+      Out.debug("expression :" + Out.NL + regExp);
     }
 
     states.add(stateList);
@@ -105,8 +104,8 @@ public class RegExps {
   public int insert(List<Integer> stateList, Action action) {
 
     if (Options.DEBUG) {
-      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList); // $NON-NLS-1$
-      Out.debug("and action code :" + Out.NL + action.content + Out.NL); // $NON-NLS-1$
+      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList);
+      Out.debug("and action code :" + Out.NL + (action == null ? "null" : action.content) + Out.NL);
     }
 
     states.add(stateList);
@@ -281,5 +280,37 @@ public class RegExps {
         gen_look_count++;
       }
     }
+  }
+
+  /** Normalise all character class expressions in regexp and lookahead rules. */
+  public void normalise(Macros m) {
+    List<RegExp> newRegExps = new ArrayList<RegExp>();
+    List<RegExp> newLook = new ArrayList<RegExp>();
+
+    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normalise(m));
+    for (RegExp r : look) newLook.add(r == null ? r : r.normalise(m));
+
+    this.regExps = newRegExps;
+    this.look = newLook;
+  }
+
+  /** Print the list of regExps to Out.dump */
+  public void dump() {
+    Out.dump("RegExp rules:");
+    for (RegExp r : regExps) {
+      if (r != null) Out.dump(r.toString());
+    }
+  }
+
+  /**
+   * Make character class partitions for all classes mentioned in the spec.
+   *
+   * <p>Assumes that single characters and strings have already been handled.
+   *
+   * <p>Assumes normalised expressions.
+   */
+  public void makeCCLs(CharClasses classes, boolean caseless) {
+    for (RegExp r : regExps) if (r != null) r.makeCCLs(classes, caseless);
+    for (RegExp r : look) if (r != null) r.makeCCLs(classes, caseless);
   }
 }

@@ -24,8 +24,7 @@ public final class Interval {
   public int end;
 
   /**
-   * Constructs a new interval from {@code start} to {@code end}, including both start and end
-   * points.
+   * Constructs a new interval from {@code start} to {@code end}, including both end points.
    *
    * @param start first codepoint the interval contains
    * @param end last codepoint the interval contains
@@ -33,6 +32,22 @@ public final class Interval {
   public Interval(int start, int end) {
     this.start = start;
     this.end = end;
+  }
+
+  /**
+   * Constructs a new interval containing a single character.
+   *
+   * @param content the single character the interval should contain
+   */
+  public Interval(int content) {
+    this.start = content;
+    this.end = content;
+  }
+
+  /** Copy constructor */
+  public Interval(Interval other) {
+    this.start = other.start;
+    this.end = other.end;
   }
 
   /**
