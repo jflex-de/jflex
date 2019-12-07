@@ -239,8 +239,56 @@ public class RegExp {
    *
    * @return the regexp for {@code [^]}
    */
-  public static RegExp anyChar() {
+  public static final RegExp anyChar() {
     return new RegExp1(sym.PRIMCLASS, IntCharSet.allChars());
+  }
+
+  /**
+   * Confirms that the parameter is a RegExp1 of type sym.PRIMCLASS.
+   *
+   * @param r the RegExp to check
+   * @throws CharClassException if r is not a RegExp1 or of type sym.PRIMCLASS.
+   * @return r cast to RegExp1
+   */
+  public static final RegExp1 checkPrimClass(RegExp r) {
+    if (!(r instanceof RegExp1 && r.type == sym.PRIMCLASS))
+      throw new CharClassException("Not normalised " + r);
+    return (RegExp1) r;
+  }
+
+  /**
+   * Performs the given set operation on the two {@link IntCharSet} parameters.
+   *
+   * @param op the operation to perform (as @{link sym} constant)
+   * @param l the left operator of the expression
+   * @param r the right operator of the expression
+   * @param ctxt the regular expression containing the provided operator
+   * @return a new {@link IntCharSet}
+   * @throws a {@link RegExpException} for {@code ctxt} if the operator is not supported
+   */
+  public static final IntCharSet performClassOp(int op, IntCharSet l, IntCharSet r, RegExp ctxt) {
+    IntCharSet set;
+    IntCharSet intersection = l.and(r);
+
+    switch (op) {
+      case sym.INTERSECTION:
+        return intersection;
+
+      case sym.DIFFERENCE:
+        // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+        set = l.copy();
+        set.sub(intersection);
+        return set;
+
+      case sym.SYMMETRICDIFFERENCE:
+        set = l.copy();
+        set.add(r);
+        set.sub(intersection);
+        return set;
+
+      default:
+        throw new RegExpException(ctxt);
+    }
   }
 
   /**
@@ -285,10 +333,8 @@ public class RegExp {
           List<RegExp> contents = (List<RegExp>) unary.content;
           IntCharSet set = new IntCharSet();
           for (RegExp r : contents) {
-            RegExp n = r.normalise(m);
-            if (!(n instanceof RegExp1 && n.type == sym.PRIMCLASS))
-              throw new CharClassException("Not normalised " + n);
-            set.add((IntCharSet) ((RegExp1) n).content);
+            RegExp1 n = checkPrimClass(r.normalise(m));
+            set.add((IntCharSet) n.content);
           }
           return new RegExp1(sym.PRIMCLASS, set);
         }
@@ -299,10 +345,8 @@ public class RegExp {
           List<RegExp> contents = (List<RegExp>) unary.content;
           IntCharSet set = IntCharSet.allChars();
           for (RegExp r : contents) {
-            RegExp n = r.normalise(m);
-            if (!(n instanceof RegExp1 && n.type == sym.PRIMCLASS))
-              throw new CharClassException("Not normalised " + n);
-            set.sub((IntCharSet) ((RegExp1) n).content);
+            RegExp1 n = checkPrimClass(r.normalise(m));
+            set.sub((IntCharSet) n.content);
           }
           return new RegExp1(sym.PRIMCLASS, set);
         }
@@ -310,43 +354,11 @@ public class RegExp {
       case sym.CCLASSOP:
         unary = (RegExp1) this;
         binary = (RegExp2) unary.content;
-        RegExp l = ((RegExp) binary.r1).normalise(m);
-        if (!(l instanceof RegExp1 && l.type == sym.PRIMCLASS))
-          throw new CharClassException("Not normalised " + l);
-        IntCharSet setl = (IntCharSet) ((RegExp1) l).content;
-        RegExp r = ((RegExp) binary.r2).normalise(m);
-        if (!(r instanceof RegExp1 && r.type == sym.PRIMCLASS))
-          throw new CharClassException("Not normalised " + r);
-        IntCharSet setr = (IntCharSet) ((RegExp1) r).content;
-
-        IntCharSet set;
-        switch (binary.type) {
-          case sym.INTERSECTION:
-            set = setl.and(setr);
-            break;
-
-          case sym.DIFFERENCE:
-            {
-              // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-              IntCharSet intersection = setl.and(setr);
-              set = setl.copy();
-              set.sub(intersection);
-            }
-            break;
-
-          case sym.SYMMETRICDIFFERENCE:
-            {
-              set = setl.copy();
-              set.add(setr);
-              IntCharSet intersection = setl.and(setr);
-              set.sub(intersection);
-            }
-            break;
-
-          default:
-            throw new RegExpException(this);
-        }
-
+        RegExp1 l = checkPrimClass(((RegExp) binary.r1).normalise(m));
+        IntCharSet setl = (IntCharSet) l.content;
+        RegExp1 r = checkPrimClass(((RegExp) binary.r2).normalise(m));
+        IntCharSet setr = (IntCharSet) r.content;
+        IntCharSet set = performClassOp(binary.type, setl, setr, this);
         return new RegExp1(sym.PRIMCLASS, set);
 
       case sym.MACROUSE:
