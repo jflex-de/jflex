@@ -88,14 +88,12 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
-   * returns the index of the interval that contains the character c, -1 if there is no such
-   * interval
+   * Returns the index of the interval that contains the character {@code c}.
    *
-   * <p>post: {@code -1 <= return < intervals.size() && (return > -1 -->
-   * intervals[return].contains(c))}
+   * <p>Binary search which interval contains the given character.
    *
-   * @param c the character
-   * @return the index of the enclosing interval, -1 if no such interval
+   * @param c the character to search for
+   * @return the index of the enclosing interval, or -1 if no such interval
    */
   private int indexOf(int c) {
     int start = 0;
@@ -105,7 +103,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       int check = (start + end) / 2;
       Interval i = intervals.get(check);
 
-      if (start == end) return i.contains(c) ? start : -1;
+      if (start == end) {
+        return i.contains(c) ? start : -1;
+      }
 
       if (c < i.start) {
         end = check - 1;
@@ -123,14 +123,11 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return -1;
   }
 
-  /**
-   * add.
-   *
-   * @param set a {@link IntCharSet} object.
-   * @return a {@link IntCharSet} object.
-   */
+  /** Merges the given set into this one. */
   public IntCharSet add(IntCharSet set) {
-    for (Interval interval : set.intervals) add(interval);
+    for (Interval interval : set.intervals) {
+      add(interval);
+    }
     return this;
   }
 
@@ -146,18 +143,26 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     for (int i = 0; i < size; i++) {
       Interval elem = intervals.get(i);
 
-      if (elem.end + 1 < interval.start) continue;
+      if (elem.end + 1 < interval.start) {
+        continue;
+      }
 
-      if (elem.contains(interval)) return;
+      if (elem.contains(interval)) {
+        return;
+      }
 
       if (elem.start > interval.end + 1) {
         intervals.add(i, Interval.copyOf(interval));
         return;
       }
 
-      if (interval.start < elem.start) elem.start = interval.start;
+      if (interval.start < elem.start) {
+        elem.start = interval.start;
+      }
 
-      if (interval.end <= elem.end) return;
+      if (interval.end <= elem.end) {
+        return;
+      }
 
       elem.end = interval.end;
 
@@ -165,7 +170,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       // delete all x with x.contains( interval.end )
       while (i < size) {
         Interval x = intervals.get(i);
-        if (x.start > elem.end + 1) return;
+        if (x.start > elem.end + 1) {
+          return;
+        }
 
         if (x.end > elem.end) {
           elem.end = x.end;
@@ -411,7 +418,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    *     classes.
    * @return a caseless copy of this set
    */
-  public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
+  IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copy();
 
     for (Interval elem : intervals) {
@@ -470,12 +477,19 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public int compareTo(IntCharSet o) {
     if (o == null) throw new NullPointerException();
 
-    if (this.equals(o)) return 0;
+    if (this.equals(o)) {
+      return 0;
+    }
 
-    if (!this.containsElements()) return -1;
-    if (!o.containsElements()) return 1;
+    if (!this.containsElements()) {
+      return -1;
+    }
+    if (!o.containsElements()) {
+      return 1;
+    }
 
-    if (this.intervals.get(0).start < o.intervals.get(0).start) return -1;
-    else return 1;
+    if (this.intervals.get(0).start < o.intervals.get(0).start) {
+      return -1;
+    } else return 1;
   }
 }
