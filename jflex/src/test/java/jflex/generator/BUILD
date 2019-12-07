@@ -3,6 +3,7 @@ java_test(
     srcs = ["EmitterTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/generator",
+        "//third_party/com/google/truth",
     ],
 )
 
