@@ -185,43 +185,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * @param c Character to add.
    */
   public void add(int c) {
-    int size = intervals.size();
-
-    for (int i = 0; i < size; i++) {
-      Interval elem = intervals.get(i);
-      if (elem.end + 1 < c) continue;
-
-      if (elem.contains(c)) return; // already there, nothing to do
-
-      // assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
-
-      if (elem.start > c + 1) {
-        intervals.add(i, Interval.ofCharacter(c));
-        return;
-      }
-
-      // assert(elem.end+1 >= c && elem.start <= c+1 && (elem.start > c || elem.end < c));
-
-      if (c + 1 == elem.start) {
-        elem.start = c;
-        return;
-      }
-
-      // assert(elem.end+1 == c);
-      elem.end = c;
-
-      // merge with next interval if it contains c
-      if (i + 1 >= size) return;
-      Interval x = intervals.get(i + 1);
-      if (x.start <= c + 1) {
-        elem.end = x.end;
-        intervals.remove(i + 1);
-      }
-      return;
-    }
-
-    // end reached but nothing found -> append at end
-    intervals.add(new Interval(c));
+    add(Interval.ofCharacter(c));
   }
 
   /**
