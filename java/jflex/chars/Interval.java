@@ -35,22 +35,6 @@ public final class Interval {
   }
 
   /**
-   * Constructs a new interval containing a single character.
-   *
-   * @param content the single character the interval should contain
-   */
-  public Interval(int content) {
-    this.start = content;
-    this.end = content;
-  }
-
-  /** Copy constructor */
-  public Interval(Interval other) {
-    this.start = other.start;
-    this.end = other.end;
-  }
-
-  /**
    * Returns {@code true} iff {@code point} is contained in this interval.
    *
    * @param point the character codepoint to check

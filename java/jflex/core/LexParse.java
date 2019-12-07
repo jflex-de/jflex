@@ -768,7 +768,7 @@ class CUP$LexParse$actions {
 
         case sym.DIGITCLASSNOT:
           IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
           result.sub(digits);
           preclassCache.put(type, result);
           break;
@@ -814,7 +814,7 @@ class CUP$LexParse$actions {
           if (null == whitespaceClass) {
             whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
-          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
           result.sub(whitespaceClass);
           preclassCache.put(type, result);
           break;
@@ -832,9 +832,9 @@ class CUP$LexParse$actions {
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
-            result = alphaClass.copy();
+            result = IntCharSet.copyOf(alphaClass);
             result.add(markClass);
             result.add(digitClass);
             result.add(connectorPunctClass);
@@ -855,13 +855,13 @@ class CUP$LexParse$actions {
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
-            IntCharSet wordClass = alphaClass.copy();
+            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
             wordClass.add(markClass);
             wordClass.add(digitClass);
             wordClass.add(connectorPunctClass);
-            result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+            result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
             result.sub(wordClass);
             preclassCache.put(type, result);
             break;
@@ -964,7 +964,7 @@ class CUP$LexParse$actions {
   }
 
   private RegExp primClass(int start, int end) {
-    return primClass(new IntCharSet(start,end));
+    return primClass(IntCharSet.ofCharacterRange(start, end));
   }
 
   private RegExp primClass(IntCharSet set) {
@@ -1819,7 +1819,7 @@ class CUP$LexParse$actions {
 		
                       IntCharSet nl;
                       if ( Options.jlex || Options.legacy_dot ) {
-                        nl = new IntCharSet('\n');
+                        nl = IntCharSet.ofCharacter('\n');
                       }
                       else {
                         nl = IntCharSet.nlChars();
