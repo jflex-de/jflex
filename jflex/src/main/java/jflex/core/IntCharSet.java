@@ -31,6 +31,8 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals = new ArrayList<>();
+
+  /** for iterating over the char set */
   private int pos;
 
   /** Creates an empty char set. */
@@ -38,7 +40,12 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
   /** Creates a char set that contains only the given character. */
   public IntCharSet(int c) {
-    this(new Interval(c, c));
+    this(new Interval(c));
+  }
+
+  /** Creates a char set that contains only the given interval. */
+  public IntCharSet(int start, int end) {
+    this(new Interval(start, end));
   }
 
   /** Creates a charset that contains only one interval. */
@@ -59,11 +66,34 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   }
 
   /**
+   * The set of all characters.
+   *
+   * @return a new IntCharSet that contains all characters.
+   */
+  static IntCharSet allChars() {
+    return new IntCharSet(0, CharClasses.maxChar);
+  }
+
+  /**
+   * The set of new-line characters.
+   *
+   * @return a new IntCharSet that contains all characters that are considered a new-line char in
+   *     Java.
+   */
+  public static IntCharSet nlChars() {
+    IntCharSet set = new IntCharSet(new Interval('\n', '\r'));
+    set.add(new Interval('\u0085', '\u0085'));
+    set.add(new Interval('\u2028', '\u2029'));
+    return set;
+  }
+
+  /**
    * returns the index of the interval that contains the character c, -1 if there is no such
    * interval
    *
-   * @prec: true
-   * @post: -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))
+   * <p>post: {@code -1 <= return < intervals.size() && (return > -1 -->
+   * intervals[return].contains(c))}
+   *
    * @param c the character
    * @return the index of the enclosing interval, -1 if no such interval
    */
@@ -121,7 +151,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       if (elem.contains(interval)) return;
 
       if (elem.start > interval.end + 1) {
-        intervals.add(i, new Interval(interval));
+        intervals.add(i, Interval.copyOf(interval));
         return;
       }
 
@@ -146,13 +176,13 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       return;
     }
 
-    intervals.add(new Interval(interval));
+    intervals.add(Interval.copyOf(interval));
   }
 
   /**
-   * add.
+   * Adds a single character.
    *
-   * @param c a int.
+   * @param c Character to add.
    */
   public void add(int c) {
     int size = intervals.size();
@@ -166,7 +196,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       // assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
 
       if (elem.start > c + 1) {
-        intervals.add(i, new Interval(c, c));
+        intervals.add(i, Interval.ofCharacter(c));
         return;
       }
 
@@ -191,23 +221,38 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     }
 
     // end reached but nothing found -> append at end
-    intervals.add(new Interval(c, c));
+    intervals.add(new Interval(c));
   }
 
   /**
-   * contains.
+   * Returns whether this set contains a given character.
    *
-   * @param singleChar a int.
-   * @return a boolean.
+   * @param singleChar a single character (int).
+   * @return true iff singleChar is contained in the set.
    */
   public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
   }
 
   /**
+   * Check whether this set contains a another set.
+   *
+   * @param other an IntCharSet.
+   * @return true iff all characters of {@code other} are contained in this set.
+   */
+  public boolean contains(IntCharSet other) {
+    // treat null as empty set
+    if (other == null) return true;
+    IntCharSet set = other.copy();
+    IntCharSet inter = this.and(other);
+    set.sub(inter);
+    return !set.containsElements();
+  }
+
+  /**
    * {@inheritDoc}
    *
-   * <p>o instanceof Interval
+   * <p>o instanceof IntCharSet
    */
   @Override
   public boolean equals(Object o) {
@@ -219,6 +264,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return Objects.equals(intervals, set.intervals);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     int h = 1;
@@ -229,7 +275,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return h;
   }
 
-  /* intersection */
   /**
    * Intersects two sets.
    *
@@ -278,7 +323,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     return result;
   }
 
-  /* complement */
   /* prec: this.contains(set), set != null */
   /**
    * Returns the relative complement of this set relative to the provided set.
@@ -406,9 +450,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copy();
 
-    int size = intervals.size();
-    for (int i = 0; i < size; i++) {
-      Interval elem = intervals.get(i);
+    for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
         if (null != equivalenceClass) n.add(equivalenceClass);
@@ -439,7 +481,9 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    */
   public IntCharSet copy() {
     IntCharSet result = new IntCharSet();
-    for (Interval interval : intervals) result.intervals.add(interval.copy());
+    for (Interval interval : intervals) {
+      result.intervals.add(Interval.copyOf(interval));
+    }
     return result;
   }
 
@@ -454,7 +498,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
    * have the same smallest element but are not equal.
    *
-   * @param the IntCharSet to compare to
+   * @param o the IntCharSet to compare to
    * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
    *     smallest element of this set, and +1 if it is larger.
    */

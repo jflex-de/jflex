@@ -11,7 +11,7 @@ package jflex.core;
 
 import static jflex.core.RegExp.revString;
 
-import jflex.chars.Interval;
+import java.util.ArrayList;
 import junit.framework.TestCase;
 
 /**
@@ -37,17 +37,25 @@ public class RegExpTests extends TestCase implements sym {
 
   public void testCharClass() {
     Macros m = new Macros();
-    RegExp e1 = new RegExp1(CCLASS, new Interval('a', 'z'));
+    RegExp e1 = new RegExp1(PRIMCLASS, new IntCharSet('a', 'z'));
     RegExp e2 = new RegExp1(CHAR, 'Z');
-    RegExp e3 = new RegExp1(CCLASS, new Interval('0', '9'));
+    ArrayList<RegExp> l = new ArrayList<RegExp>();
+    l.add(new RegExp1(PRIMCLASS, new IntCharSet('0', '8')));
+    l.add(new RegExp1(PRIMCLASS, new IntCharSet('9')));
+    RegExp e3 = new RegExp1(CCLASS, l);
     m.insert("macro", e3);
     RegExp s = new RegExp1(STAR, e1);
     RegExp u = new RegExp1(MACROUSE, "macro");
     RegExp b = new RegExp2(BAR, e2, u);
-    assertTrue(e1.isCharClass(m));
-    assertTrue(e2.isCharClass(m));
-    assertTrue(b.isCharClass(m));
-    assertTrue(!s.isCharClass(m));
-    assertTrue(u.isCharClass(m));
+    e1 = e1.normalise(m);
+    e2 = e2.normalise(m);
+    b = b.normalise(m);
+    s = s.normalise(m);
+    u = u.normalise(m);
+    assertTrue(e1.isCharClass());
+    assertTrue(e2.isCharClass());
+    assertTrue(b.isCharClass());
+    assertFalse(s.isCharClass());
+    assertTrue(u.isCharClass());
   }
 }

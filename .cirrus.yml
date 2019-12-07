@@ -7,8 +7,8 @@ buildtools_cache:
 bazel_build_task:
   name: Bazel build and test
   container:
-    image: l.gcr.io/google/bazel:1.1.0
-    memory: 6G
+    image: l.gcr.io/google/bazel:1.2.1
+    memory: 5G
   bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
   build_script:
