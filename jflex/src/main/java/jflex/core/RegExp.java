@@ -276,12 +276,12 @@ public class RegExp {
 
       case sym.DIFFERENCE:
         // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-        set = l.copy();
+        set = IntCharSet.copyOf(l);
         set.sub(intersection);
         return set;
 
       case sym.SYMMETRICDIFFERENCE:
-        set = l.copy();
+        set = IntCharSet.copyOf(l);
         set.add(r);
         set.sub(intersection);
         return set;

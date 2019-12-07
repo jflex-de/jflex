@@ -31,11 +31,11 @@ public class RegExpTests implements sym {
   @Test
   public void testCharClass() {
     Macros m = new Macros();
-    RegExp e1 = new RegExp1(PRIMCLASS, new IntCharSet('a', 'z'));
+    RegExp e1 = new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('a', 'z'));
     RegExp e2 = new RegExp1(CHAR, 'Z');
     ArrayList<RegExp> l = new ArrayList<RegExp>();
-    l.add(new RegExp1(PRIMCLASS, new IntCharSet('0', '8')));
-    l.add(new RegExp1(PRIMCLASS, new IntCharSet('9')));
+    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('0', '8')));
+    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacter('9')));
     RegExp e3 = new RegExp1(CCLASS, l);
     m.insert("macro", e3);
     RegExp s = new RegExp1(STAR, e1);

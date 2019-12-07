@@ -10,27 +10,27 @@ public class IntCharSetTest {
 
   @Test
   public void testAddIntCharSet() {
-    IntCharSet a = new IntCharSet(0);
+    IntCharSet a = IntCharSet.ofCharacter(0);
     a.add(3);
-    IntCharSet original_a = a.copy();
-    IntCharSet b = new IntCharSet(0, 4);
+    IntCharSet original_a = IntCharSet.copyOf(a);
+    IntCharSet b = IntCharSet.ofCharacterRange(0, 4);
     a.add(b);
     assertWithMessage("a ← a + b = %s + %s should be b", original_a, b).that(a).isEqualTo(b);
   }
 
   @Test
   public void testContainsSet() {
-    IntCharSet a = new IntCharSet(3, 7);
+    IntCharSet a = IntCharSet.ofCharacterRange(3, 7);
     a.add(new Interval(10, 15));
-    IntCharSet b = new IntCharSet(4, 6);
-    IntCharSet c = new IntCharSet(1, 5);
-    IntCharSet d = new IntCharSet(1, 20);
+    IntCharSet b = IntCharSet.ofCharacterRange(4, 6);
+    IntCharSet c = IntCharSet.ofCharacterRange(1, 5);
+    IntCharSet d = IntCharSet.ofCharacterRange(1, 20);
 
     assertThat(a.contains(b)).isTrue();
     b.add(new Interval(10, 15));
     assertThat(a.contains(b)).isTrue();
-    a.sub(new IntCharSet(4, 7));
-    a.sub(new IntCharSet(10, 15));
+    a.sub(IntCharSet.ofCharacterRange(4, 7));
+    a.sub(IntCharSet.ofCharacterRange(10, 15));
     assertThat(a.contains(b)).isFalse();
     assertThat(a.contains(c)).isFalse();
     assertThat(c.contains(d)).isFalse();

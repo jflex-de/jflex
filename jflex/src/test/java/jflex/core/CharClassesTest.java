@@ -26,7 +26,7 @@ public class CharClassesTest {
 
   @Test
   public void testAdd1() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'h'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('h', 'o'));
@@ -35,7 +35,7 @@ public class CharClassesTest {
 
   @Test
   public void testAdd2() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'h'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('i', 'n'));
@@ -44,7 +44,7 @@ public class CharClassesTest {
 
   @Test
   public void testAdd3() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'h'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add(new Interval('A', 'Z'));
     set.add(new Interval('a', 'n'));
@@ -53,7 +53,7 @@ public class CharClassesTest {
 
   @Test
   public void testMergeLast() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'k'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'k'));
     assertThat(set.toString()).isEqualTo("{ ['a'-'k'] }");
     set.add('l');
     assertThat(set.toString()).isEqualTo("{ ['a'-'l'] }");
@@ -61,7 +61,7 @@ public class CharClassesTest {
 
   @Test
   public void testAddChar() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'h'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'h'));
     set.add(new Interval('o', 'z'));
     set.add('n');
     set.add('k');
@@ -76,8 +76,8 @@ public class CharClassesTest {
 
   @Test
   public void testCopy() {
-    IntCharSet set = new IntCharSet(new Interval('a', 'z'));
-    IntCharSet copy = set.copy();
+    IntCharSet set = IntCharSet.of(new Interval('a', 'z'));
+    IntCharSet copy = IntCharSet.copyOf(set);
     Interval i = set.getNext();
     i.end = 'h';
     assertThat(set.toString()).isEqualTo("{ ['a'-'h'] }");
@@ -94,7 +94,7 @@ public class CharClassesTest {
       return;
     }
 
-    IntCharSet set = new IntCharSet(new Interval('a', 'c'));
+    IntCharSet set = IntCharSet.of(new Interval('a', 'c'));
     set.add(new Interval('h', 'o'));
 
     // From <http://unicode.org/Public/4.0-Update1/UnicodeData-4.0.1.txt>:
