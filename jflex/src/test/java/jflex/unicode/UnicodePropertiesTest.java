@@ -10,7 +10,6 @@
 package jflex.unicode;
 
 import static com.google.common.truth.Truth.assertWithMessage;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Objects;
@@ -32,13 +31,14 @@ public class UnicodePropertiesTest {
       try {
         UnicodeProperties properties = new UnicodeProperties(version);
         IntCharSet intervals = properties.getIntCharSet("Lu");
-        assertNotNull(
-            "intervals for 'Lu' property value for version "
-                + version
-                + " should not be null\n"
-                + "Supported properties: "
-                + properties.getPropertyValues(),
-            intervals);
+        assertWithMessage(
+                "intervals for 'Lu' property value for version "
+                    + version
+                    + " should not be null\n"
+                    + "Supported properties: "
+                    + properties.getPropertyValues())
+            .that(intervals)
+            .isNotNull();
         assertWithMessage("intervals for 'Lu' property value should have an interval")
             .that(intervals.numIntervals() > 0)
             .isTrue();
@@ -65,12 +65,13 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties();
       IntCharSet intervals = properties.getIntCharSet("Lu");
-      assertNotNull(
-          "intervals for 'Lu' property value for default Unicode "
-              + "version should not be null\n"
-              + "Supported properties: "
-              + properties.getPropertyValues(),
-          intervals);
+      com.google.common.truth.Truth.assertWithMessage(
+              "intervals for 'Lu' property value for default Unicode "
+                  + "version should not be null\n"
+                  + "Supported properties: "
+                  + properties.getPropertyValues())
+          .that(intervals)
+          .isNotNull();
       assertWithMessage("intervals for 'Lu' property value should have an interval")
           .that(intervals.numIntervals() > 0)
           .isTrue();
@@ -84,13 +85,17 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties();
       IntCharSet set_1 = properties.getIntCharSet("General Category : Other Letter");
-      assertNotNull(
-          "Null interval set returned for " + "\\p{General Category : Other Letter}", set_1);
+      com.google.common.truth.Truth.assertWithMessage(
+              "Null interval set returned for " + "\\p{General Category : Other Letter}")
+          .that(set_1)
+          .isNotNull();
       assertWithMessage("Empty interval set returned for " + "\\p{General Category : Other Letter}")
           .that(set_1.containsElements())
           .isTrue();
       IntCharSet set_2 = properties.getIntCharSet("Lo");
-      assertNotNull("Null interval set returned for \\p{Lo}", set_2);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set returned for \\p{Lo}")
+          .that(set_2)
+          .isNotNull();
       assertWithMessage("Empty interval set returned for \\p{Lo}")
           .that(set_1.containsElements())
           .isTrue();
@@ -100,12 +105,18 @@ public class UnicodePropertiesTest {
           .isTrue();
 
       set_1 = properties.getIntCharSet(" Script:Tibetan ");
-      assertNotNull("Null interval set returned for \\p{ Script:Tibetan }", set_1);
+      com.google.common.truth.Truth.assertWithMessage(
+              "Null interval set returned for \\p{ Script:Tibetan }")
+          .that(set_1)
+          .isNotNull();
       assertWithMessage("Empty interval set returned for \\p{ Script:Tibetan }")
           .that(set_1.containsElements())
           .isTrue();
       set_2 = properties.getIntCharSet("-_T i b t_-");
-      assertNotNull("Null interval set returned for \\p{-_T i b t_-}", set_2);
+      com.google.common.truth.Truth.assertWithMessage(
+              "Null interval set returned for \\p{-_T i b t_-}")
+          .that(set_2)
+          .isNotNull();
       assertWithMessage("Empty interval set returned for \\p{-_T i b t_-}")
           .that(set_1.containsElements())
           .isTrue();
@@ -123,7 +134,10 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties("1.1");
       IntCharSet caselessMatches = properties.getCaselessMatches('i');
-      assertNotNull("'i' has no caseless matches except itself, but it should.", caselessMatches);
+      com.google.common.truth.Truth.assertWithMessage(
+              "'i' has no caseless matches except itself, but it should.")
+          .that(caselessMatches)
+          .isNotNull();
       assertWithMessage("Caseless match set for 'i' should contain 'i', but it doesn't.")
           .that(caselessMatches.contains('i'))
           .isTrue();
@@ -153,7 +167,10 @@ public class UnicodePropertiesTest {
 
   private void checkCaseless_i_matches(UnicodeProperties properties) {
     IntCharSet caselessMatches = properties.getCaselessMatches('i');
-    assertNotNull("'i' has no caseless matches except itself, but it should.", caselessMatches);
+    com.google.common.truth.Truth.assertWithMessage(
+            "'i' has no caseless matches except itself, but it should.")
+        .that(caselessMatches)
+        .isNotNull();
     assertWithMessage("Caseless match set for 'i' should contain 'i', but it doesn't.")
         .that(caselessMatches.contains('i'))
         .isTrue();
@@ -258,10 +275,14 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.0");
       IntCharSet set_1 = properties.getIntCharSet("S");
-      assertNotNull("Null interval set for \\p{S}", set_1);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{S}")
+          .that(set_1)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{S}").that(set_1.containsElements()).isTrue();
       IntCharSet set_2 = properties.getIntCharSet("Symbol");
-      assertNotNull("Null interval set for \\p{Symbol}", set_2);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{Symbol}")
+          .that(set_2)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{Symbol}")
           .that(set_2.containsElements())
           .isTrue();
@@ -311,10 +332,14 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.1");
       IntCharSet set_1 = properties.getIntCharSet("S");
-      assertNotNull("Null interval set for \\p{S}", set_1);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{S}")
+          .that(set_1)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{S}").that(set_1.containsElements()).isTrue();
       IntCharSet set_2 = properties.getIntCharSet("Symbol");
-      assertNotNull("Null interval set for \\p{Symbol}", set_2);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{Symbol}")
+          .that(set_2)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{Symbol}")
           .that(set_2.containsElements())
           .isTrue();
@@ -364,10 +389,14 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties("5.2");
       IntCharSet set_1 = properties.getIntCharSet("S");
-      assertNotNull("Null interval set for \\p{S}", set_1);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{S}")
+          .that(set_1)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{S}").that(set_1.containsElements()).isTrue();
       IntCharSet set_2 = properties.getIntCharSet("Symbol");
-      assertNotNull("Null interval set for \\p{Symbol}", set_2);
+      com.google.common.truth.Truth.assertWithMessage("Null interval set for \\p{Symbol}")
+          .that(set_2)
+          .isNotNull();
       assertWithMessage("Empty interval set for \\p{Symbol}")
           .that(set_2.containsElements())
           .isTrue();
@@ -417,10 +446,10 @@ public class UnicodePropertiesTest {
     try {
       UnicodeProperties properties = new UnicodeProperties("6.0");
       IntCharSet set_1 = properties.getIntCharSet("S");
-      assertNotNull("Null interval set for \\p{S}", set_1);
+      assertWithMessage("Null interval set for \\p{S}").that(set_1).isNotNull();
       assertWithMessage("Empty interval set for \\p{S}").that(set_1.containsElements()).isTrue();
       IntCharSet set_2 = properties.getIntCharSet("Symbol");
-      assertNotNull("Null interval set for \\p{Symbol}", set_2);
+      assertWithMessage("Null interval set for \\p{Symbol}").that(set_2).isNotNull();
       assertWithMessage("Empty interval set for \\p{Symbol}")
           .that(set_2.containsElements())
           .isTrue();
