@@ -9,6 +9,7 @@
 
 package jflex.core;
 
+import static com.google.common.truth.Truth.assertThat;
 import static jflex.core.RegExp.revString;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class RegExpTests extends TestCase implements sym {
   }
 
   public void testrevString() {
-    assertEquals("halb", revString("blah"));
+    assertThat(revString("blah")).isEqualTo("halb");
   }
 
   public void testCharClass() {

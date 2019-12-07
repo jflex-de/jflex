@@ -11,5 +11,6 @@ java_test(
     srcs = ["PackEmitterTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/generator",
+        "//third_party/com/google/truth",
     ],
 )

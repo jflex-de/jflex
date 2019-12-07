@@ -9,6 +9,8 @@
 
 package jflex.generator;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import junit.framework.TestCase;
 
 /**
@@ -36,21 +38,21 @@ public class PackEmitterTest extends TestCase {
 
   public void testInit() {
     p.emitInit();
-    assertEquals(
-        "  private static final int [] ZZ_BLA = zzUnpackBla();"
-            + NL
-            + NL
-            + "  private static final String ZZ_BLA_PACKED_0 ="
-            + NL
-            + "    \"",
-        p.toString());
+    assertThat(p.toString())
+        .isEqualTo(
+            "  private static final int [] ZZ_BLA = zzUnpackBla();"
+                + NL
+                + NL
+                + "  private static final String ZZ_BLA_PACKED_0 ="
+                + NL
+                + "    \"");
   }
 
   public void testEmitUCplain() {
     p.emitUC(8);
     p.emitUC(0xFF00);
 
-    assertEquals("\\10\\uff00", p.toString());
+    assertThat(p.toString()).isEqualTo("\\10\\uff00");
   }
 
   public void testLineBreak() {
@@ -58,12 +60,12 @@ public class PackEmitterTest extends TestCase {
       p.breaks();
       p.emitUC(i);
     }
-    assertEquals(
-        "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"
-            + NL
-            + "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"
-            + NL
-            + "    \"\\40\\41\\42\\43",
-        p.toString());
+    assertThat(p.toString())
+        .isEqualTo(
+            "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"
+                + NL
+                + "    \"\\20\\21\\22\\23\\24\\25\\26\\27\\30\\31\\32\\33\\34\\35\\36\\37\"+"
+                + NL
+                + "    \"\\40\\41\\42\\43");
   }
 }

@@ -9,6 +9,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.anttask;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -49,16 +51,16 @@ public class JFlexTaskTest extends TestCase {
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
-    assertEquals("jflex", task.getPackage());
-    assertEquals("LexScan", task.getClassName());
+    assertThat(task.getPackage()).isEqualTo("jflex");
+    assertThat(task.getClassName()).isEqualTo("LexScan");
   }
 
   public void testPackageAndClassDefaults() throws IOException {
     // FIXME
     task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
     task.findPackageAndClass();
-    assertEquals(null, task.getPackage());
-    assertEquals("Yylex", task.getClassName());
+    assertThat(task.getPackage()).isEqualTo(null);
+    assertThat(task.getClassName()).isEqualTo("Yylex");
   }
 
   public void testDestdir() throws IOException {
@@ -68,7 +70,7 @@ public class JFlexTaskTest extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name)
-    assertEquals(new File(dir, "jflex"), Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(new File(dir, "jflex"));
   }
 
   public void testOutdir() throws IOException {
@@ -78,7 +80,7 @@ public class JFlexTaskTest extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(dir, Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(dir);
   }
 
   public void testDefaultDir() throws IOException {
@@ -86,7 +88,7 @@ public class JFlexTaskTest extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(new File(DIR_RESOURCES + "/jflex"), Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(new File(DIR_RESOURCES + "/jflex"));
   }
 
   public void testNomin() {
@@ -170,8 +172,8 @@ public class JFlexTaskTest extends TestCase {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";
     Charset charset = Charset.forName(name);
-    assertEquals(Options.encoding, defaultSet);
+    assertThat(defaultSet).isEqualTo(Options.encoding);
     task.setEncoding(name);
-    assertEquals(Options.encoding, charset);
+    assertThat(charset).isEqualTo(Options.encoding);
   }
 }
