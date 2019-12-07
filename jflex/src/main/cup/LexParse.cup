@@ -103,75 +103,68 @@ action code {:
       UnicodeProperties unicodeProperties = scanner.getUnicodeProperties();
       switch (type) {
         case sym.LETTERCLASS:
-          {
-            result = unicodeProperties.getIntCharSet("L");
-            preclassCache.put(type, result);
-            break;
-          }
+          result = unicodeProperties.getIntCharSet("L");
+          preclassCache.put(type, result);
+          break;
+
         case sym.DIGITCLASS:
-          {
-            result = unicodeProperties.getIntCharSet("Nd");
-            preclassCache.put(type, result);
-            break;
-          }
+          result = unicodeProperties.getIntCharSet("Nd");
+          preclassCache.put(type, result);
+          break;
+
         case sym.DIGITCLASSNOT:
-          {
-            IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-            result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
-            result.sub(digits);
-            preclassCache.put(type, result);
-            break;
-          }
+          IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
+          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result.sub(digits);
+          preclassCache.put(type, result);
+          break;
+
         case sym.UPPERCLASS:
-          {
-            // "Uppercase" is more than Uppercase_Letter, but older Unicode
-            // versions don't have this definition - check for "Uppercase",
-            // then fall back to Uppercase_Letter (Lu) if it does not exist.
-            result = unicodeProperties.getIntCharSet("Uppercase");
-            if (null == result) {
-              result = unicodeProperties.getIntCharSet("Lu");
-            }
-            preclassCache.put(type, result);
-            break;
+          // "Uppercase" is more than Uppercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Uppercase",
+          // then fall back to Uppercase_Letter (Lu) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Uppercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Lu");
           }
+          preclassCache.put(type, result);
+          break;
+
         case sym.LOWERCLASS:
-          {
-            // "Lowercase" is more than Lowercase_Letter, but older Unicode
-            // versions don't have this definition - check for "Lowercase",
-            // then fall back to Lowercase_Letter (Ll) if it does not exist.
-            result = unicodeProperties.getIntCharSet("Lowercase");
-            if (null == result) {
-              result = unicodeProperties.getIntCharSet("Ll");
-            }
-            preclassCache.put(type, result);
-            break;
+          // "Lowercase" is more than Lowercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Lowercase",
+          // then fall back to Lowercase_Letter (Ll) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Lowercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Ll");
           }
+          preclassCache.put(type, result);
+          break;
+
         case sym.WHITESPACECLASS:
-          {
-            // Although later versions do, Unicode 1.1 does not have the
-            // "Whitespace" definition - check for "Whitespace", then fall back
-            // to "Space_separator" (Zs) if it does not exist.
-            result = unicodeProperties.getIntCharSet("Whitespace");
-            if (null == result) {
-              result = unicodeProperties.getIntCharSet("Zs");
-            }
-            preclassCache.put(type, result);
-            break;
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Whitespace");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Zs");
           }
+          preclassCache.put(type, result);
+          break;
+
         case sym.WHITESPACECLASSNOT:
-          {
-            // Although later versions do, Unicode 1.1 does not have the
-            // "Whitespace" definition - check for "Whitespace", then fall back
-            // to "Space_separator" (Zs) if it does not exist.
-            IntCharSet whitespaceClass = unicodeProperties.getIntCharSet("Whitespace");
-            if (null == whitespaceClass) {
-              whitespaceClass = unicodeProperties.getIntCharSet("Zs");
-            }
-            result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
-            result.sub(whitespaceClass);
-            preclassCache.put(type, result);
-            break;
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          IntCharSet whitespaceClass = unicodeProperties.getIntCharSet("Whitespace");
+          if (null == whitespaceClass) {
+            whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
+          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result.sub(whitespaceClass);
+          preclassCache.put(type, result);
+          break;
+
         case sym.WORDCLASS:
           {
             // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
@@ -194,6 +187,7 @@ action code {:
             preclassCache.put(type, result);
             break;
           }
+
         case sym.WORDCLASSNOT:
           {
             // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
@@ -221,42 +215,40 @@ action code {:
         case sym.JLETTERCLASS:
         case sym.JLETTERDIGITCLASS:
         default:
-          {
-            result = new IntCharSet();
+          result = new IntCharSet();
 
-            int c = 0;
-            int start = 0;
-            int last = charClasses.getMaxCharCode();
+          int c = 0;
+          int start = 0;
+          int last = charClasses.getMaxCharCode();
 
-            boolean prev, current;
+          boolean prev, current;
 
-            prev = check(type, 0);
+          prev = check(type, 0);
 
-            for (c = 1; c < last; c++) {
+          for (c = 1; c < last; c++) {
 
-              current = check(type, c);
-
-              if (!prev && current) start = c;
-              if (prev && !current) {
-                result.add(new Interval(start, c - 1));
-              }
-
-              prev = current;
-            }
-
-            // the last iteration is moved out of the loop to
-            // avoid an endless loop if last == maxCharCode and
-            // last+1 == 0
             current = check(type, c);
 
-            if (!prev && current) result.add(new Interval(c, c));
-            if (prev && current) result.add(new Interval(start, c));
-            if (prev && !current) result.add(new Interval(start, c - 1));
+            if (!prev && current) start = c;
+            if (prev && !current) {
+              result.add(new Interval(start, c - 1));
+            }
 
-            preclassCache.put(type, result);
-            break;
+            prev = current;
           }
-      }
+
+          // the last iteration is moved out of the loop to
+          // avoid an endless loop if last == maxCharCode and
+          // last+1 == 0
+          current = check(type, c);
+
+          if (!prev && current) result.add(new Interval(c, c));
+          if (prev && current) result.add(new Interval(start, c));
+          if (prev && !current) result.add(new Interval(start, c - 1));
+
+          preclassCache.put(type, result);
+          break;
+        }
     }
     return result;
   }
