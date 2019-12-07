@@ -40,7 +40,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
   /** Creates a char set that contains only the given character. */
   public IntCharSet(int c) {
-    this(new Interval(c));
+    this(Interval.ofCharacter(c));
   }
 
   /** Creates a char set that contains only the given interval. */
@@ -221,7 +221,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     }
 
     // end reached but nothing found -> append at end
-    intervals.add(new Interval(c));
+    intervals.add(Interval.ofCharacter(c));
   }
 
   /**
