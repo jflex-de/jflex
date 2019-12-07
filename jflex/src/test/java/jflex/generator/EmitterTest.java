@@ -11,7 +11,6 @@ package jflex.generator;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
-import static jflex.generator.Emitter.endsWithJavadoc;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,15 +28,15 @@ public class EmitterTest {
   @Test
   public void testJavadoc() {
     StringBuilder usercode = new StringBuilder("/* some *** comment */");
-    assertThat(!endsWithJavadoc(usercode)).isTrue();
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.append("import bla;  /** javadoc /* */  ");
-    assertThat(endsWithJavadoc(usercode)).isTrue();
+    assertThat(Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.append("bla");
-    assertThat(!endsWithJavadoc(usercode)).isTrue();
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.setLength(usercode.length() - "bla".length());
     String nonJavadocComment = "\n/* blah */\n";
     usercode.append(nonJavadocComment);
-    assertThat(!endsWithJavadoc(usercode)).isTrue();
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.setLength(usercode.length() - nonJavadocComment.length());
     List<String> annotations =
         Arrays.asList(
@@ -74,6 +73,6 @@ public class EmitterTest {
           .isTrue();
     }
     usercode.append("\n").append(nonJavadocComment);
-    assertThat(!endsWithJavadoc(usercode)).isTrue();
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
   }
 }
