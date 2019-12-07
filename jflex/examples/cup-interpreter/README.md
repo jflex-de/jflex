@@ -24,7 +24,7 @@ You can expect `src/test/data/output.good`.
 ### Using make
 
     make test
-    java -cp java -cp ../../../cup/cup/java-cup-11b.jar:out src/test/data/example.as
+    java -cp java -cp ../../../cup/cup/java-cup-11b-20160615.jar:out src/test/data/example.as
 
 ## Files
 
@@ -42,12 +42,12 @@ compiled interpreter
 
 
 The language is described in:
-Manfred Broy: _Einfuehrung in die Informatik_, Springer Verlag 
+Manfred Broy: _Einfuehrung in die Informatik_, Springer Verlag
 
 The files are a solution to excercise 3.40 in the book:
-Manfred Broy,Bernhard Rumpe: 
-_Uebungen zur Einfuehrung in die Informatik --                      
-Strukturierte Aufgabensammlung mit Musterloesungen_, 
+Manfred Broy,Bernhard Rumpe:
+_Uebungen zur Einfuehrung in die Informatik --
+Strukturierte Aufgabensammlung mit Musterloesungen_,
 Springer Verlag, 2001
 
 Both books are only available in German. Sorry.

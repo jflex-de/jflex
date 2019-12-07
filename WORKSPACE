@@ -10,7 +10,7 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
-    commit = "69539a2de26b661b254e6e44aad8d0ba974b31df",
+    commit = "5604f3dba7c1f674ac5654e6c46f49452d1af182",
     remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 
@@ -18,21 +18,11 @@ load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
 jflex_deps()
 
-# pandoc used to build the documentatoin
+# pandoc used to build the documentation
 
-#http_archive(
-#    name = "bazel_pandoc",
-#    sha256 = "47ad1f08db3e6c8cc104931c11e099fd0603c174400b9cc852e2481abe08db24",
-#    strip_prefix = "bazel-pandoc-0.2",
-#    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
-#)
-
-# The unionset incompatible change was introduced in Bazel 0.26
-# bazel_pandoc needs to update
-# https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
 git_repository(
     name = "bazel_pandoc",
-    commit = "7d87bb1463835bfea8438a5dae8f536d1857c97f",
+    commit = "68bcf3fb4dd1892e040f0986636805c7186c82ae",
     remote = "https://github.com/ProdriveTechnologies/bazel-pandoc.git",
 )
 

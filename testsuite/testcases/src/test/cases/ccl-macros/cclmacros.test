@@ -1,0 +1,6 @@
+name: cclmacros
+
+description:
+test for issue #216 (Macros in character classes are not supported)
+
+jflex: --nobak --dump

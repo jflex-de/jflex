@@ -122,13 +122,13 @@ meaning.
 
 
 Conformance with Unicode Regular Expressions UTS\#18 {#unicoderegexconformance}
-====================================================
+----------------------------------------------------
 
 This section gives details about JFlex $VERSION’s
 conformance with the requirements for Basic Unicode Support Level 1
 given in UTS\#18 [@unicode_rep].
 
-## RL1.1 Hex Notation
+### RL1.1 Hex Notation
 
 > *To meet this requirement, an implementation shall supply a mechanism
 > for specifying any Unicode code point (from U+0000 to U+10FFFF), using
@@ -139,7 +139,7 @@ range, via `\uXXXX`, where `XXXX` is a 4-digit hex value; `\Uyyyyyy`,
 where `yyyyyy` is a 6-digit hex value; and `\u{X+( X+)*}`, where `X+` is
 a 1-6 digit hex value.
 
-## RL1.2 Properties
+### RL1.2 Properties
 
 > *To meet this requirement, an implementation shall provide at least a
 > minimal list of properties, consisting of the following:
@@ -159,7 +159,7 @@ version. Loose matching is performed: case distinctions, whitespace,
 underscores and hyphens in property names and values are ignored.
 
 
-## RL1.2a Compatibility Properties
+### RL1.2a Compatibility Properties
 
 > *To meet this requirement, an implementation shall provide the
 > properties listed in Annex C: Compatibility Properties, with the
@@ -172,7 +172,7 @@ Annex C Compatibility Properties are provided, with two exceptions: `\X`
 Extended Grapheme Clusters; and `\b` Default Word Boundaries.
 
 
-## RL1.3 Subtraction and Intersection
+### RL1.3 Subtraction and Intersection
 
 > *To meet this requirement, an implementation shall supply mechanisms
 > for union, intersection and set-difference of Unicode sets.*
@@ -181,7 +181,7 @@ JFlex conforms by providing these mechanisms, as well as symmetric
 difference.
 
 
-## RL1.4 Simple Word Boundaries
+### RL1.4 Simple Word Boundaries
 
 > *To meet this requirement, an implementation shall extend the word
 > boundary mechanism so that:*
@@ -199,7 +199,7 @@ difference.
 JFlex does not conform: `\b` does not match simple word boundaries.
 
 
-## RL1.5 Simple Loose Matches
+### RL1.5 Simple Loose Matches
 
 > *To meet this requirement, if an implementation provides for
 > case-insensitive matching, then it shall provide at least the simple,
@@ -213,7 +213,7 @@ JFlex does not conform: `\b` does not match simple word boundaries.
 JFlex conforms. All supported Unicode Properties are closed.
 
 
-## RL1.6 Line Boundaries
+### RL1.6 Line Boundaries
 
 > *To meet this requirement, if an implementation provides for
 > line-boundary testing, it shall recognize not only CRLF, LF, CR, but
@@ -223,7 +223,7 @@ JFlex conforms. All supported Unicode Properties are closed.
 JFlex conforms.
 
 
-## RL1.7 Supplementary Code Points
+### RL1.7 Supplementary Code Points
 
 > *To meet this requirement, an implementation shall handle the full
 > range of Unicode code points, including values from U+FFFF to

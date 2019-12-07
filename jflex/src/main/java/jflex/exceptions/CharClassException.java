@@ -19,8 +19,6 @@ public class CharClassException extends RuntimeException {
 
   private static final long serialVersionUID = 7199804506062103569L;
 
-  public CharClassException() {}
-
   /**
    * Creates a new CharClassException with the specified message
    *
