@@ -9,7 +9,6 @@
 
 package jflex.core;
 
-import static java.util.stream.Collectors.toList;
 import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
 import static jflex.l10n.ErrorMessages.get;
 
@@ -135,12 +134,10 @@ public final class Macros {
    * @param name the name of the macro to expand (for detecting cycles)
    * @param definition the definition of the macro to expand
    * @return the expanded definition of the macro.
-   * @throws jflex.exceptions.MacroException when an error (such as a cyclic definition) occurs
-   *     during expansion
+   * @throws MacroException when an error (such as a cyclic definition) occurs during expansion
    */
   @SuppressWarnings("unchecked")
-  private RegExp expandMacro(String name, RegExp definition)
-      throws jflex.exceptions.MacroException {
+  private RegExp expandMacro(String name, RegExp definition) throws MacroException {
 
     // Out.print("checking macro "+name);
     // Out.print("definition is "+definition);
@@ -188,9 +185,11 @@ public final class Macros {
       case sym.CCLASS:
       case sym.CCLASSNOT:
         RegExp1 cclass = (RegExp1) definition;
-        List<RegExp> classes = (List<RegExp>) cclass.content;
-        cclass.content =
-            classes.stream().map(regexp -> expandMacro(name, regexp)).collect(toList());
+        List<RegExp> classes = new ArrayList<>();
+        for (RegExp regexp : (List<RegExp>) cclass.content) {
+          classes.add(expandMacro(name, regexp));
+        }
+        cclass.content = classes;
         return cclass;
 
       case sym.CCLASSOP:
