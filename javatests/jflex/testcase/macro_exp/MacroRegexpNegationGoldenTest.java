@@ -7,7 +7,8 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * bug #611118 [Macro error on regexp negation (!)]
+ * bug <a href="https://github.com/jflex-de/jflex/issues/57">#57 [Macro error on regexp negation
+ * (!)]</a>
  *
  * <p>wrong warnings for negated macros
  *
@@ -18,7 +19,7 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class MacroGoldenTest extends AbstractGoldenTest {
+public class MacroRegexpNegationGoldenTest extends AbstractGoldenTest {
 
   /** Creates a scanner conforming to the {@code macro.flex} specification. */
   private final ScannerFactory<Macro> scannerFactory = ScannerFactory.of(Macro::new);
