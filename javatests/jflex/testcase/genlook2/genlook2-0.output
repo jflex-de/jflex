@@ -1,0 +1,23 @@
+match: --aaaaaaaaa--
+action [19] { /* match should never contain a 'b', which is lookahead only */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --aa--
+action [19] { /* match should never contain a 'b', which is lookahead only */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+match: --b--
+action [21] { /* no lookahead */ }
+-1
