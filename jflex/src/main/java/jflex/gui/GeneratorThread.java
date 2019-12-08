@@ -51,6 +51,7 @@ public class GeneratorThread extends Thread {
   }
 
   /** Runs the generator thread. Only one instance of it can run at any time. */
+  @Override
   public void run() {
     if (running) {
       Out.error(ErrorMessages.ALREADY_RUNNING);

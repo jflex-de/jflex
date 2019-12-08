@@ -265,7 +265,7 @@ public final class StateSet implements Iterable<Integer> {
     if (DEBUG) Out.debug("StateSet.add() result: " + this);
   }
 
-  /** {@inheritDoc} */
+  @Override
   public boolean equals(Object b) {
     if (!(b instanceof StateSet)) {
       return false;
@@ -297,7 +297,7 @@ public final class StateSet implements Iterable<Integer> {
     return true;
   }
 
-  /** {@inheritDoc} */
+  @Override
   public int hashCode() {
     long h = 1234;
     long[] _bits = bits;
@@ -356,11 +356,7 @@ public final class StateSet implements Iterable<Integer> {
     }
   }
 
-  /**
-   * Convert this StateSet into a String.
-   *
-   * @return a {@link java.lang.String} object representing this StateSet.
-   */
+  @Override
   public String toString() {
     StateSetEnumerator set = states();
 

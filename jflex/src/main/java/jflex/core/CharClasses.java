@@ -193,13 +193,7 @@ public class CharClasses {
     return classes.get(theClass).toString();
   }
 
-  /**
-   * Returns a string representation of the char classes stored in this class.
-   *
-   * <p>Enumerates the classes by index.
-   *
-   * @return representation of this char class.
-   */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("CharClasses:");
 

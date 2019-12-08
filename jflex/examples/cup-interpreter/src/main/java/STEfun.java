@@ -22,6 +22,7 @@ class STEfun extends SymtabEntry {
     arity = a;
   }
 
+  @Override
   public int kind() {
     return SymtabEntry.FUN;
   }

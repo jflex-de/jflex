@@ -510,11 +510,7 @@ public final class IntCharSet implements Iterable<Integer> {
     return n;
   }
 
-  /**
-   * Make a string representation of this char set.
-   *
-   * @return a string representing this char set.
-   */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("{ ");
 

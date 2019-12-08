@@ -47,6 +47,7 @@ public class ZeroReader extends Reader {
    * @throws IOException if the underlying reader throws one or if the offset is outside the
    *     provided buffer.
    */
+  @Override
   public int read(char[] cbuf, int off, int len) throws IOException {
     int n = reader.read(cbuf, off, len);
 
@@ -69,6 +70,7 @@ public class ZeroReader extends Reader {
    *
    * @throws IOException if the underlying Reader does.
    */
+  @Override
   public void close() throws IOException {
     reader.close();
   }

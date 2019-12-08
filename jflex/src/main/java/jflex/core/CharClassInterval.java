@@ -46,11 +46,7 @@ public class CharClassInterval {
     this.charClass = charClass;
   }
 
-  /**
-   * Returns string representation of this class interval.
-   *
-   * @return a representation of this class interval.
-   */
+  @Override
   public String toString() {
     return "[" + start + "-" + end + "=" + charClass + "]";
   }

@@ -60,6 +60,7 @@ public class Timer {
    * @return a string displaying the diff-time in readable format (h m s ms)
    * @see Timer#diff
    */
+  @Override
   public String toString() {
     long diff = diff();
 

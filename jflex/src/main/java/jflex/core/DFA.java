@@ -170,7 +170,7 @@ public final class DFA {
     return lookaheadUsed;
   }
 
-  /** Returns a string representation of the DFA. */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder();
 

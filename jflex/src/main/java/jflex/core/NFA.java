@@ -533,11 +533,7 @@ public final class NFA {
     Out.dump(toString());
   }
 
-  /**
-   * toString.
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder();
 

@@ -57,6 +57,7 @@ public class JFlexTask extends Task {
    *
    * @throws BuildException if any.
    */
+  @Override
   public void execute() {
     try {
       if (inputFile == null)
