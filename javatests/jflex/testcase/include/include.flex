@@ -4,7 +4,7 @@ import java.io.*;
 %%
 
 %public
-%class Include
+%class IncludeScanner
 %standalone
 
 WSP   = [ \t\b]

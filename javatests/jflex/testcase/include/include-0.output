@@ -1,7 +1,7 @@
-including "src/test/cases/include/inp2"
+including "javatests/jflex/testcase/include/inp2"
 Token "1"
 newline
-including "src/test/cases/include/inp3"
+including "javatests/jflex/testcase/include/inp3"
 Token "3"
 newline
 <<EOF>>
@@ -16,9 +16,10 @@ Token "b"
 sdnewline
 asf sad adsdfanewline
 Token "s"
-including "src/test/cases/include/inp3"
+including "javatests/jflex/testcase/include/inp3"
 Token "3"
 newline
 <<EOF>>
 -sdfs anewline
 <<EOF>>
+-1

@@ -9,7 +9,8 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * tests include files, i.e. yyPushStream and yyPopStream bug #495422
+ * tests include files, i.e. <a href="https://github.com/jflex-de/jflex/issues/117">yyPushStream and
+ * yyPopStream bug</a>
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
@@ -21,7 +22,8 @@ import org.junit.Test;
 public class IncludeGoldenTest extends AbstractGoldenTest {
 
   /** Creates a scanner conforming to the {@code include.flex} specification. */
-  private final ScannerFactory<Include> scannerFactory = ScannerFactory.of(Include::new);
+  private final ScannerFactory<IncludeScanner> scannerFactory =
+      ScannerFactory.of(IncludeScanner::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/include");
 
@@ -33,8 +35,8 @@ public class IncludeGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "include-0.output"));
     compareSystemOutWith(golden);
 
-    Include scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    while (!scanner.yyatEOF()) {
+    IncludeScanner scanner = scannerFactory.createScannerForFile(golden.inputFile);
+    while (!scanner.isAtEof()) {
       System.out.println(scanner.yylex());
     }
   }
