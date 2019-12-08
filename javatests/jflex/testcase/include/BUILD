@@ -9,7 +9,8 @@ jflex(
     name = "gen_include_scanner",
     srcs = ["include.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Include.java"],
+    outputs = ["IncludeScanner.java"],
+    skeleton = "skeleton.nested",
 )
 
 java_library(
@@ -31,6 +32,8 @@ java_test(
     data = [
         "include-0.input",
         "include-0.output",
+        "inp2",
+        "inp3",
     ],
     deps = [
         ":include_scanner",
