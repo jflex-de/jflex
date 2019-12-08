@@ -338,13 +338,27 @@ public class Main {
     try {
       generate(argv);
     } catch (GeneratorException e) {
-      Out.statistics();
+      if (e.isUnExpected()) {
+        Out.error(
+            "Unexpected exception encountered. This indicates a bug in JFlex."
+                + Out.NL
+                + "Please consider filing an issue at http://github.com/jflex-de/jflex/issues/new"
+                + Out.NL);
+        Throwable cause = e.getCause();
+        if (cause != null) {
+          String msg = cause.getLocalizedMessage();
+          if (msg != null) error(msg);
+          cause.printStackTrace();
+        }
+      } else {
+        Out.statistics();
+      }
       System.exit(1);
     } catch (SilentExit e) {
       System.exit(e.exitCode());
     }
   }
 
-  // Only CLI, not meant for instanciation.
+  // Only CLI, not meant for instantiation.
   private Main() {}
 }
