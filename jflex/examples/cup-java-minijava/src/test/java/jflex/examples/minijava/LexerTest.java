@@ -25,13 +25,13 @@ public class LexerTest {
   }
 
   @Test
-  public void scan_tokenIdentifier() throws IOException {
+  public void scan_tokenIdentifier() throws Exception {
     scan("helloWorld");
     assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
   }
 
   @Test
-  public void scan_assignment() throws IOException {
+  public void scan_assignment() throws Exception {
     scan("boolean debug = 2 == 1 + 1");
     assertThat(nextToken()).isEqualTo(sym.BOOLEAN);
     assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
@@ -46,16 +46,14 @@ public class LexerTest {
 
   @SuppressWarnings("TryFailThrowable")
   @Test
-  public void scan_illegalChar() throws IOException {
+  public void scan_illegalChar() throws Exception {
     scan("boolean debug;");
     assertThat(nextToken()).isEqualTo(sym.BOOLEAN);
     assertThat(nextToken()).isEqualTo(sym.IDENTIFIER);
     try {
       nextToken();
       fail("Character `;` is not declared in the minijava.flex");
-    } catch (Error expected) {
-      // This is bad, but the JFlex API doesn't allow better
-      // https://errorprone.info/bugpattern/TryFailThrowable
+    } catch (UnknownCharacterException expected) {
     }
   }
 
@@ -64,7 +62,7 @@ public class LexerTest {
     lexer = new Lexer(in);
   }
 
-  private int nextToken() throws IOException {
+  private int nextToken() throws IOException, UnknownCharacterException {
     return lexer.next_token().sym;
   }
 }
