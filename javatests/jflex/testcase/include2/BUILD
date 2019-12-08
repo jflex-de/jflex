@@ -10,6 +10,7 @@ jflex(
     srcs = ["include2.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["Include2.java"],
+    skeleton = "skeleton.nested",
 )
 
 java_library(
@@ -31,6 +32,8 @@ java_test(
     data = [
         "include2-0.input",
         "include2-0.output",
+        "nested2",
+        "nested3",
     ],
     deps = [
         ":include2_scanner",

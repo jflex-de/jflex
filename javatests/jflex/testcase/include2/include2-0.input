@@ -1,7 +1,7 @@
-%include "src/test/cases/include2/nested2"token a
+%include "javatests/jflex/testcase/include2/nested2"token a
 
 token b blublw
 sd
 asf sad adsdfa
-token  s%include "src/test/cases/include2/nested3"token c sdfs a
+token  s%include "javatests/jflex/testcase/include2/nested3"token c sdfs a
 token d
