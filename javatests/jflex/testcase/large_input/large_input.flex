@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipException;
+
 %%
 
 %public
@@ -17,6 +18,12 @@ import java.util.zip.ZipException;
 %char
 %unicode
 %type State
+
+%{
+  void fakeRead(int nbCharacters) {
+    yychar += nbCharacters;
+  }
+%}
 
 %%
 

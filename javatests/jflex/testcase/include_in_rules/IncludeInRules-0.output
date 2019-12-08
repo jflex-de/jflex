@@ -1,0 +1,13 @@
+match: --xyz--
+action [18] {  }
+match: -- --
+action [18] {  }
+match: --def--
+action [18] {  }
+match: -- --
+action [18] {  }
+match: --abc--
+action [18] {  }
+match: <<EOF>>
+action [20] { return -1; }
+-1

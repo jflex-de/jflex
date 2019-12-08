@@ -9,9 +9,8 @@
 
 package jflex.core;
 
-import java.util.ArrayList;
 import java.util.List;
-import jflex.chars.Interval;
+import jflex.exceptions.CharClassException;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.
@@ -50,39 +49,31 @@ public class RegExp {
     return tab + toString();
   }
 
-  /**
-   * Returns a String-representation of this regular expression
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
-    return "type = " + type;
+    return "type = " + typeName();
+  }
+
+  /** String representation of the type of this regular expression. */
+  public String typeName() {
+    return sym.terminalNames[type];
   }
 
   /**
    * Find out if this regexp is a char class or equivalent to one.
    *
-   * @param macros for macro expansion
    * @return true if the regexp is equivalent to a char class.
    */
-  public boolean isCharClass(Macros macros) {
-    RegExp1 unary;
-    RegExp2 binary;
-
+  public boolean isCharClass() {
     switch (type) {
       case sym.CHAR:
       case sym.CHAR_I:
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
+      case sym.PRIMCLASS:
         return true;
 
       case sym.BAR:
-        binary = (RegExp2) this;
-        return binary.r1.isCharClass(macros) && binary.r2.isCharClass(macros);
-
-      case sym.MACROUSE:
-        unary = (RegExp1) this;
-        return macros.getDefinition((String) unary.content).isCharClass(macros);
+        RegExp2 binary = (RegExp2) this;
+        return binary.r1.isCharClass() && binary.r2.isCharClass();
 
       default:
         return false;
@@ -149,6 +140,8 @@ public class RegExp {
 
       case sym.CCLASS:
       case sym.CCLASSNOT:
+      case sym.CCLASSOP:
+      case sym.PRIMCLASS:
         return 2;
 
       case sym.MACROUSE:
@@ -156,7 +149,7 @@ public class RegExp {
         return macros.getDefinition((String) unary.content).size(macros);
     }
 
-    throw new Error("unknown regexp type " + type);
+    throw new RegExpException(this);
   }
 
   /**
@@ -179,10 +172,9 @@ public class RegExp {
   /**
    * Recursively convert tilde (upto) expressions into negation and star.
    *
-   * @param macros the macro table for expansion.
    * @return new RegExp equivalent to the current one, but without upto expressions.
    */
-  public final RegExp resolveTilde(Macros macros) {
+  public final RegExp resolveTilde() {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -190,38 +182,37 @@ public class RegExp {
     switch (type) {
       case sym.BAR:
         binary = (RegExp2) this;
-        return new RegExp2(sym.BAR, binary.r1.resolveTilde(macros), binary.r2.resolveTilde(macros));
+        return new RegExp2(sym.BAR, binary.r1.resolveTilde(), binary.r2.resolveTilde());
 
       case sym.CONCAT:
         binary = (RegExp2) this;
-        return new RegExp2(
-            sym.CONCAT, binary.r1.resolveTilde(macros), binary.r2.resolveTilde(macros));
+        return new RegExp2(sym.CONCAT, binary.r1.resolveTilde(), binary.r2.resolveTilde());
 
       case sym.STAR:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.STAR, content.resolveTilde(macros));
+        return new RegExp1(sym.STAR, content.resolveTilde());
 
       case sym.PLUS:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.PLUS, content.resolveTilde(macros));
+        return new RegExp1(sym.PLUS, content.resolveTilde());
 
       case sym.QUESTION:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.QUESTION, content.resolveTilde(macros));
+        return new RegExp1(sym.QUESTION, content.resolveTilde());
 
       case sym.BANG:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.BANG, content.resolveTilde(macros));
+        return new RegExp1(sym.BANG, content.resolveTilde());
 
       case sym.TILDE:
         // ~a = !([^]* a [^]*) a
         // uses subexpression sharing
         unary = (RegExp1) this;
-        content = ((RegExp) unary.content).resolveTilde(macros);
+        content = ((RegExp) unary.content).resolveTilde();
 
         RegExp any_star = new RegExp1(sym.STAR, anyChar());
         RegExp neg =
@@ -235,17 +226,12 @@ public class RegExp {
       case sym.STRING_I:
       case sym.CHAR:
       case sym.CHAR_I:
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
+      case sym.PRIMCLASS:
         unary = (RegExp1) this;
         return new RegExp1(unary.type, unary.content);
-
-      case sym.MACROUSE:
-        unary = (RegExp1) this;
-        return macros.getDefinition((String) unary.content).resolveTilde(macros);
     }
 
-    throw new Error("unknown regexp type " + type);
+    throw new RegExpException(this);
   }
 
   /**
@@ -253,20 +239,186 @@ public class RegExp {
    *
    * @return the regexp for {@code [^]}
    */
-  public RegExp anyChar() {
-    // FIXME: there is some code duplication here with the parser
-    List<Interval> list = new ArrayList<>();
-    list.add(new Interval(0, CharClasses.maxChar));
-    return new RegExp1(sym.CCLASS, list);
+  public static final RegExp anyChar() {
+    return new RegExp1(sym.PRIMCLASS, IntCharSet.allChars());
   }
 
   /**
-   * Create a new regexp that matches the reverse text of this one.
+   * Confirms that the parameter is a RegExp1 of type sym.PRIMCLASS.
+   *
+   * @param r the RegExp to check
+   * @throws CharClassException if r is not a RegExp1 or of type sym.PRIMCLASS.
+   * @return r cast to RegExp1
+   */
+  public static final RegExp1 checkPrimClass(RegExp r) {
+    if (!(r instanceof RegExp1 && r.type == sym.PRIMCLASS))
+      throw new CharClassException("Not normalised " + r);
+    return (RegExp1) r;
+  }
+
+  /**
+   * Performs the given set operation on the two {@link IntCharSet} parameters.
+   *
+   * @param op the operation to perform (as @{link sym} constant)
+   * @param l the left operator of the expression
+   * @param r the right operator of the expression
+   * @param ctxt the regular expression containing the provided operator
+   * @return a new {@link IntCharSet}
+   * @throws a {@link RegExpException} for {@code ctxt} if the operator is not supported
+   */
+  public static final IntCharSet performClassOp(int op, IntCharSet l, IntCharSet r, RegExp ctxt) {
+    IntCharSet set;
+    IntCharSet intersection = l.and(r);
+
+    switch (op) {
+      case sym.INTERSECTION:
+        return intersection;
+
+      case sym.DIFFERENCE:
+        // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
+        set = IntCharSet.copyOf(l);
+        set.sub(intersection);
+        return set;
+
+      case sym.SYMMETRICDIFFERENCE:
+        set = IntCharSet.copyOf(l);
+        set.add(r);
+        set.sub(intersection);
+        return set;
+
+      default:
+        throw new RegExpException(ctxt);
+    }
+  }
+
+  /**
+   * Normalise the regular expression to eliminate macro use (expand them), and compound character
+   * class expression (compute their content).
+   *
+   * @return a regexp that contains only {@link IntCharSet} char classes and no {@link
+   *     sym#MACROUSE}.
+   */
+  @SuppressWarnings("unchecked")
+  public final RegExp normalise(Macros m) {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch (type) {
+      case sym.BAR:
+      case sym.CONCAT:
+        binary = (RegExp2) this;
+        return new RegExp2(type, binary.r1.normalise(m), binary.r2.normalise(m));
+
+      case sym.STAR:
+      case sym.PLUS:
+      case sym.QUESTION:
+      case sym.BANG:
+      case sym.TILDE:
+        unary = (RegExp1) this;
+        content = (RegExp) unary.content;
+        return new RegExp1(type, content.normalise(m));
+
+      case sym.STRING:
+      case sym.STRING_I:
+      case sym.CHAR:
+      case sym.CHAR_I:
+      case sym.PRIMCLASS:
+        unary = (RegExp1) this;
+        return new RegExp1(type, unary.content);
+
+      case sym.CCLASS:
+        {
+          unary = (RegExp1) this;
+          List<RegExp> contents = (List<RegExp>) unary.content;
+          IntCharSet set = new IntCharSet();
+          for (RegExp r : contents) {
+            RegExp1 n = checkPrimClass(r.normalise(m));
+            set.add((IntCharSet) n.content);
+          }
+          return new RegExp1(sym.PRIMCLASS, set);
+        }
+
+      case sym.CCLASSNOT:
+        {
+          unary = (RegExp1) this;
+          List<RegExp> contents = (List<RegExp>) unary.content;
+          IntCharSet set = IntCharSet.allChars();
+          for (RegExp r : contents) {
+            RegExp1 n = checkPrimClass(r.normalise(m));
+            set.sub((IntCharSet) n.content);
+          }
+          return new RegExp1(sym.PRIMCLASS, set);
+        }
+
+      case sym.CCLASSOP:
+        unary = (RegExp1) this;
+        binary = (RegExp2) unary.content;
+        RegExp1 l = checkPrimClass(((RegExp) binary.r1).normalise(m));
+        IntCharSet setl = (IntCharSet) l.content;
+        RegExp1 r = checkPrimClass(((RegExp) binary.r2).normalise(m));
+        IntCharSet setr = (IntCharSet) r.content;
+        IntCharSet set = performClassOp(binary.type, setl, setr, this);
+        return new RegExp1(sym.PRIMCLASS, set);
+
+      case sym.MACROUSE:
+        unary = (RegExp1) this;
+        return m.getDefinition((String) unary.content).normalise(m);
+    }
+
+    throw new RegExpException(this);
+  }
+
+  /**
+   * Make character class partitions based on the classes mentioned in this regexp.
+   *
+   * <p>Assumption: regexp is normalised.
+   */
+  public final void makeCCLs(CharClasses c, boolean caseless) {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch (type) {
+      case sym.BAR:
+      case sym.CONCAT:
+        binary = (RegExp2) this;
+        binary.r1.makeCCLs(c, caseless);
+        binary.r2.makeCCLs(c, caseless);
+        return;
+
+      case sym.STAR:
+      case sym.PLUS:
+      case sym.QUESTION:
+      case sym.BANG:
+      case sym.TILDE:
+        unary = (RegExp1) this;
+        content = (RegExp) unary.content;
+        content.makeCCLs(c, caseless);
+        return;
+
+      case sym.STRING:
+      case sym.STRING_I:
+      case sym.CHAR:
+      case sym.CHAR_I:
+        return;
+
+      case sym.PRIMCLASS:
+        unary = (RegExp1) this;
+        IntCharSet set = (IntCharSet) unary.content;
+        c.makeClass(set, caseless);
+        return;
+    }
+
+    throw new CharClassException("makeCCLs: unexpected regexp " + this);
+  }
+
+  /**
+   * Creates a new regexp that matches the reverse text of this one.
    *
    * @return the reverse regexp
-   * @param macros a {@link Macros} object.
    */
-  public final RegExp rev(Macros macros) {
+  public final RegExp rev() {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -274,35 +426,35 @@ public class RegExp {
     switch (type) {
       case sym.BAR:
         binary = (RegExp2) this;
-        return new RegExp2(sym.BAR, binary.r1.rev(macros), binary.r2.rev(macros));
+        return new RegExp2(sym.BAR, binary.r1.rev(), binary.r2.rev());
 
       case sym.CONCAT:
         binary = (RegExp2) this;
-        return new RegExp2(sym.CONCAT, binary.r2.rev(macros), binary.r1.rev(macros));
+        return new RegExp2(sym.CONCAT, binary.r2.rev(), binary.r1.rev());
 
       case sym.STAR:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.STAR, content.rev(macros));
+        return new RegExp1(sym.STAR, content.rev());
 
       case sym.PLUS:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.PLUS, content.rev(macros));
+        return new RegExp1(sym.PLUS, content.rev());
 
       case sym.QUESTION:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.QUESTION, content.rev(macros));
+        return new RegExp1(sym.QUESTION, content.rev());
 
       case sym.BANG:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(sym.BANG, content.rev(macros));
+        return new RegExp1(sym.BANG, content.rev());
 
       case sym.TILDE:
-        content = resolveTilde(macros);
-        return content.rev(macros);
+        content = resolveTilde();
+        return content.rev();
 
       case sym.STRING:
       case sym.STRING_I:
@@ -311,16 +463,11 @@ public class RegExp {
 
       case sym.CHAR:
       case sym.CHAR_I:
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
+      case sym.PRIMCLASS:
         unary = (RegExp1) this;
         return new RegExp1(unary.type, unary.content);
-
-      case sym.MACROUSE:
-        unary = (RegExp1) this;
-        return macros.getDefinition((String) unary.content).rev(macros);
     }
 
-    throw new Error("unknown regexp type " + type);
+    throw new RegExpException(this);
   }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
+import jflex.core.unicode.UnicodeProperties;
 
 /**
  * Character Classes.
@@ -26,7 +27,7 @@ public class CharClasses {
   private static final boolean DEBUG = false;
 
   /** the largest character that can be used in char classes */
-  public static final int maxChar = 0x10FFFF;
+  static final int maxChar = 0x10FFFF;
 
   /** the char classes */
   private List<IntCharSet> classes;
@@ -34,7 +35,8 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  public AbstractLexScan scanner; // nocommit - should be private
+  /** the @{link UnicodeProperties} the scanner used */
+  private UnicodeProperties unicodeProps;
 
   /**
    * Constructs a new CharClasses object.
@@ -65,9 +67,9 @@ public class CharClasses {
     }
 
     maxCharUsed = maxCharCode;
-    this.scanner = scanner;
+    this.unicodeProps = scanner.getUnicodeProperties();
     classes = new ArrayList<>();
-    classes.add(new IntCharSet(new Interval(0, maxCharCode)));
+    classes.add(IntCharSet.ofCharacterRange(0, maxCharCode));
   }
 
   /**
@@ -119,7 +121,9 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(IntCharSet set, boolean caseless) {
-    if (caseless) set = set.getCaseless(scanner.getUnicodeProperties());
+    set = IntCharSet.copyOf(set); // avoid destructively updating the original
+
+    if (caseless) set = set.getCaseless(unicodeProps);
 
     if (DEBUG) {
       Out.dump("makeClass(" + set + ")");
@@ -220,7 +224,7 @@ public class CharClasses {
    * @param singleChar character.
    */
   public void makeClass(int singleChar, boolean caseless) {
-    makeClass(new IntCharSet(singleChar), caseless);
+    makeClass(IntCharSet.ofCharacter(singleChar), caseless);
   }
 
   /**
@@ -249,7 +253,7 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClass(List<Interval> l, boolean caseless) {
-    makeClass(new IntCharSet(l), caseless);
+    makeClass(IntCharSet.of(l), caseless);
   }
 
   /**
@@ -266,14 +270,14 @@ public class CharClasses {
    * @param caseless if true upper/lower/title case are considered equivalent
    */
   public void makeClassNot(List<Interval> l, boolean caseless) {
-    makeClass(new IntCharSet(l), caseless);
+    makeClass(IntCharSet.of(l), caseless);
   }
 
   /**
    * Returns an array that contains the character class codes of all characters in the specified set
    * of input characters.
    */
-  private int[] getClassCodes(IntCharSet set, boolean negate) {
+  public int[] getClassCodes(IntCharSet set, boolean negate) {
 
     if (DEBUG) {
       Out.dump("getting class codes for " + set);
@@ -283,7 +287,7 @@ public class CharClasses {
     int size = classes.size();
 
     // [fixme: optimize]
-    int temp[] = new int[size];
+    int[] temp = new int[size];
     int length = 0;
 
     for (int i = 0; i < size; i++) {
@@ -301,33 +305,10 @@ public class CharClasses {
       }
     }
 
-    int result[] = new int[length];
+    int[] result = new int[length];
     System.arraycopy(temp, 0, result, 0, length);
 
     return result;
-  }
-
-  /**
-   * Returns an array that contains the character class codes of all characters in the specified set
-   * of input characters.
-   *
-   * @param intervalList a List of Intervals, the set of characters to get the class codes for
-   * @return an array with the class codes for intervalList
-   */
-  public int[] getClassCodes(List<Interval> intervalList) {
-    return getClassCodes(new IntCharSet(intervalList), false);
-  }
-
-  /**
-   * Returns an array that contains the character class codes of all characters that are
-   * <strong>not</strong> in the specified set of input characters.
-   *
-   * @param intervalList a List of Intervals, the complement of the set of characters to get the
-   *     class codes for
-   * @return an array with the class codes for the complement of intervalList
-   */
-  public int[] getNotClassCodes(List<Interval> intervalList) {
-    return getClassCodes(new IntCharSet(intervalList), true);
   }
 
   /**
@@ -386,5 +367,20 @@ public class CharClasses {
     }
 
     return result;
+  }
+
+  /**
+   * Brings the partitions into a canonical order such that objects that implement the same
+   * partitions but in different order become equal.
+   *
+   * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
+   * have different content. Different order will lead to different input assignments in the NFA and
+   * DFA phases and will make otherwise equal automata look distinct.
+   *
+   * <p>This is not needed for correctness, but it makes the comparison of output DFAs (e.g. in the
+   * test suite) for equivalence more robust.
+   */
+  public void normalise() {
+    classes.sort((s1, s2) -> s1.compareTo(s2));
   }
 }

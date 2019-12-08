@@ -1,0 +1,13 @@
+match: --A--
+action [17] { /* X */ }
+match: --X--
+action [18] { /* NCD */ }
+match: --B--
+action [18] { /* NCD */ }
+match: --C--
+action [17] { /* X */ }
+match: --D--
+action [20] { /* default */ }
+match: --X--
+action [18] { /* NCD */ }
+-1

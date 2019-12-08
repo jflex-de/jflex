@@ -9,8 +9,7 @@
 
 package jflex.core;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
@@ -30,14 +29,14 @@ public class SkeletonTest {
 
   @Test
   public void testReplace() {
-    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
+    assertThat(Skeleton.replace("bla ", "blub", "bla blub bla ")).isEqualTo("blubblub blub");
   }
 
   @Test
   public void testMakePrivate() {
     Skeleton.makePrivate();
     for (int i = 0; i < Skeleton.line.length; i++) {
-      assertEquals(Skeleton.line[i].indexOf("public"), -1);
+      assertThat(Skeleton.line[i]).doesNotContain("public");
     }
   }
 
@@ -59,8 +58,8 @@ public class SkeletonTest {
   }
 
   private void checkDefaultSkeleton() {
-    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
     Skeleton.readDefault();
-    assertEquals(Skeleton.line[3].indexOf("java.util.Stack"), -1);
+    assertThat(-1).isEqualTo(Skeleton.line[3].indexOf("java.util.Stack"));
   }
 }
