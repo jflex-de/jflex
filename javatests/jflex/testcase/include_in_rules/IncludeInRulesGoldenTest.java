@@ -18,11 +18,11 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-public class IncludeinrulesGoldenTest extends AbstractGoldenTest {
+public class IncludeInRulesGoldenTest extends AbstractGoldenTest {
 
   /** Creates a scanner conforming to the {@code IncludeInRules.flex} specification. */
-  private final ScannerFactory<Includeinrules> scannerFactory =
-      ScannerFactory.of(Includeinrules::new);
+  private final ScannerFactory<IncludeInRulesScanner> scannerFactory =
+      ScannerFactory.of(IncludeInRulesScanner::new);
 
   private File testRuntimeDir = new File("javatests/jflex/testcase/include_in_rules");
 
@@ -34,7 +34,7 @@ public class IncludeinrulesGoldenTest extends AbstractGoldenTest {
             new File(testRuntimeDir, "IncludeInRules-0.output"));
     compareSystemOutWith(golden);
 
-    Includeinrules scanner = scannerFactory.createScannerForFile(golden.inputFile);
+    IncludeInRulesScanner scanner = scannerFactory.createScannerForFile(golden.inputFile);
     while (!scanner.yyatEOF()) {
       System.out.println(scanner.yylex());
     }
