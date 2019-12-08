@@ -124,13 +124,13 @@ dec_int_id = [A-Za-z_][A-Za-z_0-9]*
        held in the string yytext which will get turned into an integer
        before returning */
     {dec_int_lit}      { System.out.print(yytext());
-                         return symbol(sym.NUMBER, new Integer(yytext())); }
+                         return symbol(sym.NUMBER, Integer.valueOf(yytext())); }
    
     /* If an identifier is found print it out, return the token ID
        that represents an identifier and the default value one that is
        given to all identifiers. */
     {dec_int_id}       { System.out.print(yytext());
-                         return symbol(sym.ID, new Integer(1));}
+                         return symbol(sym.ID, Integer.valueOf(1));}
    
     /* Don't do anything if whitespace is found */
     {WhiteSpace}       { /* just skip what was found, do nothing */ }   

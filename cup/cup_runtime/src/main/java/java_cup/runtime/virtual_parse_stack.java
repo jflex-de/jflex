@@ -90,7 +90,7 @@ public class virtual_parse_stack {
       real_next++;
 
       /* put the state number from the Symbol onto the virtual stack */
-      vstack.push(new Integer(stack_sym.parse_state));
+      vstack.push(Integer.valueOf(stack_sym.parse_state));
     }
 
   /*. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .*/
@@ -137,7 +137,7 @@ public class virtual_parse_stack {
   /** Push a state number onto the stack. */
   public void push(int state_num)
     {
-      vstack.push(new Integer(state_num));
+      vstack.push(Integer.valueOf(state_num));
     }
 
   /*-----------------------------------------------------------*/

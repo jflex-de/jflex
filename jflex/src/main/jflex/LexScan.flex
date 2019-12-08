@@ -383,7 +383,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
   {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP);
                                    return symbol(REPEAT,
-                                                 new Integer(yytext().trim().substring(1).trim()));
+                                                 Integer.valueOf(yytext().trim().substring(1).trim()));
                                  }
 
   {WSPNL}+ "{"    { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(REGEXPEND); }
@@ -434,7 +434,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 <REPEATEXP> {
   "}"          { yybegin(REGEXP); return symbol(RBRACE); }
-  "," {WSP}* {Number}  { return symbol(REPEAT, new Integer(yytext().substring(1).trim())); }
+  "," {WSP}* {Number}  { return symbol(REPEAT, Integer.valueOf(yytext().substring(1).trim())); }
   {WSP}+       { }
 
   <<EOF>>                 { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
