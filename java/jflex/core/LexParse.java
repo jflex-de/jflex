@@ -2073,6 +2073,7 @@ class CUP$LexParse$actions {
 		
                        if (c2 < c1) {
                          syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
+                         c2 = c1; // avoid violating Interval invariant; error is logged.
                        }
                        RESULT = primClass(c1, c2);
                      
