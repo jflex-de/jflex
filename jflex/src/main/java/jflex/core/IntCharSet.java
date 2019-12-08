@@ -369,7 +369,8 @@ public final class IntCharSet implements Iterable<Integer> {
       Out.dump("this  : " + this);
       Out.dump("other : " + set);
       assert invariants();
-      assert set != null && set.invariants();
+      // not asserting non-null, because we'll already get an exception and it confuses lgtm.com
+      assert set.invariants();
       assert isSubSet(set, this);
     }
 
