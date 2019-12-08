@@ -35,6 +35,10 @@ class Unicode_0_1 {
   /** Highest Unicode code point. */
   public static final int maximumCodePoint = 0x1234;
 
+  public static final String[] propertyValues = {
+    "general"
+  };
+
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 4;
   // TODO Change to array of string?
