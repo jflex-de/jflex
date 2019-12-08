@@ -9,7 +9,7 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * tests include files, i.e. <a href="https://github.com/jflex-de/jflex/issues/117">yyPushStream and
+ * tests include files, i.e. <a href="https://github.com/jflex-de/jflex/issues/51">yyPushStream and
  * yyPopStream bug</a>
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
