@@ -9,6 +9,20 @@ java_test(
 )
 
 java_test(
+    name = "IntCharSetProperties",
+    srcs = [
+        "IntCharSetGen.java",
+        "IntCharSetProperties.java",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/chars",
+        "//jflex/src/main/java/jflex/core",
+        "//third_party/com/google/truth",
+        "//third_party/com/pholser/quickcheck",
+    ],
+)
+
+java_test(
     name = "IntCharSetTest",
     srcs = ["IntCharSetTest.java"],
     deps = [
