@@ -2,8 +2,9 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
-# macro
+# macro-exp
 
 jflex(
     name = "gen_macro_scanner",
@@ -24,9 +25,9 @@ java_library(
 )
 
 java_test(
-    name = "MacroGoldenTest",
+    name = "MacroRegexpNegationGoldenTest",
     srcs = [
-        "MacroGoldenTest.java",
+        "MacroRegexpNegationGoldenTest.java",
     ],
     data = [
     ],
@@ -37,5 +38,20 @@ java_test(
         "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
+    ],
+)
+
+# macro-exp2
+jflex_testsuite(
+    name = "MacroExpFailureTest",
+    srcs = [
+        "MacroExpFailureTest.java",
+    ],
+    data = [
+        "macro2.flex",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+        "//third_party/com/google/guava",
     ],
 )
