@@ -2,7 +2,7 @@
 
 licenses(["notice"])  # zlib/libpng License
 
-exports_files("license.txt")
+exports_files(["license.txt"])
 
 java_library(
     name = "cup2",
