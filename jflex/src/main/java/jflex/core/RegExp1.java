@@ -40,30 +40,31 @@ public class RegExp1 extends RegExp {
     this.content = content;
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Returns a String-representation of this regular expression with the specified indentation.
-   */
+  @Override
   public String print(String tab) {
     if (content instanceof RegExp) {
       return tab
           + "type = "
-          + type
+          + typeName()
           + Out.NL
           + tab
           + "content :"
           + Out.NL
           + ((RegExp) content).print(tab + "  ");
     } else
-      return tab + "type = " + type + Out.NL + tab + "content :" + Out.NL + tab + "  " + content;
+      return tab
+          + "type = "
+          + typeName()
+          + Out.NL
+          + tab
+          + "content :"
+          + Out.NL
+          + tab
+          + "  "
+          + content;
   }
 
-  /**
-   * Returns a String-representation of this regular expression
-   *
-   * @return a {@link java.lang.String} object.
-   */
+  @Override
   public String toString() {
     return print("");
   }

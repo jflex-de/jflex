@@ -90,9 +90,10 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Loads a class by name. */
-  public synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+  public synchronized Class<?> loadClass(String name, boolean resolve)
+      throws ClassNotFoundException {
 
-    Class c;
+    Class<?> c;
 
     // try to delegate to parent/system class loader
     try {
@@ -183,7 +184,10 @@ public class CustomClassLoader extends ClassLoader {
     try {
       zipFile = new ZipFile(new File(path));
       entry = zipFile.getEntry(fileName);
-      if (entry == null) return null;
+      if (entry == null) {
+        zipFile.close();
+        return null;
+      }
       size = (int) entry.getSize();
     } catch (IOException io) {
       return null;
@@ -192,7 +196,10 @@ public class CustomClassLoader extends ClassLoader {
     InputStream stream = null;
     try {
       stream = zipFile.getInputStream(entry);
-      if (stream == null) return null;
+      if (stream == null) {
+        zipFile.close();
+        return null;
+      }
       byte[] data = new byte[size];
       int pos = 0;
       while (pos < size) {

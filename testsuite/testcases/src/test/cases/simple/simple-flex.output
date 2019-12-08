@@ -1,4 +1,0 @@
-
-Warning in file "src/test/cases/simple/simple.flex" (line 81): 
-Expression matches the empty string, which may lead to non-termination.
-  {COMMENT_TEXT} { }

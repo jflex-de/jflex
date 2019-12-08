@@ -9,10 +9,13 @@
 
 package jflex.generator;
 
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Some unit tests for the jflex Emitter class
@@ -20,28 +23,20 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class EmitterTest extends TestCase {
+public class EmitterTest {
 
-  /**
-   * Constructor for EmitterTest.
-   *
-   * @param name the test name
-   */
-  public EmitterTest(String name) {
-    super(name);
-  }
-
+  @Test
   public void testJavadoc() {
     StringBuilder usercode = new StringBuilder("/* some *** comment */");
-    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.append("import bla;  /** javadoc /* */  ");
-    assertTrue(jflex.generator.Emitter.endsWithJavadoc(usercode));
+    assertThat(Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.append("bla");
-    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.setLength(usercode.length() - "bla".length());
     String nonJavadocComment = "\n/* blah */\n";
     usercode.append(nonJavadocComment);
-    assertTrue(!jflex.generator.Emitter.endsWithJavadoc(usercode));
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
     usercode.setLength(usercode.length() - nonJavadocComment.length());
     List<String> annotations =
         Arrays.asList(
@@ -72,11 +67,12 @@ public class EmitterTest extends TestCase {
     Collections.shuffle(annotations);
     for (String annotation : annotations) {
       usercode.append("\n  ").append(annotation);
-      assertTrue(
-          "Problematic annotation: '" + annotation + "' in '" + usercode.toString() + "'",
-          jflex.generator.Emitter.endsWithJavadoc(usercode));
+      assertWithMessage(
+              "Problematic annotation: '" + annotation + "' in '" + usercode.toString() + "'")
+          .that(Emitter.endsWithJavadoc(usercode))
+          .isTrue();
     }
     usercode.append("\n").append(nonJavadocComment);
-    assertTrue(!Emitter.endsWithJavadoc(usercode));
+    assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
   }
 }

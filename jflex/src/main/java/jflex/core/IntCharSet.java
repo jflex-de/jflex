@@ -9,6 +9,9 @@
 
 package jflex.core;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,54 +19,86 @@ import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
 
 /**
- * Char Set implemented with intervals.
+ * Mutable Char Set implemented with intervals.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-// FIXME: optimizations possible
-public final class IntCharSet {
+public final class IntCharSet implements Comparable<IntCharSet> {
 
   private static final boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals = new ArrayList<>();
+
+  /** for iterating over the char set */
   private int pos;
 
-  /** Creates an empty char set. */
+  /** Constructs an empty char set. */
   public IntCharSet() {}
 
-  /** Creates a char set that contains only the given character. */
-  public IntCharSet(int c) {
-    this(new Interval(c, c));
-  }
-
   /** Creates a charset that contains only one interval. */
-  public IntCharSet(Interval interval) {
-    intervals.add(interval);
+  public static IntCharSet of(Interval interval) {
+    IntCharSet charset = new IntCharSet();
+    charset.intervals.add(interval);
+    return charset;
   }
 
   /**
-   * Constructor for IntCharSet.
+   * Creates a charset that contains the given intervals.
    *
-   * @param chars a {@link java.util.List} object.
+   * <p>The intervals must be sorted and disjointed. Use {@link #add(Interval)} otherwise.
    */
-  public IntCharSet(List<Interval> chars) {
-    int size = chars.size();
-    intervals = new ArrayList<>(size);
-
-    for (Interval interval : chars) add(interval);
+  public static IntCharSet of(List<Interval> intervals) {
+    IntCharSet charset = new IntCharSet();
+    charset.intervals.addAll(intervals);
+    return charset;
   }
 
   /**
-   * returns the index of the interval that contains the character c, -1 if there is no such
-   * interval
+   * Creates a charset that contains only one interval, given by its {@code start} and {@code end}
+   * values.
+   */
+  public static IntCharSet ofCharacterRange(int start, int end) {
+    return of(new Interval(start, end));
+  }
+
+  /** Creates a char set that contains only the given character. */
+  public static IntCharSet ofCharacter(int singleChar) {
+    return of(Interval.ofCharacter(singleChar));
+  }
+
+  /**
+   * Creates the set of all characters.
    *
-   * @prec: true
-   * @post: -1 <= return < intervals.size() && (return > -1 --> intervals[return].contains(c))
-   * @param c the character
-   * @return the index of the enclosing interval, -1 if no such interval
+   * @return a new IntCharSet that contains all characters.
+   */
+  static IntCharSet allChars() {
+    return IntCharSet.ofCharacterRange(0, CharClasses.maxChar);
+  }
+
+  /**
+   * The set of new-line characters.
+   *
+   * @return a new IntCharSet that contains all characters that are considered a new-line char in
+   *     Java.
+   */
+  public static IntCharSet nlChars() {
+    IntCharSet set = new IntCharSet();
+    set.intervals.add(new Interval('\n', '\r'));
+    set.intervals.add(Interval.ofCharacter('\u0085'));
+    set.intervals.add(new Interval('\u2028', '\u2029'));
+    return set;
+  }
+
+  /**
+   * Returns the index of the interval that contains the character {@code c}.
+   *
+   * <p>Binary search which interval contains the given character.
+   *
+   * @param c the character to search for
+   * @return the index of the enclosing interval, or -1 if no such interval
    */
   private int indexOf(int c) {
     int start = 0;
@@ -73,7 +108,9 @@ public final class IntCharSet {
       int check = (start + end) / 2;
       Interval i = intervals.get(check);
 
-      if (start == end) return i.contains(c) ? start : -1;
+      if (start == end) {
+        return i.contains(c) ? start : -1;
+      }
 
       if (c < i.start) {
         end = check - 1;
@@ -91,41 +128,39 @@ public final class IntCharSet {
     return -1;
   }
 
-  /**
-   * add.
-   *
-   * @param set a {@link IntCharSet} object.
-   * @return a {@link IntCharSet} object.
-   */
-  public IntCharSet add(IntCharSet set) {
-    for (Interval interval : set.intervals) add(interval);
-    return this;
+  /** Merges the given set into this one. */
+  public void add(IntCharSet set) {
+    for (Interval interval : set.intervals) {
+      add(interval);
+    }
   }
 
-  /**
-   * add.
-   *
-   * @param interval a {@link jflex.chars.Interval} object.
-   */
   public void add(Interval interval) {
-
     int size = intervals.size();
 
     for (int i = 0; i < size; i++) {
       Interval elem = intervals.get(i);
 
-      if (elem.end + 1 < interval.start) continue;
+      if (elem.end + 1 < interval.start) {
+        continue;
+      }
 
-      if (elem.contains(interval)) return;
-
-      if (elem.start > interval.end + 1) {
-        intervals.add(i, new Interval(interval));
+      if (elem.contains(interval)) {
         return;
       }
 
-      if (interval.start < elem.start) elem.start = interval.start;
+      if (elem.start > interval.end + 1) {
+        intervals.add(i, Interval.copyOf(interval));
+        return;
+      }
 
-      if (interval.end <= elem.end) return;
+      if (interval.start < elem.start) {
+        elem.start = interval.start;
+      }
+
+      if (interval.end <= elem.end) {
+        return;
+      }
 
       elem.end = interval.end;
 
@@ -133,7 +168,9 @@ public final class IntCharSet {
       // delete all x with x.contains( interval.end )
       while (i < size) {
         Interval x = intervals.get(i);
-        if (x.start > elem.end + 1) return;
+        if (x.start > elem.end + 1) {
+          return;
+        }
 
         if (x.end > elem.end) {
           elem.end = x.end;
@@ -144,69 +181,45 @@ public final class IntCharSet {
       return;
     }
 
-    intervals.add(new Interval(interval));
+    intervals.add(Interval.copyOf(interval));
   }
 
   /**
-   * add.
+   * Adds a single character.
    *
-   * @param c a int.
+   * @param c Character to add.
    */
   public void add(int c) {
-    int size = intervals.size();
-
-    for (int i = 0; i < size; i++) {
-      Interval elem = intervals.get(i);
-      if (elem.end + 1 < c) continue;
-
-      if (elem.contains(c)) return; // already there, nothing to do
-
-      // assert(elem.end+1 >= c && (elem.start > c || elem.end < c));
-
-      if (elem.start > c + 1) {
-        intervals.add(i, new Interval(c, c));
-        return;
-      }
-
-      // assert(elem.end+1 >= c && elem.start <= c+1 && (elem.start > c || elem.end < c));
-
-      if (c + 1 == elem.start) {
-        elem.start = c;
-        return;
-      }
-
-      // assert(elem.end+1 == c);
-      elem.end = c;
-
-      // merge with next interval if it contains c
-      if (i + 1 >= size) return;
-      Interval x = intervals.get(i + 1);
-      if (x.start <= c + 1) {
-        elem.end = x.end;
-        intervals.remove(i + 1);
-      }
-      return;
-    }
-
-    // end reached but nothing found -> append at end
-    intervals.add(new Interval(c, c));
+    add(Interval.ofCharacter(c));
   }
 
   /**
-   * contains.
+   * Returns whether this set contains a given character.
    *
-   * @param singleChar a int.
-   * @return a boolean.
+   * @param singleChar a single character (int).
+   * @return true iff singleChar is contained in the set.
    */
   public boolean contains(int singleChar) {
     return indexOf(singleChar) >= 0;
   }
 
   /**
-   * {@inheritDoc}
+   * Check whether this set contains a another set.
    *
-   * <p>o instanceof Interval
+   * @param other an IntCharSet.
+   * @return true iff all characters of {@code other} are contained in this set.
    */
+  public boolean contains(IntCharSet other) {
+    // treat null as empty set
+    if (other == null) {
+      return true;
+    }
+    IntCharSet set = IntCharSet.copyOf(other);
+    IntCharSet inter = this.and(other);
+    set.sub(inter);
+    return !set.containsElements();
+  }
+
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof IntCharSet)) {
@@ -227,15 +240,6 @@ public final class IntCharSet {
     return h;
   }
 
-  private int min(int a, int b) {
-    return a <= b ? a : b;
-  }
-
-  private int max(int a, int b) {
-    return a >= b ? a : b;
-  }
-
-  /* intersection */
   /**
    * Intersects two sets.
    *
@@ -284,7 +288,6 @@ public final class IntCharSet {
     return result;
   }
 
-  /* complement */
   /* prec: this.contains(set), set != null */
   /**
    * Returns the relative complement of this set relative to the provided set.
@@ -371,7 +374,7 @@ public final class IntCharSet {
   }
 
   /**
-   * Returns the number of Intervals.
+   * Returns the number of intervals.
    *
    * @return number of intervals.
    */
@@ -395,7 +398,9 @@ public final class IntCharSet {
    * @return the next {@link jflex.chars.Interval}.
    */
   public Interval getNext() {
-    if (pos == intervals.size()) pos = 0;
+    if (pos == intervals.size()) {
+      pos = 0;
+    }
     return intervals.get(pos++);
   }
 
@@ -409,15 +414,15 @@ public final class IntCharSet {
    *     classes.
    * @return a caseless copy of this set
    */
-  public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
-    IntCharSet n = copy();
+  IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
+    IntCharSet n = copyOf(this);
 
-    int size = intervals.size();
-    for (int i = 0; i < size; i++) {
-      Interval elem = intervals.get(i);
+    for (Interval elem : intervals) {
       for (int c = elem.start; c <= elem.end; c++) {
         IntCharSet equivalenceClass = unicodeProperties.getCaselessMatches(c);
-        if (null != equivalenceClass) n.add(equivalenceClass);
+        if (null != equivalenceClass) {
+          n.add(equivalenceClass);
+        }
       }
     }
     return n;
@@ -431,7 +436,9 @@ public final class IntCharSet {
   public String toString() {
     StringBuilder result = new StringBuilder("{ ");
 
-    for (Interval interval : intervals) result.append(interval);
+    for (Interval interval : intervals) {
+      result.append(interval);
+    }
 
     result.append(" }");
 
@@ -439,13 +446,54 @@ public final class IntCharSet {
   }
 
   /**
-   * Return a (deep) copy of this char set
+   * Creates a IntCharSet from an existing IntCharSet.
    *
-   * @return the copy
+   * @return a (deep) copy of the char set.
    */
-  public IntCharSet copy() {
+  public static IntCharSet copyOf(IntCharSet intCharSet) {
     IntCharSet result = new IntCharSet();
-    for (Interval interval : intervals) result.intervals.add(interval.copy());
+    for (Interval interval : intCharSet.intervals) {
+      result.intervals.add(Interval.copyOf(interval));
+    }
     return result;
+  }
+
+  /**
+   * Compare this IntCharSet to another IntCharSet.
+   *
+   * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
+   *
+   * <p>This method does *not* implement subset order, but instead compares the smallest elements of
+   * the two sets, with the empty set smaller than any other set. This is to make the order total
+   * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
+   * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
+   * have the same smallest element but are not equal.
+   *
+   * @param o the IntCharSet to compare to
+   * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
+   *     smallest element of this set, and +1 if it is larger.
+   */
+  @Override
+  public int compareTo(IntCharSet o) {
+    if (o == null) {
+      throw new NullPointerException();
+    }
+
+    if (this.equals(o)) {
+      return 0;
+    }
+
+    if (!this.containsElements()) {
+      return -1;
+    }
+    if (!o.containsElements()) {
+      return 1;
+    }
+
+    if (this.intervals.get(0).start < o.intervals.get(0).start) {
+      return -1;
+    } else {
+      return 1;
+    }
   }
 }

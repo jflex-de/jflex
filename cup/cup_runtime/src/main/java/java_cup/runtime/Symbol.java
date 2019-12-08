@@ -34,7 +34,10 @@ public class Symbol {
     public Symbol(int id, Symbol left, Symbol right){
         this(id,left.left,right.right);
     }
-/*******************************
+    public Symbol(int id, Symbol left, Object o){
+        this(id,left.right,left.right,o);
+    }
+ /*******************************
   Constructor for l,r values
  *******************************/
 

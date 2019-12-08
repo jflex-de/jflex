@@ -1,10 +1,9 @@
-# This incompatible change was introduced in Bazel 0.26
-# https://github.com/bazelbuild/bazel/issues/5817
-# bazel_pandoc needs to update 
-# https://github.com/ProdriveTechnologies/bazel-pandoc/issues/6
-build --incompatible_depset_union=false
-
 test --test_output=errors
+
+# https://github.com/bazelbuild/bazel/issues/6450
+# test --combined_report=lcov
+# test --coverage_report_generator="@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main"
+
 
 # http://errorprone.info/bugpatterns
 # To avoid bugs in the code
@@ -245,7 +244,8 @@ build --javacopt "-Xep:ThreadLocalUsage:WARN"
 build --javacopt "-Xep:ThreadPriorityCheck:OFF"
 build --javacopt "-Xep:ThreeLetterTimeZoneID:WARN"
 build --javacopt "-Xep:ToStringReturnsNull:WARN"
-build --javacopt "-Xep:TruthAssertExpected:WARN"
+# Raised to Error, as this indicates the assertion is not on the subject.
+build --javacopt "-Xep:TruthAssertExpected:ERROR"
 build --javacopt "-Xep:TruthConstantAsserts:WARN"
 build --javacopt "-Xep:TruthIncompatibleType:WARN"
 build --javacopt "-Xep:TypeNameShadowing:WARN"
@@ -346,7 +346,8 @@ build --javacopt "-Xep:EmptySetMultibindingContributions:WARN"
 build --javacopt "-Xep:ExpectedExceptionRefactoring:WARN"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:FieldCanBeFinal:OFF"
-build --javacopt "-Xep:FieldMissingNullable:WARN"
+# TOD(#469) We don't have a nullness checker anyway.
+build --javacopt "-Xep:FieldMissingNullable:OFF"
 build --javacopt "-Xep:ImmutableRefactoring:WARN"
 build --javacopt "-Xep:LambdaFunctionalInterface:WARN"
 build --javacopt "-Xep:MethodCanBeStatic:WARN"

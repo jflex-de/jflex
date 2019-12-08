@@ -82,7 +82,7 @@ def unicode_deps():
     ucd_version(name = "ucd_3_0_0", version = "3.0-Update", files = {
         "Blocks-3.txt": "b574340ba81a64c2eee69ef37eacd422258a67e6899c068f98f3165ef60e31ea",
         "LineBreak-5.txt": "a8f29019410364458c30c5a8dad41f9748d07280027eeb808bc4cc7f7c1abc73",
-                        })
+    })
     ucd_version(name = "ucd_3_0_1", version = "3.0-Update1", files = {
         "PropList-3.0.1.txt": "909eef4adbeddbdddcd9487c856fe8cdbb8912aa8eb315ed7885b6ef65f4dc4c",
         "UnicodeData-3.0.1.txt": "2aea1fc7d7e64d792fcbd56721fef104a153e2783ab28bcaeb171d9742dd5a24",

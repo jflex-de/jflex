@@ -1,13 +1,19 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /** A small utility class. */
-// TODO: use resource bundle
 class Utility {
 
-  private static final String errorMsg[] = {
-    "Error: Unmatched end-of-comment punctuation.",
-    "Error: Unmatched start-of-comment punctuation.",
-    "Error: Unclosed string.",
-    "Error: Illegal character."
-  };
+  private Utility() {}
+
+  private static final List<String> ERROR_MESSAGES =
+      Collections.unmodifiableList(
+          Arrays.asList(
+              "Error: Unmatched end-of-comment punctuation.",
+              "Error: Unmatched start-of-comment punctuation.",
+              "Error: Unclosed string.",
+              "Error: Illegal character."));
 
   public static final int E_ENDCOMMENT = 0;
   public static final int E_STARTCOMMENT = 1;
@@ -15,6 +21,6 @@ class Utility {
   public static final int E_UNMATCHED = 3;
 
   public static void error(int code) {
-    System.err.println(errorMsg[code]);
+    System.err.println(ERROR_MESSAGES.get(code));
   }
 }

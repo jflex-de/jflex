@@ -19,6 +19,7 @@ import jflex.base.Build;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.StdOutWriter;
 import jflex.performance.Timer;
 
 /**
@@ -36,6 +37,8 @@ import jflex.performance.Timer;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class Out {
+
+  private Out() {}
 
   /** platform dependent newline sequence */
   public static final String NL = System.getProperty("line.separator");
@@ -74,9 +77,9 @@ public final class Out {
    * @param message the message to be printed
    * @param time elapsed time
    */
-  public static void time(jflex.l10n.ErrorMessages message, Timer time) {
+  public static void time(ErrorMessages.ErrorMessage message, Timer time) {
     if (Options.time) {
-      String msg = jflex.l10n.ErrorMessages.get(message, time.toString());
+      String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
     }
   }
@@ -107,9 +110,9 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(jflex.l10n.ErrorMessages message, String data) {
+  public static void println(ErrorMessages.ErrorMessage message, String data) {
     if (Options.verbose) {
-      out.println(jflex.l10n.ErrorMessages.get(message, data));
+      out.println(ErrorMessages.get(message, data));
     }
   }
 
@@ -119,9 +122,9 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(jflex.l10n.ErrorMessages message, int data) {
+  public static void println(ErrorMessages.ErrorMessage message, int data) {
     if (Options.verbose) {
-      out.println(jflex.l10n.ErrorMessages.get(message, data));
+      out.println(ErrorMessages.get(message, data));
     }
   }
 
@@ -154,8 +157,7 @@ public final class Out {
    * All parts of JFlex, that want to provide dump information should use this method for their
    * output.
    *
-   * @message the message to be printed
-   * @param message a {@link java.lang.String} object.
+   * @param message the message to be printed
    */
   public static void dump(String message) {
     if (Options.dump) {
@@ -166,7 +168,7 @@ public final class Out {
   /**
    * All parts of JFlex, that want to report error messages should use this method for their output.
    *
-   * @message the message to be printed
+   * @param message the message to be printed
    */
   private static void err(String message) {
     out.println(message);
@@ -212,9 +214,9 @@ public final class Out {
    * print a warning message without line information
    *
    * @param message code of the warning message
-   * @see jflex.l10n.ErrorMessages
+   * @see ErrorMessages
    */
-  public static void warning(jflex.l10n.ErrorMessages message) {
+  public static void warning(ErrorMessages.ErrorMessage message) {
     warning(message, 0);
   }
 
@@ -223,15 +225,15 @@ public final class Out {
    *
    * @param message code of the warning message
    * @param line the line information
-   * @see jflex.l10n.ErrorMessages
+   * @see ErrorMessages
    */
-  public static void warning(jflex.l10n.ErrorMessages message, int line) {
+  public static void warning(ErrorMessages.ErrorMessage message, int line) {
     warnings++;
 
     String msg = NL + "Warning";
     if (line > 0) msg = msg + " in line " + (line + 1);
 
-    err(msg + ": " + jflex.l10n.ErrorMessages.get(message));
+    err(msg + ": " + ErrorMessages.get(message));
   }
 
   /**
@@ -242,14 +244,14 @@ public final class Out {
    * @param line the line number of the position
    * @param column the column of the position
    */
-  public static void warning(File file, jflex.l10n.ErrorMessages message, int line, int column) {
+  public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
     if (line >= 0) msg = msg + " (line " + (line + 1) + ")";
 
     try {
-      err(msg + ": " + NL + jflex.l10n.ErrorMessages.get(message));
+      err(msg + ": " + NL + ErrorMessages.get(message));
     } catch (ArrayIndexOutOfBoundsException e) {
       err(msg);
     }
@@ -276,11 +278,11 @@ public final class Out {
    * print error message (code)
    *
    * @param message the code of the error message
-   * @see jflex.l10n.ErrorMessages
+   * @see ErrorMessages
    */
-  public static void error(jflex.l10n.ErrorMessages message) {
+  public static void error(ErrorMessages.ErrorMessage message) {
     errors++;
-    err(NL + "Error: " + jflex.l10n.ErrorMessages.get(message));
+    err(NL + "Error: " + ErrorMessages.get(message));
   }
 
   /**
@@ -288,11 +290,11 @@ public final class Out {
    *
    * @param data data to insert into the message
    * @param message the code of the error message
-   * @see jflex.l10n.ErrorMessages
+   * @see ErrorMessages
    */
-  public static void error(jflex.l10n.ErrorMessages message, String data) {
+  public static void error(ErrorMessages.ErrorMessage message, String data) {
     errors++;
-    err(NL + "Error: " + jflex.l10n.ErrorMessages.get(message, data));
+    err(NL + "Error: " + ErrorMessages.get(message, data));
   }
 
   /**
@@ -301,9 +303,9 @@ public final class Out {
    * @param message the code of the error message
    * @param file the file it occurred for
    */
-  public static void error(jflex.l10n.ErrorMessages message, File file) {
+  public static void error(ErrorMessages.ErrorMessage message, File file) {
     errors++;
-    err(NL + "Error: " + jflex.l10n.ErrorMessages.get(message) + " (" + file + ")");
+    err(NL + "Error: " + ErrorMessages.get(message) + " (" + file + ")");
   }
 
   /**
@@ -314,7 +316,7 @@ public final class Out {
    * @param line the line number of error position
    * @param column the column of error position
    */
-  public static void error(File file, jflex.l10n.ErrorMessages message, int line, int column) {
+  public static void error(File file, ErrorMessages.ErrorMessage message, int line, int column) {
 
     String msg = NL + "Error";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -379,7 +381,7 @@ public final class Out {
    *
    * @param file the file to read
    * @param line the line number to get
-   * @throw IOException if any error occurs
+   * @throws IOException if any error occurs
    */
   private static String getLine(File file, int line) throws IOException {
     BufferedReader reader = new BufferedReader(new FileReader(file));
