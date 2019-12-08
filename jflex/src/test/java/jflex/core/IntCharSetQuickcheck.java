@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
  * @see IntCharSet
  */
 @RunWith(JUnitQuickcheck.class)
-public class IntCharSetProperties {
+public class IntCharSetQuickcheck {
 
   @Property
   public void addIsUnion(IntCharSet s1, IntCharSet s2) {
