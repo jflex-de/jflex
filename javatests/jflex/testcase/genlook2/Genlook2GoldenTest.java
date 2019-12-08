@@ -9,8 +9,9 @@ import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * test that zzFin is properly updated when reallocating zzBuffer: bugs
- * <http://sourceforge.net/p/jflex/bugs/118> and <http://sourceforge.net/p/jflex/bugs/110>
+ * test that zzFin is properly updated when reallocating zzBuffer: bugs <a
+ * href="http://sourceforge.net/p/jflex/bugs/118">#118</a> and <a
+ * href="http://sourceforge.net/p/jflex/bugs/110">#110</a>
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
