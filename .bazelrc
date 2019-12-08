@@ -10,6 +10,8 @@ test --test_output=errors
 # P1 Fix the errors and bump from :WARN to :ERROR
 # P2 Fix the warnings and bump from :OFF to :WARN
 build --javacopt "-XepDisableWarningsInGeneratedCode"
+# cup doesn't add the @Generated annotation and has violations such as ClassCanBeStatic
+build --javacopt "-XepExcludedPaths:.*/bazel-out/.*/(?:jflex/LexParse.java|jflex/examples/cup-java-minijava/parser.java)"
 
 # On by default : ERROR
 build --javacopt "-Xep:ArrayEquals:ERROR"
@@ -148,8 +150,7 @@ build --javacopt "-Xep:CanonicalDuration:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:CatchAndPrintStackTrace:OFF"
 build --javacopt "-Xep:CatchFail:WARN"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:ClassCanBeStatic:WARN"
+build --javacopt "-Xep:ClassCanBeStatic:ERROR"
 build --javacopt "-Xep:ClassNewInstance:WARN"
 build --javacopt "-Xep:CloseableProvides:ERROR"
 build --javacopt "-Xep:CollectionToArraySafeParameter:ERROR"
