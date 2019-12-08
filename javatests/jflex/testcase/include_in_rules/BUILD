@@ -6,16 +6,17 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 # IncludeInRules
 
 jflex(
-    name = "gen_IncludeInRules_scanner",
+    name = "gen_scanner",
     srcs = ["IncludeInRules.flex"],
+    data = ["extra-jflex-rules.inc.jflex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Includeinrules.java"],
+    outputs = ["IncludeInRulesScanner.java"],
 )
 
 java_library(
-    name = "IncludeInRules_scanner",
+    name = "IncludeInRulesScanner",
     srcs = [
-        ":gen_IncludeInRules_scanner",
+        ":gen_scanner",
     ],
     deps = [
         "//java/jflex/testing/testsuite/golden",
@@ -24,16 +25,16 @@ java_library(
 )
 
 java_test(
-    name = "IncludeinrulesGoldenTest",
+    name = "IncludeInRulesGoldenTest",
     srcs = [
-        "IncludeinrulesGoldenTest.java",
+        "IncludeInRulesGoldenTest.java",
     ],
     data = [
         "IncludeInRules-0.input",
         "IncludeInRules-0.output",
     ],
     deps = [
-        ":IncludeInRules_scanner",
+        ":IncludeInRulesScanner",
         "//java/jflex/testing/diff",
         "//java/jflex/testing/testsuite/golden",
         "//java/jflex/util/scanner:scanner_factory",

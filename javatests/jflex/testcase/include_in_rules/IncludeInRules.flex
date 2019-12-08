@@ -4,7 +4,7 @@ package jflex.testcase.include_in_rules;
 
 %unicode
 %public
-%class IncludeInRules
+%class IncludeInRulesScanner
 %type int
 
 %debug 
@@ -12,7 +12,7 @@ package jflex.testcase.include_in_rules;
 %%
 
 "abc" { }
-%include extra.jflex-rules
+%include extra-jflex-rules.inc.jflex
 "def" { }
 
 [^] { }
