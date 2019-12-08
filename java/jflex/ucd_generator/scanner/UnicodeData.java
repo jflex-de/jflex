@@ -203,7 +203,9 @@ public abstract class UnicodeData {
     }
 
     private CodepointRangeSet createBlankSet() {
-      return CodepointRangeSet.builder().addAll(mPropertyValueIntervals.get("whitespace")).build();
+      return CodepointRangeSet.builder()
+          .addAll(getIntervals("Zs").orElse(mPropertyValueIntervals.get("whitespace")))
+          .build();
     }
 
     private Optional<List<MutableCodepointRange>> getIntervals(String propName) {

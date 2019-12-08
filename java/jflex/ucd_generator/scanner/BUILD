@@ -13,6 +13,7 @@ java_library(
     deps = [
         ":unicode_data",
         "//java/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
     ],
 )
 
