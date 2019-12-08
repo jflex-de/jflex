@@ -2,10 +2,7 @@
 
 package jflex.testcase.empty_match;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import java.io.File;
-import javax.annotation.Generated;
 import jflex.testing.testsuite.golden.AbstractGoldenTest;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import jflex.util.scanner.ScannerFactory;
@@ -21,8 +18,8 @@ import org.junit.Test;
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
-@Generated("jflex.migration.Migrator")
 public class EmptymatchGoldenTest extends AbstractGoldenTest {
+
   /** Creates a scanner conforming to the {@code emptymatch.flex} specification. */
   private final ScannerFactory<Emptymatch> scannerFactory = ScannerFactory.of(Emptymatch::new);
 
@@ -37,18 +34,8 @@ public class EmptymatchGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     Emptymatch scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(3);
-    assertThat(scanner.yylex()).isEqualTo(4);
-    assertThat(scanner.yylex()).isEqualTo(2);
-    assertThat(scanner.yylex()).isEqualTo(1);
-    assertThat(scanner.yylex()).isEqualTo(3);
-    assertThat(scanner.yylex()).isEqualTo(5);
-    assertThat(scanner.yylex()).isEqualTo(5);
-    assertThat(scanner.yylex()).isEqualTo(5);
-    assertThat(scanner.yylex()).isEqualTo(4);
-    assertThat(scanner.yylex()).isEqualTo(2);
-    assertThat(scanner.yylex()).isEqualTo(2);
-    assertThat(scanner.yylex()).isEqualTo(Emptymatch.YYEOF);
+    while (!scanner.yyatEOF()) {
+      System.out.println(scanner.yylex());
+    }
   }
 }
