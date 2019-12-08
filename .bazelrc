@@ -246,8 +246,8 @@ build --javacopt "-Xep:ThreadPriorityCheck:OFF"
 build --javacopt "-Xep:ThreeLetterTimeZoneID:ERROR"
 build --javacopt "-Xep:ToStringReturnsNull:ERROR"
 build --javacopt "-Xep:TruthAssertExpected:ERROR"
-# TODO(#469) Raised to Error, as this indicates the assertion is not on the subject.
-build --javacopt "-Xep:TruthConstantAsserts:WARN"
+# Raised to Error, as this indicates the assertion is not on the subject.
+build --javacopt "-Xep:TruthConstantAsserts:ERROR"
 build --javacopt "-Xep:TruthIncompatibleType:ERROR"
 build --javacopt "-Xep:TypeNameShadowing:ERROR"
 build --javacopt "-Xep:TypeParameterShadowing:ERROR"
