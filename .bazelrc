@@ -370,7 +370,7 @@ build --javacopt "-Xep:ReturnMissingNullable:OFF"
 build --javacopt "-Xep:ScopeOnModule:ERROR"
 build --javacopt "-Xep:SwitchDefault:WARN"
 build --javacopt "-Xep:TestExceptionRefactoring:ERROR"
-build --javacopt "-Xep:ThrowsUncheckedException:WARN"
+build --javacopt "-Xep:ThrowsUncheckedException:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:TryFailRefactoring:OFF"
 build --javacopt "-Xep:TypeParameterNaming:WARN"
