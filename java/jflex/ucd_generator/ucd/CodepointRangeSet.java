@@ -21,6 +21,9 @@ public abstract class CodepointRangeSet {
     abstract ImmutableList.Builder<CodepointRange> rangesBuilder();
 
     public Builder addAll(List<MutableCodepointRange> ranges) {
+      if (ranges == null) {
+        return this;
+      }
       for (MutableCodepointRange range : ranges) {
         add(range);
       }

@@ -18,12 +18,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.MutableCodepointRange;
+import jflex.ucd_generator.ucd.Version;
 
 @AutoValue
 public abstract class UnicodeData {
@@ -46,6 +48,8 @@ public abstract class UnicodeData {
         .orElseGet(() -> 0);
   }
 
+  protected abstract Version version();
+
   /**
    * Returns the {@link #caselessMatchPartitions()} where the key is the first element from the
    * partition.
@@ -63,8 +67,8 @@ public abstract class UnicodeData {
     return ImmutableList.sortedCopyOf(comparator, partitions);
   }
 
-  public static Builder builder() {
-    return new AutoValue_UnicodeData.Builder();
+  public static Builder builder(Version ucdVersion) {
+    return new AutoValue_UnicodeData.Builder().version(ucdVersion);
   }
 
   @AutoValue.Builder
@@ -78,6 +82,8 @@ public abstract class UnicodeData {
 
     abstract ImmutableMap.Builder<Integer, ImmutableSortedSet<Integer>>
         caselessMatchPartitionsBuilder();
+
+    abstract Builder version(Version version);
 
     /**
      * Grows the partition containing the given codePoint and its caseless equivalents, if any, to
@@ -173,6 +179,7 @@ public abstract class UnicodeData {
     public UnicodeData build() {
       addInternalCaselessMatches();
       addInternalPropertyValueIntervals();
+      addCompatibilityProperties();
       return internalBuild();
     }
 
@@ -191,13 +198,20 @@ public abstract class UnicodeData {
       }
     }
 
+    private void addCompatibilityProperties() {
+      propertyValueIntervalsBuilder().put("blank", createBlankSet());
+    }
+
+    private CodepointRangeSet createBlankSet() {
+      return CodepointRangeSet.builder().addAll(mPropertyValueIntervals.get("whitespace")).build();
+    }
+
+    private Optional<List<MutableCodepointRange>> getIntervals(String propName) {
+      return Optional.ofNullable(mPropertyValueIntervals.get(propName));
+    }
+
     private List<MutableCodepointRange> getOrCreateIntervals(String propName) {
-      List<MutableCodepointRange> intervals = mPropertyValueIntervals.get(propName);
-      if (intervals == null) {
-        intervals = new ArrayList<>();
-        mPropertyValueIntervals.put(propName, intervals);
-      }
-      return intervals;
+      return mPropertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
     }
   }
 }
