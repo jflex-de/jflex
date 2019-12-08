@@ -24,16 +24,13 @@ java_library(
 )
 
 java_test(
-    name = "InitthrowGoldenTest",
+    name = "InitThrowsTest",
     srcs = [
-        "InitthrowGoldenTest.java",
-    ],
-    data = [
+        "InitThrowsTest.java",
     ],
     deps = [
         ":initthrow_scanner",
-        "//java/jflex/testing/diff",
-        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/testing/assertion",
         "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
