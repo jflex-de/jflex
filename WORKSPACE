@@ -64,10 +64,6 @@ maven_install(
     ],
 )
 
-# To update maven_install.json, run this command to re-pin the unpinned repository:
-#
-#    bazel run @unpinned_maven//:pin
-#
 load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
