@@ -3,6 +3,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 java_library(
     name = "unicode_data_scanner",
     srcs = [
+        "AbstractUnicodeDataScanner.java",
         ":gen_unicode_data_scanner",
     ],
     visibility = [
