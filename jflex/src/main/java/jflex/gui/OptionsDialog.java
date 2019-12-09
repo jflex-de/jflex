@@ -17,7 +17,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
+import jflex.option.Options;
 import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
@@ -232,7 +233,7 @@ public class OptionsDialog extends Dialog {
   }
 
   private void setDefaults() {
-    Options.setDefaults();
+    OptionUtils.setDefaults();
     Skeleton.readDefault();
     skelFile.setText("");
     updateState();

@@ -14,6 +14,7 @@ java_library(
         "//jflex",
         "//jflex/src/main/java/jflex/generator",
         "//jflex/src/main/java/jflex/logging",
+        "//jflex/src/main/java/jflex/option",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
         "//third_party/junit",

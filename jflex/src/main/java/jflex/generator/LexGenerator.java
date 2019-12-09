@@ -9,7 +9,7 @@
 
 package jflex.generator;
 
-import static jflex.core.Options.encoding;
+import static jflex.option.Options.encoding;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import jflex.core.DFA;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
-import jflex.core.Options;
+import jflex.option.Options;
 import jflex.logging.Out;
 import jflex.env.Env;
 import jflex.exceptions.GeneratorException;

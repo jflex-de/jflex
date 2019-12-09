@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import jflex.core.unicode.IntCharSet;import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;import jflex.performance.Timer;
+import jflex.logging.Out;import jflex.option.Options;import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
 
 %%
@@ -199,18 +199,18 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                 eofclose = true;
                               }
   "%cup2"                     { cup2Compatible = true;
-                                isImplementing = concExc(isImplementing, "Scanner");
-                                lineCount = true;
-                                columnCount = true;
-                                if (functionName == null)
-                                  functionName = "readNextTerminal";
-                                if (tokenType == null)
-                                  tokenType = "ScannerToken<? extends Object>";
-                                if (eofVal == null)
-                                  eofVal = "return token(SpecialTerminals.EndOfInputStream);";
-                                if (!Options.jlex) eofclose = true;
-                                return symbol(UNICODE); // %unicode
-                              }
+                                  isImplementing = concExc(isImplementing, "Scanner");
+                                  lineCount = true;
+                                  columnCount = true;
+                                  if (functionName == null)
+                                    functionName = "readNextTerminal";
+                                  if (tokenType == null)
+                                    tokenType = "ScannerToken<? extends Object>";
+                                  if (eofVal == null)
+                                    eofVal = "return token(SpecialTerminals.EndOfInputStream);";
+                                  if (!Options.jlex) eofclose = true;
+                                  return symbol(UNICODE); // %unicode
+                                }
   "%cup"                      { cupCompatible = true;
                                 isImplementing = concExc(isImplementing, "java_cup.runtime.Scanner");
                                 if (functionName == null)

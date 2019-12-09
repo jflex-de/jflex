@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
+import jflex.option.Options;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
 import org.apache.maven.plugin.AbstractMojo;
@@ -208,8 +209,8 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     // set options. Very strange that JFlex expects this in a static way.
-    Options.setDefaults();
-    Options.setDir(generatedFile.getParentFile());
+    OptionUtils.setDefaults();
+    OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
     Out.verbose = verbose;
@@ -217,7 +218,7 @@ public class JFlexMojo extends AbstractMojo {
     Options.dot = dot;
     Options.legacy_dot = legacyDot;
     if (skeleton != null) {
-      Options.setSkeleton(skeleton);
+      OptionUtils.setSkeleton(skeleton);
     }
     Options.jlex = jlex;
 
@@ -229,7 +230,7 @@ public class JFlexMojo extends AbstractMojo {
 
     if (!isNullOrEmpty(encodingName)) {
       try {
-        Options.setEncoding(encodingName);
+        OptionUtils.setEncoding(encodingName);
       } catch (Exception e) {
         throw new MojoExecutionException(e.getMessage());
       }

@@ -24,7 +24,7 @@ import jflex.core.DFA;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.Options;
+import jflex.option.Options;
 import jflex.logging.Out;
 import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;

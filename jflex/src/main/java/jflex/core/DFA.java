@@ -20,6 +20,7 @@ import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.

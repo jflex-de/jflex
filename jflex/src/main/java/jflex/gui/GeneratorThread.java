@@ -11,7 +11,7 @@ package jflex.gui;
 
 import java.io.File;
 import java.util.Objects;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.logging.Out;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
@@ -60,7 +60,7 @@ public class GeneratorThread extends Thread {
       setPriority(MIN_PRIORITY);
       try {
         if (!Objects.equals(outputDir, "")) {
-          Options.setDir(outputDir);
+          OptionUtils.setDir(outputDir);
         }
         LexGenerator.generate(new File(inputFile));
         Out.statistics();

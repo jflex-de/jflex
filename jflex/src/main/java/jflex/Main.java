@@ -9,8 +9,8 @@
 
 package jflex;
 
-import static jflex.core.Options.setEncoding;
-import static jflex.core.Options.unused_warning;
+import static jflex.core.OptionUtils.setEncoding;
+import static jflex.option.Options.unused_warning;
 import static jflex.logging.Out.error;
 import static jflex.l10n.ErrorMessages.NO_ENCODING;
 
@@ -27,7 +27,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
+import jflex.option.Options;
 import jflex.env.Env;
 import jflex.logging.Out;
 import jflex.core.unicode.UnicodeProperties;
@@ -67,7 +68,7 @@ public class Main {
           Out.error(ErrorMessages.NO_DIRECTORY);
           throw new GeneratorException();
         }
-        Options.setDir(argv[i]);
+        OptionUtils.setDir(argv[i]);
         continue;
       }
 
@@ -78,7 +79,7 @@ public class Main {
           throw new GeneratorException();
         }
 
-        Options.setSkeleton(new File(argv[i]));
+        OptionUtils.setSkeleton(new File(argv[i]));
         continue;
       }
 
@@ -336,6 +337,7 @@ public class Main {
    * @param argv the commandline.
    */
   public static void main(String argv[]) {
+    OptionUtils.setDefaults();
     try {
       generate(argv);
     } catch (GeneratorException e) {

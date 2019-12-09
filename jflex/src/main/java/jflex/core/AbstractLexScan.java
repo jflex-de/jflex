@@ -12,6 +12,7 @@ import jflex.core.unicode.ILexScan;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.scanner.LexicalStates;
 import jflex.scanner.ScannerException;
 

@@ -15,7 +15,8 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
+import jflex.option.Options;
 import jflex.core.Skeleton;
 import jflex.logging.Out;
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class JFlexTaskTest {
 
   @Before
   public void setUp() {
-    Options.setDefaults();
+    OptionUtils.setDefaults();
     task = new JFlexTask();
   }
 

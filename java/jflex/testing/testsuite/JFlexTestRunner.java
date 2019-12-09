@@ -36,7 +36,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Optional;
-import jflex.core.Options;
+import jflex.option.Options;
 import jflex.logging.Out;
 import jflex.generator.LexGenerator;
 import jflex.testing.diff.DiffOutputStream;

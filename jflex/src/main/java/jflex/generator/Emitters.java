@@ -17,7 +17,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import jflex.core.DFA;
 import jflex.core.LexParse;
-import jflex.core.Options;
+import jflex.option.Options;
 import jflex.logging.Out;
 
 /** Factory class for Emitter */

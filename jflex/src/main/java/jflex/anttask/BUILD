@@ -7,6 +7,7 @@ java_library(
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/generator",
         "//jflex/src/main/java/jflex/logging",
+        "//jflex/src/main/java/jflex/option",
         "//third_party/org/apache/ant",
     ],
 )

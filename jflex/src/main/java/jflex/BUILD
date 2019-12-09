@@ -15,5 +15,6 @@ java_library(
         "//jflex/src/main/java/jflex/gui",
         "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/logging",
+        "//jflex/src/main/java/jflex/option",
     ],
 )

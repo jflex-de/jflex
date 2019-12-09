@@ -7,13 +7,10 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.option;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import jflex.exceptions.GeneratorException;
-import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
@@ -24,7 +21,7 @@ import jflex.logging.Out;
 public class Options {
 
   /** output directory */
-  private static File directory;
+  public static File directory;
   /**
    * The root source directory.
    *
@@ -54,10 +51,6 @@ public class Options {
   /** The encoding to use for input and output files. */
   public static Charset encoding;
 
-  static {
-    setDefaults();
-  }
-
   /** Prevent instantiation of static-only calss */
   // (to be changed to instances in thread-safety refactor)
   private Options() {}
@@ -72,34 +65,6 @@ public class Options {
   }
 
   /**
-   * Set output directory
-   *
-   * @param dirName the name of the directory to write output files to
-   */
-  public static void setDir(String dirName) {
-    setDir(new File(dirName));
-  }
-
-  /**
-   * Set output directory
-   *
-   * @param d the directory to write output files to
-   */
-  public static void setDir(File d) {
-    if (d.isFile()) {
-      Out.error("Error: \"" + d + "\" is not a directory.");
-      throw new GeneratorException();
-    }
-
-    if (!d.isDirectory() && !d.mkdirs()) {
-      Out.error("Error: couldn't create directory \"" + d + "\"");
-      throw new GeneratorException();
-    }
-
-    directory = d;
-  }
-
-  /**
    * Returns the root directory that contains source code. This is the java working (from system
    * property {@code user.dir}) by default.
    */
@@ -111,41 +76,7 @@ public class Options {
     rootDirectory = rootDir;
   }
 
-  /** Sets encoding for input files, and check availability of encoding on this JVM. */
-  public static void setEncoding(String encodingName) {
-    if (Charset.isSupported(encodingName)) {
-      encoding = Charset.forName(encodingName);
-    } else {
-      Out.error(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName);
-      throw new GeneratorException();
-    }
-  }
-
-  /** Sets all options back to default values. */
-  public static void setDefaults() {
-    directory = null;
-    // System.getProperty("user.dir"), the directory where java was run from.
-    rootDirectory = new File("");
-    jlex = false;
-    no_minimize = false;
-    no_backup = false;
-    Out.verbose = true;
-    progress = true;
-    unused_warning = true;
-    time = false;
-    dot = false;
-    dump = false;
-    legacy_dot = false;
-    encoding = Charset.defaultCharset();
-    Skeleton.readDefault();
-  }
-
-  /**
-   * setSkeleton.
-   *
-   * @param skel a {@link java.io.File} object.
-   */
-  public static void setSkeleton(File skel) {
-    Skeleton.readSkelFile(skel);
+  public static void resetRootDirectory() {
+     rootDirectory = new File("");
   }
 }

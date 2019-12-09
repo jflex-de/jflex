@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.logging.Out;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
@@ -94,7 +94,7 @@ public class ExecUtils {
     String[] cmd = toArray(cmdline, files);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     try {
-      Options.setDefaults();
+      OptionUtils.setDefaults();
       Out.setOutputStream(out);
       jflex.Main.generate(cmd);
       return new TestResult(out.toString(), true);
