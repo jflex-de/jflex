@@ -19,6 +19,9 @@ import jflex.l10n.ErrorMessages;
  */
 public final class SemCheck {
 
+  /** Prevent instantiation of static-only class */
+  private SemCheck() {}
+
   /**
    * Performs semantic analysis for all expressions.
    *

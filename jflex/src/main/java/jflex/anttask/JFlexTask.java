@@ -57,7 +57,7 @@ public class JFlexTask extends Task {
    *
    * @throws BuildException if any.
    */
-  public void execute() throws BuildException {
+  public void execute() {
     try {
       if (inputFile == null)
         throw new BuildException("Input file needed. Use <jflex file=\"your_scanner.flex\"/>");
