@@ -73,6 +73,11 @@ public abstract class AbstractLexScan implements ILexScan {
   // since the max char code won't be known until then.
   private CharClasses charClasses = new CharClasses();
 
+  @Override
+  public UnicodeProperties getUnicodeProperties() {
+    return unicodeProperties;
+  }
+
   // TODO(regisd) Return an immutable representation of char classes
   @SuppressWarnings("unused") // Used in generated LexParse
   public CharClasses getCharClasses() {
@@ -154,10 +159,6 @@ public abstract class AbstractLexScan implements ILexScan {
     }
 
     return a.toString() + ", " + b.toString();
-  }
-
-  UnicodeProperties getUnicodeProperties() {
-    return unicodeProperties;
   }
 
   @SuppressWarnings("unused") // Used in generated LexScan

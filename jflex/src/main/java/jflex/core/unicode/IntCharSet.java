@@ -78,7 +78,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @return a new IntCharSet that contains all characters.
    */
-  static IntCharSet allChars() {
+  public static IntCharSet allChars() {
     return IntCharSet.ofCharacterRange(0, CharClasses.maxChar);
   }
 
@@ -495,7 +495,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *     classes.
    * @return a caseless copy of this set
    */
-  IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
+  public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copyOf(this);
 
     for (Interval elem : intervals) {

@@ -17,5 +17,6 @@ java_library(
         "//jflex/src/main/java/jflex/logging",
         "//jflex/src/main/java/jflex/performance",
         "//jflex/src/main/java/jflex/scanner",
+        "//jflex/src/main/java/jflex/state",
     ],
 )

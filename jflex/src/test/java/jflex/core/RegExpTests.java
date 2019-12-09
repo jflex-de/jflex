@@ -13,6 +13,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static jflex.core.RegExp.revString;
 
 import java.util.ArrayList;
+import jflex.core.unicode.IntCharSet;
 import org.junit.Test;
 
 /**

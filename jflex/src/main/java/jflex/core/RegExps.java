@@ -11,6 +11,7 @@ package jflex.core;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.base.Build;
+import jflex.core.unicode.CharClasses;
 import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;

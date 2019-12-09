@@ -134,7 +134,7 @@ final public class NFA {
   public void addRegExp(int regExpNum) {
 
     if (Options.DEBUG)
-      Out.debug("Adding nfa for regexp "+regExpNum+" :"+Env.NL+regExps.getRegExp(regExpNum));
+      Out.debug("Adding nfa for regexp "+regExpNum+" :"+Out.NL+regExps.getRegExp(regExpNum));
     
     IntPair nfa = insertNFA( regExps.getRegExp(regExpNum) );
     

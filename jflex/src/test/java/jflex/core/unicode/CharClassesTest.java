@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.core.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;

@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.core.Options;
+import jflex.env.Env;
 import jflex.logging.Out;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
@@ -341,9 +342,9 @@ public class Main {
       if (e.isUnExpected()) {
         Out.error(
             "Unexpected exception encountered. This indicates a bug in JFlex."
-                + Out.NL
+                + Env.NL
                 + "Please consider filing an issue at http://github.com/jflex-de/jflex/issues/new"
-                + Out.NL);
+                + Env.NL);
         Throwable cause = e.getCause();
         if (cause != null) {
           String msg = cause.getLocalizedMessage();

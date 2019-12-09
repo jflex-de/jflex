@@ -10,6 +10,7 @@
 package jflex.core;
 
 import java.util.List;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.CharClassException;
 import jflex.core.unicode.CharClasses;
 
@@ -33,7 +34,7 @@ public class RegExp {
    * Create a new regular expression of the specified type.
    *
    * @param type a value from the cup generated class sym.
-   * @see jflex.sym
+   * @see jflex.core.sym
    */
   public RegExp(int type) {
     this.type = type;
@@ -159,7 +160,7 @@ public class RegExp {
    * @param s a {@link java.lang.String} object.
    * @return a {@link java.lang.String} object.
    */
-  public static final String revString(String s) {
+  public static String revString(String s) {
     StringBuffer b = new StringBuffer(s.length());
     for (int i = s.length(); i > 0; ) {
       int ch = s.codePointBefore(i);
@@ -240,7 +241,7 @@ public class RegExp {
    *
    * @return the regexp for {@code [^]}
    */
-  public static final RegExp anyChar() {
+  public static RegExp anyChar() {
     return new RegExp1(sym.PRIMCLASS, IntCharSet.allChars());
   }
 
@@ -251,7 +252,7 @@ public class RegExp {
    * @throws CharClassException if r is not a RegExp1 or of type sym.PRIMCLASS.
    * @return r cast to RegExp1
    */
-  public static final RegExp1 checkPrimClass(RegExp r) {
+  public static RegExp1 checkPrimClass(RegExp r) {
     if (!(r instanceof RegExp1 && r.type == sym.PRIMCLASS))
       throw new CharClassException("Not normalised " + r);
     return (RegExp1) r;
@@ -265,7 +266,7 @@ public class RegExp {
    * @param r the right operator of the expression
    * @param ctxt the regular expression containing the provided operator
    * @return a new {@link IntCharSet}
-   * @throws a {@link RegExpException} for {@code ctxt} if the operator is not supported
+   * @throws RegExpException for {@code ctxt} if the operator is not supported
    */
   public static final IntCharSet performClassOp(int op, IntCharSet l, IntCharSet r, RegExp ctxt) {
     IntCharSet set;
@@ -355,9 +356,9 @@ public class RegExp {
       case sym.CCLASSOP:
         unary = (RegExp1) this;
         binary = (RegExp2) unary.content;
-        RegExp1 l = checkPrimClass(((RegExp) binary.r1).normalise(m));
+        RegExp1 l = checkPrimClass(binary.r1.normalise(m));
         IntCharSet setl = (IntCharSet) l.content;
-        RegExp1 r = checkPrimClass(((RegExp) binary.r2).normalise(m));
+        RegExp1 r = checkPrimClass(binary.r2.normalise(m));
         IntCharSet setr = (IntCharSet) r.content;
         IntCharSet set = performClassOp(binary.type, setl, setr, this);
         return new RegExp1(sym.PRIMCLASS, set);
