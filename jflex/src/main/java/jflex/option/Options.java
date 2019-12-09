@@ -13,8 +13,11 @@ import java.io.File;
 import java.nio.charset.Charset;
 
 /**
- * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
+ * Collects all global JFlex options.
  *
+ * <p>Can be set from command line parser, ant task, gui, etc.
+ *
+ * @see jflex.core.OptionUtils
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
@@ -55,11 +58,6 @@ public class Options {
   // (to be changed to instances in thread-safety refactor)
   private Options() {}
 
-  /**
-   * getDir.
-   *
-   * @return a {@link java.io.File} object.
-   */
   public static File getDir() {
     return directory;
   }

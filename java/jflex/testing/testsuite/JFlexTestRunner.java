@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Optional;
+import jflex.core.OptionUtils;
 import jflex.option.Options;
 import jflex.logging.Out;
 import jflex.generator.LexGenerator;
@@ -185,6 +186,9 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private String invokeJflex() {
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
     Options.jlex = spec.jlexCompat();
     Out.verbose = !spec.quiet();
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));

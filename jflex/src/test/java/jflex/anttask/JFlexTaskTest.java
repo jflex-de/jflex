@@ -36,7 +36,7 @@ public class JFlexTaskTest {
 
   @Before
   public void setUp() {
-    OptionUtils.setDefaults();
+    OptionUtils.setDefaultOptions();
     task = new JFlexTask();
   }
 

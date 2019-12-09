@@ -209,7 +209,7 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     // set options. Very strange that JFlex expects this in a static way.
-    OptionUtils.setDefaults();
+    OptionUtils.setDefaultOptions();
     OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;

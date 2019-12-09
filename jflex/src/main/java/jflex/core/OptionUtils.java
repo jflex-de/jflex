@@ -21,7 +21,7 @@ public class OptionUtils {
   }
 
   /** Sets all options back to default values. */
-  public static void setDefaults() {
+  public static void setDefaultOptions() {
     Options.directory = null;
     // System.getProperty("user.dir"), the directory where java was run from.
     Options.resetRootDirectory();

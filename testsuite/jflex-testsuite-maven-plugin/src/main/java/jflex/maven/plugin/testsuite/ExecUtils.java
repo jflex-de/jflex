@@ -94,7 +94,7 @@ public class ExecUtils {
     String[] cmd = toArray(cmdline, files);
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     try {
-      OptionUtils.setDefaults();
+      OptionUtils.setDefaultOptions();
       Out.setOutputStream(out);
       jflex.Main.generate(cmd);
       return new TestResult(out.toString(), true);

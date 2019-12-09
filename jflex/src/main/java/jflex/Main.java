@@ -337,7 +337,7 @@ public class Main {
    * @param argv the commandline.
    */
   public static void main(String argv[]) {
-    OptionUtils.setDefaults();
+    OptionUtils.setDefaultOptions();
     try {
       generate(argv);
     } catch (GeneratorException e) {

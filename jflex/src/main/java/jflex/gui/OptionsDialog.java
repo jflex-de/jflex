@@ -233,7 +233,7 @@ public class OptionsDialog extends Dialog {
   }
 
   private void setDefaults() {
-    OptionUtils.setDefaults();
+    OptionUtils.setDefaultOptions();
     Skeleton.readDefault();
     skelFile.setText("");
     updateState();

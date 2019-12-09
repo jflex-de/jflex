@@ -9,8 +9,6 @@
 
 package jflex.generator;
 
-import static jflex.option.Options.encoding;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,6 +19,7 @@ import jflex.core.DFA;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
+import jflex.core.OptionUtils;
 import jflex.option.Options;
 import jflex.logging.Out;
 import jflex.env.Env;
@@ -48,6 +47,9 @@ public class LexGenerator {
    * @return the file name of the generated Java sources.
    */
   public static String generate(File inputFile) {
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
 
     Out.resetCounters();
 
@@ -57,7 +59,7 @@ public class LexGenerator {
     totalTime.start();
 
     try (Reader inputReader =
-        new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding)) {
+        new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), Options.encoding)) {
       Out.println(ErrorMessages.READING, inputFile.toString());
       LexScan scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
