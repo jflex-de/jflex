@@ -225,6 +225,7 @@ public final class MainFrame extends Frame implements Handles {
     else messages.append(Out.NL + "Generation aborted." + Out.NL);
   }
 
+  @SuppressWarnings("SystemExitOutsideMain") // this is an alternative Main class
   private void quit() {
     setVisible(false);
     System.exit(0);
