@@ -47,6 +47,7 @@ public class JFlexTask extends Task {
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {
+    OptionUtils.setDefaultOptions();
     // ant default is different from the rest of JFlex
     setVerbose(false);
     setUnusedWarning(true);
