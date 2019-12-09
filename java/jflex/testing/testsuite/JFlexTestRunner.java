@@ -37,9 +37,9 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Optional;
 import jflex.core.OptionUtils;
-import jflex.option.Options;
-import jflex.logging.Out;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
@@ -140,7 +140,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       } else if (spec.generatorThrowableCause() != NoExceptionThrown.class) {
         assertWithMessage(
                 "@TestCase indicates that cause of the generator exception is %s but it was %s\n",
-                    spec.generatorThrowableCause().getSimpleName(), e.getCause())
+                spec.generatorThrowableCause().getSimpleName(), e.getCause())
             .that(e.getCause())
             .isInstanceOf(spec.generatorThrowableCause());
       }
