@@ -397,10 +397,10 @@ public class UnicodeProperties {
 
   /** Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}. */
   private void bindInvariantIntervals() {
-    IntCharSet asciiSet = new IntCharSet(new Interval(0, 0x7F));
+    IntCharSet asciiSet = IntCharSet.ofCharacterRange(0, 0x7F);
     propertyValueIntervals.put(normalize("ASCII"), asciiSet);
 
-    IntCharSet anySet = new IntCharSet(new Interval(0, maximumCodePoint));
+    IntCharSet anySet = IntCharSet.ofCharacterRange(0, maximumCodePoint);
     propertyValueIntervals.put(normalize("Any"), anySet);
   }
 

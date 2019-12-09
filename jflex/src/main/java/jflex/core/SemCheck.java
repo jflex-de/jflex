@@ -20,20 +20,15 @@ import jflex.logging.Out;
  */
 public final class SemCheck {
 
-  // stored globally since they are used as constants in all checks
-  private static Macros macros;
-
   /**
    * Performs semantic analysis for all expressions.
    *
    * <p>Currently checks for empty expressions only.
    *
    * @param rs the reg exps to be checked
-   * @param m the macro table (in expanded form)
    * @param f the spec file containing the rules
    */
-  public static void check(RegExps rs, Macros m, File f) {
-    macros = m;
+  public static void check(RegExps rs, File f) {
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
@@ -90,10 +85,9 @@ public final class SemCheck {
           return maybeEmtpy((RegExp) r1.content);
         }
 
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
       case sym.CHAR:
       case sym.CHAR_I:
+      case sym.PRIMCLASS:
         return false;
 
       case sym.STRING:
@@ -111,13 +105,9 @@ public final class SemCheck {
           RegExp1 r1 = (RegExp1) re;
           return !maybeEmtpy((RegExp) r1.content);
         }
-
-      case sym.MACROUSE:
-        return maybeEmtpy(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error(
-        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unexpected expression " + re);
   }
 
   /**
@@ -158,10 +148,9 @@ public final class SemCheck {
       case sym.QUESTION:
         return -1;
 
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
       case sym.CHAR:
       case sym.CHAR_I:
+      case sym.PRIMCLASS:
         return 1;
 
       case sym.STRING:
@@ -175,13 +164,9 @@ public final class SemCheck {
       case sym.BANG:
         // too hard to calculate at this level, use safe approx
         return -1;
-
-      case sym.MACROUSE:
-        return length(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error(
-        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unexpected expression " + re);
   }
 
   /**
@@ -216,10 +201,9 @@ public final class SemCheck {
       case sym.QUESTION:
         return false;
 
-      case sym.CCLASS:
-      case sym.CCLASSNOT:
       case sym.CHAR:
       case sym.CHAR_I:
+      case sym.PRIMCLASS:
         return true;
 
       case sym.STRING:
@@ -231,12 +215,8 @@ public final class SemCheck {
       case sym.TILDE:
       case sym.BANG:
         return false;
-
-      case sym.MACROUSE:
-        return isFiniteChoice(macros.getDefinition((String) ((RegExp1) re).content));
     }
 
-    throw new Error(
-        "Unknown expression type " + re.type + " in " + re); // $NON-NLS-1$ //$NON-NLS-2$
+    throw new Error("Unexpected expression " + re);
   }
 }

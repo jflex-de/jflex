@@ -9,10 +9,11 @@
 
 package jflex.core;
 
+import static com.google.common.truth.Truth.assertThat;
 import static jflex.core.RegExp.revString;
 
-import jflex.chars.Interval;
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import org.junit.Test;
 
 /**
  * Unit tests for JFlex.RegExp
@@ -20,34 +21,35 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class RegExpTests extends TestCase implements sym {
+public class RegExpTests implements sym {
 
-  /**
-   * Constructor for RegExpTests.
-   *
-   * @param name the test name
-   */
-  public RegExpTests(String name) {
-    super(name);
-  }
-
+  @Test
   public void testrevString() {
-    assertEquals("halb", revString("blah"));
+    assertThat(revString("blah")).isEqualTo("halb");
   }
 
+  @Test
   public void testCharClass() {
     Macros m = new Macros();
-    RegExp e1 = new RegExp1(CCLASS, new Interval('a', 'z'));
+    RegExp e1 = new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('a', 'z'));
     RegExp e2 = new RegExp1(CHAR, 'Z');
-    RegExp e3 = new RegExp1(CCLASS, new Interval('0', '9'));
+    ArrayList<RegExp> l = new ArrayList<RegExp>();
+    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('0', '8')));
+    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacter('9')));
+    RegExp e3 = new RegExp1(CCLASS, l);
     m.insert("macro", e3);
     RegExp s = new RegExp1(STAR, e1);
     RegExp u = new RegExp1(MACROUSE, "macro");
     RegExp b = new RegExp2(BAR, e2, u);
-    assertTrue(e1.isCharClass(m));
-    assertTrue(e2.isCharClass(m));
-    assertTrue(b.isCharClass(m));
-    assertTrue(!s.isCharClass(m));
-    assertTrue(u.isCharClass(m));
+    e1 = e1.normalise(m);
+    e2 = e2.normalise(m);
+    b = b.normalise(m);
+    s = s.normalise(m);
+    u = u.normalise(m);
+    assertThat(e1.isCharClass()).isTrue();
+    assertThat(e2.isCharClass()).isTrue();
+    assertThat(b.isCharClass()).isTrue();
+    assertThat(s.isCharClass()).isFalse();
+    assertThat(u.isCharClass()).isTrue();
   }
 }

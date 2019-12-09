@@ -1,0 +1,46 @@
+match: --blah--
+action [13] { return 1; }
+1
+match: --<--
+action [14] { return 0; }
+0
+match: --f--
+action [14] { return 0; }
+0
+match: --o--
+action [14] { return 0; }
+0
+match: --o--
+action [14] { return 0; }
+0
+match: -->--
+action [14] { return 0; }
+0
+match: -- --
+action [14] { return 0; }
+0
+match: --b--
+action [14] { return 0; }
+0
+match: --l--
+action [14] { return 0; }
+0
+match: --a--
+action [14] { return 0; }
+0
+match: --h--
+action [14] { return 0; }
+0
+match: -- --
+action [14] { return 0; }
+0
+match: --x--
+action [13] { return 1; }
+1
+match: --:--
+action [14] { return 0; }
+0
+match: --d--
+action [14] { return 0; }
+0
+-1

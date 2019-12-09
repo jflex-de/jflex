@@ -47,14 +47,23 @@ public class RegExp1 extends RegExp {
     if (content instanceof RegExp) {
       return tab
           + "type = "
-          + type
+          + typeName()
           + Env.NL
           + tab
           + "content :"
           + Env.NL
           + ((RegExp) content).print(tab + "  ");
     } else
-      return tab + "type = " + type + Env.NL + tab + "content :" + Env.NL + tab + "  " + content;
+      return tab
+          + "type = "
+          + typeName()
+          + Env.NL
+          + tab
+          + "content :"
+          + Env.NL
+          + tab
+          + "  "
+          + content;
   }
 
   @Override

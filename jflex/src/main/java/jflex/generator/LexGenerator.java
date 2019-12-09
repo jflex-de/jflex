@@ -124,7 +124,7 @@ public class LexGenerator {
     } catch (GeneratorException e) {
       throw e;
     } catch (Exception e) {
-      throw new GeneratorException(e);
+      throw new GeneratorException(e, true);
     }
   }
 }

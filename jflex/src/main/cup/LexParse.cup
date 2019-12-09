@@ -41,14 +41,14 @@ action code {:
   }
 
   void fatalError(ErrorMessages.ErrorMessage message) {
-    fatalError(message, scanner.currentLine(), -1);
+    fatalError(message, scanner.lexLine(), -1);
     throw new GeneratorException();
   }
 
   void syntaxError(ErrorMessages.ErrorMessage message) {
-    Out.error(scanner.file, message, scanner.currentLine(), -1);
+    Out.error(scanner.file, message, scanner.lexLine(), -1);
   }
-  
+
   void syntaxError(ErrorMessages.ErrorMessage message, int line) {
     Out.error(scanner.file, message, line, -1);
   }
@@ -78,13 +78,8 @@ action code {:
       case sym.CHAR:
       case sym.CHAR_I:
         return '\n' == (char)((Integer)r1.content).intValue();
-      case sym.CCLASS:
-        List<Interval> intervals = (List<Interval>)r1.content;
-        if ( 1 == intervals.size() ) {
-          Interval i = intervals.get(0);
-          return '\n' == i.start && '\n' == i.end;
-        }
-        return false;
+      case sym.PRIMCLASS:
+        return IntCharSet.nlChars().contains((IntCharSet) r1.content);
       default:
         return false;
     }
@@ -94,81 +89,70 @@ action code {:
     switch (type) {
       case sym.JLETTERCLASS:
         return Character.isJavaIdentifierStart(c);
-        
+
       case sym.JLETTERDIGITCLASS:
         return Character.isJavaIdentifierPart(c);
 
       default: return false;
     }
   }
-  
-  private List<Interval> getPreClass(int type) {
 
-    List<Interval> result;
-    IntCharSet intCharSet = preclassCache.get(type);
-    if (null != intCharSet) {
-      result = intCharSet.copy().getIntervals();
-    }
-    else {
+  private IntCharSet getPreClass(int type) {
+    IntCharSet result = preclassCache.get(type);
+    if (null == result) {
       UnicodeProperties unicodeProperties = scanner.getUnicodeProperties();
       switch (type) {
-        case sym.LETTERCLASS: {
-          intCharSet = unicodeProperties.getIntCharSet("L");
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+        case sym.LETTERCLASS:
+          result = unicodeProperties.getIntCharSet("L");
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.DIGITCLASS: {
-          intCharSet = unicodeProperties.getIntCharSet("Nd");
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+
+        case sym.DIGITCLASS:
+          result = unicodeProperties.getIntCharSet("Nd");
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.DIGITCLASSNOT: {
+
+        case sym.DIGITCLASSNOT:
           IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
-          intCharSet.sub(digits);
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
+          result.sub(digits);
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.UPPERCLASS: {
+
+        case sym.UPPERCLASS:
           // "Uppercase" is more than Uppercase_Letter, but older Unicode
           // versions don't have this definition - check for "Uppercase",
           // then fall back to Uppercase_Letter (Lu) if it does not exist.
-          intCharSet = unicodeProperties.getIntCharSet("Uppercase");
-          if (null == intCharSet) {
-            intCharSet = unicodeProperties.getIntCharSet("Lu");
+          result = unicodeProperties.getIntCharSet("Uppercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Lu");
           }
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.LOWERCLASS: {
+
+        case sym.LOWERCLASS:
           // "Lowercase" is more than Lowercase_Letter, but older Unicode
           // versions don't have this definition - check for "Lowercase",
           // then fall back to Lowercase_Letter (Ll) if it does not exist.
-          intCharSet = unicodeProperties.getIntCharSet("Lowercase");
-          if (null == intCharSet) {
-            intCharSet = unicodeProperties.getIntCharSet("Ll");
+          result = unicodeProperties.getIntCharSet("Lowercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Ll");
           }
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.WHITESPACECLASS: {
+
+        case sym.WHITESPACECLASS:
           // Although later versions do, Unicode 1.1 does not have the
           // "Whitespace" definition - check for "Whitespace", then fall back
           // to "Space_separator" (Zs) if it does not exist.
-          intCharSet = unicodeProperties.getIntCharSet("Whitespace");
-          if (null == intCharSet) {
-            intCharSet = unicodeProperties.getIntCharSet("Zs");
+          result = unicodeProperties.getIntCharSet("Whitespace");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Zs");
           }
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.WHITESPACECLASSNOT: {
+
+        case sym.WHITESPACECLASSNOT:
           // Although later versions do, Unicode 1.1 does not have the
           // "Whitespace" definition - check for "Whitespace", then fall back
           // to "Space_separator" (Zs) if it does not exist.
@@ -176,62 +160,62 @@ action code {:
           if (null == whitespaceClass) {
             whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
-          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
-          intCharSet.sub(whitespaceClass);
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
+          result.sub(whitespaceClass);
+          preclassCache.put(type, result);
           break;
-        }
-        case sym.WORDCLASS: {
-          // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-          IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-          if (null == alphaClass) {
-            // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-            alphaClass = unicodeProperties.getIntCharSet("L");
+
+        case sym.WORDCLASS:
+          {
+            // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
+            if (null == alphaClass) {
+              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+              alphaClass = unicodeProperties.getIntCharSet("L");
+            }
+            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
+            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
+            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
+            if (null == connectorPunctClass) {
+              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+              connectorPunctClass = IntCharSet.ofCharacter('_');
+            }
+            result = IntCharSet.copyOf(alphaClass);
+            result.add(markClass);
+            result.add(digitClass);
+            result.add(connectorPunctClass);
+            preclassCache.put(type, result);
+            break;
           }
-          IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-          IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-          IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-          if (null == connectorPunctClass) {
-            // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-            connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+
+        case sym.WORDCLASSNOT:
+          {
+            // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
+            if (null == alphaClass) {
+              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+              alphaClass = unicodeProperties.getIntCharSet("L");
+            }
+            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
+            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
+            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
+            if (null == connectorPunctClass) {
+              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+              connectorPunctClass = IntCharSet.ofCharacter('_');
+            }
+            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
+            wordClass.add(markClass);
+            wordClass.add(digitClass);
+            wordClass.add(connectorPunctClass);
+            result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
+            result.sub(wordClass);
+            preclassCache.put(type, result);
+            break;
           }
-          intCharSet = alphaClass.copy();
-          intCharSet.add(markClass);
-          intCharSet.add(digitClass);
-          intCharSet.add(connectorPunctClass);
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
-          break;
-        }
-        case sym.WORDCLASSNOT: {
-          // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-          IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-          if (null == alphaClass) {
-            // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-            alphaClass = unicodeProperties.getIntCharSet("L");
-          }
-          IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-          IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-          IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-          if (null == connectorPunctClass) {
-            // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-            connectorPunctClass = new IntCharSet(new Interval('_', '_'));
-          }
-          IntCharSet wordClass = alphaClass.copy();
-          wordClass.add(markClass);
-          wordClass.add(digitClass);
-          wordClass.add(connectorPunctClass);
-          intCharSet = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
-          intCharSet.sub(wordClass);
-          preclassCache.put(type, intCharSet);
-          result = intCharSet.copy().getIntervals();
-          break;
-        }
         case sym.JLETTERCLASS:
         case sym.JLETTERDIGITCLASS:
-        default: {
-          result = new ArrayList<Interval>();
+        default:
+          result = new IntCharSet();
 
           int c = 0;
           int start = 0;
@@ -259,19 +243,17 @@ action code {:
           current = check(type, c);
 
           if (!prev && current) result.add(new Interval(c, c));
-          if (prev && current)  result.add(new Interval(start, c));
+          if (prev && current) result.add(new Interval(start, c));
           if (prev && !current) result.add(new Interval(start, c - 1));
 
-          preclassCache.put(type, new IntCharSet(result));
+          preclassCache.put(type, result);
           break;
         }
-      }
     }
     return result;
   }
-  
-  private RegExp makeRepeat(RegExp r, int n1, int n2, int line, int col) {
 
+  private RegExp makeRepeat(RegExp r, int n1, int n2, int line, int col) {
     if (n1 <= 0 && n2 <= 0) {
       syntaxError(ErrorMessages.REPEAT_ZERO, line, col);
       return null;
@@ -281,9 +263,9 @@ action code {:
       syntaxError(ErrorMessages.REPEAT_GREATER, line, col);
       return null;
     }
-    
+
     int i;
-    RegExp result;    
+    RegExp result;
 
     if (n1 > 0) {
       result = r;
@@ -294,38 +276,47 @@ action code {:
       n2--;
     }
 
-    for (i = 0; i < n1; i++) 
+    for (i = 0; i < n1; i++)
       result = new RegExp2(sym.CONCAT, result, r);
-      
-    n2-= n1;  
+
+    n2-= n1;
     for (i = 0; i < n2; i++)
       result = new RegExp2(sym.CONCAT, result, new RegExp1(sym.QUESTION,r));
-    
+
     return result;
   }
 
   private RegExp makeNL() {
-    List<Interval> list = new ArrayList<Interval>();
-    list.add(new Interval('\n','\r'));
-    list.add(new Interval('\u0085','\u0085'));
-    list.add(new Interval('\u2028','\u2029'));
+    IntCharSet set = IntCharSet.nlChars();
 
-	// assumption: line feeds are caseless
-    charClasses.makeClass(list, false);
+	  // assumption: line feeds are caseless
+    charClasses.makeClass(set, false);
     charClasses.makeClass('\n', false);
     charClasses.makeClass('\r', false);
 
-    RegExp1   c = new RegExp1(sym.CCLASS, list);
+    RegExp1 c = new RegExp1(sym.PRIMCLASS, set);
     Integer n = new Integer((int)'\n');
     Integer r = new Integer((int)'\r');
 
-    return new RegExp2(sym.BAR, 
-                       c, 
-                       new RegExp2(sym.CONCAT, 
-                                   new RegExp1(sym.CHAR, r), 
+    return new RegExp2(sym.BAR,
+                       c,
+                       new RegExp2(sym.CONCAT,
+                                   new RegExp1(sym.CHAR, r),
                                    new RegExp1(sym.CHAR, n)));
   }
-  
+
+  private RegExp primClass(int content) {
+    return primClass(content, content);
+  }
+
+  private RegExp primClass(int start, int end) {
+    return primClass(IntCharSet.ofCharacterRange(start, end));
+  }
+
+  private RegExp primClass(IntCharSet set) {
+    return new RegExp1(sym.PRIMCLASS, set);
+  }
+
 :};
 
 parser code {:
@@ -335,7 +326,7 @@ parser code {:
      super(scanner);
      this.scanner = scanner;
    }
-   
+
    public CharClasses getCharClasses() {
      return action_obj.charClasses;
    }
@@ -354,23 +345,23 @@ parser code {:
      // JFlex reporting doesn't use the message argument.
      report_error(null, cur_token);
    }
-       
+
    /**
     * Override lr_parser.report_error to use JFlex reporting.
     */
    public void report_error(String message, Object info) {
      if (info instanceof Symbol) {
        Symbol s = (Symbol) info;
-  
-       if (s.sym == sym.EOF) 
+
+       if (s.sym == sym.EOF)
          Out.error(ErrorMessages.UNEXPECTED_EOF);
        else
          Out.error(scanner.file, ErrorMessages.SYNTAX_ERROR, s.left, s.right);
      }
-     else 
+     else
        Out.error(ErrorMessages.UNKNOWN_SYNTAX);
    }
-   
+
    /**
     * Override lr_parser.report_fatal_error to use JFlex reporting.
     */
@@ -397,7 +388,7 @@ terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS,
          DIGITCLASSNOT, UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD,
          WHITESPACECLASS, WHITESPACECLASSNOT, WORDCLASS, WORDCLASSNOT,
          UNION, INTERSECTION, DIFFERENCE, SYMMETRICDIFFERENCE;
-         
+
 terminal Action ACTION;
 terminal String IDENT, USERCODE;
 terminal Integer REPEAT;
@@ -410,19 +401,21 @@ terminal String STRING, MACROUSE;
 terminal IntCharSet UNIPROPCCLASS, UNIPROPCCLASSNOT;
 
 /* symbols *only* used in the parse tree (not in the grammar) */
-terminal CCLASS, CCLASSNOT, CONCAT;
+terminal CCLASS, CCLASSNOT, CCLASSOP, PRIMCLASS, CONCAT;
 terminal STRING_I, CHAR_I;  /* case insensitive strings/chars */
 
 
-non terminal           macros, macro;
-non terminal Integer   rule;
-non terminal NFA       specification;
-non terminal RegExp    series, concs, nregexp, regexp, charclass, lookahead;
-non terminal Interval  classcontentelem;
-non terminal List<Interval> classcontent, preclass;
+non terminal            macros, macro;
+non terminal Integer    rule;
+non terminal NFA        specification;
+non terminal RegExp     series, concs, nregexp, regexp, charclass, lookahead;
+non terminal RegExp     opt_hat_content, classcontentelem;
+non terminal IntCharSet preclass;
+non terminal List<RegExp>  opt_dash_content, classcontent;
 non terminal List<Integer> states, statesOPT, rules;
-non terminal Boolean   hatOPT;
-non terminal Action    act, actions;
+non terminal Integer    charclass_op;
+non terminal Boolean    hatOPT;
+non terminal Action     act, actions;
 
 
 /* grammar specification */
@@ -431,16 +424,16 @@ start with specification;
 specification ::=  USERCODE
                    /* delimiter is checked in lexer */
                    macros
-                   DELIMITER 
+                   DELIMITER
                    rules
                    {:
                      scanner.t.stop();
 
                      Out.checkErrors();
-                     
+
                      Out.time(ErrorMessages.PARSING_TOOK, t);
-                     
-                     macros.expand();
+
+                     macros.expand(); // expands only inside macro definitions
                      if (Options.unused_warning) {
 	                     for (String unusedMacro : macros.unused()) {
 	                       Out.warning(String.format(
@@ -448,8 +441,13 @@ specification ::=  USERCODE
 	                     }
                      }
 
-                     SemCheck.check(regExps, macros, scanner.file);
-  
+                     // expand macros + char classes in rules and lookahead rules
+                     regExps.normalise(macros);
+                     // make char class partitions (modifies charClasses)
+                     regExps.makeCCLs(charClasses, Options.jlex && scanner.caseless);
+
+                     SemCheck.check(regExps, scanner.file);
+
                      regExps.checkActions();
                      regExps.checkLookAheads();
 
@@ -462,10 +460,10 @@ specification ::=  USERCODE
 
                      t.start();
                      int num = regExps.getNum();
-                     
-                     RESULT = new NFA(charClasses.getNumClasses(), 
+
+                     RESULT = new NFA(charClasses.getNumClasses(),
                                       scanner, regExps, macros, charClasses);
-                     
+
                      eofActions.setNumLexStates(scanner.states.number());
 
                      for (int i = 0; i < num; i++) {
@@ -474,19 +472,19 @@ specification ::=  USERCODE
                        else
                          RESULT.addRegExp(i);
                      }
-                     
+
                      if (scanner.standalone) RESULT.addStandaloneRule();
                      t.stop();
-       
-                     Out.time("");              
-	                 Out.time(ErrorMessages.NFA_TOOK, t);
-                     
+
+                     Out.time("");
+	                   Out.time(ErrorMessages.NFA_TOOK, t);
+
                    :}
                  | /* emtpy spec. error */
-                   {: 
+                   {:
                      fatalError(ErrorMessages.NO_LEX_SPEC);
                    :}
-                 ;  
+                 ;
 
 macros        ::=  /* empty, most switches & state declarations are parsed in lexer */
                 | macros macro
@@ -497,13 +495,13 @@ macro         ::=  ASCII
                 |  FULL
                    {: charClasses.setMaxCharCode(255); :}
                 |  UNICODE
-                   {: /* max char code is set via CharClasses.init() */ :} 
+                   {: /* max char code is set via CharClasses.init() */ :}
                 |  IDENT:name EQUALS series:definition REGEXPEND
-                   {: macros.insert(name, definition); :} 
+                   {: macros.insert(name, definition); :}
                 | IDENT EQUALS:e
                    {: syntaxError(ErrorMessages.REGEXP_EXPECTED, eleft, eright); :}
                 ;
-                
+
 
 rules         ::=  rules:rlist rule:r
                    {: rlist.add(r); RESULT = rlist; :}
@@ -511,18 +509,18 @@ rules         ::=  rules:rlist rule:r
                    {:
                      for (Integer elem : rlist2) {
                        // might be null for error case of "rule"
-                       if (elem != null) { 
+                       if (elem != null) {
                          regExps.addStates( elem, states );
                        }
                        rlist1.add( elem );
-                     }                       
+                     }
                      RESULT = rlist1;
                    :}
                 |  LESSTHAN states:states MORETHAN LBRACE rules:rlist RBRACE
-                   {: 
+                   {:
                      for (Integer elem : rlist) {
                        // might be null for error case of "rule"
-                       if (elem != null) { 
+                       if (elem != null) {
                          regExps.addStates( elem, states );
                        }
                      }
@@ -530,7 +528,7 @@ rules         ::=  rules:rlist rule:r
                    :}
                 |  rule:r
                    {: RESULT = new ArrayList<Integer>(); RESULT.add(r); :}
-                ;  
+                ;
 
 rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: RESULT = regExps.insert(rleft, s, r, a, bol, null); :}
@@ -560,32 +558,32 @@ actions       ::=  act:a
                 |  NOACTION
                 ;
 
-                
-statesOPT     ::=  LESSTHAN states:list MORETHAN          
+
+statesOPT     ::=  LESSTHAN states:list MORETHAN
                    {: RESULT = list; :}
                 |  /* empty */
-                   {: RESULT = new ArrayList<Integer>(); :}                   
+                   {: RESULT = new ArrayList<Integer>(); :}
                 ;
-                
+
 states        ::=  IDENT:id COMMA states:list
                    {:
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
-                       list.add( stateNumber ); 
+                       list.add( stateNumber );
                      else {
-                       throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL, 
+                       throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL,
                                                   idleft, idright);
                      }
                      RESULT = list;
-                   :}                
+                   :}
                 |  IDENT:id
                    {:
                      List<Integer> list = new ArrayList<Integer>();
                      stateNumber = scanner.states.getNumber( id );
                      if ( stateNumber != null )
-                       list.add( stateNumber ); 
+                       list.add( stateNumber );
                      else {
-                       throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL, 
+                       throw new ScannerException(scanner.file, ErrorMessages.LEXSTATE_UNDECL,
                                                   idleft, idright);
                      }
                      RESULT = list;
@@ -593,14 +591,14 @@ states        ::=  IDENT:id COMMA states:list
                  | IDENT COMMA:c
                    {: syntaxError(ErrorMessages.REGEXP_EXPECTED, cleft, cright+1); :}
                 ;
-                
-hatOPT        ::=  HAT 
+
+hatOPT        ::=  HAT
                    {:
                       // assumption: newline chars have no uppercase variant
                       charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
                       RESULT = true;
                    :}
-                |  /* empty */ 
+                |  /* empty */
                    {: RESULT = false; :}
                 ;
 
@@ -612,13 +610,13 @@ series        ::= series:r1 BAR concs:r2
                      RESULT = new RegExp2(sym.BAR, r1, r2);
                   :}
                 | concs:r
-                  {: RESULT = r; :} 
+                  {: RESULT = r; :}
                 | BAR:b
                   {: syntaxError(ErrorMessages.REGEXP_EXPECTED, bleft, bright); :}
                 ;
-               
+
 concs         ::= concs:r1 nregexp:r2
-                  {: RESULT = new RegExp2(sym.CONCAT, r1, r2); :} 
+                  {: RESULT = new RegExp2(sym.CONCAT, r1, r2); :}
                 | nregexp:r
                   {: RESULT = r; :}
                 ;
@@ -644,66 +642,62 @@ regexp        ::=  regexp:r STAR
                 |  OPENBRACKET series:r CLOSEBRACKET
                    {: RESULT = r; :}
                 |  MACROUSE:ident
-                   {: 
+                   {:
                       if ( !scanner.macroDefinition ) {
-                        if ( ! macros.markUsed(ident) ) 
-                          throw new ScannerException(scanner.file, ErrorMessages.MACRO_UNDECL, 
+                        if ( ! macros.markUsed(ident) )
+                          throw new ScannerException(scanner.file, ErrorMessages.MACRO_UNDECL,
                                                      identleft, identright);
                       }
-                      RESULT = new RegExp1(sym.MACROUSE, ident); 
+                      RESULT = new RegExp1(sym.MACROUSE, ident);
                    :}
                 |  charclass:c
                    {: RESULT = c; :}
-                |  preclass:list
+                |  preclass:set
                    {:
                      try {
                        // assumption [correct?]: preclasses are already closed under case
-                       charClasses.makeClass(list, false);
+                       charClasses.makeClass(set, false);
                      }
                      catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, listleft);
+                       syntaxError(ErrorMessages.CHARSET_2_SMALL, setleft);
                      }
-                     RESULT = new RegExp1(sym.CCLASS, list);
+                     RESULT = new RegExp1(sym.PRIMCLASS, set);
                    :}
                 |  UNIPROPCCLASS:intcharset
                    {:
                      IntCharSet set
-                       = scanner.caseless 
-                       ? intcharset.getCaseless(scanner.getUnicodeProperties()) 
-                       : intcharset.copy();
+                       = scanner.caseless
+                       ? intcharset.getCaseless(scanner.getUnicodeProperties())
+                       : intcharset;
                      try {
-                       charClasses.makeClass(set.getIntervals(), false);
+                       charClasses.makeClass(set, false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, intcharsetleft, intcharsetright);
                      }
-                     RESULT = new RegExp1(sym.CCLASS, set.getIntervals());
+                     RESULT = new RegExp1(sym.PRIMCLASS, set);
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
                    {:
                      IntCharSet set
-                       = scanner.caseless 
-                       ? notintcharset.getCaseless(scanner.getUnicodeProperties()) 
-                       : notintcharset.copy();
+                       = scanner.caseless
+                       ? notintcharset.getCaseless(scanner.getUnicodeProperties())
+                       : notintcharset;
                      try {
                        charClasses.makeClassNot(set.getIntervals(), false);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CHARSET_2_SMALL, notintcharsetleft, notintcharsetright);
                      }
-                     RESULT = new RegExp1(sym.CCLASSNOT, set.getIntervals());
+                     ArrayList<RegExp> l = new ArrayList<RegExp>();
+                     l.add(new RegExp1(sym.PRIMCLASS, set));
+                     RESULT = new RegExp1(sym.CCLASSNOT, l);
                    :}
                 |  STRING:str
-                   {: 
+                   {:
                      try {
-                       if ( scanner.caseless ) {
-                         charClasses.makeClass(str, true);
-                         RESULT = new RegExp1(sym.STRING_I, str);
-                       }
-                       else {
-                         charClasses.makeClass(str, false);
-                         RESULT = new RegExp1(sym.STRING, str); 
-                       }
+                       charClasses.makeClass(str, scanner.caseless);
+                       RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                      }
                      catch (CharClassException e) {
                        syntaxError(ErrorMessages.CS2SMALL_STRING, strleft, strright);
@@ -711,27 +705,27 @@ regexp        ::=  regexp:r STAR
 
                    :}
                 |  POINT
-                   {: 
-                      List<Interval> any = new ArrayList<>();
-                      any.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
+                   {:
+                      IntCharSet nl;
                       if ( Options.jlex || Options.legacy_dot ) {
-                        any.add(new Interval('\n','\n'));
+                        nl = IntCharSet.ofCharacter('\n');
                       }
                       else {
-                        any.add(new Interval('\n','\r'));
-                        any.add(new Interval('\u0085','\u0085'));
-                        any.add(new Interval('\u2028','\u2029'));
+                        nl = IntCharSet.nlChars();
                       }
+                      nl.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
                       // assumption: surrogate and newline chars have no uppercase variant
-                      charClasses.makeClass(any, false);
-                      RegExp1 r = new RegExp1(sym.CCLASSNOT, any);
+                      charClasses.makeClass(nl, false);
+                      ArrayList<RegExp> l = new ArrayList<RegExp>();
+                      l.add(new RegExp1(sym.PRIMCLASS, nl));
+                      RegExp1 r = new RegExp1(sym.CCLASSNOT, l);
                       r.isPoint = true;
                       RESULT = r;
                    :}
                 |  NEWLINE
                    {: RESULT = makeNL(); :}
                 |  CHAR:c
-                   {: 
+                   {:
                      try {
                        if ( scanner.caseless ) {
                          charClasses.makeClass(c, true);
@@ -739,7 +733,7 @@ regexp        ::=  regexp:r STAR
                        }
                        else {
                          charClasses.makeClass(c, false);
-                         RESULT = new RegExp1(sym.CHAR, c); 
+                         RESULT = new RegExp1(sym.CHAR, c);
                        }
                      }
                      catch (CharClassException e) {
@@ -749,340 +743,47 @@ regexp        ::=  regexp:r STAR
                 ;
 
 charclass     ::=  OPENCLASS CLOSECLASS
-                   {: 
-                     RESULT = new RegExp1(sym.CCLASS,null);
-                   :}
-                |  OPENCLASS classcontent:list CLOSECLASS:close
-                   {:
-                     try {
-                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
-                     }
-                     RESULT = new RegExp1(sym.CCLASS,list);
-                   :}
+                   {: RESULT = new RegExp1(sym.CCLASS, new ArrayList<RegExp>()); :}
                 |  OPENCLASS HAT CLOSECLASS:close
-                   {: 
-                     List<Interval> list = new ArrayList<Interval>();
-                     list.add(new Interval(0, charClasses.getMaxCharCode()));
-                     try {
-                       charClasses.makeClass(list, false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
-                     }
-                     RESULT = new RegExp1(sym.CCLASS,list);
-                   :}
-                |  OPENCLASS HAT classcontent:list CLOSECLASS:close
-                   {: 
-                     try {
-                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
-                     }
-                     RESULT = new RegExp1(sym.CCLASSNOT,list);
-                   :}
-                | OPENCLASS DASH classcontent:list CLOSECLASS:close
-                   {: 
-                     try {
-                       list.add(new Interval('-','-'));
-                       charClasses.makeClass(list, Options.jlex && scanner.caseless);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
-                     }
-                     RESULT = new RegExp1(sym.CCLASS,list);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list CLOSECLASS:close
-                   {: 
-                     try {
-                       list.add(new Interval('-','-'));
-                       charClasses.makeClassNot(list, Options.jlex && scanner.caseless);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, closeleft, closeright);
-                     }
-                     RESULT = new RegExp1(sym.CCLASSNOT,list);
-                   :}
-                |  OPENCLASS classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                   {: RESULT = RegExp.anyChar(); :}
+                |  OPENCLASS opt_hat_content:ccl CLOSECLASS
+                   {: RESULT = ccl; :}
+                |  OPENCLASS opt_dash_content:cc1 charclass_op:op opt_hat_content:c2 CLOSECLASS
                    {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                      RegExp c1 = new RegExp1(sym.CCLASS, cc1);
+                      RESULT = new RegExp1(sym.CCLASSOP, new RegExp2(op.intValue(), c1, c2));
                    :}
-                |  OPENCLASS DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
+                |  OPENCLASS HAT opt_dash_content:cc1 charclass_op:op opt_hat_content:c2 CLOSECLASS
                    {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
+                      RegExp c1 = new RegExp1(sym.CCLASS, cc1);
+                      List<RegExp> l = new ArrayList<>();
+                      l.add(new RegExp1(sym.CCLASSOP, new RegExp2(op.intValue(), c1, c2)));
+                      RESULT = new RegExp1(sym.CCLASSNOT, l);
                    :}
-                |  OPENCLASS classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     List<Interval> intervals = intcharset1.and(intcharset2).getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 INTERSECTION DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     List<Interval> intervals = intersection.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 DIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     // IntCharSet.sub() assumes its argument is a subset, so subtract intersection
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     intcharset1.sub(intersection);
-                     List<Interval> intervals = intcharset1.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClass(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASS, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-                |  OPENCLASS HAT DASH classcontent:list1 SYMMETRICDIFFERENCE DASH classcontent:list2 CLOSECLASS:close
-                   {:
-                     list1.add(new Interval('-', '-'));
-                     IntCharSet intcharset1 = new IntCharSet(list1);
-                     list2.add(new Interval('-', '-'));
-                     IntCharSet intcharset2 = new IntCharSet(list2);
-                     IntCharSet union = intcharset1.copy();
-                     union.add(intcharset2);
-                     IntCharSet intersection = intcharset1.and(intcharset2);
-                     union.sub(intersection);
-                     List<Interval> intervals = union.getIntervals();
-                     charClasses.makeClassNot(intervals, Options.jlex && scanner.caseless);
-                     RESULT = new RegExp1(sym.CCLASSNOT, intervals);
-                   :}
-               ;
+                ;
+
+charclass_op ::=  INTERSECTION
+                   {: RESULT = Integer.valueOf(sym.INTERSECTION); :}
+                | DIFFERENCE
+                   {: RESULT = Integer.valueOf(sym.DIFFERENCE); :}
+                | SYMMETRICDIFFERENCE
+                   {: RESULT = Integer.valueOf(sym.SYMMETRICDIFFERENCE); :}
+                ;
+
+opt_hat_content ::= opt_dash_content:c
+                    {: RESULT = new RegExp1(sym.CCLASS, c); :}
+                  | HAT opt_dash_content:c
+                    {: RESULT = new RegExp1(sym.CCLASSNOT, c); :}
+                  ;
+
+opt_dash_content ::= classcontent:c
+                     {: RESULT = c; :}
+                   | DASH classcontent:c
+                     {:
+                        c.add(primClass('-'));
+                        RESULT = c;
+                     :}
+                   ;
 
 classcontent  ::=  classcontent:list classcontentelem:elem
                    {:
@@ -1091,96 +792,8 @@ classcontent  ::=  classcontent:list classcontentelem:elem
                    :}
                 |  classcontentelem:elem
                    {:
-                     List<Interval> list = new ArrayList<Interval>();
-                     list.add(elem);
-                     RESULT = list;
-                   :}
-                |  classcontent:list preclass:plist
-                   {:
-                     list.addAll(plist);
-                     RESULT = list;
-                   :}
-                |  preclass:list 
-                   {: RESULT = list; :}
-                |  classcontent:list UNIPROPCCLASS:intcharset
-                   {:
-                     //TODO: Is IntCharSet.copy() required here?
-                     list.addAll(intcharset.copy().getIntervals());
-                     RESULT = list;
-                   :}
-                |  UNIPROPCCLASS:intcharset
-                   //TODO: Is IntCharSet.copy() required here?
-                   {: RESULT = intcharset.copy().getIntervals(); :}
-                |  classcontent:list UNIPROPCCLASSNOT:notintcharset
-                   {:
-                     IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
-                     absComp.sub(notintcharset);
-                     list.addAll(absComp.getIntervals());
-                     RESULT = list;
-                   :}
-                |  UNIPROPCCLASSNOT:notintcharset
-                   {:
-                      IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
-                      absComp.sub(notintcharset);
-                      RESULT = absComp.getIntervals();
-                   :}
-                |  classcontent:list STRING:s
-                   {: 
-                      for (int i = 0; i < s.length(); ) {
-                        int ch = s.codePointAt(i);
-                        i += Character.charCount(ch);
-                        list.add(new Interval(ch, ch));
-                      }
-                      RESULT = list;
-                   :}
-                |  STRING:s
-                   {: 
-                      RESULT = new ArrayList<Interval>();
-                      for (int i = 0; i < s.length(); ) {
-                        int ch = s.codePointAt(i);
-                        i += Character.charCount(ch);
-                        RESULT.add(new Interval(ch, ch));
-                      }
-                   :}
-                |  classcontent:list MACROUSE:ident
-                   {: 
-                     syntaxError(ErrorMessages.CHARCLASS_MACRO, identleft, identright);
-                   :}
-                |  MACROUSE:ident
-                   {: 
-                     syntaxError(ErrorMessages.CHARCLASS_MACRO, identleft, identright);
-                   :}
-                |  classcontent:list charclass:regex
-                   {:
-                     List<Interval> intervals = (List<Interval>)((RegExp1)regex).content;
-                     if (null != intervals) {
-                       if (sym.CCLASS == regex.type) {
-                         list.addAll(intervals);
-                       }
-                       else { //  sym.CCLASSNOT == regex.type
-                         IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
-                         absComp.sub(new IntCharSet(intervals));
-                         list.addAll(absComp.getIntervals());
-                       }
-                     }
-                     RESULT = list;
-                   :}
-                |  charclass:regex
-                   {:
-                     List<Interval> list = (List<Interval>)((RegExp1)regex).content;
-                     if (null == list) {
-                       RESULT = new ArrayList<Interval>();
-                     }
-                     else {
-                       if (sym.CCLASS == regex.type) {
-                         RESULT = list;
-                       }
-                       else {
-                         IntCharSet absComp = new IntCharSet(new Interval(0, scanner.getUnicodeProperties().getMaximumCodePoint()));
-                         absComp.sub(new IntCharSet(list));
-                         RESULT = absComp.getIntervals();
-                       }
-                     }
+                     RESULT = new ArrayList<RegExp>();
+                     RESULT.add(elem);
                    :}
                 ;
 
@@ -1188,16 +801,48 @@ classcontentelem ::= CHAR:c1 DASH CHAR:c2
                      {:
                        if (c2 < c1) {
                          syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
+                         c2 = c1; // avoid violating Interval invariant; error is logged.
                        }
-                       RESULT = new Interval(c1, c2); 
+                       RESULT = primClass(c1, c2);
                      :}
                    | CHAR:c
-                     {: RESULT = new Interval(c, c); :}
+                     {: RESULT = primClass(c); :}
+                   | STRING:s
+                     {:
+                        IntCharSet set = new IntCharSet();
+                        for (int i = 0; i < s.length(); ) {
+                          int ch = s.codePointAt(i);
+                          i += Character.charCount(ch);
+                          set.add(ch);
+                        }
+                        RESULT = primClass(set);
+                     :}
+                   |  preclass:set
+                     {: RESULT = primClass(set); :}
+                   |  UNIPROPCCLASS:intcharset
+                     {: RESULT = primClass(intcharset); :}
+                   |  UNIPROPCCLASSNOT:notintcharset
+                     {:
+                        List<RegExp> l = new ArrayList<RegExp>();
+                        l.add(primClass(notintcharset));
+                        RESULT = new RegExp1(sym.CCLASSNOT, l);
+                     :}
+                   |  MACROUSE:ident
+                     {:
+                        if ( !scanner.macroDefinition ) {
+                          if ( ! macros.markUsed(ident) )
+                            throw new ScannerException(scanner.file, ErrorMessages.MACRO_UNDECL,
+                                                       identleft, identright);
+                        }
+                        RESULT = new RegExp1(sym.MACROUSE, ident);
+                     :}
+                   |  charclass:regex
+                     {: RESULT = regex; :}
                    ;
-                   
+
 preclass ::= JLETTERCLASS
              {: RESULT = getPreClass(sym.JLETTERCLASS); :}
-           | JLETTERDIGITCLASS 
+           | JLETTERDIGITCLASS
              {: RESULT = getPreClass(sym.JLETTERDIGITCLASS); :}
            | LETTERCLASS
              {: RESULT = getPreClass(sym.LETTERCLASS); :}
