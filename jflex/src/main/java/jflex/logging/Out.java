@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.option.Options;
 import jflex.performance.Timer;
 
 /**
@@ -37,9 +38,6 @@ import jflex.performance.Timer;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class Out {
-
-  /** If false, only error/warning output will be generated */
-  public static boolean verbose = true;
 
   private Out() {}
 
@@ -102,7 +100,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    if (verbose) {
+    if (Options.verbose) {
       out.println(message);
     }
   }
@@ -114,7 +112,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, String data) {
-    if (verbose) {
+    if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -126,7 +124,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, int data) {
-    if (verbose) {
+    if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -137,7 +135,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    if (verbose) {
+    if (Options.verbose) {
       out.print(message);
     }
   }

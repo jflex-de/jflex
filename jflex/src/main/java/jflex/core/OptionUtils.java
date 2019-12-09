@@ -28,7 +28,7 @@ public class OptionUtils {
     Options.jlex = false;
     Options.no_minimize = false;
     Options.no_backup = false;
-    Out.verbose = true;
+    Options.verbose = true;
     Options.progress = true;
     Options.unused_warning = true;
     Options.time = false;

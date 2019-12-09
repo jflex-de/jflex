@@ -18,7 +18,6 @@ import java.nio.charset.Charset;
 import jflex.core.OptionUtils;
 import jflex.option.Options;
 import jflex.core.Skeleton;
-import jflex.logging.Out;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -119,9 +118,9 @@ public class JFlexTaskTest {
   @Test
   public void testVerbose() {
     task.setVerbose(false);
-    assertThat(!Out.verbose).isTrue();
+    assertThat(!Options.verbose).isTrue();
     task.setVerbose(true);
-    assertThat(Out.verbose).isTrue();
+    assertThat(Options.verbose).isTrue();
   }
 
   @Test

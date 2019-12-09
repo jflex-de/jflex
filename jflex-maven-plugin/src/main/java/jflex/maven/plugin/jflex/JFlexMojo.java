@@ -24,7 +24,6 @@ import java.util.Objects;
 import jflex.core.OptionUtils;
 import jflex.option.Options;
 import jflex.generator.LexGenerator;
-import jflex.logging.Out;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -213,7 +212,7 @@ public class JFlexMojo extends AbstractMojo {
     OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
-    Out.verbose = verbose;
+    Options.verbose = verbose;
     Options.unused_warning = unusedWarning;
     Options.dot = dot;
     Options.legacy_dot = legacyDot;
