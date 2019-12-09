@@ -484,7 +484,7 @@ final public class NFA {
     numDFAStates--;
 
     if (Options.DEBUG)
-      Out.debug("DFA start states are :"+Env.NL+dfaStates+Env.NL+Env.NL+"ordered :"+Env.NL+dfaVector);
+      Out.debug("DFA start states are :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
       
@@ -577,15 +577,15 @@ final public class NFA {
         }
         result.append("]");
       }
-      result.append(" "+i+Env.NL);
+      result.append(" "+i+Out.NL);
       
       for (char input = 0; input < numInput; input++) {
 	      if ( table[i][input] != null && table[i][input].containsElements() ) 
-	        result.append("  with "+((int) input)+" in "+table[i][input]+Env.NL);
+	        result.append("  with "+((int) input)+" in "+table[i][input]+Out.NL);	
         }
 
       if ( epsilon[i] != null && epsilon[i].containsElements() ) 
-	      result.append("  with epsilon in "+epsilon[i]+Env.NL);
+	      result.append("  with epsilon in "+epsilon[i]+Out.NL);
     }    
     
     return result.toString();
@@ -606,14 +606,14 @@ final public class NFA {
   public String dotFormat() {
     StringBuffer result = new StringBuffer();
 
-    result.append("digraph NFA {"+Env.NL);
-    result.append("rankdir = LR"+Env.NL);
+    result.append("digraph NFA {"+Out.NL);
+    result.append("rankdir = LR"+Out.NL);
 
     for (int i=0; i < numStates; i++) {
       if ( isFinal[i] ) {
           result.append(i);
           result.append(" [shape = doublecircle]");
-          result.append(Env.NL);
+          result.append(Out.NL);
       }      
     }
 
@@ -625,7 +625,7 @@ final public class NFA {
           while (states.hasMoreElements()) {
             int s = states.nextElement();
             result.append(i+" -> "+s);
-            result.append(" [label=\""+classes.toString(input)+"\"]"+Env.NL);
+            result.append(" [label=\""+classes.toString(input)+"\"]"+Out.NL);
           }
         }
       }
@@ -633,12 +633,12 @@ final public class NFA {
         StateSetEnumerator states = epsilon[i].states();
         while (states.hasMoreElements()) {
           int s = states.nextElement();
-          result.append(i+" -> "+s+" [style=dotted]"+Env.NL);
+          result.append(i+" -> "+s+" [style=dotted]"+Out.NL);
         }
       }
     }
 
-    result.append("}"+Env.NL);
+    result.append("}"+Out.NL);
 
     return result.toString();
   }
@@ -713,7 +713,7 @@ final public class NFA {
 
     if (Options.DEBUG) {
       Out.debug("complement for "+nfa);
-      Out.debug("NFA is :"+Env.NL+this);
+      Out.debug("NFA is :"+Out.NL+this);
     }
 
     int dfaStart = nfa.end+1; 
@@ -734,7 +734,7 @@ final public class NFA {
     dfaVector.addElement(newState);
 
     if (Options.DEBUG)
-      Out.debug("pos DFA start state is :"+Env.NL+dfaStates+Env.NL+Env.NL+"ordered :"+Env.NL+dfaVector);
+      Out.debug("pos DFA start state is :"+Out.NL+dfaStates+Out.NL+Out.NL+"ordered :"+Out.NL+dfaVector);
      
     currentDFAState = 0;
       
@@ -777,7 +777,7 @@ final public class NFA {
 
     // Now the complement:    
     if (Options.DEBUG) 
-      Out.debug("dfa finished, nfa is now :"+Env.NL+this);
+      Out.debug("dfa finished, nfa is now :"+Out.NL+this);
 
     int start = dfaStart+numDFAStates+1;
     int error = dfaStart+numDFAStates+2;
