@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import jflex.chars.Interval;
 import jflex.core.unicode.UnicodeProperties;
-import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.performance.Timer;
@@ -1728,13 +1727,8 @@ class CUP$LexParse$actions {
 		int setright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		IntCharSet set = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     try {
-                       // assumption [correct?]: preclasses are already closed under case
-                       charClasses.makeClass(set, false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, setleft);
-                     }
+                     // assumption [correct?]: preclasses are already closed under case
+                     charClasses.makeClass(set, false);
                      RESULT = new RegExp1(sym.PRIMCLASS, set);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1753,12 +1747,7 @@ class CUP$LexParse$actions {
                        = scanner.caseless
                        ? intcharset.getCaseless(scanner.getUnicodeProperties())
                        : intcharset;
-                     try {
-                       charClasses.makeClass(set, false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, intcharsetleft, intcharsetright);
-                     }
+                     charClasses.makeClass(set, false);
                      RESULT = new RegExp1(sym.PRIMCLASS, set);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1777,12 +1766,8 @@ class CUP$LexParse$actions {
                        = scanner.caseless
                        ? notintcharset.getCaseless(scanner.getUnicodeProperties())
                        : notintcharset;
-                     try {
-                       charClasses.makeClassNot(set.getIntervals(), false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, notintcharsetleft, notintcharsetright);
-                     }
+                     charClasses.makeClassNot(set.getIntervals(), false);
+
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
                      l.add(new RegExp1(sym.PRIMCLASS, set));
                      RESULT = new RegExp1(sym.CCLASSNOT, l);
@@ -1799,14 +1784,8 @@ class CUP$LexParse$actions {
 		int strright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		String str = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     try {
-                       charClasses.makeClass(str, scanner.caseless);
-                       RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CS2SMALL_STRING, strleft, strright);
-                     }
-
+                     charClasses.makeClass(str, scanner.caseless);
+                     RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
@@ -1854,18 +1833,13 @@ class CUP$LexParse$actions {
 		int cright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     try {
-                       if ( scanner.caseless ) {
-                         charClasses.makeClass(c, true);
-                         RESULT = new RegExp1(sym.CHAR_I, c);
-                       }
-                       else {
-                         charClasses.makeClass(c, false);
-                         RESULT = new RegExp1(sym.CHAR, c);
-                       }
+                     if ( scanner.caseless ) {
+                       charClasses.makeClass(c, true);
+                       RESULT = new RegExp1(sym.CHAR_I, c);
                      }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CS2SMALL_CHAR, cleft, cright);
+                     else {
+                       charClasses.makeClass(c, false);
+                       RESULT = new RegExp1(sym.CHAR, c);
                      }
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
