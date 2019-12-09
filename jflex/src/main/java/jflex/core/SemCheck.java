@@ -109,7 +109,7 @@ public final class SemCheck {
         }
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 
   /**
@@ -168,7 +168,7 @@ public final class SemCheck {
         return -1;
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 
   /**
@@ -219,6 +219,6 @@ public final class SemCheck {
         return false;
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 }
