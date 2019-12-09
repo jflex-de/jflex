@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.env.Env;
 import jflex.logging.Out;
 
 /**
@@ -204,16 +203,16 @@ public class CharClasses {
   public String toString() {
     StringBuilder result = new StringBuilder("CharClasses:");
 
-    result.append(Env.NL);
+    result.append(Out.NL);
 
     for (int i = 0; i < classes.size(); i++)
       result
           .append("class ")
           .append(i)
           .append(":")
-          .append(Env.NL)
+          .append(Out.NL)
           .append(classes.get(i))
-          .append(Env.NL);
+          .append(Out.NL);
 
     return result.toString();
   }

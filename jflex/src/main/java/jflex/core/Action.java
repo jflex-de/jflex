@@ -10,8 +10,8 @@
 package jflex.core;
 
 import java.util.Objects;
-import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
+import jflex.logging.Out;
 
 /**
  * Encapsulates an action in the specification.
@@ -108,7 +108,7 @@ public final class Action {
         + ", lookahead "
         + kind
         + ") :"
-        + Env.NL
+        + Out.NL
         + content; // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   }
 

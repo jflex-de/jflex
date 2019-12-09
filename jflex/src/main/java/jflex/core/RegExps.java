@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.base.Build;
 import jflex.core.unicode.CharClasses;
-import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -82,9 +81,9 @@ public class RegExps {
       Boolean isBOL,
       RegExp lookAhead) {
     if (Build.DEBUG) {
-      Out.debug("Inserting regular expression with statelist :" + Env.NL + stateList);
-      Out.debug("and action code :" + Env.NL + (action == null ? "null" : action.content) + Env.NL);
-      Out.debug("expression :" + Env.NL + regExp);
+      Out.debug("Inserting regular expression with statelist :" + Out.NL + stateList);
+      Out.debug("and action code :" + Out.NL + (action == null ? "null" : action.content) + Out.NL);
+      Out.debug("expression :" + Out.NL + regExp);
     }
 
     states.add(stateList);
@@ -108,8 +107,8 @@ public class RegExps {
   public int insert(List<Integer> stateList, Action action) {
 
     if (Build.DEBUG) {
-      Out.debug("Inserting eofrule with statelist :" + Env.NL + stateList);
-      Out.debug("and action code :" + Env.NL + (action == null ? "null" : action.content) + Env.NL);
+      Out.debug("Inserting eofrule with statelist :" + Out.NL + stateList);
+      Out.debug("and action code :" + Out.NL + (action == null ? "null" : action.content) + Out.NL);
     }
 
     states.add(stateList);

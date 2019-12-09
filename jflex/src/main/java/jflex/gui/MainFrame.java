@@ -19,7 +19,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.base.Build;
 import jflex.logging.Out;
-import jflex.env.Env;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -222,8 +221,8 @@ public final class MainFrame extends Frame implements Handles {
   public void generationFinished(boolean success) {
     setEnabledAll(false);
 
-    if (success) messages.append(Env.NL + "Generation finished successfully." + Env.NL);
-    else messages.append(Env.NL + "Generation aborted." + Env.NL);
+    if (success) messages.append(Out.NL + "Generation finished successfully." + Out.NL);
+    else messages.append(Out.NL + "Generation aborted." + Out.NL);
   }
 
   @SuppressWarnings("SystemExitOutsideMain") // this is an alternative Main class

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import jflex.base.Build;
-import jflex.env.Env;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -60,7 +59,7 @@ public final class Macros {
           "inserting macro "
               + name
               + " with definition :"
-              + Env.NL
+              + Out.NL
               + definition); // $NON-NLS-1$ //$NON-NLS-2$
 
     used.put(name, Boolean.FALSE);

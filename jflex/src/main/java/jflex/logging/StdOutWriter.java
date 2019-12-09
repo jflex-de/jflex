@@ -8,7 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 package jflex.logging;
-import static jflex.env.Env.NL;
+import static jflex.logging.Out.NL;
 import java.awt.TextArea;
 import java.io.OutputStream;
 import java.io.PrintWriter;

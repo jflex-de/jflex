@@ -10,7 +10,7 @@
 package jflex.generator;
 
 import java.util.Locale;
-import jflex.env.Env;
+import jflex.logging.Out;
 
 /**
  * Encodes {@code int} arrays as strings.
@@ -154,7 +154,7 @@ public abstract class PackEmitter {
 
   /** emit newline */
   protected void nl() {
-    out.append(Env.NL);
+    out.append(Out.NL);
   }
 
   /**

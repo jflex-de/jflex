@@ -9,8 +9,6 @@
 
 package jflex.logging;
 
-import static jflex.env.Env.NL;
-
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,6 +36,9 @@ import jflex.performance.Timer;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class Out {
+
+  /** Platform specific newline. */
+  public static final String NL = System.getProperty("line.separator");
 
   private Out() {}
 

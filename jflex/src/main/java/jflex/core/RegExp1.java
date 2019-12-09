@@ -9,7 +9,7 @@
 
 package jflex.core;
 
-import jflex.env.Env;
+import jflex.logging.Out;
 
 /**
  * Stores a regular expression from the rules section of a JFlex specification.
@@ -48,19 +48,19 @@ public class RegExp1 extends RegExp {
       return tab
           + "type = "
           + typeName()
-          + Env.NL
+          + Out.NL
           + tab
           + "content :"
-          + Env.NL
+          + Out.NL
           + ((RegExp) content).print(tab + "  ");
     } else
       return tab
           + "type = "
           + typeName()
-          + Env.NL
+          + Out.NL
           + tab
           + "content :"
-          + Env.NL
+          + Out.NL
           + tab
           + "  "
           + content;

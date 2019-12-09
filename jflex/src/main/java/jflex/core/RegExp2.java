@@ -9,7 +9,7 @@
 
 package jflex.core;
 
-import jflex.env.Env;
+import jflex.logging.Out;
 
 /**
  * Regular expression with two children (e.g. a | b)
@@ -40,15 +40,15 @@ public class RegExp2 extends RegExp {
     return tab
         + "type = "
         + typeName()
-        + Env.NL
+        + Out.NL
         + tab
         + "child 1 :"
-        + Env.NL
+        + Out.NL
         + r1.print(tab + "  ")
-        + Env.NL
+        + Out.NL
         + tab
         + "child 2 :"
-        + Env.NL
+        + Out.NL
         + r2.print(tab + "  ");
   }
 
