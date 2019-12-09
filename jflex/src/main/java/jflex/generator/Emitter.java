@@ -227,7 +227,7 @@ public final class Emitter {
       println("   *");
       println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
-      println("  private String getTokenName(int token) {");
+      println("  private static String getTokenName(int token) {");
       println("    try {");
       println(
           "      java.lang.reflect.Field [] classFields = "
