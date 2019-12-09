@@ -37,8 +37,6 @@ public class Options {
   public static boolean no_minimize;
   /** don't write backup files if this is true */
   public static boolean no_backup;
-  /** If false, only error/warning output will be generated */
-  public static boolean verbose;
   /** Whether to warn about unused macros. */
   public static boolean unused_warning;
   /** If true, progress dots will be printed */
@@ -131,7 +129,7 @@ public class Options {
     jlex = false;
     no_minimize = false;
     no_backup = false;
-    verbose = true;
+    Out.verbose = true;
     progress = true;
     unused_warning = true;
     time = false;

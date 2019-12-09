@@ -38,6 +38,9 @@ import jflex.performance.Timer;
  */
 public final class Out {
 
+  /** If false, only error/warning output will be generated */
+  public static boolean verbose = true;
+
   private Out() {}
 
   /** count total warnings */
@@ -75,7 +78,6 @@ public final class Out {
    * @param time elapsed time
    */
   public static void time(ErrorMessages.ErrorMessage message, Timer time) {
-    // TODO Fix cyclic dependency
     // if (Options.time) {
     //   String msg = ErrorMessages.get(message, time.toString());
     //   out.println(msg);
@@ -100,8 +102,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    // TODO Fix cyclic dependency
-    // if (Options.verbose) out.println(message);
+    if (verbose) {
+      out.println(message);
+    }
   }
 
   /**
@@ -111,10 +114,9 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, String data) {
-    // TODO Fix cyclic dependency
-    // if (Options.verbose) {
-    //   out.println(ErrorMessages.get(message, data));
-    // }
+    if (verbose) {
+      out.println(ErrorMessages.get(message, data));
+    }
   }
 
   /**
@@ -124,10 +126,9 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, int data) {
-    // TODO Fix cyclic dependency
-    // if (Options.verbose) {
-    //   out.println(ErrorMessages.get(message, data));
-    // }
+    if (verbose) {
+      out.println(ErrorMessages.get(message, data));
+    }
   }
 
   /**
@@ -136,10 +137,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    // TODO Fix cyclic dependency
-    // if (Options.verbose) {
-    //   out.print(message);
-    // }
+    if (verbose) {
+      out.print(message);
+    }
   }
 
   /**

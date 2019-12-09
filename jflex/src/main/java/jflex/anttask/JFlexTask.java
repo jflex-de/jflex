@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import jflex.core.Options;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -71,7 +72,7 @@ public class JFlexTask extends Task {
 
         if (inputFile.lastModified() > destFile.lastModified()) {
           LexGenerator.generate(inputFile);
-          if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
+          if (!Out.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
         throw new BuildException("IOException: " + e1.toString());
@@ -231,7 +232,7 @@ public class JFlexTask extends Task {
    * @param verbose a boolean.
    */
   public void setVerbose(boolean verbose) {
-    Options.verbose = verbose;
+    Out.verbose = verbose;
     Options.unused_warning = verbose;
   }
 

@@ -101,7 +101,7 @@ public class Main {
       if (Objects.equals(argv[i], "-v")
           || Objects.equals(argv[i], "--verbose")
           || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = true;
+        Out.verbose = true;
         Options.progress = true;
         Options.unused_warning = true;
         continue;
@@ -110,7 +110,7 @@ public class Main {
       if (Objects.equals(argv[i], "-q")
           || Objects.equals(argv[i], "--quiet")
           || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = false;
+        Out.verbose = false;
         Options.progress = false;
         Options.unused_warning = false;
         continue;

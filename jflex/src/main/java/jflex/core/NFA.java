@@ -530,7 +530,7 @@ public final class NFA {
       currentDFAState++;
     }
 
-    if (Options.verbose) Out.println("");
+    if (Out.verbose) Out.println("");
 
     return dfa;
   }

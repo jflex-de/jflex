@@ -20,6 +20,7 @@ import java.io.File;
 import jflex.core.Options;
 import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
+import jflex.logging.Out;
 
 /**
  * A dialog for setting JFlex options
@@ -116,7 +117,7 @@ public class OptionsDialog extends Dialog {
     verbose.addItemListener(
         new ItemListener() {
           public void itemStateChanged(ItemEvent e) {
-            Options.verbose = verbose.getState();
+            Out.verbose = verbose.getState();
           }
         });
 
@@ -220,7 +221,7 @@ public class OptionsDialog extends Dialog {
     legacy_dot.setState(Options.legacy_dot);
 
     dump.setState(Options.dump);
-    verbose.setState(Options.verbose);
+    verbose.setState(Out.verbose);
     time.setState(Options.time);
 
     no_minimize.setState(Options.no_minimize);

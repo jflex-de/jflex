@@ -185,8 +185,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private String invokeJflex() {
-    Options.verbose = !spec.quiet();
     Options.jlex = spec.jlexCompat();
+    Out.verbose = !spec.quiet();
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
     return checkNotNull(lexerJavaFileName);
   }
