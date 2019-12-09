@@ -17,9 +17,9 @@ import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.core.OptionUtils;
-import jflex.option.Options;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
+import jflex.option.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 

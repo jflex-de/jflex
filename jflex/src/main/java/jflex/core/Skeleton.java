@@ -9,6 +9,7 @@
 package jflex.core;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static jflex.logging.Out.NL;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +25,6 @@ import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 
-import static jflex.logging.Out.NL;
 /**
  * This class stores the skeleton of generated scanners.
  *

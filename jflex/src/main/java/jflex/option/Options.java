@@ -77,6 +77,6 @@ public class Options {
   }
 
   public static void resetRootDirectory() {
-     rootDirectory = new File("");
+    rootDirectory = new File("");
   }
 }
