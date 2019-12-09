@@ -138,8 +138,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
             .isNull();
       } else if (spec.generatorThrowableCause() != NoExceptionThrown.class) {
         assertWithMessage(
-                "@TestCase indicates that cause of the generator exception is "
-                    + spec.generatorThrowableCause())
+                "@TestCase indicates that cause of the generator exception is %s but it was %s\n",
+                    spec.generatorThrowableCause().getSimpleName(), e.getCause())
             .that(e.getCause())
             .isInstanceOf(spec.generatorThrowableCause());
       }
