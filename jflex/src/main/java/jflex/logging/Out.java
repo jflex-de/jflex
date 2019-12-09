@@ -77,10 +77,10 @@ public final class Out {
    * @param time elapsed time
    */
   public static void time(ErrorMessages.ErrorMessage message, Timer time) {
-    // if (Options.time) {
-    //   String msg = ErrorMessages.get(message, time.toString());
-    //   out.println(msg);
-    // }
+    if (Options.time) {
+      String msg = ErrorMessages.get(message, time.toString());
+      out.println(msg);
+    }
   }
 
   /**
@@ -89,10 +89,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void time(String message) {
-    // TODO Fix cyclic dependency
-    // if (Options.time) {
-    //   out.println(message);
-    // }
+    if (Options.time) {
+      out.println(message);
+    }
   }
 
   /**
@@ -162,10 +161,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void dump(String message) {
-    // TODO Fix cyclic dependency
-    // if (Options.dump) {
-    //   out.println(message);
-    // }
+    if (Options.dump) {
+      out.println(message);
+    }
   }
 
   /**
