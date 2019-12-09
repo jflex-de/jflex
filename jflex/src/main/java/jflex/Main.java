@@ -9,11 +9,6 @@
 
 package jflex;
 
-import static jflex.core.OptionUtils.setEncoding;
-import static jflex.option.Options.unused_warning;
-import static jflex.logging.Out.error;
-import static jflex.l10n.ErrorMessages.NO_ENCODING;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -85,11 +80,11 @@ public class Main {
 
       if (Objects.equals(argv[i], "--encoding")) {
         if (++i >= argv.length) {
-          error(NO_ENCODING);
+          Out.error(ErrorMessages.NO_ENCODING);
           throw new GeneratorException();
         }
 
-        setEncoding(argv[i]);
+        OptionUtils.setEncoding(argv[i]);
         continue;
       }
 
@@ -118,12 +113,12 @@ public class Main {
       }
 
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
-        unused_warning = true;
+        Options.unused_warning = true;
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
-        unused_warning = false;
+        Options.unused_warning = false;
         continue;
       }
 
@@ -350,7 +345,7 @@ public class Main {
         Throwable cause = e.getCause();
         if (cause != null) {
           String msg = cause.getLocalizedMessage();
-          if (msg != null) error(msg);
+          if (msg != null) Out.error(msg);
           cause.printStackTrace();
         }
       } else {
