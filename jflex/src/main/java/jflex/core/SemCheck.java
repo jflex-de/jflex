@@ -20,6 +20,9 @@ import jflex.logging.Out;
  */
 public final class SemCheck {
 
+  /** Prevent instantiation of static-only class */
+  private SemCheck() {}
+
   /**
    * Performs semantic analysis for all expressions.
    *

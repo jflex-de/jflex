@@ -411,7 +411,7 @@ public class UnicodeProperties {
    * @param identifier The identifier to normalize
    * @return The normalized identifier
    */
-  private String normalize(String identifier) {
+  private static String normalize(String identifier) {
     if (null == identifier) return identifier;
     Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase(Locale.ENGLISH));
     return matcher.replaceAll("").replace(':', '=');

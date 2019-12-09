@@ -39,7 +39,6 @@ public final class MainFrame extends Frame implements Handles {
 
   private Button quit;
   private Button generate;
-  private Button stop;
   private Button specChoose;
   private Button dirChoose;
 
@@ -74,7 +73,6 @@ public final class MainFrame extends Frame implements Handles {
     generate = new Button("Generate");
     quit = new Button("Quit");
     Button options = new Button("Options");
-    stop = new Button("Stop");
     dirChoose = new Button("Browse");
     dir = new TextField(10);
     specChoose = new Button("Browse");
@@ -106,13 +104,6 @@ public final class MainFrame extends Frame implements Handles {
         new ActionListener() {
           public void actionPerformed(ActionEvent e) {
             quit();
-          }
-        });
-
-    stop.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            stop();
           }
         });
 
@@ -166,7 +157,6 @@ public final class MainFrame extends Frame implements Handles {
     north.add(4, 0, quit);
     north.add(4, 1, generate);
     north.add(4, 2, options);
-    north.add(4, 3, stop);
 
     north.add(0, 0, BOTTOM, new Label("Lexical specification:"));
     north.add(0, 1, 2, 1, spec);
@@ -206,7 +196,6 @@ public final class MainFrame extends Frame implements Handles {
   }
 
   private void setEnabledAll(boolean generating) {
-    stop.setEnabled(generating);
     quit.setEnabled(!generating);
     generate.setEnabled(!generating);
     dirChoose.setEnabled(!generating);
@@ -237,17 +226,7 @@ public final class MainFrame extends Frame implements Handles {
     else messages.append(Env.NL + "Generation aborted." + Env.NL);
   }
 
-  private void stop() {
-    if (thread != null) {
-      /* stop ok here despite deprecation (?)
-      I don't know any good way to abort generation without changing the
-      generator code */
-      thread.stop();
-      thread = null;
-    }
-    generationFinished(false);
-  }
-
+  @SuppressWarnings("SystemExitOutsideMain") // this is an alternative Main class
   private void quit() {
     setVisible(false);
     System.exit(0);

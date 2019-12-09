@@ -60,6 +60,10 @@ public class Options {
     setDefaults();
   }
 
+  /** Prevent instantiation of static-only calss */
+  // (to be changed to instances in thread-safety refactor)
+  private Options() {}
+
   /**
    * getDir.
    *
