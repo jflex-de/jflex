@@ -3,6 +3,7 @@ package jflex.core;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import jflex.chars.Interval;
+import jflex.core.unicode.IntCharSet;
 import junit.framework.TestCase;
 
 public class IntCharSetTest extends TestCase {

@@ -22,7 +22,7 @@ import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
 import jflex.core.Options;
-import jflex.core.Out;
+import jflex.logging.Out;
 import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;

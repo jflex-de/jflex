@@ -13,9 +13,9 @@ import java_cup.runtime.Symbol;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import jflex.core.unicode.UnicodeProperties;
+import jflex.core.unicode.IntCharSet;import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
-import jflex.performance.Timer;
+import jflex.logging.Out;import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
 
 %%
@@ -417,13 +417,13 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                  return symbol(UNIPROPCCLASS, set);
                                }
     {WSPNL}*"\\P{"[^}]*"}"     { String trimmedText = yytext().trim();
-                                 String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
-                                 IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
-                                 if (null == set) {
-                                   throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
-                                 }
-                                 return symbol(UNIPROPCCLASSNOT, set);
-                               }
+                                     String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
+                                     IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
+                                     if (null == set) {
+                                       throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
+                                     }
+                                     return symbol(UNIPROPCCLASSNOT, set);
+                                   }
   }
 
   . { return symbol(CHAR, yytext().codePointAt(0)); }

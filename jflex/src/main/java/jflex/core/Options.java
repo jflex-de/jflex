@@ -13,6 +13,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Collects all global JFlex options. Can be set from command line parser, ant task, gui, etc.
@@ -21,9 +22,6 @@ import jflex.l10n.ErrorMessages;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public class Options {
-
-  /** If true, additional verbose debug information is produced. This is a compile time option. */
-  public static final boolean DEBUG = false;
 
   /** output directory */
   private static File directory;

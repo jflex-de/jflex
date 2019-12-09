@@ -6,9 +6,10 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex.core;
+package jflex.state;
 
 import java.util.Iterator;
+import jflex.logging.Out;
 import jflex.env.Env;
 
 /**
@@ -22,7 +23,7 @@ import jflex.env.Env;
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
- * @see jflex.core.StateSetEnumerator
+ * @see StateSetEnumerator
  */
 public final class StateSet implements Iterable<Integer> {
 

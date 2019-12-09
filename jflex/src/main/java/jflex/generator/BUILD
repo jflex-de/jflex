@@ -1,8 +1,7 @@
-package(default_visibility = ["//jflex:visibility"])
-
 java_library(
     name = "generator",
     srcs = glob(["*.java"]),
+    visibility = ["//jflex:visibility"],
     deps = [
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/core",

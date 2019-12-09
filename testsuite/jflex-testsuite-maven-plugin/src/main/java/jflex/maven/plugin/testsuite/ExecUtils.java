@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.core.Options;
-import jflex.core.Out;
+import jflex.logging.Out;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import org.apache.tools.ant.BuildException;

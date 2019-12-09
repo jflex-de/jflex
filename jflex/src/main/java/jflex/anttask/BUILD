@@ -1,8 +1,7 @@
-package(default_visibility = ["//jflex:visibility"])
-
 java_library(
     name = "anttask",
     srcs = glob(["*.java"]),
+    visibility = ["//jflex:__subpackages__"],
     deps = [
         "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/exceptions",

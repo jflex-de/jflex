@@ -17,9 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.Build;
 import jflex.env.Env;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Symbol table and expander for macros.
@@ -52,7 +54,7 @@ public final class Macros {
    */
   public boolean insert(String name, RegExp definition) {
 
-    if (Options.DEBUG)
+    if (Build.DEBUG)
       Out.debug(
           "inserting macro "
               + name

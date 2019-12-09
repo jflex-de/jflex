@@ -10,9 +10,11 @@ package jflex.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import jflex.base.Build;
 import jflex.env.Env;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Stores all rules of the specification for later access in RegExp -> NFA
@@ -78,7 +80,7 @@ public class RegExps {
       Action action,
       Boolean isBOL,
       RegExp lookAhead) {
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug(
           "Inserting regular expression with statelist :" + Env.NL + stateList); // $NON-NLS-1$
       Out.debug("and action code :" + Env.NL + action.content + Env.NL); // $NON-NLS-1$
@@ -105,7 +107,7 @@ public class RegExps {
    */
   public int insert(List<Integer> stateList, Action action) {
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("Inserting eofrule with statelist :" + Env.NL + stateList); // $NON-NLS-1$
       Out.debug("and action code :" + Env.NL + action.content + Env.NL); // $NON-NLS-1$
     }

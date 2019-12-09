@@ -18,7 +18,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.base.Build;
-import jflex.core.Out;
+import jflex.logging.Out;
 import jflex.env.Env;
 
 /**

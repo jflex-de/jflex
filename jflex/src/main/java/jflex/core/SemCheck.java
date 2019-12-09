@@ -10,6 +10,7 @@ package jflex.core;
 
 import java.io.File;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Performs simple semantic analysis on regular expressions.

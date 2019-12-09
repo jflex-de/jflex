@@ -11,7 +11,7 @@ package jflex;
 
 import static jflex.core.Options.setEncoding;
 import static jflex.core.Options.unused_warning;
-import static jflex.core.Out.error;
+import static jflex.logging.Out.error;
 import static jflex.l10n.ErrorMessages.NO_ENCODING;
 
 import java.io.File;
@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.core.Options;
-import jflex.core.Out;
+import jflex.logging.Out;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
@@ -158,7 +158,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--info")
           || Objects.equals(argv[i], "-info")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.printSystemInfo();
+        printSystemInfo();
         throw new SilentExit(0);
       }
 
@@ -347,4 +347,21 @@ public class Main {
 
   // Only CLI, not meant for instanciation.
   private Main() {}
+
+  /** Print system information (e.g. in case of unexpected exceptions) */
+  public static void printSystemInfo() {
+    Out.err("Java version:     " + System.getProperty("java.version"));
+    Out.err("Runtime name:     " + System.getProperty("java.runtime.name"));
+    Out.err("Vendor:           " + System.getProperty("java.vendor"));
+    Out.err("VM version:       " + System.getProperty("java.vm.version"));
+    Out.err("VM vendor:        " + System.getProperty("java.vm.vendor"));
+    Out.err("VM name:          " + System.getProperty("java.vm.name"));
+    Out.err("VM info:          " + System.getProperty("java.vm.info"));
+    Out.err("OS name:          " + System.getProperty("os.name"));
+    Out.err("OS arch:          " + System.getProperty("os.arch"));
+    Out.err("OS version:       " + System.getProperty("os.version"));
+    Out.err("Encoding:         " + System.getProperty("file.encoding"));
+    Out.err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
+    Out.err("JFlex version:    " + Build.VERSION);
+  }
 }

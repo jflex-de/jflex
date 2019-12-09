@@ -1,15 +1,15 @@
-package(default_visibility = ["//visibility:public"])
-
 java_library(
     name = "core",
-    srcs = glob(["**/*.java"]) + [
+    srcs = glob(["*.java"]) + [
         "//jflex:gen_parser",
         "//jflex:gen_scanner",
     ],
+    visibility = ["//jflex:visibility"],
     deps = [
         "//cup:cup_runtime",
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
+        "//jflex/src/main/java/jflex/core/unicode",
         "//jflex/src/main/java/jflex/env",
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/io",

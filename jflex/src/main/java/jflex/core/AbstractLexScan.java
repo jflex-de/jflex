@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java_cup.runtime.Symbol;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.ILexScan;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 import jflex.scanner.LexicalStates;
 import jflex.scanner.ScannerException;
 
-public abstract class AbstractLexScan {
+public abstract class AbstractLexScan implements ILexScan {
 
   int bufferSize = 16384;
 

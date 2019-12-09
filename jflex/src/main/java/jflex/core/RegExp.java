@@ -12,6 +12,7 @@ package jflex.core;
 import java.util.ArrayList;
 import java.util.List;
 import jflex.chars.Interval;
+import jflex.core.unicode.CharClasses;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.

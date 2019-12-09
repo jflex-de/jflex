@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+
 import static jflex.env.Env.NL;
 /**
  * This class stores the skeleton of generated scanners.
