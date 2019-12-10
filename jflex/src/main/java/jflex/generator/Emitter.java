@@ -467,7 +467,7 @@ public final class Emitter {
    * @param usercode the user code
    * @return true if it ends with a javadoc comment and zero or more annotations
    */
-  public static boolean endsWithJavadoc(StringBuilder usercode) {
+  public static boolean endsWithJavadoc(CharSequence usercode) {
     Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
     return matcher.matches() && !matcher.group(1).contains("*/");
   }
