@@ -70,7 +70,14 @@ public class CustomClassLoader extends ClassLoader {
     for (String path : pathItems) {
       if (isJar(path)) {
         try {
-          s = getZipEntryStream(path, name);
+          ZipFile zip = new ZipFile(new File(path));
+          ZipEntry entry = zip.getEntry(name);
+          if (entry != null) {
+            s = zip.getInputStream(entry);
+          } else {
+            s = null;
+            zip.close();
+          }
         } catch (FileNotFoundException e) {
           // we might find the entry in another path item.
           s = null;
@@ -148,18 +155,6 @@ public class CustomClassLoader extends ClassLoader {
         // ignore, maybe another path item succeeds
       }
     }
-    return null;
-  }
-
-  /** Returns {@link InputStream} for a jar/zip file entry. */
-  private InputStream getZipEntryStream(String file, String entryName) throws IOException {
-    ZipFile zip = new ZipFile(new File(file));
-    ZipEntry entry = zip.getEntry(entryName);
-    if (entry != null) {
-      // Don't close the zip now, otherwise the content is unreadable.
-      return zip.getInputStream(entry);
-    }
-    zip.close();
     return null;
   }
 
