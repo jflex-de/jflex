@@ -7,11 +7,19 @@ jflex(
     outputs = ["BolScanner.java"],
 )
 
+jflex(
+    name = "gen_bol2_scanner",
+    srcs = ["bol2.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Bol2Scanner.java"],
+)
+
 java_test(
     name = "BolTest",
     srcs = [
         "BolTest.java",
         "State.java",
+        ":gen_bol2_scanner",
         ":gen_bol_scanner",
     ],
     deps = [
