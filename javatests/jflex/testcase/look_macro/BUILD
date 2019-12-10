@@ -1,0 +1,43 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+# lookmacro
+
+jflex(
+    name = "gen_lookmacro_scanner",
+    srcs = ["lookmacro.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Lookmacro.java"],
+)
+
+java_library(
+    name = "lookmacro_scanner",
+    srcs = [
+        ":gen_lookmacro_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "LookmacroGoldenTest",
+    srcs = [
+        "LookmacroGoldenTest.java",
+    ],
+    data = [
+        "lookmacro-0.input",
+        "lookmacro-0.output",
+    ],
+    deps = [
+        ":lookmacro_scanner",
+        "//java/jflex/testing/diff",
+        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

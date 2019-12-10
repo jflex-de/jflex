@@ -19,6 +19,9 @@ import jflex.l10n.ErrorMessages;
  */
 public final class SemCheck {
 
+  /** Prevent instantiation of static-only class */
+  private SemCheck() {}
+
   /**
    * Performs semantic analysis for all expressions.
    *
@@ -106,7 +109,7 @@ public final class SemCheck {
         }
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 
   /**
@@ -165,7 +168,7 @@ public final class SemCheck {
         return -1;
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 
   /**
@@ -216,6 +219,6 @@ public final class SemCheck {
         return false;
     }
 
-    throw new Error("Unexpected expression " + re);
+    throw new RegExpException(re);
   }
 }

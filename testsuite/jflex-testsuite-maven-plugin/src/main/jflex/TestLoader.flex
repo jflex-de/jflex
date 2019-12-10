@@ -1,7 +1,6 @@
 package jflex.maven.plugin.testsuite;
 
 import java.util.*;
-import jflex.core.sym;
 
 %%
 
@@ -12,7 +11,7 @@ import jflex.core.sym;
 %throws LoadException
 %type TestCase
 
-// %debug 
+// %debug
 
 %state DESCR JFLEXCMD JAVAC_FILES LINELIST VERSION
 
@@ -39,19 +38,19 @@ DIGIT = [0-9]
   "jflex-fail:" " "+ "true"  { test.setExpectJFlexFail(true); }
   "jflex-fail:" " "+ "false" { test.setExpectJFlexFail(false); }
 
-  "jflex-diff:" " "+  { lineList = new ArrayList<Integer>(); 
-                        test.setJFlexDiff(lineList); 
-                        yybegin(LINELIST); 
+  "jflex-diff:" " "+  { lineList = new ArrayList<Integer>();
+                        test.setJFlexDiff(lineList);
+                        yybegin(LINELIST);
                       }
 
   "javac-fail:" " "+ "true"  { test.setExpectJavacFail(true); }
   "javac-fail:" " "+ "false" { test.setExpectJavacFail(false); }
 
   "javac-encoding:" [^\r\n]* { test.setJavacEncoding(yytext().substring(15).trim()); }
-    
+
   "input-file-encoding:" [^\r\n]* { test.setInputFileEncoding(yytext().substring(20).trim()); }
   "output-file-encoding:" [^\r\n]* { test.setOutputFileEncoding(yytext().substring(21).trim()); }
-  
+
   "common-input-file:"  [^\r\n]* { test.setCommonInputFile(yytext().substring(18).trim()); }
 
   "jdk:" " "*         { yybegin(VERSION); }
@@ -74,8 +73,8 @@ DIGIT = [0-9]
 
 <JFLEXCMD, JAVAC_FILES> {
   [^ \t\r\n]+         { cmdLine.add(yytext()); }
-  \" ~\"              { cmdLine.add(yytext().substring(1,yylength()-1)); 
-                        /* quoted cmdline options */ } 
+  \" ~\"              { cmdLine.add(yytext().substring(1,yylength()-1));
+                        /* quoted cmdline options */ }
   [ \t]+              { /* ignore whitespace */ }
   \\[ \t]+{NL}        { /* allow line continuation with \ */ }
 }

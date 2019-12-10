@@ -382,7 +382,7 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     return new File(outputDirectory, OUTPUT_CLASS_NAME + ".java");
   }
 
-  private static class Version implements Comparable {
+  private static class Version implements Comparable<Version> {
     private static final Pattern PATTERN = Pattern.compile("(\\d+)(?:.(\\d+))?(?:.(\\d+))?");
     int major;
     int minor;
@@ -402,10 +402,9 @@ public class JFlexUnicodeMojo extends AbstractMojo {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Version other) {
       int comparison = 0;
-      if (o != null) {
-        Version other = (Version) o;
+      if (other != null) {
         if (this.major < other.major) {
           comparison = -1;
         } else if (this.major > other.major) {

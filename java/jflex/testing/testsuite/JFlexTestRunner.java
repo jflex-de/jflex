@@ -58,7 +58,12 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   public JFlexTestRunner(Class<?> testClass) throws InitializationError {
     super(testClass);
     this.klass = testClass;
-    this.spec = checkNotNull(testClass.getAnnotation(TestSpec.class));
+    this.spec =
+        checkNotNull(
+            testClass.getAnnotation(TestSpec.class),
+            "A test running with %s must have a @%s",
+            JFlexTestRunner.class.getName(),
+            TestSpec.class.getName());
   }
 
   @Override

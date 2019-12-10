@@ -381,6 +381,6 @@ public class CharClasses {
    * test suite) for equivalence more robust.
    */
   public void normalise() {
-    classes.sort(null);
+    classes.sort((s1, s2) -> s1.compareTo(s2));
   }
 }

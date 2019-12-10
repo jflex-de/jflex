@@ -13,9 +13,12 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.PrimitiveIterator;
 import jflex.chars.Interval;
+import jflex.chars.Interval.IntervalIterator;
 import jflex.core.unicode.UnicodeProperties;
 
 /**
@@ -25,7 +28,7 @@ import jflex.core.unicode.UnicodeProperties;
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class IntCharSet implements Comparable<IntCharSet> {
+public final class IntCharSet implements Iterable<Integer> {
 
   private static final boolean DEBUG = false;
 
@@ -42,6 +45,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
   public static IntCharSet of(Interval interval) {
     IntCharSet charset = new IntCharSet();
     charset.intervals.add(interval);
+    if (DEBUG) assert charset.invariants();
     return charset;
   }
 
@@ -122,20 +126,36 @@ public final class IntCharSet implements Comparable<IntCharSet> {
         continue;
       }
 
+      if (DEBUG) assert intervals.get(check).contains(c);
       return check;
     }
 
+    if (DEBUG) {
+      for (Interval i : intervals) assert (!i.contains(c));
+    }
     return -1;
   }
 
   /** Merges the given set into this one. */
   public void add(IntCharSet set) {
+    if (DEBUG) {
+      assert invariants();
+      assert set.invariants();
+      assert this != set;
+    }
     for (Interval interval : set.intervals) {
       add(interval);
     }
   }
 
+  /**
+   * Adds a single interval to this IntCharSet.
+   *
+   * @param interval a {@link jflex.chars.Interval} object.
+   */
   public void add(Interval interval) {
+    if (DEBUG) assert interval.invariants();
+
     int size = intervals.size();
 
     for (int i = 0; i < size; i++) {
@@ -146,11 +166,13 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       }
 
       if (elem.contains(interval)) {
+        if (DEBUG) assert invariants();
         return;
       }
 
       if (elem.start > interval.end + 1) {
         intervals.add(i, Interval.copyOf(interval));
+        if (DEBUG) assert invariants();
         return;
       }
 
@@ -159,6 +181,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       }
 
       if (interval.end <= elem.end) {
+        if (DEBUG) assert invariants();
         return;
       }
 
@@ -169,6 +192,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       while (i < size) {
         Interval x = intervals.get(i);
         if (x.start > elem.end + 1) {
+          if (DEBUG) assert invariants();
           return;
         }
 
@@ -178,10 +202,13 @@ public final class IntCharSet implements Comparable<IntCharSet> {
         intervals.remove(i);
         size--;
       }
+
+      if (DEBUG) assert invariants();
       return;
     }
 
     intervals.add(Interval.copyOf(interval));
+    if (DEBUG) assert invariants();
   }
 
   /**
@@ -190,7 +217,52 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * @param c Character to add.
    */
   public void add(int c) {
-    add(Interval.ofCharacter(c));
+    int size = intervals.size();
+
+    for (int i = 0; i < size; i++) {
+      Interval elem = intervals.get(i);
+      if (elem.end + 1 < c) continue;
+
+      if (elem.contains(c)) return; // already there, nothing to do
+
+      if (DEBUG) assert (elem.end + 1 >= c && (elem.start > c || elem.end < c));
+
+      if (elem.start > c + 1) {
+        intervals.add(i, Interval.ofCharacter(c));
+        if (DEBUG) assert invariants();
+        return;
+      }
+
+      if (DEBUG)
+        assert (elem.end + 1 >= c && elem.start <= c + 1 && (elem.start > c || elem.end < c));
+
+      if (c + 1 == elem.start) {
+        elem.start = c;
+        if (DEBUG) assert invariants();
+        return;
+      }
+
+      if (DEBUG) assert (elem.end + 1 == c);
+      elem.end = c;
+
+      // merge with next interval if it contains c
+      if (i + 1 >= size) {
+        if (DEBUG) assert invariants();
+        return;
+      }
+      Interval x = intervals.get(i + 1);
+      if (x.start <= c + 1) {
+        elem.end = x.end;
+        intervals.remove(i + 1);
+      }
+
+      if (DEBUG) assert invariants();
+      return;
+    }
+
+    // end reached but nothing found -> append at end
+    intervals.add(Interval.ofCharacter(c));
+    if (DEBUG) assert invariants();
   }
 
   /**
@@ -283,14 +355,16 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
     if (DEBUG) {
       Out.dump("result: " + result);
+      assert result.invariants();
     }
 
     return result;
   }
 
-  /* prec: this.contains(set), set != null */
   /**
    * Returns the relative complement of this set relative to the provided set.
+   *
+   * <p>Assumes that {@code set} is non-null, and contained in this IntCharSet.
    *
    * @param set a {@link IntCharSet} to substract from this set.
    */
@@ -299,6 +373,11 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       Out.dump("complement");
       Out.dump("this  : " + this);
       Out.dump("other : " + set);
+      assert invariants();
+      // not asserting non-null, because we'll already get an exception and it confuses lgtm.com
+      assert set.invariants();
+      assert isSubSet(set, this);
+      assert set != this;
     }
 
     int i = 0; // index in this.intervals
@@ -361,6 +440,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
     if (DEBUG) {
       Out.dump("result: " + this);
+      assert invariants();
     }
   }
 
@@ -397,7 +477,8 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    *
    * @return the next {@link jflex.chars.Interval}.
    */
-  public Interval getNext() {
+  public Interval getNext() { // TODO(lsf): remove, use an Iterator instead
+    if (DEBUG) assert containsElements();
     if (pos == intervals.size()) {
       pos = 0;
     }
@@ -425,6 +506,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
         }
       }
     }
+
     return n;
   }
 
@@ -455,6 +537,7 @@ public final class IntCharSet implements Comparable<IntCharSet> {
     for (Interval interval : intCharSet.intervals) {
       result.intervals.add(Interval.copyOf(interval));
     }
+    if (DEBUG) assert result.invariants();
     return result;
   }
 
@@ -473,7 +556,6 @@ public final class IntCharSet implements Comparable<IntCharSet> {
    * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
    *     smallest element of this set, and +1 if it is larger.
    */
-  @Override
   public int compareTo(IntCharSet o) {
     if (o == null) {
       throw new NullPointerException();
@@ -481,6 +563,10 @@ public final class IntCharSet implements Comparable<IntCharSet> {
 
     if (this.equals(o)) {
       return 0;
+    }
+
+    if (DEBUG) {
+      assert !this.and(o).containsElements();
     }
 
     if (!this.containsElements()) {
@@ -494,6 +580,66 @@ public final class IntCharSet implements Comparable<IntCharSet> {
       return -1;
     } else {
       return 1;
+    }
+  }
+
+  /**
+   * Checks the invariants of this object.
+   *
+   * @return true when the invariants of this objects hold.
+   */
+  public boolean invariants() {
+    for (Interval i : intervals) if (!i.invariants()) return false;
+
+    for (int j = 0; j < intervals.size() - 1; j++) {
+      // disjoint and ordered
+      if (!(intervals.get(j).end < intervals.get(j + 1).start)) return false;
+    }
+
+    // if there are elements, pos must point to an interval
+    return !containsElements() || pos < intervals.size();
+  }
+
+  /**
+   * Very slow but elementary method to determine whether s1 is a subset of s2. For assertions in
+   * debugging/testing only.
+   *
+   * @param s1 the first IntCharSet
+   * @param s2 the second IntCharSet
+   * @return true iff s1 is a subset of s2
+   */
+  public static boolean isSubSet(IntCharSet s1, IntCharSet s2) {
+    for (int i : s1) if (!s2.contains(i)) return false;
+    return true;
+  }
+
+  @Override
+  public IntCharSetIterator iterator() {
+    return new IntCharSetIterator();
+  }
+
+  /** Iterator for enumerating the elements of this IntCharSet */
+  public class IntCharSetIterator implements PrimitiveIterator.OfInt {
+    /** Iterator over the Interval list */
+    private Iterator<Interval> intervalsIterator;
+    /** Iterator within the current Interval */
+    private IntervalIterator current;
+
+    /** New iterator for this IntCharSet */
+    private IntCharSetIterator() {
+      intervalsIterator = intervals.iterator();
+      if (intervalsIterator.hasNext()) current = intervalsIterator.next().iterator();
+    }
+
+    @Override
+    public boolean hasNext() {
+      return current != null && (current.hasNext() || intervalsIterator.hasNext());
+    }
+
+    @Override
+    public int nextInt() {
+      if (!current.hasNext()) current = intervalsIterator.next().iterator();
+      return current.nextInt();
     }
   }
 }

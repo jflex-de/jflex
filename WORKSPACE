@@ -10,7 +10,7 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
-    commit = "5604f3dba7c1f674ac5654e6c46f49452d1af182",
+    commit = "49122dbb4b325af63af714b3006541f156b70c57",
     remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 
@@ -64,10 +64,6 @@ maven_install(
     ],
 )
 
-# To update maven_install.json, run this command to re-pin the unpinned repository:
-#
-#    bazel run @unpinned_maven//:pin
-#
 load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()

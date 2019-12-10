@@ -1,6 +1,8 @@
 package jflex.core.unicode.data;
 
 public class Unicode_3_0 {
+  private Unicode_3_0() {}
+
   public static final int maximumCodePoint = 0x10ffff;
   public static final String[] propertyValues = {
     "age=1.1", "age=2.0", "age=2.1", "age=3.0", "age=unassigned",
