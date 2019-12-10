@@ -10,7 +10,6 @@ java_library(
     visibility = ["//jflex:__subpackages__"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/env",
         "//jflex/src/main/java/jflex/logging",
     ],
 )
