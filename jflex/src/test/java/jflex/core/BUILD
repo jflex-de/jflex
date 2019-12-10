@@ -1,6 +1,6 @@
 java_test(
-    name = "RegExpTests",
-    srcs = ["RegExpTests.java"],
+    name = "RegExpTest",
+    srcs = ["RegExpTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core",
