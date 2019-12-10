@@ -168,7 +168,6 @@ public class JFlexMojo extends AbstractMojo {
    * @throws MojoFailureException if the file is not found.
    * @throws MojoExecutionException if file could not be parsed
    */
-  @SuppressWarnings("unchecked")
   private void parseLexDefinition(File lexDefinition)
       throws MojoFailureException, MojoExecutionException {
     assert lexDefinition.isAbsolute() : lexDefinition;
