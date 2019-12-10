@@ -639,11 +639,11 @@ public class LexParse extends java_cup.runtime.lr_parser {
 
    /**
     * Override syntax_error to not report expected tokens, just error message.
-    *
-    * TODO: reporting expected tokens using their actual surface syntax would be useful.
-    *       Would need a reverse mapping of terminals or similar.
     */
    public void syntax_error(Symbol cur_token) {
+     // TODO(lsf): reporting expected tokens using their actual surface syntax would
+     // be useful. Would need a reverse mapping of terminals or similar.
+
      // JFlex reporting doesn't use the message argument.
      report_error(null, cur_token);
    }

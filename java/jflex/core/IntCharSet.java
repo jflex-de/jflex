@@ -477,7 +477,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @return the next {@link jflex.chars.Interval}.
    */
-  public Interval getNext() { // TODO: remove, use an Iterator instead
+  public Interval getNext() { // TODO(lsf): remove, use an Iterator instead
     if (DEBUG) assert containsElements();
     if (pos == intervals.size()) {
       pos = 0;
