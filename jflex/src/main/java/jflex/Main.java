@@ -23,14 +23,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.core.OptionUtils;
-import jflex.option.Options;
-import jflex.logging.Out;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.generator.LexGenerator;
 import jflex.gui.MainFrame;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * This is the command-line interface.

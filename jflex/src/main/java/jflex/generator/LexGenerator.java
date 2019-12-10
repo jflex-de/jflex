@@ -20,11 +20,11 @@ import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
 import jflex.core.OptionUtils;
-import jflex.option.Options;
-import jflex.logging.Out;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
 
@@ -58,7 +58,8 @@ public class LexGenerator {
     totalTime.start();
 
     try (Reader inputReader =
-        new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), Options.encoding)) {
+        new InputStreamReader(
+            Files.newInputStream(Paths.get(inputFile.toString())), Options.encoding)) {
       Out.println(ErrorMessages.READING, inputFile.toString());
       LexScan scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);

@@ -12,10 +12,10 @@ package jflex.gui;
 import java.io.File;
 import java.util.Objects;
 import jflex.core.OptionUtils;
-import jflex.logging.Out;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Low priority thread for code generation (low priority that gui has time for screen updates)

@@ -13,13 +13,10 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.fail;
 
 import jflex.chars.Interval;
-import jflex.core.unicode.CharClasses;
-import jflex.core.unicode.IntCharSet;
-import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
 /**
- * Test for {@link CharClasses}.
+ * Test for {@link jflex.core.unicode.CharClasses}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
