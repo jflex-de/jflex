@@ -24,10 +24,9 @@ package jflex.testcase.bol;
 "hello"$   { return State.HELLO_AT_EOL; }
 "hello"    { return State.HELLO_SIMPLY; }
 
-\r         { return State.CARRIAGE_RETURN; }
 \n         { return State.LINE_FEED; }
 
 " "        { return State.SPACE; }
-.          { return State.OTHER; }
+[^]        { return State.OTHER; }
 
 <<EOF>>    { return State.END_OF_FILE; }
