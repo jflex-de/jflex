@@ -16,7 +16,7 @@ import jflex.chars.Interval;
 import org.junit.Test;
 
 /**
- * Test for {@link jflex.core.unicode.CharClasses}.
+ * Test for {@link CharClasses}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT

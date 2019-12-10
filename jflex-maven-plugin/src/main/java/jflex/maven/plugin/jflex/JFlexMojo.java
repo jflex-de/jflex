@@ -22,8 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import jflex.core.OptionUtils;
-import jflex.option.Options;
 import jflex.generator.LexGenerator;
+import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -263,7 +263,8 @@ public class JFlexMojo extends AbstractMojo {
   private void checkParameters(File lexFile) throws MojoExecutionException {
     if (lexFile == null) {
       throw new MojoExecutionException(
-          "<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
+          "<lexDefinition> is empty. Please define input file with"
+              + " <lexDefinition>input.jflex</lexDefinition>");
     }
     if (!lexFile.isFile()) {
       throw new MojoExecutionException("Input file does not exist: " + lexFile);
