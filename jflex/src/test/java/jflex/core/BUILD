@@ -1,14 +1,4 @@
 java_test(
-    name = "CharClassesTest",
-    srcs = ["CharClassesTest.java"],
-    deps = [
-        "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
-        "//third_party/com/google/truth",
-    ],
-)
-
-java_test(
     name = "IntCharSetQuickcheck",
     srcs = [
         "IntCharSetGen.java",
