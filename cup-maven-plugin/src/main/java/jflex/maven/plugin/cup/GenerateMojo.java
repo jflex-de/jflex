@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Pattern;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -18,9 +19,6 @@ import org.apache.maven.project.MavenProject;
 /** Creates a Java parser from CUP definition, using CUP. */
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
 public class GenerateMojo extends AbstractMojo {
-
-  /** Constant {@code src/main/cup}. */
-  private static final String DEFAULT_SRC_DIRECTORY = "src/main/cup";
 
   /** In a CUP definition, the Java package is introduce by the {@code package} keyword. */
   private static final String PACKAGE_DEFINITION = "package";
@@ -35,13 +33,21 @@ public class GenerateMojo extends AbstractMojo {
   /** Default class name of symbols holder. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 
+  /** Source directory of the cup files. */
+  @Parameter(defaultValue = "${project.src.directory}/cup")
+  File cupSourceDirectory;
+
+  /** Regular expression of the cup files in the {@link #cupSourceDirectory}. */
+  @Parameter(defaultValue = "*.cup")
+  String cupSourceFilesFilter;
+
   /** Name of the directory into which JFlex should generate the parser. */
   @Parameter(defaultValue = "${project.build.directory}/generated-sources/cup")
   @SuppressWarnings("WeakerAccess")
   File generatedSourcesDirectory;
 
   /**
-   * Whether to outputs the symbol constant code as an {@ code interface} rather than as a {@code
+   * Whether to outputs the symbol constant code as an {@code interface} rather than as a {@code
    * class}.
    */
   @Parameter(defaultValue = "false")
@@ -101,8 +107,7 @@ public class GenerateMojo extends AbstractMojo {
       // do nothing.
       log.i("Do nothing. Generated code for is up to date for: %s", cupFile.getName());
       return;
-    }
-    if (force) {
+    } else if (force) {
       log.i("Generation requested by force for: %s", cupFile.getName());
     }
     try {
@@ -177,15 +182,17 @@ public class GenerateMojo extends AbstractMojo {
   /**
    * Returns the cup source files.
    *
-   * @return the files in the {@link #DEFAULT_SRC_DIRECTORY} directory.
+   * @return the files in the {@link #cupSourceDirectory} directory that match {@link
+   *     #cupSourceFilesFilter}.
    */
   private File[] getSources() throws MojoFailureException {
-    File defaultDir = getAbsolutePath(new File(DEFAULT_SRC_DIRECTORY));
+    File defaultDir = getAbsolutePath(cupSourceDirectory);
     if (!defaultDir.isDirectory()) {
       throw new MojoFailureException(
           "Expected " + defaultDir.getAbsolutePath() + " to be a directory");
     }
-    return defaultDir.listFiles();
+    Pattern regexp = Pattern.compile(cupSourceFilesFilter);
+    return defaultDir.listFiles((dir, name) -> regexp.matcher(name).matches());
   }
 
   /**
