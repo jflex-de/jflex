@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Unit tests for JFlex.RegExp
+ * Unit tests for {@link RegExp}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class RegExpTests implements sym {
+public class RegExpTest implements sym {
 
   @Test
-  public void testrevString() {
+  public void revString() {
     assertThat(revString("blah")).isEqualTo("halb");
   }
 
@@ -33,7 +33,7 @@ public class RegExpTests implements sym {
     Macros m = new Macros();
     RegExp e1 = new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('a', 'z'));
     RegExp e2 = new RegExp1(CHAR, 'Z');
-    ArrayList<RegExp> l = new ArrayList<RegExp>();
+    ArrayList<RegExp> l = new ArrayList<>();
     l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('0', '8')));
     l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacter('9')));
     RegExp e3 = new RegExp1(CCLASS, l);
