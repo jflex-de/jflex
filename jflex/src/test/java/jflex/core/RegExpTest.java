@@ -10,13 +10,12 @@
 package jflex.core;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jflex.core.RegExp.revString;
 
 import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link RegExp}.
+ * Unit tests for {@link jflex.core.RegExp}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
@@ -25,7 +24,7 @@ public class RegExpTest implements sym {
 
   @Test
   public void revString() {
-    assertThat(revString("blah")).isEqualTo("halb");
+    assertThat(RegExp.revString("blah")).isEqualTo("halb");
   }
 
   @Test

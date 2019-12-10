@@ -158,7 +158,7 @@ public class RegExp {
    * @param s a {@link java.lang.String} object.
    * @return a {@link java.lang.String} object.
    */
-  public static final String revString(String s) {
+  public static String revString(String s) {
     StringBuffer b = new StringBuffer(s.length());
     for (int i = s.length(); i > 0; ) {
       int ch = s.codePointBefore(i);
