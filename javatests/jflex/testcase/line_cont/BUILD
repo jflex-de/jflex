@@ -1,41 +1,15 @@
-# This build file was generated automatically, but won't be re-generated.
-# Feel free to improve.
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
-load("@jflex_rules//jflex:jflex.bzl", "jflex")
-
-# line
-
-jflex(
-    name = "gen_line_scanner",
-    srcs = ["line.flex"],
-    jflex_bin = "//jflex:jflex_bin",
-    outputs = ["Line.java"],
-)
-
-java_library(
-    name = "line_scanner",
-    srcs = [
-        ":gen_line_scanner",
-    ],
-    deps = [
-        "//java/jflex/testing/testsuite/golden",
-        "//third_party/com/google/guava",
-    ],
-)
-
-java_test(
-    name = "LineGoldenTest",
-    srcs = [
-        "LineGoldenTest.java",
-    ],
+jflex_testsuite(
+    name = "LineTest",
+    srcs = ["LineTest.java"],
     data = [
+        "line.flex",
+        "line-flex.syserr",
+        "line-flex.sysout",
     ],
     deps = [
-        ":line_scanner",
-        "//java/jflex/testing/diff",
-        "//java/jflex/testing/testsuite/golden",
-        "//java/jflex/util/scanner:scanner_factory",
+        "//java/jflex/util/javac",
         "//third_party/com/google/guava",
-        "//third_party/com/google/truth",
     ],
 )
