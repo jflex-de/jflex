@@ -9,6 +9,8 @@
 
 package jflex.core;
 
+import jflex.logging.Out;
+
 /**
  * Regular expression with two children (e.g. a | b)
  *

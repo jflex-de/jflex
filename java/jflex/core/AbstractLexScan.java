@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java_cup.runtime.Symbol;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.ILexScan;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.scanner.LexicalStates;
 import jflex.scanner.ScannerException;
 
-public abstract class AbstractLexScan {
+public abstract class AbstractLexScan implements ILexScan {
 
   int bufferSize = 16384;
 
@@ -69,6 +73,11 @@ public abstract class AbstractLexScan {
   // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
   // since the max char code won't be known until then.
   private CharClasses charClasses = new CharClasses();
+
+  @Override
+  public UnicodeProperties getUnicodeProperties() {
+    return unicodeProperties;
+  }
 
   // TODO(regisd) Return an immutable representation of char classes
   @SuppressWarnings("unused") // Used in generated LexParse
@@ -151,10 +160,6 @@ public abstract class AbstractLexScan {
     }
 
     return a.toString() + ", " + b.toString();
-  }
-
-  UnicodeProperties getUnicodeProperties() {
-    return unicodeProperties;
   }
 
   @SuppressWarnings("unused") // Used in generated LexScan

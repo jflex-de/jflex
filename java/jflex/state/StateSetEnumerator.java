@@ -6,17 +6,18 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex.core;
+package jflex.state;
 
 import java.util.NoSuchElementException;
 import java.util.PrimitiveIterator;
+import jflex.logging.Out;
 
 /**
  * Enumerates the states of a {@link StateSet}. Also provides an iterator for native int.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
- * @see jflex.core.StateSet
+ * @see StateSet
  */
 public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
 

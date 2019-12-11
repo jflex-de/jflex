@@ -10,6 +10,8 @@
 package jflex.core;
 
 import java.util.List;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.CharClassException;
 
 /**
