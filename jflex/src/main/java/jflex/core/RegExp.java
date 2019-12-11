@@ -102,10 +102,6 @@ public class RegExp {
         return binary.r1.size(macros) + binary.r2.size(macros);
 
       case sym.STAR:
-        unary = (RegExp1) this;
-        content = (RegExp) unary.content;
-        return content.size(macros) + 2;
-
       case sym.PLUS:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
@@ -152,21 +148,9 @@ public class RegExp {
     throw new RegExpException(this);
   }
 
-  /**
-   * revString.
-   *
-   * @param s a {@link java.lang.String} object.
-   * @return a {@link java.lang.String} object.
-   */
-  public static String revString(String s) {
-    StringBuffer b = new StringBuffer(s.length());
-    for (int i = s.length(); i > 0; ) {
-      int ch = s.codePointBefore(i);
-      char[] chars = Character.toChars(ch);
-      b.append(chars);
-      i -= chars.length;
-    }
-    return b.toString();
+  /** Reverses a string. */
+  static String revString(String s) {
+    return new StringBuilder(s).reverse().toString();
   }
 
   /**
