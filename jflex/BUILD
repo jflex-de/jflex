@@ -1,4 +1,4 @@
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//jflex:visibility"])
 
 load("@jflex_rules//cup:cup.bzl", "cup")
 load("@jflex_rules//jflex:jflex.bzl", "jflex")

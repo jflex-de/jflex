@@ -9,6 +9,8 @@
 
 package jflex.core;
 
+import jflex.logging.Out;
+
 /**
  * A list of pairs of states. Used in DFA minimization.
  *

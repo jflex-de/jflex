@@ -12,6 +12,7 @@ package jflex.core;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.util.ArrayList;
+import jflex.core.unicode.IntCharSet;
 import org.junit.Test;
 
 /**

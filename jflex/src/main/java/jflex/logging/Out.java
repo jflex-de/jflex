@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.logging;
 
 import java.awt.TextArea;
 import java.io.BufferedReader;
@@ -16,10 +16,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import jflex.base.Build;
-import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.StdOutWriter;
+import jflex.option.Options;
 import jflex.performance.Timer;
 
 /**
@@ -38,10 +37,10 @@ import jflex.performance.Timer;
  */
 public final class Out {
 
-  private Out() {}
-
-  /** platform dependent newline sequence */
+  /** Platform specific newline. */
   public static final String NL = System.getProperty("line.separator");
+
+  private Out() {}
 
   /** count total warnings */
   private static int warnings;
@@ -101,7 +100,9 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    if (Options.verbose) out.println(message);
+    if (Options.verbose) {
+      out.println(message);
+    }
   }
 
   /**
@@ -148,7 +149,7 @@ public final class Out {
    * @param message a {@link java.lang.String} object.
    */
   public static void debug(String message) {
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       System.out.println(message);
     }
   }
@@ -170,7 +171,7 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  private static void err(String message) {
+  public static void err(String message) {
     out.println(message);
   }
 
@@ -393,43 +394,5 @@ public final class Out {
     reader.close();
 
     return msg;
-  }
-
-  /** Print system information (e.g. in case of unexpected exceptions) */
-  public static void printSystemInfo() {
-    err("Java version:     " + System.getProperty("java.version"));
-    err("Runtime name:     " + System.getProperty("java.runtime.name"));
-    err("Vendor:           " + System.getProperty("java.vendor"));
-    err("VM version:       " + System.getProperty("java.vm.version"));
-    err("VM vendor:        " + System.getProperty("java.vm.vendor"));
-    err("VM name:          " + System.getProperty("java.vm.name"));
-    err("VM info:          " + System.getProperty("java.vm.info"));
-    err("OS name:          " + System.getProperty("os.name"));
-    err("OS arch:          " + System.getProperty("os.arch"));
-    err("OS version:       " + System.getProperty("os.version"));
-    err("Encoding:         " + System.getProperty("file.encoding"));
-    err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
-    err("JFlex version:    " + Build.VERSION);
-  }
-
-  /**
-   * Request a bug report for an unexpected Exception/Error.
-   *
-   * @param e a {@link java.lang.Error} object.
-   */
-  public static void requestBugReport(Error e) {
-    err("An unexpected error occurred. Please send a report of this to");
-    err("<bugs@jflex.de> and include the following information:");
-    err("");
-    printSystemInfo();
-    err("Exception:");
-    e.printStackTrace(out);
-    err("");
-    err("Please also include a specification (as small as possible)");
-    err("that triggers this error. You may also want to check at");
-    err("http://www.jflex.de if there is a newer version available");
-    err("that doesn't have this problem");
-    err("");
-    err("Thanks for your support.");
   }
 }
