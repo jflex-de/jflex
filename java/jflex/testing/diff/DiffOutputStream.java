@@ -113,10 +113,10 @@ public class DiffOutputStream extends OutputStream {
     char[] extraInput = new char[140];
     try {
       int read = in.read(extraInput);
-      if (read == -1) {
+      if (read <= 0) {
         return "";
       }
-      String extraContent = new String(extraInput);
+      String extraContent = new String(extraInput, 0, read);
       if (read == extraInput.length) {
         return extraContent + "\n[...]\n";
       } else {
