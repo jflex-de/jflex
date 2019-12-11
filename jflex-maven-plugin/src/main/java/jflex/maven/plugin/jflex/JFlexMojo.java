@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
+import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -206,8 +207,8 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     // set options. Very strange that JFlex expects this in a static way.
-    Options.setDefaults();
-    Options.setDir(generatedFile.getParentFile());
+    OptionUtils.setDefaultOptions();
+    OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
     Options.verbose = verbose;
@@ -215,7 +216,7 @@ public class JFlexMojo extends AbstractMojo {
     Options.dot = dot;
     Options.legacy_dot = legacyDot;
     if (skeleton != null) {
-      Options.setSkeleton(skeleton);
+      OptionUtils.setSkeleton(skeleton);
     }
     Options.jlex = jlex;
 
@@ -227,7 +228,7 @@ public class JFlexMojo extends AbstractMojo {
 
     if (!isNullOrEmpty(encodingName)) {
       try {
-        Options.setEncoding(encodingName);
+        OptionUtils.setEncoding(encodingName);
       } catch (Exception e) {
         throw new MojoExecutionException(e.getMessage());
       }
@@ -262,7 +263,8 @@ public class JFlexMojo extends AbstractMojo {
   private void checkParameters(File lexFile) throws MojoExecutionException {
     if (lexFile == null) {
       throw new MojoExecutionException(
-          "<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
+          "<lexDefinition> is empty. Please define input file with"
+              + " <lexDefinition>input.jflex</lexDefinition>");
     }
     if (!lexFile.isFile()) {
       throw new MojoExecutionException("Input file does not exist: " + lexFile);

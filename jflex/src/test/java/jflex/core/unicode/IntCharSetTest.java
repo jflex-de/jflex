@@ -1,10 +1,9 @@
-package jflex.core;
+package jflex.core.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import jflex.chars.Interval;
-import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
 public class IntCharSetTest {

@@ -36,9 +36,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Optional;
-import jflex.core.Options;
-import jflex.core.Out;
+import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
@@ -138,8 +139,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
             .isNull();
       } else if (spec.generatorThrowableCause() != NoExceptionThrown.class) {
         assertWithMessage(
-                "@TestCase indicates that cause of the generator exception is "
-                    + spec.generatorThrowableCause())
+                "@TestCase indicates that cause of the generator exception is %s but it was %s\n",
+                spec.generatorThrowableCause().getSimpleName(), e.getCause())
             .that(e.getCause())
             .isInstanceOf(spec.generatorThrowableCause());
       }
@@ -185,8 +186,11 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private String invokeJflex() {
-    Options.verbose = !spec.quiet();
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
     Options.jlex = spec.jlexCompat();
+    Options.verbose = !spec.quiet();
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
     return checkNotNull(lexerJavaFileName);
   }

@@ -18,18 +18,18 @@ import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.core.AbstractLexScan;
 import jflex.core.Action;
-import jflex.core.CharClassInterval;
-import jflex.core.CharClasses;
 import jflex.core.DFA;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.Options;
-import jflex.core.Out;
 import jflex.core.Skeleton;
+import jflex.core.unicode.CharClassInterval;
+import jflex.core.unicode.CharClasses;
 import jflex.exceptions.GeneratorException;
 import jflex.io.FileUtils;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * This class manages the actual code generation, putting the scanner together, filling in skeleton

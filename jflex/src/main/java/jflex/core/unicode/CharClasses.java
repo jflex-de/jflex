@@ -7,13 +7,13 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.core.unicode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.core.unicode.UnicodeProperties;
+import jflex.logging.Out;
 
 /**
  * Character Classes.
@@ -55,7 +55,7 @@ public class CharClasses {
    *     Lexers and UnicodeProperties.getMaximumCodePoint() for Unicode Lexers).
    * @param scanner the scanner containing the UnicodeProperties instance from which caseless
    */
-  public void init(int maxCharCode, AbstractLexScan scanner) {
+  public void init(int maxCharCode, ILexScan scanner) {
     if (maxCharCode < 0) {
       throw new IllegalArgumentException("maxCharCode " + maxCharCode + " is negative.");
     } else if (maxCharCode > maxChar) {

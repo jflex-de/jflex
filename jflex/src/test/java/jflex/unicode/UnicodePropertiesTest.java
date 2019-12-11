@@ -14,7 +14,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Objects;
 import jflex.chars.Interval;
-import jflex.core.IntCharSet;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
@@ -157,7 +157,7 @@ public class UnicodePropertiesTest {
     }
   }
 
-  private void checkCaseless_i_matches(UnicodeProperties properties) {
+  private static void checkCaseless_i_matches(UnicodeProperties properties) {
     IntCharSet caselessMatches = properties.getCaselessMatches('i');
     assertWithMessage("'i' has no caseless matches except itself, but it should.")
         .that(caselessMatches)
