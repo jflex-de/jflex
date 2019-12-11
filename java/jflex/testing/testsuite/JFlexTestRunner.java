@@ -93,16 +93,16 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Optional<DiffOutputStream> diffSysErr = injectDiffSysErr();
 
     String lexerJavaFileName;
-    if (spec.generatorThrows() == NoExceptionThrown.class) {
-      lexerJavaFileName = invokeJflex();
-    } else {
-      lexerJavaFileName = null;
-      try {
+    try {
+      if (spec.generatorThrows() == NoExceptionThrown.class) {
+        lexerJavaFileName = invokeJflex();
+      } else {
+        lexerJavaFileName = null;
         generateLexerWithExpectedException();
-      } catch (Exception e) {
-        notifier.fireTestFailure(new Failure(desc, e));
-        return null;
       }
+    } catch (Exception | AssertionError e) {
+      notifier.fireTestFailure(new Failure(desc, e));
+      return null;
     }
 
     try {
@@ -110,6 +110,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       assertSystemStream(diffSysErr, "System.err");
     } catch (AssertionError e) {
       notifier.fireTestFailure(new Failure(desc, e));
+      return null;
     }
 
     notifier.fireTestFinished(desc);
