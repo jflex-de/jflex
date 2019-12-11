@@ -34,7 +34,6 @@ public class RegExp {
    * Create a new regular expression of the specified type.
    *
    * @param type a value from the cup generated class sym.
-   * @see jflex.core.sym
    */
   public RegExp(int type) {
     this.type = type;
@@ -104,10 +103,6 @@ public class RegExp {
         return binary.r1.size(macros) + binary.r2.size(macros);
 
       case sym.STAR:
-        unary = (RegExp1) this;
-        content = (RegExp) unary.content;
-        return content.size(macros) + 2;
-
       case sym.PLUS:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
@@ -154,21 +149,9 @@ public class RegExp {
     throw new RegExpException(this);
   }
 
-  /**
-   * revString.
-   *
-   * @param s a {@link java.lang.String} object.
-   * @return a {@link java.lang.String} object.
-   */
-  public static String revString(String s) {
-    StringBuffer b = new StringBuffer(s.length());
-    for (int i = s.length(); i > 0; ) {
-      int ch = s.codePointBefore(i);
-      char[] chars = Character.toChars(ch);
-      b.append(chars);
-      i -= chars.length;
-    }
-    return b.toString();
+  /** Reverses a string. */
+  static String revString(String s) {
+    return new StringBuilder(s).reverse().toString();
   }
 
   /**
@@ -268,7 +251,7 @@ public class RegExp {
    * @return a new {@link IntCharSet}
    * @throws RegExpException for {@code ctxt} if the operator is not supported
    */
-  public static final IntCharSet performClassOp(int op, IntCharSet l, IntCharSet r, RegExp ctxt) {
+  public static IntCharSet performClassOp(int op, IntCharSet l, IntCharSet r, RegExp ctxt) {
     IntCharSet set;
     IntCharSet intersection = l.and(r);
 
