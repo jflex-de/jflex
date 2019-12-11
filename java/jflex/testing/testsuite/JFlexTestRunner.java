@@ -191,6 +191,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       OptionUtils.setDefaultOptions();
     }
     Options.jlex = spec.jlexCompat();
+    Options.dump = spec.dump();
     Options.verbose = !spec.quiet();
     String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
     return checkNotNull(lexerJavaFileName);
