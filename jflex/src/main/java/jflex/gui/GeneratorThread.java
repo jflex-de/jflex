@@ -9,6 +9,7 @@
 
 package jflex.gui;
 
+import java.io.File;
 import java.util.Objects;
 import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
@@ -61,7 +62,7 @@ public class GeneratorThread extends Thread {
         if (!Objects.equals(outputDir, "")) {
           OptionUtils.setDir(outputDir);
         }
-        new LexGenerator(inputFile).generate();
+        new LexGenerator(new File(inputFile)).generate();
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {

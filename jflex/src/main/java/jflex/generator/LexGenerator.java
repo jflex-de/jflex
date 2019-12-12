@@ -9,9 +9,9 @@
 
 package jflex.generator;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
-import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -139,7 +139,8 @@ public class LexGenerator {
   }
 
   public int minimizedDfaStatesCount() {
-    checkState(dfa.isMinimized(), "DAF is minimized");
+    checkNotNull(dfa, "DFA doesn't exist. Need to call generate() first.");
+    checkState(dfa.isMinimized(), "DAF is minimized. Need to call minimize() first.");
     return dfa.numStates();
   }
 }
