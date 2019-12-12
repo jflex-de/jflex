@@ -1,4 +1,4 @@
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//jflex:visibility"])
 
 java_library(
     name = "annotations",

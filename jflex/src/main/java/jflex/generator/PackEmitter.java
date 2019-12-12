@@ -10,7 +10,7 @@
 package jflex.generator;
 
 import java.util.Locale;
-import jflex.core.Out;
+import jflex.logging.Out;
 
 /**
  * Encodes {@code int} arrays as strings.

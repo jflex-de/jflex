@@ -1,28 +1,11 @@
 java_test(
-    name = "CharClassesTest",
-    srcs = ["CharClassesTest.java"],
+    name = "RegExpTest",
+    srcs = ["RegExpTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core",
-    ],
-)
-
-java_test(
-    name = "IntCharSetTest",
-    srcs = ["IntCharSetTest.java"],
-    deps = [
-        "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
-    ],
-)
-
-java_test(
-    name = "RegExpTests",
-    srcs = ["RegExpTests.java"],
-    deps = [
-        "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
     ],
 )
 
@@ -35,5 +18,6 @@ java_test(
     deps = [
         "//jflex:testing",
         "//jflex/src/main/java/jflex/core",
+        "//third_party/com/google/truth",
     ],
 )

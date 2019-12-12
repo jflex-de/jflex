@@ -16,9 +16,10 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
+import jflex.option.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
@@ -46,6 +47,7 @@ public class JFlexTask extends Task {
 
   /** Constructor for JFlexTask. */
   public JFlexTask() {
+    OptionUtils.setDefaultOptions();
     // ant default is different from the rest of JFlex
     setVerbose(false);
     setUnusedWarning(true);
@@ -57,7 +59,7 @@ public class JFlexTask extends Task {
    *
    * @throws BuildException if any.
    */
-  public void execute() throws BuildException {
+  public void execute() {
     try {
       if (inputFile == null)
         throw new BuildException("Input file needed. Use <jflex file=\"your_scanner.flex\"/>");
@@ -186,7 +188,7 @@ public class JFlexTask extends Task {
    */
   public void setOutdir(File outDir) {
     this.outputDir = outDir;
-    Options.setDir(outputDir);
+    OptionUtils.setDir(outputDir);
   }
 
   /**
@@ -250,7 +252,7 @@ public class JFlexTask extends Task {
    * @param skeleton a {@link java.io.File} object.
    */
   public void setSkeleton(File skeleton) {
-    Options.setSkeleton(skeleton);
+    OptionUtils.setSkeleton(skeleton);
   }
 
   /**
@@ -340,6 +342,6 @@ public class JFlexTask extends Task {
    * @param encodingName the name of the encoding to set (e.g. "utf-8").
    */
   public void setEncoding(String encodingName) {
-    Options.setEncoding(encodingName);
+    OptionUtils.setEncoding(encodingName);
   }
 }

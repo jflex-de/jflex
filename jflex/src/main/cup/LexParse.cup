@@ -14,10 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jflex.chars.Interval;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
-import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
 import java_cup.runtime.Symbol;
@@ -114,7 +117,7 @@ action code {:
 
         case sym.DIGITCLASSNOT:
           IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
           result.sub(digits);
           preclassCache.put(type, result);
           break;
@@ -160,7 +163,7 @@ action code {:
           if (null == whitespaceClass) {
             whitespaceClass = unicodeProperties.getIntCharSet("Zs");
           }
-          result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
           result.sub(whitespaceClass);
           preclassCache.put(type, result);
           break;
@@ -178,9 +181,9 @@ action code {:
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
-            result = alphaClass.copy();
+            result = IntCharSet.copyOf(alphaClass);
             result.add(markClass);
             result.add(digitClass);
             result.add(connectorPunctClass);
@@ -201,13 +204,13 @@ action code {:
             IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
             if (null == connectorPunctClass) {
               // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = new IntCharSet(new Interval('_', '_'));
+              connectorPunctClass = IntCharSet.ofCharacter('_');
             }
-            IntCharSet wordClass = alphaClass.copy();
+            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
             wordClass.add(markClass);
             wordClass.add(digitClass);
             wordClass.add(connectorPunctClass);
-            result = new IntCharSet(new Interval(0, unicodeProperties.getMaximumCodePoint()));
+            result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
             result.sub(wordClass);
             preclassCache.put(type, result);
             break;
@@ -310,7 +313,7 @@ action code {:
   }
 
   private RegExp primClass(int start, int end) {
-    return primClass(new IntCharSet(start,end));
+    return primClass(IntCharSet.ofCharacterRange(start, end));
   }
 
   private RegExp primClass(IntCharSet set) {
@@ -337,11 +340,11 @@ parser code {:
 
    /**
     * Override syntax_error to not report expected tokens, just error message.
-    *
-    * TODO: reporting expected tokens using their actual surface syntax would be useful.
-    *       Would need a reverse mapping of terminals or similar.
     */
    public void syntax_error(Symbol cur_token) {
+     // TODO(lsf): reporting expected tokens using their actual surface syntax would
+     // be useful. Would need a reverse mapping of terminals or similar.
+
      // JFlex reporting doesn't use the message argument.
      report_error(null, cur_token);
    }
@@ -593,11 +596,7 @@ states        ::=  IDENT:id COMMA states:list
                 ;
 
 hatOPT        ::=  HAT
-                   {:
-                      // assumption: newline chars have no uppercase variant
-                      charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
-                      RESULT = true;
-                   :}
+                   {: RESULT = true; :}
                 |  /* empty */
                    {: RESULT = false; :}
                 ;
@@ -654,13 +653,8 @@ regexp        ::=  regexp:r STAR
                    {: RESULT = c; :}
                 |  preclass:set
                    {:
-                     try {
-                       // assumption [correct?]: preclasses are already closed under case
-                       charClasses.makeClass(set, false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, setleft);
-                     }
+                     // assumption [correct?]: preclasses are already closed under case
+                     charClasses.makeClass(set, false);
                      RESULT = new RegExp1(sym.PRIMCLASS, set);
                    :}
                 |  UNIPROPCCLASS:intcharset
@@ -669,12 +663,7 @@ regexp        ::=  regexp:r STAR
                        = scanner.caseless
                        ? intcharset.getCaseless(scanner.getUnicodeProperties())
                        : intcharset;
-                     try {
-                       charClasses.makeClass(set, false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, intcharsetleft, intcharsetright);
-                     }
+                     charClasses.makeClass(set, false);
                      RESULT = new RegExp1(sym.PRIMCLASS, set);
                    :}
                 |  UNIPROPCCLASSNOT:notintcharset
@@ -683,32 +672,22 @@ regexp        ::=  regexp:r STAR
                        = scanner.caseless
                        ? notintcharset.getCaseless(scanner.getUnicodeProperties())
                        : notintcharset;
-                     try {
-                       charClasses.makeClassNot(set.getIntervals(), false);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CHARSET_2_SMALL, notintcharsetleft, notintcharsetright);
-                     }
+                     charClasses.makeClass(set, false);
+
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
                      l.add(new RegExp1(sym.PRIMCLASS, set));
                      RESULT = new RegExp1(sym.CCLASSNOT, l);
                    :}
                 |  STRING:str
                    {:
-                     try {
-                       charClasses.makeClass(str, scanner.caseless);
-                       RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
-                     }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CS2SMALL_STRING, strleft, strright);
-                     }
-
+                     charClasses.makeClass(str, scanner.caseless);
+                     RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    :}
                 |  POINT
                    {:
                       IntCharSet nl;
                       if ( Options.jlex || Options.legacy_dot ) {
-                        nl = new IntCharSet('\n');
+                        nl = IntCharSet.ofCharacter('\n');
                       }
                       else {
                         nl = IntCharSet.nlChars();
@@ -726,18 +705,13 @@ regexp        ::=  regexp:r STAR
                    {: RESULT = makeNL(); :}
                 |  CHAR:c
                    {:
-                     try {
-                       if ( scanner.caseless ) {
-                         charClasses.makeClass(c, true);
-                         RESULT = new RegExp1(sym.CHAR_I, c);
-                       }
-                       else {
-                         charClasses.makeClass(c, false);
-                         RESULT = new RegExp1(sym.CHAR, c);
-                       }
+                     if ( scanner.caseless ) {
+                       charClasses.makeClass(c, true);
+                       RESULT = new RegExp1(sym.CHAR_I, c);
                      }
-                     catch (CharClassException e) {
-                       syntaxError(ErrorMessages.CS2SMALL_CHAR, cleft, cright);
+                     else {
+                       charClasses.makeClass(c, false);
+                       RESULT = new RegExp1(sym.CHAR, c);
                      }
                    :}
                 ;
@@ -801,6 +775,7 @@ classcontentelem ::= CHAR:c1 DASH CHAR:c2
                      {:
                        if (c2 < c1) {
                          syntaxError(ErrorMessages.IMPOSSIBLE_CHARCLASS_RANGE, c1left, c1right);
+                         c2 = c1; // avoid violating Interval invariant; error is logged.
                        }
                        RESULT = primClass(c1, c2);
                      :}

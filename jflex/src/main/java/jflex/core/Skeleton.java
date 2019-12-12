@@ -9,6 +9,7 @@
 package jflex.core;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static jflex.logging.Out.NL;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * This class stores the skeleton of generated scanners.
@@ -43,9 +45,6 @@ public class Skeleton {
 
   /** expected number of sections in the skeleton file */
   private static final int size = 21;
-
-  /** platform specific newline */
-  private static final String NL = System.getProperty("line.separator"); // $NON-NLS-1$
 
   /** The skeleton */
   public static String line[];
