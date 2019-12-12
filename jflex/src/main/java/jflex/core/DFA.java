@@ -282,7 +282,7 @@ public final class DFA {
    * <p>Time: O(n log n) Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
    */
   public void minimize() {
-    if(minimized) {
+    if (minimized) {
       // Already minimized
       return;
     }
