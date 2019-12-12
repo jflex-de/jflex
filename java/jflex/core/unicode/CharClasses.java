@@ -242,38 +242,6 @@ public class CharClasses {
   }
 
   /**
-   * Updates the current partition, so that the specified set of characters gets a new character
-   * class.
-   *
-   * <p>Characters that are elements of the set {@code l} are not in the same equivalence class with
-   * characters that are not elements of the set {@code l}.
-   *
-   * @param l a List of Interval objects. This List represents a set of characters. The set of
-   *     characters is the union of all intervals in the List.
-   * @param caseless if true upper/lower/title case are considered equivalent
-   */
-  public void makeClass(List<Interval> l, boolean caseless) {
-    makeClass(IntCharSet.of(l), caseless);
-  }
-
-  /**
-   * Updates the current partition, so that the set of all characters not contained in the specified
-   * set of characters gets a new character class.
-   *
-   * <p>Characters that are elements of the set {@code v} are not in the same equivalence class with
-   * characters that are not elements of the set {@code v}.
-   *
-   * <p>This method is equivalent to {@code makeClass(v)}
-   *
-   * @param l a List of Interval objects. This List represents a set of characters. The set of
-   *     characters is the union of all intervals in the List.
-   * @param caseless if true upper/lower/title case are considered equivalent
-   */
-  public void makeClassNot(List<Interval> l, boolean caseless) {
-    makeClass(IntCharSet.of(l), caseless);
-  }
-
-  /**
    * Returns an array that contains the character class codes of all characters in the specified set
    * of input characters.
    */

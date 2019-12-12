@@ -1770,7 +1770,7 @@ class CUP$LexParse$actions {
                        = scanner.caseless
                        ? notintcharset.getCaseless(scanner.getUnicodeProperties())
                        : notintcharset;
-                     charClasses.makeClassNot(set.getIntervals(), false);
+                     charClasses.makeClass(set, false);
 
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
                      l.add(new RegExp1(sym.PRIMCLASS, set));
