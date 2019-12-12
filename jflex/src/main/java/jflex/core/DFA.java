@@ -40,34 +40,37 @@ public final class DFA {
    * character</code>, <code>NO_TARGET} if there is no transition for this input in {@code
    * current_state}
    */
-  int[][] table;
+  private int[][] table;
 
   /** {@code isFinal[state] == true</code> <=> the state <code>state} is a final state. */
-  boolean[] isFinal;
+  private boolean[] isFinal;
 
   /**
    * {@code action[state]</code> is the action that is to be carried out in state <code>state},
    * {@code null} if there is no action.
    */
-  Action[] action;
+  private Action[] action;
 
   /** entryState[i] is the start-state of lexical state i or lookahead DFA i */
-  int entryState[];
+  private int entryState[];
 
   /** The number of states in this DFA */
-  int numStates;
+  private int numStates;
 
   /** The current maximum number of input characters */
-  int numInput;
+  private int numInput;
 
   /** The number of lexical states (2*numLexStates <= entryState.length) */
-  int numLexStates;
+  private int numLexStates;
 
   /** all actions that are used in this DFA */
-  Map<Action, Action> usedActions = new HashMap<>();
+  private Map<Action, Action> usedActions = new HashMap<>();
 
   /** True iff this DFA contains general lookahead */
-  boolean lookaheadUsed;
+  private boolean lookaheadUsed;
+
+  /** Whether the DFA is minimized. */
+  private boolean minimized;
 
   /** Constructor for a deterministic finite automata. */
   public DFA(int numEntryStates, int numInp, int numLexStates) {
@@ -96,6 +99,7 @@ public final class DFA {
    */
   public void setEntryState(int eState, int trueState) {
     entryState[eState] = trueState;
+    minimized = false;
   }
 
   private void ensureStateCapacity(int newNumStates) {
@@ -125,6 +129,7 @@ public final class DFA {
     isFinal = newFinal;
     action = newAction;
     table = newTable;
+    minimized = false;
   }
 
   /**
@@ -138,6 +143,7 @@ public final class DFA {
     if (stateAction != null) {
       usedActions.put(stateAction, stateAction);
       lookaheadUsed |= stateAction.isGenLookAction();
+      minimized = false;
     }
   }
 
@@ -149,6 +155,7 @@ public final class DFA {
    */
   public void setFinal(int state, boolean isFinalState) {
     isFinal[state] = isFinalState;
+    minimized = false;
   }
 
   /**
@@ -166,6 +173,7 @@ public final class DFA {
     //  Out.debug("Adding DFA transition ("+start+", "+(int)input+", "+dest+")");
 
     table[start][input] = dest;
+    minimized = false;
   }
 
   public boolean lookaheadUsed() {
@@ -274,11 +282,16 @@ public final class DFA {
    * <p>Time: O(n log n) Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
    */
   public void minimize() {
+    if(minimized) {
+      // Already minimized
+      return;
+    }
+
     Out.print(numStates + " states before minimization, ");
 
     if (numStates == 0) {
       Out.error(jflex.l10n.ErrorMessages.ZERO_STATES);
-      throw new GeneratorException();
+      throw new GeneratorException(new IllegalStateException("DFA has 0 states"));
     }
 
     if (Options.no_minimize) {
@@ -729,6 +742,7 @@ public final class DFA {
     }
 
     Out.println(numStates + " states in minimized DFA");
+    minimized = true;
   }
 
   /**
