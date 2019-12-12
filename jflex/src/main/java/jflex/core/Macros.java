@@ -123,9 +123,11 @@ public final class Macros {
    *
    * @throws MacroException if there is a cycle in the macro usage graph.
    */
-  public void expand() {
+  public void expand() throws MacroException {
     for (String name : macros.keySet()) {
-      if (isUsed(name)) macros.put(name, expandMacro(name, getDefinition(name)));
+      if (isUsed(name)) {
+        macros.put(name, expandMacro(name, getDefinition(name)));
+      }
       // this put doesn't get a new key, so only a new value is set for the key "name"
     }
   }
@@ -139,7 +141,7 @@ public final class Macros {
    * @throws MacroException when an error (such as a cyclic definition) occurs during expansion
    */
   @SuppressWarnings("unchecked")
-  private RegExp expandMacro(String name, RegExp definition) {
+  private RegExp expandMacro(String name, RegExp definition) throws MacroException {
 
     // Out.print("checking macro "+name);
     // Out.print("definition is "+definition);
@@ -168,9 +170,10 @@ public final class Macros {
 
         RegExp usedef = getDefinition(usename);
 
-        if (usedef == null)
+        if (usedef == null) {
           throw new MacroException(
-              jflex.l10n.ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+              ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+        }
 
         markUsed(usename);
 
