@@ -34,7 +34,7 @@ public class GenerateMojo extends AbstractMojo {
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 
   /** Source directory of the cup files. */
-  @Parameter(defaultValue = "${project.src.directory}/cup")
+  @Parameter(defaultValue = "${project.basedir}/src/main/cup")
   File cupSourceDirectory;
 
   /** Regular expression of the cup files in the {@link #cupSourceDirectory}. */
