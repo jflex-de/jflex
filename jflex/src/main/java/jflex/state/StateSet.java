@@ -6,9 +6,10 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex.core;
+package jflex.state;
 
 import java.util.Iterator;
+import jflex.logging.Out;
 
 /**
  * A set of NFA states (= ints).
@@ -21,7 +22,7 @@ import java.util.Iterator;
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
- * @see jflex.core.StateSetEnumerator
+ * @see StateSetEnumerator
  */
 public final class StateSet implements Iterable<Integer> {
 
@@ -231,8 +232,9 @@ public final class StateSet implements Iterable<Integer> {
     if (bits.length < univ.bits.length)
       System.arraycopy(univ.bits, m, result.bits, m, result.bits.length - m);
 
-    if (DEBUG)
+    if (DEBUG) {
       Out.debug("Complement of " + this + Out.NL + "and " + univ + Out.NL + " is :" + result);
+    }
 
     return result;
   }

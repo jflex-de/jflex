@@ -1,8 +1,9 @@
+package(default_visibility = ["//jflex:visibility"])
+
 java_library(
     name = "golden",
     testonly = True,
     srcs = ["AbstractGoldenTest.java"],
-    visibility = ["//visibility:public"],
     exports = [":model"],
     deps = [
         ":model",
@@ -17,6 +18,5 @@ java_library(
 java_library(
     name = "model",
     srcs = ["GoldenInOutFilePair.java"],
-    visibility = ["//visibility:public"],
     deps = [],
 )

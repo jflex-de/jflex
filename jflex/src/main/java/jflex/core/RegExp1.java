@@ -9,6 +9,8 @@
 
 package jflex.core;
 
+import jflex.logging.Out;
+
 /**
  * Stores a regular expression from the rules section of a JFlex specification.
  *

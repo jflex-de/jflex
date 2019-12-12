@@ -1,4 +1,4 @@
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = ["//jflex:visibility"])
 
 package_group(
     name = "visibility",

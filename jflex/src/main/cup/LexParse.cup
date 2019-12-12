@@ -14,9 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jflex.chars.Interval;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
 import java_cup.runtime.Symbol;
@@ -592,11 +596,7 @@ states        ::=  IDENT:id COMMA states:list
                 ;
 
 hatOPT        ::=  HAT
-                   {:
-                      // assumption: newline chars have no uppercase variant
-                      charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
-                      RESULT = true;
-                   :}
+                   {: RESULT = true; :}
                 |  /* empty */
                    {: RESULT = false; :}
                 ;
@@ -672,7 +672,7 @@ regexp        ::=  regexp:r STAR
                        = scanner.caseless
                        ? notintcharset.getCaseless(scanner.getUnicodeProperties())
                        : notintcharset;
-                     charClasses.makeClassNot(set.getIntervals(), false);
+                     charClasses.makeClass(set, false);
 
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
                      l.add(new RegExp1(sym.PRIMCLASS, set));

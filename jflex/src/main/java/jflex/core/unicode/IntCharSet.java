@@ -7,19 +7,20 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.core.unicode;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.PrimitiveIterator;
 import jflex.chars.Interval;
 import jflex.chars.Interval.IntervalIterator;
-import jflex.core.unicode.UnicodeProperties;
+import jflex.logging.Out;
 
 /**
  * Mutable Char Set implemented with intervals.
@@ -61,6 +62,17 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /**
+   * Creates a charset that contains the given intervals.
+   *
+   * <p>The intervals must be sorted and disjointed. Use {@link #add(Interval)} otherwise.
+   */
+  public static IntCharSet of(Interval... intervals) {
+    IntCharSet charset = new IntCharSet();
+    Collections.addAll(charset.intervals, intervals);
+    return charset;
+  }
+
+  /**
    * Creates a charset that contains only one interval, given by its {@code start} and {@code end}
    * values.
    */
@@ -78,7 +90,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @return a new IntCharSet that contains all characters.
    */
-  static IntCharSet allChars() {
+  public static IntCharSet allChars() {
     return IntCharSet.ofCharacterRange(0, CharClasses.maxChar);
   }
 
@@ -495,7 +507,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *     classes.
    * @return a caseless copy of this set
    */
-  IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
+  public IntCharSet getCaseless(UnicodeProperties unicodeProperties) {
     IntCharSet n = copyOf(this);
 
     for (Interval elem : intervals) {
