@@ -1,8 +1,5 @@
 package(default_visibility = ["//jflex:visibility"])
 
-load("@jflex_rules//cup:cup.bzl", "cup")
-load("@jflex_rules//jflex:jflex.bzl", "jflex")
-
 package_group(
     name = "visibility",
     packages = [
@@ -27,23 +24,6 @@ alias(
     actual = "//jflex/src/main/java/jflex/core",
 )
 
-cup(
-    name = "gen_parser",
-    src = "src/main/cup/LexParse.cup",
-    cup_bin = "@jflex_rules//cup:cup_bin",
-    interface = True,
-    parser = "LexParse",
-    symbols = "sym",
-)
-
-# Use bootstrap version defined in @jflex_rules
-jflex(
-    name = "gen_scanner",
-    srcs = ["src/main/jflex/LexScan.flex"],
-    outputs = ["LexScan.java"],
-    skeleton = "src/main/jflex/skeleton.nested",
-)
-
 filegroup(
     name = "resources",
     srcs = glob(["src/main/resources/**"]),
@@ -58,5 +38,5 @@ alias(
 # Tests
 filegroup(
     name = "test_data",
-    srcs = glob(["src/test/resources/**"]) + ["src/main/jflex/skeleton.nested"],
+    srcs = glob(["src/test/resources/**"]),
 )
