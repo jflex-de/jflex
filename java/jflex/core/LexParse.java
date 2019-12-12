@@ -1483,11 +1483,7 @@ class CUP$LexParse$actions {
           case 31: // hatOPT ::= HAT 
             {
               Boolean RESULT =null;
-		
-                      // assumption: newline chars have no uppercase variant
-                      charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
-                      RESULT = true;
-                   
+		 RESULT = true; 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("hatOPT",19, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
