@@ -37,22 +37,27 @@ import jflex.scanner.ScannerException;
  */
 public class LexGenerator {
 
-  private LexGenerator() {}
+  private final File inputFile;
+  private DFA dfa;
+
+  Timer totalTime = new Timer();
+
+  public LexGenerator(File inputFile) {
+    this.inputFile = inputFile;
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
+  }
 
   /**
    * Generates a scanner for the specified input file.
    *
-   * @param inputFile a file containing a lexical specification to generate a scanner for.
    * @return the file name of the generated Java sources.
    */
-  public static String generate(File inputFile) {
-    if (Options.encoding == null) {
-      OptionUtils.setDefaultOptions();
-    }
+  public String generate() {
 
     Out.resetCounters();
 
-    Timer totalTime = new Timer();
     Timer time = new Timer();
 
     totalTime.start();
@@ -76,7 +81,7 @@ public class LexGenerator {
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
-      DFA dfa = nfa.getDFA();
+      dfa = nfa.getDFA();
       time.stop();
       Out.time(ErrorMessages.DFA_TOOK, time);
 
