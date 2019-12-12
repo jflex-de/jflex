@@ -7,5 +7,5 @@ java_library(
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/pholser/quickcheck",
-    ]
+    ],
 )
