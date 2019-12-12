@@ -52,7 +52,7 @@ public @interface TestSpec {
   /** Runs JFlex generation with the {@code --dump} option. */
   boolean dump() default false;
 
-  /** Runs JFlex generation with the  {@code --jlex} option. */
+  /** Runs JFlex generation with the {@code --jlex} option. */
   boolean jlexCompat() default false;
 
   /** Runs JFlex generation with the {@code -q} option. */
