@@ -14,7 +14,7 @@ import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
-import jflex.chars.Interval;
+import jflex.chars.IntervalGen;
 
 /**
  * Generator for random {@link IntCharSet} instances.
@@ -25,19 +25,18 @@ import jflex.chars.Interval;
  */
 public class IntCharSetGen extends Generator<IntCharSet> {
 
-  /** Min bound for intervals */
-  private int minChar = 0;
-  /** Max bound for intervals. Small for speed, and more likely edge cases. */
-  private int maxChar = 50;
-
   /** Min bound for number of intervals (0 = empty set) */
   private int minSize = 0;
   /** Max bound for number of intervals */
   private int maxSize = 5;
 
+  /** Generator for Intervals */
+  private IntervalGen intervals;
+
   /** Constructs generator for IntCharSet */
   public IntCharSetGen() {
     super(IntCharSet.class);
+    this.intervals = new IntervalGen();
   }
 
   @Override
@@ -46,21 +45,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
 
     int numIntervals = r.nextInt(minSize, maxSize);
     for (int i = 0; i < numIntervals; i++) {
-      int start = r.nextInt(minChar, maxChar);
-      int end = r.nextInt(start, maxChar);
-
-      // pick default with higher probability
-      switch (r.nextInt(0, 4)) {
-        case 0:
-          result.add(IntCharSet.ofCharacter(start));
-          break;
-        case 1:
-          result.add(start);
-          break;
-        default:
-          result.add(new Interval(start, end));
-          break;
-      }
+      result.add(intervals.generate(r, status));
     }
 
     return result;
@@ -72,8 +57,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
    * @param range annotation that contains the intervals constraints
    */
   public void configure(InRange range) {
-    minChar = Math.max(0, range.minInt());
-    maxChar = Math.min(range.maxInt(), CharClasses.maxChar);
+    intervals.configure(range);
   }
 
   /**

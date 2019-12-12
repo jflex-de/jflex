@@ -27,7 +27,7 @@ public class CharClasses {
   private static final boolean DEBUG = false;
 
   /** the largest character that can be used in char classes */
-  static final int maxChar = 0x10FFFF;
+  public static final int maxChar = 0x10FFFF;
 
   /** the char classes */
   private List<IntCharSet> classes;
