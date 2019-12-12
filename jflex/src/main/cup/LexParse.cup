@@ -596,11 +596,7 @@ states        ::=  IDENT:id COMMA states:list
                 ;
 
 hatOPT        ::=  HAT
-                   {:
-                      // assumption: newline chars have no uppercase variant
-                      charClasses.makeClass("\n\r\u000B\u000C\u0085\u2028\u2029", false);
-                      RESULT = true;
-                   :}
+                   {: RESULT = true; :}
                 |  /* empty */
                    {: RESULT = false; :}
                 ;
@@ -676,7 +672,7 @@ regexp        ::=  regexp:r STAR
                        = scanner.caseless
                        ? notintcharset.getCaseless(scanner.getUnicodeProperties())
                        : notintcharset;
-                     charClasses.makeClassNot(set.getIntervals(), false);
+                     charClasses.makeClass(set, false);
 
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
                      l.add(new RegExp1(sym.PRIMCLASS, set));
