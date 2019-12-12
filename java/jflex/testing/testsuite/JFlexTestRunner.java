@@ -43,7 +43,6 @@ import jflex.option.Options;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.testsuite.annotations.NoExceptionThrown;
 import jflex.testing.testsuite.annotations.TestSpec;
-import jflex.util.javac.CompilerException;
 import jflex.util.javac.JavacUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -55,6 +54,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   private final Class<?> klass;
   private final TestSpec spec;
+  private final PrintStream originalSysOut = System.out;
+  private final PrintStream originalSysErr = System.err;
 
   public JFlexTestRunner(Class<?> testClass) throws InitializationError {
     super(testClass);
@@ -92,28 +93,31 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Optional<DiffOutputStream> diffSysOut = injectDiffSysOut();
     Optional<DiffOutputStream> diffSysErr = injectDiffSysErr();
 
-    String lexerJavaFileName;
-    if (spec.generatorThrows() == NoExceptionThrown.class) {
-      lexerJavaFileName = invokeJflex();
-    } else {
-      lexerJavaFileName = null;
-      try {
-        generateLexerWithExpectedException();
-      } catch (Exception e) {
-        notifier.fireTestFailure(new Failure(desc, e));
-        return null;
-      }
-    }
-
     try {
+      String lexerJavaFileName;
+      if (spec.generatorThrows() == NoExceptionThrown.class) {
+        lexerJavaFileName = invokeJflex();
+      } else {
+        lexerJavaFileName = null;
+        generateLexerWithExpectedException();
+      }
+
       assertSystemStream(diffSysOut, "System.out");
       assertSystemStream(diffSysErr, "System.err");
-    } catch (AssertionError e) {
-      notifier.fireTestFailure(new Failure(desc, e));
-    }
 
-    notifier.fireTestFinished(desc);
-    return lexerJavaFileName;
+      return lexerJavaFileName;
+    } catch (Throwable th) {
+      notifier.fireTestFailure(new Failure(desc, th));
+      return null;
+    } finally {
+      if (diffSysOut.isPresent()) {
+        System.setOut(originalSysOut);
+      }
+      if (diffSysErr.isPresent()) {
+        System.setErr(originalSysErr);
+      }
+      notifier.fireTestFinished(desc);
+    }
   }
 
   private static void assertSystemStream(Optional<DiffOutputStream> diffStream, String streamName) {
@@ -190,6 +194,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       OptionUtils.setDefaultOptions();
     }
     Options.jlex = spec.jlexCompat();
+    Options.dump = spec.dump();
     Options.verbose = !spec.quiet();
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     if (spec.minimizedDfaStatesCount() > 0) {
@@ -207,8 +212,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     try {
       JavacUtils.compile(ImmutableList.of(new File(lexerJavaFileName)));
       notifier.fireTestFinished(desc);
-    } catch (CompilerException e) {
-      notifier.fireTestFailure(new Failure(desc, e));
+    } catch (Throwable th) {
+      notifier.fireTestFailure(new Failure(desc, th));
+    } finally {
+      notifier.fireTestFinished(desc);
     }
   }
 }

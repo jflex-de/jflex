@@ -6,6 +6,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Charsets;
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
@@ -257,7 +258,7 @@ public class Migrator {
     vars.testClassName =
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, test.getTestName()) + "GoldenTest";
     vars.testName = test.getTestName();
-    vars.testDescription = test.getDescription().trim();
+    vars.testDescription = Strings.nullToEmpty(test.getDescription()).trim();
     vars.goldens = goldenFiles;
     // TODO(regisd). We should use the real JFLex generator to read the `%class` value from the
     // grammar. For now, we rely on the convention that the name of the scanner is the name of
