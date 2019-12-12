@@ -11,6 +11,7 @@ package jflex.core;
 
 import java.util.Objects;
 import jflex.exceptions.GeneratorException;
+import jflex.logging.Out;
 
 /**
  * Encapsulates an action in the specification.

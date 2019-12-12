@@ -17,10 +17,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.Build;
 import jflex.base.IntPair;
 import jflex.chars.Interval;
+import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
+import jflex.state.StateSet;
+import jflex.state.StateSetEnumerator;
 
 /**
  * Non-deterministic finite automata representation in JFlex.
@@ -147,7 +154,7 @@ public final class NFA {
    */
   public void addRegExp(int regExpNum) {
 
-    if (Options.DEBUG)
+    if (Build.DEBUG)
       Out.debug(
           "Adding nfa for regexp " + regExpNum + " :" + Out.NL + regExps.getRegExp(regExpNum));
 
@@ -450,7 +457,7 @@ public final class NFA {
 
     numDFAStates--;
 
-    if (Options.DEBUG)
+    if (Build.DEBUG)
       Out.debug(
           "DFA start states are :"
               + Out.NL
@@ -675,7 +682,7 @@ public final class NFA {
    */
   private IntPair complement(IntPair nfa) {
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("complement for " + nfa);
       Out.debug("NFA is :" + Out.NL + this);
     }
@@ -696,7 +703,7 @@ public final class NFA {
     dfaStates.put(newState, numDFAStates);
     dfaList.add(newState);
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug(
           "pos DFA start state is :"
               + Out.NL
@@ -748,7 +755,7 @@ public final class NFA {
     // We have a dfa accepting the positive regexp.
 
     // Now the complement:
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("dfa finished, nfa is now :" + Out.NL + this);
     }
 
@@ -779,7 +786,7 @@ public final class NFA {
     // eliminate transitions that cannot reach final states
     removeDead(dfaStart, end);
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("complement finished, nfa (" + start + "," + end + ") is now :" + this);
     }
     return IntPair.create(start, end);
@@ -803,7 +810,7 @@ public final class NFA {
    * @see NFA#complement(IntPair)
    */
   private void removeDead(int start, int end) {
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("removeDead (" + start + "," + end + ") " + Out.NL + this);
     }
 
@@ -823,7 +830,7 @@ public final class NFA {
       }
     }
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("reachable states " + reachable);
     }
 
@@ -856,7 +863,7 @@ public final class NFA {
       }
     }
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("live states: " + live);
     }
 
@@ -868,7 +875,7 @@ public final class NFA {
       }
     }
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("Removed dead states " + Out.NL + this);
     }
   }
@@ -926,7 +933,7 @@ public final class NFA {
     int start, end;
     RegExp2 r;
 
-    if (Options.DEBUG) {
+    if (Build.DEBUG) {
       Out.debug("Inserting RegExp : " + regExp);
     }
 

@@ -6,7 +6,6 @@ public enum State {
   HELLO_AT_BOL,
   HELLO_AT_EOL,
   HELLO_SIMPLY,
-  CARRIAGE_RETURN,
   LINE_FEED,
   SPACE,
   OTHER,

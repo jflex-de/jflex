@@ -7,13 +7,15 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.core.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import jflex.chars.Interval;
 import org.junit.runner.RunWith;
 
 /**
@@ -167,5 +169,28 @@ public class IntCharSetQuickcheck {
 
     comp.add(set);
     assertThat(comp).isEqualTo(IntCharSet.allChars());
+  }
+
+  @Property
+  public void invariants(@Size(max = 15) @InRange(maxInt = CharClasses.maxChar) IntCharSet set) {
+    assertThat(set.invariants()).isTrue();
+  }
+
+  @Property
+  public void addConsistent(
+      @Size(max = 10) @InRange(maxInt = CharClasses.maxChar) IntCharSet set,
+      @InRange(maxInt = CharClasses.maxChar) int c) {
+    IntCharSet set2 = IntCharSet.copyOf(set);
+    set.add(c);
+    set2.add(Interval.ofCharacter(c));
+    assertThat(set).isEqualTo(set2);
+  }
+
+  @Property
+  public void singleInterval(@InRange(maxInt = CharClasses.maxChar) Interval i) {
+    IntCharSet set1 = IntCharSet.of(i);
+    IntCharSet set2 = new IntCharSet();
+    set2.add(i);
+    assertThat(set1).isEqualTo(set2);
   }
 }

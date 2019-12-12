@@ -4,6 +4,7 @@ java_test(
     deps = [
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core",
+        "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
     ],
 )

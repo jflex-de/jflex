@@ -1,5 +1,3 @@
-package(default_visibility = ["//javatests/jflex/ucd_generator:__subpackages__"])
-
 SRCS_MAIN = ["Main.java"]
 
 java_library(

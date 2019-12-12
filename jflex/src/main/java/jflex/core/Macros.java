@@ -17,8 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.Build;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Symbol table and expander for macros.
@@ -51,7 +53,7 @@ public final class Macros {
    */
   public boolean insert(String name, RegExp definition) {
 
-    if (Options.DEBUG)
+    if (Build.DEBUG)
       Out.debug(
           "inserting macro "
               + name
@@ -119,9 +121,9 @@ public final class Macros {
    * Expands all stored macros, so that getDefinition always returns a definition that doesn't
    * contain any macro usages.
    *
-   * @throws jflex.exceptions.MacroException if there is a cycle in the macro usage graph.
+   * @throws MacroException if there is a cycle in the macro usage graph.
    */
-  public void expand() throws jflex.exceptions.MacroException {
+  public void expand() {
     for (String name : macros.keySet()) {
       if (isUsed(name)) macros.put(name, expandMacro(name, getDefinition(name)));
       // this put doesn't get a new key, so only a new value is set for the key "name"
@@ -137,7 +139,7 @@ public final class Macros {
    * @throws MacroException when an error (such as a cyclic definition) occurs during expansion
    */
   @SuppressWarnings("unchecked")
-  private RegExp expandMacro(String name, RegExp definition) throws MacroException {
+  private RegExp expandMacro(String name, RegExp definition) {
 
     // Out.print("checking macro "+name);
     // Out.print("definition is "+definition);
@@ -162,13 +164,12 @@ public final class Macros {
       case sym.MACROUSE:
         String usename = (String) ((RegExp1) definition).content;
 
-        if (Objects.equals(name, usename))
-          throw new jflex.exceptions.MacroException(get(MACRO_CYCLE, name));
+        if (Objects.equals(name, usename)) throw new MacroException(get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 
         if (usedef == null)
-          throw new jflex.exceptions.MacroException(
+          throw new MacroException(
               jflex.l10n.ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
 
         markUsed(usename);
