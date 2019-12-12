@@ -1,5 +1,6 @@
 java_test(
     name = "IntCharSetQuickcheck",
+    timeout = "short",
     srcs = [
         "IntCharSetGen.java",
         "IntCharSetQuickcheck.java",
@@ -12,11 +13,11 @@ java_test(
         "//third_party/com/google/truth",
         "//third_party/com/pholser/quickcheck",
     ],
-    timeout = "short",
 )
 
 java_test(
     name = "IntCharSetTest",
+    timeout = "short",
     srcs = ["IntCharSetTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
@@ -24,5 +25,4 @@ java_test(
         "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
     ],
-    timeout = "short",
 )
