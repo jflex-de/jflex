@@ -745,6 +745,10 @@ public final class DFA {
     minimized = true;
   }
 
+  public boolean isMinimized() {
+    return minimized;
+  }
+
   /**
    * Returns a representation of this DFA.
    *
