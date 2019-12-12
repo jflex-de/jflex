@@ -54,4 +54,9 @@ public @interface TestSpec {
 
   /** Generates a lexer with {@code --jlex} option. */
   boolean jlexCompat() default false;
+
+  /**
+   * The expected number of states in the minimized DFA. Negative values do not create an assertion.
+   */
+  int minimizedDfaStatesCount() default 0;
 }
