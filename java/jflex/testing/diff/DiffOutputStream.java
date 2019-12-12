@@ -26,6 +26,7 @@ package jflex.testing.diff;
  */
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import com.google.common.base.Strings;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -84,7 +85,7 @@ public class DiffOutputStream extends OutputStream {
   }
 
   private void assertThatWrittenWasExpected(String expectedLine) throws IOException {
-    if (expectedLine == null) {
+    if (Strings.isNullOrEmpty(expectedLine)) {
       failOnDifferentLine("");
       return;
     }

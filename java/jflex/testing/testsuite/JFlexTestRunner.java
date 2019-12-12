@@ -54,6 +54,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   private final Class<?> klass;
   private final TestSpec spec;
+  private final PrintStream originalSysOut = System.out;
+  private final PrintStream originalSysErr = System.err;
 
   public JFlexTestRunner(Class<?> testClass) throws InitializationError {
     super(testClass);
@@ -102,11 +104,19 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
       assertSystemStream(diffSysOut, "System.out");
       assertSystemStream(diffSysErr, "System.err");
-      notifier.fireTestFinished(desc);
+
       return lexerJavaFileName;
     } catch (Throwable th) {
       notifier.fireTestFailure(new Failure(desc, th));
       return null;
+    } finally {
+      if (diffSysOut.isPresent()) {
+        System.setOut(originalSysOut);
+      }
+      if (diffSysErr.isPresent()) {
+        System.setErr(originalSysErr);
+      }
+      notifier.fireTestFinished(desc);
     }
   }
 
@@ -198,6 +208,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       notifier.fireTestFinished(desc);
     } catch (Throwable th) {
       notifier.fireTestFailure(new Failure(desc, th));
+    } finally {
+      notifier.fireTestFinished(desc);
     }
   }
 }
