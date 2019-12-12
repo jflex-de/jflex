@@ -38,7 +38,7 @@ public class GenerateMojo extends AbstractMojo {
   File cupSourceDirectory;
 
   /** Regular expression of the cup files in the {@link #cupSourceDirectory}. */
-  @Parameter(defaultValue = "*.cup")
+  @Parameter(defaultValue = ".*\\.cup")
   String cupSourceFilesFilter;
 
   /** Name of the directory into which JFlex should generate the parser. */
