@@ -10,7 +10,6 @@
 package jflex.core;
 
 import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
-import static jflex.l10n.ErrorMessages.get;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,7 +165,8 @@ public final class Macros {
       case sym.MACROUSE:
         String usename = (String) ((RegExp1) definition).content;
 
-        if (Objects.equals(name, usename)) throw new MacroException(get(MACRO_CYCLE, name));
+        if (Objects.equals(name, usename)) throw new MacroException(
+            ErrorMessages.get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 
