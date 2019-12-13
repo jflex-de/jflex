@@ -29,7 +29,7 @@ import jflex.logging.Out;
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class IntCharSet implements Iterable<Integer> {
+public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Integer> {
 
   private static final boolean DEBUG = false;
 
@@ -38,9 +38,6 @@ public final class IntCharSet implements Iterable<Integer> {
 
   /** for iterating over the char set */
   private int pos;
-
-  /** Constructs an empty char set. */
-  public IntCharSet() {}
 
   /** Creates a charset that contains only one interval. */
   public static IntCharSet of(Interval interval) {
@@ -554,7 +551,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
    *
-   * <p>This method does *not* implement subset order, but instead compares the smallest elements of
+   * <p>This method <em>does not</em> implement subset order, but instead compares the smallest elements of
    * the two sets, with the empty set smaller than any other set. This is to make the order total
    * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
    * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
@@ -564,6 +561,7 @@ public final class IntCharSet implements Iterable<Integer> {
    * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
    *     smallest element of this set, and +1 if it is larger.
    */
+  @Override
   public int compareTo(IntCharSet o) {
     if (o == null) {
       throw new NullPointerException();
@@ -596,7 +594,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @return true when the invariants of this objects hold.
    */
-  public boolean invariants() {
+  boolean invariants() {
     for (Interval i : intervals) if (!i.invariants()) return false;
 
     for (int j = 0; j < intervals.size() - 1; j++) {
