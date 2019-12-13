@@ -277,30 +277,26 @@ public class CharClasses {
   }
 
   /**
-   * Check consistency of the stored classes [debug].
+   * Checks the invariants of this object.
    *
-   * <p>all classes must be disjoint, checks if all characters have a class assigned.
+   * <p>All classes must be disjoint, and their union must be the entire input set.
+   *
+   * @return true when the invariants of this objects hold.
    */
-  public void check() {
+  public boolean invariants() {
     for (int i = 0; i < classes.size(); i++)
       for (int j = i + 1; j < classes.size(); j++) {
-        IntCharSet x = classes.get(i);
-        IntCharSet y = classes.get(j);
-        if (x.and(y).containsElements()) {
-          System.out.println("Error: non disjoint char classes " + i + " and " + j);
-          System.out.println("class " + i + ": " + x);
-          System.out.println("class " + j + ": " + y);
+        if (classes.get(i).and(classes.get(j)).containsElements()) {
+          return false;
         }
       }
 
-    // check if each character has a classcode
-    // (= if getClassCode terminates)
-    for (int c = 0; c < maxChar; c++) {
-      getClassCode(c);
-      if (c % 100 == 0) System.out.print(".");
+    IntCharSet union = new IntCharSet();
+    for (IntCharSet i : classes) {
+      union.add(i);
     }
 
-    getClassCode(maxChar);
+    return IntCharSet.allChars().equals(union);
   }
 
   /**
