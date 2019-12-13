@@ -595,11 +595,17 @@ public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Intege
    * @return true when the invariants of this objects hold.
    */
   boolean invariants() {
-    for (Interval i : intervals) if (!i.invariants()) return false;
+    for (Interval i : intervals) {
+      if (!i.invariants()){
+        return false;
+      }
+    }
 
     for (int j = 0; j < intervals.size() - 1; j++) {
       // disjoint and ordered
-      if (!(intervals.get(j).end < intervals.get(j + 1).start)) return false;
+      if (intervals.get(j).end >= intervals.get(j + 1).start) {
+        return false;
+      }
     }
 
     // if there are elements, pos must point to an interval
@@ -614,8 +620,12 @@ public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Intege
    * @param s2 the second IntCharSet
    * @return true iff s1 is a subset of s2
    */
-  public static boolean isSubSet(IntCharSet s1, IntCharSet s2) {
-    for (int i : s1) if (!s2.contains(i)) return false;
+  static boolean isSubSet(IntCharSet s1, IntCharSet s2) {
+    for (int i : s1) {
+      if (!s2.contains(i)) {
+        return false;
+      }
+    }
     return true;
   }
 
