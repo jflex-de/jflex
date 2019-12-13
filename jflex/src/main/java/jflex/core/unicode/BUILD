@@ -2,13 +2,15 @@ java_library(
     name = "unicode",
     srcs = glob(["data/*.java"]) + [
         "CharClasses.java",
-        "IntCharSet.java",
-        "UnicodeProperties.java",
         "CharClassInterval.java",
+        "IntCharSet.java",
+        "IntCharSetComparator.java",
         "ILexScan.java",
+        "UnicodeProperties.java",
     ],
     visibility = ["//jflex:__subpackages__"],
     deps = [
+        "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/logging",
     ],

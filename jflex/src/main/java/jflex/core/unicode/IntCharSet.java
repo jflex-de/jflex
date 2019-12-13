@@ -29,7 +29,7 @@ import jflex.logging.Out;
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Integer> {
+public final class IntCharSet implements Iterable<Integer> {
 
   private static final boolean DEBUG = false;
 
@@ -547,49 +547,6 @@ public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Intege
   }
 
   /**
-   * Compare this IntCharSet to another IntCharSet.
-   *
-   * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
-   *
-   * <p>This method <em>does not</em> implement subset order, but instead compares the smallest elements of
-   * the two sets, with the empty set smaller than any other set. This is to make the order total
-   * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
-   * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
-   * have the same smallest element but are not equal.
-   *
-   * @param o the IntCharSet to compare to
-   * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
-   *     smallest element of this set, and +1 if it is larger.
-   */
-  @Override
-  public int compareTo(IntCharSet o) {
-    if (o == null) {
-      throw new NullPointerException();
-    }
-
-    if (this.equals(o)) {
-      return 0;
-    }
-
-    if (DEBUG) {
-      assert !this.and(o).containsElements();
-    }
-
-    if (!this.containsElements()) {
-      return -1;
-    }
-    if (!o.containsElements()) {
-      return 1;
-    }
-
-    if (this.intervals.get(0).start < o.intervals.get(0).start) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-
-  /**
    * Checks the invariants of this object.
    *
    * @return true when the invariants of this objects hold.
@@ -632,6 +589,10 @@ public final class IntCharSet implements Comparable<IntCharSet>, Iterable<Intege
   @Override
   public IntCharSetIterator iterator() {
     return new IntCharSetIterator();
+  }
+
+  Interval getFirstInterval() {
+    return intervals.get(0);
   }
 
   /** Iterator for enumerating the elements of this IntCharSet */
