@@ -113,6 +113,15 @@ public class CharClasses {
     return classes.size();
   }
 
+  /** @return a deep-copy list of all char class partions. */
+  public List<IntCharSet> allClasses() {
+    List<IntCharSet> result = new ArrayList<>();
+    for (IntCharSet ccl : classes) {
+      result.add(IntCharSet.copyOf(ccl));
+    }
+    return result;
+  }
+
   /**
    * Updates the current partition, so that the specified set of characters gets a new character
    * class.
@@ -179,6 +188,16 @@ public class CharClasses {
       IntCharSet x = classes.get(++i);
       if (x.contains(codePoint)) return i;
     }
+  }
+
+  /**
+   * Retuns a copy of a single char class partition by code.
+   *
+   * @param code the code of the char class partition to return.
+   * @return a copy of the char class with the specified code.
+   */
+  public IntCharSet getCharClass(int code) {
+    return IntCharSet.copyOf(classes.get(code));
   }
 
   /** Dumps charclasses to the dump output stream. */
@@ -343,5 +362,19 @@ public class CharClasses {
    */
   public void normalise() {
     classes.sort(INT_CHAR_SET_COMPARATOR);
+  }
+
+  /**
+   * Construct a (deep) copy of the the provided CharClasses object.
+   *
+   * @param c the CharClasses to copy
+   * @return a deep copy of c
+   */
+  public static CharClasses copyOf(CharClasses c) {
+    CharClasses result = new CharClasses();
+    result.maxCharUsed = c.maxCharUsed;
+    result.unicodeProps = c.unicodeProps;
+    result.classes = c.allClasses();
+    return result;
   }
 }
