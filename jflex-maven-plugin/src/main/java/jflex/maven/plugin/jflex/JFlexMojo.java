@@ -235,7 +235,7 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     try {
-      LexGenerator.generate(lexFile);
+      new LexGenerator(lexFile).generate();
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);

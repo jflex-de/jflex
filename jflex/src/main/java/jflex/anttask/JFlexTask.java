@@ -73,7 +73,7 @@ public class JFlexTask extends Task {
         File destFile = new File(outputDir, className + ".java");
 
         if (inputFile.lastModified() > destFile.lastModified()) {
-          LexGenerator.generate(inputFile);
+          new LexGenerator(inputFile).generate();
           if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {

@@ -63,7 +63,7 @@ public class GeneratorThread extends Thread {
         if (!Objects.equals(outputDir, "")) {
           OptionUtils.setDir(outputDir);
         }
-        LexGenerator.generate(new File(inputFile));
+        new LexGenerator(new File(inputFile)).generate();
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {
