@@ -553,7 +553,7 @@ public final class IntCharSet implements Iterable<Integer> {
    */
   boolean invariants() {
     for (Interval i : intervals) {
-      if (!i.invariants()){
+      if (!i.invariants()) {
         return false;
       }
     }

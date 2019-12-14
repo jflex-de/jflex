@@ -12,11 +12,11 @@ public class IntCharSetComparator implements Comparator<IntCharSet> {
    *
    * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
    *
-   * <p>This method <em>does not</em> implement subset order, but instead compares the smallest elements of
-   * the two sets, with the empty set smaller than any other set. This is to make the order total
-   * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
-   * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
-   * have the same smallest element but are not equal.
+   * <p>This method <em>does not</em> implement subset order, but instead compares the smallest
+   * elements of the two sets, with the empty set smaller than any other set. This is to make the
+   * order total for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful
+   * order, and it does probably not implement the contract for {@link Comparable#compareTo}
+   * correctly if the sets have the same smallest element but are not equal.
    *
    * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
    *     smallest element of this set, and +1 if it is larger.
