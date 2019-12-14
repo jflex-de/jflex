@@ -39,9 +39,6 @@ public final class IntCharSet implements Iterable<Integer> {
   /** for iterating over the char set */
   private int pos;
 
-  /** Constructs an empty char set. */
-  public IntCharSet() {}
-
   /** Creates a charset that contains only one interval. */
   public static IntCharSet of(Interval interval) {
     IntCharSet charset = new IntCharSet();
@@ -522,11 +519,7 @@ public final class IntCharSet implements Iterable<Integer> {
     return n;
   }
 
-  /**
-   * Make a string representation of this char set.
-   *
-   * @return a string representing this char set.
-   */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("{ ");
 
@@ -554,58 +547,22 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /**
-   * Compare this IntCharSet to another IntCharSet.
-   *
-   * <p>Assumption: the IntCharSets are disjoint, e.g. members of a partition.
-   *
-   * <p>This method does *not* implement subset order, but instead compares the smallest elements of
-   * the two sets, with the empty set smaller than any other set. This is to make the order total
-   * for partitions as in {@link CharClasses}. It is unlikely to otherwise be a useful order, and it
-   * does probably not implement the contract for {@link Comparable#compareTo} correctly if the sets
-   * have the same smallest element but are not equal.
-   *
-   * @param o the IntCharSet to compare to
-   * @return 0 if the parameter is equal, -1 if its smallest element (if any) is larger than the
-   *     smallest element of this set, and +1 if it is larger.
-   */
-  public int compareTo(IntCharSet o) {
-    if (o == null) {
-      throw new NullPointerException();
-    }
-
-    if (this.equals(o)) {
-      return 0;
-    }
-
-    if (DEBUG) {
-      assert !this.and(o).containsElements();
-    }
-
-    if (!this.containsElements()) {
-      return -1;
-    }
-    if (!o.containsElements()) {
-      return 1;
-    }
-
-    if (this.intervals.get(0).start < o.intervals.get(0).start) {
-      return -1;
-    } else {
-      return 1;
-    }
-  }
-
-  /**
    * Checks the invariants of this object.
    *
    * @return true when the invariants of this objects hold.
    */
-  public boolean invariants() {
-    for (Interval i : intervals) if (!i.invariants()) return false;
+  boolean invariants() {
+    for (Interval i : intervals) {
+      if (!i.invariants()) {
+        return false;
+      }
+    }
 
     for (int j = 0; j < intervals.size() - 1; j++) {
       // disjoint and ordered
-      if (!(intervals.get(j).end < intervals.get(j + 1).start)) return false;
+      if (intervals.get(j).end >= intervals.get(j + 1).start) {
+        return false;
+      }
     }
 
     // if there are elements, pos must point to an interval
@@ -620,14 +577,22 @@ public final class IntCharSet implements Iterable<Integer> {
    * @param s2 the second IntCharSet
    * @return true iff s1 is a subset of s2
    */
-  public static boolean isSubSet(IntCharSet s1, IntCharSet s2) {
-    for (int i : s1) if (!s2.contains(i)) return false;
+  static boolean isSubSet(IntCharSet s1, IntCharSet s2) {
+    for (int i : s1) {
+      if (!s2.contains(i)) {
+        return false;
+      }
+    }
     return true;
   }
 
   @Override
   public IntCharSetIterator iterator() {
     return new IntCharSetIterator();
+  }
+
+  Interval getFirstInterval() {
+    return intervals.get(0);
   }
 
   /** Iterator for enumerating the elements of this IntCharSet */

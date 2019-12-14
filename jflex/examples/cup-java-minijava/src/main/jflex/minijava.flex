@@ -14,7 +14,7 @@ import java_cup.runtime.Symbol;
 %cup
 %line
 %column
-
+%throws UnknownCharacterException
 
 %{
   StringBuffer string = new StringBuffer();
@@ -92,5 +92,4 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 
 
 /* error fallback */
-.|\n                             { throw new Error("Illegal character <"+
-                                                    yytext()+">"); }
+.|\n                             { throw new UnknownCharacterException(yytext()); }

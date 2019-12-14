@@ -9,9 +9,7 @@
 
 package jflex.core;
 
-import static java.util.stream.Collectors.toList;
 import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
-import static jflex.l10n.ErrorMessages.get;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,9 +122,11 @@ public final class Macros {
    *
    * @throws MacroException if there is a cycle in the macro usage graph.
    */
-  public void expand() {
+  public void expand() throws MacroException {
     for (String name : macros.keySet()) {
-      if (isUsed(name)) macros.put(name, expandMacro(name, getDefinition(name)));
+      if (isUsed(name)) {
+        macros.put(name, expandMacro(name, getDefinition(name)));
+      }
       // this put doesn't get a new key, so only a new value is set for the key "name"
     }
   }
@@ -140,7 +140,7 @@ public final class Macros {
    * @throws MacroException when an error (such as a cyclic definition) occurs during expansion
    */
   @SuppressWarnings("unchecked")
-  private RegExp expandMacro(String name, RegExp definition) {
+  private RegExp expandMacro(String name, RegExp definition) throws MacroException {
 
     // Out.print("checking macro "+name);
     // Out.print("definition is "+definition);
@@ -165,13 +165,15 @@ public final class Macros {
       case sym.MACROUSE:
         String usename = (String) ((RegExp1) definition).content;
 
-        if (Objects.equals(name, usename)) throw new MacroException(get(MACRO_CYCLE, name));
+        if (Objects.equals(name, usename))
+          throw new MacroException(ErrorMessages.get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 
-        if (usedef == null)
+        if (usedef == null) {
           throw new MacroException(
-              jflex.l10n.ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+              ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+        }
 
         markUsed(usename);
 
@@ -187,9 +189,11 @@ public final class Macros {
       case sym.CCLASS:
       case sym.CCLASSNOT:
         RegExp1 cclass = (RegExp1) definition;
-        List<RegExp> classes = (List<RegExp>) cclass.content;
-        cclass.content =
-            classes.stream().map(regexp -> expandMacro(name, regexp)).collect(toList());
+        List<RegExp> classes = new ArrayList<>();
+        for (RegExp regexp : (List<RegExp>) cclass.content) {
+          classes.add(expandMacro(name, regexp));
+        }
+        cclass.content = classes;
         return cclass;
 
       case sym.CCLASSOP:

@@ -19,6 +19,7 @@ class Tident extends Texp implements AST {
     return name;
   }
 
+  @Override
   public void checkcontext(SymTab st) { // CoCo (DefVar)
     SymtabEntry ste = st.lookup(name);
 
@@ -29,12 +30,14 @@ class Tident extends Texp implements AST {
   int index; // number of ident in environment
   boolean is_input; // is it an input variable?
 
+  @Override
   public void prepInterp(SymTab st) { // set index for environment
     STEvar ste = (STEvar) st.lookup(name);
     index = ste.getIndex();
     is_input = ste.isInput();
   }
 
+  @Override
   public int interpret(int[] in, int[] par) {
     if (is_input) return (in[index]);
     else return (par[index]);

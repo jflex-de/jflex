@@ -15,6 +15,7 @@ jflex(
 java_library(
     name = "dotnewline_scanner",
     srcs = [
+        "Interval.java",
         ":gen_dotnewline_scanner",
     ],
     deps = [

@@ -20,6 +20,7 @@ public class GoldenInOutFilePair {
     return outputFile.getName();
   }
 
+  @Override
   public String toString() {
     return inputFile.getParent() + File.separator + inputFile.getName();
   }
