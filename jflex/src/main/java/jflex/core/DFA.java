@@ -52,7 +52,7 @@ public final class DFA {
   private Action[] action;
 
   /** entryState[i] is the start-state of lexical state i or lookahead DFA i */
-  private int entryState[];
+  private int[] entryState;
 
   /** The number of states in this DFA */
   private int numStates;
@@ -195,16 +195,11 @@ public final class DFA {
         }
         result.append("] ");
       }
-      result.append(i + ":" + Out.NL);
+      result.append(i).append(":").append(Out.NL);
 
       for (int j = 0; j < numInput; j++) {
         if (table[i][j] >= 0)
-          result
-              .append("  with ")
-              .append((int) j)
-              .append(" in ")
-              .append(table[i][j])
-              .append(Out.NL);
+          result.append("  with ").append(j).append(" in ").append(table[i][j]).append(Out.NL);
       }
     }
 
@@ -315,7 +310,6 @@ public final class DFA {
     // the last of the blocks currently in use (in [n..2*n-1])
     // (end of list marker, points to the last used block)
     int lastBlock = n; // at first we start with one empty block
-    final int b0 = n; // the first block
 
     // the circular doubly linked list L of pairs (B_i, c)
     // (B_i, c) in L iff l_forward[(B_i-n)*numInput+c] > 0 // numeric value of block 0 = n!
@@ -393,18 +387,18 @@ public final class DFA {
     // initialize blocks
 
     // make b0 = {0}  where 0 = the additional error state
-    b_forward[b0] = 0;
-    b_backward[b0] = 0;
-    b_forward[0] = b0;
-    b_backward[0] = b0;
-    block[0] = b0;
-    block[b0] = 1;
+    b_forward[n] = 0;
+    b_backward[n] = 0;
+    b_forward[0] = n;
+    b_backward[0] = n;
+    block[0] = n;
+    block[n] = 1;
 
     for (int s = 1; s < n; s++) {
       // System.out.println("Checking state ["+(s-1)+"]");
       // search the blocks if it fits in somewhere
       // (fit in = same pushback behavior, same finalness, same lookahead behavior, same action)
-      int b = b0 + 1; // no state can be equivalent to the error state
+      int b = n + 1; // no state can be equivalent to the error state
       boolean found = false;
       while (!found && b <= lastBlock) {
         // get some state out of the current block
@@ -458,20 +452,20 @@ public final class DFA {
 
     // initialize worklist L
     // first, find the largest block B_max, then, all other (B_i,c) go into the list
-    int B_max = b0;
+    int B_max = n;
     int B_i;
-    for (B_i = b0 + 1; B_i <= lastBlock; B_i++) if (block[B_max] < block[B_i]) B_max = B_i;
+    for (B_i = n + 1; B_i <= lastBlock; B_i++) if (block[B_max] < block[B_i]) B_max = B_i;
 
     // L = empty
     l_forward[anchorL] = anchorL;
     l_backward[anchorL] = anchorL;
 
     // set up the first list element
-    if (B_max == b0) B_i = b0 + 1;
-    else B_i = b0; // there must be at least two blocks
+    if (B_max == n) B_i = n + 1;
+    else B_i = n; // there must be at least two blocks
 
-    int index = (B_i - b0) * numInput; // (B_i, 0)
-    while (index < (B_i + 1 - b0) * numInput) {
+    int index = (B_i - n) * numInput; // (B_i, 0)
+    while (index < (B_i + 1 - n) * numInput) {
       int last = l_backward[anchorL];
       l_forward[last] = index;
       l_forward[index] = anchorL;
@@ -483,8 +477,8 @@ public final class DFA {
     // now do the rest of L
     while (B_i <= lastBlock) {
       if (B_i != B_max) {
-        index = (B_i - b0) * numInput;
-        while (index < (B_i + 1 - b0) * numInput) {
+        index = (B_i - n) * numInput;
+        while (index < (B_i + 1 - n) * numInput) {
           int last = l_backward[anchorL];
           l_forward[last] = index;
           l_forward[index] = anchorL;
@@ -516,7 +510,7 @@ public final class DFA {
       l_backward[l_forward[anchorL]] = anchorL;
       l_forward[B_j_a] = 0;
       // take B_j_a = (B_j-b0)*numInput+c apart into (B_j, a)
-      int B_j = b0 + B_j_a / numInput;
+      int B_j = n + B_j_a / numInput;
       int a = B_j_a % numInput;
 
       if (Build.DEBUG) {
@@ -629,8 +623,8 @@ public final class DFA {
         B_i = twin[indexTwin];
         int B_k = twin[B_i];
         for (int c = 0; c < numInput; c++) {
-          int B_i_c = (B_i - b0) * numInput + c;
-          int B_k_c = (B_k - b0) * numInput + c;
+          int B_i_c = (B_i - n) * numInput + c;
+          int B_k_c = (B_k - n) * numInput + c;
           if (l_forward[B_i_c] > 0) {
             // (B_i,c) already in L --> put (B_k,c) in L
             int last = l_backward[anchorL];
@@ -675,7 +669,7 @@ public final class DFA {
     int[] move = new int[numStates];
 
     // fill arrays trans[] and kill[] (in O(n))
-    for (int b = b0 + 1; b <= lastBlock; b++) { // b0 contains the error state
+    for (int b = n + 1; b <= lastBlock; b++) { // b0 contains the error state
       // get the state with smallest value in current block
       int s = b_forward[b];
       int min_s = s; // there are no empty blocks!
@@ -741,24 +735,19 @@ public final class DFA {
    * Returns a representation of this DFA.
    *
    * @param a an array of int.
-   * @return a {@link java.lang.String} object.
    */
   public String toString(int[] a) {
-    String r = "{";
+    StringBuilder r = new StringBuilder("{");
     int i;
-    for (i = 0; i < a.length - 1; i++) r += a[i] + ",";
-    return r + a[i] + "}";
+    for (i = 0; i < a.length - 1; i++) {
+      r.append(a[i]).append(",");
+    }
+    r.append(a[i]);
+    r.append("}");
+    return r.toString();
   }
 
-  /**
-   * printBlocks.
-   *
-   * @param b an array of int.
-   * @param b_f an array of int.
-   * @param b_b an array of int.
-   * @param last a int.
-   */
-  public void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
+  private void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
     Out.dump("block     : " + toString(b));
     Out.dump("b_forward : " + toString(b_f));
     Out.dump("b_backward: " + toString(b_b));
@@ -791,14 +780,7 @@ public final class DFA {
     }
   }
 
-  /**
-   * printL.
-   *
-   * @param l_f an array of int.
-   * @param l_b an array of int.
-   * @param anchor a int.
-   */
-  public void printL(int[] l_f, int[] l_b, int anchor) {
+  private void printL(int[] l_f, int[] l_b, int anchor) {
     String l = "L = {";
     int bc = l_f[anchor];
     while (bc != anchor) {
