@@ -317,7 +317,7 @@ public class Main {
 
     if (files.size() > 0) {
       for (File file : files) {
-        LexGenerator.generate(file);
+        new LexGenerator(file).generate();
       }
     } else {
       new MainFrame();

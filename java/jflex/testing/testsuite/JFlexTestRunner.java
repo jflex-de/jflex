@@ -196,8 +196,14 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
     Options.verbose = !spec.quiet();
-    String lexerJavaFileName = LexGenerator.generate(new File(spec.lex()));
-    return checkNotNull(lexerJavaFileName);
+    LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
+    String lexerJavaFileName = checkNotNull(lexGenerator.generate());
+    if (spec.minimizedDfaStatesCount() > 0) {
+      assertWithMessage("There should be %d minimized states in the DFA")
+          .that(lexGenerator.minimizedDfaStatesCount())
+          .isEqualTo(spec.minimizedDfaStatesCount());
+    }
+    return lexerJavaFileName;
   }
 
   private void buildLexer(RunNotifier notifier, String lexerJavaFileName) {
