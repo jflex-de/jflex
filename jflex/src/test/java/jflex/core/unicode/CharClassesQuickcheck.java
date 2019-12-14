@@ -15,6 +15,7 @@ import static org.junit.Assume.assumeTrue;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import jflex.chars.Interval;
 import org.junit.runner.RunWith;
 
 /**
@@ -133,5 +134,35 @@ public class CharClassesQuickcheck {
     IntCharSet classNew = classes.getCharClass(classes.getClassCode(c));
     IntCharSet classOld = preClasses.getCharClass(preClasses.getClassCode(c));
     assertThat(classNew).isEqualTo(classOld);
+  }
+
+  @Property
+  public void classCodesUnion(CharClasses classes) {
+    CharClassInterval[] intervals = classes.getIntervals();
+    IntCharSet union = new IntCharSet();
+    for (CharClassInterval i : intervals) {
+      union.add(new Interval(i.start, i.end));
+    }
+    assertThat(union).isEqualTo(IntCharSet.allChars());
+  }
+
+  @Property
+  public void classCodesCode(CharClasses classes) {
+    CharClassInterval[] intervals = classes.getIntervals();
+
+    for (CharClassInterval i : intervals) {
+      IntCharSet set = IntCharSet.ofCharacterRange(i.start, i.end);
+      IntCharSet ccl = classes.getCharClass(i.charClass);
+      assertThat(ccl.contains(set)).isTrue();
+    }
+  }
+
+  @Property
+  public void classCodesDisjointOrdered(CharClasses classes) {
+    CharClassInterval[] intervals = classes.getIntervals();
+
+    for (int i = 0; i < intervals.length - 1; i++) {
+      assertThat(intervals[i].end + 1).isEqualTo(intervals[i + 1].start);
+    }
   }
 }
