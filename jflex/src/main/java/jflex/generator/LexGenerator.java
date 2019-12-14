@@ -9,9 +9,6 @@
 
 package jflex.generator;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -142,5 +139,18 @@ public class LexGenerator {
     checkNotNull(dfa, "DFA doesn't exist. Need to call generate() first.");
     checkState(dfa.isMinimized(), "DAF is minimized. Need to call minimize() first.");
     return dfa.numStates();
+  }
+
+  private static Object checkNotNull(Object object, String msg) {
+    if (object == null) {
+      throw new NullPointerException(msg);
+    }
+    return object;
+  }
+
+  private static void checkState(boolean state, String msg) {
+    if (!state) {
+      throw new IllegalStateException(msg);
+    }
   }
 }
