@@ -454,6 +454,21 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /**
+   * Returns the complement of the specified set x, that is, the set of all elements that are not
+   * contained in x.
+   *
+   * @param x the {@link IntCharSet} to take the complement of.
+   * @return the complement of x
+   */
+  public static IntCharSet complementOf(IntCharSet x) {
+    IntCharSet result = allChars();
+    if (x != null) {
+      result.sub(x);
+    }
+    return result;
+  }
+
+  /**
    * Returns whether the set contains elements.
    *
    * @return Whether the set is non-empty.
