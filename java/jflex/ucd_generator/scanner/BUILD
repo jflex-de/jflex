@@ -3,6 +3,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 java_library(
     name = "unicode_data_scanner",
     srcs = [
+        "AbstractBinaryPropertiesFileScanner.java",
         "AbstractPropertyAliasesScanner.java",
         "AbstractPropertyValueAliasesScanner.java",
         "AbstractUnicodeDataScanner.java",
