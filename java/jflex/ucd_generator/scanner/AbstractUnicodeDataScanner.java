@@ -118,8 +118,4 @@ public abstract class AbstractUnicodeDataScanner {
           GENERAL_CATEGORY, "Cn", assignedEndCodePoint + 1, unicodeDataBuilder.maximumCodePoint());
     }
   }
-
-  public UnicodeData getUnicodeData() {
-    return unicodeDataBuilder.build();
-  }
 }
