@@ -12,7 +12,7 @@ import java.util.Map;
 %public
 %class BinaryPropertiesFileScanner
 %extends AbstractBinaryPropertiesFileScanner
-%ctorarg UnicodeVersion unicodeVersion
+%ctorarg UnicodeData.Builder unicodeDataBuilder
 
 %unicode
 %eofclose
@@ -22,46 +22,9 @@ import java.util.Map;
 %int
 %function scan
 
-%{
-  UnicodeVersion unicodeVersion;
-  Map<String, SortedSet<NamedRange>> properties
-    = new HashMap<String, SortedSet<NamedRange>>();
-  String propertyName;
-  int start;
-  int end;
-
-  public void addPropertyIntervals() {
-    for (Map.Entry<String,SortedSet<NamedRange>> property : properties.entrySet()) {
-      String currentPropertyName = property.getKey();
-      SortedSet<NamedRange> intervals = property.getValue();
-      int prevEnd = -1;
-      int prevStart = -1;
-      for (NamedRange interval : intervals) {
-        if (prevEnd == -1) {
-          prevStart = interval.start;
-        } else if (interval.start > prevEnd + 1) {
-          unicodeVersion.addInterval(currentPropertyName, prevStart, prevEnd);
-          prevStart = interval.start;
-        }
-        prevEnd = interval.end;
-      }
-      // Add final interval
-      unicodeVersion.addInterval(currentPropertyName, prevStart, prevEnd);
-    }
-  }
-
-  public void addCurrentInterval() {
-    SortedSet<NamedRange> intervals = properties.get(propertyName);
-    if (null == intervals) {
-      intervals = new TreeSet<NamedRange>();
-      properties.put(propertyName, intervals);
-    }
-    intervals.add(new NamedRange(start, end));
-  }
-%}
 
 %init{
-  this.unicodeVersion = unicodeVersion;
+  super(unicodeDataBuilder);
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}

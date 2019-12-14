@@ -1,13 +1,13 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_library(
-    name = "unicode_data_scanner",
+    name = "ucs_scanners",
     srcs = [
         "AbstractBinaryPropertiesFileScanner.java",
         "AbstractPropertyAliasesScanner.java",
         "AbstractPropertyValueAliasesScanner.java",
         "AbstractUnicodeDataScanner.java",
-        ":gen_unicode_data_scanner",
+        ":gen_ucd_scanners",
     ],
     visibility = [
         "//java/jflex/ucd_generator:__subpackages__",
@@ -23,9 +23,10 @@ java_library(
 )
 
 jflex(
-    name = "gen_unicode_data_scanner",
+    name = "gen_ucd_scanners",
     srcs = glob(["*.flex"]),
     outputs = [
+        "BinaryPropertiesFileScanner.java",
         "PropertyAliasesScanner.java",
         "PropertyValueAliasesScanner.java",
         "UnicodeDataScanner.java",

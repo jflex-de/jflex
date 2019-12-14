@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
 import jflex.ucd_generator.scanner.UnicodeData;
@@ -97,6 +98,7 @@ public class UcdGenerator {
     scanPropertyAliases(ucdVersion, unicodeDataBuilder);
     scanPropertyValueAliases(ucdVersion, unicodeDataBuilder);
     scanUnicodeData(ucdVersion, unicodeDataBuilder);
+    scanPropList(ucdVersion, unicodeDataBuilder);
 
     return unicodeDataBuilder.build();
   }
@@ -134,6 +136,18 @@ public class UcdGenerator {
         new UnicodeDataScanner(
             Files.newReader(dataFile, Charsets.UTF_8), ucdVersion, unicodeDataBuilder);
     scanner.scan();
+  }
+
+  private static void scanPropList(UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder)
+      throws IOException {
+    File propertyValueAliasesFile = ucdVersion.getFile(UcdFileType.PropList);
+    if (propertyValueAliasesFile != null) {
+      System.out.println("Opening " + propertyValueAliasesFile);
+      BinaryPropertiesFileScanner propertyAliasesScanner =
+          new BinaryPropertiesFileScanner(
+              Files.newReader(propertyValueAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
+      propertyAliasesScanner.scan();
+    }
   }
 
   private UcdGenerator() {}

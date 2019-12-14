@@ -10,7 +10,7 @@ public abstract class CodepointRange {
       (left, right) -> Integer.compare(left.start(), right.start());
 
   /** Start code-point, included. */
-  abstract int start();
+  public abstract int start();
 
   /** End code-point, included. */
   public abstract int end();
