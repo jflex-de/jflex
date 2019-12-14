@@ -74,9 +74,10 @@ public abstract class UnicodeData {
   @AutoValue.Builder
   public abstract static class Builder {
 
-    private PropertyNameNormalizer mPropertyNameNormalizer = new PropertyNameNormalizer();
-    private Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
-    private Map<String, List<MutableCodepointRange>> mPropertyValueIntervals = new HashMap<>();
+    private final PropertyNameNormalizer mPropertyNameNormalizer = new PropertyNameNormalizer();
+    private final Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
+    private final Map<String, List<MutableCodepointRange>> mPropertyValueIntervals =
+        new HashMap<>();
 
     abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
 
