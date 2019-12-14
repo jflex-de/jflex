@@ -9,4 +9,8 @@ public class MutableCodepointRange {
     start = startCodePoint;
     end = endCodePoint;
   }
+
+  public static MutableCodepointRange of(CodepointRange range) {
+    return new MutableCodepointRange(range.start(), range.end());
+  }
 }

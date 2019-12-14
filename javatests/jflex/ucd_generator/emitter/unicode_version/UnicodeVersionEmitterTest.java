@@ -6,7 +6,7 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
-import jflex.ucd_generator.scanner.UnicodeData;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;

@@ -1,7 +1,7 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_library(
-    name = "ucs_scanners",
+    name = "ucd_scanners",
     srcs = [
         "AbstractBinaryPropertiesFileScanner.java",
         "AbstractPropertyAliasesScanner.java",
@@ -14,9 +14,9 @@ java_library(
         "//javatests/jflex:__subpackages__",
     ],
     deps = [
-        ":name_normalizer",
-        ":unicode_data",
+        "//java/jflex/ucd_generator/scanner/model",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/ucd_generator/util:name_normalizer",
         "//java/jflex/ucd_generator/util:surrogate_utils",
         "//third_party/com/google/guava",
     ],
@@ -32,31 +32,4 @@ jflex(
         "UnicodeDataScanner.java",
     ],
     visibility = ["//java/jflex/ucd_generator:__subpackages__"],
-)
-
-java_library(
-    name = "unicode_data",
-    srcs = [
-        "PropertyValues.java",
-        "UnicodeData.java",
-    ],
-    visibility = [
-        "//java/jflex/ucd_generator:__subpackages__",
-        "//javatests/jflex:__subpackages__",
-    ],
-    deps = [
-        ":name_normalizer",
-        "//java/jflex/ucd_generator/ucd",
-        "//java/jflex/ucd_generator/util:hexa_utils",
-        "//java/jflex/ucd_generator/util:surrogate_utils",
-        "//third_party/com/google/auto_value",
-        "//third_party/com/google/guava",
-    ],
-)
-
-java_library(
-    name = "name_normalizer",
-    srcs = ["PropertyNameNormalizer.java"],
-    deps = [
-    ],
 )

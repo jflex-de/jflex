@@ -35,8 +35,8 @@ import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
-import jflex.ucd_generator.scanner.UnicodeData;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
@@ -70,7 +70,7 @@ public class UcdGenerator {
     }
   }
 
-  /** Emits {@code Unicode_X_Y.java} */
+  /** Emits {@code Unicode_X_Y.java} files. */
   private static void emitAllUnicodeXY(UcdVersions ucdVersions, File outputDir)
       throws IOException, ParseException {
     for (Version version : ucdVersions.versionSet()) {
@@ -79,6 +79,7 @@ public class UcdGenerator {
     }
   }
 
+  /** Emits {@code Unicode_X_Y.java} for a give version. */
   static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
       throws IOException, ParseException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
@@ -92,6 +93,7 @@ public class UcdGenerator {
     }
   }
 
+  /** Scans the Unicode data files. */
   private static UnicodeData scanUcd(UcdVersion ucdVersion) throws IOException {
     UnicodeData.Builder unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
 
@@ -124,7 +126,6 @@ public class UcdGenerator {
           new PropertyValueAliasesScanner(
               Files.newReader(propertyValueAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
       propertyAliasesScanner.scan();
-      propertyAliasesScanner.end();
     }
   }
 

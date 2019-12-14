@@ -10,6 +10,17 @@ java_library(
 )
 
 java_library(
+    name = "name_normalizer",
+    srcs = ["PropertyNameNormalizer.java"],
+    visibility = [
+        "//java/jflex/ucd_generator:__subpackages__",
+        "//javatests/jflex:__subpackages__",
+    ],
+    deps = [
+    ],
+)
+
+java_library(
     name = "surrogate_utils",
     srcs = [
         "SurrogateUtils.java",

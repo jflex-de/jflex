@@ -4,6 +4,7 @@ import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AutoValue
 public abstract class CodepointRangeSet {
@@ -14,9 +15,13 @@ public abstract class CodepointRangeSet {
     return new AutoValue_CodepointRangeSet.Builder();
   }
 
+  public List<MutableCodepointRange> toMutableList() {
+    return ranges().stream().map(r -> MutableCodepointRange.of(r)).collect(Collectors.toList());
+  }
+
   @AutoValue.Builder
   public abstract static class Builder {
-    private ArrayList<MutableCodepointRange> mRanges = new ArrayList<>();
+    private final ArrayList<MutableCodepointRange> mRanges = new ArrayList<>();
 
     abstract ImmutableList.Builder<CodepointRange> rangesBuilder();
 

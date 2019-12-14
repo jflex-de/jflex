@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 
 /** Scans the common multiple binary property Unicode.org data file format. */

@@ -1,4 +1,4 @@
-package jflex.ucd_generator.scanner;
+package jflex.ucd_generator.util;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -10,8 +10,8 @@ public class PropertyNameNormalizer {
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
-  private Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
-  private Map<String, String> propertyValueAlias2CanonicalName = new HashMap<>();
+  private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
+  private final Map<String, String> propertyValueAlias2CanonicalName = new HashMap<>();
 
   /**
    * Transforms mixed case identifiers containing spaces, hyphens, and/or underscores by downcasing

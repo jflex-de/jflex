@@ -1,10 +1,9 @@
 package jflex.ucd_generator.scanner;
 
 import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.HashMap;
 import java.util.Map;
-
+import jflex.ucd_generator.scanner.model.UnicodeData;
 
 %%
 

@@ -9,8 +9,8 @@ java_library(
     deps = [
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
-        "//java/jflex/ucd_generator/scanner:ucs_scanners",
-        "//java/jflex/ucd_generator/scanner:unicode_data",
+        "//java/jflex/ucd_generator/scanner:ucd_scanners",
+        "//java/jflex/ucd_generator/scanner/model",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/util/javac",
         "//java/jflex/velocity",

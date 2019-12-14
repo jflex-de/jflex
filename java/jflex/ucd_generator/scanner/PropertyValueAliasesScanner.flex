@@ -1,5 +1,8 @@
 package jflex.ucd_generator.scanner;
 
+import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.util.PropertyNameNormalizer;
+
 %%
 
 %final

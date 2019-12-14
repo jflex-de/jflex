@@ -21,6 +21,7 @@ public class UcdGeneratorIntegrationTest {
             .build();
     File outputDir = new File("/tmp");
     UcdGenerator.emitUnicodeVersionXY(ucdVersion10, outputDir);
+
     File f = new File(outputDir, "Unicode_10_0.java");
     assertThat(f.exists()).isTrue();
   }

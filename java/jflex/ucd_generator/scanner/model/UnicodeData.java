@@ -1,15 +1,12 @@
-package jflex.ucd_generator.scanner;
+package jflex.ucd_generator.scanner.model;
 
 import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
-import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
-import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,14 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.CodepointRangeSet;
-import jflex.ucd_generator.ucd.MutableCodepointRange;
 import jflex.ucd_generator.ucd.Version;
+import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 @AutoValue
 public abstract class UnicodeData {
@@ -39,7 +33,7 @@ public abstract class UnicodeData {
   public abstract PropertyValues propertyValues();
 
   /** Maps Unicode property values to the associated set of code point ranges. */
-  public abstract ImmutableSortedMap<String, CodepointRangeSet> propertyValueIntervals();
+  public abstract PropertyValueIntervals propertyValueIntervals();
 
   public abstract int maximumCodePoint();
 
@@ -78,10 +72,8 @@ public abstract class UnicodeData {
 
     private final PropertyNameNormalizer mPropertyNameNormalizer = new PropertyNameNormalizer();
     private final Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
-    private final Map<String, List<MutableCodepointRange>> mPropertyValueIntervals =
-        new HashMap<>();
 
-    abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
+    abstract Builder propertyValueIntervals(PropertyValueIntervals propertyValueIntervals);
 
     abstract ImmutableMap.Builder<Integer, ImmutableSortedSet<Integer>>
         caselessMatchPartitionsBuilder();
@@ -130,61 +122,19 @@ public abstract class UnicodeData {
       return this;
     }
 
-    /**
-     * Given a binary property name, and starting and ending code points, adds the interval to the
-     * {@link #propertyValueIntervals} map.
-     *
-     * @param propName The property name, e.g. "Assigned".
-     * @param startCodePoint The first code point in the interval.
-     * @param endCodePoint The last code point in the interval.
-     */
-    public Builder addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
-      propName = mPropertyNameNormalizer.getCanonicalPropertyName(propName);
-      if (isSurrogate(propName)) {
-        // Skip surrogates
-        return this;
-      }
-      List<CodepointRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
-      if (ranges.isEmpty()) {
-        return this;
-      }
-      List<MutableCodepointRange> intervals = getOrCreateIntervals(propName);
-      for (CodepointRange range : ranges) {
-        // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-        // range (starting point is listed as U+4E00).  This is U+9FFF according
-        // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-        //
-        //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-        //
-        // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
-        // value, as are the previous code points, so to include
-        // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-        // TODO
-        //        if (range.end() == 0x4E00 && Objects.equalsmajorMinor, "1.1")) {
-        //          range.end = 0x9FFF;
-        //        }
-        intervals.add(new MutableCodepointRange(startCodePoint, endCodePoint));
-      }
-      return this;
-    }
-
-    Builder addPropertyInterval(
-        String propName, String propValue, int startCodePoint, int endCodePoint) {
-      return addPropertyInterval(propName + "=" + propName, startCodePoint, endCodePoint);
-    }
-
     public abstract Builder maximumCodePoint(int codepoint);
 
     public abstract int maximumCodePoint();
 
+    public abstract PropertyValues.Builder propertyValuesBuilder();
     public abstract Builder propertyValues(PropertyValues propertyValues);
+    public abstract PropertyValueIntervals.Builder propertyValueIntervalsBuilder();
+
 
     abstract UnicodeData internalBuild();
 
     public UnicodeData build() {
       addInternalCaselessMatches();
-      addInternalPropertyValueIntervals();
-      addCompatibilityProperties();
       return internalBuild();
     }
 
@@ -193,32 +143,6 @@ public abstract class UnicodeData {
         caselessMatchPartitionsBuilder()
             .put(entry.getKey(), ImmutableSortedSet.copyOfSorted(entry.getValue()));
       }
-    }
-
-    private void addInternalPropertyValueIntervals() {
-      for (String propName : mPropertyValueIntervals.keySet()) {
-        CodepointRangeSet rangeSet =
-            CodepointRangeSet.builder().addAll(mPropertyValueIntervals.get(propName)).build();
-        propertyValueIntervalsBuilder().put(propName, rangeSet);
-      }
-    }
-
-    private void addCompatibilityProperties() {
-      propertyValueIntervalsBuilder().put("blank", createBlankSet());
-    }
-
-    private CodepointRangeSet createBlankSet() {
-      return CodepointRangeSet.builder()
-          .addAll(getIntervals("Zs").orElse(mPropertyValueIntervals.get("whitespace")))
-          .build();
-    }
-
-    private Optional<List<MutableCodepointRange>> getIntervals(String propName) {
-      return Optional.ofNullable(mPropertyValueIntervals.get(propName));
-    }
-
-    private List<MutableCodepointRange> getOrCreateIntervals(String propName) {
-      return mPropertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
     }
 
     public String getCanonicalPropertyName(String propertyAlias) {
@@ -231,6 +155,16 @@ public abstract class UnicodeData {
 
     public String getCanonicalPropertyValueName(String propertyAlias) {
       return mPropertyNameNormalizer.getCanonicalPropertyValueName(propertyAlias);
+    }
+
+    public void addPropertyInterval(String propertyName, int start, int end) {
+      propertyValueIntervalsBuilder().addPropertyInterval(propertyName, start, end,
+          mPropertyNameNormalizer);
+    }
+
+    public void addPropertyInterval(String propName, String propValue, int start, int end) {
+      propertyValueIntervalsBuilder().addPropertyInterval(propName, propValue, start, end,
+          mPropertyNameNormalizer);
     }
   }
 }
