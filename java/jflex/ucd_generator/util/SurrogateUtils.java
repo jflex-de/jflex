@@ -1,4 +1,4 @@
-package jflex.ucd_generator.scanner;
+package jflex.ucd_generator.util;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -11,7 +11,7 @@ public class SurrogateUtils {
       Pattern.compile("^cs$|surrogate", Pattern.CASE_INSENSITIVE);
 
   /** Returns whether the property represent a surrogate [U+D800-U+DFFF]. */
-  static boolean isSurrogate(String propName) {
+  public static boolean isSurrogate(String propName) {
     return SURROGATE_PATTERN.matcher(propName).find();
   }
 
@@ -20,7 +20,7 @@ public class SurrogateUtils {
    * is entirely outside of or starts or ends within; or straddles the surrogate range
    * [0xD800-0xDFFF], respectively.
    */
-  static ImmutableList<CodepointRange> removeSurrogates(int startCodePoint, int endCodePoint) {
+  public static ImmutableList<CodepointRange> removeSurrogates(int startCodePoint, int endCodePoint) {
     Preconditions.checkArgument(startCodePoint <= endCodePoint);
     if (startCodePoint >= 0xD800 && endCodePoint <= 0xDFFF) {
       return ImmutableList.of();

@@ -1,8 +1,8 @@
 package jflex.ucd_generator.scanner;
 
-import static jflex.ucd_generator.scanner.SurrogateUtils.isSurrogate;
-import static jflex.ucd_generator.scanner.SurrogateUtils.removeSurrogates;
 import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
+import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
+import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Strings;

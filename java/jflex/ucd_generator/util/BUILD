@@ -8,3 +8,14 @@ java_library(
         "//third_party/com/google/guava",
     ],
 )
+
+java_library(
+    name = "surrogate_utils",
+    srcs = [
+        "SurrogateUtils.java",
+    ],
+    deps = [
+        "//java/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+    ],
+)
