@@ -13,7 +13,6 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.Assert.fail;
 
 import java.util.Objects;
-import jflex.chars.Interval;
 import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
@@ -177,12 +176,7 @@ public class UnicodePropertiesTest {
             "Caseless match set for 'i' should contain lowercase dotless" + " 'i', but it doesn't.")
         .that(caselessMatches.contains('\u0131'))
         .isTrue();
-    Interval interval;
-    int charCount = 0;
-    for (int i = 0; i < caselessMatches.numIntervals(); ++i) {
-      interval = caselessMatches.getNext();
-      charCount += interval.end - interval.start + 1;
-    }
+    int charCount = caselessMatches.size();
     assertWithMessage(
             "Caseless match set for 'i' should contain 4 members, but"
                 + " instead contains "
