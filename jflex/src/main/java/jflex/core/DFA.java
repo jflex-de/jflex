@@ -310,6 +310,7 @@ public final class DFA {
     // the last of the blocks currently in use (in [n..2*n-1])
     // (end of list marker, points to the last used block)
     int lastBlock = n; // at first we start with one empty block
+    final int b0 = n; // the first block
 
     // the circular doubly linked list L of pairs (B_i, c)
     // (B_i, c) in L iff l_forward[(B_i-n)*numInput+c] > 0 // numeric value of block 0 = n!
@@ -387,18 +388,18 @@ public final class DFA {
     // initialize blocks
 
     // make b0 = {0}  where 0 = the additional error state
-    b_forward[n] = 0;
-    b_backward[n] = 0;
-    b_forward[0] = n;
-    b_backward[0] = n;
-    block[0] = n;
-    block[n] = 1;
+    b_forward[b0] = 0;
+    b_backward[b0] = 0;
+    b_forward[0] = b0;
+    b_backward[0] = b0;
+    block[0] = b0;
+    block[b0] = 1;
 
     for (int s = 1; s < n; s++) {
       // System.out.println("Checking state ["+(s-1)+"]");
       // search the blocks if it fits in somewhere
       // (fit in = same pushback behavior, same finalness, same lookahead behavior, same action)
-      int b = n + 1; // no state can be equivalent to the error state
+      int b = b0 + 1; // no state can be equivalent to the error state
       boolean found = false;
       while (!found && b <= lastBlock) {
         // get some state out of the current block
@@ -452,20 +453,20 @@ public final class DFA {
 
     // initialize worklist L
     // first, find the largest block B_max, then, all other (B_i,c) go into the list
-    int B_max = n;
+    int B_max = b0;
     int B_i;
-    for (B_i = n + 1; B_i <= lastBlock; B_i++) if (block[B_max] < block[B_i]) B_max = B_i;
+    for (B_i = b0 + 1; B_i <= lastBlock; B_i++) if (block[B_max] < block[B_i]) B_max = B_i;
 
     // L = empty
     l_forward[anchorL] = anchorL;
     l_backward[anchorL] = anchorL;
 
     // set up the first list element
-    if (B_max == n) B_i = n + 1;
-    else B_i = n; // there must be at least two blocks
+    if (B_max == b0) B_i = b0 + 1;
+    else B_i = b0; // there must be at least two blocks
 
-    int index = (B_i - n) * numInput; // (B_i, 0)
-    while (index < (B_i + 1 - n) * numInput) {
+    int index = (B_i - b0) * numInput; // (B_i, 0)
+    while (index < (B_i + 1 - b0) * numInput) {
       int last = l_backward[anchorL];
       l_forward[last] = index;
       l_forward[index] = anchorL;
@@ -477,8 +478,8 @@ public final class DFA {
     // now do the rest of L
     while (B_i <= lastBlock) {
       if (B_i != B_max) {
-        index = (B_i - n) * numInput;
-        while (index < (B_i + 1 - n) * numInput) {
+        index = (B_i - b0) * numInput;
+        while (index < (B_i + 1 - b0) * numInput) {
           int last = l_backward[anchorL];
           l_forward[last] = index;
           l_forward[index] = anchorL;
@@ -510,7 +511,7 @@ public final class DFA {
       l_backward[l_forward[anchorL]] = anchorL;
       l_forward[B_j_a] = 0;
       // take B_j_a = (B_j-b0)*numInput+c apart into (B_j, a)
-      int B_j = n + B_j_a / numInput;
+      int B_j = b0 + B_j_a / numInput;
       int a = B_j_a % numInput;
 
       if (Build.DEBUG) {
@@ -623,8 +624,8 @@ public final class DFA {
         B_i = twin[indexTwin];
         int B_k = twin[B_i];
         for (int c = 0; c < numInput; c++) {
-          int B_i_c = (B_i - n) * numInput + c;
-          int B_k_c = (B_k - n) * numInput + c;
+          int B_i_c = (B_i - b0) * numInput + c;
+          int B_k_c = (B_k - b0) * numInput + c;
           if (l_forward[B_i_c] > 0) {
             // (B_i,c) already in L --> put (B_k,c) in L
             int last = l_backward[anchorL];
