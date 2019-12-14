@@ -3,16 +3,14 @@ package jflex.ucd_generator.scanner;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Scans the PropertyValueAliases(-X.X.X).txt Unicode.org data file format, 
- * populating unicodeVersion.allPropertyValueAliases.
- */
 %%
 
 %final
 %public
 %class PropertyValueAliasesScanner
-%ctorarg UnicodeVersion unicodeVersion
+%extends AbstractPropertyValueAliasesScanner
+%ctorarg UnicodeData.Builder unicodeDataBuilder
+%ctorarg PropertyNameNormalizer propertyNameNormalizer
 
 %unicode
 %eofclose
@@ -23,30 +21,8 @@ import java.util.Set;
 %int
 %function scan
 
-%{
-  UnicodeVersion unicodeVersion;
-  String propertyAlias;
-  Set<String> aliases = new HashSet<String>();
-  String propertyValue;
-  String scxPropName;
-  
-  void addPropertyValueAliases() {
-    unicodeVersion.addPropertyValueAliases
-        (propertyAlias, propertyValue, new HashSet<String>(aliases));
-    String canonicalPropertyName 
-        = unicodeVersion.getCanonicalPropertyName(propertyAlias);
-    if ("script".equals(canonicalPropertyName)) {
-      // Clone Script/sc property value aliases => Script_Extensions/scx
-      unicodeVersion.addPropertyValueAliases
-          (scxPropName, propertyValue, new HashSet<String>(aliases));
-    }
-    aliases.clear();
-  }
-%}
-
 %init{
-  this.unicodeVersion = unicodeVersion;
-  scxPropName = unicodeVersion.getCanonicalPropertyName("Script_Extensions");
+  super(unicodeDataBuilder, propertyNameNormalizer);
 %init}
 
 Spaces = [ \t]*
@@ -86,7 +62,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 }
 
 <CCC> {
-  [0-9]+ { aliases.add(UnicodeVersion.normalize(yytext())); }
+  [0-9]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
 
   {ItemSeparator} { yybegin(ALIAS); }
 }
@@ -100,7 +76,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 
 // Long form general category property values are aliases
 <GENERAL_CATEGORY_ALIAS> {
-  [^ \t\r\n;#]+ { aliases.add(UnicodeVersion.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
   
   {ItemSeparator} { yybegin(ADDITIONAL_ALIASES); }
 }
@@ -108,7 +84,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 <ALIAS> {
   [Nn] "/" [Aa] { }
   
-  [^ \t\r\n;#]+ { aliases.add(UnicodeVersion.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
   
   {ItemSeparator} { yybegin(PROPERTY_VALUE); }
 }
@@ -130,7 +106,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 }
 
 <ADDITIONAL_ALIASES> {
-  [^ \t\r\n;#]+ { aliases.add(UnicodeVersion.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
   
   {ItemSeparator} { }
 }

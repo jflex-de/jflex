@@ -4,6 +4,7 @@ java_library(
     name = "unicode_data_scanner",
     srcs = [
         "AbstractPropertyAliasesScanner.java",
+        "AbstractPropertyValueAliasesScanner.java",
         "AbstractUnicodeDataScanner.java",
         ":gen_unicode_data_scanner",
     ],
@@ -24,6 +25,7 @@ jflex(
     srcs = glob(["*.flex"]),
     outputs = [
         "PropertyAliasesScanner.java",
+        "PropertyValueAliasesScanner.java",
         "UnicodeDataScanner.java",
     ],
     visibility = ["//java/jflex/ucd_generator:__subpackages__"],

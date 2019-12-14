@@ -3,10 +3,12 @@ package jflex.ucd_generator.scanner;
 import java.util.HashSet;
 import java.util.Set;
 
+/** Scanner for {@code PropertyAliases(-X.X.X).txt}. */
 public class AbstractPropertyAliasesScanner {
 
-  final UnicodeData.Builder unicodeDataBuilder;
   final Set<String> aliases = new HashSet<>();
+  final UnicodeData.Builder unicodeDataBuilder;
+
   String longName;
 
   public AbstractPropertyAliasesScanner(UnicodeData.Builder unicodeDataBuilder) {

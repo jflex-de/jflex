@@ -3,10 +3,6 @@ package jflex.ucd_generator.scanner;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Scans the PropertyAliases(-X.X.X).txt Unicode.org data file format, 
- * populating unicodeVersion.allPropertyAliases.
- */
 %%
 
 %final
