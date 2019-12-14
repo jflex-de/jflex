@@ -99,7 +99,6 @@ public class DfaFactory {
           Integer nextDFAState = dfaStates.get(newState);
 
           if (nextDFAState != null) {
-            // Out.debug("FOUND!");
             dfa.addTransition(currentDFAState, input, nextDFAState);
           } else {
             if (Options.progress) Out.print(".");
