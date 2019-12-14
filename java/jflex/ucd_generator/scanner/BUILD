@@ -3,6 +3,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 java_library(
     name = "unicode_data_scanner",
     srcs = [
+        "AbstractPropertyAliasesScanner.java",
         "AbstractUnicodeDataScanner.java",
         ":gen_unicode_data_scanner",
     ],
@@ -12,6 +13,7 @@ java_library(
     ],
     deps = [
         ":unicode_data",
+        ":utils",
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
     ],
@@ -21,6 +23,7 @@ jflex(
     name = "gen_unicode_data_scanner",
     srcs = glob(["*.flex"]),
     outputs = [
+        "PropertyAliasesScanner.java",
         "UnicodeDataScanner.java",
     ],
     visibility = ["//java/jflex/ucd_generator:__subpackages__"],

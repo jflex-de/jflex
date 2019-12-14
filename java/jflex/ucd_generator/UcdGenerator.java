@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.UnicodeData;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
 import jflex.ucd_generator.ucd.UcdFileType;
@@ -80,11 +81,23 @@ public class UcdGenerator {
       throws IOException, ParseException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
+    UnicodeData.Builder unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
+
+    File propertyAliasesFile = ucdVersion.getFile(UcdFileType.PropertyAliases);
+    if (propertyAliasesFile != null) {
+      System.out.println("Opening " + propertyAliasesFile);
+      PropertyAliasesScanner propertyAliasesScanner =
+          new PropertyAliasesScanner(
+              Files.newReader(propertyAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
+      propertyAliasesScanner.scan();
+    }
+
     File dataFile = ucdVersion.getFile(UcdFileType.UnicodeData);
     System.out.println("Opening " + dataFile);
     File outputFile = new File(outputDir, unicodeClassName + ".java");
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(dataFile, Charsets.UTF_8), ucdVersion);
+        new UnicodeDataScanner(
+            Files.newReader(dataFile, Charsets.UTF_8), ucdVersion, unicodeDataBuilder);
     scanner.scan();
     UnicodeData unicodeData = scanner.getUnicodeData();
     UnicodeVersionEmitter emitter =

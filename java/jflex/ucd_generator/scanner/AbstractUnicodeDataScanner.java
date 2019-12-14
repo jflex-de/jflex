@@ -24,9 +24,10 @@ public abstract class AbstractUnicodeDataScanner {
   String titlecaseMapping = null;
   boolean isLastInRange = false;
 
-  protected AbstractUnicodeDataScanner(UcdVersion ucdVersion) {
+  protected AbstractUnicodeDataScanner(
+      UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) {
     this.ucdVersion = ucdVersion;
-    this.unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
+    this.unicodeDataBuilder = unicodeDataBuilder;
   }
 
   public void handleEntry() {

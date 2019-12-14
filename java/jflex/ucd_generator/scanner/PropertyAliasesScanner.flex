@@ -12,7 +12,7 @@ import java.util.Set;
 %final
 %public
 %class PropertyAliasesScanner
-%extends AbsrtactPropertyAliasesScanner
+%extends AbstractPropertyAliasesScanner
 %ctorarg UnicodeData.Builder unicodeDataBuilder
 
 %unicode

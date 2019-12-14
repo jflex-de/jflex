@@ -14,6 +14,7 @@ import jflex.ucd_generator.ucd.Versions;
 %class UnicodeDataScanner
 %extends AbstractUnicodeDataScanner
 %ctorarg UcdVersion ucdVersion
+%ctorarg UnicodeData.Builder unicodeDataBuilder
 
 %unicode
 %eofclose
@@ -33,7 +34,7 @@ import jflex.ucd_generator.ucd.Versions;
 %}
 
 %init{
-  super(ucdVersion);
+  super(ucdVersion, unicodeDataBuilder);
 %init}
 
 Hex = [0-9A-Fa-f]+
