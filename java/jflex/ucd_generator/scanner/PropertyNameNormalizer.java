@@ -24,6 +24,10 @@ public class PropertyNameNormalizer {
     return propertyAlias2CanonicalName.getOrDefault(propertyAlias, propertyAlias);
   }
 
+  void putPropertyAlias(String alias, String canonicalName) {
+    propertyAlias2CanonicalName.put(alias, canonicalName);
+  }
+
   /**
    * Transforms mixed case identifiers containing spaces, hyphens, and/or underscores by downcasing
    * and removing all spaces, hyphens, underscores, and parentheses; also, converts property

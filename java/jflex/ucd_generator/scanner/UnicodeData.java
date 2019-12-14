@@ -215,5 +215,9 @@ public abstract class UnicodeData {
     private List<MutableCodepointRange> getOrCreateIntervals(String propName) {
       return mPropertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
     }
+
+    public void addPropertyAlias(String alias, String normalizedLongName) {
+      mPropertyNameNormalizer.putPropertyAlias(alias, normalizedLongName);
+    }
   }
 }
