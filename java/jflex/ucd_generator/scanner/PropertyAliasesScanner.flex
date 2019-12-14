@@ -1,7 +1,4 @@
-package jflex.ucd_generator.scanner;
-
-import java.util.HashSet;
-import java.util.Set;
+package jflex.ucd_generator.scanner;import jflex.ucd_generator.base.Aliases;
 
 %%
 
@@ -34,7 +31,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 
   // scf       ; Simple_Case_Folding         ; sfc
   // TODO(regisd) move call on normalize in addPropertyAliases
-  [^ \t\r\n;]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;]+ { aliases.add(Aliases.normalize(yytext())); }
   
   {ItemSeparator} { yybegin(LONG_NAME); }
 }
@@ -51,7 +48,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <ADDITIONAL_ALIASES> {
-  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(Aliases.normalize(yytext())); }
   
   {ItemSeparator} { }
 }

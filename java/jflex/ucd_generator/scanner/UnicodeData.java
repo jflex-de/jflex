@@ -9,6 +9,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import java.util.ArrayList;
@@ -217,8 +218,15 @@ public abstract class UnicodeData {
       return mPropertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
     }
 
+    public String getCanonicalPropertyName(String propertyAlias) {
+      return mPropertyNameNormalizer.getCanonicalPropertyName(propertyAlias);
+    }
+
     public void addPropertyAlias(String alias, String normalizedLongName) {
       mPropertyNameNormalizer.putPropertyAlias(alias, normalizedLongName);
     }
+
+    private void internalPutPropertyValueAliases(
+        String propertyName, String propertyValue, ImmutableSet<String> valueAliases) {}
   }
 }

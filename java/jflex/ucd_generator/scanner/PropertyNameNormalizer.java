@@ -1,12 +1,9 @@
 package jflex.ucd_generator.scanner;
 
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.regex.Pattern;
+import jflex.ucd_generator.base.Aliases;
 
 public class PropertyNameNormalizer {
-  /** Pattern used to normalize property value identifiers */
-  private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private HashMap<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
@@ -19,30 +16,12 @@ public class PropertyNameNormalizer {
    * @return the canonical property name for the given property name or alias. If none has been
    *     encountered, then the given propertyAlias is returned.
    */
-  String getCanonicalPropertyName(String propertyAlias) {
-    propertyAlias = normalize(propertyAlias);
+  public String getCanonicalPropertyName(String propertyAlias) {
+    propertyAlias = Aliases.normalize(propertyAlias);
     return propertyAlias2CanonicalName.getOrDefault(propertyAlias, propertyAlias);
   }
 
-  void putPropertyAlias(String alias, String canonicalName) {
+  public void putPropertyAlias(String alias, String canonicalName) {
     propertyAlias2CanonicalName.put(alias, canonicalName);
-  }
-
-  /**
-   * Transforms mixed case identifiers containing spaces, hyphens, and/or underscores by downcasing
-   * and removing all spaces, hyphens, underscores, and parentheses; also, converts property
-   * name/value separator ':' to '='.
-   *
-   * @param identifier The identifier to transform
-   * @return The transformed identifier
-   */
-  static String normalize(String identifier) {
-    if (identifier == null) {
-      return null;
-    }
-    return WORD_SEP_PATTERN
-        .matcher(identifier.toLowerCase(Locale.ENGLISH))
-        .replaceAll("")
-        .replace(':', '=');
   }
 }

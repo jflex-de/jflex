@@ -1,7 +1,4 @@
-package jflex.ucd_generator.scanner;
-
-import java.util.HashSet;
-import java.util.Set;
+package jflex.ucd_generator.scanner;import jflex.ucd_generator.base.Aliases;
 
 %%
 
@@ -10,7 +7,6 @@ import java.util.Set;
 %class PropertyValueAliasesScanner
 %extends AbstractPropertyValueAliasesScanner
 %ctorarg UnicodeData.Builder unicodeDataBuilder
-%ctorarg PropertyNameNormalizer propertyNameNormalizer
 
 %unicode
 %eofclose
@@ -22,7 +18,7 @@ import java.util.Set;
 %function scan
 
 %init{
-  super(unicodeDataBuilder, propertyNameNormalizer);
+  super(unicodeDataBuilder);
 %init}
 
 Spaces = [ \t]*
@@ -62,7 +58,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 }
 
 <CCC> {
-  [0-9]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [0-9]+ { aliases.add(Aliases.normalize(yytext())); }
 
   {ItemSeparator} { yybegin(ALIAS); }
 }
@@ -76,7 +72,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 
 // Long form general category property values are aliases
 <GENERAL_CATEGORY_ALIAS> {
-  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(Aliases.normalize(yytext())); }
   
   {ItemSeparator} { yybegin(ADDITIONAL_ALIASES); }
 }
@@ -84,7 +80,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 <ALIAS> {
   [Nn] "/" [Aa] { }
   
-  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(Aliases.normalize(yytext())); }
   
   {ItemSeparator} { yybegin(PROPERTY_VALUE); }
 }
@@ -106,7 +102,7 @@ BinaryValueAliases = {ItemSeparator} "N" {ItemSeparator} "No" {ItemSeparator} "F
 }
 
 <ADDITIONAL_ALIASES> {
-  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(Aliases.normalize(yytext())); }
   
   {ItemSeparator} { }
 }

@@ -15,6 +15,7 @@ java_library(
     deps = [
         ":unicode_data",
         ":utils",
+        "//java/jflex/ucd_generator/base",
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
     ],
@@ -39,6 +40,7 @@ java_library(
         "//javatests/jflex:__subpackages__",
     ],
     deps = [
+        ":name_normalizer",
         ":utils",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/util:hexa_utils",
@@ -50,11 +52,18 @@ java_library(
 java_library(
     name = "utils",
     srcs = [
-        "PropertyNameNormalizer.java",
         "SurrogateUtils.java",
     ],
     deps = [
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
+    ],
+)
+
+java_library(
+    name = "name_normalizer",
+    srcs = ["PropertyNameNormalizer.java"],
+    deps = [
+        "//java/jflex/ucd_generator/base",
     ],
 )

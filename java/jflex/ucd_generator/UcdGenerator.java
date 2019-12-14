@@ -114,7 +114,7 @@ public class UcdGenerator {
   }
 
   private static void scanPropertyValueAliases(
-      UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) {
+      UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) throws IOException {
     File propertyValueAliasesFile = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (propertyValueAliasesFile != null) {
       System.out.println("Opening " + propertyValueAliasesFile);

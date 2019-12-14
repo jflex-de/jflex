@@ -2,6 +2,7 @@ package jflex.ucd_generator.scanner;
 
 import java.util.HashSet;
 import java.util.Set;
+import jflex.ucd_generator.base.Aliases;
 
 /** Scanner for {@code PropertyAliases(-X.X.X).txt}. */
 public class AbstractPropertyAliasesScanner {
@@ -16,7 +17,7 @@ public class AbstractPropertyAliasesScanner {
   }
 
   void addPropertyAliases() {
-    String normalizedLongName = PropertyNameNormalizer.normalize(longName);
+    String normalizedLongName = Aliases.normalize(longName);
     // Long names should resolve to themselves
     aliases.add(normalizedLongName);
     for (String alias : aliases) {
