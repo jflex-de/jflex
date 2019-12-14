@@ -29,6 +29,7 @@ public class PackEmitterTest {
   public void setUp() {
     p =
         new PackEmitter("Bla") {
+          @Override
           public void emitUnpack() {}
         };
   }

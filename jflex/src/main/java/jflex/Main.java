@@ -9,11 +9,6 @@
 
 package jflex;
 
-import static jflex.core.Options.setEncoding;
-import static jflex.core.Options.unused_warning;
-import static jflex.core.Out.error;
-import static jflex.l10n.ErrorMessages.NO_ENCODING;
-
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -27,14 +22,15 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
-import jflex.core.Options;
-import jflex.core.Out;
+import jflex.core.OptionUtils;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.generator.LexGenerator;
 import jflex.gui.MainFrame;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * This is the command-line interface.
@@ -66,7 +62,7 @@ public class Main {
           Out.error(ErrorMessages.NO_DIRECTORY);
           throw new GeneratorException();
         }
-        Options.setDir(argv[i]);
+        OptionUtils.setDir(argv[i]);
         continue;
       }
 
@@ -77,17 +73,17 @@ public class Main {
           throw new GeneratorException();
         }
 
-        Options.setSkeleton(new File(argv[i]));
+        OptionUtils.setSkeleton(new File(argv[i]));
         continue;
       }
 
       if (Objects.equals(argv[i], "--encoding")) {
         if (++i >= argv.length) {
-          error(NO_ENCODING);
+          Out.error(ErrorMessages.NO_ENCODING);
           throw new GeneratorException();
         }
 
-        setEncoding(argv[i]);
+        OptionUtils.setEncoding(argv[i]);
         continue;
       }
 
@@ -116,12 +112,12 @@ public class Main {
       }
 
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
-        unused_warning = true;
+        Options.unused_warning = true;
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
-        unused_warning = false;
+        Options.unused_warning = false;
         continue;
       }
 
@@ -158,7 +154,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--info")
           || Objects.equals(argv[i], "-info")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Out.printSystemInfo();
+        printSystemInfo();
         throw new SilentExit(0);
       }
 
@@ -321,7 +317,7 @@ public class Main {
 
     if (files.size() > 0) {
       for (File file : files) {
-        LexGenerator.generate(file);
+        new LexGenerator(file).generate();
       }
     } else {
       new MainFrame();
@@ -335,16 +331,48 @@ public class Main {
    * @param argv the commandline.
    */
   public static void main(String argv[]) {
+    OptionUtils.setDefaultOptions();
     try {
       generate(argv);
     } catch (GeneratorException e) {
-      Out.statistics();
+      if (e.isUnExpected()) {
+        Out.error(
+            "Unexpected exception encountered. This indicates a bug in JFlex."
+                + Out.NL
+                + "Please consider filing an issue at http://github.com/jflex-de/jflex/issues/new"
+                + Out.NL);
+        Throwable cause = e.getCause();
+        if (cause != null) {
+          String msg = cause.getLocalizedMessage();
+          if (msg != null) Out.error(msg);
+          cause.printStackTrace();
+        }
+      } else {
+        Out.statistics();
+      }
       System.exit(1);
     } catch (SilentExit e) {
       System.exit(e.exitCode());
     }
   }
 
-  // Only CLI, not meant for instanciation.
+  // Only CLI, not meant for instantiation.
   private Main() {}
+
+  /** Print system information (e.g. in case of unexpected exceptions) */
+  public static void printSystemInfo() {
+    Out.err("Java version:     " + System.getProperty("java.version"));
+    Out.err("Runtime name:     " + System.getProperty("java.runtime.name"));
+    Out.err("Vendor:           " + System.getProperty("java.vendor"));
+    Out.err("VM version:       " + System.getProperty("java.vm.version"));
+    Out.err("VM vendor:        " + System.getProperty("java.vm.vendor"));
+    Out.err("VM name:          " + System.getProperty("java.vm.name"));
+    Out.err("VM info:          " + System.getProperty("java.vm.info"));
+    Out.err("OS name:          " + System.getProperty("os.name"));
+    Out.err("OS arch:          " + System.getProperty("os.arch"));
+    Out.err("OS version:       " + System.getProperty("os.version"));
+    Out.err("Encoding:         " + System.getProperty("file.encoding"));
+    Out.err("Unicode versions: " + UnicodeProperties.UNICODE_VERSIONS);
+    Out.err("JFlex version:    " + Build.VERSION);
+  }
 }

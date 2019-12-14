@@ -199,6 +199,7 @@ class UnicodeVersion {
         new PrintWriter(new File(outputDir, generatedClassName + ".java"), "UTF-8");
     writer.append("package jflex.core.unicode.data;\n\n");
     writer.append("public class ").append(generatedClassName).append(" {\n");
+    writer.append("  private").append(generatedClassName).append("() {}\n\n");
     emitConstructor(writer);
     emitMaximumCodePoint(writer);
     emitPropertyValuesArray(writer);

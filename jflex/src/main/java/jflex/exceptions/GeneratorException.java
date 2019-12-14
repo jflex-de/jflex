@@ -18,12 +18,24 @@ package jflex.exceptions;
 public class GeneratorException extends RuntimeException {
 
   private static final long serialVersionUID = -9128247888544263982L;
+  private boolean unexpected;
 
   public GeneratorException() {
-    super("Generation aborted for an unknown reason");
+    super();
+    // we use GeneratorException() to abort control flow, i.e. these are
+    // expected and we leave unexpected on false.
+  }
+
+  public GeneratorException(Throwable cause, boolean unexpected) {
+    super("Generation aborted: " + cause, cause);
+    this.unexpected = unexpected;
   }
 
   public GeneratorException(Throwable cause) {
-    super("Generation aborted: " + cause, cause);
+    this(cause, false);
+  }
+
+  public boolean isUnExpected() {
+    return unexpected;
   }
 }

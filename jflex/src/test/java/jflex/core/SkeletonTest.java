@@ -58,8 +58,8 @@ public class SkeletonTest {
   }
 
   private void checkDefaultSkeleton() {
-    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
+    assertThat(Skeleton.line[3]).contains("java.util.Stack");
     Skeleton.readDefault();
-    assertThat(-1).isEqualTo(Skeleton.line[3].indexOf("java.util.Stack"));
+    assertThat(Skeleton.line[3]).doesNotContain("java.util.Stack");
   }
 }

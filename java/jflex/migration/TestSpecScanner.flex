@@ -86,7 +86,7 @@ DIGIT = [0-9]
   {NL}                { test.setJavacFiles(cmdLine); yybegin(YYINITIAL); }
 
 <LINELIST> {
-  [0-9]+              { lineList.add(new Integer(yytext())); }
+  [0-9]+              { lineList.add(Integer.valueOf(yytext())); }
   [ \t]+              { }
   {NL}                { yybegin(YYINITIAL); }
 }

@@ -18,7 +18,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.base.Build;
-import jflex.core.Out;
+import jflex.logging.Out;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -38,7 +38,6 @@ public final class MainFrame extends Frame implements Handles {
 
   private Button quit;
   private Button generate;
-  private Button stop;
   private Button specChoose;
   private Button dirChoose;
 
@@ -58,6 +57,7 @@ public final class MainFrame extends Frame implements Handles {
 
     addWindowListener(
         new WindowAdapter() {
+          @Override
           public void windowClosing(WindowEvent e) {
             quit();
           }
@@ -73,7 +73,6 @@ public final class MainFrame extends Frame implements Handles {
     generate = new Button("Generate");
     quit = new Button("Quit");
     Button options = new Button("Options");
-    stop = new Button("Stop");
     dirChoose = new Button("Browse");
     dir = new TextField(10);
     specChoose = new Button("Browse");
@@ -89,6 +88,7 @@ public final class MainFrame extends Frame implements Handles {
 
     generate.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             generate();
           }
@@ -96,6 +96,7 @@ public final class MainFrame extends Frame implements Handles {
 
     options.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             showOptions();
           }
@@ -103,20 +104,15 @@ public final class MainFrame extends Frame implements Handles {
 
     quit.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             quit();
           }
         });
 
-    stop.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            stop();
-          }
-        });
-
     specChoose.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             specChoose();
           }
@@ -124,6 +120,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dirChoose.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             dirChoose();
           }
@@ -131,6 +128,7 @@ public final class MainFrame extends Frame implements Handles {
 
     spec.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             fileName = spec.getText();
             generate();
@@ -139,6 +137,7 @@ public final class MainFrame extends Frame implements Handles {
 
     spec.addTextListener(
         new TextListener() {
+          @Override
           public void textValueChanged(TextEvent e) {
             fileName = spec.getText();
           }
@@ -146,6 +145,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dir.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             dirName = dir.getText();
             generate();
@@ -154,6 +154,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dir.addTextListener(
         new TextListener() {
+          @Override
           public void textValueChanged(TextEvent e) {
             dirName = dir.getText();
           }
@@ -165,7 +166,6 @@ public final class MainFrame extends Frame implements Handles {
     north.add(4, 0, quit);
     north.add(4, 1, generate);
     north.add(4, 2, options);
-    north.add(4, 3, stop);
 
     north.add(0, 0, BOTTOM, new Label("Lexical specification:"));
     north.add(0, 1, 2, 1, spec);
@@ -198,6 +198,7 @@ public final class MainFrame extends Frame implements Handles {
    *
    * @return a {@link java.awt.Dimension} object.
    */
+  @Override
   public Dimension getPreferredSize() {
     Dimension d = super.getPreferredSize();
     d.width = messages.getPreferredSize().width;
@@ -205,7 +206,6 @@ public final class MainFrame extends Frame implements Handles {
   }
 
   private void setEnabledAll(boolean generating) {
-    stop.setEnabled(generating);
     quit.setEnabled(!generating);
     generate.setEnabled(!generating);
     dirChoose.setEnabled(!generating);
@@ -236,17 +236,7 @@ public final class MainFrame extends Frame implements Handles {
     else messages.append(Out.NL + "Generation aborted." + Out.NL);
   }
 
-  private void stop() {
-    if (thread != null) {
-      /* stop ok here despite deprecation (?)
-      I don't know any good way to abort generation without changing the
-      generator code */
-      thread.stop();
-      thread = null;
-    }
-    generationFinished(false);
-  }
-
+  @SuppressWarnings("SystemExitOutsideMain") // this is an alternative Main class
   private void quit() {
     setVisible(false);
     System.exit(0);

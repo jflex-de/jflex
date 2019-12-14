@@ -23,16 +23,19 @@ class Texpinfix extends Texp implements AST {
     return ("(" + exp1 + kind + exp2 + ")");
   }
 
+  @Override
   public void checkcontext(SymTab st) { // context conditions
     exp1.checkcontext(st);
     exp2.checkcontext(st);
   }
 
+  @Override
   public void prepInterp(SymTab st) { // set pointers und indices
     exp1.prepInterp(st);
     exp2.prepInterp(st);
   }
 
+  @Override
   public int interpret(int[] in, int[] par) {
     int e1 = exp1.interpret(in, par);
     int e2 = exp2.interpret(in, par);

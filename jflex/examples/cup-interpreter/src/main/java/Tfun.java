@@ -25,6 +25,7 @@ class Tfun extends Texp implements AST {
     return ident + "(" + explist + ")";
   }
 
+  @Override
   public void checkcontext(SymTab st) { // CoCo (DefFun,Arity)
     explist.checkcontext(st);
     SymtabEntry ste = st.lookup(ident.toString());
@@ -37,11 +38,13 @@ class Tfun extends Texp implements AST {
   Tdekl fundekl; // pointer to location of function declaration
 
   // set pointers and indices
+  @Override
   public void prepInterp(SymTab st) {
     fundekl = ((STEfun) st.lookup(ident.toString())).getDekl();
     explist.prepInterp(st);
   }
 
+  @Override
   public int interpret(int[] in, int[] par) {
     int[] newparams = new int[fundekl.arity()];
     explist.interpret(in, par, newparams, 0);

@@ -9,6 +9,8 @@
 
 package jflex.chars;
 
+import java.util.PrimitiveIterator;
+
 /**
  * A mutable interval of characters with basic operations.
  *
@@ -16,7 +18,7 @@ package jflex.chars;
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class Interval {
+public final class Interval implements Iterable<Integer> {
 
   /** Start of the interval. */
   public int start;
@@ -32,6 +34,7 @@ public final class Interval {
   public Interval(int start, int end) {
     this.start = start;
     this.end = end;
+    assert invariants();
   }
 
   /**
@@ -91,6 +94,7 @@ public final class Interval {
    *     the interval) where {@code start} and {@code end} are either a number (the character code)
    *     or something of the from {@code 'a'}.
    */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("[");
 
@@ -125,5 +129,40 @@ public final class Interval {
    */
   public static Interval copyOf(Interval interval) {
     return new Interval(interval.start, interval.end);
+  }
+
+  /**
+   * Checks the invariants of this object.
+   *
+   * @returns true when the invariants of this objects hold.
+   */
+  public boolean invariants() {
+    return start <= end;
+  }
+
+  @Override
+  public IntervalIterator iterator() {
+    return new IntervalIterator();
+  }
+
+  /** Iterator for enumerating the elements of this Interval */
+  public class IntervalIterator implements PrimitiveIterator.OfInt {
+    /** The current iterator position */
+    private int pos;
+
+    /** New iterator that starts at the beginning of the */
+    private IntervalIterator() {
+      pos = start;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return pos < end;
+    }
+
+    @Override
+    public int nextInt() {
+      return pos++;
+    }
   }
 }

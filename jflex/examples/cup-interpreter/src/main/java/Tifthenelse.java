@@ -26,18 +26,21 @@ class Tifthenelse extends Texp implements AST {
     return "if " + boolexp + " then " + exp1 + " else " + exp2 + " fi";
   }
 
+  @Override
   public void checkcontext(SymTab st) {
     boolexp.checkcontext(st);
     exp1.checkcontext(st);
     exp2.checkcontext(st);
   }
 
+  @Override
   public void prepInterp(SymTab st) {
     boolexp.prepInterp(st);
     exp1.prepInterp(st);
     exp2.prepInterp(st);
   }
 
+  @Override
   public int interpret(int[] in, int[] par) {
     boolean b = boolexp.interpret(in, par);
     if (b) return exp1.interpret(in, par);

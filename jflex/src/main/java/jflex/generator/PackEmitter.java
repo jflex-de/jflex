@@ -10,7 +10,7 @@
 package jflex.generator;
 
 import java.util.Locale;
-import jflex.core.Out;
+import jflex.logging.Out;
 
 /**
  * Encodes {@code int} arrays as strings.
@@ -77,6 +77,7 @@ public abstract class PackEmitter {
    *
    * @return a {@link java.lang.String} object.
    */
+  @Override
   public String toString() {
     return out.toString();
   }

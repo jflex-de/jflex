@@ -9,6 +9,8 @@
 
 package jflex.logging;
 
+import static jflex.logging.Out.NL;
+
 import java.awt.TextArea;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -20,9 +22,6 @@ import java.io.PrintWriter;
  * @version JFlex 1.8.0-SNAPSHOT
  */
 public final class StdOutWriter extends PrintWriter {
-
-  /** platform dependent newline sequence */
-  public static final String NL = System.getProperty("line.separator");
 
   /** text area to write to if in gui mode, gui mode = (text != null) */
   private TextArea text;
@@ -65,6 +64,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * @param c a int.
    */
+  @Override
   public void write(int c) {
     if (text != null) {
       text.append(String.valueOf((char) c));
@@ -77,6 +77,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * <p>Write a portion of an array of characters.
    */
+  @Override
   public void write(char buf[], int off, int len) {
     if (text != null) {
       text.append(new String(buf, off, len));
@@ -89,6 +90,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * <p>Write a portion of a string.
    */
+  @Override
   public void write(String s, int off, int len) {
     if (text != null) {
       text.append(s.substring(off, off + len));
@@ -100,6 +102,7 @@ public final class StdOutWriter extends PrintWriter {
   }
 
   /** Begin a new line. Which actual character/s is/are written depends on the runtime platform. */
+  @Override
   public void println() {
     if (text != null) {
       text.append(NL);
