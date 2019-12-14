@@ -2928,7 +2928,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
           case 76: 
             { yybegin(REPEATEXP);
                                    return symbol(REPEAT,
-                                                 new Integer(yytext().trim().substring(1).trim()));
+                                                 Integer.valueOf(yytext().trim().substring(1).trim()));
             } 
             // fall through
           case 245: break;
@@ -3013,7 +3013,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
             // fall through
           case 259: break;
           case 91: 
-            { return symbol(REPEAT, new Integer(yytext().substring(1).trim()));
+            { return symbol(REPEAT, Integer.valueOf(yytext().substring(1).trim()));
             } 
             // fall through
           case 260: break;

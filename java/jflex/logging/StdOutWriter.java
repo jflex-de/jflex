@@ -64,6 +64,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * @param c a int.
    */
+  @Override
   public void write(int c) {
     if (text != null) {
       text.append(String.valueOf((char) c));
@@ -76,6 +77,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * <p>Write a portion of an array of characters.
    */
+  @Override
   public void write(char buf[], int off, int len) {
     if (text != null) {
       text.append(new String(buf, off, len));
@@ -88,6 +90,7 @@ public final class StdOutWriter extends PrintWriter {
    *
    * <p>Write a portion of a string.
    */
+  @Override
   public void write(String s, int off, int len) {
     if (text != null) {
       text.append(s.substring(off, off + len));
@@ -99,6 +102,7 @@ public final class StdOutWriter extends PrintWriter {
   }
 
   /** Begin a new line. Which actual character/s is/are written depends on the runtime platform. */
+  @Override
   public void println() {
     if (text != null) {
       text.append(NL);

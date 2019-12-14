@@ -845,6 +845,7 @@ public final class Emitter {
   private void emitLexFunctHeader(String functionName) {
 
     if (scanner.cupCompatible() || scanner.cup2Compatible()) {
+      print("  @Override");
       // force public, because we have to implement cup/cup2 interface
       print("  public ");
     } else {

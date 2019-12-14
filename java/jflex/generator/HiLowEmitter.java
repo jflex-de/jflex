@@ -34,6 +34,7 @@ public class HiLowEmitter extends PackEmitter {
    *
    * @see PackEmitter#emitUnpack()
    */
+  @Override
   public void emitUnpack() {
     // close last string chunk:
     println("\";");

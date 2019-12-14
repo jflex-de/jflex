@@ -952,8 +952,8 @@ class CUP$LexParse$actions {
     charClasses.makeClass('\r', false);
 
     RegExp1 c = new RegExp1(sym.PRIMCLASS, set);
-    Integer n = new Integer((int)'\n');
-    Integer r = new Integer((int)'\r');
+    Integer n = Integer.valueOf((int)'\n');
+    Integer r = Integer.valueOf((int)'\r');
 
     return new RegExp2(sym.BAR,
                        c,

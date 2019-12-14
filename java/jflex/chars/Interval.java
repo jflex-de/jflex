@@ -94,6 +94,7 @@ public final class Interval implements Iterable<Integer> {
    *     the interval) where {@code start} and {@code end} are either a number (the character code)
    *     or something of the from {@code 'a'}.
    */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("[");
 

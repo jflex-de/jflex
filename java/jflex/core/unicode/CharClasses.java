@@ -10,6 +10,7 @@
 package jflex.core.unicode;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
@@ -25,6 +26,8 @@ public class CharClasses {
 
   /** debug flag (for char classes only) */
   private static final boolean DEBUG = false;
+
+  private Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
 
   /** the largest character that can be used in char classes */
   public static final int maxChar = 0x10FFFF;
@@ -193,13 +196,7 @@ public class CharClasses {
     return classes.get(theClass).toString();
   }
 
-  /**
-   * Returns a string representation of the char classes stored in this class.
-   *
-   * <p>Enumerates the classes by index.
-   *
-   * @return representation of this char class.
-   */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("CharClasses:");
 
@@ -349,6 +346,6 @@ public class CharClasses {
    * test suite) for equivalence more robust.
    */
   public void normalise() {
-    classes.sort((s1, s2) -> s1.compareTo(s2));
+    classes.sort(INT_CHAR_SET_COMPARATOR);
   }
 }

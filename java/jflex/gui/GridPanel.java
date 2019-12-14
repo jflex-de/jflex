@@ -53,6 +53,7 @@ public class GridPanel extends Panel implements Handles {
   }
 
   /** Lays out the views. */
+  @Override
   public void doLayout() {
     Dimension size = getSize();
     size.height -= insets.top + insets.bottom;
@@ -118,6 +119,7 @@ public class GridPanel extends Panel implements Handles {
    *
    * @return a {@link java.awt.Dimension} object.
    */
+  @Override
   public Dimension getPreferredSize() {
     float dy = 0;
     float dx = 0;
