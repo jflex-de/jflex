@@ -247,7 +247,7 @@ public class CharClasses {
    * Creates a new character class for each character of the specified String.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
-   * @param str set of characters.
+   * @param str the String to iterate single char class creation over.
    */
   public void makeClass(String str, boolean caseless) {
     for (int i = 0; i < str.length(); ) {
