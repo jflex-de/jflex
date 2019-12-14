@@ -81,18 +81,22 @@ public class UcdGenerator {
       throws IOException, ParseException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
-    UnicodeData.Builder unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
-
-    scanPropertyAliases(ucdVersion, unicodeDataBuilder);
-    scanUnicodeData(ucdVersion, unicodeDataBuilder);
-
+    UnicodeData unicodeData = scanUcd(ucdVersion);
     File outputFile = new File(outputDir, unicodeClassName + ".java");
-    UnicodeData unicodeData = unicodeDataBuilder.build();
     UnicodeVersionEmitter emitter =
         new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
     try (FileOutputStream out = new FileOutputStream(outputFile)) {
       emitter.emitUnicodeVersion(out);
     }
+  }
+
+  private static UnicodeData scanUcd(UcdVersion ucdVersion) throws IOException {
+    UnicodeData.Builder unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
+
+    scanPropertyAliases(ucdVersion, unicodeDataBuilder);
+    scanUnicodeData(ucdVersion, unicodeDataBuilder);
+
+    return unicodeDataBuilder.build();
   }
 
   private static void scanPropertyAliases(
