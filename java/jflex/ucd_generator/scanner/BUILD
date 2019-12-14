@@ -13,9 +13,9 @@ java_library(
         "//javatests/jflex:__subpackages__",
     ],
     deps = [
+        ":name_normalizer",
         ":unicode_data",
         ":utils",
-        "//java/jflex/ucd_generator/base",
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
     ],
@@ -64,6 +64,5 @@ java_library(
     name = "name_normalizer",
     srcs = ["PropertyNameNormalizer.java"],
     deps = [
-        "//java/jflex/ucd_generator/base",
     ],
 )
