@@ -11,6 +11,7 @@ package jflex.core.unicode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
@@ -331,7 +332,10 @@ public class CharClasses {
     int size = classes.size();
     int numIntervals = 0;
 
-    for (i = 0; i < size; i++) numIntervals += (classes.get(i)).numIntervals();
+    for (i = 0; i < size; i++) numIntervals += classes.get(i).numIntervals();
+
+    List<Iterator<Interval>> iterators = new ArrayList<>();
+    for (IntCharSet set : classes) iterators.add(set.intervalIterator());
 
     CharClassInterval[] result = new CharClassInterval[numIntervals];
 
@@ -339,9 +343,7 @@ public class CharClasses {
     c = 0;
     while (i < numIntervals) {
       int code = getClassCode(c);
-      IntCharSet set = classes.get(code);
-      Interval iv = set.getNext();
-
+      Interval iv = iterators.get(code).next(); // must have enough elements
       result[i++] = new CharClassInterval(iv.start, iv.end, code);
       c = iv.end + 1;
     }
