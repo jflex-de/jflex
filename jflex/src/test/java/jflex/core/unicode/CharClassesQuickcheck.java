@@ -1,0 +1,137 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * JFlex 1.8.0-SNAPSHOT                                                    *
+ * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
+ * All rights reserved.                                                    *
+ *                                                                         *
+ * License: BSD                                                            *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+package jflex.core.unicode;
+
+import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assume.assumeTrue;
+
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import org.junit.runner.RunWith;
+
+/**
+ * Property-based tests for {@link CharClasses}
+ *
+ * @author Gerwin Klein
+ * @version JFlex 1.8.0-SNAPSHOT
+ * @see IntCharSet
+ */
+@RunWith(JUnitQuickcheck.class)
+public class CharClassesQuickcheck {
+
+  // TODO(lsf): add testing for caseless; needs UnicodeProperties
+
+  @Property
+  public void invariants(CharClasses c) {
+    assertThat(c.invariants()).isTrue();
+  }
+
+  @Property
+  public void maxCharCode(CharClasses c) {
+    // currently only testing with maxChar
+    assertThat(c.getMaxCharCode()).isEqualTo(CharClasses.maxChar);
+  }
+
+  @Property
+  public void addSingle(
+      CharClasses classes,
+      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c1,
+      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c2) {
+    assumeTrue(c1 != c2);
+    classes.makeClass(c1, false);
+    assertThat(classes.invariants()).isTrue();
+    assertThat(classes.getClassCode(c1)).isNotEqualTo(classes.getClassCode(c2));
+  }
+
+  @Property
+  public void addSingleSingleton(
+      CharClasses classes, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+    classes.makeClass(c, false);
+    IntCharSet set = classes.getCharClass(classes.getClassCode(c));
+    assertThat(set).isEqualTo(IntCharSet.ofCharacter(c));
+  }
+
+  @Property
+  public void addSet(
+      CharClasses classes,
+      @InRange(maxInt = CharClasses.maxChar) IntCharSet set,
+      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+
+    assumeTrue(!set.contains(c));
+
+    classes.makeClass(set, false);
+    assertThat(classes.invariants()).isTrue();
+
+    int[] classCodes = classes.getClassCodes(set, false);
+    int cCode = classes.getClassCode(c);
+    for (int i : classCodes) {
+      assertThat(i).isNotEqualTo(cCode);
+    }
+  }
+
+  @Property
+  public void addSetParts(
+      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set) {
+
+    classes.makeClass(set, false);
+
+    int[] classCodes = classes.getClassCodes(set, false);
+    IntCharSet allParts = new IntCharSet();
+    for (int i : classCodes) {
+      allParts.add(classes.getCharClass(i));
+    }
+    assertThat(allParts).isEqualTo(set);
+  }
+
+  @Property
+  public void addSetComplement(
+      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set) {
+
+    classes.makeClass(set, false);
+
+    int[] notCodes = classes.getClassCodes(set, true);
+    IntCharSet others = new IntCharSet();
+    for (int i : notCodes) {
+      others.add(classes.getCharClass(i));
+    }
+    assertThat(others).isEqualTo(IntCharSet.complementOf(set));
+  }
+
+  @Property
+  public void addString(
+      CharClasses classes, String s, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+
+    assumeTrue(s.indexOf(c) < 0);
+
+    classes.makeClass(s, false);
+    assertThat(classes.invariants()).isTrue();
+
+    int cCode = classes.getClassCode(c);
+    for (int i = 0; i < s.length(); ) {
+      int ch = s.codePointAt(i);
+      assertThat(classes.getClassCode(ch)).isNotEqualTo(cCode);
+      i += Character.charCount(ch);
+    }
+  }
+
+  @Property
+  public void normaliseSingle(
+      CharClasses classes, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+    CharClasses preClasses = CharClasses.copyOf(classes);
+
+    classes.normalise();
+    assertThat(classes.invariants()).isTrue();
+
+    IntCharSet classNew = classes.getCharClass(classes.getClassCode(c));
+    IntCharSet classOld = preClasses.getCharClass(preClasses.getClassCode(c));
+    assertThat(classNew).isEqualTo(classOld);
+  }
+}
