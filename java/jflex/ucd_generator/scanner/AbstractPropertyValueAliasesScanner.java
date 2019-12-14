@@ -9,6 +9,7 @@ public class AbstractPropertyValueAliasesScanner {
   private final UnicodeData.Builder unicodeDataBuilder;
   private final String scxPropName;
 
+  final PropertyValues propertyValues = new PropertyValues();
   protected final Set<String> aliases = new HashSet<>();
 
   protected String propertyAlias;
@@ -28,7 +29,10 @@ public class AbstractPropertyValueAliasesScanner {
 
   private void addPropertyValueAliases(String propertyName, String normalizedPropertyValue) {
     aliases.add(normalizedPropertyValue);
+    propertyValues.put(propertyName, normalizedPropertyValue, aliases);
+  }
 
-    unicodeDataBuilder.addAllPropertyValueAliases(propertyName, aliases, propertyValue);
+  public void end() {
+    unicodeDataBuilder.propertyValues(propertyValues);
   }
 }

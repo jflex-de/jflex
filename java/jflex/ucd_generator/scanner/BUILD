@@ -34,7 +34,10 @@ jflex(
 
 java_library(
     name = "unicode_data",
-    srcs = ["UnicodeData.java"],
+    srcs = [
+        "PropertyValues.java",
+        "UnicodeData.java",
+    ],
     visibility = [
         "//java/jflex/ucd_generator:__subpackages__",
         "//javatests/jflex:__subpackages__",

@@ -122,6 +122,7 @@ public class UcdGenerator {
           new PropertyValueAliasesScanner(
               Files.newReader(propertyValueAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
       propertyAliasesScanner.scan();
+      propertyAliasesScanner.end();
     }
   }
 

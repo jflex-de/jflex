@@ -15,6 +15,7 @@ public class UcdGeneratorIntegrationTest {
         UcdVersion.builder()
             .setVersion(new Version(10, 0))
             .putFile(UcdFileType.PropertyAliases, ucd10File("PropertyAliases.txt"))
+            .putFile(UcdFileType.PropertyValueAliases, ucd10File("PropertyValueAliases.txt"))
             .putFile(UcdFileType.UnicodeData, ucd10File("UnicodeData.txt"))
             .build();
     File outputDir = new File("/tmp");

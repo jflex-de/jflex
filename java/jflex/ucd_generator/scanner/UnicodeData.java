@@ -36,8 +36,7 @@ public abstract class UnicodeData {
    */
   public abstract ImmutableMap<Integer, ImmutableSortedSet<Integer>> caselessMatchPartitions();
 
-  /** Property Name: {Value Alias: Value Canonical name.} */
-  public abstract ImmutableMap<String, ImmutableMap<String, String>> propertyValueAliases();
+  public abstract PropertyValues propertyValues();
 
   /** Maps Unicode property values to the associated set of code point ranges. */
   public abstract ImmutableSortedMap<String, CodepointRangeSet> propertyValueIntervals();
@@ -81,10 +80,6 @@ public abstract class UnicodeData {
     private final Map<Integer, SortedSet<Integer>> mCaselessMatchPartitions = new HashMap<>();
     private final Map<String, List<MutableCodepointRange>> mPropertyValueIntervals =
         new HashMap<>();
-    private final Map<String, Map<String, String>> mPropertyValueAliases = new HashMap<>();
-
-    abstract ImmutableMap.Builder<String, ImmutableMap<String, String>>
-        propertyValueAliasesBuilder();
 
     abstract ImmutableSortedMap.Builder<String, CodepointRangeSet> propertyValueIntervalsBuilder();
 
@@ -182,11 +177,12 @@ public abstract class UnicodeData {
 
     public abstract int maximumCodePoint();
 
+    public abstract Builder propertyValues(PropertyValues propertyValues);
+
     abstract UnicodeData internalBuild();
 
     public UnicodeData build() {
       addInternalCaselessMatches();
-      addInternalPropertyValueAliases();
       addInternalPropertyValueIntervals();
       addCompatibilityProperties();
       return internalBuild();
@@ -196,12 +192,6 @@ public abstract class UnicodeData {
       for (Map.Entry<Integer, SortedSet<Integer>> entry : mCaselessMatchPartitions.entrySet()) {
         caselessMatchPartitionsBuilder()
             .put(entry.getKey(), ImmutableSortedSet.copyOfSorted(entry.getValue()));
-      }
-    }
-
-    private void addInternalPropertyValueAliases() {
-      for (Map.Entry<String, Map<String, String>> entry : mPropertyValueAliases.entrySet()) {
-        propertyValueAliasesBuilder().put(entry.getKey(), ImmutableMap.copyOf(entry.getValue()));
       }
     }
 
@@ -241,15 +231,6 @@ public abstract class UnicodeData {
 
     public String getCanonicalPropertyValueName(String propertyAlias) {
       return mPropertyNameNormalizer.getCanonicalPropertyValueName(propertyAlias);
-    }
-
-    public void addAllPropertyValueAliases(
-        String propertyName, Iterable<String> valueAliases, String propertyValue) {
-      Map<String, String> aliases =
-          mPropertyValueAliases.computeIfAbsent(propertyName, k -> new HashMap<>());
-      for (String a : valueAliases) {
-        aliases.put(PropertyNameNormalizer.normalize(a), propertyValue);
-      }
     }
   }
 }
