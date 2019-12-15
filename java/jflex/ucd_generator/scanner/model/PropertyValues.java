@@ -1,6 +1,7 @@
 package jflex.ucd_generator.scanner.model;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,10 @@ public class PropertyValues {
   }
 
   public Set<String> getPropertyAliases(String propName) {
-    return allPropertyValueAliases.get(propName).keySet();
+    Multimap<String, String> aliases = allPropertyValueAliases.get(propName);
+    if (aliases == null) {
+      return ImmutableSet.of(propName);
+    }
+    return aliases.keySet();
   }
 }

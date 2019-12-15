@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,17 +15,12 @@ import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.MutableCodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
-public class PropertyValueIntervals implements Iterable<String> {
+public class PropertyValueIntervals {
   Set<String> usedBinaryProperties = new HashSet<>();
 
   Map<String, Set<String>> usedEnumProperties = new HashMap<>();
 
   private final Map<String, List<MutableCodepointRange>> propertyValueIntervals = new HashMap<>();
-
-  @Override
-  public Iterator<String> iterator() {
-    return propertyValueIntervals.keySet().iterator();
-  }
 
   private void addCompatibilityProperties() {
     propertyValueIntervals.put("blank", createBlankSet());
@@ -100,5 +94,9 @@ public class PropertyValueIntervals implements Iterable<String> {
     return propertyValueIntervals.get(propName).stream()
         .map(CodepointRange::create)
         .collect(ImmutableList.toImmutableList());
+  }
+
+  public Set<String> keySet() {
+    return propertyValueIntervals.keySet();
   }
 }

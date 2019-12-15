@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -152,5 +153,11 @@ public class UnicodeData {
 
   public Map<String, Set<String>> usedEnumeratedProperties() {
     return propertyValueIntervals.usedEnumProperties;
+  }
+
+  public List<String> propertyValueIntervals() {
+    ArrayList<String> list = new ArrayList<>(propertyValueIntervals.keySet());
+    Collections.sort(list);
+    return list;
   }
 }
