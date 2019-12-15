@@ -76,7 +76,7 @@ public class UcdScanner {
   private void scanScripExtensions() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
     ScriptExtensionsScanner scanner =
-        new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8));
+        new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
     scanner.scan();
   }
 
