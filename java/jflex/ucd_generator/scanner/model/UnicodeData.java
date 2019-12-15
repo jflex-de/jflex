@@ -127,9 +127,10 @@ public abstract class UnicodeData {
     public abstract int maximumCodePoint();
 
     public abstract PropertyValues.Builder propertyValuesBuilder();
-    public abstract Builder propertyValues(PropertyValues propertyValues);
-    public abstract PropertyValueIntervals.Builder propertyValueIntervalsBuilder();
 
+    public abstract Builder propertyValues(PropertyValues propertyValues);
+
+    public abstract PropertyValueIntervals.Builder propertyValueIntervalsBuilder();
 
     abstract UnicodeData internalBuild();
 
@@ -153,18 +154,20 @@ public abstract class UnicodeData {
       mPropertyNameNormalizer.putPropertyAlias(alias, normalizedLongName);
     }
 
-    public String getCanonicalPropertyValueName(String propertyAlias) {
-      return mPropertyNameNormalizer.getCanonicalPropertyValueName(propertyAlias);
-    }
-
     public void addPropertyInterval(String propertyName, int start, int end) {
-      propertyValueIntervalsBuilder().addPropertyInterval(propertyName, start, end,
-          mPropertyNameNormalizer);
+      propertyValueIntervalsBuilder()
+          .addPropertyInterval(propertyName, start, end, mPropertyNameNormalizer);
     }
 
     public void addPropertyInterval(String propName, String propValue, int start, int end) {
-      propertyValueIntervalsBuilder().addPropertyInterval(propName, propValue, start, end,
-          mPropertyNameNormalizer);
+      propertyValueIntervalsBuilder()
+          .addPropertyInterval(propName, propValue, start, end, mPropertyNameNormalizer);
+    }
+
+    public void addPropertyValueAliases(
+        String propertyName, String normalizedPropertyValue, Set<String> aliases) {
+      propertyValuesBuilder()
+          .addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
     }
   }
 }

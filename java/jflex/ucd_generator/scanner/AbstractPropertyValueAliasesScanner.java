@@ -30,6 +30,6 @@ public class AbstractPropertyValueAliasesScanner {
 
   private void addPropertyValueAliases(String propertyName, String normalizedPropertyValue) {
     aliases.add(normalizedPropertyValue);
-    unicodeDataBuilder.propertyValuesBuilder().put(propertyName, normalizedPropertyValue, aliases);
+    unicodeDataBuilder.addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
   }
 }

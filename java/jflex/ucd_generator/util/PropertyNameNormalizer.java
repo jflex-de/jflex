@@ -11,7 +11,6 @@ public class PropertyNameNormalizer {
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
-  private final Map<String, String> propertyValueAlias2CanonicalName = new HashMap<>();
 
   /**
    * Transforms mixed case identifiers containing spaces, hyphens, and/or underscores by downcasing
@@ -47,10 +46,5 @@ public class PropertyNameNormalizer {
 
   public void putPropertyAlias(String alias, String canonicalName) {
     propertyAlias2CanonicalName.put(alias, canonicalName);
-  }
-
-  public String getCanonicalPropertyValueName(String propertyAlias) {
-    propertyAlias = normalize(propertyAlias);
-    return propertyValueAlias2CanonicalName.getOrDefault(propertyAlias, propertyAlias);
   }
 }

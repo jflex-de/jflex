@@ -22,9 +22,9 @@ public abstract class CodepointRange {
   @Override
   public final String toString() {
     if (length() == 0) {
-      return "[" + start() + "]";
+      return String.valueOf(start());
     }
-    return "[" + start() + "…" + end() + "]";
+    return start() + "…" + end();
   }
 
   public static CodepointRange create(int start, int end) {

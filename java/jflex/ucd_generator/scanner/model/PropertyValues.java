@@ -50,10 +50,11 @@ public abstract class PropertyValues {
      */
     Map<String, Multimap<String, String>> mAllPropertyValueAliases = new HashMap<>();
 
-    /** Maps property value aliases to their corresponding canonical property values */
+    /** Maps property value aliases to their corresponding canonical property values. */
     Map<String, Map<String, String>> mPropertyValueAlias2CanonicalValue = new HashMap<>();
 
-    public void put(String propertyName, String normalizedPropertyValue, Set<String> aliases) {
+    public void addPropertyValueAliases(
+        String propertyName, String normalizedPropertyValue, Set<String> aliases) {
       Multimap<String, String> aliasesForName = mAllPropertyValueAliases.get(propertyName);
       if (aliasesForName == null) {
         aliasesForName = HashMultimap.create();
