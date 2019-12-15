@@ -18,7 +18,7 @@ public class MutableCodepointRange {
     return start + "…" + end;
   }
 
-  public static MutableCodepointRange createw(CodepointRange range) {
+  public static MutableCodepointRange create(CodepointRange range) {
     return new MutableCodepointRange(range.start(), range.end());
   }
 }

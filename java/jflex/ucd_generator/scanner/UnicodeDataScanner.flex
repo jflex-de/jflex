@@ -12,7 +12,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 %class UnicodeDataScanner
 %extends AbstractUnicodeDataScanner
 %ctorarg UcdVersion ucdVersion
-%ctorarg UnicodeData.Builder unicodeDataBuilder
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
@@ -32,7 +32,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 %}
 
 %init{
-  super(ucdVersion, unicodeDataBuilder);
+  super(ucdVersion, unicodeData);
 %init}
 
 Hex = [0-9A-Fa-f]+

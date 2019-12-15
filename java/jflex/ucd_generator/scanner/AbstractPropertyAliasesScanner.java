@@ -9,12 +9,12 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 public abstract class AbstractPropertyAliasesScanner {
 
   final Set<String> aliases = new HashSet<>();
-  final UnicodeData.Builder unicodeDataBuilder;
+  final UnicodeData unicodeData;
 
   String longName;
 
-  public AbstractPropertyAliasesScanner(UnicodeData.Builder unicodeDataBuilder) {
-    this.unicodeDataBuilder = unicodeDataBuilder;
+  public AbstractPropertyAliasesScanner(UnicodeData unicodeData) {
+    this.unicodeData = unicodeData;
   }
 
   void addPropertyAliases() {
@@ -22,7 +22,7 @@ public abstract class AbstractPropertyAliasesScanner {
     // Long names should resolve to themselves
     aliases.add(normalizedLongName);
     for (String alias : aliases) {
-      unicodeDataBuilder.addPropertyAlias(alias, normalizedLongName);
+      unicodeData.addPropertyAlias(alias, normalizedLongName);
     }
     clear();
   }

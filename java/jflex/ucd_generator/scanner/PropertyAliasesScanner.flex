@@ -9,7 +9,7 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 %public
 %class PropertyAliasesScanner
 %extends AbstractPropertyAliasesScanner
-%ctorarg UnicodeData.Builder unicodeDataBuilder
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
@@ -20,7 +20,7 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 %function scan
 
 %init{
-  super(unicodeDataBuilder);
+  super(unicodeData);
 %init}
 
 Spaces = [ \t]*

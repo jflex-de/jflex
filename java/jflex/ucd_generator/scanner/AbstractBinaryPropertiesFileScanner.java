@@ -10,7 +10,7 @@ import jflex.ucd_generator.ucd.CodepointRange;
 /** Scans the common multiple binary property Unicode.org data file format. */
 public abstract class AbstractBinaryPropertiesFileScanner {
 
-  private final UnicodeData.Builder unicodeDataBuilder;
+  private final UnicodeData unicodeData;
 
   String propertyName;
   int start;
@@ -18,8 +18,8 @@ public abstract class AbstractBinaryPropertiesFileScanner {
 
   private final HashMap<String, SortedSet<CodepointRange>> properties = new HashMap<>();
 
-  public AbstractBinaryPropertiesFileScanner(UnicodeData.Builder unicodeDataBuilder) {
-    this.unicodeDataBuilder = unicodeDataBuilder;
+  public AbstractBinaryPropertiesFileScanner(UnicodeData unicodeData) {
+    this.unicodeData = unicodeData;
   }
 
   public void addPropertyIntervals() {
@@ -32,13 +32,13 @@ public abstract class AbstractBinaryPropertiesFileScanner {
         if (prevEnd == -1) {
           prevStart = interval.start();
         } else if (interval.start() > prevEnd + 1) {
-          unicodeDataBuilder.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
+          unicodeData.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
           prevStart = interval.start();
         }
         prevEnd = interval.end();
       }
       // Add final interval
-      unicodeDataBuilder.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
+      unicodeData.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
     }
   }
 

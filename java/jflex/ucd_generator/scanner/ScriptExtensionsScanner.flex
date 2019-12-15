@@ -5,21 +5,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 
-/**
- * Scans ScriptExtensions.txt and populates
- * unicodeVersion.propertyValueIntervals and 
- * unicodeVersion.usedPropertyValueAliases,
- * using previously parsed Scripts(-X.Y.Z).txt
- * values for missing code points,
- */
+
 %%
 
 %public
 %class ScriptExtensionsScanner
 %extends AbstractScriptExtensionsScanner
-%ctorarg UnicodeVersion unicodeVersion
-%ctorarg String defaultPropertyName
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
@@ -32,23 +26,7 @@ import java.util.SortedMap;
 
 
 %init{
-  this.unicodeVersion = unicodeVersion;
-  this.propertyName = defaultPropertyName;
-  scriptExtensionsCodePoint
-      = new boolean[unicodeVersion.getMaximumCodePoint() + 1];
-  
-  // Collect all script property values
-  String canonicalScriptPropertyName 
-      = unicodeVersion.getCanonicalPropertyName("script");
-  String scriptPropertyAliasPrefix = canonicalScriptPropertyName + "=";
-  for (SortedMap.Entry<String,String> entry 
-      : unicodeVersion.getUsedPropertyValueAliases().entrySet()) {
-    String propertyValueAlias = entry.getKey();
-    if (propertyValueAlias.startsWith(scriptPropertyAliasPrefix)) {
-      String canonicalScriptValue = entry.getValue();
-      scripts.add(canonicalScriptValue);
-    }
-  }
+  super(unicodeData);
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}

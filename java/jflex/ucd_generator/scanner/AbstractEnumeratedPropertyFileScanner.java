@@ -8,7 +8,7 @@ import jflex.ucd_generator.ucd.NamedCodepointRange;
 /** Scans the common single-property Unicode.org data file format. */
 public abstract class AbstractEnumeratedPropertyFileScanner {
 
-  final UnicodeData.Builder unicodeDataBuilder;
+  final UnicodeData unicodeData;
 
   final SortedSet<NamedCodepointRange> intervals =
       new TreeSet<>(NamedCodepointRange.START_COMPARATOR);
@@ -18,8 +18,8 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
   int start;
   int end;
 
-  protected AbstractEnumeratedPropertyFileScanner(UnicodeData.Builder unicodeDataBuilder) {
-    this.unicodeDataBuilder = unicodeDataBuilder;
+  protected AbstractEnumeratedPropertyFileScanner(UnicodeData unicodeData) {
+    this.unicodeData = unicodeData;
   }
 
   public void addPropertyValueIntervals() {
@@ -29,14 +29,14 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
     for (NamedCodepointRange interval : intervals) {
       if (interval.start() > prevEnd + 1) {
         // Unassigned code points get the default property value, e.g. "Unknown"
-        unicodeDataBuilder.addPropertyInterval(
+        unicodeData.addPropertyInterval(
             propertyName, defaultPropertyValue, prevEnd + 1, interval.start() - 1);
       }
       if (prevEnd == -1) {
         prevStart = interval.start();
         prevValue = interval.name();
       } else if (interval.start() > prevEnd + 1 || !interval.name().equals(prevValue)) {
-        unicodeDataBuilder.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
+        unicodeData.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
         prevStart = interval.start();
         prevValue = interval.name();
       }
@@ -44,13 +44,13 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
     }
 
     // Add final default property value interval, if necessary
-    if (prevEnd < unicodeDataBuilder.maximumCodePoint()) {
-      unicodeDataBuilder.addPropertyInterval(
-          propertyName, defaultPropertyValue, prevEnd + 1, unicodeDataBuilder.maximumCodePoint());
+    if (prevEnd < unicodeData.maximumCodePoint()) {
+      unicodeData.addPropertyInterval(
+          propertyName, defaultPropertyValue, prevEnd + 1, unicodeData.maximumCodePoint());
     }
 
     // Add final named interval
-    unicodeDataBuilder.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
+    unicodeData.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
   }
 
   protected boolean accept(String propertyValue) {

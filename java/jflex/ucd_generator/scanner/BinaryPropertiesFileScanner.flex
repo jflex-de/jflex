@@ -8,7 +8,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 %public
 %class BinaryPropertiesFileScanner
 %extends AbstractBinaryPropertiesFileScanner
-%ctorarg UnicodeData.Builder unicodeDataBuilder
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
@@ -20,7 +20,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 
 
 %init{
-  super(unicodeDataBuilder);
+  super(unicodeData);
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
