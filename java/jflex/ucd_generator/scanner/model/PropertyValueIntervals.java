@@ -14,21 +14,21 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.MutableCodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
+
   Set<String> usedBinaryProperties = new HashSet<>();
 
   Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
-  private final Map<String, List<MutableCodepointRange>> propertyValueIntervals = new HashMap<>();
+  private final Map<String, List<CodepointRange>> propertyValueIntervals = new HashMap<>();
 
   private void addCompatibilityProperties() {
     propertyValueIntervals.put("blank", createBlankSet());
   }
 
-  private List<MutableCodepointRange> createBlankSet() {
+  private List<CodepointRange> createBlankSet() {
     return Optional.ofNullable(propertyValueIntervals.get("Zs"))
         .orElse(propertyValueIntervals.get("whitespace"));
   }
@@ -46,7 +46,8 @@ public class PropertyValueIntervals {
       int startCodePoint,
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
-    addPropertyInterval(propName, startCodePoint, endCodePoint, propertyNameNormalizer);
+    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+    addPropertyInterval(propName, startCodePoint, endCodePoint);
     usedBinaryProperties.add(propName);
   }
 
@@ -56,17 +57,14 @@ public class PropertyValueIntervals {
       int startCodePoint,
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
+    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+    propValue = propertyNameNormalizer.getCanonicalPropertyName(propValue);
     addBinaryPropertyInterval(
         propName + "=" + propValue, startCodePoint, endCodePoint, propertyNameNormalizer);
     usedEnumProperties.put(propName, propValue);
   }
 
-  void addPropertyInterval(
-      String propName,
-      int startCodePoint,
-      int endCodePoint,
-      PropertyNameNormalizer propertyNameNormalizer) {
-    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+  void addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
     if (isSurrogate(propName)) {
       // Skip surrogates
       return;
@@ -75,32 +73,17 @@ public class PropertyValueIntervals {
     if (ranges.isEmpty()) {
       return;
     }
-    List<MutableCodepointRange> intervals =
+    List<CodepointRange> intervals =
         propertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
-    for (CodepointRange range : ranges) {
-      // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
-      // range (starting point is listed as U+4E00).  This is U+9FFF according
-      // to <http://unicode.org/Public/TEXT/OLDAPIX/CHANGES.TXT>:
-      //
-      //    U+4E00 ^ U+9FFF		20,992	I-ZONE Ideographs
-      //
-      // U+4E00 is listed in UnicodeData-1.1.5.txt as having the "Lo" property
-      // value, as are the previous code points, so to include
-      // [ U+4E00 - U+9FFF ], this interval should be extended to U+9FFF.
-      // TODO
-      //        if (range.end() == 0x4E00 && Objects.equalsmajorMinor, "1.1")) {
-      //          range.end = 0x9FFF;
-      //        }
-      intervals.add(MutableCodepointRange.create(range));
-    }
+    intervals.addAll(ranges);
   }
 
-  public ImmutableList<CodepointRange> getRanges(String propName) {
-    List<MutableCodepointRange> ranges = propertyValueIntervals.get(propName);
+  ImmutableList<CodepointRange> getRanges(String propName) {
+    List<CodepointRange> ranges = propertyValueIntervals.get(propName);
     if (ranges == null) {
       return ImmutableList.of();
     }
-    return ranges.stream().map(CodepointRange::create).collect(ImmutableList.toImmutableList());
+    return ImmutableList.copyOf(ranges);
   }
 
   public Set<String> keySet() {

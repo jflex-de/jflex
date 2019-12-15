@@ -18,7 +18,7 @@ public class UcdScannerTest {
   }
 
   @Test
-  public void scanPropertyAliases_getCanonicalPropertyName() throws Exception {
+  public void scanPropertyAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
     assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
         .isEqualTo("canonicalcombiningclass");
@@ -26,7 +26,7 @@ public class UcdScannerTest {
   }
 
   @Test
-  public void scanPropertyValueAliases_getPropertyValueAliases() throws Exception {
+  public void scanPropertyValueAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
     assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90")).containsExactly("v90");
 
@@ -69,7 +69,11 @@ public class UcdScannerTest {
     ucdScanner.scanPropertyValueAliases();
     ucdScanner.scanUnicodeData();
     ucdScanner.scanPropList();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("idcontinue")).isEmpty();
+
     ucdScanner.scanDerivedCoreProperties();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("idcontinue"))
+        .contains(CodepointRange.create(48, 57));
   }
 
   @Test
@@ -79,7 +83,10 @@ public class UcdScannerTest {
     ucdScanner.scanUnicodeData();
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam")).isEmpty();
+
     ucdScanner.scanScripts();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam")).isNotEmpty();
   }
 
   @Test
@@ -90,7 +97,11 @@ public class UcdScannerTest {
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira")).isEmpty();
+
     ucdScanner.scanScriptExtensions();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
+        .isNotEmpty();
   }
 
   @Test
@@ -102,6 +113,11 @@ public class UcdScannerTest {
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
     ucdScanner.scanScriptExtensions();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
+        .isEmpty();
+
     ucdScanner.scanBlocks();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
+        .isNotEmpty();
   }
 }

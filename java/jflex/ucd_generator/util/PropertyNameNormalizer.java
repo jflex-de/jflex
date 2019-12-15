@@ -10,6 +10,14 @@ public class PropertyNameNormalizer {
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
+  // "cache"
+  private static final Map<String, String> normalized = new HashMap<>();
+
+  /** Normalized General_Category property name */
+  public static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
+  /** Normalized Script property name */
+  public static final String NORMALIZED_SCRIPT = normalize("Script");
+
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
   /**
@@ -22,12 +30,15 @@ public class PropertyNameNormalizer {
    */
   public static String normalize(String identifier) {
     if (identifier == null) {
-      return null;
+      return "";
     }
-    return WORD_SEP_PATTERN
-        .matcher(identifier.toLowerCase(Locale.ENGLISH))
-        .replaceAll("")
-        .replace(':', '=');
+    return normalized.computeIfAbsent(
+        identifier,
+        k ->
+            WORD_SEP_PATTERN
+                .matcher(k.toLowerCase(Locale.ENGLISH))
+                .replaceAll("")
+                .replace(':', '='));
   }
 
   /**

@@ -40,6 +40,7 @@ public abstract class AbstractBinaryPropertiesFileScanner {
       // Add final interval
       unicodeData.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
     }
+    properties.clear();
   }
 
   public void addCurrentInterval() {
