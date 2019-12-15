@@ -16,7 +16,7 @@ import jflex.ucd_generator.ucd.UcdVersion;
 
 public class UcdScanner {
   private final UcdVersion ucdVersion;
-  private final UnicodeData unicodeData;
+  final UnicodeData unicodeData;
 
   UcdScanner(UcdVersion ucdVersion) {
     this.ucdVersion = ucdVersion;
@@ -36,7 +36,7 @@ public class UcdScanner {
     return unicodeData;
   }
 
-  private void scanPropertyAliases() throws IOException {
+  void scanPropertyAliases() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.PropertyAliases);
     if (file != null) {
       PropertyAliasesScanner scanner =
@@ -45,7 +45,7 @@ public class UcdScanner {
     }
   }
 
-  private void scanPropertyValueAliases() throws IOException {
+  void scanPropertyValueAliases() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (file != null) {
       PropertyValueAliasesScanner scanner =
@@ -54,7 +54,7 @@ public class UcdScanner {
     }
   }
 
-  private void scanUnicodeData() throws IOException {
+  void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeData);
@@ -75,9 +75,11 @@ public class UcdScanner {
 
   private void scanScripExtensions() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
-    ScriptExtensionsScanner scanner =
-        new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
-    scanner.scan();
+    if (file != null) {
+      ScriptExtensionsScanner scanner =
+          new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+      scanner.scan();
+    }
   }
 
   private void scanBlocks() throws IOException {
@@ -99,5 +101,9 @@ public class UcdScanner {
           new EnumeratedPropertyFileScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
       scanner.scan();
     }
+  }
+
+  public UcdVersion ucdVersion() {
+    return ucdVersion;
   }
 }

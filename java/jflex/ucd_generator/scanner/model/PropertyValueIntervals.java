@@ -3,6 +3,7 @@ package jflex.ucd_generator.scanner.model;
 import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
+import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -92,10 +93,12 @@ public class PropertyValueIntervals implements Iterable<String> {
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
     addPropertyInterval(
-        propName + "=" + propName, startCodePoint, endCodePoint, propertyNameNormalizer);
+        propName + "=" + propValue, startCodePoint, endCodePoint, propertyNameNormalizer);
   }
 
-  public List<MutableCodepointRange> getRanges(String propName) {
-    return propertyValueIntervals.get(propName);
+  public ImmutableList<CodepointRange> getRanges(String propName) {
+    return propertyValueIntervals.get(propName).stream()
+        .map(CodepointRange::create)
+        .collect(ImmutableList.toImmutableList());
   }
 }

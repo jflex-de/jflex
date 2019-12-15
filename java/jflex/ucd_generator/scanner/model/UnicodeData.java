@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -141,8 +142,8 @@ public class UnicodeData {
     return propertyValues.getPropertyAliases(PropertyNameNormalizer.normalize(propName));
   }
 
-  public Set<String> getPropertyValueAliases(String propName, String propValue) {
-    return getPropertyAliases(propName + "=" + propValue);
+  public Collection<String> getPropertyValueAliases(String propName, String propValue) {
+    return propertyValues.allPropertyValueAliases.get(propName).get(propValue);
   }
 
   public Set<String> usedBinaryProperties() {

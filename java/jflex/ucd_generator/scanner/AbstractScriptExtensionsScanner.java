@@ -55,8 +55,8 @@ public abstract class AbstractScriptExtensionsScanner {
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
-      for (MutableCodepointRange range : propertyValueIntervals.getRanges(script)) {
-        for (int ch = range.start; ch <= range.end; ++ch) {
+      for (CodepointRange range : propertyValueIntervals.getRanges(script)) {
+        for (int ch = range.start(); ch <= range.end(); ++ch) {
           if (!scriptExtensionsCodePoint[ch]) {
             intervalsBuilder.add(new MutableCodepointRange(ch, ch));
           }
