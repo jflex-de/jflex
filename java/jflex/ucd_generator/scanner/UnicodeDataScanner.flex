@@ -1,8 +1,6 @@
 package jflex.ucd_generator.scanner;
 
 import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.Version;
-import jflex.ucd_generator.ucd.Versions;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 
 %%

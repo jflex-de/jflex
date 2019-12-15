@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedMap;
-import jflex.ucd_generator.scanner.model.UnicodeData;import jflex.ucd_generator.ucd.CodepointRangeSet;
-
+import jflex.ucd_generator.scanner.model.UnicodeData;
 
 %%
 
