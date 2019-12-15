@@ -30,7 +30,7 @@ public class UcdScanner {
     scanPropList();
     scanDerivedCoreProperties();
     scanScripts();
-    scanScripExtensions();
+    scanScriptExtensions();
     scanBlocks();
 
     return unicodeData;
@@ -65,15 +65,15 @@ public class UcdScanner {
     scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
   }
 
-  private void scanDerivedCoreProperties() throws IOException {
+  void scanDerivedCoreProperties() throws IOException {
     scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.DerivedCoreProperties));
   }
 
-  private void scanScripts() throws IOException {
+  void scanScripts() throws IOException {
     scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Scripts));
   }
 
-  private void scanScripExtensions() throws IOException {
+  void scanScriptExtensions() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
     if (file != null) {
       ScriptExtensionsScanner scanner =
@@ -82,7 +82,7 @@ public class UcdScanner {
     }
   }
 
-  private void scanBlocks() throws IOException {
+  void scanBlocks() throws IOException {
     scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Blocks));
   }
 
