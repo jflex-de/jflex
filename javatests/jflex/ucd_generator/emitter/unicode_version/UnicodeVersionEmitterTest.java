@@ -31,7 +31,7 @@ public class UnicodeVersionEmitterTest {
             .build();
 
     UnicodeData unicodeData =
-        UnicodeData.builder(version_0_1)
+        UnicodeData(version_0_1)
             .maximumCodePoint(0x1234)
             .addPropertyInterval("General", 32, 127)
             .addCaselessMatches('a', "41", "", "")

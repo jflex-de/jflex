@@ -33,6 +33,10 @@ public class UnicodeData {
 
   public int maximumCodePoint;
 
+  public UnicodeData(Version version) {
+    this.version = version;
+  }
+
   public int maxCaselessMatchPartitionSize() {
     return caselessMatchPartitions.values().stream()
         .map(Set::size)
@@ -44,6 +48,10 @@ public class UnicodeData {
 
   public int maximumCodePoint() {
     return maximumCodePoint;
+  }
+
+  public void maximumCodePoint(int maximumCodePoint) {
+    this.maximumCodePoint = maximumCodePoint;
   }
 
   public Version version() {
@@ -129,11 +137,19 @@ public class UnicodeData {
     propertyValues.addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
   }
 
+  public Set<String> getPropertyAliases(String propName) {
+    return propertyValues.getPropertyAliases(PropertyNameNormalizer.normalize(propName));
+  }
+
+  public Set<String> getPropertyValueAliases(String propName, String propValue) {
+    return getPropertyAliases(propName + "=" + propValue);
+  }
+
   public Set<String> usedBinaryProperties() {
     return propertyValueIntervals.usedBinaryProperties;
   }
 
-  public Set<String> getPropertyAliases(String propName) {
-    return propertyValues.getPropertyAliases(PropertyNameNormalizer.normalize(propName));
+  public Map<String, Set<String>> usedEnumeratedProperties() {
+    return propertyValueIntervals.usedEnumProperties;
   }
 }

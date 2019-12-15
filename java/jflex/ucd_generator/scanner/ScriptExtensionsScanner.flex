@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.scanner.model.UnicodeData;import jflex.ucd_generator.ucd.CodepointRangeSet;
 
 
 %%
@@ -71,17 +71,9 @@ ItemSeparator = {Spaces} ";" {Spaces}
 
 <PROPERTY_VALUE> { /* 060C          ; Arab Syrc Thaa # Po       ARABIC COMMA */
   {Spaces} [^ \t\r\n#;]+ { String script = yytext().trim();
-                           NamedRangeSet intervals = scriptIntervals.get(script);
-                           if (null == intervals) {
-                             intervals = new NamedRangeSet();
-                             scriptIntervals.put(script, intervals);
-                           }
-                           intervals.add(new NamedRangeSet(new NamedRange(start, end)));
+                           addScript(script);
 
-                           for (int ch = start ; ch <= end ; ++ch) {
-                             scriptExtensionsCodePoint[ch] = true;
                            }
-                         }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }

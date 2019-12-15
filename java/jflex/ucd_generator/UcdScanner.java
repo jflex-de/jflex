@@ -15,11 +15,11 @@ import jflex.ucd_generator.ucd.UcdVersion;
 
 public class UcdScanner {
   private final UcdVersion ucdVersion;
-  private final UnicodeData.Builder unicodeDataBuilder;
+  private final UnicodeData unicodeData;
 
   UcdScanner(UcdVersion ucdVersion) {
     this.ucdVersion = ucdVersion;
-    this.unicodeDataBuilder = UnicodeData.builder(ucdVersion.version());
+    this.unicodeData = new UnicodeData(ucdVersion.version());
   }
 
   public UnicodeData scan() throws IOException {
@@ -32,14 +32,14 @@ public class UcdScanner {
     // TODO scripts extension
     scanBlocks();
 
-    return unicodeDataBuilder.build();
+    return unicodeData;
   }
 
   private void scanPropertyAliases() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.PropertyAliases);
     if (file != null) {
       PropertyAliasesScanner scanner =
-          new PropertyAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+          new PropertyAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -48,8 +48,7 @@ public class UcdScanner {
     File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (file != null) {
       PropertyValueAliasesScanner scanner =
-          new PropertyValueAliasesScanner(
-              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+          new PropertyValueAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -57,43 +56,39 @@ public class UcdScanner {
   private void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(
-            Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeDataBuilder);
+        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeData);
     scanner.scan();
   }
 
   private void scanPropList() throws IOException {
-    scanBinaryProperties(unicodeDataBuilder, ucdVersion.getFile(UcdFileType.PropList));
+    scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
   }
 
   private void scanDerivedCoreProperties() throws IOException {
-    scanBinaryProperties(unicodeDataBuilder, ucdVersion.getFile(UcdFileType.DerivedCoreProperties));
+    scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.DerivedCoreProperties));
   }
 
   private void scanScripts() throws IOException {
-    scanEnumeratedProperty(unicodeDataBuilder, ucdVersion.getFile(UcdFileType.Scripts));
+    scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Scripts));
   }
 
   private void scanBlocks() throws IOException {
-    scanEnumeratedProperty(unicodeDataBuilder, ucdVersion.getFile(UcdFileType.Blocks));
+    scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Blocks));
   }
 
-  private static void scanBinaryProperties(UnicodeData.Builder unicodeDataBuilder, File file)
-      throws IOException {
+  private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
     if (file != null) {
       BinaryPropertiesFileScanner scanner =
-          new BinaryPropertiesFileScanner(
-              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+          new BinaryPropertiesFileScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
 
-  private static void scanEnumeratedProperty(UnicodeData.Builder unicodeDataBuilder, File file)
+  private static void scanEnumeratedProperty(UnicodeData unicodeData, File file)
       throws IOException {
     if (file != null) {
       EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(
-              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+          new EnumeratedPropertyFileScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }

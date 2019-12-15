@@ -18,7 +18,7 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 public class PropertyValueIntervals implements Iterable<String> {
   Set<String> usedBinaryProperties = new HashSet<>();
 
-  Set<String> usedEnumProperties = new HashSet<>();
+  Map<String, Set<String>> usedEnumProperties = new HashMap<>();
 
   private final Map<String, List<MutableCodepointRange>> propertyValueIntervals = new HashMap<>();
 

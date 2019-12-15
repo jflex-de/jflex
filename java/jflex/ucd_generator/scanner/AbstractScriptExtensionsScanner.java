@@ -1,5 +1,7 @@
 package jflex.ucd_generator.scanner;
 
+import static jflex.ucd_generator.util.PropertyNameNormalizer.normalize;
+
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,14 +20,18 @@ import jflex.ucd_generator.ucd.MutableCodepointRange;
  * points.
  */
 public abstract class AbstractScriptExtensionsScanner {
+  /** Normalized General_Category property name */
+  private static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
+  /** Normalized Script property name */
+  private static final String NORMALIZED_SCRIPT = normalize("Script");
 
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();
   private final Set<String> scripts = new HashSet<>();
-  private int start;
-  private int end;
-  private String propertyName;
-  private boolean[] scriptExtensionsCodePoint;
+  int start;
+  int end;
+  String propertyName;
+  boolean[] scriptExtensionsCodePoint;
 
   protected AbstractScriptExtensionsScanner(UnicodeData unicodeData) {
     this.unicodeData = unicodeData;
@@ -43,7 +49,7 @@ public abstract class AbstractScriptExtensionsScanner {
     }
   }
 
-  private void addPropertyValueIntervals() {
+  void addPropertyValueIntervals() {
     // Add script property value for missing code points
     PropertyValueIntervals propertyValueIntervals = unicodeData.propertyValueIntervals;
     for (String script : scripts) {
@@ -67,20 +73,21 @@ public abstract class AbstractScriptExtensionsScanner {
   }
 
   private ImmutableSortedMap<String, String> getUsedPropertyValueAliases() {
-    ImmutableSortedMap.Builder<String, String> usedPropertyValues =
+    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases =
         ImmutableSortedMap.naturalOrder();
     for (String binaryProperty : unicodeData.usedBinaryProperties()) {
       for (String nameAlias : unicodeData.getPropertyAliases(binaryProperty)) {
         if (!Objects.equals(nameAlias, binaryProperty)) {
-          unicodeData.addUsedPropertyValueAlias(nameAlias, binaryProperty);
+          usedPropertyValueAliases.put(nameAlias, binaryProperty);
         }
       }
     }
-    Set<String> genCatProps = usedEnumeratedProperties.get(NORMALIZED_GENERAL_CATEGORY);
+    Set<String> genCatProps =
+        unicodeData.usedEnumeratedProperties().get(NORMALIZED_GENERAL_CATEGORY);
     if (null != genCatProps) {
       genCatProps.add("lc");
     }
-    for (Map.Entry<String, Set<String>> entry : usedEnumeratedProperties.entrySet()) {
+    for (Map.Entry<String, Set<String>> entry : unicodeData.usedEnumeratedProperties().entrySet()) {
       String propName = entry.getKey();
       Set<String> propValues = entry.getValue();
       for (String propValue : propValues) {
@@ -90,14 +97,14 @@ public abstract class AbstractScriptExtensionsScanner {
         if (Objects.equals(propName, NORMALIZED_SCRIPT)
             || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)) {
           canonicalValue = propValue;
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+          for (String valueAlias : unicodeData.getPropertyValueAliases(propName, propValue)) {
             if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
             }
           }
         }
-        for (String nameAlias : getPropertyAliases(propName)) {
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+        for (String nameAlias : unicodeData.getPropertyAliases(propName)) {
+          for (String valueAlias : unicodeData.getPropertyValueAliases(propName, propValue)) {
             // Both property names and values have self-aliases; when generating
             // all possible alias combinations, exclude the one that is the same
             // as the full property name + full property value, unless the
@@ -113,6 +120,16 @@ public abstract class AbstractScriptExtensionsScanner {
         }
       }
     }
-    return usedPropertyValues.build();
+    return usedPropertyValueAliases.build();
+  }
+
+  void addScript(String script) {
+    CodepointRangeSet.Builder intervals =
+        scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
+    intervals.add(new MutableCodepointRange(start, end));
+
+    for (int ch = start; ch <= end; ++ch) {
+      scriptExtensionsCodePoint[ch] = true;
+    }
   }
 }

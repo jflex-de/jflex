@@ -20,7 +20,7 @@ public class UnicodeDataScannerTest {
       throw new FileNotFoundException("Missing test data (Unicode 10): " + file.getAbsolutePath());
     }
     UcdVersion ucdVersion = UcdVersion.builder().setVersion("10.0").build();
-    UnicodeData.Builder ucdDataBuilder = UnicodeData.builder(ucdVersion.version());
+    UnicodeData ucdDataBuilder = UnicodeData(ucdVersion.version());
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, ucdDataBuilder);
     scanner.scan();
