@@ -8,6 +8,7 @@ import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
+import jflex.ucd_generator.scanner.ScriptExtensionsScanner;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
@@ -29,7 +30,7 @@ public class UcdScanner {
     scanPropList();
     scanDerivedCoreProperties();
     scanScripts();
-    // TODO scripts extension
+    scanScripExtensions();
     scanBlocks();
 
     return unicodeData;
@@ -70,6 +71,13 @@ public class UcdScanner {
 
   private void scanScripts() throws IOException {
     scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Scripts));
+  }
+
+  private void scanScripExtensions() throws IOException {
+    File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
+    ScriptExtensionsScanner scanner =
+        new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8));
+    scanner.scan();
   }
 
   private void scanBlocks() throws IOException {
