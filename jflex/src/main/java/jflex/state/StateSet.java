@@ -372,7 +372,7 @@ public final class StateSet implements Iterable<Integer> {
       if (bits.length < set.bits.length) bits = new long[set.bits.length];
       else for (int i = set.bits.length; i < bits.length; i++) bits[i] = 0;
 
-      System.arraycopy(set.bits, 0, bits, 0, bits.length);
+      System.arraycopy(set.bits, 0, bits, 0, Math.min(bits.length, set.bits.length));
     }
   }
 
