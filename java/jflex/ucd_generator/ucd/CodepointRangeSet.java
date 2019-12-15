@@ -16,7 +16,7 @@ public abstract class CodepointRangeSet {
   }
 
   public List<MutableCodepointRange> toMutableList() {
-    return ranges().stream().map(r -> MutableCodepointRange.of(r)).collect(Collectors.toList());
+    return ranges().stream().map(MutableCodepointRange::of).collect(Collectors.toList());
   }
 
   @AutoValue.Builder
@@ -51,7 +51,7 @@ public abstract class CodepointRangeSet {
     abstract CodepointRangeSet internalBuild();
 
     public CodepointRangeSet build() {
-      rangesBuilder().addAll(mRanges.stream().map(CodepointRange::of).iterator());
+      rangesBuilder().addAll(mRanges.stream().map(CodepointRange::create).iterator());
       return internalBuild();
     }
   }
