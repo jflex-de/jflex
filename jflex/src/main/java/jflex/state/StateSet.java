@@ -107,7 +107,7 @@ public final class StateSet implements Iterable<Integer> {
    * @param size the desired size of the set.
    * @return an array size such that the set can hold at least {@code size} elements.
    */
-  private static int size2nbits(int size) {
+  static int size2nbits(int size) {
     return (size >> BITS) + 1;
   }
 
@@ -119,7 +119,7 @@ public final class StateSet implements Iterable<Integer> {
    * @param length desired length of the StateSet array
    * @return an int {@code val} such that {@code size2nbits(val) = length}
    */
-  private static int nbits2size(int length) {
+  static int nbits2size(int length) {
     // size2nbits((length - 1) << BITS)
     // = (((length - 1) << BITS) >> BITS) + 1
     // = length, if (length - 1) << BITS has no overflow
@@ -330,6 +330,24 @@ public final class StateSet implements Iterable<Integer> {
   public boolean containsElements() {
     for (long bit : bits) if (bit != 0) return true;
     return false;
+  }
+
+  /**
+   * Determine if the given set is a subset of this set.
+   *
+   * @param set the set to check containment of
+   * @return true iff {@code set} is contained in this set.
+   */
+  public boolean contains(StateSet set) {
+    if (set.bits.length > bits.length) {
+      for (int i = bits.length; i < set.bits.length; i++) {
+        if (set.bits[i] != 0) return false;
+      }
+    }
+    for (int i = 0; i < Math.min(bits.length, set.bits.length); i++) {
+      if ((bits[i] | set.bits[i]) != bits[i]) return false;
+    }
+    return true;
   }
 
   /**
