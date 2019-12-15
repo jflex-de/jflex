@@ -27,15 +27,8 @@ public class PropertyValueIntervals {
   }
 
   private List<MutableCodepointRange> createBlankSet() {
-    return getIntervals("Zs").orElse(propertyValueIntervals.get("whitespace"));
-  }
-
-  private List<MutableCodepointRange> getOrCreateIntervals(String propName) {
-    return propertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
-  }
-
-  private Optional<List<MutableCodepointRange>> getIntervals(String propName) {
-    return Optional.ofNullable(propertyValueIntervals.get(propName));
+    return Optional.ofNullable(propertyValueIntervals.get("Zs"))
+        .orElse(propertyValueIntervals.get("whitespace"));
   }
 
   /**
@@ -60,7 +53,8 @@ public class PropertyValueIntervals {
     if (ranges.isEmpty()) {
       return;
     }
-    List<MutableCodepointRange> intervals = getOrCreateIntervals(propName);
+    List<MutableCodepointRange> intervals =
+        propertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
     for (CodepointRange range : ranges) {
       // UnicodeData-1.1.5.txt does not list the end point for the Unified Han
       // range (starting point is listed as U+4E00).  This is U+9FFF according

@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
-import jflex.ucd_generator.scanner.model.PropertyValueIntervals;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
@@ -35,7 +34,7 @@ public abstract class AbstractScriptExtensionsScanner {
 
   protected AbstractScriptExtensionsScanner(UnicodeData unicodeData) {
     this.unicodeData = unicodeData;
-    scriptExtensionsCodePoint = new boolean[unicodeData.maximumCodePoint + 1];
+    scriptExtensionsCodePoint = new boolean[unicodeData.maximumCodePoint() + 1];
 
     // Collect all script property values
     String canonicalScriptPropertyName = unicodeData.getCanonicalPropertyName("script");
@@ -51,11 +50,10 @@ public abstract class AbstractScriptExtensionsScanner {
 
   void addPropertyValueIntervals() {
     // Add script property value for missing code points
-    PropertyValueIntervals propertyValueIntervals = unicodeData.propertyValueIntervals;
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
-      for (CodepointRange range : propertyValueIntervals.getRanges(script)) {
+      for (CodepointRange range : unicodeData.getPropertyValueIntervals(script)) {
         for (int ch = range.start(); ch <= range.end(); ++ch) {
           if (!scriptExtensionsCodePoint[ch]) {
             intervalsBuilder.add(new MutableCodepointRange(ch, ch));
