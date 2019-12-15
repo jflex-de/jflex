@@ -101,53 +101,60 @@ public class UcdGenerator {
     scanPropertyValueAliases(ucdVersion, unicodeDataBuilder);
     scanUnicodeData(ucdVersion, unicodeDataBuilder);
     scanPropList(ucdVersion, unicodeDataBuilder);
+    scanDerivedCoreProperties(ucdVersion, unicodeDataBuilder);
 
     return unicodeDataBuilder.build();
   }
 
   private static void scanPropertyAliases(
       UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) throws IOException {
-    File propertyAliasesFile = ucdVersion.getFile(UcdFileType.PropertyAliases);
-    if (propertyAliasesFile != null) {
-      System.out.println("Opening " + propertyAliasesFile);
-      PropertyAliasesScanner propertyAliasesScanner =
-          new PropertyAliasesScanner(
-              Files.newReader(propertyAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
-      propertyAliasesScanner.scan();
+    File file = ucdVersion.getFile(UcdFileType.PropertyAliases);
+    if (file != null) {
+      PropertyAliasesScanner scanner =
+          new PropertyAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+      scanner.scan();
     }
   }
 
   private static void scanPropertyValueAliases(
       UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) throws IOException {
-    File propertyValueAliasesFile = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
-    if (propertyValueAliasesFile != null) {
-      System.out.println("Opening " + propertyValueAliasesFile);
-      PropertyValueAliasesScanner propertyAliasesScanner =
+    File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
+    if (file != null) {
+      PropertyValueAliasesScanner scanner =
           new PropertyValueAliasesScanner(
-              Files.newReader(propertyValueAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
-      propertyAliasesScanner.scan();
+              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+      scanner.scan();
     }
   }
 
   private static void scanUnicodeData(UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder)
       throws IOException {
-    File dataFile = ucdVersion.getFile(UcdFileType.UnicodeData);
-    System.out.println("Opening " + dataFile);
+    File file = ucdVersion.getFile(UcdFileType.UnicodeData);
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(
-            Files.newReader(dataFile, Charsets.UTF_8), ucdVersion, unicodeDataBuilder);
+            Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeDataBuilder);
     scanner.scan();
   }
 
   private static void scanPropList(UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder)
       throws IOException {
-    File propertyValueAliasesFile = ucdVersion.getFile(UcdFileType.PropList);
-    if (propertyValueAliasesFile != null) {
-      System.out.println("Opening " + propertyValueAliasesFile);
-      BinaryPropertiesFileScanner propertyAliasesScanner =
+    File file = ucdVersion.getFile(UcdFileType.PropList);
+    if (file != null) {
+      BinaryPropertiesFileScanner scanner =
           new BinaryPropertiesFileScanner(
-              Files.newReader(propertyValueAliasesFile, Charsets.UTF_8), unicodeDataBuilder);
-      propertyAliasesScanner.scan();
+              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+      scanner.scan();
+    }
+  }
+
+  private static void scanDerivedCoreProperties(
+      UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) throws IOException {
+    File file = ucdVersion.getFile(UcdFileType.DerivedCoreProperties);
+    if (file != null) {
+      BinaryPropertiesFileScanner scanner =
+          new BinaryPropertiesFileScanner(
+              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+      scanner.scan();
     }
   }
 
