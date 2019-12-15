@@ -61,7 +61,7 @@ public class UcdScanner {
     scanner.scan();
   }
 
-  private void scanPropList() throws IOException {
+  void scanPropList() throws IOException {
     scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
   }
 

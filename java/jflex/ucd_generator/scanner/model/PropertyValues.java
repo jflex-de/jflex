@@ -3,6 +3,7 @@ package jflex.ucd_generator.scanner.model;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -21,10 +22,11 @@ public class PropertyValues {
    *   etc.
    * }</pre>
    */
-  Map<String, Multimap<String, String>> allPropertyValueAliases = new HashMap<>();
+  private final Map<String, Multimap<String, String>> allPropertyValueAliases = new HashMap<>();
 
   /** Maps property value aliases to their corresponding canonical property values. */
-  Map<String, Map<String, String>> propertyValueAlias2CanonicalValue = new HashMap<>();
+  private final Map<String, Map<String, String>> propertyValueAlias2CanonicalValue =
+      new HashMap<>();
 
   void addPropertyValueAliases(
       String propertyName, String normalizedPropertyValue, Set<String> aliases) {
@@ -45,5 +47,13 @@ public class PropertyValues {
       return ImmutableSet.of(propName);
     }
     return aliases.keySet();
+  }
+
+  public Collection<String> getPropertyValueAliases(String propName, String propValue) {
+    Multimap<String, String> aliases = allPropertyValueAliases.get(propName);
+    if (aliases == null) {
+      return ImmutableSet.of(propValue);
+    }
+    return aliases.get(propValue);
   }
 }

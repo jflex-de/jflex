@@ -22,11 +22,14 @@ public class UcdScannerTest {
     ucdScanner.scanPropertyAliases();
     assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
         .isEqualTo("canonicalcombiningclass");
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90")).containsExactly("v90");
   }
 
   @Test
   public void scanPropertyValueAliases_getPropertyValueAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90")).containsExactly("v90");
+
     ucdScanner.scanPropertyValueAliases();
     assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90"))
         .containsExactly("v90", "9.0");
@@ -38,9 +41,25 @@ public class UcdScannerTest {
   public void scanUnicodeData() throws Exception {
     ucdScanner.scanPropertyAliases();
     ucdScanner.scanPropertyValueAliases();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("assigned")).isEmpty();
+
     ucdScanner.scanUnicodeData();
-    // assertThat(ucdScanner.unicodeData.caselessMatchPartitionSize()).hasSize(2622);
+    assertThat(ucdScanner.unicodeData.maximumCodePoint()).isEqualTo(1114111);
+    assertThat(ucdScanner.unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("generalcategory=cc"))
         .containsExactly(CodepointRange.create(0, 31), CodepointRange.create(127, 159));
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("assigned")).hasSize(649);
+  }
+
+  @Test
+  public void scanPropList() throws Exception {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("otheruppercase")).isEmpty();
+
+    ucdScanner.scanPropList();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("otheruppercase"))
+        .contains(CodepointRange.create(8544, 8559));
   }
 }

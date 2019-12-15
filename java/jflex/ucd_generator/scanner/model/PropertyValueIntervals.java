@@ -3,7 +3,9 @@ package jflex.ucd_generator.scanner.model;
 import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,7 +20,7 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 public class PropertyValueIntervals {
   Set<String> usedBinaryProperties = new HashSet<>();
 
-  Map<String, Set<String>> usedEnumProperties = new HashMap<>();
+  Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
   private final Map<String, List<MutableCodepointRange>> propertyValueIntervals = new HashMap<>();
 
@@ -39,6 +41,26 @@ public class PropertyValueIntervals {
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
    */
+  void addBinaryPropertyInterval(
+      String propName,
+      int startCodePoint,
+      int endCodePoint,
+      PropertyNameNormalizer propertyNameNormalizer) {
+    addPropertyInterval(propName, startCodePoint, endCodePoint, propertyNameNormalizer);
+    usedBinaryProperties.add(propName);
+  }
+
+  void addEnumPropertyInterval(
+      String propName,
+      String propValue,
+      int startCodePoint,
+      int endCodePoint,
+      PropertyNameNormalizer propertyNameNormalizer) {
+    addBinaryPropertyInterval(
+        propName + "=" + propValue, startCodePoint, endCodePoint, propertyNameNormalizer);
+    usedEnumProperties.put(propName, propValue);
+  }
+
   void addPropertyInterval(
       String propName,
       int startCodePoint,
@@ -71,23 +93,14 @@ public class PropertyValueIntervals {
       //        }
       intervals.add(MutableCodepointRange.create(range));
     }
-    usedBinaryProperties.add(propName);
-  }
-
-  void addPropertyInterval(
-      String propName,
-      String propValue,
-      int startCodePoint,
-      int endCodePoint,
-      PropertyNameNormalizer propertyNameNormalizer) {
-    addPropertyInterval(
-        propName + "=" + propValue, startCodePoint, endCodePoint, propertyNameNormalizer);
   }
 
   public ImmutableList<CodepointRange> getRanges(String propName) {
-    return propertyValueIntervals.get(propName).stream()
-        .map(CodepointRange::create)
-        .collect(ImmutableList.toImmutableList());
+    List<MutableCodepointRange> ranges = propertyValueIntervals.get(propName);
+    if (ranges == null) {
+      return ImmutableList.of();
+    }
+    return ranges.stream().map(CodepointRange::create).collect(ImmutableList.toImmutableList());
   }
 
   public Set<String> keySet() {

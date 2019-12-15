@@ -2,11 +2,11 @@ package jflex.ucd_generator.scanner.model;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -75,15 +75,16 @@ public class UnicodeData {
   }
 
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
-    return propertyValues.allPropertyValueAliases.get(propName).get(propValue);
+    return propertyValues.getPropertyValueAliases(propName, propValue);
   }
 
   public void addPropertyInterval(String propertyName, int start, int end) {
-    propertyValueIntervals.addPropertyInterval(propertyName, start, end, propertyNameNormalizer);
+    propertyValueIntervals.addBinaryPropertyInterval(
+        propertyName, start, end, propertyNameNormalizer);
   }
 
   public void addPropertyInterval(String propName, String propValue, int start, int end) {
-    propertyValueIntervals.addPropertyInterval(
+    propertyValueIntervals.addEnumPropertyInterval(
         propName, propValue, start, end, propertyNameNormalizer);
   }
 
@@ -91,7 +92,7 @@ public class UnicodeData {
     return propertyValueIntervals.usedBinaryProperties;
   }
 
-  public Map<String, Set<String>> usedEnumeratedProperties() {
+  public Multimap<String, String> usedEnumeratedProperties() {
     return propertyValueIntervals.usedEnumProperties;
   }
 
@@ -103,5 +104,9 @@ public class UnicodeData {
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
     return propertyValueIntervals.getRanges(propName);
+  }
+
+  public boolean hasUsedEnumeratedProperty(String category) {
+    return usedEnumeratedProperties().containsKey(category);
   }
 }

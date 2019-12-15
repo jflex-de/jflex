@@ -3,6 +3,7 @@ package jflex.ucd_generator.scanner;
 import static jflex.ucd_generator.util.PropertyNameNormalizer.normalize;
 
 import com.google.common.collect.ImmutableSortedMap;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -80,14 +81,11 @@ public abstract class AbstractScriptExtensionsScanner {
         }
       }
     }
-    Set<String> genCatProps =
-        unicodeData.usedEnumeratedProperties().get(NORMALIZED_GENERAL_CATEGORY);
-    if (null != genCatProps) {
-      genCatProps.add("lc");
+    if (unicodeData.hasUsedEnumeratedProperty(NORMALIZED_GENERAL_CATEGORY)) {
+      usedPropertyValueAliases.put(NORMALIZED_GENERAL_CATEGORY, "lc");
     }
-    for (Map.Entry<String, Set<String>> entry : unicodeData.usedEnumeratedProperties().entrySet()) {
-      String propName = entry.getKey();
-      Set<String> propValues = entry.getValue();
+    for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
+      Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
       for (String propValue : propValues) {
         String canonicalValue = propName + '=' + propValue;
 
