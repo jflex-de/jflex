@@ -4,6 +4,7 @@ java_library(
     name = "ucd_scanners",
     srcs = [
         "AbstractBinaryPropertiesFileScanner.java",
+        "AbstractEnumeratedPropertyFileScanner.java",
         "AbstractPropertyAliasesScanner.java",
         "AbstractPropertyValueAliasesScanner.java",
         "AbstractUnicodeDataScanner.java",
@@ -27,6 +28,7 @@ jflex(
     srcs = glob(["*.flex"]),
     outputs = [
         "BinaryPropertiesFileScanner.java",
+        "EnumeratedPropertyFileScanner.java",
         "PropertyAliasesScanner.java",
         "PropertyValueAliasesScanner.java",
         "UnicodeDataScanner.java",

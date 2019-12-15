@@ -6,7 +6,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 /** Scanner for {@code PropertyValueAliases(-X.X.X).txt}. */
-public class AbstractPropertyValueAliasesScanner {
+public abstract class AbstractPropertyValueAliasesScanner {
 
   private final UnicodeData.Builder unicodeDataBuilder;
   private final String scxPropName;

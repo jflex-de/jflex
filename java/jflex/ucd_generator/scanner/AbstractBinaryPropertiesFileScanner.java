@@ -8,7 +8,7 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 
 /** Scans the common multiple binary property Unicode.org data file format. */
-public class AbstractBinaryPropertiesFileScanner {
+public abstract class AbstractBinaryPropertiesFileScanner {
 
   private final UnicodeData.Builder unicodeDataBuilder;
 
@@ -16,7 +16,7 @@ public class AbstractBinaryPropertiesFileScanner {
   int start;
   int end;
 
-  private HashMap<String, SortedSet<CodepointRange>> properties = new HashMap<>();
+  private final HashMap<String, SortedSet<CodepointRange>> properties = new HashMap<>();
 
   public AbstractBinaryPropertiesFileScanner(UnicodeData.Builder unicodeDataBuilder) {
     this.unicodeDataBuilder = unicodeDataBuilder;

@@ -102,6 +102,7 @@ public class UcdGenerator {
     scanUnicodeData(ucdVersion, unicodeDataBuilder);
     scanPropList(ucdVersion, unicodeDataBuilder);
     scanDerivedCoreProperties(ucdVersion, unicodeDataBuilder);
+    scanScripts(ucdVersion, unicodeDataBuilder);
 
     return unicodeDataBuilder.build();
   }
@@ -150,6 +151,17 @@ public class UcdGenerator {
   private static void scanDerivedCoreProperties(
       UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder) throws IOException {
     File file = ucdVersion.getFile(UcdFileType.DerivedCoreProperties);
+    if (file != null) {
+      BinaryPropertiesFileScanner scanner =
+          new BinaryPropertiesFileScanner(
+              Files.newReader(file, Charsets.UTF_8), unicodeDataBuilder);
+      scanner.scan();
+    }
+  }
+
+  private static void scanScripts(UcdVersion ucdVersion, UnicodeData.Builder unicodeDataBuilder)
+      throws IOException {
+    File file = ucdVersion.getFile(UcdFileType.Scripts);
     if (file != null) {
       BinaryPropertiesFileScanner scanner =
           new BinaryPropertiesFileScanner(
