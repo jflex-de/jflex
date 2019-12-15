@@ -5,6 +5,7 @@ java_library(
     srcs = [
         "UcdGenerator.java",
         "UcdGeneratorParams.java",
+        "UcdScanner.java",
     ],
     deps = [
         "//java/jflex/ucd_generator/emitter/unicode_properties",
