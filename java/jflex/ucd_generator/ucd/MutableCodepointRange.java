@@ -10,7 +10,15 @@ public class MutableCodepointRange {
     end = endCodePoint;
   }
 
-  public static MutableCodepointRange of(CodepointRange range) {
+  @Override
+  public String toString() {
+    if (start == end) {
+      return String.valueOf(start);
+    }
+    return start + "…" + end;
+  }
+
+  public static MutableCodepointRange createw(CodepointRange range) {
     return new MutableCodepointRange(range.start(), range.end());
   }
 }

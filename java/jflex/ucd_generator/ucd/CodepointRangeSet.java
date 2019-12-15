@@ -16,7 +16,7 @@ public abstract class CodepointRangeSet {
   }
 
   public List<MutableCodepointRange> toMutableList() {
-    return ranges().stream().map(MutableCodepointRange::of).collect(Collectors.toList());
+    return ranges().stream().map(MutableCodepointRange::create).collect(Collectors.toList());
   }
 
   @AutoValue.Builder

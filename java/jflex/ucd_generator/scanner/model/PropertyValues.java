@@ -12,6 +12,18 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 @AutoValue
 public abstract class PropertyValues {
+
+  /**
+   * Property name: {property value: aliases of property value}
+   * e.g.
+   * <pre>{@code
+   * key=age
+   * value={
+   *   unassigned=[na,unassigned]
+   *   v90=[v90,9.0]
+   *   etc.
+   * }</pre>
+   */
   abstract ImmutableMap<String, ImmutableMultimap<String, String>> allPropertyValueAliases();
 
   public static Builder builder() {
@@ -53,7 +65,7 @@ public abstract class PropertyValues {
     /** Maps property value aliases to their corresponding canonical property values. */
     Map<String, Map<String, String>> mPropertyValueAlias2CanonicalValue = new HashMap<>();
 
-    public void addPropertyValueAliases(
+    void addPropertyValueAliases(
         String propertyName, String normalizedPropertyValue, Set<String> aliases) {
       Multimap<String, String> aliasesForName = mAllPropertyValueAliases.get(propertyName);
       if (aliasesForName == null) {
