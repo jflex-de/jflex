@@ -36,7 +36,7 @@ public class DFA {
   public static final int NO_TARGET = -1;
 
   // Build.DEBUG is too high-level for enabling debug output in minimisation
-  private static final boolean DFA_DEBUG = false;
+  static final boolean DFA_DEBUG = false;
 
   /**
    * table[current_state][character] is the next state for {@code current_state} with input {@code

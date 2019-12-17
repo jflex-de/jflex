@@ -57,7 +57,6 @@ java_library(
     srcs = SRCS_DEPRECATED_DFA,
     deps = [
         ":core",
-        "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/logging",

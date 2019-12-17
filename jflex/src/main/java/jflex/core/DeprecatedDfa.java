@@ -1,7 +1,6 @@
 package jflex.core;
 
 import java.util.Arrays;
-import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -10,8 +9,8 @@ import jflex.option.Options;
 @Deprecated
 public class DeprecatedDfa extends DFA {
 
-  public DeprecatedDfa(int numEntryStates, int numInp, int numLexStates) {
-    super(numEntryStates, numInp, numLexStates);
+  DeprecatedDfa(int numEntryStates, int numInputs, int numLexStates, int numStates) {
+    super(numEntryStates, numInputs, numLexStates, numStates);
   }
 
   /**
@@ -87,7 +86,7 @@ public class DeprecatedDfa extends DFA {
                   equiv[i][j] = false;
                   if (list[i][j] != null) list[i][j].markAll(list, equiv);
                 }
-                if (Build.DEBUG) {
+                if (DFA.DFA_DEBUG) {
                   printTable(equiv);
                 }
               } // if (p >= 0) ..
@@ -121,7 +120,7 @@ public class DeprecatedDfa extends DFA {
     } // of for i
     // }
 
-    if (Build.DEBUG) {
+    if (DFA.DFA_DEBUG) {
       printTable(equiv);
     }
     return equiv;
@@ -149,8 +148,10 @@ public class DeprecatedDfa extends DFA {
     }
   }
 
-  public static DFA copyOf(DFA dfa) {
-    DFA copy = new DFA(dfa.entryState.length, dfa.numInput(), dfa.numLexStates(), dfa.numStates());
+  public static DeprecatedDfa copyOf(DFA dfa) {
+    DeprecatedDfa copy =
+        new DeprecatedDfa(
+            dfa.entryState.length, dfa.numInput(), dfa.numLexStates(), dfa.numStates());
     copy.table = new int[dfa.table.length][dfa.numInput()];
     for (int i = 0; i < dfa.table.length; i++) {
       System.arraycopy(dfa.table[i], 0, copy.table[i], 0, copy.numInput());
