@@ -4,9 +4,6 @@
 <a href="https://cirrus-ci.com/github/jflex-de/jflex/master">
   <img alt="Bazel build status" src="https://api.cirrus-ci.com/github/jflex-de/jflex.svg" height="20">
 </a>
-<a href="https://search.maven.org/artifact/de.jflex/jflex/">
-  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
-</a>
 
 # JFlex
 
@@ -29,7 +26,11 @@ and the [wiki][wiki].
 
 ### Usage with Maven
 
-You need JDK 8 or later.
+<a href="https://search.maven.org/artifact/de.jflex/jflex/">
+  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
+</a>
+
+You need Maven, and JDK 8 or later.
 
 1. Place grammar files in `src/main/flex/` directory.
 
@@ -58,7 +59,7 @@ You need JDK 8 or later.
 
 ### Usage with ant
 
-You need JDK 8 or later.
+You need ant, the binary jflex jar and JDK 8 or later.
 
 1. Define ant task
 ```xml
@@ -87,7 +88,7 @@ jflex(
 
 ### Usage in CLI
 
-You need JDK 8 or later.
+You need the binary jflex jar and JDK 8 or later.
 
 You can also use JFlex directly from the command line:
 ```
@@ -170,6 +171,10 @@ java -jar jflex-full-1.7.0.jar --info
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
 ## Contributing
+
+<a href="https://javadoc.io/doc/de.jflex/jflex">
+  <img src="https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg" height="20" alt="Javadoc">
+</a>
 
 JFlex is free software, contributions are welcome.
 See the [Contributing][contrib] page for instructions.
