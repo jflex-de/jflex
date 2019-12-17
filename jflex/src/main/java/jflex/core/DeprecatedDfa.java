@@ -1,5 +1,7 @@
 package jflex.core;
 
+import java.util.Arrays;
+import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -28,7 +30,7 @@ public class DeprecatedDfa extends DFA {
     int j;
     int c;
 
-    if (numStates == 0) {
+    if (numStates() == 0) {
       throw new GeneratorException(new IllegalStateException("DFA has no states"));
     }
 
@@ -38,15 +40,15 @@ public class DeprecatedDfa extends DFA {
     }
 
     // equiv[i][j] == true <=> state i and state j are equivalent
-    boolean[][] equiv = new boolean[numStates][];
+    boolean[][] equiv = new boolean[numStates()][];
 
     // list[i][j] contains all pairs of states that have to be marked "not equivalent"
     // if states i and j are recognized to be not equivalent
-    StatePairList[][] list = new StatePairList[numStates][];
+    StatePairList[][] list = new StatePairList[numStates()][];
 
     // construct a triangular matrix equiv[i][j] with j < i
     // and mark pairs (final state, not final state) as not equivalent
-    for (i = 1; i < numStates; i++) {
+    for (i = 1; i < numStates(); i++) {
       list[i] = new StatePairList[i];
       equiv[i] = new boolean[i];
       for (j = 0; j < i; j++) {
@@ -55,18 +57,21 @@ public class DeprecatedDfa extends DFA {
         // or
         // i and j are both not final
 
-        if (isFinal[i] && isFinal[j]) equiv[i][j] = action[i].isEquiv(action[j]);
-        else equiv[i][j] = !isFinal[j] && !isFinal[i];
+        if (isFinal[i] && isFinal[j]) {
+          equiv[i][j] = action(i).isEquiv(action(j));
+        } else {
+          equiv[i][j] = !isFinal[j] && !isFinal[i];
+        }
       }
     }
 
-    for (i = 1; i < numStates; i++) {
+    for (i = 1; i < numStates(); i++) {
 
       for (j = 0; j < i; j++) {
 
         if (equiv[i][j]) {
 
-          for (c = 0; c < numInput; c++) {
+          for (c = 0; c < numInput(); c++) {
 
             if (equiv[i][j]) {
 
@@ -77,12 +82,14 @@ public class DeprecatedDfa extends DFA {
                 p = q;
                 q = t;
               }
-              if (p >= 0 || q >= 0) {
-                if (p != q && (p == -1 || q == -1 || !equiv[p][q])) {
+              if (p >= 0) {
+                if (p != q && (q == -1 || !equiv[p][q])) {
                   equiv[i][j] = false;
                   if (list[i][j] != null) list[i][j].markAll(list, equiv);
                 }
-                // printTable(equiv);
+                if (Build.DEBUG) {
+                  printTable(equiv);
+                }
               } // if (p >= 0) ..
             } // if (equiv[i][j]
           } // for (char c = 0; c < numInput ..
@@ -91,7 +98,7 @@ public class DeprecatedDfa extends DFA {
 
           if (equiv[i][j]) {
 
-            for (c = 0; c < numInput; c++) {
+            for (c = 0; c < numInput(); c++) {
 
               int p = table[i][c];
               int q = table[j][c];
@@ -114,6 +121,9 @@ public class DeprecatedDfa extends DFA {
     } // of for i
     // }
 
+    if (Build.DEBUG) {
+      printTable(equiv);
+    }
     return equiv;
   }
 
@@ -122,10 +132,10 @@ public class DeprecatedDfa extends DFA {
    *
    * @param equiv Equivalence table from {@link #old_minimize()}
    */
-  static void printTable(boolean[][] equiv) {
+  void printTable(boolean[][] equiv) {
     Out.dump("Equivalence table is : ");
     StringBuilder line = new StringBuilder();
-    for (int i = 1; i < numStates; i++) {
+    for (int i = 1; i < numStates(); i++) {
       line.setLength(0);
       line.append(i).append(" :");
       for (int j = 0; j < i; j++) {
@@ -137,5 +147,21 @@ public class DeprecatedDfa extends DFA {
       }
       Out.dump(line.toString());
     }
+  }
+
+  public static DFA copyOf(DFA dfa) {
+    DFA copy = new DFA(dfa.entryState.length, dfa.numInput(), dfa.numLexStates(), dfa.numStates());
+    copy.table = new int[dfa.table.length][dfa.numInput()];
+    for (int i = 0; i < dfa.table.length; i++) {
+      System.arraycopy(dfa.table[i], 0, copy.table[i], 0, copy.numInput());
+    }
+    copy.isFinal = Arrays.copyOf(dfa.isFinal, dfa.isFinal.length);
+    copy.entryState = Arrays.copyOf(dfa.entryState, dfa.entryState.length);
+    // Sets action and usedActions
+    for (int i = 0; i < dfa.numStates(); i++) {
+      copy.setAction(i, dfa.action(i));
+    }
+
+    return copy;
   }
 }
