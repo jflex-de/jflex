@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -42,29 +43,29 @@ public class DFA {
    */
   int[][] table;
 
-  /** {@code isFinal[state] == true</code> <=> the state <code>state} is a final state. */
+  /** {@code isFinal[state] == true} if the state {@code state} is a final state. */
   boolean[] isFinal;
 
   /**
-   * {@code action[state]</code> is the action that is to be carried out in state <code>state},
-   * {@code null} if there is no action.
+   * {@code action[state]} is the action that is to be carried out in state {@code state}, {@code
+   * null} if there is no action.
    */
-  Action[] action;
+  private Action[] action;
 
-  /** entryState[i] is the start-state of lexical state i or lookahead DFA i */
-  private int[] entryState;
-
-  /** The number of states in this DFA */
-  int numStates;
-
-  /** The current maximum number of input characters */
-  int numInput;
-
-  /** The number of lexical states (2*numLexStates <= entryState.length) */
-  private int numLexStates;
+  /** {@code entryState[i]} is the start-state of lexical state i or lookahead DFA i. */
+  int[] entryState;
 
   /** all actions that are used in this DFA */
-  private Map<Action, Action> usedActions = new HashMap<>();
+  Map<Action, Action> usedActions = new HashMap<>();
+
+  /** The maximum number of input characters */
+  private final int numInput;
+
+  /** The number of lexical states (2*numLexStates <= entryState.length) */
+  private final int numLexStates;
+
+  /** The number of states in this DFA */
+  private int numStates;
 
   /** True iff this DFA contains general lookahead */
   private boolean lookaheadUsed;
@@ -73,21 +74,26 @@ public class DFA {
   private boolean minimized;
 
   /** Constructor for a deterministic finite automata. */
-  public DFA(int numEntryStates, int numInp, int numLexStates) {
-    numInput = numInp;
+  public DFA(int numEntryStates, int numInputs, int numLexStates) {
+    this(numEntryStates, numInputs, numLexStates, 0);
+  }
+
+  DFA(int numEntryStates, int numInputs, int numLexStates, int numStates) {
+    this.numInput = numInputs;
+    this.numLexStates = numLexStates;
+    this.numStates = numStates;
 
     int statesNeeded = Math.max(numEntryStates, STATES);
 
     table = new int[statesNeeded][numInput];
-    action = new Action[statesNeeded];
     isFinal = new boolean[statesNeeded];
+    action = new Action[statesNeeded];
     entryState = new int[numEntryStates];
-    numStates = 0;
-
-    this.numLexStates = numLexStates;
 
     for (int i = 0; i < statesNeeded; i++) {
-      for (int j = 0; j < numInput; j++) table[i][j] = NO_TARGET;
+      for (int j = 0; j < numInput; j++) {
+        table[i][j] = NO_TARGET;
+      }
     }
   }
 
@@ -206,6 +212,32 @@ public class DFA {
     return result.toString();
   }
 
+  @Override
+  public int hashCode() {
+    return Arrays.deepHashCode(table);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof DFA)) {
+      return false;
+    }
+    return Arrays.equals(isFinal, ((DFA) obj).isFinal)
+        && Arrays.equals(entryState, ((DFA) obj).entryState)
+        && Arrays.equals(action, ((DFA) obj).action)
+        && Objects.equals(usedActions, ((DFA) obj).usedActions)
+        && tableEquals(table, ((DFA) obj).table);
+  }
+
+  private static boolean tableEquals(int[][] a, int[][] b) {
+    for (int i = 0; i < a.length; i++) {
+      if (!Arrays.equals(a[i], b[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /**
    * Writes a dot-file representing this DFA.
    *
@@ -281,8 +313,6 @@ public class DFA {
       // Already minimized
       return;
     }
-
-    Out.print(numStates + " states before minimization, ");
 
     if (numStates == 0) {
       Out.error(jflex.l10n.ErrorMessages.ZERO_STATES);
@@ -723,8 +753,6 @@ public class DFA {
       entryState[i] = trans[entryState[i]];
       entryState[i] -= move[entryState[i]];
     }
-
-    Out.println(numStates + " states in minimized DFA");
     minimized = true;
   }
 
