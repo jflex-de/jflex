@@ -86,6 +86,9 @@ jflex(
 )
 ```
 
+See the sample [simple BUILD](https://github.com/jflex-de/jflex/blob/master/jflex/examples/simple/BUILD)
+file.
+
 ### Usage in CLI
 
 You need the binary jflex jar and JDK 8 or later.
