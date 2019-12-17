@@ -11,6 +11,7 @@ package jflex.core.unicode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import jflex.chars.Interval;
@@ -113,6 +114,15 @@ public class CharClasses {
     return classes.size();
   }
 
+  /** @return a deep-copy list of all char class partions. */
+  public List<IntCharSet> allClasses() {
+    List<IntCharSet> result = new ArrayList<>();
+    for (IntCharSet ccl : classes) {
+      result.add(IntCharSet.copyOf(ccl));
+    }
+    return result;
+  }
+
   /**
    * Updates the current partition, so that the specified set of characters gets a new character
    * class.
@@ -181,6 +191,16 @@ public class CharClasses {
     }
   }
 
+  /**
+   * Retuns a copy of a single char class partition by code.
+   *
+   * @param code the code of the char class partition to return.
+   * @return a copy of the char class with the specified code.
+   */
+  public IntCharSet getCharClass(int code) {
+    return IntCharSet.copyOf(classes.get(code));
+  }
+
   /** Dumps charclasses to the dump output stream. */
   public void dump() {
     Out.dump(toString());
@@ -228,7 +248,7 @@ public class CharClasses {
    * Creates a new character class for each character of the specified String.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
-   * @param str set of characters.
+   * @param str the String to iterate single char class creation over.
    */
   public void makeClass(String str, boolean caseless) {
     for (int i = 0; i < str.length(); ) {
@@ -277,30 +297,26 @@ public class CharClasses {
   }
 
   /**
-   * Check consistency of the stored classes [debug].
+   * Checks the invariants of this object.
    *
-   * <p>all classes must be disjoint, checks if all characters have a class assigned.
+   * <p>All classes must be disjoint, and their union must be the entire input set.
+   *
+   * @return true when the invariants of this objects hold.
    */
-  public void check() {
+  public boolean invariants() {
     for (int i = 0; i < classes.size(); i++)
       for (int j = i + 1; j < classes.size(); j++) {
-        IntCharSet x = classes.get(i);
-        IntCharSet y = classes.get(j);
-        if (x.and(y).containsElements()) {
-          System.out.println("Error: non disjoint char classes " + i + " and " + j);
-          System.out.println("class " + i + ": " + x);
-          System.out.println("class " + j + ": " + y);
+        if (classes.get(i).and(classes.get(j)).containsElements()) {
+          return false;
         }
       }
 
-    // check if each character has a classcode
-    // (= if getClassCode terminates)
-    for (int c = 0; c < maxChar; c++) {
-      getClassCode(c);
-      if (c % 100 == 0) System.out.print(".");
+    IntCharSet union = new IntCharSet();
+    for (IntCharSet i : classes) {
+      union.add(i);
     }
 
-    getClassCode(maxChar);
+    return IntCharSet.allChars().equals(union);
   }
 
   /**
@@ -316,7 +332,10 @@ public class CharClasses {
     int size = classes.size();
     int numIntervals = 0;
 
-    for (i = 0; i < size; i++) numIntervals += (classes.get(i)).numIntervals();
+    for (i = 0; i < size; i++) numIntervals += classes.get(i).numIntervals();
+
+    List<Iterator<Interval>> iterators = new ArrayList<>();
+    for (IntCharSet set : classes) iterators.add(set.intervalIterator());
 
     CharClassInterval[] result = new CharClassInterval[numIntervals];
 
@@ -324,9 +343,7 @@ public class CharClasses {
     c = 0;
     while (i < numIntervals) {
       int code = getClassCode(c);
-      IntCharSet set = classes.get(code);
-      Interval iv = set.getNext();
-
+      Interval iv = iterators.get(code).next(); // must have enough elements
       result[i++] = new CharClassInterval(iv.start, iv.end, code);
       c = iv.end + 1;
     }
@@ -347,5 +364,19 @@ public class CharClasses {
    */
   public void normalise() {
     classes.sort(INT_CHAR_SET_COMPARATOR);
+  }
+
+  /**
+   * Construct a (deep) copy of the the provided CharClasses object.
+   *
+   * @param c the CharClasses to copy
+   * @return a deep copy of c
+   */
+  public static CharClasses copyOf(CharClasses c) {
+    CharClasses result = new CharClasses();
+    result.maxCharUsed = c.maxCharUsed;
+    result.unicodeProps = c.unicodeProps;
+    result.classes = c.allClasses();
+    return result;
   }
 }
