@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -36,6 +35,9 @@ public class DFA {
   /** The code for "no target state" in the transition table. */
   public static final int NO_TARGET = -1;
 
+  // Build.DEBUG is too high-level for enabling debug output in minimisation
+  private static final boolean DFA_DEBUG = false;
+
   /**
    * table[current_state][character] is the next state for {@code current_state} with input {@code
    * character</code>, <code>NO_TARGET} if there is no transition for this input in {@code
@@ -52,12 +54,6 @@ public class DFA {
    */
   private Action[] action;
 
-  /** {@code entryState[i]} is the start-state of lexical state i or lookahead DFA i. */
-  int[] entryState;
-
-  /** all actions that are used in this DFA */
-  Map<Action, Action> usedActions = new HashMap<>();
-
   /** The maximum number of input characters */
   private final int numInput;
 
@@ -66,6 +62,12 @@ public class DFA {
 
   /** The number of states in this DFA */
   private int numStates;
+
+  /** {@code entryState[i]} is the start-state of lexical state i or lookahead DFA i. */
+  int[] entryState;
+
+  /** all actions that are used in this DFA */
+  Map<Action, Action> usedActions = new HashMap<>();
 
   /** True iff this DFA contains general lookahead */
   private boolean lookaheadUsed;
@@ -412,7 +414,7 @@ public class DFA {
       }
     } // of initialize inv_delta
 
-    if (Build.DEBUG) {
+    if (DFA_DEBUG) {
       printInvDelta(inv_delta, inv_delta_set);
     }
     // initialize blocks
@@ -477,7 +479,7 @@ public class DFA {
       }
     } // of initialize blocks
 
-    if (Build.DEBUG) {
+    if (DFA_DEBUG) {
       printBlocks(block, b_forward, b_backward, lastBlock);
     }
 
@@ -527,7 +529,7 @@ public class DFA {
     // System.out.println("max_steps = "+(n*numInput));
     // while L not empty
     while (l_forward[anchorL] != anchorL) {
-      if (Build.DEBUG) {
+      if (DFA_DEBUG) {
         // System.out.println("step : "+(step++));
         printL(l_forward, l_backward, anchorL);
       }
@@ -544,7 +546,7 @@ public class DFA {
       int B_j = b0 + B_j_a / numInput;
       int a = B_j_a % numInput;
 
-      if (Build.DEBUG) {
+      if (DFA_DEBUG) {
         printL(l_forward, l_backward, anchorL);
 
         System.out.println("picked (" + B_j + "," + a + ")");
@@ -569,7 +571,9 @@ public class DFA {
       // clear the twin list
       numSplit = 0;
 
-      // System.out.println("splitting blocks according to D");
+      if (DFA_DEBUG) {
+        System.out.println("splitting blocks according to D");
+      }
 
       // clear SD and twins (only those B_i that occur in D)
       for (int indexD = 0; indexD < numD; indexD++) { // for each s in D
@@ -645,10 +649,11 @@ public class DFA {
         }
       } // of block splitting
 
-      // printBlocks(block, b_forward, b_backward, lastBlock);
+      if (DFA_DEBUG) {
+        printBlocks(block, b_forward, b_backward, lastBlock);
 
-      // System.out.println("updating L");
-
+        System.out.println("updating L");
+      }
       // update L
       for (int indexTwin = 0; indexTwin < numSplit; indexTwin++) {
         B_i = twin[indexTwin];
@@ -683,8 +688,10 @@ public class DFA {
       }
     }
 
-    // System.out.println("Result");
-    // printBlocks(block,b_forward,b_backward,lastBlock);
+    if (DFA_DEBUG) {
+      System.out.println("Result");
+      printBlocks(block, b_forward, b_backward, lastBlock);
+    }
 
     // transform the transition table
 
