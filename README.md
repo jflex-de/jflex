@@ -30,7 +30,7 @@ and the [wiki][wiki].
   <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
 </a>
 
-You need Maven, and JDK 8 or later.
+You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
 
 1. Place grammar files in `src/main/flex/` directory.
 
@@ -164,7 +164,7 @@ Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jfl
 
 #### Build with Maven
 
-You need JDK 8 or later and [Maven][maven] 3.5.2 or later.
+You need JDK 8 or later.
 
 ```
 ./mvnw install
