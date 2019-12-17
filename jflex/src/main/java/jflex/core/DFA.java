@@ -40,25 +40,25 @@ public class DFA {
    * character</code>, <code>NO_TARGET} if there is no transition for this input in {@code
    * current_state}
    */
-  private int[][] table;
+  int[][] table;
 
   /** {@code isFinal[state] == true</code> <=> the state <code>state} is a final state. */
-  private boolean[] isFinal;
+  boolean[] isFinal;
 
   /**
    * {@code action[state]</code> is the action that is to be carried out in state <code>state},
    * {@code null} if there is no action.
    */
-  private Action[] action;
+  Action[] action;
 
   /** entryState[i] is the start-state of lexical state i or lookahead DFA i */
   private int[] entryState;
 
   /** The number of states in this DFA */
-  private int numStates;
+  int numStates;
 
   /** The current maximum number of input characters */
-  private int numInput;
+  int numInput;
 
   /** The number of lexical states (2*numLexStates <= entryState.length) */
   private int numLexStates;
