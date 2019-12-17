@@ -70,7 +70,7 @@ public class IntCharSetTest {
   public void copy() {
     IntCharSet set = IntCharSet.of(new Interval('a', 'z'));
     IntCharSet copy = IntCharSet.copyOf(set);
-    Interval i = set.getNext();
+    Interval i = set.getIntervals().get(0);
     i.end = 'X';
     assertThat(copy).isNotEqualTo(set);
   }

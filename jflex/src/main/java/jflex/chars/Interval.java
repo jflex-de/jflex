@@ -132,6 +132,15 @@ public final class Interval implements Iterable<Integer> {
   }
 
   /**
+   * Computes the size of this interval.
+   *
+   * @return how many characters this interval spans
+   */
+  public int size() {
+    return end - start + 1;
+  }
+
+  /**
    * Checks the invariants of this object.
    *
    * @returns true when the invariants of this objects hold.

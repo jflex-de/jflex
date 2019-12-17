@@ -36,9 +36,6 @@ public final class IntCharSet implements Iterable<Integer> {
   /* invariant: all intervals are disjoint, ordered */
   private List<Interval> intervals = new ArrayList<>();
 
-  /** for iterating over the char set */
-  private int pos;
-
   /** Creates a charset that contains only one interval. */
   public static IntCharSet of(Interval interval) {
     IntCharSet charset = new IntCharSet();
@@ -454,6 +451,21 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /**
+   * Returns the complement of the specified set x, that is, the set of all elements that are not
+   * contained in x.
+   *
+   * @param x the {@link IntCharSet} to take the complement of.
+   * @return the complement of x
+   */
+  public static IntCharSet complementOf(IntCharSet x) {
+    IntCharSet result = allChars();
+    if (x != null) {
+      result.sub(x);
+    }
+    return result;
+  }
+
+  /**
    * Returns whether the set contains elements.
    *
    * @return Whether the set is non-empty.
@@ -480,18 +492,9 @@ public final class IntCharSet implements Iterable<Integer> {
     return intervals;
   }
 
-  // beware: depends on caller protocol, single user only
-  /**
-   * Returns the next interval.
-   *
-   * @return the next {@link jflex.chars.Interval}.
-   */
-  public Interval getNext() { // TODO(lsf): remove, use an Iterator instead
-    if (DEBUG) assert containsElements();
-    if (pos == intervals.size()) {
-      pos = 0;
-    }
-    return intervals.get(pos++);
+  /** @return an iterator over the intervals in this set */
+  public Iterator<Interval> intervalIterator() {
+    return intervals.iterator();
   }
 
   /**
@@ -547,6 +550,17 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /**
+   * Computes the size of this set.
+   *
+   * @return how many elements are contained in this set
+   */
+  public int size() {
+    int charCount = 0;
+    for (Interval i : intervals) charCount += i.size();
+    return charCount;
+  }
+
+  /**
    * Checks the invariants of this object.
    *
    * @return true when the invariants of this objects hold.
@@ -565,8 +579,7 @@ public final class IntCharSet implements Iterable<Integer> {
       }
     }
 
-    // if there are elements, pos must point to an interval
-    return !containsElements() || pos < intervals.size();
+    return true;
   }
 
   /**

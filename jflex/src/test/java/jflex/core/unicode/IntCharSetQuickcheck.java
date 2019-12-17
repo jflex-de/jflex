@@ -193,4 +193,15 @@ public class IntCharSetQuickcheck {
     set2.add(i);
     assertThat(set1).isEqualTo(set2);
   }
+
+  @Property
+  public void complementUnion(IntCharSet set) {
+    set.add(IntCharSet.complementOf(set));
+    assertThat(set).isEqualTo(IntCharSet.allChars());
+  }
+
+  @Property
+  public void complementIntersection(IntCharSet set) {
+    assertThat(set.and(IntCharSet.complementOf(set))).isEqualTo(new IntCharSet());
+  }
 }
