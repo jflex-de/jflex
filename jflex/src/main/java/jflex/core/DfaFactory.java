@@ -124,4 +124,6 @@ public class DfaFactory {
     if (Options.verbose) Out.println("");
     return dfa;
   }
+
+  private DfaFactory() {}
 }
