@@ -109,8 +109,16 @@ See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-integ
 
 Have a look at the sample project: [simple][example-simple] and other [examples].
 
+## Contributing
 
-## Modules
+<a href="https://javadoc.io/doc/de.jflex/jflex">
+  <img src="https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg" height="20" alt="Javadoc">
+</a>
+
+JFlex is free software, contributions are welcome.
+See the [Contributing][contrib] page for instructions.
+
+### Source layout
 
 The top level directory of the JFLex git repository contains:
 
@@ -126,9 +134,9 @@ The top level directory of the JFLex git repository contains:
  * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
 
 
-## Build from source
+### Build from source
 
-### Build with Bazel
+#### Build with Bazel
 
 JFlex can be build with Bazel.
 [Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance. 
@@ -154,7 +162,7 @@ bazel run //jflex:jflex_bin -- --info
 
 Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
-### Build with Maven
+#### Build with Maven
 
 You need JDK 8 or later and [Maven][maven] 3.5.2 or later.
 
@@ -170,14 +178,7 @@ java -jar jflex-full-1.7.0.jar --info
 
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
-## Contributing
 
-<a href="https://javadoc.io/doc/de.jflex/jflex">
-  <img src="https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg" height="20" alt="Javadoc">
-</a>
-
-JFlex is free software, contributions are welcome.
-See the [Contributing][contrib] page for instructions.
 
 
 [jflex]: http://jflex.de/
