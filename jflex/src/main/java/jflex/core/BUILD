@@ -3,9 +3,14 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 package(default_visibility = ["//visibility:public"])
 
+SRCS_DEPRECATED_DFA = ["DeprecatedDfa.java"]
+
 java_library(
     name = "core",
-    srcs = glob(["*.java"]) + [
+    srcs = glob(
+        ["*.java"],
+        exclude = SRCS_DEPRECATED_DFA,
+    ) + [
         ":gen_parser",
         ":gen_scanner",
     ],
@@ -41,4 +46,11 @@ cup(
     interface = True,
     parser = "LexParse",
     symbols = "sym",
+)
+
+java_library(
+    name = "deprecated_dfa",
+    testonly = True,
+    srcs = SRCS_DEPRECATED_DFA,
+    deps = [],
 )

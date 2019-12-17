@@ -27,7 +27,7 @@ import jflex.option.Options;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class DFA {
+public class DFA {
 
   /** The initial number of states */
   private static final int STATES = 500;
