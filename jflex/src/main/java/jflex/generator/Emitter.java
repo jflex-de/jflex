@@ -330,9 +330,8 @@ public final class Emitter {
     println("        firstFilePos = 2;");
     println("        encodingName = argv[1];");
     println("        try {");
-    println(
-        "          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName"
-            + " valid? ");
+    println("          // Side-effect: is encodingName valid?");
+    println("          java.nio.charset.Charset.forName(encodingName);");
     println("        } catch (Exception e) {");
     println("          System.out.println(\"Invalid encoding '\" + encodingName + \"'\");");
     println("          return;");
@@ -928,9 +927,8 @@ public final class Emitter {
 
       if (scanner.lineCount()) {
         println("      if (zzR) {");
-        println(
-            "        // peek one character ahead if it is \\n"
-                + " (if we have counted one line too much)");
+        println("        // peek one character ahead if it is");
+        println("        // (if we have counted one line too much)");
         println("        boolean zzPeek;");
         println("        if (zzMarkedPosL < zzEndReadL)");
         println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
@@ -1140,9 +1138,9 @@ public final class Emitter {
         println("            // general lookahead, find correct zzMarkedPos");
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");
-        println(
-            "              if (zzFin.length <= zzBufferL.length) { zzFin = new"
-                + " boolean[zzBufferL.length+1]; }");
+        println("              if (zzFin.length <= zzBufferL.length) {");
+        println("                zzFin = new boolean[zzBufferL.length+1];");
+        println("              }");
         println("              boolean zzFinL[] = zzFin;");
         println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
         println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
@@ -1150,9 +1148,9 @@ public final class Emitter {
         println("                zzFPos += Character.charCount(zzInput);");
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("              }");
-        println(
-            "              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) =="
-                + " 1); } ");
+        println("              if (zzFState != -1) {");
+        println("                zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1);");
+        println("              }");
         println("              while (zzFPos <= zzMarkedPos) {");
         println("                zzFinL[zzFPos++] = false;");
         println("              }");
