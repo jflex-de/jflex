@@ -71,7 +71,8 @@ public class TestFileUtils {
   public static File open(String bazelPackage, String path) throws FileNotFoundException {
     File file = new File(resolvePath(bazelPackage, path));
     if (!file.exists()) {
-      throw new FileNotFoundException(String.format("Couldn't open %s in %s: %s", path, bazelPackage, file.getAbsolutePath()));
+      throw new FileNotFoundException(
+          String.format("Couldn't open %s in %s: %s", path, bazelPackage, file.getAbsolutePath()));
     }
     return file;
   }

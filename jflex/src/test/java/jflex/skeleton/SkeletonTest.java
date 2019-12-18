@@ -15,7 +15,6 @@ import static org.junit.Assume.assumeTrue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import jflex.testing.TestFileUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
