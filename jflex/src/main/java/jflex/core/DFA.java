@@ -52,7 +52,7 @@ public final class DFA {
   private Action[] action;
 
   /** entryState[i] is the start-state of lexical state i or lookahead DFA i */
-  private int entryState[];
+  private int[] entryState;
 
   /** The number of states in this DFA */
   private int numStates;
@@ -261,12 +261,7 @@ public final class DFA {
     return result.toString();
   }
 
-  /**
-   * Checks that all actions can actually be matched in this DFA.
-   *
-   * @param scanner a {@link jflex.LexScan}.
-   * @param parser a {@link jflex.LexParse}.
-   */
+  /** Checks that all actions can actually be matched in this DFA. */
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
 
@@ -677,14 +672,14 @@ public final class DFA {
 
     // trans[i] is the state j that will replace state i, i.e.
     // states i and j are equivalent
-    int trans[] = new int[numStates];
+    int[] trans = new int[numStates];
 
     // kill[i] is true iff state i is redundant and can be removed
-    boolean kill[] = new boolean[numStates];
+    boolean[] kill = new boolean[numStates];
 
     // move[i] is the amount line i has to be moved in the transition table
     // (because states j < i have been removed)
-    int move[] = new int[numStates];
+    int[] move = new int[numStates];
 
     // fill arrays trans[] and kill[] (in O(n))
     for (int b = b0 + 1; b <= lastBlock; b++) { // b0 contains the error state
@@ -749,27 +744,19 @@ public final class DFA {
     return minimized;
   }
 
-  /**
-   * Returns a representation of this DFA.
-   *
-   * @param a an array of int.
-   * @return a {@link java.lang.String} object.
-   */
+  /** Returns a representation of this DFA. */
   public String toString(int[] a) {
-    String r = "{";
-    int i;
-    for (i = 0; i < a.length - 1; i++) r += a[i] + ",";
-    return r + a[i] + "}";
+    StringBuilder r = new StringBuilder("{");
+    for (int i = 0; i < a.length - 1; i++) {
+      r.append(a[i]).append(",");
+    }
+    if (a.length > 0) {
+      r.append(a[a.length - 1]);
+    }
+    r.append("}");
+    return r.toString();
   }
 
-  /**
-   * printBlocks.
-   *
-   * @param b an array of int.
-   * @param b_f an array of int.
-   * @param b_b an array of int.
-   * @param last a int.
-   */
   public void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
     Out.dump("block     : " + toString(b));
     Out.dump("b_forward : " + toString(b_f));
