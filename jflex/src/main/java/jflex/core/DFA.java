@@ -48,12 +48,6 @@ public class DFA {
   /** {@code isFinal[state] == true} if the state {@code state} is a final state. */
   boolean[] isFinal;
 
-  /**
-   * {@code action[state]} is the action that is to be carried out in state {@code state}, {@code
-   * null} if there is no action.
-   */
-  private Action[] action;
-
   /** The maximum number of input characters */
   private final int numInput;
 
@@ -65,6 +59,12 @@ public class DFA {
 
   /** {@code entryState[i]} is the start-state of lexical state i or lookahead DFA i. */
   int[] entryState;
+
+  /**
+   * {@code action[state]} is the action that is to be carried out in state {@code state}, {@code
+   * null} if there is no action.
+   */
+  private Action[] action;
 
   /** all actions that are used in this DFA */
   Map<Action, Action> usedActions = new HashMap<>();
@@ -290,12 +290,7 @@ public class DFA {
     return result.toString();
   }
 
-  /**
-   * Checks that all actions can actually be matched in this DFA.
-   *
-   * @param scanner a {@link LexScan}.
-   * @param parser a {@link LexParse}.
-   */
+  /** Checks that all actions can actually be matched in this DFA. */
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
 
@@ -767,18 +762,15 @@ public class DFA {
     return minimized;
   }
 
-  /**
-   * Returns a representation of this DFA.
-   *
-   * @param a an array of int.
-   */
+  /** Returns a representation of this DFA. */
   public String toString(int[] a) {
     StringBuilder r = new StringBuilder("{");
-    int i;
-    for (i = 0; i < a.length - 1; i++) {
+    for (int i = 0; i < a.length - 1; i++) {
       r.append(a[i]).append(",");
     }
-    r.append(a[i]);
+    if (a.length > 0) {
+      r.append(a[a.length - 1]);
+    }
     r.append("}");
     return r.toString();
   }

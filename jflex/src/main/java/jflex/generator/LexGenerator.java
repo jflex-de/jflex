@@ -16,6 +16,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import jflex.core.DFA;
+import jflex.core.DfaFactory;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
@@ -81,7 +82,7 @@ public class LexGenerator {
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
-      dfa = nfa.getDFA();
+      dfa = DfaFactory.createFromNfa(nfa);
       time.stop();
       Out.time(ErrorMessages.DFA_TOOK, time);
 
