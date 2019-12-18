@@ -19,7 +19,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * SkeletonTest
+ * Test {@link Skeleton}
  *
  * @author Gerwin Klein
  * @author Régis Décamps
@@ -49,10 +49,9 @@ public class SkeletonTest {
   }
 
   @Test
-  @Ignore // fix loading resources
   public void readSkelFile_bazel() throws FileNotFoundException {
     assumeTrue(TestFileUtils.BAZEL_RUNFILES);
-    File skeletonFile = TestFileUtils.open("//jflex", "jflex/skeleton.nested");
+    File skeletonFile = TestFileUtils.open("//jflex/src/main/jflex", "skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
   }

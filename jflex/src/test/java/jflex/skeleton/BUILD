@@ -1,8 +1,9 @@
 java_test(
     name = "SkeletonTest",
+    testonly = True,
     srcs = ["SkeletonTest.java"],
     data = [
-        "//jflex:resources",
+        "//jflex/src/main/jflex:skeleton.nested",
     ],
     deps = [
         "//jflex:testing",
