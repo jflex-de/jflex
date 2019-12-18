@@ -44,8 +44,8 @@ public class DFA {
   static final boolean DFA_DEBUG = false;
 
   /**
-   * {@code table[current_state][character]} is the next state for {@code current_state} with input {@code
-   * character}, {@code NO_TARGET} if there is no transition for this input in {@code
+   * {@code table[current_state][character]} is the next state for {@code current_state} with input
+   * {@code character}, {@code NO_TARGET} if there is no transition for this input in {@code
    * current_state}
    */
   int[][] table;
