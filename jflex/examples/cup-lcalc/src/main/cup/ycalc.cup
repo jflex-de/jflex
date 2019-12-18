@@ -184,13 +184,13 @@ non terminal Integer    expr, factor, term;
    new integer will be stored in 'RESULT'.*/
    
    expr      ::= expr:e PLUS factor:f
-                 {: RESULT = new Integer(e.intValue() + f.intValue()); :}
+                 {: RESULT = Integer.valueOf(e.intValue() + f.intValue()); :}
                  |
                  expr:e MINUS factor:f
-                 {: RESULT = new Integer(e.intValue() - f.intValue()); :}
+                 {: RESULT = Integer.valueOf(e.intValue() - f.intValue()); :}
                  |
                  factor:f
-                 {: RESULT = new Integer(f.intValue()); :}
+                 {: RESULT = Integer.valueOf(f.intValue()); :}
                  ;
    
 /* 'factor' can lead to 'factor TIMES term', 'factor DIVIDE term', or
@@ -202,13 +202,13 @@ non terminal Integer    expr, factor, term;
    'DIVIDE' here instead of 'PLUS' and 'MINUS'.  */
    
    factor    ::= factor:f TIMES term:t
-                 {: RESULT = new Integer(f.intValue() * t.intValue()); :}
+                 {: RESULT = Integer.valueOf(f.intValue() * t.intValue()); :}
                  |
                  factor:f DIVIDE term:t
-                 {: RESULT = new Integer(f.intValue() / t.intValue()); :}
+                 {: RESULT = Integer.valueOf(f.intValue() / t.intValue()); :}
                  |
                  term:t
-                 {: RESULT = new Integer(t.intValue()); :}
+                 {: RESULT = Integer.valueOf(t.intValue()); :}
                  ;
    
 /* 'term' can lead to 'LPAREN expr RPAREN', 'NUMBER', or 'ID'.  The

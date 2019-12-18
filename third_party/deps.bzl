@@ -1,4 +1,8 @@
 # Please keep deps in alphabetical order
+# After a change in deps, run this command to re-pin the unpinned repository:
+#
+#    bazel run @unpinned_maven//:pin
+#
 ARTIFACTS = [
     "com.google.code.findbugs:jsr305:3.0.2",
     "org.apache.ant:ant:1.7.0",
@@ -7,7 +11,11 @@ ARTIFACTS = [
     "org.apache.velocity:velocity:jar:1.7",
     "com.google.auto.value:auto-value:jar:1.7",
     "com.google.auto.value:auto-value-annotations:jar:1.7",
+    "com.google.flogger:flogger:jar:0.4",
+    "com.google.flogger:flogger-system-backend:0.4",
     "com.google.guava:guava:jar:26.0-jre",
     "com.google.truth:truth:0.36",
+    "com.pholser:junit-quickcheck-core:0.9",
+    "com.pholser:junit-quickcheck-generators:0.9",
     "junit:junit:jar:4.12",
 ]

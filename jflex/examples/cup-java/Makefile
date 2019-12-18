@@ -1,10 +1,10 @@
 # You need CUP v0.10j (or newer) for this makefile to work (for java12.cup)
 #
-# CUP classes should be included in CLASSPATH 
+# CUP classes should be included in CLASSPATH
 
 ROOT       = ../../..
 JFLEX      = $(ROOT)/jflex/bin/jflex
-CUPJAR     = $(ROOT)/cup/cup/java-cup-11b.jar
+CUPJAR     = $(ROOT)/cup/cup/java-cup-11b-20160615.jar
 CUP        = java -jar $(CUPJAR)
 
 
@@ -13,8 +13,13 @@ all: clean compile
 compile: gen_all src/main/java/*.java
 	javac -d out -cp $(CUPJAR) out/genfiles/*.java src/main/java/*.java
 
-test: out/lexer-output.txt
+test: run diff
+
+diff: out/lexer-output.txt
 	@(diff $< src/test/data/lexer-output.good && echo "Test OK") || (echo "Test FAILED"; exit 1)
+
+run: compile outdir
+	java -cp out:$(CUPJAR) JavaParser src/main/java/TestLexer.java
 
 out/lexer-output.txt: compile outdir
 	java -cp out:$(CUPJAR) TestLexer src/main/java/TestLexer.java > out/lexer-output.txt

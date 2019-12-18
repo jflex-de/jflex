@@ -513,7 +513,7 @@ The corresponding JFlex code (MiniScanner.jflex) could be
     {dash}    { return MiniParser.DASH; }
     {colon}   { return MiniParser.COLON; }
     {number}  { try  {
-                  value = new Integer(Integer.parseInt(yytext()));
+                  value = Integer.valueOf(Integer.parseInt(yytext()));
                 } catch (NumberFormatException nfe) {
                   // shouldn't happen
                   throw new Error();

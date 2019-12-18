@@ -3,7 +3,7 @@ package jflex.testcase.apipirivate;
 %%
 
 %public
-%class Private
+%class PrivateScanner
 
 %apiprivate
 %int

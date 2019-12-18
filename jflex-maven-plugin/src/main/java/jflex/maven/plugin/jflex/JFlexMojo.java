@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
+import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -168,7 +169,6 @@ public class JFlexMojo extends AbstractMojo {
    * @throws MojoFailureException if the file is not found.
    * @throws MojoExecutionException if file could not be parsed
    */
-  @SuppressWarnings("unchecked")
   private void parseLexDefinition(File lexDefinition)
       throws MojoFailureException, MojoExecutionException {
     assert lexDefinition.isAbsolute() : lexDefinition;
@@ -207,8 +207,8 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     // set options. Very strange that JFlex expects this in a static way.
-    Options.setDefaults();
-    Options.setDir(generatedFile.getParentFile());
+    OptionUtils.setDefaultOptions();
+    OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
     Options.verbose = verbose;
@@ -216,7 +216,7 @@ public class JFlexMojo extends AbstractMojo {
     Options.dot = dot;
     Options.legacy_dot = legacyDot;
     if (skeleton != null) {
-      Options.setSkeleton(skeleton);
+      OptionUtils.setSkeleton(skeleton);
     }
     Options.jlex = jlex;
 
@@ -228,14 +228,14 @@ public class JFlexMojo extends AbstractMojo {
 
     if (!isNullOrEmpty(encodingName)) {
       try {
-        Options.setEncoding(encodingName);
+        OptionUtils.setEncoding(encodingName);
       } catch (Exception e) {
         throw new MojoExecutionException(e.getMessage());
       }
     }
 
     try {
-      LexGenerator.generate(lexFile);
+      new LexGenerator(lexFile).generate();
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
@@ -244,11 +244,11 @@ public class JFlexMojo extends AbstractMojo {
 
   private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
     try {
-      return LexSimpleAnalyzer.guessPackageAndClass(lexFile);
+      return LexSimpleAnalyzerUtils.guessPackageAndClass(lexFile);
     } catch (FileNotFoundException e) {
       throw new MojoFailureException(e.getMessage(), e);
     } catch (IOException e) {
-      return new ClassInfo(LexSimpleAnalyzer.DEFAULT_NAME, /*packageName=*/ "");
+      return new ClassInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 
@@ -263,7 +263,8 @@ public class JFlexMojo extends AbstractMojo {
   private void checkParameters(File lexFile) throws MojoExecutionException {
     if (lexFile == null) {
       throw new MojoExecutionException(
-          "<lexDefinition> is empty. Please define input file with <lexDefinition>input.jflex</lexDefinition>");
+          "<lexDefinition> is empty. Please define input file with"
+              + " <lexDefinition>input.jflex</lexDefinition>");
     }
     if (!lexFile.isFile()) {
       throw new MojoExecutionException("Input file does not exist: " + lexFile);

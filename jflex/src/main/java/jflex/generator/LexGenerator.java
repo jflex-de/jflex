@@ -9,8 +9,6 @@
 
 package jflex.generator;
 
-import static jflex.core.Options.encoding;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,16 +16,18 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import jflex.core.DFA;
+import jflex.core.DfaFactory;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
-import jflex.core.Options;
-import jflex.core.Out;
-import jflex.core.ScannerException;
+import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.performance.Timer;
+import jflex.scanner.ScannerException;
 
 /**
  * This is the generator of JFlex, controlling the scanner generation process.
@@ -38,23 +38,34 @@ import jflex.performance.Timer;
  */
 public class LexGenerator {
 
+  private final File inputFile;
+  private DFA dfa;
+
+  private final Timer totalTime = new Timer();
+
+  public LexGenerator(File inputFile) {
+    this.inputFile = inputFile;
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
+  }
+
   /**
    * Generates a scanner for the specified input file.
    *
-   * @param inputFile a file containing a lexical specification to generate a scanner for.
    * @return the file name of the generated Java sources.
    */
-  public static String generate(File inputFile) {
+  public String generate() {
 
     Out.resetCounters();
 
-    Timer totalTime = new Timer();
     Timer time = new Timer();
 
     totalTime.start();
 
     try (Reader inputReader =
-        new InputStreamReader(Files.newInputStream(Paths.get(inputFile.toString())), encoding)) {
+        new InputStreamReader(
+            Files.newInputStream(Paths.get(inputFile.toString())), Options.encoding)) {
       Out.println(ErrorMessages.READING, inputFile.toString());
       LexScan scanner = new LexScan(inputReader);
       scanner.setFile(inputFile);
@@ -71,7 +82,7 @@ public class LexGenerator {
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
-      DFA dfa = nfa.getDFA();
+      dfa = DfaFactory.createFromNfa(nfa);
       time.stop();
       Out.time(ErrorMessages.DFA_TOOK, time);
 
@@ -84,7 +95,12 @@ public class LexGenerator {
       Out.checkErrors();
 
       time.start();
+      int numStatesBefore = dfa.numStates();
       dfa.minimize();
+      Out.println(
+          String.format(
+              "%d states before minimization, %d states in minimized DFA",
+              numStatesBefore, dfa.numStates()));
       time.stop();
 
       Out.time(ErrorMessages.MIN_TOOK, time);
@@ -117,11 +133,30 @@ public class LexGenerator {
       throw new GeneratorException(e);
     } catch (OutOfMemoryError e) {
       Out.error(ErrorMessages.OUT_OF_MEMORY);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     } catch (GeneratorException e) {
       throw e;
     } catch (Exception e) {
-      throw new GeneratorException(e);
+      throw new GeneratorException(e, true);
+    }
+  }
+
+  public int minimizedDfaStatesCount() {
+    checkNotNull(dfa, "DFA doesn't exist. Need to call generate() first.");
+    checkState(dfa.isMinimized(), "DAF is minimized. Need to call minimize() first.");
+    return dfa.numStates();
+  }
+
+  private static Object checkNotNull(Object object, String msg) {
+    if (object == null) {
+      throw new NullPointerException(msg);
+    }
+    return object;
+  }
+
+  private static void checkState(boolean state, String msg) {
+    if (!state) {
+      throw new IllegalStateException(msg);
     }
   }
 }

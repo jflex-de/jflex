@@ -16,6 +16,11 @@
     </license>
   </licenses>
 
+  <organization>
+    <name>JFlex</name>
+    <url>http://jflex.de/</url>
+  </organization>
+
   <developers>
     <developer>
       <id>lsf37</id>
@@ -54,7 +59,6 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
-    <module>report-module</module>
   </modules>
   <mailingLists>
     <mailingList>
@@ -81,7 +85,7 @@
   </mailingLists>
 
   <properties>
-    <cup.version>11b</cup.version>
+    <cup.version>11b-20160615</cup.version>
     <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.7</jflex.jdk.version>
     <!-- 3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->

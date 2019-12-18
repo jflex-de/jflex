@@ -14,6 +14,14 @@ if [[ $? -eq 0 ]]; then
 else
   MAKE=echo
 fi
+
+which ant
+if [[ $? -eq 0 ]]; then
+  ANT=ant
+else
+  ANT=echo
+fi
+
 # Exit with error in case of error (see #242)
 set -e
 
@@ -40,8 +48,8 @@ logi "Example: cup-interpreter"
 cd cup-interpreter
 "$MVN" test
 # TODO(#384) Fix ant test
-# ant test
-ant build
+"$ANT" build
+# "$ANT" test
 "$MAKE" test
 cd ..
 
@@ -49,39 +57,38 @@ logi "Example: cup-java"
 cd cup-java
 "$MVN" test
 # Fix ant #384
-#ant test
-ant build
-ant test
+"$ANT" build
+"$ANT" test
 "$MAKE" test
 cd ..
 
 logi "Example: cup-lcalc"
 cd cup-lcalc
 "$MVN" test
-# ant test
+# "$ANT" test
 # make test
 cd ..
 
 logi "Example: simple"
 cd simple
 "$MVN" test
+"$ANT" build
 # Fix ant
-#ant test
-ant build
+#"$ANT" test
 # make test
 cd ..
 
 logi "Example: standalone"
 cd standalone
 "$MVN" test
-# ant test
+# "$ANT" test
 # make test
 cd ..
 
 logi "Example: zero-reader"
 cd zero-reader
 "$MVN" test
-# ant test
+# "$ANT" test
 "$MAKE" test
 cd ..
 

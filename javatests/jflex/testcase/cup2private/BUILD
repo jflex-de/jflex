@@ -1,0 +1,40 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+# cup2private
+
+jflex(
+    name = "gen_cup2private_scanner",
+    srcs = ["cup2private.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Cup2PrivateScanner.java"],
+)
+
+java_library(
+    name = "cup2private_scanner",
+    srcs = [
+        "Token.java",
+        ":gen_cup2private_scanner",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/edu/tum/cup2",
+    ],
+)
+
+java_test(
+    name = "Cup2PrivateTest",
+    srcs = ["Cup2PrivateTest.java"],
+    deps = [
+        ":cup2private_scanner",
+        "//java/jflex/testing/testsuite/golden",
+        "//java/jflex/testing/testsuite/golden:model",
+        "//java/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+        "//third_party/edu/tum/cup2",
+    ],
+)

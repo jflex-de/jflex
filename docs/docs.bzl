@@ -8,6 +8,20 @@ RELEASE_DATE = "21 September 2018"
 
 UNICODE_VER = "12.0"
 
+DOC_SECTIONS = [
+    "intro",
+    "installing",
+    "maven-plugin",
+    "ant-task",
+    "example",
+    "lex-specs",
+    "generated-class",
+    "encodings",
+    "performance",
+    "porting-and-parsers",
+    "end",
+]
+
 def replace_placeholders(name, src = "", out = None, **kwargs):
     """Replaces placeholders by their respective value."""
     if not out:
@@ -22,21 +36,4 @@ def replace_placeholders(name, src = "", out = None, **kwargs):
               " -e 's/\$$UNICODE_VER/" + UNICODE_VER + "/g'" +
               " $< > $@",
         **kwargs
-    )
-
-def jflex_doc_tex(name, src = None):
-    """Generates the tex for a section"""
-    if not src:
-        src = "md/" + name + ".md"
-    pandoc(
-        name = name + "_tex",
-        src = ":" + name + "_md",
-        from_format = "markdown",
-        to_format = "latex",
-        options = ["--biblatex"],
-    )
-
-    replace_placeholders(
-        name = name + "_md",
-        src = src,
     )

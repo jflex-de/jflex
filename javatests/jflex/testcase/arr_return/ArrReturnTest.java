@@ -31,7 +31,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JFlexTestRunner.class)
-@TestSpec(lex = "javatests/jflex/testcase/arr_return/arr.flex")
+@TestSpec(
+    lex = "javatests/jflex/testcase/arr_return/arr.flex",
+    sysout = "javatests/jflex/testcase/arr_return/arr-flex.output",
+    minimizedDfaStatesCount = 5)
 public class ArrReturnTest {
   @Test
   public void ok() {}

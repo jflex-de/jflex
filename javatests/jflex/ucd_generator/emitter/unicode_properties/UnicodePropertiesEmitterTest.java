@@ -69,6 +69,6 @@ public class UnicodePropertiesEmitterTest {
     UnicodePropertiesEmitter emitter = new UnicodePropertiesEmitter("org.example", versions);
 
     emitter.emitUnicodeProperties(output);
-    assertThat(output.isCompleted()).isTrue();
+    assertThat(output.remainingContent()).isEmpty();
   }
 }

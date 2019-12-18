@@ -1,0 +1,74 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+java_binary(
+    name = "migrator",
+    srcs = [],
+    main_class = "jflex.migration.Migrator",
+    runtime_deps = [":migration"],
+)
+
+java_library(
+    name = "migration",
+    srcs = [
+        "MigrationException.java",
+        "Migrator.java",
+    ],
+    data = [
+        "BUILD-header.bzl",
+    ],
+    deps = [
+        ":model",
+        ":test_case_parser",
+        ":velocity_templates",
+        "//java/jflex/testing/testsuite/golden:model",
+        "//java/jflex/util/javac:package_util",
+        "//java/jflex/velocity",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "velocity_templates",
+    srcs = ["MigrationTemplateVars.java"],
+    resources = [
+        "BUILD.vm",
+        "TestCase.java.vm",
+    ],
+    deps = [
+        ":model",
+        "//java/jflex/testing/testsuite/golden:model",
+        "//java/jflex/velocity",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "model",
+    srcs = [
+        "TestCase.java",
+    ],
+    deps = [
+        "//java/jflex/testing/testsuite/golden:model",
+    ],
+)
+
+java_library(
+    name = "test_case_parser",
+    srcs = [
+        ":gen_test_spec_scanner",
+    ],
+    deps = [
+        ":model",
+        "//jflex/src/main/java/jflex/core",
+    ],
+)
+
+jflex(
+    name = "gen_test_spec_scanner",
+    srcs = ["TestSpecScanner.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["TestSpecScanner.java"],
+)

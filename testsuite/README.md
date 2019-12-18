@@ -4,10 +4,10 @@ This directory contains a conformance test suite for JFlex.
 
 ## jflex-testsuite-maven-plugin 
 
-A Maven plugin to exectute test cases.
+A Maven plugin to execute test cases.
 
 ## testcases
 
-A simple Maven project using the jflex-testsuite-maven-plugin
+A Maven project using the jflex-testsuite-maven-plugin
 and actually containing the test cases.
 

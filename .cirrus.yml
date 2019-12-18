@@ -1,11 +1,14 @@
 # Copyright 2018 Google LLC.
 # SPDX-License-Identifier: Apache-2.0
 
+buildtools_cache:
+  folder: buildtools
 
-build_task:
+bazel_build_task:
   name: Bazel build and test
   container:
-    image: l.gcr.io/google/bazel:1.1.0
+    image: l.gcr.io/google/bazel:1.2.1
+    memory: 5G
   bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
   build_script:
@@ -18,14 +21,32 @@ build_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
   test_all_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+  junit_artifacts:
+    path: "bazel-out/*/testlogs/**/test.xml"
+    type: text/xml
+    format: junit
+
+measure_coverage_task:
+  name: Measure code coverage
+  container:
+    image: l.gcr.io/google/bazel:1.1.0
+    memory: 6G
+  # Bazel fails to build combined report on Cirrus-ci.
+  # https://github.com/bazelbuild/bazel/issues/6450
+  measure_coverage_script:
+  - bazel --bazelrc=.ci.bazelrc coverage --combined_report=none --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
+  send_coverage_report_script:
+  - scripts/send-code-coverage.sh
+  only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == 'cirrus'
+  environment:
+    CODACY_PROJECT_TOKEN: ENCRYPTED[2fac1c4b7834a7f75477aa710279eaaa65db5999d9d0219940eb1e9679a38073c9fd99f240904ab318f95aab5eea5af9]
+
 codestyle_task:
   name: Check code style
   container:
     image: openjdk:8-jdk
   check_java_format_script: scripts/test-java-format.sh
   check_bzl_format_script:  scripts/test-bzl-format.sh
-  buildtools_cache:
-    folder: buildtools
 
 steps:
 - restore_cache:

@@ -11,11 +11,11 @@ package jflex.gui;
 
 import java.io.File;
 import java.util.Objects;
-import jflex.core.Options;
-import jflex.core.Out;
+import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Low priority thread for code generation (low priority that gui has time for screen updates)
@@ -51,6 +51,7 @@ public class GeneratorThread extends Thread {
   }
 
   /** Runs the generator thread. Only one instance of it can run at any time. */
+  @Override
   public void run() {
     if (running) {
       Out.error(ErrorMessages.ALREADY_RUNNING);
@@ -60,9 +61,9 @@ public class GeneratorThread extends Thread {
       setPriority(MIN_PRIORITY);
       try {
         if (!Objects.equals(outputDir, "")) {
-          Options.setDir(outputDir);
+          OptionUtils.setDir(outputDir);
         }
-        LexGenerator.generate(new File(inputFile));
+        new LexGenerator(new File(inputFile)).generate();
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {

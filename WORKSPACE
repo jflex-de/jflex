@@ -10,21 +10,20 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
+    commit = "49122dbb4b325af63af714b3006541f156b70c57",
     remote = "https://github.com/jflex-de/bazel_rules.git",
-    tag = "v6",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
 jflex_deps()
 
-# pandoc used to build the documentatoin
+# pandoc used to build the documentation
 
-http_archive(
+git_repository(
     name = "bazel_pandoc",
-    sha256 = "47ad1f08db3e6c8cc104931c11e099fd0603c174400b9cc852e2481abe08db24",
-    strip_prefix = "bazel-pandoc-0.2",
-    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
+    commit = "68bcf3fb4dd1892e040f0986636805c7186c82ae",
+    remote = "https://github.com/ProdriveTechnologies/bazel-pandoc.git",
 )
 
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
@@ -65,10 +64,6 @@ maven_install(
     ],
 )
 
-# To update maven_install.json, run this command to re-pin the unpinned repository:
-#
-#    bazel run @unpinned_maven//:pin
-#
 load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
