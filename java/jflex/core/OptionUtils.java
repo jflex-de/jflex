@@ -6,6 +6,7 @@ import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 public class OptionUtils {
   private OptionUtils() {}

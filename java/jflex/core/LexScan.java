@@ -22,6 +22,7 @@ import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
+import jflex.skeleton.Skeleton;
 
 
 /**
