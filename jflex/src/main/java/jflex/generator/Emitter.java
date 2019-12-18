@@ -22,7 +22,6 @@ import jflex.core.DFA;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.Skeleton;
 import jflex.core.unicode.CharClassInterval;
 import jflex.core.unicode.CharClasses;
 import jflex.exceptions.GeneratorException;
@@ -30,6 +29,7 @@ import jflex.io.FileUtils;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 /**
  * This class manages the actual code generation, putting the scanner together, filling in skeleton
@@ -56,16 +56,16 @@ public final class Emitter {
   private static final int FINAL = 1;
   private static final int NOLOOK = 8;
 
-  private File inputFile;
+  private final File inputFile;
   final String outputFileName;
 
-  private PrintWriter out;
-  private Skeleton skel;
-  private AbstractLexScan scanner;
-  private LexParse parser;
-  private DFA dfa;
+  private final PrintWriter out;
+  private final Skeleton skel;
+  private final AbstractLexScan scanner;
+  private final LexParse parser;
+  private final DFA dfa;
 
-  private boolean isTransition[];
+  private boolean[] isTransition;
 
   // for row killing:
   private int[] rowMap;
@@ -77,11 +77,9 @@ public final class Emitter {
   private boolean[] colKilled;
 
   /** maps actions to their switch label */
-  private Map<Action, Integer> actionTable = new LinkedHashMap<>();
+  private final Map<Action, Integer> actionTable = new LinkedHashMap<>();
 
-  private CharClassInterval[] intervals;
-
-  private String visibility = "public";
+  private final String visibility;
   private String eofCode;
   private String eofThrow;
 
@@ -93,8 +91,7 @@ public final class Emitter {
    * @param dfa a {@link DFA}.
    * @param writer output file.
    */
-  public Emitter(
-      String outputFileName, File inputFile, LexParse parser, DFA dfa, PrintWriter writer) {
+  Emitter(String outputFileName, File inputFile, LexParse parser, DFA dfa, PrintWriter writer) {
     this.outputFileName = outputFileName;
     this.out = writer;
     this.parser = parser;
@@ -109,10 +106,8 @@ public final class Emitter {
    * Computes base name of the class name. Needs to take into account generics.
    *
    * @param className Class name for which to construct the base name
-   * @see jflex.core.LexScan#className
-   * @return the
    */
-  public static String getBaseName(String className) {
+  static String getBaseName(String className) {
     int gen = className.indexOf('<');
     if (gen < 0) {
       return className;
@@ -141,7 +136,10 @@ public final class Emitter {
     if (outputFile.exists() && !Options.no_backup) {
       File backup = new File(outputFile.toString() + "~");
 
-      if (backup.exists()) backup.delete();
+      if (backup.exists()) {
+        //noinspection ResultOfMethodCallIgnored
+        backup.delete();
+      }
 
       if (outputFile.renameTo(backup))
         Out.println("Old file \"" + outputFile + "\" saved as \"" + backup + "\"");
@@ -171,7 +169,7 @@ public final class Emitter {
     out.print(i);
   }
 
-  private void print(int i, int tab) {
+  private void print(int i, @SuppressWarnings("SameParameterValue") int tab) {
     int exp;
 
     if (i < 0) exp = 1;
@@ -332,8 +330,8 @@ public final class Emitter {
     println("        firstFilePos = 2;");
     println("        encodingName = argv[1];");
     println("        try {");
-    println(
-        "          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? ");
+    println("          // Side-effect: is encodingName valid?");
+    println("          java.nio.charset.Charset.forName(encodingName);");
     println("        } catch (Exception e) {");
     println("          System.out.println(\"Invalid encoding '\" + encodingName + \"'\");");
     println("          return;");
@@ -467,7 +465,7 @@ public final class Emitter {
    * @param usercode the user code
    * @return true if it ends with a javadoc comment and zero or more annotations
    */
-  public static boolean endsWithJavadoc(CharSequence usercode) {
+  static boolean endsWithJavadoc(CharSequence usercode) {
     Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
     return matcher.matches() && !matcher.group(1).contains("*/");
   }
@@ -622,7 +620,7 @@ public final class Emitter {
 
     // ignores cl.getMaxCharCode(), emits all intervals instead
 
-    intervals = cl.getIntervals();
+    CharClassInterval[] intervals = cl.getIntervals();
 
     println("");
     println("  /** ");
@@ -677,7 +675,6 @@ public final class Emitter {
    * Print number as octal/unicode escaped string character.
    *
    * @param c the value to print
-   * @prec 0 <= c <= 0xFFFF
    */
   private void printUC(int c) {
     if (c > 255) {
@@ -930,8 +927,8 @@ public final class Emitter {
 
       if (scanner.lineCount()) {
         println("      if (zzR) {");
-        println(
-            "        // peek one character ahead if it is \\n (if we have counted one line too much)");
+        println("        // peek one character ahead if it is");
+        println("        // (if we have counted one line too much)");
         println("        boolean zzPeek;");
         println("        if (zzMarkedPosL < zzEndReadL)");
         println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
@@ -1068,7 +1065,7 @@ public final class Emitter {
   }
 
   /** emitActionTable. */
-  public void emitActionTable() {
+  private void emitActionTable() {
     int lastAction = 1;
     int count = 0;
     int value = 0;
@@ -1141,8 +1138,9 @@ public final class Emitter {
         println("            // general lookahead, find correct zzMarkedPos");
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");
-        println(
-            "              if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+        println("              if (zzFin.length <= zzBufferL.length) {");
+        println("                zzFin = new boolean[zzBufferL.length+1];");
+        println("              }");
         println("              boolean zzFinL[] = zzFin;");
         println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
         println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
@@ -1150,8 +1148,9 @@ public final class Emitter {
         println("                zzFPos += Character.charCount(zzInput);");
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("              }");
-        println(
-            "              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
+        println("              if (zzFState != -1) {");
+        println("                zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1);");
+        println("              }");
         println("              while (zzFPos <= zzMarkedPos) {");
         println("                zzFinL[zzFPos++] = false;");
         println("              }");

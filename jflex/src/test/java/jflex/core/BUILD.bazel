@@ -8,16 +8,3 @@ java_test(
         "//third_party/com/google/truth",
     ],
 )
-
-java_test(
-    name = "SkeletonTest",
-    srcs = ["SkeletonTest.java"],
-    data = [
-        "//jflex:resources",
-    ],
-    deps = [
-        "//jflex:testing",
-        "//jflex/src/main/java/jflex/core",
-        "//third_party/com/google/truth",
-    ],
-)
