@@ -2,8 +2,6 @@ package jflex.dfa;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import jflex.dfa.DFA;
-import jflex.dfa.DeprecatedDfa;
 import org.junit.Test;
 
 public class DfaTest {
