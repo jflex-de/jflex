@@ -16,8 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import jflex.core.OptionUtils;
-import jflex.core.Skeleton;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 import org.junit.Before;
 import org.junit.Test;
 

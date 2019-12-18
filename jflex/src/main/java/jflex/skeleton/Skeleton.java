@@ -6,7 +6,7 @@
  * License: BSD                                                            *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-package jflex.core;
+package jflex.skeleton;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static jflex.logging.Out.NL;
@@ -47,9 +47,8 @@ public class Skeleton {
   private static final int size = 21;
 
   /** The skeleton */
-  public static String line[];
+  public static String[] line;
 
-  /** initialization */
   static {
     readDefault();
   }
