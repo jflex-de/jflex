@@ -21,5 +21,4 @@ function loge {
   else
     echo "[ERROR] ${*}"
   fi
-  exit 1
 }

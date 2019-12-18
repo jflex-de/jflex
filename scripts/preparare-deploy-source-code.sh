@@ -49,8 +49,10 @@ update_source() {
   rm $(find . -name 'BUILD')
 
   logi "Checking licenses"
-  [[ $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]] || \
-      loge "JFlex license has bad content" && cat LICENSE_JFLEX
+  if [[ ! $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]]; then
+      loge "JFlex license has bad content"
+      head LICENSE_JFLEX
+  fi
   mv LICENSE_JFLEX ..
   mv LICENSE_CUP ..
   cd ..
