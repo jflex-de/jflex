@@ -1,4 +1,4 @@
-package jflex.core;
+package jflex.dfa;
 
 import java.util.Arrays;
 import jflex.exceptions.GeneratorException;

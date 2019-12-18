@@ -7,7 +7,7 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.core;
+package jflex.dfa;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +17,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import jflex.core.Action;
+import jflex.core.EOFActions;
+import jflex.core.LexParse;
+import jflex.core.LexScan;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -40,8 +44,8 @@ public class DFA {
   static final boolean DFA_DEBUG = false;
 
   /**
-   * table[current_state][character] is the next state for {@code current_state} with input {@code
-   * character</code>, <code>NO_TARGET} if there is no transition for this input in {@code
+   * {@code table[current_state][character]} is the next state for {@code current_state} with input {@code
+   * character}, {@code NO_TARGET} if there is no transition for this input in {@code
    * current_state}
    */
   int[][] table;
@@ -295,9 +299,9 @@ public class DFA {
   public void checkActions(LexScan scanner, LexParse parser) {
     EOFActions eofActions = parser.getEOFActions();
 
-    for (Action a : scanner.actions)
+    for (Action a : scanner.actions())
       if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
-        Out.warning(scanner.file, ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
+        Out.warning(scanner.file(), ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
   }
 
   /**

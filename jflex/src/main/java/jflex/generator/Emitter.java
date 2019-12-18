@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.core.AbstractLexScan;
 import jflex.core.Action;
-import jflex.core.DFA;
+import jflex.dfa.DFA;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;

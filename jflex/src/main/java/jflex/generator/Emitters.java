@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import jflex.core.DFA;
+import jflex.dfa.DFA;
 import jflex.core.LexParse;
 import jflex.logging.Out;
 import jflex.option.Options;
