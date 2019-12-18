@@ -16,6 +16,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import jflex.core.DFA;
+import jflex.core.DfaFactory;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
@@ -40,7 +41,7 @@ public class LexGenerator {
   private final File inputFile;
   private DFA dfa;
 
-  Timer totalTime = new Timer();
+  private final Timer totalTime = new Timer();
 
   public LexGenerator(File inputFile) {
     this.inputFile = inputFile;
@@ -81,7 +82,7 @@ public class LexGenerator {
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
-      dfa = nfa.getDFA();
+      dfa = DfaFactory.createFromNfa(nfa);
       time.stop();
       Out.time(ErrorMessages.DFA_TOOK, time);
 
@@ -94,7 +95,12 @@ public class LexGenerator {
       Out.checkErrors();
 
       time.start();
+      int numStatesBefore = dfa.numStates();
       dfa.minimize();
+      Out.println(
+          String.format(
+              "%d states before minimization, %d states in minimized DFA",
+              numStatesBefore, dfa.numStates()));
       time.stop();
 
       Out.time(ErrorMessages.MIN_TOOK, time);
@@ -127,7 +133,7 @@ public class LexGenerator {
       throw new GeneratorException(e);
     } catch (OutOfMemoryError e) {
       Out.error(ErrorMessages.OUT_OF_MEMORY);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     } catch (GeneratorException e) {
       throw e;
     } catch (Exception e) {
