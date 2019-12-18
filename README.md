@@ -4,9 +4,6 @@
 <a href="https://cirrus-ci.com/github/jflex-de/jflex/master">
   <img alt="Bazel build status" src="https://api.cirrus-ci.com/github/jflex-de/jflex.svg" height="20">
 </a>
-<a href="https://search.maven.org/artifact/de.jflex/jflex/">
-  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
-</a>
 
 # JFlex
 
@@ -29,7 +26,11 @@ and the [wiki][wiki].
 
 ### Usage with Maven
 
-You need JDK 8 or later.
+<a href="https://search.maven.org/artifact/de.jflex/jflex/">
+  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
+</a>
+
+You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
 
 1. Place grammar files in `src/main/flex/` directory.
 
@@ -40,7 +41,7 @@ You need JDK 8 or later.
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.8.0</version>
+          <version>1.7.0</version>
           <executions>
             <execution>
               <goals>
@@ -58,7 +59,7 @@ You need JDK 8 or later.
 
 ### Usage with ant
 
-You need JDK 8 or later.
+You need ant, the binary jflex jar and JDK 8 or later.
 
 1. Define ant task
 ```xml
@@ -85,9 +86,12 @@ jflex(
 )
 ```
 
+See the sample [simple BUILD](https://github.com/jflex-de/jflex/blob/master/jflex/examples/simple/BUILD)
+file.
+
 ### Usage in CLI
 
-You need JDK 8 or later.
+You need the binary jflex jar and JDK 8 or later.
 
 You can also use JFlex directly from the command line:
 ```
@@ -108,8 +112,16 @@ See [Build tool plugins](https://github.com/jflex-de/jflex/wiki/Build-tool-integ
 
 Have a look at the sample project: [simple][example-simple] and other [examples].
 
+## Contributing
 
-## Modules
+<a href="https://javadoc.io/doc/de.jflex/jflex">
+  <img src="https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg" height="20" alt="Javadoc">
+</a>
+
+JFlex is free software, contributions are welcome.
+See the [Contributing][contrib] page for instructions.
+
+### Source layout
 
 The top level directory of the JFLex git repository contains:
 
@@ -125,9 +137,9 @@ The top level directory of the JFLex git repository contains:
  * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
 
 
-## Build from source
+### Build from source
 
-### Build with Bazel
+#### Build with Bazel
 
 JFlex can be build with Bazel.
 [Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance. 
@@ -153,9 +165,9 @@ bazel run //jflex:jflex_bin -- --info
 
 Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
-### Build with Maven
+#### Build with Maven
 
-You need JDK 8 or later and [Maven][maven] 3.5.2 or later.
+You need JDK 8 or later.
 
 ```
 ./mvnw install
@@ -169,10 +181,7 @@ java -jar jflex-full-1.7.0.jar --info
 
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
-## Contributing
 
-JFlex is free software, contributions are welcome.
-See the [Contributing][contrib] page for instructions.
 
 
 [jflex]: http://jflex.de/
