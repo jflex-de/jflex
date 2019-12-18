@@ -99,7 +99,7 @@ public class LexGenerator {
       dfa.minimize();
       Out.println(
           String.format(
-              "%d states before minimization, %d states in minimized DFA.",
+              "%d states before minimization, %d states in minimized DFA",
               numStatesBefore, dfa.numStates()));
       time.stop();
 
