@@ -12,7 +12,7 @@ package jflex.dfa;
 import jflex.logging.Out;
 
 /**
- * A list of pairs of states. Used in DFA minimization.
+ * A list of pairs of states. Used in old DFA minimization.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
@@ -22,10 +22,10 @@ public final class StatePairList {
   // implemented as two arrays of integers.
   // java.util classes proved too inefficient.
 
-  int p[];
-  int q[];
+  private int[] p;
+  private int[] q;
 
-  int num;
+  private int num;
 
   /** Constructor for StatePairList. */
   public StatePairList() {
@@ -41,9 +41,15 @@ public final class StatePairList {
    * @param j a int.
    */
   public void addPair(int i, int j) {
-    for (int x = 0; x < num; x++) if (p[x] == i && q[x] == j) return;
+    for (int x = 0; x < num; x++) {
+      if (p[x] == i && q[x] == j) {
+        return;
+      }
+    }
 
-    if (num >= p.length) increaseSize(num);
+    if (num >= p.length) {
+      increaseSize(num);
+    }
 
     p[num] = i;
     q[num] = j;
@@ -73,8 +79,8 @@ public final class StatePairList {
     length = Math.max(length + 1, 4 * p.length);
     Out.debug("increasing length to " + length); // $NON-NLS-1$
 
-    int pn[] = new int[length];
-    int qn[] = new int[length];
+    int[] pn = new int[length];
+    int[] qn = new int[length];
 
     System.arraycopy(p, 0, pn, 0, p.length);
     System.arraycopy(q, 0, qn, 0, q.length);
