@@ -18,9 +18,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.core.OptionUtils;
-import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 /**
  * A dialog for setting JFlex options

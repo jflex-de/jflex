@@ -22,7 +22,6 @@ import jflex.core.DFA;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.Skeleton;
 import jflex.core.unicode.CharClassInterval;
 import jflex.core.unicode.CharClasses;
 import jflex.exceptions.GeneratorException;
@@ -30,6 +29,7 @@ import jflex.io.FileUtils;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 /**
  * This class manages the actual code generation, putting the scanner together, filling in skeleton
@@ -331,7 +331,8 @@ public final class Emitter {
     println("        encodingName = argv[1];");
     println("        try {");
     println(
-        "          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? ");
+        "          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName"
+            + " valid? ");
     println("        } catch (Exception e) {");
     println("          System.out.println(\"Invalid encoding '\" + encodingName + \"'\");");
     println("          return;");
@@ -928,7 +929,8 @@ public final class Emitter {
       if (scanner.lineCount()) {
         println("      if (zzR) {");
         println(
-            "        // peek one character ahead if it is \\n (if we have counted one line too much)");
+            "        // peek one character ahead if it is \\n"
+                + " (if we have counted one line too much)");
         println("        boolean zzPeek;");
         println("        if (zzMarkedPosL < zzEndReadL)");
         println("          zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
@@ -1139,7 +1141,8 @@ public final class Emitter {
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");
         println(
-            "              if (zzFin.length <= zzBufferL.length) { zzFin = new boolean[zzBufferL.length+1]; }");
+            "              if (zzFin.length <= zzBufferL.length) { zzFin = new"
+                + " boolean[zzBufferL.length+1]; }");
         println("              boolean zzFinL[] = zzFin;");
         println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
         println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
@@ -1148,7 +1151,8 @@ public final class Emitter {
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
         println("              }");
         println(
-            "              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1); } ");
+            "              if (zzFState != -1) { zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) =="
+                + " 1); } ");
         println("              while (zzFPos <= zzMarkedPos) {");
         println("                zzFinL[zzFPos++] = false;");
         println("              }");
