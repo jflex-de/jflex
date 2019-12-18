@@ -11,6 +11,14 @@ set -e
 # Version of Buildifier
 VERSION_BZL_BUILDTOOLS=0.29.0
 
+if [[ ! -z "$(find . -iname BUILD)" ]]; then
+  loge "Found BUILD file"
+  loge "$(find . -iname BUILD)"
+  echo
+  logi "Name the file BUILD.bazel for Bazel build files, and add do not submit build directory"
+  exit 1
+fi
+
 if [[ ! -f ${TOOLSDIR}/buildifier-${VERSION_BZL_BUILDTOOLS} ]]; then
     logi "Download tools"
     logi "=============="
