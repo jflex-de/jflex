@@ -15,7 +15,7 @@ How to analyze class dependencies.
 
 With bazel:
 
-    bazel build //jflex
+    bazel build //jflex:jflex_bin_deploy.jar
 
 ### Run degraph
 
