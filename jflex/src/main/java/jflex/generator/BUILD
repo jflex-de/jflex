@@ -14,6 +14,7 @@ java_library(
         "//jflex/src/main/java/jflex/option",
         "//jflex/src/main/java/jflex/performance",
         "//jflex/src/main/java/jflex/scanner",
+        "//jflex/src/main/java/jflex/skeleton",
         "//third_party/com/google/guava",
     ],
 )

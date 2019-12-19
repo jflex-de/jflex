@@ -11,5 +11,6 @@ java_library(
         "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/logging",
         "//jflex/src/main/java/jflex/option",
+        "//jflex/src/main/java/jflex/skeleton",
     ],
 )
