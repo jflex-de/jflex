@@ -17,13 +17,8 @@ git_clone() {
     logi "Move existing repo to $backup"
     mv repo $backup
   fi
-  if [[ -z "$CI" ]]; then
-    logi "Cloning ssh://git@github.com:jflex-de/jflex.git (aggregated-java-sources)"
-    git clone --depth 1 --branch aggregated-java-sources "git@github.com:jflex-de/jflex.git" repo
-  else
-    logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-    git clone --depth 1 --branch aggregated-java-sources "https://github.com/jflex-de/jflex.git" repo
-  fi
+  logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
+  git clone --depth 1 --branch aggregated-java-sources "https://github.com/jflex-de/jflex.git" repo
 }
 
 # update_source <initial_log_message>
@@ -46,7 +41,7 @@ update_source() {
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
   rm -rf jflex/maven
-  rm $(find . -name 'BUILD')
+  rm $(find . -name 'BUILD.bazel')
 
   logi "Checking licenses"
   if [[ ! $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]]; then
