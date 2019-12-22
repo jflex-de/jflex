@@ -16,16 +16,24 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
 /**
  * @author Rafal Mantiuk (Rafal.Mantiuk@bellstream.pl)
  * @author Gerwin Klein (lsf@jflex.de)
  * @author Régis Décamps
+ * @author Chris Fraire (cfraire@me.com)
  */
 class LexSimpleAnalyzerUtils {
 
   static final String DEFAULT_NAME = "Yylex";
+
+  private static final Pattern INCLUDE_DIRECTIVE_MATCHER = Pattern.compile("^\\s*%include\\s+(.+)");
+  private static final int INCLUDE_DIRECTIVE_ARG_OFFSET = 1;
 
   /**
    * Guesses the package and class name, based on this grammar definition. Does not override the
@@ -44,23 +52,25 @@ class LexSimpleAnalyzerUtils {
     try (LineNumberReader reader = new LineNumberReader(lexFileReader)) {
       String className = null;
       String packageName = null;
-      while (className == null || packageName == null) {
-        String line = reader.readLine();
-        if (line == null) {
-          break;
-        }
+      List<String> includedFiles = new ArrayList<>();
+      String line;
+      while ((line = reader.readLine()) != null) {
         if (packageName == null) {
           packageName = guessPackage(line);
         }
         if (className == null) {
           className = guessClass(line);
         }
+        String includedFile = guessIncluded(line);
+        if (includedFile != null) {
+          includedFiles.add(includedFile);
+        }
       }
 
       if (className == null) {
         className = DEFAULT_NAME;
       }
-      return new ClassInfo(className, packageName);
+      return new ClassInfo(className, packageName, includedFiles);
     }
   }
 
@@ -86,6 +96,15 @@ class LexSimpleAnalyzerUtils {
       }
     }
 
+    return null;
+  }
+
+  @Nullable
+  private static String guessIncluded(String line) {
+    Matcher matcher = INCLUDE_DIRECTIVE_MATCHER.matcher(line);
+    if (matcher.find()) {
+      return matcher.group(INCLUDE_DIRECTIVE_ARG_OFFSET).trim();
+    }
     return null;
   }
 

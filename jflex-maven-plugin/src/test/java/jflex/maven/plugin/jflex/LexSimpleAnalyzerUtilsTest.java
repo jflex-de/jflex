@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
 import org.junit.Test;
 
 /** Test for {@link LexSimpleAnalyzerUtils}. */
@@ -79,6 +80,20 @@ public class LexSimpleAnalyzerUtilsTest {
             + "}\n"
             + "\n";
     assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", null));
+  }
+
+  @Test
+  public void guessPackageAndClass_with_includedFiles() throws Exception {
+    String lex =
+        "\n"
+            + "package org.example;\n"
+            + "\n"
+            + "import java.io.File;\n"
+            + "\n"
+            + "\t%include  base.lexh\t \n";
+    ClassInfo classInfo = guessPackageAndClass(lex);
+    assertThat(classInfo).isEqualTo(new ClassInfo("Yylex", "org.example"));
+    assertThat(classInfo.includedFiles).containsExactlyElementsIn(Arrays.asList("base.lexh"));
   }
 
   private ClassInfo guessPackageAndClass(String lex) throws IOException {
