@@ -10,10 +10,10 @@ package jflex.maven.plugin.jflex;
 
 import com.google.common.base.Strings;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.annotation.Nullable;
 
 class ClassInfo {
@@ -23,16 +23,16 @@ class ClassInfo {
   /** dot-separated package name. Empty string for the default package. */
   final String packageName;
 
-  final ArrayList<String> includedFiles;
+  final Set<File> includedFiles;
 
   ClassInfo(String className, @Nullable String packageName) {
-    this(className, packageName, Collections.emptyList());
+    this(className, packageName, Collections.emptySet());
   }
 
-  ClassInfo(String className, @Nullable String packageName, List<String> includedFiles) {
+  ClassInfo(String className, @Nullable String packageName, Set<File> includedFiles) {
     this.className = className;
     this.packageName = Strings.nullToEmpty(packageName);
-    this.includedFiles = new ArrayList<>(includedFiles);
+    this.includedFiles = new HashSet<>(includedFiles);
   }
 
   /** Compares the className and packageName of instances, ignoring includedFiles. */

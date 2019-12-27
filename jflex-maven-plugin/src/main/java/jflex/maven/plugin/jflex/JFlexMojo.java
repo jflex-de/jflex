@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.option.Options;
@@ -202,8 +203,7 @@ public class JFlexMojo extends AbstractMojo {
     // generate only if needs to
     long generatedLastModified = generatedFile.lastModified();
     if (lexFile.lastModified() - generatedLastModified <= this.staleMillis
-        && latestModified(classInfo.includedFiles, lexFile.getParentFile()) - generatedLastModified
-            <= this.staleMillis) {
+        && latestModified(classInfo.includedFiles) - generatedLastModified <= this.staleMillis) {
       getLog().info("  " + generatedFile.getName() + " is up to date.");
       getLog().debug("StaleMillis = " + staleMillis + "ms");
       return;
@@ -297,14 +297,10 @@ public class JFlexMojo extends AbstractMojo {
    * @return the latest value -- or 0 if the list is empty, if no files exist, or if I/O exceptions
    *     prevent getting any values
    */
-  private static long latestModified(ArrayList<String> includedFiles, File parent) {
+  private static long latestModified(Set<File> includedFiles) {
     long result = 0;
-    for (String fileName : includedFiles) {
-      File file = new File(parent, fileName);
-      long modifiedTime = file.lastModified();
-      if (modifiedTime > result) {
-        result = modifiedTime;
-      }
+    for (File file : includedFiles) {
+      result = Math.max(file.lastModified(), result);
     }
     return result;
   }
