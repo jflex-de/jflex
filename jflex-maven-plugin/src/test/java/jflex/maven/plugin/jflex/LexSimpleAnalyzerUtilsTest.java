@@ -5,12 +5,11 @@ import static com.google.common.truth.Truth.assertThat;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Set;
 import org.junit.Test;
 
 /** Test for {@link LexSimpleAnalyzerUtils}. */
 public class LexSimpleAnalyzerUtilsTest {
-
-  private static final File dot = new File(".");
 
   @Test
   public void guessPackageAndClass_givenClass_defaultPackage() throws Exception {
@@ -85,20 +84,32 @@ public class LexSimpleAnalyzerUtilsTest {
   }
 
   @Test
-  public void guessPackageAndClass_with_includedFiles() throws Exception {
+  public void parseIncludedFiles() throws Exception {
     String lex =
         "\n"
             + "package org.example;\n"
             + "\n"
             + "import java.io.File;\n"
             + "\n"
-            + "\t%include  base.lexh\t \n";
-    ClassInfo classInfo = guessPackageAndClass(lex);
-    assertThat(classInfo).isEqualTo(new ClassInfo("Yylex", "org.example"));
-    assertThat(classInfo.includedFiles).containsExactly(new File(dot, "base.lexh"));
+            + "\t%include  base.lexh\t \n"
+            + "\n"
+            + "%%\n"
+            + "\n"
+            + "  %include  two.lexh \n"
+            + "\n"
+            + "%%\n"
+            + "\n"
+            + "%include three.lexh\t \n"
+            + " %include three.lexh\n";
+    assertThat(parseIncludes(lex)).containsExactly("base.lexh", "two.lexh", "three.lexh");
+  }
+
+  private Set<String> parseIncludes(String lex) throws IOException {
+    return LexSimpleAnalyzerUtils.parseIncludes(new StringReader(lex));
   }
 
   private ClassInfo guessPackageAndClass(String lex) throws IOException {
-    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex), dot);
+    // dummy file should throw IOException in %include parsing and be ignored
+    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex), new File(""));
   }
 }

@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 /**
@@ -45,14 +46,13 @@ class LexSimpleAnalyzerUtils {
    */
   static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
     Reader lexFileReader = Files.newReader(lexFile, StandardCharsets.UTF_8);
-    return guessPackageAndClass(lexFileReader, lexFile.getParentFile());
+    return guessPackageAndClass(lexFileReader, lexFile);
   }
 
-  static ClassInfo guessPackageAndClass(Reader lexFileReader, File parent) throws IOException {
+  static ClassInfo guessPackageAndClass(Reader lexFileReader, File lexFile) throws IOException {
     try (LineNumberReader reader = new LineNumberReader(lexFileReader)) {
       String className = null;
       String packageName = null;
-      Set<File> includedFiles = new HashSet<>();
       String line;
       while ((line = reader.readLine()) != null) {
         if (packageName == null) {
@@ -61,17 +61,84 @@ class LexSimpleAnalyzerUtils {
         if (className == null) {
           className = guessClass(line);
         }
-        String includedFile = guessIncluded(line);
-        if (includedFile != null) {
-          includedFiles.add(new File(parent, includedFile));
-        }
       }
 
       if (className == null) {
         className = DEFAULT_NAME;
       }
-      return new ClassInfo(className, packageName, includedFiles);
+
+      return new ClassInfo(className, packageName, guessIncludes(lexFile));
     }
+  }
+
+  /**
+   * Processes a file for {@code %include} directives.
+   *
+   * @param file the lex file to process.
+   * @return the set of files (recursively) mentioned in {@code %include}s.
+   */
+  private static Set<File> guessIncludes(File file) {
+    return nestedIncludes(new HashSet<>(), file);
+  }
+
+  /**
+   * Recursively processes a file for {@code %include} directives.
+   *
+   * @param file the file to process; itself assumed to be an {@code %include} or lex file. Path
+   *     names in the file are relative to the file location.
+   * @param seen the set of files seen so far, to avoid following cycles.
+   * @return the set of files (recursively) mentioned in {@code %include}s.
+   */
+  private static Set<File> nestedIncludes(Set<File> seen, File file) {
+    Set<File> includedFiles = new HashSet<>();
+    Set<File> newSeen = new HashSet<>(seen);
+    try {
+      Reader reader = Files.newReader(file, StandardCharsets.UTF_8);
+      Set<File> newFiles = mapFiles(parseIncludes(reader), file.getParentFile());
+      newFiles.removeAll(seen);
+      newSeen.addAll(newFiles);
+      includedFiles.addAll(newFiles);
+      Set<File> nested =
+          newFiles.stream()
+              .flatMap(f -> nestedIncludes(newSeen, f).stream())
+              .collect(Collectors.toSet());
+      includedFiles.addAll(nested);
+    } catch (IOException e) {
+      // silently ignore IO exceptions in include file processing
+    }
+    return includedFiles;
+  }
+
+  /**
+   * Resolves path names relative to parent.
+   *
+   * @param set a set of relative path names
+   * @param parent the parent file of these path names
+   * @return the set of files relative to {@code parent}
+   */
+  static Set<File> mapFiles(Set<String> set, File parent) {
+    return set.stream().map(s -> new File(parent, s)).collect(Collectors.toSet());
+  }
+
+  /**
+   * Parses input for {@code %include} directives.
+   *
+   * @param fileReader the input
+   * @return the set of path names mentioned after {@code %include} directives in the input.
+   */
+  static Set<String> parseIncludes(Reader fileReader) throws IOException {
+    Set<String> includedFiles = new HashSet<>();
+    try (LineNumberReader reader = new LineNumberReader(fileReader)) {
+      String line = reader.readLine();
+      while (line != null) {
+        String includedFile = guessIncluded(line);
+        if (includedFile != null) {
+          includedFiles.add(includedFile);
+        }
+        line = reader.readLine();
+      }
+    }
+    return includedFiles;
   }
 
   @Nullable
