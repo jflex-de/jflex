@@ -2,13 +2,15 @@ package jflex.maven.plugin.jflex;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.Arrays;
 import org.junit.Test;
 
 /** Test for {@link LexSimpleAnalyzerUtils}. */
 public class LexSimpleAnalyzerUtilsTest {
+
+  private static final File dot = new File(".");
 
   @Test
   public void guessPackageAndClass_givenClass_defaultPackage() throws Exception {
@@ -93,10 +95,10 @@ public class LexSimpleAnalyzerUtilsTest {
             + "\t%include  base.lexh\t \n";
     ClassInfo classInfo = guessPackageAndClass(lex);
     assertThat(classInfo).isEqualTo(new ClassInfo("Yylex", "org.example"));
-    assertThat(classInfo.includedFiles).containsExactlyElementsIn(Arrays.asList("base.lexh"));
+    assertThat(classInfo.includedFiles).containsExactly(new File(dot, "base.lexh"));
   }
 
   private ClassInfo guessPackageAndClass(String lex) throws IOException {
-    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex));
+    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex), dot);
   }
 }

@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.Nullable;
@@ -45,14 +45,14 @@ class LexSimpleAnalyzerUtils {
    */
   static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
     Reader lexFileReader = Files.newReader(lexFile, StandardCharsets.UTF_8);
-    return guessPackageAndClass(lexFileReader);
+    return guessPackageAndClass(lexFileReader, lexFile.getParentFile());
   }
 
-  static ClassInfo guessPackageAndClass(Reader lexFileReader) throws IOException {
+  static ClassInfo guessPackageAndClass(Reader lexFileReader, File parent) throws IOException {
     try (LineNumberReader reader = new LineNumberReader(lexFileReader)) {
       String className = null;
       String packageName = null;
-      List<String> includedFiles = new ArrayList<>();
+      Set<File> includedFiles = new HashSet<>();
       String line;
       while ((line = reader.readLine()) != null) {
         if (packageName == null) {
@@ -63,7 +63,7 @@ class LexSimpleAnalyzerUtils {
         }
         String includedFile = guessIncluded(line);
         if (includedFile != null) {
-          includedFiles.add(includedFile);
+          includedFiles.add(new File(parent, includedFile));
         }
       }
 
