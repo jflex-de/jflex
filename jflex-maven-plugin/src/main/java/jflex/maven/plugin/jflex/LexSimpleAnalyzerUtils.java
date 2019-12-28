@@ -63,8 +63,11 @@ class LexSimpleAnalyzerUtils {
     try (LineNumberReader reader = new LineNumberReader(lexFileReader)) {
       String className = null;
       String packageName = null;
-      String line;
-      while ((line = reader.readLine()) != null) {
+      while (className == null || packageName == null) {
+        String line = reader.readLine();
+        if (line == null) {
+          break;
+        }
         if (packageName == null) {
           packageName = guessPackage(line);
         }
@@ -76,7 +79,6 @@ class LexSimpleAnalyzerUtils {
       if (className == null) {
         className = DEFAULT_NAME;
       }
-
       return new SpecInfo(className, packageName, guessIncludes(lexFile));
     }
   }
