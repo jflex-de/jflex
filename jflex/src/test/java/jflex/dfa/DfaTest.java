@@ -1,4 +1,4 @@
-package jflex.core;
+package jflex.dfa;
 
 import static com.google.common.truth.Truth.assertThat;
 

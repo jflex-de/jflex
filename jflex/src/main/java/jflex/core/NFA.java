@@ -143,7 +143,7 @@ public final class NFA {
   }
 
   /** Returns the set of states that can be reached from currentState with an input nextChar. */
-  StateSet reachableStates(int currentState, int nextChar) {
+  public StateSet reachableStates(int currentState, int nextChar) {
     return table[currentState][nextChar];
   }
 
