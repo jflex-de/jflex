@@ -13,16 +13,16 @@ import static com.google.common.truth.Truth.assertThat;
 import java.io.File;
 import org.junit.Test;
 
-public class ClassInfoTest {
+public class SpecInfoTest {
   @Test
   public void testGetOutputFilename() {
-    ClassInfo clazz = new ClassInfo("Bar", "org.foo");
+    SpecInfo clazz = new SpecInfo("Bar", "org.foo");
     assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("org/foo/Bar.java"));
   }
 
   @Test
   public void testGetOutputFilename_defaultPackage() {
-    ClassInfo clazz = new ClassInfo("Bar", null);
+    SpecInfo clazz = new SpecInfo("Bar", null);
     assertThat(new File(clazz.getOutputFilename())).isEqualTo(new File("Bar.java"));
   }
 }

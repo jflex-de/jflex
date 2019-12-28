@@ -193,17 +193,17 @@ public class JFlexMojo extends AbstractMojo {
     assert lexFile.isAbsolute() : lexFile;
 
     getLog().debug("Generating Java code from " + lexFile.getName());
-    ClassInfo classInfo = findClassInfo(lexFile);
+    SpecInfo specInfo = findSpecInfo(lexFile);
 
     checkParameters(lexFile);
 
     // set destination directory
-    File generatedFile = new File(outputDirectory, classInfo.getOutputFilename());
+    File generatedFile = new File(outputDirectory, specInfo.getOutputFilename());
 
     // generate only if needs to
     long generatedLastModified = generatedFile.lastModified();
     if (lexFile.lastModified() - generatedLastModified <= this.staleMillis
-        && latestModified(classInfo.includedFiles) - generatedLastModified <= this.staleMillis) {
+        && latestModified(specInfo.includedFiles) - generatedLastModified <= this.staleMillis) {
       getLog().info("  " + generatedFile.getName() + " is up to date.");
       getLog().debug("StaleMillis = " + staleMillis + "ms");
       return;
@@ -245,13 +245,13 @@ public class JFlexMojo extends AbstractMojo {
     }
   }
 
-  private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
+  private SpecInfo findSpecInfo(File lexFile) throws MojoFailureException {
     try {
-      return LexSimpleAnalyzerUtils.guessPackageAndClass(lexFile);
+      return LexSimpleAnalyzerUtils.guessSpecInfo(lexFile);
     } catch (FileNotFoundException e) {
       throw new MojoFailureException(e.getMessage(), e);
     } catch (IOException e) {
-      return new ClassInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
+      return new SpecInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 

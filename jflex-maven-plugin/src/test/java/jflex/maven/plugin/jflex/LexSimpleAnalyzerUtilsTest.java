@@ -26,7 +26,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "%%\n"
             + "\n"
             + "[^]  { /* no action */ }\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Foo", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
   }
 
   @Test
@@ -41,7 +41,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "\n"
             + "^\"hello\"$  { System.out.println(\"hello\"); }\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", null));
   }
 
   @Test
@@ -57,7 +57,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "%final\n"
             + "%public\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", "org.example"));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", "org.example"));
   }
 
   /**
@@ -80,7 +80,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "  \"private\"                      { return symbol(PRIVATE); }"
             + "}\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", null));
   }
 
   @Test
@@ -108,8 +108,8 @@ public class LexSimpleAnalyzerUtilsTest {
     return LexSimpleAnalyzerUtils.parseIncludes(new StringReader(lex));
   }
 
-  private ClassInfo guessPackageAndClass(String lex) throws IOException {
+  private SpecInfo guessPackageAndClass(String lex) throws IOException {
     // dummy file should throw IOException in %include parsing and be ignored
-    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex), new File(""));
+    return LexSimpleAnalyzerUtils.guessSpecInfo(new StringReader(lex), new File(""));
   }
 }

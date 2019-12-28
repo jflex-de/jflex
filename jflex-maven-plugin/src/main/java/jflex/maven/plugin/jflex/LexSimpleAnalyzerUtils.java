@@ -37,19 +37,29 @@ class LexSimpleAnalyzerUtils {
   private static final int INCLUDE_DIRECTIVE_ARG_OFFSET = 1;
 
   /**
-   * Guesses the package and class name, based on this grammar definition. Does not override the
-   * Mojo configuration if it exist.
+   * Guesses package and class name, and {@code %include} files, based on this grammar definition.
    *
-   * @return The name of the java code to generate.
+   * @param lexFile the lex spec to process
+   * @return collected info about this lex spec.
    * @throws FileNotFoundException if the lex file does not exist
    * @throws IOException when an IO exception occurred while reading a file.
    */
-  static ClassInfo guessPackageAndClass(File lexFile) throws IOException {
+  static SpecInfo guessSpecInfo(File lexFile) throws IOException {
     Reader lexFileReader = Files.newReader(lexFile, StandardCharsets.UTF_8);
-    return guessPackageAndClass(lexFileReader, lexFile);
+    return guessSpecInfo(lexFileReader, lexFile);
   }
 
-  static ClassInfo guessPackageAndClass(Reader lexFileReader, File lexFile) throws IOException {
+  /**
+   * Guesses package and class name, and {@code %include} files, based on this grammar definition.
+   *
+   * @param lexFileReader reader for lex spec to process
+   * @param lexFile the lex spec to process, used for relative path name resolution of {@code
+   *     %incude}s.
+   * @return collected info about this lex spec.
+   * @throws IOException when an IO exception occurred while processing the reader. Ignores IO
+   *     errors for {@code %incude} files.
+   */
+  static SpecInfo guessSpecInfo(Reader lexFileReader, File lexFile) throws IOException {
     try (LineNumberReader reader = new LineNumberReader(lexFileReader)) {
       String className = null;
       String packageName = null;
@@ -67,7 +77,7 @@ class LexSimpleAnalyzerUtils {
         className = DEFAULT_NAME;
       }
 
-      return new ClassInfo(className, packageName, guessIncludes(lexFile));
+      return new SpecInfo(className, packageName, guessIncludes(lexFile));
     }
   }
 
