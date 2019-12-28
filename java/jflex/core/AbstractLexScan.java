@@ -202,8 +202,12 @@ public abstract class AbstractLexScan implements ILexScan {
     return files.pop();
   }
 
-  public String userCode() {
-    return userCode.toString();
+  public Iterable<Action> actions() {
+    return actions;
+  }
+
+  public File file() {
+    return file;
   }
 
   public String classCode() {
@@ -237,6 +241,10 @@ public abstract class AbstractLexScan implements ILexScan {
   public String scanErrorException() {
     return scanErrorException;
   };
+
+  public String userCode() {
+    return userCode.toString();
+  }
 
   public String cupSymbol() {
     return cupSymbol;

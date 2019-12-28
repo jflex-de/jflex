@@ -72,7 +72,7 @@ public class EOFActions {
     }
   }
 
-  boolean isEOFAction(Object a) {
+  public boolean isEOFAction(Object a) {
     if (a == defaultAction) return true;
 
     for (Action action : actions.values()) if (a == action) return true;
