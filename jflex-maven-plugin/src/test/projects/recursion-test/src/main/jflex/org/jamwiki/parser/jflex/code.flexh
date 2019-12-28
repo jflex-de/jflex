@@ -1,0 +1,19 @@
+/* code included in the constructor */
+%init{
+    allowHTML = Environment.getBooleanValue(Environment.PROP_PARSER_ALLOW_HTML);
+    yybegin(NORMAL);
+    states.add(Integer.valueOf(yystate()));
+%init}
+
+/* code called after parsing is completed */
+%eofval{
+    StringBuffer output = new StringBuffer();
+    if (StringUtils.hasText(this.templateString)) {
+        // FIXME - this leaves unparsed text
+        output.append(this.templateString);
+        this.templateString = "";
+    }
+    return (output.length() == 0) ? null : output.toString();
+%eofval}
+
+%include include/nested.flexh
