@@ -1,0 +1,167 @@
+/* ----- nowiki ----- */
+
+<WIKIPRE, PRE, NORMAL>{nowiki} {
+    logger.finer("nowiki: " + yytext() + " (" + yystate() + ")");
+    WikiNowikiTag parserTag = new WikiNowikiTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+/* ----- pre ----- */
+
+<NORMAL>{htmlprestart} {
+    logger.finer("htmlprestart: " + yytext() + " (" + yystate() + ")");
+    if (allowHTML) {
+        beginState(PRE);
+    }
+    HtmlPreTag parserTag = new HtmlPreTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+<PRE>{htmlpreend} {
+    logger.finer("htmlpreend: " + yytext() + " (" + yystate() + ")");
+    // state only changes to pre if allowHTML is true, so no need to check here
+    endState();
+    HtmlPreTag parserTag = new HtmlPreTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+<NORMAL, WIKIPRE>^{wikiprestart} {
+    logger.finer("wikiprestart: " + yytext() + " (" + yystate() + ")");
+    // rollback the one non-pre character so it can be processed
+    yypushback(yytext().length() - 1);
+    if (yystate() != WIKIPRE) {
+        beginState(WIKIPRE);
+    }
+    return yytext();
+}
+
+<WIKIPRE>^{wikipreend} {
+    logger.finer("wikipreend: " + yytext() + " (" + yystate() + ")");
+    endState();
+    // rollback the one non-pre character so it can be processed
+    yypushback(1);
+    return yytext();
+}
+
+/* ----- templates ----- */
+
+<NORMAL, TEMPLATE>{templatestart} {
+    logger.finer("templatestart: " + yytext() + " (" + yystate() + ")");
+    String raw = yytext();
+    if (!Environment.getBooleanValue(Environment.PROP_PARSER_ALLOW_TEMPLATES)) {
+        return yytext();
+    }
+    this.templateString += raw;
+    this.templateCharCount += 2;
+    if (yystate() != TEMPLATE) {
+        beginState(TEMPLATE);
+    }
+    return "";
+}
+
+<TEMPLATE>{templateendchar} {
+    logger.finer("templateendchar: " + yytext() + " (" + yystate() + ")");
+    String raw = yytext();
+    this.templateString += raw;
+    this.templateCharCount -= raw.length();
+    if (this.templateCharCount == 0) {
+        endState();
+        String value = new String(this.templateString);
+        this.templateString = "";
+        TemplateTag parserTag = new TemplateTag();
+        return this.parseToken(value, parserTag);
+    }
+    return "";
+}
+
+<TEMPLATE>{templatestartchar} {
+    logger.finer("templatestartchar: " + yytext() + " (" + yystate() + ")");
+    String raw = yytext();
+    this.templateString += raw;
+    this.templateCharCount += raw.length();
+    if (this.templateString.equals("{{{")) {
+        // param, not a template
+        this.templateCharCount = 0;
+        endState();
+        String value = new String(this.templateString);
+        this.templateString = "";
+        return value;
+    }
+    return "";
+}
+
+<NORMAL>{templateparam} {
+    logger.finer("templateparam: " + yytext() + " (" + yystate() + ")");
+    String raw = yytext();
+    return raw;
+}
+
+<TEMPLATE>{whitespace} {
+    // no need to log this
+    String raw = yytext();
+    this.templateString += raw;
+    return "";
+}
+
+<TEMPLATE>. {
+    // no need to log this
+    String raw = yytext();
+    this.templateString += raw;
+    return "";
+}
+
+<NORMAL, TEMPLATE>{includeonly} {
+    logger.finer("includeonly: " + yytext() + " (" + yystate() + ")");
+    IncludeOnlyTag parserTag = new IncludeOnlyTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+<NORMAL, TEMPLATE>{noinclude} {
+    logger.finer("noinclude: " + yytext() + " (" + yystate() + ")");
+    NoIncludeTag parserTag = new NoIncludeTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+/* ----- wiki links ----- */
+
+<NORMAL>{imagelinkcaption} {
+    logger.finer("imagelinkcaption: " + yytext() + " (" + yystate() + ")");
+    WikiLinkTag parserTag = new WikiLinkTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+<NORMAL>{wikilink} {
+    logger.finer("wikilink: " + yytext() + " (" + yystate() + ")");
+    WikiLinkTag parserTag = new WikiLinkTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+/* ----- signatures ----- */
+
+<NORMAL>{wikisignature} {
+    logger.finer("wikisignature: " + yytext() + " (" + yystate() + ")");
+    WikiSignatureTag parserTag = new WikiSignatureTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+/* ----- comments ----- */
+
+<NORMAL>{htmlcomment} {
+    logger.finer("htmlcomment: " + yytext() + " (" + yystate() + ")");
+    HtmlCommentTag parserTag = new HtmlCommentTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+/* ----- other ----- */
+
+<WIKIPRE, PRE, NORMAL>{whitespace} {
+    // no need to log this
+    CharacterTag parserTag = new CharacterTag();
+    return this.parseToken(yytext(), parserTag);
+}
+
+<WIKIPRE, PRE, NORMAL>. {
+    // no need to log this
+    CharacterTag parserTag = new CharacterTag();
+    return this.parseToken(yytext(), parserTag);
+}
