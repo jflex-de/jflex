@@ -72,7 +72,7 @@ public class DFA {
   private Action[] action;
 
   /** all actions that are used in this DFA */
-  private Map<Action, Action> usedActions = new HashMap<>();
+  private final Map<Action, Action> usedActions = new HashMap<>();
 
   /** True iff this DFA contains general lookahead */
   private boolean lookaheadUsed;

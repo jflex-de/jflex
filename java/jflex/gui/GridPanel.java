@@ -20,16 +20,15 @@ import java.util.Vector;
  */
 public class GridPanel extends Panel implements Handles {
 
-  /** */
   private static final long serialVersionUID = -2846472856883709721L;
 
-  private int cols;
-  private int rows;
+  private final int cols;
+  private final int rows;
 
-  private int hgap;
-  private int vgap;
+  private final int hgap;
+  private final int vgap;
 
-  private Vector<GridPanelConstraint> constraints = new Vector<>();
+  private final Vector<GridPanelConstraint> constraints = new Vector<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
   /** {@inheritDoc} */
