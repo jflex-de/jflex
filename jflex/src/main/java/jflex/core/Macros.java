@@ -32,10 +32,10 @@ import jflex.logging.Out;
 public final class Macros {
 
   /** Maps names of macros to their definition */
-  private Map<String, RegExp> macros;
+  private final Map<String, RegExp> macros;
 
   /** Maps names of macros to their "used" flag */
-  private Map<String, Boolean> used;
+  private final Map<String, Boolean> used;
 
   /** Creates a new macro expander. */
   public Macros() {

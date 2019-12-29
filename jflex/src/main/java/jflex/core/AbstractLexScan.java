@@ -21,7 +21,9 @@ public abstract class AbstractLexScan implements ILexScan {
   int bufferSize = 16384;
 
   File file;
-  private Stack<File> files = new Stack<>();
+
+  @SuppressWarnings("JdkObsolete")
+  private final Stack<File> files = new Stack<>();
 
   StringBuilder userCode = new StringBuilder();
 
@@ -72,7 +74,7 @@ public abstract class AbstractLexScan implements ILexScan {
 
   // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
   // since the max char code won't be known until then.
-  private CharClasses charClasses = new CharClasses();
+  private final CharClasses charClasses = new CharClasses();
 
   @Override
   public UnicodeProperties getUnicodeProperties() {
