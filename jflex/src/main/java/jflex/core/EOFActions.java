@@ -22,7 +22,7 @@ import java.util.Map;
 public class EOFActions {
 
   /** maps lexical states to actions */
-  private Map<Integer, Action> actions = new HashMap<>();
+  private final Map<Integer, Action> actions = new HashMap<>();
 
   private Action defaultAction;
   private int numLexStates;

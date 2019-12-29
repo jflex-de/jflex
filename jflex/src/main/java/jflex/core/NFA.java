@@ -9,9 +9,11 @@
 package jflex.core;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +66,7 @@ public final class NFA {
   private int numStates;
 
   /** the current maximum number of input characters */
-  private int numInput;
+  private final int numInput;
 
   /**
    * the number of lexical States. Lexical states have the indices 0..numLexStates-1 in the
@@ -73,7 +75,7 @@ public final class NFA {
   private int numLexStates;
 
   /** estimated size of the NFA (before actual construction) */
-  private int estSize;
+  private final int estSize;
 
   private CharClasses classes;
 
@@ -81,8 +83,8 @@ public final class NFA {
   private RegExps regExps;
 
   // will be reused by several methods (avoids excessive object creation)
-  private StateSetEnumerator states = new StateSetEnumerator();
-  private StateSet tempStateSet = new StateSet();
+  private final StateSetEnumerator states = new StateSetEnumerator();
+  private final StateSet tempStateSet = new StateSet();
 
   /** Constructor for NFA. */
   public NFA(int numInput, int estSize) {
@@ -470,7 +472,9 @@ public final class NFA {
 
   public void writeDot(File file) {
     try {
-      PrintWriter writer = new PrintWriter(new FileWriter(file));
+      PrintWriter writer =
+          new PrintWriter(
+              new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
       writer.println(dotFormat());
       writer.close();
     } catch (IOException e) {
