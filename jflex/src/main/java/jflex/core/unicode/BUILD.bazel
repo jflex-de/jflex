@@ -3,6 +3,7 @@ java_library(
     srcs = glob(["data/*.java"]) + [
         "CharClasses.java",
         "CharClassInterval.java",
+        "CMapBlock.java",
         "IntCharSet.java",
         "IntCharSetComparator.java",
         "ILexScan.java",

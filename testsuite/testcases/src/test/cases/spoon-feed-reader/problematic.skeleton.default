@@ -145,7 +145,7 @@
     return true;
   }
 
-    
+
   /**
    * Closes the input stream.
    */
@@ -215,7 +215,7 @@
 
   /**
    * Returns the character at the given position from the matched text.
-   * 
+   *
    * <p>It is equivalent to {@code yytext().charAt(pos)}, but faster.
    *
    * @param position the position of the character to fetch. A value from 0 to {@code yylength()-1}.
@@ -258,7 +258,7 @@
     }
 
 --- throws clause
-  } 
+  }
 
 
   /**
@@ -296,7 +296,6 @@
     int zzMarkedPosL;
     int zzEndReadL = zzEndRead;
     char[] zzBufferL = zzBuffer;
-    char[] zzCMapL = ZZ_CMAP;
 
 --- local declarations
 
@@ -307,12 +306,12 @@
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
-  
+
 --- start admin (lexstate etc)
 
       zzForAction: {
         while (true) {
-    
+
 --- next input, line, col, char count, next transition, isFinal action
             zzAction = zzState;
             zzMarkedPosL = zzCurrentPosL;

@@ -16,12 +16,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
+import jflex.base.Pair;
 import jflex.core.AbstractLexScan;
 import jflex.core.Action;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
-import jflex.core.unicode.CharClassInterval;
+import jflex.core.unicode.CMapBlock;
 import jflex.core.unicode.CharClasses;
 import jflex.dfa.DFA;
 import jflex.exceptions.GeneratorException;
@@ -487,7 +488,7 @@ public final class Emitter {
     println("   *                  at the beginning of a line");
     println("   * l is of the form l = 2*k, k a non negative integer");
     println("   */");
-    println("  private static final int ZZ_LEXSTATE[] = { ");
+    println("  private static final int ZZ_LEXSTATE[] = {");
 
     int i, j = 0;
     print("    ");
@@ -512,7 +513,7 @@ public final class Emitter {
     int count = 0;
     int value = dfa.table(0, 0);
 
-    println("  /** ");
+    println("  /**");
     println("   * The transition table of the DFA");
     println("   */");
 
@@ -543,38 +544,12 @@ public final class Emitter {
     println(e.toString());
   }
 
-  private void emitCharMapInitFunction(int packedCharMapPairs) {
-
-    CharClasses cl = parser.getCharClasses();
-
-    if (cl.getMaxCharCode() < 256) return;
-
-    println("");
-    println("  /** ");
-    println("   * Unpacks the compressed character translation table.");
-    println("   *");
-    println("   * @param packed   the packed character translation table");
-    println("   * @return         the unpacked character translation table");
-    println("   */");
-    println("  private static char [] zzUnpackCMap(String packed) {");
-    println("    char [] map = new char[0x" + Integer.toHexString(cl.getMaxCharCode() + 1) + "];");
-    println("    int i = 0;  /* index in packed string  */");
-    println("    int j = 0;  /* index in unpacked array */");
-    println("    while (i < " + 2 * packedCharMapPairs + ") {");
-    println("      int  count = packed.charAt(i++);");
-    println("      char value = packed.charAt(i++);");
-    println("      do map[j++] = value; while (--count > 0);");
-    println("    }");
-    println("    return map;");
-    println("  }");
-  }
-
   private void emitCharMapArrayUnPacked() {
 
     CharClasses cl = parser.getCharClasses();
 
     println("");
-    println("  /** ");
+    println("  /**");
     println("   * Translates characters to character classes");
     println("   */");
     println("  private static final char [] ZZ_CMAP = {");
@@ -604,92 +579,55 @@ public final class Emitter {
   }
 
   /**
-   * Returns the number of elements in the packed char map array, or zero if the char map array will
-   * be not be packed.
-   *
-   * <p>This will be more than intervals.length if the count for any of the values is more than
-   * 0xFFFF, since the number of char map array entries per value is ceil(count / 0xFFFF)
+   * Performs an in-place update to map the colMap translation over the char classes in the
+   * second-level cmap table.
    */
-  private int emitCharMapArray() {
+  private void mapColMap(int[] blocks) {
+    for (int i = 0; i < blocks.length; i++) {
+      blocks[i] = colMap[blocks[i]];
+    }
+  }
+
+  /**
+   * Emits two-level character translation tables. The translation is from raw input codepoint to
+   * the column in the generated DFA table.
+   *
+   * <p>For maxCharCode < 256, a single-level unpacked array is used instead.
+   */
+  private void emitCharMapTables() {
     CharClasses cl = parser.getCharClasses();
 
     if (cl.getMaxCharCode() < 256) {
       emitCharMapArrayUnPacked();
-      return 0; // the char map array will not be packed
-    }
-
-    // ignores cl.getMaxCharCode(), emits all intervals instead
-
-    CharClassInterval[] intervals = cl.getIntervals();
-
-    println("");
-    println("  /** ");
-    println("   * Translates characters to character classes");
-    println("   */");
-    println("  private static final String ZZ_CMAP_PACKED = ");
-
-    int n = 0; // numbers of entries in current line
-    print("    \"");
-
-    int i = 0, numPairs = 0;
-    int count, value;
-    while (i < intervals.length) {
-      count = intervals[i].end - intervals[i].start + 1;
-      value = colMap[intervals[i].charClass];
-
-      // count could be >= 0x10000
-      while (count > 0xFFFF) {
-        printUC(0xFFFF);
-        printUC(value);
-        count -= 0xFFFF;
-        numPairs++;
-        n++;
-      }
-      numPairs++;
-      printUC(count);
-      printUC(value);
-
-      if (i < intervals.length - 1) {
-        if (++n >= 10) {
-          println("\"+");
-          print("    \"");
-          n = 0;
-        }
-      }
-
-      i++;
-    }
-
-    println("\";");
-    println();
-
-    println("  /** ");
-    println("   * Translates characters to character classes");
-    println("   */");
-    println("  private static final char [] ZZ_CMAP = zzUnpackCMap(ZZ_CMAP_PACKED);");
-    println();
-    return numPairs;
-  }
-
-  /**
-   * Print number as octal/unicode escaped string character.
-   *
-   * @param c the value to print
-   */
-  private void printUC(int c) {
-    if (c > 255) {
-      out.print("\\u");
-      if (c < 0x1000) out.print("0");
-      out.print(Integer.toHexString(c));
     } else {
-      out.print("\\");
-      out.print(Integer.toOctalString(c));
+      Pair<int[], int[]> tables = cl.getTables();
+      mapColMap(tables.snd);
+
+      println("");
+      println("  /**");
+      println("   * Top-level table for translating characters to character classes");
+      println("   */");
+      CountEmitter e = new CountEmitter("cmap_top");
+      e.emitInit();
+      e.emitCountValueString(tables.fst);
+      e.emitUnpack();
+      println(e.toString());
+
+      println("");
+      println("  /**");
+      println("   * Second-level tables for translating characters to character classes");
+      println("   */");
+      e = new CountEmitter("cmap_blocks");
+      e.emitInit();
+      e.emitCountValueString(tables.snd);
+      e.emitUnpack();
+      println(e.toString());
     }
   }
 
   private void emitRowMapArray() {
     println("");
-    println("  /** ");
+    println("  /**");
     println("   * Translates a state to a row index in the transition table");
     println("   */");
 
@@ -703,6 +641,7 @@ public final class Emitter {
   }
 
   private void emitAttributes() {
+    // TODO(lsf): refactor to use CountEmitter.emitCountValueString
     println("  /**");
     println("   * ZZ_ATTRIBUTE[aState] contains the attributes of state {@code aState}");
     println("   */");
@@ -939,9 +878,9 @@ public final class Emitter {
         println("          zzEndReadL = zzEndRead;");
         println("          zzMarkedPosL = zzMarkedPos;");
         println("          zzBufferL = zzBuffer;");
-        println("          if (eof) ");
+        println("          if (eof)");
         println("            zzPeek = false;");
-        println("          else ");
+        println("          else");
         println("            zzPeek = zzBufferL[zzMarkedPosL] == '\\n';");
         println("        }");
         println("        if (zzPeek) yyline--;");
@@ -1008,8 +947,26 @@ public final class Emitter {
     skel.emitNext();
   }
 
+  private void emitCMapAccess() {
+    println("  /**");
+    println("   * Translates raw input code points to DFA table row");
+    println("   */");
+    println("  private static int zzCMap(int input) {");
+    if (parser.getCharClasses().getMaxCharCode() <= 0xFF) {
+      println("    return ZZ_CMAP[input];");
+    } else {
+      println("    int offset = input & " + (CMapBlock.BLOCK_SIZE - 1) + ";");
+      println("    int top = input >> " + CMapBlock.BLOCK_BITS + ";");
+      println(
+          "    return ZZ_CMAP_BLOCKS[(ZZ_CMAP_TOP[top] << "
+              + CMapBlock.BLOCK_BITS
+              + ") | offset];");
+    }
+    println("  }");
+  }
+
   private void emitGetRowMapNext() {
-    println("          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMapL[zzInput] ];");
+    println("          int zzNext = zzTransL[ zzRowMapL[zzState] + zzCMap(zzInput) ];");
     println("          if (zzNext == " + DFA.NO_TARGET + ") break zzForAction;");
     println("          zzState = zzNext;");
     println();
@@ -1070,7 +1027,7 @@ public final class Emitter {
     int count = 0;
     int value = 0;
 
-    println("  /** ");
+    println("  /**");
     println("   * Translates DFA states to action switch labels.");
     println("   */");
     CountEmitter e = new CountEmitter("Action");
@@ -1114,7 +1071,7 @@ public final class Emitter {
       Action action = entry.getKey();
       int label = entry.getValue();
 
-      println("          case " + label + ": ");
+      println("          case " + label + ":");
 
       if (action.lookAhead() == Action.FIXED_BASE) {
         println("            // lookahead expression with fixed base length");
@@ -1146,7 +1103,7 @@ public final class Emitter {
         println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
         println("                zzInput = Character.codePointAt(zzBufferL, zzFPos, zzMarkedPos);");
         println("                zzFPos += Character.charCount(zzInput);");
-        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMap(zzInput) ];");
         println("              }");
         println("              if (zzFState != -1) {");
         println("                zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1);");
@@ -1161,7 +1118,7 @@ public final class Emitter {
         println(
             "                zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
         println("                zzFPos -= Character.charCount(zzInput);");
-        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMapL[zzInput] ];");
+        println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMap(zzInput) ];");
         println("              };");
         println("              zzMarkedPos = zzFPos;");
         println("            }");
@@ -1179,7 +1136,7 @@ public final class Emitter {
       }
 
       println("            { " + action.content);
-      println("            } ");
+      println("            }");
       println("            // fall through");
       println("          case " + (i++) + ": break;");
     }
@@ -1357,7 +1314,7 @@ public final class Emitter {
 
     emitLexicalStates();
 
-    int packedCharMapPairs = emitCharMapArray();
+    emitCharMapTables();
 
     emitActionTable();
 
@@ -1381,8 +1338,6 @@ public final class Emitter {
 
     emitConstructorDecl();
 
-    emitCharMapInitFunction(packedCharMapPairs);
-
     if (scanner.debugOption()) {
       println("");
       println("  private static String zzToPrintable(String str) {");
@@ -1402,6 +1357,8 @@ public final class Emitter {
       println("    return builder.toString();");
       println("  }");
     }
+
+    emitCMapAccess();
 
     skel.emitNext();
 
