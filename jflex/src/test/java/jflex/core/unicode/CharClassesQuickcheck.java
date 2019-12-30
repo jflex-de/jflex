@@ -14,7 +14,11 @@ import static org.junit.Assume.assumeTrue;
 
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
+import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import java.util.ArrayList;
+import java.util.List;
+import jflex.base.Pair;
 import jflex.chars.Interval;
 import org.junit.runner.RunWith;
 
@@ -134,6 +138,40 @@ public class CharClassesQuickcheck {
     IntCharSet classNew = classes.getCharClass(classes.getClassCode(c));
     IntCharSet classOld = preClasses.getCharClass(preClasses.getClassCode(c));
     assertThat(classNew).isEqualTo(classOld);
+  }
+
+  private static int translateBlocks(Pair<int[], List<CMapBlock>> table, int input) {
+    int top = table.fst[input >> CMapBlock.BLOCK_BITS];
+    int offset = input & (CMapBlock.BLOCK_SIZE - 1);
+    return table.snd.get(top).block[offset];
+  }
+
+  @Property(trials = 20)
+  public void computeTablesEq(
+      CharClasses classes,
+      @Size(min = 100, max = 100)
+          ArrayList<@InRange(minInt = 0, maxInt = CharClasses.maxChar) Integer> inputs) {
+    Pair<int[], List<CMapBlock>> table = classes.computeTables();
+    for (int input : inputs) {
+      assertThat(translateBlocks(table, input)).isEqualTo(classes.getClassCode(input));
+    }
+  }
+
+  private static int translateFlat(Pair<int[], int[]> table, int input) {
+    int top = table.fst[input >> CMapBlock.BLOCK_BITS];
+    int offset = input & (CMapBlock.BLOCK_SIZE - 1);
+    return table.snd[(top << CMapBlock.BLOCK_BITS) | offset];
+  }
+
+  @Property(trials = 20)
+  public void getTablesEq(
+      CharClasses classes,
+      @Size(min = 100, max = 100)
+          ArrayList<@InRange(minInt = 0, maxInt = CharClasses.maxChar) Integer> inputs) {
+    Pair<int[], int[]> table = classes.getTables();
+    for (int input : inputs) {
+      assertThat(translateFlat(table, input)).isEqualTo(classes.getClassCode(input));
+    }
   }
 
   @Property
