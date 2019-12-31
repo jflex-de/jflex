@@ -391,18 +391,25 @@ public class CharClasses {
    *     object.
    */
   Pair<int[], List<CMapBlock>> computeTables() {
+    CharClassInterval[] intervals = getIntervals();
+    int intervalIndex = 0;
+    int curClass = intervals[intervalIndex].charClass;
+    int codePoint = 0;
+
     int topLevelSize = (maxCharUsed + 1) >> CMapBlock.BLOCK_BITS;
     int[] topLevel = new int[topLevelSize];
     List<CMapBlock> blocks = new ArrayList<>();
 
     for (int topIndex = 0; topIndex < topLevelSize; topIndex++) {
       int[] block = new int[CMapBlock.BLOCK_SIZE];
-      for (int i = 0; i < CMapBlock.BLOCK_SIZE; i++) {
-        int codePoint = (topIndex << CMapBlock.BLOCK_BITS) | i;
-        // if maxCharUsed doesn't align to CMapBlock.BLOCK_BITS, we leave the rest of the highest
-        // block 0.
+      for (int i = 0; i < CMapBlock.BLOCK_SIZE; i++, codePoint++) {
+        // if maxCharUsed doesn't align to CMapBlock.BLOCK_BITS, we leave the
+        // rest of the highest block equal to 0.
         if (maxCharUsed < codePoint) break;
-        block[i] = getClassCode(codePoint);
+        if (!intervals[intervalIndex].contains(codePoint)) {
+          curClass = intervals[++intervalIndex].charClass;
+        }
+        block[i] = curClass;
       }
       // find earliest equal block (if any)
       CMapBlock b = new CMapBlock(block);
