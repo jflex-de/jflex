@@ -112,7 +112,7 @@ public class JFlexTaskTest {
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
+    assertThat(Skeleton.line[3].indexOf("java.util.Deque") > 0).isTrue();
   }
 
   @Test

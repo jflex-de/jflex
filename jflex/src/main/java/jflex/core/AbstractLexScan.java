@@ -2,10 +2,11 @@ package jflex.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 import java_cup.runtime.Symbol;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.ILexScan;
@@ -22,8 +23,7 @@ public abstract class AbstractLexScan implements ILexScan {
 
   File file;
 
-  @SuppressWarnings("JdkObsolete")
-  private final Stack<File> files = new Stack<>();
+  private final Deque<File> files = new ArrayDeque<>();
 
   StringBuilder userCode = new StringBuilder();
 
@@ -186,7 +186,7 @@ public abstract class AbstractLexScan implements ILexScan {
       throw new ScannerException(file, ErrorMessages.NOT_READABLE, lexLine());
     }
     // check for cycle
-    if (files.search(f) > 0) {
+    if (files.contains(f)) {
       throw new ScannerException(file, ErrorMessages.FILE_CYCLE, lexLine());
     }
     try {
