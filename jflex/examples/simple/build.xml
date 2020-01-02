@@ -1,7 +1,7 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="simple scanner" default="build">
 
   <!-- JFlex task -->
-  <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
+  <property name="jflex" value="../../lib/jflex-full-1.8.0-SNAPSHOT.jar"/>
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
   <!-- ivy installer -->
@@ -40,18 +40,19 @@
   </target>
 
   <target name="test" depends="build">
-    <junit>
+    <junit failureproperty="test.failed">
       <test name="YylexTest">
         <formatter type="plain" usefile="false"/>
       </test>
-      <classpath refid="ivy.lib.path"/>
+      <classpath refid="lib.path.id"/>
       <classpath refid="build-artifacts"/>
     </junit>
+    <fail message="Test failure." if="test.failed"/>
   </target>
 
   <target name="build" depends="scanner,init-ivy,retrieve">
     <ivy:cachepath pathid="lib.path.id"/>
-    <javac destdir="antbuild" classpathref="lib.path.id" encoding="UTF-8">
+    <javac destdir="antbuild" classpathref="lib.path.id" encoding="UTF-8" includeantruntime="false">
       <src path="src/main/java/"/>
       <src path="src/test/java"/>
       <src path="antbuild/"/>
