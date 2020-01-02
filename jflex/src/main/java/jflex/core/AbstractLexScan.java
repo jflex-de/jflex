@@ -1,7 +1,7 @@
 package jflex.core;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -194,7 +194,7 @@ public abstract class AbstractLexScan implements ILexScan {
       files.push(file);
       file = f;
       Out.println("Including \"" + file + "\"");
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       throw new ScannerException(file, ErrorMessages.NOT_READABLE, lexLine());
     }
   }
@@ -387,5 +387,5 @@ public abstract class AbstractLexScan implements ILexScan {
   protected abstract String lexText();
 
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
-  protected abstract void lexPushStream(File f) throws FileNotFoundException;
+  protected abstract void lexPushStream(File f) throws IOException;
 }

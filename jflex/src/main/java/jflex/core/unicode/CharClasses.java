@@ -28,7 +28,7 @@ public class CharClasses {
   /** debug flag (for char classes only) */
   private static final boolean DEBUG = false;
 
-  private Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
+  private static final Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
 
   /** the largest character that can be used in char classes */
   public static final int maxChar = 0x10FFFF;

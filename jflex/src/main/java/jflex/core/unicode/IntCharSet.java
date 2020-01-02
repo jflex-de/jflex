@@ -34,7 +34,7 @@ public final class IntCharSet implements Iterable<Integer> {
   private static final boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
-  private List<Interval> intervals = new ArrayList<>();
+  private final List<Interval> intervals = new ArrayList<>();
 
   /** Creates a charset that contains only one interval. */
   public static IntCharSet of(Interval interval) {
@@ -167,50 +167,48 @@ public final class IntCharSet implements Iterable<Integer> {
     for (int i = 0; i < size; i++) {
       Interval elem = intervals.get(i);
 
-      if (elem.end + 1 < interval.start) {
-        continue;
-      }
-
-      if (elem.contains(interval)) {
-        if (DEBUG) assert invariants();
-        return;
-      }
-
-      if (elem.start > interval.end + 1) {
-        intervals.add(i, Interval.copyOf(interval));
-        if (DEBUG) assert invariants();
-        return;
-      }
-
-      if (interval.start < elem.start) {
-        elem.start = interval.start;
-      }
-
-      if (interval.end <= elem.end) {
-        if (DEBUG) assert invariants();
-        return;
-      }
-
-      elem.end = interval.end;
-
-      i++;
-      // delete all x with x.contains( interval.end )
-      while (i < size) {
-        Interval x = intervals.get(i);
-        if (x.start > elem.end + 1) {
+      if (elem.end + 1 >= interval.start) {
+        if (elem.contains(interval)) {
           if (DEBUG) assert invariants();
           return;
         }
 
-        if (x.end > elem.end) {
-          elem.end = x.end;
+        if (elem.start > interval.end + 1) {
+          intervals.add(i, Interval.copyOf(interval));
+          if (DEBUG) assert invariants();
+          return;
         }
-        intervals.remove(i);
-        size--;
-      }
 
-      if (DEBUG) assert invariants();
-      return;
+        if (interval.start < elem.start) {
+          elem.start = interval.start;
+        }
+
+        if (interval.end <= elem.end) {
+          if (DEBUG) assert invariants();
+          return;
+        }
+
+        elem.end = interval.end;
+
+        i++;
+        // delete all x with x.contains( interval.end )
+        while (i < size) {
+          Interval x = intervals.get(i);
+          if (x.start > elem.end + 1) {
+            if (DEBUG) assert invariants();
+            return;
+          }
+
+          if (x.end > elem.end) {
+            elem.end = x.end;
+          }
+          intervals.remove(i);
+          size--;
+        }
+
+        if (DEBUG) assert invariants();
+        return;
+      }
     }
 
     intervals.add(Interval.copyOf(interval));
@@ -611,7 +609,7 @@ public final class IntCharSet implements Iterable<Integer> {
   /** Iterator for enumerating the elements of this IntCharSet */
   public class IntCharSetIterator implements PrimitiveIterator.OfInt {
     /** Iterator over the Interval list */
-    private Iterator<Interval> intervalsIterator;
+    private final Iterator<Interval> intervalsIterator;
     /** Iterator within the current Interval */
     private IntervalIterator current;
 

@@ -41,7 +41,7 @@ import jflex.logging.Out;
 public class Skeleton {
 
   /** location of default skeleton */
-  private static final String DEFAULT_LOC = "jflex/skeleton.default"; // $NON-NLS-1$
+  private static final String DEFAULT_LOC = "jflex/skeleton.default";
 
   /** expected number of sections in the skeleton file */
   private static final int size = 21;
@@ -59,7 +59,7 @@ public class Skeleton {
   private int pos;
 
   /** The writer to write the skeleton-parts to */
-  private PrintWriter out;
+  private final PrintWriter out;
 
   /**
    * Creates a new skeleton (iterator) instance.
@@ -82,7 +82,7 @@ public class Skeleton {
    */
   public static void makePrivate() {
     for (int i = 0; i < line.length; i++) {
-      line[i] = replace(" public ", " private ", line[i]); // $NON-NLS-1$ //$NON-NLS-2$
+      line[i] = replace(" public ", " private ", line[i]);
     }
   }
 
@@ -92,8 +92,7 @@ public class Skeleton {
    * @param skeletonFile the file to read (must be != null and readable)
    */
   public static void readSkelFile(File skeletonFile) {
-    if (skeletonFile == null)
-      throw new IllegalArgumentException("Skeleton file must not be null"); // $NON-NLS-1$
+    if (skeletonFile == null) throw new IllegalArgumentException("Skeleton file must not be null");
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
       Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
@@ -189,7 +188,8 @@ public class Skeleton {
       throw new GeneratorException();
     }
 
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+    try (BufferedReader reader =
+        new BufferedReader(new InputStreamReader(url.openStream(), UTF_8))) {
       readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
