@@ -541,6 +541,8 @@ rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
                 |  statesOPT:s EOFRULE ACTION:a
                    {: RESULT = regExps.insert(s, a); :}
+                |  statesOPT:s EOFRULE NOACTION
+                   {: RESULT = regExps.insert(s, null); :}
                 |  error
                 ;
 

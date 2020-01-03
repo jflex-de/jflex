@@ -25,15 +25,22 @@
  */
 package jflex.testcase.action_pipe;
 
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
+import static com.google.common.truth.Truth.assertThat;
+
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /** Test action piped with {@code <<EOF>>}. */
-@RunWith(JFlexTestRunner.class)
-@TestSpec(lex = "javatests/jflex/testcase/action_pipe/action-pipe-eof.flex")
 public class ActionPipeEofTest {
+  private final ScannerFactory<ActionPipeEof> scannerFactory = ScannerFactory.of(ActionPipeEof::new);
+
   @Test
-  public void ok() {}
+  public void tokenAtEOF() throws java.io.IOException {
+    ActionPipeEof scanner = scannerFactory.createScannerWithContent("ident\n\ntest");
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(0);
+    assertThat(scanner.yylex()).isEqualTo(0);
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(0);
+  }
 }

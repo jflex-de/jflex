@@ -1,11 +1,11 @@
-package jflex.testcase.action_pipe;
 
 %%
 
 %public
-%class EofPipeAction
+%class Actionpipe
 
 %int
+%standalone
 
 LineTerminator = \r|\n|\r\n
 
