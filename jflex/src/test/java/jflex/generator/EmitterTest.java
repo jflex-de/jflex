@@ -12,9 +12,11 @@ package jflex.generator;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import jflex.option.Options;
 import org.junit.Test;
 
 /**
@@ -74,5 +76,18 @@ public class EmitterTest {
     }
     usercode.append("\n").append(nonJavadocComment);
     assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
+  }
+
+  @Test
+  public void testSourceFileString() {
+    Options.resetRootDirectory();
+    String bad = "something/or_other\\filename\\nFILE_NAMES_MUST_BE_ESCAPED\\u000A.flex";
+    if (File.separatorChar == '\\') {
+      assertThat(Emitter.sourceFileString(new File(bad)))
+          .isEqualTo("something/or_other/filename/nFILE_NAMES_MUST_BE_ESCAPED/u000A.flex");
+    } else {
+      assertThat(Emitter.sourceFileString(new File(bad)))
+          .isEqualTo("something/or_other\\\\filename\\\\nFILE_NAMES_MUST_BE_ESCAPED\\\\u000A.flex");
+    }
   }
 }
