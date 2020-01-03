@@ -33,7 +33,7 @@
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="antbuild"/>
+    <cup srcfile="src/main/cup/parser.cup" locations="no" interface="yes" destdir="antbuild"/>
   </target>
 
   <target name="clean">
