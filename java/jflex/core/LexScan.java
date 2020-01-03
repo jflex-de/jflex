@@ -1817,7 +1817,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
-  
+
   /** the current text position in the buffer */
   private int zzCurrentPos;
 
@@ -1835,12 +1835,12 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
   private long yychar;
 
   /**
-   * the number of characters from the last newline up to the start of the 
+   * the number of characters from the last newline up to the start of the
    * matched text
    */
   private int yycolumn;
 
-  /** 
+  /**
    * zzAtBOL == true iff the scanner is currently at the beginning of a line
    */
   private boolean zzAtBOL = true;
@@ -1853,8 +1853,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
   /** denotes if the user-EOF-code has already been executed */
   private boolean zzEOFDone;
-  
-  /** 
+
+  /**
    * The number of occupied positions in zzBuffer beyond zzEndRead.
    * When a lead/high surrogate has been read from the input stream
    * into the final zzBuffer position, this will have a value of 1;
@@ -1887,7 +1887,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
-                  int zzCurrentPos, int zzMarkedPos, char [] zzBuffer, 
+                  int zzCurrentPos, int zzMarkedPos, char [] zzBuffer,
                   boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
                   int zzFinalHighSurrogate, int yyline, long yychar,
                   int yycolumn) {
@@ -1982,7 +1982,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    * Refills the input buffer.
    *
    * @return      <code>false</code>, iff there was new input.
-   * 
+   *
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
   private boolean zzRefill() throws java.io.IOException {
@@ -2077,11 +2077,11 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     zzReader = reader;
     yyResetPosition();
   }
-    
+
 
   /**
    * Closes the current input stream and continues to
-   * read from the one on top of the stream stack. 
+   * read from the one on top of the stream stack.
    *
    * @throws java.util.EmptyStackException
    *         if there is no further stream to read from.
@@ -2111,7 +2111,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
 
   /**
-   * Returns true iff there are still streams left 
+   * Returns true iff there are still streams left
    * to read from on the stream stack.
    */
   public final boolean yymoreStreams() {
@@ -2123,13 +2123,13 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    * Resets the scanner to read from a new input stream.
    * Does not close the old reader.
    *
-   * All internal variables are reset, the old input stream 
+   * All internal variables are reset, the old input stream
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
    * Lexical state is set to <tt>ZZ_INITIAL</tt>.
    *
    * Internal scan buffer is resized down to its initial length, if it has grown.
    *
-   * @param reader   the new input stream 
+   * @param reader   the new input stream
    *
    * @see #yypushStream(java.io.Reader)
    * @see #yypopStream()
@@ -2192,12 +2192,12 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
 
   /**
-   * Returns the character at position <tt>pos</tt> from the 
-   * matched text. 
-   * 
+   * Returns the character at position <tt>pos</tt> from the
+   * matched text.
+   *
    * It is equivalent to yytext().charAt(pos), but faster
    *
-   * @param pos the position of the character to fetch. 
+   * @param pos the position of the character to fetch.
    *            A value from 0 to yylength()-1.
    *
    * @return the character at position pos
@@ -2218,8 +2218,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
   /**
    * Reports an error that occured while scanning.
    *
-   * In a wellformed scanner (no or only correct usage of 
-   * yypushback(int) and a match-all fallback rule) this method 
+   * In a wellformed scanner (no or only correct usage of
+   * yypushback(int) and a match-all fallback rule) this method
    * will only be called with things that "Can't Possibly Happen".
    * If this method is called, something is seriously wrong
    * (e.g. a JFlex bug producing a faulty scanner etc.).
@@ -2239,7 +2239,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     }
 
     throw new Error(message);
-  } 
+  }
 
 
   /**
@@ -2382,7 +2382,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
-  
+
       if (zzAtBOL)
         zzState = ZZ_LEXSTATE[zzLexicalState+1];
       else
@@ -2397,7 +2397,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
       zzForAction: {
         while (true) {
-    
+
           if (zzCurrentPosL < zzEndReadL) {
             zzInput = Character.codePointAt(zzBufferL, zzCurrentPosL, zzEndReadL);
             zzCurrentPosL += Character.charCount(zzInput);

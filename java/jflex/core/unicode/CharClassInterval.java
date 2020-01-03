@@ -46,6 +46,11 @@ public class CharClassInterval {
     this.charClass = charClass;
   }
 
+  /** Determines wether the specified code point is in this interval. */
+  public boolean contains(int codePoint) {
+    return start <= codePoint && codePoint <= end;
+  }
+
   @Override
   public String toString() {
     return "[" + start + "-" + end + "=" + charClass + "]";
