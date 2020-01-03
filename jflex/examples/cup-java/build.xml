@@ -26,7 +26,7 @@
   </target>
 
   <target name="cup">
-    <cup srcfile="src/main/cup/java12.cup" interface="yes" destdir="antbuild"/>
+    <cup srcfile="src/main/cup/java12.cup" locations="no" interface="yes" destdir="antbuild"/>
   </target>
 
   <target name="scanner">

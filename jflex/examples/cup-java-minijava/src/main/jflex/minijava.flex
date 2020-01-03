@@ -57,9 +57,9 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 
 
 <YYINITIAL> {
-  /* identifiers */ 
+  /* identifiers */
   {Identifier}                   { return symbol(sym.IDENTIFIER); }
- 
+
   /* literals */
   {DecIntegerLiteral}            { return symbol(sym.INTEGER_LITERAL); }
   \"                             { string.setLength(0); yybegin(STRING); }
@@ -71,15 +71,15 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 
   /* comments */
   {Comment}                      { /* ignore */ }
- 
+
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }
 }
 
 
 <STRING> {
-  \"                             { yybegin(YYINITIAL); 
-                                   return symbol(sym.STRING_LITERAL, 
+  \"                             { yybegin(YYINITIAL);
+                                   return symbol(sym.STRING_LITERAL,
                                    string.toString()); }
   [^\n\r\"\\]+                   { string.append( yytext() ); }
   \\t                            { string.append('\t'); }
@@ -92,4 +92,4 @@ DecIntegerLiteral = 0 | [1-9][0-9]*
 
 
 /* error fallback */
-.|\n                             { throw new UnknownCharacterException(yytext()); }
+[^]                              { throw new UnknownCharacterException(yytext()); }
