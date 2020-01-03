@@ -56,8 +56,8 @@ public class SkeletonTest {
   }
 
   private void checkDefaultSkeleton() {
-    assertThat(Skeleton.line[3]).contains("java.util.Stack");
+    assertThat(Skeleton.line[3]).contains("java.util.Deque");
     Skeleton.readDefault();
-    assertThat(Skeleton.line[3]).doesNotContain("java.util.Stack");
+    assertThat(Skeleton.line[3]).doesNotContain("java.util.Deque");
   }
 }

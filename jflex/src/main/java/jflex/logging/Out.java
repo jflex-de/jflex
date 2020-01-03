@@ -12,9 +12,9 @@ package jflex.logging;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -385,7 +385,7 @@ public final class Out {
    * @throws IOException if any error occurs
    */
   private static String getLine(File file, int line) throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(file));
+    BufferedReader reader = Files.newBufferedReader(file.toPath(), Options.encoding);
 
     String msg = "";
 

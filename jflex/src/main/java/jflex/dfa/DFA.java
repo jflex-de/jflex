@@ -10,9 +10,11 @@
 package jflex.dfa;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -252,7 +254,9 @@ public class DFA {
    */
   public void writeDot(File file) {
     try {
-      PrintWriter writer = new PrintWriter(new FileWriter(file));
+      PrintWriter writer =
+          new PrintWriter(
+              new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
       writer.println(dotFormat());
       writer.close();
     } catch (IOException e) {
