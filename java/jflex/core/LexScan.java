@@ -2044,7 +2044,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
   }
 
   /**
-   * Closes the input stream.
+   * Closes the input reader.
+   *
+   * @throws java.io.IOException if the reader could not be closed.
    */
   public final void yyclose() throws java.io.IOException {
     zzAtEOF = true;           // indicate end of file
@@ -2144,6 +2146,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
     }
   }
 
+  /**
+   * Resets the input position.
+   */
   private final void yyResetPosition() {
       zzAtBOL  = true;
       zzAtEOF  = false;
@@ -2159,6 +2164,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
   /**
    * Returns whether the scanner has reached the end of the reader it reads from.
+   *
+   * @return whether the scanner has reached EOF.
    */
   public final boolean yyatEOF() {
     return zzAtEOF;
@@ -2167,6 +2174,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
   /**
    * Returns the current lexical state.
+   *
+   * @return the current lexical state.
    */
   public final int yystate() {
     return zzLexicalState;
@@ -2185,6 +2194,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
   /**
    * Returns the text matched by the current regular expression.
+   *
+   * @return the matched text.
    */
   public final String yytext() {
     return new String( zzBuffer, zzStartRead, zzMarkedPos-zzStartRead );
@@ -2208,7 +2219,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
 
   /**
-   * Returns the length of the matched text region.
+   * How many characters were matched.
+   *
+   * @return the length of the matched text region.
    */
   public final int yylength() {
     return zzMarkedPos-zzStartRead;
