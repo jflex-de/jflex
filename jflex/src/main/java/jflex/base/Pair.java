@@ -7,42 +7,39 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-package jflex.exceptions;
+package jflex.base;
+
+import java.util.Objects;
 
 /**
- * Signals a silent exit (no statistics printout).
+ * Generic immutable pair.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class SilentExit extends Exception {
+public class Pair<A, B> {
+  public final A fst;
+  public final B snd;
 
-  /** Program exit code if this exception is taken */
-  private final int exitCode;
-
-  /**
-   * SilentExit with specified program exit code.
-   *
-   * @param exitCode a int.
-   */
-  public SilentExit(int exitCode) {
-    this.exitCode = exitCode;
+  public Pair(A fst, B snd) {
+    this.fst = fst;
+    this.snd = snd;
   }
 
-  /** SilentExit with default exit code 1. */
-  public SilentExit() {
-    this(1);
+  @Override
+  public int hashCode() {
+    return Objects.hash(fst, snd);
   }
 
-  /**
-   * The exit code of this SilentExit exception.
-   *
-   * @return a int.
-   */
-  public int exitCode() {
-    return exitCode;
+  @Override
+  public boolean equals(Object other) {
+    return other instanceof Pair<?, ?>
+        && Objects.equals(fst, ((Pair<?, ?>) other).fst)
+        && Objects.equals(snd, ((Pair<?, ?>) other).snd);
   }
 
-  /** Serialisation */
-  private static final long serialVersionUID = 8288632239818668902L;
+  @Override
+  public String toString() {
+    return "(" + fst + ", " + snd + ")";
+  }
 }

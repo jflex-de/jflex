@@ -104,7 +104,39 @@ public class CountEmitter extends PackEmitter {
   public void emit(int count, int value) {
     numEntries += count;
     breaks();
+
+    // unlikely, but count could be >= 0x10000
+    while (count > 0xFFFF) {
+      emitUC(0xFFFF);
+      emitUC(value + translate);
+      count -= 0xFFFF;
+    }
+
     emitUC(count);
     emitUC(value + translate);
+  }
+
+  /**
+   * Emits a plain int array as a count/value string. Expects the preamble code (declaration,
+   * javadoc) to already be emitted. Values in the array must be no larger than 0xFFFF (encoded as
+   * char), array must have at least one element.
+   *
+   * @returns the number of count/value pairs in the packed array
+   */
+  public void emitCountValueString(int[] a) {
+    assert a.length > 0;
+
+    int count = 0;
+    int value = a[0];
+    for (int i = 0; i < a.length; i++) {
+      if (value == a[i]) {
+        count++;
+      } else {
+        emit(count, value);
+        count = 1;
+        value = a[i];
+      }
+    }
+    emit(count, value);
   }
 }

@@ -122,6 +122,8 @@ public class CharClassesGen extends Generator<CharClasses> {
       }
       CharClasses next = smallest();
       next.makeClass(set, false);
+
+      assert next.invariants() : next;
       results.add(next);
     }
 

@@ -10,7 +10,8 @@
 package jflex.gui;
 
 import java.awt.*;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Grid layout manager like GridLayout but with predefinable grid size.
@@ -28,7 +29,7 @@ public class GridPanel extends Panel implements Handles {
   private final int hgap;
   private final int vgap;
 
-  private final Vector<GridPanelConstraint> constraints = new Vector<>();
+  private final List<GridPanelConstraint> constraints = new ArrayList<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
   /** {@inheritDoc} */
@@ -62,7 +63,7 @@ public class GridPanel extends Panel implements Handles {
     float cellHeight = size.height / rows;
 
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = constraints.elementAt(i);
+      GridPanelConstraint c = constraints.get(i);
 
       float x = cellWidth * c.x + insets.left + hgap / 2;
       float y = cellHeight * c.y + insets.right + vgap / 2;
@@ -124,7 +125,7 @@ public class GridPanel extends Panel implements Handles {
     float dx = 0;
 
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = constraints.elementAt(i);
+      GridPanelConstraint c = constraints.get(i);
 
       Dimension d = c.component.getPreferredSize();
 
@@ -168,18 +169,9 @@ public class GridPanel extends Panel implements Handles {
     add(x, y, dx, dy, FILL, c);
   }
 
-  /**
-   * add.
-   *
-   * @param x a int.
-   * @param y a int.
-   * @param dx a int.
-   * @param dy a int.
-   * @param handle a int.
-   * @param c a {@link java.awt.Component} object.
-   */
+  /** Add a component to this panel. */
   public void add(int x, int y, int dx, int dy, int handle, Component c) {
     super.add(c);
-    constraints.addElement(new GridPanelConstraint(x, y, dx, dy, handle, c));
+    constraints.add(new GridPanelConstraint(x, y, dx, dy, handle, c));
   }
 }
