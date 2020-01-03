@@ -28,7 +28,6 @@ import jflex.logging.Out;
  */
 public final class MainFrame extends Frame implements Handles {
 
-  /** */
   private static final long serialVersionUID = 3296137982410640865L;
 
   private volatile boolean choosing;

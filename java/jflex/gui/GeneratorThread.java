@@ -35,7 +35,7 @@ public class GeneratorThread extends Thread {
   String outputDir;
 
   /** main UI component, likes to be notified when generator finishes */
-  MainFrame parent;
+  final MainFrame parent;
 
   /**
    * Create a new GeneratorThread, but do not run it yet.

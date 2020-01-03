@@ -18,7 +18,7 @@ package jflex.exceptions;
 public class SilentExit extends Exception {
 
   /** Program exit code if this exception is taken */
-  private int exitCode;
+  private final int exitCode;
 
   /**
    * SilentExit with specified program exit code.
