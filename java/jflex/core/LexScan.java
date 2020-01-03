@@ -2127,7 +2127,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    *
    * All internal variables are reset, the old input stream
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
-   * Lexical state is set to <tt>ZZ_INITIAL</tt>.
+   * Lexical state is set to {@code ZZ_INITIAL}.
    *
    * Internal scan buffer is resized down to its initial length, if it has grown.
    *
@@ -2203,7 +2203,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
 
 
   /**
-   * Returns the character at position <tt>pos</tt> from the
+   * Returns the character at position {@code pos} from the
    * matched text.
    *
    * It is equivalent to yytext().charAt(pos), but faster
