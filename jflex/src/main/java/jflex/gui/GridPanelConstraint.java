@@ -18,8 +18,12 @@ import java.awt.Component;
  */
 public class GridPanelConstraint {
 
-  int x, y, width, height, handle;
-  Component component;
+  final int x;
+  final int y;
+  final int width;
+  final int height;
+  final int handle;
+  final Component component;
 
   /**
    * Constructor for GridPanelConstraint.

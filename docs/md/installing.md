@@ -8,35 +8,35 @@ Installing JFlex
 
 To install JFlex on Windows, follow these three steps:
 
-1.  Unzip the file you downloaded into the directory you want JFlex in. 
+1.  Unzip the file you downloaded into the directory you want JFlex in.
     If you unzipped it to say `C:\`, the following directory structure
     should be generated:
-    
+
 ```
-    C:\jflex-$VERSION\ 
-        +--bin\                        (start scripts) 
-        +--doc\                        (FAQ and manual) 
-        +--examples\ 
-            +--byaccj\                 (calculator example for BYacc/J) 
-            +--cup-maven\              (calculator example for cup and maven) 
-            +--interpreter\            (interpreter example for cup) 
-            +--java\                   (Java lexer specification) 
+    C:\jflex-$VERSION\
+        +--bin\                        (start scripts)
+        +--doc\                        (FAQ and manual)
+        +--examples\
+            +--byaccj\                 (calculator example for BYacc/J)
+            +--cup-maven\              (calculator example for cup and maven)
+            +--interpreter\            (interpreter example for cup)
+            +--java\                   (Java lexer specification)
             +--simple\                 (example scanner with no parser)
-            +--standalone-maven\       (a simple standalone scanner, 
-                                        built with maven) 
-            +--zero-reader\            (Readers that return 0 characters) 
-        +--lib\                        (precompiled classes) 
-        +--src\ 
-            +--main\ 
-                +--config\             (PMD source analyzer configuration) 
-                +--cup\                (JFlex parser spec) 
-                +--java\ 
-                    +--jflex\          (source code of JFlex) 
-                        +--anttask\    (source code of JFlex Ant Task) 
-                        +--gui\        (source code of JFlex UI classes) 
-                        +--unicode\    (source code for Unicode properties) 
-                +--jflex\              (JFlex scanner spec) 
-                +--resources\          (messages and default skeleton file) 
+            +--standalone-maven\       (a simple standalone scanner,
+                                        built with maven)
+            +--zero-reader\            (Readers that return 0 characters)
+        +--lib\                        (precompiled classes)
+        +--src\
+            +--main\
+                +--config\             (PMD source analyzer configuration)
+                +--cup\                (JFlex parser spec)
+                +--java\
+                    +--jflex\          (source code of JFlex)
+                        +--anttask\    (source code of JFlex Ant Task)
+                        +--gui\        (source code of JFlex UI classes)
+                        +--unicode\    (source code for Unicode properties)
+                +--jflex\              (JFlex scanner spec)
+                +--resources\          (messages and default skeleton file)
             +--test\                   (unit tests)
 ```
 
@@ -118,11 +118,11 @@ uses the character encoding `<name>` (e.g. `utf-8`) to read lexer
 specifications and write java files.
 
 `--skel <file>`\
-uses external skeleton `<file>`. This is mainly for JFlex maintenance
-and special low level customisations. Use only when you know what you
-are doing! JFlex comes with a skeleton file in the `src` directory that
-reflects exactly the internal, pre-compiled skeleton and can be used
-with the `-skel` option.
+uses external skeleton `<file>` in UTF-8 encoding. This is mainly for JFlex
+maintenance and special low level customisations. Use only when you know what
+you are doing! JFlex comes with a skeleton file in the `src` directory that
+reflects exactly the internal, pre-compiled skeleton and can be used with the
+`-skel` option.
 
 `--nomin`\
 skip the DFA minimisation step during scanner generation.
