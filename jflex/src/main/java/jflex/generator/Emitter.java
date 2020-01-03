@@ -122,7 +122,7 @@ public final class Emitter {
    * if the file already exists.
    *
    * @param name the name (without path) of the file
-   * @param input fall back location if path = <tt>null</tt> (expected to be a file in the directory
+   * @param input fall back location if {@code path = null} (expected to be a file in the directory
    *     to write to)
    * @return The constructed File
    */
