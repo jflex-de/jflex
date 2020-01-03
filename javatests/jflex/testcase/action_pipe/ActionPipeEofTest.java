@@ -32,7 +32,8 @@ import org.junit.Test;
 
 /** Test action piped with {@code <<EOF>>}. */
 public class ActionPipeEofTest {
-  private final ScannerFactory<ActionPipeEof> scannerFactory = ScannerFactory.of(ActionPipeEof::new);
+  private final ScannerFactory<ActionPipeEof> scannerFactory =
+      ScannerFactory.of(ActionPipeEof::new);
 
   @Test
   public void tokenAtEOF() throws java.io.IOException {

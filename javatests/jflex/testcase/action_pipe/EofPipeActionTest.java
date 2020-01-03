@@ -36,7 +36,8 @@ import org.junit.Test;
  * <p>{@code <<EOF>>} action doesn't compile when piped with another action.
  */
 public class EofPipeActionTest {
-  private final ScannerFactory<EofPipeAction> scannerFactory = ScannerFactory.of(EofPipeAction::new);
+  private final ScannerFactory<EofPipeAction> scannerFactory =
+      ScannerFactory.of(EofPipeAction::new);
 
   @Test
   public void tokenAtEOF() throws java.io.IOException {
