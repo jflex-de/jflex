@@ -1,11 +1,9 @@
-package jflex.testing.action_pipe;
-
+package jflex.testcase.action_pipe;
 
 %%
 
-
 %public
-%class ActionPipe
+%class ActionPipeEof
 
 %int
 
@@ -16,10 +14,9 @@ Identifier = [:jletter:][:jletterdigit:]*
 
 %%
 
+{Identifier}     { System.out.println(yytext()); return 1; }
 
-Identifier { System.out.println(yytext()); }
+{LineTerminator} |
+<<EOF>>          { System.out.println("⏎"); return 0; }
 
-LineTerminator |
-<<EOF>>      { System.out.println("⏎\n"); }
-
-[^]  { /* no action */ }
+[^]              { /* no action */ }

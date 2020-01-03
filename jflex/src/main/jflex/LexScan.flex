@@ -333,6 +333,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                    action_line = s.left+1;
                                    return s;
                                  }
+  {WSP}* "<<EOF>>" {WSPNL}*/"|"  { yybegin(REGEXP); return symbol(EOFRULE); }
   ^ {WSP}* {NWSPNL}              { yypushback(yylength()); yybegin(REGEXP); }
   {WSP} | {NL}                   { }
 }
