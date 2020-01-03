@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import jflex.base.Pair;
 import jflex.chars.Interval;
 import jflex.logging.Out;
 
@@ -28,6 +29,7 @@ public class CharClasses {
   /** debug flag (for char classes only) */
   private static final boolean DEBUG = false;
 
+  /** for sorting disjoint IntCharSets */
   private static final Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
 
   /** the largest character that can be used in char classes */
@@ -39,7 +41,7 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  /** the @{link UnicodeProperties} the scanner used */
+  /** the @{link UnicodeProperties} the spec scanner used */
   private UnicodeProperties unicodeProps;
 
   /**
@@ -320,6 +322,35 @@ public class CharClasses {
   }
 
   /**
+   * Brings the partitions into a canonical order such that objects that implement the same
+   * partitions but in different order become equal.
+   *
+   * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
+   * have different content. Different order will lead to different input assignments in the NFA and
+   * DFA phases and will make otherwise equal automata look distinct.
+   *
+   * <p>This is not needed for correctness, but it makes the comparison of output DFAs (e.g. in the
+   * test suite) for equivalence more robust.
+   */
+  public void normalise() {
+    classes.sort(INT_CHAR_SET_COMPARATOR);
+  }
+
+  /**
+   * Construct a (deep) copy of the the provided CharClasses object.
+   *
+   * @param c the CharClasses to copy
+   * @return a deep copy of c
+   */
+  public static CharClasses copyOf(CharClasses c) {
+    CharClasses result = new CharClasses();
+    result.maxCharUsed = c.maxCharUsed;
+    result.unicodeProps = c.unicodeProps;
+    result.classes = c.allClasses();
+    return result;
+  }
+
+  /**
    * Returns an array of all CharClassIntervals in this char class collection.
    *
    * <p>The array is ordered by char code, i.e. {@code result[i+1].start = result[i].end+1} Each
@@ -352,31 +383,66 @@ public class CharClasses {
   }
 
   /**
-   * Brings the partitions into a canonical order such that objects that implement the same
-   * partitions but in different order become equal.
+   * Computes a two-level table structure representing this CharClass object, where second-level
+   * blocks are shared if equal. The hope is that this sharing happens (very) often with a large
+   * number of blocks being mapped to the same character class.
    *
-   * <p>For example, [ {0}, {1} ] and [ {1}, {0} ] implement the same partition of the set {0,1} but
-   * have different content. Different order will lead to different input assignments in the NFA and
-   * DFA phases and will make otherwise equal automata look distinct.
-   *
-   * <p>This is not needed for correctness, but it makes the comparison of output DFAs (e.g. in the
-   * test suite) for equivalence more robust.
+   * @return a pair of a top-level table, and a list of second-level blocks for this char class
+   *     object.
    */
-  public void normalise() {
-    classes.sort(INT_CHAR_SET_COMPARATOR);
+  Pair<int[], List<CMapBlock>> computeTables() {
+    CharClassInterval[] intervals = getIntervals();
+    int intervalIndex = 0;
+    int curClass = intervals[intervalIndex].charClass;
+    int codePoint = 0;
+
+    int topLevelSize = (maxCharUsed + 1) >> CMapBlock.BLOCK_BITS;
+    int[] topLevel = new int[topLevelSize];
+    List<CMapBlock> blocks = new ArrayList<>();
+
+    for (int topIndex = 0; topIndex < topLevelSize; topIndex++) {
+      int[] block = new int[CMapBlock.BLOCK_SIZE];
+      for (int i = 0; i < CMapBlock.BLOCK_SIZE; i++, codePoint++) {
+        // if maxCharUsed doesn't align to CMapBlock.BLOCK_BITS, we leave the
+        // rest of the highest block equal to 0.
+        if (maxCharUsed < codePoint) break;
+        if (!intervals[intervalIndex].contains(codePoint)) {
+          curClass = intervals[++intervalIndex].charClass;
+        }
+        block[i] = curClass;
+      }
+      // find earliest equal block (if any)
+      CMapBlock b = new CMapBlock(block);
+      int idx = blocks.indexOf(b);
+      if (idx < 0) {
+        idx = blocks.size();
+        blocks.add(b);
+      }
+      topLevel[topIndex] = idx;
+    }
+    return new Pair<int[], List<CMapBlock>>(topLevel, blocks);
+  }
+
+  /** Turn a list of second-level blocks into a flat array. */
+  private static int[] flattenBlocks(List<CMapBlock> blocks) {
+    int[] result = new int[blocks.size() * CMapBlock.BLOCK_SIZE];
+    for (int i = 0; i < blocks.size(); i++) {
+      int[] block = blocks.get(i).block;
+      System.arraycopy(block, 0, result, i << CMapBlock.BLOCK_BITS, CMapBlock.BLOCK_SIZE);
+    }
+    return result;
   }
 
   /**
-   * Construct a (deep) copy of the the provided CharClasses object.
+   * Returns a two-level table structure for this char-class object. The char class of input {@code
+   * x} is {@code snd[(fst[x >> BLOCK_BITS] << BLOCK_BITS) | (x && BLOCK_MASK))]} where {@code
+   * BLOCK_MASK = BLOCK_SIZE - 1}
    *
-   * @param c the CharClasses to copy
-   * @return a deep copy of c
+   * @see CMapBlock#BLOCK_BITS
+   * @see CMapBlock#BLOCK_SIZE
    */
-  public static CharClasses copyOf(CharClasses c) {
-    CharClasses result = new CharClasses();
-    result.maxCharUsed = c.maxCharUsed;
-    result.unicodeProps = c.unicodeProps;
-    result.classes = c.allClasses();
-    return result;
+  public Pair<int[], int[]> getTables() {
+    Pair<int[], List<CMapBlock>> p = computeTables();
+    return new Pair<int[], int[]>(p.fst, flattenBlocks(p.snd));
   }
 }

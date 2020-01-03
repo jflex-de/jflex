@@ -159,6 +159,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @param interval a {@link jflex.chars.Interval} object.
    */
+  @SuppressWarnings("IncrementInForLoopAndHeader")
   public void add(Interval interval) {
     if (DEBUG) assert interval.invariants();
 
