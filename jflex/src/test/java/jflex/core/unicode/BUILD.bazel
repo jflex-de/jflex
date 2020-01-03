@@ -7,6 +7,7 @@ java_test(
     ],
     deps = [
         "IntCharSetQuickcheck",
+        "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/core/unicode",

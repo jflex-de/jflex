@@ -34,7 +34,7 @@ public final class IntCharSet implements Iterable<Integer> {
   private static final boolean DEBUG = false;
 
   /* invariant: all intervals are disjoint, ordered */
-  private List<Interval> intervals = new ArrayList<>();
+  private final List<Interval> intervals = new ArrayList<>();
 
   /** Creates a charset that contains only one interval. */
   public static IntCharSet of(Interval interval) {
@@ -159,6 +159,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @param interval a {@link jflex.chars.Interval} object.
    */
+  @SuppressWarnings("IncrementInForLoopAndHeader")
   public void add(Interval interval) {
     if (DEBUG) assert interval.invariants();
 
