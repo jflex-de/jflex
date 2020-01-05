@@ -80,7 +80,7 @@ cd ..
 logi "Example: zero-reader"
 cd zero-reader
 "$MVN" test
-# "$ANT" test
+"$ANT" test
 "$MAKE" test
 cd ..
 

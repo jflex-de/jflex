@@ -4,15 +4,14 @@
 #
 
 # main class
-MAIN = ZeroLexer
+MAIN = Yylex
 
 # test data
-TEST_IN  = src/test/data/test-input.txt
-OUT_GOOD = src/test/data/lexer-output.good
+TEST_IN  = src/test/data/test.txt
+OUT_GOOD = src/test/data/output.good
 
 # jflex input
-LEXER_IN = src/main/jflex/zero-lexer.jflex
-LEXER_CLASS = $(MAIN)
+LEXER_IN = src/main/jflex/simple.flex
 
 # no cup file in this example
 PARSER_OUT =

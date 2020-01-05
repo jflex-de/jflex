@@ -1,43 +1,21 @@
-<project name="java scanner" default="compile">
+<project name="java-1.2-parser" default="test">
 
-  <property name="java_cup" value="../../../cup/cup/java-cup-11b-20160615.jar"/>
-  <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
+  <import file="../common/include.xml"/>
 
-  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
-  <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
-
-  <target name="build" depends="clean,compile" />
-
-  <target name="run" depends="compile">
-    <java classname="TestLexer" classpath="antbuild:${java_cup}">
-      <arg line="src/main/java/TestLexer.java"/>
-    </java>
-  </target>
-
-  <target name="test" depends="run">
-    <!-- TODO(#384) compare output with golden. -->
-  </target>
-
-  <target name="compile" depends="cup,scanner,unicode">
-    <javac includeantruntime="false" destdir="antbuild" classpath="${java_cup}">
-      <src path="src/main/java/" />
-      <src path="antbuild/"/>
-    </javac>
-  </target>
-
-  <target name="cup">
-    <cup srcfile="src/main/cup/java12.cup" locations="no" interface="yes" destdir="antbuild"/>
-  </target>
+  <property name="main.class" value="TestLexer" />
+  <property name="test.input" value="src/main/java/TestLexer.java" />
+  <property name="test.class" value="JavaParserTest" />
 
   <target name="scanner">
-    <jflex file="src/main/jflex/java.flex" destdir="antbuild"/>
+    <jflex file="src/main/jflex/java.flex" destdir="${ant.build}"
+           encoding="utf-8"/>
+    <jflex file="src/main/jflex/unicode.flex" destdir="${ant.build}"
+           encoding="utf-8"/>
   </target>
 
-  <target name="unicode">
-    <jflex file="src/main/jflex/unicode.flex" destdir="antbuild"/>
+  <target name="parser" depends="define-cup">
+    <cup srcfile="src/main/cup/java12.cup"
+          locations="no" interface="yes" destdir="${ant.build}"/>
   </target>
 
-  <target name="clean">
-    <delete dir="antbuild"/>
-  </target>
 </project>

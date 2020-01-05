@@ -9,14 +9,15 @@
     characters.</description>
   <dependencies>
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup_runtime</artifactId>
-      <version>11b-20160615</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>0.36</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -48,7 +49,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifest>

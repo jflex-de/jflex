@@ -3,3 +3,4 @@ target
 out
 cup_runtime.jar
 jflex.jar
+lib

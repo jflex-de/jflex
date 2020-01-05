@@ -15,7 +15,7 @@ import java.io.*;
  * <p>Steps:
  *
  * <ol>
- *   <li>scanning (Yylex)
+ *   <li>scanning (Lexer)
  *   <li>context free parsing and AST building (yyparse)
  *   <li>build up symbol table (setSymtabs)
  *   <li>check context conditions (checkcontext)
@@ -38,29 +38,28 @@ public class Main {
       reader = new InputStreamReader(System.in);
     }
 
-    Yylex scanner = new Yylex(reader); // create scanner
+    Lexer scanner = new Lexer(reader); // create scanner
     SymTab symtab = new SymTab(); // set global symbol table
     scanner.setSymtab(symtab);
 
     parser parser = new parser(scanner); // create parser
-    Tprogram syntaxbaum = null;
+    Tprogram syntaxTree = null;
 
     try {
-      syntaxbaum = (Tprogram) parser.parse().value; // parse
+      syntaxTree = (Tprogram) parser.parse().value; // parse
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    System.out.println(syntaxbaum);
+    System.out.println(syntaxTree);
 
-    syntaxbaum.setSymtabs(); // set symbol table
+    syntaxTree.setSymtabs(); // set symbol table
 
-    syntaxbaum.checkcontext(); // CoCo (DefVar, DefFun, Arity)
+    syntaxTree.checkcontext(); // CoCo (DefVar, DefFun, Arity)
     if (contexterror > 0) return;
 
-    syntaxbaum.prepInterp(); // var. indices and function pointers
-    // im Syntaxbaum setzen
-    syntaxbaum.interpret(); // interpretation
+    syntaxTree.prepInterp(); // var. indices and function pointers
+    syntaxTree.interpret(); // interpretation
   }
 
   static int contexterror = 0; // number of errors in context conditions
