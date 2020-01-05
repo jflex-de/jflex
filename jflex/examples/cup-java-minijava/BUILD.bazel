@@ -10,12 +10,6 @@ load("@jflex_rules//cup:cup.bzl", "cup")
 # - etc.
 # However, this example is simple enough and we can define all rules here.
 
-java_binary(
-    name = "minijava_bin",
-    main_class = "Yylex",
-    runtime_deps = [":minijava"],
-)
-
 java_library(
     name = "minijava",
     # glob is not a best practice, but it's good enough for this example

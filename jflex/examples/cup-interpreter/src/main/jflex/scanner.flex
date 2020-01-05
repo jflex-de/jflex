@@ -12,14 +12,15 @@ import java_cup.runtime.Symbol;
 
 %%
 
+%class Lexer
 %cup
 %implements sym
 
-%{ 
-  SymTab symtab;          // externe symbol table
+%{
+  SymTab symtab;          // external symbol table
 
   public void setSymtab(SymTab symtab) {
-    this.symtab = symtab; 
+    this.symtab = symtab;
   }
 
   private Symbol sym(int sym) {

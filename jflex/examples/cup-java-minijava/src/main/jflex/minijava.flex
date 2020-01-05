@@ -8,7 +8,7 @@ import java_cup.runtime.Symbol;
 
 %%
 
-
+%public
 %class Lexer
 %unicode
 %cup
@@ -35,8 +35,9 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 /* comments */
 Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
 
-TraditionalComment   = "/*" [^*] ~"*/"
-EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
+TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+// Comment can be the last line of the file, without line terminator.
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 

@@ -38,8 +38,8 @@ non terminal literal;
 non terminal primitive_type;
 // 19.5) Names
 non terminal name;
-// 19.12) Expressions
-non terminal equality_expression;
+non terminal type;
+non terminal ops;
 
 // Our simplified grammar
 non terminal goal;
@@ -47,7 +47,7 @@ non terminal goal;
 // TODO
 start with goal;
 
-goal ::=	name
+goal ::=	name | literal | type | ops | ABSTRACT | BREAK
 	;
 
 // 19.3) Lexical Structure.
@@ -63,5 +63,8 @@ primitive_type ::=
 	;
 
 // 19.5) Names
-name	::=	IDENTIFIER
-	;
+name ::= IDENTIFIER
+	 ;
+
+ops ::= EQ | EQEQ | PLUS
+    ;

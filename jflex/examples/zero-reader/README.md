@@ -18,7 +18,7 @@ The specification for the method `int read(char[] cbuf, int off, int len)` in
     * stream is reached.
 
 This means, the `read` method should never return 0. It should either block and
-return more than 0 characters, should throw an execption, or should return -1
+return more than 0 characters, should throw an exception, or should return -1
 for end-of-stream. Unfortunately, not all implementations of this class follow
 that protocol. Up to version 1.6.1, JFlex was trying to work around those
 problems. This worked in most circumstances, but not in all, depending on how

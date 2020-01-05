@@ -5,7 +5,7 @@
   <artifactId>cup-java</artifactId>
   <version>1.0</version>
   <name>A parser for Java</name>
-  <description>An parser for the Java programming language.
+  <description>A parser for the Java programming language.
     This simple grammar can only parse Java up to version 1.2.
     It uses JFlex and CUP.</description>
   <dependencies>
@@ -17,7 +17,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>0.36</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -60,10 +66,6 @@
             </configuration>
           </execution>
         </executions>
-        <configuration>
-          <!-- By default runs:
-          cup -destdir target/generated-sources/cup -parser parser -symbols sym src/main/cup/ycalc.cup -->
-        </configuration>
       </plugin>
       <!-- Build an Uberjar -->
       <plugin>

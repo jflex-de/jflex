@@ -1,43 +1,33 @@
-# You need CUP v0.10j (or newer) for this makefile to work (for java12.cup)
 #
-# CUP classes should be included in CLASSPATH
+# make test (or just: make)
+#    generates lexer & parser, compiles all *.java files, and runs test
+#
 
-ROOT       = ../../..
-JFLEX      = $(ROOT)/jflex/bin/jflex
-CUPJAR     = $(ROOT)/cup/cup/java-cup-11b-20160615.jar
-CUP        = java -jar $(CUPJAR)
+# main class
+MAIN = TestLexer
 
+# test data
+TEST_IN  = src/main/java/TestLexer.java
+OUT_GOOD = src/test/data/lexer-output.good
 
-all: clean compile
+# jflex input and output
+LEXER_IN = src/main/jflex/java.flex
+LEXER_CLASS = Scanner
 
-compile: gen_all src/main/java/*.java
-	javac -d out -cp $(CUPJAR) out/genfiles/*.java src/main/java/*.java
+# cup file
+PARSER_IN = src/main/cup/java12.cup
 
-test: run diff
+# this example has additional generated java files
+MORE_JAVA_FILES = $(GEN)/UnicodeEscapes.java
 
-diff: out/lexer-output.txt
-	@(diff $< src/test/data/lexer-output.good && echo "Test OK") || (echo "Test FAILED"; exit 1)
+include ../common/Makefile.inc
 
-run: compile outdir
-	java -cp out:$(CUPJAR) JavaParser src/main/java/TestLexer.java
+# second lexer, target after includes, so "all" remains default target
+$(MORE_JAVA_FILES): src/main/jflex/unicode.flex
+	$(JFLEX) -d $(GEN) $<
 
-out/lexer-output.txt: compile outdir
-	java -cp out:$(CUPJAR) TestLexer src/main/java/TestLexer.java > out/lexer-output.txt
+# this example has a second test, on the parser level, instead of lexer
+run-parser:
+	java -cp $(CUPJAR):$(OUT) JavaParser $(TEST_IN)
 
-gen_all: gen_parser gen_scanner gen_unicode
-
-gen_parser: src/main/cup/java12.cup outdir
-	$(CUP) -interface $<
-	mv parser.java sym.java out/genfiles
-
-gen_scanner: src/main/jflex/java.flex outdir
-	$(JFLEX) -d out/genfiles $<
-
-gen_unicode: src/main/jflex/unicode.flex outdir
-	$(JFLEX) -d out/genfiles $<
-
-clean:
-	rm -rf out
-
-outdir:
-	mkdir -p out/genfiles
+all: test run-parser
