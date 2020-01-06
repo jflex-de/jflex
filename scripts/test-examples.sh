@@ -56,25 +56,32 @@ cd cup-java
 "$MAKE" test
 cd ..
 
+logi "Example: cup-java-minijava"
+cd cup-java-minijava
+"$MVN" test
+"$ANT" test
+# make not supported
+cd ..
+
 logi "Example: cup-lcalc"
 cd cup-lcalc
 "$MVN" test
-# "$ANT" test
-# make test
+"$ANT" test
+"$MAKE" test
 cd ..
 
 logi "Example: simple"
 cd simple
 "$MVN" test
 "$ANT" test
-# "$MAKE" test
+"$MAKE" test
 cd ..
 
 logi "Example: standalone"
 cd standalone
 "$MVN" test
-# "$ANT" test
-# make test
+"$ANT" test
+"$MAKE" test
 cd ..
 
 logi "Example: zero-reader"
