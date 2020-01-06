@@ -142,8 +142,8 @@ public class LexGenerator {
   }
 
   public int minimizedDfaStatesCount() {
-    checkNotNull(dfa, "DFA doesn't exist. Need to call generate() first.");
-    checkState(dfa.isMinimized(), "DAF is minimized. Need to call minimize() first.");
+    checkNotNull(dfa, "DFA doesn't exist. Call generate() first.");
+    checkState(dfa.isMinimized(), "DFA is not minimized. Call minimize() first.");
     return dfa.numStates();
   }
 
