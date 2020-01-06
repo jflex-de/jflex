@@ -1,4 +1,5 @@
-# Readers returning 0 characters
+Readers returning 0 characters
+==============================
 
 This example shows what to do about input Readers that sometimes return 0
 characters.
@@ -61,7 +62,7 @@ Build
 
 ### Build with maven
 
-     ../../mvnw package
+     mvn package
      java -jar target/zero-reader-1.0.jar <inputfiles>
 
 e.g.
@@ -70,8 +71,22 @@ e.g.
 
 and expect `src/test/data/lexer-output.good`.
 
+To test automatically:
+
+    mvn test
+
+
+
+### Build with ant
+
+    ant test
+
+To build and run the test.
+
+
 ### Build with make
 
-    make
     make test
-    java -cp out ZeroLexer <inputfiles>
+
+To build and run the test.
+
