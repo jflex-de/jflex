@@ -1,5 +1,5 @@
-JFlex: Complex example (with CUP)
-===============================
+JFlex: Java 1.2 Parser (with CUP)
+=================================
 
 This directory contains a scanner and parser for the Java programming language (Java 1.2).
 
@@ -7,38 +7,30 @@ This directory contains a scanner and parser for the Java programming language (
 
 ### Using Maven
 
-    ../../mvnw package
+To build:
 
-To run the parser:
+    mvn package
 
-    java -cp target/cup-java-1.0.jar:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfile>
-
-or more simply the uberjar version:
+To run the parser manually:
 
     java -jar target/cup-java-full-1.0.jar <inputfile>
+
+To test the lexer:
+
+    mvn test
 
 
 ### Using ant
 
-    ant compile
-    ant run
-    java -jar build:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfiles>
+    ant test
+
+will generate, compile, and test the parser and lexer.
 
 ### Using make
 
-Use the Makefile or Ant (via 'ant run') to generate the lexer and
-parser, or type:
+Use the Makefile to generate the lexer and parser, and test it:
 
-    make compile
     make test
-
-The parser can be tested with:
-
-    java -cp out:../../../cup/cup/java-cup-11b-20160615.jar JavaParser <inputfiles>
-
-The scanner (without parser attached) can be tested with:
-
-    java -cp out:../../../cup/cup/java-cup-11b-20160615.jar TestLexer <inputfiles>
 
 ## Files
 

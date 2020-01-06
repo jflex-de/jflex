@@ -1,5 +1,5 @@
-FJlex complex example (with CUP)
-================================
+JFlex language interpreter example (with CUP)
+=============================================
 
 This directory contains an interpreter for a small functional
 programming language (called "AS"). It uses JFlex and CUP.
@@ -8,38 +8,36 @@ programming language (called "AS"). It uses JFlex and CUP.
 
 ### Using Maven
 
-    ../../../mvnw package
+    mvn package
 
-To run the interpreter on a sample input.
+to run the interpreter on a sample input.
 
     java -jar target/cup-interpreter-full-1.0.jar src/test/data/example.as
 
 You can expect `src/test/data/output.good`.
 
+    mvn test
+
+will test for the expected output automatically.
+
 ### Using ant
 
-    ant compile
-    ant run
+    ant test
 
 ### Using make
 
     make test
-    java -cp java -cp ../../../cup/cup/java-cup-11b-20160615.jar:out src/test/data/example.as
 
 ## Files
 
 - `Main.java` is the main program. It reads an AS program from
-  std in and interprets it.
+  std-in and interprets it.
 - Classes beginning with "T" implement the abstract syntax tree.
   They also contain context condition checking and the interpreter.
 - `Symtab.java`, `SymtabEntry.java, STEfun.java, STEvar.java implement
   the symbol table.
 - `scanner.lex` and `parser.cup` contain the scanner and parser.
 - `example.as` is an example program in AS
-
-'ant run' or the Makefile runs jflex, cup, javac and the
-compiled interpreter
-
 
 The language is described in:
 Manfred Broy: _Einfuehrung in die Informatik_, Springer Verlag

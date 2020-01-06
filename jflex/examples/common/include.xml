@@ -57,7 +57,7 @@
     <pathelement path="${ant.build}"/>
   </path>
 
-  <target name="run" depends="build">
+  <target name="run" depends="compile">
     <java classname="${main.class}" failonerror="yes">
       <arg line="${test.input}"/>
       <classpath refid="lib.path.id"/>
@@ -65,7 +65,7 @@
     </java>
   </target>
 
-  <target name="test" depends="build">
+  <target name="test" depends="compile">
     <junit haltonfailure="yes">
       <test name="${test.class}">
         <formatter type="plain" usefile="false"/>
@@ -75,7 +75,7 @@
     </junit>
   </target>
 
-  <target name="build" depends="scanner,parser,init-ivy,retrieve">
+  <target name="compile" depends="scanner,parser,init-ivy,retrieve">
     <ivy:cachepath pathid="lib.path.id"/>
     <javac destdir="${ant.build}" classpathref="lib.path.id" encoding="UTF-8" includeantruntime="false">
       <src path="src/main/java/"/>

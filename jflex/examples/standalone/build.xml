@@ -11,9 +11,9 @@
     <jflex file="src/main/jflex/standalone.flex" destdir="${ant.build}"/>
   </target>
 
-  <!-- we repeat the build target, slightly tweaked from include.xml,
+  <!-- we repeat the compile target, slightly tweaked from include.xml,
        because there is nothing to compile in src/main/java here -->
-  <target name="build" depends="scanner,retrieve">
+  <target name="compile" depends="scanner,retrieve">
     <ivy:cachepath pathid="lib.path.id"/>
     <javac destdir="${ant.build}" classpathref="lib.path.id" encoding="UTF-8" includeantruntime="false">
       <src path="src/test/java"/>
