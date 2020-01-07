@@ -4,7 +4,7 @@
   <import file="../common/include.xml"/>
 
   <property name="main.class" value="de.jflex.example.standalone.Subst" />
-  <property name="test.input" value="src/test/resources/sample.in" />
+  <property name="test.input" value="src/test/data/sample.in" />
   <property name="test.class" value="de.jflex.example.standalone.SubstTest" />
 
   <target name="scanner">

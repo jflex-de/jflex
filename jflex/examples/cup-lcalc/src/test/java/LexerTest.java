@@ -39,7 +39,7 @@ public class LexerTest {
   /** Tests that the calculator lexer behaves as expected. */
   @Test
   public void output() throws Exception {
-    File inputFile = openFile("src/test/resources/test.txt");
+    File inputFile = openFile("src/test/data/test.txt");
     assertThat(inputFile.isFile()).isTrue();
 
     String[] argv = new String[] {inputFile.getPath()};
@@ -47,7 +47,7 @@ public class LexerTest {
     Main.main(argv);
 
     // test actual is expected
-    File expected = openFile("src/test/resources/output.good");
+    File expected = openFile("src/test/data/output.good");
     assertThat(expected.isFile()).isTrue();
 
     BufferedReader actualContent = readOutputStream();

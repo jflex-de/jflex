@@ -7,8 +7,8 @@
 MAIN = Main
 
 # test data
-TEST_IN  = src/test/resources/test.txt
-OUT_GOOD = src/test/resources/output.good
+TEST_IN  = src/test/data/test.txt
+OUT_GOOD = src/test/data/output.good
 
 # jflex input and output
 LEXER_IN = src/main/jflex/lcalc.flex
