@@ -13,7 +13,6 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -47,22 +46,14 @@ public final class IntCharSet implements Iterable<Integer> {
   /**
    * Creates a charset that contains the given intervals.
    *
-   * <p>The intervals must be sorted and disjointed. Use {@link #add(Interval)} otherwise.
-   */
-  public static IntCharSet of(List<Interval> intervals) {
-    IntCharSet charset = new IntCharSet();
-    charset.intervals.addAll(intervals);
-    return charset;
-  }
-
-  /**
-   * Creates a charset that contains the given intervals.
-   *
-   * <p>The intervals must be sorted and disjointed. Use {@link #add(Interval)} otherwise.
+   * @param intervals the intervals the new set should contains.
+   * @return a new IntCharSet with the given intervals.
    */
   public static IntCharSet of(Interval... intervals) {
     IntCharSet charset = new IntCharSet();
-    Collections.addAll(charset.intervals, intervals);
+    for (Interval i : intervals) {
+      charset.add(i);
+    }
     return charset;
   }
 
