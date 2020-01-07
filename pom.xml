@@ -59,6 +59,7 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>
+    <module>benchmark</module>
   </modules>
   <mailingLists>
     <mailingList>
