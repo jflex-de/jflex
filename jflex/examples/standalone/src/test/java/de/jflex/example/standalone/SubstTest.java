@@ -42,7 +42,7 @@ public class SubstTest {
   /** Tests that the generated {@link Yylex} lexer behaves like expected. */
   @Test
   public void output() throws Exception {
-    File inputFile = openFile("src/test/resources/sample.in");
+    File inputFile = openFile("src/test/data/sample.in");
     assertThat(inputFile.isFile()).isTrue();
 
     String[] argv = new String[] {inputFile.getPath()};
@@ -50,7 +50,7 @@ public class SubstTest {
     Subst.main(argv);
 
     // test actual is expected
-    File expected = openFile("src/test/resources/sample.expected");
+    File expected = openFile("src/test/data/sample.expected");
     assertThat(expected.isFile()).isTrue();
 
     BufferedReader actualContent = readOutputStream();

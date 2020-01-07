@@ -3,7 +3,7 @@
   <import file="../common/include.xml"/>
 
   <property name="main.class" value="Main" />
-  <property name="test.input" value="src/test/resources/test.txt" />
+  <property name="test.input" value="src/test/data/test.txt" />
   <property name="test.class" value="LexerTest" />
 
   <target name="scanner">

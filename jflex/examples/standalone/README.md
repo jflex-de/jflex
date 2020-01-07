@@ -14,7 +14,7 @@ To build:
 
 To run the lexer manually:
 
-    java -jar target/standalone-maven-1.0.jar src/test/resources/sample.in
+    java -jar target/standalone-maven-1.0.jar src/test/data/sample.in
 
 To test:
 
@@ -39,5 +39,5 @@ Use the Makefile to generate the lexer and test it:
   The JFlex spec of the standalone scanner.
 * `src/test/java/de/jflex/example/standalone/SubstTest.java`
   A test driver to the scanner to compare output.
-* `src/test/resources/*`
+* `src/test/data/*`
   Sample input with expected output.

@@ -7,8 +7,8 @@
 MAIN = de.jflex.example.standalone.Subst
 
 # test data
-TEST_IN  = src/test/resources/sample.in
-OUT_GOOD = src/test/resources/sample.expected
+TEST_IN  = src/test/data/sample.in
+OUT_GOOD = src/test/data/sample.expected
 
 # jflex input
 LEXER_IN = src/main/jflex/standalone.flex
