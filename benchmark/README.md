@@ -21,7 +21,12 @@ Main ideas
 
  * add generated scanners from previous versions of JFlex to track development over time
 
- * use something like java.util.regex and maybe JLex as baseline. Unclear if we can get a theoretical maximum performance.
+ * as baseline (= can do no better than this), use a method that reads a
+   Reader into a buffer (at least as long as the input) and touches each
+   character once, sequentially. This should be the minimum a matcher with a
+   Reader interface must do if it is supposed to consume the entire input.
+
+ * use something like java.util.regex and maybe JLex as comparison
 
  * at some point automate and auto-publish results
 
