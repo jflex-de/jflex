@@ -11,11 +11,10 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-// @BenchmarkMode({Mode.AverageTime, Mode.SampleTime})
-@BenchmarkMode(Mode.AverageTime)
+// @BenchmarkMode({Mode.AverageTime, Mode.SampleTime, Mode.SingleShotTime})
+@BenchmarkMode({Mode.AverageTime, Mode.SingleShotTime})
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@Warmup(iterations = 1, time = 1) // in benchmarking dev, should increase later
-@Fork(value = 1) // in benchmarking dev, should increase later
+@Fork(value=1)
 public class JFlexBench {
 
   @State(Scope.Benchmark)
@@ -75,7 +74,7 @@ public class JFlexBench {
   }
 
   public static void main(String[] args) throws RunnerException {
-    Options opt = new OptionsBuilder().include(JFlexBench.class.getSimpleName()).forks(1).build();
+    Options opt = new OptionsBuilder().include(JFlexBench.class.getSimpleName()).build();
 
     new Runner(opt).run();
   }
