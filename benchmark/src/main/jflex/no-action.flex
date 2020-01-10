@@ -24,6 +24,9 @@ LONG  = "b"+
 {SHORT}  { matches++; }
 {LONG}   { matches++; }
 
+"このマニュアルについて"  { matches++; }
+"😎"                  { matches++; }
+
 [^]      { /* nothing */ }
 
 <<EOF>>  { return matches; }
