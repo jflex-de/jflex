@@ -1,5 +1,6 @@
 package de.jflex.benchmark;
 
+import de.jflex.benchmark.pregen.NoAction17;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
