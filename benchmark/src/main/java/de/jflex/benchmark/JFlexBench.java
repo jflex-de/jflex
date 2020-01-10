@@ -27,6 +27,9 @@ public class JFlexBench {
     @Param({"100", "1000", "10000"})
     public int factor;
 
+    @Param({"1", "2"})
+    public int input;
+
     /** The length of the input for the benchmark. We give this to the baseline, but not JFlex. */
     public int length;
 
@@ -38,10 +41,20 @@ public class JFlexBench {
     public void setup() {
       StringBuilder builder = new StringBuilder();
       for (int i = 0; i < 10 * factor; i++) {
-        // TODO: better input
-        builder.append("aaa");
-        builder.append("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-        builder.append("  ");
+        switch (input) {
+          case 1:
+            builder.append("aaa");
+            builder.append("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+            builder.append("  ");
+            break;
+          case 2:
+            builder.append("😎a");
+            builder.append("このマニュアルについてbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+            builder.append("  ");
+            break;
+          default:
+            assert false : "reached unreachable default case";
+        }
       }
       length = builder.length();
       reader = new StringReader(builder.toString());

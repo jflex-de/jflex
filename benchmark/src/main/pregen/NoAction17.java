@@ -38,7 +38,9 @@ public class NoAction17 {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED =
-    "\141\0\1\1\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffad\0";
+    "\141\0\1\1\1\2\u2fe1\0\1\14\16\0\1\3\20\0\1\13\1\0"+
+    "\1\15\4\0\1\12\2\0\1\4\63\0\1\10\50\0\1\6\22\0"+
+    "\1\5\6\0\1\7\5\0\1\11\uffff\0\uc523\0\1\1\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\u0a00\0";
 
   /**
    * Translates characters to character classes
@@ -51,10 +53,10 @@ public class NoAction17 {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\2\2";
+    "\1\0\1\1\2\2\1\1\11\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[4];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -79,10 +81,11 @@ public class NoAction17 {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\3\0\3\0\6";
+    "\0\0\0\16\0\16\0\34\0\52\0\70\0\106\0\124"+
+    "\0\142\0\160\0\176\0\214\0\232\0\250";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[4];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -105,10 +108,13 @@ public class NoAction17 {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\5\0\1\4";
+    "\1\2\1\3\1\4\1\5\12\2\20\0\1\4\17\0"+
+    "\1\6\16\0\1\7\16\0\1\10\16\0\1\11\16\0"+
+    "\1\12\16\0\1\13\16\0\1\14\16\0\1\15\16\0"+
+    "\1\16\16\0\1\3";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[9];
+    int [] result = new int[182];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -146,10 +152,10 @@ public class NoAction17 {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\1\1";
+    "\1\0\2\11\2\1\11\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[4];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -248,7 +254,7 @@ public class NoAction17 {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 40) {
+    while (i < 88) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
