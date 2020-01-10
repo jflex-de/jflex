@@ -160,7 +160,7 @@ public class CharClassesQuickcheck {
   private static int translateFlat(Pair<int[], int[]> table, int input) {
     int top = table.fst[input >> CMapBlock.BLOCK_BITS];
     int offset = input & (CMapBlock.BLOCK_SIZE - 1);
-    return table.snd[(top << CMapBlock.BLOCK_BITS) | offset];
+    return offset == input ? table.snd[offset] : table.snd[top | offset];
   }
 
   @Property(trials = 20)
