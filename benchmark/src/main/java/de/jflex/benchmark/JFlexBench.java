@@ -13,8 +13,8 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 // @BenchmarkMode({Mode.AverageTime, Mode.SampleTime, Mode.SingleShotTime})
 @BenchmarkMode({Mode.AverageTime, Mode.SingleShotTime})
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
-@Fork(value=1)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Fork(value = 1)
 public class JFlexBench {
 
   @State(Scope.Benchmark)
