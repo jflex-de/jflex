@@ -36,7 +36,7 @@ public class IncludeGoldenTest extends AbstractGoldenTest {
     compareSystemOutWith(golden);
 
     IncludeScanner scanner = scannerFactory.createScannerForFile(golden.inputFile);
-    while (!scanner.isAtEof()) {
+    while (!scanner.yyatEOF()) {
       System.out.println(scanner.yylex());
     }
   }

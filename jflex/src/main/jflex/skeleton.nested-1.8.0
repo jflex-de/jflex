@@ -47,31 +47,11 @@
       from input */
   private int zzEndRead;
 
-  /** number of newlines encountered up to the start of the matched text */
-  private int yyline;
-
-  /** the number of characters up to the start of the matched text */
-  private long yychar;
-
-  /**
-   * the number of characters from the last newline up to the start of the
-   * matched text
-   */
-  private int yycolumn;
-
-  /**
-   * zzAtBOL == true iff the scanner is currently at the beginning of a line
-   */
-  private boolean zzAtBOL = true;
-
   /**
    * Whether the scanner is at the end of file.
    * @see #yyatEOF
    */
   private boolean zzAtEOF;
-
-  /** denotes if the user-EOF-code has already been executed */
-  private boolean zzEOFDone;
 
   /**
    * The number of occupied positions in zzBuffer beyond zzEndRead.
