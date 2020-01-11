@@ -30,7 +30,7 @@ public class IntervalGen extends Generator<Interval> {
   private int maxChar = 50;
 
   /** How often to return single-character intervals. */
-  private float singleCharRatio = 0.2f;
+  private final float singleCharRatio = 0.2f;
 
   /** Constructs and registers generator for Interval */
   public IntervalGen() {
