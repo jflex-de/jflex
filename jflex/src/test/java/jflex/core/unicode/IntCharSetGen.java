@@ -31,7 +31,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
   private int maxSize = 5;
 
   /** Generator for Intervals */
-  private IntervalGen intervals;
+  private final IntervalGen intervals;
 
   /** Constructs generator for IntCharSet */
   public IntCharSetGen() {

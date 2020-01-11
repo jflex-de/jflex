@@ -36,7 +36,7 @@ public class CharClassesGen extends Generator<CharClasses> {
   private int maxSize = 5;
 
   /** Generator for classes (= IntCharSet) */
-  private IntCharSetGen classGen;
+  private final IntCharSetGen classGen;
 
   /** The UnicodeProperties that determine maxCharCode and getCaseless */
   // TODO(lsf): make UnicodeProperties a configurable option, return something useful
