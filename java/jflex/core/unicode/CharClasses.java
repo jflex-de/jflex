@@ -435,14 +435,19 @@ public class CharClasses {
 
   /**
    * Returns a two-level table structure for this char-class object. The char class of input {@code
-   * x} is {@code snd[(fst[x >> BLOCK_BITS] << BLOCK_BITS) | (x && BLOCK_MASK))]} where {@code
-   * BLOCK_MASK = BLOCK_SIZE - 1}
+   * x} is {@code snd[(fst[x >> BLOCK_BITS]) | (x && BLOCK_MASK))]} where {@code BLOCK_MASK =
+   * BLOCK_SIZE - 1}, and the index of the first block in the top level is guaranteed to be 0 (which
+   * means the {@code fst} lookup can be skipped if {@code x <= BLOCK_MASK}).
    *
    * @see CMapBlock#BLOCK_BITS
    * @see CMapBlock#BLOCK_SIZE
    */
   public Pair<int[], int[]> getTables() {
     Pair<int[], List<CMapBlock>> p = computeTables();
-    return new Pair<int[], int[]>(p.fst, flattenBlocks(p.snd));
+    int[] shifted = new int[p.fst.length];
+    for (int i = 0; i < p.fst.length; i++) {
+      shifted[i] = p.fst[i] << CMapBlock.BLOCK_BITS;
+    }
+    return new Pair<int[], int[]>(shifted, flattenBlocks(p.snd));
   }
 }
