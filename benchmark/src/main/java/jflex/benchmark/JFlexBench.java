@@ -1,10 +1,10 @@
-package de.jflex.benchmark;
+package jflex.benchmark;
 
-import de.jflex.benchmark.pregen.NoAction17;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.concurrent.TimeUnit;
+import jflex.benchmark.pregen.NoAction17;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
