@@ -41,6 +41,7 @@ update_source() {
   jar -xf ../../target/jflex-*-sources.jar
   logi "Remove unrelated sources"
   rm -rf jflex/maven
+  rm -rf jflex/benchmark
   rm $(find . -name 'BUILD.bazel')
 
   logi "Checking licenses"
