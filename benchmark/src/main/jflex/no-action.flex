@@ -1,4 +1,4 @@
-package de.jflex.benchmark;
+package jflex.benchmark;
 
 /*
   A scanner with minimal action code, to measure inner matching loop
