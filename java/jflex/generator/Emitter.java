@@ -1291,6 +1291,49 @@ public final class Emitter {
     }
   }
 
+  /**
+   * Emit {@code yychar}, {@code yycolumn}, {@code zzAtBOL}, {@code zzEOFDone} with warning
+   * suppression when needed.
+   */
+  private void emitVarDefs() {
+    // We can't leave out these declarations completely, even if unused, because
+    // the reset functions in the skeleton refer to them. They are written to,
+    // but not read. Only other option would be to pull these out of the skeleton
+    // as well.
+
+    println("  /** Number of newlines encountered up to the start of the matched text. */");
+    if (!scanner.lineCount()) {
+      println("  @SuppressWarnings(\"unused\")");
+    }
+    println("  private int yyline;");
+    println();
+    println(
+        "  /** Number of characters from the last newline up to the start of the matched text. */");
+    if (!scanner.columnCount()) {
+      println("  @SuppressWarnings(\"unused\")");
+    }
+    println("  private int yycolumn;");
+    println();
+    println("  /** Number of characters up to the start of the matched text. */");
+    if (!scanner.charCount()) {
+      println("  @SuppressWarnings(\"unused\")");
+    }
+    println("  private long yychar;");
+    println();
+    println("  /** Whether the scanner is currently at the beginning of a line. */");
+    if (!scanner.bolUsed()) {
+      println("  @SuppressWarnings(\"unused\")");
+    }
+    println("  private boolean zzAtBOL = true;");
+    println();
+    println("  /** Whether the user-EOF-code has already been executed. */");
+    if (eofCode == null) {
+      println("  @SuppressWarnings(\"unused\")");
+    }
+    println("  private boolean zzEOFDone;");
+    println();
+  }
+
   /** Main Emitter method. */
   public void emit() {
     String functionName = (scanner.functionName() != null) ? scanner.functionName() : "yylex";
@@ -1333,6 +1376,8 @@ public final class Emitter {
     skel.emitNext();
 
     emitLookBuffer();
+
+    emitVarDefs();
 
     emitClassCode();
 
