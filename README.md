@@ -163,6 +163,12 @@ Or:
 bazel run //jflex:jflex_bin -- --info
 ```
 
+Build uberjar (aka fatjar aka deploy jar)
+
+```
+bazel build jflex/jflex_bin_deploy.jar
+```
+
 Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
 #### Build with Maven
