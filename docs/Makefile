@@ -1,9 +1,8 @@
 # Makefile for jflex documentation (ps + pdf + html)
 
-#VERSION=1.6.1
 VERSION=1.8.0-SNAPSHOT
-RELEASE_DATE=21 September 2018
-UNICODE_VER=12.0
+RELEASE_DATE=26 February 2020
+UNICODE_VER=12.1
 
 all: pdf html
 
@@ -19,7 +18,7 @@ md/manual.md: md/head.md md/intro.md md/installing.md \
 	cat $^ > $@
 
 manual.html: manual.mdx
-	pandoc --smart --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
+	pandoc --css manual.css --filter pandoc-citeproc -f markdown+smart $< -o $@
 #	pandoc --filter pandoc-citeproc -f markdown --toc --toc-depth=2 $< -o $@
 
 #dependency manual.tex would fire manual.md -> .tex conversion
@@ -47,7 +46,7 @@ manual.pdf: xmanual.pdf
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg *.bcf
 
-realclean: clean 
+realclean: clean
 	rm -f *.mdx
 	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
 	rm -f intro.tex installing.tex example.tex lex-specs.tex ant-task.tex
