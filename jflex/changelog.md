@@ -1,4 +1,4 @@
-## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11)
+## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11) (February 26, 2020)
 - Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #563)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
 - Significantly decreased memory usage for unicode scanners from ~4MB to typical ~20kB. (#697)
