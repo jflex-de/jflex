@@ -10,7 +10,7 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 MVN="$BASEDIR"/mvnw
 
 GPG=gpg
-KEY=84A70085
+KEY=20A847CE6AB7F5F3
 
 printf "Clean checkout?  "
 stat_results=$(git status -s)
