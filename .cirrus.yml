@@ -8,17 +8,14 @@ container:
   image: l.gcr.io/google/bazel:1.2.1
   memory: 5G
 
-bazel_build_task:
-  name: Bazel build
+bazel_build__test_task:
+  name: Bazel build and test
   bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
   build_script:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
   build_all_script:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-
-bazel_test_task:
-  name: Bazel test
   test_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex/...
   regression_tests_script:
