@@ -94,8 +94,16 @@ system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex');
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/bin/jflex.bat');
 print "\ndone.\n\n";
 
+print " updating version in jflex/examples/common/include.xml";
+system ('perl -pi -e "s/-SNAPSHOT//" jflex/examples/common/include.xml');
+print "\ndone.\n\n";
+
 print " updating version in docs/xmanual.tex";
 system ('perl -pi -e "s/-SNAPSHOT//" docs/xmanual.tex');
+print "\ndone.\n\n";
+
+print " updating version in docs/docs.bzl";
+system ('perl -pi -e "s/-SNAPSHOT//" docs/docs.bzl');
 print "\ndone.\n\n";
 
 print " updating version in docs/Makefile";

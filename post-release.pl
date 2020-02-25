@@ -31,7 +31,7 @@ GetOptions("snapshot=s" => \$snapshot) or die($usage);
 die $usage unless (defined($snapshot) && $snapshot =~ /-SNAPSHOT$/);
 
 my $sheet =<<'__STYLESHEET__';
-<xsl:stylesheet version="1.0" 
+<xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:pom="http://maven.apache.org/POM/4.0.0"
                 xmlns="http://maven.apache.org/POM/4.0.0"
@@ -39,9 +39,9 @@ my $sheet =<<'__STYLESHEET__';
   <xsl:param name="snapshot"/>
   <xsl:param name="latest-release"/>
 
-  <!-- Replace all JFlex versions with the new JFlex snapshot version, --> 
+  <!-- Replace all JFlex versions with the new JFlex snapshot version, -->
   <!-- except for the bootstrap version in the de.jflex:jflex POM.     -->
-  <xsl:template 
+  <xsl:template
       match=" /pom:project[(pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex'))
                            and not (pom:artifactId='cup-maven-plugin' or pom:artifactId='cup-parent')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
@@ -54,9 +54,9 @@ my $sheet =<<'__STYLESHEET__';
 
   <!-- Replace the bootstrap version with the latest release version -->
   <!-- in the de.jflex:jflex POM.                                    -->
-  <xsl:template 
+  <xsl:template
       match="/pom:project/pom:build/pom:plugins/pom:plugin
-             [   /pom:project/pom:parent/pom:groupId='de.jflex' 
+             [   /pom:project/pom:parent/pom:groupId='de.jflex'
              and /pom:project/pom:artifactId='jflex'
              and pom:artifactId='jflex-maven-plugin']
              /pom:version">
@@ -114,8 +114,6 @@ system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex !);
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex.bat !);
 print "\ndone.\n\n";
 
-#  <property name="bootstrap.version" value="1.5.0" />
-#  <property name="version" value="1.5.1-SNAPSHOT" />
 print "Updating version -> $snapshot and",
       " bootstrap JFlex version -> $latest_release\n",
       " in jflex/build.xml\n";
@@ -125,8 +123,16 @@ system(qq!perl -pi -e "s/(property\\s+name\\s*=\\s*[\\"']version[\\"']\\s+value\
 
 print "\ndone.\n\n";
 
+print " updating version in jflex/examples/common/include.xml";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/examples/common/include.xml!);
+print "\ndone.\n\n";
+
 print " updating version in docs/xmanual.tex";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/xmanual.tex!);
+print "\ndone.\n\n";
+
+print " updating version in docs/docs.bzl";
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/docs.bzl!);
 print "\ndone.\n\n";
 
 print " updating version in docs/Makefile";
@@ -165,14 +171,14 @@ exit;
 sub get_latest_version {
   # Get the previous snapshot version from the parent POM
   # (assumes master is on previous snapshot)
-  my $parent_pom = XML::LibXML->load_xml(location => 'pom.xml'); 
+  my $parent_pom = XML::LibXML->load_xml(location => 'pom.xml');
   my $xpath_context = XML::LibXML::XPathContext->new($parent_pom);
   $xpath_context->registerNs('pom', 'http://maven.apache.org/POM/4.0.0');
   return $xpath_context->findvalue('/pom:project/pom:version');
 }
 
 sub wanted {
-  transform($File::Find::fullname) if (/^pom\.xml\z/); 
+  transform($File::Find::fullname) if (/^pom\.xml\z/);
 }
 
 sub transform {
@@ -181,7 +187,7 @@ sub transform {
   my $style_doc = XML::LibXML->load_xml('string' => $sheet);
   my $stylesheet = $xslt->parse_stylesheet($style_doc);
   my $results = $stylesheet->transform_file
-      ($pom, 'snapshot' => "'$snapshot'", 
+      ($pom, 'snapshot' => "'$snapshot'",
              'latest-release' => "'$latest_release'");
   $stylesheet->output_file($results, $pom); # replace existing file
 }
