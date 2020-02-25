@@ -30,6 +30,7 @@ bazel_build_task:
   jar_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     destination: artifact
+    type: application/java-archive
 
 measure_coverage_task:
   name: Measure code coverage
