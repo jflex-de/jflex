@@ -5,7 +5,7 @@ buildtools_cache:
   folder: buildtools
 
 container:
-  image: l.gcr.io/google/bazel:1.2.1
+  image: l.gcr.io/google/bazel:2.1.1
   memory: 5G
 
 bazel_build__test_task:
@@ -38,11 +38,6 @@ bazel_artifact_task:
 
 measure_coverage_task:
   name: Measure code coverage
-  container:
-    image: l.gcr.io/google/bazel:1.1.0
-    memory: 6G
-  # Bazel fails to build combined report on Cirrus-ci.
-  # https://github.com/bazelbuild/bazel/issues/6450
   measure_coverage_script:
   - bazel --bazelrc=.ci.bazelrc coverage --combined_report=none --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
   send_coverage_report_script:
