@@ -27,7 +27,7 @@ bazel_build_task:
     path: "bazel-out/*/testlogs/**/test.xml"
     type: text/xml
     format: junit
-  store_artifacts:
+  jar_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     destination: artifact
 
