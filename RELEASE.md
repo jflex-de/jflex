@@ -1,12 +1,12 @@
 # How to release JFlex
 
-This document describes how the release manager of the JFlex team can release 
+This document describes how the release manager of the JFlex team can release
 JFlex and the JFlex Maven Plugin.
 
 JFlex and the JFlex Maven Plugin will be deployed to the Sonatype OSS Maven
 repository at [oss.sonatype.org][sonatype].
 The Maven Central repository is synchronized with this repository.
-For more information, see [Sonatype respository usage guide][sonatype-repo-usage]. 
+For more information, see [Sonatype respository usage guide][sonatype-repo-usage].
 
 
 ## Prepare to release (only once)
@@ -19,7 +19,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
    the Sonatype OSS Maven repository, as well as for uploading the JFlex Maven
    Plugin to SourceForge.  In the sonatype entries, fill in the username and
    password for your Sonatype JIRA account, which is also the account for the
-   Sonatype Nexus instance that serves the OSS Maven repository: 
+   Sonatype Nexus instance that serves the OSS Maven repository:
 
     ```xml
        <?xml version="1.0" encoding="UTF-8"?>
@@ -28,12 +28,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
          <servers>
            <!-- ... -->
            <server>
-             <id>sonatype-nexus-snapshots</id>
-             <username> ... </username>
-             <password> ... </password>
-           </server>
-           <server>
-             <id>sonatype-nexus-staging</id>
+             <id>ossrh</id>
              <username> ... </username>
              <password> ... </password>
            </server>
@@ -48,7 +43,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
 
 4. Get the source:
    ```sh
-   git clone git@github.com:jflex-de/jflex.git 
+   git clone git@github.com:jflex-de/jflex.git
    ```
 
 5. Make sure all changes are committed
@@ -64,7 +59,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
 
 ```sh
 ./prepare-release.pl
-``` 
+```
 
 The script does the following:
 
@@ -112,7 +107,7 @@ Go into `releases/jflex-$version` and see if things look as expected.
 After staging the release, you have to perform several manual steps
 on the Sonatype OSS Maven repository website <http://oss.sonatype.org>
 after logging into the site:
-   
+
    1. Click the "Staging Repositories" link in the left-hand navigation bar.
    2. Select "de.jflex" from the Filter combobox on the top right
    3. Click the "Refresh" button on top just to the right of the left navbar.
