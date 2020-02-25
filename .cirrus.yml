@@ -25,10 +25,11 @@ bazel_test_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
   test_all_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-  junit_artifacts:
-    path: "bazel-out/*/testlogs/**/test.xml"
-    type: text/xml
-    format: junit
+  always:
+    junit_artifacts:
+      path: "bazel-out/*/testlogs/**/test.xml"
+      type: text/xml
+      format: junit
 
 bazel_artifact_task:
   name: Bazel artifact
@@ -36,7 +37,6 @@ bazel_artifact_task:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  jflex/jflex_bin_deploy.jar
   binary_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
-    destination: artifact
     type: application/java-archive
 
 measure_coverage_task:
