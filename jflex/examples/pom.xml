@@ -3,7 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.flex.examples</groupId>
   <artifactId>pom</artifactId>
-  <version>1</version>
+  <version>1.0</version>
+  <name>JFlex example collection</name>
   <description>
     Examples on how to use JFlex and jflex-maven-plugin
   </description>

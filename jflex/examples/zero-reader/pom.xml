@@ -4,8 +4,8 @@
   <groupId>de.flex.examples</groupId>
   <artifactId>zero-reader</artifactId>
   <version>1.0</version>
-  <name>Example of a Reader wrapper that supports reading 0 character</name>
-  <description>This example shows what to do about input Readers that sometimes return 0
+  <name>Example for readers that can return 0 characters</name>
+  <description>This example shows an example for a wrapper for input Readers that sometimes return 0
     characters.</description>
   <dependencies>
     <dependency>
