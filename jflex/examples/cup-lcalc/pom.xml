@@ -4,7 +4,7 @@
   <groupId>de.flex.examples</groupId>
   <artifactId>cup-lcalc</artifactId>
   <version>1.0</version>
-  <name>A scanner for ca alculator.</name>
+  <name>A scanner for a calculator.</name>
   <description>This
     example comes from a short article series in the Linux Gazette
     by Richard A. Sevenich and Christopher Lopes,

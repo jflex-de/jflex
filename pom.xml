@@ -431,7 +431,7 @@
             <artifactId>maven-gpg-plugin</artifactId>
             <version>1.6</version>
             <configuration>
-              <keyname>84A70085</keyname>
+              <keyname>20A847CE6AB7F5F3</keyname>
             </configuration>
             <executions>
               <execution>
