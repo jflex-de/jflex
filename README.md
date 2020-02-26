@@ -41,7 +41,7 @@ You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.7.0</version>
+          <version>1.8.0</version>
           <executions>
             <execution>
               <goals>
@@ -100,7 +100,7 @@ jflex/bin/jflex src/grammar/parser.flex
 
 Or:
 ```
-java -jar jflex-full-1.7.0.jar -d output src/grammar/parser.flex
+java -jar jflex-full-1.8.0.jar -d output src/grammar/parser.flex
 ```
 
 ### Other build tools
@@ -141,8 +141,8 @@ The top level directory of the JFLex git repository contains:
 
 #### Build with Bazel
 
-JFlex can be build with Bazel.
-[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance. 
+JFlex can be built with Bazel.
+[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance.
 
 
 You need [Bazel][bazel].
@@ -179,10 +179,10 @@ You need JDK 8 or later.
 ./mvnw install
 ```
 
-This generates `jflex/target/jflex-full-1.7.0.jar` that you can use, e.g.
+This generates `jflex/target/jflex-full-1.8.1-SNAPSHOT.jar` that you can use, e.g.
 
 ```
-java -jar jflex-full-1.7.0.jar --info
+java -jar jflex-full-1.8.1-SNAPSHOT.jar --info
 ```
 
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
