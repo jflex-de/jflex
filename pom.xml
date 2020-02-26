@@ -262,6 +262,7 @@
           <configuration>
             <!-- https://bugs.openjdk.java.net/browse/JDK-8212233 -->
             <source>8</source>
+            <doclint>none</doclint>
           </configuration>
         </plugin>
         <plugin>
