@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0                                                             *
+ * JFlex 1.8.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -21,7 +21,7 @@ import java.util.List;
  * Generator for random {@link StateSet} instances.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0
+ * @version JFlex 1.8.1-SNAPSHOT
  * @see StateSet
  */
 public class StateSetGen extends Generator<StateSet> {

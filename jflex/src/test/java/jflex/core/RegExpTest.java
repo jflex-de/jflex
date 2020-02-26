@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0                                                             *
+ * JFlex 1.8.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,7 +19,7 @@ import org.junit.Test;
  * Unit tests for {@link jflex.core.RegExp}.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0
+ * @version JFlex 1.8.1-SNAPSHOT
  */
 public class RegExpTest implements sym {
 

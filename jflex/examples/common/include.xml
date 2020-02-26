@@ -13,7 +13,7 @@
   <property name="common.dir" value="../common" />
 
   <!-- JFlex task -->
-  <property name="jflex" value="../../lib/jflex-full-1.8.0.jar"/>
+  <property name="jflex" value="../../lib/jflex-full-1.8.1-SNAPSHOT.jar"/>
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
   <!-- ivy installer -->
