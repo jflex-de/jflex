@@ -58,7 +58,7 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
 ### Run the `prepare-release.pl` script
 
 ```sh
-./prepare-release.pl
+./scripts/prepare-release.pl
 ```
 
 The script does the following:
@@ -89,7 +89,7 @@ git branch -D jflex-X.Y.Z
 
 Run the packaging script:
 ```sh
-scripts/mk-release.sh
+./scripts/mk-release.sh
 ```
 
 This generates the documentation and builds the .tar.gz and .zip file.
@@ -99,7 +99,7 @@ Go into `releases/jflex-$version` and see if things look as expected.
 ### Stage the release to the Sonatype OSS Maven repository:
 
 ```sh
-./mvn-deploy.sh
+./scripts/mvn-deploy.sh
 ```
 
 ### Publish the staged release on Sonatype
@@ -130,7 +130,7 @@ git checkout -b jflex_X_Y
 git push
 # Tag the exact released version
 git tag vX.Y.Z
-git push --tag vX.Y.Z
+git push origin vX.Y.Z
 ```
 
 Then:
@@ -167,14 +167,14 @@ git checkout aggregated-java-sources
 git log
 # Tag
 git tag sources-vX.Y.Z
-git push --tag sources-vX.Y.Z
+git push origin sources-vX.Y.Z
 ```
 
 
 ### Post-release
 
 ```sh
-./post-release.pl
+./scripts/post-release.pl
 # Review
 git diff HEAD^1
 git push
