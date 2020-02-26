@@ -155,6 +155,15 @@ In repository `jflex-web`, in `pages/`
 
 (FIXME: steps 2-5 can/should be automated)
 
+### Update jflex-maven-plugin website
+
+Generate jflex-maven-plugin site in repo `jflex` in dir `jflex-maven-plugin` with
+
+```sh
+mvn site
+```
+
+Copy contents of `target/site` to directory `jflex-maven-plugin` on branch `gh-pages` in repo `jflex-wev`. Push to github to deploy.
 
 ### Tag the _aggregate-java-sources_ branch
 
