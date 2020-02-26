@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.8.0                                                             *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
  * Property-based tests for {@link StateSet}
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.8.0
  * @see StateSet
  */
 @RunWith(JUnitQuickcheck.class)
