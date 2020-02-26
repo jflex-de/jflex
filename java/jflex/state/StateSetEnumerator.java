@@ -40,7 +40,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
   /**
    * Creates a new StateSetEnumerator that is not yet associated with a StateSet. {@link
    * #hasMoreElements()} and {@link #nextElement()} will throw {@link NullPointerException} when
-   * used before {@link #reset()}
+   * used before {@link #reset(StateSet)}
    */
   public StateSetEnumerator() {}
 

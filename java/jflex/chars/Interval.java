@@ -143,7 +143,7 @@ public final class Interval implements Iterable<Integer> {
   /**
    * Checks the invariants of this object.
    *
-   * @returns true when the invariants of this objects hold.
+   * @return true when the invariants of this objects hold.
    */
   public boolean invariants() {
     return start <= end;

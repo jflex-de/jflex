@@ -74,8 +74,7 @@ public class HiLowEmitter extends PackEmitter {
   /**
    * Emit one value using two characters.
    *
-   * @param val the value to emit
-   * @prec 0 <= val <= 0xFFFFFFFF
+   * @param val the value to emit; {@code 0 <= val <= 0xFFFFFFFF}
    */
   public void emit(int val) {
     numEntries += 1;

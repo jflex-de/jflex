@@ -223,8 +223,6 @@ public final class Emitter {
       println("  /**");
       println("   * Converts an int token code into the name of the");
       println("   * token by reflection on the cup symbol class/interface " + scanner.cupSymbol());
-      println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
       println("  private static String getTokenName(int token) {");
       println("    try {");
@@ -247,8 +245,6 @@ public final class Emitter {
       println("  /**");
       println("   * Same as " + functionName + " but also prints the token to standard out");
       println("   * for debugging.");
-      println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
 
       if (scanner.cupCompatible() || scanner.cup2Compatible()) {

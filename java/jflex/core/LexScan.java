@@ -2064,7 +2064,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
    * char, and column counting remain untouched.
    *
    * The current input stream can be restored with
-   * yypopStream (usually in an <<EOF>> action).
+   * yypopStream (usually in an {@code <<EOF>>} action).
    *
    * @param reader the new input stream to read from
    *

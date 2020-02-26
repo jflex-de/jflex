@@ -17,7 +17,7 @@ import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 
 /**
- * Stores all rules of the specification for later access in RegExp -> NFA
+ * Stores all rules of the specification for later access in the RegExp to NFA conversion.
  *
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT

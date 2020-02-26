@@ -120,8 +120,6 @@ public class CountEmitter extends PackEmitter {
    * Emits a plain int array as a count/value string. Expects the preamble code (declaration,
    * javadoc) to already be emitted. Values in the array must be no larger than 0xFFFF (encoded as
    * char), array must have at least one element.
-   *
-   * @returns the number of count/value pairs in the packed array
    */
   public void emitCountValueString(int[] a) {
     assert a.length > 0;
