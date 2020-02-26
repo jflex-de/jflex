@@ -3,7 +3,7 @@
 # fail on error
 set -e
 
-VERSION="1.8.0"
+VERSION="1.8.1-SNAPSHOT"
 JFLEX_JAR="jflex-full-$VERSION.jar"
 
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
