@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0                                                             *
+ * JFlex 1.8.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ package jflex.core;
  * <p>If this is encountered, this means there is a bug.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0
+ * @version JFlex 1.8.1-SNAPSHOT
  */
 // TODO Move all regexp related code to jflex.regexp
 // This class lives in package jflex.core, because the reference to jflex.core.RegExp would

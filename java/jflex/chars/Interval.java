@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0                                                             *
+ * JFlex 1.8.1-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ import java.util.PrimitiveIterator;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.8.0
+ * @version JFlex 1.8.1-SNAPSHOT
  */
 public final class Interval implements Iterable<Integer> {
 
