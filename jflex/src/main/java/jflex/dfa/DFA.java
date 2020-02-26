@@ -312,7 +312,7 @@ public class DFA {
    * Implementation of Hopcroft's O(n log n) minimization algorithm, follows description by D.
    * Gries.
    *
-   * <p>Time: O(n log n) Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
+   * <p>Time: {@code O(n log n)} Space: {@code O(c n), size < 4*(5*c*n + 13*n + 3*c) byte}
    */
   public void minimize() {
     if (minimized) {
