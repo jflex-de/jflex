@@ -43,7 +43,7 @@ my $sheet =<<'__STYLESHEET__';
   <!-- except for the bootstrap version in the de.jflex:jflex POM.     -->
   <xsl:template
       match=" /pom:project[(pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex'))
-                           and not (pom:artifactId='cup-maven-plugin' or pom:artifactId='cup-parent')]/pom:version
+                           and not (pom:artifactId='cup-maven-plugin')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
              |/pom:project/pom:build/pom:plugins/pom:plugin
               [   (pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin')

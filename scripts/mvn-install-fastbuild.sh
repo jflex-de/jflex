@@ -16,7 +16,7 @@ fi
 # TODO(regisd) Define the list of packages via the profile
 logi "Build and install JFlex only (-P fastbuild)"
 cd "$BASEDIR"
-"$MVN" ${QUIET} -Pfastbuild -pl .,cup,cup/cup,cup/cup_runtime,cup-maven-plugin,jflex install
+"$MVN" ${QUIET} -Pfastbuild -pl .,cup-maven-plugin,jflex install
 
 if [[ -n "$EXTRA_PROJECTS" ]]; then
   "$MVN" ${QUIET} -Pfastbuild -pl "$EXTRA_PROJECTS" install
