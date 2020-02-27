@@ -6,7 +6,7 @@
     <version>1.8.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <version>1.1</version>
+  <version>1.2</version>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cup-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
@@ -28,12 +28,13 @@
     </dependency>
 
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup</artifactId>
+      <groupId>com.github.vbmacher</groupId>
+      <artifactId>java-cup</artifactId>
+      <version>11b-20160615</version>
     </dependency>
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup_runtime</artifactId>
+      <groupId>com.github.vbmacher</groupId>
+      <artifactId>java-cup-runtime</artifactId>
       <version>11b-20160615</version>
     </dependency>
 
