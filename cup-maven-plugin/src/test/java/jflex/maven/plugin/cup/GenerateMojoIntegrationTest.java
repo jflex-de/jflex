@@ -23,7 +23,7 @@ public class GenerateMojoIntegrationTest {
         @Override
         protected void before() throws Throwable {
           super.before();
-          mavenTestProject = readMavenProject(new File("../cup/sample-project"));
+          mavenTestProject = readMavenProject(new File("sample-project"));
           assertThat(mavenTestProject.getGroupId()).isEqualTo("de.jflex.testing");
           assertThat(mavenTestProject.getArtifactId()).isEqualTo("sample-project");
         }
