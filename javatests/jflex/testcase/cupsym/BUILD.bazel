@@ -19,8 +19,8 @@ java_library(
         ":gen_cupsym_scanner",
     ],
     deps = [
-        "//cup/cup_runtime",
         "//java/jflex/testing/testsuite/golden",
+        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
         "//third_party/com/google/guava",
     ],
 )
