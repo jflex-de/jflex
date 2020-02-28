@@ -3,7 +3,7 @@
 This directory contains JFlex, a fast scanner generator for Java.
 
 To run JFlex, run `bin/jflex` from the command line or double click on the
-jflex-full-1.8.1.jar file in the `lib/` directory.
+jflex-full-1.9.0-SNAPSHOT.jar file in the `lib/` directory.
 
 See the manual in `doc/` or the website at <http://jflex.de> for more
 information and for how to get started.
