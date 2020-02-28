@@ -48,11 +48,11 @@ public class GenerateMojoIntegrationTest {
                 + "using the name defined in the sample-project pom.xml")
         .that(generatedParseFile.exists())
         .isTrue();
-    File generatedSymbolsFile = new File(generatedJavaPath, "MySymbol.java");
+    File generatedSymbolsFile = new File(generatedJavaPath, "MySymbols.java");
     assertWithMessage(
             "The java path in the target `cup` directory contains the generated sym, "
                 + "using the name defined in the sample-project pom.xml")
-        .that(generatedParseFile.exists())
+        .that(generatedSymbolsFile.exists())
         .isTrue();
   }
 }
