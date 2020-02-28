@@ -1,3 +1,7 @@
+## [JFlex 1.8.1](https://github.com/jflex-de/jflex/milestone/18) (February 28, 2020)
+
+- adjust CUP dependency management such that JFlex can be built from source in the release package.
+
 ## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11) (February 26, 2020)
 - Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #563)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
