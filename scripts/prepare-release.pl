@@ -77,16 +77,8 @@ print " updating version in pom.xml files\n";
 File::Find::find({wanted => \&wanted, follow => 1, follow_skip => 2}, '.');
 print "\ndone.\n\n";
 
-print " updating version in build.xml";
-system ('perl -pi -e "s/-SNAPSHOT//" jflex/build.xml');
-print "\ndone.\n\n";
-
 print " updating version in Build.java";
 system ('perl -pi -e "s/version = \"(.*)-SNAPSHOT/version = \"\\1/" jflex/src/main/java/jflex/base/Build.java ');
-print "\ndone.\n\n";
-
-print " updating version in the testsuite's Exec.java";
-system ('perl -pi -e "s/-SNAPSHOT//" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
 print "\ndone.\n\n";
 
 print " updating version in jflex/bin/jflex*";
