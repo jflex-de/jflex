@@ -4,7 +4,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.8.1</version>
+    <version>1.9.0-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>jflex-testsuite-maven-plugin</artifactId>
@@ -44,7 +44,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.8.1</version>
+        <version>1.9.0-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>

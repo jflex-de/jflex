@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.1                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -20,7 +20,7 @@ import jflex.exceptions.CharClassException;
  * <p>This base class has no content other than its type.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.1
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class RegExp {
 
