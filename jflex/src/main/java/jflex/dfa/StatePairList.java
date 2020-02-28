@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.1-SNAPSHOT                                                    *
+ * JFlex 1.8.1                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -15,7 +15,7 @@ import jflex.logging.Out;
  * A list of pairs of states. Used in old DFA minimization.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.1-SNAPSHOT
+ * @version JFlex 1.8.1
  */
 public final class StatePairList {
 

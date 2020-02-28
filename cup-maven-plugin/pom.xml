@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.8.1-SNAPSHOT</version>
+    <version>1.8.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <version>1.2</version>

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.1-SNAPSHOT                                                    *
+ * JFlex 1.8.1                                                             *
  * Copyright (c) 2008  Steve Rowe                                          *
  * All rights reserved.                                                    *
  *                                                                         *

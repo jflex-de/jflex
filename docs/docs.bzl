@@ -2,7 +2,7 @@
 
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")
 
-VERSION = "1.8.1-SNAPSHOT"
+VERSION = "1.8.1"
 
 RELEASE_DATE = "21 September 2018"
 
