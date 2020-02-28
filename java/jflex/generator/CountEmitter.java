@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.1                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -13,7 +13,7 @@ package jflex.generator;
  * An emitter for an array encoded as count/value pairs in a string.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.1
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class CountEmitter extends PackEmitter {
   /** number of entries in expanded array */
