@@ -76,7 +76,7 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>target/generated-sources/jflex/de/jflex/benchmark/pregen</outputDirectory>
+              <outputDirectory>target/generated-sources/jflex/jflex/benchmark/pregen</outputDirectory>
               <resources>
                 <resource>
                   <directory>src/main/pregen</directory>
