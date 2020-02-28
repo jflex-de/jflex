@@ -74,7 +74,7 @@ print "OK.\n\n";
 
 print "Switching JFlex version -> $release\n";
 print " updating version in pom.xml files\n";
-File::Find::find({wanted => \&wanted, follow => 1}, '.');
+File::Find::find({wanted => \&wanted, follow => 1, follow_skip => 2}, '.');
 print "\ndone.\n\n";
 
 print " updating version in build.xml";

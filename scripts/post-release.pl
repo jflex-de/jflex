@@ -96,7 +96,7 @@ my $previous_snapshot = get_latest_version();
 
 print "Switching JFlex version -> $snapshot\n";
 print " and boostrap JFlex version -> $previous_snapshot in the de.jflex:jflex POM ...\n";
-File::Find::find({wanted => \&wanted, follow => 1}, '.');
+File::Find::find({wanted => \&wanted, follow => 1, follow_skip => 2}, '.');
 
 print "Updating version in Build.java\n";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/src/main/java/jflex/base/Build.java !);
