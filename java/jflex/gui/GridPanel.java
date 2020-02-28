@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.1-SNAPSHOT                                                    *
+ * JFlex 1.8.1                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,7 +17,7 @@ import java.util.List;
  * Grid layout manager like GridLayout but with predefinable grid size.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.1-SNAPSHOT
+ * @version JFlex 1.8.1
  */
 public class GridPanel extends Panel implements Handles {
 
