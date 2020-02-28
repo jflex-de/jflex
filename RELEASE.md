@@ -8,7 +8,6 @@ repository at [oss.sonatype.org][sonatype].
 The Maven Central repository is synchronized with this repository.
 For more information, see [Sonatype respository usage guide][sonatype-repo-usage].
 
-
 ## Prepare to release (only once)
 
 1. First, create a JIRA account on <http://issues.sonatype.org>, then make sure that your
@@ -24,17 +23,13 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
     ```xml
        <?xml version="1.0" encoding="UTF-8"?>
        <settings xmlns="http://maven.apache.org/POM/4.0.0">
-         <!-- ... -->
          <servers>
-           <!-- ... -->
            <server>
              <id>ossrh</id>
              <username> ... </username>
              <password> ... </password>
            </server>
-           <!-- ... -->
          </servers>
-         <!-- ... -->
        </settings>
     ```
 
@@ -42,16 +37,17 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
    by the `prepare-release.pl` and `post-release.pl` scripts).
 
 4. Get the source:
+
    ```sh
    git clone git@github.com:jflex-de/jflex.git
    ```
 
 5. Make sure all changes are committed
+
    ```sh
    cd jflex
    git status
    ```
-
 
 ## Perform the release
 
@@ -63,10 +59,10 @@ For more information, see [Sonatype respository usage guide][sonatype-repo-usage
 
 The script does the following:
 
-   - Creates a release branch **jflex-X.Y.Z**
-   - Changes the version in all POMs by removing all -SNAPSHOT suffixes
-   - Changes the versions in java comments and @version tags
-   - Commits the changes
+- Creates a release branch **branch-x.y.z**
+- Changes the version in all POMs by removing all -SNAPSHOT suffixes
+- Changes the versions in java comments and @version tags
+- Commits the changes
 
 If something goes wrong with one of the steps performed by
 the script, it will halt.  You can return to the state before
@@ -76,8 +72,16 @@ release branch:
 ```sh
 git checkout master
 git reset --hard
-git branch -D jflex-X.Y.Z
+git branch -D branch-x.y.z
 ```
+
+Then:
+
+  1. Create a pull request to merge **branch-x.y.z** into **master**.
+     This is important so that **aggregated-java-sources** is built by
+     Travis with the final release version.
+  2. Check that all tests come back green.
+  3. **Hold off merge into master** until deployment has succeeded.
 
 ### Build all artifacts
 
@@ -88,6 +92,7 @@ git branch -D jflex-X.Y.Z
 ### Create the release package
 
 Run the packaging script:
+
 ```sh
 ./scripts/mk-release.sh
 ```
@@ -96,7 +101,7 @@ This generates the documentation and builds the .tar.gz and .zip file.
 
 Go into `releases/jflex-$version` and see if things look as expected.
 
-### Stage the release to the Sonatype OSS Maven repository:
+### Stage the release to the Sonatype OSS Maven repository
 
 ```sh
 ./scripts/mvn-deploy.sh
@@ -123,27 +128,20 @@ after logging into the site:
 
 ### Commit the release branch
 
-If you are happy with the changes, you can tag and push:
+If you are happy with the changes, you can merge the release branch
+**branch-x.y.z** from the pull request created before, and then tag and push:
+
 ```sh
-# Create a maintenance branch
-git checkout -b jflex_X_Y
-git push
-# Tag the exact released version
-git tag vX.Y.Z
+git tag -s vX.Y.Z
 git push origin vX.Y.Z
 ```
 
-Then:
-  1. Create a pull request to merge **jflex_X_Y** into **master**.
-     This is important so that **aggregated-java-sources** is built by Travis with the final release
-     version.
-  2. Confirm merge into master.
-
 ### Create github release
 
- * Create github release on https://github.com/jflex-de/jflex/releases with the release tag used above.
-
- * Add the release package files (at least `.tar.gz` and signature files, because they will be referenced from the jflex website) and manual.
+- Create github release on <https://github.com/jflex-de/jflex/releases>
+  with the release tag used above.
+- Add the release package files (at least `.tar.gz` and signature files,
+  because they will be referenced from the jflex website) and manual.
 
 ### Update the website
 
@@ -151,14 +149,11 @@ In repository `jflex-web`, in `pages/`
 
    1. Update index.md with news and current release
    2. Sync changelog.md with the jflex repo
-   3. Sync installing.md with installing.md in the jflex repo docs
-   4. Copy over generated `manual.html` and `manual.pdf` from jflex repo
-   5. Update version numbers in download.md
-   6. Commit and push to master
-   7. Copy over the release package files into `release/`
-   8. Run `make deploy`
-
-(FIXME: steps 2-5 can/should be automated)
+   3. Copy over generated `manual.html` and `manual.pdf` from jflex repo
+   4. Update version numbers in download.md
+   5. Commit and push to master
+   6. Copy over the release package files into `release/`
+   7. Run `make deploy`
 
 ### Update jflex-maven-plugin website
 
@@ -175,6 +170,7 @@ Copy contents of `target/site` to directory `jflex-maven-plugin` on branch `gh-p
 Travis will update the **aggregated-java-sources** branch from master.
 
 Once this is done,
+
 ```sh
 git checkout aggregated-java-sources
 # Verify that the last commit was to update for the release version
@@ -184,29 +180,26 @@ git tag sources-vX.Y.Z
 git push origin sources-vX.Y.Z
 ```
 
-
 ### Post-release
 
 ```sh
-./scripts/post-release.pl
+./scripts/post-release.pl --snapshot x.y.z--SNAPSHOT
 # Review
 git diff HEAD^1
 git push
 ```
 
 The`post-release.pl` script does the following:
-   - Creates a new branch **new_snapshot** for the future release
-   - Bump the JFlex version in all POMs to the supplied
-     snapshot version (X.Y+1.Z-SNAPSHOT)
-   - Changes the bootstrap JFlex version in the de.jflex:jflex
-     POM to the latest release version.
-   - Review the change
-   - Commits the changes
+
+- Creates a new branch **new_snapshot** for the future release
+- Bump the JFlex version in all POMs to the supplied snapshot version
+- Changes the bootstrap JFlex version in the de.jflex:jflex POM to the latest release version.
+- Commits the changes
 
 Finally:
-   - create a pull request with these changes
-   - merge in master
-   - delete the temporary jflex-X.Y.Z branch
+
+- create a pull request with these changes
+- merge into master
 
 [sonatype]: http://oss.sonatype.org/
 [maven-site-deploy]: http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
