@@ -139,6 +139,11 @@ Then:
      version.
   2. Confirm merge into master.
 
+### Create github release
+
+ * Create github release on https://github.com/jflex-de/jflex/releases with the release tag used above.
+
+ * Add the release package files (at least `.tar.gz` and signature files, because they will be referenced from the jflex website) and manual.
 
 ### Update the website
 
