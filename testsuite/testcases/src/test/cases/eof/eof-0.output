@@ -1,0 +1,13 @@
+match: --bla--
+action [27] { /* ignore */ }
+match: --\u000A--
+action [28] { /* that too */ }
+match: --blub--
+action [27] { /* ignore */ }
+match: --\u000A--
+action [28] { /* that too */ }
+EOF
+match: <<EOF>>
+action [30] { System.out.println("<<EOF>>"); return -1; }
+<<EOF>>
+-1
