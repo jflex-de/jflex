@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>1.9.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>JFlex</name>
@@ -53,8 +53,8 @@
   </developers>
   <dependencies>
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup_runtime</artifactId>
+      <groupId>com.github.vbmacher</groupId>
+      <artifactId>java-cup-runtime</artifactId>
       <version>${cup.version}</version>
     </dependency>
     <dependency>
@@ -117,14 +117,14 @@
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
         <!-- bootstrap with previous version -->
-        <version>1.7.0</version>
+        <version>1.8.1</version>
         <executions>
           <execution>
             <goals>
               <goal>generate</goal>
             </goals>
             <configuration>
-              <skeleton>src/main/jflex/skeleton.nested</skeleton>
+              <skeleton>src/main/jflex/skeleton.nested-1.8.0</skeleton>
             </configuration>
           </execution>
         </executions>
@@ -184,7 +184,7 @@
               <finalName>${project.artifactId}-full-${project.version}</finalName>
               <artifactSet>
                 <includes>
-                  <include>de.jflex:cup_runtime</include>
+                  <include>com.github.vbmacher:java-cup-runtime</include>
                 </includes>
               </artifactSet>
             </configuration>

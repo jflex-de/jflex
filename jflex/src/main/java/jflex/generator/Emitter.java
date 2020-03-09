@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -39,7 +39,7 @@ import jflex.skeleton.Skeleton;
  * <p>Table compression, String packing etc. is also done here.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Emitter {
   private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN =
@@ -223,8 +223,6 @@ public final class Emitter {
       println("  /**");
       println("   * Converts an int token code into the name of the");
       println("   * token by reflection on the cup symbol class/interface " + scanner.cupSymbol());
-      println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
       println("  private static String getTokenName(int token) {");
       println("    try {");
@@ -247,8 +245,6 @@ public final class Emitter {
       println("  /**");
       println("   * Same as " + functionName + " but also prints the token to standard out");
       println("   * for debugging.");
-      println("   *");
-      println("   * This code was contributed by Karl Meissner <meissnersd@yahoo.com>");
       println("   */");
 
       if (scanner.cupCompatible() || scanner.cup2Compatible()) {

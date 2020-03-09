@@ -17,7 +17,7 @@ java_library(
         ":gen_lexer",
         ":gen_parser",
     ],
-    deps = ["//cup:cup_runtime"],
+    deps = ["//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime"],
 )
 
 jflex(
@@ -39,7 +39,7 @@ java_test(
     srcs = ["src/test/java/jflex/examples/minijava/LexerTest.java"],
     deps = [
         ":minijava",
-        "//cup/cup_runtime",
+        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
         "//third_party/com/google/truth",
     ],
 )

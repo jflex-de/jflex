@@ -4,7 +4,7 @@
   <groupId>de.jflex</groupId>
   <artifactId>jflex-parent</artifactId>
   <name>JFlex parent and aggregator POM</name>
-  <version>1.8.0-SNAPSHOT</version>
+  <version>1.9.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <url>https://jflex-de.github.io/jflex/</url>
   <description>JFlex parent and aggregator POM</description>
@@ -53,7 +53,6 @@
   </developers>
 
   <modules>
-    <module>cup</module>
     <module>cup-maven-plugin</module>
     <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
@@ -137,13 +136,13 @@
         <version>2.6</version>
       </dependency>
       <dependency>
-        <groupId>de.jflex</groupId>
-        <artifactId>cup</artifactId>
+        <groupId>com.github.vbmacher</groupId>
+        <artifactId>java-cup</artifactId>
         <version>${cup.version}</version>
       </dependency>
       <dependency>
-        <groupId>de.jflex</groupId>
-        <artifactId>cup_runtime</artifactId>
+        <groupId>com.github.vbmacher</groupId>
+        <artifactId>java-cup-runtime</artifactId>
         <version>${cup.version}</version>
       </dependency>
       <dependency>
@@ -201,7 +200,7 @@
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>cup-maven-plugin</artifactId>
-          <version>1.0</version>
+          <version>1.2</version>
         </plugin>
         <plugin>
           <groupId>com.coveo</groupId>
@@ -262,6 +261,7 @@
           <configuration>
             <!-- https://bugs.openjdk.java.net/browse/JDK-8212233 -->
             <source>8</source>
+            <doclint>none</doclint>
           </configuration>
         </plugin>
         <plugin>

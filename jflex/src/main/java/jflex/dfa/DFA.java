@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -32,7 +32,7 @@ import jflex.option.Options;
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class DFA {
 
@@ -312,7 +312,7 @@ public class DFA {
    * Implementation of Hopcroft's O(n log n) minimization algorithm, follows description by D.
    * Gries.
    *
-   * <p>Time: O(n log n) Space: O(c n), size < 4*(5*c*n + 13*n + 3*c) byte
+   * <p>Time: {@code O(n log n)} Space: {@code O(c n), size < 4*(5*c*n + 13*n + 3*c) byte}
    */
   public void minimize() {
     if (minimized) {

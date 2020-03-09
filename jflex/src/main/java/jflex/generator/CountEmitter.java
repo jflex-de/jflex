@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -13,7 +13,7 @@ package jflex.generator;
  * An emitter for an array encoded as count/value pairs in a string.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class CountEmitter extends PackEmitter {
   /** number of entries in expanded array */
@@ -120,8 +120,6 @@ public class CountEmitter extends PackEmitter {
    * Emits a plain int array as a count/value string. Expects the preamble code (declaration,
    * javadoc) to already be emitted. Values in the array must be no larger than 0xFFFF (encoded as
    * char), array must have at least one element.
-   *
-   * @returns the number of count/value pairs in the packed array
    */
   public void emitCountValueString(int[] a) {
     assert a.length > 0;

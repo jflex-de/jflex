@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -13,7 +13,7 @@ package jflex.generator;
  * HiLowEmitter
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class HiLowEmitter extends PackEmitter {
 
@@ -74,8 +74,7 @@ public class HiLowEmitter extends PackEmitter {
   /**
    * Emit one value using two characters.
    *
-   * @param val the value to emit
-   * @prec 0 <= val <= 0xFFFFFFFF
+   * @param val the value to emit; {@code 0 <= val <= 0xFFFFFFFF}
    */
   public void emit(int val) {
     numEntries += 1;

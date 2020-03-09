@@ -43,7 +43,7 @@ my $sheet =<<'__STYLESHEET__';
   <!-- except for the bootstrap version in the de.jflex:jflex POM.     -->
   <xsl:template
       match=" /pom:project[(pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex'))
-                           and not (pom:artifactId='cup-maven-plugin' or pom:artifactId='cup-parent')]/pom:version
+                           and not (pom:artifactId='cup-maven-plugin')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
              |/pom:project/pom:build/pom:plugins/pom:plugin
               [   (pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin')
@@ -96,31 +96,14 @@ my $previous_snapshot = get_latest_version();
 
 print "Switching JFlex version -> $snapshot\n";
 print " and boostrap JFlex version -> $previous_snapshot in the de.jflex:jflex POM ...\n";
-File::Find::find({wanted => \&wanted, follow => 1}, '.');
-
-print "Updating version in build.xml\n";
-system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/build.xml !);
+File::Find::find({wanted => \&wanted, follow => 1, follow_skip => 2}, '.');
 
 print "Updating version in Build.java\n";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/src/main/java/jflex/base/Build.java !);
 
-print "Updating version in the testsuite's Exec.java\n";
-system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/"!
-       . q! testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java !);
-
-
 print " updating version in bin/jflex*";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex !);
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/bin/jflex.bat !);
-print "\ndone.\n\n";
-
-print "Updating version -> $snapshot and",
-      " bootstrap JFlex version -> $latest_release\n",
-      " in jflex/build.xml\n";
-system(qq!perl -pi -e "s/(property\\s+name\\s*=\\s*[\\"']version[\\"']\\s+value\\s*=\\s*[\\"'])[^\\"]+/\\\${1}$snapshot/;!
-      .qq!  s/(property\\s+name\\s*=\\s*[\\"']bootstrap\\.version[\\"']\\s+value\\s*=\\s*[\\"'])[^\\"']+/\\\${1}$latest_release/;"!
-      . q! jflex/build.xml !);
-
 print "\ndone.\n\n";
 
 print " updating version in jflex/examples/common/include.xml";

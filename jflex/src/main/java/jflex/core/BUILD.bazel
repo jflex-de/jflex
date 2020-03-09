@@ -13,7 +13,6 @@ java_library(
     ],
     visibility = ["//jflex:visibility"],
     deps = [
-        "//cup:cup_runtime",
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core/unicode",
@@ -26,6 +25,7 @@ java_library(
         "//jflex/src/main/java/jflex/scanner",
         "//jflex/src/main/java/jflex/skeleton",
         "//jflex/src/main/java/jflex/state",
+        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
     ],
 )
 

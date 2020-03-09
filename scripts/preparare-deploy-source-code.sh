@@ -50,7 +50,6 @@ update_source() {
       head LICENSE_JFLEX
   fi
   mv LICENSE_JFLEX ..
-  mv LICENSE_CUP ..
   cd ..
 
   logi "Download deps and Compile"

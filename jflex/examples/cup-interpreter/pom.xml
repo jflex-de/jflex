@@ -10,8 +10,8 @@
     It uses JFlex and CUP.</description>
   <dependencies>
     <dependency>
-      <groupId>de.jflex</groupId>
-      <artifactId>cup_runtime</artifactId>
+      <groupId>com.github.vbmacher</groupId>
+      <artifactId>java-cup-runtime</artifactId>
       <version>11b-20160615</version>
     </dependency>
     <dependency>
@@ -41,7 +41,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -55,7 +55,7 @@
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>cup-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.2</version>
         <executions>
           <execution>
             <goals>
@@ -91,7 +91,7 @@
               </transformers>
               <artifactSet>
                 <includes>
-                  <include>de.jflex:cup_runtime</include>
+                  <include>com.github.vbmacher:java-cup-runtime</include>
                 </includes>
               </artifactSet>
             </configuration>

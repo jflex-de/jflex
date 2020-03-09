@@ -13,6 +13,7 @@ package jflex.benchmark.pregen;
  * <a href="http://www.jflex.de/">JFlex</a> 1.7.0
  * from the specification file <tt>src/main/jflex/no-action.flex</tt>
  */
+@SuppressWarnings("unused")
 public class NoAction17 {
 
   /** This character denotes the end of file */

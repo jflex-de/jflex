@@ -62,8 +62,8 @@
   private int zzFinalHighSurrogate = 0;
 
   /** the stack of open (nested) input streams to read from */
-  private java.util.Stack<ZzFlexStreamInfo> zzStreams
-    = new java.util.Stack<ZzFlexStreamInfo>();
+  private java.util.Deque<ZzFlexStreamInfo> zzStreams
+    = new java.util.ArrayDeque<ZzFlexStreamInfo>();
 
   /**
    * inner class used to store info for nested
@@ -196,7 +196,7 @@
    * char, and column counting remain untouched.
    *
    * The current input stream can be restored with
-   * yypopStream (usually in an <<EOF>> action).
+   * yypopStream (usually in an {@code <<EOF>>} action).
    *
    * @param reader the new input stream to read from
    *
@@ -218,7 +218,7 @@
    * Closes the current input stream and continues to
    * read from the one on top of the stream stack.
    *
-   * @throws java.util.EmptyStackException
+   * @throws java.util.NoSuchElementException
    *         if there is no further stream to read from.
    *
    * @throws java.io.IOException

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -15,7 +15,7 @@ import jflex.logging.Out;
  * Regular expression with two children (e.g. a | b)
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class RegExp2 extends RegExp {
 

@@ -14,8 +14,8 @@ java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
     runtime_deps = [
-        "//cup:cup_runtime",
         "//jflex/src/main/java/jflex:jflex_ui",
+        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
     ],
 )
 

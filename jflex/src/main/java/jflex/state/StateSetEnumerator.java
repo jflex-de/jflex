@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ import jflex.logging.Out;
  * Enumerates the states of a {@link StateSet}. Also provides an iterator for native int.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see StateSet
  */
 public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
@@ -40,7 +40,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
   /**
    * Creates a new StateSetEnumerator that is not yet associated with a StateSet. {@link
    * #hasMoreElements()} and {@link #nextElement()} will throw {@link NullPointerException} when
-   * used before {@link #reset()}
+   * used before {@link #reset(StateSet)}
    */
   public StateSetEnumerator() {}
 

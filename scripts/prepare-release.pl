@@ -32,7 +32,7 @@ my $sheet =<<'__STYLESHEET__';
   <!-- except for the bootstrap version in the de.jflex:jflex POM.    -->
   <xsl:template
       match=" /pom:project[(pom:groupId='de.jflex' or (not(pom:groupId) and pom:parent/pom:groupId='de.jflex'))
-                           and not (pom:artifactId='cup-maven-plugin' or pom:artifactId='cup-parent')]/pom:version
+                           and not (pom:artifactId='cup-maven-plugin')]/pom:version
              |/pom:project/pom:parent[pom:groupId='de.jflex' and pom:artifactId='jflex-parent']/pom:version
              |/pom:project/pom:build/pom:plugins/pom:plugin
               [   (pom:groupId='de.jflex' and pom:artifactId='jflex-maven-plugin')
@@ -74,19 +74,11 @@ print "OK.\n\n";
 
 print "Switching JFlex version -> $release\n";
 print " updating version in pom.xml files\n";
-File::Find::find({wanted => \&wanted, follow => 1}, '.');
-print "\ndone.\n\n";
-
-print " updating version in build.xml";
-system ('perl -pi -e "s/-SNAPSHOT//" jflex/build.xml');
+File::Find::find({wanted => \&wanted, follow => 1, follow_skip => 2}, '.');
 print "\ndone.\n\n";
 
 print " updating version in Build.java";
 system ('perl -pi -e "s/version = \"(.*)-SNAPSHOT/version = \"\\1/" jflex/src/main/java/jflex/base/Build.java ');
-print "\ndone.\n\n";
-
-print " updating version in the testsuite's Exec.java";
-system ('perl -pi -e "s/-SNAPSHOT//" testsuite/jflex-testsuite-maven-plugin/src/main/java/jflextest/Exec.java ');
 print "\ndone.\n\n";
 
 print " updating version in jflex/bin/jflex*";
