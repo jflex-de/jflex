@@ -10,13 +10,11 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
-    commit = "49122dbb4b325af63af714b3006541f156b70c57",
+    commit = "a50b452bafc7e3b1f8e1780c12fc8c1ab0d6e381", # v8
     remote = "https://github.com/jflex-de/bazel_rules.git",
 )
 
-load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
-
-jflex_deps()
+load("@jflex_rules//jflex:deps.bzl", "JFLEX_ARTIFACTS")
 
 # pandoc used to build the documentation
 
@@ -55,7 +53,7 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     name = "maven",
-    artifacts = ARTIFACTS,
+    artifacts = ARTIFACTS + JFLEX_ARTIFACTS,
     maven_install_json = "//third_party:maven_install.json",
     repositories = [
         "https://jcenter.bintray.com/",
