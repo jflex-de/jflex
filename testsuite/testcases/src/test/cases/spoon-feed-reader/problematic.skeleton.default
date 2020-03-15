@@ -53,23 +53,8 @@
   /** Marks the last character in the buffer, that has been read from input. */
   private int zzEndRead;
 
-  /** Number of newlines encountered up to the start of the matched text. */
-  private int yyline;
-
-  /** Number of characters up to the start of the matched text. */
-  private int yychar;
-
-  /** Number of characters from the last newline up to the start of the matched text. */
-  private int yycolumn;
-
-  /** Whether the scanner is currently at the beginning of a line. */
-  private boolean zzAtBOL = true;
-
   /** Whether the scanner is at the end of line. */
   private boolean zzAtEOF;
-
-  /** Whether the user-EOF-code has already been executed. */
-  private boolean zzEOFDone;
 
   /**
    * The number of occupied positions in {@link #zzBuffer} beyond {@link #zzEndRead}.
@@ -145,7 +130,7 @@
     return true;
   }
 
-    
+
   /**
    * Closes the input stream.
    */
@@ -179,7 +164,9 @@
     zzEndRead = zzStartRead = 0;
     zzCurrentPos = zzMarkedPos = 0;
     zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyline = 0;
+    yychar = 0;
+    yycolumn = 0;
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE) {
       zzBuffer = new char[ZZ_BUFFERSIZE];
@@ -215,7 +202,7 @@
 
   /**
    * Returns the character at the given position from the matched text.
-   * 
+   *
    * <p>It is equivalent to {@code yytext().charAt(pos)}, but faster.
    *
    * @param position the position of the character to fetch. A value from 0 to {@code yylength()-1}.
@@ -258,7 +245,7 @@
     }
 
 --- throws clause
-  } 
+  }
 
 
   /**
@@ -296,7 +283,6 @@
     int zzMarkedPosL;
     int zzEndReadL = zzEndRead;
     char[] zzBufferL = zzBuffer;
-    char[] zzCMapL = ZZ_CMAP;
 
 --- local declarations
 
@@ -307,12 +293,12 @@
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
-  
+
 --- start admin (lexstate etc)
 
       zzForAction: {
         while (true) {
-    
+
 --- next input, line, col, char count, next transition, isFinal action
             zzAction = zzState;
             zzMarkedPosL = zzCurrentPosL;

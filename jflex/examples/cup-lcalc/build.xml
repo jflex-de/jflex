@@ -1,0 +1,19 @@
+<project name="lcalc-example" default="test">
+
+  <import file="../common/include.xml"/>
+
+  <property name="main.class" value="Main" />
+  <property name="test.input" value="src/test/data/test.txt" />
+  <property name="test.class" value="LexerTest" />
+
+  <target name="scanner">
+    <jflex file="src/main/jflex/lcalc.flex" destdir="${ant.build}"
+           encoding="utf-8"/>
+  </target>
+
+  <target name="parser" depends="define-cup">
+    <cup srcfile="src/main/cup/ycalc.cup"
+          locations="no" interface="yes" destdir="${ant.build}"/>
+  </target>
+
+</project>

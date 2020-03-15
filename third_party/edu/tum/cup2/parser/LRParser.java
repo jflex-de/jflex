@@ -138,7 +138,7 @@ public class LRParser extends AParser implements Serializable {
       if (saveTokens) {
         // create stack indicating number of tokens
         tokenCountStack = new Stack<Integer>();
-        tokenCountStack.push(new Integer(0));
+        tokenCountStack.push(Integer.valueOf(0));
 
         // create list of parsed tokens
         parsedTokens = new ArrayList<ScannerToken<? extends Object>>();

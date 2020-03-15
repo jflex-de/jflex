@@ -23,10 +23,13 @@ class Tnumber extends Texp implements AST {
     return String.valueOf(n);
   }
 
+  @Override
   public void checkcontext(SymTab st) {}
 
+  @Override
   public void prepInterp(SymTab st) {}
 
+  @Override
   public int interpret(int[] in, int[] par) {
     return n;
   }

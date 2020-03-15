@@ -1,0 +1,7 @@
+/* code copied verbatim into the generated .java file */
+%{
+    protected static WikiLogger logger = WikiLogger.getLogger(JAMWikiPreProcessor.class.getName());
+    protected boolean allowHTML = false;
+    protected int templateCharCount = 0;
+    protected String templateString = "";
+%}

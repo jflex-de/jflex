@@ -78,6 +78,7 @@ public class TestCase {
     return expectJFlexFail;
   }
 
+  @Override
   public String toString() {
     return testName;
   }

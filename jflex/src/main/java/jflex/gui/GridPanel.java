@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -10,26 +10,26 @@
 package jflex.gui;
 
 import java.awt.*;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Grid layout manager like GridLayout but with predefinable grid size.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class GridPanel extends Panel implements Handles {
 
-  /** */
   private static final long serialVersionUID = -2846472856883709721L;
 
-  private int cols;
-  private int rows;
+  private final int cols;
+  private final int rows;
 
-  private int hgap;
-  private int vgap;
+  private final int hgap;
+  private final int vgap;
 
-  private Vector<GridPanelConstraint> constraints = new Vector<>();
+  private final List<GridPanelConstraint> constraints = new ArrayList<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
   /** {@inheritDoc} */
@@ -53,6 +53,7 @@ public class GridPanel extends Panel implements Handles {
   }
 
   /** Lays out the views. */
+  @Override
   public void doLayout() {
     Dimension size = getSize();
     size.height -= insets.top + insets.bottom;
@@ -62,7 +63,7 @@ public class GridPanel extends Panel implements Handles {
     float cellHeight = size.height / rows;
 
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = constraints.elementAt(i);
+      GridPanelConstraint c = constraints.get(i);
 
       float x = cellWidth * c.x + insets.left + hgap / 2;
       float y = cellHeight * c.y + insets.right + vgap / 2;
@@ -118,12 +119,13 @@ public class GridPanel extends Panel implements Handles {
    *
    * @return a {@link java.awt.Dimension} object.
    */
+  @Override
   public Dimension getPreferredSize() {
     float dy = 0;
     float dx = 0;
 
     for (int i = 0; i < constraints.size(); i++) {
-      GridPanelConstraint c = constraints.elementAt(i);
+      GridPanelConstraint c = constraints.get(i);
 
       Dimension d = c.component.getPreferredSize();
 
@@ -167,18 +169,9 @@ public class GridPanel extends Panel implements Handles {
     add(x, y, dx, dy, FILL, c);
   }
 
-  /**
-   * add.
-   *
-   * @param x a int.
-   * @param y a int.
-   * @param dx a int.
-   * @param dy a int.
-   * @param handle a int.
-   * @param c a {@link java.awt.Component} object.
-   */
+  /** Add a component to this panel. */
   public void add(int x, int y, int dx, int dy, int handle, Component c) {
     super.add(c);
-    constraints.addElement(new GridPanelConstraint(x, y, dx, dy, handle, c));
+    constraints.add(new GridPanelConstraint(x, y, dx, dy, handle, c));
   }
 }

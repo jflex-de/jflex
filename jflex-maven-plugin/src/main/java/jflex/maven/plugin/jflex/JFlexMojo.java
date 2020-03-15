@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.option.Options;
@@ -192,15 +193,17 @@ public class JFlexMojo extends AbstractMojo {
     assert lexFile.isAbsolute() : lexFile;
 
     getLog().debug("Generating Java code from " + lexFile.getName());
-    ClassInfo classInfo = findClassInfo(lexFile);
+    SpecInfo specInfo = findSpecInfo(lexFile);
 
     checkParameters(lexFile);
 
     // set destination directory
-    File generatedFile = new File(outputDirectory, classInfo.getOutputFilename());
+    File generatedFile = new File(outputDirectory, specInfo.getOutputFilename());
 
     // generate only if needs to
-    if (lexFile.lastModified() - generatedFile.lastModified() <= this.staleMillis) {
+    long generatedLastModified = generatedFile.lastModified();
+    if (lexFile.lastModified() - generatedLastModified <= this.staleMillis
+        && latestModified(specInfo.includedFiles) - generatedLastModified <= this.staleMillis) {
       getLog().info("  " + generatedFile.getName() + " is up to date.");
       getLog().debug("StaleMillis = " + staleMillis + "ms");
       return;
@@ -235,20 +238,20 @@ public class JFlexMojo extends AbstractMojo {
     }
 
     try {
-      LexGenerator.generate(lexFile);
+      new LexGenerator(lexFile).generate();
       getLog().info("  generated " + generatedFile);
     } catch (Exception e) {
       throw new MojoExecutionException(e.getMessage(), e);
     }
   }
 
-  private ClassInfo findClassInfo(File lexFile) throws MojoFailureException {
+  private SpecInfo findSpecInfo(File lexFile) throws MojoFailureException {
     try {
-      return LexSimpleAnalyzerUtils.guessPackageAndClass(lexFile);
+      return LexSimpleAnalyzerUtils.guessSpecInfo(lexFile);
     } catch (FileNotFoundException e) {
       throw new MojoFailureException(e.getMessage(), e);
     } catch (IOException e) {
-      return new ClassInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
+      return new SpecInfo(LexSimpleAnalyzerUtils.DEFAULT_NAME, /*packageName=*/ "");
     }
   }
 
@@ -285,6 +288,21 @@ public class JFlexMojo extends AbstractMojo {
       return path;
     }
     return new File(this.project.getBasedir().getAbsolutePath(), path.getPath());
+  }
+
+  /**
+   * Determines the highest {@link File#lastModified()} value among the specified {@code
+   * includedFiles}, which are resolved relative to the specified {@code parent} directory.
+   *
+   * @return the latest value -- or 0 if the list is empty, if no files exist, or if I/O exceptions
+   *     prevent getting any values
+   */
+  private static long latestModified(Set<File> includedFiles) {
+    long result = 0;
+    for (File file : includedFiles) {
+      result = Math.max(file.lastModified(), result);
+    }
+    return result;
   }
 
   static class ExtensionPredicate implements Predicate<File> {

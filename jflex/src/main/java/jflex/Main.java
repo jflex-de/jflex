@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -40,7 +40,7 @@ import jflex.option.Options;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class Main {
 
@@ -317,7 +317,7 @@ public class Main {
 
     if (files.size() > 0) {
       for (File file : files) {
-        LexGenerator.generate(file);
+        new LexGenerator(file).generate();
       }
     } else {
       new MainFrame();

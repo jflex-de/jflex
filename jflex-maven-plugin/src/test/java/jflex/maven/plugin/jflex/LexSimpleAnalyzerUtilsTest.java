@@ -2,8 +2,10 @@ package jflex.maven.plugin.jflex;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Set;
 import org.junit.Test;
 
 /** Test for {@link LexSimpleAnalyzerUtils}. */
@@ -24,7 +26,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "%%\n"
             + "\n"
             + "[^]  { /* no action */ }\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Foo", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
   }
 
   @Test
@@ -39,7 +41,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "\n"
             + "^\"hello\"$  { System.out.println(\"hello\"); }\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", null));
   }
 
   @Test
@@ -55,7 +57,7 @@ public class LexSimpleAnalyzerUtilsTest {
             + "%final\n"
             + "%public\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", "org.example"));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", "org.example"));
   }
 
   /**
@@ -78,10 +80,36 @@ public class LexSimpleAnalyzerUtilsTest {
             + "  \"private\"                      { return symbol(PRIVATE); }"
             + "}\n"
             + "\n";
-    assertThat(guessPackageAndClass(lex)).isEqualTo(new ClassInfo("Yylex", null));
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Yylex", null));
   }
 
-  private ClassInfo guessPackageAndClass(String lex) throws IOException {
-    return LexSimpleAnalyzerUtils.guessPackageAndClass(new StringReader(lex));
+  @Test
+  public void parseIncludedFiles() throws Exception {
+    String lex =
+        "\n"
+            + "package org.example;\n"
+            + "\n"
+            + "import java.io.File;\n"
+            + "\n"
+            + "\t%include  base.lexh\t \n"
+            + "\n"
+            + "%%\n"
+            + "\n"
+            + "  %include  two.lexh \n"
+            + "\n"
+            + "%%\n"
+            + "\n"
+            + "%include three.lexh\t \n"
+            + " %include three.lexh\n";
+    assertThat(parseIncludes(lex)).containsExactly("base.lexh", "two.lexh", "three.lexh");
+  }
+
+  private Set<String> parseIncludes(String lex) throws IOException {
+    return LexSimpleAnalyzerUtils.parseIncludes(new StringReader(lex));
+  }
+
+  private SpecInfo guessPackageAndClass(String lex) throws IOException {
+    // dummy file should throw IOException in %include parsing and be ignored
+    return LexSimpleAnalyzerUtils.guessSpecInfo(new StringReader(lex), new File(""));
   }
 }

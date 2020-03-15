@@ -1,11 +1,13 @@
-/* this is the scanner example from the JLex website 
+/* this is the scanner example from the JLex website
    (with small modifications to make it more readable) */
 
 %%
 
+%public
+
 %{
   private int comment_count = 0;
-%} 
+%}
 
 %line
 %char
@@ -23,7 +25,7 @@ STRING_TEXT=(\\\"|[^\n\r\"]|\\{WHITE_SPACE_CHAR}+\\)*
 COMMENT_TEXT=([^*/\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])+
 Ident = {ALPHA}({ALPHA}|{DIGIT}|_)*
 
-%% 
+%%
 
 <YYINITIAL> {
   "," { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1)); }
@@ -58,16 +60,16 @@ Ident = {ALPHA}({ALPHA}|{DIGIT}|_)*
     String str =  yytext().substring(1,yylength()-1);
     return (new Yytoken(40,str,yyline,yychar,yychar+yylength()));
   }
-  
+
   \"{STRING_TEXT} {
     String str =  yytext().substring(1,yytext().length());
     Utility.error(Utility.E_UNCLOSEDSTR);
     return (new Yytoken(41,str,yyline,yychar,yychar + str.length()));
-  } 
-  
-  {DIGIT}+ { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }  
+  }
 
-  {Ident} { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }  
+  {DIGIT}+ { return (new Yytoken(42,yytext(),yyline,yychar,yychar+yylength())); }
+
+  {Ident} { return (new Yytoken(43,yytext(),yyline,yychar,yychar+yylength())); }
 }
 
 <COMMENT> {

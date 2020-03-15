@@ -20,14 +20,17 @@ class Tuminus extends Texp implements AST {
     return "-" + exp;
   }
 
+  @Override
   public void checkcontext(SymTab st) {
     exp.checkcontext(st);
   }
 
+  @Override
   public void prepInterp(SymTab st) {
     exp.prepInterp(st);
   }
 
+  @Override
   public int interpret(int[] in, int[] par) {
     return -(exp.interpret(in, par));
   }

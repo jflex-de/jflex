@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,7 +19,7 @@ package jflex.core.unicode;
  * <p>All characters of the interval must belong to the same character class.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class CharClassInterval {
 
@@ -46,11 +46,12 @@ public class CharClassInterval {
     this.charClass = charClass;
   }
 
-  /**
-   * Returns string representation of this class interval.
-   *
-   * @return a representation of this class interval.
-   */
+  /** Determines wether the specified code point is in this interval. */
+  public boolean contains(int codePoint) {
+    return start <= codePoint && codePoint <= end;
+  }
+
+  @Override
   public String toString() {
     return "[" + start + "-" + end + "=" + charClass + "]";
   }

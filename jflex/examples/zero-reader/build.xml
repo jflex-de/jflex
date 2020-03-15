@@ -1,0 +1,17 @@
+<project name="zeroreader-example" default="test">
+
+  <import file="../common/include.xml"/>
+
+  <property name="main.class" value="ZeroLexer" />
+  <property name="test.input" value="src/test/data/test-input.txt" />
+  <property name="test.class" value="ZeroTest" />
+
+  <target name="scanner">
+    <jflex file="src/main/jflex/zero-lexer.jflex" destdir="${ant.build}"/>
+  </target>
+
+  <target name="parser">
+    <!-- no parser in this example; target expected by include.xml -->
+  </target>
+
+</project>

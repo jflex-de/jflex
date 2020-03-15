@@ -1,12 +1,14 @@
 JFlex with Yacc
 ===============
 
-This directory contains an interoperability example for [BYacc/J][byaccj] and JFlex.
-This example implements a small calculator.
+This directory contains an interoperability example for [BYacc/J][byaccj] and
+JFlex. The example implements a small calculator.
 
 ## Build, run, test
 
 ### Build with Make
+
+You need [BYacc/J][byaccj] installed on your system.
 
 Use the Makefile to generate the lexer and parser.
 

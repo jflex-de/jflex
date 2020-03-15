@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -24,11 +24,10 @@ import jflex.logging.Out;
  * JFlex main application frame (GUI mode only)
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class MainFrame extends Frame implements Handles {
 
-  /** */
   private static final long serialVersionUID = 3296137982410640865L;
 
   private volatile boolean choosing;
@@ -57,6 +56,7 @@ public final class MainFrame extends Frame implements Handles {
 
     addWindowListener(
         new WindowAdapter() {
+          @Override
           public void windowClosing(WindowEvent e) {
             quit();
           }
@@ -87,6 +87,7 @@ public final class MainFrame extends Frame implements Handles {
 
     generate.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             generate();
           }
@@ -94,6 +95,7 @@ public final class MainFrame extends Frame implements Handles {
 
     options.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             showOptions();
           }
@@ -101,6 +103,7 @@ public final class MainFrame extends Frame implements Handles {
 
     quit.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             quit();
           }
@@ -108,6 +111,7 @@ public final class MainFrame extends Frame implements Handles {
 
     specChoose.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             specChoose();
           }
@@ -115,6 +119,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dirChoose.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             dirChoose();
           }
@@ -122,6 +127,7 @@ public final class MainFrame extends Frame implements Handles {
 
     spec.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             fileName = spec.getText();
             generate();
@@ -130,6 +136,7 @@ public final class MainFrame extends Frame implements Handles {
 
     spec.addTextListener(
         new TextListener() {
+          @Override
           public void textValueChanged(TextEvent e) {
             fileName = spec.getText();
           }
@@ -137,6 +144,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dir.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             dirName = dir.getText();
             generate();
@@ -145,6 +153,7 @@ public final class MainFrame extends Frame implements Handles {
 
     dir.addTextListener(
         new TextListener() {
+          @Override
           public void textValueChanged(TextEvent e) {
             dirName = dir.getText();
           }
@@ -188,6 +197,7 @@ public final class MainFrame extends Frame implements Handles {
    *
    * @return a {@link java.awt.Dimension} object.
    */
+  @Override
   public Dimension getPreferredSize() {
     Dimension d = super.getPreferredSize();
     d.width = messages.getPreferredSize().width;

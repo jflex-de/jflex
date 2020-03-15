@@ -1,0 +1,42 @@
+package(default_visibility = ["//jflex:visibility"])
+
+package_group(
+    name = "visibility",
+    packages = [
+        "//java/...",
+        "//javatests/...",
+        "//jflex/...",
+        "//testsuite/...",
+    ],
+)
+
+java_binary(
+    name = "jflex_bin",
+    main_class = "jflex.Main",
+    runtime_deps = [
+        "//jflex/src/main/java/jflex:jflex_ui",
+        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
+    ],
+)
+
+alias(
+    name = "jflex",
+    actual = "//jflex/src/main/java/jflex/core",
+)
+
+filegroup(
+    name = "resources",
+    srcs = glob(["src/main/resources/**"]),
+)
+
+# Test helpers
+alias(
+    name = "testing",
+    actual = "//jflex/src/test/java/jflex/testing",
+)
+
+# Tests
+filegroup(
+    name = "test_data",
+    srcs = glob(["src/test/resources/**"]),
+)

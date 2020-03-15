@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -298,8 +298,8 @@ action code {:
     charClasses.makeClass('\r', false);
 
     RegExp1 c = new RegExp1(sym.PRIMCLASS, set);
-    Integer n = new Integer((int)'\n');
-    Integer r = new Integer((int)'\r');
+    Integer n = Integer.valueOf((int)'\n');
+    Integer r = Integer.valueOf((int)'\r');
 
     return new RegExp2(sym.BAR,
                        c,
@@ -541,6 +541,8 @@ rule          ::=  statesOPT:s hatOPT:bol series:r actions:a
                    {: syntaxError(ErrorMessages.LOOKAHEAD_NEEDS_ACTION, aleft, aright+1); :}
                 |  statesOPT:s EOFRULE ACTION:a
                    {: RESULT = regExps.insert(s, a); :}
+                |  statesOPT:s EOFRULE NOACTION
+                   {: RESULT = regExps.insert(s, null); :}
                 |  error
                 ;
 

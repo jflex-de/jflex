@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>,                   *
  *                          Régis Décamps <decamps@users.sf.net>           *
  * All rights reserved.                                                    *
@@ -16,8 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import jflex.core.OptionUtils;
-import jflex.core.Skeleton;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ import org.junit.Test;
  * Unit tests for the {@link jflex.anttask.JFlexTask}.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class JFlexTaskTest {
 
@@ -112,7 +112,7 @@ public class JFlexTaskTest {
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
+    assertThat(Skeleton.line[3].indexOf("java.util.Deque") > 0).isTrue();
   }
 
   @Test

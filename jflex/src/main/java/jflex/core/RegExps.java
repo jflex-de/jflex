@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,33 +17,33 @@ import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 
 /**
- * Stores all rules of the specification for later access in RegExp -> NFA
+ * Stores all rules of the specification for later access in the RegExp to NFA conversion.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class RegExps {
 
   /** the spec line in which a regexp is used */
-  private List<Integer> lines;
+  private final List<Integer> lines;
 
   /** the lexical states in which the regexp is used */
-  private List<List<Integer>> states;
+  private final List<List<Integer>> states;
 
   /** the regexp */
   private List<RegExp> regExps;
 
   /** the action of a regexp */
-  private List<Action> actions;
+  private final List<Action> actions;
 
   /** flag if it is a BOL regexp */
-  private List<Boolean> BOL;
+  private final List<Boolean> BOL;
 
   /** the lookahead expression */
   private List<RegExp> look;
 
   /** the forward DFA entry point of the lookahead expression */
-  private List<Integer> look_entry;
+  private final List<Integer> look_entry;
 
   /**
    * Count of how many general lookahead expressions there are. Need 2*gen_look_count additional DFA

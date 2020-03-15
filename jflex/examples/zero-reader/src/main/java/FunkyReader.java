@@ -26,6 +26,7 @@ public class FunkyReader extends Reader {
     this.reader = r;
   }
 
+  @Override
   public int read(char[] cbuf, int off, int len) throws IOException {
     if (!do_zero) {
       do_zero = true;
@@ -36,6 +37,7 @@ public class FunkyReader extends Reader {
     }
   }
 
+  @Override
   public void close() throws IOException {
     reader.close();
   }

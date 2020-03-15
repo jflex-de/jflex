@@ -22,6 +22,7 @@ class STEvar extends SymtabEntry {
     index = ind;
   }
 
+  @Override
   public int kind() {
     return SymtabEntry.VAR;
   }

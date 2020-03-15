@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -16,7 +16,7 @@ import java.util.PrimitiveIterator;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Interval implements Iterable<Integer> {
 
@@ -94,6 +94,7 @@ public final class Interval implements Iterable<Integer> {
    *     the interval) where {@code start} and {@code end} are either a number (the character code)
    *     or something of the from {@code 'a'}.
    */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("[");
 
@@ -131,9 +132,18 @@ public final class Interval implements Iterable<Integer> {
   }
 
   /**
+   * Computes the size of this interval.
+   *
+   * @return how many characters this interval spans
+   */
+  public int size() {
+    return end - start + 1;
+  }
+
+  /**
    * Checks the invariants of this object.
    *
-   * @returns true when the invariants of this objects hold.
+   * @return true when the invariants of this objects hold.
    */
   public boolean invariants() {
     return start <= end;

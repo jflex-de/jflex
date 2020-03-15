@@ -36,7 +36,7 @@
 
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
-  
+
   /** the current text position in the buffer */
   private int zzCurrentPos;
 
@@ -54,12 +54,12 @@
   private long yychar;
 
   /**
-   * the number of characters from the last newline up to the start of the 
+   * the number of characters from the last newline up to the start of the
    * matched text
    */
   private int yycolumn;
 
-  /** 
+  /**
    * zzAtBOL == true iff the scanner is currently at the beginning of a line
    */
   private boolean zzAtBOL = true;
@@ -72,8 +72,8 @@
 
   /** denotes if the user-EOF-code has already been executed */
   private boolean zzEOFDone;
-  
-  /** 
+
+  /**
    * The number of occupied positions in zzBuffer beyond zzEndRead.
    * When a lead/high surrogate has been read from the input stream
    * into the final zzBuffer position, this will have a value of 1;
@@ -82,8 +82,8 @@
   private int zzFinalHighSurrogate = 0;
 
   /** the stack of open (nested) input streams to read from */
-  private java.util.Stack<ZzFlexStreamInfo> zzStreams
-    = new java.util.Stack<ZzFlexStreamInfo>();
+  private java.util.Deque<ZzFlexStreamInfo> zzStreams
+    = new java.util.ArrayDeque<ZzFlexStreamInfo>();
 
   /**
    * inner class used to store info for nested
@@ -106,7 +106,7 @@
 
     /** sets all values stored in this class */
     ZzFlexStreamInfo(java.io.Reader zzReader, int zzEndRead, int zzStartRead,
-                  int zzCurrentPos, int zzMarkedPos, char [] zzBuffer, 
+                  int zzCurrentPos, int zzMarkedPos, char [] zzBuffer,
                   boolean zzAtBOL, boolean zzAtEOF, boolean zzEOFDone,
                   int zzFinalHighSurrogate, int yyline, long yychar,
                   int yycolumn) {
@@ -135,7 +135,7 @@
    * Refills the input buffer.
    *
    * @return      <code>false</code>, iff there was new input.
-   * 
+   *
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
   private boolean zzRefill() throws java.io.IOException {
@@ -197,7 +197,9 @@
   }
 
   /**
-   * Closes the input stream.
+   * Closes the input reader.
+   *
+   * @throws java.io.IOException if the reader could not be closed.
    */
   public final void yyclose() throws java.io.IOException {
     zzAtEOF = true;           // indicate end of file
@@ -214,7 +216,7 @@
    * char, and column counting remain untouched.
    *
    * The current input stream can be restored with
-   * yypopStream (usually in an <<EOF>> action).
+   * yypopStream (usually in an {@code <<EOF>>} action).
    *
    * @param reader the new input stream to read from
    *
@@ -230,13 +232,13 @@
     zzReader = reader;
     yyResetPosition();
   }
-    
+
 
   /**
    * Closes the current input stream and continues to
-   * read from the one on top of the stream stack. 
+   * read from the one on top of the stream stack.
    *
-   * @throws java.util.EmptyStackException
+   * @throws java.util.NoSuchElementException
    *         if there is no further stream to read from.
    *
    * @throws java.io.IOException
@@ -264,7 +266,7 @@
 
 
   /**
-   * Returns true iff there are still streams left 
+   * Returns true iff there are still streams left
    * to read from on the stream stack.
    */
   public final boolean yymoreStreams() {
@@ -276,13 +278,13 @@
    * Resets the scanner to read from a new input stream.
    * Does not close the old reader.
    *
-   * All internal variables are reset, the old input stream 
+   * All internal variables are reset, the old input stream
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
-   * Lexical state is set to <tt>ZZ_INITIAL</tt>.
+   * Lexical state is set to {@code ZZ_INITIAL}.
    *
    * Internal scan buffer is resized down to its initial length, if it has grown.
    *
-   * @param reader   the new input stream 
+   * @param reader   the new input stream
    *
    * @see #yypushStream(java.io.Reader)
    * @see #yypopStream()
@@ -297,6 +299,9 @@
     }
   }
 
+  /**
+   * Resets the input position.
+   */
   private final void yyResetPosition() {
       zzAtBOL  = true;
       zzAtEOF  = false;
@@ -312,6 +317,8 @@
 
   /**
    * Returns whether the scanner has reached the end of the reader it reads from.
+   *
+   * @return whether the scanner has reached EOF.
    */
   public final boolean yyatEOF() {
     return zzAtEOF;
@@ -320,6 +327,8 @@
 
   /**
    * Returns the current lexical state.
+   *
+   * @return the current lexical state.
    */
   public final int yystate() {
     return zzLexicalState;
@@ -338,6 +347,8 @@
 
   /**
    * Returns the text matched by the current regular expression.
+   *
+   * @return the matched text.
    */
   public final String yytext() {
     return new String( zzBuffer, zzStartRead, zzMarkedPos-zzStartRead );
@@ -345,12 +356,12 @@
 
 
   /**
-   * Returns the character at position <tt>pos</tt> from the 
-   * matched text. 
-   * 
+   * Returns the character at position {@code pos} from the
+   * matched text.
+   *
    * It is equivalent to yytext().charAt(pos), but faster
    *
-   * @param pos the position of the character to fetch. 
+   * @param pos the position of the character to fetch.
    *            A value from 0 to yylength()-1.
    *
    * @return the character at position pos
@@ -361,7 +372,9 @@
 
 
   /**
-   * Returns the length of the matched text region.
+   * How many characters were matched.
+   *
+   * @return the length of the matched text region.
    */
   public final int yylength() {
     return zzMarkedPos-zzStartRead;
@@ -371,8 +384,8 @@
   /**
    * Reports an error that occured while scanning.
    *
-   * In a wellformed scanner (no or only correct usage of 
-   * yypushback(int) and a match-all fallback rule) this method 
+   * In a wellformed scanner (no or only correct usage of
+   * yypushback(int) and a match-all fallback rule) this method
    * will only be called with things that "Can't Possibly Happen".
    * If this method is called, something is seriously wrong
    * (e.g. a JFlex bug producing a faulty scanner etc.).
@@ -392,7 +405,7 @@
     }
 
 --- throws clause
-  } 
+  }
 
 
   /**
@@ -437,12 +450,12 @@
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
-  
+
 --- start admin (lexstate etc)
 
       zzForAction: {
         while (true) {
-    
+
 --- next input, line, col, char count, next transition, isFinal action
             zzAction = zzState;
             zzMarkedPosL = zzCurrentPosL;

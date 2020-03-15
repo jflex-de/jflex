@@ -1,7 +1,7 @@
 Introduction {#Intro}
 ============
 
-JFlex is a lexical analyser generator for Java[^1] written in Java. It is
+JFlex is a lexical analyser generator for Java written in Java. It is
 also a rewrite of the tool JLex [@JLex] which was developed by Elliot Berk at
 Princeton University. As Vern Paxson states for his C/C++ tool flex [@flex]:
 they do not share any code though.
@@ -45,10 +45,4 @@ to write fast scanners. The section on [porting scanners](#Porting) shows how
 to port scanners from JLex, and from the `lex` and `flex` tools for C. Finally,
 [working together](#WorkingTog) discusses interfacing JFlex scanners with the
 LALR parser generators CUP, CUP2, BYacc/J, Jay.
-
-
-
-[^1]: Java is a trademark of Sun Microsystems, Inc., and refers to Sun’s
-    Java programming language. JFlex is not sponsored by or affiliated
-    with Sun Microsystems, Inc.
 

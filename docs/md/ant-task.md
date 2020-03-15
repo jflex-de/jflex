@@ -41,29 +41,29 @@ The following attributes are available for invoking the JFlex task.
     be written to `{destdir}/`**`{packagename}`**. This behaviour is similar
     to `javac -d dir.
 
--  `outdir="dir"`\   
+-  `outdir="dir"`\
     The directory to write the generated files to. If not set, the files are
     written to the directory containing the grammar file. This options works
     exactly like JFlex's `-d` command line option, it causes the output file
     to be written to `dir` regardless of the package name.
 
 -  `verbose` (default `"off"`)\
-    Display generation process messages.                     
+    Display generation process messages.
 
 -  `encoding` (if unset uses the JVM default encoding)\
     The character encoding to use when reading lexer specifications and writing java files.
 
--  `dump` (default `"off"`)\           
-    Dump character classes, NFA and DFA tables.                           
+-  `dump` (default `"off"`)\
+    Dump character classes, NFA and DFA tables.
 
 -  `time` or `timeStatistics` (default `"off"`)\
     Display generation time statistics.
 
 -  `nomin` or `skipMinimization` (default `"off"`)\
-    Skip DFA minimisation step.                  
+    Skip DFA minimisation step.
 
 -  `skel="file"` or `skeleton="file"`\
-    Use external skeleton file.                        
+    Use external skeleton file in UTF-8 encoding.
 
 -  `dot` or `generateDot` (default `"off"`)\
     Write graphviz `.dot` files for the generated automata.

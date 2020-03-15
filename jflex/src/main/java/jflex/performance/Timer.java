@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -14,7 +14,7 @@ package jflex.performance;
  * <p>Not very exact, measures user time, not processor time.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class Timer {
 
@@ -60,6 +60,7 @@ public class Timer {
    * @return a string displaying the diff-time in readable format (h m s ms)
    * @see Timer#diff
    */
+  @Override
   public String toString() {
     long diff = diff();
 

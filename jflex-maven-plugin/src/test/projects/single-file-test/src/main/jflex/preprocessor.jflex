@@ -22,7 +22,7 @@ import org.springframework.util.StringUtils;
 %init{
     allowHTML = Environment.getBooleanValue(Environment.PROP_PARSER_ALLOW_HTML);
     yybegin(NORMAL);
-    states.add(new Integer(yystate()));
+    states.add(Integer.valueOf(yystate()));
 %init}
 
 /* code called after parsing is completed */

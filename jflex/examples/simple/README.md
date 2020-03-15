@@ -2,7 +2,7 @@
 
 This is a very simple example of how to generate a lexer with JFlex:
 
-- for a very simple grammar of the _Toy programmimg language_
+- for a very simple grammar of the _Toy programming language_
   described in the user manual.
 - without integration to a parser. As a result, the program
   does nothing really useful, because there is no parser.
@@ -16,7 +16,7 @@ The test:
 
 1. runs the lexer in debug mode on `test.txt`
 2. collects the output of JFlex by redirecting `System.out`
-3. and verifies that the verbose logs of JFlex corresponds to 
+3. and verifies that the verbose logs of JFlex corresponds to
    the expected content of `output.good`.
 
 
@@ -37,19 +37,13 @@ The test:
 
 ### Using Maven
 
-**Tip** JFlex comes with the Maven wrapper (mvnw).
-This guide uses the wrapper located in `../../../mvnw`.
-Use `..\..\..\mvnw.bat` if your are on Microsoft Windows.
-You can also use `mvn` if Maven is installed on your system.
-
-
 #### Generate the lexer
 
-    ../../../mvnw generate-sources
-     
+    mvn generate-sources
+
 The **jflex-maven-plugin** reads the grammar `src/main/jflex/simple.jflex`
 and generates a Java scanner **Yylex**.
- 
+
 Expected output:
 
 * `target/generated-sources/flex/Yylex.java`.
@@ -75,16 +69,15 @@ This is defined by the following section
   </build>
 ```
 
-**N.B.** By default, the **jflex-maven-plugin** generates a lexer (scanner) for every file
-in `src/main/jflex/`.
+By default, the **jflex-maven-plugin** generates a lexer (scanner) for every
+file in `src/main/jflex/`.
 
 #### Build
 
-    ../../../mvnw compile
-    
-The **compile** phase will generate the sources, and
-build all Java classes, including those generated automatically.
+    mvn compile
 
+The **compile** phase will generate the sources, and build all Java classes,
+including those generated automatically.
 
 Expected output:
 
@@ -95,54 +88,62 @@ the **compile** phase will do it automatically.
 
 #### Test
 
-    ../../../mvnw test
-    
+    mvn test
+
 The **test** phase does everything above and executes the test in `src/test/java`.
 
 There is only one test in `src/test/java/YylexTest.java`.
 In this test, the scanner is run with the input file `src/test/data/test.txt`.
 
-By default, the scanner outputs debugging information about each  returned token to `System.out`
-until the end of file is reached,  or an error occurs.
+By default, the scanner outputs debugging information about each returned
+token to `System.out` until the end of file is reached, or an error occurs.
 But in the test, the output is redirected into an in-memory output stream.
 
-Then, test opens the _golden file_ `src/test/data/output.good`.
-
-Finally, the test iterates:
-
-1. Reads one line from the golden file
-2. Reads one line from the in-memory actual output
-3. Fails if the lines aren't equal
-4. Stops if one file reaches the end of file
+Then, test opens the _golden file_ `src/test/data/output.good` and compares
+with the actual output.
 
 
 #### Package
 
-    ../../../mvnw package
-    
-The **package** phase does everything above and packages the jar archive of the Java classes.
+    mvn package
 
+The **package** phase does everything above and packages the jar archive of the Java classes. You can then run
 
-### Using ant
+    java -jar target/simple-1.0.jar src/test/data/test.txt
 
-**N.B.** You need to install **ant** with **ivy**.
+to test the lexer.
+
+### Using Ant
 
 #### Build
 
-    ant build
+    ant compile
+
+is roughly equivalent to `mvn compile` above
 
 #### Run on sample file
 
     ant run
-    
-    
+
+will run the generated lexer on the provided sample input.
+
 #### Test
 
-TODO [#429](https://github.com/jflex-de/jflex/issues/429)
-This currently fails
+    ant test
 
-    ant run
+will run the same test as in `mvn test`.
 
 ### Using Bazel
 
 Please see [bazel_rules/examples](https://github.com/jflex-de/bazel_rules).
+
+
+### Using Make
+
+    make compile
+
+is roughly equivalent to `mvn compile`, and
+
+    make test
+
+will run generated lexer, comparing against expect output.

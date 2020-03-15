@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -21,7 +21,7 @@ import jflex.logging.Out;
  * Low priority thread for code generation (low priority that gui has time for screen updates)
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class GeneratorThread extends Thread {
 
@@ -35,7 +35,7 @@ public class GeneratorThread extends Thread {
   String outputDir;
 
   /** main UI component, likes to be notified when generator finishes */
-  MainFrame parent;
+  final MainFrame parent;
 
   /**
    * Create a new GeneratorThread, but do not run it yet.
@@ -51,6 +51,7 @@ public class GeneratorThread extends Thread {
   }
 
   /** Runs the generator thread. Only one instance of it can run at any time. */
+  @Override
   public void run() {
     if (running) {
       Out.error(ErrorMessages.ALREADY_RUNNING);
@@ -62,7 +63,7 @@ public class GeneratorThread extends Thread {
         if (!Objects.equals(outputDir, "")) {
           OptionUtils.setDir(outputDir);
         }
-        LexGenerator.generate(new File(inputFile));
+        new LexGenerator(new File(inputFile)).generate();
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,21 +18,21 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.core.OptionUtils;
-import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 /**
  * A dialog for setting JFlex options
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class OptionsDialog extends Dialog {
 
   private static final long serialVersionUID = 6807759416163314769L;
 
-  private Frame owner;
+  private final Frame owner;
 
   private TextField skelFile;
 
@@ -63,6 +63,7 @@ public class OptionsDialog extends Dialog {
 
     addWindowListener(
         new WindowAdapter() {
+          @Override
           public void windowClosing(WindowEvent e) {
             close();
           }
@@ -95,6 +96,7 @@ public class OptionsDialog extends Dialog {
     // setup interaction
     ok.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             close();
           }
@@ -102,6 +104,7 @@ public class OptionsDialog extends Dialog {
 
     defaults.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             setDefaults();
           }
@@ -109,6 +112,7 @@ public class OptionsDialog extends Dialog {
 
     skelBrowse.addActionListener(
         new ActionListener() {
+          @Override
           public void actionPerformed(ActionEvent e) {
             skelBrowse();
           }
@@ -116,6 +120,7 @@ public class OptionsDialog extends Dialog {
 
     verbose.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.verbose = verbose.getState();
           }
@@ -123,6 +128,7 @@ public class OptionsDialog extends Dialog {
 
     dump.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.dump = dump.getState();
           }
@@ -130,6 +136,7 @@ public class OptionsDialog extends Dialog {
 
     jlex.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.jlex = jlex.getState();
             // JLex compatibility implies that dot (.) metachar matches [^\n]
@@ -140,6 +147,7 @@ public class OptionsDialog extends Dialog {
 
     no_minimize.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.no_minimize = no_minimize.getState();
           }
@@ -147,6 +155,7 @@ public class OptionsDialog extends Dialog {
 
     no_backup.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.no_backup = no_backup.getState();
           }
@@ -154,6 +163,7 @@ public class OptionsDialog extends Dialog {
 
     dot.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.dot = dot.getState();
           }
@@ -161,6 +171,7 @@ public class OptionsDialog extends Dialog {
 
     legacy_dot.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.legacy_dot = legacy_dot.getState();
           }
@@ -168,6 +179,7 @@ public class OptionsDialog extends Dialog {
 
     time.addItemListener(
         new ItemListener() {
+          @Override
           public void itemStateChanged(ItemEvent e) {
             Options.time = time.getState();
           }

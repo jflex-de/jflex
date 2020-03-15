@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,7 +19,7 @@ import jflex.logging.Out;
  * <p>It stores the Java code as String together with a priority (line number in the specification).
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Action {
 
@@ -97,11 +97,7 @@ public final class Action {
     else return other;
   }
 
-  /**
-   * Returns the String representation of this object.
-   *
-   * @return string representation of the action
-   */
+  @Override
   public String toString() {
     return "Action (priority "
         + priority
@@ -126,24 +122,12 @@ public final class Action {
             && this.entryState == a.entryState);
   }
 
-  /**
-   * Calculate hash value.
-   *
-   * @return a hash value for this Action
-   */
+  @Override
   public int hashCode() {
     return content.hashCode();
   }
 
-  /**
-   * {@inheritDoc}
-   *
-   * <p>Test for equality to another object.
-   *
-   * <p>This action equals another object if the other object is an equivalent action.
-   *
-   * @see Action#isEquiv(Action)
-   */
+  @Override
   public boolean equals(Object o) {
     if (o instanceof Action) return isEquiv((Action) o);
     else return false;

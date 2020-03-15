@@ -5,11 +5,6 @@ import java.util.ArrayList;
 %%
 
 %{
-  private class Interval {
-    Interval(int start, int end) { this.start = start; this.end = end; }
-    int start;
-    int end;
-  }
   private List<Interval> dotIntervals = new ArrayList<Interval>();
   private List<Interval> newlineIntervals = new ArrayList<Interval>();
 %} 
