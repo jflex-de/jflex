@@ -1284,6 +1284,9 @@ public final class Emitter {
     if (scanner.eofclose()) {
       eofCode = LexScan.conc(scanner.eofCode(), "  yyclose();");
       eofThrow = LexScan.concExc(scanner.eofThrow(), "java.io.IOException");
+    } else {
+      eofCode = scanner.eofCode();
+      eofThrow = scanner.eofThrow();
     }
   }
 
