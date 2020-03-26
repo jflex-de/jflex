@@ -142,32 +142,43 @@ The top level directory of the JFLex git repository contains:
 #### Build with Bazel
 
 JFlex can be built with Bazel.
-[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance.
+[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for
+instance.
 
 
 You need [Bazel][bazel].
 
+##### Command line interface (CLI)
+
 ```
 bazel build //jflex:jflex_bin
-```
-
-This builds `bazel-bin/jflex/jflex_bin`, that you can use
-
-```
 bazel-bin/jflex/jflex_bin --info
 ```
 
-Or:
+Or more directly:
 
 ```
 bazel run //jflex:jflex_bin -- --info
 ```
 
-Build uberjar (aka fatjar aka deploy jar)
+Build the uberjar (aka fatjar aka deploy jar) that can be used as a standalone binary:
 
 ```
 bazel build jflex/jflex_bin_deploy.jar
 ```
+
+##### Graphical user interface (GUI)
+
+The build is modularized, and the previous target does not contain the GUI.
+
+Start the GUI with:
+
+```
+bazel build //jflex:jflex_gui_bin
+bazel-bin/jflex/jflex_gui_bin
+```
+
+##### CI
 
 Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
@@ -184,6 +195,8 @@ This generates `jflex/target/jflex-full-1.8.1-SNAPSHOT.jar` that you can use, e.
 ```
 java -jar jflex-full-1.8.1-SNAPSHOT.jar --info
 ```
+
+##### CI
 
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
