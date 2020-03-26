@@ -5,7 +5,6 @@ java_library(
     name = "jflex_cli",
     srcs = ["Main.java"],  # cli
     deps = [
-        "//jflex/src/main/java/jflex/anttask",
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/core/unicode",
@@ -19,12 +18,13 @@ java_library(
     ],
 )
 
-# gui, and ant task
+# cli, gui, and ant task
 java_library(
     name = "jflex_gui",
     srcs = ["Gui.java"],
     deps = [
         ":jflex_cli",
+        "//jflex/src/main/java/jflex/anttask",
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/gui",
         "@maven//:com_google_guava_guava",
