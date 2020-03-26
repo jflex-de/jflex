@@ -1,8 +1,8 @@
 package(default_visibility = ["//visibility:public"])
 
-# cli, gui, and ant task
+# cli
 java_library(
-    name = "jflex_ui",
+    name = "jflex_cli",
     srcs = ["Main.java"],  # cli
     deps = [
         "//jflex/src/main/java/jflex/anttask",
@@ -16,5 +16,17 @@ java_library(
         "//jflex/src/main/java/jflex/l10n",
         "//jflex/src/main/java/jflex/logging",
         "//jflex/src/main/java/jflex/option",
+    ],
+)
+
+# gui, and ant task
+java_library(
+    name = "jflex_gui",
+    srcs = ["Gui.java"],
+    deps = [
+        ":jflex_cli",
+        "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/gui",
+        "@maven//:com_google_guava_guava",
     ],
 )

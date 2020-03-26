@@ -27,7 +27,6 @@ import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.generator.LexGenerator;
-import jflex.gui.MainFrame;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -35,8 +34,8 @@ import jflex.option.Options;
 /**
  * This is the command-line interface.
  *
- * <p>It is responsible for parsing the commandline, getting input files, starting up the GUI if
- * necessary, etc. and invokes {@link LexGenerator} accordingly.
+ * <p>It is responsible for parsing the commandline, getting input files, and invoking
+ * {@link LexGenerator} accordingly.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
@@ -51,7 +50,7 @@ public class Main {
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  private static List<File> parseOptions(String[] argv) throws SilentExit {
+  static List<File> parseOptions(String[] argv) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -320,7 +319,9 @@ public class Main {
         new LexGenerator(file).generate();
       }
     } else {
-      new MainFrame();
+      Out.error("Missing input file. Consider running the GUI instead.");
+      printUsage();
+      throw new SilentExit(2);
     }
   }
 
