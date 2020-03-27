@@ -41,7 +41,6 @@ class Unicode_0_1 {
 
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 4;
-  // TODO Change to array of string?
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0043\u0044\u0062";

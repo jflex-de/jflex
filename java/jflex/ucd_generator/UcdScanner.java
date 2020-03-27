@@ -24,6 +24,7 @@ public class UcdScanner {
   }
 
   public UnicodeData scan() throws IOException {
+
     scanPropertyAliases();
     scanPropertyValueAliases();
     scanUnicodeData();

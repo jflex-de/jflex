@@ -1,7 +1,10 @@
 java_test(
     name = "UnicodeDataScannerTest",
     srcs = ["UnicodeDataScannerTest.java"],
-    data = ["//third_party/unicode:ucd_10"],
+    data = [
+        "//third_party/unicode:ucd_4_1_0",
+        "//third_party/unicode:ucd_10",
+        ],
     deps = [
         "//java/jflex/ucd_generator/scanner:ucd_scanners",
         "//java/jflex/ucd_generator/scanner/model",

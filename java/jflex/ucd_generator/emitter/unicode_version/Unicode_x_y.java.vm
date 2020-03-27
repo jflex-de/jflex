@@ -42,7 +42,6 @@ class $className {
 
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = $maxCaselessMatchPartitionSize;
-  // TODO Change to array of string?
   public static final String caselessMatchPartitions =
       "$caselessMatchPartitions";
 }
