@@ -25,15 +25,16 @@
  */
 package jflex.ucd_generator.emitter.unicode_properties;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.ucd.UcdVersions;
+import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -41,7 +42,8 @@ import org.apache.velocity.runtime.parser.ParseException;
 public class UnicodePropertiesEmitter extends UcdEmitter {
 
   private static final String UNICODE_PROPERTIES_TEMPLATE =
-      PackageUtil.getPathForClass(UnicodePropertiesEmitter.class) + "/UnicodeProperties.java.vm";
+      JavaPackageUtils.getPathForClass(UnicodePropertiesEmitter.class)
+          + "/UnicodeProperties.java.vm";
 
   private final UcdVersions versions;
 
@@ -52,7 +54,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output, Charsets.UTF_8))) {
       Velocity.render(
           readResource(UNICODE_PROPERTIES_TEMPLATE),
           "UnicodeProperties",

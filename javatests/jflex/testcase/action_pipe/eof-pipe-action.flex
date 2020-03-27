@@ -1,4 +1,4 @@
-package jflex.testing;
+package jflex.testcase.action_pipe;
 
 
 %%

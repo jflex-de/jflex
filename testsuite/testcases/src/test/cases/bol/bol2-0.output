@@ -1,0 +1,70 @@
+match: --hello--
+action [13] { System.out.println("hello at BOL"); }
+hello at BOL
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: --hello--
+action [14] { System.out.println("hello no BOL"); }
+hello no BOL
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: --hello--
+action [14] { System.out.println("hello no BOL"); }
+hello no BOL
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: --hello--
+action [13] { System.out.println("hello at BOL"); }
+hello at BOL
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: -- --
+action [16] { System.out.println("other"); }
+other
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: --s--
+action [16] { System.out.println("other"); }
+other
+match: --d--
+action [16] { System.out.println("other"); }
+other
+match: --f--
+action [16] { System.out.println("other"); }
+other
+match: --a--
+action [16] { System.out.println("other"); }
+other
+match: --\u000A--
+action [16] { System.out.println("other"); }
+other
+match: --hello--
+action [13] { System.out.println("hello at BOL"); }
+hello at BOL
+-1

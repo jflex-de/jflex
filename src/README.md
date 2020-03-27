@@ -1,8 +1,8 @@
-# JFlex parent sources
+# JFlex parent POM
 
 Sources for the JFlex parent. 
 
-Mostly contains shared reosources, such as
+Mostly contains shared resources, such as
 
 - Code Checkstyle configuration
 - PMD configuration

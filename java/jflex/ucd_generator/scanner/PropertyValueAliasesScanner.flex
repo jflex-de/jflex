@@ -1,12 +1,15 @@
 package jflex.ucd_generator.scanner;
 
+import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.util.PropertyNameNormalizer;
+
 import java.util.HashSet;
 import java.util.Set;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;
 
 /**
- * Scans the PropertyValueAliases(-X.X.X).txt Unicode.org data file format, 
+ * Scans the PropertyValueAliases(-X.X.X).txt Unicode.org data file format,
  * populating unicodeVersion.allPropertyValueAliases.
  */
 %%
@@ -14,7 +17,8 @@ import jflex.ucd_generator.ucd.Version;
 %final
 %public
 %class PropertyValueAliasesScanner
-%ctorarg UcdVersion ucdVersion
+%extends AbstractPropertyValueAliasesScanner
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
@@ -25,30 +29,8 @@ import jflex.ucd_generator.ucd.Version;
 %int
 %function scan
 
-%{
-  UcdVersion ucdVersion;
-  String propertyAlias;
-  Set<String> aliases = new HashSet<String>();
-  String propertyValue;
-  String scxPropName;
-  
-  void addPropertyValueAliases() {
-    unicodeVersion.addPropertyValueAliases
-        (propertyAlias, propertyValue, new HashSet<String>(aliases));
-    String canonicalPropertyName 
-        = unicodeVersion.getCanonicalPropertyName(propertyAlias);
-    if ("script".equals(canonicalPropertyName)) {
-      // Clone Script/sc property value aliases => Script_Extensions/scx
-      unicodeVersion.addPropertyValueAliases
-          (scxPropName, propertyValue, new HashSet<String>(aliases));
-    }
-    aliases.clear();
-  }
-%}
-
 %init{
-  this.unicodeVersion = unicodeVersion;
-  scxPropName = unicodeVersion.getCanonicalPropertyName("Script_Extensions");
+  super(unicodeData);
 %init}
 
 Spaces = [ \t]*

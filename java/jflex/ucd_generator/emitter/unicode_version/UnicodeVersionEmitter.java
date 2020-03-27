@@ -1,5 +1,6 @@
 package jflex.ucd_generator.emitter.unicode_version;
 
+import com.google.common.base.Charsets;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,10 +9,10 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
-import jflex.testing.javac.PackageUtil;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
-import jflex.ucd_generator.scanner.UnicodeData;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -19,7 +20,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 public class UnicodeVersionEmitter extends UcdEmitter {
 
   private static final String UNICODE_VERSION_TEMPLATE =
-      PackageUtil.getPathForClass(UnicodeVersionEmitter.class) + "/Unicode_x_y.java.vm";
+      JavaPackageUtils.getPathForClass(UnicodeVersionEmitter.class) + "/Unicode_x_y.java.vm";
   private static final String CP_ZERO = escapedUTF16Char(0);
 
   private final UcdVersion ucdVersion;
@@ -33,7 +34,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
 
   public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
     UnicodeVersionVars unicodeVersionVars = createUnicodeVersionVars();
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output, Charsets.UTF_8))) {
       Velocity.render(
           readResource(UNICODE_VERSION_TEMPLATE), "Unicode_x_y", unicodeVersionVars, writer);
     }
@@ -45,7 +46,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
     unicodeVersionVars.propertyValues =
-        String.join("\", \"", unicodeData.propertyValueIntervals().keySet());
+        String.join("\",\n    \"", unicodeData.propertyValueIntervals());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

@@ -1,0 +1,29 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_bol_scanner",
+    srcs = ["bol.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["BolScanner.java"],
+)
+
+jflex(
+    name = "gen_bol2_scanner",
+    srcs = ["bol2.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Bol2Scanner.java"],
+)
+
+java_test(
+    name = "BolTest",
+    srcs = [
+        "BolTest.java",
+        "State.java",
+        ":gen_bol2_scanner",
+        ":gen_bol_scanner",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

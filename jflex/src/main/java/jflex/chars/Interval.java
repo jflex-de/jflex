@@ -9,14 +9,16 @@
 
 package jflex.chars;
 
+import java.util.PrimitiveIterator;
+
 /**
- * An interval of characters with basic operations.
+ * A mutable interval of characters with basic operations.
  *
  * @author Gerwin Klein
  * @author Régis Décamps
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public final class Interval {
+public final class Interval implements Iterable<Integer> {
 
   /** Start of the interval. */
   public int start;
@@ -24,25 +26,21 @@ public final class Interval {
   public int end;
 
   /**
-   * Construct a new interval from {@code start</code> to <code>end}.
+   * Constructs a new interval from {@code start} to {@code end}, including both end points.
    *
-   * @param start first character the interval should contain
-   * @param end last character the interval should contain
+   * @param start first codepoint the interval contains
+   * @param end last codepoint the interval contains
    */
   public Interval(int start, int end) {
     this.start = start;
     this.end = end;
-  }
-
-  public Interval(Interval other) {
-    this.start = other.start;
-    this.end = other.end;
+    assert invariants();
   }
 
   /**
    * Returns {@code true} iff {@code point} is contained in this interval.
    *
-   * @param point the character to check
+   * @param point the character codepoint to check
    * @return whether the code point is contained in the interval.
    */
   public boolean contains(int point) {
@@ -80,9 +78,9 @@ public final class Interval {
   }
 
   /**
-   * Check whether a character is printable.
+   * Returns whether a character is printable.
    *
-   * @param c the character to check
+   * @param c the codepoint to check
    */
   private static boolean isPrintable(int c) {
     // fixme: should make unicode test here
@@ -96,6 +94,7 @@ public final class Interval {
    *     the interval) where {@code start} and {@code end} are either a number (the character code)
    *     or something of the from {@code 'a'}.
    */
+  @Override
   public String toString() {
     StringBuilder result = new StringBuilder("[");
 
@@ -114,11 +113,56 @@ public final class Interval {
   }
 
   /**
-   * Make a copy of this interval.
+   * Creates an interval of a single character.
    *
-   * @return the copy
+   * @param c The unique codepoint contained in this interval.
+   * @return A single-character interval.
    */
-  public Interval copy() {
-    return new Interval(start, end);
+  public static Interval ofCharacter(int c) {
+    return new Interval(c, c);
+  }
+
+  /**
+   * Creates a copy of the interval.
+   *
+   * @return the copy of the given interval.
+   */
+  public static Interval copyOf(Interval interval) {
+    return new Interval(interval.start, interval.end);
+  }
+
+  /**
+   * Checks the invariants of this object.
+   *
+   * @returns true when the invariants of this objects hold.
+   */
+  public boolean invariants() {
+    return start <= end;
+  }
+
+  @Override
+  public IntervalIterator iterator() {
+    return new IntervalIterator();
+  }
+
+  /** Iterator for enumerating the elements of this Interval */
+  public class IntervalIterator implements PrimitiveIterator.OfInt {
+    /** The current iterator position */
+    private int pos;
+
+    /** New iterator that starts at the beginning of the */
+    private IntervalIterator() {
+      pos = start;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return pos < end;
+    }
+
+    @Override
+    public int nextInt() {
+      return pos++;
+    }
   }
 }

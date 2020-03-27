@@ -25,18 +25,12 @@
  */
 package jflex.ucd_generator;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
-import jflex.ucd_generator.scanner.UnicodeData;
-import jflex.ucd_generator.scanner.UnicodeDataScanner;
-import jflex.ucd_generator.scanner.UnicodePropertyValueAliasesScanner;
-
-import jflex.ucd_generator.ucd.UcdFileType;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.ucd_generator.ucd.Version;
@@ -69,7 +63,7 @@ public class UcdGenerator {
     }
   }
 
-  /** Emits {@code Unicode_X_Y.java} */
+  /** Emits {@code Unicode_X_Y.java} files. */
   private static void emitAllUnicodeXY(UcdVersions ucdVersions, File outputDir)
       throws IOException, ParseException {
     for (Version version : ucdVersions.versionSet()) {
@@ -78,19 +72,15 @@ public class UcdGenerator {
     }
   }
 
-  private static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
+  /** Emits {@code Unicode_X_Y.java} for a give version. */
+  static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
       throws IOException, ParseException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
-    File dataFile = ucdVersion.getFile(UcdFileType.UnicodeData);
-    System.out.println("Opening " + dataFile);
+    UnicodeData unicodeData = new UcdScanner(ucdVersion).scan();
     File outputFile = new File(outputDir, unicodeClassName + ".java");
-    UnicodeDataScanner unicodeDataScanner =
-        new UnicodeDataScanner(Files.newReader(dataFile, Charsets.UTF_8), ucdVersion);
-    unicodeDataScanner.scan();
-    UnicodeData unicodeData = unicodeDataScanner.getUnicodeData();
-    UnicodePropertyValueAliasesScanner unicodePropertyValueAliasesScanner = new UnicodePropertyValueAliasesScanner();
-            UnicodeVersionEmitter emitter = new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
+    UnicodeVersionEmitter emitter =
+        new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
     try (FileOutputStream out = new FileOutputStream(outputFile)) {
       emitter.emitUnicodeVersion(out);
     }

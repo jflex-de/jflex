@@ -15,5 +15,8 @@ jflex_testsuite(
     data = [
         "eof-pipe-action.flex",
     ],
-    deps = ["//jflex/src/main/java/jflex/exceptions"],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/scanner",
+    ],
 )

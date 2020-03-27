@@ -70,7 +70,14 @@ public class CustomClassLoader extends ClassLoader {
     for (String path : pathItems) {
       if (isJar(path)) {
         try {
-          s = getZipEntryStream(path, name);
+          ZipFile zip = new ZipFile(new File(path));
+          ZipEntry entry = zip.getEntry(name);
+          if (entry != null) {
+            s = zip.getInputStream(entry);
+          } else {
+            s = null;
+            zip.close();
+          }
         } catch (FileNotFoundException e) {
           // we might find the entry in another path item.
           s = null;
@@ -90,9 +97,10 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Loads a class by name. */
-  public synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+  public synchronized Class<?> loadClass(String name, boolean resolve)
+      throws ClassNotFoundException {
 
-    Class c;
+    Class<?> c;
 
     // try to delegate to parent/system class loader
     try {
@@ -150,18 +158,6 @@ public class CustomClassLoader extends ClassLoader {
     return null;
   }
 
-  /** Returns {@link InputStream} for a jar/zip file entry. */
-  private InputStream getZipEntryStream(String file, String entryName) throws IOException {
-    ZipFile zip = new ZipFile(new File(file));
-    ZipEntry entry = zip.getEntry(entryName);
-    if (entry != null) {
-      // Don't close the zip now, otherwise the content is unreadable.
-      return zip.getInputStream(entry);
-    }
-    zip.close();
-    return null;
-  }
-
   private InputStream getFileEntry(String name, String path) {
     File file = new File(path, name);
     if (file.canRead()) {
@@ -183,7 +179,10 @@ public class CustomClassLoader extends ClassLoader {
     try {
       zipFile = new ZipFile(new File(path));
       entry = zipFile.getEntry(fileName);
-      if (entry == null) return null;
+      if (entry == null) {
+        zipFile.close();
+        return null;
+      }
       size = (int) entry.getSize();
     } catch (IOException io) {
       return null;
@@ -192,7 +191,10 @@ public class CustomClassLoader extends ClassLoader {
     InputStream stream = null;
     try {
       stream = zipFile.getInputStream(entry);
-      if (stream == null) return null;
+      if (stream == null) {
+        zipFile.close();
+        return null;
+      }
       byte[] data = new byte[size];
       int pos = 0;
       while (pos < size) {

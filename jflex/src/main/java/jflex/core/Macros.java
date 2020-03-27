@@ -10,15 +10,16 @@
 package jflex.core;
 
 import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
-import static jflex.l10n.ErrorMessages.get;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import jflex.base.Build;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 
 /**
  * Symbol table and expander for macros.
@@ -51,7 +52,7 @@ public final class Macros {
    */
   public boolean insert(String name, RegExp definition) {
 
-    if (Options.DEBUG)
+    if (Build.DEBUG)
       Out.debug(
           "inserting macro "
               + name
@@ -119,13 +120,14 @@ public final class Macros {
    * Expands all stored macros, so that getDefinition always returns a definition that doesn't
    * contain any macro usages.
    *
-   * @throws jflex.exceptions.MacroException if there is a cycle in the macro usage graph.
+   * @throws MacroException if there is a cycle in the macro usage graph.
    */
-  public void expand() throws jflex.exceptions.MacroException {
+  public void expand() throws MacroException {
     for (String name : macros.keySet()) {
-      if (isUsed(name)) macros.put(name, expandMacro(name, getDefinition(name)));
-      // this put doesn't get a new key, so only a new value
-      // is set for the key "name"
+      if (isUsed(name)) {
+        macros.put(name, expandMacro(name, getDefinition(name)));
+      }
+      // this put doesn't get a new key, so only a new value is set for the key "name"
     }
   }
 
@@ -135,11 +137,10 @@ public final class Macros {
    * @param name the name of the macro to expand (for detecting cycles)
    * @param definition the definition of the macro to expand
    * @return the expanded definition of the macro.
-   * @throws jflex.exceptions.MacroException when an error (such as a cyclic definition) occurs
-   *     during expansion
+   * @throws MacroException when an error (such as a cyclic definition) occurs during expansion
    */
-  private RegExp expandMacro(String name, RegExp definition)
-      throws jflex.exceptions.MacroException {
+  @SuppressWarnings("unchecked")
+  private RegExp expandMacro(String name, RegExp definition) throws MacroException {
 
     // Out.print("checking macro "+name);
     // Out.print("definition is "+definition);
@@ -165,13 +166,14 @@ public final class Macros {
         String usename = (String) ((RegExp1) definition).content;
 
         if (Objects.equals(name, usename))
-          throw new jflex.exceptions.MacroException(get(MACRO_CYCLE, name));
+          throw new MacroException(ErrorMessages.get(MACRO_CYCLE, name));
 
         RegExp usedef = getDefinition(usename);
 
-        if (usedef == null)
-          throw new jflex.exceptions.MacroException(
-              jflex.l10n.ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+        if (usedef == null) {
+          throw new MacroException(
+              ErrorMessages.get(ErrorMessages.MACRO_DEF_MISSING, usename, name));
+        }
 
         markUsed(usename);
 
@@ -181,15 +183,28 @@ public final class Macros {
       case sym.STRING_I:
       case sym.CHAR:
       case sym.CHAR_I:
+      case sym.PRIMCLASS:
+        return definition;
+
       case sym.CCLASS:
       case sym.CCLASSNOT:
+        RegExp1 cclass = (RegExp1) definition;
+        List<RegExp> classes = new ArrayList<>();
+        for (RegExp regexp : (List<RegExp>) cclass.content) {
+          classes.add(expandMacro(name, regexp));
+        }
+        cclass.content = classes;
+        return cclass;
+
+      case sym.CCLASSOP:
+        RegExp2 cclassOp = (RegExp2) ((RegExp1) definition).content;
+        cclassOp.r1 = expandMacro(name, cclassOp.r1);
+        cclassOp.r2 = expandMacro(name, cclassOp.r2);
         return definition;
 
       default:
         throw new MacroException(
-            "unknown expression type "
-                + definition.type
-                + " in macro expansion"); // $NON-NLS-1$ //$NON-NLS-2$
+            "unknown expression type " + definition.typeName() + " in macro expansion");
     }
   }
 }

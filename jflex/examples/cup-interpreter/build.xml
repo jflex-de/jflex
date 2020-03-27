@@ -1,6 +1,6 @@
 <project name="AS language interpreter" default="compile">
 
-  <property name="java_cup" value="../../../cup/cup/java-cup-11b.jar"/>
+  <property name="java_cup" value="../../../cup/cup/java-cup-11b-20160615.jar"/>
   <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
 
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>

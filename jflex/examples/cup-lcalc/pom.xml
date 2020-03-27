@@ -27,7 +27,7 @@
     <dependency>
       <groupId>de.jflex</groupId>
       <artifactId>cup_runtime</artifactId>
-      <version>11b</version>
+      <version>11b-20160615</version>
     </dependency>
   </dependencies>
   <build>

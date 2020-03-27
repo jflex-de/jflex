@@ -10,20 +10,20 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 git_repository(
     name = "jflex_rules",
+    commit = "49122dbb4b325af63af714b3006541f156b70c57",
     remote = "https://github.com/jflex-de/bazel_rules.git",
-    tag = "v6",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "jflex_deps")
 
 jflex_deps()
 
-# pandoc used to build the documentatoin
+# pandoc used to build the documentation
 
-http_archive(
+git_repository(
     name = "bazel_pandoc",
-    strip_prefix = "bazel-pandoc-0.2",
-    url = "https://github.com/ProdriveTechnologies/bazel-pandoc/archive/v0.2.tar.gz",
+    commit = "68bcf3fb4dd1892e040f0986636805c7186c82ae",
+    remote = "https://github.com/ProdriveTechnologies/bazel-pandoc.git",
 )
 
 load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
@@ -31,20 +31,10 @@ load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
 pandoc_repositories()
 
 # latex rule to build PDF from tex files
-#
-#http_archive(
-#    name = "bazel_latex",
-#    sha256 = "b4dd9ae76c570b328be30cdc5ea7045a61ecd55e4e6e2e433fb3bb959be2a44b",
-#    strip_prefix = "bazel-latex-0.16",
-#    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.16.tar.gz",
-#)
-#
-# This is a proposed fix for `OSError: [Errno 13] Permission denied: run_lualatex.py`
-# https://github.com/ProdriveTechnologies/bazel-latex/issues/23
-git_repository(
+http_archive(
     name = "bazel_latex",
-    commit = "1ba1fb087b8526cfe28c7c31471f412107ee6f09",
-    remote = "https://github.com/Selmaai/bazel-latex.git",
+    strip_prefix = "bazel-latex-0.19",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.19.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
@@ -74,10 +64,6 @@ maven_install(
     ],
 )
 
-# To update maven_install.json, run this command to re-pin the unpinned repository:
-#
-#    bazel run @unpinned_maven//:pin
-#
 load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()

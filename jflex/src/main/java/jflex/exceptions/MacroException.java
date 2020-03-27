@@ -15,13 +15,10 @@ package jflex.exceptions;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class MacroException extends RuntimeException {
+public class MacroException extends Exception {
 
   /** */
   private static final long serialVersionUID = 275266242549067641L;
-
-  /** Creates a new MacroException without message. */
-  public MacroException() {}
 
   /**
    * Creates a new MacroException with the specified message

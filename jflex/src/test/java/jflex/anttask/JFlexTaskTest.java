@@ -9,12 +9,17 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.anttask;
 
+import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import jflex.core.Options;
+import jflex.core.OptionUtils;
 import jflex.core.Skeleton;
-import junit.framework.TestCase;
+import jflex.option.Options;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Unit tests for the {@link jflex.anttask.JFlexTask}.
@@ -22,45 +27,36 @@ import junit.framework.TestCase;
  * @author Gerwin Klein
  * @version JFlex 1.8.0-SNAPSHOT
  */
-public class JFlexTaskTest extends TestCase {
+public class JFlexTaskTest {
 
   private JFlexTask task;
   private final String DIR_RESOURCES = "src/test/resources";
   private final String FILE_LEXSCAN = "/jflex/LexScan-test.flex";
 
-  /**
-   * Constructor for JFlexTaskTest.
-   *
-   * @param name test case name
-   */
-  public JFlexTaskTest(String name) {
-    super(name);
-  }
-
-  /*
-   * @see TestCase#setUp()
-   */
-  protected void setUp() throws Exception {
-    super.setUp();
-    Options.setDefaults();
+  @Before
+  public void setUp() {
+    OptionUtils.setDefaultOptions();
     task = new JFlexTask();
   }
 
+  @Test
   public void testPackageAndClass() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
-    assertEquals("jflex", task.getPackage());
-    assertEquals("LexScan", task.getClassName());
+    assertThat(task.getPackage()).isEqualTo("jflex");
+    assertThat(task.getClassName()).isEqualTo("LexScan");
   }
 
+  @Test
   public void testPackageAndClassDefaults() throws IOException {
     // FIXME
     task.setFile(new File(DIR_RESOURCES + "/jflex/simple.flex"));
     task.findPackageAndClass();
-    assertEquals(null, task.getPackage());
-    assertEquals("Yylex", task.getClassName());
+    assertThat(task.getPackage()).isEqualTo(null);
+    assertThat(task.getClassName()).isEqualTo("Yylex");
   }
 
+  @Test
   public void testDestdir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("target/test/src");
@@ -68,9 +64,10 @@ public class JFlexTaskTest extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // not default jflex logic, but javac (uses package name)
-    assertEquals(new File(dir, "jflex"), Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(new File(dir, "jflex"));
   }
 
+  @Test
   public void testOutdir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     File dir = new File("src");
@@ -78,100 +75,114 @@ public class JFlexTaskTest extends TestCase {
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(dir, Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(dir);
   }
 
+  @Test
   public void testDefaultDir() throws IOException {
     task.setFile(new File(DIR_RESOURCES + FILE_LEXSCAN));
     task.findPackageAndClass();
     task.normalizeOutdir();
     // this should be default jflex logic
-    assertEquals(new File(DIR_RESOURCES + "/jflex"), Options.getDir());
+    assertThat(Options.getDir()).isEqualTo(new File(DIR_RESOURCES + "/jflex"));
   }
 
+  @Test
   public void testNomin() {
-    assertTrue(!Options.no_minimize);
+    assertThat(!Options.no_minimize).isTrue();
     task.setNomin(true);
-    assertTrue(Options.no_minimize);
+    assertThat(Options.no_minimize).isTrue();
   }
 
+  @Test
   public void testSkipMinimization() {
-    assertTrue(!Options.no_minimize);
+    assertThat(!Options.no_minimize).isTrue();
     task.setSkipMinimization(true);
-    assertTrue(Options.no_minimize);
+    assertThat(Options.no_minimize).isTrue();
   }
 
+  @Test
   public void testNobak() {
-    assertTrue(!Options.no_backup);
+    assertThat(!Options.no_backup).isTrue();
     task.setNobak(true);
-    assertTrue(Options.no_backup);
+    assertThat(Options.no_backup).isTrue();
   }
 
+  @Test
   public void testSkel() {
     task.setVerbose(false); // avoid to java console pop up
     task.setSkeleton(new File("src/main/jflex/skeleton.nested"));
-    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertThat(Skeleton.line[3].indexOf("java.util.Stack") > 0).isTrue();
   }
 
+  @Test
   public void testVerbose() {
     task.setVerbose(false);
-    assertTrue(!Options.verbose);
+    assertThat(!Options.verbose).isTrue();
     task.setVerbose(true);
-    assertTrue(Options.verbose);
+    assertThat(Options.verbose).isTrue();
   }
 
+  @Test
   public void testUnusedWarning() {
     // Defaults to true, for backward compatibility.
-    assertTrue("Defaults to true", Options.unused_warning);
+    assertWithMessage("Defaults to true").that(Options.unused_warning).isTrue();
     task.setUnusedWarning(false);
-    assertFalse(Options.unused_warning);
+    assertThat(Options.unused_warning).isFalse();
   }
 
+  @Test
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
-    assertFalse("Disabled in quiet mode", Options.unused_warning);
+    assertWithMessage("Disabled in quiet mode").that(Options.unused_warning).isFalse();
   }
 
+  @Test
   public void testTime() {
-    assertTrue(!Options.time);
+    assertThat(!Options.time).isTrue();
     task.setTimeStatistics(true);
-    assertTrue(Options.time);
+    assertThat(Options.time).isTrue();
     task.setTime(false);
-    assertTrue(!Options.time);
+    assertThat(!Options.time).isTrue();
   }
 
+  @Test
   public void testDot() {
-    assertTrue(!Options.dot);
+    assertThat(!Options.dot).isTrue();
     task.setDot(true);
-    assertTrue(Options.dot);
+    assertThat(Options.dot).isTrue();
     task.setGenerateDot(false);
-    assertTrue(!Options.dot);
+    assertThat(!Options.dot).isTrue();
   }
 
+  @Test
   public void testDump() {
-    assertTrue(!Options.dump);
+    assertThat(!Options.dump).isTrue();
     task.setDump(true);
-    assertTrue(Options.dump);
+    assertThat(Options.dump).isTrue();
   }
 
+  @Test
   public void testJlex() {
-    assertTrue(!Options.jlex);
+    assertThat(!Options.jlex).isTrue();
     task.setJLex(true);
-    assertTrue(Options.jlex);
+    assertThat(Options.jlex).isTrue();
   }
 
+  @Test
   public void testLegacyDot() {
-    assertFalse(Options.legacy_dot);
+    assertThat(Options.legacy_dot).isFalse();
     task.setLegacyDot(true);
-    assertTrue(Options.legacy_dot);
+    assertThat(Options.legacy_dot).isTrue();
   }
 
+  @Test
   public void testSetEncoding() {
     Charset defaultSet = Charset.defaultCharset();
     String name = "utf-8";
     Charset charset = Charset.forName(name);
-    assertEquals(Options.encoding, defaultSet);
+    assertThat(defaultSet).isEqualTo(Options.encoding);
     task.setEncoding(name);
-    assertEquals(Options.encoding, charset);
+    assertThat(charset).isEqualTo(Options.encoding);
   }
 }

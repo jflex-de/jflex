@@ -6,6 +6,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import org.junit.Test;
 
@@ -18,11 +19,12 @@ public class UnicodeDataScannerTest {
     if (!file.exists()) {
       throw new FileNotFoundException("Missing test data (Unicode 10): " + file.getAbsolutePath());
     }
-    UcdVersion version = UcdVersion.builder().setVersion("10.0").build();
+    UcdVersion ucdVersion = UcdVersion.builder().setVersion("10.0").build();
+    UnicodeData ucdDataBuilder = UnicodeData(ucdVersion.version());
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), version);
+        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, ucdDataBuilder);
     scanner.scan();
-    UnicodeData unicodeData = scanner.getUnicodeData();
+    UnicodeData unicodeData = ucdDataBuilder.build();
     assertThat(unicodeData.maximumCodePoint()).isEqualTo(0x10ffff);
     assertThat(unicodeData.caselessMatchPartitions()).isNotEmpty();
     assertThat(unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);

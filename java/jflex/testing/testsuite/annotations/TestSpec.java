@@ -42,4 +42,24 @@ public @interface TestSpec {
    * expected.
    */
   Class<?> generatorThrowableCause() default NoExceptionThrown.class;
+
+  /** Runs JFlex generation with the {@code --dump} option. */
+  boolean dump() default false;
+
+  /** Runs JFlex generation with the {@code --jlex} option. */
+  boolean jlexCompat() default false;
+
+  /**
+   * The expected number of states in the minimized DFA. Negative values do not create an assertion.
+   */
+  int minimizedDfaStatesCount() default 0;
+
+  /** Runs JFlex generation with the {@code -q} option. */
+  boolean quiet() default false;
+
+  /** Golden file for JFlex's log (System.out stream). */
+  String sysout() default "";
+
+  /** Golden file for JFlex's warning and errors (System.err stream). */
+  String syserr() default "";
 }

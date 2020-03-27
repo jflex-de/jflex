@@ -10,7 +10,7 @@ public abstract class CodepointRange {
       (left, right) -> Integer.compare(left.start(), right.start());
 
   /** Start code-point, included. */
-  abstract int start();
+  public abstract int start();
 
   /** End code-point, included. */
   public abstract int end();
@@ -22,16 +22,16 @@ public abstract class CodepointRange {
   @Override
   public final String toString() {
     if (length() == 0) {
-      return "[" + start() + "]";
+      return String.valueOf(start());
     }
-    return "[" + start() + "…" + end() + "]";
+    return start() + "…" + end();
   }
 
   public static CodepointRange create(int start, int end) {
     return new AutoValue_CodepointRange(start, end);
   }
 
-  public static CodepointRange of(MutableCodepointRange mutableCodepointRange) {
+  public static CodepointRange create(MutableCodepointRange mutableCodepointRange) {
     return create(mutableCodepointRange.start, mutableCodepointRange.end);
   }
 }

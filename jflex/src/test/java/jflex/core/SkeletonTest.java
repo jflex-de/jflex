@@ -9,13 +9,12 @@
 
 package jflex.core;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import jflex.testing.TestFileUtil;
+import jflex.testing.TestFileUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -30,20 +29,20 @@ public class SkeletonTest {
 
   @Test
   public void testReplace() {
-    assertEquals(Skeleton.replace("bla ", "blub", "bla blub bla "), "blubblub blub");
+    assertThat(Skeleton.replace("bla ", "blub", "bla blub bla ")).isEqualTo("blubblub blub");
   }
 
   @Test
   public void testMakePrivate() {
     Skeleton.makePrivate();
     for (int i = 0; i < Skeleton.line.length; i++) {
-      assertEquals(Skeleton.line[i].indexOf("public"), -1);
+      assertThat(Skeleton.line[i]).doesNotContain("public");
     }
   }
 
   @Test
   public void readSkelFile_maven() {
-    assumeTrue(!TestFileUtil.BAZEL_RUNFILES);
+    assumeTrue(!TestFileUtils.BAZEL_RUNFILES);
     File skeletonFile = new File("src/main/jflex/skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
@@ -52,15 +51,15 @@ public class SkeletonTest {
   @Test
   @Ignore // fix loading resources
   public void readSkelFile_bazel() throws FileNotFoundException {
-    assumeTrue(TestFileUtil.BAZEL_RUNFILES);
-    File skeletonFile = TestFileUtil.open("//jflex", "jflex/skeleton.nested");
+    assumeTrue(TestFileUtils.BAZEL_RUNFILES);
+    File skeletonFile = TestFileUtils.open("//jflex", "jflex/skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
   }
 
   private void checkDefaultSkeleton() {
-    assertTrue(Skeleton.line[3].indexOf("java.util.Stack") > 0);
+    assertThat(Skeleton.line[3]).contains("java.util.Stack");
     Skeleton.readDefault();
-    assertEquals(Skeleton.line[3].indexOf("java.util.Stack"), -1);
+    assertThat(Skeleton.line[3]).doesNotContain("java.util.Stack");
   }
 }

@@ -35,7 +35,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.chars.Interval;
-import jflex.core.IntCharSet;
+import jflex.core.unicode.IntCharSet;
 
 #if (!$classComment.empty)
 $classComment
