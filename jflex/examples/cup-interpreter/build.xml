@@ -1,42 +1,18 @@
-<project name="AS language interpreter" default="compile">
+<project name="AS-language-interpreter" default="test">
 
-  <property name="java_cup" value="../../../cup/cup/java-cup-11b-20160615.jar"/>
-  <property name="jflex" value="../../target/jflex-full-1.8.0-SNAPSHOT.jar"/>
+  <import file="../common/include.xml"/>
 
-  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
-  <taskdef classname="java_cup.anttask.CUPTask" name="cup" classpath="${java_cup}"/>
+  <property name="main.class" value="Main" />
+  <property name="test.input" value="src/test/data/example.as" />
+  <property name="test.class" value="CalcTest" />
 
-  <target name="build" depends="clean,compile" />
-
-  <target name="run" depends="compile">
-    <java classname="Main">
-      <classpath>
-        <pathelement location="${java_cup}"/>
-        <pathelement path="antbuild"/>
-      </classpath>
-      <arg line="src/test/data/example.as"/> </java>
+  <target name="scanner">
+    <jflex file="src/main/jflex/scanner.flex" destdir="${ant.build}"/>
   </target>
 
-  <target name="test" depends="run">
-    <!-- TODO(#384) compare output with golden. -->
+  <target name="parser" depends="define-cup">
+    <cup srcfile="src/main/cup/parser.cup"
+         locations="no" interface="yes" destdir="${ant.build}"/>
   </target>
 
-  <target name="compile" depends="jflex,cup">
-    <javac destdir="antbuild" classpath="${java_cup}">
-      <src path="src/main/java/" />
-      <src path="antbuild/"/>
-    </javac>
-  </target>
-
-  <target name="jflex">
-    <jflex file="src/main/jflex/scanner.flex" destdir="antbuild" encoding="utf-8"/>
-  </target>
-
-  <target name="cup">
-    <cup srcfile="src/main/cup/parser.cup" interface="yes" destdir="antbuild"/>
-  </target>
-
-  <target name="clean">
-    <delete dir="antbuild"/>
-  </target>
 </project>

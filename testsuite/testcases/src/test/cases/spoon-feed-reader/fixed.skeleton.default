@@ -53,23 +53,11 @@
   /** Marks the last character in the buffer, that has been read from input. */
   private int zzEndRead;
 
-  /** Number of newlines encountered up to the start of the matched text. */
-  private int yyline;
-
-  /** Number of characters up to the start of the matched text. */
-  private int yychar;
-
-  /** Number of characters from the last newline up to the start of the matched text. */
-  private int yycolumn;
-
-  /** Whether the scanner is currently at the beginning of a line. */
-  private boolean zzAtBOL = true;
-
-  /** Whether the scanner is at the end of line. */
+  /**
+   * Whether the scanner is at the end of file.
+   * @see #yyatEOF
+   */
   private boolean zzAtEOF;
-
-  /** Whether the user-EOF-code has already been executed. */
-  private boolean zzEOFDone;
 
   /**
    * The number of occupied positions in {@link #zzBuffer} beyond {@link #zzEndRead}.
@@ -82,7 +70,6 @@
 --- user class code
 
 --- constructor declaration
-
 
   /**
    * Refills the input buffer.
@@ -149,9 +136,11 @@
     return true;
   }
 
-    
+
   /**
-   * Closes the input stream.
+   * Closes the input reader.
+   *
+   * @throws java.io.IOException if the reader could not be closed.
    */
   public final void yyclose() throws java.io.IOException {
     zzAtEOF = true; // indicate end of file
@@ -177,22 +166,45 @@
    */
   public final void yyreset(java.io.Reader reader) {
     zzReader = reader;
-    zzAtBOL = true;
-    zzAtEOF = false;
     zzEOFDone = false;
-    zzEndRead = zzStartRead = 0;
-    zzCurrentPos = zzMarkedPos = 0;
-    zzFinalHighSurrogate = 0;
-    yyline = yychar = yycolumn = 0;
+    yyResetPosition();
     zzLexicalState = YYINITIAL;
     if (zzBuffer.length > ZZ_BUFFERSIZE) {
       zzBuffer = new char[ZZ_BUFFERSIZE];
     }
   }
 
+  /**
+   * Resets the input position.
+   */
+  private final void yyResetPosition() {
+      zzAtBOL  = true;
+      zzAtEOF  = false;
+      zzCurrentPos = 0;
+      zzMarkedPos = 0;
+      zzStartRead = 0;
+      zzEndRead = 0;
+      zzFinalHighSurrogate = 0;
+      yyline = 0;
+      yycolumn = 0;
+      yychar = 0L;
+  }
+
+
+  /**
+   * Returns whether the scanner has reached the end of the reader it reads from.
+   *
+   * @return whether the scanner has reached EOF.
+   */
+  public final boolean yyatEOF() {
+    return zzAtEOF;
+  }
+
 
   /**
    * Returns the current lexical state.
+   *
+   * @return the current lexical state.
    */
   public final int yystate() {
     return zzLexicalState;
@@ -211,6 +223,8 @@
 
   /**
    * Returns the text matched by the current regular expression.
+   *
+   * @return the matched text.
    */
   public final String yytext() {
     return new String(zzBuffer, zzStartRead, zzMarkedPos-zzStartRead);
@@ -219,7 +233,7 @@
 
   /**
    * Returns the character at the given position from the matched text.
-   * 
+   *
    * <p>It is equivalent to {@code yytext().charAt(pos)}, but faster.
    *
    * @param position the position of the character to fetch. A value from 0 to {@code yylength()-1}.
@@ -232,7 +246,9 @@
 
 
   /**
-   * Returns the length of the matched text region.
+   * How many characters were matched.
+   *
+   * @return the length of the matched text region.
    */
   public final int yylength() {
     return zzMarkedPos-zzStartRead;
@@ -262,7 +278,7 @@
     }
 
 --- throws clause
-  } 
+  }
 
 
   /**
@@ -300,7 +316,6 @@
     int zzMarkedPosL;
     int zzEndReadL = zzEndRead;
     char[] zzBufferL = zzBuffer;
-    char[] zzCMapL = ZZ_CMAP;
 
 --- local declarations
 
@@ -311,12 +326,12 @@
       zzAction = -1;
 
       zzCurrentPosL = zzCurrentPos = zzStartRead = zzMarkedPosL;
-  
+
 --- start admin (lexstate etc)
 
       zzForAction: {
         while (true) {
-    
+
 --- next input, line, col, char count, next transition, isFinal action
             zzAction = zzState;
             zzMarkedPosL = zzCurrentPosL;

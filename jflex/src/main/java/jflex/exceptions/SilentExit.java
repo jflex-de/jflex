@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -13,12 +13,12 @@ package jflex.exceptions;
  * Signals a silent exit (no statistics printout).
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class SilentExit extends Exception {
 
   /** Program exit code if this exception is taken */
-  private int exitCode;
+  private final int exitCode;
 
   /**
    * SilentExit with specified program exit code.

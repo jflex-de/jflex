@@ -4,6 +4,7 @@
   <groupId>de.flex.examples</groupId>
   <artifactId>standalone-maven</artifactId>
   <version>1.0</version>
+  <name>Standalone text substitution example</name>
   <description>This is a small example of a standalone text substitution scanner.
 
 It reads a name after the keyword name and replaces all occurrences
@@ -12,7 +13,7 @@ of "hello" by "hello &lt;name&gt; !".</description>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -36,7 +37,7 @@ of "hello" by "hello &lt;name&gt; !".</description>
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.8.0-SNAPSHOT</version>
+        <version>1.9.0-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -47,6 +48,18 @@ of "hello" by "hello &lt;name&gt; !".</description>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>de.jflex.example.standalone.Subst</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>

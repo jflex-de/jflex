@@ -1,26 +1,20 @@
+#
+# make test (or just: make)
+#    generates lexer & parser, compiles all *.java files, and runs test
+#
 
-JFLEX      = ../../bin/jflex
+# main class
+MAIN = ZeroLexer
 
+# test data
+TEST_IN  = src/test/data/test-input.txt
+OUT_GOOD = src/test/data/lexer-output.good
 
-LEXER      = ZeroLexer
+# jflex input
+LEXER_IN = src/main/jflex/zero-lexer.jflex
+LEXER_CLASS = $(MAIN)
 
-# --------------------------------------------------
+# no cup file in this example
+PARSER_OUT =
 
-all: clean compile
-
-test: out/output.txt
-	@(diff --strip-trailing-cr src/test/data/lexer-output.good $<  && echo "Test OK") || (echo "Test FAILED"; exit 1)
-
-out/output.txt: out/$(LEXER).class src/test/data/test-input.txt
-	java -cp out $(LEXER) src/test/data/test-input.txt > $@
-
-compile: out/$(LEXER).class
-	
-out/$(LEXER).class: out/$(LEXER).java src/main/java/*.java
-	javac -d out $^
-
-out/$(LEXER).java: src/main/jflex/zero-lexer.jflex
-	$(JFLEX) -d out $<
-
-clean:
-	rm -rf out
+include ../common/Makefile.inc

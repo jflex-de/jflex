@@ -1,40 +1,23 @@
-# uses JFlex >= 1.3.2, and CUP >= 0.11b-20160615
 #
-# targets:
-#
-# make all (or just: make)
-#    generates lexer, and parser, and compiles all *.java files
-#
-# make test
-#    starts the program on a test example
+# make test (or just: make)
+#    generates lexer & parser, compiles all *.java files, and runs test
 #
 
-ROOT       = ../../..
-JFLEX      = $(ROOT)/jflex/bin/jflex
-CUPJAR     = $(ROOT)/cup/cup/java-cup-11b-20160615.jar
-CUP        = java -jar $(CUPJAR)
+# main class
+MAIN = Main
 
-all: clean compile
+# test data
+TEST_IN  = src/test/data/example.as
+OUT_GOOD = src/test/data/output.good
 
-compile: gen_cup gen_jflex src/main/java/*.java
-	javac -cp $(CUPJAR):out -d out src/main/java/*.java out/genfiles/*.java
+# jflex input and output
+LEXER_IN = src/main/jflex/scanner.flex
+LEXER_CLASS = Lexer
 
-# writes parser.java	sym.java
-gen_jflex: src/main/jflex/scanner.flex outdir
-	$(JFLEX) -d out/genfiles $<
+# cup file
+PARSER_IN = src/main/cup/parser.cup
 
-gen_cup: src/main/cup/parser.cup outdir
-	$(CUP) -interface < $<
-	mv parser.java sym.java out/genfiles
+# this parser wants its input on stdin:
+PIPE_INPUT = <
 
-output: compile src/test/data/example.as outdir
-	java -cp $(CUPJAR):out Main < src/test/data/example.as > out/output.txt
-
-test: output
-	@(diff out/output.txt src/test/data/output.good && echo "Test OK!") || (echo "Test FAILED"; exit 1)
-
-clean:
-	rm -rf out
-
-outdir:
-	mkdir -p out/genfiles
+include ../common/Makefile.inc

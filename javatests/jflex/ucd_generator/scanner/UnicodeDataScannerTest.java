@@ -20,13 +20,12 @@ public class UnicodeDataScannerTest {
       throw new FileNotFoundException("Missing test data (Unicode 10): " + file.getAbsolutePath());
     }
     UcdVersion ucdVersion = UcdVersion.builder().setVersion("10.0").build();
-    UnicodeData ucdDataBuilder = UnicodeData(ucdVersion.version());
+    UnicodeData unicodeData = new UnicodeData(ucdVersion.version());
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, ucdDataBuilder);
+        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeData);
     scanner.scan();
-    UnicodeData unicodeData = ucdDataBuilder.build();
     assertThat(unicodeData.maximumCodePoint()).isEqualTo(0x10ffff);
-    assertThat(unicodeData.caselessMatchPartitions()).isNotEmpty();
+    assertThat(unicodeData.uniqueCaselessMatchPartitions()).isNotEmpty();
     assertThat(unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
   }
 }

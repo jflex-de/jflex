@@ -13,9 +13,9 @@
  * <p>The non terminal exp is the sum of multiple variants and therefore modelled as an abstract
  * class.
  *
- * <p>The interpretation function <tt>interpret</tt> is called with valuations of input variables
- * <tt>in</tt> and parameters <tt>par</tt>. Before interpret can be called, pointers and variable
- * indices must be set with <tt>prepInterp</tt>.
+ * <p>The interpretation function {@code interpret} is called with valuations of input variables
+ * {@code in} and parameters {@code par}. Before interpret can be called, pointers and variable
+ * indices must be set with {@code prepInterp}.
  */
 abstract class Texp implements AST {
   // test context conditions (DefFun,DefVar,Arity)

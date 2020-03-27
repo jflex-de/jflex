@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ivy-module version="2.0">
+  <info organisation="de.jflex" module="examples.simple"/>
+  <dependencies>
+    <dependency org="junit" name="junit" rev="4.12"/>
+    <dependency org="com.google.guava" name="guava" rev="26.0-jre"/>
+    <dependency org="com.google.truth" name="truth" rev="0.38"/>
+    <dependency org="com.github.vbmacher" name="java-cup" rev="11b-20160615"/>
+    <!--
+      circular dependency found:
+      com.google.truth#truth;0.36->com.google.testing.compile#compile-testing;0.12->com.google.truth#truth;0.35
+    -->
+  </dependencies>
+</ivy-module>

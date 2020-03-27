@@ -3,6 +3,9 @@ package jflex.ucd_generator.scanner;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 
+/**
+ * Scanner of the {@code UnicodeData.txt}.
+ */
 %%
 
 %final
@@ -25,9 +28,6 @@ import jflex.ucd_generator.scanner.model.UnicodeData;
 
 %int
 %function scan
-
-%{
-%}
 
 %init{
   super(ucdVersion, unicodeData);

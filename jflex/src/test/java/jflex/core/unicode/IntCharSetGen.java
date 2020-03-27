@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -20,7 +20,7 @@ import jflex.chars.IntervalGen;
  * Generator for random {@link IntCharSet} instances.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see IntCharSet
  */
 public class IntCharSetGen extends Generator<IntCharSet> {
@@ -31,7 +31,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
   private int maxSize = 5;
 
   /** Generator for Intervals */
-  private IntervalGen intervals;
+  private final IntervalGen intervals;
 
   /** Constructs generator for IntCharSet */
   public IntCharSetGen() {

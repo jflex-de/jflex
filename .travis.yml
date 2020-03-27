@@ -61,6 +61,7 @@ matrix:
 # They cannot be deleted in the before_cache phase,
 # otherwise `mvn site` fails in the before_deploy phase.
 before_install:
+- sudo apt-get -y install ant-optional
 - ./scripts/clean.sh
 
 install:

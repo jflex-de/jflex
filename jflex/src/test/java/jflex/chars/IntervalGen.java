@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,7 +19,7 @@ import jflex.core.unicode.CharClasses;
  * Generator for random {@link Interval} instances.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see Interval
  */
 public class IntervalGen extends Generator<Interval> {
@@ -30,7 +30,7 @@ public class IntervalGen extends Generator<Interval> {
   private int maxChar = 50;
 
   /** How often to return single-character intervals. */
-  private float singleCharRatio = 0.2f;
+  private final float singleCharRatio = 0.2f;
 
   /** Constructs and registers generator for Interval */
   public IntervalGen() {

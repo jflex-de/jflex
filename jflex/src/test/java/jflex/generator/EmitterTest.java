@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -12,16 +12,18 @@ package jflex.generator;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import jflex.option.Options;
 import org.junit.Test;
 
 /**
  * Some unit tests for the jflex Emitter class
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class EmitterTest {
 
@@ -74,5 +76,18 @@ public class EmitterTest {
     }
     usercode.append("\n").append(nonJavadocComment);
     assertThat(!Emitter.endsWithJavadoc(usercode)).isTrue();
+  }
+
+  @Test
+  public void testSourceFileString() {
+    Options.resetRootDirectory();
+    String bad = "something/or_other\\filename\\nFILE_NAMES_MUST_BE_ESCAPED\\u000A.flex";
+    if (File.separatorChar == '\\') {
+      assertThat(Emitter.sourceFileString(new File(bad)))
+          .isEqualTo("something/or_other/filename/nFILE_NAMES_MUST_BE_ESCAPED/u000A.flex");
+    } else {
+      assertThat(Emitter.sourceFileString(new File(bad)))
+          .isEqualTo("something/or_other\\\\filename\\\\nFILE_NAMES_MUST_BE_ESCAPED\\\\u000A.flex");
+    }
   }
 }

@@ -1,0 +1,91 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="included">
+
+  <!-- expects the following properties to be set:
+     main.class: main class to run for the "run" target
+     test.input: test input file
+     test.class: test class to run for the "test" target
+  -->
+
+  <!-- where to put generated files and class files -->
+  <property name="ant.build" value="antbuild"/>
+
+  <!-- location of include dir relative from project -->
+  <property name="common.dir" value="../common" />
+
+  <!-- JFlex task -->
+  <property name="jflex" value="../../lib/jflex-full-1.9.0-SNAPSHOT.jar"/>
+  <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
+
+  <!-- ivy installer -->
+  <property name="ivy.install.version" value="2.5.0"/>
+  <property name="ivy.home" value="${user.home}/.ant"/>
+  <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
+  <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+
+  <property name="maven.repo" value="https://repo1.maven.org/maven2"/>
+  <property name="ivy.url" value="${maven.repo}/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"/>
+
+  <target name="download-ivy" unless="offline">
+    <mkdir dir="${ivy.jar.dir}"/>
+    <!-- download Ivy from web so that it can be used without installation -->
+    <get src="${ivy.url}" dest="${ivy.jar.file}" skipexisting="true"/>
+  </target>
+  <target name="init-ivy" depends="download-ivy">
+    <!-- try to load Ivy here from Ivy home, in case the user has not already dropped
+         it into Ant's lib dir (note that the latter copy will always take precedence).
+         We will not fail as long as local lib dir exists (it may be empty) and
+         Ivy is in at least one of Ant's lib dir or the local lib dir. -->
+    <path id="ivy.lib.path">
+      <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+    </path>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml"
+             uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+  </target>
+
+  <target name="retrieve">
+    <ivy:resolve file="${common.dir}/ivy.xml"/>
+    <ivy:retrieve/>
+  </target>
+
+  <target name="define-cup" depends="retrieve">
+    <ivy:cachepath pathid="lib.path.id"/>
+    <taskdef classname="java_cup.anttask.CUPTask"
+             name="cup" classpathref="lib.path.id"/>
+  </target>
+
+  <path id="antbuild">
+    <pathelement path="${ant.build}"/>
+  </path>
+
+  <target name="run" depends="compile">
+    <java classname="${main.class}" failonerror="yes">
+      <arg line="${test.input}"/>
+      <classpath refid="lib.path.id"/>
+      <classpath refid="antbuild"/>
+    </java>
+  </target>
+
+  <target name="test" depends="compile">
+    <junit haltonfailure="yes">
+      <test name="${test.class}">
+        <formatter type="plain" usefile="false"/>
+      </test>
+      <classpath refid="lib.path.id"/>
+      <classpath refid="antbuild"/>
+    </junit>
+  </target>
+
+  <target name="compile" depends="scanner,parser,init-ivy,retrieve">
+    <ivy:cachepath pathid="lib.path.id"/>
+    <javac destdir="${ant.build}" classpathref="lib.path.id" encoding="UTF-8" includeantruntime="false">
+      <src path="src/main/java/"/>
+      <src path="src/test/java"/>
+      <src path="${ant.build}" />
+    </javac>
+  </target>
+
+  <target name="clean">
+    <delete dir="antbuild"/>
+  </target>
+
+</project>

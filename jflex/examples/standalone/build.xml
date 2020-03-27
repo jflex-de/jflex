@@ -1,0 +1,28 @@
+<project name="standalone-example" default="test"
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <import file="../common/include.xml"/>
+
+  <property name="main.class" value="de.jflex.example.standalone.Subst" />
+  <property name="test.input" value="src/test/data/sample.in" />
+  <property name="test.class" value="de.jflex.example.standalone.SubstTest" />
+
+  <target name="scanner">
+    <jflex file="src/main/jflex/standalone.flex" destdir="${ant.build}"/>
+  </target>
+
+  <!-- we repeat the compile target, slightly tweaked from include.xml,
+       because there is nothing to compile in src/main/java here -->
+  <target name="compile" depends="scanner,retrieve">
+    <ivy:cachepath pathid="lib.path.id"/>
+    <javac destdir="${ant.build}" classpathref="lib.path.id" encoding="UTF-8" includeantruntime="false">
+      <src path="src/test/java"/>
+      <src path="${ant.build}" />
+    </javac>
+  </target>
+
+  <target name="parser">
+    <!-- no parser in this example; target expected by include.xml -->
+  </target>
+
+</project>

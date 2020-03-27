@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -27,15 +27,15 @@ import jflex.logging.Out;
  * <p>Maps macros to their (expanded) definitions, detects cycles and unused macros.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Macros {
 
   /** Maps names of macros to their definition */
-  private Map<String, RegExp> macros;
+  private final Map<String, RegExp> macros;
 
   /** Maps names of macros to their "used" flag */
-  private Map<String, Boolean> used;
+  private final Map<String, Boolean> used;
 
   /** Creates a new macro expander. */
   public Macros() {

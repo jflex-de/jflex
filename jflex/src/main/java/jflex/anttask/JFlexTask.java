@@ -11,9 +11,11 @@
 package jflex.anttask;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.core.OptionUtils;
@@ -27,7 +29,7 @@ import org.apache.tools.ant.Task;
  * JFlex ant task.
  *
  * @author Rafal Mantiuk
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class JFlexTask extends Task {
   private static final Pattern PACKAGE_PATTERN = Pattern.compile("package\\s+(\\S+)\\s*;");
@@ -93,8 +95,8 @@ public class JFlexTask extends Task {
     // find name of the package and class in jflex source file
     packageName = null;
     className = null;
-
-    try (LineNumberReader reader = new LineNumberReader(new FileReader(inputFile))) {
+    Reader r = Files.newBufferedReader(inputFile.toPath(), StandardCharsets.UTF_8);
+    try (LineNumberReader reader = new LineNumberReader(r)) {
       while (className == null || packageName == null) {
         String line = reader.readLine();
         if (line == null) {

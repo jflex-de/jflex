@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,12 +17,12 @@ import java.util.Map;
  * A simple table to store EOF actions for each lexical state.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class EOFActions {
 
   /** maps lexical states to actions */
-  private Map<Integer, Action> actions = new HashMap<>();
+  private final Map<Integer, Action> actions = new HashMap<>();
 
   private Action defaultAction;
   private int numLexStates;
@@ -72,7 +72,7 @@ public class EOFActions {
     }
   }
 
-  boolean isEOFAction(Object a) {
+  public boolean isEOFAction(Object a) {
     if (a == defaultAction) return true;
 
     for (Action action : actions.values()) if (a == action) return true;

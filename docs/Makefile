@@ -1,9 +1,8 @@
 # Makefile for jflex documentation (ps + pdf + html)
 
-#VERSION=1.6.1
-VERSION=1.8.0-SNAPSHOT
-RELEASE_DATE=21 September 2018
-UNICODE_VER=12.0
+VERSION=1.9.0-SNAPSHOT
+RELEASE_DATE=28 February 2020
+UNICODE_VER=12.1
 
 all: pdf html
 
@@ -12,15 +11,14 @@ build: realclean all
 pdf: manual.pdf
 html: manual.html
 
-md/manual.md: md/head.md md/intro.md md/installing.md \
+md/manual.md: md/head.md md/toc.md md/intro.md md/installing.md \
               md/maven-plugin.md md/ant-task.md md/example.md md/lex-specs.md \
               md/encodings.md md/performance.md md/porting-and-parsers.md\
               md/end.md
 	cat $^ > $@
 
 manual.html: manual.mdx
-	pandoc --smart --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
-#	pandoc --filter pandoc-citeproc -f markdown --toc --toc-depth=2 $< -o $@
+	pandoc --standalone --css manual.css --filter pandoc-citeproc -f markdown+smart $< -o $@
 
 #dependency manual.tex would fire manual.md -> .tex conversion
 xmanual.pdf: xmanual.tex intro.tex installing.tex example.tex lex-specs.tex \
@@ -47,7 +45,7 @@ manual.pdf: xmanual.pdf
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg *.bcf
 
-realclean: clean 
+realclean: clean
 	rm -f *.mdx
 	rm -f manual.html manual.pdf md/manual.md xmanual.pdf
 	rm -f intro.tex installing.tex example.tex lex-specs.tex ant-task.tex

@@ -1,0 +1,29 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+# The best practice is to define the rules in their respective directory in
+# - src/main/java/org/example/foo/BUILD
+# - src/main/jflex/BUILD
+# - src/test/java/org/example/foo/BUILD
+# - etc.
+# However, this example is simple enough and we can define all rules here.
+
+java_binary(
+    name = "simple_bin",
+    main_class = "Yylex",
+    runtime_deps = [":simple"],
+)
+
+java_library(
+    name = "simple",
+    # glob is not a best practice, but it's good enough for this example
+    srcs = glob(["src/main/java/**/*.java"]) + [":gen_lexer"],
+)
+
+jflex(
+    name = "gen_lexer",
+    srcs = ["src/main/jflex/simple.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Yylex.java"],
+)

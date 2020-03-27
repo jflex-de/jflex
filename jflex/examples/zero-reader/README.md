@@ -1,4 +1,5 @@
-# Readers returning 0 characters
+Readers returning 0 characters
+==============================
 
 This example shows what to do about input Readers that sometimes return 0
 characters.
@@ -18,7 +19,7 @@ The specification for the method `int read(char[] cbuf, int off, int len)` in
     * stream is reached.
 
 This means, the `read` method should never return 0. It should either block and
-return more than 0 characters, should throw an execption, or should return -1
+return more than 0 characters, should throw an exception, or should return -1
 for end-of-stream. Unfortunately, not all implementations of this class follow
 that protocol. Up to version 1.6.1, JFlex was trying to work around those
 problems. This worked in most circumstances, but not in all, depending on how
@@ -61,7 +62,7 @@ Build
 
 ### Build with maven
 
-     ../../mvnw package
+     mvn package
      java -jar target/zero-reader-1.0.jar <inputfiles>
 
 e.g.
@@ -70,8 +71,22 @@ e.g.
 
 and expect `src/test/data/lexer-output.good`.
 
+To test automatically:
+
+    mvn test
+
+
+
+### Build with ant
+
+    ant test
+
+To build and run the test.
+
+
 ### Build with make
 
-    make
     make test
-    java -cp out ZeroLexer <inputfiles>
+
+To build and run the test.
+

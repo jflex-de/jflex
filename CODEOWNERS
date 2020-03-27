@@ -2,10 +2,6 @@
 # This project was created by Gerwin
 *	@lsf37
 
-# In general, we don't wan't to change code in cup.
-# Be sure we have a big red warning by giving ownership to nobody.
-/cup/	@issues
-
 # The jflex-unicode-maven-plugin was author by Steve
 /jflex-unicode-maven-plugin/  @sarowe
 /testsuite/  @sarowe

@@ -1,12 +1,28 @@
-## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11)
-- Defend against spoon-feeding readers not fully populating the scanning buffer #543
+## [JFlex 1.8.1](https://github.com/jflex-de/jflex/milestone/18) (February 28, 2020)
+
+- adjust CUP dependency management such that JFlex can be built from source in the release package.
+
+## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11) (February 26, 2020)
 - Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #563)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
-- `yychar` type has been changed from `int` to `long` (#605)
+- Significantly decreased memory usage for unicode scanners from ~4MB to typical ~20kB. (#697)
+- Macro expressions in character classes are now allowed (#216, #654)
+- Defend against spoon-feeding readers not fully populating the scanning buffer (#543)
+- `yychar` type has been changed from `int` to `long` for files > 2GB (#605)
+- Pipe action `|` now works for `<<EOF>>` (#201)
+- Explicitly use UTF-8 encoding for skeleton files and dot files (#470)
+- Maven plugin now correctly checks `#include` file time stamp (#694)
+- Slightly optimised character classes when `^` operator is used (#682)
+- Normalised character class order. This has no influence on how text is matched, but makes `--dump` output more comparable. (#650)
+- `yyatEOF()` now available in scanner API (#644)
+- Fixed a bug in the negation `!` operator that in rare circumstances would match not everything covered by the negation (#567).
+- The `.` expression now does not match unpaired surrogates, since these are not characters. (#544)
 - JFlex build now depends on JDK 1.8+; JFlex runtime still supports JDK 7+
-- Code cleanups and modularization
+- Example specs now with build for ant, make, and maven.
+- Code cleanup and modularization; javadoc cleanup
 - Updated Maven dependencies
-- JFlex can be build with [Bazel](https://bazel.build) 
+- JFlex can now be built with [Bazel](https://bazel.build)
+
 
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
 - Unicode 8.0 and 9.0 are supported (#209)

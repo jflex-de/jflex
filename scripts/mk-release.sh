@@ -3,14 +3,14 @@
 # fail on error
 set -e
 
-VERSION="1.8.0-SNAPSHOT"
+VERSION="1.9.0-SNAPSHOT"
 JFLEX_JAR="jflex-full-$VERSION.jar"
 
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 MVN="$BASEDIR"/mvnw
 
 GPG=gpg
-KEY=84A70085
+KEY=20A847CE6AB7F5F3
 
 printf "Clean checkout?  "
 stat_results=$(git status -s)

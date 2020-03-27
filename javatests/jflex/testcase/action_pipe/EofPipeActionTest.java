@@ -25,25 +25,27 @@
  */
 package jflex.testcase.action_pipe;
 
-import jflex.exceptions.GeneratorException;
-import jflex.scanner.ScannerException;
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
+import static com.google.common.truth.Truth.assertThat;
+
+import jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
- * Reproduce Issue #201.
+ * Regression test for issue #201.
  *
  * <p>{@code <<EOF>>} action doesn't compile when piped with another action.
  */
-@RunWith(JFlexTestRunner.class)
-@TestSpec(
-    lex = "javatests/jflex/testcase/action_pipe/eof-pipe-action.flex",
-    generatorThrows = GeneratorException.class,
-    // TODO(#201): Fix bug and remove generatorThrowableCause
-    generatorThrowableCause = ScannerException.class)
 public class EofPipeActionTest {
+  private final ScannerFactory<EofPipeAction> scannerFactory =
+      ScannerFactory.of(EofPipeAction::new);
+
   @Test
-  public void ok() {}
+  public void tokenAtEOF() throws java.io.IOException {
+    EofPipeAction scanner = scannerFactory.createScannerWithContent("ident\n\ntest");
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(0);
+    assertThat(scanner.yylex()).isEqualTo(0);
+    assertThat(scanner.yylex()).isEqualTo(1);
+    assertThat(scanner.yylex()).isEqualTo(0);
+  }
 }

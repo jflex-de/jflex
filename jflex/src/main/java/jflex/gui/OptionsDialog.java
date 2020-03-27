@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -18,21 +18,21 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.core.OptionUtils;
-import jflex.core.Skeleton;
 import jflex.exceptions.GeneratorException;
 import jflex.option.Options;
+import jflex.skeleton.Skeleton;
 
 /**
  * A dialog for setting JFlex options
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class OptionsDialog extends Dialog {
 
   private static final long serialVersionUID = 6807759416163314769L;
 
-  private Frame owner;
+  private final Frame owner;
 
   private TextField skelFile;
 

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -11,8 +11,10 @@ package jflex.core.unicode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import jflex.base.Pair;
 import jflex.chars.Interval;
 import jflex.logging.Out;
 
@@ -20,14 +22,15 @@ import jflex.logging.Out;
  * Character Classes.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class CharClasses {
 
   /** debug flag (for char classes only) */
   private static final boolean DEBUG = false;
 
-  private Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
+  /** for sorting disjoint IntCharSets */
+  private static final Comparator<IntCharSet> INT_CHAR_SET_COMPARATOR = new IntCharSetComparator();
 
   /** the largest character that can be used in char classes */
   public static final int maxChar = 0x10FFFF;
@@ -38,7 +41,7 @@ public class CharClasses {
   /** the largest character actually used in a specification */
   private int maxCharUsed;
 
-  /** the @{link UnicodeProperties} the scanner used */
+  /** the @{link UnicodeProperties} the spec scanner used */
   private UnicodeProperties unicodeProps;
 
   /**
@@ -113,6 +116,15 @@ public class CharClasses {
     return classes.size();
   }
 
+  /** @return a deep-copy list of all char class partions. */
+  public List<IntCharSet> allClasses() {
+    List<IntCharSet> result = new ArrayList<>();
+    for (IntCharSet ccl : classes) {
+      result.add(IntCharSet.copyOf(ccl));
+    }
+    return result;
+  }
+
   /**
    * Updates the current partition, so that the specified set of characters gets a new character
    * class.
@@ -181,6 +193,16 @@ public class CharClasses {
     }
   }
 
+  /**
+   * Retuns a copy of a single char class partition by code.
+   *
+   * @param code the code of the char class partition to return.
+   * @return a copy of the char class with the specified code.
+   */
+  public IntCharSet getCharClass(int code) {
+    return IntCharSet.copyOf(classes.get(code));
+  }
+
   /** Dumps charclasses to the dump output stream. */
   public void dump() {
     Out.dump(toString());
@@ -228,7 +250,7 @@ public class CharClasses {
    * Creates a new character class for each character of the specified String.
    *
    * @param caseless if true upper/lower/title case are considered equivalent
-   * @param str set of characters.
+   * @param str the String to iterate single char class creation over.
    */
   public void makeClass(String str, boolean caseless) {
     for (int i = 0; i < str.length(); ) {
@@ -277,61 +299,26 @@ public class CharClasses {
   }
 
   /**
-   * Check consistency of the stored classes [debug].
+   * Checks the invariants of this object.
    *
-   * <p>all classes must be disjoint, checks if all characters have a class assigned.
+   * <p>All classes must be disjoint, and their union must be the entire input set.
+   *
+   * @return true when the invariants of this objects hold.
    */
-  public void check() {
+  public boolean invariants() {
     for (int i = 0; i < classes.size(); i++)
       for (int j = i + 1; j < classes.size(); j++) {
-        IntCharSet x = classes.get(i);
-        IntCharSet y = classes.get(j);
-        if (x.and(y).containsElements()) {
-          System.out.println("Error: non disjoint char classes " + i + " and " + j);
-          System.out.println("class " + i + ": " + x);
-          System.out.println("class " + j + ": " + y);
+        if (classes.get(i).and(classes.get(j)).containsElements()) {
+          return false;
         }
       }
 
-    // check if each character has a classcode
-    // (= if getClassCode terminates)
-    for (int c = 0; c < maxChar; c++) {
-      getClassCode(c);
-      if (c % 100 == 0) System.out.print(".");
+    IntCharSet union = new IntCharSet();
+    for (IntCharSet i : classes) {
+      union.add(i);
     }
 
-    getClassCode(maxChar);
-  }
-
-  /**
-   * Returns an array of all CharClassIntervals in this char class collection.
-   *
-   * <p>The array is ordered by char code, i.e. {@code result[i+1].start = result[i].end+1} Each
-   * CharClassInterval contains the number of the char class it belongs to.
-   *
-   * @return an array of all {@link CharClassInterval} in this char class collection.
-   */
-  public CharClassInterval[] getIntervals() {
-    int i, c;
-    int size = classes.size();
-    int numIntervals = 0;
-
-    for (i = 0; i < size; i++) numIntervals += (classes.get(i)).numIntervals();
-
-    CharClassInterval[] result = new CharClassInterval[numIntervals];
-
-    i = 0;
-    c = 0;
-    while (i < numIntervals) {
-      int code = getClassCode(c);
-      IntCharSet set = classes.get(code);
-      Interval iv = set.getNext();
-
-      result[i++] = new CharClassInterval(iv.start, iv.end, code);
-      c = iv.end + 1;
-    }
-
-    return result;
+    return IntCharSet.allChars().equals(union);
   }
 
   /**
@@ -347,5 +334,120 @@ public class CharClasses {
    */
   public void normalise() {
     classes.sort(INT_CHAR_SET_COMPARATOR);
+  }
+
+  /**
+   * Construct a (deep) copy of the the provided CharClasses object.
+   *
+   * @param c the CharClasses to copy
+   * @return a deep copy of c
+   */
+  public static CharClasses copyOf(CharClasses c) {
+    CharClasses result = new CharClasses();
+    result.maxCharUsed = c.maxCharUsed;
+    result.unicodeProps = c.unicodeProps;
+    result.classes = c.allClasses();
+    return result;
+  }
+
+  /**
+   * Returns an array of all CharClassIntervals in this char class collection.
+   *
+   * <p>The array is ordered by char code, i.e. {@code result[i+1].start = result[i].end+1} Each
+   * CharClassInterval contains the number of the char class it belongs to.
+   *
+   * @return an array of all {@link CharClassInterval} in this char class collection.
+   */
+  public CharClassInterval[] getIntervals() {
+    int i, c;
+    int size = classes.size();
+    int numIntervals = 0;
+
+    for (i = 0; i < size; i++) numIntervals += classes.get(i).numIntervals();
+
+    List<Iterator<Interval>> iterators = new ArrayList<>();
+    for (IntCharSet set : classes) iterators.add(set.intervalIterator());
+
+    CharClassInterval[] result = new CharClassInterval[numIntervals];
+
+    i = 0;
+    c = 0;
+    while (i < numIntervals) {
+      int code = getClassCode(c);
+      Interval iv = iterators.get(code).next(); // must have enough elements
+      result[i++] = new CharClassInterval(iv.start, iv.end, code);
+      c = iv.end + 1;
+    }
+
+    return result;
+  }
+
+  /**
+   * Computes a two-level table structure representing this CharClass object, where second-level
+   * blocks are shared if equal. The hope is that this sharing happens (very) often with a large
+   * number of blocks being mapped to the same character class.
+   *
+   * @return a pair of a top-level table, and a list of second-level blocks for this char class
+   *     object.
+   */
+  Pair<int[], List<CMapBlock>> computeTables() {
+    CharClassInterval[] intervals = getIntervals();
+    int intervalIndex = 0;
+    int curClass = intervals[intervalIndex].charClass;
+    int codePoint = 0;
+
+    int topLevelSize = (maxCharUsed + 1) >> CMapBlock.BLOCK_BITS;
+    int[] topLevel = new int[topLevelSize];
+    List<CMapBlock> blocks = new ArrayList<>();
+
+    for (int topIndex = 0; topIndex < topLevelSize; topIndex++) {
+      int[] block = new int[CMapBlock.BLOCK_SIZE];
+      for (int i = 0; i < CMapBlock.BLOCK_SIZE; i++, codePoint++) {
+        // if maxCharUsed doesn't align to CMapBlock.BLOCK_BITS, we leave the
+        // rest of the highest block equal to 0.
+        if (maxCharUsed < codePoint) break;
+        if (!intervals[intervalIndex].contains(codePoint)) {
+          curClass = intervals[++intervalIndex].charClass;
+        }
+        block[i] = curClass;
+      }
+      // find earliest equal block (if any)
+      CMapBlock b = new CMapBlock(block);
+      int idx = blocks.indexOf(b);
+      if (idx < 0) {
+        idx = blocks.size();
+        blocks.add(b);
+      }
+      topLevel[topIndex] = idx;
+    }
+    return new Pair<int[], List<CMapBlock>>(topLevel, blocks);
+  }
+
+  /** Turn a list of second-level blocks into a flat array. */
+  private static int[] flattenBlocks(List<CMapBlock> blocks) {
+    int[] result = new int[blocks.size() * CMapBlock.BLOCK_SIZE];
+    for (int i = 0; i < blocks.size(); i++) {
+      int[] block = blocks.get(i).block;
+      System.arraycopy(block, 0, result, i << CMapBlock.BLOCK_BITS, CMapBlock.BLOCK_SIZE);
+    }
+    return result;
+  }
+
+  /**
+   * Returns a two-level table structure for this char-class object. The char class of input {@code
+   * x} is {@code snd[(fst[x >> BLOCK_BITS]) | (x && BLOCK_MASK))]} where {@code BLOCK_MASK =
+   * BLOCK_SIZE - 1}, and the index of the first block in the top level is guaranteed to be 0 (which
+   * means the {@code fst} lookup can be skipped if {@code x <= BLOCK_MASK}).
+   *
+   * @see CMapBlock#BLOCK_BITS
+   * @see CMapBlock#BLOCK_SIZE
+   */
+  public Pair<int[], int[]> getTables() {
+    Pair<int[], List<CMapBlock>> p = computeTables();
+    int[] shifted = new int[p.fst.length];
+    for (int i = 0; i < p.fst.length; i++) {
+      shifted[i] = p.fst[i] << CMapBlock.BLOCK_BITS;
+    }
+    return new Pair<int[], int[]>(shifted, flattenBlocks(p.snd));
   }
 }

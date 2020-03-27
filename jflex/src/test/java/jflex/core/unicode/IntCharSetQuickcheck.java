@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
  * Property-based tests for {@link IntCharSet}
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see IntCharSet
  */
 @RunWith(JUnitQuickcheck.class)
@@ -192,5 +192,16 @@ public class IntCharSetQuickcheck {
     IntCharSet set2 = new IntCharSet();
     set2.add(i);
     assertThat(set1).isEqualTo(set2);
+  }
+
+  @Property
+  public void complementUnion(IntCharSet set) {
+    set.add(IntCharSet.complementOf(set));
+    assertThat(set).isEqualTo(IntCharSet.allChars());
+  }
+
+  @Property
+  public void complementIntersection(IntCharSet set) {
+    assertThat(set.and(IntCharSet.complementOf(set))).isEqualTo(new IntCharSet());
   }
 }

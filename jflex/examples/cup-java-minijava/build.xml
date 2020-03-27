@@ -1,0 +1,20 @@
+<project name="jflex-manual-example" default="test">
+
+  <import file="../common/include.xml"/>
+
+  <!-- the "run" target will not work for this example -->
+  <property name="main.class" value="none" />
+  <property name="test.input" value="none" />
+  <property name="test.class" value="jflex.examples.minijava.LexerTest" />
+
+  <target name="scanner">
+    <jflex file="src/main/jflex/minijava.flex" destdir="${ant.build}"
+           encoding="utf-8"/>
+  </target>
+
+  <target name="parser" depends="define-cup">
+    <cup srcfile="src/main/cup/minijava.cup"
+          locations="no" interface="yes" destdir="${ant.build}"/>
+  </target>
+
+</project>

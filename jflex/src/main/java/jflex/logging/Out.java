@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.0-SNAPSHOT                                                    *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -12,9 +12,9 @@ package jflex.logging;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -33,7 +33,7 @@ import jflex.performance.Timer;
  * <p>Counts error and warning messages.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.0-SNAPSHOT
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Out {
 
@@ -385,7 +385,7 @@ public final class Out {
    * @throws IOException if any error occurs
    */
   private static String getLine(File file, int line) throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(file));
+    BufferedReader reader = Files.newBufferedReader(file.toPath(), Options.encoding);
 
     String msg = "";
 
