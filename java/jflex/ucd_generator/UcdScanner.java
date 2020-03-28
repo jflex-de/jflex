@@ -39,6 +39,7 @@ public class UcdScanner {
     scanScriptExtensions();
     scanBlocks();
     scanLineBreak();
+    scanGraphemeBreakProperty();
 
     return unicodeData;
   }
@@ -100,6 +101,13 @@ public class UcdScanner {
         unicodeData,
         ucdVersion.getFile(UcdFileType.LineBreak),
         /*defaultPropertyName=*/ "Line_Break");
+  }
+
+  void scanGraphemeBreakProperty() throws IOException {
+    scanEnumeratedProperty(
+        unicodeData,
+        ucdVersion.getFile(UcdFileType.GraphemeBreakProperty),
+        "Grapheme_Cluster_Break");
   }
 
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {

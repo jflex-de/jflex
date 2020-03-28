@@ -20,6 +20,8 @@ public class TestedVersions {
           .putFile(UcdFileType.ScriptExtensions, ucd10File("ScriptExtensions.txt"))
           .putFile(UcdFileType.Blocks, ucd10File("Blocks.txt"))
           .putFile(UcdFileType.LineBreak, ucd10File("LineBreak.txt"))
+          .putFile(
+              UcdFileType.GraphemeBreakProperty, ucd10File("/auxiliary/GraphemeBreakProperty.txt"))
           .build();
 
   private static File ucd10File(String name) {
@@ -27,7 +29,11 @@ public class TestedVersions {
   }
 
   private static File ucdFile(String bazelVersionTarget, String name) {
-    return new File(new File("external/" + bazelVersionTarget), name);
+    return new File(ucdVersionDirectory(bazelVersionTarget), name);
+  }
+
+  private static File ucdVersionDirectory(String bazelVersionTarget) {
+    return new File(new File("external"), bazelVersionTarget);
   }
 
   private TestedVersions() {}

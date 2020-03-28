@@ -40958,7 +40958,7 @@ public class Unicode_10_0 {
     "script=xsux", "cuneiform", "script=yi", "yi",
     "script=yiii", "yi", "script=zanabazarsquare", "zanabazarsquare",
     "script=zanb", "zanabazarsquare", "script=zinh", "inherited",
-    "script=zyyy", "common", "script=zzzz", "unknown",
+    "script=zyyy", "common", "script=zzzz=", "unknown",
     "scriptextensions=adlm", "scriptextensions=adlam", "scriptextensions=aghb",
         "scriptextensions=caucasianalbanian",
     "scriptextensions=arab", "scriptextensions=arabic", "scriptextensions=armi",

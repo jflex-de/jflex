@@ -145,4 +145,26 @@ public class UcdScannerTest {
     // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb"))
     //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=breakbefore"));
   }
+
+  @Test
+  public void scanGraphemeBreakProperty() throws Exception {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    ucdScanner.scanPropList();
+    ucdScanner.scanDerivedCoreProperties();
+    ucdScanner.scanScripts();
+    ucdScanner.scanScriptExtensions();
+    ucdScanner.scanBlocks();
+    ucdScanner.scanLineBreak();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=ebasegaz"))
+        .isEmpty();
+
+    ucdScanner.scanGraphemeBreakProperty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=ebasegaz"))
+        .isNotEmpty();
+    // FIXME
+    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=ebasegaz"))
+    // .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("gcb=ebg"));
+  }
 }
