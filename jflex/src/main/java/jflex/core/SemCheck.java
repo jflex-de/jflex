@@ -67,50 +67,39 @@ public final class SemCheck {
 
     switch (re.type) {
       case sym.BAR:
-        {
           r = (RegExp2) re;
           return maybeEmtpy(r.r1) || maybeEmtpy(r.r2);
-        }
 
       case sym.CONCAT:
-        {
           r = (RegExp2) re;
           return maybeEmtpy(r.r1) && maybeEmtpy(r.r2);
-        }
 
       case sym.STAR:
       case sym.QUESTION:
         return true;
 
       case sym.PLUS:
-        {
           RegExp1 r1 = (RegExp1) re;
           return maybeEmtpy((RegExp) r1.content);
-        }
 
       case sym.CHAR:
       case sym.CHAR_I:
       case sym.PRIMCLASS:
+      case sym.TILDE:
         return false;
 
       case sym.STRING:
       case sym.STRING_I:
-        {
           String content = (String) ((RegExp1) re).content;
           return content.length() == 0;
-        }
-
-      case sym.TILDE:
-        return false;
 
       case sym.BANG:
-        {
-          RegExp1 r1 = (RegExp1) re;
-          return !maybeEmtpy((RegExp) r1.content);
-        }
-    }
+          RegExp1 r3 = (RegExp1) re;
+          return !maybeEmtpy((RegExp) r3.content);
 
-    throw new RegExpException(re);
+      default:
+        throw new RegExpException(re);
+    }
   }
 
   /**
@@ -167,9 +156,10 @@ public final class SemCheck {
       case sym.BANG:
         // too hard to calculate at this level, use safe approx
         return -1;
-    }
 
-    throw new RegExpException(re);
+      default:
+        throw new RegExpException(re);
+    }
   }
 
   /**
@@ -185,41 +175,32 @@ public final class SemCheck {
 
     switch (re.type) {
       case sym.BAR:
-        {
           r = (RegExp2) re;
           return isFiniteChoice(r.r1) && isFiniteChoice(r.r2);
-        }
 
       case sym.CONCAT:
-        {
           r = (RegExp2) re;
           int l1 = length(r.r1);
           if (l1 < 0) return false;
           int l2 = length(r.r2);
           return l2 >= 0;
-        }
 
       case sym.STAR:
       case sym.PLUS:
       case sym.QUESTION:
+      case sym.TILDE:
+      case sym.BANG:
         return false;
 
       case sym.CHAR:
       case sym.CHAR_I:
       case sym.PRIMCLASS:
-        return true;
-
       case sym.STRING:
       case sym.STRING_I:
-        {
-          return true;
-        }
+        return true;
 
-      case sym.TILDE:
-      case sym.BANG:
-        return false;
+      default:
+        throw new RegExpException(re);
     }
-
-    throw new RegExpException(re);
   }
 }

@@ -108,6 +108,8 @@ public class GridPanel extends Panel implements Handles {
           y += cellHeight - height;
           x += cellWidth - width;
           break;
+        default:
+          // do nothing
       }
 
       c.component.setBounds(new Rectangle((int) x, (int) y, (int) width, (int) height));
