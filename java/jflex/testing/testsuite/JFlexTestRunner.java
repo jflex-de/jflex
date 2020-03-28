@@ -28,13 +28,13 @@ package jflex.testing.testsuite;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.truth.Truth.assertWithMessage;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
@@ -162,7 +162,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       File sysoutFile = new File(spec.sysout());
       try {
         DiffOutputStream diffSysOut =
-            new DiffOutputStream(Files.newReader(sysoutFile, Charsets.UTF_8));
+            new DiffOutputStream(Files.newReader(sysoutFile, StandardCharsets.UTF_8));
         Out.setOutputStream(diffSysOut);
         return Optional.of(diffSysOut);
       } catch (FileNotFoundException e) {
@@ -178,7 +178,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       File syserrFile = new File(spec.syserr());
       try {
         DiffOutputStream diffSysErr =
-            new DiffOutputStream(Files.newReader(syserrFile, Charsets.UTF_8));
+            new DiffOutputStream(Files.newReader(syserrFile, StandardCharsets.UTF_8));
         System.setErr(new PrintStream(diffSysErr));
         return Optional.of(diffSysErr);
       } catch (FileNotFoundException e) {

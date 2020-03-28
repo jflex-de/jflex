@@ -23,7 +23,7 @@ public class CclPreGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code ccl.flex} specification. */
   private final ScannerFactory<Ccl> scannerFactory = ScannerFactory.of(Ccl::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/ccl_pre");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/ccl_pre");
 
   @Test
   public void goldenTest0() throws Exception {

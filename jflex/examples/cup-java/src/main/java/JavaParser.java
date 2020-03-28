@@ -13,7 +13,7 @@ import java.io.*;
  */
 public class JavaParser {
 
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
 
     for (int i = 0; i < argv.length; i++) {
       try {

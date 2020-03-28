@@ -433,7 +433,7 @@ corresponding JFlex code. First of all the Jay code (in a file
     %%
 
       // supporting methods part of the parser class
-      public static void main(String argv[])
+      public static void main(String[] argv)
       {
         MiniScanner scanner = new MiniScanner(new InputStreamReader(System.in));
         MiniParser parser = new MiniParser();

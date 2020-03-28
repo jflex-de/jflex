@@ -41,7 +41,7 @@ public final class StateSet implements Iterable<Integer> {
    * Content of the {@code StateSet}, one bit per int, i.e. bit 0 of {@code bits[0]} stands for 0,
    * bit 1 of {@code bits[0]} stands for 1, bit 1 of {@code bits[1]} stands for 65, etc.
    */
-  long bits[];
+  long[] bits;
 
   /** Construct an empty StateSet with default memory backing. */
   public StateSet() {
@@ -135,7 +135,7 @@ public final class StateSet implements Iterable<Integer> {
     int needed = size2nbits(size);
 
     // grow at least by a factor of 4 to reduce number of re-allocations
-    long newbits[] = new long[Math.max(bits.length * 4, needed)];
+    long[] newbits = new long[Math.max(bits.length * 4, needed)];
     System.arraycopy(bits, 0, newbits, 0, bits.length);
 
     bits = newbits;
@@ -249,8 +249,8 @@ public final class StateSet implements Iterable<Integer> {
 
     if (set == null) return;
 
-    long this_bits[];
-    long add_bits[] = set.bits;
+    long[] this_bits;
+    long[] add_bits = set.bits;
     int add_bits_length = add_bits.length;
 
     if (bits.length < add_bits_length) {

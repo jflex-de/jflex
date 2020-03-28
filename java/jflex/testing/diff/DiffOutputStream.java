@@ -50,7 +50,7 @@ public class DiffOutputStream extends OutputStream {
   private final BufferedReader in;
 
   /** The internal buffer where actual data is stored. */
-  private byte buf[] = new byte[2048];
+  private final byte[] buf = new byte[2048];
 
   /** The current lines being compared. Only {@code \n} serves as a line separator. */
   private int line = 1;

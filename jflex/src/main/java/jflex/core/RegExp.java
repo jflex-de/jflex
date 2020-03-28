@@ -144,9 +144,10 @@ public class RegExp {
       case sym.MACROUSE:
         unary = (RegExp1) this;
         return macros.getDefinition((String) unary.content).size(macros);
-    }
 
-    throw new RegExpException(this);
+      default:
+        throw new RegExpException(this);
+    }
   }
 
   /** Reverses a string. */
@@ -214,9 +215,10 @@ public class RegExp {
       case sym.PRIMCLASS:
         unary = (RegExp1) this;
         return new RegExp1(unary.type, unary.content);
-    }
 
-    throw new RegExpException(this);
+      default:
+        throw new RegExpException(this);
+    }
   }
 
   /**
@@ -349,9 +351,10 @@ public class RegExp {
       case sym.MACROUSE:
         unary = (RegExp1) this;
         return m.getDefinition((String) unary.content).normalise(m);
-    }
 
-    throw new RegExpException(this);
+      default:
+        throw new RegExpException(this);
+    }
   }
 
   /**
@@ -393,9 +396,10 @@ public class RegExp {
         IntCharSet set = (IntCharSet) unary.content;
         c.makeClass(set, caseless);
         return;
-    }
 
-    throw new CharClassException("makeCCLs: unexpected regexp " + this);
+      default:
+        throw new CharClassException("makeCCLs: unexpected regexp " + this);
+    }
   }
 
   /**
@@ -451,8 +455,9 @@ public class RegExp {
       case sym.PRIMCLASS:
         unary = (RegExp1) this;
         return new RegExp1(unary.type, unary.content);
-    }
 
-    throw new RegExpException(this);
+      default:
+        throw new RegExpException(this);
+    }
   }
 }

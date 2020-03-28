@@ -313,7 +313,7 @@ public final class Emitter {
 
     String className = getBaseName(scanner.className());
 
-    println("  public static void main(String argv[]) {");
+    println("  public static void main(String[] argv) {");
     println("    if (argv.length == 0) {");
     println(
         "      System.out.println(\"Usage : java "

@@ -12,7 +12,8 @@ test --test_output=errors
 build --javacopt "-XepDisableWarningsInGeneratedCode"
 # cup doesn't add the @Generated annotation and has violations such as ClassCanBeStatic
 # TODO JFLex 1.8.0 shouldn't have these violations anymore. We will then be able to include LexScan again.
-build --javacopt "-XepExcludedPaths:third_party/.*|jflex/cup/.*|.*bazel-out/.*/src/main/java/jflex/core/(?:LexScan\.java|LexParse\.java)|.*/jflex/examples/cup-java-minijava/parser\.java"
+build --javacopt "-XepExcludedPaths:third_party/.*|.*/bazel-out/.*|.*/jflex/examples/cup-java-minijava/parser\.java"
+
 
 # On by default : ERROR
 build --javacopt "-Xep:ArrayEquals:ERROR"
@@ -147,8 +148,7 @@ build --javacopt "-Xep:BoxedPrimitiveConstructor:ERROR"
 build --javacopt "-Xep:ByteBufferBackingArray:ERROR"
 build --javacopt "-Xep:CannotMockFinalClass:ERROR"
 build --javacopt "-Xep:CanonicalDuration:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:CatchAndPrintStackTrace:WARN"
+build --javacopt "-Xep:CatchAndPrintStackTrace:ERROR"
 build --javacopt "-Xep:CatchFail:WARN"
 build --javacopt "-Xep:ClassCanBeStatic:ERROR"
 build --javacopt "-Xep:ClassNewInstance:WARN"
@@ -157,8 +157,7 @@ build --javacopt "-Xep:CollectionToArraySafeParameter:ERROR"
 build --javacopt "-Xep:CollectorShouldNotUseState:ERROR"
 build --javacopt "-Xep:ComparableAndComparator:ERROR"
 build --javacopt "-Xep:DateFormatConstant:ERROR"
-# TODO(#469/#470) Fix these errors and re-enable violation
-build --javacopt "-Xep:DefaultCharset:WARN"
+build --javacopt "-Xep:DefaultCharset:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:DeprecatedThreadMethods:WARN"
 build --javacopt "-Xep:DoubleBraceInitialization:ERROR"
@@ -171,7 +170,7 @@ build --javacopt "-Xep:EqualsUsingHashCode:ERROR"
 build --javacopt "-Xep:ExtendingJUnitAssert:ERROR"
 # TODO(#222) Increase to error when we build from jflex-1.7.1 with a lexer annotated with
 # @SuppressWarnings
-build --javacopt "-Xep:FallThrough:OFF"
+build --javacopt "-Xep:FallThrough:WARN"
 build --javacopt "-Xep:Finally:ERROR"
 build --javacopt "-Xep:FloatCast:ERROR"
 build --javacopt "-Xep:FloatingPointAssertionWithinEpsilon:ERROR"
@@ -229,8 +228,7 @@ build --javacopt "-Xep:PreconditionsInvalidPlaceholder:ERROR"
 build --javacopt "-Xep:ProtoRedundantSet:ERROR"
 build --javacopt "-Xep:QualifierOrScopeOnInjectMethod:ERROR"
 build --javacopt "-Xep:ReachabilityFenceUsage:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:ReferenceEquality:OFF"
+build --javacopt "-Xep:ReferenceEquality:ERROR"
 build --javacopt "-Xep:RequiredModifiers:ERROR"
 build --javacopt "-Xep:ShortCircuitBoolean:ERROR"
 build --javacopt "-Xep:StaticGuardedByInstance:ERROR"
@@ -253,8 +251,6 @@ build --javacopt "-Xep:TypeParameterShadowing:ERROR"
 build --javacopt "-Xep:TypeParameterUnusedInFormals:ERROR"
 build --javacopt "-Xep:URLEqualsHashCode:ERROR"
 build --javacopt "-Xep:UndefinedEquals:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:UnnecessaryParentheses:OFF"
 build --javacopt "-Xep:UnsafeFinalization:ERROR"
 build --javacopt "-Xep:UnsafeReflectiveConstructionCast:ERROR"
 build --javacopt "-Xep:UnsynchronizedOverridesSynchronized:ERROR"
@@ -262,6 +258,10 @@ build --javacopt "-Xep:UseCorrectAssertInTests:ERROR"
 build --javacopt "-Xep:VariableNameSameAsType:WARN"
 build --javacopt "-Xep:WaitNotInLoop:ERROR"
 build --javacopt "-Xep:WakelockReleasedDangerously:ERROR"
+
+# On by default : WARNING
+# But Controversial warnings
+build --javacopt "-Xep:UnnecessaryParentheses:OFF"
 
 #Experimental : ERROR
 #build --javacopt "-Xep:AndroidJdkLibsChecker:ERROR"
@@ -299,8 +299,7 @@ build --javacopt "-Xep:AssertFalse:ERROR"
 build --javacopt "-Xep:AssistedInjectAndInjectOnConstructors:ERROR"
 build --javacopt "-Xep:BinderIdentityRestoredDangerously:ERROR"
 build --javacopt "-Xep:BindingToUnqualifiedCommonType:ERROR"
-# TODO(#469) Fix these errors and re-enable violation
-build --javacopt "-Xep:ConstructorInvokesOverridable:OFF"
+build --javacopt "-Xep:ConstructorInvokesOverridable:ERROR"
 build --javacopt "-Xep:ConstructorLeaksThis:ERROR"
 build --javacopt "-Xep:EmptyTopLevelDeclaration:WARN"
 build --javacopt "-Xep:EqualsBrokenForNull:ERROR"
@@ -312,8 +311,7 @@ build --javacopt "-Xep:InconsistentOverloads:OFF"
 build --javacopt "-Xep:InvalidParam:ERROR"
 build --javacopt "-Xep:InvalidTag:ERROR"
 build --javacopt "-Xep:InvalidThrows:ERROR"
-# TODO(#469) Fix these errors and re-enable violation
-build --javacopt "-Xep:MissingDefault:OFF"
+build --javacopt "-Xep:MissingDefault:ERROR"
 build --javacopt "-Xep:MutableMethodReturnType:WARN"
 build --javacopt "-Xep:NoFunctionalReturnType:ERROR"
 build --javacopt "-Xep:NonCanonicalStaticMemberImport:ERROR"
@@ -330,30 +328,26 @@ build --javacopt "-Xep:StringEquality:ERROR"
 build --javacopt "-Xep:SystemExitOutsideMain:WARN"
 build --javacopt "-Xep:TestExceptionChecker:ERROR"
 build --javacopt "-Xep:UnnecessaryDefaultInEnumSwitch:WARN"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:Unused:OFF"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:UnusedException:OFF"
-# TODO(#469) Fix these warnings
-# bazel-out/darwin-fastbuild/genfiles/jflex/LexParse.java:2260: error: [Var] Non-constant variable missing @Var annotation
-#     RegExp RESULT =null;
+build --javacopt "-Xep:Unused:ERROR"
+build --javacopt "-Xep:UnusedException:ERROR"
+
+# Experimental : WARN by default
+# But quite controversial
 build --javacopt "-Xep:Var:OFF"
 
 # Experimental : SUGGESTION
 build --javacopt "-Xep:ClassNamedLikeTypeParameter:WARN"
-# TODO(#469) Fix these warnings
+# TODO(#469) Many violations
 build --javacopt "-Xep:ConstantField:OFF"
 build --javacopt "-Xep:EmptySetMultibindingContributions:ERROR"
 build --javacopt "-Xep:ExpectedExceptionRefactoring:ERROR"
-# TODO(#469) Fix these warnings
 build --javacopt "-Xep:FieldCanBeFinal:WARN"
 # TOD(#469) We don't have a nullness checker anyway.
 build --javacopt "-Xep:FieldMissingNullable:OFF"
 build --javacopt "-Xep:ImmutableRefactoring:ERROR"
 build --javacopt "-Xep:LambdaFunctionalInterface:ERROR"
 build --javacopt "-Xep:MethodCanBeStatic:WARN"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:MixedArrayDimensions:OFF"
+build --javacopt "-Xep:MixedArrayDimensions:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:MultiVariableDeclaration:OFF"
 build --javacopt "-Xep:MultipleTopLevelClasses:ERROR"
@@ -378,5 +372,4 @@ build --javacopt "-Xep:UngroupedOverloads:OFF"
 build --javacopt "-Xep:UnnecessarySetDefault:ERROR"
 build --javacopt "-Xep:UnnecessaryStaticImport:ERROR"
 build --javacopt "-Xep:UseBinds:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:WildcardImport:OFF"
+build --javacopt "-Xep:WildcardImport:ERROR"

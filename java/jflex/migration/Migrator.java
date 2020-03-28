@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.base.CaseFormat;
-import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
@@ -25,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
@@ -128,7 +128,7 @@ public class Migrator {
    */
   private static void migrateTestCase(File testCaseDir, File testSpecFile, File buildFile)
       throws MigrationException {
-    try (BufferedReader reader = Files.newReader(testSpecFile, Charsets.UTF_8)) {
+    try (BufferedReader reader = Files.newReader(testSpecFile, StandardCharsets.UTF_8)) {
       TestSpecScanner scanner = new TestSpecScanner(reader);
       TestCase test = scanner.load();
       if (test.isExpectJavacFail() || test.isExpectJFlexFail()) {
@@ -219,11 +219,11 @@ public class Migrator {
       // copyFile(fixedFlexFile, outputDir);
       // But instead:
       File copiedWithPatch = new File(outputDir, flexFile.getName());
-      CharSink out = Files.asCharSink(copiedWithPatch, Charsets.UTF_8);
+      CharSink out = Files.asCharSink(copiedWithPatch, StandardCharsets.UTF_8);
       CharSource fixedContent =
           CharSource.concat(
               CharSource.wrap(String.format("package %s;\n", javaPackage)),
-              Files.asCharSource(flexFile, Charsets.UTF_8));
+              Files.asCharSource(flexFile, StandardCharsets.UTF_8));
 
       fixedContent.copyTo(out);
     } catch (IOException e) {
@@ -303,7 +303,8 @@ public class Migrator {
   private static void velocityRenderBuildFile(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, writer);
     } catch (ParseException e) {
       throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
@@ -314,7 +315,8 @@ public class Migrator {
   private static void velocityRenderTestCase(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, writer);
     } catch (ParseException e) {
       throw new MigrationException("Failed to parse Velocity template " + TEST_CASE_TEMPLATE, e);
@@ -339,7 +341,7 @@ public class Migrator {
         checkNotNull(
             ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
             "Null resource content for " + resourceName);
-    return new InputStreamReader(resourceAsStream);
+    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
   }
 
   private Migrator() {}

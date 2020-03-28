@@ -9,7 +9,11 @@
 
 package jflex.gui;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Panel;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,6 +112,8 @@ public class GridPanel extends Panel implements Handles {
           y += cellHeight - height;
           x += cellWidth - width;
           break;
+        default:
+          // do nothing
       }
 
       c.component.setBounds(new Rectangle((int) x, (int) y, (int) width, (int) height));

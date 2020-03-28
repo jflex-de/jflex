@@ -138,7 +138,7 @@ public final class IntCharSet implements Iterable<Integer> {
     if (DEBUG) {
       assert invariants();
       assert set.invariants();
-      assert this != set;
+      assert this.equals(set);
     }
     for (Interval interval : set.intervals) {
       add(interval);
@@ -373,7 +373,7 @@ public final class IntCharSet implements Iterable<Integer> {
       // not asserting non-null, because we'll already get an exception and it confuses lgtm.com
       assert set.invariants();
       assert isSubSet(set, this);
-      assert set != this;
+      assert this.equals(set);
     }
 
     int i = 0; // index in this.intervals

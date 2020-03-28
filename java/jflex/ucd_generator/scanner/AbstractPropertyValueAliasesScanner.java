@@ -9,7 +9,10 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 public abstract class AbstractPropertyValueAliasesScanner {
 
   private final UnicodeData unicodeData;
-  private final String scxPropName;
+
+  // TODO(regisd) Clone Script/sc property value aliases => Script_Extensions/scx
+  @SuppressWarnings("unused")
+  final String scxPropName;
 
   protected final Set<String> aliases = new HashSet<>();
 

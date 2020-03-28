@@ -55,7 +55,7 @@ public class SkeletonTest {
     checkDefaultSkeleton();
   }
 
-  private void checkDefaultSkeleton() {
+  private static void checkDefaultSkeleton() {
     assertThat(Skeleton.line[3]).contains("java.util.Deque");
     Skeleton.readDefault();
     assertThat(Skeleton.line[3]).doesNotContain("java.util.Deque");

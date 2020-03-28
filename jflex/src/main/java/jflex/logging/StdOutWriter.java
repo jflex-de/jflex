@@ -78,7 +78,7 @@ public final class StdOutWriter extends PrintWriter {
    * <p>Write a portion of an array of characters.
    */
   @Override
-  public void write(char buf[], int off, int len) {
+  public void write(char[] buf, int off, int len) {
     if (text != null) {
       text.append(new String(buf, off, len));
       if ((col += len) > wrap) println();
