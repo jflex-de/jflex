@@ -181,7 +181,7 @@ public abstract class AbstractLexScan implements ILexScan {
 
   // Used in generated LexScan
   // ScannerException is descriptive enough
-  @SuppressWarnings({"unused","UnusedException"})
+  @SuppressWarnings({"unused", "UnusedException"})
   void includeFile(String filePath) {
     File f = new File(file.getParentFile(), filePath);
     if (!f.canRead()) {

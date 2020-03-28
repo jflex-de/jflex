@@ -67,20 +67,20 @@ public final class SemCheck {
 
     switch (re.type) {
       case sym.BAR:
-          r = (RegExp2) re;
-          return maybeEmtpy(r.r1) || maybeEmtpy(r.r2);
+        r = (RegExp2) re;
+        return maybeEmtpy(r.r1) || maybeEmtpy(r.r2);
 
       case sym.CONCAT:
-          r = (RegExp2) re;
-          return maybeEmtpy(r.r1) && maybeEmtpy(r.r2);
+        r = (RegExp2) re;
+        return maybeEmtpy(r.r1) && maybeEmtpy(r.r2);
 
       case sym.STAR:
       case sym.QUESTION:
         return true;
 
       case sym.PLUS:
-          RegExp1 r1 = (RegExp1) re;
-          return maybeEmtpy((RegExp) r1.content);
+        RegExp1 r1 = (RegExp1) re;
+        return maybeEmtpy((RegExp) r1.content);
 
       case sym.CHAR:
       case sym.CHAR_I:
@@ -90,12 +90,12 @@ public final class SemCheck {
 
       case sym.STRING:
       case sym.STRING_I:
-          String content = (String) ((RegExp1) re).content;
-          return content.length() == 0;
+        String content = (String) ((RegExp1) re).content;
+        return content.length() == 0;
 
       case sym.BANG:
-          RegExp1 r3 = (RegExp1) re;
-          return !maybeEmtpy((RegExp) r3.content);
+        RegExp1 r3 = (RegExp1) re;
+        return !maybeEmtpy((RegExp) r3.content);
 
       default:
         throw new RegExpException(re);
@@ -175,15 +175,15 @@ public final class SemCheck {
 
     switch (re.type) {
       case sym.BAR:
-          r = (RegExp2) re;
-          return isFiniteChoice(r.r1) && isFiniteChoice(r.r2);
+        r = (RegExp2) re;
+        return isFiniteChoice(r.r1) && isFiniteChoice(r.r2);
 
       case sym.CONCAT:
-          r = (RegExp2) re;
-          int l1 = length(r.r1);
-          if (l1 < 0) return false;
-          int l2 = length(r.r2);
-          return l2 >= 0;
+        r = (RegExp2) re;
+        int l1 = length(r.r1);
+        if (l1 < 0) return false;
+        int l2 = length(r.r2);
+        return l2 >= 0;
 
       case sym.STAR:
       case sym.PLUS:

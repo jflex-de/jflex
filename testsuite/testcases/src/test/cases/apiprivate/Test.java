@@ -6,9 +6,7 @@ public class Test {
     try {
       Private s = new Private(new InputStreamReader(System.in));
       s.yylex();
-    }
-    catch (Exception e) {      
+    } catch (Exception e) {
     }
   }
-
 }
