@@ -2,13 +2,9 @@ package jflex.ucd_generator;
 
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
-import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.DerivedAgeScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
@@ -142,12 +138,7 @@ public class UcdScanner {
       Preconditions.checkState(file.exists(), "File does not exist " + file.getAbsolutePath());
       DerivedAgeScanner scanner =
           new DerivedAgeScanner(Files.newReader(file, Charsets.UTF_8), unicodeData, "Age");
-      ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
       scanner.scan();
-      SetView<String> diff =
-          Sets.difference(
-              new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
-      System.out.println(diff);
     }
   }
 
@@ -171,12 +162,12 @@ public class UcdScanner {
               unicodeData,
               defaultPropertyName,
               defaultPropertyValue);
-      ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
+      // ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
       scanner.scan();
-      SetView<String> diff =
-          Sets.difference(
-              new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
-      System.out.println(diff);
+      // SetView<String> diff =
+      //     Sets.difference(
+      //         new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
+      // System.out.println(diff);
     }
   }
 
