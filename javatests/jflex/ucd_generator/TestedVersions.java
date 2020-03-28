@@ -5,6 +5,7 @@ import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;
 
+/** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
   public static final UcdVersion UCD_VERSION_10 =

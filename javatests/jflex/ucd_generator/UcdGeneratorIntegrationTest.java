@@ -5,6 +5,7 @@ import static com.google.common.truth.Truth.assertThat;
 import java.io.File;
 import org.junit.Test;
 
+/** Integration test for {@link UcdGenerator} */
 public class UcdGeneratorIntegrationTest {
 
   @Test

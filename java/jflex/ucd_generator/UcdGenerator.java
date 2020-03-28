@@ -36,6 +36,7 @@ import jflex.ucd_generator.ucd.UcdVersions;
 import jflex.ucd_generator.ucd.Version;
 import org.apache.velocity.runtime.parser.ParseException;
 
+/** Generates {@code UnicodeProperties.java} and the associated {Unicode_X_Y} from Unicode.org data files. */
 public class UcdGenerator {
 
   private static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";

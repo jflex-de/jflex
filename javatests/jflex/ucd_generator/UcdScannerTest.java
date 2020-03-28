@@ -7,6 +7,7 @@ import jflex.ucd_generator.ucd.Version;
 import org.junit.Before;
 import org.junit.Test;
 
+/** Integration test for the {@link UcdScanner}. */
 public class UcdScannerTest {
 
   private UcdScanner ucdScanner;
