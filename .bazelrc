@@ -171,7 +171,7 @@ build --javacopt "-Xep:EqualsUsingHashCode:ERROR"
 build --javacopt "-Xep:ExtendingJUnitAssert:ERROR"
 # TODO(#222) Increase to error when we build from jflex-1.7.1 with a lexer annotated with
 # @SuppressWarnings
-build --javacopt "-Xep:FallThrough:OFF"
+build --javacopt "-Xep:FallThrough:WARN"
 build --javacopt "-Xep:Finally:ERROR"
 build --javacopt "-Xep:FloatCast:ERROR"
 build --javacopt "-Xep:FloatingPointAssertionWithinEpsilon:ERROR"
@@ -229,8 +229,7 @@ build --javacopt "-Xep:PreconditionsInvalidPlaceholder:ERROR"
 build --javacopt "-Xep:ProtoRedundantSet:ERROR"
 build --javacopt "-Xep:QualifierOrScopeOnInjectMethod:ERROR"
 build --javacopt "-Xep:ReachabilityFenceUsage:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:ReferenceEquality:OFF"
+build --javacopt "-Xep:ReferenceEquality:ERROR"
 build --javacopt "-Xep:RequiredModifiers:ERROR"
 build --javacopt "-Xep:ShortCircuitBoolean:ERROR"
 build --javacopt "-Xep:StaticGuardedByInstance:ERROR"
