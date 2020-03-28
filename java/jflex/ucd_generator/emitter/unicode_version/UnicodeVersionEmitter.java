@@ -1,5 +1,6 @@
 package jflex.ucd_generator.emitter.unicode_version;
 
+import com.google.common.base.Charsets;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -9,7 +10,7 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
-import jflex.ucd_generator.scanner.UnicodeData;
+import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
@@ -33,7 +34,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
 
   public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
     UnicodeVersionVars unicodeVersionVars = createUnicodeVersionVars();
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output, Charsets.UTF_8))) {
       Velocity.render(
           readResource(UNICODE_VERSION_TEMPLATE), "Unicode_x_y", unicodeVersionVars, writer);
     }
@@ -44,6 +45,8 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
+    unicodeVersionVars.propertyValues =
+        String.join("\",\n    \"", unicodeData.propertyValueIntervals());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

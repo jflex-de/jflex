@@ -37,10 +37,10 @@ import org.apache.velocity.runtime.parser.node.SimpleNode;
 /** Instance holder of the Velocity runtime. */
 public class Velocity {
 
-  private static RuntimeInstance velocityRuntimeInstance = new RuntimeInstance();
+  private static final RuntimeInstance VELOCITY_INSTANCE = new RuntimeInstance();
 
   static {
-    velocityRuntimeInstance.setProperty(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
+    VELOCITY_INSTANCE.setProperty(RuntimeConstants.RUNTIME_REFERENCES_STRICT, "true");
   }
 
   public static void render(
@@ -48,12 +48,12 @@ public class Velocity {
       throws IOException, ParseException {
     VelocityContext velocityContext = templateVars.toVelocityContext();
     SimpleNode tpl = Velocity.parsedTemplateForResource(templateReader, templateName);
-    velocityRuntimeInstance.render(velocityContext, writer, templateName, tpl);
+    VELOCITY_INSTANCE.render(velocityContext, writer, templateName, tpl);
   }
 
   private static SimpleNode parsedTemplateForResource(Reader template, String templateName) {
     try {
-      return velocityRuntimeInstance.parse(template, templateName);
+      return VELOCITY_INSTANCE.parse(template, templateName);
     } catch (ParseException e) {
       throw new AssertionError(e);
     }

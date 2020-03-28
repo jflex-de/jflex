@@ -5,12 +5,13 @@ java_library(
     srcs = [
         "UcdGenerator.java",
         "UcdGeneratorParams.java",
+        "UcdScanner.java",
     ],
     deps = [
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
-        "//java/jflex/ucd_generator/scanner:unicode_data",
-        "//java/jflex/ucd_generator/scanner:unicode_data_scanner",
+        "//java/jflex/ucd_generator/scanner:ucd_scanners",
+        "//java/jflex/ucd_generator/scanner/model",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/util/javac",
         "//java/jflex/velocity",
@@ -33,14 +34,14 @@ java_binary(
 genrule(
     name = "gen_unicode_properties",
     srcs = [
-        "//third_party/unicode:ucd_1_1_5",
-        "//third_party/unicode:ucd_2_0_14",
-        "//third_party/unicode:ucd_2_1_9",
-        "//third_party/unicode:ucd_3_0_1",
-        "//third_party/unicode:ucd_3_1_1",
-        "//third_party/unicode:ucd_3_2_0",
-        "//third_party/unicode:ucd_4_0_1",
-        "//third_party/unicode:ucd_4_1_0",
+        #        "//third_party/unicode:ucd_1_1_5",
+        #        "//third_party/unicode:ucd_2_0_14",
+        #        "//third_party/unicode:ucd_2_1_9",
+        #        "//third_party/unicode:ucd_3_0_1",
+        #        "//third_party/unicode:ucd_3_1_1",
+        #        "//third_party/unicode:ucd_3_2_0",
+        #        "//third_party/unicode:ucd_4_0_1",
+        #        "//third_party/unicode:ucd_4_1_0",
         "//third_party/unicode:ucd_5_0_0",
         "//third_party/unicode:ucd_5_1_0",
         "//third_party/unicode:ucd_5_2_0",
@@ -55,14 +56,14 @@ genrule(
     ],
     outs = [
         "UnicodeProperties.java",
-        "Unicode_1_1.java",
-        "Unicode_2_0.java",
-        "Unicode_2_1.java",
-        "Unicode_3_0.java",
-        "Unicode_3_1.java",
-        "Unicode_3_2.java",
-        "Unicode_4_0.java",
-        "Unicode_4_1.java",
+        #        "Unicode_1_1.java",
+        #        "Unicode_2_0.java",
+        #        "Unicode_2_1.java",
+        #        "Unicode_3_0.java",
+        #        "Unicode_3_1.java",
+        #        "Unicode_3_2.java",
+        #        "Unicode_4_0.java",
+        #        "Unicode_4_1.java",
         "Unicode_5_0.java",
         "Unicode_5_1.java",
         "Unicode_5_2.java",
@@ -76,14 +77,14 @@ genrule(
         "Unicode_10_0.java",
     ],
     cmd = "$(location :Main)" +
-          " --version=1.1.5 $(locations //third_party/unicode:ucd_1_1_5)" +
-          " --version=2.0.14 $(locations //third_party/unicode:ucd_2_0_14)" +
-          " --version=2.1.9 $(locations //third_party/unicode:ucd_2_1_9)" +
-          " --version=3.0.1 $(locations //third_party/unicode:ucd_3_0_1)" +
-          " --version=3.1.1 $(locations //third_party/unicode:ucd_3_1_1)" +
-          " --version=3.2.0 $(locations //third_party/unicode:ucd_3_2_0)" +
-          " --version=4.0.1 $(locations //third_party/unicode:ucd_4_0_1)" +
-          " --version=4.1.0 $(locations //third_party/unicode:ucd_4_1_0)" +
+          #          " --version=1.1.5 $(locations //third_party/unicode:ucd_1_1_5)" +
+          #          " --version=2.0.14 $(locations //third_party/unicode:ucd_2_0_14)" +
+          #          " --version=2.1.9 $(locations //third_party/unicode:ucd_2_1_9)" +
+          #          " --version=3.0.1 $(locations //third_party/unicode:ucd_3_0_1)" +
+          #          " --version=3.1.1 $(locations //third_party/unicode:ucd_3_1_1)" +
+          #          " --version=3.2.0 $(locations //third_party/unicode:ucd_3_2_0)" +
+          #          " --version=4.0.1 $(locations //third_party/unicode:ucd_4_0_1)" +
+          #          " --version=4.1.0 $(locations //third_party/unicode:ucd_4_1_0)" +
           " --version=5.0.0 $(locations //third_party/unicode:ucd_5_0_0)" +
           " --version=5.1.0 $(locations //third_party/unicode:ucd_5_1_0)" +
           " --version=5.2.0 $(locations //third_party/unicode:ucd_5_2_0)" +
