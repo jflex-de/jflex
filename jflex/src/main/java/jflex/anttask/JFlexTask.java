@@ -79,10 +79,10 @@ public class JFlexTask extends Task {
           if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
-        throw new BuildException("IOException: " + e1.toString());
+        throw new BuildException(e1);
       }
     } catch (GeneratorException e) {
-      throw new BuildException("JFlex: generation failed!");
+      throw new BuildException("JFlex generation failed", e);
     }
   }
 

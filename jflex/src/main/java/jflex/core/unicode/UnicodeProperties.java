@@ -423,5 +423,9 @@ public class UnicodeProperties {
     public UnsupportedUnicodeVersionException() {
       super("Supported versions: " + UNICODE_VERSIONS);
     }
+
+    public UnsupportedUnicodeVersionException(Throwable cause) {
+      super("Supported versions: " + UNICODE_VERSIONS, cause);
+    }
   }
 }

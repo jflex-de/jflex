@@ -164,7 +164,7 @@ public abstract class AbstractLexScan implements ILexScan {
     return a.toString() + ", " + b.toString();
   }
 
-  @SuppressWarnings("unused") // Used in generated LexScan
+  @SuppressWarnings({"unused", "UnusedException"}) // Used in generated LexScan
   void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
@@ -179,7 +179,9 @@ public abstract class AbstractLexScan implements ILexScan {
     charClasses.init(Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
   }
 
-  @SuppressWarnings("unused") // Used in generated LexScan
+  // Used in generated LexScan
+  // ScannerException is descriptive enough
+  @SuppressWarnings({"unused","UnusedException"})
   void includeFile(String filePath) {
     File f = new File(file.getParentFile(), filePath);
     if (!f.canRead()) {

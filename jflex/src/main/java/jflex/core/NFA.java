@@ -479,7 +479,7 @@ public final class NFA {
       writer.close();
     } catch (IOException e) {
       Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 

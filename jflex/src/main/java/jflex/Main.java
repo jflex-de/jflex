@@ -196,7 +196,7 @@ public class Main {
           Out.error(
               ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE,
               UnicodeProperties.UNICODE_VERSIONS);
-          throw new GeneratorException();
+          throw new GeneratorException(e);
         }
         throw new SilentExit();
       }
@@ -245,7 +245,7 @@ public class Main {
       field = clazz.getField("propertyValueAliases");
       propertyValueAliases = (String[]) field.get(null);
     } catch (Exception e) {
-      throw new UnicodeProperties.UnsupportedUnicodeVersionException();
+      throw new UnicodeProperties.UnsupportedUnicodeVersionException(e);
     }
     SortedMap<String, SortedSet<String>> propertyValuesToAliases = new TreeMap<>();
     for (String value : propertyValues) {
