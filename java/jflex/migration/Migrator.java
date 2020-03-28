@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.logging.Level;
 import jflex.testing.testsuite.golden.GoldenInOutFilePair;
@@ -128,7 +129,7 @@ public class Migrator {
    */
   private static void migrateTestCase(File testCaseDir, File testSpecFile, File buildFile)
       throws MigrationException {
-    try (BufferedReader reader = Files.newReader(testSpecFile, Charsets.UTF_8)) {
+    try (BufferedReader reader = Files.newReader(testSpecFile, StandardCharsets.UTF_8)) {
       TestSpecScanner scanner = new TestSpecScanner(reader);
       TestCase test = scanner.load();
       if (test.isExpectJavacFail() || test.isExpectJFlexFail()) {
@@ -219,11 +220,11 @@ public class Migrator {
       // copyFile(fixedFlexFile, outputDir);
       // But instead:
       File copiedWithPatch = new File(outputDir, flexFile.getName());
-      CharSink out = Files.asCharSink(copiedWithPatch, Charsets.UTF_8);
+      CharSink out = Files.asCharSink(copiedWithPatch, StandardCharsets.UTF_8);
       CharSource fixedContent =
           CharSource.concat(
               CharSource.wrap(String.format("package %s;\n", javaPackage)),
-              Files.asCharSource(flexFile, Charsets.UTF_8));
+              Files.asCharSource(flexFile, StandardCharsets.UTF_8));
 
       fixedContent.copyTo(out);
     } catch (IOException e) {

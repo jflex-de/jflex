@@ -7,6 +7,7 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class UnicodeDataScannerIntegrationTest {
     UcdVersion ucdVersion = UcdVersion.builder().setVersion(versionName).build();
     UnicodeData unicodeData = new UnicodeData(ucdVersion.version());
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeData);
+        new UnicodeDataScanner(Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
     scanner.scan();
     return unicodeData;
   }
