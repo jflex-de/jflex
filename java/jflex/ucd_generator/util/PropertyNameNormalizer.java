@@ -51,8 +51,8 @@ public class PropertyNameNormalizer {
    *     encountered, then the given propertyAlias is returned.
    */
   public String getCanonicalPropertyName(String propertyAlias) {
-    propertyAlias = normalize(propertyAlias);
-    return propertyAlias2CanonicalName.getOrDefault(propertyAlias, propertyAlias);
+    String normalizedAlias = normalize(propertyAlias);
+    return propertyAlias2CanonicalName.getOrDefault(normalizedAlias, normalizedAlias);
   }
 
   public void putPropertyAlias(String alias, String canonicalName) {
