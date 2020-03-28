@@ -7,7 +7,9 @@ import jflex.ucd_generator.ucd.Version;
 import org.junit.Before;
 import org.junit.Test;
 
-/** Integration test for the {@link UcdScanner}. */
+/**
+ * Integration test for the {@link UcdScanner}.
+ */
 public class UcdScannerTest {
 
   private UcdScanner ucdScanner;
@@ -163,8 +165,32 @@ public class UcdScannerTest {
     ucdScanner.scanGraphemeBreakProperty();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=ebasegaz"))
         .isNotEmpty();
-    // FIXME
+    // TODO(regisd) It seems I'm missing some property value aliases
     // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("graphemeclusterbreak=ebasegaz"))
     // .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("gcb=ebg"));
+  }
+
+  @Test
+  public void scanSentenceBreakProperty() throws Exception {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    ucdScanner.scanPropList();
+    ucdScanner.scanDerivedCoreProperties();
+    ucdScanner.scanScripts();
+    ucdScanner.scanScriptExtensions();
+    ucdScanner.scanBlocks();
+    ucdScanner.scanLineBreak();
+    ucdScanner.scanGraphemeBreakProperty();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
+        .isEmpty();
+    ucdScanner.scanSentenceBreakProperty();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
+        .isNotEmpty();
+    // TODO(regisd) It seems I'm missing some property value aliases
+    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
+    //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=cl"));
   }
 }

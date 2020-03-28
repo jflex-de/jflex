@@ -21,11 +21,21 @@ public class TestedVersions {
           .putFile(UcdFileType.Blocks, ucd10File("Blocks.txt"))
           .putFile(UcdFileType.LineBreak, ucd10File("LineBreak.txt"))
           .putFile(
-              UcdFileType.GraphemeBreakProperty, ucd10File("/auxiliary/GraphemeBreakProperty.txt"))
+              UcdFileType.GraphemeBreakProperty, ucd10AuxFile("GraphemeBreakProperty.txt"))
+          .putFile(UcdFileType.SentenceBreakProperty, ucd10AuxFile("SentenceBreakProperty.txt"))
           .build();
+
+  private static File ucd10AuxFile(String name) {
+    return ucdAuxFile("ucd_10", name);
+  }
 
   private static File ucd10File(String name) {
     return ucdFile("ucd_10", name);
+  }
+
+  private static File ucdAuxFile(String bazelVersionTarget, String name) {
+    File auxDir = new File(ucdVersionDirectory(bazelVersionTarget), "auxiliary");
+    return new File(auxDir, name);
   }
 
   private static File ucdFile(String bazelVersionTarget, String name) {

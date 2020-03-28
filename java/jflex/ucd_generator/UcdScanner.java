@@ -40,6 +40,7 @@ public class UcdScanner {
     scanBlocks();
     scanLineBreak();
     scanGraphemeBreakProperty();
+    scanSentenceBreakProperty();
 
     return unicodeData;
   }
@@ -110,6 +111,14 @@ public class UcdScanner {
         "Grapheme_Cluster_Break");
   }
 
+  void scanSentenceBreakProperty() throws IOException {
+    scanEnumeratedProperty(
+        unicodeData,
+        ucdVersion.getFile(UcdFileType.SentenceBreakProperty),
+        "Sentence_Break");
+  }
+
+  /** Scans any binary properties file. */
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
     if (file != null) {
       BinaryPropertiesFileScanner scanner =
@@ -118,6 +127,7 @@ public class UcdScanner {
     }
   }
 
+  /** Scans any enumerated properties file. */
   private static void scanEnumeratedProperty(
       UnicodeData unicodeData, File file, String defaultPropertyName) throws IOException {
     if (file != null) {
