@@ -24,6 +24,7 @@ public class PropertyValueIntervals {
 
   private final Map<String, List<CodepointRange>> propertyValueIntervals = new HashMap<>();
 
+  @SuppressWarnings("unused") // TODO(regisd) This should be used after scanning.
   private void addCompatibilityProperties() {
     propertyValueIntervals.put("blank", createBlankSet());
   }

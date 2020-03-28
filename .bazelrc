@@ -327,8 +327,7 @@ build --javacopt "-Xep:StringEquality:ERROR"
 build --javacopt "-Xep:SystemExitOutsideMain:WARN"
 build --javacopt "-Xep:TestExceptionChecker:ERROR"
 build --javacopt "-Xep:UnnecessaryDefaultInEnumSwitch:WARN"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:Unused:OFF"
+build --javacopt "-Xep:Unused:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:UnusedException:OFF"
 # TODO(#469) Fix these warnings
