@@ -11,8 +11,8 @@ package_group(
 )
 
 java_binary(
-    name = "jflex_bin",
-    main_class = "jflex.Main",
+    name = "jflex_cli",
+    main_class = "jflex.Cli",
     runtime_deps = [
         "//jflex/src/main/java/jflex:jflex_cli",
         "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
@@ -20,10 +20,10 @@ java_binary(
 )
 
 java_binary(
-    name = "jflex_gui_bin",
-    main_class = "jflex.Gui",
+    name = "jflex_bin",
+    main_class = "jflex.Main",
     runtime_deps = [
-        "//jflex/src/main/java/jflex:jflex_gui",
+        "//jflex/src/main/java/jflex:jflex_ui",
         "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
     ],
 )

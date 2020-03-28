@@ -151,20 +151,14 @@ You need [Bazel][bazel].
 ##### Command line interface (CLI)
 
 ```
-bazel build //jflex:jflex_bin
-bazel-bin/jflex/jflex_bin --info
-```
-
-Or more directly:
-
-```
-bazel run //jflex:jflex_bin -- --info
+bazel build //jflex:jflex_cli
+bazel-bin/jflex/jflex_cli --info
 ```
 
 Build the uberjar (aka fatjar aka deploy jar) that can be used as a standalone binary:
 
 ```
-bazel build jflex/jflex_bin_deploy.jar
+bazel build //jflex:jflex_cli_deploy.jar
 ```
 
 ##### Graphical user interface (GUI)
@@ -174,8 +168,13 @@ The build is modularized, and the previous target does not contain the GUI.
 Start the GUI with:
 
 ```
-bazel build //jflex:jflex_gui_bin
-bazel-bin/jflex/jflex_gui_bin
+bazel build //jflex:jflex_bin
+bazel-bin/jflex/jflex_bin
+```
+
+The uberjar also exists as 
+```
+bazel build //jflex:jflex_bin_deploy.jar
 ```
 
 ##### CI
