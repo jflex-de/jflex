@@ -1,6 +1,7 @@
 package jflex.ucd_generator.emitter.common;
 
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class UcdEmitter {
   private final String targetPackage;
@@ -14,6 +15,7 @@ public class UcdEmitter {
   }
 
   protected InputStreamReader readResource(String resourceName) {
-    return new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resourceName));
+    return new InputStreamReader(
+        getClass().getClassLoader().getResourceAsStream(resourceName), StandardCharsets.UTF_8);
   }
 }

@@ -105,6 +105,11 @@ public class UcdVersions {
     return expandedVersions.build();
   }
 
+  @Override
+  public String toString() {
+    return "[" + Joiner.on(", ").join(versionsAsList()) + "]";
+  }
+
   public static Builder builder() {
     return new Builder();
   }

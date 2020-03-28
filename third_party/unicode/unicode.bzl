@@ -7,6 +7,7 @@ filegroup(
   name = "files",
   srcs = [
     "Blocks.txt",
+    "DerivedAge.txt",
     "DerivedCoreProperties.txt",
     "LineBreak.txt",
     "PropList.txt",

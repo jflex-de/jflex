@@ -36,9 +36,12 @@ class $className {
   /** Highest Unicode code point. */
   public static final int maximumCodePoint = 0x$String.format("%x", $maxCodePoint);
 
+  public static final String[] propertyValues = {
+    "$propertyValues"
+  };
+
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = $maxCaselessMatchPartitionSize;
-  // TODO Change to array of string?
   public static final String caselessMatchPartitions =
       "$caselessMatchPartitions";
 }
