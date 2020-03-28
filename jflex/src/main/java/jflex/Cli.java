@@ -34,8 +34,8 @@ import jflex.option.Options;
 /**
  * This is the command-line interface.
  *
- * <p>It is responsible for parsing the commandline, getting input files, and invoking
- * {@link LexGenerator} accordingly.
+ * <p>It is responsible for parsing the commandline, getting input files, and invoking {@link
+ * LexGenerator} accordingly.
  *
  * @author Gerwin Klein
  * @author Régis Décamps

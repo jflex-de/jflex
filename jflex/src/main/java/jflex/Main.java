@@ -9,22 +9,19 @@
 
 package jflex;
 
-import com.google.common.base.Preconditions;
 import java.io.File;
 import java.util.List;
 import jflex.exceptions.SilentExit;
 import jflex.gui.MainFrame;
 
-/**
- * This is the main class for the GUI of JFlex.
- */
+/** This is the main class for the GUI of JFlex. */
 public class Main {
-private Main()  {}
+  private Main() {}
 
   public static void main(String[] args) {
     try {
       List<File> inputFiles = Cli.parseOptions(args);
-      if  (inputFiles.isEmpty()) {
+      if (inputFiles.isEmpty()) {
         new MainFrame();
       } else {
         Cli.main(args);
