@@ -2,6 +2,7 @@ package jflex.ucd_generator;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import java.io.IOException;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.Version;
 import org.junit.Before;
@@ -192,5 +193,31 @@ public class UcdScannerTest {
     // TODO(regisd) It seems I'm missing some property value aliases
     // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
     //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=cl"));
+  }
+
+  @Test
+  public void scanWordBreakProperty() throws IOException {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    ucdScanner.scanPropList();
+    ucdScanner.scanDerivedCoreProperties();
+    ucdScanner.scanScripts();
+    ucdScanner.scanScriptExtensions();
+    ucdScanner.scanBlocks();
+    ucdScanner.scanLineBreak();
+    ucdScanner.scanGraphemeBreakProperty();
+    ucdScanner.scanSentenceBreakProperty();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
+        .isEmpty();
+    ucdScanner.scanWordBreakProperty();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
+        .isNotEmpty();
+    // TODO(regisd) It seems I'm missing some property value aliases
+    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
+    //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("wb=dq"));
+
   }
 }

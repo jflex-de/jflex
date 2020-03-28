@@ -23,6 +23,7 @@ public class TestedVersions {
           .putFile(
               UcdFileType.GraphemeBreakProperty, ucd10AuxFile("GraphemeBreakProperty.txt"))
           .putFile(UcdFileType.SentenceBreakProperty, ucd10AuxFile("SentenceBreakProperty.txt"))
+          .putFile(UcdFileType.WordBreakProperty, ucd10AuxFile("WordBreakProperty.txt"))
           .build();
 
   private static File ucd10AuxFile(String name) {

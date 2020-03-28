@@ -41,6 +41,7 @@ public class UcdScanner {
     scanLineBreak();
     scanGraphemeBreakProperty();
     scanSentenceBreakProperty();
+    scanWordBreakProperty();
 
     return unicodeData;
   }
@@ -116,6 +117,13 @@ public class UcdScanner {
         unicodeData,
         ucdVersion.getFile(UcdFileType.SentenceBreakProperty),
         "Sentence_Break");
+  }
+
+  void scanWordBreakProperty() throws IOException {
+    scanEnumeratedProperty(
+        unicodeData,
+        ucdVersion.getFile(UcdFileType.WordBreakProperty),
+        "Word_break");
   }
 
   /** Scans any binary properties file. */
