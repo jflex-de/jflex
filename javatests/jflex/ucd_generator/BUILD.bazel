@@ -21,10 +21,12 @@ java_test(
 
 java_library(
     name = "tested_versions",
+    testonly = True,
     srcs = ["TestedVersions.java"],
     data = [
         "//third_party/unicode:ucd_10",
     ],
+    visibility = ["//javatests:__subpackages__"],
     deps = [
         "//java/jflex/ucd_generator/ucd",
     ],

@@ -20,10 +20,10 @@ public class TestedVersions {
           .putFile(UcdFileType.ScriptExtensions, ucd10File("ScriptExtensions.txt"))
           .putFile(UcdFileType.Blocks, ucd10File("Blocks.txt"))
           .putFile(UcdFileType.LineBreak, ucd10File("LineBreak.txt"))
-          .putFile(
-              UcdFileType.GraphemeBreakProperty, ucd10AuxFile("GraphemeBreakProperty.txt"))
+          .putFile(UcdFileType.GraphemeBreakProperty, ucd10AuxFile("GraphemeBreakProperty.txt"))
           .putFile(UcdFileType.SentenceBreakProperty, ucd10AuxFile("SentenceBreakProperty.txt"))
           .putFile(UcdFileType.WordBreakProperty, ucd10AuxFile("WordBreakProperty.txt"))
+          .putFile(UcdFileType.DerivedAge, ucd10File("DerivedAge.txt"))
           .build();
 
   private static File ucd10AuxFile(String name) {

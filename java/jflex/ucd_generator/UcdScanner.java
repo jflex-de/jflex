@@ -1,6 +1,7 @@
 package jflex.ucd_generator;
 
 import com.google.common.base.Charsets;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
+import jflex.ucd_generator.scanner.DerivedAgeScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
@@ -42,6 +44,7 @@ public class UcdScanner {
     scanGraphemeBreakProperty();
     scanSentenceBreakProperty();
     scanWordBreakProperty();
+    scanDerivedAge();
 
     return unicodeData;
   }
@@ -114,16 +117,27 @@ public class UcdScanner {
 
   void scanSentenceBreakProperty() throws IOException {
     scanEnumeratedProperty(
-        unicodeData,
-        ucdVersion.getFile(UcdFileType.SentenceBreakProperty),
-        "Sentence_Break");
+        unicodeData, ucdVersion.getFile(UcdFileType.SentenceBreakProperty), "Sentence_Break");
   }
 
   void scanWordBreakProperty() throws IOException {
     scanEnumeratedProperty(
-        unicodeData,
-        ucdVersion.getFile(UcdFileType.WordBreakProperty),
-        "Word_break");
+        unicodeData, ucdVersion.getFile(UcdFileType.WordBreakProperty), "Word_break");
+  }
+
+  void scanDerivedAge() throws IOException {
+    File file = ucdVersion.getFile(UcdFileType.DerivedAge);
+    if (file != null) {
+      Preconditions.checkState(file.exists(), "File does not exist " + file.getAbsolutePath());
+      DerivedAgeScanner scanner =
+          new DerivedAgeScanner(Files.newReader(file, Charsets.UTF_8), unicodeData, "Age");
+      ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
+      scanner.scan();
+      SetView<String> diff =
+          Sets.difference(
+              new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
+      System.out.println(diff);
+    }
   }
 
   /** Scans any binary properties file. */

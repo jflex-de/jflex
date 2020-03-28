@@ -8,9 +8,7 @@ import jflex.ucd_generator.ucd.Version;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Integration test for the {@link UcdScanner}.
- */
+/** Integration test for the {@link UcdScanner}. */
 public class UcdScannerTest {
 
   private UcdScanner ucdScanner;
@@ -184,8 +182,7 @@ public class UcdScannerTest {
     ucdScanner.scanLineBreak();
     ucdScanner.scanGraphemeBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
-        .isEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close")).isEmpty();
     ucdScanner.scanSentenceBreakProperty();
 
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=close"))
@@ -209,8 +206,7 @@ public class UcdScannerTest {
     ucdScanner.scanGraphemeBreakProperty();
     ucdScanner.scanSentenceBreakProperty();
 
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
-        .isEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote")).isEmpty();
     ucdScanner.scanWordBreakProperty();
 
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
@@ -219,5 +215,26 @@ public class UcdScannerTest {
     // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("wordbreak=doublequote"))
     //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("wb=dq"));
 
+  }
+
+  @Test
+  public void scanDerivedAge() throws IOException {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    ucdScanner.scanPropList();
+    ucdScanner.scanDerivedCoreProperties();
+    ucdScanner.scanScripts();
+    ucdScanner.scanScriptExtensions();
+    ucdScanner.scanBlocks();
+    ucdScanner.scanLineBreak();
+    ucdScanner.scanGraphemeBreakProperty();
+    ucdScanner.scanSentenceBreakProperty();
+    ucdScanner.scanWordBreakProperty();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=9.0")).isEmpty();
+    ucdScanner.scanDerivedAge();
+
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("age=9.0")).isNotEmpty();
   }
 }

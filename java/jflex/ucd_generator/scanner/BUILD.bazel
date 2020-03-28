@@ -9,6 +9,7 @@ java_library(
         "AbstractPropertyValueAliasesScanner.java",
         "AbstractScriptExtensionsScanner.java",
         "AbstractUnicodeDataScanner.java",
+        "DerivedAgeScanner.java",
         ":gen_ucd_scanners",
     ],
     visibility = [

@@ -81,7 +81,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 <PROPERTY_VALUE> {
   [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { String val = yytext();
                                          if (accept(val)) {
-                                           intervals.add(NamedCodepointRange.create(val, start, end));
+                                           addInterval(NamedCodepointRange.create(val, start, end));
                                          }
                                        }
 

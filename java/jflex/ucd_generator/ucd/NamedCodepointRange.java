@@ -11,7 +11,7 @@ public abstract class NamedCodepointRange {
 
   public abstract String name();
 
-  abstract CodepointRange range();
+  public abstract CodepointRange range();
 
   static NamedCodepointRange create(String name, CodepointRange range) {
     return new AutoValue_NamedCodepointRange(name, range);
