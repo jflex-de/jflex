@@ -24,7 +24,7 @@ public class LookmacroGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code lookmacro.flex} specification. */
   private final ScannerFactory<Lookmacro> scannerFactory = ScannerFactory.of(Lookmacro::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/look_macro");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/look_macro");
 
   @Test
   public void goldenTest0() throws Exception {

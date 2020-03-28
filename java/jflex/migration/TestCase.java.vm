@@ -30,7 +30,7 @@ public class $testClassName extends AbstractGoldenTest {
  private final ScannerFactory<$scannerClassName> scannerFactory = ScannerFactory.of($scannerClassName::new);
 
 #if ( $goldens.size() > 0 )
-  private File testRuntimeDir = new File("javatests/$javaPackageDir");
+  private final File testRuntimeDir = new File("javatests/$javaPackageDir");
 #end
 
 #foreach ( $golden in $goldens )

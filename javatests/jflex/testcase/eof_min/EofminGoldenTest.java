@@ -26,7 +26,7 @@ public class EofminGoldenTest extends AbstractGoldenTest {
 
   private final ScannerFactory<Eofmin> scannerFactory = ScannerFactory.of(Eofmin::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/eof_min");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/eof_min");
 
   @Test
   public void goldenTest0() throws Exception {

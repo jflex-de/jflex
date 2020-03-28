@@ -24,7 +24,7 @@ public class Generics4GoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code generics4.flex} specification. */
   private final ScannerFactory<Generics4> scannerFactory = ScannerFactory.of(Generics4::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/generics");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/generics");
 
   @Test
   public void goldenTest0() throws Exception {

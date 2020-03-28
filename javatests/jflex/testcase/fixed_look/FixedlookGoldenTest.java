@@ -23,7 +23,7 @@ public class FixedlookGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code fixedlook.flex} specification. */
   private final ScannerFactory<Fixedlook> scannerFactory = ScannerFactory.of(Fixedlook::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/fixed_look");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/fixed_look");
 
   @Test
   public void goldenTest0() throws Exception {
