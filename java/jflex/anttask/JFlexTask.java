@@ -79,10 +79,10 @@ public class JFlexTask extends Task {
           if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
-        throw new BuildException("IOException: " + e1.toString());
+        throw new BuildException(e1);
       }
     } catch (GeneratorException e) {
-      throw new BuildException("JFlex: generation failed!");
+      throw new BuildException("JFlex generation failed", e);
     }
   }
 
@@ -235,7 +235,7 @@ public class JFlexTask extends Task {
    *
    * @param verbose a boolean.
    */
-  public void setVerbose(boolean verbose) {
+  public final void setVerbose(boolean verbose) {
     Options.verbose = verbose;
     Options.unused_warning = verbose;
   }
@@ -245,7 +245,7 @@ public class JFlexTask extends Task {
    *
    * @param warn a boolean.
    */
-  public void setUnusedWarning(boolean warn) {
+  public final void setUnusedWarning(boolean warn) {
     Options.unused_warning = warn;
   }
 

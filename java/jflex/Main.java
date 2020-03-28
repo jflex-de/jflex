@@ -51,7 +51,7 @@ public class Main {
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  private static List<File> parseOptions(String argv[]) throws SilentExit {
+  private static List<File> parseOptions(String[] argv) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -196,7 +196,7 @@ public class Main {
           Out.error(
               ErrorMessages.UNSUPPORTED_UNICODE_VERSION_SUPPORTED_ARE,
               UnicodeProperties.UNICODE_VERSIONS);
-          throw new GeneratorException();
+          throw new GeneratorException(e);
         }
         throw new SilentExit();
       }
@@ -245,7 +245,7 @@ public class Main {
       field = clazz.getField("propertyValueAliases");
       propertyValueAliases = (String[]) field.get(null);
     } catch (Exception e) {
-      throw new UnicodeProperties.UnsupportedUnicodeVersionException();
+      throw new UnicodeProperties.UnsupportedUnicodeVersionException(e);
     }
     SortedMap<String, SortedSet<String>> propertyValuesToAliases = new TreeMap<>();
     for (String value : propertyValues) {
@@ -312,7 +312,7 @@ public class Main {
    * @param argv an array of {@link java.lang.String} objects.
    * @throws SilentExit if any.
    */
-  public static void generate(String argv[]) throws SilentExit {
+  public static void generate(String[] argv) throws SilentExit {
     List<File> files = parseOptions(argv);
 
     if (files.size() > 0) {
@@ -330,7 +330,7 @@ public class Main {
    *
    * @param argv the commandline.
    */
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     OptionUtils.setDefaultOptions();
     try {
       generate(argv);

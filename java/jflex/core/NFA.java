@@ -479,7 +479,7 @@ public final class NFA {
       writer.close();
     } catch (IOException e) {
       Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 
@@ -801,9 +801,10 @@ public final class NFA {
       case sym.CHAR_I:
         insertLetterNFA(true, (Integer) ((RegExp1) regExp).content, start, end);
         return;
-    }
 
-    throw new RegExpException(regExp);
+      default:
+        throw new RegExpException(regExp);
+    }
   }
 
   /**
@@ -909,8 +910,9 @@ public final class NFA {
 
       case sym.STRING_I:
         return insertStringNFA(true, (String) ((RegExp1) regExp).content);
-    }
 
-    throw new RegExpException(regExp);
+      default:
+        throw new RegExpException(regExp);
+    }
   }
 }
