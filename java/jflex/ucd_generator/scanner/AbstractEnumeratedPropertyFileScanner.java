@@ -21,9 +21,10 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
   int end;
 
   protected AbstractEnumeratedPropertyFileScanner(
-      UnicodeData unicodeData, String defaultPropertyName) {
+      UnicodeData unicodeData, String defaultPropertyName, String defaultPropertyValue) {
     this.unicodeData = unicodeData;
     this.propertyName = defaultPropertyName;
+    this.defaultPropertyValue = defaultPropertyValue;
   }
 
   public void addInterval(NamedCodepointRange interval) {

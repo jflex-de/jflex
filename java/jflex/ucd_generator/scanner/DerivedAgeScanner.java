@@ -12,7 +12,7 @@ import jflex.ucd_generator.ucd.NamedCodepointRange;
 public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   public DerivedAgeScanner(Reader in, UnicodeData unicodeData, String defaultPropertyName) {
-    super(in, unicodeData, defaultPropertyName);
+    super(in, unicodeData, defaultPropertyName, "unassigned");
   }
 
   /**

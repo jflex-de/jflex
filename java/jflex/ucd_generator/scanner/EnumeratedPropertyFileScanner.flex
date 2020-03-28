@@ -10,6 +10,7 @@ import jflex.ucd_generator.ucd.NamedCodepointRange;
 %extends AbstractEnumeratedPropertyFileScanner
 %ctorarg UnicodeData unicodeData
 %ctorarg String defaultPropertyName
+%ctorarg String defaultPropertyValue
 
 %unicode
 %eofclose
@@ -21,7 +22,7 @@ import jflex.ucd_generator.ucd.NamedCodepointRange;
 %function scan
 
 %init{
-  super(unicodeData, defaultPropertyName);
+  super(unicodeData, defaultPropertyName, defaultPropertyValue);
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
