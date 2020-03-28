@@ -28,6 +28,7 @@ import jflex.skeleton.Skeleton;
  * @author Gerwin Klein
  * @version JFlex 1.9.0-SNAPSHOT
  */
+@SuppressWarnings({"ConstructorInvokesOverridable"})
 public class OptionsDialog extends Dialog {
 
   private static final long serialVersionUID = 6807759416163314769L;
@@ -71,7 +72,7 @@ public class OptionsDialog extends Dialog {
   }
 
   /** setup. */
-  public void setup() {
+  public final void setup() {
     // create components
     Button ok = new Button("Ok");
     Button defaults = new Button("Defaults");
