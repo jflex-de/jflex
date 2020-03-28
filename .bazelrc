@@ -14,6 +14,10 @@ build --javacopt "-XepDisableWarningsInGeneratedCode"
 # TODO JFLex 1.8.0 shouldn't have these violations anymore. We will then be able to include LexScan again.
 build --javacopt "-XepExcludedPaths:third_party/.*|.*/bazel-out/.*|.*/jflex/examples/cup-java-minijava/parser\.java"
 
+# Bazel does not generate patches https://github.com/bazelbuild/bazel/issues/5729
+# build --javacopt "-XepPatchLocation:/tmp"
+# build --javacopt "-XepPatchChecks:DefaultCharset,MissingOverride,ConstantField"
+
 # On by default : ERROR
 build --javacopt "-Xep:ArrayEquals:ERROR"
 build --javacopt "-Xep:ArrayFillIncompatibleType:ERROR"
@@ -336,7 +340,7 @@ build --javacopt "-Xep:Var:OFF"
 
 # Experimental : SUGGESTION
 build --javacopt "-Xep:ClassNamedLikeTypeParameter:WARN"
-# TODO(#469) Fix these warnings
+# TODO(#469) Many violations
 build --javacopt "-Xep:ConstantField:OFF"
 build --javacopt "-Xep:EmptySetMultibindingContributions:ERROR"
 build --javacopt "-Xep:ExpectedExceptionRefactoring:ERROR"
