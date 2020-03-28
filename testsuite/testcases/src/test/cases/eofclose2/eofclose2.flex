@@ -10,7 +10,7 @@ import java.io.*;
 %eofclose
 
 %{
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     int firstFilePos = 0;
     String encodingName = "UTF-8";
     if (argv[0].equals("--encoding")) {

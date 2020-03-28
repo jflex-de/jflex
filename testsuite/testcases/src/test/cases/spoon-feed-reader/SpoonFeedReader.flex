@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 %type String
 
 %{
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     if (argv.length == 0) {
       System.out.println("Usage : java SpoonFeedReader [ --encoding <name> ] <inputfile>");
       return;

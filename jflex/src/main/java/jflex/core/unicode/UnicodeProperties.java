@@ -32,7 +32,7 @@ public class UnicodeProperties {
   private final Map<String, IntCharSet> propertyValueIntervals = new HashMap<>();
   private String caselessMatchPartitions;
   private int caselessMatchPartitionSize;
-  private IntCharSet caselessMatches[];
+  private IntCharSet[] caselessMatches;
 
   /**
    * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
