@@ -81,12 +81,21 @@ public class UcdGenerator {
       throws IOException, ParseException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
-    UnicodeData unicodeData = new UcdScanner(ucdVersion).scan();
+    UnicodeData unicodeData = scanUnicodeVersion(ucdVersion);
     File outputFile = new File(outputDir, unicodeClassName + ".java");
     UnicodeVersionEmitter emitter =
         new UnicodeVersionEmitter(PACKAGE_JFLEX_UNICODE, ucdVersion, unicodeData);
     try (FileOutputStream out = new FileOutputStream(outputFile)) {
       emitter.emitUnicodeVersion(out);
+    }
+  }
+
+  private static UnicodeData scanUnicodeVersion(UcdVersion ucdVersion) throws IOException {
+    try {
+      return new UcdScanner(ucdVersion).scan();
+    } catch (Error e) {
+      throw new Error(
+          "Unknown error while emitting Unicode properties for version " + ucdVersion.version());
     }
   }
 
