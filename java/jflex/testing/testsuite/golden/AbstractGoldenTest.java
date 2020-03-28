@@ -2,7 +2,6 @@ package jflex.testing.testsuite.golden;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;

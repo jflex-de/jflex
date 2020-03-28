@@ -1,6 +1,5 @@
 package jflex.ucd_generator;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import java.io.File;
@@ -59,7 +58,8 @@ public class UcdScanner {
     File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (file != null) {
       PropertyValueAliasesScanner scanner =
-          new PropertyValueAliasesScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+          new PropertyValueAliasesScanner(
+              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -67,7 +67,8 @@ public class UcdScanner {
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
+        new UnicodeDataScanner(
+            Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
     scanner.scan();
   }
 
@@ -147,7 +148,8 @@ public class UcdScanner {
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
     if (file != null) {
       BinaryPropertiesFileScanner scanner =
-          new BinaryPropertiesFileScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+          new BinaryPropertiesFileScanner(
+              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }

@@ -25,7 +25,6 @@
  */
 package jflex.ucd_generator.emitter.unicode_properties;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -55,7 +54,8 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(
           readResource(UNICODE_PROPERTIES_TEMPLATE),
           "UnicodeProperties",

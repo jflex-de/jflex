@@ -156,8 +156,7 @@ build --javacopt "-Xep:CollectionToArraySafeParameter:ERROR"
 build --javacopt "-Xep:CollectorShouldNotUseState:ERROR"
 build --javacopt "-Xep:ComparableAndComparator:ERROR"
 build --javacopt "-Xep:DateFormatConstant:ERROR"
-# TODO(#469/#470) Fix these errors and re-enable violation
-build --javacopt "-Xep:DefaultCharset:WARN"
+build --javacopt "-Xep:DefaultCharset:ERROR"
 # TODO(#469) Fix these warnings
 build --javacopt "-Xep:DeprecatedThreadMethods:WARN"
 build --javacopt "-Xep:DoubleBraceInitialization:ERROR"

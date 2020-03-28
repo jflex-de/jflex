@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.base.CaseFormat;
-import com.google.common.base.Charsets;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
@@ -304,7 +303,8 @@ public class Migrator {
   private static void velocityRenderBuildFile(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, writer);
     } catch (ParseException e) {
       throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
@@ -315,7 +315,8 @@ public class Migrator {
   private static void velocityRenderTestCase(
       MigrationTemplateVars templateVars, OutputStream output)
       throws IOException, MigrationException {
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(output))) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, writer);
     } catch (ParseException e) {
       throw new MigrationException("Failed to parse Velocity template " + TEST_CASE_TEMPLATE, e);
@@ -340,7 +341,7 @@ public class Migrator {
         checkNotNull(
             ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
             "Null resource content for " + resourceName);
-    return new InputStreamReader(resourceAsStream);
+    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
   }
 
   private Migrator() {}

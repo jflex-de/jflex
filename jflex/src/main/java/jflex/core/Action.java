@@ -116,9 +116,9 @@ public final class Action {
    */
   public boolean isEquiv(Action a) {
     return Objects.equals(this.content, a.content)
-            && this.kind == a.kind
-            && this.len == a.len
-            && this.entryState == a.entryState;
+        && this.kind == a.kind
+        && this.len == a.len
+        && this.entryState == a.entryState;
   }
 
   @Override
