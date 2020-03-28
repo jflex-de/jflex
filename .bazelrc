@@ -329,9 +329,9 @@ build --javacopt "-Xep:TestExceptionChecker:ERROR"
 build --javacopt "-Xep:UnnecessaryDefaultInEnumSwitch:WARN"
 build --javacopt "-Xep:Unused:ERROR"
 build --javacopt "-Xep:UnusedException:ERROR"
-# TODO(#469) Fix these warnings
-# bazel-out/darwin-fastbuild/genfiles/jflex/LexParse.java:2260: error: [Var] Non-constant variable missing @Var annotation
-#     RegExp RESULT =null;
+
+# Experimental : WARN by default
+# But quite controversial
 build --javacopt "-Xep:Var:OFF"
 
 # Experimental : SUGGESTION
