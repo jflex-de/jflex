@@ -24,8 +24,7 @@ public abstract class AbstractScriptExtensionsScanner {
   private static final ImmutableSet<String> DEFAULT_CATEGORIES =
       ImmutableSet.of(
           PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY,
-          PropertyNameNormalizer.NORMALIZED_SCRIPT);
-  ;
+          PropertyNameNormalizer.NORMALIZED_SCRIPT);;
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();
   private final Set<String> scripts = new HashSet<>();

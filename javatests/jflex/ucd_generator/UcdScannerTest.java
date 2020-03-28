@@ -110,7 +110,8 @@ public class UcdScannerTest {
         .isNotEmpty();
     // TODO(regisd) It seems I'm missing some property value aliases
     // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
-    //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"));
+    //
+    // .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"));
   }
 
   @Test
