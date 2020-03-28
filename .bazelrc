@@ -252,8 +252,6 @@ build --javacopt "-Xep:TypeParameterShadowing:ERROR"
 build --javacopt "-Xep:TypeParameterUnusedInFormals:ERROR"
 build --javacopt "-Xep:URLEqualsHashCode:ERROR"
 build --javacopt "-Xep:UndefinedEquals:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:UnnecessaryParentheses:OFF"
 build --javacopt "-Xep:UnsafeFinalization:ERROR"
 build --javacopt "-Xep:UnsafeReflectiveConstructionCast:ERROR"
 build --javacopt "-Xep:UnsynchronizedOverridesSynchronized:ERROR"
@@ -261,6 +259,10 @@ build --javacopt "-Xep:UseCorrectAssertInTests:ERROR"
 build --javacopt "-Xep:VariableNameSameAsType:WARN"
 build --javacopt "-Xep:WaitNotInLoop:ERROR"
 build --javacopt "-Xep:WakelockReleasedDangerously:ERROR"
+
+# On by default : WARNING
+# But Controversial warnings
+build --javacopt "-Xep:UnnecessaryParentheses:OFF"
 
 #Experimental : ERROR
 #build --javacopt "-Xep:AndroidJdkLibsChecker:ERROR"
