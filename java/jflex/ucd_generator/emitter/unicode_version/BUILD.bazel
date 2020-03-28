@@ -12,7 +12,7 @@ java_library(
     ],
     deps = [
         "//java/jflex/ucd_generator/emitter/common",
-        "//java/jflex/ucd_generator/scanner:unicode_data",
+        "//java/jflex/ucd_generator/scanner/model",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/util/javac:package_util",
         "//java/jflex/velocity",
