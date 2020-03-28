@@ -8,6 +8,8 @@ import jflex.ucd_generator.ucd.NamedCodepointRange;
 /** Scans the common single-property Unicode.org data file format. */
 public abstract class AbstractEnumeratedPropertyFileScanner {
 
+  private static final String DEFAULT_PROPERTY_NAME = "UNDEFINED_PROPERTY_NAME";
+
   final UnicodeData unicodeData;
 
   final SortedSet<NamedCodepointRange> intervals =
@@ -18,8 +20,10 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
   int start;
   int end;
 
-  protected AbstractEnumeratedPropertyFileScanner(UnicodeData unicodeData) {
+  protected AbstractEnumeratedPropertyFileScanner(
+      UnicodeData unicodeData, String defaultPropertyName) {
     this.unicodeData = unicodeData;
+    this.propertyName = defaultPropertyName;
   }
 
   public void addPropertyValueIntervals() {

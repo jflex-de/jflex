@@ -19,10 +19,15 @@ public class TestedVersions {
           .putFile(UcdFileType.Scripts, ucd10File("Scripts.txt"))
           .putFile(UcdFileType.ScriptExtensions, ucd10File("ScriptExtensions.txt"))
           .putFile(UcdFileType.Blocks, ucd10File("Blocks.txt"))
+          .putFile(UcdFileType.LineBreak, ucd10File("LineBreak.txt"))
           .build();
 
   private static File ucd10File(String name) {
-    return new File("external/ucd_10/" + name);
+    return ucdFile("ucd_10", name);
+  }
+
+  private static File ucdFile(String bazelVersionTarget, String name) {
+    return new File(new File("external/" + bazelVersionTarget), name);
   }
 
   private TestedVersions() {}

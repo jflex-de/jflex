@@ -121,4 +121,20 @@ public class UcdScannerTest {
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
         .isNotEmpty();
   }
+
+  @Test
+  public void scanLineBreak() throws Exception {
+    ucdScanner.scanPropertyAliases();
+    ucdScanner.scanPropertyValueAliases();
+    ucdScanner.scanUnicodeData();
+    ucdScanner.scanPropList();
+    ucdScanner.scanDerivedCoreProperties();
+    ucdScanner.scanScripts();
+    ucdScanner.scanScriptExtensions();
+    ucdScanner.scanBlocks();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb")).isEmpty();
+
+    ucdScanner.scanLineBreak();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb")).isNotEmpty();
+  }
 }

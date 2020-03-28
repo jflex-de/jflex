@@ -20,7 +20,8 @@ public class SurrogateUtils {
    * is entirely outside of or starts or ends within; or straddles the surrogate range
    * [0xD800-0xDFFF], respectively.
    */
-  public static ImmutableList<CodepointRange> removeSurrogates(int startCodePoint, int endCodePoint) {
+  public static ImmutableList<CodepointRange> removeSurrogates(
+      int startCodePoint, int endCodePoint) {
     Preconditions.checkArgument(startCodePoint <= endCodePoint);
     if (startCodePoint >= 0xD800 && endCodePoint <= 0xDFFF) {
       return ImmutableList.of();

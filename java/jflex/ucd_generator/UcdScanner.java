@@ -1,9 +1,13 @@
 package jflex.ucd_generator;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
@@ -23,6 +27,7 @@ public class UcdScanner {
     this.unicodeData = new UnicodeData(ucdVersion.version());
   }
 
+  /** Scans all UCD data files. */
   public UnicodeData scan() throws IOException {
 
     scanPropertyAliases();
@@ -33,6 +38,7 @@ public class UcdScanner {
     scanScripts();
     scanScriptExtensions();
     scanBlocks();
+    scanLineBreak();
 
     return unicodeData;
   }
@@ -71,7 +77,8 @@ public class UcdScanner {
   }
 
   void scanScripts() throws IOException {
-    scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Scripts));
+    scanEnumeratedProperty(
+        unicodeData, ucdVersion.getFile(UcdFileType.Scripts), /*defaultPropertyName=*/ "Script");
   }
 
   void scanScriptExtensions() throws IOException {
@@ -84,7 +91,15 @@ public class UcdScanner {
   }
 
   void scanBlocks() throws IOException {
-    scanEnumeratedProperty(unicodeData, ucdVersion.getFile(UcdFileType.Blocks));
+    scanEnumeratedProperty(
+        unicodeData, ucdVersion.getFile(UcdFileType.Blocks), /*defaultPropertyName=*/ "Block");
+  }
+
+  void scanLineBreak() throws IOException {
+    scanEnumeratedProperty(
+        unicodeData,
+        ucdVersion.getFile(UcdFileType.LineBreak),
+        /*defaultPropertyName=*/ "Line_Break");
   }
 
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
@@ -95,12 +110,18 @@ public class UcdScanner {
     }
   }
 
-  private static void scanEnumeratedProperty(UnicodeData unicodeData, File file)
-      throws IOException {
+  private static void scanEnumeratedProperty(
+      UnicodeData unicodeData, File file, String defaultPropertyName) throws IOException {
     if (file != null) {
       EnumeratedPropertyFileScanner scanner =
-          new EnumeratedPropertyFileScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+          new EnumeratedPropertyFileScanner(
+              Files.newReader(file, Charsets.UTF_8), unicodeData, defaultPropertyName);
+      ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
       scanner.scan();
+      SetView<String> diff =
+          Sets.difference(
+              new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
+      System.out.println(diff);
     }
   }
 

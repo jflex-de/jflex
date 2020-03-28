@@ -30,8 +30,7 @@ public class UnicodeVersionEmitterTest {
             .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
             .build();
 
-    UnicodeData unicodeData =
-        new UnicodeData(version_0_1);
+    UnicodeData unicodeData = new UnicodeData(version_0_1);
     unicodeData.maximumCodePoint(0x1234);
     unicodeData.addPropertyInterval("General", 32, 127);
     unicodeData.addCaselessMatches('a', "41", "", "");

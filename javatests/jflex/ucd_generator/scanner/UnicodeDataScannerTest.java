@@ -30,10 +30,12 @@ public class UnicodeDataScannerTest {
     assertThat(unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
   }
 
-  private static UnicodeData scan(final String ucdBazelTarget, final String versionName) throws IOException {
+  private static UnicodeData scan(final String ucdBazelTarget, final String versionName)
+      throws IOException {
     File file = new File(new File("external/" + ucdBazelTarget), "UnicodeData.txt");
     if (!file.exists()) {
-      throw new FileNotFoundException("Missing test data (Unicode " + versionName + "): " + file.getAbsolutePath());
+      throw new FileNotFoundException(
+          "Missing test data (Unicode " + versionName + "): " + file.getAbsolutePath());
     }
     UcdVersion ucdVersion = UcdVersion.builder().setVersion(versionName).build();
     UnicodeData unicodeData = new UnicodeData(ucdVersion.version());

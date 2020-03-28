@@ -15,7 +15,7 @@ public class UcdEmitter {
   }
 
   protected InputStreamReader readResource(String resourceName) {
-    return new InputStreamReader(getClass().getClassLoader().getResourceAsStream(resourceName),
-        StandardCharsets.UTF_8);
+    return new InputStreamReader(
+        getClass().getClassLoader().getResourceAsStream(resourceName), StandardCharsets.UTF_8);
   }
 }
