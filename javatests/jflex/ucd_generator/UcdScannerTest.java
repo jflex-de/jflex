@@ -88,6 +88,8 @@ public class UcdScannerTest {
 
     ucdScanner.scanScripts();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam")).isNotEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam"))
+        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlm"));
   }
 
   @Test
@@ -98,11 +100,14 @@ public class UcdScannerTest {
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira")).isEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
+        .isEmpty();
 
     ucdScanner.scanScriptExtensions();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
         .isNotEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
+        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"));
   }
 
   @Test
@@ -136,5 +141,8 @@ public class UcdScannerTest {
 
     ucdScanner.scanLineBreak();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb")).isNotEmpty();
+    // TODO(regisd) It seems I'm missing some property value aliases
+    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=bb"))
+    //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("linebreak=breakbefore"));
   }
 }
