@@ -12,7 +12,7 @@ test --test_output=errors
 build --javacopt "-XepDisableWarningsInGeneratedCode"
 # cup doesn't add the @Generated annotation and has violations such as ClassCanBeStatic
 # TODO JFLex 1.8.0 shouldn't have these violations anymore. We will then be able to include LexScan again.
-build --javacopt "-XepExcludedPaths:third_party/.*|jflex/cup/.*|.*bazel-out/.*/src/main/java/jflex/core/(?:LexScan\.java|LexParse\.java)|.*/jflex/examples/cup-java-minijava/parser\.java"
+build --javacopt "-XepExcludedPaths:third_party/.*|jflex/cup/.*|.*/bazel-out/.*|.*/jflex/examples/cup-java-minijava/parser\.java"
 
 # On by default : ERROR
 build --javacopt "-Xep:ArrayEquals:ERROR"
@@ -345,7 +345,6 @@ build --javacopt "-Xep:ClassNamedLikeTypeParameter:WARN"
 build --javacopt "-Xep:ConstantField:OFF"
 build --javacopt "-Xep:EmptySetMultibindingContributions:ERROR"
 build --javacopt "-Xep:ExpectedExceptionRefactoring:ERROR"
-# TODO(#469) Fix these warnings
 build --javacopt "-Xep:FieldCanBeFinal:WARN"
 # TOD(#469) We don't have a nullness checker anyway.
 build --javacopt "-Xep:FieldMissingNullable:OFF"
