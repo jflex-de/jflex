@@ -1,0 +1,6 @@
+name: eof
+description:
+test %eof and %eofthrows directives
+https://github.com/jflex-de/jflex/issues/743
+
+jflex: -q
