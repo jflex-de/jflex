@@ -9,7 +9,11 @@
 
 package jflex.gui;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.Panel;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 

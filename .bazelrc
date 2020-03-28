@@ -372,5 +372,4 @@ build --javacopt "-Xep:UngroupedOverloads:OFF"
 build --javacopt "-Xep:UnnecessarySetDefault:ERROR"
 build --javacopt "-Xep:UnnecessaryStaticImport:ERROR"
 build --javacopt "-Xep:UseBinds:ERROR"
-# TODO(#469) Fix these warnings
-build --javacopt "-Xep:WildcardImport:OFF"
+build --javacopt "-Xep:WildcardImport:ERROR"
