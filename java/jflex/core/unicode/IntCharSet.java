@@ -134,11 +134,12 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /** Merges the given set into this one. */
+  @SuppressWarnings("ReferenceEquality")
   public void add(IntCharSet set) {
     if (DEBUG) {
       assert invariants();
       assert set.invariants();
-      assert this.equals(set);
+      assert this != set; // reference comparison intended, must supply different object
     }
     for (Interval interval : set.intervals) {
       add(interval);
@@ -364,6 +365,7 @@ public final class IntCharSet implements Iterable<Integer> {
    *
    * @param set a {@link IntCharSet} to substract from this set.
    */
+  @SuppressWarnings("ReferenceEquality")
   public void sub(IntCharSet set) {
     if (DEBUG) {
       Out.dump("complement");
@@ -373,7 +375,7 @@ public final class IntCharSet implements Iterable<Integer> {
       // not asserting non-null, because we'll already get an exception and it confuses lgtm.com
       assert set.invariants();
       assert isSubSet(set, this);
-      assert this.equals(set);
+      assert set != this; // reference comparison intended, must supply different object
     }
 
     int i = 0; // index in this.intervals
