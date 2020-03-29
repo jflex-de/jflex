@@ -117,12 +117,12 @@ line:28 col:26 --(--LPAREN--
 token: line 28, column 26, sym: 19
 line:28 col:27 --String--IDENTIFIER--
 token: line 28, column 27, sym: 98, value: 'String'
-line:28 col:34 --argv--IDENTIFIER--
-token: line 28, column 34, sym: 98, value: 'argv'
-line:28 col:38 --[--LBRACK--
-token: line 28, column 38, sym: 10
-line:28 col:39 --]--RBRACK--
-token: line 28, column 39, sym: 11
+line:28 col:33 --[--LBRACK--
+token: line 28, column 33, sym: 10
+line:28 col:34 --]--RBRACK--
+token: line 28, column 34, sym: 11
+line:28 col:36 --argv--IDENTIFIER--
+token: line 28, column 36, sym: 98, value: 'argv'
 line:28 col:40 --)--RPAREN--
 token: line 28, column 40, sym: 20
 line:28 col:42 --{--LBRACE--
