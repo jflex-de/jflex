@@ -2,10 +2,10 @@ package jflex.testing.testsuite.golden;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
 import org.junit.After;
 
@@ -15,7 +15,7 @@ public abstract class AbstractGoldenTest {
 
   protected void compareSystemOutWith(GoldenInOutFilePair golden) throws FileNotFoundException {
     // in-memory output comparison
-    output = new DiffOutputStream(Files.newReader(golden.outputFile, Charsets.UTF_8));
+    output = new DiffOutputStream(Files.newReader(golden.outputFile, StandardCharsets.UTF_8));
     System.setOut(new PrintStream(output));
   }
 

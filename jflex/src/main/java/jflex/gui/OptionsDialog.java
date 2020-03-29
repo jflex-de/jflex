@@ -9,7 +9,14 @@
 
 package jflex.gui;
 
-import java.awt.*;
+import java.awt.Button;
+import java.awt.Checkbox;
+import java.awt.Dialog;
+import java.awt.FileDialog;
+import java.awt.Frame;
+import java.awt.Insets;
+import java.awt.Label;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -28,6 +35,7 @@ import jflex.skeleton.Skeleton;
  * @author Gerwin Klein
  * @version JFlex 1.9.0-SNAPSHOT
  */
+@SuppressWarnings({"ConstructorInvokesOverridable"})
 public class OptionsDialog extends Dialog {
 
   private static final long serialVersionUID = 6807759416163314769L;
@@ -71,7 +79,7 @@ public class OptionsDialog extends Dialog {
   }
 
   /** setup. */
-  public void setup() {
+  public final void setup() {
     // create components
     Button ok = new Button("Ok");
     Button defaults = new Button("Defaults");

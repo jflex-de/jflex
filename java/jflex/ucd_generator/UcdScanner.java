@@ -1,10 +1,10 @@
 package jflex.ucd_generator;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.DerivedAgeScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
@@ -49,7 +49,7 @@ public class UcdScanner {
     File file = ucdVersion.getFile(UcdFileType.PropertyAliases);
     if (file != null) {
       PropertyAliasesScanner scanner =
-          new PropertyAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+          new PropertyAliasesScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -58,7 +58,8 @@ public class UcdScanner {
     File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (file != null) {
       PropertyValueAliasesScanner scanner =
-          new PropertyValueAliasesScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+          new PropertyValueAliasesScanner(
+              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -66,7 +67,8 @@ public class UcdScanner {
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
     UnicodeDataScanner scanner =
-        new UnicodeDataScanner(Files.newReader(file, Charsets.UTF_8), ucdVersion, unicodeData);
+        new UnicodeDataScanner(
+            Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
     scanner.scan();
   }
 
@@ -90,7 +92,7 @@ public class UcdScanner {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
     if (file != null) {
       ScriptExtensionsScanner scanner =
-          new ScriptExtensionsScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+          new ScriptExtensionsScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -137,7 +139,7 @@ public class UcdScanner {
     if (file != null) {
       Preconditions.checkState(file.exists(), "File does not exist " + file.getAbsolutePath());
       DerivedAgeScanner scanner =
-          new DerivedAgeScanner(Files.newReader(file, Charsets.UTF_8), unicodeData, "Age");
+          new DerivedAgeScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData, "Age");
       scanner.scan();
     }
   }
@@ -146,7 +148,8 @@ public class UcdScanner {
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
     if (file != null) {
       BinaryPropertiesFileScanner scanner =
-          new BinaryPropertiesFileScanner(Files.newReader(file, Charsets.UTF_8), unicodeData);
+          new BinaryPropertiesFileScanner(
+              Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -158,7 +161,7 @@ public class UcdScanner {
     if (file != null) {
       EnumeratedPropertyFileScanner scanner =
           new EnumeratedPropertyFileScanner(
-              Files.newReader(file, Charsets.UTF_8),
+              Files.newReader(file, StandardCharsets.UTF_8),
               unicodeData,
               defaultPropertyName,
               defaultPropertyValue);

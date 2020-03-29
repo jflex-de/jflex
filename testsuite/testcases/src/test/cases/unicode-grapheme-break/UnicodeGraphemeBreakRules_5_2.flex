@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
   private StringBuilder builder = new StringBuilder();
 
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     if (argv.length == 0) {
       System.out.println("Usage : java UnicodeGraphemeBreakRules_5_2 [ --encoding <name> ] <inputfile(s)>");
     }

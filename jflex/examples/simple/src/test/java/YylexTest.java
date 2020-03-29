@@ -7,10 +7,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +54,8 @@ public class YylexTest {
     assertThat(expected.isFile()).isTrue();
 
     BufferedReader actualContent = readOutputStream();
-    BufferedReader expectedContent = new BufferedReader(new FileReader(expected));
+    BufferedReader expectedContent =
+        Files.newBufferedReader(expected.toPath(), StandardCharsets.UTF_8);
 
     for (int lineNumber = 1; lineNumber != -1; lineNumber++) {
       String expectedLine = expectedContent.readLine();
@@ -65,7 +67,8 @@ public class YylexTest {
 
   private BufferedReader readOutputStream() {
     byte[] rawOutput = outputStream.toByteArray();
-    return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
+    return new BufferedReader(
+        new InputStreamReader(new ByteArrayInputStream(rawOutput), StandardCharsets.UTF_8));
   }
 
   /**
@@ -82,7 +85,7 @@ public class YylexTest {
    *       {@code __main__} in <em>runfiles</em>.
    * </ul>
    */
-  private File openFile(String pathName) throws IOException {
+  private static File openFile(String pathName) throws IOException {
     String path = pathName;
     File pwd = new File(".").getCanonicalFile();
     assertThat(pwd.isDirectory()).isTrue();

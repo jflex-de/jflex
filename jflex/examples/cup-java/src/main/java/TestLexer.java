@@ -25,7 +25,7 @@ public class TestLexer {
   long longOc = 007l;
   int smallest = -2147483648;
 
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
 
     for (int i = 0; i < argv.length; i++) {
       try {

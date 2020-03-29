@@ -23,7 +23,7 @@ public class EmptymatchGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code emptymatch.flex} specification. */
   private final ScannerFactory<Emptymatch> scannerFactory = ScannerFactory.of(Emptymatch::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/empty_match");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/empty_match");
 
   @Test
   public void goldenTest0() throws Exception {

@@ -95,7 +95,7 @@ public class UcdGenerator {
       return new UcdScanner(ucdVersion).scan();
     } catch (Error e) {
       throw new Error(
-          "Unknown error while emitting Unicode properties for version " + ucdVersion.version());
+          "Unknown error while emitting Unicode properties for version " + ucdVersion.version(), e);
     }
   }
 

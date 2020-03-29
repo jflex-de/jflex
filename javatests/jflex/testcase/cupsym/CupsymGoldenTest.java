@@ -24,7 +24,7 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class CupsymGoldenTest extends AbstractGoldenTest {
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/cupsym");
 
   /** scanner generated from {@code cupsym.flex}. */
   private final ScannerFactory<Cupsym> scannerFactory = ScannerFactory.of(Cupsym::new);

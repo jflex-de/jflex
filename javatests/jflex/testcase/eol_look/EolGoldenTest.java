@@ -23,7 +23,7 @@ public class EolGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code eol.flex} specification. */
   private final ScannerFactory<Eol> scannerFactory = ScannerFactory.of(Eol::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/eol_look");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/eol_look");
 
   @Test
   public void goldenTest0() throws Exception {

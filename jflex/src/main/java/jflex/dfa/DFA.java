@@ -261,7 +261,7 @@ public class DFA {
       writer.close();
     } catch (IOException e) {
       Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 
