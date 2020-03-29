@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -98,18 +99,15 @@ public class UnicodeData {
     return ImmutableList.copyOf(propertyValueIntervals.keySet());
   }
 
-  public ImmutableList<String> intervals() {
-    // TODO(regisd) Implement this
-    return ImmutableList.of("\\000\\u01f5", "\\u01fa\\u0217");
+  /** Returns the code point range by property. */
+  public Map<String, Collection<CodepointRange>> intervals() {
+    return propertyValueIntervals.asMap();
   }
 
   public ImmutableList<String> propertyValueAliases() {
     // TODO(regisd) Implement this
     return ImmutableList.of(
-        "ahex",
-        "block=alphabeticpresentationforms",
-        "block=ancientgreeknumbers",
-        "unknown");
+        "ahex", "block=alphabeticpresentationforms", "block=ancientgreeknumbers", "unknown");
   }
 
   public int maxCaselessMatchPartitionSize() {

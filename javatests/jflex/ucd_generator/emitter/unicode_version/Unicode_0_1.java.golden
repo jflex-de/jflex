@@ -40,7 +40,9 @@ class Unicode_0_1 {
   };
 
   public static final String[] intervals = {
+    // Unicode 0.1 property value: {general}
     "\000\u01f5",
+    // Unicode 0.1 property value: {?}
     "\u01fa\u0217"
   };
 

@@ -32,7 +32,8 @@ public class UnicodeVersionEmitterTest {
 
     UnicodeData unicodeData = new UnicodeData(version_0_1);
     unicodeData.maximumCodePoint(0x1234);
-    unicodeData.addPropertyInterval("General", 32, 127);
+    unicodeData.addPropertyInterval("General", 0, 0x01f5);
+    unicodeData.addPropertyInterval("General", 500, 700);
     unicodeData.addCaselessMatches('a', "41", "", "");
     unicodeData.addCaselessMatches('b', "42", "43", "44");
     UnicodeVersionEmitter emitter = new UnicodeVersionEmitter("org.example", ucd0_1, unicodeData);

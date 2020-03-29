@@ -41,7 +41,7 @@ class $className {
   };
 
   public static final String[] intervals = {
-    "$intervals"
+    $intervals
   };
 
   public static final String[] propertyValueAliases = {

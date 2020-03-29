@@ -53,14 +53,24 @@ public class UnicodePropertiesEmitterTest {
     UcdVersion ucd1_2 =
         UcdVersion.builder()
             .setVersion("1.2.0")
-            .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt")).build();
+            .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
+            .build();
     // fake ucd 2.0
     UcdVersion ucd2_0 =
-        UcdVersion.builder().setVersion("2.0.1").putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
+        UcdVersion.builder()
+            .setVersion("2.0.1")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
     UcdVersion ucd2_4 =
-        UcdVersion.builder().setVersion("2.4.6").putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
+        UcdVersion.builder()
+            .setVersion("2.4.6")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
     UcdVersion ucd10_0 =
-        UcdVersion.builder().setVersion("10.0.0").putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
+        UcdVersion.builder()
+            .setVersion("10.0.0")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
     UcdVersions versions =
         UcdVersions.builder()
             .put(ucd1_2.version().toString(), ucd1_2)
