@@ -96,7 +96,7 @@ public class UnicodeData {
   }
 
   public List<String> propertyValueIntervals() {
-    return ImmutableList.copyOf(propertyValueIntervals.keySet());
+    return ImmutableList.sortedCopyOf(propertyValueIntervals.keySet());
   }
 
   /** Returns the code point range by property. */

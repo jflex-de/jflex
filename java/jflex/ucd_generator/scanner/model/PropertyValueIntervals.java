@@ -5,7 +5,6 @@ import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import java.util.Collection;
@@ -22,8 +21,7 @@ public class PropertyValueIntervals {
 
   Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
-  private final Multimap<String, CodepointRange> propertyValueIntervals =
-      LinkedHashMultimap.create();
+  private final Multimap<String, CodepointRange> propertyValueIntervals = HashMultimap.create();
 
   @SuppressWarnings("unused") // TODO(regisd) This should be used after scanning.
   private void addCompatibilityProperties() {
