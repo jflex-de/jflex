@@ -58,7 +58,7 @@ public abstract class AbstractScriptExtensionsScanner {
       for (CodepointRange range : unicodeData.getPropertyValueIntervals(script)) {
         for (int ch = range.start(); ch <= range.end(); ++ch) {
           if (!scriptExtensionsCodePoint[ch]) {
-            intervalsBuilder.add(new MutableCodepointRange(ch, ch));
+            intervalsBuilder.add(MutableCodepointRange.create(ch, ch));
           }
         }
       }
@@ -121,7 +121,7 @@ public abstract class AbstractScriptExtensionsScanner {
   void addScript(String script) {
     CodepointRangeSet.Builder intervals =
         scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
-    intervals.add(new MutableCodepointRange(start, end));
+    intervals.add(MutableCodepointRange.create(start, end));
 
     for (int ch = start; ch <= end; ++ch) {
       scriptExtensionsCodePoint[ch] = true;
