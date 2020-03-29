@@ -95,7 +95,7 @@ public class UnicodeData {
     return maximumCodePoint;
   }
 
-  public List<String> propertyValueIntervals() {
+  public List<String> propertyValues() {
     return ImmutableList.sortedCopyOf(propertyValueIntervals.keySet());
   }
 

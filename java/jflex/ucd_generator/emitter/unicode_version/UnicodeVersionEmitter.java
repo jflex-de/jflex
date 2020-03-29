@@ -53,7 +53,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
     unicodeVersionVars.propertyValues =
-        String.join("\",\n    \"", unicodeData.propertyValueIntervals());
+        String.join("\",\n    \"", unicodeData.propertyValues());
 
     unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
     unicodeVersionVars.propertyValueAliases =
