@@ -39,6 +39,18 @@ class Unicode_0_1 {
     "general"
   };
 
+  public static final String[] intervals = {
+    "\000\u01f5",
+    "\u01fa\u0217"
+  };
+
+  public static final String[] propertyValueAliases = {
+    "ahex",
+    "block=alphabeticpresentationforms",
+    "block=ancientgreeknumbers",
+    "unknown"
+  };
+
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 4;
   public static final String caselessMatchPartitions =

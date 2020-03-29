@@ -50,41 +50,11 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.propertyValues =
         String.join("\",\n    \"", unicodeData.propertyValueIntervals());
     unicodeVersionVars.intervals =
-        String.join("\",\n      + \"", ImmutableList.of("\\000\\u01f5", "\\u01fa\\u0217"));
+        String.join("\",\n    \"", unicodeData.intervals());
     unicodeVersionVars.propertyValueAliases =
         String.join(
             "\",\n    \"",
-            ImmutableList.of(
-                "ahex",
-                "asciihexdigit",
-                "alpha",
-                "alphabetic",
-                "arab",
-                "arabic",
-                "armn",
-                "armenian",
-                "bali",
-                "balinese",
-                "beng",
-                "bengali",
-                "bidic",
-                "bidicontrol",
-                "blk=aegeannumbers",
-                "block=aegeannumbers",
-                "blk=alphabeticpresentationforms",
-                "block=alphabeticpresentationforms",
-                "blk=ancientgreekmusicalnotation",
-                "block=ancientgreekmusicalnotation",
-                "blk=ancientgreeknumbers",
-                "block=ancientgreeknumbers",
-                "blk=arabic",
-                "block=arabic",
-                "yiii",
-                "yi",
-                "zyyy",
-                "common",
-                "zzzz",
-                "unknown"));
+            unicodeData.propertyValueAliases());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

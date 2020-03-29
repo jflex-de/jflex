@@ -34,11 +34,14 @@ public class UcdVersionsTest {
 
   private UcdVersion ucd1 =
       UcdVersion.builder()
+          .setVersion("1.2.3")
           .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
           .build();
 
   private UcdVersion ucd2 =
-      UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
+      UcdVersion.builder()
+          .setVersion("2.0")
+          .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
 
   @Test
   public void expandVersion_majorUpdate() throws Exception {

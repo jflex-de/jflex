@@ -5,13 +5,11 @@ import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
@@ -22,16 +20,20 @@ public class PropertyValueIntervals {
 
   Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
-  private final Map<String, List<CodepointRange>> propertyValueIntervals = new HashMap<>();
+  private final Multimap<String, CodepointRange> propertyValueIntervals =
+      LinkedHashMultimap.create();
 
   @SuppressWarnings("unused") // TODO(regisd) This should be used after scanning.
   private void addCompatibilityProperties() {
-    propertyValueIntervals.put("blank", createBlankSet());
+    propertyValueIntervals.putAll("blank", createBlankSet());
   }
 
-  private List<CodepointRange> createBlankSet() {
-    return Optional.ofNullable(propertyValueIntervals.get("Zs"))
-        .orElse(propertyValueIntervals.get("whitespace"));
+  private Collection<CodepointRange> createBlankSet() {
+    if (propertyValueIntervals.containsKey("Zs")) {
+      return propertyValueIntervals.get("Zs");
+    } else {
+      return propertyValueIntervals.get("whitespace");
+    }
   }
 
   /**
@@ -74,14 +76,12 @@ public class PropertyValueIntervals {
     if (ranges.isEmpty()) {
       return;
     }
-    List<CodepointRange> intervals =
-        propertyValueIntervals.computeIfAbsent(propName, k -> new ArrayList<>());
-    intervals.addAll(ranges);
+    propertyValueIntervals.putAll(propName, ranges);
   }
 
   ImmutableList<CodepointRange> getRanges(String propName) {
-    List<CodepointRange> ranges = propertyValueIntervals.get(propName);
-    if (ranges == null) {
+    Collection<CodepointRange> ranges = propertyValueIntervals.get(propName);
+    if (ranges.isEmpty()) {
       return ImmutableList.of();
     }
     return ImmutableList.copyOf(ranges);

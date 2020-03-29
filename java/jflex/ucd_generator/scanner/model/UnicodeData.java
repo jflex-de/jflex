@@ -3,9 +3,7 @@ package jflex.ucd_generator.scanner.model;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -31,22 +29,10 @@ public class UnicodeData {
     this.version = version;
   }
 
-  public int maxCaselessMatchPartitionSize() {
-    return caselessMatches.maxCaselessMatchPartitionSize();
-  }
-
-  public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
-    return caselessMatches.uniqueCaselessMatchPartitions();
-  }
-
   public void addCaselessMatches(
       int codePoint, String uppercaseMapping, String lowercaseMapping, String titlecaseMapping) {
     caselessMatches.addCaselessMatches(
         codePoint, uppercaseMapping, lowercaseMapping, titlecaseMapping);
-  }
-
-  public int maximumCodePoint() {
-    return maximumCodePoint;
   }
 
   public void maximumCodePoint(int maximumCodePoint) {
@@ -96,17 +82,41 @@ public class UnicodeData {
     return propertyValueIntervals.usedEnumProperties;
   }
 
-  public List<String> propertyValueIntervals() {
-    ArrayList<String> list = new ArrayList<>(propertyValueIntervals.keySet());
-    Collections.sort(list);
-    return list;
-  }
-
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
     return propertyValueIntervals.getRanges(propName);
   }
 
   public boolean hasUsedEnumeratedProperty(String category) {
     return usedEnumeratedProperties().containsKey(category);
+  }
+
+  public int maximumCodePoint() {
+    return maximumCodePoint;
+  }
+
+  public List<String> propertyValueIntervals() {
+    return ImmutableList.copyOf(propertyValueIntervals.keySet());
+  }
+
+  public ImmutableList<String> intervals() {
+    // TODO(regisd) Implement this
+    return ImmutableList.of("\\000\\u01f5", "\\u01fa\\u0217");
+  }
+
+  public ImmutableList<String> propertyValueAliases() {
+    // TODO(regisd) Implement this
+    return ImmutableList.of(
+        "ahex",
+        "block=alphabeticpresentationforms",
+        "block=ancientgreeknumbers",
+        "unknown");
+  }
+
+  public int maxCaselessMatchPartitionSize() {
+    return caselessMatches.maxCaselessMatchPartitionSize();
+  }
+
+  public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
+    return caselessMatches.uniqueCaselessMatchPartitions();
   }
 }
