@@ -23,19 +23,6 @@ public class PropertyValueIntervals {
 
   private final Multimap<String, CodepointRange> propertyValueIntervals = HashMultimap.create();
 
-  @SuppressWarnings("unused") // TODO(regisd) This should be used after scanning.
-  private void addCompatibilityProperties() {
-    propertyValueIntervals.putAll("blank", createBlankSet());
-  }
-
-  private Collection<CodepointRange> createBlankSet() {
-    if (propertyValueIntervals.containsKey("Zs")) {
-      return propertyValueIntervals.get("Zs");
-    } else {
-      return propertyValueIntervals.get("whitespace");
-    }
-  }
-
   /**
    * Given a binary property name, and starting and ending code points, adds the interval to the
    * {@link #propertyValueIntervals} map.
@@ -79,12 +66,21 @@ public class PropertyValueIntervals {
     propertyValueIntervals.putAll(propName, ranges);
   }
 
+  public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
+    propertyValueIntervals.putAll(propertyName, ranges);
+    usedBinaryProperties.add(propertyName);
+  }
+
   ImmutableList<CodepointRange> getRanges(String propName) {
     Collection<CodepointRange> ranges = propertyValueIntervals.get(propName);
     if (ranges.isEmpty()) {
       return ImmutableList.of();
     }
     return ImmutableList.copyOf(ranges);
+  }
+
+  public boolean hasProperty(String propName) {
+    return propertyValueIntervals.containsKey(propName);
   }
 
   public Set<String> keySet() {

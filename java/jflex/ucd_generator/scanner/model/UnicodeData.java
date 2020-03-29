@@ -1,5 +1,7 @@
 package jflex.ucd_generator.scanner.model;
 
+import static java.util.Arrays.asList;
+
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multimap;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
+import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.Version;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
@@ -116,5 +119,41 @@ public class UnicodeData {
 
   public ImmutableCollection<SortedSet<Integer>> uniqueCaselessMatchPartitions() {
     return caselessMatches.uniqueCaselessMatchPartitions();
+  }
+
+  public void addCompatibilityProperties() {
+    // TODO(regisd)
+    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+
+    // add xdigit
+    // UTR#18: \p{xdigit} = [\p{gc=Decimal_Number}\p{Hex_Digit}]
+    // \p{gc=Decimal_Number} = \p{Nd} (available in all versions)
+    addCompatibilityProperty("xdigit", asList("nd", "hexdigit"));
+
+    // add alnum
+    // UTR#18: \p{alnum} = [\p{alpha}\p{digit}]
+    // \p{alpha} = \p{Alphabetic} (available in all versions except 1.1)
+    addCompatibilityProperty("alnum", asList("alphabetic", "nd"));
+
+    // UTR#18: \p{blank} = [\p{Whitespace}
+    //                      -- [\N{LF} \N{VT} \N{FF} \N{CR} \N{NEL}
+    //                          \p{gc=Line_Separator} \p{gc=Paragraph_Separator}]]
+    propertyValueIntervals.addAllRanges("blank", createBlankSet());
+  }
+
+  private void addCompatibilityProperty(
+      String newPropertyName, List<String> existingPropertyNames) {
+    CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
+    for (String p : existingPropertyNames) {
+      ranges.addAllImmutable(propertyValueIntervals.getRanges(p));
+    }
+    propertyValueIntervals.addAllRanges(newPropertyName, ranges.build().ranges());
+  }
+
+  private Collection<CodepointRange> createBlankSet() {
+    CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
+    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+    // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
+    ranges.substract(CodepointRange.create(0xA, 0xD));
   }
 }
