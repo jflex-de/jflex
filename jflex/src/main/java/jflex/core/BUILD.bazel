@@ -25,7 +25,7 @@ java_library(
         "//jflex/src/main/java/jflex/scanner",
         "//jflex/src/main/java/jflex/skeleton",
         "//jflex/src/main/java/jflex/state",
-        "//third_party/com/github/vbmacher/java-cup-runtime:cup_runtime",
+        "//third_party/java_cup:runtime",
     ],
 )
 
