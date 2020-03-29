@@ -36,14 +36,19 @@ class Unicode_0_1 {
   public static final int maximumCodePoint = 0x1234;
 
   public static final String[] propertyValues = {
-    "general"
+    "age=1.1",
+    "age=4.1"
   };
 
   public static final String[] intervals = {
-    // Unicode 0.1 property value: {general}
-    "\000\u01f5",
-    // Unicode 0.1 property value: {?}
-    "\u01fa\u0217"
+    // Unicode 0.1 property value: {age=1.1}
+    "\000\u01f5"
+        + "\u01fa\u0217",
+    // Unicode 0.1 property value: {age=4.1}
+    "\000\u0241"
+        + "\u0250\u036f"
+        + "\u0374\u0375"
+        + "\ud800\udc0d\ud800\udc26"
   };
 
   public static final String[] propertyValueAliases = {

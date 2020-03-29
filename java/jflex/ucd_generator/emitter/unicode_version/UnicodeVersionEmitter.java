@@ -2,6 +2,7 @@ package jflex.ucd_generator.emitter.unicode_version;
 
 import static java.util.stream.Collectors.joining;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
 import java.io.BufferedWriter;
@@ -54,7 +55,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.propertyValues =
         String.join("\",\n    \"", unicodeData.propertyValueIntervals());
 
-    unicodeVersionVars.intervals = String.join("\n", intervalsToString());
+    unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
     unicodeVersionVars.propertyValueAliases =
         String.join("\",\n    \"", unicodeData.propertyValueAliases());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
@@ -68,7 +69,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     return unicodeVersionVars;
   }
 
-  private Collection<String> intervalsToString() {
+  private Collection<String> intervalsToCodesource() {
     EntryTransformer<String, Collection<CodepointRange>, String> function =
         new EntryTransformer<String, Collection<CodepointRange>, String>() {
 
@@ -77,12 +78,13 @@ public class UnicodeVersionEmitter extends UcdEmitter {
               String propertyValue, Collection<CodepointRange> codepointRanges) {
             String codeComment =
                 String.format(
-                    "// Unicode %s property value: {%s}\n", ucdVersion.toString(), propertyValue);
+                    "// Unicode %s property value: {%s}\n",
+                    ucdVersion.version().toMajorMinorString(), propertyValue);
             String value =
                 codepointRanges.stream()
                     .map(this::intervalToCodesource)
-                    .collect(joining("\"\n        + \""));
-            return codeComment + value;
+                    .collect(joining("\n        + "));
+            return codeComment + "    " + value;
           }
 
           private String intervalToCodesource(CodepointRange interval) {
@@ -111,7 +113,8 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     return sb.toString();
   }
 
-  private static String escapedUTF16Char(Integer codePoint) {
+  @VisibleForTesting
+  static String escapedUTF16Char(int codePoint) {
     if (codePoint <= 0xFFFF) {
       return escapedBMPChar(codePoint);
     } else if (codePoint <= 0x10FFFF) {

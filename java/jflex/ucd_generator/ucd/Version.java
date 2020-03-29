@@ -51,8 +51,12 @@ public class Version {
     return makeString('.', true);
   }
 
+  public String toMajorMinorString() {
+    return makeString('.', false);
+  }
+
   public String unicodeClassName() {
-    return String.format("Unicode_%s", makeString('_', false));
+    return "Unicode_" + makeString('_', false);
   }
 
   private String makeString(char sep, boolean includePatch) {
