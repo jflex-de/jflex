@@ -66,6 +66,7 @@ public class UcdScanner {
 
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
+    Preconditions.checkNotNull(file, "Could not find UnicodeData.txt");
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(
             Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);

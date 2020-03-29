@@ -33,15 +33,10 @@ import org.junit.Test;
 
 public class UcdVersionsTest {
 
-  private UcdVersion.Builder ucd1;
+  private UcdVersion ucd1 = UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt")).bui;
 
-  private UcdVersion.Builder ucd2;
+  private UcdVersion ucd2= UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt")).build();
 
-  @Before
-  public void createUcd() {
-    ucd1 = UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    ucd2 = UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-  }
 
   @Test
   public void expandVersion_majorUpdate() throws Exception {
@@ -97,8 +92,9 @@ public class UcdVersionsTest {
   public void findExternalPath() {
     File bazelDep =
         new File("jflex/ucd_generator/external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded");
-    ucd1.setVersion("1.1").putFile(UcdFileType.WordBreakProperty, bazelDep);
-    assertThat(ucd1.build().getFile(UcdFileType.WordBreakProperty))
+    UcdVersion ucd = ucd1.toBuilder().setVersion("1.1")
+        .putFile(UcdFileType.WordBreakProperty, bazelDep).build();
+    assertThat(ucd.getFile(UcdFileType.WordBreakProperty))
         .isEqualTo(new File("external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded"));
   }
 }

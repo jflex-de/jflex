@@ -27,6 +27,7 @@ java_binary(
     deps = [
         ":ucd_generator",
         "//java/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
     ],
 )
 

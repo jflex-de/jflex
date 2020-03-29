@@ -20,6 +20,8 @@ abstract class UcdGeneratorParams {
 
     abstract Builder setOutputDir(File outputDir);
 
+    abstract File outputDir();
+
     abstract UcdGeneratorParams build();
   }
 }
