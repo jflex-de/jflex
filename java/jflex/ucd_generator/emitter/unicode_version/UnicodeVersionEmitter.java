@@ -1,5 +1,6 @@
 package jflex.ucd_generator.emitter.unicode_version;
 
+import com.google.common.collect.ImmutableList;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -48,6 +49,42 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
     unicodeVersionVars.propertyValues =
         String.join("\",\n    \"", unicodeData.propertyValueIntervals());
+    unicodeVersionVars.intervals =
+        String.join("\",\n      + \"", ImmutableList.of("\\000\\u01f5", "\\u01fa\\u0217"));
+    unicodeVersionVars.propertyValueAliases =
+        String.join(
+            "\",\n    \"",
+            ImmutableList.of(
+                "ahex",
+                "asciihexdigit",
+                "alpha",
+                "alphabetic",
+                "arab",
+                "arabic",
+                "armn",
+                "armenian",
+                "bali",
+                "balinese",
+                "beng",
+                "bengali",
+                "bidic",
+                "bidicontrol",
+                "blk=aegeannumbers",
+                "block=aegeannumbers",
+                "blk=alphabeticpresentationforms",
+                "block=alphabeticpresentationforms",
+                "blk=ancientgreekmusicalnotation",
+                "block=ancientgreekmusicalnotation",
+                "blk=ancientgreeknumbers",
+                "block=ancientgreeknumbers",
+                "blk=arabic",
+                "block=arabic",
+                "yiii",
+                "yi",
+                "zyyy",
+                "common",
+                "zzzz",
+                "unknown"));
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

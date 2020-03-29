@@ -40,6 +40,14 @@ class $className {
     "$propertyValues"
   };
 
+  public static final String[] intervals = {
+    "$intervals"
+  };
+
+  public static final String[] propertyValueAliases = {
+    "$propertyValueAliases"
+  };
+
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = $maxCaselessMatchPartitionSize;
   public static final String caselessMatchPartitions =

@@ -41,6 +41,8 @@ public class UcdScanner {
     scanSentenceBreakProperty();
     scanWordBreakProperty();
     scanDerivedAge();
+    // TODO(regisd) When?
+    // unicodeData.addCompatibilityProperties();
 
     return unicodeData;
   }
