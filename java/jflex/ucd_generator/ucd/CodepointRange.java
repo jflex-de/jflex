@@ -22,9 +22,9 @@ public abstract class CodepointRange {
   @Override
   public final String toString() {
     if (length() == 0) {
-      return String.valueOf(start());
+      return String.format("\\u%04x", start());
     }
-    return start() + "…" + end();
+    return String.format("\\u%04x…\\u%04x", start(), end());
   }
 
   public static CodepointRange create(int start, int end) {
