@@ -123,7 +123,6 @@ public class UnicodeData {
 
   public void addCompatibilityProperties() {
     // TODO(regisd)
-    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
 
     // add xdigit
     // UTR#18: \p{xdigit} = [\p{gc=Decimal_Number}\p{Hex_Digit}]
@@ -150,10 +149,12 @@ public class UnicodeData {
     propertyValueIntervals.addAllRanges(newPropertyName, ranges.build().ranges());
   }
 
-  private Collection<CodepointRange> createBlankSet() {
+  private ImmutableList<CodepointRange> createBlankSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+    ranges.addAllImmutable(whitespaceRanges);
     // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
     ranges.substract(CodepointRange.create(0xA, 0xD));
+    return ranges.build().ranges();
   }
 }

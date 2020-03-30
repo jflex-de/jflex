@@ -67,55 +67,72 @@ public abstract class CodepointRangeSet {
       return this;
     }
 
+    /**
+     * Removes all values in the {@link CodepointRangeSet} that are withing {@code substractingRange}.
+     *
+     * <p>This method assumes intervals are ordered and non-overlapping.
+     */
     public Builder substract(CodepointRange substractingRange) {
       if (mRanges.isEmpty()) {
         return this;
       }
-      SortedSet<MutableCodepointRange> lastRanges =
-          substractIntervalsStartingAfter(substractingRange);
-      // Also consider the last interval which was starting before
-      try {
-        MutableCodepointRange lastRange = lastRanges.last();
-        if (lastRange.start < substractingRange.start()) {
-          if (lastRange.end < substractingRange.end()) {
-            lastRange.end = substractingRange.start() - 1;
-          } else {
-            mRanges.add(MutableCodepointRange.create(substractingRange.end() + 1, lastRange.end));
-            lastRange.end = substractingRange.start() - 1;
-          }
+      List<MutableCodepointRange> intersection =
+          intersection(substractingRange);
+      if (intersection.isEmpty()) {
+        return this;
+      }
+      MutableCodepointRange first = intersection.get(0);
+      if (first.end > substractingRange.start()) {
+        // Maybe the first is partially intersecting
+        if (first.end > substractingRange.end()) {
+          mRanges.add(MutableCodepointRange.create(substractingRange.end() + 1, first.end));
         }
-      } catch (NoSuchElementException e) {
-        // lastRange remains null
+        if (first.start < substractingRange.start()) {
+          first.end = substractingRange.start() - 1;
+          intersection.remove(0);
+        }
+      }
+
+      if (!intersection.isEmpty()) {
+        // Maybe the last is only partially intersecting
+        MutableCodepointRange last = intersection.get(intersection.size() - 1);
+        if (last.start < substractingRange.end() && substractingRange.end() < last.end) {
+          last.start =  substractingRange.end() + 1;
+          intersection.remove(intersection.size() - 1);
+        }
+        mRanges.removeAll(intersection);
       }
 
       return this;
     }
 
     /**
-     * Remove intervals starting after substractingRange.start
-     *
-     * @return Ranges that may intersect before subsrtactingRange.end
+     * Returns all intervals that intersect with intersecting.
      */
-    private SortedSet<MutableCodepointRange> substractIntervalsStartingAfter(
-        CodepointRange substractingRange) {
-      MutableCodepointRange start = MutableCodepointRange.create(substractingRange.start());
-      MutableCodepointRange end = MutableCodepointRange.create(substractingRange.end());
-      // Remove ranges after the start, up to end
-      SortedSet<MutableCodepointRange> potentiallyRemoved = mRanges.subSet(start, end);
-      List<MutableCodepointRange> toRemove = new ArrayList<>();
-      for (MutableCodepointRange r : potentiallyRemoved) {
-        if (r.end <= substractingRange.end()) {
-          toRemove.add(r);
-        } else {
-          r.start = substractingRange.end() + 1;
+    private List<MutableCodepointRange> intersection(
+        CodepointRange intersecting) {
+      List<MutableCodepointRange> intersection = new ArrayList<>();
+
+      MutableCodepointRange start = MutableCodepointRange.create(intersecting.start());
+      MutableCodepointRange end = MutableCodepointRange.create(intersecting.end());
+
+      SortedSet<MutableCodepointRange> subset = mRanges.subSet(start, end);
+
+      // Also consider the last interval which was starting before
+      try {
+        SortedSet<MutableCodepointRange> prevRanges =
+            subset.isEmpty() ? mRanges : mRanges.headSet(subset.first());
+        MutableCodepointRange prevRange = prevRanges.last();
+        if (prevRange.start < intersecting.start()) {
+          intersection.add(0, prevRange);
         }
+      } catch (NoSuchElementException e) {
+        // lastRange remains null
       }
 
-      SortedSet<MutableCodepointRange> ranges =
-          potentiallyRemoved.isEmpty() ? mRanges : mRanges.headSet(potentiallyRemoved.first());
+      intersection.addAll(subset);
 
-      potentiallyRemoved.removeAll(toRemove);
-      return ranges;
+      return intersection;
     }
 
     abstract CodepointRangeSet internalBuild();

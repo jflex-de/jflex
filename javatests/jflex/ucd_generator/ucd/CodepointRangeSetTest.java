@@ -58,13 +58,17 @@ public class CodepointRangeSetTest {
   public void substract_overlapping() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
-            .add(CodepointRange.create(1, 50))
+            .add(CodepointRange.create(1, 5))
+            .add(CodepointRange.create(10, 50))
             .add(CodepointRange.create(60, 65))
             .add(CodepointRange.create(70, 99))
             .substract(CodepointRange.create(43, 78))
             .build();
     assertThat(rangeSet.ranges())
-        .containsExactly(CodepointRange.create(1, 42), CodepointRange.create(79, 99));
+        .containsExactly(
+            CodepointRange.create(1, 5),
+            CodepointRange.create(10, 42),
+            CodepointRange.create(79, 99));
   }
 
   @Test
