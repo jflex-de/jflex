@@ -93,7 +93,7 @@ public class UnicodeData {
   }
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
-    return propertyValueIntervals.getRanges(propName);
+    return propertyValueIntervals.getRanges(propertyNameNormalizer.getCanonicalPropertyName(propName));
   }
 
   public boolean hasUsedEnumeratedProperty(String category) {
