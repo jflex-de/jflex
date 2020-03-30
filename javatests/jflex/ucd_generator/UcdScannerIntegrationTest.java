@@ -24,7 +24,7 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropertyAliases();
     assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
         .isEqualTo("canonicalcombiningclass");
-    assertThat(ucdScanner.unicodeData.getPropertyAliases("sc")).containsExactly("sc", "script");
+    assertThat(ucdScanner.unicodeData.getPropertyAliases("script")).containsExactly("sc", "script");
     assertThat(ucdScanner.unicodeData.getPropertyAliases("Bidi_Class")).containsExactly("bc", "bidiclass");
   }
 

@@ -42,14 +42,6 @@ public class PropertyValues {
     }
   }
 
-  public Set<String> getPropertyAliases(String propName) {
-    Multimap<String, String> aliases = allPropertyValueAliases.get(propName);
-    if (aliases == null) {
-      return ImmutableSet.of(propName);
-    }
-    return aliases.keySet();
-  }
-
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
     Multimap<String, String> aliases = allPropertyValueAliases.get(propName);
     if (aliases == null) {

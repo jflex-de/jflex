@@ -54,7 +54,7 @@ public class UnicodeData {
   }
 
   public void addPropertyAlias(String alias, String normalizedLongName) {
-    propertyNameNormalizer.putPropertyAlias(alias, normalizedLongName);
+    propertyNameNormalizer.putPropertyAlias(normalizedLongName, alias);
   }
 
   public void addPropertyValueAliases(
@@ -62,8 +62,8 @@ public class UnicodeData {
     propertyValues.addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
   }
 
-  public Set<String> getPropertyAliases(String propName) {
-    return propertyValues.getPropertyAliases(PropertyNameNormalizer.normalize(propName));
+  public Collection<String> getPropertyAliases(String propName) {
+    return propertyNameNormalizer.getPropertyAliases(propName);
   }
 
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
