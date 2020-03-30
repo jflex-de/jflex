@@ -11,6 +11,11 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValues {
 
+  public static final ImmutableSet<String> DEFAULT_CATEGORIES =
+      ImmutableSet.of(
+          PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY,
+          PropertyNameNormalizer.NORMALIZED_SCRIPT);
+
   /**
    * Property name: {property value: aliases of property value}
    * e.g.

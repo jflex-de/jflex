@@ -41,6 +41,10 @@ public class PropertyNameNormalizer {
                 .replace(':', '='));
   }
 
+  public static String canonicalValue(String propName, String propValue) {
+    return DEFAULT_CATEGORIES.contains(propName) ? propValue : propName + "=" + propValue;
+  }
+
   /**
    * For the given property name or alias, returns the canonical property name. If none has been
    * encountered, then the given propertyAlias itself is returned.

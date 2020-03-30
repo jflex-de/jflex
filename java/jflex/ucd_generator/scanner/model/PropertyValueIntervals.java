@@ -50,7 +50,10 @@ public class PropertyValueIntervals {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
     propValue = propertyNameNormalizer.getCanonicalPropertyName(propValue);
     addBinaryPropertyInterval(
-        propName + "=" + propValue, startCodePoint, endCodePoint, propertyNameNormalizer);
+        PropertyNameNormalizer.canonicalValue(propName, propValue),
+        startCodePoint,
+        endCodePoint,
+        propertyNameNormalizer);
     usedEnumProperties.put(propName, propValue);
   }
 

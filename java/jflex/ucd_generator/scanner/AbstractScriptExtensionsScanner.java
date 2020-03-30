@@ -1,6 +1,7 @@
 package jflex.ucd_generator.scanner;
 
-import com.google.common.collect.ImmutableSet;
+import static jflex.ucd_generator.scanner.model.PropertyValues.DEFAULT_CATEGORIES;
+
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,10 +22,6 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
  */
 public abstract class AbstractScriptExtensionsScanner {
 
-  private static final ImmutableSet<String> DEFAULT_CATEGORIES =
-      ImmutableSet.of(
-          PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY,
-          PropertyNameNormalizer.NORMALIZED_SCRIPT);;
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();
   private final Set<String> scripts = new HashSet<>();
@@ -88,11 +85,10 @@ public abstract class AbstractScriptExtensionsScanner {
     for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
       Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
       for (String propValue : propValues) {
-        String canonicalValue = propName + '=' + propValue;
+        String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
 
         // Add value-only aliases for General Category and Script properties.
         if (DEFAULT_CATEGORIES.contains(propName)) {
-          canonicalValue = propValue;
           for (String valueAlias : unicodeData.getPropertyValueAliases(propName, propValue)) {
             if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
