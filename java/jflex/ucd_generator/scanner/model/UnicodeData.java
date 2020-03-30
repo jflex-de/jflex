@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
+import jflex.ucd_generator.ucd.MutableCodepointRange;
 import jflex.ucd_generator.ucd.Version;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
@@ -138,6 +139,13 @@ public class UnicodeData {
     //                      -- [\N{LF} \N{VT} \N{FF} \N{CR} \N{NEL}
     //                          \p{gc=Line_Separator} \p{gc=Paragraph_Separator}]]
     propertyValueIntervals.addAllRanges("blank", createBlankSet());
+
+    // UTR#18: \p{graph} = [^\p{space}\p{gc=Control}\p{gc=Surrogate}\p{gc=Unassigned}]
+    propertyValueIntervals.addAllRanges("graph", createGraphSet());
+
+    // UTR#18: \p{print} = [\p{graph}\p{blank} -- \p{cntrl}]
+    // \p{cntrl} = \p{gc=Control} = \p{gc=Cc} = \p{Cc}
+    propertyValueIntervals.addAllRanges("print", createPrintSet());
   }
 
   private void addCompatibilityProperty(
@@ -155,6 +163,29 @@ public class UnicodeData {
     ranges.addAllImmutable(whitespaceRanges);
     // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
     ranges.substract(CodepointRange.create(0xA, 0xD));
+    // Subtract: \N{NEL}
+    ranges.substract(CodepointRange.create(0x85, 0x85));
+    ranges.substract(propertyValueIntervals.getRanges("zl")); // \p{gc=Line_Separator}
+    ranges.substract(propertyValueIntervals.getRanges("zp")); // \p{gc=Paragraph_Separator}
+
+    return ranges.build().ranges();
+  }
+
+  private ImmutableList<CodepointRange> createGraphSet() {
+    CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
+    ranges.add(MutableCodepointRange.create(0x0, maximumCodePoint));
+    ranges.substract(propertyValueIntervals.getRanges("whitespace"));
+    ranges.substract(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
+    ranges.substract(propertyValueIntervals.getRanges("cn")); // \p{gc=Unassigned}
+    ranges.substract(CodepointRange.create(0xD800, 0xDFFF));
+    return ranges.build().ranges();
+  }
+
+  private ImmutableList<CodepointRange> createPrintSet() {
+    CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
+    ranges.addAllImmutable(propertyValueIntervals.getRanges("graph"));
+    ranges.addAllImmutable(propertyValueIntervals.getRanges("blank"));
+    ranges.substract(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
     return ranges.build().ranges();
   }
 }

@@ -67,6 +67,16 @@ public abstract class CodepointRangeSet {
       return this;
     }
 
+    public void substract(ImmutableList<CodepointRange> substractingRanges) {
+      int end = mRanges.last().end;
+      for (CodepointRange substractingRange : substractingRanges) {
+        if (substractingRange.start() > end) {
+          return;
+        }
+        substract(substractingRange);
+      }
+    }
+
     /**
      * Removes all values in the {@link CodepointRangeSet} that are within {@code
      * substractingRange}.
@@ -87,8 +97,9 @@ public abstract class CodepointRangeSet {
       if (!last.equals(first)) {
         sub(last, substractingRange);
       }
-      mRanges.removeAll(intersection.subList(1, intersection.size() - 1));
-
+      if (intersection.size() > 2) {
+        mRanges.removeAll(intersection.subList(1, intersection.size() - 1));
+      }
       return this;
     }
 
