@@ -1,5 +1,6 @@
 package jflex.ucd_generator.scanner.model;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
@@ -58,8 +59,9 @@ public class PropertyValues {
   }
 
   public String getCanonicalName(String normalizedPropName, String propValue) {
-    return propertyValueAlias2CanonicalValue
-        .get(normalizedPropName)
+    Map<String, String> canonicalPropName = Preconditions.checkNotNull(propertyValueAlias2CanonicalValue
+        .get(normalizedPropName), "Unknown canonical name for %s", normalizedPropName);
+    return canonicalPropName
         .get(PropertyNameNormalizer.normalize(propValue));
   }
 }

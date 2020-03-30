@@ -9,8 +9,8 @@ java_test(
 )
 
 java_test(
-    name = "UcdScannerTest",
-    srcs = ["UcdScannerTest.java"],
+    name = "UcdScannerIntegrationTest",
+    srcs = ["UcdScannerIntegrationTest.java"],
     deps = [
         ":tested_versions",
         "//java/jflex/ucd_generator",

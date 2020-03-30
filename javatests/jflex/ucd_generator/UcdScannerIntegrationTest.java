@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /** Integration test for the {@link UcdScanner}. */
-public class UcdScannerTest {
+public class UcdScannerIntegrationTest {
 
   private UcdScanner ucdScanner;
 
