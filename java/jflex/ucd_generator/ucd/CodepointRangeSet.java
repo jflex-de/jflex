@@ -68,7 +68,8 @@ public abstract class CodepointRangeSet {
     }
 
     /**
-     * Removes all values in the {@link CodepointRangeSet} that are within {@code substractingRange}.
+     * Removes all values in the {@link CodepointRangeSet} that are within {@code
+     * substractingRange}.
      *
      * <p>This method assumes intervals are ordered and non-overlapping.
      */
@@ -76,8 +77,7 @@ public abstract class CodepointRangeSet {
       if (mRanges.isEmpty()) {
         return this;
       }
-      List<MutableCodepointRange> intersection =
-          intersection(substractingRange);
+      List<MutableCodepointRange> intersection = intersection(substractingRange);
       if (intersection.isEmpty()) {
         return this;
       }
@@ -96,7 +96,8 @@ public abstract class CodepointRangeSet {
     private void sub(MutableCodepointRange range, CodepointRange sub) {
       if (sub.start() < range.start && sub.end() > range.end) {
         mRanges.remove(range);
-      } if (range.start < sub.start() && sub.end() < range.end) {
+      }
+      if (range.start < sub.start() && sub.end() < range.end) {
         // sub is a strict subset
         mRanges.add(MutableCodepointRange.create(sub.end() + 1, range.end));
         range.end = sub.start() - 1;
@@ -105,15 +106,13 @@ public abstract class CodepointRangeSet {
       } else if (range.end < sub.end()) {
         range.end = sub.start() - 1;
       } else {
-        throw new IllegalStateException(String.format("Cannot remove sub=%s from range=%s", sub, range));
+        throw new IllegalStateException(
+            String.format("Cannot remove sub=%s from range=%s", sub, range));
       }
     }
 
-    /**
-     * Returns all intervals that intersect with intersecting.
-     */
-    private List<MutableCodepointRange> intersection(
-        CodepointRange intersecting) {
+    /** Returns all intervals that intersect with intersecting. */
+    private List<MutableCodepointRange> intersection(CodepointRange intersecting) {
       List<MutableCodepointRange> intersection = new ArrayList<>();
 
       MutableCodepointRange start = MutableCodepointRange.create(intersecting.start());
