@@ -105,16 +105,15 @@ public abstract class CodepointRangeSet {
 
     /** Removes sub from range and updates mRanges. */
     private void sub(MutableCodepointRange range, CodepointRange sub) {
-      if (sub.start() < range.start && sub.end() > range.end) {
+      if (sub.start() <= range.start && sub.end() >= range.end) {
         mRanges.remove(range);
-      }
-      if (range.start < sub.start() && sub.end() < range.end) {
+      } else if (range.start < sub.start() && sub.end() < range.end) {
         // sub is a strict subset
         mRanges.add(MutableCodepointRange.create(sub.end() + 1, range.end));
         range.end = sub.start() - 1;
       } else if (sub.start() < range.start) {
         range.start = sub.end() + 1;
-      } else if (range.end < sub.end()) {
+      } else if (range.end <= sub.end()) {
         range.end = sub.start() - 1;
       } else {
         throw new IllegalStateException(

@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import org.junit.Test;
 
+/** Test for {@link CodepointRangeSet}. */
 public class CodepointRangeSetTest {
   @Test
   public void add_disjoined() {
@@ -69,6 +70,26 @@ public class CodepointRangeSetTest {
             CodepointRange.create(1, 5),
             CodepointRange.create(10, 42),
             CodepointRange.create(79, 99));
+  }
+
+  @Test
+  public void substract_self() {
+    CodepointRangeSet rangeSet =
+        CodepointRangeSet.builder()
+            .add(CodepointRange.create(1, 42))
+            .substract(CodepointRange.create(1, 42))
+            .build();
+    assertThat(rangeSet.ranges()).isEmpty();
+  }
+
+  @Test
+  public void substract_endsEqual() {
+    CodepointRangeSet rangeSet =
+        CodepointRangeSet.builder()
+            .add(CodepointRange.create(917536, 1114111))
+            .substract(CodepointRange.create(1114110, 1114111))
+            .build();
+    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(917536,1114109));
   }
 
   @Test

@@ -1,5 +1,6 @@
 package jflex.ucd_generator.util;
 
+import com.google.common.collect.ImmutableSet;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -17,6 +18,11 @@ public class PropertyNameNormalizer {
   public static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
   /** Normalized Script property name */
   public static final String NORMALIZED_SCRIPT = normalize("Script");
+
+  public static final ImmutableSet<String> DEFAULT_CATEGORIES =
+      ImmutableSet.of(
+          NORMALIZED_GENERAL_CATEGORY,
+          NORMALIZED_SCRIPT);
 
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 

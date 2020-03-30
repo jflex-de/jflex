@@ -1,6 +1,6 @@
 package jflex.ucd_generator.scanner;
 
-import static jflex.ucd_generator.scanner.model.PropertyValues.DEFAULT_CATEGORIES;
+import static jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
 
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.Collection;
