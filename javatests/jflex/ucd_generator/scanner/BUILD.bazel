@@ -15,7 +15,7 @@ java_test(
     name = "UnicodeDataScannerIntegrationTest",
     srcs = ["UnicodeDataScannerIntegrationTest.java"],
     data = [
-        "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_5_0",
         "//third_party/unicode:ucd_4_1_0",
     ],
     deps = [

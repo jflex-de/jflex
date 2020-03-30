@@ -20,7 +20,7 @@ public class DerivedAgeScannerTest {
 
   @Before
   public void setUp() throws IOException {
-    unicodeData = new UnicodeData(TestedVersions.UCD_VERSION_10.version());
+    unicodeData = new UnicodeData(TestedVersions.UCD_VERSION_5_0.version());
     derivedAgeScanner =
         new DerivedAgeScanner(
             CharSource.wrap("unused").openStream(),

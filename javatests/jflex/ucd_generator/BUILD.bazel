@@ -17,6 +17,9 @@ java_test(
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
     ],
+    data =  [
+        "//third_party/unicode:ucd_5_0_0",
+    ]
 )
 
 java_library(

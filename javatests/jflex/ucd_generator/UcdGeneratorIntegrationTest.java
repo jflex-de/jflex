@@ -9,11 +9,11 @@ import org.junit.Test;
 public class UcdGeneratorIntegrationTest {
 
   @Test
-  public void emitUnicodeVersionXY_10_0() throws Exception {
+  public void emitUnicodeVersionXY_5_0() throws Exception {
     File outputDir = new File("/tmp");
-    UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_10, outputDir);
+    UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_5_0, outputDir);
 
-    File f = new File(outputDir, "Unicode_10_0.java");
+    File f = new File(outputDir, "Unicode_5_0.java");
     assertThat(f.exists()).isTrue();
   }
 }

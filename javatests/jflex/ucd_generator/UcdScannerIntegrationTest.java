@@ -15,8 +15,8 @@ public class UcdScannerIntegrationTest {
 
   @Before
   public void ucdScanner() {
-    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_10);
-    assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(10, 0));
+    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_5_0);
+    assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(5, 0, 0));
   }
 
   @Test
@@ -24,7 +24,8 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropertyAliases();
     assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
         .isEqualTo("canonicalcombiningclass");
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90")).containsExactly("v90");
+    assertThat(ucdScanner.unicodeData.getPropertyAliases("sc")).containsExactly("sc", "script");
+    assertThat(ucdScanner.unicodeData.getPropertyAliases("Bidi_Class")).containsExactly("bc", "bidiclass");
   }
 
   @Test

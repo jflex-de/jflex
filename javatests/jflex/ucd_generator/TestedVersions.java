@@ -8,30 +8,30 @@ import jflex.ucd_generator.ucd.Version;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
-  public static final UcdVersion UCD_VERSION_10 =
+  public static final UcdVersion UCD_VERSION_5_0 =
       UcdVersion.builder()
-          .setVersion(new Version(10, 0))
-          .putFile(UcdFileType.PropertyAliases, ucd10File("PropertyAliases.txt"))
-          .putFile(UcdFileType.PropertyValueAliases, ucd10File("PropertyValueAliases.txt"))
-          .putFile(UcdFileType.UnicodeData, ucd10File("UnicodeData.txt"))
-          .putFile(UcdFileType.PropList, ucd10File("PropList.txt"))
-          .putFile(UcdFileType.DerivedCoreProperties, ucd10File("DerivedCoreProperties.txt"))
-          .putFile(UcdFileType.Scripts, ucd10File("Scripts.txt"))
-          .putFile(UcdFileType.ScriptExtensions, ucd10File("ScriptExtensions.txt"))
-          .putFile(UcdFileType.Blocks, ucd10File("Blocks.txt"))
-          .putFile(UcdFileType.LineBreak, ucd10File("LineBreak.txt"))
-          .putFile(UcdFileType.GraphemeBreakProperty, ucd10AuxFile("GraphemeBreakProperty.txt"))
-          .putFile(UcdFileType.SentenceBreakProperty, ucd10AuxFile("SentenceBreakProperty.txt"))
-          .putFile(UcdFileType.WordBreakProperty, ucd10AuxFile("WordBreakProperty.txt"))
-          .putFile(UcdFileType.DerivedAge, ucd10File("DerivedAge.txt"))
+          .setVersion(new Version(5, 0, 0))
+          .putFile(UcdFileType.PropertyAliases, ucd5File("PropertyAliases.txt"))
+          .putFile(UcdFileType.PropertyValueAliases, ucd5File("PropertyValueAliases.txt"))
+          .putFile(UcdFileType.UnicodeData, ucd5File("UnicodeData.txt"))
+          .putFile(UcdFileType.PropList, ucd5File("PropList.txt"))
+          .putFile(UcdFileType.DerivedCoreProperties, ucd5File("DerivedCoreProperties.txt"))
+          .putFile(UcdFileType.Scripts, ucd5File("Scripts.txt"))
+          .putFile(UcdFileType.ScriptExtensions, ucd5File("ScriptExtensions.txt"))
+          .putFile(UcdFileType.Blocks, ucd5File("Blocks.txt"))
+          .putFile(UcdFileType.LineBreak, ucd5File("LineBreak.txt"))
+          .putFile(UcdFileType.GraphemeBreakProperty, ucd5AuxFile("GraphemeBreakProperty.txt"))
+          .putFile(UcdFileType.SentenceBreakProperty, ucd5AuxFile("SentenceBreakProperty.txt"))
+          .putFile(UcdFileType.WordBreakProperty, ucd5AuxFile("WordBreakProperty.txt"))
+          .putFile(UcdFileType.DerivedAge, ucd5File("DerivedAge.txt"))
           .build();
 
-  private static File ucd10AuxFile(String name) {
-    return ucdAuxFile("ucd_10", name);
+  private static File ucd5AuxFile(String name) {
+    return ucdAuxFile("ucd_5_0_0", name);
   }
 
-  private static File ucd10File(String name) {
-    return ucdFile("ucd_10", name);
+  private static File ucd5File(String name) {
+    return ucdFile("ucd_5_0_0", name);
   }
 
   private static File ucdAuxFile(String bazelVersionTarget, String name) {
