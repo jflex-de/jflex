@@ -68,7 +68,7 @@ public abstract class CodepointRangeSet {
     }
 
     /**
-     * Removes all values in the {@link CodepointRangeSet} that are withing {@code substractingRange}.
+     * Removes all values in the {@link CodepointRangeSet} that are within {@code substractingRange}.
      *
      * <p>This method assumes intervals are ordered and non-overlapping.
      */
@@ -82,28 +82,31 @@ public abstract class CodepointRangeSet {
         return this;
       }
       MutableCodepointRange first = intersection.get(0);
-      if (first.end > substractingRange.start()) {
-        // Maybe the first is partially intersecting
-        if (first.end > substractingRange.end()) {
-          mRanges.add(MutableCodepointRange.create(substractingRange.end() + 1, first.end));
-        }
-        if (first.start < substractingRange.start()) {
-          first.end = substractingRange.start() - 1;
-          intersection.remove(0);
-        }
+      sub(first, substractingRange);
+      MutableCodepointRange last = intersection.get(intersection.size() - 1);
+      if (!last.equals(first)) {
+        sub(last, substractingRange);
       }
-
-      if (!intersection.isEmpty()) {
-        // Maybe the last is only partially intersecting
-        MutableCodepointRange last = intersection.get(intersection.size() - 1);
-        if (last.start < substractingRange.end() && substractingRange.end() < last.end) {
-          last.start =  substractingRange.end() + 1;
-          intersection.remove(intersection.size() - 1);
-        }
-        mRanges.removeAll(intersection);
-      }
+      mRanges.removeAll(intersection.subList(1, intersection.size() - 1));
 
       return this;
+    }
+
+    /** Removes sub from range and updates mRanges. */
+    private void sub(MutableCodepointRange range, CodepointRange sub) {
+      if (sub.start() < range.start && sub.end() > range.end) {
+        mRanges.remove(range);
+      } if (range.start < sub.start() && sub.end() < range.end) {
+        // sub is a strict subset
+        mRanges.add(MutableCodepointRange.create(sub.end() + 1, range.end));
+        range.end = sub.start() - 1;
+      } else if (sub.start() < range.start) {
+        range.start = sub.end() + 1;
+      } else if (range.end < sub.end()) {
+        range.end = sub.start() - 1;
+      } else {
+        throw new IllegalStateException(String.format("Cannot remove sub=%s from range=%s", sub, range));
+      }
     }
 
     /**
