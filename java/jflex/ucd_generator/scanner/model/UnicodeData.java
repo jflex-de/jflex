@@ -4,10 +4,10 @@ import static java.util.Arrays.asList;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -109,8 +109,8 @@ public class UnicodeData {
   }
 
   /** Returns the code point range by property. */
-  public Map<String, Collection<CodepointRange>> intervals() {
-    return propertyValueIntervals.asMap();
+  public ImmutableSortedMap<String, ImmutableCollection<CodepointRange>> intervals() {
+    return propertyValueIntervals.asSortedMap();
   }
 
   public ImmutableList<String> propertyValueAliases() {

@@ -4,13 +4,13 @@ import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
@@ -96,7 +96,12 @@ public class PropertyValueIntervals {
     return propertyValueIntervals.keySet();
   }
 
-  public Map<String, Collection<CodepointRange>> asMap() {
-    return Multimaps.asMap(propertyValueIntervals);
+  public ImmutableSortedMap<String, ImmutableCollection<CodepointRange>> asSortedMap() {
+    ImmutableSortedMap.Builder<String, ImmutableCollection<CodepointRange>> map =
+        ImmutableSortedMap.naturalOrder();
+    for (String property : propertyValueIntervals.keySet()) {
+      map.put(property, ImmutableList.copyOf(propertyValueIntervals.get(property)));
+    }
+    return map.build();
   }
 }
