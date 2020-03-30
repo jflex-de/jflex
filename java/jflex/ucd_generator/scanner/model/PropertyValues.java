@@ -36,7 +36,7 @@ public class PropertyValues {
     aliasesForName.putAll(normalizedPropertyValue, aliases);
 
     Map<String, String> aliasMap =
-        propertyValueAlias2CanonicalValue.computeIfAbsent(propertyName, k -> new HashMap());
+        propertyValueAlias2CanonicalValue.computeIfAbsent(propertyName, k -> new HashMap<>());
     for (String propertyValueAlias : aliases) {
       aliasMap.put(PropertyNameNormalizer.normalize(propertyValueAlias), normalizedPropertyValue);
     }
@@ -47,13 +47,15 @@ public class PropertyValues {
     if (aliases == null) {
       return ImmutableSet.of(propValue);
     }
-    return aliases.get(propValue);
+    return aliases.get(getCanonicalValueName(propName, propValue));
   }
 
-  public String getCanonicalName(String normalizedPropName, String propValue) {
-    Map<String, String> canonicalPropName = Preconditions.checkNotNull(propertyValueAlias2CanonicalValue
-        .get(normalizedPropName), "Unknown canonical name for %s", normalizedPropName);
-    return canonicalPropName
-        .get(PropertyNameNormalizer.normalize(propValue));
+  public String getCanonicalValueName(String normalizedPropName, String propValue) {
+    Map<String, String> canonicalPropValueNames =
+        Preconditions.checkNotNull(
+            propertyValueAlias2CanonicalValue.get(normalizedPropName),
+            "Unknown canonical name for %s",
+            normalizedPropName);
+    return canonicalPropValueNames.get(PropertyNameNormalizer.normalize(propValue));
   }
 }

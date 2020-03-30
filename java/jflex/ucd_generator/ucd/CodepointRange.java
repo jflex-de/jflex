@@ -31,6 +31,10 @@ public abstract class CodepointRange {
     return new AutoValue_CodepointRange(start, end);
   }
 
+  public static CodepointRange createPoint(int codePoint) {
+    return create(codePoint, codePoint);
+  }
+
   public static CodepointRange create(MutableCodepointRange mutableCodepointRange) {
     return create(mutableCodepointRange.start, mutableCodepointRange.end);
   }

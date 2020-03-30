@@ -25,19 +25,23 @@ public class UcdScannerIntegrationTest {
     assertThat(ucdScanner.unicodeData.getCanonicalPropertyName("ccc"))
         .isEqualTo("canonicalcombiningclass");
     assertThat(ucdScanner.unicodeData.getPropertyAliases("script")).containsExactly("sc", "script");
-    assertThat(ucdScanner.unicodeData.getPropertyAliases("Bidi_Class")).containsExactly("bc", "bidiclass");
+    assertThat(ucdScanner.unicodeData.getPropertyAliases("Bidi_Class"))
+        .containsExactly("bc", "bidiclass");
   }
 
   @Test
   public void scanPropertyValueAliases() throws Exception {
     ucdScanner.scanPropertyAliases();
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90")).containsExactly("v90");
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"))
+        .containsExactly("at");
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"))
+        .containsExactly("aterm");
 
     ucdScanner.scanPropertyValueAliases();
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("age", "v90"))
-        .containsExactly("v90", "9.0");
-    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("wordbreak", "midnum"))
-        .containsExactly("midnum", "mn");
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "at"))
+        .containsExactly("at", "aterm");
+    assertThat(ucdScanner.unicodeData.getPropertyValueAliases("sentencebreak", "aterm"))
+        .containsExactly("at", "aterm");
   }
 
   @Test
@@ -49,8 +53,12 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanUnicodeData();
     assertThat(ucdScanner.unicodeData.maximumCodePoint()).isEqualTo(1114111);
     assertThat(ucdScanner.unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("generalcategory=cc"))
-        .containsExactly(CodepointRange.create(0, 31), CodepointRange.create(127, 159));
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("otheridstart"))
+        .containsExactly(
+            CodepointRange.createPoint(0x2118),
+            CodepointRange.createPoint(0x212e),
+            CodepointRange.create(0x309b, 0x309c))
+        .inOrder();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("assigned")).hasSize(649);
   }
 

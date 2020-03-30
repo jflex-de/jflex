@@ -54,7 +54,7 @@ public class PropertyValueIntervals {
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
-    propValue = propertyValues.getCanonicalName(propName, propValue);
+    propValue = propertyValues.getCanonicalValueName(propName, propValue);
     addBinaryPropertyInterval(
         PropertyNameNormalizer.canonicalValue(propName, propValue),
         startCodePoint,
@@ -86,10 +86,6 @@ public class PropertyValueIntervals {
       return ImmutableList.of();
     }
     return ImmutableList.copyOf(ranges);
-  }
-
-  public boolean hasProperty(String propName) {
-    return propertyValueIntervals.containsKey(propName);
   }
 
   public Set<String> keySet() {

@@ -11,15 +11,15 @@ java_test(
 java_test(
     name = "UcdScannerIntegrationTest",
     srcs = ["UcdScannerIntegrationTest.java"],
+    data = [
+        "//third_party/unicode:ucd_5_0_0",
+    ],
     deps = [
         ":tested_versions",
         "//java/jflex/ucd_generator",
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
     ],
-    data =  [
-        "//third_party/unicode:ucd_5_0_0",
-    ]
 )
 
 java_library(

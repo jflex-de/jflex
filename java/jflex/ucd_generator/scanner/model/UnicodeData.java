@@ -71,7 +71,7 @@ public class UnicodeData {
   }
 
   public String getPropertyValueCanonicalName(String propName, String propValue) {
-    return propertyValues.getCanonicalName(propName, propValue);
+    return propertyValues.getCanonicalValueName(propName, propValue);
   }
 
   public void addPropertyInterval(String propertyName, int start, int end) {
