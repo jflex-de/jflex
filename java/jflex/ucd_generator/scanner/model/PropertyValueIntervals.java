@@ -17,11 +17,17 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
 
+  private final PropertyValues propertyValues;
+
   Set<String> usedBinaryProperties = new HashSet<>();
 
   Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
   private final Multimap<String, CodepointRange> propertyValueIntervals = HashMultimap.create();
+
+  public PropertyValueIntervals(PropertyValues propertyValues) {
+    this.propertyValues = propertyValues;
+  }
 
   /**
    * Given a binary property name, and starting and ending code points, adds the interval to the
@@ -48,7 +54,7 @@ public class PropertyValueIntervals {
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
-    propValue = propertyNameNormalizer.getCanonicalPropertyName(propValue);
+    propValue = propertyValues.getCanonicalName(propName, propValue);
     addBinaryPropertyInterval(
         PropertyNameNormalizer.canonicalValue(propName, propValue),
         startCodePoint,

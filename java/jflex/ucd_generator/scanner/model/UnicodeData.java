@@ -22,7 +22,8 @@ public class UnicodeData {
   private final PropertyValues propertyValues = new PropertyValues();
 
   /** Maps Unicode property values to the associated set of code point ranges. */
-  private final PropertyValueIntervals propertyValueIntervals = new PropertyValueIntervals();
+  private final PropertyValueIntervals propertyValueIntervals =
+      new PropertyValueIntervals(propertyValues);
 
   private final CaselessMatches caselessMatches = new CaselessMatches();
 
@@ -67,6 +68,10 @@ public class UnicodeData {
 
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
     return propertyValues.getPropertyValueAliases(propName, propValue);
+  }
+
+  public String getPropertyValueCanonicalName(String propName, String propValue) {
+    return propertyValues.getCanonicalName(propName, propValue);
   }
 
   public void addPropertyInterval(String propertyName, int start, int end) {

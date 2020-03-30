@@ -56,4 +56,10 @@ public class PropertyValues {
     }
     return aliases.get(propValue);
   }
+
+  public String getCanonicalName(String normalizedPropName, String propValue) {
+    return propertyValueAlias2CanonicalValue
+        .get(normalizedPropName)
+        .get(PropertyNameNormalizer.normalize(propValue));
+  }
 }

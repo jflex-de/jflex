@@ -89,7 +89,7 @@ public class CodepointRangeSetTest {
             .add(CodepointRange.create(917536, 1114111))
             .substract(CodepointRange.create(1114110, 1114111))
             .build();
-    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(917536,1114109));
+    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(917536, 1114109));
   }
 
   @Test

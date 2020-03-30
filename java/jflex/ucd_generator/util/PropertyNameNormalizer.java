@@ -20,9 +20,7 @@ public class PropertyNameNormalizer {
   public static final String NORMALIZED_SCRIPT = normalize("Script");
 
   public static final ImmutableSet<String> DEFAULT_CATEGORIES =
-      ImmutableSet.of(
-          NORMALIZED_GENERAL_CATEGORY,
-          NORMALIZED_SCRIPT);
+      ImmutableSet.of(NORMALIZED_GENERAL_CATEGORY, NORMALIZED_SCRIPT);
 
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
