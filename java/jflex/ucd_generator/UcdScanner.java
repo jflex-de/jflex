@@ -12,6 +12,7 @@ import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
 import jflex.ucd_generator.scanner.ScriptExtensionsScanner;
+import jflex.ucd_generator.scanner.UcdScannerException;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
@@ -27,24 +28,31 @@ public class UcdScanner {
   }
 
   /** Scans all UCD data files. */
-  public UnicodeData scan() throws IOException {
+  public UnicodeData scan() throws UcdScannerException {
+    try {
+      scanPropertyAliases();
+      scanPropertyValueAliases();
+      scanUnicodeData();
+      scanPropList();
+      scanDerivedCoreProperties();
+      scanScripts();
+      scanScriptExtensions();
+      scanBlocks();
+      scanLineBreak();
+      scanGraphemeBreakProperty();
+      scanSentenceBreakProperty();
+      scanWordBreakProperty();
+      scanDerivedAge();
+      unicodeData.addCompatibilityProperties();
 
-    scanPropertyAliases();
-    scanPropertyValueAliases();
-    scanUnicodeData();
-    scanPropList();
-    scanDerivedCoreProperties();
-    scanScripts();
-    scanScriptExtensions();
-    scanBlocks();
-    scanLineBreak();
-    scanGraphemeBreakProperty();
-    scanSentenceBreakProperty();
-    scanWordBreakProperty();
-    scanDerivedAge();
-    unicodeData.addCompatibilityProperties();
-
-    return unicodeData;
+      return unicodeData;
+    } catch (Throwable thr) {
+      String cause =  (thr.getMessage() != null )
+          ? thr.getMessage()
+          : "Unknown error";
+      throw new UcdScannerException(
+          "Failed to emit Unicode properties for version " + ucdVersion.version() + " : " + cause, thr);
+    }
   }
 
   void scanPropertyAliases() throws IOException {
