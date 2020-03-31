@@ -93,6 +93,16 @@ public class CodepointRangeSetTest {
   }
 
   @Test
+  public void substract_startsEqual() {
+    CodepointRangeSet rangeSet =
+        CodepointRangeSet.builder()
+            .add(CodepointRange.create('\ud800', '\ufa2d'))
+            .substract(CodepointRange.create('\ud800', '\udfff'))
+            .build();
+    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create('\ue000', '\ufa2d'));
+  }
+
+  @Test
   public void substract_removeAll() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()

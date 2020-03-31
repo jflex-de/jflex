@@ -7,7 +7,7 @@ import java.util.Comparator;
 public abstract class NamedCodepointRange {
 
   public static final Comparator<NamedCodepointRange> START_COMPARATOR =
-      (o1, o2) -> CodepointRange.START_COMPARATOR.compare(o1.range(), o2.range());
+      (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
 
   public abstract String name();
 

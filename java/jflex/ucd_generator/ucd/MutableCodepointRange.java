@@ -20,9 +20,9 @@ public class MutableCodepointRange {
   @Override
   public String toString() {
     if (start == end) {
-      return String.valueOf(start);
+      return String.format("\\u%04x", start);
     }
-    return start + "…" + end;
+    return String.format("\\u%04x" + "…" + "\\u%04x", start, end);
   }
 
   public static MutableCodepointRange create(CodepointRange range) {

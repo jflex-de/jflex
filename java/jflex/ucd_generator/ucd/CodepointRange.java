@@ -6,8 +6,11 @@ import java.util.Comparator;
 @AutoValue
 public abstract class CodepointRange {
 
-  public static final Comparator<CodepointRange> START_COMPARATOR =
-      (left, right) -> Integer.compare(left.start(), right.start());
+  public static final Comparator<CodepointRange> COMPARATOR =
+      (left, right) -> {
+        int startComparison = Integer.compare(left.start(), right.start());
+        return startComparison == 0 ? Integer.compare(left.end(), right.end()) : startComparison;
+      };
 
   /** Start code-point, included. */
   public abstract int start();

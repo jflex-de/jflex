@@ -111,7 +111,7 @@ public abstract class CodepointRangeSet {
         // sub is a strict subset
         mRanges.add(MutableCodepointRange.create(sub.end() + 1, range.end));
         range.end = sub.start() - 1;
-      } else if (sub.start() < range.start) {
+      } else if (sub.start() <= range.start) {
         range.start = sub.end() + 1;
       } else if (range.end <= sub.end()) {
         range.end = sub.start() - 1;
