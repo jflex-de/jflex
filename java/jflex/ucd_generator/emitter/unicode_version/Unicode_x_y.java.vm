@@ -26,10 +26,10 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- // TODO(regisd) Move in same package
+// TODO(regisd) Move in same package
 package ${packageName}.data;
 
-// TODO(regisd) Restric to package visibility
+// TODO(regisd) Restrict to package visibility
 public class $className {
 
   // Only holds constants.

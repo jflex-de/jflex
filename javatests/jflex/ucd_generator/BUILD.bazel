@@ -1,9 +1,15 @@
 java_test(
     name = "UcdGeneratorIntegrationTest",
     srcs = ["UcdGeneratorIntegrationTest.java"],
+    data = [
+        "Unicode_5_0.java.golden",
+        "//third_party/unicode:ucd_5_0_0",
+    ],
     deps = [
         ":tested_versions",
+        "//java/jflex/testing/diff",
         "//java/jflex/ucd_generator",
+        "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
     ],
 )
