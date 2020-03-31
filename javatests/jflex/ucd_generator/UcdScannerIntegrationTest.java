@@ -67,7 +67,8 @@ public class UcdScannerIntegrationTest {
 
     ucdScanner.scanUnicodeData();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
-        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
+        .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME)
+        .inOrder();
     assertThat(ucdScanner.unicodeData.maximumCodePoint()).isEqualTo(1114111);
     assertThat(ucdScanner.unicodeData.maxCaselessMatchPartitionSize()).isEqualTo(4);
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("generalcategory"))

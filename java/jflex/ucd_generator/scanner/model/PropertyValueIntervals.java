@@ -3,11 +3,13 @@ package jflex.ucd_generator.scanner.model;
 import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Ordering;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,8 @@ import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
+
+  private static final boolean DEBUG = true;
 
   private final PropertyValues propertyValues;
 
@@ -73,6 +77,11 @@ public class PropertyValueIntervals {
       return;
     }
     propertyValueIntervals.putAll(propName, ranges);
+    if (DEBUG) {
+      Preconditions.checkState(
+          Ordering.from(CodepointRange.START_COMPARATOR)
+              .isOrdered(propertyValueIntervals.get(propName)));
+    }
   }
 
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
