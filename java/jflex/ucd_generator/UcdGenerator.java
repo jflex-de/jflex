@@ -92,8 +92,7 @@ public class UcdGenerator {
     }
   }
 
-  private static UnicodeData scanUnicodeVersion(UcdVersion ucdVersion)
-      throws UcdScannerException {
+  private static UnicodeData scanUnicodeVersion(UcdVersion ucdVersion) throws UcdScannerException {
     return new UcdScanner(ucdVersion).scan();
   }
 

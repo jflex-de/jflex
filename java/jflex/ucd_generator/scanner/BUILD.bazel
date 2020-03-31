@@ -29,8 +29,8 @@ java_library(
 java_library(
     name = "exception",
     srcs = ["UcdScannerException.java"],
-    deps = [],
     visibility = ["//java/jflex/ucd_generator:__subpackages__"],
+    deps = [],
 )
 
 jflex(

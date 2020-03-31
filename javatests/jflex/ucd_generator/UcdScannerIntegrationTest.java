@@ -104,7 +104,6 @@ public class UcdScannerIntegrationTest {
         .contains(CodepointRange.create(48, 57));
   }
 
-  @Ignore // TODO
   @Test
   public void scanScripts() throws Exception {
     ucdScanner.scanPropertyAliases();
@@ -123,7 +122,6 @@ public class UcdScannerIntegrationTest {
     //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlm"));
   }
 
-  @Ignore // TODO
   @Test
   public void scanScripExtensions() throws Exception {
     ucdScanner.scanPropertyAliases();
@@ -138,12 +136,10 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanScriptExtensions();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
         .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
         .isNotEmpty();
-    // TODO(regisd) It seems I'm missing some property value aliases
-    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
-    //
-    // .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"));
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
+        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"));
   }
 
   @Ignore // TODO

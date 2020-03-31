@@ -1,6 +1,9 @@
 package jflex.ucd_generator;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,6 +22,9 @@ import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 
 public class UcdScanner {
+
+  private static final boolean DEBUG = true;
+
   private final UcdVersion ucdVersion;
   final UnicodeData unicodeData;
 
@@ -47,11 +53,10 @@ public class UcdScanner {
 
       return unicodeData;
     } catch (Throwable thr) {
-      String cause =  (thr.getMessage() != null )
-          ? thr.getMessage()
-          : "Unknown error";
+      String cause = (thr.getMessage() != null) ? thr.getMessage() : "Unknown error";
       throw new UcdScannerException(
-          "Failed to emit Unicode properties for version " + ucdVersion.version() + " : " + cause, thr);
+          "Failed to emit Unicode properties for version " + ucdVersion.version() + " : " + cause,
+          thr);
     }
   }
 
@@ -181,12 +186,14 @@ public class UcdScanner {
               unicodeData,
               defaultPropertyName,
               defaultPropertyValue);
-      // ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
+      ImmutableSet<String> before =
+          DEBUG ? ImmutableSet.copyOf(unicodeData.propertyValues()) : ImmutableSet.of();
       scanner.scan();
-      // SetView<String> diff =
-      //     Sets.difference(
-      //         new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
-      // System.out.println(diff);
+      if (DEBUG) {
+        SetView<String> diff =
+            Sets.difference(ImmutableSet.copyOf(unicodeData.propertyValues()), before);
+        System.out.println(diff);
+      }
     }
   }
 
