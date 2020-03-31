@@ -41,4 +41,8 @@ public abstract class CodepointRange {
   public static CodepointRange create(MutableCodepointRange mutableCodepointRange) {
     return create(mutableCodepointRange.start, mutableCodepointRange.end);
   }
+
+  public boolean contains(CodepointRange range) {
+    return this.start() <= range.start() && range.end() <= this.end();
+  }
 }

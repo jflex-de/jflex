@@ -109,7 +109,8 @@ public class UcdScanner {
 
   void scanScriptExtensions() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
-    if (file != null && file.isFile()) {
+    if (file != null) {
+      assertFileExists(file);
       ScriptExtensionsScanner scanner =
           new ScriptExtensionsScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();

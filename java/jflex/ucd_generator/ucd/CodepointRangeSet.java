@@ -147,11 +147,19 @@ public abstract class CodepointRangeSet {
       return intersection;
     }
 
-    abstract CodepointRangeSet internalBuild();
-
     public CodepointRangeSet build() {
-      rangesBuilder().addAll(mRanges.stream().map(CodepointRange::create).iterator());
+      MutableCodepointRange lastRange = MutableCodepointRange.create(-1);
+      for (MutableCodepointRange r : mRanges) {
+        if (lastRange.end + 1 == r.start) {
+          lastRange.end = r.end;
+        } else {
+          rangesBuilder().add(CodepointRange.create(r));
+          lastRange = r;
+        }
+      }
       return internalBuild();
     }
+
+    abstract CodepointRangeSet internalBuild();
   }
 }

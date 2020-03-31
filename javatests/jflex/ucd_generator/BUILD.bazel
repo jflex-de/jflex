@@ -18,7 +18,7 @@ java_test(
     name = "UcdScannerIntegrationTest",
     srcs = ["UcdScannerIntegrationTest.java"],
     data = [
-        "//third_party/unicode:ucd_5_0_0",
+        "//third_party/unicode:ucd_6_0_0",
     ],
     deps = [
         ":tested_versions",

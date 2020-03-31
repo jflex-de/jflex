@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.stream.Collectors;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
@@ -123,6 +124,17 @@ public class PropertyValueIntervals {
       map.put(property, ImmutableList.copyOf(propertyValueIntervals.get(property)));
     }
     return map.build();
+  }
+
+  public boolean codePointInProperty(int codepoint, String propName) {
+    // The codepoint could be in the last range stating before
+    CodepointRange point = CodepointRange.createPoint(codepoint);
+    SortedSet<CodepointRange> ranges = propertyValueIntervals.get(propName);
+    SortedSet<CodepointRange> head = ranges.headSet(point);
+    if (head.isEmpty()) {
+      return false;
+    }
+    return head.last().contains(point);
   }
 
   static class PropertyValueMultiMap extends ForwardingSortedSetMultimap<String, CodepointRange> {

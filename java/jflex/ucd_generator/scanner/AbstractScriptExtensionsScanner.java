@@ -48,13 +48,15 @@ public abstract class AbstractScriptExtensionsScanner {
   }
 
   void addPropertyValueIntervals() {
-    // Add script property value for missing code points
+    // Add script property value for missing code points.
+    // TODO(regisd) why???
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
       for (CodepointRange range : unicodeData.getPropertyValueIntervals(script)) {
         for (int ch = range.start(); ch <= range.end(); ++ch) {
           if (!scriptExtensionsCodePoint[ch]) {
+            // TODO(regisd) This is very frequent an inefficient
             intervalsBuilder.add(MutableCodepointRange.create(ch, ch));
           }
         }
@@ -116,7 +118,9 @@ public abstract class AbstractScriptExtensionsScanner {
 
   void addScript(String script) {
     CodepointRangeSet.Builder intervals =
-        scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
+        scriptIntervals.computeIfAbsent(
+            unicodeData.getCanonicalPropertyValueName("script", script),
+            k -> CodepointRangeSet.builder());
     intervals.add(MutableCodepointRange.create(start, end));
 
     for (int ch = start; ch <= end; ++ch) {

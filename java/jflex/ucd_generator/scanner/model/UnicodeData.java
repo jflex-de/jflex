@@ -70,10 +70,6 @@ public class UnicodeData {
     return propertyValues.getPropertyValueAliases(propName, propValue);
   }
 
-  public String getPropertyValueCanonicalName(String propName, String propValue) {
-    return propertyValues.getCanonicalValueName(propName, propValue);
-  }
-
   public void addPropertyInterval(String propertyName, int start, int end) {
     propertyValueIntervals.addBinaryPropertyInterval(
         propertyName, start, end, propertyNameNormalizer);
@@ -118,6 +114,10 @@ public class UnicodeData {
     // TODO(regisd) Implement this
     return ImmutableList.of(
         "ahex", "block=alphabeticpresentationforms", "block=ancientgreeknumbers", "unknown");
+  }
+
+  public String getCanonicalPropertyValueName(String propName, String propValue) {
+    return propertyValues.getCanonicalValueName(propName, propValue);
   }
 
   public int maxCaselessMatchPartitionSize() {
@@ -193,5 +193,9 @@ public class UnicodeData {
     ranges.addAllImmutable(propertyValueIntervals.getRanges("blank"));
     ranges.substract(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
     return ranges.build().ranges();
+  }
+
+  public boolean codePointInProperty(int codepoint, String propName) {
+    return propertyValueIntervals.codePointInProperty(codepoint, propName);
   }
 }

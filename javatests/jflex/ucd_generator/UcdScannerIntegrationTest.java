@@ -10,26 +10,28 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** Integration test for the {@link UcdScanner}. */
+/** Integration test for the {@link UcdScanner} on Unicode 6. */
 public class UcdScannerIntegrationTest {
 
   /**
-   * Unicode 5.0 property value: {me}
+   * Unicode 6.0 property value: {me}
    *
-   * <pre>{@code "\u0488\u0489" + "\u06de\u06de" + "\u20dd\u20e0" + "\u20e2\u20e4"} </pre>
+   * <pre>{@code
+   * "\u0488\u0489" + "\u20dd\u20e0" + "\u20e2\u20e4" + "\ua670\ua672"
+   * }</pre>
    */
   private static final ImmutableList<CodepointRange> INTERVALS_FOR_GENERALCATEGORY_ME =
       ImmutableList.of(
-          CodepointRange.create(0x0488, 0x489),
-          CodepointRange.createPoint(0x06de),
-          CodepointRange.create(0x20dd, 0x20e0),
-          CodepointRange.create(0x20e2, 0x20e4));
+          CodepointRange.create('\u0488', '\u0489'),
+          CodepointRange.create('\u20dd', '\u20e0'),
+          CodepointRange.create('\u20e2', '\u20e4'),
+          CodepointRange.create('\ua670', '\ua672'));
 
   private UcdScanner ucdScanner;
 
   @Before
   public void ucdScanner() {
-    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_5_0);
+    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_6_0);
     assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(5, 0, 0));
   }
 
@@ -111,15 +113,12 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanUnicodeData();
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam")).isEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("arabic")).isEmpty();
 
     ucdScanner.scanScripts();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
         .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam")).isNotEmpty();
-    // TODO(regisd) It seems I'm missing some property value aliases
-    // assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlam"))
-    //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("script=adlm"));
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("arabic")).isNotEmpty();
   }
 
   @Test
@@ -130,19 +129,21 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanPropList();
     ucdScanner.scanDerivedCoreProperties();
     ucdScanner.scanScripts();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
-        .isEmpty();
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("hiragana"))
+        .isNotEmpty(); // from scanScripts
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("katakana")).isNotEmpty();
+    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana")).isFalse();
+    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana")).isFalse();
 
     ucdScanner.scanScriptExtensions();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
         .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"))
-        .isNotEmpty();
-    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
-        .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hiragana"));
+    // 3031..3035    ; Hira Kana # Lm   [5] VERTICAL KANA REPEAT MARK..
+    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "hiragana")).isTrue();
+    assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana")).isTrue();
   }
 
-  @Ignore // TODO
+  @Ignore
   @Test
   public void scanBlocks() throws Exception {
     ucdScanner.scanPropertyAliases();
@@ -158,6 +159,8 @@ public class UcdScannerIntegrationTest {
     ucdScanner.scanBlocks();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("me"))
         .containsExactlyElementsIn(INTERVALS_FOR_GENERALCATEGORY_ME);
+    assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("scriptextensions=hira"))
+        .isNotEmpty();
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("block=supplementalpunctuation"))
         .isNotEmpty();
   }

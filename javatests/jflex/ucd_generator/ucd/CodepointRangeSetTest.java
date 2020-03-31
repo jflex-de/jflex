@@ -29,6 +29,19 @@ public class CodepointRangeSetTest {
   }
 
   @Test
+  public void add_contiguous_outOfOrder() {
+    CodepointRangeSet rangeSet =
+        CodepointRangeSet.builder()
+            .add(CodepointRange.create(42, 43))
+            .add(CodepointRange.createPoint(1))
+            .add(CodepointRange.create(44, 100))
+            .build();
+    assertThat(rangeSet.ranges())
+        .containsExactly(CodepointRange.createPoint(1), CodepointRange.create(42, 100))
+        .inOrder();
+  }
+
+  @Test
   public void substract_disjoinedDoesNothing() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
