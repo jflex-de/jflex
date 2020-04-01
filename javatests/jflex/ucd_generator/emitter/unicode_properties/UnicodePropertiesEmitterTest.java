@@ -50,21 +50,33 @@ public class UnicodePropertiesEmitterTest {
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
 
     // fake ucd version 1.2
-    UcdVersion.Builder ucd1_2 =
-        UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
+    UcdVersion ucd1_2 =
+        UcdVersion.builder()
+            .setVersion("1.2.0")
+            .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
+            .build();
     // fake ucd 2.0
-    UcdVersion.Builder ucd2_0 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd2_4 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-    UcdVersion.Builder ucd10_0 =
-        UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
+    UcdVersion ucd2_0 =
+        UcdVersion.builder()
+            .setVersion("2.0.1")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
+    UcdVersion ucd2_4 =
+        UcdVersion.builder()
+            .setVersion("2.4.6")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
+    UcdVersion ucd10_0 =
+        UcdVersion.builder()
+            .setVersion("10.0.0")
+            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+            .build();
     UcdVersions versions =
         UcdVersions.builder()
-            .put("1.2.0", ucd1_2)
-            .put("2.0.1", ucd2_0)
-            .put("2.4.6", ucd2_4)
-            .put("10.0.0", ucd10_0)
+            .put(ucd1_2.version().toString(), ucd1_2)
+            .put(ucd2_0.version().toString(), ucd2_0)
+            .put(ucd2_4.version().toString(), ucd2_4)
+            .put(ucd10_0.version().toString(), ucd10_0)
             .build();
     UnicodePropertiesEmitter emitter = new UnicodePropertiesEmitter("org.example", versions);
 

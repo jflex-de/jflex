@@ -17,6 +17,7 @@ java_library(
         "//javatests/jflex:__subpackages__",
     ],
     deps = [
+        "//third_party/com/google/guava",
     ],
 )
 

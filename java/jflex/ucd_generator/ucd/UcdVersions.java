@@ -118,13 +118,13 @@ public class UcdVersions {
     ImmutableSortedMap.Builder<Version, UcdVersion> versions =
         ImmutableSortedMap.orderedBy(Version.EXACT_VERSION_COMPARATOR);
 
-    private Builder put(Version version, UcdVersion.Builder ucdFiles) {
-      versions.put(version, ucdFiles.build());
+    private Builder put(Version version, UcdVersion ucdFiles) {
+      versions.put(version, ucdFiles);
       return this;
     }
 
-    public Builder put(String version, UcdVersion.Builder ucdFiles) {
-      return put(new Version(version), ucdFiles.setVersion(version));
+    public Builder put(String version, UcdVersion ucdFiles) {
+      return put(new Version(version), ucdFiles);
     }
 
     public UcdVersions build() {

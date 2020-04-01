@@ -28,20 +28,21 @@ package jflex.ucd_generator.ucd;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.io.File;
-import org.junit.Before;
 import org.junit.Test;
 
 public class UcdVersionsTest {
 
-  private UcdVersion.Builder ucd1;
+  private final UcdVersion UCD1 =
+      UcdVersion.builder()
+          .setVersion("1.2.3")
+          .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
+          .build();
 
-  private UcdVersion.Builder ucd2;
-
-  @Before
-  public void createUcd() {
-    ucd1 = UcdVersion.builder().putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"));
-    ucd2 = UcdVersion.builder().putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"));
-  }
+  private final UcdVersion UCD2 =
+      UcdVersion.builder()
+          .setVersion("2.0")
+          .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
+          .build();
 
   @Test
   public void expandVersion_majorUpdate() throws Exception {
@@ -60,7 +61,7 @@ public class UcdVersionsTest {
 
   @Test
   public void expandAllVersions() throws Exception {
-    UcdVersions ucdVersions = UcdVersions.builder().put("1.2.3", ucd1).put("1.3.5", ucd2).build();
+    UcdVersions ucdVersions = UcdVersions.builder().put("1.2.3", UCD1).put("1.3.5", UCD2).build();
     assertThat(ucdVersions.expandAllVersions())
         .containsExactly("1.2", "1.2.3", "1.3", "1.3.5")
         .inOrder();
@@ -68,7 +69,7 @@ public class UcdVersionsTest {
 
   @Test
   public void expandAllVersions_withMajor() throws Exception {
-    UcdVersions ucdVersions = UcdVersions.builder().put("1.0.3", ucd1).put("1.3.5", ucd2).build();
+    UcdVersions ucdVersions = UcdVersions.builder().put("1.0.3", UCD1).put("1.3.5", UCD2).build();
     assertThat(ucdVersions.expandAllVersions())
         .containsExactly("1", "1.0", "1.0.3", "1.3", "1.3.5")
         .inOrder();
@@ -77,7 +78,7 @@ public class UcdVersionsTest {
   @Test
   public void expandAllVersions_unnaturalOrder() {
     UcdVersions ucdVersions =
-        UcdVersions.builder().put("1.2.3", ucd1).put("2.4.6", ucd1).put("10.0.0", ucd1).build();
+        UcdVersions.builder().put("1.2.3", UCD1).put("2.4.6", UCD1).put("10.0.0", UCD1).build();
     assertThat(ucdVersions.expandAllVersions())
         .containsExactly("1.2", "1.2.3", "2.4", "2.4.6", "10", "10.0", "10.0.0")
         .inOrder();
@@ -97,8 +98,9 @@ public class UcdVersionsTest {
   public void findExternalPath() {
     File bazelDep =
         new File("jflex/ucd_generator/external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded");
-    ucd1.setVersion("1.1").putFile(UcdFileType.WordBreakProperty, bazelDep);
-    assertThat(ucd1.build().getFile(UcdFileType.WordBreakProperty))
+    UcdVersion ucd =
+        UCD1.toBuilder().setVersion("1.1").putFile(UcdFileType.WordBreakProperty, bazelDep).build();
+    assertThat(ucd.getFile(UcdFileType.WordBreakProperty))
         .isEqualTo(new File("external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded"));
   }
 }

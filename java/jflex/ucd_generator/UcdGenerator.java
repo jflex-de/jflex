@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import jflex.ucd_generator.scanner.UcdScannerException;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
@@ -47,7 +48,8 @@ public class UcdGenerator {
   /**
    * Generates {@code UnicodeProperties} and {Unicode_X_Y} from {@code //third_party/unicode_ucd_X}.
    */
-  public static void generate(UcdGeneratorParams params) throws IOException, ParseException {
+  public static void generate(UcdGeneratorParams params)
+      throws IOException, ParseException, UcdScannerException {
     UcdVersions ucdVersions = params.ucdVersions();
     File outputDir = params.outputDir();
     System.out.println("Emitting UnicodeProperties.java");
@@ -69,7 +71,7 @@ public class UcdGenerator {
 
   /** Emits {@code Unicode_X_Y.java} files. */
   private static void emitAllUnicodeXY(UcdVersions ucdVersions, File outputDir)
-      throws IOException, ParseException {
+      throws IOException, ParseException, UcdScannerException {
     for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
       emitUnicodeVersionXY(ucdVersion, outputDir);
@@ -78,7 +80,7 @@ public class UcdGenerator {
 
   /** Emits {@code Unicode_X_Y.java} for a give version. */
   static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
-      throws IOException, ParseException {
+      throws IOException, ParseException, UcdScannerException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
     UnicodeData unicodeData = scanUnicodeVersion(ucdVersion);
@@ -90,13 +92,8 @@ public class UcdGenerator {
     }
   }
 
-  private static UnicodeData scanUnicodeVersion(UcdVersion ucdVersion) throws IOException {
-    try {
-      return new UcdScanner(ucdVersion).scan();
-    } catch (Error e) {
-      throw new Error(
-          "Unknown error while emitting Unicode properties for version " + ucdVersion.version(), e);
-    }
+  private static UnicodeData scanUnicodeVersion(UcdVersion ucdVersion) throws UcdScannerException {
+    return new UcdScanner(ucdVersion).scan();
   }
 
   private UcdGenerator() {}

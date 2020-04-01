@@ -10,6 +10,7 @@ java_library(
     deps = [
         "//java/jflex/ucd_generator/emitter/unicode_properties",
         "//java/jflex/ucd_generator/emitter/unicode_version",
+        "//java/jflex/ucd_generator/scanner:exception",
         "//java/jflex/ucd_generator/scanner:ucd_scanners",
         "//java/jflex/ucd_generator/scanner/model",
         "//java/jflex/ucd_generator/ucd",
@@ -27,6 +28,7 @@ java_binary(
     deps = [
         ":ucd_generator",
         "//java/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
     ],
 )
 

@@ -25,6 +25,7 @@
  */
 package jflex.ucd_generator;
 
+import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.List;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.UcdVersions;
+import jflex.ucd_generator.ucd.Version;
 
 public class Main {
 
@@ -72,7 +74,8 @@ public class Main {
       String arg = argv[i];
       if (arg.startsWith(ARG_VERSION)) {
         String version = arg.substring(ARG_VERSION.length());
-        versions.put(version, findUcdFiles(files));
+        Preconditions.checkArgument(!version.isEmpty(), "Version cannot be empty");
+        versions.put(version, findUcdFiles(version, files));
         files.clear();
       }
       if (arg.startsWith(ARG_OUT)) {
@@ -82,24 +85,45 @@ public class Main {
         files.add(arg);
       }
     }
-    return params.setUcdVersions(versions.build()).build();
+
+    Preconditions.checkArgument(
+        params.outputDir() != null, "Option --%s must be specified", ARG_OUT);
+
+    UcdVersions ucdVersions = versions.build();
+    for (Version v : ucdVersions.versionSet()) {
+      Preconditions.checkNotNull(
+          ucdVersions.get(v).getFile(UcdFileType.UnicodeData),
+          "Missing UnicodeData.txt. Try: --version=%s /path/to/UnicodeData.txt",
+          v);
+    }
+
+    return params.setUcdVersions(ucdVersions).build();
   }
 
-  private static UcdVersion.Builder findUcdFiles(List<String> argv) throws FileNotFoundException {
-    UcdVersion.Builder version = UcdVersion.builder();
+  private static UcdVersion findUcdFiles(String version, List<String> argv)
+      throws FileNotFoundException {
+    UcdVersion.Builder builder = UcdVersion.builder().setVersion(version);
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {
-        if (arg.contains(type.name())) {
-          // File downloaded by Bazel in the external dir
-          File externalFile = new File(BAZEL_PREFIX, arg);
-          if (externalFile.exists()) {
-            throw new FileNotFoundException(externalFile.getAbsolutePath());
-          }
-          version.putFile(type, externalFile);
+        if (arg.endsWith(type.name() + ".txt")) {
+          builder.putFile(type, findFile(arg));
         }
       }
     }
-    return version;
+    return builder.build();
+  }
+
+  private static File findFile(String arg) throws FileNotFoundException {
+    File file = new File(arg);
+    if (file.exists()) {
+      return file;
+    }
+    // File downloaded by Bazel in the external dir
+    File externalFile = new File(BAZEL_PREFIX, arg);
+    if (file.exists()) {
+      return externalFile;
+    }
+    throw new FileNotFoundException(arg);
   }
 
   private Main() {}

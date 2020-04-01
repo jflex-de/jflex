@@ -16,6 +16,14 @@ The generated `UnicodeProperties.java` is build by
 
     bazel build //java/jflex/ucd_generator:gen_unicode_properties
 
+### Building for a reduced set of properties
+
+The UnicodeData.txt and DerivedAge.txt must be provided.
+The other data files should be provided.
+The files must be accessible from the sandbox, e.g. in `/tmp`
+
+    bazel run java/jflex/ucd_generator:Main -- --version=5.0.0 $(ls /tmp/ucd_5_0_0/*.txt  /tmp/ucd_5_0_0/auxiliary/*.txt)  --out=/tmp/ucd5_java
+    
 ## Software architecture.
 
 * `Main` is only responsible for parsing the cli arguments

@@ -25,9 +25,11 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.example;
+// TODO(regisd) Move in same package
+package org.example.data;
 
-class Unicode_0_1 {
+// TODO(regisd) Restrict to package visibility
+public class Unicode_0_1 {
 
   // Only holds constants.
   private Unicode_0_1() {}
@@ -36,7 +38,26 @@ class Unicode_0_1 {
   public static final int maximumCodePoint = 0x1234;
 
   public static final String[] propertyValues = {
-    "general"
+    "age=1.1",
+    "age=4.1"
+  };
+
+  public static final String[] intervals = {
+    // Unicode 0.1 property value: {age=1.1}
+    "\000\u01f5"
+        + "\u01fa\u0217",
+    // Unicode 0.1 property value: {age=4.1}
+    "\000\u0241"
+        + "\u0250\u036f"
+        + "\u0374\u0375"
+        + "\ud800\udc0d\ud800\udc26"
+  };
+
+  public static final String[] propertyValueAliases = {
+    "ahex",
+    "block=alphabeticpresentationforms",
+    "block=ancientgreeknumbers",
+    "unknown"
   };
 
   /** Maximum caseless partition size. */

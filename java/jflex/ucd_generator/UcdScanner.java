@@ -1,8 +1,12 @@
 package jflex.ucd_generator;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
@@ -11,12 +15,16 @@ import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
 import jflex.ucd_generator.scanner.PropertyAliasesScanner;
 import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
 import jflex.ucd_generator.scanner.ScriptExtensionsScanner;
+import jflex.ucd_generator.scanner.UcdScannerException;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
 import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 
 public class UcdScanner {
+
+  private static final boolean DEBUG = false;
+
   private final UcdVersion ucdVersion;
   final UnicodeData unicodeData;
 
@@ -26,28 +34,36 @@ public class UcdScanner {
   }
 
   /** Scans all UCD data files. */
-  public UnicodeData scan() throws IOException {
+  public UnicodeData scan() throws UcdScannerException {
+    try {
+      scanPropertyAliases();
+      scanPropertyValueAliases();
+      scanUnicodeData();
+      scanPropList();
+      scanDerivedCoreProperties();
+      scanScripts();
+      scanScriptExtensions();
+      scanBlocks();
+      scanLineBreak();
+      scanGraphemeBreakProperty();
+      scanSentenceBreakProperty();
+      scanWordBreakProperty();
+      scanDerivedAge();
+      unicodeData.addCompatibilityProperties();
 
-    scanPropertyAliases();
-    scanPropertyValueAliases();
-    scanUnicodeData();
-    scanPropList();
-    scanDerivedCoreProperties();
-    scanScripts();
-    scanScriptExtensions();
-    scanBlocks();
-    scanLineBreak();
-    scanGraphemeBreakProperty();
-    scanSentenceBreakProperty();
-    scanWordBreakProperty();
-    scanDerivedAge();
-
-    return unicodeData;
+      return unicodeData;
+    } catch (Throwable thr) {
+      String cause = (thr.getMessage() != null) ? thr.getMessage() : "Unknown error";
+      throw new UcdScannerException(
+          "Failed to emit Unicode properties for version " + ucdVersion.version() + " : " + cause,
+          thr);
+    }
   }
 
   void scanPropertyAliases() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.PropertyAliases);
     if (file != null) {
+      assertFileExists(file);
       PropertyAliasesScanner scanner =
           new PropertyAliasesScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
@@ -57,6 +73,7 @@ public class UcdScanner {
   void scanPropertyValueAliases() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.PropertyValueAliases);
     if (file != null) {
+      assertFileExists(file);
       PropertyValueAliasesScanner scanner =
           new PropertyValueAliasesScanner(
               Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
@@ -66,6 +83,8 @@ public class UcdScanner {
 
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
+    Preconditions.checkNotNull(file, "UnicodeData.txt not defined in UCD %s", ucdVersion);
+    assertFileExists(file);
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(
             Files.newReader(file, StandardCharsets.UTF_8), ucdVersion, unicodeData);
@@ -91,6 +110,7 @@ public class UcdScanner {
   void scanScriptExtensions() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.ScriptExtensions);
     if (file != null) {
+      assertFileExists(file);
       ScriptExtensionsScanner scanner =
           new ScriptExtensionsScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
@@ -137,7 +157,7 @@ public class UcdScanner {
   void scanDerivedAge() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.DerivedAge);
     if (file != null) {
-      Preconditions.checkState(file.exists(), "File does not exist " + file.getAbsolutePath());
+      assertFileExists(file);
       DerivedAgeScanner scanner =
           new DerivedAgeScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData, "Age");
       scanner.scan();
@@ -147,6 +167,7 @@ public class UcdScanner {
   /** Scans any binary properties file. */
   private static void scanBinaryProperties(UnicodeData unicodeData, File file) throws IOException {
     if (file != null) {
+      assertFileExists(file);
       BinaryPropertiesFileScanner scanner =
           new BinaryPropertiesFileScanner(
               Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
@@ -159,18 +180,27 @@ public class UcdScanner {
       UnicodeData unicodeData, File file, String defaultPropertyName, String defaultPropertyValue)
       throws IOException {
     if (file != null) {
+      assertFileExists(file);
       EnumeratedPropertyFileScanner scanner =
           new EnumeratedPropertyFileScanner(
               Files.newReader(file, StandardCharsets.UTF_8),
               unicodeData,
               defaultPropertyName,
               defaultPropertyValue);
-      // ImmutableList<String> before = ImmutableList.copyOf(unicodeData.propertyValueIntervals());
+      ImmutableSet<String> before =
+          DEBUG ? ImmutableSet.copyOf(unicodeData.propertyValues()) : ImmutableSet.of();
       scanner.scan();
-      // SetView<String> diff =
-      //     Sets.difference(
-      //         new HashSet<>(unicodeData.propertyValueIntervals()), new HashSet<>(before));
-      // System.out.println(diff);
+      if (DEBUG) {
+        SetView<String> diff =
+            Sets.difference(ImmutableSet.copyOf(unicodeData.propertyValues()), before);
+        System.out.println(diff);
+      }
+    }
+  }
+
+  private static void assertFileExists(File file) throws FileNotFoundException {
+    if (!file.isFile()) {
+      throw new FileNotFoundException(file.getAbsolutePath());
     }
   }
 

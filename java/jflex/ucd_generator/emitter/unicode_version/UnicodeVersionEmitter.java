@@ -1,16 +1,22 @@
 package jflex.ucd_generator.emitter.unicode_version;
 
+import static java.util.stream.Collectors.joining;
+
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Maps.EntryTransformer;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
-import java.util.stream.Collectors;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
@@ -46,19 +52,52 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
-    unicodeVersionVars.propertyValues =
-        String.join("\",\n    \"", unicodeData.propertyValueIntervals());
+    unicodeVersionVars.propertyValues = String.join("\",\n    \"", unicodeData.propertyValues());
+
+    unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
+    unicodeVersionVars.propertyValueAliases =
+        String.join("\",\n    \"", unicodeData.propertyValueAliases());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()
             .map(
                 partition ->
-                    partitionToString(partition, unicodeVersionVars.maxCaselessMatchPartitionSize))
-            .collect(Collectors.joining("\"\n          + \""));
+                    partitionToCodesource(
+                        partition, unicodeVersionVars.maxCaselessMatchPartitionSize))
+            .collect(joining("\"\n          + \""));
     return unicodeVersionVars;
   }
 
-  private static String partitionToString(
+  private Collection<String> intervalsToCodesource() {
+    EntryTransformer<String, Collection<CodepointRange>, String> function =
+        new EntryTransformer<String, Collection<CodepointRange>, String>() {
+
+          @Override
+          public String transformEntry(
+              String propertyValue, Collection<CodepointRange> codepointRanges) {
+            String codeComment =
+                String.format(
+                    "// Unicode %s property value: {%s}\n",
+                    ucdVersion.version().toMajorMinorString(), propertyValue);
+            String value =
+                codepointRanges.stream()
+                    .map(this::intervalToCodesource)
+                    .collect(joining("\n        + "));
+            return codeComment + "    " + value;
+          }
+
+          private String intervalToCodesource(CodepointRange interval) {
+            return "\""
+                + escapedUTF16Char(interval.start())
+                + escapedUTF16Char(interval.end())
+                + "\"";
+          }
+        };
+
+    return Maps.transformEntries(unicodeData.intervals(), function).values();
+  }
+
+  private static String partitionToCodesource(
       SortedSet<Integer> partition, int caselessMatchPartitionSize) {
     StringBuilder sb = new StringBuilder();
     Iterator<String> escapedChars =
@@ -73,7 +112,8 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     return sb.toString();
   }
 
-  private static String escapedUTF16Char(Integer codePoint) {
+  @VisibleForTesting
+  static String escapedUTF16Char(int codePoint) {
     if (codePoint <= 0xFFFF) {
       return escapedBMPChar(codePoint);
     } else if (codePoint <= 0x10FFFF) {
@@ -102,15 +142,15 @@ public class UnicodeVersionEmitter extends UcdEmitter {
         // think that the enclosing quotation marks are unbalanced.
       case 0x22:
         return ("\\\"");
-      case 0x0:
+      case 0x00:
         return ("\\000");
-      case 0x9:
+      case 0x09:
         return ("\\t");
-      case 0xA:
+      case 0x0A:
         return ("\\n");
-      case 0xC:
+      case 0x0C:
         return ("\\f");
-      case 0xD:
+      case 0x0D:
         return ("\\r");
       case 0x5C:
         return ("\\\\");

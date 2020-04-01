@@ -45,8 +45,7 @@ public abstract class AbstractBinaryPropertiesFileScanner {
 
   public void addCurrentInterval() {
     SortedSet<CodepointRange> intervals =
-        properties.computeIfAbsent(
-            propertyName, k -> new TreeSet<>(CodepointRange.START_COMPARATOR));
+        properties.computeIfAbsent(propertyName, k -> new TreeSet<>(CodepointRange.COMPARATOR));
     intervals.add(CodepointRange.create(start, end));
   }
 }
