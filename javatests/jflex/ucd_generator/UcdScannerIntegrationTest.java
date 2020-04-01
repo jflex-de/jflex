@@ -121,6 +121,7 @@ public class UcdScannerIntegrationTest {
     assertThat(ucdScanner.unicodeData.getPropertyValueIntervals("arabic")).isNotEmpty();
   }
 
+  @Ignore // TODO
   @Test
   public void scanScripExtensions() throws Exception {
     ucdScanner.scanPropertyAliases();
@@ -143,7 +144,7 @@ public class UcdScannerIntegrationTest {
     assertThat(ucdScanner.unicodeData.codePointInProperty(0x3034, "katakana")).isTrue();
   }
 
-  @Ignore
+  @Ignore // TODO
   @Test
   public void scanBlocks() throws Exception {
     ucdScanner.scanPropertyAliases();
