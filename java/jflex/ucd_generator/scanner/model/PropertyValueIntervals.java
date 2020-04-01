@@ -24,7 +24,7 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
 
-  private static final boolean DEBUG = true;
+  private static final boolean DEBUG = false;
 
   private final PropertyValues propertyValues;
 
