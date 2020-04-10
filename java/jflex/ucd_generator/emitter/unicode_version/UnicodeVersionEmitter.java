@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.UcdVersion;

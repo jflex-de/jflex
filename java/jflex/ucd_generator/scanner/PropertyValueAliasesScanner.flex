@@ -1,12 +1,11 @@
 package jflex.ucd_generator.scanner;
 
-import jflex.ucd_generator.scanner.model.UnicodeData;
-import jflex.ucd_generator.util.PropertyNameNormalizer;
-
 import java.util.HashSet;
 import java.util.Set;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;
+import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 /**
  * Scans the PropertyValueAliases(-X.X.X).txt Unicode.org data file format,

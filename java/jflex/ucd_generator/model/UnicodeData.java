@@ -1,4 +1,4 @@
-package jflex.ucd_generator.scanner.model;
+package jflex.ucd_generator.model;
 
 import static java.util.Arrays.asList;
 

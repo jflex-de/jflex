@@ -1,7 +1,7 @@
 package jflex.ucd_generator.scanner;
 
 import com.google.common.base.Preconditions;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;
 import jflex.ucd_generator.ucd.Versions;

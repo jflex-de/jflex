@@ -4,7 +4,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import java.io.Reader;
 import java.util.List;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.NamedCodepointRange;
 
