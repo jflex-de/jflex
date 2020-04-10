@@ -33,7 +33,7 @@ public class LookGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code look.flex} specification. */
   private final ScannerFactory<Look> scannerFactory = ScannerFactory.of(Look::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/look");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/look");
 
   @Test
   public void goldenTest0() throws Exception {

@@ -1,6 +1,7 @@
 package jflex.ucd_generator.scanner;
 
-import com.google.common.collect.ImmutableSet;
+import static jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
+
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.MutableCodepointRange;
@@ -21,10 +22,6 @@ import jflex.ucd_generator.util.PropertyNameNormalizer;
  */
 public abstract class AbstractScriptExtensionsScanner {
 
-  private static final ImmutableSet<String> DEFAULT_CATEGORIES =
-      ImmutableSet.of(
-          PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY,
-          PropertyNameNormalizer.NORMALIZED_SCRIPT);;
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();
   private final Set<String> scripts = new HashSet<>();
@@ -51,14 +48,16 @@ public abstract class AbstractScriptExtensionsScanner {
   }
 
   void addPropertyValueIntervals() {
-    // Add script property value for missing code points
+    // Add script property value for missing code points.
+    // TODO(regisd) why???
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
       for (CodepointRange range : unicodeData.getPropertyValueIntervals(script)) {
         for (int ch = range.start(); ch <= range.end(); ++ch) {
           if (!scriptExtensionsCodePoint[ch]) {
-            intervalsBuilder.add(new MutableCodepointRange(ch, ch));
+            // TODO(regisd) This is very frequent an inefficient
+            intervalsBuilder.add(MutableCodepointRange.create(ch, ch));
           }
         }
       }
@@ -88,11 +87,10 @@ public abstract class AbstractScriptExtensionsScanner {
     for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
       Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
       for (String propValue : propValues) {
-        String canonicalValue = propName + '=' + propValue;
+        String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
 
         // Add value-only aliases for General Category and Script properties.
         if (DEFAULT_CATEGORIES.contains(propName)) {
-          canonicalValue = propValue;
           for (String valueAlias : unicodeData.getPropertyValueAliases(propName, propValue)) {
             if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
@@ -120,8 +118,10 @@ public abstract class AbstractScriptExtensionsScanner {
 
   void addScript(String script) {
     CodepointRangeSet.Builder intervals =
-        scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
-    intervals.add(new MutableCodepointRange(start, end));
+        scriptIntervals.computeIfAbsent(
+            unicodeData.getCanonicalPropertyValueName("script", script),
+            k -> CodepointRangeSet.builder());
+    intervals.add(MutableCodepointRange.create(start, end));
 
     for (int ch = start; ch <= end; ++ch) {
       scriptExtensionsCodePoint[ch] = true;

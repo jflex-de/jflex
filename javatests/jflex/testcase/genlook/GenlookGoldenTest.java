@@ -23,7 +23,7 @@ public class GenlookGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code genlook.flex} specification. */
   private final ScannerFactory<Genlook> scannerFactory = ScannerFactory.of(Genlook::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/genlook");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/genlook");
 
   @Test
   public void goldenTest0() throws Exception {

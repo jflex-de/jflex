@@ -47,6 +47,13 @@ public abstract class UcdVersion {
     return new AutoValue_UcdVersion.Builder();
   }
 
+  public abstract Builder toBuilder();
+
+  @Override
+  public final String toString() {
+    return version().toString();
+  }
+
   @AutoValue.Builder
   public abstract static class Builder {
     public abstract Builder setVersion(Version version);

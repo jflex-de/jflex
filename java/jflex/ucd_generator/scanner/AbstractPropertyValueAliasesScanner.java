@@ -2,14 +2,15 @@ package jflex.ucd_generator.scanner;
 
 import java.util.HashSet;
 import java.util.Set;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 /** Scanner for {@code PropertyValueAliases(-X.X.X).txt}. */
 public abstract class AbstractPropertyValueAliasesScanner {
 
   private final UnicodeData unicodeData;
-  private final String scxPropName;
+
+  final String scxPropName;
 
   protected final Set<String> aliases = new HashSet<>();
 
@@ -28,9 +29,14 @@ public abstract class AbstractPropertyValueAliasesScanner {
         PropertyNameNormalizer.normalize(propertyValue));
   }
 
-  private void addPropertyValueAliases(String propertyName, String normalizedPropertyValue) {
+  private void addPropertyValueAliases(
+      String canonicalPropertyName, String normalizedPropertyValue) {
     aliases.add(normalizedPropertyValue);
-    unicodeData.addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
+    unicodeData.addPropertyValueAliases(canonicalPropertyName, normalizedPropertyValue, aliases);
+    if ("script".equals(canonicalPropertyName)) {
+      // Clone Script/sc property value aliases => Script_Extensions/scx
+      unicodeData.addPropertyValueAliases(scxPropName, propertyValue, aliases);
+    }
     aliases.clear();
   }
 }

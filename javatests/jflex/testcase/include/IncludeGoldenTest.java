@@ -25,7 +25,7 @@ public class IncludeGoldenTest extends AbstractGoldenTest {
   private final ScannerFactory<IncludeScanner> scannerFactory =
       ScannerFactory.of(IncludeScanner::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/include");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/include");
 
   @Test
   public void goldenTest0() throws Exception {

@@ -1,5 +1,9 @@
 package jflex.ucd_generator.util;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Multimap;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -18,6 +22,12 @@ public class PropertyNameNormalizer {
   /** Normalized Script property name */
   public static final String NORMALIZED_SCRIPT = normalize("Script");
 
+  public static final ImmutableSet<String> DEFAULT_CATEGORIES =
+      ImmutableSet.of(NORMALIZED_GENERAL_CATEGORY, NORMALIZED_SCRIPT);
+
+  /** Maps a canonical name to its aliases. */
+  private final Multimap<String, String> propertyAliases = HashMultimap.create();
+  /** Maps an alias to its canonical name. */
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
   /**
@@ -41,6 +51,10 @@ public class PropertyNameNormalizer {
                 .replace(':', '='));
   }
 
+  public static String canonicalValue(String propName, String propValue) {
+    return DEFAULT_CATEGORIES.contains(propName) ? propValue : propName + "=" + propValue;
+  }
+
   /**
    * For the given property name or alias, returns the canonical property name. If none has been
    * encountered, then the given propertyAlias itself is returned.
@@ -55,7 +69,12 @@ public class PropertyNameNormalizer {
     return propertyAlias2CanonicalName.getOrDefault(normalizedAlias, normalizedAlias);
   }
 
-  public void putPropertyAlias(String alias, String canonicalName) {
+  public Collection<String> getPropertyAliases(String propName) {
+    return propertyAliases.get(PropertyNameNormalizer.normalize(propName));
+  }
+
+  public void putPropertyAlias(String canonicalName, String alias) {
+    propertyAliases.put(canonicalName, alias);
     propertyAlias2CanonicalName.put(alias, canonicalName);
   }
 }

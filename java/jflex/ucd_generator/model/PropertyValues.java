@@ -1,5 +1,6 @@
-package jflex.ucd_generator.scanner.model;
+package jflex.ucd_generator.model;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
@@ -35,18 +36,10 @@ public class PropertyValues {
     aliasesForName.putAll(normalizedPropertyValue, aliases);
 
     Map<String, String> aliasMap =
-        propertyValueAlias2CanonicalValue.computeIfAbsent(propertyName, k -> new HashMap());
+        propertyValueAlias2CanonicalValue.computeIfAbsent(propertyName, k -> new HashMap<>());
     for (String propertyValueAlias : aliases) {
       aliasMap.put(PropertyNameNormalizer.normalize(propertyValueAlias), normalizedPropertyValue);
     }
-  }
-
-  public Set<String> getPropertyAliases(String propName) {
-    Multimap<String, String> aliases = allPropertyValueAliases.get(propName);
-    if (aliases == null) {
-      return ImmutableSet.of(propName);
-    }
-    return aliases.keySet();
   }
 
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
@@ -54,6 +47,15 @@ public class PropertyValues {
     if (aliases == null) {
       return ImmutableSet.of(propValue);
     }
-    return aliases.get(propValue);
+    return aliases.get(getCanonicalValueName(propName, propValue));
+  }
+
+  public String getCanonicalValueName(String normalizedPropName, String propValue) {
+    Map<String, String> canonicalPropValueNames =
+        Preconditions.checkNotNull(
+            propertyValueAlias2CanonicalValue.get(normalizedPropName),
+            "Unknown canonical name for %s",
+            normalizedPropName);
+    return canonicalPropValueNames.get(PropertyNameNormalizer.normalize(propValue));
   }
 }

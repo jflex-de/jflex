@@ -106,7 +106,7 @@ public class Skeleton {
       readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 
@@ -193,7 +193,7 @@ public class Skeleton {
       readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
-      throw new GeneratorException();
+      throw new GeneratorException(e);
     }
   }
 }

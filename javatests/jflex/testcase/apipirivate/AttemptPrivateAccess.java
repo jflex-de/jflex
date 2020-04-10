@@ -29,7 +29,7 @@ import java.io.InputStreamReader;
 
 public final class AttemptPrivateAccess {
 
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     PrivateScanner s = new PrivateScanner(new InputStreamReader(System.in));
     s.yylex();
   }

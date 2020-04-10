@@ -23,7 +23,7 @@ public class EofGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code eof.flex} specification. */
   private final ScannerFactory<Eof> scannerFactory = ScannerFactory.of(Eof::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/eof");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/eof");
 
   @Test
   public void goldenTest0() throws Exception {

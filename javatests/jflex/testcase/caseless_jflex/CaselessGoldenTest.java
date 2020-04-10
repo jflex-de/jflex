@@ -24,7 +24,7 @@ public class CaselessGoldenTest extends AbstractGoldenTest {
   private final ScannerFactory<CaselessScanner> scannerFactory =
       ScannerFactory.of(CaselessScanner::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/caseless_jflex");
 
   @Test
   public void goldenTest0() throws Exception {

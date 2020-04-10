@@ -115,11 +115,10 @@ public final class Action {
    * @return true if the action strings are equal
    */
   public boolean isEquiv(Action a) {
-    return this == a
-        || (Objects.equals(this.content, a.content)
-            && this.kind == a.kind
-            && this.len == a.len
-            && this.entryState == a.entryState);
+    return Objects.equals(this.content, a.content)
+        && this.kind == a.kind
+        && this.len == a.len
+        && this.entryState == a.entryState;
   }
 
   @Override
@@ -129,8 +128,14 @@ public final class Action {
 
   @Override
   public boolean equals(Object o) {
-    if (o instanceof Action) return isEquiv((Action) o);
-    else return false;
+    if (o instanceof Action) {
+      if (o == this) {
+        return true;
+      }
+      return isEquiv((Action) o);
+    } else {
+      return false;
+    }
   }
 
   /**

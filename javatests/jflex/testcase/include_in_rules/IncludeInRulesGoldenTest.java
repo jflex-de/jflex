@@ -24,7 +24,7 @@ public class IncludeInRulesGoldenTest extends AbstractGoldenTest {
   private final ScannerFactory<IncludeInRulesScanner> scannerFactory =
       ScannerFactory.of(IncludeInRulesScanner::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/include_in_rules");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/include_in_rules");
 
   @Test
   public void goldenTest0() throws Exception {

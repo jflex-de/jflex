@@ -9,7 +9,7 @@ import java.io.*;
   
 
 %{
-  public static void main(String argv[]) {
+  public static void main(String[] argv) {
     if (argv.length == 0) {
       System.out.println("Usage : java ZeroLexer [ --encoding <name> ] <inputfile(s)>");
     }

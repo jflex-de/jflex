@@ -24,7 +24,7 @@ public class Include2GoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code include2.flex} specification. */
   private final ScannerFactory<Include2> scannerFactory = ScannerFactory.of(Include2::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/include2");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/include2");
 
   @Test
   public void goldenTest0() throws Exception {

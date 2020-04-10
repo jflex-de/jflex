@@ -21,7 +21,7 @@ import org.junit.Test;
 // TODO Migrate this test to proper unit tests.
 public class DotnewlineGoldenTest extends AbstractGoldenTest {
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/dot_newline");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/dot_newline");
 
   /** scanner generated from {@code dotnewline.flex}. */
   private final ScannerFactory<Dotnewline> scannerFactory = ScannerFactory.of(Dotnewline::new);

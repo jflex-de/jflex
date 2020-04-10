@@ -17,12 +17,20 @@ java_library(
         "//javatests/jflex:__subpackages__",
     ],
     deps = [
-        "//java/jflex/ucd_generator/scanner/model",
+        ":exception",
+        "//java/jflex/ucd_generator/model",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/util:name_normalizer",
         "//java/jflex/ucd_generator/util:surrogate_utils",
         "//third_party/com/google/guava",
     ],
+)
+
+java_library(
+    name = "exception",
+    srcs = ["UcdScannerException.java"],
+    visibility = ["//java/jflex/ucd_generator:__subpackages__"],
+    deps = [],
 )
 
 jflex(

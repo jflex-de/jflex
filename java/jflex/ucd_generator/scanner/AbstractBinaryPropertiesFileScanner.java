@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 
 /** Scans the common multiple binary property Unicode.org data file format. */
@@ -45,8 +45,7 @@ public abstract class AbstractBinaryPropertiesFileScanner {
 
   public void addCurrentInterval() {
     SortedSet<CodepointRange> intervals =
-        properties.computeIfAbsent(
-            propertyName, k -> new TreeSet<>(CodepointRange.START_COMPARATOR));
+        properties.computeIfAbsent(propertyName, k -> new TreeSet<>(CodepointRange.COMPARATOR));
     intervals.add(CodepointRange.create(start, end));
   }
 }

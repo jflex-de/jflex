@@ -24,7 +24,7 @@ public class CclmacrosGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code cclmacros.flex} specification. */
   private final ScannerFactory<Cclmacros> scannerFactory = ScannerFactory.of(Cclmacros::new);
 
-  private File testRuntimeDir = new File("javatests/jflex/testcase/ccl_macros");
+  private final File testRuntimeDir = new File("javatests/jflex/testcase/ccl_macros");
 
   @Test
   public void goldenTest0() throws Exception {

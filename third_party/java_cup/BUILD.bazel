@@ -1,0 +1,22 @@
+# Java Cup
+# http://www2.cs.tum.edu/projects/cup/
+# Published to Maven central repository by
+# https://github.com/vbmacher/cup-maven-plugin/tree/master/java-cup
+
+licenses(["notice"])  # BSD-style
+
+java_library(
+    name = "java_cup",
+    visibility = ["//visibility:public"],
+    exports = [
+        "@maven//:com_github_vbmacher_java_cup",
+    ],
+)
+
+java_library(
+    name = "runtime",
+    visibility = ["//visibility:public"],
+    exports = [
+        "@maven//:com_github_vbmacher_java_cup_runtime",
+    ],
+)
