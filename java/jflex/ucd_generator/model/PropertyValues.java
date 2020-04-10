@@ -1,4 +1,4 @@
-package jflex.ucd_generator.scanner.model;
+package jflex.ucd_generator.model;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
