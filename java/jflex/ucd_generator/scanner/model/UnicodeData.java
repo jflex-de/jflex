@@ -106,7 +106,7 @@ public class UnicodeData {
   }
 
   /** Returns the code point range by property. */
-  public ImmutableSortedMap<String, ImmutableCollection<CodepointRange>> intervals() {
+  public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
     return propertyValueIntervals.asSortedMap();
   }
 

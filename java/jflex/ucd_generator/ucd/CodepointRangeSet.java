@@ -1,6 +1,7 @@
 package jflex.ucd_generator.ucd;
 
 import com.google.auto.value.AutoValue;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -148,16 +149,26 @@ public abstract class CodepointRangeSet {
     }
 
     public CodepointRangeSet build() {
-      MutableCodepointRange lastRange = MutableCodepointRange.create(-1);
+      Preconditions.checkState(!mRanges.isEmpty(), "Cannot create an empty set");
+      internalAddRanges();
+      return internalBuild();
+    }
+
+    private void internalAddRanges() {
+      MutableCodepointRange lastRange = null;
       for (MutableCodepointRange r : mRanges) {
+        if (lastRange == null) {
+          lastRange = r;
+          continue;
+        }
         if (lastRange.end + 1 == r.start) {
           lastRange.end = r.end;
         } else {
-          rangesBuilder().add(CodepointRange.create(r));
+          rangesBuilder().add(CodepointRange.create(lastRange));
           lastRange = r;
         }
       }
-      return internalBuild();
+      rangesBuilder().add(CodepointRange.create(lastRange));
     }
 
     abstract CodepointRangeSet internalBuild();
