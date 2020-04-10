@@ -130,7 +130,7 @@ public abstract class CodepointRangeSet {
 
       MutableCodepointRange start = MutableCodepointRange.createPoint(intersecting.start());
       MutableCodepointRange end = MutableCodepointRange.createPoint(intersecting.end() + 1);
-
+      // All intervals that start strictly after the intersecting (but not after its end)
       SortedSet<MutableCodepointRange> subset = mRanges.subSet(start, end);
 
       // Also consider the last interval which was starting before
@@ -138,7 +138,7 @@ public abstract class CodepointRangeSet {
         SortedSet<MutableCodepointRange> prevRanges =
             subset.isEmpty() ? mRanges.headSet(end) : mRanges.headSet(subset.first());
         MutableCodepointRange prevRange = prevRanges.last();
-        if (prevRange.start < intersecting.start() && intersecting.start() < prevRange.end) {
+        if (prevRange.start < intersecting.start() && intersecting.start() <= prevRange.end) {
           intersection.add(0, prevRange);
         }
       } catch (NoSuchElementException e) {
