@@ -1,6 +1,7 @@
 package jflex.ucd_generator.ucd;
 
 import com.google.auto.value.AutoValue;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
@@ -123,11 +124,12 @@ public abstract class CodepointRangeSet {
     }
 
     /** Returns all intervals that intersect with intersecting. */
-    private List<MutableCodepointRange> intersection(CodepointRange intersecting) {
+    @VisibleForTesting
+    List<MutableCodepointRange> intersection(CodepointRange intersecting) {
       List<MutableCodepointRange> intersection = new ArrayList<>();
 
-      MutableCodepointRange start = MutableCodepointRange.create(intersecting.start());
-      MutableCodepointRange end = MutableCodepointRange.create(intersecting.end());
+      MutableCodepointRange start = MutableCodepointRange.createPoint(intersecting.start());
+      MutableCodepointRange end = MutableCodepointRange.createPoint(intersecting.end() + 1);
 
       SortedSet<MutableCodepointRange> subset = mRanges.subSet(start, end);
 
@@ -136,7 +138,7 @@ public abstract class CodepointRangeSet {
         SortedSet<MutableCodepointRange> prevRanges =
             subset.isEmpty() ? mRanges : mRanges.headSet(subset.first());
         MutableCodepointRange prevRange = prevRanges.last();
-        if (prevRange.start < intersecting.start()) {
+        if (prevRange.start < intersecting.start() && intersecting.start() < prevRange.end) {
           intersection.add(0, prevRange);
         }
       } catch (NoSuchElementException e) {

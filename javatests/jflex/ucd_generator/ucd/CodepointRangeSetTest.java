@@ -156,4 +156,15 @@ public class CodepointRangeSetTest {
             .substract(CodepointRange.create(40, 100));
     MoreAsserts.assertThrows(IllegalStateException.class, rangeSet::build);
   }
+
+  @Test
+  public void intersection() {
+    CodepointRangeSet.Builder rangeSetBuilder =
+        CodepointRangeSet.builder()
+            .add(CodepointRange.createPoint('\u0020'))
+            .add(CodepointRange.createPoint('\u0085'))
+            .add(CodepointRange.create('\u2000', '\u200a'));
+    assertThat(rangeSetBuilder.intersection(CodepointRange.createPoint('\u0085')))
+        .containsExactly(MutableCodepointRange.createPoint('\u0085'));
+  }
 }
