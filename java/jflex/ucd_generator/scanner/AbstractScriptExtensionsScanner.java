@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
-import jflex.ucd_generator.scanner.model.UnicodeData;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.MutableCodepointRange;

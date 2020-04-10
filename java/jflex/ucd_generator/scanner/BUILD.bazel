@@ -18,7 +18,7 @@ java_library(
     ],
     deps = [
         ":exception",
-        "//java/jflex/ucd_generator/scanner/model",
+        "//java/jflex/ucd_generator/model",
         "//java/jflex/ucd_generator/ucd",
         "//java/jflex/ucd_generator/util:name_normalizer",
         "//java/jflex/ucd_generator/util:surrogate_utils",

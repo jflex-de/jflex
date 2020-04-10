@@ -1,7 +1,7 @@
 package jflex.ucd_generator.scanner;
 
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.scanner.model.UnicodeData;
 
 /**
  * Scanner of the {@code UnicodeData.txt}.

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import jflex.ucd_generator.scanner.DerivedAgeScanner;
 import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
@@ -17,7 +18,6 @@ import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
 import jflex.ucd_generator.scanner.ScriptExtensionsScanner;
 import jflex.ucd_generator.scanner.UcdScannerException;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
-import jflex.ucd_generator.scanner.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 
