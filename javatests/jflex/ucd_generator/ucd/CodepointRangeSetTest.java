@@ -144,14 +144,13 @@ public class CodepointRangeSetTest {
   public void substract_lastPoint() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
-            .add(CodepointRange.create('\u1ff6','\u1fff'))
+            .add(CodepointRange.create('\u1ff6', '\u1fff'))
             .add(CodepointRange.create('\u2029', '\u202A'))
             .substract(CodepointRange.createPoint('\u1fff'))
             .build();
     assertThat(rangeSet.ranges())
         .containsExactly(
-            CodepointRange.create('\u1ff6','\u1ffe'),
-             CodepointRange.create('\u2029', '\u202A'));
+            CodepointRange.create('\u1ff6', '\u1ffe'), CodepointRange.create('\u2029', '\u202A'));
   }
 
   @Test

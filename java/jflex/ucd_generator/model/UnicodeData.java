@@ -110,7 +110,8 @@ public class UnicodeData {
   public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
     ImmutableSortedMap<String, CodepointRangeSet> map = propertyValueIntervals.asSortedMap();
     // FIXME Why were script and casefolding emitted as short names?
-    ImmutableSortedMap.Builder<String, CodepointRangeSet> retval = ImmutableSortedMap.naturalOrder();
+    ImmutableSortedMap.Builder<String, CodepointRangeSet> retval =
+        ImmutableSortedMap.naturalOrder();
     for (Map.Entry<String, CodepointRangeSet> e : map.entrySet()) {
       switch (e.getKey()) {
         case "casefolding":
