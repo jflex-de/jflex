@@ -28,6 +28,7 @@ package jflex.ucd_generator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
 import jflex.ucd_generator.scanner.UcdScannerException;
@@ -52,6 +53,7 @@ public class UcdGenerator {
       throws IOException, ParseException, UcdScannerException {
     UcdVersions ucdVersions = params.ucdVersions();
     File outputDir = params.outputDir();
+    Files.createDirectories(outputDir.toPath());
     System.out.println("Emitting UnicodeProperties.java");
     emitUnicodeProperties(ucdVersions, outputDir);
     System.out.println("Emitting Unicode versions");
