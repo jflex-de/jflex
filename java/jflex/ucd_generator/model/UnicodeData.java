@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -102,12 +103,27 @@ public class UnicodeData {
   }
 
   public List<String> propertyValues() {
-    return ImmutableList.sortedCopyOf(propertyValueIntervals.keySet());
+    return ImmutableList.copyOf(intervals().keySet());
   }
 
   /** Returns the code point range by property. */
   public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
-    return propertyValueIntervals.asSortedMap();
+    ImmutableSortedMap<String, CodepointRangeSet> map = propertyValueIntervals.asSortedMap();
+    // FIXME Why were script and casefolding emitted as short names?
+    ImmutableSortedMap.Builder<String, CodepointRangeSet> retval = ImmutableSortedMap.naturalOrder();
+    for (Map.Entry<String, CodepointRangeSet> e : map.entrySet()) {
+      switch (e.getKey()) {
+        case "casefolding":
+          retval.put("cf", e.getValue());
+          break;
+        case "script":
+          retval.put("sc", e.getValue());
+          break;
+        default:
+          retval.put(e);
+      }
+    }
+    return retval.build();
   }
 
   public ImmutableList<String> propertyValueAliases() {
