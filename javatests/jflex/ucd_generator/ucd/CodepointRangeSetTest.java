@@ -131,10 +131,13 @@ public class CodepointRangeSetTest {
   public void substract_endsEqual() {
     CodepointRangeSet rangeSet =
         CodepointRangeSet.builder()
-            .add(CodepointRange.create(917536, 1114111))
-            .substract(CodepointRange.create(1114110, 1114111))
+            .add(CodepointRange.create('\t', '\r'))
+            .add(CodepointRange.create('\u2028', '\u2029'))
+            .substract(CodepointRange.create('\t' + 1, '\r'))
             .build();
-    assertThat(rangeSet.ranges()).containsExactly(CodepointRange.create(917536, 1114109));
+    assertThat(rangeSet.ranges())
+        .containsExactly(
+            CodepointRange.createPoint('\t'), CodepointRange.create('\u2028', '\u2029'));
   }
 
   @Test

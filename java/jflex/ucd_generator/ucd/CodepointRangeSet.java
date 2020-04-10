@@ -136,7 +136,7 @@ public abstract class CodepointRangeSet {
       // Also consider the last interval which was starting before
       try {
         SortedSet<MutableCodepointRange> prevRanges =
-            subset.isEmpty() ? mRanges : mRanges.headSet(subset.first());
+            subset.isEmpty() ? mRanges.headSet(end) : mRanges.headSet(subset.first());
         MutableCodepointRange prevRange = prevRanges.last();
         if (prevRange.start < intersecting.start() && intersecting.start() < prevRange.end) {
           intersection.add(0, prevRange);
