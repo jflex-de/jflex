@@ -4,7 +4,7 @@ java_test(
     deps = [
         "//java/jflex/ucd_generator/model",
         "//java/jflex/ucd_generator/ucd",
+        "//javatests/jflex/ucd_generator:tested_versions",
         "//third_party/com/google/truth",
-        "//javatests/jflex/ucd_generator:tested_versions"
     ],
 )
