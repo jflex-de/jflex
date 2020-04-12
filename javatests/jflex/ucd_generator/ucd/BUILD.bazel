@@ -2,6 +2,7 @@ java_test(
     name = "CodepointRangeSetTest",
     srcs = ["CodepointRangeSetTest.java"],
     deps = [
+        "//java/jflex/testing/assertion",
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
     ],

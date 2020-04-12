@@ -33,7 +33,7 @@ public class MutableCodepointRange {
     return new MutableCodepointRange(startCodePoint, endCodePoint);
   }
 
-  public static MutableCodepointRange create(int codePoint) {
+  public static MutableCodepointRange createPoint(int codePoint) {
     return MutableCodepointRange.create(codePoint, codePoint);
   }
 
