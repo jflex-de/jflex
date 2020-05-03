@@ -385,7 +385,7 @@ init with {:
 
 terminal OPENBRACKET, CLOSEBRACKET, HAT, DOLLAR, OPENCLASS,
          CLOSECLASS, DASH, DELIMITER, EQUALS, COMMA, LESSTHAN,
-         MORETHAN, LBRACE, RBRACE, ASCII, FULL, UNICODE, REGEXPEND;
+         MORETHAN, LBRACE, RBRACE, REGEXPEND;
 
 terminal JLETTERCLASS, JLETTERDIGITCLASS, LETTERCLASS, DIGITCLASS,
          DIGITCLASSNOT, UPPERCLASS, LOWERCLASS, EOFRULE, NOACTION, LOOKAHEAD,
@@ -493,13 +493,7 @@ macros        ::=  /* empty, most switches & state declarations are parsed in le
                 | macros macro
                 | error;
 
-macro         ::=  ASCII
-                   {: charClasses.setMaxCharCode(127); :}
-                |  FULL
-                   {: charClasses.setMaxCharCode(255); :}
-                |  UNICODE
-                   {: /* max char code is set via CharClasses.init() */ :}
-                |  IDENT:name EQUALS series:definition REGEXPEND
+macro         ::= IDENT:name EQUALS series:definition REGEXPEND
                    {: macros.insert(name, definition); :}
                 | IDENT EQUALS:e
                    {: syntaxError(ErrorMessages.REGEXP_EXPECTED, eleft, eright); :}
