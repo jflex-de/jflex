@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2-SNAPSHOT                                                    *
+ * JFlex 1.8.2                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -21,7 +21,7 @@ import jflex.logging.Out;
  * Low priority thread for code generation (low priority that gui has time for screen updates)
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2-SNAPSHOT
+ * @version JFlex 1.8.2
  */
 public class GeneratorThread extends Thread {
 
