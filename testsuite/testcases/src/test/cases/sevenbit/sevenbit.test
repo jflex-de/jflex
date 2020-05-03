@@ -1,0 +1,8 @@
+name: sevenbit
+
+description:
+Test that %7bit char class generation works.
+Char classes were not properly initialised in %7bit, and crashed the
+generator (https://github.com/jflex-de/jflex/issues/756)
+
+jflex: -q
