@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2-SNAPSHOT                                                    *
+ * JFlex 1.8.2                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -40,7 +40,7 @@ import jflex.option.Options;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.8.2-SNAPSHOT
+ * @version JFlex 1.8.2
  */
 public class Main {
 

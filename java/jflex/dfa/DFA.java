@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2-SNAPSHOT                                                    *
+ * JFlex 1.8.2                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -32,7 +32,7 @@ import jflex.option.Options;
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2-SNAPSHOT
+ * @version JFlex 1.8.2
  */
 public class DFA {
 

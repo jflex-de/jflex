@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2-SNAPSHOT                                                    *
+ * JFlex 1.8.2                                                             *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -17,7 +17,7 @@ import com.google.auto.value.AutoValue;
  * <p>Used in NFA to represent a partial NFA by its start and end state.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2-SNAPSHOT
+ * @version JFlex 1.8.2
  */
 @AutoValue
 public abstract class IntPair {
