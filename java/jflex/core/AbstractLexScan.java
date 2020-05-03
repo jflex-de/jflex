@@ -13,7 +13,6 @@ import jflex.core.unicode.ILexScan;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
-import jflex.option.Options;
 import jflex.scanner.LexicalStates;
 import jflex.scanner.ScannerException;
 
@@ -74,7 +73,7 @@ public abstract class AbstractLexScan implements ILexScan {
 
   // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
   // since the max char code won't be known until then.
-  private final CharClasses charClasses = new CharClasses();
+  final CharClasses charClasses = new CharClasses();
 
   @Override
   public UnicodeProperties getUnicodeProperties() {
@@ -171,12 +170,11 @@ public abstract class AbstractLexScan implements ILexScan {
     } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
       throw new ScannerException(file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, lexLine());
     }
-    initCharClasses();
   }
 
   @SuppressWarnings("WeakerAccess") // Used in generated LexScan
-  void initCharClasses() {
-    charClasses.init(Options.jlex ? 127 : unicodeProperties.getMaximumCodePoint(), this);
+  void initUnicodeCharClasses() {
+    charClasses.init(unicodeProperties.getMaximumCodePoint(), this);
   }
 
   // Used in generated LexScan

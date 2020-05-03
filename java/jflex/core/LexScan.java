@@ -1590,7 +1590,6 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
   boolean notUnix;
   boolean caseless;
   boolean inclusive_states;
-  boolean isASCII;
 
   int nextState;
 
@@ -2232,8 +2231,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
             // fall through
           case 178: break;
           case 9:
-            { if (null == unicodeProperties && ! isASCII) {
+            { if (null == unicodeProperties) {
                                   populateDefaultVersionUnicodeProperties();
+                                  initUnicodeCharClasses();
                                 }
                                 yybegin(REGEXP);
                                 return symbol(EQUALS);
@@ -2506,8 +2506,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
             // fall through
           case 227: break;
           case 58:
-            { if (null == unicodeProperties && ! isASCII) {
+            { if (null == unicodeProperties) {
                                   populateDefaultVersionUnicodeProperties();
+                                  initUnicodeCharClasses();
                                 }
                                 macroDefinition = false;
                                 yybegin(REGEXPSTART);
@@ -2814,12 +2815,14 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
             // fall through
           case 278: break;
           case 109:
-            { isASCII = true; return symbol(ASCII);
+            { populateDefaultVersionUnicodeProperties();
+                                charClasses.init(127, this);
             }
             // fall through
           case 279: break;
           case 110:
-            { return symbol(FULL);
+            { populateDefaultVersionUnicodeProperties();
+                                charClasses.init(255, this);
             }
             // fall through
           case 280: break;
@@ -2840,7 +2843,9 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
                                 if (eofVal == null)
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
                                 if (!Options.jlex) eofclose = true;
-                                return symbol(UNICODE); // %unicode
+                                // %unicode:
+                                populateDefaultVersionUnicodeProperties();
+                                initUnicodeCharClasses();
             }
             // fall through
           case 282: break;
@@ -2856,7 +2861,7 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
           case 284: break;
           case 115:
             { populateDefaultVersionUnicodeProperties();
-                                return symbol(UNICODE);
+                                initUnicodeCharClasses();
             }
             // fall through
           case 285: break;
@@ -2954,9 +2959,8 @@ public final class LexScan extends AbstractLexScan implements sym, java_cup.runt
                                            throw new ScannerException
                                              (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
                                          }
-                                         initCharClasses();
                                        }
-                                       return symbol(UNICODE);
+                                       initUnicodeCharClasses();
             }
             // fall through
           case 302: break;
