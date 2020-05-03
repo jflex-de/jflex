@@ -19,7 +19,7 @@
 JAVA=java
 
 # Version of JFlex to execute
-JFLEX_VERSION=1.8.2
+JFLEX_VERSION=1.9.0-SNAPSHOT
 
 # end configurables
 #

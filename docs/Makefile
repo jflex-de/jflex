@@ -1,6 +1,6 @@
 # Makefile for jflex documentation (ps + pdf + html)
 
-VERSION=1.8.2
+VERSION=1.9.0-SNAPSHOT
 RELEASE_DATE=28 February 2020
 UNICODE_VER=12.1
 

@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.jflex</groupId>
     <artifactId>jflex-parent</artifactId>
-    <version>1.8.2</version>
+    <version>1.9.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <name>JFlex</name>
@@ -117,7 +117,7 @@
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
         <!-- bootstrap with previous version -->
-        <version>1.8.1</version>
+        <version>1.8.2</version>
         <executions>
           <execution>
             <goals>
