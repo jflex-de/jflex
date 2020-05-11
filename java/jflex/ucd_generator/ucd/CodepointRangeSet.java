@@ -1,6 +1,8 @@
 package jflex.ucd_generator.ucd;
 
 import com.google.auto.value.AutoValue;
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -122,20 +124,21 @@ public abstract class CodepointRangeSet {
     }
 
     /** Returns all intervals that intersect with intersecting. */
-    private List<MutableCodepointRange> intersection(CodepointRange intersecting) {
+    @VisibleForTesting
+    List<MutableCodepointRange> intersection(CodepointRange intersecting) {
       List<MutableCodepointRange> intersection = new ArrayList<>();
 
-      MutableCodepointRange start = MutableCodepointRange.create(intersecting.start());
-      MutableCodepointRange end = MutableCodepointRange.create(intersecting.end());
-
+      MutableCodepointRange start = MutableCodepointRange.createPoint(intersecting.start());
+      MutableCodepointRange end = MutableCodepointRange.createPoint(intersecting.end() + 1);
+      // All intervals that start strictly after the intersecting (but not after its end)
       SortedSet<MutableCodepointRange> subset = mRanges.subSet(start, end);
 
       // Also consider the last interval which was starting before
       try {
         SortedSet<MutableCodepointRange> prevRanges =
-            subset.isEmpty() ? mRanges : mRanges.headSet(subset.first());
+            subset.isEmpty() ? mRanges.headSet(end) : mRanges.headSet(subset.first());
         MutableCodepointRange prevRange = prevRanges.last();
-        if (prevRange.start < intersecting.start()) {
+        if (prevRange.start < intersecting.start() && intersecting.start() <= prevRange.end) {
           intersection.add(0, prevRange);
         }
       } catch (NoSuchElementException e) {
@@ -148,16 +151,26 @@ public abstract class CodepointRangeSet {
     }
 
     public CodepointRangeSet build() {
-      MutableCodepointRange lastRange = MutableCodepointRange.create(-1);
+      Preconditions.checkState(!mRanges.isEmpty(), "Cannot create an empty set");
+      internalAddRanges();
+      return internalBuild();
+    }
+
+    private void internalAddRanges() {
+      MutableCodepointRange lastRange = null;
       for (MutableCodepointRange r : mRanges) {
+        if (lastRange == null) {
+          lastRange = r;
+          continue;
+        }
         if (lastRange.end + 1 == r.start) {
           lastRange.end = r.end;
         } else {
-          rangesBuilder().add(CodepointRange.create(r));
+          rangesBuilder().add(CodepointRange.create(lastRange));
           lastRange = r;
         }
       }
-      return internalBuild();
+      rangesBuilder().add(CodepointRange.create(lastRange));
     }
 
     abstract CodepointRangeSet internalBuild();

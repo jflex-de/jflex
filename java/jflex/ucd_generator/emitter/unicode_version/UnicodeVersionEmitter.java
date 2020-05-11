@@ -17,6 +17,7 @@ import java.util.SortedSet;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
+import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.util.javac.JavaPackageUtils;
 import jflex.velocity.Velocity;
@@ -69,18 +70,17 @@ public class UnicodeVersionEmitter extends UcdEmitter {
   }
 
   private Collection<String> intervalsToCodesource() {
-    EntryTransformer<String, Collection<CodepointRange>, String> function =
-        new EntryTransformer<String, Collection<CodepointRange>, String>() {
+    EntryTransformer<String, CodepointRangeSet, String> function =
+        new EntryTransformer<String, CodepointRangeSet, String>() {
 
           @Override
-          public String transformEntry(
-              String propertyValue, Collection<CodepointRange> codepointRanges) {
+          public String transformEntry(String propertyValue, CodepointRangeSet rangeSet) {
             String codeComment =
                 String.format(
                     "// Unicode %s property value: {%s}\n",
                     ucdVersion.version().toMajorMinorString(), propertyValue);
             String value =
-                codepointRanges.stream()
+                rangeSet.ranges().stream()
                     .map(this::intervalToCodesource)
                     .collect(joining("\n        + "));
             return codeComment + "    " + value;

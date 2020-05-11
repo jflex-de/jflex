@@ -6,7 +6,6 @@ import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ForwardingSortedSetMultimap;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
@@ -20,6 +19,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
 import jflex.ucd_generator.ucd.CodepointRange;
+import jflex.ucd_generator.ucd.CodepointRangeSet;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
@@ -117,11 +117,14 @@ public class PropertyValueIntervals {
     return propertyValueIntervals.keySet();
   }
 
-  public ImmutableSortedMap<String, ImmutableCollection<CodepointRange>> asSortedMap() {
-    ImmutableSortedMap.Builder<String, ImmutableCollection<CodepointRange>> map =
-        ImmutableSortedMap.naturalOrder();
+  public ImmutableSortedMap<String, CodepointRangeSet> asSortedMap() {
+    ImmutableSortedMap.Builder<String, CodepointRangeSet> map = ImmutableSortedMap.naturalOrder();
     for (String property : propertyValueIntervals.keySet()) {
-      map.put(property, ImmutableList.copyOf(propertyValueIntervals.get(property)));
+      map.put(
+          property,
+          CodepointRangeSet.builder()
+              .addAllImmutable(propertyValueIntervals.get(property))
+              .build());
     }
     return map.build();
   }

@@ -1,3 +1,9 @@
+## [JFlex 1.8.2](https://github.com/jflex-de/jflex/milestone/19) (May 3, 2020)
+
+- fix bug that prevented `%7bit` scanners from being generated (#756)
+- fix `%eof{` and `%eofthrow{` code generation (#743)
+- updated bazel build rule
+
 ## [JFlex 1.8.1](https://github.com/jflex-de/jflex/milestone/18) (February 28, 2020)
 
 - adjust CUP dependency management such that JFlex can be built from source in the release package.

@@ -41,7 +41,7 @@ You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
         <plugin>
           <groupId>de.jflex</groupId>
           <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.8.0</version>
+          <version>1.8.2</version>
           <executions>
             <execution>
               <goals>
@@ -100,7 +100,7 @@ jflex/bin/jflex src/grammar/parser.flex
 
 Or:
 ```
-java -jar jflex-full-1.8.0.jar -d output src/grammar/parser.flex
+java -jar jflex-full-1.8.2.jar -d output src/grammar/parser.flex
 ```
 
 ### Other build tools
@@ -179,10 +179,10 @@ You need JDK 8 or later.
 ./mvnw install
 ```
 
-This generates `jflex/target/jflex-full-1.8.1-SNAPSHOT.jar` that you can use, e.g.
+This generates `jflex/target/jflex-full-1.9.0-SNAPSHOT.jar` that you can use, e.g.
 
 ```
-java -jar jflex-full-1.8.1-SNAPSHOT.jar --info
+java -jar jflex-full-1.9.0-SNAPSHOT.jar --info
 ```
 
 Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
