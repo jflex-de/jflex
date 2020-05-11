@@ -12,6 +12,9 @@ java_library(
     srcs = [
         ":action_pipe_eof_flex",
     ],
+    deps =[
+        "//third_party/java:jsr250",
+    ]
 )
 
 java_test(
@@ -35,6 +38,9 @@ java_library(
     name = "eof_pipe_action_scanner",
     srcs = [
         ":eof_pipe_action_flex",
+    ],
+    deps = [
+        "//third_party/java:jsr250",
     ],
 )
 

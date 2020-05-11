@@ -22,6 +22,7 @@ java_library(
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
         "//third_party/edu/tum/cup2",
+        "//third_party/java:jsr250",
     ],
 )
 

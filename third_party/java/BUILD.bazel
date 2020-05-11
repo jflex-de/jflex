@@ -1,10 +1,8 @@
 licenses(["notice"])  # GPL v2
 
 # Provides javax.annotation
-java_library(
+alias(
     name = "jsr250",
+    actual = "@maven//:javax_annotation_jsr250_api",
     visibility = ["//visibility:public"],
-    exports = [
-        "@maven//:javax_annotation_jsr250_api",
-    ],
 )

@@ -12,6 +12,9 @@ java_library(
     srcs = [
         ":sevenbit_flex",
     ],
+    deps =[
+        "//third_party/java:jsr250",
+    ]
 )
 
 java_test(

@@ -18,6 +18,7 @@ java_library(
     deps = [
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
+        "//third_party/java:jsr250",
     ],
 )
 
@@ -33,5 +34,6 @@ java_test(
         "//java/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
+        "//third_party/java:jsr250",
     ],
 )
