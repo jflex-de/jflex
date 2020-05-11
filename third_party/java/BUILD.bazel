@@ -1,0 +1,10 @@
+licenses(["notice"])  # GPL v2
+
+# Provides javax.annotation
+java_library(
+    name = "jsr250",
+    visibility = ["//visibility:public"],
+    exports = [
+        "@maven//:javax_annotation_jsr250_api",
+    ],
+)
