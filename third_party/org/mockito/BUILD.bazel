@@ -5,6 +5,6 @@ licenses(["notice"])  # MIT
 
 alias(
     name = "mockito",
-    visibility = ["//visibility:public"],
     actual = "@maven//:org_mockito_mockito_core",
+    visibility = ["//visibility:public"],
 )

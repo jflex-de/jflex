@@ -1,15 +1,15 @@
 java_test(
     name = "JavacUtilsTest",
     srcs = ["JavacUtilsTest.java"],
+    data = [
+        ":jsr250_jar",
+    ],
     deps = [
         "//java/jflex/util/javac",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
         "//third_party/org/mockito",
     ],
-    data = [
-        ":jsr250_jar",
-    ]
 )
 
 genrule(
