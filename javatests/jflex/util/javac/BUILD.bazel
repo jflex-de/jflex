@@ -1,4 +1,15 @@
 java_test(
+    name = "JavacUtilsTest",
+    srcs = ["JavacUtilsTest.java"],
+    deps = [
+        "//java/jflex/util/javac",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+        "//third_party/org/mockito",
+    ],
+)
+
+java_test(
     name = "JavaPackageUtilsTest",
     srcs = ["JavaPackageUtilsTest.java"],
     deps = [

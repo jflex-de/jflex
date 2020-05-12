@@ -25,10 +25,12 @@
  */
 package jflex.util.javac;
 
+import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -42,17 +44,22 @@ import javax.tools.ToolProvider;
  */
 public final class JavacUtils {
 
-  /** Compiles the given java source files. */
-  public static void compile(Iterable<? extends File> files) throws CompilerException {
-    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+  static void compile(
+      Iterable<? extends File> files, Iterable<? extends File> classpath, JavaCompiler compiler)
+      throws CompilerException {
     DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
     StandardJavaFileManager fileManager =
         compiler.getStandardFileManager(diagnostics, null, StandardCharsets.UTF_8);
 
     Iterable<? extends JavaFileObject> compilationUnit =
         fileManager.getJavaFileObjectsFromFiles(files);
+    String cp =
+        ImmutableList.copyOf(classpath).stream()
+            .map(File::getAbsolutePath)
+            .collect(Collectors.joining(String.valueOf(File.pathSeparatorChar)));
+    Iterable<String> options = ImmutableList.of("-classpath", cp);
     JavaCompiler.CompilationTask task =
-        compiler.getTask(null, fileManager, diagnostics, null, null, compilationUnit);
+        compiler.getTask(null, fileManager, diagnostics, options, null, compilationUnit);
     Boolean success = task.call();
     try {
       if (!diagnostics.getDiagnostics().isEmpty()) {
@@ -69,6 +76,17 @@ public final class JavacUtils {
       } catch (IOException ignore) {
       }
     }
+  }
+  /** Compiles the given java source files, using the provided class path. */
+  public static void compile(Iterable<? extends File> files, Iterable<? extends File> classpath)
+      throws CompilerException {
+    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+    compile(files, classpath, compiler);
+  }
+
+  /** Compiles the given java source files. */
+  public static void compile(Iterable<? extends File> files) throws CompilerException {
+    compile(files, ImmutableList.of());
   }
 
   private JavacUtils() {}
