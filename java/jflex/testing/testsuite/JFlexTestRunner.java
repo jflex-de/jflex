@@ -210,7 +210,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Description desc = Description.createTestDescription(klass, "Compile java code");
     notifier.fireTestStarted(desc);
     try {
-      File runtimeDir = new File("java/jflex/util/javac");
+      File runtimeDir = new File("java/jflex/testing/testsuite");
       JavacUtils.compile(
           ImmutableList.of(new File(lexerJavaFileName)),
           ImmutableList.of(new File(runtimeDir, "jsr250.jar")));

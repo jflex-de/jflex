@@ -4,6 +4,7 @@ jflex_testsuite(
     name = "ApiPrivateTest",
     srcs = ["ApiPrivateTest.java"],
     data = [
+        ":jsr250_jar",
         "AttemptPrivateAccess.java",
         "private.flex",
     ],
@@ -11,4 +12,10 @@ jflex_testsuite(
         "//java/jflex/util/javac",
         "//third_party/com/google/guava",
     ],
+)
+genrule(
+    name = "jsr250_jar",
+    srcs = ["//third_party/java:jsr250"],
+    outs = ["jsr250.jar"],
+    cmd = "cp $< $@",
 )

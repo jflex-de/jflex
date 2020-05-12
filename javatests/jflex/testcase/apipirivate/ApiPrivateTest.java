@@ -25,6 +25,7 @@
  */
 package jflex.testcase.apipirivate;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.fail;
@@ -56,9 +57,10 @@ public class ApiPrivateTest {
                 "javatests/jflex/testcase/apipirivate/PrivateScanner.java",
                 "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java")
             .map(File::new)
-            .collect(ImmutableList.toImmutableList());
+            .collect(toImmutableList());
     try {
-      JavacUtils.compile(srcFiles);
+      File testRunfileDir = new File("javatests/jflex/testcase/apipirivate");
+      JavacUtils.compile(srcFiles, ImmutableList.of(new File(testRunfileDir, "jsr250.jar")));
       fail("Class `PrivateScanner` should have private access");
     } catch (CompilerException e) {
       assertWithMessage(
