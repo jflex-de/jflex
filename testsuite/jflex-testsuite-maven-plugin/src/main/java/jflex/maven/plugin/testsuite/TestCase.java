@@ -153,7 +153,7 @@ public class TestCase {
     testPath = testDir;
   }
 
-  void createScanner(File jflexUberJar, boolean verbose)
+  void createScanner(List<File> classpath, boolean verbose)
       throws TestFailException, MojoFailureException {
     File lexFile = new File(testPath, testName + ".flex");
     if (verbose) {
@@ -196,7 +196,7 @@ public class TestCase {
         if (diff != null) {
           System.out.println("Test failed, unexpected jflex output: " + diff);
           System.out.println("JFlex output: " + jflexResult.getOutput());
-          throw new TestFailException();
+          throw new TestFailException("Unexpected jflex output:\n" + diff);
         }
       } else {
         System.out.println("Warning: no file for expected output [" + expected + "]");
@@ -208,8 +208,7 @@ public class TestCase {
         System.out.println("File(s) to compile: " + toCompile);
       }
       try {
-        TestResult javacResult =
-            ExecUtils.execJavac(toCompile, testPath, jflexUberJar.getAbsolutePath(), javacEncoding);
+        TestResult javacResult = ExecUtils.execJavac(toCompile, testPath, classpath, javacEncoding);
 
         // System.out.println(javacResult);
         if (TestsuiteUtils.verbose) {
@@ -277,7 +276,7 @@ public class TestCase {
     return !(inputOutput.isEmpty());
   }
 
-  void runNext(File jflexUberJar) throws TestFailException, UnsupportedEncodingException {
+  void runNext(List<File> classpath) throws TestFailException, UnsupportedEncodingException {
     // Get first file and remove it from list
     InputOutput current = inputOutput.remove(0);
     // Create List with only first input in
@@ -287,15 +286,9 @@ public class TestCase {
     List<String> cmdLine = new ArrayList<>();
     cmdLine.add("--encoding");
     cmdLine.add(inputFileEncoding);
-    List<File> additionalJars = ImmutableList.of(jflexUberJar);
     TestResult classExecResult =
         ExecUtils.execClass(
-            className,
-            testPath.toString(),
-            inputFiles,
-            additionalJars,
-            outputFileEncoding,
-            cmdLine);
+            className, testPath.toString(), inputFiles, classpath, outputFileEncoding, cmdLine);
     if (TestsuiteUtils.verbose) {
       System.out.println("Running scanner on [" + current.getName() + "]");
     }

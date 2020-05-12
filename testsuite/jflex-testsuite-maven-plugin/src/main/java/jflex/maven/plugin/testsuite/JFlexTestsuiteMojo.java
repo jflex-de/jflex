@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -11,6 +12,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.eclipse.aether.RepositorySystemSession;
 
 /** Runs test cases in the JFlex test suite */
 @Mojo(name = "run-test-suite", defaultPhase = LifecyclePhase.TEST)
@@ -35,16 +37,24 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar")
   private String jflexUberJarFilename;
 
-  /** */
+  /** The current repository/network configuration of Maven. */
+  @Parameter(defaultValue = "${repositorySystemSession}")
+  private RepositorySystemSession repoSession;
+
   public void execute() throws MojoExecutionException, MojoFailureException {
     boolean success = true;
     File jflexUberJar = new File(jflexUberJarFilename);
+    File javaxAnnotationJar =
+        new File(
+            repoSession.getLocalRepository().getBasedir(),
+            "javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar");
     try {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
       getLog().info("JFlex: " + jflexUberJar.getAbsolutePath());
       getLog()
           .info("Testing version: " + PomUtils.getPomVersion("de.jflex", "jflex", jflexUberJar));
+      getLog().debug("javax.annotation jar: " + javaxAnnotationJar);
       getLog().info("Test directory: " + testDirectory);
       getLog().info("Test case(s): " + (null == testcases ? "All" : testcases));
 
@@ -65,7 +75,7 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       TestsuiteUtils.verbose = verbose;
       getLog().info("verbose: " + verbose);
 
-      success = TestsuiteUtils.runTests(files, jflexUberJar);
+      success = TestsuiteUtils.runTests(files, Arrays.asList(jflexUberJar, javaxAnnotationJar));
 
     } catch (Exception e) {
       throw new MojoExecutionException("Failed to execute test suite: " + e.getMessage(), e);

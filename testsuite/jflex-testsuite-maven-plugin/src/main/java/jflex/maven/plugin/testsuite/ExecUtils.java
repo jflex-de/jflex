@@ -1,5 +1,7 @@
 package jflex.maven.plugin.testsuite;
 
+import static java.util.stream.Collectors.joining;
+
 import com.google.common.base.Joiner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -52,9 +54,10 @@ public class ExecUtils {
    *
    * @param javaSourceFiles A list of files to compile, or {@code null}
    * @param dir Source directory.
+   * @param additionalJars Files to add to the classpath for the compilation.
    */
   public static TestResult execJavac(
-      List<String> javaSourceFiles, File dir, String additionalJars, String encoding)
+      List<String> javaSourceFiles, File dir, List<File> additionalJars, String encoding)
       throws FileNotFoundException {
     // javac fails if an input file doesn't exist
     checkFilesExist(javaSourceFiles, dir);
@@ -73,7 +76,10 @@ public class ExecUtils {
     javac.setEncoding(encoding);
     Path classPath = javac.createClasspath();
     // Locate the jflex jar in the user's Maven local repository
-    classPath.setPath(additionalJars);
+    classPath.setPath(
+        additionalJars.stream()
+            .map(File::getPath)
+            .collect(joining(String.valueOf(File.pathSeparatorChar))));
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     PrintStream outSafe = System.err;

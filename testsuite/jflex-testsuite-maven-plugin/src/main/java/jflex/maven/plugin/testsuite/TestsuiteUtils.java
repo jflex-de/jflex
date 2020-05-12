@@ -12,7 +12,7 @@ public class TestsuiteUtils {
 
   private TestsuiteUtils() {}
 
-  public static boolean verbose;
+  static boolean verbose;
   public static String jflexTestVersion;
 
   public static final String version = "1.0alpha";
@@ -28,7 +28,7 @@ public class TestsuiteUtils {
    *
    * @return a list of files
    */
-  public static List<File> scan(File dir, final String extension, boolean recursive) {
+  static List<File> scan(File dir, final String extension, boolean recursive) {
     List<File> result = new ArrayList<>();
 
     FilenameFilter extFilter =
@@ -65,11 +65,11 @@ public class TestsuiteUtils {
 
   /**
    * @param tests a list of File
-   * @param jflexUberJar The JFlex shaded jar
+   * @param classPath the files to add in the classpath
    * @return true if all tests succeeded, false otherwise
    */
-  public static boolean runTests(List<File> tests, File jflexUberJar)
-      throws TestFailException, MojoExecutionException, MojoFailureException {
+  static boolean runTests(List<File> tests, List<File> classPath)
+      throws MojoExecutionException, MojoFailureException {
     int successCount = 0;
     int totalCount = 0;
 
@@ -91,8 +91,10 @@ public class TestsuiteUtils {
         if (verbose) System.out.println("Loaded successfully"); // - Details:\n"+currentTest);
 
         if (currentTest.checkJavaVersion()) {
-          currentTest.createScanner(jflexUberJar, verbose);
-          while (currentTest.hasMoreToDo()) currentTest.runNext(jflexUberJar);
+          currentTest.createScanner(classPath, verbose);
+          while (currentTest.hasMoreToDo()) {
+            currentTest.runNext(classPath);
+          }
 
           successCount++;
           System.out.println("Test [" + test + "] finished successfully.");
