@@ -12,9 +12,9 @@ java_library(
     srcs = [
         ":action_pipe_eof_flex",
     ],
-    deps =[
+    deps = [
         "//third_party/java:jsr250",
-    ]
+    ],
 )
 
 java_test(
