@@ -210,7 +210,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Description desc = Description.createTestDescription(klass, "Compile java code");
     notifier.fireTestStarted(desc);
     try {
-      JavacUtils.compile(ImmutableList.of(new File(lexerJavaFileName)));
+      File runtimeDir = new File("java/jflex/util/javac");
+      JavacUtils.compile(
+          ImmutableList.of(new File(lexerJavaFileName)),
+          ImmutableList.of(new File(runtimeDir, "jsr250.jar")));
       notifier.fireTestFinished(desc);
     } catch (Throwable th) {
       notifier.fireTestFailure(new Failure(desc, th));

@@ -19,4 +19,14 @@ java_library(
         "//third_party/com/google/truth",
         "//third_party/junit",
     ],
+    data = [
+        ":jsr250_jar",
+    ]
+)
+
+genrule(
+    name = "jsr250_jar",
+    srcs = ["//third_party/java:jsr250"],
+    outs = ["jsr250.jar"],
+    cmd = "cp $< $@",
 )

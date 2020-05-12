@@ -7,6 +7,16 @@ java_test(
         "//third_party/com/google/truth",
         "//third_party/org/mockito",
     ],
+    data = [
+        ":jsr250_jar",
+    ]
+)
+
+genrule(
+    name = "jsr250_jar",
+    srcs = ["//third_party/java:jsr250"],
+    outs = ["jsr250.jar"],
+    cmd = "cp $< $@",
 )
 
 java_test(

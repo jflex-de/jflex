@@ -27,6 +27,7 @@ package jflex.util.javac;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -47,6 +48,12 @@ public final class JavacUtils {
   static void compile(
       Iterable<? extends File> files, Iterable<? extends File> classpath, JavaCompiler compiler)
       throws CompilerException {
+    for (File f : classpath) {
+      if (!f.isFile()) {
+        throw new CompilerException(new FileNotFoundException(f.getAbsolutePath()));
+      }
+    }
+
     DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
     StandardJavaFileManager fileManager =
         compiler.getStandardFileManager(diagnostics, null, StandardCharsets.UTF_8);

@@ -45,7 +45,8 @@ public class JavacUtilsTest {
   @Test
   public void compile() throws CompilerException {
     Iterable<File> files = ImmutableList.of(new File("Foo.java", "Bar.java"));
-    Iterable<File> classpath = ImmutableList.of(new File("/path/to/lib.jar"));
+    File testRuntimeDir = new File("javatests/jflex/util/javac");
+    Iterable<File> classpath = ImmutableList.of(new File(testRuntimeDir, "jsr250.jar"));
 
     ArgumentCaptor<Iterable<String>> argOptions = ArgumentCaptor.forClass(Iterable.class);
     when(mockJavaCompiler.getTask(
@@ -59,9 +60,9 @@ public class JavacUtilsTest {
     when(mockTask.call()).thenReturn(true);
 
     JavacUtils.compile(files, classpath, mockJavaCompiler);
-
-    assertThat(argOptions.getValue())
-        .containsExactly("-classpath", "/path/to/lib.jar")
-        .inOrder();
+    ImmutableList<String> javacOptions = ImmutableList.copyOf(argOptions.getValue());
+    assertThat(javacOptions.get(0)).isEqualTo("-classpath");
+    assertThat(javacOptions.get(1)).endsWith("jsr250.jar");
+    assertThat(new File(javacOptions.get(1)).exists()).isTrue();
   }
 }
