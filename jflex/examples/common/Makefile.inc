@@ -6,10 +6,16 @@
 JFLEX      = ../../bin/jflex
 
 LIB        = ../common/lib
-CUPVERSION = java-cup-11b-20160615.jar
-CUPURL     = https://raw.githubusercontent.com/jflex-de/jflex/7a3d66f2a/cup/cup
-CUPJAR     = $(LIB)/$(CUPVERSION)
-CUP        = java -jar $(CUPJAR)
+CURL       = curl -L -O -C -
+
+CUPVERSION = 11b-20160615
+CUPJAR     = java-cup-$(CUPVERSION).jar
+CUPURL     = https://repo1.maven.org/maven2/com/github/vbmacher/java-cup/$(CUPVERSION)/$(CUPJAR)
+CUP        = java -jar $(LIB)/$(CUPJAR)
+
+JSR250VERSION = 1.0
+JSR250JAR     = jsr250-api-$(JSR250VERSION).jar
+JSR250URL     = https://repo1.maven.org/maven2/javax/annotation/jsr250-api/$(JSR250VERSION)/$(JSR250JAR)
 
 OUT    = out
 GEN    = $(OUT)/genfiles
@@ -29,8 +35,8 @@ all: test
 
 compile: $(OUT)/$(MAIN).class
 
-$(OUT)/$(MAIN).class: $(LEXER) $(PARSER) $(MAIN_JAVA_FILES) $(MORE_JAVA_FILES)
-	javac -cp $(CUPJAR):$(OUT) -d $(OUT) $(MAIN_JAVA_FILES) $(GEN)/*.java
+$(OUT)/$(MAIN).class: $(LEXER) $(PARSER) $(MAIN_JAVA_FILES) $(MORE_JAVA_FILES) $(LIB)/$(CUPJAR) $(LIB)/$(JSR250JAR)
+	javac -cp $(LIB)/$(CUPJAR):$(LIB)/$(JSR250JAR):$(OUT) -d $(OUT) $(MAIN_JAVA_FILES) $(GEN)/*.java
 
 gen_jflex: $(LEXER)
 
@@ -39,17 +45,21 @@ $(LEXER): $(LEXER_IN)
 
 gen_cup: $(PARSER)
 
-$(PARSER): $(PARSER_IN) $(CUPJAR)
+$(PARSER): $(PARSER_IN) $(LIB)/$(CUPJAR)
 	$(CUP) -interface < $<
 	mkdir -p $(GEN)
 	mv $(PARSER_OUT) $(GEN)/
 
-$(CUPJAR):
+$(LIB)/$(CUPJAR):
 	mkdir -p $(LIB)
-	(cd $(LIB); curl -O $(CUPURL)/$(CUPVERSION))
+	(cd $(LIB); $(CURL) $(CUPURL))
+
+$(LIB)/$(JSR250JAR):
+	mkdir -p $(LIB)
+	(cd $(LIB); $(CURL) $(JSR250URL))
 
 run: compile $(TEST_IN)
-	java -cp $(CUPJAR):$(OUT) $(MAIN) $(PIPE_INPUT) $(TEST_IN) > $(OUT_ACTUAL)
+	java -cp $(LIB)/$(CUPJAR):$(LIB)/$(JSR250JAR):$(OUT) $(MAIN) $(PIPE_INPUT) $(TEST_IN) > $(OUT_ACTUAL)
 	@cat $(OUT_ACTUAL)
 
 test: run
