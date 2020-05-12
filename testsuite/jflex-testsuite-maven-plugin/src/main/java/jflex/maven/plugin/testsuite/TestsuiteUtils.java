@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 
@@ -70,6 +71,8 @@ public class TestsuiteUtils {
    */
   static boolean runTests(List<File> tests, List<File> classPath)
       throws MojoExecutionException, MojoFailureException {
+    Locale.setDefault(Locale.US);
+
     int successCount = 0;
     int totalCount = 0;
 
