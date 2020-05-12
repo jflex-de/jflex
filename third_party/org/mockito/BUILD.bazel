@@ -1,0 +1,10 @@
+# Mocking framework
+# https://site.mockito.org/
+
+licenses(["notice"])  # MIT
+
+alias(
+    name = "mockito",
+    visibility = ["//visibility:public"],
+    actual = "@maven//:org_mockito_mockito_core",
+)

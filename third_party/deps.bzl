@@ -21,4 +21,5 @@ ARTIFACTS = [
     "junit:junit:jar:4.12",
     "com.github.vbmacher:java-cup:jar:11b-20160615",
     "com.github.vbmacher:java-cup-runtime:jar:11b-20160615",
+    "org.mockito:mockito-core:jar:3.3.3",
 ]
