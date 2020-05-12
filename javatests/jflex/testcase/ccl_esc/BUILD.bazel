@@ -20,7 +20,7 @@ java_library(
     ],
     deps = [
         "//third_party/com/google/guava",
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 

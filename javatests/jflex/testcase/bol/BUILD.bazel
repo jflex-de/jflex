@@ -25,6 +25,6 @@ java_test(
     deps = [
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )

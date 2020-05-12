@@ -16,7 +16,7 @@ jflex_testsuite(
 
 genrule(
     name = "jsr250_jar",
-    srcs = ["//third_party/java:jsr250"],
-    outs = ["jsr250.jar"],
+    srcs = ["//third_party/javax:annotation"],
+    outs = ["javax.annotation.jar"],
     cmd = "cp $< $@",
 )

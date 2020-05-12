@@ -20,7 +20,7 @@ java_library(
     deps = [
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 
@@ -41,7 +41,7 @@ java_library(
     deps = [
         "//java/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 

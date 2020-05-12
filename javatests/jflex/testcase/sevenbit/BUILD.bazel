@@ -13,7 +13,7 @@ java_library(
         ":sevenbit_flex",
     ],
     deps = [
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 

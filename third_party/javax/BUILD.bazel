@@ -2,7 +2,7 @@ licenses(["notice"])  # GPL v2
 
 # Provides javax.annotation
 alias(
-    name = "jsr250",
-    actual = "@maven//:javax_annotation_jsr250_api",
+    name = "annotation",
+    actual = "@maven//:javax_annotation_javax_annotation_api",
     visibility = ["//visibility:public"],
 )

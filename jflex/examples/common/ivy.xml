@@ -6,7 +6,7 @@
     <dependency org="com.google.guava" name="guava" rev="26.0-jre"/>
     <dependency org="com.google.truth" name="truth" rev="0.38"/>
     <dependency org="com.github.vbmacher" name="java-cup" rev="11b-20160615"/>
-    <dependency org="javax.annotation" name="jsr250-api" rev="1.0"/>
+    <dependency org="javax.annotation" name="javax.annotation-api" rev="1.3.2"/>
     <!--
       circular dependency found:
       com.google.truth#truth;0.36->com.google.testing.compile#compile-testing;0.12->com.google.truth#truth;0.35

@@ -14,7 +14,7 @@ java_test(
 
 genrule(
     name = "jsr250_jar",
-    srcs = ["//third_party/java:jsr250"],
+    srcs = ["//third_party/javax:annotation"],
     outs = ["jsr250.jar"],
     cmd = "cp $< $@",
 )

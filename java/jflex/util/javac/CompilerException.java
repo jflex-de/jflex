@@ -49,7 +49,7 @@ public class CompilerException extends Exception {
   }
 
   public CompilerException(Throwable e) {
-    super("javac exception: " + e.getMessage(), e);
+    super("javac exception: " + e, e);
     this.diagnostics = ImmutableList.of();
   }
 

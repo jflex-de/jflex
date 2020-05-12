@@ -60,7 +60,7 @@ public class ApiPrivateTest {
             .collect(toImmutableList());
     try {
       File testRunfileDir = new File("javatests/jflex/testcase/apipirivate");
-      JavacUtils.compile(srcFiles, ImmutableList.of(new File(testRunfileDir, "jsr250.jar")));
+      JavacUtils.compile(srcFiles, ImmutableList.of(new File(testRunfileDir, "javax.annotation.jar")));
       fail("Class `PrivateScanner` should have private access");
     } catch (CompilerException e) {
       assertWithMessage(

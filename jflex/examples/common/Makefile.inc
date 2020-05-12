@@ -11,11 +11,11 @@ CURL       = curl -L -O -C -
 CUPVERSION = 11b-20160615
 CUPJAR     = java-cup-$(CUPVERSION).jar
 CUPURL     = https://repo1.maven.org/maven2/com/github/vbmacher/java-cup/$(CUPVERSION)/$(CUPJAR)
-CUP        = java -jar $(LIB)/$(CUPJAR)
+CUP        = java -cp $(LIB)/$(CUPJAR) java_cup.Main
 
-JSR250VERSION = 1.0
-JSR250JAR     = jsr250-api-$(JSR250VERSION).jar
-JSR250URL     = https://repo1.maven.org/maven2/javax/annotation/jsr250-api/$(JSR250VERSION)/$(JSR250JAR)
+JSR250VERSION = 1.3.2
+JSR250JAR     = javax.annotation-api-$(JSR250VERSION).jar
+JSR250URL     = https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/$(JSR250VERSION)/$(JSR250JAR)
 
 OUT    = out
 GEN    = $(OUT)/genfiles

@@ -13,7 +13,7 @@ java_library(
         ":action_pipe_eof_flex",
     ],
     deps = [
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 
@@ -40,7 +40,7 @@ java_library(
         ":eof_pipe_action_flex",
     ],
     deps = [
-        "//third_party/java:jsr250",
+        "//third_party/javax:annotation",
     ],
 )
 

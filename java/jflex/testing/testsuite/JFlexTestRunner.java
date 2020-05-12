@@ -213,7 +213,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       File runtimeDir = new File("java/jflex/testing/testsuite");
       JavacUtils.compile(
           ImmutableList.of(new File(lexerJavaFileName)),
-          ImmutableList.of(new File(runtimeDir, "jsr250.jar")));
+          ImmutableList.of(new File(runtimeDir, "javax.annotation.jar")));
       notifier.fireTestFinished(desc);
     } catch (Throwable th) {
       notifier.fireTestFailure(new Failure(desc, th));

@@ -47,7 +47,8 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
     File javaxAnnotationJar =
         new File(
             repoSession.getLocalRepository().getBasedir(),
-            "javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar");
+            // https://repo1.maven.org/maven2/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+            "javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar");
     try {
       System.setOut(new PrintStream(System.out, true));
       List<File> files = new ArrayList<>();
