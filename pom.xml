@@ -122,8 +122,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <!-- Release 21.0 requires JDK 1.8 or newer. -->
-        <version>20.0</version>
+        <version>26.0-jre</version>
       </dependency>
       <dependency>
         <groupId>com.google.truth</groupId>
