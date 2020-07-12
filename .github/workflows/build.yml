@@ -16,9 +16,10 @@ env:
 jobs:
   build:
     name: 'Maven'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         java: [ 8, 11, 12, 13 ]
       fail-fast: false
     steps:
@@ -44,9 +45,10 @@ jobs:
 
   regression:
     name: 'Regression Test'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         java: [ 8, 13 ]
       fail-fast: false
     steps:
@@ -68,9 +70,10 @@ jobs:
 
   examples:
     name: 'Examples'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         java: [ 8, 11, 12, 13 ]
       fail-fast: false
     steps:
