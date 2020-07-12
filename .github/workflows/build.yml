@@ -15,12 +15,12 @@ env:
 
 jobs:
   build:
-    name: 'Maven'
+    name: 'Test'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 11, 12, 13 ]
+        java: [ 8, 11, 13 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v2
@@ -40,6 +40,8 @@ jobs:
       run: scripts/mvn-site.sh
     - name: '🔨 Maven (aggregate sources)'
       run: scripts/mvn-aggregate-srcs.sh
+    - name: '😎 Examples (mvn, ant, make)'
+      run: scripts/test-examples.sh
 # needs update for github:
 #      run: scripts/preparare-deploy-source-code.sh
 
@@ -67,29 +69,6 @@ jobs:
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
         scripts/test-regression.sh
-
-  examples:
-    name: 'Examples'
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        java: [ 8, 11, 12, 13 ]
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.java }}
-    - name: Cache Maven packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-    - name: '😎 Examples (mvn, ant, make)'
-      run: scripts/test-examples.sh
 
   docs:
     name: 'Docs'
