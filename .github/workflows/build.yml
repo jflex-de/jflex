@@ -39,8 +39,6 @@ jobs:
       run: scripts/mvn-aggregate-srcs.sh
 # needs update for github:
 #      run: scripts/preparare-deploy-source-code.sh
-#    - name: 'Send coverage'
-#      run: scripts/send-code-coverage.sh
 
   regression:
     name: 'Regression Test'
