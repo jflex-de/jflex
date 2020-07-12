@@ -20,6 +20,7 @@ jobs:
     strategy:
       matrix:
         java: [ 8, 11, 12, 13 ]
+      fail-fast: false
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -47,6 +48,7 @@ jobs:
     strategy:
       matrix:
         java: [ 8, 13 ]
+      fail-fast: false
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -70,6 +72,7 @@ jobs:
     strategy:
       matrix:
         java: [ 8, 11, 12, 13 ]
+      fail-fast: false
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
