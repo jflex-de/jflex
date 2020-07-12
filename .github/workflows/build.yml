@@ -15,7 +15,7 @@ env:
 
 jobs:
   build:
-    name: 'Test'
+    name: 'Maven & Examples'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -46,7 +46,7 @@ jobs:
 #      run: scripts/preparare-deploy-source-code.sh
 
   regression:
-    name: 'Regression Test'
+    name: 'Regression'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
