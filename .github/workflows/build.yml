@@ -13,23 +13,24 @@ on:
 env:
   PUBLISH_SOURCES: 'true'
 
-# FIXME: make this a matrix build (macos/windows x different jdks)
-
 jobs:
   build:
     name: 'Maven'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 8, 11, 12, 13 ]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: ${{ matrix.java }}
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
         path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: '🔨 Maven (build, test)'
       run: scripts/test-unit.sh
@@ -43,17 +44,20 @@ jobs:
   regression:
     name: 'Regression Test'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 8, 13 ]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
-        java-version: 1.8
+        java-version: ${{ matrix.java }}
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
         path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: '📝 Regression tests'
       run: |
@@ -63,18 +67,20 @@ jobs:
   examples:
     name: 'Examples'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 8, 11, 12, 13 ]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
-        # FIXME: make matrix
-        java-version: 1.8
+        java-version: ${{ matrix.java }}
     - name: Cache Maven packages
       uses: actions/cache@v2
       with:
         path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: '😎 Examples (mvn, ant, make)'
       run: scripts/test-examples.sh
