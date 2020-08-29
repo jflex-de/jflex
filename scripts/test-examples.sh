@@ -29,7 +29,11 @@ logi "Compile, test and install all"
 logi "============================="
 "$BASEDIR"/scripts/mvn-install-fastbuild.sh jflex-maven-plugin
 
-cd "$BASEDIR"/jflex/examples
+logi "Downloading ivy"
+logi "==============="
+cd "$BASEDIR"/jflex/examples/simple
+"$ANT" download-ivy
+cd ..
 
 logi "Run jflex examples"
 logi "=================="
