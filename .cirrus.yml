@@ -5,7 +5,7 @@ buildtools_cache:
   folder: buildtools
 
 container:
-  image: l.gcr.io/google/bazel:2.1.0
+  image: l.gcr.io/google/bazel:3.5.0
   memory: 5G
 
 bazel_build__test_task:
