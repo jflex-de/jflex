@@ -30,7 +30,7 @@ import org.junit.runner.RunWith;
 public class StateSetQuickcheck {
 
   @Property
-  public void size2nbits(@InRange(minInt = 1, maxInt = 2 ^ 58) int size) {
+  public void size2nbits(@InRange(minInt = 1, maxInt = 2 << 58) int size) {
     assertThat(StateSet.size2nbits(StateSet.nbits2size(size))).isEqualTo(size);
   }
 
@@ -175,20 +175,20 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateAdds(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateAdds(StateSet set, @InRange(minInt = 0, maxInt = 2 << 32) int e) {
     set.addState(e);
     assertThat(set.hasElement(e)).isTrue();
   }
 
   @Property
-  public void addStateDoesNotRemove(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateDoesNotRemove(StateSet set, @InRange(minInt = 0, maxInt = 2 << 32) int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
   }
 
   @Property
-  public void addStateAdd(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateAdd(StateSet set, @InRange(minInt = 0, maxInt = 2 << 32) int e) {
     StateSet set2 = new StateSet(set);
     set.addState(e);
     set2.add(new StateSet(10, e));
@@ -225,7 +225,7 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 2 << 32) int e) {
     s.addState(e);
     assertThat(s.containsElements()).isTrue();
   }
