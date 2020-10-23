@@ -8,20 +8,14 @@ container:
   image: l.gcr.io/google/bazel:3.5.0
   memory: 5G
 
-bazel_build__test_task:
+bazel_build_test_task:
   name: Bazel build and test
   bazel_version_script:
-  - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
-  build_script:
-  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex
+  - bazel --bazelrc=.ci.bazelrc info  release
   build_all_script:
-  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-  test_script:
-  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //jflex/...
-  regression_tests_script:
-  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
+  - bazel --bazelrc=.ci.bazelrc build //...
   test_all_script:
-  - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
+  - bazel --bazelrc=.ci.bazelrc test  //...
   always:
     junit_artifacts:
       path: "bazel-out/*/testlogs/**/test.xml"
@@ -31,7 +25,7 @@ bazel_build__test_task:
 bazel_artifact_task:
   name: Bazel artifact
   build_artifact_script:
-  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  jflex/jflex_bin_deploy.jar
+  - bazel --bazelrc=.ci.bazelrc build jflex/jflex_bin_deploy.jar
   binary_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     type: application/java-archive
@@ -39,7 +33,7 @@ bazel_artifact_task:
 measure_coverage_task:
   name: Measure code coverage
   measure_coverage_script:
-  - bazel --bazelrc=.ci.bazelrc coverage --combined_report=none --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/... //jflex/...
+  - bazel --bazelrc=.ci.bazelrc coverage --combined_report=none //javatests/... //jflex/...
   send_coverage_report_script:
   - scripts/send-code-coverage.sh
   only_if: $CIRRUS_BRANCH == $CIRRUS_DEFAULT_BRANCH || $CIRRUS_BRANCH == 'cirrus'
