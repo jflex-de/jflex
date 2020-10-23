@@ -66,7 +66,7 @@ public class ApiPrivateTest {
               srcFiles.stream().map(File::getAbsolutePath).collect(joining(", ")))
           .that(e)
           .hasMessageThat()
-          .contains("compiler.err.report.access");
+          .contains("yylex() has private access in jflex.testcase.apipirivate.PrivateScanner");
     }
   }
 }
