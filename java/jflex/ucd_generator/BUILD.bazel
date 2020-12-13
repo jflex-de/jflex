@@ -55,6 +55,9 @@ genrule(
         "//third_party/unicode:ucd_8",
         "//third_party/unicode:ucd_9",
         "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_11",
+        "//third_party/unicode:ucd_12",
+        "//third_party/unicode:ucd_12_1",
     ],
     outs = [
         "UnicodeProperties.java",
@@ -77,6 +80,9 @@ genrule(
         "Unicode_8_0.java",
         "Unicode_9_0.java",
         "Unicode_10_0.java",
+        "Unicode_11_0.java",
+        "Unicode_12_0.java",
+        "Unicode_12_1.java",
     ],
     cmd = "$(location :Main)" +
           #          " --version=1.1.5 $(locations //third_party/unicode:ucd_1_1_5)" +
@@ -98,6 +104,9 @@ genrule(
           " --version=8.0.0 $(locations //third_party/unicode:ucd_8)" +
           " --version=9.0.0 $(locations //third_party/unicode:ucd_9)" +
           " --version=10.0.0 $(locations //third_party/unicode:ucd_10)" +
+          " --version=11.0.0 $(locations //third_party/unicode:ucd_11)" +
+          " --version=12.0.0 $(locations //third_party/unicode:ucd_12)" +
+          " --version=12.1.0 $(locations //third_party/unicode:ucd_12_1)" +
           " --out=$(@D)",
     tools = [":Main"],
 )
