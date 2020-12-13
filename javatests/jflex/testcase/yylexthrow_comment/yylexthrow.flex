@@ -1,14 +1,14 @@
-package jflex.testcase.sevenbit;
+package jflex.testcase.sevenbit; // comment on same line allowed
 
 %%
 
-%public
-%class Yylexthrow
+%public                 // comment on same line allowed
+%class Yylexthrow       // comment on same line allowed
 
-%int
-%yylexthrow Exception
+%int                    // comment on same line allowed
+%yylexthrow Exception   // comment on same line allowed
 
-WhiteSpace = [ \t\r\n]
+WhiteSpace = [ \t\r\n]  // comment on same line allowed
 
 %%
 
