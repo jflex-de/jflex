@@ -7,6 +7,9 @@ package jflex.testcase.sevenbit; // comment on same line allowed
 
 %int                          // comment on same line allowed
 %yylexthrow RuntimeException  // comment on same line allowed
+%yylexthrow SecurityException /* multi-line comment
+                               * allowed
+                               */
 
 WhiteSpace = [ \t\r\n]        // comment on same line allowed
 

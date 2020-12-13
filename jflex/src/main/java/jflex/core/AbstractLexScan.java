@@ -31,7 +31,7 @@ public abstract class AbstractLexScan implements ILexScan {
   String initThrow;
   String eofCode;
   String eofThrow;
-  String lexThrow;
+  List<String> lexThrow = new ArrayList<>();
   String eofVal;
   public String scanErrorException;
   String cupSymbol = "sym";
@@ -232,7 +232,8 @@ public abstract class AbstractLexScan implements ILexScan {
     return eofThrow;
   };
 
-  public String lexThrow() {
+  // TODO(regisd) Return ImmutableList instead
+  public List<String> lexThrow() {
     return lexThrow;
   };
 
