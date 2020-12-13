@@ -800,16 +800,16 @@ public final class Emitter {
     print("() throws java.io.IOException");
 
     if (scanner.lexThrow() != null) {
-      print(", ");
+      print(",\n    ");
       print(scanner.lexThrow());
     }
 
     if (scanner.scanErrorException() != null) {
-      print(", ");
+      print(",\n     ");
       print(scanner.scanErrorException());
     }
 
-    println(" {");
+    println("\n  {");
 
     skel.emitNext();
 
