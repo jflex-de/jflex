@@ -7,6 +7,7 @@ java_test(
         "//java/jflex/ucd_generator/emitter/unicode_version",
         "//java/jflex/ucd_generator/model",
         "//java/jflex/ucd_generator/ucd",
+        "//java/jflex/ucd_generator/util:name_normalizer",
         "//third_party/com/google/truth",
     ],
 )

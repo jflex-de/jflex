@@ -2,6 +2,7 @@ package jflex.ucd_generator.emitter.unicode_version;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Files;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +11,7 @@ import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
 import jflex.ucd_generator.ucd.Version;
+import jflex.ucd_generator.util.PropertyNameNormalizer;
 import org.junit.Test;
 
 /** Golden test for {@link UnicodeVersionEmitter}. */
@@ -31,7 +33,9 @@ public class UnicodeVersionEmitterGoldenTest {
             .build();
 
     UnicodeData unicodeData = new UnicodeData(version_0_1);
+
     unicodeData.maximumCodePoint(0x1234);
+
     unicodeData.addPropertyInterval("age=1.1", 0x0000, 0x01f5);
     unicodeData.addPropertyInterval("age=1.1", 0x01fa, 0x0217);
     unicodeData.addPropertyInterval("age=4.1", 0x0000, 0x0241);
@@ -41,8 +45,16 @@ public class UnicodeVersionEmitterGoldenTest {
         "age=4.1",
         Character.toCodePoint('\ud800', '\udc0d'),
         Character.toCodePoint('\ud800', '\udc26'));
+    unicodeData.addPropertyInterval("block=generalpunctuation", 0x2000, 0x206f);
+
     unicodeData.addCaselessMatches('a', "41", "", "");
     unicodeData.addCaselessMatches('b', "42", "43", "44");
+
+    unicodeData.addPropertyAlias("blk", PropertyNameNormalizer.normalize("Block"));
+
+    unicodeData.addPropertyValueAliases(
+        "gc", PropertyNameNormalizer.normalize("Punctuation"), ImmutableSet.of("punct"));
+
     UnicodeVersionEmitter emitter = new UnicodeVersionEmitter("org.example", ucd0_1, unicodeData);
 
     emitter.emitUnicodeVersion(output);

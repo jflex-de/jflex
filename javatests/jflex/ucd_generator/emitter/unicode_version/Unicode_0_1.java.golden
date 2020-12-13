@@ -39,7 +39,8 @@ public class Unicode_0_1 {
 
   public static final String[] propertyValues = {
     "age=1.1",
-    "age=4.1"
+    "age=4.1",
+    "block=generalpunctuation"
   };
 
   public static final String[] intervals = {
@@ -50,7 +51,9 @@ public class Unicode_0_1 {
     "\000\u0241"
         + "\u0250\u036f"
         + "\u0374\u0375"
-        + "\ud800\udc0d\ud800\udc26"
+        + "\ud800\udc0d\ud800\udc26",
+    // Unicode 0.1 property value: {block=generalpunctuation}
+    "\u2000\u206f"
   };
 
   public static final String[] propertyValueAliases = {
