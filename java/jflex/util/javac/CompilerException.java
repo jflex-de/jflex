@@ -59,7 +59,7 @@ public class CompilerException extends Exception {
   }
 
   @Override
-  public String toString() {
+  public String getMessage() {
     List<String> diagnosticMessages =
         diagnostics.stream()
             .map(
@@ -68,7 +68,7 @@ public class CompilerException extends Exception {
                         "javac error: %s, line %d in file %s",
                         d.getMessage(Locale.ENGLISH), d.getLineNumber(), d.getSource().getName()))
             .collect(Collectors.toList());
-    return super.toString() + "\n" + Joiner.on('\n').join(diagnosticMessages);
+    return Joiner.on('\n').join(diagnosticMessages);
   }
 
   private static String diagnosticCode(List<Diagnostic<? extends JavaFileObject>> diagnostics) {

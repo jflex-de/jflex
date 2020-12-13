@@ -370,8 +370,8 @@ public abstract class AbstractLexScan implements ILexScan {
     return lexLine();
   }
 
-  @SuppressWarnings("unused") // Used by generated LexScan
   /** @deprecated Use {@link #columnCoount} */
+  @SuppressWarnings("unused") // Used by generated LexScan
   @Deprecated
   public boolean isColumnCount() {
     return columnCount;
