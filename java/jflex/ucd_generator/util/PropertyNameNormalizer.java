@@ -1,12 +1,16 @@
 package jflex.ucd_generator.util;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Ordering;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class PropertyNameNormalizer {
@@ -76,5 +80,9 @@ public class PropertyNameNormalizer {
   public void putPropertyAlias(String canonicalName, String alias) {
     propertyAliases.put(canonicalName, alias);
     propertyAlias2CanonicalName.put(alias, canonicalName);
+  }
+
+  public ImmutableList<String> getCanonicalNames() {
+    return  ImmutableList.sortedCopyOf(propertyAliases.keySet());
   }
 }

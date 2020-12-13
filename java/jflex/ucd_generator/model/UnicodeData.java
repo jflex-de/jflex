@@ -128,9 +128,7 @@ public class UnicodeData {
   }
 
   public ImmutableList<String> propertyValueAliases() {
-    // TODO(regisd) Implement this
-    return ImmutableList.of(
-        "ahex", "block=alphabeticpresentationforms", "block=ancientgreeknumbers", "unknown");
+    return ImmutableList.copyOf(propertyValues)
   }
 
   public String getCanonicalPropertyValueName(String propName, String propValue) {

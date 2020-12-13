@@ -3,6 +3,7 @@ package jflex.ucd_generator.emitter.unicode_version;
 import static java.util.stream.Collectors.joining;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
 import java.io.BufferedWriter;

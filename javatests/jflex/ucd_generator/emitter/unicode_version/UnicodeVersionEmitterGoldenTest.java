@@ -51,9 +51,16 @@ public class UnicodeVersionEmitterGoldenTest {
     unicodeData.addCaselessMatches('b', "42", "43", "44");
 
     unicodeData.addPropertyAlias("blk", PropertyNameNormalizer.normalize("Block"));
+    unicodeData.addPropertyAlias("gc", PropertyNameNormalizer.normalize("General_Category"));
 
     unicodeData.addPropertyValueAliases(
-        "gc", PropertyNameNormalizer.normalize("Punctuation"), ImmutableSet.of("punct"));
+        unicodeData.getCanonicalPropertyName("blk"),
+        PropertyNameNormalizer.normalize("General_Punctuation"),
+        ImmutableSet.of());
+    unicodeData.addPropertyValueAliases(
+        unicodeData.getCanonicalPropertyName("gc"),
+        PropertyNameNormalizer.normalize("Punctuation"),
+        ImmutableSet.of("punct"));
 
     UnicodeVersionEmitter emitter = new UnicodeVersionEmitter("org.example", ucd0_1, unicodeData);
 
