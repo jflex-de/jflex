@@ -30,10 +30,10 @@ def replace_placeholders(name, src = "", out = None, **kwargs):
         name = name,
         srcs = [src],
         outs = [out],
-        cmd = "sed -e 's/\$$VERSION/" + VERSION + "/g'" +
-              " -e 's/\$${project.version}/" + VERSION + "/g'" +
-              " -e 's/\$$RELEASE_DATE/" + RELEASE_DATE + "/g'" +
-              " -e 's/\$$UNICODE_VER/" + UNICODE_VER + "/g'" +
+        cmd = "sed -e 's/\\$$VERSION/" + VERSION + "/g'" +
+              " -e 's/\\$${project.version}/" + VERSION + "/g'" +
+              " -e 's/\\$$RELEASE_DATE/" + RELEASE_DATE + "/g'" +
+              " -e 's/\\$$UNICODE_VER/" + UNICODE_VER + "/g'" +
               " $< > $@",
         **kwargs
     )
