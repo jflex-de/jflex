@@ -75,13 +75,14 @@ public class UnicodeData {
   }
 
   public void addBinaryPropertyInterval(String propertyName, int start, int end) {
-    propertyValueIntervals.addBinaryPropertyInterval(
-        propertyName, start, end, propertyNameNormalizer);
+    propertyName = propertyNameNormalizer.getCanonicalPropertyName(propertyName);
+    propertyValueIntervals.addBinaryPropertyInterval(propertyName, start, end);
   }
 
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
+    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
     propertyValueIntervals.addEnumPropertyInterval(
-        propName, propValue, start, end, propertyNameNormalizer);
+        propName, propValue, start, end);
   }
 
   public Set<String> usedBinaryProperties() {

@@ -51,9 +51,7 @@ public class PropertyValueIntervals {
   boolean addBinaryPropertyInterval(
       String propName,
       int startCodePoint,
-      int endCodePoint,
-      PropertyNameNormalizer propertyNameNormalizer) {
-    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+      int endCodePoint) {
     boolean added = addPropertyInterval(propName, startCodePoint, endCodePoint);
     if (added) {
       usedBinaryProperties.add(propName);
@@ -65,22 +63,17 @@ public class PropertyValueIntervals {
       String propName,
       String propValue,
       int startCodePoint,
-      int endCodePoint,
-      PropertyNameNormalizer propertyNameNormalizer) {
-    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+      int endCodePoint) {
     propValue = propertyValues.getCanonicalValueName(propName, propValue);
-    boolean added = addBinaryPropertyInterval(
-        PropertyNameNormalizer.canonicalValue(propName, propValue),
-        startCodePoint,
-        endCodePoint,
-        propertyNameNormalizer);
+    String key = PropertyNameNormalizer.canonicalValue(propName, propValue);
+    boolean added = addPropertyInterval(key, startCodePoint, endCodePoint);
     if (added) {
       usedEnumProperties.put(propName, propValue);
     }
     return added;
   }
 
-  boolean addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
+  private boolean addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
     if (isSurrogate(propName)) {
       // Skip surrogate properties [U+D800-U+DFFF].
       // e.g. \p{Cs} - can't be represented in valid UTF-16 encoded strings.
