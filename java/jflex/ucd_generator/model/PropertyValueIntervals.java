@@ -43,22 +43,25 @@ public class PropertyValueIntervals {
   /**
    * Given a binary property name, and starting and ending code points, adds the interval to the
    * {@link #propertyValueIntervals} map.
-   *
-   * @param propName The property name, e.g. "Assigned".
+   *  @param propName The property name, e.g. "Assigned".
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
+   * @return
    */
-  void addBinaryPropertyInterval(
+  boolean addBinaryPropertyInterval(
       String propName,
       int startCodePoint,
       int endCodePoint,
       PropertyNameNormalizer propertyNameNormalizer) {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
-    addPropertyInterval(propName, startCodePoint, endCodePoint);
-    usedBinaryProperties.add(propName);
+    boolean added = addPropertyInterval(propName, startCodePoint, endCodePoint);
+    if (added) {
+      usedBinaryProperties.add(propName);
+    }
+    return added;
   }
 
-  void addEnumPropertyInterval(
+  boolean addEnumPropertyInterval(
       String propName,
       String propValue,
       int startCodePoint,
@@ -66,24 +69,28 @@ public class PropertyValueIntervals {
       PropertyNameNormalizer propertyNameNormalizer) {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
     propValue = propertyValues.getCanonicalValueName(propName, propValue);
-    addBinaryPropertyInterval(
+    boolean added = addBinaryPropertyInterval(
         PropertyNameNormalizer.canonicalValue(propName, propValue),
         startCodePoint,
         endCodePoint,
         propertyNameNormalizer);
-    usedEnumProperties.put(propName, propValue);
+    if (added) {
+      usedEnumProperties.put(propName, propValue);
+    }
+    return added;
   }
 
-  void addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
+  boolean addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
     if (isSurrogate(propName)) {
-      // Skip surrogates
-      return;
+      // Skip surrogate properties [U+D800-U+DFFF].
+      // e.g. \p{Cs} - can't be represented in valid UTF-16 encoded strings.
+      return false;
     }
     List<CodepointRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
     if (ranges.isEmpty()) {
-      return;
+      return false;
     }
-    propertyValueIntervals.putAll(propName, ranges);
+    boolean added = propertyValueIntervals.putAll(propName, ranges);
     if (DEBUG) {
       try {
         Preconditions.checkState(
@@ -98,6 +105,7 @@ public class PropertyValueIntervals {
             e);
       }
     }
+    return added;
   }
 
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {

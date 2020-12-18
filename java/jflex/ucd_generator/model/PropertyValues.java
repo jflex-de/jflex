@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import jdk.internal.jline.internal.Nullable;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
@@ -67,11 +68,12 @@ public class PropertyValues {
 
   public String getCanonicalValueName(String normalizedPropName, String propValue) {
     Map<String, String> canonicalPropValueNames =
-        Preconditions.checkNotNull(
-            propertyValueAlias2CanonicalValue.get(normalizedPropName),
-            "Unknown canonical name for %s",
-            normalizedPropName);
-    return canonicalPropValueNames.get(PropertyNameNormalizer.normalize(propValue));
+            propertyValueAlias2CanonicalValue.get(normalizedPropName);
+    String canonicalValue = PropertyNameNormalizer.normalize(propValue);
+    if (canonicalPropValueNames == null) {
+      return canonicalValue;
+    }
+    return canonicalPropValueNames.get(canonicalValue);
   }
 
   public ImmutableSet<String> getPropertyNames() {

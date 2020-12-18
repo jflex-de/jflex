@@ -66,7 +66,7 @@ public abstract class AbstractScriptExtensionsScanner {
       String script = entry.getKey();
       CodepointRangeSet intervals = entry.getValue().build();
       for (CodepointRange range : intervals.ranges()) {
-        unicodeData.addPropertyInterval(propertyName, script, range.start(), range.end());
+        unicodeData.addEnumPropertyInterval(propertyName, script, range.start(), range.end());
       }
     }
   }

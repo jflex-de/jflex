@@ -3,7 +3,6 @@ package jflex.ucd_generator.emitter.unicode_version;
 import static java.util.stream.Collectors.joining;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
 import java.io.BufferedWriter;
@@ -58,7 +57,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
 
     unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
     unicodeVersionVars.propertyValueAliases =
-        String.join("\",\n    \"", unicodeData.propertyValueAliases());
+        String.join("\",\n    \"", unicodeData.usedPropertyValueAliases());
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

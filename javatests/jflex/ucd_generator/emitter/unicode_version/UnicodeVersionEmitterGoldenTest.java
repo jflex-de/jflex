@@ -36,22 +36,23 @@ public class UnicodeVersionEmitterGoldenTest {
 
     unicodeData.maximumCodePoint(0x1234);
 
-    unicodeData.addPropertyInterval("age=1.1", 0x0000, 0x01f5);
-    unicodeData.addPropertyInterval("age=1.1", 0x01fa, 0x0217);
-    unicodeData.addPropertyInterval("age=4.1", 0x0000, 0x0241);
-    unicodeData.addPropertyInterval("age=4.1", 0x0250, 0x036f);
-    unicodeData.addPropertyInterval("age=4.1", 0x0374, 0x0375);
-    unicodeData.addPropertyInterval(
-        "age=4.1",
+    unicodeData.addPropertyAlias("age", PropertyNameNormalizer.normalize("Age"));
+    unicodeData.addPropertyAlias("blk", PropertyNameNormalizer.normalize("Block"));
+    unicodeData.addPropertyAlias("gc", PropertyNameNormalizer.normalize("General_Category"));
+
+    unicodeData.addEnumPropertyInterval("age" ,"1.1", 0x0000, 0x01f5);
+    unicodeData.addEnumPropertyInterval("age", "1.1", 0x01fa, 0x0217);
+    unicodeData.addEnumPropertyInterval("age", "4.1", 0x0000, 0x0241);
+    unicodeData.addEnumPropertyInterval("age", "4.1", 0x0250, 0x036f);
+    unicodeData.addEnumPropertyInterval("age", "4.1", 0x0374, 0x0375);
+    unicodeData.addEnumPropertyInterval(
+        "age", "4.1",
         Character.toCodePoint('\ud800', '\udc0d'),
         Character.toCodePoint('\ud800', '\udc26'));
-    unicodeData.addPropertyInterval("block=generalpunctuation", 0x2000, 0x206f);
+    unicodeData.addBinaryPropertyInterval("block=generalpunctuation", 0x2000, 0x206f);
 
     unicodeData.addCaselessMatches('a', "41", "", "");
     unicodeData.addCaselessMatches('b', "42", "43", "44");
-
-    unicodeData.addPropertyAlias("blk", PropertyNameNormalizer.normalize("Block"));
-    unicodeData.addPropertyAlias("gc", PropertyNameNormalizer.normalize("General_Category"));
 
     unicodeData.addPropertyValueAliases(
         unicodeData.getCanonicalPropertyName("blk"),

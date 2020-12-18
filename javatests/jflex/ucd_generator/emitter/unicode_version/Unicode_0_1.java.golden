@@ -57,12 +57,7 @@ public class Unicode_0_1 {
   };
 
   public static final String[] propertyValueAliases = {
-    "blk=generalpunctuation",
-    "block=generalpunctuation",
-    "gc=punctuation",
-    "gc=punct",
-    "generalcategory=punctuation",
-    "generalcategory=punct"
+    ""
   };
 
   /** Maximum caseless partition size. */
