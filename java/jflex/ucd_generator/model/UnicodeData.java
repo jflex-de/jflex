@@ -128,7 +128,7 @@ public class UnicodeData {
   }
 
   public ImmutableList<String> propertyValueAliases() {
-    return ImmutableList.copyOf(propertyValues)
+    return ImmutableList.of();
   }
 
   public String getCanonicalPropertyValueName(String propName, String propValue) {
