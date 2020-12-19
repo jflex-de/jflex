@@ -499,13 +499,21 @@ public final class NFA {
 
     for (int i = 0; i < numStates; i++) {
       for (int input = 0; input < numInput; input++) {
-        for (int s : table[i][input]) {
-          result.append(i).append(" -> ").append(s);
-          result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Out.NL);
+        if (table[i][input] != null) {
+          for (int s : table[i][input]) {
+            result.append(i).append(" -> ").append(s);
+            result
+                .append(" [label=\"")
+                .append(classes.toString(input))
+                .append("\"]")
+                .append(Out.NL);
+          }
         }
       }
-      for (int s : epsilon[i]) {
-        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
+      if (epsilon[i] != null) {
+        for (int s : epsilon[i]) {
+          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
+        }
       }
     }
 
