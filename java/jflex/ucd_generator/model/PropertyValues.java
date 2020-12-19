@@ -1,6 +1,5 @@
 package jflex.ucd_generator.model;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
@@ -8,7 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import jdk.internal.jline.internal.Nullable;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
@@ -68,7 +66,7 @@ public class PropertyValues {
 
   public String getCanonicalValueName(String normalizedPropName, String propValue) {
     Map<String, String> canonicalPropValueNames =
-            propertyValueAlias2CanonicalValue.get(normalizedPropName);
+        propertyValueAlias2CanonicalValue.get(normalizedPropName);
     String canonicalValue = PropertyNameNormalizer.normalize(propValue);
     if (canonicalPropValueNames == null) {
       return canonicalValue;

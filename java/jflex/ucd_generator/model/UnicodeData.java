@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -82,8 +81,7 @@ public class UnicodeData {
 
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
-    propertyValueIntervals.addEnumPropertyInterval(
-        propName, propValue, start, end);
+    propertyValueIntervals.addEnumPropertyInterval(propName, propValue, start, end);
   }
 
   public Set<String> usedBinaryProperties() {
@@ -148,10 +146,11 @@ public class UnicodeData {
         }
       }
     }
-    ImmutableMultimap<String, String> usedEnumProperties = ImmutableMultimap.<String, String>builder()
-        .putAll(usedEnumeratedProperties())
-        .put(NORMALIZED_GENERAL_CATEGORY, "lc")
-        .build();
+    ImmutableMultimap<String, String> usedEnumProperties =
+        ImmutableMultimap.<String, String>builder()
+            .putAll(usedEnumeratedProperties())
+            .put(NORMALIZED_GENERAL_CATEGORY, "lc")
+            .build();
     for (String propName : usedEnumProperties.keySet()) {
       for (String propValue : usedEnumProperties.get(propName)) {
         String canonicalValue = propName + '=' + propValue;
@@ -175,7 +174,7 @@ public class UnicodeData {
             if (Objects.equals(propName, NORMALIZED_SCRIPT)
                 || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)
                 || !(Objects.equals(nameAlias, propName)
-                && Objects.equals(valueAlias, propValue))) {
+                    && Objects.equals(valueAlias, propValue))) {
               String alias = nameAlias + '=' + valueAlias;
               usedPropertyValueAliases.put(alias, canonicalValue);
             }

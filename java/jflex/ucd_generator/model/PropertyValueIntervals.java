@@ -5,7 +5,6 @@ import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ForwardingSortedSetMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
@@ -51,10 +50,7 @@ public class PropertyValueIntervals {
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
    */
-  boolean addBinaryPropertyInterval(
-      String propName,
-      int startCodePoint,
-      int endCodePoint) {
+  boolean addBinaryPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
     boolean added = addPropertyInterval(propName, startCodePoint, endCodePoint);
     if (added) {
       usedBinaryProperties.add(propName);
@@ -63,10 +59,7 @@ public class PropertyValueIntervals {
   }
 
   boolean addEnumPropertyInterval(
-      String propName,
-      String propValue,
-      int startCodePoint,
-      int endCodePoint) {
+      String propName, String propValue, int startCodePoint, int endCodePoint) {
     propValue = propertyValues.getCanonicalValueName(propName, propValue);
     String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
     boolean added = addPropertyInterval(canonicalValue, startCodePoint, endCodePoint);
@@ -126,7 +119,7 @@ public class PropertyValueIntervals {
     // gc ; Cf        ; Format
     // etc.
     if (usedEnumProperties.containsKey(NORMALIZED_GENERAL_CATEGORY)) {
-      for (String value: usedEnumProperties.get(NORMALIZED_GENERAL_CATEGORY)) {
+      for (String value : usedEnumProperties.get(NORMALIZED_GENERAL_CATEGORY)) {
         if (value.length() == 2) {
           multimap.put(NORMALIZED_GENERAL_CATEGORY, value.substring(0, 1));
         }

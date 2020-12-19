@@ -53,7 +53,8 @@ public abstract class AbstractUnicodeDataScanner {
     if (assignedStartCodePoint == -1) {
       assignedStartCodePoint = startCodePoint;
     } else if (codePoint > assignedEndCodePoint + 1 && !isLastInRange) {
-      unicodeData.addBinaryPropertyInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
+      unicodeData.addBinaryPropertyInterval(
+          "Assigned", assignedStartCodePoint, assignedEndCodePoint);
       unicodeData.addEnumPropertyInterval(
           GENERAL_CATEGORY, "Cn", assignedEndCodePoint + 1, codePoint - 1);
       assignedStartCodePoint = codePoint;

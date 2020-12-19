@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
-import java.util.stream.Collectors;
 import jflex.ucd_generator.emitter.common.UcdEmitter;
 import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -54,12 +53,16 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
-    unicodeVersionVars.propertyValues = unicodeData.propertyValues().stream().map(v -> String.format("\"%s\"", v)).collect(joining(",\n    "));
+    unicodeVersionVars.propertyValues =
+        unicodeData.propertyValues().stream()
+            .map(v -> String.format("\"%s\"", v))
+            .collect(joining(",\n    "));
 
     unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
     unicodeVersionVars.propertyValueAliases =
-        unicodeData.usedPropertyValueAliases().stream().map(e -> String.format("\"%s\", \"%s\"", e.getKey(), e.getValue())).collect(
-            joining(",\n    "));
+        unicodeData.usedPropertyValueAliases().stream()
+            .map(e -> String.format("\"%s\", \"%s\"", e.getKey(), e.getValue()))
+            .collect(joining(",\n    "));
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

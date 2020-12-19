@@ -11,6 +11,7 @@ public class SurrogateUtilsTest {
   public void isSurrogate_not() {
     assertThat(isSurrogate("block=generalcategory")).isFalse();
   }
+
   @Test
   public void isSurrogate_sc() {
     assertThat(isSurrogate("cs")).isTrue();
