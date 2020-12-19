@@ -1,5 +1,6 @@
 package jflex.ucd_generator.model;
 
+import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
@@ -7,6 +8,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ForwardingSortedSetMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
@@ -30,7 +33,7 @@ public class PropertyValueIntervals {
 
   Set<String> usedBinaryProperties = new HashSet<>();
 
-  Multimap<String, String> usedEnumProperties = HashMultimap.create();
+  private Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
   // We need to keep the order of the added CodepointRanges
   private final SortedSetMultimap<String, CodepointRange> propertyValueIntervals =
@@ -43,10 +46,10 @@ public class PropertyValueIntervals {
   /**
    * Given a binary property name, and starting and ending code points, adds the interval to the
    * {@link #propertyValueIntervals} map.
-   *  @param propName The property name, e.g. "Assigned".
+   *
+   * @param propName The property name, e.g. "Assigned".
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
-   * @return
    */
   boolean addBinaryPropertyInterval(
       String propName,
@@ -65,8 +68,8 @@ public class PropertyValueIntervals {
       int startCodePoint,
       int endCodePoint) {
     propValue = propertyValues.getCanonicalValueName(propName, propValue);
-    String key = PropertyNameNormalizer.canonicalValue(propName, propValue);
-    boolean added = addPropertyInterval(key, startCodePoint, endCodePoint);
+    String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
+    boolean added = addPropertyInterval(canonicalValue, startCodePoint, endCodePoint);
     if (added) {
       usedEnumProperties.put(propName, propValue);
     }
@@ -114,6 +117,28 @@ public class PropertyValueIntervals {
     return ImmutableList.copyOf(ranges);
   }
 
+  public ImmutableMultimap<String, String> usedEnumeratedProperties() {
+    ImmutableSetMultimap.Builder<String, String> multimap = ImmutableSetMultimap.builder();
+    multimap.putAll(usedEnumProperties);
+    // First letter is added for General_category such as
+    // gc ; C         ; Other                            # Cc | Cf | Cn | Co | Cs
+    // gc ; Cc        ; Control                          ; cntrl
+    // gc ; Cf        ; Format
+    // etc.
+    if (usedEnumProperties.containsKey(NORMALIZED_GENERAL_CATEGORY)) {
+      for (String value: usedEnumProperties.get(NORMALIZED_GENERAL_CATEGORY)) {
+        if (value.length() == 2) {
+          multimap.put(NORMALIZED_GENERAL_CATEGORY, value.substring(0, 1));
+        }
+      }
+    }
+    return multimap.build();
+  }
+
+  public boolean hasUsedEnumeratedProperty(String category) {
+    return usedEnumProperties.containsKey(category);
+  }
+
   public Set<String> keySet() {
     return propertyValueIntervals.keySet();
   }
@@ -139,13 +164,5 @@ public class PropertyValueIntervals {
       return false;
     }
     return head.last().contains(point);
-  }
-
-  static class PropertyValueMultiMap extends ForwardingSortedSetMultimap<String, CodepointRange> {
-
-    @Override
-    protected SortedSetMultimap<String, CodepointRange> delegate() {
-      return null;
-    }
   }
 }

@@ -6,6 +6,7 @@ import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
@@ -89,17 +90,17 @@ public class UnicodeData {
     return propertyValueIntervals.usedBinaryProperties;
   }
 
-  public Multimap<String, String> usedEnumeratedProperties() {
-    return propertyValueIntervals.usedEnumProperties;
+  public ImmutableMultimap<String, String> usedEnumeratedProperties() {
+    return propertyValueIntervals.usedEnumeratedProperties();
+  }
+
+  public boolean hasUsedEnumeratedProperty(String category) {
+    return propertyValueIntervals.hasUsedEnumeratedProperty(category);
   }
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
     return propertyValueIntervals.getRanges(
         propertyNameNormalizer.getCanonicalPropertyName(propName));
-  }
-
-  public boolean hasUsedEnumeratedProperty(String category) {
-    return usedEnumeratedProperties().containsKey(category);
   }
 
   public int maximumCodePoint() {
@@ -141,19 +142,19 @@ public class UnicodeData {
   }
 
   private ImmutableSortedMap<String, String> computeUsedPropertyValueAliases() {
-    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases = ImmutableSortedMap.naturalOrder();
-    for (String binaryProperty : propertyValueIntervals.usedBinaryProperties) {
+    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases =
+        ImmutableSortedMap.naturalOrder();
+    for (String binaryProperty : usedBinaryProperties()) {
       for (String nameAlias : getPropertyAliases(binaryProperty)) {
         if (!Objects.equals(nameAlias, binaryProperty)) {
           usedPropertyValueAliases.put(nameAlias, binaryProperty);
         }
       }
     }
-    Multimap<String, String> usedEnumProperties = propertyValueIntervals.usedEnumProperties;
-    Collection<String> genCatProps = usedEnumProperties.get(NORMALIZED_GENERAL_CATEGORY);
-    if (genCatProps != null) {
-      genCatProps.add("lc");
-    }
+    ImmutableMultimap<String, String> usedEnumProperties = ImmutableMultimap.<String, String>builder()
+        .putAll(usedEnumeratedProperties())
+        .put(NORMALIZED_GENERAL_CATEGORY, "lc")
+        .build();
     for (String propName : usedEnumProperties.keySet()) {
       for (String propValue : usedEnumProperties.get(propName)) {
         String canonicalValue = propName + '=' + propValue;

@@ -1,6 +1,7 @@
 package jflex.ucd_generator.scanner;
 
 import static jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
+import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.Collection;
@@ -81,8 +82,8 @@ public abstract class AbstractScriptExtensionsScanner {
         }
       }
     }
-    if (unicodeData.hasUsedEnumeratedProperty(PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY)) {
-      usedPropertyValueAliases.put(PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY, "lc");
+    if (unicodeData.hasUsedEnumeratedProperty(NORMALIZED_GENERAL_CATEGORY)) {
+      usedPropertyValueAliases.put(NORMALIZED_GENERAL_CATEGORY, "lc");
     }
     for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
       Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
