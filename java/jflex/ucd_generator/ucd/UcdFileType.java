@@ -30,6 +30,7 @@ public enum UcdFileType {
   UnicodeData, // Always exists since version 1
   Blocks,
   DerivedCoreProperties,
+  Emoji,
   GraphemeBreakProperty,
   LineBreak,
   PropertyAliases,
