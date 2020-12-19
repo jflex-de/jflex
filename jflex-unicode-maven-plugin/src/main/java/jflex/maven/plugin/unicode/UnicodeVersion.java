@@ -80,10 +80,10 @@ class UnicodeVersion {
   /**
    * The number of alias/target property value pairs to output per line in UnicodeProperties.java.
    */
-  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 2;
+  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 1;
 
   /** The number of property values to output per line in UnicodeProperties.java. */
-  private static final int PROPERTY_VALUES_PER_LINE = 6;
+  private static final int PROPERTY_VALUES_PER_LINE = 1;
 
   /** The number of caseless match partitions to output per line in UnicodeProperties.java. */
   private static final int CASELESS_MATCH_PARTITIONS_PER_LINE = 3;

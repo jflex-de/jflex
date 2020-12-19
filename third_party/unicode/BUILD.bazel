@@ -124,19 +124,28 @@ alias(
     actual = "@ucd_7//:files",
 )
 
-alias(
+filegroup(
     name = "ucd_8",
-    actual = "@ucd_8//:files",
+    srcs = [
+        "@emoji_2_emoji_data_txt//file",
+        "@ucd_8//:files",
+    ],
 )
 
-alias(
+filegroup(
     name = "ucd_9",
-    actual = "@ucd_9//:files",
+    srcs = [
+        "@emoji_4_emoji_data_txt//file",
+        "@ucd_9//:files",
+    ],
 )
 
-alias(
+filegroup(
     name = "ucd_10",
-    actual = "@ucd_10//:files",
+    srcs = [
+        "@emoji_5_emoji_data_txt//file",
+        "@ucd_10//:files",
+    ],
 )
 
 alias(
