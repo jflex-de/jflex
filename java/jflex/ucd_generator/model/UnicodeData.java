@@ -62,16 +62,21 @@ public class UnicodeData {
   }
 
   public void addPropertyValueAliases(
-      String propertyName, String normalizedPropertyValue, Set<String> aliases) {
-    propertyValues.addPropertyValueAliases(propertyName, normalizedPropertyValue, aliases);
-  }
-
-  public Collection<String> getPropertyAliases(String propName) {
-    return propertyNameNormalizer.getPropertyAliases(propName);
+      String normalizedPropertyName, String normalizedPropertyValue, Set<String> aliases) {
+    propertyValues.addPropertyValueAliases(
+        normalizedPropertyName, normalizedPropertyValue, aliases);
   }
 
   public Collection<String> getPropertyValueAliases(String propName, String propValue) {
     return propertyValues.getPropertyValueAliases(propName, propValue);
+  }
+
+  public void copyPropertyValueAliases(String sourceProperty, String destProperty) {
+    propertyValues.copyPropertyValueAliases(sourceProperty, destProperty);
+  }
+
+  public Collection<String> getPropertyAliases(String propName) {
+    return propertyNameNormalizer.getPropertyAliases(propName);
   }
 
   public void addBinaryPropertyInterval(String propertyName, int start, int end) {

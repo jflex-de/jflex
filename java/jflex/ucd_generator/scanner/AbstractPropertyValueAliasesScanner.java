@@ -10,8 +10,6 @@ public abstract class AbstractPropertyValueAliasesScanner {
 
   private final UnicodeData unicodeData;
 
-  final String scxPropName;
-
   protected final Set<String> aliases = new HashSet<>();
 
   protected String propertyAlias;
@@ -19,7 +17,6 @@ public abstract class AbstractPropertyValueAliasesScanner {
 
   public AbstractPropertyValueAliasesScanner(UnicodeData unicodeData) {
     this.unicodeData = unicodeData;
-    scxPropName = unicodeData.getCanonicalPropertyName("Script_Extensions");
   }
 
   /** Populates the property values and property value aliases for a property. */
@@ -33,10 +30,6 @@ public abstract class AbstractPropertyValueAliasesScanner {
       String canonicalPropertyName, String normalizedPropertyValue) {
     aliases.add(normalizedPropertyValue);
     unicodeData.addPropertyValueAliases(canonicalPropertyName, normalizedPropertyValue, aliases);
-    if ("script".equals(canonicalPropertyName)) {
-      // Clone Script/sc property value aliases => Script_Extensions/scx
-      unicodeData.addPropertyValueAliases(scxPropName, normalizedPropertyValue, aliases);
-    }
     aliases.clear();
   }
 }

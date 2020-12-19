@@ -73,4 +73,10 @@ public class PropertyValues {
     }
     return canonicalPropValueNames.get(canonicalValue);
   }
+
+  public void copyPropertyValueAliases(String sourceProperty, String destProperty) {
+    allPropertyValueAliases.put(destProperty, allPropertyValueAliases.get(sourceProperty));
+    propertyValueAlias2CanonicalValue.put(
+        destProperty, propertyValueAlias2CanonicalValue.get(sourceProperty));
+  }
 }
