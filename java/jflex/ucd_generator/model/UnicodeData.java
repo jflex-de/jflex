@@ -132,13 +132,10 @@ public class UnicodeData {
     return retval.build();
   }
 
-  public ImmutableList<String> usedPropertyValueAliases() {
-    ImmutableList.Builder<String> list = ImmutableList.builder();
-    for (Map.Entry<String,String> propertyValue : computeUsedPropertyValueAliases().entrySet()) {
-      list.add(propertyValue.getKey());
-      list.add(propertyValue.getValue());
-    }
-    return list.build();
+  public ImmutableList<Map.Entry<String, String>> usedPropertyValueAliases() {
+    return ImmutableList.<Map.Entry<String, String>>builder()
+        .addAll(computeUsedPropertyValueAliases().entrySet())
+        .build();
   }
 
   private ImmutableSortedMap<String, String> computeUsedPropertyValueAliases() {
