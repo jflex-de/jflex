@@ -6,7 +6,6 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /** Integration test for {@link UcdGenerator} */
@@ -27,9 +26,6 @@ public class UcdGeneratorIntegrationTest {
   }
 
   @Test
-  @Ignore
-  //  Content differs on line 476:
-  // : expected:<...  "scriptextensions=[a]rabic",> but was:<...  "scriptextensions=[A]rabic",>
   public void emitUnicodeVersionXY_6_3() throws Exception {
     File outputDir = new File("/tmp");
     UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_6_3, outputDir);

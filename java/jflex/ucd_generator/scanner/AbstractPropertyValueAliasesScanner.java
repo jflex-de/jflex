@@ -35,7 +35,7 @@ public abstract class AbstractPropertyValueAliasesScanner {
     unicodeData.addPropertyValueAliases(canonicalPropertyName, normalizedPropertyValue, aliases);
     if ("script".equals(canonicalPropertyName)) {
       // Clone Script/sc property value aliases => Script_Extensions/scx
-      unicodeData.addPropertyValueAliases(scxPropName, propertyValue, aliases);
+      unicodeData.addPropertyValueAliases(scxPropName, normalizedPropertyValue, aliases);
     }
     aliases.clear();
   }
