@@ -41,8 +41,7 @@ public class CaselessMatches {
         partitions.add(entry.getValue());
       }
     }
-    Comparator<SortedSet<Integer>> comparator =
-        Comparator.comparingInt(SortedSet::first);
+    Comparator<SortedSet<Integer>> comparator = Comparator.comparingInt(SortedSet::first);
     return ImmutableList.sortedCopyOf(comparator, partitions);
   }
 
