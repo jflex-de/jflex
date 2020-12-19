@@ -6,7 +6,6 @@ import com.google.common.io.Files;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import jflex.testing.diff.DiffOutputStream;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /** Integration test for {@link UcdGenerator} */

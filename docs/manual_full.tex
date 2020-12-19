@@ -35,8 +35,8 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\newcommand{\autocite}[1]{\cite{#1}}
-\newcommand{\textcite}[1]{\cite{#1}}
+\usepackage{biblatex}
+\addbibresource{docs/manual.bib}
 
 \let\orighyperref\hyperref
 \renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
@@ -53,5 +53,8 @@
 
 \newpage
 \input{docs/_content}
+
+\pagebreak
+\printbibliography
 
 \end{document}
