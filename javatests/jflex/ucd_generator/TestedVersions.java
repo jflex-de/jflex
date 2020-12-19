@@ -25,9 +25,9 @@ public class TestedVersions {
           .putFile(UcdFileType.DerivedAge, ucd5File("DerivedAge.txt"))
           .build();
 
-  public static final UcdVersion UCD_VERSION_6_0 =
+  public static final UcdVersion UCD_VERSION_6_3 =
       UcdVersion.builder()
-          .setVersion(new Version(5, 0, 0))
+          .setVersion(new Version(6, 3, 0))
           .putFile(UcdFileType.PropertyAliases, ucd6File("PropertyAliases.txt"))
           .putFile(UcdFileType.PropertyValueAliases, ucd6File("PropertyValueAliases.txt"))
           .putFile(UcdFileType.UnicodeData, ucd6File("UnicodeData.txt"))
@@ -52,11 +52,11 @@ public class TestedVersions {
   }
 
   private static File ucd6AuxFile(String name) {
-    return ucdAuxFile("ucd_6_0_0", name);
+    return ucdAuxFile("ucd_6_3_0", name);
   }
 
   private static File ucd6File(String name) {
-    return ucdFile("ucd_6_0_0", name);
+    return ucdFile("ucd_6_3_0", name);
   }
 
   private static File ucdAuxFile(String bazelVersionTarget, String name) {
