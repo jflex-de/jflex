@@ -26,6 +26,10 @@ java_library(
     srcs = [
         "SurrogateUtils.java",
     ],
+    visibility = [
+        "//java/jflex/ucd_generator:__subpackages__",
+        "//javatests/jflex:__subpackages__",
+    ],
     deps = [
         "//java/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",

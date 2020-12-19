@@ -1,0 +1,83 @@
+# Copyright 2020, the JFlex team
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+env:
+  PUBLISH_SOURCES: 'true'
+
+jobs:
+  build:
+    name: 'Maven & Examples'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        java: [ 8, 11, 13 ]
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: '🔨 Maven (build, test)'
+      run: scripts/test-unit.sh
+    - name: '🔨 Maven (site)'
+      run: scripts/mvn-site.sh
+    - name: '🔨 Maven (aggregate sources)'
+      run: scripts/mvn-aggregate-srcs.sh
+    - name: '😎 Examples (mvn, ant, make)'
+      run: scripts/test-examples.sh
+# needs update for github:
+#      run: scripts/preparare-deploy-source-code.sh
+
+  regression:
+    name: 'Regression'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        java: [ 8, 13 ]
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-${{ matrix.java }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: '📝 Regression tests'
+      run: |
+        scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
+        scripts/test-regression.sh
+
+  docs:
+    name: 'Docs'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: 'Install LaTeX and pandoc'
+      run: |
+        sudo apt-get install \
+             pandoc pandoc-citeproc texlive texlive-latex-extra lmodern
+    - name: "📄 Documentation"
+      run: cd docs; make

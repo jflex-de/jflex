@@ -18,7 +18,7 @@ md/manual.md: md/head.md md/toc.md md/intro.md md/installing.md \
 	cat $^ > $@
 
 manual.html: manual.mdx
-	pandoc --standalone --css manual.css --filter pandoc-citeproc -f markdown+smart $< -o $@
+	pandoc --standalone --css manual.css --filter pandoc-citeproc -f markdown $< -o $@
 
 #dependency manual.tex would fire manual.md -> .tex conversion
 xmanual.pdf: xmanual.tex intro.tex installing.tex example.tex lex-specs.tex \

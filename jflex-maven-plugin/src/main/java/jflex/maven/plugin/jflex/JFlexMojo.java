@@ -11,8 +11,8 @@ package jflex.maven.plugin.jflex;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -177,10 +177,10 @@ public class JFlexMojo extends AbstractMojo {
     if (lexDefinition.isDirectory()) {
       // recursively process files contained within
       getLog().debug("Processing lexer files found in " + lexDefinition);
-      FluentIterable<File> files =
-          Files.fileTreeTraverser()
-              .preOrderTraversal(lexDefinition)
-              .filter(new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
+      Iterable<File> files =
+          Iterables.filter(
+              Files.fileTraverser().depthFirstPreOrder(lexDefinition),
+              new ExtensionPredicate("jflex", "jlex", "lex", "flex"));
       for (File lexFile : files) {
         parseLexFile(lexFile);
       }
