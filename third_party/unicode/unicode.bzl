@@ -229,3 +229,24 @@ def unicode_deps():
             "emoji-data.txt": "ae7bb765f0ae7ccfdcb5d8a40ebcabc93202597d92391c698f82f99d73f94e86",
         },
     )
+    emoji_version(
+        name = "emoji_11",
+        version = "11.0",
+        files = {
+            "emoji-data.txt": "d501f50874c5150e0f8c34108bac9eda7d0b235c2c19fb6c1acab9b973a84b0e",
+        },
+    )
+    emoji_version(
+        name = "emoji_12",
+        version = "12.0",
+        files = {
+            "emoji-data.txt": "fbdd941538ba21d9b1aa9e6d37efd77296a825422e520174a9694dd3023c4e0f",
+        },
+    )
+    emoji_version(
+        name = "emoji_12_1",
+        version = "12.1",
+        files = {
+            "emoji-data.txt": "700c7983a94fd9b3f6b00307c341641bdada4b57db587c968eda62b7eadb6728",
+        },
+    )
