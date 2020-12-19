@@ -53,8 +53,9 @@ public abstract class AbstractUnicodeDataScanner {
     if (assignedStartCodePoint == -1) {
       assignedStartCodePoint = startCodePoint;
     } else if (codePoint > assignedEndCodePoint + 1 && !isLastInRange) {
-      unicodeData.addPropertyInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
-      unicodeData.addPropertyInterval(
+      unicodeData.addBinaryPropertyInterval(
+          "Assigned", assignedStartCodePoint, assignedEndCodePoint);
+      unicodeData.addEnumPropertyInterval(
           GENERAL_CATEGORY, "Cn", assignedEndCodePoint + 1, codePoint - 1);
       assignedStartCodePoint = codePoint;
     }
@@ -78,7 +79,7 @@ public abstract class AbstractUnicodeDataScanner {
               == 0) {
         prevCodePoint = 0x9FFF;
       }
-      unicodeData.addPropertyInterval(
+      unicodeData.addEnumPropertyInterval(
           GENERAL_CATEGORY, prevGenCatPropValue, startCodePoint, prevCodePoint);
       startCodePoint = -1;
     }
@@ -100,19 +101,19 @@ public abstract class AbstractUnicodeDataScanner {
 
   public void handleFinalInterval() {
     if (startCodePoint != -1 && prevGenCatPropValue.length() > 0) {
-      unicodeData.addPropertyInterval(
+      unicodeData.addEnumPropertyInterval(
           GENERAL_CATEGORY, prevGenCatPropValue, startCodePoint, prevCodePoint);
     }
 
     // Handle the final Assigned interval
-    unicodeData.addPropertyInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
+    unicodeData.addBinaryPropertyInterval("Assigned", assignedStartCodePoint, assignedEndCodePoint);
 
     // Round max code point up to end-of-plane.
     unicodeData.maximumCodePoint(((prevCodePoint + 0x800) & 0xFFF000) - 1);
 
     // Handle the final Unassigned (Cn) interval, if any
     if (assignedEndCodePoint < unicodeData.maximumCodePoint()) {
-      unicodeData.addPropertyInterval(
+      unicodeData.addEnumPropertyInterval(
           GENERAL_CATEGORY, "Cn", assignedEndCodePoint + 1, unicodeData.maximumCodePoint());
     }
   }

@@ -39,7 +39,7 @@ public class $className {
   public static final int maximumCodePoint = 0x$String.format("%x", $maxCodePoint);
 
   public static final String[] propertyValues = {
-    "$propertyValues"
+    $propertyValues
   };
 
   public static final String[] intervals = {
@@ -47,7 +47,7 @@ public class $className {
   };
 
   public static final String[] propertyValueAliases = {
-    "$propertyValueAliases"
+    $propertyValueAliases
   };
 
   /** Maximum caseless partition size. */

@@ -138,3 +138,18 @@ alias(
     name = "ucd_10",
     actual = "@ucd_10//:files",
 )
+
+alias(
+    name = "ucd_11",
+    actual = "@ucd_11//:files",
+)
+
+alias(
+    name = "ucd_12",
+    actual = "@ucd_12//:files",
+)
+
+alias(
+    name = "ucd_12_1",
+    actual = "@ucd_12_1//:files",
+)
