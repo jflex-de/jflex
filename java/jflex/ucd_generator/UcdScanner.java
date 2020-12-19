@@ -79,6 +79,10 @@ public class UcdScanner {
               Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
+    // Clone Script/sc property value aliases => Script_Extensions/scx
+    String scPropName = unicodeData.getCanonicalPropertyName("Script");
+    String scxPropName = unicodeData.getCanonicalPropertyName("Script_Extensions");
+    unicodeData.copyPropertyValueAliases(scPropName, scxPropName);
   }
 
   void scanUnicodeData() throws IOException {
