@@ -25,6 +25,9 @@ bazel_build_and_test_task:
   binary_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     type: application/java-archive
+  manual_artifacts:
+    path: "bazel-out/*/bin/docs/manual.pdf"
+    type: application/pdf
   always:
     junit_artifacts:
       path: "bazel-out/*/testlogs/**/test.xml"
