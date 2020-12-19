@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** Integration test for the {@link UcdScanner} on Unicode 5. */
+/** Integration test for the {@link UcdScanner} on Unicode 6. */
 public class UcdScannerIntegrationTest {
 
   /**
@@ -31,8 +31,8 @@ public class UcdScannerIntegrationTest {
 
   @Before
   public void ucdScanner() {
-    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_5_0);
-    assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(5, 0, 0));
+    ucdScanner = new UcdScanner(TestedVersions.UCD_VERSION_6_3);
+    assertThat(ucdScanner.ucdVersion().version()).isEqualTo(new Version(6, 3, 0));
   }
 
   @Test
