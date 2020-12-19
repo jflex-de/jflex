@@ -32,7 +32,7 @@ public class PropertyValueIntervals {
 
   Set<String> usedBinaryProperties = new HashSet<>();
 
-  private Multimap<String, String> usedEnumProperties = HashMultimap.create();
+  private final Multimap<String, String> usedEnumProperties = HashMultimap.create();
 
   // We need to keep the order of the added CodepointRanges
   private final SortedSetMultimap<String, CodepointRange> propertyValueIntervals =

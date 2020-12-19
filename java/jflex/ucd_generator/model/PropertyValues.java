@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import jdk.internal.jline.internal.Nullable;
+import javax.annotation.Nullable;
 import jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValues {
@@ -72,9 +72,5 @@ public class PropertyValues {
       return canonicalValue;
     }
     return canonicalPropValueNames.get(canonicalValue);
-  }
-
-  public ImmutableSet<String> getPropertyNames() {
-    return ImmutableSet.copyOf(allPropertyValueAliases.keySet());
   }
 }
