@@ -1,17 +1,4 @@
 java_test(
-    name = "UnicodeVersionEmitterGoldenTest",
-    srcs = ["UnicodeVersionEmitterGoldenTest.java"],
-    data = ["Unicode_0_1.java.golden"],
-    deps = [
-        "//java/jflex/testing/diff",
-        "//java/jflex/ucd_generator/emitter/unicode_version",
-        "//java/jflex/ucd_generator/model",
-        "//java/jflex/ucd_generator/ucd",
-        "//third_party/com/google/truth",
-    ],
-)
-
-java_test(
     name = "UnicodeVersionEmitterTest",
     srcs = ["UnicodeVersionEmitterTest.java"],
     deps = [

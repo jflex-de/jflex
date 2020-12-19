@@ -7,7 +7,7 @@ import java.util.Objects;
 public class MutableCodepointRange {
 
   static final Comparator<MutableCodepointRange> COMPARATOR_START_POINT =
-      (o1, o2) -> Integer.compare(o1.start, o2.start);
+      Comparator.comparingInt(o -> o.start);
 
   public int start;
   public int end;

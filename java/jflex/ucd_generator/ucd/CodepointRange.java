@@ -7,10 +7,7 @@ import java.util.Comparator;
 public abstract class CodepointRange {
 
   public static final Comparator<CodepointRange> COMPARATOR =
-      (left, right) -> {
-        int startComparison = Integer.compare(left.start(), right.start());
-        return startComparison == 0 ? Integer.compare(left.end(), right.end()) : startComparison;
-      };
+      Comparator.comparingInt(CodepointRange::start).thenComparingInt(CodepointRange::end);
 
   /** Start code-point, included. */
   public abstract int start();

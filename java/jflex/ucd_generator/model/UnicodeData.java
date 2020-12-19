@@ -1,14 +1,17 @@
 package jflex.ucd_generator.model;
 
 import static java.util.Arrays.asList;
+import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Multimap;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
 import jflex.ucd_generator.ucd.CodepointRange;
@@ -71,31 +74,31 @@ public class UnicodeData {
     return propertyValues.getPropertyValueAliases(propName, propValue);
   }
 
-  public void addPropertyInterval(String propertyName, int start, int end) {
-    propertyValueIntervals.addBinaryPropertyInterval(
-        propertyName, start, end, propertyNameNormalizer);
+  public void addBinaryPropertyInterval(String propertyName, int start, int end) {
+    propertyName = propertyNameNormalizer.getCanonicalPropertyName(propertyName);
+    propertyValueIntervals.addBinaryPropertyInterval(propertyName, start, end);
   }
 
-  public void addPropertyInterval(String propName, String propValue, int start, int end) {
-    propertyValueIntervals.addEnumPropertyInterval(
-        propName, propValue, start, end, propertyNameNormalizer);
+  public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
+    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+    propertyValueIntervals.addEnumPropertyInterval(propName, propValue, start, end);
   }
 
   public Set<String> usedBinaryProperties() {
     return propertyValueIntervals.usedBinaryProperties;
   }
 
-  public Multimap<String, String> usedEnumeratedProperties() {
-    return propertyValueIntervals.usedEnumProperties;
+  public ImmutableMultimap<String, String> usedEnumeratedProperties() {
+    return propertyValueIntervals.usedEnumeratedProperties();
+  }
+
+  public boolean hasUsedEnumeratedProperty(String category) {
+    return propertyValueIntervals.hasUsedEnumeratedProperty(category);
   }
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
     return propertyValueIntervals.getRanges(
         propertyNameNormalizer.getCanonicalPropertyName(propName));
-  }
-
-  public boolean hasUsedEnumeratedProperty(String category) {
-    return usedEnumeratedProperties().containsKey(category);
   }
 
   public int maximumCodePoint() {
@@ -127,10 +130,59 @@ public class UnicodeData {
     return retval.build();
   }
 
-  public ImmutableList<String> propertyValueAliases() {
-    // TODO(regisd) Implement this
-    return ImmutableList.of(
-        "ahex", "block=alphabeticpresentationforms", "block=ancientgreeknumbers", "unknown");
+  public ImmutableList<Map.Entry<String, String>> usedPropertyValueAliases() {
+    return ImmutableList.<Map.Entry<String, String>>builder()
+        .addAll(computeUsedPropertyValueAliases().entrySet())
+        .build();
+  }
+
+  private ImmutableSortedMap<String, String> computeUsedPropertyValueAliases() {
+    ImmutableSortedMap.Builder<String, String> usedPropertyValueAliases =
+        ImmutableSortedMap.naturalOrder();
+    for (String binaryProperty : usedBinaryProperties()) {
+      for (String nameAlias : getPropertyAliases(binaryProperty)) {
+        if (!Objects.equals(nameAlias, binaryProperty)) {
+          usedPropertyValueAliases.put(nameAlias, binaryProperty);
+        }
+      }
+    }
+    ImmutableMultimap<String, String> usedEnumProperties =
+        ImmutableMultimap.<String, String>builder()
+            .putAll(usedEnumeratedProperties())
+            .put(NORMALIZED_GENERAL_CATEGORY, "lc")
+            .build();
+    for (String propName : usedEnumProperties.keySet()) {
+      for (String propValue : usedEnumProperties.get(propName)) {
+        String canonicalValue = propName + '=' + propValue;
+
+        // Add value-only aliases for General Category and Script properties.
+        if (Objects.equals(propName, NORMALIZED_SCRIPT)
+            || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)) {
+          canonicalValue = propValue;
+          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+            if (!Objects.equals(valueAlias, propValue)) {
+              usedPropertyValueAliases.put(valueAlias, propValue);
+            }
+          }
+        }
+        for (String nameAlias : getPropertyAliases(propName)) {
+          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+            // Both property names and values have self-aliases; when generating
+            // all possible alias combinations, exclude the one that is the same
+            // as the full property name + full property value, unless the
+            // property is General Category or Script.
+            if (Objects.equals(propName, NORMALIZED_SCRIPT)
+                || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)
+                || !(Objects.equals(nameAlias, propName)
+                    && Objects.equals(valueAlias, propValue))) {
+              String alias = nameAlias + '=' + valueAlias;
+              usedPropertyValueAliases.put(alias, canonicalValue);
+            }
+          }
+        }
+      }
+    }
+    return usedPropertyValueAliases.build();
   }
 
   public String getCanonicalPropertyValueName(String propName, String propValue) {
