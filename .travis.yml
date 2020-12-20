@@ -30,32 +30,7 @@ matrix:
     env:
     - PUBLISH_SOURCES=true
     language: generic
-  - name: "📝 Regression tests"
-    script:
-    - scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
-    - scripts/test-regression.sh
-  - name: "😎 Examples (mvn, ant, make)"
-    script: scripts/test-examples.sh
-  - name: "👴 Examples (mvn, ant, make) — JDK8"
-    script: scripts/test-examples.sh
-    jdk: openjdk8
-  - name: "📄 Documentation"
-    language: generic
-    install: true
-    addons:
-      apt:
-        packages:
-        # pandoc used for building the doc
-        - pandoc
-        - pandoc-citeproc
-        # texlive used for PDF output
-        - texlive
-        # texlive-latex-extra provides extra styles such as a4wide and upquote.sty
-        - texlive-latex-extra
-        # lmodern.sty
-        - lmodern
-    script:
-    - cd docs; make; cd ..
+
 
 # Empty the previously built artifacts
 # They cannot be deleted in the before_cache phase,
