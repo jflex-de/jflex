@@ -53,11 +53,16 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
-    unicodeVersionVars.propertyValues = String.join("\",\n    \"", unicodeData.propertyValues());
+    unicodeVersionVars.propertyValues =
+        unicodeData.propertyValues().stream()
+            .map(v -> String.format("\"%s\"", v))
+            .collect(joining(",\n    "));
 
     unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
     unicodeVersionVars.propertyValueAliases =
-        String.join("\",\n    \"", unicodeData.propertyValueAliases());
+        unicodeData.usedPropertyValueAliases().stream()
+            .map(e -> String.format("\"%s\", \"%s\"", e.getKey(), e.getValue()))
+            .collect(joining(",\n    "));
     unicodeVersionVars.maxCaselessMatchPartitionSize = unicodeData.maxCaselessMatchPartitionSize();
     unicodeVersionVars.caselessMatchPartitions =
         unicodeData.uniqueCaselessMatchPartitions().stream()

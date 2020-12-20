@@ -44,7 +44,7 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
       HashMultimap<String, CodepointRange> ageRangesPerVersion) {
     for (String v : versionsToInclude) {
       for (CodepointRange range : ageRangesPerVersion.get(v)) {
-        unicodeData.addPropertyInterval(propertyName, version, range.start(), range.end());
+        unicodeData.addEnumPropertyInterval(propertyName, version, range.start(), range.end());
       }
     }
   }

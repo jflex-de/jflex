@@ -32,13 +32,13 @@ public abstract class AbstractBinaryPropertiesFileScanner {
         if (prevEnd == -1) {
           prevStart = interval.start();
         } else if (interval.start() > prevEnd + 1) {
-          unicodeData.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
+          unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
           prevStart = interval.start();
         }
         prevEnd = interval.end();
       }
       // Add final interval
-      unicodeData.addPropertyInterval(currentPropertyName, prevStart, prevEnd);
+      unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
     }
     properties.clear();
   }

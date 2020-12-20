@@ -31,8 +31,8 @@ pandoc_repositories()
 # latex rule to build PDF from tex files
 http_archive(
     name = "bazel_latex",
-    strip_prefix = "bazel-latex-0.19",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v0.19.tar.gz",
+    strip_prefix = "bazel-latex-1.0",
+    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v1.0.tar.gz",
 )
 
 load("@bazel_latex//:repositories.bzl", "latex_repositories")
