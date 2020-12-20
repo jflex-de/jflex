@@ -47,7 +47,7 @@ measure_coverage_task:
 codestyle_task:
   name: Check code style
   container:
-    image: openjdk:8-jdk
+    image: openjdk:11-jdk
   check_java_format_script: scripts/test-java-format.sh
   check_bzl_format_script:  scripts/test-bzl-format.sh
 
