@@ -158,106 +158,106 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
-        // Version 1.1.5
+      // Version 1.1.5
       case "1.1":
       case "1.1.5":
         bind(
-            org.example.data.Unicode_1_1.propertyValues,
-            org.example.data.Unicode_1_1.intervals,
-            org.example.data.Unicode_1_1.propertyValueAliases,
-            org.example.data.Unicode_1_1.maximumCodePoint,
-            org.example.data.Unicode_1_1.caselessMatchPartitions,
-            org.example.data.Unicode_1_1.caselessMatchPartitionSize);
+          org.example.data.Unicode_1_1.propertyValues,
+          org.example.data.Unicode_1_1.intervals,
+          org.example.data.Unicode_1_1.propertyValueAliases,
+          org.example.data.Unicode_1_1.maximumCodePoint,
+          org.example.data.Unicode_1_1.caselessMatchPartitions,
+          org.example.data.Unicode_1_1.caselessMatchPartitionSize);
         break;
-        // Version 2.0.14
+      // Version 2.0.14
       case "2":
       case "2.0":
       case "2.0.14":
         bind(
-            org.example.data.Unicode_2_0.propertyValues,
-            org.example.data.Unicode_2_0.intervals,
-            org.example.data.Unicode_2_0.propertyValueAliases,
-            org.example.data.Unicode_2_0.maximumCodePoint,
-            org.example.data.Unicode_2_0.caselessMatchPartitions,
-            org.example.data.Unicode_2_0.caselessMatchPartitionSize);
+          org.example.data.Unicode_2_0.propertyValues,
+          org.example.data.Unicode_2_0.intervals,
+          org.example.data.Unicode_2_0.propertyValueAliases,
+          org.example.data.Unicode_2_0.maximumCodePoint,
+          org.example.data.Unicode_2_0.caselessMatchPartitions,
+          org.example.data.Unicode_2_0.caselessMatchPartitionSize);
         break;
-        // Version 2.1.9
+      // Version 2.1.9
       case "2.1":
       case "2.1.9":
         bind(
-            org.example.data.Unicode_2_1.propertyValues,
-            org.example.data.Unicode_2_1.intervals,
-            org.example.data.Unicode_2_1.propertyValueAliases,
-            org.example.data.Unicode_2_1.maximumCodePoint,
-            org.example.data.Unicode_2_1.caselessMatchPartitions,
-            org.example.data.Unicode_2_1.caselessMatchPartitionSize);
+          org.example.data.Unicode_2_1.propertyValues,
+          org.example.data.Unicode_2_1.intervals,
+          org.example.data.Unicode_2_1.propertyValueAliases,
+          org.example.data.Unicode_2_1.maximumCodePoint,
+          org.example.data.Unicode_2_1.caselessMatchPartitions,
+          org.example.data.Unicode_2_1.caselessMatchPartitionSize);
         break;
-        // Version 2.4.0
+      // Version 2.4.0
       case "2.4":
       case "2.4.0":
         bind(
-            org.example.data.Unicode_2_4.propertyValues,
-            org.example.data.Unicode_2_4.intervals,
-            org.example.data.Unicode_2_4.propertyValueAliases,
-            org.example.data.Unicode_2_4.maximumCodePoint,
-            org.example.data.Unicode_2_4.caselessMatchPartitions,
-            org.example.data.Unicode_2_4.caselessMatchPartitionSize);
+          org.example.data.Unicode_2_4.propertyValues,
+          org.example.data.Unicode_2_4.intervals,
+          org.example.data.Unicode_2_4.propertyValueAliases,
+          org.example.data.Unicode_2_4.maximumCodePoint,
+          org.example.data.Unicode_2_4.caselessMatchPartitions,
+          org.example.data.Unicode_2_4.caselessMatchPartitionSize);
         break;
-        // Version 3.0.1
+      // Version 3.0.1
       case "3":
       case "3.0":
       case "3.0.1":
         bind(
-            org.example.data.Unicode_3_0.propertyValues,
-            org.example.data.Unicode_3_0.intervals,
-            org.example.data.Unicode_3_0.propertyValueAliases,
-            org.example.data.Unicode_3_0.maximumCodePoint,
-            org.example.data.Unicode_3_0.caselessMatchPartitions,
-            org.example.data.Unicode_3_0.caselessMatchPartitionSize);
+          org.example.data.Unicode_3_0.propertyValues,
+          org.example.data.Unicode_3_0.intervals,
+          org.example.data.Unicode_3_0.propertyValueAliases,
+          org.example.data.Unicode_3_0.maximumCodePoint,
+          org.example.data.Unicode_3_0.caselessMatchPartitions,
+          org.example.data.Unicode_3_0.caselessMatchPartitionSize);
         break;
-        // Version 3.1.0
+      // Version 3.1.0
       case "3.1":
       case "3.1.0":
         bind(
-            org.example.data.Unicode_3_1.propertyValues,
-            org.example.data.Unicode_3_1.intervals,
-            org.example.data.Unicode_3_1.propertyValueAliases,
-            org.example.data.Unicode_3_1.maximumCodePoint,
-            org.example.data.Unicode_3_1.caselessMatchPartitions,
-            org.example.data.Unicode_3_1.caselessMatchPartitionSize);
+          org.example.data.Unicode_3_1.propertyValues,
+          org.example.data.Unicode_3_1.intervals,
+          org.example.data.Unicode_3_1.propertyValueAliases,
+          org.example.data.Unicode_3_1.maximumCodePoint,
+          org.example.data.Unicode_3_1.caselessMatchPartitions,
+          org.example.data.Unicode_3_1.caselessMatchPartitionSize);
         break;
-        // Version 3.2.0
+      // Version 3.2.0
       case "3.2":
       case "3.2.0":
         bind(
-            org.example.data.Unicode_3_2.propertyValues,
-            org.example.data.Unicode_3_2.intervals,
-            org.example.data.Unicode_3_2.propertyValueAliases,
-            org.example.data.Unicode_3_2.maximumCodePoint,
-            org.example.data.Unicode_3_2.caselessMatchPartitions,
-            org.example.data.Unicode_3_2.caselessMatchPartitionSize);
+          org.example.data.Unicode_3_2.propertyValues,
+          org.example.data.Unicode_3_2.intervals,
+          org.example.data.Unicode_3_2.propertyValueAliases,
+          org.example.data.Unicode_3_2.maximumCodePoint,
+          org.example.data.Unicode_3_2.caselessMatchPartitions,
+          org.example.data.Unicode_3_2.caselessMatchPartitionSize);
         break;
-        // Version 4.0.1
+      // Version 4.0.1
       case "4":
       case "4.0":
       case "4.0.1":
         bind(
-            org.example.data.Unicode_4_0.propertyValues,
-            org.example.data.Unicode_4_0.intervals,
-            org.example.data.Unicode_4_0.propertyValueAliases,
-            org.example.data.Unicode_4_0.maximumCodePoint,
-            org.example.data.Unicode_4_0.caselessMatchPartitions,
-            org.example.data.Unicode_4_0.caselessMatchPartitionSize);
+          org.example.data.Unicode_4_0.propertyValues,
+          org.example.data.Unicode_4_0.intervals,
+          org.example.data.Unicode_4_0.propertyValueAliases,
+          org.example.data.Unicode_4_0.maximumCodePoint,
+          org.example.data.Unicode_4_0.caselessMatchPartitions,
+          org.example.data.Unicode_4_0.caselessMatchPartitionSize);
         break;
-        // Version 10.0
+      // Version 10.0
       case "10.0":
         bind(
-            org.example.data.Unicode_10_0.propertyValues,
-            org.example.data.Unicode_10_0.intervals,
-            org.example.data.Unicode_10_0.propertyValueAliases,
-            org.example.data.Unicode_10_0.maximumCodePoint,
-            org.example.data.Unicode_10_0.caselessMatchPartitions,
-            org.example.data.Unicode_10_0.caselessMatchPartitionSize);
+          org.example.data.Unicode_10_0.propertyValues,
+          org.example.data.Unicode_10_0.intervals,
+          org.example.data.Unicode_10_0.propertyValueAliases,
+          org.example.data.Unicode_10_0.maximumCodePoint,
+          org.example.data.Unicode_10_0.caselessMatchPartitions,
+          org.example.data.Unicode_10_0.caselessMatchPartitionSize);
         break;
       default:
         throw new UnsupportedUnicodeVersionException();
@@ -350,6 +350,10 @@ public class UnicodeProperties {
 
     public UnsupportedUnicodeVersionException() {
       super("Supported versions: " + UNICODE_VERSIONS);
+    }
+
+    public UnsupportedUnicodeVersionException(Throwable cause) {
+      super("Supported versions: " + UNICODE_VERSIONS, cause);
     }
   }
 }

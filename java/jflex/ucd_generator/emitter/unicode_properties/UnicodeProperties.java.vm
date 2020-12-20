@@ -155,17 +155,17 @@ public class UnicodeProperties {
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
 #foreach( $v in ${ucdVersions.versionsAsList()} )
-        // Version $v
+      // Version $v
   #foreach( $ev in ${ucdVersions.expandVersion($v)} )
     case "$ev":
   #end
-#**#      bind(
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValues,
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.intervals,
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.maximumCodePoint,
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
-            ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
+      bind(
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValues,
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.intervals,
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.propertyValueAliases,
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.maximumCodePoint,
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitions,
+          ${packageName}.data.${ucdVersions.getClassNameForVersion($v)}.caselessMatchPartitionSize);
         break;
 #end
       default:
@@ -259,6 +259,10 @@ public class UnicodeProperties {
 
     public UnsupportedUnicodeVersionException() {
       super("Supported versions: " + UNICODE_VERSIONS);
+    }
+
+    public UnsupportedUnicodeVersionException(Throwable cause) {
+      super("Supported versions: " + UNICODE_VERSIONS, cause);
     }
   }
 }

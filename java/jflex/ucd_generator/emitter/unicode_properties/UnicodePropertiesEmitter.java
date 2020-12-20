@@ -81,7 +81,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
     unicodePropertiesVars.packageName = getTargetPackage();
     unicodePropertiesVars.classComment = createClassComment();
     unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
-    unicodePropertiesVars.latestVersion = versions.getLastVersion().toString();
+    unicodePropertiesVars.latestVersion = versions.getLastVersion().toMajorMinorString();
     unicodePropertiesVars.versions = versions.versionsAsList();
     unicodePropertiesVars.ucdVersions = versions;
     return unicodePropertiesVars;
