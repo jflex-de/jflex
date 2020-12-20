@@ -20,7 +20,7 @@ fi
 function gjf() {
   directory=$1
   logi "Checking $directory"
-  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' \) )
+  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' -and -not -name 'UnicodeProperties.java' \) )
 }
 
 if [[ ${TRAVIS} ]]; then
