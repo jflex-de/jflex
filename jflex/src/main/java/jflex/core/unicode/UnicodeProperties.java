@@ -47,7 +47,9 @@ public class UnicodeProperties {
 
   /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0, 10, 10.0, 10.0.0, 11, 11.0, 11.0.0, 12, 12.0, 12.0.0, 12.1, 12.1.0";
+      "4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0,"
+          + " 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0, 10, 10.0, 10.0.0, 11, 11.0,"
+          + " 11.0.0, 12, 12.0, 12.0.0, 12.1, 12.1.0";
 
   private static final String DEFAULT_UNICODE_VERSION = "12.1.0";
 
@@ -158,6 +160,17 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
+        // Version 4.1.0
+      case "4.1":
+      case "4.1.0":
+        bind(
+            jflex.core.unicode.data.Unicode_4_1.propertyValues,
+            jflex.core.unicode.data.Unicode_4_1.intervals,
+            jflex.core.unicode.data.Unicode_4_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_4_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_4_1.caselessMatchPartitionSize);
+        break;
         // Version 5.0.0
       case "5":
       case "5.0":

@@ -119,9 +119,9 @@ public class UcdScanner {
    * Returns the default Script property value.
    *
    * <ul>
-   * <li>From Unicode 5.0 onward, the default Script property value is "Unknown".
-   * <li>Prior to Unicode 5.0, the default Script property value is "Common".
-   * <li>Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
+   *   <li>From Unicode 5.0 onward, the default Script property value is "Unknown".
+   *   <li>Prior to Unicode 5.0, the default Script property value is "Common".
+   *   <li>Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
    * </ul>
    */
   private String getDefaultScriptValue() {
