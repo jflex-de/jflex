@@ -17,7 +17,7 @@ class CliCupInvoker {
 
   CliCupInvoker(Log log) {
     this.log = log;
-  };
+  }
 
   /**
    * Invokes CUP.
