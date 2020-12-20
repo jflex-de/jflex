@@ -49,7 +49,7 @@ public class UcdVersions {
   }
 
   public List<String> versionsAsList() {
-    ImmutableList.Builder<String> versionList = ImmutableList.<String>builder();
+    ImmutableList.Builder<String> versionList = ImmutableList.builder();
     for (Version v : versions.keySet()) {
       versionList.add(v.toString());
     }

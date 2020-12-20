@@ -36,14 +36,14 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
     for (NamedCodepointRange interval : intervals) {
       if (interval.start() > prevEnd + 1) {
         // Unassigned code points get the default property value, e.g. "Unknown"
-        unicodeData.addPropertyInterval(
+        unicodeData.addEnumPropertyInterval(
             propertyName, defaultPropertyValue, prevEnd + 1, interval.start() - 1);
       }
       if (prevEnd == -1) {
         prevStart = interval.start();
         prevValue = interval.name();
       } else if (interval.start() > prevEnd + 1 || !interval.name().equals(prevValue)) {
-        unicodeData.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
+        unicodeData.addEnumPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
         prevStart = interval.start();
         prevValue = interval.name();
       }
@@ -52,12 +52,12 @@ public abstract class AbstractEnumeratedPropertyFileScanner {
 
     // Add final default property value interval, if necessary
     if (prevEnd < unicodeData.maximumCodePoint()) {
-      unicodeData.addPropertyInterval(
+      unicodeData.addEnumPropertyInterval(
           propertyName, defaultPropertyValue, prevEnd + 1, unicodeData.maximumCodePoint());
     }
 
     // Add final named interval
-    unicodeData.addPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
+    unicodeData.addEnumPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
   }
 
   protected boolean accept(String propertyValue) {

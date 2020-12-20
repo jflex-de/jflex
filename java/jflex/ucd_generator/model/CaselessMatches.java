@@ -27,7 +27,7 @@ public class CaselessMatches {
     return caselessMatchPartitions.values().stream()
         .map(Set::size)
         .max(Integer::compareTo)
-        .orElseGet(() -> 0);
+        .orElse(0);
   }
 
   /**
@@ -41,8 +41,7 @@ public class CaselessMatches {
         partitions.add(entry.getValue());
       }
     }
-    Comparator<SortedSet<Integer>> comparator =
-        (left, right) -> Integer.compare(left.first(), right.first());
+    Comparator<SortedSet<Integer>> comparator = Comparator.comparingInt(SortedSet::first);
     return ImmutableList.sortedCopyOf(comparator, partitions);
   }
 
@@ -75,7 +74,7 @@ public class CaselessMatches {
     SortedSet<Integer> partition =
         codepoints.stream()
             .filter(Objects::nonNull)
-            .map(cp -> caselessMatchPartitions.get(cp))
+            .map(caselessMatchPartitions::get)
             .filter(Objects::nonNull)
             .findFirst()
             .orElse(new TreeSet<>());

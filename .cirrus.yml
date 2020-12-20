@@ -8,7 +8,7 @@ container:
   image: l.gcr.io/google/bazel:3.5.0
   memory: 5G
 
-bazel_build__test_task:
+bazel_build_and_test_task:
   name: Bazel build and test
   bazel_version_script:
   - bazel --bazelrc=.ci.bazelrc info  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  release
@@ -20,19 +20,19 @@ bazel_build__test_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //javatests/jflex/testcase/...
   test_all_script:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
-  always:
-    junit_artifacts:
-      path: "bazel-out/*/testlogs/**/test.xml"
-      type: text/xml
-      format: junit
-
-bazel_artifact_task:
-  name: Bazel artifact
   build_artifact_script:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  jflex/jflex_bin_deploy.jar
   binary_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     type: application/java-archive
+  manual_artifacts:
+    path: "bazel-out/*/bin/docs/manual.pdf"
+    type: application/pdf
+  always:
+    junit_artifacts:
+      path: "bazel-out/*/testlogs/**/test.xml"
+      type: text/xml
+      format: junit
 
 measure_coverage_task:
   name: Measure code coverage

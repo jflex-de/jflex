@@ -7,3 +7,12 @@ java_test(
         "//third_party/com/google/truth",
     ],
 )
+
+java_test(
+    name = "SurrogateUtilsTest",
+    srcs = ["SurrogateUtilsTest.java"],
+    deps = [
+        "//java/jflex/ucd_generator/util:surrogate_utils",
+        "//third_party/com/google/truth",
+    ],
+)

@@ -70,8 +70,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 <PROPERTY_VALUE> { /* 060C          ; Arab Syrc Thaa # Po       ARABIC COMMA */
   {Spaces} [^ \t\r\n#;]+ { String script = yytext().trim();
                            addScript(script);
-
-                           }
+                         }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }
