@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
-
 # cli, gui, and ant task
 java_library(
     name = "jflex_ui",
@@ -31,4 +30,3 @@ java_library(
         "//jflex/src/main/java/jflex/option",
     ],
 )
-
