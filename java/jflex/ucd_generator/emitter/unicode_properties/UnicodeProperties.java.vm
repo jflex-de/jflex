@@ -35,7 +35,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.chars.Interval;
-import jflex.core.unicode.IntCharSet;
 
 #if (!$classComment.empty)
 $classComment
@@ -235,10 +234,10 @@ public class UnicodeProperties {
 
   /** Adds intervals for \p{ASCII} and \p{Any} to {@link #propertyValueIntervals}. */
   private void bindInvariantIntervals() {
-    IntCharSet asciiSet = new IntCharSet(new Interval(0, 0x7F));
+    IntCharSet asciiSet = IntCharSet.ofCharacterRange(0, 0x7F);
     propertyValueIntervals.put(normalize("ASCII"), asciiSet);
 
-    IntCharSet anySet = new IntCharSet(new Interval(0, maximumCodePoint));
+    IntCharSet anySet = IntCharSet.ofCharacterRange(0, maximumCodePoint);
     propertyValueIntervals.put(normalize("Any"), anySet);
   }
 
@@ -249,7 +248,7 @@ public class UnicodeProperties {
    * @param identifier The identifier to normalize
    * @return The normalized identifier
    */
-  private String normalize(String identifier) {
+  private static String normalize(String identifier) {
     if (null == identifier) return identifier;
     Matcher matcher = WORD_SEP_PATTERN.matcher(identifier.toLowerCase(Locale.ENGLISH));
     return matcher.replaceAll("").replace(':', '=');
