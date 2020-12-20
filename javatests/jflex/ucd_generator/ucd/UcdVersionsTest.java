@@ -95,7 +95,7 @@ public class UcdVersionsTest {
   }
 
   @Test
-  public void findExternalPath() {
+  public void findExternalPath_oldVersion() {
     File bazelDep =
         new File("jflex/ucd_generator/external/ucd_1_1_5_UnicodeData_1_1_5_txt/file/downloaded");
     UcdVersion ucd =

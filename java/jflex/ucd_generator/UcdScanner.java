@@ -177,7 +177,12 @@ public class UcdScanner {
       // Versions before 8.0 didn't have Emoji
       return;
     }
-    File file = checkNotNull(ucdVersion.getFile(UcdFileType.Emoji));
+    File file =
+        checkNotNull(
+            ucdVersion.getFile(UcdFileType.Emoji),
+            "Expected Emoji for version %s but known files are: %s",
+            ucdVersion.version(),
+            ucdVersion.files());
     assertFileExists(file);
     BinaryPropertiesFileScanner scanner =
         new BinaryPropertiesFileScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
