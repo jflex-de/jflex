@@ -50,7 +50,7 @@ public class Cli {
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  static List<File> parseOptions(String[] argv) throws SilentExit {
+  protected static List<File> parseOptions(String[] argv) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {

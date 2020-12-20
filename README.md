@@ -195,8 +195,8 @@ java -jar jflex-full-1.9.0-SNAPSHOT.jar --info
 
 ##### CI
 
-Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
-
+Continuous Integration is made with [Github workflows](https://github.com/jflex-de/jflex/blob/master/.github/workflows/build.yml)
+and [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
 
 
