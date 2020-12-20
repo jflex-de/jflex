@@ -1,12 +1,15 @@
-\documentclass{article}
+%\documentclass[11pt]{scrartcl} % TODO
+\documentclass{report}
 
 \usepackage[T1]{fontenc}
 
 % \usepackage{a4wide} % deprecated. Replace by geometry.
 \usepackage{geometry}
+\usepackage{verbatim}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{upquote}
+
 \usepackage{color}
 \definecolor{lcol}{rgb}{0.2470,0.3176,0.7098}
 \usepackage[
@@ -27,6 +30,11 @@
    includeheadfoot,
    margin=2.54cm
 }
+
+% pandoc packages
+\usepackage{lmodern} % Is it necessary? CM looks the same, doesn't it?
+% \usepackage{fixltx2e} % provides \textsubscript % Not necessary?
+% \usepackage[utf8]{inputenc} % Not necessary?
 
 \title{JFlex User's Manual}
 \author{Gerwin Klein, Steve Rowe, Régis Décamps}
