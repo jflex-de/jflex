@@ -50,7 +50,8 @@ public class EmitterTest {
                 + "                              java.lang.annotation.ElementType.METHOD,\n"
                 + "                              java.lang.annotation.ElementType.PARAMETER,\n"
                 + "                              java.lang.annotation.ElementType.CONSTRUCTOR,\n"
-                + "                              java.lang.annotation.ElementType.LOCAL_VARIABLE})\n",
+                + "                              java.lang.annotation.ElementType.LOCAL_VARIABLE})"
+                + "\n",
             " @java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy.SOURCE)",
             "@ClassPreamble (\n"
                 + "    author = \"John Doe\",\n"
