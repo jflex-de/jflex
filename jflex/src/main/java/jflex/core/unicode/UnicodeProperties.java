@@ -47,9 +47,7 @@ public class UnicodeProperties {
 
   /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0,"
-          + " 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0, 10, 10.0, 10.0.0, 11, 11.0,"
-          + " 11.0.0, 12, 12.0, 12.0.0, 12.1, 12.1.0";
+      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0, 4, 4.0, 4.0.1, 4.1, 4.1.0, 5, 5.0, 5.0.0, 5.1, 5.1.0, 5.2, 5.2.0, 6, 6.0, 6.0.0, 6.1, 6.1.0, 6.2, 6.2.0, 6.3, 6.3.0, 7, 7.0, 7.0.0, 8, 8.0, 8.0.0, 9, 9.0, 9.0.0, 10, 10.0, 10.0.0, 11, 11.0, 11.0.0, 12, 12.0, 12.0.0, 12.1, 12.1.0";
 
   private static final String DEFAULT_UNICODE_VERSION = "12.1.0";
 
@@ -160,6 +158,86 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
+        // Version 1.1.5
+      case "1.1":
+      case "1.1.5":
+        bind(
+            jflex.core.unicode.data.Unicode_1_1.propertyValues,
+            jflex.core.unicode.data.Unicode_1_1.intervals,
+            jflex.core.unicode.data.Unicode_1_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_1_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
+        break;
+        // Version 2.0.14
+      case "2":
+      case "2.0":
+      case "2.0.14":
+        bind(
+            jflex.core.unicode.data.Unicode_2_0.propertyValues,
+            jflex.core.unicode.data.Unicode_2_0.intervals,
+            jflex.core.unicode.data.Unicode_2_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
+        break;
+        // Version 2.1.9
+      case "2.1":
+      case "2.1.9":
+        bind(
+            jflex.core.unicode.data.Unicode_2_1.propertyValues,
+            jflex.core.unicode.data.Unicode_2_1.intervals,
+            jflex.core.unicode.data.Unicode_2_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitionSize);
+        break;
+        // Version 3.0.1
+      case "3":
+      case "3.0":
+      case "3.0.1":
+        bind(
+            jflex.core.unicode.data.Unicode_3_0.propertyValues,
+            jflex.core.unicode.data.Unicode_3_0.intervals,
+            jflex.core.unicode.data.Unicode_3_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitionSize);
+        break;
+        // Version 3.1.0
+      case "3.1":
+      case "3.1.0":
+        bind(
+            jflex.core.unicode.data.Unicode_3_1.propertyValues,
+            jflex.core.unicode.data.Unicode_3_1.intervals,
+            jflex.core.unicode.data.Unicode_3_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitionSize);
+        break;
+        // Version 3.2.0
+      case "3.2":
+      case "3.2.0":
+        bind(
+            jflex.core.unicode.data.Unicode_3_2.propertyValues,
+            jflex.core.unicode.data.Unicode_3_2.intervals,
+            jflex.core.unicode.data.Unicode_3_2.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_2.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitionSize);
+        break;
+        // Version 4.0.1
+      case "4":
+      case "4.0":
+      case "4.0.1":
+        bind(
+            jflex.core.unicode.data.Unicode_4_0.propertyValues,
+            jflex.core.unicode.data.Unicode_4_0.intervals,
+            jflex.core.unicode.data.Unicode_4_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_4_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitionSize);
+        break;
         // Version 4.1.0
       case "4.1":
       case "4.1.0":

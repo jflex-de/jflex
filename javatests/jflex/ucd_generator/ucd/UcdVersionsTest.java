@@ -33,14 +33,12 @@ import org.junit.Test;
 public class UcdVersionsTest {
 
   private final UcdVersion UCD1 =
-      UcdVersion.builder()
-          .setVersion("1.2.3")
+      UcdVersion.builder("1.2.3")
           .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
           .build();
 
   private final UcdVersion UCD2 =
-      UcdVersion.builder()
-          .setVersion("2.0")
+      UcdVersion.builder("2.0")
           .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
           .build();
 

@@ -101,7 +101,7 @@ public class Main {
   }
 
   static UcdVersion findUcdFiles(String version, List<String> argv) throws FileNotFoundException {
-    UcdVersion.Builder builder = UcdVersion.builder().setVersion(version);
+    UcdVersion.Builder builder = UcdVersion.builder(version);
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {
         if (arg.endsWith(type.name() + ".txt")) {

@@ -225,6 +225,7 @@ public class Cli {
    * @param unicodeVersion The Unicode version to print property values and aliases for
    * @throws UnicodeProperties.UnsupportedUnicodeVersionException if unicodeVersion is not supported
    */
+  @SuppressWarnings("UnusedException")
   private static void printUnicodePropertyValuesAndAliases(String unicodeVersion)
       throws UnicodeProperties.UnsupportedUnicodeVersionException {
     Pattern versionPattern = Pattern.compile("(\\d+)(?:\\.(\\d+))?(?:\\.\\d+)?");
@@ -244,7 +245,8 @@ public class Cli {
       field = clazz.getField("propertyValueAliases");
       propertyValueAliases = (String[]) field.get(null);
     } catch (Exception e) {
-      throw new UnicodeProperties.UnsupportedUnicodeVersionException(e);
+      // TODO(regisd) Add cause to exception
+      throw new UnicodeProperties.UnsupportedUnicodeVersionException();
     }
     SortedMap<String, SortedSet<String>> propertyValuesToAliases = new TreeMap<>();
     for (String value : propertyValues) {

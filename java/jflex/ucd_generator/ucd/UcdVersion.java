@@ -43,8 +43,8 @@ public abstract class UcdVersion {
     return files().get(type);
   }
 
-  public static Builder builder() {
-    return new AutoValue_UcdVersion.Builder();
+  public static Builder builder(String version) {
+    return new AutoValue_UcdVersion.Builder().setVersion(version);
   }
 
   public abstract Builder toBuilder();
