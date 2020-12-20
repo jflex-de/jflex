@@ -1,6 +1,7 @@
 package jflex.ucd_generator;
 
-import com.google.common.base.Preconditions;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
@@ -20,6 +21,8 @@ import jflex.ucd_generator.scanner.UcdScannerException;
 import jflex.ucd_generator.scanner.UnicodeDataScanner;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
+import jflex.ucd_generator.ucd.Version;
+import jflex.ucd_generator.ucd.Versions;
 
 public class UcdScanner {
 
@@ -49,6 +52,7 @@ public class UcdScanner {
       scanSentenceBreakProperty();
       scanWordBreakProperty();
       scanDerivedAge();
+      scanEmoji();
       unicodeData.addCompatibilityProperties();
 
       return unicodeData;
@@ -87,7 +91,7 @@ public class UcdScanner {
 
   void scanUnicodeData() throws IOException {
     File file = ucdVersion.getFile(UcdFileType.UnicodeData);
-    Preconditions.checkNotNull(file, "UnicodeData.txt not defined in UCD %s", ucdVersion);
+    checkNotNull(file, "UnicodeData.txt not defined in UCD %s", ucdVersion);
     assertFileExists(file);
     UnicodeDataScanner scanner =
         new UnicodeDataScanner(
@@ -166,6 +170,23 @@ public class UcdScanner {
           new DerivedAgeScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData, "Age");
       scanner.scan();
     }
+  }
+
+  private void scanEmoji() throws IOException {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_8_0) < 0) {
+      // Versions before 8.0 didn't have Emoji
+      return;
+    }
+    File file =
+        checkNotNull(
+            ucdVersion.getFile(UcdFileType.Emoji),
+            "Expected Emoji for version %s but known files are: %s",
+            ucdVersion.version(),
+            ucdVersion.files());
+    assertFileExists(file);
+    BinaryPropertiesFileScanner scanner =
+        new BinaryPropertiesFileScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+    scanner.scan();
   }
 
   /** Scans any binary properties file. */

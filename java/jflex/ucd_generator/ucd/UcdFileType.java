@@ -39,4 +39,5 @@ public enum UcdFileType {
   Scripts,
   ScriptExtensions,
   WordBreakProperty,
+  Emoji,
 }

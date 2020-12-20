@@ -52,19 +52,23 @@ def ucd_version(name, version, files):
         # TODO All files
         ucd_file(
             name = name,
-            version = version,
+            version = "/" + version,
             file = fn,
             sha256 = sha,
         )
 
 def ucd_file(name, version, file, sha256):
     bzl_name = name + "_" + file.replace(".", "_").replace("-", "_")
-    path = "/" + version + "/" + file
+    path = version + "/" + file
     http_file(
         name = bzl_name,
         urls = unicode_urls(path),
         sha256 = sha256,
     )
+
+def emoji_version(name, version, files):
+    for fn, sha in files.items():
+        ucd_file(name, "/emoji/" + version, fn, sha)
 
 def unicode_deps():
     ucd_version(name = "ucd_1_1_5", version = "1.1-Update", files = {
@@ -203,4 +207,46 @@ def unicode_deps():
         version = "12.1.0",
         sha256 = "25ba51a0d4c6fa41047b7a5e5733068d4a734588f055f61e85f450097834a0a6",
         extra_files = ["ScriptExtensions.txt"],
+    )
+    emoji_version(
+        name = "emoji_2",
+        version = "2.0",
+        files = {
+            "emoji-data.txt": "af7fbb8d7ebc6a8815bbab4e5e1d8f3322313a499d57ab4b901287e3f6f010cf",
+        },
+    )
+    emoji_version(
+        name = "emoji_4",
+        version = "4.0",
+        files = {
+            "emoji-data.txt": "11e04eabc3cbda7c9337f6cced9ebe331673d776d20558697dbad9221d4084ac",
+        },
+    )
+    emoji_version(
+        name = "emoji_5",
+        version = "5.0",
+        files = {
+            "emoji-data.txt": "ae7bb765f0ae7ccfdcb5d8a40ebcabc93202597d92391c698f82f99d73f94e86",
+        },
+    )
+    emoji_version(
+        name = "emoji_11",
+        version = "11.0",
+        files = {
+            "emoji-data.txt": "d501f50874c5150e0f8c34108bac9eda7d0b235c2c19fb6c1acab9b973a84b0e",
+        },
+    )
+    emoji_version(
+        name = "emoji_12",
+        version = "12.0",
+        files = {
+            "emoji-data.txt": "fbdd941538ba21d9b1aa9e6d37efd77296a825422e520174a9694dd3023c4e0f",
+        },
+    )
+    emoji_version(
+        name = "emoji_12_1",
+        version = "12.1",
+        files = {
+            "emoji-data.txt": "700c7983a94fd9b3f6b00307c341641bdada4b57db587c968eda62b7eadb6728",
+        },
     )

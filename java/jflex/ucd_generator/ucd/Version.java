@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Version {
 
-  static final Comparator<Version> EXACT_VERSION_COMPARATOR = new ExactVersionComparator();
+  public static final Comparator<Version> EXACT_VERSION_COMPARATOR = new ExactVersionComparator();
   public static final Comparator<Version> MAJOR_MINOR_COMPARATOR =
       new MajorMinorVersionComparator();
 

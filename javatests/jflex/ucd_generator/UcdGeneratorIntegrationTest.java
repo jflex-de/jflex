@@ -38,4 +38,18 @@ public class UcdGeneratorIntegrationTest {
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
     Files.copy(f, goldenOutputStream);
   }
+
+  @Test
+  public void emitUnicodeVersionXY_10_0() throws Exception {
+    File outputDir = new File("/tmp");
+    UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_10, outputDir);
+
+    File f = new File(outputDir, "Unicode_10_0.java");
+    assertThat(f.exists()).isTrue();
+
+    File goldenFile = new File("javatests/jflex/ucd_generator/Unicode_10_0.java.golden");
+    DiffOutputStream goldenOutputStream =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
+    Files.copy(f, goldenOutputStream);
+  }
 }

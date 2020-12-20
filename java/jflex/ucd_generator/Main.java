@@ -100,13 +100,14 @@ public class Main {
     return params.setUcdVersions(ucdVersions).build();
   }
 
-  private static UcdVersion findUcdFiles(String version, List<String> argv)
-      throws FileNotFoundException {
+  static UcdVersion findUcdFiles(String version, List<String> argv) throws FileNotFoundException {
     UcdVersion.Builder builder = UcdVersion.builder().setVersion(version);
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {
         if (arg.endsWith(type.name() + ".txt")) {
           builder.putFile(type, findFile(arg));
+        } else if (type == UcdFileType.Emoji && arg.contains("emoji_data_txt")) {
+          builder.putFile(UcdFileType.Emoji, findFile(arg));
         }
       }
     }

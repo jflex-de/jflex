@@ -1,9 +1,24 @@
 java_test(
+    name = "MainTest",
+    srcs = ["MainTest.java"],
+    data = [
+        "//third_party/unicode:ucd_10",
+    ],
+    deps = [
+        "//java/jflex/ucd_generator:Main",
+        "//java/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
     name = "UcdGeneratorIntegrationTest",
     srcs = ["UcdGeneratorIntegrationTest.java"],
     data = [
+        "Unicode_10_0.java.golden",
         "Unicode_5_0.java.golden",
         "Unicode_6_3.java.golden",
+        "//third_party/unicode:ucd_10",
         "//third_party/unicode:ucd_5_0_0",
         "//third_party/unicode:ucd_6_3_0",
     ],

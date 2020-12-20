@@ -7,8 +7,9 @@ import java.util.List;
 import jflex.ucd_generator.model.UnicodeData;
 import jflex.ucd_generator.ucd.CodepointRange;
 import jflex.ucd_generator.ucd.NamedCodepointRange;
+import jflex.ucd_generator.ucd.Version;
 
-/** Scanner for the {@code DerivedAge.txt} ucd file, that popualtes the UnicodeData intervals. */
+/** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
 public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   public DerivedAgeScanner(Reader in, UnicodeData unicodeData, String defaultPropertyName) {
@@ -26,12 +27,14 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   void includeOlderVersions() {
-    HashMultimap<String, CodepointRange> ageRangesPerVersion = clusterCodePointRangesPerVersion();
-    ImmutableList<String> versions = ImmutableList.sortedCopyOf(ageRangesPerVersion.keySet());
+    HashMultimap<Version, CodepointRange> ageRangesPerVersion = clusterCodePointRangesPerVersion();
+    ImmutableList<Version> versions =
+        ImmutableList.sortedCopyOf(Version.EXACT_VERSION_COMPARATOR, ageRangesPerVersion.keySet());
     // starting from 1, as  the first  version is a no-op
     for (int i = 1; i < versions.size(); i++) {
-      String version = versions.get(i);
-      List<String> prevVersions = versions.subList(0, i); // toIndex is exclusive
+      Version version = versions.get(i);
+      List<Version> prevVersions = versions.subList(0, i); // toIndex is exclusive
+      // TODO(regisd) Since we include recursively, it should be enough to include N-1
       includeVersionsOnVersion(version, prevVersions, ageRangesPerVersion);
     }
     // TODO(regisd) Give the Unassigned Age property value to the absolute complement
@@ -39,21 +42,22 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   private void includeVersionsOnVersion(
-      String version,
-      List<String> versionsToInclude,
-      HashMultimap<String, CodepointRange> ageRangesPerVersion) {
-    for (String v : versionsToInclude) {
+      Version version,
+      List<Version> versionsToInclude,
+      HashMultimap<Version, CodepointRange> ageRangesPerVersion) {
+    for (Version v : versionsToInclude) {
       for (CodepointRange range : ageRangesPerVersion.get(v)) {
-        unicodeData.addEnumPropertyInterval(propertyName, version, range.start(), range.end());
+        unicodeData.addEnumPropertyInterval(
+            propertyName, version.toString(), range.start(), range.end());
       }
     }
   }
 
-  HashMultimap<String, CodepointRange> clusterCodePointRangesPerVersion() {
-    HashMultimap<String, CodepointRange> ageRangesPerVersion =
+  HashMultimap<Version, CodepointRange> clusterCodePointRangesPerVersion() {
+    HashMultimap<Version, CodepointRange> ageRangesPerVersion =
         HashMultimap.create(/*expectedKeys=*/ 25, /*expectedValuesPerKey=*/ 128);
     for (NamedCodepointRange interval : intervals) {
-      ageRangesPerVersion.put(interval.name(), interval.range());
+      ageRangesPerVersion.put(new Version(interval.name()), interval.range());
     }
     return ageRangesPerVersion;
   }
