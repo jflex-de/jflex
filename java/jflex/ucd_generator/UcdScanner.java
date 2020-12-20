@@ -112,7 +112,23 @@ public class UcdScanner {
         unicodeData,
         ucdVersion.getFile(UcdFileType.Scripts),
         /*defaultPropertyName=*/ "Script",
-        "Unknown");
+        getDefaultScriptValue());
+  }
+
+  /**
+   * Returns the default Script property value.
+   *
+   * <ul>
+   * <li>From Unicode 5.0 onward, the default Script property value is "Unknown".
+   * <li>Prior to Unicode 5.0, the default Script property value is "Common".
+   * <li>Prior to Unicode 3.1, Scripts(-X.X.X).txt did not exist.
+   * </ul>
+   */
+  private String getDefaultScriptValue() {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_5_0) < 0) {
+      return "Common";
+    }
+    return "Unknown";
   }
 
   void scanScriptExtensions() throws IOException {

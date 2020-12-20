@@ -8,6 +8,29 @@ import jflex.ucd_generator.ucd.Version;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
+  public static final UcdVersion UCD_VERSION_4_1 =
+      UcdVersion.builder()
+          .setVersion(new Version(4, 1, 0))
+          .putFile(UcdFileType.PropertyAliases, ucdFile("ucd_4_1_0", "PropertyAliases.txt"))
+          .putFile(
+              UcdFileType.PropertyValueAliases, ucdFile("ucd_4_1_0", "PropertyValueAliases.txt"))
+          .putFile(UcdFileType.UnicodeData, ucdFile("ucd_4_1_0", "UnicodeData.txt"))
+          .putFile(UcdFileType.PropList, ucdFile("ucd_4_1_0", "PropList.txt"))
+          .putFile(
+              UcdFileType.DerivedCoreProperties, ucdFile("ucd_4_1_0", "DerivedCoreProperties.txt"))
+          .putFile(UcdFileType.Scripts, ucdFile("ucd_4_1_0", "Scripts.txt"))
+          .putFile(UcdFileType.Blocks, ucdFile("ucd_4_1_0", "Blocks.txt"))
+          .putFile(UcdFileType.LineBreak, ucdFile("ucd_4_1_0", "LineBreak.txt"))
+          .putFile(
+              UcdFileType.GraphemeBreakProperty,
+              ucdAuxFile("ucd_4_1_0", "GraphemeBreakProperty.txt"))
+          .putFile(
+              UcdFileType.SentenceBreakProperty,
+              ucdAuxFile("ucd_4_1_0", "SentenceBreakProperty.txt"))
+          .putFile(UcdFileType.WordBreakProperty, ucdAuxFile("ucd_4_1_0", "WordBreakProperty.txt"))
+          .putFile(UcdFileType.DerivedAge, ucdFile("ucd_4_1_0", "DerivedAge.txt"))
+          .build();
+
   public static final UcdVersion UCD_VERSION_5_0 =
       UcdVersion.builder()
           .setVersion(new Version(5, 0, 0))
