@@ -1,5 +1,7 @@
 package jflex.ucd_generator.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
@@ -71,7 +73,12 @@ public class PropertyValues {
     if (canonicalPropValueNames == null) {
       return canonicalValue;
     }
-    return canonicalPropValueNames.get(canonicalValue);
+    return checkNotNull(
+        canonicalPropValueNames.get(canonicalValue),
+        String.format(
+            "Canonical value not found for '%s', are you sure it is the default value for '%s' "
+                + " in this Unicode version?",
+            propValue, normalizedPropName));
   }
 
   public void copyPropertyValueAliases(String sourceProperty, String destProperty) {

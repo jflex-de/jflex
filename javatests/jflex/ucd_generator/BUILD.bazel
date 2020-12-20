@@ -19,6 +19,7 @@ java_test(
         "Unicode_5_0.java.golden",
         "Unicode_6_3.java.golden",
         "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_4_1_0",
         "//third_party/unicode:ucd_5_0_0",
         "//third_party/unicode:ucd_6_3_0",
     ],

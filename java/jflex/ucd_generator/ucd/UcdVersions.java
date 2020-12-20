@@ -33,6 +33,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.List;
+import java.util.Map;
 
 /** A set of {@link UcdVersion}s. */
 public class UcdVersions {
@@ -105,6 +106,10 @@ public class UcdVersions {
     return expandedVersions.build();
   }
 
+  public Builder toBuilder() {
+    return builder().putAll(versions);
+  }
+
   @Override
   public String toString() {
     return "[" + Joiner.on(", ").join(versionsAsList()) + "]";
@@ -117,6 +122,11 @@ public class UcdVersions {
   public static class Builder {
     ImmutableSortedMap.Builder<Version, UcdVersion> versions =
         ImmutableSortedMap.orderedBy(Version.EXACT_VERSION_COMPARATOR);
+
+    public Builder putAll(Map<Version, UcdVersion> versions) {
+      this.versions.putAll(versions);
+      return this;
+    }
 
     private Builder put(Version version, UcdVersion ucdFiles) {
       versions.put(version, ucdFiles);
