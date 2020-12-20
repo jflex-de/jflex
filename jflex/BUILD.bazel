@@ -11,6 +11,15 @@ package_group(
 )
 
 java_binary(
+    name = "jflex_cli",
+    main_class = "jflex.Cli",
+    runtime_deps = [
+        "//jflex/src/main/java/jflex:jflex_cli",
+        "//third_party/java_cup:runtime",
+    ],
+)
+
+java_binary(
     name = "jflex_bin",
     main_class = "jflex.Main",
     runtime_deps = [

@@ -140,32 +140,42 @@ The top level directory of the JFLex git repository contains:
 #### Build with Bazel
 
 JFlex can be built with Bazel.
-[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance.
+[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for
+instance.
 
 
 You need [Bazel][bazel].
 
+##### Command line interface (CLI)
+
+```
+bazel build //jflex:jflex_cli
+bazel-bin/jflex/jflex_cli --info
+```
+
+Build the uberjar (aka fatjar aka deploy jar) that can be used as a standalone binary:
+
+```
+bazel build //jflex:jflex_cli_deploy.jar
+```
+
+##### Graphical user interface (GUI)
+
+The build is modularized, and the previous target does not contain the GUI.
+
+Start the GUI with:
+
 ```
 bazel build //jflex:jflex_bin
+bazel-bin/jflex/jflex_bin
 ```
 
-This builds `bazel-bin/jflex/jflex_bin`, that you can use
-
+The uberjar also exists as 
 ```
-bazel-bin/jflex/jflex_bin --info
-```
-
-Or:
-
-```
-bazel run //jflex:jflex_bin -- --info
+bazel build //jflex:jflex_bin_deploy.jar
 ```
 
-Build uberjar (aka fatjar aka deploy jar)
-
-```
-bazel build jflex/jflex_bin_deploy.jar
-```
+##### CI
 
 Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
@@ -183,8 +193,10 @@ This generates `jflex/target/jflex-full-1.9.0-SNAPSHOT.jar` that you can use, e.
 java -jar jflex-full-1.9.0-SNAPSHOT.jar --info
 ```
 
-Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
+##### CI
 
+Continuous Integration is made with [Github workflows](https://github.com/jflex-de/jflex/blob/master/.github/workflows/build.yml)
+and [Travis](https://travis-ci.org/jflex-de/jflex/branches).
 
 
 
