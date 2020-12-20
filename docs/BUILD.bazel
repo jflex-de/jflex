@@ -37,6 +37,8 @@ latex_document(
         "@bazel_latex//packages:hyperref",
         "@bazel_latex//packages:microtype",
         "@bazel_latex//packages:upquote",
+        "@bazel_latex//packages:verbatim",
+        "@texlive_texmf__texmf-dist__fonts__opentype__public__lm",
     ],
     cmd_flags = ["--bibtex-cmd=biber"],
     main = "manual_full.tex",
