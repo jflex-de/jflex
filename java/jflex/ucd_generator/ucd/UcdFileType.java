@@ -30,7 +30,6 @@ public enum UcdFileType {
   UnicodeData, // Always exists since version 1
   Blocks,
   DerivedCoreProperties,
-  Emoji,
   GraphemeBreakProperty,
   LineBreak,
   PropertyAliases,
@@ -40,4 +39,5 @@ public enum UcdFileType {
   Scripts,
   ScriptExtensions,
   WordBreakProperty,
+  Emoji,
 }
