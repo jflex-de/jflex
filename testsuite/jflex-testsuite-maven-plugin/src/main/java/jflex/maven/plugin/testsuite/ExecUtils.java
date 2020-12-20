@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import jflex.Cli;
 import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
@@ -97,7 +96,7 @@ public class ExecUtils {
     try {
       OptionUtils.setDefaultOptions();
       Out.setOutputStream(out);
-      Cli.generate(cmd);
+      jflex.Main.generate(cmd);
       return new TestResult(out.toString(), true);
     } catch (GeneratorException e) {
       return new TestResult(out.toString(), false);
