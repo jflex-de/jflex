@@ -18,10 +18,12 @@ public class PropertyNameNormalizer {
   // "cache"
   private static final Map<String, String> normalized = new HashMap<>();
 
-  /** Normalized General_Category property name */
+  /** Normalized General_Category property name. */
   public static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
-  /** Normalized Script property name */
+  /** Normalized Script property name. */
   public static final String NORMALIZED_SCRIPT = normalize("Script");
+  /** Normalized Scirpt_Extensions property name. */
+  public static final String NORMALIZED_SCRIPT_EXTENSIONS = normalize("Script_Extensions");
 
   public static final ImmutableSet<String> DEFAULT_CATEGORIES =
       ImmutableSet.of(NORMALIZED_GENERAL_CATEGORY, NORMALIZED_SCRIPT);

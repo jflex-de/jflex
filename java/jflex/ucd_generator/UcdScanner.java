@@ -41,6 +41,7 @@ public class UcdScanner {
     try {
       scanPropertyAliases();
       scanPropertyValueAliases();
+      cloneScriptsToScriptExtensions();
       scanUnicodeData();
       scanPropList();
       scanDerivedCoreProperties();
@@ -83,6 +84,9 @@ public class UcdScanner {
               Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
+  }
+
+  private void cloneScriptsToScriptExtensions() {
     // Clone Script/sc property value aliases => Script_Extensions/scx
     String scPropName = unicodeData.getCanonicalPropertyName("Script");
     String scxPropName = unicodeData.getCanonicalPropertyName("Script_Extensions");
