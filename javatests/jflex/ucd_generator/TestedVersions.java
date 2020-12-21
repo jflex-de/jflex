@@ -36,39 +36,45 @@ public class TestedVersions {
   private static UcdVersion.Builder newUcdVersion(String versionName, String bazelTarget) {
     UcdVersion.Builder version =
         UcdVersion.builder(versionName)
-            .putFile(UcdFileType.PropertyAliases, ucdFile(bazelTarget, "PropertyAliases.txt"))
+            .putFile(UcdFileType.PropertyAliases, ucdFile(bazelTarget, UcdFileType.PropertyAliases))
             .putFile(
-                UcdFileType.PropertyValueAliases, ucdFile(bazelTarget, "PropertyValueAliases.txt"))
-            .putFile(UcdFileType.UnicodeData, ucdFile(bazelTarget, "UnicodeData.txt"))
-            .putFile(UcdFileType.PropList, ucdFile(bazelTarget, "PropList.txt"))
+                UcdFileType.PropertyValueAliases, ucdFile(bazelTarget, UcdFileType.PropertyValueAliases))
+            .putFile(UcdFileType.UnicodeData, ucdFile(bazelTarget, UcdFileType.UnicodeData))
+            .putFile(UcdFileType.PropList, ucdFile(bazelTarget, UcdFileType.PropList))
             .putFile(
                 UcdFileType.DerivedCoreProperties,
-                ucdFile(bazelTarget, "DerivedCoreProperties.txt"))
-            .putFile(UcdFileType.Scripts, ucdFile(bazelTarget, "Scripts.txt"))
-            .putFile(UcdFileType.Blocks, ucdFile(bazelTarget, "Blocks.txt"))
-            .putFile(UcdFileType.LineBreak, ucdFile(bazelTarget, "LineBreak.txt"))
+                ucdFile(bazelTarget, UcdFileType.DerivedCoreProperties))
+            .putFile(UcdFileType.Scripts, ucdFile(bazelTarget, UcdFileType.Scripts))
+            .putFile(UcdFileType.Blocks, ucdFile(bazelTarget, UcdFileType.Blocks))
+            .putFile(UcdFileType.LineBreak, ucdFile(bazelTarget, UcdFileType.LineBreak))
             .putFile(
                 UcdFileType.GraphemeBreakProperty,
-                ucdAuxFile(bazelTarget, "GraphemeBreakProperty.txt"))
+                ucdAuxFile(bazelTarget, UcdFileType.GraphemeBreakProperty))
             .putFile(
                 UcdFileType.SentenceBreakProperty,
-                ucdAuxFile(bazelTarget, "SentenceBreakProperty.txt"))
+                ucdAuxFile(bazelTarget, UcdFileType.SentenceBreakProperty))
             .putFile(
-                UcdFileType.WordBreakProperty, ucdAuxFile(bazelTarget, "WordBreakProperty.txt"))
-            .putFile(UcdFileType.DerivedAge, ucdFile(bazelTarget, "DerivedAge.txt"));
+                UcdFileType.WordBreakProperty, ucdAuxFile(bazelTarget, UcdFileType.WordBreakProperty))
+            .putFile(UcdFileType.DerivedAge, ucdFile(bazelTarget, UcdFileType.DerivedAge));
     if (Version.MAJOR_MINOR_COMPARATOR.compare(version.version(), Versions.VERSION_6_0) >= 0) {
-      version.putFile(UcdFileType.ScriptExtensions, ucdFile(bazelTarget, "ScriptExtensions.txt"));
+      version.putFile(UcdFileType.ScriptExtensions, ucdFile(bazelTarget, UcdFileType.ScriptExtensions));
     }
     return version;
   }
 
-  private static File ucdAuxFile(String bazelVersionTarget, String name) {
+  private static File ucdAuxFile(String bazelVersionTarget, UcdFileType type) {
     File auxDir = new File(ucdVersionDirectory(bazelVersionTarget), "auxiliary");
+    String name = type + ".txt";
     return new File(auxDir, name);
   }
 
   private static File ucdEmojiFile(String bazelVersionTarget) {
     return ucdFile(bazelVersionTarget + "_emoji_data_txt", "file/downloaded");
+  }
+
+  private static File ucdFile(String bazelVersionTarget, UcdFileType type) {
+    String name = type + ".txt";
+    return ucdFile(bazelVersionTarget, name);
   }
 
   private static File ucdFile(String bazelVersionTarget, String name) {
