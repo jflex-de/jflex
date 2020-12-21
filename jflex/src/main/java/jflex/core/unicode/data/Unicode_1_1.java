@@ -5,11 +5,31 @@ public class Unicode_1_1 {
 
   public static final int maximumCodePoint = 0xffff;
   public static final String[] propertyValues = {
-    "alnum", "assigned", "blank", "cc", "cn",
-    "graph", "ll", "lm", "lo", "lu",
-    "mc", "mn", "nd", "no", "pd",
-    "pe", "po", "print", "ps", "sc",
-    "sm", "so", "xdigit", "zl", "zp",
+    "alnum",
+    "assigned",
+    "blank",
+    "cc",
+    "cn",
+    "graph",
+    "ll",
+    "lm",
+    "lo",
+    "lu",
+    "mc",
+    "mn",
+    "nd",
+    "no",
+    "pd",
+    "pe",
+    "po",
+    "print",
+    "ps",
+    "sc",
+    "sm",
+    "so",
+    "xdigit",
+    "zl",
+    "zp",
     "zs"
   };
   public static final String[] intervals = {
