@@ -1,14 +1,14 @@
 // test: eofclose
 
-package jflex.testcase.eofclose;
+package de.jflex.testcase.eofclose;
 
 import static com.google.common.truth.Truth.assertWithMessage;
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import java.io.Reader;
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /** Test for {@code eofclose} directive. */

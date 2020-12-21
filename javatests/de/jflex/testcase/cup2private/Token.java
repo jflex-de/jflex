@@ -1,4 +1,4 @@
-package jflex.testcase.cup2private;
+package de.jflex.testcase.cup2private;
 
 import edu.tum.cup2.grammar.Terminal;
 

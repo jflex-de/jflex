@@ -1,4 +1,4 @@
-package jflex.testing.diff;
+package de.jflex.testing.diff;
 /*
  * Copyright (C) 2018-2019 Google, LLC.
  *

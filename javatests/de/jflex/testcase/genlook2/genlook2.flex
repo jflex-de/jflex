@@ -1,4 +1,4 @@
-package jflex.testcase.genlook2;
+package de.jflex.testcase.genlook2;
 
 %%
 

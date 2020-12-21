@@ -1,4 +1,4 @@
-package jflex.testcase.sevenbit;
+package de.jflex.testcase.sevenbit;
 
 %%
 

@@ -23,17 +23,17 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import jflex.ucd_generator.ucd.UcdFileType;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.UcdVersions;
-import jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.UcdFileType;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.ucd_generator.ucd.Version;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package jflex.testcase.eof;
+package de.jflex.testcase.eof;
 
 import java.io.*;
 

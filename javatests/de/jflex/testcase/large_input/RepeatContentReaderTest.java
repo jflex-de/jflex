@@ -1,4 +1,4 @@
-package jflex.testcase.large_input;
+package de.jflex.testcase.large_input;
 
 import static com.google.common.truth.Truth.assertThat;
 

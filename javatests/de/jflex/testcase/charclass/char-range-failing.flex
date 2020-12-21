@@ -1,4 +1,4 @@
-package jflex.testcase.charclass;
+package de.jflex.testcase.charclass;
 
 %%
 

@@ -1,4 +1,4 @@
-package jflex.testcase.cupsym;
+package de.jflex.testcase.cupsym;
 
 public interface sym2 {
 

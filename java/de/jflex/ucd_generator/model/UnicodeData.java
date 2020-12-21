@@ -1,8 +1,8 @@
-package jflex.ucd_generator.model;
+package de.jflex.ucd_generator.model;
 
 import static java.util.Arrays.asList;
-import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
-import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
+import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -14,11 +14,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.CodepointRangeSet;
-import jflex.ucd_generator.ucd.MutableCodepointRange;
-import jflex.ucd_generator.ucd.Version;
-import jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.ucd.MutableCodepointRange;
+import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class UnicodeData {
   private final PropertyNameNormalizer propertyNameNormalizer = new PropertyNameNormalizer();

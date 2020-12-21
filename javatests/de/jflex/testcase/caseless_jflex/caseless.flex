@@ -1,4 +1,4 @@
-package jflex.testcase.caseless_jflex;
+package de.jflex.testcase.caseless_jflex;
 
 %%
 

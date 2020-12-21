@@ -1,4 +1,4 @@
-package jflex.testcase.initthrow_eol;
+package de.jflex.testcase.initthrow_eol;
 
 import java.io.IOException;
 

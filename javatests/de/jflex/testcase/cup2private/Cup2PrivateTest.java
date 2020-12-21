@@ -1,10 +1,10 @@
 // test: cup2private
 
-package jflex.testcase.cup2private;
+package de.jflex.testcase.cup2private;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**

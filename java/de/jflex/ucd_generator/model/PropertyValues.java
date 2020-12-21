@@ -1,4 +1,4 @@
-package jflex.ucd_generator.model;
+package de.jflex.ucd_generator.model;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nullable;
-import jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValues {
 

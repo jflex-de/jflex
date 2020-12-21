@@ -1,8 +1,8 @@
 // test: eolcomment
 
-package jflex.testcase.eol_comment;
+package de.jflex.testcase.eol_comment;
 
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**

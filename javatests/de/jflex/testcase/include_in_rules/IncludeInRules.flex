@@ -1,4 +1,4 @@
-package jflex.testcase.include_in_rules;
+package de.jflex.testcase.include_in_rules;
 
 %%
 

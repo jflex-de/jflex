@@ -1,11 +1,11 @@
-package jflex.migration;
+package de.jflex.migration;
 
 import com.google.common.collect.ImmutableList;
 import java.io.File;
-import jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 
 /** Variables for the velocity templates (both {@code BUILD.vm} and {@code TestCase.java.vm}). */
-public class MigrationTemplateVars extends jflex.velocity.TemplateVars {
+public class MigrationTemplateVars extends de.jflex.velocity.TemplateVars {
 
   /** The name of the test. */
   public String testName;

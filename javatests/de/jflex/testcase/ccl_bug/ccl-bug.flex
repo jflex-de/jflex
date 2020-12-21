@@ -1,4 +1,4 @@
-package jflex.testcase.ccl_bug;
+package de.jflex.testcase.ccl_bug;
 
 %%
 

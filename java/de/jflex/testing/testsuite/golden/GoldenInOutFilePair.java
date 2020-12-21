@@ -1,4 +1,4 @@
-package jflex.testing.testsuite.golden;
+package de.jflex.testing.testsuite.golden;
 
 import java.io.File;
 

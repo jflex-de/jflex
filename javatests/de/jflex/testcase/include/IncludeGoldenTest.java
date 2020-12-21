@@ -1,11 +1,11 @@
 // test: include
 
-package jflex.testcase.include;
+package de.jflex.testcase.include;
 
 import java.io.File;
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
-import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
+import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -15,7 +15,7 @@ import org.junit.Test;
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
  * System.out}. Please migrate to proper unit tests, as describe in <a
- * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
+ * href="https://github.com/jflex-de/jflex/tree/master/javatests/de/jflex/testcase">
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
@@ -25,7 +25,7 @@ public class IncludeGoldenTest extends AbstractGoldenTest {
   private final ScannerFactory<IncludeScanner> scannerFactory =
       ScannerFactory.of(IncludeScanner::new);
 
-  private final File testRuntimeDir = new File("javatests/jflex/testcase/include");
+  private final File testRuntimeDir = new File("javatests/de/jflex/testcase/include");
 
   @Test
   public void goldenTest0() throws Exception {

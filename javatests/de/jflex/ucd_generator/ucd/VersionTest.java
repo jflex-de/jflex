@@ -1,4 +1,4 @@
-package jflex.ucd_generator.ucd;
+package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
 

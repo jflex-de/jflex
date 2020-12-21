@@ -1,4 +1,4 @@
-package jflex.testcase.macro_exp2;
+package de.jflex.testcase.macro_exp2;
 
 %%
 

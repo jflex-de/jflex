@@ -1,4 +1,4 @@
-package jflex.testcase.buffer;
+package de.jflex.testcase.buffer;
 
 import static java.util.stream.Collectors.joining;
 

@@ -1,7 +1,7 @@
-package jflex.ucd_generator.scanner;
+package de.jflex.ucd_generator.scanner;
 
-import static jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
-import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
+import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
 import java.util.Collection;
@@ -11,11 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
-import jflex.ucd_generator.model.UnicodeData;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.CodepointRangeSet;
-import jflex.ucd_generator.ucd.MutableCodepointRange;
-import jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.ucd.MutableCodepointRange;
+import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 /**
  * Scans ScriptExtensions.txt, using previously parsed Scripts(-X.Y.Z).txt values for missing code

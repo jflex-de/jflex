@@ -1,11 +1,11 @@
 // test: eol
 
-package jflex.testcase.eol_look;
+package de.jflex.testcase.eol_look;
 
 import java.io.File;
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
-import jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
+import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
@@ -14,7 +14,7 @@ import org.junit.Test;
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
  * System.out}. Please migrate to proper unit tests, as describe in <a
- * href="https://github.com/jflex-de/jflex/tree/master/javatests/jflex/testcase">
+ * href="https://github.com/jflex-de/jflex/tree/master/javatests/de/jflex/testcase">
  * //javatest/jflex/testcase</a>.
  */
 // TODO Migrate this test to proper unit tests.
@@ -23,7 +23,7 @@ public class EolGoldenTest extends AbstractGoldenTest {
   /** Creates a scanner conforming to the {@code eol.flex} specification. */
   private final ScannerFactory<Eol> scannerFactory = ScannerFactory.of(Eol::new);
 
-  private final File testRuntimeDir = new File("javatests/jflex/testcase/eol_look");
+  private final File testRuntimeDir = new File("javatests/de/jflex/testcase/eol_look");
 
   @Test
   public void goldenTest0() throws Exception {

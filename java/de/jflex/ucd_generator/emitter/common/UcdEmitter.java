@@ -1,4 +1,4 @@
-package jflex.ucd_generator.emitter.common;
+package de.jflex.ucd_generator.emitter.common;
 
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;

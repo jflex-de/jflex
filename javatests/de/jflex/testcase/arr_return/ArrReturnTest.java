@@ -23,17 +23,17 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.testcase.arr_return;
+package de.jflex.testcase.arr_return;
 
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/jflex/testcase/arr_return/arr.flex",
-    sysout = "javatests/jflex/testcase/arr_return/arr-flex.output",
+    lex = "javatests/de/jflex/testcase/arr_return/arr.flex",
+    sysout = "javatests/de/jflex/testcase/arr_return/arr-flex.output",
     minimizedDfaStatesCount = 5)
 public class ArrReturnTest {
   @Test

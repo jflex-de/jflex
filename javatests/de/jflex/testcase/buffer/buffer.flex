@@ -1,4 +1,4 @@
-package jflex.testcase.buffer;
+package de.jflex.testcase.buffer;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package jflex.testcase.eof_min;
+package de.jflex.testcase.eof_min;
 %%
 
 %unicode

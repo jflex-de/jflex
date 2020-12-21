@@ -1,4 +1,4 @@
-package jflex.testcase.include2;
+package de.jflex.testcase.include2;
 import java.io.*;
 
 %%

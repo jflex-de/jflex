@@ -1,4 +1,4 @@
-package jflex.ucd_generator.emitter.unicode_version;
+package de.jflex.ucd_generator.emitter.unicode_version;
 
 import static java.util.stream.Collectors.joining;
 
@@ -14,13 +14,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
-import jflex.ucd_generator.emitter.common.UcdEmitter;
-import jflex.ucd_generator.model.UnicodeData;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.CodepointRangeSet;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.util.javac.JavaPackageUtils;
-import jflex.velocity.Velocity;
+import de.jflex.ucd_generator.emitter.common.UcdEmitter;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** Emitter for a {@code Unicode_x_y.java}. */

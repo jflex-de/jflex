@@ -1,8 +1,8 @@
-package jflex.testcase.charclass;
+package de.jflex.testcase.charclass;
 
 import jflex.exceptions.GeneratorException;
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/jflex/testcase/charclass/char-range-failing.flex",
+    lex = "javatests/de/jflex/testcase/charclass/char-range-failing.flex",
     generatorThrows = GeneratorException.class)
 public class ImpossibleScannerTest {
   @Test

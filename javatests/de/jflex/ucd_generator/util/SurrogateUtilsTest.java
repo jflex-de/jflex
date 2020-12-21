@@ -1,7 +1,7 @@
-package jflex.ucd_generator.util;
+package de.jflex.ucd_generator.util;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
+import static de.jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
 
 import org.junit.Test;
 

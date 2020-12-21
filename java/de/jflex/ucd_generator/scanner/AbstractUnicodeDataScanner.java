@@ -1,10 +1,10 @@
-package jflex.ucd_generator.scanner;
+package de.jflex.ucd_generator.scanner;
 
 import com.google.common.base.Preconditions;
-import jflex.ucd_generator.model.UnicodeData;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.Version;
-import jflex.ucd_generator.ucd.Versions;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.Versions;
 
 /** Scanner of the {@code UnicodeData.txt}. */
 public abstract class AbstractUnicodeDataScanner {

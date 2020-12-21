@@ -1,4 +1,4 @@
-package jflex.testcase.dot_newline;
+package de.jflex.testcase.dot_newline;
 import java.util.List;
 import java.util.ArrayList;
 

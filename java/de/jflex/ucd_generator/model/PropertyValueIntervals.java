@@ -1,8 +1,8 @@
-package jflex.ucd_generator.model;
+package de.jflex.ucd_generator.model;
 
-import static jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
-import static jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
-import static jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
+import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.util.SurrogateUtils.isSurrogate;
+import static de.jflex.ucd_generator.util.SurrogateUtils.removeSurrogates;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.CodepointRangeSet;
-import jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
 

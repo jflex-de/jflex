@@ -1,11 +1,11 @@
 // test: macro
 
-package jflex.testcase.macro_complement;
+package de.jflex.testcase.macro_complement;
 
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.MacroException;
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/jflex/testcase/macro_complement/macro.flex",
+    lex = "javatests/de/jflex/testcase/macro_complement/macro.flex",
     generatorThrows = GeneratorException.class,
     generatorThrowableCause = MacroException.class)
 public class MacroComplementTest {

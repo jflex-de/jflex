@@ -1,11 +1,11 @@
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
-import jflex.ucd_generator.ucd.CodepointRange;
-import jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.Version;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

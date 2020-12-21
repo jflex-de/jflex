@@ -1,4 +1,4 @@
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
@@ -11,9 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import jflex.testing.diff.DiffOutputStream;
-import jflex.testing.javaast.BasicJavaInterpreter;
-import jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.testing.diff.DiffOutputStream;
+import de.jflex.testing.javaast.BasicJavaInterpreter;
+import de.jflex.ucd_generator.ucd.UcdVersion;
 import org.junit.Test;
 
 /**
@@ -23,6 +23,8 @@ import org.junit.Test;
  * classes, using diff on the Java AST.
  */
 public class UcdGeneratorIntegrationTest {
+
+  private final File runfiles = new File("javatests/de/jflex/ucd_generator");
 
   // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
 
@@ -55,7 +57,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File("javatests/jflex/ucd_generator/Unicode_5_0.java.golden");
+    File goldenFile = new File(runfiles, "Unicode_5_0.java.golden");
     DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
     Files.copy(f, goldenOutputStream);
@@ -150,7 +152,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File("javatests/jflex/ucd_generator/Unicode_6_3.java.golden");
+    File goldenFile = new File(runfiles, "Unicode_6_3.java.golden");
     DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
     Files.copy(f, goldenOutputStream);
@@ -215,7 +217,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File("javatests/jflex/ucd_generator/Unicode_10_0.java.golden");
+    File goldenFile = new File(runfiles, "Unicode_10_0.java.golden");
     DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
     Files.copy(f, goldenOutputStream);

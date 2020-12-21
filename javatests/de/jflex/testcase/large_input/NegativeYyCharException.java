@@ -1,4 +1,4 @@
-package jflex.testcase.large_input;
+package de.jflex.testcase.large_input;
 
 /** Thrown when the lexer's {@code zzchar} is negative, which should never happen. */
 public class NegativeYyCharException extends IllegalStateException {

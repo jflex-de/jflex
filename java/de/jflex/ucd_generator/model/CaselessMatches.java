@@ -1,6 +1,6 @@
-package jflex.ucd_generator.model;
+package de.jflex.ucd_generator.model;
 
-import static jflex.ucd_generator.util.HexaUtils.intFromHexa;
+import static de.jflex.ucd_generator.util.HexaUtils.intFromHexa;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableCollection;

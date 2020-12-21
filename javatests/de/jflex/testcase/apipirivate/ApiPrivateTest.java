@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.testcase.apipirivate;
+package de.jflex.testcase.apipirivate;
 
 import static com.google.common.truth.Truth.assertWithMessage;
 import static java.util.stream.Collectors.joining;
@@ -32,10 +32,10 @@ import static org.junit.Assert.fail;
 import com.google.common.collect.ImmutableList;
 import java.io.File;
 import java.util.stream.Stream;
-import jflex.testing.testsuite.JFlexTestRunner;
-import jflex.testing.testsuite.annotations.TestSpec;
-import jflex.util.javac.CompilerException;
-import jflex.util.javac.JavacUtils;
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.util.javac.CompilerException;
+import de.jflex.util.javac.JavacUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,15 +46,15 @@ import org.junit.runner.RunWith;
  * cleaner interfaces</a>, {@code %apiprivate} option.
  */
 @RunWith(JFlexTestRunner.class)
-@TestSpec(lex = "javatests/jflex/testcase/apipirivate/private.flex")
+@TestSpec(lex = "javatests/de/jflex/testcase/apipirivate/private.flex")
 public class ApiPrivateTest {
 
   @Test
   public void compile() throws CompilerException {
     ImmutableList<File> srcFiles =
         Stream.of(
-                "javatests/jflex/testcase/apipirivate/PrivateScanner.java",
-                "javatests/jflex/testcase/apipirivate/AttemptPrivateAccess.java")
+                "javatests/de/jflex/testcase/apipirivate/PrivateScanner.java",
+                "javatests/de/jflex/testcase/apipirivate/AttemptPrivateAccess.java")
             .map(File::new)
             .collect(ImmutableList.toImmutableList());
     try {
@@ -66,7 +66,7 @@ public class ApiPrivateTest {
               srcFiles.stream().map(File::getAbsolutePath).collect(joining(", ")))
           .that(e)
           .hasMessageThat()
-          .contains("yylex() has private access in jflex.testcase.apipirivate.PrivateScanner");
+          .contains("yylex() has private access in de.jflex.testcase.apipirivate.PrivateScanner");
     }
   }
 }

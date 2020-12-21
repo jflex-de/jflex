@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package jflex.testcase.sevenbit;
+package de.jflex.testcase.sevenbit;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /** Test generation of a 7-bit scanner */

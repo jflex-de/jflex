@@ -1,4 +1,4 @@
-package jflex.ucd_generator.emitter.unicode_version;
+package de.jflex.ucd_generator.emitter.unicode_version;
 
 import static com.google.common.truth.Truth.assertThat;
 

@@ -23,19 +23,19 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
-import jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
-import jflex.ucd_generator.model.UnicodeData;
-import jflex.ucd_generator.scanner.UcdScannerException;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.UcdVersions;
-import jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
+import de.jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.scanner.UcdScannerException;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.ucd_generator.ucd.Version;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /**

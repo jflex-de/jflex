@@ -1,4 +1,4 @@
-package jflex.testcase.empty_match;
+package de.jflex.testcase.empty_match;
 
 %%
 

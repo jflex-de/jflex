@@ -1,4 +1,4 @@
-package jflex.ucd_generator.ucd;
+package de.jflex.ucd_generator.ucd;
 
 import java.util.Comparator;
 import java.util.Objects;

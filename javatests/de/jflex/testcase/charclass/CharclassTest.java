@@ -1,4 +1,4 @@
-package jflex.testcase.charclass;
+package de.jflex.testcase.charclass;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;

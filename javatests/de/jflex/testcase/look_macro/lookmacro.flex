@@ -1,4 +1,4 @@
-package jflex.testcase.look_macro;
+package de.jflex.testcase.look_macro;
 %%
 %public
 %class Lookmacro

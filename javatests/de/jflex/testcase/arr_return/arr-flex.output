@@ -1,6 +1,6 @@
-Reading "javatests/jflex/testcase/arr_return/arr.flex"
+Reading "javatests/de/jflex/testcase/arr_return/arr.flex"
 Constructing NFA : 7 states in NFA
 Converting NFA to DFA : 
 ....
 6 states before minimization, 5 states in minimized DFA
-Writing code to "javatests/jflex/testcase/arr_return/Arr.java"
+Writing code to "javatests/de/jflex/testcase/arr_return/Arr.java"

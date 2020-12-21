@@ -23,15 +23,15 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.testing;
+package de.jflex.testing;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import jflex.testing.diff.DiffOutputStream;
+import de.jflex.testing.diff.DiffOutputStream;
 import org.junit.Test;
 
 /** Test for {@link DiffOutputStreamTest}. */

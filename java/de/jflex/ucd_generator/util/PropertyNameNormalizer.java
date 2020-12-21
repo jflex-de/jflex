@@ -1,4 +1,4 @@
-package jflex.ucd_generator.util;
+package de.jflex.ucd_generator.util;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;

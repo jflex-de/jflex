@@ -1,4 +1,4 @@
-package jflex.testcase.large_input;
+package de.jflex.testcase.large_input;
 
 public enum State {
   BEFORE_2GB,

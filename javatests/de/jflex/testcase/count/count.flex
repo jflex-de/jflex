@@ -1,4 +1,4 @@
-package jflex.testcase.count;
+package de.jflex.testcase.count;
 
 %%
 

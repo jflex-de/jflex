@@ -1,10 +1,10 @@
 // test: ccl-esc
 
-package jflex.testcase.ccl_esc;
+package de.jflex.testcase.ccl_esc;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**

@@ -1,4 +1,4 @@
-package jflex.testing.javaast;
+package de.jflex.testing.javaast;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;

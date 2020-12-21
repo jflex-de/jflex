@@ -1,4 +1,4 @@
-package jflex.testcase.line_cont;
+package de.jflex.testcase.line_cont;
 
 %%
 

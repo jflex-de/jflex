@@ -1,4 +1,4 @@
-package jflex.migration;
+package de.jflex.migration;
 
 /**
  * Thrown when a severe problem happened while migrating a maven test case to bazel using {@code

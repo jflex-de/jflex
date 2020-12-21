@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.testing.testsuite;
+package de.jflex.testing.testsuite;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.truth.Truth.assertWithMessage;
@@ -40,10 +40,10 @@ import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
 import jflex.option.Options;
-import jflex.testing.diff.DiffOutputStream;
-import jflex.testing.testsuite.annotations.NoExceptionThrown;
-import jflex.testing.testsuite.annotations.TestSpec;
-import jflex.util.javac.JavacUtils;
+import de.jflex.testing.diff.DiffOutputStream;
+import de.jflex.testing.testsuite.annotations.NoExceptionThrown;
+import de.jflex.testing.testsuite.annotations.TestSpec;
+import de.jflex.util.javac.JavacUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;

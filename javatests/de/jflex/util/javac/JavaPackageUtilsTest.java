@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.util.javac;
+package de.jflex.util.javac;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -34,6 +34,6 @@ public class JavaPackageUtilsTest {
   @Test
   public void getPathForPackage() throws Exception {
     assertThat(JavaPackageUtils.getPathForPackage(getClass().getPackage()))
-        .isEqualTo("jflex/util/javac");
+        .isEqualTo("de/jflex/util/javac");
   }
 }

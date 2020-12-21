@@ -1,9 +1,9 @@
 // test: ctorarg
 
-package jflex.testcase.ctorarg;
+package de.jflex.testcase.ctorarg;
 
-import jflex.testing.testsuite.golden.AbstractGoldenTest;
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**

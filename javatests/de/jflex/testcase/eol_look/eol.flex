@@ -1,4 +1,4 @@
-package jflex.testcase.eol_look;
+package de.jflex.testcase.eol_look;
 
 %%
 

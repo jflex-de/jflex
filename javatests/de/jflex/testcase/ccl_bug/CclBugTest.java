@@ -1,8 +1,8 @@
 // test: ccl-bug
 
-package jflex.testcase.ccl_bug;
+package de.jflex.testcase.ccl_bug;
 
-import jflex.util.scanner.ScannerFactory;
+import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**

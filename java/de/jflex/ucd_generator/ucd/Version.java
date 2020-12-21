@@ -1,4 +1,4 @@
-package jflex.ucd_generator.ucd;
+package de.jflex.ucd_generator.ucd;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;

@@ -1,4 +1,4 @@
-package jflex.ucd_generator.scanner;
+package de.jflex.ucd_generator.scanner;
 
 public class UcdScannerException extends Exception {
 

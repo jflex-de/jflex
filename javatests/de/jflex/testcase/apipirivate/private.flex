@@ -1,4 +1,4 @@
-package jflex.testcase.apipirivate;
+package de.jflex.testcase.apipirivate;
 
 %%
 

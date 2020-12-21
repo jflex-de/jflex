@@ -1,4 +1,4 @@
-package jflex.migration;
+package de.jflex.migration;
 
 import java.util.*;
 import jflex.core.sym;

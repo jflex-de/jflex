@@ -1,7 +1,7 @@
-package jflex.ucd_generator.util;
+package de.jflex.ucd_generator.util;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 // test: initthrow
 
-package jflex.testcase.initthrow_eol;
+package de.jflex.testcase.initthrow_eol;
 
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import com.google.common.io.CharSource;
 import java.io.IOException;

@@ -1,8 +1,8 @@
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import com.google.auto.value.AutoValue;
 import java.io.File;
-import jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.ucd_generator.ucd.UcdVersions;
 
 @AutoValue
 abstract class UcdGeneratorParams {

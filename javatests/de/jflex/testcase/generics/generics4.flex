@@ -1,4 +1,4 @@
-package jflex.testcase.generics;
+package de.jflex.testcase.generics;
 
 import java.util.Vector;
 import java.util.HashMap;

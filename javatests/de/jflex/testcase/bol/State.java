@@ -1,4 +1,4 @@
-package jflex.testcase.bol;
+package de.jflex.testcase.bol;
 
 public enum State {
   INITIAL,

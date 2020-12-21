@@ -1,4 +1,4 @@
-package jflex.testcase.ctorarg;
+package de.jflex.testcase.ctorarg;
 
 %%
 

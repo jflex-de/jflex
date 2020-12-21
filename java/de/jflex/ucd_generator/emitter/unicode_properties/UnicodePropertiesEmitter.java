@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.ucd_generator.emitter.unicode_properties;
+package de.jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
 import java.io.BufferedWriter;
@@ -32,11 +32,11 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import jflex.ucd_generator.emitter.common.UcdEmitter;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.UcdVersions;
-import jflex.util.javac.JavaPackageUtils;
-import jflex.velocity.Velocity;
+import de.jflex.ucd_generator.emitter.common.UcdEmitter;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */

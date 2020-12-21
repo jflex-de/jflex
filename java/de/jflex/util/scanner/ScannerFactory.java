@@ -1,4 +1,4 @@
-package jflex.util.scanner;
+package de.jflex.util.scanner;
 
 import com.google.common.io.CharSource;
 import com.google.common.io.Files;

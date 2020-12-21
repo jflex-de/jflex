@@ -23,10 +23,10 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.velocity;
+package de.jflex.velocity;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jflex.testing.assertion.MoreAsserts.assertThrows;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import org.apache.velocity.VelocityContext;
 import org.junit.Before;

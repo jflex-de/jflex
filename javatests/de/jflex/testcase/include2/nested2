@@ -1,3 +1,3 @@
 token 1
-something else %include "javatests/jflex/testcase/include2/nested3"
+something else %include "javatests/de/jflex/testcase/include2/nested3"
 token 2

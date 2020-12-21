@@ -1,4 +1,4 @@
-package jflex.testcase.eofclose;
+package de.jflex.testcase.eofclose;
 
 %%
 

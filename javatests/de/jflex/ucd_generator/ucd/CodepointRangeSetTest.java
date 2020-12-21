@@ -1,8 +1,8 @@
-package jflex.ucd_generator.ucd;
+package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import jflex.testing.assertion.MoreAsserts;
+import de.jflex.testing.assertion.MoreAsserts;
 import org.junit.Test;
 
 /** Test for {@link CodepointRangeSet}. */

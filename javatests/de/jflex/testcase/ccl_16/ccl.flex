@@ -1,4 +1,4 @@
-package jflex.testcase.ccl_16;
+package de.jflex.testcase.ccl_16;
 
 %%
 

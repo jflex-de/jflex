@@ -1,4 +1,4 @@
-package jflex.testcase.fixed_look;
+package de.jflex.testcase.fixed_look;
 
 %%
 

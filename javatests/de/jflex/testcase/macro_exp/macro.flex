@@ -1,4 +1,4 @@
-package jflex.testcase.macro_exp;
+package de.jflex.testcase.macro_exp;
 // file contributed by Stephen Ostermiller
 import java.io.*;
 %%

@@ -1,4 +1,4 @@
-package jflex.ucd_generator;
+package de.jflex.ucd_generator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -10,19 +10,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import jflex.ucd_generator.model.UnicodeData;
-import jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
-import jflex.ucd_generator.scanner.DerivedAgeScanner;
-import jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
-import jflex.ucd_generator.scanner.PropertyAliasesScanner;
-import jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
-import jflex.ucd_generator.scanner.ScriptExtensionsScanner;
-import jflex.ucd_generator.scanner.UcdScannerException;
-import jflex.ucd_generator.scanner.UnicodeDataScanner;
-import jflex.ucd_generator.ucd.UcdFileType;
-import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.Version;
-import jflex.ucd_generator.ucd.Versions;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
+import de.jflex.ucd_generator.scanner.DerivedAgeScanner;
+import de.jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
+import de.jflex.ucd_generator.scanner.PropertyAliasesScanner;
+import de.jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
+import de.jflex.ucd_generator.scanner.ScriptExtensionsScanner;
+import de.jflex.ucd_generator.scanner.UcdScannerException;
+import de.jflex.ucd_generator.scanner.UnicodeDataScanner;
+import de.jflex.ucd_generator.ucd.UcdFileType;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.Versions;
 
 public class UcdScanner {
 

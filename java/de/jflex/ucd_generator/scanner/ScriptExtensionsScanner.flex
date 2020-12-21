@@ -1,10 +1,10 @@
-package jflex.ucd_generator.scanner;
+package de.jflex.ucd_generator.scanner;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.model.UnicodeData;
 
 %%
 
