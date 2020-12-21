@@ -14,7 +14,6 @@ import java.util.List;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.javaast.BasicJavaInterpreter;
 import jflex.ucd_generator.ucd.UcdVersion;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
