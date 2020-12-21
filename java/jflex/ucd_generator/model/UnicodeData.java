@@ -73,6 +73,7 @@ public class UnicodeData {
 
   public void copyPropertyValueAliases(String sourceProperty, String destProperty) {
     propertyValues.copyPropertyValueAliases(sourceProperty, destProperty);
+    propertyNameNormalizer.putPropertyAlias(destProperty, destProperty);
   }
 
   public Collection<String> getPropertyAliases(String propName) {
