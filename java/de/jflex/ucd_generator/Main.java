@@ -26,14 +26,14 @@
 package de.jflex.ucd_generator;
 
 import com.google.common.base.Preconditions;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.ucd_generator.ucd.Version;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 

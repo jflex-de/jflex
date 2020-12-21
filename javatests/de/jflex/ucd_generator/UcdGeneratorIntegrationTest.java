@@ -7,13 +7,13 @@ import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
+import de.jflex.testing.diff.DiffOutputStream;
+import de.jflex.testing.javaast.BasicJavaInterpreter;
+import de.jflex.ucd_generator.ucd.UcdVersion;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import de.jflex.testing.diff.DiffOutputStream;
-import de.jflex.testing.javaast.BasicJavaInterpreter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
 import org.junit.Test;
 
 /**

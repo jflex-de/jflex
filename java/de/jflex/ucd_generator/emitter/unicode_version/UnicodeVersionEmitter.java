@@ -5,6 +5,13 @@ import static java.util.stream.Collectors.joining;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
+import de.jflex.ucd_generator.emitter.common.UcdEmitter;
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,13 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.SortedSet;
-import de.jflex.ucd_generator.emitter.common.UcdEmitter;
-import de.jflex.ucd_generator.model.UnicodeData;
-import de.jflex.ucd_generator.ucd.CodepointRange;
-import de.jflex.ucd_generator.ucd.CodepointRangeSet;
-import de.jflex.ucd_generator.ucd.UcdVersion;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** Emitter for a {@code Unicode_x_y.java}. */

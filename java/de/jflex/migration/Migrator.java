@@ -13,6 +13,9 @@ import com.google.common.flogger.LoggerConfig;
 import com.google.common.io.CharSink;
 import com.google.common.io.CharSource;
 import com.google.common.io.Files;
+import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,9 +30,6 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.logging.Level;
-import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /**
@@ -176,7 +176,8 @@ public class Migrator {
     copyGrammarFile(templateVars.flexGrammar, templateVars.javaPackage, outputDir);
     copyGoldenFiles(templateVars.goldens, outputDir);
     logger.atInfo().log("Import the files in your workspace");
-    logger.atInfo().log("   cp -r %s $(bazel info workspace)/javatests/de/jflex/testcase", outputDir);
+    logger.atInfo().log(
+        "   cp -r %s $(bazel info workspace)/javatests/de/jflex/testcase", outputDir);
   }
 
   /** Generates the BUILD file for this test case. */

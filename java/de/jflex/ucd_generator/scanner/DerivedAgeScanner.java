@@ -2,12 +2,12 @@ package de.jflex.ucd_generator.scanner;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
-import java.io.Reader;
-import java.util.List;
 import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
 import de.jflex.ucd_generator.ucd.Version;
+import java.io.Reader;
+import java.util.List;
 
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
 public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {

@@ -1,8 +1,8 @@
 package de.jflex.testcase.charclass;
 
-import jflex.exceptions.GeneratorException;
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import jflex.exceptions.GeneratorException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

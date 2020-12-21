@@ -2,10 +2,10 @@
 
 package de.jflex.testcase.eof;
 
-import java.io.File;
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
 import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
+import java.io.File;
 import org.junit.Test;
 
 /**

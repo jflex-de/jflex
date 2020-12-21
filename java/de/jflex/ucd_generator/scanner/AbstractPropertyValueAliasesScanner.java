@@ -1,9 +1,9 @@
 package de.jflex.ucd_generator.scanner;
 
-import java.util.HashSet;
-import java.util.Set;
 import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
+import java.util.HashSet;
+import java.util.Set;
 
 /** Scanner for {@code PropertyValueAliases(-X.X.X).txt}. */
 public abstract class AbstractPropertyValueAliasesScanner {

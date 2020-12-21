@@ -1,10 +1,10 @@
 package de.jflex.ucd_generator;
 
-import java.io.File;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.Version;
 import de.jflex.ucd_generator.ucd.Versions;
+import java.io.File;
 
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {

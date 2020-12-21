@@ -3,10 +3,10 @@ package de.jflex.testing.testsuite.golden;
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.io.Files;
+import de.jflex.testing.diff.DiffOutputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import de.jflex.testing.diff.DiffOutputStream;
 import org.junit.After;
 
 public abstract class AbstractGoldenTest {

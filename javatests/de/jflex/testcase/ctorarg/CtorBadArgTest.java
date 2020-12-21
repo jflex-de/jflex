@@ -1,10 +1,10 @@
 // test: ctorarg-f
 package de.jflex.testcase.ctorarg;
 
-import jflex.exceptions.GeneratorException;
-import jflex.scanner.ScannerException;
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import jflex.exceptions.GeneratorException;
+import jflex.scanner.ScannerException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

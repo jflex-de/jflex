@@ -1,9 +1,9 @@
 package de.jflex.ucd_generator.scanner;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
 import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /** Scans the common single-property Unicode.org data file format. */
 public abstract class AbstractEnumeratedPropertyFileScanner {

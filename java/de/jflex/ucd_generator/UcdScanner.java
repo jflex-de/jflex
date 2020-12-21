@@ -6,10 +6,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
 import de.jflex.ucd_generator.scanner.DerivedAgeScanner;
@@ -23,6 +19,10 @@ import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.Version;
 import de.jflex.ucd_generator.ucd.Versions;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class UcdScanner {
 

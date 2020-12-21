@@ -26,17 +26,17 @@
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
+import de.jflex.ucd_generator.emitter.common.UcdEmitter;
+import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import de.jflex.ucd_generator.emitter.common.UcdEmitter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
-import de.jflex.ucd_generator.ucd.UcdVersions;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */

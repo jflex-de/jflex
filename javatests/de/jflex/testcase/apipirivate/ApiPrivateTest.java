@@ -30,12 +30,12 @@ import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.fail;
 
 import com.google.common.collect.ImmutableList;
-import java.io.File;
-import java.util.stream.Stream;
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import de.jflex.util.javac.CompilerException;
 import de.jflex.util.javac.JavacUtils;
+import java.io.File;
+import java.util.stream.Stream;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

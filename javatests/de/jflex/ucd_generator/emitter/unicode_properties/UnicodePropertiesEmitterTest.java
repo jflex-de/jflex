@@ -28,12 +28,12 @@ package de.jflex.ucd_generator.emitter.unicode_properties;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.io.Files;
-import java.io.File;
-import java.nio.charset.StandardCharsets;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 /** Test for {@link UnicodePropertiesEmitter}. */

@@ -14,15 +14,15 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.TreeMultimap;
+import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.CodepointRangeSet;
+import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
-import de.jflex.ucd_generator.ucd.CodepointRange;
-import de.jflex.ucd_generator.ucd.CodepointRangeSet;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 public class PropertyValueIntervals {
 

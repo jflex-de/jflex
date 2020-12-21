@@ -1,11 +1,11 @@
 package de.jflex.ucd_generator.scanner;
 
+import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.CodepointRange;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import de.jflex.ucd_generator.model.UnicodeData;
-import de.jflex.ucd_generator.ucd.CodepointRange;
 
 /** Scans the common multiple binary property Unicode.org data file format. */
 public abstract class AbstractBinaryPropertiesFileScanner {

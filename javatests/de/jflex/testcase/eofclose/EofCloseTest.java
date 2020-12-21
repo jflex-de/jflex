@@ -6,9 +6,9 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
 import com.google.common.io.CharSource;
+import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
-import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /** Test for {@code eofclose} directive. */

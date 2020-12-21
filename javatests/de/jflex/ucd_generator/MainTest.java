@@ -3,10 +3,10 @@ package de.jflex.ucd_generator;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import java.io.File;
-import java.io.FileNotFoundException;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
+import java.io.File;
+import java.io.FileNotFoundException;
 import org.junit.Test;
 
 /** Test {@link Main}. */

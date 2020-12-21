@@ -28,10 +28,10 @@ package de.jflex.testing;
 import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 
+import de.jflex.testing.diff.DiffOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import de.jflex.testing.diff.DiffOutputStream;
 import org.junit.Test;
 
 /** Test for {@link DiffOutputStreamTest}. */

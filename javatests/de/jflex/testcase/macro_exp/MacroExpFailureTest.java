@@ -1,9 +1,9 @@
 package de.jflex.testcase.macro_exp;
 
-import jflex.exceptions.GeneratorException;
-import jflex.exceptions.MacroException;
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
+import jflex.exceptions.GeneratorException;
+import jflex.exceptions.MacroException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

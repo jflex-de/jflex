@@ -25,10 +25,6 @@
  */
 package de.jflex.ucd_generator;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import de.jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import de.jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
 import de.jflex.ucd_generator.model.UnicodeData;
@@ -36,6 +32,10 @@ import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.ucd_generator.ucd.Version;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /**
