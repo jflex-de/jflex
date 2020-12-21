@@ -9,7 +9,10 @@ java_library(
         "ILexScan.java",
         "UnicodeProperties.java",
     ],
-    visibility = ["//jflex:__subpackages__"],
+    visibility = [
+        "//javatests:__subpackages__",
+        "//jflex:__subpackages__",
+    ],
     deps = [
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",

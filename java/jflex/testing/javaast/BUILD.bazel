@@ -1,0 +1,15 @@
+java_library(
+    name = "javaast",
+    testonly = True,
+    srcs = glob(["*.java"]),
+    visibility = ["//javatests:__subpackages__"],
+    runtime_deps = [
+        "@maven//:org_eclipse_platform_org_eclipse_core_runtime",
+    ],
+    deps = [
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+        "@maven//:org_eclipse_jdt_org_eclipse_jdt_core",
+    ],
+)

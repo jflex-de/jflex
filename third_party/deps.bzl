@@ -20,4 +20,6 @@ ARTIFACTS = [
     "junit:junit:jar:4.12",
     "com.github.vbmacher:java-cup:jar:11b-20160615",
     "com.github.vbmacher:java-cup-runtime:jar:11b-20160615",
+    "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
+    "org.eclipse.platform:org.eclipse.core.runtime:3.20.0",
 ]
