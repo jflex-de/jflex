@@ -49,32 +49,16 @@ public class UnicodePropertiesEmitterTest {
     DiffOutputStream output =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
 
-    // fake ucd version 1.2
-    UcdVersion ucd1_2 =
-        UcdVersion.builder()
-            .setVersion("1.2.0")
-            .putFile(UcdFileType.UnicodeData, new File("FakeUnicodeData.txt"))
-            .build();
-    // fake ucd 2.0
-    UcdVersion ucd2_0 =
-        UcdVersion.builder()
-            .setVersion("2.0.1")
-            .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
-            .build();
     UcdVersion ucd2_4 =
-        UcdVersion.builder()
-            .setVersion("2.4.6")
+        UcdVersion.builder("2.4.0")
             .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
             .build();
     UcdVersion ucd10_0 =
-        UcdVersion.builder()
-            .setVersion("10.0.0")
+        UcdVersion.builder("10.0")
             .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
             .build();
     UcdVersions versions =
         UcdVersions.builder()
-            .put(ucd1_2.version().toString(), ucd1_2)
-            .put(ucd2_0.version().toString(), ucd2_0)
             .put(ucd2_4.version().toString(), ucd2_4)
             .put(ucd10_0.version().toString(), ucd10_0)
             .build();

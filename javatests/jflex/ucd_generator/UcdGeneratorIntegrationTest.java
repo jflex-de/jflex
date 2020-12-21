@@ -12,6 +12,15 @@ import org.junit.Test;
 public class UcdGeneratorIntegrationTest {
 
   @Test
+  public void emitUnicodeVersionXY_4_1() throws Exception {
+    File outputDir = new File("/tmp");
+    UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_4_1, outputDir);
+
+    File f = new File(outputDir, "Unicode_4_1.java");
+    assertThat(f.exists()).isTrue();
+  }
+
+  @Test
   public void emitUnicodeVersionXY_5_0() throws Exception {
     File outputDir = new File("/tmp");
     UcdGenerator.emitUnicodeVersionXY(TestedVersions.UCD_VERSION_5_0, outputDir);

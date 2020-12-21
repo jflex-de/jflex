@@ -3,14 +3,34 @@ package jflex.ucd_generator;
 import java.io.File;
 import jflex.ucd_generator.ucd.UcdFileType;
 import jflex.ucd_generator.ucd.UcdVersion;
-import jflex.ucd_generator.ucd.Version;
 
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
+  public static final UcdVersion UCD_VERSION_4_1 =
+      UcdVersion.builder("4.1.0")
+          .putFile(UcdFileType.PropertyAliases, ucdFile("ucd_4_1_0", "PropertyAliases.txt"))
+          .putFile(
+              UcdFileType.PropertyValueAliases, ucdFile("ucd_4_1_0", "PropertyValueAliases.txt"))
+          .putFile(UcdFileType.UnicodeData, ucdFile("ucd_4_1_0", "UnicodeData.txt"))
+          .putFile(UcdFileType.PropList, ucdFile("ucd_4_1_0", "PropList.txt"))
+          .putFile(
+              UcdFileType.DerivedCoreProperties, ucdFile("ucd_4_1_0", "DerivedCoreProperties.txt"))
+          .putFile(UcdFileType.Scripts, ucdFile("ucd_4_1_0", "Scripts.txt"))
+          .putFile(UcdFileType.Blocks, ucdFile("ucd_4_1_0", "Blocks.txt"))
+          .putFile(UcdFileType.LineBreak, ucdFile("ucd_4_1_0", "LineBreak.txt"))
+          .putFile(
+              UcdFileType.GraphemeBreakProperty,
+              ucdAuxFile("ucd_4_1_0", "GraphemeBreakProperty.txt"))
+          .putFile(
+              UcdFileType.SentenceBreakProperty,
+              ucdAuxFile("ucd_4_1_0", "SentenceBreakProperty.txt"))
+          .putFile(UcdFileType.WordBreakProperty, ucdAuxFile("ucd_4_1_0", "WordBreakProperty.txt"))
+          .putFile(UcdFileType.DerivedAge, ucdFile("ucd_4_1_0", "DerivedAge.txt"))
+          .build();
+
   public static final UcdVersion UCD_VERSION_5_0 =
-      UcdVersion.builder()
-          .setVersion(new Version(5, 0, 0))
+      UcdVersion.builder("5.0.0")
           .putFile(UcdFileType.PropertyAliases, ucdFile("ucd_5_0_0", "PropertyAliases.txt"))
           .putFile(
               UcdFileType.PropertyValueAliases, ucdFile("ucd_5_0_0", "PropertyValueAliases.txt"))
@@ -32,8 +52,7 @@ public class TestedVersions {
           .build();
 
   public static final UcdVersion UCD_VERSION_6_3 =
-      UcdVersion.builder()
-          .setVersion(new Version(6, 3, 0))
+      UcdVersion.builder("6.3.0")
           .putFile(UcdFileType.PropertyAliases, ucdFile("ucd_6_3_0", "PropertyAliases.txt"))
           .putFile(
               UcdFileType.PropertyValueAliases, ucdFile("ucd_6_3_0", "PropertyValueAliases.txt"))
@@ -55,8 +74,7 @@ public class TestedVersions {
           .putFile(UcdFileType.DerivedAge, ucdFile("ucd_6_3_0", "DerivedAge.txt"))
           .build();
   public static final UcdVersion UCD_VERSION_10 =
-      UcdVersion.builder()
-          .setVersion(new Version(10, 0, 0))
+      UcdVersion.builder("10.0")
           .putFile(UcdFileType.PropertyAliases, ucdFile("ucd_10", "PropertyAliases.txt"))
           .putFile(UcdFileType.PropertyValueAliases, ucdFile("ucd_10", "PropertyValueAliases.txt"))
           .putFile(UcdFileType.UnicodeData, ucdFile("ucd_10", "UnicodeData.txt"))
