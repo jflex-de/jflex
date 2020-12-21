@@ -80,10 +80,10 @@ class UnicodeVersion {
   /**
    * The number of alias/target property value pairs to output per line in UnicodeProperties.java.
    */
-  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 1;
+  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 2;
 
   /** The number of property values to output per line in UnicodeProperties.java. */
-  private static final int PROPERTY_VALUES_PER_LINE = 1;
+  private static final int PROPERTY_VALUES_PER_LINE = 6;
 
   /** The number of caseless match partitions to output per line in UnicodeProperties.java. */
   private static final int CASELESS_MATCH_PARTITIONS_PER_LINE = 3;
@@ -282,12 +282,12 @@ class UnicodeVersion {
    * Given a binary property name, and starting and ending code points, adds the interval to the
    * {@link #propertyValueIntervals} map.
    *
-   * @param propertyName The property name, e.g. "Assigned".
+   * @param propName The property name, e.g. "Assigned".
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
    */
-  void addInterval(String propertyName, int startCodePoint, int endCodePoint) {
-    String propName = getCanonicalPropertyName(normalize(propertyName));
+  void addInterval(String propName, int startCodePoint, int endCodePoint) {
+    propName = getCanonicalPropertyName(normalize(propName));
     if (!SURROGATE_PATTERN.matcher(propName).find()) {
       List<NamedRange> ranges = removeSurrogates(startCodePoint, endCodePoint);
       if (!ranges.isEmpty()) {
@@ -344,15 +344,14 @@ class UnicodeVersion {
    * Given an enumerated property name and value, and starting and ending code points, adds the
    * interval to the {@link #propertyValueIntervals} map.
    *
-   * @param propertyName The property name, e.g. "General_Category".
-   * @param propertyValue The property value, e.g. "Lu"
+   * @param propName The property name, e.g. "General_Category".
+   * @param propValue The property value, e.g. "Lu"
    * @param startCodePoint The first code point in the interval.
    * @param endCodePoint The last code point in the interval.
    */
-  void addInterval(
-      String propertyName, String propertyValue, int startCodePoint, int endCodePoint) {
-    String propName = getCanonicalPropertyName(normalize(propertyName));
-    String propValue = getCanonicalPropertyValue(propertyName, normalize(propertyValue));
+  void addInterval(String propName, String propValue, int startCodePoint, int endCodePoint) {
+    propName = getCanonicalPropertyName(normalize(propName));
+    propValue = getCanonicalPropertyValue(propName, normalize(propValue));
 
     // Skip surrogate properties [U+D800-U+DFFF], e.g. \p{Cs} - can't be
     // represented in valid UTF-16 encoded strings
@@ -757,10 +756,12 @@ class UnicodeVersion {
    *     encountered, then the given propertyAlias is returned.
    */
   String getCanonicalPropertyName(String propertyAlias) {
-    if (propertyAlias2CanonicalName == null) {
-      return normalize(propertyAlias);
+    String canonicalName = null;
+    propertyAlias = normalize(propertyAlias);
+    if (null != propertyAlias2CanonicalName) {
+      canonicalName = propertyAlias2CanonicalName.get(propertyAlias);
     }
-    return propertyAlias2CanonicalName.get(normalize(propertyAlias));
+    return null == canonicalName ? propertyAlias : canonicalName;
   }
 
   /**
