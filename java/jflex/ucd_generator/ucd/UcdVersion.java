@@ -69,6 +69,8 @@ public abstract class UcdVersion {
       return this;
     }
 
+    public abstract Version version();
+
     public abstract UcdVersion build();
   }
 
