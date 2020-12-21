@@ -1,9 +1,11 @@
-# UCD Parser
+# UCD Generator
 
 This program parses the fileset of a Unicode Character Definition,
-and generates a `UnicodeProperties_X_Y` java class.
+and generates 
+* a `UnicodeProperties_X_Y` java class per version
+* one `UnivodeProperties.java` for all version
 
-This is the replacement of `jflex-unicode-maven-plugin` for Bazel.
+Note: This is the replacement of `jflex-unicode-maven-plugin` for Bazel.
 
 ## Where are the Unicode.org resources defined
 
@@ -12,9 +14,13 @@ Each unicode version is defined as a filegroup in
 
 Bazel is responsible for fetching (using mirrors) and caching the remote resources.
 
-The generated `UnicodeProperties.java` is build by
+## How to generate the Java files.
 
-    bazel build //java/jflex/ucd_generator:gen_unicode_properties
+Jflex has a convient target:
+
+```
+bazel build //jflex/src/main/java/jflex/core/unicode:gen_unicode_properties
+```
 
 ### Building for a reduced set of properties
 
@@ -28,6 +34,13 @@ The files must be accessible from the sandbox, e.g. in `/tmp`
 
 * `Main` is only responsible for parsing the cli arguments
   and generating `UcdVersions`
-* The model `UcdVersions` is a map of version → File for each type
-* The types are defined in a simple enum `UcdFileType`
-* `UcdGenerator` generates _UnicodeProperties.java_ using velocity
+* The model `UcdVersions` is a map of version → File for each type, and is light in memory.
+  * The types are defined in a simple enum `UcdFileType`.
+* The different Unicode.org files are parsed by `UcdScanner`.
+  * using JFlex (the flex files have been copied with little modifications form the jflex-unicode-maven-plugin)
+  * The business logic of the scanners is in an class, so that the class can easily be edited in IDE
+* While parsing, the `UnicodeData` model is updated.
+  * I've tried to use immutable objects when possible, but that wasn't always possible
+* `UcdGenerator` uses velocity
+  * `UnicodePropertiesEmitter` emits `UnicodeProperties.java` from the `UcdVersions`.
+  * `UnicodeVersionEmitter` emits `Unicode_x_y.java` from the `UnicodeData`.

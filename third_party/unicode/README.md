@@ -29,8 +29,11 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
     )
 ```
 
-### Generate the UnicodeProperties.java
+* The sha256 is the sha of the zip file. 
+  Tip: Use a fake value like "1111111111111111111111111111111111111111111111111111111111111111" and see bazel complain.
+  It will then provide the actual value.
+* Note that "ScriptExtensions.txt" is added since Unicode 6.0
 
-Run the generator with all versions
+### Generate the Unicode data
 
-    bazel run //java/ucd_generator:Main 1.1=ucd_1 … 9.0=ucd_9
+    bazel build //jflex/src/main/java/jflex/core/unicode:gen_unicode_properties

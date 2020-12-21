@@ -12,6 +12,10 @@ cp bazel-bin/jflex/src/main/java/jflex/core/unicode/Unicode_*.java jflex/src/mai
 
 ```
 
+See also
+* [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org 
+* [ucd_generator](/java/jflex/ucd_generator) for the impelentation details. 
+
 ## Generate from jflex-unicode-maven-plugin
 
 TODO: Document
