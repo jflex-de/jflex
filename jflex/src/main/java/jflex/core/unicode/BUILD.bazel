@@ -97,6 +97,3 @@ genrule(
           " --out=$(@D)",
     tools = ["//java/jflex/ucd_generator:Main"],
 )
-
-# for testing
-exports_files(["data/Unicode_4_1.java"])
