@@ -9,7 +9,10 @@ java_library(
         "ILexScan.java",
         "UnicodeProperties.java",
     ],
-    visibility = ["//jflex:__subpackages__"],
+    visibility = [
+        "//javatests:__subpackages__",
+        "//jflex:__subpackages__",
+    ],
     deps = [
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
@@ -94,3 +97,6 @@ genrule(
           " --out=$(@D)",
     tools = ["//java/jflex/ucd_generator:Main"],
 )
+
+# for testing
+exports_files(["data/Unicode_4_1.java"])

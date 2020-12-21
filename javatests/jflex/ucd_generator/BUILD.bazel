@@ -18,6 +18,7 @@ java_test(
         "Unicode_10_0.java.golden",
         "Unicode_5_0.java.golden",
         "Unicode_6_3.java.golden",
+        "//jflex/src/main/java/jflex/core/unicode:data/Unicode_4_1.java",
         "//third_party/unicode:ucd_10",
         "//third_party/unicode:ucd_4_1_0",
         "//third_party/unicode:ucd_5_0_0",
@@ -26,8 +27,11 @@ java_test(
     deps = [
         ":tested_versions",
         "//java/jflex/testing/diff",
+        "//java/jflex/testing/javaast",
         "//java/jflex/ucd_generator",
         "//java/jflex/ucd_generator/ucd",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/auto_value",
         "//third_party/com/google/truth",
     ],
 )
