@@ -6314,15 +6314,9 @@ public class Unicode_5_2 {
         + "\ufe76\ufefc"
         + "\ud803\ude60\ud803\ude7e",
     // Unicode 5.2 property value: {armenian}
-    "\u0531\u0556"
-        + "\u0559\u055f"
-        + "\u0561\u0587"
-        + "\u058a\u058a"
-        + "\ufb13\ufb17",
+    "\u0531\u0556" + "\u0559\u055f" + "\u0561\u0587" + "\u058a\u058a" + "\ufb13\ufb17",
     // Unicode 5.2 property value: {asciihexdigit}
-    "\u0030\u0039"
-        + "\u0041\u0046"
-        + "\u0061\u0066",
+    "\u0030\u0039" + "\u0041\u0046" + "\u0061\u0066",
     // Unicode 5.2 property value: {assigned}
     "\000\u0377"
         + "\u037a\u037e"
@@ -6810,11 +6804,9 @@ public class Unicode_5_2 {
         + "\udb80\udc00\udbbf\udffd"
         + "\udbc0\udc00\udbff\udffd",
     // Unicode 5.2 property value: {avestan}
-    "\ud802\udf00\ud802\udf35"
-        + "\ud802\udf39\ud802\udf3f",
+    "\ud802\udf00\ud802\udf35" + "\ud802\udf39\ud802\udf3f",
     // Unicode 5.2 property value: {balinese}
-    "\u1b00\u1b4b"
-        + "\u1b50\u1b7c",
+    "\u1b00\u1b4b" + "\u1b50\u1b7c",
     // Unicode 5.2 property value: {bamum}
     "\ua6a0\ua6f7",
     // Unicode 5.2 property value: {bengali}
@@ -6833,8 +6825,7 @@ public class Unicode_5_2 {
         + "\u09df\u09e3"
         + "\u09e6\u09fb",
     // Unicode 5.2 property value: {bidicontrol}
-    "\u200e\u200f"
-        + "\u202a\u202e",
+    "\u200e\u200f" + "\u202a\u202e",
     // Unicode 5.2 property value: {blank}
     "\t\t"
         + "\u0020\u0020"
@@ -7266,18 +7257,15 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {block=yisyllables}
     "\ua000\ua48f",
     // Unicode 5.2 property value: {bopomofo}
-    "\u3105\u312d"
-        + "\u31a0\u31b7",
+    "\u3105\u312d" + "\u31a0\u31b7",
     // Unicode 5.2 property value: {braille}
     "\u2800\u28ff",
     // Unicode 5.2 property value: {buginese}
-    "\u1a00\u1a1b"
-        + "\u1a1e\u1a1f",
+    "\u1a00\u1a1b" + "\u1a1e\u1a1f",
     // Unicode 5.2 property value: {buhid}
     "\u1740\u1753",
     // Unicode 5.2 property value: {canadianaboriginal}
-    "\u1400\u167f"
-        + "\u18b0\u18f5",
+    "\u1400\u167f" + "\u18b0\u18f5",
     // Unicode 5.2 property value: {carian}
     "\ud800\udea0\ud800\uded0",
     // Unicode 5.2 property value: {cased}
@@ -7659,8 +7647,7 @@ public class Unicode_5_2 {
         + "\udb40\udc20\udb40\udc7f"
         + "\udb40\udd00\udb40\uddef",
     // Unicode 5.2 property value: {cc}
-    "\000\u001f"
-        + "\u007f\u009f",
+    "\000\u001f" + "\u007f\u009f",
     // Unicode 5.2 property value: {cf}
     "\u00ad\u00ad"
         + "\u0600\u0603"
@@ -7678,10 +7665,7 @@ public class Unicode_5_2 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
     // Unicode 5.2 property value: {cham}
-    "\uaa00\uaa36"
-        + "\uaa40\uaa4d"
-        + "\uaa50\uaa59"
-        + "\uaa5c\uaa5f",
+    "\uaa00\uaa36" + "\uaa40\uaa4d" + "\uaa50\uaa59" + "\uaa5c\uaa5f",
     // Unicode 5.2 property value: {changeswhencasefolded}
     "\u0041\u005a"
         + "\u00b5\u00b5"
@@ -10545,9 +10529,7 @@ public class Unicode_5_2 {
         + "\udbbf\udffe\udbbf\udfff"
         + "\udbff\udffe\udbff\udfff",
     // Unicode 5.2 property value: {co}
-    "\ue000\uf8ff"
-        + "\udb80\udc00\udbbf\udffd"
-        + "\udbc0\udc00\udbff\udffd",
+    "\ue000\uf8ff" + "\udb80\udc00\udbbf\udffd" + "\udbc0\udc00\udbff\udffd",
     // Unicode 5.2 property value: {common}
     "\000\u0040"
         + "\u005b\u0060"
@@ -10709,13 +10691,9 @@ public class Unicode_5_2 {
         + "\udb40\udc01\udb40\udc01"
         + "\udb40\udc20\udb40\udc7f",
     // Unicode 5.2 property value: {coptic}
-    "\u03e2\u03ef"
-        + "\u2c80\u2cf1"
-        + "\u2cf9\u2cff",
+    "\u03e2\u03ef" + "\u2c80\u2cf1" + "\u2cf9\u2cff",
     // Unicode 5.2 property value: {cuneiform}
-    "\ud808\udc00\ud808\udf6e"
-        + "\ud809\udc00\ud809\udc62"
-        + "\ud809\udc70\ud809\udc73",
+    "\ud808\udc00\ud808\udf6e" + "\ud809\udc00\ud809\udc62" + "\ud809\udc70\ud809\udc73",
     // Unicode 5.2 property value: {cypriot}
     "\ud802\udc00\ud802\udc05"
         + "\ud802\udc08\ud802\udc08"
@@ -10959,13 +10937,9 @@ public class Unicode_5_2 {
         + "\uaadd\uaadd"
         + "\uff70\uff70",
     // Unicode 5.2 property value: {georgian}
-    "\u10a0\u10c5"
-        + "\u10d0\u10fa"
-        + "\u10fc\u10fc"
-        + "\u2d00\u2d25",
+    "\u10a0\u10c5" + "\u10d0\u10fa" + "\u10fc\u10fc" + "\u2d00\u2d25",
     // Unicode 5.2 property value: {glagolitic}
-    "\u2c00\u2c2e"
-        + "\u2c30\u2c5e",
+    "\u2c00\u2c2e" + "\u2c30\u2c5e",
     // Unicode 5.2 property value: {gothic}
     "\ud800\udf30\ud800\udf4a",
     // Unicode 5.2 property value: {graph}
@@ -12257,8 +12231,7 @@ public class Unicode_5_2 {
         + "\ud834\ude42\ud834\ude44"
         + "\udb40\udd00\udb40\uddef",
     // Unicode 5.2 property value: {graphemeclusterbreak=l}
-    "\u1100\u115f"
-        + "\ua960\ua97c",
+    "\u1100\u115f" + "\ua960\ua97c",
     // Unicode 5.2 property value: {graphemeclusterbreak=lf}
     "\n\n",
     // Unicode 5.2 property value: {graphemeclusterbreak=lv}
@@ -13270,11 +13243,7 @@ public class Unicode_5_2 {
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
     // Unicode 5.2 property value: {graphemeclusterbreak=prepend}
-    "\u0e40\u0e44"
-        + "\u0ec0\u0ec4"
-        + "\uaab5\uaab6"
-        + "\uaab9\uaab9"
-        + "\uaabb\uaabc",
+    "\u0e40\u0e44" + "\u0ec0\u0ec4" + "\uaab5\uaab6" + "\uaab9\uaab9" + "\uaabb\uaabc",
     // Unicode 5.2 property value: {graphemeclusterbreak=spacingmark}
     "\u0903\u0903"
         + "\u093e\u0940"
@@ -13378,11 +13347,9 @@ public class Unicode_5_2 {
         + "\ud834\udd66\ud834\udd66"
         + "\ud834\udd6d\ud834\udd6d",
     // Unicode 5.2 property value: {graphemeclusterbreak=t}
-    "\u11a8\u11ff"
-        + "\ud7cb\ud7fb",
+    "\u11a8\u11ff" + "\ud7cb\ud7fb",
     // Unicode 5.2 property value: {graphemeclusterbreak=v}
-    "\u1160\u11a7"
-        + "\ud7b0\ud7c6",
+    "\u1160\u11a7" + "\ud7b0\ud7c6",
     // Unicode 5.2 property value: {graphemeextend}
     "\u0300\u036f"
         + "\u0483\u0489"
@@ -13733,9 +13700,7 @@ public class Unicode_5_2 {
         + "\uff21\uff26"
         + "\uff41\uff46",
     // Unicode 5.2 property value: {hiragana}
-    "\u3041\u3096"
-        + "\u309d\u309f"
-        + "\ud83c\ude00\ud83c\ude00",
+    "\u3041\u3096" + "\u309d\u309f" + "\ud83c\ude00\ud83c\ude00",
     // Unicode 5.2 property value: {hyphen}
     "\u002d\u002d"
         + "\u00ad\u00ad"
@@ -14267,8 +14232,7 @@ public class Unicode_5_2 {
         + "\ud869\udf00\ud86d\udf34"
         + "\ud87e\udc00\ud87e\ude1d",
     // Unicode 5.2 property value: {idsbinaryoperator}
-    "\u2ff0\u2ff1"
-        + "\u2ff4\u2ffb",
+    "\u2ff0\u2ff1" + "\u2ff4\u2ffb",
     // Unicode 5.2 property value: {idstart}
     "\u0041\u005a"
         + "\u0061\u007a"
@@ -14697,8 +14661,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {idstrinaryoperator}
     "\u2ff2\u2ff3",
     // Unicode 5.2 property value: {imperialaramaic}
-    "\ud802\udc40\ud802\udc55"
-        + "\ud802\udc57\ud802\udc5f",
+    "\ud802\udc40\ud802\udc55" + "\ud802\udc57\ud802\udc5f",
     // Unicode 5.2 property value: {inherited}
     "\u0300\u036f"
         + "\u0485\u0486"
@@ -14724,15 +14687,11 @@ public class Unicode_5_2 {
         + "\ud834\uddaa\ud834\uddad"
         + "\udb40\udd00\udb40\uddef",
     // Unicode 5.2 property value: {inscriptionalpahlavi}
-    "\ud802\udf60\ud802\udf72"
-        + "\ud802\udf78\ud802\udf7f",
+    "\ud802\udf60\ud802\udf72" + "\ud802\udf78\ud802\udf7f",
     // Unicode 5.2 property value: {inscriptionalparthian}
-    "\ud802\udf40\ud802\udf55"
-        + "\ud802\udf58\ud802\udf5f",
+    "\ud802\udf40\ud802\udf55" + "\ud802\udf58\ud802\udf5f",
     // Unicode 5.2 property value: {javanese}
-    "\ua980\ua9cd"
-        + "\ua9cf\ua9d9"
-        + "\ua9de\ua9df",
+    "\ua980\ua9cd" + "\ua9cf\ua9d9" + "\ua9de\ua9df",
     // Unicode 5.2 property value: {joincontrol}
     "\u200c\u200d",
     // Unicode 5.2 property value: {kaithi}
@@ -14771,10 +14730,7 @@ public class Unicode_5_2 {
         + "\ud802\ude3f\ud802\ude47"
         + "\ud802\ude50\ud802\ude58",
     // Unicode 5.2 property value: {khmer}
-    "\u1780\u17dd"
-        + "\u17e0\u17e9"
-        + "\u17f0\u17f9"
-        + "\u19e0\u19ff",
+    "\u1780\u17dd" + "\u17e0\u17e9" + "\u17f0\u17f9" + "\u19e0\u19ff",
     // Unicode 5.2 property value: {lao}
     "\u0e81\u0e82"
         + "\u0e84\u0e84"
@@ -14824,15 +14780,9 @@ public class Unicode_5_2 {
         + "\uff21\uff3a"
         + "\uff41\uff5a",
     // Unicode 5.2 property value: {lepcha}
-    "\u1c00\u1c37"
-        + "\u1c3b\u1c49"
-        + "\u1c4d\u1c4f",
+    "\u1c00\u1c37" + "\u1c3b\u1c49" + "\u1c4d\u1c4f",
     // Unicode 5.2 property value: {limbu}
-    "\u1900\u191c"
-        + "\u1920\u192b"
-        + "\u1930\u193b"
-        + "\u1940\u1940"
-        + "\u1944\u194f",
+    "\u1900\u191c" + "\u1920\u192b" + "\u1930\u193b" + "\u1940\u1940" + "\u1944\u194f",
     // Unicode 5.2 property value: {linearb}
     "\ud800\udc00\ud800\udc0b"
         + "\ud800\udc0d\ud800\udc26"
@@ -15564,8 +15514,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {linebreak=carriagereturn}
     "\r\r",
     // Unicode 5.2 property value: {linebreak=closeparenthesis}
-    "\u0029\u0029"
-        + "\u005d\u005d",
+    "\u0029\u0029" + "\u005d\u005d",
     // Unicode 5.2 property value: {linebreak=closepunctuation}
     "\u007d\u007d"
         + "\u0f3b\u0f3b"
@@ -16778,22 +16727,17 @@ public class Unicode_5_2 {
         + "\ufe10\ufe10"
         + "\ufe13\ufe14",
     // Unicode 5.2 property value: {linebreak=inseparable}
-    "\u2024\u2026"
-        + "\ufe19\ufe19",
+    "\u2024\u2026" + "\ufe19\ufe19",
     // Unicode 5.2 property value: {linebreak=jl}
-    "\u1100\u115f"
-        + "\ua960\ua97c",
+    "\u1100\u115f" + "\ua960\ua97c",
     // Unicode 5.2 property value: {linebreak=jt}
-    "\u11a8\u11ff"
-        + "\ud7cb\ud7fb",
+    "\u11a8\u11ff" + "\ud7cb\ud7fb",
     // Unicode 5.2 property value: {linebreak=jv}
-    "\u1160\u11a7"
-        + "\ud7b0\ud7c6",
+    "\u1160\u11a7" + "\ud7b0\ud7c6",
     // Unicode 5.2 property value: {linebreak=linefeed}
     "\n\n",
     // Unicode 5.2 property value: {linebreak=mandatorybreak}
-    "\u000b\f"
-        + "\u2028\u2029",
+    "\u000b\f" + "\u2028\u2029",
     // Unicode 5.2 property value: {linebreak=nextline}
     "\u0085\u0085",
     // Unicode 5.2 property value: {linebreak=nonstarter}
@@ -17486,8 +17430,7 @@ public class Unicode_5_2 {
         + "\udb40\udc80\udb40\udcff"
         + "\udb40\uddf0\udbff\udfff",
     // Unicode 5.2 property value: {linebreak=wordjoiner}
-    "\u2060\u2060"
-        + "\ufeff\ufeff",
+    "\u2060\u2060" + "\ufeff\ufeff",
     // Unicode 5.2 property value: {linebreak=zwspace}
     "\u200b\u200b",
     // Unicode 5.2 property value: {lisu}
@@ -18455,11 +18398,7 @@ public class Unicode_5_2 {
         + "\ud869\udf00\ud86d\udf34"
         + "\ud87e\udc00\ud87e\ude1d",
     // Unicode 5.2 property value: {logicalorderexception}
-    "\u0e40\u0e44"
-        + "\u0ec0\u0ec4"
-        + "\uaab5\uaab6"
-        + "\uaab9\uaab9"
-        + "\uaabb\uaabc",
+    "\u0e40\u0e44" + "\u0ec0\u0ec4" + "\uaab5\uaab6" + "\uaab9\uaab9" + "\uaabb\uaabc",
     // Unicode 5.2 property value: {lowercase}
     "\u0061\u007a"
         + "\u00aa\u00aa"
@@ -19672,8 +19611,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {lycian}
     "\ud800\ude80\ud800\ude9c",
     // Unicode 5.2 property value: {lydian}
-    "\ud802\udd20\ud802\udd39"
-        + "\ud802\udd3f\ud802\udd3f",
+    "\ud802\udd20\ud802\udd39" + "\ud802\udd3f\ud802\udd3f",
     // Unicode 5.2 property value: {malayalam}
     "\u0d02\u0d03"
         + "\u0d05\u0d0c"
@@ -19901,14 +19839,9 @@ public class Unicode_5_2 {
         + "\ud834\udd65\ud834\udd66"
         + "\ud834\udd6d\ud834\udd72",
     // Unicode 5.2 property value: {me}
-    "\u0488\u0489"
-        + "\u06de\u06de"
-        + "\u20dd\u20e0"
-        + "\u20e2\u20e4"
-        + "\ua670\ua672",
+    "\u0488\u0489" + "\u06de\u06de" + "\u20dd\u20e0" + "\u20e2\u20e4" + "\ua670\ua672",
     // Unicode 5.2 property value: {meeteimayek}
-    "\uabc0\uabed"
-        + "\uabf0\uabf9",
+    "\uabc0\uabed" + "\uabf0\uabf9",
     // Unicode 5.2 property value: {mn}
     "\u0300\u036f"
         + "\u0483\u0487"
@@ -20112,8 +20045,7 @@ public class Unicode_5_2 {
         + "\u1820\u1877"
         + "\u1880\u18aa",
     // Unicode 5.2 property value: {myanmar}
-    "\u1000\u109f"
-        + "\uaa60\uaa7b",
+    "\u1000\u109f" + "\uaa60\uaa7b",
     // Unicode 5.2 property value: {nd}
     "\u0030\u0039"
         + "\u0660\u0669"
@@ -20153,10 +20085,7 @@ public class Unicode_5_2 {
         + "\ud801\udca0\ud801\udca9"
         + "\ud835\udfce\ud835\udfff",
     // Unicode 5.2 property value: {newtailue}
-    "\u1980\u19ab"
-        + "\u19b0\u19c9"
-        + "\u19d0\u19da"
-        + "\u19de\u19df",
+    "\u1980\u19ab" + "\u19b0\u19c9" + "\u19d0\u19da" + "\u19de\u19df",
     // Unicode 5.2 property value: {nko}
     "\u07c0\u07fa",
     // Unicode 5.2 property value: {nl}
@@ -20235,11 +20164,9 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {olchiki}
     "\u1c50\u1c7f",
     // Unicode 5.2 property value: {olditalic}
-    "\ud800\udf00\ud800\udf1e"
-        + "\ud800\udf20\ud800\udf23",
+    "\ud800\udf00\ud800\udf1e" + "\ud800\udf20\ud800\udf23",
     // Unicode 5.2 property value: {oldpersian}
-    "\ud800\udfa0\ud800\udfc3"
-        + "\ud800\udfc8\ud800\udfd5",
+    "\ud800\udfa0\ud800\udfc3" + "\ud800\udfc8\ud800\udfd5",
     // Unicode 5.2 property value: {oldsoutharabian}
     "\ud802\ude60\ud802\ude7f",
     // Unicode 5.2 property value: {oldturkic}
@@ -20260,8 +20187,7 @@ public class Unicode_5_2 {
         + "\u0b5f\u0b63"
         + "\u0b66\u0b71",
     // Unicode 5.2 property value: {osmanya}
-    "\ud801\udc80\ud801\udc9d"
-        + "\ud801\udca0\ud801\udca9",
+    "\ud801\udc80\ud801\udc9d" + "\ud801\udca0\ud801\udca9",
     // Unicode 5.2 property value: {otheralphabetic}
     "\u0345\u0345"
         + "\u05b0\u05bd"
@@ -20433,13 +20359,9 @@ public class Unicode_5_2 {
         + "\ud834\udd65\ud834\udd65"
         + "\ud834\udd6e\ud834\udd72",
     // Unicode 5.2 property value: {otheridcontinue}
-    "\u00b7\u00b7"
-        + "\u0387\u0387"
-        + "\u1369\u1371",
+    "\u00b7\u00b7" + "\u0387\u0387" + "\u1369\u1371",
     // Unicode 5.2 property value: {otheridstart}
-    "\u2118\u2118"
-        + "\u212e\u212e"
-        + "\u309b\u309c",
+    "\u2118\u2118" + "\u212e\u212e" + "\u309b\u309c",
     // Unicode 5.2 property value: {otherlowercase}
     "\u02b0\u02b8"
         + "\u02c0\u02c1"
@@ -20555,8 +20477,7 @@ public class Unicode_5_2 {
         + "\ud835\udfc4\ud835\udfcb"
         + "\ud835\udfce\ud835\udfff",
     // Unicode 5.2 property value: {otheruppercase}
-    "\u2160\u216f"
-        + "\u24b6\u24cf",
+    "\u2160\u216f" + "\u24b6\u24cf",
     // Unicode 5.2 property value: {patternsyntax}
     "\u0021\u002f"
         + "\u003a\u0040"
@@ -20587,11 +20508,7 @@ public class Unicode_5_2 {
         + "\ufd3e\ufd3f"
         + "\ufe45\ufe46",
     // Unicode 5.2 property value: {patternwhitespace}
-    "\t\r"
-        + "\u0020\u0020"
-        + "\u0085\u0085"
-        + "\u200e\u200f"
-        + "\u2028\u2029",
+    "\t\r" + "\u0020\u0020" + "\u0085\u0085" + "\u200e\u200f" + "\u2028\u2029",
     // Unicode 5.2 property value: {pc}
     "\u005f\u005f"
         + "\u203f\u2040"
@@ -20700,8 +20617,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {phagspa}
     "\ua840\ua877",
     // Unicode 5.2 property value: {phoenician}
-    "\ud802\udd00\ud802\udd1b"
-        + "\ud802\udd1f\ud802\udd1f",
+    "\ud802\udd00\ud802\udd1b" + "\ud802\udd1f\ud802\udd1f",
     // Unicode 5.2 property value: {pi}
     "\u00ab\u00ab"
         + "\u2018\u2018"
@@ -21414,21 +21330,15 @@ public class Unicode_5_2 {
         + "\uff07\uff07"
         + "\uff62\uff63",
     // Unicode 5.2 property value: {radical}
-    "\u2e80\u2e99"
-        + "\u2e9b\u2ef3"
-        + "\u2f00\u2fd5",
+    "\u2e80\u2e99" + "\u2e9b\u2ef3" + "\u2f00\u2fd5",
     // Unicode 5.2 property value: {rejang}
-    "\ua930\ua953"
-        + "\ua95f\ua95f",
+    "\ua930\ua953" + "\ua95f\ua95f",
     // Unicode 5.2 property value: {runic}
-    "\u16a0\u16ea"
-        + "\u16ee\u16f0",
+    "\u16a0\u16ea" + "\u16ee\u16f0",
     // Unicode 5.2 property value: {samaritan}
-    "\u0800\u082d"
-        + "\u0830\u083e",
+    "\u0800\u082d" + "\u0830\u083e",
     // Unicode 5.2 property value: {saurashtra}
-    "\ua880\ua8c4"
-        + "\ua8ce\ua8d9",
+    "\ua880\ua8c4" + "\ua8ce\ua8d9",
     // Unicode 5.2 property value: {sc}
     "\u0024\u0024"
         + "\u00a2\u00a5"
@@ -21447,10 +21357,7 @@ public class Unicode_5_2 {
         + "\uffe0\uffe1"
         + "\uffe5\uffe6",
     // Unicode 5.2 property value: {sentencebreak=aterm}
-    "\u002e\u002e"
-        + "\u2024\u2024"
-        + "\ufe52\ufe52"
-        + "\uff0e\uff0e",
+    "\u002e\u002e" + "\u2024\u2024" + "\ufe52\ufe52" + "\uff0e\uff0e",
     // Unicode 5.2 property value: {sentencebreak=close}
     "\"\""
         + "\u0027\u0029"
@@ -23269,8 +23176,7 @@ public class Unicode_5_2 {
         + "\uff1a\uff1a"
         + "\uff64\uff64",
     // Unicode 5.2 property value: {sentencebreak=sep}
-    "\u0085\u0085"
-        + "\u2028\u2029",
+    "\u0085\u0085" + "\u2028\u2029",
     // Unicode 5.2 property value: {sentencebreak=sp}
     "\t\t"
         + "\u000b\f"
@@ -24262,33 +24168,21 @@ public class Unicode_5_2 {
         + "\uff61\uff61"
         + "\ud804\udcbe\ud804\udcc1",
     // Unicode 5.2 property value: {sundanese}
-    "\u1b80\u1baa"
-        + "\u1bae\u1bb9",
+    "\u1b80\u1baa" + "\u1bae\u1bb9",
     // Unicode 5.2 property value: {sylotinagri}
     "\ua800\ua82b",
     // Unicode 5.2 property value: {syriac}
-    "\u0700\u070d"
-        + "\u070f\u074a"
-        + "\u074d\u074f",
+    "\u0700\u070d" + "\u070f\u074a" + "\u074d\u074f",
     // Unicode 5.2 property value: {tagalog}
-    "\u1700\u170c"
-        + "\u170e\u1714",
+    "\u1700\u170c" + "\u170e\u1714",
     // Unicode 5.2 property value: {tagbanwa}
-    "\u1760\u176c"
-        + "\u176e\u1770"
-        + "\u1772\u1773",
+    "\u1760\u176c" + "\u176e\u1770" + "\u1772\u1773",
     // Unicode 5.2 property value: {taile}
-    "\u1950\u196d"
-        + "\u1970\u1974",
+    "\u1950\u196d" + "\u1970\u1974",
     // Unicode 5.2 property value: {taitham}
-    "\u1a20\u1a5e"
-        + "\u1a60\u1a7c"
-        + "\u1a7f\u1a89"
-        + "\u1a90\u1a99"
-        + "\u1aa0\u1aad",
+    "\u1a20\u1a5e" + "\u1a60\u1a7c" + "\u1a7f\u1a89" + "\u1a90\u1a99" + "\u1aa0\u1aad",
     // Unicode 5.2 property value: {taiviet}
-    "\uaa80\uaac2"
-        + "\uaadb\uaadf",
+    "\uaa80\uaac2" + "\uaadb\uaadf",
     // Unicode 5.2 property value: {tamil}
     "\u0b82\u0b83"
         + "\u0b85\u0b8a"
@@ -24390,8 +24284,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {thaana}
     "\u0780\u07b1",
     // Unicode 5.2 property value: {thai}
-    "\u0e01\u0e3a"
-        + "\u0e40\u0e5b",
+    "\u0e01\u0e3a" + "\u0e40\u0e5b",
     // Unicode 5.2 property value: {tibetan}
     "\u0f00\u0f47"
         + "\u0f49\u0f6c"
@@ -24401,11 +24294,9 @@ public class Unicode_5_2 {
         + "\u0fbe\u0fcc"
         + "\u0fce\u0fd4",
     // Unicode 5.2 property value: {tifinagh}
-    "\u2d30\u2d65"
-        + "\u2d6f\u2d6f",
+    "\u2d30\u2d65" + "\u2d6f\u2d6f",
     // Unicode 5.2 property value: {ugaritic}
-    "\ud800\udf80\ud800\udf9d"
-        + "\ud800\udf9f\ud800\udf9f",
+    "\ud800\udf80\ud800\udf9d" + "\ud800\udf9f\ud800\udf9f",
     // Unicode 5.2 property value: {unifiedideograph}
     "\u3400\u4db5"
         + "\u4e00\u9fcb"
@@ -25503,9 +25394,7 @@ public class Unicode_5_2 {
     // Unicode 5.2 property value: {vai}
     "\ua500\ua62b",
     // Unicode 5.2 property value: {variationselector}
-    "\u180b\u180d"
-        + "\ufe00\ufe0f"
-        + "\udb40\udd00\udb40\uddef",
+    "\u180b\u180d" + "\ufe00\ufe0f" + "\udb40\udd00\udb40\uddef",
     // Unicode 5.2 property value: {whitespace}
     "\t\r"
         + "\u0020\u0020"
@@ -26144,9 +26033,7 @@ public class Unicode_5_2 {
         + "\uff07\uff07"
         + "\uff0e\uff0e",
     // Unicode 5.2 property value: {wordbreak=newline}
-    "\u000b\f"
-        + "\u0085\u0085"
-        + "\u2028\u2029",
+    "\u000b\f" + "\u0085\u0085" + "\u2028\u2029",
     // Unicode 5.2 property value: {wordbreak=numeric}
     "\u0030\u0039"
         + "\u0660\u0669"
@@ -27695,8 +27582,7 @@ public class Unicode_5_2 {
         + "\ud869\udf00\ud86d\udf34"
         + "\ud87e\udc00\ud87e\ude1d",
     // Unicode 5.2 property value: {yi}
-    "\ua000\ua48c"
-        + "\ua490\ua4c6",
+    "\ua000\ua48c" + "\ua490\ua4c6",
     // Unicode 5.2 property value: {zl}
     "\u2028\u2028",
     // Unicode 5.2 property value: {zp}
@@ -27916,7 +27802,8 @@ public class Unicode_5_2 {
     "blk=tifinagh", "block=tifinagh",
     "blk=ugaritic", "block=ugaritic",
     "blk=unifiedcanadianaboriginalsyllabics", "block=unifiedcanadianaboriginalsyllabics",
-    "blk=unifiedcanadianaboriginalsyllabicsextended", "block=unifiedcanadianaboriginalsyllabicsextended",
+    "blk=unifiedcanadianaboriginalsyllabicsextended",
+        "block=unifiedcanadianaboriginalsyllabicsextended",
     "blk=vai", "block=vai",
     "blk=variationselectors", "block=variationselectors",
     "blk=variationselectorssupplement", "block=variationselectorssupplement",
@@ -28822,6 +28709,7 @@ public class Unicode_5_2 {
 
   /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 4;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"
