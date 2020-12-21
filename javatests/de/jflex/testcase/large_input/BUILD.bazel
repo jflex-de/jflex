@@ -1,0 +1,56 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+java_test(
+    name = "LargeInputTest",
+    srcs = [
+        "LargeInputTest.java",
+    ],
+    deps = [
+        ":large_input_scanner",
+        ":repeat_content_reader",
+        "//java/de/jflex/testing/assertion",
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_library(
+    name = "large_input_scanner",
+    srcs = [
+        "NegativeYyCharException.java",
+        "State.java",
+        ":gen_large_input_scanner",
+    ],
+    deps = [
+        "//java/de/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+jflex(
+    name = "gen_large_input_scanner",
+    srcs = ["large_input.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["LargeInputScanner.java"],
+)
+
+java_library(
+    name = "repeat_content_reader",
+    testonly = True,
+    srcs = ["RepeatContentReader.java"],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "RepeatContentReaderTest",
+    srcs = ["RepeatContentReaderTest.java"],
+    deps = [
+        ":repeat_content_reader",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

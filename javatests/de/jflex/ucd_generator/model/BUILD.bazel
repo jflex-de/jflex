@@ -1,0 +1,10 @@
+java_test(
+    name = "UnicodeDataTest",
+    srcs = ["UnicodeDataTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/model",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//javatests/de/jflex/ucd_generator:tested_versions",
+        "//third_party/com/google/truth",
+    ],
+)

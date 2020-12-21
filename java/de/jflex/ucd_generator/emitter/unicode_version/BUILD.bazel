@@ -1,0 +1,22 @@
+SRCS_MAIN = ["Main.java"]
+
+java_library(
+    name = "unicode_version",
+    srcs = glob(["*.java"]),
+    resources = [
+        "Unicode_x_y.java.vm",
+    ],
+    visibility = [
+        "//java/de/jflex/ucd_generator:__pkg__",
+        "//javatests/de/jflex/ucd_generator:__subpackages__",
+    ],
+    deps = [
+        "//java/de/jflex/ucd_generator/emitter/common",
+        "//java/de/jflex/ucd_generator/model",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
