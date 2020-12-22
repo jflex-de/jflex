@@ -286,7 +286,7 @@ public class UcdGeneratorIntegrationTest {
     assertUnicodeProperties(expected, f);
   }
 
-  private File generateUnicodeProperties(UcdVersion ucdVersion) throws Exception {
+  private static File generateUnicodeProperties(UcdVersion ucdVersion) throws Exception {
     File outputDir = new File("/tmp");
     UcdGenerator.emitUnicodeVersionXY(ucdVersion, outputDir);
 

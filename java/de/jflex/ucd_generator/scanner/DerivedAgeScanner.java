@@ -2,15 +2,15 @@ package de.jflex.ucd_generator.scanner;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.UnicodeData;
+import de.jflex.version.Version;
 import java.io.Reader;
 import java.util.List;
 
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
-public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
+class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   public DerivedAgeScanner(Reader in, UnicodeData unicodeData, String defaultPropertyName) {
     super(in, unicodeData, defaultPropertyName, "unassigned");
@@ -34,7 +34,6 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
     for (int i = 1; i < versions.size(); i++) {
       Version version = versions.get(i);
       List<Version> prevVersions = versions.subList(0, i); // toIndex is exclusive
-      // TODO(regisd) Since we include recursively, it should be enough to include N-1
       includeVersionsOnVersion(version, prevVersions, ageRangesPerVersion);
     }
     // TODO(regisd) Give the Unassigned Age property value to the absolute complement

@@ -32,6 +32,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
+import de.jflex.version.Version;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +68,6 @@ public class UcdVersions {
 
   @SuppressWarnings("unused") // Used in .vm
   public static String getClassNameForVersion(String version) {
-    // TODO: This should be in emitter
     List<String> v = Splitter.on('.').splitToList(version);
     return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }

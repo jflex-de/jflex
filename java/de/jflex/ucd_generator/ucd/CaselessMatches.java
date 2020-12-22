@@ -1,4 +1,4 @@
-package de.jflex.ucd_generator.model;
+package de.jflex.ucd_generator.ucd;
 
 import static de.jflex.ucd_generator.util.HexaUtils.intFromHexa;
 

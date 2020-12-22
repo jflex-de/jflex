@@ -1,12 +1,12 @@
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.HashSet;
 import java.util.Set;
 
 /** Scanner for {@code PropertyAliases(-X.X.X).txt}. */
-public abstract class AbstractPropertyAliasesScanner {
+abstract class AbstractPropertyAliasesScanner {
 
   final Set<String> aliases = new HashSet<>();
   final UnicodeData unicodeData;
@@ -22,7 +22,7 @@ public abstract class AbstractPropertyAliasesScanner {
     // Long names should resolve to themselves
     aliases.add(normalizedLongName);
     for (String alias : aliases) {
-      unicodeData.addPropertyAlias(alias, normalizedLongName);
+      unicodeData.addPropertyAlias(PropertyNameNormalizer.normalize(alias), normalizedLongName);
     }
     clear();
   }

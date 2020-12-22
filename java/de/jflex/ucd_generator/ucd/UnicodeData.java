@@ -1,4 +1,4 @@
-package de.jflex.ucd_generator.model;
+package de.jflex.ucd_generator.ucd;
 
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
@@ -8,11 +8,8 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
-import de.jflex.ucd_generator.ucd.CodepointRange;
-import de.jflex.ucd_generator.ucd.CodepointRangeSet;
-import de.jflex.ucd_generator.ucd.MutableCodepointRange;
-import de.jflex.ucd_generator.ucd.Version;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.version.Version;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -111,29 +108,12 @@ public class UnicodeData {
     return maximumCodePoint;
   }
 
-  public List<String> propertyValues() {
-    return ImmutableList.copyOf(intervals().keySet());
-  }
-
   /** Returns the code point range by property. */
   public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
     ImmutableSortedMap<String, CodepointRangeSet> map = propertyValueIntervals.asSortedMap();
-    // FIXME Why were script and casefolding emitted as short names?
-    ImmutableSortedMap.Builder<String, CodepointRangeSet> retval =
-        ImmutableSortedMap.naturalOrder();
-    for (Map.Entry<String, CodepointRangeSet> e : map.entrySet()) {
-      switch (e.getKey()) {
-        case "casefolding":
-          retval.put("cf", e.getValue());
-          break;
-        case "script":
-          retval.put("sc", e.getValue());
-          break;
-        default:
-          retval.put(e);
-      }
-    }
-    return retval.build();
+    return ImmutableSortedMap.<String, CodepointRangeSet>naturalOrder()
+        .putAll(map.entrySet())
+        .build();
   }
 
   public ImmutableList<Map.Entry<String, String>> usedPropertyValueAliases() {

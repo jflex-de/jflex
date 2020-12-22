@@ -1,9 +1,8 @@
-package de.jflex.ucd_generator.model;
+package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.ucd_generator.TestedVersions;
-import de.jflex.ucd_generator.ucd.CodepointRange;
 import org.junit.Test;
 
 public class UnicodeDataTest {
