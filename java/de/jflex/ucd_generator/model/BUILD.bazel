@@ -11,6 +11,7 @@ java_library(
         "//java/de/jflex/ucd_generator/util:hexa_utils",
         "//java/de/jflex/ucd_generator/util:name_normalizer",
         "//java/de/jflex/ucd_generator/util:surrogate_utils",
+        "//java/de/jflex/version",
         "//third_party/com/google/code/findbugs:jsr305",
         "//third_party/com/google/guava",
     ],

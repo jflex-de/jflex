@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.List;

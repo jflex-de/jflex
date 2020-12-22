@@ -18,7 +18,7 @@ import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.scanner.UnicodeDataScanner;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import de.jflex.ucd_generator.ucd.Versions;
 import java.io.File;
 import java.io.FileNotFoundException;

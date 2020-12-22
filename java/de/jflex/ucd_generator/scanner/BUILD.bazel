@@ -22,6 +22,7 @@ java_library(
         "//java/de/jflex/ucd_generator/ucd",
         "//java/de/jflex/ucd_generator/util:name_normalizer",
         "//java/de/jflex/ucd_generator/util:surrogate_utils",
+        "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],
 )

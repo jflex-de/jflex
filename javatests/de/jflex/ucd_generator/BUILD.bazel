@@ -58,6 +58,7 @@ java_test(
         ":tested_versions",
         "//java/de/jflex/ucd_generator",
         "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/version",
         "//third_party/com/google/truth",
     ],
 )
@@ -72,5 +73,6 @@ java_library(
     visibility = ["//javatests:__subpackages__"],
     deps = [
         "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/version",
     ],
 )

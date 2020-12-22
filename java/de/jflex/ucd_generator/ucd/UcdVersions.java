@@ -32,6 +32,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
+import de.jflex.version.Version;
 import java.util.List;
 import java.util.Map;
 

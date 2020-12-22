@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import java.io.Reader;
 import java.util.List;
 

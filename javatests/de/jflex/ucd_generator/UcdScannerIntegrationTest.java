@@ -4,7 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.ucd_generator.ucd.CodepointRange;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import java.io.IOException;
 import org.junit.Before;
 import org.junit.Ignore;

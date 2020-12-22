@@ -29,7 +29,7 @@ import com.google.common.base.Preconditions;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
