@@ -6,7 +6,6 @@ import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 %%
 
 %final
-%public
 %class PropertyAliasesScanner
 %extends AbstractPropertyAliasesScanner
 %ctorarg UnicodeData unicodeData

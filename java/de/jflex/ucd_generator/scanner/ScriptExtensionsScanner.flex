@@ -8,7 +8,6 @@ import de.jflex.ucd_generator.ucd.UnicodeData;
 
 %%
 
-%public
 %class ScriptExtensionsScanner
 %extends AbstractScriptExtensionsScanner
 %ctorarg UnicodeData unicodeData

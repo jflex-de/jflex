@@ -14,7 +14,6 @@ import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 %%
 
 %final
-%public
 %class PropertyValueAliasesScanner
 %extends AbstractPropertyValueAliasesScanner
 %ctorarg UnicodeData unicodeData

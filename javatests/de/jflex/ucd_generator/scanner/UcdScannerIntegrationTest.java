@@ -1,8 +1,10 @@
-package de.jflex.ucd_generator;
+package de.jflex.ucd_generator.scanner;
 
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd_generator.TestedVersions;
+import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.version.Version;
 import java.io.IOException;

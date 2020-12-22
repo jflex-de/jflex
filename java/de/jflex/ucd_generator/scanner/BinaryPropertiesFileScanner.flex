@@ -5,7 +5,6 @@ import de.jflex.ucd_generator.ucd.UnicodeData;
 %%
 
 %final
-%public
 %class BinaryPropertiesFileScanner
 %extends AbstractBinaryPropertiesFileScanner
 %ctorarg UnicodeData unicodeData

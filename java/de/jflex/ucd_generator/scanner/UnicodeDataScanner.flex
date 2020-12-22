@@ -9,7 +9,6 @@ import de.jflex.ucd_generator.ucd.UcdVersion;
 %%
 
 %final
-%public
 %class UnicodeDataScanner
 %extends AbstractUnicodeDataScanner
 %ctorarg UcdVersion ucdVersion

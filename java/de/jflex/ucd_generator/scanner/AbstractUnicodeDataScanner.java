@@ -7,7 +7,7 @@ import de.jflex.ucd_generator.ucd.Versions;
 import de.jflex.version.Version;
 
 /** Scanner of the {@code UnicodeData.txt}. */
-public abstract class AbstractUnicodeDataScanner {
+abstract class AbstractUnicodeDataScanner {
 
   private static final String GENERAL_CATEGORY = "General_Category";
 

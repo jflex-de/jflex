@@ -10,7 +10,7 @@ import java.io.Reader;
 import java.util.List;
 
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
-public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
+class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   public DerivedAgeScanner(Reader in, UnicodeData unicodeData, String defaultPropertyName) {
     super(in, unicodeData, defaultPropertyName, "unassigned");

@@ -21,7 +21,7 @@ import java.util.SortedMap;
  * Scans ScriptExtensions.txt, using previously parsed Scripts(-X.Y.Z).txt values for missing code
  * points.
  */
-public abstract class AbstractScriptExtensionsScanner {
+abstract class AbstractScriptExtensionsScanner {
 
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();

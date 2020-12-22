@@ -5,7 +5,6 @@ import de.jflex.ucd_generator.ucd.NamedCodepointRange;
 
 %%
 
-%public
 %class EnumeratedPropertyFileScanner
 %extends AbstractEnumeratedPropertyFileScanner
 %ctorarg UnicodeData unicodeData

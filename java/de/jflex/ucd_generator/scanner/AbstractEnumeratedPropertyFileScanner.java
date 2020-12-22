@@ -6,7 +6,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /** Scans the common single-property Unicode.org data file format. */
-public abstract class AbstractEnumeratedPropertyFileScanner {
+abstract class AbstractEnumeratedPropertyFileScanner {
 
   final UnicodeData unicodeData;
 

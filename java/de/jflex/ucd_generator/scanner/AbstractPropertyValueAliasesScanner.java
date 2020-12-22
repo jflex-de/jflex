@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /** Scanner for {@code PropertyValueAliases(-X.X.X).txt}. */
-public abstract class AbstractPropertyValueAliasesScanner {
+abstract class AbstractPropertyValueAliasesScanner {
 
   private final UnicodeData unicodeData;
 

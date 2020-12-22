@@ -1,4 +1,4 @@
-package de.jflex.ucd_generator;
+package de.jflex.ucd_generator.scanner;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,7 +32,7 @@ public class UcdScanner {
   private final UcdVersion ucdVersion;
   final UnicodeData unicodeData;
 
-  UcdScanner(UcdVersion ucdVersion) {
+  public UcdScanner(UcdVersion ucdVersion) {
     this.ucdVersion = ucdVersion;
     this.unicodeData = new UnicodeData(ucdVersion.version());
   }

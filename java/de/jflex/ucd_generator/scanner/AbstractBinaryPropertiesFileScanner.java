@@ -8,7 +8,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /** Scans the common multiple binary property Unicode.org data file format. */
-public abstract class AbstractBinaryPropertiesFileScanner {
+abstract class AbstractBinaryPropertiesFileScanner {
 
   private final UnicodeData unicodeData;
 
