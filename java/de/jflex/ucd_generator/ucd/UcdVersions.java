@@ -67,7 +67,6 @@ public class UcdVersions {
 
   @SuppressWarnings("unused") // Used in .vm
   public static String getClassNameForVersion(String version) {
-    // TODO: This should be in emitter
     List<String> v = Splitter.on('.').splitToList(version);
     return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }
