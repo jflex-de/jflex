@@ -18,4 +18,8 @@ See also
 
 ## Generate from jflex-unicode-maven-plugin
 
-TODO: Document
+```sh
+./mvnw install
+cd jflex
+../mvnw generate-sources -P generate-unicode-properties
+```
