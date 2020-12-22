@@ -18,9 +18,9 @@ import java.util.Map;
 %%
 
 %final
-%public
 %class ArchaicPropListScanner
-%ctorarg UnicodeVersion unicodeVersion
+%extends AbstractArchaicPropListScanner
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose

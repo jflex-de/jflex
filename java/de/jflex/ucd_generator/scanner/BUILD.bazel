@@ -49,6 +49,9 @@ jflex(
     name = "gen_ucd_scanners",
     srcs = glob(["*.flex"]),
     outputs = [
+        "ArchaicBlocksScanner.java",
+        "ArchaicLineBreakScanner.java",
+        "ArchaicPropListScanner.java",
         "BinaryPropertiesFileScanner.java",
         "EnumeratedPropertyFileScanner.java",
         "PropertyAliasesScanner.java",

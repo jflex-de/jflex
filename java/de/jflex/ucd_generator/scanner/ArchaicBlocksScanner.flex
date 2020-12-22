@@ -14,9 +14,9 @@ import java.util.TreeSet;
 %%
 
 %final
-%public
 %class ArchaicBlocksScanner
-%ctorarg UnicodeVersion unicodeVersion
+%extends AbstractArchaicBlocksScanner
+%ctorarg UnicodeData unicodeData
 
 %unicode
 %eofclose
