@@ -58,7 +58,6 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
             .put("2.0.14", UcdVersion.builder("2.0.14").build())
             .put("2.1.9", UcdVersion.builder("2.1.9").build())
             .put("3.0.1", UcdVersion.builder("3.0.1").build())
-            .put("3.1.0", UcdVersion.builder("3.1.0").build())
             .build();
   }
 
