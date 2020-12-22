@@ -3,7 +3,6 @@ package de.jflex.version;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableSortedSet;
-import de.jflex.version.Version;
 import org.junit.Test;
 
 /** Test for {@link Version}. */

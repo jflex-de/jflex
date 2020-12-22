@@ -2,7 +2,6 @@ package de.jflex.ucd_generator.ucd;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import de.jflex.ucd_generator.ucd.CodepointRange;
 import java.util.regex.Pattern;
 
 public class SurrogateUtils {
