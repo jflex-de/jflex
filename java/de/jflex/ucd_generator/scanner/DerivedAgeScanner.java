@@ -34,7 +34,6 @@ public class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
     for (int i = 1; i < versions.size(); i++) {
       Version version = versions.get(i);
       List<Version> prevVersions = versions.subList(0, i); // toIndex is exclusive
-      // TODO(regisd) Since we include recursively, it should be enough to include N-1
       includeVersionsOnVersion(version, prevVersions, ageRangesPerVersion);
     }
     // TODO(regisd) Give the Unassigned Age property value to the absolute complement

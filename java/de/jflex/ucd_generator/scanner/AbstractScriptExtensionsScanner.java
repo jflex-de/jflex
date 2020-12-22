@@ -50,7 +50,6 @@ public abstract class AbstractScriptExtensionsScanner {
 
   void addPropertyValueIntervals() {
     // Add script property value for missing code points.
-    // TODO(regisd) why???
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
