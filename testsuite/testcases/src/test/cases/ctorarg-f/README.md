@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/ctorarg:CtorBadArgTest
+    bazel test //javatests/de/jflex/testcase/ctorarg:CtorBadArgTest

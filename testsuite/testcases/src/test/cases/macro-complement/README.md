@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/macro_complement:all
+    bazel test //javatests/de/jflex/testcase/macro_complement:all

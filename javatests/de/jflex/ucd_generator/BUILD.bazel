@@ -1,0 +1,76 @@
+java_test(
+    name = "MainTest",
+    srcs = ["MainTest.java"],
+    data = [
+        "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_4_0_1",
+    ],
+    deps = [
+        "//java/de/jflex/ucd_generator:Main",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UcdGeneratorIntegrationTest",
+    srcs = ["UcdGeneratorIntegrationTest.java"],
+    data = [
+        "Unicode_10_0.java.golden",
+        "Unicode_5_0.java.golden",
+        "Unicode_6_3.java.golden",
+        "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_11",
+        "//third_party/unicode:ucd_12",
+        "//third_party/unicode:ucd_12_1",
+        "//third_party/unicode:ucd_4_0_1",
+        "//third_party/unicode:ucd_4_1_0",
+        "//third_party/unicode:ucd_5_0_0",
+        "//third_party/unicode:ucd_5_1_0",
+        "//third_party/unicode:ucd_5_2_0",
+        "//third_party/unicode:ucd_6_0_0",
+        "//third_party/unicode:ucd_6_1_0",
+        "//third_party/unicode:ucd_6_2_0",
+        "//third_party/unicode:ucd_6_3_0",
+        "//third_party/unicode:ucd_7",
+        "//third_party/unicode:ucd_8",
+        "//third_party/unicode:ucd_9",
+    ],
+    deps = [
+        ":tested_versions",
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/testing/javaast",
+        "//java/de/jflex/ucd_generator",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UcdScannerIntegrationTest",
+    srcs = ["UcdScannerIntegrationTest.java"],
+    data = [
+        "//third_party/unicode:ucd_6_3_0",
+    ],
+    deps = [
+        ":tested_versions",
+        "//java/de/jflex/ucd_generator",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_library(
+    name = "tested_versions",
+    testonly = True,
+    srcs = ["TestedVersions.java"],
+    data = [
+        "//third_party/unicode:ucd_10",
+    ],
+    visibility = ["//javatests:__subpackages__"],
+    deps = [
+        "//java/de/jflex/ucd_generator/ucd",
+    ],
+)

@@ -1,0 +1,8 @@
+java_library(
+    name = "common",
+    srcs = glob(["*.java"]),
+    visibility = [
+        "//java/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex/ucd_generator:__subpackages__",
+    ],
+)
