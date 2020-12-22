@@ -32,7 +32,7 @@ import java.util.Map;
 %function scan
 
 %init{
-  this.unicodeVersion = unicodeVersion;
+  super(unicodeData);
 %init}
 
 Hex = [0-9A-Fa-f]+

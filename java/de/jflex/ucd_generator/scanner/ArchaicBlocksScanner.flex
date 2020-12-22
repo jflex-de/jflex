@@ -28,7 +28,7 @@ import java.util.TreeSet;
 %function scan
 
 %init{
-  this.unicodeVersion = unicodeVersion;
+  super(unicodeData);
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
