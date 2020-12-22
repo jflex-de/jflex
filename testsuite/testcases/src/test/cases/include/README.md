@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/include:all
+    bazel test //javatests/de/jflex/testcase/include:all

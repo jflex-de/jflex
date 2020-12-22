@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/dot_newline:all
+    bazel test //javatests/de/jflex/testcase/dot_newline:all

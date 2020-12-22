@@ -1,0 +1,8 @@
+java_test(
+    name = "UnicodeVersionEmitterTest",
+    srcs = ["UnicodeVersionEmitterTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/emitter/unicode_version",
+        "//third_party/com/google/truth",
+    ],
+)

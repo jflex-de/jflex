@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/action_pipe:all
+    bazel test //javatests/de/jflex/testcase/action_pipe:all
