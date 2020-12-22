@@ -1,7 +1,7 @@
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.SortedSet;
 import java.util.TreeSet;
 

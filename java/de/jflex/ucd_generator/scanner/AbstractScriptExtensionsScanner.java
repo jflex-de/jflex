@@ -4,10 +4,10 @@ import static de.jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGOR
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashMap;

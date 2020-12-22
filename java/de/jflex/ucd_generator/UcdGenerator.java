@@ -27,10 +27,10 @@ package de.jflex.ucd_generator;
 
 import de.jflex.ucd_generator.emitter.unicode_properties.UnicodePropertiesEmitter;
 import de.jflex.ucd_generator.emitter.unicode_version.UnicodeVersionEmitter;
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileOutputStream;
