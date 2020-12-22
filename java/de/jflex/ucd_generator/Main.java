@@ -63,7 +63,7 @@ public class Main {
     System.out.println();
     System.out.println("    bazel build //java/de/jflex/ucd_generator:gen_unicode_properties");
     System.out.println();
-    System.out.println("See also java/jflex/ucd_generator/README.md");
+    System.out.println("See also java/de/jflex/ucd_generator/README.md");
   }
 
   private static UcdGeneratorParams parseArgs(String[] argv) throws FileNotFoundException {
