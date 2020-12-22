@@ -140,19 +140,20 @@ public class UnicodeData {
     for (String propName : usedEnumProperties.keySet()) {
       for (String propValue : usedEnumProperties.get(propName)) {
         String canonicalValue = propName + '=' + propValue;
+        Collection<String> propertyValueAliases = getPropertyValueAliases(propName, propValue);
 
         // Add value-only aliases for General Category and Script properties.
         if (Objects.equals(propName, NORMALIZED_SCRIPT)
             || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)) {
           canonicalValue = propValue;
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+          for (String valueAlias : propertyValueAliases) {
             if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
             }
           }
         }
         for (String nameAlias : getPropertyAliases(propName)) {
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+          for (String valueAlias : propertyValueAliases) {
             // Both property names and values have self-aliases; when generating
             // all possible alias combinations, exclude the one that is the same
             // as the full property name + full property value, unless the
