@@ -29,6 +29,24 @@ public class UcdGeneratorIntegrationTest {
   // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
 
   @Test
+  // TODO(regisd) Fix generation for Unicode 4.0
+  // propertyValues is missing
+  // <[age=1.1, age=2.0, age=2.1, age=3.0, age=3.1, age=3.2, age=4.0, age=unassigned]>
+  public void emitUnicodeVersionXY_4_0() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_4_0);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_4_0.propertyValues,
+            jflex.core.unicode.data.Unicode_4_0.intervals,
+            jflex.core.unicode.data.Unicode_4_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_4_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_4_0.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
+
+  @Test
   public void emitUnicodeVersionXY_4_1() throws Exception {
     File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_4_1);
 

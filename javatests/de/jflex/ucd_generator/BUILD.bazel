@@ -3,6 +3,7 @@ java_test(
     srcs = ["MainTest.java"],
     data = [
         "//third_party/unicode:ucd_10",
+        "//third_party/unicode:ucd_4_0_1",
     ],
     deps = [
         "//java/de/jflex/ucd_generator:Main",
@@ -22,6 +23,7 @@ java_test(
         "//third_party/unicode:ucd_11",
         "//third_party/unicode:ucd_12",
         "//third_party/unicode:ucd_12_1",
+        "//third_party/unicode:ucd_4_0_1",
         "//third_party/unicode:ucd_4_1_0",
         "//third_party/unicode:ucd_5_0_0",
         "//third_party/unicode:ucd_5_1_0",
