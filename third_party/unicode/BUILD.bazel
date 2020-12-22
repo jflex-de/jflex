@@ -29,6 +29,9 @@ filegroup(
     ],
 )
 
+# Note that the "update 3.0.1" files for PropList and UnicodeData are added on
+# top of the files distributed in 3.0.0.
+# Also Note the inconsistent naming convention for LineBreak.txt v5.
 filegroup(
     name = "ucd_3_0_1",
     srcs = [
@@ -39,6 +42,9 @@ filegroup(
     ],
 )
 
+# Note that the "update 3.1.1" file for PropList is added on top of the files
+# distributed in 3.1.0.
+# Also Note the inconsistent naming convention for Blocks.txt
 filegroup(
     name = "ucd_3_1_1",
     srcs = [
