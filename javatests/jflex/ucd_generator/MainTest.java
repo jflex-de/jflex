@@ -37,8 +37,7 @@ public class MainTest {
   public void findUcdFiles_unicode4_0_1() throws Exception {
     UcdVersion parsedVersion =
         Main.findUcdFiles(
-            "4.0.1",
-            ImmutableList.of("external/ucd_4_0_1_DerivedAge_4_0_1_txt/file/downloaded"));
+            "4.0.1", ImmutableList.of("external/ucd_4_0_1_DerivedAge_4_0_1_txt/file/downloaded"));
 
     assertThat(parsedVersion.files())
         .containsExactly(
