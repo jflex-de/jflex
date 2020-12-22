@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/cupsym:all
+    bazel test //javatests/de/jflex/testcase/cupsym:all

@@ -1,0 +1,18 @@
+java_test(
+    name = "HexaUtilsTest",
+    srcs = ["HexaUtilsTest.java"],
+    deps = [
+        "//java/de/jflex/testing/assertion",
+        "//java/de/jflex/ucd_generator/util:hexa_utils",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "SurrogateUtilsTest",
+    srcs = ["SurrogateUtilsTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/util:surrogate_utils",
+        "//third_party/com/google/truth",
+    ],
+)
