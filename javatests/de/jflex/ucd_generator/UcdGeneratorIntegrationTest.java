@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -29,6 +30,7 @@ public class UcdGeneratorIntegrationTest {
   // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
 
   @Test
+  @Ignore // Unicode 3.0 requires an ArchaicScanner
   public void emitUnicodeVersionXY_3_0() throws Exception {
     File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_3_0);
 
