@@ -153,6 +153,10 @@ public class UnicodeData {
           }
         }
         for (String nameAlias : getPropertyAliases(propName)) {
+          if (nameAlias.equals("blk") && version.equals(Versions.VERSION_3_2)) {
+            // Ugly hack https://github.com/jflex-de/jflex/pull/828#issuecomment-749690037
+            continue;
+          }
           for (String valueAlias : propertyValueAliases) {
             // Both property names and values have self-aliases; when generating
             // all possible alias combinations, exclude the one that is the same
