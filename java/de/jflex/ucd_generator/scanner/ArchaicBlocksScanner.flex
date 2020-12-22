@@ -16,7 +16,7 @@ import java.util.TreeSet;
 
 %final
 %class ArchaicBlocksScanner
-%extends AbstractArchaicBlocksScanner
+%extends AbstractArchaicEnumPropertyScanner
 %ctorarg UnicodeData unicodeData
 
 %unicode
@@ -28,7 +28,7 @@ import java.util.TreeSet;
 %function scan
 
 %init{
-  super(unicodeData);
+  super(unicodeData, "Block", "No_Block");
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
@@ -61,7 +61,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_VALUE> {
-  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { intervals.add(new NamedRange(start, end, yytext())); }
+  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { addInterval(start, end, yytext()); }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }

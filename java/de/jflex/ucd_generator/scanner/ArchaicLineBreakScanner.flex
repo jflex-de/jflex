@@ -16,7 +16,7 @@ import java.util.TreeSet;
 
 %final
 %class ArchaicLineBreakScanner
-%extends AbstractArchaicLineBreakScanner
+%extends AbstractArchaicEnumPropertyScanner
 %ctorarg UnicodeData unicodeData
 
 %unicode
@@ -31,7 +31,7 @@ import java.util.TreeSet;
 %}
 
 %init{
-  super(unicodeData);
+  super(unicodeData, "Line_Break", "XX");
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
@@ -60,7 +60,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
   // D7A3;ID;<Hangul Syllable, Last>
   [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* / {ItemSeparator} "<" [^>]+ ", First>" {Spaces} {NL} { propertyValue = yytext(); yybegin(TWO_LINE_RANGE); }
 
-  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { intervals.add(new NamedRange(start, end, yytext())); }
+  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { addInterval(start, end, yytext()); }
 
   {ItemSeparator} .* {NL} { yybegin(YYINITIAL); }
 }
@@ -72,7 +72,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
   
   {ItemSeparator} [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { /* Ignore second property value mention */ }
   
-  {ItemSeparator} "<" [^,>]+ ", Last>" {Spaces} {NL} { intervals.add(new NamedRange(start, end, propertyValue));
+  {ItemSeparator} "<" [^,>]+ ", Last>" {Spaces} {NL} { addInterval(start, end, propertyValue);
                                                        yybegin(YYINITIAL);
                                                      }
 }

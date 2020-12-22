@@ -19,7 +19,7 @@ import java.util.Map;
 %%
 
 %final
-%class AbstractArchaicPropListScanner
+%class ArchaicPropListScanner
 %extends AbstractArchaicPropListScanner
 %ctorarg UnicodeData unicodeData
 
