@@ -85,6 +85,8 @@ public class TestedVersions {
     return UcdVersion.builder(version)
         // external/ucd_4_0_1_Blocks_4_0_1_txt/file/downloaded
         .putFile(UcdFileType.Blocks, ucdSingleFile(bazelTarget + "_Blocks_4_0_1_txt"))
+        // external/ucd_4_0_1_DerivedAge_4_0_1_txt/file/downloaded
+        .putFile(UcdFileType.DerivedAge, ucdSingleFile(bazelTarget + "_DerivedAge_4_0_1_txt"))
         // external/ucd_4_0_1_DerivedCoreProperties_4_0_1_txt/file/downloaded
         .putFile(
             UcdFileType.DerivedCoreProperties,
