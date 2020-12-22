@@ -181,17 +181,6 @@ public class UnicodeProperties {
           org.example.data.Unicode_2_0.caselessMatchPartitions,
           org.example.data.Unicode_2_0.caselessMatchPartitionSize);
         break;
-      // Version 2.1.9
-      case "2.1":
-      case "2.1.9":
-        bind(
-          org.example.data.Unicode_2_1.propertyValues,
-          org.example.data.Unicode_2_1.intervals,
-          org.example.data.Unicode_2_1.propertyValueAliases,
-          org.example.data.Unicode_2_1.maximumCodePoint,
-          org.example.data.Unicode_2_1.caselessMatchPartitions,
-          org.example.data.Unicode_2_1.caselessMatchPartitionSize);
-        break;
       // Version 2.4.0
       case "2.4":
       case "2.4.0":
