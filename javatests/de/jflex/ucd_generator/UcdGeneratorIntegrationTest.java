@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -29,9 +30,52 @@ public class UcdGeneratorIntegrationTest {
   // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
 
   @Test
-  // TODO(regisd) Fix generation for Unicode 4.0
-  // propertyValues is missing
-  // <[age=1.1, age=2.0, age=2.1, age=3.0, age=3.1, age=3.2, age=4.0, age=unassigned]>
+  @Ignore // Unicode 3.0 requires an ArchaicScanner
+  public void emitUnicodeVersionXY_3_0() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_3_0);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_3_0.propertyValues,
+            jflex.core.unicode.data.Unicode_3_0.intervals,
+            jflex.core.unicode.data.Unicode_3_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_0.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
+
+  @Test
+  public void emitUnicodeVersionXY_3_1() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_3_1);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_3_1.propertyValues,
+            jflex.core.unicode.data.Unicode_3_1.intervals,
+            jflex.core.unicode.data.Unicode_3_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_1.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
+
+  @Test
+  public void emitUnicodeVersionXY_3_2() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_3_2);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_3_2.propertyValues,
+            jflex.core.unicode.data.Unicode_3_2.intervals,
+            jflex.core.unicode.data.Unicode_3_2.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_3_2.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_3_2.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
+
+  @Test
   public void emitUnicodeVersionXY_4_0() throws Exception {
     File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_4_0);
 

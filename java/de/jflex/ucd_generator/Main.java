@@ -116,6 +116,10 @@ public class Main {
           builder.putFile(type, findFile(arg));
         }
       }
+      // Hack for the UNIDATA DerivedAge.txt
+      if (arg.contains("ucd_derived_age")) {
+        builder.putFile(UcdFileType.DerivedAge, findFile(arg));
+      }
     }
     return builder.build();
   }

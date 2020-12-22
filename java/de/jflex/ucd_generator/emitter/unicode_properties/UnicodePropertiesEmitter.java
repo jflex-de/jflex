@@ -50,16 +50,15 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
     super(targetPackage);
+    // TODO(regisd) Remove Implement older versions
     // Hack legacy versions:
-    // 1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1, 3.1, 3.1.0, 3.2, 3.2.0
+    // 1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 3, 3.0, 3.0.1
     this.versions =
         versions.toBuilder()
             .put("1.1.5", UcdVersion.builder("1.1.5").build())
             .put("2.0.14", UcdVersion.builder("2.0.14").build())
             .put("2.1.9", UcdVersion.builder("2.1.9").build())
             .put("3.0.1", UcdVersion.builder("3.0.1").build())
-            .put("3.1.0", UcdVersion.builder("3.1.0").build())
-            .put("3.2.0", UcdVersion.builder("3.2.0").build())
             .build();
   }
 

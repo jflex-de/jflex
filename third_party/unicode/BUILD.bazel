@@ -17,6 +17,7 @@ filegroup(
         "@ucd_2_0_14_Blocks_1_txt//file",
         "@ucd_2_0_14_PropList_2_0_14_txt//file",
         "@ucd_2_0_14_UnicodeData_2_0_14_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -26,6 +27,7 @@ filegroup(
         "@ucd_2_1_9_Blocks_2_txt//file",
         "@ucd_2_1_9_PropList_2_1_9_txt//file",
         "@ucd_2_1_9_UnicodeData_2_1_9_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -36,6 +38,7 @@ filegroup(
         "@ucd_3_0_0_LineBreak_5_txt//file",
         "@ucd_3_0_1_PropList_3_0_1_txt//file",
         "@ucd_3_0_1_UnicodeData_3_0_1_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -48,6 +51,7 @@ filegroup(
         "@ucd_3_1_0_Scripts_3_1_0_txt//file",
         "@ucd_3_1_0_UnicodeData_3_1_0_txt//file",
         "@ucd_3_1_1_PropList_3_1_1_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -55,6 +59,7 @@ filegroup(
     name = "ucd_3_2_0",
     srcs = [
         "@ucd_3_2_0_Blocks_3_2_0_txt//file",
+        "@ucd_3_2_0_DerivedAge_3_2_0_txt//file",
         "@ucd_3_2_0_DerivedCoreProperties_3_2_0_txt//file",
         "@ucd_3_2_0_LineBreak_3_2_0_txt//file",
         "@ucd_3_2_0_PropList_3_2_0_txt//file",

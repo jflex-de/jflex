@@ -70,6 +70,12 @@ def emoji_version(name, version, files):
         ucd_file(name, "/emoji/" + version, fn, sha)
 
 def unicode_deps():
+    http_file(
+        name = "ucd_derived_age",
+        urls = unicode_urls("/UNIDATA/DerivedAge.txt"),
+        sha256 = "e779a443d3aa2a3166a15becaa2b737c922480e32c0453d5956093633555078f",
+    )
+
     ucd_version(name = "ucd_1_1_5", version = "1.1-Update", files = {
         "UnicodeData-1.1.5.txt": "b0aa30303db3c13701967320550952e7368470776e304b52270fdb9256e4bd5b",
     })
@@ -103,6 +109,7 @@ def unicode_deps():
     })
     ucd_version(name = "ucd_3_2_0", version = "3.2-Update", files = {
         "Blocks-3.2.0.txt": "8b367b02089762e753a0b5554182a6a132b9394431c0fe9f1dffb7a3338d86b9",
+        "DerivedAge-3.2.0.txt": "0fac2f41096663810b5dcadc86a4dd772514402425187e79d1fdb7559998d4d6",
         "DerivedCoreProperties-3.2.0.txt": "787419dde91701018d7ad4f47432eaa55af14e3fe3fe140a11e4bbf3db18bb4c",
         "LineBreak-3.2.0.txt": "d693ef2a603d07e20b769ef8ba29afca39765588a03e3196294e5be8638ca735",
         "PropList-3.2.0.txt": "e6f4899305fd0a2771529671549dc2d75b502f4346e23b711f7f8b024d89a5f2",
