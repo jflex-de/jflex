@@ -111,29 +111,12 @@ public class UnicodeData {
     return maximumCodePoint;
   }
 
-  public List<String> propertyValues() {
-    return ImmutableList.copyOf(intervals().keySet());
-  }
-
   /** Returns the code point range by property. */
   public ImmutableSortedMap<String, CodepointRangeSet> intervals() {
     ImmutableSortedMap<String, CodepointRangeSet> map = propertyValueIntervals.asSortedMap();
-    // FIXME Why were script and casefolding emitted as short names?
-    ImmutableSortedMap.Builder<String, CodepointRangeSet> retval =
-        ImmutableSortedMap.naturalOrder();
-    for (Map.Entry<String, CodepointRangeSet> e : map.entrySet()) {
-      switch (e.getKey()) {
-        case "casefolding":
-          retval.put("cf", e.getValue());
-          break;
-        case "script":
-          retval.put("sc", e.getValue());
-          break;
-        default:
-          retval.put(e);
-      }
-    }
-    return retval.build();
+    return ImmutableSortedMap.<String, CodepointRangeSet>naturalOrder()
+        .putAll(map.entrySet())
+        .build();
   }
 
   public ImmutableList<Map.Entry<String, String>> usedPropertyValueAliases() {

@@ -2,6 +2,7 @@ package de.jflex.ucd_generator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
@@ -233,11 +234,15 @@ public class UcdScanner {
               defaultPropertyName,
               defaultPropertyValue);
       ImmutableSet<String> before =
-          DEBUG ? ImmutableSet.copyOf(unicodeData.propertyValues()) : ImmutableSet.of();
+          DEBUG
+              ? ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet()))
+              : ImmutableSet.of();
       scanner.scan();
       if (DEBUG) {
         SetView<String> diff =
-            Sets.difference(ImmutableSet.copyOf(unicodeData.propertyValues()), before);
+            Sets.difference(
+                ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet())),
+                before);
         System.out.println(diff);
       }
     }

@@ -3,6 +3,8 @@ package de.jflex.ucd_generator.emitter.unicode_version;
 import static java.util.stream.Collectors.joining;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
@@ -20,6 +22,7 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.SortedSet;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -53,12 +56,12 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
+    ImmutableSortedMap<String, CodepointRangeSet> intervals = unicodeData.intervals();
     unicodeVersionVars.propertyValues =
-        unicodeData.propertyValues().stream()
+        ImmutableList.copyOf(intervals.keySet()).stream()
             .map(v -> String.format("\"%s\"", v))
             .collect(joining(",\n    "));
-
-    unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource());
+    unicodeVersionVars.intervals = String.join(",\n    ", intervalsToCodesource(intervals));
     unicodeVersionVars.propertyValueAliases =
         unicodeData.usedPropertyValueAliases().stream()
             .map(e -> String.format("\"%s\", \"%s\"", e.getKey(), e.getValue()))
@@ -74,7 +77,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     return unicodeVersionVars;
   }
 
-  private Collection<String> intervalsToCodesource() {
+  private Collection<String> intervalsToCodesource(Map<String, CodepointRangeSet> intervals) {
     EntryTransformer<String, CodepointRangeSet, String> function =
         new EntryTransformer<String, CodepointRangeSet, String>() {
 
@@ -99,7 +102,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
           }
         };
 
-    return Maps.transformEntries(unicodeData.intervals(), function).values();
+    return Maps.transformEntries(intervals, function).values();
   }
 
   private static String partitionToCodesource(
