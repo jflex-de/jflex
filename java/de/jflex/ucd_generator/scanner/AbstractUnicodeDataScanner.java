@@ -1,13 +1,13 @@
 package de.jflex.ucd_generator.scanner;
 
 import com.google.common.base.Preconditions;
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.UcdVersion;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.ucd.Versions;
+import de.jflex.version.Version;
 
 /** Scanner of the {@code UnicodeData.txt}. */
-public abstract class AbstractUnicodeDataScanner {
+abstract class AbstractUnicodeDataScanner {
 
   private static final String GENERAL_CATEGORY = "General_Category";
 

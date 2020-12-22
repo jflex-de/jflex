@@ -5,17 +5,16 @@ java_library(
     srcs = [
         "UcdGenerator.java",
         "UcdGeneratorParams.java",
-        "UcdScanner.java",
     ],
     deps = [
         "//java/de/jflex/ucd_generator/emitter/unicode_properties",
         "//java/de/jflex/ucd_generator/emitter/unicode_version",
-        "//java/de/jflex/ucd_generator/model",
+        "//java/de/jflex/ucd_generator/scanner",
         "//java/de/jflex/ucd_generator/scanner:exception",
-        "//java/de/jflex/ucd_generator/scanner:ucd_scanners",
         "//java/de/jflex/ucd_generator/ucd",
         "//java/de/jflex/util/javac",
         "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
@@ -29,6 +28,7 @@ java_binary(
     deps = [
         ":ucd_generator",
         "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],
 )

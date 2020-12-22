@@ -1,4 +1,4 @@
-package de.jflex.ucd_generator.ucd;
+package de.jflex.version;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
@@ -11,9 +11,9 @@ public class Version {
   public static final Comparator<Version> MAJOR_MINOR_COMPARATOR =
       new MajorMinorVersionComparator();
 
-  final int major;
-  final int minor;
-  final int patch;
+  public final int major;
+  public final int minor;
+  public final int patch;
 
   public Version(String version) {
     List<String> parts = Splitter.on(".").splitToList(version);

@@ -27,6 +27,7 @@ package de.jflex.ucd_generator.ucd;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableMap;
+import de.jflex.version.Version;
 import java.io.File;
 
 /** Describes a single Unicode version. */

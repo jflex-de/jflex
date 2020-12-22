@@ -1,4 +1,4 @@
-package de.jflex.ucd_generator.model;
+package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.Nullable;
 
 public class PropertyValues {
 
@@ -53,7 +52,6 @@ public class PropertyValues {
    *
    * @return {@code null} if the property has no values.
    */
-  @Nullable
   public Multimap<String, String> getPropertyValueAliases(String propName) {
     return allPropertyValueAliases.get(propName);
   }
