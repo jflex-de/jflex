@@ -104,10 +104,16 @@ public class Main {
     UcdVersion.Builder builder = UcdVersion.builder(version);
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {
+        // From Unicode 4.1, a zip contains all files, which can just be found by name
         if (arg.endsWith(type.name() + ".txt")) {
           builder.putFile(type, findFile(arg));
         } else if (type == UcdFileType.Emoji && arg.contains("emoji_data_txt")) {
+          // Emoji is a single URL, hence uses a different naming convention
           builder.putFile(UcdFileType.Emoji, findFile(arg));
+        } else if (arg.contains(type.toString())) {
+          // similarly Unicode 1.0-4.0 is e.g.
+          // external/ucd_4_0_1_Blocks_4_0_1_txt/file/downloaded
+          builder.putFile(type, findFile(arg));
         }
       }
     }

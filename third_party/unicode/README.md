@@ -29,6 +29,18 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
     )
 ```
 
+### Add a filegroup target in BUILD.bazel
+
+```python
+filegroup(
+    name = "ucd_9",
+    srcs = [
+        "@emoji_4_emoji_data_txt//file",
+        "@ucd_9//:files",
+    ],
+)
+```
+
 ### Generate the UnicodeProperties.java
 
 Run the generator with all versions
