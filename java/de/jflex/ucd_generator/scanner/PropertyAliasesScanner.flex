@@ -33,8 +33,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
   {Spaces} ("#" .*)? {NL} { clear(); }
 
   // scf       ; Simple_Case_Folding         ; sfc
-  // TODO(regisd) move call on normalize in addPropertyAliases
-  [^ \t\r\n;]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;]+ { aliases.add(yytext()); }
   
   {ItemSeparator} { yybegin(LONG_NAME); }
 }

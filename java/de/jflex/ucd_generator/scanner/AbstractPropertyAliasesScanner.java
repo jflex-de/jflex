@@ -22,7 +22,7 @@ public abstract class AbstractPropertyAliasesScanner {
     // Long names should resolve to themselves
     aliases.add(normalizedLongName);
     for (String alias : aliases) {
-      unicodeData.addPropertyAlias(alias, normalizedLongName);
+      unicodeData.addPropertyAlias(PropertyNameNormalizer.normalize(alias), normalizedLongName);
     }
     clear();
   }
