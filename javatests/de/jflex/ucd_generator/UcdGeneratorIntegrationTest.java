@@ -26,7 +26,22 @@ public class UcdGeneratorIntegrationTest {
 
   private final File runfiles = new File("javatests/de/jflex/ucd_generator");
 
-  // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
+  // TODO(regisd) Earlier versions: 1.1, 2.0
+
+  @Test
+  public void emitUnicodeVersionXY_2_1_9() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_2_1);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_2_1.propertyValues,
+            jflex.core.unicode.data.Unicode_2_1.intervals,
+            jflex.core.unicode.data.Unicode_2_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_1.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
 
   @Test
   public void emitUnicodeVersionXY_3_0() throws Exception {

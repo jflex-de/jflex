@@ -25,6 +25,7 @@ java_test(
         "//third_party/unicode:ucd_11",
         "//third_party/unicode:ucd_12",
         "//third_party/unicode:ucd_12_1",
+        "//third_party/unicode:ucd_2_1_9",
         "//third_party/unicode:ucd_3_0_1",
         "//third_party/unicode:ucd_3_1_1",
         "//third_party/unicode:ucd_3_2_0",
