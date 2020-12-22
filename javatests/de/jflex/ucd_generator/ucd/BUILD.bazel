@@ -9,8 +9,8 @@ java_test(
 )
 
 java_test(
-    name = "UcdVersionsTest",
-    srcs = ["UcdVersionsTest.java"],
+    name = "SurrogateUtilsTest",
+    srcs = ["SurrogateUtilsTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",
@@ -18,8 +18,18 @@ java_test(
 )
 
 java_test(
-    name = "VersionTest",
-    srcs = ["VersionTest.java"],
+    name = "UnicodeDataTest",
+    srcs = ["UnicodeDataTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/ucd",
+        "//javatests/de/jflex/ucd_generator:tested_versions",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UcdVersionsTest",
+    srcs = ["UcdVersionsTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/ucd",
         "//third_party/com/google/truth",

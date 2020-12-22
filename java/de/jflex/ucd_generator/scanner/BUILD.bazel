@@ -1,6 +1,23 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 java_library(
+    name = "scanner",
+    srcs = ["UcdScanner.java"],
+    visibility = [
+        "//java/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex:__subpackages__",
+    ],
+    exports = [":exception"],
+    deps = [
+        ":exception",
+        ":ucd_scanners",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/version",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_library(
     name = "ucd_scanners",
     srcs = [
         "AbstractBinaryPropertiesFileScanner.java",
@@ -12,16 +29,11 @@ java_library(
         "DerivedAgeScanner.java",
         ":gen_ucd_scanners",
     ],
-    visibility = [
-        "//java/de/jflex/ucd_generator:__subpackages__",
-        "//javatests/de/jflex:__subpackages__",
-    ],
     deps = [
         ":exception",
-        "//java/de/jflex/ucd_generator/model",
         "//java/de/jflex/ucd_generator/ucd",
         "//java/de/jflex/ucd_generator/util:name_normalizer",
-        "//java/de/jflex/ucd_generator/util:surrogate_utils",
+        "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],
 )

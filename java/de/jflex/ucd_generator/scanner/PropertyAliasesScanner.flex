@@ -1,12 +1,11 @@
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 
 %%
 
 %final
-%public
 %class PropertyAliasesScanner
 %extends AbstractPropertyAliasesScanner
 %ctorarg UnicodeData unicodeData
@@ -33,8 +32,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
   {Spaces} ("#" .*)? {NL} { clear(); }
 
   // scf       ; Simple_Case_Folding         ; sfc
-  // TODO(regisd) move call on normalize in addPropertyAliases
-  [^ \t\r\n;]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;]+ { aliases.add(yytext()); }
   
   {ItemSeparator} { yybegin(LONG_NAME); }
 }

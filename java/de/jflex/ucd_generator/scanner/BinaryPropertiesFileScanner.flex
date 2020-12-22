@@ -1,11 +1,10 @@
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 
 %%
 
 %final
-%public
 %class BinaryPropertiesFileScanner
 %extends AbstractBinaryPropertiesFileScanner
 %ctorarg UnicodeData unicodeData

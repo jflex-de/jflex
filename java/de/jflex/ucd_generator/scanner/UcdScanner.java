@@ -1,24 +1,17 @@
-package de.jflex.ucd_generator;
+package de.jflex.ucd_generator.scanner;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
-import de.jflex.ucd_generator.model.UnicodeData;
-import de.jflex.ucd_generator.scanner.BinaryPropertiesFileScanner;
-import de.jflex.ucd_generator.scanner.DerivedAgeScanner;
-import de.jflex.ucd_generator.scanner.EnumeratedPropertyFileScanner;
-import de.jflex.ucd_generator.scanner.PropertyAliasesScanner;
-import de.jflex.ucd_generator.scanner.PropertyValueAliasesScanner;
-import de.jflex.ucd_generator.scanner.ScriptExtensionsScanner;
-import de.jflex.ucd_generator.scanner.UcdScannerException;
-import de.jflex.ucd_generator.scanner.UnicodeDataScanner;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.ucd.Versions;
+import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,7 +24,7 @@ public class UcdScanner {
   private final UcdVersion ucdVersion;
   final UnicodeData unicodeData;
 
-  UcdScanner(UcdVersion ucdVersion) {
+  public UcdScanner(UcdVersion ucdVersion) {
     this.ucdVersion = ucdVersion;
     this.unicodeData = new UnicodeData(ucdVersion.version());
   }
@@ -233,11 +226,15 @@ public class UcdScanner {
               defaultPropertyName,
               defaultPropertyValue);
       ImmutableSet<String> before =
-          DEBUG ? ImmutableSet.copyOf(unicodeData.propertyValues()) : ImmutableSet.of();
+          DEBUG
+              ? ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet()))
+              : ImmutableSet.of();
       scanner.scan();
       if (DEBUG) {
         SetView<String> diff =
-            Sets.difference(ImmutableSet.copyOf(unicodeData.propertyValues()), before);
+            Sets.difference(
+                ImmutableSet.copyOf(ImmutableList.copyOf(unicodeData.intervals().keySet())),
+                before);
         System.out.println(diff);
       }
     }

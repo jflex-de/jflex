@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import de.jflex.ucd_generator.model.UnicodeData;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 
 %%
 
-%public
 %class ScriptExtensionsScanner
 %extends AbstractScriptExtensionsScanner
 %ctorarg UnicodeData unicodeData

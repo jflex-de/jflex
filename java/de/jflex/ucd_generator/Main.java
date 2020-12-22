@@ -29,7 +29,7 @@ import com.google.common.base.Preconditions;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
-import de.jflex.ucd_generator.ucd.Version;
+import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class Main {
     System.out.println();
     System.out.println("    bazel build //java/de/jflex/ucd_generator:gen_unicode_properties");
     System.out.println();
-    System.out.println("See also java/jflex/ucd_generator/README.md");
+    System.out.println("See also java/de/jflex/ucd_generator/README.md");
   }
 
   private static UcdGeneratorParams parseArgs(String[] argv) throws FileNotFoundException {

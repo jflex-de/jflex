@@ -20,18 +20,3 @@ java_library(
         "//third_party/com/google/guava",
     ],
 )
-
-java_library(
-    name = "surrogate_utils",
-    srcs = [
-        "SurrogateUtils.java",
-    ],
-    visibility = [
-        "//java/de/jflex/ucd_generator:__subpackages__",
-        "//javatests/de/jflex:__subpackages__",
-    ],
-    deps = [
-        "//java/de/jflex/ucd_generator/ucd",
-        "//third_party/com/google/guava",
-    ],
-)

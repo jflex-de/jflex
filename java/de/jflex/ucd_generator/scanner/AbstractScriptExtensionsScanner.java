@@ -4,10 +4,10 @@ import static de.jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGOR
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
-import de.jflex.ucd_generator.model.UnicodeData;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.SortedMap;
  * Scans ScriptExtensions.txt, using previously parsed Scripts(-X.Y.Z).txt values for missing code
  * points.
  */
-public abstract class AbstractScriptExtensionsScanner {
+abstract class AbstractScriptExtensionsScanner {
 
   private final UnicodeData unicodeData;
   private final Map<String, CodepointRangeSet.Builder> scriptIntervals = new HashMap<>();
@@ -50,7 +50,6 @@ public abstract class AbstractScriptExtensionsScanner {
 
   void addPropertyValueIntervals() {
     // Add script property value for missing code points.
-    // TODO(regisd) why???
     for (String script : scripts) {
       CodepointRangeSet.Builder intervalsBuilder =
           scriptIntervals.computeIfAbsent(script, k -> CodepointRangeSet.builder());
