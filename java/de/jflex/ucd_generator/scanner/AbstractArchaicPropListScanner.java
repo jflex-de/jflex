@@ -41,11 +41,8 @@ public class AbstractArchaicPropListScanner {
   }
 
   public void addCurrentInterval() {
-    CodepointRangeSet.Builder intervals = properties.get(propertyName);
-    if (intervals == null) { // TODO(regisd) Modernize syntax
-      intervals = CodepointRangeSet.builder();
-      properties.put(propertyName, intervals);
-    }
+    CodepointRangeSet.Builder intervals =
+        properties.computeIfAbsent(propertyName, s -> CodepointRangeSet.builder());
     intervals.add(MutableCodepointRange.create(start, end));
   }
 }
