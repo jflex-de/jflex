@@ -14,7 +14,6 @@ import java.util.List;
 import jflex.testing.diff.DiffOutputStream;
 import jflex.testing.javaast.BasicJavaInterpreter;
 import jflex.ucd_generator.ucd.UcdVersion;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,7 +27,7 @@ public class UcdGeneratorIntegrationTest {
   // TODO(regisd) Earlier versions: 1.1, 2.0, 2.1, 3.0, 3.1, 3.2, 4.0.
 
   @Test
-  @Ignore
+  // TODO(regisd) Fix generation for Unicode 4.0
   // propertyValues is missing
   // <[age=1.1, age=2.0, age=2.1, age=3.0, age=3.1, age=3.2, age=4.0, age=unassigned]>
   public void emitUnicodeVersionXY_4_0() throws Exception {
