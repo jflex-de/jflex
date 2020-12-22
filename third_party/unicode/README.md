@@ -34,6 +34,18 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
   It will then provide the actual value.
 * Note that "ScriptExtensions.txt" is added since Unicode 6.0
 
+### Add a filegroup target in BUILD.bazel
+
+```python
+filegroup(
+    name = "ucd_9",
+    srcs = [
+        "@emoji_4_emoji_data_txt//file",
+        "@ucd_9//:files",
+    ],
+)
+```
+
 ### Generate the Unicode data
 
     bazel build //jflex/src/main/java/jflex/core/unicode:gen_unicode_properties

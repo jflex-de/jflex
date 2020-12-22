@@ -69,6 +69,7 @@ filegroup(
     name = "ucd_4_0_1",
     srcs = [
         "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+        "@ucd_4_0_1_DerivedAge_4_0_1_txt//file",
         "@ucd_4_0_1_DerivedCoreProperties_4_0_1_txt//file",
         "@ucd_4_0_1_LineBreak_4_0_1_txt//file",
         "@ucd_4_0_1_PropList_4_0_1_txt//file",
