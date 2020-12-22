@@ -70,6 +70,12 @@ def emoji_version(name, version, files):
         ucd_file(name, "/emoji/" + version, fn, sha)
 
 def unicode_deps():
+    http_file(
+        name = "derived_age",
+        urls = unicode_urls("/UNIDATA/DerivedAge.txt"),
+        sha256 = "e779a443d3aa2a3166a15becaa2b737c922480e32c0453d5956093633555078f",
+    )
+
     ucd_version(name = "ucd_1_1_5", version = "1.1-Update", files = {
         "UnicodeData-1.1.5.txt": "b0aa30303db3c13701967320550952e7368470776e304b52270fdb9256e4bd5b",
     })
