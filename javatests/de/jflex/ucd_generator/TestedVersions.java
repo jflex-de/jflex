@@ -9,20 +9,26 @@ import java.io.File;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
-  public static final UcdVersion UCD_VERSION_3_0 = UcdVersion.builder("3.0.1")
-      .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_3_0_0_Blocks_3_txt"))
-      .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_0_0_LineBreak_5_txt"))
-      .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_0_1_UnicodeData_3_0_1_txt"))
-      .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_0_1_PropList_3_0_1_txt"))
-      .build();
-  public static final UcdVersion UCD_VERSION_3_1 = UcdVersion.builder("3.1.1")
-      .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_3_1_0_Blocks_4_txt"))
-      .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_1_0_LineBreak_6_txt"))
-      .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_1_0_UnicodeData_3_1_0_txt"))
-      .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_1_1_PropList_3_1_1_txt"))
-      .putFile(UcdFileType.DerivedCoreProperties, ucdSingleFile("ucd_3_1_0_DerivedCoreProperties_3_1_0_txt"))
-      .putFile(UcdFileType.Scripts, ucdSingleFile("ucd_3_1_0_Scripts_3_1_0_txt"))
-      .build();
+  public static final UcdVersion UCD_VERSION_3_0 =
+      UcdVersion.builder("3.0.1")
+          .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_3_0_0_Blocks_3_txt"))
+          .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_0_0_LineBreak_5_txt"))
+          .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_0_1_UnicodeData_3_0_1_txt"))
+          .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_0_1_PropList_3_0_1_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age_DerivedAge_txt"))
+          .build();
+  public static final UcdVersion UCD_VERSION_3_1 =
+      UcdVersion.builder("3.1.1")
+          .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_3_1_0_Blocks_4_txt"))
+          .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_1_0_LineBreak_6_txt"))
+          .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_1_0_UnicodeData_3_1_0_txt"))
+          .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_1_1_PropList_3_1_1_txt"))
+          .putFile(
+              UcdFileType.DerivedCoreProperties,
+              ucdSingleFile("ucd_3_1_0_DerivedCoreProperties_3_1_0_txt"))
+          .putFile(UcdFileType.Scripts, ucdSingleFile("ucd_3_1_0_Scripts_3_1_0_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age"))
+          .build();
   public static final UcdVersion UCD_VERSION_3_2 = newUcdVersion("3.2.0", "ucd_3_2_0").build();
   public static final UcdVersion UCD_VERSION_4_0 = newUcdVersion("4.0.1", "ucd_4_0_1").build();
   public static final UcdVersion UCD_VERSION_4_1 = newUcdVersion("4.1.0", "ucd_4_1_0").build();

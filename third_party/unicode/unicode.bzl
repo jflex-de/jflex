@@ -71,7 +71,7 @@ def emoji_version(name, version, files):
 
 def unicode_deps():
     http_file(
-        name = "derived_age",
+        name = "ucd_derived_age",
         urls = unicode_urls("/UNIDATA/DerivedAge.txt"),
         sha256 = "e779a443d3aa2a3166a15becaa2b737c922480e32c0453d5956093633555078f",
     )
