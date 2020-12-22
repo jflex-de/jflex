@@ -10,7 +10,7 @@ import java.util.Map;
 public class AbstractArchaicPropListScanner {
 
   final UnicodeData unicodeVersion;
-  HashMap<String, CodepointRangeSet.Builder> properties;
+  HashMap<String, CodepointRangeSet.Builder> properties = new HashMap<>();
 
   String propertyName;
   int start;
@@ -41,9 +41,8 @@ public class AbstractArchaicPropListScanner {
   }
 
   public void addCurrentInterval() {
-
     CodepointRangeSet.Builder intervals = properties.get(propertyName);
-    if (intervals == null) {
+    if (intervals == null) { // TODO(regisd) Modernize syntax
       intervals = CodepointRangeSet.builder();
       properties.put(propertyName, intervals);
     }

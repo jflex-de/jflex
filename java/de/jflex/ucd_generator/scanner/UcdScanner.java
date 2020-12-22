@@ -101,8 +101,8 @@ public class UcdScanner {
       scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
     } else {
       File file = ucdVersion.getFile(UcdFileType.PropList);
-      ArchaicLineBreakScanner scanner =
-          new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+      ArchaicPropListScanner scanner =
+          new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
       scanner.scan();
     }
   }
@@ -162,7 +162,6 @@ public class UcdScanner {
 
   void scanLineBreak() throws IOException {
     if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
-
       scanEnumeratedProperty(
           unicodeData,
           ucdVersion.getFile(UcdFileType.LineBreak),
