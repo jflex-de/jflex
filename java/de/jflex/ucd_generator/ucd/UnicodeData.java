@@ -140,19 +140,25 @@ public class UnicodeData {
     for (String propName : usedEnumProperties.keySet()) {
       for (String propValue : usedEnumProperties.get(propName)) {
         String canonicalValue = propName + '=' + propValue;
+        Collection<String> propertyValueAliases = getPropertyValueAliases(propName, propValue);
 
         // Add value-only aliases for General Category and Script properties.
         if (Objects.equals(propName, NORMALIZED_SCRIPT)
             || Objects.equals(propName, NORMALIZED_GENERAL_CATEGORY)) {
           canonicalValue = propValue;
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+          for (String valueAlias : propertyValueAliases) {
             if (!Objects.equals(valueAlias, propValue)) {
               usedPropertyValueAliases.put(valueAlias, propValue);
             }
           }
         }
         for (String nameAlias : getPropertyAliases(propName)) {
-          for (String valueAlias : getPropertyValueAliases(propName, propValue)) {
+          if (nameAlias.equals("blk") && version.equals(Versions.VERSION_3_2)) {
+            // TODO(regisd) Can we remove this hack?
+            // Ugly hack https://github.com/jflex-de/jflex/pull/828#issuecomment-749690037
+            continue;
+          }
+          for (String valueAlias : propertyValueAliases) {
             // Both property names and values have self-aliases; when generating
             // all possible alias combinations, exclude the one that is the same
             // as the full property name + full property value, unless the
@@ -226,8 +232,8 @@ public class UnicodeData {
     ranges.substract(CodepointRange.create(0xA, 0xD));
     // Subtract: \N{NEL}
     ranges.substract(CodepointRange.create(0x85, 0x85));
-    ranges.substract(propertyValueIntervals.getRanges("zl")); // \p{gc=Line_Separator}
-    ranges.substract(propertyValueIntervals.getRanges("zp")); // \p{gc=Paragraph_Separator}
+    ranges.substractAll(propertyValueIntervals.getRanges("zl")); // \p{gc=Line_Separator}
+    ranges.substractAll(propertyValueIntervals.getRanges("zp")); // \p{gc=Paragraph_Separator}
 
     return ranges.build().ranges();
   }
@@ -235,9 +241,9 @@ public class UnicodeData {
   private ImmutableList<CodepointRange> createGraphSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ranges.add(MutableCodepointRange.create(0x0, maximumCodePoint));
-    ranges.substract(propertyValueIntervals.getRanges("whitespace"));
-    ranges.substract(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
-    ranges.substract(propertyValueIntervals.getRanges("cn")); // \p{gc=Unassigned}
+    ranges.substractAll(propertyValueIntervals.getRanges("whitespace"));
+    ranges.substractAll(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
+    ranges.substractAll(propertyValueIntervals.getRanges("cn")); // \p{gc=Unassigned}
     ranges.substract(CodepointRange.create(0xD800, 0xDFFF));
     return ranges.build().ranges();
   }
@@ -246,7 +252,7 @@ public class UnicodeData {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ranges.addAllImmutable(propertyValueIntervals.getRanges("graph"));
     ranges.addAllImmutable(propertyValueIntervals.getRanges("blank"));
-    ranges.substract(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
+    ranges.substractAll(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
     return ranges.build().ranges();
   }
 

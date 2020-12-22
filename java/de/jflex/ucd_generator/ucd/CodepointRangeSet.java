@@ -69,14 +69,15 @@ public abstract class CodepointRangeSet {
       return this;
     }
 
-    public void substract(ImmutableList<CodepointRange> substractingRanges) {
+    public Builder substractAll(Collection<CodepointRange> substractingRanges) {
       int end = mRanges.last().end;
       for (CodepointRange substractingRange : substractingRanges) {
         if (substractingRange.start() > end) {
-          return;
+          return this;
         }
         substract(substractingRange);
       }
+      return this;
     }
 
     /**
