@@ -375,13 +375,14 @@ public class UcdGeneratorIntegrationTest {
         .that(generated.get("maximumCodePoint"))
         .isEqualTo(expected.maximumCodePoint());
 
-    List<String> actualIntervals = escapeUnicodeCharacters((List<String>) generated.get("intervals"));
+    List<String> actualIntervals =
+        escapeUnicodeCharacters((List<String>) generated.get("intervals"));
     ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
     assertWithMessage("Number of internvals")
         .that(actualIntervals.size())
         .isEqualTo(expectedIntervals.size());
-    for (int i = 0; i<expectedIntervals.size(); i++) {
-      assertWithMessage("intervals #"+i)
+    for (int i = 0; i < expectedIntervals.size(); i++) {
+      assertWithMessage("intervals #" + i)
           .that(actualIntervals.get(i))
           .isEqualTo(expectedIntervals.get(i));
     }
@@ -396,7 +397,7 @@ public class UcdGeneratorIntegrationTest {
   }
 
   private ImmutableList<String> escapeUnicodeCharacters(List<String> data) {
-    return  data.stream().map(JavaStrings::escapedUTF16String).collect(toImmutableList());
+    return data.stream().map(JavaStrings::escapedUTF16String).collect(toImmutableList());
   }
 
   /** Converts a List of {@code k1,v1,k2,v2,etc.} to a Map of {@code k1→v1, k2→v2, etc.}. */

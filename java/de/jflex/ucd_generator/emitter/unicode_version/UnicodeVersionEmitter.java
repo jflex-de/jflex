@@ -120,5 +120,4 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     }
     return sb.toString();
   }
-
 }
