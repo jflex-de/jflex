@@ -102,9 +102,11 @@ public class UcdScanner {
       scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
     } else {
       File file = ucdVersion.getFile(UcdFileType.PropList);
-      ArchaicPropListScanner scanner =
-          new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
-      scanner.scan();
+      if (file != null) {
+        ArchaicPropListScanner scanner =
+            new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+        scanner.scan();
+      }
     }
   }
 
@@ -155,9 +157,11 @@ public class UcdScanner {
           "No_Block");
     } else {
       File file = ucdVersion.getFile(UcdFileType.Blocks);
-      ArchaicBlocksScanner scanner =
-          new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
-      scanner.scan();
+      if (file!=null) {
+        ArchaicBlocksScanner scanner =
+            new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+        scanner.scan();
+      }
     }
   }
 
