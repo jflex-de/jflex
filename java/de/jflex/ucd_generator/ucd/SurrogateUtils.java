@@ -14,6 +14,8 @@ public class SurrogateUtils {
   /** End (incl) of the surrogate range. */
   public static final int END = 0xDFFF;
 
+  public static final CodepointRange SURROGATE_RANGE = CodepointRange.create(START, END);
+
   /** Returns whether the property represent a surrogate [U+D800-U+DFFF]. */
   public static boolean isSurrogateProperty(String propName) {
     return SURROGATE_PATTERN.matcher(propName).find();

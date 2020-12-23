@@ -6,6 +6,7 @@ import com.google.auto.value.AutoValue;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Ordering;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 @AutoValue
 public abstract class CodepointRangeSet {
 
+  private static final boolean DEBUG = true;
+
   public abstract ImmutableList<CodepointRange> ranges();
 
   public static Builder builder() {
@@ -25,6 +28,7 @@ public abstract class CodepointRangeSet {
 
   @AutoValue.Builder
   public abstract static class Builder {
+
     private final TreeSet<MutableCodepointRange> mRanges =
         new TreeSet<>(MutableCodepointRange.COMPARATOR_START_POINT);
 
@@ -50,12 +54,12 @@ public abstract class CodepointRangeSet {
       return this;
     }
 
-    public Builder add(CodepointRange range) {
-      return add(MutableCodepointRange.create(range));
-    }
-
     public void add(NamedCodepointRange interval) {
       add(interval.range());
+    }
+
+    public Builder add(CodepointRange range) {
+      return add(MutableCodepointRange.create(range));
     }
 
     // This assumes ranges are added in order
@@ -68,6 +72,7 @@ public abstract class CodepointRangeSet {
         }
       }
       mRanges.add(range);
+      checkOrdering();
       return this;
     }
 
@@ -105,6 +110,7 @@ public abstract class CodepointRangeSet {
       if (intersection.size() > 2) {
         mRanges.removeAll(intersection.subList(1, intersection.size() - 1));
       }
+      checkOrdering();
       return this;
     }
 
@@ -153,12 +159,9 @@ public abstract class CodepointRangeSet {
       return intersection;
     }
 
-    public List<CodepointRange> ranges() {
-      return mRanges.stream().map(CodepointRange::create).collect(toImmutableList());
-    }
-
     public CodepointRangeSet build() {
       Preconditions.checkState(!mRanges.isEmpty(), "Cannot create an empty set");
+      checkOrdering();
       internalAddRanges();
       return internalBuild();
     }
@@ -173,11 +176,26 @@ public abstract class CodepointRangeSet {
         if (lastRange.end + 1 == r.start) {
           lastRange.end = r.end;
         } else {
-          rangesBuilder().add(CodepointRange.create(lastRange));
+          internalAddRange(lastRange);
           lastRange = r;
         }
       }
-      rangesBuilder().add(CodepointRange.create(lastRange));
+      internalAddRange(lastRange);
+    }
+
+    private void internalAddRange(MutableCodepointRange range) {
+      CodepointRange immutableRange = CodepointRange.create(range);
+      if (DEBUG && SurrogateUtils.containsSurrogate(immutableRange)) {
+        throw new IllegalArgumentException(
+            String.format("Range contains surrogates: %s", immutableRange));
+      }
+      rangesBuilder().add(immutableRange);
+    }
+
+    private void checkOrdering() {
+      if (DEBUG) {
+        Preconditions.checkState(Ordering.from(MutableCodepointRange.COMPARATOR_START_POINT).isOrdered(mRanges), "Ranges must be ordered");
+      }
     }
 
     abstract CodepointRangeSet internalBuild();

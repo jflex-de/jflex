@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 public class UnicodeData {
+
   private final PropertyNameNormalizer propertyNameNormalizer = new PropertyNameNormalizer();
 
   private final PropertyValues propertyValues = new PropertyValues();
@@ -80,6 +81,10 @@ public class UnicodeData {
   public void addBinaryPropertyInterval(String propertyName, int start, int end) {
     propertyName = propertyNameNormalizer.getCanonicalPropertyName(propertyName);
     propertyValueIntervals.addBinaryPropertyInterval(propertyName, start, end);
+  }
+
+  public void addBinaryPropertyInterval(String propertyName, CodepointRange interval) {
+    addBinaryPropertyInterval(propertyName, interval.start(), interval.end());
   }
 
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
