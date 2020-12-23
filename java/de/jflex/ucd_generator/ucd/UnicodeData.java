@@ -196,6 +196,10 @@ public class UnicodeData {
   }
 
   public void addCompatibilityProperties() {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0) {
+      addCompatibilityHexDigit_1_1();
+      addCompatibilityAlphaNumeric_1_1();
+    }
     // add xdigit
     // UTR#18: \p{xdigit} = [\p{gc=Decimal_Number}\p{Hex_Digit}]
     // \p{gc=Decimal_Number} = \p{Nd} (available in all versions)
@@ -219,6 +223,24 @@ public class UnicodeData {
     propertyValueIntervals.addAllRanges("print", createPrintSet());
   }
 
+  /**
+   * Add "Hex_Digit" for Unicode 1.1, since the property was introduced in Unicode 2.0, Hex_Digit
+   * contains {@code 0-9 A-F}, fullwidth and halfwidth, upper and lowercase. <code>\p{Nd}}</code>
+   * contains all required digit forms, so no need to add them here Unicode 1.1 doesn't define
+   * HALFWIDTH latin letters (or digits).
+   */
+  private void addCompatibilityHexDigit_1_1() {
+    propertyValueIntervals.addAllRanges(
+        "xdigit",
+        ImmutableList.of(
+            CodepointRange.create('A', 'F'),
+            CodepointRange.create('a', 'f'),
+            // FF21..FF26;FULLWIDTH LATIN CAPITAL LETTER A..F
+            CodepointRange.create(0xFF21, 0xFF26),
+            // FF41..FF46;FULLWIDTH LATIN SMALL LETTER A..F
+            CodepointRange.create(0xFF41, 0xFF46)));
+  }
+
   private void addCompatibilityProperty(
       String newPropertyName, List<String> existingPropertyNames) {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
@@ -228,16 +250,17 @@ public class UnicodeData {
     propertyValueIntervals.addAllRanges(newPropertyName, ranges.build().ranges());
   }
 
+  /**
+   * For Unicode 1.1, substitute "Letter" (L) for "Alphabetic". <code>
+   * \p{L} = [\p{Ll}\p{Lu}\p{Lt}\p{Lm}\p{Lo}]</code>
+   */
+  private void addCompatibilityAlphaNumeric_1_1() {
+    addCompatibilityProperty("alnum", asList("ll", "lu", "lt", "lm", "lo"));
+  }
+
   private ImmutableList<CodepointRange> createBlankSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
-    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
-    if (whitespaceRanges.isEmpty()) {
-      checkState(
-          Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
-          "No whitespace property in Unicode " + version);
-      // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
-      whitespaceRanges = propertyValueIntervals.getRanges("zs");
-    }
+    ImmutableList<CodepointRange> whitespaceRanges = getWhitespaceRange();
     ranges.addAllImmutable(whitespaceRanges);
     // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
     ranges.substract(CodepointRange.create(0xA, 0xD));
@@ -252,7 +275,7 @@ public class UnicodeData {
   private ImmutableList<CodepointRange> createGraphSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ranges.add(MutableCodepointRange.create(0x0, maximumCodePoint));
-    ranges.substractAll(propertyValueIntervals.getRanges("whitespace"));
+    ranges.substractAll(getWhitespaceRange());
     ranges.substractAll(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
     ranges.substractAll(propertyValueIntervals.getRanges("cn")); // \p{gc=Unassigned}
     ranges.substract(CodepointRange.create(0xD800, 0xDFFF));
@@ -265,6 +288,18 @@ public class UnicodeData {
     ranges.addAllImmutable(propertyValueIntervals.getRanges("blank"));
     ranges.substractAll(propertyValueIntervals.getRanges("cc")); // \p{gc=Control}
     return ranges.build().ranges();
+  }
+
+  private ImmutableList<CodepointRange> getWhitespaceRange() {
+    ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+    if (whitespaceRanges.isEmpty()) {
+      checkState(
+          Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
+          "No whitespace property in Unicode " + version);
+      // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
+      whitespaceRanges = propertyValueIntervals.getRanges("zs");
+    }
+    return whitespaceRanges;
   }
 
   public boolean codePointInProperty(int codepoint, String propName) {
