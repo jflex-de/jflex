@@ -1,5 +1,6 @@
 package de.jflex.ucd_generator.ucd;
 
+import static com.google.common.base.Preconditions.checkState;
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
 import static java.util.Arrays.asList;
@@ -195,8 +196,6 @@ public class UnicodeData {
   }
 
   public void addCompatibilityProperties() {
-    // TODO(regisd)
-
     // add xdigit
     // UTR#18: \p{xdigit} = [\p{gc=Decimal_Number}\p{Hex_Digit}]
     // \p{gc=Decimal_Number} = \p{Nd} (available in all versions)
@@ -232,6 +231,12 @@ public class UnicodeData {
   private ImmutableList<CodepointRange> createBlankSet() {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
+    if (whitespaceRanges.isEmpty()) {
+      checkState(Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
+          "No whitespace property in Unicode " + version);
+      // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
+      whitespaceRanges = propertyValueIntervals.getRanges("zs");
+    }
     ranges.addAllImmutable(whitespaceRanges);
     // Subtract: [\N{LF}\N{VT}\N{FF}\N{CR}] = [U+000A-U+000D]
     ranges.substract(CodepointRange.create(0xA, 0xD));
