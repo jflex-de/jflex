@@ -64,15 +64,7 @@ public abstract class CodepointRangeSet {
 
     // This assumes ranges are added in order
     public Builder add(MutableCodepointRange range) {
-      if (!mRanges.isEmpty()) {
-        MutableCodepointRange last = mRanges.last();
-        if (last.end + 1 == range.start) {
-          last.end = range.end;
-          return this;
-        }
-      }
       mRanges.add(range);
-      checkOrdering();
       return this;
     }
 
@@ -110,7 +102,6 @@ public abstract class CodepointRangeSet {
       if (intersection.size() > 2) {
         mRanges.removeAll(intersection.subList(1, intersection.size() - 1));
       }
-      checkOrdering();
       return this;
     }
 
@@ -161,7 +152,6 @@ public abstract class CodepointRangeSet {
 
     public CodepointRangeSet build() {
       Preconditions.checkState(!mRanges.isEmpty(), "Cannot create an empty set");
-      checkOrdering();
       internalAddRanges();
       return internalBuild();
     }
@@ -185,17 +175,11 @@ public abstract class CodepointRangeSet {
 
     private void internalAddRange(MutableCodepointRange range) {
       CodepointRange immutableRange = CodepointRange.create(range);
-      if (DEBUG && SurrogateUtils.containsSurrogate(immutableRange)) {
-        throw new IllegalArgumentException(
-            String.format("Range contains surrogates: %s", immutableRange));
-      }
+      // if (DEBUG && SurrogateUtils.containsSurrogate(immutableRange)) {
+      //   throw new IllegalArgumentException(
+      //       String.format("Range contains surrogates: %s", immutableRange));
+      // }
       rangesBuilder().add(immutableRange);
-    }
-
-    private void checkOrdering() {
-      if (DEBUG) {
-        Preconditions.checkState(Ordering.from(MutableCodepointRange.COMPARATOR_START_POINT).isOrdered(mRanges), "Ranges must be ordered");
-      }
     }
 
     abstract CodepointRangeSet internalBuild();
