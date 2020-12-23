@@ -9,8 +9,15 @@ public class SurrogateUtils {
   private static final Pattern SURROGATE_PATTERN =
       Pattern.compile("^cs$|surrogate", Pattern.CASE_INSENSITIVE);
 
+  /** Start (incl) of the surrogate range. */
+  private static final int START = 0xD800;
+  /** End (incl) of the surrogate range. */
+  public static final int END = 0xDFFF;
+
+  public static final CodepointRange SURROGATE_RANGE = CodepointRange.create(START, END);
+
   /** Returns whether the property represent a surrogate [U+D800-U+DFFF]. */
-  public static boolean isSurrogate(String propName) {
+  public static boolean isSurrogateProperty(String propName) {
     return SURROGATE_PATTERN.matcher(propName).find();
   }
 
@@ -22,20 +29,30 @@ public class SurrogateUtils {
   public static ImmutableList<CodepointRange> removeSurrogates(
       int startCodePoint, int endCodePoint) {
     Preconditions.checkArgument(startCodePoint <= endCodePoint);
-    if (startCodePoint >= 0xD800 && endCodePoint <= 0xDFFF) {
+    if (startCodePoint >= START && endCodePoint <= END) {
       return ImmutableList.of();
     }
-    if (endCodePoint < 0xD800 || startCodePoint > 0xDFFF) {
+    if (endCodePoint < START || startCodePoint > END) {
       return ImmutableList.of(CodepointRange.create(startCodePoint, endCodePoint));
     }
     ImmutableList.Builder<CodepointRange> ranges = ImmutableList.builder();
-    if (startCodePoint < 0xD800) {
-      ranges.add(CodepointRange.create(startCodePoint, 0xD7FF));
+    if (startCodePoint < START) {
+      ranges.add(CodepointRange.create(startCodePoint, START - 1));
     }
-    if (endCodePoint > 0xDFFF) {
-      ranges.add(CodepointRange.create(0xE000, endCodePoint));
+    if (endCodePoint > END) {
+      ranges.add(CodepointRange.create(END + 1, endCodePoint));
     }
     return ranges.build();
+  }
+
+  public static boolean containsSurrogate(CodepointRange cp) {
+    return isSurrogate(cp.start())
+        || isSurrogate(cp.end())
+        || (cp.start() <= START && cp.end() >= END);
+  }
+
+  private static boolean isSurrogate(int cp) {
+    return START <= cp && cp <= END;
   }
 
   private SurrogateUtils() {}

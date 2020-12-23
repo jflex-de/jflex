@@ -169,9 +169,12 @@ public class UcdScanner {
           "XX");
     } else {
       File file = ucdVersion.getFile(UcdFileType.LineBreak);
-      ArchaicLineBreakScanner scanner =
-          new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
-      scanner.scan();
+      if (file != null) {
+        assertFileExists(file);
+        ArchaicLineBreakScanner scanner =
+            new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+        scanner.scan();
+      }
     }
   }
 

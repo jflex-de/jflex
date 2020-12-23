@@ -1,16 +1,16 @@
 package de.jflex.ucd_generator.scanner;
 
+import com.google.common.collect.HashMultimap;
 import de.jflex.ucd_generator.ucd.CodepointRange;
-import de.jflex.ucd_generator.ucd.CodepointRangeSet;
-import de.jflex.ucd_generator.ucd.MutableCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import java.util.HashMap;
 import java.util.Map;
 
 public class AbstractArchaicPropListScanner {
 
   final UnicodeData unicodeData;
-  HashMap<String, CodepointRangeSet.Builder> properties = new HashMap<>();
+
+  /** Map of propName -> intervals */
+  HashMultimap<String, CodepointRange> intervals = HashMultimap.create();
 
   String propertyName;
   int start;
@@ -21,28 +21,14 @@ public class AbstractArchaicPropListScanner {
   }
 
   public void addPropertyIntervals() {
-    for (Map.Entry<String, CodepointRangeSet.Builder> property : properties.entrySet()) {
+    for (Map.Entry<String, CodepointRange> property : intervals.entries()) {
       String currentPropertyName = property.getKey();
-      CodepointRangeSet intervals = property.getValue().build();
-      int prevEnd = -1;
-      int prevStart = -1;
-      for (CodepointRange interval : intervals.ranges()) {
-        if (prevEnd == -1) {
-          prevStart = interval.start();
-        } else if (interval.start() > prevEnd + 1) {
-          unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
-          prevStart = interval.start();
-        }
-        prevEnd = interval.end();
-      }
-      // Add final interval
-      unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
+      CodepointRange interval = property.getValue();
+      unicodeData.addBinaryPropertyInterval(currentPropertyName, interval);
     }
   }
 
   public void addCurrentInterval() {
-    CodepointRangeSet.Builder intervals =
-        properties.computeIfAbsent(propertyName, s -> CodepointRangeSet.builder());
-    intervals.add(MutableCodepointRange.create(start, end));
+    intervals.put(propertyName, CodepointRange.create(start, end));
   }
 }

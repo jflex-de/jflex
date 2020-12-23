@@ -1,6 +1,16 @@
 package(default_visibility = ["//java/de/jflex/ucd_generator:__subpackages__"])
 
 java_library(
+    name = "java_strings",
+    srcs = ["JavaStrings.java"],
+    visibility = [
+        "//java/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex:__subpackages__",
+    ],
+    deps = [],
+)
+
+java_library(
     name = "hexa_utils",
     srcs = ["HexaUtils.java"],
     visibility = ["//visibility:public"],

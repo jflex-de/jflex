@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 @AutoValue
 public abstract class CodepointRangeSet {
@@ -21,12 +20,9 @@ public abstract class CodepointRangeSet {
     return new AutoValue_CodepointRangeSet.Builder();
   }
 
-  public List<MutableCodepointRange> toMutableList() {
-    return ranges().stream().map(MutableCodepointRange::create).collect(Collectors.toList());
-  }
-
   @AutoValue.Builder
   public abstract static class Builder {
+
     private final TreeSet<MutableCodepointRange> mRanges =
         new TreeSet<>(MutableCodepointRange.COMPARATOR_START_POINT);
 
@@ -52,19 +48,15 @@ public abstract class CodepointRangeSet {
       return this;
     }
 
+    public void add(NamedCodepointRange interval) {
+      add(interval.range());
+    }
+
     public Builder add(CodepointRange range) {
       return add(MutableCodepointRange.create(range));
     }
 
-    // This assumes ranges are added in order
     public Builder add(MutableCodepointRange range) {
-      if (!mRanges.isEmpty()) {
-        MutableCodepointRange last = mRanges.last();
-        if (last.end + 1 == range.start) {
-          last.end = range.end;
-          return this;
-        }
-      }
       mRanges.add(range);
       return this;
     }
@@ -167,11 +159,16 @@ public abstract class CodepointRangeSet {
         if (lastRange.end + 1 == r.start) {
           lastRange.end = r.end;
         } else {
-          rangesBuilder().add(CodepointRange.create(lastRange));
+          internalAddRange(lastRange);
           lastRange = r;
         }
       }
-      rangesBuilder().add(CodepointRange.create(lastRange));
+      internalAddRange(lastRange);
+    }
+
+    private void internalAddRange(MutableCodepointRange range) {
+      CodepointRange immutableRange = CodepointRange.create(range);
+      rangesBuilder().add(immutableRange);
     }
 
     abstract CodepointRangeSet internalBuild();

@@ -1,6 +1,6 @@
 package de.jflex.ucd_generator.ucd;
 
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogate;
+import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class PropertyValueIntervals {
 
-  private static final boolean DEBUG = false;
+  private static final boolean DEBUG = true;
 
   private final PropertyValues propertyValues;
 
@@ -68,7 +68,7 @@ public class PropertyValueIntervals {
   }
 
   private boolean addPropertyInterval(String propName, int startCodePoint, int endCodePoint) {
-    if (isSurrogate(propName)) {
+    if (isSurrogateProperty(propName)) {
       // Skip surrogate properties [U+D800-U+DFFF].
       // e.g. \p{Cs} - can't be represented in valid UTF-16 encoded strings.
       return false;
@@ -78,21 +78,29 @@ public class PropertyValueIntervals {
       return false;
     }
     boolean added = propertyValueIntervals.putAll(propName, ranges);
+    checkPropertyIntervalsState(propName, ranges);
+    return added;
+  }
+
+  /** Assert property intervals are sorted. */
+  private void checkPropertyIntervalsState(
+      String propName, Collection<CodepointRange> addedRanges) {
     if (DEBUG) {
       try {
         Preconditions.checkState(
             Ordering.from(CodepointRange.COMPARATOR)
                 .isOrdered(propertyValueIntervals.get(propName)));
       } catch (IllegalStateException e) {
-        String strRanges =
-            ranges.stream().map(CodepointRange::toString).collect(Collectors.joining(","));
         throw new IllegalStateException(
             String.format(
-                "Property value intervals not order for %s after adding %s", propName, strRanges),
+                "Property value intervals not order for %s after adding %s",
+                propName,
+                addedRanges.stream()
+                    .map(CodepointRange::toString)
+                    .collect(Collectors.joining(","))),
             e);
       }
     }
-    return added;
   }
 
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
