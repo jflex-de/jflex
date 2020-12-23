@@ -16,8 +16,12 @@ import java.util.Set;
 /** Scanner for the {@code DerivedAge.txt} ucd file, that populates the UnicodeData intervals. */
 class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
-  public DerivedAgeScanner(Reader in, UnicodeData unicodeData, String defaultPropertyName) {
+  final int maximumCodepoint;
+
+  public DerivedAgeScanner(
+      Reader in, UnicodeData unicodeData, String defaultPropertyName, int maximumCodepoint) {
     super(in, unicodeData, defaultPropertyName, "unassigned");
+    this.maximumCodepoint = maximumCodepoint;
   }
 
   /**
@@ -32,16 +36,26 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   @Override
   public void addInterval(int start, int end, String name) {
-    if (accept(name)) {
+    if (acceptProperty(name) && acceptInterval(start, end)) {
       super.addInterval(start, end, name);
     }
   }
 
-  protected boolean accept(String propertyValue) {
+  protected boolean acceptProperty(String propertyValue) {
     // For age interval, the name is the version.
     Version version = new Version(propertyValue);
     // Only add interval for past versions.
     return Version.MAJOR_MINOR_COMPARATOR.compare(version, unicodeData.version()) <= 0;
+  }
+
+  /**
+   * Returns true if the interval has expected codepoints.
+   *
+   * <p>The {@code DerivedAge.txt} may come from UNIDATA for old Unicode versions, and these
+   * versions (particularly these versions) may not support the range.
+   */
+  private boolean acceptInterval(int start, int end) {
+    return start <= maximumCodepoint;
   }
 
   void includeOlderVersions() {
