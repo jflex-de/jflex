@@ -9,7 +9,6 @@ import java.io.File;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
-
   public static final UcdVersion UCD_VERSION_1_1 =
       UcdVersion.builder("1.1.5")
           .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_1_1_5_UnicodeData_1_1_5_txt"))

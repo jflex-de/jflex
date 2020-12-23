@@ -34,12 +34,12 @@ public class UcdGeneratorIntegrationTest {
 
     UnicodePropertiesData expected =
         UnicodePropertiesData.create(
-            jflex.core.unicode.data.Unicode_2_0.propertyValues,
-            jflex.core.unicode.data.Unicode_2_0.intervals,
-            jflex.core.unicode.data.Unicode_2_0.propertyValueAliases,
-            jflex.core.unicode.data.Unicode_2_0.maximumCodePoint,
-            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
-            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
+            jflex.core.unicode.data.Unicode_1_1.propertyValues,
+            jflex.core.unicode.data.Unicode_1_1.intervals,
+            jflex.core.unicode.data.Unicode_1_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_1_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
   }
 

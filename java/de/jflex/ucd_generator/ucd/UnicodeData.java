@@ -232,7 +232,8 @@ public class UnicodeData {
     CodepointRangeSet.Builder ranges = CodepointRangeSet.builder();
     ImmutableList<CodepointRange> whitespaceRanges = propertyValueIntervals.getRanges("whitespace");
     if (whitespaceRanges.isEmpty()) {
-      checkState(Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
+      checkState(
+          Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
           "No whitespace property in Unicode " + version);
       // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
       whitespaceRanges = propertyValueIntervals.getRanges("zs");

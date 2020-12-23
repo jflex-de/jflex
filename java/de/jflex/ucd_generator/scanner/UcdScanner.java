@@ -157,7 +157,7 @@ public class UcdScanner {
           "No_Block");
     } else {
       File file = ucdVersion.getFile(UcdFileType.Blocks);
-      if (file!=null) {
+      if (file != null) {
         ArchaicBlocksScanner scanner =
             new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
         scanner.scan();

@@ -27,7 +27,6 @@ package de.jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
