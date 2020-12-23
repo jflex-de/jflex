@@ -75,18 +75,18 @@ class UnicodeVersion {
   private static final String NORMALIZED_SCRIPT = normalize("Script");
 
   /** The number of code point ranges to output per line in UnicodeProperties.java. */
-  private static final int INTERVALS_PER_LINE = 1;
+  private static final int INTERVALS_PER_LINE = 4;
 
   /**
    * The number of alias/target property value pairs to output per line in UnicodeProperties.java.
    */
-  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 1;
+  private static final int PROPERTY_VALUE_ALIAS_MAPPINGS_PER_LINE = 2;
 
   /** The number of property values to output per line in UnicodeProperties.java. */
-  private static final int PROPERTY_VALUES_PER_LINE = 1;
+  private static final int PROPERTY_VALUES_PER_LINE = 6;
 
   /** The number of caseless match partitions to output per line in UnicodeProperties.java. */
-  private static final int CASELESS_MATCH_PARTITIONS_PER_LINE = 1;
+  private static final int CASELESS_MATCH_PARTITIONS_PER_LINE = 3;
 
   /** The property values that represent surrogates [U+D800-U+DFFF] */
   private static final Pattern SURROGATE_PATTERN =
