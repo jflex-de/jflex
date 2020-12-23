@@ -23,10 +23,6 @@ public abstract class CodepointRangeSet {
     return new AutoValue_CodepointRangeSet.Builder();
   }
 
-  public List<MutableCodepointRange> toMutableList() {
-    return ranges().stream().map(MutableCodepointRange::create).collect(Collectors.toList());
-  }
-
   @AutoValue.Builder
   public abstract static class Builder {
     private final TreeSet<MutableCodepointRange> mRanges =
