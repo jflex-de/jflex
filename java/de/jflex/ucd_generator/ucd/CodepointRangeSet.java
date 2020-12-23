@@ -1,5 +1,7 @@
 package de.jflex.ucd_generator.ucd;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+
 import com.google.auto.value.AutoValue;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
@@ -54,6 +56,10 @@ public abstract class CodepointRangeSet {
 
     public Builder add(CodepointRange range) {
       return add(MutableCodepointRange.create(range));
+    }
+
+    public void add(NamedCodepointRange interval) {
+      add(interval.range());
     }
 
     // This assumes ranges are added in order
@@ -149,6 +155,10 @@ public abstract class CodepointRangeSet {
       intersection.addAll(subset);
 
       return intersection;
+    }
+
+    public List<CodepointRange> ranges() {
+      return mRanges.stream().map(CodepointRange::create).collect(toImmutableList());
     }
 
     public CodepointRangeSet build() {
