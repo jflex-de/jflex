@@ -1,8 +1,8 @@
 package de.jflex.ucd_generator.emitter.unicode_version;
 
+import static de.jflex.ucd_generator.util.JavaStrings.escapedUTF16Char;
 import static java.util.stream.Collectors.joining;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps;
@@ -12,6 +12,7 @@ import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UnicodeData;
+import de.jflex.ucd_generator.util.JavaStrings;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.BufferedWriter;
@@ -109,7 +110,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
       SortedSet<Integer> partition, int caselessMatchPartitionSize) {
     StringBuilder sb = new StringBuilder();
     Iterator<String> escapedChars =
-        partition.stream().map(UnicodeVersionEmitter::escapedUTF16Char).iterator();
+        partition.stream().map(JavaStrings::escapedUTF16Char).iterator();
     while (escapedChars.hasNext()) {
       sb.append(escapedChars.next());
     }
@@ -120,50 +121,4 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     return sb.toString();
   }
 
-  @VisibleForTesting
-  static String escapedUTF16Char(int codePoint) {
-    if (codePoint <= 0xFFFF) {
-      return escapedBMPChar(codePoint);
-    } else if (codePoint <= 0x10FFFF) {
-      StringBuilder sb = new StringBuilder();
-      for (int c : Character.toChars(codePoint)) {
-        sb.append(escapedBMPChar(c));
-      }
-      return sb.toString();
-    } else {
-      // codePoint above the BMP
-      return "<" + Integer.toHexString(codePoint) + ">";
-    }
-  }
-
-  /**
-   * Returns an escaped character in the form "\\uXXXX", where XXXX is the hexadecimal form of the
-   * given code point, which must be in the Basic Multilingual Plane (BMP).
-   *
-   * @param codePoint The code point for which to emit an escaped character.
-   */
-  private static String escapedBMPChar(int codePoint) {
-    switch (codePoint) {
-        // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
-        // a syntax error when it is included in a literal string, because it is
-        // interpreted as "[...]"[...]" (literally), and leads the compiler to
-        // think that the enclosing quotation marks are unbalanced.
-      case 0x22:
-        return ("\\\"");
-      case 0x00:
-        return ("\\000");
-      case 0x09:
-        return ("\\t");
-      case 0x0A:
-        return ("\\n");
-      case 0x0C:
-        return ("\\f");
-      case 0x0D:
-        return ("\\r");
-      case 0x5C:
-        return ("\\\\");
-      default:
-        return (String.format("\\u%04x", codePoint));
-    }
-  }
 }

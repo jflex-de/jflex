@@ -13,6 +13,7 @@ java_library(
     deps = [
         "//java/de/jflex/ucd_generator/emitter/common",
         "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/ucd_generator/util:java_strings",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//third_party/com/google/guava",
