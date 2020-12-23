@@ -204,7 +204,11 @@ public class UcdScanner {
     if (file != null) {
       assertFileExists(file);
       DerivedAgeScanner scanner =
-          new DerivedAgeScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData, "Age");
+          new DerivedAgeScanner(
+              Files.newReader(file, StandardCharsets.UTF_8),
+              unicodeData,
+              "Age",
+              unicodeData.maximumCodePoint());
       scanner.scan();
     }
   }
