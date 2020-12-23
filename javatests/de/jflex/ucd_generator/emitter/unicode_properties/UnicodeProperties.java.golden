@@ -47,7 +47,7 @@ public class UnicodeProperties {
 
   /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 2.4, 2.4.0, 10.0";
+      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.4, 2.4.0, 10.0";
 
   private static final String DEFAULT_UNICODE_VERSION = "10.0";
 

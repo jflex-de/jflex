@@ -48,7 +48,6 @@ public class SurrogateUtilsTest {
   public void containsSurrogates_within() {
     assertThat(containsSurrogate(CodepointRange.create(0xD801, 0xD802))).isTrue();
     assertThat(containsSurrogate(CodepointRange.create(0xd83f, 0xdffe))).isTrue();
-
   }
 
   @Test

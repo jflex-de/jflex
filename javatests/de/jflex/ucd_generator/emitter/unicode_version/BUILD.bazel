@@ -3,6 +3,7 @@ java_test(
     srcs = ["UnicodeVersionEmitterTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/emitter/unicode_version",
+        "//java/de/jflex/ucd_generator/util:java_strings",
         "//third_party/com/google/truth",
     ],
 )

@@ -37,7 +37,7 @@ public class SurrogateUtils {
     }
     ImmutableList.Builder<CodepointRange> ranges = ImmutableList.builder();
     if (startCodePoint < START) {
-      ranges.add(CodepointRange.create(startCodePoint, START - 1 ));
+      ranges.add(CodepointRange.create(startCodePoint, START - 1));
     }
     if (endCodePoint > END) {
       ranges.add(CodepointRange.create(END + 1, endCodePoint));

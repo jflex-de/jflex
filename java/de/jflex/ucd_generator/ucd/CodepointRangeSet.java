@@ -1,24 +1,19 @@
 package de.jflex.ucd_generator.ucd;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Ordering;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 @AutoValue
 public abstract class CodepointRangeSet {
-
-  private static final boolean DEBUG = true;
 
   public abstract ImmutableList<CodepointRange> ranges();
 
@@ -175,10 +170,6 @@ public abstract class CodepointRangeSet {
 
     private void internalAddRange(MutableCodepointRange range) {
       CodepointRange immutableRange = CodepointRange.create(range);
-      // if (DEBUG && SurrogateUtils.containsSurrogate(immutableRange)) {
-      //   throw new IllegalArgumentException(
-      //       String.format("Range contains surrogates: %s", immutableRange));
-      // }
       rangesBuilder().add(immutableRange);
     }
 

@@ -56,7 +56,7 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
     }
 
     // Version up to 3.1.x use the UNIDATA DerivedAge
-    addUnassignedAge(ageRangesPerVersion);
+    // addUnassignedAge(ageRangesPerVersion);
   }
 
   /**
