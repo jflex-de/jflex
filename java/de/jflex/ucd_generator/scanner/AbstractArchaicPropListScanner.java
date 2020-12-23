@@ -9,15 +9,15 @@ import java.util.Map;
 
 public class AbstractArchaicPropListScanner {
 
-  final UnicodeData unicodeVersion;
+  final UnicodeData unicodeData;
   HashMap<String, CodepointRangeSet.Builder> properties = new HashMap<>();
 
   String propertyName;
   int start;
   int end;
 
-  public AbstractArchaicPropListScanner(UnicodeData unicodeVersion) {
-    this.unicodeVersion = unicodeVersion;
+  public AbstractArchaicPropListScanner(UnicodeData unicodeData) {
+    this.unicodeData = unicodeData;
   }
 
   public void addPropertyIntervals() {
@@ -30,13 +30,13 @@ public class AbstractArchaicPropListScanner {
         if (prevEnd == -1) {
           prevStart = interval.start();
         } else if (interval.start() > prevEnd + 1) {
-          unicodeVersion.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
+          unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
           prevStart = interval.start();
         }
         prevEnd = interval.end();
       }
       // Add final interval
-      unicodeVersion.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
+      unicodeData.addBinaryPropertyInterval(currentPropertyName, prevStart, prevEnd);
     }
   }
 

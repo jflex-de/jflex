@@ -18,8 +18,8 @@ public class AbstractArchaicEnumPropertyScanner {
   int end;
 
   public AbstractArchaicEnumPropertyScanner(
-      UnicodeData unicodeVersion, String propertyName, String defaultPropertyValue) {
-    this.unicodeData = unicodeVersion;
+      UnicodeData unicodeData, String propertyName, String defaultPropertyValue) {
+    this.unicodeData = unicodeData;
     this.propertyName = propertyName;
     this.defaultPropertyValue = defaultPropertyValue;
     this.propertyValue = defaultPropertyValue;
