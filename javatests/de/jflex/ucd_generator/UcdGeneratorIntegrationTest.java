@@ -393,11 +393,11 @@ public class UcdGeneratorIntegrationTest {
     List<String> actualIntervals =
         escapeUnicodeCharacters((List<String>) generated.get("intervals"));
     ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
-    assertWithMessage("Number of internvals")
+    assertWithMessage("Number of intervals")
         .that(actualIntervals.size())
         .isEqualTo(expectedIntervals.size());
     for (int i = 0; i < expectedIntervals.size(); i++) {
-      assertWithMessage("intervals #" + i)
+      assertWithMessage("interval for " + actualPropertyValues.get(i))
           .that(actualIntervals.get(i))
           .isEqualTo(expectedIntervals.get(i));
     }
