@@ -9,6 +9,13 @@ import java.io.File;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
+  public static final UcdVersion UCD_VERSION_2_0 =
+      UcdVersion.builder("2.0.14")
+          .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_2_0_14_Blocks_1_txt"))
+          .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_2_0_14_UnicodeData_2_0_14_txt"))
+          .putFile(UcdFileType.PropList, ucdSingleFile("ucd_2_0_14_PropList_2_0_14_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age"))
+          .build();
   public static final UcdVersion UCD_VERSION_2_1 =
       UcdVersion.builder("2.1.9")
           .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_2_1_9_Blocks_2_txt"))
