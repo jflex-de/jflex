@@ -30,14 +30,11 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   @Override
-  public void addInterval(NamedCodepointRange interval) {
+  protected boolean accept(String propertyValue) {
     // For age interval, the name is the version.
-    Version version = new Version(interval.name());
-    if (Version.MAJOR_MINOR_COMPARATOR.compare(version, unicodeData.version()) > 0) {
-      // Only add interval for past versions.
-      return;
-    }
-    super.addInterval(interval);
+    Version version = new Version(propertyValue);
+    // Only add interval for past versions.
+    return Version.MAJOR_MINOR_COMPARATOR.compare(version, unicodeData.version()) <= 0;
   }
 
   void includeOlderVersions() {
@@ -59,6 +56,7 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
    * Gives the Unassigned Age property value to the absolute complement of the highest version's
    * range set.
    */
+  // TODO(regisd) Remove dead code
   // The jflex-unicode-maven-plugin used to do this but this not necessary with ucd_generator?
   @SuppressWarnings("unused")
   private void addUnassignedAge(HashMultimap<Version, CodepointRange> ageRangesPerVersion) {

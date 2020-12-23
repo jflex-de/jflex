@@ -25,6 +25,10 @@ abstract class AbstractEnumeratedPropertyFileScanner {
     this.defaultPropertyValue = defaultPropertyValue;
   }
 
+  public void addInterval(int start, int end, String name) {
+    addInterval(NamedCodepointRange.create(name, start, end));
+  }
+
   public void addInterval(NamedCodepointRange interval) {
     intervals.add(interval);
   }

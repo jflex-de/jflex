@@ -47,7 +47,7 @@ genrule(
         "//third_party/unicode:ucd_12_1",
     ],
     outs = [
-        "UnicodeProperties.java",
+        #        "UnicodeProperties.java",
         #        "Unicode_1_1.java",
         #        "Unicode_2_0.java",
         #        "Unicode_2_1.java",
