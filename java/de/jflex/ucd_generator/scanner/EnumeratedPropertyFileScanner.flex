@@ -79,11 +79,9 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_VALUE> {
-  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { String val = yytext();
-                                         if (accept(val)) {
-                                           addInterval( start, end, val);
-                                         }
-                                       }
+  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)*  {
+                                        addInterval( start, end, yytext());
+                                      }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }

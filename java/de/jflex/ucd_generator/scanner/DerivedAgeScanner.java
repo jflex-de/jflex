@@ -30,6 +30,12 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   }
 
   @Override
+  public void addInterval(int start, int end, String name) {
+    if (accept(name)) {
+      super.addInterval(start, end, name);
+    }
+  }
+
   protected boolean accept(String propertyValue) {
     // For age interval, the name is the version.
     Version version = new Version(propertyValue);

@@ -26,11 +26,7 @@ abstract class AbstractEnumeratedPropertyFileScanner {
   }
 
   public void addInterval(int start, int end, String name) {
-    addInterval(NamedCodepointRange.create(name, start, end));
-  }
-
-  public void addInterval(NamedCodepointRange interval) {
-    intervals.add(interval);
+    intervals.add(NamedCodepointRange.create(name, start, end));
   }
 
   public void addPropertyValueIntervals() {
@@ -62,9 +58,5 @@ abstract class AbstractEnumeratedPropertyFileScanner {
 
     // Add final named interval
     unicodeData.addEnumPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
-  }
-
-  protected boolean accept(String propertyValue) {
-    return true;
   }
 }
