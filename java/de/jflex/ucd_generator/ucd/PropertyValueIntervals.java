@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class PropertyValueIntervals {
 
-  private static final boolean DEBUG = false;
+  private static final boolean DEBUG = true;
 
   private final PropertyValues propertyValues;
 
@@ -78,6 +78,11 @@ public class PropertyValueIntervals {
       return false;
     }
     boolean added = propertyValueIntervals.putAll(propName, ranges);
+    assertPropertyIntervalsAreSorted(propName, ranges);
+    return added;
+  }
+
+  private void assertPropertyIntervalsAreSorted(String propName, Collection<CodepointRange> addedRanges) {
     if (DEBUG) {
       try {
         Preconditions.checkState(
@@ -85,18 +90,18 @@ public class PropertyValueIntervals {
                 .isOrdered(propertyValueIntervals.get(propName)));
       } catch (IllegalStateException e) {
         String strRanges =
-            ranges.stream().map(CodepointRange::toString).collect(Collectors.joining(","));
+            addedRanges.stream().map(CodepointRange::toString).collect(Collectors.joining(","));
         throw new IllegalStateException(
             String.format(
                 "Property value intervals not order for %s after adding %s", propName, strRanges),
             e);
       }
     }
-    return added;
   }
 
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
     propertyValueIntervals.putAll(propertyName, ranges);
+    assertPropertyIntervalsAreSorted(propertyName, ranges);
     usedBinaryProperties.add(propertyName);
   }
 
