@@ -1,5 +1,6 @@
 package de.jflex.ucd_generator;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
@@ -10,6 +11,7 @@ import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.testing.javaast.BasicJavaInterpreter;
 import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd_generator.util.JavaStrings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -373,8 +375,16 @@ public class UcdGeneratorIntegrationTest {
         .that(generated.get("maximumCodePoint"))
         .isEqualTo(expected.maximumCodePoint());
 
-    List<String> actualIntervals = (List<String>) generated.get("intervals");
-    assertWithMessage("intervals").that(actualIntervals).containsAllIn(expected.intervals());
+    List<String> actualIntervals = escapeUnicodeCharacters((List<String>) generated.get("intervals"));
+    ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
+    assertWithMessage("Number of internvals")
+        .that(actualIntervals.size())
+        .isEqualTo(expectedIntervals.size());
+    for (int i = 0; i<expectedIntervals.size(); i++) {
+      assertWithMessage("intervals #"+i)
+          .that(actualIntervals.get(i))
+          .isEqualTo(expectedIntervals.get(i));
+    }
 
     assertWithMessage("caselessMatchPartitions")
         .that(generated.get("caselessMatchPartitions"))
@@ -383,6 +393,10 @@ public class UcdGeneratorIntegrationTest {
     assertWithMessage("caselessMatchPartitionSize")
         .that(generated.get("caselessMatchPartitionSize"))
         .isEqualTo(expected.caselessMatchPartitionSize());
+  }
+
+  private ImmutableList<String> escapeUnicodeCharacters(List<String> data) {
+    return  data.stream().map(JavaStrings::escapedUTF16String).collect(toImmutableList());
   }
 
   /** Converts a List of {@code k1,v1,k2,v2,etc.} to a Map of {@code k1→v1, k2→v2, etc.}. */
