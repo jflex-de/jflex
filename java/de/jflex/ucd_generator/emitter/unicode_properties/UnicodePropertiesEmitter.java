@@ -50,10 +50,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
     super(targetPackage);
-    // TODO(regisd) Remove Implement older versions
-    // Hack legacy versions:
-    // 1.1, 1.1.5
-    this.versions = versions.toBuilder().put("1.1.5", UcdVersion.builder("1.1.5").build()).build();
+    this.versions = versions;
   }
 
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
