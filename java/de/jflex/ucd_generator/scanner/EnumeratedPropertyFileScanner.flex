@@ -79,11 +79,9 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <PROPERTY_VALUE> {
-  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { String val = yytext();
-                                         if (accept(val)) {
-                                           addInterval(NamedCodepointRange.create(val, start, end));
-                                         }
-                                       }
+  [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)*  {
+                                        addInterval( start, end, yytext());
+                                      }
 
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }

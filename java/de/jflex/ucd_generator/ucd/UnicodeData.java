@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.SortedSet;
 
 public class UnicodeData {
+
   private final PropertyNameNormalizer propertyNameNormalizer = new PropertyNameNormalizer();
 
   private final PropertyValues propertyValues = new PropertyValues();
@@ -82,7 +83,20 @@ public class UnicodeData {
     propertyValueIntervals.addBinaryPropertyInterval(propertyName, start, end);
   }
 
+  public void addBinaryPropertyInterval(String propertyName, CodepointRange interval) {
+    addBinaryPropertyInterval(propertyName, interval.start(), interval.end());
+  }
+
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
+    if (start > 0xffff
+        && Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_3_0) < 0) {
+      // TODO(regisd) https://github.com/jflex-de/jflex/issues/833
+      // Work around Unicode 2.1 having for property value Age=2.0
+      // intervals "\ud83f\udffe\ud83f\udfff"
+      //           "\ud87f\udffe\ud87f\udfff"
+      //           etc.
+      return;
+    }
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
     propertyValueIntervals.addEnumPropertyInterval(propName, propValue, start, end);
   }

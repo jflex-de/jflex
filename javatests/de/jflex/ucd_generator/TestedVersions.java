@@ -9,13 +9,20 @@ import java.io.File;
 /** Constant holder for {@link UcdVersion}s under test. */
 public class TestedVersions {
 
+  public static final UcdVersion UCD_VERSION_2_1 =
+      UcdVersion.builder("2.1.9")
+          .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_2_1_9_Blocks_2_txt"))
+          .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_2_1_9_UnicodeData_2_1_9_txt"))
+          .putFile(UcdFileType.PropList, ucdSingleFile("ucd_2_1_9_PropList_2_1_9_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age"))
+          .build();
   public static final UcdVersion UCD_VERSION_3_0 =
       UcdVersion.builder("3.0.1")
           .putFile(UcdFileType.Blocks, ucdSingleFile("ucd_3_0_0_Blocks_3_txt"))
           .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_0_0_LineBreak_5_txt"))
           .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_0_1_UnicodeData_3_0_1_txt"))
           .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_0_1_PropList_3_0_1_txt"))
-          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age_DerivedAge_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age"))
           .build();
   public static final UcdVersion UCD_VERSION_3_1 =
       UcdVersion.builder("3.1.1")

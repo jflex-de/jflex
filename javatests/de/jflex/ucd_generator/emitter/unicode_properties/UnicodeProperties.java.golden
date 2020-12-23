@@ -47,7 +47,7 @@ public class UnicodeProperties {
 
   /** Human-readable list of all supported Unicode versions. */
   public static final String UNICODE_VERSIONS =
-      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.1, 2.1.9, 2.4, 2.4.0, 3, 3.0, 3.0.1, 10.0";
+      "1.1, 1.1.5, 2, 2.0, 2.0.14, 2.4, 2.4.0, 10.0";
 
   private static final String DEFAULT_UNICODE_VERSION = "10.0";
 
@@ -181,17 +181,6 @@ public class UnicodeProperties {
           org.example.data.Unicode_2_0.caselessMatchPartitions,
           org.example.data.Unicode_2_0.caselessMatchPartitionSize);
         break;
-      // Version 2.1.9
-      case "2.1":
-      case "2.1.9":
-        bind(
-          org.example.data.Unicode_2_1.propertyValues,
-          org.example.data.Unicode_2_1.intervals,
-          org.example.data.Unicode_2_1.propertyValueAliases,
-          org.example.data.Unicode_2_1.maximumCodePoint,
-          org.example.data.Unicode_2_1.caselessMatchPartitions,
-          org.example.data.Unicode_2_1.caselessMatchPartitionSize);
-        break;
       // Version 2.4.0
       case "2.4":
       case "2.4.0":
@@ -202,18 +191,6 @@ public class UnicodeProperties {
           org.example.data.Unicode_2_4.maximumCodePoint,
           org.example.data.Unicode_2_4.caselessMatchPartitions,
           org.example.data.Unicode_2_4.caselessMatchPartitionSize);
-        break;
-      // Version 3.0.1
-      case "3":
-      case "3.0":
-      case "3.0.1":
-        bind(
-          org.example.data.Unicode_3_0.propertyValues,
-          org.example.data.Unicode_3_0.intervals,
-          org.example.data.Unicode_3_0.propertyValueAliases,
-          org.example.data.Unicode_3_0.maximumCodePoint,
-          org.example.data.Unicode_3_0.caselessMatchPartitions,
-          org.example.data.Unicode_3_0.caselessMatchPartitionSize);
         break;
       // Version 10.0
       case "10.0":

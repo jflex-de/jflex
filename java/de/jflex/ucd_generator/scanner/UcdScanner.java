@@ -97,7 +97,14 @@ public class UcdScanner {
   }
 
   void scanPropList() throws IOException {
-    scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
+      scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
+    } else {
+      File file = ucdVersion.getFile(UcdFileType.PropList);
+      ArchaicPropListScanner scanner =
+          new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+      scanner.scan();
+    }
   }
 
   void scanDerivedCoreProperties() throws IOException {
@@ -139,19 +146,36 @@ public class UcdScanner {
   }
 
   void scanBlocks() throws IOException {
-    scanEnumeratedProperty(
-        unicodeData,
-        ucdVersion.getFile(UcdFileType.Blocks),
-        /*defaultPropertyName=*/ "Block",
-        "No_Block");
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
+      scanEnumeratedProperty(
+          unicodeData,
+          ucdVersion.getFile(UcdFileType.Blocks),
+          /*defaultPropertyName=*/ "Block",
+          "No_Block");
+    } else {
+      File file = ucdVersion.getFile(UcdFileType.Blocks);
+      ArchaicBlocksScanner scanner =
+          new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+      scanner.scan();
+    }
   }
 
   void scanLineBreak() throws IOException {
-    scanEnumeratedProperty(
-        unicodeData,
-        ucdVersion.getFile(UcdFileType.LineBreak),
-        /*defaultPropertyName=*/ "Line_Break",
-        "XX");
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
+      scanEnumeratedProperty(
+          unicodeData,
+          ucdVersion.getFile(UcdFileType.LineBreak),
+          /*defaultPropertyName=*/ "Line_Break",
+          "XX");
+    } else {
+      File file = ucdVersion.getFile(UcdFileType.LineBreak);
+      if (file != null) {
+        assertFileExists(file);
+        ArchaicLineBreakScanner scanner =
+            new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
+        scanner.scan();
+      }
+    }
   }
 
   void scanGraphemeBreakProperty() throws IOException {
