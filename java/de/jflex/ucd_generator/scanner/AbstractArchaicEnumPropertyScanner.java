@@ -1,6 +1,7 @@
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.ucd.MutableNamedCodepointRange;
+import de.jflex.ucd_generator.ucd.NamedCodepointRange;
+import de.jflex.ucd_generator.ucd.NamedCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -10,8 +11,8 @@ public class AbstractArchaicEnumPropertyScanner {
   final String propertyName;
   final String defaultPropertyValue;
 
-  final SortedSet<MutableNamedCodepointRange> intervals =
-      new TreeSet<>(MutableNamedCodepointRange.START_COMPARATOR);
+  final SortedSet<NamedCodepointRange> intervals =
+      new TreeSet<>(NamedCodepointRange.START_COMPARATOR);
 
   String propertyValue;
   int start;
@@ -26,14 +27,14 @@ public class AbstractArchaicEnumPropertyScanner {
   }
 
   protected void addInterval(int start, int end, String text) {
-    intervals.add(MutableNamedCodepointRange.create(text, start, end));
+    intervals.add(NamedCodepointRange.create(text, start, end));
   }
 
   public void addPropertyValueIntervals() {
     int prevEnd = -1;
     int prevStart = -1;
     String prevValue = "";
-    for (MutableNamedCodepointRange interval : intervals) {
+    for (NamedCodepointRange interval : intervals) {
       if (interval.start() > prevEnd + 1) {
         // Unassigned code points get the default property value, e.g. "Unknown"
         unicodeData.addEnumPropertyInterval(
@@ -41,11 +42,11 @@ public class AbstractArchaicEnumPropertyScanner {
       }
       if (prevEnd == -1) {
         prevStart = interval.start();
-        prevValue = interval.name;
-      } else if (interval.start() > prevEnd + 1 || !interval.name.equals(prevValue)) {
+        prevValue = interval.name();
+      } else if (interval.start() > prevEnd + 1 || !interval.name().equals(prevValue)) {
         unicodeData.addEnumPropertyInterval(propertyName, prevValue, prevStart, prevEnd);
         prevStart = interval.start();
-        prevValue = interval.name;
+        prevValue = interval.name();
       }
       prevEnd = interval.end();
     }
