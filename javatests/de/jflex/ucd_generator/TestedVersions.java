@@ -15,7 +15,7 @@ public class TestedVersions {
           .putFile(UcdFileType.LineBreak, ucdSingleFile("ucd_3_0_0_LineBreak_5_txt"))
           .putFile(UcdFileType.UnicodeData, ucdSingleFile("ucd_3_0_1_UnicodeData_3_0_1_txt"))
           .putFile(UcdFileType.PropList, ucdSingleFile("ucd_3_0_1_PropList_3_0_1_txt"))
-          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age_DerivedAge_txt"))
+          .putFile(UcdFileType.DerivedAge, ucdSingleFile("ucd_derived_age"))
           .build();
   public static final UcdVersion UCD_VERSION_3_1 =
       UcdVersion.builder("3.1.1")

@@ -5,28 +5,28 @@ import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-/** Scans the common single-property Unicode.org data file format. */
-abstract class AbstractEnumeratedPropertyFileScanner {
-
+public class AbstractArchaicEnumPropertyScanner {
   final UnicodeData unicodeData;
+  final String propertyName;
+  final String defaultPropertyValue;
 
   final SortedSet<NamedCodepointRange> intervals =
       new TreeSet<>(NamedCodepointRange.START_COMPARATOR);
 
-  String propertyName;
-  String defaultPropertyValue;
+  String propertyValue;
   int start;
   int end;
 
-  protected AbstractEnumeratedPropertyFileScanner(
-      UnicodeData unicodeData, String defaultPropertyName, String defaultPropertyValue) {
+  public AbstractArchaicEnumPropertyScanner(
+      UnicodeData unicodeData, String propertyName, String defaultPropertyValue) {
     this.unicodeData = unicodeData;
-    this.propertyName = defaultPropertyName;
+    this.propertyName = propertyName;
     this.defaultPropertyValue = defaultPropertyValue;
+    this.propertyValue = defaultPropertyValue;
   }
 
-  public void addInterval(int start, int end, String name) {
-    intervals.add(NamedCodepointRange.create(name, start, end));
+  protected void addInterval(int start, int end, String text) {
+    intervals.add(NamedCodepointRange.create(text, start, end));
   }
 
   public void addPropertyValueIntervals() {

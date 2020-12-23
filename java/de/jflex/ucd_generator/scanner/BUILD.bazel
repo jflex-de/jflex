@@ -20,6 +20,8 @@ java_library(
 java_library(
     name = "ucd_scanners",
     srcs = [
+        "AbstractArchaicEnumPropertyScanner.java",
+        "AbstractArchaicPropListScanner.java",
         "AbstractBinaryPropertiesFileScanner.java",
         "AbstractEnumeratedPropertyFileScanner.java",
         "AbstractPropertyAliasesScanner.java",
@@ -49,6 +51,9 @@ jflex(
     name = "gen_ucd_scanners",
     srcs = glob(["*.flex"]),
     outputs = [
+        "ArchaicBlocksScanner.java",
+        "ArchaicLineBreakScanner.java",
+        "ArchaicPropListScanner.java",
         "BinaryPropertiesFileScanner.java",
         "EnumeratedPropertyFileScanner.java",
         "PropertyAliasesScanner.java",
