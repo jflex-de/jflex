@@ -1,6 +1,5 @@
 package de.jflex.ucd_generator.ucd;
 
-
 import com.google.auto.value.AutoValue;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
@@ -57,7 +56,6 @@ public abstract class CodepointRangeSet {
       return add(MutableCodepointRange.create(range));
     }
 
-    // This assumes ranges are added in order
     public Builder add(MutableCodepointRange range) {
       mRanges.add(range);
       return this;
