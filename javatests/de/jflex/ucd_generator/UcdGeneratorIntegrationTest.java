@@ -3,6 +3,7 @@ package de.jflex.ucd_generator;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static java.lang.Math.min;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
@@ -406,14 +407,14 @@ public class UcdGeneratorIntegrationTest {
     List<String> actualIntervals =
         escapeUnicodeCharacters((List<String>) generated.get("intervals"));
     ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
-    assertWithMessage("Number of intervals")
-        .that(actualIntervals.size())
-        .isEqualTo(expectedIntervals.size());
-    for (int i = 0; i < expectedIntervals.size(); i++) {
+    for (int i = 0; i < min(expectedIntervals.size(), actualIntervals.size()); i++) {
       assertWithMessage("interval for " + actualPropertyValues.get(i))
           .that(actualIntervals.get(i))
           .isEqualTo(expectedIntervals.get(i));
     }
+    assertWithMessage("Number of intervals")
+        .that(actualIntervals.size())
+        .isEqualTo(expectedIntervals.size());
 
     assertWithMessage("caselessMatchPartitions")
         .that(generated.get("caselessMatchPartitions"))
