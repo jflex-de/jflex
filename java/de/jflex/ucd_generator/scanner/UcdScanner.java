@@ -48,6 +48,7 @@ public class UcdScanner {
       scanDerivedAge();
       scanEmoji();
       unicodeData.addCompatibilityProperties();
+      unicodeData.hackUnicode_2_0();
 
       return unicodeData;
     } catch (Throwable thr) {

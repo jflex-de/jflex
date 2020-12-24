@@ -264,4 +264,15 @@ public class UnicodeData {
   public boolean codePointInProperty(int codepoint, String propName) {
     return propertyValueIntervals.codePointInProperty(codepoint, propName);
   }
+
+  /**
+   * Workaround to remove {@code blk} property in Unicode 2.0.
+   *
+   * <p>See https://github.com/jflex-de/jflex/issues/835
+   */
+  public void hackUnicode_2_0() {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_2_0) == 0) {
+      propertyValueIntervals.removeEnumPropertyPoint("Block", "arabicpresentationformsb", 0xfeff);
+    }
+  }
 }
