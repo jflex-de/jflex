@@ -47,7 +47,3 @@ filegroup(
     ],
 )
 ```
-
-### Generate the Unicode data
-
-    bazel build //jflex/src/main/java/jflex/core/unicode:gen_unicode_properties
