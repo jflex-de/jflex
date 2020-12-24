@@ -3,6 +3,7 @@ package de.jflex.ucd_generator;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static java.lang.Math.min;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,7 +30,46 @@ public class UcdGeneratorIntegrationTest {
 
   private final File runfiles = new File("javatests/de/jflex/ucd_generator");
 
-  // TODO(regisd) Earlier versions: 1.1
+  @Test
+  @Ignore // Eclipse JDT parser changes the order of the intervals.
+  public void emitUnicodeVersionXY_1_1_ignored() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_1_1);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_1_1.propertyValues,
+            jflex.core.unicode.data.Unicode_1_1.intervals,
+            jflex.core.unicode.data.Unicode_1_1.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_1_1.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
+
+  @Test
+  public void emitUnicodeVersionXY_1_1() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_1_1);
+    UnicodePropertiesData actual = parseUnicodeDataFromSource(f);
+    assertThat(actual.maximumCodePoint())
+        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.maximumCodePoint);
+    assertThat(actual.propertyValues())
+        .containsAllIn(ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValues))
+        .inOrder();
+    assertThat(actual.intervals())
+        .containsAllIn(
+            ImmutableList.copyOf(
+                jflex.core.unicode.data.Unicode_1_1
+                    .intervals)); // JDT parsed actual incorrectly and returns the wrong order
+    assertThat(actual.propertyValueAliases())
+        .containsAllIn(
+            ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValueAliases))
+        .inOrder();
+    ;
+    assertThat(actual.caselessMatchPartitionSize())
+        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
+    assertThat(actual.caselessMatchPartitions())
+        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions);
+  }
 
   @Test
   public void emitUnicodeVersionXY_2_0_14() throws Exception {
@@ -371,15 +412,14 @@ public class UcdGeneratorIntegrationTest {
 
   private static void assertUnicodeProperties(UnicodePropertiesData expected, File src)
       throws IOException {
-    ImmutableMap<String, Object> generated = BasicJavaInterpreter.parseJavaClass(src);
+    UnicodePropertiesData actual = parseUnicodeDataFromSource(src);
 
-    List<String> actualPropertyValues = (List<String>) generated.get("propertyValues");
     assertWithMessage("propertyValues")
-        .that(actualPropertyValues)
+        .that(actual.propertyValues())
         .containsAllIn(expected.propertyValues());
 
     ImmutableMap<String, String> actualPropertyValuesAliases =
-        pairListToMap((List<String>) generated.get("propertyValueAliases"));
+        pairListToMap(actual.propertyValueAliases());
     ImmutableMap<String, String> expectedPropertyValueAliases =
         pairListToMap(expected.propertyValueAliases());
     assertWithMessage("propertyValueAliases")
@@ -387,27 +427,26 @@ public class UcdGeneratorIntegrationTest {
         .isEqualTo(expectedPropertyValueAliases);
 
     assertWithMessage("maximumCodePoint")
-        .that(generated.get("maximumCodePoint"))
+        .that(actual.maximumCodePoint())
         .isEqualTo(expected.maximumCodePoint());
 
-    List<String> actualIntervals =
-        escapeUnicodeCharacters((List<String>) generated.get("intervals"));
+    List<String> actualIntervals = escapeUnicodeCharacters(actual.intervals());
     ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
-    assertWithMessage("Number of intervals")
-        .that(actualIntervals.size())
-        .isEqualTo(expectedIntervals.size());
-    for (int i = 0; i < expectedIntervals.size(); i++) {
-      assertWithMessage("interval for " + actualPropertyValues.get(i))
+    for (int i = 0; i < min(expectedIntervals.size(), actualIntervals.size()); i++) {
+      assertWithMessage("interval for " + actual.propertyValues().get(i))
           .that(actualIntervals.get(i))
           .isEqualTo(expectedIntervals.get(i));
     }
+    assertWithMessage("Number of intervals")
+        .that(actualIntervals.size())
+        .isEqualTo(expectedIntervals.size());
 
     assertWithMessage("caselessMatchPartitions")
-        .that(generated.get("caselessMatchPartitions"))
+        .that(actual.caselessMatchPartitions())
         .isEqualTo(expected.caselessMatchPartitions());
 
     assertWithMessage("caselessMatchPartitionSize")
-        .that(generated.get("caselessMatchPartitionSize"))
+        .that(actual.caselessMatchPartitionSize())
         .isEqualTo(expected.caselessMatchPartitionSize());
   }
 
@@ -424,6 +463,17 @@ public class UcdGeneratorIntegrationTest {
     return map.build();
   }
 
+  private static UnicodePropertiesData parseUnicodeDataFromSource(File src) throws IOException {
+    ImmutableMap<String, Object> generated = BasicJavaInterpreter.parseJavaClass(src);
+    return UnicodePropertiesData.create(
+        (List<String>) generated.get("propertyValues"),
+        (List<String>) generated.get("intervals"),
+        (List<String>) generated.get("propertyValueAliases"),
+        (long) generated.get("maximumCodePoint"),
+        (String) generated.get("caselessMatchPartitions"),
+        (long) generated.get("caselessMatchPartitionSize"));
+  }
+
   @AutoValue
   abstract static class UnicodePropertiesData {
     abstract ImmutableList<String> propertyValues();
@@ -432,19 +482,35 @@ public class UcdGeneratorIntegrationTest {
 
     abstract ImmutableList<String> propertyValueAliases();
 
-    abstract int maximumCodePoint();
+    abstract long maximumCodePoint();
 
     abstract String caselessMatchPartitions();
 
-    abstract int caselessMatchPartitionSize();
+    abstract long caselessMatchPartitionSize();
 
     static UnicodePropertiesData create(
         String[] propertyValues,
         String[] intervals,
         String[] propertyValueAliases,
-        int maximumCodePoint,
+        long maximumCodePoint,
         String caselessMatchPartitions,
-        int caselessMatchPartitionSize) {
+        long caselessMatchPartitionSize) {
+      return create(
+          ImmutableList.copyOf(propertyValues),
+          ImmutableList.copyOf(intervals),
+          ImmutableList.copyOf(propertyValueAliases),
+          maximumCodePoint,
+          caselessMatchPartitions,
+          caselessMatchPartitionSize);
+    }
+
+    static UnicodePropertiesData create(
+        List<String> propertyValues,
+        List<String> intervals,
+        List<String> propertyValueAliases,
+        long maximumCodePoint,
+        String caselessMatchPartitions,
+        long caselessMatchPartitionSize) {
       return new AutoValue_UcdGeneratorIntegrationTest_UnicodePropertiesData(
           ImmutableList.copyOf(propertyValues),
           ImmutableList.copyOf(intervals),
