@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class PropertyValueIntervals {
 
-  private static final boolean DEBUG = true;
+  private static final boolean DEBUG = false;
 
   private final PropertyValues propertyValues;
 
@@ -106,6 +106,23 @@ public class PropertyValueIntervals {
   public void addAllRanges(String propertyName, Collection<CodepointRange> ranges) {
     propertyValueIntervals.putAll(propertyName, ranges);
     usedBinaryProperties.add(propertyName);
+  }
+
+  /** @deprecated Hack for Unicode 2.0 */
+  @Deprecated
+  public void removeEnumPropertyPoint(String propertyName, String propertyValue, int codepoint) {
+    CodepointRange point = CodepointRange.createPoint(codepoint);
+    String canonicalName =
+        PropertyNameNormalizer.canonicalValue(
+            PropertyNameNormalizer.normalize(propertyName), propertyValue);
+    SortedSet<CodepointRange> ranges = propertyValueIntervals.get(canonicalName);
+    CodepointRange range = ranges.headSet(point).last();
+    ranges.remove(range);
+    // In practice there is only one \ufe70\ufefe ; but in theory the removed point could have been
+    // in the middle.
+    ImmutableList<CodepointRange> hackedRanges =
+        CodepointRangeSet.builder().add(range).substract(point).build().ranges();
+    ranges.addAll(hackedRanges);
   }
 
   ImmutableList<CodepointRange> getRanges(String propName) {

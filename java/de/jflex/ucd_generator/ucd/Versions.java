@@ -4,6 +4,7 @@ import de.jflex.version.Version;
 
 public class Versions {
   public static final Version VERSION_1_1 = new Version(1, 1);
+  public static final Version VERSION_2_0 = new Version(2, 0);
   public static final Version VERSION_2_1 = new Version(2, 1);
   public static final Version VERSION_3_0 = new Version(3, 0);
   public static final Version VERSION_3_1_1 = new Version(3, 1, 1);
