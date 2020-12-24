@@ -88,15 +88,6 @@ public class UnicodeData {
   }
 
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
-    if (start > 0xffff
-        && Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_3_0) < 0) {
-      // TODO(regisd) https://github.com/jflex-de/jflex/issues/833
-      // Work around Unicode 2.1 having for property value Age=2.0
-      // intervals "\ud83f\udffe\ud83f\udfff"
-      //           "\ud87f\udffe\ud87f\udfff"
-      //           etc.
-      return;
-    }
     propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
     propertyValueIntervals.addEnumPropertyInterval(propName, propValue, start, end);
   }
@@ -272,5 +263,16 @@ public class UnicodeData {
 
   public boolean codePointInProperty(int codepoint, String propName) {
     return propertyValueIntervals.codePointInProperty(codepoint, propName);
+  }
+
+  /**
+   * Workaround to remove {@code blk} property in Unicode 2.0.
+   *
+   * <p>See https://github.com/jflex-de/jflex/issues/835
+   */
+  public void hackUnicode_2_0() {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_2_0) == 0) {
+      propertyValueIntervals.removeEnumPropertyPoint("Block", "arabicpresentationformsb", 0xfeff);
+    }
   }
 }

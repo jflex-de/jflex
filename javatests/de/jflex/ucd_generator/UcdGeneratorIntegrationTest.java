@@ -28,7 +28,22 @@ public class UcdGeneratorIntegrationTest {
 
   private final File runfiles = new File("javatests/de/jflex/ucd_generator");
 
-  // TODO(regisd) Earlier versions: 1.1, 2.0
+  // TODO(regisd) Earlier versions: 1.1
+
+  @Test
+  public void emitUnicodeVersionXY_2_0_14() throws Exception {
+    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_2_0);
+
+    UnicodePropertiesData expected =
+        UnicodePropertiesData.create(
+            jflex.core.unicode.data.Unicode_2_0.propertyValues,
+            jflex.core.unicode.data.Unicode_2_0.intervals,
+            jflex.core.unicode.data.Unicode_2_0.propertyValueAliases,
+            jflex.core.unicode.data.Unicode_2_0.maximumCodePoint,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitions,
+            jflex.core.unicode.data.Unicode_2_0.caselessMatchPartitionSize);
+    assertUnicodeProperties(expected, f);
+  }
 
   @Test
   public void emitUnicodeVersionXY_2_1_9() throws Exception {
@@ -354,7 +369,7 @@ public class UcdGeneratorIntegrationTest {
     return f;
   }
 
-  private void assertUnicodeProperties(UnicodePropertiesData expected, File src)
+  private static void assertUnicodeProperties(UnicodePropertiesData expected, File src)
       throws IOException {
     ImmutableMap<String, Object> generated = BasicJavaInterpreter.parseJavaClass(src);
 
@@ -378,11 +393,11 @@ public class UcdGeneratorIntegrationTest {
     List<String> actualIntervals =
         escapeUnicodeCharacters((List<String>) generated.get("intervals"));
     ImmutableList<String> expectedIntervals = escapeUnicodeCharacters(expected.intervals());
-    assertWithMessage("Number of internvals")
+    assertWithMessage("Number of intervals")
         .that(actualIntervals.size())
         .isEqualTo(expectedIntervals.size());
     for (int i = 0; i < expectedIntervals.size(); i++) {
-      assertWithMessage("intervals #" + i)
+      assertWithMessage("interval for " + actualPropertyValues.get(i))
           .that(actualIntervals.get(i))
           .isEqualTo(expectedIntervals.get(i));
     }
@@ -396,7 +411,7 @@ public class UcdGeneratorIntegrationTest {
         .isEqualTo(expected.caselessMatchPartitionSize());
   }
 
-  private ImmutableList<String> escapeUnicodeCharacters(List<String> data) {
+  private static ImmutableList<String> escapeUnicodeCharacters(List<String> data) {
     return data.stream().map(JavaStrings::escapedUTF16String).collect(toImmutableList());
   }
 
