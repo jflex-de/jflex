@@ -7,9 +7,9 @@ Eventually, they should be removed from SCM.
 
 ```sh
 bazel build //java/de/jflex/ucd_generator:gen_unicode_properties
-google-java-format bazel-bin/jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java > jflex/src/main/java/jflex/core/unicode
+google-java-format bazel-bin/jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java > jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java
 for f in bazel-bin/jflex/src/main/java/jflex/core/unicode/Unicode_*.java; do
-  google-java-formar bazel-bin/jflex/src/main/java/jflex/core/unicode/Unicode_*.java > jflex/src/main/java/jflex/core/unicode/data
+  google-java-format $f  > jflex/src/main/java/jflex/core/unicode/data/$(basename $f)
 done
 ```
 

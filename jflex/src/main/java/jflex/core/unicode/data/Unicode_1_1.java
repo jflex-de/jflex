@@ -1,9 +1,42 @@
+/*
+ * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2019  Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2018-2019  Google, LLC.
+ *
+ * License: https://opensource.org/licenses/BSD-3-Clause
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted
+ * provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
+ * and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
+ * conditions and the following disclaimer in the documentation and/or other materials provided with
+ * the distribution.
+ * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
+ * endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+ * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+// TODO(regisd) Move in same package
 package jflex.core.unicode.data;
 
+// TODO(regisd) Restrict to package visibility
 public class Unicode_1_1 {
+
+  // Only holds constants.
   private Unicode_1_1() {}
 
+  /** Highest Unicode code point. */
   public static final int maximumCodePoint = 0xffff;
+
   public static final String[] propertyValues = {
     "alnum",
     "assigned",
@@ -32,6 +65,7 @@ public class Unicode_1_1 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 1.1 property value: {alnum}
     "\u0030\u0039"
@@ -2624,9 +2658,12 @@ public class Unicode_1_1 {
     // Unicode 1.1 property value: {zs}
     "\u0020\u0020" + "\u00a0\u00a0" + "\u2000\u200b" + "\u3000\u3000" + "\ufeff\ufeff"
   };
+
   public static final String[] propertyValueAliases = {};
 
+  /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 3;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000"
           + "\u0042\u0062\000"
