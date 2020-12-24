@@ -27,7 +27,6 @@ package de.jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
@@ -50,10 +49,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public UnicodePropertiesEmitter(String targetPackage, UcdVersions versions) {
     super(targetPackage);
-    // TODO(regisd) Remove Implement older versions
-    // Hack legacy versions:
-    // 1.1, 1.1.5
-    this.versions = versions.toBuilder().put("1.1.5", UcdVersion.builder("1.1.5").build()).build();
+    this.versions = versions;
   }
 
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
