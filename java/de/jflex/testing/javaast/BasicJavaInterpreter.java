@@ -1,8 +1,5 @@
-
 /*
- * Copyright (C) 2014-2020 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2020 Google, LLC.
+ * Copyright (C) 2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -26,7 +23,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.testing.javaast;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
