@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2020  Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2018-2020  Google, LLC.
+ * Copyright (C) 1998-2019 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2018-2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *

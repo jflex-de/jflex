@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2019 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 1998-2019 Gerwin Klein <lsf@jflex.de>
  * Copyright (C) 2008-2019 Steve Rowe <sarowe@gmail.com>
  * Copyright (C) 2017-2020 Google, LLC.
  *
