@@ -39,9 +39,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.Objects;
 import java.util.Set;
-import java.util.SortedMap;
 
 /**
  * Scans ScriptExtensions.txt, using previously parsed Scripts(-X.Y.Z).txt values for missing code
@@ -65,7 +65,7 @@ abstract class AbstractScriptExtensionsScanner {
     String canonicalScriptPropertyName =
         unicodeData.getCanonicalPropertyName(PropertyNames.NORMALIZED_SCRIPT);
     String scriptPropertyAliasPrefix = canonicalScriptPropertyName + "=";
-    for (SortedMap.Entry<String, String> entry : getUsedPropertyValueAliases().entrySet()) {
+    for (NavigableMap.Entry<String, String> entry : getUsedPropertyValueAliases().entrySet()) {
       String propertyValueAlias = entry.getKey();
       if (propertyValueAlias.startsWith(scriptPropertyAliasPrefix)) {
         String canonicalScriptValue = entry.getValue();
