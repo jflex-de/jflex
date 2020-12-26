@@ -28,7 +28,7 @@ package de.jflex.ucd_generator.ucd;
 
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
-import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
@@ -40,7 +40,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.TreeMultimap;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -85,7 +84,7 @@ public class PropertyValueIntervals {
   boolean addEnumPropertyInterval(
       String propName, String propValue, int startCodePoint, int endCodePoint) {
     propValue = propertyValues.getCanonicalValueName(propName, propValue);
-    String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
+    String canonicalValue = PropertyNames.canonicalValue(propName, propValue);
     boolean added = addPropertyInterval(canonicalValue, startCodePoint, endCodePoint);
     if (added) {
       usedEnumProperties.put(propName, propValue);
@@ -139,8 +138,8 @@ public class PropertyValueIntervals {
   public void removeEnumPropertyPoint(String propertyName, String propertyValue, int codepoint) {
     CodepointRange point = CodepointRange.createPoint(codepoint);
     String canonicalName =
-        PropertyNameNormalizer.canonicalValue(
-            PropertyNameNormalizer.normalize(propertyName), propertyValue);
+        PropertyNames.canonicalValue(
+            PropertyNames.normalize(propertyName), propertyValue);
     SortedSet<CodepointRange> ranges = propertyValueIntervals.get(canonicalName);
     CodepointRange range = ranges.headSet(point).last();
     ranges.remove(range);

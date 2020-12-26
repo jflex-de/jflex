@@ -26,15 +26,15 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import static de.jflex.ucd_generator.util.PropertyNameNormalizer.DEFAULT_CATEGORIES;
-import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.ucd.PropertyNames.DEFAULT_CATEGORIES;
+import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd_generator.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.ucd.PropertyNames;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -63,7 +63,7 @@ abstract class AbstractScriptExtensionsScanner {
 
     // Collect all script property values
     String canonicalScriptPropertyName =
-        unicodeData.getCanonicalPropertyName(PropertyNameNormalizer.NORMALIZED_SCRIPT);
+        unicodeData.getCanonicalPropertyName(PropertyNames.NORMALIZED_SCRIPT);
     String scriptPropertyAliasPrefix = canonicalScriptPropertyName + "=";
     for (SortedMap.Entry<String, String> entry : getUsedPropertyValueAliases().entrySet()) {
       String propertyValueAlias = entry.getKey();
@@ -113,7 +113,7 @@ abstract class AbstractScriptExtensionsScanner {
     for (String propName : unicodeData.usedEnumeratedProperties().keySet()) {
       Collection<String> propValues = unicodeData.usedEnumeratedProperties().get(propName);
       for (String propValue : propValues) {
-        String canonicalValue = PropertyNameNormalizer.canonicalValue(propName, propValue);
+        String canonicalValue = PropertyNames.canonicalValue(propName, propValue);
 
         // Add value-only aliases for General Category and Script properties.
         if (DEFAULT_CATEGORIES.contains(propName)) {

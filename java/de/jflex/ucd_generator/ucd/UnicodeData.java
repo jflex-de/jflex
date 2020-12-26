@@ -27,15 +27,14 @@
 package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.base.Preconditions.checkState;
-import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
-import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_SCRIPT;
+import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
+import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_SCRIPT;
 import static java.util.Arrays.asList;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import de.jflex.version.Version;
 import java.util.Collection;
 import java.util.List;
@@ -46,7 +45,7 @@ import java.util.SortedSet;
 
 public class UnicodeData {
 
-  private final PropertyNameNormalizer propertyNameNormalizer = new PropertyNameNormalizer();
+  private final PropertyNames propertyNames = new PropertyNames();
 
   private final PropertyValues propertyValues = new PropertyValues();
 
@@ -79,11 +78,11 @@ public class UnicodeData {
   }
 
   public String getCanonicalPropertyName(String propertyAlias) {
-    return propertyNameNormalizer.getCanonicalPropertyName(propertyAlias);
+    return propertyNames.getCanonicalPropertyName(propertyAlias);
   }
 
   public void addPropertyAlias(String alias, String normalizedLongName) {
-    propertyNameNormalizer.putPropertyAlias(normalizedLongName, alias);
+    propertyNames.putPropertyAlias(normalizedLongName, alias);
   }
 
   public void addPropertyValueAliases(
@@ -98,15 +97,15 @@ public class UnicodeData {
 
   public void copyPropertyValueAliases(String sourceProperty, String destProperty) {
     propertyValues.copyPropertyValueAliases(sourceProperty, destProperty);
-    propertyNameNormalizer.putPropertyAlias(destProperty, destProperty);
+    propertyNames.putPropertyAlias(destProperty, destProperty);
   }
 
   public Collection<String> getPropertyAliases(String propName) {
-    return propertyNameNormalizer.getPropertyAliases(propName);
+    return propertyNames.getPropertyAliases(propName);
   }
 
   public void addBinaryPropertyInterval(String propertyName, int start, int end) {
-    propertyName = propertyNameNormalizer.getCanonicalPropertyName(propertyName);
+    propertyName = propertyNames.getCanonicalPropertyName(propertyName);
     propertyValueIntervals.addBinaryPropertyInterval(propertyName, start, end);
   }
 
@@ -115,7 +114,7 @@ public class UnicodeData {
   }
 
   public void addEnumPropertyInterval(String propName, String propValue, int start, int end) {
-    propName = propertyNameNormalizer.getCanonicalPropertyName(propName);
+    propName = propertyNames.getCanonicalPropertyName(propName);
     propertyValueIntervals.addEnumPropertyInterval(propName, propValue, start, end);
   }
 
@@ -133,7 +132,7 @@ public class UnicodeData {
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
     return propertyValueIntervals.getRanges(
-        propertyNameNormalizer.getCanonicalPropertyName(propName));
+        propertyNames.getCanonicalPropertyName(propName));
   }
 
   public int maximumCodePoint() {
