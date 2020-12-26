@@ -1,3 +1,4 @@
+package de.jflex.testcase.no_unused;
 
 %%
 
