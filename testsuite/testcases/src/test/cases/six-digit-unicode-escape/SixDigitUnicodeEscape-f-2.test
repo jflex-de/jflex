@@ -1,8 +1,0 @@
-name: SixDigitUnicodeEscape-f-2
-
-description:
-Check that generation fails when a codepoint specified in "\UHHHHHH" format
-inside a string is greater than the maximum codepoint for the Unicode version
-
-jflex: -q
-jflex-fail: true

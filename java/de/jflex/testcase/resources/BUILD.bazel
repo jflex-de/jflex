@@ -1,0 +1,10 @@
+package(default_visibility = ["//javatests/de/jflex/testcase:__subpackages__"])
+
+exports_files(glob(["*.input"]))
+
+java_library(
+    name = "resources",
+    testonly = True,
+    srcs = glob(["*.java"]),
+    deps = [],
+)
