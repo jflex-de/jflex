@@ -26,8 +26,8 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.ucd.PropertyNames;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -26,9 +26,9 @@
  */
 package de.jflex.ucd_generator.ucd;
 
+import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
-import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
@@ -138,8 +138,7 @@ public class PropertyValueIntervals {
   public void removeEnumPropertyPoint(String propertyName, String propertyValue, int codepoint) {
     CodepointRange point = CodepointRange.createPoint(codepoint);
     String canonicalName =
-        PropertyNames.canonicalValue(
-            PropertyNames.normalize(propertyName), propertyValue);
+        PropertyNames.canonicalValue(PropertyNames.normalize(propertyName), propertyValue);
     SortedSet<CodepointRange> ranges = propertyValueIntervals.get(canonicalName);
     CodepointRange range = ranges.headSet(point).last();
     ranges.remove(range);

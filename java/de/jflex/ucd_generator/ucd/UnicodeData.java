@@ -131,8 +131,7 @@ public class UnicodeData {
   }
 
   public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
-    return propertyValueIntervals.getRanges(
-        propertyNames.getCanonicalPropertyName(propName));
+    return propertyValueIntervals.getRanges(propertyNames.getCanonicalPropertyName(propName));
   }
 
   public int maximumCodePoint() {
