@@ -1,7 +1,9 @@
+package de.jflex.testcase.nevermatch;
 
 %%
 
 %class Never
+%integer
 
 %states A B
 
