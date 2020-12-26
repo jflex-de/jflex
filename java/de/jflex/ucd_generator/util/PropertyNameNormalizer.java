@@ -27,7 +27,6 @@
 package de.jflex.ucd_generator.util;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
@@ -105,9 +104,5 @@ public class PropertyNameNormalizer {
   public void putPropertyAlias(String canonicalName, String alias) {
     propertyAliases.put(canonicalName, alias);
     propertyAlias2CanonicalName.put(alias, canonicalName);
-  }
-
-  public ImmutableList<String> getCanonicalNames() {
-    return ImmutableList.sortedCopyOf(propertyAliases.keySet());
   }
 }
