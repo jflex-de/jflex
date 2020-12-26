@@ -1,6 +1,7 @@
-// test: no-unused
 /*
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2014-2020 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -24,7 +25,9 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.no_unused;
+
+// test: no-unused
+package de.jflex.testcase.unused_warning;
 
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
@@ -34,8 +37,8 @@ import org.junit.runner.RunWith;
 /** Test for the {@code --no-warn-unused} option. */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/de/jflex/testcase/no_unused/no-unused.flex",
-    sysout = "javatests/de/jflex/testcase/no_unused/expected_sysout.txt",
+    lex = "javatests/de/jflex/testcase/unused_warning/no-unused.flex",
+    sysout = "javatests/de/jflex/testcase/unused_warning/expected_nounused_sysout.txt",
     warnUnused = false)
 public class NoUnusedTest {
 
