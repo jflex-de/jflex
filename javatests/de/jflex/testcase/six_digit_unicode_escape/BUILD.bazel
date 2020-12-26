@@ -1,0 +1,74 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+jflex_testsuite(
+    name = "SixdigitunicodeescapeFailureTest",
+    srcs = [
+        "SixdigitunicodeescapeFailureTest.java",
+    ],
+    data = [
+        "SixDigitUnicodeEscape-f.flex",
+        "failure.out",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+    ],
+)
+
+jflex_testsuite(
+    name = "SixdigitunicodeescapeFailure2Test",
+    srcs = [
+        "SixdigitunicodeescapeFailure2Test.java",
+    ],
+    data = [
+        "SixDigitUnicodeEscape-f-2.flex",
+        "failure2.out",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+    ],
+)
+
+# SixDigitUnicodeEscape
+
+jflex(
+    name = "gen_SixDigitUnicodeEscape_scanner",
+    srcs = [
+        "SixDigitUnicodeEscape.flex",
+    ],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["SixDigitUnicodeEscape.java"],
+)
+
+java_library(
+    name = "SixDigitUnicodeEscape_scanner",
+    srcs = [
+        ":gen_SixDigitUnicodeEscape_scanner",
+    ],
+    deps = [
+        "//java/de/jflex/testcase/resources",
+        "//java/de/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "SixdigitunicodeescapeTest",
+    srcs = [
+        "SixdigitunicodeescapeTest.java",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
+    deps = [
+        ":SixDigitUnicodeEscape_scanner",
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/testing/testsuite/golden",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

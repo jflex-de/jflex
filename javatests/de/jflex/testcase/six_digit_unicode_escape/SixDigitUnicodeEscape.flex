@@ -1,18 +1,26 @@
+package de.jflex.testcase.six_digit_unicode_escape;
+
+import de.jflex.testcase.resources.AbstractUnicodeAllEnumeratedProperty;
 %%
 
 %unicode
 %public
 %class SixDigitUnicodeEscape
+%extends AbstractUnicodeAllEnumeratedProperty
 
 %type int
 %standalone
 %buffer 300 
 
-%include ../../resources/common-unicode-all-enumerated-property-java
+%{
+  private void setCurCharPropertyValue(String propertyValue) {
+    setCurCharPropertyValue(propertyValue, yylength(), yytext());
+  }
+%}
 
 %%
 
-<<EOF>> { printOutput(); return 1; }
+<<EOF>> { eof(); return 1; }
 \U000001 { setCurCharPropertyValue("matched"); }
 [\U000003] { setCurCharPropertyValue("matched"); }
 "\U000004" { setCurCharPropertyValue("matched"); }
