@@ -1,9 +1,0 @@
-
-%%
-
-BadRange = [b-a]
-
-%%
-
-{BadRange}	 		{ }
-[^] { }
