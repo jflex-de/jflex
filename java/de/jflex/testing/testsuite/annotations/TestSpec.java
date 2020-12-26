@@ -50,8 +50,8 @@ public @interface TestSpec {
   boolean jlexCompat() default false;
 
   /**
-   * Runs JFlex generation with the {@code --warn-unused} option. This is the default behaviour;
-   * set to false to run with {@code --no-warn-unused}.
+   * Runs JFlex generation with the {@code --warn-unused} option. This is the default behaviour; set
+   * to false to run with {@code --no-warn-unused}.
    */
   boolean warnUnused() default true;
 
