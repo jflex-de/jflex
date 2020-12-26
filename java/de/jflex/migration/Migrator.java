@@ -73,6 +73,9 @@ public class Migrator {
   private static final String GOLDEN_OUTPUT_EXT = ".output";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  public static final String TESTING_PACKAGE = "de.jflex.testcase.";
+  private static final String TESTING_PACKAGE_DIR =
+      TESTING_PACKAGE.replace('.', File.separatorChar);
 
   public static void main(String[] args) {
     LoggerConfig.of(logger).setLevel(Level.FINEST);
@@ -279,8 +282,8 @@ public class Migrator {
       ImmutableList<GoldenInOutFilePair> goldenFiles) {
     MigrationTemplateVars vars = new MigrationTemplateVars();
     vars.flexGrammar = flexGrammar;
-    vars.javaPackage = "jflex.testcase." + lowerUnderscoreTestDir;
-    vars.javaPackageDir = "jflex/testcase/" + lowerUnderscoreTestDir;
+    vars.javaPackage = TESTING_PACKAGE + lowerUnderscoreTestDir;
+    vars.javaPackageDir = TESTING_PACKAGE_DIR + lowerUnderscoreTestDir;
     vars.testClassName =
         CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, test.getTestName()) + "GoldenTest";
     vars.testName = test.getTestName();
