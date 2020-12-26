@@ -50,6 +50,12 @@ public @interface TestSpec {
   boolean jlexCompat() default false;
 
   /**
+   * Runs JFlex generation with the {@code --warn-unused} option. This is the default behaviour;
+   * set to false to run with {@code --no-warn-unused}.
+   */
+  boolean warnUnused() default true;
+
+  /**
    * The expected number of states in the minimized DFA. Negative values do not create an assertion.
    */
   int minimizedDfaStatesCount() default 0;
