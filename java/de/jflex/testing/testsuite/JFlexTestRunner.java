@@ -204,6 +204,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
     Options.verbose = !spec.quiet();
+    Options.unused_warning = spec.warnUnused();
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
     if (spec.minimizedDfaStatesCount() > 0) {
