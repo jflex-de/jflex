@@ -139,7 +139,7 @@ public class Migrator {
 
   /** Creates a new BUILD file in the given directory. If there is one, it is replaced. */
   private static File initBuildFile(File outputDir) throws MigrationException {
-    File outFile = new File(outputDir, "BUILD");
+    File outFile = new File(outputDir, "BUILD.bazel");
     outFile.delete();
     try {
       Files.copy(new File(BUILD_HEADER), outFile);
