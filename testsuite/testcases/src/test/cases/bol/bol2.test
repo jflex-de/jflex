@@ -1,7 +1,0 @@
-name: bol2
-
-description:
-make sure that BOL operator works even if spec leads to no char class for
-newline characters.
-
-jflex: --nobak --dump

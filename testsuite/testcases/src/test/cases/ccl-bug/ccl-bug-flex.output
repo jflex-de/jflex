@@ -1,6 +1,0 @@
-Reading "src/test/cases/ccl-bug/ccl-bug.flex"
-Constructing NFA : 113 states in NFA
-Converting NFA to DFA : 
-..............................................................
-64 states before minimization, 14 states in minimized DFA
-Writing code to "src/test/cases/ccl-bug/Yylex.java"

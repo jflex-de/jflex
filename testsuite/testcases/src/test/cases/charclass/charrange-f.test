@@ -1,9 +1,0 @@
-name: charrange-f
-
-description:
-Bug #104: impossible range in a char class throws exception
-at runtime when generation should never succeed:
-https://sourceforge.net/p/jflex/bugs/104/
-
-jflex: -q
-jflex-fail: true
