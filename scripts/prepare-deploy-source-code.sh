@@ -26,31 +26,30 @@ update_source() {
   gittitle="$1"
   gitlog="$2"
   logi "Updating source for $gittitle"
-  version=$(ls target/jflex-*-sources.jar)
+  bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
 
-  logi "Copying compile script"
-  cp scripts/compile-aggregated-java-sources.sh repo/compile.sh
-
-  logi "Updating sources from $version"
+  logi "Updating sources from jflex_bin_deploy-src.jar"
   cd repo
-  git config user.name "Travis CI"
-  git config user.email "deploy@travis-ci.org"
-  git rm -r java
-  mkdir -p java
+  git config user.name "Cirrus CI"
+  git config user.email "nobody@cirrus-ci.org"
+  git rm -r java jflex LICENSE_* *.sh
+  mkdir java
   cd java
-  jar -xf ../../target/jflex-*-sources.jar
-  logi "Remove unrelated sources"
-  rm -rf jflex/maven
-  rm -rf jflex/benchmark
-  rm $(find . -name 'BUILD.bazel')
+  jar -xf ../../bazel-bin/jflex/jflex_bin_deploy-src.jar
+  # for some reason, it doesn't include the resources
+  jar -xf ../../bazel-bin/jflex/libresources.jar
+  # cd repo
+  cd ..
 
   logi "Checking licenses"
+  mv java/LICENSE_JFLEX .
   if [[ ! $(head -1 LICENSE_JFLEX | cut -f 1 -d " ") == "JFlex" ]]; then
       loge "JFlex license has bad content"
       head LICENSE_JFLEX
   fi
-  mv LICENSE_JFLEX ..
-  cd ..
+
+  logi "Copying compile script"
+  cp ../scripts/compile-aggregated-java-sources.sh compile.sh
 
   logi "Download deps and Compile"
   ./compile.sh
