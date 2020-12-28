@@ -31,6 +31,7 @@ public class Unicode_2_1 {
   private Unicode_2_1() {}
 
   public static final int maximumCodePoint = 0xffff;
+
   public static final String[] propertyValues = {
     "age=1.1",
     "age=2.0",
@@ -182,6 +183,7 @@ public class Unicode_2_1 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 2.1 property value: {age=1.1}
     "\000\u01f5"
@@ -6528,9 +6530,11 @@ public class Unicode_2_1 {
     // Unicode 2.1 property value: {zs}
     "\u0020\u0020" + "\u00a0\u00a0" + "\u2000\u200b" + "\u3000\u3000"
   };
+
   public static final String[] propertyValueAliases = {};
 
   public static final int caselessMatchPartitionSize = 4;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

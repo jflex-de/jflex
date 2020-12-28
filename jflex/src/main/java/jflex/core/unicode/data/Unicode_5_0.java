@@ -31,6 +31,7 @@ public class Unicode_5_0 {
   private Unicode_5_0() {}
 
   public static final int maximumCodePoint = 0x10ffff;
+
   public static final String[] propertyValues = {
     "age=1.1",
     "age=2.0",
@@ -405,6 +406,7 @@ public class Unicode_5_0 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 5.0 property value: {age=1.1}
     "\000\u01f5"
@@ -20589,6 +20591,7 @@ public class Unicode_5_0 {
         + "\u205f\u205f"
         + "\u3000\u3000"
   };
+
   public static final String[] propertyValueAliases = {
     "ahex", "asciihexdigit",
     "alpha", "alphabetic",
@@ -21482,7 +21485,9 @@ public class Unicode_5_0 {
     "zyyy", "common",
     "zzzz", "unknown"
   };
+
   public static final int caselessMatchPartitionSize = 4;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

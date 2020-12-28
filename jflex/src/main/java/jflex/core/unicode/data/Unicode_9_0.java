@@ -31,6 +31,7 @@ public class Unicode_9_0 {
   private Unicode_9_0() {}
 
   public static final int maximumCodePoint = 0x10ffff;
+
   public static final String[] propertyValues = {
     "adlam",
     "age=unassigned",
@@ -787,6 +788,7 @@ public class Unicode_9_0 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 9.0 property value: {adlam}
     "\ud83a\udd00\ud83a\udd4a" + "\ud83a\udd50\ud83a\udd59" + "\ud83a\udd5e\ud83a\udd5f",
@@ -39304,6 +39306,7 @@ public class Unicode_9_0 {
         + "\u205f\u205f"
         + "\u3000\u3000"
   };
+
   public static final String[] propertyValueAliases = {
     "adlm", "adlam",
     "age=1.1", "age=v11",
@@ -41413,7 +41416,9 @@ public class Unicode_9_0 {
     "zyyy", "common",
     "zzzz", "unknown"
   };
+
   public static final int caselessMatchPartitionSize = 4;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"

@@ -31,6 +31,7 @@ public class Unicode_1_1 {
   private Unicode_1_1() {}
 
   public static final int maximumCodePoint = 0xffff;
+
   public static final String[] propertyValues = {
     "alnum",
     "assigned",
@@ -59,6 +60,7 @@ public class Unicode_1_1 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 1.1 property value: {alnum}
     "\u0030\u0039"
@@ -2651,9 +2653,11 @@ public class Unicode_1_1 {
     // Unicode 1.1 property value: {zs}
     "\u0020\u0020" + "\u00a0\u00a0" + "\u2000\u200b" + "\u3000\u3000" + "\ufeff\ufeff"
   };
+
   public static final String[] propertyValueAliases = {};
 
   public static final int caselessMatchPartitionSize = 3;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000"
           + "\u0042\u0062\000"

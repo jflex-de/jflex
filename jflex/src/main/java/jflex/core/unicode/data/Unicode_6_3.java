@@ -31,6 +31,7 @@ public class Unicode_6_3 {
   private Unicode_6_3() {}
 
   public static final int maximumCodePoint = 0x10ffff;
+
   public static final String[] propertyValues = {
     "age=unassigned",
     "age=v11",
@@ -642,6 +643,7 @@ public class Unicode_6_3 {
     "zp",
     "zs"
   };
+
   public static final String[] intervals = {
     // Unicode 6.3 property value: {age=unassigned}
     "\u0378\u0379"
@@ -33238,6 +33240,7 @@ public class Unicode_6_3 {
         + "\u205f\u205f"
         + "\u3000\u3000"
   };
+
   public static final String[] propertyValueAliases = {
     "age=1.1", "age=v11",
     "age=2.0", "age=v20",
@@ -34964,7 +34967,9 @@ public class Unicode_6_3 {
     "zyyy", "common",
     "zzzz", "unknown"
   };
+
   public static final int caselessMatchPartitionSize = 4;
+
   public static final String caselessMatchPartitions =
       "\u0041\u0061\000\000"
           + "\u0042\u0062\000\000"
