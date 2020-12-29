@@ -8,10 +8,11 @@ RULES_JVM_EXTERNAL_TAG = "2.10"
 
 RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b3664283c9c716d26"
 
-git_repository(
+http_archive(
     name = "jflex_rules",
-    commit = "b9a053fa6e461bdd131f0918966afba4f94993c7",  # v9
-    remote = "https://github.com/jflex-de/bazel_rules.git",
+    sha256 = "a4a9d59f39d4055c2deddd8058cf28baee916116a743d200c4bba58a13b9e184",
+    strip_prefix = "bazel_rules-1.8.2",
+    url = "https://github.com/jflex-de/bazel_rules/archive/v1.8.2.tar.gz",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "JFLEX_ARTIFACTS")
