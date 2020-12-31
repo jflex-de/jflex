@@ -1,0 +1,19 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+java_test(
+    name = "SyntaxErrorTest",
+    srcs = [
+        "SyntaxErrorTest.java",
+    ],
+    data = [
+        "null.flex",
+        "null-flex.output",
+    ],
+    deps = [
+        "//java/de/jflex/testing/testsuite",
+        "//jflex/src/main/java/jflex/exceptions",
+    ],
+)
