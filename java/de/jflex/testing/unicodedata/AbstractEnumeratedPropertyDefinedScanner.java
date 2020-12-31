@@ -1,14 +1,19 @@
-%{
+package de.jflex.testing.unicodedata;
+
+import com.google.common.collect.ImmutableList;
+
+public abstract class AbstractEnumeratedPropertyDefinedScanner {
   private static final int maxCodePoint = 0xFFFD;
   private final String[] propertyValues = new String[maxCodePoint + 1];
   
-  private void printOutput() {
+  public ImmutableList<String> blocks() {
+    ImmutableList.Builder<String> blocks = ImmutableList.builder();
     String prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
     for (int codePoint = 1 ; codePoint <= maxCodePoint ; ++codePoint ) {
       if (codePoint == 0xD800) { // Skip the surrogate blocks
         if (null != prevPropertyValue) {
-          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
+          blocks.add(block(begCodePoint, codePoint - 1, prevPropertyValue));
         }
         begCodePoint = codePoint = 0xE000;
         prevPropertyValue = propertyValues[codePoint];
@@ -17,22 +22,23 @@
       String propertyValue = propertyValues[codePoint];
       if (null == propertyValue || ! propertyValue.equals(prevPropertyValue)) {
         if (null != prevPropertyValue) {
-          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
+          blocks.add(block(begCodePoint, codePoint - 1, prevPropertyValue));
         }
         prevPropertyValue = propertyValue;
         begCodePoint = codePoint;
       }
     }
     if (null != prevPropertyValue) {
-      printBlock(begCodePoint, maxCodePoint, prevPropertyValue);
+      blocks.add(block(begCodePoint, maxCodePoint, prevPropertyValue));
     }
-  }
-  
-  private void printBlock(int begCodePoint, int endCodePoint, String propertyValue) {
-    System.out.format("%04X..%04X; %s%n", begCodePoint, endCodePoint, propertyValue);    
+    return blocks.build();
   }
 
-  private void setCurCharPropertyValue(String propertyValue) {
-    propertyValues[ (int)yytext().charAt(0) ] = propertyValue;
+  protected String block(int begCodePoint, int endCodePoint, String propertyValue) {
+    return String.format("%04X..%04X; %s", begCodePoint, endCodePoint, propertyValue);
   }
-%} 
+
+  protected void setCurCharPropertyValue(String index, String propertyValue) {
+    propertyValues[ (int)index.charAt(0) ] = propertyValue;
+  }
+}

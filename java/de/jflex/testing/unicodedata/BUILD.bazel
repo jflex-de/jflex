@@ -1,0 +1,9 @@
+java_library(
+    name = "unicodedata",
+    testonly = True,
+    srcs = glob(["*.java"]),
+    visibility = ["//javatests:__subpackages__"],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)

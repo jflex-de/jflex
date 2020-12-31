@@ -1,6 +1,7 @@
-// test: SixDigitUnicodeEscape-f
 /*
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2014-2020 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -24,25 +25,46 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.six_digit_unicode_escape;
+package jflex.core.unicode;
 
-import de.jflex.testing.testsuite.JFlexTestRunner;
-import de.jflex.testing.testsuite.annotations.TestSpec;
-import jflex.exceptions.GeneratorException;
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.truth.Truth.assertThat;
+
+import com.google.common.collect.ImmutableList;
+import de.jflex.util.scanner.ScannerFactory;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-/**
- * Check that generation fails when a codepoint specified in {@code \UHHHHHH} format is greater than
- * the maximum codepoint for the Unicode version
- */
-@RunWith(JFlexTestRunner.class)
-@TestSpec(
-    lex = "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f.flex",
-    generatorThrows = GeneratorException.class,
-    sysout = "javatests/de/jflex/testcase/six_digit_unicode_escape/failure.out")
-public class SixdigitunicodeescapeFailureTest {
+public class UnicodeAgeTest_2_0 {
+
+  UnicodeProperties properties;
+
+  @Before
+  public void init() throws Exception {
+    properties = new UnicodeProperties("2.0");
+  }
 
   @Test
-  public void ok() {}
+  public void age() {
+    assertThat(properties.getPropertyValues()).contains("age=1.1");
+  }
+
+  @Test
+  public void ageIntervals() throws Exception {
+    ScannerFactory<UnicodeAge_2_0_age_1_1> scannerFactory =
+        ScannerFactory.of(UnicodeAge_2_0_age_1_1::new);
+    UnicodeAge_2_0_age_1_1 scanner =
+        scannerFactory.createScannerForFile(
+            new File("java/de/jflex/testcase/resources/All.Unicode.BMP.characters.input"));
+    while (scanner.yylex() != UnicodeAge_2_0_age_1_1.YYEOF) {}
+    try (Stream<String> expectedOutput =
+        Files.lines(Paths.get("javatests/jflex/core/unicode/UnicodeAge_2_0_age_1_1.output"))) {
+      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
+      assertThat(scanner.blocks()).containsAllIn(expected);
+    }
+  }
 }

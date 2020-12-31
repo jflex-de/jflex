@@ -11,6 +11,6 @@ java_library(
         "@maven//:com_google_truth_truth",
         # TODO(regisd) This should be a runtime_deps
         # But in that case Optional is not found
-        "//third_party/com/google/guava",
+        #        "//third_party/com/google/guava",
     ],
 )

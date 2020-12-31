@@ -1,0 +1,25 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+java_test(
+    name = "UnicodeAgeTest_2_0",
+    srcs = [
+        "UnicodeAgeTest_2_0.java",
+        ":UnicodeAge_2_0_age_1_1",
+    ],
+    data = [
+        "UnicodeAge_2_0_age_1_1.output",
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "UnicodeAge_2_0_age_1_1",
+    srcs = ["UnicodeAge_2_0_age_1_1.flex"],
+    outputs = ["UnicodeAge_2_0_age_1_1.java"],
+)
