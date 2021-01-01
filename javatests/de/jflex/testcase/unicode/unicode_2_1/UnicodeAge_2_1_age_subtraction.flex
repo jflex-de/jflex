@@ -37,7 +37,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %extends AbstractEnumeratedPropertyDefinedScanner
 
 %type int
-%standalone
+
 
 %init{
   super(65533);
