@@ -4,8 +4,13 @@ import com.google.common.collect.ImmutableList;
 import java.io.IOException;
 
 public abstract class AbstractEnumeratedPropertyDefinedScanner {
-  private static final int maxCodePoint = 0xFFFD;
-  private final String[] propertyValues = new String[maxCodePoint + 1];
+  private final int maxCodePoint;
+  private final String[] propertyValues;
+
+  protected AbstractEnumeratedPropertyDefinedScanner(int maxCodePoint) {
+    this.maxCodePoint = maxCodePoint;
+    propertyValues = new String[maxCodePoint + 1];
+  }
 
   public ImmutableList<String> blocks() {
     ImmutableList.Builder<String> blocks = ImmutableList.builder();

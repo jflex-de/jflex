@@ -45,6 +45,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
       ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final Version VERSION_3_1 = new Version(3,1);
 
   private final Output output;
 
@@ -77,6 +78,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
             "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
     vars.unicodeVersion = output.version();
     vars.age = age.toString();
+    vars.maxCodePoint = getMaxCodePoint();
     return vars;
   }
 
@@ -94,6 +96,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
         String.format("UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
     vars.unicodeVersion = output.version();
     vars.age = "Unassigned";
+    vars.maxCodePoint = getMaxCodePoint();
     return vars;
   }
 
@@ -118,6 +121,12 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     Stream<Pair<Version>> agePairs =
         Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
     vars.ages = agePairs.collect(ImmutableList.toImmutableList());
+    vars.maxCodePoint = getMaxCodePoint();
     return vars;
+  }
+
+  private int getMaxCodePoint() {
+    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(output.version(), VERSION_3_1) < 0;
+    return oldVersion ? 0xFFFD : 0x10FFFF;
   }
 }

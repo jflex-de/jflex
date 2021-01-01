@@ -36,4 +36,5 @@ public class UnicodeAgeTemplateVars extends TemplateVars {
 
   public Version unicodeVersion;
   public String age;
+  public int maxCodePoint;
 }

@@ -35,4 +35,5 @@ public class UnicodeAgeSubtractionTemplateVars extends TemplateVars {
   public String className;
   public Version unicodeVersion;
   public ImmutableList<Pair<Version>> ages;
+  public int maxCodePoint;
 }

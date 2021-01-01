@@ -39,6 +39,10 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %type int
 %standalone
 
+%init{
+  super(1114111);
+%init}
+
 %%
 
 <<EOF>>                    { return YYEOF; }

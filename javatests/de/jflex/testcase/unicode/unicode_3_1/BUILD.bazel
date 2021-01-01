@@ -13,27 +13,27 @@ java_test(
     name = "UnicodeAgeTest_3_1",
     srcs = [
         "UnicodeAgeTest_3_1.java",
-        ":UnicodeAge_3_1_age_1_1",
-        ":UnicodeAge_3_1_age_2_0",
-        ":UnicodeAge_3_1_age_2_1",
-        ":UnicodeAge_3_1_age_3_0",
-        ":UnicodeAge_3_1_age_3_1",
-        ":UnicodeAge_3_1_age_subtraction",
+                ":UnicodeAge_3_1_age_1_1",
+                ":UnicodeAge_3_1_age_2_0",
+                ":UnicodeAge_3_1_age_2_1",
+                ":UnicodeAge_3_1_age_3_0",
+                ":UnicodeAge_3_1_age_3_1",
+                ":UnicodeAge_3_1_age_subtraction",
         ":UnicodeAge_3_1_age_unassigned",
     ],
     data = [
-        "UnicodeAge_3_1_age_1_1.output",
-        "UnicodeAge_3_1_age_2_0.output",
-        "UnicodeAge_3_1_age_2_1.output",
-        "UnicodeAge_3_1_age_3_0.output",
-        "UnicodeAge_3_1_age_3_1.output",
-        "UnicodeAge_3_1_age_subtraction.output",
+                "UnicodeAge_3_1_age_1_1.output",
+                "UnicodeAge_3_1_age_2_0.output",
+                "UnicodeAge_3_1_age_2_1.output",
+                "UnicodeAge_3_1_age_3_0.output",
+                "UnicodeAge_3_1_age_3_1.output",
+                "UnicodeAge_3_1_age_subtraction.output",
         "UnicodeAge_3_1_age_unassigned.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
-        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
@@ -47,28 +47,24 @@ jflex(
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_3_1_age_1_1.java"],
 )
-
 jflex(
     name = "UnicodeAge_3_1_age_2_0",
     srcs = ["UnicodeAge_3_1_age_2_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_3_1_age_2_0.java"],
 )
-
 jflex(
     name = "UnicodeAge_3_1_age_2_1",
     srcs = ["UnicodeAge_3_1_age_2_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_3_1_age_2_1.java"],
 )
-
 jflex(
     name = "UnicodeAge_3_1_age_3_0",
     srcs = ["UnicodeAge_3_1_age_3_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_3_1_age_3_0.java"],
 )
-
 jflex(
     name = "UnicodeAge_3_1_age_3_1",
     srcs = ["UnicodeAge_3_1_age_3_1.flex"],

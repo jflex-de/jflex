@@ -38,6 +38,10 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %type int
 %standalone
 
+%init{
+  super($maxCodePoint);
+%init}
+
 %%
 
 <<EOF>>     { return YYEOF;}
