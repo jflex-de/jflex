@@ -34,15 +34,17 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.annotation.Generated;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
 #set( $uv = $unicodeVersion.toString().replace(".", "_") )
 /** Test for Age property in {@link jflex.core.unicode.data.Unicode_${uv}}. */
+@Generated("de.jflex.migration.unicodedatatest.UnicodeAgeGenerator")
+// Generated from java/de/jflex/migration/unicodedatatest/UnicodeAgeTest_x_y.java.vm
 public class $testClassName {
 
-  private static final String TEST_DIR =
-      getPathForClass(${testClassName}.class);
+  private static final String TEST_DIR = getPathForClass(${testClassName}.class);
 
   @Test
   public void age() throws Exception {
@@ -98,6 +100,6 @@ public class $testClassName {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    Ages.assertAgeInterval(scannerFactory, eof, expectedFile);
+    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.BMP, expectedFile);
   }
 }

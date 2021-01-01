@@ -42,14 +42,17 @@ import java.util.stream.Stream;
 /** Utility class to verify the Age property of UnicodeProperties. */
 public class Ages {
 
+  public static final File TEST_RESOURCES_DIR = new File("java/de/jflex/testcase/resources");
+
   private Ages() {}
 
   private static ImmutableList<String> getBlocks(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory, int eof)
+      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
+      int eof,
+      Dataset dataset)
       throws IOException {
     AbstractEnumeratedPropertyDefinedScanner scanner =
-        scannerFactory.createScannerForFile(
-            new File("java/de/jflex/testcase/resources/All.Unicode.BMP.characters.input"));
+        scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
     while (scanner.yylex() != eof) {}
     return scanner.blocks();
   }
@@ -57,13 +60,26 @@ public class Ages {
   public static void assertAgeInterval(
       ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
       int eof,
+      Dataset dataset,
       Path expectedFile)
       throws IOException {
-    ImmutableList<String> blocks = getBlocks(scannerFactory, eof);
-    try (Stream<String> expectedOutput =
-        Files.lines(expectedFile)) {
+    ImmutableList<String> blocks = getBlocks(scannerFactory, eof, dataset);
+    try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);
+    }
+  }
+
+  // TODO(regisd) The files can most ikely be replaced by in-memory providers.
+  public enum Dataset {
+    BMP("All.Unicode.BMP.characters.input"),
+    ALL("All.Unicode.characters.input"),
+    ;
+
+    final String dataFile;
+
+    Dataset(String filename) {
+      this.dataFile = filename;
     }
   }
 }

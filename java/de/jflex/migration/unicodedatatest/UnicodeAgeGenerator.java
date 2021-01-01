@@ -41,7 +41,8 @@ import org.apache.velocity.runtime.parser.ParseException;
 public class UnicodeAgeGenerator extends AbstractGenerator {
 
   private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAge.flex.vm";
-  private static final String FLEX_SUBSTRACTION_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
+  private static final String FLEX_SUBSTRACTION_FILE_TEMPLATE =
+      ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
@@ -90,8 +91,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     UnicodeAgeTemplateVars vars = new UnicodeAgeTemplateVars();
     vars.javaPackage = output.javaPackage();
     vars.className =
-        String.format(
-            "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
+        String.format("UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
     vars.unicodeVersion = output.version();
     vars.age = "Unassigned";
     return vars;
@@ -102,7 +102,10 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     Path outFile = outDir.resolve(vars.className + ".flex");
     logger.atInfo().log("Generating %s", outFile);
     Velocity.render(
-        readResource(FLEX_SUBSTRACTION_FILE_TEMPLATE), "AgeSubtractionFlexFile", vars, outFile.toFile());
+        readResource(FLEX_SUBSTRACTION_FILE_TEMPLATE),
+        "AgeSubtractionFlexFile",
+        vars,
+        outFile.toFile());
   }
 
   private UnicodeAgeSubtractionTemplateVars createFlexSubstractionTemplateVars() {
@@ -112,7 +115,8 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
         String.format("UnicodeAge_%s_age_subtraction", output.version().underscoreVersion());
     vars.unicodeVersion = output.version();
     ImmutableList<Version> ages = olderAges(output.version());
-    Stream<Pair<Version>> agePairs = Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
+    Stream<Pair<Version>> agePairs =
+        Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
     vars.ages = agePairs.collect(ImmutableList.toImmutableList());
     return vars;
   }

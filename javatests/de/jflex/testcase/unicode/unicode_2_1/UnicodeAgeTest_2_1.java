@@ -34,27 +34,26 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.annotation.Generated;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
 /** Test for Age property in {@link jflex.core.unicode.data.Unicode_2_1}. */
+@Generated("de.jflex.migration.unicodedatatest.UnicodeAgeGenerator")
+// Generated from java/de/jflex/migration/unicodedatatest/UnicodeAgeTest_x_y.java.vm
 public class UnicodeAgeTest_2_1 {
 
-  private static final String TEST_DIR =
-      getPathForClass(UnicodeAgeTest_2_1.class);
+  private static final String TEST_DIR = getPathForClass(UnicodeAgeTest_2_1.class);
 
   @Test
   public void age() throws Exception {
     UnicodeProperties properties = new UnicodeProperties("2.1");
-      assertThat(properties.getPropertyValues()).contains("age=1.1");
-      assertThat(properties.getPropertyValues()).contains("age=2.0");
-      assertThat(properties.getPropertyValues()).contains("age=2.1");
-    }
+    assertThat(properties.getPropertyValues()).contains("age=1.1");
+    assertThat(properties.getPropertyValues()).contains("age=2.0");
+    assertThat(properties.getPropertyValues()).contains("age=2.1");
+  }
 
-  /**
-   * Tests character class syntax of the Unicode 2.1
-   * Age=1.1 property.
-   */
+  /** Tests character class syntax of the Unicode 2.1 Age=1.1 property. */
   @Test
   public void ageIntervals_1_1() throws Exception {
     assertAgeInterval(
@@ -62,10 +61,7 @@ public class UnicodeAgeTest_2_1 {
         UnicodeAge_2_1_age_1_1.YYEOF,
         "UnicodeAge_2_1_age_1_1.output");
   }
-  /**
-   * Tests character class syntax of the Unicode 2.1
-   * Age=2.0 property.
-   */
+  /** Tests character class syntax of the Unicode 2.1 Age=2.0 property. */
   @Test
   public void ageIntervals_2_0() throws Exception {
     assertAgeInterval(
@@ -73,10 +69,7 @@ public class UnicodeAgeTest_2_1 {
         UnicodeAge_2_1_age_2_0.YYEOF,
         "UnicodeAge_2_1_age_2_0.output");
   }
-  /**
-   * Tests character class syntax of the Unicode 2.1
-   * Age=2.1 property.
-   */
+  /** Tests character class syntax of the Unicode 2.1 Age=2.1 property. */
   @Test
   public void ageIntervals_2_1() throws Exception {
     assertAgeInterval(
@@ -86,9 +79,8 @@ public class UnicodeAgeTest_2_1 {
   }
 
   /**
-   * Tests subtracting Age Unicode property values in character sets
-   * for Unicode 2.1,
-   * e.g. {@code [\p{Age:2.0}--\p{Age:1.1}]}.
+   * Tests subtracting Age Unicode property values in character sets for Unicode 2.1, e.g. {@code
+   * [\p{Age:2.0}--\p{Age:1.1}]}.
    */
   @Test
   public void ageIntervals_subtraction() throws Exception {
@@ -98,10 +90,7 @@ public class UnicodeAgeTest_2_1 {
         "UnicodeAge_2_1_age_subtraction.output");
   }
 
-  /**
-   * Tests character class syntax of the Unicode 2.1
-   * Age=Unassigned property.
-   */
+  /** Tests character class syntax of the Unicode 2.1 Age=Unassigned property. */
   @Test
   public void ageIntervals_unassigned() throws Exception {
     assertAgeInterval(
@@ -116,6 +105,6 @@ public class UnicodeAgeTest_2_1 {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    Ages.assertAgeInterval(scannerFactory, eof, expectedFile);
+    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.BMP, expectedFile);
   }
 }
