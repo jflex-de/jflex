@@ -27,6 +27,7 @@
  */
 package de.jflex.migration.unicodedatatest;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
@@ -86,14 +87,21 @@ public class TestGenerator {
   private TestGenerator() {}
 
   public static void main(String[] args) throws Exception {
+    checkArgument(args.length >= 2, "Syntax error, expected: VERSION WORKSPACE_DIR");
     Version version = new Version(args[0]);
-    generate(version);
+    Path workspaceDir = Paths.get(args[1]);
+    generate(version, workspaceDir);
   }
 
-  public static void generate(Version version) throws IOException {
+  public static void generate(Version version, Path workspaceDir) throws IOException {
     UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(version);
-    Path outDir = Paths.get("javatests", templateVars.javaPackageDir.toString());
+    Path outDir = workspaceDir.resolve("javatests").resolve(templateVars.javaPackageDir.toString());
     Files.createDirectories(outDir);
+    generateJavaTest(templateVars, outDir);
+  }
+
+  private static void generateJavaTest(UnicodeAgeTestTemplateVars templateVars, Path outDir)
+      throws IOException {
     Path outFile = outDir.resolve(templateVars.testClassName + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
       logger.atInfo().log("Generating %s", outFile);
