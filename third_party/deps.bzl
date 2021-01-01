@@ -17,6 +17,7 @@ ARTIFACTS = [
     "com.google.truth:truth:0.36",
     "com.pholser:junit-quickcheck-core:0.9",
     "com.pholser:junit-quickcheck-generators:0.9",
+    "javax.annotation:javax.annotation-api:1.3.2",
     "junit:junit:jar:4.12",
     "com.github.vbmacher:java-cup:jar:11b-20160615",
     "com.github.vbmacher:java-cup-runtime:jar:11b-20160615",
