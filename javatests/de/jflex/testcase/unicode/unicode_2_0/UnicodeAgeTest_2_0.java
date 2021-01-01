@@ -1,7 +1,7 @@
 /*
- * Copyright (C) 2014-2020 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2020 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,7 +25,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jflex.core.unicode;
+package de.jflex.testcase.unicode.unicode_2_0;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
+import jflex.core.unicode.UnicodeProperties;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -105,7 +106,7 @@ public class UnicodeAgeTest_2_0 {
       throws IOException {
     ImmutableList<String> blocks = getBlocks(scannerFactory);
     try (Stream<String> expectedOutput =
-        Files.lines(Paths.get("javatests/jflex/core/unicode", expectedFile))) {
+        Files.lines(Paths.get("javatests/de/jflex/testcase/unicode/unicode_2_0", expectedFile))) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);
     }

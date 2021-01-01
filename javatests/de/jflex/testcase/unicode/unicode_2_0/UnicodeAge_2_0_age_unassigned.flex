@@ -1,4 +1,4 @@
-package jflex.core.unicode;
+package de.jflex.testcase.unicode.unicode_2_0;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
