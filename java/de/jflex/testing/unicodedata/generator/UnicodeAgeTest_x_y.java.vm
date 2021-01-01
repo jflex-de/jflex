@@ -37,7 +37,7 @@ import org.junit.Test;
 public class $testClassName {
 
   @Test
-  public void age() {
+  public void age() throws Exception {
     UnicodeProperties properties = new UnicodeProperties("$unicodeVersion");
   #foreach ( $a in $ages )
     assertThat(properties.getPropertyValues()).contains("age=$a");
