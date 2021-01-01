@@ -24,14 +24,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_2_0;
+package $javaPackage;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
 
-%unicode 2.0
+%unicode $unicodeVersion
 %public
-%class UnicodeAge_2_0_age_1_1
+%class $className
 %extends AbstractEnumeratedPropertyDefinedScanner
 
 %type int
@@ -40,5 +40,5 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
 
 <<EOF>>     { return YYEOF;}
-\p{Age:1.1} { setCurCharPropertyValue(yytext(), "Age:1.1"); }
+\p{Age:$age} { setCurCharPropertyValue(yytext(), "Age:$age"); }
 [^] { }

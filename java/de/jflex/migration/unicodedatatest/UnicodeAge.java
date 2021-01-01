@@ -23,42 +23,54 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest;
 
 import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.velocity.Velocity;
+import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Path;
 import org.apache.velocity.runtime.parser.ParseException;
 
-public class BuildFileGenerator extends AbstractGenerator {
+/** Generates the flex of the scanners for a all ages of a given Unicode version. */
+public class UnicodeAge extends AbstractGenerator {
 
-  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
+  private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAge.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final Output out;
+  private final Output output;
 
-  public BuildFileGenerator(Output out) {
-    this.out = out;
+  public UnicodeAge(Output output) {
+    this.output = output;
   }
 
   @Override
   void generate(Path outDir) throws IOException, ParseException {
-    BuildFileTemplateVars vars = createBuildTemplateVars(out);
-    Path outFile = outDir.resolve("BUILD.bazel");
-    logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
+    ImmutableList<Version> ages = olderAges(output.version());
+    for (Version age : ages) {
+      generateAge(age, outDir);
+    }
   }
 
-  private static BuildFileTemplateVars createBuildTemplateVars(Output out) {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
-    vars.underscoreVersion = out.underscoreVersion();
-    vars.ages = olderAges(out.version());
+  private void generateAge(Version age, Path outDir) throws IOException, ParseException {
+    UnicodeAgeTemplateVars vars = createFlexTemplateVars(age);
+    Path outFile = outDir.resolve(vars.className + ".flex");
+    logger.atInfo().log("Generating %s", outFile);
+    Velocity.render(readResource(FLEX_FILE_TEMPLATE), "FlexFile", vars, outFile.toFile());
+  }
+
+  private UnicodeAgeTemplateVars createFlexTemplateVars(Version age) {
+    UnicodeAgeTemplateVars vars = new UnicodeAgeTemplateVars();
+    vars.javaPackage = output.javaPackage();
+    vars.className =
+        String.format(
+            "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
+    vars.unicodeVersion = output.version();
+    vars.age = age;
     return vars;
   }
 }

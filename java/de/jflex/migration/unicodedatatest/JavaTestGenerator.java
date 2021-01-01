@@ -47,6 +47,7 @@ public class JavaTestGenerator extends AbstractGenerator {
     this.out = out;
   }
 
+  @Override
   void generate(Path outDir) throws IOException, ParseException {
     UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
     Path outFile = outDir.resolve(templateVars.testClassName + ".java");

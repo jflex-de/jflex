@@ -30,6 +30,9 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import com.google.common.collect.ImmutableList;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
+import java.io.IOException;
+import java.nio.file.Path;
+import org.apache.velocity.runtime.parser.ParseException;
 
 abstract class AbstractGenerator {
   protected static final String ROOT_DIR =
@@ -65,4 +68,6 @@ abstract class AbstractGenerator {
         .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
         .collect(toImmutableList());
   }
+
+  abstract void generate(Path outDir) throws IOException, ParseException;
 }

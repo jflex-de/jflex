@@ -35,6 +35,7 @@ import java.nio.file.Paths;
 
 @AutoValue
 public abstract class Output {
+  /** Unicode version. */
   abstract Version version();
 
   abstract String underscoreVersion();

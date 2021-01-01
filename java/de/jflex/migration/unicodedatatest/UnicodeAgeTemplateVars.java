@@ -32,6 +32,8 @@ public class UnicodeAgeTemplateVars extends TemplateVars {
   /** java package with '.', used by the scanner. */
   public String javaPackage;
 
+  public String className;
+
   public Version unicodeVersion;
   public Version age;
 }

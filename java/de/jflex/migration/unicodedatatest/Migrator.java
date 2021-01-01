@@ -53,5 +53,6 @@ public class Migrator {
     Files.createDirectories(outDir);
     new JavaTestGenerator(out).generate(outDir);
     new BuildFileGenerator(out).generate(outDir);
+    new UnicodeAge(out).generate(outDir);
   }
 }

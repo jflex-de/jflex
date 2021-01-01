@@ -7,11 +7,14 @@ java_binary(
         "JavaResources.java",
         "JavaTestGenerator.java",
         "Migrator.java",
+        "UnicodeAge.java",
+        "UnicodeAgeTemplateVars.java",
         "UnicodeAgeTestTemplateVars.java",
     ],
     main_class = "de.jflex.migration.unicodedatatest.Migrator",
     resources = [
         "BUILD.vm",
+        "UnicodeAge.flex.vm",
         "UnicodeAgeTest_x_y.java.vm",
     ],
     deps = [
