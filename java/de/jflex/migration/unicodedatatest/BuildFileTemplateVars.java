@@ -26,27 +26,12 @@
 
 package de.jflex.migration.unicodedatatest;
 
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
-
-import com.google.auto.value.AutoValue;
+import com.google.common.collect.ImmutableList;
+import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-@AutoValue
-public abstract class Output {
-  abstract Version version();
-
-  abstract String underscoreVersion();
-
-  abstract String javaPackage();
-
-  abstract Path javaPackageDirectory();
-
-  static Output create(Version unicodeVersion) {
-    String underscoreVersion = unicodeVersion.underscoreVersion();
-    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    return new AutoValue_Output(
-        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
-  }
+public class BuildFileTemplateVars extends TemplateVars {
+  public String baseClassName;
+  public String underscoreVersion;
+  public ImmutableList<Version> ages;
 }

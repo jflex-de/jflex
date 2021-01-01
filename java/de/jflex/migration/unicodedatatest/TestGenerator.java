@@ -34,6 +34,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.TemplateVars;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.BufferedWriter;
@@ -56,6 +57,7 @@ public class TestGenerator {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String ROOT_DIR = JavaPackageUtils.getPathForClass(TestGenerator.class);
   private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
+  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
 
   private static final ImmutableList<Version> KNOWN_VERSIONS =
       ImmutableList.of(
@@ -96,6 +98,7 @@ public class TestGenerator {
     Path outDir = workspaceDir.resolve("javatests").resolve(out.javaPackageDirectory());
     Files.createDirectories(outDir);
     generateJavaTest(unicodeVersion, out, outDir);
+    generateBuildFile(unicodeVersion, out, outDir);
   }
 
   private static void generateJavaTest(Version version, Output out, Path outDir)
@@ -108,17 +111,6 @@ public class TestGenerator {
     }
   }
 
-  private static void velocityRenderUnicodeTest(
-      UnicodeAgeTestTemplateVars templateVars, OutputStream output) throws IOException {
-    try (Writer writer =
-        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
-      Velocity.render(readResource(UNICODE_AGE_TEST_TEMPLATE), "UnicodeAge", templateVars, writer);
-    } catch (ParseException e) {
-      throw new RuntimeException(
-          "Failed to parse Velocity template " + UNICODE_AGE_TEST_TEMPLATE, e);
-    }
-  }
-
   private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(Output out) {
     UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
     vars.unicodeVersion = out.version();
@@ -126,11 +118,45 @@ public class TestGenerator {
     vars.javaPackageDir = out.javaPackageDirectory();
     vars.testClassName = "UnicodeAgeTest_" + out.underscoreVersion();
     vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
-    vars.ages =
-        KNOWN_VERSIONS.stream()
-            .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, out.version()) <= 0)
-            .collect(toImmutableList());
+    vars.ages = olderAges(out.version());
     return vars;
+  }
+
+  private static void velocityRenderUnicodeTest(
+      UnicodeAgeTestTemplateVars vars, OutputStream output) throws IOException {
+    velocityRender(vars, output, UNICODE_AGE_TEST_TEMPLATE, "UnicodeAge");
+  }
+
+  private static void generateBuildFile(Version unicodeVersion, Output out, Path outDir)
+      throws IOException {
+    BuildFileTemplateVars vars = createBuildTemplateVars(out);
+    Path outFile = outDir.resolve("BUILD.bazel");
+    try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
+      logger.atInfo().log("Generating %s", outFile);
+      velocityRenderBuildFile(vars, outputStream);
+    }
+  }
+
+  private static BuildFileTemplateVars createBuildTemplateVars(Output out) {
+    BuildFileTemplateVars vars = new BuildFileTemplateVars();
+    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
+    vars.underscoreVersion = out.underscoreVersion();
+    vars.ages = olderAges(out.version());
+    return vars;
+  }
+
+  private static void velocityRenderBuildFile(BuildFileTemplateVars vars, OutputStream output) {
+    velocityRender(vars, output, BUILD_FILE_TEMPLATE, "BuildFile");
+  }
+
+  private static void velocityRender(
+      TemplateVars vars, OutputStream output, String templateFile, String templateName) {
+    try (Writer writer =
+        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
+      Velocity.render(readResource(templateFile), templateName, vars, writer);
+    } catch (ParseException | IOException e) {
+      throw new RuntimeException("Failed to parse Velocity template " + templateFile, e);
+    }
   }
 
   private static InputStreamReader readResource(String resourceName) {
@@ -139,5 +165,11 @@ public class TestGenerator {
             ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
             "Null resource content for " + resourceName);
     return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
+  }
+
+  private static ImmutableList<Version> olderAges(Version version) {
+    return KNOWN_VERSIONS.stream()
+        .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
+        .collect(toImmutableList());
   }
 }

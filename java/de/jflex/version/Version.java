@@ -86,6 +86,8 @@ public class Version {
     return "Unicode_" + makeString('_', false);
   }
 
+  public String underscoreVersion() {return makeString('_', true);}
+
   private String makeString(char sep, boolean includePatch) {
     StringBuilder v = new StringBuilder();
     v.append(major);

@@ -1,0 +1,61 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
+
+java_test(
+    name = "UnicodeAgeTest_${underscoreVersion}",
+    srcs = [
+        "UnicodeAgeTest_${underscoreVersion}.java",
+        #foreach ( $a in $ages )
+        ":${baseClassName}_age_${a.underscoreVersion()}",
+        #end
+        ":${baseClassName}_age_subtraction",
+        ":${baseClassName}_age_unassigned",
+    ],
+    data = [
+        #foreach ( $a in $ages )
+        "${baseClassName}_age_${a.underscoreVersion()}.output",
+        #end
+        "${baseClassName}_age_subtraction.output",
+        "${baseClassName}_age_unassigned.output",
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "${baseClassName}_age_1_1",
+    srcs = ["${baseClassName}_age_1_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["${baseClassName}_age_1_1.java"],
+)
+
+jflex(
+    name = "${baseClassName}_age_2_0",
+    srcs = ["${baseClassName}_age_${underscoreVersion}.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["${baseClassName}_age_${underscoreVersion}.java"],
+)
+
+jflex(
+    name = "${baseClassName}_age_subtraction",
+    srcs = ["${baseClassName}_age_subtraction.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["${baseClassName}_age_subtraction.java"],
+)
+
+jflex(
+    name = "${baseClassName}_age_unassigned",
+    srcs = ["${baseClassName}_age_unassigned.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["${baseClassName}_age_unassigned.java"],
+)

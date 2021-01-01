@@ -147,7 +147,7 @@ public class TestedVersions {
   @Deprecated
   private static UcdVersion.Builder newUcdVersionIndividualFiles(
       Version version, String bazelTarget) {
-    String underscoreVersion = version.toString().replace('.', '_');
+    String underscoreVersion = version.underscoreVersion();
     String suffix = "_" + underscoreVersion + "_txt";
     UcdVersion.Builder ucdVersion =
         UcdVersion.builder(version)
