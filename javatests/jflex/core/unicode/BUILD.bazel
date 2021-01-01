@@ -6,10 +6,12 @@ java_test(
         "UnicodeAgeTest_2_0.java",
         ":UnicodeAge_2_0_age_1_1",
         ":UnicodeAge_2_0_age_2_0",
+        ":UnicodeAge_2_0_age_subtraction",
     ],
     data = [
         "UnicodeAge_2_0_age_1_1.output",
         "UnicodeAge_2_0_age_2_0.output",
+        "UnicodeAge_2_0_age_subtraction.output",
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
@@ -30,4 +32,10 @@ jflex(
     name = "UnicodeAge_2_0_age_2_0",
     srcs = ["UnicodeAge_2_0_age_2_0.flex"],
     outputs = ["UnicodeAge_2_0_age_2_0.java"],
+)
+
+jflex(
+    name = "UnicodeAge_2_0_age_subtraction",
+    srcs = ["UnicodeAge_2_0_age_subtraction.flex"],
+    outputs = ["UnicodeAge_2_0_age_subtraction.java"],
 )

@@ -56,30 +56,50 @@ public class UnicodeAgeTest_2_0 {
     assertThat(properties.getPropertyValues()).contains("age=2.0");
   }
 
+  /** Tests character class syntax of the Unicode 2.0 Age=1.1 property. */
   @Test
   public void ageIntervals_1_1() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(UnicodeAge_2_0_age_1_1::new), "UnicodeAge_2_0_age_1_1.output");
   }
 
+  /** Tests character class syntax of the Unicode 2.0 Age=2.0 property. */
   @Test
   public void ageIntervals_2_0() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(UnicodeAge_2_0_age_2_0::new), "UnicodeAge_2_0_age_2_0.output");
   }
 
-  private static void assertAgeInterval(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      String expectedFile)
+  /**
+   * Tests subtracting Age Unicode property values in character sets for Unicode 2.0, e.g. {@code
+   * [\p{Age:2.0}--\p{Age:1.1}]}.
+   */
+  @Test
+  public void ageIntervals_substraction() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_0_age_subtraction::new),
+        "UnicodeAge_2_0_age_subtraction.output");
+  }
+
+  private static ImmutableList<String> getBlocks(
+      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory)
       throws IOException {
     AbstractEnumeratedPropertyDefinedScanner scanner =
         scannerFactory.createScannerForFile(
             new File("java/de/jflex/testcase/resources/All.Unicode.BMP.characters.input"));
     while (scanner.yylex() != UnicodeAge_2_0_age_1_1.YYEOF) {}
+    return scanner.blocks();
+  }
+
+  private static void assertAgeInterval(
+      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
+      String expectedFile)
+      throws IOException {
+    ImmutableList<String> blocks = getBlocks(scannerFactory);
     try (Stream<String> expectedOutput =
         Files.lines(Paths.get("javatests/jflex/core/unicode", expectedFile))) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(scanner.blocks()).containsAllIn(expected);
+      assertThat(blocks).containsAllIn(expected);
     }
   }
 }
