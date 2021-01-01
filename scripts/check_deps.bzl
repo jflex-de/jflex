@@ -7,13 +7,10 @@ def check_deps(name, prohibited):
     provided prohibited list."""
     query_name = "query_" + name
     targets = _all_targets_but(name)
-    print(targets)
-    query = ("deps(set({targets}), 1)" +
-             " intersect {prohibited}").format(
+    query = ("deps(set({targets}), 1) intersect rdeps(set({targets}), {prohibited}, 1)").format(
         targets = " ".join(targets),
         prohibited = prohibited,
     )
-    print(query)
     native.genquery(
         name = query_name,
         expression = query,
