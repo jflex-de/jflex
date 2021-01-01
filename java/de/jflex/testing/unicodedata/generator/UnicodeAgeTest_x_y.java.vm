@@ -30,55 +30,52 @@ import static de.jflex.testing.unicodedata.Ages.assertAgeInterval;
 
 import de.jflex.util.scanner.ScannerFactory;
 import jflex.core.unicode.UnicodeProperties;
-import org.junit.Before;
 import org.junit.Test;
 
+#set( $uv = $unicodeVersion.toString().replace(".", "_") )
+/** Test for Age property in {@link jflex.core.unicode.data.Unicode_${uv}}. */
 public class $testClassName {
-
-  UnicodeProperties properties;
-
-  @Before
-  public void init() throws Exception {
-    properties = new UnicodeProperties("$unicodeVersion");
-  }
 
   @Test
   public void age() {
-    assertThat(properties.getPropertyValues()).contains("age=1.1");
-    assertThat(properties.getPropertyValues()).contains("age=2.0");
+    UnicodeProperties properties = new UnicodeProperties("$unicodeVersion");
+  #foreach ( $a in $ages )
+    assertThat(properties.getPropertyValues()).contains("age=$a");
+  #end
   }
 
-  /** Tests character class syntax of the Unicode 2.0 Age=1.1 property. */
+#foreach ( $a in $ages )
+#set( $ua = $a.toString().replace(".", "_") )
+  /**
+   * Tests character class syntax of the Unicode $unicodeVersion
+   * Age=$a property.
+   */
   @Test
-  public void ageIntervals_1_1() throws Exception {
+  public void ageIntervals_${ua}() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(${scannerPrefix}_1_1::new),
-        ${scannerPrefix}_1_1.YYEOF,
-        "${scannerPrefix}_1_1.output");
+        ScannerFactory.of(${scannerPrefix}_${ua}::new),
+        ${scannerPrefix}_${ua}.YYEOF,
+        "${scannerPrefix}_${ua}.output");
   }
-
-  /** Tests character class syntax of the Unicode 2.0 Age=2.0 property. */
-  @Test
-  public void ageIntervals_2_0() throws Exception {
-    assertAgeInterval(
-        ScannerFactory.of(${scannerPrefix}_2_0::new),
-        ${scannerPrefix}_2_0.YYEOF,
-        "${scannerPrefix}_2_0.output");
-  }
+#end
 
   /**
-   * Tests subtracting Age Unicode property values in character sets for Unicode 2.0,
+   * Tests subtracting Age Unicode property values in character sets
+   * for Unicode $unicodeVersion,
    * e.g. {@code [\p{Age:2.0}--\p{Age:1.1}]}.
    */
   @Test
   public void ageIntervals_substraction() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(${scannerPrefix}_subtraction::new),
-        ${scannerPrefix}_2_0.YYEOF,
+        ${scannerPrefix}_subtraction.YYEOF,
         "${scannerPrefix}_subtraction.output");
   }
 
-  /** Tests character class syntax of the Unicode 2.0 Age=Unassigned property. */
+  /**
+   * Tests character class syntax of the Unicode $unicodeVersion
+   * Age=Unassigned property.
+   */
   @Test
   public void ageIntervals_unassigned() throws Exception {
     assertAgeInterval(

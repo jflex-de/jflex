@@ -26,11 +26,16 @@
 package de.jflex.testing.unicodedata.generator;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
+import de.jflex.version.Version;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,41 +49,80 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
-/**
- * Generates a unicode age test.
- */
+/** Generates a unicode age test. */
 public class TestGenerator {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String ROOT_DIR = JavaPackageUtils.getPathForClass(TestGenerator.class);
   private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
 
+  private static final ImmutableList<Version> KNOWN_VERSIONS =
+      ImmutableList.of(
+          new Version(1, 1),
+          new Version(2, 0),
+          new Version(2, 1),
+          new Version(3, 0),
+          new Version(3, 1),
+          new Version(3, 2),
+          new Version(4, 0),
+          new Version(4, 1),
+          new Version(5, 0),
+          new Version(5, 1),
+          new Version(5, 2),
+          new Version(6, 0),
+          new Version(6, 0),
+          new Version(6, 1),
+          new Version(6, 2),
+          new Version(7, 0),
+          new Version(8, 0),
+          new Version(9, 0),
+          new Version(10, 0),
+          new Version(11, 0),
+          new Version(12, 0),
+          new Version(12, 1));
+
   private TestGenerator() {}
 
   public static void main(String[] args) throws Exception {
-    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars();
+    Version version = new Version(args[0]);
+    generate(version);
+  }
+
+  public static void generate(Version version) throws IOException {
+    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(version);
     Path outDir = Paths.get("javatests", templateVars.javaPackageDir.toString());
     Files.createDirectories(outDir);
-    Path outFile = outDir.resolve(
-        templateVars.testClassName + ".java");
+    Path outFile = outDir.resolve(templateVars.testClassName + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
       logger.atInfo().log("Generating %s", outFile);
       velocityRenderUnicodeTest(templateVars, outputStream);
     }
   }
 
-  private static void velocityRenderUnicodeTest(UnicodeAgeTestTemplateVars templateVars,
-      OutputStream output) throws IOException {
+  private static void velocityRenderUnicodeTest(
+      UnicodeAgeTestTemplateVars templateVars, OutputStream output) throws IOException {
     try (Writer writer =
         new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
       Velocity.render(readResource(UNICODE_AGE_TEST_TEMPLATE), "UnicodeAge", templateVars, writer);
     } catch (ParseException e) {
-      throw new RuntimeException("Failed to parse Velocity template " + UNICODE_AGE_TEST_TEMPLATE, e);
+      throw new RuntimeException(
+          "Failed to parse Velocity template " + UNICODE_AGE_TEST_TEMPLATE, e);
     }
   }
 
-  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars() {
-    return new UnicodeAgeTestTemplateVars();
+  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(Version version) {
+    UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
+    String underscoreVersion = version.toMajorMinorString().replace('.', '_');
+    vars.unicodeVersion = version;
+    vars.javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
+    vars.javaPackageDir = new File(getPathForPackage(vars.javaPackage));
+    vars.testClassName = "UnicodeAgeTest_" + underscoreVersion;
+    vars.scannerPrefix = "UnicodeAge_" + underscoreVersion + "_age";
+    vars.ages =
+        KNOWN_VERSIONS.stream()
+            .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
+            .collect(toImmutableList());
+    return vars;
   }
 
   private static InputStreamReader readResource(String resourceName) {

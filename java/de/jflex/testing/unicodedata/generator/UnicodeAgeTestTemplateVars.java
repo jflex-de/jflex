@@ -26,19 +26,22 @@
 
 package de.jflex.testing.unicodedata.generator;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 import java.io.File;
 
 public class UnicodeAgeTestTemplateVars extends TemplateVars {
-  /** java package with '.', used by the test and the scanner. */
-  public String javaPackage = "de.jflex.testcase.unicode.unicode_2_0";
-  /** java package directory. */
-  public File javaPackageDir = new File("de/jflex/testcase/unicode/unicode_2_0");
-  /** The name of the test class. */
-  public String testClassName = "UnicodeAgeTest_2_0";
-  /** The prefix of the names of the scanners. */
-  public String scannerPrefix = "UnicodeAge_2_0_age";
   /** Unicode Version under test. */
-  public Version unicodeVersion = new Version("2.0");
+  public Version unicodeVersion;
+  /** java package with '.', used by the test and the scanner. */
+  public String javaPackage;
+  /** java package directory. */
+  public File javaPackageDir;
+  /** The name of the test class. */
+  public String testClassName;
+  /** The prefix of the names of the scanners. */
+  public String scannerPrefix;
+  /** List of ages up to {@link #unicodeVersion}. */
+  public ImmutableList<Version> ages;
 }
