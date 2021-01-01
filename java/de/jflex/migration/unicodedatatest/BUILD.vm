@@ -25,6 +25,7 @@ java_test(
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
+        "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//jflex/src/main/java/jflex/core/unicode",

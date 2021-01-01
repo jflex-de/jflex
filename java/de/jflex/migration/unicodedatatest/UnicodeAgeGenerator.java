@@ -111,8 +111,8 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     vars.className =
         String.format("UnicodeAge_%s_age_subtraction", output.version().underscoreVersion());
     vars.unicodeVersion = output.version();
-    ImmutableList<Version> ages = olderAges(output.version()).reverse();
-    Stream<Pair<Version>> agePairs = Streams.zip(ages.stream().skip(1), ages.stream(), Pair::create);
+    ImmutableList<Version> ages = olderAges(output.version());
+    Stream<Pair<Version>> agePairs = Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
     vars.ages = agePairs.collect(ImmutableList.toImmutableList());
     return vars;
   }

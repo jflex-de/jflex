@@ -41,6 +41,8 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 <<EOF>>                    { return YYEOF; }
 #foreach ( $agepair in $ages )
-[\p{Age:${agepair.second()}}--\p{Age:$agepair.first()}] { setCurCharPropertyValue(yytext(), "[\\p{Age:2.0}--\\p{Age:1.1}]"); }
+[\p{Age:${agepair.second()}}--\p{Age:${agepair.first()}}] {
+  setCurCharPropertyValue(yytext(), "[\\p{Age:${agepair.second()}}--\\p{Age:${agepair.first()}}]");
+}
 #end
 [^] { }

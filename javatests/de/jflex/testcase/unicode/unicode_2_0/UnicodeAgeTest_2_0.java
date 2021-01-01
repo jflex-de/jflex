@@ -26,14 +26,22 @@
 package de.jflex.testcase.unicode.unicode_2_0;
 
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.testing.unicodedata.Ages.assertAgeInterval;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
+import de.jflex.testing.unicodedata.Ages;
 import de.jflex.util.scanner.ScannerFactory;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
 /** Test for Age property in {@link jflex.core.unicode.data.Unicode_2_0}. */
 public class UnicodeAgeTest_2_0 {
+
+  private static final String TEST_DIR =
+      getPathForClass(UnicodeAgeTest_2_0.class);
 
   @Test
   public void age() throws Exception {
@@ -71,7 +79,7 @@ public class UnicodeAgeTest_2_0 {
    * e.g. {@code [\p{Age:2.0}--\p{Age:1.1}]}.
    */
   @Test
-  public void ageIntervals_substraction() throws Exception {
+  public void ageIntervals_subtraction() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(UnicodeAge_2_0_age_subtraction::new),
         UnicodeAge_2_0_age_subtraction.YYEOF,
@@ -88,5 +96,14 @@ public class UnicodeAgeTest_2_0 {
         ScannerFactory.of(UnicodeAge_2_0_age_unassigned::new),
         UnicodeAge_2_0_age_unassigned.YYEOF,
         "UnicodeAge_2_0_age_unassigned.output");
+  }
+
+  private static void assertAgeInterval(
+      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
+      int eof,
+      String expectedFileName)
+      throws IOException {
+    Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
+    Ages.assertAgeInterval(scannerFactory, eof, expectedFile);
   }
 }

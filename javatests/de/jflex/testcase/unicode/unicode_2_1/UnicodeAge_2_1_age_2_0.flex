@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2018-2019 Google, LLC.
+ * Copyright (C) 2013 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -7,12 +8,12 @@
  * provided that the following conditions are met:
  *
  * 1. Redistributions of source code must retain the above copyright notice, this list of conditions
- * and the following disclaimer.
+ *    and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice, this list of
- * conditions and the following disclaimer in the documentation and/or other materials provided with
- * the distribution.
+ *    conditions and the following disclaimer in the documentation and/or other materials provided with
+ *    the distribution.
  * 3. Neither the name of the copyright holder nor the names of its contributors may be used to
- * endorse or promote products derived from this software without specific prior written permission.
+ *    endorse or promote products derived from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
@@ -23,23 +24,21 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.util.javac;
+package de.jflex.testcase.unicode.unicode_2_1;
 
-import java.io.File;
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
+%%
 
-@SuppressWarnings("WeakerAccess")
-public final class JavaPackageUtils {
-  public static String getPathForClass(Class clazz) {
-    return getPathForPackage(clazz.getPackage());
-  }
+%unicode 2.1
+%public
+%class UnicodeAge_2_1_age_2_0
+%extends AbstractEnumeratedPropertyDefinedScanner
 
-  public static String getPathForPackage(Package targetPackage) {
-    return getPathForPackage(targetPackage.getName());
-  }
+%type int
+%standalone
 
-  public static String getPathForPackage(String packageName) {
-    return packageName.replace('.', File.separatorChar);
-  }
+%%
 
-  private JavaPackageUtils() {}
-}
+<<EOF>>     { return YYEOF;}
+\p{Age:2.0} { setCurCharPropertyValue(yytext(), "Age:2.0"); }
+[^] { }

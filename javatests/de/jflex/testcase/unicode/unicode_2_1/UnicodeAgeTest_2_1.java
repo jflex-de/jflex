@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package $javaPackage;
+package de.jflex.testcase.unicode.unicode_2_1;
 
 import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
@@ -37,59 +37,77 @@ import java.nio.file.Paths;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Test;
 
-#set( $uv = $unicodeVersion.toString().replace(".", "_") )
-/** Test for Age property in {@link jflex.core.unicode.data.Unicode_${uv}}. */
-public class $testClassName {
+/** Test for Age property in {@link jflex.core.unicode.data.Unicode_2_1}. */
+public class UnicodeAgeTest_2_1 {
 
   private static final String TEST_DIR =
-      getPathForClass(${testClassName}.class);
+      getPathForClass(UnicodeAgeTest_2_1.class);
 
   @Test
   public void age() throws Exception {
-    UnicodeProperties properties = new UnicodeProperties("$unicodeVersion");
-  #foreach ( $a in $ages )
-    assertThat(properties.getPropertyValues()).contains("age=$a");
-  #end
-  }
+    UnicodeProperties properties = new UnicodeProperties("2.1");
+      assertThat(properties.getPropertyValues()).contains("age=1.1");
+      assertThat(properties.getPropertyValues()).contains("age=2.0");
+      assertThat(properties.getPropertyValues()).contains("age=2.1");
+    }
 
-#foreach ( $a in $ages )
-#set( $ua = $a.toString().replace(".", "_") )
   /**
-   * Tests character class syntax of the Unicode $unicodeVersion
-   * Age=$a property.
+   * Tests character class syntax of the Unicode 2.1
+   * Age=1.1 property.
    */
   @Test
-  public void ageIntervals_${ua}() throws Exception {
+  public void ageIntervals_1_1() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(${scannerPrefix}_${ua}::new),
-        ${scannerPrefix}_${ua}.YYEOF,
-        "${scannerPrefix}_${ua}.output");
+        ScannerFactory.of(UnicodeAge_2_1_age_1_1::new),
+        UnicodeAge_2_1_age_1_1.YYEOF,
+        "UnicodeAge_2_1_age_1_1.output");
   }
-#end
+  /**
+   * Tests character class syntax of the Unicode 2.1
+   * Age=2.0 property.
+   */
+  @Test
+  public void ageIntervals_2_0() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_1_age_2_0::new),
+        UnicodeAge_2_1_age_2_0.YYEOF,
+        "UnicodeAge_2_1_age_2_0.output");
+  }
+  /**
+   * Tests character class syntax of the Unicode 2.1
+   * Age=2.1 property.
+   */
+  @Test
+  public void ageIntervals_2_1() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_1_age_2_1::new),
+        UnicodeAge_2_1_age_2_1.YYEOF,
+        "UnicodeAge_2_1_age_2_1.output");
+  }
 
   /**
    * Tests subtracting Age Unicode property values in character sets
-   * for Unicode $unicodeVersion,
+   * for Unicode 2.1,
    * e.g. {@code [\p{Age:2.0}--\p{Age:1.1}]}.
    */
   @Test
   public void ageIntervals_subtraction() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(${scannerPrefix}_subtraction::new),
-        ${scannerPrefix}_subtraction.YYEOF,
-        "${scannerPrefix}_subtraction.output");
+        ScannerFactory.of(UnicodeAge_2_1_age_subtraction::new),
+        UnicodeAge_2_1_age_subtraction.YYEOF,
+        "UnicodeAge_2_1_age_subtraction.output");
   }
 
   /**
-   * Tests character class syntax of the Unicode $unicodeVersion
+   * Tests character class syntax of the Unicode 2.1
    * Age=Unassigned property.
    */
   @Test
   public void ageIntervals_unassigned() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(${scannerPrefix}_unassigned::new),
-        ${scannerPrefix}_unassigned.YYEOF,
-        "${scannerPrefix}_unassigned.output");
+        ScannerFactory.of(UnicodeAge_2_1_age_unassigned::new),
+        UnicodeAge_2_1_age_unassigned.YYEOF,
+        "UnicodeAge_2_1_age_unassigned.output");
   }
 
   private static void assertAgeInterval(

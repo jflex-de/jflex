@@ -36,7 +36,7 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /** Utility class to verify the Age property of UnicodeProperties. */
@@ -57,11 +57,11 @@ public class Ages {
   public static void assertAgeInterval(
       ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
       int eof,
-      String expectedFile)
+      Path expectedFile)
       throws IOException {
     ImmutableList<String> blocks = getBlocks(scannerFactory, eof);
     try (Stream<String> expectedOutput =
-        Files.lines(Paths.get("javatests/de/jflex/testcase/unicode/unicode_2_0", expectedFile))) {
+        Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);
     }
