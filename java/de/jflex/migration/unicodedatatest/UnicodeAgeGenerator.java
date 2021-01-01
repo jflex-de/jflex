@@ -28,23 +28,26 @@ package de.jflex.migration.unicodedatatest;
 import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
-public class UnicodeAge extends AbstractGenerator {
+public class UnicodeAgeGenerator extends AbstractGenerator {
 
   private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAge.flex.vm";
+  private static final String FLEX_SUBSTRACTION_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final Output output;
 
-  public UnicodeAge(Output output) {
+  public UnicodeAgeGenerator(Output output) {
     this.output = output;
   }
 
@@ -54,13 +57,14 @@ public class UnicodeAge extends AbstractGenerator {
     for (Version age : ages) {
       generateAge(age, outDir);
     }
+    generateAgeSubstraction(outDir);
   }
 
   private void generateAge(Version age, Path outDir) throws IOException, ParseException {
     UnicodeAgeTemplateVars vars = createFlexTemplateVars(age);
     Path outFile = outDir.resolve(vars.className + ".flex");
     logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(FLEX_FILE_TEMPLATE), "FlexFile", vars, outFile.toFile());
+    Velocity.render(readResource(FLEX_FILE_TEMPLATE), "AgeFlexFile", vars, outFile.toFile());
   }
 
   private UnicodeAgeTemplateVars createFlexTemplateVars(Version age) {
@@ -71,6 +75,26 @@ public class UnicodeAge extends AbstractGenerator {
             "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
     vars.unicodeVersion = output.version();
     vars.age = age;
+    return vars;
+  }
+
+  private void generateAgeSubstraction(Path outDir) throws IOException, ParseException {
+    UnicodeAgeSubtractionTemplateVars vars = createFlexSubstractionTemplateVars();
+    Path outFile = outDir.resolve(vars.className + ".flex");
+    logger.atInfo().log("Generating %s", outFile);
+    Velocity.render(
+        readResource(FLEX_SUBSTRACTION_FILE_TEMPLATE), "AgeSubtractionFlexFile", vars, outFile.toFile());
+  }
+
+  private UnicodeAgeSubtractionTemplateVars createFlexSubstractionTemplateVars() {
+    UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
+    vars.javaPackage = output.javaPackage();
+    vars.className =
+        String.format("UnicodeAge_%s_age_subtraction", output.version().underscoreVersion());
+    vars.unicodeVersion = output.version();
+    ImmutableList<Version> ages = olderAges(output.version()).reverse();
+    Stream<Pair<Version>> agePairs = Streams.zip(ages.stream().skip(1), ages.stream(), Pair::create);
+    vars.ages = agePairs.collect(ImmutableList.toImmutableList());
     return vars;
   }
 }

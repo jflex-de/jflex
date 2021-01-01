@@ -25,50 +25,14 @@
  */
 package de.jflex.migration.unicodedatatest;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
 import com.google.common.collect.ImmutableList;
-import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
-import java.io.IOException;
-import java.nio.file.Path;
-import org.apache.velocity.runtime.parser.ParseException;
 
-abstract class AbstractGenerator {
-  protected static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(AbstractGenerator.class);
+public class UnicodeAgeSubtractionTemplateVars extends TemplateVars {
 
-  // TODO(regisd) Add This in UnicodeProperties
-  private static final ImmutableList<Version> KNOWN_VERSIONS =
-      ImmutableList.of(
-          new Version(1, 1),
-          new Version(2, 0),
-          new Version(2, 1),
-          new Version(3, 0),
-          new Version(3, 1),
-          new Version(3, 2),
-          new Version(4, 0),
-          new Version(4, 1),
-          new Version(5, 0),
-          new Version(5, 1),
-          new Version(5, 2),
-          new Version(6, 0),
-          new Version(6, 1),
-          new Version(6, 2),
-          new Version(6, 3),
-          new Version(7, 0),
-          new Version(8, 0),
-          new Version(9, 0),
-          new Version(10, 0),
-          new Version(11, 0),
-          new Version(12, 0),
-          new Version(12, 1));
-
-  protected static ImmutableList<Version> olderAges(Version version) {
-    return KNOWN_VERSIONS.stream()
-        .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
-        .collect(toImmutableList());
-  }
-
-  abstract void generate(Path outDir) throws IOException, ParseException;
+  public String javaPackage;
+  public String className;
+  public Version unicodeVersion;
+  public ImmutableList<Pair<Version>> ages;
 }

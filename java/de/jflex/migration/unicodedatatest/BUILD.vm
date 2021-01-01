@@ -32,19 +32,14 @@ java_test(
     ],
 )
 
+#foreach ( $a in $ages )
 jflex(
-    name = "${baseClassName}_age_1_1",
-    srcs = ["${baseClassName}_age_1_1.flex"],
+    name = "${baseClassName}_age_${a.underscoreVersion()}",
+    srcs = ["${baseClassName}_age_${a.underscoreVersion()}.flex"],
     jflex_bin = "//jflex:jflex_bin",
-    outputs = ["${baseClassName}_age_1_1.java"],
+    outputs = ["${baseClassName}_age_${a.underscoreVersion()}.java"],
 )
-
-jflex(
-    name = "${baseClassName}_age_2_0",
-    srcs = ["${baseClassName}_age_${underscoreVersion}.flex"],
-    jflex_bin = "//jflex:jflex_bin",
-    outputs = ["${baseClassName}_age_${underscoreVersion}.java"],
-)
+#end
 
 jflex(
     name = "${baseClassName}_age_subtraction",
