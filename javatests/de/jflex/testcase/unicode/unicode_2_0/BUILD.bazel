@@ -1,4 +1,5 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
 
 java_test(
     name = "UnicodeAgeTest_2_0",
@@ -27,23 +28,32 @@ java_test(
 jflex(
     name = "UnicodeAge_2_0_age_1_1",
     srcs = ["UnicodeAge_2_0_age_1_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_1_1.java"],
 )
 
 jflex(
     name = "UnicodeAge_2_0_age_2_0",
     srcs = ["UnicodeAge_2_0_age_2_0.flex"],
+    #    jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_2_0.java"],
 )
 
 jflex(
     name = "UnicodeAge_2_0_age_subtraction",
     srcs = ["UnicodeAge_2_0_age_subtraction.flex"],
+    jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_subtraction.java"],
 )
 
 jflex(
     name = "UnicodeAge_2_0_age_unassigned",
     srcs = ["UnicodeAge_2_0_age_unassigned.flex"],
+    jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_unassigned.java"],
+)
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
 )
