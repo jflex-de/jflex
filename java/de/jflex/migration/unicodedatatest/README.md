@@ -7,8 +7,10 @@ To create the test for Unicode 6.1
 ## Migration
 
 ```shell script
-mv testsuite/testcases/src/test/cases/unicode-age/UnicodeAge_2_1*.output javatests/de/jflex/testcase/unicode/unicode_2_1~
-bazel run //java/de/jflex/migration/unicodedatatest:migrator -- 2.1 $(git rev-parse --show-toplevel)
-git add javatests/de/jflex/testcase/unicode/unicode_2_1/*
-rm testsuite/testcases/src/test/cases/unicode-age/UnicodeAge_2_1*
+version="2.1"
+v=${version/\./_}
+bazel run //java/de/jflex/migration/unicodedatatest:migrator -- ${version} $(git rev-parse --show-toplevel)
+mv testsuite/testcases/src/test/cases/unicode-age/UnicodeAge_${v}*.output javatests/de/jflex/testcase/unicode/unicode_${v}
+git add javatests/de/jflex/testcase/unicode/unicode_${v}/*
+rm testsuite/testcases/src/test/cases/unicode-age/UnicodeAge_${v}*
 ```
