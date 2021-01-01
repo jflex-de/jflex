@@ -31,8 +31,10 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -51,18 +53,31 @@ public class UnicodeAgeTest_2_0 {
   @Test
   public void age() {
     assertThat(properties.getPropertyValues()).contains("age=1.1");
+    assertThat(properties.getPropertyValues()).contains("age=2.0");
   }
 
   @Test
-  public void ageIntervals() throws Exception {
-    ScannerFactory<UnicodeAge_2_0_age_1_1> scannerFactory =
-        ScannerFactory.of(UnicodeAge_2_0_age_1_1::new);
-    UnicodeAge_2_0_age_1_1 scanner =
+  public void ageIntervals_1_1() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_0_age_1_1::new), "UnicodeAge_2_0_age_1_1.output");
+  }
+
+  @Test
+  public void ageIntervals_2_0() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_0_age_2_0::new), "UnicodeAge_2_0_age_2_0.output");
+  }
+
+  private static void assertAgeInterval(
+      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
+      String expectedFile)
+      throws IOException {
+    AbstractEnumeratedPropertyDefinedScanner scanner =
         scannerFactory.createScannerForFile(
             new File("java/de/jflex/testcase/resources/All.Unicode.BMP.characters.input"));
     while (scanner.yylex() != UnicodeAge_2_0_age_1_1.YYEOF) {}
     try (Stream<String> expectedOutput =
-        Files.lines(Paths.get("javatests/jflex/core/unicode/UnicodeAge_2_0_age_1_1.output"))) {
+        Files.lines(Paths.get("javatests/jflex/core/unicode", expectedFile))) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(scanner.blocks()).containsAllIn(expected);
     }
