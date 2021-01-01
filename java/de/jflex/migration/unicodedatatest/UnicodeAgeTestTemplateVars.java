@@ -24,7 +24,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.testing.unicodedata.generator;
+package de.jflex.migration.unicodedatatest;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.velocity.TemplateVars;

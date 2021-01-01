@@ -1,10 +1,10 @@
 java_binary(
-    name = "generator",
+    name = "migrator",
     srcs = [
         "TestGenerator.java",
         "UnicodeAgeTestTemplateVars.java",
     ],
-    main_class = "de.jflex.testing.unicodedata.generator.TestGenerator",
+    main_class = "de.jflex.migration.unicodedatatest.TestGenerator",
     resources = [
         "UnicodeAgeTest_x_y.java.vm",
     ],
