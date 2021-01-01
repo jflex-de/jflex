@@ -33,6 +33,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.util.scanner.ScannerFactory;
+import de.jflex.version.Version;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,6 +44,7 @@ import java.util.stream.Stream;
 public class Ages {
 
   public static final File TEST_RESOURCES_DIR = new File("java/de/jflex/testcase/resources");
+  private static final Version VERSION_3_0 = new Version(3, 0);
 
   private Ages() {}
 
@@ -70,16 +72,26 @@ public class Ages {
     }
   }
 
+  public static Dataset getDataset(Version version) {
+    boolean oldUnicode =
+        Version.EXACT_VERSION_COMPARATOR.compare(version, VERSION_3_0) <=0;
+    return oldUnicode ? Dataset.BMP : Dataset.ALL;
+  }
+
   // TODO(regisd) The files can most ikely be replaced by in-memory providers.
   public enum Dataset {
     BMP("All.Unicode.BMP.characters.input"),
     ALL("All.Unicode.characters.input"),
     ;
 
-    final String dataFile;
+    private final String dataFile;
 
     Dataset(String filename) {
       this.dataFile = filename;
+    }
+
+    public String dataFile() {
+      return dataFile;
     }
   }
 }

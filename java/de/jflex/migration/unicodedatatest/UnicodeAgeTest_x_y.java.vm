@@ -100,6 +100,6 @@ public class $testClassName {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.BMP, expectedFile);
+    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.${dataset}, expectedFile);
   }
 }

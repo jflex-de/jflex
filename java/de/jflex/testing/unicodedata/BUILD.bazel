@@ -2,9 +2,13 @@ java_library(
     name = "unicodedata",
     testonly = True,
     srcs = glob(["*.java"]),
-    visibility = ["//javatests:__subpackages__"],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__subpackages__",
+        "//javatests:__subpackages__",
+    ],
     deps = [
         "//java/de/jflex/util/scanner:scanner_factory",
+        "//java/de/jflex/version",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

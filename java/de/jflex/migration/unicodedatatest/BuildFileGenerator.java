@@ -29,6 +29,7 @@ package de.jflex.migration.unicodedatatest;
 import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
 
 import com.google.common.flogger.FluentLogger;
+import de.jflex.testing.unicodedata.Ages;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -59,6 +60,7 @@ public class BuildFileGenerator extends AbstractGenerator {
     vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
     vars.underscoreVersion = out.underscoreVersion();
     vars.ages = olderAges(out.version());
+    vars.dataset = Ages.getDataset(out.version());
     return vars;
   }
 }

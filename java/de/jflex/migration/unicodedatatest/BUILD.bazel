@@ -1,5 +1,6 @@
 java_binary(
     name = "migrator",
+    testonly = True,
     srcs = [
         "AbstractGenerator.java",
         "BuildFileGenerator.java",
@@ -17,6 +18,7 @@ java_binary(
     ],
     deps = [
         ":template_vars",
+        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",
@@ -28,6 +30,7 @@ java_binary(
 
 java_library(
     name = "template_vars",
+    testonly = True,
     srcs = [
         "BuildFileTemplateVars.java",
         "Output.java",
@@ -37,6 +40,7 @@ java_library(
         "UnicodeAgeTestTemplateVars.java",
     ],
     deps = [
+        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",

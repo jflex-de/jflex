@@ -28,6 +28,8 @@ package de.jflex.migration.unicodedatatest;
 import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
 
 import com.google.common.flogger.FluentLogger;
+import de.jflex.testing.unicodedata.Ages;
+import de.jflex.testing.unicodedata.Ages.Dataset;
 import de.jflex.velocity.Velocity;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -66,6 +68,8 @@ public class JavaTestGenerator extends AbstractGenerator {
     vars.testClassName = "UnicodeAgeTest_" + out.underscoreVersion();
     vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
     vars.ages = olderAges(out.version());
+    Dataset dataset = Ages.getDataset(out.version());
+    vars.dataset = dataset;
     return vars;
   }
 }

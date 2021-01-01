@@ -25,7 +25,7 @@ java_test(
         #end
         "${baseClassName}_age_subtraction.output",
         "${baseClassName}_age_unassigned.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
     ],
     deps = [
         "//java/de/jflex/util/javac:package_util",
