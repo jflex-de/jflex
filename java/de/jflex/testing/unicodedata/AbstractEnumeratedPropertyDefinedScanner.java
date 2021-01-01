@@ -45,7 +45,7 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
   }
 
   protected void setCurCharPropertyValue(String index, String propertyValue) {
-    propertyValues[(int) index.charAt(0)] = propertyValue;
+    propertyValues[index.codePointAt(0)] = propertyValue;
   }
 
   public abstract int yylex() throws IOException;
