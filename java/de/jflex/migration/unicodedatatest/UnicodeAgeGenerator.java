@@ -57,6 +57,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     for (Version age : ages) {
       generateAge(age, outDir);
     }
+    generateAgeUnassigned(outDir);
     generateAgeSubstraction(outDir);
   }
 
@@ -74,7 +75,25 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
         String.format(
             "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
     vars.unicodeVersion = output.version();
-    vars.age = age;
+    vars.age = age.toString();
+    return vars;
+  }
+
+  private void generateAgeUnassigned(Path outDir) throws IOException, ParseException {
+    UnicodeAgeTemplateVars vars = createAgeUnassignedTemplateVars();
+    Path outFile = outDir.resolve(vars.className + ".flex");
+    logger.atInfo().log("Generating %s", outFile);
+    Velocity.render(readResource(FLEX_FILE_TEMPLATE), "AgeFlexFile", vars, outFile.toFile());
+  }
+
+  private UnicodeAgeTemplateVars createAgeUnassignedTemplateVars() {
+    UnicodeAgeTemplateVars vars = new UnicodeAgeTemplateVars();
+    vars.javaPackage = output.javaPackage();
+    vars.className =
+        String.format(
+            "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
+    vars.unicodeVersion = output.version();
+    vars.age = "Unassigned";
     return vars;
   }
 

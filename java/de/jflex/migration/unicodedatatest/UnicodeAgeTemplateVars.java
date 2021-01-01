@@ -35,5 +35,5 @@ public class UnicodeAgeTemplateVars extends TemplateVars {
   public String className;
 
   public Version unicodeVersion;
-  public Version age;
+  public String age;
 }
