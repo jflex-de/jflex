@@ -3,7 +3,7 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 java_binary(
     name = "migrator",
     srcs = [],
-    main_class = "jflex.migration.Migrator",
+    main_class = "de.jflex.migration.Migrator",
     runtime_deps = [":migration"],
 )
 
