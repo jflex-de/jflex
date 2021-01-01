@@ -81,6 +81,14 @@ public class UnicodeAgeTest_2_0 {
         "UnicodeAge_2_0_age_subtraction.output");
   }
 
+  /** Tests character class syntax of the Unicode 2.0 Age=Unassigned property. */
+  @Test
+  public void ageIntervals_unassigned() throws Exception {
+    assertAgeInterval(
+        ScannerFactory.of(UnicodeAge_2_0_age_unassigned::new),
+        "UnicodeAge_2_0_age_unassigned.output");
+  }
+
   private static ImmutableList<String> getBlocks(
       ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory)
       throws IOException {
