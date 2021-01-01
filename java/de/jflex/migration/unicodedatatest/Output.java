@@ -26,22 +26,31 @@
 
 package de.jflex.migration.unicodedatatest;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.velocity.TemplateVars;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
+
+import com.google.auto.value.AutoValue;
 import de.jflex.version.Version;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
-public class UnicodeAgeTestTemplateVars extends TemplateVars {
-  /** Unicode Version under test. */
-  public Version unicodeVersion;
-  /** java package with '.', used by the test and the scanner. */
-  public String javaPackage;
-  /** java package directory. */
-  public Path javaPackageDir;
-  /** The name of the test class. */
-  public String testClassName;
-  /** The prefix of the names of the scanners. */
-  public String scannerPrefix;
-  /** List of ages up to {@link #unicodeVersion}. */
-  public ImmutableList<Version> ages;
+@AutoValue
+public abstract class Output {
+  abstract Version version();
+
+  abstract String underscoreVersion();
+
+  abstract String javaPackage();
+
+  abstract Path javaPackageDirectory();
+
+  static Output create(Version unicodeVersion) {
+    String underscoreVersion = getUnderscoreVersion(unicodeVersion);
+    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
+    return new AutoValue_Output(
+        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
+  }
+
+  private static String getUnderscoreVersion(Version version) {
+    return version.toMajorMinorString().replace('.', '_');
+  }
 }

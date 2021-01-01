@@ -30,7 +30,6 @@ package de.jflex.migration.unicodedatatest;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
@@ -38,7 +37,6 @@ import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -93,15 +91,16 @@ public class TestGenerator {
     generate(version, workspaceDir);
   }
 
-  public static void generate(Version version, Path workspaceDir) throws IOException {
-    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(version);
-    Path outDir = workspaceDir.resolve("javatests").resolve(templateVars.javaPackageDir.toString());
+  public static void generate(Version unicodeVersion, Path workspaceDir) throws IOException {
+    Output out = Output.create(unicodeVersion);
+    Path outDir = workspaceDir.resolve("javatests").resolve(out.javaPackageDirectory());
     Files.createDirectories(outDir);
-    generateJavaTest(templateVars, outDir);
+    generateJavaTest(unicodeVersion, out, outDir);
   }
 
-  private static void generateJavaTest(UnicodeAgeTestTemplateVars templateVars, Path outDir)
+  private static void generateJavaTest(Version version, Output out, Path outDir)
       throws IOException {
+    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
     Path outFile = outDir.resolve(templateVars.testClassName + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
       logger.atInfo().log("Generating %s", outFile);
@@ -120,17 +119,16 @@ public class TestGenerator {
     }
   }
 
-  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(Version version) {
+  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(Output out) {
     UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
-    String underscoreVersion = version.toMajorMinorString().replace('.', '_');
-    vars.unicodeVersion = version;
-    vars.javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    vars.javaPackageDir = new File(getPathForPackage(vars.javaPackage));
-    vars.testClassName = "UnicodeAgeTest_" + underscoreVersion;
-    vars.scannerPrefix = "UnicodeAge_" + underscoreVersion + "_age";
+    vars.unicodeVersion = out.version();
+    vars.javaPackage = out.javaPackage();
+    vars.javaPackageDir = out.javaPackageDirectory();
+    vars.testClassName = "UnicodeAgeTest_" + out.underscoreVersion();
+    vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
     vars.ages =
         KNOWN_VERSIONS.stream()
-            .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
+            .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, out.version()) <= 0)
             .collect(toImmutableList());
     return vars;
   }

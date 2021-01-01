@@ -9,11 +9,22 @@ java_binary(
         "UnicodeAgeTest_x_y.java.vm",
     ],
     deps = [
+        ":output",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",
         "//third_party/com/google/common/flogger",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "output",
+    srcs = ["Output.java"],
+    deps = [
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/version",
+        "//third_party/com/google/auto_value",
     ],
 )
