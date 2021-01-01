@@ -30,12 +30,8 @@ import de.jflex.ucd_generator.emitter.common.UcdEmitter;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */
@@ -54,14 +50,11 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
 
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
-    try (Writer writer =
-        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
-      Velocity.render(
-          readResource(UNICODE_PROPERTIES_TEMPLATE),
-          "UnicodeProperties",
-          unicodePropertiesVars,
-          writer);
-    }
+    Velocity.render(
+        readResource(UNICODE_PROPERTIES_TEMPLATE),
+        "UnicodeProperties",
+        unicodePropertiesVars,
+        output);
   }
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {

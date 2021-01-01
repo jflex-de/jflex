@@ -40,12 +40,8 @@ import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.JavaStrings;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -70,11 +66,8 @@ public class UnicodeVersionEmitter extends UcdEmitter {
 
   public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
     UnicodeVersionVars unicodeVersionVars = createUnicodeVersionVars();
-    try (Writer writer =
-        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
-      Velocity.render(
-          readResource(UNICODE_VERSION_TEMPLATE), "Unicode_x_y", unicodeVersionVars, writer);
-    }
+    Velocity.render(
+        readResource(UNICODE_VERSION_TEMPLATE), "Unicode_x_y", unicodeVersionVars, output);
   }
 
   private UnicodeVersionVars createUnicodeVersionVars() {
