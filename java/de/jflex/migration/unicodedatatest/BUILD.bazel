@@ -1,11 +1,15 @@
 java_binary(
     name = "migrator",
     srcs = [
+        "AbstractGenerator.java",
+        "BuildFileGenerator.java",
         "BuildFileTemplateVars.java",
-        "TestGenerator.java",
+        "JavaResources.java",
+        "JavaTestGenerator.java",
+        "Migrator.java",
         "UnicodeAgeTestTemplateVars.java",
     ],
-    main_class = "de.jflex.migration.unicodedatatest.TestGenerator",
+    main_class = "de.jflex.migration.unicodedatatest.Migrator",
     resources = [
         "BUILD.vm",
         "UnicodeAgeTest_x_y.java.vm",
