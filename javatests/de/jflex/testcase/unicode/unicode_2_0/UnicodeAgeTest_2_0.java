@@ -27,17 +27,10 @@
  */
 package de.jflex.testcase.unicode.unicode_2_0;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
+import static de.jflex.testing.unicodedata.Ages.assertAgeInterval;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.util.scanner.ScannerFactory;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
 import jflex.core.unicode.UnicodeProperties;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,14 +54,18 @@ public class UnicodeAgeTest_2_0 {
   @Test
   public void ageIntervals_1_1() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(UnicodeAge_2_0_age_1_1::new), "UnicodeAge_2_0_age_1_1.output");
+        ScannerFactory.of(UnicodeAge_2_0_age_1_1::new),
+        UnicodeAge_2_0_age_1_1.YYEOF,
+        "UnicodeAge_2_0_age_1_1.output");
   }
 
   /** Tests character class syntax of the Unicode 2.0 Age=2.0 property. */
   @Test
   public void ageIntervals_2_0() throws Exception {
     assertAgeInterval(
-        ScannerFactory.of(UnicodeAge_2_0_age_2_0::new), "UnicodeAge_2_0_age_2_0.output");
+        ScannerFactory.of(UnicodeAge_2_0_age_2_0::new),
+        UnicodeAge_2_0_age_2_0.YYEOF,
+        "UnicodeAge_2_0_age_2_0.output");
   }
 
   /**
@@ -79,6 +76,7 @@ public class UnicodeAgeTest_2_0 {
   public void ageIntervals_substraction() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(UnicodeAge_2_0_age_subtraction::new),
+        UnicodeAge_2_0_age_2_0.YYEOF,
         "UnicodeAge_2_0_age_subtraction.output");
   }
 
@@ -87,28 +85,7 @@ public class UnicodeAgeTest_2_0 {
   public void ageIntervals_unassigned() throws Exception {
     assertAgeInterval(
         ScannerFactory.of(UnicodeAge_2_0_age_unassigned::new),
+        UnicodeAge_2_0_age_unassigned.YYEOF,
         "UnicodeAge_2_0_age_unassigned.output");
-  }
-
-  private static ImmutableList<String> getBlocks(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory)
-      throws IOException {
-    AbstractEnumeratedPropertyDefinedScanner scanner =
-        scannerFactory.createScannerForFile(
-            new File("java/de/jflex/testcase/resources/All.Unicode.BMP.characters.input"));
-    while (scanner.yylex() != UnicodeAge_2_0_age_1_1.YYEOF) {}
-    return scanner.blocks();
-  }
-
-  private static void assertAgeInterval(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      String expectedFile)
-      throws IOException {
-    ImmutableList<String> blocks = getBlocks(scannerFactory);
-    try (Stream<String> expectedOutput =
-        Files.lines(Paths.get("javatests/de/jflex/testcase/unicode/unicode_2_0", expectedFile))) {
-      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(blocks).containsAllIn(expected);
-    }
   }
 }

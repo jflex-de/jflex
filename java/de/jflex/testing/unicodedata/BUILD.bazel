@@ -4,6 +4,8 @@ java_library(
     srcs = glob(["*.java"]),
     visibility = ["//javatests:__subpackages__"],
     deps = [
+        "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
     ],
 )
