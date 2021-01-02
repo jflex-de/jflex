@@ -36,7 +36,7 @@ abstract class BlockSpec {
   abstract CodepointRange range();
 
   static BlockSpec create(String name, int start, int end) {
-    return new AutoValue_BlockSpec(name, CodepointRange.create(start, end));
+    return new AutoValue_BlockSpec(name.trim(), CodepointRange.create(start, end));
   }
 
   public boolean isSurrogate() {

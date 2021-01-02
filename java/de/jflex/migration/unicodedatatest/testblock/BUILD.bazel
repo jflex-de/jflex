@@ -1,3 +1,5 @@
+load(":gen_scanner.bzl", "gen_block_scanner")
+
 java_binary(
     name = "generator",
     testonly = True,
@@ -25,13 +27,51 @@ java_binary(
     ],
 )
 
-genrule(
+filegroup(
     name = "generate",
     testonly = True,
     srcs = [
-        "@ucd_2_0_14_Blocks_1_txt//file",
+        ":generate_2_0",
+        ":generate_2_1",
+        ":generate_3_0",
+        ":generate_3_1",
+        ":generate_3_2",
+        ":generate_4_0",
     ],
-    outs = ["javatests/de/jflex/testcase/unicode/unicode_2_0/UnicodeBlocks_2_0.flex"],
-    cmd = "$(location generator) 2.0 $(RULEDIR) $(location @ucd_2_0_14_Blocks_1_txt//file)",
-    tools = [":generator"],
+)
+
+gen_block_scanner(
+    name = "generate_2_0",
+    ucd_file = "@ucd_2_0_14_Blocks_1_txt//file",
+    version = "2.0",
+)
+
+gen_block_scanner(
+    name = "generate_2_1",
+    ucd_file = "@ucd_2_1_9_Blocks_2_txt//file",
+    version = "2.1",
+)
+
+gen_block_scanner(
+    name = "generate_3_0",
+    ucd_file = "@ucd_3_0_0_Blocks_3_txt//file",
+    version = "3.0",
+)
+
+gen_block_scanner(
+    name = "generate_3_1",
+    ucd_file = "@ucd_3_1_0_Blocks_4_txt//file",
+    version = "3.1",
+)
+
+gen_block_scanner(
+    name = "generate_3_2",
+    ucd_file = "@ucd_3_2_0_Blocks_3_2_0_txt//file",
+    version = "3.2",
+)
+
+gen_block_scanner(
+    name = "generate_4_0",
+    ucd_file = "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+    version = "4.0",
 )
