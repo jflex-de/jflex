@@ -1,0 +1,45 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+# IncludeInRules
+
+jflex(
+    name = "gen_scanner",
+    srcs = ["IncludeInRules.flex"],
+    data = ["extra-jflex-rules.inc.jflex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["IncludeInRulesScanner.java"],
+)
+
+java_library(
+    name = "IncludeInRulesScanner",
+    srcs = [
+        ":gen_scanner",
+    ],
+    deps = [
+        "//java/de/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/javax:annotation",
+    ],
+)
+
+java_test(
+    name = "IncludeInRulesGoldenTest",
+    srcs = [
+        "IncludeInRulesGoldenTest.java",
+    ],
+    data = [
+        "IncludeInRules-0.input",
+        "IncludeInRules-0.output",
+    ],
+    deps = [
+        ":IncludeInRulesScanner",
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/testing/testsuite/golden",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

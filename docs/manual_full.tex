@@ -1,12 +1,15 @@
-\documentclass{article}
+%\documentclass[11pt]{scrartcl} % TODO
+\documentclass{report}
 
 \usepackage[T1]{fontenc}
 
 % \usepackage{a4wide} % deprecated. Replace by geometry.
 \usepackage{geometry}
+\usepackage{verbatim}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{upquote}
+
 \usepackage{color}
 \definecolor{lcol}{rgb}{0.2470,0.3176,0.7098}
 \usepackage[
@@ -28,6 +31,11 @@
    margin=2.54cm
 }
 
+% pandoc packages
+\usepackage{lmodern} % Is it necessary? CM looks the same, doesn't it?
+% \usepackage{fixltx2e} % provides \textsubscript % Not necessary?
+% \usepackage[utf8]{inputenc} % Not necessary?
+
 \title{JFlex User's Manual}
 \author{Gerwin Klein, Steve Rowe, Régis Décamps}
 
@@ -35,8 +43,8 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\newcommand{\autocite}[1]{\cite{#1}}
-\newcommand{\textcite}[1]{\cite{#1}}
+\usepackage{biblatex}
+\addbibresource{docs/manual.bib}
 
 \let\orighyperref\hyperref
 \renewcommand{\hyperref}[2][]{\orighyperref[#1]{#2} (\autoref{#1})}
@@ -53,5 +61,8 @@
 
 \newpage
 \input{docs/_content}
+
+\pagebreak
+\printbibliography
 
 \end{document}

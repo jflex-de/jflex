@@ -17,6 +17,7 @@ filegroup(
         "@ucd_2_0_14_Blocks_1_txt//file",
         "@ucd_2_0_14_PropList_2_0_14_txt//file",
         "@ucd_2_0_14_UnicodeData_2_0_14_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -26,9 +27,13 @@ filegroup(
         "@ucd_2_1_9_Blocks_2_txt//file",
         "@ucd_2_1_9_PropList_2_1_9_txt//file",
         "@ucd_2_1_9_UnicodeData_2_1_9_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
+# Note that the "update 3.0.1" files for PropList and UnicodeData are added on
+# top of the files distributed in 3.0.0.
+# Also Note the inconsistent naming convention for LineBreak.txt v5.
 filegroup(
     name = "ucd_3_0_1",
     srcs = [
@@ -36,9 +41,13 @@ filegroup(
         "@ucd_3_0_0_LineBreak_5_txt//file",
         "@ucd_3_0_1_PropList_3_0_1_txt//file",
         "@ucd_3_0_1_UnicodeData_3_0_1_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
+# Note that the "update 3.1.1" file for PropList is added on top of the files
+# distributed in 3.1.0.
+# Also Note the inconsistent naming convention for Blocks.txt
 filegroup(
     name = "ucd_3_1_1",
     srcs = [
@@ -48,6 +57,7 @@ filegroup(
         "@ucd_3_1_0_Scripts_3_1_0_txt//file",
         "@ucd_3_1_0_UnicodeData_3_1_0_txt//file",
         "@ucd_3_1_1_PropList_3_1_1_txt//file",
+        "@ucd_derived_age//file",
     ],
 )
 
@@ -55,6 +65,7 @@ filegroup(
     name = "ucd_3_2_0",
     srcs = [
         "@ucd_3_2_0_Blocks_3_2_0_txt//file",
+        "@ucd_3_2_0_DerivedAge_3_2_0_txt//file",
         "@ucd_3_2_0_DerivedCoreProperties_3_2_0_txt//file",
         "@ucd_3_2_0_LineBreak_3_2_0_txt//file",
         "@ucd_3_2_0_PropList_3_2_0_txt//file",
@@ -69,6 +80,7 @@ filegroup(
     name = "ucd_4_0_1",
     srcs = [
         "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+        "@ucd_4_0_1_DerivedAge_4_0_1_txt//file",
         "@ucd_4_0_1_DerivedCoreProperties_4_0_1_txt//file",
         "@ucd_4_0_1_LineBreak_4_0_1_txt//file",
         "@ucd_4_0_1_PropList_4_0_1_txt//file",
@@ -124,17 +136,50 @@ alias(
     actual = "@ucd_7//:files",
 )
 
-alias(
+filegroup(
     name = "ucd_8",
-    actual = "@ucd_8//:files",
+    srcs = [
+        "@emoji_2_emoji_data_txt//file",
+        "@ucd_8//:files",
+    ],
 )
 
-alias(
+filegroup(
     name = "ucd_9",
-    actual = "@ucd_9//:files",
+    srcs = [
+        "@emoji_4_emoji_data_txt//file",
+        "@ucd_9//:files",
+    ],
 )
 
-alias(
+filegroup(
     name = "ucd_10",
-    actual = "@ucd_10//:files",
+    srcs = [
+        "@emoji_5_emoji_data_txt//file",
+        "@ucd_10//:files",
+    ],
+)
+
+filegroup(
+    name = "ucd_11",
+    srcs = [
+        "@emoji_11_emoji_data_txt//file",
+        "@ucd_11//:files",
+    ],
+)
+
+filegroup(
+    name = "ucd_12",
+    srcs = [
+        "@emoji_12_emoji_data_txt//file",
+        "@ucd_12//:files",
+    ],
+)
+
+filegroup(
+    name = "ucd_12_1",
+    srcs = [
+        "@emoji_12_1_emoji_data_txt//file",
+        "@ucd_12_1//:files",
+    ],
 )

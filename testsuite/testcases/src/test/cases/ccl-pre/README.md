@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/ccl_pre:all
+    bazel test //javatests/de/jflex/testcase/ccl_pre:all

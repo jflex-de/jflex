@@ -1,0 +1,65 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+java_library(
+    name = "scanner",
+    srcs = ["UcdScanner.java"],
+    visibility = [
+        "//java/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex:__subpackages__",
+    ],
+    exports = [":exception"],
+    deps = [
+        ":exception",
+        ":ucd_scanners",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/version",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_library(
+    name = "ucd_scanners",
+    srcs = [
+        "AbstractArchaicEnumPropertyScanner.java",
+        "AbstractArchaicPropListScanner.java",
+        "AbstractBinaryPropertiesFileScanner.java",
+        "AbstractEnumeratedPropertyFileScanner.java",
+        "AbstractPropertyAliasesScanner.java",
+        "AbstractPropertyValueAliasesScanner.java",
+        "AbstractScriptExtensionsScanner.java",
+        "AbstractUnicodeDataScanner.java",
+        "DerivedAgeScanner.java",
+        ":gen_ucd_scanners",
+    ],
+    deps = [
+        ":exception",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/ucd_generator/util:name_normalizer",
+        "//java/de/jflex/version",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_library(
+    name = "exception",
+    srcs = ["UcdScannerException.java"],
+    visibility = ["//java/de/jflex/ucd_generator:__subpackages__"],
+    deps = [],
+)
+
+jflex(
+    name = "gen_ucd_scanners",
+    srcs = glob(["*.flex"]),
+    outputs = [
+        "ArchaicBlocksScanner.java",
+        "ArchaicLineBreakScanner.java",
+        "ArchaicPropListScanner.java",
+        "BinaryPropertiesFileScanner.java",
+        "EnumeratedPropertyFileScanner.java",
+        "PropertyAliasesScanner.java",
+        "PropertyValueAliasesScanner.java",
+        "ScriptExtensionsScanner.java",
+        "UnicodeDataScanner.java",
+    ],
+    visibility = ["//java/de/jflex/ucd_generator:__subpackages__"],
+)

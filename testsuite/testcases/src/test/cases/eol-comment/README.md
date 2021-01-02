@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/eol_comment:all
+    bazel test //javatests/de/jflex/testcase/eol_comment:all

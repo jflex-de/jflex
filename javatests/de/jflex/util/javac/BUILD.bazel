@@ -1,0 +1,29 @@
+java_test(
+    name = "JavacUtilsTest",
+    srcs = ["JavacUtilsTest.java"],
+    data = [
+        ":jsr250_jar",
+    ],
+    deps = [
+        "//java/jflex/util/javac",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+        "//third_party/org/mockito",
+    ],
+)
+
+genrule(
+    name = "jsr250_jar",
+    srcs = ["//third_party/javax:annotation"],
+    outs = ["jsr250.jar"],
+    cmd = "cp $< $@",
+)
+
+java_test(
+    name = "JavaPackageUtilsTest",
+    srcs = ["JavaPackageUtilsTest.java"],
+    deps = [
+        "//java/de/jflex/util/javac:package_util",
+        "//third_party/com/google/truth",
+    ],
+)

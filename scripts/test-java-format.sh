@@ -10,7 +10,7 @@ set -e
 
 # Version of Google java format
 # https://github.com/google/google-java-format/releases
-VERSION_GJF=1.7
+VERSION_GJF=1.9
 
 if [[ "_${TRAVIS_JDK_VERSION}" = "_openjdk7" ]]; then
   logi "Skip google-java-format. Unsupported java version."
@@ -20,7 +20,7 @@ fi
 function gjf() {
   directory=$1
   logi "Checking $directory"
-  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' \) )
+  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' -and -not -name 'UnicodeProperties.java' \) )
 }
 
 if [[ ${TRAVIS} ]]; then

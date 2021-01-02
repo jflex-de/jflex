@@ -72,7 +72,6 @@ public class TestsuiteUtils {
   static boolean runTests(List<File> tests, List<File> classPath)
       throws MojoExecutionException, MojoFailureException {
     Locale.setDefault(Locale.US);
-
     int successCount = 0;
     int totalCount = 0;
 

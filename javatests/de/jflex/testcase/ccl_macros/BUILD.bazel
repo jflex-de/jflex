@@ -1,0 +1,44 @@
+# This build file was generated automatically, but won't be re-generated.
+# Feel free to improve.
+
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+# cclmacros
+
+jflex(
+    name = "gen_cclmacros_scanner",
+    srcs = ["cclmacros.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Cclmacros.java"],
+)
+
+java_library(
+    name = "cclmacros_scanner",
+    srcs = [
+        ":gen_cclmacros_scanner",
+    ],
+    deps = [
+        "//java/de/jflex/testing/testsuite/golden",
+        "//third_party/com/google/guava",
+        "//third_party/javax:annotation",
+    ],
+)
+
+java_test(
+    name = "CclmacrosGoldenTest",
+    srcs = [
+        "CclmacrosGoldenTest.java",
+    ],
+    data = [
+        "cclmacros-0.input",
+        "cclmacros-0.output",
+    ],
+    deps = [
+        ":cclmacros_scanner",
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/testing/testsuite/golden",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

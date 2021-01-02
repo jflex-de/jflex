@@ -49,24 +49,33 @@ def ucd_zip_version(name, version, sha256, extra_files = []):
 def ucd_version(name, version, files):
     """Macro to import the UCD for a given unicode version, by individual files."""
     for fn, sha in files.items():
-        # TODO All files
         ucd_file(
             name = name,
-            version = version,
+            version = "/" + version,
             file = fn,
             sha256 = sha,
         )
 
 def ucd_file(name, version, file, sha256):
     bzl_name = name + "_" + file.replace(".", "_").replace("-", "_")
-    path = "/" + version + "/" + file
+    path = version + "/" + file
     http_file(
         name = bzl_name,
         urls = unicode_urls(path),
         sha256 = sha256,
     )
 
+def emoji_version(name, version, files):
+    for fn, sha in files.items():
+        ucd_file(name, "/emoji/" + version, fn, sha)
+
 def unicode_deps():
+    http_file(
+        name = "ucd_derived_age",
+        urls = unicode_urls("/UNIDATA/DerivedAge.txt"),
+        sha256 = "e779a443d3aa2a3166a15becaa2b737c922480e32c0453d5956093633555078f",
+    )
+
     ucd_version(name = "ucd_1_1_5", version = "1.1-Update", files = {
         "UnicodeData-1.1.5.txt": "b0aa30303db3c13701967320550952e7368470776e304b52270fdb9256e4bd5b",
     })
@@ -100,6 +109,7 @@ def unicode_deps():
     })
     ucd_version(name = "ucd_3_2_0", version = "3.2-Update", files = {
         "Blocks-3.2.0.txt": "8b367b02089762e753a0b5554182a6a132b9394431c0fe9f1dffb7a3338d86b9",
+        "DerivedAge-3.2.0.txt": "0fac2f41096663810b5dcadc86a4dd772514402425187e79d1fdb7559998d4d6",
         "DerivedCoreProperties-3.2.0.txt": "787419dde91701018d7ad4f47432eaa55af14e3fe3fe140a11e4bbf3db18bb4c",
         "LineBreak-3.2.0.txt": "d693ef2a603d07e20b769ef8ba29afca39765588a03e3196294e5be8638ca735",
         "PropList-3.2.0.txt": "e6f4899305fd0a2771529671549dc2d75b502f4346e23b711f7f8b024d89a5f2",
@@ -110,6 +120,7 @@ def unicode_deps():
     })
     ucd_version(name = "ucd_4_0_1", version = "4.0-Update1", files = {
         "Blocks-4.0.1.txt": "c9dba71655b8787c381b3421ba2bf9a3df9e6168b5835f93fd3931c1eeff90cf",
+        "DerivedAge-4.0.1.txt": "53092daca67cfa9c913a30a501b46eb2a872b29b56c683e1b0d58c5cb3c9a999",
         "DerivedCoreProperties-4.0.1.txt": "047c6a0ebc92956a6b3a30f3d79845f28c2f2541dee83c0d62cc3fee6f55b5c4",
         "LineBreak-4.0.1.txt": "1ddc6c71e0e3229df464ecea83d408fc8a11d82013d8a80fcd812ba54bad8dfa",
         "PropList-4.0.1.txt": "0bb86d2bf47152c5fdd5f7db6e52223f868cda231586ec70073d7fbabd937d8e",
@@ -185,4 +196,64 @@ def unicode_deps():
         version = "10.0.0",
         sha256 = "cb26d649f8bac8b12f69e2fbcd77d1759ecdcd7c8e8f1c4385a9c5a36cf14891",
         extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_11",
+        version = "11.0.0",
+        sha256 = "7a0f297f845b38454c1939ef773dbd0355ae6c00eaa34cdc84139de956a7b8a3",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_12",
+        version = "12.0.0",
+        sha256 = "b0e63d9bee7cae523001b2dc7f7873615773beec999f74c2b6b84ec9d2f0f0c5",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    ucd_zip_version(
+        name = "ucd_12_1",
+        version = "12.1.0",
+        sha256 = "25ba51a0d4c6fa41047b7a5e5733068d4a734588f055f61e85f450097834a0a6",
+        extra_files = ["ScriptExtensions.txt"],
+    )
+    emoji_version(
+        name = "emoji_2",
+        version = "2.0",
+        files = {
+            "emoji-data.txt": "af7fbb8d7ebc6a8815bbab4e5e1d8f3322313a499d57ab4b901287e3f6f010cf",
+        },
+    )
+    emoji_version(
+        name = "emoji_4",
+        version = "4.0",
+        files = {
+            "emoji-data.txt": "11e04eabc3cbda7c9337f6cced9ebe331673d776d20558697dbad9221d4084ac",
+        },
+    )
+    emoji_version(
+        name = "emoji_5",
+        version = "5.0",
+        files = {
+            "emoji-data.txt": "ae7bb765f0ae7ccfdcb5d8a40ebcabc93202597d92391c698f82f99d73f94e86",
+        },
+    )
+    emoji_version(
+        name = "emoji_11",
+        version = "11.0",
+        files = {
+            "emoji-data.txt": "d501f50874c5150e0f8c34108bac9eda7d0b235c2c19fb6c1acab9b973a84b0e",
+        },
+    )
+    emoji_version(
+        name = "emoji_12",
+        version = "12.0",
+        files = {
+            "emoji-data.txt": "fbdd941538ba21d9b1aa9e6d37efd77296a825422e520174a9694dd3023c4e0f",
+        },
+    )
+    emoji_version(
+        name = "emoji_12_1",
+        version = "12.1",
+        files = {
+            "emoji-data.txt": "700c7983a94fd9b3f6b00307c341641bdada4b57db587c968eda62b7eadb6728",
+        },
     )

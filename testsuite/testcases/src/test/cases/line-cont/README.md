@@ -1,3 +1,3 @@
 Migrated to Bazel
 
-    bazel test //javatests/jflex/testcase/line_cont:all
+    bazel test //javatests/de/jflex/testcase/line_cont:all

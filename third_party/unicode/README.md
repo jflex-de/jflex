@@ -29,8 +29,21 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
     )
 ```
 
-### Generate the UnicodeProperties.java
+* The sha256 is the sha of the zip file. 
+  Tip: Use a fake value like "1111111111111111111111111111111111111111111111111111111111111111" and see bazel complain.
+  It will then provide the actual value.
+* Note that "ScriptExtensions.txt" is added since Unicode 6.0
+* Note that Unicode.org offers a zip since Unicode 4.0, for which the macro
+  `ucd_zip_version` can be used.
 
-Run the generator with all versions
+### Add a filegroup target in BUILD.bazel
 
-    bazel run //java/ucd_generator:Main 1.1=ucd_1 … 9.0=ucd_9
+```python
+filegroup(
+    name = "ucd_9",
+    srcs = [
+        "@emoji_4_emoji_data_txt//file",
+        "@ucd_9//:files",
+    ],
+)
+```
