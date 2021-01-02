@@ -24,30 +24,36 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import com.google.auto.value.AutoValue;
+import de.jflex.migration.unicodedatatest.base.Output;
 import de.jflex.version.Version;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.velocity.runtime.parser.ParseException;
 
-@AutoValue
-public abstract class Output {
-  /** Unicode version. */
-  abstract Version version();
+public class AgeMigrator {
 
-  abstract String underscoreVersion();
+  private AgeMigrator() {}
 
-  abstract String javaPackage();
+  public static void main(String[] args) throws Exception {
+    checkArgument(args.length >= 2, "Syntax error, expected: VERSION WORKSPACE_DIR");
+    Version version = new Version(args[0]);
+    Path workspaceDir = Paths.get(args[1]);
+    generate(version, workspaceDir);
+  }
 
-  abstract Path javaPackageDirectory();
-
-  static Output create(Version unicodeVersion) {
-    String underscoreVersion = unicodeVersion.underscoreVersion();
-    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    return new AutoValue_Output(
-        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
+  public static void generate(Version unicodeVersion, Path workspaceDir)
+      throws IOException, ParseException {
+    Output out = Output.create(unicodeVersion);
+    Path outDir = workspaceDir.resolve("javatests").resolve(out.javaPackageDirectory());
+    Files.createDirectories(outDir);
+    new UnicodeAgeTestGenerator(out).generate(outDir);
+    new BuildFileGenerator(out).generate(outDir);
+    new UnicodeAgeFlexGenerator(out).generate(outDir);
   }
 }

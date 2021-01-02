@@ -23,13 +23,16 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
+import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.Output;
+import de.jflex.migration.unicodedatatest.base.Pair;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.IOException;
@@ -38,7 +41,7 @@ import java.util.stream.Stream;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
-public class UnicodeAgeGenerator extends AbstractGenerator {
+public class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAge.flex.vm";
   private static final String FLEX_SUBSTRACTION_FILE_TEMPLATE =
@@ -49,12 +52,12 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
 
   private final Output output;
 
-  public UnicodeAgeGenerator(Output output) {
+  public UnicodeAgeFlexGenerator(Output output) {
     this.output = output;
   }
 
   @Override
-  void generate(Path outDir) throws IOException, ParseException {
+  public void generate(Path outDir) throws IOException, ParseException {
     ImmutableList<Version> ages = olderAges(output.version());
     for (Version age : ages) {
       generateAge(age, outDir);
@@ -64,39 +67,39 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
   }
 
   private void generateAge(Version age, Path outDir) throws IOException, ParseException {
-    UnicodeAgeTemplateVars vars = createFlexTemplateVars(age);
+    UnicodeAgeFlexTemplateVars vars = createFlexTemplateVars(age);
     Path outFile = outDir.resolve(vars.className + ".flex");
     logger.atInfo().log("Generating %s", outFile);
     Velocity.render(readResource(FLEX_FILE_TEMPLATE), "AgeFlexFile", vars, outFile.toFile());
   }
 
-  private UnicodeAgeTemplateVars createFlexTemplateVars(Version age) {
-    UnicodeAgeTemplateVars vars = new UnicodeAgeTemplateVars();
+  private UnicodeAgeFlexTemplateVars createFlexTemplateVars(Version age) {
+    UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
     vars.javaPackage = output.javaPackage();
     vars.className =
         String.format(
             "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
     vars.unicodeVersion = output.version();
     vars.age = age.toString();
-    vars.maxCodePoint = getMaxCodePoint();
+    vars.maxCodePoint = getMaxCodePoint(output.version());
     return vars;
   }
 
   private void generateAgeUnassigned(Path outDir) throws IOException, ParseException {
-    UnicodeAgeTemplateVars vars = createAgeUnassignedTemplateVars();
+    UnicodeAgeFlexTemplateVars vars = createAgeUnassignedTemplateVars();
     Path outFile = outDir.resolve(vars.className + ".flex");
     logger.atInfo().log("Generating %s", outFile);
     Velocity.render(readResource(FLEX_FILE_TEMPLATE), "AgeFlexFile", vars, outFile.toFile());
   }
 
-  private UnicodeAgeTemplateVars createAgeUnassignedTemplateVars() {
-    UnicodeAgeTemplateVars vars = new UnicodeAgeTemplateVars();
+  private UnicodeAgeFlexTemplateVars createAgeUnassignedTemplateVars() {
+    UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
     vars.javaPackage = output.javaPackage();
     vars.className =
         String.format("UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
     vars.unicodeVersion = output.version();
     vars.age = "Unassigned";
-    vars.maxCodePoint = getMaxCodePoint();
+    vars.maxCodePoint = getMaxCodePoint(output.version());
     return vars;
   }
 
@@ -121,12 +124,7 @@ public class UnicodeAgeGenerator extends AbstractGenerator {
     Stream<Pair<Version>> agePairs =
         Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
     vars.ages = agePairs.collect(ImmutableList.toImmutableList());
-    vars.maxCodePoint = getMaxCodePoint();
+    vars.maxCodePoint = getMaxCodePoint(output.version());
     return vars;
-  }
-
-  private int getMaxCodePoint() {
-    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(output.version(), VERSION_3_1) < 0;
-    return oldVersion ? 0xFFFD : 0x10FFFF;
   }
 }

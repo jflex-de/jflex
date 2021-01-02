@@ -24,22 +24,45 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import com.google.common.flogger.FluentLogger;
+import de.jflex.migration.unicodedatatest.base.Output;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.testing.unicodedata.Ages;
+import de.jflex.velocity.Velocity;
+import java.io.IOException;
+import java.nio.file.Path;
+import org.apache.velocity.runtime.parser.ParseException;
 
-public class JavaResources {
-  private JavaResources() {}
+public class BuildFileGenerator extends AbstractGenerator {
 
-  public static InputStreamReader readResource(String resourceName) {
-    InputStream resourceAsStream =
-        checkNotNull(
-            ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
-            "Null resource content for " + resourceName);
-    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
+  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
+
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private final Output out;
+
+  public BuildFileGenerator(Output out) {
+    this.out = out;
+  }
+
+  @Override
+  public void generate(Path outDir) throws IOException, ParseException {
+    BuildFileTemplateVars vars = createBuildTemplateVars(out);
+    Path outFile = outDir.resolve("BUILD.bazel");
+    logger.atInfo().log("Generating %s", outFile);
+    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
+  }
+
+  private static BuildFileTemplateVars createBuildTemplateVars(Output out) {
+    BuildFileTemplateVars vars = new BuildFileTemplateVars();
+    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
+    vars.underscoreVersion = out.underscoreVersion();
+    vars.ages = olderAges(out.version());
+    vars.dataset = Ages.getDataset(out.version());
+    return vars;
   }
 }

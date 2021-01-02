@@ -24,17 +24,22 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.util;
 
-import com.google.auto.value.AutoValue;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-@AutoValue
-public abstract class Pair<T> {
-  public abstract T first();
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
-  public abstract T second();
+public class JavaResources {
+  private JavaResources() {}
 
-  static <T> Pair create(T first, T second) {
-    return new AutoValue_Pair(first, second);
+  public static InputStreamReader readResource(String resourceName) {
+    InputStream resourceAsStream =
+        checkNotNull(
+            ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
+            "Null resource content for " + resourceName);
+    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
   }
 }

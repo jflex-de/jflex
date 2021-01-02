@@ -23,11 +23,13 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
+import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
 import com.google.common.flogger.FluentLogger;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.Output;
 import de.jflex.testing.unicodedata.Ages;
 import de.jflex.testing.unicodedata.Ages.Dataset;
 import de.jflex.velocity.Velocity;
@@ -37,7 +39,7 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import org.apache.velocity.runtime.parser.ParseException;
 
-public class JavaTestGenerator extends AbstractGenerator {
+public class UnicodeAgeTestGenerator extends AbstractGenerator {
 
   private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
 
@@ -45,12 +47,12 @@ public class JavaTestGenerator extends AbstractGenerator {
 
   private final Output out;
 
-  public JavaTestGenerator(Output out) {
+  public UnicodeAgeTestGenerator(Output out) {
     this.out = out;
   }
 
   @Override
-  void generate(Path outDir) throws IOException, ParseException {
+  public void generate(Path outDir) throws IOException, ParseException {
     UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
     Path outFile = outDir.resolve(templateVars.testClassName + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {

@@ -23,17 +23,18 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
-public class UnicodeAgeSubtractionTemplateVars extends TemplateVars {
-
+public class UnicodeAgeFlexTemplateVars extends TemplateVars {
+  /** java package with '.', used by the scanner. */
   public String javaPackage;
+
   public String className;
+
   public Version unicodeVersion;
-  public ImmutableList<Pair<Version>> ages;
+  public String age;
   public int maxCodePoint;
 }

@@ -23,28 +23,30 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.migration.unicodedatatest.base;
 
-package de.jflex.migration.unicodedatatest;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.velocity.TemplateVars;
+import com.google.auto.value.AutoValue;
 import de.jflex.version.Version;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
-public class UnicodeAgeTestTemplateVars extends TemplateVars {
-  /** Unicode Version under test. */
-  public Version unicodeVersion;
-  /** java package with '.', used by the test and the scanner. */
-  public String javaPackage;
-  /** java package directory. */
-  public Path javaPackageDir;
-  /** The name of the test class. */
-  public String testClassName;
-  /** The prefix of the names of the scanners. */
-  public String scannerPrefix;
-  /** List of ages up to {@link #unicodeVersion}. */
-  public ImmutableList<Version> ages;
-  /** The dataset to use, e.g. {@code Ages.Dataset.BMP} */
-  public Ages.Dataset dataset;
+@AutoValue
+public abstract class Output {
+  /** Unicode version. */
+  public abstract Version version();
+
+  public abstract String underscoreVersion();
+
+  public abstract String javaPackage();
+
+  public abstract Path javaPackageDirectory();
+
+  public static Output create(Version unicodeVersion) {
+    String underscoreVersion = unicodeVersion.underscoreVersion();
+    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
+    return new AutoValue_Output(
+        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
+  }
 }

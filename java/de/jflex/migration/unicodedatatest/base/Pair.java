@@ -23,44 +23,17 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.migration.unicodedatatest.base;
 
-package de.jflex.migration.unicodedatatest;
+import com.google.auto.value.AutoValue;
 
-import static de.jflex.migration.unicodedatatest.JavaResources.readResource;
+@AutoValue
+public abstract class Pair<T> {
+  public abstract T first();
 
-import com.google.common.flogger.FluentLogger;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.velocity.Velocity;
-import java.io.IOException;
-import java.nio.file.Path;
-import org.apache.velocity.runtime.parser.ParseException;
+  public abstract T second();
 
-public class BuildFileGenerator extends AbstractGenerator {
-
-  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
-
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final Output out;
-
-  public BuildFileGenerator(Output out) {
-    this.out = out;
-  }
-
-  @Override
-  void generate(Path outDir) throws IOException, ParseException {
-    BuildFileTemplateVars vars = createBuildTemplateVars(out);
-    Path outFile = outDir.resolve("BUILD.bazel");
-    logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
-  }
-
-  private static BuildFileTemplateVars createBuildTemplateVars(Output out) {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
-    vars.underscoreVersion = out.underscoreVersion();
-    vars.ages = olderAges(out.version());
-    vars.dataset = Ages.getDataset(out.version());
-    return vars;
+  public static <T> Pair create(T first, T second) {
+    return new AutoValue_Pair(first, second);
   }
 }

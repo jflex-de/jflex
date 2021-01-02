@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
@@ -34,9 +34,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import org.apache.velocity.runtime.parser.ParseException;
 
-abstract class AbstractGenerator {
+public abstract class AbstractGenerator {
+
   protected static final String ROOT_DIR =
       JavaPackageUtils.getPathForClass(AbstractGenerator.class);
+  private static final Version VERSION_3_1 = new Version(3,1);
 
   // TODO(regisd) Add This in UnicodeProperties
   private static final ImmutableList<Version> KNOWN_VERSIONS =
@@ -70,5 +72,10 @@ abstract class AbstractGenerator {
         .collect(toImmutableList());
   }
 
-  abstract void generate(Path outDir) throws IOException, ParseException;
+  protected static int getMaxCodePoint(Version version) {
+    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0;
+    return oldVersion ? 0xFFFD : 0x10FFFF;
+  }
+
+  protected abstract void generate(Path outDir) throws IOException, ParseException;
 }
