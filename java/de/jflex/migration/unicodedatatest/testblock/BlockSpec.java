@@ -27,6 +27,7 @@ package de.jflex.migration.unicodedatatest.testblock;
 
 import com.google.auto.value.AutoValue;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
 abstract class BlockSpec {
@@ -36,5 +37,9 @@ abstract class BlockSpec {
 
   static BlockSpec create(String name, int start, int end) {
     return new AutoValue_BlockSpec(name, CodepointRange.create(start, end));
+  }
+
+  public boolean isSurrogate() {
+    return SurrogateUtils.containsSurrogate(range());
   }
 }

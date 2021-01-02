@@ -25,7 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
-import static com.google.common.collect.ImmutableSet.toImmutableSet;
+import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -47,8 +47,16 @@ public class BlocksTestGenerator {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     Path ucdBlocks = Paths.get(args[2]);
-    ImmutableList<BlockSpec> blocks = parseUnicodeBlock(ucdBlocks);
-    generate(version, outDir, blocks.stream().map(b -> b.name()).collect(toImmutableSet()));
+    ImmutableList<BlockSpec> blocks =
+        parseUnicodeBlock(ucdBlocks)
+            .stream()
+            .filter(b->!b.isSurrogate())
+            .collect(toImmutableList());
+    ImmutableSet<String> blockNames = ImmutableSet.<String>builder()
+        .add("No Block")
+        .addAll(blocks.stream().map(b -> b.name()).iterator())
+        .build();
+    generate(version, outDir, blockNames);
   }
 
   private static ImmutableList<BlockSpec> parseUnicodeBlock(Path ucdBlocks) throws IOException {

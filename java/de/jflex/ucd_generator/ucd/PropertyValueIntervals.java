@@ -26,8 +26,8 @@
  */
 package de.jflex.ucd_generator.ucd;
 
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
+import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
+import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 import static de.jflex.ucd_generator.util.PropertyNameNormalizer.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.base.Preconditions;

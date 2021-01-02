@@ -6,5 +6,6 @@ java_library(
     ],
     deps = [
         "//third_party/com/google/auto_value",
+        "//third_party/com/google/guava",
     ],
 )

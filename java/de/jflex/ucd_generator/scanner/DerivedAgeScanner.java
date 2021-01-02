@@ -33,7 +33,7 @@ import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
 import de.jflex.ucd_generator.ucd.NamedCodepointRange;
-import de.jflex.ucd_generator.ucd.SurrogateUtils;
+import de.jflex.ucd.SurrogateUtils;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 import java.io.Reader;

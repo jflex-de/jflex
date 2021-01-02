@@ -26,12 +26,13 @@
 package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.containsSurrogate;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
+import static de.jflex.ucd.SurrogateUtils.containsSurrogate;
+import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
+import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.SurrogateUtils;
 import org.junit.Test;
 
 /** Test for {@link SurrogateUtils}. */
