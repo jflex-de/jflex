@@ -26,46 +26,33 @@
 
 package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
+import static com.google.common.base.Preconditions.checkArgument;
 
-import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
+import de.jflex.version.Version;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
-public class BuildFileGenerator extends AbstractGenerator {
+public class AgeTestGenerator {
 
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(BuildFileGenerator.class);
-  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
+  private AgeTestGenerator() {}
 
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final UnicodeVersion out;
-
-  public BuildFileGenerator(UnicodeVersion out) {
-    this.out = out;
+  public static void main(String[] args) throws Exception {
+    checkArgument(args.length >= 2, "Syntax error, expected: VERSION WORKSPACE_DIR");
+    UnicodeVersion version = UnicodeVersion.create(args[0]);
+    Path workspaceDir = Paths.get(args[1]);
+    generate(version, workspaceDir);
   }
 
-  @Override
-  public void generate(Path outDir) throws IOException, ParseException {
-    BuildFileTemplateVars vars = createBuildTemplateVars(out);
-    Path outFile = outDir.resolve("BUILD.bazel");
-    logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
-  }
-
-  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion out) {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
-    vars.underscoreVersion = out.underscoreVersion();
-    vars.ages = olderAges(out.version());
-    vars.dataset = Ages.getDataset(out.version());
-    return vars;
+  public static void generate(UnicodeVersion unicodeVersion, Path workspaceDir)
+      throws IOException, ParseException {
+    Path outDir = workspaceDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
+    Files.createDirectories(outDir);
+    new UnicodeAgeTestGenerator(unicodeVersion).generate(outDir);
+    new BuildFileGenerator(unicodeVersion).generate(outDir);
+    new UnicodeAgeFlexGenerator(unicodeVersion).generate(outDir);
   }
 }

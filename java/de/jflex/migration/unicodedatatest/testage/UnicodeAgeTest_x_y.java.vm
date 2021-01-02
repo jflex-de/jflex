@@ -42,7 +42,7 @@ import org.junit.Test;
 /** Test for Age property in {@link jflex.core.unicode.data.Unicode_${uv}}. */
 @Generated("de.jflex.migration.unicodedatatest.UnicodeAgeGenerator")
 // Generated from java/de/jflex/migration/unicodedatatest/UnicodeAgeTest_x_y.java.vm
-public class $testClassName {
+public class $className {
 
   private static final String TEST_DIR = getPathForClass(${testClassName}.class);
 
@@ -65,7 +65,7 @@ public class $testClassName {
     assertAgeInterval(
         ScannerFactory.of(${scannerPrefix}_${ua}::new),
         ${scannerPrefix}_${ua}.YYEOF,
-        "${scannerPrefix}_${ua}.output");
+        "${scannerPrefix}_${ua}.unicodeVersion");
   }
 #end
 
@@ -79,7 +79,7 @@ public class $testClassName {
     assertAgeInterval(
         ScannerFactory.of(${scannerPrefix}_subtraction::new),
         ${scannerPrefix}_subtraction.YYEOF,
-        "${scannerPrefix}_subtraction.output");
+        "${scannerPrefix}_subtraction.unicodeVersion");
   }
 
   /**
@@ -91,7 +91,7 @@ public class $testClassName {
     assertAgeInterval(
         ScannerFactory.of(${scannerPrefix}_unassigned::new),
         ${scannerPrefix}_unassigned.YYEOF,
-        "${scannerPrefix}_unassigned.output");
+        "${scannerPrefix}_unassigned.unicodeVersion");
   }
 
   private static void assertAgeInterval(

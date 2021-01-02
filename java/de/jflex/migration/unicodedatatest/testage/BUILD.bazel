@@ -1,8 +1,8 @@
 java_binary(
-    name = "migrator",
+    name = "generator",
     testonly = True,
     srcs = [
-        "AgeMigrator.java",
+        "AgeTestGenerator.java",
         "BuildFileGenerator.java",
         "UnicodeAgeFlexGenerator.java",
         "UnicodeAgeTestGenerator.java",

@@ -32,12 +32,11 @@ import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public abstract class AbstractGenerator {
 
-  protected static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(AbstractGenerator.class);
   private static final Version VERSION_3_1 = new Version(3,1);
 
   // TODO(regisd) Add This in UnicodeProperties

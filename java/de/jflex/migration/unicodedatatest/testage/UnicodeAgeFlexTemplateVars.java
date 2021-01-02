@@ -25,16 +25,10 @@
  */
 package de.jflex.migration.unicodedatatest.testage;
 
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
-public class UnicodeAgeFlexTemplateVars extends TemplateVars {
-  /** java package with '.', used by the scanner. */
-  public String javaPackage;
-
-  public String className;
-
-  public Version unicodeVersion;
+public class UnicodeAgeFlexTemplateVars extends UnicodeVersionTemplateVars {
   public String age;
-  public int maxCodePoint;
 }

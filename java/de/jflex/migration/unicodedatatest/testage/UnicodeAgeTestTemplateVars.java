@@ -27,20 +27,15 @@
 package de.jflex.migration.unicodedatatest.testage;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.Ages;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 import java.nio.file.Path;
 
-public class UnicodeAgeTestTemplateVars extends TemplateVars {
-  /** Unicode Version under test. */
-  public Version unicodeVersion;
-  /** java package with '.', used by the test and the scanner. */
-  public String javaPackage;
+public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
   /** java package directory. */
   public Path javaPackageDir;
-  /** The name of the test class. */
-  public String testClassName;
   /** The prefix of the names of the scanners. */
   public String scannerPrefix;
   /** List of ages up to {@link #unicodeVersion}. */

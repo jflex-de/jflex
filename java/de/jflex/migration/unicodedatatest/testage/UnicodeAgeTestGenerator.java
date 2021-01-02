@@ -29,9 +29,10 @@ import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource
 
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.Output;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.Ages;
 import de.jflex.testing.unicodedata.Ages.Dataset;
+import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,20 +42,22 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public class UnicodeAgeTestGenerator extends AbstractGenerator {
 
+  private static final String ROOT_DIR =
+      JavaPackageUtils.getPathForClass(UnicodeAgeTestGenerator.class);
   private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final Output out;
+  private final UnicodeVersion out;
 
-  public UnicodeAgeTestGenerator(Output out) {
+  public UnicodeAgeTestGenerator(UnicodeVersion out) {
     this.out = out;
   }
 
   @Override
   public void generate(Path outDir) throws IOException, ParseException {
     UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
-    Path outFile = outDir.resolve(templateVars.testClassName + ".java");
+    Path outFile = outDir.resolve(templateVars.className + ".java");
     try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
       logger.atInfo().log("Generating %s", outFile);
       Velocity.render(
@@ -62,12 +65,11 @@ public class UnicodeAgeTestGenerator extends AbstractGenerator {
     }
   }
 
-  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(Output out) {
+  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(UnicodeVersion out) {
     UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
-    vars.unicodeVersion = out.version();
-    vars.javaPackage = out.javaPackage();
+    vars.updateFrom(out);
     vars.javaPackageDir = out.javaPackageDirectory();
-    vars.testClassName = "UnicodeAgeTest_" + out.underscoreVersion();
+    vars.className = "UnicodeAgeTest_" + out.underscoreVersion();
     vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
     vars.ages = olderAges(out.version());
     Dataset dataset = Ages.getDataset(out.version());

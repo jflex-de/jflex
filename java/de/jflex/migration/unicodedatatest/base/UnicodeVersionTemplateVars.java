@@ -23,37 +23,24 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.migration.unicodedatatest.base;
 
-package de.jflex.migration.unicodedatatest.testage;
-
-import static com.google.common.base.Preconditions.checkArgument;
-
-import de.jflex.migration.unicodedatatest.base.Output;
+import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
 
-public class AgeMigrator {
+public abstract class UnicodeVersionTemplateVars extends TemplateVars {
+  /** The class name produced by this Java template. */
+  public String className;
 
-  private AgeMigrator() {}
-
-  public static void main(String[] args) throws Exception {
-    checkArgument(args.length >= 2, "Syntax error, expected: VERSION WORKSPACE_DIR");
-    Version version = new Version(args[0]);
-    Path workspaceDir = Paths.get(args[1]);
-    generate(version, workspaceDir);
-  }
-
-  public static void generate(Version unicodeVersion, Path workspaceDir)
-      throws IOException, ParseException {
-    Output out = Output.create(unicodeVersion);
-    Path outDir = workspaceDir.resolve("javatests").resolve(out.javaPackageDirectory());
-    Files.createDirectories(outDir);
-    new UnicodeAgeTestGenerator(out).generate(outDir);
-    new BuildFileGenerator(out).generate(outDir);
-    new UnicodeAgeFlexGenerator(out).generate(outDir);
+  /** java package with '.', used by the scanner. */
+  public String javaPackage;
+  /** The unicode version under test. */
+  public Version unicodeVersion;
+  /** The maximum codepoint for this Unicode version. */
+  public int maxCodePoint;
+  public void updateFrom(UnicodeVersion out) {
+    javaPackage = out.javaPackage();
+    unicodeVersion = out.version();
+    maxCodePoint = AbstractGenerator.getMaxCodePoint(out.version());
   }
 }

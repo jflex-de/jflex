@@ -31,8 +31,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.Output;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.Pair;
+import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.IOException;
@@ -43,6 +44,8 @@ import org.apache.velocity.runtime.parser.ParseException;
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
 public class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
+  private static final String ROOT_DIR =
+      JavaPackageUtils.getPathForClass(UnicodeAgeFlexGenerator.class);
   private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeAge.flex.vm";
   private static final String FLEX_SUBSTRACTION_FILE_TEMPLATE =
       ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
@@ -50,15 +53,15 @@ public class UnicodeAgeFlexGenerator extends AbstractGenerator {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final Version VERSION_3_1 = new Version(3,1);
 
-  private final Output output;
+  private final UnicodeVersion unicodeVersion;
 
-  public UnicodeAgeFlexGenerator(Output output) {
-    this.output = output;
+  public UnicodeAgeFlexGenerator(UnicodeVersion unicodeVersion) {
+    this.unicodeVersion = unicodeVersion;
   }
 
   @Override
   public void generate(Path outDir) throws IOException, ParseException {
-    ImmutableList<Version> ages = olderAges(output.version());
+    ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     for (Version age : ages) {
       generateAge(age, outDir);
     }
@@ -75,13 +78,13 @@ public class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private UnicodeAgeFlexTemplateVars createFlexTemplateVars(Version age) {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.javaPackage = output.javaPackage();
+    vars.javaPackage = unicodeVersion.javaPackage();
     vars.className =
         String.format(
-            "UnicodeAge_%s_age_%s", output.version().underscoreVersion(), age.underscoreVersion());
-    vars.unicodeVersion = output.version();
+            "UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), age.underscoreVersion());
+    vars.unicodeVersion = unicodeVersion.version();
     vars.age = age.toString();
-    vars.maxCodePoint = getMaxCodePoint(output.version());
+    vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
     return vars;
   }
 
@@ -94,12 +97,12 @@ public class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private UnicodeAgeFlexTemplateVars createAgeUnassignedTemplateVars() {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.javaPackage = output.javaPackage();
+    vars.javaPackage = unicodeVersion.javaPackage();
     vars.className =
-        String.format("UnicodeAge_%s_age_%s", output.version().underscoreVersion(), "unassigned");
-    vars.unicodeVersion = output.version();
+        String.format("UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), "unassigned");
+    vars.unicodeVersion = unicodeVersion.version();
     vars.age = "Unassigned";
-    vars.maxCodePoint = getMaxCodePoint(output.version());
+    vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
     return vars;
   }
 
@@ -116,15 +119,13 @@ public class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private UnicodeAgeSubtractionTemplateVars createFlexSubstractionTemplateVars() {
     UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
-    vars.javaPackage = output.javaPackage();
+    vars.updateFrom(unicodeVersion);
     vars.className =
-        String.format("UnicodeAge_%s_age_subtraction", output.version().underscoreVersion());
-    vars.unicodeVersion = output.version();
-    ImmutableList<Version> ages = olderAges(output.version());
+        String.format("UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
+    ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     Stream<Pair<Version>> agePairs =
         Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
     vars.ages = agePairs.collect(ImmutableList.toImmutableList());
-    vars.maxCodePoint = getMaxCodePoint(output.version());
     return vars;
   }
 }

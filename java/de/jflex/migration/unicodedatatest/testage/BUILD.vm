@@ -21,10 +21,10 @@ java_test(
     ],
     data = [
         #foreach ( $a in $ages )
-        "${baseClassName}_age_${a.underscoreVersion()}.output",
+        "${baseClassName}_age_${a.underscoreVersion()}.unicodeVersion",
         #end
-        "${baseClassName}_age_subtraction.output",
-        "${baseClassName}_age_unassigned.output",
+        "${baseClassName}_age_subtraction.unicodeVersion",
+        "${baseClassName}_age_unassigned.unicodeVersion",
         "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
     ],
     deps = [
