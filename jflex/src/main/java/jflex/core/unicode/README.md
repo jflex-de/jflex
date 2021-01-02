@@ -7,12 +7,20 @@ Eventually, they should be removed from SCM.
 
 ```sh
 bazel build //java/de/jflex/ucd_generator:gen_unicode_properties
-google-java-format bazel-bin/jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java > jflex/src/main/java/jflex/core/unicode
-for f in bazel-bin/jflex/src/main/java/jflex/core/unicode/Unicode_*.java; do
-  google-java-formar bazel-bin/jflex/src/main/java/jflex/core/unicode/Unicode_*.java > jflex/src/main/java/jflex/core/unicode/data
+google-java-format bazel-bin/java/de/jflex/ucd_generator/UnicodeProperties.java > jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java
+for f in bazel-bin/java/de/jflex/ucd_generator/Unicode_*.java; do
+  google-java-format $f  > jflex/src/main/java/jflex/core/unicode/data/$(basename $f)
 done
 ```
 
+See also
+* [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org 
+* [ucd_generator](/java/jflex/ucd_generator) for the impelentation details. 
+
 ## Generate from jflex-unicode-maven-plugin
 
-TODO: Document
+```sh
+./mvnw install
+cd jflex
+../mvnw generate-sources -P generate-unicode-properties
+```

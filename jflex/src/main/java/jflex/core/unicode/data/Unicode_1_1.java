@@ -25,11 +25,16 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+// TODO(regisd) Move in same package
 package jflex.core.unicode.data;
 
+// TODO(regisd) Restrict to package visibility
 public class Unicode_1_1 {
+
+  // Only holds constants.
   private Unicode_1_1() {}
 
+  /** Highest Unicode code point. */
   public static final int maximumCodePoint = 0xffff;
 
   public static final String[] propertyValues = {
@@ -2656,6 +2661,7 @@ public class Unicode_1_1 {
 
   public static final String[] propertyValueAliases = {};
 
+  /** Maximum caseless partition size. */
   public static final int caselessMatchPartitionSize = 3;
 
   public static final String caselessMatchPartitions =
