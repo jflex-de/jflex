@@ -27,7 +27,8 @@ package de.jflex.migration.unicodedatatest.testblock;
 
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
@@ -47,18 +48,18 @@ class UnicodeBlockFlexGenerator extends AbstractGenerator {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private final UnicodeVersion unicodeVersion;
-  private final ImmutableList<BlockSpec> blocks;
+  private final ImmutableSortedSet<String> blockNames;
 
-  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blocks) {
+  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion, ImmutableSet<String> blockNames) {
     this.unicodeVersion = unicodeVersion;
-    this.blocks = blocks;
+    this.blockNames = ImmutableSortedSet.copyOf(blockNames);
   }
 
   @Override
   public void generate(Path outDir) throws IOException, ParseException {
     UnicodeBlockFlexTemplateVars vars = createFlexTemplateVars();
     Path outFile = outDir.resolve(vars.className + ".flex");
-    logger.atInfo().log("Generating %s", outFile);
+    logger.atInfo().log("Generating %s", outFile.toAbsolutePath());
     Velocity.render(readResource(FLEX_FILE_TEMPLATE), "BlocksFlexFile", vars, outFile.toFile());
   }
 
@@ -66,7 +67,7 @@ class UnicodeBlockFlexGenerator extends AbstractGenerator {
     UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
-    vars.blocks = blocks;
+    vars.blockNames = blockNames;
     return vars;
   }
 }

@@ -25,11 +25,18 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import static com.google.common.collect.ImmutableSet.toImmutableSet;
+
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class BlocksTestGenerator {
@@ -38,19 +45,33 @@ public class BlocksTestGenerator {
 
   public static void main(String[] args) throws IOException, ParseException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path workspace = Paths.get(args[1]);
-    ImmutableList<BlockSpec> blocks = parseUnicodeBlock();
-    generate(version, workspace, blocks);
+    Path outDir = Paths.get(args[1]);
+    Path ucdBlocks = Paths.get(args[2]);
+    ImmutableList<BlockSpec> blocks = parseUnicodeBlock(ucdBlocks);
+    generate(version, outDir, blocks.stream().map(b -> b.name()).collect(toImmutableSet()));
   }
 
-  private static ImmutableList<BlockSpec> parseUnicodeBlock() {
-    return ImmutableList.of(BlockSpec.create("Basic Latin", 0x0000, 0x007F));
+  private static ImmutableList<BlockSpec> parseUnicodeBlock(Path ucdBlocks) throws IOException {
+    ImmutableList.Builder<BlockSpec> list = ImmutableList.builder();
+    PatternHandler handler = regexpGroups -> list.add(createBlock(regexpGroups));
+    SimpleBlocksParser parser =
+        new SimpleBlocksParser(Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
+    parser.parse();
+    return list.build();
+  }
+
+  private static BlockSpec createBlock(List<String> regexpGroups) {
+    return BlockSpec.create(
+        regexpGroups.get(2),
+        Integer.parseInt(regexpGroups.get(0), 16),
+        Integer.parseInt(regexpGroups.get(1), 16));
   }
 
   private static void generate(
-      UnicodeVersion version, Path workspaceDir, ImmutableList<BlockSpec> blocks)
+      UnicodeVersion version, Path outDirectory, ImmutableSet<String> blockNames)
       throws IOException, ParseException {
-    Path outDir = workspaceDir.resolve("javatests").resolve(version.javaPackageDirectory());
-    new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
+    Path outDir = outDirectory.resolve("javatests").resolve(version.javaPackageDirectory());
+    Files.createDirectories(outDir);
+    new UnicodeBlockFlexGenerator(version, blockNames).generate(outDir);
   }
 }

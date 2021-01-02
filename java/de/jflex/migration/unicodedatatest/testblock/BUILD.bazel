@@ -4,6 +4,7 @@ java_binary(
     srcs = [
         "BlockSpec.java",
         "BlocksTestGenerator.java",
+        "SimpleBlocksParser.java",
         "UnicodeBlockFlexGenerator.java",
         "UnicodeBlockFlexTemplateVars.java",
     ],
@@ -22,4 +23,15 @@ java_binary(
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],
+)
+
+genrule(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "@ucd_2_0_14_Blocks_1_txt//file",
+    ],
+    outs = ["javatests/de/jflex/testcase/unicode/unicode_2_0/UnicodeBlocks_2_0.flex"],
+    cmd = "$(location generator) 2.0 $(RULEDIR) $(location @ucd_2_0_14_Blocks_1_txt//file)",
+    tools = [":generator"],
 )

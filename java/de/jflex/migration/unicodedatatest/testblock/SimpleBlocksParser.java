@@ -32,6 +32,8 @@ import java.util.regex.Pattern;
 /**
  * Parser of unicode {@code Blocks.txt}.
  *
+ * <p>Recent Unicode
+ *
  * <pre>{@code
  * # Property:	Block
  * #
@@ -40,13 +42,21 @@ import java.util.regex.Pattern;
  * 0000..007F; Basic Latin
  * 0080..00FF; Latin-1 Supplement
  * }</pre>
+ *
+ * <p>Archaic unicode
+ *
+ * <pre>{@code
+ * # Start Code; End Code; Block Name
+ * 0000; 007F; Basic Latin
+ * 0080; 00FF; Latin-1 Supplement
+ * }</pre>
  */
-public class SimpleBlocksParser  extends AbstractSimpleParser {
+public class SimpleBlocksParser extends AbstractSimpleParser {
 
-  private static final Pattern PATTERN = Pattern.compile("([0-9A-F]+)\\.\\.([0-9A-F]+); (.*)");
+  private static final Pattern PATTERN =
+      Pattern.compile("^([0-9A-F]+)(?:\\.\\.|;\\s*)([0-9A-F]+); (.*)");
 
-  protected SimpleBlocksParser(Reader reader,
-      PatternHandler handler) {
+  protected SimpleBlocksParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);
   }
 }

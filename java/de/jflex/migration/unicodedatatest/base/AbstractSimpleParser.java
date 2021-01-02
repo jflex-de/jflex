@@ -79,7 +79,11 @@ public abstract class AbstractSimpleParser {
     return true;
   }
 
-  protected interface PatternHandler {
+  public void parse() throws IOException {
+    while (readNext()) {}
+  }
+
+  public interface PatternHandler {
     /** Called back when the line matches the pattern. */
     void onRegexMatch(List<String> regexpGroups);
   }
