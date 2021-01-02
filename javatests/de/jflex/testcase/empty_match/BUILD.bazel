@@ -20,6 +20,7 @@ java_library(
     deps = [
         "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
+        "//third_party/javax:annotation",
     ],
 )
 

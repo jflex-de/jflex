@@ -12,6 +12,9 @@ java_library(
     srcs = [
         ":sevenbit_flex",
     ],
+    deps = [
+        "//third_party/javax:annotation",
+    ],
 )
 
 java_test(

@@ -4,6 +4,9 @@ java_library(
     name = "testsuite",
     testonly = True,
     srcs = glob(["*.java"]),
+    data = [
+        ":jsr250_jar",
+    ],
     exports = [
         "//java/de/jflex/testing/testsuite/annotations",
     ],
@@ -19,4 +22,11 @@ java_library(
         "//third_party/com/google/truth",
         "//third_party/junit",
     ],
+)
+
+genrule(
+    name = "jsr250_jar",
+    srcs = ["//third_party/javax:annotation"],
+    outs = ["javax.annotation.jar"],
+    cmd = "cp $< $@",
 )

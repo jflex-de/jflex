@@ -434,8 +434,8 @@ public final class Emitter {
 
   private void emitClassName() {
     // TODO(#222) Actually fix the fall-through violations
-    println("// See https://github.com/jflex-de/jflex/issues/222");
-    println("@SuppressWarnings(\"FallThrough\")");
+    println("// See https://github.com/jflex-de/jflex/issues/453");
+    println("@javax.annotation.Generated(\"jflex.generator.LexGenerator\")");
     if (scanner.isPublic()) print("public ");
 
     if (scanner.isAbstract()) print("abstract ");
@@ -958,7 +958,8 @@ public final class Emitter {
       println(
           "    return offset == input ?"
               + " ZZ_CMAP_BLOCKS[offset] :"
-              + " ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> "
+              + " ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input"
+              + " >> "
               + CMapBlock.BLOCK_BITS
               + "] | offset];");
     }
