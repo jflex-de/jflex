@@ -54,7 +54,6 @@
 
   <modules>
     <module>cup-maven-plugin</module>
-    <module>jflex-unicode-maven-plugin</module>
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>testsuite</module>

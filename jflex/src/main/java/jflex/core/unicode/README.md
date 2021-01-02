@@ -16,11 +16,3 @@ done
 See also
 * [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org 
 * [ucd_generator](/java/jflex/ucd_generator) for the impelentation details. 
-
-## Generate from jflex-unicode-maven-plugin
-
-```sh
-./mvnw install
-cd jflex
-../mvnw generate-sources -P generate-unicode-properties
-```

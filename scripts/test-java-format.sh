@@ -42,7 +42,6 @@ gjf java
 gjf javatests
 gjf jflex
 gjf jflex-maven-plugin
-gjf jflex-unicode-maven-plugin
 gjf testsuite/jflex-testsuite-maven-plugin
 
 logi "OK 🙌"
