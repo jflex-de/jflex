@@ -1,4 +1,4 @@
-load(":gen_scanner.bzl", "gen_block_scanner")
+load(":gen_scanner.bzl", "gen_block_scanner", "gen_old_block_scanner")
 
 java_binary(
     name = "generator",
@@ -31,47 +31,152 @@ filegroup(
     name = "generate",
     testonly = True,
     srcs = [
+        ":generate_10_0",
+        ":generate_11_0",
+        ":generate_12_0",
+        ":generate_12_1",
         ":generate_2_0",
         ":generate_2_1",
         ":generate_3_0",
         ":generate_3_1",
         ":generate_3_2",
         ":generate_4_0",
+        ":generate_4_1",
+        ":generate_5_0",
+        ":generate_5_1",
+        ":generate_5_2",
+        ":generate_6_0",
+        ":generate_6_1",
+        ":generate_6_2",
+        ":generate_6_3",
+        ":generate_7_0",
+        ":generate_8_0",
+        ":generate_9_0",
     ],
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_2_0",
     ucd_file = "@ucd_2_0_14_Blocks_1_txt//file",
     version = "2.0",
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_2_1",
     ucd_file = "@ucd_2_1_9_Blocks_2_txt//file",
     version = "2.1",
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_3_0",
     ucd_file = "@ucd_3_0_0_Blocks_3_txt//file",
     version = "3.0",
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_3_1",
     ucd_file = "@ucd_3_1_0_Blocks_4_txt//file",
     version = "3.1",
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_3_2",
     ucd_file = "@ucd_3_2_0_Blocks_3_2_0_txt//file",
     version = "3.2",
 )
 
-gen_block_scanner(
+gen_old_block_scanner(
     name = "generate_4_0",
     ucd_file = "@ucd_4_0_1_Blocks_4_0_1_txt//file",
     version = "4.0",
+)
+
+gen_block_scanner(
+    name = "generate_4_1",
+    ucd = "@ucd_4_1_0//:files",
+    version = "4.1",
+)
+
+gen_block_scanner(
+    name = "generate_5_0",
+    ucd = "@ucd_5_0//:files",
+    version = "5.0",
+)
+
+gen_block_scanner(
+    name = "generate_5_1",
+    ucd = "@ucd_5_1//:files",
+    version = "5.1",
+)
+
+gen_block_scanner(
+    name = "generate_5_2",
+    ucd = "@ucd_5_2//:files",
+    version = "5.2",
+)
+
+gen_block_scanner(
+    name = "generate_6_0",
+    ucd = "@ucd_6_0//:files",
+    version = "6.0",
+)
+
+gen_block_scanner(
+    name = "generate_6_1",
+    ucd = "@ucd_6_0//:files",
+    version = "6.1",
+)
+
+gen_block_scanner(
+    name = "generate_6_2",
+    ucd = "@ucd_6_0//:files",
+    version = "6.2",
+)
+
+gen_block_scanner(
+    name = "generate_6_3",
+    ucd = "@ucd_6_0//:files",
+    version = "6.3",
+)
+
+gen_block_scanner(
+    name = "generate_7_0",
+    ucd = "@ucd_7_0//:files",
+    version = "7.0",
+)
+
+gen_block_scanner(
+    name = "generate_8_0",
+    ucd = "@ucd_8_0//:files",
+    version = "8.0",
+)
+
+gen_block_scanner(
+    name = "generate_9_0",
+    ucd = "@ucd_9_0//:files",
+    version = "9.0",
+)
+
+gen_block_scanner(
+    name = "generate_10_0",
+    ucd = "@ucd_10_0//:files",
+    version = "10.0",
+)
+
+gen_block_scanner(
+    name = "generate_11_0",
+    ucd = "@ucd_11_0//:files",
+    version = "11.0",
+)
+
+gen_block_scanner(
+    name = "generate_12_0",
+    ucd = "@ucd_12_0//:files",
+    version = "12.0",
+)
+
+gen_block_scanner(
+    name = "generate_12_1",
+    ucd = "@ucd_12_1//:files",
+    version = "12.1",
 )
