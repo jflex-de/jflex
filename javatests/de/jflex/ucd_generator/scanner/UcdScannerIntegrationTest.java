@@ -28,8 +28,8 @@ package de.jflex.ucd_generator.scanner;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.ucd_generator.TestedVersions;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd_generator.TestedVersions;
 import de.jflex.version.Version;
 import java.io.IOException;
 import org.junit.Before;

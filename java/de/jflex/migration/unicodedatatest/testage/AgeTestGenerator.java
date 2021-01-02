@@ -29,7 +29,6 @@ package de.jflex.migration.unicodedatatest.testage;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -41,9 +41,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-/**
- * Test for {@link AbstractSimpleParserTest}.
- */
+/** Test for {@link AbstractSimpleParserTest}. */
 public class AbstractSimpleParserTest {
 
   @Rule public MockitoRule rule = MockitoJUnit.rule();
@@ -92,8 +90,7 @@ public class AbstractSimpleParserTest {
   static class TestingParser extends AbstractSimpleParser {
     private static final Pattern PATTERN = Pattern.compile("(hello+)( World)?");
 
-    protected TestingParser(Reader reader,
-        PatternHandler handler) {
+    protected TestingParser(Reader reader, PatternHandler handler) {
       super(PATTERN, reader, handler);
     }
   }

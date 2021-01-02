@@ -73,8 +73,7 @@ public class Ages {
   }
 
   public static Dataset getDataset(Version version) {
-    boolean oldUnicode =
-        Version.EXACT_VERSION_COMPARATOR.compare(version, VERSION_3_0) <=0;
+    boolean oldUnicode = Version.EXACT_VERSION_COMPARATOR.compare(version, VERSION_3_0) <= 0;
     return oldUnicode ? Dataset.BMP : Dataset.ALL;
   }
 

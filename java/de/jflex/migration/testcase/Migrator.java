@@ -207,13 +207,13 @@ public class Migrator {
   // FIXME This should be done once for the whole directory, but with many java_test()
   private static void renderBuildFile(MigrationTemplateVars templateVars, File buildFile)
       throws MigrationException {
-      logger.atInfo().log("Generating %s", buildFile);
-      try {
-        Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, buildFile);
-      } catch (ParseException | IOException e) {
-        throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
-      }
+    logger.atInfo().log("Generating %s", buildFile);
+    try {
+      Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, buildFile);
+    } catch (ParseException | IOException e) {
+      throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
     }
+  }
 
   /** Generates the Java test class. */
   private static void renderTestCase(MigrationTemplateVars templateVars, File outputDir)
@@ -324,8 +324,7 @@ public class Migrator {
   }
 
   /** Invokes velocity to generate the Test file. */
-  private static void velocityRenderTestCase(
-      MigrationTemplateVars templateVars, File output)
+  private static void velocityRenderTestCase(MigrationTemplateVars templateVars, File output)
       throws IOException, MigrationException {
     try {
       Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, output);

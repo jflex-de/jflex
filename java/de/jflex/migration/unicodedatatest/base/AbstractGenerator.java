@@ -35,7 +35,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public abstract class AbstractGenerator {
 
-  private static final Version VERSION_3_1 = new Version(3,1);
+  private static final Version VERSION_3_1 = new Version(3, 1);
 
   // TODO(regisd) Add This in UnicodeProperties
   private static final ImmutableList<Version> KNOWN_VERSIONS =

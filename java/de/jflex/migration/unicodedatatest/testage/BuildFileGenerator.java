@@ -29,8 +29,8 @@ package de.jflex.migration.unicodedatatest.testage;
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
 import com.google.common.flogger.FluentLogger;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.Ages;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
@@ -40,8 +40,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 class BuildFileGenerator extends AbstractGenerator {
 
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(BuildFileGenerator.class);
+  private static final String ROOT_DIR = JavaPackageUtils.getPathForClass(BuildFileGenerator.class);
   private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();

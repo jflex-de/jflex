@@ -37,18 +37,18 @@ public class BlocksTestGenerator {
   private BlocksTestGenerator() {}
 
   public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version  = UnicodeVersion.create(args[0]);
+    UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path workspace = Paths.get(args[1]);
     ImmutableList<BlockSpec> blocks = parseUnicodeBlock();
     generate(version, workspace, blocks);
   }
 
   private static ImmutableList<BlockSpec> parseUnicodeBlock() {
-    return ImmutableList.of(BlockSpec.create("Basic Latin",0x0000, 0x007F));
+    return ImmutableList.of(BlockSpec.create("Basic Latin", 0x0000, 0x007F));
   }
 
-  private static void generate(UnicodeVersion version, Path workspaceDir,
-      ImmutableList<BlockSpec> blocks)
+  private static void generate(
+      UnicodeVersion version, Path workspaceDir, ImmutableList<BlockSpec> blocks)
       throws IOException, ParseException {
     Path outDir = workspaceDir.resolve("javatests").resolve(version.javaPackageDirectory());
     new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);

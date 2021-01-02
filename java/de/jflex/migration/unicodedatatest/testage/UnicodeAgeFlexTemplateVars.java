@@ -26,8 +26,6 @@
 package de.jflex.migration.unicodedatatest.testage;
 
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.velocity.TemplateVars;
-import de.jflex.version.Version;
 
 public class UnicodeAgeFlexTemplateVars extends UnicodeVersionTemplateVars {
   public String age;

@@ -47,6 +47,6 @@ public class SimpleBlocksParser  extends AbstractSimpleParser {
 
   protected SimpleBlocksParser(Reader reader,
       PatternHandler handler) {
-    super(PATTERN, reader, handler;
+    super(PATTERN, reader, handler);
   }
 }

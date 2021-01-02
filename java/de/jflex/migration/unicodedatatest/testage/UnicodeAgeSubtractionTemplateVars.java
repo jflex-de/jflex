@@ -28,7 +28,6 @@ package de.jflex.migration.unicodedatatest.testage;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.Pair;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
 public class UnicodeAgeSubtractionTemplateVars extends UnicodeVersionTemplateVars {

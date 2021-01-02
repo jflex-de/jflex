@@ -31,8 +31,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.Pair;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
@@ -51,7 +51,7 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
       ROOT_DIR + "/UnicodeAgeSubtraction.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final Version VERSION_3_1 = new Version(3,1);
+  private static final Version VERSION_3_1 = new Version(3, 1);
 
   private final UnicodeVersion unicodeVersion;
 
@@ -81,7 +81,8 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
     vars.javaPackage = unicodeVersion.javaPackage();
     vars.className =
         String.format(
-            "UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), age.underscoreVersion());
+            "UnicodeAge_%s_age_%s",
+            unicodeVersion.version().underscoreVersion(), age.underscoreVersion());
     vars.unicodeVersion = unicodeVersion.version();
     vars.age = age.toString();
     vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
@@ -99,7 +100,8 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
     vars.javaPackage = unicodeVersion.javaPackage();
     vars.className =
-        String.format("UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), "unassigned");
+        String.format(
+            "UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), "unassigned");
     vars.unicodeVersion = unicodeVersion.version();
     vars.age = "Unassigned";
     vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
@@ -121,7 +123,8 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
     UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
     vars.updateFrom(unicodeVersion);
     vars.className =
-        String.format("UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
+        String.format(
+            "UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
     ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     Stream<Pair<Version>> agePairs =
         Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);

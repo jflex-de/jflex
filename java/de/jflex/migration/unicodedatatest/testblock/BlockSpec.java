@@ -31,7 +31,9 @@ import de.jflex.ucd.CodepointRange;
 @AutoValue
 abstract class BlockSpec {
   abstract String name();
+
   abstract CodepointRange range();
+
   static BlockSpec create(String name, int start, int end) {
     return new AutoValue_BlockSpec(name, CodepointRange.create(start, end));
   }

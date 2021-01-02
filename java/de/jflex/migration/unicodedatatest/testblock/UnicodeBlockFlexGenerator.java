@@ -49,10 +49,9 @@ class UnicodeBlockFlexGenerator extends AbstractGenerator {
   private final UnicodeVersion unicodeVersion;
   private final ImmutableList<BlockSpec> blocks;
 
-  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion,
-      ImmutableList<BlockSpec> blocks) {
+  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blocks) {
     this.unicodeVersion = unicodeVersion;
-    this.blocks= blocks;
+    this.blocks = blocks;
   }
 
   @Override

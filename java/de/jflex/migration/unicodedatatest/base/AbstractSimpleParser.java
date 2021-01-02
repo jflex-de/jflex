@@ -47,8 +47,7 @@ public abstract class AbstractSimpleParser {
   private final BufferedReader reader;
   private final PatternHandler handler;
 
-  protected AbstractSimpleParser(Pattern pattern, Reader reader,
-      PatternHandler handler) {
+  protected AbstractSimpleParser(Pattern pattern, Reader reader, PatternHandler handler) {
     this.pattern = pattern;
     this.reader = new BufferedReader(reader);
     this.handler = handler;
@@ -70,10 +69,11 @@ public abstract class AbstractSimpleParser {
     }
     Matcher matcher = pattern.matcher(line);
     if (matcher.matches()) {
-      List<String> regexpGroups = IntStream.range(1, /*endExclusive=*/ matcher.groupCount() + 1)
-          .mapToObj(matcher::group)
-          .filter(Objects::nonNull)
-          .collect(toImmutableList());
+      List<String> regexpGroups =
+          IntStream.range(1, /*endExclusive=*/ matcher.groupCount() + 1)
+              .mapToObj(matcher::group)
+              .filter(Objects::nonNull)
+              .collect(toImmutableList());
       handler.onRegexMatch(regexpGroups);
     }
     return true;
