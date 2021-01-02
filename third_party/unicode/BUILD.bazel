@@ -97,47 +97,47 @@ alias(
 )
 
 alias(
-    name = "ucd_5_0_0",
+    name = "ucd_5_0",
     actual = "@ucd_5_0_0//:files",
 )
 
 alias(
-    name = "ucd_5_1_0",
+    name = "ucd_5_1",
     actual = "@ucd_5_1_0//:files",
 )
 
 alias(
-    name = "ucd_5_2_0",
+    name = "ucd_5_2",
     actual = "@ucd_5_2_0//:files",
 )
 
 alias(
-    name = "ucd_6_0_0",
+    name = "ucd_6_0",
     actual = "@ucd_6_0_0//:files",
 )
 
 alias(
-    name = "ucd_6_1_0",
+    name = "ucd_6_1",
     actual = "@ucd_6_1_0//:files",
 )
 
 alias(
-    name = "ucd_6_2_0",
+    name = "ucd_6_2",
     actual = "@ucd_6_2_0//:files",
 )
 
 alias(
-    name = "ucd_6_3_0",
+    name = "ucd_6_3",
     actual = "@ucd_6_3_0//:files",
 )
 
 alias(
-    name = "ucd_7",
+    name = "ucd_7_0",
     actual = "@ucd_7//:files",
 )
 
 filegroup(
-    name = "ucd_8",
+    name = "ucd_8_0",
     srcs = [
         "@emoji_2_emoji_data_txt//file",
         "@ucd_8//:files",
@@ -145,7 +145,7 @@ filegroup(
 )
 
 filegroup(
-    name = "ucd_9",
+    name = "ucd_9_0",
     srcs = [
         "@emoji_4_emoji_data_txt//file",
         "@ucd_9//:files",
@@ -153,7 +153,7 @@ filegroup(
 )
 
 filegroup(
-    name = "ucd_10",
+    name = "ucd_10_0",
     srcs = [
         "@emoji_5_emoji_data_txt//file",
         "@ucd_10//:files",
@@ -161,7 +161,7 @@ filegroup(
 )
 
 filegroup(
-    name = "ucd_11",
+    name = "ucd_11_0",
     srcs = [
         "@emoji_11_emoji_data_txt//file",
         "@ucd_11//:files",
@@ -169,7 +169,7 @@ filegroup(
 )
 
 filegroup(
-    name = "ucd_12",
+    name = "ucd_12_0",
     srcs = [
         "@emoji_12_emoji_data_txt//file",
         "@ucd_12//:files",
