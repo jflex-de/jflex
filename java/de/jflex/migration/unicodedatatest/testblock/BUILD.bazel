@@ -1,0 +1,25 @@
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "BlockSpec.java",
+        "BlocksTestGenerator.java",
+        "UnicodeBlockFlexGenerator.java",
+        "UnicodeBlockFlexTemplateVars.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator",
+    resources = ["UnicodeBlock.flex.vm"],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/util:java_resources",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)

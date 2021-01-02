@@ -28,6 +28,7 @@ package de.jflex.ucd_generator.ucd;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.testing.assertion.MoreAsserts;
+import de.jflex.ucd.CodepointRange;
 import org.junit.Test;
 
 /** Test for {@link CodepointRangeSet}. */

@@ -35,6 +35,7 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import de.jflex.version.Version;
 import java.util.Collection;

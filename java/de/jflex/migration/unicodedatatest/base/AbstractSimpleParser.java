@@ -27,52 +27,60 @@ package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.version.Version;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import org.apache.velocity.runtime.parser.ParseException;
+import java.io.Reader;
+import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
-public abstract class AbstractGenerator {
+/**
+ * A simple parser.
+ *
+ * <p>Hand-made parser to test JFlex against, and avoid testing JFlex parsing with JFlex itself.
+ */
+public abstract class AbstractSimpleParser {
 
-  private static final Version VERSION_3_1 = new Version(3,1);
+  private final Pattern pattern;
+  private final BufferedReader reader;
+  private final PatternHandler handler;
 
-  // TODO(regisd) Add This in UnicodeProperties
-  private static final ImmutableList<Version> KNOWN_VERSIONS =
-      ImmutableList.of(
-          new Version(1, 1),
-          new Version(2, 0),
-          new Version(2, 1),
-          new Version(3, 0),
-          new Version(3, 1),
-          new Version(3, 2),
-          new Version(4, 0),
-          new Version(4, 1),
-          new Version(5, 0),
-          new Version(5, 1),
-          new Version(5, 2),
-          new Version(6, 0),
-          new Version(6, 1),
-          new Version(6, 2),
-          new Version(6, 3),
-          new Version(7, 0),
-          new Version(8, 0),
-          new Version(9, 0),
-          new Version(10, 0),
-          new Version(11, 0),
-          new Version(12, 0),
-          new Version(12, 1));
-
-  protected static ImmutableList<Version> olderAges(Version version) {
-    return KNOWN_VERSIONS.stream()
-        .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
-        .collect(toImmutableList());
+  protected AbstractSimpleParser(Pattern pattern, Reader reader,
+      PatternHandler handler) {
+    this.pattern = pattern;
+    this.reader = new BufferedReader(reader);
+    this.handler = handler;
   }
 
-  protected static int getMaxCodePoint(Version version) {
-    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0;
-    return oldVersion ? 0xFFFD : 0x10FFFF;
+  /**
+   * Reads a line.
+   *
+   * @return true if content was read ; false if EOF was reached.
+   */
+  boolean readNext() throws IOException {
+    String line = reader.readLine();
+    if (line == null) {
+      return false;
+    }
+    if (line.isEmpty() || line.charAt(0) == '#') {
+      // skip
+      return true;
+    }
+    Matcher matcher = pattern.matcher(line);
+    if (matcher.matches()) {
+      List<String> regexpGroups = IntStream.range(1, /*endExclusive=*/ matcher.groupCount() + 1)
+          .mapToObj(matcher::group)
+          .filter(Objects::nonNull)
+          .collect(toImmutableList());
+      handler.onRegexMatch(regexpGroups);
+    }
+    return true;
   }
 
-  protected abstract void generate(Path outDir) throws IOException, ParseException;
+  protected interface PatternHandler {
+    /** Called back when the line matches the pattern. */
+    void onRegexMatch(List<String> regexpGroups);
+  }
 }

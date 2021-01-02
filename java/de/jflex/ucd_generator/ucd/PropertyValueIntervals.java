@@ -40,6 +40,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.TreeMultimap;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashSet;

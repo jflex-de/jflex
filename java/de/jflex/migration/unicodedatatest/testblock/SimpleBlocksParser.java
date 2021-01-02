@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,35 +23,30 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.ucd;
+package de.jflex.migration.unicodedatatest.testblock;
 
-import com.google.auto.value.AutoValue;
-import de.jflex.ucd.CodepointRange;
-import java.util.Comparator;
+import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser;
+import java.io.Reader;
+import java.util.regex.Pattern;
 
-@AutoValue
-public abstract class NamedCodepointRange {
+/**
+ * Parser of unicode {@code Blocks.txt}.
+ *
+ * <pre>{@code
+ * # Property:	Block
+ * #
+ * # @missing: 0000..10FFFF; No_Block
+ *
+ * 0000..007F; Basic Latin
+ * 0080..00FF; Latin-1 Supplement
+ * }</pre>
+ */
+public class SimpleBlocksParser  extends AbstractSimpleParser {
 
-  public static final Comparator<NamedCodepointRange> START_COMPARATOR =
-      (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
+  private static final Pattern PATTERN = Pattern.compile("([0-9A-F]+)\\.\\.([0-9A-F]+); (.*)");
 
-  public abstract String name();
-
-  public abstract CodepointRange range();
-
-  static NamedCodepointRange create(String name, CodepointRange range) {
-    return new AutoValue_NamedCodepointRange(name, range);
-  }
-
-  public static NamedCodepointRange create(String name, int start, int end) {
-    return create(name, CodepointRange.create(start, end));
-  }
-
-  public int start() {
-    return range().start();
-  }
-
-  public int end() {
-    return range().end();
+  protected SimpleBlocksParser(Reader reader,
+      PatternHandler handler) {
+    super(PATTERN, reader, handler;
   }
 }

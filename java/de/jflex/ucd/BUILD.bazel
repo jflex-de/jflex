@@ -1,0 +1,10 @@
+java_library(
+    name = "ucd",
+    srcs = glob(["*.java"]),
+    visibility = [
+        "//java/de/jflex:visibility",
+    ],
+    deps = [
+        "//third_party/com/google/auto_value",
+    ],
+)

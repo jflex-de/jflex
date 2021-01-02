@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2019-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,61 +23,44 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.ucd;
+package de.jflex.ucd;
 
-import de.jflex.ucd.CodepointRange;
+import com.google.auto.value.AutoValue;
 import java.util.Comparator;
-import java.util.Objects;
 
-/** Mutable version of the {@link CodepointRange}. */
-public class MutableCodepointRange {
+@AutoValue
+public abstract class CodepointRange {
 
-  static final Comparator<MutableCodepointRange> COMPARATOR_START_POINT =
-      Comparator.comparingInt(o -> o.start);
+  public static final Comparator<CodepointRange> COMPARATOR =
+      Comparator.comparingInt(CodepointRange::start).thenComparingInt(CodepointRange::end);
 
-  public int start;
-  public int end;
+  /** Start code-point, included. */
+  public abstract int start();
 
-  private MutableCodepointRange(int startCodePoint, int endCodePoint) {
-    start = startCodePoint;
-    end = endCodePoint;
+  /** End code-point, included. */
+  public abstract int end();
+
+  public final int length() {
+    return end() - start();
   }
 
   @Override
-  public String toString() {
-    if (start == end) {
-      return String.format("\\u%04x", start);
+  public final String toString() {
+    if (length() == 0) {
+      return String.format("\\u%04x", start());
     }
-    return String.format("\\u%04x" + "…" + "\\u%04x", start, end);
+    return String.format("\\u%04x…\\u%04x", start(), end());
   }
 
-  public static MutableCodepointRange create(CodepointRange range) {
-    return MutableCodepointRange.create(range.start(), range.end());
+  public static CodepointRange create(int start, int end) {
+    return new AutoValue_CodepointRange(start, end);
   }
 
-  public static MutableCodepointRange create(int startCodePoint, int endCodePoint) {
-    return new MutableCodepointRange(startCodePoint, endCodePoint);
+  public static CodepointRange createPoint(int codePoint) {
+    return create(codePoint, codePoint);
   }
 
-  public static MutableCodepointRange createPoint(int codePoint) {
-    return MutableCodepointRange.create(codePoint, codePoint);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(start, end);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (!(obj instanceof MutableCodepointRange)) {
-      return false;
-    }
-    MutableCodepointRange other = (MutableCodepointRange) obj;
-    return other.start == start && other.end == end;
-  }
-
-  public CodepointRange toImmutableRange() {
-    return CodepointRange.create(start, end);
+  public boolean contains(CodepointRange range) {
+    return this.start() <= range.start() && range.end() <= this.end();
   }
 }

@@ -31,6 +31,7 @@ import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.CodepointRange;
 import org.junit.Test;
 
 /** Test for {@link SurrogateUtils}. */

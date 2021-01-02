@@ -23,57 +23,51 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testage;
+package de.jflex.migration.unicodedatatest.testblock;
 
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.testing.unicodedata.Ages.Dataset;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Path;
 import org.apache.velocity.runtime.parser.ParseException;
 
-class UnicodeAgeTestGenerator extends AbstractGenerator {
+/** Generates the flex of the scanners for a all blocks of a given Unicode version. */
+class UnicodeBlockFlexGenerator extends AbstractGenerator {
 
   private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(UnicodeAgeTestGenerator.class);
-  private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
+      JavaPackageUtils.getPathForClass(UnicodeBlockFlexGenerator.class);
+  private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeBlock.flex.vm";
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final UnicodeVersion out;
+  private final UnicodeVersion unicodeVersion;
+  private final ImmutableList<BlockSpec> blocks;
 
-  public UnicodeAgeTestGenerator(UnicodeVersion out) {
-    this.out = out;
+  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion,
+      ImmutableList<BlockSpec> blocks) {
+    this.unicodeVersion = unicodeVersion;
+    this.blocks= blocks;
   }
 
   @Override
   public void generate(Path outDir) throws IOException, ParseException {
-    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
-    Path outFile = outDir.resolve(templateVars.className + ".java");
-    try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
-      logger.atInfo().log("Generating %s", outFile);
-      Velocity.render(
-          readResource(UNICODE_AGE_TEST_TEMPLATE), "UnicodeAge", templateVars, outputStream);
-    }
+    UnicodeBlockFlexTemplateVars vars = createFlexTemplateVars();
+    Path outFile = outDir.resolve(vars.className + ".flex");
+    logger.atInfo().log("Generating %s", outFile);
+    Velocity.render(readResource(FLEX_FILE_TEMPLATE), "BlocksFlexFile", vars, outFile.toFile());
   }
 
-  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(UnicodeVersion out) {
-    UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
-    vars.updateFrom(out);
-    vars.javaPackageDir = out.javaPackageDirectory();
-    vars.className = "UnicodeAgeTest_" + out.underscoreVersion();
-    vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
-    vars.ages = olderAges(out.version());
-    Dataset dataset = Ages.getDataset(out.version());
-    vars.dataset = dataset;
+  private UnicodeBlockFlexTemplateVars createFlexTemplateVars() {
+    UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
+    vars.updateFrom(unicodeVersion);
+    vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
+    vars.blocks = blocks;
     return vars;
   }
 }

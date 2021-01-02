@@ -23,49 +23,34 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.migration.unicodedatatest.testblock;
 
-package de.jflex.migration.unicodedatatest.testage;
-
-import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
-
-import com.google.common.flogger.FluentLogger;
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
-class BuildFileGenerator extends AbstractGenerator {
+public class BlocksTestGenerator {
 
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(BuildFileGenerator.class);
-  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
+  private BlocksTestGenerator() {}
 
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final UnicodeVersion out;
-
-  public BuildFileGenerator(UnicodeVersion out) {
-    this.out = out;
+  public static void main(String[] args) throws IOException, ParseException {
+    UnicodeVersion version  = UnicodeVersion.create(args[0]);
+    Path workspace = Paths.get(args[1]);
+    ImmutableList<BlockSpec> blocks = parseUnicodeBlock();
+    generate(version, workspace, blocks);
   }
 
-  @Override
-  public void generate(Path outDir) throws IOException, ParseException {
-    BuildFileTemplateVars vars = createBuildTemplateVars(out);
-    Path outFile = outDir.resolve("BUILD.bazel");
-    logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
+  private static ImmutableList<BlockSpec> parseUnicodeBlock() {
+    return ImmutableList.of(BlockSpec.create("Basic Latin",0x0000, 0x007F));
   }
 
-  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion out) {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
-    vars.underscoreVersion = out.underscoreVersion();
-    vars.ages = olderAges(out.version());
-    vars.dataset = Ages.getDataset(out.version());
-    return vars;
+  private static void generate(UnicodeVersion version, Path workspaceDir,
+      ImmutableList<BlockSpec> blocks)
+      throws IOException, ParseException {
+    Path outDir = workspaceDir.resolve("javatests").resolve(version.javaPackageDirectory());
+    new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
   }
 }

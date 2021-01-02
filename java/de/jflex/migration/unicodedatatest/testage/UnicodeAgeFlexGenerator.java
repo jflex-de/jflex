@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 import org.apache.velocity.runtime.parser.ParseException;
 
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
-public class UnicodeAgeFlexGenerator extends AbstractGenerator {
+class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private static final String ROOT_DIR =
       JavaPackageUtils.getPathForClass(UnicodeAgeFlexGenerator.class);
