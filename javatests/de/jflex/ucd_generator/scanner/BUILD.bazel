@@ -2,7 +2,7 @@ java_test(
     name = "UcdScannerIntegrationTest",
     srcs = ["UcdScannerIntegrationTest.java"],
     data = [
-        "//third_party/unicode:ucd_6_3_0",
+        "//third_party/unicode:ucd_6_3",
     ],
     deps = [
         "//java/de/jflex/ucd_generator",

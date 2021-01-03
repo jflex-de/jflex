@@ -46,11 +46,11 @@ public class MainTest {
         Main.findUcdFiles(
             "10.0.0",
             ImmutableList.of(
-                "external/emoji_5_emoji_data_txt/file/downloaded", "external/ucd_10/Blocks.txt"));
+                "external/emoji_5_emoji_data_txt/file/downloaded", "external/ucd_10_0/Blocks.txt"));
 
     assertThat(parsedVersion.files())
         .containsExactly(
-            UcdFileType.Blocks, new File("external/ucd_10/Blocks.txt"),
+            UcdFileType.Blocks, new File("external/ucd_10_0/Blocks.txt"),
             UcdFileType.Emoji, new File("external/emoji_5_emoji_data_txt/file/downloaded"));
   }
 

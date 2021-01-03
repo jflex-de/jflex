@@ -135,76 +135,76 @@ def unicode_deps():
         sha256 = "1aa4041a36de1ef94b66beeb152ebd967f5f9be62f8b4ef382909258ef99b732",
     )
     ucd_zip_version(
-        name = "ucd_5_0_0",
+        name = "ucd_5_0",
         version = "5.0.0",
         sha256 = "3d007602de6c7de0c4c9a3d8199ae4238de23cb3fe04cb4a1b6935b19333631b",
     )
     ucd_zip_version(
-        name = "ucd_5_1_0",
+        name = "ucd_5_1",
         version = "5.1.0",
         sha256 = "d4960aed52cfa1a7b9cf264a2c99a6638344ad0668f6a1c47a3248e0e6aef213",
     )
     ucd_zip_version(
-        name = "ucd_5_2_0",
+        name = "ucd_5_2",
         version = "5.2.0",
         sha256 = "3d7a2467d6ee2533de545d833b3cd1cc2488f198e38d7b8b42adc67023a0c646",
     )
     ucd_zip_version(
-        name = "ucd_6_0_0",
+        name = "ucd_6_0",
         version = "6.0.0",
         sha256 = "f4c32d5d3f2ba8e73c156b13e8fb7742a1e0cab88b6a0bf765dc3b42109e915c",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_6_1_0",
+        name = "ucd_6_1",
         version = "6.1.0",
         sha256 = "da569e22e40cf3c098ac96c805083c7dd8f4f4778ac27efaa7f6c6d8fd6c30cc",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_6_2_0",
+        name = "ucd_6_2",
         version = "6.2.0",
         sha256 = "ea1318ce81eb912e7a6b6008309aa6b6def95503057d27433334850f00533a23",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_6_3_0",
+        name = "ucd_6_3",
         version = "6.3.0",
         sha256 = "2d3c6c51b5821e821881b13694eccb78812d493762c41e9c95c31a7686ed3823",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_7",
+        name = "ucd_7_0",
         version = "7.0.0",
         sha256 = "9c9d92ec9f011691d6d22d2c2d3e5825f50e4f8d6f85c2c2bc01705f085e2af6",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_8",
+        name = "ucd_8_0",
         version = "8.0.0",
         sha256 = "e3959c0b96c5ea7ff118254b55e1a752c2a28170b3404ba6bb5ab2c58536ce2e",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_9",
+        name = "ucd_9_0",
         version = "9.0.0",
         sha256 = "df9e028425816fd5117eaea7173704056f88f7cd030681e457c6f3827f9390ec",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_10",
+        name = "ucd_10_0",
         version = "10.0.0",
         sha256 = "cb26d649f8bac8b12f69e2fbcd77d1759ecdcd7c8e8f1c4385a9c5a36cf14891",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_11",
+        name = "ucd_11_0",
         version = "11.0.0",
         sha256 = "7a0f297f845b38454c1939ef773dbd0355ae6c00eaa34cdc84139de956a7b8a3",
         extra_files = ["ScriptExtensions.txt"],
     )
     ucd_zip_version(
-        name = "ucd_12",
+        name = "ucd_12_0",
         version = "12.0.0",
         sha256 = "b0e63d9bee7cae523001b2dc7f7873615773beec999f74c2b6b84ec9d2f0f0c5",
         extra_files = ["ScriptExtensions.txt"],
@@ -237,14 +237,14 @@ def unicode_deps():
         },
     )
     emoji_version(
-        name = "emoji_11",
+        name = "emoji_11_0",
         version = "11.0",
         files = {
             "emoji-data.txt": "d501f50874c5150e0f8c34108bac9eda7d0b235c2c19fb6c1acab9b973a84b0e",
         },
     )
     emoji_version(
-        name = "emoji_12",
+        name = "emoji_12_0",
         version = "12.0",
         files = {
             "emoji-data.txt": "fbdd941538ba21d9b1aa9e6d37efd77296a825422e520174a9694dd3023c4e0f",
