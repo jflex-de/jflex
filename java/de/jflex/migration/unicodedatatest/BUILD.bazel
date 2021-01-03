@@ -39,7 +39,7 @@ filegroup(
 [
     gen_build(
         name = "gen_build_%s_%s" % (x, y),
-        version = "%s_%s" % (x, y),
+        version = "%s.%s" % (x, y),
     )
     for (x, y) in TESTED_VERSION
 ]
