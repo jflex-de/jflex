@@ -51,14 +51,14 @@ jflex(
 
 jflex(
     name = "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction",
-    srcs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_${unicodeVersion.underscoreVersion()}/UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.java"],
 )
 
 jflex(
     name = "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned",
-    srcs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_${unicodeVersion.underscoreVersion()}/UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.java"],
 )

@@ -1,6 +1,14 @@
 package(default_visibility = ["//javatests/de/jflex/testcase:__subpackages__"])
 
-exports_files(glob(["*.input"]))
+alias(
+    name = "All.Unicode.characters.input",
+    actual = "//testsuite/testcases/src/test/resources:All.Unicode.characters.input",
+)
+
+alias(
+    name = "All.Unicode.BMP.characters.input",
+    actual = "//testsuite/testcases/src/test/resources:All.Unicode.BMP.characters.input",
+)
 
 java_library(
     name = "resources",

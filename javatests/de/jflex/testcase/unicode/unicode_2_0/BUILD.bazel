@@ -15,21 +15,21 @@ java_test(
     name = "UnicodeAgeTest_2_0",
     srcs = [
         "UnicodeAgeTest_2_0.java",
-                ":UnicodeAge_2_0_age_1_1",
-                ":UnicodeAge_2_0_age_2_0",
-                ":UnicodeAge_2_0_age_subtraction",
+        ":UnicodeAge_2_0_age_1_1",
+        ":UnicodeAge_2_0_age_2_0",
+        ":UnicodeAge_2_0_age_subtraction",
         ":UnicodeAge_2_0_age_unassigned",
     ],
     data = [
-                "UnicodeAge_2_0_age_1_1.output",
-                "UnicodeAge_2_0_age_2_0.output",
-                "UnicodeAge_2_0_age_subtraction.output",
+        "UnicodeAge_2_0_age_1_1.output",
+        "UnicodeAge_2_0_age_2_0.output",
+        "UnicodeAge_2_0_age_subtraction.output",
         "UnicodeAge_2_0_age_unassigned.output",
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
-        "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
@@ -39,13 +39,14 @@ java_test(
 
 jflex(
     name = "UnicodeAge_2_0_age_1_1",
-    srcs = ["UnicodeAge_2_0_age_1_1.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_2_0/UnicodeAge_2_0_age_1_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_1_1.java"],
 )
+
 jflex(
     name = "UnicodeAge_2_0_age_2_0",
-    srcs = ["UnicodeAge_2_0_age_2_0.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_2_0/UnicodeAge_2_0_age_2_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_0_age_2_0.java"],
 )
@@ -68,8 +69,8 @@ jflex(
 java_test(
     name = "UnicodeBlocksTest_2_0",
     srcs = [
-        ":UnicodeBlocks_2_0",
         "UnicodeBlocksTest_2_0.java",
+        ":UnicodeBlocks_2_0",
     ],
     data = [
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
