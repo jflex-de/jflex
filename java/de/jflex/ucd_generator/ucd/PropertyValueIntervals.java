@@ -26,9 +26,9 @@
  */
 package de.jflex.ucd_generator.ucd;
 
+import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
+import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.isSurrogateProperty;
-import static de.jflex.ucd_generator.ucd.SurrogateUtils.removeSurrogates;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashMultimap;
@@ -40,6 +40,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.TreeMultimap;
+import de.jflex.ucd.CodepointRange;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;

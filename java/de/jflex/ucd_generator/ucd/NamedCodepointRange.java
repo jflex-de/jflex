@@ -26,6 +26,7 @@
 package de.jflex.ucd_generator.ucd;
 
 import com.google.auto.value.AutoValue;
+import de.jflex.ucd.CodepointRange;
 import java.util.Comparator;
 
 @AutoValue

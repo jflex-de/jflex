@@ -30,7 +30,7 @@ import static de.jflex.ucd_generator.ucd.PropertyNames.DEFAULT_CATEGORIES;
 import static de.jflex.ucd_generator.ucd.PropertyNames.NORMALIZED_GENERAL_CATEGORY;
 
 import com.google.common.collect.ImmutableSortedMap;
-import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
 import de.jflex.ucd_generator.ucd.PropertyNames;
