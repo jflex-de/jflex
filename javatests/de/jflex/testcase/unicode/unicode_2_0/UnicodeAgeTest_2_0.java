@@ -48,11 +48,14 @@ public class UnicodeAgeTest_2_0 {
   @Test
   public void age() throws Exception {
     UnicodeProperties properties = new UnicodeProperties("2.0");
-    assertThat(properties.getPropertyValues()).contains("age=1.1");
-    assertThat(properties.getPropertyValues()).contains("age=2.0");
-  }
+      assertThat(properties.getPropertyValues()).contains("age=1.1");
+      assertThat(properties.getPropertyValues()).contains("age=2.0");
+    }
 
-  /** Tests character class syntax of the Unicode 2.0 Age=1.1 property. */
+  /**
+   * Tests character class syntax of the Unicode 2.0
+   * Age=1.1 property.
+   */
   @Test
   public void ageIntervals_1_1() throws Exception {
     assertAgeInterval(
@@ -60,7 +63,10 @@ public class UnicodeAgeTest_2_0 {
         UnicodeAge_2_0_age_1_1.YYEOF,
         "UnicodeAge_2_0_age_1_1.output");
   }
-  /** Tests character class syntax of the Unicode 2.0 Age=2.0 property. */
+  /**
+   * Tests character class syntax of the Unicode 2.0
+   * Age=2.0 property.
+   */
   @Test
   public void ageIntervals_2_0() throws Exception {
     assertAgeInterval(
@@ -70,8 +76,9 @@ public class UnicodeAgeTest_2_0 {
   }
 
   /**
-   * Tests subtracting Age Unicode property values in character sets for Unicode 2.0, e.g. {@code
-   * [\p{Age:2.0}--\p{Age:1.1}]}.
+   * Tests subtracting Age Unicode property values in character sets
+   * for Unicode 2.0,
+   * e.g. {@code [\p{Age:2.0}--\p{Age:1.1}]}.
    */
   @Test
   public void ageIntervals_subtraction() throws Exception {
@@ -81,7 +88,10 @@ public class UnicodeAgeTest_2_0 {
         "UnicodeAge_2_0_age_subtraction.output");
   }
 
-  /** Tests character class syntax of the Unicode 2.0 Age=Unassigned property. */
+  /**
+   * Tests character class syntax of the Unicode 2.0
+   * Age=Unassigned property.
+   */
   @Test
   public void ageIntervals_unassigned() throws Exception {
     assertAgeInterval(
@@ -96,7 +106,7 @@ public class UnicodeAgeTest_2_0 {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    UnicodeDataScanners.assertAgeInterval(
-        scannerFactory, eof, UnicodeDataScanners.Dataset.BMP, expectedFile);
+    UnicodeDataScanners
+        .assertAgeInterval(scannerFactory, eof, UnicodeDataScanners.Dataset.BMP, expectedFile);
   }
 }

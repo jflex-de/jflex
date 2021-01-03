@@ -20,6 +20,7 @@ java_library(
         ":model",
         ":test_case_parser",
         ":velocity_templates",
+        "//java/de/jflex/migration/util:java_resources",
         "//java/de/jflex/testing/testsuite/golden:model",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",

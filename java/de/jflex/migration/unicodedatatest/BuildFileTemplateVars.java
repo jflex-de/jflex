@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -29,13 +27,11 @@
 package de.jflex.migration.unicodedatatest;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
-public class BuildFileTemplateVars extends TemplateVars {
-  public String baseClassName;
-  public String underscoreVersion;
+public class BuildFileTemplateVars extends UnicodeVersionTemplateVars {
   public ImmutableList<Version> ages;
   public UnicodeDataScanners.Dataset dataset;
 }

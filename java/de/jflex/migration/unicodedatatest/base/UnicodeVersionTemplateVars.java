@@ -34,6 +34,7 @@ public abstract class UnicodeVersionTemplateVars extends TemplateVars {
 
   /** java package with '.', used by the scanner. */
   public String javaPackage;
+
   /** The unicode version under test. */
   public Version unicodeVersion;
   /** The maximum codepoint for this Unicode version. */

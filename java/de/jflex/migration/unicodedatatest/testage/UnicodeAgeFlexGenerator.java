@@ -78,14 +78,12 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private UnicodeAgeFlexTemplateVars createFlexTemplateVars(Version age) {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.javaPackage = unicodeVersion.javaPackage();
+    vars.updateFrom(unicodeVersion);
     vars.className =
         String.format(
             "UnicodeAge_%s_age_%s",
             unicodeVersion.version().underscoreVersion(), age.underscoreVersion());
-    vars.unicodeVersion = unicodeVersion.version();
     vars.age = age.toString();
-    vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
     return vars;
   }
 
@@ -98,13 +96,11 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator {
 
   private UnicodeAgeFlexTemplateVars createAgeUnassignedTemplateVars() {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.javaPackage = unicodeVersion.javaPackage();
+    vars.updateFrom(unicodeVersion);
     vars.className =
         String.format(
             "UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), "unassigned");
-    vars.unicodeVersion = unicodeVersion.version();
     vars.age = "Unassigned";
-    vars.maxCodePoint = getMaxCodePoint(unicodeVersion.version());
     return vars;
   }
 

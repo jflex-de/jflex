@@ -26,8 +26,8 @@
 package de.jflex.migration.testcase;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static de.jflex.migration.util.JavaResources.readResource;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Strings;
@@ -45,8 +45,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.logging.Level;
@@ -344,14 +342,6 @@ public class Migrator {
     logger.atFine().log("Copying %s...", file.getName());
     File copiedFile = new File(targetDir, file.getName());
     Files.copy(file, copiedFile);
-  }
-
-  private static InputStreamReader readResource(String resourceName) {
-    InputStream resourceAsStream =
-        checkNotNull(
-            ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
-            "Null resource content for " + resourceName);
-    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
   }
 
   private Migrator() {}

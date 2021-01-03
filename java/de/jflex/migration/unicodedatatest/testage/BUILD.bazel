@@ -1,3 +1,7 @@
+load(":build_defs.bzl", "gen_test_age")
+
+package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
+
 java_binary(
     name = "generator",
     testonly = True,
@@ -42,4 +46,131 @@ java_library(
         "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        ":gen_test_age_10_0",
+        ":gen_test_age_11_0",
+        ":gen_test_age_12_0",
+        ":gen_test_age_12_1",
+        ":gen_test_age_2_0",
+        ":gen_test_age_2_1",
+        ":gen_test_age_3_0",
+        ":gen_test_age_3_1",
+        ":gen_test_age_3_2",
+        ":gen_test_age_4_0",
+        ":gen_test_age_4_1",
+        ":gen_test_age_5_0",
+        ":gen_test_age_5_1",
+        ":gen_test_age_6_0",
+        ":gen_test_age_6_1",
+        ":gen_test_age_6_2",
+        ":gen_test_age_6_3",
+        ":gen_test_age_7_0",
+        ":gen_test_age_8_0",
+        ":gen_test_age_9_0",
+    ],
+)
+
+gen_test_age(
+    name = "gen_test_age_2_0",
+    version = "2.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_2_1",
+    version = "2.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_0",
+    version = "3.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_1",
+    version = "3.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_2",
+    version = "3.2",
+)
+
+gen_test_age(
+    name = "gen_test_age_4_0",
+    version = "4.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_4_1",
+    version = "4.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_5_0",
+    version = "5.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_5_1",
+    version = "5.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_0",
+    version = "6.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_1",
+    version = "6.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_2",
+    version = "6.2",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_3",
+    version = "6.3",
+)
+
+gen_test_age(
+    name = "gen_test_age_7_0",
+    version = "7.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_8_0",
+    version = "8.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_9_0",
+    version = "9.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_10_0",
+    version = "10.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_11_0",
+    version = "11.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_12_0",
+    version = "12.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_12_1",
+    version = "12.1",
 )

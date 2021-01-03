@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -28,7 +26,7 @@
 
 package de.jflex.migration.unicodedatatest;
 
-import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
+import static de.jflex.migration.util.JavaResources.readResource;
 
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
@@ -63,12 +61,12 @@ class BuildFileGenerator extends AbstractGenerator {
     Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
   }
 
-  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion out) {
+  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion version) {
     BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
-    vars.underscoreVersion = out.underscoreVersion();
-    vars.ages = olderAges(out.version());
-    vars.dataset = UnicodeDataScanners.getDataset(out.version());
+    vars.updateFrom(version);
+    vars.className = "UnicodeAge_" + version.underscoreVersion();
+    vars.ages = olderAges(version.version());
+    vars.dataset = UnicodeDataScanners.getDataset(version.version());
     return vars;
   }
 
