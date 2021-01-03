@@ -3,7 +3,6 @@
 This package provides a Skylark rule to 
 import the Unicode character definitions (UCD) from unicode.org.
 
-
 For further information about data files please see:
 
 Unicode Character Database
@@ -12,8 +11,7 @@ Unicode Character Database
 Terms of Use
 	http://www.unicode.org/copyright.html
 
-
-## How to generate Unicode properties?
+## How to add Unicode data (UCD)?
 
 ### Add the source files in the Bazel Workspace
 
@@ -38,6 +36,11 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
 
 ### Add a filegroup target in BUILD.bazel
 
+This is a convenience group to group the UCD with its corresponding emoji data.
+
+Note: for old versions, it's also a convenience group for the various files,
+because Unicode.org didn't provide a zip archive.
+
 ```python
 filegroup(
     name = "ucd_9_0",
@@ -47,3 +50,8 @@ filegroup(
     ],
 )
 ```
+
+## Why this declaration?
+
+Because Bazel build are reproducable, the comprehensive list of resources
+(with their sha256) must be declared.
