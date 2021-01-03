@@ -39,13 +39,15 @@ public abstract class UnicodeVersion {
 
   public abstract String underscoreVersion();
 
+  public abstract String javaPackage();
+
   public abstract Path javaPackageDirectory();
 
   public static UnicodeVersion create(Version unicodeVersion) {
     String underscoreVersion = unicodeVersion.underscoreVersion();
     String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
     return new AutoValue_UnicodeVersion(
-        unicodeVersion, underscoreVersion, Paths.get(getPathForPackage(javaPackage)));
+        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
   }
 
   public static UnicodeVersion create(String version) {

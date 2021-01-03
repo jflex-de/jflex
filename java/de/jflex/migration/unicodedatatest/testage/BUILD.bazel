@@ -1,0 +1,176 @@
+load(":build_defs.bzl", "gen_test_age")
+
+package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "AgeTestGenerator.java",
+        "UnicodeAgeFlexGenerator.java",
+        "UnicodeAgeTestGenerator.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.testage.AgeTestGenerator",
+    resources = [
+        "UnicodeAge.flex.vm",
+        "UnicodeAgeSubtraction.flex.vm",
+        "UnicodeAgeTest_x_y.java.vm",
+    ],
+    deps = [
+        ":template_vars",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/util:java_resources",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "template_vars",
+    testonly = True,
+    srcs = [
+        "UnicodeAgeFlexTemplateVars.java",
+        "UnicodeAgeSubtractionTemplateVars.java",
+        "UnicodeAgeTestTemplateVars.java",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
+        "//third_party/com/google/guava",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        ":gen_test_age_10_0",
+        ":gen_test_age_11_0",
+        ":gen_test_age_12_0",
+        ":gen_test_age_12_1",
+        ":gen_test_age_2_0",
+        ":gen_test_age_2_1",
+        ":gen_test_age_3_0",
+        ":gen_test_age_3_1",
+        ":gen_test_age_3_2",
+        ":gen_test_age_4_0",
+        ":gen_test_age_4_1",
+        ":gen_test_age_5_0",
+        ":gen_test_age_5_1",
+        ":gen_test_age_6_0",
+        ":gen_test_age_6_1",
+        ":gen_test_age_6_2",
+        ":gen_test_age_6_3",
+        ":gen_test_age_7_0",
+        ":gen_test_age_8_0",
+        ":gen_test_age_9_0",
+    ],
+)
+
+gen_test_age(
+    name = "gen_test_age_2_0",
+    version = "2.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_2_1",
+    version = "2.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_0",
+    version = "3.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_1",
+    version = "3.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_3_2",
+    version = "3.2",
+)
+
+gen_test_age(
+    name = "gen_test_age_4_0",
+    version = "4.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_4_1",
+    version = "4.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_5_0",
+    version = "5.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_5_1",
+    version = "5.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_0",
+    version = "6.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_1",
+    version = "6.1",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_2",
+    version = "6.2",
+)
+
+gen_test_age(
+    name = "gen_test_age_6_3",
+    version = "6.3",
+)
+
+gen_test_age(
+    name = "gen_test_age_7_0",
+    version = "7.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_8_0",
+    version = "8.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_9_0",
+    version = "9.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_10_0",
+    version = "10.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_11_0",
+    version = "11.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_12_0",
+    version = "12.0",
+)
+
+gen_test_age(
+    name = "gen_test_age_12_1",
+    version = "12.1",
+)

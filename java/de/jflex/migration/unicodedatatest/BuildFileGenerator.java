@@ -31,6 +31,7 @@ import static de.jflex.migration.util.JavaResources.readResource;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
@@ -60,9 +61,12 @@ class BuildFileGenerator extends AbstractGenerator {
     Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
   }
 
-  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion out) {
+  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion version) {
     BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.underscoreVersion = out.underscoreVersion();
+    vars.updateFrom(version);
+    vars.className = "UnicodeAge_" + version.underscoreVersion();
+    vars.ages = olderAges(version.version());
+    vars.dataset = UnicodeDataScanners.getDataset(version.version());
     return vars;
   }
 
