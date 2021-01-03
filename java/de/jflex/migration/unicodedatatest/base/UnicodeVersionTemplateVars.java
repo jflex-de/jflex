@@ -32,6 +32,7 @@ public abstract class UnicodeVersionTemplateVars extends TemplateVars {
   /** The class name produced by this Java template. */
   public String className;
 
+  /** java package with '.', used by the scanner. */
   public String javaPackage;
 
   /** The unicode version under test. */
