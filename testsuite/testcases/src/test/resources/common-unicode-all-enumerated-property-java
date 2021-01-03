@@ -7,25 +7,19 @@
     int begCodePoint = 0;
     for (int codePoint = 1 ; codePoint <= maxCodePoint ; ++codePoint ) {
       if (codePoint == 0xD800) { // Skip the surrogate blocks
-        if (null != prevPropertyValue) {
-          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
-        }
+        printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
         begCodePoint = codePoint = 0xE000;
         prevPropertyValue = propertyValues[codePoint];
         continue;
       }
       String propertyValue = propertyValues[codePoint];
       if (null == propertyValue || ! propertyValue.equals(prevPropertyValue)) {
-        if (null != prevPropertyValue) {
-          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
-        }
+        printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
         prevPropertyValue = propertyValue;
         begCodePoint = codePoint;
       }
     }
-    if (null != prevPropertyValue) {
-      printBlock(begCodePoint, maxCodePoint, prevPropertyValue);
-    }
+    printBlock(begCodePoint, maxCodePoint, prevPropertyValue);
   }
   
   private void printBlock(int begCodePoint, int endCodePoint, String propertyValue) {
@@ -33,6 +27,11 @@
   }
 
   private void setCurCharPropertyValue(String propertyValue) {
-    propertyValues[ yytext().codePointAt(0) ] = propertyValue;
+    int index = 0;
+    while (index < yylength()) {
+      int codePoint = yytext().codePointAt(index);
+      propertyValues[codePoint] = propertyValue;
+      index += Character.charCount(codePoint);
+    }
   }
 %} 
