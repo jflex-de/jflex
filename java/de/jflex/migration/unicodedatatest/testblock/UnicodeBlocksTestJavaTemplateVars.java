@@ -28,8 +28,11 @@ package de.jflex.migration.unicodedatatest.testblock;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 
 public class UnicodeBlocksTestJavaTemplateVars extends UnicodeVersionTemplateVars {
   /** Blocks sorted by range. */
   public ImmutableSortedSet<BlockSpec> blocks;
+
+  public Dataset dataset;
 }

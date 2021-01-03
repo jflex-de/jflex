@@ -32,6 +32,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
 import java.nio.file.Path;
 import java.util.Comparator;
@@ -48,6 +49,7 @@ public class UnicodeBlocksTestJavaGenerator
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
+    vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
     vars.blocks = ImmutableSortedSet.copyOf(comparator, this.blocks);

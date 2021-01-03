@@ -71,10 +71,14 @@ java_test(
         ":UnicodeBlocks_2_0",
         "UnicodeBlocksTest_2_0.java",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
-    ]
+        "//third_party/com/google/truth",
+    ],
 )
 
 jflex(

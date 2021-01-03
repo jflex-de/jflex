@@ -15,7 +15,7 @@ for version in "$versions[@]"; do
 done
 # Generate all Block tests
 bazel build //java/de/jflex/migration/unicodedatatest/testblock:generate
-cp -r bazel-bin/java/de/jflex/migration/unicodedatatest/testblock/javatests .
+cp -rf bazel-bin/java/de/jflex/migration/unicodedatatest/testblock/javatests .
 # Cleanup
 git rm 'testsuite/testcases/src/test/cases/unicode-age/*'
 git rm 'testsuite/testcases/src/test/cases/unicode-blocks/*.test'

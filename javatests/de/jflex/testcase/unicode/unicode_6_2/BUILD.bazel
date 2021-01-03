@@ -167,10 +167,14 @@ java_test(
         ":UnicodeBlocks_6_2",
         "UnicodeBlocksTest_6_2.java",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
-    ]
+        "//third_party/com/google/truth",
+    ],
 )
 
 jflex(

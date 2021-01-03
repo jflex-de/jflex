@@ -69,10 +69,14 @@ java_test(
         ":UnicodeBlocks_${underscoreVersion}",
         "UnicodeBlocksTest_${underscoreVersion}.java",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
-    ]
+        "//third_party/com/google/truth",
+    ],
 )
 
 jflex(
