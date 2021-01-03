@@ -1,8 +1,9 @@
 # Migration of testsuite from Maven to Bazel
 
+**Deprecated** All tests have been migrated.
+
 This is a tool to automate the migration of the test cases
 from jflex-testsuite-maven-plugin to bazel.
-
 
 ## How to migrate
 
@@ -62,4 +63,8 @@ The data model for a `TestCase`.
 ### test_spec_scanner
 
 Parser of a `.test` file that returns a `TestCase`.
+========
+Tools to help in the migration from `testsuite/jflex-testsuite-maven-plugin` to
+Bazel `//javatests`.
 
+See [Migration project](https://github.com/jflex-de/jflex/projects/16).

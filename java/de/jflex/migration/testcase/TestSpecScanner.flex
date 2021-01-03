@@ -27,8 +27,8 @@
  */
 package de.jflex.migration.testcase;
 
+import de.jflex.migration.testcase.TestCase;
 import java.util.*;
-import jflex.core.sym;
 
 %%
 

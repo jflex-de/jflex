@@ -194,8 +194,7 @@ public abstract class CodepointRangeSet {
     }
 
     private void internalAddRange(MutableCodepointRange range) {
-      CodepointRange immutableRange = range.toImmutableRange();
-      rangesBuilder().add(immutableRange);
+      rangesBuilder().add(range.toImmutableRange());
     }
 
     abstract CodepointRangeSet internalBuild();
