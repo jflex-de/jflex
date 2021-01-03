@@ -1,0 +1,8 @@
+java_test(
+    name = "SurrogateUtilsTest",
+    srcs = ["SurrogateUtilsTest.java"],
+    deps = [
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/truth",
+    ],
+)

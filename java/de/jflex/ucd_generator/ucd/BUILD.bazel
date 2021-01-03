@@ -5,7 +5,11 @@ java_library(
         "//java/de/jflex/ucd_generator:__subpackages__",
         "//javatests/de/jflex/ucd_generator:__subpackages__",
     ],
+    exports = [
+        "//java/de/jflex/ucd",
+    ],
     deps = [
+        "//java/de/jflex/ucd",
         "//java/de/jflex/ucd_generator/util:hexa_utils",
         "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
