@@ -1,6 +1,0 @@
-Reading "src/test/cases/look/look.flex"
-Constructing NFA : 18 states in NFA
-Converting NFA to DFA : 
-.......
-9 states before minimization, 8 states in minimized DFA
-Writing code to "src/test/cases/look/Look.java"

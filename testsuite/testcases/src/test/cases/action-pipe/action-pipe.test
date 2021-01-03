@@ -1,6 +1,0 @@
-name: actionpipe
-
-description:
-Issue #201. Pipe action for <<EOF>> doesn't compile when first.
-
-jflex: -q

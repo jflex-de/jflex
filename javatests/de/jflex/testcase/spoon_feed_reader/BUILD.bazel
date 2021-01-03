@@ -1,0 +1,40 @@
+# Copyright (C) 2020 Google, LLC.
+# SPDX-License-Identifier: BSD-3-Clause
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "gen_SpoonFeedReader_scanner",
+    srcs = ["SpoonFeedReader.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["SpoonFeedReader.java"],
+)
+
+jflex(
+    name = "gen_SpoonFeedReaderF_scanner",
+    srcs = ["SpoonFeedReaderF.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["SpoonFeedReaderF.java"],
+    skeleton = ":problematic.skeleton.default",
+)
+
+java_library(
+    name = "scanners",
+    srcs = [
+        ":gen_SpoonFeedReaderF_scanner",
+        ":gen_SpoonFeedReader_scanner",
+    ],
+)
+
+java_test(
+    name = "SpoonFeedReaderTest",
+    srcs = [
+        "SpoonFeedMaxCharsReaderWrapper.java",
+        "SpoonFeedReaderTest.java",
+    ],
+    deps = [
+        ":scanners",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)

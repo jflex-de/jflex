@@ -1,0 +1,8 @@
+Reading "javatests/de/jflex/testcase/unused_warning/unused.flex"
+
+Warning : Macro "UNUSED" has been declared but never used.
+Constructing NFA : 4 states in NFA
+Converting NFA to DFA : 
+.
+3 states before minimization, 2 states in minimized DFA
+Writing code to "javatests/de/jflex/testcase/unused_warning/Unused.java"
