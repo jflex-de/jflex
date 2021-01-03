@@ -42,16 +42,11 @@ import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 import java.util.logging.Level;
@@ -212,11 +207,11 @@ public class Migrator {
   // FIXME This should be done once for the whole directory, but with many java_test()
   private static void renderBuildFile(MigrationTemplateVars templateVars, File buildFile)
       throws MigrationException {
-    try (OutputStream outputStream = new FileOutputStream(buildFile, /*append=*/ true)) {
-      logger.atInfo().log("Generating %s", buildFile);
-      velocityRenderBuildFile(templateVars, outputStream);
-    } catch (IOException e) {
-      throw new MigrationException("Couldn't write into BUILD file", e);
+    logger.atInfo().log("Generating %s", buildFile);
+    try {
+      Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, buildFile);
+    } catch (ParseException | IOException e) {
+      throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
     }
   }
 
@@ -224,9 +219,9 @@ public class Migrator {
   private static void renderTestCase(MigrationTemplateVars templateVars, File outputDir)
       throws MigrationException {
     File outFile = new File(outputDir, templateVars.testClassName + ".java");
-    try (OutputStream outputStream = new FileOutputStream(outFile)) {
+    try {
       logger.atInfo().log("Generating %s", outFile);
-      velocityRenderTestCase(templateVars, outputStream);
+      velocityRenderTestCase(templateVars, outFile);
     } catch (IOException e) {
       throw new MigrationException("Couldn't write java test case", e);
     }
@@ -328,25 +323,11 @@ public class Migrator {
             + GOLDEN_OUTPUT_EXT);
   }
 
-  /** Invokes velocity to generate the BUILD file. */
-  private static void velocityRenderBuildFile(
-      MigrationTemplateVars templateVars, OutputStream output)
-      throws IOException, MigrationException {
-    try (Writer writer =
-        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
-      Velocity.render(readResource(BUILD_TEMPLATE), "BuildBazel", templateVars, writer);
-    } catch (ParseException e) {
-      throw new MigrationException("Failed to parse Velocity template " + BUILD_TEMPLATE, e);
-    }
-  }
-
   /** Invokes velocity to generate the Test file. */
-  private static void velocityRenderTestCase(
-      MigrationTemplateVars templateVars, OutputStream output)
+  private static void velocityRenderTestCase(MigrationTemplateVars templateVars, File output)
       throws IOException, MigrationException {
-    try (Writer writer =
-        new BufferedWriter(new OutputStreamWriter(output, StandardCharsets.UTF_8))) {
-      Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, writer);
+    try {
+      Velocity.render(readResource(TEST_CASE_TEMPLATE), "TestCase", templateVars, output);
     } catch (ParseException e) {
       throw new MigrationException("Failed to parse Velocity template " + TEST_CASE_TEMPLATE, e);
     }
