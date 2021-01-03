@@ -31,9 +31,12 @@ import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
 public abstract class BlockSpec {
+
+  private static final String HEX_FORMAT = "0x%04X";
+
   public abstract String name();
 
-  abstract CodepointRange range();
+  public abstract CodepointRange range();
 
   public static BlockSpec create(String name, int start, int end) {
     return new AutoValue_BlockSpec(name.trim(), CodepointRange.create(start, end));
@@ -46,5 +49,13 @@ public abstract class BlockSpec {
   @Override
   public final String toString() {
     return String.format("%04X..%04X; %s", range().start(), range().end(), name());
+  }
+
+  public String hexStart() {
+    return String.format(HEX_FORMAT, range().start());
+  }
+
+  public String hexEnd() {
+    return String.format(HEX_FORMAT, range().end());
   }
 }

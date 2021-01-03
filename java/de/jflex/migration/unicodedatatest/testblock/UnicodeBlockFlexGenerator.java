@@ -25,20 +25,18 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.testing.unicodedata.BlockSpec;
 import java.nio.file.Path;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
-class  UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars> {
+class UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars> {
 
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(UnicodeBlockFlexGenerator.class);
-  private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeBlock.flex.vm";
-
-  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion, ImmutableSet<String> blockNames) {
-    super(FLEX_FILE_TEMPLATE, "UnicodeBlocks.flex", unicodeVersion, blockNames);
+  public UnicodeBlockFlexGenerator(
+      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
+    super("UnicodeBlock.flex.vm", "UnicodeBlocks.flex", unicodeVersion, blockNames);
   }
 
   @Override
@@ -46,7 +44,11 @@ class  UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFle
     UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
-    vars.blockNames = blockNames;
+    vars.blockNames =
+        ImmutableSortedSet.<String>naturalOrder()
+            .add("No Block")
+            .addAll(blocks.stream().map(BlockSpec::name).iterator())
+            .build();
     return vars;
   }
 

@@ -91,9 +91,13 @@ public class TestedVersions {
   public static final UcdVersion UCD_VERSION_10_0 =
       newUcdVersion("10.0", "ucd_10_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_5")).build();
   public static final UcdVersion UCD_VERSION_11_0 =
-      newUcdVersion("11.0", "ucd_11_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_11_0")).build();
+      newUcdVersion("11.0", "ucd_11_0")
+          .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_11_0"))
+          .build();
   public static final UcdVersion UCD_VERSION_12_0 =
-      newUcdVersion("12.0", "ucd_12_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12_0")).build();
+      newUcdVersion("12.0", "ucd_12_0")
+          .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12_0"))
+          .build();
   public static final UcdVersion UCD_VERSION_12_1 =
       newUcdVersion("12.1", "ucd_12_1")
           .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12_1"))

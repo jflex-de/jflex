@@ -43,10 +43,12 @@ public class UnicodeBlocksTest_2_1 {
         UnicodeDataScanners.Dataset.BMP
     );
     assertThat(blocks).containsAllOf(
-        // 0000..007F; Basic Latin
-        BlockSpec.create("Basic Latin", 0x0000, 0x007F),
-        // 0080..00FF; Latin-1 Supplement
-        BlockSpec.create("Latin-1 Supplement", 0x0080, 0x00FF)
+        #set($separator="")
+        #foreach ( $b in $blocks )
+        // $b
+        $separator BlockSpec.create("${b.name()}", ${b.hexStart()}, ${b.hexEnd()})
+        #set($separator = ",")
+        #end
         );
   }
 }

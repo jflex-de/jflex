@@ -66,9 +66,10 @@ public class UnicodeDataScanners {
       Path expectedFile)
       throws IOException {
     // TODO(regisd) Replace the test on assertion rather than file content.
-    ImmutableList<String> blocks = getBlocks(scannerFactory, eof, dataset).stream()
-        .map(BlockSpec::toString)
-        .collect(toImmutableList());
+    ImmutableList<String> blocks =
+        getBlocks(scannerFactory, eof, dataset).stream()
+            .map(BlockSpec::toString)
+            .collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);

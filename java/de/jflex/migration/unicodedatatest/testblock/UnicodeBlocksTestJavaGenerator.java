@@ -28,14 +28,19 @@
 
 package de.jflex.migration.unicodedatatest.testblock;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.CodepointRange;
 import java.nio.file.Path;
+import java.util.Comparator;
 
-public class UnicodeBlocksTestJavaGenerator extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars>  {
+public class UnicodeBlocksTestJavaGenerator
+    extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
-  public UnicodeBlocksTestJavaGenerator(UnicodeVersion unicodeVersion, ImmutableSet blockNames) {
+  public UnicodeBlocksTestJavaGenerator(
+      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
     super("UnicodeBlocksTest.java.vm", "UnicodeBlocksTest", unicodeVersion, blockNames);
   }
 
@@ -43,6 +48,9 @@ public class UnicodeBlocksTestJavaGenerator extends AbstractBlocksGenerator<Unic
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
+    Comparator<BlockSpec> comparator =
+        (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
+    vars.blocks = ImmutableSortedSet.copyOf(comparator, this.blocks);
     return vars;
   }
 

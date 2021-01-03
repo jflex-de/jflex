@@ -27,19 +27,21 @@ package de.jflex.migration.unicodedatatest.testblock;
 
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Path;
 import org.apache.velocity.runtime.parser.ParseException;
 
-abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> extends AbstractGenerator  {
+abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
+    extends AbstractGenerator {
   private static final String ROOT_DIR =
       JavaPackageUtils.getPathForClass(AbstractBlocksGenerator.class);
 
@@ -48,15 +50,17 @@ abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> ext
   private final String templateResource;
   private final String templateName;
   protected final UnicodeVersion unicodeVersion;
-  protected final ImmutableSortedSet<String> blockNames;
+  protected final ImmutableList<BlockSpec> blocks;
 
-  public AbstractBlocksGenerator(String templateResource, String templateName,
+  public AbstractBlocksGenerator(
+      String templateResource,
+      String templateName,
       UnicodeVersion unicodeVersion,
-      ImmutableSet<String> blockNames) {
-    this.templateResource = templateResource;
+      ImmutableList<BlockSpec> blocks) {
+    this.templateResource = ROOT_DIR + "/" + templateResource;
     this.templateName = templateName;
     this.unicodeVersion = unicodeVersion;
-    this.blockNames = ImmutableSortedSet.copyOf(blockNames);
+    this.blocks = ImmutableList.copyOf(blocks);
   }
 
   @Override
@@ -65,9 +69,11 @@ abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> ext
     vars.updateFrom(unicodeVersion);
     Path outFile = getOuputFilePath(outDir, vars);
     logger.atInfo().log("Generating %s", outFile.toAbsolutePath());
-    Velocity.render(readResource(templateResource), templateName, vars, outFile.toFile());
+    InputStreamReader templateReader = readResource(templateResource);
+    Velocity.render(templateReader, templateName, vars, outFile.toFile());
   }
 
   protected abstract T createTemplateVars();
+
   protected abstract Path getOuputFilePath(Path outDir, T vars);
 }

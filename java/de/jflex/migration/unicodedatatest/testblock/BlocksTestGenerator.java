@@ -28,7 +28,6 @@ package de.jflex.migration.unicodedatatest.testblock;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
@@ -49,15 +48,10 @@ public class BlocksTestGenerator {
     Path outDir = Paths.get(args[1]);
     Path ucdBlocks = Paths.get(args[2]);
     ImmutableList<BlockSpec> blocks =
-        parseUnicodeBlock(ucdBlocks)
-            .stream()
-            .filter(b->!b.isSurrogate())
+        parseUnicodeBlock(ucdBlocks).stream()
+            .filter(b -> !b.isSurrogate())
             .collect(toImmutableList());
-    ImmutableSet<String> blockNames = ImmutableSet.<String>builder()
-        .add("No Block")
-        .addAll(blocks.stream().map(b -> b.name()).iterator())
-        .build();
-    generate(version, outDir, blockNames);
+    generate(version, outDir, blocks);
   }
 
   private static ImmutableList<BlockSpec> parseUnicodeBlock(Path ucdBlocks) throws IOException {
@@ -76,10 +70,10 @@ public class BlocksTestGenerator {
         Integer.parseInt(regexpGroups.get(1), 16));
   }
 
-  private static void generate(UnicodeVersion version, Path outDir, ImmutableSet<String> blockNames)
+  private static void generate(UnicodeVersion version, Path outDir, ImmutableList<BlockSpec> blocks)
       throws IOException, ParseException {
     Path outDirectory = outDir.resolve("javatests").resolve(version.javaPackageDirectory());
-    new UnicodeBlockFlexGenerator(version, blockNames).generate(outDirectory);
-    new UnicodeBlocksTestJavaGenerator(version, blockNames).generate(outDirectory);
+    new UnicodeBlockFlexGenerator(version, blocks).generate(outDirectory);
+    new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDirectory);
   }
 }

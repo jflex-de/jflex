@@ -25,10 +25,10 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import java.util.Set;
 
 public class UnicodeBlockFlexTemplateVars extends UnicodeVersionTemplateVars {
 
-  public Set<String> blockNames;
+  public ImmutableSortedSet<String> blockNames;
 }
