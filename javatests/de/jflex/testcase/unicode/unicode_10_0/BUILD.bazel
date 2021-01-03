@@ -8,3 +8,194 @@ check_deps(
     name = "deps_to_bootstrap_jflex_test",
     prohibited = "@jflex_rules//jflex:jflex_bin",
 )
+
+# Test Age property
+
+java_test(
+    name = "UnicodeAgeTest_10_0",
+    srcs = [
+        "UnicodeAgeTest_10_0.java",
+                ":UnicodeAge_10_0_age_1_1",
+                ":UnicodeAge_10_0_age_2_0",
+                ":UnicodeAge_10_0_age_2_1",
+                ":UnicodeAge_10_0_age_3_0",
+                ":UnicodeAge_10_0_age_3_1",
+                ":UnicodeAge_10_0_age_3_2",
+                ":UnicodeAge_10_0_age_4_0",
+                ":UnicodeAge_10_0_age_4_1",
+                ":UnicodeAge_10_0_age_5_0",
+                ":UnicodeAge_10_0_age_5_1",
+                ":UnicodeAge_10_0_age_5_2",
+                ":UnicodeAge_10_0_age_6_0",
+                ":UnicodeAge_10_0_age_6_1",
+                ":UnicodeAge_10_0_age_6_2",
+                ":UnicodeAge_10_0_age_6_3",
+                ":UnicodeAge_10_0_age_7_0",
+                ":UnicodeAge_10_0_age_8_0",
+                ":UnicodeAge_10_0_age_9_0",
+                ":UnicodeAge_10_0_age_10_0",
+                ":UnicodeAge_10_0_age_subtraction",
+        ":UnicodeAge_10_0_age_unassigned",
+    ],
+    data = [
+                "UnicodeAge_10_0_age_1_1.output",
+                "UnicodeAge_10_0_age_2_0.output",
+                "UnicodeAge_10_0_age_2_1.output",
+                "UnicodeAge_10_0_age_3_0.output",
+                "UnicodeAge_10_0_age_3_1.output",
+                "UnicodeAge_10_0_age_3_2.output",
+                "UnicodeAge_10_0_age_4_0.output",
+                "UnicodeAge_10_0_age_4_1.output",
+                "UnicodeAge_10_0_age_5_0.output",
+                "UnicodeAge_10_0_age_5_1.output",
+                "UnicodeAge_10_0_age_5_2.output",
+                "UnicodeAge_10_0_age_6_0.output",
+                "UnicodeAge_10_0_age_6_1.output",
+                "UnicodeAge_10_0_age_6_2.output",
+                "UnicodeAge_10_0_age_6_3.output",
+                "UnicodeAge_10_0_age_7_0.output",
+                "UnicodeAge_10_0_age_8_0.output",
+                "UnicodeAge_10_0_age_9_0.output",
+                "UnicodeAge_10_0_age_10_0.output",
+                "UnicodeAge_10_0_age_subtraction.output",
+        "UnicodeAge_10_0_age_unassigned.output",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/truth",
+        "//third_party/javax:annotation",
+    ],
+)
+
+jflex(
+    name = "UnicodeAge_10_0_age_1_1",
+    srcs = ["UnicodeAge_10_0_age_1_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_1_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_2_0",
+    srcs = ["UnicodeAge_10_0_age_2_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_2_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_2_1",
+    srcs = ["UnicodeAge_10_0_age_2_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_2_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_3_0",
+    srcs = ["UnicodeAge_10_0_age_3_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_3_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_3_1",
+    srcs = ["UnicodeAge_10_0_age_3_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_3_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_3_2",
+    srcs = ["UnicodeAge_10_0_age_3_2.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_3_2.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_4_0",
+    srcs = ["UnicodeAge_10_0_age_4_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_4_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_4_1",
+    srcs = ["UnicodeAge_10_0_age_4_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_4_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_5_0",
+    srcs = ["UnicodeAge_10_0_age_5_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_5_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_5_1",
+    srcs = ["UnicodeAge_10_0_age_5_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_5_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_5_2",
+    srcs = ["UnicodeAge_10_0_age_5_2.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_5_2.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_6_0",
+    srcs = ["UnicodeAge_10_0_age_6_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_6_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_6_1",
+    srcs = ["UnicodeAge_10_0_age_6_1.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_6_1.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_6_2",
+    srcs = ["UnicodeAge_10_0_age_6_2.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_6_2.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_6_3",
+    srcs = ["UnicodeAge_10_0_age_6_3.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_6_3.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_7_0",
+    srcs = ["UnicodeAge_10_0_age_7_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_7_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_8_0",
+    srcs = ["UnicodeAge_10_0_age_8_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_8_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_9_0",
+    srcs = ["UnicodeAge_10_0_age_9_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_9_0.java"],
+)
+jflex(
+    name = "UnicodeAge_10_0_age_10_0",
+    srcs = ["UnicodeAge_10_0_age_10_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_10_0.java"],
+)
+
+jflex(
+    name = "UnicodeAge_10_0_age_subtraction",
+    srcs = ["UnicodeAge_10_0_age_subtraction.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_subtraction.java"],
+)
+
+jflex(
+    name = "UnicodeAge_10_0_age_unassigned",
+    srcs = ["UnicodeAge_10_0_age_unassigned.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_10_0_age_unassigned.java"],
+)
