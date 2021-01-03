@@ -1,5 +1,7 @@
 load(":build_defs.bzl", "gen_test_age")
 
+package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
+
 java_binary(
     name = "generator",
     testonly = True,
