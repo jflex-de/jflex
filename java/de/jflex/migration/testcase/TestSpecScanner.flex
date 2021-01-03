@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2017 Gerwin Klein <lsf@jflex.de>
  * Copyright (C) 2009 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2018-2020 Google, LLC.
+ * Copyright (C) 2018-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,10 +25,10 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration;
+package de.jflex.migration.testcase;
 
+import de.jflex.migration.testcase.TestCase;
 import java.util.*;
-import jflex.core.sym;
 
 %%
 
