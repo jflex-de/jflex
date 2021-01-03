@@ -1,0 +1,9 @@
+java_test(
+    name = "AbstractSimpleParserTest",
+    srcs = ["AbstractSimpleParserTest.java"],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//third_party/com/google/truth",
+        "//third_party/org/mockito",
+    ],
+)
