@@ -1,0 +1,38 @@
+%{
+  private static final int maxCodePoint = 0xFFFD;
+  private final String[] propertyValues = new String[maxCodePoint + 1];
+  
+  private void printOutput() {
+    String prevPropertyValue = propertyValues[0];
+    int begCodePoint = 0;
+    for (int codePoint = 1 ; codePoint <= maxCodePoint ; ++codePoint ) {
+      if (codePoint == 0xD800) { // Skip the surrogate blocks
+        if (null != prevPropertyValue) {
+          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
+        }
+        begCodePoint = codePoint = 0xE000;
+        prevPropertyValue = propertyValues[codePoint];
+        continue;
+      }
+      String propertyValue = propertyValues[codePoint];
+      if (null == propertyValue || ! propertyValue.equals(prevPropertyValue)) {
+        if (null != prevPropertyValue) {
+          printBlock(begCodePoint, codePoint - 1, prevPropertyValue);
+        }
+        prevPropertyValue = propertyValue;
+        begCodePoint = codePoint;
+      }
+    }
+    if (null != prevPropertyValue) {
+      printBlock(begCodePoint, maxCodePoint, prevPropertyValue);
+    }
+  }
+  
+  private void printBlock(int begCodePoint, int endCodePoint, String propertyValue) {
+    System.out.format("%04X..%04X; %s%n", begCodePoint, endCodePoint, propertyValue);    
+  }
+
+  private void setCurCharPropertyValue(String propertyValue) {
+    propertyValues[ (int)yytext().charAt(0) ] = propertyValue;
+  }
+%} 
