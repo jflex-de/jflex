@@ -45,7 +45,6 @@ public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
     assertThat(blocks).containsAllOf(
         #set($separator="")
         #foreach ( $b in $blocks )
-        // $b
         $separator BlockSpec.create("${b.name()}", ${b.hexStart()}, ${b.hexEnd()})
         #set($separator = ",")
         #end
