@@ -79,7 +79,6 @@ public class BlocksTestGenerator {
       UnicodeVersion version, Path outDirectory, ImmutableSet<String> blockNames)
       throws IOException, ParseException {
     Path outDir = outDirectory.resolve("javatests").resolve(version.javaPackageDirectory());
-    Files.createDirectories(outDir);
     new UnicodeBlockFlexGenerator(version, blockNames).generate(outDir);
   }
 }

@@ -26,11 +26,8 @@
 
 package de.jflex.migration.unicodedatatest.testage;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
@@ -40,7 +37,6 @@ public class AgeTestGenerator {
   private AgeTestGenerator() {}
 
   public static void main(String[] args) throws Exception {
-    checkArgument(args.length >= 2, "Syntax error, expected: VERSION WORKSPACE_DIR");
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path workspaceDir = Paths.get(args[1]);
     generate(version, workspaceDir);
@@ -49,9 +45,7 @@ public class AgeTestGenerator {
   public static void generate(UnicodeVersion unicodeVersion, Path workspaceDir)
       throws IOException, ParseException {
     Path outDir = workspaceDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
-    Files.createDirectories(outDir);
     new UnicodeAgeTestGenerator(unicodeVersion).generate(outDir);
-    new BuildFileGenerator(unicodeVersion).generate(outDir);
     new UnicodeAgeFlexGenerator(unicodeVersion).generate(outDir);
   }
 }

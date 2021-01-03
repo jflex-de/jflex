@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -24,7 +26,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest.testage;
+package de.jflex.migration.unicodedatatest;
 
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
@@ -35,7 +37,9 @@ import de.jflex.testing.unicodedata.Ages;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
 class BuildFileGenerator extends AbstractGenerator {
@@ -66,5 +70,13 @@ class BuildFileGenerator extends AbstractGenerator {
     vars.ages = olderAges(out.version());
     vars.dataset = Ages.getDataset(out.version());
     return vars;
+  }
+
+  public static void main(String[] args) throws Exception {
+    UnicodeVersion version = UnicodeVersion.create(args[0]);
+    Path workspaceDir = Paths.get(args[1]);
+    Path testDir = workspaceDir.resolve("javatests").resolve(version.javaPackageDirectory());
+    Files.createDirectories(testDir);
+    new BuildFileGenerator(version).generate(testDir);
   }
 }

@@ -43,100 +43,100 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %%
 
-\p{Block:Alphabetic Presentation Forms} { setCurCharPropertyValue("Alphabetic Presentation Forms"); }
-\p{Block:Arabic} { setCurCharPropertyValue("Arabic"); }
-\p{Block:Arabic Presentation Forms-A} { setCurCharPropertyValue("Arabic Presentation Forms-A"); }
-\p{Block:Arabic Presentation Forms-B} { setCurCharPropertyValue("Arabic Presentation Forms-B"); }
-\p{Block:Armenian} { setCurCharPropertyValue("Armenian"); }
-\p{Block:Arrows} { setCurCharPropertyValue("Arrows"); }
-\p{Block:Basic Latin} { setCurCharPropertyValue("Basic Latin"); }
-\p{Block:Bengali} { setCurCharPropertyValue("Bengali"); }
-\p{Block:Block Elements} { setCurCharPropertyValue("Block Elements"); }
-\p{Block:Bopomofo} { setCurCharPropertyValue("Bopomofo"); }
-\p{Block:Bopomofo Extended} { setCurCharPropertyValue("Bopomofo Extended"); }
-\p{Block:Box Drawing} { setCurCharPropertyValue("Box Drawing"); }
-\p{Block:Braille Patterns} { setCurCharPropertyValue("Braille Patterns"); }
-\p{Block:Byzantine Musical Symbols} { setCurCharPropertyValue("Byzantine Musical Symbols"); }
-\p{Block:CJK Compatibility} { setCurCharPropertyValue("CJK Compatibility"); }
-\p{Block:CJK Compatibility Forms} { setCurCharPropertyValue("CJK Compatibility Forms"); }
-\p{Block:CJK Compatibility Ideographs} { setCurCharPropertyValue("CJK Compatibility Ideographs"); }
-\p{Block:CJK Compatibility Ideographs Supplement} { setCurCharPropertyValue("CJK Compatibility Ideographs Supplement"); }
-\p{Block:CJK Radicals Supplement} { setCurCharPropertyValue("CJK Radicals Supplement"); }
-\p{Block:CJK Symbols and Punctuation} { setCurCharPropertyValue("CJK Symbols and Punctuation"); }
-\p{Block:CJK Unified Ideographs} { setCurCharPropertyValue("CJK Unified Ideographs"); }
-\p{Block:CJK Unified Ideographs Extension A} { setCurCharPropertyValue("CJK Unified Ideographs Extension A"); }
-\p{Block:CJK Unified Ideographs Extension B} { setCurCharPropertyValue("CJK Unified Ideographs Extension B"); }
-\p{Block:Cherokee} { setCurCharPropertyValue("Cherokee"); }
-\p{Block:Combining Diacritical Marks} { setCurCharPropertyValue("Combining Diacritical Marks"); }
-\p{Block:Combining Half Marks} { setCurCharPropertyValue("Combining Half Marks"); }
-\p{Block:Combining Marks for Symbols} { setCurCharPropertyValue("Combining Marks for Symbols"); }
-\p{Block:Control Pictures} { setCurCharPropertyValue("Control Pictures"); }
-\p{Block:Currency Symbols} { setCurCharPropertyValue("Currency Symbols"); }
-\p{Block:Cyrillic} { setCurCharPropertyValue("Cyrillic"); }
-\p{Block:Deseret} { setCurCharPropertyValue("Deseret"); }
-\p{Block:Devanagari} { setCurCharPropertyValue("Devanagari"); }
-\p{Block:Dingbats} { setCurCharPropertyValue("Dingbats"); }
-\p{Block:Enclosed Alphanumerics} { setCurCharPropertyValue("Enclosed Alphanumerics"); }
-\p{Block:Enclosed CJK Letters and Months} { setCurCharPropertyValue("Enclosed CJK Letters and Months"); }
-\p{Block:Ethiopic} { setCurCharPropertyValue("Ethiopic"); }
-\p{Block:General Punctuation} { setCurCharPropertyValue("General Punctuation"); }
-\p{Block:Geometric Shapes} { setCurCharPropertyValue("Geometric Shapes"); }
-\p{Block:Georgian} { setCurCharPropertyValue("Georgian"); }
-\p{Block:Gothic} { setCurCharPropertyValue("Gothic"); }
-\p{Block:Greek} { setCurCharPropertyValue("Greek"); }
-\p{Block:Greek Extended} { setCurCharPropertyValue("Greek Extended"); }
-\p{Block:Gujarati} { setCurCharPropertyValue("Gujarati"); }
-\p{Block:Gurmukhi} { setCurCharPropertyValue("Gurmukhi"); }
-\p{Block:Halfwidth and Fullwidth Forms} { setCurCharPropertyValue("Halfwidth and Fullwidth Forms"); }
-\p{Block:Hangul Compatibility Jamo} { setCurCharPropertyValue("Hangul Compatibility Jamo"); }
-\p{Block:Hangul Jamo} { setCurCharPropertyValue("Hangul Jamo"); }
-\p{Block:Hangul Syllables} { setCurCharPropertyValue("Hangul Syllables"); }
-\p{Block:Hebrew} { setCurCharPropertyValue("Hebrew"); }
-\p{Block:Hiragana} { setCurCharPropertyValue("Hiragana"); }
-\p{Block:IPA Extensions} { setCurCharPropertyValue("IPA Extensions"); }
-\p{Block:Ideographic Description Characters} { setCurCharPropertyValue("Ideographic Description Characters"); }
-\p{Block:Kanbun} { setCurCharPropertyValue("Kanbun"); }
-\p{Block:Kangxi Radicals} { setCurCharPropertyValue("Kangxi Radicals"); }
-\p{Block:Kannada} { setCurCharPropertyValue("Kannada"); }
-\p{Block:Katakana} { setCurCharPropertyValue("Katakana"); }
-\p{Block:Khmer} { setCurCharPropertyValue("Khmer"); }
-\p{Block:Lao} { setCurCharPropertyValue("Lao"); }
-\p{Block:Latin Extended Additional} { setCurCharPropertyValue("Latin Extended Additional"); }
-\p{Block:Latin Extended-A} { setCurCharPropertyValue("Latin Extended-A"); }
-\p{Block:Latin Extended-B} { setCurCharPropertyValue("Latin Extended-B"); }
-\p{Block:Latin-1 Supplement} { setCurCharPropertyValue("Latin-1 Supplement"); }
-\p{Block:Letterlike Symbols} { setCurCharPropertyValue("Letterlike Symbols"); }
-\p{Block:Malayalam} { setCurCharPropertyValue("Malayalam"); }
-\p{Block:Mathematical Alphanumeric Symbols} { setCurCharPropertyValue("Mathematical Alphanumeric Symbols"); }
-\p{Block:Mathematical Operators} { setCurCharPropertyValue("Mathematical Operators"); }
-\p{Block:Miscellaneous Symbols} { setCurCharPropertyValue("Miscellaneous Symbols"); }
-\p{Block:Miscellaneous Technical} { setCurCharPropertyValue("Miscellaneous Technical"); }
-\p{Block:Mongolian} { setCurCharPropertyValue("Mongolian"); }
-\p{Block:Musical Symbols} { setCurCharPropertyValue("Musical Symbols"); }
-\p{Block:Myanmar} { setCurCharPropertyValue("Myanmar"); }
-\p{Block:No Block} { setCurCharPropertyValue("No Block"); }
-\p{Block:Number Forms} { setCurCharPropertyValue("Number Forms"); }
-\p{Block:Ogham} { setCurCharPropertyValue("Ogham"); }
-\p{Block:Old Italic} { setCurCharPropertyValue("Old Italic"); }
-\p{Block:Optical Character Recognition} { setCurCharPropertyValue("Optical Character Recognition"); }
-\p{Block:Oriya} { setCurCharPropertyValue("Oriya"); }
-\p{Block:Private Use} { setCurCharPropertyValue("Private Use"); }
-\p{Block:Runic} { setCurCharPropertyValue("Runic"); }
-\p{Block:Sinhala} { setCurCharPropertyValue("Sinhala"); }
-\p{Block:Small Form Variants} { setCurCharPropertyValue("Small Form Variants"); }
-\p{Block:Spacing Modifier Letters} { setCurCharPropertyValue("Spacing Modifier Letters"); }
-\p{Block:Specials} { setCurCharPropertyValue("Specials"); }
-\p{Block:Superscripts and Subscripts} { setCurCharPropertyValue("Superscripts and Subscripts"); }
-\p{Block:Syriac} { setCurCharPropertyValue("Syriac"); }
-\p{Block:Tags} { setCurCharPropertyValue("Tags"); }
-\p{Block:Tamil} { setCurCharPropertyValue("Tamil"); }
-\p{Block:Telugu} { setCurCharPropertyValue("Telugu"); }
-\p{Block:Thaana} { setCurCharPropertyValue("Thaana"); }
-\p{Block:Thai} { setCurCharPropertyValue("Thai"); }
-\p{Block:Tibetan} { setCurCharPropertyValue("Tibetan"); }
-\p{Block:Unified Canadian Aboriginal Syllabics} { setCurCharPropertyValue("Unified Canadian Aboriginal Syllabics"); }
-\p{Block:Yi Radicals} { setCurCharPropertyValue("Yi Radicals"); }
-\p{Block:Yi Syllables} { setCurCharPropertyValue("Yi Syllables"); }
+\p{Block:Alphabetic Presentation Forms} { setCurCharPropertyValue(yytext(), "Alphabetic Presentation Forms"); }
+\p{Block:Arabic} { setCurCharPropertyValue(yytext(), "Arabic"); }
+\p{Block:Arabic Presentation Forms-A} { setCurCharPropertyValue(yytext(), "Arabic Presentation Forms-A"); }
+\p{Block:Arabic Presentation Forms-B} { setCurCharPropertyValue(yytext(), "Arabic Presentation Forms-B"); }
+\p{Block:Armenian} { setCurCharPropertyValue(yytext(), "Armenian"); }
+\p{Block:Arrows} { setCurCharPropertyValue(yytext(), "Arrows"); }
+\p{Block:Basic Latin} { setCurCharPropertyValue(yytext(), "Basic Latin"); }
+\p{Block:Bengali} { setCurCharPropertyValue(yytext(), "Bengali"); }
+\p{Block:Block Elements} { setCurCharPropertyValue(yytext(), "Block Elements"); }
+\p{Block:Bopomofo} { setCurCharPropertyValue(yytext(), "Bopomofo"); }
+\p{Block:Bopomofo Extended} { setCurCharPropertyValue(yytext(), "Bopomofo Extended"); }
+\p{Block:Box Drawing} { setCurCharPropertyValue(yytext(), "Box Drawing"); }
+\p{Block:Braille Patterns} { setCurCharPropertyValue(yytext(), "Braille Patterns"); }
+\p{Block:Byzantine Musical Symbols} { setCurCharPropertyValue(yytext(), "Byzantine Musical Symbols"); }
+\p{Block:CJK Compatibility} { setCurCharPropertyValue(yytext(), "CJK Compatibility"); }
+\p{Block:CJK Compatibility Forms} { setCurCharPropertyValue(yytext(), "CJK Compatibility Forms"); }
+\p{Block:CJK Compatibility Ideographs} { setCurCharPropertyValue(yytext(), "CJK Compatibility Ideographs"); }
+\p{Block:CJK Compatibility Ideographs Supplement} { setCurCharPropertyValue(yytext(), "CJK Compatibility Ideographs Supplement"); }
+\p{Block:CJK Radicals Supplement} { setCurCharPropertyValue(yytext(), "CJK Radicals Supplement"); }
+\p{Block:CJK Symbols and Punctuation} { setCurCharPropertyValue(yytext(), "CJK Symbols and Punctuation"); }
+\p{Block:CJK Unified Ideographs} { setCurCharPropertyValue(yytext(), "CJK Unified Ideographs"); }
+\p{Block:CJK Unified Ideographs Extension A} { setCurCharPropertyValue(yytext(), "CJK Unified Ideographs Extension A"); }
+\p{Block:CJK Unified Ideographs Extension B} { setCurCharPropertyValue(yytext(), "CJK Unified Ideographs Extension B"); }
+\p{Block:Cherokee} { setCurCharPropertyValue(yytext(), "Cherokee"); }
+\p{Block:Combining Diacritical Marks} { setCurCharPropertyValue(yytext(), "Combining Diacritical Marks"); }
+\p{Block:Combining Half Marks} { setCurCharPropertyValue(yytext(), "Combining Half Marks"); }
+\p{Block:Combining Marks for Symbols} { setCurCharPropertyValue(yytext(), "Combining Marks for Symbols"); }
+\p{Block:Control Pictures} { setCurCharPropertyValue(yytext(), "Control Pictures"); }
+\p{Block:Currency Symbols} { setCurCharPropertyValue(yytext(), "Currency Symbols"); }
+\p{Block:Cyrillic} { setCurCharPropertyValue(yytext(), "Cyrillic"); }
+\p{Block:Deseret} { setCurCharPropertyValue(yytext(), "Deseret"); }
+\p{Block:Devanagari} { setCurCharPropertyValue(yytext(), "Devanagari"); }
+\p{Block:Dingbats} { setCurCharPropertyValue(yytext(), "Dingbats"); }
+\p{Block:Enclosed Alphanumerics} { setCurCharPropertyValue(yytext(), "Enclosed Alphanumerics"); }
+\p{Block:Enclosed CJK Letters and Months} { setCurCharPropertyValue(yytext(), "Enclosed CJK Letters and Months"); }
+\p{Block:Ethiopic} { setCurCharPropertyValue(yytext(), "Ethiopic"); }
+\p{Block:General Punctuation} { setCurCharPropertyValue(yytext(), "General Punctuation"); }
+\p{Block:Geometric Shapes} { setCurCharPropertyValue(yytext(), "Geometric Shapes"); }
+\p{Block:Georgian} { setCurCharPropertyValue(yytext(), "Georgian"); }
+\p{Block:Gothic} { setCurCharPropertyValue(yytext(), "Gothic"); }
+\p{Block:Greek} { setCurCharPropertyValue(yytext(), "Greek"); }
+\p{Block:Greek Extended} { setCurCharPropertyValue(yytext(), "Greek Extended"); }
+\p{Block:Gujarati} { setCurCharPropertyValue(yytext(), "Gujarati"); }
+\p{Block:Gurmukhi} { setCurCharPropertyValue(yytext(), "Gurmukhi"); }
+\p{Block:Halfwidth and Fullwidth Forms} { setCurCharPropertyValue(yytext(), "Halfwidth and Fullwidth Forms"); }
+\p{Block:Hangul Compatibility Jamo} { setCurCharPropertyValue(yytext(), "Hangul Compatibility Jamo"); }
+\p{Block:Hangul Jamo} { setCurCharPropertyValue(yytext(), "Hangul Jamo"); }
+\p{Block:Hangul Syllables} { setCurCharPropertyValue(yytext(), "Hangul Syllables"); }
+\p{Block:Hebrew} { setCurCharPropertyValue(yytext(), "Hebrew"); }
+\p{Block:Hiragana} { setCurCharPropertyValue(yytext(), "Hiragana"); }
+\p{Block:IPA Extensions} { setCurCharPropertyValue(yytext(), "IPA Extensions"); }
+\p{Block:Ideographic Description Characters} { setCurCharPropertyValue(yytext(), "Ideographic Description Characters"); }
+\p{Block:Kanbun} { setCurCharPropertyValue(yytext(), "Kanbun"); }
+\p{Block:Kangxi Radicals} { setCurCharPropertyValue(yytext(), "Kangxi Radicals"); }
+\p{Block:Kannada} { setCurCharPropertyValue(yytext(), "Kannada"); }
+\p{Block:Katakana} { setCurCharPropertyValue(yytext(), "Katakana"); }
+\p{Block:Khmer} { setCurCharPropertyValue(yytext(), "Khmer"); }
+\p{Block:Lao} { setCurCharPropertyValue(yytext(), "Lao"); }
+\p{Block:Latin Extended Additional} { setCurCharPropertyValue(yytext(), "Latin Extended Additional"); }
+\p{Block:Latin Extended-A} { setCurCharPropertyValue(yytext(), "Latin Extended-A"); }
+\p{Block:Latin Extended-B} { setCurCharPropertyValue(yytext(), "Latin Extended-B"); }
+\p{Block:Latin-1 Supplement} { setCurCharPropertyValue(yytext(), "Latin-1 Supplement"); }
+\p{Block:Letterlike Symbols} { setCurCharPropertyValue(yytext(), "Letterlike Symbols"); }
+\p{Block:Malayalam} { setCurCharPropertyValue(yytext(), "Malayalam"); }
+\p{Block:Mathematical Alphanumeric Symbols} { setCurCharPropertyValue(yytext(), "Mathematical Alphanumeric Symbols"); }
+\p{Block:Mathematical Operators} { setCurCharPropertyValue(yytext(), "Mathematical Operators"); }
+\p{Block:Miscellaneous Symbols} { setCurCharPropertyValue(yytext(), "Miscellaneous Symbols"); }
+\p{Block:Miscellaneous Technical} { setCurCharPropertyValue(yytext(), "Miscellaneous Technical"); }
+\p{Block:Mongolian} { setCurCharPropertyValue(yytext(), "Mongolian"); }
+\p{Block:Musical Symbols} { setCurCharPropertyValue(yytext(), "Musical Symbols"); }
+\p{Block:Myanmar} { setCurCharPropertyValue(yytext(), "Myanmar"); }
+\p{Block:No Block} { setCurCharPropertyValue(yytext(), "No Block"); }
+\p{Block:Number Forms} { setCurCharPropertyValue(yytext(), "Number Forms"); }
+\p{Block:Ogham} { setCurCharPropertyValue(yytext(), "Ogham"); }
+\p{Block:Old Italic} { setCurCharPropertyValue(yytext(), "Old Italic"); }
+\p{Block:Optical Character Recognition} { setCurCharPropertyValue(yytext(), "Optical Character Recognition"); }
+\p{Block:Oriya} { setCurCharPropertyValue(yytext(), "Oriya"); }
+\p{Block:Private Use} { setCurCharPropertyValue(yytext(), "Private Use"); }
+\p{Block:Runic} { setCurCharPropertyValue(yytext(), "Runic"); }
+\p{Block:Sinhala} { setCurCharPropertyValue(yytext(), "Sinhala"); }
+\p{Block:Small Form Variants} { setCurCharPropertyValue(yytext(), "Small Form Variants"); }
+\p{Block:Spacing Modifier Letters} { setCurCharPropertyValue(yytext(), "Spacing Modifier Letters"); }
+\p{Block:Specials} { setCurCharPropertyValue(yytext(), "Specials"); }
+\p{Block:Superscripts and Subscripts} { setCurCharPropertyValue(yytext(), "Superscripts and Subscripts"); }
+\p{Block:Syriac} { setCurCharPropertyValue(yytext(), "Syriac"); }
+\p{Block:Tags} { setCurCharPropertyValue(yytext(), "Tags"); }
+\p{Block:Tamil} { setCurCharPropertyValue(yytext(), "Tamil"); }
+\p{Block:Telugu} { setCurCharPropertyValue(yytext(), "Telugu"); }
+\p{Block:Thaana} { setCurCharPropertyValue(yytext(), "Thaana"); }
+\p{Block:Thai} { setCurCharPropertyValue(yytext(), "Thai"); }
+\p{Block:Tibetan} { setCurCharPropertyValue(yytext(), "Tibetan"); }
+\p{Block:Unified Canadian Aboriginal Syllabics} { setCurCharPropertyValue(yytext(), "Unified Canadian Aboriginal Syllabics"); }
+\p{Block:Yi Radicals} { setCurCharPropertyValue(yytext(), "Yi Radicals"); }
+\p{Block:Yi Syllables} { setCurCharPropertyValue(yytext(), "Yi Syllables"); }
 
 <<EOF>>     { return YYEOF;}
 [^]         { }

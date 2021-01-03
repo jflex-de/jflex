@@ -9,6 +9,8 @@ check_deps(
     prohibited = "@jflex_rules//jflex:jflex_bin",
 )
 
+# Test Age property
+
 java_test(
     name = "UnicodeAgeTest_7_0",
     srcs = [
@@ -172,4 +174,20 @@ jflex(
     srcs = ["UnicodeAge_7_0_age_unassigned.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_7_0_age_unassigned.java"],
+)
+
+# Test Block property
+java_test(
+    name = "UnicodeBlocksTest_7_0",
+    srcs = [
+        ":UnicodeBlocks_7_0",
+        "UnicodeBlocksTest_7_0.java",
+    ],
+)
+
+jflex(
+    name = "UnicodeBlocks_7_0",
+    srcs = ["UnicodeBlocks_7_0.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeBlocks_7_0.java"],
 )

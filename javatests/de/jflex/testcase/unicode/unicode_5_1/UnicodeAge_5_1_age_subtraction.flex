@@ -38,7 +38,6 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %type int
 
-
 %init{
   super(1114111);
 %init}
