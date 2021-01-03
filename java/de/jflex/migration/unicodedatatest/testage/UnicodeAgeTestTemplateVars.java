@@ -23,25 +23,22 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
 
-import de.jflex.velocity.TemplateVars;
+package de.jflex.migration.unicodedatatest.testage;
+
+import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.version.Version;
+import java.nio.file.Path;
 
-public abstract class UnicodeVersionTemplateVars extends TemplateVars {
-  /** The class name produced by this Java template. */
-  public String className;
-
-  public String javaPackage;
-
-  /** The unicode version under test. */
-  public Version unicodeVersion;
-  /** The maximum codepoint for this Unicode version. */
-  public int maxCodePoint;
-
-  public void updateFrom(UnicodeVersion version) {
-    javaPackage = version.javaPackage();
-    unicodeVersion = version.version();
-    maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
-  }
+public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
+  /** java package directory. */
+  public Path javaPackageDir;
+  /** The prefix of the names of the scanners. */
+  public String scannerPrefix;
+  /** List of ages up to {@link #unicodeVersion}. */
+  public ImmutableList<Version> ages;
+  /** The dataset to use, e.g. {@code Ages.Dataset.BMP} */
+  public UnicodeDataScanners.Dataset dataset;
 }

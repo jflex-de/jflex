@@ -23,25 +23,10 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
+package de.jflex.migration.unicodedatatest.testage;
 
-import de.jflex.velocity.TemplateVars;
-import de.jflex.version.Version;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public abstract class UnicodeVersionTemplateVars extends TemplateVars {
-  /** The class name produced by this Java template. */
-  public String className;
-
-  public String javaPackage;
-
-  /** The unicode version under test. */
-  public Version unicodeVersion;
-  /** The maximum codepoint for this Unicode version. */
-  public int maxCodePoint;
-
-  public void updateFrom(UnicodeVersion version) {
-    javaPackage = version.javaPackage();
-    unicodeVersion = version.version();
-    maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
-  }
+public class UnicodeAgeFlexTemplateVars extends UnicodeVersionTemplateVars {
+  public String age;
 }

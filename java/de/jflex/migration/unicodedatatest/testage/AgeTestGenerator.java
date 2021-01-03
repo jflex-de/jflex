@@ -23,25 +23,29 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
 
-import de.jflex.velocity.TemplateVars;
-import de.jflex.version.Version;
+package de.jflex.migration.unicodedatatest.testage;
 
-public abstract class UnicodeVersionTemplateVars extends TemplateVars {
-  /** The class name produced by this Java template. */
-  public String className;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.apache.velocity.runtime.parser.ParseException;
 
-  public String javaPackage;
+public class AgeTestGenerator {
 
-  /** The unicode version under test. */
-  public Version unicodeVersion;
-  /** The maximum codepoint for this Unicode version. */
-  public int maxCodePoint;
+  private AgeTestGenerator() {}
 
-  public void updateFrom(UnicodeVersion version) {
-    javaPackage = version.javaPackage();
-    unicodeVersion = version.version();
-    maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
+  public static void main(String[] args) throws Exception {
+    UnicodeVersion version = UnicodeVersion.create(args[0]);
+    Path workspaceDir = Paths.get(args[1]);
+    generate(version, workspaceDir);
+  }
+
+  public static void generate(UnicodeVersion unicodeVersion, Path workspaceDir)
+      throws IOException, ParseException {
+    Path outDir = workspaceDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
+    new UnicodeAgeTestGenerator(unicodeVersion).generate(outDir);
+    new UnicodeAgeFlexGenerator(unicodeVersion).generate(outDir);
   }
 }
