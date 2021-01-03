@@ -25,32 +25,22 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
-
-import com.google.auto.value.AutoValue;
+import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-@AutoValue
-public abstract class UnicodeVersion {
-  /** Unicode version. */
-  public abstract Version version();
+public abstract class UnicodeVersionTemplateVars extends TemplateVars {
+  /** The class name produced by this Java template. */
+  public String className;
+  public String javaPackage;
 
-  public abstract String underscoreVersion();
+  /** The unicode version under test. */
+  public Version unicodeVersion;
+  /** The maximum codepoint for this Unicode version. */
+  public int maxCodePoint;
 
-  public abstract String javaPackage();
-
-  public abstract Path javaPackageDirectory();
-
-  public static UnicodeVersion create(Version unicodeVersion) {
-    String underscoreVersion = unicodeVersion.underscoreVersion();
-    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    return new AutoValue_UnicodeVersion(
-        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
-  }
-
-  public static UnicodeVersion create(String version) {
-    return create(new Version(version));
+  public void updateFrom(UnicodeVersion version) {
+    javaPackage = version.javaPackage();
+    unicodeVersion = version.version();
+    maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
   }
 }

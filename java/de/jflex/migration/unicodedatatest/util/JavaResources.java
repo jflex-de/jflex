@@ -23,34 +23,23 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
 
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
+package de.jflex.migration.unicodedatatest.util;
 
-import com.google.auto.value.AutoValue;
-import de.jflex.version.Version;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import static com.google.common.base.Preconditions.checkNotNull;
 
-@AutoValue
-public abstract class UnicodeVersion {
-  /** Unicode version. */
-  public abstract Version version();
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
-  public abstract String underscoreVersion();
+public class JavaResources {
+  private JavaResources() {}
 
-  public abstract String javaPackage();
-
-  public abstract Path javaPackageDirectory();
-
-  public static UnicodeVersion create(Version unicodeVersion) {
-    String underscoreVersion = unicodeVersion.underscoreVersion();
-    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    return new AutoValue_UnicodeVersion(
-        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
-  }
-
-  public static UnicodeVersion create(String version) {
-    return create(new Version(version));
+  public static InputStreamReader readResource(String resourceName) {
+    InputStream resourceAsStream =
+        checkNotNull(
+            ClassLoader.getSystemClassLoader().getResourceAsStream(resourceName),
+            "Null resource content for " + resourceName);
+    return new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8);
   }
 }

@@ -23,34 +23,39 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
-
-import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
+package de.jflex.testing.unicodedata;
 
 import com.google.auto.value.AutoValue;
-import de.jflex.version.Version;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
-public abstract class UnicodeVersion {
-  /** Unicode version. */
-  public abstract Version version();
+public abstract class BlockSpec {
 
-  public abstract String underscoreVersion();
+  private static final String HEX_FORMAT = "0x%04X";
 
-  public abstract String javaPackage();
+  public abstract String name();
 
-  public abstract Path javaPackageDirectory();
+  public abstract CodepointRange range();
 
-  public static UnicodeVersion create(Version unicodeVersion) {
-    String underscoreVersion = unicodeVersion.underscoreVersion();
-    String javaPackage = "de.jflex.testcase.unicode.unicode_" + underscoreVersion;
-    return new AutoValue_UnicodeVersion(
-        unicodeVersion, underscoreVersion, javaPackage, Paths.get(getPathForPackage(javaPackage)));
+  public static BlockSpec create(String name, int start, int end) {
+    return new AutoValue_BlockSpec(name.trim(), CodepointRange.create(start, end));
   }
 
-  public static UnicodeVersion create(String version) {
-    return create(new Version(version));
+  public boolean isSurrogate() {
+    return SurrogateUtils.containsSurrogate(range());
+  }
+
+  @Override
+  public final String toString() {
+    return String.format("%04X..%04X; %s", range().start(), range().end(), name());
+  }
+
+  public String hexStart() {
+    return String.format(HEX_FORMAT, range().start());
+  }
+
+  public String hexEnd() {
+    return String.format(HEX_FORMAT, range().end());
   }
 }

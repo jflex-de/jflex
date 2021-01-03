@@ -8,3 +8,56 @@ check_deps(
     name = "deps_to_bootstrap_jflex_test",
     prohibited = "@jflex_rules//jflex:jflex_bin",
 )
+
+# Test Age property
+
+java_test(
+    name = "UnicodeAgeTest_${unicodeVersion.underscoreVersion()}",
+    srcs = [
+        "UnicodeAgeTest_${unicodeVersion.underscoreVersion()}.java",
+        #foreach ( $a in $ages )
+        ":UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}",
+        #end
+        ":UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction",
+        ":UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned",
+    ],
+    data = [
+        #foreach ( $a in $ages )
+        "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}.output",
+        #end
+        "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.output",
+        "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.output",
+        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
+    ],
+    deps = [
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//jflex/src/main/java/jflex/core/unicode",
+        "//third_party/com/google/truth",
+        "//third_party/javax:annotation",
+    ],
+)
+
+#foreach ( $a in $ages )
+jflex(
+    name = "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}",
+    srcs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}.java"],
+)
+#end
+
+jflex(
+    name = "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction",
+    srcs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.java"],
+)
+
+jflex(
+    name = "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned",
+    srcs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.java"],
+)
