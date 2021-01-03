@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 file=$1
 lines=$(wc -l < $file)
 lines=$((0 + lines))
