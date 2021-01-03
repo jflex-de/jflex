@@ -30,8 +30,8 @@ import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.Ages;
-import de.jflex.testing.unicodedata.Ages.Dataset;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.FileOutputStream;
@@ -72,7 +72,7 @@ class UnicodeAgeTestGenerator extends AbstractGenerator {
     vars.className = "UnicodeAgeTest_" + out.underscoreVersion();
     vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
     vars.ages = olderAges(out.version());
-    Dataset dataset = Ages.getDataset(out.version());
+    Dataset dataset = UnicodeDataScanners.getDataset(out.version());
     vars.dataset = dataset;
     return vars;
   }

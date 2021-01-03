@@ -41,12 +41,12 @@ import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /** Utility class to verify the Age property of UnicodeProperties. */
-public class Ages {
+public class UnicodeDataScanners {
 
   public static final File TEST_RESOURCES_DIR = new File("java/de/jflex/testcase/resources");
   private static final Version VERSION_3_0 = new Version(3, 0);
 
-  private Ages() {}
+  private UnicodeDataScanners() {}
 
   private static ImmutableList<String> getBlocks(
       ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,

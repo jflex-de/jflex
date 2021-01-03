@@ -33,7 +33,7 @@ import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource
 import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.Ages;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
@@ -68,7 +68,7 @@ class BuildFileGenerator extends AbstractGenerator {
     vars.baseClassName = "UnicodeAge_" + out.underscoreVersion();
     vars.underscoreVersion = out.underscoreVersion();
     vars.ages = olderAges(out.version());
-    vars.dataset = Ages.getDataset(out.version());
+    vars.dataset = UnicodeDataScanners.getDataset(out.version());
     return vars;
   }
 

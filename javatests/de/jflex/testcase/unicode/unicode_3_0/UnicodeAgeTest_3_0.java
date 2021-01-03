@@ -29,7 +29,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-import de.jflex.testing.unicodedata.Ages;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -130,6 +130,7 @@ public class UnicodeAgeTest_3_0 {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.BMP, expectedFile);
+    UnicodeDataScanners
+        .assertAgeInterval(scannerFactory, eof, UnicodeDataScanners.Dataset.BMP, expectedFile);
   }
 }

@@ -28,7 +28,7 @@ package de.jflex.migration.unicodedatatest.testage;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.testing.unicodedata.Ages;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.version.Version;
 import java.nio.file.Path;
 
@@ -40,5 +40,5 @@ public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
   /** List of ages up to {@link #unicodeVersion}. */
   public ImmutableList<Version> ages;
   /** The dataset to use, e.g. {@code Ages.Dataset.BMP} */
-  public Ages.Dataset dataset;
+  public UnicodeDataScanners.Dataset dataset;
 }

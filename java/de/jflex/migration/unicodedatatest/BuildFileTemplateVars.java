@@ -29,7 +29,7 @@
 package de.jflex.migration.unicodedatatest;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.Ages;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
@@ -37,5 +37,5 @@ public class BuildFileTemplateVars extends TemplateVars {
   public String baseClassName;
   public String underscoreVersion;
   public ImmutableList<Version> ages;
-  public Ages.Dataset dataset;
+  public UnicodeDataScanners.Dataset dataset;
 }
