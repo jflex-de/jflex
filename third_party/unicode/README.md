@@ -22,7 +22,7 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
 
 ```python
     ucd_zip_version(
-        name = "ucd_9",
+        name = "ucd_9_0",
         version = "9.0.0",
         sha256 = "df9e028425816fd5117eaea7173704056f88f7cd030681e457c6f3827f9390ec",
         extra_files = ["ScriptExtensions.txt"],
@@ -40,10 +40,10 @@ The `ucd_zip_version` is a convenient way to do this. For instance:
 
 ```python
 filegroup(
-    name = "ucd_9",
+    name = "ucd_9_0",
     srcs = [
         "@emoji_4_emoji_data_txt//file",
-        "@ucd_9//:files",
+        "@ucd_9_0//:files",
     ],
 )
 ```
