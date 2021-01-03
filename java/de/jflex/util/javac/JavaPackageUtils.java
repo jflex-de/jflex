@@ -25,6 +25,8 @@
  */
 package de.jflex.util.javac;
 
+import java.io.File;
+
 @SuppressWarnings("WeakerAccess")
 public final class JavaPackageUtils {
   public static String getPathForClass(Class clazz) {
@@ -36,7 +38,7 @@ public final class JavaPackageUtils {
   }
 
   public static String getPathForPackage(String packageName) {
-    return packageName.replace('.', '/');
+    return packageName.replace('.', File.separatorChar);
   }
 
   private JavaPackageUtils() {}
