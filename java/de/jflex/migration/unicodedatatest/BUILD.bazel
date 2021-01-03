@@ -1,7 +1,4 @@
-load(":build_defs.bzl", "KNOWN_VERSIONS", "gen_build")
-
-# Do not test version 1.1
-TESTED_VERSION = KNOWN_VERSIONS[1:]
+load(":build_defs.bzl", "TESTED_VERSIONS", "gen_build")
 
 java_binary(
     name = "generator",
@@ -33,13 +30,10 @@ filegroup(
     srcs = [":gen_build_{x}_{y}".format(
         x = x,
         y = y,
-    ) for (x, y) in TESTED_VERSION],
+    ) for (x, y) in TESTED_VERSIONS],
 )
 
-[
-    gen_build(
-        name = "gen_build_%s_%s" % (x, y),
-        version = "%s.%s" % (x, y),
-    )
-    for (x, y) in TESTED_VERSION
-]
+[gen_build(
+    name = "gen_build_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS]

@@ -50,6 +50,8 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 \p{Block:Ancient Greek Numbers} { setCurCharPropertyValue(yytext(), "Ancient Greek Numbers"); }
 \p{Block:Ancient Symbols} { setCurCharPropertyValue(yytext(), "Ancient Symbols"); }
 \p{Block:Arabic} { setCurCharPropertyValue(yytext(), "Arabic"); }
+\p{Block:Arabic Extended-A} { setCurCharPropertyValue(yytext(), "Arabic Extended-A"); }
+\p{Block:Arabic Mathematical Alphabetic Symbols} { setCurCharPropertyValue(yytext(), "Arabic Mathematical Alphabetic Symbols"); }
 \p{Block:Arabic Presentation Forms-A} { setCurCharPropertyValue(yytext(), "Arabic Presentation Forms-A"); }
 \p{Block:Arabic Presentation Forms-B} { setCurCharPropertyValue(yytext(), "Arabic Presentation Forms-B"); }
 \p{Block:Arabic Supplement} { setCurCharPropertyValue(yytext(), "Arabic Supplement"); }
@@ -84,6 +86,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 \p{Block:CJK Unified Ideographs Extension C} { setCurCharPropertyValue(yytext(), "CJK Unified Ideographs Extension C"); }
 \p{Block:CJK Unified Ideographs Extension D} { setCurCharPropertyValue(yytext(), "CJK Unified Ideographs Extension D"); }
 \p{Block:Carian} { setCurCharPropertyValue(yytext(), "Carian"); }
+\p{Block:Chakma} { setCurCharPropertyValue(yytext(), "Chakma"); }
 \p{Block:Cham} { setCurCharPropertyValue(yytext(), "Cham"); }
 \p{Block:Cherokee} { setCurCharPropertyValue(yytext(), "Cherokee"); }
 \p{Block:Combining Diacritical Marks} { setCurCharPropertyValue(yytext(), "Combining Diacritical Marks"); }
@@ -174,6 +177,10 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 \p{Block:Mathematical Alphanumeric Symbols} { setCurCharPropertyValue(yytext(), "Mathematical Alphanumeric Symbols"); }
 \p{Block:Mathematical Operators} { setCurCharPropertyValue(yytext(), "Mathematical Operators"); }
 \p{Block:Meetei Mayek} { setCurCharPropertyValue(yytext(), "Meetei Mayek"); }
+\p{Block:Meetei Mayek Extensions} { setCurCharPropertyValue(yytext(), "Meetei Mayek Extensions"); }
+\p{Block:Meroitic Cursive} { setCurCharPropertyValue(yytext(), "Meroitic Cursive"); }
+\p{Block:Meroitic Hieroglyphs} { setCurCharPropertyValue(yytext(), "Meroitic Hieroglyphs"); }
+\p{Block:Miao} { setCurCharPropertyValue(yytext(), "Miao"); }
 \p{Block:Miscellaneous Mathematical Symbols-A} { setCurCharPropertyValue(yytext(), "Miscellaneous Mathematical Symbols-A"); }
 \p{Block:Miscellaneous Mathematical Symbols-B} { setCurCharPropertyValue(yytext(), "Miscellaneous Mathematical Symbols-B"); }
 \p{Block:Miscellaneous Symbols} { setCurCharPropertyValue(yytext(), "Miscellaneous Symbols"); }
@@ -210,12 +217,15 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 \p{Block:Runic} { setCurCharPropertyValue(yytext(), "Runic"); }
 \p{Block:Samaritan} { setCurCharPropertyValue(yytext(), "Samaritan"); }
 \p{Block:Saurashtra} { setCurCharPropertyValue(yytext(), "Saurashtra"); }
+\p{Block:Sharada} { setCurCharPropertyValue(yytext(), "Sharada"); }
 \p{Block:Shavian} { setCurCharPropertyValue(yytext(), "Shavian"); }
 \p{Block:Sinhala} { setCurCharPropertyValue(yytext(), "Sinhala"); }
 \p{Block:Small Form Variants} { setCurCharPropertyValue(yytext(), "Small Form Variants"); }
+\p{Block:Sora Sompeng} { setCurCharPropertyValue(yytext(), "Sora Sompeng"); }
 \p{Block:Spacing Modifier Letters} { setCurCharPropertyValue(yytext(), "Spacing Modifier Letters"); }
 \p{Block:Specials} { setCurCharPropertyValue(yytext(), "Specials"); }
 \p{Block:Sundanese} { setCurCharPropertyValue(yytext(), "Sundanese"); }
+\p{Block:Sundanese Supplement} { setCurCharPropertyValue(yytext(), "Sundanese Supplement"); }
 \p{Block:Superscripts and Subscripts} { setCurCharPropertyValue(yytext(), "Superscripts and Subscripts"); }
 \p{Block:Supplemental Arrows-A} { setCurCharPropertyValue(yytext(), "Supplemental Arrows-A"); }
 \p{Block:Supplemental Arrows-B} { setCurCharPropertyValue(yytext(), "Supplemental Arrows-B"); }
@@ -232,6 +242,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 \p{Block:Tai Tham} { setCurCharPropertyValue(yytext(), "Tai Tham"); }
 \p{Block:Tai Viet} { setCurCharPropertyValue(yytext(), "Tai Viet"); }
 \p{Block:Tai Xuan Jing Symbols} { setCurCharPropertyValue(yytext(), "Tai Xuan Jing Symbols"); }
+\p{Block:Takri} { setCurCharPropertyValue(yytext(), "Takri"); }
 \p{Block:Tamil} { setCurCharPropertyValue(yytext(), "Tamil"); }
 \p{Block:Telugu} { setCurCharPropertyValue(yytext(), "Telugu"); }
 \p{Block:Thaana} { setCurCharPropertyValue(yytext(), "Thaana"); }
