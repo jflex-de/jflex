@@ -1,6 +1,6 @@
 package de.jflex.testing.diff;
 /*
- * Copyright (C) 2018-2019 Google, LLC.
+ * Copyright (C) 2018-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
