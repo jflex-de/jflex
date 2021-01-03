@@ -1,0 +1,151 @@
+load(":build_defs.bzl", "gen_build")
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "BuildFileGenerator.java",
+        "BuildFileTemplateVars.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.BuildFileGenerator",
+    resources = [
+        "BUILD.vm",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/util:java_resources",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        ":gen_build_10_0",
+        ":gen_build_11_0",
+        ":gen_build_12_0",
+        ":gen_build_12_1",
+        ":gen_build_2_0",
+        ":gen_build_2_1",
+        ":gen_build_3_0",
+        ":gen_build_3_1",
+        ":gen_build_3_2",
+        ":gen_build_4_0",
+        ":gen_build_4_1",
+        ":gen_build_5_0",
+        ":gen_build_5_1",
+        ":gen_build_6_0",
+        ":gen_build_6_1",
+        ":gen_build_6_2",
+        ":gen_build_6_3",
+        ":gen_build_7_0",
+        ":gen_build_8_0",
+        ":gen_build_9_0",
+    ],
+)
+
+gen_build(
+    name = "gen_build_2_0",
+    version = "2.0",
+)
+
+gen_build(
+    name = "gen_build_2_1",
+    version = "2.1",
+)
+
+gen_build(
+    name = "gen_build_3_0",
+    version = "3.0",
+)
+
+gen_build(
+    name = "gen_build_3_1",
+    version = "3.1",
+)
+
+gen_build(
+    name = "gen_build_3_2",
+    version = "3.2",
+)
+
+gen_build(
+    name = "gen_build_4_0",
+    version = "4.0",
+)
+
+gen_build(
+    name = "gen_build_4_1",
+    version = "4.1",
+)
+
+gen_build(
+    name = "gen_build_5_0",
+    version = "5.0",
+)
+
+gen_build(
+    name = "gen_build_5_1",
+    version = "5.1",
+)
+
+gen_build(
+    name = "gen_build_6_0",
+    version = "6.0",
+)
+
+gen_build(
+    name = "gen_build_6_1",
+    version = "6.1",
+)
+
+gen_build(
+    name = "gen_build_6_2",
+    version = "6.2",
+)
+
+gen_build(
+    name = "gen_build_6_3",
+    version = "6.3",
+)
+
+gen_build(
+    name = "gen_build_7_0",
+    version = "7.0",
+)
+
+gen_build(
+    name = "gen_build_8_0",
+    version = "8.0",
+)
+
+gen_build(
+    name = "gen_build_9_0",
+    version = "9.0",
+)
+
+gen_build(
+    name = "gen_build_10_0",
+    version = "10.0",
+)
+
+gen_build(
+    name = "gen_build_11_0",
+    version = "11.0",
+)
+
+gen_build(
+    name = "gen_build_12_0",
+    version = "12.0",
+)
+
+gen_build(
+    name = "gen_build_12_1",
+    version = "12.1",
+)

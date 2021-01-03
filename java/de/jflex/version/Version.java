@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014-2018 Gerwin Klein <lsf@jflex.de>
  * Copyright (C) 2008-2019 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2020 Google, LLC.
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -84,6 +84,10 @@ public class Version {
 
   public String unicodeClassName() {
     return "Unicode_" + makeString('_', false);
+  }
+
+  public String underscoreVersion() {
+    return makeString('_', true);
   }
 
   private String makeString(char sep, boolean includePatch) {
