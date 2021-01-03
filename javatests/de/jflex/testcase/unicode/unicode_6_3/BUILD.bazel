@@ -175,6 +175,10 @@ java_test(
         ":UnicodeBlocks_6_3",
         "UnicodeBlocksTest_6_3.java",
     ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+    ]
 )
 
 jflex(

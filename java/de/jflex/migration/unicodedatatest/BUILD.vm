@@ -69,6 +69,10 @@ java_test(
         ":UnicodeBlocks_${underscoreVersion}",
         "UnicodeBlocksTest_${underscoreVersion}.java",
     ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+    ]
 )
 
 jflex(

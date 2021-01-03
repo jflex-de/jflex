@@ -103,6 +103,10 @@ java_test(
         ":UnicodeBlocks_3_2",
         "UnicodeBlocksTest_3_2.java",
     ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+    ]
 )
 
 jflex(
