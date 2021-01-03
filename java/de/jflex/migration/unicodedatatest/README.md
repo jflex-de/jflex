@@ -2,8 +2,10 @@
 
 Suite of tools to create the tests in javatests/de/jflex/testcase/unicode
 
-## Migration
+## Generate all tests
 
-```shell script
-./generate.sh
-```
+1. Extend `KNOWN_VERSIONS` in [unicodedatatest/build_defs.bzl](unicodedatatest/build_defs.bzl)
+2. Run the script    
+   ```shell script
+   java/de/jflex/migration/unicodedatatest/generate.sh
+   ```
