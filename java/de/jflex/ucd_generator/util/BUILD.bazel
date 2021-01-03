@@ -18,15 +18,3 @@ java_library(
         "//third_party/com/google/guava",
     ],
 )
-
-java_library(
-    name = "name_normalizer",
-    srcs = ["PropertyNameNormalizer.java"],
-    visibility = [
-        "//java/de/jflex/ucd_generator:__subpackages__",
-        "//javatests/de/jflex:__subpackages__",
-    ],
-    deps = [
-        "//third_party/com/google/guava",
-    ],
-)

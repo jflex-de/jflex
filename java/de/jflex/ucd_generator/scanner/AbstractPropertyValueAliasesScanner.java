@@ -26,8 +26,8 @@
  */
 package de.jflex.ucd_generator.scanner;
 
+import de.jflex.ucd_generator.ucd.PropertyNames;
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,7 +49,7 @@ abstract class AbstractPropertyValueAliasesScanner {
   void addPropertyValueAliases() {
     addPropertyValueAliases(
         unicodeData.getCanonicalPropertyName(propertyAlias),
-        PropertyNameNormalizer.normalize(propertyValue));
+        PropertyNames.normalize(propertyValue));
   }
 
   private void addPropertyValueAliases(
