@@ -31,6 +31,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.testing.unicodedata.BlockSpec;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

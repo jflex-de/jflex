@@ -48,7 +48,7 @@ public class UnicodeDataScanners {
 
   private UnicodeDataScanners() {}
 
-  private static ImmutableList<String> getBlocks(
+  public static ImmutableList<BlockSpec> getBlocks(
       ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
       int eof,
       Dataset dataset)
@@ -65,7 +65,10 @@ public class UnicodeDataScanners {
       Dataset dataset,
       Path expectedFile)
       throws IOException {
-    ImmutableList<String> blocks = getBlocks(scannerFactory, eof, dataset);
+    // TODO(regisd) Replace the test on assertion rather than file content.
+    ImmutableList<String> blocks = getBlocks(scannerFactory, eof, dataset).stream()
+        .map(BlockSpec::toString)
+        .collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);
@@ -77,7 +80,7 @@ public class UnicodeDataScanners {
     return oldUnicode ? Dataset.BMP : Dataset.ALL;
   }
 
-  // TODO(regisd) The files can most ikely be replaced by in-memory providers.
+  // TODO(regisd) The files can most likely be replaced by in-memory providers.
   public enum Dataset {
     BMP("All.Unicode.BMP.characters.input"),
     ALL("All.Unicode.characters.input"),

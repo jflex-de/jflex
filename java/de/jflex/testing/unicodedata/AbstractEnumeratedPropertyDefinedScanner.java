@@ -12,14 +12,14 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
     propertyValues = new String[maxCodePoint + 1];
   }
 
-  public ImmutableList<String> blocks() {
-    ImmutableList.Builder<String> blocks = ImmutableList.builder();
+  public ImmutableList<BlockSpec> blocks() {
+    ImmutableList.Builder<BlockSpec> blocks = ImmutableList.builder();
     String prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
     for (int codePoint = 1; codePoint <= maxCodePoint; ++codePoint) {
       if (codePoint == 0xD800) { // Skip the surrogate blocks
         if (null != prevPropertyValue) {
-          blocks.add(block(begCodePoint, codePoint - 1, prevPropertyValue));
+          blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
         }
         begCodePoint = codePoint = 0xE000;
         prevPropertyValue = propertyValues[codePoint];
@@ -28,20 +28,16 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
       String propertyValue = propertyValues[codePoint];
       if (null == propertyValue || !propertyValue.equals(prevPropertyValue)) {
         if (null != prevPropertyValue) {
-          blocks.add(block(begCodePoint, codePoint - 1, prevPropertyValue));
+          blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
         }
         prevPropertyValue = propertyValue;
         begCodePoint = codePoint;
       }
     }
     if (null != prevPropertyValue) {
-      blocks.add(block(begCodePoint, maxCodePoint, prevPropertyValue));
+      blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, maxCodePoint));
     }
     return blocks.build();
-  }
-
-  protected String block(int begCodePoint, int endCodePoint, String propertyValue) {
-    return String.format("%04X..%04X; %s", begCodePoint, endCodePoint, propertyValue);
   }
 
   protected void setCurCharPropertyValue(String index, String propertyValue) {

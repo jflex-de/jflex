@@ -7,8 +7,10 @@ java_library(
         "//javatests:__subpackages__",
     ],
     deps = [
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//java/de/jflex/version",
+        "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

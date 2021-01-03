@@ -23,14 +23,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testblock;
+package de.jflex.testing.unicodedata;
 
 import com.google.auto.value.AutoValue;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
-abstract class BlockSpec {
+public abstract class BlockSpec {
   abstract String name();
 
   abstract CodepointRange range();
@@ -41,5 +41,10 @@ abstract class BlockSpec {
 
   public boolean isSurrogate() {
     return SurrogateUtils.containsSurrogate(range());
+  }
+
+  @Override
+  public final String toString() {
+    return String.format("%04X..%04X; %s", range().start(), range().end(), name());
   }
 }
