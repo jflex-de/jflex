@@ -76,24 +76,28 @@ public class TestedVersions {
   public static final UcdVersion UCD_VERSION_3_2 = newUcdVersion("3.2.0", "ucd_3_2_0").build();
   public static final UcdVersion UCD_VERSION_4_0 = newUcdVersion("4.0.1", "ucd_4_0_1").build();
   public static final UcdVersion UCD_VERSION_4_1 = newUcdVersion("4.1.0", "ucd_4_1_0").build();
-  public static final UcdVersion UCD_VERSION_5_0 = newUcdVersion("5.0.0", "ucd_5_0_0").build();
-  public static final UcdVersion UCD_VERSION_5_1 = newUcdVersion("5.1.0", "ucd_5_1_0").build();
-  public static final UcdVersion UCD_VERSION_5_2 = newUcdVersion("5.2.0", "ucd_5_2_0").build();
-  public static final UcdVersion UCD_VERSION_6_0 = newUcdVersion("6.0.0", "ucd_6_0_0").build();
-  public static final UcdVersion UCD_VERSION_6_1 = newUcdVersion("6.1.0", "ucd_6_1_0").build();
-  public static final UcdVersion UCD_VERSION_6_2 = newUcdVersion("6.2.0", "ucd_6_2_0").build();
-  public static final UcdVersion UCD_VERSION_6_3 = newUcdVersion("6.3.0", "ucd_6_3_0").build();
-  public static final UcdVersion UCD_VERSION_7_0 = newUcdVersion("7.0", "ucd_7").build();
+  public static final UcdVersion UCD_VERSION_5_0 = newUcdVersion("5.0.0", "ucd_5_0").build();
+  public static final UcdVersion UCD_VERSION_5_1 = newUcdVersion("5.1.0", "ucd_5_1").build();
+  public static final UcdVersion UCD_VERSION_5_2 = newUcdVersion("5.2.0", "ucd_5_2").build();
+  public static final UcdVersion UCD_VERSION_6_0 = newUcdVersion("6.0.0", "ucd_6_0").build();
+  public static final UcdVersion UCD_VERSION_6_1 = newUcdVersion("6.1.0", "ucd_6_1").build();
+  public static final UcdVersion UCD_VERSION_6_2 = newUcdVersion("6.2.0", "ucd_6_2").build();
+  public static final UcdVersion UCD_VERSION_6_3 = newUcdVersion("6.3.0", "ucd_6_3").build();
+  public static final UcdVersion UCD_VERSION_7_0 = newUcdVersion("7.0", "ucd_7_0").build();
   public static final UcdVersion UCD_VERSION_8_0 =
-      newUcdVersion("8.0", "ucd_8").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_2")).build();
+      newUcdVersion("8.0", "ucd_8_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_2")).build();
   public static final UcdVersion UCD_VERSION_9_0 =
-      newUcdVersion("9.0", "ucd_9").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_4")).build();
+      newUcdVersion("9.0", "ucd_9_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_4")).build();
   public static final UcdVersion UCD_VERSION_10_0 =
-      newUcdVersion("10.0", "ucd_10").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_5")).build();
+      newUcdVersion("10.0", "ucd_10_0").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_5")).build();
   public static final UcdVersion UCD_VERSION_11_0 =
-      newUcdVersion("11.0", "ucd_11").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_11")).build();
+      newUcdVersion("11.0", "ucd_11_0")
+          .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_11_0"))
+          .build();
   public static final UcdVersion UCD_VERSION_12_0 =
-      newUcdVersion("12.0", "ucd_12").putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12")).build();
+      newUcdVersion("12.0", "ucd_12_0")
+          .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12_0"))
+          .build();
   public static final UcdVersion UCD_VERSION_12_1 =
       newUcdVersion("12.1", "ucd_12_1")
           .putFile(UcdFileType.Emoji, ucdEmojiFile("emoji_12_1"))
