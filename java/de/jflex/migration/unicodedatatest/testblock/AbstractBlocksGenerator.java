@@ -25,33 +25,49 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
+
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.flogger.FluentLogger;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
+import java.io.IOException;
 import java.nio.file.Path;
+import org.apache.velocity.runtime.parser.ParseException;
 
-/** Generates the flex of the scanners for a all blocks of a given Unicode version. */
-class  UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars> {
-
+abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> extends AbstractGenerator  {
   private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(UnicodeBlockFlexGenerator.class);
-  private static final String FLEX_FILE_TEMPLATE = ROOT_DIR + "/UnicodeBlock.flex.vm";
+      JavaPackageUtils.getPathForClass(AbstractBlocksGenerator.class);
 
-  public UnicodeBlockFlexGenerator(UnicodeVersion unicodeVersion, ImmutableSet<String> blockNames) {
-    super(FLEX_FILE_TEMPLATE, "UnicodeBlocks.flex", unicodeVersion, blockNames);
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+
+  private final String templateResource;
+  private final String templateName;
+  protected final UnicodeVersion unicodeVersion;
+  protected final ImmutableSortedSet<String> blockNames;
+
+  public AbstractBlocksGenerator(String templateResource, String templateName,
+      UnicodeVersion unicodeVersion,
+      ImmutableSet<String> blockNames) {
+    this.templateResource = templateResource;
+    this.templateName = templateName;
+    this.unicodeVersion = unicodeVersion;
+    this.blockNames = ImmutableSortedSet.copyOf(blockNames);
   }
 
   @Override
-  protected UnicodeBlockFlexTemplateVars createTemplateVars() {
-    UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
+  public void generate(Path outDir) throws IOException, ParseException {
+    T vars = createTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
-    vars.blockNames = blockNames;
-    return vars;
+    Path outFile = getOuputFilePath(outDir, vars);
+    logger.atInfo().log("Generating %s", outFile.toAbsolutePath());
+    Velocity.render(readResource(templateResource), templateName, vars, outFile.toFile());
   }
 
-  @Override
-  protected Path getOuputFilePath(Path outDir, UnicodeBlockFlexTemplateVars vars) {
-    return outDir.resolve(vars.className + ".flex");
-  }
+  protected abstract T createTemplateVars();
+  protected abstract Path getOuputFilePath(Path outDir, T vars);
 }

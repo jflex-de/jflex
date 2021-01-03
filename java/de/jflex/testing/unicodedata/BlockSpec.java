@@ -31,11 +31,11 @@ import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
 public abstract class BlockSpec {
-  abstract String name();
+  public abstract String name();
 
   abstract CodepointRange range();
 
-  static BlockSpec create(String name, int start, int end) {
+  public static BlockSpec create(String name, int start, int end) {
     return new AutoValue_BlockSpec(name.trim(), CodepointRange.create(start, end));
   }
 

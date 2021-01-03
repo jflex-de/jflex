@@ -100,6 +100,7 @@ public class $className {
       String expectedFileName)
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
-    Ages.assertAgeInterval(scannerFactory, eof, Ages.Dataset.${dataset}, expectedFile);
+    UnicodeDataScanners
+        .assertAgeInterval(scannerFactory, eof, UnicodeDataScanners.Dataset.${dataset}, expectedFile);
   }
 }

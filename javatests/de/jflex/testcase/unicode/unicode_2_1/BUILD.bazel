@@ -88,6 +88,7 @@ java_test(
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
     ],
 )
 

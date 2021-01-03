@@ -76,10 +76,10 @@ public class BlocksTestGenerator {
         Integer.parseInt(regexpGroups.get(1), 16));
   }
 
-  private static void generate(
-      UnicodeVersion version, Path outDirectory, ImmutableSet<String> blockNames)
+  private static void generate(UnicodeVersion version, Path outDir, ImmutableSet<String> blockNames)
       throws IOException, ParseException {
-    Path outDir = outDirectory.resolve("javatests").resolve(version.javaPackageDirectory());
-    new UnicodeBlockFlexGenerator(version, blockNames).generate(outDir);
+    Path outDirectory = outDir.resolve("javatests").resolve(version.javaPackageDirectory());
+    new UnicodeBlockFlexGenerator(version, blockNames).generate(outDirectory);
+    new UnicodeBlocksTestJavaGenerator(version, blockNames).generate(outDirectory);
   }
 }

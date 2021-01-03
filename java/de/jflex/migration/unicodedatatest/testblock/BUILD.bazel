@@ -4,14 +4,19 @@ java_binary(
     name = "generator",
     testonly = True,
     srcs = [
-        "BlockSpec.java",
+        "AbstractBlocksGenerator.java",
         "BlocksTestGenerator.java",
         "SimpleBlocksParser.java",
         "UnicodeBlockFlexGenerator.java",
         "UnicodeBlockFlexTemplateVars.java",
+        "UnicodeBlocksTestJavaGenerator.java",
+        "UnicodeBlocksTestJavaTemplateVars.java",
     ],
     main_class = "de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator",
-    resources = ["UnicodeBlock.flex.vm"],
+    resources = [
+        "UnicodeBlock.flex.vm",
+        "UnicodeBlocksTest.java.vm",
+    ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/migration/unicodedatatest/util:java_resources",

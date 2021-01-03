@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,30 +23,10 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_2_1;
+package de.jflex.migration.unicodedatatest.testblock;
 
-import static com.google.common.truth.Truth.assertThat;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.BlockSpec;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.util.scanner.ScannerFactory;
-import org.junit.Test;
+public class UnicodeBlocksTestJavaTemplateVars extends UnicodeVersionTemplateVars {
 
-/** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode 2.1. */
-public class UnicodeBlocksTest_2_1 {
-  @Test
-  public void testBlocks() throws Exception {
-    ImmutableList<BlockSpec> blocks = UnicodeDataScanners.getBlocks(
-        ScannerFactory.of(UnicodeBlocks_2_1::new),
-        UnicodeBlocks_2_1.YYEOF,
-        UnicodeDataScanners.Dataset.BMP
-    );
-    assertThat(blocks).containsAllOf(
-        // 0000..007F; Basic Latin
-        BlockSpec.create("Basic Latin", 0x0000, 0x007F),
-        // 0080..00FF; Latin-1 Supplement
-        BlockSpec.create("Latin-1 Supplement", 0x0080, 0x00FF)
-        );
-  }
 }
