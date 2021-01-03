@@ -40,7 +40,7 @@ import org.junit.runner.RunWith;
 @TestSpec(
     lex = "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f.flex",
     generatorThrows = GeneratorException.class,
-sysout = "javatests/de/jflex/testcase/six_digit_unicode_escape/failure.out")
+    sysout = "javatests/de/jflex/testcase/six_digit_unicode_escape/failure.out")
 public class SixdigitunicodeescapeFailureTest {
 
   @Test

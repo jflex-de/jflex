@@ -43,7 +43,8 @@ public class SixdigitunicodeescapeTest {
   @Test
   public void unicodeParsed() throws Exception {
 
-    File inputFile = new File("testsuite/testcases/src/test/resources/All.Unicode.characters.input");
+    File inputFile =
+        new File("testsuite/testcases/src/test/resources/All.Unicode.characters.input");
     SixDigitUnicodeEscape scanner = scannerFactory.createScannerForFile(inputFile);
     scanner.yylex();
     assertThat(scanner.output())
