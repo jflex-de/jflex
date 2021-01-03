@@ -264,8 +264,8 @@
                 "sha256": "2c73b940c91250bc98346926270f13a6a10bb6e29d2c9316a70d134e382c873e"
             },
             {
-                "coord": "de.jflex:jflex:1.8.1",
-                "file": "v1/https/jcenter.bintray.com/de/jflex/jflex/1.8.1/jflex-1.8.1.jar",
+                "coord": "de.jflex:jflex:1.8.2",
+                "file": "v1/https/jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
                 "directDependencies": [
                     "com.github.vbmacher:java-cup-runtime:11b-20160615",
                     "org.apache.ant:ant:1.10.5"
@@ -275,13 +275,26 @@
                     "com.github.vbmacher:java-cup-runtime:11b-20160615",
                     "org.apache.ant:ant-launcher:1.10.5"
                 ],
-                "url": "https://jcenter.bintray.com/de/jflex/jflex/1.8.1/jflex-1.8.1.jar",
+                "url": "https://jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/de/jflex/jflex/1.8.1/jflex-1.8.1.jar",
-                    "https://maven.google.comde/jflex/jflex/1.8.1/jflex-1.8.1.jar",
-                    "https://repo1.maven.org/maven2de/jflex/jflex/1.8.1/jflex-1.8.1.jar"
+                    "https://jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
+                    "https://maven.google.comde/jflex/jflex/1.8.2/jflex-1.8.2.jar",
+                    "https://repo1.maven.org/maven2de/jflex/jflex/1.8.2/jflex-1.8.2.jar"
                 ],
-                "sha256": "ce7a6e222730e7d9f11066b5c4ecdbe63cebd2360c5d660efedcd1541a3dc667"
+                "sha256": "151bf841f406febd2a34d511ff9123a78f4852f957055f4d436112c4ac1f87a8"
+            },
+            {
+                "coord": "javax.annotation:javax.annotation-api:1.3.2",
+                "file": "v1/https/jcenter.bintray.com/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
+                    "https://maven.google.comjavax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar",
+                    "https://repo1.maven.org/maven2javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar"
+                ],
+                "sha256": "e04ba5195bcd555dc95650f7cc614d151e4bcd52d29a10b8aa2197f3ab89ab9b"
             },
             {
                 "coord": "junit:junit:4.12",
@@ -299,6 +312,32 @@
                     "https://repo1.maven.org/maven2junit/junit/4.12/junit-4.12.jar"
                 ],
                 "sha256": "59721f0805e223d84b90677887d9ff567dc534d7c502ca903c0c2b17f05c116a"
+            },
+            {
+                "coord": "net.bytebuddy:byte-buddy-agent:1.10.18",
+                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                    "https://maven.google.comnet/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar"
+                ],
+                "sha256": "c5b5f85433a9e281fd1ee82d5b8e142e5c494670b29970e627f13e189ff1dc2e"
+            },
+            {
+                "coord": "net.bytebuddy:byte-buddy:1.10.18",
+                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                    "https://maven.google.comnet/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar"
+                ],
+                "sha256": "7a1fc6eabf10dd3085e62e7cb3281084f00ab92a736e0980fc99a1460fa1f5ce"
             },
             {
                 "coord": "ognl:ognl:3.1.12",
@@ -667,6 +706,40 @@
                 "sha256": "d7691062fb779c2381640c8f72acba2c23873b01c243866d41c15dc4c8848ea2"
             },
             {
+                "coord": "org.mockito:mockito-core:3.6.28",
+                "file": "v1/https/jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                "directDependencies": [
+                    "net.bytebuddy:byte-buddy:1.10.18",
+                    "net.bytebuddy:byte-buddy-agent:1.10.18",
+                    "org.objenesis:objenesis:3.1"
+                ],
+                "dependencies": [
+                    "net.bytebuddy:byte-buddy-agent:1.10.18",
+                    "net.bytebuddy:byte-buddy:1.10.18",
+                    "org.objenesis:objenesis:3.1"
+                ],
+                "url": "https://jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                    "https://maven.google.comorg/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                    "https://repo1.maven.org/maven2org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar"
+                ],
+                "sha256": "8f6bb5d54f0de3453215745f2844b1f0dc00b24abcb41c97059562743a83a9b2"
+            },
+            {
+                "coord": "org.objenesis:objenesis:3.1",
+                "file": "v1/https/jcenter.bintray.com/org/objenesis/objenesis/3.1/objenesis-3.1.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/org/objenesis/objenesis/3.1/objenesis-3.1.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/org/objenesis/objenesis/3.1/objenesis-3.1.jar",
+                    "https://maven.google.comorg/objenesis/objenesis/3.1/objenesis-3.1.jar",
+                    "https://repo1.maven.org/maven2org/objenesis/objenesis/3.1/objenesis-3.1.jar"
+                ],
+                "sha256": "cdb3d038c188de6f46ffd5cd930be2d5e5dba59c53b26437995d534e3db2fb80"
+            },
+            {
                 "coord": "org.slf4j:slf4j-api:1.7.25",
                 "file": "v1/https/jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar",
                 "directDependencies": [],
@@ -694,6 +767,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": -1595777913
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 1980311943
     }
 }
