@@ -62,14 +62,14 @@ jflex(
 
 jflex(
     name = "UnicodeAge_2_1_age_subtraction",
-    srcs = ["UnicodeAge_2_1_age_subtraction.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_2_1/UnicodeAge_2_1_age_subtraction.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_1_age_subtraction.java"],
 )
 
 jflex(
     name = "UnicodeAge_2_1_age_unassigned",
-    srcs = ["UnicodeAge_2_1_age_unassigned.flex"],
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_2_1/UnicodeAge_2_1_age_unassigned.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_2_1_age_unassigned.java"],
 )

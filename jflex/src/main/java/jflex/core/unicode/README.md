@@ -15,4 +15,4 @@ done
 
 See also
 * [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org 
-* [ucd_generator](/java/jflex/ucd_generator) for the impelentation details. 
+* [ucd_generator](/java/jflex/ucd_generator) for the implementation details. 
