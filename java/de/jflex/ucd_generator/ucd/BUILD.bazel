@@ -7,7 +7,6 @@ java_library(
     ],
     deps = [
         "//java/de/jflex/ucd_generator/util:hexa_utils",
-        "//java/de/jflex/ucd_generator/util:name_normalizer",
         "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",

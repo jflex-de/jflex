@@ -34,7 +34,6 @@ java_library(
     deps = [
         ":exception",
         "//java/de/jflex/ucd_generator/ucd",
-        "//java/de/jflex/ucd_generator/util:name_normalizer",
         "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],

@@ -27,7 +27,7 @@
 package de.jflex.ucd_generator.scanner;
 
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
+import de.jflex.ucd_generator.ucd.PropertyNames;
 
 %%
 
@@ -75,7 +75,7 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <ADDITIONAL_ALIASES> {
-  [^ \t\r\n;#]+ { aliases.add(PropertyNameNormalizer.normalize(yytext())); }
+  [^ \t\r\n;#]+ { aliases.add(PropertyNames.normalize(yytext())); }
   
   {ItemSeparator} { }
 }

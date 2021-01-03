@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2009-2013 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2014-2020 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -24,10 +25,9 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.util;
+package de.jflex.ucd_generator.ucd;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.util.Collection;
@@ -36,12 +36,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class PropertyNameNormalizer {
+public class PropertyNames {
 
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
-  // "cache"
   private static final Map<String, String> normalized = new HashMap<>();
 
   /** Normalized General_Category property name. */
@@ -99,15 +98,11 @@ public class PropertyNameNormalizer {
   }
 
   public Collection<String> getPropertyAliases(String propName) {
-    return propertyAliases.get(PropertyNameNormalizer.normalize(propName));
+    return propertyAliases.get(PropertyNames.normalize(propName));
   }
 
   public void putPropertyAlias(String canonicalName, String alias) {
     propertyAliases.put(canonicalName, alias);
     propertyAlias2CanonicalName.put(alias, canonicalName);
-  }
-
-  public ImmutableList<String> getCanonicalNames() {
-    return ImmutableList.sortedCopyOf(propertyAliases.keySet());
   }
 }
