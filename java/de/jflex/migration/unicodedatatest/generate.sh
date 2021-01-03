@@ -12,11 +12,16 @@ done
 # Generate UnicodeAgeTest_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testage:generate
 cp -rf ${WS}/bazel-bin/java/de/jflex/migration/unicodedatatest/testage/javatests ${WS}
+
+# Generate UnicodeBlocksTest_x_y.java
+bazel build //java/de/jflex/migration/unicodedatatest/testblock:generate
+cp -rf ${WS}/bazel-bin/java/de/jflex/migration/unicodedatatest/testblock/javatests ${WS}
+
 # This flex specs are sourced from the bazel generator directly and should not be submitted.
 find ${WS}/javatests/de/jflex/testcase/unicode -name 'UnicodeAge*.flex' -exec rm -rf {} \;
 
 # Google java format
-for f in $(git diff --name-only --diff-filter=MA master | grep '.java$');	do
+for f in $(git diff --name-only | grep '.java$');	do
   chmod u+w "$f"
   google-java-format -r "$f"
 done
