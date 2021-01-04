@@ -15,6 +15,8 @@ check_deps(
 java_test(
     name = "UnicodeAgeTest_${unicodeVersion.underscoreVersion()}",
     srcs = [
+        # TODO(regisd) Replace by generator directly
+        # "//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_${unicodeVersion.underscoreVersion()}/UnicodeAgeTest_${unicodeVersion.underscoreVersion()}.java",
         "UnicodeAgeTest_${unicodeVersion.underscoreVersion()}.java",
         #foreach ( $a in $ages )
         ":gen_UnicodeAge_${unicodeVersion.underscoreVersion()}_age_${a.underscoreVersion()}_scanner",
