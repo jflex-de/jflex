@@ -10,7 +10,7 @@ java_library(
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
-        "@maven//:com_google_guava_guava",
+        "//third_party/com/google/guava",
         "@maven//:org_apache_velocity_velocity",
     ],
 )

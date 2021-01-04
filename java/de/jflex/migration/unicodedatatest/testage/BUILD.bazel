@@ -9,6 +9,7 @@ java_binary(
     srcs = [
         "AgeTestGenerator.java",
         "UnicodeAgeFlexGenerator.java",
+        "UnicodeAgeSubtractionFlexGenerator.java",
         "UnicodeAgeTestGenerator.java",
     ],
     main_class = "de.jflex.migration.unicodedatatest.testage.AgeTestGenerator",
@@ -20,7 +21,6 @@ java_binary(
     deps = [
         ":template_vars",
         "//java/de/jflex/migration/unicodedatatest/base",
-        "//java/de/jflex/migration/unicodedatatest/util:java_resources",
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",

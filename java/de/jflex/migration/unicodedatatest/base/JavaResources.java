@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -24,7 +26,7 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest.util;
+package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

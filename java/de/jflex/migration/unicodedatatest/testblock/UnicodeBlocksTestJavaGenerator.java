@@ -23,7 +23,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest.testblock;
 
 import com.google.common.collect.ImmutableList;
@@ -32,7 +31,6 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
-import java.nio.file.Path;
 import java.util.Comparator;
 
 public class UnicodeBlocksTestJavaGenerator
@@ -45,7 +43,7 @@ public class UnicodeBlocksTestJavaGenerator
 
   public UnicodeBlocksTestJavaGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
-    super("UnicodeBlocksTest.java.vm", "UnicodeBlocksTest", unicodeVersion, blockNames);
+    super("UnicodeBlocksTest.java", unicodeVersion, blockNames);
   }
 
   @Override
@@ -60,8 +58,8 @@ public class UnicodeBlocksTestJavaGenerator
   }
 
   @Override
-  protected Path getOuputFilePath(Path outDir, UnicodeBlocksTestJavaTemplateVars vars) {
-    return outDir.resolve(vars.className + ".java");
+  protected String getOuputFileName(UnicodeBlocksTestJavaTemplateVars vars) {
+    return vars.className + ".java";
   }
 
   private ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {

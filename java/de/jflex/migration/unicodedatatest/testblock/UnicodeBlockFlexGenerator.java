@@ -36,7 +36,7 @@ class UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlex
 
   public UnicodeBlockFlexGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
-    super("UnicodeBlock.flex.vm", "UnicodeBlocks.flex", unicodeVersion, blockNames);
+    super("UnicodeBlock.flex",  unicodeVersion, blockNames);
   }
 
   @Override
@@ -53,7 +53,7 @@ class UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlex
   }
 
   @Override
-  protected Path getOuputFilePath(Path outDir, UnicodeBlockFlexTemplateVars vars) {
-    return outDir.resolve(vars.className + ".flex");
+  protected String getOuputFileName(UnicodeBlockFlexTemplateVars vars) {
+    return vars.className + ".flex";
   }
 }

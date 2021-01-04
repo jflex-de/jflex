@@ -26,14 +26,20 @@
 package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static de.jflex.migration.unicodedatatest.base.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.util.javac.JavaPackageUtils;
+import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
-public abstract class AbstractGenerator {
+public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
   private static final Version VERSION_3_1 = new Version(3, 1);
 
@@ -63,7 +69,20 @@ public abstract class AbstractGenerator {
           new Version(12, 0),
           new Version(12, 1));
 
-  protected static ImmutableList<Version> olderAges(Version version) {
+  private final String templateName;
+  protected final UnicodeVersion unicodeVersion;
+
+  protected AbstractGenerator(String templateName, UnicodeVersion unicodeVersion) {
+    this.templateName = templateName;
+    this.unicodeVersion = unicodeVersion;
+  }
+
+  Path getTemplateResource() {
+    return Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
+        .resolve(templateName + ".vm");
+  }
+
+  public static ImmutableList<Version> olderAges(Version version) {
     return KNOWN_VERSIONS.stream()
         .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
         .collect(toImmutableList());
@@ -74,5 +93,20 @@ public abstract class AbstractGenerator {
     return oldVersion ? 0xFFFD : 0x10FFFF;
   }
 
-  protected abstract void generate(Path outDir) throws IOException, ParseException;
+  /** Returns the generated file. */
+  public Path generate(Path outDir) throws IOException, ParseException {
+    T vars = createTemplateVars();
+    vars.updateFrom(unicodeVersion);
+    Path javaPackageOutDir =
+        outDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
+    Files.createDirectories(javaPackageOutDir);
+    Path outFile = javaPackageOutDir.resolve(getOuputFileName(vars));
+    InputStreamReader templateReader = readResource(getTemplateResource().toString());
+    Velocity.render(templateReader, templateName, vars, outFile.toFile());
+    return outFile;
+  }
+
+  protected abstract T createTemplateVars();
+
+  protected abstract String getOuputFileName(T vars);
 }

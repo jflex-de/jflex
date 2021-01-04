@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,38 +25,38 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest;
+package de.jflex.migration.unicodedatatest.testage;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.Pair;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import de.jflex.version.Version;
+import java.util.stream.Stream;
 
-class BuildFileGenerator extends AbstractGenerator<BuildFileTemplateVars> {
+class UnicodeAgeSubtractionFlexGenerator  extends AbstractGenerator<UnicodeAgeSubtractionTemplateVars> {
 
-  public BuildFileGenerator(UnicodeVersion unicodeVersion) {
-    super("BUILD", unicodeVersion);
+  protected UnicodeAgeSubtractionFlexGenerator(UnicodeVersion unicodeVersion) {
+    super("UnicodeAgeSubtraction.flex", unicodeVersion);
   }
 
   @Override
-  protected BuildFileTemplateVars createTemplateVars() {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
+  protected UnicodeAgeSubtractionTemplateVars createTemplateVars() {
+    UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeAge_" + unicodeVersion.underscoreVersion();
-    vars.ages = olderAges(unicodeVersion.version());
-    vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
+    vars.className =
+        String.format(
+            "UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
+    ImmutableList<Version> ages = olderAges(unicodeVersion.version());
+    Stream<Pair<Version>> agePairs =
+        Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
+    vars.ages = agePairs.collect(ImmutableList.toImmutableList());
     return vars;
   }
 
   @Override
-  protected String getOuputFileName(BuildFileTemplateVars vars) {
-    return "BUILD.bazel";
-  }
-
-  public static void main(String[] args) throws Exception {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path workspaceDir = Paths.get(args[1]);
-    new BuildFileGenerator(version).generate(workspaceDir);
+  protected String getOuputFileName(UnicodeAgeSubtractionTemplateVars vars) {
+    return vars.className + ".flex";
   }
 }

@@ -135,8 +135,7 @@ public class BlocksTestGenerator {
 
   private static void generate(UnicodeVersion version, Path outDir, ImmutableList<BlockSpec> blocks)
       throws IOException, ParseException {
-    Path outDirectory = outDir.resolve("javatests").resolve(version.javaPackageDirectory());
-    new UnicodeBlockFlexGenerator(version, blocks).generate(outDirectory);
-    new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDirectory);
+    new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
+    new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);
   }
 }

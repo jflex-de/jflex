@@ -25,55 +25,21 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
-import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
-
 import com.google.common.collect.ImmutableList;
-import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Path;
-import org.apache.velocity.runtime.parser.ParseException;
 
-abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
-    extends AbstractGenerator {
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(AbstractBlocksGenerator.class);
+abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> extends AbstractGenerator<T> {
 
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final String templateResource;
-  private final String templateName;
-  protected final UnicodeVersion unicodeVersion;
   protected final ImmutableList<BlockSpec> blocks;
 
   public AbstractBlocksGenerator(
-      String templateResource,
       String templateName,
       UnicodeVersion unicodeVersion,
       ImmutableList<BlockSpec> blocks) {
-    this.templateResource = ROOT_DIR + "/" + templateResource;
-    this.templateName = templateName;
-    this.unicodeVersion = unicodeVersion;
+    super(templateName, unicodeVersion);
     this.blocks = ImmutableList.copyOf(blocks);
   }
-
-  @Override
-  public void generate(Path outDir) throws IOException, ParseException {
-    T vars = createTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    Path outFile = getOuputFilePath(outDir, vars);
-    logger.atInfo().log("Generating %s", outFile.toAbsolutePath());
-    InputStreamReader templateReader = readResource(templateResource);
-    Velocity.render(templateReader, templateName, vars, outFile.toFile());
-  }
-
-  protected abstract T createTemplateVars();
-
-  protected abstract Path getOuputFilePath(Path outDir, T vars);
 }
