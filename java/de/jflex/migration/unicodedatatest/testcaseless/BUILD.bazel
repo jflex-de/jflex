@@ -1,0 +1,16 @@
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = glob(["*.java"]),
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/velocity",
+        "//java/de/jflex/version",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
