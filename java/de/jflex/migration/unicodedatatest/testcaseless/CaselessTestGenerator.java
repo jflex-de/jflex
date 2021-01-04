@@ -25,25 +25,40 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.apache.velocity.runtime.parser.ParseException;
 
-public class UnicodeCaselessFlexGenerator
-    extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
+public class CaselessTestGenerator {
 
-  protected UnicodeCaselessFlexGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessFlex", unicodeVersion);
+  private CaselessTestGenerator() {}
+
+  public static void main(String[] args) throws IOException, ParseException {
+    UnicodeVersion version = UnicodeVersion.create(args[0]);
+    Path outDir = Paths.get(args[1]);
+    Path ucdUnicodeData = Paths.get(args[2]);
+    parseUnicodeData(ucdUnicodeData);
+    generate(version, outDir);
   }
 
-  @Override
-  protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
-    UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    return vars;
+  private static void parseUnicodeData(Path ucdBlocks) throws IOException {
+    PatternHandler handler =
+        regexpGroups -> {
+          // TODO(regisd)
+        };
+    SimpleCaselessParser parser =
+        new SimpleCaselessParser(
+            Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
+    parser.parse();
   }
 
-  @Override
-  protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return null;
+  private static void generate(UnicodeVersion version, Path outDir)
+      throws IOException, ParseException {
+    new UnicodeCaselessFlexGenerator(version).generate(outDir);
   }
 }

@@ -25,25 +25,20 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser;
+import java.io.Reader;
+import java.util.regex.Pattern;
 
-public class UnicodeCaselessFlexGenerator
-    extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
+/**
+ * Parser of {@code UnicodeData.txt} for caseless declarations, e.g. {@code AC00;<Hangul Syllable,
+ * First>;Lo;0;L;;;;;N;;;;;}.
+ */
+public class SimpleCaselessParser extends AbstractSimpleParser {
 
-  protected UnicodeCaselessFlexGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessFlex", unicodeVersion);
-  }
+  private static final Pattern PATTERN =
+      Pattern.compile("^([A-F0-9a-f]{4,6});(?:[^;]*;){11}([^;]*);([^;]*);([^;]*)");
 
-  @Override
-  protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
-    UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return null;
+  protected SimpleCaselessParser(Reader reader, PatternHandler handler) {
+    super(PATTERN, reader, handler);
   }
 }

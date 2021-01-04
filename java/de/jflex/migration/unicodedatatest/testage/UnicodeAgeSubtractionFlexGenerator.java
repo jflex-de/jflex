@@ -35,7 +35,8 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.version.Version;
 import java.util.stream.Stream;
 
-class UnicodeAgeSubtractionFlexGenerator  extends AbstractGenerator<UnicodeAgeSubtractionTemplateVars> {
+class UnicodeAgeSubtractionFlexGenerator
+    extends AbstractGenerator<UnicodeAgeSubtractionTemplateVars> {
 
   protected UnicodeAgeSubtractionFlexGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeAgeSubtraction.flex", unicodeVersion);

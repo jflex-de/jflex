@@ -27,6 +27,4 @@ package de.jflex.migration.unicodedatatest.testcaseless;
 
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCaselessFlexTemplateVars extends UnicodeVersionTemplateVars {
-
-}
+public class UnicodeCaselessFlexTemplateVars extends UnicodeVersionTemplateVars {}

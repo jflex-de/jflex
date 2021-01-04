@@ -33,7 +33,7 @@ import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
 import java.util.Comparator;
 
-public class UnicodeBlocksTestJavaGenerator
+class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
   // The first (high) surrogate is a 16-bit code value in the range U+D800 to U+DBFF. The second

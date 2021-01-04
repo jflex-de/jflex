@@ -29,14 +29,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
-import java.nio.file.Path;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
 class UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars> {
 
   public UnicodeBlockFlexGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
-    super("UnicodeBlock.flex",  unicodeVersion, blockNames);
+    super("UnicodeBlock.flex", unicodeVersion, blockNames);
   }
 
   @Override

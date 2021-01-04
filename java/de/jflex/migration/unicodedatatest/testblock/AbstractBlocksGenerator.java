@@ -31,14 +31,13 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
 
-abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars> extends AbstractGenerator<T> {
+abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
+    extends AbstractGenerator<T> {
 
   protected final ImmutableList<BlockSpec> blocks;
 
   public AbstractBlocksGenerator(
-      String templateName,
-      UnicodeVersion unicodeVersion,
-      ImmutableList<BlockSpec> blocks) {
+      String templateName, UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blocks) {
     super(templateName, unicodeVersion);
     this.blocks = ImmutableList.copyOf(blocks);
   }
