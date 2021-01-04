@@ -25,8 +25,8 @@
  */
 package de.jflex.ucd_generator;
 
-import de.jflex.ucd.Versions;
 import de.jflex.ucd.UcdFileType;
+import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.version.Version;
 import java.io.File;

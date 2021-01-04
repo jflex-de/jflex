@@ -38,7 +38,7 @@ def gen_test_blocks(name, version, ucd):
             "javatests/de/jflex/testcase/unicode/" + flexout,
             "javatests/de/jflex/testcase/unicode/" + javaout,
         ],
-        cmd = "$(location generator) {version} $(RULEDIR) $(locations {ucd})/Block.txt".format(
+        cmd = "$(location generator) {version} $(RULEDIR) $(locations {ucd})".format(
             version = version,
             ucd = ucd,
         ),

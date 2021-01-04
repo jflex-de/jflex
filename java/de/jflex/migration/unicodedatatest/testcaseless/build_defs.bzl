@@ -11,7 +11,7 @@ def gen_test_caseless(name, version, ucd):
         outs = [
             "javatests/de/jflex/testcase/unicode/" + flexout,
         ],
-        cmd = "$(location generator) {version} $(RULEDIR) external/{ucd}/UnicodeData.txt".format(
+        cmd = "$(location generator) {version} $(RULEDIR) $(locations {ucd})".format(
             version = version,
             ucd = ucd,
         ),

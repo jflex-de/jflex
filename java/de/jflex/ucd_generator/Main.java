@@ -72,7 +72,7 @@ public class Main {
       if (arg.startsWith(ARG_VERSION)) {
         String version = arg.substring(ARG_VERSION.length());
         Preconditions.checkArgument(!version.isEmpty(), "Version cannot be empty");
-        versions.put(version, UcdVersion.findUcdFiles(version, files));
+        versions.put(version, UcdVersion.findUcdFiles(new Version(version), files));
         files.clear();
       }
       if (arg.startsWith(ARG_OUT)) {

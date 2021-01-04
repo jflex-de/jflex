@@ -57,8 +57,8 @@ public abstract class UcdVersion {
     return new AutoValue_UcdVersion.Builder().setVersion(version);
   }
 
-  public static UcdVersion findUcdFiles(String version,
-      List<String> argv) throws FileNotFoundException {
+  public static UcdVersion findUcdFiles(Version version, Iterable<String> argv)
+      throws FileNotFoundException {
     Builder builder = builder(version);
     for (String arg : argv) {
       for (UcdFileType type : UcdFileType.values()) {

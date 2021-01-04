@@ -43,7 +43,9 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %%
 
-<<EOF>>  { return YYEOF; }
+<<EOF>>   { return YYEOF; }
+// TODO(regisd) Make the AbstractEnumeratedPropertyDefinedScanner generic to
+// and remove String.valueOf()
 #foreach ( $cp in $caselessCodepoints )
-"\u${cp}" { print(0x${cp}); }
+"\u${cp}" { setCurCharPropertyValue(yytext(), String.valueOf(0x${cp})); }
 #end

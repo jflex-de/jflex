@@ -26,6 +26,8 @@
  */
 package de.jflex.ucd_generator.scanner;
 
+import de.jflex.ucd.UcdVersion;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 /**
  * Scanner of the {@code UnicodeData.txt}.
  */

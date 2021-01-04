@@ -28,6 +28,7 @@ package de.jflex.ucd;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.version.Version;
 import java.io.File;
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class UcdVersionTest {
     // --version=10.0.0 external/emoji_5_emoji_data_txt/file/downloaded external/ucd_10/Blocks.txt
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
-            "10.0.0",
+            new Version("10.0.0"),
             ImmutableList.of(
                 "external/emoji_5_emoji_data_txt/file/downloaded", "external/ucd_10_0/Blocks.txt"));
 
@@ -60,7 +61,7 @@ public class UcdVersionTest {
   public void findUcdFiles_unicode_4_0_1() throws Exception {
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
-            "4.0.1", ImmutableList.of("external/ucd_4_0_1_DerivedAge_4_0_1_txt/file/downloaded"));
+            new Version("4.0.1"), ImmutableList.of("external/ucd_4_0_1_DerivedAge_4_0_1_txt/file/downloaded"));
 
     assertThat(parsedVersion.files())
         .containsExactly(
@@ -82,7 +83,7 @@ public class UcdVersionTest {
   public void findUcdFiles_unicode_3_1_1() throws Exception {
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
-            "3.1.1",
+            new Version("3.1.1"),
             ImmutableList.of(
                 "external/ucd_3_1_1_PropList_3_1_1_txt/file/downloaded",
                 "external/ucd_3_1_0_LineBreak_6_txt/file/downloaded",

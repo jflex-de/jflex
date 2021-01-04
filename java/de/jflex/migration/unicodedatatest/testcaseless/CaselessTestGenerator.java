@@ -28,11 +28,14 @@ package de.jflex.migration.unicodedatatest.testcaseless;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.ucd.UcdFileType;
+import de.jflex.ucd.UcdVersion;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,7 +51,9 @@ public class CaselessTestGenerator {
   public static void main(String[] args) throws IOException, ParseException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
-    Path ucdUnicodeData = Paths.get(args[2]);
+    List<String> files = Arrays.asList(Arrays.copyOfRange(args, 2, args.length));
+    UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
+    Path ucdUnicodeData = ucd.getFile(UcdFileType.UnicodeData).toPath();
     Equivalences<Integer> equivalences = parseUnicodeData(ucdUnicodeData);
     if (equivalences.getKeys().isEmpty()) {
       throw new IllegalStateException("No equivalence found in " + ucdUnicodeData);
