@@ -53,7 +53,7 @@ filegroup(
     name = "generate",
     testonly = True,
     srcs = [
-        ":gen_test_age_{x}_{y}".format(
+        ":gen_test_age_{x}_{y}_flex".format(
             x = x,
             y = y,
         )
@@ -62,6 +62,6 @@ filegroup(
 )
 
 [gen_test_age(
-    name = "gen_test_age_%s_%s" % (x, y),
+    name = "gen_test_age_%s_%s_flex" % (x, y),
     version = "%s.%s" % (x, y),
 ) for (x, y) in TESTED_VERSIONS]

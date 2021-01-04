@@ -31,10 +31,14 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode 2.0. */
 public class UnicodeBlocksTest_2_0 {
+  // Incorrect value in Unicode 2 block=arabicpresentationformsb
+  // https://github.com/jflex-de/jflex/issues/835
+  @Ignore
   @Test
   public void testBlocks() throws Exception {
     ImmutableList<BlockSpec> blocks =

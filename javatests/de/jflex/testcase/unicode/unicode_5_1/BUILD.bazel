@@ -14,19 +14,21 @@ check_deps(
 java_test(
     name = "UnicodeAgeTest_5_1",
     srcs = [
+        # TODO(regisd) Replace by generator directly
+        # "//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAgeTest_5_1.java",
         "UnicodeAgeTest_5_1.java",
-        ":UnicodeAge_5_1_age_1_1",
-        ":UnicodeAge_5_1_age_2_0",
-        ":UnicodeAge_5_1_age_2_1",
-        ":UnicodeAge_5_1_age_3_0",
-        ":UnicodeAge_5_1_age_3_1",
-        ":UnicodeAge_5_1_age_3_2",
-        ":UnicodeAge_5_1_age_4_0",
-        ":UnicodeAge_5_1_age_4_1",
-        ":UnicodeAge_5_1_age_5_0",
-        ":UnicodeAge_5_1_age_5_1",
-        ":UnicodeAge_5_1_age_subtraction",
-        ":UnicodeAge_5_1_age_unassigned",
+        ":gen_UnicodeAge_5_1_age_1_1_scanner",
+        ":gen_UnicodeAge_5_1_age_2_0_scanner",
+        ":gen_UnicodeAge_5_1_age_2_1_scanner",
+        ":gen_UnicodeAge_5_1_age_3_0_scanner",
+        ":gen_UnicodeAge_5_1_age_3_1_scanner",
+        ":gen_UnicodeAge_5_1_age_3_2_scanner",
+        ":gen_UnicodeAge_5_1_age_4_0_scanner",
+        ":gen_UnicodeAge_5_1_age_4_1_scanner",
+        ":gen_UnicodeAge_5_1_age_5_0_scanner",
+        ":gen_UnicodeAge_5_1_age_5_1_scanner",
+        ":gen_UnicodeAge_5_1_age_subtraction_scanner",
+        ":gen_UnicodeAge_5_1_age_unassigned_scanner",
     ],
     data = [
         "UnicodeAge_5_1_age_1_1.output",
@@ -54,84 +56,84 @@ java_test(
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_1_1",
+    name = "gen_UnicodeAge_5_1_age_1_1_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_1_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_1_1.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_2_0",
+    name = "gen_UnicodeAge_5_1_age_2_0_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_2_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_2_0.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_2_1",
+    name = "gen_UnicodeAge_5_1_age_2_1_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_2_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_2_1.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_3_0",
+    name = "gen_UnicodeAge_5_1_age_3_0_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_3_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_3_0.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_3_1",
+    name = "gen_UnicodeAge_5_1_age_3_1_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_3_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_3_1.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_3_2",
+    name = "gen_UnicodeAge_5_1_age_3_2_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_3_2.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_3_2.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_4_0",
+    name = "gen_UnicodeAge_5_1_age_4_0_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_4_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_4_0.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_4_1",
+    name = "gen_UnicodeAge_5_1_age_4_1_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_4_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_4_1.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_5_0",
+    name = "gen_UnicodeAge_5_1_age_5_0_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_5_0.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_5_0.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_5_1",
+    name = "gen_UnicodeAge_5_1_age_5_1_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_5_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_5_1.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_subtraction",
+    name = "gen_UnicodeAge_5_1_age_subtraction_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_subtraction.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_subtraction.java"],
 )
 
 jflex(
-    name = "UnicodeAge_5_1_age_unassigned",
+    name = "gen_UnicodeAge_5_1_age_unassigned_scanner",
     srcs = ["//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeAge_5_1_age_unassigned.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeAge_5_1_age_unassigned.java"],
@@ -141,8 +143,10 @@ jflex(
 java_test(
     name = "UnicodeBlocksTest_5_1",
     srcs = [
+        ":gen_UnicodeBlocks_5_1_scanner",
+        # TODO(regisd) Replace by generator directly
+        # "//java/de/jflex/migration/unicodedatatest/testblock:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeBlocksTest_5_1.java",
         "UnicodeBlocksTest_5_1.java",
-        ":UnicodeBlocks_5_1",
     ],
     data = [
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
@@ -155,8 +159,9 @@ java_test(
 )
 
 jflex(
-    name = "UnicodeBlocks_5_1",
-    srcs = ["UnicodeBlocks_5_1.flex"],
+    name = "gen_UnicodeBlocks_5_1_scanner",
+    # generated by //java/de/jflex/migration/unicodedatatest/testblock:gen_test_blocks_5_1
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testblock:javatests/de/jflex/testcase/unicode/unicode_5_1/UnicodeBlocks_5_1.flex"],
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeBlocks_5_1.java"],
 )
