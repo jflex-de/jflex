@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
     lex = "javatests/de/jflex/testcase/unicode/unicode-blocks-failure.flex",
     generatorThrows = GeneratorException.class,
     sysout = "javatests/de/jflex/testcase/unicode/unicode-blocks-failure.output")
-public class UnicodeInvalidBlockTest {
+public class UnicodeBlocksInvalidBlockTest {
   @Test
   public void expectGenerationFailure() {
     // A jUnit test must have at least one test.

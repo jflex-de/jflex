@@ -1,10 +1,11 @@
 load("//testsuite:testsuite.bzl", "jflex_testsuite")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex_testsuite(
-    name = "UnicodeInvalidBlockTest",
-    srcs = ["UnicodeInvalidBlockTest.java"],
+    name = "UnicodeBlocksInvalidBlockTest",
+    srcs = ["UnicodeBlocksInvalidBlockTest.java"],
     data = [
-        "UnicodeInvalidBlockTest.java",
+        "UnicodeBlocksInvalidBlockTest.java",
         "unicode-blocks-failure.flex",
         "unicode-blocks-failure.output",
     ],
@@ -13,4 +14,26 @@ jflex_testsuite(
         "//jflex/src/main/java/jflex/exceptions",
         "//third_party/com/google/guava",
     ],
+)
+
+java_test(
+    name = "UnicodeBlocksInverseBlockTest",
+    srcs = [
+        "UnicodeBlocksInverseBlockTest.java",
+        ":gen_unicode_blocks_inverse_scanner",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "gen_unicode_blocks_inverse_scanner",
+    srcs = ["unicode-blocks-inverse.flex"],
+    outputs = ["UnicodeBlocksInverseBlockScanner.java"],
 )
