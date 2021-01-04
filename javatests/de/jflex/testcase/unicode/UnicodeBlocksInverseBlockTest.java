@@ -34,10 +34,7 @@ import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
-/**
- * Tests the inverse of the Unicode block property character class syntax
- * for one block.
- */
+/** Tests the inverse of the Unicode block property character class syntax for one block. */
 public class UnicodeBlocksInverseBlockTest {
 
   /**
@@ -53,16 +50,17 @@ public class UnicodeBlocksInverseBlockTest {
    */
   @Test
   public void testInverseBlock() throws Exception {
-    ImmutableList<BlockSpec> blocks = UnicodeDataScanners.getBlocks(
-        ScannerFactory.of(UnicodeBlocksInverseBlockScanner::new),
-        UnicodeBlocksInverseBlockScanner.YYEOF,
-        UnicodeDataScanners.Dataset.BMP
-    );
-    assertThat(blocks).containsAllOf(
-      BlockSpec.create("Not Latin Extended Additional", 0x0000, 0x1DFF),
-      BlockSpec.create("Latin Extended Additional", 0x1E00, 0x1EFF),
-      BlockSpec.create("Not Latin Extended Additional", 0x1F00, 0xD7FF),
-      BlockSpec.create("Not Latin Extended Additional", 0xE000, 0xFFFD)
-    ).inOrder();
+    ImmutableList<BlockSpec> blocks =
+        UnicodeDataScanners.getBlocks(
+            ScannerFactory.of(UnicodeBlocksInverseBlockScanner::new),
+            UnicodeBlocksInverseBlockScanner.YYEOF,
+            UnicodeDataScanners.Dataset.BMP);
+    assertThat(blocks)
+        .containsAllOf(
+            BlockSpec.create("Not Latin Extended Additional", 0x0000, 0x1DFF),
+            BlockSpec.create("Latin Extended Additional", 0x1E00, 0x1EFF),
+            BlockSpec.create("Not Latin Extended Additional", 0x1F00, 0xD7FF),
+            BlockSpec.create("Not Latin Extended Additional", 0xE000, 0xFFFD))
+        .inOrder();
   }
 }
