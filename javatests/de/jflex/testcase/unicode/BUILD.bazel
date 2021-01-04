@@ -37,3 +37,25 @@ jflex(
     srcs = ["unicode-blocks-inverse.flex"],
     outputs = ["UnicodeBlocksInverseBlockScanner.java"],
 )
+
+java_test(
+    name = "UnicodeBlocksAliasesTest",
+    srcs = [
+        "UnicodeBlocksAliasesTest.java",
+        ":gen_unicode_blocks_aliases_scanner",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "gen_unicode_blocks_aliases_scanner",
+    srcs = ["unicode-blocks-aliases.flex"],
+    outputs = ["UnicodeBlocksAliasesScanner.java"],
+)
