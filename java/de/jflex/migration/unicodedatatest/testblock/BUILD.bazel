@@ -1,5 +1,7 @@
-load(":gen_scanner.bzl", "gen_block_scanner", "gen_old_block_scanner")
+load(":build_defs.bzl", "gen_test_blocks", "gen_test_old_blocks")
 load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+
+package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
 
 java_binary(
     name = "generator",
@@ -36,53 +38,53 @@ java_binary(
 filegroup(
     name = "generate",
     testonly = True,
-    srcs = [":generate_%s_%s" % (x, y) for (x, y) in TESTED_VERSIONS],
+    srcs = [":gen_test_blocks_%s_%s" % (x, y) for (x, y) in TESTED_VERSIONS],
 )
 
-[gen_block_scanner(
-    name = "generate_%s_%s" % (x, y),
+[gen_test_blocks(
+    name = "gen_test_blocks_%s_%s" % (x, y),
     ucd = "@ucd_%s_%s//:files" % (x, y),
     version = "%s.%s" % (x, y),
 ) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
 
-gen_old_block_scanner(
-    name = "generate_2_0",
+gen_test_old_blocks(
+    name = "gen_test_blocks_2_0",
     ucd_file = "@ucd_2_0_14_Blocks_1_txt//file",
     version = "2.0",
 )
 
-gen_old_block_scanner(
-    name = "generate_2_1",
+gen_test_old_blocks(
+    name = "gen_test_blocks_2_1",
     ucd_file = "@ucd_2_1_9_Blocks_2_txt//file",
     version = "2.1",
 )
 
-gen_old_block_scanner(
-    name = "generate_3_0",
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_0",
     ucd_file = "@ucd_3_0_0_Blocks_3_txt//file",
     version = "3.0",
 )
 
-gen_old_block_scanner(
-    name = "generate_3_1",
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_1",
     ucd_file = "@ucd_3_1_0_Blocks_4_txt//file",
     version = "3.1",
 )
 
-gen_old_block_scanner(
-    name = "generate_3_2",
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_2",
     ucd_file = "@ucd_3_2_0_Blocks_3_2_0_txt//file",
     version = "3.2",
 )
 
-gen_old_block_scanner(
-    name = "generate_4_0",
+gen_test_old_blocks(
+    name = "gen_test_blocks_4_0",
     ucd_file = "@ucd_4_0_1_Blocks_4_0_1_txt//file",
     version = "4.0",
 )
 
-gen_block_scanner(
-    name = "generate_4_1",
+gen_test_blocks(
+    name = "gen_test_blocks_4_1",
     ucd = "@ucd_4_1_0//:files",
     version = "4.1",
 )
