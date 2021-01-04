@@ -1,4 +1,4 @@
-def gen_old_block_scanner(name, version, ucd_file):
+def gen_test_old_blocks(name, version, ucd_file):
     underscore_version = version.replace(".", "_")
     flexout = "unicode_{version}/UnicodeBlocks_{version}.flex".format(
         version = underscore_version,
@@ -21,7 +21,8 @@ def gen_old_block_scanner(name, version, ucd_file):
         tools = [":generator"],
     )
 
-def gen_block_scanner(name, version, ucd):
+def gen_test_blocks(name, version, ucd):
+    """Generate the Java test and the Scanner spec to test the Bock property."""
     underscore_version = version.replace(".", "_")
     flexout = "unicode_{version}/UnicodeBlocks_{version}.flex".format(
         version = underscore_version,

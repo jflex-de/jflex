@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 WS=$(bazel info workspace)
 
 # Generate BUILD files, in javatests/de/jflex/testcase/unicode/unicode_x_y/BUILD.bazel
@@ -11,16 +13,13 @@ done
 
 # Generate UnicodeAgeTest_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testage:generate
-cp -rf ${WS}/bazel-bin/java/de/jflex/migration/unicodedatatest/testage/javatests ${WS}
-
 # Generate UnicodeBlocksTest_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testblock:generate
-cp -rf ${WS}/bazel-bin/java/de/jflex/migration/unicodedatatest/testblock/javatests ${WS}
 
-# This flex specs are sourced from the bazel generator directly and should not be submitted.
-find ${WS}/javatests/de/jflex/testcase/unicode -name 'UnicodeAge*.flex' -exec rm -rf {} \;
+# Exclude the .flex files are they are sourced from the bazel target directly.
+rsync --archive --exclude '**/*.flex' \
+  "${WS}"/bazel-bin/java/de/jflex/migration/unicodedatatest/*/javatests "${WS}"
 
-# Google java format
 for f in $(git diff --name-only | grep '.java$');	do
   chmod u+w "$f"
   google-java-format -r "$f"
