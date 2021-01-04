@@ -1,0 +1,16 @@
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+jflex_testsuite(
+    name = "UnicodeInvalidBlockTest",
+    srcs = ["UnicodeInvalidBlockTest.java"],
+    data = [
+        "UnicodeInvalidBlockTest.java",
+        "unicode-blocks-failure.flex",
+        "unicode-blocks-failure.output",
+    ],
+    deps = [
+        "//java/de/jflex/util/javac",
+        "//jflex/src/main/java/jflex/exceptions",
+        "//third_party/com/google/guava",
+    ],
+)
