@@ -25,25 +25,37 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
 public class UnicodeCaselessFlexGenerator
     extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
 
-  protected UnicodeCaselessFlexGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessFlex", unicodeVersion);
+  private final ImmutableList<Integer> caselessCodepoints;
+
+  protected UnicodeCaselessFlexGenerator(
+      UnicodeVersion unicodeVersion, ImmutableList<Integer> caselessCodepoints) {
+    super("UnicodeCaseless.flex", unicodeVersion);
+    this.caselessCodepoints = caselessCodepoints;
   }
 
   @Override
   protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
     UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
+    vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
+    vars.caselessCodepoints =
+        caselessCodepoints.stream()
+            .map(cp -> String.format("%04x", cp))
+            .collect(toImmutableList());
     return vars;
   }
 
   @Override
   protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return null;
+    return vars.className + ".flex";
   }
 }

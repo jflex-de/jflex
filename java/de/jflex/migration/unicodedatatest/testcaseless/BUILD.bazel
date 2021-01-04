@@ -1,7 +1,15 @@
+load(":build_defs.bzl", "gen_test_caseless")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+
 java_binary(
     name = "generator",
     testonly = True,
     srcs = glob(["*.java"]),
+    main_class = "de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator",
+    resources = [
+        "UnicodeCaseless.flex.vm",
+    ],
+    visibility = ["//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__"],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/ucd",
@@ -13,4 +21,19 @@ java_binary(
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],
+)
+
+[gen_test_caseless(
+    name = "gen_test_caseless_%s_%s" % (x, y),
+    ucd = "@ucd_%s_%s//:files" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
+
+genrule(
+    name = "locations",
+    srcs = [
+        "//third_party/unicode:ucd_7_0",
+    ],
+    outs = ["locations.txt"],
+    cmd = "echo $(locations //third_party/unicode:ucd_7_0)/UnicodeData.txt > $@",
 )

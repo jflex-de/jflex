@@ -25,6 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import java.io.IOException;
@@ -32,6 +33,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class CaselessTestGenerator {
@@ -42,23 +49,89 @@ public class CaselessTestGenerator {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     Path ucdUnicodeData = Paths.get(args[2]);
-    parseUnicodeData(ucdUnicodeData);
-    generate(version, outDir);
+    Equivalences<Integer> equivalences = parseUnicodeData(ucdUnicodeData);
+    if (equivalences.getKeys().isEmpty()) {
+      throw new IllegalStateException("No equivalence found in " + ucdUnicodeData);
+    }
+    generate(version, outDir, equivalences);
   }
 
-  private static void parseUnicodeData(Path ucdBlocks) throws IOException {
-    PatternHandler handler =
-        regexpGroups -> {
-          // TODO(regisd)
-        };
+  static Equivalences<Integer> parseUnicodeData(Path ucdUnicodeData) throws IOException {
+    CaselessHandler handler = new CaselessHandler();
     SimpleCaselessParser parser =
         new SimpleCaselessParser(
-            Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
+            Files.newBufferedReader(ucdUnicodeData, StandardCharsets.UTF_8), handler);
     parser.parse();
+    return handler.equivalences;
   }
 
-  private static void generate(UnicodeVersion version, Path outDir)
+  private static void generate(
+      UnicodeVersion version, Path outDir, Equivalences<Integer> equivalences)
       throws IOException, ParseException {
-    new UnicodeCaselessFlexGenerator(version).generate(outDir);
+    new UnicodeCaselessFlexGenerator(version, equivalences.getSortedKeys(Integer::compareTo))
+        .generate(outDir);
+  }
+
+  private static class CaselessHandler implements PatternHandler {
+    Equivalences<Integer> equivalences = new Equivalences<>();
+
+    @Override
+    public void onRegexMatch(List<String> regexpGroups) {
+      String strUpperCaseMapping = regexpGroups.get(1);
+      String strLowerCaseMapping = regexpGroups.get(2);
+      String strTitleCaseMapping = regexpGroups.get(3);
+      if (strUpperCaseMapping.isEmpty()
+          && strLowerCaseMapping.isEmpty()
+          && strTitleCaseMapping.isEmpty()) {
+        return;
+      }
+      int codePoint = Integer.parseInt(regexpGroups.get(0), 16);
+      maybeAddMapping(codePoint, strLowerCaseMapping);
+      maybeAddMapping(codePoint, strUpperCaseMapping);
+      maybeAddMapping(codePoint, strTitleCaseMapping);
+      // TODO(regisd)
+    }
+
+    private void maybeAddMapping(int codepoint, String strMapping) {
+      if (!strMapping.isEmpty()) {
+        int mapping = Integer.parseInt(strMapping, 16);
+        equivalences.add(codepoint, mapping);
+      }
+    }
+  }
+
+  static class Equivalences<T> {
+    /** Mapping from value → equivalent values. */
+    protected Map<T, Set<T>> equivalences = new HashMap<>();
+
+    Set<T> get(T value) {
+      return equivalences.computeIfAbsent(
+          value,
+          v -> {
+            Set<T> set = new HashSet<>();
+            set.add(value);
+            return set;
+          });
+    }
+
+    void add(T codepoint, T mapping) {
+      if (equivalences.containsKey(mapping)) {
+        Set<T> equiv = equivalences.get(mapping);
+        equiv.add(codepoint);
+        equivalences.put(codepoint, equiv);
+      } else {
+        Set<T> equiv = get(codepoint);
+        equiv.add(mapping);
+        equivalences.put(mapping, equiv);
+      }
+    }
+
+    Set<T> getKeys() {
+      return equivalences.keySet();
+    }
+
+    ImmutableList<T> getSortedKeys(Comparator<T> comparator) {
+      return ImmutableList.sortedCopyOf(comparator, getKeys());
+    }
   }
 }
