@@ -23,16 +23,21 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.ucd;
+package de.jflex.ucd;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableMap;
+import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 /** Describes a single Unicode version. */
 @AutoValue
 public abstract class UcdVersion {
+
+  private static final String BAZEL_PREFIX = JavaPackageUtils.getPathForClass(UcdVersion.class);
 
   public static final String EXTERNAL = "external";
 
@@ -50,6 +55,44 @@ public abstract class UcdVersion {
 
   public static Builder builder(Version version) {
     return new AutoValue_UcdVersion.Builder().setVersion(version);
+  }
+
+  public static UcdVersion findUcdFiles(String version,
+      List<String> argv) throws FileNotFoundException {
+    Builder builder = builder(version);
+    for (String arg : argv) {
+      for (UcdFileType type : UcdFileType.values()) {
+        // From Unicode 4.1, a zip contains all files, which can just be found by name
+        if (arg.endsWith(type.name() + ".txt")) {
+          builder.putFile(type, findFile(arg));
+        } else if (type == UcdFileType.Emoji && arg.contains("emoji_data_txt")) {
+          // Emoji is a single URL, hence uses a different naming convention
+          builder.putFile(UcdFileType.Emoji, findFile(arg));
+        } else if (arg.contains(type.toString())) {
+          // similarly Unicode 1.0-4.0 is e.g.
+          // external/ucd_4_0_1_Blocks_4_0_1_txt/file/downloaded
+          builder.putFile(type, findFile(arg));
+        }
+      }
+      // Hack for the UNIDATA DerivedAge.txt
+      if (arg.contains("ucd_derived_age")) {
+        builder.putFile(UcdFileType.DerivedAge, findFile(arg));
+      }
+    }
+    return builder.build();
+  }
+
+  private static File findFile(String arg) throws FileNotFoundException {
+    File file = new File(arg);
+    if (file.exists()) {
+      return file;
+    }
+    // File downloaded by Bazel in the external dir
+    File externalFile = new File(BAZEL_PREFIX, arg);
+    if (file.exists()) {
+      return externalFile;
+    }
+    throw new FileNotFoundException(arg);
   }
 
   public abstract Builder toBuilder();

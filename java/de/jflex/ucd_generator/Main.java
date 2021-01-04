@@ -26,19 +26,16 @@
 package de.jflex.ucd_generator;
 
 import com.google.common.base.Preconditions;
-import de.jflex.ucd_generator.ucd.UcdFileType;
-import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd.UcdFileType;
+import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
-  private static final String BAZEL_PREFIX =
-      Main.class.getPackage().getName().replace('.', File.separatorChar);
   private static final String ARG_VERSION = "--version=";
   private static final String ARG_OUT = "--out=";
 
@@ -75,7 +72,7 @@ public class Main {
       if (arg.startsWith(ARG_VERSION)) {
         String version = arg.substring(ARG_VERSION.length());
         Preconditions.checkArgument(!version.isEmpty(), "Version cannot be empty");
-        versions.put(version, findUcdFiles(version, files));
+        versions.put(version, UcdVersion.findUcdFiles(version, files));
         files.clear();
       }
       if (arg.startsWith(ARG_OUT)) {
@@ -98,43 +95,6 @@ public class Main {
     }
 
     return params.setUcdVersions(ucdVersions).build();
-  }
-
-  static UcdVersion findUcdFiles(String version, List<String> argv) throws FileNotFoundException {
-    UcdVersion.Builder builder = UcdVersion.builder(version);
-    for (String arg : argv) {
-      for (UcdFileType type : UcdFileType.values()) {
-        // From Unicode 4.1, a zip contains all files, which can just be found by name
-        if (arg.endsWith(type.name() + ".txt")) {
-          builder.putFile(type, findFile(arg));
-        } else if (type == UcdFileType.Emoji && arg.contains("emoji_data_txt")) {
-          // Emoji is a single URL, hence uses a different naming convention
-          builder.putFile(UcdFileType.Emoji, findFile(arg));
-        } else if (arg.contains(type.toString())) {
-          // similarly Unicode 1.0-4.0 is e.g.
-          // external/ucd_4_0_1_Blocks_4_0_1_txt/file/downloaded
-          builder.putFile(type, findFile(arg));
-        }
-      }
-      // Hack for the UNIDATA DerivedAge.txt
-      if (arg.contains("ucd_derived_age")) {
-        builder.putFile(UcdFileType.DerivedAge, findFile(arg));
-      }
-    }
-    return builder.build();
-  }
-
-  private static File findFile(String arg) throws FileNotFoundException {
-    File file = new File(arg);
-    if (file.exists()) {
-      return file;
-    }
-    // File downloaded by Bazel in the external dir
-    File externalFile = new File(BAZEL_PREFIX, arg);
-    if (file.exists()) {
-      return externalFile;
-    }
-    throw new FileNotFoundException(arg);
   }
 
   private Main() {}

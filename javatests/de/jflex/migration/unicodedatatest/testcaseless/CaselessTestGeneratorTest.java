@@ -42,8 +42,8 @@ public class CaselessTestGeneratorTest {
    */
   @Test
   public void parseUnicodeData() throws Exception {
-    Equivalences<Integer> equivalences = CaselessTestGenerator
-        .parseUnicodeData(Paths.get("external/ucd_7_0/UnicodeData.txt"));
+    Equivalences<Integer> equivalences =
+        CaselessTestGenerator.parseUnicodeData(Paths.get("external/ucd_7_0/UnicodeData.txt"));
     assertThat(equivalences.get(0x0041)).containsExactly(0x0041, 0x0061);
     assertThat(equivalences.get(0xAC00)).containsExactly(0xAC00);
   }
