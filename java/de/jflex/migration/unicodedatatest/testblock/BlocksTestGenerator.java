@@ -31,6 +31,8 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -51,7 +53,32 @@ public class BlocksTestGenerator {
         parseUnicodeBlock(ucdBlocks).stream()
             .filter(b -> !b.isSurrogate())
             .collect(toImmutableList());
+    if (version.version().equals(Versions.VERSION_2_0)) {
+      blocks = fixBlocksForUnicode_2_0(blocks);
+    }
     generate(version, outDir, blocks);
+  }
+
+  /**
+   * Fix error in Unicode 2.0 {@code Blocks-1.txt} has an error.
+   *
+   * <p>Character U+FEFF is incorrectly assigned to two different blocks.
+   *
+   * <p>See https://github.com/jflex-de/jflex/issues/835
+   * @see de.jflex.ucd_generator.ucd.UnicodeData#hackUnicode_2_0
+   */
+  private static ImmutableList<BlockSpec> fixBlocksForUnicode_2_0(ImmutableList<BlockSpec> blocks) {
+    ImmutableList.Builder<BlockSpec> fixedBlocks = ImmutableList.builder();
+    for (BlockSpec blockSpec : blocks) {
+      if (blockSpec.range().equals(CodepointRange.create(0xFE70, 0xFEFF))) {
+        fixedBlocks.add(
+            BlockSpec.create(blockSpec.name(), blockSpec.range().start(), /*end=*/ 0xFEFE),
+            BlockSpec.create("Specials", 0xFEFF, 0xFEFF));
+      } else {
+        fixedBlocks.add(blockSpec);
+      }
+    }
+    return fixedBlocks.build();
   }
 
   private static ImmutableList<BlockSpec> parseUnicodeBlock(Path ucdBlocks) throws IOException {
