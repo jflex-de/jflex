@@ -25,6 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
 import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
@@ -33,11 +34,14 @@ import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.velocity.Velocity;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
+import java.util.function.Function;
 import org.apache.velocity.runtime.parser.ParseException;
 
 abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
@@ -60,7 +64,11 @@ abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
     this.templateResource = ROOT_DIR + "/" + templateResource;
     this.templateName = templateName;
     this.unicodeVersion = unicodeVersion;
-    this.blocks = ImmutableList.copyOf(blocks);
+    if (unicodeVersion.version().equals(Versions.VERSION_2_0)) {
+      this.blocks = fixBlocksForUnicode_2_0(blocks);
+    } else {
+      this.blocks = ImmutableList.copyOf(blocks);
+    }
   }
 
   @Override
@@ -71,6 +79,26 @@ abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars>
     logger.atInfo().log("Generating %s", outFile.toAbsolutePath());
     InputStreamReader templateReader = readResource(templateResource);
     Velocity.render(templateReader, templateName, vars, outFile.toFile());
+  }
+
+  /**
+   * Fix error in Unicode 2.0 {@code Blocks-1.txt} has an error.
+   *
+   * <p>Character U+FEFF is assigned to two different blocks. Since the single char in the second
+   * range (U+FEFF) is not an Arabic character, but rather the zero-width no-break space char, the
+   * FE70..FEFF block should be shortened to exclude this char. This reflects the correction made in
+   * all following Unicode versions.
+   */
+  private static ImmutableList<BlockSpec> fixBlocksForUnicode_2_0(ImmutableList<BlockSpec> blocks) {
+    Function<BlockSpec, BlockSpec> maybeFixArabicBlock =
+        blockSpec -> {
+          if (blockSpec.range().equals(CodepointRange.create(0xFE70, 0xFEFF))) {
+            return BlockSpec.create(blockSpec.name(), blockSpec.range().start(), /*end=*/ 0xFEFE);
+          } else {
+            return blockSpec;
+          }
+        };
+    return blocks.stream().map(maybeFixArabicBlock).collect(toImmutableList());
   }
 
   protected abstract T createTemplateVars();
