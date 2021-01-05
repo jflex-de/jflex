@@ -31,9 +31,11 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import javax.annotation.Generated;
 import org.junit.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode 12.1. */
+@Generated("de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator")
 public class UnicodeBlocksTest_12_1 {
   @Test
   public void testBlocks() throws Exception {
