@@ -38,6 +38,8 @@ import java.util.Comparator;
 public class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
+  private static final CodepointRange GENERAL_CATEGORY = CodepointRange.create(0xD800, 0xDFFF);
+
   public UnicodeBlocksTestJavaGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
     super("UnicodeBlocksTest.java.vm", "UnicodeBlocksTest", unicodeVersion, blockNames);
@@ -50,12 +52,29 @@ public class UnicodeBlocksTestJavaGenerator
     vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    vars.blocks = ImmutableSortedSet.copyOf(comparator, this.blocks);
+    vars.blocks = ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks));
     return vars;
   }
 
   @Override
   protected Path getOuputFilePath(Path outDir, UnicodeBlocksTestJavaTemplateVars vars) {
     return outDir.resolve(vars.className + ".java");
+  }
+
+  private static ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {
+    ImmutableList.Builder<BlockSpec> retval = ImmutableList.builder();
+    retval.add(blocks.get(0));
+    for (int i = 1; i < blocks.size(); i++) {
+      int prev = blocks.get(i - 1).range().end() + 1;
+      int start = blocks.get(i).range().start();
+      if (prev != start) {
+        BlockSpec noBlock = BlockSpec.create("No Block", prev, start - 1);
+        if (!noBlock.range().equals(GENERAL_CATEGORY)) {
+          retval.add(noBlock);
+        }
+      }
+      retval.add(blocks.get(i));
+    }
+    return retval.build();
   }
 }

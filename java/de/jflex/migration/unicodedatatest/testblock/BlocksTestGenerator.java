@@ -25,6 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.collect.ImmutableList;
@@ -38,6 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -56,6 +58,11 @@ public class BlocksTestGenerator {
     if (version.version().equals(Versions.VERSION_2_0)) {
       blocks = fixBlocksForUnicode_2_0(blocks);
     }
+    checkState(!blocks.isEmpty(), "There are no blocks defined in %s", version);
+    Comparator<BlockSpec> comparator =
+        (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
+    blocks = ImmutableList.sortedCopyOf(comparator, blocks);
+    blocks = merge(blocks);
     generate(version, outDir, blocks);
   }
 
@@ -64,21 +71,46 @@ public class BlocksTestGenerator {
    *
    * <p>Character U+FEFF is incorrectly assigned to two different blocks.
    *
+   * <pre>{@code
+   * FE70; FEFF; Arabic Presentation Forms-B
+   * [...]
+   * FEFF; FEFF; Specials
+   * FFF0; FFFF; Specials
+   * }</pre>
+   *
    * <p>See https://github.com/jflex-de/jflex/issues/835
+   *
    * @see de.jflex.ucd_generator.ucd.UnicodeData#hackUnicode_2_0
    */
   private static ImmutableList<BlockSpec> fixBlocksForUnicode_2_0(ImmutableList<BlockSpec> blocks) {
     ImmutableList.Builder<BlockSpec> fixedBlocks = ImmutableList.builder();
     for (BlockSpec blockSpec : blocks) {
       if (blockSpec.range().equals(CodepointRange.create(0xFE70, 0xFEFF))) {
-        fixedBlocks.add(
-            BlockSpec.create(blockSpec.name(), blockSpec.range().start(), /*end=*/ 0xFEFE),
-            BlockSpec.create("Specials", 0xFEFF, 0xFEFF));
+        fixedBlocks.add(BlockSpec.create(blockSpec.name(), /*start=*/ 0xFE70, /*end=*/ 0xFEFE));
       } else {
         fixedBlocks.add(blockSpec);
       }
     }
     return fixedBlocks.build();
+  }
+
+  private static ImmutableList<BlockSpec> merge(ImmutableList<BlockSpec> blocks) {
+    ImmutableList.Builder<BlockSpec> retval = ImmutableList.builder();
+    BlockSpec prev = blocks.get(0);
+    for (int i = 1; i < blocks.size(); i++) {
+      BlockSpec block = blocks.get(i);
+      if (prev.name().equals(block.name())
+          && prev.range().end() + 1 == blocks.get(i).range().start()) {
+        // merge the two blocks
+        prev = BlockSpec.create(block.name(), prev.range().start(), block.range().end());
+      } else {
+        retval.add(prev);
+        prev = block;
+      }
+    }
+    // add last
+    retval.add(prev);
+    return retval.build();
   }
 
   private static ImmutableList<BlockSpec> parseUnicodeBlock(Path ucdBlocks) throws IOException {

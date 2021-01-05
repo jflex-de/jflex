@@ -44,7 +44,7 @@ public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
         UnicodeBlocks_${unicodeVersion.underscoreVersion()}.YYEOF,
         UnicodeDataScanners.Dataset.${dataset}
     );
-    assertThat(blocks).containsAllOf(
+    assertThat(blocks).containsExactly(
         #set($separator="")
         #foreach ( $b in $blocks )
         $separator BlockSpec.create("${b.name()}", ${b.hexStart()}, ${b.hexEnd()})
