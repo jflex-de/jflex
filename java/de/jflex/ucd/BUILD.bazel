@@ -5,6 +5,7 @@ java_library(
         "//java/de/jflex:visibility",
     ],
     deps = [
+        "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
     ],
