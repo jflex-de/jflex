@@ -38,7 +38,10 @@ import java.util.Comparator;
 public class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
-  private static final CodepointRange GENERAL_CATEGORY = CodepointRange.create(0xD800, 0xDFFF);
+  // The first (high) surrogate is a 16-bit code value in the range U+D800 to U+DBFF. The second
+  // (low) surrogate is a 16-bit code value in the range U+DC00 to U+DFFF.
+  private static final CodepointRange SURROGATES = CodepointRange.create(0xD800, 0xDFFF);
+  private static final String NO_BLOCK = "No Block";
 
   public UnicodeBlocksTestJavaGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
@@ -61,17 +64,20 @@ public class UnicodeBlocksTestJavaGenerator
     return outDir.resolve(vars.className + ".java");
   }
 
-  private static ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {
+  private ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {
     ImmutableList.Builder<BlockSpec> retval = ImmutableList.builder();
     retval.add(blocks.get(0));
     for (int i = 1; i < blocks.size(); i++) {
-      int prev = blocks.get(i - 1).range().end() + 1;
-      int start = blocks.get(i).range().start();
-      if (prev != start) {
-        BlockSpec noBlock = BlockSpec.create("No Block", prev, start - 1);
-        if (!noBlock.range().equals(GENERAL_CATEGORY)) {
-          retval.add(noBlock);
+      // end of the prev block
+      int prevEnd = blocks.get(i - 1).range().end();
+      // start of the block
+      int nextStart = blocks.get(i).range().start();
+      if (prevEnd + 1 != nextStart) {
+        BlockSpec noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
+        if (noBlock.range().contains(SURROGATES)) {
+          noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
         }
+        retval.add(noBlock);
       }
       retval.add(blocks.get(i));
     }

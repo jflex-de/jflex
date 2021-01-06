@@ -161,6 +161,7 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("Syloti Nagri", 0xA800, 0xA82F),
             BlockSpec.create("No Block", 0xA830, 0xABFF),
             BlockSpec.create("Hangul Syllables", 0xAC00, 0xD7AF),
+            BlockSpec.create("No Block", 0xD7B0, 0xD7FF),
             BlockSpec.create("Private Use Area", 0xE000, 0xF8FF),
             BlockSpec.create("CJK Compatibility Ideographs", 0xF900, 0xFAFF),
             BlockSpec.create("Alphabetic Presentation Forms", 0xFB00, 0xFB4F),

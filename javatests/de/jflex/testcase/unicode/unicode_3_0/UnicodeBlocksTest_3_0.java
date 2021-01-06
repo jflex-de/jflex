@@ -132,6 +132,7 @@ public class UnicodeBlocksTest_3_0 {
             BlockSpec.create("Yi Radicals", 0xA490, 0xA4CF),
             BlockSpec.create("No Block", 0xA4D0, 0xABFF),
             BlockSpec.create("Hangul Syllables", 0xAC00, 0xD7A3),
+            BlockSpec.create("No Block", 0xD7A4, 0xD7FF),
             BlockSpec.create("Private Use", 0xE000, 0xF8FF),
             BlockSpec.create("CJK Compatibility Ideographs", 0xF900, 0xFAFF),
             BlockSpec.create("Alphabetic Presentation Forms", 0xFB00, 0xFB4F),

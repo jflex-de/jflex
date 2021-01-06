@@ -110,6 +110,7 @@ public class UnicodeBlocksTest_2_1 {
             BlockSpec.create("CJK Unified Ideographs", 0x4E00, 0x9FFF),
             BlockSpec.create("No Block", 0xA000, 0xABFF),
             BlockSpec.create("Hangul Syllables", 0xAC00, 0xD7A3),
+            BlockSpec.create("No Block", 0xD7A4, 0xD7FF),
             BlockSpec.create("Private Use", 0xE000, 0xF8FF),
             BlockSpec.create("CJK Compatibility Ideographs", 0xF900, 0xFAFF),
             BlockSpec.create("Alphabetic Presentation Forms", 0xFB00, 0xFB4F),
