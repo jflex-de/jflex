@@ -77,9 +77,16 @@ public class UnicodeBlocksTestJavaGenerator
         if (noBlock.range().contains(SURROGATES)) {
           noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
         }
-        retval.add(noBlock);
+        if (!SURROGATES.contains(noBlock.range())) {
+          retval.add(noBlock);
+        }
       }
       retval.add(blocks.get(i));
+    }
+    BlockSpec lastBlock = blocks.get(blocks.size() - 1);
+    int maxCodePoint = getMaxCodePoint(unicodeVersion.version());
+    if (lastBlock.range().end() != maxCodePoint) {
+      retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }
     return retval.build();
   }

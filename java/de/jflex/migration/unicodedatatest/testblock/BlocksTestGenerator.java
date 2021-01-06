@@ -84,9 +84,13 @@ public class BlocksTestGenerator {
    */
   private static ImmutableList<BlockSpec> fixBlocksForUnicode_2_0(ImmutableList<BlockSpec> blocks) {
     ImmutableList.Builder<BlockSpec> fixedBlocks = ImmutableList.builder();
+    CodepointRange arabicRange = CodepointRange.create(0xFE70, 0xFEFF);
+    CodepointRange lastSpecials = CodepointRange.create(0xFFF0, 0xFFFF);
     for (BlockSpec blockSpec : blocks) {
-      if (blockSpec.range().equals(CodepointRange.create(0xFE70, 0xFEFF))) {
+      if (blockSpec.range().equals(arabicRange)) {
         fixedBlocks.add(BlockSpec.create(blockSpec.name(), /*start=*/ 0xFE70, /*end=*/ 0xFEFE));
+      } else if (blockSpec.range().equals(lastSpecials)) {
+        fixedBlocks.add(BlockSpec.create(blockSpec.name(), 0xFFF0, 0xFFFD));
       } else {
         fixedBlocks.add(blockSpec);
       }

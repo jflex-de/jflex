@@ -122,6 +122,6 @@ public class UnicodeBlocksTest_2_0 {
             BlockSpec.create("Arabic Presentation Forms-B", 0xFE70, 0xFEFE),
             BlockSpec.create("Specials", 0xFEFF, 0xFEFF),
             BlockSpec.create("Halfwidth and Fullwidth Forms", 0xFF00, 0xFFEF),
-            BlockSpec.create("Specials", 0xFFF0, 0xFFFF));
+            BlockSpec.create("Specials", 0xFFF0, 0xFFFD));
   }
 }
