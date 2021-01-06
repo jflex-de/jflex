@@ -28,7 +28,6 @@ package de.jflex.migration.unicodedatatest.testage;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.nio.file.Paths;
@@ -51,7 +50,6 @@ class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVa
     vars.javaPackageDir =
         Paths.get(JavaPackageUtils.getPathForPackage(unicodeVersion.javaPackage()));
     vars.ages = ages;
-    vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
     return vars;
   }
 

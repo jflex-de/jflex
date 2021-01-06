@@ -1,16 +1,18 @@
 java_library(
     name = "base",
+    testonly = True,
     srcs = glob(["*.java"]),
     visibility = [
         "//java/de/jflex/migration/unicodedatatest:__subpackages__",
         "//javatests/de/jflex/migration/unicodedatatest:__subpackages__",
     ],
     deps = [
+        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",
         "//third_party/com/google/auto_value",
         "//third_party/com/google/guava",
-        "@maven//:org_apache_velocity_velocity",
+        "//third_party/org/apache/velocity",
     ],
 )
