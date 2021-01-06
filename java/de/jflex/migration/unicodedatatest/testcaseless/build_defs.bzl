@@ -4,12 +4,16 @@ def gen_test_caseless(name, version, ucd):
     flexout = "unicode_{version}/UnicodeCaseless_{version}.flex".format(
         version = underscore_version,
     )
+    javaout = "unicode_{version}/UnicodeCaselessTest_{version}.java".format(
+        version = underscore_version,
+    )
     native.genrule(
         name = name,
         testonly = True,
         srcs = [ucd],
         outs = [
             "javatests/de/jflex/testcase/unicode/" + flexout,
+            "javatests/de/jflex/testcase/unicode/" + javaout,
         ],
         cmd = "$(location generator) {version} $(RULEDIR) $(locations {ucd})".format(
             version = version,

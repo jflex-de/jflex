@@ -8,6 +8,7 @@ java_binary(
     main_class = "de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator",
     resources = [
         "UnicodeCaseless.flex.vm",
+        "UnicodeCaselessTest.java.vm",
     ],
     visibility = ["//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__"],
     deps = [

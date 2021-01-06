@@ -25,36 +25,10 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
+import com.google.common.collect.ImmutableMap;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
+public class UnicodeCaselessTestTemplateVars extends UnicodeVersionTemplateVars {
 
-public class UnicodeCaselessFlexGenerator
-    extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
-
-  private final ImmutableList<Integer> caselessCodepoints;
-
-  protected UnicodeCaselessFlexGenerator(
-      UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
-    super("UnicodeCaseless.flex", unicodeVersion);
-    this.caselessCodepoints = equivalences.getSortedKeys(Integer::compareTo);
-  }
-
-  @Override
-  protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
-    UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
-    vars.caselessCodepoints =
-        caselessCodepoints.stream().map(cp -> String.format("%04x", cp)).collect(toImmutableList());
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return vars.className + ".flex";
-  }
+  public ImmutableMap<Integer, Integer> equivalences;
 }

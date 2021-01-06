@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,38 +25,41 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.collect.ImmutableMap.toImmutableMap;
+import static java.util.function.Function.identity;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
 
-public class UnicodeCaselessFlexGenerator
-    extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
+public class UnicodeCaselessTestGenerator
+    extends AbstractGenerator<UnicodeCaselessTestTemplateVars> {
 
-  private final ImmutableList<Integer> caselessCodepoints;
+  private final Equivalences<Integer> equivalences;
 
-  protected UnicodeCaselessFlexGenerator(
+  protected UnicodeCaselessTestGenerator(
       UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
-    super("UnicodeCaseless.flex", unicodeVersion);
-    this.caselessCodepoints = equivalences.getSortedKeys(Integer::compareTo);
+    super("UnicodeCaselessTest.java", unicodeVersion);
+    this.equivalences = equivalences;
   }
 
   @Override
-  protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
-    UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
+  protected UnicodeCaselessTestTemplateVars createTemplateVars() {
+    UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
-    vars.caselessCodepoints =
-        caselessCodepoints.stream().map(cp -> String.format("%04x", cp)).collect(toImmutableList());
+    vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
+    vars.equivalences =
+        ImmutableList.sortedCopyOf(equivalences.getKeys()).stream()
+            .collect(toImmutableMap(identity(), equivalences::getEquivalentValue));
     return vars;
   }
 
   @Override
-  protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return vars.className + ".flex";
+  protected String getOuputFileName(UnicodeCaselessTestTemplateVars vars) {
+    return vars.className + ".java";
   }
 }

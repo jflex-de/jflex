@@ -30,8 +30,9 @@ import java.io.Reader;
 import java.util.regex.Pattern;
 
 /**
- * Parser of {@code UnicodeData.txt} for caseless declarations, e.g. {@code AC00;<Hangul Syllable,
- * First>;Lo;0;L;;;;;N;;;;;}.
+ * Parser of {@code UnicodeData.txt} for caseless declarations.
+ *
+ * <p>e.g. {@code AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;}.
  */
 public class SimpleCaselessParser extends AbstractSimpleParser {
 

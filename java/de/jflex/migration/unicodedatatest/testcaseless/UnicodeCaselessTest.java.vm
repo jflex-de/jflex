@@ -23,38 +23,24 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testcaseless;
+package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
+import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.util.scanner.ScannerFactory;
+import javax.annotation.Generated;
+import org.junit.Test;
 
-public class UnicodeCaselessFlexGenerator
-    extends AbstractGenerator<UnicodeCaselessFlexTemplateVars> {
-
-  private final ImmutableList<Integer> caselessCodepoints;
-
-  protected UnicodeCaselessFlexGenerator(
-      UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
-    super("UnicodeCaseless.flex", unicodeVersion);
-    this.caselessCodepoints = equivalences.getSortedKeys(Integer::compareTo);
-  }
-
-  @Override
-  protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
-    UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
-    vars.caselessCodepoints =
-        caselessCodepoints.stream().map(cp -> String.format("%04x", cp)).collect(toImmutableList());
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessFlexTemplateVars vars) {
-    return vars.className + ".flex";
+/** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
+@Generated("de.jflex.migration.unicodedatatest.testcaseless.BlocksTestGenerator")
+public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
+  @Test
+  public void caseless() {
+  #foreach ($c in ${equivalences.entrySet()})
+  // ${c.key} -> ${c.value}
+  #end
   }
 }

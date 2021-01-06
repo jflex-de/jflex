@@ -36,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,8 +74,8 @@ public class CaselessTestGenerator {
   private static void generate(
       UnicodeVersion version, Path outDir, Equivalences<Integer> equivalences)
       throws IOException, ParseException {
-    new UnicodeCaselessFlexGenerator(version, equivalences.getSortedKeys(Integer::compareTo))
-        .generate(outDir);
+    new UnicodeCaselessFlexGenerator(version, equivalences).generate(outDir);
+    new UnicodeCaselessTestGenerator(version, equivalences).generate(outDir);
   }
 
   private static class CaselessHandler implements PatternHandler {
@@ -105,7 +106,7 @@ public class CaselessTestGenerator {
     }
   }
 
-  static class Equivalences<T> {
+  static class Equivalences<T extends Comparable<T>> {
     /** Mapping from value → equivalent values. */
     protected Map<T, Set<T>> equivalences = new HashMap<>();
 
@@ -137,6 +138,14 @@ public class CaselessTestGenerator {
 
     ImmutableList<T> getSortedKeys(Comparator<T> comparator) {
       return ImmutableList.sortedCopyOf(comparator, getKeys());
+    }
+
+    /**
+     * Returns the equivalent value of the given value, i.e. the minimum value in the equivalence
+     * set.
+     */
+    public T getEquivalentValue(T value) {
+      return Collections.min(equivalences.get(value));
     }
   }
 }
