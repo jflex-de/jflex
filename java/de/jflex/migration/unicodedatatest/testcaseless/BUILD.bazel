@@ -44,12 +44,3 @@ filegroup(
     ucd = "@ucd_%s_%s//:files" % (x, y),
     version = "%s.%s" % (x, y),
 ) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
-
-genrule(
-    name = "locations",
-    srcs = [
-        "//third_party/unicode:ucd_7_0",
-    ],
-    outs = ["locations.txt"],
-    cmd = "echo $(locations //third_party/unicode:ucd_7_0)/UnicodeData.txt > $@",
-)

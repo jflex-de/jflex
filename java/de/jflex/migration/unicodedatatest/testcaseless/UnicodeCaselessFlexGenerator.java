@@ -49,7 +49,7 @@ public class UnicodeCaselessFlexGenerator
     vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
     vars.caselessCodepoints =
-        caselessCodepoints.stream().map(cp -> String.format("%04x", cp)).collect(toImmutableList());
+        caselessCodepoints.stream().map(cp -> String.format("%04X", cp)).collect(toImmutableList());
     return vars;
   }
 

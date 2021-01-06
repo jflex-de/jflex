@@ -32,10 +32,10 @@ import javax.annotation.Generated;
 import org.junit.Test;
 
 /** Test Tests the {@code %caseless} directive for Unicode 6.3. */
-@Generated("de.jflex.migration.unicodedatatest.testcaseless.BlocksTestGenerator")
+@Generated("de.jflex.migration.unicodedatatest.testcaseless.UnicodeCaseselessTestGenerator")
 public class UnicodeCaselessTest_6_3 {
   @Test
-  public void caseless() {
+  public void caseless() throws Exception {
     UnicodeCaseless_6_3 scanner =
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeCaseless_6_3::new),
