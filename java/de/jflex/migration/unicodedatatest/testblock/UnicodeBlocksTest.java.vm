@@ -39,12 +39,12 @@ import org.junit.Test;
 public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
   @Test
   public void testBlocks() throws Exception {
-    ImmutableList<BlockSpec> blocks = UnicodeDataScanners.getBlocks(
-        ScannerFactory.of(UnicodeBlocks_${unicodeVersion.underscoreVersion()}::new),
-        UnicodeBlocks_${unicodeVersion.underscoreVersion()}.YYEOF,
-        UnicodeDataScanners.Dataset.${dataset}
-    );
-    assertThat(blocks).containsExactly(
+    UnicodeBlocks_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+        .scanAllCodepoints(
+            ScannerFactory.of(UnicodeBlocks_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeBlocks_${unicodeVersion.underscoreVersion()}.YYEOF,
+            UnicodeDataScanners.Dataset.${dataset});
+    assertThat(scanner.blocks()).containsExactly(
         #set($separator="")
         #foreach ( $b in $blocks )
         $separator BlockSpec.create("${b.name()}", ${b.hexStart()}, ${b.hexEnd()})

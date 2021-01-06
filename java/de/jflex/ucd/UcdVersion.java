@@ -31,7 +31,6 @@ import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 /** Describes a single Unicode version. */
 @AutoValue

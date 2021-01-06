@@ -25,10 +25,7 @@
  */
 package de.jflex.testcase.unicode.unicode_12_1;
 
-import static com.google.common.truth.Truth.assertThat;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import javax.annotation.Generated;
@@ -39,6 +36,11 @@ import org.junit.Test;
 public class UnicodeCaselessTest_12_1 {
   @Test
   public void caseless() {
+    UnicodeCaseless_12_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeCaseless_12_1::new),
+            UnicodeCaseless_12_1.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
     // 65 -> 65
     // 66 -> 66
     // 67 -> 67
@@ -2833,5 +2835,5 @@ public class UnicodeCaselessTest_12_1 {
     // 125249 -> 125215
     // 125250 -> 125216
     // 125251 -> 125217
-    }
+  }
 }

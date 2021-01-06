@@ -45,28 +45,20 @@ public class UnicodeDataScanners {
 
   private UnicodeDataScanners() {}
 
-  public static ImmutableList<BlockSpec> getBlocks(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      int eof,
-      Dataset dataset)
-      throws IOException {
-    AbstractEnumeratedPropertyDefinedScanner scanner =
-        scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner> T scanAllCodepoints(
+      ScannerFactory<T> scannerFactory, int eof, Dataset dataset) throws IOException {
+    T scanner = scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
     while (scanner.yylex() != eof) {}
-    return scanner.blocks();
+    return scanner;
   }
 
-  public static void assertAgeInterval(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      int eof,
-      Dataset dataset,
-      Path expectedFile)
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner> void assertAgeInterval(
+      ScannerFactory<T> scannerFactory, int eof, Dataset dataset, Path expectedFile)
       throws IOException {
+    T scanner = scanAllCodepoints(scannerFactory, eof, dataset);
     // TODO(regisd) Replace the test on assertion rather than file content.
     ImmutableList<String> blocks =
-        getBlocks(scannerFactory, eof, dataset).stream()
-            .map(BlockSpec::toString)
-            .collect(toImmutableList());
+        scanner.blocks().stream().map(BlockSpec::toString).collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);

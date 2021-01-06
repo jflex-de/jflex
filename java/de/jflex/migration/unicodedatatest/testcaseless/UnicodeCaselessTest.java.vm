@@ -39,6 +39,11 @@ import org.junit.Test;
 public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
   @Test
   public void caseless() {
+    UnicodeCaseless_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+        .scanAllCodepoints(
+            ScannerFactory.of(UnicodeCaseless_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeCaseless_${unicodeVersion.underscoreVersion()}.YYEOF,
+            UnicodeDataScanners.Dataset.${dataset});
   #foreach ($c in ${equivalences.entrySet()})
   // ${c.key} -> ${c.value}
   #end
