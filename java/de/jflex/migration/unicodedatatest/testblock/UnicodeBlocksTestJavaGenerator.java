@@ -38,6 +38,11 @@ import java.util.Comparator;
 public class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
+  // The first (high) surrogate is a 16-bit code value in the range U+D800 to U+DBFF. The second
+  // (low) surrogate is a 16-bit code value in the range U+DC00 to U+DFFF.
+  private static final CodepointRange SURROGATES = CodepointRange.create(0xD800, 0xDFFF);
+  private static final String NO_BLOCK = "No Block";
+
   public UnicodeBlocksTestJavaGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
     super("UnicodeBlocksTest.java.vm", "UnicodeBlocksTest", unicodeVersion, blockNames);
@@ -50,12 +55,39 @@ public class UnicodeBlocksTestJavaGenerator
     vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    vars.blocks = ImmutableSortedSet.copyOf(comparator, this.blocks);
+    vars.blocks = ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks));
     return vars;
   }
 
   @Override
   protected Path getOuputFilePath(Path outDir, UnicodeBlocksTestJavaTemplateVars vars) {
     return outDir.resolve(vars.className + ".java");
+  }
+
+  private ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {
+    ImmutableList.Builder<BlockSpec> retval = ImmutableList.builder();
+    retval.add(blocks.get(0));
+    for (int i = 1; i < blocks.size(); i++) {
+      // end of the prev block
+      int prevEnd = blocks.get(i - 1).range().end();
+      // start of the block
+      int nextStart = blocks.get(i).range().start();
+      if (prevEnd + 1 != nextStart) {
+        BlockSpec noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
+        if (noBlock.range().contains(SURROGATES)) {
+          noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
+        }
+        if (!SURROGATES.contains(noBlock.range())) {
+          retval.add(noBlock);
+        }
+      }
+      retval.add(blocks.get(i));
+    }
+    BlockSpec lastBlock = blocks.get(blocks.size() - 1);
+    int maxCodePoint = getMaxCodePoint(unicodeVersion.version());
+    if (lastBlock.range().end() != maxCodePoint) {
+      retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
+    }
+    return retval.build();
   }
 }

@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2020 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,16 +25,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.ucd;
+package de.jflex.ucd;
 
 import de.jflex.version.Version;
 
 public class Versions {
   public static final Version VERSION_1_1 = new Version(1, 1);
   public static final Version VERSION_2_0 = new Version(2, 0);
-  public static final Version VERSION_2_1 = new Version(2, 1);
-  public static final Version VERSION_3_0 = new Version(3, 0);
-  public static final Version VERSION_3_1_1 = new Version(3, 1, 1);
+  public static final Version VERSION_3_1 = new Version(3, 1);
   public static final Version VERSION_3_2 = new Version(3, 2);
   public static final Version VERSION_4_1 = new Version(4, 1);
   public static final Version VERSION_5_0 = new Version(5, 0);

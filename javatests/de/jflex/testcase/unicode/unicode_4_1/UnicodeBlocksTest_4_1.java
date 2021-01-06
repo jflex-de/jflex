@@ -31,9 +31,11 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import javax.annotation.Generated;
 import org.junit.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode 4.1. */
+@Generated("de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator")
 public class UnicodeBlocksTest_4_1 {
   @Test
   public void testBlocks() throws Exception {
@@ -43,7 +45,7 @@ public class UnicodeBlocksTest_4_1 {
             UnicodeBlocks_4_1.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
     assertThat(blocks)
-        .containsAllOf(
+        .containsExactly(
             BlockSpec.create("Basic Latin", 0x0000, 0x007F),
             BlockSpec.create("Latin-1 Supplement", 0x0080, 0x00FF),
             BlockSpec.create("Latin Extended-A", 0x0100, 0x017F),
@@ -60,6 +62,7 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("Syriac", 0x0700, 0x074F),
             BlockSpec.create("Arabic Supplement", 0x0750, 0x077F),
             BlockSpec.create("Thaana", 0x0780, 0x07BF),
+            BlockSpec.create("No Block", 0x07C0, 0x08FF),
             BlockSpec.create("Devanagari", 0x0900, 0x097F),
             BlockSpec.create("Bengali", 0x0980, 0x09FF),
             BlockSpec.create("Gurmukhi", 0x0A00, 0x0A7F),
@@ -88,11 +91,13 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("Tagbanwa", 0x1760, 0x177F),
             BlockSpec.create("Khmer", 0x1780, 0x17FF),
             BlockSpec.create("Mongolian", 0x1800, 0x18AF),
+            BlockSpec.create("No Block", 0x18B0, 0x18FF),
             BlockSpec.create("Limbu", 0x1900, 0x194F),
             BlockSpec.create("Tai Le", 0x1950, 0x197F),
             BlockSpec.create("New Tai Lue", 0x1980, 0x19DF),
             BlockSpec.create("Khmer Symbols", 0x19E0, 0x19FF),
             BlockSpec.create("Buginese", 0x1A00, 0x1A1F),
+            BlockSpec.create("No Block", 0x1A20, 0x1CFF),
             BlockSpec.create("Phonetic Extensions", 0x1D00, 0x1D7F),
             BlockSpec.create("Phonetic Extensions Supplement", 0x1D80, 0x1DBF),
             BlockSpec.create("Combining Diacritical Marks Supplement", 0x1DC0, 0x1DFF),
@@ -123,13 +128,16 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("Supplemental Mathematical Operators", 0x2A00, 0x2AFF),
             BlockSpec.create("Miscellaneous Symbols and Arrows", 0x2B00, 0x2BFF),
             BlockSpec.create("Glagolitic", 0x2C00, 0x2C5F),
+            BlockSpec.create("No Block", 0x2C60, 0x2C7F),
             BlockSpec.create("Coptic", 0x2C80, 0x2CFF),
             BlockSpec.create("Georgian Supplement", 0x2D00, 0x2D2F),
             BlockSpec.create("Tifinagh", 0x2D30, 0x2D7F),
             BlockSpec.create("Ethiopic Extended", 0x2D80, 0x2DDF),
+            BlockSpec.create("No Block", 0x2DE0, 0x2DFF),
             BlockSpec.create("Supplemental Punctuation", 0x2E00, 0x2E7F),
             BlockSpec.create("CJK Radicals Supplement", 0x2E80, 0x2EFF),
             BlockSpec.create("Kangxi Radicals", 0x2F00, 0x2FDF),
+            BlockSpec.create("No Block", 0x2FE0, 0x2FEF),
             BlockSpec.create("Ideographic Description Characters", 0x2FF0, 0x2FFF),
             BlockSpec.create("CJK Symbols and Punctuation", 0x3000, 0x303F),
             BlockSpec.create("Hiragana", 0x3040, 0x309F),
@@ -147,9 +155,13 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("CJK Unified Ideographs", 0x4E00, 0x9FFF),
             BlockSpec.create("Yi Syllables", 0xA000, 0xA48F),
             BlockSpec.create("Yi Radicals", 0xA490, 0xA4CF),
+            BlockSpec.create("No Block", 0xA4D0, 0xA6FF),
             BlockSpec.create("Modifier Tone Letters", 0xA700, 0xA71F),
+            BlockSpec.create("No Block", 0xA720, 0xA7FF),
             BlockSpec.create("Syloti Nagri", 0xA800, 0xA82F),
+            BlockSpec.create("No Block", 0xA830, 0xABFF),
             BlockSpec.create("Hangul Syllables", 0xAC00, 0xD7AF),
+            BlockSpec.create("No Block", 0xD7B0, 0xD7FF),
             BlockSpec.create("Private Use Area", 0xE000, 0xF8FF),
             BlockSpec.create("CJK Compatibility Ideographs", 0xF900, 0xFAFF),
             BlockSpec.create("Alphabetic Presentation Forms", 0xFB00, 0xFB4F),
@@ -166,24 +178,37 @@ public class UnicodeBlocksTest_4_1 {
             BlockSpec.create("Linear B Ideograms", 0x10080, 0x100FF),
             BlockSpec.create("Aegean Numbers", 0x10100, 0x1013F),
             BlockSpec.create("Ancient Greek Numbers", 0x10140, 0x1018F),
+            BlockSpec.create("No Block", 0x10190, 0x102FF),
             BlockSpec.create("Old Italic", 0x10300, 0x1032F),
             BlockSpec.create("Gothic", 0x10330, 0x1034F),
+            BlockSpec.create("No Block", 0x10350, 0x1037F),
             BlockSpec.create("Ugaritic", 0x10380, 0x1039F),
             BlockSpec.create("Old Persian", 0x103A0, 0x103DF),
+            BlockSpec.create("No Block", 0x103E0, 0x103FF),
             BlockSpec.create("Deseret", 0x10400, 0x1044F),
             BlockSpec.create("Shavian", 0x10450, 0x1047F),
             BlockSpec.create("Osmanya", 0x10480, 0x104AF),
+            BlockSpec.create("No Block", 0x104B0, 0x107FF),
             BlockSpec.create("Cypriot Syllabary", 0x10800, 0x1083F),
+            BlockSpec.create("No Block", 0x10840, 0x109FF),
             BlockSpec.create("Kharoshthi", 0x10A00, 0x10A5F),
+            BlockSpec.create("No Block", 0x10A60, 0x1CFFF),
             BlockSpec.create("Byzantine Musical Symbols", 0x1D000, 0x1D0FF),
             BlockSpec.create("Musical Symbols", 0x1D100, 0x1D1FF),
             BlockSpec.create("Ancient Greek Musical Notation", 0x1D200, 0x1D24F),
+            BlockSpec.create("No Block", 0x1D250, 0x1D2FF),
             BlockSpec.create("Tai Xuan Jing Symbols", 0x1D300, 0x1D35F),
+            BlockSpec.create("No Block", 0x1D360, 0x1D3FF),
             BlockSpec.create("Mathematical Alphanumeric Symbols", 0x1D400, 0x1D7FF),
+            BlockSpec.create("No Block", 0x1D800, 0x1FFFF),
             BlockSpec.create("CJK Unified Ideographs Extension B", 0x20000, 0x2A6DF),
+            BlockSpec.create("No Block", 0x2A6E0, 0x2F7FF),
             BlockSpec.create("CJK Compatibility Ideographs Supplement", 0x2F800, 0x2FA1F),
+            BlockSpec.create("No Block", 0x2FA20, 0xDFFFF),
             BlockSpec.create("Tags", 0xE0000, 0xE007F),
+            BlockSpec.create("No Block", 0xE0080, 0xE00FF),
             BlockSpec.create("Variation Selectors Supplement", 0xE0100, 0xE01EF),
+            BlockSpec.create("No Block", 0xE01F0, 0xEFFFF),
             BlockSpec.create("Supplementary Private Use Area-A", 0xF0000, 0xFFFFF),
             BlockSpec.create("Supplementary Private Use Area-B", 0x100000, 0x10FFFF));
   }

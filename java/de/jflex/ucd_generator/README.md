@@ -19,6 +19,9 @@ Bazel is responsible for fetching (using mirrors) and caching the remote resourc
 Jflex has a convient target:
 
     bazel build //java/de/jflex/ucd_generator:gen_unicode_properties
+    cp -r $(bazel info workspace)/bazel-bin/java/de/jflex/ucd_generator/Unicode_*.java $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data
+    chmod u+w $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data/*.java
+    google-java-format -r $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data/*.java
 
 ### Building for a reduced set of properties
 

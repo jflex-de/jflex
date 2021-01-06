@@ -31,9 +31,11 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import javax.annotation.Generated;
 import org.junit.Test;
 
 /** Test that parsing all Unicode codepoints detects the correct block ranges for Unicode ${unicodeVersion}. */
+@Generated("de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator")
 public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
   @Test
   public void testBlocks() throws Exception {
@@ -42,7 +44,7 @@ public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
         UnicodeBlocks_${unicodeVersion.underscoreVersion()}.YYEOF,
         UnicodeDataScanners.Dataset.${dataset}
     );
-    assertThat(blocks).containsAllOf(
+    assertThat(blocks).containsExactly(
         #set($separator="")
         #foreach ( $b in $blocks )
         $separator BlockSpec.create("${b.name()}", ${b.hexStart()}, ${b.hexEnd()})

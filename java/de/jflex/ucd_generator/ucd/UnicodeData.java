@@ -36,6 +36,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import de.jflex.version.Version;
 import java.util.Collection;
 import java.util.List;
@@ -332,7 +333,20 @@ public class UnicodeData {
   }
 
   /**
-   * Workaround to remove {@code blk} property in Unicode 2.0.
+   * Workaround to remove incorrect codepoint in {@code block=arabicpresentationformsb} property, in
+   * Unicode 2.0.
+   *
+   * <p>Character U+FEFF is assigned to two different blocks.
+   *
+   * <pre>{@code
+   * FE70; FEFF; Arabic Presentation Forms-B
+   * [...]
+   * FEFF; FEFF; Specials
+   * }</pre>
+   *
+   * <p>Since the single char in the second range (U+FEFF) is not an Arabic character, but rather
+   * the zero-width no-break space char, the FE70..FEFF block should be shortened to exclude this
+   * char. This reflects the correction made in all following Unicode versions.
    *
    * <p>See https://github.com/jflex-de/jflex/issues/835
    */

@@ -32,10 +32,10 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
+import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UcdFileType;
 import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.ucd_generator.ucd.Versions;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,15 +123,15 @@ public class UcdScanner {
   }
 
   void scanPropList() throws IOException {
-    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
-      scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
-    } else {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_1) < 0) {
       File file = ucdVersion.getFile(UcdFileType.PropList);
       if (file != null) {
         ArchaicPropListScanner scanner =
             new ArchaicPropListScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
+    } else {
+      scanBinaryProperties(unicodeData, ucdVersion.getFile(UcdFileType.PropList));
     }
   }
 
@@ -174,30 +174,24 @@ public class UcdScanner {
   }
 
   void scanBlocks() throws IOException {
-    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
-      scanEnumeratedProperty(
-          unicodeData,
-          ucdVersion.getFile(UcdFileType.Blocks),
-          /*defaultPropertyName=*/ "Block",
-          "No_Block");
-    } else {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_1) < 0) {
       File file = ucdVersion.getFile(UcdFileType.Blocks);
       if (file != null) {
         ArchaicBlocksScanner scanner =
             new ArchaicBlocksScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
+    } else {
+      scanEnumeratedProperty(
+          unicodeData,
+          ucdVersion.getFile(UcdFileType.Blocks),
+          /*defaultPropertyName=*/ "Block",
+          "No_Block");
     }
   }
 
   void scanLineBreak() throws IOException {
-    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_0) > 0) {
-      scanEnumeratedProperty(
-          unicodeData,
-          ucdVersion.getFile(UcdFileType.LineBreak),
-          /*defaultPropertyName=*/ "Line_Break",
-          "XX");
-    } else {
+    if (Version.MAJOR_MINOR_COMPARATOR.compare(ucdVersion.version(), Versions.VERSION_3_1) < 0) {
       File file = ucdVersion.getFile(UcdFileType.LineBreak);
       if (file != null) {
         assertFileExists(file);
@@ -205,6 +199,12 @@ public class UcdScanner {
             new ArchaicLineBreakScanner(Files.newReader(file, StandardCharsets.UTF_8), unicodeData);
         scanner.scan();
       }
+    } else {
+      scanEnumeratedProperty(
+          unicodeData,
+          ucdVersion.getFile(UcdFileType.LineBreak),
+          /*defaultPropertyName=*/ "Line_Break",
+          "XX");
     }
   }
 
