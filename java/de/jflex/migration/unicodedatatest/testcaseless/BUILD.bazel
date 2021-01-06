@@ -41,6 +41,6 @@ filegroup(
 
 [gen_test_caseless(
     name = "gen_test_caseless_%s_%s" % (x, y),
-    ucd = "@ucd_%s_%s//:files" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
     version = "%s.%s" % (x, y),
 ) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
