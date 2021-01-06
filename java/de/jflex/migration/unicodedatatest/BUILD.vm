@@ -95,7 +95,6 @@ jflex(
 )
 
 # Test caseless directive
-#if ( ${unicodeVersion.isAtLeast("5.0")} )
 java_test(
     name = "UnicodeCaselessTest_${unicodeVersion.underscoreVersion()}",
     srcs = [
@@ -122,4 +121,3 @@ jflex(
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeCaseless_${unicodeVersion.underscoreVersion()}.java"],
 )
-#end

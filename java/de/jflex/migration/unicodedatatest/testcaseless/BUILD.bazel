@@ -35,7 +35,6 @@ filegroup(
     srcs = [
         ":gen_test_caseless_%s_%s" % (x, y)
         for (x, y) in TESTED_VERSIONS
-        if (x, y) >= (5, 0)
     ],
 )
 
@@ -43,4 +42,4 @@ filegroup(
     name = "gen_test_caseless_%s_%s" % (x, y),
     ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
     version = "%s.%s" % (x, y),
-) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
+) for (x, y) in TESTED_VERSIONS]
