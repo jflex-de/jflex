@@ -23,6 +23,16 @@ java_binary(
     ],
 )
 
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        ":gen_test_caseless_%s_%s" % (x, y)
+        for (x, y) in TESTED_VERSIONS
+        if (x, y) >= (5, 0)
+    ],
+)
+
 [gen_test_caseless(
     name = "gen_test_caseless_%s_%s" % (x, y),
     ucd = "@ucd_%s_%s//:files" % (x, y),
