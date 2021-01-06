@@ -103,3 +103,5 @@ jflex(
     jflex_bin = "//jflex:jflex_bin",
     outputs = ["UnicodeBlocks_2_1.java"],
 )
+
+# Test caseless directive

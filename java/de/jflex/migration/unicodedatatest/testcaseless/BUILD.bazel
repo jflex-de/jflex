@@ -1,6 +1,11 @@
 load(":build_defs.bzl", "gen_test_caseless")
 load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
 
+package(default_visibility = [
+    "//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__",
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
 java_binary(
     name = "generator",
     testonly = True,
