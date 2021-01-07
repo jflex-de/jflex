@@ -51,7 +51,7 @@ import org.junit.Test;
 public class UnicodecodepointescapesGoldenTest extends AbstractGoldenTest {
 
  /** Creates a scanner conforming to the {@code UnicodeCodePointEscapes.flex} specification. */
- private final ScannerFactory<Unicodecodepointescapes> scannerFactory = ScannerFactory.of(Unicodecodepointescapes::new);
+ private final ScannerFactory<UnicodeCodePointEscapes> scannerFactory = ScannerFactory.of(UnicodeCodePointEscapes::new);
 
 
 
