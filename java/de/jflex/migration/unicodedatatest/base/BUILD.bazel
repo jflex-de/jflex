@@ -7,6 +7,7 @@ java_library(
         "//javatests/de/jflex/migration/unicodedatatest:__subpackages__",
     ],
     deps = [
+        "//java/de/jflex/migration/util:java_resources",
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",

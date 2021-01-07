@@ -26,7 +26,7 @@
 package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static de.jflex.migration.unicodedatatest.base.JavaResources.readResource;
+import static de.jflex.migration.util.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.util.javac.JavaPackageUtils;
