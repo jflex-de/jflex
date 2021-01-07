@@ -48,7 +48,7 @@ java_test(
 )
 
 [jflex_testsuite(
-    name = "UnicodeCodepointEscapes_failure_%d" % i,
+    name = "UnicodeCodepointEscapes_failure%d" % i,
     srcs = ["UnicodeCodepointEscapes_failure%d.java" % i],
     data = [
         "UnicodeCodePointEscapes-f-%d.flex" % i,

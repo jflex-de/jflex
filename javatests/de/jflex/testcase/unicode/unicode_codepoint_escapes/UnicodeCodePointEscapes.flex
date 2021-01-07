@@ -9,10 +9,9 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %extends AbstractEnumeratedPropertyDefinedScanner
 
 %type int
-%standalone
 
 %init{
-  super(0x10FFFFFF);
+  super(0x10FFFF);
 %init}
 
 %%
