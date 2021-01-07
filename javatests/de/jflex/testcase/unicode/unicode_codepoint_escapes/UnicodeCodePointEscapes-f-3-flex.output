@@ -1,0 +1,5 @@
+
+Error in file "src/test/cases/unicode-codepoint-escapes/UnicodeCodePointEscapes-f-3.flex" (line 7): 
+Hexadecimal code point is greater than the maximum allowed code point
+"\u{FFFFFF}" { }
+    ^
