@@ -5,5 +5,5 @@ package de.jflex.testcase.unicode.unicode_codepoint_escapes;
 
 %%
 
-"\u{1EDC FFFFFF 13}" { }
+\u{FFFFFF} { }
 [^] { }
