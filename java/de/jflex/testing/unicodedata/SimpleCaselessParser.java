@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,30 +23,22 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.testing.unicodedata;
 
-package de.jflex.migration.unicodedatatest.testcaseless;
+import java.io.Reader;
+import java.util.regex.Pattern;
 
+/**
+ * Parser of {@code UnicodeData.txt} for caseless declarations.
+ *
+ * <p>e.g. {@code AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;}.
+ */
+public class SimpleCaselessParser extends AbstractSimpleParser {
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+  private static final Pattern PATTERN =
+      Pattern.compile("^([A-F0-9a-f]{4,6});(?:[^;]*;){11}([^;]*);([^;]*);([^;]*)");
 
-public class UnicodeCaselessTestGenerator
-    extends AbstractGenerator<UnicodeCaselessTestTemplateVars> {
-
-  UnicodeCaselessTestGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessTest.java", unicodeVersion);
-  }
-
-  @Override
-  protected UnicodeCaselessTestTemplateVars createTemplateVars() {
-    UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessTestTemplateVars vars) {
-    return vars.className + ".java";
+  public SimpleCaselessParser(Reader reader, PatternHandler handler) {
+    super(PATTERN, reader, handler);
   }
 }

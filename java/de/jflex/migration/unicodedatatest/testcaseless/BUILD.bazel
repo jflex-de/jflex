@@ -13,11 +13,13 @@ java_binary(
     main_class = "de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator",
     resources = [
         "UnicodeCaseless.flex.vm",
+        "UnicodeCaselessGolden.txt.vm",
         "UnicodeCaselessTest.java.vm",
     ],
     visibility = ["//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__"],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/ucd",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",

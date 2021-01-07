@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,30 +23,18 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest.testcaseless;
 
+import de.jflex.testing.unicodedata.AbstractSimpleParser;
+import java.io.Reader;
+import java.util.regex.Pattern;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+public class SimpleExpectationParser extends AbstractSimpleParser {
 
-public class UnicodeCaselessTestGenerator
-    extends AbstractGenerator<UnicodeCaselessTestTemplateVars> {
+  private static final Pattern PATTERN =
+      Pattern.compile("input char ([0-9A-F]) matches ([0-9A-F]) case-insensitively");
 
-  UnicodeCaselessTestGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessTest.java", unicodeVersion);
-  }
-
-  @Override
-  protected UnicodeCaselessTestTemplateVars createTemplateVars() {
-    UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessTestTemplateVars vars) {
-    return vars.className + ".java";
+  protected SimpleExpectationParser(Pattern pattern, Reader reader, PatternHandler handler) {
+    super(PATTERN, reader, handler);
   }
 }

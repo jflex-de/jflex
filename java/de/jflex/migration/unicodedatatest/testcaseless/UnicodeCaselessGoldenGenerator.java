@@ -23,23 +23,42 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser;
-import java.io.Reader;
-import java.util.regex.Pattern;
+import static com.google.common.collect.ImmutableMap.toImmutableMap;
+import static java.util.function.Function.identity;
 
-/**
- * Parser of {@code UnicodeData.txt} for caseless declarations.
- *
- * <p>e.g. {@code AC00;<Hangul Syllable, First>;Lo;0;L;;;;;N;;;;;}.
- */
-public class SimpleCaselessParser extends AbstractSimpleParser {
+import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
 
-  private static final Pattern PATTERN =
-      Pattern.compile("^([A-F0-9a-f]{4,6});(?:[^;]*;){11}([^;]*);([^;]*);([^;]*)");
+public class UnicodeCaselessGoldenGenerator
+    extends AbstractGenerator<UnicodeCaselessGoldenTemplateVars> {
 
-  protected SimpleCaselessParser(Reader reader, PatternHandler handler) {
-    super(PATTERN, reader, handler);
+  private final Equivalences<Integer> equivalences;
+
+  UnicodeCaselessGoldenGenerator(
+      UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
+    super("UnicodeCaselessGolden.txt", unicodeVersion);
+    this.equivalences = equivalences;
+  }
+
+  @Override
+  protected UnicodeCaselessGoldenTemplateVars createTemplateVars() {
+
+    UnicodeCaselessGoldenTemplateVars vars = new UnicodeCaselessGoldenTemplateVars();
+    vars.updateFrom(unicodeVersion);
+    vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
+    vars.equivalences =
+        ImmutableList.sortedCopyOf(equivalences.getKeys()).stream()
+            .collect(toImmutableMap(identity(), equivalences::getEquivalentValue));
+    return vars;
+  }
+
+  @Override
+  protected String getOuputFileName(UnicodeCaselessGoldenTemplateVars vars) {
+    return vars.className + ".output";
   }
 }

@@ -1,0 +1,4 @@
+#set($str = 'dummy string')
+#foreach ($c in ${equivalences.entrySet()})
+input char ${str.format('%04X', $c.key)} matches ${str.format('%04X', $c.value)} case-insensitively
+#end

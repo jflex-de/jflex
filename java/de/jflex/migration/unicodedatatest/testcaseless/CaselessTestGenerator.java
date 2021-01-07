@@ -26,8 +26,9 @@
 package de.jflex.migration.unicodedatatest.testcaseless;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
+import de.jflex.testing.unicodedata.SimpleCaselessParser;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import java.io.IOException;
@@ -75,7 +76,8 @@ public class CaselessTestGenerator {
       UnicodeVersion version, Path outDir, Equivalences<Integer> equivalences)
       throws IOException, ParseException {
     new UnicodeCaselessFlexGenerator(version, equivalences).generate(outDir);
-    new UnicodeCaselessTestGenerator(version, equivalences).generate(outDir);
+    new UnicodeCaselessTestGenerator(version).generate(outDir);
+    new UnicodeCaselessGoldenGenerator(version, equivalences).generate(outDir);
   }
 
   private static class CaselessHandler implements PatternHandler {

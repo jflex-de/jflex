@@ -37,8 +37,7 @@ public class UnicodeCaselessFlexGenerator
 
   private final ImmutableList<Integer> caselessCodepoints;
 
-  protected UnicodeCaselessFlexGenerator(
-      UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
+  UnicodeCaselessFlexGenerator(UnicodeVersion unicodeVersion, Equivalences<Integer> equivalences) {
     super("UnicodeCaseless.flex", unicodeVersion);
     this.caselessCodepoints = equivalences.getSortedKeys(Integer::compareTo);
   }

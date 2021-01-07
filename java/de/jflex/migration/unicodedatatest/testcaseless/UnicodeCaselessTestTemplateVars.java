@@ -25,10 +25,6 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import com.google.common.collect.ImmutableMap;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCaselessTestTemplateVars extends UnicodeVersionTemplateVars {
-
-  public ImmutableMap<Integer, Integer> equivalences;
-}
+public class UnicodeCaselessTestTemplateVars extends UnicodeVersionTemplateVars {}

@@ -27,15 +27,24 @@ package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 
 import static com.google.common.truth.Truth.assertWithMessage;
 
+import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
+import de.jflex.testing.unicodedata.SimpleCaselessParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.annotation.Generated;
 import org.junit.Test;
 
-#set($str = 'dummy string') ## to access String static methods
 /** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
 @Generated("de.jflex.migration.unicodedatatest.testcaseless.UnicodeCaseselessTestGenerator")
 public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
+
+  private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+
   @Test
   public void caseless() throws Exception {
     UnicodeCaseless_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
@@ -43,10 +52,25 @@ public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
             ScannerFactory.of(UnicodeCaseless_${unicodeVersion.underscoreVersion()}::new),
             UnicodeCaseless_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-  #foreach ($c in ${equivalences.entrySet()})
-  assertWithMessage("Character 0x${str.format('%04x', $c.key)} matches caselessly 0x${str.format('%04x', $c.value)}")
-      .that(scanner.getPropertyValue(${c.key}))
-      .isEqualTo(${c.value});
-  #end
+    PatternHandler expectationVerifier = new PatternHandler() {
+      @Override
+      public void onRegexMatch(List<String> regexpGroups) {
+        String inputChar = regexpGroups.get(0);
+        String expectedEquivalence = regexpGroups.get(1);
+        String actualEquivalence =
+            scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
+        assertWithMessage("Character 0x%s matches caselessly 0x%s",
+                inputChar, expectedEquivalence)
+            .that(actualEquivalence)
+            .isEqualTo(expectedEquivalence);
+      }
+    };
+    String goldenFile =
+        "unicode_${unicodeVersion.underscoreVersion()}/UnicodeCaseless_${unicodeVersion.underscoreVersion()}.output";
+    try (BufferedReader goldenReader = Files.newBufferedReader(
+        packageDirectory.resolve(goldenFile))) {
+      SimpleCaselessParser parser = new SimpleCaselessParser(goldenReader, expectationVerifier);
+      parser.parse();
+    }
   }
 }

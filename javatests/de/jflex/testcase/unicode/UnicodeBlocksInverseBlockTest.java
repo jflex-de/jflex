@@ -28,7 +28,6 @@ package de.jflex.testcase.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
@@ -52,8 +51,8 @@ public class UnicodeBlocksInverseBlockTest {
    */
   @Test
   public void testInverseBlock() throws Exception {
-    AbstractEnumeratedPropertyDefinedScanner scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    AbstractEnumeratedPropertyDefinedScanner scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeBlocksInverseBlockScanner::new),
             UnicodeBlocksInverseBlockScanner.YYEOF,
             Dataset.BMP);

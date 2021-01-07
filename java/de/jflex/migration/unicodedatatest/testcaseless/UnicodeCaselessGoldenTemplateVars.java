@@ -28,27 +28,9 @@
 
 package de.jflex.migration.unicodedatatest.testcaseless;
 
+import com.google.common.collect.ImmutableMap;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-
-public class UnicodeCaselessTestGenerator
-    extends AbstractGenerator<UnicodeCaselessTestTemplateVars> {
-
-  UnicodeCaselessTestGenerator(UnicodeVersion unicodeVersion) {
-    super("UnicodeCaselessTest.java", unicodeVersion);
-  }
-
-  @Override
-  protected UnicodeCaselessTestTemplateVars createTemplateVars() {
-    UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCaselessTestTemplateVars vars) {
-    return vars.className + ".java";
-  }
+public class UnicodeCaselessGoldenTemplateVars extends UnicodeVersionTemplateVars {
+  public ImmutableMap<Integer, Integer> equivalences;
 }
