@@ -26,7 +26,6 @@
 
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
