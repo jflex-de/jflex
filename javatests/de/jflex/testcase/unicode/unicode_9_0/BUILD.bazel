@@ -249,6 +249,7 @@ java_test(
         "UnicodeCaselessTest_9_0.java",
     ],
     data = [
+        "UnicodeCaseless_9_0.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [

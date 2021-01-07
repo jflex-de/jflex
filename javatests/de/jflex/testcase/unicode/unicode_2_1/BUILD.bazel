@@ -114,6 +114,7 @@ java_test(
         "UnicodeCaselessTest_2_1.java",
     ],
     data = [
+        "UnicodeCaseless_2_1.output",
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [

@@ -231,6 +231,7 @@ java_test(
         "UnicodeCaselessTest_7_0.java",
     ],
     data = [
+        "UnicodeCaseless_7_0.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
