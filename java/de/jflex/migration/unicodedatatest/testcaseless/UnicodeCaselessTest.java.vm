@@ -25,15 +25,14 @@
  */
 package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 
-import static com.google.common.truth.Truth.assertThat;
+import static com.google.common.truth.Truth.assertWithMessage;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import javax.annotation.Generated;
 import org.junit.Test;
 
+#set($str = 'dummy string') ## to access String static methods
 /** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
 @Generated("de.jflex.migration.unicodedatatest.testcaseless.UnicodeCaseselessTestGenerator")
 public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
@@ -45,7 +44,9 @@ public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
             UnicodeCaseless_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
   #foreach ($c in ${equivalences.entrySet()})
-  // ${c.key} -> ${c.value}
+  assertWithMessage("Character 0x${str.format('%04x', $c.key)} matches caselessly 0x${str.format('%04x', $c.value)}")
+      .that(scanner.getPropertyValue(${c.key}))
+      .isEqualTo(${c.value});
   #end
   }
 }

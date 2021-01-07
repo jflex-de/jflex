@@ -70,5 +70,9 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
     propertyValues[index.codePointAt(0)] = propertyValue;
   }
 
+  public String getPropertyValue(int codepoint) {
+    return propertyValues[codepoint];
+  }
+
   public abstract int yylex() throws IOException;
 }
