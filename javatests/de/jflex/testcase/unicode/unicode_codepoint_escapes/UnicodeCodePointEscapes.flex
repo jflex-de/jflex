@@ -1,4 +1,4 @@
-package de.jflex.testcase.unicode_codepoint_escapes;
+package de.jflex.testcase.unicode.unicode_codepoint_escapes;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%

@@ -24,22 +24,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode_codepoint_escapes;
+package de.jflex.testcase.unicode.unicode_codepoint_escapes;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;
-import de.jflex.testing.testsuite.golden.GoldenInOutFilePair;
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
 /**
- * Tests \u{X+}, \u{X+( X+)*} hexadecimal codepoint escape syntax.
+ * Tests <code>\\u{X+}, \\u{X+( X+)*}</code> hexadecimal codepoint escape syntax.
  *
  * <p>Note: This test was generated from {@code jflex-testsuite-maven-plugin} test cases. The test
  * relies on golden files for testing, expecting the scanner to output logs on the {@code
