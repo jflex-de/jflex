@@ -46,3 +46,16 @@ java_test(
         "//third_party/com/google/truth",
     ],
 )
+
+jflex_testsuite(
+    name = "UnicodeCodepointEscapes_failure1",
+    srcs = ["UnicodeCodepointEscapes_failure1.java"],
+    data = [
+        "UnicodeCodePointEscapes-f-1.flex",
+        "UnicodeCodePointEscapes-f-1-flex.output",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/scanner",
+    ],
+)
