@@ -47,15 +47,15 @@ java_test(
     ],
 )
 
-jflex_testsuite(
-    name = "UnicodeCodepointEscapes_failure1",
-    srcs = ["UnicodeCodepointEscapes_failure1.java"],
+[jflex_testsuite(
+    name = "UnicodeCodepointEscapes_failure_%d" % i,
+    srcs = ["UnicodeCodepointEscapes_failure%d.java" % i],
     data = [
-        "UnicodeCodePointEscapes-f-1.flex",
-        "UnicodeCodePointEscapes-f-1-flex.output",
+        "UnicodeCodePointEscapes-f-%d.flex" % i,
+        "UnicodeCodePointEscapes-f-%d-flex.output" % i,
     ],
     deps = [
         "//jflex/src/main/java/jflex/exceptions",
         "//jflex/src/main/java/jflex/scanner",
     ],
-)
+) for i in range(1, 6)]
