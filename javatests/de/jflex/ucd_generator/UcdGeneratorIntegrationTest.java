@@ -36,7 +36,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.testing.javaast.BasicJavaInterpreter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.util.JavaStrings;
 import java.io.File;
 import java.io.IOException;

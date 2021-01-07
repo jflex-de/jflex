@@ -25,55 +25,36 @@
  */
 package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.migration.unicodedatatest.util.JavaResources.readResource;
-
-import com.google.common.flogger.FluentLogger;
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Path;
-import org.apache.velocity.runtime.parser.ParseException;
+import de.jflex.version.Version;
+import java.nio.file.Paths;
 
-class UnicodeAgeTestGenerator extends AbstractGenerator {
+class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVars> {
 
-  private static final String ROOT_DIR =
-      JavaPackageUtils.getPathForClass(UnicodeAgeTestGenerator.class);
-  private static final String UNICODE_AGE_TEST_TEMPLATE = ROOT_DIR + "/UnicodeAgeTest_x_y.java.vm";
+  private final ImmutableList<Version> ages;
 
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final UnicodeVersion out;
-
-  public UnicodeAgeTestGenerator(UnicodeVersion out) {
-    this.out = out;
+  public UnicodeAgeTestGenerator(UnicodeVersion unicodeVersion, ImmutableList<Version> ages) {
+    super("UnicodeAgeTest_x_y.java", unicodeVersion);
+    this.ages = ages;
   }
 
   @Override
-  public void generate(Path outDir) throws IOException, ParseException {
-    UnicodeAgeTestTemplateVars templateVars = createUnicodeAgeTemplateVars(out);
-    Path outFile = outDir.resolve(templateVars.className + ".java");
-    try (OutputStream outputStream = new FileOutputStream(outFile.toFile())) {
-      logger.atInfo().log("Generating %s", outFile);
-      Velocity.render(
-          readResource(UNICODE_AGE_TEST_TEMPLATE), "UnicodeAge", templateVars, outputStream);
-    }
+  protected UnicodeAgeTestTemplateVars createTemplateVars() {
+    UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
+    vars.updateFrom(unicodeVersion);
+    vars.className = "UnicodeAgeTest_" + unicodeVersion.underscoreVersion();
+    vars.scannerPrefix = "UnicodeAge_" + unicodeVersion.underscoreVersion() + "_age";
+    vars.javaPackageDir =
+        Paths.get(JavaPackageUtils.getPathForPackage(unicodeVersion.javaPackage()));
+    vars.ages = ages;
+    return vars;
   }
 
-  private static UnicodeAgeTestTemplateVars createUnicodeAgeTemplateVars(UnicodeVersion out) {
-    UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
-    vars.updateFrom(out);
-    vars.javaPackageDir = out.javaPackageDirectory();
-    vars.className = "UnicodeAgeTest_" + out.underscoreVersion();
-    vars.scannerPrefix = "UnicodeAge_" + out.underscoreVersion() + "_age";
-    vars.ages = olderAges(out.version());
-    Dataset dataset = UnicodeDataScanners.getDataset(out.version());
-    vars.dataset = dataset;
-    return vars;
+  @Override
+  protected String getOuputFileName(UnicodeAgeTestTemplateVars vars) {
+    return String.format("UnicodeAgeTest_%s.java", unicodeVersion.underscoreVersion());
   }
 }

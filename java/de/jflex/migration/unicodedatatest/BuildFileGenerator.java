@@ -23,58 +23,36 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest;
 
-import static de.jflex.migration.util.JavaResources.readResource;
-
-import com.google.common.flogger.FluentLogger;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
 
-class BuildFileGenerator extends AbstractGenerator {
+class BuildFileGenerator extends AbstractGenerator<BuildFileTemplateVars> {
 
-  private static final String ROOT_DIR = JavaPackageUtils.getPathForClass(BuildFileGenerator.class);
-  private static final String BUILD_FILE_TEMPLATE = ROOT_DIR + "/BUILD.vm";
-
-  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  private final UnicodeVersion out;
-
-  public BuildFileGenerator(UnicodeVersion out) {
-    this.out = out;
+  public BuildFileGenerator(UnicodeVersion unicodeVersion) {
+    super("BUILD", unicodeVersion);
   }
 
   @Override
-  public void generate(Path outDir) throws IOException, ParseException {
-    BuildFileTemplateVars vars = createBuildTemplateVars(out);
-    Path outFile = outDir.resolve("BUILD.bazel");
-    logger.atInfo().log("Generating %s", outFile);
-    Velocity.render(readResource(BUILD_FILE_TEMPLATE), "BuildFile", vars, outFile.toFile());
+  protected BuildFileTemplateVars createTemplateVars() {
+    BuildFileTemplateVars vars = new BuildFileTemplateVars();
+    vars.updateFrom(unicodeVersion);
+    vars.className = "UnicodeAge_" + unicodeVersion.underscoreVersion();
+    vars.ages = olderAges(unicodeVersion.version());
+    return vars;
   }
 
-  private static BuildFileTemplateVars createBuildTemplateVars(UnicodeVersion version) {
-    BuildFileTemplateVars vars = new BuildFileTemplateVars();
-    vars.updateFrom(version);
-    vars.className = "UnicodeAge_" + version.underscoreVersion();
-    vars.ages = olderAges(version.version());
-    vars.dataset = UnicodeDataScanners.getDataset(version.version());
-    return vars;
+  @Override
+  protected String getOuputFileName(BuildFileTemplateVars vars) {
+    return "BUILD.bazel";
   }
 
   public static void main(String[] args) throws Exception {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path workspaceDir = Paths.get(args[1]);
-    Path testDir = workspaceDir.resolve("javatests").resolve(version.javaPackageDirectory());
-    Files.createDirectories(testDir);
-    new BuildFileGenerator(version).generate(testDir);
+    new BuildFileGenerator(version).generate(workspaceDir);
   }
 }

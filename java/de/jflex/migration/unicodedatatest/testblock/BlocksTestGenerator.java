@@ -29,16 +29,19 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser.PatternHandler;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.UcdFileType;
+import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd.Versions;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import org.apache.velocity.runtime.parser.ParseException;
@@ -50,7 +53,9 @@ public class BlocksTestGenerator {
   public static void main(String[] args) throws IOException, ParseException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
-    Path ucdBlocks = Paths.get(args[2]);
+    List<String> files = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
+    UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
+    Path ucdBlocks = ucd.getFile(UcdFileType.Blocks).toPath();
     ImmutableList<BlockSpec> blocks =
         parseUnicodeBlock(ucdBlocks).stream()
             .filter(b -> !b.isSurrogate())
@@ -135,8 +140,7 @@ public class BlocksTestGenerator {
 
   private static void generate(UnicodeVersion version, Path outDir, ImmutableList<BlockSpec> blocks)
       throws IOException, ParseException {
-    Path outDirectory = outDir.resolve("javatests").resolve(version.javaPackageDirectory());
-    new UnicodeBlockFlexGenerator(version, blocks).generate(outDirectory);
-    new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDirectory);
+    new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
+    new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);
   }
 }

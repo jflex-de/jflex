@@ -15,6 +15,8 @@ done
 bazel build //java/de/jflex/migration/unicodedatatest/testage:generate
 # Generate UnicodeBlocksTest_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testblock:generate
+# Generate UnicodeCaselessTest_x_y.java
+bazel build //java/de/jflex/migration/unicodedatatest/testcaseless:generate
 
 # Exclude the .flex files are they are sourced from the bazel target directly.
 rsync --archive --exclude '**/*.flex' \

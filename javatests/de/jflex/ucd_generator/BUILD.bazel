@@ -1,19 +1,4 @@
 java_test(
-    name = "MainTest",
-    srcs = ["MainTest.java"],
-    data = [
-        "//third_party/unicode:ucd_10_0",
-        "//third_party/unicode:ucd_3_1_1",
-        "//third_party/unicode:ucd_4_0_1",
-    ],
-    deps = [
-        "//java/de/jflex/ucd_generator:Main",
-        "//java/de/jflex/ucd_generator/ucd",
-        "//third_party/com/google/truth",
-    ],
-)
-
-java_test(
     name = "UcdGeneratorIntegrationTest",
     size = "medium",
     srcs = ["UcdGeneratorIntegrationTest.java"],
@@ -66,7 +51,7 @@ java_library(
     ],
     visibility = ["//javatests:__subpackages__"],
     deps = [
-        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/version",
     ],
 )

@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
- * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
- * Copyright (C) 2017-2021 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -25,7 +23,6 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.testing.unicodedata;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
@@ -48,28 +45,20 @@ public class UnicodeDataScanners {
 
   private UnicodeDataScanners() {}
 
-  public static ImmutableList<BlockSpec> getBlocks(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      int eof,
-      Dataset dataset)
-      throws IOException {
-    AbstractEnumeratedPropertyDefinedScanner scanner =
-        scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner> T scanAllCodepoints(
+      ScannerFactory<T> scannerFactory, int eof, Dataset dataset) throws IOException {
+    T scanner = scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
     while (scanner.yylex() != eof) {}
-    return scanner.blocks();
+    return scanner;
   }
 
-  public static void assertAgeInterval(
-      ScannerFactory<? extends AbstractEnumeratedPropertyDefinedScanner> scannerFactory,
-      int eof,
-      Dataset dataset,
-      Path expectedFile)
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner> void assertAgeInterval(
+      ScannerFactory<T> scannerFactory, int eof, Dataset dataset, Path expectedFile)
       throws IOException {
+    T scanner = scanAllCodepoints(scannerFactory, eof, dataset);
     // TODO(regisd) Replace the test on assertion rather than file content.
     ImmutableList<String> blocks =
-        getBlocks(scannerFactory, eof, dataset).stream()
-            .map(BlockSpec::toString)
-            .collect(toImmutableList());
+        scanner.blocks().stream().map(BlockSpec::toString).collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsAllIn(expected);

@@ -90,6 +90,10 @@ public class Version {
     return makeString('_', true);
   }
 
+  public boolean isAtLeast(String thresholdVersion) {
+    return Version.EXACT_VERSION_COMPARATOR.compare(this, new Version(thresholdVersion)) >= 0;
+  }
+
   private String makeString(char sep, boolean includePatch) {
     StringBuilder v = new StringBuilder();
     v.append(major);

@@ -27,8 +27,8 @@
 package de.jflex.ucd_generator.scanner;
 
 import com.google.common.base.Preconditions;
+import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd.Versions;
-import de.jflex.ucd_generator.ucd.UcdVersion;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 

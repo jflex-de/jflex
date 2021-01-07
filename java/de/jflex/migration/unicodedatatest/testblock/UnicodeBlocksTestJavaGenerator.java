@@ -23,19 +23,16 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest.testblock;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
-import java.nio.file.Path;
 import java.util.Comparator;
 
-public class UnicodeBlocksTestJavaGenerator
+class UnicodeBlocksTestJavaGenerator
     extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
 
   // The first (high) surrogate is a 16-bit code value in the range U+D800 to U+DBFF. The second
@@ -45,14 +42,14 @@ public class UnicodeBlocksTestJavaGenerator
 
   public UnicodeBlocksTestJavaGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
-    super("UnicodeBlocksTest.java.vm", "UnicodeBlocksTest", unicodeVersion, blockNames);
+    super("UnicodeBlocksTest.java", unicodeVersion, blockNames);
   }
 
   @Override
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
+    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
-    vars.dataset = UnicodeDataScanners.getDataset(unicodeVersion.version());
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
     vars.blocks = ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks));
@@ -60,8 +57,8 @@ public class UnicodeBlocksTestJavaGenerator
   }
 
   @Override
-  protected Path getOuputFilePath(Path outDir, UnicodeBlocksTestJavaTemplateVars vars) {
-    return outDir.resolve(vars.className + ".java");
+  protected String getOuputFileName(UnicodeBlocksTestJavaTemplateVars vars) {
+    return vars.className + ".java";
   }
 
   private ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {

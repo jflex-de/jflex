@@ -25,6 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
@@ -40,9 +41,13 @@ public abstract class UnicodeVersionTemplateVars extends TemplateVars {
   /** The maximum codepoint for this Unicode version. */
   public int maxCodePoint;
 
+  /** The dataset to use, e.g. {@code Ages.Dataset.BMP} */
+  public UnicodeDataScanners.Dataset dataset;
+
   public void updateFrom(UnicodeVersion version) {
     javaPackage = version.javaPackage();
     unicodeVersion = version.version();
     maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
+    dataset = UnicodeDataScanners.getDataset(version.version());
   }
 }

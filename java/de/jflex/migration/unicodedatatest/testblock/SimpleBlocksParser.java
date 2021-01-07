@@ -25,7 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
-import de.jflex.migration.unicodedatatest.base.AbstractSimpleParser;
+import de.jflex.testing.unicodedata.AbstractSimpleParser;
 import java.io.Reader;
 import java.util.regex.Pattern;
 

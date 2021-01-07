@@ -11,6 +11,11 @@ filegroup(
     ],
 )
 
+alias(
+    name = "ucd_1_",
+    actual = "ucd_1_1_5",
+)
+
 filegroup(
     name = "ucd_2_0_14",
     srcs = [
@@ -21,6 +26,11 @@ filegroup(
     ],
 )
 
+alias(
+    name = "ucd_2_0",
+    actual = "ucd_2_0_14",
+)
+
 filegroup(
     name = "ucd_2_1_9",
     srcs = [
@@ -29,6 +39,11 @@ filegroup(
         "@ucd_2_1_9_UnicodeData_2_1_9_txt//file",
         "@ucd_derived_age//file",
     ],
+)
+
+alias(
+    name = "ucd_2_1",
+    actual = "ucd_2_1_9",
 )
 
 # Note that the "update 3.0.1" files for PropList and UnicodeData are added on
@@ -43,6 +58,11 @@ filegroup(
         "@ucd_3_0_1_UnicodeData_3_0_1_txt//file",
         "@ucd_derived_age//file",
     ],
+)
+
+alias(
+    name = "ucd_3_0",
+    actual = "ucd_3_0_1",
 )
 
 # Note that the "update 3.1.1" file for PropList is added on top of the files
@@ -61,6 +81,11 @@ filegroup(
     ],
 )
 
+alias(
+    name = "ucd_3_1",
+    actual = "ucd_3_1_1",
+)
+
 filegroup(
     name = "ucd_3_2_0",
     srcs = [
@@ -74,6 +99,11 @@ filegroup(
         "@ucd_3_2_0_Scripts_3_2_0_txt//file",
         "@ucd_3_2_0_UnicodeData_3_2_0_txt//file",
     ],
+)
+
+alias(
+    name = "ucd_3_2",
+    actual = "ucd_3_2_0",
 )
 
 filegroup(
@@ -92,8 +122,18 @@ filegroup(
 )
 
 alias(
+    name = "ucd_4_0",
+    actual = "ucd_4_0_1",
+)
+
+alias(
     name = "ucd_4_1_0",
     actual = "@ucd_4_1_0//:files",
+)
+
+alias(
+    name = "ucd_4_1",
+    actual = "ucd_4_1_0",
 )
 
 alias(

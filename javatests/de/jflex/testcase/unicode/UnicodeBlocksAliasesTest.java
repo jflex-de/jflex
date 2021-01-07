@@ -27,9 +27,10 @@ package de.jflex.testcase.unicode;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
@@ -40,12 +41,12 @@ import org.junit.Test;
 public class UnicodeBlocksAliasesTest {
   @Test
   public void testBlocks() throws Exception {
-    ImmutableList<BlockSpec> blocks =
-        UnicodeDataScanners.getBlocks(
+    AbstractEnumeratedPropertyDefinedScanner scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeBlocksAliasesScanner::new),
             UnicodeBlocksAliasesScanner.YYEOF,
-            UnicodeDataScanners.Dataset.ALL);
-    assertThat(blocks)
+            Dataset.ALL);
+    assertThat(scanner.blocks())
         .containsAllOf(
             BlockSpec.create("Basic Latin", 0x0000, 0x007F),
             BlockSpec.create("Latin-1 Supplement", 0x0080, 0x00FF),
