@@ -42,7 +42,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %{
   private void setCurCharPropertyValue(String value) {
-    setCurCharPropertyValue(yytext(), value, yylength());
+    setCurCharPropertyValue(yytext(), yylength(), value);
   }
 %}
 

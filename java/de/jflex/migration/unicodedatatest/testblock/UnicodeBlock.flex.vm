@@ -44,7 +44,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
 
 #foreach ( $b in $blockNames )
-\p{Block:$b} { setCurCharPropertyValue(yytext(), "$b"); }
+\p{Block:$b} { setCurCharPropertyValue(yytext(), yylength(), "$b"); }
 #end
 
 <<EOF>>     { return YYEOF;}

@@ -17,7 +17,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %%
 
-\P{Block:Latin Extended Additional} { setCurCharPropertyValue(yytext(), "Not Latin Extended Additional"); }
-\p{Block:Latin Extended Additional} { setCurCharPropertyValue(yytext(), "Latin Extended Additional"); }
+\P{Block:Latin Extended Additional} { setCurCharPropertyValue(yytext(), yylength(), "Not Latin Extended Additional"); }
+\p{Block:Latin Extended Additional} { setCurCharPropertyValue(yytext(), yylength(), "Latin Extended Additional"); }
 
 <<EOF>> { return YYEOF; }

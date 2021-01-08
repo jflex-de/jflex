@@ -66,12 +66,7 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
     return blocks.build();
   }
 
-  protected void setCurCharPropertyValue(String index, String propertyValue) {
-    // setCurCharPropertyValue(index, propertyValue, 1);
-    propertyValues[index.codePointAt(0)] = propertyValue;
-  }
-
-  protected void setCurCharPropertyValue(String index, String propertyValue, int length) {
+  protected void setCurCharPropertyValue(String index, int length, String propertyValue) {
     int i = 0;
     while (i < length) {
       int codePoint = index.codePointAt(i);

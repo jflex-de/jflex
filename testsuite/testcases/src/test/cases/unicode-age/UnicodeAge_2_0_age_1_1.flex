@@ -44,5 +44,5 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
 
 <<EOF>>     { return YYEOF;}
-\p{Age:1.1} { setCurCharPropertyValue(yytext(), "Age:1.1"); }
+\p{Age:1.1} { setCurCharPropertyValue(yytext(), yylength(), "Age:1.1"); }
 [^] { }
