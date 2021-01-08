@@ -103,7 +103,12 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
         outDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
     Files.createDirectories(javaPackageOutDir);
     Path outFile = javaPackageOutDir.resolve(getOuputFileName(vars));
-    InputStreamReader templateReader = readResource(getTemplateResource().toString());
+    InputStreamReader templateReader;
+    try {
+      templateReader = readResource(getTemplateResource().toString());
+    } catch (NullPointerException e) {
+      throw new IllegalArgumentException("Could not read template in java resources: " + getTemplateResource().getFileName(), e);
+    }
     Velocity.render(templateReader, templateName, vars, outFile.toFile());
     return outFile;
   }
