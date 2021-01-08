@@ -40,20 +40,26 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
   super(0x10FFFF);
 %init}
 
+%{
+  private void setCurCharPropertyValue(String value) {
+    setCurCharPropertyValue(yytext(), value, yylength());
+  }
+%}
+
 %%
 
 <<EOF>> { return YYEOF; }
-\u{1} { setCurCharPropertyValue(yytext(), "matched"); }
-\u{000010} { setCurCharPropertyValue(yytext(), "matched"); }
+\u{1} { setCurCharPropertyValue("matched"); }
+\u{000010} { setCurCharPropertyValue("matched"); }
 \u{ CFF
-    D00 } { setCurCharPropertyValue(yytext(), "matched"); }
-\u{FFFF 10000 10001} { setCurCharPropertyValue(yytext(), "matched"); }
+    D00 } { setCurCharPropertyValue("matched"); }
+\u{FFFF 10000 10001} { setCurCharPropertyValue("matched"); }
 
-"\u{2}" { setCurCharPropertyValue(yytext(), "matched"); }
-"\u{000011}" { setCurCharPropertyValue(yytext(), "matched"); }
-"\u{ CFF D00 }" { setCurCharPropertyValue(yytext(), "matched"); }
-"\u{FFF 1000 1001}" { setCurCharPropertyValue(yytext(), "matched"); }
+"\u{2}" { setCurCharPropertyValue("matched"); }
+"\u{000011}" { setCurCharPropertyValue("matched"); }
+"\u{ CFF D00 }" { setCurCharPropertyValue("matched"); }
+"\u{FFF 1000 1001}" { setCurCharPropertyValue("matched"); }
 
-[\u{3}\u{10FFFF}] { setCurCharPropertyValue(yytext(), "matched"); }
+[\u{3}\u{10FFFF}] { setCurCharPropertyValue("matched"); }
 
-[^] { setCurCharPropertyValue(yytext(), "inverse matched"); }
+[^] { setCurCharPropertyValue("inverse matched"); }
