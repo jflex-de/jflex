@@ -58,7 +58,7 @@ public class UnicodeCaselessTest_11_0 {
           public void onRegexMatch(List<String> regexpGroups) {
             String inputChar = regexpGroups.get(0);
             String expectedEquivalence = regexpGroups.get(1);
-            String actualEquivalence = scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
+            int actualEquivalence = scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
             assertWithMessage(
                     "Character 0x%s matches caselessly 0x%s", inputChar, expectedEquivalence)
                 .that(actualEquivalence)

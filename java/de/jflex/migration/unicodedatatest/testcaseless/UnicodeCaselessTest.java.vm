@@ -59,8 +59,7 @@ public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
         String expectedEquivalence = regexpGroups.get(1);
         int actualEquivalence =
             scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
-        assertWithMessage("Character 0x%s matches caselessly 0x%04x",
-                inputChar, expectedEquivalence)
+        assertWithMessage("Character 0x%s matches caselessly 0x%s", inputChar, expectedEquivalence)
             .that(actualEquivalence)
             .isEqualTo(expectedEquivalence);
       }
