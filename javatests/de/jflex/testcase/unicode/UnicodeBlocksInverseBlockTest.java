@@ -58,10 +58,10 @@ public class UnicodeBlocksInverseBlockTest {
             Dataset.BMP);
     assertThat(scanner.blocks())
         .containsAllOf(
-            BlockSpec.create("Not Latin Extended Additional", 0x0000, 0x1DFF),
-            BlockSpec.create("Latin Extended Additional", 0x1E00, 0x1EFF),
-            BlockSpec.create("Not Latin Extended Additional", 0x1F00, 0xD7FF),
-            BlockSpec.create("Not Latin Extended Additional", 0xE000, 0xFFFD))
+            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x0000, 0x1DFF),
+            BlockSpec.create(TestingBlock.LATIN_EXTENDED_ADDITIONAL, 0x1E00, 0x1EFF),
+            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x1F00, 0xD7FF),
+            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0xE000, 0xFFFD))
         .inOrder();
   }
 }

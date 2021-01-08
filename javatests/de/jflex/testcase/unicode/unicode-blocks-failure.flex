@@ -7,12 +7,12 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %unicode 10.0
 %public
 %class UnicodeInvalidBlockScanner
-%extends AbstractEnumeratedPropertyDefinedScanner
+%extends AbstractEnumeratedPropertyDefinedScanner<String>
 
 %type int
 
 %init{
-  super(0xFFFFFF);
+  super(0xFFFFFF, String.class);
 %init}
 
 %%

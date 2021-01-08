@@ -34,7 +34,7 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
   private final int maxCodePoint;
   private final T[] propertyValues;
 
-  protected AbstractEnumeratedPropertyDefinedScanner(Class<T> clazz, int maxCodePoint) {
+  protected AbstractEnumeratedPropertyDefinedScanner(int maxCodePoint, Class<T> clazz) {
     this.maxCodePoint = maxCodePoint;
     propertyValues = (T[]) Array.newInstance(clazz, maxCodePoint + 1);
   }

@@ -33,22 +33,20 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %unicode $unicodeVersion
 %public
 %class $className
-%extends AbstractEnumeratedPropertyDefinedScanner
+%extends AbstractEnumeratedPropertyDefinedScanner<Integer>
 
 %type int
 %caseless
 
 %init{
-  super($maxCodePoint);
+  super($maxCodePoint, Integer.class);
 %init}
 
 %{
   /** @deprecated Legacy method name to make git diff useful. */
   @Deprecated
   void print(int codePoint) {
-    // TODO(regisd) Make the AbstractEnumeratedPropertyDefinedScanner generic
-    // and remove String.valueOf()
-    setCurCharPropertyValue(yytext(), yylength(), String.valueOf(codePoint));
+    setCurCharPropertyValue(yytext(), yylength(), codePoint);
   }
 %}
 
