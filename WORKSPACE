@@ -10,7 +10,7 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 http_archive(
     name = "jflex_rules",
-    sha256 = "a4a9d59f39d4055c2deddd8058cf28baee916116a743d200c4bba58a13b9e184",
+    sha256 = "bd41584dd1d9d99ef72909b3c1af8ba301a89c1d8fdc59becab5d2db1d006455",
     strip_prefix = "bazel_rules-1.8.2",
     url = "https://github.com/jflex-de/bazel_rules/archive/v1.8.2.tar.gz",
 )
