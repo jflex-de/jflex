@@ -87,7 +87,8 @@ public class BlocksTestGenerator {
    *
    * @see de.jflex.ucd_generator.ucd.UnicodeData#hackUnicode_2_0
    */
-  private static ImmutableList<BlockSpec<String>> fixBlocksForUnicode_2_0(ImmutableList<BlockSpec<String>> blocks) {
+  private static ImmutableList<BlockSpec<String>> fixBlocksForUnicode_2_0(
+      ImmutableList<BlockSpec<String>> blocks) {
     ImmutableList.Builder<BlockSpec<String>> fixedBlocks = ImmutableList.builder();
     CodepointRange arabicRange = CodepointRange.create(0xFE70, 0xFEFF);
     CodepointRange lastSpecials = CodepointRange.create(0xFFF0, 0xFFFF);
@@ -122,7 +123,8 @@ public class BlocksTestGenerator {
     return retval.build();
   }
 
-  private static ImmutableList<BlockSpec<String>> parseUnicodeBlock(Path ucdBlocks) throws IOException {
+  private static ImmutableList<BlockSpec<String>> parseUnicodeBlock(Path ucdBlocks)
+      throws IOException {
     ImmutableList.Builder<BlockSpec<String>> list = ImmutableList.builder();
     PatternHandler handler = regexpGroups -> list.add(createBlock(regexpGroups));
     SimpleBlocksParser parser =
@@ -138,7 +140,8 @@ public class BlocksTestGenerator {
         Integer.parseInt(regexpGroups.get(1), 16));
   }
 
-  private static void generate(UnicodeVersion version, Path outDir, ImmutableList<BlockSpec<String>> blocks)
+  private static void generate(
+      UnicodeVersion version, Path outDir, ImmutableList<BlockSpec<String>> blocks)
       throws IOException, ParseException {
     new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
     new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);

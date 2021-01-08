@@ -31,7 +31,8 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
-class UnicodeBlockFlexGenerator extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars, String> {
+class UnicodeBlockFlexGenerator
+    extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars, String> {
 
   public UnicodeBlockFlexGenerator(
       UnicodeVersion unicodeVersion, ImmutableList<BlockSpec<String>> blockNames) {

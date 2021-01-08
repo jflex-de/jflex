@@ -31,7 +31,7 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
 
-abstract  class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars,U>
+abstract class AbstractBlocksGenerator<T extends UnicodeVersionTemplateVars, U>
     extends AbstractGenerator<T> {
 
   protected final ImmutableList<BlockSpec<U>> blocks;
