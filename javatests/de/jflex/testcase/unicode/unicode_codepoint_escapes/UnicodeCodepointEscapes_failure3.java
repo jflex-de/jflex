@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2014 Steve Rowe <sarowe@gmail.com>
  * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
@@ -32,13 +33,18 @@ import jflex.scanner.ScannerException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * Check that generation fails when a codepoint specified in <code>\\u{H+}</code> format is greater
+ * than the maximum codepoint for the Unicode version.
+ */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex = "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3.flex",
-    sysout = "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3-flex.output",
+    lex =
+        "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3.flex",
+    sysout =
+        "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3-flex.output",
     generatorThrows = GeneratorException.class,
-    generatorThrowableCause = ScannerException.class
-)
+    generatorThrowableCause = ScannerException.class)
 public class UnicodeCodepointEscapes_failure3 {
   @Test
   public void ok() {}
