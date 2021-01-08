@@ -24,7 +24,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
+package de.jflex.testcase.unicode.unicode_12_0;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
@@ -33,14 +33,14 @@ import de.jflex.util.scanner.ScannerFactory;
  * Test for compatibility property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt
  * and/or DerivedCoreProperties(-X.X.X).txt.
  */
-public class UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersion()} {
+public class UnicodeCompatibilityPropertiesTest_12_0 {
 
-  /** Test the character class syntax of the Unicode ${unicodeVersion} 'alnum' compatibility property. */
+  /** Test the character class syntax of the Unicode 12.0 'alnum' compatibility property. */
   public void testAlnum() {
-    UnicodeCompatibilityProperties_${unicodeVersion.underscoreVersion()} scanner =
+    UnicodeCompatibilityProperties_12_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeCompatibilityProperties_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeCompatibilityProperties_${unicodeVersion.underscoreVersion()}.YYEOF,
-            UnicodeDataScanners.Dataset.${dataset});
+            ScannerFactory.of(UnicodeCompatibilityProperties_12_0::new),
+            UnicodeCompatibilityProperties_12_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
   }
 }

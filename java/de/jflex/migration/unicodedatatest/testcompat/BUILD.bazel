@@ -24,6 +24,7 @@ java_library(
     srcs = glob(["Unicode*.java"]),
     resources = [
         "UnicodeCompat.flex.vm",
+        "UnicodeCompatibilityPropertiesTest.java.vm",
     ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",

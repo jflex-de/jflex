@@ -39,7 +39,7 @@ public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatF
   protected UnicodeCompatFlexTemplateVars createTemplateVars() {
     UnicodeCompatFlexTemplateVars vars = new UnicodeCompatFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCompatibilityProperties_alnum" + unicodeVersion.underscoreVersion();
+    vars.className = "UnicodeCompatibilityProperties_alnum_" + unicodeVersion.underscoreVersion();
     return vars;
   }
 

@@ -30,16 +30,17 @@ package de.jflex.migration.unicodedatatest.testcompat;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
-public class UnicodeCompatibilityPropertiesTestGenerator extends AbstractGenerator<UnicodeCompatibilityPropertiesTestTemplateVars> {
+public class UnicodeCompatibilityPropertiesTestGenerator
+    extends AbstractGenerator<UnicodeCompatibilityPropertiesTestTemplateVars> {
 
-  protected UnicodeCompatibilityPropertiesTestGenerator(
-      UnicodeVersion unicodeVersion) {
-    super("UnicodeCompatibilityPropertiesTest.java.vm", unicodeVersion);
+  protected UnicodeCompatibilityPropertiesTestGenerator(UnicodeVersion unicodeVersion) {
+    super("UnicodeCompatibilityPropertiesTest.java", unicodeVersion);
   }
 
   @Override
   protected UnicodeCompatibilityPropertiesTestTemplateVars createTemplateVars() {
-    UnicodeCompatibilityPropertiesTestTemplateVars vars = new UnicodeCompatibilityPropertiesTestTemplateVars();
+    UnicodeCompatibilityPropertiesTestTemplateVars vars =
+        new UnicodeCompatibilityPropertiesTestTemplateVars();
     vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCompatibilityPropertiesTest_" + unicodeVersion.underscoreVersion();
     return vars;
