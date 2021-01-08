@@ -107,7 +107,8 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     try {
       templateReader = readResource(getTemplateResource().toString());
     } catch (NullPointerException e) {
-      throw new IllegalArgumentException("Could not read template in java resources: " + getTemplateResource().getFileName(), e);
+      throw new IllegalArgumentException(
+          "Could not read template in java resources: " + getTemplateResource().getFileName(), e);
     }
     try {
       Velocity.render(templateReader, templateName, vars, outFile.toFile());

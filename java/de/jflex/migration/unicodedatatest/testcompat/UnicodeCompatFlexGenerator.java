@@ -31,8 +31,7 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
 public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatTemplateVars> {
 
-  protected UnicodeCompatFlexGenerator(
-      UnicodeVersion unicodeVersion) {
+  protected UnicodeCompatFlexGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeCompat.flex", unicodeVersion);
   }
 

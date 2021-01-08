@@ -30,7 +30,7 @@ import org.apache.velocity.VelocityContext;
 
 public abstract class TemplateVars {
 
-  /** Name of the template itself. Set by the Velocity engine.*/
+  /** Name of the template itself. Set by the Velocity engine. */
   public String templateName;
 
   public VelocityContext toVelocityContext() {
