@@ -97,6 +97,8 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
   public Path generate(Path outDir) throws IOException, ParseException {
     T vars = createTemplateVars();
     vars.updateFrom(unicodeVersion);
+    vars.templateName = templateName;
+
     Path javaPackageOutDir =
         outDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
     Files.createDirectories(javaPackageOutDir);
