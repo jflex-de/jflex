@@ -18,5 +18,5 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %%
 
 <<EOF>>                                   { return YYEOF;}
-\p{Block:This will never be a block name} { setCurCharPropertyValue(yytext(), "Whatever"); }
+\p{Block:This will never be a block name} { setCurCharPropertyValue(yytext(), yylength(), "Whatever"); }
 [^]                                       { }

@@ -48,7 +48,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
   void print(int codePoint) {
     // TODO(regisd) Make the AbstractEnumeratedPropertyDefinedScanner generic
     // and remove String.valueOf()
-    setCurCharPropertyValue(yytext(), String.valueOf(codePoint));
+    setCurCharPropertyValue(yytext(), yylength(), String.valueOf(codePoint));
   }
 %}
 

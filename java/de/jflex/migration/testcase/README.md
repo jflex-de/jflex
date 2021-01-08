@@ -18,8 +18,8 @@ git co -b bzl-migrate-vaseless-jflex
 
 ### Run the automatic migration
 ```
-bazel run //java/de/jflex/migration/testcase:migrator -- ~/Projects/jflex/testsuite/testcases/src/test/cases/caseless-jflex
-cp -r /tmp/caseless_jflex ~/Projects/jflex/javatests/de/jflex/testcase
+bazel run //java/de/jflex/migration/testcase:migrator -- $(bazel info workspace)/testsuite/testcases/src/test/cases/caseless-jflex
+cp -r /tmp/caseless_jflex $(bazel info workspace)/javatests/de/jflex/testcase
 ```
 
 ### Verify the migrated test passes
