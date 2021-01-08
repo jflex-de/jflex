@@ -109,7 +109,11 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     } catch (NullPointerException e) {
       throw new IllegalArgumentException("Could not read template in java resources: " + getTemplateResource().getFileName(), e);
     }
-    Velocity.render(templateReader, templateName, vars, outFile.toFile());
+    try {
+      Velocity.render(templateReader, templateName, vars, outFile.toFile());
+    } catch (Exception e) {
+      throw new RuntimeException("Error rendering '" + templateName + "' with " + vars, e);
+    }
     return outFile;
   }
 
