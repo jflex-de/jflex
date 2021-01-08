@@ -33,7 +33,7 @@ import de.jflex.ucd.CodepointRange;
 import java.util.Comparator;
 
 class UnicodeBlocksTestJavaGenerator
-    extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars> {
+    extends AbstractBlocksGenerator<UnicodeBlocksTestJavaTemplateVars, String> {
 
   // The first (high) surrogate is a 16-bit code value in the range U+D800 to U+DBFF. The second
   // (low) surrogate is a 16-bit code value in the range U+DC00 to U+DFFF.
@@ -41,7 +41,7 @@ class UnicodeBlocksTestJavaGenerator
   private static final String NO_BLOCK = "No Block";
 
   public UnicodeBlocksTestJavaGenerator(
-      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec> blockNames) {
+      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec<String>> blockNames) {
     super("UnicodeBlocksTest.java", unicodeVersion, blockNames);
   }
 
@@ -61,8 +61,8 @@ class UnicodeBlocksTestJavaGenerator
     return vars.className + ".java";
   }
 
-  private ImmutableList<BlockSpec> addNoBlock(ImmutableList<BlockSpec> blocks) {
-    ImmutableList.Builder<BlockSpec> retval = ImmutableList.builder();
+  private ImmutableList<BlockSpec<String>> addNoBlock(ImmutableList<BlockSpec<String>> blocks) {
+    ImmutableList.Builder<BlockSpec<String>> retval = ImmutableList.builder();
     retval.add(blocks.get(0));
     for (int i = 1; i < blocks.size(); i++) {
       // end of the prev block
@@ -70,7 +70,7 @@ class UnicodeBlocksTestJavaGenerator
       // start of the block
       int nextStart = blocks.get(i).range().start();
       if (prevEnd + 1 != nextStart) {
-        BlockSpec noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
+        BlockSpec<String> noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
         if (noBlock.range().contains(SURROGATES)) {
           noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
         }
@@ -80,7 +80,7 @@ class UnicodeBlocksTestJavaGenerator
       }
       retval.add(blocks.get(i));
     }
-    BlockSpec lastBlock = blocks.get(blocks.size() - 1);
+    BlockSpec<String> lastBlock = blocks.get(blocks.size() - 1);
     int maxCodePoint = getMaxCodePoint(unicodeVersion.version());
     if (lastBlock.range().end() != maxCodePoint) {
       retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));

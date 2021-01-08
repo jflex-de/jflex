@@ -32,12 +32,13 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %unicode
 %public
 %class UnicodeCodePointEscapes
-%extends AbstractEnumeratedPropertyDefinedScanner
+%extends AbstractEnumeratedPropertyDefinedScanner<String>
 
 %type int
 
 %init{
-  super(0x10FFFF);
+  // TODO(regisd) Introduced enum
+  super(0x10FFFF, String.class);
 %init}
 
 %{

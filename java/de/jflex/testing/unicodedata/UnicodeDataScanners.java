@@ -45,18 +45,17 @@ public class UnicodeDataScanners {
 
   private UnicodeDataScanners() {}
 
-  public static <T extends AbstractEnumeratedPropertyDefinedScanner> T scanAllCodepoints(
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner<?>> T scanAllCodepoints(
       ScannerFactory<T> scannerFactory, int eof, Dataset dataset) throws IOException {
     T scanner = scannerFactory.createScannerForFile(new File(TEST_RESOURCES_DIR, dataset.dataFile));
     while (scanner.yylex() != eof) {}
     return scanner;
   }
 
-  public static <T extends AbstractEnumeratedPropertyDefinedScanner> void assertAgeInterval(
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner<?>> void assertAgeInterval(
       ScannerFactory<T> scannerFactory, int eof, Dataset dataset, Path expectedFile)
       throws IOException {
     T scanner = scanAllCodepoints(scannerFactory, eof, dataset);
-    // TODO(regisd) Replace the test on assertion rather than file content.
     ImmutableList<String> blocks =
         scanner.blocks().stream().map(BlockSpec::toString).collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {

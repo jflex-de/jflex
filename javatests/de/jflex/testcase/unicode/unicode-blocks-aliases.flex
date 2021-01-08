@@ -35,12 +35,12 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %unicode 5.1
 %public
 %class UnicodeBlocksAliasesScanner
-%extends AbstractEnumeratedPropertyDefinedScanner
+%extends AbstractEnumeratedPropertyDefinedScanner<String>
 
 %type int
 
 %init{
-  super(/*maxCodepoint=*/ 0x10ffff);
+  super(/*maxCodepoint=*/ 0x10ffff, String.class);
 %init}
 
 %%

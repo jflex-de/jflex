@@ -28,30 +28,31 @@ package de.jflex.testing.unicodedata;
 
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
-public abstract class AbstractEnumeratedPropertyDefinedScanner {
+public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
   private final int maxCodePoint;
-  private final String[] propertyValues;
+  private final T[] propertyValues;
 
-  protected AbstractEnumeratedPropertyDefinedScanner(int maxCodePoint) {
+  protected AbstractEnumeratedPropertyDefinedScanner(int maxCodePoint, Class<T> clazz) {
     this.maxCodePoint = maxCodePoint;
-    propertyValues = new String[maxCodePoint + 1];
+    propertyValues = (T[]) Array.newInstance(clazz, maxCodePoint + 1);
   }
 
-  public ImmutableList<BlockSpec> blocks() {
-    ImmutableList.Builder<BlockSpec> blocks = ImmutableList.builder();
-    String prevPropertyValue = propertyValues[0];
+  public ImmutableList<BlockSpec<T>> blocks() {
+    ImmutableList.Builder<BlockSpec<T>> blocks = ImmutableList.builder();
+    T prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
     for (int codePoint = 1; codePoint <= maxCodePoint; ++codePoint) {
       if (codePoint == 0xD800) { // Skip the surrogate blocks
-        if (null != prevPropertyValue) {
+        if (prevPropertyValue != null) {
           blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
         }
         begCodePoint = codePoint = 0xE000;
         prevPropertyValue = propertyValues[codePoint];
         continue;
       }
-      String propertyValue = propertyValues[codePoint];
+      T propertyValue = propertyValues[codePoint];
       if (null == propertyValue || !propertyValue.equals(prevPropertyValue)) {
         if (null != prevPropertyValue) {
           blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
@@ -66,7 +67,7 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
     return blocks.build();
   }
 
-  protected void setCurCharPropertyValue(String index, int length, String propertyValue) {
+  protected void setCurCharPropertyValue(String index, int length, T propertyValue) {
     int i = 0;
     while (i < length) {
       int codePoint = index.codePointAt(i);
@@ -75,7 +76,7 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner {
     }
   }
 
-  public String getPropertyValue(int codepoint) {
+  public T getPropertyValue(int codepoint) {
     return propertyValues[codepoint];
   }
 

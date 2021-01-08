@@ -39,7 +39,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %type int
 
 %init{
-  super($maxCodePoint);
+  super($maxCodePoint, String.class);
 %init}
 
 %%
