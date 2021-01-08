@@ -29,22 +29,22 @@ package de.jflex.migration.unicodedatatest.testcompat;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
-public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatTemplateVars> {
+public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatFlexTemplateVars> {
 
   protected UnicodeCompatFlexGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeCompat.flex", unicodeVersion);
   }
 
   @Override
-  protected UnicodeCompatTemplateVars createTemplateVars() {
-    UnicodeCompatTemplateVars vars = new UnicodeCompatTemplateVars();
+  protected UnicodeCompatFlexTemplateVars createTemplateVars() {
+    UnicodeCompatFlexTemplateVars vars = new UnicodeCompatFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCompat_alnum_" + unicodeVersion.underscoreVersion();
+    vars.className = "UnicodeCompatibilityProperties_alnum" + unicodeVersion.underscoreVersion();
     return vars;
   }
 
   @Override
-  protected String getOuputFileName(UnicodeCompatTemplateVars vars) {
+  protected String getOuputFileName(UnicodeCompatFlexTemplateVars vars) {
     return vars.className + ".flex";
   }
 }
