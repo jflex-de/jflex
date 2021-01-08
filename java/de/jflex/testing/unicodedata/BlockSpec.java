@@ -30,16 +30,17 @@ import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
-public abstract class BlockSpec {
+public abstract class BlockSpec<T> {
 
   private static final String HEX_FORMAT = "0x%04X";
 
-  public abstract String name();
+  public abstract T name();
 
   public abstract CodepointRange range();
 
-  public static BlockSpec create(String name, int start, int end) {
-    return new AutoValue_BlockSpec(name.trim(), CodepointRange.create(start, end));
+  public static <T> BlockSpec<T> create(T name, int start, int end) {
+    // TODO: trim
+    return new AutoValue_BlockSpec<T>(name, CodepointRange.create(start, end));
   }
 
   public boolean isSurrogate() {
