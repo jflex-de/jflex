@@ -37,9 +37,10 @@ import org.apache.velocity.runtime.parser.ParseException;
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */
 public class UnicodePropertiesEmitter extends UcdEmitter {
 
+  private static final String TEMPLATE_NAME = "UnicodeProperties.java";
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       JavaPackageUtils.getPathForClass(UnicodePropertiesEmitter.class)
-          + "/UnicodeProperties.java.vm";
+          + "/" + TEMPLATE_NAME + ".vm";
 
   private final UcdVersions versions;
 
@@ -52,13 +53,14 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     Velocity.render(
         readResource(UNICODE_PROPERTIES_TEMPLATE),
-        "UnicodeProperties",
+        TEMPLATE_NAME,
         unicodePropertiesVars,
         output);
   }
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {
     UnicodePropertiesVars unicodePropertiesVars = new UnicodePropertiesVars();
+    unicodePropertiesVars.templateName = TEMPLATE_NAME;
     unicodePropertiesVars.packageName = getTargetPackage();
     unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
     unicodePropertiesVars.latestVersion = versions.getLastVersion().toMajorMinorString();
