@@ -36,7 +36,7 @@ import de.jflex.util.scanner.ScannerFactory;
 public class UnicodeCompatibilityPropertiesTest_5_1 {
 
   /** Test the character class syntax of the Unicode 5.1 'alnum' compatibility property. */
-  public void testAlnum() {
+  public void testAlnum() throws Exception {
     UnicodeCompatibilityProperties_alnum_5_1 scanner =
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeCompatibilityProperties_alnum_5_1::new),
