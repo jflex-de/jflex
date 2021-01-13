@@ -49,7 +49,7 @@ public class SixdigitunicodeescapeTest {
     scanner.yylex();
     assertThat(scanner.output())
         // TODO(regisd) Replace the string comparison by value object.
-        .containsAllOf(
+        .containsExactly(
             "0000..0000; inverse matched",
             "0001..0001; matched",
             "0002..0002; inverse matched",

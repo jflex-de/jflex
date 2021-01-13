@@ -60,7 +60,7 @@ public class UnicodeDataScanners {
         scanner.blocks().stream().map(BlockSpec::toString).collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(blocks).containsAllIn(expected);
+      assertThat(blocks).containsExactlyElementsIn(expected);
     }
   }
 

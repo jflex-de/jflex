@@ -57,7 +57,7 @@ public class UnicodeBlocksInverseBlockTest {
             UnicodeBlocksInverseBlockScanner.YYEOF,
             Dataset.BMP);
     assertThat(scanner.blocks())
-        .containsAllOf(
+        .containsExactly(
             BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x0000, 0x1DFF),
             BlockSpec.create(TestingBlock.LATIN_EXTENDED_ADDITIONAL, 0x1E00, 0x1EFF),
             BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x1F00, 0xD7FF),

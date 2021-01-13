@@ -32,7 +32,6 @@ import static de.jflex.ucd.SurrogateUtils.containsSurrogate;
 import static de.jflex.ucd.SurrogateUtils.isSurrogateProperty;
 import static de.jflex.ucd.SurrogateUtils.removeSurrogates;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
 /** Test for {@link SurrogateUtils}. */
@@ -63,7 +62,7 @@ public class SurrogateUtilsTest {
   @Test
   public void removeSurrogate_notSurrogates() {
     assertThat(removeSurrogates(0x0000, 0x01f5))
-        .containsAllIn(ImmutableList.of(CodepointRange.create(0x0000, 0x01f5)));
+        .containsExactly(CodepointRange.create(0x0000, 0x01f5));
   }
 
   @Test
