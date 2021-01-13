@@ -47,7 +47,7 @@ public class UnicodeBlocksAliasesTest {
             UnicodeBlocksAliasesScanner.YYEOF,
             Dataset.ALL);
     assertThat(scanner.blocks())
-        .containsAllOf(
+        .containsAtLeast(
             BlockSpec.create("Basic Latin", 0x0000, 0x007F),
             BlockSpec.create("Latin-1 Supplement", 0x0080, 0x00FF),
             BlockSpec.create("Latin Extended-A", 0x0100, 0x017F),
