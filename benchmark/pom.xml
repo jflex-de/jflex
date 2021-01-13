@@ -24,10 +24,12 @@
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
+      <version>${jmh.version}</version>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${jmh.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -43,6 +45,7 @@
             <path>
               <groupId>org.openjdk.jmh</groupId>
               <artifactId>jmh-generator-annprocess</artifactId>
+              <version>${jmh.version}</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -110,5 +113,6 @@
   </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jmh.version>1.22</jmh.version>
   </properties>
 </project>
