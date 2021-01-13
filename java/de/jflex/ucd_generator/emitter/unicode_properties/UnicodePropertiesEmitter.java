@@ -40,7 +40,9 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
   private static final String TEMPLATE_NAME = "UnicodeProperties.java";
   private static final String UNICODE_PROPERTIES_TEMPLATE =
       JavaPackageUtils.getPathForClass(UnicodePropertiesEmitter.class)
-          + "/" + TEMPLATE_NAME + ".vm";
+          + "/"
+          + TEMPLATE_NAME
+          + ".vm";
 
   private final UcdVersions versions;
 
@@ -52,10 +54,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
   public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
     Velocity.render(
-        readResource(UNICODE_PROPERTIES_TEMPLATE),
-        TEMPLATE_NAME,
-        unicodePropertiesVars,
-        output);
+        readResource(UNICODE_PROPERTIES_TEMPLATE), TEMPLATE_NAME, unicodePropertiesVars, output);
   }
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {

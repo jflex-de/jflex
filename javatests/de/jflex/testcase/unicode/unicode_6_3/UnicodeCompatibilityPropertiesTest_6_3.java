@@ -37,10 +37,10 @@ public class UnicodeCompatibilityPropertiesTest_6_3 {
 
   /** Test the character class syntax of the Unicode 6.3 'alnum' compatibility property. */
   public void testAlnum() {
-    UnicodeCompatibilityProperties_6_3 scanner =
+    UnicodeCompatibilityProperties_alnum_6_3 scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeCompatibilityProperties_6_3::new),
-            UnicodeCompatibilityProperties_6_3.YYEOF,
+            ScannerFactory.of(UnicodeCompatibilityProperties_alnum_6_3::new),
+            UnicodeCompatibilityProperties_alnum_6_3.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
   }
 }
