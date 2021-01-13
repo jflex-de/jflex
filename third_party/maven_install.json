@@ -31,17 +31,17 @@
                 "sha256": "b6b27727d80f563950b20b3b6b5062ae7ce78a1b61a0f3113f42164ce0b31d5f"
             },
             {
-                "coord": "com.google.auto.value:auto-value-annotations:1.7",
-                "file": "v1/https/jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar",
+                "coord": "com.google.auto.value:auto-value-annotations:1.7.4",
+                "file": "v1/https/jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7.4/auto-value-annotations-1.7.4.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar",
+                "url": "https://jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7.4/auto-value-annotations-1.7.4.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar",
-                    "https://maven.google.comcom/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar",
-                    "https://repo1.maven.org/maven2com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar"
+                    "https://jcenter.bintray.com/com/google/auto/value/auto-value-annotations/1.7.4/auto-value-annotations-1.7.4.jar",
+                    "https://maven.google.comcom/google/auto/value/auto-value-annotations/1.7.4/auto-value-annotations-1.7.4.jar",
+                    "https://repo1.maven.org/maven2com/google/auto/value/auto-value-annotations/1.7.4/auto-value-annotations-1.7.4.jar"
                 ],
-                "sha256": "b134bab5082e9f49f2b45802573c78e0726e059b645323645da03e328e501f86"
+                "sha256": "fedd59b0b4986c342f6ab2d182f2a4ee9fceb2c7e2d5bdc4dc764c92394a23d3"
             },
             {
                 "coord": "com.google.auto.value:auto-value:1.7",
@@ -70,17 +70,17 @@
                 "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
             },
             {
-                "coord": "com.google.errorprone:error_prone_annotations:2.1.3",
-                "file": "v1/https/jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar",
+                "coord": "com.google.errorprone:error_prone_annotations:2.4.0",
+                "file": "v1/https/jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar",
+                "url": "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar",
-                    "https://maven.google.comcom/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar",
-                    "https://repo1.maven.org/maven2com/google/errorprone/error_prone_annotations/2.1.3/error_prone_annotations-2.1.3.jar"
+                    "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
+                    "https://maven.google.comcom/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
+                    "https://repo1.maven.org/maven2com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar"
                 ],
-                "sha256": "03d0329547c13da9e17c634d1049ea2ead093925e290567e1a364fd6b1fc7ff8"
+                "sha256": "5f2a0648230a662e8be049df308d583d7369f13af683e44ddf5829b6d741a228"
             },
             {
                 "coord": "com.google.flogger:flogger-system-backend:0.4",
@@ -119,123 +119,157 @@
                 "sha256": "3cc25500489040f2981657eefa8dd9905e684b567e2fa907c33bbe8425e80b97"
             },
             {
-                "coord": "com.google.guava:guava:26.0-jre",
-                "file": "v1/https/jcenter.bintray.com/com/google/guava/guava/26.0-jre/guava-26.0-jre.jar",
-                "directDependencies": [
-                    "com.google.code.findbugs:jsr305:3.0.2",
-                    "org.codehaus.mojo:animal-sniffer-annotations:1.14",
-                    "com.google.j2objc:j2objc-annotations:1.1",
-                    "com.google.errorprone:error_prone_annotations:2.1.3",
-                    "org.checkerframework:checker-qual:2.5.2"
-                ],
-                "dependencies": [
-                    "com.google.code.findbugs:jsr305:3.0.2",
-                    "org.codehaus.mojo:animal-sniffer-annotations:1.14",
-                    "com.google.j2objc:j2objc-annotations:1.1",
-                    "com.google.errorprone:error_prone_annotations:2.1.3",
-                    "org.checkerframework:checker-qual:2.5.2"
-                ],
-                "url": "https://jcenter.bintray.com/com/google/guava/guava/26.0-jre/guava-26.0-jre.jar",
-                "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/guava/guava/26.0-jre/guava-26.0-jre.jar",
-                    "https://maven.google.comcom/google/guava/guava/26.0-jre/guava-26.0-jre.jar",
-                    "https://repo1.maven.org/maven2com/google/guava/guava/26.0-jre/guava-26.0-jre.jar"
-                ],
-                "sha256": "a0e9cabad665bc20bcd2b01f108e5fc03f756e13aea80abaadb9f407033bea2c"
-            },
-            {
-                "coord": "com.google.j2objc:j2objc-annotations:1.1",
-                "file": "v1/https/jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar",
+                "coord": "com.google.guava:failureaccess:1.0.1",
+                "file": "v1/https/jcenter.bintray.com/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar",
+                "url": "https://jcenter.bintray.com/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar",
-                    "https://maven.google.comcom/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar",
-                    "https://repo1.maven.org/maven2com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar"
+                    "https://jcenter.bintray.com/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+                    "https://maven.google.comcom/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar",
+                    "https://repo1.maven.org/maven2com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"
                 ],
-                "sha256": "2994a7eb78f2710bd3d3bfb639b2c94e219cedac0d4d084d516e78c16dddecf6"
+                "sha256": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26"
             },
             {
-                "coord": "com.google.truth:truth:0.36",
-                "file": "v1/https/jcenter.bintray.com/com/google/truth/truth/0.36/truth-0.36.jar",
+                "coord": "com.google.guava:guava:30.1-jre",
+                "file": "v1/https/jcenter.bintray.com/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
                 "directDependencies": [
-                    "com.google.errorprone:error_prone_annotations:2.1.3",
-                    "com.google.guava:guava:26.0-jre",
-                    "junit:junit:4.12"
-                ],
-                "dependencies": [
+                    "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+                    "com.google.j2objc:j2objc-annotations:1.3",
                     "com.google.code.findbugs:jsr305:3.0.2",
-                    "junit:junit:4.12",
-                    "org.hamcrest:hamcrest-core:1.3",
-                    "org.codehaus.mojo:animal-sniffer-annotations:1.14",
-                    "com.google.j2objc:j2objc-annotations:1.1",
-                    "com.google.errorprone:error_prone_annotations:2.1.3",
-                    "com.google.guava:guava:26.0-jre",
-                    "org.checkerframework:checker-qual:2.5.2"
+                    "org.checkerframework:checker-qual:3.7.0",
+                    "com.google.guava:failureaccess:1.0.1",
+                    "com.google.errorprone:error_prone_annotations:2.4.0"
                 ],
-                "url": "https://jcenter.bintray.com/com/google/truth/truth/0.36/truth-0.36.jar",
+                "dependencies": [
+                    "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+                    "com.google.j2objc:j2objc-annotations:1.3",
+                    "com.google.code.findbugs:jsr305:3.0.2",
+                    "org.checkerframework:checker-qual:3.7.0",
+                    "com.google.guava:failureaccess:1.0.1",
+                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                ],
+                "url": "https://jcenter.bintray.com/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/truth/truth/0.36/truth-0.36.jar",
-                    "https://maven.google.comcom/google/truth/truth/0.36/truth-0.36.jar",
-                    "https://repo1.maven.org/maven2com/google/truth/truth/0.36/truth-0.36.jar"
+                    "https://jcenter.bintray.com/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
+                    "https://maven.google.comcom/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
+                    "https://repo1.maven.org/maven2com/google/guava/guava/30.1-jre/guava-30.1-jre.jar"
                 ],
-                "sha256": "aa19c5987eb52a9d7fb954823e8ea70d36308a5bde309c2020abe5e329c17527"
+                "sha256": "e6dd072f9d3fe02a4600688380bd422bdac184caf6fe2418cfdd0934f09432aa"
             },
             {
-                "coord": "com.pholser:junit-quickcheck-core:0.9",
-                "file": "v1/https/jcenter.bintray.com/com/pholser/junit-quickcheck-core/0.9/junit-quickcheck-core-0.9.jar",
+                "coord": "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+                "file": "v1/https/jcenter.bintray.com/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+                    "https://maven.google.comcom/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+                    "https://repo1.maven.org/maven2com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"
+                ],
+                "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99"
+            },
+            {
+                "coord": "com.google.j2objc:j2objc-annotations:1.3",
+                "file": "v1/https/jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar",
+                    "https://maven.google.comcom/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar",
+                    "https://repo1.maven.org/maven2com/google/j2objc/j2objc-annotations/1.3/j2objc-annotations-1.3.jar"
+                ],
+                "sha256": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b"
+            },
+            {
+                "coord": "com.google.truth:truth:1.1",
+                "file": "v1/https/jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
+                "directDependencies": [
+                    "org.ow2.asm:asm:9.0",
+                    "org.checkerframework:checker-qual:3.7.0",
+                    "com.google.auto.value:auto-value-annotations:1.7.4",
+                    "junit:junit:4.13.1",
+                    "com.google.guava:guava:30.1-jre",
+                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                ],
+                "dependencies": [
+                    "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
+                    "org.ow2.asm:asm:9.0",
+                    "com.google.j2objc:j2objc-annotations:1.3",
+                    "com.google.code.findbugs:jsr305:3.0.2",
+                    "org.checkerframework:checker-qual:3.7.0",
+                    "org.hamcrest:hamcrest-core:1.3",
+                    "com.google.auto.value:auto-value-annotations:1.7.4",
+                    "junit:junit:4.13.1",
+                    "com.google.guava:failureaccess:1.0.1",
+                    "com.google.guava:guava:30.1-jre",
+                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                ],
+                "url": "https://jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
+                    "https://maven.google.comcom/google/truth/truth/1.1/truth-1.1.jar",
+                    "https://repo1.maven.org/maven2com/google/truth/truth/1.1/truth-1.1.jar"
+                ],
+                "sha256": "42ae0c8871398c3077eb782cb556490e2a0ce292fd73a9be81f0cc15c013991e"
+            },
+            {
+                "coord": "com.pholser:junit-quickcheck-core:1.0",
+                "file": "v1/https/jcenter.bintray.com/com/pholser/junit-quickcheck-core/1.0/junit-quickcheck-core-1.0.jar",
                 "directDependencies": [
                     "org.javaruntype:javaruntype:1.3",
-                    "junit:junit:4.12",
                     "org.hamcrest:hamcrest-core:1.3",
                     "org.slf4j:slf4j-api:1.7.25",
+                    "junit:junit:4.13.1",
                     "ognl:ognl:3.1.12",
-                    "ru.vyarus:generics-resolver:2.0.1"
+                    "ru.vyarus:generics-resolver:3.0.1"
                 ],
                 "dependencies": [
                     "org.javaruntype:javaruntype:1.3",
                     "org.javassist:javassist:3.20.0-GA",
-                    "junit:junit:4.12",
                     "org.hamcrest:hamcrest-core:1.3",
                     "org.slf4j:slf4j-api:1.7.25",
+                    "junit:junit:4.13.1",
                     "ognl:ognl:3.1.12",
                     "org.antlr:antlr-runtime:3.1.2",
-                    "ru.vyarus:generics-resolver:2.0.1"
+                    "ru.vyarus:generics-resolver:3.0.1"
                 ],
-                "url": "https://jcenter.bintray.com/com/pholser/junit-quickcheck-core/0.9/junit-quickcheck-core-0.9.jar",
+                "url": "https://jcenter.bintray.com/com/pholser/junit-quickcheck-core/1.0/junit-quickcheck-core-1.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/pholser/junit-quickcheck-core/0.9/junit-quickcheck-core-0.9.jar",
-                    "https://maven.google.comcom/pholser/junit-quickcheck-core/0.9/junit-quickcheck-core-0.9.jar",
-                    "https://repo1.maven.org/maven2com/pholser/junit-quickcheck-core/0.9/junit-quickcheck-core-0.9.jar"
+                    "https://jcenter.bintray.com/com/pholser/junit-quickcheck-core/1.0/junit-quickcheck-core-1.0.jar",
+                    "https://maven.google.comcom/pholser/junit-quickcheck-core/1.0/junit-quickcheck-core-1.0.jar",
+                    "https://repo1.maven.org/maven2com/pholser/junit-quickcheck-core/1.0/junit-quickcheck-core-1.0.jar"
                 ],
-                "sha256": "1d806901f9c8cc561ce57e15f39bd4c45530ad11e7ca638e2003ae3a9d982dc4"
+                "sha256": "80e8d86048c0733e2668d99160bb3209b1a7fbc55e6cc1cf51eec2112adbf0d2"
             },
             {
-                "coord": "com.pholser:junit-quickcheck-generators:0.9",
-                "file": "v1/https/jcenter.bintray.com/com/pholser/junit-quickcheck-generators/0.9/junit-quickcheck-generators-0.9.jar",
+                "coord": "com.pholser:junit-quickcheck-generators:1.0",
+                "file": "v1/https/jcenter.bintray.com/com/pholser/junit-quickcheck-generators/1.0/junit-quickcheck-generators-1.0.jar",
                 "directDependencies": [
-                    "com.pholser:junit-quickcheck-core:0.9",
-                    "junit:junit:4.12"
+                    "com.pholser:junit-quickcheck-core:1.0",
+                    "junit:junit:4.13.1"
                 ],
                 "dependencies": [
+                    "com.pholser:junit-quickcheck-core:1.0",
                     "org.javaruntype:javaruntype:1.3",
                     "org.javassist:javassist:3.20.0-GA",
-                    "junit:junit:4.12",
                     "org.hamcrest:hamcrest-core:1.3",
                     "org.slf4j:slf4j-api:1.7.25",
+                    "junit:junit:4.13.1",
                     "ognl:ognl:3.1.12",
                     "org.antlr:antlr-runtime:3.1.2",
-                    "ru.vyarus:generics-resolver:2.0.1",
-                    "com.pholser:junit-quickcheck-core:0.9"
+                    "ru.vyarus:generics-resolver:3.0.1"
                 ],
-                "url": "https://jcenter.bintray.com/com/pholser/junit-quickcheck-generators/0.9/junit-quickcheck-generators-0.9.jar",
+                "url": "https://jcenter.bintray.com/com/pholser/junit-quickcheck-generators/1.0/junit-quickcheck-generators-1.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/pholser/junit-quickcheck-generators/0.9/junit-quickcheck-generators-0.9.jar",
-                    "https://maven.google.comcom/pholser/junit-quickcheck-generators/0.9/junit-quickcheck-generators-0.9.jar",
-                    "https://repo1.maven.org/maven2com/pholser/junit-quickcheck-generators/0.9/junit-quickcheck-generators-0.9.jar"
+                    "https://jcenter.bintray.com/com/pholser/junit-quickcheck-generators/1.0/junit-quickcheck-generators-1.0.jar",
+                    "https://maven.google.comcom/pholser/junit-quickcheck-generators/1.0/junit-quickcheck-generators-1.0.jar",
+                    "https://repo1.maven.org/maven2com/pholser/junit-quickcheck-generators/1.0/junit-quickcheck-generators-1.0.jar"
                 ],
-                "sha256": "238fb3143c27255bb33f86ff96f548671e1799288107baae3ce867ce04fdfd46"
+                "sha256": "bbceaa95c3b1b62898c3d35212ae75d68af416931cb5dbd33fc4326dcea1bb2c"
             },
             {
                 "coord": "commons-collections:commons-collections:3.2.1",
@@ -297,21 +331,21 @@
                 "sha256": "e04ba5195bcd555dc95650f7cc614d151e4bcd52d29a10b8aa2197f3ab89ab9b"
             },
             {
-                "coord": "junit:junit:4.12",
-                "file": "v1/https/jcenter.bintray.com/junit/junit/4.12/junit-4.12.jar",
+                "coord": "junit:junit:4.13.1",
+                "file": "v1/https/jcenter.bintray.com/junit/junit/4.13.1/junit-4.13.1.jar",
                 "directDependencies": [
                     "org.hamcrest:hamcrest-core:1.3"
                 ],
                 "dependencies": [
                     "org.hamcrest:hamcrest-core:1.3"
                 ],
-                "url": "https://jcenter.bintray.com/junit/junit/4.12/junit-4.12.jar",
+                "url": "https://jcenter.bintray.com/junit/junit/4.13.1/junit-4.13.1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/junit/junit/4.12/junit-4.12.jar",
-                    "https://maven.google.comjunit/junit/4.12/junit-4.12.jar",
-                    "https://repo1.maven.org/maven2junit/junit/4.12/junit-4.12.jar"
+                    "https://jcenter.bintray.com/junit/junit/4.13.1/junit-4.13.1.jar",
+                    "https://maven.google.comjunit/junit/4.13.1/junit-4.13.1.jar",
+                    "https://repo1.maven.org/maven2junit/junit/4.13.1/junit-4.13.1.jar"
                 ],
-                "sha256": "59721f0805e223d84b90677887d9ff567dc534d7c502ca903c0c2b17f05c116a"
+                "sha256": "c30719db974d6452793fe191b3638a5777005485bae145924044530ffa5f6122"
             },
             {
                 "coord": "net.bytebuddy:byte-buddy-agent:1.10.18",
@@ -422,30 +456,17 @@
                 "sha256": "ec92dae810034f4b46dbb16ef4364a4013b0efb24a8c5dd67435cae46a290d8e"
             },
             {
-                "coord": "org.checkerframework:checker-qual:2.5.2",
-                "file": "v1/https/jcenter.bintray.com/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
+                "coord": "org.checkerframework:checker-qual:3.7.0",
+                "file": "v1/https/jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
+                "url": "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
-                    "https://maven.google.comorg/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar",
-                    "https://repo1.maven.org/maven2org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar"
+                    "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
+                    "https://maven.google.comorg/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
+                    "https://repo1.maven.org/maven2org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar"
                 ],
-                "sha256": "64b02691c8b9d4e7700f8ee2e742dce7ea2c6e81e662b7522c9ee3bf568c040a"
-            },
-            {
-                "coord": "org.codehaus.mojo:animal-sniffer-annotations:1.14",
-                "file": "v1/https/jcenter.bintray.com/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar",
-                "directDependencies": [],
-                "dependencies": [],
-                "url": "https://jcenter.bintray.com/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar",
-                "mirror_urls": [
-                    "https://jcenter.bintray.com/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar",
-                    "https://maven.google.comorg/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar",
-                    "https://repo1.maven.org/maven2org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14.jar"
-                ],
-                "sha256": "2068320bd6bad744c3673ab048f67e30bef8f518996fa380033556600669905d"
+                "sha256": "be2039732159d13f3f00867f22223992178a3b28b8a143724eba4206a8fdfff3"
             },
             {
                 "coord": "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
@@ -740,6 +761,19 @@
                 "sha256": "cdb3d038c188de6f46ffd5cd930be2d5e5dba59c53b26437995d534e3db2fb80"
             },
             {
+                "coord": "org.ow2.asm:asm:9.0",
+                "file": "v1/https/jcenter.bintray.com/org/ow2/asm/asm/9.0/asm-9.0.jar",
+                "directDependencies": [],
+                "dependencies": [],
+                "url": "https://jcenter.bintray.com/org/ow2/asm/asm/9.0/asm-9.0.jar",
+                "mirror_urls": [
+                    "https://jcenter.bintray.com/org/ow2/asm/asm/9.0/asm-9.0.jar",
+                    "https://maven.google.comorg/ow2/asm/asm/9.0/asm-9.0.jar",
+                    "https://repo1.maven.org/maven2org/ow2/asm/asm/9.0/asm-9.0.jar"
+                ],
+                "sha256": "0df97574914aee92fd349d0cb4e00f3345d45b2c239e0bb50f0a90ead47888e0"
+            },
+            {
                 "coord": "org.slf4j:slf4j-api:1.7.25",
                 "file": "v1/https/jcenter.bintray.com/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar",
                 "directDependencies": [],
@@ -753,20 +787,20 @@
                 "sha256": "18c4a0095d5c1da6b817592e767bb23d29dd2f560ad74df75ff3961dbde25b79"
             },
             {
-                "coord": "ru.vyarus:generics-resolver:2.0.1",
-                "file": "v1/https/jcenter.bintray.com/ru/vyarus/generics-resolver/2.0.1/generics-resolver-2.0.1.jar",
+                "coord": "ru.vyarus:generics-resolver:3.0.1",
+                "file": "v1/https/jcenter.bintray.com/ru/vyarus/generics-resolver/3.0.1/generics-resolver-3.0.1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/ru/vyarus/generics-resolver/2.0.1/generics-resolver-2.0.1.jar",
+                "url": "https://jcenter.bintray.com/ru/vyarus/generics-resolver/3.0.1/generics-resolver-3.0.1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/ru/vyarus/generics-resolver/2.0.1/generics-resolver-2.0.1.jar",
-                    "https://maven.google.comru/vyarus/generics-resolver/2.0.1/generics-resolver-2.0.1.jar",
-                    "https://repo1.maven.org/maven2ru/vyarus/generics-resolver/2.0.1/generics-resolver-2.0.1.jar"
+                    "https://jcenter.bintray.com/ru/vyarus/generics-resolver/3.0.1/generics-resolver-3.0.1.jar",
+                    "https://maven.google.comru/vyarus/generics-resolver/3.0.1/generics-resolver-3.0.1.jar",
+                    "https://repo1.maven.org/maven2ru/vyarus/generics-resolver/3.0.1/generics-resolver-3.0.1.jar"
                 ],
-                "sha256": "2d3ecff6064b22349395555c09940949371a70cb7c0e0fdedb711566b13f2931"
+                "sha256": "aa16235c5df795ea7ce088a32853ce7718673e1990c93f052a3cf409e7587601"
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 1980311943
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": -1025006089
     }
 }
