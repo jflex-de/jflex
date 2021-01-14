@@ -28,12 +28,15 @@ package de.jflex.testcase.unicode.unicode_12_1;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import javax.annotation.Generated;
 import org.junit.Test;
 
+// Generate from UnicodeCompatibilityPropertiesTest.java.vm
 /**
  * Test for compatibility property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt
  * and/or DerivedCoreProperties(-X.X.X).txt.
  */
+ @Generated("de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityPropertiesTestGenerator")
 public class UnicodeCompatibilityPropertiesTest_12_1 {
 
   /** Test the character class syntax of the Unicode 12.1 'alnum' compatibility property. */
