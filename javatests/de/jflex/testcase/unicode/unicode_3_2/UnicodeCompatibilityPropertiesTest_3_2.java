@@ -59,12 +59,48 @@ public class UnicodeCompatibilityPropertiesTest_3_2 {
 
   /** Test the character class syntax of the Unicode 3.2 'alnum' compatibility property. */
   @Test
-  public void testAlnum() throws Exception {
+  public void alnum() throws Exception {
     checkCompatibility(
         "alnum",
         UnicodeCompatibilityProperties_alnum_3_2.class,
         UnicodeCompatibilityProperties_alnum_3_2::new,
         UnicodeCompatibilityProperties_alnum_3_2.YYEOF);
+  }
+  /** Test the character class syntax of the Unicode 3.2 'blank' compatibility property. */
+  @Test
+  public void blank() throws Exception {
+    checkCompatibility(
+        "blank",
+        UnicodeCompatibilityProperties_blank_3_2.class,
+        UnicodeCompatibilityProperties_blank_3_2::new,
+        UnicodeCompatibilityProperties_blank_3_2.YYEOF);
+  }
+  /** Test the character class syntax of the Unicode 3.2 'graph' compatibility property. */
+  @Test
+  public void graph() throws Exception {
+    checkCompatibility(
+        "graph",
+        UnicodeCompatibilityProperties_graph_3_2.class,
+        UnicodeCompatibilityProperties_graph_3_2::new,
+        UnicodeCompatibilityProperties_graph_3_2.YYEOF);
+  }
+  /** Test the character class syntax of the Unicode 3.2 'print' compatibility property. */
+  @Test
+  public void print() throws Exception {
+    checkCompatibility(
+        "print",
+        UnicodeCompatibilityProperties_print_3_2.class,
+        UnicodeCompatibilityProperties_print_3_2::new,
+        UnicodeCompatibilityProperties_print_3_2.YYEOF);
+  }
+  /** Test the character class syntax of the Unicode 3.2 'xdigit' compatibility property. */
+  @Test
+  public void xdigit() throws Exception {
+    checkCompatibility(
+        "xdigit",
+        UnicodeCompatibilityProperties_xdigit_3_2.class,
+        UnicodeCompatibilityProperties_xdigit_3_2::new,
+        UnicodeCompatibilityProperties_xdigit_3_2.YYEOF);
   }
 
   public static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
