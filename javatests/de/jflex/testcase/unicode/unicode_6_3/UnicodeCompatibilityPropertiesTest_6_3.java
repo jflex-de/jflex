@@ -28,6 +28,7 @@ package de.jflex.testcase.unicode.unicode_6_3;
 
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import org.junit.Test;
 
 /**
  * Test for compatibility property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt
@@ -36,6 +37,7 @@ import de.jflex.util.scanner.ScannerFactory;
 public class UnicodeCompatibilityPropertiesTest_6_3 {
 
   /** Test the character class syntax of the Unicode 6.3 'alnum' compatibility property. */
+  @Test
   public void testAlnum() throws Exception {
     UnicodeCompatibilityProperties_alnum_6_3 scanner =
         UnicodeDataScanners.scanAllCodepoints(
