@@ -33,16 +33,16 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %unicode $unicodeVersion
 %public
 %class $className
-%extends AbstractEnumeratedPropertyDefinedScanner<Integer>
+%extends AbstractEnumeratedPropertyDefinedScanner<Boolean>
 
 %type int
 
 %init{
-  super($maxCodePoint, Integer.class);
+  super($maxCodePoint, Boolean.class);
 %init}
 
 %%
 
-\p{alnum} { setCurCharPropertyValue(yytext()); }
+\p{alnum} { setCurCharPropertyValue(yytext(), yylength(), true); }
 [^] { }
 <<EOF>>  { return YYEOF; }
