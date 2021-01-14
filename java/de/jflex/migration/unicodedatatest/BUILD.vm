@@ -131,6 +131,9 @@ java_test(
         "UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersion()}.java",
         ":gen_UnicodeCompatibilityProperties_alnum_${unicodeVersion.underscoreVersion()}_scanner",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",

@@ -240,6 +240,9 @@ java_test(
         "UnicodeCompatibilityPropertiesTest_6_2.java",
         ":gen_UnicodeCompatibilityProperties_alnum_6_2_scanner",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",

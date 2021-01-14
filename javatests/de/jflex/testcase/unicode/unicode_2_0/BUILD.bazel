@@ -132,6 +132,9 @@ java_test(
         "UnicodeCompatibilityPropertiesTest_2_0.java",
         ":gen_UnicodeCompatibilityProperties_alnum_2_0_scanner",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",

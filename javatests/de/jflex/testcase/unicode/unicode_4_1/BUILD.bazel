@@ -186,6 +186,9 @@ java_test(
         "UnicodeCompatibilityPropertiesTest_4_1.java",
         ":gen_UnicodeCompatibilityProperties_alnum_4_1_scanner",
     ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/util/scanner:scanner_factory",
