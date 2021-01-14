@@ -9,6 +9,7 @@ cp -rf "${WS}"/bazel-bin/java/de/jflex/migration/unicodedatatest/javatests "${WS
 for f in $(find "${WS}"/javatests/de/jflex/testcase/unicode -name BUILD.bazel); do
   chmod u+w "$f"
   buildifier -r "$f"
+  chmod u-w "$f"
 done
 
 # Generate UnicodeAgeTest_x_y.java
@@ -28,4 +29,5 @@ rsync --archive -vm --chmod=Fa=r \
 for f in $(git diff --name-only | grep '.java$');	do
   chmod u+w "$f"
   google-java-format -r "$f"
+  chmod u-w "$f"
 done

@@ -29,6 +29,11 @@ java_library(
         "UnicodeCompatibilityPropertiesGolden.vm",
         "UnicodeCompatibilityPropertiesTest.java.vm",
     ],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__pkg__",
+        "//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__",
+        "//javatests/de/jflex/testcase/unicode:__subpackages__",
+    ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/testing/unicodedata",
