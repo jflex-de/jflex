@@ -36,7 +36,7 @@ import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
-    extends AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
+    extends AbstractGenerator<UnicodeCompatibilityPropertiesGoldenTemplateVars> {
 
   private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesGolden";
 
@@ -51,9 +51,9 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
   }
 
   @Override
-  protected UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars createTemplateVars() {
-    UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars =
-        new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
+  protected UnicodeCompatibilityPropertiesGoldenTemplateVars createTemplateVars() {
+    UnicodeCompatibilityPropertiesGoldenTemplateVars vars =
+        new UnicodeCompatibilityPropertiesGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
@@ -66,7 +66,7 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
   }
 
   @Override
-  protected String getOuputFileName(UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars) {
+  protected String getOuputFileName(UnicodeCompatibilityPropertiesGoldenTemplateVars vars) {
     return vars.className + ".output";
   }
 
