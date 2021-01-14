@@ -25,25 +25,32 @@
  */
 package de.jflex.migration.unicodedatatest.testcompat;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.ucd.UcdVersion;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class CompatPropertiesTestGenerator {
+
   private CompatPropertiesTestGenerator() {}
 
   public static void main(String[] args) throws IOException, ParseException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
+    UcdVersion ucdVersion = UcdVersion.findUcdFiles(version.version(),
+        ImmutableList.copyOf(Arrays.copyOfRange(args, 1, args.length)));
+    generate(version, ucdVersion, outDir);
   }
 
-  private static void generate(UnicodeVersion version, Path outDir)
+  private static void generate(UnicodeVersion version, UcdVersion ucdVersion,
+      Path outDir)
       throws IOException, ParseException {
     new UnicodeCompatFlexGenerator(version).generate(outDir);
     new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesAlnumGoldenGenerator(version).generate(outDir);
+    new UnicodeCompatibilityPropertiesAlnumGoldenGenerator(version, ucdVersion).generate(outDir);
   }
 }

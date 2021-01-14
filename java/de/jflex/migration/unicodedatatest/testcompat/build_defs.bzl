@@ -4,6 +4,9 @@ def gen_test_compat(name, version, ucd):
     flexout = "unicode_{version}/UnicodeCompatibilityProperties_alnum_{version}.flex".format(
         version = underscore_version,
     )
+    goldenout = "unicode_{version}/UnicodeCompatibilityProperties_alnum_{version}.output".format(
+        version = underscore_version,
+    )
     javaout = "unicode_{version}/UnicodeCompatibilityPropertiesTest_{version}.java".format(
         version = underscore_version,
     )
@@ -13,6 +16,7 @@ def gen_test_compat(name, version, ucd):
         srcs = [ucd],
         outs = [
             "javatests/de/jflex/testcase/unicode/" + flexout,
+            "javatests/de/jflex/testcase/unicode/" + goldenout,
             "javatests/de/jflex/testcase/unicode/" + javaout,
         ],
         cmd = "$(location generator) {version} $(RULEDIR) $(locations {ucd})".format(

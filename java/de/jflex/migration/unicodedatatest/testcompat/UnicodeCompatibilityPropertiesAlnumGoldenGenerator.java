@@ -29,28 +29,46 @@ package de.jflex.migration.unicodedatatest.testcompat;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.UcdVersion;
+import de.jflex.ucd_generator.scanner.UcdScanner;
+import de.jflex.ucd_generator.scanner.UcdScannerException;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator extends
     AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
 
   private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesAlnumGolden";
 
+  private final UcdVersion ucdVersion;
+
   protected UnicodeCompatibilityPropertiesAlnumGoldenGenerator(
-      UnicodeVersion unicodeVersion) {
+      UnicodeVersion unicodeVersion, UcdVersion ucdVersion) {
     super(TEMPLATE_NAME, unicodeVersion);
+    this.ucdVersion = ucdVersion;
   }
 
   @Override
   protected UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars createTemplateVars() {
     UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars = new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
-    vars.className = TEMPLATE_NAME;
-    vars.ranges = ImmutableList.of();
+    vars.className = "UnicodeCompatibilityProperties_alnum_" + unicodeVersion.underscoreVersion();
+    try {
+      vars.ranges = findCompatibilyRanges();
+    } catch (UcdScannerException e) {
+      throw new IllegalArgumentException(e);
+    }
     return vars;
   }
 
   @Override
   protected String getOuputFileName(UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars) {
-    return TEMPLATE_NAME + ".vm";
+    return vars.className + ".output";
+  }
+
+  private ImmutableList<CodepointRange> findCompatibilyRanges() throws UcdScannerException {
+    UcdScanner scanner = new UcdScanner(ucdVersion);
+    UnicodeData unicodeData = scanner.scan();
+    return unicodeData.getPropertyValueIntervals("alnum");
   }
 }
