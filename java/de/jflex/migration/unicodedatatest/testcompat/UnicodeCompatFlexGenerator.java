@@ -31,15 +31,20 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
 public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatFlexTemplateVars> {
 
-  protected UnicodeCompatFlexGenerator(UnicodeVersion unicodeVersion) {
+  private final String propName;
+
+  protected UnicodeCompatFlexGenerator(UnicodeVersion unicodeVersion, String propName) {
     super("UnicodeCompat.flex", unicodeVersion);
+    this.propName = propName;
   }
 
   @Override
   protected UnicodeCompatFlexTemplateVars createTemplateVars() {
     UnicodeCompatFlexTemplateVars vars = new UnicodeCompatFlexTemplateVars();
     vars.updateFrom(unicodeVersion);
-    vars.className = "UnicodeCompatibilityProperties_alnum_" + unicodeVersion.underscoreVersion();
+    vars.className =
+        "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
+    vars.propName = propName;
     return vars;
   }
 

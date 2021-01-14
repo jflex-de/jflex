@@ -3,6 +3,10 @@ def gen_test_compat(name, version, ucd):
     underscore_version = version.replace(".", "_")
     outs = [
         "unicode_{version}/UnicodeCompatibilityProperties_alnum_{version}.flex",
+        "unicode_{version}/UnicodeCompatibilityProperties_blank_{version}.flex",
+        "unicode_{version}/UnicodeCompatibilityProperties_graph_{version}.flex",
+        "unicode_{version}/UnicodeCompatibilityProperties_print_{version}.flex",
+        "unicode_{version}/UnicodeCompatibilityProperties_xdigit_{version}.flex",
         "unicode_{version}/UnicodeCompatibilityProperties_alnum_{version}.output",
         "unicode_{version}/UnicodeCompatibilityProperties_blank_{version}.output",
         "unicode_{version}/UnicodeCompatibilityProperties_graph_{version}.output",

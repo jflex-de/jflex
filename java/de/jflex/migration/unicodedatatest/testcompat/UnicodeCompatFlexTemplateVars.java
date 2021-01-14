@@ -28,4 +28,6 @@ package de.jflex.migration.unicodedatatest.testcompat;
 
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCompatFlexTemplateVars extends UnicodeVersionTemplateVars {}
+public class UnicodeCompatFlexTemplateVars extends UnicodeVersionTemplateVars {
+  public String propName;
+}

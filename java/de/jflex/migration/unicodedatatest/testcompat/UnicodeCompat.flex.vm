@@ -43,6 +43,6 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %%
 
-\p{alnum} { setCurCharPropertyValue(yytext(), yylength(), true); }
+\p{$propName} { setCurCharPropertyValue(yytext(), yylength(), true); }
 [^] { }
 <<EOF>>  { return YYEOF; }

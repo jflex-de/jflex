@@ -49,9 +49,9 @@ public class CompatPropertiesTestGenerator {
 
   private static void generate(UnicodeVersion version, UcdVersion ucdVersion, Path outDir)
       throws IOException, ParseException {
-    new UnicodeCompatFlexGenerator(version).generate(outDir);
     new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
     for (String propName : UnicodeCompatibilityProperties.COMPATIBILITY_PROPERTIES) {
+      new UnicodeCompatFlexGenerator(version, propName).generate(outDir);
       new UnicodeCompatibilityPropertiesGoldenGenerator(version, ucdVersion, propName)
           .generate(outDir);
     }
