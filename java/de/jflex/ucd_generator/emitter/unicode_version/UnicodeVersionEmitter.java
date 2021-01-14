@@ -51,8 +51,9 @@ import org.apache.velocity.runtime.parser.ParseException;
 /** Emitter for a {@code Unicode_x_y.java}. */
 public class UnicodeVersionEmitter extends UcdEmitter {
 
+  private static final String TEMPLATE_NAME = "Unicode_x_y.java";
   private static final String UNICODE_VERSION_TEMPLATE =
-      JavaPackageUtils.getPathForClass(UnicodeVersionEmitter.class) + "/Unicode_x_y.java.vm";
+      JavaPackageUtils.getPathForClass(UnicodeVersionEmitter.class) + "/" + TEMPLATE_NAME + ".vm";
   private static final String CP_ZERO = escapedUTF16Char(0);
 
   private final UcdVersion ucdVersion;
@@ -67,11 +68,12 @@ public class UnicodeVersionEmitter extends UcdEmitter {
   public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
     UnicodeVersionVars unicodeVersionVars = createUnicodeVersionVars();
     Velocity.render(
-        readResource(UNICODE_VERSION_TEMPLATE), "Unicode_x_y", unicodeVersionVars, output);
+        readResource(UNICODE_VERSION_TEMPLATE), TEMPLATE_NAME, unicodeVersionVars, output);
   }
 
   private UnicodeVersionVars createUnicodeVersionVars() {
     UnicodeVersionVars unicodeVersionVars = new UnicodeVersionVars();
+    unicodeVersionVars.templateName = TEMPLATE_NAME;
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
     unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
