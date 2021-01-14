@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
  * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
@@ -23,37 +24,16 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testcompat;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.ucd.UcdVersion;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import org.apache.velocity.runtime.parser.ParseException;
 
-public class CompatPropertiesTestGenerator {
+/** Constant holder. */
+public class UnicodeCompatibilityProperties {
 
-  private CompatPropertiesTestGenerator() {}
+  static final ImmutableList<String> COMPATIBILITY_PROPERTIES =
+      ImmutableList.of("alnum", "blank", "graph", "print", "xdigit");
 
-  public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    UcdVersion ucdVersion =
-        UcdVersion.findUcdFiles(
-            version.version(), ImmutableList.copyOf(Arrays.copyOfRange(args, 1, args.length)));
-    generate(version, ucdVersion, outDir);
-  }
-
-  private static void generate(UnicodeVersion version, UcdVersion ucdVersion, Path outDir)
-      throws IOException, ParseException {
-    new UnicodeCompatFlexGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
-    for (String propName : UnicodeCompatibilityProperties.COMPATIBILITY_PROPERTIES) {
-      new UnicodeCompatibilityPropertiesGoldenGenerator(version, ucdVersion, propName)
-          .generate(outDir);
-    }
-  }
+  private UnicodeCompatibilityProperties() {}
 }

@@ -26,6 +26,11 @@
 
 package de.jflex.migration.unicodedatatest.testcompat;
 
+import static de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityProperties.COMPATIBILITY_PROPERTIES;
+
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCompatibilityPropertiesTestTemplateVars extends UnicodeVersionTemplateVars {}
+public class UnicodeCompatibilityPropertiesTestTemplateVars extends UnicodeVersionTemplateVars {
+  public final ImmutableList<String> properties = COMPATIBILITY_PROPERTIES;
+}
