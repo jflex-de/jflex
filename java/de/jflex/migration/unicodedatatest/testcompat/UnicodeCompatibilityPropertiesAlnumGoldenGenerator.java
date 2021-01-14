@@ -23,27 +23,34 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testcompat;
 
+import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
 
-public class CompatPropertiesTestGenerator {
-  private CompatPropertiesTestGenerator() {}
+public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator extends
+    AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
 
-  public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
+  private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesAlnumGolden";
+
+  protected UnicodeCompatibilityPropertiesAlnumGoldenGenerator(
+      UnicodeVersion unicodeVersion) {
+    super(TEMPLATE_NAME, unicodeVersion);
   }
 
-  private static void generate(UnicodeVersion version, Path outDir)
-      throws IOException, ParseException {
-    new UnicodeCompatFlexGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesAlnumGoldenGenerator(version).generate(outDir);
+  @Override
+  protected UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars createTemplateVars() {
+    UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars = new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
+    vars.templateName = TEMPLATE_NAME;
+    vars.className = TEMPLATE_NAME;
+    vars.ranges = ImmutableList.of();
+    return vars;
+  }
+
+  @Override
+  protected String getOuputFileName(UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars) {
+    return TEMPLATE_NAME + ".vm";
   }
 }

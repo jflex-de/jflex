@@ -14,7 +14,7 @@ java_binary(
     deps = [
         ":testcompat",
         "//java/de/jflex/migration/unicodedatatest/base",
-        "@maven//:org_apache_velocity_velocity",
+        "//third_party/org/apache/velocity",
     ],
 )
 
@@ -24,11 +24,14 @@ java_library(
     srcs = glob(["Unicode*.java"]),
     resources = [
         "UnicodeCompat.flex.vm",
+        "UnicodeCompatibilityPropertiesAlnumGolden.vm",
         "UnicodeCompatibilityPropertiesTest.java.vm",
     ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
     ],
 )
 

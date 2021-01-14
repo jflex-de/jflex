@@ -23,27 +23,14 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testcompat;
 
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
+import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import de.jflex.ucd.CodepointRange;
 
-public class CompatPropertiesTestGenerator {
-  private CompatPropertiesTestGenerator() {}
-
-  public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
-  }
-
-  private static void generate(UnicodeVersion version, Path outDir)
-      throws IOException, ParseException {
-    new UnicodeCompatFlexGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesAlnumGoldenGenerator(version).generate(outDir);
-  }
+public class UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars extends
+    UnicodeVersionTemplateVars {
+  public ImmutableList<CodepointRange> ranges;
 }
