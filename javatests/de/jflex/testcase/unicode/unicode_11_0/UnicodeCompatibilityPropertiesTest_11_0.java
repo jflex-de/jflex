@@ -26,8 +26,18 @@
  */
 package de.jflex.testcase.unicode.unicode_11_0;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.truth.Truth.assertThat;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
+
+import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 import javax.annotation.Generated;
 import org.junit.Test;
 
@@ -36,16 +46,34 @@ import org.junit.Test;
  * Test for compatibility property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt
  * and/or DerivedCoreProperties(-X.X.X).txt.
  */
- @Generated("de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityPropertiesTestGenerator")
+@Generated("de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityPropertiesTestGenerator")
 public class UnicodeCompatibilityPropertiesTest_11_0 {
+
+  private static final String TEST_DIR =
+      getPathForClass(UnicodeCompatibilityPropertiesTest_11_0.class);
 
   /** Test the character class syntax of the Unicode 11.0 'alnum' compatibility property. */
   @Test
   public void testAlnum() throws Exception {
+    Path expectedFile =
+        Paths.get("javatests")
+            .resolve(TEST_DIR)
+            .resolve("UnicodeCompatibilityProperties_alnum_11_0.output");
     UnicodeCompatibilityProperties_alnum_11_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeCompatibilityProperties_alnum_11_0::new),
             UnicodeCompatibilityProperties_alnum_11_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
+
+    ImmutableList<String> blocks =
+        scanner.blocks().stream()
+            .map(BlockSpec::range)
+            .map(r->String.format("%04X..%04X", r.start(), r.end()))
+            .collect(toImmutableList());
+
+    try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
+      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
+      assertThat(blocks).containsExactlyElementsIn(expected);
+    }
   }
 }

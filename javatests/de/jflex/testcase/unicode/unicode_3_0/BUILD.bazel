@@ -151,10 +151,12 @@ java_test(
         ":gen_UnicodeCompatibilityProperties_alnum_3_0_scanner",
     ],
     data = [
+        "UnicodeCompatibilityProperties_alnum_3_0.output",
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/truth",
         "//third_party/javax:annotation",
