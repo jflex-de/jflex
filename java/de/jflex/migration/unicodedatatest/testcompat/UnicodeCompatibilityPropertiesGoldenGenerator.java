@@ -35,17 +35,19 @@ import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
-public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator
+public class UnicodeCompatibilityPropertiesGoldenGenerator
     extends AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
 
-  private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesAlnumGolden";
+  private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesGolden";
 
   private final UcdVersion ucdVersion;
+  private final String propName;
 
-  protected UnicodeCompatibilityPropertiesAlnumGoldenGenerator(
-      UnicodeVersion unicodeVersion, UcdVersion ucdVersion) {
+  protected UnicodeCompatibilityPropertiesGoldenGenerator(
+      UnicodeVersion unicodeVersion, UcdVersion ucdVersion, String propName) {
     super(TEMPLATE_NAME, unicodeVersion);
     this.ucdVersion = ucdVersion;
+    this.propName = propName;
   }
 
   @Override
@@ -53,7 +55,8 @@ public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator
     UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars =
         new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
-    vars.className = "UnicodeCompatibilityProperties_alnum_" + unicodeVersion.underscoreVersion();
+    vars.className =
+        "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
     try {
       vars.ranges = findCompatibilyRanges();
     } catch (UcdScannerException e) {
@@ -70,6 +73,6 @@ public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator
   private ImmutableList<CodepointRange> findCompatibilyRanges() throws UcdScannerException {
     UcdScanner scanner = new UcdScanner(ucdVersion);
     UnicodeData unicodeData = scanner.scan();
-    return unicodeData.getPropertyValueIntervals("alnum");
+    return unicodeData.getPropertyValueIntervals(propName);
   }
 }

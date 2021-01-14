@@ -51,6 +51,7 @@ public class CompatPropertiesTestGenerator {
       throws IOException, ParseException {
     new UnicodeCompatFlexGenerator(version).generate(outDir);
     new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
-    new UnicodeCompatibilityPropertiesAlnumGoldenGenerator(version, ucdVersion).generate(outDir);
+    new UnicodeCompatibilityPropertiesGoldenGenerator(version, ucdVersion, "alnum")
+        .generate(outDir);
   }
 }
