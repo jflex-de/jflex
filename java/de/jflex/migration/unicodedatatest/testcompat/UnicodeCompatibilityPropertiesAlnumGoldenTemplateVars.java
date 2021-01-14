@@ -30,7 +30,7 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.ucd.CodepointRange;
 
-public class UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars extends
-    UnicodeVersionTemplateVars {
+public class UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars
+    extends UnicodeVersionTemplateVars {
   public ImmutableList<CodepointRange> ranges;
 }

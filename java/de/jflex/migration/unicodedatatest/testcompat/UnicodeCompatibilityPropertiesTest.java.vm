@@ -46,7 +46,8 @@ import org.junit.Test;
  * Test for compatibility property, derived from UnicodeData(-X.X.X).txt, PropList(-X|-X.X.X).txt
  * and/or DerivedCoreProperties(-X.X.X).txt.
  */
-@Generated("de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityPropertiesTestGenerator")
+@Generated(
+    "de.jflex.migration.unicodedatatest.testcompat.UnicodeCompatibilityPropertiesTestGenerator")
 public class UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersion()} {
 
   private static final String TEST_DIR =
@@ -68,7 +69,7 @@ public class UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersi
     ImmutableList<String> blocks =
         scanner.blocks().stream()
             .map(BlockSpec::range)
-            .map(r->String.format("%04X..%04X", r.start(), r.end()))
+            .map(r -> String.format("%04X..%04X", r.start(), r.end()))
             .collect(toImmutableList());
 
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {

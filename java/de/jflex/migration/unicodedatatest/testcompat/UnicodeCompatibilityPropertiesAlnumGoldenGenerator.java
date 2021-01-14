@@ -35,8 +35,8 @@ import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
-public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator extends
-    AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
+public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator
+    extends AbstractGenerator<UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars> {
 
   private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesAlnumGolden";
 
@@ -50,7 +50,8 @@ public class UnicodeCompatibilityPropertiesAlnumGoldenGenerator extends
 
   @Override
   protected UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars createTemplateVars() {
-    UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars = new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
+    UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars vars =
+        new UnicodeCompatibilityPropertiesAlnumGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
     vars.className = "UnicodeCompatibilityProperties_alnum_" + unicodeVersion.underscoreVersion();
     try {
