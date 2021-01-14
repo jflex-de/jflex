@@ -31,12 +31,16 @@ import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.function.Function;
 import java.util.stream.Stream;
 import javax.annotation.Generated;
 import org.junit.Test;
@@ -56,14 +60,25 @@ public class UnicodeCompatibilityPropertiesTest_12_1 {
   /** Test the character class syntax of the Unicode 12.1 'alnum' compatibility property. */
   @Test
   public void testAlnum() throws Exception {
+    checkCompatibility(
+        "alnum",
+        UnicodeCompatibilityProperties_alnum_12_1.class,
+        UnicodeCompatibilityProperties_alnum_12_1::new,
+        UnicodeCompatibilityProperties_alnum_12_1.YYEOF);
+  }
+
+  public static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
+      void checkCompatibility(
+          String propName, Class<T> scannerClass, Function<Reader, T> constructorRef, int eof)
+          throws IOException {
     Path expectedFile =
         Paths.get("javatests")
             .resolve(TEST_DIR)
-            .resolve("UnicodeCompatibilityProperties_alnum_12_1.output");
-    UnicodeCompatibilityProperties_alnum_12_1 scanner =
+            .resolve("UnicodeCompatibilityProperties_" + propName + "_12_1.output");
+    T scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeCompatibilityProperties_alnum_12_1::new),
-            UnicodeCompatibilityProperties_alnum_12_1.YYEOF,
+            ScannerFactory.of(constructorRef),
+            eof,
             UnicodeDataScanners.Dataset.ALL);
 
     ImmutableList<String> blocks =
