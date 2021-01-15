@@ -14,6 +14,8 @@ bazel build //java/de/jflex/migration/unicodedatatest/testblock:generate
 bazel build //java/de/jflex/migration/unicodedatatest/testcaseless:generate
 # Generate UnicodeCompatibilityPropertiesTest_alnum_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testcompat:generate
+# Generate UnicodeDigitTest_x_y.java
+bazel build //java/de/jflex/migration/unicodedatatest/testdigit:generate
 
 # Exclude the .flex files are they are sourced from the bazel target directly.
 rsync --archive -vm --chmod=Fa=r \

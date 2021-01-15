@@ -25,13 +25,16 @@
  */
 package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 
-import static com.google.common.truth.Truth.assertWithMessage;
+import static com.google.common.truth.Truth.assertThat;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
+import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.SimpleDigitParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +44,7 @@ import org.junit.Test;
 
 /** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeCaseselessTestGenerator")
-public class UnicodedigitTest_${unicodeVersion.underscoreVersion()} {
+public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
@@ -51,25 +54,28 @@ public class UnicodedigitTest_${unicodeVersion.underscoreVersion()} {
         .scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_${unicodeVersion.underscoreVersion()}::new),
             UnicodeDigit_${unicodeVersion.underscoreVersion()}.YYEOF,
-            UnicodeDataScanners.Dataset.${dataset});
-    PatternHandler expectationVerifier = new PatternHandler() {
+            UnicodeDataScanners.Dataset.ALL);
+    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
+    assertThat(scanner.blocks()).containsExactly(expected);
+  }
+
+  private ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
+    ImmutableList.Builder<BlockSpec<Boolean>> expected = ImmutableList.builder();
+    PatternHandler goldenHandler = new PatternHandler() {
       @Override
       public void onRegexMatch(List<String> regexpGroups) {
-        String inputChar = regexpGroups.get(0);
-        String expectedEquivalence = regexpGroups.get(1);
-        int actualEquivalence =
-            scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
-        assertWithMessage("Character 0x%s matches caselessly 0x%s", inputChar, expectedEquivalence)
-            .that(actualEquivalence)
-            .isEqualTo(expectedEquivalence);
+        int start = Integer.parseInt(regexpGroups.get(0), 16);
+        int end = Integer.parseInt(regexpGroups.get(1), 16);
+        boolean digit = regexpGroups.get(2).equals("Nd");
+        expected.add(BlockSpec.<Boolean>create(digit, start, end));
       }
     };
-    String goldenFile =
-        "unicode_${unicodeVersion.underscoreVersion()}/UnicodeDigit_${unicodeVersion.underscoreVersion()}.output";
+    String goldenFile = "unicode_${unicodeVersion.underscoreVersion()}/UnicodeDigit_${unicodeVersion.underscoreVersion()}.output";
     try (BufferedReader goldenReader = Files.newBufferedReader(
         packageDirectory.resolve(goldenFile))) {
-      SimpleDigitParser parser = new SimpleDigitParser(goldenReader, expectationVerifier);
+      SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
       parser.parse();
     }
+    return expected.build();
   }
 }

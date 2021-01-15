@@ -23,27 +23,18 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testdigit;
 
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
+package de.jflex.testing.unicodedata;
 
-public class DigitTestGenerator {
+import java.io.Reader;
+import java.util.regex.Pattern;
 
-  private DigitTestGenerator() {}
+public class SimpleDigitParser extends AbstractSimpleParser {
 
-  public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
-  }
+  private static final Pattern PATTERN =
+      Pattern.compile("^([0-9A-F]{4,6})\\.\\.([0-9A-F]{4,6}); (.*)$");
 
-  private static void generate(UnicodeVersion version, Path outDir)
-      throws IOException, ParseException {
-    new UnicodeDigitFlexGenerator(version).generate(outDir);
-    new UnicodeDigitTestGenerator(version).generate(outDir);
+  public SimpleDigitParser(Reader reader, PatternHandler handler) {
+    super(PATTERN, reader, handler);
   }
 }
