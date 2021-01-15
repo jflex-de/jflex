@@ -123,7 +123,7 @@ public class DfaFactory {
       currentDFAState++;
     }
 
-    if (Out.isLogLevel(Level.INFO)) Out.println("");
+    Out.println("");
     return dfa;
   }
 
