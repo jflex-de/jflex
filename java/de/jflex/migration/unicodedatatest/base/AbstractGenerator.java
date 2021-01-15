@@ -27,6 +27,7 @@ package de.jflex.migration.unicodedatatest.base;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static de.jflex.migration.util.JavaResources.readResource;
+import static de.jflex.ucd.Versions.VERSION_3_0;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.util.javac.JavaPackageUtils;
@@ -89,7 +90,7 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
   }
 
   protected static int getMaxCodePoint(Version version) {
-    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0;
+    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_0) < 0;
     return oldVersion ? 0xFFFD : 0x10FFFF;
   }
 
