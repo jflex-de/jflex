@@ -19,6 +19,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
@@ -96,7 +97,7 @@ public class Main {
       if (Objects.equals(argv[i], "-v")
           || Objects.equals(argv[i], "--verbose")
           || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = true;
+        Options.logLevel = Level.INFO;
         Options.progress = true;
         Options.unused_warning = true;
         continue;
@@ -105,7 +106,7 @@ public class Main {
       if (Objects.equals(argv[i], "-q")
           || Objects.equals(argv[i], "--quiet")
           || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = false;
+        Options.logLevel = Level.SEVERE;
         Options.progress = false;
         Options.unused_warning = false;
         Options.warning = false;

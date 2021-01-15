@@ -24,8 +24,10 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.logging.Level;
 import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
+import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.skeleton.Skeleton;
 
@@ -130,7 +132,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.verbose = verbose.getState();
+            Options.logLevel = verbose.getState() ? Level.INFO : Level.WARNING;
           }
         });
 
@@ -241,7 +243,7 @@ public class OptionsDialog extends Dialog {
     legacy_dot.setState(Options.legacy_dot);
 
     dump.setState(Options.dump);
-    verbose.setState(Options.verbose);
+    verbose.setState(Out.isLogLevel(Level.INFO));
     time.setState(Options.time);
 
     no_minimize.setState(Options.no_minimize);
