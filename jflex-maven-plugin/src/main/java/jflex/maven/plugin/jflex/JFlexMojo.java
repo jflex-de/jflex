@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.option.Options;
@@ -214,7 +215,9 @@ public class JFlexMojo extends AbstractMojo {
     OptionUtils.setDir(generatedFile.getParentFile());
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
-    Options.verbose = verbose;
+    if (verbose) {
+      Options.logLevel = Level.INFO;
+    }
     Options.unused_warning = unusedWarning;
     Options.dot = dot;
     Options.legacy_dot = legacyDot;

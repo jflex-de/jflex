@@ -40,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.logging.Level;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
@@ -203,7 +204,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     }
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
-    Options.verbose = !spec.quiet();
+    Options.logLevel = spec.quiet() ? Level.SEVERE : Level.WARNING;
     Options.unused_warning = spec.warnUnused();
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());

@@ -2,6 +2,7 @@ package jflex.core;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -29,7 +30,7 @@ public class OptionUtils {
     Options.jlex = false;
     Options.no_minimize = false;
     Options.no_backup = false;
-    Options.verbose = true;
+    Options.logLevel = Level.WARNING;
     Options.progress = true;
     Options.unused_warning = true;
     Options.time = false;

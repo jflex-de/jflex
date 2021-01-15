@@ -39,8 +39,6 @@ public class Options {
   /** don't write backup files if this is true */
   public static boolean no_backup;
   public static Level logLevel;
-  /** If false, only error/warning output will be generated */
-  public static boolean verbose = true;
   /** Whether to show warnings. */
   public static boolean warning = true;
   /** Whether to warn about unused macros. */
