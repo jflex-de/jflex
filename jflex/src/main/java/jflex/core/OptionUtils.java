@@ -2,7 +2,6 @@ package jflex.core;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.logging.Level;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
