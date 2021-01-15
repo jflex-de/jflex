@@ -125,7 +125,7 @@ public class JFlexTaskTest {
   @Test
   public void testVerbose_true() {
     task.setVerbose(true);
-    assertThat(Options.logLevel).isEqualTo(Level.FINE);
+    assertThat(Options.logLevel).isEqualTo(Level.INFO);
   }
 
   @Test

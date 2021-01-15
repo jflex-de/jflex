@@ -240,7 +240,7 @@ public class JFlexTask extends Task {
    * @param verbose a boolean.
    */
   public final void setVerbose(boolean verbose) {
-    Options.logLevel = verbose ? Level.FINE : Level.WARNING;
+    Options.logLevel = verbose ? Level.INFO : Level.WARNING;
     Options.unused_warning = verbose;
   }
 
