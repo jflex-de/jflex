@@ -6,7 +6,8 @@ buildtools_cache:
 
 container:
   image: l.gcr.io/google/bazel:3.5.0
-  memory: 5G
+  cpu: 4
+  memory: 8GB
 
 bazel_build_and_test_task:
   name: Bazel build and test
@@ -52,6 +53,8 @@ codestyle_task:
   name: Check code style
   container:
     image: openjdk:11-jdk
+    cpu: 2
+    memory: 4GB
   check_java_format_script: scripts/test-java-format.sh
   check_bzl_format_script:  scripts/test-bzl-format.sh
 
