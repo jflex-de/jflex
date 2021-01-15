@@ -35,7 +35,7 @@ java_test(
         "UnicodeAge_3_0_age_3_0.output",
         "UnicodeAge_3_0_age_subtraction.output",
         "UnicodeAge_3_0_age_unassigned.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
@@ -99,7 +99,7 @@ java_test(
         "UnicodeBlocksTest_3_0.java",
     ],
     data = [
-        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
@@ -128,7 +128,7 @@ java_test(
     ],
     data = [
         "UnicodeCaseless_3_0.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
@@ -164,7 +164,7 @@ java_test(
         "UnicodeCompatibilityProperties_graph_3_0.output",
         "UnicodeCompatibilityProperties_print_3_0.output",
         "UnicodeCompatibilityProperties_xdigit_3_0.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",

@@ -25,6 +25,7 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
+import static de.jflex.ucd.Versions.VERSION_3_0;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
 
 import com.google.auto.value.AutoValue;
@@ -42,6 +43,11 @@ public abstract class UnicodeVersion {
   public abstract String javaPackage();
 
   public abstract Path javaPackageDirectory();
+
+  public int maxCodePoint() {
+    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version(), VERSION_3_0) < 0;
+    return oldVersion ? 0xFFFD : 0x10FFFF;
+  }
 
   public static UnicodeVersion create(Version unicodeVersion) {
     String underscoreVersion = unicodeVersion.underscoreVersion();

@@ -27,7 +27,7 @@ package de.jflex.testing.unicodedata;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.ucd.Versions.VERSION_3_1;
+import static de.jflex.ucd.Versions.VERSION_3_0;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.util.scanner.ScannerFactory;
@@ -65,7 +65,7 @@ public class UnicodeDataScanners {
   }
 
   public static Dataset getDataset(Version version) {
-    boolean oldUnicode = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0;
+    boolean oldUnicode = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_0) < 0;
     return oldUnicode ? Dataset.BMP : Dataset.ALL;
   }
 

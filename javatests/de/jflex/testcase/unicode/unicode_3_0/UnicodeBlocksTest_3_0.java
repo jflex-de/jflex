@@ -42,7 +42,7 @@ public class UnicodeBlocksTest_3_0 {
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeBlocks_3_0::new),
             UnicodeBlocks_3_0.YYEOF,
-            UnicodeDataScanners.Dataset.BMP);
+            UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.blocks())
         .containsExactly(
             BlockSpec.create("Basic Latin", 0x0000, 0x007F),
@@ -143,6 +143,7 @@ public class UnicodeBlocksTest_3_0 {
             BlockSpec.create("Arabic Presentation Forms-B", 0xFE70, 0xFEFE),
             BlockSpec.create("Specials", 0xFEFF, 0xFEFF),
             BlockSpec.create("Halfwidth and Fullwidth Forms", 0xFF00, 0xFFEF),
-            BlockSpec.create("Specials", 0xFFF0, 0xFFFD));
+            BlockSpec.create("Specials", 0xFFF0, 0xFFFD),
+            BlockSpec.create("No Block", 0xFFFE, 0x10FFFF));
   }
 }

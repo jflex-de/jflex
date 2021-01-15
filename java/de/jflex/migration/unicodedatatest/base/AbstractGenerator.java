@@ -42,8 +42,6 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
-  private static final Version VERSION_3_1 = new Version(3, 1);
-
   // TODO(regisd) Add This in UnicodeProperties
   private static final ImmutableList<Version> KNOWN_VERSIONS =
       ImmutableList.of(
@@ -87,11 +85,6 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     return KNOWN_VERSIONS.stream()
         .filter(v -> Version.EXACT_VERSION_COMPARATOR.compare(v, version) <= 0)
         .collect(toImmutableList());
-  }
-
-  protected static int getMaxCodePoint(Version version) {
-    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_0) < 0;
-    return oldVersion ? 0xFFFD : 0x10FFFF;
   }
 
   /** Returns the generated file. */

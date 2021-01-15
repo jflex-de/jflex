@@ -47,7 +47,7 @@ public abstract class UnicodeVersionTemplateVars extends TemplateVars {
   public void updateFrom(UnicodeVersion version) {
     javaPackage = version.javaPackage();
     unicodeVersion = version.version();
-    maxCodePoint = AbstractGenerator.getMaxCodePoint(version.version());
+    maxCodePoint = version.maxCodePoint();
     dataset = UnicodeDataScanners.getDataset(version.version());
   }
 }

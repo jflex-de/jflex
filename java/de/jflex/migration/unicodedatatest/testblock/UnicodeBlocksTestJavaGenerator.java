@@ -81,7 +81,7 @@ class UnicodeBlocksTestJavaGenerator
       retval.add(blocks.get(i));
     }
     BlockSpec<String> lastBlock = blocks.get(blocks.size() - 1);
-    int maxCodePoint = getMaxCodePoint(unicodeVersion.version());
+    int maxCodePoint = unicodeVersion.maxCodePoint();
     if (lastBlock.range().end() != maxCodePoint) {
       retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }
