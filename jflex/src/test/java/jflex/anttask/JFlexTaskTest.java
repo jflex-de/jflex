@@ -15,6 +15,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
 import jflex.core.OptionUtils;
 import jflex.option.Options;
 import jflex.skeleton.Skeleton;
@@ -116,11 +117,15 @@ public class JFlexTaskTest {
   }
 
   @Test
-  public void testVerbose() {
+  public void testVerbose_false() {
     task.setVerbose(false);
-    assertThat(!Options.verbose).isTrue();
+    assertThat(Options.logLevel).isEqualTo(Level.WARNING);
+  }
+
+  @Test
+  public void testVerbose_true() {
     task.setVerbose(true);
-    assertThat(Options.verbose).isTrue();
+    assertThat(Options.logLevel).isEqualTo(Level.FINE);
   }
 
   @Test

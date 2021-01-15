@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.logging.Level;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -400,5 +401,10 @@ public final class Out {
     reader.close();
 
     return msg;
+  }
+
+  /** Returns whether the log level is at least the given level. */
+  public static boolean isLogLevel(Level requiredLevel) {
+    return Options.logLevel.intValue() >= requiredLevel.intValue();
   }
 }

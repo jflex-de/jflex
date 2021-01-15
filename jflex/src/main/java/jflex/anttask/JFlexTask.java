@@ -16,11 +16,13 @@ import java.io.LineNumberReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
 import jflex.option.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -76,7 +78,9 @@ public class JFlexTask extends Task {
 
         if (inputFile.lastModified() > destFile.lastModified()) {
           new LexGenerator(inputFile).generate();
-          if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
+          if (Out.isLogLevel(Level.INFO)) {
+            System.out.println("Generated: " + destFile.getName());
+          }
         }
       } catch (IOException e1) {
         throw new BuildException(e1);
@@ -236,7 +240,7 @@ public class JFlexTask extends Task {
    * @param verbose a boolean.
    */
   public final void setVerbose(boolean verbose) {
-    Options.verbose = verbose;
+    Options.logLevel = verbose ? Level.FINE : Level.WARNING;
     Options.unused_warning = verbose;
   }
 
