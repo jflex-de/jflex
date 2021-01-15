@@ -47,7 +47,6 @@ class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVa
   @Override
   protected UnicodeAgeTestTemplateVars createTemplateVars() {
     UnicodeAgeTestTemplateVars vars = new UnicodeAgeTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.dataset = getDataset(unicodeVersion.version());
     vars.className = "UnicodeAgeTest_" + unicodeVersion.underscoreVersion();
     vars.scannerPrefix = "UnicodeAge_" + unicodeVersion.underscoreVersion() + "_age";

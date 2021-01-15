@@ -49,7 +49,6 @@ class UnicodeBlocksTestJavaGenerator
   @Override
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());

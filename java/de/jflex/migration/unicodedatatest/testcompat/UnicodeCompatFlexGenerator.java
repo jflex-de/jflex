@@ -41,7 +41,6 @@ public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatF
   @Override
   protected UnicodeCompatFlexTemplateVars createTemplateVars() {
     UnicodeCompatFlexTemplateVars vars = new UnicodeCompatFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
     vars.propName = propName;

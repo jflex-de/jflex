@@ -54,7 +54,6 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
   protected UnicodeCompatibilityPropertiesGoldenTemplateVars createTemplateVars() {
     UnicodeCompatibilityPropertiesGoldenTemplateVars vars =
         new UnicodeCompatibilityPropertiesGoldenTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.templateName = TEMPLATE_NAME;
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();

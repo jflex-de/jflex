@@ -40,7 +40,6 @@ public class UnicodeCompatibilityPropertiesTestGenerator
   protected UnicodeCompatibilityPropertiesTestTemplateVars createTemplateVars() {
     UnicodeCompatibilityPropertiesTestTemplateVars vars =
         new UnicodeCompatibilityPropertiesTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCompatibilityPropertiesTest_" + unicodeVersion.underscoreVersion();
     return vars;
   }

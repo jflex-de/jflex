@@ -42,7 +42,6 @@ class UnicodeBlockFlexGenerator
   @Override
   protected UnicodeBlockFlexTemplateVars createTemplateVars() {
     UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
     vars.blockNames =
         ImmutableSortedSet.<String>naturalOrder()
