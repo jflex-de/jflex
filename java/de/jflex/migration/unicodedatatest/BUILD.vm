@@ -34,7 +34,9 @@ java_test(
         #end
         "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_subtraction.output",
         "UnicodeAge_${unicodeVersion.underscoreVersion()}_age_unassigned.output",
-        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
+        # TODO(regisd) UnicodeAge_3_0 uses BMP but could use ALL
+        "//testsuite/testcases/src/test/resources:All.Unicode.characters.input",
+        "//testsuite/testcases/src/test/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
         "//java/de/jflex/util/javac:package_util",

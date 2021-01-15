@@ -17,8 +17,11 @@ bazel build //java/de/jflex/migration/unicodedatatest/testcompat:generate
 
 # Exclude the .flex files are they are sourced from the bazel target directly.
 rsync --archive -vm --chmod=Fa=r \
-  --include '*.java' --include='BUILD.bazel' --include='*.output' --include='*/' --exclude='*' \
+  --include '*.java' --include='*.output' --include='*/' --exclude='*' \
   "${WS}"/bazel-bin/java/de/jflex/migration/unicodedatatest/*/javatests "${WS}"
+rsync --archive -vm --chmod=Fa=r \
+  --include 'BUILD.bazel' --include='*/' --exclude='*' \
+  "${WS}"/bazel-bin/java/de/jflex/migration/unicodedatatest/javatests "${WS}"
 
 for f in $(git diff --name-only | grep '.java$');	do
   chmod u+w "$f"

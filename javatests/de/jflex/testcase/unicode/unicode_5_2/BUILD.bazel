@@ -49,7 +49,9 @@ java_test(
         "UnicodeAge_5_2_age_5_2.output",
         "UnicodeAge_5_2_age_subtraction.output",
         "UnicodeAge_5_2_age_unassigned.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+        # TODO(regisd) UnicodeAge_3_0 uses BMP but could use ALL
+        "//testsuite/testcases/src/test/resources:All.Unicode.characters.input",
+        "//testsuite/testcases/src/test/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",

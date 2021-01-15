@@ -44,7 +44,6 @@ java_test(
         ":gen_UnicodeAge_10_0_age_unassigned_scanner",
     ],
     data = [
-        "UnicodeAge_10_0_age_10_0.output",
         "UnicodeAge_10_0_age_1_1.output",
         "UnicodeAge_10_0_age_2_0.output",
         "UnicodeAge_10_0_age_2_1.output",
@@ -63,9 +62,12 @@ java_test(
         "UnicodeAge_10_0_age_7_0.output",
         "UnicodeAge_10_0_age_8_0.output",
         "UnicodeAge_10_0_age_9_0.output",
+        "UnicodeAge_10_0_age_10_0.output",
         "UnicodeAge_10_0_age_subtraction.output",
         "UnicodeAge_10_0_age_unassigned.output",
-        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+        # TODO(regisd) UnicodeAge_3_0 uses BMP but could use ALL
+        "//testsuite/testcases/src/test/resources:All.Unicode.characters.input",
+        "//testsuite/testcases/src/test/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
