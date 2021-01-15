@@ -9,9 +9,7 @@ java_test(
         "IntCharSetQuickcheck",
         "//jflex/src/main/java/jflex/base",
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/core/unicode",
-        "//jflex/src/test/java/jflex/chars",
         "//third_party/com/google/truth",
         "//third_party/com/pholser/quickcheck",
     ],
@@ -26,7 +24,6 @@ java_test(
     ],
     deps = [
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/core/unicode",
         "//jflex/src/test/java/jflex/chars",
         "//third_party/com/google/truth",
@@ -40,7 +37,6 @@ java_test(
     srcs = ["IntCharSetTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/chars",
-        "//jflex/src/main/java/jflex/core",
         "//jflex/src/main/java/jflex/core/unicode",
         "//third_party/com/google/truth",
     ],

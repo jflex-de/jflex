@@ -24,7 +24,6 @@ java_library(
         ":gen_generics_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -38,7 +37,6 @@ java_test(
     ],
     deps = [
         ":generics_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
@@ -60,7 +58,6 @@ java_library(
         ":gen_generics2_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -74,7 +71,6 @@ java_test(
     ],
     deps = [
         ":generics2_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
@@ -96,7 +92,6 @@ java_library(
         ":gen_generics3_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -110,7 +105,6 @@ java_test(
     ],
     deps = [
         ":generics3_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
@@ -132,7 +126,6 @@ java_library(
         ":gen_generics4_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -148,7 +141,6 @@ java_test(
     ],
     deps = [
         ":generics4_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
