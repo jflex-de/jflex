@@ -24,6 +24,8 @@ import java.util.logging.Level;
  */
 public class Options {
 
+  public static final Level DEFAULT_LOG_LEVEL = Level.WARNING;
+
   /** output directory */
   public static File directory;
   /**
@@ -38,7 +40,7 @@ public class Options {
   public static boolean no_minimize;
   /** don't write backup files if this is true */
   public static boolean no_backup;
-  public static Level logLevel;
+  public static Level logLevel = DEFAULT_LOG_LEVEL;
   /** Whether to show warnings. */
   public static boolean warning = true;
   /** Whether to warn about unused macros. */

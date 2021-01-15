@@ -30,7 +30,7 @@ public class OptionUtils {
     Options.jlex = false;
     Options.no_minimize = false;
     Options.no_backup = false;
-    Options.logLevel = Level.WARNING;
+    Options.logLevel = Options.DEFAULT_LOG_LEVEL;
     Options.progress = true;
     Options.unused_warning = true;
     Options.time = false;
