@@ -1,0 +1,23 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+
+package(default_visibility = [
+    "//javatests/de/jflex/migration/unicodedatatest/testdigit:__pkg__",
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = ["DigitTestGenerator.java"],
+    main_class = "de.jflex.migration.unicodedatatest.testdigit.DigitTestGenerator",
+    deps = [
+        ":testcompat",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
