@@ -40,9 +40,8 @@ public class Options {
   public static boolean no_minimize;
   /** don't write backup files if this is true */
   public static boolean no_backup;
+  /** The level of logging. JFlex uses {@link #DEFAULT_LOG_LEVEL} by default. */
   public static Level logLevel = DEFAULT_LOG_LEVEL;
-  /** Whether to show warnings. */
-  public static boolean warning = true;
   /** Whether to warn about unused macros. */
   public static boolean unused_warning;
   /** If true, progress dots will be printed */
