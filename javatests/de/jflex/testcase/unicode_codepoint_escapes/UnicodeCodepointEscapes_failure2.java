@@ -24,43 +24,28 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_codepoint_escapes;
+package de.jflex.testcase.unicode_codepoint_escapes;
 
-import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-%%
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
+import jflex.exceptions.GeneratorException;
+import jflex.scanner.ScannerException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-%unicode
-%public
-%class UnicodeCodePointEscapes
-%extends AbstractEnumeratedPropertyDefinedScanner<String>
-
-%type int
-
-%init{
-  // TODO(regisd) Introduced enum
-  super(0x10FFFF, String.class);
-%init}
-
-%{
-  private void setCurCharPropertyValue(String value) {
-    setCurCharPropertyValue(yytext(), yylength(), value);
-  }
-%}
-
-%%
-
-<<EOF>> { return YYEOF; }
-\u{1} { setCurCharPropertyValue("matched"); }
-\u{000010} { setCurCharPropertyValue("matched"); }
-\u{ CFF
-    D00 } { setCurCharPropertyValue("matched"); }
-\u{FFFF 10000 10001} { setCurCharPropertyValue("matched"); }
-
-"\u{2}" { setCurCharPropertyValue("matched"); }
-"\u{000011}" { setCurCharPropertyValue("matched"); }
-"\u{ CFF D00 }" { setCurCharPropertyValue("matched"); }
-"\u{FFF 1000 1001}" { setCurCharPropertyValue("matched"); }
-
-[\u{3}\u{10FFFF}] { setCurCharPropertyValue("matched"); }
-
-[^] { setCurCharPropertyValue("inverse matched"); }
+/**
+ * Check that generation fails when a codepoint specified in <code>\\u{H+}</code> format is greater
+ * than the maximum codepoint for the Unicode version.
+ */
+@RunWith(JFlexTestRunner.class)
+@TestSpec(
+    lex =
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-2.flex",
+    sysout =
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-2-flex.output",
+    generatorThrows = GeneratorException.class,
+    generatorThrowableCause = ScannerException.class)
+public class UnicodeCodepointEscapes_failure2 {
+  @Test
+  public void ok() {}
+}

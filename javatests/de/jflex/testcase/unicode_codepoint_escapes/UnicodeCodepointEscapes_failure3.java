@@ -24,12 +24,28 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_codepoint_escapes;
-%%
+package de.jflex.testcase.unicode_codepoint_escapes;
 
-%unicode
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
+import jflex.exceptions.GeneratorException;
+import jflex.scanner.ScannerException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-%%
-
-"\u{1EDC FFFFFF 13}" { }
-[^] { }
+/**
+ * Check that generation fails when a codepoint specified in <code>\\u{H+}</code> format is greater
+ * than the maximum codepoint for the Unicode version.
+ */
+@RunWith(JFlexTestRunner.class)
+@TestSpec(
+    lex =
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3.flex",
+    sysout =
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-3-flex.output",
+    generatorThrows = GeneratorException.class,
+    generatorThrowableCause = ScannerException.class)
+public class UnicodeCodepointEscapes_failure3 {
+  @Test
+  public void ok() {}
+}

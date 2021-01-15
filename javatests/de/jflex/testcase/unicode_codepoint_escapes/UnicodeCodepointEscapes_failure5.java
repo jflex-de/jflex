@@ -24,7 +24,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_codepoint_escapes;
+package de.jflex.testcase.unicode_codepoint_escapes;
 
 import de.jflex.testing.testsuite.JFlexTestRunner;
 import de.jflex.testing.testsuite.annotations.TestSpec;
@@ -40,12 +40,12 @@ import org.junit.runner.RunWith;
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
     lex =
-        "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-2.flex",
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-5.flex",
     sysout =
-        "javatests/de/jflex/testcase/unicode/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-2-flex.output",
+        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-5-flex.output",
     generatorThrows = GeneratorException.class,
     generatorThrowableCause = ScannerException.class)
-public class UnicodeCodepointEscapes_failure2 {
+public class UnicodeCodepointEscapes_failure5 {
   @Test
   public void ok() {}
 }
