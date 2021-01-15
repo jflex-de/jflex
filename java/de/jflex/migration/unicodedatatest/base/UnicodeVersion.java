@@ -25,7 +25,6 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
-import static de.jflex.ucd.Versions.VERSION_3_0;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForPackage;
 
 import com.google.auto.value.AutoValue;
