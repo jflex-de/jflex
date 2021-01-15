@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2009-2014 Steve Rowe <sarowe@gmail.com>
  * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause

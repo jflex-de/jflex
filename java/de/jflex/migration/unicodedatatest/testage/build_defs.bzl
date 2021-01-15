@@ -1,3 +1,7 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
 
 def gen_test_age(name, version):
