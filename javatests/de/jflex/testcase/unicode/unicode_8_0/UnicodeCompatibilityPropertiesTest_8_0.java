@@ -113,9 +113,7 @@ public class UnicodeCompatibilityPropertiesTest_8_0 {
             .resolve("UnicodeCompatibilityProperties_" + propName + "_8_0.output");
     T scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(constructorRef),
-            eof,
-            UnicodeDataScanners.Dataset.ALL);
+            ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
 
     ImmutableList<String> blocks =
         scanner.blocks().stream()
