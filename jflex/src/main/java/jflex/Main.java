@@ -108,6 +108,7 @@ public class Main {
         Options.verbose = false;
         Options.progress = false;
         Options.unused_warning = false;
+        Options.warning = false;
         continue;
       }
 
