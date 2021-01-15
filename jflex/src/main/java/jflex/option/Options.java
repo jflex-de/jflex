@@ -11,6 +11,7 @@ package jflex.option;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
 
 /**
  * Collects all global JFlex options.
@@ -37,6 +38,7 @@ public class Options {
   public static boolean no_minimize;
   /** don't write backup files if this is true */
   public static boolean no_backup;
+  public static Level logLevel;
   /** If false, only error/warning output will be generated */
   public static boolean verbose = true;
   /** Whether to show warnings. */
