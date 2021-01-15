@@ -101,7 +101,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(message);
     }
   }
@@ -113,7 +113,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, String data) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -125,7 +125,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, int data) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -136,7 +136,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.print(message);
     }
   }
