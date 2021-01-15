@@ -7,6 +7,7 @@ def gen_test_digit(name, version, ucd):
     underscore_version = version.replace(".", "_")
     outs = [
         "unicode_{version}/UnicodeDigit_{version}.flex",
+        "unicode_{version}/UnicodeDigit_{version}.output",
         "unicode_{version}/UnicodeDigitTest_{version}.java",
     ]
     native.genrule(

@@ -23,28 +23,32 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testdigit;
 
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class DigitTestGenerator {
+public class UnicodeDigitGoldenGenerator
+    extends AbstractGenerator<UnicodeVersionTemplateVars> {
 
-  private DigitTestGenerator() {}
+  private static final String TEMPLATE_NAME = "UnicodeDigitGolden";
 
-  public static void main(String[] args) throws IOException, ParseException {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
+  protected UnicodeDigitGoldenGenerator(UnicodeVersion unicodeVersion) {
+    super(TEMPLATE_NAME, unicodeVersion);
   }
 
-  private static void generate(UnicodeVersion version, Path outDir)
-      throws IOException, ParseException {
-    new UnicodeDigitFlexGenerator(version).generate(outDir);
-    new UnicodeDigitTestGenerator(version).generate(outDir);
-    new UnicodeDigitGoldenGenerator(version).generate(outDir);
+  @Override
+  protected UnicodeVersionTemplateVars createTemplateVars() {
+    UnicodeVersionTemplateVars vars = new UnicodeVersionTemplateVars();
+    vars.className =
+        "UnicodeDigit_" + unicodeVersion.underscoreVersion();
+    return vars;
+  }
+
+  @Override
+  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
+    return vars.className + ".output";
   }
 }

@@ -29,6 +29,7 @@ java_library(
     srcs = glob(["Unicode*.java"]),
     resources = [
         "UnicodeDigit.flex.vm",
+        "UnicodeDigitGolden.vm",
         "UnicodeDigitTest.java.vm",
     ],
     deps = [
