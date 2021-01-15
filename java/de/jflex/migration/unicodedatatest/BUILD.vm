@@ -173,7 +173,7 @@ java_test(
         "UnicodeDigitTest_${unicodeVersion.underscoreVersion()}.java",
     ],
     data = [
-        # "UnicodeDigit_${unicodeVersion.underscoreVersion()}.output",
+        "UnicodeDigit_${unicodeVersion.underscoreVersion()}.output",
         "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
     ],
     deps = [

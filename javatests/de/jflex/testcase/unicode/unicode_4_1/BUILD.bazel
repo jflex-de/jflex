@@ -262,7 +262,7 @@ java_test(
         "UnicodeDigitTest_4_1.java",
     ],
     data = [
-        # "UnicodeDigit_4_1.output",
+        "UnicodeDigit_4_1.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [

@@ -217,7 +217,7 @@ java_test(
         "UnicodeDigitTest_2_1.java",
     ],
     data = [
-        # "UnicodeDigit_2_1.output",
+        "UnicodeDigit_2_1.output",
         "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
     ],
     deps = [
