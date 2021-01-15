@@ -208,7 +208,7 @@ public final class Out {
    */
   public static void warning(String message) {
     warnings++;
-    if(!Options.warning) {
+    if(!isLogLevel(Level.WARNING)) {
       return;
     }
     err(NL + "Warning : " + message);
@@ -233,7 +233,7 @@ public final class Out {
    */
   public static void warning(ErrorMessages.ErrorMessage message, int line) {
     warnings++;
-    if(!Options.warning) {
+    if(!isLogLevel(Level.WARNING)) {
       return;
     }
     String msg = NL + "Warning";
@@ -253,7 +253,7 @@ public final class Out {
    */
   public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
     warnings++;
-    if(!Options.warning) {
+    if(!isLogLevel(Level.WARNING)) {
       return;
     }
     String msg = NL + "Warning";

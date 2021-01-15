@@ -109,7 +109,6 @@ public class Main {
         Options.logLevel = Level.SEVERE;
         Options.progress = false;
         Options.unused_warning = false;
-        Options.warning = false;
         continue;
       }
 
