@@ -26,13 +26,8 @@
 
 package de.jflex.migration.unicodedatatest.testcompat;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.ucd.CodepointRange;
-import de.jflex.ucd.UcdVersion;
-import de.jflex.ucd_generator.scanner.UcdScanner;
-import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
@@ -40,13 +35,13 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
 
   private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesGolden";
 
-  private final UcdVersion ucdVersion;
+  private final UnicodeData unicodeData;
   private final String propName;
 
   protected UnicodeCompatibilityPropertiesGoldenGenerator(
-      UnicodeVersion unicodeVersion, UcdVersion ucdVersion, String propName) {
+      UnicodeVersion unicodeVersion, UnicodeData unicodeData, String propName) {
     super(TEMPLATE_NAME, unicodeVersion);
-    this.ucdVersion = ucdVersion;
+    this.unicodeData = unicodeData;
     this.propName = propName;
   }
 
@@ -57,22 +52,12 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
     vars.templateName = TEMPLATE_NAME;
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
-    try {
-      vars.ranges = findCompatibilyRanges();
-    } catch (UcdScannerException e) {
-      throw new IllegalArgumentException(e);
-    }
+    vars.ranges = unicodeData.getPropertyValueIntervals(propName);
     return vars;
   }
 
   @Override
   protected String getOuputFileName(UnicodeCompatibilityPropertiesGoldenTemplateVars vars) {
     return vars.className + ".output";
-  }
-
-  private ImmutableList<CodepointRange> findCompatibilyRanges() throws UcdScannerException {
-    UcdScanner scanner = new UcdScanner(ucdVersion);
-    UnicodeData unicodeData = scanner.scan();
-    return unicodeData.getPropertyValueIntervals(propName);
   }
 }

@@ -33,4 +33,4 @@ for f in $(find "${WS}"/javatests/de/jflex/testcase/unicode -name BUILD.bazel); 
   chmod u-w "$f"
 done
 
-chmod -R u-w javatests/de/jflex/testcase/unicode/unicode_*/*.*
+chmod -R u-wx javatests/de/jflex/testcase/unicode/unicode_*/*.*

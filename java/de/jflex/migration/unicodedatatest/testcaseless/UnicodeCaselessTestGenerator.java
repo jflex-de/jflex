@@ -28,23 +28,23 @@ package de.jflex.migration.unicodedatatest.testcaseless;
 
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCaselessTestGenerator
-    extends AbstractGenerator<UnicodeCaselessTestTemplateVars> {
+public class UnicodeCaselessTestGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
 
   UnicodeCaselessTestGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeCaselessTest.java", unicodeVersion);
   }
 
   @Override
-  protected UnicodeCaselessTestTemplateVars createTemplateVars() {
-    UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
+  protected UnicodeVersionTemplateVars createTemplateVars() {
+    UnicodeVersionTemplateVars vars = new UnicodeVersionTemplateVars();
     vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
     return vars;
   }
 
   @Override
-  protected String getOuputFileName(UnicodeCaselessTestTemplateVars vars) {
+  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
     return vars.className + ".java";
   }
 }

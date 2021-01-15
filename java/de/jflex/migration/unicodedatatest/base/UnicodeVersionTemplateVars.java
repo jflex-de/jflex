@@ -30,7 +30,7 @@ import de.jflex.ucd.Versions;
 import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
-public abstract class UnicodeVersionTemplateVars extends TemplateVars {
+public class UnicodeVersionTemplateVars extends TemplateVars {
   /** The class name produced by this Java template. */
   public String className;
 
