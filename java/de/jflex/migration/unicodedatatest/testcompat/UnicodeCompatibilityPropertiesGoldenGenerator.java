@@ -26,14 +26,11 @@
 
 package de.jflex.migration.unicodedatatest.testcompat;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.UcdVersion;
-import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
@@ -62,15 +59,7 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
     try {
-      if (unicodeVersion.version().equals(Versions.VERSION_3_0)) {
-        // Version 3 incorrectly mentions ranges above the max codepoint.
-        vars.ranges =
-            findCompatibilyRanges().stream()
-                .filter(r -> r.start() < vars.maxCodePoint)
-                .collect(toImmutableList());
-      } else {
-        vars.ranges = findCompatibilyRanges();
-      }
+      vars.ranges = findCompatibilyRanges();
     } catch (UcdScannerException e) {
       throw new IllegalArgumentException(e);
     }
