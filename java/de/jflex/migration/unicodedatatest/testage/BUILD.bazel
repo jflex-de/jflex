@@ -26,6 +26,7 @@ java_binary(
         ":template_vars",
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/javac:package_util",
         "//java/de/jflex/velocity",
         "//java/de/jflex/version",

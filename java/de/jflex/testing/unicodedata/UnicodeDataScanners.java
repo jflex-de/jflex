@@ -27,10 +27,9 @@ package de.jflex.testing.unicodedata;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
-import static de.jflex.ucd.Versions.VERSION_3_0;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.ucd.Versions;
 import de.jflex.util.scanner.ScannerFactory;
 import de.jflex.version.Version;
 import java.io.File;
@@ -65,8 +64,8 @@ public class UnicodeDataScanners {
     }
   }
 
-  public static Dataset getDataset(UnicodeVersion version) {
-    if (version.maxCodePoint() < 0x10000) {
+  public static Dataset getDataset(Version version) {
+    if (Versions.maxCodePoint(version) < 0x10000) {
       return Dataset.BMP;
     } else {
       return Dataset.ALL;

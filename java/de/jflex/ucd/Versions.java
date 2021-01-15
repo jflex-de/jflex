@@ -40,5 +40,10 @@ public class Versions {
   public static final Version VERSION_6_0 = new Version(6, 0);
   public static final Version VERSION_8_0 = new Version(8, 0);
 
+  public static int maxCodePoint(Version version) {
+    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_0) < 0;
+    return oldVersion ? 0xFFFD : 0x10FFFF;
+  }
+
   private Versions() {}
 }

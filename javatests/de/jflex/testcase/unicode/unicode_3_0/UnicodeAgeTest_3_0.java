@@ -115,6 +115,6 @@ public class UnicodeAgeTest_3_0 {
       throws IOException {
     Path expectedFile = Paths.get("javatests").resolve(TEST_DIR).resolve(expectedFileName);
     UnicodeDataScanners.assertAgeInterval(
-        scannerFactory, eof, UnicodeDataScanners.Dataset.BMP, expectedFile);
+        scannerFactory, eof, UnicodeDataScanners.Dataset.ALL, expectedFile);
   }
 }

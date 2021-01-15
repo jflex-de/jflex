@@ -30,6 +30,7 @@ import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import java.util.Comparator;
 
 class UnicodeBlocksTestJavaGenerator
@@ -81,7 +82,7 @@ class UnicodeBlocksTestJavaGenerator
       retval.add(blocks.get(i));
     }
     BlockSpec<String> lastBlock = blocks.get(blocks.size() - 1);
-    int maxCodePoint = unicodeVersion.maxCodePoint();
+    int maxCodePoint = Versions.maxCodePoint(unicodeVersion.version());
     if (lastBlock.range().end() != maxCodePoint) {
       retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }

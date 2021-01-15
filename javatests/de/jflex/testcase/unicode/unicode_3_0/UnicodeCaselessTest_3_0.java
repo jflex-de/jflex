@@ -51,7 +51,7 @@ public class UnicodeCaselessTest_3_0 {
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeCaseless_3_0::new),
             UnicodeCaseless_3_0.YYEOF,
-            UnicodeDataScanners.Dataset.BMP);
+            UnicodeDataScanners.Dataset.ALL);
     PatternHandler expectationVerifier =
         new PatternHandler() {
           @Override
