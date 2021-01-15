@@ -41,8 +41,6 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
-  private static final Version VERSION_3_1 = new Version(3, 1);
-
   // TODO(regisd) Add This in UnicodeProperties
   private static final ImmutableList<Version> KNOWN_VERSIONS =
       ImmutableList.of(
@@ -88,21 +86,28 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
         .collect(toImmutableList());
   }
 
-  protected static int getMaxCodePoint(Version version) {
-    boolean oldVersion = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0;
-    return oldVersion ? 0xFFFD : 0x10FFFF;
-  }
-
   /** Returns the generated file. */
   public Path generate(Path outDir) throws IOException, ParseException {
     T vars = createTemplateVars();
     vars.updateFrom(unicodeVersion);
+    vars.templateName = templateName;
+
     Path javaPackageOutDir =
         outDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
     Files.createDirectories(javaPackageOutDir);
     Path outFile = javaPackageOutDir.resolve(getOuputFileName(vars));
-    InputStreamReader templateReader = readResource(getTemplateResource().toString());
-    Velocity.render(templateReader, templateName, vars, outFile.toFile());
+    InputStreamReader templateReader;
+    try {
+      templateReader = readResource(getTemplateResource().toString());
+    } catch (NullPointerException e) {
+      throw new IllegalArgumentException(
+          "Could not read template in java resources: " + getTemplateResource().getFileName(), e);
+    }
+    try {
+      Velocity.render(templateReader, templateName, vars, outFile.toFile());
+    } catch (Exception e) {
+      throw new RuntimeException("Error rendering '" + templateName + "' with " + vars, e);
+    }
     return outFile;
   }
 

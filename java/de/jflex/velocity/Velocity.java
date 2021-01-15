@@ -53,6 +53,7 @@ public class Velocity {
       Reader templateReader, String templateName, TemplateVars templateVars, Writer writer)
       throws IOException, ParseException {
     VelocityContext velocityContext = templateVars.toVelocityContext();
+    templateVars.templateName = templateName;
     SimpleNode tpl = Velocity.parsedTemplateForResource(templateReader, templateName);
     VELOCITY_INSTANCE.render(velocityContext, writer, templateName, tpl);
   }

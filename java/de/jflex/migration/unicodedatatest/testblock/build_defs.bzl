@@ -1,3 +1,7 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 def gen_test_old_blocks(name, version, ucd_file):
     underscore_version = version.replace(".", "_")
     flexout = "unicode_{version}/UnicodeBlocks_{version}.flex".format(

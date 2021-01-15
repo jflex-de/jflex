@@ -30,6 +30,7 @@ import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import java.util.Comparator;
 
 class UnicodeBlocksTestJavaGenerator
@@ -48,7 +49,6 @@ class UnicodeBlocksTestJavaGenerator
   @Override
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
     Comparator<BlockSpec> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
@@ -81,7 +81,7 @@ class UnicodeBlocksTestJavaGenerator
       retval.add(blocks.get(i));
     }
     BlockSpec<String> lastBlock = blocks.get(blocks.size() - 1);
-    int maxCodePoint = getMaxCodePoint(unicodeVersion.version());
+    int maxCodePoint = Versions.maxCodePoint(unicodeVersion.version());
     if (lastBlock.range().end() != maxCodePoint) {
       retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }

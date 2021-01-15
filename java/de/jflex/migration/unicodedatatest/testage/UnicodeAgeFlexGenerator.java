@@ -50,7 +50,6 @@ class UnicodeAgeFlexGenerator extends AbstractGenerator<UnicodeAgeFlexTemplateVa
   @Override
   protected UnicodeAgeFlexTemplateVars createTemplateVars() {
     UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className =
         String.format(
             "UnicodeAge_%s_age_%s",

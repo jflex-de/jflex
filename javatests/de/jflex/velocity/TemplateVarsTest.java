@@ -39,6 +39,7 @@ public class TemplateVarsTest {
   @Before
   public void createFoo() {
     foo = new Foo();
+    foo.templateName = "TemplateVarsTest";
   }
 
   @Test

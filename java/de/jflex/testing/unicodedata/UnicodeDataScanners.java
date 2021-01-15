@@ -29,6 +29,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.Versions;
 import de.jflex.util.scanner.ScannerFactory;
 import de.jflex.version.Version;
 import java.io.File;
@@ -41,7 +42,6 @@ import java.util.stream.Stream;
 public class UnicodeDataScanners {
 
   public static final File TEST_RESOURCES_DIR = new File("testsuite/testcases/src/test/resources");
-  private static final Version VERSION_3_0 = new Version(3, 0);
 
   private UnicodeDataScanners() {}
 
@@ -65,8 +65,11 @@ public class UnicodeDataScanners {
   }
 
   public static Dataset getDataset(Version version) {
-    boolean oldUnicode = Version.EXACT_VERSION_COMPARATOR.compare(version, VERSION_3_0) <= 0;
-    return oldUnicode ? Dataset.BMP : Dataset.ALL;
+    if (Versions.maxCodePoint(version) < 0x10000) {
+      return Dataset.BMP;
+    } else {
+      return Dataset.ALL;
+    }
   }
 
   // TODO(regisd) The files can most likely be replaced by in-memory providers.

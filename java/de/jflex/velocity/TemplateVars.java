@@ -29,6 +29,10 @@ import java.lang.reflect.Field;
 import org.apache.velocity.VelocityContext;
 
 public abstract class TemplateVars {
+
+  /** Name of the template itself. Set by the Velocity engine. */
+  public String templateName;
+
   public VelocityContext toVelocityContext() {
     VelocityContext velocityContext = new VelocityContext();
     for (Field field : getClass().getFields()) {

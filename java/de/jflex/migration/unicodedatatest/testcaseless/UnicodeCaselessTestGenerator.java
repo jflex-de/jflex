@@ -39,7 +39,6 @@ public class UnicodeCaselessTestGenerator
   @Override
   protected UnicodeCaselessTestTemplateVars createTemplateVars() {
     UnicodeCaselessTestTemplateVars vars = new UnicodeCaselessTestTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCaselessTest_" + unicodeVersion.underscoreVersion();
     return vars;
   }

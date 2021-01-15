@@ -45,7 +45,6 @@ public class UnicodeCaselessFlexGenerator
   @Override
   protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
     UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
     vars.caselessCodepoints =
         caselessCodepoints.stream().map(cp -> String.format("%04X", cp)).collect(toImmutableList());

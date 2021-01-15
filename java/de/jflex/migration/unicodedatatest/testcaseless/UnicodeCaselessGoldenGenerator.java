@@ -49,7 +49,6 @@ public class UnicodeCaselessGoldenGenerator
   protected UnicodeCaselessGoldenTemplateVars createTemplateVars() {
 
     UnicodeCaselessGoldenTemplateVars vars = new UnicodeCaselessGoldenTemplateVars();
-    vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
     vars.equivalences =
         ImmutableList.sortedCopyOf(equivalences.getKeys()).stream()
