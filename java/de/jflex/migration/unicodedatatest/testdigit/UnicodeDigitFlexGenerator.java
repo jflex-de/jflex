@@ -23,40 +23,29 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.base;
 
-import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.ucd.Versions;
-import de.jflex.velocity.TemplateVars;
-import de.jflex.version.Version;
+package de.jflex.migration.unicodedatatest.testdigit;
 
-public class UnicodeVersionTemplateVars extends TemplateVars {
-  /** The class name produced by this Java template. */
-  public String className;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-  /** java package with '.', used by the scanner. */
-  public String javaPackage;
+public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
 
-  /** The unicode version under test. */
-  public Version unicodeVersion;
-  /** The maximum codepoint for this Unicode version. */
-  public int maxCodePoint;
+  protected UnicodeDigitFlexGenerator(UnicodeVersion unicodeVersion) {
+    super("UnicodeDigit.flex", unicodeVersion);
+  }
 
-  /** The dataset to use, e.g. {@code Ages.Dataset.BMP} */
-  public UnicodeDataScanners.Dataset dataset;
+  @Override
+  protected UnicodeVersionTemplateVars createTemplateVars() {
+    UnicodeVersionTemplateVars vars = new UnicodeVersionTemplateVars();
+    vars.className =
+        "UnicodeDigit_" + unicodeVersion.underscoreVersion();
+    return vars;
+  }
 
-  public void updateFrom(UnicodeVersion version) {
-    if (javaPackage == null) {
-      javaPackage = version.javaPackage();
-    }
-    if (unicodeVersion == null) {
-      unicodeVersion = version.version();
-    }
-    if (maxCodePoint == 0) {
-      maxCodePoint = Versions.maxCodePoint(version.version());
-    }
-    if (dataset == null) {
-      dataset = UnicodeDataScanners.getDataset(version.version());
-    }
+  @Override
+  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
+    return vars.className + ".flex";
   }
 }

@@ -14,10 +14,24 @@ java_binary(
     srcs = ["DigitTestGenerator.java"],
     main_class = "de.jflex.migration.unicodedatatest.testdigit.DigitTestGenerator",
     deps = [
-        ":testcompat",
+        ":testdigit",
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/ucd",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "testdigit",
+    testonly = True,
+    srcs = glob(["Unicode*.java"]),
+    resources = [
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
     ],
 )
