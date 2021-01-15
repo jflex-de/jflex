@@ -23,7 +23,7 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
+package de.jflex.testcase.unicode.unicode_10_0;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -42,19 +42,19 @@ import java.util.List;
 import javax.annotation.Generated;
 import org.junit.Test;
 
-/** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
+/** Test Tests the {@code %caseless} directive for Unicode 10.0. */
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
-public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
+public class UnicodeDigitTest_10_0 {
 
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   @Test
   public void digit() throws Exception {
-    UnicodeDigit_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+    UnicodeDigit_10_0 scanner = UnicodeDataScanners
         .scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeDigit_${unicodeVersion.underscoreVersion()}.YYEOF,
-            UnicodeDataScanners.Dataset.${dataset});
+            ScannerFactory.of(UnicodeDigit_10_0::new),
+            UnicodeDigit_10_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
     ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
@@ -70,7 +70,7 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
         expected.add(BlockSpec.<Boolean>create(digit, start, end));
       }
     };
-    String goldenFile = "unicode_${unicodeVersion.underscoreVersion()}/UnicodeDigit_${unicodeVersion.underscoreVersion()}.output";
+    String goldenFile = "unicode_10_0/UnicodeDigit_10_0.output";
     try (BufferedReader goldenReader = Files.newBufferedReader(
         packageDirectory.resolve(goldenFile))) {
       SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
