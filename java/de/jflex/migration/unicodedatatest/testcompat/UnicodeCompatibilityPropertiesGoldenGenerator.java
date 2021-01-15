@@ -28,8 +28,6 @@ package de.jflex.migration.unicodedatatest.testcompat;
 
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.ucd.UcdVersion;
-import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
