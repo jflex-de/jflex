@@ -24,6 +24,7 @@ import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * This class stores the skeleton of generated scanners.
@@ -98,8 +99,9 @@ public class Skeleton {
       Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
       throw new GeneratorException();
     }
-
-    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    if (Options.verbose) {
+      Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    }
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
