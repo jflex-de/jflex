@@ -39,8 +39,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JFlexTestRunner.class)
 @TestSpec(
-    lex =
-        "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-1.flex",
+    lex = "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-1.flex",
     sysout =
         "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-1-flex.output",
     generatorThrows = GeneratorException.class,
