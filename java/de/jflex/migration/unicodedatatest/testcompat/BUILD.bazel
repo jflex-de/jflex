@@ -6,7 +6,6 @@ load(":build_defs.bzl", "gen_test_compat")
 load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
 
 package(default_visibility = [
-    "//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__",
     "//javatests/de/jflex/testcase/unicode:__subpackages__",
 ])
 
@@ -35,7 +34,6 @@ java_library(
     ],
     visibility = [
         "//java/de/jflex/migration/unicodedatatest:__pkg__",
-        "//javatests/de/jflex/migration/unicodedatatest/testcaseless:__pkg__",
         "//javatests/de/jflex/testcase/unicode:__subpackages__",
     ],
     deps = [
