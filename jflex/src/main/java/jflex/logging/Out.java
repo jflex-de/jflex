@@ -207,7 +207,9 @@ public final class Out {
    */
   public static void warning(String message) {
     warnings++;
-
+    if(!Options.warning) {
+      return;
+    }
     err(NL + "Warning : " + message);
   }
 
@@ -230,10 +232,13 @@ public final class Out {
    */
   public static void warning(ErrorMessages.ErrorMessage message, int line) {
     warnings++;
-
+    if(!Options.warning) {
+      return;
+    }
     String msg = NL + "Warning";
-    if (line > 0) msg = msg + " in line " + (line + 1);
-
+    if (line > 0) {
+      msg = msg + " in line " + (line + 1);
+    }
     err(msg + ": " + ErrorMessages.get(message));
   }
 
@@ -246,7 +251,10 @@ public final class Out {
    * @param column the column of the position
    */
   public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
-
+    warnings++;
+    if(!Options.warning) {
+      return;
+    }
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
     if (line >= 0) msg = msg + " (line " + (line + 1) + ")";
@@ -256,8 +264,6 @@ public final class Out {
     } catch (ArrayIndexOutOfBoundsException e) {
       err(msg);
     }
-
-    warnings++;
 
     if (line >= 0) {
       if (column >= 0) showPosition(file, line, column);

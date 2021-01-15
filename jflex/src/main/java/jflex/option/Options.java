@@ -39,6 +39,8 @@ public class Options {
   public static boolean no_backup;
   /** If false, only error/warning output will be generated */
   public static boolean verbose = true;
+  /** Whether to show warnings. */
+  public static boolean warning = true;
   /** Whether to warn about unused macros. */
   public static boolean unused_warning;
   /** If true, progress dots will be printed */
