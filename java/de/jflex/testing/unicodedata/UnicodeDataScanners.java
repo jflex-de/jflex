@@ -30,6 +30,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.ucd.Versions.VERSION_3_0;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.util.scanner.ScannerFactory;
 import de.jflex.version.Version;
 import java.io.File;
@@ -64,9 +65,12 @@ public class UnicodeDataScanners {
     }
   }
 
-  public static Dataset getDataset(Version version) {
-    boolean oldUnicode = Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_0) < 0;
-    return oldUnicode ? Dataset.BMP : Dataset.ALL;
+  public static Dataset getDataset(UnicodeVersion version) {
+    if (version.maxCodePoint() < 0x10000) {
+      return Dataset.BMP;
+    } else {
+      return Dataset.ALL;
+    }
   }
 
   // TODO(regisd) The files can most likely be replaced by in-memory providers.
