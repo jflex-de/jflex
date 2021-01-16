@@ -29,16 +29,20 @@ package de.jflex.migration.unicodedatatest.testdigit;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeDigitGoldenGenerator
     extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
 
   private static final String TEMPLATE_NAME = "UnicodeDigitGolden";
 
-  protected UnicodeDigitGoldenGenerator(UnicodeVersion unicodeVersion) {
+  private final UnicodeData unicodeData;
+
+  protected UnicodeDigitGoldenGenerator(UnicodeVersion unicodeVersion, UnicodeData unicodeData) {
     super(TEMPLATE_NAME, unicodeVersion);
+    this.unicodeData = unicodeData;
   }
 
   @Override
@@ -50,12 +54,19 @@ public class UnicodeDigitGoldenGenerator
     return vars;
   }
 
-  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks() {
-    return ImmutableList.of();
-  }
-
   @Override
   protected String getOuputFileName(UnicodeDigitGoldenTemplateVars vars) {
     return vars.className + ".output";
+  }
+
+  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks() {
+    ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
+    ImmutableList.Builder<BlockSpec<Boolean>> blocks = ImmutableList.builder();
+    blocks.add(BlockSpec.create(true, ranges.get(0)));
+    for (int i=1;i<ranges.size();i++) {
+      blocks.add(BlockSpec.create(false, ranges.get(i-1).end() + 1, ranges.get(i).start() - 1));
+      blocks.add(BlockSpec.create(true, ranges.get(i)));
+    }
+    return blocks.build();
   }
 }

@@ -38,9 +38,12 @@ public abstract class BlockSpec<T> {
 
   public abstract CodepointRange range();
 
+  public static <T> BlockSpec<T> create(T name, CodepointRange range) {
+    return new AutoValue_BlockSpec<T>(name, range);
+  }
+
   public static <T> BlockSpec<T> create(T name, int start, int end) {
-    // TODO: trim
-    return new AutoValue_BlockSpec<T>(name, CodepointRange.create(start, end));
+    return create(name, CodepointRange.create(start, end));
   }
 
   public boolean isSurrogate() {
