@@ -18,6 +18,8 @@ java_binary(
         ":testcompat",
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
     ],
@@ -38,7 +40,6 @@ java_library(
     ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
-        "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/ucd",
         "//java/de/jflex/ucd_generator/scanner",
         "//java/de/jflex/ucd_generator/ucd",

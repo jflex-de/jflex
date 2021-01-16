@@ -30,8 +30,7 @@ import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeCaselessTestGenerator
-    extends AbstractGenerator<UnicodeVersionTemplateVars> {
+public class UnicodeCaselessTestGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
 
   UnicodeCaselessTestGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeCaselessTest.java", unicodeVersion);
