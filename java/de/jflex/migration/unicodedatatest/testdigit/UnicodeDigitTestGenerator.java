@@ -30,8 +30,7 @@ import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeDigitTestGenerator
-    extends AbstractGenerator<UnicodeVersionTemplateVars> {
+public class UnicodeDigitTestGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
 
   UnicodeDigitTestGenerator(UnicodeVersion unicodeVersion) {
     super("UnicodeDigitTest.java", unicodeVersion);

@@ -39,8 +39,7 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeVersionT
   @Override
   protected UnicodeVersionTemplateVars createTemplateVars() {
     UnicodeVersionTemplateVars vars = new UnicodeVersionTemplateVars();
-    vars.className =
-        "UnicodeDigit_" + unicodeVersion.underscoreVersion();
+    vars.className = "UnicodeDigit_" + unicodeVersion.underscoreVersion();
     return vars;
   }
 

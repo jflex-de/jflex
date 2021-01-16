@@ -61,7 +61,7 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
   private ImmutableList<BlockSpec<Boolean>> createDigitBlocks(int maxCodepoint) {
     ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
     DigitBlocks.Builder digitBlocks = DigitBlocks.builder();
-    digitBlocks.add(false,  0, ranges.get(0).start() - 1);
+    digitBlocks.add(false, 0, ranges.get(0).start() - 1);
     digitBlocks.add(true, ranges.get(0));
     for (int i = 1; i < ranges.size(); i++) {
       digitBlocks.add(false, ranges.get(i - 1).end() + 1, ranges.get(i).start() - 1);
