@@ -26,29 +26,8 @@
 
 package de.jflex.migration.unicodedatatest.testdigit;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
-public class UnicodeDigitGoldenGenerator
-    extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
+public class UnicodeDigitGoldenTemplateVars extends UnicodeVersionTemplateVars {
 
-  private static final String TEMPLATE_NAME = "UnicodeDigitGolden";
-
-  protected UnicodeDigitGoldenGenerator(UnicodeVersion unicodeVersion) {
-    super(TEMPLATE_NAME, unicodeVersion);
-  }
-
-  @Override
-  protected UnicodeDigitGoldenTemplateVars createTemplateVars() {
-    UnicodeDigitGoldenTemplateVars vars = new UnicodeDigitGoldenTemplateVars();
-    vars.className =
-        "UnicodeDigit_" + unicodeVersion.underscoreVersion();
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeDigitGoldenTemplateVars vars) {
-    return vars.className + ".output";
-  }
 }
