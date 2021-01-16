@@ -26,9 +26,11 @@
 
 package de.jflex.migration.unicodedatatest.testdigit;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import de.jflex.testing.unicodedata.BlockSpec;
 
 public class UnicodeDigitGoldenGenerator
     extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
@@ -44,7 +46,12 @@ public class UnicodeDigitGoldenGenerator
     UnicodeDigitGoldenTemplateVars vars = new UnicodeDigitGoldenTemplateVars();
     vars.className =
         "UnicodeDigit_" + unicodeVersion.underscoreVersion();
+    vars.digitBlocks = createDigitBlocks();
     return vars;
+  }
+
+  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks() {
+    return ImmutableList.of();
   }
 
   @Override
