@@ -32,15 +32,18 @@ import de.jflex.ucd.SurrogateUtils;
 @AutoValue
 public abstract class BlockSpec<T> {
 
-  private static final String HEX_FORMAT = "0x%04X";
+  private static final String HEX_FORMAT = "%04X";
 
   public abstract T name();
 
   public abstract CodepointRange range();
 
+  public static <T> BlockSpec<T> create(T name, CodepointRange range) {
+    return new AutoValue_BlockSpec<T>(name, range);
+  }
+
   public static <T> BlockSpec<T> create(T name, int start, int end) {
-    // TODO: trim
-    return new AutoValue_BlockSpec<T>(name, CodepointRange.create(start, end));
+    return create(name, CodepointRange.create(start, end));
   }
 
   public boolean isSurrogate() {
