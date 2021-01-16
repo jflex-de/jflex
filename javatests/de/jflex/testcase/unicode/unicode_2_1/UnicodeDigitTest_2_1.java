@@ -49,13 +49,13 @@ public class UnicodeDigitTest_2_1 {
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   /**
-   * Tests character class syntax of the Unicode 2_1
-   * DecimalDigit property ({@code Nd}) using the {@code [:digit:]} syntax.
+   * Tests character class syntax of the Unicode 2_1 DecimalDigit property ({@code Nd}) using the
+   * {@code [:digit:]} syntax.
    */
   @Test
   public void digit1() throws Exception {
-    UnicodeDigit_2_1 scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    UnicodeDigit_2_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_2_1::new),
             UnicodeDigit_2_1.YYEOF,
             UnicodeDataScanners.Dataset.BMP);
@@ -65,18 +65,19 @@ public class UnicodeDigitTest_2_1 {
 
   private ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
     ImmutableList.Builder<BlockSpec<Boolean>> expected = ImmutableList.builder();
-    PatternHandler goldenHandler = new PatternHandler() {
-      @Override
-      public void onRegexMatch(List<String> regexpGroups) {
-        int start = Integer.parseInt(regexpGroups.get(0), 16);
-        int end = Integer.parseInt(regexpGroups.get(1), 16);
-        boolean digit = regexpGroups.get(2).equals("Nd");
-        expected.add(BlockSpec.<Boolean>create(digit, start, end));
-      }
-    };
+    PatternHandler goldenHandler =
+        new PatternHandler() {
+          @Override
+          public void onRegexMatch(List<String> regexpGroups) {
+            int start = Integer.parseInt(regexpGroups.get(0), 16);
+            int end = Integer.parseInt(regexpGroups.get(1), 16);
+            boolean digit = regexpGroups.get(2).equals("Nd");
+            expected.add(BlockSpec.<Boolean>create(digit, start, end));
+          }
+        };
     String goldenFile = "unicode_2_1/UnicodeDigit_2_1.output";
-    try (BufferedReader goldenReader = Files.newBufferedReader(
-        packageDirectory.resolve(goldenFile))) {
+    try (BufferedReader goldenReader =
+        Files.newBufferedReader(packageDirectory.resolve(goldenFile))) {
       SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
       parser.parse();
     }
