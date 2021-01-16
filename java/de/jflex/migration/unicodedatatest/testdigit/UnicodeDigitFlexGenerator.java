@@ -55,7 +55,7 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
       char c = testName.charAt(0);
       if (Character.isLowerCase(c)) {
         testName = "lower" + Character.toUpperCase(c);
-      } else  {
+      } else {
         // \D means not digit
         vars.value = false;
         testName = "upper" + c;
