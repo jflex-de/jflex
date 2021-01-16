@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2014-2021 Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2008-2021 Steve Rowe <sarowe@gmail.com>
+ * Copyright (C) 2017-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -26,48 +28,31 @@
 
 package de.jflex.migration.unicodedatatest.testdigit;
 
+import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
-import de.jflex.ucd.Versions;
-import de.jflex.ucd_generator.ucd.UnicodeData;
 
-public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
+@AutoValue
+abstract class DigitBlocks {
 
-  private static final String TEMPLATE_NAME = "UnicodeDigitGolden";
+  abstract ImmutableList<BlockSpec<Boolean>> blocks();
 
-  private final UnicodeData unicodeData;
-
-  protected UnicodeDigitGoldenGenerator(UnicodeVersion unicodeVersion, UnicodeData unicodeData) {
-    super(TEMPLATE_NAME, unicodeVersion);
-    this.unicodeData = unicodeData;
+  public static DigitBlocks.Builder builder() {
+    return new AutoValue_DigitBlocks.Builder();
   }
 
-  @Override
-  protected UnicodeDigitGoldenTemplateVars createTemplateVars() {
-    UnicodeDigitGoldenTemplateVars vars = new UnicodeDigitGoldenTemplateVars();
-    vars.className = "UnicodeDigit_" + unicodeVersion.underscoreVersion();
-    vars.digitBlocks = createDigitBlocks(Versions.maxCodePoint(unicodeVersion.version()));
-    return vars;
-  }
+  @AutoValue.Builder
+  static abstract class Builder {
+    abstract ImmutableList.Builder<BlockSpec<Boolean>> blocksBuilder();
+    abstract DigitBlocks build();
 
-  @Override
-  protected String getOuputFileName(UnicodeDigitGoldenTemplateVars vars) {
-    return vars.className + ".output";
-  }
-
-  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks(int maxCodepoint) {
-    ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
-    DigitBlocks.Builder digitBlocks = DigitBlocks.builder();
-    digitBlocks.add(false,  0, ranges.get(0).start() - 1);
-    digitBlocks.add(true, ranges.get(0));
-    for (int i = 1; i < ranges.size(); i++) {
-      digitBlocks.add(false, ranges.get(i - 1).end() + 1, ranges.get(i).start() - 1);
-      digitBlocks.add(true, ranges.get(i));
+    public void add(boolean value, int start, int end) {
+      blocksBuilder().add(BlockSpec.create(value, start, end));
     }
-    digitBlocks.add(false, ranges.get(ranges.size() - 1).end() + 1, maxCodepoint);
-    return digitBlocks.build().blocks();
+
+    public void add(boolean value, CodepointRange codepointRange) {
+      blocksBuilder().add(BlockSpec.create(value, codepointRange));
+    }
   }
 }
