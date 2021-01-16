@@ -32,6 +32,7 @@ import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
 abstract class DigitBlocks {
@@ -43,12 +44,20 @@ abstract class DigitBlocks {
   }
 
   @AutoValue.Builder
-  static abstract class Builder {
+  abstract static class Builder {
     abstract ImmutableList.Builder<BlockSpec<Boolean>> blocksBuilder();
+
     abstract DigitBlocks build();
 
     public void add(boolean value, int start, int end) {
-      blocksBuilder().add(BlockSpec.create(value, start, end));
+      CodepointRange range = CodepointRange.create(start, end);
+      if (SurrogateUtils.containsSurrogate(range)) {
+        blocksBuilder()
+            .add(BlockSpec.create(value, start, SurrogateUtils.SURROGATE_RANGE.start() - 1));
+        blocksBuilder().add(BlockSpec.create(value, SurrogateUtils.SURROGATE_RANGE.end() + 1, end));
+      } else {
+        blocksBuilder().add(BlockSpec.create(value, range));
+      }
     }
 
     public void add(boolean value, CodepointRange codepointRange) {
