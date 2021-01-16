@@ -32,7 +32,6 @@ import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
@@ -117,8 +116,7 @@ public class UnicodeCompatibilityPropertiesTest_2_0 {
 
     ImmutableList<String> blocks =
         scanner.blocks().stream()
-            .map(BlockSpec::range)
-            .map(r -> String.format("%04X..%04X", r.start(), r.end()))
+            .map(b -> String.format("%s..%s", b.hexStart(), b.hexEnd()))
             .collect(toImmutableList());
 
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
