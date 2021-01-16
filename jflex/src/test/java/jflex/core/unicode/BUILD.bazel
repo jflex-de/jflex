@@ -5,6 +5,9 @@ java_test(
         "CharClassesGen.java",
         "CharClassesQuickcheck.java",
     ],
+    runtime_deps = [
+        "//jflex/src/test/java/jflex/chars",
+    ],
     deps = [
         "IntCharSetQuickcheck",
         "//jflex/src/main/java/jflex/base",
