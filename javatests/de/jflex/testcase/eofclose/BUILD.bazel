@@ -24,7 +24,6 @@ java_library(
         ":gen_eofclose_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -44,7 +43,6 @@ java_library(
         ":gen_eofnoclose_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -58,8 +56,6 @@ java_test(
         ":eofclose_scanner",
         ":eofnoclose_scanner",
         "//java/de/jflex/testing/assertion",
-        "//java/de/jflex/testing/diff",
-        "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
