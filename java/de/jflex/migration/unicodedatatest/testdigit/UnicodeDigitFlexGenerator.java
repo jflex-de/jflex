@@ -49,6 +49,15 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
             .replace(':', '-')
             .replace('\\', '-')
             .replaceAll("-", "");
+    // Work around Bazel confusion of lower/upper case targets
+    if (testName.length() == 1) {
+      char c = testName.charAt(0);
+      if (Character.isLowerCase(c)) {
+        testName = "lower" + Character.toUpperCase(c);
+      } else  {
+        testName = "upper" + c;
+      }
+    }
     vars.className = "UnicodeDigit_" + testName + "_" + unicodeVersion.underscoreVersion();
     vars.symbol = symbol;
     return vars;
