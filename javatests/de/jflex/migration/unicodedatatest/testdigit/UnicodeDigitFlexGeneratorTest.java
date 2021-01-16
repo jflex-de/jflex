@@ -40,7 +40,7 @@ public class UnicodeDigitFlexGeneratorTest {
     UnicodeVersion unicodeVersion = UnicodeVersion.create("2.1");
     UnicodeDigitFlexGenerator generator = new UnicodeDigitFlexGenerator(unicodeVersion, "\\D");
     UnicodeDigitFlexTemplateVars vars = generator.createTemplateVars();
-    assertThat(vars.className).isEqualTo("UnicodeDigit_D_2_1");
-    assertThat(generator.getOuputFileName(vars)).isEqualTo("UnicodeDigit_D_2_1.flex");
+    assertThat(vars.className).isEqualTo("UnicodeDigit_upperD_2_1");
+    assertThat(generator.getOuputFileName(vars)).isEqualTo("UnicodeDigit_upperD_2_1.flex");
   }
 }
