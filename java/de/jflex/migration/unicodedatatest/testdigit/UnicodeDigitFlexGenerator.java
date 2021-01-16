@@ -41,6 +41,7 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
   @Override
   protected UnicodeDigitFlexTemplateVars createTemplateVars() {
     UnicodeDigitFlexTemplateVars vars = new UnicodeDigitFlexTemplateVars();
+    vars.value = true;
     // Filesystem safe name
     String testName =
         symbol
@@ -55,6 +56,8 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
       if (Character.isLowerCase(c)) {
         testName = "lower" + Character.toUpperCase(c);
       } else  {
+        // \D means not digit
+        vars.value = false;
         testName = "upper" + c;
       }
     }
