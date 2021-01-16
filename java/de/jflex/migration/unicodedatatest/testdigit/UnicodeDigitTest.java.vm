@@ -52,7 +52,7 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
   private ImmutableList<BlockSpec<Boolean>> expected;
 
   @BeforeClass
-  public void golden() {
+  public void golden() throws Exception {
     expected = readGolden();
   }
 
@@ -61,11 +61,11 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
    * DecimalDigit property ({@code Nd}) using the {@code [:digit:]} syntax.
    */
   @Test
-  public void digit1() throws Exception {
-    UnicodeDigit1_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+  public void digit_digit() throws Exception {
+    UnicodeDigit_digit_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
         .scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit1_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeDigit1_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeDigit_digit_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit_digit_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
@@ -76,10 +76,10 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
    */
   @Test
   public void digit2() throws Exception {
-    UnicodeDigit2_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+    UnicodeDigit_D_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
         .scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit2_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeDigit2_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeDigit_D_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit_D_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
@@ -90,10 +90,10 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
    */
   @Test
   public void digit3() throws Exception {
-    UnicodeDigit3_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+    UnicodeDigit_d_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
         .scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit3_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeDigit3_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeDigit_d_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit_d_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }

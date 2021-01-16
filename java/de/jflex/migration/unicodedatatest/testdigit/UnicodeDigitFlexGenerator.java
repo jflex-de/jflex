@@ -28,7 +28,6 @@ package de.jflex.migration.unicodedatatest.testdigit;
 
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 
 public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFlexTemplateVars> {
 
@@ -42,7 +41,15 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
   @Override
   protected UnicodeDigitFlexTemplateVars createTemplateVars() {
     UnicodeDigitFlexTemplateVars vars = new UnicodeDigitFlexTemplateVars();
-    vars.className = "UnicodeDigit_" + unicodeVersion.underscoreVersion();
+    // Filesystem safe name
+    String testName =
+        symbol
+            .replace('[', '-')
+            .replace(']', '-')
+            .replace(':', '-')
+            .replace('\\', '-')
+            .replaceAll("-", "");
+    vars.className = "UnicodeDigit_" + testName + "_" + unicodeVersion.underscoreVersion();
     vars.symbol = symbol;
     return vars;
   }
