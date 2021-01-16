@@ -53,7 +53,9 @@ public class DigitTestGenerator {
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    new UnicodeDigitFlexGenerator(version).generate(outDir);
+    new UnicodeDigitFlexGenerator(version, "[:digit:]").generate(outDir);
+    new UnicodeDigitFlexGenerator(version, "\\D").generate(outDir);
+    new UnicodeDigitFlexGenerator(version, "\\d").generate(outDir);
     new UnicodeDigitTestGenerator(version).generate(outDir);
     new UnicodeDigitGoldenGenerator(version, unicodeData).generate(outDir);
   }

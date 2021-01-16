@@ -40,30 +40,65 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.Generated;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /** Test Tests the {@code %caseless} directive for Unicode 12.1. */
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
 public class UnicodeDigitTest_12_1 {
 
-  private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+  private static final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+
+  private static ImmutableList<BlockSpec<Boolean>> expected;
+
+  @BeforeClass
+  public static void golden() throws Exception {
+    expected = readGolden();
+  }
 
   /**
    * Tests character class syntax of the Unicode 12_1 DecimalDigit property ({@code Nd}) using the
    * {@code [:digit:]} syntax.
    */
   @Test
-  public void digit1() throws Exception {
-    UnicodeDigit_12_1 scanner =
+  public void digit() throws Exception {
+    UnicodeDigit_digit_12_1 scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit_12_1::new),
-            UnicodeDigit_12_1.YYEOF,
+            ScannerFactory.of(UnicodeDigit_digit_12_1::new),
+            UnicodeDigit_digit_12_1.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
-  private ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
+  /**
+   * Tests character class syntax of the Unicode 12_1 DecimalDigit property ({@code Nd}) using the
+   * {@code \D} syntax.
+   */
+  @Test
+  public void upperD() throws Exception {
+    UnicodeDigit_upperD_12_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeDigit_upperD_12_1::new),
+            UnicodeDigit_upperD_12_1.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+  }
+
+  /**
+   * Tests character class syntax of the Unicode 12_1 DecimalDigit property ({@code Nd}) using the
+   * {@code \d} syntax.
+   */
+  @Test
+  public void lowerD() throws Exception {
+    UnicodeDigit_lowerD_12_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeDigit_lowerD_12_1::new),
+            UnicodeDigit_lowerD_12_1.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+  }
+
+  private static ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
     ImmutableList.Builder<BlockSpec<Boolean>> expected = ImmutableList.builder();
     PatternHandler goldenHandler =
         new PatternHandler() {

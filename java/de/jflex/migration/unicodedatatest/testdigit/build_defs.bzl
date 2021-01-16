@@ -6,7 +6,9 @@ def gen_test_digit(name, version, ucd):
     """Generate the Java test and the Scanner spec to test the digit property."""
     underscore_version = version.replace(".", "_")
     outs = [
-        "unicode_{version}/UnicodeDigit_{version}.flex",
+        "unicode_{version}/UnicodeDigit_digit_{version}.flex",
+        "unicode_{version}/UnicodeDigit_lowerD_{version}.flex",
+        "unicode_{version}/UnicodeDigit_upperD_{version}.flex",
         "unicode_{version}/UnicodeDigit_{version}.output",
         "unicode_{version}/UnicodeDigitTest_{version}.java",
     ]

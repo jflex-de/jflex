@@ -26,48 +26,19 @@
 
 package de.jflex.migration.unicodedatatest.testdigit;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import static com.google.common.truth.Truth.assertThat;
+
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import org.junit.Test;
 
-public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFlexTemplateVars> {
-
-  private final String symbol;
-
-  protected UnicodeDigitFlexGenerator(UnicodeVersion unicodeVersion, String symbol) {
-    super("UnicodeDigit.flex", unicodeVersion);
-    this.symbol = symbol;
-  }
-
-  @Override
-  protected UnicodeDigitFlexTemplateVars createTemplateVars() {
-    UnicodeDigitFlexTemplateVars vars = new UnicodeDigitFlexTemplateVars();
-    vars.value = true;
-    // Filesystem safe name
-    String testName =
-        symbol
-            .replace('[', '-')
-            .replace(']', '-')
-            .replace(':', '-')
-            .replace('\\', '-')
-            .replaceAll("-", "");
-    // Work around Bazel confusion of lower/upper case targets
-    if (testName.length() == 1) {
-      char c = testName.charAt(0);
-      if (Character.isLowerCase(c)) {
-        testName = "lower" + Character.toUpperCase(c);
-      } else {
-        // \D means not digit
-        vars.value = false;
-        testName = "upper" + c;
-      }
-    }
-    vars.className = "UnicodeDigit_" + testName + "_" + unicodeVersion.underscoreVersion();
-    vars.symbol = symbol;
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeDigitFlexTemplateVars vars) {
-    return vars.className + ".flex";
+/** Test for {@link UnicodeDigitFlexGenerator}. */
+public class UnicodeDigitFlexGeneratorTest {
+  @Test
+  public void digit_D() {
+    UnicodeVersion unicodeVersion = UnicodeVersion.create("2.1");
+    UnicodeDigitFlexGenerator generator = new UnicodeDigitFlexGenerator(unicodeVersion, "\\D");
+    UnicodeDigitFlexTemplateVars vars = generator.createTemplateVars();
+    assertThat(vars.className).isEqualTo("UnicodeDigit_upperD_2_1");
+    assertThat(generator.getOuputFileName(vars)).isEqualTo("UnicodeDigit_upperD_2_1.flex");
   }
 }
