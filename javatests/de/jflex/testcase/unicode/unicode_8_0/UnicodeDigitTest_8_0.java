@@ -48,8 +48,12 @@ public class UnicodeDigitTest_8_0 {
 
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
+  /**
+   * Tests character class syntax of the Unicode 8_0
+   * DecimalDigit property ({@code Nd}) using the {@code [:digit:]} syntax.
+   */
   @Test
-  public void digit() throws Exception {
+  public void digit1() throws Exception {
     UnicodeDigit_8_0 scanner = UnicodeDataScanners
         .scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_8_0::new),

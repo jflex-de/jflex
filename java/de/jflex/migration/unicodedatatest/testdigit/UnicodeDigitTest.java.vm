@@ -48,8 +48,12 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
+  /**
+   * Tests character class syntax of the Unicode ${unicodeVersion.underscoreVersion()}
+   * DecimalDigit property ({@code Nd}) using the {@code [:digit:]} syntax.
+   */
   @Test
-  public void digit() throws Exception {
+  public void digit1() throws Exception {
     UnicodeDigit_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
         .scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_${unicodeVersion.underscoreVersion()}::new),
