@@ -47,12 +47,12 @@ import org.junit.Test;
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
 public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
-  private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+  private final static Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
-  private ImmutableList<BlockSpec<Boolean>> expected;
+  private static ImmutableList<BlockSpec<Boolean>> expected;
 
   @BeforeClass
-  public void golden() throws Exception {
+  public static void golden() throws Exception {
     expected = readGolden();
   }
 
@@ -98,7 +98,7 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
-  private ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
+  private static ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
     ImmutableList.Builder<BlockSpec<Boolean>> expected = ImmutableList.builder();
     PatternHandler goldenHandler = new PatternHandler() {
       @Override
