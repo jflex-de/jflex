@@ -54,10 +54,40 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
    */
   @Test
   public void digit1() throws Exception {
-    UnicodeDigit_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+    UnicodeDigit1_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
         .scanAllCodepoints(
-            ScannerFactory.of(UnicodeDigit_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeDigit_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeDigit1_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit1_${unicodeVersion.underscoreVersion()}.YYEOF,
+            UnicodeDataScanners.Dataset.${dataset});
+    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
+    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+  }
+
+  /**
+   * Tests character class syntax of the Unicode ${unicodeVersion.underscoreVersion()}
+   * DecimalDigit property ({@code Nd}) using the {@code \D} syntax.
+   */
+  @Test
+  public void digit2() throws Exception {
+    UnicodeDigit2_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+        .scanAllCodepoints(
+            ScannerFactory.of(UnicodeDigit2_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit2_${unicodeVersion.underscoreVersion()}.YYEOF,
+            UnicodeDataScanners.Dataset.${dataset});
+    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
+    assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
+  }
+
+  /**
+   * Tests character class syntax of the Unicode ${unicodeVersion.underscoreVersion()}
+   * DecimalDigit property ({@code Nd}) using the {@code \d} syntax.
+   */
+  @Test
+  public void digit3() throws Exception {
+    UnicodeDigit3_${unicodeVersion.underscoreVersion()} scanner = UnicodeDataScanners
+        .scanAllCodepoints(
+            ScannerFactory.of(UnicodeDigit3_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeDigit3_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
     ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
