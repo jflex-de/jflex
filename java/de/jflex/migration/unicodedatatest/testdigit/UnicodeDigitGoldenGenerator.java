@@ -31,6 +31,7 @@ import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitGoldenTemplateVars> {
@@ -48,7 +49,7 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
   protected UnicodeDigitGoldenTemplateVars createTemplateVars() {
     UnicodeDigitGoldenTemplateVars vars = new UnicodeDigitGoldenTemplateVars();
     vars.className = "UnicodeDigit_" + unicodeVersion.underscoreVersion();
-    vars.digitBlocks = createDigitBlocks();
+    vars.digitBlocks = createDigitBlocks(Versions.maxCodePoint(unicodeVersion.version()));
     return vars;
   }
 
@@ -57,7 +58,7 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
     return vars.className + ".output";
   }
 
-  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks() {
+  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks(int maxCodepoint) {
     ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
     ImmutableList.Builder<BlockSpec<Boolean>> blocks = ImmutableList.builder();
     blocks.add(BlockSpec.create(false, 0, ranges.get(0).start() - 1));
@@ -66,6 +67,7 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
       blocks.add(BlockSpec.create(false, ranges.get(i - 1).end() + 1, ranges.get(i).start() - 1));
       blocks.add(BlockSpec.create(true, ranges.get(i)));
     }
+    blocks.add(BlockSpec.create(false, ranges.get(ranges.size() - 1).end() + 1, maxCodepoint));
     return blocks.build();
   }
 }
