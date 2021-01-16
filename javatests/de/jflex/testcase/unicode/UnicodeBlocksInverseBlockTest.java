@@ -29,9 +29,9 @@ package de.jflex.testcase.unicode;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import org.junit.Test;
 
@@ -58,10 +58,10 @@ public class UnicodeBlocksInverseBlockTest {
             Dataset.BMP);
     assertThat(scanner.blocks())
         .containsExactly(
-            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x0000, 0x1DFF),
-            BlockSpec.create(TestingBlock.LATIN_EXTENDED_ADDITIONAL, 0x1E00, 0x1EFF),
-            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x1F00, 0xD7FF),
-            BlockSpec.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0xE000, 0xFFFD))
+            NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x0000, 0x1DFF),
+            NamedCodepointRange.create(TestingBlock.LATIN_EXTENDED_ADDITIONAL, 0x1E00, 0x1EFF),
+            NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0x1F00, 0xD7FF),
+            NamedCodepointRange.create(TestingBlock.NOT_LATIN_EXTENDED_ADDITIONAL, 0xE000, 0xFFFD))
         .inOrder();
   }
 }

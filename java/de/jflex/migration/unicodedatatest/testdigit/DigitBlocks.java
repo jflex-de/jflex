@@ -30,14 +30,14 @@ package de.jflex.migration.unicodedatatest.testdigit;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.SurrogateUtils;
 
 @AutoValue
 abstract class DigitBlocks {
 
-  abstract ImmutableList<BlockSpec<Boolean>> blocks();
+  abstract ImmutableList<NamedCodepointRange<Boolean>> blocks();
 
   public static DigitBlocks.Builder builder() {
     return new AutoValue_DigitBlocks.Builder();
@@ -45,7 +45,7 @@ abstract class DigitBlocks {
 
   @AutoValue.Builder
   abstract static class Builder {
-    abstract ImmutableList.Builder<BlockSpec<Boolean>> blocksBuilder();
+    abstract ImmutableList.Builder<NamedCodepointRange<Boolean>> blocksBuilder();
 
     abstract DigitBlocks build();
 
@@ -53,15 +53,18 @@ abstract class DigitBlocks {
       CodepointRange range = CodepointRange.create(start, end);
       if (SurrogateUtils.containsSurrogate(range)) {
         blocksBuilder()
-            .add(BlockSpec.create(value, start, SurrogateUtils.SURROGATE_RANGE.start() - 1));
-        blocksBuilder().add(BlockSpec.create(value, SurrogateUtils.SURROGATE_RANGE.end() + 1, end));
+            .add(
+                NamedCodepointRange.create(
+                    value, start, SurrogateUtils.SURROGATE_RANGE.start() - 1));
+        blocksBuilder()
+            .add(NamedCodepointRange.create(value, SurrogateUtils.SURROGATE_RANGE.end() + 1, end));
       } else {
-        blocksBuilder().add(BlockSpec.create(value, range));
+        blocksBuilder().add(NamedCodepointRange.create(value, range));
       }
     }
 
     public void add(boolean value, CodepointRange codepointRange) {
-      blocksBuilder().add(BlockSpec.create(value, codepointRange));
+      blocksBuilder().add(NamedCodepointRange.create(value, codepointRange));
     }
   }
 }

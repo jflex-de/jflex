@@ -28,8 +28,8 @@ package de.jflex.migration.unicodedatatest.testblock;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import java.util.Comparator;
 
@@ -42,7 +42,7 @@ class UnicodeBlocksTestJavaGenerator
   private static final String NO_BLOCK = "No Block";
 
   public UnicodeBlocksTestJavaGenerator(
-      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec<String>> blockNames) {
+      UnicodeVersion unicodeVersion, ImmutableList<NamedCodepointRange<String>> blockNames) {
     super("UnicodeBlocksTest.java", unicodeVersion, blockNames);
   }
 
@@ -50,7 +50,7 @@ class UnicodeBlocksTestJavaGenerator
   protected UnicodeBlocksTestJavaTemplateVars createTemplateVars() {
     UnicodeBlocksTestJavaTemplateVars vars = new UnicodeBlocksTestJavaTemplateVars();
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
-    Comparator<BlockSpec> comparator =
+    Comparator<NamedCodepointRange> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
     vars.blocks = ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks));
     return vars;
@@ -61,8 +61,9 @@ class UnicodeBlocksTestJavaGenerator
     return vars.className + ".java";
   }
 
-  private ImmutableList<BlockSpec<String>> addNoBlock(ImmutableList<BlockSpec<String>> blocks) {
-    ImmutableList.Builder<BlockSpec<String>> retval = ImmutableList.builder();
+  private ImmutableList<NamedCodepointRange<String>> addNoBlock(
+      ImmutableList<NamedCodepointRange<String>> blocks) {
+    ImmutableList.Builder<NamedCodepointRange<String>> retval = ImmutableList.builder();
     retval.add(blocks.get(0));
     for (int i = 1; i < blocks.size(); i++) {
       // end of the prev block
@@ -70,9 +71,10 @@ class UnicodeBlocksTestJavaGenerator
       // start of the block
       int nextStart = blocks.get(i).range().start();
       if (prevEnd + 1 != nextStart) {
-        BlockSpec<String> noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
+        NamedCodepointRange<String> noBlock =
+            NamedCodepointRange.create(NO_BLOCK, prevEnd + 1, nextStart - 1);
         if (noBlock.range().contains(SURROGATES)) {
-          noBlock = BlockSpec.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
+          noBlock = NamedCodepointRange.create(NO_BLOCK, prevEnd + 1, SURROGATES.start() - 1);
         }
         if (!SURROGATES.contains(noBlock.range())) {
           retval.add(noBlock);
@@ -80,10 +82,10 @@ class UnicodeBlocksTestJavaGenerator
       }
       retval.add(blocks.get(i));
     }
-    BlockSpec<String> lastBlock = blocks.get(blocks.size() - 1);
+    NamedCodepointRange<String> lastBlock = blocks.get(blocks.size() - 1);
     int maxCodePoint = Versions.maxCodePoint(unicodeVersion.version());
     if (lastBlock.range().end() != maxCodePoint) {
-      retval.add(BlockSpec.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
+      retval.add(NamedCodepointRange.create(NO_BLOCK, lastBlock.range().end() + 1, maxCodePoint));
     }
     return retval.build();
   }

@@ -28,14 +28,14 @@ package de.jflex.migration.unicodedatatest.testblock;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.NamedCodepointRange;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
 class UnicodeBlockFlexGenerator
     extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars, String> {
 
   public UnicodeBlockFlexGenerator(
-      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec<String>> blockNames) {
+      UnicodeVersion unicodeVersion, ImmutableList<NamedCodepointRange<String>> blockNames) {
     super("UnicodeBlock.flex", unicodeVersion, blockNames);
   }
 
@@ -46,7 +46,7 @@ class UnicodeBlockFlexGenerator
     vars.blockNames =
         ImmutableSortedSet.<String>naturalOrder()
             .add("No Block")
-            .addAll(blocks.stream().map(BlockSpec::name).iterator())
+            .addAll(blocks.stream().map(NamedCodepointRange::name).iterator())
             .build();
     return vars;
   }

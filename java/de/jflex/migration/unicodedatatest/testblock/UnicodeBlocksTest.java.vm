@@ -28,8 +28,8 @@ package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import javax.annotation.Generated;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class UnicodeBlocksTest_${unicodeVersion.underscoreVersion()} {
     assertThat(scanner.blocks()).containsExactly(
         #set($separator="")
         #foreach ( $b in $blocks )
-        $separator BlockSpec.create("${b.name()}", 0x${b.hexStart()}, 0x${b.hexEnd()})
+        $separator NamedCodepointRange.create("${b.name()}", 0x${b.hexStart()}, 0x${b.hexEnd()})
         #set($separator = ",")
         #end
         );

@@ -27,7 +27,7 @@
 package de.jflex.ucd_generator.scanner;
 
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.ucd_generator.ucd.NamedCodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 
 %%
 

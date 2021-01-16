@@ -28,8 +28,8 @@ package de.jflex.testcase.unicode_codepoint_escapes;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.File;
@@ -75,18 +75,18 @@ public class UnicodeCodePointEscapesTest {
     scanner.yylex();
     assertThat(scanner.blocks())
         .containsExactly(
-            BlockSpec.create("inverse matched", 0x0000, 0x0000),
-            BlockSpec.create("matched", 0x0001, 0x0003),
-            BlockSpec.create("inverse matched", 0x0004, 0x000F),
-            BlockSpec.create("matched", 0x0010, 0x0011),
-            BlockSpec.create("inverse matched", 0x0012, 0x0CFE),
-            BlockSpec.create("matched", 0x0CFF, 0x0D00),
-            BlockSpec.create("inverse matched", 0x0D01, 0x0FFE),
-            BlockSpec.create("matched", 0x0FFF, 0x1001),
-            BlockSpec.create("inverse matched", 0x1002, 0xD7FF),
-            BlockSpec.create("inverse matched", 0xE000, 0xFFFE),
-            BlockSpec.create("matched", 0xFFFF, 0x10001),
-            BlockSpec.create("inverse matched", 0x10002, 0x10FFFE),
-            BlockSpec.create("matched", 0x10FFFF, 0x10FFFF));
+            NamedCodepointRange.create("inverse matched", 0x0000, 0x0000),
+            NamedCodepointRange.create("matched", 0x0001, 0x0003),
+            NamedCodepointRange.create("inverse matched", 0x0004, 0x000F),
+            NamedCodepointRange.create("matched", 0x0010, 0x0011),
+            NamedCodepointRange.create("inverse matched", 0x0012, 0x0CFE),
+            NamedCodepointRange.create("matched", 0x0CFF, 0x0D00),
+            NamedCodepointRange.create("inverse matched", 0x0D01, 0x0FFE),
+            NamedCodepointRange.create("matched", 0x0FFF, 0x1001),
+            NamedCodepointRange.create("inverse matched", 0x1002, 0xD7FF),
+            NamedCodepointRange.create("inverse matched", 0xE000, 0xFFFE),
+            NamedCodepointRange.create("matched", 0xFFFF, 0x10001),
+            NamedCodepointRange.create("inverse matched", 0x10002, 0x10FFFE),
+            NamedCodepointRange.create("matched", 0x10FFFF, 0x10FFFF));
   }
 }

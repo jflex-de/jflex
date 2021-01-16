@@ -177,6 +177,7 @@ java_test(
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/truth",
         "//third_party/javax:annotation",
@@ -305,6 +306,7 @@ java_test(
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/truth",
         "//third_party/javax:annotation",

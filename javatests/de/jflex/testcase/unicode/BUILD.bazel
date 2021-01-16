@@ -28,6 +28,7 @@ java_test(
     deps = [
         ":testing_blocks",
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/truth",
     ],
@@ -50,6 +51,7 @@ java_test(
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/truth",
     ],
