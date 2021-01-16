@@ -32,7 +32,7 @@ import de.jflex.ucd.SurrogateUtils;
 @AutoValue
 public abstract class BlockSpec<T> {
 
-  private static final String HEX_FORMAT = "0x%04X";
+  private static final String HEX_FORMAT = "%04X";
 
   public abstract T name();
 
