@@ -40,6 +40,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.Generated;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /** Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
@@ -47,6 +48,13 @@ import org.junit.Test;
 public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+
+  private ImmutableList<BlockSpec<Boolean>> expected;
+
+  @BeforeClass
+  public void golden() {
+    expected = readGolden();
+  }
 
   /**
    * Tests character class syntax of the Unicode ${unicodeVersion.underscoreVersion()}
@@ -59,7 +67,6 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
             ScannerFactory.of(UnicodeDigit1_${unicodeVersion.underscoreVersion()}::new),
             UnicodeDigit1_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
@@ -74,7 +81,6 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
             ScannerFactory.of(UnicodeDigit2_${unicodeVersion.underscoreVersion()}::new),
             UnicodeDigit2_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
@@ -89,7 +95,6 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
             ScannerFactory.of(UnicodeDigit3_${unicodeVersion.underscoreVersion()}::new),
             UnicodeDigit3_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.${dataset});
-    ImmutableList<BlockSpec<Boolean>> expected = readGolden();
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
