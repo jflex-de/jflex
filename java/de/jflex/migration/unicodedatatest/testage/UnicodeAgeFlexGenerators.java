@@ -23,46 +23,28 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package de.jflex.migration.unicodedatatest.testage;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.version.Version;
 
-/** Generates the flex of the scanners for a all ages of a given Unicode version. */
-class UnicodeAgeFlexGenerator extends AbstractGenerator<UnicodeAgeFlexTemplateVars> {
-
-  private final String ageDotVersion;
-  private final String ageUnderscoreVersion;
-
-  private UnicodeAgeFlexGenerator(
-      UnicodeVersion unicodeVersion, String ageDotVersion, String ageUnderscoreVersion) {
-    super("UnicodeAge.flex", unicodeVersion);
-    this.ageDotVersion = ageDotVersion;
-    this.ageUnderscoreVersion = ageUnderscoreVersion;
+public class UnicodeAgeFlexGenerators {
+  static UnicodePropertyFlexGenerator createForAge(UnicodeVersion unicodeVersion, Version age) {
+    return new UnicodePropertyFlexGenerator(unicodeVersion,
+        className(unicodeVersion, age.underscoreVersion()), "Age:" + age.toString());
   }
 
-  @Override
-  protected String getOuputFileName(UnicodeAgeFlexTemplateVars vars) {
-    return vars.className + ".flex";
+  static UnicodePropertyFlexGenerator createForUnassignedAge(UnicodeVersion unicodeVersion) {
+    return new UnicodePropertyFlexGenerator(unicodeVersion, className(unicodeVersion, "unassigned"), "Age:Unassigned");
   }
 
-  @Override
-  protected UnicodeAgeFlexTemplateVars createTemplateVars() {
-    UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.className =
-        String.format(
-            "UnicodeAge_%s_age_%s",
-            unicodeVersion.version().underscoreVersion(), ageUnderscoreVersion);
-    vars.age = ageDotVersion;
-    return vars;
+  private static String className(UnicodeVersion unicodeVersion, String age) {
+    return String.format(
+        "UnicodeAge_%s_age_%s",
+        unicodeVersion.version().underscoreVersion(), age);
   }
 
-  static UnicodeAgeFlexGenerator createForAge(UnicodeVersion unicodeVersion, Version age) {
-    return new UnicodeAgeFlexGenerator(unicodeVersion, age.toString(), age.underscoreVersion());
-  }
-
-  static UnicodeAgeFlexGenerator createForUnassignedAge(UnicodeVersion unicodeVersion) {
-    return new UnicodeAgeFlexGenerator(unicodeVersion, "Unassigned", "unassigned");
-  }
+  private UnicodeAgeFlexGenerators() {}
 }

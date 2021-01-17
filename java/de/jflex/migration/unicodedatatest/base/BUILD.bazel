@@ -6,6 +6,9 @@ java_library(
     name = "base",
     testonly = True,
     srcs = glob(["*.java"]),
+    resources = [
+        "UnicodeProperty.flex.vm",
+    ],
     visibility = [
         "//java/de/jflex/migration/unicodedatatest:__subpackages__",
         "//javatests/de/jflex/migration/unicodedatatest:__subpackages__",

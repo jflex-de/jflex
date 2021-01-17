@@ -23,37 +23,33 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.migration.unicodedatatest.base;
 
-package de.jflex.migration.unicodedatatest.testage;
 
-import static de.jflex.migration.unicodedatatest.base.AbstractGenerator.olderAges;
+/** Generates the flex of the scanners for a all ages of a given Unicode version. */
+public class UnicodePropertyFlexGenerator
+    extends AbstractGenerator<UnicodePropertyFlexTemplateVars> {
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.version.Version;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
+  private final String className;
+  private final String propertyName;
 
-class AgeTestGenerator {
-
-  private AgeTestGenerator() {}
-
-  public static void main(String[] args) throws Exception {
-    UnicodeVersion version = UnicodeVersion.create(args[0]);
-    Path outDir = Paths.get(args[1]);
-    generate(version, outDir);
+  public UnicodePropertyFlexGenerator(
+      UnicodeVersion unicodeVersion, String className, String propertyName) {
+    super("UnicodeProperty.flex", unicodeVersion);
+    this.className = className;
+    this.propertyName = propertyName;
   }
 
-  public static void generate(UnicodeVersion unicodeVersion, Path outDir)
-      throws IOException, ParseException {
-    ImmutableList<Version> ages = olderAges(unicodeVersion.version());
-    for (Version age : ages) {
-      UnicodeAgeFlexGenerators.createForAge(unicodeVersion, age).generate(outDir);
-    }
-    UnicodeAgeFlexGenerators.createForUnassignedAge(unicodeVersion).generate(outDir);
-    new UnicodeAgeSubtractionFlexGenerator(unicodeVersion).generate(outDir);
-    new UnicodeAgeTestGenerator(unicodeVersion, ages).generate(outDir);
+  @Override
+  protected String getOuputFileName(UnicodePropertyFlexTemplateVars vars) {
+    return vars.className + ".flex";
+  }
+
+  @Override
+  protected UnicodePropertyFlexTemplateVars createTemplateVars() {
+    UnicodePropertyFlexTemplateVars vars = new UnicodePropertyFlexTemplateVars();
+    vars.className = className;
+    vars.propertyName = propertyName;
+    return vars;
   }
 }
