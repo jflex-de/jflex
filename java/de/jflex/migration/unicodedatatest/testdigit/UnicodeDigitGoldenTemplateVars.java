@@ -28,9 +28,9 @@ package de.jflex.migration.unicodedatatest.testdigit;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.NamedCodepointRange;
 
 public class UnicodeDigitGoldenTemplateVars extends UnicodeVersionTemplateVars {
 
-  public ImmutableList<BlockSpec<Boolean>> digitBlocks;
+  public ImmutableList<NamedCodepointRange<Boolean>> digitBlocks;
 }

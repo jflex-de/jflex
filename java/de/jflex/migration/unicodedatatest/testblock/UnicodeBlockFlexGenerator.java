@@ -25,34 +25,35 @@
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
+import static com.google.common.collect.ImmutableSortedMap.toImmutableSortedMap;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.NamedCodepointRange;
+import java.util.Comparator;
 
 /** Generates the flex of the scanners for a all blocks of a given Unicode version. */
-class UnicodeBlockFlexGenerator
-    extends AbstractBlocksGenerator<UnicodeBlockFlexTemplateVars, String> {
+class UnicodeBlockFlexGenerator {
 
-  public UnicodeBlockFlexGenerator(
-      UnicodeVersion unicodeVersion, ImmutableList<BlockSpec<String>> blockNames) {
-    super("UnicodeBlock.flex", unicodeVersion, blockNames);
-  }
-
-  @Override
-  protected UnicodeBlockFlexTemplateVars createTemplateVars() {
-    UnicodeBlockFlexTemplateVars vars = new UnicodeBlockFlexTemplateVars();
-    vars.className = "UnicodeBlocks_" + unicodeVersion.version().underscoreVersion();
-    vars.blockNames =
+  public static UnicodePropertyFlexGenerator<String> create(
+      UnicodeVersion version, ImmutableList<NamedCodepointRange<String>> blocks) {
+    String className = "UnicodeBlocks_" + version.underscoreVersion();
+    ImmutableSortedSet<String> blockNames =
         ImmutableSortedSet.<String>naturalOrder()
             .add("No Block")
-            .addAll(blocks.stream().map(BlockSpec::name).iterator())
+            .addAll(blocks.stream().map(NamedCodepointRange::name).iterator())
             .build();
-    return vars;
+    return new UnicodePropertyFlexGenerator<>(
+        version,
+        className,
+        blockNames.stream()
+            .collect(
+                toImmutableSortedMap(
+                    Comparator.naturalOrder(), b -> "Block:" + b, b -> "\"" + b + "\"")),
+        String.class);
   }
 
-  @Override
-  protected String getOuputFileName(UnicodeBlockFlexTemplateVars vars) {
-    return vars.className + ".flex";
-  }
+  private UnicodeBlockFlexGenerator() {}
 }

@@ -26,7 +26,7 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.ucd.NamedCodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -36,7 +36,7 @@ public class AbstractArchaicEnumPropertyScanner {
   final String propertyName;
   final String defaultPropertyValue;
 
-  final SortedSet<NamedCodepointRange> intervals =
+  final SortedSet<NamedCodepointRange<String>> intervals =
       new TreeSet<>(NamedCodepointRange.START_COMPARATOR);
 
   String propertyValue;
@@ -59,7 +59,7 @@ public class AbstractArchaicEnumPropertyScanner {
     int prevEnd = -1;
     int prevStart = -1;
     String prevValue = "";
-    for (NamedCodepointRange interval : intervals) {
+    for (NamedCodepointRange<String> interval : intervals) {
       if (interval.start() > prevEnd + 1) {
         // Unassigned code points get the default property value, e.g. "Unknown"
         unicodeData.addEnumPropertyInterval(

@@ -29,6 +29,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.util.scanner.ScannerFactory;
 import de.jflex.version.Version;
@@ -57,7 +58,7 @@ public class UnicodeDataScanners {
       throws IOException {
     T scanner = scanAllCodepoints(scannerFactory, eof, dataset);
     ImmutableList<String> blocks =
-        scanner.blocks().stream().map(BlockSpec::toString).collect(toImmutableList());
+        scanner.blocks().stream().map(NamedCodepointRange::toString).collect(toImmutableList());
     try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
       ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
       assertThat(blocks).containsExactlyElementsIn(expected);

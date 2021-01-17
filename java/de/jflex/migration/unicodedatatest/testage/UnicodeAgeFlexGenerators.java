@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Google, LLC.
+ * Copyright (C) 2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,35 +23,28 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.ucd_generator.ucd;
 
-import com.google.auto.value.AutoValue;
-import de.jflex.ucd.CodepointRange;
-import java.util.Comparator;
+package de.jflex.migration.unicodedatatest.testage;
 
-@AutoValue
-public abstract class NamedCodepointRange {
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.version.Version;
 
-  public static final Comparator<NamedCodepointRange> START_COMPARATOR =
-      (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-
-  public abstract String name();
-
-  public abstract CodepointRange range();
-
-  static NamedCodepointRange create(String name, CodepointRange range) {
-    return new AutoValue_NamedCodepointRange(name, range);
+public class UnicodeAgeFlexGenerators {
+  static UnicodePropertyFlexGenerator createForAge(UnicodeVersion unicodeVersion, Version age) {
+    String propertyName = "Age:" + age.toString();
+    return UnicodePropertyFlexGenerator.createStringProperty(
+        unicodeVersion, className(unicodeVersion, age.underscoreVersion()), propertyName);
   }
 
-  public static NamedCodepointRange create(String name, int start, int end) {
-    return create(name, CodepointRange.create(start, end));
+  static UnicodePropertyFlexGenerator createForUnassignedAge(UnicodeVersion unicodeVersion) {
+    return UnicodePropertyFlexGenerator.createStringProperty(
+        unicodeVersion, className(unicodeVersion, "unassigned"), "Age:Unassigned");
   }
 
-  public int start() {
-    return range().start();
+  private static String className(UnicodeVersion unicodeVersion, String age) {
+    return String.format("UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), age);
   }
 
-  public int end() {
-    return range().end();
-  }
+  private UnicodeAgeFlexGenerators() {}
 }

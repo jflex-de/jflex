@@ -29,9 +29,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.testing.unicodedata.SimpleDigitParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class UnicodeDigitTest_7_0 {
 
   private static final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
-  private static ImmutableList<BlockSpec<Boolean>> expected;
+  private static ImmutableList<NamedCodepointRange<Boolean>> expected;
 
   @BeforeClass
   public static void golden() throws Exception {
@@ -98,8 +98,8 @@ public class UnicodeDigitTest_7_0 {
     assertThat(scanner.blocks()).containsExactlyElementsIn(expected);
   }
 
-  private static ImmutableList<BlockSpec<Boolean>> readGolden() throws IOException {
-    ImmutableList.Builder<BlockSpec<Boolean>> expected = ImmutableList.builder();
+  private static ImmutableList<NamedCodepointRange<Boolean>> readGolden() throws IOException {
+    ImmutableList.Builder<NamedCodepointRange<Boolean>> expected = ImmutableList.builder();
     PatternHandler goldenHandler =
         new PatternHandler() {
           @Override
@@ -107,7 +107,7 @@ public class UnicodeDigitTest_7_0 {
             int start = Integer.parseInt(regexpGroups.get(0), 16);
             int end = Integer.parseInt(regexpGroups.get(1), 16);
             boolean digit = regexpGroups.get(2).equals("Nd");
-            expected.add(BlockSpec.<Boolean>create(digit, start, end));
+            expected.add(NamedCodepointRange.<Boolean>create(digit, start, end));
           }
         };
     String goldenFile = "unicode_7_0/UnicodeDigit_7_0.output";

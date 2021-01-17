@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright (C) 2019-2020 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -23,46 +23,53 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testage;
+package de.jflex.ucd;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.version.Version;
+import com.google.auto.value.AutoValue;
+import java.util.Comparator;
 
-/** Generates the flex of the scanners for a all ages of a given Unicode version. */
-class UnicodeAgeFlexGenerator extends AbstractGenerator<UnicodeAgeFlexTemplateVars> {
+@AutoValue
+public abstract class NamedCodepointRange<T> {
 
-  private final String ageDotVersion;
-  private final String ageUnderscoreVersion;
+  public static final Comparator<NamedCodepointRange> START_COMPARATOR =
+      (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
 
-  private UnicodeAgeFlexGenerator(
-      UnicodeVersion unicodeVersion, String ageDotVersion, String ageUnderscoreVersion) {
-    super("UnicodeAge.flex", unicodeVersion);
-    this.ageDotVersion = ageDotVersion;
-    this.ageUnderscoreVersion = ageUnderscoreVersion;
+  private static final String HEX_FORMAT = "%04X";
+
+  public abstract T name();
+
+  public abstract CodepointRange range();
+
+  public static <T> NamedCodepointRange<T> create(T name, CodepointRange range) {
+    return new AutoValue_NamedCodepointRange(name, range);
+  }
+
+  public static <T> NamedCodepointRange<T> create(T name, int start, int end) {
+    return create(name, CodepointRange.create(start, end));
   }
 
   @Override
-  protected String getOuputFileName(UnicodeAgeFlexTemplateVars vars) {
-    return vars.className + ".flex";
+  public final String toString() {
+    return String.format("%04X..%04X; %s", range().start(), range().end(), name());
   }
 
-  @Override
-  protected UnicodeAgeFlexTemplateVars createTemplateVars() {
-    UnicodeAgeFlexTemplateVars vars = new UnicodeAgeFlexTemplateVars();
-    vars.className =
-        String.format(
-            "UnicodeAge_%s_age_%s",
-            unicodeVersion.version().underscoreVersion(), ageUnderscoreVersion);
-    vars.age = ageDotVersion;
-    return vars;
+  public int start() {
+    return range().start();
   }
 
-  static UnicodeAgeFlexGenerator createForAge(UnicodeVersion unicodeVersion, Version age) {
-    return new UnicodeAgeFlexGenerator(unicodeVersion, age.toString(), age.underscoreVersion());
+  public int end() {
+    return range().end();
   }
 
-  static UnicodeAgeFlexGenerator createForUnassignedAge(UnicodeVersion unicodeVersion) {
-    return new UnicodeAgeFlexGenerator(unicodeVersion, "Unassigned", "unassigned");
+  public String hexStart() {
+    return String.format(HEX_FORMAT, range().start());
+  }
+
+  public String hexEnd() {
+    return String.format(HEX_FORMAT, range().end());
+  }
+
+  public boolean isSurrogate() {
+    return SurrogateUtils.containsSurrogate(range());
   }
 }

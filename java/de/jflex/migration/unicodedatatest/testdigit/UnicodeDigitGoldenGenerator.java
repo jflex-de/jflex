@@ -29,8 +29,8 @@ package de.jflex.migration.unicodedatatest.testdigit;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.BlockSpec;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
@@ -58,7 +58,7 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
     return vars.className + ".output";
   }
 
-  private ImmutableList<BlockSpec<Boolean>> createDigitBlocks(int maxCodepoint) {
+  private ImmutableList<NamedCodepointRange<Boolean>> createDigitBlocks(int maxCodepoint) {
     ImmutableList<CodepointRange> ranges = unicodeData.getPropertyValueIntervals("Nd");
     DigitBlocks.Builder digitBlocks = DigitBlocks.builder();
     digitBlocks.add(false, 0, ranges.get(0).start() - 1);

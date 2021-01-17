@@ -27,9 +27,9 @@ package de.jflex.migration.unicodedatatest.testblock;
 
 import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.testing.unicodedata.BlockSpec;
+import de.jflex.ucd.NamedCodepointRange;
 
 public class UnicodeBlocksTestJavaTemplateVars extends UnicodeVersionTemplateVars {
   /** Blocks sorted by range. */
-  public ImmutableSortedSet<BlockSpec> blocks;
+  public ImmutableSortedSet<NamedCodepointRange> blocks;
 }

@@ -12,22 +12,11 @@ java_library(
         "//java/de/jflex/migration/unicodedatatest:__subpackages__",
         "//javatests:__subpackages__",
     ],
-    exports = [":value_objects"],
     deps = [
-        ":value_objects",
         "//java/de/jflex/ucd",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//java/de/jflex/version",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
-    ],
-)
-
-java_library(
-    name = "value_objects",
-    srcs = ["BlockSpec.java"],
-    deps = [
-        "//java/de/jflex/ucd",
-        "//third_party/com/google/auto_value",
     ],
 )

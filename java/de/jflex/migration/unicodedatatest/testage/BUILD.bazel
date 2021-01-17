@@ -12,13 +12,12 @@ java_binary(
     testonly = True,
     srcs = [
         "AgeTestGenerator.java",
-        "UnicodeAgeFlexGenerator.java",
+        "UnicodeAgeFlexGenerators.java",
         "UnicodeAgeSubtractionFlexGenerator.java",
         "UnicodeAgeTestGenerator.java",
     ],
     main_class = "de.jflex.migration.unicodedatatest.testage.AgeTestGenerator",
     resources = [
-        "UnicodeAge.flex.vm",
         "UnicodeAgeSubtraction.flex.vm",
         "UnicodeAgeTest_x_y.java.vm",
     ],
@@ -39,7 +38,6 @@ java_library(
     name = "template_vars",
     testonly = True,
     srcs = [
-        "UnicodeAgeFlexTemplateVars.java",
         "UnicodeAgeSubtractionTemplateVars.java",
         "UnicodeAgeTestTemplateVars.java",
     ],

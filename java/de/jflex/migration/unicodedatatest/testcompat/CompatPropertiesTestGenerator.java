@@ -55,7 +55,7 @@ public class CompatPropertiesTestGenerator {
       throws IOException, ParseException {
     new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
     for (String propName : UnicodeCompatibilityProperties.COMPATIBILITY_PROPERTIES) {
-      new UnicodeCompatFlexGenerator(version, propName).generate(outDir);
+      UnicodeCompatFlexGenerators.create(version, propName).generate(outDir);
       new UnicodeCompatibilityPropertiesGoldenGenerator(version, unicodeData, propName)
           .generate(outDir);
     }

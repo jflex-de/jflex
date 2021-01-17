@@ -27,6 +27,7 @@
 package de.jflex.testing.unicodedata;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
 import java.lang.reflect.Array;
 
@@ -39,14 +40,14 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
     propertyValues = (T[]) Array.newInstance(clazz, maxCodePoint + 1);
   }
 
-  public ImmutableList<BlockSpec<T>> blocks() {
-    ImmutableList.Builder<BlockSpec<T>> blocks = ImmutableList.builder();
+  public ImmutableList<NamedCodepointRange<T>> blocks() {
+    ImmutableList.Builder<NamedCodepointRange<T>> blocks = ImmutableList.builder();
     T prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
     for (int codePoint = 1; codePoint <= maxCodePoint; ++codePoint) {
       if (codePoint == 0xD800) { // Skip the surrogate blocks
         if (prevPropertyValue != null) {
-          blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
+          blocks.add(NamedCodepointRange.create(prevPropertyValue, begCodePoint, codePoint - 1));
         }
         begCodePoint = codePoint = 0xE000;
         prevPropertyValue = propertyValues[codePoint];
@@ -55,14 +56,14 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
       T propertyValue = propertyValues[codePoint];
       if (null == propertyValue || !propertyValue.equals(prevPropertyValue)) {
         if (null != prevPropertyValue) {
-          blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, codePoint - 1));
+          blocks.add(NamedCodepointRange.create(prevPropertyValue, begCodePoint, codePoint - 1));
         }
         prevPropertyValue = propertyValue;
         begCodePoint = codePoint;
       }
     }
     if (null != prevPropertyValue) {
-      blocks.add(BlockSpec.create(prevPropertyValue, begCodePoint, maxCodePoint));
+      blocks.add(NamedCodepointRange.create(prevPropertyValue, begCodePoint, maxCodePoint));
     }
     return blocks.build();
   }

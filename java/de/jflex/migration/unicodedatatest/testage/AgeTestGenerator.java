@@ -50,9 +50,9 @@ class AgeTestGenerator {
       throws IOException, ParseException {
     ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     for (Version age : ages) {
-      UnicodeAgeFlexGenerator.createForAge(unicodeVersion, age).generate(outDir);
+      UnicodeAgeFlexGenerators.createForAge(unicodeVersion, age).generate(outDir);
     }
-    UnicodeAgeFlexGenerator.createForUnassignedAge(unicodeVersion).generate(outDir);
+    UnicodeAgeFlexGenerators.createForUnassignedAge(unicodeVersion).generate(outDir);
     new UnicodeAgeSubtractionFlexGenerator(unicodeVersion).generate(outDir);
     new UnicodeAgeTestGenerator(unicodeVersion, ages).generate(outDir);
   }

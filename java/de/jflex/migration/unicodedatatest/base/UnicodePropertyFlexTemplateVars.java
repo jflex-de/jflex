@@ -23,10 +23,11 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testage;
+package de.jflex.migration.unicodedatatest.base;
 
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
+import java.util.NavigableMap;
 
-public class UnicodeAgeFlexTemplateVars extends UnicodeVersionTemplateVars {
-  public String age;
+public class UnicodePropertyFlexTemplateVars<T> extends UnicodeVersionTemplateVars {
+  public NavigableMap<String, T> properties;
+  public Class<T> propertyValueClass;
 }
