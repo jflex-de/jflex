@@ -25,25 +25,25 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
+import com.google.common.collect.ImmutableSortedMap;
+import java.util.NavigableMap;
+
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
 public class UnicodePropertyFlexGenerator<T>
     extends AbstractGenerator<UnicodePropertyFlexTemplateVars<T>> {
 
   private final String className;
-  private final String propertyName;
-  private final T propertyValue;
+  private final NavigableMap<String, T> properties;
   private final Class<T> propertyValueClass;
 
   public UnicodePropertyFlexGenerator(
       UnicodeVersion unicodeVersion,
       String className,
-      String propertyName,
-      T propertyValue,
+      NavigableMap<String, T> properties,
       Class<T> propertyValueClass) {
     super("UnicodeProperty.flex", unicodeVersion);
     this.className = className;
-    this.propertyName = propertyName;
-    this.propertyValue = propertyValue;
+    this.properties = properties;
     this.propertyValueClass = propertyValueClass;
   }
 
@@ -56,8 +56,7 @@ public class UnicodePropertyFlexGenerator<T>
   protected UnicodePropertyFlexTemplateVars<T> createTemplateVars() {
     UnicodePropertyFlexTemplateVars<T> vars = new UnicodePropertyFlexTemplateVars<>();
     vars.className = className;
-    vars.propertyName = propertyName;
-    vars.propertyValue = propertyValue;
+    vars.properties = properties;
     vars.propertyValueClass = propertyValueClass;
     return vars;
   }
@@ -65,6 +64,9 @@ public class UnicodePropertyFlexGenerator<T>
   public static UnicodePropertyFlexGenerator<String> createStringProperty(
       UnicodeVersion version, String className, String propertyName) {
     return new UnicodePropertyFlexGenerator<>(
-        version, className, propertyName, "\"" + propertyName + "\"", String.class);
+        version,
+        className,
+        ImmutableSortedMap.of(propertyName, "\"" + propertyName + "\""),
+        String.class);
   }
 }

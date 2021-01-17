@@ -43,6 +43,8 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 %%
 
-<<EOF>>     { return YYEOF;}
-\p{$propertyName} { setCurCharPropertyValue(yytext(), yylength(), $propertyValue); }
-[^] { }
+#foreach ( $p in $properties.entrySet() )
+\p{$p.key} { setCurCharPropertyValue(yytext(), yylength(), $p.value); }
+#end
+<<EOF>> { return YYEOF;}
+[^]     { }

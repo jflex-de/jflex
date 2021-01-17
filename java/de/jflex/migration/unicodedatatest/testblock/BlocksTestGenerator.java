@@ -145,7 +145,7 @@ public class BlocksTestGenerator {
   private static void generate(
       UnicodeVersion version, Path outDir, ImmutableList<NamedCodepointRange<String>> blocks)
       throws IOException, ParseException {
-    new UnicodeBlockFlexGenerator(version, blocks).generate(outDir);
+    UnicodeBlockFlexGenerator.create(version, blocks).generate(outDir);
     new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);
   }
 }

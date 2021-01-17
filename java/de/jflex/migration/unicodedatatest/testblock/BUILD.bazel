@@ -24,7 +24,6 @@ java_binary(
     ],
     main_class = "de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator",
     resources = [
-        "UnicodeBlock.flex.vm",
         "UnicodeBlocksTest.java.vm",
     ],
     deps = [

@@ -25,8 +25,9 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
+import java.util.NavigableMap;
+
 public class UnicodePropertyFlexTemplateVars<T> extends UnicodeVersionTemplateVars {
-  public String propertyName;
-  public T propertyValue;
+  public NavigableMap<String, T> properties;
   public Class<T> propertyValueClass;
 }
