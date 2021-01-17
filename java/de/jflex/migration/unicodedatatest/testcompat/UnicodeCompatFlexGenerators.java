@@ -26,29 +26,17 @@
 
 package de.jflex.migration.unicodedatatest.testcompat;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 
-public class UnicodeCompatFlexGenerator extends AbstractGenerator<UnicodeCompatFlexTemplateVars> {
+public class UnicodeCompatFlexGenerators {
 
-  private final String propName;
-
-  protected UnicodeCompatFlexGenerator(UnicodeVersion unicodeVersion, String propName) {
-    super("UnicodeCompat.flex", unicodeVersion);
-    this.propName = propName;
-  }
-
-  @Override
-  protected UnicodeCompatFlexTemplateVars createTemplateVars() {
-    UnicodeCompatFlexTemplateVars vars = new UnicodeCompatFlexTemplateVars();
-    vars.className =
-        "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
-    vars.propName = propName;
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeCompatFlexTemplateVars vars) {
-    return vars.className + ".flex";
+  public static UnicodePropertyFlexGenerator<Boolean> create(
+      UnicodeVersion version, String propName) {
+    String className =
+        className =
+            "UnicodeCompatibilityProperties_" + propName + "_" + version.underscoreVersion();
+    ;
+    return new UnicodePropertyFlexGenerator<>(version, className, propName, true, Boolean.class);
   }
 }

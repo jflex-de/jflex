@@ -25,31 +25,46 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
-
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
-public class UnicodePropertyFlexGenerator
-    extends AbstractGenerator<UnicodePropertyFlexTemplateVars> {
+public class UnicodePropertyFlexGenerator<T>
+    extends AbstractGenerator<UnicodePropertyFlexTemplateVars<T>> {
 
   private final String className;
   private final String propertyName;
+  private final T propertyValue;
+  private final Class<T> propertyValueClass;
 
   public UnicodePropertyFlexGenerator(
-      UnicodeVersion unicodeVersion, String className, String propertyName) {
+      UnicodeVersion unicodeVersion,
+      String className,
+      String propertyName,
+      T propertyValue,
+      Class<T> propertyValueClass) {
     super("UnicodeProperty.flex", unicodeVersion);
     this.className = className;
     this.propertyName = propertyName;
+    this.propertyValue = propertyValue;
+    this.propertyValueClass = propertyValueClass;
   }
 
   @Override
-  protected String getOuputFileName(UnicodePropertyFlexTemplateVars vars) {
+  protected String getOuputFileName(UnicodePropertyFlexTemplateVars<T> vars) {
     return vars.className + ".flex";
   }
 
   @Override
-  protected UnicodePropertyFlexTemplateVars createTemplateVars() {
-    UnicodePropertyFlexTemplateVars vars = new UnicodePropertyFlexTemplateVars();
+  protected UnicodePropertyFlexTemplateVars<T> createTemplateVars() {
+    UnicodePropertyFlexTemplateVars<T> vars = new UnicodePropertyFlexTemplateVars<>();
     vars.className = className;
     vars.propertyName = propertyName;
+    vars.propertyValue = propertyValue;
+    vars.propertyValueClass = propertyValueClass;
     return vars;
+  }
+
+  public static UnicodePropertyFlexGenerator<String> createStringProperty(
+      UnicodeVersion version, String className, String propertyName) {
+    return new UnicodePropertyFlexGenerator<>(
+        version, className, propertyName, "\"" + propertyName + "\"", String.class);
   }
 }

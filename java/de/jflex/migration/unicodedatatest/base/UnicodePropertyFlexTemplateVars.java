@@ -25,6 +25,8 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
-public class UnicodePropertyFlexTemplateVars extends UnicodeVersionTemplateVars {
+public class UnicodePropertyFlexTemplateVars<T> extends UnicodeVersionTemplateVars {
   public String propertyName;
+  public T propertyValue;
+  public Class<T> propertyValueClass;
 }

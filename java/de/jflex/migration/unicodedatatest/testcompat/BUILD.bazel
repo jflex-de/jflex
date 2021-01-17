@@ -30,7 +30,6 @@ java_library(
     testonly = True,
     srcs = glob(["Unicode*.java"]),
     resources = [
-        "UnicodeCompat.flex.vm",
         "UnicodeCompatibilityPropertiesGolden.vm",
         "UnicodeCompatibilityPropertiesTest.java.vm",
     ],
