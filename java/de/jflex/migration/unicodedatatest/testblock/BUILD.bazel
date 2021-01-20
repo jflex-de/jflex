@@ -3,7 +3,10 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 load(":build_defs.bzl", "gen_test_blocks", "gen_test_old_blocks")
-load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+# Test for unicode 1.1 is not supported
+TESTED_VERSIONS = KNOWN_VERSIONS[1:]
 
 package(default_visibility = [
     "//javatests/de/jflex/migration/unicodedatatest/testblock:__pkg__",

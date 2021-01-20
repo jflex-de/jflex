@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
-load(":build_defs.bzl", "TESTED_VERSIONS", "gen_build")
+load(":build_defs.bzl", "KNOWN_VERSIONS", "gen_build")
 
 java_binary(
     name = "generator",
@@ -31,10 +31,10 @@ filegroup(
     srcs = [":gen_build_{x}_{y}".format(
         x = x,
         y = y,
-    ) for (x, y) in TESTED_VERSIONS],
+    ) for (x, y) in KNOWN_VERSIONS],
 )
 
 [gen_build(
     name = "gen_build_%s_%s" % (x, y),
     version = "%s.%s" % (x, y),
-) for (x, y) in TESTED_VERSIONS]
+) for (x, y) in KNOWN_VERSIONS]

@@ -3,9 +3,12 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 load(":build_defs.bzl", "gen_test_age")
-load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
 
 package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
+
+# Age didn't exist in Unicode 1.1
+TESTED_VERSIONS = KNOWN_VERSIONS[1:]
 
 java_binary(
     name = "generator",
