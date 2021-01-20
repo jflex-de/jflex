@@ -28,3 +28,18 @@ java_library(
     resources = [
     ],
 )
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "gen_test_emoji_%s_%s" % (x, y)
+        for (x, y) in TESTED_VERSIONS
+    ],
+)
+
+[gen_test_emoji(
+    name = "gen_test_emoji_%s_%s" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS]
