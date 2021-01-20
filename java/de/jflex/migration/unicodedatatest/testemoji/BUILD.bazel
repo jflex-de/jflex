@@ -1,0 +1,30 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+load(":build_defs.bzl", "gen_test_emoji")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+# Emojis were introduced in Unicode 8.0
+TESTED_VERSIONS = [(x, y) for (x, y) in KNOWN_VERSIONS if x >= 8]
+
+java_binary(
+    name = "EmojiTestGenerator",
+    testonly = True,
+    srcs = ["EmojiTestGenerator.java"],
+    deps = [
+        ":testemoji",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_library(
+    name = "testemoji",
+    testonly = True,
+    srcs = glob(["Unicode*.java"]),
+    resources = [
+    ],
+)
