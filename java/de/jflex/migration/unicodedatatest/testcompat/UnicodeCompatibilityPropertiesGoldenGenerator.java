@@ -26,8 +26,11 @@
 
 package de.jflex.migration.unicodedatatest.testcompat;
 
+import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
@@ -53,11 +56,31 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
     vars.ranges = unicodeData.getPropertyValueIntervals(propName);
+    if (unicodeVersion.version().equals(Versions.VERSION_1_1)) {
+      vars.ranges = joinContiguousIntervals(vars.ranges);
+    }
     return vars;
   }
 
   @Override
   protected String getOuputFileName(UnicodeCompatibilityPropertiesGoldenTemplateVars vars) {
     return vars.className + ".output";
+  }
+
+  private ImmutableList<CodepointRange> joinContiguousIntervals(
+      ImmutableList<CodepointRange> ranges) {
+    ImmutableList.Builder<CodepointRange> builder = new ImmutableList.Builder<>();
+    CodepointRange prev = ranges.get(0);
+    for (int i = 1; i < ranges.size(); i++) {
+      CodepointRange r = ranges.get(i);
+      if (prev.end() + 1 == r.start()) {
+        prev = CodepointRange.create(prev.start(), r.end());
+      } else {
+        builder.add(prev);
+        prev = r;
+      }
+    }
+    builder.add(ranges.get(ranges.size() - 1));
+    return builder.build();
   }
 }
