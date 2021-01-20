@@ -47,7 +47,7 @@ import org.junit.Test;
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
 public class UnicodeDigitTest_1_1 {
 
-  private final static Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+  private static final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   private static ImmutableList<NamedCodepointRange<Boolean>> expected;
 
@@ -57,13 +57,13 @@ public class UnicodeDigitTest_1_1 {
   }
 
   /**
-   * Tests character class syntax of the Unicode 1_1
-   * DecimalDigit property ({@code Nd}) using the {@code [:digit:]} syntax.
+   * Tests character class syntax of the Unicode 1_1 DecimalDigit property ({@code Nd}) using the
+   * {@code [:digit:]} syntax.
    */
   @Test
   public void digit() throws Exception {
-    UnicodeDigit_digit_1_1 scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    UnicodeDigit_digit_1_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_digit_1_1::new),
             UnicodeDigit_digit_1_1.YYEOF,
             UnicodeDataScanners.Dataset.BMP);
@@ -71,13 +71,13 @@ public class UnicodeDigitTest_1_1 {
   }
 
   /**
-   * Tests character class syntax of the Unicode 1_1
-   * DecimalDigit property ({@code Nd}) using the {@code \D} syntax.
+   * Tests character class syntax of the Unicode 1_1 DecimalDigit property ({@code Nd}) using the
+   * {@code \D} syntax.
    */
   @Test
   public void upperD() throws Exception {
-    UnicodeDigit_upperD_1_1 scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    UnicodeDigit_upperD_1_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_upperD_1_1::new),
             UnicodeDigit_upperD_1_1.YYEOF,
             UnicodeDataScanners.Dataset.BMP);
@@ -85,13 +85,13 @@ public class UnicodeDigitTest_1_1 {
   }
 
   /**
-   * Tests character class syntax of the Unicode 1_1
-   * DecimalDigit property ({@code Nd}) using the {@code \d} syntax.
+   * Tests character class syntax of the Unicode 1_1 DecimalDigit property ({@code Nd}) using the
+   * {@code \d} syntax.
    */
   @Test
   public void lowerD() throws Exception {
-    UnicodeDigit_lowerD_1_1 scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    UnicodeDigit_lowerD_1_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeDigit_lowerD_1_1::new),
             UnicodeDigit_lowerD_1_1.YYEOF,
             UnicodeDataScanners.Dataset.BMP);
@@ -100,18 +100,19 @@ public class UnicodeDigitTest_1_1 {
 
   private static ImmutableList<NamedCodepointRange<Boolean>> readGolden() throws IOException {
     ImmutableList.Builder<NamedCodepointRange<Boolean>> expected = ImmutableList.builder();
-    PatternHandler goldenHandler = new PatternHandler() {
-      @Override
-      public void onRegexMatch(List<String> regexpGroups) {
-        int start = Integer.parseInt(regexpGroups.get(0), 16);
-        int end = Integer.parseInt(regexpGroups.get(1), 16);
-        boolean digit = regexpGroups.get(2).equals("Nd");
-        expected.add(NamedCodepointRange.<Boolean>create(digit, start, end));
-      }
-    };
+    PatternHandler goldenHandler =
+        new PatternHandler() {
+          @Override
+          public void onRegexMatch(List<String> regexpGroups) {
+            int start = Integer.parseInt(regexpGroups.get(0), 16);
+            int end = Integer.parseInt(regexpGroups.get(1), 16);
+            boolean digit = regexpGroups.get(2).equals("Nd");
+            expected.add(NamedCodepointRange.<Boolean>create(digit, start, end));
+          }
+        };
     String goldenFile = "unicode_1_1/UnicodeDigit_1_1.output";
-    try (BufferedReader goldenReader = Files.newBufferedReader(
-        packageDirectory.resolve(goldenFile))) {
+    try (BufferedReader goldenReader =
+        Files.newBufferedReader(packageDirectory.resolve(goldenFile))) {
       SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
       parser.parse();
     }

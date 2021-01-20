@@ -47,27 +47,27 @@ public class UnicodeCaselessTest_1_1 {
 
   @Test
   public void caseless() throws Exception {
-    UnicodeCaseless_1_1 scanner = UnicodeDataScanners
-        .scanAllCodepoints(
+    UnicodeCaseless_1_1 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeCaseless_1_1::new),
             UnicodeCaseless_1_1.YYEOF,
             UnicodeDataScanners.Dataset.BMP);
-    PatternHandler expectationVerifier = new PatternHandler() {
-      @Override
-      public void onRegexMatch(List<String> regexpGroups) {
-        String inputChar = regexpGroups.get(0);
-        String expectedEquivalence = regexpGroups.get(1);
-        int actualEquivalence =
-            scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
-        assertWithMessage("Character 0x%s matches caselessly 0x%s", inputChar, expectedEquivalence)
-            .that(actualEquivalence)
-            .isEqualTo(expectedEquivalence);
-      }
-    };
-    String goldenFile =
-        "unicode_1_1/UnicodeCaseless_1_1.output";
-    try (BufferedReader goldenReader = Files.newBufferedReader(
-        packageDirectory.resolve(goldenFile))) {
+    PatternHandler expectationVerifier =
+        new PatternHandler() {
+          @Override
+          public void onRegexMatch(List<String> regexpGroups) {
+            String inputChar = regexpGroups.get(0);
+            String expectedEquivalence = regexpGroups.get(1);
+            int actualEquivalence = scanner.getPropertyValue(Integer.parseInt(inputChar, 16));
+            assertWithMessage(
+                    "Character 0x%s matches caselessly 0x%s", inputChar, expectedEquivalence)
+                .that(actualEquivalence)
+                .isEqualTo(expectedEquivalence);
+          }
+        };
+    String goldenFile = "unicode_1_1/UnicodeCaseless_1_1.output";
+    try (BufferedReader goldenReader =
+        Files.newBufferedReader(packageDirectory.resolve(goldenFile))) {
       SimpleCaselessParser parser = new SimpleCaselessParser(goldenReader, expectationVerifier);
       parser.parse();
     }
