@@ -12,7 +12,9 @@ load("@jflex_rules//jflex:jflex.bzl", "jflex")
 java_binary(
     name = "simple_bin",
     main_class = "Yylex",
-    runtime_deps = [":simple"],
+    runtime_deps = [
+        ":simple",
+    ],
 )
 
 java_library(

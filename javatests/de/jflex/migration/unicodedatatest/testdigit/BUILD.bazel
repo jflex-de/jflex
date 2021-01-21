@@ -1,0 +1,9 @@
+java_test(
+    name = "UnicodeDigitFlexGeneratorTest",
+    srcs = ["UnicodeDigitFlexGeneratorTest.java"],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/testdigit",
+        "//third_party/com/google/truth",
+    ],
+)

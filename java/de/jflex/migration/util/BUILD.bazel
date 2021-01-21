@@ -1,0 +1,10 @@
+java_library(
+    name = "java_resources",
+    srcs = ["JavaResources.java"],
+    visibility = [
+        "//java/de/jflex/migration:__subpackages__",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)

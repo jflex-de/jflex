@@ -1,0 +1,69 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+load(":build_defs.bzl", "gen_test_age")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+package(default_visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"])
+
+# Age didn't exist in Unicode 1.1
+TESTED_VERSIONS = KNOWN_VERSIONS[1:]
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "AgeTestGenerator.java",
+        "UnicodeAgeFlexGenerators.java",
+        "UnicodeAgeSubtractionFlexGenerator.java",
+        "UnicodeAgeTestGenerator.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.testage.AgeTestGenerator",
+    resources = [
+        "UnicodeAgeSubtraction.flex.vm",
+        "UnicodeAgeTest_x_y.java.vm",
+    ],
+    deps = [
+        ":template_vars",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/version",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "template_vars",
+    testonly = True,
+    srcs = [
+        "UnicodeAgeSubtractionTemplateVars.java",
+        "UnicodeAgeTestTemplateVars.java",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/version",
+        "//third_party/com/google/guava",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        ":gen_test_age_{x}_{y}_flex".format(
+            x = x,
+            y = y,
+        )
+        for (x, y) in TESTED_VERSIONS
+    ],
+)
+
+[gen_test_age(
+    name = "gen_test_age_%s_%s_flex" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS]

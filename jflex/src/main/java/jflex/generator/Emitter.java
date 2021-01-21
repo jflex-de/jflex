@@ -957,8 +957,10 @@ public final class Emitter {
       println("    int offset = input & " + (CMapBlock.BLOCK_SIZE - 1) + ";");
       println(
           "    return offset == input"
-              + " ? ZZ_CMAP_BLOCKS[offset]"
-              + " : ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> "
+              + " ?"
+              + " ZZ_CMAP_BLOCKS[offset]"
+              + " :"
+              + " ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> "
               + CMapBlock.BLOCK_BITS
               + "] | offset];");
     }

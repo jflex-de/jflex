@@ -1,0 +1,6 @@
+%include javatests/de/jflex/testcase/include/inp2
+
+token b blublw
+sd
+asf sad adsdfa
+token  s%include javatests/de/jflex/testcase/include/inp3-sdfs a

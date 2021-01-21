@@ -1,0 +1,18 @@
+package(default_visibility = ["//javatests/de/jflex/testcase:__subpackages__"])
+
+alias(
+    name = "All.Unicode.characters.input",
+    actual = "//testsuite/testcases/src/test/resources:All.Unicode.characters.input",
+)
+
+alias(
+    name = "All.Unicode.BMP.characters.input",
+    actual = "//testsuite/testcases/src/test/resources:All.Unicode.BMP.characters.input",
+)
+
+java_library(
+    name = "resources",
+    testonly = True,
+    srcs = glob(["*.java"]),
+    deps = [],
+)
