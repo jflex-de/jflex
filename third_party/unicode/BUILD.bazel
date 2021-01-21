@@ -12,7 +12,7 @@ filegroup(
 )
 
 alias(
-    name = "ucd_1_",
+    name = "ucd_1_1",
     actual = "ucd_1_1_5",
 )
 
