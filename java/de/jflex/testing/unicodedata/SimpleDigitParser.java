@@ -29,6 +29,14 @@ package de.jflex.testing.unicodedata;
 import java.io.Reader;
 import java.util.regex.Pattern;
 
+/**
+ * Parser of unicode digit golden file.
+ * <pre><code>
+ *   0000..002F; Not-Nd
+ *   0030..0039; Nd
+ *   etc.
+ * </code></pre>
+ */
 public class SimpleDigitParser extends AbstractSimpleParser {
 
   private static final Pattern PATTERN =
