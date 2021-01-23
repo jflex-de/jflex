@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 load(":build_defs.bzl", "gen_test_compat")
-load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "TESTED_VERSIONS")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
 
 package(default_visibility = [
     "//javatests/de/jflex/testcase/unicode:__subpackages__",
@@ -51,7 +51,7 @@ filegroup(
     testonly = True,
     srcs = [
         "gen_test_compat_%s_%s" % (x, y)
-        for (x, y) in TESTED_VERSIONS
+        for (x, y) in KNOWN_VERSIONS
     ],
 )
 
@@ -59,4 +59,4 @@ filegroup(
     name = "gen_test_compat_%s_%s" % (x, y),
     ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
     version = "%s.%s" % (x, y),
-) for (x, y) in TESTED_VERSIONS]
+) for (x, y) in KNOWN_VERSIONS]
