@@ -18,6 +18,7 @@ java_binary(
         "//java/de/jflex/ucd_generator/scanner",
         "//java/de/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
     ],
 )
 

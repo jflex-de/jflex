@@ -33,12 +33,12 @@ import de.jflex.version.Version;
 public class UnicodeAgeFlexGenerators {
   static UnicodePropertyFlexGenerator createForAge(UnicodeVersion unicodeVersion, Version age) {
     String propertyName = "Age:" + age.toString();
-    return UnicodePropertyFlexGenerator.createStringProperty(
+    return UnicodePropertyFlexGenerator.createPropertyValueScanner(
         unicodeVersion, className(unicodeVersion, age.underscoreVersion()), propertyName);
   }
 
   static UnicodePropertyFlexGenerator createForUnassignedAge(UnicodeVersion unicodeVersion) {
-    return UnicodePropertyFlexGenerator.createStringProperty(
+    return UnicodePropertyFlexGenerator.createPropertyValueScanner(
         unicodeVersion, className(unicodeVersion, "unassigned"), "Age:Unassigned");
   }
 

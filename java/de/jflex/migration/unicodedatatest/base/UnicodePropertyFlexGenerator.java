@@ -61,12 +61,18 @@ public class UnicodePropertyFlexGenerator<T>
     return vars;
   }
 
-  public static UnicodePropertyFlexGenerator<String> createStringProperty(
+  public static UnicodePropertyFlexGenerator<String> createPropertyValueScanner(
       UnicodeVersion version, String className, String propertyName) {
     return new UnicodePropertyFlexGenerator<>(
         version,
         className,
         ImmutableSortedMap.of(propertyName, "\"" + propertyName + "\""),
         String.class);
+  }
+
+  public static UnicodePropertyFlexGenerator<Boolean> createPropertyScanner(
+      UnicodeVersion version, String className, String propertyName) {
+    return new UnicodePropertyFlexGenerator<>(
+        version, className, ImmutableSortedMap.of(propertyName, true), Boolean.class);
   }
 }

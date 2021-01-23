@@ -27,14 +27,17 @@
 package de.jflex.migration.unicodedatatest.testemoji;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.scanner.UcdScanner;
 import de.jflex.ucd_generator.scanner.UcdScannerException;
 import de.jflex.ucd_generator.ucd.UnicodeData;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
 
@@ -50,8 +53,12 @@ public class EmojiTestGenerator {
     generate(version, unicodeData, outDir);
   }
 
-  private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir) {
+  private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
+      throws IOException, ParseException {
     // TODO(regisd)
+    UnicodePropertyFlexGenerator.createPropertyScanner(
+            version, "UnicodeEmoji_" + version.underscoreVersion(), "Emoji")
+        .generate(outDir);
   }
 
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {
