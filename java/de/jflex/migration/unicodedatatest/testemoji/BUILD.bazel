@@ -27,6 +27,10 @@ java_library(
     testonly = True,
     srcs = glob(["Unicode*.java"]),
     resources = [
+        "UnicodeEmojiTest.java.vm",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
     ],
 )
 
