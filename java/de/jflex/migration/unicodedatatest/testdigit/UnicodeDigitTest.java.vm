@@ -47,7 +47,7 @@ import org.junit.Test;
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
 public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
-  private final static Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+  private static final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   private static ImmutableList<NamedCodepointRange<Boolean>> expected;
 

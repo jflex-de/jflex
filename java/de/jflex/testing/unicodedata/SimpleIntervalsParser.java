@@ -26,7 +26,15 @@
 
 package de.jflex.testing.unicodedata;
 
+import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
+import java.io.IOException;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -58,5 +66,37 @@ public class SimpleIntervalsParser extends AbstractSimpleParser {
 
   public SimpleIntervalsParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);
+  }
+
+  /** Parses the unicode {@code Blocks.txt} and returns the defined blocks.*/
+  public static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Path blocksTxt)
+      throws IOException {
+    ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
+    SimpleIntervalsParser parser =
+        new SimpleIntervalsParser(
+            Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8),
+            regexpGroups -> list.add(createBlock(regexpGroups)));
+    parser.parse();
+    return list.build();
+  }
+
+  private static NamedCodepointRange<String> createBlock(List<String> regexpGroups) {
+    return NamedCodepointRange.create(
+        regexpGroups.get(2),
+        createRange(regexpGroups));
+  }
+
+  public static ImmutableList<CodepointRange> parseRanges(Path expectedFile) throws IOException {
+    ImmutableList.Builder<CodepointRange> expectedBlocks = ImmutableList.builder();
+    SimpleIntervalsParser parser =
+        new SimpleIntervalsParser(Files.newBufferedReader(expectedFile),
+            regexpGroups -> expectedBlocks.add(createRange(regexpGroups)));
+    parser.parse();
+    return expectedBlocks.build();
+  }
+
+  private static CodepointRange createRange(List<String> regexpGroups) {
+    return CodepointRange.create(
+        Integer.parseInt(regexpGroups.get(0), 16), Integer.parseInt(regexpGroups.get(1), 16));
   }
 }

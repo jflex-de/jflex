@@ -58,7 +58,8 @@ public class BlocksTestGenerator {
     UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
     Path ucdBlocks = ucd.getFile(UcdFileType.Blocks).toPath();
     ImmutableList<NamedCodepointRange<String>> blocks =
-        parseUnicodeBlock(ucdBlocks).stream()
+        SimpleIntervalsParser.parseUnicodeBlocks(ucdBlocks)
+            .stream()
             .filter(b -> !b.isSurrogate())
             .collect(toImmutableList());
     if (version.version().equals(Versions.VERSION_2_0)) {
@@ -124,24 +125,6 @@ public class BlocksTestGenerator {
     // add last
     retval.add(prev);
     return retval.build();
-  }
-
-  private static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlock(Path ucdBlocks)
-      throws IOException {
-    ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
-    PatternHandler handler = regexpGroups -> list.add(createBlock(regexpGroups));
-    SimpleIntervalsParser parser =
-        new SimpleIntervalsParser(
-            Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
-    parser.parse();
-    return list.build();
-  }
-
-  private static NamedCodepointRange createBlock(List<String> regexpGroups) {
-    return NamedCodepointRange.create(
-        regexpGroups.get(2),
-        Integer.parseInt(regexpGroups.get(0), 16),
-        Integer.parseInt(regexpGroups.get(1), 16));
   }
 
   private static void generate(

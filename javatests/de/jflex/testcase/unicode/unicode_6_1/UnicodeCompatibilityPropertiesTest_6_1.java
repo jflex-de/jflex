@@ -32,17 +32,14 @@ import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.function.Function;
 import javax.annotation.Generated;
 import org.junit.Test;
@@ -117,26 +114,8 @@ public class UnicodeCompatibilityPropertiesTest_6_1 {
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
 
-    ImmutableList<CodepointRange> expectedBlocks = readGolden(expectedFile);
+    ImmutableList<CodepointRange> expectedBlocks = SimpleIntervalsParser.parseRanges(expectedFile);
     assertThat(scanner.blocks().stream().map(b -> b.range()).collect(toImmutableList()))
         .isEqualTo(expectedBlocks);
-  }
-
-  private static ImmutableList<CodepointRange> readGolden(Path expectedFile) throws IOException {
-    ImmutableList.Builder<CodepointRange> expectedBlocks = ImmutableList.builder();
-    PatternHandler handler =
-        new PatternHandler() {
-          @Override
-          public void onRegexMatch(List<String> regexpGroups) {
-            expectedBlocks.add(createInterval(regexpGroups));
-          }
-        };
-    new SimpleIntervalsParser(Files.newBufferedReader(expectedFile), handler).parse();
-    return expectedBlocks.build();
-  }
-
-  private static CodepointRange createInterval(List<String> regexpGroups) {
-    return CodepointRange.create(
-        Integer.parseInt(regexpGroups.get(0), 16), Integer.parseInt(regexpGroups.get(1), 16));
   }
 }
