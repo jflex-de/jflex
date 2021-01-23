@@ -67,7 +67,7 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
     return vars.className + ".output";
   }
 
-  private ImmutableList<CodepointRange> joinContiguousIntervals(
+  private static ImmutableList<CodepointRange> joinContiguousIntervals(
       ImmutableList<CodepointRange> ranges) {
     ImmutableList.Builder<CodepointRange> builder = new ImmutableList.Builder<>();
     CodepointRange prev = ranges.get(0);
