@@ -25,7 +25,13 @@
  */
 package de.jflex.testcase.unicode.unicode_${unicodeVersion.underscoreVersion()};
 
+import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
+import de.jflex.ucd.CodepointRange;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.annotation.Generated;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 // Generate from UnicodeEmojiTest.java.vm
@@ -33,6 +39,21 @@ import org.junit.Test;
 @Generated(
     "de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
 public class UnicodeEmojiTest_${unicodeVersion.underscoreVersion()} {
+
+  private static final Path PACKAGE_DIRECTORY =
+      Paths.get("javatests/de/jflex/testcase/unicode")
+          .resolve("unicode_${unicodeVersion.underscoreVersion()}");
+
+  private static ImmutableList<CodepointRange> expected;
+
+  @BeforeClass
+  public static void golden() throws Exception {
+    Path expectedFile =
+          PACKAGE_DIRECTORY
+              .resolve("EmojiData_Emoji_${unicodeVersion.underscoreVersion()}.output");
+    expected = SimpleIntervalsParser.parseRanges(expectedFile);
+  }
+
   @Test
   public void emptyTest() {}
 }

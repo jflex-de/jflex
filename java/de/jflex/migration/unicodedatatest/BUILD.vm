@@ -224,10 +224,14 @@ java_test(
        "UnicodeEmojiTest_${unicodeVersion.underscoreVersion()}.java",
        ":gen_UnicodeEmoji_${unicodeVersion.underscoreVersion()}_scanner",
     ],
+    data = [
+        "EmojiData_Emoji_${unicodeVersion.underscoreVersion()}.output",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//third_party/javax:annotation",
-    ]
+    ],
 )
 
 jflex(

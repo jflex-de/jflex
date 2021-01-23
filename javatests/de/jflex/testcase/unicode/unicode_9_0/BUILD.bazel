@@ -400,8 +400,12 @@ java_test(
         "UnicodeEmojiTest_9_0.java",
         ":gen_UnicodeEmoji_9_0_scanner",
     ],
+    data = [
+        "EmojiData_Emoji_9_0.output",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//third_party/javax:annotation",
     ],
 )

@@ -436,8 +436,12 @@ java_test(
         "UnicodeEmojiTest_12_1.java",
         ":gen_UnicodeEmoji_12_1_scanner",
     ],
+    data = [
+        "EmojiData_Emoji_12_1.output",
+    ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//third_party/javax:annotation",
     ],
 )
