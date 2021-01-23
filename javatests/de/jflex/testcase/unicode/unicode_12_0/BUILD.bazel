@@ -428,6 +428,7 @@ java_test(
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
+        "//third_party/javax:annotation",
     ],
 )
 
