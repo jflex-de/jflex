@@ -32,15 +32,18 @@ import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
+import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 import javax.annotation.Generated;
 import org.junit.Test;
 
@@ -114,14 +117,26 @@ public class UnicodeCompatibilityPropertiesTest_9_0 {
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
 
-    ImmutableList<String> blocks =
-        scanner.blocks().stream()
-            .map(b -> String.format("%s..%s", b.hexStart(), b.hexEnd()))
-            .collect(toImmutableList());
+    ImmutableList<CodepointRange> expectedBlocks = readGolden(expectedFile);
+    assertThat(scanner.blocks().stream().map(b -> b.range()).collect(toImmutableList()))
+        .isEqualTo(expectedBlocks);
+  }
 
-    try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
-      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(blocks).containsExactlyElementsIn(expected);
-    }
+  private static ImmutableList<CodepointRange> readGolden(Path expectedFile) throws IOException {
+    ImmutableList.Builder<CodepointRange> expectedBlocks = ImmutableList.builder();
+    PatternHandler handler =
+        new PatternHandler() {
+          @Override
+          public void onRegexMatch(List<String> regexpGroups) {
+            expectedBlocks.add(createInterval(regexpGroups));
+          }
+        };
+    new SimpleIntervalsParser(Files.newBufferedReader(expectedFile), handler).parse();
+    return expectedBlocks.build();
+  }
+
+  private static CodepointRange createInterval(List<String> regexpGroups) {
+    return CodepointRange.create(
+        Integer.parseInt(regexpGroups.get(0), 16), Integer.parseInt(regexpGroups.get(1), 16));
   }
 }
