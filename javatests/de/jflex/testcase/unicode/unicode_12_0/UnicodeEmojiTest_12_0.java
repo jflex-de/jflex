@@ -30,8 +30,7 @@ import org.junit.Test;
 
 // Generate from UnicodeEmojiTest.java.vm
 /** Test the emoji property. */
-@Generated(
-    "de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
+@Generated("de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
 public class UnicodeEmojiTest_12_0 {
   @Test
   public void emptyTest() {}

@@ -31,6 +31,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.UcdFileType;
@@ -129,8 +130,9 @@ public class BlocksTestGenerator {
       throws IOException {
     ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
     PatternHandler handler = regexpGroups -> list.add(createBlock(regexpGroups));
-    SimpleBlocksParser parser =
-        new SimpleBlocksParser(Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
+    SimpleIntervalsParser parser =
+        new SimpleIntervalsParser(
+            Files.newBufferedReader(ucdBlocks, StandardCharsets.UTF_8), handler);
     parser.parse();
     return list.build();
   }

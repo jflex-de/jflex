@@ -5,7 +5,7 @@ java_library(
         "AbstractEnumeratedPropertyDefinedScanner.java",
         "AbstractSimpleParser.java",
         "SimpleCaselessParser.java",
-        "SimpleDigitParser.java",
+        "SimpleIntervalsParser.java",
         "UnicodeDataScanners.java",
     ],
     visibility = [

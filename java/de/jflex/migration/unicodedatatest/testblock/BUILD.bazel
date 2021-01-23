@@ -19,7 +19,6 @@ java_binary(
     srcs = [
         "AbstractBlocksGenerator.java",
         "BlocksTestGenerator.java",
-        "SimpleBlocksParser.java",
         "UnicodeBlockFlexGenerator.java",
         "UnicodeBlockFlexTemplateVars.java",
         "UnicodeBlocksTestJavaGenerator.java",

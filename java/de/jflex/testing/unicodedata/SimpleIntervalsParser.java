@@ -30,19 +30,33 @@ import java.io.Reader;
 import java.util.regex.Pattern;
 
 /**
- * Parser of unicode digit golden file.
- * <pre><code>
- *   0000..002F; Not-Nd
- *   0030..0039; Nd
- *   etc.
- * </code></pre>
+ * Parser of unicode {@code Blocks.txt} file, also used in golden files.
+ *
+ * <p>Recent Unicode
+ *
+ * <pre>{@code
+ * # Property:	Block
+ * #
+ * # @missing: 0000..10FFFF; No_Block
+ *
+ * 0000..007F; Basic Latin
+ * 0080..00FF; Latin-1 Supplement
+ * }</pre>
+ *
+ * <p>Archaic unicode
+ *
+ * <pre>{@code
+ * # Start Code; End Code; Block Name
+ * 0000; 007F; Basic Latin
+ * 0080; 00FF; Latin-1 Supplement
+ * }</pre>
  */
-public class SimpleDigitParser extends AbstractSimpleParser {
+public class SimpleIntervalsParser extends AbstractSimpleParser {
 
   private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]{4,6})\\.\\.([0-9A-F]{4,6}); (.*)$");
+      Pattern.compile("^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:; )?(.*)$");
 
-  public SimpleDigitParser(Reader reader, PatternHandler handler) {
+  public SimpleIntervalsParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);
   }
 }
