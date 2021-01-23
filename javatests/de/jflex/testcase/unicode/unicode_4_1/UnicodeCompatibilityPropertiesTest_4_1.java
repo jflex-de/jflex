@@ -26,7 +26,6 @@
  */
 package de.jflex.testcase.unicode.unicode_4_1;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
@@ -115,7 +114,6 @@ public class UnicodeCompatibilityPropertiesTest_4_1 {
             ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
 
     ImmutableList<CodepointRange> expectedBlocks = SimpleIntervalsParser.parseRanges(expectedFile);
-    assertThat(scanner.blocks().stream().map(b -> b.range()).collect(toImmutableList()))
-        .isEqualTo(expectedBlocks);
+    assertThat(scanner.ranges()).isEqualTo(expectedBlocks);
   }
 }

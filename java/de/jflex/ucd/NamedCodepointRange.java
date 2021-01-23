@@ -41,7 +41,7 @@ public abstract class NamedCodepointRange<T> {
   public abstract CodepointRange range();
 
   public static <T> NamedCodepointRange<T> create(T name, CodepointRange range) {
-    return new AutoValue_NamedCodepointRange(name, range);
+    return new AutoValue_NamedCodepointRange<T>(name, range);
   }
 
   public static <T> NamedCodepointRange<T> create(T name, int start, int end) {

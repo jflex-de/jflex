@@ -25,9 +25,13 @@
  */
 package de.jflex.testcase.unicode.unicode_11_0;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.util.scanner.ScannerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.annotation.Generated;
@@ -36,24 +40,27 @@ import org.junit.Test;
 
 // Generate from UnicodeEmojiTest.java.vm
 /** Test the emoji property. */
-@Generated(
-    "de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
+@Generated("de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
 public class UnicodeEmojiTest_11_0 {
 
   private static final Path PACKAGE_DIRECTORY =
-      Paths.get("javatests/de/jflex/testcase/unicode")
-          .resolve("unicode_11_0");
+      Paths.get("javatests/de/jflex/testcase/unicode").resolve("unicode_11_0");
 
   private static ImmutableList<CodepointRange> expected;
 
   @BeforeClass
   public static void golden() throws Exception {
-    Path expectedFile =
-          PACKAGE_DIRECTORY
-              .resolve("EmojiData_Emoji_11_0.output");
+    Path expectedFile = PACKAGE_DIRECTORY.resolve("EmojiData_Emoji_11_0.output");
     expected = SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
   @Test
-  public void emptyTest() {}
+  public void emoji() throws Exception {
+    UnicodeEmoji_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_11_0::new),
+            UnicodeEmoji_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(expected);
+  }
 }

@@ -420,10 +420,13 @@ java_test(
     ],
     data = [
         "EmojiData_Emoji_11_0.output",
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/ucd",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
         "//third_party/javax:annotation",
     ],
 )
