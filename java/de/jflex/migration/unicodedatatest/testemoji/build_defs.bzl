@@ -17,4 +17,5 @@ def gen_test_emoji(name, ucd, version):
             ucd = ucd,
         ),
         tools = ["//java/de/jflex/migration/unicodedatatest/testemoji:EmojiTestGenerator"],
+        visibility = ["//javatests/de/jflex/testcase/unicode:__subpackages__"],
     )
