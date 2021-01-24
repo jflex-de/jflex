@@ -1,0 +1,15 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex(
+    name = "yylexthrow_flex",
+    srcs = ["yylexthrow.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Yylexthrow.java"],
+)
+
+java_library(
+    name = "yylexthrow",
+    srcs = [
+        ":yylexthrow_flex",
+    ],
+)
