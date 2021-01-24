@@ -67,17 +67,12 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
           new Version(12, 0),
           new Version(12, 1));
 
-  private final String templateName;
+  protected final String templateName;
   protected final UnicodeVersion unicodeVersion;
 
   protected AbstractGenerator(String templateName, UnicodeVersion unicodeVersion) {
     this.templateName = templateName;
     this.unicodeVersion = unicodeVersion;
-  }
-
-  Path getTemplateResource() {
-    return Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
-        .resolve(templateName + ".vm");
   }
 
   public static ImmutableList<Version> olderAges(Version version) {
@@ -98,10 +93,10 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     Path outFile = javaPackageOutDir.resolve(getOuputFileName(vars));
     InputStreamReader templateReader;
     try {
-      templateReader = readResource(getTemplateResource().toString());
+      templateReader = readResourceTemplate();
     } catch (NullPointerException e) {
       throw new IllegalArgumentException(
-          "Could not read template in java resources: " + getTemplateResource().getFileName(), e);
+          "Could not read template in java resources for template", e);
     }
     try {
       Velocity.render(templateReader, templateName, vars, outFile.toFile());
@@ -109,6 +104,17 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
       throw new RuntimeException("Error rendering '" + templateName + "' with " + vars, e);
     }
     return outFile;
+  }
+
+  /** Reads the template from base or from the test package.*/
+  private InputStreamReader readResourceTemplate() {
+    try {
+      return readResource(Paths.get(JavaPackageUtils.getPathForClass(AbstractGenerator.class))
+          .resolve(templateName + ".vm").toString());
+    } catch (NullPointerException e) {
+      return readResource(Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
+          .resolve(templateName + ".vm").toString());
+    }
   }
 
   protected abstract T createTemplateVars();

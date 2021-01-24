@@ -24,12 +24,28 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.migration.unicodedatatest.testcompat;
+package de.jflex.migration.unicodedatatest.testemoji;
 
-import com.google.common.collect.ImmutableList;
+import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.ucd.CodepointRange;
 
-public class UnicodeCompatibilityPropertiesGoldenTemplateVars extends UnicodeVersionTemplateVars {
-  public ImmutableList<CodepointRange> ranges;
+public class UnicodeEmojiGoldenGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
+
+  protected UnicodeEmojiGoldenGenerator(
+      UnicodeVersion unicodeVersion) {
+    super("UnicodeRanges.vm", unicodeVersion);
+  }
+
+  @Override
+  protected UnicodeVersionTemplateVars createTemplateVars() {
+    UnicodeVersionTemplateVars vars = new UnicodeVersionTemplateVars();
+    vars.className = "UnicodeEmoji_" + unicodeVersion.underscoreVersion();
+    return vars;
+  }
+
+  @Override
+  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
+    return vars.className + ".output";
+  }
 }

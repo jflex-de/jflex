@@ -30,7 +30,6 @@ java_library(
     testonly = True,
     srcs = glob(["Unicode*.java"]),
     resources = [
-        "UnicodeCompatibilityPropertiesGolden.vm",
         "UnicodeCompatibilityPropertiesTest.java.vm",
     ],
     visibility = [
@@ -42,6 +41,7 @@ java_library(
         "//java/de/jflex/ucd",
         "//java/de/jflex/ucd_generator/scanner",
         "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/util/javac:package_util",
         "//third_party/com/google/guava",
     ],
 )

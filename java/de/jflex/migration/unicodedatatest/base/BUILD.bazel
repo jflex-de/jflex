@@ -8,6 +8,7 @@ java_library(
     srcs = glob(["*.java"]),
     resources = [
         "UnicodeProperty.flex.vm",
+        "UnicodeRangesGolden.vm",
     ],
     visibility = [
         "//java/de/jflex/migration/unicodedatatest:__subpackages__",

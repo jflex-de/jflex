@@ -30,7 +30,6 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
@@ -38,8 +37,6 @@ import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd.Versions;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -58,8 +55,7 @@ public class BlocksTestGenerator {
     UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
     Path ucdBlocks = ucd.getFile(UcdFileType.Blocks).toPath();
     ImmutableList<NamedCodepointRange<String>> blocks =
-        SimpleIntervalsParser.parseUnicodeBlocks(ucdBlocks)
-            .stream()
+        SimpleIntervalsParser.parseUnicodeBlocks(ucdBlocks).stream()
             .filter(b -> !b.isSurrogate())
             .collect(toImmutableList());
     if (version.version().equals(Versions.VERSION_2_0)) {
