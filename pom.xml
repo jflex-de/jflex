@@ -126,7 +126,7 @@
       <dependency>
         <groupId>com.google.truth</groupId>
         <artifactId>truth</artifactId>
-        <version>1.1</version>
+        <version>1.1.2</version>
       </dependency>
       <dependency>
         <groupId>commons-io</groupId>
@@ -146,7 +146,7 @@
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant</artifactId>
-        <version>1.10.8</version>
+        <version>1.10.9</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
@@ -193,7 +193,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.2</version>
+          <version>0.8.6</version>
         </plugin>
         <plugin>
           <groupId>de.jflex</groupId>
@@ -281,7 +281,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>2.6</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-shade-plugin</artifactId>

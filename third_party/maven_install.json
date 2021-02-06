@@ -1,8 +1,6 @@
 {
     "dependency_tree": {
-        "conflict_resolution": {
-            "org.apache.ant:ant:1.7.0": "org.apache.ant:ant:1.10.5"
-        },
+        "conflict_resolution": {},
         "dependencies": [
             {
                 "coord": "com.github.vbmacher:java-cup-runtime:11b-20160615",
@@ -70,17 +68,17 @@
                 "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7"
             },
             {
-                "coord": "com.google.errorprone:error_prone_annotations:2.4.0",
-                "file": "v1/https/jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
+                "coord": "com.google.errorprone:error_prone_annotations:2.5.1",
+                "file": "v1/https/jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.5.1/error_prone_annotations-2.5.1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
+                "url": "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.5.1/error_prone_annotations-2.5.1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
-                    "https://maven.google.comcom/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar",
-                    "https://repo1.maven.org/maven2com/google/errorprone/error_prone_annotations/2.4.0/error_prone_annotations-2.4.0.jar"
+                    "https://jcenter.bintray.com/com/google/errorprone/error_prone_annotations/2.5.1/error_prone_annotations-2.5.1.jar",
+                    "https://maven.google.comcom/google/errorprone/error_prone_annotations/2.5.1/error_prone_annotations-2.5.1.jar",
+                    "https://repo1.maven.org/maven2com/google/errorprone/error_prone_annotations/2.5.1/error_prone_annotations-2.5.1.jar"
                 ],
-                "sha256": "5f2a0648230a662e8be049df308d583d7369f13af683e44ddf5829b6d741a228"
+                "sha256": "ff80626baaf12a09342befd4e84cba9d50662f5fcd7f7a9b3490a6b7cf87e66c"
             },
             {
                 "coord": "com.google.flogger:flogger-system-backend:0.4",
@@ -138,17 +136,17 @@
                     "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
                     "com.google.j2objc:j2objc-annotations:1.3",
                     "com.google.code.findbugs:jsr305:3.0.2",
-                    "org.checkerframework:checker-qual:3.7.0",
                     "com.google.guava:failureaccess:1.0.1",
-                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                    "com.google.errorprone:error_prone_annotations:2.5.1",
+                    "org.checkerframework:checker-qual:3.9.1"
                 ],
                 "dependencies": [
                     "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
                     "com.google.j2objc:j2objc-annotations:1.3",
                     "com.google.code.findbugs:jsr305:3.0.2",
-                    "org.checkerframework:checker-qual:3.7.0",
                     "com.google.guava:failureaccess:1.0.1",
-                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                    "com.google.errorprone:error_prone_annotations:2.5.1",
+                    "org.checkerframework:checker-qual:3.9.1"
                 ],
                 "url": "https://jcenter.bintray.com/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
                 "mirror_urls": [
@@ -185,36 +183,36 @@
                 "sha256": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b"
             },
             {
-                "coord": "com.google.truth:truth:1.1",
-                "file": "v1/https/jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
+                "coord": "com.google.truth:truth:1.1.2",
+                "file": "v1/https/jcenter.bintray.com/com/google/truth/truth/1.1.2/truth-1.1.2.jar",
                 "directDependencies": [
                     "org.ow2.asm:asm:9.0",
-                    "org.checkerframework:checker-qual:3.7.0",
                     "com.google.auto.value:auto-value-annotations:1.7.4",
                     "junit:junit:4.13.1",
-                    "com.google.guava:guava:30.1-jre",
-                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                    "com.google.errorprone:error_prone_annotations:2.5.1",
+                    "org.checkerframework:checker-qual:3.9.1",
+                    "com.google.guava:guava:30.1-jre"
                 ],
                 "dependencies": [
                     "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava",
                     "org.ow2.asm:asm:9.0",
                     "com.google.j2objc:j2objc-annotations:1.3",
                     "com.google.code.findbugs:jsr305:3.0.2",
-                    "org.checkerframework:checker-qual:3.7.0",
                     "org.hamcrest:hamcrest-core:1.3",
                     "com.google.auto.value:auto-value-annotations:1.7.4",
                     "junit:junit:4.13.1",
                     "com.google.guava:failureaccess:1.0.1",
-                    "com.google.guava:guava:30.1-jre",
-                    "com.google.errorprone:error_prone_annotations:2.4.0"
+                    "com.google.errorprone:error_prone_annotations:2.5.1",
+                    "org.checkerframework:checker-qual:3.9.1",
+                    "com.google.guava:guava:30.1-jre"
                 ],
-                "url": "https://jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
+                "url": "https://jcenter.bintray.com/com/google/truth/truth/1.1.2/truth-1.1.2.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/google/truth/truth/1.1/truth-1.1.jar",
-                    "https://maven.google.comcom/google/truth/truth/1.1/truth-1.1.jar",
-                    "https://repo1.maven.org/maven2com/google/truth/truth/1.1/truth-1.1.jar"
+                    "https://jcenter.bintray.com/com/google/truth/truth/1.1.2/truth-1.1.2.jar",
+                    "https://maven.google.comcom/google/truth/truth/1.1.2/truth-1.1.2.jar",
+                    "https://repo1.maven.org/maven2com/google/truth/truth/1.1.2/truth-1.1.2.jar"
                 ],
-                "sha256": "42ae0c8871398c3077eb782cb556490e2a0ce292fd73a9be81f0cc15c013991e"
+                "sha256": "a85e03b8b6ae8780f060cfded9500a3d1b5f52808f99a2ea6da9c683313c7518"
             },
             {
                 "coord": "com.pholser:junit-quickcheck-core:1.0",
@@ -302,12 +300,12 @@
                 "file": "v1/https/jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
                 "directDependencies": [
                     "com.github.vbmacher:java-cup-runtime:11b-20160615",
-                    "org.apache.ant:ant:1.10.5"
+                    "org.apache.ant:ant:1.10.9"
                 ],
                 "dependencies": [
-                    "org.apache.ant:ant:1.10.5",
+                    "org.apache.ant:ant-launcher:1.10.9",
                     "com.github.vbmacher:java-cup-runtime:11b-20160615",
-                    "org.apache.ant:ant-launcher:1.10.5"
+                    "org.apache.ant:ant:1.10.9"
                 ],
                 "url": "https://jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
                 "mirror_urls": [
@@ -407,34 +405,34 @@
                 "sha256": "5b0339a0a50f69cd50f1911e05d4ca12f1974374d8a6db092968f25ffe38aad2"
             },
             {
-                "coord": "org.apache.ant:ant-launcher:1.10.5",
-                "file": "v1/https/jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.5/ant-launcher-1.10.5.jar",
+                "coord": "org.apache.ant:ant-launcher:1.10.9",
+                "file": "v1/https/jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.9/ant-launcher-1.10.9.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.5/ant-launcher-1.10.5.jar",
+                "url": "https://jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.9/ant-launcher-1.10.9.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.5/ant-launcher-1.10.5.jar",
-                    "https://maven.google.comorg/apache/ant/ant-launcher/1.10.5/ant-launcher-1.10.5.jar",
-                    "https://repo1.maven.org/maven2org/apache/ant/ant-launcher/1.10.5/ant-launcher-1.10.5.jar"
+                    "https://jcenter.bintray.com/org/apache/ant/ant-launcher/1.10.9/ant-launcher-1.10.9.jar",
+                    "https://maven.google.comorg/apache/ant/ant-launcher/1.10.9/ant-launcher-1.10.9.jar",
+                    "https://repo1.maven.org/maven2org/apache/ant/ant-launcher/1.10.9/ant-launcher-1.10.9.jar"
                 ],
-                "sha256": "0387dc76d0ac68ba08a8eac53bc175cb505cd5625cc1b6c49727dfe20def455b"
+                "sha256": "fcce891f57f3be72149ff96ac2a80574165b3e0839866b95d24528f3027d50c1"
             },
             {
-                "coord": "org.apache.ant:ant:1.10.5",
-                "file": "v1/https/jcenter.bintray.com/org/apache/ant/ant/1.10.5/ant-1.10.5.jar",
+                "coord": "org.apache.ant:ant:1.10.9",
+                "file": "v1/https/jcenter.bintray.com/org/apache/ant/ant/1.10.9/ant-1.10.9.jar",
                 "directDependencies": [
-                    "org.apache.ant:ant-launcher:1.10.5"
+                    "org.apache.ant:ant-launcher:1.10.9"
                 ],
                 "dependencies": [
-                    "org.apache.ant:ant-launcher:1.10.5"
+                    "org.apache.ant:ant-launcher:1.10.9"
                 ],
-                "url": "https://jcenter.bintray.com/org/apache/ant/ant/1.10.5/ant-1.10.5.jar",
+                "url": "https://jcenter.bintray.com/org/apache/ant/ant/1.10.9/ant-1.10.9.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/org/apache/ant/ant/1.10.5/ant-1.10.5.jar",
-                    "https://maven.google.comorg/apache/ant/ant/1.10.5/ant-1.10.5.jar",
-                    "https://repo1.maven.org/maven2org/apache/ant/ant/1.10.5/ant-1.10.5.jar"
+                    "https://jcenter.bintray.com/org/apache/ant/ant/1.10.9/ant-1.10.9.jar",
+                    "https://maven.google.comorg/apache/ant/ant/1.10.9/ant-1.10.9.jar",
+                    "https://repo1.maven.org/maven2org/apache/ant/ant/1.10.9/ant-1.10.9.jar"
                 ],
-                "sha256": "a31f74f3d00929ed0028f0d5c58c9a549c5885ef7d90db06f5ba1737e9c4520b"
+                "sha256": "0715478af585ea80a18985613ebecdc7922122d45b2c3c970ff9b352cddb75fc"
             },
             {
                 "coord": "org.apache.velocity:velocity:1.7",
@@ -456,17 +454,17 @@
                 "sha256": "ec92dae810034f4b46dbb16ef4364a4013b0efb24a8c5dd67435cae46a290d8e"
             },
             {
-                "coord": "org.checkerframework:checker-qual:3.7.0",
-                "file": "v1/https/jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
+                "coord": "org.checkerframework:checker-qual:3.9.1",
+                "file": "v1/https/jcenter.bintray.com/org/checkerframework/checker-qual/3.9.1/checker-qual-3.9.1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
+                "url": "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.9.1/checker-qual-3.9.1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
-                    "https://maven.google.comorg/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar",
-                    "https://repo1.maven.org/maven2org/checkerframework/checker-qual/3.7.0/checker-qual-3.7.0.jar"
+                    "https://jcenter.bintray.com/org/checkerframework/checker-qual/3.9.1/checker-qual-3.9.1.jar",
+                    "https://maven.google.comorg/checkerframework/checker-qual/3.9.1/checker-qual-3.9.1.jar",
+                    "https://repo1.maven.org/maven2org/checkerframework/checker-qual/3.9.1/checker-qual-3.9.1.jar"
                 ],
-                "sha256": "be2039732159d13f3f00867f22223992178a3b28b8a143724eba4206a8fdfff3"
+                "sha256": "ab0468b1ba35bb2ae45f61a60dc4960bd887660ab8f05113a662a7e675eae776"
             },
             {
                 "coord": "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
@@ -801,6 +799,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": -1025006089
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 827942035
     }
 }
