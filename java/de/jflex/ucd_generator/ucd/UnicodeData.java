@@ -321,7 +321,8 @@ public class UnicodeData {
     if (whitespaceRanges.isEmpty()) {
       checkState(
           Version.MAJOR_MINOR_COMPARATOR.compare(version, Versions.VERSION_1_1) == 0,
-          "No whitespace property in Unicode " + version);
+          "No whitespace property in Unicode %s. Was PropList parsed?",
+          version);
       // For Unicode 1.1, substitute "Space_separator" (Zs) for "Whitespace"
       whitespaceRanges = propertyValueIntervals.getRanges("zs");
     }

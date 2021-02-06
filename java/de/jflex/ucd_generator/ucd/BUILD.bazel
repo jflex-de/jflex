@@ -8,7 +8,7 @@ java_library(
         "//java/de/jflex/migration/unicodedatatest/testdigit:__pkg__",
         "//java/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
         "//java/de/jflex/ucd_generator:__subpackages__",
-        "//javatests/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex:__subpackages__",
     ],
     exports = [
         "//java/de/jflex/ucd",

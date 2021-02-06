@@ -33,9 +33,6 @@ import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
-import de.jflex.util.javac.JavaPackageUtils;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
     extends AbstractGenerator<UnicodeRangesGoldenTemplateVars> {
@@ -54,8 +51,7 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
 
   @Override
   protected UnicodeRangesGoldenTemplateVars createTemplateVars() {
-    UnicodeRangesGoldenTemplateVars vars =
-        new UnicodeRangesGoldenTemplateVars();
+    UnicodeRangesGoldenTemplateVars vars = new UnicodeRangesGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();

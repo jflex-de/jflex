@@ -68,7 +68,7 @@ public class SimpleIntervalsParser extends AbstractSimpleParser {
     super(PATTERN, reader, handler);
   }
 
-  /** Parses the unicode {@code Blocks.txt} and returns the defined blocks.*/
+  /** Parses the unicode {@code Blocks.txt} and returns the defined blocks. */
   public static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Path blocksTxt)
       throws IOException {
     ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
@@ -81,15 +81,14 @@ public class SimpleIntervalsParser extends AbstractSimpleParser {
   }
 
   private static NamedCodepointRange<String> createBlock(List<String> regexpGroups) {
-    return NamedCodepointRange.create(
-        regexpGroups.get(2),
-        createRange(regexpGroups));
+    return NamedCodepointRange.create(regexpGroups.get(2), createRange(regexpGroups));
   }
 
   public static ImmutableList<CodepointRange> parseRanges(Path expectedFile) throws IOException {
     ImmutableList.Builder<CodepointRange> expectedBlocks = ImmutableList.builder();
     SimpleIntervalsParser parser =
-        new SimpleIntervalsParser(Files.newBufferedReader(expectedFile),
+        new SimpleIntervalsParser(
+            Files.newBufferedReader(expectedFile),
             regexpGroups -> expectedBlocks.add(createRange(regexpGroups)));
     parser.parse();
     return expectedBlocks.build();

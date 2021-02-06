@@ -11,6 +11,9 @@ java_binary(
     name = "EmojiTestGenerator",
     testonly = True,
     srcs = ["EmojiTestGenerator.java"],
+    visibility = [
+        "//javatests/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
+    ],
     deps = [
         ":testemoji",
         "//java/de/jflex/migration/unicodedatatest/base",
@@ -29,8 +32,12 @@ java_library(
     resources = [
         "UnicodeEmojiTest.java.vm",
     ],
+    visibility = [
+        "//javatests/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
+    ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd_generator/ucd",
     ],
 )
 

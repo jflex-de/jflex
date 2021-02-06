@@ -23,35 +23,22 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package de.jflex.migration.unicodedatatest.testemoji;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.UnicodeRangesGoldenTemplateVars;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.ucd_generator.ucd.UnicodeData;
+import org.junit.Test;
 
-public class UnicodeEmojiGoldenGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
-
-  private final UnicodeData unicodeData;
-
-  protected UnicodeEmojiGoldenGenerator(
-      UnicodeVersion unicodeVersion, UnicodeData unicodeData) {
-    super("UnicodeRangesGolden", unicodeVersion);
-    this.unicodeData = unicodeData;
-  }
-
-  @Override
-  protected UnicodeVersionTemplateVars createTemplateVars() {
-    UnicodeRangesGoldenTemplateVars vars = new UnicodeRangesGoldenTemplateVars();
-    vars.className = "UnicodeEmoji_" + unicodeVersion.underscoreVersion();
-    vars.ranges = unicodeData.getPropertyValueIntervals("emoji");
-    return vars;
-  }
-
-  @Override
-  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
-    return vars.className + ".output";
+/** Minimal integration test for {@link EmojiTestGenerator}. */
+public class EmojiTestGeneratorTest {
+  /** Tests that the generation doesn't throw exception. */
+  @Test
+  public void generate_ucd10() throws Exception {
+    EmojiTestGenerator.main(new String[] {
+        "10.0",
+        "/tmp",
+        "external/ucd_10_0/Blocks.txt",
+        "external/ucd_10_0/UnicodeData.txt",
+        "external/ucd_10_0/PropList.txt",
+        "external/emoji_5_emoji_data_txt/file/downloaded",
+    });
   }
 }

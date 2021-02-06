@@ -71,7 +71,11 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
   protected final UnicodeVersion unicodeVersion;
 
   protected AbstractGenerator(String templateName, UnicodeVersion unicodeVersion) {
-    this.templateName = templateName;
+    if (templateName.endsWith(".vm")) {
+      this.templateName = templateName.substring(0, templateName.length() - 3);
+    } else {
+      this.templateName = templateName;
+    }
     this.unicodeVersion = unicodeVersion;
   }
 
@@ -106,14 +110,18 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     return outFile;
   }
 
-  /** Reads the template from base or from the test package.*/
+  /** Reads the template from base or from the test package. */
   private InputStreamReader readResourceTemplate() {
     try {
-      return readResource(Paths.get(JavaPackageUtils.getPathForClass(AbstractGenerator.class))
-          .resolve(templateName + ".vm").toString());
+      return readResource(
+          Paths.get(JavaPackageUtils.getPathForClass(AbstractGenerator.class))
+              .resolve(templateName + ".vm")
+              .toString());
     } catch (NullPointerException e) {
-      return readResource(Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
-          .resolve(templateName + ".vm").toString());
+      return readResource(
+          Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
+              .resolve(templateName + ".vm")
+              .toString());
     }
   }
 

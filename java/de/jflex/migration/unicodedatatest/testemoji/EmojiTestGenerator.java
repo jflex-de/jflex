@@ -48,18 +48,18 @@ public class EmojiTestGenerator {
     Path outDir = Paths.get(args[1]);
     UcdVersion ucdVersion =
         UcdVersion.findUcdFiles(
-            version.version(), ImmutableList.copyOf(Arrays.copyOfRange(args, 1, args.length)));
+            version.version(), ImmutableList.copyOf(Arrays.copyOfRange(args, 2, args.length)));
     UnicodeData unicodeData = parseUcd(ucdVersion);
     generate(version, unicodeData, outDir);
   }
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    // TODO(regisd)
     UnicodePropertyFlexGenerator.createPropertyScanner(
             version, "UnicodeEmoji_" + version.underscoreVersion(), "Emoji")
         .generate(outDir);
     new UnicodeEmojiTestGenerator(version).generate(outDir);
+    new UnicodeEmojiGoldenGenerator(version, unicodeData).generate(outDir);
   }
 
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {
