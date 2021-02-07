@@ -32,13 +32,14 @@ public class EmojiTestGeneratorTest {
   /** Tests that the generation doesn't throw exception. */
   @Test
   public void generate_ucd10() throws Exception {
-    EmojiTestGenerator.main(new String[] {
-        "10.0",
-        "/tmp",
-        "external/ucd_10_0/Blocks.txt",
-        "external/ucd_10_0/UnicodeData.txt",
-        "external/ucd_10_0/PropList.txt",
-        "external/emoji_5_emoji_data_txt/file/downloaded",
-    });
+    EmojiTestGenerator.main(
+        new String[] {
+          "10.0",
+          "/tmp",
+          "external/ucd_10_0/Blocks.txt",
+          "external/ucd_10_0/UnicodeData.txt",
+          "external/ucd_10_0/PropList.txt",
+          "external/emoji_5_emoji_data_txt/file/downloaded",
+        });
   }
 }
