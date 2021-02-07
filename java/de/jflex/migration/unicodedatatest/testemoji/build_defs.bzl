@@ -17,6 +17,11 @@ def gen_test_emoji(name, ucd, version):
             "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.flex",
             "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.output",
         ]
+    if version_major >= 11:
+        outs += [
+            "unicode_{version}/UnicodeEmoji_Extended_Pictographic_{version}.flex",
+            "unicode_{version}/UnicodeEmoji_Extended_Pictographic_{version}.output",
+        ]
     native.genrule(
         name = name,
         testonly = True,
