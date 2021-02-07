@@ -437,7 +437,7 @@ java_test(
         ":gen_UnicodeEmoji_12_1_scanner",
     ],
     data = [
-        "EmojiData_Emoji_12_1.output",
+        "UnicodeEmoji_12_1.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [

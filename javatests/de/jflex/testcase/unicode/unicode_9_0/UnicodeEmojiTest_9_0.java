@@ -50,7 +50,7 @@ public class UnicodeEmojiTest_9_0 {
 
   @BeforeClass
   public static void golden() throws Exception {
-    Path expectedFile = PACKAGE_DIRECTORY.resolve("EmojiData_Emoji_9_0.output");
+    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_9_0.output");
     expected = SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
