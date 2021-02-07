@@ -27,7 +27,6 @@
 package de.jflex.migration.unicodedatatest.base;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.ucd.CodepointRange;
 
 public class UnicodeRangesGoldenTemplateVars extends UnicodeVersionTemplateVars {

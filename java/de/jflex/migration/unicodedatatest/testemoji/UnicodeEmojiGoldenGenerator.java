@@ -36,8 +36,7 @@ public class UnicodeEmojiGoldenGenerator extends AbstractGenerator<UnicodeVersio
 
   private final UnicodeData unicodeData;
 
-  protected UnicodeEmojiGoldenGenerator(
-      UnicodeVersion unicodeVersion, UnicodeData unicodeData) {
+  protected UnicodeEmojiGoldenGenerator(UnicodeVersion unicodeVersion, UnicodeData unicodeData) {
     super("UnicodeRangesGolden", unicodeVersion);
     this.unicodeData = unicodeData;
   }
