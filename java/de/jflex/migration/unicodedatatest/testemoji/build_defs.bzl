@@ -1,8 +1,8 @@
 def gen_test_emoji(name, ucd, version):
     underscore_version = version.replace(".", "_")
     outs = [
-        "unicode_{version}/UnicodeEmoji_{version}.flex",
         "unicode_{version}/UnicodeEmojiTest_{version}.java",
+        "unicode_{version}/UnicodeEmoji_Emoji_{version}.flex",
         "unicode_{version}/UnicodeEmoji_Emoji_{version}.output",
     ]
     native.genrule(

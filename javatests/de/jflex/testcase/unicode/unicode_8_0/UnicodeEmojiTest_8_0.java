@@ -57,10 +57,10 @@ public class UnicodeEmojiTest_8_0 {
   /** Test property {@code Emoji}. */
   @Test
   public void emoji() throws Exception {
-    UnicodeEmoji_8_0 scanner =
+    UnicodeEmoji_Emoji_8_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeEmoji_8_0::new),
-            UnicodeEmoji_8_0.YYEOF,
+            ScannerFactory.of(UnicodeEmoji_Emoji_8_0::new),
+            UnicodeEmoji_Emoji_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(expected);
   }

@@ -27,6 +27,7 @@
 package de.jflex.migration.unicodedatatest.testemoji;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.UcdVersion;
@@ -40,6 +41,8 @@ import java.util.Arrays;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
+
+  private static final ImmutableSet<String> PROPERTY_NAMES = ImmutableSet.of("Emoji");
 
   private EmojiTestGenerator() {}
 
@@ -55,11 +58,13 @@ public class EmojiTestGenerator {
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    UnicodePropertyFlexGenerator.createPropertyScanner(
-            version, "UnicodeEmoji_" + version.underscoreVersion(), "Emoji")
-        .generate(outDir);
     new UnicodeEmojiTestGenerator(version).generate(outDir);
-    new UnicodeEmojiGoldenGenerator(version, unicodeData, "Emoji").generate(outDir);
+    for (String propName : PROPERTY_NAMES) {
+      UnicodePropertyFlexGenerator.createPropertyScanner(
+              version, "UnicodeEmoji_" + propName + "_" + version.underscoreVersion(), propName)
+          .generate(outDir);
+      new UnicodeEmojiGoldenGenerator(version, unicodeData, propName).generate(outDir);
+    }
   }
 
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {

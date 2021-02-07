@@ -61,10 +61,10 @@ public class UnicodeEmojiTest_${unicodeVersion.underscoreVersion()} {
   /** Test property {@code Emoji}. */
   @Test
   public void emoji() throws Exception {
-    UnicodeEmoji_${unicodeVersion.underscoreVersion()} scanner =
+    UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()} scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeEmoji_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeEmoji_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(expected);
   }
