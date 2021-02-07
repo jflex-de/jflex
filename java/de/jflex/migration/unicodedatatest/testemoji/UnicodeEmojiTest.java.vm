@@ -54,10 +54,11 @@ public class UnicodeEmojiTest_${unicodeVersion.underscoreVersion()} {
   public static void golden() throws Exception {
     Path expectedFile =
           PACKAGE_DIRECTORY
-              .resolve("UnicodeEmoji_${unicodeVersion.underscoreVersion()}.output");
+              .resolve("UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}.output");
     expected = SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
+  /** Test property {@code Emoji}. */
   @Test
   public void emoji() throws Exception {
     UnicodeEmoji_${unicodeVersion.underscoreVersion()} scanner =

@@ -3,7 +3,7 @@ def gen_test_emoji(name, ucd, version):
     outs = [
         "unicode_{version}/UnicodeEmoji_{version}.flex",
         "unicode_{version}/UnicodeEmojiTest_{version}.java",
-        "unicode_{version}/UnicodeEmoji_{version}.output",
+        "unicode_{version}/UnicodeEmoji_Emoji_{version}.output",
     ]
     native.genrule(
         name = name,

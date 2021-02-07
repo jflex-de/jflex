@@ -225,7 +225,7 @@ java_test(
        ":gen_UnicodeEmoji_${unicodeVersion.underscoreVersion()}_scanner",
     ],
     data = [
-        "UnicodeEmoji_${unicodeVersion.underscoreVersion()}.output",
+        "UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}.output",
         "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
     ],
     deps = [

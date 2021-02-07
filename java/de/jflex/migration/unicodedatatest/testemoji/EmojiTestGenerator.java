@@ -59,7 +59,7 @@ public class EmojiTestGenerator {
             version, "UnicodeEmoji_" + version.underscoreVersion(), "Emoji")
         .generate(outDir);
     new UnicodeEmojiTestGenerator(version).generate(outDir);
-    new UnicodeEmojiGoldenGenerator(version, unicodeData).generate(outDir);
+    new UnicodeEmojiGoldenGenerator(version, unicodeData, "Emoji").generate(outDir);
   }
 
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {
