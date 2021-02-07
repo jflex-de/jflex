@@ -35,7 +35,6 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.annotation.Generated;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 // Generate from UnicodeEmojiTest.java.vm
@@ -48,10 +47,9 @@ public class UnicodeEmojiTest_8_0 {
 
   private static ImmutableList<CodepointRange> expected;
 
-  @BeforeClass
-  public static void golden() throws Exception {
-    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_Emoji_8_0.output");
-    expected = SimpleIntervalsParser.parseRanges(expectedFile);
+  private static ImmutableList<CodepointRange> readGolden(String propName) throws Exception {
+    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_Emoji_" + propName + "8_0.output");
+    return SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
   /** Test property {@code Emoji}. */
@@ -62,6 +60,17 @@ public class UnicodeEmojiTest_8_0 {
             ScannerFactory.of(UnicodeEmoji_Emoji_8_0::new),
             UnicodeEmoji_Emoji_8_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(expected);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
+  }
+
+  /** Test property {@code Emoji_Component}. */
+  @Test
+  public void emojiComponent() throws Exception {
+    UnicodeEmoji_Emoji_Component_8_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Component_8_0::new),
+            UnicodeEmoji_Emoji_Component_8_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Component"));
   }
 }

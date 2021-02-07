@@ -42,7 +42,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
 
-  private static final ImmutableSet<String> PROPERTY_NAMES = ImmutableSet.of("Emoji");
+  private static final ImmutableSet<String> PROPERTY_NAMES = ImmutableSet.of("Emoji", "Emoji_Component");
 
   private EmojiTestGenerator() {}
 
