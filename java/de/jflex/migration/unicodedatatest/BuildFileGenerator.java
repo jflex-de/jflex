@@ -27,6 +27,7 @@ package de.jflex.migration.unicodedatatest;
 
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import de.jflex.migration.unicodedatatest.testemoji.EmojiTestGenerator;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -42,6 +43,7 @@ class BuildFileGenerator extends AbstractGenerator<BuildFileTemplateVars> {
     vars.updateFrom(unicodeVersion);
     vars.className = "UnicodeAge_" + unicodeVersion.underscoreVersion();
     vars.ages = olderAges(unicodeVersion.version());
+    vars.emojiProperties = EmojiTestGenerator.propertiesForVersion(unicodeVersion);
     return vars;
   }
 

@@ -27,6 +27,7 @@
 package de.jflex.migration.unicodedatatest.testemoji;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.UcdVersion;
@@ -40,6 +41,9 @@ import java.util.Arrays;
 import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
+
+  public static final ImmutableSet<String> EMOJI_PROPERTIES =
+      ImmutableSet.of("Emoji", "Emoji_Modifier", "Emoji_Modifier_Base", "Emoji_Presentation");
 
   private EmojiTestGenerator() {}
 
@@ -55,15 +59,26 @@ public class EmojiTestGenerator {
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    UnicodePropertyFlexGenerator.createPropertyScanner(
-            version, "UnicodeEmoji_" + version.underscoreVersion(), "Emoji")
-        .generate(outDir);
-    new UnicodeEmojiTestGenerator(version).generate(outDir);
-    new UnicodeEmojiGoldenGenerator(version, unicodeData).generate(outDir);
+    ImmutableSet<String> emojiProperties = propertiesForVersion(version);
+    new UnicodeEmojiTestGenerator(version, emojiProperties).generate(outDir);
+    for (String propName : emojiProperties) {
+      UnicodePropertyFlexGenerator.createPropertyScanner(
+              version, "UnicodeEmoji_" + propName + "_" + version.underscoreVersion(), propName)
+          .generate(outDir);
+      new UnicodeEmojiGoldenGenerator(version, unicodeData, propName).generate(outDir);
+    }
   }
 
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {
     UcdScanner scanner = new UcdScanner(ucdVersion);
     return scanner.scan();
+  }
+
+  public static ImmutableSet<String> propertiesForVersion(UnicodeVersion unicodeVersion) {
+    if (unicodeVersion.version().major >= 10) {
+      return ImmutableSet.<String>builder().addAll(EMOJI_PROPERTIES).add("Emoji_Component").build();
+    } else {
+      return EMOJI_PROPERTIES;
+    }
   }
 }

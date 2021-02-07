@@ -35,7 +35,6 @@ import de.jflex.util.scanner.ScannerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.annotation.Generated;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 // Generate from UnicodeEmojiTest.java.vm
@@ -48,19 +47,59 @@ public class UnicodeEmojiTest_11_0 {
 
   private static ImmutableList<CodepointRange> expected;
 
-  @BeforeClass
-  public static void golden() throws Exception {
-    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_11_0.output");
-    expected = SimpleIntervalsParser.parseRanges(expectedFile);
+  private static ImmutableList<CodepointRange> readGolden(String propName) throws Exception {
+    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_" + propName + "_11_0.output");
+    return SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
+  /** Test property {@code Emoji}. */
   @Test
-  public void emoji() throws Exception {
-    UnicodeEmoji_11_0 scanner =
+  public void emoji_Emoji() throws Exception {
+    UnicodeEmoji_Emoji_11_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeEmoji_11_0::new),
-            UnicodeEmoji_11_0.YYEOF,
+            ScannerFactory.of(UnicodeEmoji_Emoji_11_0::new),
+            UnicodeEmoji_Emoji_11_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(expected);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
+  }
+  /** Test property {@code Emoji_Modifier}. */
+  @Test
+  public void emoji_Emoji_Modifier() throws Exception {
+    UnicodeEmoji_Emoji_Modifier_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_11_0::new),
+            UnicodeEmoji_Emoji_Modifier_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier"));
+  }
+  /** Test property {@code Emoji_Modifier_Base}. */
+  @Test
+  public void emoji_Emoji_Modifier_Base() throws Exception {
+    UnicodeEmoji_Emoji_Modifier_Base_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_Base_11_0::new),
+            UnicodeEmoji_Emoji_Modifier_Base_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier_Base"));
+  }
+  /** Test property {@code Emoji_Presentation}. */
+  @Test
+  public void emoji_Emoji_Presentation() throws Exception {
+    UnicodeEmoji_Emoji_Presentation_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Presentation_11_0::new),
+            UnicodeEmoji_Emoji_Presentation_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Presentation"));
+  }
+  /** Test property {@code Emoji_Component}. */
+  @Test
+  public void emoji_Emoji_Component() throws Exception {
+    UnicodeEmoji_Emoji_Component_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Component_11_0::new),
+            UnicodeEmoji_Emoji_Component_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Component"));
   }
 }
