@@ -56,25 +56,16 @@ public class UnicodeEmojiTest_${unicodeVersion.underscoreVersion()} {
     return SimpleIntervalsParser.parseRanges(expectedFile);
   }
 
-  /** Test property {@code Emoji}. */
+#foreach ( $propName in $propertyNames )
+  /** Test property {@code $propName}. */
   @Test
-  public void emoji() throws Exception {
-    UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()} scanner =
+  public void emoji_$propName() throws Exception {
+    UnicodeEmoji_${propName}_${unicodeVersion.underscoreVersion()} scanner =
         UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeEmoji_Emoji_${unicodeVersion.underscoreVersion()}.YYEOF,
+            ScannerFactory.of(UnicodeEmoji_${propName}_${unicodeVersion.underscoreVersion()}::new),
+            UnicodeEmoji_${propName}_${unicodeVersion.underscoreVersion()}.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
+    assertThat(scanner.ranges()).isEqualTo(readGolden("$propName"));
   }
-
-  /** Test property {@code Emoji_Component}. */
-  @Test
-  public void emojiComponent() throws Exception {
-    UnicodeEmoji_Emoji_Component_${unicodeVersion.underscoreVersion()} scanner =
-        UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(UnicodeEmoji_Emoji_Component_${unicodeVersion.underscoreVersion()}::new),
-            UnicodeEmoji_Emoji_Component_${unicodeVersion.underscoreVersion()}.YYEOF,
-            UnicodeDataScanners.Dataset.ALL);
-    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Component"));
-  }
+#end
 }

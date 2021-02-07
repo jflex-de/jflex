@@ -54,7 +54,7 @@ public class UnicodeEmojiTest_10_0 {
 
   /** Test property {@code Emoji}. */
   @Test
-  public void emoji() throws Exception {
+  public void emoji_Emoji() throws Exception {
     UnicodeEmoji_Emoji_10_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeEmoji_Emoji_10_0::new),
@@ -62,15 +62,44 @@ public class UnicodeEmojiTest_10_0 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
   }
-
   /** Test property {@code Emoji_Component}. */
   @Test
-  public void emojiComponent() throws Exception {
+  public void emoji_Emoji_Component() throws Exception {
     UnicodeEmoji_Emoji_Component_10_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(UnicodeEmoji_Emoji_Component_10_0::new),
             UnicodeEmoji_Emoji_Component_10_0.YYEOF,
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Component"));
+  }
+  /** Test property {@code Emoji_Modifier}. */
+  @Test
+  public void emoji_Emoji_Modifier() throws Exception {
+    UnicodeEmoji_Emoji_Modifier_10_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_10_0::new),
+            UnicodeEmoji_Emoji_Modifier_10_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier"));
+  }
+  /** Test property {@code Emoji_Modifier_Base}. */
+  @Test
+  public void emoji_Emoji_Modifier_Base() throws Exception {
+    UnicodeEmoji_Emoji_Modifier_Base_10_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Modifier_Base_10_0::new),
+            UnicodeEmoji_Emoji_Modifier_Base_10_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier_Base"));
+  }
+  /** Test property {@code Emoji_Presentation}. */
+  @Test
+  public void emoji_Emoji_Presentation() throws Exception {
+    UnicodeEmoji_Emoji_Presentation_10_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Emoji_Presentation_10_0::new),
+            UnicodeEmoji_Emoji_Presentation_10_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Presentation"));
   }
 }

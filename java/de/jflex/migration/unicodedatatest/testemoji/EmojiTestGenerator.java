@@ -42,7 +42,13 @@ import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
 
-  private static final ImmutableSet<String> PROPERTY_NAMES = ImmutableSet.of("Emoji", "Emoji_Component");
+  public static final ImmutableSet<String> EMOJI_PROPERTIES =
+      ImmutableSet.of(
+          "Emoji",
+          "Emoji_Component",
+          "Emoji_Modifier",
+          "Emoji_Modifier_Base",
+          "Emoji_Presentation");
 
   private EmojiTestGenerator() {}
 
@@ -58,8 +64,8 @@ public class EmojiTestGenerator {
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    new UnicodeEmojiTestGenerator(version).generate(outDir);
-    for (String propName : PROPERTY_NAMES) {
+    new UnicodeEmojiTestGenerator(version, EMOJI_PROPERTIES).generate(outDir);
+    for (String propName : EMOJI_PROPERTIES) {
       UnicodePropertyFlexGenerator.createPropertyScanner(
               version, "UnicodeEmoji_" + propName + "_" + version.underscoreVersion(), propName)
           .generate(outDir);
