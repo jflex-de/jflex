@@ -23,18 +23,44 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.testcase.unicode.unicode_9_0;
 
-package de.jflex.testing.unicodedata;
+import static com.google.common.truth.Truth.assertThat;
 
-import java.io.Reader;
-import java.util.regex.Pattern;
+import com.google.common.collect.ImmutableList;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.util.scanner.ScannerFactory;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.annotation.Generated;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class SimpleDigitParser extends AbstractSimpleParser {
+// Generate from UnicodeEmojiTest.java.vm
+/** Test the emoji property. */
+@Generated("de.jflex.migration.unicodedatatest.testemoji.UnicodeEmojiTestGenerator")
+public class UnicodeEmojiTest_9_0 {
 
-  private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]{4,6})\\.\\.([0-9A-F]{4,6}); (.*)$");
+  private static final Path PACKAGE_DIRECTORY =
+      Paths.get("javatests/de/jflex/testcase/unicode").resolve("unicode_9_0");
 
-  public SimpleDigitParser(Reader reader, PatternHandler handler) {
-    super(PATTERN, reader, handler);
+  private static ImmutableList<CodepointRange> expected;
+
+  @BeforeClass
+  public static void golden() throws Exception {
+    Path expectedFile = PACKAGE_DIRECTORY.resolve("UnicodeEmoji_9_0.output");
+    expected = SimpleIntervalsParser.parseRanges(expectedFile);
+  }
+
+  @Test
+  public void emoji() throws Exception {
+    UnicodeEmoji_9_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_9_0::new),
+            UnicodeEmoji_9_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(expected);
   }
 }

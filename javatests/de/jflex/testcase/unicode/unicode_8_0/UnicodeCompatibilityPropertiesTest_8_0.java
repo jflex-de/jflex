@@ -26,21 +26,20 @@
  */
 package de.jflex.testcase.unicode.unicode_8_0;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
 import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.function.Function;
-import java.util.stream.Stream;
 import javax.annotation.Generated;
 import org.junit.Test;
 
@@ -114,14 +113,7 @@ public class UnicodeCompatibilityPropertiesTest_8_0 {
         UnicodeDataScanners.scanAllCodepoints(
             ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
 
-    ImmutableList<String> blocks =
-        scanner.blocks().stream()
-            .map(b -> String.format("%s..%s", b.hexStart(), b.hexEnd()))
-            .collect(toImmutableList());
-
-    try (Stream<String> expectedOutput = Files.lines(expectedFile)) {
-      ImmutableList<String> expected = expectedOutput.collect(toImmutableList());
-      assertThat(blocks).containsExactlyElementsIn(expected);
-    }
+    ImmutableList<CodepointRange> expectedBlocks = SimpleIntervalsParser.parseRanges(expectedFile);
+    assertThat(scanner.ranges()).isEqualTo(expectedBlocks);
   }
 }

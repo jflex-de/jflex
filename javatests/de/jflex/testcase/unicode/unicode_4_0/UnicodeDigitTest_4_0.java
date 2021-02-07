@@ -29,7 +29,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
-import de.jflex.testing.unicodedata.SimpleDigitParser;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
@@ -113,7 +113,7 @@ public class UnicodeDigitTest_4_0 {
     String goldenFile = "unicode_4_0/UnicodeDigit_4_0.output";
     try (BufferedReader goldenReader =
         Files.newBufferedReader(packageDirectory.resolve(goldenFile))) {
-      SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
+      SimpleIntervalsParser parser = new SimpleIntervalsParser(goldenReader, goldenHandler);
       parser.parse();
     }
     return expected.build();

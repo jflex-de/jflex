@@ -29,7 +29,7 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractSimpleParser.PatternHandler;
-import de.jflex.testing.unicodedata.SimpleDigitParser;
+import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.util.scanner.ScannerFactory;
@@ -47,7 +47,7 @@ import org.junit.Test;
 @Generated("de.jflex.migration.unicodedatatest.testdigit.UnicodeDigitTestGenerator")
 public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
 
-  private final static Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
+  private static final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   private static ImmutableList<NamedCodepointRange<Boolean>> expected;
 
@@ -112,7 +112,7 @@ public class UnicodeDigitTest_${unicodeVersion.underscoreVersion()} {
     String goldenFile = "unicode_${unicodeVersion.underscoreVersion()}/UnicodeDigit_${unicodeVersion.underscoreVersion()}.output";
     try (BufferedReader goldenReader = Files.newBufferedReader(
         packageDirectory.resolve(goldenFile))) {
-      SimpleDigitParser parser = new SimpleDigitParser(goldenReader, goldenHandler);
+      SimpleIntervalsParser parser = new SimpleIntervalsParser(goldenReader, goldenHandler);
       parser.parse();
     }
     return expected.build();

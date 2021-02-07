@@ -23,40 +23,23 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package de.jflex.migration.unicodedatatest.testblock;
+package de.jflex.migration.unicodedatatest.testemoji;
 
-import de.jflex.testing.unicodedata.AbstractSimpleParser;
-import java.io.Reader;
-import java.util.regex.Pattern;
+import org.junit.Test;
 
-/**
- * Parser of unicode {@code Blocks.txt}.
- *
- * <p>Recent Unicode
- *
- * <pre>{@code
- * # Property:	Block
- * #
- * # @missing: 0000..10FFFF; No_Block
- *
- * 0000..007F; Basic Latin
- * 0080..00FF; Latin-1 Supplement
- * }</pre>
- *
- * <p>Archaic unicode
- *
- * <pre>{@code
- * # Start Code; End Code; Block Name
- * 0000; 007F; Basic Latin
- * 0080; 00FF; Latin-1 Supplement
- * }</pre>
- */
-public class SimpleBlocksParser extends AbstractSimpleParser {
-
-  private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]+)(?:\\.\\.|;\\s*)([0-9A-F]+); (.*)");
-
-  protected SimpleBlocksParser(Reader reader, PatternHandler handler) {
-    super(PATTERN, reader, handler);
+/** Minimal integration test for {@link EmojiTestGenerator}. */
+public class EmojiTestGeneratorTest {
+  /** Tests that the generation doesn't throw exception. */
+  @Test
+  public void generate_ucd10() throws Exception {
+    EmojiTestGenerator.main(
+        new String[] {
+          "10.0",
+          "/tmp",
+          "external/ucd_10_0/Blocks.txt",
+          "external/ucd_10_0/UnicodeData.txt",
+          "external/ucd_10_0/PropList.txt",
+          "external/emoji_5_emoji_data_txt/file/downloaded",
+        });
   }
 }

@@ -28,15 +28,16 @@ package de.jflex.migration.unicodedatatest.testcompat;
 
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.UnicodeRangesGoldenTemplateVars;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.Versions;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
 public class UnicodeCompatibilityPropertiesGoldenGenerator
-    extends AbstractGenerator<UnicodeCompatibilityPropertiesGoldenTemplateVars> {
+    extends AbstractGenerator<UnicodeRangesGoldenTemplateVars> {
 
-  private static final String TEMPLATE_NAME = "UnicodeCompatibilityPropertiesGolden";
+  private static final String TEMPLATE_NAME = "UnicodeRangesGolden";
 
   private final UnicodeData unicodeData;
   private final String propName;
@@ -49,9 +50,8 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
   }
 
   @Override
-  protected UnicodeCompatibilityPropertiesGoldenTemplateVars createTemplateVars() {
-    UnicodeCompatibilityPropertiesGoldenTemplateVars vars =
-        new UnicodeCompatibilityPropertiesGoldenTemplateVars();
+  protected UnicodeRangesGoldenTemplateVars createTemplateVars() {
+    UnicodeRangesGoldenTemplateVars vars = new UnicodeRangesGoldenTemplateVars();
     vars.templateName = TEMPLATE_NAME;
     vars.className =
         "UnicodeCompatibilityProperties_" + propName + "_" + unicodeVersion.underscoreVersion();
@@ -63,11 +63,11 @@ public class UnicodeCompatibilityPropertiesGoldenGenerator
   }
 
   @Override
-  protected String getOuputFileName(UnicodeCompatibilityPropertiesGoldenTemplateVars vars) {
+  protected String getOuputFileName(UnicodeRangesGoldenTemplateVars vars) {
     return vars.className + ".output";
   }
 
-  private ImmutableList<CodepointRange> joinContiguousIntervals(
+  private static ImmutableList<CodepointRange> joinContiguousIntervals(
       ImmutableList<CodepointRange> ranges) {
     ImmutableList.Builder<CodepointRange> builder = new ImmutableList.Builder<>();
     CodepointRange prev = ranges.get(0);

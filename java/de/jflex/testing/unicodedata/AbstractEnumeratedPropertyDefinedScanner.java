@@ -26,7 +26,10 @@
  */
 package de.jflex.testing.unicodedata;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -66,6 +69,10 @@ public abstract class AbstractEnumeratedPropertyDefinedScanner<T> {
       blocks.add(NamedCodepointRange.create(prevPropertyValue, begCodePoint, maxCodePoint));
     }
     return blocks.build();
+  }
+
+  public ImmutableList<CodepointRange> ranges() {
+    return blocks().stream().map(NamedCodepointRange::range).collect(toImmutableList());
   }
 
   protected void setCurCharPropertyValue(String index, int length, T propertyValue) {

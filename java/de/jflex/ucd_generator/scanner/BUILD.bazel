@@ -8,6 +8,7 @@ java_library(
         # TODO(regisd) The test shouldn't use the same source than the impl.
         "//java/de/jflex/migration/unicodedatatest/testcompat:__pkg__",
         "//java/de/jflex/migration/unicodedatatest/testdigit:__pkg__",
+        "//java/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
         "//java/de/jflex/ucd_generator:__subpackages__",
         "//javatests/de/jflex:__subpackages__",
     ],
