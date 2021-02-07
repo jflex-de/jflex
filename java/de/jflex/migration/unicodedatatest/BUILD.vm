@@ -215,7 +215,7 @@ jflex(
     outputs = ["UnicodeDigit_upperD_${unicodeVersion.underscoreVersion()}.java"],
 )
 
-#if (${unicodeVersion.major} >= 9)
+#if (${unicodeVersion.major} >= 8)
 # Test emoji
 
 java_test(

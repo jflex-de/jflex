@@ -4,8 +4,6 @@ def gen_test_emoji(name, ucd, version):
         "unicode_{version}/UnicodeEmojiTest_{version}.java",
         "unicode_{version}/UnicodeEmoji_Emoji_{version}.flex",
         "unicode_{version}/UnicodeEmoji_Emoji_{version}.output",
-        "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.flex",
-        "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.output",
         "unicode_{version}/UnicodeEmoji_Emoji_Modifier_{version}.flex",
         "unicode_{version}/UnicodeEmoji_Emoji_Modifier_{version}.output",
         "unicode_{version}/UnicodeEmoji_Emoji_Modifier_Base_{version}.flex",
@@ -13,6 +11,12 @@ def gen_test_emoji(name, ucd, version):
         "unicode_{version}/UnicodeEmoji_Emoji_Presentation_{version}.flex",
         "unicode_{version}/UnicodeEmoji_Emoji_Presentation_{version}.output",
     ]
+    version_major = int(version.split(".")[0])
+    if version_major >= 10:
+        outs += [
+            "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.flex",
+            "unicode_{version}/UnicodeEmoji_Emoji_Component_{version}.output",
+        ]
     native.genrule(
         name = name,
         testonly = True,

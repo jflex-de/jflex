@@ -43,12 +43,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 public class EmojiTestGenerator {
 
   public static final ImmutableSet<String> EMOJI_PROPERTIES =
-      ImmutableSet.of(
-          "Emoji",
-          "Emoji_Component",
-          "Emoji_Modifier",
-          "Emoji_Modifier_Base",
-          "Emoji_Presentation");
+      ImmutableSet.of("Emoji", "Emoji_Modifier", "Emoji_Modifier_Base", "Emoji_Presentation");
 
   private EmojiTestGenerator() {}
 
@@ -64,8 +59,9 @@ public class EmojiTestGenerator {
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
       throws IOException, ParseException {
-    new UnicodeEmojiTestGenerator(version, EMOJI_PROPERTIES).generate(outDir);
-    for (String propName : EMOJI_PROPERTIES) {
+    ImmutableSet<String> emojiProperties = propertiesForVersion(version);
+    new UnicodeEmojiTestGenerator(version, emojiProperties).generate(outDir);
+    for (String propName : emojiProperties) {
       UnicodePropertyFlexGenerator.createPropertyScanner(
               version, "UnicodeEmoji_" + propName + "_" + version.underscoreVersion(), propName)
           .generate(outDir);
@@ -76,5 +72,13 @@ public class EmojiTestGenerator {
   private static UnicodeData parseUcd(UcdVersion ucdVersion) throws UcdScannerException {
     UcdScanner scanner = new UcdScanner(ucdVersion);
     return scanner.scan();
+  }
+
+  public static ImmutableSet<String> propertiesForVersion(UnicodeVersion unicodeVersion) {
+    if (unicodeVersion.version().major >= 10) {
+      return ImmutableSet.<String>builder().addAll(EMOJI_PROPERTIES).add("Emoji_Component").build();
+    } else {
+      return EMOJI_PROPERTIES;
+    }
   }
 }
