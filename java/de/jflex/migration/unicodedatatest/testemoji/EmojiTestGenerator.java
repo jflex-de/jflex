@@ -75,8 +75,8 @@ public class EmojiTestGenerator {
   }
 
   public static ImmutableSet<String> propertiesForVersion(UnicodeVersion unicodeVersion) {
-    ImmutableSet.Builder<String> properties = ImmutableSet.<String>builder()
-        .addAll(EMOJI_PROPERTIES);
+    ImmutableSet.Builder<String> properties =
+        ImmutableSet.<String>builder().addAll(EMOJI_PROPERTIES);
     if (unicodeVersion.version().major >= 11) {
       properties.add("Extended_Pictographic");
     }
