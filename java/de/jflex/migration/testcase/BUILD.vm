@@ -1,5 +1,7 @@
 #set( $H = '#' )
 
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
 $H $testName
 
 jflex(
