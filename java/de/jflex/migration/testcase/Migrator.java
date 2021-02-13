@@ -274,6 +274,7 @@ public class Migrator {
       File flexGrammar,
       ImmutableList<GoldenInOutFilePair> goldenFiles) {
     MigrationTemplateVars vars = new MigrationTemplateVars();
+    vars.templateName = "";
     vars.flexGrammar = flexGrammar;
     vars.javaPackage = TESTING_PACKAGE + lowerUnderscoreTestDir;
     vars.javaPackageDir = TESTING_PACKAGE_DIR + lowerUnderscoreTestDir;
