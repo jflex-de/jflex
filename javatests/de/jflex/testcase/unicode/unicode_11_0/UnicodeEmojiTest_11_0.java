@@ -92,6 +92,16 @@ public class UnicodeEmojiTest_11_0 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Presentation"));
   }
+  /** Test property {@code Extended_Pictographic}. */
+  @Test
+  public void emoji_Extended_Pictographic() throws Exception {
+    UnicodeEmoji_Extended_Pictographic_11_0 scanner =
+        UnicodeDataScanners.scanAllCodepoints(
+            ScannerFactory.of(UnicodeEmoji_Extended_Pictographic_11_0::new),
+            UnicodeEmoji_Extended_Pictographic_11_0.YYEOF,
+            UnicodeDataScanners.Dataset.ALL);
+    assertThat(scanner.ranges()).isEqualTo(readGolden("Extended_Pictographic"));
+  }
   /** Test property {@code Emoji_Component}. */
   @Test
   public void emoji_Emoji_Component() throws Exception {

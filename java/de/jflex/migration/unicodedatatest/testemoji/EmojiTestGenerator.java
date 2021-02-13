@@ -75,10 +75,14 @@ public class EmojiTestGenerator {
   }
 
   public static ImmutableSet<String> propertiesForVersion(UnicodeVersion unicodeVersion) {
-    if (unicodeVersion.version().major >= 10) {
-      return ImmutableSet.<String>builder().addAll(EMOJI_PROPERTIES).add("Emoji_Component").build();
-    } else {
-      return EMOJI_PROPERTIES;
+    ImmutableSet.Builder<String> properties =
+        ImmutableSet.<String>builder().addAll(EMOJI_PROPERTIES);
+    if (unicodeVersion.version().major >= 11) {
+      properties.add("Extended_Pictographic");
     }
+    if (unicodeVersion.version().major >= 10) {
+      properties.add("Emoji_Component");
+    }
+    return properties.build();
   }
 }
