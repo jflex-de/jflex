@@ -18,6 +18,7 @@ jflex_testsuite(
 
 java_test(
     name = "UnicodeBlocksInverseBlockTest",
+    size = "small",
     srcs = [
         "UnicodeBlocksInverseBlockTest.java",
         ":gen_unicode_blocks_inverse_scanner",
@@ -42,6 +43,7 @@ jflex(
 
 java_test(
     name = "UnicodeBlocksAliasesTest",
+    size = "small",
     srcs = [
         "UnicodeBlocksAliasesTest.java",
         ":gen_unicode_blocks_aliases_scanner",

@@ -1,5 +1,6 @@
 java_test(
     name = "UnicodeVersionEmitterTest",
+    size = "small",
     srcs = ["UnicodeVersionEmitterTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/util:java_strings",

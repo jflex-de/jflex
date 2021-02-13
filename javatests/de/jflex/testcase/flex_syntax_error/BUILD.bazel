@@ -11,6 +11,7 @@ check_deps(
 
 java_test(
     name = "SyntaxErrorTest",
+    size = "small",
     srcs = [
         "SyntaxErrorTest.java",
     ],

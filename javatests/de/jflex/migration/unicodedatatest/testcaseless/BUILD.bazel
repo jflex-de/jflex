@@ -1,5 +1,6 @@
 java_test(
     name = "CaselessTestGeneratorTest",
+    size = "small",
     srcs = ["CaselessTestGeneratorTest.java"],
     data = [
         "//third_party/unicode:ucd_7_0",

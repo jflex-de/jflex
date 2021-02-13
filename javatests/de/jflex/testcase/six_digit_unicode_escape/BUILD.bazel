@@ -63,6 +63,7 @@ java_library(
 
 java_test(
     name = "SixdigitunicodeescapeTest",
+    size = "small",
     srcs = [
         "SixdigitunicodeescapeTest.java",
     ],

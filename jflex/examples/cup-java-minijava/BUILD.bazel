@@ -38,6 +38,7 @@ cup(
 # Tests
 java_test(
     name = "LexerTest",
+    size = "small",
     srcs = ["src/test/java/jflex/examples/minijava/LexerTest.java"],
     deps = [
         ":minijava",

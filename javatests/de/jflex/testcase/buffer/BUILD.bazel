@@ -15,6 +15,7 @@ jflex(
 
 java_test(
     name = "BufferTest",
+    size = "small",
     srcs = [
         "BufferTest.java",
         ":gen_buffer_scanner",

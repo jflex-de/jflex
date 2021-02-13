@@ -1,5 +1,6 @@
 java_test(
     name = "SurrogateUtilsTest",
+    size = "small",
     srcs = ["SurrogateUtilsTest.java"],
     deps = [
         "//java/de/jflex/ucd",
@@ -9,6 +10,7 @@ java_test(
 
 java_test(
     name = "UcdVersionTest",
+    size = "small",
     srcs = ["UcdVersionTest.java"],
     data = [
         "//third_party/unicode:ucd_10_0",

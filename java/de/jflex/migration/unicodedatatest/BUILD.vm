@@ -19,6 +19,7 @@ check_deps(
 
 java_test(
     name = "UnicodeAgeTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
         # TODO(regisd) Replace by generator directly
         # "//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_${unicodeVersion.underscoreVersion()}/UnicodeAgeTest_${unicodeVersion.underscoreVersion()}.java",
@@ -76,6 +77,7 @@ jflex(
 # Test Block property
 java_test(
     name = "UnicodeBlocksTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
         ":gen_UnicodeBlocks_${unicodeVersion.underscoreVersion()}_scanner",
         # TODO(regisd) Replace by generator directly
@@ -106,6 +108,7 @@ jflex(
 # Test caseless directive
 java_test(
     name = "UnicodeCaselessTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
         ":gen_UnicodeCaseless_${unicodeVersion.underscoreVersion()}_scanner",
         # TODO(regisd) Replace by generator directly
@@ -135,6 +138,7 @@ jflex(
 # Test compatibility properties
 java_test(
     name = "UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
         "UnicodeCompatibilityPropertiesTest_${unicodeVersion.underscoreVersion()}.java",
         #foreach ( $propName in $compatibilityProperties )
@@ -170,6 +174,7 @@ jflex(
 # Test digit
 java_test(
     name = "UnicodeDigitTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
         ":gen_UnicodeDigit_digit_${unicodeVersion.underscoreVersion()}_scanner",
         ":gen_UnicodeDigit_lowerD_${unicodeVersion.underscoreVersion()}_scanner",
@@ -220,6 +225,7 @@ jflex(
 
 java_test(
     name = "UnicodeEmojiTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
     srcs = [
        "UnicodeEmojiTest_${unicodeVersion.underscoreVersion()}.java",
        #foreach ( $propName in $emojiProperties )

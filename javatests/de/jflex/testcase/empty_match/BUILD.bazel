@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "EmptymatchGoldenTest",
+    size = "small",
     srcs = [
         "EmptymatchGoldenTest.java",
     ],

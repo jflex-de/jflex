@@ -1,5 +1,6 @@
 java_test(
     name = "StateSetQuickcheck",
+    size = "small",
     timeout = "short",
     srcs = [
         "StateSetGen.java",

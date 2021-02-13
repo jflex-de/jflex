@@ -1,5 +1,6 @@
 java_test(
     name = "RegExpTest",
+    size = "small",
     srcs = ["RegExpTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/core",

@@ -22,6 +22,7 @@ java_library(
 
 java_test(
     name = "ActionPipeEofTest",
+    size = "small",
     srcs = ["ActionPipeEofTest.java"],
     deps = [
         ":action_pipe_eof_scanner",
@@ -46,6 +47,7 @@ java_library(
 
 java_test(
     name = "EofPipeActionTest",
+    size = "small",
     srcs = ["EofPipeActionTest.java"],
     deps = [
         ":eof_pipe_action_scanner",

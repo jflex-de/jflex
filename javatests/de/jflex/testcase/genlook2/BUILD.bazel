@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "Genlook2GoldenTest",
+    size = "small",
     srcs = [
         "Genlook2GoldenTest.java",
     ],

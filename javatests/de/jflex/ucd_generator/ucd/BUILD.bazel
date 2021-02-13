@@ -1,5 +1,6 @@
 java_test(
     name = "CodepointRangeSetTest",
+    size = "small",
     srcs = ["CodepointRangeSetTest.java"],
     deps = [
         "//java/de/jflex/testing/assertion",
@@ -10,6 +11,7 @@ java_test(
 
 java_test(
     name = "UnicodeDataTest",
+    size = "small",
     srcs = ["UnicodeDataTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/ucd",
@@ -20,6 +22,7 @@ java_test(
 
 java_test(
     name = "UcdVersionsTest",
+    size = "small",
     srcs = ["UcdVersionsTest.java"],
     deps = [
         "//java/de/jflex/ucd_generator/ucd",

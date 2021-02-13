@@ -1,5 +1,6 @@
 java_test(
     name = "UnicodePropertiesEmitterTest",
+    size = "small",
     srcs = ["UnicodePropertiesEmitterTest.java"],
     data = [
         "UnicodeProperties.java.golden",

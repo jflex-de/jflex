@@ -32,6 +32,7 @@ java_library(
 
 java_test(
     name = "CtorArgTest",
+    size = "small",
     srcs = [
         "CtorArgTest.java",
     ],

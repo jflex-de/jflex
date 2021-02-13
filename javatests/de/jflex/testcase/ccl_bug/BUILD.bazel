@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "CclBugTest",
+    size = "small",
     srcs = [
         "CclBugTest.java",
     ],

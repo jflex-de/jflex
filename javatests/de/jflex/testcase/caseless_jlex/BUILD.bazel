@@ -33,6 +33,7 @@ java_library(
 
 java_test(
     name = "CaselessGoldenTest",
+    size = "small",
     srcs = [
         "CaselessGoldenTest.java",
     ],
