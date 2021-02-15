@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "GenericsGoldenTest",
+    size = "small",
     srcs = [
         "GenericsGoldenTest.java",
     ],
@@ -64,6 +65,7 @@ java_library(
 
 java_test(
     name = "Generics2GoldenTest",
+    size = "small",
     srcs = [
         "Generics2GoldenTest.java",
     ],
@@ -98,6 +100,7 @@ java_library(
 
 java_test(
     name = "Generics3GoldenTest",
+    size = "small",
     srcs = [
         "Generics3GoldenTest.java",
     ],
@@ -132,6 +135,7 @@ java_library(
 
 java_test(
     name = "Generics4GoldenTest",
+    size = "small",
     srcs = [
         "Generics4GoldenTest.java",
     ],

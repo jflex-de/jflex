@@ -1,5 +1,6 @@
 java_test(
     name = "CharClassesQuickcheck",
+    size = "small",
     timeout = "short",
     srcs = [
         "CharClassesGen.java",
@@ -17,6 +18,7 @@ java_test(
 
 java_test(
     name = "IntCharSetQuickcheck",
+    size = "small",
     timeout = "short",
     srcs = [
         "IntCharSetQuickcheck.java",
@@ -34,6 +36,7 @@ java_test(
 
 java_test(
     name = "IntCharSetTest",
+    size = "small",
     timeout = "short",
     srcs = ["IntCharSetTest.java"],
     deps = [

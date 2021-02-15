@@ -1,5 +1,6 @@
 java_test(
     name = "EmojiTestGeneratorTest",
+    size = "small",
     srcs = ["EmojiTestGeneratorTest.java"],
     data = [
         "//third_party/unicode:ucd_10_0",

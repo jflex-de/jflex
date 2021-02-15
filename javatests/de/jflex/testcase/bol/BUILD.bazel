@@ -22,6 +22,7 @@ jflex(
 
 java_test(
     name = "BolTest",
+    size = "small",
     srcs = [
         "BolTest.java",
         "State.java",

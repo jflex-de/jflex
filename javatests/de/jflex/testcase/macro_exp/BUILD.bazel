@@ -32,6 +32,7 @@ java_library(
 
 java_test(
     name = "MacroRegexpNegationGoldenTest",
+    size = "small",
     srcs = [
         "MacroRegexpNegationGoldenTest.java",
     ],

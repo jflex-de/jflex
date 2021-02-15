@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "CountGoldenTest",
+    size = "small",
     srcs = [
         "CountGoldenTest.java",
     ],

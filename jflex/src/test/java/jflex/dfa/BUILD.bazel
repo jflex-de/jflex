@@ -1,5 +1,6 @@
 java_test(
     name = "DfaTest",
+    size = "small",
     srcs = ["DfaTest.java"],
     deps = [
         "//jflex/src/main/java/jflex/dfa",

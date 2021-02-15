@@ -8,6 +8,7 @@ check_deps(
 
 java_test(
     name = "LargeInputTest",
+    size = "small",
     srcs = [
         "LargeInputTest.java",
     ],
@@ -49,6 +50,7 @@ java_library(
 
 java_test(
     name = "RepeatContentReaderTest",
+    size = "small",
     srcs = ["RepeatContentReaderTest.java"],
     deps = [
         ":repeat_content_reader",

@@ -15,6 +15,7 @@ jflex(
 
 java_test(
     name = "CharclassTest",
+    size = "small",
     srcs = [
         "CharclassTest.java",
         "State.java",
@@ -28,6 +29,7 @@ java_test(
 
 java_test(
     name = "ImpossibleScannerTest",
+    size = "small",
     srcs = ["ImpossibleScannerTest.java"],
     data = ["char-range-failing.flex"],
     deps = [

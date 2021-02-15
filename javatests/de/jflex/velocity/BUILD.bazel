@@ -1,5 +1,6 @@
 java_test(
     name = "TemplateVarsTest",
+    size = "small",
     srcs = ["TemplateVarsTest.java"],
     deps = [
         "//java/de/jflex/testing/assertion",
@@ -11,6 +12,7 @@ java_test(
 
 java_test(
     name = "VelocityTest",
+    size = "small",
     srcs = ["VelocityTest.java"],
     deps = [
         "//java/de/jflex/velocity",

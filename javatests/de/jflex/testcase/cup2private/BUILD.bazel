@@ -32,6 +32,7 @@ java_library(
 
 java_test(
     name = "Cup2PrivateTest",
+    size = "small",
     srcs = ["Cup2PrivateTest.java"],
     deps = [
         ":cup2private_scanner",

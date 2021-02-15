@@ -22,6 +22,7 @@ java_library(
 
 java_test(
     name = "SevenBitTest",
+    size = "small",
     srcs = ["SevenBitTest.java"],
     deps = [
         ":sevenbit_scanner",

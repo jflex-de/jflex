@@ -31,6 +31,7 @@ java_library(
 
 java_test(
     name = "IncludeGoldenTest",
+    size = "small",
     srcs = [
         "IncludeGoldenTest.java",
     ],

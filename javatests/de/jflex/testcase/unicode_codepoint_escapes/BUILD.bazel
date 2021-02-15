@@ -29,6 +29,7 @@ java_library(
 
 java_test(
     name = "UnicodeCodePointEscapesTest",
+    size = "small",
     srcs = [
         "UnicodeCodePointEscapesTest.java",
     ],

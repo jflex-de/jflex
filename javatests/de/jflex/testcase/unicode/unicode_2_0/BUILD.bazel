@@ -17,6 +17,7 @@ check_deps(
 
 java_test(
     name = "UnicodeAgeTest_2_0",
+    size = "small",
     srcs = [
         # TODO(regisd) Replace by generator directly
         # "//java/de/jflex/migration/unicodedatatest/testage:javatests/de/jflex/testcase/unicode/unicode_2_0/UnicodeAgeTest_2_0.java",
@@ -76,6 +77,7 @@ jflex(
 # Test Block property
 java_test(
     name = "UnicodeBlocksTest_2_0",
+    size = "small",
     srcs = [
         ":gen_UnicodeBlocks_2_0_scanner",
         # TODO(regisd) Replace by generator directly
@@ -105,6 +107,7 @@ jflex(
 # Test caseless directive
 java_test(
     name = "UnicodeCaselessTest_2_0",
+    size = "small",
     srcs = [
         ":gen_UnicodeCaseless_2_0_scanner",
         # TODO(regisd) Replace by generator directly
@@ -134,6 +137,7 @@ jflex(
 # Test compatibility properties
 java_test(
     name = "UnicodeCompatibilityPropertiesTest_2_0",
+    size = "small",
     srcs = [
         "UnicodeCompatibilityPropertiesTest_2_0.java",
         ":gen_UnicodeCompatibilityProperties_alnum_2_0_scanner",
@@ -203,6 +207,7 @@ jflex(
 # Test digit
 java_test(
     name = "UnicodeDigitTest_2_0",
+    size = "small",
     srcs = [
         ":gen_UnicodeDigit_digit_2_0_scanner",
         ":gen_UnicodeDigit_lowerD_2_0_scanner",

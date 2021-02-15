@@ -15,6 +15,7 @@ jflex(
 
 java_test(
     name = "Ccl16Test",
+    size = "small",
     srcs = [
         "Ccl16Test.java",
         ":gen_ccl_scanner",

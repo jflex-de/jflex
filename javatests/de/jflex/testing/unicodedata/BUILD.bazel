@@ -1,5 +1,6 @@
 java_test(
     name = "AbstractSimpleParserTest",
+    size = "small",
     srcs = ["AbstractSimpleParserTest.java"],
     deps = [
         "//java/de/jflex/testing/unicodedata",

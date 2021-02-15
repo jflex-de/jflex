@@ -22,6 +22,7 @@ java_library(
 
 java_test(
     name = "$testClassName",
+    size = "small",
     srcs = [
         "${testClassName}.java",
     ],

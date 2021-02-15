@@ -16,6 +16,7 @@ check_deps(
 # Test caseless directive
 java_test(
     name = "UnicodeCaselessTest_1_1",
+    size = "small",
     srcs = [
         ":gen_UnicodeCaseless_1_1_scanner",
         # TODO(regisd) Replace by generator directly
@@ -45,6 +46,7 @@ jflex(
 # Test compatibility properties
 java_test(
     name = "UnicodeCompatibilityPropertiesTest_1_1",
+    size = "small",
     srcs = [
         "UnicodeCompatibilityPropertiesTest_1_1.java",
         ":gen_UnicodeCompatibilityProperties_alnum_1_1_scanner",
@@ -114,6 +116,7 @@ jflex(
 # Test digit
 java_test(
     name = "UnicodeDigitTest_1_1",
+    size = "small",
     srcs = [
         ":gen_UnicodeDigit_digit_1_1_scanner",
         ":gen_UnicodeDigit_lowerD_1_1_scanner",

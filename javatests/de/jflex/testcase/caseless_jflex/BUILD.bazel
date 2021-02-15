@@ -28,6 +28,7 @@ java_library(
 
 java_test(
     name = "CaselessJflexTest",
+    size = "small",
     srcs = [
         "CaselessJflexTest.java",
     ],

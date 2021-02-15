@@ -1,5 +1,6 @@
 java_test(
     name = "UnicodeDigitFlexGeneratorTest",
+    size = "small",
     srcs = ["UnicodeDigitFlexGeneratorTest.java"],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",

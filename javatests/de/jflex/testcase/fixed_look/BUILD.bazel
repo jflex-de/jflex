@@ -30,6 +30,7 @@ java_library(
 
 java_test(
     name = "FixedlookGoldenTest",
+    size = "small",
     srcs = [
         "FixedlookGoldenTest.java",
     ],
