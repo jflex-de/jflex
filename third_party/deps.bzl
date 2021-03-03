@@ -23,5 +23,5 @@ ARTIFACTS = [
     "org.apache.velocity:velocity:jar:1.7",
     "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
     "org.eclipse.platform:org.eclipse.core.runtime:3.20.0",
-    "org.mockito:mockito-core:jar:3.6.28",
+    "org.mockito:mockito-core:jar:3.8.0",
 ]
