@@ -346,30 +346,30 @@
                 "sha256": "c30719db974d6452793fe191b3638a5777005485bae145924044530ffa5f6122"
             },
             {
-                "coord": "net.bytebuddy:byte-buddy-agent:1.10.18",
-                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                "coord": "net.bytebuddy:byte-buddy-agent:1.10.20",
+                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.20/byte-buddy-agent-1.10.20.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
+                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.20/byte-buddy-agent-1.10.20.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
-                    "https://maven.google.comnet/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar",
-                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy-agent/1.10.18/byte-buddy-agent-1.10.18.jar"
+                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy-agent/1.10.20/byte-buddy-agent-1.10.20.jar",
+                    "https://maven.google.comnet/bytebuddy/byte-buddy-agent/1.10.20/byte-buddy-agent-1.10.20.jar",
+                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy-agent/1.10.20/byte-buddy-agent-1.10.20.jar"
                 ],
-                "sha256": "c5b5f85433a9e281fd1ee82d5b8e142e5c494670b29970e627f13e189ff1dc2e"
+                "sha256": "b592a6c43e752bf41659717956c57fbb790394d2ee5f8941876659f9c5c0e7e8"
             },
             {
-                "coord": "net.bytebuddy:byte-buddy:1.10.18",
-                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                "coord": "net.bytebuddy:byte-buddy:1.10.20",
+                "file": "v1/https/jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
+                "url": "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
-                    "https://maven.google.comnet/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar",
-                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy/1.10.18/byte-buddy-1.10.18.jar"
+                    "https://jcenter.bintray.com/net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar",
+                    "https://maven.google.comnet/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar",
+                    "https://repo1.maven.org/maven2net/bytebuddy/byte-buddy/1.10.20/byte-buddy-1.10.20.jar"
                 ],
-                "sha256": "7a1fc6eabf10dd3085e62e7cb3281084f00ab92a736e0980fc99a1460fa1f5ce"
+                "sha256": "5fcad05da791e9a22811c255a4a74b7ea094b7243d9dbf3e6fc578c8c94290ac"
             },
             {
                 "coord": "ognl:ognl:3.1.12",
@@ -725,25 +725,25 @@
                 "sha256": "d7691062fb779c2381640c8f72acba2c23873b01c243866d41c15dc4c8848ea2"
             },
             {
-                "coord": "org.mockito:mockito-core:3.6.28",
-                "file": "v1/https/jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                "coord": "org.mockito:mockito-core:3.8.0",
+                "file": "v1/https/jcenter.bintray.com/org/mockito/mockito-core/3.8.0/mockito-core-3.8.0.jar",
                 "directDependencies": [
-                    "net.bytebuddy:byte-buddy:1.10.18",
-                    "net.bytebuddy:byte-buddy-agent:1.10.18",
+                    "net.bytebuddy:byte-buddy:1.10.20",
+                    "net.bytebuddy:byte-buddy-agent:1.10.20",
                     "org.objenesis:objenesis:3.1"
                 ],
                 "dependencies": [
-                    "net.bytebuddy:byte-buddy-agent:1.10.18",
-                    "net.bytebuddy:byte-buddy:1.10.18",
+                    "net.bytebuddy:byte-buddy:1.10.20",
+                    "net.bytebuddy:byte-buddy-agent:1.10.20",
                     "org.objenesis:objenesis:3.1"
                 ],
-                "url": "https://jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
+                "url": "https://jcenter.bintray.com/org/mockito/mockito-core/3.8.0/mockito-core-3.8.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
-                    "https://maven.google.comorg/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar",
-                    "https://repo1.maven.org/maven2org/mockito/mockito-core/3.6.28/mockito-core-3.6.28.jar"
+                    "https://jcenter.bintray.com/org/mockito/mockito-core/3.8.0/mockito-core-3.8.0.jar",
+                    "https://maven.google.comorg/mockito/mockito-core/3.8.0/mockito-core-3.8.0.jar",
+                    "https://repo1.maven.org/maven2org/mockito/mockito-core/3.8.0/mockito-core-3.8.0.jar"
                 ],
-                "sha256": "8f6bb5d54f0de3453215745f2844b1f0dc00b24abcb41c97059562743a83a9b2"
+                "sha256": "e8a6113e5ba2fcadc22ad5da712ce60ce85db48efb8bfc1cbac4802eb36b559f"
             },
             {
                 "coord": "org.objenesis:objenesis:3.1",
@@ -799,6 +799,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 827942035
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": -961554277
     }
 }
