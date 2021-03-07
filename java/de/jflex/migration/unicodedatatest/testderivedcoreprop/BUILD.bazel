@@ -10,10 +10,26 @@ java_binary(
     name = "generator",
     testonly = True,
     srcs = ["DerivedCorePropertiesTestGenerator.java"],
+    data = ["//third_party/unicode:ucd_10_0"],
     main_class = "de.jflex.migration.unicodedatatest.testderivedcoreprop.DerivedCorePropertiesTestGenerator",
     deps = [
+        ":unicodegeneartors",
         "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
         "//third_party/com/google/guava",
         "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "unicodegeneartors",
+    testonly = True,
+    srcs = ["UnicodeDerivedPropertyGoldenGenerator.java"],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
     ],
 )
