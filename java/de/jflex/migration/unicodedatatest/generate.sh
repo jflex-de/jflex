@@ -18,6 +18,8 @@ bazel build //java/de/jflex/migration/unicodedatatest/testcompat:generate
 bazel build //java/de/jflex/migration/unicodedatatest/testdigit:generate
 # Generate UnicodeEmojiTest_x_y.java
 bazel build //java/de/jflex/migration/unicodedatatest/testemoji:generate
+# Generate derived core properties
+bazel build //java/de/jflex/migration/unicodedatatest/testderivedcoreprop:generate
 
 # Exclude the .flex files are they are sourced from the bazel target directly.
 rsync --archive -vm --chmod=Fa=r \

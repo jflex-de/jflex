@@ -2,6 +2,11 @@
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
+load(":build_defs.bzl", "gen_test")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+VERSIONS = [(x, y) for (x, y) in KNOWN_VERSIONS if x > 3 or x == 3 and y > 0]
+
 package(default_visibility = [
     "//javatests/de/jflex/testcase/unicode:__subpackages__",
 ])
@@ -10,7 +15,6 @@ java_binary(
     name = "generator",
     testonly = True,
     srcs = ["DerivedCorePropertiesTestGenerator.java"],
-    data = ["//third_party/unicode:ucd_10_0"],
     main_class = "de.jflex.migration.unicodedatatest.testderivedcoreprop.DerivedCorePropertiesTestGenerator",
     deps = [
         ":unicodegeneartors",
@@ -33,3 +37,18 @@ java_library(
         "//third_party/com/google/guava",
     ],
 )
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "gen_test_%s_%s" % (x, y)
+        for (x, y) in VERSIONS
+    ],
+)
+
+[gen_test(
+    name = "gen_test_%s_%s" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in VERSIONS]
