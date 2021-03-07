@@ -46,7 +46,8 @@ public class SimpleDerivedCorePropertiesParserTest {
   @Test
   public void parseProperties_rangeLong() throws Exception {
     assertThat(parse("10FFFE..10FFFF; Default_Ignorable_Code_Point # Cn   [2] <noncharacter-10FFF"))
-        .containsExactly(NamedCodepointRange.create("Default_Ignorable_Code_Point", 0x10FFFE, 0x10FFFF));
+        .containsExactly(
+            NamedCodepointRange.create("Default_Ignorable_Code_Point", 0x10FFFE, 0x10FFFF));
   }
 
   @Test

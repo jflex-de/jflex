@@ -77,8 +77,7 @@ public abstract class AbstractSimpleParser {
               .collect(toImmutableList());
       handler.onRegexMatch(regexpGroups);
     } else {
-      throw new IllegalArgumentException("Line does not match regex: "
-          + "⟪" + line + "⟫");
+      throw new IllegalArgumentException("Line does not match regex: " + "⟪" + line + "⟫");
     }
     return true;
   }

@@ -50,7 +50,7 @@ public class CodePointRanges {
     return retval.build();
   }
 
-  public static List<CodepointRange> sort(List<CodepointRange> ranges) {
+  public static ImmutableList<CodepointRange> sort(List<CodepointRange> ranges) {
     return ImmutableList.sortedCopyOf(CodepointRange.COMPARATOR, ranges);
   }
 

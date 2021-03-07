@@ -61,7 +61,8 @@ public class SimpleIntervalsParserTest {
         .containsExactly(NamedCodepointRange.create("XID_Continue", 0x1D7CE, 0x1D7FF));
   }
 
-  private static ImmutableList<NamedCodepointRange<String>> parseBlock(String line) throws IOException {
+  private static ImmutableList<NamedCodepointRange<String>> parseBlock(String line)
+      throws IOException {
     return SimpleIntervalsParser.parseUnicodeBlocks(CharSource.wrap(line).openStream());
   }
 }
