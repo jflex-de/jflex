@@ -53,5 +53,12 @@ filegroup(
 
 ## Why this declaration?
 
-Because Bazel build are reproducable, the comprehensive list of resources
+Because Bazel build are reproducible, the comprehensive list of resources
 (with their sha256) must be declared.
+
+## Where to see downloaded content?
+
+```
+bazel build //third_party/unicode/...
+ls $(bazel info output_base)/external/ucd*
+```
