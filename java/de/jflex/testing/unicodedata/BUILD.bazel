@@ -6,6 +6,7 @@ java_library(
         "AbstractSimpleParser.java",
         "SimpleCaselessParser.java",
         "SimpleIntervalsParser.java",
+        "TestingUnicodeProperties.java",
         "UnicodeDataScanners.java",
     ],
     visibility = [
