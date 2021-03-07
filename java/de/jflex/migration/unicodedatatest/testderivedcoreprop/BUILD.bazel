@@ -1,0 +1,19 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+package(default_visibility = [
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = ["DerivedCorePropertiesTestGenerator.java"],
+    main_class = "de.jflex.migration.unicodedatatest.testderivedcoreprop.DerivedCorePropertiesTestGenerator",
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
