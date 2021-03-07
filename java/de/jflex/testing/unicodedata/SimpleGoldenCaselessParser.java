@@ -24,41 +24,18 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.ucd;
+package de.jflex.testing.unicodedata;
 
-import com.google.common.collect.ImmutableList;
-import java.util.Comparator;
-import java.util.List;
+import java.io.Reader;
+import java.util.regex.Pattern;
 
-public class NamedCodePointRanges {
+/** Parser of the golden file for caseless tests. */
+public class SimpleGoldenCaselessParser extends AbstractSimpleParser {
 
-  public static ImmutableList<NamedCodepointRange<String>> merge(
-      List<NamedCodepointRange<String>> ranges) {
-    ranges = sort(ranges);
-    ImmutableList.Builder<NamedCodepointRange<String>> retval = ImmutableList.builder();
-    NamedCodepointRange<String> prev = ranges.get(0);
-    for (int i = 1; i < ranges.size(); i++) {
-      NamedCodepointRange<String> block = ranges.get(i);
-      if (prev.name().equals(block.name())
-          && prev.range().end() + 1 == ranges.get(i).range().start()) {
-        // merge the two blocks
-        prev = NamedCodepointRange.create(block.name(), prev.range().start(), block.range().end());
-      } else {
-        retval.add(prev);
-        prev = block;
-      }
-    }
-    // add last
-    retval.add(prev);
-    return retval.build();
+  private static final Pattern PATTERN =
+      Pattern.compile("input char ([0-9A-F]{4,6}) matches ([0-9A-F]{4,6}) case-insensitively");
+
+  public SimpleGoldenCaselessParser(Reader reader, PatternHandler handler) {
+    super(PATTERN, reader, handler);
   }
-
-  public static ImmutableList<NamedCodepointRange<String>> sort(
-      List<NamedCodepointRange<String>> ranges) {
-    Comparator<NamedCodepointRange<String>> comparator =
-        (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    return ImmutableList.sortedCopyOf(comparator, ranges);
-  }
-
-  private NamedCodePointRanges() {}
 }
