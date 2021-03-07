@@ -63,6 +63,7 @@ public abstract class AbstractSimpleParser {
     if (line == null) {
       return false;
     }
+    line = line.trim();
     if (line.isEmpty() || line.charAt(0) == '#') {
       // skip
       return true;
@@ -75,6 +76,9 @@ public abstract class AbstractSimpleParser {
               .filter(Objects::nonNull)
               .collect(toImmutableList());
       handler.onRegexMatch(regexpGroups);
+    } else {
+      throw new IllegalArgumentException("Line does not match regex: "
+          + "⟪" + line + "⟫");
     }
     return true;
   }

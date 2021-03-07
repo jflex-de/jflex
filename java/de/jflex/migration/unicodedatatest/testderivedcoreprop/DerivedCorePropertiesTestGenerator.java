@@ -30,7 +30,7 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.testing.unicodedata.SimpleIntervalsParser;
+import de.jflex.testing.unicodedata.SimpleDerivedCorePropertiesParser;
 import de.jflex.ucd.CodePointRanges;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.NamedCodepointRange;
@@ -71,7 +71,7 @@ public class DerivedCorePropertiesTestGenerator {
       throws IOException {
     Path derivedCorePropFile = ucd.getFile(UcdFileType.DerivedCoreProperties).toPath();
     ImmutableList<CodepointRange> derivedCoreProperties =
-        SimpleIntervalsParser.parseUnicodeBlocks(derivedCorePropFile).stream()
+        SimpleDerivedCorePropertiesParser.parseProperties(derivedCorePropFile).stream()
             .filter(b -> propertyName.equals(b.name()))
             .map(NamedCodepointRange::range)
             .collect(toImmutableList());

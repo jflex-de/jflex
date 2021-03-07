@@ -5,6 +5,7 @@ java_library(
         "AbstractEnumeratedPropertyDefinedScanner.java",
         "AbstractSimpleParser.java",
         "SimpleCaselessParser.java",
+        "SimpleDerivedCorePropertiesParser.java",
         "SimpleIntervalsParser.java",
         "TestingUnicodeProperties.java",
         "UnicodeDataScanners.java",

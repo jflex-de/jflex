@@ -10,6 +10,17 @@ java_test(
 )
 
 java_test(
+    name = "SimpleDerivedCorePropertiesParserTest",
+    size = "small",
+    srcs = ["SimpleDerivedCorePropertiesParserTest.java"],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
     name = "SimpleIntervalsParserTest",
     size = "small",
     srcs = ["SimpleIntervalsParserTest.java"],

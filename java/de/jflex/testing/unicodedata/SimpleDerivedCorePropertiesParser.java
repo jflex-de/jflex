@@ -38,67 +38,55 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Parser of unicode {@code Blocks.txt} file, also used in golden files.
- *
- * <p>Recent Unicode
+ * Parser of unicode {@code DerivedCoreProperties.txt}.
  *
  * <pre>{@code
- * # Property:	Block
- * #
- * # @missing: 0000..10FFFF; No_Block
- *
- * 0000..007F; Basic Latin
- * 0080..00FF; Latin-1 Supplement
- * }</pre>
- *
- * <p>Archaic unicode
- *
- * <pre>{@code
- * # Start Code; End Code; Block Name
- * 0000; 007F; Basic Latin
- * 0080; 00FF; Latin-1 Supplement
+ * # For documentation, see DerivedProperties.html
+ * FFE2          ; Math # Sm       FULLWIDTH NOT SIGN
+ * FFE9..FFEC    ; Math # Sm   [4] HALFWIDTH LEFTWARDS ARROW..HALFWIDTH DOWNWARDS ARROW
  * }</pre>
  */
-public class SimpleIntervalsParser extends AbstractSimpleParser {
+public class SimpleDerivedCorePropertiesParser extends AbstractSimpleParser {
 
   private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:\\s*; )?([^#]*).*$");
+      Pattern.compile("^([0-9A-F]{4,6})(\\.\\.[0-9A-F]{4,6})?\\s*;\\s([^#]*).*$");
 
-  public SimpleIntervalsParser(Reader reader, PatternHandler handler) {
+  public SimpleDerivedCorePropertiesParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);
   }
 
   /** Parses the unicode {@code Blocks.txt} and returns the defined blocks. */
-  public static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Path blocksTxt)
+  public static ImmutableList<NamedCodepointRange<String>> parseProperties(Path blocksTxt)
       throws IOException {
-    return parseUnicodeBlocks(Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8));
+    return parseProperties(Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8));
   }
 
-  static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Reader reader)
+  static ImmutableList<NamedCodepointRange<String>> parseProperties(Reader reader)
       throws IOException {
     ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
-    SimpleIntervalsParser parser =
-        new SimpleIntervalsParser(reader, regexpGroups -> list.add(createBlock(regexpGroups)));
+    SimpleDerivedCorePropertiesParser parser =
+        new SimpleDerivedCorePropertiesParser(
+            reader, regexpGroups -> list.add(createBlock(regexpGroups)));
     parser.parse();
     return list.build();
   }
 
   private static NamedCodepointRange<String> createBlock(List<String> regexpGroups) {
-    return NamedCodepointRange.create(regexpGroups.get(2).trim(), createRange(regexpGroups));
+    if (regexpGroups.size() == 3) {
+      return NamedCodepointRange.create(
+          regexpGroups.get(2).trim(), createRange(regexpGroups.get(0), regexpGroups.get(1)));
+    } else {
+      return NamedCodepointRange.create(
+          regexpGroups.get(1).trim(), createRange(regexpGroups.get(0)));
+    }
   }
 
-  public static ImmutableList<CodepointRange> parseRanges(Path expectedFile) throws IOException {
-    ImmutableList.Builder<CodepointRange> expectedBlocks = ImmutableList.builder();
-    SimpleIntervalsParser parser =
-        new SimpleIntervalsParser(
-            Files.newBufferedReader(expectedFile),
-            regexpGroups -> expectedBlocks.add(createRange(regexpGroups)));
-    parser.parse();
-    return expectedBlocks.build();
-  }
-
-  private static CodepointRange createRange(List<String> regexpGroups) {
+  private static CodepointRange createRange(String start, String end) {
     return CodepointRange.create(
-        Integer.parseInt(regexpGroups.get(0), 16), Integer.parseInt(regexpGroups.get(1), 16));
+        Integer.parseInt(start, 16), Integer.parseInt(end.substring("..".length()), 16));
+  }
+
+  private static CodepointRange createRange(String point) {
+    return CodepointRange.createPoint(Integer.parseInt(point, 16));
   }
 }
