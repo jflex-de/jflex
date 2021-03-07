@@ -56,6 +56,8 @@ public class DerivedCorePropertiesTestGenerator {
     List<String> files = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
     UcdVersion ucd = UcdVersion.findUcdFiles(version.version(), files);
     createGoldenGenerator(version, testName, ucd, propertyName).generate(outDir);
+
+    createJavaTestGenerator(version).generate(outDir);
   }
 
   private static UnicodePropertyFlexGenerator<Boolean> createFlexGenerator(
@@ -73,6 +75,11 @@ public class DerivedCorePropertiesTestGenerator {
             .map(NamedCodepointRange::range)
             .collect(toImmutableList());
     return new UnicodeDerivedPropertyGoldenGenerator(version, testName, derivedCoreProperties);
+  }
+
+  private static UnicodeDerivedCorePropertiesTestGenerator createJavaTestGenerator(
+      UnicodeVersion unicodeVersion) {
+    return new UnicodeDerivedCorePropertiesTestGenerator(unicodeVersion);
   }
 
   private DerivedCorePropertiesTestGenerator() {}

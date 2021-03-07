@@ -29,7 +29,13 @@ java_binary(
 java_library(
     name = "unicodegeneartors",
     testonly = True,
-    srcs = ["UnicodeDerivedPropertyGoldenGenerator.java"],
+    srcs = [
+        "UnicodeDerivedCorePropertiesTestGenerator.java",
+        "UnicodeDerivedPropertyGoldenGenerator.java",
+    ],
+    resources = [
+        "UnicodeDerivedCorePropertiesTest.java.vm",
+    ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/testing/unicodedata",

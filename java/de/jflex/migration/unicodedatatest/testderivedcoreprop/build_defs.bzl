@@ -8,6 +8,7 @@ def gen_test(name, version, ucd):
     outs = [
         "unicode_{version}/UnicodeDerivedCoreProperties_Alphabetic_{version}.flex",
         "unicode_{version}/UnicodeDerivedCoreProperties_Alphabetic_{version}.output",
+        "unicode_{version}/UnicodeDerivedCorePropertiesTest_{version}.java",
     ]
     native.genrule(
         name = name,
