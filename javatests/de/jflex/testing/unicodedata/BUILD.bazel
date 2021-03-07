@@ -8,3 +8,14 @@ java_test(
         "//third_party/org/mockito",
     ],
 )
+
+java_test(
+    name = "SimpleIntervalsParserTest",
+    size = "small",
+    srcs = ["SimpleIntervalsParserTest.java"],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/truth",
+    ],
+)

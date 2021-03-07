@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
  * # @missing: 0000..10FFFF; No_Block
  *
  * 0000..007F; Basic Latin
- * 0080..00FF; Latin-1 Supplement
+ * 0080..00FF; Latin-1 Supplement # ignore comment
  * }</pre>
  *
  * <p>Archaic unicode
@@ -56,13 +56,13 @@ import java.util.regex.Pattern;
  * <pre>{@code
  * # Start Code; End Code; Block Name
  * 0000; 007F; Basic Latin
- * 0080; 00FF; Latin-1 Supplement
+ * 0080; 00FF; Latin-1 Supplement # ignore comment
  * }</pre>
  */
 public class SimpleIntervalsParser extends AbstractSimpleParser {
 
   private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:; )?(.*)$");
+      Pattern.compile("^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:\\s*;)?([^\\#]*)(?:\\#.*)?$");
 
   public SimpleIntervalsParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);
@@ -71,17 +71,20 @@ public class SimpleIntervalsParser extends AbstractSimpleParser {
   /** Parses the unicode {@code Blocks.txt} and returns the defined blocks. */
   public static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Path blocksTxt)
       throws IOException {
+    return parseUnicodeBlocks(Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8));
+  }
+
+  static ImmutableList<NamedCodepointRange<String>> parseUnicodeBlocks(Reader reader)
+      throws IOException {
     ImmutableList.Builder<NamedCodepointRange<String>> list = ImmutableList.builder();
     SimpleIntervalsParser parser =
-        new SimpleIntervalsParser(
-            Files.newBufferedReader(blocksTxt, StandardCharsets.UTF_8),
-            regexpGroups -> list.add(createBlock(regexpGroups)));
+        new SimpleIntervalsParser(reader, regexpGroups -> list.add(createBlock(regexpGroups)));
     parser.parse();
     return list.build();
   }
 
   private static NamedCodepointRange<String> createBlock(List<String> regexpGroups) {
-    return NamedCodepointRange.create(regexpGroups.get(2), createRange(regexpGroups));
+    return NamedCodepointRange.create(regexpGroups.get(2).trim(), createRange(regexpGroups));
   }
 
   public static ImmutableList<CodepointRange> parseRanges(Path expectedFile) throws IOException {
