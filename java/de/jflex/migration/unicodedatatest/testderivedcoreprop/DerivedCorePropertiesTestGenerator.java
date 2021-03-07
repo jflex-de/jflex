@@ -25,18 +25,31 @@
  */
 package de.jflex.migration.unicodedatatest.testderivedcoreprop;
 
+import de.jflex.migration.unicodedatatest.base.UnicodePropertyFlexGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.velocity.runtime.parser.ParseException;
 
 public class DerivedCorePropertiesTestGenerator {
+
   private DerivedCorePropertiesTestGenerator() {}
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     generate(version, outDir);
   }
 
-  private static void generate(UnicodeVersion version, Path outDir) {}
+  private static void generate(UnicodeVersion version, Path outDir)
+      throws IOException, ParseException {
+    UnicodePropertyFlexGenerator<Boolean> flexGenerator =
+        UnicodePropertyFlexGenerator.createPropertyScanner(
+            version,
+            "UnicodeDerivedCoreProperties_Alphabetic_10_0",
+            "Alphabetic");
+    flexGenerator.generate(outDir);
+  }
+
 }
