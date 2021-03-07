@@ -49,7 +49,7 @@ import org.junit.Test;
 @Generated("de.jflex.migration.unicodedatatest.testderivedcoreprop.UnicodeDerivedCorePropertiesTestGenerator")
 public class UnicodeDerivedCorePropertiesTest_${unicodeVersion.underscoreVersion()} {
 
-  private static final String TEST_DIR = getPathForClass(UnicodeDerivedCoreProperties_${unicodeVersion.underscoreVersion()}.class);
+  private static final String TEST_DIR = getPathForClass(UnicodeDerivedCorePropertiesTest_${unicodeVersion.underscoreVersion()}.class);
 
   /**
    * Test the character class syntax of the Unicode ${unicodeVersion}.

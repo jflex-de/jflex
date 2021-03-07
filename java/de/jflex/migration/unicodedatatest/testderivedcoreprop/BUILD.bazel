@@ -17,7 +17,7 @@ java_binary(
     srcs = ["DerivedCorePropertiesTestGenerator.java"],
     main_class = "de.jflex.migration.unicodedatatest.testderivedcoreprop.DerivedCorePropertiesTestGenerator",
     deps = [
-        ":unicodegeneartors",
+        ":testderivedcoreprop",
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/testing/unicodedata",
         "//java/de/jflex/ucd",
@@ -27,14 +27,19 @@ java_binary(
 )
 
 java_library(
-    name = "unicodegeneartors",
+    name = "testderivedcoreprop",
     testonly = True,
     srcs = [
+        "UnicodeDerivedCoreProperties.java",
         "UnicodeDerivedCorePropertiesTestGenerator.java",
         "UnicodeDerivedPropertyGoldenGenerator.java",
     ],
     resources = [
         "UnicodeDerivedCorePropertiesTest.java.vm",
+    ],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__pkg__",
+        "//javatests/de/jflex/testcase/unicode:__subpackages__",
     ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
