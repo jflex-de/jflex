@@ -24,30 +24,54 @@
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package de.jflex.testing.unicodedata;
+package de.jflex.testcase.unicode.unicode_10_0;
 
-import static com.google.common.truth.Truth.assertThat;
+import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
-import de.jflex.ucd.CodepointRange;
-import de.jflex.util.scanner.ScannerFactory;
+import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
+import de.jflex.testing.unicodedata.TestingUnicodeProperties;
+import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Function;
+import javax.annotation.Generated;
+import org.junit.Test;
 
-public class TestingUnicodeProperties {
+// generated from UnicodeDerivedCorePropertiesTestGenerator.java.vm
 
-  private TestingUnicodeProperties() {}
+/**
+ * Test the derived core properties.
+ *
+ * @since Unicode 3.1
+ */
+@Generated(
+    "de.jflex.migration.unicodedatatest.testderivedcoreprop.UnicodeDerivedCorePropertiesTestGenerator")
+public class UnicodeDerivedCorePropertiesTest_10_0 {
 
-  public static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>> void checkProperty(
-      Function<Reader, T> constructorRef, int eof, Path expectedFile, Dataset dataset)
-      throws IOException {
-    T scanner =
-        UnicodeDataScanners.scanAllCodepoints(ScannerFactory.of(constructorRef), eof, dataset);
+  private static final String TEST_DIR =
+      getPathForClass(UnicodeDerivedCorePropertiesTest_10_0.class);
 
-    ImmutableList<CodepointRange> expectedBlocks = SimpleIntervalsParser.parseRanges(expectedFile);
-    assertThat(scanner.ranges()).isEqualTo(expectedBlocks);
+  /** Test the character class syntax of the Unicode 10.0. */
+  @Test
+  public void test_Alphabetic() throws Exception {
+    checkDerivedCoreProperty(
+        "Alphabetic",
+        UnicodeDerivedCoreProperties_Alphabetic_10_0.class,
+        UnicodeDerivedCoreProperties_Alphabetic_10_0::new,
+        UnicodeDerivedCoreProperties_Alphabetic_10_0.YYEOF);
+  }
+
+  private <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
+      void checkDerivedCoreProperty(
+          String propertyName, Class<T> scannerClass, Function<Reader, T> constructorRef, int eof)
+          throws IOException {
+    Path expectedFile =
+        Paths.get("javatests")
+            .resolve(TEST_DIR)
+            .resolve("UnicodeDerivedCoreProperties_" + propertyName + "_10_0.output");
+    TestingUnicodeProperties.checkProperty(
+        constructorRef, eof, expectedFile, UnicodeDataScanners.Dataset.ALL);
   }
 }

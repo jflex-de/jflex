@@ -31,5 +31,6 @@ import com.google.common.collect.ImmutableList;
 
 public class UnicodeDerivedCoreProperties {
 
-  public static final ImmutableList<String> DERIVED_CORE_PROPERTIES =ImmutableList.of("Alphabetic");
+  public static final ImmutableList<String> DERIVED_CORE_PROPERTIES =
+      ImmutableList.of("Alphabetic");
 }

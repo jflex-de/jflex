@@ -62,7 +62,8 @@ import java.util.regex.Pattern;
 public class SimpleIntervalsParser extends AbstractSimpleParser {
 
   private static final Pattern PATTERN =
-      Pattern.compile("^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:\\s*;)?([^\\#]*)(?:\\#.*)?$");
+      Pattern.compile(
+          "^([0-9A-F]{4,6})(?:\\.\\.|;\\s*)([0-9A-F]{4,6})(?:\\s*;)?([^\\#]*)(?:\\#.*)?$");
 
   public SimpleIntervalsParser(Reader reader, PatternHandler handler) {
     super(PATTERN, reader, handler);

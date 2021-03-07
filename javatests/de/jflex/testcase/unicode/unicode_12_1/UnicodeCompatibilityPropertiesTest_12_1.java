@@ -101,7 +101,6 @@ public class UnicodeCompatibilityPropertiesTest_12_1 {
         UnicodeCompatibilityProperties_xdigit_12_1.YYEOF);
   }
 
-
   private static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
       void checkCompatibility(
           String propName, Class<T> scannerClass, Function<Reader, T> constructorRef, int eof)
@@ -111,7 +110,6 @@ public class UnicodeCompatibilityPropertiesTest_12_1 {
             .resolve(TEST_DIR)
             .resolve("UnicodeCompatibilityProperties_" + propName + "_12_1.output");
     TestingUnicodeProperties.checkProperty(
-      constructorRef, eof, expectedFile, UnicodeDataScanners.Dataset.ALL
-    );
+        constructorRef, eof, expectedFile, UnicodeDataScanners.Dataset.ALL);
   }
 }
