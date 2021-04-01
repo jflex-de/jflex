@@ -18,7 +18,7 @@ ARTIFACTS = [
     "commons-collections:commons-collections:jar:3.2.1",
     "commons-lang:commons-lang:jar:2.4",
     "javax.annotation:javax.annotation-api:1.3.2",
-    "junit:junit:jar:4.13.1",
+    "junit:junit:jar:4.13.2",
     "org.apache.ant:ant:1.10.9",
     "org.apache.velocity:velocity:jar:1.7",
     "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
