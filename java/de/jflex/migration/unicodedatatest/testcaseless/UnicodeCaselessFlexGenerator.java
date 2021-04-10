@@ -47,8 +47,16 @@ public class UnicodeCaselessFlexGenerator
     UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
     vars.caselessCodepoints =
-        caselessCodepoints.stream().map(cp -> String.format("%04X", cp)).collect(toImmutableList());
+        caselessCodepoints.stream().map(this::formatCodepoint).collect(toImmutableList());
     return vars;
+  }
+
+  private String formatCodepoint(int cp) {
+    if (cp <= 0xFFFF) {
+      return String.format("%04X", cp);
+    } else {
+      return String.format("%06X", cp);
+    }
   }
 
   @Override
