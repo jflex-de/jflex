@@ -1,0 +1,15 @@
+java_test(
+    name = "UcdScannerIntegrationTest",
+    size = "small",
+    srcs = ["UcdScannerIntegrationTest.java"],
+    data = [
+        "//third_party/unicode:ucd_6_3",
+    ],
+    deps = [
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/version",
+        "//javatests/de/jflex/ucd_generator:tested_versions",
+        "//third_party/com/google/truth",
+    ],
+)

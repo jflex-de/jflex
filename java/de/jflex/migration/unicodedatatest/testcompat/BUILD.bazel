@@ -1,0 +1,62 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+load(":build_defs.bzl", "gen_test_compat")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+package(default_visibility = [
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = ["CompatPropertiesTestGenerator.java"],
+    main_class = "de.jflex.migration.unicodedatatest.testcompat.CompatPropertiesTestGenerator",
+    deps = [
+        ":testcompat",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "testcompat",
+    testonly = True,
+    srcs = glob(["Unicode*.java"]),
+    resources = [
+        "UnicodeCompatibilityPropertiesTest.java.vm",
+    ],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__pkg__",
+        "//javatests/de/jflex/testcase/unicode:__subpackages__",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//third_party/com/google/guava",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "gen_test_compat_%s_%s" % (x, y)
+        for (x, y) in KNOWN_VERSIONS
+    ],
+)
+
+[gen_test_compat(
+    name = "gen_test_compat_%s_%s" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in KNOWN_VERSIONS]

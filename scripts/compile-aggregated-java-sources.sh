@@ -25,4 +25,4 @@ mvnget com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20
 
 
 CP=${CP##:}  # Remove leading ':'
-javac -cp "$CP" $(find . -name '*.java')
+javac -encoding UTF8 -cp "$CP" $(find . -name '*.java')

@@ -1,0 +1,6 @@
+Reading "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-5.flex"
+
+Error in file "javatests/de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes-f-5.flex" (line 34): 
+Hexadecimal code point is greater than the maximum allowed code point
+[AB\u{1E}C\u{FFFFFF}123] { }
+             ^

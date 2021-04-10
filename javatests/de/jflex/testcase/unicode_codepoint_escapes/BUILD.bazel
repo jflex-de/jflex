@@ -1,0 +1,62 @@
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
+
+# UnicodeCodePointEscapes
+
+jflex(
+    name = "gen_UnicodeCodePointEscapes_scanner",
+    srcs = ["UnicodeCodePointEscapes.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeCodePointEscapes.java"],
+)
+
+java_library(
+    name = "UnicodeCodePointEscapes_scanner",
+    srcs = [
+        ":gen_UnicodeCodePointEscapes_scanner",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "UnicodeCodePointEscapesTest",
+    size = "small",
+    srcs = [
+        "UnicodeCodePointEscapesTest.java",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
+    deps = [
+        ":UnicodeCodePointEscapes_scanner",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/guava",
+        "//third_party/com/google/truth",
+    ],
+)
+
+[jflex_testsuite(
+    name = "UnicodeCodepointEscapes_failure%d" % i,
+    size = "small",
+    srcs = ["UnicodeCodepointEscapes_failure%d.java" % i],
+    data = [
+        "UnicodeCodePointEscapes-f-%d.flex" % i,
+        "UnicodeCodePointEscapes-f-%d-flex.output" % i,
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+        "//jflex/src/main/java/jflex/scanner",
+    ],
+) for i in range(1, 6)]

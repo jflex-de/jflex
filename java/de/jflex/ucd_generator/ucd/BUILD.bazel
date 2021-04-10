@@ -1,0 +1,23 @@
+java_library(
+    name = "ucd",
+    srcs = glob(["*.java"]),
+    visibility = [
+        # TODO(regosd) unicodedatatest should not depend on ucd_generator.
+        # This is creating a test with the same data than the implementation.
+        "//java/de/jflex/migration/unicodedatatest/testcompat:__pkg__",
+        "//java/de/jflex/migration/unicodedatatest/testdigit:__pkg__",
+        "//java/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
+        "//java/de/jflex/ucd_generator:__subpackages__",
+        "//javatests/de/jflex:__subpackages__",
+    ],
+    exports = [
+        "//java/de/jflex/ucd",
+    ],
+    deps = [
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/util:hexa_utils",
+        "//java/de/jflex/version",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/guava",
+    ],
+)

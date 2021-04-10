@@ -1,3 +1,0 @@
-token 1
-%include javatests/jflex/testcase/include/inp3
-token 2

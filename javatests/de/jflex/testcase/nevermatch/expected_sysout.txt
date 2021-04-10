@@ -1,0 +1,14 @@
+Reading "javatests/de/jflex/testcase/nevermatch/never.flex"
+Constructing NFA : 12 states in NFA
+Converting NFA to DFA : 
+.....
+
+Warning in file "javatests/de/jflex/testcase/nevermatch/never.flex" (line 15): 
+Rule can never be matched:
+<A> .    { /* action */ }
+
+Warning in file "javatests/de/jflex/testcase/nevermatch/never.flex" (line 21): 
+Rule can never be matched:
+<A> <<EOF>>  { /* action 4 */ }
+11 states before minimization, 4 states in minimized DFA
+Writing code to "javatests/de/jflex/testcase/nevermatch/Never.java"

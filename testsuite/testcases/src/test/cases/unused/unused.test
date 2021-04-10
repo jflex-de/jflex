@@ -1,6 +1,0 @@
-name: unused 
-
-description:
-testing the --warn-unused option
-
-jflex: -q --warn-unused

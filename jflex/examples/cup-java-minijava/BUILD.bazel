@@ -17,7 +17,9 @@ java_library(
         ":gen_lexer",
         ":gen_parser",
     ],
-    deps = ["//third_party/java_cup:runtime"],
+    deps = [
+        "//third_party/java_cup:runtime",
+    ],
 )
 
 jflex(
@@ -36,6 +38,7 @@ cup(
 # Tests
 java_test(
     name = "LexerTest",
+    size = "small",
     srcs = ["src/test/java/jflex/examples/minijava/LexerTest.java"],
     deps = [
         ":minijava",

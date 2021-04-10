@@ -1,0 +1,14 @@
+java_test(
+    name = "UnicodePropertiesEmitterTest",
+    size = "small",
+    srcs = ["UnicodePropertiesEmitterTest.java"],
+    data = [
+        "UnicodeProperties.java.golden",
+    ],
+    deps = [
+        "//java/de/jflex/testing/diff",
+        "//java/de/jflex/ucd_generator/emitter/unicode_properties",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)

@@ -1,5 +1,6 @@
 java_test(
     name = "SkeletonTest",
+    size = "small",
     testonly = True,
     srcs = ["SkeletonTest.java"],
     data = [
