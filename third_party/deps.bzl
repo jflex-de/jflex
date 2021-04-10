@@ -21,6 +21,7 @@ ARTIFACTS = [
     "junit:junit:jar:4.13.2",
     "org.apache.ant:ant:1.10.9",
     "org.apache.velocity:velocity:jar:1.7",
+    "org.checkerframework:checker:jar:3.12.0",
     "org.eclipse.jdt:org.eclipse.jdt.core:3.24.0",
     "org.eclipse.platform:org.eclipse.core.runtime:3.20.0",
     "org.mockito:mockito-core:jar:3.8.0",
