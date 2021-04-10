@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.annotation.Nullable;
 import jflex.core.Action;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
@@ -27,7 +28,6 @@ import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
-import javax.annotation.Nullable;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.

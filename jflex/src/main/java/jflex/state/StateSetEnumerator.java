@@ -38,6 +38,15 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
   private long[] bits;
 
   /**
+   * Creates a new StateSetEnumerator that is not yet associated with a StateSet. {@link
+   * #hasMoreElements()} and {@link #nextElement()} will throw {@link NullPointerException} when
+   * used before {@link #reset(StateSet)}
+   */
+  public StateSetEnumerator() {
+    this.bits = new long[0];
+  }
+
+  /**
    * Construct a StateSetEnumerator for a given StateSet. This should be the default constructor to
    * use.
    *
