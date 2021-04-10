@@ -17,6 +17,7 @@ java_library_with_nullness_check(
         "//jflex/src/main/java/jflex/logging",
         "//jflex/src/main/java/jflex/option",
         "//jflex/src/main/java/jflex/state",
+        "//third_party/javax:jsr305",
     ],
 )
 

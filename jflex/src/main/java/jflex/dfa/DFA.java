@@ -27,6 +27,7 @@ import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
+import javax.annotation.Nullable;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
@@ -227,7 +228,7 @@ public class DFA {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(@Nullable Object obj) {
     if (!(obj instanceof DFA)) {
       return false;
     }
