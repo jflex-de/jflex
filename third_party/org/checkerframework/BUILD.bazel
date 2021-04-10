@@ -1,0 +1,11 @@
+# Copyright 2021 Google LLC
+
+package(default_visibility = ["//visibility:public"])
+
+licenses(["notice"])
+
+java_plugin(
+    name = "plugin",
+    processor_class = "org.checkerframework.checker.nullness.NullnessChecker",
+    deps = ["@maven//:org_checkerframework_checker"],
+)
