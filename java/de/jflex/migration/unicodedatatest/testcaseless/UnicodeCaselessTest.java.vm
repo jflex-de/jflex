@@ -40,9 +40,7 @@ import javax.annotation.Generated;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- * Test Tests the {@code %caseless} directive for Unicode ${unicodeVersion}.
- */
+/** Tests the {@code %caseless} directive for Unicode ${unicodeVersion}. */
 @Generated("de.jflex.migration.unicodedatatest.testcaseless.UnicodeCaseselessTestGenerator")
 public class UnicodeCaselessTest_${unicodeVersion.underscoreVersion()} {
 

@@ -42,19 +42,11 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
   super($maxCodePoint, Integer.class);
 %init}
 
-%{
-  /** @deprecated Legacy method name to make git diff useful. */
-  @Deprecated
-  void print(int codePoint) {
-    setCurCharPropertyValue(yytext(), yylength(), codePoint);
-  }
-%}
-
 %%
 
 <<EOF>>  { return YYEOF; }
 #foreach ( $cp in $caselessCodepoints )
-"\u${cp}" { print(0x${cp}); }
+"\u${cp}" { setCurCharPropertyValue(yytext(), yylength(), 0x${cp}); }
 #end
 
 [^] { }
