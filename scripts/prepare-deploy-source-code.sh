@@ -26,7 +26,7 @@ update_source() {
   gittitle="$1"
   gitlog="$2"
   logi "Updating source for $gittitle"
-  bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
+  bazel --bazelrc=.ci.bazelrc --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST build //jflex:jflex_bin_deploy-src.jar //jflex:resources
 
   logi "Updating sources from jflex_bin_deploy-src.jar"
   cd repo
@@ -69,8 +69,7 @@ update_source() {
   cd ..
 }
 
-# N.B. TRAVIS_BRANCH is the name of the branch targeted by the pull request (if PR)
-logi "On branch ${TRAVIS_PULL_REQUEST_SLUG}:${TRAVIS_PULL_REQUEST_BRANCH} → ${TRAVIS_BRANCH}"
+logi "On branch ${CIRRUS_REPO_FULL_NAME} → ${CIRRUS_BASE_BRANCH}"
 
 gittitle=$(git log -1 --pretty=format:'%h %s')
 gitlog=$(git log -1 --pretty=fuller)
