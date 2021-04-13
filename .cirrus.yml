@@ -23,6 +23,14 @@ bazel_build_and_test_task:
   - bazel --bazelrc=.ci.bazelrc test  --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  //...
   build_artifact_script:
   - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST  jflex/jflex_bin_deploy.jar
+  check_aggregated_sources_script:
+  - bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST //jflex:jflex_bin_deploy-src.jar //jflex:resources
+  - mkdir -p jflex_bin_deploy ; cd jflex_bin_deploy
+  - cp ../scripts/compile-aggregated-java-sources.sh compile.sh
+  - jar -xf ../bazel-bin/jflex/jflex_bin_deploy-src.jar
+  - jar -xf ../bazel-bin/jflex/libresources.jar
+  - ./compile.sh
+  - ls jflex/Main.class
   binary_artifacts:
     path: "bazel-out/*/bin/jflex/jflex_bin_deploy.jar"
     type: application/java-archive
