@@ -26,7 +26,7 @@ update_source() {
   gittitle="$1"
   gitlog="$2"
   logi "Updating source for $gittitle"
-  bazel --bazelrc=.ci.bazelrc --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST build //jflex:jflex_bin_deploy-src.jar //jflex:resources
+  bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST //jflex:jflex_bin_deploy-src.jar //jflex:resources
 
   logi "Updating sources from jflex_bin_deploy-src.jar"
   cd repo
