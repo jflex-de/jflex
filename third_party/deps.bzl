@@ -6,7 +6,7 @@
 ARTIFACTS = [
     "com.github.vbmacher:java-cup-runtime:jar:11b-20160615",
     "com.github.vbmacher:java-cup:jar:11b-20160615",
-    "com.google.auto.value:auto-value-annotations:jar:1.7.4",
+    "com.google.auto.value:auto-value-annotations:jar:1.8.1",
     "com.google.auto.value:auto-value:jar:1.7",
     "com.google.code.findbugs:jsr305:3.0.2",
     "com.google.flogger:flogger-system-backend:0.4",
