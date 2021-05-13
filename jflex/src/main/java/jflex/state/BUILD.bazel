@@ -1,4 +1,6 @@
-java_library(
+load("//third_party/org/checkerframework:build_defs.bzl", "java_library_with_nullness_check")
+
+java_library_with_nullness_check(
     name = "state",
     srcs = [
         "StateSet.java",
@@ -7,5 +9,6 @@ java_library(
     visibility = ["//jflex:__subpackages__"],
     deps = [
         "//jflex/src/main/java/jflex/logging",
+        "//third_party/javax:jsr305",
     ],
 )
