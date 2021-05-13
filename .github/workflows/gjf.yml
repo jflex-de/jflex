@@ -17,12 +17,7 @@ jobs:
     - uses: axel-op/googlejavaformat-action@v3.4.0
       with:
         args: --dry-run --set-exit-if-changed
-        files: 'java/**/*.java'
-    - uses: axel-op/googlejavaformat-action@v3.4.0
-      with:
-        args: --dry-run --set-exit-if-changed
-        files: 'javatests/**/*.java'
-    - uses: axel-op/googlejavaformat-action@v3.4.0
-      with:
-        args: --dry-run --set-exit-if-changed
-        files: 'jflex/**/*.java'
+        files: |-
+            java/**/*.java
+            javatests/**/*.java
+            jflex/**/*.java'
