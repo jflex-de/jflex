@@ -17,4 +17,4 @@ jobs:
     - uses: axel-op/googlejavaformat-action@v3.4.0
       with:
         args: --dry-run --set-exit-if-changed
-        files: 'java/**/*.java'
+        files: '**/*.java'
