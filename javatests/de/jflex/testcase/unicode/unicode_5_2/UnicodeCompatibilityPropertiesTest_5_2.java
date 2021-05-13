@@ -26,15 +26,11 @@
  */
 package de.jflex.testcase.unicode.unicode_5_2;
 
-import static com.google.common.truth.Truth.assertThat;
 import static de.jflex.util.javac.JavaPackageUtils.getPathForClass;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
-import de.jflex.testing.unicodedata.SimpleIntervalsParser;
+import de.jflex.testing.unicodedata.TestingUnicodeProperties;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
-import de.jflex.ucd.CodepointRange;
-import de.jflex.util.scanner.ScannerFactory;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
@@ -64,6 +60,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         UnicodeCompatibilityProperties_alnum_5_2::new,
         UnicodeCompatibilityProperties_alnum_5_2.YYEOF);
   }
+
   /** Test the character class syntax of the Unicode 5.2 'blank' compatibility property. */
   @Test
   public void blank() throws Exception {
@@ -73,6 +70,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         UnicodeCompatibilityProperties_blank_5_2::new,
         UnicodeCompatibilityProperties_blank_5_2.YYEOF);
   }
+
   /** Test the character class syntax of the Unicode 5.2 'graph' compatibility property. */
   @Test
   public void graph() throws Exception {
@@ -82,6 +80,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         UnicodeCompatibilityProperties_graph_5_2::new,
         UnicodeCompatibilityProperties_graph_5_2.YYEOF);
   }
+
   /** Test the character class syntax of the Unicode 5.2 'print' compatibility property. */
   @Test
   public void print() throws Exception {
@@ -91,6 +90,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         UnicodeCompatibilityProperties_print_5_2::new,
         UnicodeCompatibilityProperties_print_5_2.YYEOF);
   }
+
   /** Test the character class syntax of the Unicode 5.2 'xdigit' compatibility property. */
   @Test
   public void xdigit() throws Exception {
@@ -101,7 +101,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         UnicodeCompatibilityProperties_xdigit_5_2.YYEOF);
   }
 
-  public static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
+  private static <T extends AbstractEnumeratedPropertyDefinedScanner<Boolean>>
       void checkCompatibility(
           String propName, Class<T> scannerClass, Function<Reader, T> constructorRef, int eof)
           throws IOException {
@@ -109,11 +109,7 @@ public class UnicodeCompatibilityPropertiesTest_5_2 {
         Paths.get("javatests")
             .resolve(TEST_DIR)
             .resolve("UnicodeCompatibilityProperties_" + propName + "_5_2.output");
-    T scanner =
-        UnicodeDataScanners.scanAllCodepoints(
-            ScannerFactory.of(constructorRef), eof, UnicodeDataScanners.Dataset.ALL);
-
-    ImmutableList<CodepointRange> expectedBlocks = SimpleIntervalsParser.parseRanges(expectedFile);
-    assertThat(scanner.ranges()).isEqualTo(expectedBlocks);
+    TestingUnicodeProperties.checkProperty(
+        constructorRef, eof, expectedFile, UnicodeDataScanners.Dataset.ALL);
   }
 }

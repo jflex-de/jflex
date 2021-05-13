@@ -171,6 +171,46 @@ jflex(
 )
 #end
 
+#if (${unicodeVersion.major} > 3
+     || ${unicodeVersion.major} == 3 && ${unicodeVersion.minor} > 0)
+# Test derived properties
+
+java_test(
+    name = "UnicodeDerivedCorePropertiesTest_${unicodeVersion.underscoreVersion()}",
+    size = "small",
+    srcs = [
+        "UnicodeDerivedCorePropertiesTest_${unicodeVersion.underscoreVersion()}.java",
+        #foreach ( $propName in $derivedCoreProperties )
+        ":gen_UnicodeDerivedCoreProperties_${propName}_${unicodeVersion.underscoreVersion()}_scanner",
+        #end
+    ],
+    data = [
+        #foreach ( $propName in $derivedCoreProperties )
+        "UnicodeDerivedCoreProperties_${propName}_${unicodeVersion.underscoreVersion()}.output",
+        #end
+        "//java/de/jflex/testcase/resources:${dataset.dataFile()}",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/javac:package_util",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
+        "//third_party/javax:annotation",
+    ],
+)
+
+#foreach ( $propName in $derivedCoreProperties )
+jflex(
+    name = "gen_UnicodeDerivedCoreProperties_${propName}_${unicodeVersion.underscoreVersion()}_scanner",
+    srcs = ["//java/de/jflex/migration/unicodedatatest/testderivedcoreprop:javatests/de/jflex/testcase/unicode/unicode_${unicodeVersion.underscoreVersion()}/UnicodeDerivedCoreProperties_${propName}_${unicodeVersion.underscoreVersion()}.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["UnicodeDerivedCoreProperties_${propName}_${unicodeVersion.underscoreVersion()}.java"],
+)
+#end
+#end
+
+
 # Test digit
 java_test(
     name = "UnicodeDigitTest_${unicodeVersion.underscoreVersion()}",

@@ -82,6 +82,10 @@ public class Version {
     return major;
   }
 
+  public int getMinor() {
+    return minor;
+  }
+
   public String toMajorMinorString() {
     return makeString('.', false);
   }

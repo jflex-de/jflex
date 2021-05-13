@@ -32,6 +32,7 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.testing.unicodedata.SimpleIntervalsParser;
 import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodePointRanges;
 import de.jflex.ucd.NamedCodepointRange;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdVersion;
@@ -40,7 +41,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import org.apache.velocity.runtime.parser.ParseException;
 
@@ -62,10 +62,7 @@ public class BlocksTestGenerator {
       blocks = fixBlocksForUnicode_2_0(blocks);
     }
     checkState(!blocks.isEmpty(), "There are no blocks defined in %s", version);
-    Comparator<NamedCodepointRange<String>> comparator =
-        (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    blocks = ImmutableList.sortedCopyOf(comparator, blocks);
-    blocks = merge(blocks);
+    blocks = NamedCodePointRanges.merge(blocks);
     generate(version, outDir, blocks);
   }
 
@@ -101,26 +98,6 @@ public class BlocksTestGenerator {
       }
     }
     return fixedBlocks.build();
-  }
-
-  private static ImmutableList<NamedCodepointRange<String>> merge(
-      ImmutableList<NamedCodepointRange<String>> blocks) {
-    ImmutableList.Builder<NamedCodepointRange<String>> retval = ImmutableList.builder();
-    NamedCodepointRange prev = blocks.get(0);
-    for (int i = 1; i < blocks.size(); i++) {
-      NamedCodepointRange block = blocks.get(i);
-      if (prev.name().equals(block.name())
-          && prev.range().end() + 1 == blocks.get(i).range().start()) {
-        // merge the two blocks
-        prev = NamedCodepointRange.create(block.name(), prev.range().start(), block.range().end());
-      } else {
-        retval.add(prev);
-        prev = block;
-      }
-    }
-    // add last
-    retval.add(prev);
-    return retval.build();
   }
 
   private static void generate(

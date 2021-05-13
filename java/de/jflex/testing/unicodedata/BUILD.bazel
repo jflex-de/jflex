@@ -1,13 +1,7 @@
 java_library(
     name = "unicodedata",
     testonly = True,
-    srcs = [
-        "AbstractEnumeratedPropertyDefinedScanner.java",
-        "AbstractSimpleParser.java",
-        "SimpleCaselessParser.java",
-        "SimpleIntervalsParser.java",
-        "UnicodeDataScanners.java",
-    ],
+    srcs = glob(["*.java"]),
     visibility = [
         "//java/de/jflex/migration/unicodedatatest:__subpackages__",
         "//javatests:__subpackages__",
