@@ -1,4 +1,10 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
 
 jflex(
     name = "action_pipe_eof_flex",
@@ -16,6 +22,7 @@ java_library(
 
 java_test(
     name = "ActionPipeEofTest",
+    size = "small",
     srcs = ["ActionPipeEofTest.java"],
     deps = [
         ":action_pipe_eof_scanner",
@@ -40,6 +47,7 @@ java_library(
 
 java_test(
     name = "EofPipeActionTest",
+    size = "small",
     srcs = ["EofPipeActionTest.java"],
     deps = [
         ":eof_pipe_action_scanner",

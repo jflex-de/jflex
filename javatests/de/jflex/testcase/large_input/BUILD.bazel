@@ -1,16 +1,20 @@
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
 
 java_test(
     name = "LargeInputTest",
+    size = "small",
     srcs = [
         "LargeInputTest.java",
     ],
     deps = [
         ":large_input_scanner",
         ":repeat_content_reader",
-        "//java/de/jflex/testing/assertion",
-        "//java/de/jflex/testing/diff",
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],
@@ -24,7 +28,6 @@ java_library(
         ":gen_large_input_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
@@ -47,6 +50,7 @@ java_library(
 
 java_test(
     name = "RepeatContentReaderTest",
+    size = "small",
     srcs = ["RepeatContentReaderTest.java"],
     deps = [
         ":repeat_content_reader",

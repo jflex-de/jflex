@@ -9,7 +9,6 @@ jflex_testsuite(
         "line-flex.sysout",
     ],
     deps = [
-        "//java/de/jflex/util/javac",
         "//third_party/com/google/guava",
     ],
 )

@@ -1,0 +1,6 @@
+Reading "javatests/de/jflex/testcase/unicode/unicode-blocks-failure.flex"
+
+Error in file "javatests/de/jflex/testcase/unicode/unicode-blocks-failure.flex" (line 21): 
+Invalid Unicode property
+\p{Block:This will never be a block name} { setCurCharPropertyValue(yytext(), yylength(), "Whatever"); }
+   ^

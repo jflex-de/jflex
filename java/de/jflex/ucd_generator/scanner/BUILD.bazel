@@ -4,6 +4,11 @@ java_library(
     name = "scanner",
     srcs = ["UcdScanner.java"],
     visibility = [
+        # The compatibility test requires scanning the UnicodeData.txt
+        # TODO(regisd) The test shouldn't use the same source than the impl.
+        "//java/de/jflex/migration/unicodedatatest/testcompat:__pkg__",
+        "//java/de/jflex/migration/unicodedatatest/testdigit:__pkg__",
+        "//java/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
         "//java/de/jflex/ucd_generator:__subpackages__",
         "//javatests/de/jflex:__subpackages__",
     ],
@@ -32,9 +37,7 @@ java_library(
         ":gen_ucd_scanners",
     ],
     deps = [
-        ":exception",
         "//java/de/jflex/ucd_generator/ucd",
-        "//java/de/jflex/ucd_generator/util:name_normalizer",
         "//java/de/jflex/version",
         "//third_party/com/google/guava",
     ],

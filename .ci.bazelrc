@@ -1,8 +1,9 @@
-import %workspace%/.bazelrc
-
 # Default cache timeout is 60 sec
 build --remote_timeout=15
 # This is so we understand failures better
 build --verbose_failures
 test  --test_output=errors
+test  --test_verbose_timeout_warnings
 
+# Avoid Container errored with 'OOMKilled'
+build --local_ram_resources=HOST_RAM*.8

@@ -1,0 +1,3 @@
+line: 1 col: 1 match: --aba\u000A--
+action [17] { /* all */ }
+-1

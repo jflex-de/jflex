@@ -27,6 +27,7 @@ package de.jflex.ucd_generator.ucd;
 
 import static com.google.common.truth.Truth.assertThat;
 
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.TestedVersions;
 import org.junit.Test;
 

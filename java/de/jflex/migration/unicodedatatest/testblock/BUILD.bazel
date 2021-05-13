@@ -1,0 +1,94 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+load(":build_defs.bzl", "gen_test_blocks", "gen_test_old_blocks")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+# Test for unicode 1.1 is not supported
+TESTED_VERSIONS = KNOWN_VERSIONS[1:]
+
+package(default_visibility = [
+    "//javatests/de/jflex/migration/unicodedatatest/testblock:__pkg__",
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "AbstractBlocksGenerator.java",
+        "BlocksTestGenerator.java",
+        "UnicodeBlockFlexGenerator.java",
+        "UnicodeBlockFlexTemplateVars.java",
+        "UnicodeBlocksTestJavaGenerator.java",
+        "UnicodeBlocksTestJavaTemplateVars.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.testblock.BlocksTestGenerator",
+    resources = [
+        "UnicodeBlocksTest.java.vm",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/auto_value",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [":gen_test_blocks_%s_%s" % (x, y) for (x, y) in TESTED_VERSIONS],
+)
+
+[gen_test_blocks(
+    name = "gen_test_blocks_%s_%s" % (x, y),
+    ucd = "@ucd_%s_%s//:files" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS if (x, y) >= (5, 0)]
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_2_0",
+    ucd_file = "@ucd_2_0_14_Blocks_1_txt//file",
+    version = "2.0",
+)
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_2_1",
+    ucd_file = "@ucd_2_1_9_Blocks_2_txt//file",
+    version = "2.1",
+)
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_0",
+    ucd_file = "@ucd_3_0_0_Blocks_3_txt//file",
+    version = "3.0",
+)
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_1",
+    ucd_file = "@ucd_3_1_0_Blocks_4_txt//file",
+    version = "3.1",
+)
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_3_2",
+    ucd_file = "@ucd_3_2_0_Blocks_3_2_0_txt//file",
+    version = "3.2",
+)
+
+gen_test_old_blocks(
+    name = "gen_test_blocks_4_0",
+    ucd_file = "@ucd_4_0_1_Blocks_4_0_1_txt//file",
+    version = "4.0",
+)
+
+gen_test_blocks(
+    name = "gen_test_blocks_4_1",
+    ucd = "@ucd_4_1_0//:files",
+    version = "4.1",
+)

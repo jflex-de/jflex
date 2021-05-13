@@ -1,1 +1,0 @@
-NOT Migrated to Bazel

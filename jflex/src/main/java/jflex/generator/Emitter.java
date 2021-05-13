@@ -265,9 +265,9 @@ public final class Emitter {
 
       print("() throws java.io.IOException");
 
-      if (scanner.lexThrow() != null) {
-        print(", ");
-        print(scanner.lexThrow());
+      for (String thrown : scanner.lexThrow()) {
+        print("\n    , ");
+        print(thrown);
       }
 
       if (scanner.scanErrorException() != null) {
@@ -799,17 +799,17 @@ public final class Emitter {
 
     print("() throws java.io.IOException");
 
-    if (scanner.lexThrow() != null) {
-      print(", ");
-      print(scanner.lexThrow());
+    for (String thrown : scanner.lexThrow()) {
+      print("\n    , ");
+      print(thrown);
     }
 
     if (scanner.scanErrorException() != null) {
-      print(", ");
+      print(",\n     ");
       print(scanner.scanErrorException());
     }
 
-    println(" {");
+    println("\n  {");
 
     skel.emitNext();
 
@@ -956,8 +956,10 @@ public final class Emitter {
     } else {
       println("    int offset = input & " + (CMapBlock.BLOCK_SIZE - 1) + ";");
       println(
-          "    return offset == input ?"
-              + " ZZ_CMAP_BLOCKS[offset] :"
+          "    return offset == input"
+              + " ?"
+              + " ZZ_CMAP_BLOCKS[offset]"
+              + " :"
               + " ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> "
               + CMapBlock.BLOCK_BITS
               + "] | offset];");

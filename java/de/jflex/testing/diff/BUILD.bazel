@@ -5,6 +5,7 @@ java_library(
     testonly = True,
     srcs = ["DiffOutputStream.java"],
     deps = [
+        "//third_party/com/google/guava",
         "//third_party/com/google/truth",
         "//third_party/junit",
     ],

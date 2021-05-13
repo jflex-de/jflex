@@ -39,6 +39,7 @@ public class VelocityTest {
   public void testRendering() throws IOException, ParseException {
     StringReader template = new StringReader("Hello $name!");
     TemplateVars templateVars = new HelloWordVars();
+    templateVars.templateName = "VELOCITY_TEST_TEMPLATE";
     Writer writer = new StringWriter();
     Velocity.render(template, "HelloWorld", templateVars, writer);
     assertThat(writer.toString()).isEqualTo("Hello World!");

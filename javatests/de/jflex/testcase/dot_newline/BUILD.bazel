@@ -4,6 +4,12 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
 
 jflex(
     name = "gen_dotnewline_scanner",
@@ -19,13 +25,13 @@ java_library(
         ":gen_dotnewline_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
 
 java_test(
     name = "DotnewlineGoldenTest",
+    size = "small",
     srcs = [
         "DotnewlineGoldenTest.java",
     ],
@@ -35,7 +41,6 @@ java_test(
     ],
     deps = [
         ":dotnewline_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",

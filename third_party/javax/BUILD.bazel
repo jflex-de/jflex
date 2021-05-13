@@ -1,0 +1,14 @@
+licenses(["notice"])  # GPL v2
+
+package(default_visibility = ["//visibility:public"])
+
+# Provides javax.annotation
+alias(
+    name = "annotation",
+    actual = "@maven//:javax_annotation_javax_annotation_api",
+)
+
+alias(
+    name = "jsr305",
+    actual = "@maven//:com_google_code_findbugs_jsr305",
+)

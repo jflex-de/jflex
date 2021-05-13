@@ -30,6 +30,8 @@ import com.google.auto.value.AutoValue;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -193,8 +195,7 @@ public abstract class CodepointRangeSet {
     }
 
     private void internalAddRange(MutableCodepointRange range) {
-      CodepointRange immutableRange = CodepointRange.create(range);
-      rangesBuilder().add(immutableRange);
+      rangesBuilder().add(range.toImmutableRange());
     }
 
     abstract CodepointRangeSet internalBuild();

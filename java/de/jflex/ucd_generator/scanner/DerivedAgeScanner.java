@@ -29,11 +29,11 @@ package de.jflex.ucd_generator.scanner;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableList;
-import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd.CodepointRange;
+import de.jflex.ucd.NamedCodepointRange;
+import de.jflex.ucd.SurrogateUtils;
 import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.MutableCodepointRange;
-import de.jflex.ucd_generator.ucd.NamedCodepointRange;
-import de.jflex.ucd_generator.ucd.SurrogateUtils;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.version.Version;
 import java.io.Reader;
@@ -142,7 +142,7 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
   HashMultimap<Version, CodepointRange> clusterCodePointRangesPerVersion() {
     HashMultimap<Version, CodepointRange> ageRangesPerVersion =
         HashMultimap.create(/*expectedKeys=*/ 25, /*expectedValuesPerKey=*/ 128);
-    for (NamedCodepointRange interval : intervals) {
+    for (NamedCodepointRange<String> interval : intervals) {
       ageRangesPerVersion.put(new Version(interval.name()), interval.range());
     }
     return ageRangesPerVersion;

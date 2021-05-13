@@ -1,6 +1,6 @@
 package de.jflex.testing.diff;
 /*
- * Copyright (C) 2018-2019 Google, LLC.
+ * Copyright (C) 2018-2021 Google, LLC.
  *
  * License: https://opensource.org/licenses/BSD-3-Clause
  *
@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import org.junit.ComparisonFailure;
 
 /**
  * An output streams that asserts that every printed lined is equal to the one from the expected
@@ -56,6 +57,15 @@ public class DiffOutputStream extends OutputStream {
   private int line = 1;
 
   /**
+   * Handles assertion failures when the content differs. By default, just throws the {@link
+   * ComparisonFailure}.
+   */
+  private ComparisonFailureHandler comparisonFailureHandler =
+      failure -> {
+        throw failure;
+      };
+
+  /**
    * The number of valid bytes in the buffer.
    *
    * <p>The useful buffer count is in range {@code 0} - {@code count} (excl) of {@link #buf}.
@@ -76,7 +86,11 @@ public class DiffOutputStream extends OutputStream {
     buf[count] = (byte) b;
     if (b == '\n') {
       String expectedLine = in.readLine();
-      assertThatWrittenWasExpected(expectedLine);
+      try {
+        assertThatWrittenWasExpected(expectedLine);
+      } catch (ComparisonFailure failure) {
+        comparisonFailureHandler.handle(failure);
+      }
       count = 0;
       line++;
     } else {
@@ -132,5 +146,13 @@ public class DiffOutputStream extends OutputStream {
   public void close() throws IOException {
     assertWithMessage("All expected content has been output").that(remainingContent()).isEmpty();
     super.close();
+  }
+
+  public void setComparisonFailureHandler(ComparisonFailureHandler comparisonFailureHandler) {
+    this.comparisonFailureHandler = comparisonFailureHandler;
+  }
+
+  public interface ComparisonFailureHandler {
+    void handle(ComparisonFailure failure);
   }
 }

@@ -2,6 +2,12 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
 
 # include2
 
@@ -19,13 +25,13 @@ java_library(
         ":gen_include2_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
 
 java_test(
     name = "Include2GoldenTest",
+    size = "small",
     srcs = [
         "Include2GoldenTest.java",
     ],
@@ -37,7 +43,6 @@ java_test(
     ],
     deps = [
         ":include2_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",

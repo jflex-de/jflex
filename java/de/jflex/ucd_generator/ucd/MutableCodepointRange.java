@@ -25,6 +25,7 @@
  */
 package de.jflex.ucd_generator.ucd;
 
+import de.jflex.ucd.CodepointRange;
 import java.util.Comparator;
 import java.util.Objects;
 
@@ -74,5 +75,9 @@ public class MutableCodepointRange {
     }
     MutableCodepointRange other = (MutableCodepointRange) obj;
     return other.start == start && other.end == end;
+  }
+
+  public CodepointRange toImmutableRange() {
+    return CodepointRange.create(start, end);
   }
 }

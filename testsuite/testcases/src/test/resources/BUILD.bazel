@@ -1,0 +1,3 @@
+package(default_visibility = ["//javatests/de/jflex/testcase:__subpackages__"])
+
+exports_files(glob(["*.input"]))

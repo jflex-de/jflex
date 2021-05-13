@@ -2,6 +2,12 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
 
 # initthrow
 
@@ -18,20 +24,19 @@ java_library(
         ":gen_initthrow_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
 
 java_test(
     name = "InitThrowsTest",
+    size = "small",
     srcs = [
         "InitThrowsTest.java",
     ],
     deps = [
         ":initthrow_scanner",
         "//java/de/jflex/testing/assertion",
-        "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
         "//third_party/com/google/truth",
     ],

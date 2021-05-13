@@ -36,7 +36,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.testing.javaast.BasicJavaInterpreter;
-import de.jflex.ucd_generator.ucd.UcdVersion;
+import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.util.JavaStrings;
 import java.io.File;
 import java.io.IOException;
@@ -78,15 +78,16 @@ public class UcdGeneratorIntegrationTest {
     assertThat(actual.maximumCodePoint())
         .isEqualTo(jflex.core.unicode.data.Unicode_1_1.maximumCodePoint);
     assertThat(actual.propertyValues())
-        .containsAllIn(ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValues))
+        .containsAtLeastElementsIn(
+            ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValues))
         .inOrder();
     assertThat(actual.intervals())
-        .containsAllIn(
+        .containsAtLeastElementsIn(
             ImmutableList.copyOf(
                 jflex.core.unicode.data.Unicode_1_1
                     .intervals)); // JDT parsed actual incorrectly and returns the wrong order
     assertThat(actual.propertyValueAliases())
-        .containsAllIn(
+        .containsExactlyElementsIn(
             ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValueAliases))
         .inOrder();
     ;
@@ -441,7 +442,7 @@ public class UcdGeneratorIntegrationTest {
 
     assertWithMessage("propertyValues")
         .that(actual.propertyValues())
-        .containsAllIn(expected.propertyValues());
+        .containsExactlyElementsIn(expected.propertyValues());
 
     ImmutableMap<String, String> actualPropertyValuesAliases =
         pairListToMap(actual.propertyValueAliases());

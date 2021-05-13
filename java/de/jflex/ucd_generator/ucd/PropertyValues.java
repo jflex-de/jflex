@@ -31,7 +31,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
-import de.jflex.ucd_generator.util.PropertyNameNormalizer;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +68,7 @@ public class PropertyValues {
     Map<String, String> aliasMap =
         propertyValueAlias2CanonicalValue.computeIfAbsent(propertyName, k -> new HashMap<>());
     for (String propertyValueAlias : aliases) {
-      aliasMap.put(PropertyNameNormalizer.normalize(propertyValueAlias), normalizedPropertyValue);
+      aliasMap.put(PropertyNames.normalize(propertyValueAlias), normalizedPropertyValue);
     }
   }
 
@@ -93,7 +92,7 @@ public class PropertyValues {
   public String getCanonicalValueName(String normalizedPropName, String propValue) {
     Map<String, String> canonicalPropValueNames =
         propertyValueAlias2CanonicalValue.get(normalizedPropName);
-    String canonicalValue = PropertyNameNormalizer.normalize(propValue);
+    String canonicalValue = PropertyNames.normalize(propValue);
     if (canonicalPropValueNames == null) {
       return canonicalValue;
     }

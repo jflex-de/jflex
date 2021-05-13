@@ -1,0 +1,25 @@
+java_test(
+    name = "SurrogateUtilsTest",
+    size = "small",
+    srcs = ["SurrogateUtilsTest.java"],
+    deps = [
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UcdVersionTest",
+    size = "small",
+    srcs = ["UcdVersionTest.java"],
+    data = [
+        "//third_party/unicode:ucd_10_0",
+        "//third_party/unicode:ucd_3_1_1",
+        "//third_party/unicode:ucd_4_0_1",
+    ],
+    deps = [
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/version",
+        "//third_party/com/google/truth",
+    ],
+)

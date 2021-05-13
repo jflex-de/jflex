@@ -1,0 +1,59 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+load(":build_defs.bzl", "gen_test_emoji")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+# Emojis were introduced in Unicode 8.0
+TESTED_VERSIONS = [(x, y) for (x, y) in KNOWN_VERSIONS if x >= 8]
+
+java_binary(
+    name = "EmojiTestGenerator",
+    testonly = True,
+    srcs = ["EmojiTestGenerator.java"],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__pkg__",
+        "//javatests/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
+    ],
+    deps = [
+        ":testemoji",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "testemoji",
+    testonly = True,
+    srcs = glob(["Unicode*.java"]),
+    resources = [
+        "UnicodeEmojiTest.java.vm",
+    ],
+    visibility = [
+        "//javatests/de/jflex/migration/unicodedatatest/testemoji:__pkg__",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "gen_test_emoji_%s_%s" % (x, y)
+        for (x, y) in TESTED_VERSIONS
+    ],
+)
+
+[gen_test_emoji(
+    name = "gen_test_emoji_%s_%s" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in TESTED_VERSIONS]

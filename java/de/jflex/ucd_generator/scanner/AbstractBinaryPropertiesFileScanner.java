@@ -26,7 +26,7 @@
  */
 package de.jflex.ucd_generator.scanner;
 
-import de.jflex.ucd_generator.ucd.CodepointRange;
+import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import java.util.HashMap;
 import java.util.Map;

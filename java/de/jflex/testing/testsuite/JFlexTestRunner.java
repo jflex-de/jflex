@@ -163,6 +163,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       try {
         DiffOutputStream diffSysOut =
             new DiffOutputStream(Files.newReader(sysoutFile, StandardCharsets.UTF_8));
+        diffSysOut.setComparisonFailureHandler(
+            failure -> {
+              throw new Error("System.out differs: " + spec.sysout(), failure);
+            });
         Out.setOutputStream(diffSysOut);
         return Optional.of(diffSysOut);
       } catch (FileNotFoundException e) {
@@ -179,6 +183,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       try {
         DiffOutputStream diffSysErr =
             new DiffOutputStream(Files.newReader(syserrFile, StandardCharsets.UTF_8));
+        diffSysErr.setComparisonFailureHandler(
+            failure -> {
+              throw new Error("System.err differs: " + spec.syserr(), failure);
+            });
         System.setErr(new PrintStream(diffSysErr));
         return Optional.of(diffSysErr);
       } catch (FileNotFoundException e) {
@@ -196,6 +204,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
     Options.verbose = !spec.quiet();
+    Options.unused_warning = spec.warnUnused();
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
     if (spec.minimizedDfaStatesCount() > 0) {

@@ -1,0 +1,6 @@
+Reading "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex"
+
+Error in file "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex" (line 8): 
+Hexadecimal code point is greater than the maximum allowed code point
+"one two three\UFFFFFFabc" { }
+                ^

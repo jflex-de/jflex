@@ -4,6 +4,13 @@
 # Feel free to improve.
 
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
+
 load("//testsuite:testsuite.bzl", "jflex_testsuite")
 
 jflex(
@@ -20,13 +27,13 @@ java_library(
         ":gen_caseless_scanner",
     ],
     deps = [
-        "//java/de/jflex/testing/testsuite/golden",
         "//third_party/com/google/guava",
     ],
 )
 
 java_test(
     name = "CaselessGoldenTest",
+    size = "small",
     srcs = [
         "CaselessGoldenTest.java",
     ],
@@ -36,7 +43,6 @@ java_test(
     ],
     deps = [
         ":caseless_scanner",
-        "//java/de/jflex/testing/diff",
         "//java/de/jflex/testing/testsuite/golden",
         "//java/de/jflex/util/scanner:scanner_factory",
         "//third_party/com/google/guava",
@@ -51,5 +57,4 @@ jflex_testsuite(
         "caseless.flex",
         "caseless.sysout",
     ],
-    deps = ["//jflex/src/main/java/jflex/exceptions"],
 )
