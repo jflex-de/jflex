@@ -57,6 +57,7 @@ public abstract class AbstractSimpleParser {
    * Reads a line.
    *
    * @return true if content was read ; false if EOF was reached.
+   * @throws IllegalArgumentException if the content doesn't match the pattern.
    */
   boolean readNext() throws IOException {
     String line = reader.readLine();
@@ -82,6 +83,7 @@ public abstract class AbstractSimpleParser {
     return true;
   }
 
+  @SuppressWarnings("StatementWithEmptyBody") // While is used to loop over all the content
   public void parse() throws IOException {
     while (readNext()) {}
   }

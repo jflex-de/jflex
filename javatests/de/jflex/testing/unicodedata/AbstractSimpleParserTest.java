@@ -28,6 +28,7 @@
 package de.jflex.testing.unicodedata;
 
 import static com.google.common.truth.Truth.assertThat;
+import static de.jflex.testing.assertion.MoreAsserts.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -50,16 +51,17 @@ public class AbstractSimpleParserTest {
   @Mock AbstractSimpleParser.PatternHandler handler;
 
   @Test
-  public void testParser_singleLine() throws Exception {
+  public void testParser_singleLine_nomatch() throws Exception {
     TestingParser parser = createWithContent("foo");
-    assertThat(parser.readNext()).isTrue();
+    assertThrows(IllegalArgumentException.class, parser::readNext);
+    verify(handler, never()).onRegexMatch(any());
     assertThat(parser.readNext()).isFalse();
   }
 
   @Test
   public void testParser_emptyLine() throws Exception {
     TestingParser parser = createWithContent("bar\n\n");
-    assertThat(parser.readNext()).isTrue(); // bar\n
+    assertThrows(IllegalArgumentException.class, parser::readNext); // bar\n
     assertThat(parser.readNext()).isTrue(); // \n [empty line]
     assertThat(parser.readNext()).isFalse();
   }
@@ -76,13 +78,6 @@ public class AbstractSimpleParserTest {
     TestingParser parser = createWithContent("hello World");
     assertThat(parser.readNext()).isTrue();
     verify(handler).onRegexMatch(ImmutableList.of("hello", " World"));
-  }
-
-  @Test
-  public void testParser_onRegexMatch_noMatch() throws Exception {
-    TestingParser parser = createWithContent("foo");
-    assertThat(parser.readNext()).isTrue();
-    verify(handler, never()).onRegexMatch(any());
   }
 
   TestingParser createWithContent(String inputContent) throws IOException {
