@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.logging.Level;
 import jflex.base.Build;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
@@ -100,7 +101,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(message);
     }
   }
@@ -112,7 +113,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, String data) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -124,7 +125,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages.ErrorMessage message, int data) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -135,7 +136,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    if (Options.verbose) {
+    if (isLogLevel(Level.INFO)) {
       out.print(message);
     }
   }
@@ -207,7 +208,9 @@ public final class Out {
    */
   public static void warning(String message) {
     warnings++;
-
+    if (!isLogLevel(Level.WARNING)) {
+      return;
+    }
     err(NL + "Warning : " + message);
   }
 
@@ -230,10 +233,13 @@ public final class Out {
    */
   public static void warning(ErrorMessages.ErrorMessage message, int line) {
     warnings++;
-
+    if (!isLogLevel(Level.WARNING)) {
+      return;
+    }
     String msg = NL + "Warning";
-    if (line > 0) msg = msg + " in line " + (line + 1);
-
+    if (line > 0) {
+      msg = msg + " in line " + (line + 1);
+    }
     err(msg + ": " + ErrorMessages.get(message));
   }
 
@@ -246,7 +252,10 @@ public final class Out {
    * @param column the column of the position
    */
   public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
-
+    warnings++;
+    if (!isLogLevel(Level.WARNING)) {
+      return;
+    }
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
     if (line >= 0) msg = msg + " (line " + (line + 1) + ")";
@@ -256,8 +265,6 @@ public final class Out {
     } catch (ArrayIndexOutOfBoundsException e) {
       err(msg);
     }
-
-    warnings++;
 
     if (line >= 0) {
       if (column >= 0) showPosition(file, line, column);
@@ -394,5 +401,10 @@ public final class Out {
     reader.close();
 
     return msg;
+  }
+
+  /** Returns whether the log level is at least the given level. */
+  public static boolean isLogLevel(Level requiredLevel) {
+    return Options.logLevel.intValue() >= requiredLevel.intValue();
   }
 }

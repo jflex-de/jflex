@@ -11,6 +11,7 @@ package jflex.option;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
 
 /**
  * Collects all global JFlex options.
@@ -22,6 +23,8 @@ import java.nio.charset.Charset;
  * @version JFlex 1.9.0-SNAPSHOT
  */
 public class Options {
+
+  public static final Level DEFAULT_LOG_LEVEL = Level.WARNING;
 
   /** output directory */
   public static File directory;
@@ -37,8 +40,8 @@ public class Options {
   public static boolean no_minimize;
   /** don't write backup files if this is true */
   public static boolean no_backup;
-  /** If false, only error/warning output will be generated */
-  public static boolean verbose = true;
+  /** The level of logging. JFlex uses {@link #DEFAULT_LOG_LEVEL} by default. */
+  public static Level logLevel = DEFAULT_LOG_LEVEL;
   /** Whether to warn about unused macros. */
   public static boolean unused_warning;
   /** If true, progress dots will be printed */

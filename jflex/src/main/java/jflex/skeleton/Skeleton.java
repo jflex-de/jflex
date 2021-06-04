@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -98,8 +99,9 @@ public class Skeleton {
       Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
       throw new GeneratorException();
     }
-
-    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    if (Out.isLogLevel(Level.INFO)) {
+      Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
+    }
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {

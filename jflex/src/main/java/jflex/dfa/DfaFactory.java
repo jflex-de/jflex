@@ -122,7 +122,7 @@ public class DfaFactory {
       currentDFAState++;
     }
 
-    if (Options.verbose) Out.println("");
+    Out.println("");
     return dfa;
   }
 
