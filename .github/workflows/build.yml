@@ -69,15 +69,3 @@ jobs:
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
         scripts/test-regression.sh
-
-  docs:
-    name: 'Docs'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: 'Install LaTeX and pandoc'
-      run: |
-        sudo apt-get install \
-             pandoc pandoc-citeproc texlive texlive-latex-extra lmodern
-    - name: "📄 Documentation"
-      run: cd docs; make
