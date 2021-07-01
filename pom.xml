@@ -88,7 +88,7 @@
     <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.7</jflex.jdk.version>
     <!-- 3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->
-    <maven.version>3.5.2</maven.version>
+    <maven.version>3.8.1</maven.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
