@@ -13,10 +13,12 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static org.junit.Assume.assumeTrue;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import jflex.generator.OffsetGen;
 import org.junit.runner.RunWith;
 
 /**
@@ -157,13 +159,24 @@ public class StateSetQuickcheck {
   @Property
   public void removeAdd(
       @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
-      @InRange(minInt = 0, maxInt = 100) int e) {
+      @InRange(minInt = 0, maxInt = 100) int e,
+      @From(OffsetGen.class) int largeOffset) {
     assumeTrue(s.hasElement(e));
     StateSet sPre = new StateSet(s);
     s.remove(e);
     assertThat(sPre.contains(s)).isTrue();
     assertThat(s).isNotEqualTo(sPre);
     s.addState(e);
+    assertThat(s).isEqualTo(sPre);
+
+    // add larger state value to force resize
+    if ((Integer.MAX_VALUE - largeOffset) <= s.bits.length) { // avoid overrun wrap
+      largeOffset = Integer.MAX_VALUE - s.bits.length;
+    }
+    int largerState = ((s.bits.length + largeOffset) << StateSet.BITS) & Integer.MAX_VALUE; // & resets sign bit
+    s.addState(largerState);
+    assertThat(s).contains(largerState);
+    s.remove(largerState);
     assertThat(s).isEqualTo(sPre);
   }
 
