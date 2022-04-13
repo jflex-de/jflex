@@ -199,7 +199,19 @@ public class StateSetQuickcheck {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
-    assertThat(set.contains(new StateSet(e))).isTrue();
+    assertThat(set.hasElement(e)).isTrue();
+
+    // add an out of range value to increase coverage of contains
+
+    // offset to StateSetGen.maxRange + 1
+    int offset = 1001;  // note this effected by InRange, so this needs to be adjusted based on annotations
+                        // on set, default is set
+
+    //  if no overflow then offset + e, else overflow so use MAX_VALUE
+    int newValue = (Integer.MAX_VALUE - offset) >= e ? offset + e : Integer.MAX_VALUE;
+    set.addState(newValue);
+    assertThat(set.contains(setPre)).isTrue();
+    assertThat(set.hasElement(newValue)).isTrue();
     assertThat(setPre.contains(set)).isFalse();
   }
 
