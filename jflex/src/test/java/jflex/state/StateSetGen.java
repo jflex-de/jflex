@@ -50,6 +50,11 @@ public class StateSetGen extends Generator<StateSet> {
       result.addState(r.nextInt(minRange, maxRange));
     }
 
+    // add large value 20% of the time
+    if (r.nextInt(1,5) == 5) {
+      result.addState(r.nextInt(minRange + 100_000, maxRange + 100_000));
+    }
+
     return result;
   }
 
