@@ -15,6 +15,7 @@ import static org.junit.Assume.assumeTrue;
 
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.Also;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
@@ -194,10 +195,12 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateDoesNotRemove(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateDoesNotRemove(StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
+    assertThat(set.contains(new StateSet(e))).isTrue();
+    assertThat(setPre.contains(set)).isFalse();
   }
 
   @Property
@@ -221,6 +224,12 @@ public class StateSetQuickcheck {
     StateSet comp = s1.complement(s2);
     // only elements of s2 are in the complement
     assertThat(s2.contains(comp)).isTrue();
+
+    // ensure that comp does not contain s1
+    StateSet empty = new StateSet();
+    if (!empty.contains(s1)) { // if s1 is {}, then it will always be contained in comp
+      assertThat(comp.contains(s1)).isFalse();
+    }
   }
 
   @Property
@@ -241,6 +250,12 @@ public class StateSetQuickcheck {
   public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
     s.addState(e);
     assertThat(s.containsElements()).isTrue();
+
+    // remove each added element, ot ensure containsElements continues to work as elements are removed
+    while (s.containsElements()) {
+      s.getAndRemoveElement();
+    }
+    assertThat(s.containsElements()).isFalse();
   }
 
   @Property
