@@ -195,7 +195,7 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateDoesNotRemove(StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateDoesNotRemove(StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 34) int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
