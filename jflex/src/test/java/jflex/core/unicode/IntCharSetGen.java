@@ -48,6 +48,11 @@ public class IntCharSetGen extends Generator<IntCharSet> {
       result.add(intervals.generate(r, status));
     }
 
+    // randomly add possible additional cased character
+    if (numIntervals < maxSize && r.nextBoolean()) {
+      result.add(IntCharGen.getRandomCased(r));
+    }
+
     return result;
   }
 
