@@ -1,0 +1,4 @@
+#set($String = "dummy")
+#foreach ( $range in $ranges )
+$String.format("%04X..%04X", $range.start(), $range.end())
+#end

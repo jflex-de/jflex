@@ -1,0 +1,9 @@
+java_test(
+    name = "VersionTest",
+    size = "small",
+    srcs = ["VersionTest.java"],
+    deps = [
+        "//java/de/jflex/version",
+        "//third_party/com/google/truth",
+    ],
+)

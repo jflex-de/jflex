@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import javax.annotation.Nullable;
 import jflex.core.Action;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
@@ -32,7 +33,7 @@ import jflex.option.Options;
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public class DFA {
 
@@ -227,7 +228,7 @@ public class DFA {
   }
 
   @Override
-  public boolean equals(Object obj) {
+  public boolean equals(@Nullable Object obj) {
     if (!(obj instanceof DFA)) {
       return false;
     }

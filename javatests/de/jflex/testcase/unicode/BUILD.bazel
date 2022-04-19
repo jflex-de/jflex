@@ -1,0 +1,72 @@
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+
+jflex_testsuite(
+    name = "UnicodeBlocksInvalidBlockTest",
+    srcs = ["UnicodeBlocksInvalidBlockTest.java"],
+    data = [
+        "UnicodeBlocksInvalidBlockTest.java",
+        "unicode-blocks-failure.flex",
+        "unicode-blocks-failure.output",
+    ],
+    deps = [
+        "//java/de/jflex/util/javac",
+        "//jflex/src/main/java/jflex/exceptions",
+        "//third_party/com/google/guava",
+    ],
+)
+
+java_test(
+    name = "UnicodeBlocksInverseBlockTest",
+    size = "small",
+    srcs = [
+        "UnicodeBlocksInverseBlockTest.java",
+        ":gen_unicode_blocks_inverse_scanner",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.BMP.characters.input",
+    ],
+    deps = [
+        ":testing_blocks",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "gen_unicode_blocks_inverse_scanner",
+    srcs = ["unicode-blocks-inverse.flex"],
+    outputs = ["UnicodeBlocksInverseBlockScanner.java"],
+)
+
+java_test(
+    name = "UnicodeBlocksAliasesTest",
+    size = "small",
+    srcs = [
+        "UnicodeBlocksAliasesTest.java",
+        ":gen_unicode_blocks_aliases_scanner",
+    ],
+    data = [
+        "//java/de/jflex/testcase/resources:All.Unicode.characters.input",
+    ],
+    deps = [
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/util/scanner:scanner_factory",
+        "//third_party/com/google/truth",
+    ],
+)
+
+jflex(
+    name = "gen_unicode_blocks_aliases_scanner",
+    srcs = ["unicode-blocks-aliases.flex"],
+    outputs = ["UnicodeBlocksAliasesScanner.java"],
+)
+
+java_library(
+    name = "testing_blocks",
+    srcs = ["TestingBlock.java"],
+    deps = [],
+)

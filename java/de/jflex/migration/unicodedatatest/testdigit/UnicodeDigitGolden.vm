@@ -1,0 +1,5 @@
+#foreach ($b in $digitBlocks)
+${b.hexStart()}..${b.hexEnd()};#if($b.name()) Nd
+#else Not-Nd
+#end
+#end

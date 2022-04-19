@@ -1,6 +1,4 @@
-<a href="https://travis-ci.org/jflex-de/jflex">
-  <img alt="Build status" src="https://travis-ci.org/jflex-de/jflex.svg?branch=master" height="20">
-</a>
+![Build](https://github.com/jflex-de/jflex/workflows/Build/badge.svg?branch=master)
 <a href="https://cirrus-ci.com/github/jflex-de/jflex/master">
   <img alt="Bazel build status" src="https://api.cirrus-ci.com/github/jflex-de/jflex.svg" height="20">
 </a>

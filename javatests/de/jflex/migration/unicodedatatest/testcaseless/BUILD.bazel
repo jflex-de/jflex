@@ -1,0 +1,13 @@
+java_test(
+    name = "CaselessTestGeneratorTest",
+    size = "small",
+    srcs = ["CaselessTestGeneratorTest.java"],
+    data = [
+        "//third_party/unicode:ucd_7_0",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/testcaseless:generator",
+        "//third_party/com/google/truth",
+    ],
+)

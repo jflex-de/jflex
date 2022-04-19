@@ -1,0 +1,16 @@
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+# unicode-version-f
+jflex_testsuite(
+    name = "UnicodeInvalidVersionTest",
+    srcs = [
+        "UnicodeInvalidVersionTest.java",
+    ],
+    data = [
+        "unicode-version-f.flex",
+        "unicode-version-f.output",
+    ],
+    deps = [
+        "//jflex/src/main/java/jflex/exceptions",
+    ],
+)

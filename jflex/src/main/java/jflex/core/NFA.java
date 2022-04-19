@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -37,7 +37,7 @@ import jflex.state.StateSetEnumerator;
  * <p>Contains algorithms RegExp → NFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class NFA {
 
@@ -499,13 +499,21 @@ public final class NFA {
 
     for (int i = 0; i < numStates; i++) {
       for (int input = 0; input < numInput; input++) {
-        for (int s : table[i][input]) {
-          result.append(i).append(" -> ").append(s);
-          result.append(" [label=\"").append(classes.toString(input)).append("\"]").append(Out.NL);
+        if (table[i][input] != null) {
+          for (int s : table[i][input]) {
+            result.append(i).append(" -> ").append(s);
+            result
+                .append(" [label=\"")
+                .append(classes.toString(input))
+                .append("\"]")
+                .append(Out.NL);
+          }
         }
       }
-      for (int s : epsilon[i]) {
-        result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
+      if (epsilon[i] != null) {
+        for (int s : epsilon[i]) {
+          result.append(i).append(" -> ").append(s).append(" [style=dotted]").append(Out.NL);
+        }
       }
     }
 

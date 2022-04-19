@@ -1,0 +1,65 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+load(":build_defs.bzl", "gen_test")
+load("//java/de/jflex/migration/unicodedatatest:build_defs.bzl", "KNOWN_VERSIONS")
+
+VERSIONS = [(x, y) for (x, y) in KNOWN_VERSIONS if x > 3 or x == 3 and y > 0]
+
+package(default_visibility = [
+    "//javatests/de/jflex/testcase/unicode:__subpackages__",
+])
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = ["DerivedCorePropertiesTestGenerator.java"],
+    main_class = "de.jflex.migration.unicodedatatest.testderivedcoreprop.DerivedCorePropertiesTestGenerator",
+    deps = [
+        ":testderivedcoreprop",
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+java_library(
+    name = "testderivedcoreprop",
+    testonly = True,
+    srcs = [
+        "UnicodeDerivedCoreProperties.java",
+        "UnicodeDerivedCorePropertiesTestGenerator.java",
+        "UnicodeDerivedPropertyGoldenGenerator.java",
+    ],
+    resources = [
+        "UnicodeDerivedCorePropertiesTest.java.vm",
+    ],
+    visibility = [
+        "//java/de/jflex/migration/unicodedatatest:__pkg__",
+        "//javatests/de/jflex/testcase/unicode:__subpackages__",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/testing/unicodedata",
+        "//java/de/jflex/ucd",
+        "//third_party/com/google/guava",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [
+        "gen_test_%s_%s" % (x, y)
+        for (x, y) in VERSIONS
+    ],
+)
+
+[gen_test(
+    name = "gen_test_%s_%s" % (x, y),
+    ucd = "//third_party/unicode:ucd_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in VERSIONS]

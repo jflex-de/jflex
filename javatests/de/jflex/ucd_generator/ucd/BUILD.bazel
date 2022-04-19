@@ -1,0 +1,31 @@
+java_test(
+    name = "CodepointRangeSetTest",
+    size = "small",
+    srcs = ["CodepointRangeSetTest.java"],
+    deps = [
+        "//java/de/jflex/testing/assertion",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UnicodeDataTest",
+    size = "small",
+    srcs = ["UnicodeDataTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/ucd",
+        "//javatests/de/jflex/ucd_generator:tested_versions",
+        "//third_party/com/google/truth",
+    ],
+)
+
+java_test(
+    name = "UcdVersionsTest",
+    size = "small",
+    srcs = ["UcdVersionsTest.java"],
+    deps = [
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/truth",
+    ],
+)

@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2019  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -26,14 +26,14 @@ import org.junit.runner.RunWith;
  * Property-based tests for {@link StateSet}
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see StateSet
  */
 @RunWith(JUnitQuickcheck.class)
 public class StateSetQuickcheck {
 
   @Property
-  public void size2nbits(@InRange(minInt = 1, maxInt = 2 ^ 58) int size) {
+  public void size2nbits(@InRange(minInt = 1, maxInt = 56) int size) {
     assertThat(StateSet.size2nbits(StateSet.nbits2size(size))).isEqualTo(size);
   }
 
@@ -189,7 +189,7 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateAdds(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateAdds(StateSet set, @InRange(minInt = 0, maxInt = 34) int e) {
     set.addState(e);
     assertThat(set.hasElement(e)).isTrue();
   }
@@ -216,7 +216,7 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateAdd(StateSet set, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void addStateAdd(StateSet set, @InRange(minInt = 0, maxInt = 34) int e) {
     StateSet set2 = new StateSet(set);
     set.addState(e);
     set2.add(new StateSet(10, e));
@@ -259,7 +259,7 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 2 ^ 32) int e) {
+  public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 34) int e) {
     s.addState(e);
     assertThat(s.containsElements()).isTrue();
 

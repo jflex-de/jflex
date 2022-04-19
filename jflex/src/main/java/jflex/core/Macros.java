@@ -1,5 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
  * All rights reserved.                                                    *
  *                                                                         *
@@ -13,9 +13,11 @@ import static jflex.l10n.ErrorMessages.MACRO_CYCLE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import jflex.base.Build;
 import jflex.exceptions.MacroException;
 import jflex.l10n.ErrorMessages;
@@ -27,7 +29,7 @@ import jflex.logging.Out;
  * <p>Maps macros to their (expanded) definitions, detects cycles and unused macros.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2
+ * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Macros {
 
@@ -123,11 +125,11 @@ public final class Macros {
    * @throws MacroException if there is a cycle in the macro usage graph.
    */
   public void expand() throws MacroException {
-    for (String name : macros.keySet()) {
+    Set<String> keys = new HashSet(macros.keySet());
+    for (String name : keys) {
       if (isUsed(name)) {
-        macros.put(name, expandMacro(name, getDefinition(name)));
+        macros.replace(name, expandMacro(name, getDefinition(name)));
       }
-      // this put doesn't get a new key, so only a new value is set for the key "name"
     }
   }
 

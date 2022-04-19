@@ -24,9 +24,9 @@ alias(
     actual = "//jflex/src/main/java/jflex/core",
 )
 
-filegroup(
+java_library(
     name = "resources",
-    srcs = glob(["src/main/resources/**"]),
+    resources = glob(["src/main/resources/**"]),
 )
 
 # Test helpers

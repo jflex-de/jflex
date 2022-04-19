@@ -1,6 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.8.2                                                             *
+ * JFlex 1.9.0-SNAPSHOT                                                    *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
+ * Copyright (C) 2021 Google LLC                                           *
  * All rights reserved.                                                    *
  *                                                                         *
  * License: BSD                                                            *
@@ -9,6 +10,7 @@
 package jflex.state;
 
 import java.util.Iterator;
+import javax.annotation.Nullable;
 import jflex.logging.Out;
 
 /**
@@ -21,16 +23,13 @@ import jflex.logging.Out;
  * <p>Provides an Integer iterator and a native int enumerator.
  *
  * @author Gerwin Klein
- * @version JFlex 1.8.2
+ * @version JFlex 1.9.0-SNAPSHOT
  * @see StateSetEnumerator
  */
 public final class StateSet implements Iterable<Integer> {
 
   /** Compile time {@code DEBUG} setting, local to {@code StateSet} */
   private final boolean DEBUG = false;
-
-  /** The empty set of states */
-  public static final StateSet EMPTY = new StateSet();
 
   /** {@code 2^BITS} per word */
   static final int BITS = 6;
@@ -219,8 +218,11 @@ public final class StateSet implements Iterable<Integer> {
    * @return the {@link StateSet} that contains all elements of {@code univ} that are not in this
    *     set.
    */
+  @Nullable
   public StateSet complement(StateSet univ) {
-    if (univ == null) return null;
+    if (univ == null) {
+      return null;
+    }
 
     StateSet result = emptySet(univ.bits.length);
 
@@ -268,7 +270,7 @@ public final class StateSet implements Iterable<Integer> {
   }
 
   @Override
-  public boolean equals(Object b) {
+  public boolean equals(@Nullable Object b) {
     if (!(b instanceof StateSet)) {
       return false;
     }
@@ -382,7 +384,9 @@ public final class StateSet implements Iterable<Integer> {
 
     StringBuilder result = new StringBuilder("{");
 
-    if (set.hasMoreElements()) result.append("" + set.nextElement());
+    if (set.hasMoreElements()) {
+      result.append(set.nextElement());
+    }
 
     while (set.hasMoreElements()) {
       int i = set.nextElement();

@@ -1,0 +1,4 @@
+
+Warning in file "javatests/de/jflex/testcase/caseless_jlex/caseless.flex" (line 20): 
+Rule can never be matched:
+"hello"    { System.out.println("--"+yytext()+"--");   }

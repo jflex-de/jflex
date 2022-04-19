@@ -1,0 +1,20 @@
+java_test(
+    name = "EmojiTestGeneratorTest",
+    size = "small",
+    srcs = ["EmojiTestGeneratorTest.java"],
+    data = [
+        "//third_party/unicode:ucd_10_0",
+    ],
+    runtime_deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/testemoji",
+        "//java/de/jflex/ucd",
+        "//java/de/jflex/ucd_generator/scanner",
+        "//java/de/jflex/ucd_generator/ucd",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/testemoji:EmojiTestGenerator",
+    ],
+)

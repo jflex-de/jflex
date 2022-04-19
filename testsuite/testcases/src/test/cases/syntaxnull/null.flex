@@ -1,9 +1,0 @@
-%%
-
-%class Null
-%standalone
-
-%%
-
-<YYINITIAL> {
-}

@@ -1,0 +1,8 @@
+java_library(
+    name = "version",
+    srcs = glob(["*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)

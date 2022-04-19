@@ -1,0 +1,42 @@
+# Copyright 2021, Google LLC
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+load(":build_defs.bzl", "KNOWN_VERSIONS", "gen_build")
+
+java_binary(
+    name = "generator",
+    testonly = True,
+    srcs = [
+        "BuildFileGenerator.java",
+        "BuildFileTemplateVars.java",
+    ],
+    main_class = "de.jflex.migration.unicodedatatest.BuildFileGenerator",
+    resources = [
+        "BUILD.vm",
+    ],
+    deps = [
+        "//java/de/jflex/migration/unicodedatatest/base",
+        "//java/de/jflex/migration/unicodedatatest/testcompat",
+        "//java/de/jflex/migration/unicodedatatest/testderivedcoreprop",
+        "//java/de/jflex/migration/unicodedatatest/testemoji:EmojiTestGenerator",
+        "//java/de/jflex/version",
+        "//third_party/com/google/common/flogger",
+        "//third_party/com/google/guava",
+        "//third_party/org/apache/velocity",
+    ],
+)
+
+filegroup(
+    name = "generate",
+    testonly = True,
+    srcs = [":gen_build_{x}_{y}".format(
+        x = x,
+        y = y,
+    ) for (x, y) in KNOWN_VERSIONS],
+)
+
+[gen_build(
+    name = "gen_build_%s_%s" % (x, y),
+    version = "%s.%s" % (x, y),
+) for (x, y) in KNOWN_VERSIONS]
