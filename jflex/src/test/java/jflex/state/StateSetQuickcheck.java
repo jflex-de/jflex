@@ -174,7 +174,8 @@ public class StateSetQuickcheck {
     if ((Integer.MAX_VALUE - largeOffset) <= s.bits.length) { // avoid overrun wrap
       largeOffset = Integer.MAX_VALUE - s.bits.length;
     }
-    int largerState = ((s.bits.length + largeOffset) << StateSet.BITS) & Integer.MAX_VALUE; // & resets sign bit
+    int largerState =
+        ((s.bits.length + largeOffset) << StateSet.BITS) & Integer.MAX_VALUE; // & resets sign bit
     s.addState(largerState);
     assertThat(s).contains(largerState);
     s.remove(largerState);
@@ -195,7 +196,8 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateDoesNotRemove(StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 34) int e) {
+  public void addStateDoesNotRemove(
+      StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 34) int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
@@ -204,8 +206,9 @@ public class StateSetQuickcheck {
     // add an out of range value to increase coverage of contains
 
     // offset to StateSetGen.maxRange + 1
-    int offset = 1001;  // note this effected by InRange, so this needs to be adjusted based on annotations
-                        // on set, default is set
+    int offset =
+        1001; // note this effected by InRange, so this needs to be adjusted based on annotations
+    // on set, default is set
 
     //  if no overflow then offset + e, else overflow so use MAX_VALUE
     int newValue = (Integer.MAX_VALUE - offset) >= e ? offset + e : Integer.MAX_VALUE;
@@ -263,7 +266,8 @@ public class StateSetQuickcheck {
     s.addState(e);
     assertThat(s.containsElements()).isTrue();
 
-    // remove each added element, ot ensure containsElements continues to work as elements are removed
+    // remove each added element, ot ensure containsElements continues to work as elements are
+    // removed
     while (s.containsElements()) {
       s.getAndRemoveElement();
     }

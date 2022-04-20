@@ -52,7 +52,8 @@ public class CharClassesQuickcheck {
       CharClasses classes,
       @From(IntCharGen.class) int c1,
       @From(IntCharGen.class) int c2,
-      boolean caseless) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+      boolean caseless)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
 
     assumeTrue(c1 != c2);
 
@@ -66,8 +67,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addSingleSingleton(
-      CharClasses classes, @From(IntCharGen.class) int c) {
+  public void addSingleSingleton(CharClasses classes, @From(IntCharGen.class) int c) {
     classes.makeClass(c, false);
     IntCharSet set = classes.getCharClass(classes.getClassCode(c));
     assertThat(set).isEqualTo(IntCharSet.ofCharacter(c));
@@ -78,7 +78,8 @@ public class CharClassesQuickcheck {
       CharClasses classes,
       @InRange(maxInt = CharClasses.maxChar) IntCharSet set,
       @From(IntCharGen.class) int c,
-      boolean caseless) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+      boolean caseless)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
 
     assumeTrue(!set.contains(c));
 
@@ -98,7 +99,8 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSetParts(
-      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set, boolean caseless) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set, boolean caseless)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
 
     if (caseless) {
       classesInit(classes);
@@ -117,7 +119,8 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSetComplement(
-      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set, boolean caseless) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+      CharClasses classes, @InRange(maxInt = CharClasses.maxChar) IntCharSet set, boolean caseless)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
 
     if (caseless) {
       classesInit(classes);
@@ -136,7 +139,8 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addString(
-      CharClasses classes, String s, @From(IntCharGen.class) int c, boolean caseless) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+      CharClasses classes, String s, @From(IntCharGen.class) int c, boolean caseless)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
 
     assumeTrue(s.indexOf(c) < 0);
 
@@ -232,14 +236,17 @@ public class CharClassesQuickcheck {
     }
   }
 
-  private void classesInit(CharClasses classes) throws UnicodeProperties.UnsupportedUnicodeVersionException {
+  private void classesInit(CharClasses classes)
+      throws UnicodeProperties.UnsupportedUnicodeVersionException {
     // init classes
     unicodeProperties = new UnicodeProperties();
-    classes.init(CharClasses.maxChar, new ILexScan() {
-      @Override
-      public UnicodeProperties getUnicodeProperties() {
-        return unicodeProperties;
-      }
-    });
+    classes.init(
+        CharClasses.maxChar,
+        new ILexScan() {
+          @Override
+          public UnicodeProperties getUnicodeProperties() {
+            return unicodeProperties;
+          }
+        });
   }
 }
