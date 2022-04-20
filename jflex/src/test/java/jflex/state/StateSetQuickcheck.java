@@ -19,7 +19,6 @@ import com.pholser.junit.quickcheck.generator.Also;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
-import jflex.generator.OffsetGen;
 import org.junit.runner.RunWith;
 
 /**

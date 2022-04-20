@@ -1,4 +1,4 @@
-package jflex.generator;
+package jflex.state;
 
 import com.pholser.junit.quickcheck.generator.GenerationStatus;
 import com.pholser.junit.quickcheck.generator.Generator;
