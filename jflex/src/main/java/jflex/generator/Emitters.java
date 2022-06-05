@@ -38,7 +38,13 @@ public final class Emitters {
   public static Emitter createFileEmitter(File inputLexFile, LexParse parser, DFA dfa)
       throws IOException {
 
-    String name = Emitter.getBaseName(parser.scanner.className()) + ".java";
+    String fullName;
+    if (parser.scanner.packageName() == null || parser.scanner.packageName().isEmpty()) {
+      fullName = parser.scanner.className();
+    } else {
+      fullName = parser.scanner.packageName().replace(".", "/") + "/" + parser.scanner.className();
+    }
+    String name = Emitter.getBaseName(fullName) + ".java";
 
     File outputFile = Emitter.normalize(name, inputLexFile);
     String outputFileName = outputFile.getAbsolutePath();

@@ -37,7 +37,7 @@ public class PackEmitterTest {
   @Test
   public void testInit() {
     p.emitInit();
-    assertThat(p.toString())
+    assertThat(p.toString().replace("\r", ""))
         .isEqualTo(
             "  private static final int [] ZZ_BLA = zzUnpackBla();"
                 + NL
@@ -61,7 +61,7 @@ public class PackEmitterTest {
       p.breaks();
       p.emitUC(i);
     }
-    assertThat(p.toString())
+    assertThat(p.toString().replace("\r", ""))
         .isEqualTo(
             "\\0\\1\\2\\3\\4\\5\\6\\7\\10\\11\\12\\13\\14\\15\\16\\17\"+"
                 + NL

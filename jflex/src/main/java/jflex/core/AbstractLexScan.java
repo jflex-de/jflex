@@ -44,6 +44,7 @@ public abstract class AbstractLexScan implements ILexScan {
   boolean charCount;
   boolean lineCount;
   boolean columnCount;
+  boolean cupJHMHCompatible;
   boolean cupCompatible;
   boolean cup2Compatible;
   boolean cupDebug;
@@ -59,6 +60,7 @@ public abstract class AbstractLexScan implements ILexScan {
 
   String isImplementing;
   String isExtending;
+  String packageName = "";
   String className = "Yylex";
   String functionName;
   String tokenType;
@@ -265,6 +267,10 @@ public abstract class AbstractLexScan implements ILexScan {
     return columnCount;
   }
 
+  public boolean cupJHMHCompatible() {
+    return cupJHMHCompatible;
+  }
+
   public boolean cupCompatible() {
     return cupCompatible;
   }
@@ -319,6 +325,10 @@ public abstract class AbstractLexScan implements ILexScan {
 
   public String isExtending() {
     return isExtending;
+  }
+
+  public String packageName() {
+    return packageName;
   }
 
   public String className() {
