@@ -35,6 +35,7 @@ public class OptionUtils {
     Options.time = false;
     Options.dot = false;
     Options.dump = false;
+    Options.dumpfile = false;
     Options.legacy_dot = false;
     Options.encoding = Charset.defaultCharset();
     Skeleton.readDefault();

@@ -14,8 +14,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import jflex.base.Build;
+import jflex.core.LexParse;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.option.Options;
@@ -51,6 +53,9 @@ public final class Out {
   /** output device */
   private static StdOutWriter out = new StdOutWriter();
 
+  /** dump file if needed */
+  private static PrintWriter dumpfile = null;
+
   /**
    * Switches to GUI mode if {@code text</code> is not <code>null}
    *
@@ -68,6 +73,44 @@ public final class Out {
   public static void setOutputStream(OutputStream stream) {
     out = new StdOutWriter(stream);
     out.setGUIMode(null);
+  }
+
+  public static void createDumpFile(LexParse parser) {
+    if (Options.dump && Options.dumpfile) {
+      String fullName;
+      if (parser.scanner.packageName() == null || parser.scanner.packageName().isEmpty()) {
+        fullName = parser.scanner.className();
+      } else {
+        fullName =
+            parser.scanner.packageName().replace(".", "/") + "/" + parser.scanner.className();
+      }
+      String name;
+      int gen = fullName.indexOf('<');
+      if (gen < 0) {
+        name = fullName + ".dump";
+      } else {
+        name = fullName.substring(0, gen) + ".dump";
+      }
+      File outputFile;
+      if (Options.getDir() == null) outputFile = new File(name);
+      else outputFile = new File(Options.getDir(), name);
+      outputFile.getParentFile().mkdirs();
+      try {
+        dumpfile = new PrintWriter(outputFile);
+        Out.println("Dumping tables to \"" + outputFile + "\"");
+      } catch (Exception e) {
+      }
+    }
+  }
+
+  public static void closeDumpFile() {
+    if (Options.dump && Options.dumpfile && dumpfile != null) {
+      try {
+        dumpfile.close();
+      } catch (Exception e) {
+      }
+    }
+    dumpfile = null;
   }
 
   /**
@@ -161,8 +204,13 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void dump(String message) {
-    if (Options.dump) {
+    // standard way
+    if (Options.dump && !Options.dumpfile) {
       out.println(message);
+    }
+    // saves messages to a file near the generated scanner
+    if (Options.dump && Options.dumpfile && dumpfile != null) {
+      dumpfile.println(message);
     }
   }
 

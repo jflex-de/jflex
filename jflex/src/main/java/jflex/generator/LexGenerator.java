@@ -75,6 +75,8 @@ public class LexGenerator {
 
       Out.checkErrors();
 
+      Out.createDumpFile(parser);
+
       if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
       if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
@@ -113,6 +115,7 @@ public class LexGenerator {
 
       Emitter emitter = Emitters.createFileEmitter(inputFile, parser, dfa);
       emitter.emit();
+      Out.closeDumpFile();
 
       time.stop();
 

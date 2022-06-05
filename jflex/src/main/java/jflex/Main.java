@@ -124,6 +124,20 @@ public class Main {
       if (Objects.equals(argv[i], "--dump")
           || Objects.equals(argv[i], "-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
         Options.dump = true;
+        Options.dumpfile = false;
+        continue;
+      }
+
+      if (Objects.equals(argv[i], "--dumpfile")
+          || Objects.equals(argv[i], "-dumpfile")) { // $NON-NLS-1$ //$NON-NLS-2$
+        Options.dump = true;
+        Options.dumpfile = true;
+        continue;
+      }
+
+      if (Objects.equals(argv[i], "--noexit")
+          || Objects.equals(argv[i], "-noexit")) { // $NON-NLS-1$ //$NON-NLS-2$
+        Options.noexit = true;
         continue;
       }
 
@@ -350,9 +364,13 @@ public class Main {
       } else {
         Out.statistics();
       }
-      System.exit(1);
+      if (!Options.noexit) {
+        System.exit(1);
+      }
     } catch (SilentExit e) {
-      System.exit(e.exitCode());
+      if (!Options.noexit) {
+        System.exit(e.exitCode());
+      }
     }
   }
 
