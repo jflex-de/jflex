@@ -439,7 +439,7 @@ public final class Emitter {
       println();
       println("/* CUP jhoenicke imports */");
       println("import com.github.jhoenicke.javacup.runtime.Symbol;");
-      println("import com.github.jhoenicke.javacup.runtime.ComplexSymbolFactory;");
+      println("import com.github.jhoenicke.javacup.runtime.AdvancedSymbolFactory;");
       println();
     }
   }
@@ -708,24 +708,24 @@ public final class Emitter {
     if (scanner.cupJHMHCompatible()) {
       println();
       println("/* CUP jhoenicke code to ease symbol building with full location*/");
-      println("  private ComplexSymbolFactory symbolFactory;");
-      println("  public void setComplexSymbolFactory (ComplexSymbolFactory symbolFactory) {");
+      println("  private AdvancedSymbolFactory symbolFactory;");
+      println("  public void setComplexSymbolFactory (AdvancedSymbolFactory symbolFactory) {");
       println("     this.symbolFactory = symbolFactory;");
       println("  }");
 
-      println("  private Symbol symbol(String name, int code) {");
+      println("  private Symbol symbol(Sym symbol) {");
       println(
-          "     ComplexSymbolFactory.Location left = new ComplexSymbolFactory.Location (yyline+1,yycolumn+1-yylength());");
+          "     AdvancedSymbolFactory.Location left = new AdvancedSymbolFactory.Location (yyline+1,yycolumn+1-yylength());");
       println(
-          "     ComplexSymbolFactory.Location right = new ComplexSymbolFactory.Location (yyline+1,yycolumn+1);");
-      println("	  return symbolFactory.newSymbol(name, code, left, right);");
+          "     AdvancedSymbolFactory.Location right = new AdvancedSymbolFactory.Location (yyline+1,yycolumn+1);");
+      println("	  return symbolFactory.newSymbol(symbol, left, right);");
       println("  }");
-      println("  private Symbol symbol(String name, int code, Object lexem)		{");
+      println("  private Symbol symbol(Sym symbol, Object lexem)		{");
       println(
-          "     ComplexSymbolFactory.Location left = new ComplexSymbolFactory.Location (yyline+1,yycolumn+1);");
+          "     AdvancedSymbolFactory.Location left = new AdvancedSymbolFactory.Location (yyline+1,yycolumn+1);");
       println(
-          "     ComplexSymbolFactory.Location right = new ComplexSymbolFactory.Location (yyline+1,yycolumn+yylength());");
-      println("     return symbolFactory.newSymbol(name, code, left, right, lexem);");
+          "     AdvancedSymbolFactory.Location right = new AdvancedSymbolFactory.Location (yyline+1,yycolumn+yylength());");
+      println("     return symbolFactory.newSymbol(symbol, left, right, lexem);");
       println("  }");
       println();
     }

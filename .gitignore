@@ -32,3 +32,4 @@ buildtools
 # release files
 /release
 /out
+/bin/

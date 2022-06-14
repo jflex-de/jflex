@@ -211,7 +211,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                 if (tokenType == null)
                                   tokenType = "Symbol";
                                 if (eofVal == null)
-                                  eofVal = "return symbol(\"EOF\", Sym.EOF);";
+                                  eofVal = "return symbol(Sym.EOF);";
                                 if (!Options.jlex) eofclose = true;
                                 // %unicode:
                                 populateDefaultVersionUnicodeProperties();
