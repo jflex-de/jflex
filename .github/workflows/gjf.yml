@@ -1,0 +1,25 @@
+name: Code Style
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  java:
+    name: 'Java Format'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 11 # recent versions of Google Java Format require JDK 11+
+    - run: scripts/test-java-format.sh
+
+  bazel:
+    name: 'Bazel Format'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: scripts/test-bzl-format.sh
