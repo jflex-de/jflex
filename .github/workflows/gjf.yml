@@ -1,23 +1,25 @@
-name: Google Java Format
+name: Code Style
 
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 jobs:
-
-  formatting:
+  java:
+    name: 'Java Format'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2 # v2 minimum required
+    - uses: actions/checkout@v2
     - uses: actions/setup-java@v1
       with:
-        # Recommended: latest versions of Google Java Format require JDK 11+
-        java-version: "11"
-    - uses: axel-op/googlejavaformat-action@v3.4.0
-      with:
-        args: --dry-run --set-exit-if-changed
-        files: |-
-            java/**/*.java
-            javatests/**/*.java
-            jflex/**/*.java'
+        java-version: 11 # recent versions of Google Java Format require JDK 11+
+    - run: scripts/test-java-format.sh
+
+  bazel:
+    name: 'Bazel Format'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: scripts/test-bzl-format.sh
