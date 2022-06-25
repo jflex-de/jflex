@@ -3,9 +3,9 @@ java_test(
     size = "small",
     timeout = "short",
     srcs = [
+        "OffsetGen.java",
         "StateSetGen.java",
         "StateSetQuickcheck.java",
-        "OffsetGen.java",
     ],
     deps = [
         "//jflex/src/main/java/jflex/state",
