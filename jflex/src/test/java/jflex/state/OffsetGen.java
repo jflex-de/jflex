@@ -14,28 +14,28 @@ public class OffsetGen extends Generator<Integer> {
   public Integer generate(SourceOfRandomness r, GenerationStatus status) {
     int rnd = r.nextInt(1, 100);
 
-    // 1% change of getting number 0
-    if (rnd == 1) {
+    // 5% change of getting number 0
+    if (rnd >= 1 && rnd <= 5) {
       return 0;
     }
 
-    // 1% change of getting number 1
-    if (rnd == 2) {
+    // 5% change of getting number 1
+    if (rnd >= 6 && rnd <= 10) {
       return 1;
     }
 
-    // 1% change of getting Integer.MAX_VALUE
-    if (rnd == 3) {
+    // 5% change of getting Integer.MAX_VALUE
+    if (rnd >= 11 && rnd <= 15) {
       return Integer.MAX_VALUE;
     }
 
     // 15% chance of getting a "larger" size
-    if (rnd >= 4 && rnd <= 18) {
+    if (rnd >= 16 && rnd <= 30) {
       return r.nextInt(200_001, 10_000_000);
     }
 
     // 5% chance of getting a "huge" size
-    if (rnd >= 19 && rnd <= 23) {
+    if (rnd >= 31 && rnd <= 35) {
       return r.nextInt(10_000_001, Integer.MAX_VALUE);
     }
 
