@@ -3,7 +3,6 @@ java_test(
     size = "small",
     timeout = "short",
     srcs = [
-        "IntCharGen.java",
         "OffsetGen.java",
         "StateSetGen.java",
         "StateSetQuickcheck.java",

@@ -5,6 +5,7 @@ java_test(
     srcs = [
         "CharClassesGen.java",
         "CharClassesQuickcheck.java",
+        "IntCharGen.java",
     ],
     deps = [
         ":IntCharSetGen",
