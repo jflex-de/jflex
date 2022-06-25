@@ -5,6 +5,7 @@ java_test(
     srcs = [
         "StateSetGen.java",
         "StateSetQuickcheck.java",
+        "OffsetGen.java",
     ],
     deps = [
         "//jflex/src/main/java/jflex/state",
