@@ -49,7 +49,10 @@ java_test(
 java_library(
     name = "IntCharSetGen",
     testonly = True,
-    srcs = ["IntCharGen.java","IntCharSetGen.java"],
+    srcs = [
+        "IntCharGen.java",
+        "IntCharSetGen.java",
+    ],
     deps = [
         "//jflex/src/main/java/jflex/core/unicode",
         "//jflex/src/test/java/jflex/chars",
