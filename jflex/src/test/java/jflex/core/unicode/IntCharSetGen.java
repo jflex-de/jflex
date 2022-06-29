@@ -15,6 +15,7 @@ import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 import jflex.chars.IntervalGen;
+import jflex.logging.Out;
 
 /**
  * Generator for random {@link IntCharSet} instances.
@@ -50,7 +51,11 @@ public class IntCharSetGen extends Generator<IntCharSet> {
 
     // randomly add possible additional cased character
     if (numIntervals < maxSize && r.nextBoolean()) {
-      result.add(IntCharGen.getRandomCased(r));
+      try {
+        result.add(IntCharGen.getRandomCased(r));
+      } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+        Out.warning("Unable to fetch a random cased value - " + e.getMessage());
+      }
     }
 
     return result;
