@@ -54,7 +54,9 @@ java_library(
         "IntCharSetGen.java",
     ],
     deps = [
+        "//jflex/src/main/java/jflex/chars",
         "//jflex/src/main/java/jflex/core/unicode",
+        "//jflex/src/main/java/jflex/logging",
         "//jflex/src/test/java/jflex/chars",
         "//third_party/com/google/truth",
         "//third_party/com/pholser/quickcheck",
