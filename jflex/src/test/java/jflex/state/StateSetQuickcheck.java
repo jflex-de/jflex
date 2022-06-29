@@ -11,6 +11,8 @@ package jflex.state;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
 import com.pholser.junit.quickcheck.From;
@@ -211,6 +213,7 @@ public class StateSetQuickcheck {
 
     //  if no overflow then offset + e, else overflow so use MAX_VALUE
     int newValue = (Integer.MAX_VALUE - offset) >= e ? offset + e : Integer.MAX_VALUE;
+    assumeThat(set.hasElement(newValue), equalTo(false));
     set.addState(newValue);
     assertThat(set.contains(setPre)).isTrue();
     assertThat(set.hasElement(newValue)).isTrue();
