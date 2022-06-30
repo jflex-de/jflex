@@ -38,8 +38,10 @@ public class IntCharGen extends Generator<Integer> {
     // get list of casedIntervals
     List<Interval> casedIntervals = (new UnicodeProperties()).getIntCharSet("cased").getIntervals();
 
-    // return start of interval @todo perhaps we should pick some random set within the interval
-    // instead...
-    return casedIntervals.get(r.nextInt(0, casedIntervals.size() - 1)).start;
+    // randomly pick an interval
+    Interval interval = casedIntervals.get(r.nextInt(0, casedIntervals.size() - 1));
+
+    // return a value between start and end of interval
+    return r.nextInt(interval.start, interval.end);
   }
 }
