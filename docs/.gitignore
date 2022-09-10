@@ -9,6 +9,7 @@ lex-specs.tex
 performance.tex
 porting-and-parsers.tex
 maven-plugin.tex
+generated-class.tex
 
 *.bbl
 *.blg
@@ -17,6 +18,8 @@ maven-plugin.tex
 *.aux
 *.bcf
 *.out
+*.fdb_latexmk
+*.fls
 
 *.mdx
 
