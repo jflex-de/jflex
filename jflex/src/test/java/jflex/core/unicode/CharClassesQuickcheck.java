@@ -48,9 +48,7 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSingle(
-      CharClasses classes,
-      @From(IntCharGen.class) int c1,
-      @From(IntCharGen.class) int c2) {
+      CharClasses classes, @From(IntCharGen.class) int c1, @From(IntCharGen.class) int c2) {
     assumeTrue(c1 != c2);
     classes.makeClass(c1, false);
     assertThat(classes.invariants()).isTrue();
@@ -58,8 +56,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addSingleSingleton(
-      CharClasses classes, @From(IntCharGen.class) int c) {
+  public void addSingleSingleton(CharClasses classes, @From(IntCharGen.class) int c) {
     classes.makeClass(c, false);
     IntCharSet set = classes.getCharClass(classes.getClassCode(c));
     assertThat(set).isEqualTo(IntCharSet.ofCharacter(c));
@@ -112,8 +109,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addString(
-      CharClasses classes, String s, @From(IntCharGen.class) int c) {
+  public void addString(CharClasses classes, String s, @From(IntCharGen.class) int c) {
 
     assumeTrue(s.indexOf(c) < 0);
 
