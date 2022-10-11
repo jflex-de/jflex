@@ -110,28 +110,17 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addString(CharClasses classes, String s, @From(IntCharGen.class) int c) {
-
-    assumeTrue(s.indexOf(c) < 0);
-
-    classes.makeClass(s, false);
-    assertThat(classes.invariants()).isTrue();
-
-    int cCode = classes.getClassCode(c);
-    for (int i = 0; i < s.length(); ) {
-      int ch = s.codePointAt(i);
-      assertThat(classes.getClassCode(ch)).isNotEqualTo(cCode);
-      i += Character.charCount(ch);
-    }
-  }
-
-  @Property
-  public void addStringCaseless(CharClasses classes, String s, @From(IntCharGen.class) int c)
+  public void addString(
+      CharClasses classes, String s, @From(IntCharGen.class) int c, boolean caseless)
       throws UnicodeProperties.UnsupportedUnicodeVersionException {
-    assumeTrue(!s.toLowerCase().contains(String.valueOf(c)));
+    if (caseless) {
+      assumeTrue(!s.toLowerCase().contains(String.valueOf(c).toLowerCase()));
+      classesInit(classes);
+    } else {
+      assumeTrue(s.indexOf(c) < 0);
+    }
 
-    classesInit(classes);
-    classes.makeClass(s, true);
+    classes.makeClass(s, caseless);
     assertThat(classes.invariants()).isTrue();
 
     int cCode = classes.getClassCode(c);
