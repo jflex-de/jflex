@@ -32,7 +32,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JUnitQuickcheck.class)
 public class CharClassesQuickcheck {
-  UnicodeProperties unicodeProperties;
 
   // TODO(lsf): add testing for caseless; needs UnicodeProperties
 
@@ -126,23 +125,6 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addStringCaseless(CharClasses classes, String s, @From(IntCharGen.class) int c)
-      throws UnicodeProperties.UnsupportedUnicodeVersionException {
-    assumeTrue(!s.toLowerCase().contains(String.valueOf(c)));
-
-    classesInit(classes);
-    classes.makeClass(s, true);
-    assertThat(classes.invariants()).isTrue();
-
-    int cCode = classes.getClassCode(c);
-    for (int i = 0; i < s.length(); ) {
-      int ch = s.codePointAt(i);
-      assertThat(classes.getClassCode(ch)).isNotEqualTo(cCode);
-      i += Character.charCount(ch);
-    }
-  }
-
-  @Property
   public void normaliseSingle(
       CharClasses classes, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
     CharClasses preClasses = CharClasses.copyOf(classes);
@@ -217,19 +199,5 @@ public class CharClassesQuickcheck {
     for (int i = 0; i < intervals.length - 1; i++) {
       assertThat(intervals[i].end + 1).isEqualTo(intervals[i + 1].start);
     }
-  }
-
-  private void classesInit(CharClasses classes)
-      throws UnicodeProperties.UnsupportedUnicodeVersionException {
-    // init classes
-    unicodeProperties = new UnicodeProperties();
-    classes.init(
-        CharClasses.maxChar,
-        new ILexScan() {
-          @Override
-          public UnicodeProperties getUnicodeProperties() {
-            return unicodeProperties;
-          }
-        });
   }
 }
