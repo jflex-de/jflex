@@ -161,8 +161,21 @@ public class StateSetQuickcheck {
   @Property
   public void removeAdd(
       @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
-      @InRange(minInt = 0, maxInt = 100) int e,
-      @From(OffsetGen.class) int largeOffset) {
+      @InRange(minInt = 0, maxInt = 100) int e) {
+    assumeTrue(s.hasElement(e));
+    StateSet sPre = new StateSet(s);
+    s.remove(e);
+    assertThat(sPre.contains(s)).isTrue();
+    assertThat(s).isNotEqualTo(sPre);
+    s.addState(e);
+    assertThat(s).isEqualTo(sPre);
+  }
+
+  @Property
+  public void removeAddResize(
+          @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
+          @InRange(minInt = 0, maxInt = 100) int e,
+          @From(OffsetGen.class) int largeOffset) {
     assumeTrue(s.hasElement(e));
     StateSet sPre = new StateSet(s);
     s.remove(e);
@@ -172,11 +185,12 @@ public class StateSetQuickcheck {
     assertThat(s).isEqualTo(sPre);
 
     // add larger state value to force resize
-    if ((Integer.MAX_VALUE - largeOffset) <= s.bits.length) { // avoid overrun wrap
-      largeOffset = Integer.MAX_VALUE - s.bits.length;
+    int largerState;
+    try {
+      largerState = Math.addExact(s.getCurrentMaxState(), largeOffset);
+    } catch (ArithmeticException arithmeticException) {
+      largerState = Integer.MAX_VALUE;
     }
-    int largerState =
-        ((s.bits.length + largeOffset) << StateSet.BITS) & Integer.MAX_VALUE; // & resets sign bit
     s.addState(largerState);
     assertThat(s).contains(largerState);
     s.remove(largerState);
@@ -243,8 +257,7 @@ public class StateSetQuickcheck {
     assertThat(s2.contains(comp)).isTrue();
 
     // ensure that comp does not contain s1
-    StateSet empty = new StateSet();
-    if (!empty.contains(s1)) { // if s1 is {}, then it will always be contained in comp
+    if (s1.containsElements()) { // if s1 is {}, then it will always be contained in comp
       assertThat(comp.contains(s1)).isFalse();
     }
   }
