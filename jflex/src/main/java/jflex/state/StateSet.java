@@ -409,16 +409,19 @@ public final class StateSet implements Iterable<Integer> {
     return states();
   }
 
+  /**
+   * Provide the max value that can be stored without a resize
+   *
+   * @return an int of the max value
+   */
   public int getCurrentMaxState() {
     // ensure we don't over run max state
     if (bits.length + BITS > Integer.bitCount(Integer.MAX_VALUE)) {
       return Integer.MAX_VALUE;
     }
 
-    return Integer.parseInt(
-            String.join("", Collections.nCopies(bits.length, "1"))
-                  + String.join("", Collections.nCopies(BITS, "0")),
-            2
-          );
+    String ones = String.join("", Collections.nCopies(bits.length, "1"));
+    String zeros = String.join("", Collection.nCopies(BITS, "0"));
+    return Integer.parseInt(ones + zeros, 2);
   }
 }

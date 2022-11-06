@@ -173,9 +173,9 @@ public class StateSetQuickcheck {
 
   @Property
   public void removeAddResize(
-          @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
-          @InRange(minInt = 0, maxInt = 100) int e,
-          @From(OffsetGen.class) int largeOffset) {
+      @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
+      @InRange(minInt = 0, maxInt = 100) int e,
+      @From(OffsetGen.class) int largeOffset) {
     assumeTrue(s.hasElement(e));
     StateSet sPre = new StateSet(s);
     s.remove(e);
