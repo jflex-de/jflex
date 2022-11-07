@@ -9,7 +9,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.state;
 
-import java.util.Collections;
 import java.util.Iterator;
 import javax.annotation.Nullable;
 import jflex.logging.Out;
@@ -415,13 +414,6 @@ public final class StateSet implements Iterable<Integer> {
    * @return an int of the max value
    */
   public int getCurrentMaxState() {
-    // ensure we don't over run max state
-    if (bits.length + BITS > Integer.bitCount(Integer.MAX_VALUE)) {
-      return Integer.MAX_VALUE;
-    }
-
-    String ones = String.join("", Collections.nCopies(bits.length, "1"));
-    String zeros = String.join("", Collection.nCopies(BITS, "0"));
-    return Integer.parseInt(ones + zeros, 2);
+    return (bits.length << BITS) | ~(0xFFFFFFFF << BITS);
   }
 }
