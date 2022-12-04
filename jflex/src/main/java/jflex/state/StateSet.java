@@ -407,4 +407,13 @@ public final class StateSet implements Iterable<Integer> {
   public Iterator<Integer> iterator() {
     return states();
   }
+
+  /**
+   * Provide the max value that can be stored without a resize
+   *
+   * @return an int of the max value
+   */
+  public int getCurrentMaxState() {
+    return (bits.length << BITS) | ~(0xFFFFFFFF << BITS);
+  }
 }

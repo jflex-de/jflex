@@ -11,9 +11,13 @@ package jflex.state;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.generator.Also;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
@@ -168,6 +172,32 @@ public class StateSetQuickcheck {
   }
 
   @Property
+  public void removeAddResize(
+      @Size(max = 90) @InRange(minInt = 0, maxInt = 100) StateSet s,
+      @InRange(minInt = 0, maxInt = 100) int e,
+      @From(OffsetGen.class) int largeOffset) {
+    assumeTrue(s.hasElement(e));
+    StateSet sPre = new StateSet(s);
+    s.remove(e);
+    assertThat(sPre.contains(s)).isTrue();
+    assertThat(s).isNotEqualTo(sPre);
+    s.addState(e);
+    assertThat(s).isEqualTo(sPre);
+
+    // add larger state value to force resize
+    int largerState;
+    try {
+      largerState = Math.addExact(s.getCurrentMaxState(), largeOffset);
+    } catch (ArithmeticException arithmeticException) {
+      largerState = Integer.MAX_VALUE;
+    }
+    s.addState(largerState);
+    assertThat(s).contains(largerState);
+    s.remove(largerState);
+    assertThat(s).isEqualTo(sPre);
+  }
+
+  @Property
   public void clearMakesEmpty(StateSet set) {
     set.clear();
     assertThat(set).isEmpty();
@@ -181,10 +211,27 @@ public class StateSetQuickcheck {
   }
 
   @Property
-  public void addStateDoesNotRemove(StateSet set, @InRange(minInt = 0, maxInt = 34) int e) {
+  public void addStateDoesNotRemove(
+      StateSet set, @Also("2147483647") @InRange(minInt = 0, maxInt = 34) int e) {
     StateSet setPre = new StateSet(set);
     set.addState(e);
     assertThat(set.contains(setPre)).isTrue();
+    assertThat(set.hasElement(e)).isTrue();
+
+    // add an out of range value to increase coverage of contains
+
+    // offset to StateSetGen.maxRange + 1
+    int offset =
+        1001; // note this effected by InRange, so this needs to be adjusted based on annotations
+    // on set, default is set
+
+    //  if no overflow then offset + e, else overflow so use MAX_VALUE
+    int newValue = (Integer.MAX_VALUE - offset) >= e ? offset + e : Integer.MAX_VALUE;
+    assumeThat(set.hasElement(newValue), equalTo(false));
+    set.addState(newValue);
+    assertThat(set.contains(setPre)).isTrue();
+    assertThat(set.hasElement(newValue)).isTrue();
+    assertThat(setPre.contains(set)).isFalse();
   }
 
   @Property
@@ -208,6 +255,11 @@ public class StateSetQuickcheck {
     StateSet comp = s1.complement(s2);
     // only elements of s2 are in the complement
     assertThat(s2.contains(comp)).isTrue();
+
+    // ensure that comp does not contain s1
+    if (s1.containsElements()) { // if s1 is {}, then it will always be contained in comp
+      assertThat(comp.contains(s1)).isFalse();
+    }
   }
 
   @Property
@@ -228,6 +280,13 @@ public class StateSetQuickcheck {
   public void containsElements(StateSet s, @InRange(minInt = 0, maxInt = 34) int e) {
     s.addState(e);
     assertThat(s.containsElements()).isTrue();
+
+    // remove each added element, ot ensure containsElements continues to work as elements are
+    // removed
+    while (s.containsElements()) {
+      s.getAndRemoveElement();
+    }
+    assertThat(s.containsElements()).isFalse();
   }
 
   @Property
