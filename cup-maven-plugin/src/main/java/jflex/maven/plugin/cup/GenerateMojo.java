@@ -93,7 +93,9 @@ public class GenerateMojo extends AbstractMojo {
     }
   }
 
-  /** @param cupFile CUP definition file */
+  /**
+   * @param cupFile CUP definition file
+   */
   @VisibleForTesting
   void generateParser(File cupFile) throws IOException, MojoExecutionException {
     String javaPackage = findJavaPackage(cupFile);

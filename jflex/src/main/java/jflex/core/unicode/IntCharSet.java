@@ -484,7 +484,9 @@ public final class IntCharSet implements Iterable<Integer> {
     return intervals;
   }
 
-  /** @return an iterator over the intervals in this set */
+  /**
+   * @return an iterator over the intervals in this set
+   */
   public Iterator<Interval> intervalIterator() {
     return intervals.iterator();
   }

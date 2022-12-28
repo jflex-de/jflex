@@ -12,6 +12,7 @@ package jflex.core.unicode;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assume.assumeTrue;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.generator.InRange;
 import com.pholser.junit.quickcheck.generator.Size;
@@ -47,9 +48,7 @@ public class CharClassesQuickcheck {
 
   @Property
   public void addSingle(
-      CharClasses classes,
-      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c1,
-      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c2) {
+      CharClasses classes, @From(IntCharGen.class) int c1, @From(IntCharGen.class) int c2) {
     assumeTrue(c1 != c2);
     classes.makeClass(c1, false);
     assertThat(classes.invariants()).isTrue();
@@ -57,8 +56,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addSingleSingleton(
-      CharClasses classes, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+  public void addSingleSingleton(CharClasses classes, @From(IntCharGen.class) int c) {
     classes.makeClass(c, false);
     IntCharSet set = classes.getCharClass(classes.getClassCode(c));
     assertThat(set).isEqualTo(IntCharSet.ofCharacter(c));
@@ -68,7 +66,7 @@ public class CharClassesQuickcheck {
   public void addSet(
       CharClasses classes,
       @InRange(maxInt = CharClasses.maxChar) IntCharSet set,
-      @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+      @From(IntCharGen.class) int c) {
 
     assumeTrue(!set.contains(c));
 
@@ -111,8 +109,7 @@ public class CharClassesQuickcheck {
   }
 
   @Property
-  public void addString(
-      CharClasses classes, String s, @InRange(minInt = 0, maxInt = CharClasses.maxChar) int c) {
+  public void addString(CharClasses classes, String s, @From(IntCharGen.class) int c) {
 
     assumeTrue(s.indexOf(c) < 0);
 
