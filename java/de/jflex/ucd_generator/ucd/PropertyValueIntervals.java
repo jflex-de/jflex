@@ -134,7 +134,9 @@ public class PropertyValueIntervals {
     usedBinaryProperties.add(propertyName);
   }
 
-  /** @deprecated Hack for Unicode 2.0 */
+  /**
+   * @deprecated Hack for Unicode 2.0
+   */
   @Deprecated
   public void removeEnumPropertyPoint(String propertyName, String propertyValue, int codepoint) {
     CodepointRange point = CodepointRange.createPoint(codepoint);

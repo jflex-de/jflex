@@ -20,7 +20,9 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.junit.Rule;
 import org.junit.Test;
 
-/** @author Régis Décamps (decamps@users.sf.net) */
+/**
+ * @author Régis Décamps (decamps@users.sf.net)
+ */
 public class JFlexMojoTest {
 
   @Rule public MojoRule mojoRule = new MojoRule();

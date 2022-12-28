@@ -116,7 +116,9 @@ public class CharClasses {
     return classes.size();
   }
 
-  /** @return a deep-copy list of all char class partions. */
+  /**
+   * @return a deep-copy list of all char class partions.
+   */
   public List<IntCharSet> allClasses() {
     List<IntCharSet> result = new ArrayList<>();
     for (IntCharSet ccl : classes) {
