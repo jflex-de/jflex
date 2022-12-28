@@ -10,7 +10,7 @@ set -e
 
 # Version of Google java format
 # https://github.com/google/google-java-format/releases
-VERSION_GJF=1.9
+VERSION_GJF=1.15.0
 
 if [[ "_${TRAVIS_JDK_VERSION}" = "_openjdk7" ]]; then
   logi "Skip google-java-format. Unsupported java version."
@@ -31,7 +31,7 @@ if [[ ! -f ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar ]]; then
     logi "Download tools"
     logi "=============="
     mkdir -p $TOOLSDIR
-    curl -C - -L https://github.com/google/google-java-format/releases/download/google-java-format-${VERSION_GJF}/google-java-format-${VERSION_GJF}-all-deps.jar -o ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar
+    curl -C - -L https://github.com/google/google-java-format/releases/download/v${VERSION_GJF}/google-java-format-${VERSION_GJF}-all-deps.jar -o ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar
 fi
 
 logi "Check java format"
