@@ -184,15 +184,17 @@ public class CharClasses {
   /**
    * Returns the code of the character class the specified character belongs to.
    *
-   * @param codePoint code point.
-   * @return code of the character class.
+   * @param codePoint code point to get the char class for.
+   * @return code of the character class, -1 if {@code codePoint} is not in the input char set.
    */
   public int getClassCode(int codePoint) {
-    int i = -1;
-    while (true) {
-      IntCharSet x = classes.get(++i);
+    int i = 0;
+    while (i < classes.size()) {
+      IntCharSet x = classes.get(i);
       if (x.contains(codePoint)) return i;
+      i++;
     }
+    return -1;
   }
 
   /**
