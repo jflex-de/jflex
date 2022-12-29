@@ -45,6 +45,11 @@
     <url>https://github.com/jflex-de/jflex/tree/master/jflex-maven-plugin</url>
   </scm>
   <build>
+    <resources>
+      <resource>
+        <directory>resources</directory>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
