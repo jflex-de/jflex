@@ -2,7 +2,7 @@
 
 This is a plugin to invoke cup from Maven.
 
-Version 1.0 of the plugin uses CUP 11b.
+Version 1.3 of the plugin uses CUP 11b.
 
 ## Usage
 
@@ -16,7 +16,7 @@ cup -destdir target/generated-sources/cup -parser parser -symbols sym src/main/c
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>cup-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.3</version>
         <executions>
           <execution>
             <goals>
