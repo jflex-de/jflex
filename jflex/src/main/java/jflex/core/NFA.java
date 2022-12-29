@@ -307,6 +307,10 @@ public final class NFA {
   public void addTransition(int start, int input, int dest) {
     Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
 
+    // Trying to insert a transition for a character that is not in the input
+    // char set. Ignore it. This can happen for case insensitive matching.
+    if (input == -1) return;
+
     int maxS = Math.max(start, dest) + 1;
 
     ensureCapacity(maxS);
