@@ -372,7 +372,7 @@ public abstract class AbstractLexScan implements ILexScan {
   }
 
   /**
-   * @deprecated Use {@link #columnCoount}
+   * @deprecated Use {@link #columnCount}
    */
   @SuppressWarnings("unused") // Used by generated LexScan
   @Deprecated

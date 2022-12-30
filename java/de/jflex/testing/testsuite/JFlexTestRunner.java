@@ -204,7 +204,19 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     }
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
-    Options.verbose = !spec.quiet();
+    // verbose is default -- verbose_provided simulates the behaviour of an explicit -v on the
+    // command line
+    if (spec.verbose_provided()) {
+      Options.verbose = true;
+      Options.progress = true;
+      Options.unused_warning = true;
+    }
+    // if both verbose_provided() and quiet() are present, we want quiet() to win
+    if (spec.quiet()) {
+      Options.verbose = false;
+      Options.progress = false;
+      Options.unused_warning = false;
+    }
     Options.unused_warning = spec.warnUnused();
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
