@@ -197,6 +197,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     return Optional.empty();
   }
 
+  @SuppressWarnings("OrphanedFormatString")
   private String invokeJflex() {
     if (Options.encoding == null) {
       OptionUtils.setDefaultOptions();
