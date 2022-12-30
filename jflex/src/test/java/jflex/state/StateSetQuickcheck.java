@@ -12,6 +12,7 @@ package jflex.state;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeThat;
 import static org.junit.Assume.assumeTrue;
 
@@ -245,6 +246,11 @@ public class StateSetQuickcheck {
   @Property
   public void complementNoOriginalElements(StateSet s1, StateSet s2) {
     StateSet comp = s1.complement(s2);
+    if (comp == null) {
+      fail("complement returned null");
+      return; // unreachable; makes non-nullable check happy
+    }
+
     // no elements of s1 are in the complement
     comp.intersect(s1);
     assertThat(comp).isEmpty();
@@ -253,6 +259,11 @@ public class StateSetQuickcheck {
   @Property
   public void complementElements(StateSet s1, StateSet s2) {
     StateSet comp = s1.complement(s2);
+    if (comp == null) {
+      fail("complement returned null");
+      return; // unreachable; makes non-nullable check happy
+    }
+
     // only elements of s2 are in the complement
     assertThat(s2.contains(comp)).isTrue();
 
