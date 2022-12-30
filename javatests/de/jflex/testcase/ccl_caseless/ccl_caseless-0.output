@@ -1,0 +1,13 @@
+match: --a--
+action [17] { /* default */ }
+match: --sb--
+action [15] { return 1; }
+1
+match: --c--
+action [17] { /* default */ }
+match: --Sb--
+action [15] { return 1; }
+1
+match: --a--
+action [17] { /* default */ }
+-1
