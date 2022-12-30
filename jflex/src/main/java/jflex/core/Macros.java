@@ -125,7 +125,7 @@ public final class Macros {
    * @throws MacroException if there is a cycle in the macro usage graph.
    */
   public void expand() throws MacroException {
-    Set<String> keys = new HashSet(macros.keySet());
+    Set<String> keys = new HashSet<String>(macros.keySet());
     for (String name : keys) {
       if (isUsed(name)) {
         macros.replace(name, expandMacro(name, getDefinition(name)));

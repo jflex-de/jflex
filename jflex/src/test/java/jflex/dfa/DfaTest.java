@@ -7,6 +7,7 @@ import org.junit.Test;
 public class DfaTest {
 
   @Test
+  @SuppressWarnings("deprecation")
   public void copyOf() {
     DFA dfa1 = new DFA(2, 1, 1);
     DFA dfa2 = DeprecatedDfa.copyOf(dfa1);
