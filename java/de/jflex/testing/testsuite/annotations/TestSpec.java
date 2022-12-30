@@ -63,6 +63,9 @@ public @interface TestSpec {
   /** Runs JFlex generation with the {@code -q} option. */
   boolean quiet() default false;
 
+  /** Explicitly run JFlex with the {@code -v} option (even though verbose mode is default). */
+  boolean verbose_provided() default false;
+
   /** Golden file for JFlex's log (System.out stream). */
   String sysout() default "";
 
