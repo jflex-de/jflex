@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import jflex.core.unicode.IntCharSet;
-import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -213,8 +212,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
                                 if (!Options.jlex) eofclose = true;
                                 // %unicode:
-                                populateDefaultVersionUnicodeProperties();
-                                initUnicodeCharClasses();
+                                initCharClasses(CharSetSize.UNICODE);
                               }
   "%cup"                      { cupCompatible = true;
                                 isImplementing = concExc(isImplementing, "java_cup.runtime.Scanner");
@@ -240,24 +238,11 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%intwrap"                  { isIntWrap = true;  }
   "%yyeof"                    { isYYEOF = true;  }
   "%notunix"                  { notUnix = true;  }
-  "%7bit"                     { populateDefaultVersionUnicodeProperties();
-                                charClasses.init(127, this); }
-  "%full"|"%8bit"             { populateDefaultVersionUnicodeProperties();
-                                charClasses.init(255, this); }
-  "%16bit"                    { populateDefaultVersionUnicodeProperties();
-                                initUnicodeCharClasses(); }
+  "%7bit"                     { initCharClasses(CharSetSize.SEVEN_BIT); }
+  "%full"|"%8bit"             { initCharClasses(CharSetSize.EIGHT_BIT); }
+  "%16bit"                    { initCharClasses(CharSetSize.UNICODE); }
   "%unicode"({WSP}+{DottedVersion})? { String v = yytext().substring(8).trim();
-                                       if (v.length() == 0) {
-                                         populateDefaultVersionUnicodeProperties();
-                                       } else {
-                                         try {
-                                           unicodeProperties = new UnicodeProperties(v);
-                                         } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-                                           throw new ScannerException
-                                             (file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, yyline);
-                                         }
-                                       }
-                                       initUnicodeCharClasses();
+                                       initCharClasses(CharSetSize.UNICODE, v);
                                      }
 
   "%caseless"|"%ignorecase"   { caseless = true; }
@@ -285,11 +270,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
-  "="{WSP}*                   { if (null == unicodeProperties) {
-                                  populateDefaultVersionUnicodeProperties();
-                                  initUnicodeCharClasses();
-                                }
-                                yybegin(REGEXP);
+  "="{WSP}*                   { yybegin(REGEXP);
                                 return symbol(EQUALS);
                               }
 
@@ -297,11 +278,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   {EndOfLineComment}          { }
 
-  ^"%%" {NNL}*                { if (null == unicodeProperties) {
-                                  populateDefaultVersionUnicodeProperties();
-                                  initUnicodeCharClasses();
-                                }
-                                macroDefinition = false;
+  ^"%%" {NNL}*                { macroDefinition = false;
                                 yybegin(REGEXPSTART);
                                 return symbol(DELIMITER);
                               }
@@ -422,7 +399,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
-                                 return symbol(UNIPROPCCLASS, set);
+                                 return symbol(UNIPROPCCLASS, propertyValue);
                                }
     {WSPNL}*"\\P{"[^}]*"}"     { String trimmedText = yytext().trim();
                                  String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
@@ -430,7 +407,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
-                                 return symbol(UNIPROPCCLASSNOT, set);
+                                 return symbol(UNIPROPCCLASSNOT, propertyValue);
                                }
   }
 

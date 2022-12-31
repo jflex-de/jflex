@@ -186,6 +186,8 @@ public final class Macros {
       case sym.CHAR:
       case sym.CHAR_I:
       case sym.PRIMCLASS:
+      case sym.PRECLASS:
+      case sym.UNIPROPCCLASS:
         return definition;
 
       case sym.CCLASS:

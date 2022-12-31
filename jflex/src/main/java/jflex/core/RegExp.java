@@ -9,10 +9,15 @@
 
 package jflex.core;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
+import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.CharClassException;
+import jflex.option.Options;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.
@@ -279,14 +284,12 @@ public class RegExp {
   }
 
   /**
-   * Normalise the regular expression to eliminate macro use (expand them), and compound character
-   * class expression (compute their content).
+   * Normalise the regular expression to eliminate macro use (expand them).
    *
-   * @return a regexp that contains only {@link IntCharSet} char classes and no {@link
-   *     sym#MACROUSE}.
+   * @return a regexp that contains no {@link sym#MACROUSE}.
    */
   @SuppressWarnings("unchecked")
-  public final RegExp normalise(Macros m) {
+  public final RegExp normaliseMacros(Macros m) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -295,7 +298,7 @@ public class RegExp {
       case sym.BAR:
       case sym.CONCAT:
         binary = (RegExp2) this;
-        return new RegExp2(type, binary.r1.normalise(m), binary.r2.normalise(m));
+        return new RegExp2(type, binary.r1.normaliseMacros(m), binary.r2.normaliseMacros(m));
 
       case sym.STAR:
       case sym.PLUS:
@@ -304,7 +307,73 @@ public class RegExp {
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        return new RegExp1(type, content.normalise(m));
+        return new RegExp1(type, content.normaliseMacros(m));
+
+      case sym.CCLASS:
+      case sym.CCLASSNOT:
+        {
+          unary = (RegExp1) this;
+          List<RegExp> contents = (List<RegExp>) unary.content;
+          List<RegExp> newContents = new ArrayList<RegExp>(contents.size());
+          for (RegExp r : contents) {
+            RegExp n = r.normaliseMacros(m);
+            newContents.add(n);
+          }
+          return new RegExp1(type, newContents);
+        }
+
+      case sym.CCLASSOP:
+        unary = (RegExp1) this;
+        binary = (RegExp2) unary.content;
+        RegExp l = binary.r1.normaliseMacros(m);
+        RegExp r = binary.r2.normaliseMacros(m);
+        return new RegExp1(type, new RegExp2(binary.type, l, r));
+
+      case sym.STRING:
+      case sym.STRING_I:
+      case sym.CHAR:
+      case sym.CHAR_I:
+      case sym.PRIMCLASS:
+      case sym.PRECLASS:
+      case sym.UNIPROPCCLASS:
+        unary = (RegExp1) this;
+        return new RegExp1(type, unary.content);
+
+      case sym.MACROUSE:
+        unary = (RegExp1) this;
+        return m.getDefinition((String) unary.content).normaliseMacros(m);
+
+      default:
+        throw new RegExpException(this);
+    }
+  }
+
+  /**
+   * Normalise the regular expression to eliminate compound character class expression (compute
+   * their content).
+   *
+   * @return a regexp where all char classes are primitive {@link IntCharSet} classes.
+   */
+  @SuppressWarnings("unchecked")
+  public final RegExp normaliseCCLs() {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch (type) {
+      case sym.BAR:
+      case sym.CONCAT:
+        binary = (RegExp2) this;
+        return new RegExp2(type, binary.r1.normaliseCCLs(), binary.r2.normaliseCCLs());
+
+      case sym.STAR:
+      case sym.PLUS:
+      case sym.QUESTION:
+      case sym.BANG:
+      case sym.TILDE:
+        unary = (RegExp1) this;
+        content = (RegExp) unary.content;
+        return new RegExp1(type, content.normaliseCCLs());
 
       case sym.STRING:
       case sym.STRING_I:
@@ -320,7 +389,7 @@ public class RegExp {
           List<RegExp> contents = (List<RegExp>) unary.content;
           IntCharSet set = new IntCharSet();
           for (RegExp r : contents) {
-            RegExp1 n = checkPrimClass(r.normalise(m));
+            RegExp1 n = checkPrimClass(r.normaliseCCLs());
             set.add((IntCharSet) n.content);
           }
           return new RegExp1(sym.PRIMCLASS, set);
@@ -332,7 +401,7 @@ public class RegExp {
           List<RegExp> contents = (List<RegExp>) unary.content;
           IntCharSet set = IntCharSet.allChars();
           for (RegExp r : contents) {
-            RegExp1 n = checkPrimClass(r.normalise(m));
+            RegExp1 n = checkPrimClass(r.normaliseCCLs());
             set.sub((IntCharSet) n.content);
           }
           return new RegExp1(sym.PRIMCLASS, set);
@@ -341,20 +410,278 @@ public class RegExp {
       case sym.CCLASSOP:
         unary = (RegExp1) this;
         binary = (RegExp2) unary.content;
-        RegExp1 l = checkPrimClass(binary.r1.normalise(m));
+        RegExp1 l = checkPrimClass(binary.r1.normaliseCCLs());
         IntCharSet setl = (IntCharSet) l.content;
-        RegExp1 r = checkPrimClass(binary.r2.normalise(m));
+        RegExp1 r = checkPrimClass(binary.r2.normaliseCCLs());
         IntCharSet setr = (IntCharSet) r.content;
         IntCharSet set = performClassOp(binary.type, setl, setr, this);
         return new RegExp1(sym.PRIMCLASS, set);
 
-      case sym.MACROUSE:
+      default:
+        throw new RegExpException(this);
+    }
+  }
+
+  /**
+   * Expand pre-defined character classes into primitive IntCharSet classes.
+   *
+   * @param cache memoized pre-defined character class expansions
+   * @param cl character class partitions
+   * @return the expanded regular expression
+   */
+  @SuppressWarnings("unchecked")
+  public RegExp expandPreClasses(Map<Integer, IntCharSet> cache, CharClasses cl, boolean caseless) {
+    RegExp1 unary;
+    RegExp2 binary;
+    RegExp content;
+
+    switch (type) {
+      case sym.BAR:
+      case sym.CONCAT:
+        binary = (RegExp2) this;
+        return new RegExp2(
+            type,
+            binary.r1.expandPreClasses(cache, cl, caseless),
+            binary.r2.expandPreClasses(cache, cl, caseless));
+
+      case sym.STAR:
+      case sym.PLUS:
+      case sym.QUESTION:
+      case sym.BANG:
+      case sym.TILDE:
         unary = (RegExp1) this;
-        return m.getDefinition((String) unary.content).normalise(m);
+        content = (RegExp) unary.content;
+        return new RegExp1(type, content.expandPreClasses(cache, cl, caseless));
+
+      case sym.CCLASS:
+      case sym.CCLASSNOT:
+        {
+          unary = (RegExp1) this;
+          List<RegExp> contents = (List<RegExp>) unary.content;
+          List<RegExp> newContents = new ArrayList<RegExp>(contents.size());
+          for (RegExp r : contents) {
+            RegExp n = r.expandPreClasses(cache, cl, caseless);
+            newContents.add(n);
+          }
+          return new RegExp1(type, newContents);
+        }
+
+      case sym.CCLASSOP:
+        unary = (RegExp1) this;
+        binary = (RegExp2) unary.content;
+        RegExp l = binary.r1.expandPreClasses(cache, cl, caseless);
+        RegExp r = binary.r2.expandPreClasses(cache, cl, caseless);
+        return new RegExp1(type, new RegExp2(binary.type, l, r));
+
+      case sym.PRECLASS:
+        {
+          unary = (RegExp1) this;
+          IntCharSet set = getPreClass(cache, cl, (Integer) unary.content);
+          return new RegExp1(sym.PRIMCLASS, set);
+        }
+
+      case sym.UNIPROPCCLASS:
+        {
+          unary = (RegExp1) this;
+          IntCharSet set = cl.getUnicodeProperties().getIntCharSet((String) unary.content);
+          if (caseless) {
+            set = set.getCaseless(cl.getUnicodeProperties());
+          }
+          return new RegExp1(sym.PRIMCLASS, set);
+        }
+
+      case sym.STRING:
+      case sym.STRING_I:
+      case sym.CHAR:
+      case sym.CHAR_I:
+      case sym.PRIMCLASS:
+        unary = (RegExp1) this;
+        return new RegExp1(type, unary.content);
 
       default:
         throw new RegExpException(this);
     }
+  }
+
+  /**
+   * Check whether a character is a member of the give char class type.
+   *
+   * @param type the type of the character class ({@link sym#JLETTERCLASS} or {@link
+   *     sym#JLETTERDIGITCLASS})
+   * @param c the character to check
+   * @return true if the character is a member of the class
+   */
+  private static boolean checkJPartStart(int type, int c) {
+    switch (type) {
+      case sym.JLETTERCLASS:
+        return Character.isJavaIdentifierStart(c);
+
+      case sym.JLETTERDIGITCLASS:
+        return Character.isJavaIdentifierPart(c);
+
+      default:
+        return false;
+    }
+  }
+
+  /**
+   * Compute and memoize a pre-defined character class.
+   *
+   * @param preclassCache memoized pre-defined character class expansions
+   * @param charClasses character class partitions
+   * @param type the type of the predefined character class
+   * @return the expanded IntCharSet for the class
+   */
+  private static IntCharSet getPreClass(
+      Map<Integer, IntCharSet> preclassCache, CharClasses charClasses, int type) {
+    IntCharSet result = preclassCache.get(type);
+    if (null == result) {
+      UnicodeProperties unicodeProperties = charClasses.getUnicodeProperties();
+      switch (type) {
+        case sym.LETTERCLASS:
+          result = unicodeProperties.getIntCharSet("L");
+          break;
+
+        case sym.DIGITCLASS:
+          result = unicodeProperties.getIntCharSet("Nd");
+          break;
+
+        case sym.DIGITCLASSNOT:
+          IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
+          result = IntCharSet.ofCharacterRange(0, unicodeProperties.getMaximumCodePoint());
+          result.sub(digits);
+          break;
+
+        case sym.UPPERCLASS:
+          // "Uppercase" is more than Uppercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Uppercase",
+          // then fall back to Uppercase_Letter (Lu) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Uppercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Lu");
+          }
+          break;
+
+        case sym.LOWERCLASS:
+          // "Lowercase" is more than Lowercase_Letter, but older Unicode
+          // versions don't have this definition - check for "Lowercase",
+          // then fall back to Lowercase_Letter (Ll) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Lowercase");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Ll");
+          }
+          break;
+
+        case sym.WHITESPACECLASS:
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          result = unicodeProperties.getIntCharSet("Whitespace");
+          if (null == result) {
+            result = unicodeProperties.getIntCharSet("Zs");
+          }
+          break;
+
+        case sym.WHITESPACECLASSNOT:
+          // Although later versions do, Unicode 1.1 does not have the
+          // "Whitespace" definition - check for "Whitespace", then fall back
+          // to "Space_separator" (Zs) if it does not exist.
+          IntCharSet whitespaceClass = unicodeProperties.getIntCharSet("Whitespace");
+          if (null == whitespaceClass) {
+            whitespaceClass = unicodeProperties.getIntCharSet("Zs");
+          }
+          result = IntCharSet.ofCharacterRange(0, unicodeProperties.getMaximumCodePoint());
+          result.sub(whitespaceClass);
+          break;
+
+        case sym.WORDCLASS:
+          {
+            // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
+            if (null == alphaClass) {
+              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+              alphaClass = unicodeProperties.getIntCharSet("L");
+            }
+            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
+            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
+            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
+            if (null == connectorPunctClass) {
+              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+              connectorPunctClass = IntCharSet.ofCharacter('_');
+            }
+            result = IntCharSet.copyOf(alphaClass);
+            result.add(markClass);
+            result.add(digitClass);
+            result.add(connectorPunctClass);
+            break;
+          }
+
+        case sym.WORDCLASSNOT:
+          {
+            // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
+            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
+            if (null == alphaClass) {
+              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
+              alphaClass = unicodeProperties.getIntCharSet("L");
+            }
+            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
+            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
+            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
+            if (null == connectorPunctClass) {
+              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
+              connectorPunctClass = IntCharSet.ofCharacter('_');
+            }
+            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
+            wordClass.add(markClass);
+            wordClass.add(digitClass);
+            wordClass.add(connectorPunctClass);
+            result = IntCharSet.ofCharacterRange(0, unicodeProperties.getMaximumCodePoint());
+            result.sub(wordClass);
+            break;
+          }
+
+        case sym.JLETTERCLASS:
+        case sym.JLETTERDIGITCLASS:
+          result = new IntCharSet();
+
+          int c = 0;
+          int start = 0;
+          int last = charClasses.getMaxCharCode();
+
+          boolean prev, current;
+
+          prev = checkJPartStart(type, 0);
+
+          for (c = 1; c < last; c++) {
+
+            current = checkJPartStart(type, c);
+
+            if (!prev && current) start = c;
+            if (prev && !current) {
+              result.add(new Interval(start, c - 1));
+            }
+
+            prev = current;
+          }
+
+          // the last iteration is moved out of the loop to
+          // avoid an endless loop if last == maxCharCode and
+          // last+1 == 0
+          current = checkJPartStart(type, c);
+
+          if (!prev && current) result.add(new Interval(c, c));
+          if (prev && current) result.add(new Interval(start, c));
+          if (prev && !current) result.add(new Interval(start, c - 1));
+          break;
+
+        default:
+          throw new CharClassException("Unknown predefined char class type: " + type);
+      }
+
+      preclassCache.put(type, result);
+    }
+
+    return result;
   }
 
   /**
@@ -385,16 +712,22 @@ public class RegExp {
         content.makeCCLs(c, caseless);
         return;
 
-      case sym.STRING:
-      case sym.STRING_I:
       case sym.CHAR:
       case sym.CHAR_I:
+        Integer ch = (Integer) ((RegExp1) this).content;
+        c.makeClass(ch, caseless);
+        return;
+
+      case sym.STRING:
+      case sym.STRING_I:
+        String str = (String) ((RegExp1) this).content;
+        c.makeClass(str, caseless);
         return;
 
       case sym.PRIMCLASS:
         unary = (RegExp1) this;
         IntCharSet set = (IntCharSet) unary.content;
-        c.makeClass(set, caseless);
+        c.makeClass(set, Options.jlex && caseless);
         return;
 
       default:

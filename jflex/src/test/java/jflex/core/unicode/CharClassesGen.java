@@ -54,10 +54,8 @@ public class CharClassesGen extends Generator<CharClasses> {
    * @return a CharClasses object with one partition.
    */
   private CharClasses smallest() {
-    CharClasses result = new CharClasses();
     // TODO(lsf): make maxChar a configurable property
-    result.init(CharClasses.maxChar, new UnicodePropertiesSupplier());
-    return result;
+    return new CharClasses(CharClasses.maxChar, new UnicodePropertiesSupplier());
   }
 
   @Override

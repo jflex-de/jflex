@@ -10,8 +10,10 @@ package jflex.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import jflex.base.Build;
 import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -285,13 +287,44 @@ public class RegExps {
     }
   }
 
-  /** Normalise all character class expressions in regexp and lookahead rules. */
-  public void normalise(Macros m) {
+  /** Expand all macro calls in regexp and lookahead rules. */
+  public void normaliseMacros(Macros m) {
     List<RegExp> newRegExps = new ArrayList<RegExp>();
     List<RegExp> newLook = new ArrayList<RegExp>();
 
-    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normalise(m));
-    for (RegExp r : look) newLook.add(r == null ? r : r.normalise(m));
+    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normaliseMacros(m));
+    for (RegExp r : look) newLook.add(r == null ? r : r.normaliseMacros(m));
+
+    this.regExps = newRegExps;
+    this.look = newLook;
+  }
+
+  /** Normalise all character class expressions in regexp and lookahead rules. */
+  public void normaliseCCLs() {
+    List<RegExp> newRegExps = new ArrayList<RegExp>();
+    List<RegExp> newLook = new ArrayList<RegExp>();
+
+    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normaliseCCLs());
+    for (RegExp r : look) newLook.add(r == null ? r : r.normaliseCCLs());
+
+    this.regExps = newRegExps;
+    this.look = newLook;
+  }
+
+  /**
+   * Replace all predefined character classes with primitive IntCharSet classes.
+   *
+   * <p>Assumes normalised expressions.
+   */
+  public void expandPreClasses(
+      Map<Integer, IntCharSet> preclassCache, CharClasses charClasses, boolean caseless) {
+    List<RegExp> newRegExps = new ArrayList<RegExp>();
+    List<RegExp> newLook = new ArrayList<RegExp>();
+
+    for (RegExp r : regExps)
+      newRegExps.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
+    for (RegExp r : look)
+      newLook.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
 
     this.regExps = newRegExps;
     this.look = newLook;
@@ -307,8 +340,6 @@ public class RegExps {
 
   /**
    * Make character class partitions for all classes mentioned in the spec.
-   *
-   * <p>Assumes that single characters and strings have already been handled.
    *
    * <p>Assumes normalised expressions.
    */

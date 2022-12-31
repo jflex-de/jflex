@@ -16,7 +16,6 @@ import java.util.Map;
 import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
-import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -88,174 +87,6 @@ action code {:
     }
   }
 
-  private boolean check(int type, int c) {
-    switch (type) {
-      case sym.JLETTERCLASS:
-        return Character.isJavaIdentifierStart(c);
-
-      case sym.JLETTERDIGITCLASS:
-        return Character.isJavaIdentifierPart(c);
-
-      default: return false;
-    }
-  }
-
-  private IntCharSet getPreClass(int type) {
-    IntCharSet result = preclassCache.get(type);
-    if (null == result) {
-      UnicodeProperties unicodeProperties = scanner.getUnicodeProperties();
-      switch (type) {
-        case sym.LETTERCLASS:
-          result = unicodeProperties.getIntCharSet("L");
-          preclassCache.put(type, result);
-          break;
-
-        case sym.DIGITCLASS:
-          result = unicodeProperties.getIntCharSet("Nd");
-          preclassCache.put(type, result);
-          break;
-
-        case sym.DIGITCLASSNOT:
-          IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-          result.sub(digits);
-          preclassCache.put(type, result);
-          break;
-
-        case sym.UPPERCLASS:
-          // "Uppercase" is more than Uppercase_Letter, but older Unicode
-          // versions don't have this definition - check for "Uppercase",
-          // then fall back to Uppercase_Letter (Lu) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Uppercase");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Lu");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.LOWERCLASS:
-          // "Lowercase" is more than Lowercase_Letter, but older Unicode
-          // versions don't have this definition - check for "Lowercase",
-          // then fall back to Lowercase_Letter (Ll) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Lowercase");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Ll");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WHITESPACECLASS:
-          // Although later versions do, Unicode 1.1 does not have the
-          // "Whitespace" definition - check for "Whitespace", then fall back
-          // to "Space_separator" (Zs) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Whitespace");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Zs");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WHITESPACECLASSNOT:
-          // Although later versions do, Unicode 1.1 does not have the
-          // "Whitespace" definition - check for "Whitespace", then fall back
-          // to "Space_separator" (Zs) if it does not exist.
-          IntCharSet whitespaceClass = unicodeProperties.getIntCharSet("Whitespace");
-          if (null == whitespaceClass) {
-            whitespaceClass = unicodeProperties.getIntCharSet("Zs");
-          }
-          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-          result.sub(whitespaceClass);
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WORDCLASS:
-          {
-            // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-            if (null == alphaClass) {
-              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-              alphaClass = unicodeProperties.getIntCharSet("L");
-            }
-            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-            if (null == connectorPunctClass) {
-              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.ofCharacter('_');
-            }
-            result = IntCharSet.copyOf(alphaClass);
-            result.add(markClass);
-            result.add(digitClass);
-            result.add(connectorPunctClass);
-            preclassCache.put(type, result);
-            break;
-          }
-
-        case sym.WORDCLASSNOT:
-          {
-            // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-            if (null == alphaClass) {
-              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-              alphaClass = unicodeProperties.getIntCharSet("L");
-            }
-            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-            if (null == connectorPunctClass) {
-              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.ofCharacter('_');
-            }
-            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
-            wordClass.add(markClass);
-            wordClass.add(digitClass);
-            wordClass.add(connectorPunctClass);
-            result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-            result.sub(wordClass);
-            preclassCache.put(type, result);
-            break;
-          }
-        case sym.JLETTERCLASS:
-        case sym.JLETTERDIGITCLASS:
-        default:
-          result = new IntCharSet();
-
-          int c = 0;
-          int start = 0;
-          int last = charClasses.getMaxCharCode();
-
-          boolean prev, current;
-
-          prev = check(type, 0);
-
-          for (c = 1; c < last; c++) {
-
-            current = check(type, c);
-
-            if (!prev && current) start = c;
-            if (prev && !current) {
-              result.add(new Interval(start, c - 1));
-            }
-
-            prev = current;
-          }
-
-          // the last iteration is moved out of the loop to
-          // avoid an endless loop if last == maxCharCode and
-          // last+1 == 0
-          current = check(type, c);
-
-          if (!prev && current) result.add(new Interval(c, c));
-          if (prev && current) result.add(new Interval(start, c));
-          if (prev && !current) result.add(new Interval(start, c - 1));
-
-          preclassCache.put(type, result);
-          break;
-        }
-    }
-    return result;
-  }
-
   private RegExp makeRepeat(RegExp r, int n1, int n2, int line, int col) {
     if (n1 <= 0 && n2 <= 0) {
       syntaxError(ErrorMessages.REPEAT_ZERO, line, col);
@@ -291,11 +122,7 @@ action code {:
 
   private RegExp makeNL() {
     IntCharSet set = IntCharSet.nlChars();
-
 	  // assumption: line feeds are caseless
-    charClasses.makeClass(set, false);
-    charClasses.makeClass('\n', false);
-    charClasses.makeClass('\r', false);
 
     RegExp1 c = new RegExp1(sym.PRIMCLASS, set);
     Integer n = Integer.valueOf((int)'\n');
@@ -401,10 +228,10 @@ terminal STAR, PLUS, BAR, QUESTION, POINT, NEWLINE, BANG, TILDE;
 
 terminal Integer CHAR;
 terminal String STRING, MACROUSE;
-terminal IntCharSet UNIPROPCCLASS, UNIPROPCCLASSNOT;
+terminal String UNIPROPCCLASS, UNIPROPCCLASSNOT;
 
 /* symbols *only* used in the parse tree (not in the grammar) */
-terminal CCLASS, CCLASSNOT, CCLASSOP, PRIMCLASS, CONCAT;
+terminal CCLASS, CCLASSNOT, CCLASSOP, PRIMCLASS, PRECLASS, CONCAT;
 terminal STRING_I, CHAR_I;  /* case insensitive strings/chars */
 
 
@@ -413,7 +240,7 @@ non terminal Integer    rule;
 non terminal NFA        specification;
 non terminal RegExp     series, concs, nregexp, regexp, charclass, lookahead;
 non terminal RegExp     opt_hat_content, classcontentelem;
-non terminal IntCharSet preclass;
+non terminal Integer    preclass;
 non terminal List<RegExp>  opt_dash_content, classcontent;
 non terminal List<Integer> states, statesOPT, rules;
 non terminal Integer    charclass_op;
@@ -445,9 +272,15 @@ specification ::=  USERCODE
                      }
 
                      // expand macros + char classes in rules and lookahead rules
-                     regExps.normalise(macros);
+                     regExps.normaliseMacros(macros);
                      // make char class partitions (modifies charClasses)
-                     regExps.makeCCLs(charClasses, Options.jlex && scanner.caseless);
+                     if (null == scanner.charClasses) {
+                       scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
+                     }
+                     charClasses = scanner.charClasses;
+                     regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
+                     regExps.normaliseCCLs();
+                     regExps.makeCCLs(charClasses, scanner.caseless);
 
                      SemCheck.check(regExps, scanner.file);
 
@@ -647,36 +480,22 @@ regexp        ::=  regexp:r STAR
                    :}
                 |  charclass:c
                    {: RESULT = c; :}
-                |  preclass:set
+                |  preclass:c
                    {:
-                     // assumption [correct?]: preclasses are already closed under case
-                     charClasses.makeClass(set, false);
-                     RESULT = new RegExp1(sym.PRIMCLASS, set);
+                     RESULT = new RegExp1(sym.PRECLASS, c);
                    :}
-                |  UNIPROPCCLASS:intcharset
+                |  UNIPROPCCLASS:prop
                    {:
-                     IntCharSet set
-                       = scanner.caseless
-                       ? intcharset.getCaseless(scanner.getUnicodeProperties())
-                       : intcharset;
-                     charClasses.makeClass(set, false);
-                     RESULT = new RegExp1(sym.PRIMCLASS, set);
+                     RESULT = new RegExp1(sym.UNIPROPCCLASS, prop);
                    :}
-                |  UNIPROPCCLASSNOT:notintcharset
+                |  UNIPROPCCLASSNOT:prop
                    {:
-                     IntCharSet set
-                       = scanner.caseless
-                       ? notintcharset.getCaseless(scanner.getUnicodeProperties())
-                       : notintcharset;
-                     charClasses.makeClass(set, false);
-
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
-                     l.add(new RegExp1(sym.PRIMCLASS, set));
+                     l.add(new RegExp1(sym.UNIPROPCCLASS, prop));
                      RESULT = new RegExp1(sym.CCLASSNOT, l);
                    :}
                 |  STRING:str
                    {:
-                     charClasses.makeClass(str, scanner.caseless);
                      RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    :}
                 |  POINT
@@ -690,7 +509,6 @@ regexp        ::=  regexp:r STAR
                       }
                       nl.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
                       // assumption: surrogate and newline chars have no uppercase variant
-                      charClasses.makeClass(nl, false);
                       ArrayList<RegExp> l = new ArrayList<RegExp>();
                       l.add(new RegExp1(sym.PRIMCLASS, nl));
                       RegExp1 r = new RegExp1(sym.CCLASSNOT, l);
@@ -702,11 +520,9 @@ regexp        ::=  regexp:r STAR
                 |  CHAR:c
                    {:
                      if ( scanner.caseless ) {
-                       charClasses.makeClass(c, true);
                        RESULT = new RegExp1(sym.CHAR_I, c);
                      }
                      else {
-                       charClasses.makeClass(c, false);
                        RESULT = new RegExp1(sym.CHAR, c);
                      }
                    :}
@@ -787,14 +603,14 @@ classcontentelem ::= CHAR:c1 DASH CHAR:c2
                         }
                         RESULT = primClass(set);
                      :}
-                   |  preclass:set
-                     {: RESULT = primClass(set); :}
-                   |  UNIPROPCCLASS:intcharset
-                     {: RESULT = primClass(intcharset); :}
-                   |  UNIPROPCCLASSNOT:notintcharset
+                   |  preclass:c
+                     {: RESULT = new RegExp1(sym.PRECLASS, c); :}
+                   |  UNIPROPCCLASS:prop
+                     {: RESULT = new RegExp1(sym.UNIPROPCCLASS, prop); :}
+                   |  UNIPROPCCLASSNOT:prop
                      {:
                         List<RegExp> l = new ArrayList<RegExp>();
-                        l.add(primClass(notintcharset));
+                        l.add(new RegExp1(sym.UNIPROPCCLASS, prop));
                         RESULT = new RegExp1(sym.CCLASSNOT, l);
                      :}
                    |  MACROUSE:ident
@@ -811,25 +627,25 @@ classcontentelem ::= CHAR:c1 DASH CHAR:c2
                    ;
 
 preclass ::= JLETTERCLASS
-             {: RESULT = getPreClass(sym.JLETTERCLASS); :}
+             {: RESULT = Integer.valueOf(sym.JLETTERCLASS); :}
            | JLETTERDIGITCLASS
-             {: RESULT = getPreClass(sym.JLETTERDIGITCLASS); :}
+             {: RESULT = Integer.valueOf(sym.JLETTERDIGITCLASS); :}
            | LETTERCLASS
-             {: RESULT = getPreClass(sym.LETTERCLASS); :}
+             {: RESULT = Integer.valueOf(sym.LETTERCLASS); :}
            | DIGITCLASS
-             {: RESULT = getPreClass(sym.DIGITCLASS); :}
+             {: RESULT = Integer.valueOf(sym.DIGITCLASS); :}
            | DIGITCLASSNOT
-             {: RESULT = getPreClass(sym.DIGITCLASSNOT); :}
+             {: RESULT = Integer.valueOf(sym.DIGITCLASSNOT); :}
            | UPPERCLASS
-             {: RESULT = getPreClass(sym.UPPERCLASS); :}
+             {: RESULT = Integer.valueOf(sym.UPPERCLASS); :}
            | LOWERCLASS
-             {: RESULT = getPreClass(sym.LOWERCLASS); :}
+             {: RESULT = Integer.valueOf(sym.LOWERCLASS); :}
            | WHITESPACECLASS
-             {: RESULT = getPreClass(sym.WHITESPACECLASS); :}
+             {: RESULT = Integer.valueOf(sym.WHITESPACECLASS); :}
            | WHITESPACECLASSNOT
-             {: RESULT = getPreClass(sym.WHITESPACECLASSNOT); :}
+             {: RESULT = Integer.valueOf(sym.WHITESPACECLASSNOT); :}
            | WORDCLASS
-             {: RESULT = getPreClass(sym.WORDCLASS); :}
+             {: RESULT = Integer.valueOf(sym.WORDCLASS); :}
            | WORDCLASSNOT
-             {: RESULT = getPreClass(sym.WORDCLASSNOT); :}
+             {: RESULT = Integer.valueOf(sym.WORDCLASSNOT); :}
            ;
