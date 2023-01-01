@@ -1075,7 +1075,7 @@ public final class Emitter {
 
       println("          case " + label + ":");
 
-      if (action.lookAhead() == Action.FIXED_BASE) {
+      if (action.lookAhead() == Action.Kind.FIXED_BASE) {
         println("            // lookahead expression with fixed base length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
         println(
@@ -1084,7 +1084,8 @@ public final class Emitter {
                 + ");");
       }
 
-      if (action.lookAhead() == Action.FIXED_LOOK || action.lookAhead() == Action.FINITE_CHOICE) {
+      if (action.lookAhead() == Action.Kind.FIXED_LOOK
+          || action.lookAhead() == Action.Kind.FINITE_CHOICE) {
         println("            // lookahead expression with fixed lookahead length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
         println(
@@ -1093,7 +1094,7 @@ public final class Emitter {
                 + ");");
       }
 
-      if (action.lookAhead() == Action.GENERAL_LOOK) {
+      if (action.lookAhead() == Action.Kind.GENERAL_LOOK) {
         println("            // general lookahead, find correct zzMarkedPos");
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");

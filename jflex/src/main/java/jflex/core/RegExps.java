@@ -275,13 +275,13 @@ public class RegExps {
       int len2 = SemCheck.length(r2);
 
       if (len1 >= 0) {
-        a.setLookAction(Action.FIXED_BASE, len1);
+        a.setLookAction(Action.Kind.FIXED_BASE, len1);
       } else if (len2 >= 0) {
-        a.setLookAction(Action.FIXED_LOOK, len2);
+        a.setLookAction(Action.Kind.FIXED_LOOK, len2);
       } else if (SemCheck.isFiniteChoice(r2)) {
-        a.setLookAction(Action.FINITE_CHOICE, 0);
+        a.setLookAction(Action.Kind.FINITE_CHOICE, 0);
       } else {
-        a.setLookAction(Action.GENERAL_LOOK, 0);
+        a.setLookAction(Action.Kind.GENERAL_LOOK, 0);
         look_entry.set(regExpNum, gen_look_count);
         gen_look_count++;
       }

@@ -199,7 +199,7 @@ public final class NFA {
     if (regExps.getLookAhead(regExpNum) != null) {
       Action a = regExps.getAction(regExpNum);
 
-      if (a.lookAhead() == Action.FINITE_CHOICE) {
+      if (a.lookAhead() == Action.Kind.FINITE_CHOICE) {
         insertLookAheadChoices(nfa.end(), a, regExps.getLookAhead(regExpNum));
         // remove the original action from the collection: it will never
         // be matched directly, only its copies will.
@@ -215,17 +215,17 @@ public final class NFA {
         action[look.end()] = a;
         isFinal[look.end()] = true;
 
-        if (a.lookAhead() == Action.GENERAL_LOOK) {
+        if (a.lookAhead() == Action.Kind.GENERAL_LOOK) {
           // base forward pass
           IntPair forward = insertNFA(r1);
           // lookahead backward pass
           IntPair backward = insertNFA(r2.rev());
 
           isFinal[forward.end()] = true;
-          action[forward.end()] = new Action(Action.FORWARD_ACTION);
+          action[forward.end()] = new Action(Action.Kind.FORWARD_ACTION);
 
           isFinal[backward.end()] = true;
-          action[backward.end()] = new Action(Action.BACKWARD_ACTION);
+          action[backward.end()] = new Action(Action.Kind.BACKWARD_ACTION);
 
           int entry = 2 * (regExps.getLookEntry(regExpNum) + numLexStates);
           addEpsilonTransition(entry, forward.start());
