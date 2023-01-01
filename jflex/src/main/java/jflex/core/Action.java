@@ -73,8 +73,6 @@ public final class Action {
    * @param kind the kind of action
    * @see #FORWARD_ACTION
    * @see #BACKWARD_ACTION
-   * @see #FORWARD_ACTION
-   * @see #BACKWARD_ACTION
    */
   public Action(int kind) {
     if (kind != FORWARD_ACTION && kind != BACKWARD_ACTION) throw new GeneratorException();
