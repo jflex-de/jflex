@@ -23,6 +23,7 @@ class DiffStream {
    */
   private boolean match(String s1, String s2) {
     if (s1 == null) return s2 == null;
+    if (s2 == null) return false;
     return Objects.equals(s1.replace('\\', '/'), s2.replace('\\', '/'));
   }
 
