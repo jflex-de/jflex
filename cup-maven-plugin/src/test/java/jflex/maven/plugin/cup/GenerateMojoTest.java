@@ -5,8 +5,9 @@ import static org.mockito.ArgumentMatchers.endsWith;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
-import com.google.common.io.Files;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -30,12 +31,12 @@ public class GenerateMojoTest {
   private File tempTargetGeneratedCupDirectory;
 
   @Before
-  public void setUp() {
+  public void setUp() throws IOException {
     mojo = new GenerateMojo(mockCupInvoker, mockLogger);
     Model pom = new Model();
     pom.setGroupId("de.jflex.testing.groupId");
     pom.setArtifactId("testing-artifactid");
-    tempTargetGeneratedCupDirectory = Files.createTempDir();
+    tempTargetGeneratedCupDirectory = Files.createTempDirectory("cup-maven-plugin-test").toFile();
     mojo.mavenProject = new MavenProjectStub(pom);
     mojo.generatedSourcesDirectory = tempTargetGeneratedCupDirectory;
     mojo.parserName = GenerateMojo.DEFAULT_PARSER_NAME;
