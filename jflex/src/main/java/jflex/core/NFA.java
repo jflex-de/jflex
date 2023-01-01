@@ -199,7 +199,7 @@ public final class NFA {
     if (regExps.getLookAhead(regExpNum) != null) {
       Action a = regExps.getAction(regExpNum);
 
-      if (a.lookAhead() == Action.Kind.FINITE_CHOICE) {
+      if (a != null && a.lookAhead() == Action.Kind.FINITE_CHOICE) {
         insertLookAheadChoices(nfa.end(), a, regExps.getLookAhead(regExpNum));
         // remove the original action from the collection: it will never
         // be matched directly, only its copies will.
@@ -215,7 +215,7 @@ public final class NFA {
         action[look.end()] = a;
         isFinal[look.end()] = true;
 
-        if (a.lookAhead() == Action.Kind.GENERAL_LOOK) {
+        if (a != null && a.lookAhead() == Action.Kind.GENERAL_LOOK) {
           // base forward pass
           IntPair forward = insertNFA(r1);
           // lookahead backward pass
