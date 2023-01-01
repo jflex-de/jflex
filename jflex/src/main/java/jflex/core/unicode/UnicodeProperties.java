@@ -445,7 +445,9 @@ public class UnicodeProperties {
         singleLetterPropValueSet.add(set);
       }
     }
-    for (int n = 0; n < propertyValueAliases.length; n += 2) {
+    // We expect the length of propertyValueAliases to be divisible by 2 (alias/value pairs)
+    assert 0 == propertyValueAliases.length % 2;
+    for (int n = 0; n < propertyValueAliases.length - 1; n += 2) {
       String alias = propertyValueAliases[n];
       String propertyValue = propertyValueAliases[n + 1];
       IntCharSet targetSet = propertyValueIntervals.get(propertyValue);
