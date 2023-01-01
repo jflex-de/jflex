@@ -8,6 +8,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 package jflex.core;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -299,13 +300,24 @@ public class RegExps {
     this.look = newLook;
   }
 
-  /** Normalise all character class expressions in regexp and lookahead rules. */
-  public void normaliseCCLs() {
+  /**
+   * Normalise all character class expressions in regexp and lookahead rules.
+   *
+   * @param f the spec file for error reporting
+   */
+  public void normaliseCCLs(File f) {
     List<RegExp> newRegExps = new ArrayList<RegExp>();
     List<RegExp> newLook = new ArrayList<RegExp>();
 
-    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normaliseCCLs());
-    for (RegExp r : look) newLook.add(r == null ? r : r.normaliseCCLs());
+    for (int i = 0; i < regExps.size(); i++) {
+      Action a = getAction(i);
+      int line = a == null ? -1 : a.priority - 1;
+      RegExp r;
+      r = regExps.get(i);
+      newRegExps.add(r == null ? r : r.normaliseCCLs(f, line));
+      r = look.get(i);
+      newLook.add(r == null ? r : r.normaliseCCLs(f, line));
+    }
 
     this.regExps = newRegExps;
     this.look = newLook;

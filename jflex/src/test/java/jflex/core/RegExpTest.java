@@ -46,11 +46,11 @@ public class RegExpTest implements sym {
     b = b.normaliseMacros(m);
     s = s.normaliseMacros(m);
     u = u.normaliseMacros(m);
-    e1 = e1.normaliseCCLs();
-    e2 = e2.normaliseCCLs();
-    b = b.normaliseCCLs();
-    s = s.normaliseCCLs();
-    u = u.normaliseCCLs();
+    e1 = e1.normaliseCCLs(null, 0);
+    e2 = e2.normaliseCCLs(null, 0);
+    b = b.normaliseCCLs(null, 0);
+    s = s.normaliseCCLs(null, 0);
+    u = u.normaliseCCLs(null, 0);
     assertThat(e1.isCharClass()).isTrue();
     assertThat(e2.isCharClass()).isTrue();
     assertThat(b.isCharClass()).isTrue();

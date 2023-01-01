@@ -279,7 +279,7 @@ specification ::=  USERCODE
                      }
                      charClasses = scanner.charClasses;
                      regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
-                     regExps.normaliseCCLs();
+                     regExps.normaliseCCLs(scanner.file);
                      regExps.makeCCLs(charClasses, scanner.caseless);
 
                      SemCheck.check(regExps, scanner.file);

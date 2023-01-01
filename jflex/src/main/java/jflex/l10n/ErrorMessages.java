@@ -196,6 +196,8 @@ public class ErrorMessages {
   public static ErrorMessage CHARSET_NOT_SUPPORTED = new ErrorMessage("CHARSET_NOT_SUPPORTED");
   /** Constant {@code DOUBLE_CHARSET} */
   public static ErrorMessage DOUBLE_CHARSET = new ErrorMessage("DOUBLE_CHARSET");
+  /** Constant {@code NOT_CHARCLASS} */
+  public static ErrorMessage NOT_CHARCLASS = new ErrorMessage("NOT_CHARCLASS");
 
   /* not final static, because initializing here seems too early
    * for OS/2 JDK 1.1.8. See bug 1065521.

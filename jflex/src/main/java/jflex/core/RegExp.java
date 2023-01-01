@@ -9,6 +9,7 @@
 
 package jflex.core;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,9 @@ import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.CharClassException;
+import jflex.exceptions.GeneratorException;
+import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
 import jflex.option.Options;
 
 /**
@@ -352,73 +356,81 @@ public class RegExp {
    * Normalise the regular expression to eliminate compound character class expression (compute
    * their content).
    *
+   * @param f the spec file containing the regular expression (for error reporting)
+   * @param line the line number of the regular expression (for error reporting)
    * @return a regexp where all char classes are primitive {@link IntCharSet} classes.
    */
   @SuppressWarnings("unchecked")
-  public final RegExp normaliseCCLs() {
+  public final RegExp normaliseCCLs(File f, int line) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
 
-    switch (type) {
-      case sym.BAR:
-      case sym.CONCAT:
-        binary = (RegExp2) this;
-        return new RegExp2(type, binary.r1.normaliseCCLs(), binary.r2.normaliseCCLs());
+    try {
+      switch (type) {
+        case sym.BAR:
+        case sym.CONCAT:
+          binary = (RegExp2) this;
+          return new RegExp2(
+              type, binary.r1.normaliseCCLs(f, line), binary.r2.normaliseCCLs(f, line));
 
-      case sym.STAR:
-      case sym.PLUS:
-      case sym.QUESTION:
-      case sym.BANG:
-      case sym.TILDE:
-        unary = (RegExp1) this;
-        content = (RegExp) unary.content;
-        return new RegExp1(type, content.normaliseCCLs());
-
-      case sym.STRING:
-      case sym.STRING_I:
-      case sym.CHAR:
-      case sym.CHAR_I:
-      case sym.PRIMCLASS:
-        unary = (RegExp1) this;
-        return new RegExp1(type, unary.content);
-
-      case sym.CCLASS:
-        {
+        case sym.STAR:
+        case sym.PLUS:
+        case sym.QUESTION:
+        case sym.BANG:
+        case sym.TILDE:
           unary = (RegExp1) this;
-          List<RegExp> contents = (List<RegExp>) unary.content;
-          IntCharSet set = new IntCharSet();
-          for (RegExp r : contents) {
-            RegExp1 n = checkPrimClass(r.normaliseCCLs());
-            set.add((IntCharSet) n.content);
-          }
-          return new RegExp1(sym.PRIMCLASS, set);
-        }
+          content = (RegExp) unary.content;
+          return new RegExp1(type, content.normaliseCCLs(f, line));
 
-      case sym.CCLASSNOT:
-        {
+        case sym.STRING:
+        case sym.STRING_I:
+        case sym.CHAR:
+        case sym.CHAR_I:
+        case sym.PRIMCLASS:
           unary = (RegExp1) this;
-          List<RegExp> contents = (List<RegExp>) unary.content;
-          IntCharSet set = IntCharSet.allChars();
-          for (RegExp r : contents) {
-            RegExp1 n = checkPrimClass(r.normaliseCCLs());
-            set.sub((IntCharSet) n.content);
+          return new RegExp1(type, unary.content);
+
+        case sym.CCLASS:
+          {
+            unary = (RegExp1) this;
+            List<RegExp> contents = (List<RegExp>) unary.content;
+            IntCharSet set = new IntCharSet();
+            for (RegExp r : contents) {
+              RegExp1 n = checkPrimClass(r.normaliseCCLs(f, line));
+              set.add((IntCharSet) n.content);
+            }
+            return new RegExp1(sym.PRIMCLASS, set);
           }
+
+        case sym.CCLASSNOT:
+          {
+            unary = (RegExp1) this;
+            List<RegExp> contents = (List<RegExp>) unary.content;
+            IntCharSet set = IntCharSet.allChars();
+            for (RegExp r : contents) {
+              RegExp1 n = checkPrimClass(r.normaliseCCLs(f, line));
+              set.sub((IntCharSet) n.content);
+            }
+            return new RegExp1(sym.PRIMCLASS, set);
+          }
+
+        case sym.CCLASSOP:
+          unary = (RegExp1) this;
+          binary = (RegExp2) unary.content;
+          RegExp1 l = checkPrimClass(binary.r1.normaliseCCLs(f, line));
+          IntCharSet setl = (IntCharSet) l.content;
+          RegExp1 r = checkPrimClass(binary.r2.normaliseCCLs(f, line));
+          IntCharSet setr = (IntCharSet) r.content;
+          IntCharSet set = performClassOp(binary.type, setl, setr, this);
           return new RegExp1(sym.PRIMCLASS, set);
-        }
 
-      case sym.CCLASSOP:
-        unary = (RegExp1) this;
-        binary = (RegExp2) unary.content;
-        RegExp1 l = checkPrimClass(binary.r1.normaliseCCLs());
-        IntCharSet setl = (IntCharSet) l.content;
-        RegExp1 r = checkPrimClass(binary.r2.normaliseCCLs());
-        IntCharSet setr = (IntCharSet) r.content;
-        IntCharSet set = performClassOp(binary.type, setl, setr, this);
-        return new RegExp1(sym.PRIMCLASS, set);
-
-      default:
-        throw new RegExpException(this);
+        default:
+          throw new RegExpException(this);
+      }
+    } catch (CharClassException e) {
+      Out.error(f, ErrorMessages.NOT_CHARCLASS, line, -1);
+      throw new GeneratorException(e);
     }
   }
 
