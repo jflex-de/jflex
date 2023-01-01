@@ -56,6 +56,14 @@ public class JFlexTask extends Task {
     Options.progress = false;
   }
 
+  /** Throws CloneNotSupportedException. */
+  @Override
+  public Object clone() throws CloneNotSupportedException {
+    // Super class implements Cloneable, so we should implement the method,
+    // but we don't make use of cloning, so we just throw.
+    throw new CloneNotSupportedException();
+  }
+
   /**
    * Executes the ant task.
    *
