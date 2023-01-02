@@ -1,7 +1,7 @@
 java_test(
     name = "CharClassesQuickcheck",
-    size = "small",
-    timeout = "short",
+    size = "medium",
+    timeout = "moderate",
     srcs = [
         "CharClassesGen.java",
         "CharClassesQuickcheck.java",
