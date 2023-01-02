@@ -101,8 +101,9 @@ public abstract class PackEmitter {
    * @param i the character to emit.
    */
   public void emitUC(int i) {
+    if (i > 0xFFFF) i = 0xFFFF;
     if (i < 0 || i > 0xFFFF) {
-      throw new IllegalArgumentException("character value expected");
+      throw new IllegalArgumentException("character value expected, but got " + i);
     }
 
     // cast ok because of prec
