@@ -41,6 +41,37 @@ jobs:
 # needs update for github:
 #      run: scripts/preparare-deploy-source-code.sh
 
+  bazel:
+    name: 'Bazel'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/bazel
+        key: bazel
+    - name: 'Info'
+      run: bazel --bazelrc=.ci.bazelrc info release
+    - name: 'Unit Tests'
+      run: bazel --bazelrc=.ci.bazelrc test //jflex/...
+    - name: 'Integration+Regression Tests'
+      run: bazel --bazelrc=.ci.bazelrc test //javatests/...
+    - name: 'Build all'
+      run: bazel --bazelrc=.ci.bazelrc build //...
+    - name: 'Test all'
+      run: bazel --bazelrc=.ci.bazelrc test //...
+    - name: 'Build artifact'
+      run: bazel --bazelrc=.ci.bazelrc build jflex/jflex_bin_deploy.jar
+    - name: 'Check aggregated sources'
+      run: |
+        bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
+        mkdir -p jflex_bin_deploy; cd jflex_bin_deploy
+        cp ../scripts/compile-aggregated-java-sources.sh compile.sh
+        jar -xf ../bazel-bin/jflex/jflex_bin_deploy-src.jar
+        jar -xf ../bazel-bin/jflex/libresources.jar
+        ./compile.sh
+        ls jflex/Main.class
+
   regression:
     name: 'Regression'
     runs-on: ${{ matrix.os }}
@@ -73,30 +104,3 @@ jobs:
              pandoc pandoc-citeproc texlive texlive-latex-extra lmodern
     - name: "📄 Documentation"
       run: cd docs; make
-
-  bazel:
-    name: 'Bazel'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: 'Info'
-      run: bazel --bazelrc=.ci.bazelrc info release
-    - name: 'Unit Tests'
-      run: bazel --bazelrc=.ci.bazelrc test //jflex/...
-    - name: 'Integration+Regression Tests'
-      run: bazel --bazelrc=.ci.bazelrc test //javatests/...
-    - name: 'Build all'
-      run: bazel --bazelrc=.ci.bazelrc build //...
-    - name: 'Test all'
-      run: bazel --bazelrc=.ci.bazelrc test //...
-    - name: 'Build artifact'
-      run: bazel --bazelrc=.ci.bazelrc build jflex/jflex_bin_deploy.jar
-    - name: 'Check aggregated sources'
-      run: |
-        bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
-        mkdir -p jflex_bin_deploy; cd jflex_bin_deploy
-        cp ../scripts/compile-aggregated-java-sources.sh compile.sh
-        jar -xf ../bazel-bin/jflex/jflex_bin_deploy-src.jar
-        jar -xf ../bazel-bin/jflex/libresources.jar
-        ./compile.sh
-        ls jflex/Main.class
