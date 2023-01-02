@@ -86,7 +86,7 @@ public class Migrator {
   private static void migrateCase(String testCase) throws MigrationException {
     File dir = new File(testCase);
     if (!dir.exists()) {
-      logger.atWarning().log("Directory doesn't exist: " + dir.getName());
+      logger.atWarning().log("Directory doesn't exist: %s", dir.getName());
       throw new MigrationException(
           "Could not migrate " + testCase, new FileNotFoundException(dir.getAbsolutePath()));
     }
