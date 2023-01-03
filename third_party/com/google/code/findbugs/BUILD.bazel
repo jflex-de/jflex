@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])  # Apache License 2.0

@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 package(default_visibility = ["//java/de/jflex/ucd_generator:__subpackages__"])
 
 java_library(

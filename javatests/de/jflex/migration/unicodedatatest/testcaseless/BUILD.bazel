@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 java_test(
     name = "CaselessTestGeneratorTest",
     size = "small",
