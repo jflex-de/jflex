@@ -516,8 +516,8 @@ public final class Emitter {
     println("   * The transition table of the DFA");
     println("   */");
 
-    CountEmitter e = new CountEmitter("Trans");
-    e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
+    // allow values from -1 (translate +1), get emitter capacity based on number of states
+    CountEmitter e = CountEmitter.emitter(dfa.numStates(), +1, "trans");
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates(); i++) {

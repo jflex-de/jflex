@@ -17,18 +17,31 @@ package jflex.generator;
  */
 public class CountEmitter extends PackEmitter {
   /** number of entries in expanded array */
-  private int numEntries;
+  protected int numEntries;
 
   /** translate all values by this amount */
-  private int translate = 0;
+  protected int translate;
 
   /**
-   * Create a count/value emitter for a specific field.
+   * Create a count/value emitter for a specific field with values in the range of [0..0xFFFF].
    *
    * @param name name of the generated array
    */
   protected CountEmitter(String name) {
+    this(name, 0);
+  }
+
+  /**
+   * Create a count/value emitter for a specific field with translated values in the range of
+   * [0..0xFFFF].
+   *
+   * @param name name of the generated array
+   * @param translate translate all values by this amount, e.g provide +1 to allow values in [-1,
+   *     0xFFFE]
+   */
+  protected CountEmitter(String name, int translate) {
     super(name);
+    this.translate = translate;
   }
 
   /**
@@ -61,6 +74,16 @@ public class CountEmitter extends PackEmitter {
     println("  }");
     nl();
 
+    emitUnpackChunk();
+  }
+
+  /**
+   * Emits count/value unpacking code for one chunk of the generated array. Base class assumes
+   * values are in [0, 0xFFFF]. Subclasses may override.
+   *
+   * @see #emitUnpack()
+   */
+  protected void emitUnpackChunk() {
     println(
         "  private static int zzUnpack" + name + "(String packed, int offset, int [] result) {");
     println("    int i = 0;       /* index in packed string  */");
@@ -81,18 +104,6 @@ public class CountEmitter extends PackEmitter {
   }
 
   /**
-   * Translate all values by given amount.
-   *
-   * <p>Use to move value interval from [0, 0xFFFF] to something different.
-   *
-   * @param i amount the value will be translated by. Example: {@code i = 1} allows values in [-1,
-   *     0xFFFE].
-   */
-  public void setValTranslation(int i) {
-    this.translate = i;
-  }
-
-  /**
    * Emit one count/value pair.
    *
    * <p>Automatically translates value by the {@code translate} value.
@@ -108,12 +119,21 @@ public class CountEmitter extends PackEmitter {
     // unlikely, but count could be >= 0x10000
     while (count > 0xFFFF) {
       emitUC(0xFFFF);
-      emitUC(value + translate);
+      emitValue(value + translate);
       count -= 0xFFFF;
     }
 
     emitUC(count);
-    emitUC(value + translate);
+    emitValue(value + translate);
+  }
+
+  /**
+   * Emit one value. Base class assumes range [0, 0xFFFF], subclasses may override.
+   *
+   * @param value integer value to emit, assumed to be in the range [0, 0xFFFF]
+   */
+  protected void emitValue(int value) {
+    emitUC(value);
   }
 
   /**
@@ -136,5 +156,13 @@ public class CountEmitter extends PackEmitter {
       }
     }
     emit(count, value);
+  }
+
+  public static CountEmitter emitter(int states, int translation, String name) {
+    if (states <= 0xFFFF) {
+      return new CountEmitter(name, translation);
+    } else {
+      return new HiCountEmitter(name, translation);
+    }
   }
 }
