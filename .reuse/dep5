@@ -1,0 +1,34 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: JFlex
+Upstream-Contact: Gerwin Klein <lsf@jflex.de>
+source: https://github.com/jflex-de/jflex/
+
+
+Files:
+    testsuite/testcases/src/test/cases/*/*.input
+    testsuite/testcases/src/test/cases/*/*.output
+    testsuite/testcases/src/test/cases/*/*.test
+    testsuite/testcases/src/test/cases/*/*.flex
+    javatests/de/jflex/testcase/*/*.input
+    javatests/de/jflex/testcase/*/*.output
+    javatests/de/jflex/testcase/*/*.out
+    javatests/de/jflex/testcase/*/*.txt
+    third_party/maven_install.json
+Copyright: 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+License: BSD-3-Clause
+
+Files:
+ docs/fig/jflex-black.ai
+ docs/fig/jflex-black.pdf
+ docs/fig/jflex-black.png
+ docs/fig/logo.png
+ docs/fig/logo_clean.psd
+Copyright: 2020, Gerwin Klein
+License: CC-BY-SA-4.0
+
+Files:
+  third_party/edu/tum/cup2/*/*.java
+  third_party/edu/tum/cup2/license.txt
+  third_party/edu/tum/cup2/spec/How_or_how_not_to_find_true_lr1_grammars
+Copyright: Copyright (c) 2014 Andreas Wenger, Michael Petter
+License: Zlib
