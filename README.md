@@ -1,7 +1,4 @@
 ![Build](https://github.com/jflex-de/jflex/workflows/Build/badge.svg?branch=master)
-<a href="https://cirrus-ci.com/github/jflex-de/jflex/master">
-  <img alt="Bazel build status" src="https://api.cirrus-ci.com/github/jflex-de/jflex.svg" height="20">
-</a>
 
 # JFlex
 
@@ -33,48 +30,52 @@ You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
 1. Place grammar files in `src/main/flex/` directory.
 
 2. Extend the project [POM build section][pom-build] with the `maven-jflex-plugin`
-  ```xml
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>de.jflex</groupId>
-          <artifactId>jflex-maven-plugin</artifactId>
-          <version>1.8.2</version>
-          <executions>
-            <execution>
-              <goals>
-                <goal>generate</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
-  ```
+
+    ```xml
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>de.jflex</groupId>
+            <artifactId>jflex-maven-plugin</artifactId>
+            <version>1.8.2</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>generate</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    ```
 
 3. Voilà: Java code is produced in `target/generated-sources/` during the `generate-sources` phase
 (which happens before the `compile` phase) and included in the compilation scope.
 
 ### Usage with ant
 
-You need ant, the binary jflex jar and JDK 8 or later.
+You need ant, the binary JFlex jar and JDK 8 or later.
 
 1. Define ant task
-```xml
-<taskdef classname="jflex.anttask.JFlexTask" name="jflex"
-         classpath="path-to-jflex.jar"/>
-```
+
+    ```xml
+    <taskdef classname="jflex.anttask.JFlexTask" name="jflex"
+            classpath="path-to-jflex.jar"/>
+    ```
+
 2. Use it
-```xml
-<jflex file="src/grammar/parser.flex" destdir="build/generated/"/>
-<javac srcdir="build/generated/" destdir="build/classes/"/>
-```
+
+    ```xml
+    <jflex file="src/grammar/parser.flex" destdir="build/generated/"/>
+    <javac srcdir="build/generated/" destdir="build/classes/"/>
+    ```
 
 ### Usage with Bazel
 
 We provide a [jflex rule](https://jflex-de.github.io/bazel_rules/)
 
-```
+```bazel
 load("@jflex_rules//jflex:jflex.bzl", "jflex")
 
 jflex(
@@ -92,12 +93,14 @@ file.
 You need the binary jflex jar and JDK 8 or later.
 
 You can also use JFlex directly from the command line:
-```
+
+```sh
 jflex/bin/jflex src/grammar/parser.flex
 ```
 
 Or:
-```
+
+```sh
 java -jar jflex-full-1.8.2.jar -d output src/grammar/parser.flex
 ```
 
@@ -123,16 +126,16 @@ See the [Contributing][contrib] page for instructions.
 
 The top level directory of the JFLex git repository contains:
 
- * **cup** A copy of the CUP runtime
- * **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
- * **docs** the Markdown sources for the user manual
- * **java** Java sources [WIP, Bazel]
- * **javatests** Java sources of test [WIP, Bazel]
- * **jflex** JFlex, the scanner/lexer generator for Java
- * **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
- * **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
- * **testsuite** the regression test suite for JFlex,
- * **third_party** third-party librairies used by examples of the [Bazel build system][bazel]
+- **cup** A copy of the CUP runtime
+- **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
+- **docs** the Markdown sources for the user manual
+- **java** Java sources [WIP, Bazel]
+- **javatests** Java sources of test [WIP, Bazel]
+- **jflex** JFlex, the scanner/lexer generator for Java
+- **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
+- **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
+- **testsuite** the regression test suite for JFlex,
+- **third_party** third-party libraries used by examples of the [Bazel build system][bazel]
 
 
 ### Build from source
@@ -142,50 +145,43 @@ The top level directory of the JFLex git repository contains:
 JFlex can be built with Bazel.
 [Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance.
 
-
 You need [Bazel][bazel].
 
-```
+```sh
 bazel build //jflex:jflex_bin
 ```
 
 This builds `bazel-bin/jflex/jflex_bin`, that you can use
 
-```
+```sh
 bazel-bin/jflex/jflex_bin --info
 ```
 
 Or:
 
-```
+```sh
 bazel run //jflex:jflex_bin -- --info
 ```
 
 Build uberjar (aka fatjar aka deploy jar)
 
-```
+```sh
 bazel build jflex/jflex_bin_deploy.jar
 ```
-
-Continuous integration is done with [Cirrus CI](https://cirrus-ci.com/github/jflex-de/jflex/master).
 
 #### Build with Maven
 
 You need JDK 8 or later.
 
-```
+```sh
 ./mvnw install
 ```
 
 This generates `jflex/target/jflex-full-1.9.0-SNAPSHOT.jar` that you can use, e.g.
 
-```
+```sh
 java -jar jflex-full-1.9.0-SNAPSHOT.jar --info
 ```
-
-Continuous Integration is made with [Travis](https://travis-ci.org/jflex-de/jflex/branches).
-
-
 
 
 [jflex]: http://jflex.de/
