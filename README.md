@@ -1,4 +1,4 @@
-![Build](https://github.com/jflex-de/jflex/workflows/Build/badge.svg?branch=master)
+[![Build](https://github.com/jflex-de/jflex/actions/workflows/build.yml/badge.svg)](https://github.com/jflex-de/jflex/actions/workflows/build.yml)
 
 # JFlex
 
@@ -21,9 +21,7 @@ and the [wiki][wiki].
 
 ### Usage with Maven
 
-<a href="https://search.maven.org/artifact/de.jflex/jflex/">
-  <img alt="Maven central" src="https://img.shields.io/maven-central/v/de.jflex/jflex.svg" height="20">
-</a>
+[![Maven central](https://img.shields.io/maven-central/v/de.jflex/jflex.svg)](https://search.maven.org/artifact/de.jflex/jflex/)
 
 You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
 
@@ -115,9 +113,7 @@ Have a look at the sample project: [simple][example-simple] and other [examples]
 
 ## Contributing
 
-<a href="https://javadoc.io/doc/de.jflex/jflex">
-  <img src="https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg" height="20" alt="Javadoc">
-</a>
+[![Javadoc](https://javadoc.io/badge2/de.jflex/jflex/javadoc.svg)](https://javadoc.io/doc/de.jflex/jflex)
 
 JFlex is free software, contributions are welcome.
 See the [Contributing][contrib] page for instructions.
