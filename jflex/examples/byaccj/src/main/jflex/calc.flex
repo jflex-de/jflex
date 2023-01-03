@@ -1,12 +1,11 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 2000 Gerwin Klein <lsf@jflex.de>                          *
- * All rights reserved.                                                    *
- *                                                                         *
- * Thanks to Larry Bell and Bob Jamison for suggestions and comments.      *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 2000 Gerwin Klein <lsf@jflex.de>
+ * All rights reserved.                                                   
+ *                                                                        
+ * Thanks to Larry Bell and Bob Jamison for suggestions and comments.     
+ *                                                                        
+ * SPDX-License-Identifier: BSD-3-Clause                                  
+ */
 
 %%
 

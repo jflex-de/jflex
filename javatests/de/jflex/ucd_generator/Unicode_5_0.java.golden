@@ -3,7 +3,7 @@
  * Copyright (C) 2008-2020 Steve Rowe <sarowe@gmail.com>
  * Copyright (C) 2018-2020 Google, LLC.
  *
- * License: https://opensource.org/licenses/BSD-3-Clause
+ * SPDX-License-Identifier: BSD-3-Clause
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted
  * provided that the following conditions are met:

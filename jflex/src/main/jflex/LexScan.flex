@@ -1,11 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.core;
 

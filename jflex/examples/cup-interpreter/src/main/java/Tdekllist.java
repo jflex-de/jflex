@@ -1,11 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 2001       Gerwin Klein <lsf@jflex.de>                    *
- * Copyright (C) 2001       Bernhard Rumpe <rumpe@in.tum.de>               *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 2001       Gerwin Klein <lsf@jflex.de>
+ * Copyright (C) 2001       Bernhard Rumpe <rumpe@in.tum.de>
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 /** AST node for declaration lists of functions */
 class Tdekllist implements AST {

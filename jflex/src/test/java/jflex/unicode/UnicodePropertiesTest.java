@@ -1,11 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (c) 2008  Steve Rowe                                          *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright (c) 2008  Steve Rowe                                         
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.unicode;
 

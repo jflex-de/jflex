@@ -1,12 +1,11 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex Anttask                                                           *
- * Copyright (C) 2001       Rafal Mantiuk <Rafal.Mantiuk@bellstream.pl>    *
- * Copyright (C) 2003       changes by Gerwin Klein <lsf@jflex.de>         *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * JFlex Anttask                                                          
+ * Copyright (C) 2001       Rafal Mantiuk <Rafal.Mantiuk@bellstream.pl>
+ * Copyright (C) 2003       changes by Gerwin Klein <lsf@jflex.de>
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.anttask;
 
