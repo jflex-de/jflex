@@ -1,7 +1,7 @@
 /*
  * JFlex 1.9.0-SNAPSHOT
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>,                  
- *                          Régis Décamps <decamps@users.sf.net>          
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>,
+ *                          Régis Décamps <decamps@users.sf.net>
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause

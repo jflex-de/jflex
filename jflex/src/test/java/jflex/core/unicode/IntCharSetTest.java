@@ -1,3 +1,11 @@
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright (C) 2022, Gerwin Klein, Régis Décamps, Steve Rowe
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.core.unicode;
 
 import static com.google.common.truth.Truth.assertThat;

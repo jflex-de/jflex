@@ -1,6 +1,6 @@
 /*
- * JFlex ZeroReader example                                               
- *                                                                        
+ * JFlex ZeroReader example
+ *
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
  * All rights reserved.
  *

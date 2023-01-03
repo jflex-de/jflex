@@ -1,3 +1,11 @@
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright (C) 2018, Gerwin Klein, Régis Décamps
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.base;
 
 public class Build {

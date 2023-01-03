@@ -1,3 +1,8 @@
+<!--
+  Copyright 2021, Régis Décamps
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Unicode properties
 
 These files have been generated automatically.
@@ -14,5 +19,6 @@ done
 ```
 
 See also
-* [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org 
-* [ucd_generator](/java/jflex/ucd_generator) for the implementation details. 
+
+* [/third_party/unicode](/third_party/unicode) for how to add a new version from Unicode.org
+* [ucd_generator](/java/jflex/ucd_generator) for the implementation details.

@@ -1,3 +1,11 @@
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright (C) 2019, Régis Décamps
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.io;
 
 import static com.google.common.truth.Truth.assertThat;

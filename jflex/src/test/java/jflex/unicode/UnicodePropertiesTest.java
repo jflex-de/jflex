@@ -1,6 +1,6 @@
 /*
  * JFlex 1.9.0-SNAPSHOT
- * Copyright (c) 2008  Steve Rowe                                         
+ * Copyright (c) 2008  Steve Rowe
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
