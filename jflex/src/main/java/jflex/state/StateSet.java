@@ -1,9 +1,6 @@
 /*
- * JFlex 1.9.0-SNAPSHOT
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
  * Copyright (C) 2021 Google LLC
- * All rights reserved.
- *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 package jflex.state;

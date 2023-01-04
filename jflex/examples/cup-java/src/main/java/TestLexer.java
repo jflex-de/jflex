@@ -1,9 +1,6 @@
 /*
  * Copyright (C) 2004-2015  Gerwin Klein <lsf@jflex.de>
- * All rights reserved.
- *
  * SPDX-License-Identifier: GPL-2.0-only
- *
  */
 
 import java.io.*;

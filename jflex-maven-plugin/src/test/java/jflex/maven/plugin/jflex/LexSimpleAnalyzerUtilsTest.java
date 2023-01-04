@@ -2,8 +2,6 @@
  * JFlex Maven3 plugin
  * Copyright (c) 2019, Régis Décamps, Gerwin Klein, Chris Fraire
  * Credit goes to the authors of the ant task.
- * All rights reserved.
- *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 

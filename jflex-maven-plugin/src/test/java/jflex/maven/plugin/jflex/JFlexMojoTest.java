@@ -1,8 +1,6 @@
 /*
  * JFlex Maven3 plugin
  * Copyright (c) 2007-2017  Régis Décamps <decamps@users.sf.net>
- * All rights reserved.
- *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 package jflex.maven.plugin.jflex;

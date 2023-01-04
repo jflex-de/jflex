@@ -1,8 +1,5 @@
 /*
- * JFlex 1.9.0-SNAPSHOT
  * Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
- * All rights reserved.
- *
  * SPDX-License-Identifier: BSD-3-Clause
  */
 

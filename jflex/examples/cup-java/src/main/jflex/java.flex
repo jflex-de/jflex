@@ -1,7 +1,5 @@
 /*
  * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
- * All rights reserved.
- *
  * SPDX-License-Identifier: GPL-2.0-only
  */
 
