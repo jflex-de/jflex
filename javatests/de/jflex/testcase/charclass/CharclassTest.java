@@ -1,3 +1,8 @@
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.charclass;
 
 import static com.google.common.truth.Truth.assertThat;

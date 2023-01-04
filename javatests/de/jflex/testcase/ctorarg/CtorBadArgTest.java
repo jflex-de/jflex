@@ -1,4 +1,9 @@
 // test: ctorarg-f
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.ctorarg;
 
 import de.jflex.testing.testsuite.JFlexTestRunner;

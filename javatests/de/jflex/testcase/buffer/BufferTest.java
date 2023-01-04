@@ -1,3 +1,8 @@
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.buffer;
 
 import static java.util.stream.Collectors.joining;

@@ -1,5 +1,10 @@
 // test: line
 
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.line_cont;
 
 import de.jflex.testing.testsuite.JFlexTestRunner;

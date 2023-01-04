@@ -1,5 +1,10 @@
 // test: genlook
 
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.genlook;
 
 import de.jflex.testing.testsuite.golden.AbstractGoldenTest;

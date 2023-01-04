@@ -1,5 +1,10 @@
 // test: macro
 
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.macro_complement;
 
 import de.jflex.testing.testsuite.JFlexTestRunner;

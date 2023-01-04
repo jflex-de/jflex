@@ -1,5 +1,10 @@
 // test: initthrow
 
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.initthrow_eol;
 
 import static de.jflex.testing.assertion.MoreAsserts.assertThrows;

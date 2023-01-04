@@ -1,3 +1,8 @@
+/*
+ * Copyright 2014, Steve Rowe
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package de.jflex.testcase.six_digit_unicode_escape;
 
 import de.jflex.testcase.resources.AbstractUnicodeAllEnumeratedProperty;
@@ -10,7 +15,7 @@ import de.jflex.testcase.resources.AbstractUnicodeAllEnumeratedProperty;
 
 %type int
 %standalone
-%buffer 300 
+%buffer 300
 
 %{
   private void setCurCharPropertyValue(String propertyValue) {

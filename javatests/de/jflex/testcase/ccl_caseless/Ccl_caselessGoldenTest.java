@@ -1,4 +1,7 @@
-// test: ccl_caseless
+/*
+ * Copyright 2022, Gerwin Klein <lsf@jflex.de>.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package de.jflex.testcase.ccl_caseless;
 

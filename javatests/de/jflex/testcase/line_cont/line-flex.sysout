@@ -1,14 +1,14 @@
 Reading "javatests/de/jflex/testcase/line_cont/line.flex"
 
-Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 20): 
+Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 25): 
 Expression matches the empty string, which may lead to non-termination.
 | {macro2}  { ; }
 
-Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 20): 
+Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 25): 
 Expression matches the empty string, which may lead to non-termination.
 | {macro2}  { ; }
 
-Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 23): 
+Warning in file "javatests/de/jflex/testcase/line_cont/line.flex" (line 28): 
 Expression matches the empty string, which may lead to non-termination.
 *  { ;; }
 CharClasses:

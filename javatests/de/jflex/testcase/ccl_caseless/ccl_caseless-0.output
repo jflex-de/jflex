@@ -1,13 +1,13 @@
 match: --a--
-action [17] { /* default */ }
+action [22] { /* default */ }
 match: --sb--
-action [15] { return 1; }
+action [20] { return 1; }
 1
 match: --c--
-action [17] { /* default */ }
+action [22] { /* default */ }
 match: --Sb--
-action [15] { return 1; }
+action [20] { return 1; }
 1
 match: --a--
-action [17] { /* default */ }
+action [22] { /* default */ }
 -1
