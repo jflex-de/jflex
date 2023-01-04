@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020, Gerwin Klein
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.benchmark;
 
 /*

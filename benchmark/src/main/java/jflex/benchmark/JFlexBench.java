@@ -1,4 +1,9 @@
-package jflex.benchmark;
+/*
+ * Copyright (c) 2020, Gerwin Klein
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+ package jflex.benchmark;
 
 import java.io.IOException;
 import java.io.Reader;
