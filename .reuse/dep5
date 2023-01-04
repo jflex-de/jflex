@@ -24,6 +24,15 @@ Files:
   javatests/de/jflex/testcase/*/*.out
   javatests/de/jflex/testcase/*/*.txt
   third_party/maven_install.json
+  javatests/de/jflex/testcase/caseless_jlex/caseless.sysout
+  javatests/de/jflex/testcase/include/inp2
+  javatests/de/jflex/testcase/include/inp3
+  javatests/de/jflex/testcase/include/skeleton.nested
+  javatests/de/jflex/testcase/include2/nested2
+  javatests/de/jflex/testcase/include2/nested3
+  javatests/de/jflex/testcase/include2/skeleton.nested
+  javatests/de/jflex/testcase/line_cont/line-flex.sysout
+  javatests/de/jflex/testcase/spoon_feed_reader/problematic.skeleton.default
 Copyright: 2020, Gerwin Klein, Régis Décamps, Steve Rowe
 License: BSD-3-Clause
 
@@ -32,7 +41,8 @@ Files:
   java/de/jflex/migration/unicodedatatest/base/UnicodeRangesGolden.vm
   java/de/jflex/migration/unicodedatatest/testcaseless/UnicodeCaselessGolden.txt.vm
   java/de/jflex/migration/unicodedatatest/testdigit/UnicodeDigitGolden.vm
-Copyright: 2021, Google LLC.
+  javatests/de/jflex/ucd_generator/FakeUnicodeData.txt
+Copyright: 2021, Google, LLC.
 License: BSD-3-Clause
 
 Files:
