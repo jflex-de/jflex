@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
- package jflex.benchmark;
+package jflex.benchmark;
 
 import java.io.IOException;
 import java.io.Reader;
