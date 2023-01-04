@@ -1,7 +1,9 @@
 # Copyright 2021, Régis Décamps
 # SPDX-License-Identifier: BSD-3-Clause
 
-licenses(["notice"])  # GPL v2
+# License: see https://github.com/findbugsproject/findbugs/issues/128
+
+licenses(["notice"])
 
 package(default_visibility = ["//visibility:public"])
 
