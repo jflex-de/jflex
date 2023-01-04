@@ -1,10 +1,13 @@
 #!/bin/bash
 #
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # mvn-deploy.sh
-# 
+#
 # This script deploys the current working copy to the Sonatype OSS Maven
 # staging repository.
-#  
+#
 # The prepare-release.pl script should be run before this script.
 # See HOWTO_release.txt for more information.
 #
@@ -14,7 +17,7 @@
 # jflex jar has been installed, that has to be done first.  Similarly,
 # the jflex module depends on the parent POM, so that has to be installed
 # before building the jflex module.
-# 
+#
 
 # Fail if any command fails
 set -e

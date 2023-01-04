@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 def _all_targets_but(name):
     pkg = "//" + native.package_name()
     return [pkg + ":" + t for t in native.existing_rules().keys() if t != name]

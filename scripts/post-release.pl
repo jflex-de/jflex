@@ -2,6 +2,8 @@
     eval 'exec /usr/bin/perl -S $0 ${1+"$@"}'
         if 0; #$running_under_some_shell
 
+# Copyright 2021, Gerwin Klein, Régis Décamps, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
 #
 # post-release.pl
 #

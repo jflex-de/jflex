@@ -1,5 +1,10 @@
 #!/bin/bash
+#
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # Run the java-format code style
+
 TOOLSDIR=buildtools
 CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..

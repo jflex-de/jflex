@@ -1,3 +1,9 @@
+#!/bin/sh
+#
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
 echo "Push to https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
 cd repo
 # SECURITY NOTICE: Be sure to send stdout & stderr to /dev/null so that the the ${GITHUB_TOKEN} is$

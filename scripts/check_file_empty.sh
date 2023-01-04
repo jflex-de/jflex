@@ -1,4 +1,9 @@
 #!/bin/sh
+#
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
 file=$1
 lines=$(wc -l < $file)
 lines=$((0 + lines))
