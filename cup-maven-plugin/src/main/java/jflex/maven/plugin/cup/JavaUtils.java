@@ -1,3 +1,8 @@
+/*
+ * Copyright 2019, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.maven.plugin.cup;
 
 import com.google.common.base.Strings;

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2020, Gerwin Klein, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.maven.plugin.cup;
 
 import static com.google.common.truth.Truth.assertThat;

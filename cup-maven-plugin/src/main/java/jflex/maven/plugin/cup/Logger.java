@@ -1,3 +1,8 @@
+/*
+ * Copyright 2018, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.maven.plugin.cup;
 
 import org.apache.maven.plugin.logging.Log;

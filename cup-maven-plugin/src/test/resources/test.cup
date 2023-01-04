@@ -1,3 +1,6 @@
+# Copyright 2017, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # Ignore this comment
 package foo.bar;
 
