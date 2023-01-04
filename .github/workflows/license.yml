@@ -1,0 +1,19 @@
+# Copyright 2023, Gerwin Klein <lsf@jflex.de>
+# SPDX-License-Identifier: BSD-3-Clause
+
+name: License Check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  check:
+    name: License
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check
+      uses: fsfe/reuse-action@v1
