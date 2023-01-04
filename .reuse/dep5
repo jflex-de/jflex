@@ -13,6 +13,7 @@ Copyright: 2020, Gerwin Klein
 License: BSD-3-Clause
 
 Files:
+  .bazelversion
   testsuite/testcases/src/test/cases/*/*.input
   testsuite/testcases/src/test/cases/*/*.output
   testsuite/testcases/src/test/cases/*/*.test

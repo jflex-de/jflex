@@ -1,3 +1,6 @@
+# Copyright 2020, Régis Décamps, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Default cache timeout is 60 sec
 build --remote_timeout=15
 # This is so we understand failures better

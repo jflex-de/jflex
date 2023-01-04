@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # Workspace file for the Bazel build system
 # https://bazel.build/
 

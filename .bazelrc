@@ -1,3 +1,6 @@
+# Copyright 2020, Régis Décamps, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
 test --test_output=errors
 
 # https://github.com/bazelbuild/bazel/issues/6450
