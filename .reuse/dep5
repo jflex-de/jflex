@@ -28,6 +28,14 @@ Copyright: 2020, Gerwin Klein, Régis Décamps, Steve Rowe
 License: BSD-3-Clause
 
 Files:
+  java/de/jflex/migration/testcase/BUILD.vm
+  java/de/jflex/migration/unicodedatatest/base/UnicodeRangesGolden.vm
+  java/de/jflex/migration/unicodedatatest/testcaseless/UnicodeCaselessGolden.txt.vm
+  java/de/jflex/migration/unicodedatatest/testdigit/UnicodeDigitGolden.vm
+Copyright: 2021, Google LLC.
+License: BSD-3-Clause
+
+Files:
   docs/fig/jflex-black.ai
   docs/fig/jflex-black.pdf
   docs/fig/jflex-black.png

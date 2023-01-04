@@ -1,4 +1,9 @@
 #!/bin/sh
+#
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
 set -e
 
 WS=$(bazel info workspace)

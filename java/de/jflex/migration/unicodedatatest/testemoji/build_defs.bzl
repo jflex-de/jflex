@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 def gen_test_emoji(name, ucd, version):
     underscore_version = version.replace(".", "_")
     outs = [
