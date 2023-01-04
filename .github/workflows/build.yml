@@ -48,7 +48,14 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: ~/.cache/bazel
-        key: bazel
+        # We store new cache content for each new commit sha, but load the cache
+        # from any last run, because bazel is fairly good at figuring out diffs.
+        # The hope is that PRs close in time to each other will share much of
+        # the cache. In particular from a PR merge to a push to master, the
+        # cache hit rate should be very high.
+        key: ${{ runner.os }}-bazel-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-bazel-
     - name: 'Info'
       run: bazel --bazelrc=.ci.bazelrc info release
     - name: 'Unit Tests'
