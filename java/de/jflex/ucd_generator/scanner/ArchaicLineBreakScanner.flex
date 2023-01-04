@@ -15,7 +15,7 @@ import java.util.TreeSet;
  * version 3.0, populating unicodeVersion.propertyValueIntervals and
  * unicodeVersion.usedPropertyValueAliases.  From Unicode version 3.1 onward,
  * the LineBreak(-X.X.X).txt file format changed to the common enumerated
- * property format, which can be scanned using the grammar in 
+ * property format, which can be scanned using the grammar in
  * EnumeratedPropertyFileScanner.flex.
  */
 %%
@@ -41,7 +41,8 @@ import java.util.TreeSet;
 %init}
 
 Hex = [0-9A-Fa-f]{4,6}
-Spaces = [ \t]*
+Space = [ \t]
+Spaces = {Space}*
 NL = \n | \r | \r\n
 ItemSeparator = {Spaces} ";" {Spaces}
 
@@ -49,16 +50,16 @@ ItemSeparator = {Spaces} ";" {Spaces}
 
 <YYINITIAL> {
   {Spaces} "#" { yybegin(COMMENT_LINE); }
-  
-  {Spaces} {NL}? { }
-  
+
+  {Space}+ {NL}? | {NL} { }
+
   {Hex} { start = end = Integer.parseInt(yytext(), 16); }
 
   {ItemSeparator} { yybegin(PROPERTY_VALUE); }
 }
 
 <COMMENT_LINE> {
-  .* {NL}? { yybegin(YYINITIAL); }
+  .* {NL} | .+ { yybegin(YYINITIAL); }
 }
 
 <PROPERTY_VALUE> {
@@ -73,11 +74,11 @@ ItemSeparator = {Spaces} ";" {Spaces}
 
 <TWO_LINE_RANGE> {
   {ItemSeparator} "<" [^,>]+ ", First>" {Spaces} {NL} { }
-  
+
   {Hex} { end = Integer.parseInt(yytext(), 16); }
-  
+
   {ItemSeparator} [^ \t\r\n#;]+ (" " [^ \t\r\n#;]+)* { /* Ignore second property value mention */ }
-  
+
   {ItemSeparator} "<" [^,>]+ ", Last>" {Spaces} {NL} { addInterval(start, end, propertyValue);
                                                        yybegin(YYINITIAL);
                                                      }
