@@ -45,25 +45,25 @@ ItemSeparator = {Spaces} ";" {Spaces}
   {Spaces} "#" {Spaces} "@missing:" {Spaces} { yybegin(DEFAULT_PROPERTY_VALUE); }
 
   {Spaces} "#" { yybegin(COMMENT_LINE); }
-  
+
   {Spaces} {NL} { }
-  
+
   {Hex} { start = Integer.parseInt(yytext(), 16); yybegin(BEGIN_RANGE); }
 }
 
 <COMMENT_LINE> {
-  .* {NL}? { yybegin(YYINITIAL); }
+  .* {NL} | .+ { yybegin(YYINITIAL); }
 }
 
 <BEGIN_RANGE> {
   ".." { yybegin(END_RANGE); }
-  
+
   {ItemSeparator} { end = start; yybegin(PROPERTY_VALUE); }
 }
 
 <END_RANGE> {
   {Hex} { end = Integer.parseInt(yytext(), 16); }
-  
+
   {ItemSeparator} { yybegin(PROPERTY_VALUE); }
 }
 
@@ -74,13 +74,13 @@ ItemSeparator = {Spaces} ";" {Spaces}
 }
 
 <DEFAULT_PROPERTY_VALUE> {  /* # @missing: 0000..10FFFF; Other */
-  /* Assumption: only one default property value is specified, 
-   * so the specified interval can be ignored. 
+  /* Assumption: only one default property value is specified,
+   * so the specified interval can be ignored.
    */
   {Hex} ".." {Hex} {ItemSeparator} { }
-                     
+
   [^ \t\r\n]+ { defaultPropertyValue = yytext(); }
-  
+
   {Spaces} {NL} { yybegin(YYINITIAL); }
 }
 

@@ -44,25 +44,25 @@ ItemSeparator = {Spaces} ";" {Spaces}
   {Spaces} "#" {Spaces} "Property:" {Spaces} { yybegin(PROPERTY_NAME); }
 
   {Spaces} "#" { yybegin(COMMENT_LINE); }
-  
+
   {Spaces} {NL} { }
-  
+
   {Hex} { start = Integer.parseInt(yytext(), 16); yybegin(BEGIN_RANGE); }
 }
 
 <COMMENT_LINE> {
-  .* {NL}? { yybegin(YYINITIAL); }
+  .* {NL} | .+ { yybegin(YYINITIAL); }
 }
 
 <BEGIN_RANGE> {
   ".." { yybegin(END_RANGE); }
-  
+
   {ItemSeparator} { end = start; yybegin(PROPERTY_VALUE); }
 }
 
 <END_RANGE> {
   {Hex} { end = Integer.parseInt(yytext(), 16); }
-  
+
   {ItemSeparator} { yybegin(PROPERTY_VALUE); }
 }
 
@@ -80,6 +80,6 @@ ItemSeparator = {Spaces} ";" {Spaces}
   {Spaces} ("#" .*)? {NL} { yybegin(YYINITIAL); }
 }
 
-<YYINITIAL,PROPERTY_NAME,PROPERTY_VALUE> { 
+<YYINITIAL,PROPERTY_NAME,PROPERTY_VALUE> {
   <<EOF>> { addPropertyValueIntervals(); return 0; }
 }
