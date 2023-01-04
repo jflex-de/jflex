@@ -1,4 +1,3 @@
-package de.jflex.testing.diff;
 /*
  * Copyright (C) 2018-2021 Google, LLC.
  *
@@ -24,6 +23,8 @@ package de.jflex.testing.diff;
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
  * WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package de.jflex.testing.diff;
+
 import static com.google.common.truth.Truth.assertWithMessage;
 
 import com.google.common.base.Strings;
