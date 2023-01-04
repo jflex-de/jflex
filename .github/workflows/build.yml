@@ -50,9 +50,8 @@ jobs:
         path: ~/.cache/bazel
         # We store new cache content for each new commit sha, but load the cache
         # from any last run, because bazel is fairly good at figuring out diffs.
-        # The hope is that PRs close in time to each other will share much of
-        # the cache. In particular from a PR merge to a push to master, the
-        # cache hit rate should be very high.
+        # Per GitHub policy, PRs will only get caches from the base branch, not
+        # from each other, and the base branch will not see the cache from PRs.
         key: ${{ runner.os }}-bazel-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-bazel-
