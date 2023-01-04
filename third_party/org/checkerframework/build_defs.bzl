@@ -1,4 +1,5 @@
 # Copyright 2021 Google LLC
+# SPDX-License-Identifier: BSD-3-Clause
 
 def java_library_with_nullness_check(name = None, **kwargs):
     if "plugins" not in kwargs:

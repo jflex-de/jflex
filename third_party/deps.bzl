@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # Please keep deps in alphabetical order
 # After a change in deps, run this command to re-pin the unpinned repository:
 #

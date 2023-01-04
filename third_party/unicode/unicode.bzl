@@ -1,3 +1,6 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Workspace macro to import all UCD
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
