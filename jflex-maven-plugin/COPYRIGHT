@@ -1,7 +1,7 @@
 JFlex Maven Plugin - Copying, Warranty & License
 ================================================
 
-The JFlex Maven Plugin is free software, published under the terms of a 
+The JFlex Maven Plugin is free software, published under the terms of a
 3-clause BSD-style license (see below)
 
 Copyright (c) Gerwin Klein, Steve Rowe, Régis Décamps.
@@ -32,3 +32,9 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+<!--
+  The text of the license above itself is public domain, according to
+  <https://en.wikipedia.org/wiki/Berkeley_Software_Distribution>
+  SPDX-License-Identifier: CC0-1.0
+-->
