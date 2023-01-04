@@ -56,6 +56,11 @@ public class Options {
   // (to be changed to instances in thread-safety refactor)
   private Options() {}
 
+  /**
+   * Get the output directory.
+   *
+   * @return the output directory as java.io.File
+   */
   public static File getDir() {
     return directory;
   }
@@ -68,10 +73,16 @@ public class Options {
     return rootDirectory;
   }
 
+  /**
+   * Set the root source directory.
+   *
+   * @param rootDir the root source directory.
+   */
   public static void setRootDirectory(File rootDir) {
     rootDirectory = rootDir;
   }
 
+  /** Reset the root source directory to the Java working directory. */
   public static void resetRootDirectory() {
     rootDirectory = new File("");
   }
