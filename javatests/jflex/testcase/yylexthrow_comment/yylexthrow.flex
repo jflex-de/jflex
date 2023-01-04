@@ -1,3 +1,8 @@
+/*
+ * Copyright 2021, Gerwin Klein, Régis Décamps, Steve Rowe
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.testcase.sevenbit; // comment on same line allowed
 
 %%
