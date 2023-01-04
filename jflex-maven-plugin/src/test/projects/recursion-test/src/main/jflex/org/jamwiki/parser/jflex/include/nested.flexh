@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019, Régis Décamps
+ * SPDX-License-Identifier: LGPL-2.0-only
+ */
+
 /* code copied verbatim into the generated .java file */
 %{
     protected static WikiLogger logger = WikiLogger.getLogger(JAMWikiPreProcessor.class.getName());

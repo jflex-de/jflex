@@ -1,3 +1,7 @@
+<!--
+  Copyright 2019, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: BSD-3-Clause
+-->
 <project>
   <build>
     <plugins>

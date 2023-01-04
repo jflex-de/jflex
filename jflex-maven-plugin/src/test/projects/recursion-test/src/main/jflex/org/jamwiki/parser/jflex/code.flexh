@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019, Régis Décamps
+ * SPDX-License-Identifier: LGPL-2.0-only
+ */
+
 /* code included in the constructor */
 %init{
     allowHTML = Environment.getBooleanValue(Environment.PROP_PARSER_ALLOW_HTML);

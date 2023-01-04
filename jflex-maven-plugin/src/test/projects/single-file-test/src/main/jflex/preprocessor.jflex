@@ -1,4 +1,7 @@
 /*
+ * Copyright (c) 2019, Régis Décamps
+ * SPDX-License-Identifier: LGPL-2.0-only
+ *
  * The pre-processor performs initial parsing steps used to initialize
  * metadata, replace syntax that should not be saved to the database,
  * and prepare the document for the full parsing by the processor.
