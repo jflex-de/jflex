@@ -21,11 +21,10 @@ public class ScannerException extends RuntimeException {
 
   public int line;
   public int column;
-  public ErrorMessages.ErrorMessage message;
+  public ErrorMessages message;
   public File file;
 
-  private ScannerException(
-      File file, String text, ErrorMessages.ErrorMessage message, int line, int column) {
+  private ScannerException(File file, String text, ErrorMessages message, int line, int column) {
     super(text);
     this.file = file;
     this.message = message;
@@ -38,7 +37,7 @@ public class ScannerException extends RuntimeException {
    *
    * @param message the code for the error description presented to the user.
    */
-  public ScannerException(ErrorMessages.ErrorMessage message) {
+  public ScannerException(ErrorMessages message) {
     this(null, ErrorMessages.get(message), message, -1, -1);
   }
 
@@ -48,7 +47,7 @@ public class ScannerException extends RuntimeException {
    * @param file the file in which the error occurred
    * @param message the code for the error description presented to the user.
    */
-  public ScannerException(File file, ErrorMessages.ErrorMessage message) {
+  public ScannerException(File file, ErrorMessages message) {
     this(file, ErrorMessages.get(message), message, -1, -1);
   }
 
@@ -58,7 +57,7 @@ public class ScannerException extends RuntimeException {
    * @param message the code for the error description presented to the user.
    * @param line the number of the line in the specification that contains the error
    */
-  public ScannerException(ErrorMessages.ErrorMessage message, int line) {
+  public ScannerException(ErrorMessages message, int line) {
     this(null, ErrorMessages.get(message), message, line, -1);
   }
 
@@ -69,7 +68,7 @@ public class ScannerException extends RuntimeException {
    * @param line the number of the line in the specification that contains the error
    * @param file a {@link java.io.File} object.
    */
-  public ScannerException(File file, ErrorMessages.ErrorMessage message, int line) {
+  public ScannerException(File file, ErrorMessages message, int line) {
     this(file, ErrorMessages.get(message), message, line, -1);
   }
 
@@ -81,7 +80,7 @@ public class ScannerException extends RuntimeException {
    * @param column the column where the error starts
    * @param file a {@link java.io.File} object.
    */
-  public ScannerException(File file, ErrorMessages.ErrorMessage message, int line, int column) {
+  public ScannerException(File file, ErrorMessages message, int line, int column) {
     this(file, ErrorMessages.get(message), message, line, column);
   }
 }

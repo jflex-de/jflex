@@ -33,29 +33,29 @@ action code {:
   EOFActions  eofActions  = new EOFActions();
   Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
 
-  void fatalError(ErrorMessages.ErrorMessage message, int line, int col) {
+  void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
     throw new GeneratorException();
   }
 
-  void fatalError(ErrorMessages.ErrorMessage message) {
+  void fatalError(ErrorMessages message) {
     fatalError(message, scanner.lexLine(), -1);
     throw new GeneratorException();
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message) {
+  void syntaxError(ErrorMessages message) {
     Out.error(scanner.file, message, scanner.lexLine(), -1);
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message, int line) {
+  void syntaxError(ErrorMessages message, int line) {
     Out.error(scanner.file, message, line, -1);
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message, int line, int col) {
+  void syntaxError(ErrorMessages message, int line, int col) {
     Out.error(scanner.file, message, line, col);
   }
 
-  void warning(ErrorMessages.ErrorMessage message, int line, int col) {
+  void warning(ErrorMessages message, int line, int col) {
     Out.warning(scanner.file, message, line, col);
   }
 
