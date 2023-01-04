@@ -1,7 +1,12 @@
+/*
+ * Copyright 2009, Steve Rowe
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 %{
   private static final int maxCodePoint = 0xFFFD;
   private final String[] propertyValues = new String[maxCodePoint + 1];
-  
+
   private void printOutput() {
     String prevPropertyValue = propertyValues[0];
     int begCodePoint = 0;
@@ -21,12 +26,12 @@
     }
     printBlock(begCodePoint, maxCodePoint, prevPropertyValue);
   }
-  
+
   private void printBlock(int begCodePoint, int endCodePoint, String propertyValue) {
-    System.out.format("%04X..%04X; %s%n", begCodePoint, endCodePoint, propertyValue);    
+    System.out.format("%04X..%04X; %s%n", begCodePoint, endCodePoint, propertyValue);
   }
 
   private void setCurCharPropertyValue(String propertyValue) {
     propertyValues[ (int)yytext().charAt(0) ] = propertyValue;
   }
-%} 
+%}

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2019, Gerwin Klein, Régis Décamps, Steve Rowe
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.maven.plugin.testsuite;
 
 import com.google.common.collect.ImmutableList;

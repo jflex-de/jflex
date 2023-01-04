@@ -1,3 +1,8 @@
+/*
+ * Copyright 2019, Gerwin Klein, Régis Décamps, Steve Rowe
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;

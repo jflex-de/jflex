@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 #
+# Copyright (c) 2014, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # create.unicode-sentence-break.test.output.pl
 #
 # This script is designed to take as input SentenceBreakProperty.txt, and

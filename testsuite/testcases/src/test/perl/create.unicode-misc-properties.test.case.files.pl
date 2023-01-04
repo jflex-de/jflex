@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 #
+# Copyright (c) 2014, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # create.unicode-misc-properties.test.case.files.pl
 #
 # This script is designed, for each of the following Unicode properties:

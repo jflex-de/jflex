@@ -17,6 +17,7 @@ Files:
   testsuite/testcases/src/test/cases/*/*.output
   testsuite/testcases/src/test/cases/*/*.test
   testsuite/testcases/src/test/cases/*/*.flex
+  testsuite/testcases/src/test/resources/*.input
   javatests/de/jflex/testcase/*/*.input
   javatests/de/jflex/testcase/*/*.output
   javatests/de/jflex/testcase/*/*.out

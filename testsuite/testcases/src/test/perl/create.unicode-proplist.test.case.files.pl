@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 #
+# Copyright (c) 2014, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # generate.PropList.testcase.files.pl
 #
 # This script is designed to take as input PropList(-X.X.X).txt, and output

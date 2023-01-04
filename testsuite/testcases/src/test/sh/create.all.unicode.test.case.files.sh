@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# Copyright 2019, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # First, download the zipped UCD (excluding the Unihan database)
 # from the public Unicode.org site, using something like:
 #
@@ -12,10 +15,10 @@
 #    PROMPT$ wget ftp://www.unicode.org/Public/emoji/<version>/emoji-data.txt  # major.minor version
 #
 # Next, run this script (using the X.Y version string), e.g.:
-# 
+#
 #    PROMPT$ src/test/sh/create.all.unicode.test.case.files.sh  6.3  /home/s/temp/Unicode-6.3
 #
-# which will populate the directories under src/test/cases/unicode-*/ 
+# which will populate the directories under src/test/cases/unicode-*/
 # with test files for the given Unicode version.
 #
 # Next, git add the newly created test files, using something like:
@@ -52,60 +55,60 @@ cd cases/unicode-blocks/
 ../../perl/create.unicode-blocks.test.case.files.pl -v $version -b $ucd/Blocks.txt
 
 cd ../unicode-caseless/
-../../perl/create.unicode-caseless.test.files.pl -v $version -d $ucd/UnicodeData.txt 
+../../perl/create.unicode-caseless.test.files.pl -v $version -d $ucd/UnicodeData.txt
 
 cd ../unicode-compatibility-properties/
-../../perl/create.unicode-compatibility-properties.test.case.files.pl -v $version -u $ucd/UnicodeData.txt -p $ucd/PropList.txt -d $ucd/DerivedCoreProperties.txt 
+../../perl/create.unicode-compatibility-properties.test.case.files.pl -v $version -u $ucd/UnicodeData.txt -p $ucd/PropList.txt -d $ucd/DerivedCoreProperties.txt
 
 cd ../unicode-derived-core-properties/
-../../perl/create.unicode-derived-core-properties.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt 
+../../perl/create.unicode-derived-core-properties.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt
 
 cd ../unicode-digit/
-../../perl/create.unicode-digit.test.case.files.pl -v $version -d $ucd/UnicodeData.txt 
+../../perl/create.unicode-digit.test.case.files.pl -v $version -d $ucd/UnicodeData.txt
 
 cd ../unicode-general-category/
-../../perl/create.unicode-general-category.test.case.files.pl -v $version -d $ucd/UnicodeData.txt 
+../../perl/create.unicode-general-category.test.case.files.pl -v $version -d $ucd/UnicodeData.txt
 
 cd ../unicode-grapheme-break/
-../../perl/create.unicode-grapheme-break.test.case.files.pl -v $version -d $ucd/auxiliary/GraphemeBreakProperty.txt 
+../../perl/create.unicode-grapheme-break.test.case.files.pl -v $version -d $ucd/auxiliary/GraphemeBreakProperty.txt
 
 cd ../unicode-letter/
-../../perl/create.unicode-letter.test.case.files.pl -v $version -d $ucd/UnicodeData.txt 
+../../perl/create.unicode-letter.test.case.files.pl -v $version -d $ucd/UnicodeData.txt
 
 cd ../unicode-line-break/
-../../perl/create.unicode-line-break.test.case.files.pl -v $version -l $ucd/LineBreak.txt 
+../../perl/create.unicode-line-break.test.case.files.pl -v $version -l $ucd/LineBreak.txt
 
 cd ../unicode-lowercase/
-../../perl/create.unicode-lowercase.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt 
+../../perl/create.unicode-lowercase.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt
 
 cd ../unicode-misc-properties/
-../../perl/create.unicode-misc-properties.test.case.files.pl -v $version -d $ucd/UnicodeData.txt 
+../../perl/create.unicode-misc-properties.test.case.files.pl -v $version -d $ucd/UnicodeData.txt
 
 cd ../unicode-proplist/
-../../perl/create.unicode-proplist.test.case.files.pl -v $version -p $ucd/PropList.txt 
+../../perl/create.unicode-proplist.test.case.files.pl -v $version -p $ucd/PropList.txt
 
 cd ../unicode-scripts/
 if [[ $version =~ ^[1-5]\. ]]; then  # Major version <= 5
-    ../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt 
+    ../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt
 else
     ../../perl/create.unicode-scripts.test.case.files.pl -v $version -s $ucd/Scripts.txt -e $ucd/ScriptExtensions.txt -a $ucd/PropertyValueAliases.txt
 fi
 
 cd ../unicode-sentence-break/
-../../perl/create.unicode-sentence-break.test.case.files.pl -v $version -d $ucd/auxiliary/SentenceBreakProperty.txt 
+../../perl/create.unicode-sentence-break.test.case.files.pl -v $version -d $ucd/auxiliary/SentenceBreakProperty.txt
 
 cd ../unicode-space/
-../../perl/create.unicode-space.test.case.files.pl -v $version -d $ucd/PropList.txt 
+../../perl/create.unicode-space.test.case.files.pl -v $version -d $ucd/PropList.txt
 
 cd ../unicode-uppercase/
-../../perl/create.unicode-uppercase.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt 
+../../perl/create.unicode-uppercase.test.case.files.pl -v $version -d $ucd/DerivedCoreProperties.txt
 
 cd ../unicode-word/
-../../perl/create.unicode-word.test.case.files.pl -v $version -u $ucd/UnicodeData.txt -d $ucd/DerivedCoreProperties.txt 
+../../perl/create.unicode-word.test.case.files.pl -v $version -u $ucd/UnicodeData.txt -d $ucd/DerivedCoreProperties.txt
 
 cd ../unicode-word-break/
 ../../perl/create.unicode-word-break.test.case.files.pl -v $version -d $ucd/auxiliary/WordBreakProperty.txt
- 
+
 cd ../unicode-age/
 ../../perl/create.unicode-age.test.case.files.pl -v $version -d $ucd/DerivedAge.txt
 
