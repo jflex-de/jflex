@@ -694,7 +694,7 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone() || scanner.debugOption()) && scanner.ctorArgsCount() > 0) {
-      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      Out.warning(ErrorMessages.CTOR_DEBUG);
       println();
       emitConstructorDecl(false);
     }

@@ -262,8 +262,7 @@ specification ::=  USERCODE
                      macros.expand(); // expands only inside macro definitions
                      if (Options.unused_warning) {
 	                     for (String unusedMacro : macros.unused()) {
-	                       Out.warning(String.format(
-	                    		   "Macro \"%s\" has been declared but never used.", unusedMacro));
+	                       Out.warning(ErrorMessages.UNUSED_MACRO, unusedMacro);
 	                     }
                      }
 

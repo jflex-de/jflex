@@ -99,7 +99,8 @@ public enum ErrorMessages {
   NO_ENCODING,
   CHARSET_NOT_SUPPORTED,
   DOUBLE_CHARSET,
-  NOT_CHARCLASS;
+  NOT_CHARCLASS,
+  MACRO_UNUSED;
 
   /* not final static, because initializing here seems too early
    * for OS/2 JDK 1.1.8. See bug 1065521.
