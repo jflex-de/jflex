@@ -6,5 +6,6 @@ java_library(
     srcs = ["Options.java"],
     visibility = ["//jflex:visibility"],
     deps = [
+        "//jflex/src/main/java/jflex/l10n",
     ],
 )

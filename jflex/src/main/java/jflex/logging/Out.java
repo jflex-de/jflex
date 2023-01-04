@@ -250,6 +250,8 @@ public final class Out {
    * @see ErrorMessages
    */
   public static void warning(ErrorMessages message, int line, Object... args) {
+    if (Options.isSuppressed(message)) return;
+
     warnings++;
 
     String msg = NL + "Warning";
@@ -271,6 +273,7 @@ public final class Out {
    * @param column the column of the position
    */
   public static void warning(File file, ErrorMessages message, int line, int column) {
+    if (Options.isSuppressed(message)) return;
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";

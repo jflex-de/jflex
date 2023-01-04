@@ -7,6 +7,9 @@ package jflex.option;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Collects all global JFlex options.
@@ -18,6 +21,9 @@ import java.nio.charset.Charset;
  * @version JFlex 1.9.0-SNAPSHOT
  */
 public class Options {
+
+  /** Warnings that should not be printed. */
+  private static Set<ErrorMessages> suppressedWarnings = new HashSet<>();
 
   /** output directory */
   public static File directory;
@@ -85,5 +91,33 @@ public class Options {
   /** Reset the root source directory to the Java working directory. */
   public static void resetRootDirectory() {
     rootDirectory = new File("");
+  }
+
+  /**
+   * Returns true if the given warning message is suppressed (should not be printed and counted).
+   *
+   * @param msg the error/warning message to check
+   * @return true iff the warning is suppressed
+   */
+  public static boolean isSuppressed(ErrorMessages msg) {
+    return suppressedWarnings.contains(msg);
+  }
+
+  /**
+   * Configure the given warning message to be suppressed.
+   *
+   * @param msg the warning message to suppress.
+   */
+  public static void suppress(ErrorMessages msg) {
+    suppressedWarnings.add(msg);
+  }
+
+  /**
+   * Configure the given warning message to be enabled.
+   *
+   * @param msg the warning message to enable.
+   */
+  public static void enable(ErrorMessages msg) {
+    suppressedWarnings.remove(msg);
   }
 }
