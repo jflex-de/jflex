@@ -1,11 +1,14 @@
-#! /bin/bash 
+#! /bin/bash
+#
+# Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
 #
 #     JFlex start script
 #
 # if Java is not in your binary path, you need to supply its
-# location in this script. The script automatically finds 
+# location in this script. The script automatically finds
 # JFLEX_HOME when called directly, via binary path, or symbolic
-# link. 
+# link.
 #
 # Site wide installation: simply make a symlink from e.g.
 # /usr/bin/jflex to this script at its original position
@@ -41,7 +44,7 @@ do
 done
 
 PRG=${PRG%/*}
-JFLEX_HOME=${PRG}/.. 
+JFLEX_HOME=${PRG}/..
 
 # --------------------------------------------------------------------
 

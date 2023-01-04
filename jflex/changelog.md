@@ -1,3 +1,8 @@
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 ## [JFlex 1.8.2](https://github.com/jflex-de/jflex/milestone/19) (May 3, 2020)
 
 - fix bug that prevented `%7bit` scanners from being generated (#756)

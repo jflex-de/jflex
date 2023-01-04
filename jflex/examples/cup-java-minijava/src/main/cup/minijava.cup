@@ -3,6 +3,8 @@
  * Copyright (C) 1999 Gerwin Klein <lsf@jflex.de>
  * Copyright (C) 2018 Google LLC
  *
+ * SPDX-License-Identifier: GPL-2.0-only
+ *
  * This program is released under the terms of the GPL; see the file
  * COPYING for more details.  There is NO WARRANTY on this code.
  */

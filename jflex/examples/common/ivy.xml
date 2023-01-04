@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: BSD-3-Clause
+-->
+
 <ivy-module version="2.0">
   <info organisation="de.jflex" module="examples.simple"/>
   <dependencies>

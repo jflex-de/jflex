@@ -1,3 +1,5 @@
+# Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
 #
 # make test (or just: make)
 #    generates lexer & parser, compiles all *.java files, and runs test

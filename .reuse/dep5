@@ -3,26 +3,34 @@ Upstream-Name: JFlex
 Upstream-Contact: Gerwin Klein <lsf@jflex.de>
 source: https://github.com/jflex-de/jflex/
 
+Files:
+  jflex/examples/*/*.good
+  jflex/examples/*/src/test/data/test.txt
+  jflex/examples/standalone/src/test/data/sample.expected
+  jflex/examples/standalone/src/test/data/sample.in
+  jflex/examples/zero-reader/src/test/data/test-input.txt
+Copyright: 2020, Gerwin Klein
+License: BSD-3-Clause
 
 Files:
-    testsuite/testcases/src/test/cases/*/*.input
-    testsuite/testcases/src/test/cases/*/*.output
-    testsuite/testcases/src/test/cases/*/*.test
-    testsuite/testcases/src/test/cases/*/*.flex
-    javatests/de/jflex/testcase/*/*.input
-    javatests/de/jflex/testcase/*/*.output
-    javatests/de/jflex/testcase/*/*.out
-    javatests/de/jflex/testcase/*/*.txt
-    third_party/maven_install.json
+  testsuite/testcases/src/test/cases/*/*.input
+  testsuite/testcases/src/test/cases/*/*.output
+  testsuite/testcases/src/test/cases/*/*.test
+  testsuite/testcases/src/test/cases/*/*.flex
+  javatests/de/jflex/testcase/*/*.input
+  javatests/de/jflex/testcase/*/*.output
+  javatests/de/jflex/testcase/*/*.out
+  javatests/de/jflex/testcase/*/*.txt
+  third_party/maven_install.json
 Copyright: 2020, Gerwin Klein, Régis Décamps, Steve Rowe
 License: BSD-3-Clause
 
 Files:
- docs/fig/jflex-black.ai
- docs/fig/jflex-black.pdf
- docs/fig/jflex-black.png
- docs/fig/logo.png
- docs/fig/logo_clean.psd
+  docs/fig/jflex-black.ai
+  docs/fig/jflex-black.pdf
+  docs/fig/jflex-black.png
+  docs/fig/logo.png
+  docs/fig/logo_clean.psd
 Copyright: 2020, Gerwin Klein
 License: CC-BY-SA-4.0
 

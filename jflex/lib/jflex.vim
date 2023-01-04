@@ -2,6 +2,9 @@
 " Language:         JFlex
 " Maintainer:       Gerwin Klein <lsf@jflex.de>
 
+" Copyright 2015, Gerwin Klein
+" SPDX-License-Identifier: BSD-3-Clause
+
 " Thanks to Michael Brailsford for help and suggestions
 
 " Quit when a syntax file was already loaded	{{{

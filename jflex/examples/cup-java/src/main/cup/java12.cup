@@ -1,10 +1,11 @@
 import java_cup.runtime.*;
 
+// SPDX-License-Identifier: GPL-2.0-only
 
 /* August 1999 - modified by Gerwin Klein <lsf@jflex.de>
                  to interface with JFlex scanners,
                  allows empty semicolon in class decls.
-  
+
   changed productions:
 
   class_member_declaration ::=
@@ -26,7 +27,7 @@ import java_cup.runtime.*;
 */
 
 
-/* Java 1.2 parser for CUP.  
+/* Java 1.2 parser for CUP.
  * Copyright (C) 1998 C. Scott Ananian <cananian@alumni.princeton.edu>
  * This program is released under the terms of the GPL; see the file
  * COPYING for more details.  There is NO WARRANTY on this code.
@@ -43,18 +44,18 @@ JDK 1.2 Features added:
         |       name DOT SUPER DOT IDENTIFIER LPAREN argument_list_opt RPAREN ;
 */
 
-parser code  {: 
+parser code  {:
   public void report_error(String message, Object info) {
     StringBuilder m = new StringBuilder("Error ");
 
-    if (info instanceof java_cup.runtime.Symbol) 
+    if (info instanceof java_cup.runtime.Symbol)
       m.append( "("+info.toString()+")" );
-     
+
     m.append(" : "+message);
-   
+
     System.out.println(m);
   }
-   
+
   public void report_fatal_error(String message, Object info) {
     report_error(message, info);
     throw new RuntimeException("Fatal Syntax Error");
@@ -254,15 +255,15 @@ primitive_type ::=
 numeric_type::=	integral_type
 	|	floating_point_type
 	;
-integral_type ::= 
-		BYTE 
-	|	SHORT 
-	|	INT 
-	|	LONG 
-	|	CHAR 
+integral_type ::=
+		BYTE
+	|	SHORT
+	|	INT
+	|	LONG
+	|	CHAR
 	;
-floating_point_type ::= 
-		FLOAT 
+floating_point_type ::=
+		FLOAT
 	|	DOUBLE
 	;
 
@@ -273,7 +274,7 @@ reference_type ::=
 class_or_interface_type ::= name;
 
 class_type ::=	class_or_interface_type;
-interface_type ::= class_or_interface_type;		
+interface_type ::= class_or_interface_type;
 
 array_type ::=	primitive_type dims
 	|	name dims
@@ -291,31 +292,31 @@ qualified_name ::=
 
 // 19.6) Packages
 compilation_unit ::=
-		package_declaration_opt 
+		package_declaration_opt
 		import_declarations_opt
 		type_declarations_opt
 		;
-package_declaration_opt ::= package_declaration 
+package_declaration_opt ::= package_declaration
                           | ;
 import_declarations_opt ::= import_declarations | ;
 type_declarations_opt   ::= type_declarations   | ;
 
-import_declarations ::= 
+import_declarations ::=
 		import_declaration
 	|	import_declarations import_declaration
 	;
-type_declarations ::= 
+type_declarations ::=
 		type_declaration
 	|	type_declarations type_declaration
 	;
-package_declaration ::= 
+package_declaration ::=
 		PACKAGE name SEMICOLON
 	;
-import_declaration ::= 
+import_declaration ::=
 		single_type_import_declaration
 	|	type_import_on_demand_declaration
 	;
-single_type_import_declaration ::= 
+single_type_import_declaration ::=
 		IMPORT name SEMICOLON
 	;
 type_import_on_demand_declaration ::=
@@ -344,28 +345,28 @@ modifier ::=	PUBLIC | PROTECTED | PRIVATE
 // 19.8) Classes
 
 // 19.8.1) Class Declaration:
-class_declaration ::= 
+class_declaration ::=
 	modifiers_opt CLASS IDENTIFIER super_opt interfaces_opt class_body
 	;
 super_cl ::=	EXTENDS class_type
 	;
-super_opt ::=	
+super_opt ::=
 	|	super_cl
 	;
 interfaces ::=	IMPLEMENTS interface_type_list
 	;
 interfaces_opt::=
-	|	interfaces 
+	|	interfaces
 	;
-interface_type_list ::= 
+interface_type_list ::=
 		interface_type
 	|	interface_type_list COMMA interface_type
 	;
-class_body ::=	LBRACE class_body_declarations_opt RBRACE 
+class_body ::=	LBRACE class_body_declarations_opt RBRACE
 	;
-class_body_declarations_opt ::= 
+class_body_declarations_opt ::=
 	|	class_body_declarations ;
-class_body_declarations ::= 
+class_body_declarations ::=
 		class_body_declaration
 	|	class_body_declarations class_body_declaration
 	;
@@ -385,7 +386,7 @@ class_member_declaration ::=
 	;
 
 // 19.8.2) Field Declarations
-field_declaration ::= 
+field_declaration ::=
 		modifiers_opt type variable_declarators SEMICOLON
 	;
 variable_declarators ::=
@@ -429,7 +430,7 @@ formal_parameter ::=
 		type variable_declarator_id
 	|	FINAL type variable_declarator_id
 	;
-throws_opt ::=	
+throws_opt ::=
 	|	throws
 	;
 throws ::=	THROWS class_type_list
@@ -449,7 +450,7 @@ static_initializer ::=
 
 // 19.8.5) Constructor Declarations
 constructor_declaration ::=
-		modifiers_opt constructor_declarator throws_opt 
+		modifiers_opt constructor_declarator throws_opt
 			constructor_body
 	;
 constructor_declarator ::=
@@ -473,7 +474,7 @@ explicit_constructor_invocation ::=
 
 // 19.9.1) Interface Declarations
 interface_declaration ::=
-		modifiers_opt INTERFACE IDENTIFIER extends_interfaces_opt 
+		modifiers_opt INTERFACE IDENTIFIER extends_interfaces_opt
 			interface_body
 	;
 extends_interfaces_opt ::=
@@ -594,7 +595,7 @@ if_then_statement ::=
 		IF LPAREN expression RPAREN statement
 	;
 if_then_else_statement ::=
-		IF LPAREN expression RPAREN statement_no_short_if 
+		IF LPAREN expression RPAREN statement_no_short_if
 			ELSE statement
 	;
 if_then_else_statement_no_short_if ::=
@@ -659,7 +660,7 @@ statement_expression_list ::=
 	|	statement_expression_list COMMA statement_expression
 	;
 
-identifier_opt ::= 
+identifier_opt ::=
 	|	IDENTIFIER
 	;
 
@@ -848,7 +849,7 @@ conditional_or_expression ::=
 	;
 conditional_expression ::=
 		conditional_or_expression
-	|	conditional_or_expression QUESTION expression 
+	|	conditional_or_expression QUESTION expression
 			COLON conditional_expression
 	;
 assignment_expression ::=

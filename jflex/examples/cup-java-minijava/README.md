@@ -1,3 +1,8 @@
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Example from the user manual
 
 This is the [example from the user manual](http://jflex.de/manual.html#Example).

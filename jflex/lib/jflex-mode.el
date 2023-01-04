@@ -1,16 +1,17 @@
-; -*- Mode: Emacs-Lisp; -*- 
+; -*- Mode: Emacs-Lisp; -*-
 
 ;;;  jflex-mode
 
-;;;  author: Gerwin Klein <lsf@jflex.de>
+;;; Copyright 2015, Gerwin Klein <lsf@jflex.de>
+;;; SPDX-License-Identifier: BSD-3-Clause
 
 (require 'derived)
 (require 'font-lock)
 
 (define-derived-mode jflex-mode java-mode "JFlex"
   "Major mode for editing JFlex files"
-  
-  ;; set the indentation 
+
+  ;; set the indentation
   (setq c-basic-offset 2)
 
   (c-set-offset 'knr-argdecl-intro 0)
@@ -34,9 +35,9 @@
 (defalias 'jflex-indent-command 'c-indent-command)
 
 (defconst jflex-font-lock-keywords
-  (append 
-   '( 
-     ("^%%" . font-lock-reference-face) 
+  (append
+   '(
+     ("^%%" . font-lock-reference-face)
      "^%{"
      "^%init{"
      "^%initthrow{"
@@ -51,7 +52,7 @@
      "^%eofthrow}"
      "^%yylexthrow}"
      "^%eofval}"
-     "^%standalone"        
+     "^%standalone"
      "^%scanerror"
      "^%states" ; fixme: state identifiers
      "^%state"
@@ -59,23 +60,23 @@
      "^%xstates"
      "^%xstate"
      "^%x"
-     "^%char"  
-     "^%line"     
+     "^%char"
+     "^%line"
      "^%column"
      "^%byaccj"
      "^%cupsym"
-     "^%cupdebug" 
+     "^%cupdebug"
      "^%cup"
-     "^%eofclose"    
+     "^%eofclose"
      "^%class"
      "^%function"
      "^%type"
      "^%integer"
-     "^%intwrap"         
+     "^%intwrap"
      "^%int"
      "^%yyeof"
      "^%notunix"
-     "^%7bit"      
+     "^%7bit"
      "^%full"
      "^%8bit"
      "^%unicode"
@@ -86,9 +87,9 @@
      "^%extends"
      "^%public"
      "^%apiprivate"
-     "^%final"    
-     "^%abstract"    
-     "^%debug"          
+     "^%final"
+     "^%abstract"
+     "^%debug"
      "^%pack"
      "^%include"
      "^%buffer"
@@ -105,7 +106,7 @@
   "JFlex keywords for font-lock mode")
 
 (put 'jflex-mode 'font-lock-defaults
-	 '(jflex-font-lock-keywords      
+	 '(jflex-font-lock-keywords
 	   nil nil ((?_ . "w")) beginning-of-defun))
 
 (provide 'jflex-mode)

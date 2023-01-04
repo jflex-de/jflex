@@ -2,7 +2,7 @@
  * Copyright (C) 2004-2015  Gerwin Klein <lsf@jflex.de>
  * All rights reserved.
  *
- * SPDX-License-Identifier: BSD-3-Clause
+ * SPDX-License-Identifier: GPL-2.0-only
  *
  */
 

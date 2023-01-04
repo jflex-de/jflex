@@ -1,10 +1,15 @@
+/*
+ * Copyright 2003, Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: CC-BY-SA-4.0
+ */
+
 body  { background-color:#FFFFFF; }
 table { background-color:#F0F0F0; }
-h1    { font-size:16pt; font-style:italic; font-weight:bold; font-family:arial,helvetica; 
+h1    { font-size:16pt; font-style:italic; font-weight:bold; font-family:arial,helvetica;
         border-top-width:medium; border-top-style:solid; padding-top:5mm; margin-top:1cm; }
-h2    { font-size:14pt; font-style:italic; font-weight:bold; font-family:arial,helvetica; 
+h2    { font-size:14pt; font-style:italic; font-weight:bold; font-family:arial,helvetica;
         border-top-width:medium; border-top-style:solid; padding-top:5mm; margin-top:1cm; }
-h3    { font-size:14pt; font-weight:bold; font-family:arial,helvetica; margin-top:1cm; }  
+h3    { font-size:14pt; font-weight:bold; font-family:arial,helvetica; margin-top:1cm; }
 h4    { font-size:12pt; font-family:arial,helvetica; }
 
 SMALL.TINY		      { font-size:xx-small }

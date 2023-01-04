@@ -1,3 +1,11 @@
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 

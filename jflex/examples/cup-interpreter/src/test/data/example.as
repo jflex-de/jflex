@@ -1,5 +1,7 @@
+// Copyright (C) 2001, Gerwin Klein <lsf@jflex.de>, Bernhard Rumpe <rumpe@in.tum.de>
+// SPDX-License-Identifier: BSD-3-Clause
 
-// example program for interpreter testing 
+// example program for interpreter testing
 // contains division and modulo functions
 
 input a,b

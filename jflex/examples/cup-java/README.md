@@ -1,5 +1,9 @@
-JFlex: Java 1.2 Parser (with CUP)
-=================================
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
+# JFlex: Java 1.2 Parser (with CUP)
 
 This directory contains a scanner and parser for the Java programming language (Java 1.2).
 

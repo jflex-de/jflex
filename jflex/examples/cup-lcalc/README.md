@@ -1,3 +1,8 @@
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # JFlex with cup
 
 This directory contains a small example of integration between JFlex and

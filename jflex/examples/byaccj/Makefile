@@ -1,3 +1,6 @@
+# Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Be sure to use yacc/j ; not unix yacc nor bison.
 BYACCJ = yaccj -J
 JFLEX  = ../../bin/jflex

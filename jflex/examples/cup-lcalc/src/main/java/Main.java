@@ -1,12 +1,13 @@
 /*
-  This example comes from a short article series in the Linux
-  Gazette by Richard A. Sevenich and Christopher Lopes, titled
-  "Compiler Construction Tools". The article series starts at
+  Copyright 1999, Richard A. Sevenich, Christopher Lopes
+  Copyright 2003, Gerwin Klein
 
-  http://www.linuxgazette.com/issue39/sevenich.html
+  SPDX-License-Identifier: BSD-3-Clause
 
-  Small changes and updates to newest JFlex+Cup versions
-  by Gerwin Klein
+  This example comes from a short article series in the Linux Gazette by Richard
+  A. Sevenich and Christopher Lopes, titled "Compiler Construction Tools".
+
+  Small changes and updates to newest JFlex+Cup versions by Gerwin Klein
 */
 
 /*

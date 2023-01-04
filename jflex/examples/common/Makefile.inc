@@ -1,3 +1,6 @@
+# Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # This file is included in all example Makefiles.
 # It defines targets and variables common to all examples.
 

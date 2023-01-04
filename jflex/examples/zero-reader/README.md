@@ -1,3 +1,8 @@
+<!--
+  Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 Readers returning 0 characters
 ==============================
 

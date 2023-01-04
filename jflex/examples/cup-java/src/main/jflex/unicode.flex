@@ -3,6 +3,7 @@
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
+ * (Used by, but does not use GPL code)
  */
 
 
@@ -62,14 +63,14 @@ HexDigit        = [0-9a-fA-F]
 
 %{
   private boolean even;
- 
+
   private int value() {
     int r = 0;
 
     for (int k = zzMarkedPos-4; k < zzMarkedPos; k++) {
       int c = zzBuffer[k];
 
-      if (c >= 'a') 
+      if (c >= 'a')
         c-= 'a'-10;
       else if (c >= 'A')
         c-= 'A'-10;
@@ -79,7 +80,7 @@ HexDigit        = [0-9a-fA-F]
       r <<= 4;
       r += c;
     }
-   
+
     return r;
   }
 
@@ -91,17 +92,17 @@ HexDigit        = [0-9a-fA-F]
     for (int i=off; i<len; i++) {
       int c = read();
 
-      if (c < 0) 
+      if (c < 0)
         return i-off;
-      else 
+      else
         cbuf[i] = (char) c;
     }
 
     return len-off;
   }
 
-  public boolean markSupported() { 
-    return false; 
+  public boolean markSupported() {
+    return false;
   }
 
   public boolean ready() throws IOException {
@@ -115,14 +116,14 @@ HexDigit        = [0-9a-fA-F]
 <YYINITIAL> {
   \\               { even = false; return '\\'; }
   \\ / \\          { even = !even; return '\\'; }
-  \\ / "u"         { 
+  \\ / "u"         {
                      if (even) {
                        even = false;
                        return '\\';
                      }
                      else
                        yybegin(DIGITS);
-                   } 
+                   }
   [^]              { return zzBuffer[zzStartRead]; }
 
   <<EOF>>          { return -1; }

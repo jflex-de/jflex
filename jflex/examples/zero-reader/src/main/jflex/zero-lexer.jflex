@@ -1,3 +1,11 @@
+/*
+ * JFlex 1.9.0-SNAPSHOT
+ * Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 import java.io.*;
 
 %%
@@ -6,7 +14,7 @@ import java.io.*;
 %class ZeroLexer
 
 %int
-  
+
 
 %{
   public static void main(String[] argv) {
@@ -20,7 +28,7 @@ import java.io.*;
         firstFilePos = 2;
         encodingName = argv[1];
         try {
-          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid? 
+          java.nio.charset.Charset.forName(encodingName); // Side-effect: is encodingName valid?
         } catch (Exception e) {
           System.out.println("Invalid encoding '" + encodingName + "'");
           return;
@@ -34,7 +42,7 @@ import java.io.*;
           Reader reader = new InputStreamReader(stream, encodingName);
           // the broken 0-returning Reader:
           reader = new FunkyReader(reader);
-          
+
           try {
             scanner = new ZeroLexer(reader);
             do {
@@ -47,13 +55,13 @@ import java.io.*;
           }
 
           reader.close();
-          
+
           stream = new FileInputStream(argv[i]);
           reader = new InputStreamReader(stream, encodingName);
           reader = new FunkyReader(reader);
           // now the wrapper for broken Readers:
           reader = new ZeroReader(reader);
-          
+
           scanner = new ZeroLexer(reader);
           do {
             System.out.println(scanner.yylex());
@@ -74,8 +82,8 @@ import java.io.*;
         }
       }
     }
-  }  
-  
+  }
+
 %}
 
 

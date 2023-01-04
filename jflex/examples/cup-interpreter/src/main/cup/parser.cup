@@ -7,7 +7,7 @@
  */
 
 
-// definition of tokens, if applicable with token type 
+// definition of tokens, if applicable with token type
 terminal INPUT, FUNCTIONS, OUTPUT, END, ARGUMENTS;
 terminal IF, THEN, ELSE, FI, ERROR;
 terminal COMMA, LPAR, RPAR;
@@ -33,7 +33,7 @@ precedence left TIMES, DIV;
 precedence left UMINUS;
 
 
-// here the rules start 
+// here the rules start
 program       ::= INPUT parlist:p FUNCTIONS dekllist:d OUTPUT explist:o
                                         ARGUMENTS explist:a END
                   {: RESULT = new Tprogram(p,d,o,a); :}
@@ -69,7 +69,7 @@ exp           ::= number:n
                   {: RESULT = new Tfun(i,e); :}
                 | LPAR exp:e RPAR
                   {: RESULT = e; :}
-                | MINUS exp:e                
+                | MINUS exp:e
                   {: RESULT = new Tuminus(e); :} %prec UMINUS
                 | exp:l PLUS exp:r
                   {: RESULT = new Texpinfix(l,'+',r); :}

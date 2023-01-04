@@ -1,4 +1,8 @@
 @echo off
+
+REM Copyright 2020, Gerwin Klein, Régis Décamps, Steve Rowe
+REM SPDX-License-Identifier: BSD-3-Clause
+REM
 REM Please adjust JFLEX_HOME and JFLEX_VERSION to suit your needs
 REM (please do not add a trailing backslash)
 
