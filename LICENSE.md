@@ -1,11 +1,17 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC0-1.0
+  (The license text itself is public domain)
+-->
+
 JFlex - Copying, Warranty & License
 ===================================
 
 JFlex is free software, since version 1.5 published under the terms of this
 [3-clause BSD-style license](https://opensource.org/licenses/BSD-3-Clause).
 
-There is absolutely NO WARRANTY for JFlex, its code and its documentation. 
-  
+There is absolutely NO WARRANTY for JFlex, its code and its documentation.
+
 
 Copyright (c) Gerwin Klein, Steve Rowe, Régis Décamps, Google LLC.
 All rights reserved.
@@ -18,7 +24,7 @@ provided that the following conditions are met:
   * Redistributions in binary form must reproduce the above copyright notice, this list of
     conditions and the following disclaimer in the documentation and/or other materials provided
     with the distribution.
-  * Neither the names of the authors nor the names of JFlex contributors may be used to endorse 
+  * Neither the names of the authors nor the names of JFlex contributors may be used to endorse
     or promote products derived from this software without specific prior written permission.
 
 

@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 [![Build](https://github.com/jflex-de/jflex/actions/workflows/build.yml/badge.svg)](https://github.com/jflex-de/jflex/actions/workflows/build.yml)
 
 # JFlex

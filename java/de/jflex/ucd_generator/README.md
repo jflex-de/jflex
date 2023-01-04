@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # UCD Generator
 
 This program parses the fileset of a Unicode Character Definition,

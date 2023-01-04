@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Generator of Unicode regression tests
 
 Suite of tools to create the tests in javatests/de/jflex/testcase/unicode

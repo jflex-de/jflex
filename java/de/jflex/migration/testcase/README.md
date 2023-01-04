@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Migration of testsuite from Maven to Bazel
 
 **Deprecated** All tests have been migrated.

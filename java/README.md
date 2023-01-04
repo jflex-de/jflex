@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Java sources
 
 **WIP** [Migration to Bazel](https://github.com/jflex-de/jflex/wiki/Migration-to-Bazel)

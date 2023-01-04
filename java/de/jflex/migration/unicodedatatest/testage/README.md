@@ -1,3 +1,8 @@
+<!--
+  Copyright 2023, Gerwin Klein, Régis Décamps, Steve Rowe
+  SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+
 # Generator of UnicodeAgeTest_x_y
 
 ## Usage
@@ -11,4 +16,4 @@ To create the test for Unicode 6.1
 ### Generate all versions
 
     bazel run //java/de/jflex/migration/unicodedatatest/testage:generate
-    
+

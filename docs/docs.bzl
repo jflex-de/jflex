@@ -1,3 +1,6 @@
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Helpers to build the docs."""
 
 load("@bazel_pandoc//:pandoc.bzl", "pandoc")

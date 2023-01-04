@@ -1,3 +1,6 @@
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+
 # Makefile for jflex documentation (ps + pdf + html)
 
 VERSION=1.9.0-SNAPSHOT
