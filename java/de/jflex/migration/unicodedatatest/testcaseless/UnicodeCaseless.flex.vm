@@ -18,6 +18,8 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 %type int
 %caseless
 
+%suppress never-match
+
 %init{
   super($maxCodePoint, Integer.class);
 %init}
@@ -26,7 +28,7 @@ import de.jflex.testing.unicodedata.AbstractEnumeratedPropertyDefinedScanner;
 
 <<EOF>>  { return YYEOF; }
 #foreach ( $cp in $caselessCodepoints )
-"\u${cp}" { setCurCharPropertyValue(yytext(), yylength(), 0x${cp}); }
+"\U${cp}" { setCurCharPropertyValue(yytext(), yylength(), 0x${cp}); }
 #end
 
 [^] { }

@@ -30,12 +30,9 @@ public class UnicodeCaselessFlexGenerator
     return vars;
   }
 
+  @SuppressWarnings("MethodCanBeStatic")
   private String formatCodepoint(int cp) {
-    if (cp <= 0xFFFF) {
-      return String.format("%04X", cp);
-    } else {
-      return String.format("%06X", cp);
-    }
+    return String.format("%06X", cp);
   }
 
   @Override

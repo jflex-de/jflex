@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.annotation.Generated;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /** Test Tests the {@code %caseless} directive for Unicode 2.0. */
