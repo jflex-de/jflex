@@ -228,8 +228,9 @@ public final class Action {
         return "LOOK_FORWARD";
       case GENERAL_LOOK:
         return "LOOK_ACTION";
-      default:
-        return "unknown lookahead type";
     }
+
+    // unreachable, but not all static analysers know
+    return "unknown lookahead type";
   }
 }
