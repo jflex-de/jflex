@@ -11,7 +11,6 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import com.google.common.io.CharSource;
 import java.io.IOException;
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,14 +40,15 @@ public class CaselessJflexTest {
   }
 
   @Test
-  @Ignore // Is this a regression?
   public void hello() throws Exception {
+    // [a-z]+ has higher priority than "hello" in the rules
     scanner = createScanner("hello");
-    assertThat(scanner.yylex()).isEqualTo(State.HELLO);
+    assertThat(scanner.yylex()).isEqualTo(State.WORD);
   }
 
   @Test
   public void hello_mixedCase() throws Exception {
+    // [a-z]+ has higher priority than the "hello" rule, but doesn't match "HelLo"
     scanner = createScanner("HelLo");
     assertWithMessage("'HelLo' matches 'hello' in caseless mode")
         .that(scanner.yylex())
