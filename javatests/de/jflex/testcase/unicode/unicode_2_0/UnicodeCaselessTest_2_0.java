@@ -26,7 +26,6 @@ public class UnicodeCaselessTest_2_0 {
   private final Path packageDirectory = Paths.get("javatests/de/jflex/testcase/unicode");
 
   @Test
-  @Ignore // TODO(FIX) Character 0x10428 (=66600) should match caselessly 0x10400
   public void caseless() throws Exception {
     UnicodeCaseless_2_0 scanner =
         UnicodeDataScanners.scanAllCodepoints(
