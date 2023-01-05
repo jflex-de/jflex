@@ -25,6 +25,7 @@ public class IntCharGen extends Generator<Integer> {
   }
 
   @Override
+  @SuppressWarnings("deprecation")
   public Integer generate(SourceOfRandomness r, GenerationStatus status) {
     // ensure we sometimes generate an int that has case options
     if (r.nextBoolean()) {

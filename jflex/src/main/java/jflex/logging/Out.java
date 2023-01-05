@@ -197,10 +197,12 @@ public final class Out {
   }
 
   /**
-   * print a warning without position information
+   * Print a warning without position information. Use only for testing.
    *
    * @param message the warning message
+   * @deprecated use {@link #warning(ErrorMessages)} instead
    */
+  @Deprecated
   public static void warning(String message) {
     warnings++;
 
@@ -218,19 +220,46 @@ public final class Out {
   }
 
   /**
-   * print a warning with line information
+   * Print a warning message with arguments without line information
+   *
+   * @param message code of the warning message
+   * @param args arguments of the warning message
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message, Object... args) {
+    warning(message, 0, args);
+  }
+
+  /**
+   * Print a warning with line information.
    *
    * @param message code of the warning message
    * @param line the line information
    * @see ErrorMessages
    */
   public static void warning(ErrorMessages message, int line) {
+    warning(message, line, (Object[]) null);
+  }
+
+  /**
+   * Print a warning with line information and arguments.
+   *
+   * @param message code of the warning message
+   * @param line the line information
+   * @param args arguments to the warning message
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message, int line, Object... args) {
     warnings++;
 
     String msg = NL + "Warning";
     if (line > 0) msg = msg + " in line " + (line + 1);
 
-    err(msg + ": " + ErrorMessages.get(message));
+    if (args != null) {
+      err(msg + ": " + ErrorMessages.get(message, args));
+    } else {
+      err(msg + ": " + ErrorMessages.get(message));
+    }
   }
 
   /**

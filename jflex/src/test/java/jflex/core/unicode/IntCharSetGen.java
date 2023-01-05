@@ -37,6 +37,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
   }
 
   @Override
+  @SuppressWarnings("deprecation")
   public IntCharSet generate(SourceOfRandomness r, GenerationStatus status) {
     IntCharSet result = new IntCharSet();
 
