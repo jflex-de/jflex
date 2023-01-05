@@ -104,9 +104,10 @@ public enum ErrorMessages {
   DOUBLE_CHARSET,
   NOT_CHARCLASS,
   MACRO_UNUSED,
-  UNKNOWN_WARNING;
+  UNKNOWN_WARNING,
+  NOT_A_WARNING_ID;
 
-  private static Set<ErrorMessages> configurableWarnings =
+  private static final Set<ErrorMessages> configurableWarnings =
       new HashSet<>(
           Arrays.asList(
               NEVER_MATCH, EMPTY_MATCH, CTOR_DEBUG, NOT_AT_BOL, MACRO_UNUSED, CUPSYM_AFTER_CUP));

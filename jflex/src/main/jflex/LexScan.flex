@@ -124,6 +124,8 @@ ArrType    = ({GenParam} {WSP}*)? {QClassT} ({WSP}* {Array})*
 IdentStart = [:jletter:]
 IdentPart  = [:jletterdigit:]
 
+WarningIdent = [a-zA-Z_\-]+
+
 JFlexCommentChar = [^*/]|"/"+[^*/]|"*"+[^*/]
 JFlexComment = {JFlexCommentChar}+
 
@@ -264,6 +266,20 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%throws"    {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_THROW, yyline); }
   "%scanerror" {WSP}+ {QualIdent} {WSP}* { scanErrorException = yytext().substring(11).trim(); }
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
+
+  // Java-ish style
+  "%suppress" {WSP}+ "all" {WSP}* { OptionUtils.suppressAllWarnings(); }
+  "%suppress" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.suppressWarning(yytext().substring(10).trim()); }
+  "%suppress" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
+
+  // CLI style
+  "%no-warn" {WSP}+ "all" {WSP}* { OptionUtils.suppressAllWarnings(); }
+  "%no-warn" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.suppressWarning(yytext().substring(9).trim()); }
+  "%no-warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
+
+  "%warn" {WSP}+ "all" {WSP}* { OptionUtils.enableAllWarnings(); }
+  "%warn" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.enableWarning(yytext().substring(6).trim()); }
+  "%warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
   {Ident}                     { return symbol(IDENT, yytext()); }
   "="{WSP}*                   { yybegin(REGEXP);

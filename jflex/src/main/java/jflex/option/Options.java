@@ -23,7 +23,7 @@ import jflex.l10n.ErrorMessages;
 public class Options {
 
   /** Warnings that should not be printed. */
-  private static Set<ErrorMessages> suppressedWarnings = new HashSet<>();
+  private static final Set<ErrorMessages> suppressedWarnings = new HashSet<>();
 
   /** output directory */
   public static File directory;
