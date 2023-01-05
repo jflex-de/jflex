@@ -6,7 +6,10 @@
 package jflex.l10n;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Central enum for all kinds of JFlex messages.
@@ -100,7 +103,13 @@ public enum ErrorMessages {
   CHARSET_NOT_SUPPORTED,
   DOUBLE_CHARSET,
   NOT_CHARCLASS,
-  MACRO_UNUSED;
+  MACRO_UNUSED,
+  UNKNOWN_WARNING;
+
+  private static Set<ErrorMessages> configurableWarnings =
+      new HashSet<>(
+          Arrays.asList(
+              NEVER_MATCH, EMPTY_MATCH, CTOR_DEBUG, NOT_AT_BOL, MACRO_UNUSED, CUPSYM_AFTER_CUP));
 
   /* not final static, because initializing here seems too early
    * for OS/2 JDK 1.1.8. See bug 1065521.
@@ -130,5 +139,14 @@ public enum ErrorMessages {
    */
   public static String get(ErrorMessages msg, Object... args) {
     return MessageFormat.format(get(msg), args);
+  }
+
+  /**
+   * Check whether a warning is configurable.
+   *
+   * @param msg the warning to check
+   */
+  public static boolean isConfigurableWarning(ErrorMessages msg) {
+    return configurableWarnings.contains(msg);
   }
 }

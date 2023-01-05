@@ -107,7 +107,11 @@ public class Options {
    * @param msg the warning message to suppress.
    */
   public static void suppress(ErrorMessages msg) {
-    suppressedWarnings.add(msg);
+    if (ErrorMessages.isConfigurableWarning(msg)) {
+      suppressedWarnings.add(msg);
+    } else {
+      throw new IllegalArgumentException("Cannot suppress non-configurable warning: " + msg);
+    }
   }
 
   /**
@@ -116,6 +120,10 @@ public class Options {
    * @param msg the warning message to enable.
    */
   public static void enable(ErrorMessages msg) {
-    suppressedWarnings.remove(msg);
+    if (ErrorMessages.isConfigurableWarning(msg)) {
+      suppressedWarnings.remove(msg);
+    } else {
+      throw new IllegalArgumentException("Cannot enable non-configurable warning: " + msg);
+    }
   }
 }

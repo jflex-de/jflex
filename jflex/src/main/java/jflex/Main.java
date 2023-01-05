@@ -107,6 +107,16 @@ public class Main {
         continue;
       }
 
+      if (Objects.equals(argv[i], "--warn-all")) { // $NON-NLS-1$
+        OptionUtils.enableAllWarnings();
+        continue;
+      }
+
+      if (Objects.equals(argv[i], "--no-warn-all")) { // $NON-NLS-1$
+        OptionUtils.suppressAllWarnings();
+        continue;
+      }
+
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
         Options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
@@ -114,6 +124,16 @@ public class Main {
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
         Options.suppress(ErrorMessages.MACRO_UNUSED);
+        continue;
+      }
+
+      if (argv[i].startsWith("--warn-")) { // $NON-NLS-1$
+        OptionUtils.enableWarning(argv[i].substring(7));
+        continue;
+      }
+
+      if (argv[i].startsWith("--no-warn-")) { // $NON-NLS-1$
+        OptionUtils.suppressWarning(argv[i].substring(10));
         continue;
       }
 
