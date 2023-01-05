@@ -49,7 +49,7 @@ jobs:
         uses: advanced-security/filter-sarif@v1
         with:
           patterns: |
-            -**/LexParse.java:java/unused-local-variable
+            -**/LexParse.java:java/local-variable-is-never-read
           input: sarif-results/java.sarif
           output: sarif-results/java.sarif
 
