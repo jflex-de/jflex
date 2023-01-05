@@ -466,6 +466,31 @@ interested in how to interface your generated scanner with Byacc/J.
     beginning of the current line to the beginning of the current token.
 
 
+### Warnings
+
+#### Warning directives
+
+-   `%warn <warning>`
+
+    switch on warning type `<warning>`. See below for a list of available
+    [warning types](#WarningTypes).
+
+-   `%suppress <warning>`\
+    `%no-warn <warning>`
+
+    suppress warnings of type `<warning>`. See below for a list of available
+    [warning types](#WarningTypes).
+
+#### Warning Types {#WarningTypes}
+
+- `unused`: warn for macros that are declared, but not used
+- `never-match`: warn for rules that can never be matched
+- `empty-match`: warn for rules that can match the empty string
+- `cupsym-after-cup`: warn for re-declaring the `cup` symbol even though `%cup`
+  is present
+- `all`: switch on/off all warnings
+
+
 ### Obsolete JLex options
 
 -   `%notunix`

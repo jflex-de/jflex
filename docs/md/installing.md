@@ -153,13 +153,13 @@ display generation progress messages (enabled by default)
 display error messages only (no chatter about what JFlex is currently
 doing)
 
-`--warn-unused`\
-warn about unused macros (by default true in verbose mode and false in
-quiet mode)
+`--warn-<warning>`\
+switch on warning type `<warning>`, where `<warning>` is one of
+`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `all`.
 
-`--no-warn-unused`\
-do not warn about unused macros (by default true in verbose mode and
-false in quiet mode)
+`--no-warn-<warning>`\
+suppress warnings of type `<warning>`, where `<warning>` is one of
+`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `all`.
 
 `--time`\
 display time statistics about the code generation process (not very
