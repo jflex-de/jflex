@@ -212,7 +212,7 @@ public class JFlexMojo extends AbstractMojo {
     Options.setRootDirectory(project.getBasedir());
     Options.dump = dump;
     Options.verbose = verbose;
-    Options.unused_warning = unusedWarning;
+    OptionUtils.set_unused_warning(unusedWarning);
     Options.dot = dot;
     Options.legacy_dot = legacyDot;
     if (skeleton != null) {

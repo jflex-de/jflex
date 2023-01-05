@@ -242,7 +242,7 @@ public class JFlexTask extends Task {
    */
   public final void setVerbose(boolean verbose) {
     Options.verbose = verbose;
-    Options.unused_warning = verbose;
+    OptionUtils.set_unused_warning(verbose);
   }
 
   /**
@@ -251,7 +251,7 @@ public class JFlexTask extends Task {
    * @param warn a boolean.
    */
   public final void setUnusedWarning(boolean warn) {
-    Options.unused_warning = warn;
+    OptionUtils.set_unused_warning(warn);
   }
 
   /**

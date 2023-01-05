@@ -188,15 +188,15 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     if (spec.verbose_provided()) {
       Options.verbose = true;
       Options.progress = true;
-      Options.unused_warning = true;
+      OptionUtils.set_unused_warning(true);
     }
     // if both verbose_provided() and quiet() are present, we want quiet() to win
     if (spec.quiet()) {
       Options.verbose = false;
       Options.progress = false;
-      Options.unused_warning = false;
+      OptionUtils.set_unused_warning(false);
     }
-    Options.unused_warning = spec.warnUnused();
+    OptionUtils.set_unused_warning(spec.warnUnused());
     LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
     if (spec.minimizedDfaStatesCount() > 0) {

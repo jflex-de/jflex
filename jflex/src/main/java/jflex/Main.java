@@ -94,7 +94,7 @@ public class Main {
           || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
-        Options.unused_warning = true;
+        Options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
@@ -103,17 +103,17 @@ public class Main {
           || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
-        Options.unused_warning = false;
+        Options.suppress(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = true;
+        Options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = false;
+        Options.suppress(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 

@@ -260,10 +260,8 @@ specification ::=  USERCODE
                      Out.time(ErrorMessages.PARSING_TOOK, t);
 
                      macros.expand(); // expands only inside macro definitions
-                     if (Options.unused_warning) {
-	                     for (String unusedMacro : macros.unused()) {
-	                       Out.warning(ErrorMessages.UNUSED_MACRO, unusedMacro);
-	                     }
+                     for (String unusedMacro : macros.unused()) {
+                       Out.warning(ErrorMessages.MACRO_UNUSED, unusedMacro);
                      }
 
                      // expand macros + char classes in rules and lookahead rules

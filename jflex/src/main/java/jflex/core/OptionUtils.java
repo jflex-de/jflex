@@ -36,13 +36,25 @@ public class OptionUtils {
     Options.no_backup = false;
     Options.verbose = true;
     Options.progress = true;
-    Options.unused_warning = true;
     Options.time = false;
     Options.dot = false;
     Options.dump = false;
     Options.legacy_dot = false;
     Options.encoding = Charset.defaultCharset();
     Skeleton.readDefault();
+  }
+
+  /**
+   * Warn on unused macros or not.
+   *
+   * @param unusedWarning whether unused macros should be warned about.
+   */
+  public static void set_unused_warning(boolean unusedWarning) {
+    if (unusedWarning) {
+      Options.enable(ErrorMessages.MACRO_UNUSED);
+    } else {
+      Options.suppress(ErrorMessages.MACRO_UNUSED);
+    }
   }
 
   public static void setSkeleton(File skel) {

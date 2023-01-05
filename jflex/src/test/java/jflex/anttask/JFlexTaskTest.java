@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import jflex.core.OptionUtils;
+import jflex.l10n.ErrorMessages;
 import jflex.option.Options;
 import jflex.skeleton.Skeleton;
 import org.junit.Before;
@@ -121,16 +122,20 @@ public class JFlexTaskTest {
 
   @Test
   public void testUnusedWarning() {
-    // Defaults to true, for backward compatibility.
-    assertWithMessage("Defaults to true").that(Options.unused_warning).isTrue();
+    // Defaults to enabled, for backward compatibility.
+    assertWithMessage("Defaults to not suppressed")
+        .that(Options.isSuppressed(ErrorMessages.MACRO_UNUSED))
+        .isFalse();
     task.setUnusedWarning(false);
-    assertThat(Options.unused_warning).isFalse();
+    assertThat(Options.isSuppressed(ErrorMessages.MACRO_UNUSED)).isTrue();
   }
 
   @Test
   public void testUnusedWarning_Verbose() {
     task.setVerbose(false);
-    assertWithMessage("Disabled in quiet mode").that(Options.unused_warning).isFalse();
+    assertWithMessage("Disabled in quiet mode")
+        .that(Options.isSuppressed(ErrorMessages.MACRO_UNUSED))
+        .isTrue();
   }
 
   @Test
