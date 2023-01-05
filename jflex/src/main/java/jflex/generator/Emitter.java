@@ -1136,7 +1136,7 @@ public final class Emitter {
 
       println("            { " + action.content);
       println("            }");
-      println("            // fall through");
+      println("          // fall through");
       println("          case " + (i++) + ": break;");
     }
   }
