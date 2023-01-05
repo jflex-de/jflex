@@ -72,7 +72,7 @@ public final class Out {
    * @param message the message to be printed
    * @param time elapsed time
    */
-  public static void time(ErrorMessages.ErrorMessage message, Timer time) {
+  public static void time(ErrorMessages message, Timer time) {
     if (Options.time) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
@@ -107,7 +107,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages.ErrorMessage message, String data) {
+  public static void println(ErrorMessages message, String data) {
     if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -119,7 +119,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages.ErrorMessage message, int data) {
+  public static void println(ErrorMessages message, int data) {
     if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -213,7 +213,7 @@ public final class Out {
    * @param message code of the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages.ErrorMessage message) {
+  public static void warning(ErrorMessages message) {
     warning(message, 0);
   }
 
@@ -224,7 +224,7 @@ public final class Out {
    * @param line the line information
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages.ErrorMessage message, int line) {
+  public static void warning(ErrorMessages message, int line) {
     warnings++;
 
     String msg = NL + "Warning";
@@ -241,7 +241,7 @@ public final class Out {
    * @param line the line number of the position
    * @param column the column of the position
    */
-  public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
+  public static void warning(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -277,7 +277,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages.ErrorMessage message) {
+  public static void error(ErrorMessages message) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message));
   }
@@ -289,7 +289,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages.ErrorMessage message, String data) {
+  public static void error(ErrorMessages message, String data) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message, data));
   }
@@ -300,7 +300,7 @@ public final class Out {
    * @param message the code of the error message
    * @param file the file it occurred for
    */
-  public static void error(ErrorMessages.ErrorMessage message, File file) {
+  public static void error(ErrorMessages message, File file) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message) + " (" + file + ")");
   }
@@ -313,7 +313,7 @@ public final class Out {
    * @param line the line number of error position
    * @param column the column of error position
    */
-  public static void error(File file, ErrorMessages.ErrorMessage message, int line, int column) {
+  public static void error(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Error";
     if (file != null) msg += " in file \"" + file + "\"";
