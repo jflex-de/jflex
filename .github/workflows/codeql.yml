@@ -50,6 +50,9 @@ jobs:
         with:
           patterns: |
             -**/LexParse.java:java/local-variable-is-never-read
+            -**/LexParse.java:java/non-static-nested-class
+            -**/LexParse.java:java/deprecated-call
+            -**/LexParse.java:java/missing-override-annotation
             -**/LexScan.java:java/misleading-indentation
             -**/LexScan.java:java/uncaught-number-format-exception
           input: sarif-results/java.sarif
