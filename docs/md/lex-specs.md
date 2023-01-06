@@ -86,6 +86,12 @@ generated scanner class.
 
     Makes the generated class abstract.
 
+-   `%no_suppress_warnings`
+
+    Do not generate any `@SuppressWarnings(...)` annotation for the generated
+    class. This means, you can add your own `@SuppressWarnings(...)` annotation
+    in the preamble without getting a compiler error on duplicate annotations.
+
 -   `%apiprivate`
 
     Makes all generated methods and fields of the class private.
