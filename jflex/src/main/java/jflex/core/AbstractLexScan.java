@@ -67,6 +67,7 @@ public abstract class AbstractLexScan implements ILexScan {
   boolean standalone;
   boolean debugOption;
   boolean eofclose;
+  boolean noSuppressWarnings;
 
   String isImplementing;
   String isExtending;
@@ -393,6 +394,10 @@ public abstract class AbstractLexScan implements ILexScan {
 
   public int bufferSize() {
     return bufferSize;
+  }
+
+  public boolean noSuppressWarnings() {
+    return noSuppressWarnings;
   }
 
   /**

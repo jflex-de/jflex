@@ -281,6 +281,8 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%warn" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.enableWarning(yytext().substring(6).trim()); }
   "%warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
+  "%no_suppress_warnings" {WSP}* { noSuppressWarnings = true; }
+
   {Ident}                     { return symbol(IDENT, yytext()); }
   "="{WSP}*                   { yybegin(REGEXP);
                                 return symbol(EQUALS);

@@ -429,9 +429,10 @@ public final class Emitter {
   }
 
   private void emitClassName() {
-    // TODO(#222) Actually fix the fall-through violations
-    println("// See https://github.com/jflex-de/jflex/issues/222");
-    println("@SuppressWarnings(\"FallThrough\")");
+    if (!scanner.noSuppressWarnings()) {
+      // TODO(#222) Actually fix the fall-through violations
+      println("@SuppressWarnings(\"fallthrough\")");
+    }
     if (scanner.isPublic()) print("public ");
 
     if (scanner.isAbstract()) print("abstract ");
