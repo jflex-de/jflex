@@ -40,7 +40,8 @@ public class JFlexTestsuiteMojo extends AbstractMojo {
       defaultValue = "${project.parent.basedir}/jflex/target/jflex-full-${project.version}.jar")
   private String jflexUberJarFilename;
 
-  /** */
+  /** Execute test case. */
+  @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
     boolean success = true;
     File jflexUberJar = new File(jflexUberJarFilename);

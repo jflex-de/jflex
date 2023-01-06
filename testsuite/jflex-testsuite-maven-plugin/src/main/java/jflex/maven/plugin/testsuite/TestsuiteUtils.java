@@ -39,6 +39,7 @@ public class TestsuiteUtils {
 
     FilenameFilter extFilter =
         new FilenameFilter() {
+          @Override
           public boolean accept(File f, String name) {
             return name.endsWith(extension);
           }
@@ -53,6 +54,7 @@ public class TestsuiteUtils {
 
     FilenameFilter dirFilter =
         new FilenameFilter() {
+          @Override
           public boolean accept(File f, String name) {
             return (new File(f, name)).isDirectory();
           }

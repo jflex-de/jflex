@@ -64,6 +64,7 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Returns a named resource as stream. */
+  @Override
   public synchronized InputStream getResourceAsStream(String name) {
     // call super, handles delegation to parent+system class loader
     InputStream s = super.getResourceAsStream(name);
@@ -102,6 +103,7 @@ public class CustomClassLoader extends ClassLoader {
   }
 
   /** Loads a class by name. */
+  @Override
   public synchronized Class<?> loadClass(String name, boolean resolve)
       throws ClassNotFoundException {
 

@@ -35,6 +35,7 @@ public class TestResult {
     this.success = success;
   }
 
+  @Override
   public String toString() {
     return "success: " + success + "\noutput: \"" + output + "\"";
   }

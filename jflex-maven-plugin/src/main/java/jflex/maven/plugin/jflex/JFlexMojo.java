@@ -125,6 +125,7 @@ public class JFlexMojo extends AbstractMojo {
    *
    * <p>This methods is checks parameters, sets options and calls JFlex.Main.generate()
    */
+  @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
     this.outputDirectory = getAbsolutePath(this.outputDirectory);
 
