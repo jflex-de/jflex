@@ -11,7 +11,7 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
-if [[ ${CI} ]]; then
+if [[ "${CI}" ]]; then
   loge "This script is only for manual invocation"
   exit 1
 fi
@@ -26,9 +26,9 @@ logi "Test *** ${TEST_SUITE}"
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
   "$BASEDIR"/scripts/test-java-format.sh
 fi
-if [[ !${CI} || -z "$TEST_SUITE" ]]; then
+if [[ !"${CI}" || -z "$TEST_SUITE" ]]; then
   buildifier -r=true .
-elif [[ ${CI} && "$TEST_SUITE" == "bzl-format"  ]]; then
+elif [[ "${CI}" && "$TEST_SUITE" == "bzl-format"  ]]; then
   "$BASEDIR"/scripts/test-bzl-format.sh
 fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unit" ]]; then
