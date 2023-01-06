@@ -55,6 +55,7 @@ jobs:
             -**/LexParse.java:java/missing-override-annotation
             -**/LexScan.java:java/misleading-indentation
             -**/LexScan.java:java/uncaught-number-format-exception
+            -**/LexScan.java:java/missing-override-annotation
           input: sarif-results/java.sarif
           output: sarif-results/java.sarif
 
