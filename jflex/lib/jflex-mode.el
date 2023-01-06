@@ -97,6 +97,10 @@
      "^%eofthrow"
      "^%yylexthrow"
      "^%throws"
+     "^%warn"
+     "^%no-warn"
+     "^%suppress"
+     "^%no_suppress_warnings"
      ("%[%{}0-9a-zA-Z]+" . font-lock-warning-face) ; errors
      ("{[ \t]*[a-zA-Z][0-9a-zA-Z_]+[ \t]*}" . font-lock-variable-name-face) ; macro uses
      "<<EOF>>" ; special <<EOF>> symbol
