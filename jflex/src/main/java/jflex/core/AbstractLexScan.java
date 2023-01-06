@@ -89,7 +89,6 @@ public abstract class AbstractLexScan implements ILexScan {
     return unicodeProperties;
   }
 
-  // TODO(regisd) Return an immutable representation of char classes
   @SuppressWarnings("unused") // Used in generated LexParse
   public CharClasses getCharClasses() {
     return charClasses;
