@@ -1,5 +1,5 @@
 Reading "javatests/de/jflex/testcase/semcheck/semcheck.flex"
 
-Error in file "javatests/de/jflex/testcase/semcheck/semcheck.flex" (line 12): 
+Error in file "javatests/de/jflex/testcase/semcheck/semcheck.flex" (line 17): 
 Lookahead expression must have match with length of at least 1.
 !"foo" / "bar"  {  }
