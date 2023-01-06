@@ -50,6 +50,8 @@ jobs:
         with:
           patterns: |
             -**/LexParse.java:java/local-variable-is-never-read
+            -**/LexScan.java:java/misleading-indentation
+            -**/LexScan.java:java/uncaught-number-format-exception
           input: sarif-results/java.sarif
           output: sarif-results/java.sarif
 
