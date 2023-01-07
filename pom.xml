@@ -90,7 +90,7 @@
   <properties>
     <cup.version>11b-20160615-1</cup.version>
     <github.global.server>github</github.global.server>
-    <jflex.jdk.version>1.7</jflex.jdk.version>
+    <jflex.jdk.version>1.8</jflex.jdk.version>
     <!-- 3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->
     <maven.version>3.5.2</maven.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
@@ -489,6 +489,7 @@
             <artifactId>fmt-maven-plugin</artifactId>
             <executions>
               <execution>
+                <?m2e ignore?>
                 <goals>
                   <goal>format</goal>
                 </goals>
