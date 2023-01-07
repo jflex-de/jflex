@@ -1,0 +1,4 @@
+
+Warning in file "javatests/de/jflex/testcase/no_warn/no_warn1.flex" (line 20): 
+Rule can never be matched:
+a    { /* never-match warning */ }

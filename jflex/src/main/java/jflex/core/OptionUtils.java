@@ -132,7 +132,7 @@ public class OptionUtils {
   public static void enableAllWarnings() {
     for (ErrorMessages msg : ErrorMessages.values()) {
       if (ErrorMessages.isConfigurableWarning(msg)) {
-        Options.suppress(msg);
+        Options.enable(msg);
       }
     }
   }
