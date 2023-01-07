@@ -15,7 +15,7 @@ ARTIFACTS = [
     "com.google.code.findbugs:jsr305:jar:3.0.2",
     "com.google.flogger:flogger-system-backend:0.4",
     "com.google.flogger:flogger:jar:0.4",
-    "com.google.guava:guava:jar:30.1.1-jre",
+    "com.google.guava:guava:jar:31.1-jre",
     "com.google.truth:truth:1.1.3",
     "com.pholser:junit-quickcheck-core:1.0",
     "com.pholser:junit-quickcheck-generators:1.0",
