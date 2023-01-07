@@ -109,6 +109,9 @@ jobs:
         java-version: 8
         distribution: zulu
         cache: maven
+    - name: '🔨 Build JFlex jar'
+      run: |
+        cd jflex; mvn -Pfastbuild package
     - name: '📝 Javadoc'
       run: |
         mvn javadoc:javadoc
