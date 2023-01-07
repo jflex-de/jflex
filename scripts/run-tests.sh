@@ -26,7 +26,7 @@ logi "Test *** ${TEST_SUITE}"
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "java-format" ]]; then
   "$BASEDIR"/scripts/test-java-format.sh
 fi
-if [[ !"${CI}" || -z "$TEST_SUITE" ]]; then
+if [[ ! "${CI}" || -z "$TEST_SUITE" ]]; then
   buildifier -r=true .
 elif [[ "${CI}" && "$TEST_SUITE" == "bzl-format"  ]]; then
   "$BASEDIR"/scripts/test-bzl-format.sh
