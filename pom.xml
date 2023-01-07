@@ -258,6 +258,7 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.4.1</version>
           <configuration>
+            <failOnWarnings>true</failOnWarnings>
             <!-- https://bugs.openjdk.java.net/browse/JDK-8212233 -->
             <source>8</source>
             <doclint>none</doclint>
@@ -399,6 +400,9 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
+                <configuration>
+                  <failOnWarnings>true</failOnWarnings>
+                </configuration>
               </execution>
             </executions>
           </plugin>
