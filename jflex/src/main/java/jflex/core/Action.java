@@ -62,8 +62,8 @@ public final class Action {
    * BACKWARD_ACTION.
    *
    * @param kind the kind of action
-   * @see #FORWARD_ACTION
-   * @see #BACKWARD_ACTION
+   * @see Kind#FORWARD_ACTION
+   * @see Kind#BACKWARD_ACTION
    */
   public Action(Kind kind) {
     if (kind != Kind.FORWARD_ACTION && kind != Kind.BACKWARD_ACTION) throw new GeneratorException();

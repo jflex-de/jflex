@@ -32,7 +32,7 @@ public class GridPanel extends Panel {
   private final List<GridPanelConstraint> constraints = new ArrayList<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
-  /** {@inheritDoc} */
+  /** Construct a new GridPanel with 0 hgap/vgap. */
   public GridPanel(int cols, int rows) {
     this(cols, rows, 0, 0);
   }
@@ -156,17 +156,17 @@ public class GridPanel extends Panel {
     this.insets = insets;
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panl with Handles.FILL and dx=dy=1 */
   public void add(int x, int y, Component c) {
     add(x, y, 1, 1, Handles.FILL, c);
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panel with dx=dy=1 */
   public void add(int x, int y, int handle, Component c) {
     add(x, y, 1, 1, handle, c);
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panel with Handles.FILL. */
   public void add(int x, int y, int dx, int dy, Component c) {
     add(x, y, dx, dy, Handles.FILL, c);
   }

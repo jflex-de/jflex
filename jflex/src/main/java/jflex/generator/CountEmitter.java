@@ -106,7 +106,6 @@ public class CountEmitter extends PackEmitter {
    *
    * @param count a int.
    * @param value a int.
-   * @see CountEmitter#setValTranslation(int)
    */
   public void emit(int count, int value) {
     numEntries += count;

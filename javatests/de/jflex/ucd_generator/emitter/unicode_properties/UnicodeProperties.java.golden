@@ -40,8 +40,7 @@ public class UnicodeProperties {
   private IntCharSet[] caselessMatches;
 
   /**
-   * Unpacks the Unicode data corresponding to the default Unicode version: "{@value
-   * #DEFAULT_UNICODE_VERSION}".
+   * Unpacks the Unicode data corresponding to the default Unicode version.
    *
    * @throws UnsupportedUnicodeVersionException if the default version is not supported.
    */
