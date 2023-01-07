@@ -24,7 +24,7 @@ public class JavaUtils {
    * @param srcDirectory The root source directory, e.g. {@code /src}.
    * @param javaPackage The java package, e.g. {@code foo.bar}.
    * @param className The Java class name, e.g. {@code MyLexer}.
-   * @return
+   * @return source file associated with the class name.
    */
   public static File file(File srcDirectory, String javaPackage, String className) {
     File dir = directory(srcDirectory, javaPackage);
