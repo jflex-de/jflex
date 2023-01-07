@@ -737,7 +737,9 @@ public final class NFA {
     while (changed) {
       changed = false;
       Out.debug("live: " + live);
-      for (int s : live.complement(reachable)) {
+      StateSet complement = live.complement(reachable);
+      if (complement == null) throw new GeneratorException(new NullPointerException(), true);
+      for (int s : complement) {
         for (int i = 0; i < numInput; i++) {
           if (table[s][i] != null) {
             for (int state : table[s][i]) {
