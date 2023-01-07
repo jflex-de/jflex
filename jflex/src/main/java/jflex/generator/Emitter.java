@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.base.Pair;
 import jflex.core.AbstractLexScan;
@@ -38,17 +36,6 @@ import jflex.skeleton.Skeleton;
  * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Emitter {
-  private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN =
-      Pattern.compile(
-          ".*/\\*\\*(.*)\\*/" // javadoc comment, embedded '*/' disallowed
-              + "(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*" // @[p.ack.age.]AnnotationClass
-              + "   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\"" // ignore close parens in double quotes
-              + "                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in
-              // single quotes
-              + "                   |[^)])+\\))?" // optional annotation params
-              + ")*\\s*", // zero or more annotations, followed by optional whitespace
-          Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);
-
   // bit masks for state attributes
   private static final int FINAL = 1;
   private static final int NOLOOK = 8;
@@ -474,18 +461,6 @@ public final class Emitter {
     }
 
     println(" {");
-  }
-
-  /**
-   * Try to find out if user code ends with a javadoc comment, maybe followed by one or more
-   * annotations
-   *
-   * @param usercode the user code
-   * @return true if it ends with a javadoc comment and zero or more annotations
-   */
-  static boolean endsWithJavadoc(CharSequence usercode) {
-    Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
-    return matcher.matches() && !matcher.group(1).contains("*/");
   }
 
   private void emitLexicalStates() {

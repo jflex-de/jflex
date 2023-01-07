@@ -195,8 +195,7 @@ public class GenerateMojo extends AbstractMojo {
   private File[] getSources() throws MojoFailureException {
     File defaultDir = getAbsolutePath(cupSourceDirectory);
     if (defaultDir == null) {
-      throw new MojoFailureException(
-          "Expected " + cupSourceDirectory + " to be a directory");
+      throw new MojoFailureException("Expected " + cupSourceDirectory + " to be a directory");
     }
     if (!defaultDir.isDirectory()) {
       throw new MojoFailureException(
