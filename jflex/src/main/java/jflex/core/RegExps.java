@@ -267,6 +267,10 @@ public class RegExps {
 
       Action a = getAction(regExpNum);
 
+      if (a == null) {
+        throw new NullPointerException("Action is null, this should not be possible");
+      }
+
       int len1 = SemCheck.length(r1);
       int len2 = SemCheck.length(r2);
 
