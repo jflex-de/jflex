@@ -1,0 +1,46 @@
+# Copyright 2023, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+
+jflex_testsuite(
+    name = "NoWarnTest1",
+    srcs = [
+        "NoWarnTest1.java",
+    ],
+    data = [
+        "no_warn1.flex",
+        "no_warn1_sysout.txt",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
+
+jflex_testsuite(
+    name = "NoWarnTest2",
+    srcs = [
+        "NoWarnTest2.java",
+    ],
+    data = [
+        "no_warn2.flex",
+        "no_warn2_sysout.txt",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
+
+jflex_testsuite(
+    name = "NoWarnTest3",
+    srcs = [
+        "NoWarnTest3.java",
+    ],
+    data = [
+        "no_warn3.flex",
+        "no_warn3_sysout.txt",
+    ],
+    deps = [
+        "//third_party/com/google/guava",
+    ],
+)
