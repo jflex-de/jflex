@@ -98,6 +98,21 @@ jobs:
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin,testsuite/jflex-testsuite-maven-plugin
         scripts/test-regression.sh
 
+  javadoc:
+    name: Javadoc
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 8
+        distribution: zulu
+        cache: maven
+    - name: '📝 Javadoc'
+      run: |
+        mvn javadoc:javadoc
+
   docs:
     name: 'Docs'
     runs-on: ubuntu-latest
