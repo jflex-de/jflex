@@ -332,10 +332,11 @@ public final class Emitter {
     println("      }");
     println("      for (int i = firstFilePos; i < argv.length; i++) {");
     println("        " + className + " scanner = null;");
+    println("        java.io.FileInputStream stream = null;");
+    println("        java.io.Reader reader = null;");
     println("        try {");
-    println("          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);");
-    println(
-        "          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);");
+    println("          stream = new java.io.FileInputStream(argv[i]);");
+    println("          reader = new java.io.InputStreamReader(stream, encodingName);");
     println("          scanner = new " + className + "(reader);");
     if (scanner.standalone()) {
       println("          while ( !scanner.zzAtEOF ) scanner." + functionName + "();");
@@ -359,6 +360,26 @@ public final class Emitter {
     println("        catch (Exception e) {");
     println("          System.out.println(\"Unexpected exception:\");");
     println("          e.printStackTrace();");
+    println("        }");
+    println("        finally {");
+    println("          if (reader != null) {");
+    println("            try {");
+    println("              reader.close();");
+    println("            }");
+    println("            catch (java.io.IOException e) {");
+    println("              System.out.println(\"IO error closing file \\\"\"+argv[i]+\"\\\"\");");
+    println("              System.out.println(e);");
+    println("            }");
+    println("          }");
+    println("          if (stream != null) {");
+    println("            try {");
+    println("              stream.close();");
+    println("            }");
+    println("            catch (java.io.IOException e) {");
+    println("              System.out.println(\"IO error closing file \\\"\"+argv[i]+\"\\\"\");");
+    println("              System.out.println(e);");
+    println("            }");
+    println("          }");
     println("        }");
     println("      }");
     println("    }");
