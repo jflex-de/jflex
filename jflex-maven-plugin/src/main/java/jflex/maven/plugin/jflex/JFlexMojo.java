@@ -129,6 +129,10 @@ public class JFlexMojo extends AbstractMojo {
   public void execute() throws MojoExecutionException, MojoFailureException {
     this.outputDirectory = getAbsolutePath(this.outputDirectory);
 
+    if (outputDirectory == null) {
+      throw new MojoExecutionException("outputDirectory is null");
+    }
+
     // compiling the generated source in target/generated-sources/ is
     // the whole point of this plugin compared to running the ant plugin
     project.addCompileSourceRoot(outputDirectory.getPath());
