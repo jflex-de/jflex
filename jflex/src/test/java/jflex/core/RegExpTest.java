@@ -17,7 +17,7 @@ import org.junit.Test;
  * @author Gerwin Klein
  * @version JFlex 1.9.0-SNAPSHOT
  */
-public class RegExpTest implements sym {
+public class RegExpTest {
 
   @Test
   public void revString() {
@@ -27,16 +27,16 @@ public class RegExpTest implements sym {
   @Test
   public void testCharClass() {
     Macros m = new Macros();
-    RegExp e1 = new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('a', 'z'));
-    RegExp e2 = new RegExp1(CHAR, 'Z');
+    RegExp e1 = new RegExp1(sym.PRIMCLASS, IntCharSet.ofCharacterRange('a', 'z'));
+    RegExp e2 = new RegExp1(sym.CHAR, 'Z');
     ArrayList<RegExp> l = new ArrayList<>();
-    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacterRange('0', '8')));
-    l.add(new RegExp1(PRIMCLASS, IntCharSet.ofCharacter('9')));
-    RegExp e3 = new RegExp1(CCLASS, l);
+    l.add(new RegExp1(sym.PRIMCLASS, IntCharSet.ofCharacterRange('0', '8')));
+    l.add(new RegExp1(sym.PRIMCLASS, IntCharSet.ofCharacter('9')));
+    RegExp e3 = new RegExp1(sym.CCLASS, l);
     m.insert("macro", e3);
-    RegExp s = new RegExp1(STAR, e1);
-    RegExp u = new RegExp1(MACROUSE, "macro");
-    RegExp b = new RegExp2(BAR, e2, u);
+    RegExp s = new RegExp1(sym.STAR, e1);
+    RegExp u = new RegExp1(sym.MACROUSE, "macro");
+    RegExp b = new RegExp2(sym.BAR, e2, u);
     e1 = e1.normaliseMacros(m);
     e2 = e2.normaliseMacros(m);
     b = b.normaliseMacros(m);

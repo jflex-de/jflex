@@ -23,7 +23,7 @@ import jflex.skeleton.Skeleton;
 %public
 %class LexScan
 %extends AbstractLexScan
-%implements sym, java_cup.runtime.Scanner
+%implements java_cup.runtime.Scanner
 %function next_token
 
 %type Symbol
@@ -157,10 +157,10 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                              t.start();
                              yybegin(MACROS);
                              macroDefinition = true;
-                             return symbol(USERCODE,userCode);
+                             return symbol(sym.USERCODE,userCode);
                            }
   .*{NL} | .+              { userCode.append(yytext()); }
-  <<EOF>>                  { return symbol(EOF); }
+  <<EOF>>                  { return symbol(sym.EOF); }
 }
 
 <MACROS>   ("%{"|"%init{"|"%initthrow{"|"%eof{"|"%eofthrow{"|"%yylexthrow{"|"%eofval{").*{NL}
@@ -283,9 +283,9 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   "%no_suppress_warnings" {WSP}* { noSuppressWarnings = true; }
 
-  {Ident}                     { return symbol(IDENT, yytext()); }
+  {Ident}                     { return symbol(sym.IDENT, yytext()); }
   "="{WSP}*                   { yybegin(REGEXP);
-                                return symbol(EQUALS);
+                                return symbol(sym.EQUALS);
                               }
 
   "/*"                        { nextState = MACROS; yybegin(COMMENT); }
@@ -294,7 +294,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   ^"%%" {NNL}*                { macroDefinition = false;
                                 yybegin(REGEXPSTART);
-                                return symbol(DELIMITER);
+                                return symbol(sym.DELIMITER);
                               }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
@@ -319,74 +319,74 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 <REGEXPSTART> {
   ^ {WSP}* "%include" {WSP}+ .*  { includeFile(yytext().trim().substring(9).trim()); }
   {WSP}* "/*"                    { nextState = REGEXPSTART; yybegin(COMMENT); }
-  {WSP}* "<"                     { yybegin(STATES); return symbol_countUpdate(LESSTHAN, null); }
-  {WSP}* "}"                     { return symbol_countUpdate(RBRACE, null); }
+  {WSP}* "<"                     { yybegin(STATES); return symbol_countUpdate(sym.LESSTHAN, null); }
+  {WSP}* "}"                     { return symbol_countUpdate(sym.RBRACE, null); }
   {WSP}* "//" {NNL}*             { }
   {WSP}* "<<EOF>>" {WSPNL}* "{"  { actionText.setLength(0); yybegin(JAVA_CODE);
-                                   Symbol s = symbol_countUpdate(EOFRULE, null);
+                                   Symbol s = symbol_countUpdate(sym.EOFRULE, null);
                                    action_line = s.left+1;
                                    return s;
                                  }
-  {WSP}* "<<EOF>>" {WSPNL}*/"|"  { yybegin(REGEXP); return symbol(EOFRULE); }
+  {WSP}* "<<EOF>>" {WSPNL}*/"|"  { yybegin(REGEXP); return symbol(sym.EOFRULE); }
   ^ {WSP}* {NWSPNL}              { yypushback(yylength()); yybegin(REGEXP); }
   {WSP} | {NL}                   { }
 }
 
 <STATES> {
-  {Ident}                     { return symbol(IDENT, yytext()); }
-  ","                         { return symbol(COMMA); }
+  {Ident}                     { return symbol(sym.IDENT, yytext()); }
+  ","                         { return symbol(sym.COMMA); }
   {WSPNL}+                    { }
 
   // "{" will be caught in REGEXP
-  ">"{WSPNL}*                 { yybegin(REGEXP); return symbol(MORETHAN); }
+  ">"{WSPNL}*                 { yybegin(REGEXP); return symbol(sym.MORETHAN); }
 
   <<EOF>>                     { throw new ScannerException(file,ErrorMessages.EOF_IN_STATES); }
 }
 
 
 <REGEXP> {
-  "<<EOF>>" {WSPNL}+ "{"  { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(EOFRULE); }
+  "<<EOF>>" {WSPNL}+ "{"  { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(sym.EOFRULE); }
   "<<EOF>>"               { throw new ScannerException(file,ErrorMessages.EOF_WO_ACTION); }
 
   {WSPNL}*"|"{WSP}*$      { if (macroDefinition) {
                               yybegin(EATWSPNL);
-                              return symbol(BAR);
+                              return symbol(sym.BAR);
                             }
                             else {
                               yybegin(REGEXPSTART);
-                              return symbol(NOACTION);
+                              return symbol(sym.NOACTION);
                             }
                           }
 
   // stategroup
-  "{"            { yybegin(REGEXPSTART); return symbol(LBRACE); }
+  "{"            { yybegin(REGEXPSTART); return symbol(sym.LBRACE); }
 
-  {WSPNL}*"|"    { return symbol(BAR); }
+  {WSPNL}*"|"    { return symbol(sym.BAR); }
 
   {WSPNL}*\"     { string.setLength(0); nextState = REGEXP; yybegin(STRING_CONTENT); }
   {WSPNL}*"\\u{" { string.setLength(0); yybegin(REGEXP_CODEPOINT_SEQUENCE); }
-  {WSPNL}*"!"    { return symbol(BANG); }
-  {WSPNL}*"~"    { return symbol(TILDE); }
-  {WSPNL}*"("    { return symbol(OPENBRACKET); }
-  {WSPNL}*")"    { return symbol(CLOSEBRACKET); }
-  {WSPNL}*"*"    { return symbol(STAR); }
-  {WSPNL}*"+"    { return symbol(PLUS); }
-  {WSPNL}*"?"    { return symbol(QUESTION); }
-  {WSPNL}*"$"    { return symbol(DOLLAR); }
-  {WSPNL}*"^"    { bolUsed = true; return symbol(HAT); }
-  {WSPNL}*"."    { return symbol(POINT); }
-  {WSPNL}*"\\R"  { return symbol(NEWLINE); }
-  {WSPNL}*"["    { yybegin(CHARCLASS); return symbol(OPENCLASS); }
-  {WSPNL}*"/"    { return symbol(LOOKAHEAD); }
+  {WSPNL}*"!"    { return symbol(sym.BANG); }
+  {WSPNL}*"~"    { return symbol(sym.TILDE); }
+  {WSPNL}*"("    { return symbol(sym.OPENBRACKET); }
+  {WSPNL}*")"    { return symbol(sym.CLOSEBRACKET); }
+  {WSPNL}*"*"    { return symbol(sym.STAR); }
+  {WSPNL}*"+"    { return symbol(sym.PLUS); }
+  {WSPNL}*"?"    { return symbol(sym.QUESTION); }
+  {WSPNL}*"$"    { return symbol(sym.DOLLAR); }
+  {WSPNL}*"^"    { bolUsed = true; return symbol(sym.HAT); }
+  {WSPNL}*"."    { return symbol(sym.POINT); }
+  {WSPNL}*"\\R"  { return symbol(sym.NEWLINE); }
+  {WSPNL}*"["    { yybegin(CHARCLASS); return symbol(sym.OPENCLASS); }
+  {WSPNL}*"/"    { return symbol(sym.LOOKAHEAD); }
 
-  {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(MACROUSE, makeMacroIdent()); }
+  {WSPNL}* "{" {WSP}* {Ident} {WSP}* "}" { return symbol_countUpdate(sym.MACROUSE, makeMacroIdent()); }
   {WSPNL}* "{" {WSP}* {Number}   { yybegin(REPEATEXP);
-                                   return symbol(REPEAT,
+                                   return symbol(sym.REPEAT,
                                                  Integer.valueOf(yytext().trim().substring(1).trim()));
                                  }
 
-  {WSPNL}+ "{"    { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(REGEXPEND); }
-  {NL}            { if (macroDefinition) { yybegin(MACROS); } return symbol(REGEXPEND); }
+  {WSPNL}+ "{"    { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(sym.REGEXPEND); }
+  {NL}            { if (macroDefinition) { yybegin(MACROS); } return symbol(sym.REGEXPEND); }
 
   {WSPNL}*"/*"    { nextState = REGEXP; yybegin(COMMENT); }
 
@@ -395,25 +395,25 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   {WSP}+          { }
 
   <CHARCLASS> {
-    {WSPNL}*"[:jletter:]"      { return symbol(JLETTERCLASS); }
-    {WSPNL}*"[:jletterdigit:]" { return symbol(JLETTERDIGITCLASS); }
-    {WSPNL}*"[:letter:]"       { return symbol(LETTERCLASS); }
-    {WSPNL}*"[:uppercase:]"    { return symbol(UPPERCLASS); }
-    {WSPNL}*"[:lowercase:]"    { return symbol(LOWERCLASS); }
-    {WSPNL}*"[:digit:]"        { return symbol(DIGITCLASS); }
-    {WSPNL}*"\\d"              { return symbol(DIGITCLASS); }
-    {WSPNL}*"\\D"              { return symbol(DIGITCLASSNOT); }
-    {WSPNL}*"\\s"              { return symbol(WHITESPACECLASS); }
-    {WSPNL}*"\\S"              { return symbol(WHITESPACECLASSNOT); }
-    {WSPNL}*"\\w"              { return symbol(WORDCLASS); }
-    {WSPNL}*"\\W"              { return symbol(WORDCLASSNOT); }
+    {WSPNL}*"[:jletter:]"      { return symbol(sym.JLETTERCLASS); }
+    {WSPNL}*"[:jletterdigit:]" { return symbol(sym.JLETTERDIGITCLASS); }
+    {WSPNL}*"[:letter:]"       { return symbol(sym.LETTERCLASS); }
+    {WSPNL}*"[:uppercase:]"    { return symbol(sym.UPPERCLASS); }
+    {WSPNL}*"[:lowercase:]"    { return symbol(sym.LOWERCLASS); }
+    {WSPNL}*"[:digit:]"        { return symbol(sym.DIGITCLASS); }
+    {WSPNL}*"\\d"              { return symbol(sym.DIGITCLASS); }
+    {WSPNL}*"\\D"              { return symbol(sym.DIGITCLASSNOT); }
+    {WSPNL}*"\\s"              { return symbol(sym.WHITESPACECLASS); }
+    {WSPNL}*"\\S"              { return symbol(sym.WHITESPACECLASSNOT); }
+    {WSPNL}*"\\w"              { return symbol(sym.WORDCLASS); }
+    {WSPNL}*"\\W"              { return symbol(sym.WORDCLASSNOT); }
     {WSPNL}*"\\p{"[^}]*"}"     { String trimmedText = yytext().trim();
                                  String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
                                  IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
-                                 return symbol(UNIPROPCCLASS, propertyValue);
+                                 return symbol(sym.UNIPROPCCLASS, propertyValue);
                                }
     {WSPNL}*"\\P{"[^}]*"}"     { String trimmedText = yytext().trim();
                                  String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
@@ -421,43 +421,43 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
-                                 return symbol(UNIPROPCCLASSNOT, propertyValue);
+                                 return symbol(sym.UNIPROPCCLASSNOT, propertyValue);
                                }
   }
 
-  . { return symbol(CHAR, yytext().codePointAt(0)); }
+  . { return symbol(sym.CHAR, yytext().codePointAt(0)); }
 }
 
 <EATWSPNL> {WSPNL}+  { yybegin(REGEXP); }
 
 
 <REPEATEXP> {
-  "}"          { yybegin(REGEXP); return symbol(RBRACE); }
-  "," {WSP}* {Number}  { return symbol(REPEAT, Integer.valueOf(yytext().substring(1).trim())); }
+  "}"          { yybegin(REGEXP); return symbol(sym.RBRACE); }
+  "," {WSP}* {Number}  { return symbol(sym.REPEAT, Integer.valueOf(yytext().substring(1).trim())); }
   {WSP}+       { }
 
   <<EOF>>                 { throw new ScannerException(file,ErrorMessages.EOF_IN_REGEXP); }
 }
 
 <CHARCLASS> {
-  "{"{Ident}"}" { return symbol(MACROUSE, yytext().substring(1,yylength()-1)); }
-  "["     { balance++; return symbol(OPENCLASS); }
-  "]"     { if (balance > 0) balance--; else yybegin(REGEXP); return symbol(CLOSECLASS); }
-  "^"     { return symbol(HAT); }
-  "-"     { return symbol(DASH); }
-  "--"    { return symbol(DIFFERENCE); }
-  "&&"    { return symbol(INTERSECTION); }
+  "{"{Ident}"}" { return symbol(sym.MACROUSE, yytext().substring(1,yylength()-1)); }
+  "["     { balance++; return symbol(sym.OPENCLASS); }
+  "]"     { if (balance > 0) balance--; else yybegin(REGEXP); return symbol(sym.CLOSECLASS); }
+  "^"     { return symbol(sym.HAT); }
+  "-"     { return symbol(sym.DASH); }
+  "--"    { return symbol(sym.DIFFERENCE); }
+  "&&"    { return symbol(sym.INTERSECTION); }
   "||"    { /* union is the default operation - '||' can be ignored */ }
-  "~~"    { return symbol(SYMMETRICDIFFERENCE); }
+  "~~"    { return symbol(sym.SYMMETRICDIFFERENCE); }
   "\\u{"  { yybegin(CHARCLASS_CODEPOINT); }
 
   // this is a hack to keep JLex compatibilty with char class
   // expressions like [+-]
-  "-]"    { yypushback(1); yycolumn--; return symbol(CHAR, (int)'-'); }
+  "-]"    { yypushback(1); yycolumn--; return symbol(sym.CHAR, (int)'-'); }
 
   \"      { string.setLength(0); nextState = CHARCLASS; yybegin(STRING_CONTENT); }
 
-  .       { return symbol(CHAR, yytext().codePointAt(0)); }
+  .       { return symbol(sym.CHAR, yytext().codePointAt(0)); }
 
   \n      { throw new ScannerException(file,ErrorMessages.EOL_IN_CHARCLASS,yyline,yycolumn); }
 
@@ -465,7 +465,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 }
 
 <STRING_CONTENT> {
-  \"       { yybegin(nextState); return symbol(STRING, string.toString()); }
+  \"       { yybegin(nextState); return symbol(sym.STRING, string.toString()); }
   \\\"     { string.append('\"'); }
   [^\"\\\u2028\u2029\u000A\u000B\u000C\u000D\u0085]+ { string.append(yytext()); }
 
@@ -497,24 +497,24 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 
 <REGEXP, CHARCLASS> {
-  {HexNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
-  {OctNumber} { return symbol(CHAR, Integer.parseInt(yytext().substring(1,yylength()), 8)); }
-  {Unicode4}  { return symbol(CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {HexNumber} { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
+  {OctNumber} { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(1,yylength()), 8)); }
+  {Unicode4}  { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
   {Unicode6}  { int codePoint = Integer.parseInt(yytext().substring(2,yylength()), 16);
                 if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
-                  return symbol(CHAR, codePoint);
+                  return symbol(sym.CHAR, codePoint);
                 } else {
                   throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn+2);
                 }
               }
 
-  \\b { return symbol(CHAR, (int)'\b'); }
-  \\n { return symbol(CHAR, (int)'\n'); }
-  \\t { return symbol(CHAR, (int)'\t'); }
-  \\f { return symbol(CHAR, (int)'\f'); }
-  \\r { return symbol(CHAR, (int)'\r'); }
+  \\b { return symbol(sym.CHAR, (int)'\b'); }
+  \\n { return symbol(sym.CHAR, (int)'\n'); }
+  \\t { return symbol(sym.CHAR, (int)'\t'); }
+  \\f { return symbol(sym.CHAR, (int)'\f'); }
+  \\r { return symbol(sym.CHAR, (int)'\r'); }
 
-  \\. { return symbol(CHAR, yytext().codePointAt(1)); }
+  \\. { return symbol(sym.CHAR, yytext().codePointAt(1)); }
 }
 
 
@@ -528,7 +528,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                  yybegin(REGEXPSTART);
                  Action a = new Action(actionText.toString(), action_line);
                  actions.add(a);
-                 return symbol(ACTION, a);
+                 return symbol(sym.ACTION, a);
                }
              }
 
@@ -552,7 +552,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 }
 
 <REGEXP_CODEPOINT_SEQUENCE> {
-  "}"             { yybegin(REGEXP); return symbol(STRING, string.toString()); }
+  "}"             { yybegin(REGEXP); return symbol(sym.STRING, string.toString()); }
   {HexDigit}{1,6} { int codePoint = Integer.parseInt(yytext(), 16);
                     if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
                       string.append(Character.toChars(codePoint));
@@ -582,7 +582,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   {HexDigit}{1,6} "}" { int codePoint = Integer.parseInt(yytext().substring(0, yylength() - 1), 16);
                         if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
                           yybegin(CHARCLASS);
-                          return symbol(CHAR, codePoint);
+                          return symbol(sym.CHAR, codePoint);
                         } else {
                           throw new ScannerException(file, ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
                         }
@@ -598,6 +598,6 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
              yypopStream();
            }
            else {
-             return symbol(EOF);
+             return symbol(sym.EOF);
            }
          }
