@@ -3,11 +3,11 @@
 # Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# Prepare the aggregated source code in the 'repo' directory that is cloned from
-# branch [aggregated-java-sources].
+# Prepare the aggregated source code in the '../aggregated-java-sources'
+# directory that is cloned from branch [aggregated-java-sources]. Expects
+# this repo to exist.
 
-# This is inspired by https://martinrotter.github.io/it-programming/2016/08/26/pushing-git-travis/
-
+REPO=../aggregated-java-sources
 CWD="$PWD"
 BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
@@ -15,34 +15,31 @@ source "$BASEDIR"/scripts/logger.sh
 # fail on error
 set -e
 
-git_clone() {
-  if [[ -d repo ]]; then
-    backup=$(mktemp -d)
-    logi "Move existing repo to $backup"
-    mv repo $backup
-  fi
-  logi "Cloning https://github.com/jflex-de/jflex/tree/aggregated-java-sources"
-  git clone --depth 1 --branch aggregated-java-sources "https://github.com/jflex-de/jflex.git" repo
-}
-
 # update_source <initial_log_message>
 update_source() {
   gittitle="$1"
   gitlog="$2"
+  logi "In $(pwd)"
   logi "Updating source for $gittitle"
-  bazel --bazelrc=.ci.bazelrc build --remote_http_cache=http://$CIRRUS_HTTP_CACHE_HOST //jflex:jflex_bin_deploy-src.jar //jflex:resources
+  bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
 
   logi "Updating sources from jflex_bin_deploy-src.jar"
-  cd repo
-  git config user.name "Cirrus CI"
-  git config user.email "nobody@cirrus-ci.org"
-  git rm -r java jflex LICENSE_* *.sh
+  cd $REPO
+  logi "In $(pwd)"
+  git config user.name "JFLex GitHub CI"
+  git config user.email "ci-bot@jflex.de"
+  # Separate jflex/ dir used to exist in aggregated_java_sources, but no longer does
+  # This is here just in case it reappears:
+  if [[ -d jflex ]]; then
+    git rm -r jflex
+  fi
+  # -- *.sh in case there are files that start with -
+  git rm -r java LICENSE_* -- *.sh
   mkdir java
   cd java
-  jar -xf ../../bazel-bin/jflex/jflex_bin_deploy-src.jar
+  jar -xf ../../jflex/bazel-bin/jflex/jflex_bin_deploy-src.jar
   # for some reason, it doesn't include the resources
-  jar -xf ../../bazel-bin/jflex/libresources.jar
-  # cd repo
+  jar -xf ../../jflex/bazel-bin/jflex/libresources.jar
   cd ..
 
   logi "Checking licenses"
@@ -53,9 +50,9 @@ update_source() {
   fi
 
   logi "Copying compile script"
-  cp ../scripts/compile-aggregated-java-sources.sh compile.sh
+  cp ../jflex/scripts/compile-aggregated-java-sources.sh compile.sh
 
-  logi "Download deps and Compile"
+  logi "Download deps and compile"
   ./compile.sh
 
   logi "Update git sources"
@@ -73,11 +70,13 @@ update_source() {
   cd ..
 }
 
-logi "On branch ${CIRRUS_REPO_FULL_NAME} → ${CIRRUS_BASE_BRANCH}"
+if [[ ! -d "$REPO" ]]; then
+  logi "$REPO does not exit"
+  exit 1
+fi
 
 gittitle=$(git log -1 --pretty=format:'%h %s')
 gitlog=$(git log -1 --pretty=fuller)
-git_clone
 update_source "$gittitle" "$gitlog"
 
 if [[ -z "$CI" ]]; then
