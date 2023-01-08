@@ -20,29 +20,6 @@ http_archive(
 
 load("@jflex_rules//jflex:deps.bzl", "JFLEX_ARTIFACTS")
 
-# pandoc used to build the documentation
-
-git_repository(
-    name = "bazel_pandoc",
-    commit = "68bcf3fb4dd1892e040f0986636805c7186c82ae",
-    remote = "https://github.com/ProdriveTechnologies/bazel-pandoc.git",
-)
-
-load("@bazel_pandoc//:repositories.bzl", "pandoc_repositories")
-
-pandoc_repositories()
-
-# latex rule to build PDF from tex files
-http_archive(
-    name = "bazel_latex",
-    strip_prefix = "bazel-latex-1.0",
-    url = "https://github.com/ProdriveTechnologies/bazel-latex/archive/v1.0.tar.gz",
-)
-
-load("@bazel_latex//:repositories.bzl", "latex_repositories")
-
-latex_repositories()
-
 # Third-party dependencies
 load("//third_party:deps.bzl", "ARTIFACTS")
 
