@@ -111,7 +111,7 @@ jobs:
         cache: maven
     - name: '🔨 Build JFlex jar'
       run: |
-        cd jflex; mvn -Pfastbuild package
+        cd jflex; mvn -Pfastbuild install
     - name: '📝 Javadoc'
       run: |
         mvn javadoc:javadoc
