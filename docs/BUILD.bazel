@@ -43,7 +43,7 @@ latex_document(
         "@bazel_latex//packages:verbatim",
         "@texlive_texmf__texmf-dist__fonts__opentype__public__lm",
     ],
-    cmd_flags = ["--bibtex-cmd=biber"],
+    cmd_flags = ["--bibtex-cmd=biber", "--no-highlight"],
     main = "manual_full.tex",
 )
 

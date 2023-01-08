@@ -43,7 +43,7 @@ manual.pdf: xmanual.pdf
 	    -e 's/\$$UNICODE_VER/$(UNICODE_VER)/g' $< > $@
 
 %.tex: %.mdx
-	pandoc -f markdown -t latex --biblatex $< -o $@
+	pandoc --no-highlight -f markdown -t latex --biblatex $< -o $@
 
 clean:
 	rm -f *~ *.aux *.log log *.toc *.out *.bbl *.blg *.bcf
