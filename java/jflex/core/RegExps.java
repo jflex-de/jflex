@@ -1,17 +1,16 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 package jflex.core;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import jflex.base.Build;
 import jflex.core.unicode.CharClasses;
+import jflex.core.unicode.IntCharSet;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -268,30 +267,76 @@ public class RegExps {
 
       Action a = getAction(regExpNum);
 
+      if (a == null) {
+        throw new NullPointerException("Action is null, this should not be possible");
+      }
+
       int len1 = SemCheck.length(r1);
       int len2 = SemCheck.length(r2);
 
       if (len1 >= 0) {
-        a.setLookAction(Action.FIXED_BASE, len1);
+        a.setLookAction(Action.Kind.FIXED_BASE, len1);
       } else if (len2 >= 0) {
-        a.setLookAction(Action.FIXED_LOOK, len2);
+        a.setLookAction(Action.Kind.FIXED_LOOK, len2);
       } else if (SemCheck.isFiniteChoice(r2)) {
-        a.setLookAction(Action.FINITE_CHOICE, 0);
+        a.setLookAction(Action.Kind.FINITE_CHOICE, 0);
       } else {
-        a.setLookAction(Action.GENERAL_LOOK, 0);
+        a.setLookAction(Action.Kind.GENERAL_LOOK, 0);
         look_entry.set(regExpNum, gen_look_count);
         gen_look_count++;
       }
     }
   }
 
-  /** Normalise all character class expressions in regexp and lookahead rules. */
-  public void normalise(Macros m) {
+  /** Expand all macro calls in regexp and lookahead rules. */
+  public void normaliseMacros(Macros m) {
     List<RegExp> newRegExps = new ArrayList<RegExp>();
     List<RegExp> newLook = new ArrayList<RegExp>();
 
-    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normalise(m));
-    for (RegExp r : look) newLook.add(r == null ? r : r.normalise(m));
+    for (RegExp r : regExps) newRegExps.add(r == null ? r : r.normaliseMacros(m));
+    for (RegExp r : look) newLook.add(r == null ? r : r.normaliseMacros(m));
+
+    this.regExps = newRegExps;
+    this.look = newLook;
+  }
+
+  /**
+   * Normalise all character class expressions in regexp and lookahead rules.
+   *
+   * @param f the spec file for error reporting
+   */
+  public void normaliseCCLs(File f) {
+    List<RegExp> newRegExps = new ArrayList<RegExp>();
+    List<RegExp> newLook = new ArrayList<RegExp>();
+
+    for (int i = 0; i < regExps.size(); i++) {
+      Action a = getAction(i);
+      int line = a == null ? -1 : a.priority - 1;
+      RegExp r;
+      r = regExps.get(i);
+      newRegExps.add(r == null ? r : r.normaliseCCLs(f, line));
+      r = look.get(i);
+      newLook.add(r == null ? r : r.normaliseCCLs(f, line));
+    }
+
+    this.regExps = newRegExps;
+    this.look = newLook;
+  }
+
+  /**
+   * Replace all predefined character classes with primitive IntCharSet classes.
+   *
+   * <p>Assumes normalised expressions.
+   */
+  public void expandPreClasses(
+      Map<Integer, IntCharSet> preclassCache, CharClasses charClasses, boolean caseless) {
+    List<RegExp> newRegExps = new ArrayList<RegExp>();
+    List<RegExp> newLook = new ArrayList<RegExp>();
+
+    for (RegExp r : regExps)
+      newRegExps.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
+    for (RegExp r : look)
+      newLook.add(r == null ? r : r.expandPreClasses(preclassCache, charClasses, caseless));
 
     this.regExps = newRegExps;
     this.look = newLook;
@@ -307,8 +352,6 @@ public class RegExps {
 
   /**
    * Make character class partitions for all classes mentioned in the spec.
-   *
-   * <p>Assumes that single characters and strings have already been handled.
    *
    * <p>Assumes normalised expressions.
    */

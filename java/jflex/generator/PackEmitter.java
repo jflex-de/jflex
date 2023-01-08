@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.generator;
 
@@ -102,7 +98,7 @@ public abstract class PackEmitter {
    */
   public void emitUC(int i) {
     if (i < 0 || i > 0xFFFF) {
-      throw new IllegalArgumentException("character value expected");
+      throw new IllegalArgumentException("character value expected, but got " + i);
     }
 
     // cast ok because of prec

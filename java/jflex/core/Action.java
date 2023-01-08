@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.core;
 
@@ -23,20 +19,15 @@ import jflex.logging.Out;
  */
 public final class Action {
 
-  /** A normal action */
-  public static final int NORMAL = 0;
-  /** Action of a lookahead expression r1/r2 with fixed length r1 */
-  public static final int FIXED_BASE = 1;
-  /** Action of a lookahead expression r1/r2 with fixed length r2 */
-  public static final int FIXED_LOOK = 2;
-  /** Action of a lookahead expression r1/r2 with a finite choice of fixed lengths in r2 */
-  public static final int FINITE_CHOICE = 3;
-  /** Action of a general lookahead expression */
-  public static final int GENERAL_LOOK = 4;
-  /** Action of the 2nd forward pass for lookahead */
-  public static final int FORWARD_ACTION = 5;
-  /** Action of the backward pass for lookahead */
-  public static final int BACKWARD_ACTION = 6;
+  public enum Kind {
+    NORMAL,
+    FIXED_BASE, // lookahead expression r1/r2 with fixed length r1
+    FIXED_LOOK, // lookahead expression r1/r2 with fixed length r2
+    FINITE_CHOICE, // lookahead expression r1/r2 with a finite choice of fixed lengths in r2
+    GENERAL_LOOK,
+    FORWARD_ACTION, // Action of the 2nd forward pass for lookahead
+    BACKWARD_ACTION // Action of the backward pass for lookahead
+  }
 
   /** The Java code this Action represents */
   public final String content;
@@ -47,7 +38,7 @@ public final class Action {
   /**
    * Which kind of action this is. (normal, {@code a/b} with fixed length a, fixed length b, etc)
    */
-  private int kind = NORMAL;
+  private Kind kind = Kind.NORMAL;
 
   /** The length of the lookahead (if fixed) */
   private int len;
@@ -71,13 +62,11 @@ public final class Action {
    * BACKWARD_ACTION.
    *
    * @param kind the kind of action
-   * @see #FORWARD_ACTION
-   * @see #BACKWARD_ACTION
-   * @see #FORWARD_ACTION
-   * @see #BACKWARD_ACTION
+   * @see Kind#FORWARD_ACTION
+   * @see Kind#BACKWARD_ACTION
    */
-  public Action(int kind) {
-    if (kind != FORWARD_ACTION && kind != BACKWARD_ACTION) throw new GeneratorException();
+  public Action(Kind kind) {
+    if (kind != Kind.FORWARD_ACTION && kind != Kind.BACKWARD_ACTION) throw new GeneratorException();
     this.content = "";
     this.priority = Integer.MAX_VALUE;
     this.kind = kind;
@@ -144,7 +133,7 @@ public final class Action {
    * @return true if this actions belongs to a general lookahead rule.
    */
   public boolean isGenLookAction() {
-    return kind == GENERAL_LOOK;
+    return kind == Kind.GENERAL_LOOK;
   }
 
   /**
@@ -154,7 +143,7 @@ public final class Action {
    * @return true if code should be emitted for this action.
    */
   public boolean isEmittable() {
-    return kind != BACKWARD_ACTION && kind != FORWARD_ACTION;
+    return kind != Kind.BACKWARD_ACTION && kind != Kind.FORWARD_ACTION;
   }
 
   /**
@@ -162,7 +151,7 @@ public final class Action {
    *
    * @return a int.
    */
-  public int lookAhead() {
+  public Kind lookAhead() {
     return kind;
   }
 
@@ -172,7 +161,7 @@ public final class Action {
    * @param kind which kind of lookahead it is
    * @param data the length for fixed length lookaheads.
    */
-  public void setLookAction(int kind, int data) {
+  public void setLookAction(Kind kind, int data) {
     this.kind = kind;
     this.len = data;
   }
@@ -214,7 +203,7 @@ public final class Action {
    */
   public Action copyChoice(int length) {
     Action a = new Action(this.content, this.priority);
-    a.setLookAction(FINITE_CHOICE, length);
+    a.setLookAction(Kind.FINITE_CHOICE, length);
     return a;
   }
 
@@ -239,8 +228,9 @@ public final class Action {
         return "LOOK_FORWARD";
       case GENERAL_LOOK:
         return "LOOK_ACTION";
-      default:
-        return "unknown lookahead type";
     }
+
+    // unreachable, but not all static analysers know
+    return "unknown lookahead type";
   }
 }

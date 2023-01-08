@@ -12,7 +12,6 @@ import java.util.Map;
 import jflex.chars.Interval;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
-import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -688,29 +687,29 @@ class CUP$LexParse$actions {
   EOFActions  eofActions  = new EOFActions();
   Map<Integer,IntCharSet> preclassCache = new HashMap<Integer,IntCharSet>();
 
-  void fatalError(ErrorMessages.ErrorMessage message, int line, int col) {
+  void fatalError(ErrorMessages message, int line, int col) {
     syntaxError(message, line, col);
     throw new GeneratorException();
   }
 
-  void fatalError(ErrorMessages.ErrorMessage message) {
+  void fatalError(ErrorMessages message) {
     fatalError(message, scanner.lexLine(), -1);
     throw new GeneratorException();
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message) {
+  void syntaxError(ErrorMessages message) {
     Out.error(scanner.file, message, scanner.lexLine(), -1);
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message, int line) {
+  void syntaxError(ErrorMessages message, int line) {
     Out.error(scanner.file, message, line, -1);
   }
 
-  void syntaxError(ErrorMessages.ErrorMessage message, int line, int col) {
+  void syntaxError(ErrorMessages message, int line, int col) {
     Out.error(scanner.file, message, line, col);
   }
 
-  void warning(ErrorMessages.ErrorMessage message, int line, int col) {
+  void warning(ErrorMessages message, int line, int col) {
     Out.warning(scanner.file, message, line, col);
   }
 
@@ -736,174 +735,6 @@ class CUP$LexParse$actions {
       default:
         return false;
     }
-  }
-
-  private boolean check(int type, int c) {
-    switch (type) {
-      case sym.JLETTERCLASS:
-        return Character.isJavaIdentifierStart(c);
-
-      case sym.JLETTERDIGITCLASS:
-        return Character.isJavaIdentifierPart(c);
-
-      default: return false;
-    }
-  }
-
-  private IntCharSet getPreClass(int type) {
-    IntCharSet result = preclassCache.get(type);
-    if (null == result) {
-      UnicodeProperties unicodeProperties = scanner.getUnicodeProperties();
-      switch (type) {
-        case sym.LETTERCLASS:
-          result = unicodeProperties.getIntCharSet("L");
-          preclassCache.put(type, result);
-          break;
-
-        case sym.DIGITCLASS:
-          result = unicodeProperties.getIntCharSet("Nd");
-          preclassCache.put(type, result);
-          break;
-
-        case sym.DIGITCLASSNOT:
-          IntCharSet digits = unicodeProperties.getIntCharSet("Nd");
-          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-          result.sub(digits);
-          preclassCache.put(type, result);
-          break;
-
-        case sym.UPPERCLASS:
-          // "Uppercase" is more than Uppercase_Letter, but older Unicode
-          // versions don't have this definition - check for "Uppercase",
-          // then fall back to Uppercase_Letter (Lu) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Uppercase");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Lu");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.LOWERCLASS:
-          // "Lowercase" is more than Lowercase_Letter, but older Unicode
-          // versions don't have this definition - check for "Lowercase",
-          // then fall back to Lowercase_Letter (Ll) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Lowercase");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Ll");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WHITESPACECLASS:
-          // Although later versions do, Unicode 1.1 does not have the
-          // "Whitespace" definition - check for "Whitespace", then fall back
-          // to "Space_separator" (Zs) if it does not exist.
-          result = unicodeProperties.getIntCharSet("Whitespace");
-          if (null == result) {
-            result = unicodeProperties.getIntCharSet("Zs");
-          }
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WHITESPACECLASSNOT:
-          // Although later versions do, Unicode 1.1 does not have the
-          // "Whitespace" definition - check for "Whitespace", then fall back
-          // to "Space_separator" (Zs) if it does not exist.
-          IntCharSet whitespaceClass = unicodeProperties.getIntCharSet("Whitespace");
-          if (null == whitespaceClass) {
-            whitespaceClass = unicodeProperties.getIntCharSet("Zs");
-          }
-          result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-          result.sub(whitespaceClass);
-          preclassCache.put(type, result);
-          break;
-
-        case sym.WORDCLASS:
-          {
-            // UTR#18: \w = [\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-            if (null == alphaClass) {
-              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-              alphaClass = unicodeProperties.getIntCharSet("L");
-            }
-            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-            if (null == connectorPunctClass) {
-              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.ofCharacter('_');
-            }
-            result = IntCharSet.copyOf(alphaClass);
-            result.add(markClass);
-            result.add(digitClass);
-            result.add(connectorPunctClass);
-            preclassCache.put(type, result);
-            break;
-          }
-
-        case sym.WORDCLASSNOT:
-          {
-            // UTR#18: \W = [^\p{alpha}\p{gc=Mark}\p{digit}\p{gc=Connector_Punctuation}]
-            IntCharSet alphaClass = unicodeProperties.getIntCharSet("Alphabetic");
-            if (null == alphaClass) {
-              // For Unicode 1.1, substitute "Letter" (L) for "Alphabetic".
-              alphaClass = unicodeProperties.getIntCharSet("L");
-            }
-            IntCharSet markClass = unicodeProperties.getIntCharSet("M");
-            IntCharSet digitClass = unicodeProperties.getIntCharSet("Nd");
-            IntCharSet connectorPunctClass = unicodeProperties.getIntCharSet("Pc");
-            if (null == connectorPunctClass) {
-              // For Unicode 1.1, substitute "_" for "Connector_Punctuation".
-              connectorPunctClass = IntCharSet.ofCharacter('_');
-            }
-            IntCharSet wordClass = IntCharSet.copyOf(alphaClass);
-            wordClass.add(markClass);
-            wordClass.add(digitClass);
-            wordClass.add(connectorPunctClass);
-            result = IntCharSet.ofCharacterRange(0,  unicodeProperties.getMaximumCodePoint());
-            result.sub(wordClass);
-            preclassCache.put(type, result);
-            break;
-          }
-        case sym.JLETTERCLASS:
-        case sym.JLETTERDIGITCLASS:
-        default:
-          result = new IntCharSet();
-
-          int c = 0;
-          int start = 0;
-          int last = charClasses.getMaxCharCode();
-
-          boolean prev, current;
-
-          prev = check(type, 0);
-
-          for (c = 1; c < last; c++) {
-
-            current = check(type, c);
-
-            if (!prev && current) start = c;
-            if (prev && !current) {
-              result.add(new Interval(start, c - 1));
-            }
-
-            prev = current;
-          }
-
-          // the last iteration is moved out of the loop to
-          // avoid an endless loop if last == maxCharCode and
-          // last+1 == 0
-          current = check(type, c);
-
-          if (!prev && current) result.add(new Interval(c, c));
-          if (prev && current) result.add(new Interval(start, c));
-          if (prev && !current) result.add(new Interval(start, c - 1));
-
-          preclassCache.put(type, result);
-          break;
-        }
-    }
-    return result;
   }
 
   private RegExp makeRepeat(RegExp r, int n1, int n2, int line, int col) {
@@ -941,11 +772,7 @@ class CUP$LexParse$actions {
 
   private RegExp makeNL() {
     IntCharSet set = IntCharSet.nlChars();
-
 	  // assumption: line feeds are caseless
-    charClasses.makeClass(set, false);
-    charClasses.makeClass('\n', false);
-    charClasses.makeClass('\r', false);
 
     RegExp1 c = new RegExp1(sym.PRIMCLASS, set);
     Integer n = Integer.valueOf((int)'\n');
@@ -1018,17 +845,20 @@ class CUP$LexParse$actions {
                      Out.time(ErrorMessages.PARSING_TOOK, t);
 
                      macros.expand(); // expands only inside macro definitions
-                     if (Options.unused_warning) {
-	                     for (String unusedMacro : macros.unused()) {
-	                       Out.warning(String.format(
-	                    		   "Macro \"%s\" has been declared but never used.", unusedMacro));
-	                     }
+                     for (String unusedMacro : macros.unused()) {
+                       Out.warning(ErrorMessages.MACRO_UNUSED, unusedMacro);
                      }
 
                      // expand macros + char classes in rules and lookahead rules
-                     regExps.normalise(macros);
+                     regExps.normaliseMacros(macros);
                      // make char class partitions (modifies charClasses)
-                     regExps.makeCCLs(charClasses, Options.jlex && scanner.caseless);
+                     if (null == scanner.charClasses) {
+                       scanner.initCharClasses(AbstractLexScan.CharSetSize.UNICODE);
+                     }
+                     charClasses = scanner.charClasses;
+                     regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
+                     regExps.normaliseCCLs(scanner.file);
+                     regExps.makeCCLs(charClasses, scanner.caseless);
 
                      SemCheck.check(regExps, scanner.file);
 
@@ -1704,13 +1534,11 @@ class CUP$LexParse$actions {
           case 47: // regexp ::= preclass 
             {
               RegExp RESULT =null;
-		int setleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int setright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet set = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		int cleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     // assumption [correct?]: preclasses are already closed under case
-                     charClasses.makeClass(set, false);
-                     RESULT = new RegExp1(sym.PRIMCLASS, set);
+                     RESULT = new RegExp1(sym.PRECLASS, c);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
@@ -1720,16 +1548,11 @@ class CUP$LexParse$actions {
           case 48: // regexp ::= UNIPROPCCLASS 
             {
               RegExp RESULT =null;
-		int intcharsetleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int intcharsetright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet intcharset = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		int propleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int propright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		String prop = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     IntCharSet set
-                       = scanner.caseless
-                       ? intcharset.getCaseless(scanner.getUnicodeProperties())
-                       : intcharset;
-                     charClasses.makeClass(set, false);
-                     RESULT = new RegExp1(sym.PRIMCLASS, set);
+                     RESULT = new RegExp1(sym.UNIPROPCCLASS, prop);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
@@ -1739,18 +1562,12 @@ class CUP$LexParse$actions {
           case 49: // regexp ::= UNIPROPCCLASSNOT 
             {
               RegExp RESULT =null;
-		int notintcharsetleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int notintcharsetright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet notintcharset = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		int propleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int propright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		String prop = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     IntCharSet set
-                       = scanner.caseless
-                       ? notintcharset.getCaseless(scanner.getUnicodeProperties())
-                       : notintcharset;
-                     charClasses.makeClass(set, false);
-
                      ArrayList<RegExp> l = new ArrayList<RegExp>();
-                     l.add(new RegExp1(sym.PRIMCLASS, set));
+                     l.add(new RegExp1(sym.UNIPROPCCLASS, prop));
                      RESULT = new RegExp1(sym.CCLASSNOT, l);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1765,7 +1582,6 @@ class CUP$LexParse$actions {
 		int strright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		String str = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     charClasses.makeClass(str, scanner.caseless);
                      RESULT = new RegExp1(scanner.caseless ? sym.STRING_I : sym.STRING, str);
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("regexp",7, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -1786,7 +1602,6 @@ class CUP$LexParse$actions {
                       }
                       nl.add(new Interval(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
                       // assumption: surrogate and newline chars have no uppercase variant
-                      charClasses.makeClass(nl, false);
                       ArrayList<RegExp> l = new ArrayList<RegExp>();
                       l.add(new RegExp1(sym.PRIMCLASS, nl));
                       RegExp1 r = new RegExp1(sym.CCLASSNOT, l);
@@ -1815,11 +1630,9 @@ class CUP$LexParse$actions {
 		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
                      if ( scanner.caseless ) {
-                       charClasses.makeClass(c, true);
                        RESULT = new RegExp1(sym.CHAR_I, c);
                      }
                      else {
-                       charClasses.makeClass(c, false);
                        RESULT = new RegExp1(sym.CHAR, c);
                      }
                    
@@ -2072,10 +1885,10 @@ class CUP$LexParse$actions {
           case 71: // classcontentelem ::= preclass 
             {
               RegExp RESULT =null;
-		int setleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int setright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet set = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
-		 RESULT = primClass(set); 
+		int cleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		Integer c = (Integer)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		 RESULT = new RegExp1(sym.PRECLASS, c); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("classcontentelem",11, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2084,10 +1897,10 @@ class CUP$LexParse$actions {
           case 72: // classcontentelem ::= UNIPROPCCLASS 
             {
               RegExp RESULT =null;
-		int intcharsetleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int intcharsetright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet intcharset = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
-		 RESULT = primClass(intcharset); 
+		int propleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int propright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		String prop = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		 RESULT = new RegExp1(sym.UNIPROPCCLASS, prop); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("classcontentelem",11, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2096,12 +1909,12 @@ class CUP$LexParse$actions {
           case 73: // classcontentelem ::= UNIPROPCCLASSNOT 
             {
               RegExp RESULT =null;
-		int notintcharsetleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
-		int notintcharsetright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
-		IntCharSet notintcharset = (IntCharSet)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
+		int propleft = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).left;
+		int propright = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
+		String prop = (String)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
                         List<RegExp> l = new ArrayList<RegExp>();
-                        l.add(primClass(notintcharset));
+                        l.add(new RegExp1(sym.UNIPROPCCLASS, prop));
                         RESULT = new RegExp1(sym.CCLASSNOT, l);
                      
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("classcontentelem",11, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
@@ -2142,8 +1955,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 76: // preclass ::= JLETTERCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.JLETTERCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.JLETTERCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2151,8 +1964,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 77: // preclass ::= JLETTERDIGITCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.JLETTERDIGITCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.JLETTERDIGITCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2160,8 +1973,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 78: // preclass ::= LETTERCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.LETTERCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.LETTERCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2169,8 +1982,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 79: // preclass ::= DIGITCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.DIGITCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.DIGITCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2178,8 +1991,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 80: // preclass ::= DIGITCLASSNOT 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.DIGITCLASSNOT); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.DIGITCLASSNOT); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2187,8 +2000,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 81: // preclass ::= UPPERCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.UPPERCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.UPPERCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2196,8 +2009,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 82: // preclass ::= LOWERCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.LOWERCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.LOWERCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2205,8 +2018,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 83: // preclass ::= WHITESPACECLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.WHITESPACECLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.WHITESPACECLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2214,8 +2027,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 84: // preclass ::= WHITESPACECLASSNOT 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.WHITESPACECLASSNOT); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.WHITESPACECLASSNOT); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2223,8 +2036,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 85: // preclass ::= WORDCLASS 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.WORDCLASS); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.WORDCLASS); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;
@@ -2232,8 +2045,8 @@ class CUP$LexParse$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 86: // preclass ::= WORDCLASSNOT 
             {
-              IntCharSet RESULT =null;
-		 RESULT = getPreClass(sym.WORDCLASSNOT); 
+              Integer RESULT =null;
+		 RESULT = Integer.valueOf(sym.WORDCLASSNOT); 
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("preclass",12, ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);
             }
           return CUP$LexParse$result;

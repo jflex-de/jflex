@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 package jflex.state;
 
 import java.util.NoSuchElementException;
@@ -42,7 +38,9 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    * #hasMoreElements()} and {@link #nextElement()} will throw {@link NullPointerException} when
    * used before {@link #reset(StateSet)}
    */
-  public StateSetEnumerator() {}
+  public StateSetEnumerator() {
+    this.bits = new long[0];
+  }
 
   /**
    * Construct a StateSetEnumerator for a given StateSet. This should be the default constructor to
@@ -52,6 +50,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    * @see StateSet#states()
    */
   public StateSetEnumerator(StateSet states) {
+    this.bits = states.bits;
     reset(states);
   }
 

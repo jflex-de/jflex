@@ -1,7 +1,12 @@
 #!/bin/sh
+#
+# Copyright 2022, Gerwin Klein, Régis Décamps, Steven Rowe
+# SPDX-License-Identifier: BSD-3-Clause
+#
 # Compiles the aggregated Java sources.
 # Meant to be execute in https://github.com/jflex-de/jflex/tree/aggregated-java-sources
 # Source: https://github.com/jflex-de/jflex/blob/master/scripts/compile-aggregated-sources.sh
+
 mkdir -p lib
 REPO=https://repo.maven.apache.org/maven2
 CP=""
@@ -22,7 +27,7 @@ mvnget org/apache/ant/ant/1.7.0/ant-1.7.0.jar
 mvnget com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar
 mvnget javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
 mvnget com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar
-
+mvnget com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
 
 CP=${CP##:}  # Remove leading ':'
-javac -cp "$CP" $(find . -name '*.java')
+javac -encoding UTF8 -cp "$CP" $(find . -name '*.java')

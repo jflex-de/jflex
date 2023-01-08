@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.gui;
 
@@ -23,7 +19,7 @@ import java.util.List;
  * @author Gerwin Klein
  * @version JFlex 1.9.0-SNAPSHOT
  */
-public class GridPanel extends Panel implements Handles {
+public class GridPanel extends Panel {
 
   private static final long serialVersionUID = -2846472856883709721L;
 
@@ -36,7 +32,7 @@ public class GridPanel extends Panel implements Handles {
   private final List<GridPanelConstraint> constraints = new ArrayList<>();
   private Insets insets = new Insets(0, 0, 0, 0);
 
-  /** {@inheritDoc} */
+  /** Construct a new GridPanel with 0 hgap/vgap. */
   public GridPanel(int cols, int rows) {
     this(cols, rows, 0, 0);
   }
@@ -74,7 +70,7 @@ public class GridPanel extends Panel implements Handles {
 
       float width, height;
 
-      if (c.handle == FILL) {
+      if (c.handle == Handles.FILL) {
         width = (cellWidth - hgap) * c.width;
         height = (cellHeight - vgap) * c.height;
       } else {
@@ -84,31 +80,31 @@ public class GridPanel extends Panel implements Handles {
       }
 
       switch (c.handle) {
-        case TOP_CENTER:
+        case Handles.TOP_CENTER:
           x += (cellWidth + width) / 2;
           break;
-        case TOP_RIGHT:
+        case Handles.TOP_RIGHT:
           x += cellWidth - width;
           break;
-        case CENTER_LEFT:
+        case Handles.CENTER_LEFT:
           y += (cellHeight + height) / 2;
           break;
-        case CENTER:
+        case Handles.CENTER:
           x += (cellWidth + width) / 2;
           y += (cellHeight + height) / 2;
           break;
-        case CENTER_RIGHT:
+        case Handles.CENTER_RIGHT:
           y += (cellHeight + height) / 2;
           x += cellWidth - width;
           break;
-        case BOTTOM:
+        case Handles.BOTTOM:
           y += cellHeight - height;
           break;
-        case BOTTOM_CENTER:
+        case Handles.BOTTOM_CENTER:
           x += (cellWidth + width) / 2;
           y += cellHeight - height;
           break;
-        case BOTTOM_RIGHT:
+        case Handles.BOTTOM_RIGHT:
           y += cellHeight - height;
           x += cellWidth - width;
           break;
@@ -160,19 +156,19 @@ public class GridPanel extends Panel implements Handles {
     this.insets = insets;
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panl with Handles.FILL and dx=dy=1 */
   public void add(int x, int y, Component c) {
-    add(x, y, 1, 1, FILL, c);
+    add(x, y, 1, 1, Handles.FILL, c);
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panel with dx=dy=1 */
   public void add(int x, int y, int handle, Component c) {
     add(x, y, 1, 1, handle, c);
   }
 
-  /** {@inheritDoc} */
+  /** Add a component to this panel with Handles.FILL. */
   public void add(int x, int y, int dx, int dy, Component c) {
-    add(x, y, dx, dy, FILL, c);
+    add(x, y, dx, dy, Handles.FILL, c);
   }
 
   /** Add a component to this panel. */

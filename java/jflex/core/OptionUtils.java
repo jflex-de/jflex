@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019, Gerwin Klein, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.core;
 
 import java.io.File;
@@ -31,13 +36,25 @@ public class OptionUtils {
     Options.no_backup = false;
     Options.verbose = true;
     Options.progress = true;
-    Options.unused_warning = true;
     Options.time = false;
     Options.dot = false;
     Options.dump = false;
     Options.legacy_dot = false;
     Options.encoding = Charset.defaultCharset();
     Skeleton.readDefault();
+  }
+
+  /**
+   * Warn on unused macros or not.
+   *
+   * @param unusedWarning whether unused macros should be warned about.
+   */
+  public static void set_unused_warning(boolean unusedWarning) {
+    if (unusedWarning) {
+      Options.enable(ErrorMessages.MACRO_UNUSED);
+    } else {
+      Options.suppress(ErrorMessages.MACRO_UNUSED);
+    }
   }
 
   public static void setSkeleton(File skel) {
@@ -70,5 +87,66 @@ public class OptionUtils {
    */
   public static void setDir(String dirName) {
     setDir(new File(dirName));
+  }
+
+  /**
+   * Enable a warning type.
+   *
+   * @param warning the warning to enable, must match one of the {@link ErrorMessages} enum values.
+   * @throws GeneratorException if the warning is not known or not configurable.
+   * @see ErrorMessages
+   */
+  public static void enableWarning(String warning) {
+    try {
+      ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
+      Options.enable(msg);
+    } catch (IllegalArgumentException e) {
+      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
+      throw new GeneratorException(e);
+    }
+  }
+
+  /**
+   * Suppress a warning type.
+   *
+   * @param warning the warning to suppress, must match one of the {@link ErrorMessages} enum
+   *     values.
+   * @throws GeneratorException if the warning is not known or not configurable.
+   * @see ErrorMessages
+   */
+  public static void suppressWarning(String warning) {
+    try {
+      ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
+      Options.suppress(msg);
+    } catch (IllegalArgumentException e) {
+      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
+      throw new GeneratorException(e);
+    }
+  }
+
+  /**
+   * Enable all warnings.
+   *
+   * @see ErrorMessages
+   */
+  public static void enableAllWarnings() {
+    for (ErrorMessages msg : ErrorMessages.values()) {
+      if (ErrorMessages.isConfigurableWarning(msg)) {
+        Options.enable(msg);
+      }
+    }
+  }
+
+  /**
+   * Suppress all warnings.
+   *
+   * @see ErrorMessages
+   */
+  public static void suppressAllWarnings() {
+    for (ErrorMessages msg : ErrorMessages.values()) {
+      if (ErrorMessages.isConfigurableWarning(msg)) {
+        Options.suppress(msg);
+      }
+    }
   }
 }

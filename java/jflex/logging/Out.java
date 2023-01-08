@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.logging;
 
@@ -76,7 +72,7 @@ public final class Out {
    * @param message the message to be printed
    * @param time elapsed time
    */
-  public static void time(ErrorMessages.ErrorMessage message, Timer time) {
+  public static void time(ErrorMessages message, Timer time) {
     if (Options.time) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
@@ -111,7 +107,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages.ErrorMessage message, String data) {
+  public static void println(ErrorMessages message, String data) {
     if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -123,7 +119,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages.ErrorMessage message, int data) {
+  public static void println(ErrorMessages message, int data) {
     if (Options.verbose) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -201,10 +197,12 @@ public final class Out {
   }
 
   /**
-   * print a warning without position information
+   * Print a warning without position information. Use only for testing.
    *
    * @param message the warning message
+   * @deprecated use {@link #warning(ErrorMessages)} instead
    */
+  @Deprecated
   public static void warning(String message) {
     warnings++;
 
@@ -217,24 +215,53 @@ public final class Out {
    * @param message code of the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages.ErrorMessage message) {
+  public static void warning(ErrorMessages message) {
     warning(message, 0);
   }
 
   /**
-   * print a warning with line information
+   * Print a warning message with arguments without line information
+   *
+   * @param message code of the warning message
+   * @param args arguments of the warning message
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message, Object... args) {
+    warning(message, 0, args);
+  }
+
+  /**
+   * Print a warning with line information.
    *
    * @param message code of the warning message
    * @param line the line information
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages.ErrorMessage message, int line) {
+  public static void warning(ErrorMessages message, int line) {
+    warning(message, line, (Object[]) null);
+  }
+
+  /**
+   * Print a warning with line information and arguments.
+   *
+   * @param message code of the warning message
+   * @param line the line information
+   * @param args arguments to the warning message
+   * @see ErrorMessages
+   */
+  public static void warning(ErrorMessages message, int line, Object... args) {
+    if (Options.isSuppressed(message)) return;
+
     warnings++;
 
     String msg = NL + "Warning";
     if (line > 0) msg = msg + " in line " + (line + 1);
 
-    err(msg + ": " + ErrorMessages.get(message));
+    if (args != null) {
+      err(msg + ": " + ErrorMessages.get(message, args));
+    } else {
+      err(msg + ": " + ErrorMessages.get(message));
+    }
   }
 
   /**
@@ -245,7 +272,8 @@ public final class Out {
    * @param line the line number of the position
    * @param column the column of the position
    */
-  public static void warning(File file, ErrorMessages.ErrorMessage message, int line, int column) {
+  public static void warning(File file, ErrorMessages message, int line, int column) {
+    if (Options.isSuppressed(message)) return;
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -281,7 +309,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages.ErrorMessage message) {
+  public static void error(ErrorMessages message) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message));
   }
@@ -293,7 +321,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages.ErrorMessage message, String data) {
+  public static void error(ErrorMessages message, String data) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message, data));
   }
@@ -304,7 +332,7 @@ public final class Out {
    * @param message the code of the error message
    * @param file the file it occurred for
    */
-  public static void error(ErrorMessages.ErrorMessage message, File file) {
+  public static void error(ErrorMessages message, File file) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message) + " (" + file + ")");
   }
@@ -317,7 +345,7 @@ public final class Out {
    * @param line the line number of error position
    * @param column the column of error position
    */
-  public static void error(File file, ErrorMessages.ErrorMessage message, int line, int column) {
+  public static void error(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Error";
     if (file != null) msg += " in file \"" + file + "\"";

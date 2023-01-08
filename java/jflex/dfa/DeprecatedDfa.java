@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2022, Gerwin Klein, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.dfa;
 
 import java.util.Arrays;

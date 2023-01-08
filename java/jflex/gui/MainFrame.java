@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.gui;
 
@@ -37,7 +33,7 @@ import jflex.logging.Out;
  * @author Gerwin Klein
  * @version JFlex 1.9.0-SNAPSHOT
  */
-public final class MainFrame extends Frame implements Handles {
+public final class MainFrame extends Frame {
 
   private static final long serialVersionUID = 3296137982410640865L;
 
@@ -177,11 +173,11 @@ public final class MainFrame extends Frame implements Handles {
     north.add(4, 1, generate);
     north.add(4, 2, options);
 
-    north.add(0, 0, BOTTOM, new Label("Lexical specification:"));
+    north.add(0, 0, Handles.BOTTOM, new Label("Lexical specification:"));
     north.add(0, 1, 2, 1, spec);
     north.add(2, 1, specChoose);
 
-    north.add(0, 2, BOTTOM, new Label("Output directory:"));
+    north.add(0, 2, Handles.BOTTOM, new Label("Output directory:"));
     north.add(0, 3, 2, 1, dir);
     north.add(2, 3, dirChoose);
 

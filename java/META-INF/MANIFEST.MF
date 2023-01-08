@@ -1,5 +1,3 @@
 Manifest-Version: 1.0
-Created-By: Apache Maven 3.5.4
-Built-By: travis
-Build-Jdk: 11.0.2
+Created-By: singlejar
 

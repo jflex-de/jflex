@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 package jflex.core;
 
 import java.io.File;
@@ -199,7 +195,7 @@ public final class NFA {
     if (regExps.getLookAhead(regExpNum) != null) {
       Action a = regExps.getAction(regExpNum);
 
-      if (a.lookAhead() == Action.FINITE_CHOICE) {
+      if (a != null && a.lookAhead() == Action.Kind.FINITE_CHOICE) {
         insertLookAheadChoices(nfa.end(), a, regExps.getLookAhead(regExpNum));
         // remove the original action from the collection: it will never
         // be matched directly, only its copies will.
@@ -215,17 +211,17 @@ public final class NFA {
         action[look.end()] = a;
         isFinal[look.end()] = true;
 
-        if (a.lookAhead() == Action.GENERAL_LOOK) {
+        if (a != null && a.lookAhead() == Action.Kind.GENERAL_LOOK) {
           // base forward pass
           IntPair forward = insertNFA(r1);
           // lookahead backward pass
           IntPair backward = insertNFA(r2.rev());
 
           isFinal[forward.end()] = true;
-          action[forward.end()] = new Action(Action.FORWARD_ACTION);
+          action[forward.end()] = new Action(Action.Kind.FORWARD_ACTION);
 
           isFinal[backward.end()] = true;
-          action[backward.end()] = new Action(Action.BACKWARD_ACTION);
+          action[backward.end()] = new Action(Action.Kind.BACKWARD_ACTION);
 
           int entry = 2 * (regExps.getLookEntry(regExpNum) + numLexStates);
           addEpsilonTransition(entry, forward.start());
@@ -306,6 +302,10 @@ public final class NFA {
 
   public void addTransition(int start, int input, int dest) {
     Out.debug("Adding transition (" + start + ", " + input + ", " + dest + ")");
+
+    // Trying to insert a transition for a character that is not in the input
+    // char set. Ignore it. This can happen for case insensitive matching.
+    if (input == -1) return;
 
     int maxS = Math.max(start, dest) + 1;
 
@@ -737,7 +737,9 @@ public final class NFA {
     while (changed) {
       changed = false;
       Out.debug("live: " + live);
-      for (int s : live.complement(reachable)) {
+      StateSet complement = live.complement(reachable);
+      if (complement == null) throw new GeneratorException(new NullPointerException(), true);
+      for (int s : complement) {
         for (int i = 0; i < numInput; i++) {
           if (table[s][i] != null) {
             for (int state : table[s][i]) {

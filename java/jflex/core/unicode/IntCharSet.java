@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.core.unicode;
 
@@ -484,7 +480,9 @@ public final class IntCharSet implements Iterable<Integer> {
     return intervals;
   }
 
-  /** @return an iterator over the intervals in this set */
+  /**
+   * @return an iterator over the intervals in this set
+   */
   public Iterator<Interval> intervalIterator() {
     return intervals.iterator();
   }
@@ -593,7 +591,7 @@ public final class IntCharSet implements Iterable<Integer> {
 
   @Override
   public IntCharSetIterator iterator() {
-    return new IntCharSetIterator();
+    return new IntCharSetIterator(this);
   }
 
   Interval getFirstInterval() {
@@ -601,15 +599,15 @@ public final class IntCharSet implements Iterable<Integer> {
   }
 
   /** Iterator for enumerating the elements of this IntCharSet */
-  public class IntCharSetIterator implements PrimitiveIterator.OfInt {
+  public static class IntCharSetIterator implements PrimitiveIterator.OfInt {
     /** Iterator over the Interval list */
     private final Iterator<Interval> intervalsIterator;
     /** Iterator within the current Interval */
     private IntervalIterator current;
 
     /** New iterator for this IntCharSet */
-    private IntCharSetIterator() {
-      intervalsIterator = intervals.iterator();
+    private IntCharSetIterator(IntCharSet set) {
+      intervalsIterator = set.intervals.iterator();
       if (intervalsIterator.hasNext()) current = intervalsIterator.next().iterator();
     }
 

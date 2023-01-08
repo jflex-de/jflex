@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.generator;
 
@@ -13,8 +9,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import jflex.base.Build;
 import jflex.base.Pair;
 import jflex.core.AbstractLexScan;
@@ -42,17 +36,6 @@ import jflex.skeleton.Skeleton;
  * @version JFlex 1.9.0-SNAPSHOT
  */
 public final class Emitter {
-  private static final Pattern JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN =
-      Pattern.compile(
-          ".*/\\*\\*(.*)\\*/" // javadoc comment, embedded '*/' disallowed
-              + "(?:\\s*@[a-z][a-z0-9_]*(?:\\.[a-z][a-z0-9_]*)*" // @[p.ack.age.]AnnotationClass
-              + "   (?:\\s*\\(\\s*(?:\"(?:\\\"|[^\"])*\"" // ignore close parens in double quotes
-              + "                   |'(?:[^']|\\\\(?:'|u[0-9a-f]{4}))'" // ignore close parens in
-              // single quotes
-              + "                   |[^)])+\\))?" // optional annotation params
-              + ")*\\s*", // zero or more annotations, followed by optional whitespace
-          Pattern.DOTALL | Pattern.CASE_INSENSITIVE | Pattern.COMMENTS);
-
   // bit masks for state attributes
   private static final int FINAL = 1;
   private static final int NOLOOK = 8;
@@ -265,9 +248,9 @@ public final class Emitter {
 
       print("() throws java.io.IOException");
 
-      if (scanner.lexThrow() != null) {
-        print(", ");
-        print(scanner.lexThrow());
+      for (String thrown : scanner.lexThrow()) {
+        print("\n    , ");
+        print(thrown);
       }
 
       if (scanner.scanErrorException() != null) {
@@ -336,10 +319,11 @@ public final class Emitter {
     println("      }");
     println("      for (int i = firstFilePos; i < argv.length; i++) {");
     println("        " + className + " scanner = null;");
+    println("        java.io.FileInputStream stream = null;");
+    println("        java.io.Reader reader = null;");
     println("        try {");
-    println("          java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);");
-    println(
-        "          java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);");
+    println("          stream = new java.io.FileInputStream(argv[i]);");
+    println("          reader = new java.io.InputStreamReader(stream, encodingName);");
     println("          scanner = new " + className + "(reader);");
     if (scanner.standalone()) {
       println("          while ( !scanner.zzAtEOF ) scanner." + functionName + "();");
@@ -363,6 +347,26 @@ public final class Emitter {
     println("        catch (Exception e) {");
     println("          System.out.println(\"Unexpected exception:\");");
     println("          e.printStackTrace();");
+    println("        }");
+    println("        finally {");
+    println("          if (reader != null) {");
+    println("            try {");
+    println("              reader.close();");
+    println("            }");
+    println("            catch (java.io.IOException e) {");
+    println("              System.out.println(\"IO error closing file \\\"\"+argv[i]+\"\\\"\");");
+    println("              System.out.println(e);");
+    println("            }");
+    println("          }");
+    println("          if (stream != null) {");
+    println("            try {");
+    println("              stream.close();");
+    println("            }");
+    println("            catch (java.io.IOException e) {");
+    println("              System.out.println(\"IO error closing file \\\"\"+argv[i]+\"\\\"\");");
+    println("              System.out.println(e);");
+    println("            }");
+    println("          }");
     println("        }");
     println("      }");
     println("    }");
@@ -433,9 +437,10 @@ public final class Emitter {
   }
 
   private void emitClassName() {
-    // TODO(#222) Actually fix the fall-through violations
-    println("// See https://github.com/jflex-de/jflex/issues/222");
-    println("@SuppressWarnings(\"FallThrough\")");
+    if (!scanner.noSuppressWarnings()) {
+      // TODO(#222) Actually fix the fall-through violations
+      println("@SuppressWarnings(\"fallthrough\")");
+    }
     if (scanner.isPublic()) print("public ");
 
     if (scanner.isAbstract()) print("abstract ");
@@ -456,18 +461,6 @@ public final class Emitter {
     }
 
     println(" {");
-  }
-
-  /**
-   * Try to find out if user code ends with a javadoc comment, maybe followed by one or more
-   * annotations
-   *
-   * @param usercode the user code
-   * @return true if it ends with a javadoc comment and zero or more annotations
-   */
-  static boolean endsWithJavadoc(CharSequence usercode) {
-    Matcher matcher = JAVADOC_COMMENT_AND_MAYBE_ANNOTATIONS_PATTERN.matcher(usercode);
-    return matcher.matches() && !matcher.group(1).contains("*/");
   }
 
   private void emitLexicalStates() {
@@ -516,8 +509,8 @@ public final class Emitter {
     println("   * The transition table of the DFA");
     println("   */");
 
-    CountEmitter e = new CountEmitter("Trans");
-    e.setValTranslation(+1); // allow vals in [-1, 0xFFFE]
+    // allow values from -1 (translate +1), get emitter capacity based on number of states
+    CountEmitter e = CountEmitter.emitter(dfa.numStates(), +1, "trans");
     e.emitInit();
 
     for (int i = 0; i < dfa.numStates(); i++) {
@@ -698,7 +691,7 @@ public final class Emitter {
     emitConstructorDecl(true);
 
     if ((scanner.standalone() || scanner.debugOption()) && scanner.ctorArgsCount() > 0) {
-      Out.warning(ErrorMessages.get(ErrorMessages.CTOR_DEBUG));
+      Out.warning(ErrorMessages.CTOR_DEBUG);
       println();
       emitConstructorDecl(false);
     }
@@ -799,17 +792,17 @@ public final class Emitter {
 
     print("() throws java.io.IOException");
 
-    if (scanner.lexThrow() != null) {
-      print(", ");
-      print(scanner.lexThrow());
+    for (String thrown : scanner.lexThrow()) {
+      print("\n    , ");
+      print(thrown);
     }
 
     if (scanner.scanErrorException() != null) {
-      print(", ");
+      print(",\n     ");
       print(scanner.scanErrorException());
     }
 
-    println(" {");
+    println("\n  {");
 
     skel.emitNext();
 
@@ -956,8 +949,10 @@ public final class Emitter {
     } else {
       println("    int offset = input & " + (CMapBlock.BLOCK_SIZE - 1) + ";");
       println(
-          "    return offset == input ?"
-              + " ZZ_CMAP_BLOCKS[offset] :"
+          "    return offset == input"
+              + " ?"
+              + " ZZ_CMAP_BLOCKS[offset]"
+              + " :"
               + " ZZ_CMAP_BLOCKS[ZZ_CMAP_TOP[input >> "
               + CMapBlock.BLOCK_BITS
               + "] | offset];");
@@ -1073,7 +1068,7 @@ public final class Emitter {
 
       println("          case " + label + ":");
 
-      if (action.lookAhead() == Action.FIXED_BASE) {
+      if (action.lookAhead() == Action.Kind.FIXED_BASE) {
         println("            // lookahead expression with fixed base length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
         println(
@@ -1082,7 +1077,8 @@ public final class Emitter {
                 + ");");
       }
 
-      if (action.lookAhead() == Action.FIXED_LOOK || action.lookAhead() == Action.FINITE_CHOICE) {
+      if (action.lookAhead() == Action.Kind.FIXED_LOOK
+          || action.lookAhead() == Action.Kind.FINITE_CHOICE) {
         println("            // lookahead expression with fixed lookahead length");
         println("            zzMarkedPos = Character.offsetByCodePoints");
         println(
@@ -1091,7 +1087,7 @@ public final class Emitter {
                 + ");");
       }
 
-      if (action.lookAhead() == Action.GENERAL_LOOK) {
+      if (action.lookAhead() == Action.Kind.GENERAL_LOOK) {
         println("            // general lookahead, find correct zzMarkedPos");
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");
@@ -1137,7 +1133,7 @@ public final class Emitter {
 
       println("            { " + action.content);
       println("            }");
-      println("            // fall through");
+      println("          // fall through");
       println("          case " + (i++) + ": break;");
     }
   }

@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.core.unicode;
 
@@ -47,10 +43,25 @@ public class CharClasses {
   /**
    * Constructs a new CharClasses object.
    *
-   * <p>CharClasses.init() is delayed until UnicodeProperties.init() has been called, since the max
-   * char code won't be known until then.
+   * @param maxCharCode the last character code to be considered. (127 for 7bit Lexers, 255 for 8bit
+   *     Lexers and UnicodeProperties.getMaximumCodePoint() for Unicode Lexers).
+   * @param scanner the scanner containing the UnicodeProperties instance from which caseless
+   *     mappings can be obtained.
    */
-  public CharClasses() {}
+  public CharClasses(int maxCharCode, ILexScan scanner) {
+    init(maxCharCode, scanner.getUnicodeProperties());
+  }
+
+  /**
+   * Constructs a new CharClasses object.
+   *
+   * @param maxCharCode the last character code to be considered. (127 for 7bit Lexers, 255 for 8bit
+   *     Lexers and UnicodeProperties.getMaximumCodePoint() for Unicode Lexers).
+   * @param props the UnicodeProperties instance from which caseless mappings can be obtained.
+   */
+  public CharClasses(int maxCharCode, UnicodeProperties props) {
+    init(maxCharCode, props);
+  }
 
   /**
    * Provides space for classes of characters from 0 to maxCharCode.
@@ -59,9 +70,9 @@ public class CharClasses {
    *
    * @param maxCharCode the last character code to be considered. (127 for 7bit Lexers, 255 for 8bit
    *     Lexers and UnicodeProperties.getMaximumCodePoint() for Unicode Lexers).
-   * @param scanner the scanner containing the UnicodeProperties instance from which caseless
+   * @param props the UnicodeProperties instance from which caseless mappings can be obtained.
    */
-  public void init(int maxCharCode, ILexScan scanner) {
+  private void init(int maxCharCode, UnicodeProperties props) {
     if (maxCharCode < 0) {
       throw new IllegalArgumentException("maxCharCode " + maxCharCode + " is negative.");
     } else if (maxCharCode > maxChar) {
@@ -73,7 +84,7 @@ public class CharClasses {
     }
 
     maxCharUsed = maxCharCode;
-    this.unicodeProps = scanner.getUnicodeProperties();
+    this.unicodeProps = props;
     classes = new ArrayList<>();
     classes.add(IntCharSet.ofCharacterRange(0, maxCharCode));
   }
@@ -116,7 +127,16 @@ public class CharClasses {
     return classes.size();
   }
 
-  /** @return a deep-copy list of all char class partions. */
+  /**
+   * Returns the unicode properties used by this CharClasses object.
+   *
+   * @return the unicode properties used by this CharClasses object.
+   */
+  public UnicodeProperties getUnicodeProperties() {
+    return unicodeProps;
+  }
+
+  /** Returns a deep-copy list of all char class partions. */
   public List<IntCharSet> allClasses() {
     List<IntCharSet> result = new ArrayList<>();
     for (IntCharSet ccl : classes) {
@@ -182,15 +202,17 @@ public class CharClasses {
   /**
    * Returns the code of the character class the specified character belongs to.
    *
-   * @param codePoint code point.
-   * @return code of the character class.
+   * @param codePoint code point to get the char class for.
+   * @return code of the character class, -1 if {@code codePoint} is not in the input char set.
    */
   public int getClassCode(int codePoint) {
-    int i = -1;
-    while (true) {
-      IntCharSet x = classes.get(++i);
+    int i = 0;
+    while (i < classes.size()) {
+      IntCharSet x = classes.get(i);
       if (x.contains(codePoint)) return i;
+      i++;
     }
+    return -1;
   }
 
   /**
@@ -343,9 +365,7 @@ public class CharClasses {
    * @return a deep copy of c
    */
   public static CharClasses copyOf(CharClasses c) {
-    CharClasses result = new CharClasses();
-    result.maxCharUsed = c.maxCharUsed;
-    result.unicodeProps = c.unicodeProps;
+    CharClasses result = new CharClasses(c.maxCharUsed, c.unicodeProps);
     result.classes = c.allClasses();
     return result;
   }

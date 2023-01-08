@@ -1,16 +1,15 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.option;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
+import jflex.l10n.ErrorMessages;
 
 /**
  * Collects all global JFlex options.
@@ -22,6 +21,9 @@ import java.nio.charset.Charset;
  * @version JFlex 1.9.0-SNAPSHOT
  */
 public class Options {
+
+  /** Warnings that should not be printed. */
+  private static final Set<ErrorMessages> suppressedWarnings = new HashSet<>();
 
   /** output directory */
   public static File directory;
@@ -39,8 +41,6 @@ public class Options {
   public static boolean no_backup;
   /** If false, only error/warning output will be generated */
   public static boolean verbose = true;
-  /** Whether to warn about unused macros. */
-  public static boolean unused_warning;
   /** If true, progress dots will be printed */
   public static boolean progress;
   /** If true, jflex will print time statistics about the generation process */
@@ -60,6 +60,11 @@ public class Options {
   // (to be changed to instances in thread-safety refactor)
   private Options() {}
 
+  /**
+   * Get the output directory.
+   *
+   * @return the output directory as java.io.File
+   */
   public static File getDir() {
     return directory;
   }
@@ -72,11 +77,53 @@ public class Options {
     return rootDirectory;
   }
 
+  /**
+   * Set the root source directory.
+   *
+   * @param rootDir the root source directory.
+   */
   public static void setRootDirectory(File rootDir) {
     rootDirectory = rootDir;
   }
 
+  /** Reset the root source directory to the Java working directory. */
   public static void resetRootDirectory() {
     rootDirectory = new File("");
+  }
+
+  /**
+   * Returns true if the given warning message is suppressed (should not be printed and counted).
+   *
+   * @param msg the error/warning message to check
+   * @return true iff the warning is suppressed
+   */
+  public static boolean isSuppressed(ErrorMessages msg) {
+    return suppressedWarnings.contains(msg);
+  }
+
+  /**
+   * Configure the given warning message to be suppressed.
+   *
+   * @param msg the warning message to suppress.
+   */
+  public static void suppress(ErrorMessages msg) {
+    if (ErrorMessages.isConfigurableWarning(msg)) {
+      suppressedWarnings.add(msg);
+    } else {
+      throw new IllegalArgumentException("Cannot suppress non-configurable warning: " + msg);
+    }
+  }
+
+  /**
+   * Configure the given warning message to be enabled.
+   *
+   * @param msg the warning message to enable.
+   */
+  public static void enable(ErrorMessages msg) {
+    if (ErrorMessages.isConfigurableWarning(msg)) {
+      suppressedWarnings.remove(msg);
+    } else {
+      throw new IllegalArgumentException("Cannot enable non-configurable warning: " + msg);
+    }
   }
 }

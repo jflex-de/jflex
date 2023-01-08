@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex;
 
@@ -98,7 +94,7 @@ public class Main {
           || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = true;
         Options.progress = true;
-        Options.unused_warning = true;
+        Options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
@@ -107,17 +103,37 @@ public class Main {
           || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         Options.verbose = false;
         Options.progress = false;
-        Options.unused_warning = false;
+        Options.suppress(ErrorMessages.MACRO_UNUSED);
+        continue;
+      }
+
+      if (Objects.equals(argv[i], "--warn-all")) { // $NON-NLS-1$
+        OptionUtils.enableAllWarnings();
+        continue;
+      }
+
+      if (Objects.equals(argv[i], "--no-warn-all")) { // $NON-NLS-1$
+        OptionUtils.suppressAllWarnings();
         continue;
       }
 
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = true;
+        Options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
-        Options.unused_warning = false;
+        Options.suppress(ErrorMessages.MACRO_UNUSED);
+        continue;
+      }
+
+      if (argv[i].startsWith("--warn-")) { // $NON-NLS-1$
+        OptionUtils.enableWarning(argv[i].substring(7));
+        continue;
+      }
+
+      if (argv[i].startsWith("--no-warn-")) { // $NON-NLS-1$
+        OptionUtils.suppressWarning(argv[i].substring(10));
         continue;
       }
 

@@ -1,11 +1,7 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * JFlex 1.9.0-SNAPSHOT                                                    *
- * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>                    *
- * All rights reserved.                                                    *
- *                                                                         *
- * License: BSD                                                            *
- *                                                                         *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*
+ * Copyright (C) 1998-2018  Gerwin Klein <lsf@jflex.de>
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
 
 package jflex.core;
 
@@ -125,7 +121,7 @@ public final class Macros {
    * @throws MacroException if there is a cycle in the macro usage graph.
    */
   public void expand() throws MacroException {
-    Set<String> keys = new HashSet(macros.keySet());
+    Set<String> keys = new HashSet<String>(macros.keySet());
     for (String name : keys) {
       if (isUsed(name)) {
         macros.replace(name, expandMacro(name, getDefinition(name)));
@@ -186,6 +182,8 @@ public final class Macros {
       case sym.CHAR:
       case sym.CHAR_I:
       case sym.PRIMCLASS:
+      case sym.PRECLASS:
+      case sym.UNIPROPCCLASS:
         return definition;
 
       case sym.CCLASS:

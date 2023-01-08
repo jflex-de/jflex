@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2022, Gerwin Klein, Régis Décamps
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package jflex.core;
 
 import java.io.File;
@@ -18,6 +23,12 @@ import jflex.scanner.ScannerException;
 
 public abstract class AbstractLexScan implements ILexScan {
 
+  public enum CharSetSize {
+    SEVEN_BIT,
+    EIGHT_BIT,
+    UNICODE
+  };
+
   int bufferSize = 16384;
 
   File file;
@@ -31,7 +42,7 @@ public abstract class AbstractLexScan implements ILexScan {
   String initThrow;
   String eofCode;
   String eofThrow;
-  String lexThrow;
+  List<String> lexThrow = new ArrayList<>();
   String eofVal;
   public String scanErrorException;
   String cupSymbol = "sym";
@@ -56,6 +67,7 @@ public abstract class AbstractLexScan implements ILexScan {
   boolean standalone;
   boolean debugOption;
   boolean eofclose;
+  boolean noSuppressWarnings;
 
   String isImplementing;
   String isExtending;
@@ -71,16 +83,13 @@ public abstract class AbstractLexScan implements ILexScan {
 
   List<Action> actions = new ArrayList<>();
 
-  // CharClasses.init() is delayed until UnicodeProperties.init() has been called,
-  // since the max char code won't be known until then.
-  final CharClasses charClasses = new CharClasses();
+  CharClasses charClasses;
 
   @Override
   public UnicodeProperties getUnicodeProperties() {
     return unicodeProperties;
   }
 
-  // TODO(regisd) Return an immutable representation of char classes
   @SuppressWarnings("unused") // Used in generated LexParse
   public CharClasses getCharClasses() {
     return charClasses;
@@ -163,7 +172,7 @@ public abstract class AbstractLexScan implements ILexScan {
     return a.toString() + ", " + b.toString();
   }
 
-  @SuppressWarnings({"unused", "UnusedException"}) // Used in generated LexScan
+  @SuppressWarnings("UnusedException")
   void populateDefaultVersionUnicodeProperties() {
     try {
       unicodeProperties = new UnicodeProperties();
@@ -172,9 +181,35 @@ public abstract class AbstractLexScan implements ILexScan {
     }
   }
 
-  @SuppressWarnings("WeakerAccess") // Used in generated LexScan
-  void initUnicodeCharClasses() {
-    charClasses.init(unicodeProperties.getMaximumCodePoint(), this);
+  public void initCharClasses(CharSetSize size) {
+    initCharClasses(size, null);
+  }
+
+  @SuppressWarnings("UnusedException") // Used in generated LexScan
+  public void initCharClasses(CharSetSize size, String version) {
+    if (charClasses != null) {
+      throw new ScannerException(file, ErrorMessages.DOUBLE_CHARSET, lexLine());
+    }
+    if (version == null || version.length() == 0) {
+      populateDefaultVersionUnicodeProperties();
+    } else {
+      try {
+        unicodeProperties = new UnicodeProperties(version);
+      } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
+        throw new ScannerException(file, ErrorMessages.UNSUPPORTED_UNICODE_VERSION, lexLine());
+      }
+    }
+    switch (size) {
+      case SEVEN_BIT:
+        charClasses = new CharClasses(127, this);
+        break;
+      case EIGHT_BIT:
+        charClasses = new CharClasses(255, this);
+        break;
+      case UNICODE:
+        charClasses = new CharClasses(unicodeProperties.getMaximumCodePoint(), this);
+        break;
+    }
   }
 
   // Used in generated LexScan
@@ -232,7 +267,8 @@ public abstract class AbstractLexScan implements ILexScan {
     return eofThrow;
   }
 
-  public String lexThrow() {
+  // TODO(regisd) Return ImmutableList instead
+  public List<String> lexThrow() {
     return lexThrow;
   }
 
@@ -360,6 +396,10 @@ public abstract class AbstractLexScan implements ILexScan {
     return bufferSize;
   }
 
+  public boolean noSuppressWarnings() {
+    return noSuppressWarnings;
+  }
+
   /**
    * Returns the current line number.
    *
@@ -370,7 +410,9 @@ public abstract class AbstractLexScan implements ILexScan {
     return lexLine();
   }
 
-  /** @deprecated Use {@link #columnCoount} */
+  /**
+   * @deprecated Use {@link #columnCount}
+   */
   @SuppressWarnings("unused") // Used by generated LexScan
   @Deprecated
   public boolean isColumnCount() {
