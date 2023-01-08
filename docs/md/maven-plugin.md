@@ -3,11 +3,10 @@
   SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
-Maven plugin
-------------
- 
+## JFlex Maven plugin
+
 The plugin reads JFlex grammar specification files (`.jflex`) and
-generates a corresponding Java parser 
+generates a corresponding Java parser
 (in `target/generated-source/jflex` by default).
 
 ### Usage
@@ -15,7 +14,7 @@ generates a corresponding Java parser
 #### Minimal configuration
 
 This configuration generates java code of a parser
-for all grammar files (`*.jflex`, `*.jlex`, `*.lex`, `*.flex`) 
+for all grammar files (`*.jflex`, `*.jlex`, `*.lex`, `*.flex`)
 found in  `src/main/jflex/` and its sub-directories.
 
 The name and package of the generated Java source code are the ones defined in
@@ -26,7 +25,7 @@ in sub-directories following the Java convention on package names.
 
 Update the `pom.xml` to add the plugin:
 
-```
+```xml
 <project>
   <!-- ... -->
   <build>
@@ -52,13 +51,13 @@ Update the `pom.xml` to add the plugin:
 
 #### More complex configuration
 
-This example generates the source for the two grammars 
+This example generates the source for the two grammars
 `src/main/lex/preprocessor.jflex` and `/pub/postprocessor.jflex`,
 as well as all grammar files found in  `src/main/jflex` (and its sub-directories).
 The generated Java code is placed into `src/main/java` instead of
 `target/generated-sources/jflex`.
 
-```
+```xml
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -83,15 +82,15 @@ The generated Java code is placed into `src/main/java` instead of
 
 #### Even more complex configuration, using several executions
 
-This generates the source for 
+This generates the source for
 
-* all files found in 
+* all files found in
 `src/main/lex/`, using strict JLex compatibility.
 
-* and all files found in 
+* and all files found in
  `src/main/jflex`, in verbose mode.
 
-```
+```xml
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
@@ -124,8 +123,8 @@ This generates the source for
         </executions>
       </plugin>
 ```
-      
-  
+
+
 ### More information
 
 * [jflex:generate](https://jflex-de.github.io/jflex-web/jflex-maven-plugin/generate-mojo.html)
