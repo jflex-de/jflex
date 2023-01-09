@@ -345,7 +345,11 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 
 <REGEXP> {
-  "<<EOF>>" {WSPNL}+ "{"  { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(sym.EOFRULE); }
+  "<<EOF>>" {WSPNL}+ "{"  { actionText.setLength(0);
+                            yybegin(JAVA_CODE);
+                            action_line = yyline+1;
+                            return symbol(sym.EOFRULE);
+                          }
   "<<EOF>>"               { throw new ScannerException(file,ErrorMessages.EOF_WO_ACTION); }
 
   {WSPNL}*"|"{WSP}*$      { if (macroDefinition) {
