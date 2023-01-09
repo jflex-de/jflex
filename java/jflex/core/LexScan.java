@@ -3197,7 +3197,10 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
             // fall through
           case 325: break;
           case 149:
-            { actionText.setLength(0); yybegin(JAVA_CODE); action_line = yyline+1; return symbol(sym.EOFRULE);
+            { actionText.setLength(0);
+                            yybegin(JAVA_CODE);
+                            action_line = yyline+1;
+                            return symbol(sym.EOFRULE);
             }
             // fall through
           case 326: break;
