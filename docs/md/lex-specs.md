@@ -494,6 +494,7 @@ interested in how to interface your generated scanner with Byacc/J.
 - `empty-match`: warn for rules that can match the empty string
 - `cupsym-after-cup`: warn for re-declaring the `cup` symbol even though `%cup`
   is present
+- `unicode-too-long`: warn for unicode escape sequences that have too many digits
 - `all`: switch on/off all warnings
 
 

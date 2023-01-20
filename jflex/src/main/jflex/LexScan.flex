@@ -76,6 +76,16 @@ import jflex.skeleton.Skeleton;
   }
 
   @Override
+  protected int lexLength() {
+    return yylength();
+  }
+
+  @Override
+  protected void lexPushback(int n) {
+    yypushback(n);
+  }
+
+  @Override
   protected void lexPushStream(File f) throws IOException {
     // yypushStream in skeleton.nested
     yypushStream(Files.newBufferedReader(f.toPath(), Options.encoding));
@@ -97,12 +107,16 @@ OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
 
 // Unicode4 can encode chars only in the BMP with the 16 bits provided by its
 // 4 hex digits.
-Unicode4  = \\ u {HexDigit} {4}
+// Match and warn for Unicode escapes with too many digits -- it's legal syntax,
+// but likely a typo.
+Unicode4  = \\ u {HexDigit} {4} {HexDigit}*
 
 // Unicode6 can encode all Unicode chars, both in the BMP and in the
 // supplementary planes -- only 21 bits are required as of Unicode 5.0,
 // but its six hex digits provide 24 bits.
-Unicode6  = \\ U {HexDigit} {6}
+// Match and warn for Unicode escapes with too many digits -- it's legal syntax,
+// but likely a typo.
+Unicode6  = \\ U {HexDigit} {6} {HexDigit}*
 
 // see http://www.unicode.org/unicode/reports/tr18/
 WSP        = [ \t\b]
@@ -477,8 +491,11 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
   {HexNumber} { string.append( (char) Integer.parseInt(yytext().substring(2,yylength()), 16)); }
   {OctNumber} { string.append( (char) Integer.parseInt(yytext().substring(1,yylength()), 8)); }
-  {Unicode4}  { string.append( (char) Integer.parseInt(yytext().substring(2,yylength()), 16)); }
-  {Unicode6}  { int codePoint = Integer.parseInt(yytext().substring(2,yylength()), 16);
+  {Unicode4}  { maybeWarnUnicodeMatch(4);
+                string.append( (char) Integer.parseInt(yytext().substring(2,6), 16));
+              }
+  {Unicode6}  { maybeWarnUnicodeMatch(6);
+                int codePoint = Integer.parseInt(yytext().substring(2,8), 16);
                 if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
                   string.append(Character.toChars(codePoint));
                 } else {
@@ -503,8 +520,11 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 <REGEXP, CHARCLASS> {
   {HexNumber} { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
   {OctNumber} { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(1,yylength()), 8)); }
-  {Unicode4}  { return symbol(sym.CHAR, Integer.parseInt(yytext().substring(2,yylength()), 16)); }
-  {Unicode6}  { int codePoint = Integer.parseInt(yytext().substring(2,yylength()), 16);
+  {Unicode4}  { maybeWarnUnicodeMatch(4);
+                return symbol(sym.CHAR, Integer.parseInt(yytext().substring(2,6), 16));
+              }
+  {Unicode6}  { maybeWarnUnicodeMatch(6);
+                int codePoint = Integer.parseInt(yytext().substring(2,8), 16);
                 if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
                   return symbol(sym.CHAR, codePoint);
                 } else {

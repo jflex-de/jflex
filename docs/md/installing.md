@@ -155,11 +155,13 @@ doing)
 
 `--warn-<warning>`\
 switch on warning type `<warning>`, where `<warning>` is one of
-`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `all`.
+`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `unicode-too-long`,
+`all`.
 
 `--no-warn-<warning>`\
 suppress warnings of type `<warning>`, where `<warning>` is one of
-`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `all`.
+`unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `unicode-too-long`,
+`all`.
 
 `--time`\
 display time statistics about the code generation process (not very

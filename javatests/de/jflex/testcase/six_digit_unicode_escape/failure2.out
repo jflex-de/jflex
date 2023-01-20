@@ -1,5 +1,10 @@
 Reading "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex"
 
+Warning in file "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex" (line 13): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+"one two three\UFFFFFFabc" { }
+                      ^
+
 Error in file "javatests/de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape-f-2.flex" (line 13): 
 Hexadecimal code point is greater than the maximum allowed code point
 "one two three\UFFFFFFabc" { }
