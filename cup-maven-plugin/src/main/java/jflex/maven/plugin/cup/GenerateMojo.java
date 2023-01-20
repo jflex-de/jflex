@@ -46,13 +46,13 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter(defaultValue = ".*\\.cup")
   String cupSourceFilesFilter;
 
-  /** Name of the directory into which JFlex should generate the parser. */
+  /** Name of the directory into which CUP should generate the parser. */
   @Parameter(defaultValue = "${project.build.directory}/generated-sources/cup")
   @SuppressWarnings("WeakerAccess")
   File generatedSourcesDirectory;
 
   /**
-   * Whether to outputs the symbol constant code as an {@code interface} rather than as a {@code
+   * Whether to output the symbol constant code as an {@code interface} rather than as a {@code
    * class}.
    */
   @Parameter(defaultValue = "false")
