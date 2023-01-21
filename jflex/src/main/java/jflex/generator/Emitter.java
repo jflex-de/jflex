@@ -544,7 +544,7 @@ public final class Emitter {
     println("  /**");
     println("   * Translates characters to character classes");
     println("   */");
-    println("  private static final char [] ZZ_CMAP = {");
+    println("  private static final " + cMapType() + " [] ZZ_CMAP = {");
 
     int n = 0; // numbers of entries in current line
     print("    ");
@@ -609,7 +609,7 @@ public final class Emitter {
       println("  /**");
       println("   * Second-level tables for translating characters to character classes");
       println("   */");
-      e = new CountEmitter("cmap_blocks");
+      e = new CountEmitter("cmap_blocks", cMapType());
       e.emitInit();
       e.emitCountValueString(tables.snd);
       e.emitUnpack();
@@ -939,11 +939,22 @@ public final class Emitter {
     skel.emitNext();
   }
 
+  private String cMapType() {
+    int numClasses = parser.getCharClasses().getNumClasses();
+    if (numClasses <= 0x7F) {
+      return "byte";
+    } else if (numClasses <= 0xFFFF) {
+      return "char";
+    } else {
+      return "int";
+    }
+  }
+
   private void emitCMapAccess() {
     println("  /**");
     println("   * Translates raw input code points to DFA table row");
     println("   */");
-    println("  private static int zzCMap(int input) {");
+    println("  private static " + cMapType() + " zzCMap(int input) {");
     if (parser.getCharClasses().getMaxCharCode() <= 0xFF) {
       println("    return ZZ_CMAP[input];");
     } else {

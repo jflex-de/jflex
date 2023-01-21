@@ -20,7 +20,7 @@ public class HiCountEmitter extends CountEmitter {
    * @param name name of the generated array
    */
   protected HiCountEmitter(String name, int translate) {
-    super(name, translate);
+    super(name, "int", translate);
   }
 
   /**

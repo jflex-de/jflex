@@ -24,7 +24,17 @@ public class CountEmitter extends PackEmitter {
    * @param name name of the generated array
    */
   protected CountEmitter(String name) {
-    this(name, 0);
+    this(name, "int", 0);
+  }
+
+  /**
+   * Create a count/value emitter for a specific field with values in the range of [0..0xFFFF].
+   *
+   * @param name name of the generated array
+   * @param type type of the array elements (must fit largest value)
+   */
+  protected CountEmitter(String name, String type) {
+    this(name, type, 0);
   }
 
   /**
@@ -32,11 +42,12 @@ public class CountEmitter extends PackEmitter {
    * [0..0xFFFF].
    *
    * @param name name of the generated array
+   * @param type type of the array elements (must fit largest value)
    * @param translate translate all values by this amount, e.g provide +1 to allow values in [-1,
    *     0xFFFE]
    */
-  protected CountEmitter(String name, int translate) {
-    super(name);
+  protected CountEmitter(String name, String type, int translate) {
+    super(name, type);
     this.translate = translate;
   }
 
@@ -51,8 +62,8 @@ public class CountEmitter extends PackEmitter {
     println("\";");
 
     nl();
-    println("  private static int [] zzUnpack" + name + "() {");
-    println("    int [] result = new int[" + numEntries + "];");
+    println("  private static " + type + " [] zzUnpack" + name + "() {");
+    println("    " + type + " [] result = new " + type + "[" + numEntries + "];");
     println("    int offset = 0;");
 
     for (int i = 0; i < chunks; i++) {
@@ -81,7 +92,11 @@ public class CountEmitter extends PackEmitter {
    */
   protected void emitUnpackChunk() {
     println(
-        "  private static int zzUnpack" + name + "(String packed, int offset, int [] result) {");
+        "  private static int zzUnpack"
+            + name
+            + "(String packed, int offset, "
+            + type
+            + " [] result) {");
     println("    int i = 0;       /* index in packed string  */");
     println("    int j = offset;  /* index in unpacked array */");
     println("    int l = packed.length();");
@@ -93,7 +108,8 @@ public class CountEmitter extends PackEmitter {
     } else if (translate != 0) {
       println("      value-= " + translate);
     }
-    println("      do result[j++] = value; while (--count > 0);");
+    String cast = type.equals("int") ? "" : "(" + type + ") ";
+    println("      do result[j++] = " + cast + "value; while (--count > 0);");
     println("    }");
     println("    return j;");
     println("  }");
@@ -155,7 +171,7 @@ public class CountEmitter extends PackEmitter {
 
   public static CountEmitter emitter(int states, int translation, String name) {
     if (states <= 0xFFFF) {
-      return new CountEmitter(name, translation);
+      return new CountEmitter(name, "int", translation);
     } else {
       return new HiCountEmitter(name, translation);
     }

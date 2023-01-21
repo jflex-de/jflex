@@ -22,7 +22,7 @@ public class HiLowEmitter extends PackEmitter {
    * @param name the name of the generated array
    */
   public HiLowEmitter(String name) {
-    super(name);
+    super(name, "int");
   }
 
   /**

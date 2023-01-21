@@ -9,7 +9,7 @@ import java.util.Locale;
 import jflex.logging.Out;
 
 /**
- * Encodes {@code int} arrays as strings.
+ * Encodes {@code int}/{@code char}/{@code byte} arrays as strings.
  *
  * <p>Also splits up strings when longer than 64K in UTF8 encoding. Subclasses emit unpacking code.
  *
@@ -24,6 +24,9 @@ public abstract class PackEmitter {
 
   /** name of the generated array (mixed case, no yy prefix) */
   protected String name;
+
+  /** type of the array elements */
+  protected final String type;
 
   /** current UTF8 length of generated string in current chunk */
   private int UTF8Length;
@@ -53,9 +56,11 @@ public abstract class PackEmitter {
    * Create new emitter for an array.
    *
    * @param name the name of the generated array
+   * @param type the type of the generated array
    */
-  public PackEmitter(String name) {
+  public PackEmitter(String name, String type) {
     this.name = name;
+    this.type = type;
   }
 
   /**
@@ -80,7 +85,7 @@ public abstract class PackEmitter {
 
   /** Emit declaration of decoded member and open first chunk. */
   public void emitInit() {
-    out.append("  private static final int [] ");
+    out.append("  private static final " + type + " [] ");
     out.append(constName());
     out.append(" = zzUnpack");
     out.append(name);
