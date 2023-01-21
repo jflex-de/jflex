@@ -1,0 +1,40 @@
+# Copyright 2021, Régis Décamps
+# SPDX-License-Identifier: BSD-3-Clause
+
+load("//testsuite:testsuite.bzl", "jflex_testsuite")
+load("@jflex_rules//jflex:jflex.bzl", "jflex")
+load("//scripts:check_deps.bzl", "check_deps")
+
+check_deps(
+    name = "deps_to_bootstrap_jflex_test",
+    prohibited = "@jflex_rules//jflex:jflex_bin",
+)
+
+jflex(
+    name = "warnings_flex",
+    srcs = ["warnings.flex"],
+    jflex_bin = "//jflex:jflex_bin",
+    outputs = ["Warnings.java"],
+)
+
+java_library(
+    name = "warnings_scanner",
+    srcs = [
+        ":warnings_flex",
+    ],
+)
+
+jflex_testsuite(
+    name = "WarningsTest",
+    srcs = [
+        "WarningsTest.java",
+    ],
+    data = [
+        "sys-out.txt",
+        "warnings.flex",
+    ],
+    deps = [
+        ":warnings_scanner",
+        "//java/de/jflex/util/scanner:scanner_factory",
+    ],
+)

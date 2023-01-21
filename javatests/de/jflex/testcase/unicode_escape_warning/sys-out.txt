@@ -1,0 +1,30 @@
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 28): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+\u00302       { return 6; }
+      ^
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 29): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+\u003021      { return 7; }
+      ^
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 30): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+\U000030ab    { return 8; }
+        ^
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 32): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+"\u00312"     { return 9; }
+       ^
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 33): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+"\u003120"    { return 10; }
+       ^
+
+Warning in file "javatests/de/jflex/testcase/unicode_escape_warning/warnings.flex" (line 34): 
+Unicode escape sequence is too long. Use \u{...} to disambiguate.
+"\U000031ab"  { return 11; }
+         ^
