@@ -15,6 +15,7 @@ import java.util.Set;
 import java_cup.runtime.Symbol;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.ILexScan;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -88,6 +89,20 @@ public abstract class AbstractLexScan implements ILexScan {
   @Override
   public UnicodeProperties getUnicodeProperties() {
     return unicodeProperties;
+  }
+
+  public int getMaximumCodePoint() {
+    if (unicodeProperties == null) {
+      populateDefaultVersionUnicodeProperties();
+    }
+    return unicodeProperties.getMaximumCodePoint();
+  }
+
+  public IntCharSet getIntCharSet(String propertyValue) {
+    if (unicodeProperties == null) {
+      populateDefaultVersionUnicodeProperties();
+    }
+    return unicodeProperties.getIntCharSet(propertyValue);
   }
 
   @SuppressWarnings("unused") // Used in generated LexParse

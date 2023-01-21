@@ -427,7 +427,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
     {WSPNL}*"\\W"              { return symbol(sym.WORDCLASSNOT); }
     {WSPNL}*"\\p{"[^}]*"}"     { String trimmedText = yytext().trim();
                                  String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
-                                 IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
+                                 IntCharSet set = getIntCharSet(propertyValue);
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
@@ -435,7 +435,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                }
     {WSPNL}*"\\P{"[^}]*"}"     { String trimmedText = yytext().trim();
                                  String propertyValue = trimmedText.substring(3,trimmedText.length()-1);
-                                 IntCharSet set = unicodeProperties.getIntCharSet(propertyValue);
+                                 IntCharSet set = getIntCharSet(propertyValue);
                                  if (null == set) {
                                    throw new ScannerException(file,ErrorMessages.INVALID_UNICODE_PROPERTY, yyline, yycolumn + 3);
                                  }
@@ -496,7 +496,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
               }
   {Unicode6}  { maybeWarnUnicodeMatch(6);
                 int codePoint = Integer.parseInt(yytext().substring(2,8), 16);
-                if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                if (codePoint <= getMaximumCodePoint()) {
                   string.append(Character.toChars(codePoint));
                 } else {
                   throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn+2);
@@ -525,7 +525,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
               }
   {Unicode6}  { maybeWarnUnicodeMatch(6);
                 int codePoint = Integer.parseInt(yytext().substring(2,8), 16);
-                if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                if (codePoint <= getMaximumCodePoint()) {
                   return symbol(sym.CHAR, codePoint);
                 } else {
                   throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn+2);
@@ -578,7 +578,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 <REGEXP_CODEPOINT_SEQUENCE> {
   "}"             { yybegin(REGEXP); return symbol(sym.STRING, string.toString()); }
   {HexDigit}{1,6} { int codePoint = Integer.parseInt(yytext(), 16);
-                    if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                    if (codePoint <= getMaximumCodePoint()) {
                       string.append(Character.toChars(codePoint));
                     } else {
                       throw new ScannerException(file,ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
@@ -591,7 +591,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 <STRING_CODEPOINT_SEQUENCE> { // Specialized form: newlines disallowed, and doesn't return a symbol
   "}"             { yybegin(STRING_CONTENT); }
   {HexDigit}{1,6} { int codePoint = Integer.parseInt(yytext(), 16);
-                    if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                    if (codePoint <= getMaximumCodePoint()) {
                       string.append(Character.toChars(codePoint));
                     } else {
                       throw new ScannerException(file, ErrorMessages.CODEPOINT_OUT_OF_RANGE, yyline, yycolumn);
@@ -604,7 +604,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
 
 <CHARCLASS_CODEPOINT> { // Specialized form: only one codepoint allowed, no whitespace allowed
   {HexDigit}{1,6} "}" { int codePoint = Integer.parseInt(yytext().substring(0, yylength() - 1), 16);
-                        if (codePoint <= unicodeProperties.getMaximumCodePoint()) {
+                        if (codePoint <= getMaximumCodePoint()) {
                           yybegin(CHARCLASS);
                           return symbol(sym.CHAR, codePoint);
                         } else {
