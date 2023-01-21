@@ -15,6 +15,7 @@ import java.util.Set;
 import java_cup.runtime.Symbol;
 import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.ILexScan;
+import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
@@ -88,6 +89,20 @@ public abstract class AbstractLexScan implements ILexScan {
   @Override
   public UnicodeProperties getUnicodeProperties() {
     return unicodeProperties;
+  }
+
+  public int getMaximumCodePoint() {
+    if (unicodeProperties == null) {
+      populateDefaultVersionUnicodeProperties();
+    }
+    return unicodeProperties.getMaximumCodePoint();
+  }
+
+  public IntCharSet getIntCharSet(String propertyValue) {
+    if (unicodeProperties == null) {
+      populateDefaultVersionUnicodeProperties();
+    }
+    return unicodeProperties.getIntCharSet(propertyValue);
   }
 
   @SuppressWarnings("unused") // Used in generated LexParse
@@ -419,6 +434,21 @@ public abstract class AbstractLexScan implements ILexScan {
     return columnCount;
   }
 
+  /**
+   * Warn if the matched length of a Unicode escape sequence is longer than expected. Push back the
+   * extra characters to be matched again.
+   *
+   * @param len expected Unicode escape sequence length
+   */
+  public void maybeWarnUnicodeMatch(int len) {
+    // 2 for "\"" followed by "u" or "U" at start of match
+    len += 2;
+    if (lexLength() > len) {
+      Out.warning(file, ErrorMessages.UNICODE_TOO_LONG, lexLine(), lexColumn() + len);
+      lexPushback(lexLength() - len);
+    }
+  }
+
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
   protected abstract int lexLine();
 
@@ -426,7 +456,13 @@ public abstract class AbstractLexScan implements ILexScan {
   protected abstract int lexColumn();
 
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
+  protected abstract int lexLength();
+
+  @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
   protected abstract String lexText();
+
+  @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
+  protected abstract void lexPushback(int n);
 
   @SuppressWarnings("WeakerAccess") // Implemented by generated LexScan
   protected abstract void lexPushStream(File f) throws IOException;

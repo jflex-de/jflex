@@ -105,12 +105,19 @@ public enum ErrorMessages {
   NOT_CHARCLASS,
   MACRO_UNUSED,
   UNKNOWN_WARNING,
-  NOT_A_WARNING_ID;
+  NOT_A_WARNING_ID,
+  UNICODE_TOO_LONG;
 
   private static final Set<ErrorMessages> configurableWarnings =
       new HashSet<>(
           Arrays.asList(
-              NEVER_MATCH, EMPTY_MATCH, CTOR_DEBUG, NOT_AT_BOL, MACRO_UNUSED, CUPSYM_AFTER_CUP));
+              NEVER_MATCH,
+              EMPTY_MATCH,
+              CTOR_DEBUG,
+              NOT_AT_BOL,
+              MACRO_UNUSED,
+              CUPSYM_AFTER_CUP,
+              UNICODE_TOO_LONG));
 
   /* not final static, because initializing here seems too early
    * for OS/2 JDK 1.1.8. See bug 1065521.
