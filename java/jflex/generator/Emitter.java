@@ -175,7 +175,8 @@ public final class Emitter {
     if (!hasGenLookAhead()) return;
 
     println("  /** For the backwards DFA of general lookahead statements */");
-    println("  private boolean [] zzFin = new boolean [ZZ_BUFFERSIZE+1];");
+    println(
+        "  private boolean [] zzFin = new boolean [Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())+1];");
     println();
   }
 
@@ -1057,6 +1058,35 @@ public final class Emitter {
     println(e.toString());
   }
 
+  private void emitTokenSizeLimit(String limit) {
+    println();
+    println(
+        "  /** Returns the maximum size of the scanner buffer, which limits the size of tokens."
+            + " */");
+    println("  private int zzMaxBufferLen() {");
+    if (limit == null) {
+      println("    return Integer.MAX_VALUE;");
+    } else {
+      println("    return " + limit + ";");
+    }
+    println("  }");
+    println();
+    println("  /**");
+    println("   * Determine whether the scanner buffer can grow to accommodate a larger token.");
+    println("   *");
+    println("   * @param len the current length of the buffer.");
+    println("   * @return true iff the scanner buffer can grow further.");
+    println("   */");
+    println("  private boolean zzCanGrow(int len) {");
+    if (limit == null) {
+      println("    return true;");
+    } else {
+      println("    return len < zzMaxBufferLen();");
+    }
+    println("  }");
+    println();
+  }
+
   private void emitActions() {
     println("        switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {");
 
@@ -1401,6 +1431,8 @@ public final class Emitter {
       println("    return builder.toString();");
       println("  }");
     }
+
+    emitTokenSizeLimit(scanner.getTokenSizeLimit());
 
     emitCMapAccess();
 

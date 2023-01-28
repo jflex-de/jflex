@@ -76,6 +76,7 @@ public abstract class AbstractLexScan implements ILexScan {
   String functionName;
   String tokenType;
   String visibility = "public";
+  String tokenSizeLimit;
 
   List<String> ctorArgs = new ArrayList<>();
   List<String> ctorTypes = new ArrayList<>();
@@ -413,6 +414,10 @@ public abstract class AbstractLexScan implements ILexScan {
 
   public boolean noSuppressWarnings() {
     return noSuppressWarnings;
+  }
+
+  public String getTokenSizeLimit() {
+    return tokenSizeLimit;
   }
 
   /**
