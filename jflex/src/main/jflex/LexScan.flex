@@ -105,6 +105,8 @@ Number     = {Digit}+
 HexNumber  = \\ x {HexDigit} {2}
 OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
 
+NumLiteral = {Number} | "0x" {HexDigit}+ | "0" {OctDigit}+
+
 // Unicode4 can encode chars only in the BMP with the 16 bits provided by its
 // 4 hex digits.
 // Match and warn for Unicode escapes with too many digits -- it's legal syntax,
@@ -296,6 +298,13 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
   "%no_suppress_warnings" {WSP}* { noSuppressWarnings = true; }
+
+  "%token_size_limit" {WSP}+ ({NumLiteral} | {QualIdent}) {WSP}* {
+                                tokenSizeLimit = yytext().substring(18).trim();
+                              }
+  "%token_size_limit" {WSP}+ {NNL}* {
+                                 throw new ScannerException(file, ErrorMessages.TOKEN_SIZE_LIMIT, yyline);
+                              }
 
   {Ident}                     { return symbol(sym.IDENT, yytext()); }
   "="{WSP}*                   { yybegin(REGEXP);
