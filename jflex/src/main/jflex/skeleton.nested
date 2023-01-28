@@ -32,7 +32,7 @@
 
   /** this buffer contains the current text to be matched and is
       the source of the yytext() string */
-  private char zzBuffer[] = new char[ZZ_BUFFERSIZE];
+  private char zzBuffer[] = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
 
   /** the textposition at the last accepting state */
   private int zzMarkedPos;
@@ -136,9 +136,9 @@
     }
 
     /* is the buffer big enough? */
-    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
+    if (zzCanGrow(zzBuffer.length) && zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
       /* if not: blow it up */
-      char newBuffer[] = new char[zzBuffer.length * 2];
+      char newBuffer[] = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
       zzEndRead += zzFinalHighSurrogate;
@@ -151,7 +151,13 @@
 
     /* not supposed to occur according to specification of java.io.Reader */
     if (numRead == 0) {
-      throw new java.io.IOException("Reader returned 0 characters. See JFlex examples for workaround.");
+      if (requested == 0) {
+        throw new java.io.EOFException("Scan buffer limit reached ["+zzBuffer.length+"]");
+      }
+      else {
+        throw new java.io.IOException(
+            "Reader returned 0 characters. See JFlex examples/zero-reader for a workaround.");
+      }
     }
     if (numRead > 0) {
       zzEndRead += numRead;
@@ -208,7 +214,7 @@
                         zzMarkedPos, zzBuffer, zzAtBOL, zzAtEOF, zzEOFDone,
                         zzFinalHighSurrogate, yyline, yychar, yycolumn)
     );
-    zzBuffer = new char[ZZ_BUFFERSIZE];
+    zzBuffer = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
     zzReader = reader;
     yyResetPosition();
   }
@@ -274,8 +280,9 @@
     zzEOFDone = false;
     yyResetPosition();
     zzLexicalState = YYINITIAL;
-    if (zzBuffer.length > ZZ_BUFFERSIZE) {
-      zzBuffer = new char[ZZ_BUFFERSIZE];
+    int initBufferSize = Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen());
+    if (zzBuffer.length > initBufferSize) {
+      zzBuffer = new char[initBufferSize];
     }
   }
 
