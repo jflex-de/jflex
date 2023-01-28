@@ -315,7 +315,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%token_size_limit" {WSP}+ ({NumLiteral} | {QualIdent}) {WSP}* {
                                 tokenSizeLimit = yytext().substring(18).trim();
                               }
-  "%token_size_limit" {WSP}+ {NNL}* {
+  "%token_size_limit" {WSP}* {NNL}* {
                                  throw new ScannerException(file, ErrorMessages.TOKEN_SIZE_LIMIT, yyline);
                               }
 
