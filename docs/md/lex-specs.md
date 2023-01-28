@@ -160,7 +160,28 @@ generated scanner class.
 -   `%buffer "size"`
 
     Set the initial size of the scan buffer to the specified value
-    (decimal, in bytes). The default value is 16384.
+    (decimal, in bytes). The default value is 16384. The buffer will
+    be set to the minimum of `%token_size_limit` (if provided) and
+    `%buffer` size.
+
+-   `%token_size_limit "size"`
+
+    Set the maximum size of the scan buffer to the specified size provided
+    as a Java numeral (decimal, octal, or hex) or as a qualified identifier.
+    If provided as identifier, the identifier can refer to a static constant or
+    a field which can be modified at runtime in user class code.
+    Setting `%token_size_limit ZZ_BUFFERSIZE` will limit the scan buffer to its
+    initial size.
+
+    Limiting the token size introduces an error case: when the scanner
+    encounters a token that does not fit into the maximum buffer size, it will
+    throw a `java.io.EOFException`. Tokens smaller than the maximum buffer
+    size are guaranteed to match. Not that the longest-match rule applies, that
+    is `a*` will lead to an `EOFException` on input that contains a too-long
+    `a` sequence, even if the smaller match could be possible.
+
+    The limit is inteded to be used for applications that require a memory
+    limit on parsing untrusted input.
 
 -   `%include "filename"`
 
