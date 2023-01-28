@@ -117,7 +117,8 @@ Number     = {Digit}+
 HexNumber  = \\ x {HexDigit} {2}
 OctNumber  = \\ [0-3]? {OctDigit} {1, 2}
 
-NumLiteral = {Number} | "0x" {HexDigit}+ | "0" {OctDigit}+
+// we want 099 to be an error, because it is an invalid octal literal
+NumLiteral = [1-9]{Digit}* | "0x" {HexDigit}+ | "0" {OctDigit}+
 
 // Unicode4 can encode chars only in the BMP with the 16 bits provided by its
 // 4 hex digits.
