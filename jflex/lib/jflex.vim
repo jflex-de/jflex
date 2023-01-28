@@ -82,6 +82,7 @@ syn match jflexOption "^%warn" contained
 syn match jflexOption "^%no-warn" contained
 syn match jflexOption "^%suppress" contained
 syn match jflexOption "^%no_suppress_warnings" contained
+syn match jflexOption "^%token_size_limit" contained
 
 syn match jflexMacroIdent "\I\i*\s*="me=e-1 contained nextgroup=jflexMacroRegExp
 
