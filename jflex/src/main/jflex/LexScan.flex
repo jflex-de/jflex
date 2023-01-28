@@ -94,12 +94,12 @@ import jflex.skeleton.Skeleton;
   // Interface for the new skeleton that expects zzCanGrow() and zzMaxBufferLen()
   // These will be inserted by JFlex >= 1.9.0, but we are generating with JFlex 1.8.2
   // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private boolean zzCanGrow(int len) {
+  private static boolean zzCanGrow() {
     return true;
   }
 
   // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private int zzMaxBufferLen() {
+  private static int zzMaxBufferLen() {
     return Integer.MAX_VALUE;
   }
 %}

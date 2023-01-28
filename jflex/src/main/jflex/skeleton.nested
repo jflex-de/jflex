@@ -136,8 +136,8 @@
     }
 
     /* is the buffer big enough? */
-    if (zzCanGrow(zzBuffer.length) && zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
-      /* if not: blow it up */
+    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate && zzCanGrow()) {
+      /* if not, and it can grow: blow it up */
       char newBuffer[] = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
