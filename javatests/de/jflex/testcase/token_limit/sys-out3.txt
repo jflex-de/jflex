@@ -1,0 +1,4 @@
+
+Error in file "javatests/de/jflex/testcase/token_limit/limit3.flex" (line 9): 
+Token size limit expected (number literal or qualified identifier).
+%token_size_limit 0xABCDEFG

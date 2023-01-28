@@ -1,0 +1,4 @@
+
+Error in file "javatests/de/jflex/testcase/token_limit/limit1.flex" (line 9): 
+Token size limit expected (number literal or qualified identifier).
+%token_size_limit
