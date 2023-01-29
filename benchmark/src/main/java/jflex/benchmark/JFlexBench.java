@@ -18,10 +18,10 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-// @BenchmarkMode({Mode.AverageTime, Mode.SampleTime, Mode.SingleShotTime})
-@BenchmarkMode({Mode.AverageTime, Mode.SingleShotTime})
+@BenchmarkMode({Mode.AverageTime, Mode.SampleTime, Mode.SingleShotTime})
+// @BenchmarkMode({Mode.AverageTime, Mode.SingleShotTime})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Fork(value = 1)
+@Fork(value = 3)
 public class JFlexBench {
 
   @State(Scope.Benchmark)
@@ -30,7 +30,7 @@ public class JFlexBench {
      * Factor by which to scale the input size. We should see a benchmark time roughly linear in the
      * factor, i.e. the first time times 10 and 100.
      */
-    @Param({"100", "1000", "10000"})
+    @Param({"1000", "10000"})
     public int factor;
 
     @Param({"1", "2"})
@@ -110,7 +110,8 @@ public class JFlexBench {
    * The base line: a single continuous pass accessing each character once, through a buffer filled
    * by a reader in one single reader invocation.
    */
-  @Benchmark
+  // uncomment to enable baseline
+  // @Benchmark
   public void baselineReader(LexerState state, Blackhole bh) throws IOException {
     char[] buffer = new char[state.length];
     state.reader.reset();
