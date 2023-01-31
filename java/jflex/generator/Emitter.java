@@ -1071,17 +1071,12 @@ public final class Emitter {
     }
     println("  }");
     println();
-    println("  /**");
-    println("   * Determine whether the scanner buffer can grow to accommodate a larger token.");
-    println("   *");
-    println("   * @param len the current length of the buffer.");
-    println("   * @return true iff the scanner buffer can grow further.");
-    println("   */");
-    println("  private boolean zzCanGrow(int len) {");
+    println("  /**  Whether the scanner buffer can grow to accommodate a larger token. */");
+    println("  private boolean zzCanGrow() {");
     if (limit == null) {
       println("    return true;");
     } else {
-      println("    return len < zzMaxBufferLen();");
+      println("    return zzBuffer.length < " + limit + ";");
     }
     println("  }");
     println();

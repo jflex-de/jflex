@@ -1861,12 +1861,12 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
   // Interface for the new skeleton that expects zzCanGrow() and zzMaxBufferLen()
   // These will be inserted by JFlex >= 1.9.0, but we are generating with JFlex 1.8.2
   // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private boolean zzCanGrow(int len) {
+  private static boolean zzCanGrow() {
     return true;
   }
 
   // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private int zzMaxBufferLen() {
+  private static int zzMaxBufferLen() {
     return Integer.MAX_VALUE;
   }
 
@@ -1915,8 +1915,8 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
     }
 
     /* is the buffer big enough? */
-    if (zzCanGrow(zzBuffer.length) && zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate) {
-      /* if not: blow it up */
+    if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate && zzCanGrow()) {
+      /* if not, and it can grow: blow it up */
       char newBuffer[] = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
