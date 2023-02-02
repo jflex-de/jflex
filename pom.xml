@@ -172,7 +172,7 @@
       <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
         <artifactId>maven-plugin-annotations</artifactId>
-        <version>3.7.0</version>
+        <version>3.7.1</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.plugin-testing</groupId>
@@ -252,7 +252,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-javadoc-plugin</artifactId>
@@ -291,7 +291,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.9.1</version>
+          <version>3.12.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-source-plugin</artifactId>
