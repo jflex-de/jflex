@@ -5,6 +5,7 @@
 
 # JFlex Change Log
 
+
 ## [JFlex 1.9.0](https://github.com/jflex-de/jflex/milestone/17?closed=1) (TBD 2023)
 
 ### New features
@@ -36,17 +37,21 @@
 - fix example file name for minijava example
 - improved simple.flex example
 
+
 ## [JFlex 1.8.2](https://github.com/jflex-de/jflex/milestone/19) (May 3, 2020)
 
 - fix bug that prevented `%7bit` scanners from being generated (#756)
 - fix `%eof{` and `%eofthrow{` code generation (#743)
 - updated bazel build rule
 
+
 ## [JFlex 1.8.1](https://github.com/jflex-de/jflex/milestone/18) (February 28, 2020)
 
 - adjust CUP dependency management such that JFlex can be built from source in the release package.
 
+
 ## [JFlex 1.8.0](https://github.com/jflex-de/jflex/milestone/11) (February 26, 2020)
+
 - Unicode 10.0, 11.0, 12.0, and 12.1 are supported (#540, #555, #556, #563)
 - Unicode Emoji properties are supported for Unicode versions 8.0+ (#546)
 - Significantly decreased memory usage for unicode scanners from ~4MB to typical ~20kB. (#697)
@@ -69,6 +74,7 @@
 
 
 ## [JFlex 1.7.0](https://github.com/jflex-de/jflex/milestone/10) (September 21, 2018)
+
 - Unicode 8.0 and 9.0 are supported (#209)
 - updated to most recent version of CUP 11b (#175)
 - JFlex build and runtime now depend on JDK 1.7+
@@ -80,8 +86,10 @@
 - make jflex start script robust for other locales (#251)
 - report character position when %debug and %char are present (#207)
 
+
 ## [JFlex 1.6.1](https://github.com/jflex-de/jflex/milestone/9) (March 16, 2015)
-- JFlex development, wiki, and issue tracker moved to https://github.com/jflex-de/
+
+- JFlex development, wiki, and issue tracker moved to <https://github.com/jflex-de/>
 - in caseless mode, chars in regexps not accepted caselessly:
   Caseless option works again as intended. (#130)
 - re-enable scanning interactively or from a network byte stream:
@@ -95,7 +103,9 @@
   Now `EOF` is counted as the highest-priority empty match. (#133)
 - New warning when an expression matches the empty string (can lead to non-termination).
 
+
 ## [JFlex 1.6.0](https://github.com/jflex-de/jflex/milestone/16) (Jun 21, 2014)
+
 - Unicode 7.0 is supported.
 - In `%unicode` mode, supplementary code points are now handled properly.
   - Regular expressions are now code-point based, rather than code-unit/
@@ -117,14 +127,18 @@
   scanner.  The capability to include one is deprecated and will be
   removed in JFlex 1.7.
 
+
 ## [JFlex 1.5.1](https://github.com/jflex-de/jflex/milestone/13) (Mar 21, 2014)
+
 - fixed problem calling `./jflex` start scripts (#127)
 - corrected documentation flaws (#126)
 - further documentation and website updates
 - JFlex now reports the correct version string
 - added support for CUP2 with %cup2 switch, based on patch by Andreas Wenger
 
+
 ## [JFlex 1.5.0](https://github.com/jflex-de/jflex/milestone/12) (Jan 21, 2014)
+
 - the "switch" and "table" code generation options are deprecated
   and will be removed in JFlex 1.6
 - the JFlex license has been changed from GPL to BSD.
@@ -153,13 +167,17 @@
 - fixed bug #105 (can't build examples/java/)
 - fixed bug #106 (impossible char class range should trigger syntax error)
 
+
 ## [JFlex 1.4.3](https://github.com/jflex-de/jflex/milestone/15) (Jan 31, 2009)
+
 - fixed bug #100 (lookahead syntax error)
 - fixed bug #97 (min_int in Java example scanner)
 - fixed bug #96 (zzEOFDone not reset in yyreset(Reader))
 - fixed bug #95 (%type and %int at the same time should produce error msg)
 
+
 ## JFlex 1.4.2 (May 27, 2008)
+
 - implemented feature request #75:
   Now supports generics syntax for %type, %extends, etc
 - implemented feature request #156:
@@ -175,7 +193,9 @@
 - fixed bug #73 (OS/2 Java 1.1.8 Issues)
 - fixed bug #40 (dangerous lookahead check may fail)
 
+
 ## JFlex 1.4.1 (November 7, 2004)
+
 - merged in patch by Don Brown (fixes #70 Uses Old JUnit method assertFalse)
 - merged in patch by Don Brown (fixes #62 buffer expansion bug in yy_refill())
   Thanks to Binesh Bannerjee for providing a simpler test case for this problem.
@@ -186,7 +206,9 @@
 - fixed line number count for EOF actions
 - internal: removed unused methods in LexScan.flex and IntCharSet
 
+
 ## JFlex 1.4 (April 12, 2004)
+
 - new, very fast minimization algorithm (also fixes memory issues)
 - new --jlex option for strict compatibility to JLex. Currently it
   changes %ignorecase to JLex semantics, that is, character classes
@@ -226,7 +248,7 @@
 - fixed modifier order in generated code, removes jikes compiler warnings
   Thanks to Michael Wildpaner for the fix.
 - ant task now also works with ant >= 1.4 (fixes bug #54)
-- yyreset() does not declare an execption any more (fixes bug #65)
+- yyreset() does not declare an exception any more (fixes bug #65)
 - %cup does not include %eofclose in JLex mode (--jlex). (Fixes bug #63)
 - optional parameter to %eofclose: "%eofclose false" turns off %eofclose if
   it was turned on previously (e.g. by %cup). (Fixes bug #63)
@@ -239,6 +261,7 @@
 
 
 ## JFlex 1.3.5 (October 8, 2001)
+
 - fixed all bugs reported for version 1.3.4. Thanks to
   Amin Ahmad and Fred Wehrhahn for their excellent bug reports.
 - implemented feature request #137: vim syntax file.
@@ -247,6 +270,7 @@
 
 
 ## JFlex 1.3.4 (October 1, 2001)
+
 - fixed all bugs reported for version 1.3.3. Thanks to Mike Akerman
   for his excellent bug reports and his help.
 - implemented feature request #138: exclusive start states.
@@ -255,6 +279,7 @@
 
 
 ## JFlex 1.3.3 (September 21, 2001)
+
 - fixed all reported bugs except #40 (lookahead check at generation
   time may fail).  Thanks to Axel Schwolow, Karl Meissner, Angelo
   Borsotti, and Paolo Di Francesco for their excellent bug reports.
@@ -273,7 +298,7 @@
 - command line switch --info prints system and JVM information (useful
   for bug reports)
 - command line switch --nobak for not generating backup files
-- an Ant task for the Ant build tool http://jakarta.apache.org/ant/
+- an Ant task for the Ant build tool <http://jakarta.apache.org/ant/>
   contributed by Rafal Mantiuk. Many thanks to him.
 - better error message for missing ] in char class. Thanks to Karl
   Meissner.
@@ -283,8 +308,8 @@
   insights, tips, and fruitful discussions.
 - a new warning if a rule can never be matched
 - macros and regular expression can now span multiple lines (note
-  that <tt>|</tt> at the end of a line in a rule is a special action,
-  not the <tt>|</tt> operator)
+  that `|` at the end of a line in a rule is a special action,
+  not the `|` operator)
 - updated the manual to contain more information about the generated
   class, clarified the description of lexical states. Thanks to Michael
   Binz, Angelo Borsotti, Vasily Karyaev and  for the suggestions.
@@ -296,12 +321,13 @@
 
 
 ## JFlex 1.3.2 (February 24, 2001)
+
 - fixed bug #31 (this time for real). Thanks to Thilo Goetz for
   his quick report.
 - updated the binary scanning example with the more comprehensive and
   usable class StraightStreamReader by Stephen Ostermiller. Thanks go to
   him for his contribution. The original version of this class is at
-  http://www.smo.f2s.com/utils/
+  <http://www.smo.f2s.com/utils/>
 - added a link to a Japanese translation of the JFlex manual (it's in Japanese
   Shift_JIS encoding). The translation is for an older release (1.1.2), but
   most of the text still applies to the current version. See the change log
@@ -316,6 +342,7 @@
 
 
 ## JFlex 1.3.1 (February 20, 2001)
+
 - fixed all JFlex bugs reported for 1.3 (bugs #31-#35)
   Thanks to Hans Kratz, Vasily Karyaev, Alexey Yakovets, and Tom Moog for
   their excellent reports.
@@ -323,9 +350,9 @@
   . a demonstration how to scan binary files
   . a small calculator example for Cup, based on the example in the Linux
     Gazette by Richard A. Sevenich and Christopher Lopes. See also
-    http://www.linuxgazette.com/issue39/sevenich.html
-    http://www.linuxgazette.com/issue41/sevenich.html
-    http://www.linuxgazette.com/issue41/lopes/lopes.html
+    <http://www.linuxgazette.com/issue39/sevenich.html>
+    <http://www.linuxgazette.com/issue41/sevenich.html>
+    <http://www.linuxgazette.com/issue41/lopes/lopes.html>
 - manual section about encodings, platforms and Unicode.
   Thanks to Stephen Ostermiller for his valuable input.
 - switch for skipping the minimization step in DFA generation (--nomin).
@@ -337,9 +364,9 @@
   teaching. This feature is also still in alpha status and not fully finished
   yet. It is included as preview, comments are welcome, please try it out and
   tell me what you think. For information on graphviz see
-  http://www.research.att.com:80/sw/tools/graphviz/
+  <http://www.research.att.com:80/sw/tools/graphviz/>
 - changed to --style long command line switches (single - still recognized).
-- moved part of the project to http://sourceforge.net/projects/jflex/
+- moved part of the project to <http://sourceforge.net/projects/jflex/>
 
 
 ## JFlex 1.3 (October 21, 2000)
@@ -355,7 +382,7 @@
 - Split up of too large lex tables for even larger scanner sizes.
 - New additional external skeleton with support for nested input streams.
 - JLex compatibility: BOL ^ and EOL $ use unicode line separators as in
-  http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html.
+  <http://www.unicode.org/unicode/reports/tr18/tr18-5.1.html>.
 - New resetStream method for reusing scanner objects.
 _ BYacc/J support (%byaccj) + BYacc/J example.
 - Include files in lexer specs (%include).
@@ -363,6 +390,7 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 
 
 ## JFlex 1.2.2 (August 23, 1999)
+
 - Updated JFlex to the new CUP version 0.10j.
 - Eliminated some remaining platform dependent newlines in the generated source code
   (affecting the readabilty of the generated code only, no functional changes).
@@ -372,12 +400,14 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 
 
 ## JFlex 1.2.1 (June 25, 1999)
+
 - Fixed all bugs reported for version 1.2 (#17-#19).
-- Webpage redesigned and moved to http://www.jflex.de.
+- Webpage redesigned and moved to <http://www.jflex.de>.
 - Example java lexer/parser switched to Java 1.2.
 
 
 ## JFlex 1.2 (March 21, 1999)
+
 - Fixed all bugs for 1.1.2.
 - JFlex now works again with Solaris JIT.
 - Significant Unicode optimizations in scanning and generation performance,
@@ -385,7 +415,7 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - added command line switches for more customization
 - external skeleton files
 - new GUI without any console output
-- <<EOF>> as in lex/flex
+- `<<EOF>>` as in lex/flex
 - better error messages
 - better generation speed
 - better generation memory efficiency
@@ -402,15 +432,18 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 
 
 ## JFlex 1.1.2
+
 - All bugs reported for version 1.1.1 (#8-#10) have been fixed.
 
 
 ## JFlex 1.1.1
+
 - All bugs reported for version 1.1 (i.e. bug #7 and feature request #6) have been fixed.
 - Scanning speed was optimized further.
 
 
 ## JFlex 1.1 adds new features and fixes all known bugs of 1.0
+
 - Revised directory structure.
 - Fixed all reported bugs (#1-#5 and some unreported ones).
 - Fixed thousands of typos in the manual.
@@ -421,10 +454,11 @@ _ BYacc/J support (%byaccj) + BYacc/J example.
 - method for closing the input stream,
 - method for the current lexical state,
 - method for rereading matched text,
-- backup of files that are overwitten in the generation process,
+- backup of files that are overwritten in the generation process,
 - improved error reporting,
-- graphical UI when no filename is provided on the commandline
+- graphical UI when no filename is provided on the command line
 
 
-## JFlex 1.0 (May 1998) was the first public release of JFlex.
- It was developed using Sun's JDK 1.1, JFlex (bootstrapped) and the parser generator CUP
+## JFlex 1.0 (May 1998) was the first public release of JFlex
+
+It was developed using Sun's JDK 1.1, JFlex (bootstrapped) and the parser generator CUP
