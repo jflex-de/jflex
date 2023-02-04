@@ -61,7 +61,7 @@ update_source() {
   logi "Git status"
   git status
   # Don't commit if the diff is empty.
-  # git commit fails if the commit is empty, which makes Travis build fail.
+  # git commit fails if the commit is empty, which makes CI build fail.
   git diff-index --quiet HEAD || \
       git commit -a \
           -m "Pseudo-Merge $gittitle" \

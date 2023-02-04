@@ -84,7 +84,7 @@ Then:
 
   1. Create a pull request to merge **branch-x.y.z** into **master**.
      This is important so that **aggregated-java-sources** is built by
-     Travis with the final release version.
+     CI with the final release version.
   2. Check that all tests come back green.
   3. **Hold off merge into master** until deployment has succeeded.
 
@@ -172,7 +172,7 @@ Copy contents of `target/site` to directory `jflex-maven-plugin` on branch `gh-p
 
 ### Tag the _aggregate-java-sources_ branch
 
-Travis will update the **aggregated-java-sources** branch from master.
+CI will update the **aggregated-java-sources** branch from master.
 
 Once this is done,
 
