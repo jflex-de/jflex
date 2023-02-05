@@ -18,7 +18,7 @@ import jflex.logging.Out;
  * Character Classes.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public class CharClasses {
 

@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
  * Property-based tests for {@link CharClasses}
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  * @see IntCharSet
  */
 @RunWith(JUnitQuickcheck.class)

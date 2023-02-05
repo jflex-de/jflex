@@ -15,7 +15,7 @@ import jflex.logging.Out;
  * <p>It stores the Java code as String together with a priority (line number in the specification).
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public final class Action {
 

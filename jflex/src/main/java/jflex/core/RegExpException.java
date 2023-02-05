@@ -12,7 +12,7 @@ package jflex.core;
  * <p>If this is encountered, this means there is a bug.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 // TODO Move all regexp related code to jflex.regexp
 // This class lives in package jflex.core, because the reference to jflex.core.RegExp would
