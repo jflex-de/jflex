@@ -9,7 +9,7 @@ package jflex.exceptions;
  * Thrown when code generation has to be aborted.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0
+ * @version JFlex 1.10.0-SNAPSHOT
  */
 public class GeneratorException extends RuntimeException {
 

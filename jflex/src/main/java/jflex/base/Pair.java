@@ -11,7 +11,7 @@ import java.util.Objects;
  * Generic immutable pair.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0
+ * @version JFlex 1.10.0-SNAPSHOT
  */
 public class Pair<A, B> {
   public final A fst;
