@@ -19,30 +19,27 @@ To install JFlex on Windows, follow these three steps:
 
 ```
     C:\jflex-$VERSION\
-        +--bin\                        (start scripts)
-        +--doc\                        (FAQ and manual)
+        +--bin\                      (start scripts)
+        +--doc\                      (manual)
         +--examples\
-            +--byaccj\                 (calculator example for BYacc/J)
-            +--cup-maven\              (calculator example for cup and maven)
-            +--interpreter\            (interpreter example for cup)
-            +--java\                   (Java lexer specification)
-            +--simple\                 (example scanner with no parser)
-            +--standalone-maven\       (a simple standalone scanner,
-                                        built with maven)
-            +--zero-reader\            (Readers that return 0 characters)
-        +--lib\                        (precompiled classes)
+            +--byaccj\               (calculator example for BYacc/J)
+            +--common\               (shared Makefile and ant build files)
+            +--cup-interpreter\      (interpreter example for cup)
+            +--cup-java\             (Java lexer specification for use with cup)
+            +--cup-java-minijava\    (example scanner from the manual)
+            +--cup-lcalc\            (calculator example for cup and maven)
+            +--simple\               (example scanner with no parser)
+            +--standalone\           (a simple standalone scanner)
+            +--zero-reader\          (Readers that return 0 characters)
+        +--lib\                      (precompiled classes)
         +--src\
             +--main\
-                +--config\             (PMD source analyzer configuration)
-                +--cup\                (JFlex parser spec)
-                +--java\
-                    +--jflex\          (source code of JFlex)
-                        +--anttask\    (source code of JFlex Ant Task)
-                        +--gui\        (source code of JFlex UI classes)
-                        +--unicode\    (source code for Unicode properties)
-                +--jflex\              (JFlex scanner spec)
-                +--resources\          (messages and default skeleton file)
-            +--test\                   (unit tests)
+                +--config\           (PMD source analyzer configuration)
+                +--cup\              (JFlex parser spec)
+                +--java\jflex\       (source code of JFlex)
+                +--jflex\            (JFlex scanner spec)
+                +--resources\        (messages and default skeleton file)
+            +--test\                 (unit tests)
 ```
 
 2.  Edit the file **`bin\jflex.bat`** (in the example it’s
