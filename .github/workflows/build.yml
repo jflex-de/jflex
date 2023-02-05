@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 11, 13 ]
+        java: [ 8, 11, 17 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -81,7 +81,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 13 ]
+        java: [ 8, 11, 17 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -99,12 +99,16 @@ jobs:
   javadoc:
     name: Javadoc
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ 8, 11, 17 ]
+      fail-fast: false
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: 8
+        java-version: ${{ matrix.java }}
         distribution: zulu
         cache: maven
     - name: '🔨 Build JFlex jar'
