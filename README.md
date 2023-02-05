@@ -40,7 +40,7 @@ You need [Maven][maven] 3.5.2 or later, and JDK 8 or later.
           <plugin>
             <groupId>de.jflex</groupId>
             <artifactId>jflex-maven-plugin</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.0</version>
             <executions>
               <execution>
                 <goals>
@@ -104,7 +104,7 @@ jflex/bin/jflex src/grammar/parser.flex
 Or:
 
 ```sh
-java -jar jflex-full-1.8.2.jar -d output src/grammar/parser.flex
+java -jar jflex-full-1.9.0.jar -d output src/grammar/parser.flex
 ```
 
 ### Other build tools
