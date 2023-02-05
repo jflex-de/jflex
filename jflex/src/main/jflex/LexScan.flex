@@ -90,18 +90,6 @@ import jflex.skeleton.Skeleton;
     // yypushStream in skeleton.nested
     yypushStream(Files.newBufferedReader(f.toPath(), Options.encoding));
   }
-
-  // Interface for the new skeleton that expects zzCanGrow() and zzMaxBufferLen()
-  // These will be inserted by JFlex >= 1.9.0, but we are generating with JFlex 1.8.2
-  // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private static boolean zzCanGrow() {
-    return true;
-  }
-
-  // TODO(lsf): remove this method when JFlex 1.9.0 is released
-  private static int zzMaxBufferLen() {
-    return Integer.MAX_VALUE;
-  }
 %}
 
 %init{
