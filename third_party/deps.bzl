@@ -10,8 +10,8 @@
 """Dependencies for the project."""
 
 ARTIFACTS = [
-    "com.github.vbmacher:java-cup-runtime:jar:11b-20160615",
-    "com.github.vbmacher:java-cup:jar:11b-20160615",
+    "com.github.vbmacher:java-cup-runtime:jar:11b-20160615-1",
+    "com.github.vbmacher:java-cup:jar:11b-20160615-1",
     "com.google.auto.value:auto-value-annotations:jar:1.9",
     "com.google.auto.value:auto-value:jar:1.7",
     "com.google.code.findbugs:jsr305:3.0.2",

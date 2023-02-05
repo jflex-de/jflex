@@ -3,30 +3,30 @@
         "conflict_resolution": {},
         "dependencies": [
             {
-                "coord": "com.github.vbmacher:java-cup-runtime:11b-20160615",
-                "file": "v1/https/jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar",
+                "coord": "com.github.vbmacher:java-cup-runtime:11b-20160615-1",
+                "file": "v1/https/jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar",
+                "url": "https://jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar",
-                    "https://maven.google.comcom/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar",
-                    "https://repo1.maven.org/maven2com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar"
+                    "https://jcenter.bintray.com/com/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar",
+                    "https://maven.google.comcom/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar",
+                    "https://repo1.maven.org/maven2com/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar"
                 ],
-                "sha256": "68b6031a9ecaacb48c505471abaf1dfcf197036b2d41e0fa87ed52354a1ce662"
+                "sha256": "7efa10d1a1d8a77f855be46e14f1011ff716e2a000a34335b57e44eeed68e03b"
             },
             {
-                "coord": "com.github.vbmacher:java-cup:11b-20160615",
-                "file": "v1/https/jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615/java-cup-11b-20160615.jar",
+                "coord": "com.github.vbmacher:java-cup:11b-20160615-1",
+                "file": "v1/https/jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar",
                 "directDependencies": [],
                 "dependencies": [],
-                "url": "https://jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615/java-cup-11b-20160615.jar",
+                "url": "https://jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615/java-cup-11b-20160615.jar",
-                    "https://maven.google.comcom/github/vbmacher/java-cup/11b-20160615/java-cup-11b-20160615.jar",
-                    "https://repo1.maven.org/maven2com/github/vbmacher/java-cup/11b-20160615/java-cup-11b-20160615.jar"
+                    "https://jcenter.bintray.com/com/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar",
+                    "https://maven.google.comcom/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar",
+                    "https://repo1.maven.org/maven2com/github/vbmacher/java-cup/11b-20160615-1/java-cup-11b-20160615-1.jar"
                 ],
-                "sha256": "b6b27727d80f563950b20b3b6b5062ae7ce78a1b61a0f3113f42164ce0b31d5f"
+                "sha256": "9871a209736086250a52d29b49caddd22af68e7d7e8b611bb549fb979df9b6d6"
             },
             {
                 "coord": "com.google.auto.value:auto-value-annotations:1.9",
@@ -296,24 +296,26 @@
                 "sha256": "2c73b940c91250bc98346926270f13a6a10bb6e29d2c9316a70d134e382c873e"
             },
             {
-                "coord": "de.jflex:jflex:1.8.2",
-                "file": "v1/https/jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
+                "coord": "de.jflex:jflex:1.9.0",
+                "file": "v1/https/jcenter.bintray.com/de/jflex/jflex/1.9.0/jflex-1.9.0.jar",
                 "directDependencies": [
-                    "com.github.vbmacher:java-cup-runtime:11b-20160615",
+                    "com.github.vbmacher:java-cup-runtime:11b-20160615-1",
+                    "com.google.code.findbugs:jsr305:3.0.2",
                     "org.apache.ant:ant:1.10.12"
                 ],
                 "dependencies": [
-                    "com.github.vbmacher:java-cup-runtime:11b-20160615",
+                    "com.github.vbmacher:java-cup-runtime:11b-20160615-1",
                     "org.apache.ant:ant-launcher:1.10.12",
-                    "org.apache.ant:ant:1.10.12"
+                    "org.apache.ant:ant:1.10.12",
+                    "com.google.code.findbugs:jsr305:3.0.2"
                 ],
-                "url": "https://jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
+                "url": "https://jcenter.bintray.com/de/jflex/jflex/1.9.0/jflex-1.9.0.jar",
                 "mirror_urls": [
-                    "https://jcenter.bintray.com/de/jflex/jflex/1.8.2/jflex-1.8.2.jar",
-                    "https://maven.google.comde/jflex/jflex/1.8.2/jflex-1.8.2.jar",
-                    "https://repo1.maven.org/maven2de/jflex/jflex/1.8.2/jflex-1.8.2.jar"
+                    "https://jcenter.bintray.com/de/jflex/jflex/1.9.0/jflex-1.9.0.jar",
+                    "https://maven.google.comde/jflex/jflex/1.9.0/jflex-1.9.0.jar",
+                    "https://repo1.maven.org/maven2de/jflex/jflex/1.9.0/jflex-1.9.0.jar"
                 ],
-                "sha256": "151bf841f406febd2a34d511ff9123a78f4852f957055f4d436112c4ac1f87a8"
+                "sha256": "0b051212b9e9c8af51188541dd2226362ee1e7fd8184d2bb10e91111eb7b62d7"
             },
             {
                 "coord": "javax.annotation:javax.annotation-api:1.3.2",
@@ -900,6 +902,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 739744447
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 1017140162
     }
 }
