@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Copyright 2023, Gerwin Klein
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Pandoc versions >= 2.11 use --citeproc
+# Pandoc versions < 2.11 use --filter pandoc-citeproc
+#
+# This wrapper checks the version of pandoc and returns the appropriate
+# command line argument.
+#
+# Pandoc versions are assumed to be of the form "major.minor". This script will
+# fail with an error if they are not.
+
+VERSION=$(pandoc --version | head -n 1 | cut -d ' ' -f 2)
+
+MAJOR=$(echo $VERSION | cut -d '.' -f 1)
+MINOR=$(echo $VERSION | cut -d '.' -f 2)
+
+if [ $MAJOR -gt 2 ] || [ $MAJOR -eq 2 -a $MINOR -ge 11 ]; then
+    echo "--citeproc"
+else
+    echo "--filter pandoc-citeproc"
+fi
