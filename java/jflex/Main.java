@@ -36,7 +36,7 @@ import jflex.option.Options;
  *
  * @author Gerwin Klein
  * @author Régis Décamps
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public class Main {
 

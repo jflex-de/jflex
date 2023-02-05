@@ -17,7 +17,7 @@ import jflex.logging.Out;
  * Low priority thread for code generation (low priority that gui has time for screen updates)
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public class GeneratorThread extends Thread {
 

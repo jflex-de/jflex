@@ -19,7 +19,7 @@ import jflex.logging.Out;
  * Stores all rules of the specification for later access in the RegExp to NFA conversion.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public class RegExps {
 

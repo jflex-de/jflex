@@ -15,7 +15,7 @@ import java.util.Set;
  * Simple symbol table, mapping lexical state names to integers.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public class LexicalStates {
 

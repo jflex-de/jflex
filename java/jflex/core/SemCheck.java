@@ -12,7 +12,7 @@ import jflex.logging.Out;
  * Performs simple semantic analysis on regular expressions.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0-SNAPSHOT
+ * @version JFlex 1.9.0
  */
 public final class SemCheck {
 
