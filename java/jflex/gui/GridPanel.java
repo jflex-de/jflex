@@ -17,7 +17,7 @@ import java.util.List;
  * Grid layout manager like GridLayout but with predefinable grid size.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.0
+ * @version JFlex 1.10.0-SNAPSHOT
  */
 public class GridPanel extends Panel {
 
