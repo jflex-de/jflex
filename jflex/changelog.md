@@ -6,7 +6,7 @@
 # JFlex Change Log
 
 
-## [JFlex 1.9.0](https://github.com/jflex-de/jflex/milestone/17?closed=1) (TBD 2023)
+## [JFlex 1.9.0](https://github.com/jflex-de/jflex/milestone/17?closed=1) (Feb 5, 2023)
 
 ### New features
 
