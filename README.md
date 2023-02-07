@@ -88,7 +88,7 @@ jflex(
 )
 ```
 
-See the sample [simple BUILD](https://github.com/jflex-de/jflex/blob/master/jflex/examples/simple/BUILD)
+See the sample [simple BUILD](https://github.com/jflex-de/jflex/blob/master/jflex/examples/simple/BUILD.bazel)
 file.
 
 ### Usage in CLI
