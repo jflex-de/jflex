@@ -161,7 +161,7 @@ public class CharClasses {
     if (caseless) set = set.getCaseless(unicodeProps);
 
     if (DEBUG) {
-      Out.dump("makeClass(" + set + ")");
+      Out.dump("makeClass(" + set + ", " + caseless + ")");
       dump();
     }
 
