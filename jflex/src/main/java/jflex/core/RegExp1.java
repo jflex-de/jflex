@@ -16,7 +16,7 @@ import jflex.logging.Out;
  * <p>For instance: a* is new RegExp1(sym.STAR, 'a');
  *
  * @author Gerwin Klein
- * @version JFlex 1.10.0-SNAPSHOT
+ * @version JFlex 1.9.1-SNAPSHOT
  */
 public class RegExp1 extends RegExp {
 
