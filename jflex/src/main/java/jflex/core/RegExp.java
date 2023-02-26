@@ -388,6 +388,7 @@ public class RegExp {
           return new RegExp1(type, unary.content);
 
         case sym.CCLASS:
+        case sym.CCLASSNOT:
           {
             unary = (RegExp1) this;
             List<RegExp> contents = (List<RegExp>) unary.content;
@@ -396,19 +397,8 @@ public class RegExp {
               RegExp1 n = checkPrimClass(r.normaliseCCLs(f, line));
               set.add((IntCharSet) n.content);
             }
-            return new RegExp1(sym.PRIMCLASS, set);
-          }
-
-        case sym.CCLASSNOT:
-          {
-            unary = (RegExp1) this;
-            List<RegExp> contents = (List<RegExp>) unary.content;
-            IntCharSet set = IntCharSet.allChars();
-            for (RegExp r : contents) {
-              RegExp1 n = checkPrimClass(r.normaliseCCLs(f, line));
-              set.sub((IntCharSet) n.content);
-            }
-            return new RegExp1(sym.PRIMCLASS, set);
+            return new RegExp1(
+                sym.PRIMCLASS, type == sym.CCLASS ? set : IntCharSet.complementOf(set));
           }
 
         case sym.CCLASSOP:
