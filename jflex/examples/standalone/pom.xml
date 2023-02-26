@@ -41,7 +41,7 @@ of "hello" by "hello &lt;name&gt; !".</description>
       <plugin>
         <groupId>de.jflex</groupId>
         <artifactId>jflex-maven-plugin</artifactId>
-        <version>1.10.0-SNAPSHOT</version>
+        <version>1.9.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>

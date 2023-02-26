@@ -11,7 +11,7 @@ import jflex.logging.Out;
  * Regular expression with two children (e.g. a | b)
  *
  * @author Gerwin Klein
- * @version JFlex 1.10.0-SNAPSHOT
+ * @version JFlex 1.9.1-SNAPSHOT
  */
 public class RegExp2 extends RegExp {
 
