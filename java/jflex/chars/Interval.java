@@ -28,8 +28,8 @@ public final class Interval implements Iterable<Integer> {
    * @param end last codepoint the interval contains
    */
   public Interval(int start, int end) {
-    this.start = start;
-    this.end = end;
+    this.start = Math.min(start, end);
+    this.end = Math.max(start, end);
     assert invariants();
   }
 
