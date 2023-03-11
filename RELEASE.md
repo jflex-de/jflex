@@ -11,7 +11,7 @@ JFlex and the JFlex Maven Plugin.
 JFlex and the JFlex Maven Plugin will be deployed to the Sonatype OSS Maven
 repository at [oss.sonatype.org][sonatype].
 The Maven Central repository is synchronized with this repository.
-For more information, see [Sonatype respository usage guide][sonatype-repo-usage].
+For more information, see [Sonatype repository usage guide][sonatype-repo-usage].
 
 ## Prepare to release (only once)
 
@@ -83,10 +83,8 @@ git branch -D branch-x.y.z
 Then:
 
   1. Create a pull request to merge **branch-x.y.z** into **master**.
-     This is important so that **aggregated-java-sources** is built by
-     CI with the final release version.
   2. Check that all tests come back green.
-  3. **Hold off merge into master** until deployment has succeeded.
+  3. **Hold off merge into master** until tests have succeeded.
 
 ### Build all artifacts
 
@@ -102,7 +100,7 @@ Run the packaging script:
 ./scripts/mk-release.sh
 ```
 
-This generates the documentation and builds the .tar.gz and .zip file.
+This generates the documentation and builds the `.tar.gz` and `.zip` file.
 
 Go into `releases/jflex-$version` and see if things look as expected.
 
@@ -113,6 +111,9 @@ Go into `releases/jflex-$version` and see if things look as expected.
 ```
 
 ### Publish the staged release on Sonatype
+
+Do the Sonatype process before tagging, because it sometimes reveals errors
+that need to be fixed first.
 
 After staging the release, you have to perform several manual steps
 on the Sonatype OSS Maven repository website <http://oss.sonatype.org>
@@ -125,7 +126,7 @@ after logging into the site:
    5. Click the "Close" button just to the right of the "Refresh" button.
      This process may take a while - once the artifacts have been uploaded,
      automated quality checks are performed to insure everything meets
-     the advertized standards.
+     the advertised standards.
    6. Click the "Refresh" button again.
    7. Click the "Release" button, to the right of the "Refresh" button -
      this is the final step to release the artifacts.  Maven Central
@@ -141,9 +142,9 @@ git tag -s vX.Y.Z
 git push origin vX.Y.Z
 ```
 
-### Create github release
+### Create GitHub release
 
-- Create github release on <https://github.com/jflex-de/jflex/releases>
+- Create GitHub release on <https://github.com/jflex-de/jflex/releases>
   with the release tag used above.
 - Add the release package files (at least `.tar.gz` and signature files,
   because they will be referenced from the jflex website) and manual.
@@ -168,7 +169,7 @@ Generate jflex-maven-plugin site in repo `jflex` in dir `jflex-maven-plugin` wit
 mvn site
 ```
 
-Copy contents of `target/site` to directory `jflex-maven-plugin` on branch `gh-pages` in repo `jflex-web`. Push to github to deploy.
+Copy contents of `target/site` to directory `jflex-maven-plugin` on branch `gh-pages` in repo `jflex-web`. Push to GitHub to deploy.
 
 ### Tag the _aggregate-java-sources_ branch
 
@@ -207,7 +208,4 @@ Finally:
 - merge into master
 
 [sonatype]: http://oss.sonatype.org/
-[maven-site-deploy]: http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html
-[sf-ssh]: https://sourceforge.net/p/forge/documentation/SSH%20Keys/
-[sf-shell]: https://sourceforge.net/p/forge/documentation/Shell%20Service/
 [sonatype-repo-usage]: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
