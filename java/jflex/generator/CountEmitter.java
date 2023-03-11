@@ -9,7 +9,7 @@ package jflex.generator;
  * An emitter for an array encoded as count/value pairs in a string.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.1-SNAPSHOT
+ * @version JFlex 1.9.1
  */
 public class CountEmitter extends PackEmitter {
   /** number of entries in expanded array */

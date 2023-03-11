@@ -12,7 +12,7 @@ import jflex.logging.Out;
  * Enumerates the states of a {@link StateSet}. Also provides an iterator for native int.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.1-SNAPSHOT
+ * @version JFlex 1.9.1
  * @see StateSet
  */
 public final class StateSetEnumerator implements PrimitiveIterator.OfInt {

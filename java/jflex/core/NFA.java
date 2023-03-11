@@ -33,7 +33,7 @@ import jflex.state.StateSetEnumerator;
  * <p>Contains algorithms RegExp → NFA.
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.1-SNAPSHOT
+ * @version JFlex 1.9.1
  */
 public final class NFA {
 
