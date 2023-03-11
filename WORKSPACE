@@ -13,9 +13,9 @@ RULES_JVM_EXTERNAL_SHA = "1bbf2e48d07686707dd85357e9a94da775e1dbd7c464272b366428
 
 http_archive(
     name = "jflex_rules",
-    sha256 = "488e523bfed0e1793c68264341bc9c3050f4de3e4aa920f9a72d76ae327935e6",
-    strip_prefix = "bazel_rules-1.9.0",
-    url = "https://github.com/jflex-de/bazel_rules/archive/v1.9.0.tar.gz",
+    sha256 = "c4d68bde12f47af86b6f80a34dd55c67e82cf77b7ff2317cb472c07b1d09a6da",
+    strip_prefix = "bazel_rules-1.9.1",
+    url = "https://github.com/jflex-de/bazel_rules/archive/v1.9.1.tar.gz",
 )
 
 load("@jflex_rules//jflex:deps.bzl", "JFLEX_ARTIFACTS")
