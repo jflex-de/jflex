@@ -60,6 +60,7 @@ For more information, see [Sonatype repository usage guide][sonatype-repo-usage]
 
 - make sure `RELEASE_DATE` in [docs/Makefile](./docs/Makefile) is up to date
 - make sure `UNICODE_VERSION` in the Makefile is up to date
+- check version in [xmanual.tex](./docs/xmanual.tex)
 - check that all new features are included in the manual
 
 ### Check CUP maven plugin
