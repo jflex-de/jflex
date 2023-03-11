@@ -62,6 +62,26 @@ For more information, see [Sonatype repository usage guide][sonatype-repo-usage]
 - make sure `UNICODE_VERSION` in the Makefile is up to date
 - check that all new features are included in the manual
 
+### Check CUP maven plugin
+
+The CUP plugin has its own versioning scheme and if the version has not changed
+the release will fail. If there have not been any changes, the deployment can
+be skipped by adding
+
+```xml
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+```
+
+to the [pom.xml](./cup-maven-plugin/pom.xml).
+
 ### Run the `prepare-release.pl` script
 
 ```sh

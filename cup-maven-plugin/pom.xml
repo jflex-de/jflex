@@ -90,6 +90,16 @@
         <directory>resources</directory>
       </resource>
     </resources>
+    <plugins>
+      <!-- remove this if there have been updates to the cup plugin: -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
