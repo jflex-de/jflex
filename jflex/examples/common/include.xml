@@ -18,7 +18,7 @@
   <property name="common.dir" value="../common" />
 
   <!-- JFlex task -->
-  <property name="jflex" value="../../lib/jflex-full-1.9.1-SNAPSHOT.jar"/>
+  <property name="jflex" value="../../lib/jflex-full-1.9.1.jar"/>
   <taskdef classname="jflex.anttask.JFlexTask" name="jflex" classpath="${jflex}"/>
 
   <!-- ivy installer -->
