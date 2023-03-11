@@ -5,6 +5,13 @@
 
 # JFlex Change Log
 
+## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
+
+- fix negated char classes with overlapping content (#1065, #1066):
+  Expressions such as `[^\s\n]` were translated incorrectly, because `\s` and
+  `\n` overlap and the negation operator `^` in version 1.9.0 did not handle
+  this case correctly.
+
 
 ## [JFlex 1.9.0](https://github.com/jflex-de/jflex/milestone/17?closed=1) (Feb 5, 2023)
 
