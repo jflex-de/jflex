@@ -78,6 +78,6 @@ shasum $JFLEX_TAR > $JFLEX_TAR.sha1
 rm -f $JFLEX_ZIP $JFLEX_ZIP.asc $JFLEX_ZIP.sha1
 zip -r $JFLEX_ZIP jflex-$VERSION
 "$GPG" -ba -u $KEY $JFLEX_ZIP
-shasum $JFLEX_ZIP > $JFLEX_ZIP.zip.sha1
+shasum $JFLEX_ZIP > $JFLEX_ZIP.sha1
 
 echo "------[ Release packages in $(PWD) ]"
