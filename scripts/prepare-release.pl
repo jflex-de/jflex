@@ -106,8 +106,9 @@ print " updating version in docs/Makefile";
 system ('perl -pi -e "s/-SNAPSHOT//" docs/Makefile');
 print "\ndone.\n\n";
 
-print " updating version in jflex/README.md";
+print " updating version in jflex/README.md and jflex/examples/simple/README.md";
 system ('perl -pi -e "s/-SNAPSHOT//" jflex/README.md');
+system ('perl -pi -e "s/-SNAPSHOT//" jflex/examples/simple/README.md');
 print "\ndone.\n\n";
 
 print " updating version in scripts/mk-release.sh";
@@ -119,10 +120,6 @@ system ('find jflex -name "*.java" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/     
 system ('find jflex -name "LexScan.flex" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
 system ('find jflex -name "LexParse.cup" | xargs perl -pi -e "s/-SNAPSHOT(.*)\\*/         \\1*/"');
 system ('find jflex -name "*.java" | xargs perl -pi -e "s/@version (.*)-SNAPSHOT/@version \\1/"');
-print "\ndone.\n\n";
-
-print " updating version in jflex-maven-plugin/src/site/apt/usage.apt";
-system (qq!perl -pi -e "s~<version>.*?</version>~<version>$release</version>~" jflex-maven-plugin/src/site/apt/usage.apt!);
 print "\ndone.\n\n";
 
 print "Committing version update ...\n";
