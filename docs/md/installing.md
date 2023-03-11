@@ -151,12 +151,12 @@ display error messages only (no chatter about what JFlex is currently
 doing)
 
 `--warn-<warning>`\
-switch on warning type `<warning>`, where `<warning>` is one of
+switch on warning type `<warning>`, where `<warning>` is one of\
 `unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `unicode-too-long`,
 `all`.
 
 `--no-warn-<warning>`\
-suppress warnings of type `<warning>`, where `<warning>` is one of
+suppress warnings of type `<warning>`, where `<warning>` is one of\
 `unused`, `never-match`, `empty-match`, `cupsym-after-cup`, `unicode-too-long`,
 `all`.
 

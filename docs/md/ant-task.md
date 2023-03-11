@@ -80,7 +80,8 @@ The following attributes are available for invoking the JFlex task.
     Use JLex compatibility mode.
 
 -  `legacydot` (default `"off"`)\
-    The dot `.` meta-character matches `[^\n]` instead of `[^\n\r\u000B\u000C\u0085\u2028\u202 9]`
+    The dot `.` meta-character matches `[^\n]` instead of\
+    `[^\n\r\u000B\u000C\u0085\u2028\u202 9]`
 
 -  `unusedwarning` (default `"true"`)\
     Warn about unused macro definitions in the lexer specification.
