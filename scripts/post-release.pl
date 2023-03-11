@@ -124,8 +124,9 @@ print " updating version in docs/Makefile";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/Makefile!);
 print "\ndone.\n\n";
 
-print " updating version in jflex/README.md";
+print " updating version in jflex/README.md and exmaples/*/README.md";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/README.md!);
+system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" jflex/examples/simple/README.md!);
 print "\ndone.\n\n";
 
 print " updating version in scripts/mk-release.sh";

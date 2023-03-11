@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
  * Property-based tests for {@link StateSet}
  *
  * @author Gerwin Klein
- * @version JFlex 1.9.1
+ * @version JFlex 1.10.0-SNAPSHOT
  * @see StateSet
  */
 @RunWith(JUnitQuickcheck.class)
