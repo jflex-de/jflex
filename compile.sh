@@ -23,10 +23,10 @@ mvnget() {
   CP="$CP:lib/$jarfile"
 }
 
-mvnget org/apache/ant/ant/1.7.0/ant-1.7.0.jar
-mvnget com/google/auto/value/auto-value-annotations/1.7/auto-value-annotations-1.7.jar
+mvnget org/apache/ant/ant/1.10.12/ant-1.10.12.jar
+mvnget com/google/auto/value/auto-value-annotations/1.10.1/auto-value-annotations-1.10.1.jar
 mvnget javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
-mvnget com/github/vbmacher/java-cup-runtime/11b-20160615/java-cup-runtime-11b-20160615.jar
+mvnget com/github/vbmacher/java-cup-runtime/11b-20160615-1/java-cup-runtime-11b-20160615-1.jar
 mvnget com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
 
 CP=${CP##:}  # Remove leading ':'
