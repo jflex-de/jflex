@@ -19,7 +19,7 @@
    * Error messages for {@link #ZZ_UNKNOWN_ERROR}, {@link #ZZ_NO_MATCH}, and
    * {@link #ZZ_PUSHBACK_2BIG} respectively.
    */
-  private static final String ZZ_ERROR_MSG[] = {
+  private static final String[] ZZ_ERROR_MSG = {
     "Unknown internal scanner error",
     "Error: could not match input",
     "Error: pushback value was too large"
@@ -39,7 +39,7 @@
    * This buffer contains the current text to be matched and is the source of the {@link #yytext()}
    * string.
    */
-  private char zzBuffer[] = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
+  private char[] zzBuffer = new char[Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())];
 
   /** Text position at the last accepting state. */
   private int zzMarkedPos;
@@ -97,7 +97,7 @@
     /* is the buffer big enough? */
     if (zzCurrentPos >= zzBuffer.length - zzFinalHighSurrogate && zzCanGrow()) {
       /* if not, and it can grow: blow it up */
-      char newBuffer[] = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
+      char[] newBuffer = new char[Math.min(zzBuffer.length * 2, zzMaxBufferLen())];
       System.arraycopy(zzBuffer, 0, newBuffer, 0, zzBuffer.length);
       zzBuffer = newBuffer;
       zzEndRead += zzFinalHighSurrogate;
