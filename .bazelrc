@@ -171,9 +171,7 @@ build --javacopt "-Xep:EqualsIncompatibleType:ERROR"
 build --javacopt "-Xep:EqualsUnsafeCast:ERROR"
 build --javacopt "-Xep:EqualsUsingHashCode:ERROR"
 build --javacopt "-Xep:ExtendingJUnitAssert:ERROR"
-# TODO(#222) Increase to error when we build from jflex-1.7.1 with a lexer annotated with
-# @SuppressWarnings
-build --javacopt "-Xep:FallThrough:WARN"
+build --javacopt "-Xep:FallThrough:ERROR"
 build --javacopt "-Xep:Finally:ERROR"
 build --javacopt "-Xep:FloatCast:ERROR"
 build --javacopt "-Xep:FloatingPointAssertionWithinEpsilon:ERROR"
