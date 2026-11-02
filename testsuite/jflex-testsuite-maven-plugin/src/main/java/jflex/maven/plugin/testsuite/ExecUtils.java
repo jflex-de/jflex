@@ -28,7 +28,7 @@ public class ExecUtils {
 
   private ExecUtils() {}
 
-  private static final String JAVA_VERSION = "1.7";
+  private static final String JAVA_VERSION = "1.8";
   public static final String NL = System.getProperty("line.separator");
 
   /**

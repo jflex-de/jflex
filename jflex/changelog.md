@@ -5,6 +5,12 @@
 
 # JFlex Change Log
 
+## JFlex 1.10.0 (upcoming)
+
+- JFlex runtime and generated scanners now require JDK 1.8+, which is the oldest
+  supported Java LTS release.
+
+
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
 - fix negated char classes with overlapping content (#1065, #1066):
