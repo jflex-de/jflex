@@ -122,7 +122,7 @@ public class UcdScanner {
     scanEnumeratedProperty(
         unicodeData,
         ucdVersion.getFile(UcdFileType.Scripts),
-        /*defaultPropertyName=*/ "Script",
+        /* defaultPropertyName= */ "Script",
         getDefaultScriptValue());
   }
 
@@ -164,7 +164,7 @@ public class UcdScanner {
       scanEnumeratedProperty(
           unicodeData,
           ucdVersion.getFile(UcdFileType.Blocks),
-          /*defaultPropertyName=*/ "Block",
+          /* defaultPropertyName= */ "Block",
           "No_Block");
     }
   }
@@ -182,7 +182,7 @@ public class UcdScanner {
       scanEnumeratedProperty(
           unicodeData,
           ucdVersion.getFile(UcdFileType.LineBreak),
-          /*defaultPropertyName=*/ "Line_Break",
+          /* defaultPropertyName= */ "Line_Break",
           "XX");
     }
   }

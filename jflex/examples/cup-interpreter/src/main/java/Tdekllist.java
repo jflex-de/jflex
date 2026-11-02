@@ -9,6 +9,7 @@
 class Tdekllist implements AST {
   /** rest list (optional null) */
   Tdekllist dekllist;
+
   /** declaration */
   Tdekl dekl;
 

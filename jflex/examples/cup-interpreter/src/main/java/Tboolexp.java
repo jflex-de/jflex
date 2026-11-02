@@ -9,8 +9,10 @@
 class Tboolexp implements AST {
   /** Left subexpression. */
   Texp exp1;
+
   /** Right subexpression. */
   Texp exp2;
+
   /** {@code '='}, {@code '<'} and {@code '!'} for "<=". */
   char kind;
 

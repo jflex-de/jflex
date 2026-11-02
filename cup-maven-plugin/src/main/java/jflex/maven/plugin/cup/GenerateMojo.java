@@ -35,6 +35,7 @@ public class GenerateMojo extends AbstractMojo {
   // names such as "Parser" and "Symbols".
   /** Default class name of the parser. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_PARSER_NAME = "parser";
+
   /** Default class name of symbols holder. Note that CUP uses a lower-case class name. */
   static final String DEFAULT_SYMBOLS_NAME = "sym";
 

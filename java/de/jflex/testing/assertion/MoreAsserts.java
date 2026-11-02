@@ -12,7 +12,7 @@ public final class MoreAsserts {
 
   public static <T extends Throwable> void assertThrows(
       Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
-    assertThrows(/*message=*/ null, expectedThrowable, throwingRunnable);
+    assertThrows(/* message= */ null, expectedThrowable, throwingRunnable);
   }
 
   @SuppressWarnings("AvoidCatchingThrowable")

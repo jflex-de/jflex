@@ -602,6 +602,7 @@ public final class IntCharSet implements Iterable<Integer> {
   public static class IntCharSetIterator implements PrimitiveIterator.OfInt {
     /** Iterator over the Interval list */
     private final Iterator<Interval> intervalsIterator;
+
     /** Iterator within the current Interval */
     private IntervalIterator current;
 

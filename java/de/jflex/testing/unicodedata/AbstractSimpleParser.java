@@ -51,7 +51,7 @@ public abstract class AbstractSimpleParser {
     Matcher matcher = pattern.matcher(line);
     if (matcher.matches()) {
       List<String> regexpGroups =
-          IntStream.range(1, /*endExclusive=*/ matcher.groupCount() + 1)
+          IntStream.range(1, /* endExclusive= */ matcher.groupCount() + 1)
               .mapToObj(matcher::group)
               .filter(Objects::nonNull)
               .collect(toImmutableList());

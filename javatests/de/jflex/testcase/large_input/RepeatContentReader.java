@@ -18,8 +18,10 @@ public class RepeatContentReader extends Reader {
 
   /** The size of the content that this reader will provide. */
   private final long size;
+
   /** The content that this reader will return in loop. */
   private final char[] content;
+
   /** How many characters have been read so far. */
   private long read;
 
@@ -51,7 +53,7 @@ public class RepeatContentReader extends Reader {
     int srcPos = (int) (read % content.length);
     int length = (int) min(content.length - srcPos, maxLen);
 
-    System.arraycopy(content, srcPos, cbuf, /*destPos=*/ off, length);
+    System.arraycopy(content, srcPos, cbuf, /* destPos= */ off, length);
     read += length;
     return length;
   }

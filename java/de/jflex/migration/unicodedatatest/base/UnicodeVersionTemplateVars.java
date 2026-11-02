@@ -18,6 +18,7 @@ public class UnicodeVersionTemplateVars extends TemplateVars {
 
   /** The unicode version under test. */
   public Version unicodeVersion;
+
   /** The maximum codepoint for this Unicode version. */
   public int maxCodePoint;
 

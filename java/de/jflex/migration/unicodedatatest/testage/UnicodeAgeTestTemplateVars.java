@@ -13,8 +13,10 @@ import java.nio.file.Path;
 public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
   /** java package directory. */
   public Path javaPackageDir;
+
   /** The prefix of the names of the scanners. */
   public String scannerPrefix;
+
   /** List of ages up to {@link #unicodeVersion}. */
   public ImmutableList<Version> ages;
 }

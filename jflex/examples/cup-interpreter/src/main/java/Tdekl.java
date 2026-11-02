@@ -13,8 +13,10 @@
 class Tdekl implements AST {
   /** identifier */
   Tident ident; //
+
   /** list of parameters */
   Tparlist parlist;
+
   /** function body */
   Texp exp;
 

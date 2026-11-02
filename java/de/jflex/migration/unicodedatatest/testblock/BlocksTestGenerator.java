@@ -69,7 +69,7 @@ public class BlocksTestGenerator {
     for (NamedCodepointRange<String> block : blocks) {
       if (block.range().equals(arabicRange)) {
         fixedBlocks.add(
-            NamedCodepointRange.create(block.name(), /*start=*/ 0xFE70, /*end=*/ 0xFEFE));
+            NamedCodepointRange.create(block.name(), /* start= */ 0xFE70, /* end= */ 0xFEFE));
       } else if (block.range().equals(lastSpecials)) {
         fixedBlocks.add(NamedCodepointRange.create(block.name(), 0xFFF0, 0xFFFD));
       } else {

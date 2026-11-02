@@ -17,6 +17,7 @@ public class SurrogateUtils {
 
   /** Start (incl) of the surrogate range. */
   private static final int START = 0xD800;
+
   /** End (incl) of the surrogate range. */
   public static final int END = 0xDFFF;
 

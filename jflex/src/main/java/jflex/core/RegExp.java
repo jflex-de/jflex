@@ -122,14 +122,14 @@ public class RegExp {
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
         return content.size(macros) * content.size(macros);
-        // this is only a very rough estimate (worst case 2^n)
-        // exact size too complicated (propably requires construction)
+      // this is only a very rough estimate (worst case 2^n)
+      // exact size too complicated (propably requires construction)
 
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
         return content.size(macros) * content.size(macros) * 3;
-        // see sym.BANG
+      // see sym.BANG
 
       case sym.STRING:
       case sym.STRING_I:

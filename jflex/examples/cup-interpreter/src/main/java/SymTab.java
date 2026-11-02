@@ -16,6 +16,7 @@ import java.util.*;
 public class SymTab {
   /** contains the list of words. */
   Map<String, SymtabEntry> m;
+
   /** predecessor symbol table (if exists) */
   SymTab pred;
 

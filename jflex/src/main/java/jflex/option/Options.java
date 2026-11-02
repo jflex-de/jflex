@@ -27,32 +27,43 @@ public class Options {
 
   /** output directory */
   public static File directory;
+
   /**
    * The root source directory.
    *
    * <p>In a maven project, this is the directory that contains {@code src} and {@code target}.
    */
   private static File rootDirectory;
+
   /** strict JLex compatibility */
   public static boolean jlex;
+
   /** don't run minimization algorithm if this is true */
   public static boolean no_minimize;
+
   /** don't write backup files if this is true */
   public static boolean no_backup;
+
   /** If false, only error/warning output will be generated */
   public static boolean verbose = true;
+
   /** If true, progress dots will be printed */
   public static boolean progress;
+
   /** If true, jflex will print time statistics about the generation process */
   public static boolean time;
+
   /** If true, jflex will write graphviz .dot files for generated automata */
   public static boolean dot;
+
   /** If true, you will be flooded with information (e.g. dfa tables). */
   public static boolean dump;
+
   /**
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
   public static boolean legacy_dot;
+
   /** The encoding to use for input and output files. */
   public static Charset encoding;
 

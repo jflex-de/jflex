@@ -42,6 +42,7 @@ public class UnicodeAgeTest_3_1 {
         UnicodeAge_3_1_age_1_1.YYEOF,
         "UnicodeAge_3_1_age_1_1.output");
   }
+
   /** Tests character class syntax of the Unicode 3.1 Age=2.0 property. */
   @Test
   public void ageIntervals_2_0() throws Exception {
@@ -50,6 +51,7 @@ public class UnicodeAgeTest_3_1 {
         UnicodeAge_3_1_age_2_0.YYEOF,
         "UnicodeAge_3_1_age_2_0.output");
   }
+
   /** Tests character class syntax of the Unicode 3.1 Age=2.1 property. */
   @Test
   public void ageIntervals_2_1() throws Exception {
@@ -58,6 +60,7 @@ public class UnicodeAgeTest_3_1 {
         UnicodeAge_3_1_age_2_1.YYEOF,
         "UnicodeAge_3_1_age_2_1.output");
   }
+
   /** Tests character class syntax of the Unicode 3.1 Age=3.0 property. */
   @Test
   public void ageIntervals_3_0() throws Exception {
@@ -66,6 +69,7 @@ public class UnicodeAgeTest_3_1 {
         UnicodeAge_3_1_age_3_0.YYEOF,
         "UnicodeAge_3_1_age_3_0.output");
   }
+
   /** Tests character class syntax of the Unicode 3.1 Age=3.1 property. */
   @Test
   public void ageIntervals_3_1() throws Exception {
