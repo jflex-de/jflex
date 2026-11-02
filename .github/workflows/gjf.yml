@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
-        java-version: 11 # recent versions of Google Java Format require JDK 11+
+        java-version: 21 # recent versions of Google Java Format require JDK 21+
         distribution: zulu
     - run: scripts/test-java-format.sh
 

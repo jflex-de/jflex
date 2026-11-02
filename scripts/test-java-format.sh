@@ -15,7 +15,7 @@ set -e
 
 # Version of Google java format
 # https://github.com/google/google-java-format/releases
-VERSION_GJF=1.15.0
+VERSION_GJF=1.37.0
 
 function gjf() {
   directory=$1
