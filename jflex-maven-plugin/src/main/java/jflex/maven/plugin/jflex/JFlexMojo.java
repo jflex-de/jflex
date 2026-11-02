@@ -35,10 +35,13 @@ import org.apache.maven.project.MavenProject;
  *
  * @author Régis Décamps (decamps@users.sf.net)
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = false)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 public class JFlexMojo extends AbstractMojo {
   /** Name of the directory where to look for jflex files by default. */
   private static final String SRC_MAIN_JFLEX = "src/main/jflex";
+
+  /** Guards the static JFlex {@link Options} during generation. */
+  private static final Object OPTIONS_LOCK = new Object();
 
   @Parameter(property = "project", required = true, readonly = true)
   private MavenProject project;
@@ -211,39 +214,42 @@ public class JFlexMojo extends AbstractMojo {
       return;
     }
 
-    // set options. Very strange that JFlex expects this in a static way.
-    OptionUtils.setDefaultOptions();
-    OptionUtils.setDir(generatedFile.getParentFile());
-    Options.setRootDirectory(project.getBasedir());
-    Options.dump = dump;
-    Options.verbose = verbose;
-    OptionUtils.set_unused_warning(unusedWarning);
-    Options.dot = dot;
-    Options.legacy_dot = legacyDot;
-    if (skeleton != null) {
-      OptionUtils.setSkeleton(skeleton);
-    }
-    Options.jlex = jlex;
-
-    Options.no_minimize = !minimize; // NOPMD
-    Options.no_backup = !backup; // NOPMD
     if (!Objects.equals("pack", generationMethod)) {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
-    if (!isNullOrEmpty(encodingName)) {
-      try {
-        OptionUtils.setEncoding(encodingName);
-      } catch (Exception e) {
-        throw new MojoExecutionException(e.getMessage());
+    // JFlex options are static, so must be synchronized/locked for now.
+    synchronized (OPTIONS_LOCK) {
+      OptionUtils.setDefaultOptions();
+      OptionUtils.setDir(generatedFile.getParentFile());
+      Options.setRootDirectory(project.getBasedir());
+      Options.dump = dump;
+      Options.verbose = verbose;
+      OptionUtils.set_unused_warning(unusedWarning);
+      Options.dot = dot;
+      Options.legacy_dot = legacyDot;
+      if (skeleton != null) {
+        OptionUtils.setSkeleton(skeleton);
       }
-    }
+      Options.jlex = jlex;
 
-    try {
-      new LexGenerator(lexFile).generate();
-      getLog().info("  generated " + generatedFile);
-    } catch (Exception e) {
-      throw new MojoExecutionException(e.getMessage(), e);
+      Options.no_minimize = !minimize; // NOPMD
+      Options.no_backup = !backup; // NOPMD
+
+      if (!isNullOrEmpty(encodingName)) {
+        try {
+          OptionUtils.setEncoding(encodingName);
+        } catch (Exception e) {
+          throw new MojoExecutionException(e.getMessage());
+        }
+      }
+
+      try {
+        new LexGenerator(lexFile).generate();
+        getLog().info("  generated " + generatedFile);
+      } catch (Exception e) {
+        throw new MojoExecutionException(e.getMessage(), e);
+      }
     }
   }
 
