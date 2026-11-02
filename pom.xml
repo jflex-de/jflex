@@ -91,10 +91,12 @@
     <cup.version>11b-20160615-3</cup.version>
     <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.8</jflex.jdk.version>
-    <!-- Maven API version for jflex-maven-plugin and cup-maven-plugin, i.e. the minimum Maven
-         version for users of these plugins.
+    <!-- Minimum Maven version for users of jflex-maven-plugin and cup-maven-plugin,
+         set as requiredMavenVersion in the plugin descriptors.
          3.0.x fails to compile flex-maven-plugin https://issues.apache.org/jira/browse/MNG-5346 -->
     <maven.version>3.5.2</maven.version>
+    <!-- Maven API version the plugins are compiled and tested against. -->
+    <maven.api.version>3.9.16</maven.api.version>
     <!-- minimum Maven version for building JFlex itself (required by current Maven plugins) -->
     <maven.build.version>3.6.3</maven.build.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
@@ -161,17 +163,17 @@
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-plugin-api</artifactId>
-        <version>${maven.version}</version>
+        <version>${maven.api.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-compat</artifactId>
-        <version>${maven.version}</version>
+        <version>${maven.api.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
-        <version>${maven.version}</version>
+        <version>${maven.api.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven.plugin-tools</groupId>
@@ -283,6 +285,9 @@
         <plugin>
           <artifactId>maven-plugin-plugin</artifactId>
           <version>3.16.0</version>
+          <configuration>
+            <requiredMavenVersion>${maven.version}</requiredMavenVersion>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
