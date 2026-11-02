@@ -7,7 +7,10 @@ package jflex.generator;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import jflex.base.Build;
 import jflex.base.Pair;
@@ -175,8 +178,7 @@ public final class Emitter {
     if (!hasGenLookAhead()) return;
 
     println("  /** For the backwards DFA of general lookahead statements */");
-    println(
-        "  private boolean [] zzFin = new boolean [Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())+1];");
+    println("  private BitSet zzFin = null;");
     println();
   }
 
@@ -428,11 +430,22 @@ public final class Emitter {
   private void emitUserCode() {
     println(scanner.userCode());
 
+    List<String> additionalImports = new ArrayList<>();
     if (scanner.cup2Compatible()) {
+      additionalImports.addAll(
+          Arrays.asList(
+              "/* CUP2 imports */",
+              "import edu.tum.cup2.scanner.*;",
+              "import edu.tum.cup2.grammar.*;"));
+    }
+
+    if (hasGenLookAhead()) {
+      additionalImports.add("import java.util.BitSet;");
+    }
+
+    if (!additionalImports.isEmpty()) {
       println();
-      println("/* CUP2 imports */");
-      println("import edu.tum.cup2.scanner.*;");
-      println("import edu.tum.cup2.grammar.*;");
+      additionalImports.forEach(this::println);
       println();
     }
   }
@@ -1116,26 +1129,26 @@ public final class Emitter {
         println("            // general lookahead, find correct zzMarkedPos");
         println("            { int zzFState = " + dfa.entryState(action.getEntryState()) + ";");
         println("              int zzFPos = zzStartRead;");
-        println("              if (zzFin.length <= zzBufferL.length) {");
-        println("                zzFin = new boolean[zzBufferL.length+1];");
+        println("              if (zzFin == null || zzFin.size() <= zzBufferL.length) {");
+        println("                zzFin = new BitSet(zzBufferL.length+1);");
         println("              }");
-        println("              boolean zzFinL[] = zzFin;");
+        println("              BitSet zzFinL = zzFin;");
         println("              while (zzFState != -1 && zzFPos < zzMarkedPos) {");
-        println("                zzFinL[zzFPos] = ((zzAttrL[zzFState] & 1) == 1);");
+        println("                zzFinL.set(zzFPos, ((zzAttrL[zzFState] & 1) == 1));");
         println("                zzInput = Character.codePointAt(zzBufferL, zzFPos, zzMarkedPos);");
         println("                zzFPos += Character.charCount(zzInput);");
         println("                zzFState = zzTransL[ zzRowMapL[zzFState] + zzCMap(zzInput) ];");
         println("              }");
         println("              if (zzFState != -1) {");
-        println("                zzFinL[zzFPos++] = ((zzAttrL[zzFState] & 1) == 1);");
+        println("                zzFinL.set(zzFPos++, ((zzAttrL[zzFState] & 1) == 1));");
         println("              }");
         println("              while (zzFPos <= zzMarkedPos) {");
-        println("                zzFinL[zzFPos++] = false;");
+        println("                zzFinL.clear(zzFPos++);");
         println("              }");
         println();
         println("              zzFState = " + dfa.entryState(action.getEntryState() + 1) + ";");
         println("              zzFPos = zzMarkedPos;");
-        println("              while (!zzFinL[zzFPos] || (zzAttrL[zzFState] & 1) != 1) {");
+        println("              while (!zzFinL.get(zzFPos) || (zzAttrL[zzFState] & 1) != 1) {");
         println(
             "                zzInput = Character.codePointBefore(zzBufferL, zzFPos, zzStartRead);");
         println("                zzFPos -= Character.charCount(zzInput);");
