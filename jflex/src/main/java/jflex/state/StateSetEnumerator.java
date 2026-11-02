@@ -25,8 +25,10 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    * further elements in the set.
    */
   private int index;
+
   /** Current offset into the StateSet array */
   private int offset;
+
   /** {@code mask = 1 << offset} */
   private long mask;
 

@@ -11,11 +11,13 @@ import java.util.Arrays;
 public class CMapBlock {
   /** How many bits the second-level char map tables translate */
   public static final int BLOCK_BITS = 8;
+
   /** Size of the second-level char map arrays */
   public static final int BLOCK_SIZE = 1 << BLOCK_BITS;
 
   /** array of BLOCK_SIZE; reference immutable; contents intended to be as well */
   public final int[] block;
+
   /** pre-computed hash, since we will compare often */
   private final int hash;
 

@@ -39,6 +39,7 @@ public class UnicodeAgeTest_2_0 {
         UnicodeAge_2_0_age_1_1.YYEOF,
         "UnicodeAge_2_0_age_1_1.output");
   }
+
   /** Tests character class syntax of the Unicode 2.0 Age=2.0 property. */
   @Test
   public void ageIntervals_2_0() throws Exception {

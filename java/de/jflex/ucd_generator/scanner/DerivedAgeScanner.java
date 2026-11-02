@@ -121,7 +121,7 @@ class DerivedAgeScanner extends EnumeratedPropertyFileScanner {
 
   HashMultimap<Version, CodepointRange> clusterCodePointRangesPerVersion() {
     HashMultimap<Version, CodepointRange> ageRangesPerVersion =
-        HashMultimap.create(/*expectedKeys=*/ 25, /*expectedValuesPerKey=*/ 128);
+        HashMultimap.create(/* expectedKeys= */ 25, /* expectedValuesPerKey= */ 128);
     for (NamedCodepointRange<String> interval : intervals) {
       ageRangesPerVersion.put(new Version(interval.name()), interval.range());
     }

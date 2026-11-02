@@ -22,6 +22,7 @@ public class IntervalGen extends Generator<Interval> {
 
   /** Min bound for intervals */
   private int minChar = 0;
+
   /** Max bound for intervals. Small for speed, and more likely edge cases. */
   private int maxChar = 50;
 

@@ -24,6 +24,7 @@ public class IntCharSetGen extends Generator<IntCharSet> {
 
   /** Min bound for number of intervals (0 = empty set) */
   private int minSize = 0;
+
   /** Max bound for number of intervals */
   private int maxSize = 5;
 

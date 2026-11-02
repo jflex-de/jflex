@@ -24,11 +24,13 @@ public class StateSetGen extends Generator<StateSet> {
 
   /** Min bound for number of elements (0 = empty set) */
   private int minSize = 0;
+
   /** Max bound for number of elements */
   private int maxSize = 10;
 
   /** Min bound for size of elements (>= 0) */
   private int minRange = 0;
+
   /** Max bound for size of elements */
   private int maxRange = 1000;
 

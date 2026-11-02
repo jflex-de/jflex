@@ -41,6 +41,7 @@ public class UnicodeEmojiTest_12_1 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji"));
   }
+
   /** Test property {@code Emoji_Modifier}. */
   @Test
   public void emoji_Emoji_Modifier() throws Exception {
@@ -51,6 +52,7 @@ public class UnicodeEmojiTest_12_1 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier"));
   }
+
   /** Test property {@code Emoji_Modifier_Base}. */
   @Test
   public void emoji_Emoji_Modifier_Base() throws Exception {
@@ -61,6 +63,7 @@ public class UnicodeEmojiTest_12_1 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Modifier_Base"));
   }
+
   /** Test property {@code Emoji_Presentation}. */
   @Test
   public void emoji_Emoji_Presentation() throws Exception {
@@ -71,6 +74,7 @@ public class UnicodeEmojiTest_12_1 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Emoji_Presentation"));
   }
+
   /** Test property {@code Extended_Pictographic}. */
   @Test
   public void emoji_Extended_Pictographic() throws Exception {
@@ -81,6 +85,7 @@ public class UnicodeEmojiTest_12_1 {
             UnicodeDataScanners.Dataset.ALL);
     assertThat(scanner.ranges()).isEqualTo(readGolden("Extended_Pictographic"));
   }
+
   /** Test property {@code Emoji_Component}. */
   @Test
   public void emoji_Emoji_Component() throws Exception {

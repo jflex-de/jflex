@@ -9,8 +9,10 @@
 class Tifthenelse extends Texp implements AST {
   /** condition* */
   Tboolexp boolexp;
+
   /** then branch */
   Texp exp1;
+
   /** else branch */
   Texp exp2;
 

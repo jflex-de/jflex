@@ -18,6 +18,7 @@ public final class Interval implements Iterable<Integer> {
 
   /** Start of the interval. */
   public int start;
+
   /** End of the interval. */
   public int end;
 

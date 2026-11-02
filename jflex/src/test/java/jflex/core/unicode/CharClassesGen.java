@@ -28,6 +28,7 @@ public class CharClassesGen extends Generator<CharClasses> {
    * <p>Number of classes in the final partition is added classes + 1.
    */
   private int minSize = 0;
+
   /** Max bound for number of classes */
   private int maxSize = 5;
 

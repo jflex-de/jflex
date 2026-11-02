@@ -42,10 +42,10 @@ public class JavaStrings {
    */
   private static String escapedBMPChar(int codePoint) {
     switch (codePoint) {
-        // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
-        // a syntax error when it is included in a literal string, because it is
-        // interpreted as "[...]"[...]" (literally), and leads the compiler to
-        // think that the enclosing quotation marks are unbalanced.
+      // Special treatment for the quotation mark (U+0022).  "\u0022" triggers
+      // a syntax error when it is included in a literal string, because it is
+      // interpreted as "[...]"[...]" (literally), and leads the compiler to
+      // think that the enclosing quotation marks are unbalanced.
       case 0x22:
         return ("\\\"");
       case 0x00:

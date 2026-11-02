@@ -25,8 +25,10 @@ public class PropertyNames {
 
   /** Normalized General_Category property name. */
   public static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
+
   /** Normalized Script property name. */
   public static final String NORMALIZED_SCRIPT = normalize("Script");
+
   /** Normalized Scirpt_Extensions property name. */
   public static final String NORMALIZED_SCRIPT_EXTENSIONS = normalize("Script_Extensions");
 
@@ -35,6 +37,7 @@ public class PropertyNames {
 
   /** Maps a canonical name to its aliases. */
   private final Multimap<String, String> propertyAliases = HashMultimap.create();
+
   /** Maps an alias to its canonical name. */
   private final Map<String, String> propertyAlias2CanonicalName = new HashMap<>();
 
