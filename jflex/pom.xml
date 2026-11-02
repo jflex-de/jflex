@@ -192,6 +192,8 @@
             </goals>
             <configuration>
               <finalName>${project.artifactId}-full-${project.version}</finalName>
+              <!-- the main jflex artifact does not include cup, keep its full dependencies -->
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <artifactSet>
                 <includes>
                   <include>com.github.vbmacher:java-cup-runtime</include>

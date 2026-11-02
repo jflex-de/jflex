@@ -41,7 +41,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.16.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -108,6 +108,7 @@
             </goals>
             <configuration>
               <finalName>${project.artifactId}-full-${project.version}</finalName>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>org.openjdk.jmh.Main</mainClass>
@@ -125,6 +126,6 @@
   </build>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jmh.version>1.36</jmh.version>
+    <jmh.version>1.37</jmh.version>
   </properties>
 </project>
