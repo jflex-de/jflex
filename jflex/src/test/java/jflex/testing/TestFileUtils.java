@@ -42,7 +42,7 @@ public class TestFileUtils {
     Preconditions.checkNotNull(bazelPackage, "You must provide the bazel package of the test");
     Preconditions.checkArgument(
         bazelPackage.startsWith(BAZEL_ROOT_PREFIX),
-        "The bazel package should be absolute, i.e. starts with `%s`, but `$` doesn't",
+        "The bazel package should be absolute, i.e. starts with `%s`, but `%s` doesn't",
         BAZEL_ROOT_PREFIX,
         bazelPackage);
     Preconditions.checkArgument(
