@@ -10,4 +10,4 @@ source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
 
 logi "Build sources jar"
-"$MVN" source:aggregate
+"$MVN" source:aggregate -pl '!java'
