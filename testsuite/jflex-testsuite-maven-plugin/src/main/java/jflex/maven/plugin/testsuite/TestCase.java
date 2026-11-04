@@ -196,7 +196,7 @@ public class TestCase {
                   jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
         } catch (FileNotFoundException e) {
           System.out.println("Error opening file " + expected);
-          throw new TestFailException();
+          throw new TestFailException("Error opening file " + expected, e);
         }
         if (diff != null) {
           System.out.println("Test failed, unexpected jflex output: " + diff);
@@ -251,7 +251,7 @@ public class TestCase {
                     jflexDiff, new StringReader(jflexResult.getOutput()), new FileReader(expected));
           } catch (FileNotFoundException e) {
             System.out.println("Error opening file " + expected);
-            throw new TestFailException();
+            throw new TestFailException("Error opening file " + expected, e);
           }
           if (diff != null) {
             System.out.println("Test failed, unexpected jflex output: " + diff);
@@ -318,7 +318,7 @@ public class TestCase {
             check.diff(jflexDiff, new StringReader(classExecResult.getOutput()), expectedContent);
       } catch (IOException e) {
         System.out.println("Error opening file " + expected);
-        throw new TestFailException();
+        throw new TestFailException("Error opening file " + expected, e);
       }
       if (diff != null) {
         System.out.println("Test failed, unexpected output: " + diff);
