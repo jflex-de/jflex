@@ -34,6 +34,8 @@
     <generated.scanners.dir>${project.build.directory}/generated-test-sources/jflex</generated.scanners.dir>
     <ucd.dir>${project.build.directory}/ucd</ucd.dir>
     <ucd.url>https://www.unicode.org/Public</ucd.url>
+    <unicode.specs.dir>${unicode.tests.dir}/javatests/de/jflex/testcase/unicode</unicode.specs.dir>
+    <unicode.tests.dir>${project.build.directory}/generated-unicode-tests</unicode.tests.dir>
     <work.dir>${project.build.directory}/javatests-work</work.dir>
   </properties>
 
@@ -65,6 +67,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -88,6 +95,35 @@
   <build>
     <testSourceDirectory>${project.basedir}</testSourceDirectory>
     <plugins>
+      <plugin>
+        <!-- Generates the scanner specs of the unicode_x_y tests.
+
+             This is a forked JVM because the generators load their templates from the system class
+             loader. The phase is after the UCD downloads and before the scanners. -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <execution>
+            <id>generate-unicode-tests</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${java.home}/bin/java</executable>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>-classpath</argument>
+                <classpath/>
+                <argument>de.jflex.migration.unicodedatatest.AllTestsGenerator</argument>
+                <argument>${ucd.dir}</argument>
+                <argument>${unicode.tests.dir}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <!-- Scanners that tests compile against. This must be the list of specs, not their
              directories: the specs that JFlexTestRunner reads, some of which fail on purpose,
@@ -153,9 +189,44 @@
                 <lexDefinition>de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/spoon_feed_reader/SpoonFeedReader.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/token_limit/limit_success.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/unicode/unicode-blocks-aliases.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/unicode/unicode-blocks-inverse.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_escape_warning/warnings.flex</lexDefinition>
                 <lexDefinition>jflex/testcase/yylexthrow_comment/yylexthrow.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>unicode-scanners</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <lexDefinitions>
+                <lexDefinition>${unicode.specs.dir}/unicode_1_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_2_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_2_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_3_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_3_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_3_2</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_4_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_4_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_5_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_5_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_5_2</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_6_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_6_1</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_6_2</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_6_3</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_7_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_8_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_9_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_10_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_11_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_12_0</lexDefinition>
+                <lexDefinition>${unicode.specs.dir}/unicode_12_1</lexDefinition>
               </lexDefinitions>
             </configuration>
           </execution>
@@ -252,7 +323,6 @@
           <testExcludes>
             <!-- Input of ApiPrivateTest, which checks that this does not compile. -->
             <testExclude>de/jflex/testcase/apipirivate/AttemptPrivateAccess.java</testExclude>
-            <testExclude>de/jflex/testcase/unicode/**/*.java</testExclude>
           </testExcludes>
         </configuration>
       </plugin>
@@ -898,4 +968,35 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <!-- This profile in the root pom skips the UCD downloads, and tests are not compiled. -->
+      <id>fastbuild</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-unicode-tests</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>de.jflex</groupId>
+            <artifactId>jflex-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unicode-scanners</id>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

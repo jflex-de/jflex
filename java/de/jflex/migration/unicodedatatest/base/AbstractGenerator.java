@@ -21,7 +21,7 @@ import org.apache.velocity.runtime.parser.ParseException;
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
   // TODO(regisd) Add This in UnicodeProperties
-  private static final ImmutableList<Version> KNOWN_VERSIONS =
+  public static final ImmutableList<Version> KNOWN_VERSIONS =
       ImmutableList.of(
           new Version(1, 1),
           new Version(2, 0),

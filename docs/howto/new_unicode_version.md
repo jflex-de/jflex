@@ -25,7 +25,10 @@ Add the new version in
 
 Add a test case in [//javatests/de/jflex/testcase/unicode](/javatests/de/jflex/testcase/unicode).
 
-1. Extend `KNOWN_VERSIONS` in [unicodedatatest/build_defs.bzl](/java/de/jflex/migration/unicodedatatest/build_defs.bzl).
+1. Extend `KNOWN_VERSIONS` in [build_defs.bzl](/java/de/jflex/migration/unicodedatatest/build_defs.bzl) and
+   [AbstractGenerator.java](/java/de/jflex/migration/unicodedatatest/base/AbstractGenerator.java), and add
+   the UCD releases of the new version to `releases` in
+   [AllTestsGenerator.java](/java/de/jflex/migration/unicodedatatest/AllTestsGenerator.java).
 2. Run the script which runs all the generators:
    ```sh
    java/de/jflex/migration/unicodedatatest/generate.sh`

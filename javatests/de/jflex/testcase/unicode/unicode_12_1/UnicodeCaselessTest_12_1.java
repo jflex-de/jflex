@@ -18,7 +18,7 @@ import java.util.List;
 import javax.annotation.Generated;
 import org.junit.Test;
 
-/** Test Tests the {@code %caseless} directive for Unicode 12.1. */
+/** Tests the {@code %caseless} directive for Unicode 12.1. */
 @Generated("de.jflex.migration.unicodedatatest.testcaseless.UnicodeCaseselessTestGenerator")
 public class UnicodeCaselessTest_12_1 {
 
