@@ -21,9 +21,9 @@ update_source() {
   gitlog="$2"
   logi "In $(pwd)"
   logi "Updating source for $gittitle"
-  bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
+  "$BASEDIR"/scripts/mvn-install-fastbuild.sh
 
-  logi "Updating sources from jflex_bin_deploy-src.jar"
+  logi "Updating sources from the Maven build"
   cd $REPO
   logi "In $(pwd)"
   git config user.name "JFLex GitHub CI"
@@ -35,12 +35,7 @@ update_source() {
   fi
   # -- *.sh in case there are files that start with -
   git rm -r java LICENSE_* -- *.sh
-  mkdir java
-  cd java
-  jar -xf ../../jflex/bazel-bin/jflex/jflex_bin_deploy-src.jar
-  # for some reason, it doesn't include the resources
-  jar -xf ../../jflex/bazel-bin/jflex/libresources.jar
-  cd ..
+  "$BASEDIR"/scripts/copy-aggregated-java-sources.sh java
 
   logi "Checking licenses"
   mv java/LICENSE_JFLEX .

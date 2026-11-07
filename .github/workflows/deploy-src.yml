@@ -24,15 +24,13 @@ jobs:
       with:
         ref: aggregated-java-sources
         path: aggregated-java-sources
-    - uses: actions/cache@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
       with:
-        path: ~/.cache/bazel
-        # same as for build action
-        key: ${{ runner.os }}-bazel-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-bazel-
-    - name: 'Info'
-      run: cd jflex; bazel --bazelrc=.ci.bazelrc info release
+        # Fixed JDK version to keep [:jletter:] character class constant.
+        java-version: 11
+        distribution: zulu
+        cache: maven
     - name: 'Prepare aggregated sources'
       run: |
         cd jflex; scripts/prepare-deploy-source-code.sh

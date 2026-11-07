@@ -65,15 +65,6 @@ jobs:
       run: bazel --bazelrc=.ci.bazelrc test //...
     - name: 'Build artifact'
       run: bazel --bazelrc=.ci.bazelrc build jflex/jflex_bin_deploy.jar
-    - name: 'Check aggregated sources'
-      run: |
-        bazel --bazelrc=.ci.bazelrc build //jflex:jflex_bin_deploy-src.jar //jflex:resources
-        mkdir -p jflex_bin_deploy; cd jflex_bin_deploy
-        cp ../scripts/compile-aggregated-java-sources.sh compile.sh
-        jar -xf ../bazel-bin/jflex/jflex_bin_deploy-src.jar
-        jar -xf ../bazel-bin/jflex/libresources.jar
-        ./compile.sh
-        ls jflex/Main.class
 
   regression:
     name: 'Regression'
@@ -115,6 +106,27 @@ jobs:
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin
         ./mvnw -pl java,javatests install
+
+  aggregated-sources:
+    name: 'Aggregated sources'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 11
+        distribution: zulu
+        cache: maven
+    - name: '🔨 Build JFlex'
+      run: scripts/mvn-install-fastbuild.sh
+    - name: '🔨 Check that aggregated sources compile'
+      run: |
+        mkdir -p target/aggregated-java-sources; cd target/aggregated-java-sources
+        ../../scripts/copy-aggregated-java-sources.sh java
+        cp ../../scripts/compile-aggregated-java-sources.sh compile.sh
+        ./compile.sh
+        ls java/jflex/Main.class
 
   javadoc:
     name: Javadoc
