@@ -4,6 +4,7 @@
  */
 package de.jflex.migration.unicodedatatest.testemoji;
 
+import de.jflex.ucd.UcdFiles;
 import org.junit.Test;
 
 /** Minimal integration test for {@link EmojiTestGenerator}. */
@@ -15,10 +16,10 @@ public class EmojiTestGeneratorTest {
         new String[] {
           "10.0",
           "/tmp",
-          "external/ucd_10_0/Blocks.txt",
-          "external/ucd_10_0/UnicodeData.txt",
-          "external/ucd_10_0/PropList.txt",
-          "external/emoji_5_emoji_data_txt/file/downloaded",
+          UcdFiles.zippedFile("ucd_10_0", "Blocks.txt").getPath(),
+          UcdFiles.zippedFile("ucd_10_0", "UnicodeData.txt").getPath(),
+          UcdFiles.zippedFile("ucd_10_0", "PropList.txt").getPath(),
+          UcdFiles.singleFile("emoji_5", "emoji-data.txt").getPath(),
         });
   }
 }

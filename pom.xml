@@ -61,6 +61,7 @@
     <module>jflex</module>
     <module>jflex-maven-plugin</module>
     <module>java</module>
+    <module>javatests</module>
     <module>testsuite</module>
     <module>benchmark</module>
   </modules>
@@ -575,6 +576,7 @@
       -->
       <id>fastbuild</id>
       <properties>
+        <download.plugin.skip>true</download.plugin.skip>
         <maven.test.skip>true</maven.test.skip>
         <maven.javadoc.skip>true</maven.javadoc.skip>
       </properties>

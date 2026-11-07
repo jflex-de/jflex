@@ -7,7 +7,7 @@ package de.jflex.migration.unicodedatatest.testcaseless;
 import static com.google.common.truth.Truth.assertThat;
 
 import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
-import java.nio.file.Paths;
+import de.jflex.ucd.UcdFiles;
 import org.junit.Test;
 
 public class CaselessTestGeneratorTest {
@@ -22,7 +22,8 @@ public class CaselessTestGeneratorTest {
   @Test
   public void parseUnicodeData() throws Exception {
     Equivalences<Integer> equivalences =
-        CaselessTestGenerator.parseUnicodeData(Paths.get("external/ucd_7_0/UnicodeData.txt"));
+        CaselessTestGenerator.parseUnicodeData(
+            UcdFiles.zippedFile("ucd_7_0", "UnicodeData.txt").toPath());
     assertThat(equivalences.get(0x0041)).containsExactly(0x0041, 0x0061);
     assertThat(equivalences.get(0xAC00)).containsExactly(0xAC00);
   }

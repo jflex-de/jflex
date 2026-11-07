@@ -196,9 +196,10 @@ public class UcdGeneratorIntegrationTest {
     assertUnicodeProperties(expected, f);
 
     File goldenFile = new File(runfiles, "Unicode_5_0.java.golden");
-    DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
-    Files.copy(f, goldenOutputStream);
+    try (DiffOutputStream goldenOutputStream =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
+      Files.copy(f, goldenOutputStream);
+    }
   }
 
   @Test
@@ -291,9 +292,10 @@ public class UcdGeneratorIntegrationTest {
     assertUnicodeProperties(expected, f);
 
     File goldenFile = new File(runfiles, "Unicode_6_3.java.golden");
-    DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
-    Files.copy(f, goldenOutputStream);
+    try (DiffOutputStream goldenOutputStream =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
+      Files.copy(f, goldenOutputStream);
+    }
   }
 
   @Test
@@ -356,9 +358,10 @@ public class UcdGeneratorIntegrationTest {
     assertUnicodeProperties(expected, f);
 
     File goldenFile = new File(runfiles, "Unicode_10_0.java.golden");
-    DiffOutputStream goldenOutputStream =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
-    Files.copy(f, goldenOutputStream);
+    try (DiffOutputStream goldenOutputStream =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
+      Files.copy(f, goldenOutputStream);
+    }
   }
 
   @Test

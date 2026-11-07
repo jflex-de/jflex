@@ -39,21 +39,22 @@ public abstract class UcdVersion {
       throws FileNotFoundException {
     Builder builder = builder(version);
     for (String arg : argv) {
+      // Bazel stores a single download as <repository>/file/downloaded, so only the path
+      // shows the unicode data file type.
+      String baseName = new File(arg).getName();
+      String name = baseName.equals("downloaded") ? arg : baseName;
       for (UcdFileType type : UcdFileType.values()) {
-        // From Unicode 4.1, a zip contains all files, which can just be found by name
-        if (arg.endsWith(type.name() + ".txt")) {
-          builder.putFile(type, findFile(arg));
-        } else if (type == UcdFileType.Emoji && arg.contains("emoji_data_txt")) {
-          // Emoji is a single URL, hence uses a different naming convention
-          builder.putFile(UcdFileType.Emoji, findFile(arg));
-        } else if (arg.contains(type.toString())) {
-          // similarly Unicode 1.0-4.0 is e.g.
-          // external/ucd_4_0_1_Blocks_4_0_1_txt/file/downloaded
+        // Unicode 4.1 and later use plain names, 1.0-4.0 use names such as Blocks-4.0.1.txt
+        if (name.contains(type.toString())) {
           builder.putFile(type, findFile(arg));
         }
       }
+      // Emoji is a single URL and uses a different naming convention
+      if (name.equals("emoji-data.txt") || name.contains("emoji_data_txt")) {
+        builder.putFile(UcdFileType.Emoji, findFile(arg));
+      }
       // Hack for the UNIDATA DerivedAge.txt
-      if (arg.contains("ucd_derived_age")) {
+      if (name.contains("ucd_derived_age")) {
         builder.putFile(UcdFileType.DerivedAge, findFile(arg));
       }
     }
@@ -100,8 +101,15 @@ public abstract class UcdVersion {
     public abstract UcdVersion build();
   }
 
-  /** Given a path that contains "external", returns only the path after "external/". */
+  /**
+   * Given a path that contains "external", returns only the path after "external/" if it is a
+   * relative path.
+   */
   private static File findExternalPath(File file) {
+    if (file.isAbsolute()) {
+      // Bazel paths are relative. Bail out if it is absolute.
+      return file;
+    }
     File externalDir = getExternalRootDirectory(file);
     if (externalDir != null) {
       return new File(file.getPath().substring(externalDir.getPath().length() - EXTERNAL.length()));

@@ -11,7 +11,6 @@ java_test(
     runtime_deps = [
         "//java/de/jflex/migration/unicodedatatest/base",
         "//java/de/jflex/migration/unicodedatatest/testemoji",
-        "//java/de/jflex/ucd",
         "//java/de/jflex/ucd_generator/scanner",
         "//java/de/jflex/ucd_generator/ucd",
         "//third_party/com/google/guava",
@@ -19,5 +18,6 @@ java_test(
     ],
     deps = [
         "//java/de/jflex/migration/unicodedatatest/testemoji:EmojiTestGenerator",
+        "//java/de/jflex/ucd",
     ],
 )
