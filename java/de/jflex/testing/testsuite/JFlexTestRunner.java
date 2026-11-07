@@ -90,11 +90,15 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       return null;
     } finally {
       if (diffSysOut.isPresent()) {
+        Out.setOutputStream(originalSysOut);
         System.setOut(originalSysOut);
       }
       if (diffSysErr.isPresent()) {
         System.setErr(originalSysErr);
       }
+      // The content was checked above in assertSystemStream so close without further checks.
+      diffSysOut.ifPresent(DiffOutputStream::closeWithoutCheck);
+      diffSysErr.ifPresent(DiffOutputStream::closeWithoutCheck);
       notifier.fireTestFinished(desc);
     }
   }
