@@ -54,8 +54,8 @@ Copyright: 2020, Gerwin Klein
 License: CC-BY-SA-4.0
 
 Files:
-  third_party/edu/tum/cup2/*/*.java
-  third_party/edu/tum/cup2/license.txt
-  third_party/edu/tum/cup2/spec/How_or_how_not_to_find_true_lr1_grammars
+  javatests/third_party/cup2/edu/tum/cup2/*/*.java
+  javatests/third_party/cup2/license.txt
+  javatests/third_party/cup2/edu/tum/cup2/spec/How_or_how_not_to_find_true_lr1_grammars
 Copyright: Copyright (c) 2014 Andreas Wenger, Michael Petter
 License: Zlib

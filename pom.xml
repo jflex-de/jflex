@@ -299,6 +299,10 @@
               <version>1.37.0</version>
             </dependency>
           </dependencies>
+          <configuration>
+            <!-- Ignore vendored and generated code. -->
+            <filesPathPattern>(?!.*[/\\](target|third_party)[/\\]).*</filesPathPattern>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>

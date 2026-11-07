@@ -47,9 +47,30 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
             TestSpec.class.getName());
   }
 
+  /**
+   * Describes everything that {@link #run} reports. The JUnit Platform drops tests and failures
+   * that are not part of this description.
+   */
   @Override
   public Description getDescription() {
-    return Description.createTestDescription(klass, "JFlex test case");
+    Description description = super.getDescription();
+    description.addChild(generateLexerDescription());
+    if (expectsLexer()) {
+      description.addChild(compileLexerDescription());
+    }
+    return description;
+  }
+
+  private Description generateLexerDescription() {
+    return Description.createTestDescription(klass, "Generate Lexer");
+  }
+
+  private Description compileLexerDescription() {
+    return Description.createTestDescription(klass, "Compile java code");
+  }
+
+  private boolean expectsLexer() {
+    return spec.generatorThrows() == NoExceptionThrown.class;
   }
 
   @Override
@@ -58,6 +79,9 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
     if (lexerJavaFileName != null) {
       buildLexer(notifier, lexerJavaFileName);
+    } else if (expectsLexer()) {
+      // Generating the lexer failed, there is nothing to compile.
+      notifier.fireTestIgnored(compileLexerDescription());
     }
 
     // The lexer must be generated before the other tests are executed, as they can try to
@@ -66,7 +90,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private String generateLexer(RunNotifier notifier) {
-    Description desc = Description.createTestDescription(klass, "Generate Lexer");
+    Description desc = generateLexerDescription();
     notifier.fireTestStarted(desc);
 
     Optional<DiffOutputStream> diffSysOut = injectDiffSysOut();
@@ -74,7 +98,7 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
     try {
       String lexerJavaFileName;
-      if (spec.generatorThrows() == NoExceptionThrown.class) {
+      if (expectsLexer()) {
         lexerJavaFileName = invokeJflex();
       } else {
         lexerJavaFileName = null;
@@ -91,7 +115,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     } finally {
       if (diffSysOut.isPresent()) {
         Out.setOutputStream(originalSysOut);
-        System.setOut(originalSysOut);
       }
       if (diffSysErr.isPresent()) {
         System.setErr(originalSysErr);
@@ -182,9 +205,9 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @SuppressWarnings("OrphanedFormatString")
   private String invokeJflex() {
-    if (Options.encoding == null) {
-      OptionUtils.setDefaultOptions();
-    }
+    OptionUtils.setDefaultOptions();
+    // setDefaultOptions() does not change warning settings
+    OptionUtils.enableAllWarnings();
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
     // verbose is default -- verbose_provided simulates the behaviour of an explicit -v on the
@@ -212,11 +235,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   }
 
   private void buildLexer(RunNotifier notifier, String lexerJavaFileName) {
-    Description desc = Description.createTestDescription(klass, "Compile java code");
+    Description desc = compileLexerDescription();
     notifier.fireTestStarted(desc);
     try {
       JavacUtils.compile(ImmutableList.of(new File(lexerJavaFileName)));
-      notifier.fireTestFinished(desc);
     } catch (Throwable th) {
       notifier.fireTestFailure(new Failure(desc, th));
     } finally {

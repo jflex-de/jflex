@@ -31,6 +31,7 @@
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <maven.site.skip>true</maven.site.skip>
     <maven.source.skip>true</maven.source.skip>
+    <generated.scanners.dir>${project.build.directory}/generated-test-sources/jflex</generated.scanners.dir>
     <ucd.dir>${project.build.directory}/ucd</ucd.dir>
     <ucd.url>https://www.unicode.org/Public</ucd.url>
     <work.dir>${project.build.directory}/javatests-work</work.dir>
@@ -69,6 +70,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity</artifactId>
       <scope>test</scope>
@@ -83,17 +89,171 @@
     <testSourceDirectory>${project.basedir}</testSourceDirectory>
     <plugins>
       <plugin>
+        <!-- Scanners that tests compile against. This must be the list of specs, not their
+             directories: the specs that JFlexTestRunner reads, some of which fail on purpose,
+             have no place here. -->
+        <groupId>de.jflex</groupId>
+        <artifactId>jflex-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <outputDirectory>${generated.scanners.dir}</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scanners</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <lexDefinitions>
+                <lexDefinition>de/jflex/testcase/action_pipe/action-pipe-eof.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/action_pipe/eof-pipe-action.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/bol/bol.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/bol/bol2.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/buffer/buffer.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/caseless_jflex/caseless.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_16/ccl.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_bug/ccl-bug.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_caseless/ccl_caseless.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_esc/ccl.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_init/ccl.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_macros/cclmacros.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_neg/neg_overlap.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ccl_pre/ccl.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/charclass/charclass.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/count/count.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/ctorarg/ctor-arg.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/cup2private/cup2private.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/cupsym/cupsym.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/dot_newline/dotnewline.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/empty_match/emptymatch.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eof/eof.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eof_min/eofmin.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eofclose/eofclose.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eofclose/eofnoclose.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eol_comment/eolcomment.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/eol_look/eol.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/fixed_look/fixedlook.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/generics/generics.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/generics/generics2.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/generics/generics3.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/generics/generics4.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/genlook/genlook.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/genlook2/genlook2.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/include_in_rules/IncludeInRules.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/initthrow_eol/initthrow.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/large_input/large_input.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/large_table/large.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/look/look.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/look_macro/lookmacro.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/macro_exp/macro.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/negation/negation.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/sevenbit/sevenbit.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/six_digit_unicode_escape/SixDigitUnicodeEscape.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/spoon_feed_reader/SpoonFeedReader.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/token_limit/limit_success.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/unicode_escape_warning/warnings.flex</lexDefinition>
+                <lexDefinition>jflex/testcase/yylexthrow_comment/yylexthrow.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>scanner-caseless_jlex-caseless</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <jlex>true</jlex>
+              <lexDefinitions>
+                <lexDefinition>de/jflex/testcase/caseless_jlex/caseless.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>scanner-include-include</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <skeleton>de/jflex/testcase/include/skeleton.nested</skeleton>
+              <lexDefinitions>
+                <lexDefinition>de/jflex/testcase/include/include.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>scanner-include2-include2</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <skeleton>de/jflex/testcase/include2/skeleton.nested</skeleton>
+              <lexDefinitions>
+                <lexDefinition>de/jflex/testcase/include2/include2.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+          <execution>
+            <id>scanner-spoon_feed_reader-SpoonFeedReaderF</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <skeleton>de/jflex/testcase/spoon_feed_reader/problematic.skeleton.default</skeleton>
+              <lexDefinitions>
+                <lexDefinition>de/jflex/testcase/spoon_feed_reader/SpoonFeedReaderF.flex</lexDefinition>
+              </lexDefinitions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- jflex-maven-plugin adds its output to the main sources, which are compiled by now. -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <id>add-test-sources</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${generated.scanners.dir}</source>
+                <source>third_party/cup2</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <testIncludes>
             <testInclude>de/jflex/migration/**/*.java</testInclude>
+            <testInclude>de/jflex/testcase/**/*.java</testInclude>
             <testInclude>de/jflex/testing/**/*.java</testInclude>
             <testInclude>de/jflex/ucd/**/*.java</testInclude>
             <testInclude>de/jflex/ucd_generator/**/*.java</testInclude>
             <testInclude>de/jflex/util/**/*.java</testInclude>
             <testInclude>de/jflex/velocity/**/*.java</testInclude>
             <testInclude>de/jflex/version/**/*.java</testInclude>
+            <testInclude>edu/tum/cup2/**/*.java</testInclude>
+            <testInclude>jflex/testcase/**/*.java</testInclude>
           </testIncludes>
+          <testExcludes>
+            <!-- Input of ApiPrivateTest, which checks that this does not compile. -->
+            <testExclude>de/jflex/testcase/apipirivate/AttemptPrivateAccess.java</testExclude>
+            <testExclude>de/jflex/testcase/unicode/**/*.java</testExclude>
+          </testExcludes>
         </configuration>
       </plugin>
       <plugin>
@@ -102,6 +262,28 @@
           <!-- This module only has tests. -->
           <skipIfEmpty>true</skipIfEmpty>
         </configuration>
+      </plugin>
+      <plugin>
+        <!-- Tests must start without the output of the last run, or JFlex reports that it saved
+             the old file, which is not in the goldens. -->
+        <artifactId>maven-clean-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>clean-work-dir</id>
+            <phase>generate-test-resources</phase>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <configuration>
+              <excludeDefaultDirectories>true</excludeDefaultDirectories>
+              <filesets>
+                <fileset>
+                  <directory>${work.dir}</directory>
+                </fileset>
+              </filesets>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -131,6 +313,13 @@
                   </excludes>
                 </resource>
                 <resource>
+                  <directory>${project.basedir}</directory>
+                  <targetPath>javatests</targetPath>
+                  <includes>
+                    <include>de/jflex/testcase/apipirivate/AttemptPrivateAccess.java</include>
+                  </includes>
+                </resource>
+                <resource>
                   <directory>${project.basedir}/../testsuite/testcases/src/test/resources</directory>
                   <targetPath>testsuite/testcases/src/test/resources</targetPath>
                   <includes>
@@ -149,12 +338,14 @@
           <systemPropertyVariables>
             <jflex.ucd.dir>${ucd.dir}</jflex.ucd.dir>
           </systemPropertyVariables>
-          <!-- The defaults would miss the Test_x_y classes. -->
+          <!-- The defaults would miss the Test_x_y and numbered classes. -->
           <includes>
             <include>**/*Test.java</include>
             <include>**/*Test_*.java</include>
+            <include>**/*Test?.java</include>
             <include>**/*Tests.java</include>
             <include>**/*Quickcheck.java</include>
+            <include>**/UnicodeCodepointEscapes_failure?.java</include>
           </includes>
         </configuration>
       </plugin>
