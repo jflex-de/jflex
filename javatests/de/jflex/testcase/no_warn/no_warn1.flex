@@ -7,7 +7,7 @@ package de.jflex.testcase.no_warn;
 
 %%
 
-%class NoSuppress
+%class NoWarn1
 %debug
 %int
 
