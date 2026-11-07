@@ -10,5 +10,6 @@ source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
 
 logi "Build Maven site"
-"$MVN" site
-"$MVN" site:stage
+# javatests needs java, which is not installed at this point.
+"$MVN" site -pl '!java,!javatests'
+"$MVN" site:stage -pl '!java,!javatests'

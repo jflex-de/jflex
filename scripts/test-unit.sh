@@ -18,12 +18,12 @@ logi "Compile, test and install all"
 logi "============================="
 # NB: Installs jflex in local repo
 # implies: validate, compile, test, package, verify, install
-# The "java" profile is work in progress.
+# java and javatests have their own CI job.
 if [[ "$CI" ]]; then
   # Quiet mode shows errors only.
-  "$MVN" install --quiet -pl '!java'
+  "$MVN" install --quiet -pl '!java,!javatests'
 else
-  "$MVN" install -pl '!java'
+  "$MVN" install -pl '!java,!javatests'
 fi
 
 cd "$CWD"

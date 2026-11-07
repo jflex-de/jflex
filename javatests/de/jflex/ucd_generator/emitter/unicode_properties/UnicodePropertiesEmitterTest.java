@@ -4,8 +4,6 @@
  */
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.ucd.UcdFileType;
@@ -25,10 +23,6 @@ public class UnicodePropertiesEmitterTest {
             "javatests/de/jflex/ucd_generator/emitter/unicode_properties/"
                 + "UnicodeProperties.java.golden");
 
-    // in-memory output
-    DiffOutputStream output =
-        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8));
-
     UcdVersion ucd2_4 =
         UcdVersion.builder("2.4.0")
             .putFile(UcdFileType.Blocks, new File("FakeUnicodeData.txt"))
@@ -44,7 +38,10 @@ public class UnicodePropertiesEmitterTest {
             .build();
     UnicodePropertiesEmitter emitter = new UnicodePropertiesEmitter("org.example", versions);
 
-    emitter.emitUnicodeProperties(output);
-    assertThat(output.remainingContent()).isEmpty();
+    // In-memory output. Closing checks that all of the golden file was emitted.
+    try (DiffOutputStream output =
+        new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
+      emitter.emitUnicodeProperties(output);
+    }
   }
 }
