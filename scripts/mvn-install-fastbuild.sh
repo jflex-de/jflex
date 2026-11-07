@@ -10,6 +10,8 @@ BASEDIR="$(cd "$(dirname "$0")" && pwd -P)"/..
 # Provides the logi function
 source "$BASEDIR"/scripts/logger.sh
 MVN="$BASEDIR"/mvnw
+# fail on error
+set -e
 
 QUIET=""
 if [[ "$CI" ]]; then
@@ -24,6 +26,3 @@ cd "$BASEDIR"
 if [[ -n "$EXTRA_PROJECTS" ]]; then
   "$MVN" ${QUIET} -Pfastbuild -pl "$EXTRA_PROJECTS" install
 fi
-
-cd "$CWD"
-
