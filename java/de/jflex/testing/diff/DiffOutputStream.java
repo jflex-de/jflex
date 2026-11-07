@@ -52,6 +52,9 @@ public class DiffOutputStream extends OutputStream {
    */
   protected int count;
 
+  /** Whether the golden input has been closed. */
+  private boolean closed;
+
   public DiffOutputStream(Reader in) {
     this(new BufferedReader(in));
   }
@@ -122,10 +125,30 @@ public class DiffOutputStream extends OutputStream {
     }
   }
 
+  /** Checks that all expected content has been output and closes the golden input. */
   @Override
   public void close() throws IOException {
-    assertWithMessage("All expected content has been output").that(remainingContent()).isEmpty();
-    super.close();
+    if (closed) {
+      return;
+    }
+    try {
+      assertWithMessage("All expected content has been output").that(remainingContent()).isEmpty();
+    } finally {
+      closeWithoutCheck();
+    }
+  }
+
+  /**
+   * Closes the golden input without checking for remaining content, for callers that have already
+   * reported the result of the comparison, e.g. from a {@code finally} block.
+   */
+  public void closeWithoutCheck() {
+    closed = true;
+    try {
+      in.close();
+    } catch (IOException ignored) {
+      // We're expecting to be called in finally, so there is not much more we can do.
+    }
   }
 
   public void setComparisonFailureHandler(ComparisonFailureHandler comparisonFailureHandler) {

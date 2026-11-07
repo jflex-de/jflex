@@ -45,6 +45,60 @@ public class DiffOutputStreamTest {
         () -> diff(in, out));
   }
 
+  @Test
+  public void close_allContentOutput_closesInput() throws Exception {
+    TrackedReader in = new TrackedReader("Hello world!\n");
+    try (DiffOutputStream differ = new DiffOutputStream(in)) {
+      differ.write("Hello world!\n".getBytes("UTF-8"));
+    }
+    assertThat(in.closed).isTrue();
+  }
+
+  @Test
+  public void close_contentRemaining_failsAndClosesInput() throws Exception {
+    TrackedReader in = new TrackedReader("Hello\nworld!\n");
+    assertThrows(
+        DiffOutputStream.class + " throws an exception when content was not output",
+        AssertionError.class,
+        () -> {
+          try (DiffOutputStream differ = new DiffOutputStream(in)) {
+            differ.write("Hello\n".getBytes("UTF-8"));
+          }
+        });
+    assertThat(in.closed).isTrue();
+  }
+
+  @Test
+  public void close_twice_hasNoEffect() throws Exception {
+    try (DiffOutputStream differ = new DiffOutputStream(new TrackedReader(""))) {
+      differ.close();
+    }
+  }
+
+  @Test
+  public void closeWithoutCheck_contentRemaining_closesInput() throws Exception {
+    TrackedReader in = new TrackedReader("Hello world!\n");
+    try (DiffOutputStream differ = new DiffOutputStream(in)) {
+      differ.closeWithoutCheck();
+    }
+    assertThat(in.closed).isTrue();
+  }
+
+  /** A reader that records whether it was closed. */
+  private static class TrackedReader extends StringReader {
+    boolean closed;
+
+    TrackedReader(String content) {
+      super(content);
+    }
+
+    @Override
+    public void close() {
+      closed = true;
+      super.close();
+    }
+  }
+
   private static DiffOutputStream diff(String in, String out) throws IOException {
     DiffOutputStream diffStream = new DiffOutputStream(new StringReader(in));
     try {
