@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.apache.velocity.runtime.parser.ParseException;
 
-class AgeTestGenerator {
+public class AgeTestGenerator {
 
   private AgeTestGenerator() {}
 
