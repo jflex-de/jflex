@@ -15,12 +15,16 @@ import org.junit.After;
 public abstract class AbstractGoldenTest {
 
   private DiffOutputStream output;
+
+  /** The {@code System.out} of the test environment, to restore after the test. */
   private PrintStream originalSysOut;
 
   protected void compareSystemOutWith(GoldenInOutFilePair golden) throws FileNotFoundException {
     // in-memory output comparison
     output = new DiffOutputStream(Files.newReader(golden.outputFile, StandardCharsets.UTF_8));
-    originalSysOut = System.out;
+    if (originalSysOut == null) {
+      originalSysOut = System.out;
+    }
     System.setOut(new PrintStream(output));
   }
 

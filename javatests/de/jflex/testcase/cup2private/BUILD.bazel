@@ -28,8 +28,8 @@ java_library(
         ":gen_cup2private_scanner",
     ],
     deps = [
+        "//javatests/third_party/cup2",
         "//third_party/com/google/guava",
-        "//third_party/edu/tum/cup2",
     ],
 )
 

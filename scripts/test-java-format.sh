@@ -20,7 +20,7 @@ VERSION_GJF=1.37.0
 function gjf() {
   directory=$1
   logi "Checking $directory"
-  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' -and -not -name 'UnicodeProperties.java' \) )
+  java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --dry-run --set-exit-if-changed $(find $directory -type f \( -name '*.java' -and -not -name 'Unicode_*.java' -and -not -name 'UnicodeProperties.java' -and -not -path '*/third_party/*' -and -not -path '*/target/*' -and -not -path '*/examples/*/out/*' \) )
 }
 
 if [[ ! -f ${TOOLSDIR}/google-java-format-${VERSION_GJF}.jar ]]; then
