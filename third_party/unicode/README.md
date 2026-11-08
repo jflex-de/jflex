@@ -5,8 +5,10 @@
 
 # Unicode Character Definitions
 
-This package provides a Skylark rule to 
-import the Unicode character definitions (UCD) from unicode.org.
+The Unicode character definitions (UCD) from unicode.org are downloaded at build
+time, by the `download-maven-plugin` executions in
+[javatests/pom.xml](/javatests/pom.xml). They end up in `javatests/target/ucd` and
+in the cache in `~/.m2/repository/.cache/download-maven-plugin`.
 
 For further information about data files please see:
 
@@ -18,52 +20,43 @@ Terms of Use
 
 ## How to add Unicode data (UCD)?
 
-### Add the source files in the Bazel Workspace
+### Add the downloads
 
-Edit `third_party/unicode/unicode.bzl` and add an `http_archive`.
-The `ucd_zip_version` is a convenient way to do this. For instance:
+Add an execution of `download-maven-plugin` in [javatests/pom.xml](/javatests/pom.xml).
+Its output directory is the name of the release. For instance:
 
-```python
-    ucd_zip_version(
-        name = "ucd_9_0",
-        version = "9.0.0",
-        sha256 = "df9e028425816fd5117eaea7173704056f88f7cd030681e457c6f3827f9390ec",
-        extra_files = ["ScriptExtensions.txt"],
-    )
+```xml
+<execution>
+  <id>ucd_9_0</id>
+  <goals><goal>wget</goal></goals>
+  <configuration>
+    <url>${ucd.url}/zipped/9.0.0/UCD.zip</url>
+    <outputDirectory>${ucd.dir}/ucd_9_0</outputDirectory>
+    <sha256>df9e028425816fd5117eaea7173704056f88f7cd030681e457c6f3827f9390ec</sha256>
+    <unpack>true</unpack>
+  </configuration>
+</execution>
 ```
 
-* The sha256 is the sha of the zip file. 
-  Tip: Use a fake value like "1111111111111111111111111111111111111111111111111111111111111111" and see bazel complain.
-  It will then provide the actual value.
-* Note that "ScriptExtensions.txt" is added since Unicode 6.0
-* Note that Unicode.org offers a zip since Unicode 4.0, for which the macro
-  `ucd_zip_version` can be used.
+* The sha256 is the sha of the zip file.
+  Tip: Use a fake value and let the build fail. It reports the actual value.
+* Unicode.org offers a zip since Unicode 4.1. For older versions, each file has its
+  own execution.
+* The emoji data of Unicode 8.0 and later is not in the zip. It needs an execution of
+  its own, with the URL `${ucd.url}/emoji/x.y/emoji-data.txt`, unless the matching
+  emoji version is already there.
 
-### Add a filegroup target in BUILD.bazel
+### Add the version
 
-This is a convenience group to group the UCD with its corresponding emoji data.
+Add the version and its output directories to `RELEASES` in
+[UcdReleases.java](/java/de/jflex/ucd/UcdReleases.java), for instance:
 
-Note: for old versions, it's also a convenience group for the various files,
-because Unicode.org didn't provide a zip archive.
-
-```python
-filegroup(
-    name = "ucd_9_0",
-    srcs = [
-        "@emoji_4_emoji_data_txt//file",
-        "@ucd_9_0//:files",
-    ],
-)
+```java
+add("9.0.0", "ucd_9_0", "emoji_4");
 ```
 
-## Why this declaration?
+The files that the generators use from these directories, such as
+`auxiliary/WordBreakProperty.txt` in the zip or `ScriptExtensions.txt` since Unicode
+6.0, are found by name.
 
-Because Bazel build are reproducible, the comprehensive list of resources
-(with their sha256) must be declared.
-
-## Where to see downloaded content?
-
-```
-bazel build //third_party/unicode/...
-ls $(bazel info output_base)/external/ucd*
-```
+See also [How to add support for a new Unicode version?](/docs/howto/new_unicode_version.md)

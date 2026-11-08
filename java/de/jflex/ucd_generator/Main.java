@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class Main {
 
-  private static final String ARG_VERSION = "--version=";
-  private static final String ARG_OUT = "--out=";
+  static final String ARG_VERSION = "--version=";
+  static final String ARG_OUT = "--out=";
 
   /** Args: {@code --version=X file file file --version=Y file file} */
   public static void main(String[] argv) throws Exception {
@@ -31,13 +31,14 @@ public class Main {
   }
 
   private static void printUsage() {
-    System.out.println("bazel run //java/de/jflex/ucd_generator:Main -- \\");
-    System.out.println(
-        String.format("  %s1.2.3 /absolute/path/to/ucd_1.2.3_files \\", ARG_VERSION));
-    System.out.println(String.format("  %s4.5.6 /absolute/path/to/ucd_4.5.6_files", ARG_VERSION));
-    System.out.println("or more simply, just run");
+    System.out.println("Usage: Main \\");
+    System.out.println(String.format("  %s1.2.3 /path/to/ucd_1.2.3_files \\", ARG_VERSION));
+    System.out.println(String.format("  %s4.5.6 /path/to/ucd_4.5.6_files \\", ARG_VERSION));
+    System.out.println(String.format("  %s/path/to/output", ARG_OUT));
     System.out.println();
-    System.out.println("    bazel build //java/de/jflex/ucd_generator:gen_unicode_properties");
+    System.out.println("To generate the tables of all versions, run");
+    System.out.println();
+    System.out.println("    scripts/gen-unicode-tables.sh");
     System.out.println();
     System.out.println("See also java/de/jflex/ucd_generator/README.md");
   }

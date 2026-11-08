@@ -35,6 +35,7 @@
     <ucd.dir>${project.build.directory}/ucd</ucd.dir>
     <ucd.url>https://www.unicode.org/Public</ucd.url>
     <unicode.specs.dir>${unicode.tests.dir}/javatests/de/jflex/testcase/unicode</unicode.specs.dir>
+    <unicode.tables.dir>${project.build.directory}/generated-unicode-tables</unicode.tables.dir>
     <unicode.tests.dir>${project.build.directory}/generated-unicode-tests</unicode.tests.dir>
     <work.dir>${project.build.directory}/javatests-work</work.dir>
   </properties>
@@ -970,6 +971,43 @@
   </build>
 
   <profiles>
+    <profile>
+      <!-- Generates the Unicode tables of jflex/src/main/java/jflex/core/unicode, unformatted and
+           into target/. Use scripts/gen-unicode-tables.sh, which also updates the sources. -->
+      <id>gen-unicode-tables</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-unicode-tests</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
+                <id>generate-unicode-tables</id>
+                <phase>process-classes</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${java.home}/bin/java</executable>
+                  <classpathScope>test</classpathScope>
+                  <arguments>
+                    <argument>-classpath</argument>
+                    <classpath/>
+                    <argument>de.jflex.ucd_generator.AllVersionsMain</argument>
+                    <argument>${ucd.dir}</argument>
+                    <argument>${unicode.tables.dir}</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <!-- This profile in the root pom skips the UCD downloads, and tests are not compiled. -->
       <id>fastbuild</id>

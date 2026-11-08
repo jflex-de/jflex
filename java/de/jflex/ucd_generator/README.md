@@ -6,36 +6,32 @@
 # UCD Generator
 
 This program parses the fileset of a Unicode Character Definition,
-and generates 
+and generates
+
 * a `UnicodeProperties_X_Y` java class per version
 * one `UnivodeProperties.java` for all version
 
-Note: This is the replacement of `jflex-unicode-maven-plugin` for Bazel.
-
 ## Where are the Unicode.org resources defined
 
-Each unicode version is defined as a filegroup in
-[`//third_party/unicode`](../../../third_party/unicode).
+The downloads are in [javatests/pom.xml](/javatests/pom.xml), and
+[UcdReleases](../ucd/UcdReleases.java) maps each Unicode version to its downloads.
+See [third_party/unicode](/third_party/unicode).
 
-Bazel is responsible for fetching (using mirrors) and caching the remote resources.
+## How to generate the Java files
 
-## How to generate the Java files.
+    scripts/gen-unicode-tables.sh
 
-Jflex has a convient target:
-
-    bazel build //java/de/jflex/ucd_generator:gen_unicode_properties
-    cp -r $(bazel info workspace)/bazel-bin/java/de/jflex/ucd_generator/Unicode_*.java $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data
-    chmod u+w $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data/*.java
-    google-java-format -r $(bazel info workspace)/jflex/src/main/java/jflex/core/unicode/data/*.java
+This needs JDK 21+. It downloads the files, runs `AllVersionsMain` through the
+Maven profile `gen-unicode-tables` of `javatests`, and copies and formats the
+result into [jflex/core/unicode](/jflex/src/main/java/jflex/core/unicode).
 
 ### Building for a reduced set of properties
 
 The UnicodeData.txt and DerivedAge.txt must be provided.
 The other data files should be provided.
-The files must be accessible from the sandbox, e.g. in `/tmp`
 
-    bazel run java/jflex/ucd_generator:Main -- --version=5.0.0 $(ls /tmp/ucd_5_0/*.txt  /tmp/ucd_5_0/auxiliary/*.txt)  --out=/tmp/ucd5_java
-    
+    java -cp <classpath> de.jflex.ucd_generator.Main --version=5.0.0 $(ls /tmp/ucd_5_0/*.txt /tmp/ucd_5_0/auxiliary/*.txt) --out=/tmp/ucd5_java
+
 ## Software architecture.
 
 * `Main` is only responsible for parsing the cli arguments
