@@ -118,7 +118,7 @@ The top level directory of the JFLex git repository contains:
 - **jflex** JFlex, the scanner/lexer generator for Java
 - **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
 - **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
-- **testsuite** the regression test suite for JFlex,
+- **testsuite** test cases for JFlex's Unicode support, run by `javatests`
 
 
 ### Build from source

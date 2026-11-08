@@ -5,14 +5,26 @@
 
 # JFlex test suite
 
-This directory contains a conformance test suite for JFlex.
+This directory contains a conformance test suite for JFlex, mostly for its Unicode
+properties. The cases are run by `de.jflex.testsuite.TestsuiteTest` in the `javatests`
+module, which defines the format of the `.test` files in `TestLoader.flex`.
 
-## jflex-testsuite-maven-plugin 
+## Layout
 
-A Maven plugin to execute test cases.
+- `testcases/src/test/cases/<dir>/<name>.test`: one test case. It names the spec
+  `<name>.flex`, the JFlex options, and the scanner's input.
+- `<name>-flex.output`: the expected JFlex messages. Paths in it are relative to
+  `testcases`.
+- `<name>.output`, or `<name>-*.input` and `<name>-*.output`: the scanner's input and
+  expected output.
+- `testcases/src/test/resources`: input files and Java code shared by the specs.
+- `testcases/src/test/{perl,sh,java}`: the scripts that created the Unicode cases.
 
-## testcases
+## Running
 
-A Maven project using the jflex-testsuite-maven-plugin
-and actually containing the test cases.
+With `jflex` and `jflex-maven-plugin` installed, from the root directory:
 
+    ./mvnw -pl java,javatests install -Dtest=TestsuiteTest -Dsurefire.failIfNoSpecifiedTests=false
+
+`scripts/test-regression.sh` runs the same command. Add `-Dtestcases=dot,unicode-scripts` to
+run only some case directories.

@@ -16,6 +16,9 @@ set -e
 
 logi "Run regression test cases"
 logi "========================="
-# regression test suite must run in its own directory
-cd "$BASEDIR"/testsuite/testcases; "$MVN" test
+# The test cases in testsuite/testcases are run by TestsuiteTest in javatests.
+# Needs jflex and jflex-maven-plugin installed.
+# Select case directories with -Dtestcases=dot,unicode-scripts
+cd "$BASEDIR"
+"$MVN" -pl java,javatests install -Dtest=TestsuiteTest -Dsurefire.failIfNoSpecifiedTests=false "$@"
 cd "$CWD"
