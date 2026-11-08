@@ -22,9 +22,9 @@ jobs:
         java: [ 8, 25 ]
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
@@ -47,9 +47,9 @@ jobs:
         java: [ 8, 25 ]
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
@@ -67,9 +67,9 @@ jobs:
         java: [ 8, 25 ]
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
@@ -83,9 +83,9 @@ jobs:
     name: 'Aggregated sources'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         java-version: 25
         distribution: zulu
@@ -108,9 +108,9 @@ jobs:
         java: [ 8, 25 ]
       fail-fast: false
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ matrix.java }}
         distribution: zulu
@@ -126,7 +126,7 @@ jobs:
     name: 'Docs'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
     - name: 'Install LaTeX and pandoc'
       run: |
         sudo apt-get install \
