@@ -18,7 +18,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
@@ -222,14 +224,40 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       OptionUtils.set_unused_warning(false);
     }
     OptionUtils.set_unused_warning(spec.warnUnused());
-    LexGenerator lexGenerator = new LexGenerator(new File(spec.lex()));
+    File lexFile = new File(spec.lex());
+    Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
+    LexGenerator lexGenerator = new LexGenerator(lexFile);
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
+    checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));
     if (spec.minimizedDfaStatesCount() > 0) {
       assertWithMessage("There should be %d minimized states in the DFA")
           .that(lexGenerator.minimizedDfaStatesCount())
           .isEqualTo(spec.minimizedDfaStatesCount());
     }
     return lexerJavaFileName;
+  }
+
+  /** Returns the absolute paths of the {@code .java} files in {@code dir}. */
+  private static Set<File> javaFilesIn(File dir) {
+    Set<File> result = new HashSet<>();
+    File[] files = dir.listFiles((d, name) -> name.endsWith(".java"));
+    if (files != null) {
+      for (File file : files) {
+        result.add(file.getAbsoluteFile());
+      }
+    }
+    return result;
+  }
+
+  /** Fails if the generated scanner already existed before the JFlex run. */
+  private static void checkNoCollision(Set<File> existingJavaFiles, File generated) {
+    if (existingJavaFiles.contains(generated.getAbsoluteFile())) {
+      throw new AssertionError(
+          "\""
+              + generated
+              + "\" already existed before this test generated it. Make sure tests"
+              + " have separate output files and the working directory is clean.");
+    }
   }
 
   private void buildLexer(RunNotifier notifier, String lexerJavaFileName) {
