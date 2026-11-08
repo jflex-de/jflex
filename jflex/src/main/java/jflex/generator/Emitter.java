@@ -175,8 +175,7 @@ public final class Emitter {
     if (!hasGenLookAhead()) return;
 
     println("  /** For the backwards DFA of general lookahead statements */");
-    println(
-        "  private boolean [] zzFin = new boolean [Math.min(ZZ_BUFFERSIZE, zzMaxBufferLen())+1];");
+    println("  private boolean [] zzFin = new boolean [0];");
     println();
   }
 
