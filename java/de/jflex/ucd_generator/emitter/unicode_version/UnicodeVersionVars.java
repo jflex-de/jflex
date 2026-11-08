@@ -4,13 +4,13 @@
  */
 package de.jflex.ucd_generator.emitter.unicode_version;
 
-import de.jflex.velocity.TemplateVars;
+import de.jflex.template.TemplateVars;
 
 public class UnicodeVersionVars extends TemplateVars {
 
   public String packageName;
   public String className;
-  public int maxCodePoint;
+  public String maxCodePointHex;
   public String propertyValues;
   public String intervals;
   public String propertyValueAliases;

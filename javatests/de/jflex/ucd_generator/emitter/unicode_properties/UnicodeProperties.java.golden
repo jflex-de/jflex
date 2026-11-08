@@ -137,9 +137,9 @@ public class UnicodeProperties {
    */
   private void init(String version) throws UnsupportedUnicodeVersionException {
     switch (version) {
-        case "2.4":
-        case "2.4.0":
-          bind(
+      case "2.4":
+      case "2.4.0":
+        bind(
             org.example.data.Unicode_2_4.propertyValues,
             org.example.data.Unicode_2_4.intervals,
             org.example.data.Unicode_2_4.propertyValueAliases,
@@ -147,8 +147,8 @@ public class UnicodeProperties {
             org.example.data.Unicode_2_4.caselessMatchPartitions,
             org.example.data.Unicode_2_4.caselessMatchPartitionSize);
         break;
-        case "10.0":
-          bind(
+      case "10.0":
+        bind(
             org.example.data.Unicode_10_0.propertyValues,
             org.example.data.Unicode_10_0.intervals,
             org.example.data.Unicode_10_0.propertyValueAliases,

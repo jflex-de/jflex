@@ -31,7 +31,17 @@ class UnicodeBlocksTestJavaGenerator
     vars.className = "UnicodeBlocksTest_" + unicodeVersion.underscoreVersion();
     Comparator<NamedCodepointRange> comparator =
         (o1, o2) -> CodepointRange.COMPARATOR.compare(o1.range(), o2.range());
-    vars.blocks = ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks));
+    StringBuilder blockRanges = new StringBuilder();
+    for (NamedCodepointRange b : ImmutableSortedSet.copyOf(comparator, addNoBlock(blocks))) {
+      if (blockRanges.length() > 0) {
+        blockRanges.append(",\n");
+      }
+      blockRanges.append(
+          String.format(
+              "        NamedCodepointRange.create(\"%s\", 0x%s, 0x%s)",
+              b.name(), b.hexStart(), b.hexEnd()));
+    }
+    vars.blockRanges = blockRanges.toString();
     return vars;
   }
 

@@ -55,10 +55,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
@@ -67,11 +63,8 @@
       <resource>
         <directory>${project.basedir}</directory>
         <includes>
-          <include>de/jflex/**/*.vm</include>
+          <include>de/jflex/**/*.template</include>
         </includes>
-        <excludes>
-          <exclude>de/jflex/migration/unicodedatatest/BUILD.vm</exclude>
-        </excludes>
       </resource>
     </resources>
     <plugins>

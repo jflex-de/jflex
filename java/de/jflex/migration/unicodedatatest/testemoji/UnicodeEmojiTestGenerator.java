@@ -8,6 +8,8 @@ package de.jflex.migration.unicodedatatest.testemoji;
 import com.google.common.collect.ImmutableSet;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UnicodeEmojiTestGenerator extends AbstractGenerator<UnicodeEmojiTestTemplateVars> {
 
@@ -25,7 +27,24 @@ public class UnicodeEmojiTestGenerator extends AbstractGenerator<UnicodeEmojiTes
   protected UnicodeEmojiTestTemplateVars createTemplateVars() {
     UnicodeEmojiTestTemplateVars vars = new UnicodeEmojiTestTemplateVars();
     vars.className = "UnicodeEmojiTest_" + unicodeVersion.underscoreVersion();
-    vars.propertyNames = propertyNames;
+    List<String> tests = new ArrayList<>();
+    for (String propName : propertyNames) {
+      String scanner = "UnicodeEmoji_" + propName + "_" + unicodeVersion.underscoreVersion();
+      tests.add(
+          String.format(
+              "  /** Test property {@code %1$s}. */\n"
+                  + "  @Test\n"
+                  + "  public void emoji_%1$s() throws Exception {\n"
+                  + "    %2$s scanner =\n"
+                  + "        UnicodeDataScanners.scanAllCodepoints(\n"
+                  + "            ScannerFactory.of(%2$s::new),\n"
+                  + "            %2$s.YYEOF,\n"
+                  + "            UnicodeDataScanners.Dataset.ALL);\n"
+                  + "    assertThat(scanner.ranges()).isEqualTo(readGolden(\"%1$s\"));\n"
+                  + "  }",
+              propName, scanner));
+    }
+    vars.emojiTests = String.join("\n", tests);
     return vars;
   }
 

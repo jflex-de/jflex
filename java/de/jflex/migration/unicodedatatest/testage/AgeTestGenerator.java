@@ -13,7 +13,6 @@ import de.jflex.version.Version;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class AgeTestGenerator {
 
@@ -25,8 +24,7 @@ public class AgeTestGenerator {
     generate(version, outDir);
   }
 
-  public static void generate(UnicodeVersion unicodeVersion, Path outDir)
-      throws IOException, ParseException {
+  public static void generate(UnicodeVersion unicodeVersion, Path outDir) throws IOException {
     ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     for (Version age : ages) {
       UnicodeAgeFlexGenerators.createForAge(unicodeVersion, age).generate(outDir);

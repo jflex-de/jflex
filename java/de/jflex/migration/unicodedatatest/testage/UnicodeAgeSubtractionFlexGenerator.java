@@ -5,12 +5,9 @@
 package de.jflex.migration.unicodedatatest.testage;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Streams;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
-import de.jflex.migration.unicodedatatest.base.Pair;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.version.Version;
-import java.util.stream.Stream;
 
 class UnicodeAgeSubtractionFlexGenerator
     extends AbstractGenerator<UnicodeAgeSubtractionTemplateVars> {
@@ -26,9 +23,22 @@ class UnicodeAgeSubtractionFlexGenerator
         String.format(
             "UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
     ImmutableList<Version> ages = olderAges(unicodeVersion.version());
-    Stream<Pair<Version>> agePairs =
-        Streams.zip(ages.stream(), ages.stream().skip(1), Pair::create);
-    vars.ages = agePairs.collect(ImmutableList.toImmutableList());
+    StringBuilder rules = new StringBuilder();
+    for (int i = 1; i < ages.size(); i++) {
+      if (rules.length() > 0) {
+        rules.append('\n');
+      }
+      String older = ages.get(i - 1).toString();
+      String newer = ages.get(i).toString();
+      rules.append(
+          String.format(
+              "[\\p{Age:%2$s}--\\p{Age:%1$s}] {\n"
+                  + "  setCurCharPropertyValue(yytext(), yylength(),"
+                  + " \"[\\\\p{Age:%2$s}--\\\\p{Age:%1$s}]\");\n"
+                  + "}",
+              older, newer));
+    }
+    vars.subtractionRules = rules.toString();
     return vars;
   }
 

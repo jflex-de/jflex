@@ -1,14 +1,12 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright 2026, Gerwin Klein
  * SPDX-License-Identifier: BSD-3-Clause
  */
 package de.jflex.migration.unicodedatatest.testblock;
 
-import com.google.common.collect.ImmutableSortedSet;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.ucd.NamedCodepointRange;
 
 public class UnicodeBlocksTestJavaTemplateVars extends UnicodeVersionTemplateVars {
-  /** Blocks sorted by range. */
-  public ImmutableSortedSet<NamedCodepointRange> blocks;
+  /** The expected blocks as {@code NamedCodepointRange} expressions, sorted by range. */
+  public String blockRanges;
 }

@@ -4,9 +4,9 @@
  */
 package de.jflex.migration.unicodedatatest.base;
 
+import de.jflex.template.TemplateVars;
 import de.jflex.testing.unicodedata.UnicodeDataScanners;
 import de.jflex.ucd.Versions;
-import de.jflex.velocity.TemplateVars;
 import de.jflex.version.Version;
 
 public class UnicodeVersionTemplateVars extends TemplateVars {
@@ -18,6 +18,9 @@ public class UnicodeVersionTemplateVars extends TemplateVars {
 
   /** The unicode version under test. */
   public Version unicodeVersion;
+
+  /** The unicode version under test with '_' as separator, e.g. {@code 12_1}. */
+  public String underscoreVersion;
 
   /** The maximum codepoint for this Unicode version. */
   public int maxCodePoint;
@@ -31,6 +34,9 @@ public class UnicodeVersionTemplateVars extends TemplateVars {
     }
     if (unicodeVersion == null) {
       unicodeVersion = version.version();
+    }
+    if (underscoreVersion == null) {
+      underscoreVersion = unicodeVersion.underscoreVersion();
     }
     if (maxCodePoint == 0) {
       maxCodePoint = Versions.maxCodePoint(version.version());

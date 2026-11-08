@@ -4,15 +4,13 @@
  */
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
-import de.jflex.ucd_generator.ucd.UcdVersions;
-import de.jflex.velocity.TemplateVars;
+import de.jflex.template.TemplateVars;
 
-// the fields in this class are read via reflection by Velocity
+// the fields in this class are read via reflection by Template
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class UnicodePropertiesVars extends TemplateVars {
   public String packageName;
   public String versionsAsString;
   public String latestVersion;
-  public Iterable<String> versions;
-  public UcdVersions ucdVersions;
+  public String versionCases;
 }

@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import org.apache.velocity.runtime.parser.ParseException;
 
 /**
  * Generates {@code UnicodeProperties.java} and the associated {Unicode_X_Y} from Unicode.org data
@@ -27,8 +26,7 @@ public class UcdGenerator {
   private static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
   /** Generates {@code UnicodeProperties} and {@code Unicode_X_Y} from the UCD files. */
-  public static void generate(UcdGeneratorParams params)
-      throws IOException, ParseException, UcdScannerException {
+  public static void generate(UcdGeneratorParams params) throws IOException, UcdScannerException {
     UcdVersions ucdVersions = params.ucdVersions();
     File outputDir = params.outputDir();
     Files.createDirectories(outputDir.toPath());
@@ -40,7 +38,7 @@ public class UcdGenerator {
 
   /** Emits {@code UnicodeProperties.java} */
   private static void emitUnicodeProperties(UcdVersions ucdVersions, File outputDir)
-      throws IOException, ParseException {
+      throws IOException {
     UnicodePropertiesEmitter propertiesEmitter =
         new UnicodePropertiesEmitter(PACKAGE_JFLEX_UNICODE, ucdVersions);
     File outputFile = new File(outputDir, "UnicodeProperties.java");
@@ -51,7 +49,7 @@ public class UcdGenerator {
 
   /** Emits {@code Unicode_X_Y.java} files. */
   private static void emitAllUnicodeXY(UcdVersions ucdVersions, File outputDir)
-      throws IOException, ParseException, UcdScannerException {
+      throws IOException, UcdScannerException {
     for (Version version : ucdVersions.versionSet()) {
       UcdVersion ucdVersion = ucdVersions.get(version);
       emitUnicodeVersionXY(ucdVersion, outputDir);
@@ -60,7 +58,7 @@ public class UcdGenerator {
 
   /** Emits {@code Unicode_X_Y.java} for a give version. */
   static void emitUnicodeVersionXY(UcdVersion ucdVersion, File outputDir)
-      throws IOException, ParseException, UcdScannerException {
+      throws IOException, UcdScannerException {
     String unicodeClassName = ucdVersion.version().unicodeClassName();
     System.out.println(String.format("Emitting %s [WIP]", unicodeClassName));
     UnicodeData unicodeData = scanUnicodeVersion(ucdVersion);

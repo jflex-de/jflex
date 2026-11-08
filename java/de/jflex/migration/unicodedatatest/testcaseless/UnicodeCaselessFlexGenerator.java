@@ -4,8 +4,6 @@
  */
 package de.jflex.migration.unicodedatatest.testcaseless;
 
-import static com.google.common.collect.ImmutableList.toImmutableList;
-
 import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
@@ -25,14 +23,17 @@ public class UnicodeCaselessFlexGenerator
   protected UnicodeCaselessFlexTemplateVars createTemplateVars() {
     UnicodeCaselessFlexTemplateVars vars = new UnicodeCaselessFlexTemplateVars();
     vars.className = "UnicodeCaseless_" + unicodeVersion.underscoreVersion();
-    vars.caselessCodepoints =
-        caselessCodepoints.stream().map(this::formatCodepoint).collect(toImmutableList());
+    StringBuilder rules = new StringBuilder();
+    for (int cp : caselessCodepoints) {
+      if (rules.length() > 0) {
+        rules.append('\n');
+      }
+      rules.append(
+          String.format(
+              "\"\\U%1$06X\" { setCurCharPropertyValue(yytext(), yylength(), 0x%1$06X); }", cp));
+    }
+    vars.caselessRules = rules.toString();
     return vars;
-  }
-
-  @SuppressWarnings("MethodCanBeStatic")
-  private String formatCodepoint(int cp) {
-    return String.format("%06X", cp);
   }
 
   @Override

@@ -8,15 +8,18 @@ import static com.google.common.collect.ImmutableList.toImmutableList;
 import static de.jflex.migration.util.JavaResources.readResource;
 
 import com.google.common.collect.ImmutableList;
+import de.jflex.template.Template;
 import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import de.jflex.version.Version;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
 
@@ -50,11 +53,7 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
   protected final UnicodeVersion unicodeVersion;
 
   protected AbstractGenerator(String templateName, UnicodeVersion unicodeVersion) {
-    if (templateName.endsWith(".vm")) {
-      this.templateName = templateName.substring(0, templateName.length() - 3);
-    } else {
-      this.templateName = templateName;
-    }
+    this.templateName = templateName;
     this.unicodeVersion = unicodeVersion;
   }
 
@@ -65,7 +64,7 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
   }
 
   /** Returns the generated file. */
-  public Path generate(Path outDir) throws IOException, ParseException {
+  public Path generate(Path outDir) throws IOException {
     T vars = createTemplateVars();
     vars.updateFrom(unicodeVersion);
     vars.templateName = templateName;
@@ -74,6 +73,21 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
         outDir.resolve("javatests").resolve(unicodeVersion.javaPackageDirectory());
     Files.createDirectories(javaPackageOutDir);
     Path outFile = javaPackageOutDir.resolve(getOuputFileName(vars));
+    String content;
+    try {
+      content = render(vars);
+    } catch (Exception e) {
+      throw new RuntimeException("Error rendering '" + templateName + "' with " + vars, e);
+    }
+    try (OutputStream out = Files.newOutputStream(outFile);
+        Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
+      writer.write(content);
+    }
+    return outFile;
+  }
+
+  /** Returns the content of the generated file: by default, the template filled in with vars. */
+  protected String render(T vars) throws IOException {
     InputStreamReader templateReader;
     try {
       templateReader = readResourceTemplate();
@@ -81,12 +95,7 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
       throw new IllegalArgumentException(
           "Could not read template in java resources for template", e);
     }
-    try {
-      Velocity.render(templateReader, templateName, vars, outFile.toFile());
-    } catch (Exception e) {
-      throw new RuntimeException("Error rendering '" + templateName + "' with " + vars, e);
-    }
-    return outFile;
+    return Template.render(Template.read(templateReader), vars);
   }
 
   /** Reads the template from base or from the test package. */
@@ -94,12 +103,12 @@ public abstract class AbstractGenerator<T extends UnicodeVersionTemplateVars> {
     try {
       return readResource(
           Paths.get(JavaPackageUtils.getPathForClass(AbstractGenerator.class))
-              .resolve(templateName + ".vm")
+              .resolve(templateName + ".template")
               .toString());
     } catch (NullPointerException e) {
       return readResource(
           Paths.get(JavaPackageUtils.getPathForClass(this.getClass()))
-              .resolve(templateName + ".vm")
+              .resolve(templateName + ".template")
               .toString());
     }
   }

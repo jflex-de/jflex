@@ -21,13 +21,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class BlocksTestGenerator {
 
   private BlocksTestGenerator() {}
 
-  public static void main(String[] args) throws IOException, ParseException {
+  public static void main(String[] args) throws IOException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     List<String> files = Arrays.asList(Arrays.copyOfRange(args, 1, args.length));
@@ -81,7 +80,7 @@ public class BlocksTestGenerator {
 
   private static void generate(
       UnicodeVersion version, Path outDir, ImmutableList<NamedCodepointRange<String>> blocks)
-      throws IOException, ParseException {
+      throws IOException {
     UnicodeBlockFlexGenerator.create(version, blocks).generate(outDir);
     new UnicodeBlocksTestJavaGenerator(version, blocks).generate(outDir);
   }

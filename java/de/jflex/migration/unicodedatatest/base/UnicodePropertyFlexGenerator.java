@@ -5,11 +5,12 @@
 package de.jflex.migration.unicodedatatest.base;
 
 import com.google.common.collect.ImmutableSortedMap;
+import java.util.Map;
 import java.util.NavigableMap;
 
 /** Generates the flex of the scanners for a all ages of a given Unicode version. */
 public class UnicodePropertyFlexGenerator<T>
-    extends AbstractGenerator<UnicodePropertyFlexTemplateVars<T>> {
+    extends AbstractGenerator<UnicodePropertyFlexTemplateVars> {
 
   private final String className;
   private final NavigableMap<String, T> properties;
@@ -27,16 +28,26 @@ public class UnicodePropertyFlexGenerator<T>
   }
 
   @Override
-  protected String getOuputFileName(UnicodePropertyFlexTemplateVars<T> vars) {
+  protected String getOuputFileName(UnicodePropertyFlexTemplateVars vars) {
     return vars.className + ".flex";
   }
 
   @Override
-  protected UnicodePropertyFlexTemplateVars<T> createTemplateVars() {
-    UnicodePropertyFlexTemplateVars<T> vars = new UnicodePropertyFlexTemplateVars<>();
+  protected UnicodePropertyFlexTemplateVars createTemplateVars() {
+    UnicodePropertyFlexTemplateVars vars = new UnicodePropertyFlexTemplateVars();
     vars.className = className;
-    vars.properties = properties;
-    vars.propertyValueClass = propertyValueClass;
+    vars.propertyValueClassName = propertyValueClass.getName();
+    StringBuilder rules = new StringBuilder();
+    for (Map.Entry<String, T> p : properties.entrySet()) {
+      if (rules.length() > 0) {
+        rules.append('\n');
+      }
+      rules.append(
+          String.format(
+              "\\p{%s} { setCurCharPropertyValue(yytext(), yylength(), %s); }",
+              p.getKey(), p.getValue()));
+    }
+    vars.rules = rules.toString();
     return vars;
   }
 
