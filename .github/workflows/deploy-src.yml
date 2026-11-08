@@ -17,15 +17,15 @@ jobs:
     name: 'Sources'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
       with:
         path: jflex
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
       with:
         ref: aggregated-java-sources
         path: aggregated-java-sources
     - name: Set up JDK
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v6
       with:
         # Fixed JDK version to keep [:jletter:] character class constant.
         java-version: 25
