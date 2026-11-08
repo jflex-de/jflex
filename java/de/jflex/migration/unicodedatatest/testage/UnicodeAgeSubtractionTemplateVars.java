@@ -1,14 +1,12 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright 2026, Gerwin Klein
  * SPDX-License-Identifier: BSD-3-Clause
  */
 package de.jflex.migration.unicodedatatest.testage;
 
-import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.Pair;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.version.Version;
 
 public class UnicodeAgeSubtractionTemplateVars extends UnicodeVersionTemplateVars {
-  public ImmutableList<Pair<Version>> ages;
+  /** One scanner rule per pair of consecutive ages. */
+  public String subtractionRules;
 }

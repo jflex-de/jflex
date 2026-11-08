@@ -33,6 +33,18 @@ public class UnicodeDigitGoldenGenerator extends AbstractGenerator<UnicodeDigitG
   }
 
   @Override
+  protected String render(UnicodeDigitGoldenTemplateVars vars) {
+    StringBuilder sb = new StringBuilder();
+    for (NamedCodepointRange<Boolean> b : vars.digitBlocks) {
+      sb.append(b.hexStart())
+          .append("..")
+          .append(b.hexEnd())
+          .append(b.name() ? "; Nd\n" : "; Not-Nd\n");
+    }
+    return sb.toString();
+  }
+
+  @Override
   protected String getOuputFileName(UnicodeDigitGoldenTemplateVars vars) {
     return vars.className + ".output";
   }

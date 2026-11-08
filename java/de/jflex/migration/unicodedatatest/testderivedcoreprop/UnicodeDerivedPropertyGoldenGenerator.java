@@ -6,20 +6,19 @@
 package de.jflex.migration.unicodedatatest.testderivedcoreprop;
 
 import com.google.common.collect.ImmutableList;
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.AbstractRangesGoldenGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeRangesGoldenTemplateVars;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.ucd.CodepointRange;
 
-public class UnicodeDerivedPropertyGoldenGenerator
-    extends AbstractGenerator<UnicodeRangesGoldenTemplateVars> {
+public class UnicodeDerivedPropertyGoldenGenerator extends AbstractRangesGoldenGenerator {
 
   private final String testName;
   private final ImmutableList<CodepointRange> ranges;
 
   public UnicodeDerivedPropertyGoldenGenerator(
       UnicodeVersion version, String testName, ImmutableList<CodepointRange> ranges) {
-    super("UnicodeRangesGolden", version);
+    super(version);
     this.testName = testName;
     this.ranges = ranges;
   }

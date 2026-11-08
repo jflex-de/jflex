@@ -5,26 +5,25 @@
 
 package de.jflex.migration.unicodedatatest.testemoji;
 
-import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
+import de.jflex.migration.unicodedatatest.base.AbstractRangesGoldenGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeRangesGoldenTemplateVars;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
-import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 
-public class UnicodeEmojiGoldenGenerator extends AbstractGenerator<UnicodeVersionTemplateVars> {
+public class UnicodeEmojiGoldenGenerator extends AbstractRangesGoldenGenerator {
 
   private final UnicodeData unicodeData;
   private final String propertyName;
 
   protected UnicodeEmojiGoldenGenerator(
       UnicodeVersion unicodeVersion, UnicodeData unicodeData, String propertyName) {
-    super("UnicodeRangesGolden", unicodeVersion);
+    super(unicodeVersion);
     this.unicodeData = unicodeData;
     this.propertyName = propertyName;
   }
 
   @Override
-  protected UnicodeVersionTemplateVars createTemplateVars() {
+  protected UnicodeRangesGoldenTemplateVars createTemplateVars() {
     UnicodeRangesGoldenTemplateVars vars = new UnicodeRangesGoldenTemplateVars();
     vars.className = "UnicodeEmoji_" + propertyName + "_" + unicodeVersion.underscoreVersion();
     vars.ranges = unicodeData.getPropertyValueIntervals(propertyName);
@@ -32,7 +31,7 @@ public class UnicodeEmojiGoldenGenerator extends AbstractGenerator<UnicodeVersio
   }
 
   @Override
-  protected String getOuputFileName(UnicodeVersionTemplateVars vars) {
+  protected String getOuputFileName(UnicodeRangesGoldenTemplateVars vars) {
     return vars.className + ".output";
   }
 }

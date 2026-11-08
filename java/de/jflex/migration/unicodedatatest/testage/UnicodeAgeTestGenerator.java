@@ -31,7 +31,34 @@ class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVa
     vars.scannerPrefix = "UnicodeAge_" + unicodeVersion.underscoreVersion() + "_age";
     vars.javaPackageDir =
         Paths.get(JavaPackageUtils.getPathForPackage(unicodeVersion.javaPackage()));
-    vars.ages = ages;
+    StringBuilder assertions = new StringBuilder();
+    StringBuilder tests = new StringBuilder();
+    for (Version age : ages) {
+      if (assertions.length() > 0) {
+        assertions.append('\n');
+        tests.append("\n\n");
+      }
+      assertions.append(
+          String.format(
+              "    assertThat(properties.getPropertyValues()).contains(\"age=%s\");", age));
+      String scanner = vars.scannerPrefix + "_" + age.underscoreVersion();
+      tests.append(
+          String.format(
+              "  /**\n"
+                  + "   * Tests character class syntax of the Unicode %1$s\n"
+                  + "   * Age=%2$s property.\n"
+                  + "   */\n"
+                  + "  @Test\n"
+                  + "  public void ageIntervals_%3$s() throws Exception {\n"
+                  + "    assertAgeInterval(\n"
+                  + "        ScannerFactory.of(%4$s::new),\n"
+                  + "        %4$s.YYEOF,\n"
+                  + "        \"%4$s.output\");\n"
+                  + "  }",
+              unicodeVersion.version(), age, age.underscoreVersion(), scanner));
+    }
+    vars.ageAssertions = assertions.toString();
+    vars.ageTests = tests.toString();
     return vars;
   }
 

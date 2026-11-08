@@ -43,6 +43,6 @@ The other data files should be provided.
   * The business logic of the scanners is in an class, so that the class can easily be edited in IDE
 * While parsing, the `UnicodeData` model is updated.
   * I've tried to use immutable objects when possible, but that wasn't always possible
-* `UcdGenerator` uses velocity
+* `UcdGenerator` fills in templates with `de.jflex.template`
   * `UnicodePropertiesEmitter` emits `UnicodeProperties.java` from the `UcdVersions`.
   * `UnicodeVersionEmitter` emits `Unicode_x_y.java` from the `UnicodeData`.

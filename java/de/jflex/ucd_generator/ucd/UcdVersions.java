@@ -46,14 +46,12 @@ public class UcdVersions {
     return versions.lastKey();
   }
 
-  @SuppressWarnings("unused") // Used in .vm
   public static String getClassNameForVersion(String version) {
     List<String> v = Splitter.on('.').splitToList(version);
     return "Unicode_" + Joiner.on('_').join(v.subList(0, min(2, v.size())));
   }
 
   /** Expands the version {@code x.y.z} into {@code x}, {@code x.y}, {@code x.y.z}. */
-  @SuppressWarnings("unused") // Used in .vm
   public static ImmutableList<String> expandVersion(Version version) {
     ImmutableList.Builder<String> expandedVersions = ImmutableList.builder();
     // Add the major version x if it is a x.0.z version

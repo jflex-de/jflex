@@ -42,9 +42,6 @@ SPDX-License-Identifier = "BSD-3-Clause"
 
 [[annotations]]
 path = [
-  "java/de/jflex/migration/unicodedatatest/base/UnicodeRangesGolden.vm",
-  "java/de/jflex/migration/unicodedatatest/testcaseless/UnicodeCaselessGolden.txt.vm",
-  "java/de/jflex/migration/unicodedatatest/testdigit/UnicodeDigitGolden.vm",
   "javatests/de/jflex/ucd_generator/FakeUnicodeData.txt",
 ]
 precedence = "aggregate"

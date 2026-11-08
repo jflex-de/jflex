@@ -5,9 +5,7 @@
 
 package de.jflex.migration.unicodedatatest.testage;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersionTemplateVars;
-import de.jflex.version.Version;
 import java.nio.file.Path;
 
 public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
@@ -17,6 +15,9 @@ public class UnicodeAgeTestTemplateVars extends UnicodeVersionTemplateVars {
   /** The prefix of the names of the scanners. */
   public String scannerPrefix;
 
-  /** List of ages up to {@link #unicodeVersion}. */
-  public ImmutableList<Version> ages;
+  /** One assertion per age up to {@link #unicodeVersion}. */
+  public String ageAssertions;
+
+  /** One test method per age up to {@link #unicodeVersion}. */
+  public String ageTests;
 }

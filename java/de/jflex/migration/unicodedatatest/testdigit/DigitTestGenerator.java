@@ -14,13 +14,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class DigitTestGenerator {
 
   private DigitTestGenerator() {}
 
-  public static void main(String[] args) throws IOException, ParseException, UcdScannerException {
+  public static void main(String[] args) throws IOException, UcdScannerException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     UcdVersion ucdVersion =
@@ -31,7 +30,7 @@ public class DigitTestGenerator {
   }
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
-      throws IOException, ParseException {
+      throws IOException {
     new UnicodeDigitFlexGenerator(version, "[:digit:]").generate(outDir);
     new UnicodeDigitFlexGenerator(version, "\\D").generate(outDir);
     new UnicodeDigitFlexGenerator(version, "\\d").generate(outDir);

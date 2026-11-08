@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class EmojiTestGenerator {
 
@@ -37,7 +36,7 @@ public class EmojiTestGenerator {
   }
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
-      throws IOException, ParseException {
+      throws IOException {
     ImmutableSet<String> emojiProperties = propertiesForVersion(version);
     new UnicodeEmojiTestGenerator(version, emojiProperties).generate(outDir);
     for (String propName : emojiProperties) {

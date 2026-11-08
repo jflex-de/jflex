@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import de.jflex.migration.unicodedatatest.base.AbstractGenerator;
 import de.jflex.migration.unicodedatatest.base.UnicodeVersion;
 import de.jflex.migration.unicodedatatest.testcaseless.CaselessTestGenerator.Equivalences;
+import java.util.Map;
 
 public class UnicodeCaselessGoldenGenerator
     extends AbstractGenerator<UnicodeCaselessGoldenTemplateVars> {
@@ -33,6 +34,17 @@ public class UnicodeCaselessGoldenGenerator
         ImmutableList.sortedCopyOf(equivalences.getKeys()).stream()
             .collect(toImmutableMap(identity(), equivalences::getEquivalentValue));
     return vars;
+  }
+
+  @Override
+  protected String render(UnicodeCaselessGoldenTemplateVars vars) {
+    StringBuilder sb = new StringBuilder();
+    for (Map.Entry<Integer, Integer> c : vars.equivalences.entrySet()) {
+      sb.append(
+          String.format(
+              "input char %04X matches %04X case-insensitively\n", c.getKey(), c.getValue()));
+    }
+    return sb.toString();
   }
 
   @Override

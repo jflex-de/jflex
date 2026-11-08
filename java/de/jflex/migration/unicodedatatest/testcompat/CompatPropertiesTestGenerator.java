@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class CompatPropertiesTestGenerator {
 
@@ -31,7 +30,7 @@ public class CompatPropertiesTestGenerator {
   }
 
   private static void generate(UnicodeVersion version, UnicodeData unicodeData, Path outDir)
-      throws IOException, ParseException {
+      throws IOException {
     new UnicodeCompatibilityPropertiesTestGenerator(version).generate(outDir);
     for (String propName : UnicodeCompatibilityProperties.COMPATIBILITY_PROPERTIES) {
       UnicodeCompatFlexGenerators.create(version, propName).generate(outDir);

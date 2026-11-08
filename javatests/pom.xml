@@ -78,11 +78,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
     </dependency>
@@ -311,7 +306,7 @@
             <testInclude>de/jflex/ucd/**/*.java</testInclude>
             <testInclude>de/jflex/ucd_generator/**/*.java</testInclude>
             <testInclude>de/jflex/util/**/*.java</testInclude>
-            <testInclude>de/jflex/velocity/**/*.java</testInclude>
+            <testInclude>de/jflex/template/**/*.java</testInclude>
             <testInclude>de/jflex/version/**/*.java</testInclude>
             <testInclude>edu/tum/cup2/**/*.java</testInclude>
             <testInclude>jflex/testcase/**/*.java</testInclude>

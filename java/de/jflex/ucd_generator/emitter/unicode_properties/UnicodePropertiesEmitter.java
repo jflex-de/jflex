@@ -5,13 +5,12 @@
 package de.jflex.ucd_generator.emitter.unicode_properties;
 
 import com.google.common.base.Joiner;
+import de.jflex.template.Template;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
 import de.jflex.ucd_generator.ucd.UcdVersions;
 import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import java.io.IOException;
 import java.io.OutputStream;
-import org.apache.velocity.runtime.parser.ParseException;
 
 /** UnicodePropertiesEmitter for {@code UnicodeProperties.java}. */
 public class UnicodePropertiesEmitter extends UcdEmitter {
@@ -21,7 +20,7 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
       JavaPackageUtils.getPathForClass(UnicodePropertiesEmitter.class)
           + "/"
           + TEMPLATE_NAME
-          + ".vm";
+          + ".template";
 
   private final UcdVersions versions;
 
@@ -30,10 +29,9 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
     this.versions = versions;
   }
 
-  public void emitUnicodeProperties(OutputStream output) throws IOException, ParseException {
+  public void emitUnicodeProperties(OutputStream output) throws IOException {
     UnicodePropertiesVars unicodePropertiesVars = createUnicodePropertiesVars();
-    Velocity.render(
-        readResource(UNICODE_PROPERTIES_TEMPLATE), TEMPLATE_NAME, unicodePropertiesVars, output);
+    Template.render(readResource(UNICODE_PROPERTIES_TEMPLATE), unicodePropertiesVars, output);
   }
 
   private UnicodePropertiesVars createUnicodePropertiesVars() {
@@ -42,8 +40,29 @@ public class UnicodePropertiesEmitter extends UcdEmitter {
     unicodePropertiesVars.packageName = getTargetPackage();
     unicodePropertiesVars.versionsAsString = Joiner.on(", ").join(versions.expandAllVersions());
     unicodePropertiesVars.latestVersion = versions.getLastVersion().toMajorMinorString();
-    unicodePropertiesVars.versions = versions.versionsAsList();
-    unicodePropertiesVars.ucdVersions = versions;
+    unicodePropertiesVars.versionCases = versionCases();
     return unicodePropertiesVars;
+  }
+
+  /** The cases of the {@code switch} in {@code UnicodeProperties.init}, one group per version. */
+  private String versionCases() {
+    StringBuilder sb = new StringBuilder();
+    String dataPackage = getTargetPackage() + ".data.";
+    for (String v : versions.versionsAsList()) {
+      for (String ev : UcdVersions.expandVersion(v)) {
+        sb.append("      case \"").append(ev).append("\":\n");
+      }
+      String data = dataPackage + UcdVersions.getClassNameForVersion(v) + ".";
+      sb.append("        bind(\n");
+      sb.append("            ").append(data).append("propertyValues,\n");
+      sb.append("            ").append(data).append("intervals,\n");
+      sb.append("            ").append(data).append("propertyValueAliases,\n");
+      sb.append("            ").append(data).append("maximumCodePoint,\n");
+      sb.append("            ").append(data).append("caselessMatchPartitions,\n");
+      sb.append("            ").append(data).append("caselessMatchPartitionSize);\n");
+      sb.append("        break;\n");
+    }
+    // The template has the line break after the last case.
+    return sb.substring(0, sb.length() - 1);
   }
 }

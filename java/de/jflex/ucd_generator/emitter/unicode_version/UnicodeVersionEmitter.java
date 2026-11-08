@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Maps.EntryTransformer;
+import de.jflex.template.Template;
 import de.jflex.ucd.CodepointRange;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.emitter.common.UcdEmitter;
@@ -18,21 +19,22 @@ import de.jflex.ucd_generator.ucd.CodepointRangeSet;
 import de.jflex.ucd_generator.ucd.UnicodeData;
 import de.jflex.ucd_generator.util.JavaStrings;
 import de.jflex.util.javac.JavaPackageUtils;
-import de.jflex.velocity.Velocity;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
-import org.apache.velocity.runtime.parser.ParseException;
 
 /** Emitter for a {@code Unicode_x_y.java}. */
 public class UnicodeVersionEmitter extends UcdEmitter {
 
   private static final String TEMPLATE_NAME = "Unicode_x_y.java";
   private static final String UNICODE_VERSION_TEMPLATE =
-      JavaPackageUtils.getPathForClass(UnicodeVersionEmitter.class) + "/" + TEMPLATE_NAME + ".vm";
+      JavaPackageUtils.getPathForClass(UnicodeVersionEmitter.class)
+          + "/"
+          + TEMPLATE_NAME
+          + ".template";
   private static final String CP_ZERO = escapedUTF16Char(0);
 
   private final UcdVersion ucdVersion;
@@ -44,10 +46,9 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     this.unicodeData = unicodeData;
   }
 
-  public void emitUnicodeVersion(OutputStream output) throws IOException, ParseException {
+  public void emitUnicodeVersion(OutputStream output) throws IOException {
     UnicodeVersionVars unicodeVersionVars = createUnicodeVersionVars();
-    Velocity.render(
-        readResource(UNICODE_VERSION_TEMPLATE), TEMPLATE_NAME, unicodeVersionVars, output);
+    Template.render(readResource(UNICODE_VERSION_TEMPLATE), unicodeVersionVars, output);
   }
 
   private UnicodeVersionVars createUnicodeVersionVars() {
@@ -55,7 +56,7 @@ public class UnicodeVersionEmitter extends UcdEmitter {
     unicodeVersionVars.templateName = TEMPLATE_NAME;
     unicodeVersionVars.packageName = getTargetPackage();
     unicodeVersionVars.className = ucdVersion.version().unicodeClassName();
-    unicodeVersionVars.maxCodePoint = unicodeData.maximumCodePoint();
+    unicodeVersionVars.maxCodePointHex = String.format("%x", unicodeData.maximumCodePoint());
     ImmutableSortedMap<String, CodepointRangeSet> intervals = unicodeData.intervals();
     unicodeVersionVars.propertyValues =
         ImmutableList.copyOf(intervals.keySet()).stream()

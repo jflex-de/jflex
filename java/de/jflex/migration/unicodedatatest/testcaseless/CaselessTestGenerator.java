@@ -23,13 +23,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.apache.velocity.runtime.parser.ParseException;
 
 public class CaselessTestGenerator {
 
   private CaselessTestGenerator() {}
 
-  public static void main(String[] args) throws IOException, ParseException {
+  public static void main(String[] args) throws IOException {
     UnicodeVersion version = UnicodeVersion.create(args[0]);
     Path outDir = Paths.get(args[1]);
     List<String> files = Arrays.asList(Arrays.copyOfRange(args, 2, args.length));
@@ -52,8 +51,7 @@ public class CaselessTestGenerator {
   }
 
   private static void generate(
-      UnicodeVersion version, Path outDir, Equivalences<Integer> equivalences)
-      throws IOException, ParseException {
+      UnicodeVersion version, Path outDir, Equivalences<Integer> equivalences) throws IOException {
     new UnicodeCaselessFlexGenerator(version, equivalences).generate(outDir);
     new UnicodeCaselessTestGenerator(version).generate(outDir);
     new UnicodeCaselessGoldenGenerator(version, equivalences).generate(outDir);

@@ -1,12 +1,13 @@
 /*
- * Copyright (C) 2021 Google, LLC.
+ * Copyright 2026, Gerwin Klein
  * SPDX-License-Identifier: BSD-3-Clause
  */
 package de.jflex.migration.unicodedatatest.base;
 
-import java.util.NavigableMap;
+public class UnicodePropertyFlexTemplateVars extends UnicodeVersionTemplateVars {
+  /** Fully qualified name of the class of the property values. */
+  public String propertyValueClassName;
 
-public class UnicodePropertyFlexTemplateVars<T> extends UnicodeVersionTemplateVars {
-  public NavigableMap<String, T> properties;
-  public Class<T> propertyValueClass;
+  /** One scanner rule per property. */
+  public String rules;
 }
