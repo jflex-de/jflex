@@ -3,6 +3,10 @@
 
 test --test_output=errors
 
+# Bazel's JUnit runner sets a Security Manager, which JDK 24+ no longer allows.
+# Don't run on whatever JDK the host has (ubuntu-26.04 runners default to a newer one).
+build --java_runtime_version=remotejdk_17
+
 # https://github.com/bazelbuild/bazel/issues/6450
 # test --combined_report=lcov
 # test --coverage_report_generator="@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main"
