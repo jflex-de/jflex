@@ -27,8 +27,8 @@ final class AutoValue_IntPair extends IntPair {
   @Override
   public String toString() {
     return "IntPair{"
-         + "start=" + start + ", "
-         + "end=" + end
+        + "start=" + start + ", "
+        + "end=" + end
         + "}";
   }
 
