@@ -113,6 +113,28 @@ public class Options {
   }
 
   /**
+   * Returns the currently suppressed warnings.
+   *
+   * @return a copy of the set of suppressed warnings, for {@link #setSuppressedWarnings(Set)}
+   */
+  public static Set<ErrorMessages> getSuppressedWarnings() {
+    return new HashSet<>(suppressedWarnings);
+  }
+
+  /**
+   * Suppresses exactly the given warnings and enables all others.
+   *
+   * @param warnings the warnings to suppress, e.g. from {@link #getSuppressedWarnings()}
+   * @throws IllegalArgumentException if one of the warnings is not configurable
+   */
+  public static void setSuppressedWarnings(Set<ErrorMessages> warnings) {
+    suppressedWarnings.clear();
+    for (ErrorMessages msg : warnings) {
+      suppress(msg);
+    }
+  }
+
+  /**
    * Configure the given warning message to be suppressed.
    *
    * @param msg the warning message to suppress.

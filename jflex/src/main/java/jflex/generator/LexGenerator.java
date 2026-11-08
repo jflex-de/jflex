@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Set;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
@@ -49,9 +50,21 @@ public class LexGenerator {
   /**
    * Generates a scanner for the specified input file.
    *
+   * <p>Warning settings in the spec ({@code %suppress}, {@code %no-warn}, {@code %warn}) only apply
+   * to this spec: the previous settings are restored afterwards.
+   *
    * @return the file name of the generated Java sources.
    */
   public String generate() {
+    Set<ErrorMessages> suppressedWarnings = Options.getSuppressedWarnings();
+    try {
+      return generateScanner();
+    } finally {
+      Options.setSuppressedWarnings(suppressedWarnings);
+    }
+  }
+
+  private String generateScanner() {
 
     Out.resetCounters();
 
