@@ -334,6 +334,11 @@ public class Main {
    * @throws SilentExit if any.
    */
   public static void generate(String[] argv) throws SilentExit {
+    // Initialise options before the command line sets them. Otherwise the
+    // LexGenerator constructor would reset the command line options.
+    if (Options.encoding == null) {
+      OptionUtils.setDefaultOptions();
+    }
     List<File> files = parseOptions(argv);
 
     if (files.size() > 0) {
