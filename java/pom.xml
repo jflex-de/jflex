@@ -102,11 +102,6 @@
           <includes>
             <include>de/jflex/**/*.java</include>
           </includes>
-          <excludes>
-            <!-- These only emit Bazel BUILD files. -->
-            <exclude>de/jflex/migration/unicodedatatest/BuildFileGenerator.java</exclude>
-            <exclude>de/jflex/migration/unicodedatatest/BuildFileTemplateVars.java</exclude>
-          </excludes>
         </configuration>
       </plugin>
       <plugin>

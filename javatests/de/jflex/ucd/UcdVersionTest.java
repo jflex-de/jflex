@@ -75,9 +75,9 @@ public class UcdVersionTest {
   /** Test that only the file name selects the type, and that the path is kept unchanged. */
   @Test
   public void findUcdFiles_plainDownloads() throws Exception {
-    File derivedAge = newFile("external/ucd_derived_age/DerivedAge.txt");
-    File emoji = newFile("external/Blocks/emoji-data.txt");
-    File scripts = newFile("external/UnicodeData/Scripts-4.0.1.txt");
+    File derivedAge = newFile("ucd_derived_age/DerivedAge.txt");
+    File emoji = newFile("Blocks/emoji-data.txt");
+    File scripts = newFile("UnicodeData/Scripts-4.0.1.txt");
     UcdVersion parsedVersion =
         UcdVersion.findUcdFiles(
             new Version("4.0.1"),

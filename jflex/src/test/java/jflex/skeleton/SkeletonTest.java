@@ -6,11 +6,8 @@
 package jflex.skeleton;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assume.assumeTrue;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import jflex.testing.TestFileUtils;
 import org.junit.Test;
 
 /**
@@ -36,17 +33,8 @@ public class SkeletonTest {
   }
 
   @Test
-  public void readSkelFile_maven() {
-    assumeTrue(!TestFileUtils.BAZEL_RUNFILES);
+  public void readSkelFile() {
     File skeletonFile = new File("src/main/jflex/skeleton.nested");
-    Skeleton.readSkelFile(skeletonFile);
-    checkDefaultSkeleton();
-  }
-
-  @Test
-  public void readSkelFile_bazel() throws FileNotFoundException {
-    assumeTrue(TestFileUtils.BAZEL_RUNFILES);
-    File skeletonFile = TestFileUtils.open("//jflex/src/main/jflex", "skeleton.nested");
     Skeleton.readSkelFile(skeletonFile);
     checkDefaultSkeleton();
   }

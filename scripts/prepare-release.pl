@@ -98,10 +98,6 @@ print " updating version in docs/xmanual.tex";
 system ('perl -pi -e "s/-SNAPSHOT//" docs/xmanual.tex');
 print "\ndone.\n\n";
 
-print " updating version in docs/docs.bzl";
-system ('perl -pi -e "s/-SNAPSHOT//" docs/docs.bzl');
-print "\ndone.\n\n";
-
 print " updating version in docs/Makefile";
 system ('perl -pi -e "s/-SNAPSHOT//" docs/Makefile');
 print "\ndone.\n\n";

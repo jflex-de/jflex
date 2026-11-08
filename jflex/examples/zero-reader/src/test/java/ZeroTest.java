@@ -6,7 +6,6 @@
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
-import com.google.common.base.Objects;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -73,30 +72,11 @@ public class ZeroTest {
     return new BufferedReader(new InputStreamReader(new ByteArrayInputStream(rawOutput)));
   }
 
-  /**
-   * Opens the given file.
-   *
-   * <p>This method also works around a build difficulty:
-   *
-   * <ul>
-   *   <li>Maven uses the directory that contains {@code pom.xml} as a working directory, i.e.
-   *       {@code examples/simple}
-   *   <li>ant uses the directory that contains {@code build.xml} as a working directory, i.e.
-   *       {@code examples/simple}
-   *   <li>bazel uses the directory that contains {@code WORKSPACE} as a working directory, i.e.
-   *       {@code __main__} in <em>runfiles</em>.
-   * </ul>
-   */
+  /** Opens the given file, relative to the example directory. */
   private File openFile(String pathName) throws IOException {
-    String path = pathName;
-    File pwd = new File(".").getCanonicalFile();
-    assertThat(pwd.isDirectory()).isTrue();
-    if (Objects.equal(pwd.getName(), "__main__")) {
-      path = "jflex/examples/zero-reader/" + path;
-    }
-    File file = new File(path);
+    File file = new File(pathName);
     if (!file.isFile()) {
-      throw new FileNotFoundException(path);
+      throw new FileNotFoundException(pathName);
     }
     return file;
   }

@@ -138,11 +138,6 @@ will run the generated lexer on the provided sample input.
 
 will run the same test as in `mvn test`.
 
-### Using Bazel
-
-Please see [bazel_rules/examples](https://github.com/jflex-de/bazel_rules).
-
-
 ### Using Make
 
     make compile

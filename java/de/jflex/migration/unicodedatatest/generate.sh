@@ -6,14 +6,8 @@
 
 set -e
 
-WS=$(bazel info workspace)
+WS=$(git rev-parse --show-toplevel)
 cd "${WS}"
-
-# Generate BUILD files, in javatests/de/jflex/testcase/unicode/unicode_x_y/BUILD.bazel
-bazel build //java/de/jflex/migration/unicodedatatest:generate
-rsync --archive -vm --chmod=Fa=r \
-  --include 'BUILD.bazel' --include='*/' --exclude='*' \
-  "${WS}"/bazel-bin/java/de/jflex/migration/unicodedatatest/javatests "${WS}"
 
 scripts/mvn-install-fastbuild.sh jflex-maven-plugin
 ./mvnw -pl java,javatests process-classes
@@ -29,8 +23,3 @@ java_files=$(git ls-files --modified --others --exclude-standard \
 if [ -n "$java_files" ]; then
   google-java-format -r $java_files
 fi
-for f in $(find "${WS}"/javatests/de/jflex/testcase/unicode -name BUILD.bazel); do
-  chmod u+w "$f"
-  buildifier -r "$f"
-  chmod u-w "$f"
-done

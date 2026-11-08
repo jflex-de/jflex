@@ -16,7 +16,6 @@ information and for how to get started.
 
 ## Contents
 
-    ├── BUILD.bazel      build specification for Bazel
     ├── changelog.md     summary of changes between releases
     ├── pom.xml          project object model to build with Maven
     ├── README.md        this file

@@ -74,23 +74,6 @@ You need ant, the binary JFlex jar and JDK 8 or later.
     <javac srcdir="build/generated/" destdir="build/classes/"/>
     ```
 
-### Usage with Bazel
-
-We provide a [jflex rule](https://jflex-de.github.io/bazel_rules/)
-
-```bazel
-load("@jflex_rules//jflex:jflex.bzl", "jflex")
-
-jflex(
-    name = "",           # Choose a rule name
-    srcs = [],           # Add input lex specifications
-    outputs = [],        # List expected generated files
-)
-```
-
-See the sample [simple BUILD](https://github.com/jflex-de/jflex/blob/master/jflex/examples/simple/BUILD.bazel)
-file.
-
 ### Usage in CLI
 
 You need the binary jflex jar and JDK 8 or later.
@@ -130,45 +113,15 @@ The top level directory of the JFLex git repository contains:
 - **cup** A copy of the CUP runtime
 - **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
 - **docs** the Markdown sources for the user manual
-- **java** Java sources [WIP, Bazel]
-- **javatests** Java sources of test [WIP, Bazel]
+- **java** development tools: test framework and Unicode generators
+- **javatests** regression tests and tests of the development tools
 - **jflex** JFlex, the scanner/lexer generator for Java
 - **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
 - **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
 - **testsuite** the regression test suite for JFlex,
-- **third_party** third-party libraries used by examples of the [Bazel build system][bazel]
 
 
 ### Build from source
-
-#### Build with Bazel
-
-JFlex can be built with Bazel.
-[Migration to Bazel][migration-bazel] is still work in progress, concerning the test suite, for instance.
-
-You need [Bazel][bazel].
-
-```sh
-bazel build //jflex:jflex_bin
-```
-
-This builds `bazel-bin/jflex/jflex_bin`, that you can use
-
-```sh
-bazel-bin/jflex/jflex_bin --info
-```
-
-Or:
-
-```sh
-bazel run //jflex:jflex_bin -- --info
-```
-
-Build uberjar (aka fatjar aka deploy jar)
-
-```sh
-bazel build jflex/jflex_bin_deploy.jar
-```
 
 #### Build with Maven
 
@@ -192,6 +145,4 @@ java -jar jflex-full-1.9.1-SNAPSHOT.jar --info
 [example-simple]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/simple
 [examples]: https://github.com/jflex-de/jflex/tree/master/jflex/examples/
 [contrib]: https://github.com/jflex-de/jflex/wiki/Contributing
-[bazel]: https://bazel.build/
 [maven]: https://maven.apache.org/
-[migration-bazel]: https://github.com/jflex-de/jflex/wiki/Migration-to-Bazel

@@ -9,10 +9,9 @@ Suite of tools to create the tests in javatests/de/jflex/testcase/unicode
 
 ## Generate all tests
 
-1. Extend `KNOWN_VERSIONS` in [build_defs.bzl](build_defs.bzl) and
-   [base/AbstractGenerator.java](base/AbstractGenerator.java). The UCD releases of the new version go
-   into [UcdReleases.java](../../ucd/UcdReleases.java).
-2. Run the script, which needs `google-java-format` and `buildifier`
+1. Extend `KNOWN_VERSIONS` in [base/AbstractGenerator.java](base/AbstractGenerator.java). The UCD
+   releases of the new version go into [UcdReleases.java](../../ucd/UcdReleases.java).
+2. Run the script, which needs `google-java-format`
    ```shell script
    java/de/jflex/migration/unicodedatatest/generate.sh
    ```

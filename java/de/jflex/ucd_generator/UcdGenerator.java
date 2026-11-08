@@ -26,9 +26,7 @@ public class UcdGenerator {
 
   private static final String PACKAGE_JFLEX_UNICODE = "jflex.core.unicode";
 
-  /**
-   * Generates {@code UnicodeProperties} and {Unicode_X_Y} from {@code //third_party/unicode_ucd_X}.
-   */
+  /** Generates {@code UnicodeProperties} and {@code Unicode_X_Y} from the UCD files. */
   public static void generate(UcdGeneratorParams params)
       throws IOException, ParseException, UcdScannerException {
     UcdVersions ucdVersions = params.ucdVersions();

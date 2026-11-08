@@ -46,7 +46,6 @@ All examples follow the Maven layout, in particular:
 All examples (try to) support multiple build systems:
 - [Maven](https://maven.apache.org/).
 - [ant](https://ant.apache.org/).
-- [bazel](https://bazel.build/).
 - [make](https://www.gnu.org/software/make).
 
 ### Prerequisites
@@ -60,10 +59,6 @@ All examples (try to) support multiple build systems:
 
   - Install Java Development Kit
   - Install [Apache ant](https://ant.apache.org/bindownload.cgi)
-
-- [bazel](https://bazel.build/)
-
-  - Install [Bazel](https://docs.bazel.build/versions/master/install.html)
 
 - [GNU make](https://www.gnu.org/software/make)
 
@@ -104,15 +99,6 @@ Also, we consistently use:
 - `ant run` to run the lexer on a sample input
 - `ant test` to run the lexer on the sample input and check whether it
   produces the expected output.
-
-
-### Bazel
-
-We test the examples with Bazel, after the `bazel.sh` has copied the SNAPSHOT JFlex in the
-`examples` directory.
-
-If you are interested in using the Skylark "jflex()" rule and see example, please see
-[jflex-de/bazel_rules](https://github.com/jflex-de/bazel_rules).
 
 
 ### GNU make

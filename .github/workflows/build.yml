@@ -38,34 +38,6 @@ jobs:
     - name: '😎 Examples (mvn, ant, make)'
       run: scripts/test-examples.sh
 
-  bazel:
-    name: 'Bazel'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v3
-      with:
-        path: ~/.cache/bazel
-        # We store new cache content for each new commit sha, but load the cache
-        # from any last run, because bazel is fairly good at figuring out diffs.
-        # Per GitHub policy, PRs will only get caches from the base branch, not
-        # from each other, and the base branch will not see the cache from PRs.
-        key: ${{ runner.os }}-bazel-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-bazel-
-    - name: 'Info'
-      run: bazel --bazelrc=.ci.bazelrc info release
-    - name: 'Unit Tests'
-      run: bazel --bazelrc=.ci.bazelrc test //jflex/...
-    - name: 'Integration+Regression Tests'
-      run: bazel --bazelrc=.ci.bazelrc test //javatests/...
-    - name: 'Build all'
-      run: bazel --bazelrc=.ci.bazelrc build //...
-    - name: 'Test all'
-      run: bazel --bazelrc=.ci.bazelrc test //...
-    - name: 'Build artifact'
-      run: bazel --bazelrc=.ci.bazelrc build jflex/jflex_bin_deploy.jar
-
   regression:
     name: 'Regression'
     runs-on: ${{ matrix.os }}

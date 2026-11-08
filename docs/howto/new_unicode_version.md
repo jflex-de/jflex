@@ -23,12 +23,12 @@
 
 ## Add the Unicode test case
 
-Add a test case in [//javatests/de/jflex/testcase/unicode](/javatests/de/jflex/testcase/unicode).
+Add a test case in [javatests/de/jflex/testcase/unicode](/javatests/de/jflex/testcase/unicode).
 
-1. Extend `KNOWN_VERSIONS` in [build_defs.bzl](/java/de/jflex/migration/unicodedatatest/build_defs.bzl) and
+1. Extend `KNOWN_VERSIONS` in
    [AbstractGenerator.java](/java/de/jflex/migration/unicodedatatest/base/AbstractGenerator.java).
 2. Run the script which runs all the generators:
    ```sh
-   java/de/jflex/migration/unicodedatatest/generate.sh`
+   java/de/jflex/migration/unicodedatatest/generate.sh
    ```
 3. Verify and commit the changes.
