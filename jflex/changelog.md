@@ -14,8 +14,8 @@
   [bazel_rules](https://github.com/jflex-de/bazel_rules) for using JFlex in
   Bazel projects are not affected.
 - jflex-maven-plugin: improve class name derivation for expected output
-- `%suppress` and `%no-warn` no longer carry over to later specs in the same
-  jflex-maven-plugin or ant run.
+- `%suppress`, `%no-warn` and `%warn` no longer carry over to later specs in the
+  same run, e.g. for CLI with several files, jflex-maven-plugin, etc.
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 

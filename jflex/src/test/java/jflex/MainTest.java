@@ -28,31 +28,55 @@ public class MainTest {
 
   @Rule public TemporaryFolder tmp = new TemporaryFolder();
 
-  /** Has a rule that can never be matched, which is a configurable warning. */
-  private static final String NEVER_MATCH_SPEC =
-      "%%\n%class NeverMatch\n%int\n%%\n\"a\" { return 1; }\n\"a\" { return 2; }\n";
-
   @After
   public void resetOptions() {
     Out.setOutputStream(System.out);
     OptionUtils.setDefaultOptions();
   }
 
-  /** Runs {@link Main#generate} with fresh (uninitialised) options and returns its output. */
-  private String generateFresh(String... options) throws Exception {
-    File spec = tmp.newFile("never-match.flex");
-    Files.write(spec.toPath(), NEVER_MATCH_SPEC.getBytes(StandardCharsets.UTF_8));
+  /**
+   * Writes a spec with a rule that can never be matched, which is a configurable warning.
+   *
+   * @param name file name of the spec, without extension; also the class name
+   * @param directive an extra option line, e.g. {@code %suppress all}
+   * @return the path of the spec
+   */
+  private String writeSpec(String name, String directive) throws Exception {
+    File spec = tmp.newFile(name + ".flex");
+    String text =
+        "%%\n%class "
+            + name
+            + "\n%int\n"
+            + directive
+            + "\n%%\n\"a\" { return 1; }\n\"a\" { return 2; }\n";
+    Files.write(spec.toPath(), text.getBytes(StandardCharsets.UTF_8));
+    return spec.getPath();
+  }
+
+  /** Runs {@link Main#generate} on the given options and specs and returns its output. */
+  private String generate(String... argv) throws Exception {
     ByteArrayOutputStream output = new ByteArrayOutputStream();
     Out.setOutputStream(output);
+    Main.generate(argv);
+    return output.toString();
+  }
+
+  /** Runs {@link Main#generate} with fresh (uninitialised) options and returns its output. */
+  private String generateFresh(String... options) throws Exception {
+    String spec = writeSpec("NeverMatch", "");
     // options not initialised, as in a fresh JVM
     Options.encoding = null;
 
     List<String> argv = new ArrayList<>(Arrays.asList(options));
-    argv.addAll(Arrays.asList("-d", tmp.getRoot().getPath(), spec.getPath()));
-    Main.generate(argv.toArray(new String[0]));
+    argv.addAll(Arrays.asList("-d", tmp.getRoot().getPath(), spec));
+    String output = generate(argv.toArray(new String[0]));
 
     assertTrue("NeverMatch.java generated", new File(tmp.getRoot(), "NeverMatch.java").isFile());
-    return output.toString();
+    return output;
+  }
+
+  private static boolean warnsFor(String output, String spec) {
+    return output.contains("Warning in file \"" + spec + "\"");
   }
 
   /** Control for the test below: the spec does produce the warning. */
@@ -70,5 +94,30 @@ public class MainTest {
   public void generate_withoutMain_keepsSuppressedWarnings() throws Exception {
     String output = generateFresh("--no-warn-never-match");
     assertFalse(output, output.contains("never be matched"));
+  }
+
+  /** A {@code %suppress} in one spec does not apply to the next spec on the command line. */
+  @Test
+  public void generate_twoSpecs_suppressDoesNotLeak() throws Exception {
+    String suppressAll = writeSpec("SuppressAll", "%suppress all");
+    String plain = writeSpec("Plain", "");
+
+    String output = generate("-d", tmp.getRoot().getPath(), suppressAll, plain);
+
+    assertFalse(output, warnsFor(output, suppressAll));
+    assertTrue(output, warnsFor(output, plain));
+  }
+
+  /** A {@code %warn} in one spec does not undo the command line for the next spec. */
+  @Test
+  public void generate_twoSpecs_warnDoesNotLeak() throws Exception {
+    String warnAll = writeSpec("WarnAll", "%warn all");
+    String plain = writeSpec("Plain", "");
+
+    String output =
+        generate("--no-warn-never-match", "-d", tmp.getRoot().getPath(), warnAll, plain);
+
+    assertTrue(output, warnsFor(output, warnAll));
+    assertFalse(output, warnsFor(output, plain));
   }
 }
