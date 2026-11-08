@@ -33,6 +33,11 @@ class LexSimpleAnalyzerUtils {
   private static final Pattern INCLUDE_DIRECTIVE_MATCHER = Pattern.compile("^\\s*%include\\s+(.+)");
   private static final int INCLUDE_DIRECTIVE_ARG_OFFSET = 1;
 
+  /** {@code %class} followed by an identifier, as in {@code LexScan.flex}. */
+  private static final Pattern CLASS_DIRECTIVE_MATCHER =
+      Pattern.compile(
+          "%class[ \\t\\x08]+(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)");
+
   /**
    * Guesses package and class name, and {@code %include} files, based on this grammar definition.
    *
@@ -150,12 +155,17 @@ class LexSimpleAnalyzerUtils {
     return includedFiles;
   }
 
+  /**
+   * Finds the class name in a {@code %class} directive.
+   *
+   * <p>Like in the JFlex scanner, take only the identifier after {@code %class}, so a trailing
+   * comment or generic parameters are not included.
+   */
   @Nullable
   private static String guessClass(String line) {
-    int index = line.indexOf("%class");
-    if (index > -1) {
-      index += "%class".length();
-      return line.substring(index).trim();
+    Matcher matcher = CLASS_DIRECTIVE_MATCHER.matcher(line);
+    if (matcher.find()) {
+      return matcher.group(1);
     }
     return null;
   }

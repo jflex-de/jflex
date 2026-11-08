@@ -37,6 +37,44 @@ public class LexSimpleAnalyzerUtilsTest {
   }
 
   @Test
+  public void guessPackageAndClass_classWithLineComment() throws Exception {
+    String lex = "%%\n%class Foo             // comment on same line allowed\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
+  }
+
+  @Test
+  public void guessPackageAndClass_classWithBlockComment() throws Exception {
+    String lex = "%%\n%class Foo/* comment */\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
+  }
+
+  @Test
+  public void guessPackageAndClass_classWithTabsAndTrailingSpace() throws Exception {
+    String lex = "%%\n%class\t\tFoo_1$ \t\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo_1$", null));
+  }
+
+  @Test
+  public void guessPackageAndClass_classAfterOtherOption() throws Exception {
+    String lex = "%%\n%public %class Foo\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
+  }
+
+  /** The generated file is named without the generic parameters (Emitter.getBaseName). */
+  @Test
+  public void guessPackageAndClass_genericClass() throws Exception {
+    String lex = "%%\n%class Foo<T extends Comparable<T>>\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
+  }
+
+  /** {@code %class} without a name is a JFlex error, not a plugin error. */
+  @Test
+  public void guessPackageAndClass_classWithoutName_keepsLooking() throws Exception {
+    String lex = "%%\n%class\n%class Foo\n%%\n";
+    assertThat(guessPackageAndClass(lex)).isEqualTo(new SpecInfo("Foo", null));
+  }
+
+  @Test
   public void guessPackageAndClass_defaultClass_defaultPackage() throws Exception {
     String lex =
         "\n"
