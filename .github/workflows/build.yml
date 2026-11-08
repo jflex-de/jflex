@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 11, 17 ]
+        java: [ 8, 25 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        java: [ 8, 11, 17 ]
+        java: [ 8, 25 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 8, 11, 17 ]
+        java: [ 8, 25 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
@@ -87,7 +87,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: 11
+        java-version: 25
         distribution: zulu
         cache: maven
     - name: '🔨 Build JFlex'
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 8, 11, 17 ]
+        java: [ 8, 25 ]
       fail-fast: false
     steps:
     - uses: actions/checkout@v3

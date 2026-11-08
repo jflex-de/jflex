@@ -28,7 +28,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         # Fixed JDK version to keep [:jletter:] character class constant.
-        java-version: 11
+        java-version: 25
         distribution: zulu
         cache: maven
     - name: 'Prepare aggregated sources'
