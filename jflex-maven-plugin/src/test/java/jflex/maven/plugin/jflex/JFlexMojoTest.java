@@ -7,10 +7,15 @@ package jflex.maven.plugin.jflex;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.google.common.base.Predicate;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import jflex.logging.Out;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -91,6 +96,26 @@ public class JFlexMojoTest {
 
     File produced = getExpectedOutputFile(mojo);
     assertWithMessage("produced file is a file: " + produced).that(produced.isFile()).isTrue();
+  }
+
+  /** A {@code %suppress all} in one spec does not suppress warnings in the next spec. */
+  @Test
+  public void testSuppressDoesNotLeak() throws Exception {
+    JFlexMojo mojo = newMojo("suppress-leak-test");
+    ByteArrayOutputStream output = new ByteArrayOutputStream();
+    Out.setOutputStream(output);
+    try {
+      mojo.execute();
+    } finally {
+      Out.setOutputStream(System.out);
+    }
+
+    String log = output.toString();
+    // one warning, for warn.flex; none for suppress-all.flex
+    String msg = "JFlex output:\n" + log;
+    assertEquals(msg, 2, log.split("never be matched", -1).length);
+    assertTrue(msg, log.contains("warn.flex\""));
+    assertFalse(msg, log.contains("suppress-all.flex"));
   }
 
   @Test

@@ -206,8 +206,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   @SuppressWarnings("OrphanedFormatString")
   private String invokeJflex() {
     OptionUtils.setDefaultOptions();
-    // setDefaultOptions() does not change warning settings
-    OptionUtils.enableAllWarnings();
     Options.jlex = spec.jlexCompat();
     Options.dump = spec.dump();
     // verbose is default -- verbose_provided simulates the behaviour of an explicit -v on the

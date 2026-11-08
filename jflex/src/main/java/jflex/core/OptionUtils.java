@@ -41,6 +41,7 @@ public class OptionUtils {
     Options.dump = false;
     Options.legacy_dot = false;
     Options.encoding = Charset.defaultCharset();
+    enableAllWarnings();
     Skeleton.readDefault();
   }
 
