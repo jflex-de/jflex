@@ -18,7 +18,6 @@ public class TestedVersions {
       UcdVersion.builder("1.1.5")
           .putFile(
               UcdFileType.UnicodeData, UcdFiles.singleFile("ucd_1_1_5", "UnicodeData-1.1.5.txt"))
-          .putFile(UcdFileType.DerivedAge, UcdFiles.derivedAge())
           .build();
   public static final UcdVersion UCD_VERSION_2_0 =
       UcdVersion.builder("2.0.14")

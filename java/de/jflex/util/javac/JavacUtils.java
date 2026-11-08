@@ -7,6 +7,9 @@ package de.jflex.util.javac;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
@@ -21,8 +24,22 @@ import javax.tools.ToolProvider;
  */
 public final class JavacUtils {
 
-  /** Compiles the given java source files. */
+  /** Compiles the given java source files. Each class file goes next to its source file. */
   public static void compile(Iterable<? extends File> files) throws CompilerException {
+    doCompile(files, Collections.emptyList());
+  }
+
+  /**
+   * Compiles the given java source files into {@code outputDir}, in subdirectories for their
+   * packages.
+   */
+  public static void compile(Iterable<? extends File> files, File outputDir)
+      throws CompilerException {
+    doCompile(files, Arrays.asList("-d", outputDir.getPath()));
+  }
+
+  private static void doCompile(Iterable<? extends File> files, List<String> options)
+      throws CompilerException {
     JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
     DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
     StandardJavaFileManager fileManager =
@@ -31,7 +48,7 @@ public final class JavacUtils {
     Iterable<? extends JavaFileObject> compilationUnit =
         fileManager.getJavaFileObjectsFromFiles(files);
     JavaCompiler.CompilationTask task =
-        compiler.getTask(null, fileManager, diagnostics, null, null, compilationUnit);
+        compiler.getTask(null, fileManager, diagnostics, options, null, compilationUnit);
     Boolean success = task.call();
     try {
       if (!diagnostics.getDiagnostics().isEmpty()) {

@@ -14,29 +14,32 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import de.jflex.testing.diff.DiffOutputStream;
-import de.jflex.testing.javaast.BasicJavaInterpreter;
 import de.jflex.ucd.UcdVersion;
 import de.jflex.ucd_generator.util.JavaStrings;
+import de.jflex.util.javac.JavacUtils;
 import java.io.File;
-import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 /**
  * Integration test for {@link UcdGenerator}.
  *
- * <p>Checks that the generated {@code Unicode_x_y} has the same data content than the current
- * classes, using diff on the Java AST.
+ * <p>Checks that the generated {@code Unicode_x_y} has the same data content as the current classes
+ * by compiling the generated class and comparing its constants.
  */
 public class UcdGeneratorIntegrationTest {
+
+  @Rule public final TemporaryFolder classesDir = new TemporaryFolder();
 
   private final File testDir = new File("javatests/de/jflex/ucd_generator");
 
   @Test
-  @Ignore // Eclipse JDT parser changes the order of the intervals.
-  public void emitUnicodeVersionXY_1_1_ignored() throws Exception {
+  public void emitUnicodeVersionXY_1_1() throws Exception {
     File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_1_1);
 
     UnicodePropertiesData expected =
@@ -48,32 +51,6 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions,
             jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
-  }
-
-  @Test
-  public void emitUnicodeVersionXY_1_1() throws Exception {
-    File f = generateUnicodeProperties(TestedVersions.UCD_VERSION_1_1);
-    UnicodePropertiesData actual = parseUnicodeDataFromSource(f);
-    assertThat(actual.maximumCodePoint())
-        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.maximumCodePoint);
-    assertThat(actual.propertyValues())
-        .containsAtLeastElementsIn(
-            ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValues))
-        .inOrder();
-    assertThat(actual.intervals())
-        .containsAtLeastElementsIn(
-            ImmutableList.copyOf(
-                jflex.core.unicode.data.Unicode_1_1
-                    .intervals)); // JDT parsed actual incorrectly and returns the wrong order
-    assertThat(actual.propertyValueAliases())
-        .containsExactlyElementsIn(
-            ImmutableList.copyOf(jflex.core.unicode.data.Unicode_1_1.propertyValueAliases))
-        .inOrder();
-    ;
-    assertThat(actual.caselessMatchPartitionSize())
-        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitionSize);
-    assertThat(actual.caselessMatchPartitions())
-        .isEqualTo(jflex.core.unicode.data.Unicode_1_1.caselessMatchPartitions);
   }
 
   @Test
@@ -418,8 +395,7 @@ public class UcdGeneratorIntegrationTest {
     return f;
   }
 
-  private static void assertUnicodeProperties(UnicodePropertiesData expected, File src)
-      throws IOException {
+  private void assertUnicodeProperties(UnicodePropertiesData expected, File src) throws Exception {
     UnicodePropertiesData actual = parseUnicodeDataFromSource(src);
 
     assertWithMessage("propertyValues")
@@ -471,15 +447,25 @@ public class UcdGeneratorIntegrationTest {
     return map.build();
   }
 
-  private static UnicodePropertiesData parseUnicodeDataFromSource(File src) throws IOException {
-    ImmutableMap<String, Object> generated = BasicJavaInterpreter.parseJavaClass(src);
-    return UnicodePropertiesData.create(
-        (List<String>) generated.get("propertyValues"),
-        (List<String>) generated.get("intervals"),
-        (List<String>) generated.get("propertyValueAliases"),
-        (long) generated.get("maximumCodePoint"),
-        (String) generated.get("caselessMatchPartitions"),
-        (long) generated.get("caselessMatchPartitionSize"));
+  /**
+   * Compiles the generated class and reads its constants. The class loader has no parent, because
+   * the class path already has the checked-in class of the same name.
+   */
+  private UnicodePropertiesData parseUnicodeDataFromSource(File src) throws Exception {
+    File outputDir = classesDir.newFolder();
+    JavacUtils.compile(ImmutableList.of(src), outputDir);
+    String className = "jflex.core.unicode.data." + src.getName().replaceFirst("\\.java$", "");
+    try (URLClassLoader loader =
+        new URLClassLoader(new URL[] {outputDir.toURI().toURL()}, /* parent= */ null)) {
+      Class<?> generated = loader.loadClass(className);
+      return UnicodePropertiesData.create(
+          (String[]) generated.getField("propertyValues").get(null),
+          (String[]) generated.getField("intervals").get(null),
+          (String[]) generated.getField("propertyValueAliases").get(null),
+          generated.getField("maximumCodePoint").getInt(null),
+          (String) generated.getField("caselessMatchPartitions").get(null),
+          generated.getField("caselessMatchPartitionSize").getInt(null));
+    }
   }
 
   @AutoValue
