@@ -100,7 +100,7 @@
     <!-- Maven API version the plugins are compiled and tested against. -->
     <maven.api.version>3.9.16</maven.api.version>
     <!-- minimum Maven version for building JFlex itself (required by current Maven plugins) -->
-    <maven.build.version>3.6.3</maven.build.version>
+    <maven.build.version>3.9.16</maven.build.version>
     <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
     <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
