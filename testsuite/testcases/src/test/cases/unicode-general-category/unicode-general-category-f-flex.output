@@ -1,0 +1,7 @@
+Reading "src/test/cases/unicode-general-category/unicode-general-category-f.flex"
+Including "src/test/cases/unicode-general-category/../../resources/common-unicode-enumerated-property-java"
+
+Error in file "src/test/cases/unicode-general-category/unicode-general-category-f.flex" (line 14): 
+Invalid Unicode property
+\p{General Category:This will never be a general category property name} { setCurCharPropertyValue("Not a general category property name"); }
+   ^

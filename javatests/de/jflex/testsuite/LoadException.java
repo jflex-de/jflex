@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package jflex.maven.plugin.testsuite;
+package de.jflex.testsuite;
 
+/** A {@code .test} file that {@link TestLoader} cannot read. */
 public class LoadException extends Exception {
 
-  private static final long serialVersionUID = -8688118886747145114L;
+  private static final long serialVersionUID = 1L;
 
   public LoadException(String message) {
     super(message);

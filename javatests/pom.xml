@@ -31,6 +31,11 @@
     <maven.javadoc.skip>true</maven.javadoc.skip>
     <maven.site.skip>true</maven.site.skip>
     <maven.source.skip>true</maven.source.skip>
+    <!-- Comma-separated case directories for TestsuiteTest, e.g. -Dtestcases=dot,testloader.
+         The empty default here means all tests. -->
+    <testcases></testcases>
+    <!-- Surefire exclude pattern, so that CI can run parts in separate jobs. -->
+    <excluded.tests>none</excluded.tests>
     <generated.scanners.dir>${project.build.directory}/generated-test-sources/jflex</generated.scanners.dir>
     <ucd.dir>${project.build.directory}/ucd</ucd.dir>
     <ucd.url>https://www.unicode.org/Public</ucd.url>
@@ -184,6 +189,7 @@
                 <lexDefinition>de/jflex/testcase/unicode/unicode-blocks-inverse.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_escape_warning/warnings.flex</lexDefinition>
+                <lexDefinition>de/jflex/testsuite/TestLoader.flex</lexDefinition>
                 <lexDefinition>jflex/testcase/yylexthrow_comment/yylexthrow.flex</lexDefinition>
               </lexDefinitions>
             </configuration>
@@ -303,6 +309,7 @@
             <testInclude>de/jflex/migration/**/*.java</testInclude>
             <testInclude>de/jflex/testcase/**/*.java</testInclude>
             <testInclude>de/jflex/testing/**/*.java</testInclude>
+            <testInclude>de/jflex/testsuite/**/*.java</testInclude>
             <testInclude>de/jflex/ucd/**/*.java</testInclude>
             <testInclude>de/jflex/ucd_generator/**/*.java</testInclude>
             <testInclude>de/jflex/util/**/*.java</testInclude>
@@ -396,6 +403,9 @@
           <workingDirectory>${work.dir}</workingDirectory>
           <systemPropertyVariables>
             <jflex.ucd.dir>${ucd.dir}</jflex.ucd.dir>
+            <jflex.testsuite.dir>${project.basedir}/../testsuite/testcases</jflex.testsuite.dir>
+            <jflex.testsuite.out>${project.build.directory}/testsuite</jflex.testsuite.out>
+            <jflex.testsuite.cases>${testcases}</jflex.testsuite.cases>
           </systemPropertyVariables>
           <!-- The defaults would miss the Test_x_y and numbered classes. -->
           <includes>
@@ -406,6 +416,9 @@
             <include>**/*Quickcheck.java</include>
             <include>**/UnicodeCodepointEscapes_failure?.java</include>
           </includes>
+          <excludes>
+            <exclude>${excluded.tests}</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
