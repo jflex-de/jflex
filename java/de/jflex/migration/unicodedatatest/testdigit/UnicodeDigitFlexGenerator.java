@@ -29,7 +29,7 @@ public class UnicodeDigitFlexGenerator extends AbstractGenerator<UnicodeDigitFle
             .replace(':', '-')
             .replace('\\', '-')
             .replaceAll("-", "");
-    // Work around Bazel confusion of lower/upper case targets
+    // Avoid names that differ only in case, for case-insensitive file systems
     if (testName.length() == 1) {
       char c = testName.charAt(0);
       if (Character.isLowerCase(c)) {

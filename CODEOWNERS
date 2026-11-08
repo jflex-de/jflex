@@ -11,6 +11,3 @@
 
 # The Maven plugin was initially authored by Régis
 # /jflex-maven-plugin/	@regisd
-# Régis also knows more Bazel config
-# WORKSPACE	@regis
-# BUILD	@regisd

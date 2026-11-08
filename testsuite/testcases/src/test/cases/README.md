@@ -7,5 +7,4 @@
 
 The Unicode test cases executed by Maven.
 
-The rest of the regression tests is executed by Bazel in
-`javatests/de/jflex/testcase`.
+The rest of the regression tests is in `javatests/de/jflex/testcase`.

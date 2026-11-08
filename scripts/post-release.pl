@@ -116,10 +116,6 @@ print " updating version in docs/xmanual.tex";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/xmanual.tex!);
 print "\ndone.\n\n";
 
-print " updating version in docs/docs.bzl";
-system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/docs.bzl!);
-print "\ndone.\n\n";
-
 print " updating version in docs/Makefile";
 system (qq!perl -pi -e "s/\Q$previous_snapshot\E/$snapshot/" docs/Makefile!);
 print "\ndone.\n\n";

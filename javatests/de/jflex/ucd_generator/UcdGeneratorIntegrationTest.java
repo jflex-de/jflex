@@ -32,7 +32,7 @@ import org.junit.Test;
  */
 public class UcdGeneratorIntegrationTest {
 
-  private final File runfiles = new File("javatests/de/jflex/ucd_generator");
+  private final File testDir = new File("javatests/de/jflex/ucd_generator");
 
   @Test
   @Ignore // Eclipse JDT parser changes the order of the intervals.
@@ -195,7 +195,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_5_0.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File(runfiles, "Unicode_5_0.java.golden");
+    File goldenFile = new File(testDir, "Unicode_5_0.java.golden");
     try (DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
       Files.copy(f, goldenOutputStream);
@@ -291,7 +291,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_6_3.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File(runfiles, "Unicode_6_3.java.golden");
+    File goldenFile = new File(testDir, "Unicode_6_3.java.golden");
     try (DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
       Files.copy(f, goldenOutputStream);
@@ -357,7 +357,7 @@ public class UcdGeneratorIntegrationTest {
             jflex.core.unicode.data.Unicode_10_0.caselessMatchPartitionSize);
     assertUnicodeProperties(expected, f);
 
-    File goldenFile = new File(runfiles, "Unicode_10_0.java.golden");
+    File goldenFile = new File(testDir, "Unicode_10_0.java.golden");
     try (DiffOutputStream goldenOutputStream =
         new DiffOutputStream(Files.newReader(goldenFile, StandardCharsets.UTF_8))) {
       Files.copy(f, goldenOutputStream);

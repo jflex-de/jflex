@@ -20,10 +20,3 @@ jobs:
         java-version: 21 # recent versions of Google Java Format require JDK 21+
         distribution: zulu
     - run: scripts/test-java-format.sh
-
-  bazel:
-    name: 'Bazel Format'
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - run: scripts/test-bzl-format.sh

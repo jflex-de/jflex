@@ -1,8 +1,0 @@
-# Copyright 2021, Régis Décamps
-# SPDX-License-Identifier: BSD-3-Clause
-
-java_library(
-    name = "io",
-    srcs = glob(["*.java"]),
-    visibility = ["//jflex:__subpackages__"],
-)

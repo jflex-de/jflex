@@ -361,8 +361,7 @@
         <executions>
           <execution>
             <!-- Tests use paths relative to the repository root: goldens and test inputs.
-                 Run them in a copy of those files, so that what they generate stays in target.
-                 This must not include BUILD.bazel, or Bazel would see the copies. -->
+                 Run them in a copy of those files, so that what they generate stays in target. -->
             <id>copy-work-dir</id>
             <phase>process-test-resources</phase>
             <goals>
@@ -380,7 +379,6 @@
                   </includes>
                   <excludes>
                     <exclude>**/*.java</exclude>
-                    <exclude>**/BUILD.bazel</exclude>
                   </excludes>
                 </resource>
                 <resource>
