@@ -7,12 +7,12 @@
 
 ## JFlex 1.10.0 (upcoming)
 
+- Reduce memory overhead: allocate the lookahead buffer on demand (#1106, #1136)
 - JFlex runtime and generated scanners now require JDK 1.8+, which is the oldest
   supported Java LTS release.
 - Removed the Bazel build. The separate
   [bazel_rules](https://github.com/jflex-de/bazel_rules) for using JFlex in
   Bazel projects are not affected.
-
 
 ## [JFlex 1.9.1](https://github.com/jflex-de/jflex/milestone/21?closed=1) (Mar 11, 2023)
 
