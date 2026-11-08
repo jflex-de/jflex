@@ -7,8 +7,13 @@
 
 Code that is used by tests, but it is not test code.
 
-Please mark the test targets with:
+Modules that use this code should depend on `jflex-dev-tools` with test scope, like `javatests`:
 
-```
-testonly = True
+```xml
+<dependency>
+  <groupId>de.jflex</groupId>
+  <artifactId>jflex-dev-tools</artifactId>
+  <version>${project.version}</version>
+  <scope>test</scope>
+</dependency>
 ```
