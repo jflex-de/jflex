@@ -54,18 +54,28 @@ public class UnicodeDataScanners {
 
   // TODO(regisd) The files can most likely be replaced by in-memory providers.
   public enum Dataset {
-    BMP("All.Unicode.BMP.characters.input"),
-    ALL("All.Unicode.characters.input"),
+    BMP("All.Unicode.BMP.characters.input", 0xFFFD),
+    ALL("All.Unicode.characters.input", 0x10FFFF),
     ;
 
     private final String dataFile;
+    private final int lastCodePoint;
 
-    Dataset(String filename) {
+    Dataset(String filename, int lastCodePoint) {
       this.dataFile = filename;
+      this.lastCodePoint = lastCodePoint;
     }
 
     public String dataFile() {
       return dataFile;
+    }
+
+    /**
+     * Returns the last code point in the data file. The file has all code points up to it, except
+     * the surrogates.
+     */
+    public int lastCodePoint() {
+      return lastCodePoint;
     }
   }
 }

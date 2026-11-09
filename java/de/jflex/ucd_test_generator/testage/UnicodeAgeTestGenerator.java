@@ -6,19 +6,19 @@ package de.jflex.ucd_test_generator.testage;
 
 import static de.jflex.ucd.Versions.VERSION_3_1;
 
-import com.google.common.collect.ImmutableList;
 import de.jflex.testing.unicodedata.UnicodeDataScanners.Dataset;
 import de.jflex.ucd_test_generator.base.AbstractGenerator;
 import de.jflex.ucd_test_generator.base.UnicodeVersion;
 import de.jflex.util.javac.JavaPackageUtils;
 import de.jflex.version.Version;
 import java.nio.file.Paths;
+import java.util.List;
 
 class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVars> {
 
-  private final ImmutableList<Version> ages;
+  private final List<Version> ages;
 
-  public UnicodeAgeTestGenerator(UnicodeVersion unicodeVersion, ImmutableList<Version> ages) {
+  public UnicodeAgeTestGenerator(UnicodeVersion unicodeVersion, List<Version> ages) {
     super("UnicodeAgeTest_x_y.java", unicodeVersion);
     this.ages = ages;
   }
@@ -62,7 +62,7 @@ class UnicodeAgeTestGenerator extends AbstractGenerator<UnicodeAgeTestTemplateVa
     return vars;
   }
 
-  private static Dataset getDataset(Version version) {
+  static Dataset getDataset(Version version) {
     if (Version.MAJOR_MINOR_COMPARATOR.compare(version, VERSION_3_1) < 0) {
       return Dataset.BMP;
     } else {
