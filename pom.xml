@@ -335,6 +335,10 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <release>8</release>
+          <compilerArgs>
+            <!-- newer JDKs warn that source/target 8 are obsolete -->
+            <arg>-Xlint:-options</arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
               <groupId>com.google.auto.value</groupId>
