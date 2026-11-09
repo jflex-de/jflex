@@ -19,9 +19,7 @@ class UnicodeAgeSubtractionFlexGenerator
   @Override
   protected UnicodeAgeSubtractionTemplateVars createTemplateVars() {
     UnicodeAgeSubtractionTemplateVars vars = new UnicodeAgeSubtractionTemplateVars();
-    vars.className =
-        String.format(
-            "UnicodeAge_%s_age_subtraction", unicodeVersion.version().underscoreVersion());
+    vars.className = UnicodeAgeFlexGenerators.className(unicodeVersion, "subtraction");
     ImmutableList<Version> ages = olderAges(unicodeVersion.version());
     StringBuilder rules = new StringBuilder();
     for (int i = 1; i < ages.size(); i++) {

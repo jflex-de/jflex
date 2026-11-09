@@ -21,7 +21,8 @@ public class UnicodeAgeFlexGenerators {
         unicodeVersion, className(unicodeVersion, "unassigned"), "Age:Unassigned");
   }
 
-  private static String className(UnicodeVersion unicodeVersion, String age) {
+  /** Returns the name of the scanner of an age, e.g. {@code UnicodeAge_6_0_age_5_2}. */
+  static String className(UnicodeVersion unicodeVersion, String age) {
     return String.format("UnicodeAge_%s_age_%s", unicodeVersion.version().underscoreVersion(), age);
   }
 
