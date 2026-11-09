@@ -210,8 +210,8 @@
                 <lexDefinition>de/jflex/testcase/unicode/unicode-blocks-inverse.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_codepoint_escapes/UnicodeCodePointEscapes.flex</lexDefinition>
                 <lexDefinition>de/jflex/testcase/unicode_escape_warning/warnings.flex</lexDefinition>
+                <lexDefinition>de/jflex/testcase/yylexthrow_comment/yylexthrow.flex</lexDefinition>
                 <lexDefinition>de/jflex/testsuite/TestLoader.flex</lexDefinition>
-                <lexDefinition>jflex/testcase/yylexthrow_comment/yylexthrow.flex</lexDefinition>
               </lexDefinitions>
             </configuration>
           </execution>

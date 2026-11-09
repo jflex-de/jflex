@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package jflex.testcase.sevenbit; // comment on same line allowed
+package de.jflex.testcase.yylexthrow_comment; // comment on same line allowed
 
 %%
 
