@@ -59,8 +59,18 @@ final class UcdText {
     return (hash < 0 ? line : line.substring(0, hash)).trim();
   }
 
+  /**
+   * The code point written in hexadecimal.
+   *
+   * @throws IllegalArgumentException if the text is not hexadecimal, which means a UCD line in an
+   *     unexpected format
+   */
   static int hex(String codePoint) {
-    return Integer.parseInt(codePoint, 16);
+    try {
+      return Integer.parseInt(codePoint, 16);
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Not a hexadecimal code point: '" + codePoint + "'", e);
+    }
   }
 
   /**
