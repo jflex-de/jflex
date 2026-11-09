@@ -158,12 +158,6 @@ final class EnumeratedPropertyCases {
         rules.append(rule(label(rulePrefix, value)));
       }
     }
-    List<Range> output = new ArrayList<>();
-    for (Range range : Ranges.complete(property.ranges, defaultValue, Ranges.MAX_CODE_POINT)) {
-      if (!skipValues.contains(range.value)) {
-        output.add(range.withValue(label(rulePrefix, range.value)));
-      }
-    }
     return new GeneratedCase(
         caseDir,
         namePrefix + "_" + GeneratedCase.underscoreVersion(version),
@@ -175,7 +169,19 @@ final class EnumeratedPropertyCases {
             + " property.",
         GeneratedCase.Include.ENUMERATED,
         rules.toString(),
-        output);
+        output(property, defaultValue, skipValues, rulePrefix));
+  }
+
+  /** The output of scanners with one rule per value: every code point + label. */
+  static List<Range> output(
+      Property property, String defaultValue, Set<String> skipValues, String rulePrefix) {
+    List<Range> output = new ArrayList<>();
+    for (Range range : Ranges.complete(property.ranges, defaultValue, Ranges.MAX_CODE_POINT)) {
+      if (!skipValues.contains(range.value)) {
+        output.add(range.withValue(label(rulePrefix, range.value)));
+      }
+    }
+    return output;
   }
 
   static String label(String rulePrefix, String value) {

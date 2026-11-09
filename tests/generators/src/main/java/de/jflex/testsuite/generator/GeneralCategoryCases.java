@@ -9,42 +9,54 @@ import de.jflex.testsuite.generator.UcdText.UnicodeDataLine;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * The cases of the general category, from {@code UnicodeData.txt}: one for the two-letter
- * categories like {@code Lu}, one for the single-letter groups like {@code L}.
+ * categories like {@code Lu}, one for the single-letter groups like {@code L}, and from Unicode 3.2
+ * on the cases of their aliases, see {@link AliasCases}.
  */
 final class GeneralCategoryCases {
   private static final String CASE_DIR = "unicode-general-category";
   private static final Version UNICODE_1_1 = new Version(1, 1);
 
-  static List<GeneratedCase> generate(Version version, File unicodeData) throws IOException {
+  /**
+   * @param propertyValueAliases {@code PropertyValueAliases.txt}, or null before Unicode 3.2
+   */
+  static List<GeneratedCase> generate(Version version, File unicodeData, File propertyValueAliases)
+      throws IOException {
     List<String> lines = UcdText.lines(unicodeData);
     boolean is11 = Version.MAJOR_MINOR_COMPARATOR.compare(version, UNICODE_1_1) == 0;
-    GeneratedCase twoLetter =
+    Property twoLetter = parse(lines, is11, false);
+    Property singleLetter = parse(lines, is11, true);
+    List<GeneratedCase> cases = new ArrayList<>();
+    cases.add(
         EnumeratedPropertyCases.create(
             CASE_DIR,
             "UnicodeGeneralCategory",
             version,
             "General Category",
             null,
-            parse(lines, is11, false),
+            twoLetter,
             "Cn",
-            Collections.singleton("Cs"));
-    GeneratedCase singleLetter =
+            Collections.singleton("Cs")));
+    cases.add(
         EnumeratedPropertyCases.create(
             CASE_DIR,
             "UnicodeGeneralCategorySingleLetter",
             version,
             "single-letter General\nCategory",
             null,
-            parse(lines, is11, true),
+            singleLetter,
             "C",
-            Collections.<String>emptySet());
-    return Arrays.asList(twoLetter, singleLetter);
+            Collections.<String>emptySet()));
+    if (propertyValueAliases != null) {
+      cases.addAll(
+          AliasCases.generalCategory(version, twoLetter, singleLetter, propertyValueAliases));
+    }
+    return cases;
   }
 
   /**
