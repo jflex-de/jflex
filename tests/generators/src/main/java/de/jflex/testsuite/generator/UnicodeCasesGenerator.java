@@ -79,13 +79,13 @@ public final class UnicodeCasesGenerator {
     File lineBreak = require(ucd, UcdFileType.LineBreak, "3.0");
     File scripts = require(ucd, UcdFileType.Scripts, "3.1");
     File scriptExtensions = require(ucd, UcdFileType.ScriptExtensions, "6.0");
-    File propertyValueAliases = require(ucd, UcdFileType.PropertyValueAliases, "6.0");
+    File propertyValueAliases = require(ucd, UcdFileType.PropertyValueAliases, "3.2");
     File graphemeBreak = require(ucd, UcdFileType.GraphemeBreakProperty, "4.1");
     File wordBreak = require(ucd, UcdFileType.WordBreakProperty, "4.1");
     File sentenceBreak = require(ucd, UcdFileType.SentenceBreakProperty, "4.1");
 
     List<GeneratedCase> cases = new ArrayList<>();
-    cases.addAll(GeneralCategoryCases.generate(version, unicodeData));
+    cases.addAll(GeneralCategoryCases.generate(version, unicodeData, propertyValueAliases));
     cases.add(ClassSyntaxCases.letter(version, unicodeData));
     cases.add(ClassSyntaxCases.lowercase(version, unicodeData, propList, derivedCoreProperties));
     cases.add(ClassSyntaxCases.uppercase(version, unicodeData, propList, derivedCoreProperties));

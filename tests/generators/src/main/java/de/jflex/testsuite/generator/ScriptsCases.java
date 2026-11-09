@@ -21,7 +21,8 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 /**
- * The cases of the {@code Script} property, and from Unicode 6.0 on of {@code Script_Extensions}.
+ * The cases of the {@code Script} property, from Unicode 3.2 on of its aliases (see {@link
+ * AliasCases}), and from Unicode 6.0 on of {@code Script_Extensions}.
  *
  * <p>The {@code Script_Extensions} values of a code point are a set of scripts, and a scanner
  * cannot report more than one value per code point. So a case tests a group of scripts that have no
@@ -38,7 +39,7 @@ final class ScriptsCases {
   /**
    * @param extensions {@code ScriptExtensions.txt}, or null before Unicode 6.0
    * @param aliases {@code PropertyValueAliases.txt}, for the short script names in {@code
-   *     extensions}
+   *     extensions}. Null before Unicode 3.2.
    */
   static List<GeneratedCase> generate(Version version, File scripts, File extensions, File aliases)
       throws IOException {
@@ -56,6 +57,9 @@ final class ScriptsCases {
     cases.add(
         EnumeratedPropertyCases.create(
             CASE_DIR, "UnicodeScripts", version, "Script", null, property, defaultValue, skip));
+    if (aliases != null) {
+      cases.addAll(AliasCases.scripts(version, property, defaultValue, skip, aliases));
+    }
     if (extensions != null) {
       List<Range> allScripts =
           Ranges.complete(property.ranges, defaultValue, Ranges.MAX_CODE_POINT);
