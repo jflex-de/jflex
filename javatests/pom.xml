@@ -42,6 +42,8 @@
     <unicode.specs.dir>${unicode.tests.dir}/javatests/de/jflex/testcase/unicode</unicode.specs.dir>
     <unicode.tables.dir>${project.build.directory}/generated-unicode-tables</unicode.tables.dir>
     <unicode.tests.dir>${project.build.directory}/generated-unicode-tests</unicode.tests.dir>
+    <testsuite.dir>${project.basedir}/../testsuite/testcases</testsuite.dir>
+    <testsuite.generated.dir>${project.build.directory}/generated-testsuite</testsuite.generated.dir>
     <work.dir>${project.build.directory}/javatests-work</work.dir>
   </properties>
 
@@ -92,7 +94,7 @@
     <testSourceDirectory>${project.basedir}</testSourceDirectory>
     <plugins>
       <plugin>
-        <!-- Generates the scanner specs of the unicode_x_y tests.
+        <!-- Generates the scanner specs of the unicode_x_y tests, and the Unicode for TestsuiteTest.
 
              This is a forked JVM because the generators load their templates from the system class
              loader. The phase is after the UCD downloads and before the scanners. -->
@@ -115,6 +117,25 @@
                 <argument>de.jflex.migration.unicodedatatest.AllTestsGenerator</argument>
                 <argument>${ucd.dir}</argument>
                 <argument>${unicode.tests.dir}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-testsuite-cases</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${java.home}/bin/java</executable>
+              <classpathScope>test</classpathScope>
+              <arguments>
+                <argument>-classpath</argument>
+                <classpath/>
+                <argument>de.jflex.testsuite.generator.UnicodeCasesGenerator</argument>
+                <argument>${ucd.dir}</argument>
+                <argument>${testsuite.dir}</argument>
+                <argument>${testsuite.generated.dir}</argument>
               </arguments>
             </configuration>
           </execution>
@@ -403,7 +424,8 @@
           <workingDirectory>${work.dir}</workingDirectory>
           <systemPropertyVariables>
             <jflex.ucd.dir>${ucd.dir}</jflex.ucd.dir>
-            <jflex.testsuite.dir>${project.basedir}/../testsuite/testcases</jflex.testsuite.dir>
+            <jflex.testsuite.dir>${testsuite.dir}</jflex.testsuite.dir>
+            <jflex.testsuite.generated.dir>${testsuite.generated.dir}</jflex.testsuite.generated.dir>
             <jflex.testsuite.out>${project.build.directory}/testsuite</jflex.testsuite.out>
             <jflex.testsuite.cases>${testcases}</jflex.testsuite.cases>
           </systemPropertyVariables>
@@ -987,6 +1009,10 @@
                 <phase>none</phase>
               </execution>
               <execution>
+                <id>generate-testsuite-cases</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
                 <id>generate-unicode-tables</id>
                 <phase>process-classes</phase>
                 <goals>
@@ -1020,6 +1046,10 @@
             <executions>
               <execution>
                 <id>generate-unicode-tests</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
+                <id>generate-testsuite-cases</id>
                 <phase>none</phase>
               </execution>
             </executions>

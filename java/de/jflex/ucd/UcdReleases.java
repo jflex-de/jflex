@@ -88,6 +88,25 @@ public final class UcdReleases {
     return files;
   }
 
+  /**
+   * Returns a file of a version by its path inside the release, e.g. {@code
+   * auxiliary/LineBreakTest.txt}, or null if no release of the version has it.
+   *
+   * @param ucdDir the directory with the UCD downloads
+   * @param version the version; only its major and minor numbers count
+   */
+  public static Path findFile(Path ucdDir, Version version, String relativePath) {
+    List<String> releases =
+        Objects.requireNonNull(RELEASES.get(version), "Unknown Unicode version " + version);
+    for (String release : releases) {
+      Path file = ucdDir.resolve(release).resolve(relativePath);
+      if (Files.isRegularFile(file)) {
+        return file;
+      }
+    }
+    return null;
+  }
+
   private static List<String> ucdFilesIn(Path release) throws IOException {
     try (Stream<Path> files = Files.walk(release)) {
       return files

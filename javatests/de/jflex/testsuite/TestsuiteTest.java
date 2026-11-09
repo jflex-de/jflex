@@ -46,7 +46,8 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 /**
- * Runs the {@code .test} cases in {@code testsuite/testcases/src/test/cases}.
+ * Runs the {@code .test} cases in {@code testsuite/testcases/src/test/cases}, and the Unicode cases
+ * that {@code de.jflex.testsuite.generator} generates from the Unicode Character Database.
  *
  * <p>Each case runs JFlex on {@code <name>.flex} and compares its messages with {@code
  * <name>-flex.output}. Unless JFlex is expected to fail, it then compiles the scanner, runs it on
@@ -58,6 +59,8 @@ import org.junit.runners.Parameterized.Parameters;
  * <ul>
  *   <li>{@code jflex.testsuite.dir}: the {@code testsuite/testcases} directory. Paths in JFlex
  *       messages are relative to it.
+ *   <li>{@code jflex.testsuite.generated.dir}: optional directory with the generated cases, in the
+ *       layout of {@code testsuite/testcases}. Paths in JFlex messages are relative to it too.
  *   <li>{@code jflex.testsuite.out}: where generated scanners go.
  *   <li>{@code jflex.testsuite.cases}: optional comma-separated list of case directories to run,
  *       e.g. {@code dot,unicode-scripts}. All by default.
@@ -70,6 +73,12 @@ public class TestsuiteTest {
       canonical(new File(System.getProperty("jflex.testsuite.dir", "../testsuite/testcases")));
 
   private static final File CASES_DIR = new File(SUITE_DIR, "src/test/cases");
+
+  /** The generated cases, or null for none. */
+  private static final File GENERATED_SUITE_DIR =
+      System.getProperty("jflex.testsuite.generated.dir", "").isEmpty()
+          ? null
+          : canonical(new File(System.getProperty("jflex.testsuite.generated.dir")));
 
   private static final File OUT_DIR =
       new File(System.getProperty("jflex.testsuite.out", "target/testsuite"));
@@ -91,22 +100,33 @@ public class TestsuiteTest {
       }
     }
     Set<String> missing = new HashSet<>(selected);
-    List<Object[]> result = new ArrayList<>();
-    for (File dir : sorted(CASES_DIR.listFiles(File::isDirectory))) {
-      if (!selected.isEmpty() && !selected.contains(dir.getName())) {
-        continue;
+    List<File> casesDirs = new ArrayList<>();
+    casesDirs.add(CASES_DIR);
+    if (GENERATED_SUITE_DIR != null) {
+      File generated = new File(GENERATED_SUITE_DIR, "src/test/cases");
+      if (!generated.isDirectory()) {
+        throw new IllegalStateException("No generated test cases in " + generated);
       }
-      missing.remove(dir.getName());
-      for (File test : sorted(dir.listFiles((d, name) -> name.endsWith(".test")))) {
-        result.add(new Object[] {dir.getName() + "/" + test.getName(), test});
+      casesDirs.add(generated);
+    }
+    List<Object[]> result = new ArrayList<>();
+    for (File casesDir : casesDirs) {
+      for (File dir : sorted(casesDir.listFiles(File::isDirectory))) {
+        if (!selected.isEmpty() && !selected.contains(dir.getName())) {
+          continue;
+        }
+        missing.remove(dir.getName());
+        for (File test : sorted(dir.listFiles((d, name) -> name.endsWith(".test")))) {
+          result.add(new Object[] {dir.getName() + "/" + test.getName(), test});
+        }
       }
     }
     if (!missing.isEmpty()) {
       throw new IllegalArgumentException(
-          "No test case directories " + missing + " in " + CASES_DIR);
+          "No test case directories " + missing + " in " + casesDirs);
     }
     if (result.isEmpty()) {
-      throw new IllegalStateException("No test cases in " + CASES_DIR);
+      throw new IllegalStateException("No test cases in " + casesDirs);
     }
     return result;
   }
@@ -201,12 +221,15 @@ public class TestsuiteTest {
               + messages.toString(Charset.defaultCharset().name()));
     }
 
-    // Paths in the goldens are relative to SUITE_DIR, with either kind of separator.
+    // Paths in the goldens are relative to the suite directory, with either kind of separator.
     String actual =
         messages
             .toString(Charset.defaultCharset().name())
-            .replace(SUITE_DIR.getPath() + File.separator, "")
-            .replace('\\', '/');
+            .replace(SUITE_DIR.getPath() + File.separator, "");
+    if (GENERATED_SUITE_DIR != null) {
+      actual = actual.replace(GENERATED_SUITE_DIR.getPath() + File.separator, "");
+    }
+    actual = actual.replace('\\', '/');
     File golden = new File(flexFile.getParentFile(), spec.name + "-flex.output");
     String expected = new String(Files.readAllBytes(golden.toPath()), UTF_8).replace('\\', '/');
     assertEquals("JFlex output, golden " + golden, lines(expected), lines(actual));
