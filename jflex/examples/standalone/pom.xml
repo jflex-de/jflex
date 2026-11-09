@@ -35,6 +35,9 @@ of "hello" by "hello &lt;name&gt; !".</description>
         <version>3.16.0</version>
         <configuration>
           <release>8</release>
+          <compilerArgs>
+            <arg>-Xlint:-options</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
