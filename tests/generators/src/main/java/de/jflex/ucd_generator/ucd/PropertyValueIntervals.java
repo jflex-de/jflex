@@ -179,10 +179,11 @@ public class PropertyValueIntervals {
   }
 
   public boolean codePointInProperty(int codepoint, String propName) {
-    // The codepoint could be in the last range stating before
+    // Ranges do not overlap, so the only candidate is the last range that starts at or before the
+    // code point, i.e. the last range before the point following the code point.
     CodepointRange point = CodepointRange.createPoint(codepoint);
     SortedSet<CodepointRange> ranges = propertyValueIntervals.get(propName);
-    SortedSet<CodepointRange> head = ranges.headSet(point);
+    SortedSet<CodepointRange> head = ranges.headSet(CodepointRange.createPoint(codepoint + 1));
     if (head.isEmpty()) {
       return false;
     }
