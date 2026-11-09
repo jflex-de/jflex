@@ -34,8 +34,7 @@ logi "Check java format"
 logi "================="
 java -jar $TOOLSDIR/google-java-format-${VERSION_GJF}.jar --version
 gjf cup-maven-plugin
-gjf java
-gjf javatests
+gjf tests
 gjf jflex
 gjf jflex-maven-plugin
 

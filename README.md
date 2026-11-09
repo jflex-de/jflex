@@ -110,15 +110,17 @@ See the [Contributing][contrib] page for instructions.
 
 The top level directory of the JFLex git repository contains:
 
-- **cup** A copy of the CUP runtime
-- **cup-maven-plugin** A simple Maven plugin to generate a parser with CUP.
+- **benchmark** JMH benchmarks of generated scanners
+- **cup-maven-plugin** a simple Maven plugin to generate a parser with CUP
 - **docs** the Markdown sources for the user manual
-- **java** development tools: test framework and Unicode generators
-- **javatests** regression tests and tests of the development tools
 - **jflex** JFlex, the scanner/lexer generator for Java
-- **jflex-maven-plugin** the JFlex maven plugin, that helps to integrate JFlex in your project
-- **jflex-unicode-plugin** the JFlex unicode maven plugin, used for compiling JFlex
-- **testsuite** test cases for JFlex's Unicode support, run by `javatests`
+- **jflex-maven-plugin** the JFlex Maven plugin, that helps to integrate JFlex in your project
+- **LICENSES** the license texts, see [REUSE.toml](REUSE.toml)
+- **scripts** scripts for building, testing and releasing
+- **src/site** the descriptor of the Maven site
+- **tests** the test modules, which are not deployed: `framework` (test support), `generators`
+  (Unicode generators), `regression` (end-to-end regression tests) and `unicode` (tests against
+  the Unicode Character Database), see [tests/README.md](tests/README.md)
 
 
 ### Build from source

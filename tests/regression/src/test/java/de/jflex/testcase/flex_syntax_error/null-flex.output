@@ -1,0 +1,6 @@
+Reading "src/test/java/de/jflex/testcase/flex_syntax_error/null.flex"
+
+Error in file "src/test/java/de/jflex/testcase/flex_syntax_error/null.flex" (line 15): 
+Syntax error.
+}
+^

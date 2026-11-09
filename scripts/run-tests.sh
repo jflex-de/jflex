@@ -32,6 +32,9 @@ fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "regression" ]]; then
   "$BASEDIR"/scripts/test-regression.sh
 fi
+if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "unicode" ]]; then
+  "$BASEDIR"/scripts/test-unicode.sh
+fi
 if [[ -z "$TEST_SUITE" || "$TEST_SUITE" == "ant" ]]; then
   "$BASEDIR"/scripts/ant-build.sh
   "$BASEDIR"/scripts/test-examples.sh

@@ -1,0 +1,5 @@
+Reading "src/test/java/de/jflex/testcase/unicode_version_f/unicode-version-f.flex"
+
+Error in file "src/test/java/de/jflex/testcase/unicode_version_f/unicode-version-f.flex" (line 8): 
+Unsupported Unicode version
+%unicode 1.29.4

@@ -7,7 +7,7 @@
 
 # The jflex-unicode-maven-plugin was authored by Steve
 # /jflex-unicode-maven-plugin/  @sarowe
-# /testsuite/  @sarowe
+# /tests/unicode/  @sarowe
 
 # The Maven plugin was initially authored by Régis
 # /jflex-maven-plugin/	@regisd

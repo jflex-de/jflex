@@ -1,0 +1,24 @@
+// test: line
+
+/*
+ * Copyright 2020, Google, LLC.
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+package de.jflex.testcase.line_cont;
+
+import de.jflex.testing.testsuite.JFlexTestRunner;
+import de.jflex.testing.testsuite.annotations.TestSpec;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(JFlexTestRunner.class)
+@TestSpec(
+    lex = "src/test/java/de/jflex/testcase/line_cont/line.flex",
+    sysout = "src/test/java/de/jflex/testcase/line_cont/line-flex.sysout",
+    syserr = "src/test/java/de/jflex/testcase/line_cont/line-flex.syserr",
+    dump = true)
+public class LineTest {
+  @Test
+  public void ok() {}
+}

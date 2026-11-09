@@ -59,11 +59,12 @@ jobs:
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin
         scripts/test-regression.sh
 
-  javatests:
-    name: 'Dev tools'
-    runs-on: ubuntu-latest
+  unicode:
+    name: 'Unicode'
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         java: [ 8, 25 ]
       fail-fast: false
     steps:
@@ -74,11 +75,10 @@ jobs:
         java-version: ${{ matrix.java }}
         distribution: zulu
         cache: maven
-    - name: '📝 Dev tools tests'
+    - name: '📝 Unicode tests'
       run: |
         scripts/mvn-install-fastbuild.sh jflex-maven-plugin
-        # TestsuiteTest runs in the regression job.
-        ./mvnw -pl java,javatests install '-Dexcluded.tests=**/TestsuiteTest.java'
+        scripts/test-unicode.sh
 
   aggregated-sources:
     name: 'Aggregated sources'
