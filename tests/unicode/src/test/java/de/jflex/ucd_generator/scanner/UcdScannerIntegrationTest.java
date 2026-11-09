@@ -218,7 +218,6 @@ public class UcdScannerIntegrationTest {
     // .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("gcb=ebg"));
   }
 
-  @Ignore // TODO
   @Test
   public void scanSentenceBreakProperty() throws Exception {
     ucdScanner.scanPropertyAliases();
@@ -244,7 +243,6 @@ public class UcdScannerIntegrationTest {
     //     .isEqualTo(ucdScanner.unicodeData.getPropertyValueIntervals("sentencebreak=cl"));
   }
 
-  @Ignore // TODO
   @Test
   public void scanWordBreakProperty() throws IOException {
     ucdScanner.scanPropertyAliases();
