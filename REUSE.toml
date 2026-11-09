@@ -17,34 +17,52 @@ SPDX-License-Identifier = "BSD-3-Clause"
 
 [[annotations]]
 path = [
-  "testsuite/testcases/src/test/cases/**/**.input",
-  "testsuite/testcases/src/test/cases/**/**.output",
-  "testsuite/testcases/src/test/cases/**/**.test",
-  "testsuite/testcases/src/test/cases/**/**.flex",
-  "testsuite/testcases/src/test/uax/**/**.test",
-  "testsuite/testcases/src/test/uax/**/**.flex",
-  "testsuite/testcases/src/test/resources/**.input",
-  "javatests/de/jflex/testcase/**/**.input",
-  "javatests/de/jflex/testcase/**/**.output",
-  "javatests/de/jflex/testcase/**/**.out",
-  "javatests/de/jflex/testcase/**/**.txt",
-  "javatests/de/jflex/testcase/caseless_jlex/caseless.sysout",
-  "javatests/de/jflex/testcase/include/inp2",
-  "javatests/de/jflex/testcase/include/inp3",
-  "javatests/de/jflex/testcase/include/skeleton.nested",
-  "javatests/de/jflex/testcase/include2/nested2",
-  "javatests/de/jflex/testcase/include2/nested3",
-  "javatests/de/jflex/testcase/include2/skeleton.nested",
-  "javatests/de/jflex/testcase/line_cont/line-flex.sysout",
-  "javatests/de/jflex/testcase/spoon_feed_reader/problematic.skeleton.default",
+  "tests/regression/src/test/cases/**/**.input",
+  "tests/regression/src/test/cases/**/**.output",
+  "tests/regression/src/test/cases/**/**.test",
+  "tests/regression/src/test/cases/**/**.flex",
+  "tests/unicode/src/test/cases/**/**.input",
+  "tests/unicode/src/test/cases/**/**.output",
+  "tests/unicode/src/test/cases/**/**.test",
+  "tests/unicode/src/test/cases/**/**.flex",
+  "tests/unicode/src/test/uax/**/**.test",
+  "tests/unicode/src/test/uax/**/**.flex",
+  "tests/unicode/src/test/resources/**.input",
+  "tests/regression/src/test/java/de/jflex/testcase/**/**.input",
+  "tests/regression/src/test/java/de/jflex/testcase/**/**.output",
+  "tests/regression/src/test/java/de/jflex/testcase/**/**.out",
+  "tests/regression/src/test/java/de/jflex/testcase/**/**.txt",
+  "tests/regression/src/test/java/de/jflex/testcase/caseless_jlex/caseless.sysout",
+  "tests/regression/src/test/java/de/jflex/testcase/include/inp2",
+  "tests/regression/src/test/java/de/jflex/testcase/include/inp3",
+  "tests/regression/src/test/java/de/jflex/testcase/include/skeleton.nested",
+  "tests/regression/src/test/java/de/jflex/testcase/include2/nested2",
+  "tests/regression/src/test/java/de/jflex/testcase/include2/nested3",
+  "tests/regression/src/test/java/de/jflex/testcase/include2/skeleton.nested",
+  "tests/regression/src/test/java/de/jflex/testcase/line_cont/line-flex.sysout",
+  "tests/regression/src/test/java/de/jflex/testcase/spoon_feed_reader/problematic.skeleton.default",
+  "tests/unicode/src/test/java/de/jflex/testcase/**/**.input",
+  "tests/unicode/src/test/java/de/jflex/testcase/**/**.output",
+  "tests/unicode/src/test/java/de/jflex/testcase/**/**.out",
+  "tests/unicode/src/test/java/de/jflex/testcase/**/**.txt",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2020, Gerwin Klein, Régis Décamps, Steve Rowe"
 SPDX-License-Identifier = "BSD-3-Clause"
 
 [[annotations]]
+# Tables generated from the Unicode Character Database, which the tests/unicode build downloads.
 path = [
-  "javatests/de/jflex/ucd_generator/FakeUnicodeData.txt",
+  "jflex/src/main/java/jflex/core/unicode/UnicodeProperties.java",
+  "jflex/src/main/java/jflex/core/unicode/data/Unicode_*.java",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "1991-2018, Unicode, Inc."
+SPDX-License-Identifier = "Unicode-DFS-2016"
+
+[[annotations]]
+path = [
+  "tests/generators/src/test/java/de/jflex/ucd_generator/FakeUnicodeData.txt",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2021, Google, LLC."
@@ -64,9 +82,9 @@ SPDX-License-Identifier = "CC-BY-SA-4.0"
 
 [[annotations]]
 path = [
-  "javatests/third_party/cup2/edu/tum/cup2/**/**.java",
-  "javatests/third_party/cup2/license.txt",
-  "javatests/third_party/cup2/edu/tum/cup2/spec/How_or_how_not_to_find_true_lr1_grammars",
+  "tests/regression/third_party/cup2/edu/tum/cup2/**/**.java",
+  "tests/regression/third_party/cup2/license.txt",
+  "tests/regression/third_party/cup2/edu/tum/cup2/spec/How_or_how_not_to_find_true_lr1_grammars",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Copyright (c) 2014 Andreas Wenger, Michael Petter"

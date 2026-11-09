@@ -1,0 +1,6 @@
+Reading "src/test/java/de/jflex/testcase/ctorarg/ctor-bad-arg.flex"
+
+Error in file "src/test/java/de/jflex/testcase/ctorarg/ctor-bad-arg.flex" (line 16): 
+Expected an identifier for constructor argument name.
+%ctorarg Object 2y
+                ^

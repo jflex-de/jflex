@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2026, Gerwin Klein
+  SPDX-License-Identifier: BSD-3-Clause
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>de.jflex</groupId>
+    <artifactId>jflex-parent</artifactId>
+    <version>1.10.0-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+  <artifactId>jflex-unicode-generators</artifactId>
+  <name>JFlex Unicode generators</name>
+  <description>
+    Generators that read the Unicode Character Database. The generate the
+    Unicode tables of JFlex, the Unicode tests, and the Unicode .test cases,
+    with the UCD parsers they share. Not deployed.
+
+    The tests here do not need any UCD downloads. The ones that do are in the
+    unicode module.
+
+    This module runs jflex-maven-plugin, which only resolves at the package
+    phase or later: use "mvn install", not "mvn test", from the root directory.
+  </description>
+  <packaging>jar</packaging>
+
+  <properties>
+    <gpg.skip>true</gpg.skip>
+    <maven.deploy.skip>true</maven.deploy.skip>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
+    <maven.site.skip>true</maven.site.skip>
+    <maven.source.skip>true</maven.source.skip>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.jflex</groupId>
+      <artifactId>jflex-test-framework</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- The UCD file scanners, from src/main/jflex. -->
+        <groupId>de.jflex</groupId>
+        <artifactId>jflex-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

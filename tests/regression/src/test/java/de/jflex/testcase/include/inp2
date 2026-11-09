@@ -1,0 +1,3 @@
+token 1
+%include src/test/java/de/jflex/testcase/include/inp3
+token 2

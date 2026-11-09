@@ -5,7 +5,7 @@
 #
 # Generates UnicodeProperties.java and data/Unicode_x_y.java in
 # jflex/src/main/java/jflex/core/unicode from the Unicode Character Database.
-# See java/de/jflex/ucd_generator/README.md.
+# See tests/generators/src/main/java/de/jflex/ucd_generator/README.md.
 #
 # Needs JDK 21+, for google-java-format. The generator gives the same result on
 # all JDKs.
@@ -17,7 +17,7 @@ MVN="$BASEDIR"/mvnw
 # fail on error
 set -e
 
-GENERATED="$BASEDIR"/javatests/target/generated-unicode-tables
+GENERATED="$BASEDIR"/tests/unicode/target/generated-unicode-tables
 UNICODE="$BASEDIR"/jflex/src/main/java/jflex/core/unicode
 
 # Fail before the sources are overwritten; fmt-maven-plugin's own error is obscure.
@@ -33,7 +33,7 @@ logi "Build and install JFlex and jflex-maven-plugin (-P fastbuild)"
 "$MVN" -Pfastbuild -pl .,cup-maven-plugin,jflex,jflex-maven-plugin install
 
 logi "Generate Unicode tables"
-"$MVN" -Pgen-unicode-tables -pl java,javatests process-classes
+"$MVN" -Pgen-unicode-tables -pl tests/framework,tests/generators,tests/unicode process-classes
 
 logi "Update and format sources"
 cp "$GENERATED"/UnicodeProperties.java "$UNICODE"
