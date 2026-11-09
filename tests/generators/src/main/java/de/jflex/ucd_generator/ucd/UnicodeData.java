@@ -112,8 +112,38 @@ public class UnicodeData {
     return propertyValueIntervals.hasUsedEnumeratedProperty(category);
   }
 
-  public ImmutableList<CodepointRange> getPropertyValueIntervals(String propName) {
-    return propertyValueIntervals.getRanges(propertyNames.getCanonicalPropertyName(propName));
+  /**
+   * Returns the code point ranges of a property.
+   *
+   * @param property a binary property name or alias (e.g. {@code Alphabetic}), a General_Category
+   *     or Script value (e.g. {@code Lu} or {@code hiragana}), or a {@code name=value} pair for an
+   *     enumerated property (e.g. {@code Line_Break=BB} or {@code lb=Break_Before}). Property names
+   *     and values can be given by alias.
+   */
+  public ImmutableList<CodepointRange> getPropertyValueIntervals(String property) {
+    return propertyValueIntervals.getRanges(canonicalKey(property));
+  }
+
+  /**
+   * Resolves a user-facing property reference to a canonical key for {@link
+   * #propertyValueIntervals}.
+   *
+   * <p>If a value is not known for the property, the normalized input is returned, which has no
+   * ranges.
+   */
+  private String canonicalKey(String property) {
+    String normalized = PropertyNames.normalize(property);
+    int eq = normalized.indexOf('=');
+    if (eq < 0) {
+      return propertyNames.getCanonicalPropertyName(normalized);
+    }
+    String propName = propertyNames.getCanonicalPropertyName(normalized.substring(0, eq));
+    String propValue =
+        propertyValues.findCanonicalValueName(propName, normalized.substring(eq + 1));
+    if (propValue == null) {
+      return normalized;
+    }
+    return PropertyNames.canonicalValue(propName, propValue);
   }
 
   public int maximumCodePoint() {
@@ -309,8 +339,13 @@ public class UnicodeData {
     return whitespaceRanges;
   }
 
-  public boolean codePointInProperty(int codepoint, String propName) {
-    return propertyValueIntervals.codePointInProperty(codepoint, propName);
+  /**
+   * Returns whether the code point has the given property.
+   *
+   * @param property a property reference, see {@link #getPropertyValueIntervals(String)}.
+   */
+  public boolean codePointInProperty(int codepoint, String property) {
+    return propertyValueIntervals.codePointInProperty(codepoint, canonicalKey(property));
   }
 
   /**

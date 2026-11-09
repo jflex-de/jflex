@@ -84,7 +84,7 @@ public class UcdScanner {
     }
   }
 
-  private void cloneScriptsToScriptExtensions() {
+  void cloneScriptsToScriptExtensions() {
     // Clone Script/sc property value aliases => Script_Extensions/scx
     String scPropName = unicodeData.getCanonicalPropertyName("Script");
     String scxPropName = unicodeData.getCanonicalPropertyName("Script_Extensions");

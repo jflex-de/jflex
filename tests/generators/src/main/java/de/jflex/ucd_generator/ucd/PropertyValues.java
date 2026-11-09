@@ -70,18 +70,28 @@ public class PropertyValues {
   }
 
   public String getCanonicalValueName(String normalizedPropName, String propValue) {
+    return checkNotNull(
+        findCanonicalValueName(normalizedPropName, propValue),
+        String.format(
+            "Canonical value not found for '%s', are you sure it is the default value for '%s' "
+                + " in this Unicode version?",
+            propValue, normalizedPropName));
+  }
+
+  /**
+   * Returns the canonical property value for the given value or alias.
+   *
+   * @return the normalized {@code propValue} if no aliases are known for this property, or {@code
+   *     null} if aliases exist, but {@code propValue} is not one of them.
+   */
+  String findCanonicalValueName(String normalizedPropName, String propValue) {
     Map<String, String> canonicalPropValueNames =
         propertyValueAlias2CanonicalValue.get(normalizedPropName);
     String canonicalValue = PropertyNames.normalize(propValue);
     if (canonicalPropValueNames == null) {
       return canonicalValue;
     }
-    return checkNotNull(
-        canonicalPropValueNames.get(canonicalValue),
-        String.format(
-            "Canonical value not found for '%s', are you sure it is the default value for '%s' "
-                + " in this Unicode version?",
-            propValue, normalizedPropName));
+    return canonicalPropValueNames.get(canonicalValue);
   }
 
   public void copyPropertyValueAliases(String sourceProperty, String destProperty) {
