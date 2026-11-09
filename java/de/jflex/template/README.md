@@ -6,7 +6,7 @@
 # Templates
 
 Minimal text templates for the code generators in `de.jflex.ucd_generator` and
-`de.jflex.migration.unicodedatatest`.
+`de.jflex.ucd_test_generator`.
 
 - A template is a plain text resource named `<output name>.template`, e.g.
   `UnicodeProperties.java.template`, in which each `${name}` is replaced by a value.
