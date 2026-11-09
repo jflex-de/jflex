@@ -102,8 +102,6 @@
     <maven.api.version>3.9.16</maven.api.version>
     <!-- minimum Maven version for building JFlex itself (required by current Maven plugins) -->
     <maven.build.version>3.9.16</maven.build.version>
-    <maven.compiler.source>${jflex.jdk.version}</maven.compiler.source>
-    <maven.compiler.target>${jflex.jdk.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- activates reproducible builds, will be replaced by release:prepare -->
     <project.build.outputTimestamp>2023-01-01T00:00:00Z</project.build.outputTimestamp>
@@ -336,8 +334,7 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>8</source>
-          <target>8</target>
+          <release>8</release>
           <annotationProcessorPaths>
             <path>
               <groupId>com.google.auto.value</groupId>
