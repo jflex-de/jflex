@@ -26,10 +26,10 @@
 Add a test case in [javatests/de/jflex/testcase/unicode](/javatests/de/jflex/testcase/unicode).
 
 1. Extend `KNOWN_VERSIONS` in
-   [AbstractGenerator.java](/java/de/jflex/migration/unicodedatatest/base/AbstractGenerator.java).
+   [AbstractGenerator.java](/java/de/jflex/ucd_test_generator/base/AbstractGenerator.java).
 2. Run the script which runs all the generators:
    ```sh
-   java/de/jflex/migration/unicodedatatest/generate.sh
+   java/de/jflex/ucd_test_generator/generate.sh
    ```
 3. Verify and commit the changes.
 

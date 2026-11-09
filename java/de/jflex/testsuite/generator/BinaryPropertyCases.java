@@ -44,7 +44,7 @@ final class BinaryPropertyCases {
 
   /**
    * The cases of the properties in {@code DerivedCoreProperties.txt}, except {@code Alphabetic},
-   * which {@code de.jflex.migration.unicodedatatest.testderivedcoreprop} tests.
+   * which {@code de.jflex.ucd_test_generator.testderivedcoreprop} tests.
    */
   static List<GeneratedCase> derivedCoreProperties(Version version, File derivedCoreProperties)
       throws IOException {

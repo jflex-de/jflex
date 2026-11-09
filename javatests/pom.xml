@@ -114,7 +114,7 @@
               <arguments>
                 <argument>-classpath</argument>
                 <classpath/>
-                <argument>de.jflex.migration.unicodedatatest.AllTestsGenerator</argument>
+                <argument>de.jflex.ucd_test_generator.AllTestsGenerator</argument>
                 <argument>${ucd.dir}</argument>
                 <argument>${unicode.tests.dir}</argument>
               </arguments>
@@ -327,7 +327,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <testIncludes>
-            <testInclude>de/jflex/migration/**/*.java</testInclude>
+            <testInclude>de/jflex/ucd_test_generator/**/*.java</testInclude>
             <testInclude>de/jflex/testcase/**/*.java</testInclude>
             <testInclude>de/jflex/testing/**/*.java</testInclude>
             <testInclude>de/jflex/testsuite/**/*.java</testInclude>
