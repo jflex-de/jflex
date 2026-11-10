@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import jflex.Main;
-import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.logging.Out;
@@ -188,7 +187,6 @@ public abstract class AbstractTestsuiteTest {
 
     ByteArrayOutputStream messages = new ByteArrayOutputStream();
     boolean success;
-    OptionUtils.setDefaultOptions();
     Out.setOutputStream(messages);
     try {
       Main.generate(args.toArray(new String[0]));
@@ -197,7 +195,6 @@ public abstract class AbstractTestsuiteTest {
       success = false;
     } finally {
       Out.setOutputStream(System.out);
-      OptionUtils.setDefaultOptions();
     }
     if (success == spec.expectJFlexFail) {
       fail(

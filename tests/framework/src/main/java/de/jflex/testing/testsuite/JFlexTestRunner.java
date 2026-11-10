@@ -21,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
 import jflex.logging.Out;
 import jflex.option.Options;
@@ -180,26 +179,26 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   @SuppressWarnings("OrphanedFormatString")
   private String invokeJflex() {
-    OptionUtils.setDefaultOptions();
-    Options.jlex = spec.jlexCompat();
-    Options.dump = spec.dump();
+    Options options = new Options();
+    options.setJLex(spec.jlexCompat());
+    options.setDump(spec.dump());
     // verbose is default -- verbose_provided simulates the behaviour of an explicit -v on the
     // command line
     if (spec.verbose_provided()) {
-      Options.verbose = true;
-      Options.progress = true;
-      OptionUtils.set_unused_warning(true);
+      options.setVerbose(true);
+      options.setProgress(true);
+      options.setUnusedWarning(true);
     }
     // if both verbose_provided() and quiet() are present, we want quiet() to win
     if (spec.quiet()) {
-      Options.verbose = false;
-      Options.progress = false;
-      OptionUtils.set_unused_warning(false);
+      options.setVerbose(false);
+      options.setProgress(false);
+      options.setUnusedWarning(false);
     }
-    OptionUtils.set_unused_warning(spec.warnUnused());
+    options.setUnusedWarning(spec.warnUnused());
     File lexFile = new File(spec.lex());
     Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
-    LexGenerator lexGenerator = new LexGenerator(lexFile);
+    LexGenerator lexGenerator = new LexGenerator(lexFile, options);
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
     checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));
     if (spec.minimizedDfaStatesCount() > 0) {

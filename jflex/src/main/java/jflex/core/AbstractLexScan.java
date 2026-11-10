@@ -19,6 +19,7 @@ import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
+import jflex.option.Options;
 import jflex.scanner.LexicalStates;
 import jflex.scanner.ScannerException;
 
@@ -33,6 +34,9 @@ public abstract class AbstractLexScan implements ILexScan {
   int bufferSize = 16384;
 
   File file;
+
+  /** The options of this generator run. */
+  Options options;
 
   private final Deque<File> files = new ArrayDeque<>();
 
@@ -370,6 +374,16 @@ public abstract class AbstractLexScan implements ILexScan {
 
   public String isExtending() {
     return isExtending;
+  }
+
+  /** Returns the options of this generator run. */
+  public Options options() {
+    return options;
+  }
+
+  /** Sets the options of this generator run. Must be called before scanning. */
+  public void setOptions(Options options) {
+    this.options = options;
   }
 
   public String className() {

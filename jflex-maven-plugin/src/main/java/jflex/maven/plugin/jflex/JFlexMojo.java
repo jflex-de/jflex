@@ -19,8 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import jflex.core.OptionUtils;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
 import jflex.option.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -40,7 +40,7 @@ public class JFlexMojo extends AbstractMojo {
   /** Name of the directory where to look for jflex files by default. */
   private static final String SRC_MAIN_JFLEX = "src/main/jflex";
 
-  /** Guards the static JFlex {@link Options} during generation. */
+  /** Guards the static JFlex {@link Out} during generation. */
   private static final Object OPTIONS_LOCK = new Object();
 
   @Parameter(property = "project", required = true, readonly = true)
@@ -218,34 +218,35 @@ public class JFlexMojo extends AbstractMojo {
       throw new MojoExecutionException("Illegal generation method: " + generationMethod);
     }
 
-    // JFlex options are static, so must be synchronized/locked for now.
+    // JFlex output (Out) is static, so must be synchronized/locked for now.
     synchronized (OPTIONS_LOCK) {
-      OptionUtils.setDefaultOptions();
-      OptionUtils.setDir(generatedFile.getParentFile());
-      Options.setRootDirectory(project.getBasedir());
-      Options.dump = dump;
-      Options.verbose = verbose;
-      OptionUtils.set_unused_warning(unusedWarning);
-      Options.dot = dot;
-      Options.legacy_dot = legacyDot;
+      Options options = new Options();
+      Out.setOptions(options);
+      options.setDir(generatedFile.getParentFile());
+      options.setRootDirectory(project.getBasedir());
+      options.setDump(dump);
+      options.setVerbose(verbose);
+      options.setUnusedWarning(unusedWarning);
+      options.setDot(dot);
+      options.setLegacyDot(legacyDot);
       if (skeleton != null) {
-        OptionUtils.setSkeleton(skeleton);
+        options.setSkeleton(skeleton);
       }
-      Options.jlex = jlex;
+      options.setJLex(jlex);
 
-      Options.no_minimize = !minimize; // NOPMD
-      Options.no_backup = !backup; // NOPMD
+      options.setNoMinimize(!minimize); // NOPMD
+      options.setNoBackup(!backup); // NOPMD
 
       if (!isNullOrEmpty(encodingName)) {
         try {
-          OptionUtils.setEncoding(encodingName);
+          options.setEncoding(encodingName);
         } catch (Exception e) {
           throw new MojoExecutionException(e.getMessage());
         }
       }
 
       try {
-        new LexGenerator(lexFile).generate();
+        new LexGenerator(lexFile, options).generate();
         getLog().info("  generated " + generatedFile);
       } catch (Exception e) {
         throw new MojoExecutionException(e.getMessage(), e);

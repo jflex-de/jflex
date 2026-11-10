@@ -26,6 +26,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import jflex.base.Build;
 import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * JFlex main application frame (GUI mode only)
@@ -56,9 +57,17 @@ public final class MainFrame extends Frame {
 
   private OptionsDialog dialog;
 
-  /** Constructor for MainFrame. */
-  public MainFrame() {
+  private final Options options;
+
+  /**
+   * Constructor for MainFrame.
+   *
+   * @param options the options to generate with, edited in the options dialog
+   */
+  public MainFrame(Options options) {
     super("JFlex " + Build.VERSION);
+    this.options = options;
+    Out.setOptions(options);
     buildContent();
 
     addWindowListener(
@@ -194,7 +203,7 @@ public final class MainFrame extends Frame {
   /** showOptions. */
   protected void showOptions() {
     if (dialog == null) {
-      dialog = new OptionsDialog(this);
+      dialog = new OptionsDialog(this, options);
     }
     dialog.setVisible(true);
   }
@@ -226,7 +235,7 @@ public final class MainFrame extends Frame {
 
     setEnabledAll(true);
 
-    thread = new GeneratorThread(this, fileName, dirName);
+    thread = new GeneratorThread(this, options, fileName, dirName);
     thread.start();
   }
 

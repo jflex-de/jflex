@@ -7,11 +7,11 @@ package jflex.gui;
 
 import java.io.File;
 import java.util.Objects;
-import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
+import jflex.option.Options;
 
 /**
  * Low priority thread for code generation (low priority that gui has time for screen updates)
@@ -23,6 +23,9 @@ public class GeneratorThread extends Thread {
 
   /** there must be at most one instance of this Thread running */
   private static volatile boolean running = false;
+
+  /** options from GUI */
+  final Options options;
 
   /** input file setting from GUI */
   String inputFile;
@@ -37,11 +40,13 @@ public class GeneratorThread extends Thread {
    * Create a new GeneratorThread, but do not run it yet.
    *
    * @param parent the frame, main UI component
+   * @param options the options from UI settings
    * @param inputFile input file from UI settings
    * @param outputDir output directory from UI settings
    */
-  public GeneratorThread(MainFrame parent, String inputFile, String outputDir) {
+  public GeneratorThread(MainFrame parent, Options options, String inputFile, String outputDir) {
     this.parent = parent;
+    this.options = options;
     this.inputFile = inputFile;
     this.outputDir = outputDir;
   }
@@ -57,9 +62,9 @@ public class GeneratorThread extends Thread {
       setPriority(MIN_PRIORITY);
       try {
         if (!Objects.equals(outputDir, "")) {
-          OptionUtils.setDir(outputDir);
+          options.setDir(outputDir);
         }
-        new LexGenerator(new File(inputFile)).generate();
+        new LexGenerator(new File(inputFile), options).generate();
         Out.statistics();
         parent.generationFinished(true);
       } catch (GeneratorException e) {

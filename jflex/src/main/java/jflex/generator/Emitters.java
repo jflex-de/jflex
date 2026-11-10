@@ -14,7 +14,6 @@ import java.io.PrintWriter;
 import jflex.core.LexParse;
 import jflex.dfa.DFA;
 import jflex.logging.Out;
-import jflex.option.Options;
 
 /** Factory class for Emitter */
 public final class Emitters {
@@ -36,7 +35,7 @@ public final class Emitters {
 
     String name = Emitter.getBaseName(parser.scanner.className()) + ".java";
 
-    File outputFile = Emitter.normalize(name, inputLexFile);
+    File outputFile = Emitter.normalize(name, inputLexFile, parser.scanner.options());
     String outputFileName = outputFile.getAbsolutePath();
 
     Out.println("Writing code to \"" + outputFile + "\"");
@@ -44,7 +43,8 @@ public final class Emitters {
     PrintWriter out =
         new PrintWriter(
             new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(outputFile), Options.encoding)));
+                new OutputStreamWriter(
+                    new FileOutputStream(outputFile), parser.scanner.options().encoding())));
 
     return new Emitter(outputFileName, inputLexFile, parser, dfa, out);
   }

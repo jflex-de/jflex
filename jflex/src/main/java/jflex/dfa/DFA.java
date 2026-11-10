@@ -22,7 +22,6 @@ import jflex.core.LexScan;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
-import jflex.option.Options;
 
 /**
  * Deterministic finite automata representation in JFlex. Contains minimization algorithm.
@@ -319,11 +318,6 @@ public class DFA {
     if (numStates == 0) {
       Out.error(ErrorMessages.ZERO_STATES);
       throw new GeneratorException(new IllegalStateException("DFA has 0 states"));
-    }
-
-    if (Options.no_minimize) {
-      Out.println("minimization skipped.");
-      return;
     }
 
     // the algorithm needs the DFA to be total, so we add an error state 0,

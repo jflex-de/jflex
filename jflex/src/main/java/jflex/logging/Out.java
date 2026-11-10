@@ -48,6 +48,21 @@ public final class Out {
   private static StdOutWriter out = new StdOutWriter();
 
   /**
+   * The options that output depends on: verbosity, time statistics, dump, suppressed warnings,
+   * encoding. Static for now.
+   */
+  private static Options options = new Options();
+
+  /**
+   * Sets the options that output depends on.
+   *
+   * @param newOptions the options of the current generator run
+   */
+  public static void setOptions(Options newOptions) {
+    options = newOptions;
+  }
+
+  /**
    * Switches to GUI mode if {@code text</code> is not <code>null}
    *
    * @param text the message TextArea of the JFlex GUI
@@ -73,7 +88,7 @@ public final class Out {
    * @param time elapsed time
    */
   public static void time(ErrorMessages message, Timer time) {
-    if (Options.time) {
+    if (options.time()) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
     }
@@ -85,7 +100,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void time(String message) {
-    if (Options.time) {
+    if (options.time()) {
       out.println(message);
     }
   }
@@ -96,7 +111,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void println(String message) {
-    if (Options.verbose) {
+    if (options.verbose()) {
       out.println(message);
     }
   }
@@ -108,7 +123,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages message, String data) {
-    if (Options.verbose) {
+    if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -120,7 +135,7 @@ public final class Out {
    * @param data data to be inserted into the message
    */
   public static void println(ErrorMessages message, int data) {
-    if (Options.verbose) {
+    if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
   }
@@ -131,7 +146,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void print(String message) {
-    if (Options.verbose) {
+    if (options.verbose()) {
       out.print(message);
     }
   }
@@ -168,7 +183,7 @@ public final class Out {
    * @param message the message to be printed
    */
   public static void dump(String message) {
-    if (Options.dump) {
+    if (options.dump()) {
       out.println(message);
     }
   }
@@ -261,7 +276,7 @@ public final class Out {
    * @see ErrorMessages
    */
   public static void warning(ErrorMessages message, int line, Object... args) {
-    if (Options.isSuppressed(message)) return;
+    if (options.isSuppressed(message)) return;
 
     warnings++;
 
@@ -284,7 +299,7 @@ public final class Out {
    * @param column the column of the position
    */
   public static void warning(File file, ErrorMessages message, int line, int column) {
-    if (Options.isSuppressed(message)) return;
+    if (options.isSuppressed(message)) return;
 
     String msg = NL + "Warning";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -424,7 +439,7 @@ public final class Out {
    * @throws IOException if any error occurs
    */
   private static String getLine(File file, int line) throws IOException {
-    BufferedReader reader = Files.newBufferedReader(file.toPath(), Options.encoding);
+    BufferedReader reader = Files.newBufferedReader(file.toPath(), options.encoding());
 
     String msg = "";
 
