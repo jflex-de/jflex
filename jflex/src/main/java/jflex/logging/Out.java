@@ -151,6 +151,17 @@ public final class Out {
   }
 
   /**
+   * Unconditionally print trace information to System.out.
+   *
+   * <p>For use under class-local compile-time {@code DEBUG} flags.
+   *
+   * @param message the message to print
+   */
+  public static void trace(String message) {
+    System.out.println(message);
+  }
+
+  /**
    * All parts of JFlex, that want to provide dump information should use this method for their
    * output.
    *
