@@ -220,7 +220,6 @@
           <artifactId>fmt-maven-plugin</artifactId>
           <version>2.29</version>
           <dependencies>
-            <!-- keep in sync with VERSION_GJF in scripts/test-java-format.sh -->
             <dependency>
               <groupId>com.google.googlejavaformat</groupId>
               <artifactId>google-java-format</artifactId>
@@ -230,6 +229,7 @@
           <configuration>
             <!-- Ignore vendored and generated code. -->
             <filesPathPattern>(?!.*[/\\](target|third_party)[/\\]).*</filesPathPattern>
+            <skipReflowingLongStrings>false</skipReflowingLongStrings>
           </configuration>
         </plugin>
         <plugin>

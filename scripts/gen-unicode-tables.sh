@@ -38,5 +38,4 @@ logi "Generate Unicode tables"
 logi "Update and format sources"
 cp "$GENERATED"/UnicodeProperties.java "$UNICODE"
 cp "$GENERATED"/Unicode_*.java "$UNICODE"/data
-# Like the gjf command line in scripts/test-java-format.sh, unlike the plugin's default.
-"$MVN" -pl jflex com.spotify.fmt:fmt-maven-plugin:format -DskipReflowingLongStrings=false
+"$MVN" -pl jflex com.spotify.fmt:fmt-maven-plugin:format
