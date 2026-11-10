@@ -76,6 +76,7 @@ public final class NFA {
   private CharClasses classes;
 
   private LexScan scanner;
+  private final Options options;
   private RegExps regExps;
 
   // will be reused by several methods (avoids excessive object creation)
@@ -83,7 +84,8 @@ public final class NFA {
   private final StateSet tempStateSet = new StateSet();
 
   /** Constructor for NFA. */
-  public NFA(int numInput, int estSize) {
+  public NFA(int numInput, int estSize, Options options) {
+    this.options = options;
     this.numInput = numInput;
     this.estSize = estSize;
     numStates = 0;
@@ -106,7 +108,7 @@ public final class NFA {
    * @param classes a {@link CharClasses} object.
    */
   public NFA(int numInput, LexScan scanner, RegExps regExps, Macros macros, CharClasses classes) {
-    this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number());
+    this(numInput, regExps.NFASize(macros) + 2 * scanner.states.number(), scanner.options());
 
     this.scanner = scanner;
     this.regExps = regExps;
@@ -630,7 +632,7 @@ public final class NFA {
             // Out.debug("FOUND!");
             addTransition(dfaStart + currentDFAState, input, dfaStart + nextDFAState);
           } else {
-            if (Options.dump) {
+            if (options.dump()) {
               Out.print("+");
               // Out.debug("NOT FOUND!");
               // Out.debug("Table was "+dfaStates);

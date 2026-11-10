@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -22,72 +21,71 @@ import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
 
 /**
- * This class stores the skeleton of generated scanners.
+ * The skeleton of generated scanners.
  *
- * <p>The skeleton consists of several parts that can be emitted to a file. Usually there is a
- * portion of generated code (produced in class Emitter) between every two parts of skeleton code.
+ * <p>The skeleton consists of several sections that are emitted to a file. Usually there is a
+ * portion of generated code (produced in class Emitter) between every two sections of skeleton
+ * code.
  *
- * <p>There is a static part (the skeleton code) and state based iterator part to this class. The
- * iterator part is used to emit consecutive skeleton sections to some {@code PrintWriter}.
+ * <p>Instances are immutable. Functions like {@link #makePrivate()} that make changes return a new
+ * skeleton.
  *
  * @see jflex.generator.Emitter
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
  */
-public class Skeleton {
+public final class Skeleton {
 
   /** location of default skeleton */
   private static final String DEFAULT_LOC = "jflex/skeleton.default";
 
   /** expected number of sections in the skeleton file */
-  private static final int size = 21;
+  private static final int SIZE = 21;
 
-  /** The skeleton */
-  public static String[] line;
+  /** The default skeleton. Looks in the current system class path. */
+  public static final Skeleton DEFAULT = readDefault();
 
-  static {
-    readDefault();
+  /** The sections of the skeleton */
+  private final String[] sections;
+
+  private Skeleton(String[] sections) {
+    this.sections = sections;
   }
 
-  // the state based, iterator part of Skeleton:
-
-  /** The current part of the skeleton (an index of nextStop[]) */
-  private int pos;
-
-  /** The writer to write the skeleton-parts to */
-  private final PrintWriter out;
+  /** Returns the number of sections. */
+  public int size() {
+    return sections.length;
+  }
 
   /**
-   * Creates a new skeleton (iterator) instance.
+   * Returns a section of the skeleton.
    *
-   * @param out the writer to write the skeleton-parts to
+   * @param i the number of the section, {@code 0 <= i < size()}
    */
-  public Skeleton(PrintWriter out) {
-    this.out = out;
-  }
-
-  /** Emits the next part of the skeleton */
-  public void emitNext() {
-    out.print(line[pos++]);
+  public String section(int i) {
+    return sections[i];
   }
 
   /**
-   * Make the skeleton private.
+   * Returns version of this skeleton where all public declarations are replaced with private.
    *
    * <p>Replaces all occurrences of " public " in the skeleton with " private ".
    */
-  public static void makePrivate() {
-    for (int i = 0; i < line.length; i++) {
-      line[i] = replace(" public ", " private ", line[i]);
+  public Skeleton makePrivate() {
+    String[] result = new String[sections.length];
+    for (int i = 0; i < sections.length; i++) {
+      result[i] = replace(" public ", " private ", sections[i]);
     }
+    return new Skeleton(result);
   }
 
   /**
-   * Reads an external skeleton file for later use with this class.
+   * Reads an external skeleton file.
    *
    * @param skeletonFile the file to read (must be != null and readable)
+   * @throws GeneratorException if the file cannot be read or is not a skeleton
    */
-  public static void readSkelFile(File skeletonFile) {
+  public static Skeleton readSkelFile(File skeletonFile) {
     if (skeletonFile == null) throw new IllegalArgumentException("Skeleton file must not be null");
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
@@ -99,7 +97,7 @@ public class Skeleton {
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
-      readSkel(reader);
+      return readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR);
       throw new GeneratorException(e);
@@ -113,7 +111,7 @@ public class Skeleton {
    * @throws java.io.IOException if an IO error occurs
    * @throws GeneratorException if the number of skeleton sections does not match
    */
-  public static void readSkel(BufferedReader reader) throws IOException {
+  public static Skeleton readSkel(BufferedReader reader) throws IOException {
     List<String> lines = new ArrayList<>();
     StringBuilder section = new StringBuilder();
 
@@ -130,13 +128,12 @@ public class Skeleton {
 
     if (section.length() > 0) lines.add(section.toString());
 
-    if (lines.size() != size) {
+    if (lines.size() != SIZE) {
       Out.error(ErrorMessages.WRONG_SKELETON);
       throw new GeneratorException();
     }
 
-    line = new String[size];
-    for (int i = 0; i < size; i++) line[i] = lines.get(i);
+    return new Skeleton(lines.toArray(new String[0]));
   }
 
   /**
@@ -164,8 +161,8 @@ public class Skeleton {
     return result.toString();
   }
 
-  /** (Re)load the default skeleton. Looks in the current system class path. */
-  public static void readDefault() {
+  /** Loads the default skeleton. Looks in the current system class path. */
+  private static Skeleton readDefault() {
     ClassLoader l = Skeleton.class.getClassLoader();
     URL url;
 
@@ -186,7 +183,7 @@ public class Skeleton {
 
     try (BufferedReader reader =
         new BufferedReader(new InputStreamReader(url.openStream(), UTF_8))) {
-      readSkel(reader);
+      return readSkel(reader);
     } catch (IOException e) {
       Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
       throw new GeneratorException(e);

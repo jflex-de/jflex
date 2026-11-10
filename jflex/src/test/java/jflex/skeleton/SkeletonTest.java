@@ -5,7 +5,9 @@
 
 package jflex.skeleton;
 
-import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import org.junit.Test;
@@ -21,27 +23,30 @@ public class SkeletonTest {
 
   @Test
   public void testReplace() {
-    assertThat(Skeleton.replace("bla ", "blub", "bla blub bla ")).isEqualTo("blubblub blub");
+    assertEquals("blubblub blub", Skeleton.replace("bla ", "blub", "bla blub bla "));
+  }
+
+  private static boolean containsPublic(Skeleton skeleton) {
+    for (int i = 0; i < skeleton.size(); i++) {
+      if (skeleton.section(i).contains(" public ")) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Test
   public void testMakePrivate() {
-    Skeleton.makePrivate();
-    for (int i = 0; i < Skeleton.line.length; i++) {
-      assertThat(Skeleton.line[i]).doesNotContain("public");
-    }
+    Skeleton privateSkeleton = Skeleton.DEFAULT.makePrivate();
+    assertFalse(containsPublic(privateSkeleton));
+    // makePrivate() does not change the original
+    assertTrue(containsPublic(Skeleton.DEFAULT));
   }
 
   @Test
   public void readSkelFile() {
-    File skeletonFile = new File("src/main/jflex/skeleton.nested");
-    Skeleton.readSkelFile(skeletonFile);
-    checkDefaultSkeleton();
-  }
-
-  private static void checkDefaultSkeleton() {
-    assertThat(Skeleton.line[3]).contains("java.util.Deque");
-    Skeleton.readDefault();
-    assertThat(Skeleton.line[3]).doesNotContain("java.util.Deque");
+    Skeleton nested = Skeleton.readSkelFile(new File("src/main/jflex/skeleton.nested"));
+    assertTrue(nested.section(3).contains("java.util.Deque"));
+    assertFalse(Skeleton.DEFAULT.section(3).contains("java.util.Deque"));
   }
 }

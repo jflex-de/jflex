@@ -15,9 +15,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import jflex.core.OptionUtils;
 import jflex.logging.Out;
-import jflex.option.Options;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,9 +27,8 @@ public class MainTest {
   @Rule public TemporaryFolder tmp = new TemporaryFolder();
 
   @After
-  public void resetOptions() {
+  public void resetOutput() {
     Out.setOutputStream(System.out);
-    OptionUtils.setDefaultOptions();
   }
 
   /**
@@ -61,11 +58,12 @@ public class MainTest {
     return output.toString();
   }
 
-  /** Runs {@link Main#generate} with fresh (uninitialised) options and returns its output. */
-  private String generateFresh(String... options) throws Exception {
+  /**
+   * Runs {@link Main#generate} with the given options on a spec with a rule that can never be
+   * matched, and returns its output.
+   */
+  private String generateNeverMatch(String... options) throws Exception {
     String spec = writeSpec("NeverMatch", "");
-    // options not initialised, as in a fresh JVM
-    Options.encoding = null;
 
     List<String> argv = new ArrayList<>(Arrays.asList(options));
     argv.addAll(Arrays.asList("-d", tmp.getRoot().getPath(), spec));
@@ -81,18 +79,15 @@ public class MainTest {
 
   /** Control for the test below: the spec does produce the warning. */
   @Test
-  public void generate_withoutMain_warns() throws Exception {
-    String output = generateFresh();
+  public void generate_neverMatch_warns() throws Exception {
+    String output = generateNeverMatch();
     assertTrue(output, output.contains("never be matched"));
   }
 
-  /**
-   * Calling {@link Main#generate} without {@link Main#main} in a fresh JVM, where no options are
-   * set yet, keeps the warning options from the command line.
-   */
+  /** The warning options from the command line apply. */
   @Test
-  public void generate_withoutMain_keepsSuppressedWarnings() throws Exception {
-    String output = generateFresh("--no-warn-never-match");
+  public void generate_noWarnNeverMatch_suppressesWarning() throws Exception {
+    String output = generateNeverMatch("--no-warn-never-match");
     assertFalse(output, output.contains("never be matched"));
   }
 

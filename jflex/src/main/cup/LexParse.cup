@@ -274,7 +274,7 @@ specification ::=  USERCODE
                      charClasses = scanner.charClasses;
                      regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
                      regExps.normaliseCCLs(scanner.file);
-                     regExps.makeCCLs(charClasses, scanner.caseless);
+                     regExps.makeCCLs(charClasses, scanner.caseless, scanner.options().jlex());
 
                      SemCheck.check(regExps, scanner.file);
 
@@ -284,7 +284,7 @@ specification ::=  USERCODE
                      Out.checkErrors();
 
                      charClasses.normalise();
-                     if (Options.dump) charClasses.dump();
+                     if (scanner.options().dump()) charClasses.dump();
 
                      Out.print("Constructing NFA : ");
 
@@ -426,7 +426,8 @@ hatOPT        ::=  HAT
 
 series        ::= series:r1 BAR concs:r2
                   {:
-                     if ( ! Options.jlex && ! Options.legacy_dot && isDotOrNewlinePattern(r1, r2) ) {
+                     Options options = scanner.options();
+                     if ( ! options.jlex() && ! options.legacyDot() && isDotOrNewlinePattern(r1, r2) ) {
                        warning(ErrorMessages.DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS, r1left, r1right);
                      }
                      RESULT = new RegExp2(sym.BAR, r1, r2);
@@ -495,7 +496,7 @@ regexp        ::=  regexp:r STAR
                 |  POINT
                    {:
                       IntCharSet nl;
-                      if ( Options.jlex || Options.legacy_dot ) {
+                      if ( scanner.options().jlex() || scanner.options().legacyDot() ) {
                         nl = IntCharSet.ofCharacter('\n');
                       }
                       else {

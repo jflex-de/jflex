@@ -15,7 +15,6 @@ import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
-import jflex.skeleton.Skeleton;
 
 %%
 
@@ -88,7 +87,7 @@ import jflex.skeleton.Skeleton;
   @Override
   protected void lexPushStream(File f) throws IOException {
     // yypushStream in skeleton.nested
-    yypushStream(Files.newBufferedReader(f.toPath(), Options.encoding));
+    yypushStream(Files.newBufferedReader(f.toPath(), options.encoding()));
   }
 %}
 
@@ -225,7 +224,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "ScannerToken<? extends Object>";
                                 if (eofVal == null)
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!options.jlex()) eofclose = true;
                                 // %unicode:
                                 initCharClasses(CharSetSize.UNICODE);
                               }
@@ -237,7 +236,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                   tokenType = "java_cup.runtime.Symbol";
                                 if (eofVal == null)
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!options.jlex()) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
                                 if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
@@ -264,7 +263,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%implements"{WSP}+.*       { isImplementing = concExc(isImplementing, yytext().substring(12).trim());  }
   "%extends"{WSP}+{QClassT}{WSP}* { isExtending = yytext().substring(9).trim(); }
   "%public"                   { isPublic = true; }
-  "%apiprivate"               { visibility = "private"; Skeleton.makePrivate(); }
+  "%apiprivate"               { visibility = "private"; options.setSkeleton(options.skeleton().makePrivate()); }
   "%final"                    { isFinal = true; }
   "%abstract"                 { isAbstract = true; }
   "%debug"                    { debugOption = true; }
@@ -285,17 +284,17 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
   "%scanerror" {WSP}+ {NNL}*  { throw new ScannerException(file,ErrorMessages.QUIL_SCANERROR, yyline); }
 
   // Java-ish style
-  "%suppress" {WSP}+ "all" {WSP}* { OptionUtils.suppressAllWarnings(); }
-  "%suppress" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.suppressWarning(yytext().substring(10).trim()); }
+  "%suppress" {WSP}+ "all" {WSP}* { options.suppressAllWarnings(); }
+  "%suppress" {WSP}+ {WarningIdent} {WSP}* { options.suppressWarning(yytext().substring(10).trim()); }
   "%suppress" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
   // CLI style
-  "%no-warn" {WSP}+ "all" {WSP}* { OptionUtils.suppressAllWarnings(); }
-  "%no-warn" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.suppressWarning(yytext().substring(9).trim()); }
+  "%no-warn" {WSP}+ "all" {WSP}* { options.suppressAllWarnings(); }
+  "%no-warn" {WSP}+ {WarningIdent} {WSP}* { options.suppressWarning(yytext().substring(9).trim()); }
   "%no-warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
-  "%warn" {WSP}+ "all" {WSP}* { OptionUtils.enableAllWarnings(); }
-  "%warn" {WSP}+ {WarningIdent} {WSP}* { OptionUtils.enableWarning(yytext().substring(6).trim()); }
+  "%warn" {WSP}+ "all" {WSP}* { options.enableAllWarnings(); }
+  "%warn" {WSP}+ {WarningIdent} {WSP}* { options.enableWarning(yytext().substring(6).trim()); }
   "%warn" {WSP}+ {NNL}* { throw new ScannerException(file, ErrorMessages.NOT_A_WARNING_ID, yyline); }
 
   "%no_suppress_warnings" {WSP}* { noSuppressWarnings = true; }

@@ -9,82 +9,152 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
+import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
+import jflex.logging.Out;
+import jflex.skeleton.Skeleton;
 
 /**
- * Collects all global JFlex options.
+ * The options of a JFlex generator run.
  *
- * <p>Can be set from command line parser, ant task, gui, etc.
+ * <p>A new instance has the default options. They are set from the command line parser, ant task,
+ * Maven plugin, GUI, etc. Each concurrent run should use a separate instance.
  *
- * @see jflex.core.OptionUtils
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
  */
 public class Options {
 
   /** Warnings that should not be printed. */
-  private static final Set<ErrorMessages> suppressedWarnings = new HashSet<>();
+  private final Set<ErrorMessages> suppressedWarnings = new HashSet<>();
 
-  /** output directory */
-  public static File directory;
+  /** output directory, or null for the directory of the spec */
+  private File directory;
 
   /**
    * The root source directory.
    *
    * <p>In a maven project, this is the directory that contains {@code src} and {@code target}.
    */
-  private static File rootDirectory;
+  private File rootDirectory;
 
   /** strict JLex compatibility */
-  public static boolean jlex;
+  private boolean jlex;
 
   /** don't run minimization algorithm if this is true */
-  public static boolean no_minimize;
+  private boolean noMinimize;
 
   /** don't write backup files if this is true */
-  public static boolean no_backup;
+  private boolean noBackup;
 
   /** If false, only error/warning output will be generated */
-  public static boolean verbose = true;
+  private boolean verbose;
 
   /** If true, progress dots will be printed */
-  public static boolean progress;
+  private boolean progress;
 
   /** If true, jflex will print time statistics about the generation process */
-  public static boolean time;
+  private boolean time;
 
   /** If true, jflex will write graphviz .dot files for generated automata */
-  public static boolean dot;
+  private boolean dot;
 
   /** If true, you will be flooded with information (e.g. dfa tables). */
-  public static boolean dump;
+  private boolean dump;
 
   /**
    * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
    */
-  public static boolean legacy_dot;
+  private boolean legacyDot;
 
   /** The encoding to use for input and output files. */
-  public static Charset encoding;
+  private Charset encoding;
 
-  /** Prevent instantiation of static-only calss */
-  // (to be changed to instances in thread-safety refactor)
-  private Options() {}
+  /** The skeleton of the generated scanner. */
+  private Skeleton skeleton;
 
-  /**
-   * Get the output directory.
-   *
-   * @return the output directory as java.io.File
-   */
-  public static File getDir() {
+  /** Creates default options. */
+  public Options() {
+    reset();
+  }
+
+  /** Sets all options back to their default values. */
+  public void reset() {
+    directory = null;
+    rootDirectory = new File(""); // resolves to System.getProperty("user.dir")
+    jlex = false;
+    noMinimize = false;
+    noBackup = false;
+    verbose = true;
+    progress = true;
+    time = false;
+    dot = false;
+    dump = false;
+    legacyDot = false;
+    encoding = Charset.defaultCharset();
+    skeleton = Skeleton.DEFAULT;
+    enableAllWarnings();
+  }
+
+  /** Returns a copy of these options. Later changes do not affect the copy and vice versa. */
+  public Options copy() {
+    Options copy = new Options();
+    copy.directory = directory;
+    copy.rootDirectory = rootDirectory;
+    copy.jlex = jlex;
+    copy.noMinimize = noMinimize;
+    copy.noBackup = noBackup;
+    copy.verbose = verbose;
+    copy.progress = progress;
+    copy.time = time;
+    copy.dot = dot;
+    copy.dump = dump;
+    copy.legacyDot = legacyDot;
+    copy.encoding = encoding;
+    copy.skeleton = skeleton;
+    copy.suppressedWarnings.addAll(suppressedWarnings);
+    return copy;
+  }
+
+  /** Returns the output directory, or null for the directory of the spec. */
+  public File directory() {
     return directory;
   }
 
   /**
-   * Returns the root directory that contains source code. This is the java working (from system
-   * property {@code user.dir}) by default.
+   * Sets the output directory and creates it if necessary.
+   *
+   * @param d the directory to write output files to
+   * @throws GeneratorException if {@code d} is a file or cannot be created
    */
-  public static File getRootDirectory() {
+  public void setDir(File d) {
+    if (d.isFile()) {
+      Out.error("Error: \"" + d + "\" is not a directory.");
+      throw new GeneratorException();
+    }
+
+    if (!d.isDirectory() && !d.mkdirs()) {
+      Out.error("Error: couldn't create directory \"" + d + "\"");
+      throw new GeneratorException();
+    }
+
+    directory = d;
+  }
+
+  /**
+   * Sets the output directory and creates it if necessary.
+   *
+   * @param dirName the name of the directory to write output files to
+   */
+  public void setDir(String dirName) {
+    setDir(new File(dirName));
+  }
+
+  /**
+   * Returns the root directory that contains source code. This is the java working directory (from
+   * system property {@code user.dir}) by default.
+   */
+  public File rootDirectory() {
     return rootDirectory;
   }
 
@@ -93,13 +163,168 @@ public class Options {
    *
    * @param rootDir the root source directory.
    */
-  public static void setRootDirectory(File rootDir) {
+  public void setRootDirectory(File rootDir) {
     rootDirectory = rootDir;
   }
 
-  /** Reset the root source directory to the Java working directory. */
-  public static void resetRootDirectory() {
-    rootDirectory = new File("");
+  /** Strict JLex compatibility. */
+  public boolean jlex() {
+    return jlex;
+  }
+
+  /** Sets strict JLex compatibility (command line option {@code --jlex}). */
+  public void setJLex(boolean jlex) {
+    this.jlex = jlex;
+  }
+
+  /** Whether to skip the minimization algorithm. */
+  public boolean noMinimize() {
+    return noMinimize;
+  }
+
+  /** Sets whether to skip the DFA minimization algorithm (command line option {@code --nomin}). */
+  public void setNoMinimize(boolean noMinimize) {
+    this.noMinimize = noMinimize;
+  }
+
+  /** Whether to skip writing backup files. */
+  public boolean noBackup() {
+    return noBackup;
+  }
+
+  /** Sets whether to skip writing backup files (command line option {@code --nobak}). */
+  public void setNoBackup(boolean noBackup) {
+    this.noBackup = noBackup;
+  }
+
+  /** If false, only error/warning output will be generated. */
+  public boolean verbose() {
+    return verbose;
+  }
+
+  /**
+   * Sets verbose output. If false, only errors and warnings are printed (command line option {@code
+   * --quiet}).
+   */
+  public void setVerbose(boolean verbose) {
+    this.verbose = verbose;
+  }
+
+  /** Whether to print progress dots. */
+  public boolean progress() {
+    return progress;
+  }
+
+  /** Sets whether to print progress dots during generation. */
+  public void setProgress(boolean progress) {
+    this.progress = progress;
+  }
+
+  /** Whether to print time statistics about the generation process. */
+  public boolean time() {
+    return time;
+  }
+
+  /**
+   * Sets whether to print time statistics about the generation process (command line option {@code
+   * --time}).
+   */
+  public void setTime(boolean time) {
+    this.time = time;
+  }
+
+  /** Whether to write graphviz .dot files for the generated automata. */
+  public boolean dot() {
+    return dot;
+  }
+
+  /**
+   * Sets whether to write graphviz .dot files for the generated automata (command line option
+   * {@code --dot}).
+   */
+  public void setDot(boolean dot) {
+    this.dot = dot;
+  }
+
+  /** Whether to dump the generated automata and tables. */
+  public boolean dump() {
+    return dump;
+  }
+
+  /**
+   * Sets whether to dump the generated automata and tables (command line option {@code --dump}).
+   */
+  public void setDump(boolean dump) {
+    this.dump = dump;
+  }
+
+  /**
+   * If true, dot (.) metachar matches [^\n] instead of [^\r\n\u000B\u000C\u0085\u2028\u2029]|"\r\n"
+   */
+  public boolean legacyDot() {
+    return legacyDot;
+  }
+
+  /**
+   * Sets whether the dot (.) metachar matches [^\n] only, as in versions before 1.7 (command line
+   * option {@code --legacydot}).
+   */
+  public void setLegacyDot(boolean legacyDot) {
+    this.legacyDot = legacyDot;
+  }
+
+  /** The encoding for input and output files. */
+  public Charset encoding() {
+    return encoding;
+  }
+
+  /**
+   * Sets the encoding for input and output files.
+   *
+   * @param encoding the charset to use, e.g. from {@link Charset#forName(String)}
+   */
+  public void setEncoding(Charset encoding) {
+    this.encoding = encoding;
+  }
+
+  /**
+   * Sets the encoding for input and output files, and checks availability of the encoding on this
+   * JVM.
+   *
+   * @param encodingName the name of the encoding, e.g. "utf-8"
+   * @throws GeneratorException if the encoding is not supported
+   */
+  public void setEncoding(String encodingName) {
+    if (Charset.isSupported(encodingName)) {
+      encoding = Charset.forName(encodingName);
+    } else {
+      Out.error(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName);
+      throw new GeneratorException();
+    }
+  }
+
+  /** The skeleton of the generated scanner. */
+  public Skeleton skeleton() {
+    return skeleton;
+  }
+
+  /**
+   * Sets the skeleton of the generated scanner.
+   *
+   * @param skeleton the skeleton to use, e.g. {@link Skeleton#DEFAULT}
+   */
+  public void setSkeleton(Skeleton skeleton) {
+    this.skeleton = skeleton;
+  }
+
+  /**
+   * Reads an external skeleton file.
+   *
+   * @param skeletonFile the file to read (must be != null and readable)
+   * @throws GeneratorException if the file cannot be read or is not a skeleton
+   */
+  public void setSkeleton(File skeletonFile) {
+    skeleton = Skeleton.readSkelFile(skeletonFile);
   }
 
   /**
@@ -108,7 +333,7 @@ public class Options {
    * @param msg the error/warning message to check
    * @return true iff the warning is suppressed
    */
-  public static boolean isSuppressed(ErrorMessages msg) {
+  public boolean isSuppressed(ErrorMessages msg) {
     return suppressedWarnings.contains(msg);
   }
 
@@ -117,17 +342,17 @@ public class Options {
    *
    * @return a copy of the set of suppressed warnings, for {@link #setSuppressedWarnings(Set)}
    */
-  public static Set<ErrorMessages> getSuppressedWarnings() {
+  public Set<ErrorMessages> suppressedWarnings() {
     return new HashSet<>(suppressedWarnings);
   }
 
   /**
    * Suppresses exactly the given warnings and enables all others.
    *
-   * @param warnings the warnings to suppress, e.g. from {@link #getSuppressedWarnings()}
+   * @param warnings the warnings to suppress, e.g. from {@link #suppressedWarnings()}
    * @throws IllegalArgumentException if one of the warnings is not configurable
    */
-  public static void setSuppressedWarnings(Set<ErrorMessages> warnings) {
+  public void setSuppressedWarnings(Set<ErrorMessages> warnings) {
     suppressedWarnings.clear();
     for (ErrorMessages msg : warnings) {
       suppress(msg);
@@ -139,7 +364,7 @@ public class Options {
    *
    * @param msg the warning message to suppress.
    */
-  public static void suppress(ErrorMessages msg) {
+  public void suppress(ErrorMessages msg) {
     if (ErrorMessages.isConfigurableWarning(msg)) {
       suppressedWarnings.add(msg);
     } else {
@@ -152,11 +377,85 @@ public class Options {
    *
    * @param msg the warning message to enable.
    */
-  public static void enable(ErrorMessages msg) {
+  public void enable(ErrorMessages msg) {
     if (ErrorMessages.isConfigurableWarning(msg)) {
       suppressedWarnings.remove(msg);
     } else {
       throw new IllegalArgumentException("Cannot enable non-configurable warning: " + msg);
+    }
+  }
+
+  /**
+   * Warn on unused macros or not.
+   *
+   * @param unusedWarning whether unused macros should be warned about.
+   */
+  public void setUnusedWarning(boolean unusedWarning) {
+    if (unusedWarning) {
+      enable(ErrorMessages.MACRO_UNUSED);
+    } else {
+      suppress(ErrorMessages.MACRO_UNUSED);
+    }
+  }
+
+  /**
+   * Enable a warning type.
+   *
+   * @param warning the warning to enable, must match one of the {@link ErrorMessages} enum values.
+   * @throws GeneratorException if the warning is not known or not configurable.
+   * @see ErrorMessages
+   */
+  public void enableWarning(String warning) {
+    try {
+      ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
+      enable(msg);
+    } catch (IllegalArgumentException e) {
+      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
+      throw new GeneratorException(e);
+    }
+  }
+
+  /**
+   * Suppress a warning type.
+   *
+   * @param warning the warning to suppress, must match one of the {@link ErrorMessages} enum
+   *     values.
+   * @throws GeneratorException if the warning is not known or not configurable.
+   * @see ErrorMessages
+   */
+  public void suppressWarning(String warning) {
+    try {
+      ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
+      suppress(msg);
+    } catch (IllegalArgumentException e) {
+      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
+      throw new GeneratorException(e);
+    }
+  }
+
+  /**
+   * Enable all warnings.
+   *
+   * @see ErrorMessages
+   */
+  public void enableAllWarnings() {
+    for (ErrorMessages msg : ErrorMessages.values()) {
+      if (ErrorMessages.isConfigurableWarning(msg)) {
+        enable(msg);
+      }
+    }
+  }
+
+  /**
+   * Suppress all warnings.
+   *
+   * @see ErrorMessages
+   */
+  public void suppressAllWarnings() {
+    for (ErrorMessages msg : ErrorMessages.values()) {
+      if (ErrorMessages.isConfigurableWarning(msg)) {
+        suppress(msg);
+      }
     }
   }
 }

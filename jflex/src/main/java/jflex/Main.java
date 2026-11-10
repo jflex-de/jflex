@@ -18,7 +18,6 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import jflex.base.Build;
-import jflex.core.OptionUtils;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
@@ -44,10 +43,11 @@ public class Main {
    * parseOptions.
    *
    * @param argv an array of {@link java.lang.String} objects.
+   * @param options the options to set from the command line.
    * @return a {@link java.util.List} object.
    * @throws SilentExit if any.
    */
-  private static List<File> parseOptions(String[] argv) throws SilentExit {
+  private static List<File> parseOptions(String[] argv, Options options) throws SilentExit {
     List<File> files = new ArrayList<>();
 
     for (int i = 0; i < argv.length; i++) {
@@ -58,7 +58,7 @@ public class Main {
           Out.error(ErrorMessages.NO_DIRECTORY);
           throw new GeneratorException();
         }
-        OptionUtils.setDir(argv[i]);
+        options.setDir(argv[i]);
         continue;
       }
 
@@ -69,7 +69,7 @@ public class Main {
           throw new GeneratorException();
         }
 
-        OptionUtils.setSkeleton(new File(argv[i]));
+        options.setSkeleton(new File(argv[i]));
         continue;
       }
 
@@ -79,73 +79,73 @@ public class Main {
           throw new GeneratorException();
         }
 
-        OptionUtils.setEncoding(argv[i]);
+        options.setEncoding(argv[i]);
         continue;
       }
 
       if (Objects.equals(argv[i], "-jlex")
           || Objects.equals(argv[i], "--jlex")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.jlex = true;
+        options.setJLex(true);
         continue;
       }
 
       if (Objects.equals(argv[i], "-v")
           || Objects.equals(argv[i], "--verbose")
           || Objects.equals(argv[i], "-verbose")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = true;
-        Options.progress = true;
-        Options.enable(ErrorMessages.MACRO_UNUSED);
+        options.setVerbose(true);
+        options.setProgress(true);
+        options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "-q")
           || Objects.equals(argv[i], "--quiet")
           || Objects.equals(argv[i], "-quiet")) { // $NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-        Options.verbose = false;
-        Options.progress = false;
-        Options.suppress(ErrorMessages.MACRO_UNUSED);
+        options.setVerbose(false);
+        options.setProgress(false);
+        options.suppress(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "--warn-all")) { // $NON-NLS-1$
-        OptionUtils.enableAllWarnings();
+        options.enableAllWarnings();
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-all")) { // $NON-NLS-1$
-        OptionUtils.suppressAllWarnings();
+        options.suppressAllWarnings();
         continue;
       }
 
       if (Objects.equals(argv[i], "--warn-unused")) { // $NON-NLS-1$
-        Options.enable(ErrorMessages.MACRO_UNUSED);
+        options.enable(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (Objects.equals(argv[i], "--no-warn-unused")) { // $NON-NLS-1$
-        Options.suppress(ErrorMessages.MACRO_UNUSED);
+        options.suppress(ErrorMessages.MACRO_UNUSED);
         continue;
       }
 
       if (argv[i].startsWith("--warn-")) { // $NON-NLS-1$
-        OptionUtils.enableWarning(argv[i].substring(7));
+        options.enableWarning(argv[i].substring(7));
         continue;
       }
 
       if (argv[i].startsWith("--no-warn-")) { // $NON-NLS-1$
-        OptionUtils.suppressWarning(argv[i].substring(10));
+        options.suppressWarning(argv[i].substring(10));
         continue;
       }
 
       if (Objects.equals(argv[i], "--dump")
           || Objects.equals(argv[i], "-dump")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.dump = true;
+        options.setDump(true);
         continue;
       }
 
       if (Objects.equals(argv[i], "--time")
           || Objects.equals(argv[i], "-time")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.time = true;
+        options.setTime(true);
         continue;
       }
 
@@ -157,7 +157,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--dot")
           || Objects.equals(argv[i], "-dot")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.dot = true;
+        options.setDot(true);
         continue;
       }
 
@@ -176,7 +176,7 @@ public class Main {
 
       if (Objects.equals(argv[i], "--nomin")
           || Objects.equals(argv[i], "-nomin")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.no_minimize = true;
+        options.setNoMinimize(true);
         continue;
       }
 
@@ -188,13 +188,13 @@ public class Main {
 
       if (Objects.equals(argv[i], "--nobak")
           || Objects.equals(argv[i], "-nobak")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.no_backup = true;
+        options.setNoBackup(true);
         continue;
       }
 
       if (Objects.equals(argv[i], "--legacydot")
           || Objects.equals(argv[i], "-legacydot")) { // $NON-NLS-1$ //$NON-NLS-2$
-        Options.legacy_dot = true;
+        options.setLegacyDot(true);
         continue;
       }
 
@@ -334,19 +334,16 @@ public class Main {
    * @throws SilentExit if any.
    */
   public static void generate(String[] argv) throws SilentExit {
-    // Initialise options before the command line sets them. Otherwise the
-    // LexGenerator constructor would reset the command line options.
-    if (Options.encoding == null) {
-      OptionUtils.setDefaultOptions();
-    }
-    List<File> files = parseOptions(argv);
+    Options options = new Options();
+    Out.setOptions(options);
+    List<File> files = parseOptions(argv, options);
 
     if (files.size() > 0) {
       for (File file : files) {
-        new LexGenerator(file).generate();
+        new LexGenerator(file, options).generate();
       }
     } else {
-      new MainFrame();
+      new MainFrame(options);
     }
   }
 
@@ -357,7 +354,6 @@ public class Main {
    * @param argv the commandline.
    */
   public static void main(String[] argv) {
-    OptionUtils.setDefaultOptions();
     try {
       generate(argv);
     } catch (GeneratorException e) {
