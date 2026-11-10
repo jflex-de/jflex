@@ -17,7 +17,6 @@ import jflex.exceptions.CharClassException;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
 import jflex.logging.Out;
-import jflex.option.Options;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.
@@ -687,7 +686,7 @@ public class RegExp {
    *
    * <p>Assumption: regexp is normalised.
    */
-  public final void makeCCLs(CharClasses c, boolean caseless) {
+  public final void makeCCLs(CharClasses c, boolean caseless, boolean jlex) {
     RegExp1 unary;
     RegExp2 binary;
     RegExp content;
@@ -696,8 +695,8 @@ public class RegExp {
       case sym.BAR:
       case sym.CONCAT:
         binary = (RegExp2) this;
-        binary.r1.makeCCLs(c, caseless);
-        binary.r2.makeCCLs(c, caseless);
+        binary.r1.makeCCLs(c, caseless, jlex);
+        binary.r2.makeCCLs(c, caseless, jlex);
         return;
 
       case sym.STAR:
@@ -707,7 +706,7 @@ public class RegExp {
       case sym.TILDE:
         unary = (RegExp1) this;
         content = (RegExp) unary.content;
-        content.makeCCLs(c, caseless);
+        content.makeCCLs(c, caseless, jlex);
         return;
 
       case sym.CHAR:
@@ -725,7 +724,7 @@ public class RegExp {
       case sym.PRIMCLASS:
         unary = (RegExp1) this;
         IntCharSet set = (IntCharSet) unary.content;
-        c.makeClass(set, Options.jlex && caseless);
+        c.makeClass(set, jlex && caseless);
         return;
 
       default:

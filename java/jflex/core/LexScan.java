@@ -19,7 +19,6 @@ import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
-import jflex.skeleton.Skeleton;
 
 
 @SuppressWarnings("fallthrough")
@@ -1892,7 +1891,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
   @Override
   protected void lexPushStream(File f) throws IOException {
     // yypushStream in skeleton.nested
-    yypushStream(Files.newBufferedReader(f.toPath(), Options.encoding));
+    yypushStream(Files.newBufferedReader(f.toPath(), options.encoding()));
   }
 
 
@@ -3061,7 +3060,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
                                   tokenType = "java_cup.runtime.Symbol";
                                 if (eofVal == null)
                                   eofVal = "return new java_cup.runtime.Symbol("+cupSymbol+".EOF);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!options.jlex()) eofclose = true;
             }
           // fall through
           case 284: break;
@@ -3128,7 +3127,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
                                   tokenType = "ScannerToken<? extends Object>";
                                 if (eofVal == null)
                                   eofVal = "return token(SpecialTerminals.EndOfInputStream);";
-                                if (!Options.jlex) eofclose = true;
+                                if (!options.jlex()) eofclose = true;
                                 // %unicode:
                                 initCharClasses(CharSetSize.UNICODE);
             }
@@ -3210,7 +3209,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 307: break;
           case 127:
-            { OptionUtils.enableWarning(yytext().substring(6).trim());
+            { options.enableWarning(yytext().substring(6).trim());
             }
           // fall through
           case 308: break;
@@ -3340,7 +3339,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 329: break;
           case 149:
-            { OptionUtils.enableAllWarnings();
+            { options.enableAllWarnings();
             }
           // fall through
           case 330: break;
@@ -3373,7 +3372,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 335: break;
           case 155:
-            { OptionUtils.suppressWarning(yytext().substring(9).trim());
+            { options.suppressWarning(yytext().substring(9).trim());
             }
           // fall through
           case 336: break;
@@ -3383,7 +3382,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 337: break;
           case 157:
-            { visibility = "private"; Skeleton.makePrivate();
+            { visibility = "private"; options.setSkeleton(options.skeleton().makePrivate());
             }
           // fall through
           case 338: break;
@@ -3418,7 +3417,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 344: break;
           case 164:
-            { OptionUtils.suppressWarning(yytext().substring(10).trim());
+            { options.suppressWarning(yytext().substring(10).trim());
             }
           // fall through
           case 345: break;
@@ -3443,7 +3442,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 349: break;
           case 169:
-            { OptionUtils.suppressAllWarnings();
+            { options.suppressAllWarnings();
             }
           // fall through
           case 350: break;

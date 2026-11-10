@@ -15,9 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.generator.LexGenerator;
+import jflex.logging.Out;
 import jflex.option.Options;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -44,13 +44,21 @@ public class JFlexTask extends Task {
   /** the actual output directory (outputDir = destinationDir + package)) */
   private File outputDir = null;
 
+  /** the JFlex options of this task */
+  private final Options options = new Options();
+
   /** Constructor for JFlexTask. */
   public JFlexTask() {
-    OptionUtils.setDefaultOptions();
+    Out.setOptions(options);
     // ant default is different from the rest of JFlex
     setVerbose(false);
     setUnusedWarning(true);
-    Options.progress = false;
+    options.setProgress(false);
+  }
+
+  /** Returns the JFlex options of this task. */
+  public Options options() {
+    return options;
   }
 
   /** Throws CloneNotSupportedException. */
@@ -80,8 +88,8 @@ public class JFlexTask extends Task {
         File destFile = new File(outputDir, className + ".java");
 
         if (inputFile.lastModified() > destFile.lastModified()) {
-          new LexGenerator(inputFile).generate();
-          if (!Options.verbose) System.out.println("Generated: " + destFile.getName());
+          new LexGenerator(inputFile, options).generate();
+          if (!options.verbose()) System.out.println("Generated: " + destFile.getName());
         }
       } catch (IOException e1) {
         throw new BuildException(e1);
@@ -196,7 +204,7 @@ public class JFlexTask extends Task {
    */
   public void setOutdir(File outDir) {
     this.outputDir = outDir;
-    OptionUtils.setDir(outputDir);
+    options.setDir(outputDir);
   }
 
   /**
@@ -223,7 +231,7 @@ public class JFlexTask extends Task {
    * @param displayTime a boolean.
    */
   public void setTimeStatistics(boolean displayTime) {
-    Options.time = displayTime;
+    options.setTime(displayTime);
   }
 
   /**
@@ -241,8 +249,8 @@ public class JFlexTask extends Task {
    * @param verbose a boolean.
    */
   public final void setVerbose(boolean verbose) {
-    Options.verbose = verbose;
-    OptionUtils.set_unused_warning(verbose);
+    options.setVerbose(verbose);
+    options.setUnusedWarning(verbose);
   }
 
   /**
@@ -251,7 +259,7 @@ public class JFlexTask extends Task {
    * @param warn a boolean.
    */
   public final void setUnusedWarning(boolean warn) {
-    OptionUtils.set_unused_warning(warn);
+    options.setUnusedWarning(warn);
   }
 
   /**
@@ -260,7 +268,7 @@ public class JFlexTask extends Task {
    * @param skeleton a {@link java.io.File} object.
    */
   public void setSkeleton(File skeleton) {
-    OptionUtils.setSkeleton(skeleton);
+    options.setSkeleton(skeleton);
   }
 
   /**
@@ -287,7 +295,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setNomin(boolean b) {
-    Options.no_minimize = b;
+    options.setNoMinimize(b);
   }
 
   /**
@@ -296,7 +304,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setNobak(boolean b) {
-    Options.no_backup = b;
+    options.setNoBackup(b);
   }
 
   /**
@@ -314,7 +322,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setDot(boolean b) {
-    Options.dot = b;
+    options.setDot(b);
   }
 
   /**
@@ -323,7 +331,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setDump(boolean b) {
-    Options.dump = b;
+    options.setDump(b);
   }
 
   /**
@@ -332,7 +340,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setJLex(boolean b) {
-    Options.jlex = b;
+    options.setJLex(b);
   }
 
   /**
@@ -341,7 +349,7 @@ public class JFlexTask extends Task {
    * @param b a boolean.
    */
   public void setLegacyDot(boolean b) {
-    Options.legacy_dot = b;
+    options.setLegacyDot(b);
   }
 
   /**
@@ -350,6 +358,6 @@ public class JFlexTask extends Task {
    * @param encodingName the name of the encoding to set (e.g. "utf-8").
    */
   public void setEncoding(String encodingName) {
-    OptionUtils.setEncoding(encodingName);
+    options.setEncoding(encodingName);
   }
 }

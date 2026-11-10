@@ -8,7 +8,6 @@ package jflex.dfa;
 import java.util.Arrays;
 import jflex.exceptions.GeneratorException;
 import jflex.logging.Out;
-import jflex.option.Options;
 
 /** Deprecated DFA class, only used for testing. */
 @Deprecated
@@ -36,11 +35,6 @@ public class DeprecatedDfa extends DFA {
 
     if (numStates() == 0) {
       throw new GeneratorException(new IllegalStateException("DFA has no states"));
-    }
-
-    if (Options.no_minimize) {
-      throw new UnsupportedOperationException(
-          "Options.no_minimize is set. Minimization is not allowed in this case");
     }
 
     // equiv[i][j] == true <=> state i and state j are equivalent

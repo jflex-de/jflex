@@ -20,10 +20,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.option.Options;
-import jflex.skeleton.Skeleton;
 
 /**
  * A dialog for setting JFlex options
@@ -37,6 +35,8 @@ public class OptionsDialog extends Dialog {
   private static final long serialVersionUID = 6807759416163314769L;
 
   private final Frame owner;
+
+  private final Options options;
 
   private TextField skelFile;
 
@@ -56,11 +56,13 @@ public class OptionsDialog extends Dialog {
    * Create a new options dialog
    *
    * @param owner a {@link java.awt.Frame} object.
+   * @param options the options to edit
    */
-  public OptionsDialog(Frame owner) {
+  public OptionsDialog(Frame owner, Options options) {
     super(owner, "Options");
 
     this.owner = owner;
+    this.options = options;
 
     setup();
     pack();
@@ -126,7 +128,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.verbose = verbose.getState();
+            options.setVerbose(verbose.getState());
           }
         });
 
@@ -134,7 +136,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.dump = dump.getState();
+            options.setDump(dump.getState());
           }
         });
 
@@ -142,7 +144,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.jlex = jlex.getState();
+            options.setJLex(jlex.getState());
             // JLex compatibility implies that dot (.) metachar matches [^\n]
             legacy_dot.setState(false);
             legacy_dot.setEnabled(!jlex.getState());
@@ -153,7 +155,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.no_minimize = no_minimize.getState();
+            options.setNoMinimize(no_minimize.getState());
           }
         });
 
@@ -161,7 +163,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.no_backup = no_backup.getState();
+            options.setNoBackup(no_backup.getState());
           }
         });
 
@@ -169,7 +171,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.dot = dot.getState();
+            options.setDot(dot.getState());
           }
         });
 
@@ -177,7 +179,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.legacy_dot = legacy_dot.getState();
+            options.setLegacyDot(legacy_dot.getState());
           }
         });
 
@@ -185,7 +187,7 @@ public class OptionsDialog extends Dialog {
         new ItemListener() {
           @Override
           public void itemStateChanged(ItemEvent e) {
-            Options.time = time.getState();
+            options.setTime(time.getState());
           }
         });
 
@@ -225,7 +227,7 @@ public class OptionsDialog extends Dialog {
     if (d.getFile() != null) {
       File skel = new File(d.getDirectory() + d.getFile());
       try {
-        Skeleton.readSkelFile(skel);
+        options.setSkeleton(skel);
         skelFile.setText(skel.toString());
       } catch (GeneratorException e) {
         // do nothing
@@ -234,22 +236,21 @@ public class OptionsDialog extends Dialog {
   }
 
   private void updateState() {
-    legacy_dot.setState(Options.legacy_dot);
+    legacy_dot.setState(options.legacyDot());
 
-    dump.setState(Options.dump);
-    verbose.setState(Options.verbose);
-    time.setState(Options.time);
+    dump.setState(options.dump());
+    verbose.setState(options.verbose());
+    time.setState(options.time());
 
-    no_minimize.setState(Options.no_minimize);
-    no_backup.setState(Options.no_backup);
+    no_minimize.setState(options.noMinimize());
+    no_backup.setState(options.noBackup());
 
-    jlex.setState(Options.jlex);
-    dot.setState(Options.dot);
+    jlex.setState(options.jlex());
+    dot.setState(options.dot());
   }
 
   private void setDefaults() {
-    OptionUtils.setDefaultOptions();
-    Skeleton.readDefault();
+    options.reset();
     skelFile.setText("");
     updateState();
     legacy_dot.setEnabled(!jlex.getState());

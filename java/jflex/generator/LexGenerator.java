@@ -15,7 +15,6 @@ import java.util.Set;
 import jflex.core.LexParse;
 import jflex.core.LexScan;
 import jflex.core.NFA;
-import jflex.core.OptionUtils;
 import jflex.dfa.DFA;
 import jflex.dfa.DfaFactory;
 import jflex.exceptions.GeneratorException;
@@ -25,6 +24,7 @@ import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
+import jflex.skeleton.Skeleton;
 
 /**
  * This is the generator of JFlex, controlling the scanner generation process.
@@ -36,31 +36,44 @@ import jflex.scanner.ScannerException;
 public class LexGenerator {
 
   private final File inputFile;
+  private final Options options;
   private DFA dfa;
 
   private final Timer totalTime = new Timer();
 
+  /** Creates a generator for {@code inputFile} with the default options. */
   public LexGenerator(File inputFile) {
+    this(inputFile, new Options());
+  }
+
+  /**
+   * Creates a generator for {@code inputFile}.
+   *
+   * @param inputFile the spec to generate a scanner from
+   * @param options the options for this run (not shared with concurrent runs)
+   */
+  public LexGenerator(File inputFile, Options options) {
     this.inputFile = inputFile;
-    if (Options.encoding == null) {
-      OptionUtils.setDefaultOptions();
-    }
+    this.options = options;
+    Out.setOptions(options);
   }
 
   /**
    * Generates a scanner for the specified input file.
    *
-   * <p>Warning settings in the spec ({@code %suppress}, {@code %no-warn}, {@code %warn}) only apply
-   * to this spec: the previous settings are restored afterwards.
+   * <p>Settings in the spec ({@code %suppress}, {@code %no-warn}, {@code %warn}, {@code
+   * %apiprivate}) only apply to this spec.
    *
    * @return the file name of the generated Java sources.
    */
   public String generate() {
-    Set<ErrorMessages> suppressedWarnings = Options.getSuppressedWarnings();
+    Set<ErrorMessages> suppressedWarnings = options.suppressedWarnings();
+    Skeleton skeleton = options.skeleton();
     try {
       return generateScanner();
     } finally {
-      Options.setSuppressedWarnings(suppressedWarnings);
+      options.setSuppressedWarnings(suppressedWarnings);
+      options.setSkeleton(skeleton);
     }
   }
 
@@ -74,9 +87,10 @@ public class LexGenerator {
 
     try (Reader inputReader =
         new InputStreamReader(
-            Files.newInputStream(Paths.get(inputFile.toString())), Options.encoding)) {
+            Files.newInputStream(Paths.get(inputFile.toString())), options.encoding())) {
       Out.println(ErrorMessages.READING, inputFile.toString());
       LexScan scanner = new LexScan(inputReader);
+      scanner.setOptions(options);
       scanner.setFile(inputFile);
       LexParse parser = new LexParse(scanner);
 
@@ -84,28 +98,33 @@ public class LexGenerator {
 
       Out.checkErrors();
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
+      if (options.dump()) Out.dump(ErrorMessages.get(ErrorMessages.NFA_IS) + Out.NL + nfa + Out.NL);
 
-      if (Options.dot) nfa.writeDot(Emitter.normalize("nfa.dot", null)); // $NON-NLS-1$
+      if (options.dot()) nfa.writeDot(Emitter.normalize("nfa.dot", null, options)); // $NON-NLS-1$
 
       Out.println(ErrorMessages.NFA_STATES, nfa.numStates());
 
       time.start();
-      dfa = DfaFactory.createFromNfa(nfa);
+      dfa = DfaFactory.createFromNfa(nfa, options);
       time.stop();
       Out.time(ErrorMessages.DFA_TOOK, time);
 
       dfa.checkActions(scanner, parser);
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
+      if (options.dump()) Out.dump(ErrorMessages.get(ErrorMessages.DFA_IS) + Out.NL + dfa + Out.NL);
 
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-big.dot", null)); // $NON-NLS-1$
+      if (options.dot())
+        dfa.writeDot(Emitter.normalize("dfa-big.dot", null, options)); // $NON-NLS-1$
 
       Out.checkErrors();
 
       time.start();
       int numStatesBefore = dfa.numStates();
-      dfa.minimize();
+      if (options.noMinimize()) {
+        Out.println("minimization skipped.");
+      } else {
+        dfa.minimize();
+      }
       Out.println(
           String.format(
               "%d states before minimization, %d states in minimized DFA",
@@ -114,9 +133,10 @@ public class LexGenerator {
 
       Out.time(ErrorMessages.MIN_TOOK, time);
 
-      if (Options.dump) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
+      if (options.dump()) Out.dump(ErrorMessages.get(ErrorMessages.MIN_DFA_IS) + Out.NL + dfa);
 
-      if (Options.dot) dfa.writeDot(Emitter.normalize("dfa-min.dot", null)); // $NON-NLS-1$
+      if (options.dot())
+        dfa.writeDot(Emitter.normalize("dfa-min.dot", null, options)); // $NON-NLS-1$
 
       time.start();
 

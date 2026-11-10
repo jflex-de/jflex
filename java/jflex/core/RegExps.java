@@ -355,8 +355,8 @@ public class RegExps {
    *
    * <p>Assumes normalised expressions.
    */
-  public void makeCCLs(CharClasses classes, boolean caseless) {
-    for (RegExp r : regExps) if (r != null) r.makeCCLs(classes, caseless);
-    for (RegExp r : look) if (r != null) r.makeCCLs(classes, caseless);
+  public void makeCCLs(CharClasses classes, boolean caseless, boolean jlex) {
+    for (RegExp r : regExps) if (r != null) r.makeCCLs(classes, caseless, jlex);
+    for (RegExp r : look) if (r != null) r.makeCCLs(classes, caseless, jlex);
   }
 }

@@ -859,7 +859,7 @@ class CUP$LexParse$actions {
                      charClasses = scanner.charClasses;
                      regExps.expandPreClasses(preclassCache, charClasses, scanner.caseless);
                      regExps.normaliseCCLs(scanner.file);
-                     regExps.makeCCLs(charClasses, scanner.caseless);
+                     regExps.makeCCLs(charClasses, scanner.caseless, scanner.options().jlex());
 
                      SemCheck.check(regExps, scanner.file);
 
@@ -869,7 +869,7 @@ class CUP$LexParse$actions {
                      Out.checkErrors();
 
                      charClasses.normalise();
-                     if (Options.dump) charClasses.dump();
+                     if (scanner.options().dump()) charClasses.dump();
 
                      Out.print("Constructing NFA : ");
 
@@ -1320,7 +1320,8 @@ class CUP$LexParse$actions {
 		int r2right = ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()).right;
 		RegExp r2 = (RegExp)((java_cup.runtime.Symbol) CUP$LexParse$stack.peek()).value;
 		
-                     if ( ! Options.jlex && ! Options.legacy_dot && isDotOrNewlinePattern(r1, r2) ) {
+                     Options options = scanner.options();
+                     if ( ! options.jlex() && ! options.legacyDot() && isDotOrNewlinePattern(r1, r2) ) {
                        warning(ErrorMessages.DOT_BAR_NEWLINE_DOES_NOT_MATCH_ALL_CHARS, r1left, r1right);
                      }
                      RESULT = new RegExp2(sym.BAR, r1, r2);
@@ -1595,7 +1596,7 @@ class CUP$LexParse$actions {
               RegExp RESULT =null;
 		
                       IntCharSet nl;
-                      if ( Options.jlex || Options.legacy_dot ) {
+                      if ( scanner.options().jlex() || scanner.options().legacyDot() ) {
                         nl = IntCharSet.ofCharacter('\n');
                       }
                       else {
