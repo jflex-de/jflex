@@ -117,12 +117,12 @@ public abstract class AbstractLexScan implements ILexScan {
 
   @SuppressWarnings("unused") // Used in generated LexScan
   Symbol symbol(int type, Object value) {
-    return new Symbol(type, lexLine(), lexColumn(), value);
+    return new LexSymbol(type, lexLine(), lexColumn(), value);
   }
 
   @SuppressWarnings("unused") // Used in generated LexScan
   Symbol symbol(int type) {
-    return new Symbol(type, lexLine(), lexColumn());
+    return new LexSymbol(type, lexLine(), lexColumn(), null);
   }
 
   /**
@@ -139,7 +139,7 @@ public abstract class AbstractLexScan implements ILexScan {
       char c = text.charAt(i);
 
       if (c != '\n' && c != '\r' && c != ' ' && c != '\t') {
-        return new Symbol(type, lc, cc, value);
+        return new LexSymbol(type, lc, cc, value);
       }
 
       if (c == '\n') {
@@ -150,7 +150,7 @@ public abstract class AbstractLexScan implements ILexScan {
       }
     }
 
-    return new Symbol(type, lexLine(), lexColumn(), value);
+    return new LexSymbol(type, lexLine(), lexColumn(), value);
   }
 
   @SuppressWarnings("unused") // Used in generated LexScan
