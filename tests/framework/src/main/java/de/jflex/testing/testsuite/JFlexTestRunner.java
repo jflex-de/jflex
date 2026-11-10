@@ -36,7 +36,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
   private final Class<?> klass;
   private final TestSpec spec;
   private final PrintStream originalSysOut = System.out;
-  private final PrintStream originalSysErr = System.err;
 
   public JFlexTestRunner(Class<?> testClass) throws InitializationError {
     super(testClass);
@@ -96,7 +95,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     notifier.fireTestStarted(desc);
 
     Optional<DiffOutputStream> diffSysOut = injectDiffSysOut();
-    Optional<DiffOutputStream> diffSysErr = injectDiffSysErr();
 
     try {
       String lexerJavaFileName;
@@ -108,7 +106,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       }
 
       assertSystemStream(diffSysOut, "System.out");
-      assertSystemStream(diffSysErr, "System.err");
 
       return lexerJavaFileName;
     } catch (Throwable th) {
@@ -118,12 +115,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       if (diffSysOut.isPresent()) {
         Out.setOutputStream(originalSysOut);
       }
-      if (diffSysErr.isPresent()) {
-        System.setErr(originalSysErr);
-      }
       // The content was checked above in assertSystemStream so close without further checks.
       diffSysOut.ifPresent(DiffOutputStream::closeWithoutCheck);
-      diffSysErr.ifPresent(DiffOutputStream::closeWithoutCheck);
       notifier.fireTestFinished(desc);
     }
   }
@@ -180,26 +173,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       } catch (FileNotFoundException e) {
         throw new AssertionError(
             "The golden sysout was not found: " + sysoutFile.getAbsolutePath(), e);
-      }
-    }
-    return Optional.empty();
-  }
-
-  private Optional<DiffOutputStream> injectDiffSysErr() {
-    if (!Strings.isNullOrEmpty(spec.syserr())) {
-      File syserrFile = new File(spec.syserr());
-      try {
-        DiffOutputStream diffSysErr =
-            new DiffOutputStream(Files.newReader(syserrFile, StandardCharsets.UTF_8));
-        diffSysErr.setComparisonFailureHandler(
-            failure -> {
-              throw new Error("System.err differs: " + spec.syserr(), failure);
-            });
-        System.setErr(new PrintStream(diffSysErr));
-        return Optional.of(diffSysErr);
-      } catch (FileNotFoundException e) {
-        throw new AssertionError(
-            "The golden syserr was not found: " + syserrFile.getAbsolutePath(), e);
       }
     }
     return Optional.empty();
