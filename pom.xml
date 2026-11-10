@@ -197,6 +197,13 @@
         <version>4.11.0</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <!-- transitive dependency of junit-quickcheck via ognl. The POM of the version it pulls in
+             (3.20.0-GA) produces a warning. Use a more recent (compatible) version instead. -->
+        <groupId>org.javassist</groupId>
+        <artifactId>javassist</artifactId>
+        <version>3.30.2-GA</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
