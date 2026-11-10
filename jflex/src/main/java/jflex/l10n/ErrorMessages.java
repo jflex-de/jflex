@@ -120,10 +120,7 @@ public enum ErrorMessages {
               CUPSYM_AFTER_CUP,
               UNICODE_TOO_LONG));
 
-  /* not final static, because initializing here seems too early
-   * for OS/2 JDK 1.1.8. See bug 1065521.
-   */
-  private static ResourceBundle resourceBundle = null;
+  private static final ResourceBundle resourceBundle = ResourceBundle.getBundle("jflex.Messages");
 
   /**
    * Returns a localized representation of the error messages.
@@ -132,9 +129,6 @@ public enum ErrorMessages {
    * @return a {@link java.lang.String} representation of the errors.
    */
   public static String get(ErrorMessages msg) {
-    if (resourceBundle == null) {
-      resourceBundle = ResourceBundle.getBundle("jflex.Messages");
-    }
     // not catching MissingResourceException -- if this fails, we want the
     // exception to reach the top level and be reported to the user as a bug.
     return resourceBundle.getString(msg.toString());
