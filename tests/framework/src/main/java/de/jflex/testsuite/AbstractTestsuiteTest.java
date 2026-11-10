@@ -37,8 +37,6 @@ import jflex.core.OptionUtils;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
 import jflex.logging.Out;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -85,8 +83,6 @@ public abstract class AbstractTestsuiteTest {
   private static final File OUT_DIR =
       new File(System.getProperty("jflex.testsuite.out", "target/testsuite"));
 
-  private static Locale savedLocale;
-
   @Parameter(0)
   public String caseName;
 
@@ -131,18 +127,6 @@ public abstract class AbstractTestsuiteTest {
       throw new IllegalStateException("No test cases in " + casesDirs);
     }
     return result;
-  }
-
-  @BeforeClass
-  public static void setLocale() {
-    // JFlex messages are localised; the goldens are in English.
-    savedLocale = Locale.getDefault();
-    Locale.setDefault(Locale.US);
-  }
-
-  @AfterClass
-  public static void restoreLocale() {
-    Locale.setDefault(savedLocale);
   }
 
   @Test
