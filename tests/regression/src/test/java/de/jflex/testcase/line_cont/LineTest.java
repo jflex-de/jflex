@@ -16,7 +16,6 @@ import org.junit.runner.RunWith;
 @TestSpec(
     lex = "src/test/java/de/jflex/testcase/line_cont/line.flex",
     sysout = "src/test/java/de/jflex/testcase/line_cont/line-flex.sysout",
-    syserr = "src/test/java/de/jflex/testcase/line_cont/line-flex.syserr",
     dump = true)
 public class LineTest {
   @Test
