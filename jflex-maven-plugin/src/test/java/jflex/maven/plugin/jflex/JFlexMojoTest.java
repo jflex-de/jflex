@@ -15,10 +15,16 @@ import com.google.common.base.Predicate;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import jflex.logging.Out;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
+import org.apache.maven.project.MavenProject;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -44,7 +50,33 @@ public class JFlexMojoTest {
     if (mojoRule.getVariableValueFromObject(mojo, "project") == null) {
       mojoRule.setVariableValueToObject(mojo, "project", new MavenProjectStub());
     }
+    deleteRecursively(outputDirectory(mojo));
     return mojo;
+  }
+
+  /** The absolute output directory of the mojo as in {@code JFlexMojo#execute}. */
+  private File outputDirectory(JFlexMojo mojo) throws Exception {
+    File outDir = (File) mojoRule.getVariableValueFromObject(mojo, "outputDirectory");
+    if (outDir.isAbsolute()) {
+      return outDir;
+    }
+    MavenProject project = (MavenProject) mojoRule.getVariableValueFromObject(mojo, "project");
+    return new File(project.getBasedir().getAbsolutePath(), outDir.getPath());
+  }
+
+  /**
+   * Deletes the generated files of a previous run. Otherwise the mojo considers them up to date and
+   * does not run JFlex, which makes the tests depend on a clean {@code target/}.
+   */
+  private static void deleteRecursively(File dir) throws IOException {
+    if (!dir.exists()) {
+      return;
+    }
+    try (Stream<Path> paths = Files.walk(dir.toPath())) {
+      for (Path path : paths.sorted(Comparator.reverseOrder()).collect(Collectors.toList())) {
+        Files.delete(path);
+      }
+    }
   }
 
   @Test
