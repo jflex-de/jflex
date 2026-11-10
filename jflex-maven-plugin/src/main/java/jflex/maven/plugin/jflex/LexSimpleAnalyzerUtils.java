@@ -18,7 +18,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 
 /**
  * @author Rafal Mantiuk (Rafal.Mantiuk@bellstream.pl)
@@ -161,7 +160,6 @@ class LexSimpleAnalyzerUtils {
    * <p>Like in the JFlex scanner, take only the identifier after {@code %class}, so a trailing
    * comment or generic parameters are not included.
    */
-  @Nullable
   private static String guessClass(String line) {
     Matcher matcher = CLASS_DIRECTIVE_MATCHER.matcher(line);
     if (matcher.find()) {
@@ -170,7 +168,6 @@ class LexSimpleAnalyzerUtils {
     return null;
   }
 
-  @Nullable
   private static String guessPackage(String line) {
     int index = line.trim().indexOf("package");
     if (index == 0) {
@@ -185,7 +182,6 @@ class LexSimpleAnalyzerUtils {
     return null;
   }
 
-  @Nullable
   private static String guessIncluded(String line) {
     Matcher matcher = INCLUDE_DIRECTIVE_MATCHER.matcher(line);
     if (matcher.find()) {

@@ -4,8 +4,6 @@
  */
 package de.jflex.testing.assertion;
 
-import javax.annotation.Nullable;
-
 public final class MoreAsserts {
 
   private static final String MESSAGE = "Expected to throw a %s but method has thrown a %s instead";
@@ -17,7 +15,7 @@ public final class MoreAsserts {
 
   @SuppressWarnings("AvoidCatchingThrowable")
   public static <T extends Throwable> void assertThrows(
-      @Nullable String message, Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
+      String message, Class<T> expectedThrowable, ThrowingRunnable throwingRunnable) {
     try {
       throwingRunnable.run();
     } catch (Throwable actualThrowable) {

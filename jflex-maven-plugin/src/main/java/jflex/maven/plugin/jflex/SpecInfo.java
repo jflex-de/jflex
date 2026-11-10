@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.annotation.Nullable;
 
 class SpecInfo {
 
@@ -24,11 +23,11 @@ class SpecInfo {
   /** set of files recursively included from the lex spec */
   final Set<File> includedFiles;
 
-  SpecInfo(String className, @Nullable String packageName) {
+  SpecInfo(String className, String packageName) {
     this(className, packageName, Collections.emptySet());
   }
 
-  SpecInfo(String className, @Nullable String packageName, Set<File> includedFiles) {
+  SpecInfo(String className, String packageName, Set<File> includedFiles) {
     this.className = className;
     this.packageName = Strings.nullToEmpty(packageName);
     this.includedFiles = new HashSet<>(includedFiles);
