@@ -124,6 +124,7 @@
                 <lexDefinition>src/test/java/de/jflex/testcase/charclass/charclass.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/count/count.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/ctorarg/ctor-arg.flex</lexDefinition>
+                <lexDefinition>src/test/java/de/jflex/testcase/ctorarg/ctor-arg-cupdebug.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/cup2private/cup2private.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/cupsym/cupsym.flex</lexDefinition>
                 <lexDefinition>src/test/java/de/jflex/testcase/dot_newline/dotnewline.flex</lexDefinition>
