@@ -6,7 +6,6 @@
 package jflex.state;
 
 import java.util.Iterator;
-import javax.annotation.Nullable;
 import jflex.logging.Out;
 
 /**
@@ -214,7 +213,6 @@ public final class StateSet implements Iterable<Integer> {
    * @return the {@link StateSet} that contains all elements of {@code univ} that are not in this
    *     set.
    */
-  @Nullable
   public StateSet complement(StateSet univ) {
     if (univ == null) {
       return null;
@@ -266,7 +264,7 @@ public final class StateSet implements Iterable<Integer> {
   }
 
   @Override
-  public boolean equals(@Nullable Object b) {
+  public boolean equals(Object b) {
     if (!(b instanceof StateSet)) {
       return false;
     }

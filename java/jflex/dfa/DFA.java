@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import javax.annotation.Nullable;
 import jflex.core.Action;
 import jflex.core.EOFActions;
 import jflex.core.LexParse;
@@ -224,7 +223,7 @@ public class DFA {
   }
 
   @Override
-  public boolean equals(@Nullable Object obj) {
+  public boolean equals(Object obj) {
     if (!(obj instanceof DFA)) {
       return false;
     }
