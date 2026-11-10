@@ -91,6 +91,8 @@
   </mailingLists>
 
   <properties>
+    <!-- Only used by the tests/ modules; the jflex module itself has no annotation processors. -->
+    <auto-value.version>1.11.1</auto-value.version>
     <cup.version>11b-20160615-3</cup.version>
     <github.global.server>github</github.global.server>
     <jflex.jdk.version>1.8</jflex.jdk.version>
@@ -123,7 +125,7 @@
       <dependency>
         <groupId>com.google.auto.value</groupId>
         <artifactId>auto-value-annotations</artifactId>
-        <version>1.11.1</version>
+        <version>${auto-value.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -346,13 +348,6 @@
             <!-- newer JDKs warn that source/target 8 are obsolete -->
             <arg>-Xlint:-options</arg>
           </compilerArgs>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>com.google.auto.value</groupId>
-              <artifactId>auto-value</artifactId>
-              <version>1.11.1</version>
-            </path>
-          </annotationProcessorPaths>
         </configuration>
       </plugin>
     <!-- In Maven 3, the default execution of site:attach-descriptor has been removed from the
