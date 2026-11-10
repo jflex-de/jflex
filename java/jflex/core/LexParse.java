@@ -18,6 +18,7 @@ import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
+import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.XMLElement;
 
@@ -624,7 +625,7 @@ public class LexParse extends java_cup.runtime.lr_parser {
    public LexScan scanner;
 
    public LexParse(LexScan scanner) {
-     super(scanner);
+     super(scanner, new ComplexSymbolFactory());
      this.scanner = scanner;
    }
 
