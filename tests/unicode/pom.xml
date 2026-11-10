@@ -87,6 +87,17 @@
   </dependencies>
 
   <build>
+    <resources>
+      <!-- Hack to remove warning: This module has no main code (only tests), but the compiler warns
+           if target/classes does not exist. Using an existing directory as a resource causes the
+           resource plugin to create target/classes. -->
+      <resource>
+        <directory>src/test/java</directory>
+        <excludes>
+          <exclude>**</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <!-- Generates the scanner specs of the unicode_x_y tests, and the Unicode .test cases.
@@ -222,6 +233,15 @@
         <configuration>
           <!-- This module only has tests. -->
           <skipIfEmpty>true</skipIfEmpty>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- fmt-maven-plugin warns when the main source directory is missing. Give it an existing
+             directory without Java files instead. -->
+        <groupId>com.spotify.fmt</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <configuration>
+          <sourceDirectory>${project.basedir}/src/test/resources</sourceDirectory>
         </configuration>
       </plugin>
       <plugin>
