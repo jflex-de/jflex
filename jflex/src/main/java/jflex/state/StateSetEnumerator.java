@@ -87,7 +87,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    */
   private void advance() {
 
-    if (DEBUG) Out.dump("Advancing, at start, index = " + index + ", offset = " + offset);
+    if (DEBUG) Out.trace("Advancing, at start, index = " + index + ", offset = " + offset);
 
     // cache fields in local variable for faster access
     int _index = this.index;
@@ -142,7 +142,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    */
   public boolean hasMoreElements() {
     if (DEBUG) {
-      Out.dump("hasMoreElements, index = " + index + ", offset = " + offset);
+      Out.trace("hasMoreElements, index = " + index + ", offset = " + offset);
     }
     return index < bits.length;
   }
@@ -158,7 +158,7 @@ public final class StateSetEnumerator implements PrimitiveIterator.OfInt {
    */
   public int nextElement() {
     if (DEBUG) {
-      Out.dump("nextElement, index = " + index + ", offset = " + offset);
+      Out.trace("nextElement, index = " + index + ", offset = " + offset);
     }
     if (index >= bits.length) throw new NoSuchElementException();
     int x = (index << StateSet.BITS) + offset;
