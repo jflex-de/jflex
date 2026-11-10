@@ -313,9 +313,9 @@ public final class IntCharSet implements Iterable<Integer> {
    */
   public IntCharSet and(IntCharSet set) {
     if (DEBUG) {
-      Out.dump("intersection");
-      Out.dump("this  : " + this);
-      Out.dump("other : " + set);
+      Out.trace("intersection");
+      Out.trace("this  : " + this);
+      Out.trace("other : " + set);
     }
 
     IntCharSet result = new IntCharSet();
@@ -347,7 +347,7 @@ public final class IntCharSet implements Iterable<Integer> {
     }
 
     if (DEBUG) {
-      Out.dump("result: " + result);
+      Out.trace("result: " + result);
       assert result.invariants();
     }
 
@@ -364,9 +364,9 @@ public final class IntCharSet implements Iterable<Integer> {
   @SuppressWarnings("ReferenceEquality")
   public void sub(IntCharSet set) {
     if (DEBUG) {
-      Out.dump("complement");
-      Out.dump("this  : " + this);
-      Out.dump("other : " + set);
+      Out.trace("complement");
+      Out.trace("this  : " + this);
+      Out.trace("other : " + set);
       assert invariants();
       // not asserting non-null, because we'll already get an exception and it confuses lgtm.com
       assert set.invariants();
@@ -384,9 +384,9 @@ public final class IntCharSet implements Iterable<Integer> {
       Interval y = set.intervals.get(j);
 
       if (DEBUG) {
-        Out.dump("this      : " + this);
-        Out.dump("this  [" + i + "] : " + x);
-        Out.dump("other [" + j + "] : " + y);
+        Out.trace("this      : " + this);
+        Out.trace("this  [" + i + "] : " + x);
+        Out.trace("other [" + j + "] : " + y);
       }
 
       if (x.end < y.start) {
@@ -433,7 +433,7 @@ public final class IntCharSet implements Iterable<Integer> {
     }
 
     if (DEBUG) {
-      Out.dump("result: " + this);
+      Out.trace("result: " + this);
       assert invariants();
     }
   }
