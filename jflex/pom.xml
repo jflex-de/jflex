@@ -199,6 +199,15 @@
                   <include>com.github.vbmacher:java-cup-runtime</include>
                 </includes>
               </artifactSet>
+              <filters>
+                <filter>
+                  <!-- include the jflex manifest in the shaded jar, not the cup manifest -->
+                  <artifact>com.github.vbmacher:java-cup-runtime</artifact>
+                  <excludes>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
