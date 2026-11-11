@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 public class PropertyNames {
@@ -21,7 +22,8 @@ public class PropertyNames {
   /** Pattern used to normalize property value identifiers */
   private static final Pattern WORD_SEP_PATTERN = Pattern.compile("[-_\\s()]");
 
-  private static final Map<String, String> normalized = new HashMap<>();
+  /** Cache of {@link #normalize}. Shared by tests running in parallel. */
+  private static final Map<String, String> normalized = new ConcurrentHashMap<>();
 
   /** Normalized General_Category property name. */
   public static final String NORMALIZED_GENERAL_CATEGORY = normalize("General_Category");
