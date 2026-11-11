@@ -656,12 +656,12 @@ public class LexParse extends java_cup.runtime.lr_parser {
        Symbol s = (Symbol) info;
 
        if (s.sym == sym.EOF)
-         Out.error(ErrorMessages.UNEXPECTED_EOF);
+         scanner.out().error(ErrorMessages.UNEXPECTED_EOF);
        else
-         Out.error(scanner.file, ErrorMessages.SYNTAX_ERROR, s.left, s.right);
+         scanner.out().error(scanner.file, ErrorMessages.SYNTAX_ERROR, s.left, s.right);
      }
      else
-       Out.error(ErrorMessages.UNKNOWN_SYNTAX);
+       scanner.out().error(ErrorMessages.UNKNOWN_SYNTAX);
    }
 
    /**
@@ -699,19 +699,19 @@ class CUP$LexParse$actions {
   }
 
   void syntaxError(ErrorMessages message) {
-    Out.error(scanner.file, message, scanner.lexLine(), -1);
+    scanner.out().error(scanner.file, message, scanner.lexLine(), -1);
   }
 
   void syntaxError(ErrorMessages message, int line) {
-    Out.error(scanner.file, message, line, -1);
+    scanner.out().error(scanner.file, message, line, -1);
   }
 
   void syntaxError(ErrorMessages message, int line, int col) {
-    Out.error(scanner.file, message, line, col);
+    scanner.out().error(scanner.file, message, line, col);
   }
 
   void warning(ErrorMessages message, int line, int col) {
-    Out.warning(scanner.file, message, line, col);
+    scanner.out().warning(scanner.file, message, line, col);
   }
 
   private boolean isDotOrNewlinePattern(RegExp r1, RegExp r2) {
@@ -841,13 +841,15 @@ class CUP$LexParse$actions {
 		
                      scanner.t.stop();
 
-                     Out.checkErrors();
+                     Out out = scanner.out();
 
-                     Out.time(ErrorMessages.PARSING_TOOK, t);
+                     out.checkErrors();
+
+                     out.time(ErrorMessages.PARSING_TOOK, t);
 
                      macros.expand(); // expands only inside macro definitions
                      for (String unusedMacro : macros.unused()) {
-                       Out.warning(ErrorMessages.MACRO_UNUSED, unusedMacro);
+                       out.warning(ErrorMessages.MACRO_UNUSED, unusedMacro);
                      }
 
                      // expand macros + char classes in rules and lookahead rules
@@ -861,17 +863,17 @@ class CUP$LexParse$actions {
                      regExps.normaliseCCLs(scanner.file);
                      regExps.makeCCLs(charClasses, scanner.caseless, scanner.options().jlex());
 
-                     SemCheck.check(regExps, scanner.file);
+                     SemCheck.check(regExps, scanner.file, out);
 
                      regExps.checkActions();
                      regExps.checkLookAheads();
 
-                     Out.checkErrors();
+                     out.checkErrors();
 
                      charClasses.normalise();
-                     if (scanner.options().dump()) charClasses.dump();
+                     if (scanner.options().dump()) out.dump(charClasses.toString());
 
-                     Out.print("Constructing NFA : ");
+                     out.print("Constructing NFA : ");
 
                      t.start();
                      int num = regExps.getNum();
@@ -891,8 +893,8 @@ class CUP$LexParse$actions {
                      if (scanner.standalone) RESULT.addStandaloneRule();
                      t.stop();
 
-                     Out.time("");
-	                   Out.time(ErrorMessages.NFA_TOOK, t);
+                     out.time("");
+                     out.time(ErrorMessages.NFA_TOOK, t);
 
                    
               CUP$LexParse$result = parser.getSymbolFactory().newSymbol("specification",3, ((java_cup.runtime.Symbol)CUP$LexParse$stack.elementAt(CUP$LexParse$top-3)), ((java_cup.runtime.Symbol)CUP$LexParse$stack.peek()), RESULT);

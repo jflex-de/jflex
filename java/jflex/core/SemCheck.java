@@ -26,8 +26,9 @@ public final class SemCheck {
    *
    * @param rs the reg exps to be checked
    * @param f the spec file containing the rules
+   * @param out the output of this generator run
    */
-  public static void check(RegExps rs, File f) {
+  public static void check(RegExps rs, File f, Out out) {
     int num = rs.getNum();
     for (int i = 0; i < num; i++) {
       RegExp r = rs.getRegExp(i);
@@ -37,15 +38,15 @@ public final class SemCheck {
       if (r != null && maybeEmtpy(r)) {
         if (l != null) {
           if (a == null) {
-            Out.error(jflex.l10n.ErrorMessages.EMPTY_MATCH_LOOK);
+            out.error(ErrorMessages.EMPTY_MATCH_LOOK);
           } else {
-            Out.error(f, jflex.l10n.ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
+            out.error(f, ErrorMessages.EMPTY_MATCH_LOOK, a.priority - 1, -1);
           }
         } else {
           if (a == null) {
-            Out.warning(jflex.l10n.ErrorMessages.EMPTY_MATCH);
+            out.warning(ErrorMessages.EMPTY_MATCH);
           } else {
-            Out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
+            out.warning(f, ErrorMessages.EMPTY_MATCH, a.priority - 1, -1);
           }
         }
       }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
 
 /**
  * The skeleton of generated scanners.
@@ -83,24 +82,21 @@ public final class Skeleton {
    * Reads an external skeleton file.
    *
    * @param skeletonFile the file to read (must be != null and readable)
-   * @throws GeneratorException if the file cannot be read or is not a skeleton
+   * @throws GeneratorException if the file cannot be read or is not a skeleton. Includes the error
+   *     message.
    */
   public static Skeleton readSkelFile(File skeletonFile) {
     if (skeletonFile == null) throw new IllegalArgumentException("Skeleton file must not be null");
 
     if (!skeletonFile.isFile() || !skeletonFile.canRead()) {
-      Out.error(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.CANNOT_READ_SKEL, skeletonFile.toString());
     }
-
-    Out.println(ErrorMessages.READING_SKEL, skeletonFile.toString());
 
     try (BufferedReader reader =
         Files.newBufferedReader(Paths.get(skeletonFile.toString()), UTF_8)) {
       return readSkel(reader);
     } catch (IOException e) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR);
-      throw new GeneratorException(e);
+      throw new GeneratorException(ErrorMessages.SKEL_IO_ERROR);
     }
   }
 
@@ -129,8 +125,7 @@ public final class Skeleton {
     if (section.length() > 0) lines.add(section.toString());
 
     if (lines.size() != SIZE) {
-      Out.error(ErrorMessages.WRONG_SKELETON);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.WRONG_SKELETON);
     }
 
     return new Skeleton(lines.toArray(new String[0]));
@@ -177,16 +172,14 @@ public final class Skeleton {
     }
 
     if (url == null) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
 
     try (BufferedReader reader =
         new BufferedReader(new InputStreamReader(url.openStream(), UTF_8))) {
       return readSkel(reader);
     } catch (IOException e) {
-      Out.error(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
-      throw new GeneratorException(e);
+      throw new GeneratorException(ErrorMessages.SKEL_IO_ERROR_DEFAULT);
     }
   }
 }

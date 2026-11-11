@@ -213,8 +213,7 @@ public class RegExps {
   /** checkActions. */
   public void checkActions() {
     if (actions.get(actions.size() - 1) == null) {
-      Out.error(ErrorMessages.NO_LAST_ACTION);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.NO_LAST_ACTION);
     }
   }
 
@@ -342,11 +341,15 @@ public class RegExps {
     this.look = newLook;
   }
 
-  /** Print the list of regExps to Out.dump */
-  public void dump() {
-    Out.dump("RegExp rules:");
+  /**
+   * Print the list of regExps to the dump output.
+   *
+   * @param out the output of this generator run
+   */
+  public void dump(Out out) {
+    out.dump("RegExp rules:");
     for (RegExp r : regExps) {
-      if (r != null) Out.dump(r.toString());
+      if (r != null) out.dump(r.toString());
     }
   }
 

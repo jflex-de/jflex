@@ -22,9 +22,10 @@ public class DfaFactory {
    * <p>This DFA is usually not minimal.
    *
    * @param options the options of this generator run
+   * @param out the output of this generator run
    * @return a DFA that accepts the same language as the NFA.
    */
-  public static DFA createFromNfa(NFA nfa, Options options) {
+  public static DFA createFromNfa(NFA nfa, Options options, Out out) {
 
     int numStates = nfa.numStates();
     Map<StateSet, Integer> dfaStates = new HashMap<>(numStates);
@@ -35,7 +36,7 @@ public class DfaFactory {
     int numDFAStates = 0;
     int currentDFAState = 0;
 
-    Out.println("Converting NFA to DFA : ");
+    out.println("Converting NFA to DFA : ");
     nfa.epsilonFill();
 
     StateSet currentState;
@@ -108,7 +109,7 @@ public class DfaFactory {
           if (nextDFAState != null) {
             dfa.addTransition(currentDFAState, input, nextDFAState);
           } else {
-            if (options.progress()) Out.print(".");
+            if (options.progress()) out.print(".");
             // Out.debug("Table was "+dfaStates);
             numDFAStates++;
 
@@ -128,7 +129,7 @@ public class DfaFactory {
       currentDFAState++;
     }
 
-    if (options.verbose()) Out.println("");
+    if (options.verbose()) out.println("");
     return dfa;
   }
 

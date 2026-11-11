@@ -119,9 +119,10 @@ public final class Emitter {
    * @param input fall back location if {@code path = null} (expected to be a file in the directory
    *     to write to)
    * @param options the options of this generator run
+   * @param out the output of this generator run
    * @return The constructed File
    */
-  public static File normalize(String name, File input, Options options) {
+  public static File normalize(String name, File input, Options options, Out out) {
     File outputFile;
 
     if (options.directory() == null)
@@ -138,8 +139,8 @@ public final class Emitter {
       }
 
       if (outputFile.renameTo(backup))
-        Out.println("Old file \"" + outputFile + "\" saved as \"" + backup + "\"");
-      else Out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
+        out.println("Old file \"" + outputFile + "\" saved as \"" + backup + "\"");
+      else out.println("Couldn't save old file \"" + outputFile + "\", overwriting!");
     }
 
     return outputFile;
@@ -704,7 +705,7 @@ public final class Emitter {
 
     if ((scanner.standalone() || scanner.debugOption() || scanner.cupDebug())
         && scanner.ctorArgsCount() > 0) {
-      Out.warning(ErrorMessages.CTOR_DEBUG);
+      scanner.out().warning(ErrorMessages.CTOR_DEBUG);
       println();
       emitConstructorDecl(false);
     }
@@ -1231,8 +1232,7 @@ public final class Emitter {
     } else if (scanner.eofVal() != null) println("          { " + scanner.eofVal() + " }");
     else if (scanner.isInteger()) {
       if (scanner.tokenType() != null) {
-        Out.error(ErrorMessages.INT_AND_TYPE);
-        throw new GeneratorException();
+        throw new GeneratorException(ErrorMessages.INT_AND_TYPE);
       }
       println("        return YYEOF;");
     } else println("        return null;");

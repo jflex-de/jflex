@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import jflex.core.unicode.IntCharSet;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
@@ -2792,7 +2791,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           // fall through
           case 237: break;
           case 57:
-            { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1);
+            { out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1);
             }
           // fall through
           case 238: break;
@@ -3319,7 +3318,7 @@ public final class LexScan extends AbstractLexScan implements java_cup.runtime.S
           case 325: break;
           case 145:
             { cupSymbol = yytext().substring(8).trim();
-                                if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline);
+                                if (cupCompatible) out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline);
             }
           // fall through
           case 326: break;

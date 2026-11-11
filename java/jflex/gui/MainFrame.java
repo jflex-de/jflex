@@ -59,6 +59,9 @@ public final class MainFrame extends Frame {
 
   private final Options options;
 
+  /** JFlex output, written to {@link #messages} */
+  private Out out;
+
   /**
    * Constructor for MainFrame.
    *
@@ -67,7 +70,6 @@ public final class MainFrame extends Frame {
   public MainFrame(Options options) {
     super("JFlex " + Build.VERSION);
     this.options = options;
-    Out.setOptions(options);
     buildContent();
 
     addWindowListener(
@@ -99,7 +101,7 @@ public final class MainFrame extends Frame {
     if (font != null) messages.setFont(new Font("Monospaced", font.getStyle(), font.getSize()));
     else messages.setFont(new Font("Monospaced", Font.PLAIN, 12));
 
-    Out.setGUIMode(messages);
+    out = new Out(this.options, messages);
 
     generate.addActionListener(
         new ActionListener() {
@@ -235,7 +237,7 @@ public final class MainFrame extends Frame {
 
     setEnabledAll(true);
 
-    thread = new GeneratorThread(this, options, fileName, dirName);
+    thread = new GeneratorThread(this, options, out, fileName, dirName);
     thread.start();
   }
 
