@@ -7,6 +7,7 @@ package de.jflex.testsuite.generator;
 import de.jflex.ucd.UcdFileType;
 import de.jflex.ucd.UcdReleases;
 import de.jflex.ucd.UcdVersion;
+import de.jflex.util.concurrent.Parallel;
 import de.jflex.version.Version;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public final class UnicodeCasesGenerator {
   private final Path suiteDir;
   private final Path casesDir;
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
     if (args.length != 3) {
       System.err.println("Usage: UnicodeCasesGenerator <ucd-dir> <test-module-dir> <out-dir>");
       System.exit(1);
@@ -52,7 +53,7 @@ public final class UnicodeCasesGenerator {
   }
 
   /** Generates the cases of all versions and copies the resources they use. */
-  private int generate() throws IOException {
+  private int generate() throws Exception {
     Path resources = suiteDir.resolve("src").resolve("test").resolve("resources");
     Path resourcesOut = casesDir.resolveSibling("resources");
     Files.createDirectories(resourcesOut);
@@ -65,8 +66,8 @@ public final class UnicodeCasesGenerator {
       }
     }
     int count = 0;
-    for (Version version : UcdReleases.versions()) {
-      count += generate(version);
+    for (int n : Parallel.map(UcdReleases.versions(), this::generate)) {
+      count += n;
     }
     return count;
   }
