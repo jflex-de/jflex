@@ -14,6 +14,7 @@ import de.jflex.ucd_test_generator.testcompat.CompatPropertiesTestGenerator;
 import de.jflex.ucd_test_generator.testderivedcoreprop.DerivedCorePropertiesTestGenerator;
 import de.jflex.ucd_test_generator.testdigit.DigitTestGenerator;
 import de.jflex.ucd_test_generator.testemoji.EmojiTestGenerator;
+import de.jflex.util.concurrent.Parallel;
 import de.jflex.version.Version;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,11 +33,15 @@ public final class AllTestsGenerator {
   public static void main(String[] args) throws Exception {
     Path ucdDir = Paths.get(args[0]);
     String outDir = args[1];
-    for (Version version : AbstractGenerator.KNOWN_VERSIONS) {
-      List<String> argv = new ArrayList<>(Arrays.asList(version.toString(), outDir));
-      argv.addAll(UcdReleases.ucdFiles(ucdDir, version));
-      generate(version, argv.toArray(new String[0]));
-    }
+    // The versions are independent and write to independent output locations.
+    Parallel.map(
+        AbstractGenerator.KNOWN_VERSIONS,
+        version -> {
+          List<String> argv = new ArrayList<>(Arrays.asList(version.toString(), outDir));
+          argv.addAll(UcdReleases.ucdFiles(ucdDir, version));
+          generate(version, argv.toArray(new String[0]));
+          return null;
+        });
   }
 
   private static void generate(Version version, String[] args) throws Exception {
