@@ -5,7 +5,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "master", "aggregated-java-sources" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
   schedule:
