@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Set;
 import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
 import jflex.skeleton.Skeleton;
 
 /**
@@ -19,6 +18,9 @@ import jflex.skeleton.Skeleton;
  *
  * <p>A new instance has the default options. They are set from the command line parser, ant task,
  * Maven plugin, GUI, etc. Each concurrent run should use a separate instance.
+ *
+ * <p>Setters that validate their argument throw a {@link GeneratorException} with an error message.
+ * The caller needs to reports the message with {@link jflex.logging.Out#error(GeneratorException)}.
  *
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
@@ -129,13 +131,11 @@ public class Options {
    */
   public void setDir(File d) {
     if (d.isFile()) {
-      Out.error("Error: \"" + d + "\" is not a directory.");
-      throw new GeneratorException();
+      throw new GeneratorException("Error: \"" + d + "\" is not a directory.");
     }
 
     if (!d.isDirectory() && !d.mkdirs()) {
-      Out.error("Error: couldn't create directory \"" + d + "\"");
-      throw new GeneratorException();
+      throw new GeneratorException("Error: couldn't create directory \"" + d + "\"");
     }
 
     directory = d;
@@ -298,8 +298,7 @@ public class Options {
     if (Charset.isSupported(encodingName)) {
       encoding = Charset.forName(encodingName);
     } else {
-      Out.error(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName);
-      throw new GeneratorException();
+      throw new GeneratorException(ErrorMessages.CHARSET_NOT_SUPPORTED, encodingName);
     }
   }
 
@@ -410,8 +409,7 @@ public class Options {
       ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
       enable(msg);
     } catch (IllegalArgumentException e) {
-      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
-      throw new GeneratorException(e);
+      throw new GeneratorException(ErrorMessages.UNKNOWN_WARNING, warning);
     }
   }
 
@@ -428,8 +426,7 @@ public class Options {
       ErrorMessages msg = ErrorMessages.valueOf(warning.toUpperCase().replace('-', '_'));
       suppress(msg);
     } catch (IllegalArgumentException e) {
-      Out.error(ErrorMessages.UNKNOWN_WARNING, warning);
-      throw new GeneratorException(e);
+      throw new GeneratorException(ErrorMessages.UNKNOWN_WARNING, warning);
     }
   }
 

@@ -18,15 +18,16 @@ import jflex.option.Options;
 import jflex.performance.Timer;
 
 /**
- * In this class all output to the java console is filtered.
+ * The console output of one generator run.
  *
- * <p>Use the switches verbose, time and DUMP at compile time to determine the verbosity of JFlex
- * output. There is no switch for suppressing error messages. verbose and time can be overridden by
- * command line parameters.
+ * <p>Reads the switches verbose, time and dump from {@link Options} to determine the verbosity of
+ * JFlex output. There is no switch for suppressing error messages.
  *
- * <p>Redirects output to a TextArea in GUI mode.
+ * <p>Writes to {@code System.out}, to an {@link OutputStream}, or to a TextArea in GUI mode.
  *
  * <p>Counts error and warning messages.
+ *
+ * <p>Concurrent runs use separate Out instances (and separate {@link Options}).
  *
  * @author Gerwin Klein
  * @version JFlex 1.10.0-SNAPSHOT
@@ -36,49 +37,51 @@ public final class Out {
   /** Platform specific newline. */
   public static final String NL = System.getProperty("line.separator");
 
-  private Out() {}
-
   /** count total warnings */
-  private static int warnings;
+  private int warnings;
 
   /** count total errors */
-  private static int errors;
+  private int errors;
 
   /** output device */
-  private static StdOutWriter out = new StdOutWriter();
+  private final StdOutWriter out;
 
   /**
    * The options that output depends on: verbosity, time statistics, dump, suppressed warnings,
-   * encoding. Static for now.
+   * encoding. Read live, so later changes to the options apply.
    */
-  private static Options options = new Options();
+  private final Options options;
 
   /**
-   * Sets the options that output depends on.
+   * Creates output to {@code System.out}.
    *
-   * @param newOptions the options of the current generator run
+   * @param options the options of the generator run
    */
-  public static void setOptions(Options newOptions) {
-    options = newOptions;
+  public Out(Options options) {
+    this(options, System.out);
   }
 
   /**
-   * Switches to GUI mode if {@code text</code> is not <code>null}
+   * Creates output to a stream.
    *
+   * @param options the options of the generator run
+   * @param stream where to write all output to
+   */
+  public Out(Options options, OutputStream stream) {
+    this.options = options;
+    this.out = new StdOutWriter(stream);
+  }
+
+  /**
+   * Creates output in GUI mode.
+   *
+   * @param options the options of the generator run
    * @param text the message TextArea of the JFlex GUI
    */
-  public static void setGUIMode(TextArea text) {
+  public Out(Options options, TextArea text) {
+    this.options = options;
+    this.out = new StdOutWriter();
     out.setGUIMode(text);
-  }
-
-  /**
-   * Sets a new output stream and switches to non-gui mode.
-   *
-   * @param stream the new output stream
-   */
-  public static void setOutputStream(OutputStream stream) {
-    out = new StdOutWriter(stream);
-    out.setGUIMode(null);
   }
 
   /**
@@ -87,7 +90,7 @@ public final class Out {
    * @param message the message to be printed
    * @param time elapsed time
    */
-  public static void time(ErrorMessages message, Timer time) {
+  public void time(ErrorMessages message, Timer time) {
     if (options.time()) {
       String msg = ErrorMessages.get(message, time.toString());
       out.println(msg);
@@ -99,7 +102,7 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void time(String message) {
+  public void time(String message) {
     if (options.time()) {
       out.println(message);
     }
@@ -110,7 +113,7 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void println(String message) {
+  public void println(String message) {
     if (options.verbose()) {
       out.println(message);
     }
@@ -122,7 +125,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages message, String data) {
+  public void println(ErrorMessages message, String data) {
     if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -134,7 +137,7 @@ public final class Out {
    * @param message the message to be printed
    * @param data data to be inserted into the message
    */
-  public static void println(ErrorMessages message, int data) {
+  public void println(ErrorMessages message, int data) {
     if (options.verbose()) {
       out.println(ErrorMessages.get(message, data));
     }
@@ -145,7 +148,7 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void print(String message) {
+  public void print(String message) {
     if (options.verbose()) {
       out.print(message);
     }
@@ -182,7 +185,7 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void dump(String message) {
+  public void dump(String message) {
     if (options.dump()) {
       out.println(message);
     }
@@ -193,19 +196,29 @@ public final class Out {
    *
    * @param message the message to be printed
    */
-  public static void err(String message) {
+  public void err(String message) {
     out.println(message);
   }
 
   /** throws a GeneratorException if there are any errors recorded */
-  public static void checkErrors() {
+  public void checkErrors() {
     if (errors > 0) {
       throw new GeneratorException();
     }
   }
 
+  /** Returns the number of errors reported since the last {@link #resetCounters()}. */
+  public int errors() {
+    return errors;
+  }
+
+  /** Returns the number of warnings reported since the last {@link #resetCounters()}. */
+  public int warnings() {
+    return warnings;
+  }
+
   /** print error and warning statistics */
-  public static void statistics() {
+  public void statistics() {
     StringBuilder line = new StringBuilder(errors + " error");
     if (errors != 1) line.append("s");
 
@@ -217,22 +230,9 @@ public final class Out {
   }
 
   /** reset error and warning counters */
-  public static void resetCounters() {
+  public void resetCounters() {
     errors = 0;
     warnings = 0;
-  }
-
-  /**
-   * Print a warning without position information. Use only for testing.
-   *
-   * @param message the warning message
-   * @deprecated use {@link #warning(ErrorMessages)} instead
-   */
-  @Deprecated
-  public static void warning(String message) {
-    warnings++;
-
-    err(NL + "Warning : " + message);
   }
 
   /**
@@ -241,7 +241,7 @@ public final class Out {
    * @param message code of the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message) {
+  public void warning(ErrorMessages message) {
     warning(message, 0);
   }
 
@@ -252,7 +252,7 @@ public final class Out {
    * @param args arguments of the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message, Object... args) {
+  public void warning(ErrorMessages message, Object... args) {
     warning(message, 0, args);
   }
 
@@ -263,7 +263,7 @@ public final class Out {
    * @param line the line information
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message, int line) {
+  public void warning(ErrorMessages message, int line) {
     warning(message, line, (Object[]) null);
   }
 
@@ -275,7 +275,7 @@ public final class Out {
    * @param args arguments to the warning message
    * @see ErrorMessages
    */
-  public static void warning(ErrorMessages message, int line, Object... args) {
+  public void warning(ErrorMessages message, int line, Object... args) {
     if (options.isSuppressed(message)) return;
 
     warnings++;
@@ -298,7 +298,7 @@ public final class Out {
    * @param line the line number of the position
    * @param column the column of the position
    */
-  public static void warning(File file, ErrorMessages message, int line, int column) {
+  public void warning(File file, ErrorMessages message, int line, int column) {
     if (options.isSuppressed(message)) return;
 
     String msg = NL + "Warning";
@@ -324,9 +324,21 @@ public final class Out {
    *
    * @param message the message to print
    */
-  public static void error(String message) {
+  public void error(String message) {
     errors++;
     err(NL + message);
+  }
+
+  /**
+   * Print the error message of an exception if it has one.
+   *
+   * @param e the exception to report
+   * @see GeneratorException#GeneratorException(ErrorMessages, Object...)
+   */
+  public void error(GeneratorException e) {
+    if (e.hasErrorMessage()) {
+      error(e.getMessage());
+    }
   }
 
   /**
@@ -335,7 +347,7 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages message) {
+  public void error(ErrorMessages message) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message));
   }
@@ -347,20 +359,9 @@ public final class Out {
    * @param message the code of the error message
    * @see ErrorMessages
    */
-  public static void error(ErrorMessages message, String data) {
+  public void error(ErrorMessages message, String data) {
     errors++;
     err(NL + "Error: " + ErrorMessages.get(message, data));
-  }
-
-  /**
-   * IO error message for a file (displays file name in parentheses).
-   *
-   * @param message the code of the error message
-   * @param file the file it occurred for
-   */
-  public static void error(ErrorMessages message, File file) {
-    errors++;
-    err(NL + "Error: " + ErrorMessages.get(message) + " (" + file + ")");
   }
 
   /**
@@ -371,7 +372,7 @@ public final class Out {
    * @param line the line number of error position
    * @param column the column of error position
    */
-  public static void error(File file, ErrorMessages message, int line, int column) {
+  public void error(File file, ErrorMessages message, int line, int column) {
 
     String msg = NL + "Error";
     if (file != null) msg += " in file \"" + file + "\"";
@@ -398,7 +399,7 @@ public final class Out {
    * @param line the line to show
    * @param column the column in which to show the marker
    */
-  public static void showPosition(File file, int line, int column) {
+  public void showPosition(File file, int line, int column) {
     try {
       String ln = getLine(file, line);
       if (ln != null) {
@@ -422,7 +423,7 @@ public final class Out {
    * @param file the file to show
    * @param line the line number
    */
-  public static void showPosition(File file, int line) {
+  public void showPosition(File file, int line) {
     try {
       String ln = getLine(file, line);
       if (ln != null) err(ln);
@@ -438,7 +439,7 @@ public final class Out {
    * @param line the line number to get
    * @throws IOException if any error occurs
    */
-  private static String getLine(File file, int line) throws IOException {
+  private String getLine(File file, int line) throws IOException {
     BufferedReader reader = Files.newBufferedReader(file.toPath(), options.encoding());
 
     String msg = "";

@@ -38,6 +38,9 @@ public abstract class AbstractLexScan implements ILexScan {
   /** The options of this generator run. */
   Options options;
 
+  /** The output of this generator run. */
+  Out out;
+
   private final Deque<File> files = new ArrayDeque<>();
 
   StringBuilder userCode = new StringBuilder();
@@ -248,7 +251,7 @@ public abstract class AbstractLexScan implements ILexScan {
       lexPushStream(f);
       files.push(file);
       file = f;
-      Out.println("Including \"" + file + "\"");
+      out.println("Including \"" + file + "\"");
     } catch (IOException e) {
       throw new ScannerException(file, ErrorMessages.NOT_READABLE, lexLine());
     }
@@ -386,6 +389,16 @@ public abstract class AbstractLexScan implements ILexScan {
     this.options = options;
   }
 
+  /** Returns the output of this generator run. */
+  public Out out() {
+    return out;
+  }
+
+  /** Sets the output of this generator run. Must be called before scanning. */
+  public void setOut(Out out) {
+    this.out = out;
+  }
+
   public String className() {
     return className;
   }
@@ -463,7 +476,7 @@ public abstract class AbstractLexScan implements ILexScan {
     // 2 for "\"" followed by "u" or "U" at start of match
     len += 2;
     if (lexLength() > len) {
-      Out.warning(file, ErrorMessages.UNICODE_TOO_LONG, lexLine(), lexColumn() + len);
+      out.warning(file, ErrorMessages.UNICODE_TOO_LONG, lexLine(), lexColumn() + len);
       lexPushback(lexLength() - len);
     }
   }

@@ -246,17 +246,13 @@ public class DFA {
    * Writes a dot-file representing this DFA.
    *
    * @param file output file.
+   * @throws IOException if the file cannot be written
    */
-  public void writeDot(File file) {
-    try {
-      PrintWriter writer =
-          new PrintWriter(
-              new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
+  public void writeDot(File file) throws IOException {
+    try (PrintWriter writer =
+        new PrintWriter(
+            new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8))) {
       writer.println(dotFormat());
-      writer.close();
-    } catch (IOException e) {
-      Out.error(ErrorMessages.FILE_WRITE, file);
-      throw new GeneratorException(e);
     }
   }
 
@@ -300,7 +296,7 @@ public class DFA {
 
     for (Action a : scanner.actions())
       if (!Objects.equals(a, usedActions.get(a)) && !eofActions.isEOFAction(a))
-        Out.warning(scanner.file(), ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
+        scanner.out().warning(scanner.file(), ErrorMessages.NEVER_MATCH, a.priority - 1, -1);
   }
 
   /**
@@ -316,8 +312,7 @@ public class DFA {
     }
 
     if (numStates == 0) {
-      Out.error(ErrorMessages.ZERO_STATES);
-      throw new GeneratorException(new IllegalStateException("DFA has 0 states"));
+      throw new GeneratorException(ErrorMessages.ZERO_STATES);
     }
 
     // the algorithm needs the DFA to be total, so we add an error state 0,
@@ -775,13 +770,13 @@ public class DFA {
   }
 
   private void printBlocks(int[] b, int[] b_f, int[] b_b, int last) {
-    Out.dump("block     : " + toString(b));
-    Out.dump("b_forward : " + toString(b_f));
-    Out.dump("b_backward: " + toString(b_b));
-    Out.dump("lastBlock : " + last);
+    Out.trace("block     : " + toString(b));
+    Out.trace("b_forward : " + toString(b_f));
+    Out.trace("b_backward: " + toString(b_b));
+    Out.trace("lastBlock : " + last);
     final int n = numStates + 1;
     for (int i = n; i <= last; i++) {
-      Out.dump("Block " + (i - n) + " (size " + b[i] + "):");
+      Out.trace("Block " + (i - n) + " (size " + b[i] + "):");
       String line = "{";
       int s = b_f[i];
       while (s != i) {
@@ -791,10 +786,10 @@ public class DFA {
         if (s != i) {
           line = line + ",";
           if (b[s] != i)
-            Out.dump("consistency error for state " + (s - 1) + " (block " + b[s] + ")");
+            Out.trace("consistency error for state " + (s - 1) + " (block " + b[s] + ")");
         }
         if (b_b[s] != t)
-          Out.dump(
+          Out.trace(
               "consistency error for b_back in state "
                   + (s - 1)
                   + " (back = "
@@ -803,7 +798,7 @@ public class DFA {
                   + t
                   + ")");
       }
-      Out.dump(line + "}");
+      Out.trace(line + "}");
     }
   }
 
@@ -817,9 +812,9 @@ public class DFA {
       int old_bc = bc;
       bc = l_f[bc];
       if (bc != anchor) l += ",";
-      if (l_b[bc] != old_bc) Out.dump("consistency error for (" + b + "," + c + ")");
+      if (l_b[bc] != old_bc) Out.trace("consistency error for (" + b + "," + c + ")");
     }
-    Out.dump(l + "}");
+    Out.trace(l + "}");
   }
 
   /**
@@ -829,9 +824,9 @@ public class DFA {
    * @param inv_delta_set an array of int.
    */
   private void printInvDelta(int[][] inv_delta, int[] inv_delta_set) {
-    Out.dump("Inverse of transition table: ");
+    Out.trace("Inverse of transition table: ");
     for (int s = 0; s < numStates + 1; s++) {
-      Out.dump("State [" + (s - 1) + "]");
+      Out.trace("State [" + (s - 1) + "]");
       for (int c = 0; c < numInput; c++) {
         String line = "With <" + c + "> in {";
         int t = inv_delta[s][c];
@@ -839,7 +834,7 @@ public class DFA {
           line += inv_delta_set[t++] - 1;
           if (inv_delta_set[t] != -1) line += ",";
         }
-        if (inv_delta_set[inv_delta[s][c]] != -1) Out.dump(line + "}");
+        if (inv_delta_set[inv_delta[s][c]] != -1) Out.trace(line + "}");
       }
     }
   }

@@ -14,9 +14,8 @@ import jflex.core.unicode.CharClasses;
 import jflex.core.unicode.IntCharSet;
 import jflex.core.unicode.UnicodeProperties;
 import jflex.exceptions.CharClassException;
-import jflex.exceptions.GeneratorException;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
+import jflex.scanner.ScannerException;
 
 /**
  * Stores a regular expression of rules section in a JFlex-specification.
@@ -414,8 +413,7 @@ public class RegExp {
           throw new RegExpException(this);
       }
     } catch (CharClassException e) {
-      Out.error(f, ErrorMessages.NOT_CHARCLASS, line, -1);
-      throw new GeneratorException(e);
+      throw new ScannerException(f, ErrorMessages.NOT_CHARCLASS, line);
     }
   }
 

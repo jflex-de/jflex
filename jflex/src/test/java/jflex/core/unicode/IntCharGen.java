@@ -10,7 +10,6 @@ import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 import java.util.List;
 import jflex.chars.Interval;
-import jflex.logging.Out;
 
 /**
  * Generator for random Integer values that ensure to sometimes generate a cased character
@@ -25,14 +24,13 @@ public class IntCharGen extends Generator<Integer> {
   }
 
   @Override
-  @SuppressWarnings("deprecation")
   public Integer generate(SourceOfRandomness r, GenerationStatus status) {
     // ensure we sometimes generate an int that has case options
     if (r.nextBoolean()) {
       try {
         return getRandomCased(r);
       } catch (UnicodeProperties.UnsupportedUnicodeVersionException e) {
-        Out.warning("Unable to fetch a random cased value - " + e.getMessage());
+        System.err.println("Warning: unable to fetch a random cased value - " + e.getMessage());
       }
     }
 

@@ -35,7 +35,6 @@ import java.util.Set;
 import jflex.Main;
 import jflex.exceptions.GeneratorException;
 import jflex.exceptions.SilentExit;
-import jflex.logging.Out;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -187,14 +186,11 @@ public abstract class AbstractTestsuiteTest {
 
     ByteArrayOutputStream messages = new ByteArrayOutputStream();
     boolean success;
-    Out.setOutputStream(messages);
     try {
-      Main.generate(args.toArray(new String[0]));
+      Main.generate(args.toArray(new String[0]), messages);
       success = true;
     } catch (GeneratorException | SilentExit e) {
       success = false;
-    } finally {
-      Out.setOutputStream(System.out);
     }
     if (success == spec.expectJFlexFail) {
       fail(

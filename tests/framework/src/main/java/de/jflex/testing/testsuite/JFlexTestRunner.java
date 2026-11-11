@@ -16,7 +16,6 @@ import de.jflex.testing.testsuite.annotations.TestSpec;
 import de.jflex.util.javac.JavacUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Optional;
@@ -34,7 +33,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
 
   private final Class<?> klass;
   private final TestSpec spec;
-  private final PrintStream originalSysOut = System.out;
 
   public JFlexTestRunner(Class<?> testClass) throws InitializationError {
     super(testClass);
@@ -98,10 +96,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     try {
       String lexerJavaFileName;
       if (expectsLexer()) {
-        lexerJavaFileName = invokeJflex();
+        lexerJavaFileName = invokeJflex(diffSysOut);
       } else {
         lexerJavaFileName = null;
-        generateLexerWithExpectedException();
+        generateLexerWithExpectedException(diffSysOut);
       }
 
       assertSystemStream(diffSysOut, "System.out");
@@ -111,9 +109,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
       notifier.fireTestFailure(new Failure(desc, th));
       return null;
     } finally {
-      if (diffSysOut.isPresent()) {
-        Out.setOutputStream(originalSysOut);
-      }
       // The content was checked above in assertSystemStream so close without further checks.
       diffSysOut.ifPresent(DiffOutputStream::closeWithoutCheck);
       notifier.fireTestFinished(desc);
@@ -128,9 +123,9 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
                 .isEmpty());
   }
 
-  private String generateLexerWithExpectedException() {
+  private String generateLexerWithExpectedException(Optional<DiffOutputStream> diffSysOut) {
     try {
-      invokeJflex();
+      invokeJflex(diffSysOut);
     } catch (Throwable e) {
       assertWithMessage(
               "@TestCase indicates that the jflex generation must throw a "
@@ -157,6 +152,10 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
             + " but nothing was thrown");
   }
 
+  /**
+   * Returns a stream that compares what JFlex prints with the golden {@code sysout} file of the
+   * spec, or empty if the spec has none.
+   */
   private Optional<DiffOutputStream> injectDiffSysOut() {
     if (!Strings.isNullOrEmpty(spec.sysout())) {
       File sysoutFile = new File(spec.sysout());
@@ -167,7 +166,6 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
             failure -> {
               throw new Error("System.out differs: " + spec.sysout(), failure);
             });
-        Out.setOutputStream(diffSysOut);
         return Optional.of(diffSysOut);
       } catch (FileNotFoundException e) {
         throw new AssertionError(
@@ -177,8 +175,13 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     return Optional.empty();
   }
 
+  /**
+   * Runs JFlex on the spec of the test.
+   *
+   * @param sysout where JFlex prints to, {@code System.out} if empty
+   */
   @SuppressWarnings("OrphanedFormatString")
-  private String invokeJflex() {
+  private String invokeJflex(Optional<DiffOutputStream> sysout) {
     Options options = new Options();
     options.setJLex(spec.jlexCompat());
     options.setDump(spec.dump());
@@ -198,7 +201,8 @@ public class JFlexTestRunner extends BlockJUnit4ClassRunner {
     options.setUnusedWarning(spec.warnUnused());
     File lexFile = new File(spec.lex());
     Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
-    LexGenerator lexGenerator = new LexGenerator(lexFile, options);
+    Out out = sysout.isPresent() ? new Out(options, sysout.get()) : new Out(options);
+    LexGenerator lexGenerator = new LexGenerator(lexFile, options, out);
     String lexerJavaFileName = checkNotNull(lexGenerator.generate());
     checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));
     if (spec.minimizedDfaStatesCount() > 0) {

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import jflex.core.unicode.IntCharSet;
 import jflex.l10n.ErrorMessages;
-import jflex.logging.Out;
 import jflex.option.Options;
 import jflex.performance.Timer;
 import jflex.scanner.ScannerException;
@@ -239,7 +238,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                                 if (!options.jlex()) eofclose = true;
                               }
   "%cupsym"{WSP}+{QualIdent} {WSP}*  { cupSymbol = yytext().substring(8).trim();
-                                if (cupCompatible) Out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
+                                if (cupCompatible) out.warning(ErrorMessages.CUPSYM_AFTER_CUP, yyline); }
   "%cupsym"{WSP}+{NNL}*       { throw new ScannerException(file,ErrorMessages.QUIL_CUPSYM, yyline); }
   "%cupdebug"                 { cupDebug = true; }
   "%eofclose"({WSP}+"true")?  { eofclose = true; }
@@ -321,7 +320,7 @@ DottedVersion =  [1-9][0-9]*(\.[0-9]+){0,2}
                               }
   "%"{Ident}                  { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
   "%"                         { throw new ScannerException(file,ErrorMessages.UNKNOWN_OPTION, yyline, yycolumn); }
-  ^{WSP}+"%"                  { Out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
+  ^{WSP}+"%"                  { out.warning(ErrorMessages.NOT_AT_BOL, yyline); yypushback(1); }
 
   {WSP}+                      { }
   {NL}+                       { }

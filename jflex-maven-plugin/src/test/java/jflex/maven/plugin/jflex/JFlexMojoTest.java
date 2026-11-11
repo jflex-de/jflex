@@ -15,12 +15,16 @@ import com.google.common.base.Predicate;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import jflex.logging.Out;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
@@ -134,20 +138,57 @@ public class JFlexMojoTest {
   @Test
   public void testSuppressDoesNotLeak() throws Exception {
     JFlexMojo mojo = newMojo("suppress-leak-test");
+    // The mojo prints JFlex messages to the System.out of the time it runs.
     ByteArrayOutputStream output = new ByteArrayOutputStream();
-    Out.setOutputStream(output);
+    PrintStream savedOut = System.out;
+    System.setOut(new PrintStream(output, true));
     try {
       mojo.execute();
     } finally {
-      Out.setOutputStream(System.out);
+      System.setOut(savedOut);
     }
 
     String log = output.toString();
-    // one warning, for warn.flex; none for suppress-all.flex
-    String msg = "JFlex output:\n" + log;
+    // one warning, for warn.flex; none for suppress-all.flex (the Maven log mentions both files)
+    String msg = "JFlex and Maven output:\n" + log;
     assertEquals(msg, 2, log.split("never be matched", -1).length);
-    assertTrue(msg, log.contains("warn.flex\""));
-    assertFalse(msg, log.contains("suppress-all.flex"));
+    assertTrue(msg, log.contains("Warning in file \"") && log.contains("warn.flex\""));
+    assertFalse(msg, log.contains("suppress-all.flex\""));
+  }
+
+  /** Two mojos executing at the same time like in a parallel reactor build. */
+  @Test
+  public void testConcurrentExecutions() throws Exception {
+    JFlexMojo first = newMojo("single-file-test");
+    JFlexMojo second = newMojo("single-dir-test");
+    CountDownLatch start = new CountDownLatch(2);
+    ExecutorService executor = Executors.newFixedThreadPool(2);
+    try {
+      Future<?> firstDone = executor.submit(() -> execute(first, start));
+      Future<?> secondDone = executor.submit(() -> execute(second, start));
+      firstDone.get();
+      secondDone.get();
+    } finally {
+      executor.shutdownNow();
+    }
+
+    File firstProduced = getExpectedOutputFile(first);
+    File secondProduced = getExpectedOutputFile(second);
+    assertWithMessage("produced file is a file: " + firstProduced)
+        .that(firstProduced.isFile())
+        .isTrue();
+    assertWithMessage("produced file is a file: " + secondProduced)
+        .that(secondProduced.isFile())
+        .isTrue();
+    assertFalse(firstProduced.equals(secondProduced));
+  }
+
+  /** Waits for the other mojo, then executes. */
+  private static Void execute(JFlexMojo mojo, CountDownLatch start) throws Exception {
+    start.countDown();
+    start.await();
+    mojo.execute();
+    return null;
   }
 
   @Test
