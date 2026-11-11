@@ -8,12 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import de.jflex.testing.QuietOutputExtension;
 import de.jflex.testing.diff.DiffOutputStream;
 import de.jflex.testing.testsuite.annotations.NoExceptionThrown;
 import de.jflex.testing.testsuite.annotations.TestSpec;
 import de.jflex.util.javac.JavacUtils;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -45,11 +49,16 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
 
   /** The outcome of generating and compiling the scanner of a test class. */
   private static final class Build {
+    Class<?> testClass;
+
     /** Whether the spec expects JFlex to generate a scanner. */
     boolean expectsLexer;
 
     Throwable generateFailure;
     Throwable compileFailure;
+
+    /** JFlex printed if not already otherwise captured. */
+    final ByteArrayOutputStream jflexOutput = new ByteArrayOutputStream();
 
     boolean failed() {
       return generateFailure != null || compileFailure != null;
@@ -67,10 +76,11 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     }
     TestSpec spec = testClass.getAnnotation(TestSpec.class);
     Build build = new Build();
+    build.testClass = testClass;
     build.expectsLexer = spec.generatorThrows() == NoExceptionThrown.class;
     String lexerJavaFileName = null;
     try {
-      lexerJavaFileName = generateLexer(spec);
+      lexerJavaFileName = generateLexer(spec, build.jflexOutput);
     } catch (Throwable th) {
       build.generateFailure = th;
     }
@@ -97,7 +107,8 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   static List<DynamicTest> report(Class<?> testClass) {
     Build build = BUILDS.get(testClass);
     List<DynamicTest> tests = new ArrayList<>();
-    tests.add(DynamicTest.dynamicTest("Generate Lexer", () -> rethrow(build.generateFailure)));
+    tests.add(
+        DynamicTest.dynamicTest("Generate Lexer", () -> rethrow(build.generateFailure, build)));
     if (build.expectsLexer) {
       tests.add(
           DynamicTest.dynamicTest(
@@ -105,14 +116,20 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
               () -> {
                 Assumptions.assumeTrue(
                     build.generateFailure == null, "Generating the lexer failed");
-                rethrow(build.compileFailure);
+                rethrow(build.compileFailure, build);
               }));
     }
     return tests;
   }
 
-  private static void rethrow(Throwable failure) throws Throwable {
+  /** Throws the failure, if any, after printing what JFlex printed for the failing test. */
+  private static void rethrow(Throwable failure, Build build) throws Throwable {
     if (failure != null) {
+      if (build.jflexOutput.size() > 0) {
+        QuietOutputExtension.printOutputOfFailedTest(
+            build.testClass.getName() + ", JFlex",
+            build.jflexOutput.toString(Charset.defaultCharset().name()));
+      }
       throw failure;
     }
   }
@@ -120,16 +137,17 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   /**
    * Runs JFlex on the spec and checks its output and exceptions against the spec.
    *
+   * @param jflexOutput for JFlex output that is not otherwise captured
    * @return the generated file, or null if the spec expects JFlex to fail
    */
-  private static String generateLexer(TestSpec spec) {
+  private static String generateLexer(TestSpec spec, OutputStream jflexOutput) {
     Optional<DiffOutputStream> diffSysOut = injectDiffSysOut(spec);
     try {
       String lexerJavaFileName = null;
       if (spec.generatorThrows() == NoExceptionThrown.class) {
-        lexerJavaFileName = invokeJflex(spec, diffSysOut);
+        lexerJavaFileName = invokeJflex(spec, diffSysOut, jflexOutput);
       } else {
-        generateLexerWithExpectedException(spec, diffSysOut);
+        generateLexerWithExpectedException(spec, diffSysOut, jflexOutput);
       }
       diffSysOut.ifPresent(
           s ->
@@ -142,9 +160,9 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   }
 
   private static void generateLexerWithExpectedException(
-      TestSpec spec, Optional<DiffOutputStream> diffSysOut) {
+      TestSpec spec, Optional<DiffOutputStream> diffSysOut, OutputStream jflexOutput) {
     try {
-      invokeJflex(spec, diffSysOut);
+      invokeJflex(spec, diffSysOut, jflexOutput);
     } catch (Throwable e) {
       assertInstanceOf(
           spec.generatorThrows(),
@@ -197,9 +215,10 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
   /**
    * Runs JFlex on the spec of the test.
    *
-   * @param sysout where JFlex prints to, {@code System.out} if empty
+   * @param sysout where JFlex prints to, {@code jflexOutput} if empty
    */
-  private static String invokeJflex(TestSpec spec, Optional<DiffOutputStream> sysout) {
+  private static String invokeJflex(
+      TestSpec spec, Optional<DiffOutputStream> sysout, OutputStream jflexOutput) {
     Options options = new Options();
     options.setJLex(spec.jlexCompat());
     options.setDump(spec.dump());
@@ -219,7 +238,7 @@ public class JFlexTestExtension implements BeforeAllCallback, BeforeEachCallback
     options.setUnusedWarning(spec.warnUnused());
     File lexFile = new File(spec.lex());
     Set<File> existingJavaFiles = javaFilesIn(lexFile.getAbsoluteFile().getParentFile());
-    Out out = sysout.isPresent() ? new Out(options, sysout.get()) : new Out(options);
+    Out out = new Out(options, sysout.isPresent() ? sysout.get() : jflexOutput);
     LexGenerator lexGenerator = new LexGenerator(lexFile, options, out);
     String lexerJavaFileName = Objects.requireNonNull(lexGenerator.generate());
     checkNoCollision(existingJavaFiles, new File(lexerJavaFileName));

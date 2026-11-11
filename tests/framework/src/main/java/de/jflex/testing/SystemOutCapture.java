@@ -29,33 +29,56 @@ public final class SystemOutCapture implements AutoCloseable {
 
   private static boolean installed;
 
-  private SystemOutCapture() {}
+  /** {@code System.out} from before the first capture. */
+  private static PrintStream original;
+
+  /** The sink of the thread before this capture started, or null if none. */
+  private final PrintStream previous;
+
+  private SystemOutCapture(PrintStream previous) {
+    this.previous = previous;
+  }
 
   /**
    * Redirects what the current thread prints to {@code System.out} into {@code sink} until the
-   * returned capture is closed. Starting another capture on the same thread replaces the sink.
+   * returned capture is closed. Captures can nest and must be closed in reverse order of starting
+   * them.
    */
   public static SystemOutCapture start(PrintStream sink) {
     install();
+    SystemOutCapture capture = new SystemOutCapture(SINK.get());
     SINK.set(sink);
-    return new SystemOutCapture();
+    return capture;
   }
 
   private static synchronized void install() {
     if (!installed) {
-      System.setOut(new Dispatcher(System.out));
+      original = System.out;
+      System.setOut(new Dispatcher(original));
       installed = true;
     }
   }
 
-  /** Flushes the sink and lets the current thread print to the real {@code System.out} again. */
+  /** The real {@code System.out}. Prints even if the current thread has a capture. */
+  static synchronized PrintStream original() {
+    return installed ? original : System.out;
+  }
+
+  /**
+   * Flushes the sink and lets the current thread print to the enclosing capture again, or to the
+   * real {@code System.out} if there is none.
+   */
   @Override
   public void close() {
     PrintStream sink = SINK.get();
     if (sink != null) {
       sink.flush();
     }
-    SINK.remove();
+    if (previous != null) {
+      SINK.set(previous);
+    } else {
+      SINK.remove();
+    }
   }
 
   /** Forwards every method to the sink of the current thread, or to the original stream. */
