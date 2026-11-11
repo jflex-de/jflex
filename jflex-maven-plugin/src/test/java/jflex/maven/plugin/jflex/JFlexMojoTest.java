@@ -161,6 +161,17 @@ public class JFlexMojoTest {
     assertFalse(firstProduced.equals(secondProduced));
   }
 
+  /**
+   * The encoding stays unset without a configured encoding and without a source encoding of the
+   * project. {@link JFlexMojoEncodingTest} has tests with a source encoding.
+   */
+  @Test
+  @InjectMojo(goal = "generate", pom = PROJECTS + "single-file-test" + CONFIG)
+  public void testEncodingUnset(JFlexMojo mojo) throws Exception {
+    String encoding = MojoExtension.getVariableValueFromObject(mojo, "encodingName");
+    assertTrue(encoding == null || encoding.isEmpty(), "encoding: " + encoding);
+  }
+
   /** Waits for the other mojo, then executes. */
   private static Void execute(JFlexMojo mojo, CountDownLatch start) throws Exception {
     start.countDown();
