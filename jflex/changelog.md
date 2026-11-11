@@ -14,6 +14,9 @@
   [bazel_rules](https://github.com/jflex-de/bazel_rules) for using JFlex in
   Bazel projects are not affected.
 - jflex-maven-plugin: improve class name derivation for expected output
+- jflex-maven-plugin: the encoding for reading lexer specifications now defaults
+  to `project.build.sourceEncoding` if set, and can be configured as `encoding`
+  in addition to `encodingName`.
 - `%suppress`, `%no-warn`, `%warn`, and `%apiprivate` no longer carry over to
   later specs in the same run, e.g. for CLI with several files,
   jflex-maven-plugin, etc

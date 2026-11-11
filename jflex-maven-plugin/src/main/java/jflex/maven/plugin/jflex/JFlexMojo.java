@@ -113,10 +113,11 @@ public class JFlexMojo extends AbstractMojo {
   private boolean legacyDot = false; // NOPMD
 
   /**
-   * The name of the character encoding for reading lexer specifications. Uses JVM default encoding
-   * if unset.
+   * The name of the character encoding for reading lexer specifications. Can also be set as {@code
+   * encoding}. Defaults to the source encoding of the project, {@code
+   * project.build.sourceEncoding}. Uses the JVM default encoding if neither is set.
    */
-  @Parameter(defaultValue = "")
+  @Parameter(alias = "encoding", defaultValue = "${project.build.sourceEncoding}")
   private String encodingName = ""; // NOPMD
 
   /**
